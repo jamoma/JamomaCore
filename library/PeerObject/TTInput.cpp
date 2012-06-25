@@ -84,7 +84,7 @@ TTInput::~TTInput()
 	
 	if (mAddressObserver) {
 		if (mOutputAddress != kTTSymEmpty)
-			getLocalDirectory->removeObserverForNotifications(mOutputAddress, *mAddressObserver);
+			getLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 		delete (TTValuePtr)mAddressObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mAddressObserver));
 	}
@@ -146,9 +146,9 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	
 	if (mAddressObserver) {
 		if (mOutputAddress != kTTAdrsEmpty)
-			getLocalDirectory->removeObserverForNotifications(mOutputAddress, *mAddressObserver);
+			getLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 		
-		getLocalDirectory->addObserverForNotifications(newAddress, *mAddressObserver);
+		getLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	}
 	
 	mOutputAddress = newAddress;

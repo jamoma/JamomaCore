@@ -31,11 +31,14 @@ private:
 	TTSymbolPtr			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
 														///<	- descendants : any address below the node at any level (default)
 														///<	- children : all children of the node
+														///<	- brothers : all instances of the node
 														///<	- attributes : all attributes of the node
 	
 	TTBoolean			mUpdate;						///< ATTRIBUTE : is the explorer listen to the namespace to update the result ?
 	
 	TTSymbolPtr			mSort;							///< ATTRIBUTE : to sort the result : none, alphabetic, priority (default : alphabetic)
+	
+	TTUInt8				mDepth;							///< ATTRIBUTE : a depth limit for the exploration (only usefull for descendants mode)
 	
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
@@ -101,6 +104,9 @@ private:
 	
 	/** */
 	TTErr setSort(const TTValue& value);
+	
+	/** */
+	TTErr setDepth(const TTValue& value);
 	
 	/** */
 	TTErr getObjectsByType(TTValue& value);

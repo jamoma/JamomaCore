@@ -257,7 +257,7 @@ TTErr TTReceiver::bindAddress()
 	
 	mAddressObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));							// this is usefull only to debug
 	
-	mDirectory->addObserverForNotifications(mAddress, *mAddressObserver);
+	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	return kTTErrNone;
 }
@@ -315,7 +315,7 @@ TTErr TTReceiver::unbindAddress()
 		// stop life cycle observation
 		if (mAddressObserver && mDirectory) {
 			
-			err = mDirectory->removeObserverForNotifications(mAddress, *mAddressObserver);
+			err = mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
 			
 			if(!err) {
 				delete (TTValuePtr)mAddressObserver->getBaton();
@@ -390,10 +390,6 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
 	data.get(3, (TTPtr*)&anObserver);
-	
-	// if address are not equal
-	if (aReceiver->mAddress->compare(anAddress) != kAddressEqual)
-		return kTTErrGeneric;
 	
 	ttAttributeName = ToTTName(aReceiver->mAddress->getAttribute());
 	

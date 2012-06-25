@@ -97,7 +97,7 @@ TTContainer::~TTContainer()
 	
 	if (mObserver) {
 		if (mAddress != kTTSymEmpty)
-			getLocalDirectory->removeObserverForNotifications(mAddress, *mObserver);
+			getLocalDirectory->removeObserverForNotifications(mAddress, mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mObserver));
 	}
@@ -560,7 +560,7 @@ TTErr TTContainer::bind()
 	
 	mObserver->setAttributeValue(TT("owner"), TT("TTContainer"));		// this is usefull only to debug
 	
-	getLocalDirectory->addObserverForNotifications(mAddress, *mObserver);
+	getLocalDirectory->addObserverForNotifications(mAddress, mObserver); // ask for notification for addresses below
 	
 	return err;
 }
@@ -908,7 +908,7 @@ TTErr TTContainer::unbind()
 	// stop life cycle observation
 	if (mObserver && getLocalDirectory) {
 		
-		err = getLocalDirectory->removeObserverForNotifications(mAddress, *mObserver);
+		err = getLocalDirectory->removeObserverForNotifications(mAddress, mObserver);
 		
 		if (!err)
 			TTObjectRelease(TTObjectHandle(&mObserver));

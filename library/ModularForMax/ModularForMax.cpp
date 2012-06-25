@@ -735,6 +735,13 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TT("view"), (TTPtr)aFilter);
 	
+	// to look for empty nodes
+	aFilter = new TTDictionary;
+	aFilter->setSchema(kTTSym_filter);
+	aFilter->append(kTTSym_object, TT("none"));
+	aFilter->append(kTTSym_mode, kTTSym_include);
+	defaultFilterBank->append(TT("none"), (TTPtr)aFilter);
+	
 	// to look for jcom.remote
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);

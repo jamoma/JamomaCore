@@ -24,9 +24,9 @@ void TTModularInit()
 	TTFoundationInit();
 	
 	// DEBUG NodeLib
-	//TTObjectPtr test;
-	//TTObjectInstantiate(TT("nodelib.test"), &test, kTTValNONE);
-	//test->sendMessage(TT("test"));
+	TTObjectPtr test;
+	TTObjectInstantiate(TT("nodelib.test"), &test, kTTValNONE);
+	test->sendMessage(TT("test"));
 	
 	if (!TTModularHasInitialized) {
 		

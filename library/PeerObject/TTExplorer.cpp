@@ -18,6 +18,7 @@ mAddress(kTTAdrsEmpty),
 mOutput(kTTSym_descendants),
 mUpdate(YES),
 mSort(kTTSym_alphabetic),
+mDepth(0),
 mDirectory(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL),
@@ -46,6 +47,7 @@ mLastResult(kTTValNONE)
 	addAttributeWithSetter(Output, kTypeSymbol);
 	addAttributeWithSetter(Update, kTypeBoolean);
 	addAttributeWithSetter(Sort, kTypeSymbol);
+	addAttributeWithSetter(Depth, kTypeUInt8);
 	
 	registerAttribute(TT("filterList"), kTypeLocalValue, NULL, (TTGetterMethod)&TTExplorer::getFilterList, (TTSetterMethod)&TTExplorer::setFilterList);
 	
@@ -171,6 +173,19 @@ TTErr TTExplorer::setSort(const TTValue& value)
 		return kTTErrGeneric;
 }
 
+TTErr TTExplorer::setDepth(const TTValue& value)
+{
+	TTUInt8 oldDepth = mDepth;
+	
+	mDepth = value;
+	
+	// check change
+	if (mDepth == oldDepth)
+		return kTTErrNone;
+	
+	return setAddress(mAddress);
+}
+
 TTErr TTExplorer::bindAddress() 
 {
 	TTValuePtr	newBaton;
@@ -193,7 +208,7 @@ TTErr TTExplorer::bindAddress()
 			
 			mAddressObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
 			
-			mDirectory->addObserverForNotifications(mAddress, *mAddressObserver);
+			mDirectory->addObserverForNotifications(mAddress, mAddressObserver, mDepth);
 		}
 		
 		return kTTErrNone;
@@ -207,7 +222,7 @@ TTErr TTExplorer::unbindAddress()
 	// delete the old observer
 	if (mDirectory && mAddressObserver && mAddress != kTTSymEmpty) {
 		
-		mDirectory->removeObserverForNotifications(mAddress, *mAddressObserver);
+		mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
 		TTObjectRelease(TTObjectHandle(&mAddressObserver));
 		mAddressObserver = NULL;
 		
@@ -305,8 +320,7 @@ TTErr TTExplorer::Explore()
 			args.append((TTPtr)mFilterList);
 			
 			// explore
-			// TODO : for the children and brothers case, we should avoid exploration below the first level
-			mDirectory->LookFor(&aNodeList, testNodeUsingFilter, (TTPtr)&args, allObjectNodes, &aNode);
+			mDirectory->LookFor(&aNodeList, testNodeUsingFilter, (TTPtr)&args, allObjectNodes, &aNode, mDepth);
 			
 			// memorized the result in a hash table (the node is stored in order to sort the result)
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
@@ -342,9 +356,9 @@ TTErr TTExplorer::Explore()
 				// any other case : store the address
 				else {
 					
-					if (mAddress == kTTAdrsRoot)
+					/*if (mAddress == kTTAdrsRoot)
 						aNode->getAddress(&relativeAddress);
-					else
+					else*/
 						aNode->getAddress(&relativeAddress, mAddress);
 					
 					mResult->append(relativeAddress, TTValue((TTPtr)aNode));
@@ -970,9 +984,9 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			}
 			else {
 				
-				if (anExplorer->mAddress == kTTAdrsRoot)
+				/*if (anExplorer->mAddress == kTTAdrsRoot)
 					aNode->getAddress(&relativeAddress);
-				else
+				else*/
 					aNode->getAddress(&relativeAddress, anExplorer->mAddress);
 				
 				keys.append(relativeAddress);

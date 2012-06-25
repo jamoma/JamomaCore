@@ -190,13 +190,13 @@
 ,
 					"patching_rect" : [ 840.0, 143.0, 120.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p about_mixing",
@@ -240,6 +240,20 @@
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-12",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 158.0, 276.0, 67.0, 20.0 ],
+									"text" : "sprintf /%s"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
@@ -357,13 +371,13 @@
 ,
 									"patching_rect" : [ 289.0, 238.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"fontface" : 0,
-										"fontsize" : 12.0
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p press_cmd"
@@ -752,13 +766,13 @@
 ,
 									"patching_rect" : [ 44.0, 299.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"globalpatchername" : "",
+										"fontface" : 0,
+										"fontsize" : 12.0,
 										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"fontface" : 0,
-										"fontsize" : 12.0
+										"globalpatchername" : ""
 									}
 ,
 									"text" : "p press_cmd"
@@ -983,6 +997,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-34", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 167.5, 299.0, 267.75, 299.0, 267.75, 86.0, 298.5, 86.0 ],
+									"source" : [ "obj-12", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -1073,19 +1096,19 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-21", 0 ],
+									"destination" : [ "obj-12", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
-									"source" : [ "obj-35", 0 ]
+									"source" : [ "obj-35", 1 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-34", 0 ],
+									"destination" : [ "obj-21", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 167.0, 283.0, 267.75, 283.0, 267.75, 86.0, 298.5, 86.0 ],
-									"source" : [ "obj-35", 1 ]
+									"midpoints" : [  ],
+									"source" : [ "obj-35", 0 ]
 								}
 
 							}
@@ -1186,13 +1209,13 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 825.0, 87.0, 136.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p about_selection",
@@ -1522,13 +1545,13 @@
 ,
 					"patching_rect" : [ 801.0, 91.0, 159.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"globalpatchername" : ""
 					}
 ,
 					"text" : "p about_sequencing",

@@ -197,7 +197,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	TTString			editKey;
 	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
-	TTObjectPtr			returnValueCallback;
+	TTCallbackPtr		returnValueCallback;
 	TTValuePtr			returnValueBaton;
 	TTValue				cacheElement;
 	TTErr				err;
@@ -215,7 +215,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 		
 		// prepare a callback based on ProtocolDirectoryCallback
 		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+		TTObjectInstantiate(TT("callback"), TTObjectHandle(&returnValueCallback), kTTValNONE);
 		
 		returnValueBaton = new TTValue();
 		*returnValueBaton = inputValue;
@@ -223,7 +223,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 		returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolDirectoryCallback));
 		
-		err = mDirectory->addObserverForNotifications(whereToListen, *returnValueCallback);
+		err = mDirectory->addObserverForNotifications(whereToListen, returnValueCallback, 0); // ask for notification only for equal addresses
 		
 		if (!err) {
 			
@@ -243,7 +243,7 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 	TTString			editKey;
 	TTSymbolPtr			appToNotify, key;
 	TTNodeAddressPtr	whereToListen;
-	TTObjectPtr			returnValueCallback;
+	TTCallbackPtr		returnValueCallback;
 	TTValue				cacheElement;
 	
 	inputValue.get(0, &appToNotify);
@@ -258,7 +258,7 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 	if (!mDirectoryListenersCache->lookup(key, cacheElement)) {
 	
 		cacheElement.get(0, (TTPtr*)&returnValueCallback);
-		mDirectory->removeObserverForNotifications(whereToListen, *returnValueCallback);
+		mDirectory->removeObserverForNotifications(whereToListen, returnValueCallback);
 		TTObjectRelease(TTObjectHandle(&returnValueCallback));
 		return mDirectoryListenersCache->remove(key);
 	}

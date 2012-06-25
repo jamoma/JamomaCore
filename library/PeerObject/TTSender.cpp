@@ -164,7 +164,7 @@ TTErr TTSender::bindAddress()
 	
 	mAddressObserver->setAttributeValue(TT("owner"), TT("TTSender"));		// this is usefull only to debug
 	
-	mDirectory->addObserverForNotifications(mAddress, *mAddressObserver);
+	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	return kTTErrNone;
 }
@@ -182,7 +182,7 @@ TTErr TTSender::unbindAddress()
 		// stop life cycle observation
 		if(mAddressObserver && mDirectory) {
 			
-			err = mDirectory->removeObserverForNotifications(mAddress, *mAddressObserver);
+			err = mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
 			
 			if(!err) {
 				delete (TTValuePtr)mAddressObserver->getBaton();
@@ -256,13 +256,10 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			if (anAddress->compare(aSender->mAddress) == kAddressEqual) {
-				
-				anObject = aNode->getObject();
-				if (anObject) {
-					aCacheElement = (TTPtr)anObject;
-					aSender->mObjectCache->appendUnique(aCacheElement);
-				}
+			anObject = aNode->getObject();
+			if (anObject) {
+				aCacheElement = (TTPtr)anObject;
+				aSender->mObjectCache->appendUnique(aCacheElement);
 			}
 			break;
 		}

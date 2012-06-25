@@ -62,6 +62,20 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
+									"id" : "obj-12",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 158.0, 275.0, 67.0, 20.0 ],
+									"text" : "sprintf /%s"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
 									"id" : "obj-5",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -176,13 +190,13 @@
 ,
 									"patching_rect" : [ 44.0, 297.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Arial",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"default_fontname" : "Arial",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 12.0
 									}
 ,
 									"text" : "p press_cmd"
@@ -307,13 +321,13 @@
 ,
 									"patching_rect" : [ 289.0, 233.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Arial",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"default_fontname" : "Arial",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 12.0
 									}
 ,
 									"text" : "p press_cmd"
@@ -737,6 +751,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-34", 0 ],
+									"hidden" : 0,
+									"midpoints" : [ 167.5, 299.0, 271.0, 299.0, 271.0, 86.0, 298.5, 86.0 ],
+									"source" : [ "obj-12", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-30", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -809,19 +832,19 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-21", 0 ],
+									"destination" : [ "obj-12", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
-									"source" : [ "obj-35", 0 ]
+									"source" : [ "obj-35", 1 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-34", 0 ],
+									"destination" : [ "obj-21", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 167.0, 283.0, 267.75, 283.0, 267.75, 86.0, 298.5, 86.0 ],
-									"source" : [ "obj-35", 1 ]
+									"midpoints" : [  ],
+									"source" : [ "obj-35", 0 ]
 								}
 
 							}
@@ -883,7 +906,7 @@
 								"patchline" : 								{
 									"destination" : [ "obj-39", 0 ],
 									"hidden" : 0,
-									"midpoints" : [ 53.5, 322.0, 7.5, 322.0, 7.5, 91.0, 24.5, 91.0 ],
+									"midpoints" : [ 53.5, 322.0, 7.5, 322.0, 7.5, 89.0, 24.5, 89.0 ],
 									"source" : [ "obj-5", 0 ]
 								}
 
@@ -931,13 +954,13 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 810.0, 72.0, 136.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : ""
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p about_selection",
@@ -1148,13 +1171,13 @@
 ,
 					"patching_rect" : [ 438.0, 577.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : ""
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -1265,7 +1288,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 835.0, 488.0, 35.0, 20.0 ],
-					"prefix" : "/degrade~/bitdepth.",
+					"prefix" : "/degrade~.1/in/mute.",
 					"presentation" : 1,
 					"presentation_rect" : [ 478.0, 238.0, 35.0, 20.0 ],
 					"types" : [  ]
@@ -1864,13 +1887,13 @@
 ,
 									"patching_rect" : [ 625.0, 478.0, 66.0, 20.0 ],
 									"saved_object_attributes" : 									{
+										"fontname" : "Arial",
+										"default_fontface" : 0,
+										"globalpatchername" : "",
+										"default_fontname" : "Arial",
 										"fontface" : 0,
 										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"fontname" : "Arial",
-										"default_fontsize" : 12.0,
-										"globalpatchername" : ""
+										"default_fontsize" : 12.0
 									}
 ,
 									"text" : "p filter/info"
@@ -2132,7 +2155,7 @@
 									"fontsize" : 12.0,
 									"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 									"id" : "obj-9",
-									"items" : [ "degrade~(view).1/model", ",", "degrade~(view).1/out", ",", "degrade~(view).1/ui/color", ",", "degrade~(view).1/ui/in", ",", "degrade~(view).1/ui/out", ",", "degrade~(view).1/view", ",", "degrade~(view).1/view/documentation", ",", "degrade~(view)/model", ",", "degrade~(view)/out", ",", "degrade~(view)/ui/color", ",", "degrade~(view)/ui/in", ",", "degrade~(view)/ui/out", ",", "degrade~(view)/view", ",", "degrade~(view)/view/documentation", ",", "degrade~.1/in/amplitude", ",", "degrade~.1/model", ",", "degrade~.1/model/documentation", ",", "degrade~.1/out/amplitude", ",", "degrade~/in/amplitude", ",", "degrade~/model", ",", "degrade~/model/documentation", ",", "degrade~/out/amplitude" ],
+									"items" : "<empty>",
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -2474,13 +2497,13 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 810.0, 99.0, 136.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : ""
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p about_filters",
@@ -2705,13 +2728,13 @@
 ,
 					"patching_rect" : [ 835.0, 358.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : ""
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -2963,13 +2986,13 @@
 ,
 					"patching_rect" : [ 87.0, 281.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Arial",
+						"default_fontface" : 0,
+						"globalpatchername" : "",
+						"default_fontname" : "Arial",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 12.0,
-						"globalpatchername" : ""
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p filter_harddrive:/"
@@ -3370,7 +3393,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 760.0, 330.0, 168.0, 20.0 ],
-					"prefix" : "Mac:/",
+					"prefix" : "/degrade~.1/in/mute/",
 					"presentation" : 1,
 					"presentation_rect" : [ 345.0, 210.0, 168.0, 20.0 ],
 					"types" : [  ]
@@ -3434,7 +3457,7 @@
 					"patching_rect" : [ 149.0, 712.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/degrade~:"
+					"text" : "/degrade~.1/in/mute:"
 				}
 
 			}
@@ -3519,13 +3542,13 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-26",
-					"items" : "<empty>",
+					"items" : [ "bypass", ",", "dataspace", ",", "dataspace/unit", ",", "description", ",", "enable", ",", "priority", ",", "ramp/drive", ",", "ramp/function", ",", "range/bounds", ",", "range/clipmode", ",", "repetitions/allow", ",", "service", ",", "tag", ",", "type", ",", "value", ",", "value/default", ",", "value/stepsize" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/degrade~:",
+					"prefix" : "/degrade~.1/in/mute:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ],
 					"types" : [  ]
@@ -3540,7 +3563,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-20",
-					"items" : "<empty>",
+					"items" : [ "model/address", ",", "in/amplitude.1", ",", "in/amplitude.2", ",", "model/class", ",", "out/amplitude.1", ",", "out/amplitude.2", ",", "preset/order" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -3561,7 +3584,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : "<empty>",
+					"items" : [ "model/documentation/generate", ",", "model/help", ",", "model/internals", ",", "model/reference", ",", "preset/interpolate", ",", "preset/mix", ",", "preset/read", ",", "preset/recall", ",", "preset/remove", ",", "preset/store", ",", "preset/write" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -3582,7 +3605,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-18",
-					"items" : "<empty>",
+					"items" : [ "model/mute", ",", "samplerateRatio", ",", "bitdepth", ",", "in/amplitude/active", ",", "in/bypass", ",", "in/mute", ",", "out/amplitude/active", ",", "out/gain", ",", "out/mix", ",", "out/mute" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

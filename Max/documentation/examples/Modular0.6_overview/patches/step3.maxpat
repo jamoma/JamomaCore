@@ -265,13 +265,13 @@
 ,
 					"patching_rect" : [ 222.75, 737.0, 32.5, 20.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Arial",
 						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p"
@@ -712,6 +712,19 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
+									"id" : "obj-1",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 101.0, 75.0, 34.0, 20.0 ],
+									"text" : "print"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
 									"id" : "obj-62",
 									"maxclass" : "message",
 									"numinlets" : 2,
@@ -799,6 +812,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-57", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-58", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -847,13 +869,13 @@
 ,
 					"patching_rect" : [ 75.5, 548.0, 75.0, 20.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontname" : "Arial",
 						"fontname" : "Arial",
+						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p fill_umenu"
@@ -883,7 +905,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-63",
-					"items" : [ "init", ",", "start" ],
+					"items" : [ -1, ",", "init", ",", "start" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1077,7 +1099,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-21",
-					"items" : "order",
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1098,7 +1120,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : [ "interpolate", ",", "mix", ",", "read", ",", "recall", ",", "remove", ",", "store", ",", "write" ],
+					"items" : "<empty>",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
