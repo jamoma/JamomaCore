@@ -208,7 +208,10 @@ TTErr TTExplorer::bindAddress()
 			
 			mAddressObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
 			
-			mDirectory->addObserverForNotifications(mAddress, mAddressObserver, mDepth);
+			if (mDepth)
+				mDirectory->addObserverForNotifications(mAddress, mAddressObserver, mDepth);
+			else
+				mDirectory->addObserverForNotifications(mAddress, mAddressObserver);
 		}
 		
 		return kTTErrNone;
