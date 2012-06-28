@@ -145,9 +145,10 @@ void model_subscribe(TTPtr self)
 	TTBoolean					isThere, isSubModel;
 	TTNodePtr					firstTTNode;
 	TTNodeAddressPtr			containerAdrs;
+	SymbolPtr					hierarchy;
 	AtomCount					ac;
 	AtomPtr						av;
-	ObjectPtr					modelPatcher = jamoma_patcher_get((ObjectPtr)x);
+	ObjectPtr					aPatcher = jamoma_patcher_get((ObjectPtr)x);
 
 	// if the subscription is successful
 	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, kTTAdrsEmpty, &x->subscriberObject)) {
@@ -162,7 +163,7 @@ void model_subscribe(TTPtr self)
 		x->wrappedObject->setAttributeValue(TT("address"), v);
 		
 		// if the jcom.model is well subscribed
-		if (modelPatcher == x->patcherPtr && x->patcherContext != NULL) {
+		if (aPatcher == x->patcherPtr && x->patcherContext != NULL) {
 			
 			// no internal parameter for component
 			if (!EXTRA->component) {
@@ -248,16 +249,16 @@ void model_subscribe(TTPtr self)
 			av = NULL;
 			
 			// If x is in a bpatcher, the patcher is NULL
-			if (!modelPatcher)
-				modelPatcher = object_attr_getobj(x, _sym_parentpatcher);
+			if (!aPatcher)
+				aPatcher = object_attr_getobj(x, _sym_parentpatcher);
 			
-			jamoma_patcher_get_args(modelPatcher, &ac, &av);
+			jamoma_patcher_get_args(aPatcher, &ac, &av);
 			
 			// check if it's a sub model
 			isSubModel = atom_getsym(av) == _sym_p;
 			
 			// in subpatcher the name of the patcher is part of the argument
-			if (jamoma_patcher_get_hierarchy(modelPatcher) == _sym_subpatcher) {
+			if (jamoma_patcher_get_hierarchy(aPatcher) == _sym_subpatcher) {
 				ac--;
 				av++;
 			}
@@ -267,7 +268,7 @@ void model_subscribe(TTPtr self)
 				aData->setAttributeValue(kTTSym_value, nodeAdrs);
 				aData->setAttributeValue(kTTSym_valueDefault, nodeAdrs); // because of init process
 				
-				// use modelPatcher args to setup the model attributes (like @priority)
+				// use aPatcher args to setup the model attributes (like @priority)
 				if (ac && av)
 					attr_args_process(x, ac, av);
 			}
@@ -275,15 +276,20 @@ void model_subscribe(TTPtr self)
 			// In view patcher :
 			if (x->patcherContext == kTTSym_view) {
 				
+				// a view expects to be in a bpatcher
+				hierarchy = jamoma_patcher_get_hierarchy(aPatcher);
+				if (hierarchy != _sym_bpatcher && hierarchy != _sym_topmost)
+					object_error((ObjectPtr)x, "a view patcher have to be embedded into a bpatcher");
+					
 				// look for a model of the same class into the patcher to get his model/address
-				jamoma_patcher_get_model_patcher(x->patcherPtr, x->patcherClass, &modelPatcher);
+				jamoma_patcher_get_model_patcher(x->patcherPtr, x->patcherClass, &aPatcher);
 				
 				// if a model exists
-				if (modelPatcher) {
+				if (aPatcher) {
 					
 					// is there a container (e.g. a jcom.model) registered with the same context in this model patcher ?
 					whereToSearch.append(JamomaDirectory->getRoot());
-					JamomaDirectory->IsThere(&whereToSearch, &testNodeContext, (TTPtr)modelPatcher, &isThere, &firstTTNode);
+					JamomaDirectory->IsThere(&whereToSearch, &testNodeContext, (TTPtr)aPatcher, &isThere, &firstTTNode);
 					
 					if (isThere) {
 						firstTTNode->getAddress(&containerAdrs);
