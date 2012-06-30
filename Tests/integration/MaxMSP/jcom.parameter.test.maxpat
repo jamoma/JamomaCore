@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 5
+			"revision" : 7
 		}
 ,
 		"rect" : [ 685.0, 44.0, 562.0, 521.0 ],
@@ -39,7 +39,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 25.0, 95.0, 1255.0, 416.0 ],
@@ -65,7 +65,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-45",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -79,7 +79,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-44",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -99,7 +99,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 869.5, 353.0, 221.0, 48.0 ],
+									"patching_rect" : [ 869.5, 353.0, 221.0, 47.0 ],
 									"text" : "jcom.parameter decimalFold6 @type decimal @range/clipmode fold @range/bounds -20 -10"
 								}
 
@@ -114,7 +114,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1089.5, 353.0, 174.0, 48.0 ],
+									"patching_rect" : [ 1089.5, 353.0, 174.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:fold6 @input 21. @compareTo -19."
 								}
 
@@ -123,7 +123,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-32",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -137,7 +137,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-33",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -157,7 +157,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 869.5, 292.0, 221.0, 48.0 ],
+									"patching_rect" : [ 869.5, 292.0, 221.0, 47.0 ],
 									"text" : "jcom.parameter decimalFold3 @type decimal @range/clipmode fold @range/bounds -20 -10"
 								}
 
@@ -172,7 +172,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1089.5, 292.0, 174.0, 48.0 ],
+									"patching_rect" : [ 1089.5, 292.0, 174.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:fold3 @input -9. @compareTo -11."
 								}
 
@@ -187,7 +187,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 490.0, 353.0, 221.0, 48.0 ],
+									"patching_rect" : [ 490.0, 353.0, 221.0, 47.0 ],
 									"text" : "jcom.parameter decimalFold5 @type decimal @range/clipmode fold @range/bounds -10 10"
 								}
 
@@ -202,7 +202,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 710.0, 353.0, 166.0, 48.0 ],
+									"patching_rect" : [ 710.0, 353.0, 169.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:fold5 @input 41. @compareTo 1."
 								}
 
@@ -217,7 +217,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 95.0, 353.0, 221.0, 48.0 ],
+									"patching_rect" : [ 95.0, 353.0, 221.0, 47.0 ],
 									"text" : "jcom.parameter decimalFold4 @type decimal @range/clipmode fold @range/bounds 0 10"
 								}
 
@@ -232,7 +232,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 324.0, 353.0, 166.0, 48.0 ],
+									"patching_rect" : [ 324.0, 353.0, 169.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:fold4 @input 31. @compareTo 9."
 								}
 
@@ -247,7 +247,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 490.0, 292.0, 221.0, 48.0 ],
+									"patching_rect" : [ 490.0, 292.0, 221.0, 47.0 ],
 									"text" : "jcom.parameter decimalFold2 @type decimal @range/clipmode fold @range/bounds -10 10"
 								}
 
@@ -262,7 +262,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 710.0, 292.0, 166.0, 48.0 ],
+									"patching_rect" : [ 710.0, 292.0, 169.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:fold2 @input 11. @compareTo 9."
 								}
 
@@ -277,7 +277,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 95.0, 292.0, 229.0, 48.0 ],
+									"patching_rect" : [ 95.0, 292.0, 229.0, 47.0 ],
 									"text" : "jcom.parameter decimalFold1 @type decimal @range/clipmode fold @range/bounds 0 10"
 								}
 
@@ -292,7 +292,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 324.0, 292.0, 166.0, 48.0 ],
+									"patching_rect" : [ 324.0, 292.0, 169.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:fold1 @input 11. @compareTo 9."
 								}
 
@@ -307,7 +307,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 848.0, 204.0, 213.0, 48.0 ],
+									"patching_rect" : [ 848.0, 204.0, 213.0, 47.0 ],
 									"text" : "jcom.parameter intFold6 @type integer @range/clipmode fold @range/bounds -20 -10"
 								}
 
@@ -322,7 +322,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1068.0, 204.0, 174.0, 48.0 ],
+									"patching_rect" : [ 1068.0, 204.0, 174.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:fold6 @input 21 @compareTo -19"
 								}
 
@@ -331,7 +331,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-25",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -345,7 +345,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-24",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -359,7 +359,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-22",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -373,7 +373,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-21",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -387,7 +387,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-20",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -407,7 +407,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 848.0, 142.0, 213.0, 48.0 ],
+									"patching_rect" : [ 848.0, 142.0, 213.0, 47.0 ],
 									"text" : "jcom.parameter intFold3 @type integer @range/clipmode fold @range/bounds -20 -10"
 								}
 
@@ -422,7 +422,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1068.0, 142.0, 174.0, 48.0 ],
+									"patching_rect" : [ 1068.0, 142.0, 174.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:fold3 @input -9 @compareTo -11"
 								}
 
@@ -437,7 +437,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 468.5, 204.0, 213.0, 48.0 ],
+									"patching_rect" : [ 468.5, 204.0, 213.0, 47.0 ],
 									"text" : "jcom.parameter intFold5 @type integer @range/clipmode fold @range/bounds -10 10"
 								}
 
@@ -452,7 +452,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 688.5, 204.0, 150.0, 48.0 ],
+									"patching_rect" : [ 688.5, 204.0, 150.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:fold5 @input 41 @compareTo 1"
 								}
 
@@ -467,7 +467,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 95.0, 204.0, 213.0, 48.0 ],
+									"patching_rect" : [ 95.0, 204.0, 213.0, 47.0 ],
 									"text" : "jcom.parameter intFold4 @type integer @range/clipmode fold @range/bounds 0 10"
 								}
 
@@ -482,7 +482,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 315.0, 204.0, 148.0, 48.0 ],
+									"patching_rect" : [ 315.0, 204.0, 148.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:fold4 @input 31 @compareTo 9"
 								}
 
@@ -497,7 +497,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 468.5, 142.0, 213.0, 48.0 ],
+									"patching_rect" : [ 468.5, 142.0, 213.0, 47.0 ],
 									"text" : "jcom.parameter intFold2 @type integer @range/clipmode fold @range/bounds -10 10"
 								}
 
@@ -512,7 +512,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 688.5, 142.0, 150.0, 48.0 ],
+									"patching_rect" : [ 688.5, 142.0, 150.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:fold2 @input 11 @compareTo 9"
 								}
 
@@ -527,7 +527,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 95.0, 142.0, 213.0, 48.0 ],
+									"patching_rect" : [ 95.0, 142.0, 213.0, 47.0 ],
 									"text" : "jcom.parameter intFold1 @type integer @range/clipmode fold @range/bounds 0 10"
 								}
 
@@ -542,7 +542,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 315.0, 142.0, 148.0, 48.0 ],
+									"patching_rect" : [ 315.0, 142.0, 148.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:fold1 @input 11 @compareTo 9"
 								}
 
@@ -764,32 +764,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.test.assert.equal.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.parameter.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 340.0, 258.0, 70.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"description" : "",
-						"tags" : "",
+						"digest" : "",
+						"fontface" : 0,
 						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"fontsize" : 12.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p foldTest"
@@ -809,7 +798,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 25.0, 69.0, 1255.0, 442.0 ],
@@ -835,7 +824,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-33",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -855,7 +844,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 846.0, 364.0, 201.0, 48.0 ],
+									"patching_rect" : [ 846.0, 364.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter decimalWrap6 @type decimal @range/clipmode wrap @range/bounds -20 -10"
 								}
 
@@ -870,7 +859,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1053.0, 364.0, 180.0, 48.0 ],
+									"patching_rect" : [ 1053.0, 364.0, 180.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:wrap6 @input 51. @compareTo -19."
 								}
 
@@ -879,7 +868,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-5",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -893,7 +882,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-6",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -913,7 +902,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 846.0, 278.0, 201.0, 48.0 ],
+									"patching_rect" : [ 846.0, 278.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter decimalWrap3 @type decimal @range/clipmode wrap @range/bounds -20 -10"
 								}
 
@@ -928,7 +917,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1053.0, 278.0, 180.0, 48.0 ],
+									"patching_rect" : [ 1053.0, 278.0, 180.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:wrap3 @input -9. @compareTo -19."
 								}
 
@@ -943,7 +932,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 466.5, 364.0, 201.0, 48.0 ],
+									"patching_rect" : [ 466.5, 364.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter decimalWrap5 @type decimal @range/clipmode wrap @range/bounds -10 10"
 								}
 
@@ -958,7 +947,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 668.5, 364.0, 173.0, 48.0 ],
+									"patching_rect" : [ 668.5, 364.0, 176.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:wrap5 @input 51. @compareTo -9."
 								}
 
@@ -973,7 +962,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 93.0, 364.0, 201.0, 48.0 ],
+									"patching_rect" : [ 93.0, 364.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter floatWrap4 @type decimal @range/clipmode wrap @range/bounds 0 10"
 								}
 
@@ -988,7 +977,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 305.0, 364.0, 150.0, 62.0 ],
+									"patching_rect" : [ 305.0, 364.0, 150.0, 60.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:wrap4 @input 41. @compareTo 1."
 								}
 
@@ -1003,7 +992,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 466.5, 278.0, 201.0, 48.0 ],
+									"patching_rect" : [ 466.5, 278.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter decimalWrap2 @type decimal @range/clipmode wrap @range/bounds -10 10"
 								}
 
@@ -1018,7 +1007,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 668.5, 278.0, 174.0, 48.0 ],
+									"patching_rect" : [ 668.5, 278.0, 176.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:wrap2 @input 11. @compareTo -9."
 								}
 
@@ -1033,7 +1022,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 93.0, 278.0, 201.0, 48.0 ],
+									"patching_rect" : [ 93.0, 278.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter floatWrap1 @type decimal @range/clipmode wrap @range/bounds 0 10"
 								}
 
@@ -1048,7 +1037,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 305.0, 278.0, 150.0, 62.0 ],
+									"patching_rect" : [ 305.0, 278.0, 150.0, 60.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:decimal:wrap1 @input 11. @compareTo 1."
 								}
 
@@ -1063,7 +1052,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 846.0, 196.0, 201.0, 48.0 ],
+									"patching_rect" : [ 846.0, 196.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter intWrap6 @type integer @range/clipmode wrap @range/bounds -20 -10"
 								}
 
@@ -1078,7 +1067,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1053.0, 196.0, 162.0, 48.0 ],
+									"patching_rect" : [ 1053.0, 196.0, 162.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:wrap6 @input 51 @compareTo -19"
 								}
 
@@ -1087,7 +1076,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-25",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1101,7 +1090,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-24",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1115,7 +1104,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-22",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1129,7 +1118,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-21",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1143,7 +1132,7 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-20",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -1163,7 +1152,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 846.0, 110.0, 201.0, 48.0 ],
+									"patching_rect" : [ 846.0, 110.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter intWrap3 @type integer @range/clipmode wrap @range/bounds -20 -10"
 								}
 
@@ -1178,7 +1167,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1053.0, 110.0, 162.0, 48.0 ],
+									"patching_rect" : [ 1053.0, 110.0, 162.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:wrap3 @input -9 @compareTo -19"
 								}
 
@@ -1193,7 +1182,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 466.5, 196.0, 201.0, 48.0 ],
+									"patching_rect" : [ 466.5, 196.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter intWrap5 @type integer @range/clipmode wrap @range/bounds -10 10"
 								}
 
@@ -1208,7 +1197,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 678.5, 196.0, 154.0, 48.0 ],
+									"patching_rect" : [ 678.5, 196.0, 154.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:wrap5 @input 51 @compareTo -9"
 								}
 
@@ -1223,7 +1212,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 93.0, 196.0, 201.0, 48.0 ],
+									"patching_rect" : [ 93.0, 196.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter intWrap4 @type integer @range/clipmode wrap @range/bounds 0 10"
 								}
 
@@ -1238,7 +1227,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 305.0, 196.0, 150.0, 48.0 ],
+									"patching_rect" : [ 305.0, 196.0, 150.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:wrap4 @input 41 @compareTo 1"
 								}
 
@@ -1253,7 +1242,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 466.5, 110.0, 201.0, 48.0 ],
+									"patching_rect" : [ 466.5, 110.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter intWrap2 @type integer @range/clipmode wrap @range/bounds -10 10"
 								}
 
@@ -1268,7 +1257,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 678.5, 110.0, 154.0, 48.0 ],
+									"patching_rect" : [ 678.5, 110.0, 154.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:wrap2 @input 11 @compareTo -9"
 								}
 
@@ -1283,7 +1272,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 93.0, 110.0, 201.0, 48.0 ],
+									"patching_rect" : [ 93.0, 110.0, 201.0, 47.0 ],
 									"text" : "jcom.parameter intWrap1 @type integer @range/clipmode wrap @range/bounds 0 10"
 								}
 
@@ -1298,7 +1287,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 305.0, 110.0, 150.0, 48.0 ],
+									"patching_rect" : [ 305.0, 110.0, 150.0, 47.0 ],
 									"text" : "jcom.test.assert.equal jcom.parameter:int:wrap1 @input 11 @compareTo 1"
 								}
 
@@ -1520,32 +1509,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.test.assert.equal.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.parameter.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 261.0, 258.0, 70.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"description" : "",
-						"tags" : "",
+						"digest" : "",
+						"fontface" : 0,
 						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"fontsize" : 12.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p wrapTest"
@@ -1594,7 +1572,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 118.0, 75.0, 1322.0, 503.0 ],
@@ -1643,7 +1621,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 25.0, 69.0, 757.0, 480.0 ],
@@ -1860,32 +1838,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 285.25, 334.0, 293.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Arial",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 12.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p decimal::repetitions/allow::false::whenRecievingList"
@@ -1905,7 +1872,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 25.0, 69.0, 677.0, 430.0 ],
@@ -2122,32 +2089,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 692.25, 334.0, 289.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Arial",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 12.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p integer::repetitions/allow::false::whenRecievingList"
@@ -2167,7 +2123,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -2390,32 +2346,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 325.25, 281.0, 182.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Arial",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 12.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p decimal::repetitions/allow::true"
@@ -2435,7 +2380,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -2629,32 +2574,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 305.25, 307.0, 187.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Arial",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 12.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p decimal::repetitions/allow::false"
@@ -2674,7 +2608,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -2877,32 +2811,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 742.25, 281.0, 177.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Arial",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 12.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p integer::repetitions/allow::true"
@@ -2922,7 +2845,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -3116,32 +3039,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 721.25, 307.0, 182.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Arial",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 12.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p integer::repetitions/allow::false"
@@ -3244,32 +3156,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.test.assert.equal.old.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.parameter.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 245.0, 285.0, 99.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontface" : 0,
-						"fontsize" : 12.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"description" : "",
-						"tags" : "",
+						"digest" : "",
+						"fontface" : 0,
 						"fontname" : "Arial",
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"fontsize" : 12.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p repetitionsTest"
@@ -3290,7 +3191,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -3316,7 +3217,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-4",
 									"linecount" : 4,
 									"maxclass" : "comment",
@@ -3361,22 +3262,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [  ]
+ ]
 					}
 ,
 					"patching_rect" : [ 245.0, 230.0, 165.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"tags" : "",
+						"digest" : "",
+						"fontface" : 0,
 						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p dataspaceAndRampsTests"
@@ -3397,7 +3297,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 393.0, 264.0, 913.0, 543.0 ],
@@ -3432,7 +3332,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 25.0, 69.0, 1325.0, 482.0 ],
@@ -3733,32 +3633,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 243.0, 217.0, 120.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Arial",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 12.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p dataspace::db2midi"
@@ -3778,7 +3667,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 25.0, 69.0, 895.0, 482.0 ],
@@ -3946,32 +3835,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 392.0, 217.0, 136.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Arial",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 12.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p dataspace::linear2midi"
@@ -3991,7 +3869,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
@@ -4136,32 +4014,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 567.0, 217.0, 113.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 12.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"default_fontsize" : 12.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Arial",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 12.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p dataspace::noUnit"
@@ -4172,7 +4039,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-4",
 									"linecount" : 4,
 									"maxclass" : "comment",
@@ -4244,32 +4111,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.test.assert.equal.old.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.parameter.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 245.0, 195.0, 107.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"tags" : "",
+						"digest" : "",
+						"fontface" : 0,
 						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p dataspaceTests"
@@ -4280,13 +4136,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-25",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 275.0, 410.0, 283.0, 34.0 ],
+					"patching_rect" : [ 275.0, 410.0, 283.0, 33.0 ],
 					"text" : "The gate prevents the patch from closing by itself if opened with loadbang disabled"
 				}
 
@@ -4319,7 +4175,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 2.0, 249.0, 640.0, 480.0 ],
@@ -4355,7 +4211,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 0.0, 86.0, 1237.0, 527.0 ],
@@ -5200,32 +5056,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 175.0, 225.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p array"
@@ -5246,10 +5091,10 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
-										"rect" : [ 454.0, 87.0, 1415.0, 711.0 ],
+										"rect" : [ 25.0, 87.0, 1415.0, 711.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -5272,13 +5117,13 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"id" : "obj-18",
+													"id" : "obj-4",
 													"linecount" : 3,
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 565.0, 485.0, 231.0, 43.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.parameter:method:string:float2string ??? @issue 923"
+													"patching_rect" : [ 320.0, 485.0, 222.0, 43.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter:method:string:int2string \"4\" @issue 923"
 												}
 
 											}
@@ -5286,13 +5131,13 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"id" : "obj-4",
+													"id" : "obj-18",
 													"linecount" : 3,
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 320.0, 485.0, 222.0, 43.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.parameter:method:string:int2string ??? @issue 923"
+													"patching_rect" : [ 565.0, 485.0, 233.0, 43.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.parameter:method:string:float2string \"3.140000\" @issue 923"
 												}
 
 											}
@@ -5454,7 +5299,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-30",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -5540,7 +5385,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-27",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -5555,7 +5400,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-26",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -6170,32 +6015,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 175.0, 195.0, 49.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p string"
@@ -6216,7 +6050,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 712.0, 91.0, 628.0, 262.0 ],
@@ -6251,7 +6085,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -6302,7 +6136,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-31",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -6512,32 +6346,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 500.0, 140.0, 84.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p receiveArray"
@@ -6557,7 +6380,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -6703,32 +6526,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 390.0, 140.0, 94.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p receiveSymbol"
@@ -6748,7 +6560,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -6785,7 +6597,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-31",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -6986,32 +6798,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 190.0, 140.0, 71.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p receiveInt"
@@ -7031,7 +6832,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7057,7 +6858,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-31",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -7274,32 +7075,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 295.0, 140.0, 81.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p receiveFloat"
@@ -7418,32 +7208,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 175.0, 170.0, 43.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p float"
@@ -7464,7 +7243,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 37.0, 245.0, 1403.0, 389.0 ],
@@ -7973,32 +7752,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 175.0, 140.0, 33.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p int"
@@ -8074,32 +7842,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.test.assert.equal.old.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.parameter.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 245.0, 122.0, 74.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"tags" : "",
+						"digest" : "",
+						"fontface" : 0,
 						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p typeTests"
@@ -8120,7 +7877,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 444.0, 57.0, 655.0, 693.0 ],
@@ -8146,7 +7903,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-17",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8160,7 +7917,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-13",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8175,7 +7932,7 @@
 									"bgcolor" : [ 1.0, 1.0, 1.0, 0.698039 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-5",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -8210,7 +7967,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 371.0, 44.0, 909.0, 701.0 ],
@@ -8256,7 +8013,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -8450,32 +8207,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 510.0, 315.0, 100.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrSetToCosine"
@@ -8495,7 +8241,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -8689,32 +8435,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 545.0, 290.0, 100.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrSetToCosine"
@@ -8734,7 +8469,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -8928,32 +8663,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 565.0, 265.0, 97.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrSetToLinear"
@@ -8973,7 +8697,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -9167,32 +8891,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 585.0, 240.0, 92.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrSetToNone"
@@ -9223,7 +8936,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -9417,32 +9130,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 615.0, 190.0, 122.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrDefaultsToLinear"
@@ -9462,7 +9164,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 95.0, 640.0, 454.0 ],
@@ -9656,32 +9358,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 600.0, 215.0, 296.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p ifSchedulerDriveRampFunctionAttrStillDefaultsToLinear"
@@ -9692,7 +9383,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -9706,7 +9397,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -9889,32 +9580,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 110.0, 142.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p rampDriveAttributeTests"
@@ -9935,7 +9615,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 207.0, 64.0, 1073.0, 743.0 ],
@@ -10015,7 +9695,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -10029,7 +9709,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -10404,7 +10084,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-49",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -10419,7 +10099,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -10434,7 +10114,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -10767,32 +10447,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 520.0, 97.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p arrayFastRamp"
@@ -10813,7 +10482,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 180.0, 44.0, 1073.0, 743.0 ],
@@ -11062,7 +10731,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-51",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -11077,7 +10746,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -11091,7 +10760,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -11296,7 +10965,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -11311,7 +10980,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -11687,32 +11356,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 550.0, 112.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p arrayInstantRamp"
@@ -11723,7 +11381,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-7",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -11747,7 +11405,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -11856,7 +11514,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -11870,7 +11528,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -12231,7 +11889,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-49",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -12246,7 +11904,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -12261,7 +11919,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -12602,32 +12260,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 495.0, 70.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p typeArray"
@@ -12648,7 +12295,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 216.0, 44.0, 909.0, 781.0 ],
@@ -12684,7 +12331,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 72.0, 44.0, 1129.0, 632.0 ],
@@ -13314,32 +12961,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 85.0, 113.0, 161.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 12.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Arial",
 														"default_fontsize" : 12.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Arial",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 12.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p intRampingWithClipmodes"
@@ -13360,7 +12996,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 1129.0, 632.0 ],
@@ -13458,7 +13094,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-31",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -13796,7 +13432,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-49",
 																	"linecount" : 3,
 																	"maxclass" : "comment",
@@ -13811,7 +13447,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-48",
 																	"linecount" : 4,
 																	"maxclass" : "comment",
@@ -13826,7 +13462,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-47",
 																	"linecount" : 3,
 																	"maxclass" : "comment",
@@ -14183,32 +13819,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 85.0, 60.0, 192.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 12.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Arial",
 														"default_fontsize" : 12.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Arial",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 12.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p intCorrectTiming_+_correctValues"
@@ -14229,7 +13854,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 371.0, 117.0, 909.0, 701.0 ],
@@ -14255,7 +13880,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-9",
 																	"linecount" : 3,
 																	"maxclass" : "comment",
@@ -14338,7 +13963,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-3",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -14352,7 +13977,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-31",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -14747,32 +14372,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 85.0, 698.0, 192.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Verdana",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p intRoundingWithNegativeNumbers"
@@ -14794,7 +14408,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -14873,38 +14487,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.test.assert.equal.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 410.0, 79.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p typeInteger"
@@ -14925,7 +14522,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 24.0, 45.0, 1073.0, 743.0 ],
@@ -15158,7 +14755,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-51",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -15187,7 +14784,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -15201,7 +14798,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -15407,7 +15004,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -15422,7 +15019,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -15774,32 +15371,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 340.0, 124.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p decimalInstantRamp"
@@ -15820,7 +15406,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 207.0, 64.0, 1073.0, 743.0 ],
@@ -15885,7 +15471,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -15899,7 +15485,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -16273,7 +15859,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-49",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -16288,7 +15874,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -16303,7 +15889,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -16625,32 +16211,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 315.0, 109.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p decimalFastRamp"
@@ -16662,7 +16237,7 @@
 									"bgcolor" : [ 1.0, 1.0, 1.0, 0.698039 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-11",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -16697,7 +16272,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 371.0, 44.0, 909.0, 701.0 ],
@@ -16733,7 +16308,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 72.0, 44.0, 1129.0, 701.0 ],
@@ -17363,32 +16938,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 85.0, 200.0, 196.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 12.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Arial",
 														"default_fontsize" : 12.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Arial",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 12.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p decimalRampingWithClipmodes"
@@ -17409,7 +16973,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 1255.0, 681.0 ],
@@ -17813,7 +17377,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-49",
 																	"linecount" : 3,
 																	"maxclass" : "comment",
@@ -17828,7 +17392,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-48",
 																	"linecount" : 4,
 																	"maxclass" : "comment",
@@ -17843,7 +17407,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-47",
 																	"linecount" : 3,
 																	"maxclass" : "comment",
@@ -18189,32 +17753,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.parameter.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 85.0, 60.0, 289.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"digest" : "",
-														"fontface" : 0,
-														"fontsize" : 12.0,
+														"default_fontface" : 0,
 														"default_fontname" : "Arial",
 														"default_fontsize" : 12.0,
 														"description" : "",
-														"tags" : "",
+														"digest" : "",
+														"fontface" : 0,
 														"fontname" : "Arial",
-														"default_fontface" : 0,
-														"globalpatchername" : ""
+														"fontsize" : 12.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p decimalRampingWithCorrectValues_+_CorrectTiming"
@@ -18225,7 +17778,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -18239,7 +17792,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -18300,38 +17853,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.test.assert.equal.maxpat",
-												"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.parameter.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 290.0, 82.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"digest" : "",
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
+										"digest" : "",
+										"fontface" : 0,
 										"fontname" : "Verdana",
-										"default_fontface" : 0,
-										"globalpatchername" : ""
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p typeDecimal"
@@ -18443,38 +17979,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.test.assert.equal.old.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.test.assert.equal.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.parameter.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 245.0, 160.0, 78.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"digest" : "",
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"tags" : "",
+						"digest" : "",
+						"fontface" : 0,
 						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p rampTests"
@@ -18661,21 +18180,21 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.test.finished.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../../../Test/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.assert.equal.old.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../../../Test/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.assert.equal.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
 				"patcherrelativepath" : "../../../../Test/components",
 				"type" : "JSON",
 				"implicit" : 1
