@@ -1157,8 +1157,37 @@ void param_output_float(void *z)
 void param_output_symbol(void *z)
 {
 	t_param *x = (t_param *)z;
+
+	char string[24];
+	t_symbol *mySymbol;
 	
 	if (atom_gettype(&x->attr_value) == A_SYM) {
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
+		param_send_feedback(x);
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
+	else if (atom_gettype(&x->attr_value) == A_FLOAT) {
+		
+		// Convert float to string
+		sprintf (string, "%f", atom_getfloat(&x->attr_value));
+		mySymbol = gensym(string);
+		atom_setsym(&x->attr_value, mySymbol);
+		
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
+		param_send_feedback(x);
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
+	else if (atom_gettype(&x->attr_value) == A_LONG) {
+		
+		//Convert int to string
+		sprintf (string, "%ld", atom_getlong(&x->attr_value));
+		mySymbol = gensym(string);
+		atom_setsym(&x->attr_value, mySymbol);
+		
 		x->isSending = YES;
 		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
 		param_send_feedback(x);
@@ -1342,6 +1371,18 @@ void param_dec(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // INT INPUT
 void param_int(t_param *x, long value)
 {
+	if (x->common.attr_type == jps_decimal) {
+		param_float(x, (double)value);
+		return;
+	}
+	else if (x->common.attr_type == jps_string) {
+		char string[16];
+		sprintf (string, "%ld", value);
+		t_symbol *msg = gensym(string);
+		param_symbol(x, msg);
+		return;
+	}
+	
 	x->list_size = 1;
 	if (x->common.attr_repetitions == 0 && x->isInitialised) {
 		if (value == atom_getlong(&x->attr_value))
@@ -1358,6 +1399,19 @@ void param_int(t_param *x, long value)
 // FLOAT INPUT
 void param_float(t_param *x, double value)
 {
+	
+	if (x->common.attr_type == jps_integer) {
+		param_int(x, (long)value);
+		return;
+	}
+	else if (x->common.attr_type == jps_string) {
+		char string[24];
+		sprintf (string, "%f", value);
+		t_symbol *msg = gensym(string);
+		param_symbol(x, msg);
+		return;
+	}
+	
 	x->list_size = 1;
 	if (x->common.attr_repetitions == 0  && x->isInitialised) {
 		if (value == atom_getfloat(&x->attr_value))

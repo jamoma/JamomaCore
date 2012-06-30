@@ -341,6 +341,13 @@ void return_int(t_return *x, long value)
 		return_float(x, (double)value);
 		return;
 	}
+	else if (x->common.attr_type == jps_string) {
+		char string[16];
+		sprintf (string, "%ld", value);
+		t_symbol *msg = gensym(string);
+		return_symbol(x, msg, 0, 0L);
+		return;
+	}
 	
 	if (x->common.attr_repetitions == 0) {
 		if (value == atom_getlong(&x->output[1]))
@@ -375,6 +382,13 @@ void return_float(t_return *x, double value)
 	
 	if (x->common.attr_type == jps_integer) {
 		return_int(x, (long)value);
+		return;
+	}
+	else if (x->common.attr_type == jps_string) {
+		char string[24];
+		sprintf (string, "%f", value);
+		t_symbol *msg = gensym(string);
+		return_symbol(x, msg, 0, 0L);
 		return;
 	}
 	
