@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 5
+			"revision" : 7
 		}
 ,
 		"rect" : [ 461.0, 85.0, 562.0, 547.0 ],
@@ -40,7 +40,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -66,7 +66,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-4",
 									"linecount" : 4,
 									"maxclass" : "comment",
@@ -111,22 +111,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [  ]
+ ]
 					}
 ,
 					"patching_rect" : [ 245.0, 230.0, 151.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"digest" : "",
-						"tags" : "",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontsize" : 10.0,
-						"description" : ""
+						"description" : "",
+						"digest" : "",
+						"fontface" : 0,
+						"fontname" : "Verdana",
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p dataspaceAndRampsTests"
@@ -147,7 +146,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -173,7 +172,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-4",
 									"linecount" : 4,
 									"maxclass" : "comment",
@@ -218,22 +217,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [  ]
+ ]
 					}
 ,
 					"patching_rect" : [ 245.0, 195.0, 98.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"digest" : "",
-						"tags" : "",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontsize" : 10.0,
-						"description" : ""
+						"description" : "",
+						"digest" : "",
+						"fontface" : 0,
+						"fontname" : "Verdana",
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p dataspaceTests"
@@ -244,7 +242,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-25",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -283,7 +281,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 571.0, 76.0, 640.0, 480.0 ],
@@ -319,7 +317,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 18.0, 156.0, 1344.0, 535.0 ],
@@ -350,7 +348,7 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 1157.75, 295.0, 129.0, 43.0 ],
+													"patching_rect" : [ 1157.75, 295.0, 139.0, 43.0 ],
 													"text" : "jcom.test.assert.equal.old jcom.message:type:none:tooLongArray bang"
 												}
 
@@ -933,32 +931,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 175.0, 195.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p none"
@@ -979,7 +966,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 0.0, 86.0, 1153.0, 454.0 ],
@@ -1861,32 +1848,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 175.0, 166.0, 47.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p array"
@@ -1907,10 +1883,10 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
-										"rect" : [ 132.0, 68.0, 1415.0, 711.0 ],
+										"rect" : [ 25.0, 68.0, 1415.0, 711.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -1933,6 +1909,20 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
+													"id" : "obj-4",
+													"linecount" : 3,
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 0,
+													"patching_rect" : [ 320.0, 485.0, 213.0, 43.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.message:method:string:int2string \"4\" @issue 923"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
 													"id" : "obj-7",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
@@ -1948,26 +1938,12 @@
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
 													"id" : "obj-18",
-													"linecount" : 3,
+													"linecount" : 2,
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 565.0, 485.0, 231.0, 43.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.message:method:string:float2string ??? @issue 923"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
-													"id" : "obj-4",
-													"linecount" : 3,
-													"maxclass" : "newobj",
-													"numinlets" : 2,
-													"numoutlets" : 0,
-													"patching_rect" : [ 320.0, 485.0, 222.0, 43.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.message:method:string:int2string ??? @issue 923"
+													"patching_rect" : [ 565.0, 485.0, 353.0, 31.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.message:method:string:float2string \"3.140000\" @issue 923"
 												}
 
 											}
@@ -2129,7 +2105,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-30",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -2215,7 +2191,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-27",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -2230,7 +2206,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-26",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -2854,32 +2830,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 175.0, 137.0, 49.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p string"
@@ -2900,7 +2865,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 652.0, 91.0, 628.0, 262.0 ],
@@ -2935,7 +2900,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 633.0, 660.0 ],
@@ -3128,7 +3093,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-31",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -3188,7 +3153,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 190.0, 363.0, 279.0, 19.0 ],
+																	"patching_rect" : [ 190.0, 363.0, 317.0, 19.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:method:list2float 1"
 																}
 
@@ -3473,32 +3438,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 395.0, 127.0, 84.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p receiveArray"
@@ -3518,7 +3472,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 641.0, 630.0 ],
@@ -3887,32 +3841,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 285.0, 127.0, 94.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p receiveSymbol"
@@ -3932,7 +3875,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 625.0, 645.0 ],
@@ -4111,7 +4054,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-31",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -4171,7 +4114,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 151.0, 329.0, 277.0, 19.0 ],
+																	"patching_rect" : [ 151.0, 329.0, 315.0, 19.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:method:int2float 1"
 																}
 
@@ -4456,32 +4399,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 85.0, 127.0, 71.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p receiveInt"
@@ -4501,7 +4433,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 648.0, 662.0 ],
@@ -4669,7 +4601,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-31",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -4743,7 +4675,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 135.0, 363.0, 258.0, 19.0 ],
+																	"patching_rect" : [ 135.0, 363.0, 296.0, 19.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:method:float 1"
 																}
 
@@ -5030,32 +4962,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 180.0, 127.0, 81.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p receiveFloat"
@@ -5174,32 +5095,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 175.0, 112.0, 43.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p float"
@@ -5220,7 +5130,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 2.0, 44.0, 1404.0, 697.0 ],
@@ -6837,32 +6747,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 175.0, 82.0, 33.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p int"
@@ -6947,32 +6846,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.test.assert.equal.old.maxpat",
-								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.message.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 245.0, 90.0, 69.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"digest" : "",
-						"tags" : "",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontsize" : 10.0,
-						"description" : ""
+						"description" : "",
+						"digest" : "",
+						"fontface" : 0,
+						"fontname" : "Verdana",
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p typeTests"
@@ -6993,7 +6881,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 633.0, 79.0, 655.0, 693.0 ],
@@ -7020,7 +6908,7 @@
 									"bgcolor" : [ 1.0, 1.0, 1.0, 0.698039 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-5",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -7055,7 +6943,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -7101,7 +6989,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7131,7 +7019,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 255.0, 569.0, 19.0 ],
+																	"patching_rect" : [ 50.0, 255.0, 607.0, 19.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:ramp:ramp/drive:attrSetToSmoothPolynomial smoothPolynomial @issue 495"
 																}
 
@@ -7295,32 +7183,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 510.0, 315.0, 100.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrSetToCosine"
@@ -7340,7 +7217,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7370,7 +7247,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 255.0, 450.0, 19.0 ],
+																	"patching_rect" : [ 50.0, 255.0, 488.0, 19.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:ramp:ramp/drive:attrSetToCosine cosine @issue 495"
 																}
 
@@ -7534,32 +7411,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 545.0, 290.0, 100.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrSetToCosine"
@@ -7579,7 +7445,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7609,7 +7475,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 255.0, 444.0, 19.0 ],
+																	"patching_rect" : [ 50.0, 255.0, 482.0, 19.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:ramp:ramp/drive:attrSetToLinear linear @issue 495"
 																}
 
@@ -7773,32 +7639,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 565.0, 265.0, 97.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrSetToLinear"
@@ -7818,7 +7673,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -7848,7 +7703,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 255.0, 435.0, 19.0 ],
+																	"patching_rect" : [ 50.0, 255.0, 473.0, 19.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:ramp:ramp/drive:attrSetToNone none @issue 495"
 																}
 
@@ -8012,32 +7867,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 585.0, 240.0, 92.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrSetToNone"
@@ -8068,7 +7912,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -8098,7 +7942,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 255.0, 463.0, 19.0 ],
+																	"patching_rect" : [ 50.0, 255.0, 501.0, 19.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:ramp:ramp/drive:attrDefaultsToNone linear @issue 495"
 																}
 
@@ -8262,32 +8106,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 615.0, 190.0, 122.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p attrDefaultsToLinear"
@@ -8307,7 +8140,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -8337,7 +8170,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 50.0, 255.0, 571.0, 19.0 ],
+																	"patching_rect" : [ 50.0, 255.0, 609.0, 19.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:ramp:ramp/drive:ifSchedulerDriveAttrStillDefaultsToLinear linear @issue 495"
 																}
 
@@ -8501,32 +8334,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [ 															{
-																"name" : "jcom.test.assert.equal.old.maxpat",
-																"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-																"type" : "JSON",
-																"implicit" : 1
-															}
-, 															{
-																"name" : "jcom.message.mxo",
-																"type" : "iLaX"
-															}
  ]
 													}
 ,
 													"patching_rect" : [ 600.0, 215.0, 296.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontname" : "Verdana",
 														"default_fontface" : 0,
-														"globalpatchername" : "",
-														"digest" : "",
-														"tags" : "",
 														"default_fontname" : "Verdana",
-														"fontface" : 0,
-														"fontsize" : 10.0,
 														"default_fontsize" : 10.0,
-														"description" : ""
+														"description" : "",
+														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
+														"globalpatchername" : "",
+														"tags" : ""
 													}
 ,
 													"text" : "p ifSchedulerDriveRampFunctionAttrStillDefaultsToLinear"
@@ -8537,7 +8359,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -8551,7 +8373,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -8734,32 +8556,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 110.0, 142.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p rampDriveAttributeTests"
@@ -8780,7 +8591,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 210.0, 64.0, 1073.0, 743.0 ],
@@ -8846,7 +8657,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -8860,7 +8671,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -9235,7 +9046,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-49",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -9250,7 +9061,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -9265,7 +9076,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -9589,32 +9400,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 520.0, 97.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p arrayFastRamp"
@@ -9635,7 +9435,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 180.0, 44.0, 1073.0, 743.0 ],
@@ -9856,7 +9656,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-51",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -9871,7 +9671,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -9885,7 +9685,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -10090,7 +9890,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -10105,7 +9905,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -10463,32 +10263,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 550.0, 112.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p arrayInstantRamp"
@@ -10499,7 +10288,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-7",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -10523,7 +10312,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -10618,7 +10407,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -10632,7 +10421,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -10993,7 +10782,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-49",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -11008,7 +10797,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -11023,7 +10812,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -11355,32 +11144,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 495.0, 70.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p typeArray"
@@ -11401,7 +11179,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -11496,7 +11274,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -11510,7 +11288,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -11871,7 +11649,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-49",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -11886,7 +11664,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -11901,7 +11679,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -12235,32 +12013,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 410.0, 79.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p typeInteger"
@@ -12281,7 +12048,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 24.0, 45.0, 1073.0, 743.0 ],
@@ -12486,7 +12253,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-51",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -12515,7 +12282,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -12529,7 +12296,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -12735,7 +12502,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -12750,7 +12517,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -13084,32 +12851,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 340.0, 124.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p decimalInstantRamp"
@@ -13130,7 +12886,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 210.0, 64.0, 1073.0, 743.0 ],
@@ -13167,7 +12923,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -13181,7 +12937,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -13555,7 +13311,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-49",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -13570,7 +13326,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -13585,7 +13341,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -13889,32 +13645,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 315.0, 109.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p decimalFastRamp"
@@ -13926,7 +13671,7 @@
 									"bgcolor" : [ 1.0, 1.0, 1.0, 0.698039 ],
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-11",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -13961,7 +13706,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -14015,7 +13760,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-3",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -14029,7 +13774,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-31",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -14391,7 +14136,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-49",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -14406,7 +14151,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-48",
 													"linecount" : 4,
 													"maxclass" : "comment",
@@ -14421,7 +14166,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-47",
 													"linecount" : 3,
 													"maxclass" : "comment",
@@ -14726,32 +14471,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.test.assert.equal.old.maxpat",
-												"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-												"type" : "JSON",
-												"implicit" : 1
-											}
-, 											{
-												"name" : "jcom.message.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 255.0, 290.0, 82.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontname" : "Verdana",
 										"default_fontface" : 0,
-										"globalpatchername" : "",
-										"digest" : "",
-										"tags" : "",
 										"default_fontname" : "Verdana",
-										"fontface" : 0,
-										"fontsize" : 10.0,
 										"default_fontsize" : 10.0,
-										"description" : ""
+										"description" : "",
+										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
+										"globalpatchername" : "",
+										"tags" : ""
 									}
 ,
 									"text" : "p typeDecimal"
@@ -14863,32 +14597,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.test.assert.equal.old.maxpat",
-								"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.message.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 245.0, 160.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"digest" : "",
-						"tags" : "",
 						"default_fontname" : "Verdana",
-						"fontface" : 0,
-						"fontsize" : 10.0,
 						"default_fontsize" : 10.0,
-						"description" : ""
+						"description" : "",
+						"digest" : "",
+						"fontface" : 0,
+						"fontname" : "Verdana",
+						"fontsize" : 10.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p rampTests"
@@ -15048,14 +14771,14 @@
 		"dependency_cache" : [ 			{
 				"name" : "jcom.test.finished.maxpat",
 				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-				"patcherrelativepath" : "../../Test/components",
+				"patcherrelativepath" : "../../../../Test/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.assert.equal.old.maxpat",
 				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components",
-				"patcherrelativepath" : "../../Test/components",
+				"patcherrelativepath" : "../../../../Test/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
