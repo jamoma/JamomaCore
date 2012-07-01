@@ -30,10 +30,14 @@ void TTNodeAddressItem::setSelection(const TTBoolean newSelectionState, TTBoolea
 	if (newSelectionState != this->selection)
 		this->selection = newSelectionState;
 	
-	// propagate if needed
+	// propagate below if needed
 	if (recursively)
 		for (this->begin(); this->end(); this->next())
 			this->current()->setSelection(newSelectionState, recursively);
+	
+	// propagate to parent if selection is YES
+	if (newSelectionState && this->parent)
+		this->parent->setSelection(newSelectionState, NO);
 }
 
 void TTNodeAddressItem::setParent(const TTNodeAddressItemPtr newParent)
