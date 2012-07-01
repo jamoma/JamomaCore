@@ -28,6 +28,19 @@
 		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-3",
+					"maxclass" : "gswitch2",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 225.0, 107.0, 39.0, 32.0 ],
+					"presentation_rect" : [ 163.0, 119.0, 0.0, 0.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
@@ -35,7 +48,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 91.0, 267.0, 72.0, 19.0 ],
+					"patching_rect" : [ 43.0, 216.0, 72.0, 19.0 ],
 					"text" : "r toTestHub"
 				}
 
@@ -49,13 +62,14 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 91.0, 293.0, 60.0, 19.0 ],
+					"patching_rect" : [ 43.0, 242.0, 60.0, 19.0 ],
 					"text" : "jcom.hub"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bubble" : 1,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : 0.0,
@@ -64,7 +78,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 275.0, 410.0, 226.0, 31.0 ],
+					"patching_rect" : [ 282.0, 408.5, 240.0, 35.0 ],
 					"text" : "The gate prevents the patch from closing by itself if opened with loadbang disabled"
 				}
 
@@ -78,7 +92,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 160.0, 380.0, 68.0, 19.0 ],
+					"patching_rect" : [ 164.0, 72.0, 68.0, 19.0 ],
 					"text" : "loadmess 1"
 				}
 
@@ -4253,7 +4267,7 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 111.0, 526.0, 143.0, 55.0 ],
+													"patching_rect" : [ 111.0, 526.0, 145.0, 55.0 ],
 													"text" : "jcom.test.assert.equal.old jcom.message:method:Repetition:string tjotlandotte tjotlandotte"
 												}
 
@@ -6535,7 +6549,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 330.0, 245.0, 50.0, 17.0 ],
-																	"text" : "76"
+																	"text" : "31"
 																}
 
 															}
@@ -6549,7 +6563,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 170.0, 245.0, 50.0, 17.0 ],
-																	"text" : "76."
+																	"text" : "31."
 																}
 
 															}
@@ -9185,7 +9199,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 245.0, 90.0, 69.0, 19.0 ],
+					"patching_rect" : [ 245.0, 156.0, 69.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
@@ -9290,11 +9304,30 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 173.5, 98.5, 234.5, 98.5 ],
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 169.5, 404.0, 234.5, 404.0 ],
+					"midpoints" : [ 173.5, 404.0, 234.5, 404.0 ],
 					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-3", 1 ]
 				}
 
 			}
@@ -9318,7 +9351,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-20", 0 ],
+					"destination" : [ "obj-3", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-8", 0 ]
