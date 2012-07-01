@@ -96,6 +96,35 @@ CUE sweep
 
 # (end)
 
+###########################################################################
+CUE dataspaceDemo	# (fold)
+###########################################################################
+
+	/output~/audio/gain 0 dB
+	
+	WAIT 2000
+	
+	/output~/audio/gain 0
+	
+	WAIT 2000
+	
+	/output~/audio/gain 0.5 linear ramp 2000
+	
+	/output~/audio/gain:/ramp/function cosine
+	
+	WAIT 4000
+	
+	/output~/audio/gain 1.0 linear ramp 2000
+	
+	# Options for regular functions: cosine, exponential, linear, logarithm, lowpass, power, smoothPolynomial, tanh, 
+	# Options for window functions: bartlett, blackman, blackmanHarris, expodec, gauss, hamming, hanning, kaiser, nuttall, rectangular, trapezoid, tukey, welch
+
+# (end)
+
+
+
+
+
 ##############################
 CUE fade_out
 ##############################
