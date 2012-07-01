@@ -35,7 +35,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 426.0, 182.0, 91.0, 17.0 ],
+					"patching_rect" : [ 426.0, 163.0, 91.0, 17.0 ],
 					"text" : "dataspaceDemo"
 				}
 
@@ -253,7 +253,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 35.0, 245.0, 341.0, 17.0 ],
-					"text" : "/cues ---END"
+					"text" : "/cue audio_off"
 				}
 
 			}
@@ -310,7 +310,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 426.0, 163.0, 53.0, 17.0 ],
+					"patching_rect" : [ 426.0, 182.0, 53.0, 17.0 ],
 					"text" : "fade_out"
 				}
 
@@ -537,7 +537,7 @@
 					"destination" : [ "obj-21", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 435.5, 180.0, 420.5, 180.0 ],
+					"midpoints" : [ 435.5, 198.0, 420.5, 198.0 ],
 					"source" : [ "obj-12", 0 ]
 				}
 
@@ -655,7 +655,7 @@
 					"destination" : [ "obj-21", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 435.5, 200.0, 420.5, 200.0 ],
+					"midpoints" : [ 435.5, 181.0, 420.5, 181.0 ],
 					"source" : [ "obj-25", 0 ]
 				}
 
