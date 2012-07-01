@@ -448,7 +448,9 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 			
 			delete[] rv;
 		}
-	else { //assuming jps_string now		
+	else { //assuming jps_string now
+		
+		// Filter repetitions
 		if (x->common.attr_repetitions == 0) {
 			if (msg == atom_getsym(&x->output[1]))
 			return;
@@ -480,15 +482,22 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 	int i;
 	short offset = 1;
 	
-	if ((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean)) {
+	if ((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean))
 		return_int(x, atom_getlong(argv));
+	else if (x->common.attr_type == jps_decimal)
+		return_float(x, atom_getfloat(argv));
+	else if (x->common.attr_type == jps_string){
+		if (argc) {
+			if (argv[0].a_type == A_FLOAT)
+				return_float(x, atom_getfloat(argv));
+			else if (argv[0].a_type == A_LONG)
+				return_int(x, atom_getlong(argv));
+			else if (argv[0].a_type == A_SYM)
+				return_symbol(x, atom_getsym(argv), 0, 0L);
 		}
-	else if (x->common.attr_type == jps_decimal){
-			return_float(x, atom_getfloat(argv));
-		}
-	else if (x->common.attr_type == jps_string){					
-			return_symbol(x, msg, 0, argv);
-		}
+		else
+			return;
+	}
 	
 	else {								// type is none, generic or array:
 		
