@@ -1,8 +1,6 @@
 ##############################
-CUE initialisation
+CUE initialisation # (fold)
 ##############################
-
-# (fold)
 
 # Module output~
 
@@ -51,10 +49,8 @@ CUE initialisation
 # (end)
 
 ##############################
-CUE audio_on
+CUE audio_on # (fold)
 ##############################
-
-# (fold)
 
 # Module output~
     # turn on the dsp
@@ -70,10 +66,8 @@ CUE audio_on
 # (end)    
 
 ##############################
-CUE fade_in
+CUE fade_in # (fold)
 ##############################
-
-# (fold)
 
 # Module output~
     /output~/audio/gain 90.000 ramp 2000
@@ -81,10 +75,8 @@ CUE fade_in
 # (end)
 
 ##############################
-CUE sweep
+CUE sweep # (fold)
 ##############################
-
-# (fold)
 
 # Module filter~
     /filter~/frequency 3000 ramp 3000
@@ -96,47 +88,16 @@ CUE sweep
 
 # (end)
 
-###########################################################################
-CUE dataspaceDemo	# (fold)
-###########################################################################
-
-	/output~/audio/gain 0 dB
-	
-	WAIT 2000
-	
-	/output~/audio/gain 0
-	
-	WAIT 2000
-	
-	/output~/audio/gain 0.5 linear ramp 2000
-	
-	/output~/audio/gain:/ramp/function cosine
-	
-	WAIT 4000
-	
-	/output~/audio/gain 1.0 linear ramp 2000
-	
-	# Options for regular functions: cosine, exponential, linear, logarithm, lowpass, power, smoothPolynomial, tanh, 
-	# Options for window functions: bartlett, blackman, blackmanHarris, expodec, gauss, hamming, hanning, kaiser, nuttall, rectangular, trapezoid, tukey, welch
-
-# (end)
-
-
-
-
-
 ##############################
-CUE fade_out
+CUE fade_out	# (fold)
 ##############################
 
-# (fold)
+	# Playing safe:
 
-# Playing safe:
-
-# If you've been utilising the WAIT command, it is a good idea to make
-# sure that the next event sets all parameters to expected final state of
-# previous cue. This prevents errouneous state in the case that the next cue
-# is triggered before the previous one had finished executing.
+	# If you've been utilising the WAIT command, it is a good idea to make
+	# sure that the next event sets all parameters to expected final state of
+	# previous cue. This prevents errouneous state in the case that the next cue
+	# is triggered before the previous one had finished executing.
     /filter~/frequency 200
 
 
@@ -146,10 +107,46 @@ CUE fade_out
 # (end)
 
 ##############################
-CUE audio_off
+CUE dataspaceDemo	# (fold)
 ##############################
 
-# (fold)
+	# This makes gain changes audible on cheap laptop speakers
+	/filter~/frequency 4000
+
+	# Set gain using dB unit
+	/output~/audio/gain 0 dB
+	
+	WAIT 2000
+	
+	# Set gain using the default unit (midi)
+	/output~/audio/gain 0
+	
+	WAIT 2000
+	
+	# Ramp to new value specified using the linear unit
+	/output~/audio/gain 0.5 linear ramp 2000
+		
+	WAIT 4000
+	
+	# Change the ramp function from the default linear function to a cosince function
+	/output~/audio/gain:/ramp/function cosine
+	# Options for regular functions: cosine, exponential, linear, logarithm, lowpass, power, smoothPolynomial, tanh, 
+	# Options for window functions: bartlett, blackman, blackmanHarris, expodec, gauss, hamming, hanning, kaiser, nuttall, rectangular, trapezoid, tukey, welch
+		
+	# Now ramp using linear unit
+	/output~/audio/gain 1.0 linear ramp 2000
+	
+	# Please note that we have a:
+	# - linear gain unit (as opposed to dB or MIDI gain unit)
+	# - linear ramp function (as opposed to cosine, exponential, etc.)
+	# This might initially be confusing
+
+
+# (end)
+
+##############################
+CUE audio_off	# (fold)
+##############################
     
 # Module input~
     /input~/audio/gain 0 ramp 100
