@@ -162,7 +162,7 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, c
 	TTDictionaryPtr	aLine;
 	TTObjectPtr		anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
-	TTNodeAddressPtr address, dataAddress;
+	TTNodeAddressPtr address, childAddress;
 	TTSymbolPtr		service;
 	TTValue			v, parsedLine;
 	TTBoolean		empty = YES;
@@ -229,58 +229,64 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, c
 						
 						// the script is not empty
 						empty = NO;
+						
+						continue;
+					}
+				}
+				
+				// Any other case : create a sub script
+				
+				// edit a sub script line
+				v = TTValue(TT(nameInstance));
+				aLine = TTScriptParseScript(v);
+				
+				// get the sub script
+				aLine->getValue(v);
+				v.get(0, (TTPtr*)&aSubScript);
+				
+				// if the namespace is empty : fill it with all children below
+				if (instanceItem->isEmpty()) {
+					
+					// get all children of the node
+					aNode->getChildren(S_WILDCARD, S_WILDCARD, childrenNodes);
+					
+					// sort the NodeList using object priority order
+					childrenNodes.sort(&TTCueCompareNodePriority);
+					
+					// append each name.instance to the sub namespace
+					for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
+						
+						childrenNodes.current().get(0, (TTPtr*)&aNode);
+						
+						// get name.instance
+						aNode->getAddress(&childAddress, address);
+						
+						// append to the namespace
+						instanceItem->append(childAddress, &anItem);
+						
+						anItem->setSelection(YES);
+					}
+				}
+				
+				// process namespace item on sub script
+				err = processStore(aSubScript, address, instanceItem);
+				
+				// if the sub script is not empty
+				if (!err) {
+					
+					if (anObject) {
+						
+						// CONTAINER case : append a comment line to the script before the sub script line
+						if (anObject->getName() == TT("Container"))
+							aScript->sendMessage(TT("AppendComment"), kTTValNONE, parsedLine);
 					}
 					
-					// Any other case : create a sub script
-					else {
-						
-						// edit a sub script line
-						v = TTValue(TT(nameInstance));
-						aLine = TTScriptParseScript(v);
-						
-						// get the sub script
-						aLine->getValue(v);
-						v.get(0, (TTPtr*)&aSubScript);
-						
-						// if the namespace is empty : fill it with all children below
-						if (instanceItem->isEmpty()) {
-							
-							// get all children of the node
-							aNode->getChildren(S_WILDCARD, S_WILDCARD, childrenNodes);
-							
-							// sort the NodeList using object priority order
-							childrenNodes.sort(&TTCueCompareNodePriority);
-							
-							// append each name.instance to the sub namespace
-							for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
-								
-								childrenNodes.current().get(0, (TTPtr*)&aNode);
-								
-								// get name.instance
-								aNode->getAddress(&dataAddress, address);
-								
-								// append to the namespace
-								instanceItem->append(dataAddress, &anItem);
-								
-								anItem->setSelection(YES);
-							}
-						}
-						
-						// process namespace item on sub script
-						err = processStore(aSubScript, address, instanceItem);
-						
-						// if the sub script is not empty
-						if (!err) {
-							
-							// CONTAINER case : append a comment line to the script before the sub script line
-							if (anObject->getName() == TT("Container"))
-								aScript->sendMessage(TT("AppendComment"), kTTValNONE, parsedLine);
-							
-							// append the sub script line
-							v = TTValue((TTPtr)aLine);
-							aScript->sendMessage(TT("Append"), v, parsedLine);
-						}
-					}
+					// append the sub script line
+					v = TTValue((TTPtr)aLine);
+					aScript->sendMessage(TT("Append"), v, parsedLine);
+					
+					// the script is not empty
+					empty = NO;
 				}
 			}
 		}

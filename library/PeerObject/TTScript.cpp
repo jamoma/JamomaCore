@@ -168,8 +168,12 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			aLine->lookup(kTTSym_address, v);
 			v.get(0, &address);
 			
+			// if no container edit absolute address
+			if (!container)
+				address = containerAddress->appendAddress(address);
+			
 			// use container for relative address
-			if (container && address->getType() == kAddressRelative) {
+			if (address->getType() == kAddressRelative) {
 				
 				v = TTValue(address);
 				c = TTValue((TTPtr)aLine);
@@ -177,8 +181,8 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 				
 				container->sendMessage(kTTSym_Send, v, kTTValNONE);
 			}
-			// or use data directly for absolute
-			else if (address->getType() == kAddressAbsolute) {
+			// or use data directly for absolute address
+			else {
 				
 				getDirectoryFrom(address)->getTTNode(address, &aNode);
 				if (aNode) {
