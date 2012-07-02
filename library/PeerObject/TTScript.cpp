@@ -182,20 +182,24 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 				container->sendMessage(kTTSym_Send, v, kTTValNONE);
 			}
 			// or use data directly for absolute address
-			else {
+			else if (address->getType() == kAddressAbsolute) {
 				
-				getDirectoryFrom(address)->getTTNode(address, &aNode);
-				if (aNode) {
+				err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+				
+				if (!err) {
 					
-					anObject = aNode->getObject();
-					
-					if (anObject) {
-					
-						// send the line using the command message
-						if (anObject->getName() == TT("Data")) {
-							
-							v = TTValue((TTPtr)aLine);
-							anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+					if (aNode) {
+						
+						anObject = aNode->getObject();
+						
+						// check if it's a data
+						if (anObject) {
+							if (anObject->getName() == TT("Data")) {
+								
+								// send the line using the command message
+								v = TTValue((TTPtr)aLine);
+								anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+							}
 						}
 					}
 				}

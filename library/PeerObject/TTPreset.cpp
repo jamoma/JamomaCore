@@ -245,7 +245,8 @@ TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2)
 	TTNodePtr	n1, n2;
 	TTObjectPtr o1, o2;
 	TTValue		v;
-	TTInt32		p1, p2;
+	TTInt32		p1 = 0;
+	TTInt32		p2 = 0;
 	
 	// get priority of v1
 	v1.get(0, (TTPtr*)&n1);
