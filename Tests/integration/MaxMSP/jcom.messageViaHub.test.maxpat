@@ -34,8 +34,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 225.0, 107.0, 39.0, 32.0 ],
-					"presentation_rect" : [ 163.0, 119.0, 0.0, 0.0 ]
+					"patching_rect" : [ 225.0, 107.0, 39.0, 32.0 ]
 				}
 
 			}
@@ -3879,8 +3878,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 320.0, 689.0, 282.0, 43.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.message:method:NoRepetition:string:int2string \"4\" @issue 923"
+													"patching_rect" : [ 320.0, 689.0, 284.0, 43.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.message:method:NoRepetition:string:int2string \"4\" @issue 923 1169"
 												}
 
 											}
@@ -3965,8 +3964,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 631.0, 689.0, 294.0, 43.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.message:method:NoRepetition:string:float2string \"3.140000\" @issue 923"
+													"patching_rect" : [ 631.0, 689.0, 289.0, 43.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.message:method:NoRepetition:string:float2string \"3.140000\" @issue 923 1169"
 												}
 
 											}
@@ -5911,12 +5910,12 @@
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"id" : "obj-11",
-																	"linecount" : 2,
+																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 8.5, 459.0, 290.0, 31.0 ],
-																	"text" : "jcom.test.assert.equal.old jcom.message:method:repetition:symbol2float 0."
+																	"patching_rect" : [ 8.5, 459.0, 256.0, 43.0 ],
+																	"text" : "jcom.test.assert.equal.old jcom.message:method:repetition:symbol2float 0. @issue 1169"
 																}
 
 															}
@@ -6260,7 +6259,7 @@
 															"revision" : 7
 														}
 ,
-														"rect" : [ 25.0, 69.0, 625.0, 645.0 ],
+														"rect" : [ 25.0, 95.0, 625.0, 619.0 ],
 														"bglocked" : 0,
 														"openinpresentation" : 0,
 														"default_fontsize" : 10.0,
@@ -6449,12 +6448,11 @@
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"id" : "obj-11",
-																	"linecount" : 2,
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 129.0, 507.0, 290.0, 31.0 ],
-																	"text" : "jcom.test.assert.equal.old jcom.message:method:repetition:int2float 1"
+																	"patching_rect" : [ 129.0, 507.0, 437.0, 19.0 ],
+																	"text" : "jcom.test.assert.equal.old jcom.message:method:repetition:int2float 1 @issue 1169"
 																}
 
 															}
@@ -7751,6 +7749,20 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
+													"id" : "obj-23",
+													"linecount" : 3,
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 0,
+													"patching_rect" : [ 339.75, 538.0, 269.0, 43.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.message:method:int:repetition:truncateFloat 1 @issue 1169"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"fontname" : "Verdana",
+													"fontsize" : 10.0,
 													"id" : "obj-94",
 													"linecount" : 5,
 													"maxclass" : "message",
@@ -8121,8 +8133,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 984.0, 491.0, 260.0, 43.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.message:method:int:repetition:listTruncate 5"
+													"patching_rect" : [ 984.0, 491.0, 261.0, 43.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.message:method:int:repetition:listTruncate 5 @issue 1169"
 												}
 
 											}
@@ -8164,8 +8176,8 @@
 													"maxclass" : "newobj",
 													"numinlets" : 2,
 													"numoutlets" : 0,
-													"patching_rect" : [ 664.0, 538.0, 191.375, 43.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.message:method:int:repetition:symbol2zero 0"
+													"patching_rect" : [ 664.0, 538.0, 268.0, 43.0 ],
+													"text" : "jcom.test.assert.equal.old jcom.message:method:int:repetition:symbol2zero 0 @issue 1169"
 												}
 
 											}
@@ -8195,20 +8207,6 @@
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 339.75, 510.0, 74.5, 19.0 ],
 													"text" : "zl group 10"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"fontname" : "Verdana",
-													"fontsize" : 10.0,
-													"id" : "obj-23",
-													"linecount" : 3,
-													"maxclass" : "newobj",
-													"numinlets" : 2,
-													"numoutlets" : 0,
-													"patching_rect" : [ 339.75, 538.0, 153.5, 43.0 ],
-													"text" : "jcom.test.assert.equal.old jcom.message:method:int:repetition:truncateFloat 1"
 												}
 
 											}

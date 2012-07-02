@@ -5459,8 +5459,8 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 444.0, 722.0, 356.0, 43.0 ],
-																	"text" : "jcom.test.assert.equal.old jcom.parameter:typeDecimal:receiveListStartingWithInt:noRepetition 1"
+																	"patching_rect" : [ 444.0, 722.0, 364.0, 43.0 ],
+																	"text" : "jcom.test.assert.equal.old jcom.parameter:typeDecimal:receiveListStartingWithInt:noRepetition 1 @issue 1169"
 																}
 
 															}
@@ -6496,8 +6496,8 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 383.5, 270.0, 290.0, 43.0 ],
-																	"text" : "jcom.test.assert.equal.old jcom.parameter:typeDecimal:receiveString:noRepetition 0."
+																	"patching_rect" : [ 383.5, 270.0, 313.0, 43.0 ],
+																	"text" : "jcom.test.assert.equal.old jcom.parameter:typeDecimal:receiveString:noRepetition 0. @issue 1169"
 																}
 
 															}
@@ -9157,8 +9157,8 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 456.0, 351.0, 295.0, 43.0 ],
-																	"text" : "jcom.test.assert.equal.old jcom.parameter:typeInteger:receiveSymbol:noRepetition 0"
+																	"patching_rect" : [ 456.0, 351.0, 305.0, 43.0 ],
+																	"text" : "jcom.test.assert.equal.old jcom.parameter:typeInteger:receiveSymbol:noRepetition 0 @issue 1169"
 																}
 
 															}
@@ -9822,8 +9822,8 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 492.0, 370.0, 362.0, 43.0 ],
-																	"text" : "jcom.test.assert.equal.old jcom.parameter:typeInteger:receiveListStartingWithFloat:noRepetition 5"
+																	"patching_rect" : [ 492.0, 370.0, 370.0, 43.0 ],
+																	"text" : "jcom.test.assert.equal.old jcom.parameter:typeInteger:receiveListStartingWithFloat:noRepetition 5 @issue 1169"
 																}
 
 															}
@@ -19835,12 +19835,12 @@
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"id" : "obj-43",
-																	"linecount" : 2,
+																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 415.0, 640.0, 257.0, 31.0 ],
-																	"text" : "jcom.test.assert.equal.old jcom.parameter:ramp:decimal:correctTiming 1"
+																	"patching_rect" : [ 415.0, 640.0, 242.0, 43.0 ],
+																	"text" : "jcom.test.assert.equal.old jcom.parameter:ramp:decimal:correctTiming 1 @issue 1170"
 																}
 
 															}
