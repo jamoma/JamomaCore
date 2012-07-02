@@ -283,7 +283,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 #ifndef JMOD_MESSAGE
 					// reset all datas created dynamically
 					if (!EXTRA->firstArray)
-						defer_low((ObjectPtr)x, (method)wrappedModularClass_anything, _sym_reset, 0, NULL);
+						defer((ObjectPtr)x, (method)wrappedModularClass_anything, _sym_reset, 0, NULL);
 #endif
 				}
 			}
@@ -394,7 +394,7 @@ void data_address(TTPtr self, SymbolPtr address)
 		
 		// rebuild internals
 		EXTRA->changingAddress = YES;
-		defer_low(self,(method)data_new_address, address, 0, NULL);
+		defer(self,(method)data_new_address, address, 0, NULL);
 	}
 	else 
 		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", address->s_name);
