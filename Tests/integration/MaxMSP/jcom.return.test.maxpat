@@ -7065,7 +7065,7 @@
 															"revision" : 7
 														}
 ,
-														"rect" : [ 432.0, 96.0, 969.0, 512.0 ],
+														"rect" : [ 82.0, 92.0, 980.0, 512.0 ],
 														"bglocked" : 0,
 														"openinpresentation" : 0,
 														"default_fontsize" : 12.0,
@@ -7094,7 +7094,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 1001.0, 347.0, 76.0, 19.0 ],
+																	"patching_rect" : [ 867.0, 347.0, 76.0, 19.0 ],
 																	"text" : "loadmess set"
 																}
 
@@ -7214,7 +7214,6 @@
 															}
 , 															{
 																"box" : 																{
-																	"color" : [ 1.0, 0.0, 0.698039, 1.0 ],
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
 																	"id" : "obj-33",
