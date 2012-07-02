@@ -1563,13 +1563,42 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 	long length1 = lengthA;
 	long length2 = lengthB;
 	
-	// Crop list length for @type integer, decimal and string
-	if ((x->common.attr_type==jps_integer) || (x->common.attr_type==jps_decimal) || (x->common.attr_type==jps_string)) {
-		if (length1>1)
-			length1 = 1;
-		if (length2>1)
-			length2 = 1;
+	// Dedicated test for @type integer, disregards all list members but first
+	if (x->common.attr_type == jps_integer) {
+		if (lengthA && lengthB) {
+			if (atom_getlong(a) == atom_getlong(b))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;		
 	}
+	// Dedicated test for @type decimal, disregards all list members but first
+	else if (x->common.attr_type==jps_decimal) {
+		if (lengthA && lengthB) {
+			if (atom_getfloat(a) == atom_getfloat(b))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;		
+	}
+	// Dedicated test for @type string, disregards all list members but first
+	else if (x->common.attr_type==jps_string) {
+		// TODO
+		if (lengthA && lengthB) {
+			if (atom_getfloat(a) == atom_getfloat(b))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;		
+	}
+	
+	// Tests for @type generic, array and none
 	
 	// If lists differ in length they're obviously not the same
 	if (length1 == length2) {
@@ -1769,46 +1798,18 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->ramper->set(ac, start);
 		x->ramper->go(ac, values, time);
 	} 
-	else {					
-		// If type is integer, make sure we copy as int and set list length to 1
-		if (x->common.attr_type == jps_integer) {
-			param_int(x, atom_getlong(av));
-			return;
-		}
-		// If type is desimal, make sure we copy as float and set list length to 1
-		else if (x->common.attr_type == jps_decimal) {
-			param_float(x, atom_getfloat(av));
-			return;
-		}
-		//If type is string, make sure we convert to symbol
-		else if (x->common.attr_type == jps_string) {
-			switch(av[0].a_type) {
-				case A_LONG:
-					sprintf (string, "%ld", atom_getlong(av));
-					mySymbol = gensym(string);
-					param_symbol(x, mySymbol);
-					break;
-				case A_FLOAT:
-					sprintf (string, "%f", atom_getfloat(av));
-					mySymbol = gensym(string);
-					param_symbol(x, mySymbol);
-					break;
-				case A_SYM:
-					param_symbol(x, atom_getsym(av));
-					break;
-				default:
-					error("param_list: no type specification");
-					break;
-			}
-			return;
-		}
-		// Else type is generic, array or none, and we copy all of it as is
-		
+	else {
+				
 		// Filter repetitions depending on attributes:
 		if (x->common.attr_repetitions == 0 && x->isInitialised) {
 			if (param_list_compare(x, x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
+		
+		// Restrict the length of the list for @type integer, boolean, decimal and string
+		if ((x->common.attr_type != jps_array) && (x->common.attr_type != jps_generic) && (x->common.attr_type != jps_none))
+			if (ac>1)
+				ac = 1;
 		
 		// Copy values
 		for (i = 0; i < ac; i++) {
