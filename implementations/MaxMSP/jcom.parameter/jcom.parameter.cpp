@@ -49,6 +49,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 		strcat(dataspaces, " ");
 	}
 	
+	// Get list of function names, used for ramping
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
 	for (i=0; i<functionNames.getSize(); i++)
@@ -58,6 +59,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 		strcat(functions, " ");
 	}
     
+	// Get list of ramp drives, used for ramping
 	RampLib::getUnitNames(functionNames); //reusing TTValue functionNames again here
 	drives[0] = 0;
 	for (i=0; i<functionNames.getSize(); i++)
@@ -112,7 +114,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 #else
 	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string array generic");
 #endif
+	
+	// Attribute: repetitions/allow
 	CLASS_ATTR_STYLE(c,				"repetitions/allow",		0, "onoff");
+	
 	// ATTRIBUTE: view/freeze - toggles a "frozen" ui outlet so that you can save cpu
 	jamoma_class_attr_new(c,		"view/freeze",				_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
 	CLASS_ATTR_STYLE(c,				"view/freeze",				0,	"onoff");
@@ -131,15 +136,16 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// ATTRIBUTE: value/default
 	jamoma_class_attr_array_new(c,	"value/default",			_sym_atom, JAMOMA_LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
+	// ATTRIBUTE: readonly
 	jamoma_class_attr_new(c,		"readonly",					_sym_long, (method)param_attr_setreadonly, (method)param_attr_getreadonly);
 	CLASS_ATTR_STYLE(c,				"readonly",					0, "onoff");
+	
 	// ATTRIBUTES: dataspace stuff
 	jamoma_class_attr_new(c,		"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
 	CLASS_ATTR_ENUM(c,				"dataspace",				0, dataspaces);
 	
-	//units[0] = 0;
 	jamoma_class_attr_new(c,		"dataspace/unit", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
-	// the override dataspace is not exposed as an attribute
+	// The override dataspace is not exposed as an attribute
 
 #ifndef JMOD_MESSAGE
 	// ATTRIBUTE: mixweight - used by preset/mix message
@@ -168,7 +174,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ORDER(c, "mix/weight",			0, "17");
 #endif
 
-		// Finalize our class
+	// Finalize our class
 	class_register(_sym_box, c);
 	parameter_class = c;
 	return 0;
@@ -1162,7 +1168,7 @@ void param_output_float(void *z)
 	}
 	
 	// Filter repetitions
-	if (x->common.attr_repetitions || newval != oldval) {
+	if (x->common.attr_repetitions || (newval != oldval)) {
 		
 		// Update stored value
 		atom_setfloat(&x->attr_value, newval);
@@ -1701,8 +1707,6 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	long		ac = 0;				// These two hold the input, but the input is converted into the active unit
 	AtomPtr		av = NULL;
 	bool		alloc = false;
-	char		string[24];
-	t_symbol	*mySymbol;
 
 	char*	c = strrchr(msg->s_name, ':');
 	
@@ -1757,17 +1761,9 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			unit = atom_getsym(argv+(argc-1));
 		}
 	}
-	
-	// The current implementation does not override the active unit temporarily or anything fancy
-	//	It just sets the active unit and then runs with it...
 
 	x->isOverriding = false;
 	
-	/*
-		For this initial implementation we are converting the values prior to ramping, as it is easier.
-		Ultimately though, we actually want to convert the units after the ramping, 
-		for example to perform a sweep that is linear vs logarithmic
-	 */
 	if (hasRamp && hasUnit) {
 		param_convert_units(x, argc-3, argv, &ac, &av, &alloc);
 	}
@@ -1787,7 +1783,6 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->isOverriding = true;
 	}
 
-	// Check the second to last item in the list first, which when ramping should == the string ramp
 	if (hasRamp) {
 		time = atom_getfloat(argv+(argc-1));
 
@@ -1803,6 +1798,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				start[i] = atom_getfloat(&x->atom_list[(x->list_size)-1]);
 		}
 
+		// If time is negative or zero, we hit the target instantly
 		if (time <= 0) {
 			for (i = 0; i < ac; i++) {
 				switch(av[i].a_type) {
@@ -1822,7 +1818,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			}
 			x->param_output(x);
 			return;
-		}	
+		}
 		
 		// Filter repetitions depending on attributes:
 		// - if we are at target value already, no ramp is initiated
@@ -1831,6 +1827,11 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				return;	// nothing to do
 		}
 		
+		if (hasUnit) {
+			// TODO: Start value need to be converted from default unit into override unit
+		}
+		
+		// Trigger the ramp
 		x->list_size = ac;
 		x->ramper->set(ac, start);
 		x->ramper->go(ac, values, time);
