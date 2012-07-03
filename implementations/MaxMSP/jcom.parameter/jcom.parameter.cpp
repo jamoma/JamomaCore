@@ -1597,8 +1597,11 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 		else
 			return 0;		
 	}
+	// The concept of repetition filtering doesn't make sense for @type none
+	else if (x->common.attr_type==jps_none)
+		return 0;
 	
-	// Tests for @type generic, array and none
+	// Tests for @type generic and array
 	
 	// If lists differ in length they're obviously not the same
 	if (length1 == length2) {
