@@ -1186,8 +1186,37 @@ void param_output_float(void *z)
 void param_output_symbol(void *z)
 {
 	t_param *x = (t_param *)z;
+
+	char string[24];
+	t_symbol *mySymbol;
 	
 	if (atom_gettype(&x->attr_value) == A_SYM) {
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
+		param_send_feedback(x);
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
+	else if (atom_gettype(&x->attr_value) == A_FLOAT) {
+		
+		// Convert float to string
+		sprintf (string, "%f", atom_getfloat(&x->attr_value));
+		mySymbol = gensym(string);
+		atom_setsym(&x->attr_value, mySymbol);
+		
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
+		param_send_feedback(x);
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
+	else if (atom_gettype(&x->attr_value) == A_LONG) {
+		
+		//Convert int to string
+		sprintf (string, "%ld", atom_getlong(&x->attr_value));
+		mySymbol = gensym(string);
+		atom_setsym(&x->attr_value, mySymbol);
+		
 		x->isSending = YES;
 		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
 		param_send_feedback(x);
@@ -1374,6 +1403,18 @@ void param_dec(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // INT INPUT
 void param_int(t_param *x, long value)
 {
+	if (x->common.attr_type == jps_decimal) {
+		param_float(x, (double)value);
+		return;
+	}
+	else if (x->common.attr_type == jps_string) {
+		char string[16];
+		sprintf (string, "%ld", value);
+		t_symbol *msg = gensym(string);
+		param_symbol(x, msg);
+		return;
+	}
+	
 	x->list_size = 1;
 	if (x->common.attr_repetitions == 0 && x->isInitialised) {
 		if (value == atom_getlong(&x->attr_value))
@@ -1393,6 +1434,19 @@ void param_int(t_param *x, long value)
 // FLOAT INPUT
 void param_float(t_param *x, double value)
 {
+	
+	if (x->common.attr_type == jps_integer) {
+		param_int(x, (long)value);
+		return;
+	}
+	else if (x->common.attr_type == jps_string) {
+		char string[24];
+		sprintf (string, "%f", value);
+		t_symbol *msg = gensym(string);
+		param_symbol(x, msg);
+		return;
+	}
+	
 	x->list_size = 1;
 	if (x->common.attr_repetitions == 0  && x->isInitialised) {
 		if (value == atom_getfloat(&x->attr_value))
@@ -1540,13 +1594,45 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 	long length1 = lengthA;
 	long length2 = lengthB;
 	
-	// Crop list length for @type integer, decimal and string
-	if ((x->common.attr_type==jps_integer) || (x->common.attr_type==jps_decimal) || (x->common.attr_type==jps_string)) {
-		if (length1>1)
-			length1 = 1;
-		if (length2>1)
-			length2 = 1;
+	// Dedicated test for @type integer, disregards all list members but first
+	if (x->common.attr_type == jps_integer) {
+		if (lengthA && lengthB) {
+			if (atom_getlong(a) == atom_getlong(b))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;		
 	}
+	// Dedicated test for @type decimal, disregards all list members but first
+	else if (x->common.attr_type==jps_decimal) {
+		if (lengthA && lengthB) {
+			if (atom_getfloat(a) == atom_getfloat(b))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;		
+	}
+	// Dedicated test for @type string, disregards all list members but first
+	else if (x->common.attr_type==jps_string) {
+		// TODO
+		if (lengthA && lengthB) {
+			if (atom_getfloat(a) == atom_getfloat(b))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;		
+	}
+	// The concept of repetition filtering doesn't make sense for @type none
+	else if (x->common.attr_type==jps_none)
+		return 0;
+	
+	// Tests for @type generic and array
 	
 	// If lists differ in length they're obviously not the same
 	if (length1 == length2) {
@@ -1615,6 +1701,8 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	long		ac = 0;				// These two hold the input, but the input is converted into the active unit
 	AtomPtr		av = NULL;
 	bool		alloc = false;
+	char		string[24];
+	t_symbol	*mySymbol;
 
 	char*	c = strrchr(msg->s_name, ':');
 	
@@ -1735,7 +1823,9 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			x->param_output(x);
 			return;
 		}	
-
+		
+		// Filter repetitions depending on attributes:
+		// - if we are at target value already, no ramp is initiated
 		if (x->common.attr_repetitions == 0 && x->isInitialised) {
 			if (param_list_compare(x, x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
@@ -1746,18 +1836,19 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->ramper->go(ac, values, time);
 	} 
 	else {
-		// Don't output if the input data is identical
+				
+		// Filter repetitions depending on attributes:
 		if (x->common.attr_repetitions == 0 && x->isInitialised) {
 			if (param_list_compare(x, x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
 		
-		// Avoid copying more than one atom if the type only can have one argument
-		if (x->common.attr_type != jps_array && x->common.attr_type != jps_generic && x->common.attr_type != jps_none) {
-			// If attr_type is not equal to the above we know that it is a scalar or symbol.
-			ac = 1;
-		}
-			
+		// Restrict the length of the list for @type integer, boolean, decimal and string
+		if ((x->common.attr_type != jps_array) && (x->common.attr_type != jps_generic) && (x->common.attr_type != jps_none))
+			if (ac>1)
+				ac = 1;
+		
+		// Copy values
 		for (i = 0; i < ac; i++) {
 			switch(av[i].a_type) {
 				case A_LONG:

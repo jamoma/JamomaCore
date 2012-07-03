@@ -1,7 +1,8 @@
 /* 
  * jcom.param - clipping and range methods
  * By Tim Place, Copyright � 2006
- * 
+ * Nils Peters:  added Clip and Wrap method
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */

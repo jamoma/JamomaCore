@@ -8,6 +8,7 @@
  */
 
 #include "Jamoma.h"
+#include "TTAudioObject.h"	// use the ttblue clipping functions
 
 enum outlets{
 	k_outlet_thru = 0,
@@ -341,6 +342,13 @@ void return_int(t_return *x, long value)
 		return_float(x, (double)value);
 		return;
 	}
+	else if (x->common.attr_type == jps_string) {
+		char string[16];
+		sprintf (string, "%ld", value);
+		t_symbol *msg = gensym(string);
+		return_symbol(x, msg, 0, 0L);
+		return;
+	}
 	
 	if (x->common.attr_repetitions == 0) {
 		if (value == atom_getlong(&x->output[1]))
@@ -375,6 +383,13 @@ void return_float(t_return *x, double value)
 	
 	if (x->common.attr_type == jps_integer) {
 		return_int(x, (long)value);
+		return;
+	}
+	else if (x->common.attr_type == jps_string) {
+		char string[24];
+		sprintf (string, "%f", value);
+		t_symbol *msg = gensym(string);
+		return_symbol(x, msg, 0, 0L);
 		return;
 	}
 	
@@ -434,7 +449,9 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 			
 			delete[] rv;
 		}
-	else { //assuming jps_string now		
+	else { //assuming jps_string now
+		
+		// Filter repetitions
 		if (x->common.attr_repetitions == 0) {
 			if (msg == atom_getsym(&x->output[1]))
 			return;
@@ -463,23 +480,30 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 	if (!x->attrEnable)
 		return;
 	
-	int i;
+	
 	short offset = 1;
 	
-	if ((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean)) {
+	if ((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean))
 		return_int(x, atom_getlong(argv));
+	else if (x->common.attr_type == jps_decimal)
+		return_float(x, atom_getfloat(argv));
+	else if (x->common.attr_type == jps_string){
+		if (argc) {
+			if (argv[0].a_type == A_FLOAT)
+				return_float(x, atom_getfloat(argv));
+			else if (argv[0].a_type == A_LONG)
+				return_int(x, atom_getlong(argv));
+			else if (argv[0].a_type == A_SYM)
+				return_symbol(x, atom_getsym(argv), 0, 0L);
 		}
-	else if (x->common.attr_type == jps_decimal){
-			return_float(x, atom_getfloat(argv));
-		}
-	else if (x->common.attr_type == jps_string){					
-			return_symbol(x, msg, 0, argv);
-		}
+		else
+			return;
+	}
 	
 	else {								// type is none, generic or array:
 		
 		// If the list starts with a symbol, this need to be passed as the message from k_outlet_thru, and the list of arguments need to be reduced by one
-		if (argv[0].a_type == A_SYM){
+		if (argv[0].a_type == A_SYM){			
 			offset++; 	
 		}
 			
@@ -490,9 +514,50 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 				return;	// nothing to do
 		}	
 		
-		for (i=1; i<=argc; i++) {
-			jcom_core_atom_copy(&x->output[i], argv++);		
+		float fclipped;
+		long iclipped;
+		int i;
+		
+		if (x->common.attr_clipmode == jps_none){ //clipnode is none, nothing to check	
+			for (i=1; i<=argc; i++)
+				jcom_core_atom_copy(&x->output[i], &argv[i-1]); 		
 		}
+		else{		
+			for (i=1; i<=argc; i++) {
+				if (argv[i-1].a_type == A_LONG) {
+					iclipped = argv[i-1].a_w.w_long;				
+					if (x->common.attr_clipmode == jps_low)
+						TTLimitMin(iclipped, (long)x->common.attr_range[0]);
+					else if (x->common.attr_clipmode == jps_high)
+						TTLimitMax(iclipped, (long)x->common.attr_range[1]);
+					else if (x->common.attr_clipmode == jps_both)						
+						TTLimit(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);						
+					else if (x->common.attr_clipmode == jps_wrap)
+						iclipped = TTInfWrap(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+					else if (x->common.attr_clipmode == jps_fold)
+						iclipped = TTFold(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);					
+
+					atom_setlong(x->output+i, iclipped);					
+				}
+				else if (argv[i-1].a_type == A_FLOAT) {
+					fclipped = argv[i-1].a_w.w_float;
+					if (x->common.attr_clipmode == jps_low)
+						TTLimitMin(fclipped, x->common.attr_range[0]);
+					else if (x->common.attr_clipmode == jps_high)
+						TTLimitMax(fclipped, x->common.attr_range[1]);
+					else if (x->common.attr_clipmode == jps_both)
+						TTLimit(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
+					else if (x->common.attr_clipmode == jps_wrap)
+						fclipped = TTInfWrap(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
+					else if (x->common.attr_clipmode == jps_fold)
+						fclipped = TTFold(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
+					
+					atom_setfloat(x->output+i, fclipped);					
+				}
+				else
+					jcom_core_atom_copy(&x->output[i], &argv[i-1]);// in case we have strings inside the list
+			}
+		}				
 		
 		x->output_len = i;
 		x->input_len = x->output_len-1;
