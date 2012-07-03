@@ -28,6 +28,36 @@
 		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"bubble" : 1,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : 0.0,
+					"id" : "obj-13",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 326.0, 71.0, 150.0, 35.0 ],
+					"text" : "Required in order to solve issue #1170"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-9",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 245.0, 79.0, 53.0, 19.0 ],
+					"text" : "deferlow"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-11",
@@ -767,7 +797,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 352.0, 307.0, 70.0, 19.0 ],
+					"patching_rect" : [ 352.0, 331.0, 70.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -1526,7 +1556,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 273.0, 307.0, 70.0, 19.0 ],
+					"patching_rect" : [ 273.0, 331.0, 70.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -1553,7 +1583,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "bang" ],
-					"patching_rect" : [ 245.0, 84.0, 34.0, 19.0 ],
+					"patching_rect" : [ 245.0, 108.0, 34.0, 19.0 ],
 					"text" : "t b b"
 				}
 
@@ -1567,7 +1597,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 260.0, 118.0, 130.0, 20.0 ],
+					"patching_rect" : [ 260.0, 142.0, 130.0, 20.0 ],
 					"text" : "s start-jamoma-testing"
 				}
 
@@ -1660,7 +1690,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 245.0, 275.0, 151.0, 19.0 ],
+					"patching_rect" : [ 245.0, 299.0, 151.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
@@ -1766,7 +1796,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 245.0, 240.0, 98.0, 19.0 ],
+					"patching_rect" : [ 245.0, 264.0, 98.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
@@ -1794,7 +1824,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 275.0, 410.0, 226.0, 31.0 ],
+					"patching_rect" : [ 275.0, 434.0, 226.0, 31.0 ],
 					"text" : "The gate prevents the patch from closing by itself if opened with loadbang disabled"
 				}
 
@@ -1808,7 +1838,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 160.0, 380.0, 68.0, 19.0 ],
+					"patching_rect" : [ 160.0, 404.0, 68.0, 19.0 ],
 					"text" : "loadmess 1"
 				}
 
@@ -5293,7 +5323,7 @@
 																	"maxclass" : "newobj",
 																	"numinlets" : 2,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 444.0, 722.0, 353.0, 43.0 ],
+																	"patching_rect" : [ 444.0, 722.0, 354.0, 43.0 ],
 																	"text" : "jcom.test.assert.equal.old jcom.message:typeDecimal:receiveListStartingWithInt:noRepetition 1 @issue 1169"
 																}
 
@@ -10473,7 +10503,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 245.0, 171.0, 69.0, 19.0 ],
+					"patching_rect" : [ 245.0, 195.0, 69.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
@@ -18224,7 +18254,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 245.0, 205.0, 73.0, 19.0 ],
+					"patching_rect" : [ 245.0, 229.0, 73.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
@@ -18250,7 +18280,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 225.0, 410.0, 39.0, 32.0 ]
+					"patching_rect" : [ 225.0, 434.0, 39.0, 32.0 ]
 				}
 
 			}
@@ -18288,7 +18318,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 245.0, 450.0, 67.0, 19.0 ],
+					"patching_rect" : [ 245.0, 474.0, 67.0, 19.0 ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
 					"text" : "thispatcher"
 				}
@@ -18304,7 +18334,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 245.0, 340.0, 100.0, 19.0 ],
+					"patching_rect" : [ 245.0, 364.0, 100.0, 19.0 ],
 					"text" : "jcom.test.finished"
 				}
 
@@ -18342,7 +18372,7 @@
 					"destination" : [ "obj-5", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 169.5, 404.0, 234.5, 404.0 ],
+					"midpoints" : [ 169.5, 428.0, 234.5, 428.0 ],
 					"source" : [ "obj-21", 0 ]
 				}
 
@@ -18403,10 +18433,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
+					"destination" : [ "obj-9", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
