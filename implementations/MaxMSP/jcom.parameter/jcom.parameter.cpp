@@ -1734,9 +1734,10 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	SymbolPtr	unit;
 	bool		hasRamp = false;
 	bool		hasUnit = false;
-	long		ac = 0;				// These two hold the input, but the input is converted into the active unit
-	AtomPtr		av = NULL;
-	bool		alloc = false;
+	AtomCount	vectorSize	= argc;
+	//long		ac = 0;				// These two hold the input, but the input is converted into the active unit
+	//AtomPtr		av = NULL;
+	//bool		alloc = false;
 
 	char*	c = strrchr(msg->s_name, ':');
 	
@@ -1792,46 +1793,36 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 	}
 
-	x->isOverriding = false;
-	
-	if (hasRamp && hasUnit) {
-		param_convert_units(x, argc-3, argv, &ac, &av, &alloc);
-	}
-	else if (hasRamp) {
-		param_convert_units(x, argc-2, argv, &ac, &av, &alloc);
-	}
-	else if (hasUnit) {
-		param_convert_units(x, argc-1, argv, &ac, &av, &alloc);
-	}
-	else {
-		param_convert_units(x, argc, argv, &ac, &av, &alloc);
-	}
-
-	// This implementation is pretty lame at the moment, but prevents the conversions above from happening....
 	if (hasUnit) {
+		vectorSize =- 1;
 		param_attr_setoverrideunit(x, unit);
-		x->isOverriding = true;
 	}
+	else
+		x->isOverriding = false;
 
 	if (hasRamp) {
+		vectorSize =- 2;
+		
 		time = atom_getfloat(argv+(argc-1));
 
 		// Only one list member if @type is integer or decimal
-		if ( x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal)
-			ac = 1;
+		if (x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal) {
+			if (vectorSize > 1)
+				vectorSize = 1;
+		}
 
 		// If time is negative or zero, we hit the target instantly
 		if (time <= 0) {
-			for (i = 0; i < ac; i++) {
-				switch(av[i].a_type) {
+			for (i = 0; i < vectorSize; i++) {
+				switch(argv[i].a_type) {
 					case A_LONG:
-						atom_setlong(&x->atom_list[i], atom_getlong(av + i));
+						atom_setlong(&x->atom_list[i], atom_getlong(argv + i));
 						break;
 					case A_FLOAT:
-						atom_setfloat(&x->atom_list[i], atom_getfloat(av + i));
+						atom_setfloat(&x->atom_list[i], atom_getfloat(argv + i));
 						break;
 					case A_SYM:
-						atom_setsym(&x->atom_list[i], atom_getsym(av + i));
+						atom_setsym(&x->atom_list[i], atom_getsym(argv + i));
 						break;
 					default:
 						error("param_list: no type specification");
@@ -1845,13 +1836,13 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// Filter repetitions depending on attributes:
 		// - if we are at target value already, no ramp is initiated
 		if (x->common.attr_repetitions == 0 && x->isInitialised) {
-			if (param_list_compare(x, x->atom_list, x->list_size, av, ac))
+			if (param_list_compare(x, x->atom_list, x->list_size, argv, vectorSize))
 				return;	// nothing to do
 		}
 		
 		// Set the start value(s) for the ramp
-		for (i=0; i<ac; i++) {
-			values[i] = atom_getfloat(av+i);
+		for (i=0; i<vectorSize; i++) {
+			values[i] = atom_getfloat(argv+i);
 			if (i <= x->list_size)
 				start[i] = atom_getfloat(&x->atom_list[i]);
 			else
@@ -1863,46 +1854,42 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 		
 		// Trigger the ramp
-		x->list_size = ac;
-		x->ramper->set(ac, start);
-		x->ramper->go(ac, values, time);
+		x->list_size = vectorSize;
+		x->ramper->set(vectorSize, start);
+		x->ramper->go(vectorSize, values, time);
 	} 
-	else {
-				
+	else {		
 		// Filter repetitions depending on attributes:
 		if (x->common.attr_repetitions == 0 && x->isInitialised) {
-			if (param_list_compare(x, x->atom_list, x->list_size, av, ac))
+			if (param_list_compare(x, x->atom_list, x->list_size, argv, vectorSize))
 				return;	// nothing to do
 		}
 		
 		// Restrict the length of the list for @type integer, boolean, decimal and string
 		if ((x->common.attr_type != jps_array) && (x->common.attr_type != jps_generic) && (x->common.attr_type != jps_none))
-			if (ac>1)
-				ac = 1;
+			if (vectorSize>1)
+				vectorSize = 1;
 		
 		// Copy values
-		for (i = 0; i < ac; i++) {
-			switch(av[i].a_type) {
+		for (i = 0; i < vectorSize; i++) {
+			switch(argv[i].a_type) {
 				case A_LONG:
-					atom_setlong(&x->atom_listTemp[i], atom_getlong(av + i));
+					atom_setlong(&x->atom_listTemp[i], atom_getlong(argv + i));
 					break;
 				case A_FLOAT:
-					atom_setfloat(&x->atom_listTemp[i], atom_getfloat(av + i));
+					atom_setfloat(&x->atom_listTemp[i], atom_getfloat(argv + i));
 					break;
 				case A_SYM:
-					atom_setsym(&x->atom_listTemp[i], atom_getsym(av + i));
+					atom_setsym(&x->atom_listTemp[i], atom_getsym(argv + i));
 					break;
 				default:
 					error("param_list: no type specification");
 					break;
 			}
 		}
-		x->listTemp_size = ac;
+		x->listTemp_size = vectorSize;
 		x->param_output(x);
 	}
-	
-	if (alloc)
-		delete[] av;
 }
 
 
