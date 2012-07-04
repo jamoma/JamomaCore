@@ -218,6 +218,7 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->atom_listDefault  = new Atom[JAMOMA_LISTSIZE];
 		
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_override2unit, kTTValNONE);
+		TTObjectInstantiate(TT("dataspace"), &x->dataspace_unit2override, kTTValNONE);
 		
 		// defaulted to one long above, set list to be of size 1
 		x->list_size = 1;
@@ -287,6 +288,7 @@ void param_free(t_param *x)
 	delete x->rampParameterNames;
 	
 	TTObjectRelease(&x->dataspace_override2unit);
+	TTObjectRelease(&x->dataspace_unit2override);
 	
 	delete [] x->atom_list;
 	delete [] x->atom_listTemp;
@@ -851,6 +853,7 @@ MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr a
 		
 		v = TT(x->attr_dataspace->s_name);
 		x->dataspace_override2unit->setAttributeValue(TT("dataspace"), v);
+		x->dataspace_unit2override->setAttributeValue(TT("dataspace"), v);
 		
 		// If there is already a unit defined, then we try to use that
 		// Otherwise we use the default (neutral) unit.
@@ -859,6 +862,9 @@ MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr a
 			// override always defaults to the active unit
 			err = x->dataspace_override2unit->setAttributeValue(TT("inputUnit"), TT(x->attr_unit->s_name));
 			err = x->dataspace_override2unit->setAttributeValue(TT("outputUnit"), TT(x->attr_unit->s_name));
+			
+			err = x->dataspace_unit2override->setAttributeValue(TT("outputUnit"), TT(x->attr_unit->s_name));
+			err = x->dataspace_unit2override->setAttributeValue(TT("inputUnit"), TT(x->attr_unit->s_name));
 		}
 
 		// TODO: Må tenke over denne her, slik at attr_unit blir satt riktig
@@ -888,6 +894,7 @@ MaxErr param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr 
 		x->attr_unit = atom_getsym(argv);
 
 		x->dataspace_override2unit->setAttributeValue(TT("outputUnit"), TT(x->attr_unit->s_name));
+		x->dataspace_unit2override->setAttributeValue(TT("inputUnit"), TT(x->attr_unit->s_name));
 	}
 	return MAX_ERR_NONE;
 }
@@ -896,6 +903,7 @@ MaxErr param_attr_setoverrideunit(t_param *x, SymbolPtr unit)
 {
 		x->attr_unitOverride = unit;		
 		x->dataspace_override2unit->setAttributeValue(TT("inputUnit"), TT(x->attr_unitOverride->s_name));
+		x->dataspace_unit2override->setAttributeValue(TT("outputUnit"), TT(x->attr_unitOverride->s_name));
 		x->isOverriding = true;
 
 	return MAX_ERR_NONE;
@@ -1692,6 +1700,28 @@ void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, Atom
 	}
 }
 
+void param_inverseConvert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
+{
+	TTLimitMax(argc, (long)JAMOMA_LISTSIZE);
+	
+	if ((x->attr_dataspace != _sym_none) && (x->isOverriding)) {
+		TTValue	vInput, vOutput;
+		
+		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
+		
+		TTValueFromAtoms(vInput, argc, argv);
+		x->dataspace_unit2override->sendMessage(TT("convert"), vInput, vOutput);
+		TTAtomsFromValue(vOutput, rc, rv);
+		
+		*alloc = true;
+	}
+	else {
+		*rc = argc;
+		*rv = argv;
+		*alloc = false;
+	}
+}
+
 
 // LIST INPUT <value, dataspace, ramptime>
 void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -1789,14 +1819,6 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// Only one list member if @type is integer or decimal
 		if ( x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal)
 			ac = 1;
-		
-		for (i=0; i<ac; i++) {
-			values[i] = atom_getfloat(av+i);
-			if (i <= x->list_size)
-				start[i] = atom_getfloat(&x->atom_list[i]);
-			else
-				start[i] = atom_getfloat(&x->atom_list[(x->list_size)-1]);
-		}
 
 		// If time is negative or zero, we hit the target instantly
 		if (time <= 0) {
@@ -1825,6 +1847,15 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if (x->common.attr_repetitions == 0 && x->isInitialised) {
 			if (param_list_compare(x, x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
+		}
+		
+		// Set the start value(s) for the ramp
+		for (i=0; i<ac; i++) {
+			values[i] = atom_getfloat(av+i);
+			if (i <= x->list_size)
+				start[i] = atom_getfloat(&x->atom_list[i]);
+			else
+				start[i] = atom_getfloat(&x->atom_list[(x->list_size)-1]);
 		}
 		
 		if (hasUnit) {

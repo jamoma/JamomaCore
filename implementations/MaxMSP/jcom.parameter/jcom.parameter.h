@@ -57,7 +57,8 @@ typedef struct _param{
 	SymbolPtr		attr_rampfunction;			///< Attribute for setting the function used by the ramping
 	TTHashPtr		rampParameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 	SymbolPtr		attr_dataspace;				///< The dataspace that this parameter uses (default is 'none')
-	TTObjectPtr		dataspace_override2unit;	///< Performs conversion from messages like 'gain -6 db' to the active unit
+	TTObjectPtr		dataspace_override2unit;	///< Pointer to dataspace used to convert values from override to active unit
+	TTObjectPtr		dataspace_unit2override;	///< Pointer to dataspace used to convert values from active to override unit
 	SymbolPtr		attr_unit;			///< The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
 	SymbolPtr		attr_unitOverride;			///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
 	TTBoolean		isOverriding;				///< flag indicating if we are currently overriding the active unit.
@@ -74,6 +75,7 @@ typedef struct _param{
 
 /** The jcom.parameter constructor */
 void		*param_new(SymbolPtr s, AtomCount argc, AtomPtr argv);
+
 
 /** The parameter deconstructor, frees any memory used by the parameter
  * @param x the parameter who's memory should be freed
@@ -92,47 +94,57 @@ void		param_subscribe(t_param *x);
  * @param dst destination that assistance string is copied to */
 void		param_assist(t_param *x, void *b, long msg, long arg, char *dst);
 
+
 /**	Create the direct receive object. */
 void		param_makereceive(void *z);
+
 
 /** Use for debugging - dump state to the Max window.
  * @param x the parameter instance to be investigated. */
 void		param_dump(t_param *x);
 
+
 /**'bang'method for user input. Return current value(s) locally, and request jcom.hub to process current value in usual fashion.
  * @param x The parameter instance */
 void		param_bang(t_param *x);
+
 
 /** Method called from the bang method pointer in our struct in order to output an int.
  * @param z The parameger instance that is requested to output an int.
  * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void 		param_output_int(void *z);
 
+
 /** Method called from the bang method pointer in our struct in order to output a float.
  * @param z The parameger instance that is requested to output a float.
  * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void 		param_output_float(void *z);
+
 
 /** Method called from the bang method pointer in our struct in order to output a symbol.
  * @param z The parameger instance that is requested to output a symbol.
  * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void 		param_output_symbol(void *z);
 
+
 /** Method called from the bang method pointer in our struct in order to output a generic message.
  * @param z The parameger instance that is requested to output a generic message.
  * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void 		param_output_generic(void *z);
+
 
 /** Method called from the bang method pointer in our struct in order to output a list.
  * @param z The parameger instance that is requested to output a list.
  * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void 		param_output_list(void *z);
 
+
 /** Method called from the bang method pointer in our struct in order to output a message with no arguments.
     Typically used by jcom.return to return an OSC message with no arguments.
  * @param z The parameger instance that is requested to output a message.
  * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void		param_output_none(void *z);
+
 
 /** Increase parameter value in steps. 
 	Optional arguments passed as pointer to array of atoms specify
@@ -146,6 +158,7 @@ void		param_output_none(void *z);
 	@see param_inc param_dec */
 void 		param_inc(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+
 /** Decrease parameter value in steps. 
 	Optional arguments passed as pointer to array of atoms specify
 	how many steps to increase value by,
@@ -158,6 +171,7 @@ void 		param_inc(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 	@see param_inc param_dec */
 void 		param_dec(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+
 void		param_notify(t_param *x, SymbolPtr s, SymbolPtr msg, void *sender, void *data);
 
 void		param_int(t_param *x, long n);
@@ -165,6 +179,7 @@ void		param_float(t_param *x, double f);
 void		param_symbol(t_param *x, SymbolPtr s);
 void		param_anything(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void 		param_send_feedback(t_param *x);
+
 
 /**	Convert a list of atoms through the DataspaceLib from the override unit to active unit.
 	@param	x		Parameter or Message instance pointer.
@@ -176,6 +191,20 @@ void 		param_send_feedback(t_param *x);
 					If no memory was allocated, then rv will be pointing to argv and alloc will be set to false.
 */
 void		param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc);
+
+
+/**	Convert a list of atoms through the DataspaceLib from the active unit to the override unit.
+ When initating a ramp this is required in order to convert the start position of the ramp from default to override unit.
+ @param	x		Parameter or Message instance pointer.
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.
+ @param	rc		A pointer to a variable that will hold the number of returned atoms.
+ @param	rv		A pointer to the address of the first of an array of output atoms.
+ @param	alloc	A pointer to a bool that will be true if memory was allocated to the rv parameter.
+ If no memory was allocated, then rv will be pointing to argv and alloc will be set to false.
+ */
+void		param_inverseConvert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc);
+
 
 void		param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		param_ramp_callback_float(void *v, float value);
@@ -191,34 +220,214 @@ void		atom_clip(t_param *x, AtomPtr a);
 */
 void 		param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+
+/** Reset the parameteer or message object to its default value(s). This function allocates memory, and the caller must free it!
+ @param	x		Parameter or Message instance pointer.
+ @param count	The number of attributes that the object contains.
+ @param names	Array of attribute names.
+ */
 void		param_getattrnames(t_param *x, long* count, SymbolPtr** names);
 
+
+/** Get the ramp attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getramp(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the ramp attribute for the object. This is crucial because it sets function pointers that links to the ramp driving mechanism to be used, as defined in the RampLib.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_setramp(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+
+/** Get the type attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_gettype(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the type attribute for the object. This is crucial because it sets function pointers for the optimized clipping, bang, and other functions.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr 	param_attr_settype(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+
+/** Get the freeze attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getfreeze(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the freeze attribute for the object. This can be used to freeze user interface updates, freeing up drawing resources for e.g. Jitter processing.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_setfreeze(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+
+/** Get the step size attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getstepsize(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the step size attribute for the object. If a parameter is requested to increase or decrease its value through :/inc and :/dec messages, this attribute determines the size of the incremental and decremental steps.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_setstepsize(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 
+
 #ifndef JMOD_MESSAGE
+/** Get the mix/weight attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getmixweight(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the mix/weight attribute for the object, used for preset interpolations.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_setmixweight(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+
+/** Get the priority attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getpriority(t_param *x, void *attr, long *argc, AtomPtr *argv);
-MaxErr	param_attr_setpriority(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+
+
+/** Set the priority attribute for the object, determining if this parameter have a priority over other parameters when a preset is recalled.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */MaxErr	param_attr_setpriority(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
 #endif
 
+
+/** Set the readonly attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getreadonly(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the readonly attribute for the object. If this attribute is TRUE, the value of the parameter is read only, and can not be changed or updated over the life span of the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_setreadonly(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+
+/** Set the value attribute for the object. This can be used to query the Parameter or Message for it's currently stored value.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getvalue(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the type attribute for the object. This can be used to change the currently stored value(s) of the Parameter or Message.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_setvalue(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+
+/** Get the type attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getdefault(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the default value attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_setdefault(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+
+/** Get the dataspace attribute for the object. 
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getdataspace(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the dataspace attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
+
+/** Get the dataspace unit attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_getactiveunit(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
+
+/** Set the dataspace unit attribute for the object.
+ @param	x		Parameter or Message instance pointer.
+ @param	msg		The message received (bang, int, float, list or symbol).
+ @param	argc	The number of input atoms.
+ @param	argv	The address of the first of an array of input atoms.	
+ */
 MaxErr	param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+
 
 /** Set the override dataspace unit. Temporarily overrides x->attr_unit. x->attr_unitOverride is not exposed as an attribute, and hence we van make do with a simpler interface when calling the method.
  @param	x		Parameter or Message instance pointer.
@@ -226,17 +435,26 @@ MaxErr	param_attr_setactiveunit(t_param *x, void *attr, AtomCount argc, AtomPtr 
  */
 MaxErr param_attr_setoverrideunit(t_param *x, SymbolPtr unit);
 
+
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);
 void		param_ui_queuefn(t_param *x);
 #ifndef JMOD_MESSAGE
-MaxErr 	param_setvalueof(t_param *x, AtomCount argc, AtomPtr argv);
-MaxErr 	param_getvalueof(t_param *x, long *argc, AtomPtr *argv);
+MaxErr		param_setvalueof(t_param *x, AtomCount argc, AtomPtr argv);
+MaxErr		param_getvalueof(t_param *x, long *argc, AtomPtr *argv);
+
+
+/** Reset the parameteer or message object to its default value(s).
+ @param	x		Parameter or Message instance pointer.
+ */
 void		param_reset(t_param *x);
+
+
 #endif
 void		param_setcallback(t_param *x, method newCallback, t_object *callbackArg);
-MaxErr	param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
-MaxErr	param_attr_getrampfunction(t_param *x, void *attr, long *argc, AtomPtr *argv);
+MaxErr		param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPtr argv);
+MaxErr		param_attr_getrampfunction(t_param *x, void *attr, long *argc, AtomPtr *argv);
+
 
 // Defined in jcom.parameter.clip.c
 bool 		param_clip_generic(t_param *x);
