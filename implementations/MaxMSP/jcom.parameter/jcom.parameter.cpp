@@ -1794,14 +1794,14 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 
 	if (hasUnit) {
-		vectorSize =- 1;
+		vectorSize -= 1;
 		param_attr_setoverrideunit(x, unit);
 	}
 	else
 		x->isOverriding = false;
 
 	if (hasRamp) {
-		vectorSize =- 2;
+		vectorSize -= 2;
 		
 		time = atom_getfloat(argv+(argc-1));
 
