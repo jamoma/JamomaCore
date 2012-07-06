@@ -1141,14 +1141,41 @@ void param_output_generic(void *z)
 void param_output_int(void *z)
 {
 	t_param *x = (t_param *)z;
+	TTBoolean	didClip;
+	
+	long oldVal = atom_getlong(&x->attr_value);
+	float newValAsFloat = atom_getfloat(&x->attr_valueTemp);
+	
+	// Dataspace conversion
+	if (x->isOverriding)
+	{
+		Atom	a;
+		long	ac = 0;
+		AtomPtr	av = NULL;
+		bool	alloc = false;
+		
+		atom_setfloat(&a, newValAsFloat);
+		param_convert_units(x, 1, &a, &ac, &av, &alloc);
+		newValAsFloat = atom_getfloat(av);
+		if (alloc)
+			delete[] av;
+	}
 
+	// Round to integer and store
+	atom_setlong(&x->attr_value, round(newValAsFloat));
+	
+	// Clipping
 	if (param_clip_int(x) && x->ramper)
 		x->ramper->stop();
-	x->isSending = YES;
-	outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
-	param_send_feedback(x);
-	x->isSending = NO;
-	x->isInitialised = YES;	// We have had our value set at least once
+	
+	// Test for repetitions before outputting
+	if (x->common.attr_repetitions || (atom_getlong(&x->attr_value) != oldVal)) {
+		x->isSending = YES;
+		outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
+		param_send_feedback(x);
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
 }
 
 
@@ -1176,6 +1203,7 @@ void param_output_float(void *z)
 	}
 	
 	// Filter repetitions
+	// TODO: Filtering need to happen after clipping, or we might output same value several times at the outer limits of the clip range
 	if (x->common.attr_repetitions || (newval != oldval)) {
 		
 		// Update stored value
@@ -1440,7 +1468,8 @@ void param_int(t_param *x, long value)
 	if (x->ramper)
 		x->ramper->stop();
 	
-	atom_setlong(&x->attr_value, value);
+	// Store new value in temp location for now
+	atom_setlong(&x->attr_valueTemp, value);
 	x->param_output(x);
 }
 
@@ -1917,10 +1946,10 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void param_ramp_callback_float(void *v, long, double *value)
 {
 	t_param *x = (t_param *)v;
-	//float	oldval = atom_getfloat(&x->attr_value);
-	//float	newval = *value;
-
 	/*
+	float	oldval = atom_getfloat(&x->attr_value);
+	float	newval = *value;
+
 	// Dataspace conversion
 	if (x->isOverriding)
 	{
@@ -1935,10 +1964,10 @@ void param_ramp_callback_float(void *v, long, double *value)
 		if (alloc)
 			delete[] av;
 	}
-	 */
+	*/
 	
-	// TODO: Repetition filtering need to happen in output method instead, after dataspace conversion. For this reaosn we copy to valueTemp for now, and continue processing in the output method
-	//if (x->common.attr_repetitions || newval != oldval) {
+	// TODO: Repetition filtering need to happen in output method instead, after dataspace conversion. For this reason we copy to valueTemp for now, and continue processing in the output method
+	//if (x->common.attr_repetitions || newval != oldval) { 
 	atom_setfloat(&x->attr_valueTemp, *value);
 	param_output_float(x);
 }
@@ -1947,6 +1976,7 @@ void param_ramp_callback_float(void *v, long, double *value)
 void param_ramp_callback_int(void *v, long, double *value)
 {
 	t_param	*x= (t_param *)v;
+	/*
 	
 	long	oldval = atom_getlong(&x->attr_value);
 	float	newval = (float)*value;
@@ -1970,9 +2000,11 @@ void param_ramp_callback_int(void *v, long, double *value)
 	long	val	= round(newval);
 	
 	if (x->common.attr_repetitions || val != oldval) {
-		atom_setlong(&x->attr_value, val);
-		param_output_int(x);
-	}
+	 */
+	// Repetition filtering need to happen in output method, after dataspace conversion. For this reason we copy to valueTemp for now, and continue processing in the output method.
+	atom_setfloat(&x->attr_valueTemp, *value);
+	param_output_int(x);
+	//}
 }
 
 
