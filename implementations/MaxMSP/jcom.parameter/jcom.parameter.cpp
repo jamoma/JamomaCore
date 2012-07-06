@@ -1840,17 +1840,35 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				return;	// nothing to do
 		}
 		
-		// Set the start value(s) for the ramp
-		for (i=0; i<vectorSize; i++) {
-			values[i] = atom_getfloat(argv+i);
-			if (i <= x->list_size)
-				start[i] = atom_getfloat(&x->atom_list[i]);
-			else
-				start[i] = atom_getfloat(&x->atom_list[(x->list_size)-1]);
-		}
-		
 		if (hasUnit) {
-			// TODO: Start value need to be converted from default unit into override unit
+			// If we have an override unit, the start value(s) need to be converted from default unit into override unit
+			AtomPtr	convertedStartValues = NULL;
+			long	ac = 0;
+			bool	alloc = false;
+			
+			param_inverseConvert_units(x, x->list_size, x->atom_list, &ac, &convertedStartValues, &alloc);
+			
+			// Set the start and end value(s) for the ramp
+			for (i=0; i<vectorSize; i++) {
+				values[i] = atom_getfloat(argv+i);
+				if (i <= x->list_size)
+					start[i] = atom_getfloat(&convertedStartValues[i]);
+				else
+					start[i] = atom_getfloat(&convertedStartValues[(x->list_size)-1]);
+			}
+			
+			if (alloc)
+				delete[] convertedStartValues;
+		}
+		else {
+			// Set the start an end value(s) for the ramp
+			for (i=0; i<vectorSize; i++) {
+				values[i] = atom_getfloat(argv+i);
+				if (i <= x->list_size)
+					start[i] = atom_getfloat(&x->atom_list[i]);
+				else
+					start[i] = atom_getfloat(&x->atom_list[(x->list_size)-1]);
+			}
 		}
 		
 		// Trigger the ramp
