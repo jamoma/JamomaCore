@@ -1764,9 +1764,6 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	bool		hasRamp = false;
 	bool		hasUnit = false;
 	AtomCount	vectorSize	= argc;
-	//long		ac = 0;				// These two hold the input, but the input is converted into the active unit
-	//AtomPtr		av = NULL;
-	//bool		alloc = false;
 
 	char*	c = strrchr(msg->s_name, ':');
 	
@@ -1862,13 +1859,6 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			return;
 		}
 		
-		// Filter repetitions depending on attributes:
-		// - if we are at target value already, no ramp is initiated
-		if (x->common.attr_repetitions == 0 && x->isInitialised) {
-			if (param_list_compare(x, x->atom_list, x->list_size, argv, vectorSize))
-				return;	// nothing to do
-		}
-		
 		if (hasUnit) {
 			// If we have an override unit, the start value(s) need to be converted from default unit into override unit
 			AtomPtr	convertedStartValues = NULL;
@@ -1905,13 +1895,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->ramper->set(vectorSize, start);
 		x->ramper->go(vectorSize, values, time);
 	} 
-	else {		
-		// Filter repetitions depending on attributes:
-		if (x->common.attr_repetitions == 0 && x->isInitialised) {
-			if (param_list_compare(x, x->atom_list, x->list_size, argv, vectorSize))
-				return;	// nothing to do
-		}
-		
+	else {
 		// Restrict the length of the list for @type integer, boolean, decimal and string
 		if ((x->common.attr_type != jps_array) && (x->common.attr_type != jps_generic) && (x->common.attr_type != jps_none))
 			if (vectorSize>1)
