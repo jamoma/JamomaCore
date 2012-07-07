@@ -1154,34 +1154,6 @@ void param_receive_callback(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr a
 		param_anything(x, msg, argc, argv);
 }
 
-
-void param_makereceive(void* z)
-{
-	t_param*	x = (t_param*)z;
-	Atom		a;
-	char		osc[512];
-	SymbolPtr	module_name = object_attr_getsym(x->common.hub, _sym_name);
-	
-	if (x->receive) {
-		object_free(x->receive);
-		x->receive = NULL;
-	}
-	
-	if (module_name && module_name != _sym_nothing) {
-		strcpy(osc, module_name->s_name);
-		strcat(osc, "/");
-		strcat(osc, x->common.attr_name->s_name);
-		
-		atom_setsym(&a, gensym(osc));
-		x->receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, &a);
-		object_method(x->receive, jps_setcallback, &param_receive_callback, x);
-	}
-	else
-		defer_low(x, (method)param_makereceive, 0, 0, 0);
-}
-
-
-
 // DUMP: use for debugging - dump state to the Max window
 void param_dump(t_param *x)
 {
@@ -1524,256 +1496,27 @@ void param_symbol(t_param *x, SymbolPtr value)
 	x->param_output(x);
 }
 
-// ANYTHING INPUT
-void param_anything(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	char*	c = strrchr(msg->s_name, ':');
-	long	ac = 0;
-	AtomPtr	av = NULL;
-
-	if (c) {
-		if (param_handleProperty(x, msg, argc, argv))
-			return;
-	}
-
-	ac = argc+1;
-	av = (AtomPtr)malloc(sizeof(Atom) * ac);
-	atom_setsym(av, msg);
-	memcpy(av+1, argv, sizeof(Atom) * argc);
-	param_list(x, _sym_list, ac, av);
-	free(av);
-}
-
-
-void param_ui_refresh(t_param *x)
-{
-	outlet_anything(x->outlets[k_outlet_set], _sym_set, x->list_size, &x->attr_value);
-}
-
-
-// Send feedback to the hub
-void param_send_feedback(t_param *x)
-{
-	Atom output[JAMOMA_LISTSIZE + 1];
-	AtomPtr out = (AtomPtr )(&output);
-	
-	// send to our ui outlet
-	if (!x->attr_ui_freeze)
-		qelem_set(x->ui_qelem);
-
-	// send to the object in which this parameter is embedded
-	if (x->callback)
-		x->callback(x->callbackArg, x->common.attr_name, x->list_size, x->atom_list);
-	
-	// call on the hub to pass our data onward
-	if (x->common.hub != NULL) {
-		atom_setsym(out, x->common.attr_name);
-		jcom_core_atom_copy(out+1, &x->attr_value);
-		// copy any remaining atoms
-		if (x->list_size > 1) 
-			sysmem_copyptr(&x->atom_list[1], out + 2, sizeof(Atom) * (x->list_size - 1));
-		object_method_typed(x->common.hub, jps_feedback, x->list_size + 1, out, NULL);
-	}
-	// notify listeners (pattr or jcom.paramui) that we have modified data
-#ifndef JMOD_MESSAGE
-	object_notify(x, _sym_modified, NULL);
-#endif
-}
-
-
-// Send values to a potentially connected ui object at the first outlet
-void param_ui_queuefn(t_param *x)
-{
-	outlet_anything(x->outlets[k_outlet_set], _sym_set, x->list_size, &x->attr_value);
-}
-
-
-// messages received from jcom.hub
-void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	if (!x->isSending) {
-		// new input - halt any ramping...
-		if (x->ramper)
-			x->ramper->stop();
-		x->isOverriding = 0;
-
-		if (argc == 1) {
-			// CHANGED: Not checking for repetitions here any longer
-			// If repetitions are disabled, we check for a repetition by treating
-			// this as a 1 element list
-			//if (x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x, x->atom_list, x->list_size, argv, argc)) 
-			//	return;
-			
-			// CHANGED: Not addressing dataspace here any longer
-			/*
-			if (x->attr_dataspace != _sym_none) {
-				TTValue	vInput, vOutput;
-				
-				TTValueFromAtoms(vInput, 1, argv);
-				TTAtomsFromValue(vInput, &x->list_size, &x->atom_list);				
-			}
-			else
-				jcom_core_atom_copy(&x->attr_value, argv);
-			x->list_size = 1;
-			*/
-
-			jcom_core_atom_copy(&x->attr_valueTemp, argv);
-			x->listTemp_size = 1;
-			x->param_output(x);
-		} 
-		else if (argc > 1)
-			param_list(x, msg, argc, argv);
-		else { 	// no args
-			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-			//if (x->common.attr_type == jps_generic)
-			x->list_size = 0;
-			if (x->common.attr_type != jps_array)	// zero length list parameters are not allowed
-				x->param_output(x);
-		}
-	}
-}
-
-// Returns true if lists are identical
-int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long lengthB)
-{
-	long length1 = lengthA;
-	long length2 = lengthB;
-	
-	// Dedicated test for @type integer, disregards all list members but first
-	if (x->common.attr_type == jps_integer) {
-		if (lengthA && lengthB) {
-			if (atom_getlong(a) == atom_getlong(b))
-				return 1;
-			else
-				return 0;
-		}
-		else
-			return 0;		
-	}
-	// Dedicated test for @type decimal, disregards all list members but first
-	else if (x->common.attr_type==jps_decimal) {
-		if (lengthA && lengthB) {
-			if (atom_getfloat(a) == atom_getfloat(b))
-				return 1;
-			else
-				return 0;
-		}
-		else
-			return 0;		
-	}
-	// Dedicated test for @type string, disregards all list members but first
-	else if (x->common.attr_type==jps_string) {
-		// TODO
-		if (lengthA && lengthB) {
-			if (atom_getfloat(a) == atom_getfloat(b))
-				return 1;
-			else
-				return 0;
-		}
-		else
-			return 0;		
-	}
-	// The concept of repetition filtering doesn't make sense for @type none
-	else if (x->common.attr_type==jps_none)
-		return 0;
-	
-	// Tests for @type generic and array
-	
-	// If lists differ in length they're obviously not the same
-	if (length1 == length2) {
-		short type;
-		
-		for (int i = 0; i < length1; i++) {
-			
-			// Compare type
-			type = a->a_type;
-			if (type != (b->a_type))
-				return 0; // not identical, types differ
-			
-			// Compare value
-			if 		((type == A_FLOAT) && (a->a_w.w_float != b->a_w.w_float))
-				return 0;
-			else if ((type == A_LONG)  && (a->a_w.w_long  != b->a_w.w_long))
-				return 0;
-			else if ((type == A_SYM)   && (a->a_w.w_sym   != b->a_w.w_sym))
-				return 0;
-			
-			a++; b++;  // keep going
-		}
-	} 
-	else {
-		return 0; // list lengths differ
-	}
-	
-	return 1;
-}
-
-
-void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
-{
-	TTLimitMax(argc, (long)JAMOMA_LISTSIZE);
-	
-	if ((x->attr_dataspace != _sym_none) && (x->isOverriding)) {
-		TTValue	vInput, vOutput;
-		
-		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
-		
-		TTValueFromAtoms(vInput, argc, argv);
-		x->dataspace_override2unit->sendMessage(TT("convert"), vInput, vOutput);
-		TTAtomsFromValue(vOutput, rc, rv);
-
-		*alloc = true;
-	}
-	else {
-		*rc = argc;
-		*rv = argv;
-		*alloc = false;
-	}
-}
-
-void param_inverseConvert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
-{
-	TTLimitMax(argc, (long)JAMOMA_LISTSIZE);
-	
-	if ((x->attr_dataspace != _sym_none) && (x->isOverriding)) {
-		TTValue	vInput, vOutput;
-		
-		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
-		
-		TTValueFromAtoms(vInput, argc, argv);
-		x->dataspace_unit2override->sendMessage(TT("convert"), vInput, vOutput);
-		TTAtomsFromValue(vOutput, rc, rv);
-		
-		*alloc = true;
-	}
-	else {
-		*rc = argc;
-		*rv = argv;
-		*alloc = false;
-	}
-}
-
 
 // LIST INPUT <value, dataspace, ramptime>
 void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	double		start[JAMOMA_LISTSIZE],
-				values[JAMOMA_LISTSIZE],
-				time;
+	values[JAMOMA_LISTSIZE],
+	time;
 	int			i;
 	AtomPtr		ramp;
 	SymbolPtr	unit;
 	bool		hasRamp = false;
 	bool		hasUnit = false;
 	AtomCount	vectorSize	= argc;
-
+	
 	char*	c = strrchr(msg->s_name, ':');
 	
 	if (c) {
 		if (param_handleProperty(x, msg, argc, argv))
 			return;
 	}
-
+	
 	
 	/*
 	 Check for unit and/or ramp:
@@ -1820,25 +1563,25 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			unit = atom_getsym(argv+(argc-1));
 		}
 	}
-
+	
 	if (hasUnit) {
 		vectorSize -= 1;
 		param_attr_setoverrideunit(x, unit);
 	}
 	else
 		x->isOverriding = false;
-
+	
 	if (hasRamp) {
 		vectorSize -= 2;
 		
 		time = atom_getfloat(argv+(argc-1));
-
+		
 		// Only one list member if @type is integer or decimal
 		if (x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal) {
 			if (vectorSize > 1)
 				vectorSize = 1;
 		}
-
+		
 		// If time is negative or zero, we hit the target instantly
 		if (time <= 0) {
 			for (i = 0; i < vectorSize; i++) {
@@ -1925,6 +1668,271 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
+
+// ANYTHING INPUT
+void param_anything(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	char*	c = strrchr(msg->s_name, ':');
+	long	ac = 0;
+	AtomPtr	av = NULL;
+
+	if (c) {
+		if (param_handleProperty(x, msg, argc, argv))
+			return;
+	}
+
+	ac = argc+1;
+	av = (AtomPtr)malloc(sizeof(Atom) * ac);
+	atom_setsym(av, msg);
+	memcpy(av+1, argv, sizeof(Atom) * argc);
+	param_list(x, _sym_list, ac, av);
+	free(av);
+}
+
+
+void param_ui_refresh(t_param *x)
+{
+	outlet_anything(x->outlets[k_outlet_set], _sym_set, x->list_size, &x->attr_value);
+}
+
+// Send values to a potentially connected ui object at the first outlet
+void param_ui_queuefn(t_param *x)
+{
+	outlet_anything(x->outlets[k_outlet_set], _sym_set, x->list_size, &x->attr_value);
+}
+
+
+#pragma mark -
+#pragma mark hub communication
+
+
+void param_makereceive(void* z)
+{
+	t_param*	x = (t_param*)z;
+	Atom		a;
+	char		osc[512];
+	SymbolPtr	module_name = object_attr_getsym(x->common.hub, _sym_name);
+	
+	if (x->receive) {
+		object_free(x->receive);
+		x->receive = NULL;
+	}
+	
+	if (module_name && module_name != _sym_nothing) {
+		strcpy(osc, module_name->s_name);
+		strcat(osc, "/");
+		strcat(osc, x->common.attr_name->s_name);
+		
+		atom_setsym(&a, gensym(osc));
+		x->receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, &a);
+		object_method(x->receive, jps_setcallback, &param_receive_callback, x);
+	}
+	else
+		defer_low(x, (method)param_makereceive, 0, 0, 0);
+}
+
+
+// messages received from jcom.hub
+void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	if (!x->isSending) {
+		// new input - halt any ramping...
+		if (x->ramper)
+			x->ramper->stop();
+		x->isOverriding = 0;
+
+		if (argc == 1) {
+			// CHANGED: Not checking for repetitions here any longer
+			// If repetitions are disabled, we check for a repetition by treating
+			// this as a 1 element list
+			//if (x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x, x->atom_list, x->list_size, argv, argc)) 
+			//	return;
+			
+			// CHANGED: Not addressing dataspace here any longer
+			/*
+			if (x->attr_dataspace != _sym_none) {
+				TTValue	vInput, vOutput;
+				
+				TTValueFromAtoms(vInput, 1, argv);
+				TTAtomsFromValue(vInput, &x->list_size, &x->atom_list);				
+			}
+			else
+				jcom_core_atom_copy(&x->attr_value, argv);
+			x->list_size = 1;
+			*/
+
+			jcom_core_atom_copy(&x->attr_valueTemp, argv);
+			x->listTemp_size = 1;
+			x->param_output(x);
+		} 
+		else if (argc > 1)
+			param_list(x, msg, argc, argv);
+		else { 	// no args
+			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
+			//if (x->common.attr_type == jps_generic)
+			x->list_size = 0;
+			if (x->common.attr_type != jps_array)	// zero length list parameters are not allowed
+				x->param_output(x);
+		}
+	}
+}
+
+
+// Send feedback to the hub
+void param_send_feedback(t_param *x)
+{
+	Atom output[JAMOMA_LISTSIZE + 1];
+	AtomPtr out = (AtomPtr )(&output);
+	
+	// send to our ui outlet
+	if (!x->attr_ui_freeze)
+		qelem_set(x->ui_qelem);
+	
+	// send to the object in which this parameter is embedded
+	if (x->callback)
+		x->callback(x->callbackArg, x->common.attr_name, x->list_size, x->atom_list);
+	
+	// call on the hub to pass our data onward
+	if (x->common.hub != NULL) {
+		atom_setsym(out, x->common.attr_name);
+		jcom_core_atom_copy(out+1, &x->attr_value);
+		// copy any remaining atoms
+		if (x->list_size > 1) 
+			sysmem_copyptr(&x->atom_list[1], out + 2, sizeof(Atom) * (x->list_size - 1));
+		object_method_typed(x->common.hub, jps_feedback, x->list_size + 1, out, NULL);
+	}
+	// notify listeners (pattr or jcom.paramui) that we have modified data
+#ifndef JMOD_MESSAGE
+	object_notify(x, _sym_modified, NULL);
+#endif
+}
+
+
+#pragma mark -
+#pragma mark repetition filtering
+
+// Returns true if lists are identical
+int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long lengthB)
+{
+	long length1 = lengthA;
+	long length2 = lengthB;
+	
+	// Dedicated test for @type integer, disregards all list members but first
+	if (x->common.attr_type == jps_integer) {
+		if (lengthA && lengthB) {
+			if (atom_getlong(a) == atom_getlong(b))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;		
+	}
+	// Dedicated test for @type decimal, disregards all list members but first
+	else if (x->common.attr_type==jps_decimal) {
+		if (lengthA && lengthB) {
+			if (atom_getfloat(a) == atom_getfloat(b))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;		
+	}
+	// Dedicated test for @type string, disregards all list members but first
+	else if (x->common.attr_type==jps_string) {
+		// TODO
+		if (lengthA && lengthB) {
+			if (atom_getfloat(a) == atom_getfloat(b))
+				return 1;
+			else
+				return 0;
+		}
+		else
+			return 0;		
+	}
+	// The concept of repetition filtering doesn't make sense for @type none
+	else if (x->common.attr_type==jps_none)
+		return 0;
+	
+	// Tests for @type generic and array
+	
+	// If lists differ in length they're obviously not the same
+	if (length1 == length2) {
+		short type;
+		
+		for (int i = 0; i < length1; i++) {
+			
+			// Compare type
+			type = a->a_type;
+			if (type != (b->a_type))
+				return 0; // not identical, types differ
+			
+			// Compare value
+			if 		((type == A_FLOAT) && (a->a_w.w_float != b->a_w.w_float))
+				return 0;
+			else if ((type == A_LONG)  && (a->a_w.w_long  != b->a_w.w_long))
+				return 0;
+			else if ((type == A_SYM)   && (a->a_w.w_sym   != b->a_w.w_sym))
+				return 0;
+			
+			a++; b++;  // keep going
+		}
+	} 
+	else {
+		return 0; // list lengths differ
+	}
+	
+	return 1;
+}
+
+
+#pragma mark -
+#pragma mark dataspace conversions
+
+void param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
+{
+	TTLimitMax(argc, (long)JAMOMA_LISTSIZE);
+	
+	if ((x->attr_dataspace != _sym_none) && (x->isOverriding)) {
+		TTValue	vInput, vOutput;
+		
+		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
+		
+		TTValueFromAtoms(vInput, argc, argv);
+		x->dataspace_override2unit->sendMessage(TT("convert"), vInput, vOutput);
+		TTAtomsFromValue(vOutput, rc, rv);
+
+		*alloc = true;
+	}
+	else {
+		*rc = argc;
+		*rv = argv;
+		*alloc = false;
+	}
+}
+
+void param_inverseConvert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc)
+{
+	TTLimitMax(argc, (long)JAMOMA_LISTSIZE);
+	
+	if ((x->attr_dataspace != _sym_none) && (x->isOverriding)) {
+		TTValue	vInput, vOutput;
+		
+		*rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * argc);
+		
+		TTValueFromAtoms(vInput, argc, argv);
+		x->dataspace_unit2override->sendMessage(TT("convert"), vInput, vOutput);
+		TTAtomsFromValue(vOutput, rc, rv);
+		
+		*alloc = true;
+	}
+	else {
+		*rc = argc;
+		*rv = argv;
+		*alloc = false;
+	}
+}
 
 #pragma mark -
 #pragma mark Ramp Units
