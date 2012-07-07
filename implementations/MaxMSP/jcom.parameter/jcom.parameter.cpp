@@ -1930,28 +1930,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void param_ramp_callback_float(void *v, long, double *value)
 {
 	t_param *x = (t_param *)v;
-	/*
-	float	oldval = atom_getfloat(&x->attr_value);
-	float	newval = *value;
 
-	// Dataspace conversion
-	if (x->isOverriding)
-	{
-		Atom	a;
-		long	ac = 0;
-		AtomPtr	av = NULL;
-		bool	alloc = false;
-		
-		atom_setfloat(&a, newval);
-		param_convert_units(x, 1, &a, &ac, &av, &alloc);
-		newval = atom_getfloat(av);
-		if (alloc)
-			delete[] av;
-	}
-	*/
-	
-	// TODO: Repetition filtering need to happen in output method instead, after dataspace conversion. For this reason we copy to valueTemp for now, and continue processing in the output method
-	//if (x->common.attr_repetitions || newval != oldval) { 
 	atom_setfloat(&x->attr_valueTemp, *value);
 	param_output_float(x);
 }
@@ -1960,35 +1939,9 @@ void param_ramp_callback_float(void *v, long, double *value)
 void param_ramp_callback_int(void *v, long, double *value)
 {
 	t_param	*x= (t_param *)v;
-	/*
-	
-	long	oldval = atom_getlong(&x->attr_value);
-	float	newval = (float)*value;
-	
-	// Dataspace conversion is done as float
-	if (x->isOverriding)
-	{
-		Atom	a;
-		long	ac = 0;
-		AtomPtr	av = NULL;
-		bool	alloc = false;
-		
-		atom_setfloat(&a, newval);
-		param_convert_units(x, 1, &a, &ac, &av, &alloc);
-		newval = atom_getfloat(av);
-		if (alloc)
-			delete[] av;
-	}
-	
-	// Round to int
-	long	val	= round(newval);
-	
-	if (x->common.attr_repetitions || val != oldval) {
-	 */
-	// Repetition filtering need to happen in output method, after dataspace conversion. For this reason we copy to valueTemp for now, and continue processing in the output method.
+
 	atom_setfloat(&x->attr_valueTemp, *value);
 	param_output_int(x);
-	//}
 }
 
 
