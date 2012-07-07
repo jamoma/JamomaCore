@@ -213,9 +213,9 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->rampParameterNames = new TTHash;
 
 		// TODO: we shouldn't really allocate this much memory unless we actually need it...
-		x->atom_list		 = new Atom[JAMOMA_LISTSIZE];
-		x->atom_listTemp = new Atom[JAMOMA_LISTSIZE];
-		x->atom_listDefault  = new Atom[JAMOMA_LISTSIZE];
+		x->atom_list		= new Atom[JAMOMA_LISTSIZE];
+		x->atom_listTemp	= new Atom[JAMOMA_LISTSIZE];
+		x->atom_listDefault = new Atom[JAMOMA_LISTSIZE];
 		
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_override2unit, kTTValNONE);
 		TTObjectInstantiate(TT("dataspace"), &x->dataspace_unit2override, kTTValNONE);
@@ -911,9 +911,212 @@ MaxErr param_attr_setoverrideunit(t_param *x, SymbolPtr unit)
 
 
 /************************************************************************************/
-// Methods bound to input/inlets
+
 #pragma mark -
-#pragma mark methods
+#pragma mark optimized output methods
+
+// Actual bang functions
+void param_output_generic(void *z)
+{
+	t_param *x = (t_param *)z;
+	
+	x->isSending = YES;
+	if (x->list_size == 1) {
+		param_clip_generic(x);
+		if (x->attr_value.a_type == A_LONG)
+			outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
+		else if (x->attr_value.a_type == A_FLOAT)
+			outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
+		else if (x->attr_value.a_type == A_SYM)
+			outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
+		param_send_feedback(x);
+	}
+	else if (x->list_size > 1) {
+		if (param_clip_generic(x) && x->ramper)
+			x->ramper->stop();
+		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
+		param_send_feedback(x);
+	} 
+	else {	// zero args
+		param_output_none(x);
+	}
+	x->isSending = NO;
+	x->isInitialised = YES;	// We have had our value set at least once
+}
+
+void param_output_int(void *z)
+{
+	t_param *x = (t_param *)z;
+	TTBoolean	didClip;
+	
+	long oldVal = atom_getlong(&x->attr_value);
+	float newValAsFloat = atom_getfloat(&x->attr_valueTemp);
+	
+	// Dataspace conversion
+	if (x->isOverriding)
+	{
+		Atom	a;
+		long	ac = 0;
+		AtomPtr	av = NULL;
+		bool	alloc = false;
+		
+		atom_setfloat(&a, newValAsFloat);
+		param_convert_units(x, 1, &a, &ac, &av, &alloc);
+		newValAsFloat = atom_getfloat(av);
+		if (alloc)
+			delete[] av;
+	}
+	
+	// Round to integer and store
+	atom_setlong(&x->attr_value, round(newValAsFloat));
+	
+	// Clipping
+	if (param_clip_int(x) && x->ramper)
+		x->ramper->stop();
+	
+	// Test for repetitions before outputting
+	if (x->common.attr_repetitions || (atom_getlong(&x->attr_value) != oldVal)) {
+		x->isSending = YES;
+		outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
+		param_send_feedback(x);
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
+}
+
+
+void param_output_float(void *z)
+{
+	t_param *x = (t_param *)z;
+	TTBoolean	didClip;
+	
+	float oldval = atom_getfloat(&x->attr_value);
+	float newval = atom_getfloat(&x->attr_valueTemp);
+	
+	// Dataspace conversion
+	if (x->isOverriding)
+	{
+		Atom	a;
+		long	ac = 0;
+		AtomPtr	av = NULL;
+		bool	alloc = false;
+		
+		atom_setfloat(&a, newval);
+		param_convert_units(x, 1, &a, &ac, &av, &alloc);
+		newval = atom_getfloat(av);
+		if (alloc)
+			delete[] av;
+	}
+	
+	// Filter repetitions
+	// TODO: Filtering need to happen after clipping, or we might output same value several times at the outer limits of the clip range
+	if (x->common.attr_repetitions || (newval != oldval)) {
+		
+		// Update stored value
+		atom_setfloat(&x->attr_value, newval);
+		
+		// Clip to specified range, depending on clipmode
+		didClip = param_clip_float(x);
+		
+		x->isSending = YES;
+		outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
+		param_send_feedback(x);
+		x->isSending = NO;
+		
+		x->isInitialised = YES;	// We have had our value set at least once
+		
+		// TODO: This test need to be more sofisticated to cater for wrap and fold clip modes - Redmine issue 47
+		if (didClip && x->ramper)
+			x->ramper->stop();
+	}
+}
+
+void param_output_symbol(void *z)
+{
+	t_param *x = (t_param *)z;
+	
+	char string[24];
+	t_symbol *mySymbol;
+	
+	if (atom_gettype(&x->attr_value) == A_SYM) {
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
+		param_send_feedback(x);
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
+	else if (atom_gettype(&x->attr_value) == A_FLOAT) {
+		
+		// Convert float to string
+		sprintf (string, "%f", atom_getfloat(&x->attr_value));
+		mySymbol = gensym(string);
+		atom_setsym(&x->attr_value, mySymbol);
+		
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
+		param_send_feedback(x);
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
+	else if (atom_gettype(&x->attr_value) == A_LONG) {
+		
+		//Convert int to string
+		sprintf (string, "%ld", atom_getlong(&x->attr_value));
+		mySymbol = gensym(string);
+		atom_setsym(&x->attr_value, mySymbol);
+		
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
+		param_send_feedback(x);
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
+}
+
+void param_output_list(void *z)
+{
+	t_param *x = (t_param *)z;
+	
+	if (param_clip_list(x) && x->ramper)
+		x->ramper->stop();
+	x->isSending = YES;
+	outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
+	param_send_feedback(x);
+	x->isSending = NO;
+	x->isInitialised = YES;	// We have had our value set at least once
+}
+
+
+void param_output_none(void *z)
+{
+	t_param *x = (t_param *)z;
+	Atom output[1];
+	AtomPtr out = (AtomPtr )(&output);
+	
+	x->isSending = YES;
+	
+	// bang direct output
+	outlet_bang(x->outlets[k_outlet_direct]);
+	
+	// call on the hub to pass our data onward
+	// We can not use (method)param_send_feedback here as it assumes an additional argument
+	if (x->common.hub != NULL) {
+		
+		// send to the object in which this parameter is embedded
+		if (x->callback)
+			x->callback(x->callbackArg, x->common.attr_name, x->list_size, x->atom_list);
+		
+		atom_setsym(out, x->common.attr_name);
+		object_method_typed(x->common.hub, jps_feedback, 1, out, NULL);
+	}
+	
+	x->isSending = NO;
+	x->isInitialised = YES;	// We have had our value set at least once
+}
+
+
+#pragma mark -
+#pragma mark methods bound to input/inlets
 
 // Method for Assistance Messages
 void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
@@ -936,7 +1139,7 @@ void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
 }
 
 
-// receive messages from our internal jcom.receive external
+// Receive messages from our internal jcom.receive external
 void param_receive_callback(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	if (msg == _sym_int)
@@ -1107,207 +1310,6 @@ void param_bang(t_param *x)
 	if (x->callback)
 		x->callback(x, x->common.attr_name, x->list_size, x->atom_list);
 }
-
-
-// Actual bang functions
-void param_output_generic(void *z)
-{
-	t_param *x = (t_param *)z;
-
-	x->isSending = YES;
-	if (x->list_size == 1) {
-		param_clip_generic(x);
-		if (x->attr_value.a_type == A_LONG)
-			outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
-		else if (x->attr_value.a_type == A_FLOAT)
-			outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
-		else if (x->attr_value.a_type == A_SYM)
-			outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
-		param_send_feedback(x);
-	}
-	else if (x->list_size > 1) {
-		if (param_clip_generic(x) && x->ramper)
-			x->ramper->stop();
-		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
-		param_send_feedback(x);
-	} 
-	else {	// zero args
-		param_output_none(x);
-	}
-	x->isSending = NO;
-	x->isInitialised = YES;	// We have had our value set at least once
-}
-
-void param_output_int(void *z)
-{
-	t_param *x = (t_param *)z;
-	TTBoolean	didClip;
-	
-	long oldVal = atom_getlong(&x->attr_value);
-	float newValAsFloat = atom_getfloat(&x->attr_valueTemp);
-	
-	// Dataspace conversion
-	if (x->isOverriding)
-	{
-		Atom	a;
-		long	ac = 0;
-		AtomPtr	av = NULL;
-		bool	alloc = false;
-		
-		atom_setfloat(&a, newValAsFloat);
-		param_convert_units(x, 1, &a, &ac, &av, &alloc);
-		newValAsFloat = atom_getfloat(av);
-		if (alloc)
-			delete[] av;
-	}
-
-	// Round to integer and store
-	atom_setlong(&x->attr_value, round(newValAsFloat));
-	
-	// Clipping
-	if (param_clip_int(x) && x->ramper)
-		x->ramper->stop();
-	
-	// Test for repetitions before outputting
-	if (x->common.attr_repetitions || (atom_getlong(&x->attr_value) != oldVal)) {
-		x->isSending = YES;
-		outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
-		param_send_feedback(x);
-		x->isSending = NO;
-		x->isInitialised = YES;	// We have had our value set at least once
-	}
-}
-
-
-void param_output_float(void *z)
-{
-	t_param *x = (t_param *)z;
-	TTBoolean	didClip;
-	
-	float oldval = atom_getfloat(&x->attr_value);
-	float newval = atom_getfloat(&x->attr_valueTemp);
-
-	// Dataspace conversion
-	if (x->isOverriding)
-	{
-		Atom	a;
-		long	ac = 0;
-		AtomPtr	av = NULL;
-		bool	alloc = false;
-	 
-		atom_setfloat(&a, newval);
-		param_convert_units(x, 1, &a, &ac, &av, &alloc);
-		newval = atom_getfloat(av);
-		if (alloc)
-			delete[] av;
-	}
-	
-	// Filter repetitions
-	// TODO: Filtering need to happen after clipping, or we might output same value several times at the outer limits of the clip range
-	if (x->common.attr_repetitions || (newval != oldval)) {
-		
-		// Update stored value
-		atom_setfloat(&x->attr_value, newval);
-		
-		// Clip to specified range, depending on clipmode
-		didClip = param_clip_float(x);
-		
-		x->isSending = YES;
-		outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
-		param_send_feedback(x);
-		x->isSending = NO;
-		
-		x->isInitialised = YES;	// We have had our value set at least once
-
-		// TODO: This test need to be more sofisticated to cater for wrap and fold clip modes - Redmine issue 47
-		if (didClip && x->ramper)
-			x->ramper->stop();
-	}
-}
-
-void param_output_symbol(void *z)
-{
-	t_param *x = (t_param *)z;
-
-	char string[24];
-	t_symbol *mySymbol;
-	
-	if (atom_gettype(&x->attr_value) == A_SYM) {
-		x->isSending = YES;
-		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
-		param_send_feedback(x);
-		x->isSending = NO;
-		x->isInitialised = YES;	// We have had our value set at least once
-	}
-	else if (atom_gettype(&x->attr_value) == A_FLOAT) {
-		
-		// Convert float to string
-		sprintf (string, "%f", atom_getfloat(&x->attr_value));
-		mySymbol = gensym(string);
-		atom_setsym(&x->attr_value, mySymbol);
-		
-		x->isSending = YES;
-		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
-		param_send_feedback(x);
-		x->isSending = NO;
-		x->isInitialised = YES;	// We have had our value set at least once
-	}
-	else if (atom_gettype(&x->attr_value) == A_LONG) {
-		
-		//Convert int to string
-		sprintf (string, "%ld", atom_getlong(&x->attr_value));
-		mySymbol = gensym(string);
-		atom_setsym(&x->attr_value, mySymbol);
-		
-		x->isSending = YES;
-		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
-		param_send_feedback(x);
-		x->isSending = NO;
-		x->isInitialised = YES;	// We have had our value set at least once
-	}
-}
-
-void param_output_list(void *z)
-{
-	t_param *x = (t_param *)z;
-	
-	if (param_clip_list(x) && x->ramper)
-		x->ramper->stop();
-	x->isSending = YES;
-	outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
-	param_send_feedback(x);
-	x->isSending = NO;
-	x->isInitialised = YES;	// We have had our value set at least once
-}
-
-
-void param_output_none(void *z)
-{
-	t_param *x = (t_param *)z;
-	Atom output[1];
-	AtomPtr out = (AtomPtr )(&output);
-
-	x->isSending = YES;
-
-	// bang direct output
-	outlet_bang(x->outlets[k_outlet_direct]);
-	
-	// call on the hub to pass our data onward
-	// We can not use (method)param_send_feedback here as it assumes an additional argument
-	if (x->common.hub != NULL) {
-
-		// send to the object in which this parameter is embedded
-		if (x->callback)
-			x->callback(x->callbackArg, x->common.attr_name, x->list_size, x->atom_list);
-				
-		atom_setsym(out, x->common.attr_name);
-		object_method_typed(x->common.hub, jps_feedback, 1, out, NULL);
-	}
-
-	x->isSending = NO;
-	x->isInitialised = YES;	// We have had our value set at least once
-}
-
 
 // INC & DEC
 void param_inc(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
