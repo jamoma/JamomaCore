@@ -957,6 +957,7 @@ void param_output_int(void *z)
 		
 		param_convert_units(x, 1, &x->attr_valueTemp, &ac, &av, &alloc);
 		atom_setfloat(&x->attr_valueTemp, atom_getfloat(av));
+		
 		if (alloc)
 			delete[] av;
 	}
@@ -991,13 +992,13 @@ void param_output_float(void *z)
 	// Dataspace conversion
 	if (x->isOverriding)
 	{
-		//Atom	a;
 		long	ac = 0;
 		AtomPtr	av = NULL;
 		bool	alloc = false;
 		
 		param_convert_units(x, 1, &x->attr_valueTemp, &ac, &av, &alloc);
 		atom_setfloat(&x->attr_valueTemp, atom_getfloat(av));
+		
 		if (alloc)
 			delete[] av;
 	}
@@ -1065,15 +1066,43 @@ void param_output_symbol(void *z)
 
 void param_output_list(void *z)
 {
+	int i;
 	t_param *x = (t_param *)z;
 	
+	// Dataspace conversion
+	if (x->isOverriding)
+	{
+		long	ac = 0;
+		AtomPtr	av = NULL;
+		bool	alloc = false;
+		
+		param_convert_units(x, x->listTemp_size, x->atom_listTemp, &ac, &av, &alloc);
+		for (i=0; i<x->listTemp_size; i++)
+			atom_setfloat(&x->atom_listTemp[i], atom_getfloat(av+i));
+		
+		if (alloc)
+			delete[] av;
+	}
+	
+	// Clip to specified range, depending on clipmode
 	if (param_clip_list(x) && x->ramper)
-		x->ramper->stop();
-	x->isSending = YES;
-	outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
-	param_send_feedback(x);
-	x->isSending = NO;
-	x->isInitialised = YES;	// We have had our value set at least once
+		x->ramper->stop();							// stop the ramp
+	
+	// Test for repetitions before outputting	
+	if (x->common.attr_repetitions || param_list_compare(x, x->atom_listTemp, x->listTemp_size, x->atom_list, x->list_size)) {
+	
+		// Update stored values
+		x->list_size = x->listTemp_size;
+		for (i=0; i<x->listTemp_size; i++)
+			atom_setfloat(&x->atom_list[i], atom_getfloat(&x->atom_listTemp[i]));
+		
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
+		param_send_feedback(x);
+		x->isSending = NO;
+	
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
 }
 
 
@@ -1956,7 +1985,6 @@ void param_ramp_callback_list(void *v, AtomCount argc, double *value)
 
 	// x->listTemp_size was set when initiating the ramp, and we don't need to repeat that here
 	
-	
 	for (i=0; i<argc; i++)
 		atom_setfloat(&x->atom_listTemp[i], value[i]);
 	param_output_list(x);	
@@ -1989,7 +2017,7 @@ void param_ramp_setup(t_param *x)
 	if (x->ramper == NULL)
 		error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);
 		
-	if (x->attr_rampfunction && x->attr_rampfunction != _sym_nothing && x->attr_rampfunction != jps_linear)
+	if (x->attr_rampfunction && (x->attr_rampfunction != _sym_nothing) && (x->attr_rampfunction != jps_linear))
 		object_attr_setsym(x, jps_ramp_function, x->attr_rampfunction);
 }
 
