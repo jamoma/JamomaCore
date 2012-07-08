@@ -101,7 +101,7 @@ bool param_clip_list(t_param *x)
 	// however, this code as it is doesn't work, and it doesn't buy us much anyway
 	// so I'm just commenting it out for the time being [TAP]
 	
-	for (i=0; i < x->list_size; i++) {
+	for (i=0; i < x->listTemp_size; i++) {
 		if (x->atom_listTemp[i].a_type == A_LONG) {
 			iclipped = x->atom_listTemp[i].a_w.w_long;
 			if (x->common.attr_clipmode == jps_low)
