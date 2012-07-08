@@ -947,7 +947,6 @@ void param_output_generic(void *z)
 void param_output_int(void *z)
 {
 	t_param *x = (t_param *)z;
-	TTBoolean	didClip;
 	
 	long oldVal = atom_getlong(&x->attr_value);
 	float newValAsFloat = atom_getfloat(&x->attr_valueTemp);
@@ -988,7 +987,6 @@ void param_output_int(void *z)
 void param_output_float(void *z)
 {
 	t_param *x = (t_param *)z;
-	TTBoolean	didClip;
 	
 	float oldval = atom_getfloat(&x->attr_value);
 	float newval = atom_getfloat(&x->attr_valueTemp);
@@ -1016,7 +1014,9 @@ void param_output_float(void *z)
 		atom_setfloat(&x->attr_value, newval);
 		
 		// Clip to specified range, depending on clipmode
-		didClip = param_clip_float(x);
+		// TODO: This test need to be more sofisticated to cater for wrap and fold clip modes - Redmine issue 47
+		if (param_clip_float(x) && x->ramper)
+			x->ramper->stop();
 		
 		x->isSending = YES;
 		outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
@@ -1024,10 +1024,6 @@ void param_output_float(void *z)
 		x->isSending = NO;
 		
 		x->isInitialised = YES;	// We have had our value set at least once
-		
-		// TODO: This test need to be more sofisticated to cater for wrap and fold clip modes - Redmine issue 47
-		if (didClip && x->ramper)
-			x->ramper->stop();
 	}
 }
 
