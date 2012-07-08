@@ -1623,6 +1623,10 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			return;
 		}
 		
+		// Upper limit on list length prevents memory corruption
+		if (vectorSize > JAMOMA_LISTSIZE)
+			vectorSize = JAMOMA_LISTSIZE;
+		
 		if (hasUnit) {
 			// If we have an override unit, the start value(s) need to be converted from default unit into override unit
 			AtomPtr	convertedStartValues = NULL;
