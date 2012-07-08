@@ -970,7 +970,7 @@ void param_output_int(void *z)
 		x->ramper->stop();							// stop the ramp
 	
 	// Test for repetitions before outputting
-	if (x->common.attr_repetitions || (atom_getlong(&x->attr_valueTemp) != atom_getlong(&x->attr_value))) {
+	if (!x->isInitialised || x->common.attr_repetitions || (atom_getlong(&x->attr_valueTemp) != atom_getlong(&x->attr_value))) {
 		
 		// Update stored value
 		atom_setlong(&x->attr_value, atom_getlong(&x->attr_valueTemp));
@@ -1008,7 +1008,7 @@ void param_output_float(void *z)
 		x->ramper->stop();							// stop the ramp
 	
 	// Test for repetitions before outputting
-	if (x->common.attr_repetitions || (atom_getfloat(&x->attr_valueTemp) != atom_getfloat(&x->attr_value))) {
+	if (!x->isInitialised || x->common.attr_repetitions || (atom_getfloat(&x->attr_valueTemp) != atom_getfloat(&x->attr_value))) {
 		
 		// Update stored value
 		atom_setfloat(&x->attr_value, atom_getfloat(&x->attr_valueTemp));
@@ -1089,7 +1089,7 @@ void param_output_list(void *z)
 		x->ramper->stop();							// stop the ramp
 	
 	// Test for repetitions before outputting	
-	if (x->common.attr_repetitions || param_list_compare(x, x->atom_listTemp, x->listTemp_size, x->atom_list, x->list_size)) {
+	if (!x->isInitialised || x->common.attr_repetitions || param_list_compare(x, x->atom_listTemp, x->listTemp_size, x->atom_list, x->list_size)) {
 	
 		// Update stored values
 		x->list_size = x->listTemp_size;
@@ -1451,10 +1451,6 @@ void param_int(t_param *x, long value)
 	}
 	
 	x->list_size = 1;
-	if (x->common.attr_repetitions == 0 && x->isInitialised) {
-		if (value == atom_getlong(&x->attr_value))
-			return;
-	}
 
 	// New input - halt dataspace override and ramping
 	x->isOverriding = false;
@@ -1484,10 +1480,6 @@ void param_float(t_param *x, double value)
 	}
 	
 	x->list_size = 1;
-	if (x->common.attr_repetitions == 0  && x->isInitialised) {
-		if (value == atom_getfloat(&x->attr_value))
-			return;
-	}
 	
 	// New input - halt dataspace override and ramping
 	x->isOverriding = false;
@@ -1503,10 +1495,7 @@ void param_float(t_param *x, double value)
 void param_symbol(t_param *x, SymbolPtr value)
 {
 	x->list_size = 1;
-	if (x->common.attr_repetitions == 0 && x->isInitialised) {
-		if (value == atom_getsym(&x->attr_value))
-			return;
-	}
+	
 	// new input - halt any ramping...
 	if (x->ramper)
 		x->ramper->stop();
@@ -1535,8 +1524,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if (param_handleProperty(x, msg, argc, argv))
 			return;
 	}
-	
-	
+		
 	/*
 	 Check for unit and/or ramp:
 	 */
@@ -1594,7 +1582,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		vectorSize -= 2;
 		
 		time = atom_getfloat(argv+(argc-1));
-		
+				
 		// Only one list member if @type is integer or decimal
 		if (x->common.attr_type == jps_integer || x->common.attr_type == jps_decimal) {
 			if (vectorSize > 1)
@@ -1768,25 +1756,6 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->isOverriding = 0;
 
 		if (argc == 1) {
-			// CHANGED: Not checking for repetitions here any longer
-			// If repetitions are disabled, we check for a repetition by treating
-			// this as a 1 element list
-			//if (x->common.attr_repetitions == 0 && x->isInitialised && param_list_compare(x, x->atom_list, x->list_size, argv, argc)) 
-			//	return;
-			
-			// CHANGED: Not addressing dataspace here any longer
-			/*
-			if (x->attr_dataspace != _sym_none) {
-				TTValue	vInput, vOutput;
-				
-				TTValueFromAtoms(vInput, 1, argv);
-				TTAtomsFromValue(vInput, &x->list_size, &x->atom_list);				
-			}
-			else
-				jcom_core_atom_copy(&x->attr_value, argv);
-			x->list_size = 1;
-			*/
-
 			jcom_core_atom_copy(&x->attr_valueTemp, argv);
 			x->listTemp_size = 1;
 			x->param_output(x);
@@ -1991,7 +1960,7 @@ void param_ramp_callback_list(void *v, AtomCount argc, double *value)
 	
 	for (i=0; i<argc; i++)
 		atom_setfloat(&x->atom_listTemp[i], value[i]);
-	param_output_list(x);	
+	param_output_list(x);
 }
 
 
