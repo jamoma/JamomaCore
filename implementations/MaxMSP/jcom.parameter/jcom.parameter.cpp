@@ -947,38 +947,38 @@ void param_output_generic(void *z)
 void param_output_int(void *z)
 {
 	t_param *x = (t_param *)z;
-	
-	long oldVal = atom_getlong(&x->attr_value);
-	float newValAsFloat = atom_getfloat(&x->attr_valueTemp);
-	
+		
 	// Dataspace conversion
 	if (x->isOverriding)
 	{
-		Atom	a;
 		long	ac = 0;
 		AtomPtr	av = NULL;
 		bool	alloc = false;
 		
-		atom_setfloat(&a, newValAsFloat);
-		param_convert_units(x, 1, &a, &ac, &av, &alloc);
-		newValAsFloat = atom_getfloat(av);
+		param_convert_units(x, 1, &x->attr_valueTemp, &ac, &av, &alloc);
+		atom_setfloat(&x->attr_valueTemp, atom_getfloat(av));
 		if (alloc)
 			delete[] av;
 	}
 	
-	// Round to integer and store
-	atom_setlong(&x->attr_value, round(newValAsFloat));
+	// Round to integer
+	atom_setlong(&x->attr_valueTemp, round(atom_getfloat(&x->attr_valueTemp)));
 	
 	// Clipping
 	if (param_clip_int(x) && x->ramper)
-		x->ramper->stop();
+		x->ramper->stop();							// stop the ramp
 	
 	// Test for repetitions before outputting
-	if (x->common.attr_repetitions || (atom_getlong(&x->attr_value) != oldVal)) {
+	if (x->common.attr_repetitions || (atom_getlong(&x->attr_valueTemp) != atom_getlong(&x->attr_value))) {
+		
+		// Update stored value
+		atom_setlong(&x->attr_value, atom_getlong(&x->attr_valueTemp));
+		
 		x->isSending = YES;
 		outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
 		param_send_feedback(x);
 		x->isSending = NO;
+		
 		x->isInitialised = YES;	// We have had our value set at least once
 	}
 }
@@ -988,9 +988,6 @@ void param_output_float(void *z)
 {
 	t_param *x = (t_param *)z;
 	
-	//float oldval = atom_getfloat(&x->attr_value);
-	//float newval = atom_getfloat(&x->attr_valueTemp);
-	
 	// Dataspace conversion
 	if (x->isOverriding)
 	{
@@ -999,7 +996,6 @@ void param_output_float(void *z)
 		AtomPtr	av = NULL;
 		bool	alloc = false;
 		
-		//atom_setfloat(&a, atom_getfloat(&x->attr_valueTemp));
 		param_convert_units(x, 1, &x->attr_valueTemp, &ac, &av, &alloc);
 		atom_setfloat(&x->attr_valueTemp, atom_getfloat(av));
 		if (alloc)
@@ -1010,7 +1006,7 @@ void param_output_float(void *z)
 	if (param_clip_float(x) && x->ramper)
 		x->ramper->stop();							// stop the ramp
 	
-	// Filter repetitions
+	// Test for repetitions before outputting
 	if (x->common.attr_repetitions || (atom_getfloat(&x->attr_valueTemp) != atom_getfloat(&x->attr_value))) {
 		
 		// Update stored value
@@ -1947,6 +1943,7 @@ void param_ramp_callback_int(void *v, long, double *value)
 {
 	t_param	*x= (t_param *)v;
 
+	// We set the new value as a float for now, in order not to loose resolution before an eventual dataspace convertion
 	atom_setfloat(&x->attr_valueTemp, *value);
 	param_output_int(x);
 }
@@ -1958,6 +1955,7 @@ void param_ramp_callback_list(void *v, AtomCount argc, double *value)
 	t_param *x = (t_param *)v;
 
 	// x->listTemp_size was set when initiating the ramp, and we don't need to repeat that here
+	
 	
 	for (i=0; i<argc; i++)
 		atom_setfloat(&x->atom_listTemp[i], value[i]);
