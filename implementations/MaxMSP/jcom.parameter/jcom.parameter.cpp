@@ -988,35 +988,33 @@ void param_output_float(void *z)
 {
 	t_param *x = (t_param *)z;
 	
-	float oldval = atom_getfloat(&x->attr_value);
-	float newval = atom_getfloat(&x->attr_valueTemp);
+	//float oldval = atom_getfloat(&x->attr_value);
+	//float newval = atom_getfloat(&x->attr_valueTemp);
 	
 	// Dataspace conversion
 	if (x->isOverriding)
 	{
-		Atom	a;
+		//Atom	a;
 		long	ac = 0;
 		AtomPtr	av = NULL;
 		bool	alloc = false;
 		
-		atom_setfloat(&a, newval);
-		param_convert_units(x, 1, &a, &ac, &av, &alloc);
-		newval = atom_getfloat(av);
+		//atom_setfloat(&a, atom_getfloat(&x->attr_valueTemp));
+		param_convert_units(x, 1, &x->attr_valueTemp, &ac, &av, &alloc);
+		atom_setfloat(&x->attr_valueTemp, atom_getfloat(av));
 		if (alloc)
 			delete[] av;
 	}
 	
+	// Clip to specified range, depending on clipmode
+	if (param_clip_float(x) && x->ramper)
+		x->ramper->stop();							// stop the ramp
+	
 	// Filter repetitions
-	// TODO: Filtering need to happen after clipping, or we might output same value several times at the outer limits of the clip range
-	if (x->common.attr_repetitions || (newval != oldval)) {
+	if (x->common.attr_repetitions || (atom_getfloat(&x->attr_valueTemp) != atom_getfloat(&x->attr_value))) {
 		
 		// Update stored value
-		atom_setfloat(&x->attr_value, newval);
-		
-		// Clip to specified range, depending on clipmode
-		// TODO: This test need to be more sofisticated to cater for wrap and fold clip modes - Redmine issue 47
-		if (param_clip_float(x) && x->ramper)
-			x->ramper->stop();
+		atom_setfloat(&x->attr_value, atom_getfloat(&x->attr_valueTemp));
 		
 		x->isSending = YES;
 		outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
@@ -1632,7 +1630,10 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		}
 		
 		// Trigger the ramp
-		x->list_size = vectorSize;
+		
+		// The ramp function will initially be used to update x->atom_listTemp, so we set the size of that list here
+		x->listTemp_size = vectorSize;
+		
 		x->ramper->set(vectorSize, start);
 		x->ramper->go(vectorSize, values, time);
 	} 
@@ -1955,11 +1956,11 @@ void param_ramp_callback_list(void *v, AtomCount argc, double *value)
 {
 	long i;
 	t_param *x = (t_param *)v;
-	
-	// we won't bother about avoiding repetitions for list, so never mind oldval
 
+	// x->listTemp_size was set when initiating the ramp, and we don't need to repeat that here
+	
 	for (i=0; i<argc; i++)
-		atom_setfloat(&x->atom_list[i], value[i]);
+		atom_setfloat(&x->atom_listTemp[i], value[i]);
 	param_output_list(x);	
 }
 
