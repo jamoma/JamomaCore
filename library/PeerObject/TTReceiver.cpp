@@ -34,6 +34,10 @@ mNodesObserversCache(NULL)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Enable, kTypeBoolean);
 	
+	addAttribute(ObjectCache, kTypePointer);
+	addAttributeProperty(ObjectCache, hidden, YES);
+	addAttributeProperty(ObjectCache, readOnly, YES);
+	
 	addMessage(Get);
 	addMessageProperty(Get, hidden, YES);
 	
@@ -227,6 +231,7 @@ TTErr TTReceiver::bindAddress()
 						newBaton = new TTValue(TTPtr(this));
 						aNode->getAddress(&anAddress);
 						newBaton->append(anAddress->appendAttribute(mAddress->getAttribute()));
+						newBaton->append(TTPtr(o));
 						
 						newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 						newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -440,6 +445,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							
 							newBaton = new TTValue(TTPtr(aReceiver));
 							newBaton->append(anAddress->appendAttribute(aReceiver->mAddress->getAttribute()));
+							newBaton->append(TTPtr(o));
 							
 							newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 							newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -523,6 +529,7 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aReceiver);
 	b->get(1, &anAddress);
+	b->get(2, (TTPtr*)&aReceiver->mObjectCache);
 	
 	if(aReceiver->mEnable) {
 		

@@ -23,6 +23,10 @@ mApplicationObserver(NULL)
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
+	addAttribute(ObjectCache, kTypePointer);
+	addAttributeProperty(ObjectCache, hidden, YES);
+	addAttributeProperty(ObjectCache, readOnly, YES);
+	
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
@@ -66,6 +70,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 	TTSymbolPtr		ttAttributeName;
 	TTMessagePtr	aMessage;
 	TTNodeAddressPtr relativeAddress;
+	TTUInt16		index = 0;
 	TTErr			err = kTTErrNone;
 	
 	if (!mDirectory || mAddress == kTTAdrsEmpty)

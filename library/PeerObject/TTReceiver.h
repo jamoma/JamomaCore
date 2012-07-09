@@ -31,6 +31,7 @@ private:
 	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
 	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
 	TTListPtr					mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
+	TTObjectPtr					mObjectCache;				///< ATTRIBUTE : the object from which the value is received
 
 	
 	/**	Setter for mAddress attribute. */

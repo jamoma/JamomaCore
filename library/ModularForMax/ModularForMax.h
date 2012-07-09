@@ -103,7 +103,6 @@ extern "C" {
 	/**	Create a receiver object */
 	TTErr			jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver);
 	
-	
 	// Method to deal with TTPresetManager and TTCueManager
 	///////////////////////////////////////////////////////////////////////
 	

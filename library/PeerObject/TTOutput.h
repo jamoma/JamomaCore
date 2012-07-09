@@ -36,7 +36,7 @@ public:	// use public for quick acces during signal processing
 	TTFloat32					mMix;						///< ATTRIBUTE : to mix signal output and  a signal coming from TTInput object
 	TTFloat32					mGain;						///< ATTRIBUTE : apply again on signal output
 	TTBoolean					mFreeze;					///< ATTRIBUTE : to freeze signal output (ex : for video signal)
-	TTBoolean					mPreview;					///< ATTRIBUTE : to send signal to a preview channel
+	TTBoolean					mPreview;					///< ??? : this attribute should not be here (it is relative to view part)
 	
 	TTObjectPtr					mSignalIn;					///< any data structure to receive complex signal
 	TTObjectPtr					mSignalOut;					///< any data structure to send complex signal
@@ -66,8 +66,8 @@ private:
 	TTValuePtr					mLast;						///< keep a copy of the last sent signal for each index
 	TTCallbackPtr				mAddressObserver;			///< to observe mInputAddress creation/destruction
 	
-	TTValue						mSignalPreview;				///< ATTRIBUTE : a hidden attribute to allow signal preview
-	TTAttributePtr				mSignalPreviewAttr;			///< a direct acces to the signal preview attribute to notify observers
+	TTValue						mSignal;					///< ATTRIBUTE : a hidden attribute to observe signal preview
+	TTAttributePtr				mSignalAttr;				///< a direct access to the signal preview attribute to notify observers
 	
 	
 	/** Send signal. The mIndex have to be choosen before */
@@ -95,8 +95,8 @@ private:
 	/** Set the info attribute */
 	TTErr setInfo(const TTValue& value);
 	
-	/** Notify signal preview observer */
-	TTErr notifySignalPreview(const TTValue& value);
+	/** Notify signal observer */
+	TTErr notifySignalObserver(const TTValue& value);
 	
 	friend TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(TTPtr baton, TTValue& data);
 };

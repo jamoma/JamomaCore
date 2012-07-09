@@ -259,7 +259,7 @@ void ui_free(t_ui *x)
 	if (x->previewSignal && x->modelOutput) {
 		if (x->modelOutput->valid) {
 			TTAttributePtr	anAttribute = NULL;
-			x->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
+			x->modelOutput->findAttribute(TT("signal"), &anAttribute);
 			anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
 			TTObjectRelease(TTObjectHandle(&x->previewSignal));
 		}
@@ -333,7 +333,7 @@ void ui_subscribe(t_ui *x, SymbolPtr address)
 		// reset output object and preview signal
 		if (x->previewSignal && x->modelOutput) {
 			if (x->modelOutput->valid) {
-				err = x->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
+				err = x->modelOutput->findAttribute(TT("signal"), &anAttribute);
 				if (!err) {
 					anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
 					TTObjectRelease(TTObjectHandle(&x->previewSignal));

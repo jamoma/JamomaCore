@@ -20,7 +20,7 @@ mInputAddress(kTTAdrsEmpty),
 mMute(NO),
 mMix(100.),
 mGain(100.),
-mFreeze(NO),	
+mFreeze(NO),
 mPreview(NO),
 mSignalIn(NULL),
 mSignalOut(NULL),
@@ -37,8 +37,8 @@ mReturnSignalCallback(NULL),
 mReturnLinkCallback(NULL),
 mLast(NULL),
 mAddressObserver(NULL),
-mSignalPreview(kTTValNONE),
-mSignalPreviewAttr(NULL)
+mSignal(kTTValNONE),
+mSignalAttr(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTOutput", arguments.getSize() >= 3);
 	
@@ -84,8 +84,9 @@ mSignalPreviewAttr(NULL)
 	addAttributeWithSetter(Info, kTypeLocalValue);
 	addAttributeProperty(Info, hidden, YES);
 	
-	addAttribute(SignalPreview, kTypeLocalValue);
-	addAttributeProperty(SignalPreview, hidden, YES);
+	addAttribute(Signal, kTypeLocalValue);
+	addAttributeProperty(Signal, hidden, YES);
+	addAttributeProperty(Signal, readOnly, YES);
 	
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
@@ -103,7 +104,7 @@ mSignalPreviewAttr(NULL)
 	for (TTUInt16 i=0; i<mNumber; i++)
 		mLast[i] = kTTValNONE;
 	
-	this->findAttribute(TT("signalPreview"), &mSignalPreviewAttr);
+	this->findAttribute(TT("signal"), &mSignalAttr);
 }
 
 TTOutput::~TTOutput()
@@ -161,17 +162,18 @@ TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 	
 	if (mMute)
 		err = kTTErrNone;
+	
 	else if (mFreeze) {
+		
 		err = mReturnSignalCallback->notify(mLast[mIndex], kTTValNONE);
 		
-		// preview
-		notifySignalPreview(mLast[mIndex]);
+		notifySignalObserver(mLast[mIndex]);
 	}
 	else {
+		
 		err = mReturnSignalCallback->notify(inputValue, kTTValNONE);
 		
-		// preview
-		notifySignalPreview(inputValue);
+		notifySignalObserver(inputValue);
 	}
 		
 	// copy
@@ -196,14 +198,20 @@ TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
 	inputValue.get(0, (TTPtr*)&mInputObject);
 	
-	return mReturnLinkCallback->notify(kTTVal1, kTTValNONE);
+	if (mReturnLinkCallback)
+		return mReturnLinkCallback->notify(kTTVal1, kTTValNONE);
+	else
+		return kTTErrNone;
 }
 
 TTErr TTOutput::Unlink()
 {
 	mInputObject = NULL;
 	
-	return mReturnLinkCallback->notify(kTTVal0, kTTValNONE);
+	if (mReturnLinkCallback)
+		return mReturnLinkCallback->notify(kTTVal0, kTTValNONE);
+	else
+		return kTTErrNone;
 }
 
 TTErr TTOutput::setInputAddress(const TTValue& value)
@@ -291,12 +299,11 @@ TTErr TTOutput::setInfo(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTOutput::notifySignalPreview(const TTValue& value)
+TTErr TTOutput::notifySignalObserver(const TTValue& value)
 {	
-	mSignalPreview = value;
+	mSignal = value;
 	
-	if (mPreview)
-		mSignalPreviewAttr->sendNotification(kTTSym_notify, mSignalPreview);	// we use kTTSym_notify because we know that observers are TTCallback
+	mSignalAttr->sendNotification(kTTSym_notify, mSignal);	// we use kTTSym_notify because we know that observers are TTCallback
 
 	return kTTErrNone;
 }

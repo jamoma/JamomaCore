@@ -25,7 +25,7 @@ private:
 	TTNodeAddressPtr			mAddress;					///< ATTRIBUTE: the address to bind
 	TTNodeDirectoryPtr			mDirectory;					///< a sender depends on a directory
 	TTBoolean					mIsSending;					///< a flag to lock the object in case of infinite loop
-	TTListPtr					mObjectCache;				///< a cache containing all binded objects for quick access
+	TTListPtr					mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
 	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
 	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
 	

@@ -849,8 +849,7 @@ void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	if (obj->modelOutput->valid) {
 		
-		err = obj->modelOutput->findAttribute(TT("signalPreview"), &anAttribute);
-		// TODO : check type (audio or control ?)
+		err = obj->modelOutput->findAttribute(TT("signal"), &anAttribute);
 		if (!err) {
 			
 			if (obj->is_previewing) {

@@ -327,7 +327,7 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 	if (aSender) {
 		
 		jamoma_ttvalue_from_Atom(v, msg, argc, argv);
-		
+
 		return aSender->sendMessage(kTTSym_Send, v, kTTValNONE);
 	}
 	
@@ -363,7 +363,6 @@ TTErr jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver)
 	
 	return kTTErrNone;
 }
-
 
 // Method to deal with TTPresetManager
 ///////////////////////////////////////////////////////////////////////

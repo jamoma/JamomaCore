@@ -414,7 +414,7 @@ void in_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
 	
 	if (!anInput->mMute) {
-		TTInputPtr(x->wrappedObject)->mIndex = proxy_getinlet((ObjectPtr)x);
+		anInput->mIndex = proxy_getinlet((ObjectPtr)x);
 		jamoma_input_send((TTInputPtr)x->wrappedObject, msg, argc, argv);
 	}
 }
@@ -425,7 +425,7 @@ void WrappedInputClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomP
 	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
 	
 	if (!anInput->mMute) {
-		TTInputPtr(x->wrappedObject)->mIndex = proxy_getinlet((ObjectPtr)x);
+		anInput->mIndex = proxy_getinlet((ObjectPtr)x);
 		jamoma_input_send((TTInputPtr)x->wrappedObject, msg, argc, argv);
 	}
 }

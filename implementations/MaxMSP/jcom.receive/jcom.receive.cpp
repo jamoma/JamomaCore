@@ -14,9 +14,19 @@
 #define address_out 1
 #define dump_out 2
 
+/** Store extra data relating to jcom.out binding */
+typedef struct extra {
+	
+	TTBoolean	bindOutput;	// is the jcom.send is binding an output ?
+	TTValuePtr	mapChannel;	// the channel mapping of the the jcom.send (to bind select which channel to bind)
+
+} t_extra;
+#define EXTRA ((t_extra*)x->extra)
+
 // Definitions
 void	WrapTTReceiverClass(WrappedClassPtr c);
 void	WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void	WrappedReceiverClass_free(TTPtr self);
 
 void	receive_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
@@ -35,7 +45,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTReceiverClass;
 	spec->_new = &WrappedReceiverClass_new;
-	spec->_free = NULL;
+	spec->_free = &WrappedReceiverClass_free;
 	spec->_any = NULL;
 	
 	return wrapTTModularClassAsMaxClass(TT("Receiver"), "jcom.receive", NULL, spec);
@@ -57,8 +67,9 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					address;
+	long						i, number;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
-
+	
 	// read first argument
 	if (attrstart && argv) 
 		address = atom_getsym(argv);
@@ -66,17 +77,47 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		address = _sym_nothing;
 	
 	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
-	x->index = 0; // the index member is usefull to count how many time the external tries to bind
+	x->argc = 0; // the argc member is usefull to count how many time the external tries to bind
+	
+	// Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	
 	jamoma_receiver_create((ObjectPtr)x, &x->wrappedObject);
+	
+	// is the jcom.send tries to bind on a Data or an Output object ?
+	if (x->address->getName() == TT("out")) {
+		
+		EXTRA->bindOutput = YES;
+		JamomaDebug object_post((ObjectPtr)x, "binds on a jcom.out");
+		
+		// use the signal preview mechanism
+		x->address = x->address->appendAttribute(TT("signal"));
+
+		// read second optionnal argument 
+		// (to map output channel in case we bind a jcom.out)
+		EXTRA->mapChannel = new TTValue(0);
+		if (attrstart > 1 && argv)
+			jamoma_ttvalue_from_Atom(*EXTRA->mapChannel, _sym_nothing, attrstart-1, argv+1);
+		
+		// Make an outlet per channel
+		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * EXTRA->mapChannel->getSize());
+		for (i = EXTRA->mapChannel->getSize()-1; i >= 0; i--)
+			x->outlets[i] = outlet_new(x, 0L);
+	}
+	else {
+		
+		EXTRA->bindOutput = NO;
+		EXTRA->mapChannel = new TTValue(0);
+		
+		// Make two outlets
+		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
+		x->outlets[address_out] = outlet_new(x, NULL);					// anything outlet to output address
+		x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	}
 	
 	// Prepare memory to store internal objects
 	x->internals = new TTHash();
 
-	// Make two outlets
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
-	x->outlets[address_out] = outlet_new(x, NULL);					// anything outlet to output address
-	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
-	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
 	
@@ -84,6 +125,14 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
 	defer_low((ObjectPtr)x, (method)receive_subscribe, NULL, 0, 0);
+}
+
+void WrappedReceiverClass_free(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	delete EXTRA->mapChannel;
+	free(EXTRA);
 }
 
 // Method for Assistance Messages
@@ -160,8 +209,8 @@ void receive_subscribe(TTPtr self)
 	TTObjectRelease(TTObjectHandle(&x->subscriberObject));
 	x->subscriberObject = NULL;
 	
-	x->index++; // the index member is usefull to count how many time the external tries to bind
-	if (x->index > 100) {
+	x->argc++; // the index member is usefull to count how many time the external tries to bind
+	if (x->argc > 100) {
 		object_error((ObjectPtr)x, "tries to bind too many times on %s", x->address->getCString());
 		object_obex_dumpout((ObjectPtr)x, gensym("error"), 0, NULL);
 		return;
@@ -183,7 +232,7 @@ void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 		// set address attribute of the wrapped Receiver object
 		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
-		x->index = 0; // the index member is usefull to count how many time the external tries to bind
+		x->argc = 0; // the index member is usefull to count how many time the external tries to bind
 		
 		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress->getCString());
 	}
@@ -192,18 +241,47 @@ void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 void receive_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[address_out], msg, argc, argv);
+	
+	if (!EXTRA->bindOutput)
+		outlet_anything(x->outlets[address_out], msg, argc, argv);
 }
 
 void receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue		v;
+	TTObjectPtr anObject;
+	TTUInt16	map, index;
+	TTBoolean	found = NO;
 	
-	// avoid blank before data
-	if (msg == _sym_nothing)
-		outlet_atoms(x->outlets[data_out], argc, argv);
-	else
-		outlet_anything(x->outlets[data_out], msg, argc, argv);
+	if (EXTRA->bindOutput) {
+
+		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
+			
+			v.get(0, (TTPtr*)&anObject);
+			
+			for (index = 0; index < EXTRA->mapChannel->getSize(); index++) {
+				
+				EXTRA->mapChannel->get(index, map);
+				found = map-1 == TTOutputPtr(anObject)->mIndex;
+				
+				if (found) break;
+			}
+		}
+	}
+	else {
+		index = data_out;
+		found = true;
+	}
+	
+	if (found) {
+		
+		// avoid blank before data
+		if (msg == _sym_nothing)
+			outlet_atoms(x->outlets[index], argc, argv);
+		else
+			outlet_anything(x->outlets[index], msg, argc, argv);
+	}
 }
 
 void receive_bang(TTPtr self)
@@ -211,7 +289,7 @@ void receive_bang(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	// catch error : dump an error
-	if (x->wrappedObject->sendMessage(TT("Get")))
+	if (x->wrappedObject->sendMessage(kTTSym_Get))
 		object_obex_dumpout(self, _sym_error, 0, NULL);
 }
 

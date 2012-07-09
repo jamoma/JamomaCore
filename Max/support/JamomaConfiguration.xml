@@ -6,9 +6,6 @@
   <entry App="range/clipmode" TT="rangeClipmode"/>
   <entry App="dataspace/unit/display" TT="dataspaceUnitDisplay"/>
   <entry App="ramp/drive" TT="rampDrive"/>
-  <entry App="jcom.view" TT="Viewer"/>
-  <entry App="jcom.hub" TT="Container"/>
-  <entry App="jcom.message" TT="Data service message"/>
   <entry App="repetitions/allow" TT="repetitionsAllow"/>
   <entry App="ramp/function" TT="rampFunction"/>
   <entry App="range/bounds" TT="rangeBounds"/>
