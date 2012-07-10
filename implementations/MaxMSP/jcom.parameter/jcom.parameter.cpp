@@ -1454,8 +1454,6 @@ void param_int(t_param *x, long value)
 		param_symbol(x, msg);
 		return;
 	}
-	
-	x->list_size = 1;
 
 	// New input - halt dataspace override and ramping
 	x->isOverriding = false;
@@ -1463,7 +1461,9 @@ void param_int(t_param *x, long value)
 		x->ramper->stop();
 	
 	// Store new value in temp location for now
+	x->listTemp_size = 1;
 	atom_setlong(&x->attr_valueTemp, value);
+	
 	x->param_output(x);
 }
 
@@ -1484,15 +1484,15 @@ void param_float(t_param *x, double value)
 		return;
 	}
 	
-	x->list_size = 1;
-	
 	// New input - halt dataspace override and ramping
 	x->isOverriding = false;
 	if (x->ramper)
 		x->ramper->stop();
 
 	// Store new value in temp location for now
+	x->listTemp_size = 1;
 	atom_setfloat(&x->attr_valueTemp, value);
+	
 	x->param_output(x);
 }
 
@@ -1664,6 +1664,10 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if ((x->common.attr_type != jps_array) && (x->common.attr_type != jps_generic) && (x->common.attr_type != jps_none))
 			if (vectorSize>1)
 				vectorSize = 1;
+		
+		// Upper limit on list length prevents memory corruption
+		if (vectorSize > JAMOMA_LISTSIZE)
+			vectorSize = JAMOMA_LISTSIZE;
 		
 		// Copy values
 		for (i = 0; i < vectorSize; i++) {
