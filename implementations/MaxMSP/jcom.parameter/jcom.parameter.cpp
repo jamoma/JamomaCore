@@ -962,12 +962,15 @@ void param_output_int(void *z)
 			delete[] av;
 	}
 	
-	// Round to integer
-	atom_setlong(&x->attr_valueTemp, round(atom_getfloat(&x->attr_valueTemp)));
-	
 	// Clipping
 	if (param_clip_int(x) && x->ramper)
 		x->ramper->stop();							// stop the ramp
+	
+	// If ramping, then round to integer, else truncate
+	if (x->ramper)
+		atom_setlong(&x->attr_valueTemp, round(atom_getfloat(&x->attr_valueTemp)));
+	else
+		atom_setlong(&x->attr_valueTemp, atom_getfloat(&x->attr_valueTemp));
 	
 	// Test for repetitions before outputting
 	if (!x->isInitialised || x->common.attr_repetitions || (atom_getlong(&x->attr_valueTemp) != atom_getlong(&x->attr_value))) {
