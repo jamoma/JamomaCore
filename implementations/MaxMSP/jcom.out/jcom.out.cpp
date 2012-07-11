@@ -33,7 +33,7 @@ typedef struct extra {
 
 /** Wrap the jcom.out class as a Max object.
  @param c			The class to be wrapped
- @see				WrappedInputClass_new, WrappedInputClass_free
+ @see				WrappedOutputClass_new, WrappedOutputClass_free
  */
 void		WrapTTOutputClass(WrappedClassPtr c);
 
@@ -41,13 +41,13 @@ void		WrapTTOutputClass(WrappedClassPtr c);
  @param self		Pointer to this object.
  @param argc		The number of arguments passed to the object.
  @param argv		Pointer to an array of atoms passed to the object.
- @see				WrappedInputClass_free, in_subscribe
+ @see				WrappedOutputClass_free, out_subscribe
  */
 void		WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
 
 /** Wrapper for the jcom.out deconstructor class, called when an instance is destroyed. 
  @param self		Pointer to this object.
- @see				WrappedInputClass_new
+ @see				WrappedOutputClass_new
  */
 void		WrappedOutputClass_free(TTPtr self);
 

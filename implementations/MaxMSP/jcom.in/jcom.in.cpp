@@ -59,7 +59,7 @@ void		WrappedInputClass_free(TTPtr self);
  */
 void		in_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
-/** Associate jcom.in(~) with NodeLib. This is a prerequisit for communication with other Jamoma onject in the module and beyond.  */
+/** Associate jcom.in(~) with NodeLib. This is a prerequisit for communication with other Jamoma object in the module and beyond.  */
 void		in_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 #ifdef JCOM_IN_TILDE
