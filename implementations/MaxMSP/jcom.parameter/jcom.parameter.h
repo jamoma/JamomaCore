@@ -207,6 +207,17 @@ void		param_convert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, Ato
 void		param_inverseConvert_units(t_param* x,AtomCount argc, AtomPtr argv, long* rc, AtomPtr* rv, bool* alloc);
 
 
+/** Compare two arrays of atoms to see if they are identical in content.
+ @param x		Parameter or Message instance pointer.
+ @param a		Pointer to the first array of atoms.
+ @param lengthA	The lenght of the first array.
+ @param b		Pointer to the second array of atoms.
+ @param lengthB	The lenght of the second array.
+ @return		1 if the two arrays of atoms are identic in content, 0 if they differ.
+ */
+int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long lengthB);
+
+
 void		param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		param_ramp_callback_float(void *v, float value);
 void		param_ramp_callback_int(void *v, float value);

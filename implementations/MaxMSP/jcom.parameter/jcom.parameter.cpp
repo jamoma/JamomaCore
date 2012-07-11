@@ -14,9 +14,6 @@
 static ClassPtr	parameter_class;	// Required: Global pointer for our class
 //static char		units[2048];
 
-// Prototypes
-int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long lengthB);
-
 
 /************************************************************************************/
 // Class Definition
