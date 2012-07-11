@@ -1826,6 +1826,7 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 		else
 			return 0;		
 	}
+	
 	// Dedicated test for @type decimal, disregards all list members but first
 	else if (x->common.attr_type==jps_decimal) {
 		if (lengthA && lengthB) {
@@ -1837,9 +1838,9 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 		else
 			return 0;		
 	}
+	
 	// Dedicated test for @type string, disregards all list members but first
 	else if (x->common.attr_type==jps_string) {
-		// TODO
 		if (lengthA && lengthB) {
 			if (atom_getfloat(a) == atom_getfloat(b))
 				return 1;
@@ -1849,39 +1850,48 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 		else
 			return 0;		
 	}
+	
 	// The concept of repetition filtering doesn't make sense for @type none
 	else if (x->common.attr_type==jps_none)
 		return 0;
 	
-	// Tests for @type generic and array
-	
-	// If lists differ in length they're obviously not the same
-	if (length1 == length2) {
-		short type;
-		
-		for (int i = 0; i < length1; i++) {
-			
-			// Compare type
-			type = a->a_type;
-			if (type != (b->a_type))
-				return 0; // not identical, types differ
-			
-			// Compare value
-			if 		((type == A_FLOAT) && (a->a_w.w_float != b->a_w.w_float))
-				return 0;
-			else if ((type == A_LONG)  && (a->a_w.w_long  != b->a_w.w_long))
-				return 0;
-			else if ((type == A_SYM)   && (a->a_w.w_sym   != b->a_w.w_sym))
-				return 0;
-			
-			a++; b++;  // keep going
-		}
-	} 
+	// Dedicated test for @type generic and array
+	// If we spot a difference, we return 0
 	else {
-		return 0; // list lengths differ
+		// If length differs => the lists  differs
+		if (length1 != length2)
+			return 0;
+		else {
+			short type;
+			
+			// Compare item by item
+			for (int i = 0; i < length1; i++, a++, b++) {
+			
+				// If type differs => the lists differs
+				type = a->a_type;
+				if (type != (b->a_type))
+					return 0;
+			
+				// If value differs => the lists differs
+				switch(type) {
+					case A_FLOAT:
+						if (a->a_w.w_float != b->a_w.w_float)
+							return 0;
+						break;
+					case A_LONG:
+						if (a->a_w.w_long  != b->a_w.w_long)
+							return 0;
+						break;
+					case A_SYM:
+						if (a->a_w.w_sym != b->a_w.w_sym)
+							return 0;
+						break;
+				}
+			}
+		}
+		// Did not find any differences => the two lists are identical
+		return 1;
 	}
-	
-	return 1;
 }
 
 
