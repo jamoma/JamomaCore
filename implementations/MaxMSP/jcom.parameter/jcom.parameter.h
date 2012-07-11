@@ -62,6 +62,7 @@ typedef struct _param{
 	SymbolPtr		attr_unit;					///< The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
 	SymbolPtr		attr_unitOverride;			///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
 	TTBoolean		isOverriding;				///< flag indicating if we are currently overriding the active unit.
+	TTBoolean		receivedCallback;			///< flag indicating if a ramp callback has been received.
 	method			callback;					///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
 	ObjectPtr		callbackArg;				///< The object for which the callback method should be applied
 	ObjectPtr		receive;					///< Direct receive

@@ -239,6 +239,7 @@ void *param_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
         x->attr_ramp = jps_none;
         x->attr_rampfunction = jps_linear;
 		x->ramper = NULL;
+		x->receivedCallback = false;
 		x->attr_dataspace = jps_none;
 		x->attr_unit = jps_none;
 		x->attr_unitOverride = jps_none;
@@ -963,8 +964,10 @@ void param_output_int(void *z)
 	}
 	
 	// If ramping, then round to integer, else truncate
-	if (x->ramper)
+	if (x->receivedCallback) {
 		atom_setlong(&x->attr_valueTemp, round(atom_getfloat(&x->attr_valueTemp)));
+		x->receivedCallback = false;
+	}
 	else
 		atom_setlong(&x->attr_valueTemp, atom_getfloat(&x->attr_valueTemp));
 	
@@ -1599,13 +1602,13 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			for (i = 0; i < vectorSize; i++) {
 				switch(argv[i].a_type) {
 					case A_LONG:
-						atom_setlong(&x->atom_list[i], atom_getlong(argv + i));
+						atom_setlong(&x->atom_listTemp[i], atom_getlong(argv + i));
 						break;
 					case A_FLOAT:
-						atom_setfloat(&x->atom_list[i], atom_getfloat(argv + i));
+						atom_setfloat(&x->atom_listTemp[i], atom_getfloat(argv + i));
 						break;
 					case A_SYM:
-						atom_setsym(&x->atom_list[i], atom_getsym(argv + i));
+						atom_setsym(&x->atom_listTemp[i], atom_getsym(argv + i));
 						break;
 					default:
 						error("param_list: no type specification");
@@ -1954,6 +1957,9 @@ void param_ramp_callback_int(void *v, long, double *value)
 {
 	t_param	*x= (t_param *)v;
 
+	// This flag is needed for @type integer in order to know when to round and when to truncate floats in the output method.
+	x->receivedCallback = true;
+	
 	// We set the new value as a float for now, in order not to loose resolution before an eventual dataspace convertion
 	atom_setfloat(&x->attr_valueTemp, *value);
 	param_output_int(x);
