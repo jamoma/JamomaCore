@@ -1087,8 +1087,9 @@ void param_output_list(void *z)
 	if (param_clip_list(x) && x->ramper)
 		x->ramper->stop();							// stop the ramp
 	
+	int newListDiffers = param_list_compare(x, x->atom_listTemp, x->listTemp_size, x->atom_list, x->list_size);
 	// Test for repetitions before outputting	
-	if (!x->isInitialised || x->common.attr_repetitions || param_list_compare(x, x->atom_listTemp, x->listTemp_size, x->atom_list, x->list_size)) {
+	if ( !x->isInitialised || x->common.attr_repetitions || (newListDiffers==0) ) {
 	
 		// Update stored values
 		x->list_size = x->listTemp_size;
@@ -1812,8 +1813,9 @@ void param_send_feedback(t_param *x)
 // Returns true if lists are identical
 int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long lengthB)
 {
-	long length1 = lengthA;
-	long length2 = lengthB;
+	long	length1 = lengthA;
+	long	length2 = lengthB;
+	int		i;
 	
 	// Dedicated test for @type integer, disregards all list members but first
 	if (x->common.attr_type == jps_integer) {
@@ -1855,8 +1857,23 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 	else if (x->common.attr_type==jps_none)
 		return 0;
 	
-	// Dedicated test for @type generic and array
-	// If we spot a difference, we return 0
+	// Dedicated test for @type array. If we spot a difference, we return 0.
+	else if (x->common.attr_type== jps_array) {
+		// If length differs => the lists  differs
+		if (length1 != length2)
+			return 0;
+		else {
+			// Values are compared as floats
+			for (i = 0; i < length1; i++, a++, b++) {
+				if (atom_getfloat(a) != atom_getfloat(b))
+					return 0;
+			}
+			// Did not find any differences => the two lists are identical
+			return 1;
+		}
+	}
+	
+	// Dedicated test for @type generic. If we spot a difference, we return 0.
 	else {
 		// If length differs => the lists  differs
 		if (length1 != length2)
@@ -1865,7 +1882,7 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 			short type;
 			
 			// Compare item by item
-			for (int i = 0; i < length1; i++, a++, b++) {
+			for (i = 0; i < length1; i++, a++, b++) {
 			
 				// If type differs => the lists differs
 				type = a->a_type;
