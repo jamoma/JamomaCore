@@ -1035,41 +1035,35 @@ void param_output_symbol(void *z)
 	char string[24];
 	t_symbol *mySymbol;
 	
-	if (atom_gettype(&x->attr_valueTemp) == A_SYM) {
-		// Store as new value
-		atom_setsym(&x->attr_value, atom_getsym(&x->attr_valueTemp));
-		x->isSending = YES;
-		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
-		param_send_feedback(x);
-		x->isSending = NO;
-		x->isInitialised = YES;	// We have had our value set at least once
-	}
-	else if (atom_gettype(&x->attr_valueTemp) == A_FLOAT) {
+	// float and int is converted to symbol
+	if (atom_gettype(&x->attr_valueTemp) == A_FLOAT) {
 		
 		// Convert float to string and store as new value
 		sprintf (string, "%f", atom_getfloat(&x->attr_valueTemp));
 		mySymbol = gensym(string);
-		atom_setsym(&x->attr_value, mySymbol);
-		
-		x->isSending = YES;
-		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
-		param_send_feedback(x);
-		x->isSending = NO;
-		x->isInitialised = YES;	// We have had our value set at least once
+		atom_setsym(&x->attr_valueTemp, mySymbol);
 	}
 	else if (atom_gettype(&x->attr_valueTemp) == A_LONG) {
 		
 		//Convert int to string and stoe as new value
 		sprintf (string, "%ld", atom_getlong(&x->attr_valueTemp));
 		mySymbol = gensym(string);
-		atom_setsym(&x->attr_value, mySymbol);
-		
+		atom_setsym(&x->attr_valueTemp, mySymbol);
+	}
+	
+	// Test for repetitions before outputting
+	if (!x->isInitialised || x->common.attr_repetitions || (atom_getsym(&x->attr_valueTemp) != atom_getsym(&x->attr_value))) {
+	
+		// Update stored value
+		atom_setsym(&x->attr_value, atom_getsym(&x->attr_valueTemp));
+	
 		x->isSending = YES;
 		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
 		param_send_feedback(x);
 		x->isSending = NO;
 		x->isInitialised = YES;	// We have had our value set at least once
 	}
+	
 }
 
 void param_output_list(void *z)
