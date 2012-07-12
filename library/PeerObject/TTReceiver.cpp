@@ -119,7 +119,7 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 					
 					if (!err) {
 						
-						if (anObject->getName() == TT("Mirror"))
+						if (anObject->getName() == kTTSym_Mirror)
 							TTMirrorPtr(anObject)->enableListening(*anAttribute, mEnable);
 					}
 				}

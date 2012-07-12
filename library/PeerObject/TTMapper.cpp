@@ -184,7 +184,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	args.append(returnValueCallback);
 	
 	mReceiver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mReceiver), args);
 	
 	mReceiver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_value));
 	
@@ -198,7 +198,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 			
 			anObject = aNode->getObject();
 			if (anObject)
-				if (anObject->getName() == TT("Data")) {
+				if (anObject->getName() == kTTSym_Data) {
 					
 					anObject->getAttributeValue(kTTSym_rangeBounds, v);
 					
@@ -236,7 +236,7 @@ TTErr TTMapper::observeInput()
 	args.append(NULL);
 	
 	mInputObserver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mInputObserver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mInputObserver), args);
 	
 	mInputObserver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_created));
 
@@ -263,7 +263,7 @@ TTErr TTMapper::observeInputRange()
 	args.append(returnInputRangeCallback);
 	
 	mInputRangeObserver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mInputRangeObserver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mInputRangeObserver), args);
 	
 	mInputRangeObserver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_rangeBounds));
 	
@@ -286,7 +286,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 		
 	// Make a TTSender object
 	mSender = NULL;
-	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), kTTValNONE);
+	TTObjectInstantiate(kTTSym_Sender, TTObjectHandle(&mSender), kTTValNONE);
 	
 	mSender->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_value));
 	
@@ -300,7 +300,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 			
 			anObject = aNode->getObject();
 			if (anObject)
-				if (anObject->getName() == TT("Data")) {
+				if (anObject->getName() == kTTSym_Data) {
 					
 					anObject->getAttributeValue(kTTSym_rangeBounds, v);
 					
@@ -338,7 +338,7 @@ TTErr TTMapper::observeOutput()
 	args.append(NULL);
 	
 	mOutputObserver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mOutputObserver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mOutputObserver), args);
 	
 	mOutputObserver->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_created));
 	
@@ -365,7 +365,7 @@ TTErr TTMapper::observeOutputRange()
 	args.append(returnOutputRangeCallback);
 	
 	mOutputRangeObserver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mOutputRangeObserver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mOutputRangeObserver), args);
 	
 	mOutputRangeObserver->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_rangeBounds));
 	
@@ -599,7 +599,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 		
 		anObject = aNode->getObject();
 		if (anObject) {
-			if (anObject->getName() == TT("Data")) {
+			if (anObject->getName() == kTTSym_Data) {
 				
 				anObject->getAttributeValue(kTTSym_rangeBounds, v);
 				
@@ -645,7 +645,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 		
 		anObject = aNode->getObject();
 		if (anObject) {
-			if (anObject->getName() == TT("Data")) {
+			if (anObject->getName() == kTTSym_Data) {
 				
 				anObject->getAttributeValue(kTTSym_rangeBounds, v);
 				

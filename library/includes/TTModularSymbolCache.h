@@ -11,6 +11,31 @@
 
 #include "TTSymbol.h"
 
+// object classe name
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Application;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ApplicationManager;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Container;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Cue;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_CueManager;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Data;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Explorer;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Input;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Mapper;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_MapperManager;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Mirror;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_OpmlHandler;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Output;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Preset;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_PresetManager;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Receiver;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Sender;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Script;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Subscriber;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_TextHandler;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Viewer;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_XmlHandler;
+
+// attribute, message or any word often used
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activity;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityIn;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityOut;
@@ -55,6 +80,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_global;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_highlight;
 
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Init;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 extern TTMODULAR_EXPORT TTSymbolPtr kTTSym_instances;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
@@ -82,7 +108,10 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeBounds;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeClipmode;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampDrive;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampFunction;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Read;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ReadAgain;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_readonly;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Recall;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_receiver;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Refresh;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_repetitionsAllow;
@@ -96,6 +125,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_sharp;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_signal;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_start;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_stop;
+
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
 
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_tag;
@@ -106,6 +136,9 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueStepsize;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_viewFreeze;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_view;
+
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Write;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_WriteAgain;
 
 void TTModularSymbolCacheInit();
 

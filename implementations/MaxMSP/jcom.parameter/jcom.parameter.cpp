@@ -50,16 +50,16 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 #endif
 	
 #ifdef JMOD_MESSAGE
-	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.message", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Data, "jcom.message", NULL, spec);
 #endif
 	
 #ifdef JMOD_RETURN
-	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.return", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Data, "jcom.return", NULL, spec);
 #endif
 	
 #ifndef JMOD_MESSAGE
 #ifndef JMOD_RETURN
-	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.parameter", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Data, "jcom.parameter", NULL, spec);
 #endif
 #endif
 }

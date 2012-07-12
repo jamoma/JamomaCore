@@ -137,7 +137,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 				
 				// check if it's a container
 				if (anObject)
-					if (anObject->getName() == TT("Container"))
+					if (anObject->getName() == kTTSym_Container)
 						container = anObject;
 			}
 		}
@@ -194,7 +194,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 						
 						// check if it's a data
 						if (anObject) {
-							if (anObject->getName() == TT("Data")) {
+							if (anObject->getName() == kTTSym_Data) {
 								
 								// send the line using the command message
 								v = TTValue((TTPtr)aLine);
@@ -976,7 +976,7 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 			line->setSchema(kTTSym_script);
 			line->append(kTTSym_address, firstSymbol);
 			
-			TTObjectInstantiate(TT("Script"), &script, kTTValNONE);
+			TTObjectInstantiate(kTTSym_Script, &script, kTTValNONE);
 			
 			v = TTValue((TTPtr)script);
 			line->setValue(v);

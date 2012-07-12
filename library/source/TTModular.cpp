@@ -51,7 +51,6 @@ void TTModularInit()
 		TTViewer::registerClass();
 		TTXmlHandler::registerClass();
 		
-		// TODO: someday implement these so that we have project-scoped caches and don't stuff everything into the foundation?
 		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
 		
@@ -70,7 +69,7 @@ void TTModularInit()
 		v.fromString();
 		
 		// Create the Modular application manager with no application inside
-		TTObjectInstantiate(TT("ApplicationManager"), TTObjectHandle(&TTModularApplications), kTTValNONE);
+		TTObjectInstantiate(kTTSym_ApplicationManager, TTObjectHandle(&TTModularApplications), kTTValNONE);
 		
 		// Create a hash table to manage namespace selections
 		TTModularNamespaces = new TTHash();
@@ -96,7 +95,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			
 			// create the application
 			args = TTValue(TT(applicationStr.data()));
-			TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), args);
+			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&anApplication), args);
 			
 			// set it as local application
 			args = TTValue((TTPtr)anApplication);
@@ -104,7 +103,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
-			TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&anXmlHandler), kTTValNONE);
+			TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&anXmlHandler), kTTValNONE);
 			
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			

@@ -147,7 +147,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 
 			// Create a new mapper
 			newMapper = NULL;
-			TTObjectInstantiate(TT("Mapper"), TTObjectHandle(&newMapper), args);
+			TTObjectInstantiate(kTTSym_Mapper, TTObjectHandle(&newMapper), args);
 
 			// Browse attributes in xml
 			while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {

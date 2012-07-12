@@ -87,7 +87,7 @@ TTSubscriber::~TTSubscriber()
 		else {
 			
 			// remove alias for TTContainer object before
-			if (mObject->getName() == TT("Container"))
+			if (mObject->getName() == kTTSym_Container)
 				mObject->sendMessage(TT("AliasRemove"));
 			
 			// notify
@@ -360,7 +360,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName,
 	args.append(kTTSym_message);
 	
 	aData = NULL;
-	TTObjectInstantiate(TT("Data"), TTObjectHandle(&aData), args);
+	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(&aData), args);
 	
 	// register TTData into the local tree
 	nameToAddress = convertTTNameInTTNodeAddress(messageName);
@@ -406,7 +406,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 		args.append(service);
 		
 		aData = NULL;
-		TTObjectInstantiate(TT("Data"), TTObjectHandle(&aData), args);
+		TTObjectInstantiate(kTTSym_Data, TTObjectHandle(&aData), args);
 		
 		// register TTData into the local tree
 		nameToAddress = convertTTNameInTTNodeAddress(attributeName);

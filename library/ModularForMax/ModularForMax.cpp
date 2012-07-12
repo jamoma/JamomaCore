@@ -50,7 +50,7 @@ TTErr jamoma_application_write_configuration(void)
 	TTValue			v;
 	TTXmlHandlerPtr anXmlHandler = NULL;
 	
-	TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&anXmlHandler), v);
+	TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&anXmlHandler), v);
 	
 	v = TTValue(TTPtr(JamomaApplication));
 	anXmlHandler->setAttributeValue(kTTSym_object, v);
@@ -115,7 +115,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTNodeAddress
 	args.append(contextListCallback);
 	
 	*returnedSubscriber = NULL;
-	TTObjectInstantiate(TT("Subscriber"), TTObjectHandle(returnedSubscriber), args);
+	TTObjectInstantiate(kTTSym_Subscriber, TTObjectHandle(returnedSubscriber), args);
 	
 	// Check if the subscription is ok (or the binding in case of NULL object)
 	(*returnedSubscriber)->getAttributeValue(TT("node"), v);
@@ -230,7 +230,7 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 	args.append(returnValueCallback);
 	
 	*returnedContainer = NULL;
-	TTObjectInstantiate(TT("Container"), TTObjectHandle(returnedContainer), args);
+	TTObjectInstantiate(kTTSym_Container, TTObjectHandle(returnedContainer), args);
 	
 	return kTTErrNone;
 }
@@ -287,7 +287,7 @@ TTErr jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr ser
 	args.append(service);
 	
 	*returnedData = NULL;
-	TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
+	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
 	
 	return kTTErrNone;
 }
@@ -315,7 +315,7 @@ TTErr jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPt
 TTErr jamoma_sender_create(ObjectPtr x, TTObjectPtr *returnedSender)
 {
 	*returnedSender = NULL;
-	TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), kTTValNONE);
+	TTObjectInstantiate(kTTSym_Sender, TTObjectHandle(returnedSender), kTTValNONE);
 	return kTTErrNone;
 }
 
@@ -330,7 +330,7 @@ TTErr jamoma_sender_create_audio(ObjectPtr x, TTObjectPtr *returnedSender)
 	args.append((TTPtr)audio);
 	
 	*returnedSender = NULL;
-	TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
+	TTObjectInstantiate(kTTSym_Sender, TTObjectHandle(returnedSender), args);
 	return kTTErrNone;
 }
 
@@ -374,7 +374,7 @@ TTErr jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver)
 	args.append(returnValueCallback);
 	
 	*returnedReceiver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(returnedReceiver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(returnedReceiver), args);
 	
 	return kTTErrNone;
 }
@@ -401,7 +401,7 @@ TTErr jamoma_receiver_create_audio(ObjectPtr x, TTObjectPtr *returnedReceiver)
 	args.append((TTPtr)audio);
 	
 	*returnedReceiver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(returnedReceiver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(returnedReceiver), args);
 	
 	return kTTErrNone;
 }
@@ -415,7 +415,7 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 	TTValue			args;
 	
 	*returnedPresetManager = NULL;
-	TTObjectInstantiate(TT("PresetManager"), TTObjectHandle(returnedPresetManager), args);
+	TTObjectInstantiate(kTTSym_PresetManager, TTObjectHandle(returnedPresetManager), args);
 	
 	return kTTErrNone;
 }
@@ -426,7 +426,7 @@ TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager)
 	TTValue			args;
 	
 	*returnedCueManager = NULL;
-	TTObjectInstantiate(TT("CueManager"), TTObjectHandle(returnedCueManager), args);
+	TTObjectInstantiate(kTTSym_CueManager, TTObjectHandle(returnedCueManager), args);
 	
 	return kTTErrNone;
 }
@@ -452,7 +452,7 @@ TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput)
 	args.append(signalOutCallback);
 	
 	*returnedInput = NULL;
-	TTObjectInstantiate(TT("Input"), TTObjectHandle(returnedInput), args);
+	TTObjectInstantiate(kTTSym_Input, TTObjectHandle(returnedInput), args);
 	
 	return kTTErrNone;
 }
@@ -485,7 +485,7 @@ TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput)
 	args.append((TTPtr)audioZero);
 	
 	*returnedInput = NULL;
-	TTObjectInstantiate(TT("Input"), TTObjectHandle(returnedInput), args);
+	TTObjectInstantiate(kTTSym_Input, TTObjectHandle(returnedInput), args);
 	
 	return kTTErrNone;
 }
@@ -528,7 +528,7 @@ TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput)
 	args.append(signalOutCallback);
 	
 	*returnedOutput = NULL;
-	TTObjectInstantiate(TT("Output"), TTObjectHandle(returnedOutput), args);
+	TTObjectInstantiate(kTTSym_Output, TTObjectHandle(returnedOutput), args);
 	
 	return kTTErrNone;
 }
@@ -592,7 +592,7 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput)
 	args.append((TTPtr)rampGainUnit);
 	
 	*returnedOutput = NULL;
-	TTObjectInstantiate(TT("Output"), TTObjectHandle(returnedOutput), args);
+	TTObjectInstantiate(kTTSym_Output, TTObjectHandle(returnedOutput), args);
 	
 	return kTTErrNone;
 }
@@ -633,7 +633,7 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 	args.append(returnValueCallback);
 	
 	*returnedMapper = NULL;
-	TTObjectInstantiate(TT("Mapper"), TTObjectHandle(returnedMapper), args);
+	TTObjectInstantiate(kTTSym_Mapper, TTObjectHandle(returnedMapper), args);
 	
 	return kTTErrNone;
 }
@@ -658,7 +658,7 @@ TTErr jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	args.append(returnValueCallback);
 	
 	*returnedViewer = NULL;
-	TTObjectInstantiate(TT("Viewer"), TTObjectHandle(returnedViewer), args);
+	TTObjectInstantiate(kTTSym_Viewer, TTObjectHandle(returnedViewer), args);
 	
 	return kTTErrNone;
 }
@@ -708,7 +708,7 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	args.append(returnSelectionCallback);
 	
 	*returnedExplorer = NULL;
-	TTObjectInstantiate(TT("Explorer"), TTObjectHandle(returnedExplorer), args);
+	TTObjectInstantiate(kTTSym_Explorer, TTObjectHandle(returnedExplorer), args);
 	
 	return kTTErrNone;
 }
@@ -723,14 +723,14 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	// to look for any data (parameter | message | return)
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
-	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_object, kTTSym_Data);
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TT("data"), (TTPtr)aFilter);
 	
 	// to look for jcom.parameter
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
-	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_object, kTTSym_Data);
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_parameter);
 	aFilter->append(kTTSym_mode, kTTSym_include);
@@ -739,7 +739,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	// to look for jcom.message
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
-	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_object, kTTSym_Data);
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_message);
 	aFilter->append(kTTSym_mode, kTTSym_include);
@@ -748,7 +748,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	// to look for jcom.return
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
-	aFilter->append(kTTSym_object, TT("Data"));
+	aFilter->append(kTTSym_object, kTTSym_Data);
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_return);
 	aFilter->append(kTTSym_mode, kTTSym_include);
@@ -757,7 +757,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	// to look for jcom.model
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
-	aFilter->append(kTTSym_object, TT("Container"));
+	aFilter->append(kTTSym_object, kTTSym_Container);
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_model);
 	aFilter->append(kTTSym_mode, kTTSym_include);
@@ -766,7 +766,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	// to look for jcom.view
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
-	aFilter->append(kTTSym_object, TT("Container"));
+	aFilter->append(kTTSym_object, kTTSym_Container);
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_view);
 	aFilter->append(kTTSym_mode, kTTSym_include);
@@ -782,7 +782,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	// to look for jcom.remote
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
-	aFilter->append(kTTSym_object, TT("Viewer"));
+	aFilter->append(kTTSym_object, kTTSym_Viewer);
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TT("remote"), (TTPtr)aFilter);
 	

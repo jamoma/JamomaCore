@@ -34,7 +34,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_free = NULL;
 	spec->_any = NULL;
 	
-	return wrapTTModularClassAsMaxClass(TT("Mapper"), "jcom.map", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Mapper, "jcom.map", NULL, spec);
 }
 
 void WrapTTMapperClass(WrappedClassPtr c)

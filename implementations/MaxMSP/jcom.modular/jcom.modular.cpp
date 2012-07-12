@@ -41,7 +41,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_any = NULL;
 	spec->_free = &WrappedApplicationClass_free;
 	
-	return wrapTTModularClassAsMaxClass(TT("Application"), "jcom.modular", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Application, "jcom.modular", NULL, spec);
 }
 
 void WrapTTApplicationClass(WrappedClassPtr c)
@@ -85,7 +85,7 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 			
 			// create the application
 			args = TTValue(applicationName);
-			TTObjectInstantiate(TT("Application"), TTObjectHandle(&x->wrappedObject), args);
+			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&x->wrappedObject), args);
 			
 		}
 		
@@ -119,9 +119,9 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// create internal TTOpmlHandler
 	aOpmlHandler = NULL;
-	TTObjectInstantiate(TT("OpmlHandler"), TTObjectHandle(&aOpmlHandler), args);
+	TTObjectInstantiate(kTTSym_OpmlHandler, TTObjectHandle(&aOpmlHandler), args);
 	v = TTValue(TTPtr(aOpmlHandler));
-	x->internals->append(TT("OpmlHandler"), v);
+	x->internals->append(kTTSym_OpmlHandler, v);
 	v = TTValue(TTPtr(x->wrappedObject));
 	aOpmlHandler->setAttributeValue(kTTSym_object, v);
 	
@@ -250,14 +250,14 @@ void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 		fullpath = jamoma_file_read((ObjectPtr)x, argc, argv, NULL);
 		v.append(fullpath);
 		
-		tterr = x->internals->lookup(TT("OpmlHandler"), o);
+		tterr = x->internals->lookup(kTTSym_OpmlHandler, o);
 		
 		if (!tterr) {
 			
 			o.get(0, (TTPtr*)&aOpmlHandler);
 			
 			critical_enter(0);
-			tterr = aOpmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
+			tterr = aOpmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
 			critical_exit(0);
 			
 			if (!tterr)

@@ -75,7 +75,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_free = &WrappedViewerClass_free;
 	spec->_any = &WrappedViewerClass_anything;
 	
-	return wrapTTModularClassAsMaxClass(TT("Viewer"), "jcom.remote", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Viewer, "jcom.remote", NULL, spec);
 }
 
 void WrapTTViewerClass(WrappedClassPtr c)
@@ -355,7 +355,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 		
 		if (!err) {
 			if (anObject = firstNode->getObject()) {
-				if (anObject->getName() == TT("Data")) {
+				if (anObject->getName() == kTTSym_Data) {
 					anObject->getAttributeValue(kTTSym_service, v);
 					v.get(0, &service);
 					

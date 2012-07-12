@@ -147,9 +147,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 #endif
 	
 #ifdef JCOM_SEND_TILDE
-	return wrapTTModularClassAsMaxClass(TT("Sender"), "jcom.send~", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Sender, "jcom.send~", NULL, spec);
 #else
-	return wrapTTModularClassAsMaxClass(TT("Sender"), "jcom.send", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Sender, "jcom.send", NULL, spec);
 #endif
 }
 
@@ -461,11 +461,11 @@ t_int *send_perform(t_int *w)
 					if (anObject) {
 						
 						// INPUT case : cache the signal into the input
-						if (anObject->getName() == TT("Input"))
+						if (anObject->getName() == kTTSym_Input)
 							TTInputPtr(anObject)->mSignalCache->appendUnique((TTPtr)aSender->mSignal);
 						
 						// DATA case : send the mean value of the sample
-						else if (anObject->getName() == TT("Data"))
+						else if (anObject->getName() == kTTSym_Data)
 							anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
 						
 					}

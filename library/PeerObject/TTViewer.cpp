@@ -109,7 +109,7 @@ TTErr TTViewer::bind()
 		TTObjectRelease(TTObjectHandle(&mSender));
 	
 	mSender = NULL;							// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&mSender), kTTValNONE);
+	TTObjectInstantiate(kTTSym_Sender, TTObjectHandle(&mSender), kTTValNONE);
 	
 	mSender->setAttributeValue(kTTSym_address, mAddress);
 	
@@ -132,7 +132,7 @@ TTErr TTViewer::bind()
 	args.append(returnValueCallback);
 
 	mReceiver = NULL;						// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mReceiver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mReceiver), args);
 	
 	mReceiver->setAttributeValue(kTTSym_address, mAddress);
 	
@@ -162,7 +162,7 @@ TTErr TTViewer::observeDataspace()
 	args.append(returnDataspaceCallback);
 	
 	mDataspaceObserver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mDataspaceObserver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mDataspaceObserver), args);
 	
 	mDataspaceObserver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_dataspace));
 	
@@ -191,7 +191,7 @@ TTErr TTViewer::observeDataspaceUnit()
 	args.append(returnDataspaceUnitCallback);
 	
 	mDataspaceUnitObserver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&mDataspaceUnitObserver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mDataspaceUnitObserver), args);
 	
 	mDataspaceUnitObserver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_dataspaceUnit));
 	

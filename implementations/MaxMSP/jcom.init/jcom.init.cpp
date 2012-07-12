@@ -159,7 +159,7 @@ void init_subscribe(t_init *x)
 			args.append(returnValueCallback);
 			
 			x->initReceiver = NULL;
-			TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&x->initReceiver), args);
+			TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&x->initReceiver), args);
 			
 			x->initReceiver->setAttributeValue(kTTSym_address, contextAddress->appendAttribute(kTTSym_initialized));
 		}

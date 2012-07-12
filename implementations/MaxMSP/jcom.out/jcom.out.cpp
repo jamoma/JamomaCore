@@ -162,9 +162,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 #endif
 	
 #ifdef JCOM_OUT_TILDE
-	return wrapTTModularClassAsMaxClass(TT("Output"), "jcom.out~", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Output, "jcom.out~", NULL, spec);
 #else
-	return wrapTTModularClassAsMaxClass(TT("Output"), "jcom.out", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Output, "jcom.out", NULL, spec);
 #endif
 	
 }

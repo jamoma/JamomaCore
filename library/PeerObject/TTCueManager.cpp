@@ -290,7 +290,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		
 		// Create a new cue
 		mCurrentCue = NULL;
-		TTObjectInstantiate(TT("Cue"), TTObjectHandle(&mCurrentCue), kTTValNONE);
+		TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&mCurrentCue), kTTValNONE);
 		
 		mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
 		
@@ -444,7 +444,7 @@ TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 	
 	// create an empty cue to merge the current state into
 	stateCue = NULL;
-	TTObjectInstantiate(TT("Cue"), TTObjectHandle(&stateCue), kTTValNONE);
+	TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&stateCue), kTTValNONE);
 	
 	// merge and optimize each cues except the first
 	for (i = 1; i < inputValue.getSize(); i++) {
@@ -470,7 +470,7 @@ TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 				
 				// create an empty cue to store the result of optimization
 				optimizedCue = NULL;
-				TTObjectInstantiate(TT("Cue"), TTObjectHandle(&optimizedCue), kTTValNONE);
+				TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&optimizedCue), kTTValNONE);
 				optimizedCue->setAttributeValue(kTTSym_name, nameToOptimize);
 				
 				// optimize the cue considering the current state
@@ -573,7 +573,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 				
 				// Create a new cue
 				mCurrentCue = NULL;
-				TTObjectInstantiate(TT("Cue"), TTObjectHandle(&mCurrentCue), kTTValNONE);
+				TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&mCurrentCue), kTTValNONE);
 				
 				mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
 				
@@ -661,7 +661,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 					
 					// Create a new cue
 					mCurrentCue = NULL;
-					TTObjectInstantiate(TT("Cue"), TTObjectHandle(&mCurrentCue), kTTValNONE);
+					TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&mCurrentCue), kTTValNONE);
 					
 					mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
 					

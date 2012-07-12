@@ -11,7 +11,31 @@
 #include "TTModular.h"
 #include "TTModularSymbolCache.h"
 
+// object classe name
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Application;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ApplicationManager;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Container;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Cue;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_CueManager;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Data;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Explorer;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Input;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Mapper;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_MapperManager;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Mirror;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_OpmlHandler;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Output;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Preset;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_PresetManager;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Receiver;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Sender;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Script;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Subscriber;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_TextHandler;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Viewer;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_XmlHandler;
 
+// attribute, message or any word often used
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activity;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityIn;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityOut;
@@ -56,6 +80,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_global;
 
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_highlight;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Init;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_instances;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
@@ -83,7 +108,10 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeBounds;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeClipmode;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampDrive;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampFunction;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Read;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ReadAgain;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_readonly;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Recall;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_receiver;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Refresh;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_repetitionsAllow;
@@ -108,9 +136,37 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueStepsize;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_viewFreeze;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_view;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Write;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_WriteAgain;
+
 
 void TTModularSymbolCacheInit()
 {
+	// object classe name
+	kTTSym_Application				= TT("Application");
+	kTTSym_ApplicationManager		= TT("ApplicationManager");	
+	kTTSym_Container				= TT("Container");		
+	kTTSym_Cue						= TT("Cue");					
+	kTTSym_CueManager				= TT("CueManager");			
+	kTTSym_Data						= TT("Data");					
+	kTTSym_Explorer					= TT("Explorer");				
+	kTTSym_Input					= TT("Input");				
+	kTTSym_Mapper					= TT("Mapper");				
+	kTTSym_MapperManager			= TT("MapperManager");		
+	kTTSym_Mirror					= TT("Mirror");				
+	kTTSym_OpmlHandler				= TT("OpmlHandler");			
+	kTTSym_Output					= TT("Output");				
+	kTTSym_Preset					= TT("Preset");				
+	kTTSym_PresetManager			= TT("PresetManager");		
+	kTTSym_Receiver					= TT("Receiver");				
+	kTTSym_Sender					= TT("Sender");				
+	kTTSym_Script					= TT("Script");				
+	kTTSym_Subscriber				= TT("Subscriber");			
+	kTTSym_TextHandler				= TT("TextHandler");			
+	kTTSym_Viewer					= TT("Viewer");				
+	kTTSym_XmlHandler				= TT("XmlHandler");
+
+	// attribute, message or any word often used
 	kTTSym_activity					= TT("activity");
 	kTTSym_activityIn				= TT("activityIn");
 	kTTSym_activityOut				= TT("activityOut");
@@ -155,6 +211,7 @@ void TTModularSymbolCacheInit()
 	
 	kTTSym_highlight				= TT("highlight");
 	
+	kTTSym_Init						= TT("Init");
 	kTTSym_initialized				= TT("initialized");
 	kTTSym_instances				= TT("instances");
 	kTTSym_integer					= TT("integer");
@@ -182,7 +239,10 @@ void TTModularSymbolCacheInit()
 	kTTSym_rangeClipmode			= TT("rangeClipmode");
 	kTTSym_rampDrive				= TT("rampDrive");
 	kTTSym_rampFunction				= TT("rampFunction");
+	kTTSym_Read						= TT("Read");
+	kTTSym_ReadAgain				= TT("ReadAgain");
 	kTTSym_readonly					= TT("readonly");
+	kTTSym_Recall					= TT("Recall");
 	kTTSym_receiver					= TT("receiver");
 	kTTSym_Refresh					= TT("Refresh");
 	kTTSym_repetitionsAllow			= TT("repetitionsAllow");
@@ -207,5 +267,8 @@ void TTModularSymbolCacheInit()
 	kTTSym_valueStepsize			= TT("valueStepsize");
 	kTTSym_viewFreeze				= TT("viewFreeze");
 	kTTSym_view						= TT("view");
+	
+	kTTSym_Write					= TT("Write");
+	kTTSym_WriteAgain				= TT("WriteAgain");
 }
 

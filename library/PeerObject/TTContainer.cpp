@@ -140,7 +140,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 				cacheElement.get(0, (TTPtr*)&anObject);
 				
 				// DATA CASE for value attribute
-				if (anObject->getName() == TT("Data") && attrOrMess == kTTSym_value) {
+				if (anObject->getName() == kTTSym_Data && attrOrMess == kTTSym_value) {
 					
 					// what kind of service the data is used for ?
 					anObject->getAttributeValue(TT("service"), v);
@@ -158,7 +158,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 				}
 				
 				// VIEWER CASE for a same attribute
-				if (anObject->getName() == TT("Viewer") && attrOrMess == kTTSym_value) {
+				if (anObject->getName() == kTTSym_Viewer && attrOrMess == kTTSym_value) {
 					
 					// send the value
 					anObject->sendMessage(kTTSym_Send, *valueToSend, kTTValNONE);
@@ -192,7 +192,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 					cacheElement.get(0, (TTPtr*)&anObject);
 					
 					// CONTAINER CASE : use Send message
-					if (anObject->getName() == TT("Container")) {
+					if (anObject->getName() == kTTSym_Container) {
 						
 						// replace relativeAddress by belowAddress
 						AddressAndValue.set(0, belowAddress);
@@ -244,7 +244,7 @@ TTErr TTContainer::Init()
 			cacheElement.get(0, (TTPtr*)&anObject);
 			
 			if (anObject)
-				if (anObject->getName() == TT("Data")) {
+				if (anObject->getName() == kTTSym_Data) {
 					anObject->getAttributeValue(kTTSym_service, v);
 					v.get(0, &service);
 					if (service == kTTSym_parameter)
@@ -261,7 +261,7 @@ TTErr TTContainer::Init()
 			cacheElement.get(0, (TTPtr*)&anObject);
 			
 			if (anObject)
-				if (anObject->getName() == TT("Container"))
+				if (anObject->getName() == kTTSym_Container)
 					anObject->sendMessage(TT("Init"));
 		}
 	}
@@ -332,7 +332,7 @@ TTErr TTContainer::setAlias(const TTValue& value)
 					anObject = NULL;
 					cacheElement.get(0, (TTPtr*)&anObject);
 					
-					if (anObject->getName() == TT("Container"))
+					if (anObject->getName() == kTTSym_Container)
 						anObject->setAttributeValue(kTTSym_alias, kTTAdrsEmpty);
 				}
 			}
@@ -364,7 +364,7 @@ TTErr TTContainer::setAlias(const TTValue& value)
 					anObject = NULL;
 					cacheElement.get(0, (TTPtr*)&anObject);
 					
-					if (anObject->getName() == TT("Container"))
+					if (anObject->getName() == kTTSym_Container)
 						anObject->setAttributeValue(kTTSym_alias, TTADRS(aliasKey));
 					
 				}
@@ -587,7 +587,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	cacheElement.append((TTPtr)anObject);
 	
 	// Special case for Data : observe his value
-	if (anObject->getName() == TT("Data")) {
+	if (anObject->getName() == kTTSym_Data) {
 		
 		// What kind of service the data is used for ?
 		anObject->getAttributeValue(kTTSym_service, v);
@@ -646,7 +646,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	}
 	
 	// Special case for Viewer : observe what it returns
-	else if (anObject->getName() == TT("Viewer")) {
+	else if (anObject->getName() == kTTSym_Viewer) {
 		
 		// create a returnedValue Attribute observer on it
 		anObject->findAttribute(kTTSym_returnedValue, &anAttribute);
@@ -671,7 +671,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	}
 	
 	// Special case for Container : observe his activity
-	else if (anObject->getName() == TT("Container")) {
+	else if (anObject->getName() == kTTSym_Container) {
 		
 		// create a activityIn Attribute observer on it
 		anObject->findAttribute(kTTSym_activityIn, &anAttribute);
@@ -752,7 +752,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 		if (anObject) {
 			
 			// it is a Data
-			if (anObject->getName() == TT("Data")) {
+			if (anObject->getName() == kTTSym_Data) {
 				
 				// What kind of service the data is used for ?
 				anObject->getAttributeValue(kTTSym_service, v);
@@ -792,7 +792,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 			}
 			
 			// it is a Viewer
-			if (anObject->getName() == TT("Viewer")) {
+			if (anObject->getName() == kTTSym_Viewer) {
 				
 				// delete returnedValue observer
 				anObserver = NULL;
@@ -810,7 +810,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 			}
 			
 			// it is a Container
-			if (anObject->getName() == TT("Container")) {
+			if (anObject->getName() == kTTSym_Container) {
 				
 				// delete activityIn observer
 				anObserver = NULL;
@@ -871,7 +871,7 @@ TTErr TTContainer::unbind()
 			
 			if (anObject) {
 				// is it a Data ?
-				if (anObject->getName() == TT("Data")) {
+				if (anObject->getName() == kTTSym_Data) {
 					
 					// delete Value observer
 					cacheElement.get(1, (TTPtr*)&aValueObserver);
@@ -993,7 +993,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		mObjectsObserversCache->lookup(name, cacheElement);
 		cacheElement.get(0, (TTPtr*)&anObject);
 		
-		if (anObject->getName() == TT("Data")) {
+		if (anObject->getName() == kTTSym_Data) {
 			anObject->getAttributeValue(kTTSym_service, s);
 			s.get(0, &service);
 			
@@ -1031,7 +1031,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		mObjectsObserversCache->lookup(name, cacheElement);
 		cacheElement.get(0, (TTPtr*)&anObject);
 		
-		if (anObject->getName() == TT("Data")) {
+		if (anObject->getName() == kTTSym_Data) {
 			anObject->getAttributeValue(kTTSym_service, s);
 			s.get(0, &service);
 			
@@ -1070,7 +1070,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		mObjectsObserversCache->lookup(name, cacheElement);
 		cacheElement.get(0, (TTPtr*)&anObject);
 		
-		if (anObject->getName() == TT("Data")) {
+		if (anObject->getName() == kTTSym_Data) {
 			anObject->getAttributeValue(kTTSym_service, s);
 			s.get(0, &service);
 			
@@ -1425,7 +1425,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 			cacheElement.get(0, (TTPtr*)&anObject);
 			
 			// none CONTAINER CASE
-			if (anObject->getName() != TT("Container")) {
+			if (anObject->getName() != kTTSym_Container) {
 				
 				v = data; // protect the data
 			}

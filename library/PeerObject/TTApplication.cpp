@@ -14,6 +14,7 @@
 #define thisTTClassName		"Application"
 #define thisTTClassTags		"application"
 
+
 TT_MODULAR_CONSTRUCTOR,
 mDebug(NO),
 mDirectory(NULL),
@@ -432,7 +433,7 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 		
 		aMirror = (TTMirrorPtr)nodeToUpdate->getObject();
 		if (aMirror)
-			if (aMirror->getName() == TT("Mirror"))
+			if (aMirror->getName() == kTTSym_Mirror)
 				return aMirror->updateAttributeValue(whereComesFrom->getAttribute(), *newValue);
 	}
 	
@@ -705,7 +706,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		
 		TTOpmlHandlerPtr	aOpmlHandler = NULL;
 		TTValue				args, o;
-		TTObjectInstantiate(TT("OpmlHandler"), TTObjectHandle(&aOpmlHandler), args);
+		TTObjectInstantiate(kTTSym_OpmlHandler, TTObjectHandle(&aOpmlHandler), args);
 		o = TTValue(TTPtr(this));
 		aOpmlHandler->setAttributeValue(kTTSym_object, o);
 		aOpmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
@@ -822,7 +823,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 						listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
 						args.append(listenAttributeCallback);
 						
-						TTObjectInstantiate(TT("Mirror"), TTObjectHandle(&aMirror), args);
+						TTObjectInstantiate(kTTSym_Mirror, TTObjectHandle(&aMirror), args);
 						
 						// register object into the directory
 						this->mDirectory->TTNodeCreate(absoluteAddress, (TTObjectPtr)aMirror, NULL,  &aNode, &newInstanceCreated);

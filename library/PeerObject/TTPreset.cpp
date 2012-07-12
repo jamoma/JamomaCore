@@ -39,7 +39,7 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	TTObjectInstantiate(TT("Script"), TTObjectHandle(&mScript), args);
+	TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&mScript), args);
 }
 
 TTPreset::~TTPreset()
@@ -107,7 +107,7 @@ TTErr TTPreset::Store()
 			if (anObject) {
 				
 				// DATA case
-				if (anObject->getName() == TT("Data")) {
+				if (anObject->getName() == kTTSym_Data) {
 					
 					v.clear();
 					anObject->getAttributeValue(kTTSym_value, v);
@@ -230,7 +230,7 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 	o = node->getObject();
 	if (o) {
 		
-		if (o->getName() == TT("Data")) {
+		if (o->getName() == kTTSym_Data) {
 			o->getAttributeValue(kTTSym_service, v);
 			v.get(0, &s);
 			return s == kTTSym_parameter;

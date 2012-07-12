@@ -58,9 +58,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_any = &WrappedContainerClass_anything;
 
 #ifndef JCOM_VIEW
-	return wrapTTModularClassAsMaxClass(TT("Container"), "jcom.model", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Container, "jcom.model", NULL, spec);
 #else
-	return wrapTTModularClassAsMaxClass(TT("Container"), "jcom.view", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Container, "jcom.view", NULL, spec);
 #endif
 }
 
@@ -92,10 +92,10 @@ void WrappedContainerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 #ifndef JCOM_VIEW
 	x->patcherContext = kTTSym_model;
-	x->wrappedObject->setAttributeValue(TT("tag"), kTTSym_model);
+	x->wrappedObject->setAttributeValue(kTTSym_tag, kTTSym_model);
 #else
 	x->patcherContext = kTTSym_view;
-	x->wrappedObject->setAttributeValue(TT("tag"), kTTSym_view);
+	x->wrappedObject->setAttributeValue(kTTSym_tag, kTTSym_view);
 #endif
 	
 	// handle attribute args
@@ -160,7 +160,7 @@ void model_subscribe(TTPtr self)
 		// and set the address attribute of the Container 
 		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &nodeAdrs);
-		x->wrappedObject->setAttributeValue(TT("address"), v);
+		x->wrappedObject->setAttributeValue(kTTSym_address, v);
 		
 		// if the jcom.model is well subscribed
 		if (aPatcher == x->patcherPtr && x->patcherContext != NULL) {
@@ -225,9 +225,9 @@ void model_subscribe(TTPtr self)
 				
 				// for auto documentation : create internal TTTextHandler and expose Write message
 				aTextHandler = NULL;
-				TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler), args);
+				TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
 				v = TTValue(TTPtr(aTextHandler));
-				x->internals->append(TT("TextHandler"), v);
+				x->internals->append(kTTSym_TextHandler, v);
 				v = TTValue(TTPtr(x->wrappedObject));
 				aTextHandler->setAttributeValue(kTTSym_object, v);
 			}
@@ -339,7 +339,7 @@ void model_init(TTPtr self)
 	x->wrappedObject->getAttributeValue(kTTSym_initialized, v);
 	v.get(0, initialized);
 	if (!initialized)
-		x->wrappedObject->sendMessage(TT("Init"));
+		x->wrappedObject->sendMessage(kTTSym_Init);
 }
 
 // Method for Assistance Messages

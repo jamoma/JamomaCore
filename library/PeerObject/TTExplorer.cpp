@@ -754,7 +754,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 			attributeNameList.get(i, &attributeName);
 			
 			// Filter object type : Data, Viewer and Container
-			if (anObject->getName() == TT("Data") || anObject->getName() == TT("View") || anObject->getName() == TT("Container")) {
+			if (anObject->getName() == kTTSym_Data || anObject->getName() == TT("View") || anObject->getName() == kTTSym_Container) {
 				
 				// Filter attribute names
 				if (attributeName != kTTSym_value && 

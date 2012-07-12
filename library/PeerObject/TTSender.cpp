@@ -103,13 +103,13 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 				
 				if (anObject) {
 					// DATA CASE for value attribute
-					if (anObject->getName() == TT("Data") && ttAttributeName == kTTSym_value) {
+					if (anObject->getName() == kTTSym_Data && ttAttributeName == kTTSym_value) {
 						
 						// set the value attribute using a command
 						anObject->sendMessage(kTTSym_Command, valueToSend, kTTValNONE);
 					}
 					// CONTAINER CASE for value attribute
-					else if (anObject->getName() == TT("Container") && ttAttributeName == kTTSym_value) {
+					else if (anObject->getName() == kTTSym_Container && ttAttributeName == kTTSym_value) {
 						
 						if (valueToSend.getType() == kTypeSymbol) {
 							valueToSend.get(0, &relativeAddress);
@@ -125,7 +125,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 							err = kTTErrGeneric;
 						
 					}
-					else if (anObject->getName() == TT("Input") && ttAttributeName == kTTSym_signal) {
+					else if (anObject->getName() == kTTSym_Input && ttAttributeName == kTTSym_signal) {
 						
 						// send the value
 						anObject->sendMessage(kTTSym_Send, valueToSend, kTTValNONE);

@@ -75,16 +75,16 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 #endif
 	
 #ifdef JMOD_MESSAGE
-	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.messageArray", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Data, "jcom.messageArray", NULL, spec);
 #endif
 	
 #ifdef JMOD_RETURN
-	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.returnArray", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Data, "jcom.returnArray", NULL, spec);
 #endif
 	
 #ifndef JMOD_MESSAGE
 #ifndef JMOD_RETURN
-	return wrapTTModularClassAsMaxClass(TT("Data"), "jcom.parameterArray", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Data, "jcom.parameterArray", NULL, spec);
 #endif
 #endif
 }
@@ -320,7 +320,7 @@ void data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr servi
 	args.append(service);
 	
 	*returnedData = NULL;
-	TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
+	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
 }
 
 void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)

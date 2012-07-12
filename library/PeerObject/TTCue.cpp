@@ -39,7 +39,7 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	TTObjectInstantiate(TT("Script"), TTObjectHandle(&mScript), args);
+	TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&mScript), args);
 }
 
 TTCue::~TTCue()
@@ -85,7 +85,7 @@ TTErr TTCue::processRamp(TTObjectPtr aScript, TTUInt32 ramp)
 				
 				v.get(0, (TTPtr*)&anObject);
 				
-				if (anObject->getName() == TT("Data")) {
+				if (anObject->getName() == kTTSym_Data) {
 					
 					anObject->getAttributeValue(kTTSym_rampDrive, v);
 					v.get(0, &rampDrive);
@@ -204,7 +204,7 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, c
 				if (anObject) {
 					
 					// DATA case : get value attribute
-					if (anObject->getName() == TT("Data")) {
+					if (anObject->getName() == kTTSym_Data) {
 						
 						v.clear();
 						anObject->getAttributeValue(kTTSym_service, v);
@@ -277,7 +277,7 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, c
 					if (anObject) {
 						
 						// CONTAINER case : append a comment line to the script before the sub script line
-						if (anObject->getName() == TT("Container"))
+						if (anObject->getName() == kTTSym_Container)
 							aScript->sendMessage(TT("AppendComment"), kTTValNONE, parsedLine);
 					}
 					

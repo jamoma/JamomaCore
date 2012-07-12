@@ -95,9 +95,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_any = NULL;
 	
 #ifdef JCOM_RECEIVE_TILDE
-	return wrapTTModularClassAsMaxClass(TT("Receiver"), "jcom.receive~", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Receiver, "jcom.receive~", NULL, spec);
 #else
-	return wrapTTModularClassAsMaxClass(TT("Receiver"), "jcom.receive", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_Receiver, "jcom.receive", NULL, spec);
 #endif
 	
 }
@@ -370,7 +370,7 @@ t_int *receive_perform(t_int *w)
 			
 			if (objectCache) {
 				
-				// sum all output signals
+				// sum all object signals
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
 					anObject = NULL;
@@ -379,7 +379,7 @@ t_int *receive_perform(t_int *w)
 					if (anObject) {
 						
 						// OUTPUT case : sum the signal from the output
-						if (anObject->getName() == TT("Output")) {
+						if (anObject->getName() == kTTSym_Output) {
 							
 							// get output signal vectorSize
 							TTOutputPtr(anObject)->mSignalOut->getAttributeValue(kTTSym_vectorSize, vectorSize);
@@ -389,7 +389,7 @@ t_int *receive_perform(t_int *w)
 						}
 						
 						// DATA case : fill a signal with the data value and sum it
-						else if (anObject->getName() == TT("Data")) {
+						else if (anObject->getName() == kTTSym_Data) {
 							
 							// get value
 							anObject->getAttributeValue(kTTSym_value, v);

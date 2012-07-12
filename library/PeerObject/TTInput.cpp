@@ -124,7 +124,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 		
 		o = aNode->getObject();
 		if (o)
-			if (o->getName() == TT("Output"))
+			if (o->getName() == kTTSym_Output)
 				Link((TTPtr)o, kTTValNONE);
 	}
 	
@@ -176,7 +176,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	o = aNode->getObject();
 	if (o) {
-		if (o->getName() == TT("Output")) {
+		if (o->getName() == kTTSym_Output) {
 			
 			switch (flag) {
 					

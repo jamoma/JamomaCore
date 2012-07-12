@@ -333,7 +333,7 @@ void ui_subscribe(t_ui *x, SymbolPtr address)
 		// reset output object and preview signal
 		if (x->previewSignal && x->modelOutput) {
 			if (x->modelOutput->valid) {
-				err = x->modelOutput->findAttribute(TT("signal"), &anAttribute);
+				err = x->modelOutput->findAttribute(kTTSym_signal, &anAttribute);
 				if (!err) {
 					anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
 					TTObjectRelease(TTObjectHandle(&x->previewSignal));
@@ -1275,7 +1275,7 @@ void ui_refmenu_build(t_ui *x)
 	
 	ui_explorer_create((ObjectPtr)x, &x->modelParamExplorer, gensym("return_modelParamExploration"));
 	
-	filters = TTValue(TT("parameter"));
+	filters = TTValue(kTTSym_parameter);
 	filters.append(TT("noGenericTag"));
 	x->modelParamExplorer->setAttributeValue(TT("filterList"), filters);
 	
@@ -1291,7 +1291,7 @@ void ui_refmenu_build(t_ui *x)
 	
 	ui_explorer_create((ObjectPtr)x, &x->modelMessExplorer, gensym("return_modelMessExploration"));
 	
-	filters = TTValue(TT("message"));
+	filters = TTValue(kTTSym_message);
 	filters.append(TT("noGenericTag"));
 	x->modelMessExplorer->setAttributeValue(TT("filterList"), filters);
 	
@@ -1307,7 +1307,7 @@ void ui_refmenu_build(t_ui *x)
 	
 	ui_explorer_create((ObjectPtr)x, &x->modelRetExplorer, gensym("return_modelRetExploration"));
 	
-	filters = TTValue(TT("return"));
+	filters = TTValue(kTTSym_return);
 	filters.append(TT("noGenericTag"));
 	x->modelRetExplorer->setAttributeValue(TT("filterList"), filters);
 	
@@ -1321,7 +1321,7 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	filters = TTValue(TT("parameter"));
+	filters = TTValue(kTTSym_parameter);
 	filters.append(TT("genericTag"));
 	x->modelParamExplorer->setAttributeValue(TT("filterList"), filters);
 	
@@ -1335,7 +1335,7 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	filters = TTValue(TT("message"));
+	filters = TTValue(kTTSym_message);
 	filters.append(TT("genericTag"));
 	x->modelMessExplorer->setAttributeValue(TT("filterList"), filters);
 	
@@ -1349,7 +1349,7 @@ void ui_refmenu_build(t_ui *x)
 	linklist_append(x->refmenu_items, item);
 	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	filters = TTValue(TT("return"));
+	filters = TTValue(kTTSym_return);
 	filters.append(TT("genericTag"));
 	x->modelRetExplorer->setAttributeValue(TT("filterList"), filters);
 	

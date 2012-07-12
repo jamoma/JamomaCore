@@ -151,7 +151,7 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		
 		// Create a new preset
 		mCurrentPreset = NULL;
-		TTObjectInstantiate(TT("Preset"), TTObjectHandle(&mCurrentPreset), kTTValNONE);
+		TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&mCurrentPreset), kTTValNONE);
 	
 		mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
 		mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
@@ -369,7 +369,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 				
 				// Create a new preset
 				mCurrentPreset = NULL;
-				TTObjectInstantiate(TT("Preset"), TTObjectHandle(&mCurrentPreset), kTTValNONE);
+				TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&mCurrentPreset), kTTValNONE);
 				
 				mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
 				mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
@@ -457,7 +457,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 					
 					// Create a new preset
 					mCurrentPreset = NULL;
-					TTObjectInstantiate(TT("Preset"), TTObjectHandle(&mCurrentPreset), kTTValNONE);
+					TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&mCurrentPreset), kTTValNONE);
 					
 					mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
 					mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);

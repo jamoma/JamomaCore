@@ -63,7 +63,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	spec->_free = &WrappedPresetManageClass_free;
 	spec->_any = NULL;
 	
-	return wrapTTModularClassAsMaxClass(TT("PresetManager"), "jcom.preset", NULL, spec);
+	return wrapTTModularClassAsMaxClass(kTTSym_PresetManager, "jcom.preset", NULL, spec);
 }
 
 void WrapTTPresetManagerClass(WrappedClassPtr c)
@@ -218,17 +218,17 @@ void preset_subscribe(TTPtr self)
 		
 		// create internal TTXmlHandler
 		aXmlHandler = NULL;
-		TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+		TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&aXmlHandler), args);
 		v = TTValue(TTPtr(aXmlHandler));
-		x->internals->append(TT("XmlHandler"), v);
+		x->internals->append(kTTSym_XmlHandler, v);
 		v = TTValue(TTPtr(x->wrappedObject));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
 		// create internal TTTextHandler
 		aTextHandler = NULL;
-		TTObjectInstantiate(TT("TextHandler"), TTObjectHandle(&aTextHandler), args);
+		TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
 		v = TTValue(TTPtr(aTextHandler));
-		x->internals->append(TT("TextHandler"), v);
+		x->internals->append(kTTSym_TextHandler, v);
 		
 		// Create internal messages for Read and Write
 		makeInternals_data(self, absoluteAddress, TT("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
@@ -302,14 +302,14 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		fullpath = jamoma_file_read((ObjectPtr)x, argc, argv, 'TEXT');
 		v.append(fullpath);
 		
-		tterr = x->internals->lookup(TT("XmlHandler"), o);
+		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 		
 		if (!tterr) {
 			
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			tterr = aXmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
+			tterr = aXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
 			critical_exit(0);
 			
 			if (!tterr)
@@ -332,14 +332,14 @@ void preset_doread_again(TTPtr self)
 	TTValue			o;
 	TTErr			tterr;
 	
-	tterr = x->internals->lookup(TT("XmlHandler"), o);
+	tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 	
 	if (!tterr) {
 		
 		o.get(0, (TTPtr*)&aXmlHandler);
 		
 		critical_enter(0);
-		tterr = aXmlHandler->sendMessage(TT("ReadAgain"));
+		tterr = aXmlHandler->sendMessage(kTTSym_ReadAgain);
 		critical_exit(0);
 		
 		if (!tterr)
@@ -374,13 +374,13 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
-		tterr = x->internals->lookup(TT("XmlHandler"), o);
+		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 		
 		if (!tterr) {
 			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			tterr = aXmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
+			tterr = aXmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);
 			critical_exit(0);
 			
 			if (!tterr)
@@ -407,14 +407,14 @@ void preset_dowrite_again(TTPtr self)
 	TTValue			o;
 	TTErr			tterr;
 	
-	tterr = x->internals->lookup(TT("XmlHandler"), o);
+	tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 	
 	if (!tterr) {
 		
 		o.get(0, (TTPtr*)&aXmlHandler);
 		
 		critical_enter(0);
-		tterr = aXmlHandler->sendMessage(TT("WriteAgain"));
+		tterr = aXmlHandler->sendMessage(kTTSym_WriteAgain);
 		critical_exit(0);
 		
 		if (!tterr)
@@ -505,7 +505,7 @@ void preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			v = TTValue(TT(atom_getsym(argv)->s_name));
 	
 	// recall the preset
-	x->wrappedObject->sendMessage(TT("Recall"), v, kTTValNONE);
+	x->wrappedObject->sendMessage(kTTSym_Recall, v, kTTValNONE);
 }
 
 void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -554,7 +554,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		buffer = new TTString();
 		
 		// get the buffer handler
-		tterr = x->internals->lookup(TT("TextHandler"), o);
+		tterr = x->internals->lookup(kTTSym_TextHandler, o);
 		
 		if (!tterr) {
 			
@@ -564,7 +564,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			o = TTValue(TTPtr(EXTRA->toEdit));
 			aTextHandler->setAttributeValue(kTTSym_object, o);
 			args = TTValue((TTPtr)buffer);
-			tterr = aTextHandler->sendMessage(TT("Write"), args, kTTValNONE);
+			tterr = aTextHandler->sendMessage(kTTSym_Write, args, kTTValNONE);
 			critical_exit(0);
 		}
 		
@@ -599,7 +599,7 @@ void preset_doedit(TTPtr self)
 	TTErr				tterr;
 	
 	// get the buffer handler
-	tterr = x->internals->lookup(TT("TextHandler"), o);
+	tterr = x->internals->lookup(kTTSym_TextHandler, o);
 	
 	if (!tterr) {
 		
@@ -607,12 +607,12 @@ void preset_doedit(TTPtr self)
 		
 		critical_enter(0);
 		args = TTValue((TTPtr)EXTRA->text);
-		tterr = aTextHandler->sendMessage(TT("Read"), args, kTTValNONE);
+		tterr = aTextHandler->sendMessage(kTTSym_Read, args, kTTValNONE);
 		critical_exit(0);
 		
 		// recall the current
 		if (EXTRA->presetName != kTTSymEmpty)
-			x->wrappedObject->sendMessage(TT("Recall"), EXTRA->presetName, kTTValNONE);
+			x->wrappedObject->sendMessage(kTTSym_Recall, EXTRA->presetName, kTTValNONE);
 		
 		if (!tterr)
 			object_obex_dumpout(self, _sym_read, 0, NULL);

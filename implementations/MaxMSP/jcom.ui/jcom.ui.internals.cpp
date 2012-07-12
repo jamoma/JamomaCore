@@ -17,7 +17,7 @@ void ui_data_create_all(t_ui* obj)
 	
 	// create a ui node with our patcher as context
 	anObject = NULL;
-	TTObjectInstantiate(TT("Container"), &anObject, kTTValNONE);
+	TTObjectInstantiate(kTTSym_Container, &anObject, kTTValNONE);
 	if (!jamoma_subscriber_create((ObjectPtr)obj, anObject, TTADRS("ui"), &obj->uiSubscriber)) {
 		
 		// get info relative to our patcher
@@ -131,7 +131,7 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	args.append(service);
 	
 	*returnedData = NULL;
-	TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
+	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
 	
 	// Register data
 	obj->uiSubscriber->getAttributeValue(TT("nodeAddress"), v);
@@ -236,11 +236,11 @@ void ui_receiver_create(t_ui *obj, TTObjectPtr *returnedReceiver, SymbolPtr aCal
 	args.append(returnValueCallback);
 	
 	*returnedReceiver = NULL;
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(returnedReceiver), args);
+	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(returnedReceiver), args);
 	
 	// Set address to bind
 	adrs = address->appendAddress(TTADRS(name->getCString()));
-	(*returnedReceiver)->setAttributeValue(TT("address"), adrs);
+	(*returnedReceiver)->setAttributeValue(kTTSym_address, adrs);
 	
 	// refresh receiver
 	(*returnedReceiver)->sendMessage(kTTSym_Get);
@@ -310,7 +310,7 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	args.append(returnValueCallback);
 	
 	*returnedViewer = NULL;
-	TTObjectInstantiate(TT("Viewer"), TTObjectHandle(returnedViewer), args);
+	TTObjectInstantiate(kTTSym_Viewer, TTObjectHandle(returnedViewer), args);
 	
 	if (subscribe) {
 		// Register viewer
@@ -326,7 +326,7 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	
 	// Set address to bind
 	adrs = address->appendAddress(TTADRS(name->getCString()));
-	(*returnedViewer)->setAttributeValue(TT("address"), adrs);
+	(*returnedViewer)->setAttributeValue(kTTSym_address, adrs);
 	
 	// refresh viewer
 	(*returnedViewer)->sendMessage(kTTSym_Refresh);
@@ -471,7 +471,7 @@ void ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr me
 	args.append((TTPtr)jamoma_explorer_default_filter_bank());
 	
 	*returnedExplorer = NULL;
-	TTObjectInstantiate(TT("Explorer"), TTObjectHandle(returnedExplorer), args);
+	TTObjectInstantiate(kTTSym_Explorer, TTObjectHandle(returnedExplorer), args);
 }
 
 void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

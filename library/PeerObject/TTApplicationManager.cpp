@@ -498,7 +498,7 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 			objectType = anObject->getName();
 			
 			// TTData case : for value attribute use Command message
-			if (objectType == TT("Data")) {
+			if (objectType == kTTSym_Data) {
 				
 				if (whereToSet->getAttribute() == kTTSym_value)
 					anObject->sendMessage(kTTSym_Command, *newValue, kTTValNONE);
@@ -724,7 +724,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		else {
 			anApplication = NULL;
 			args = TTValue(applicationName);
-			TTObjectInstantiate(TT("Application"), TTObjectHandle(&anApplication), args);
+			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&anApplication), args);
 			
 			args = TTValue(version);
 			anApplication->setAttributeValue(TT("version"), args);
