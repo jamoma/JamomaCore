@@ -26,24 +26,17 @@ class TTMODULAR_EXPORT TTInput : public TTDataObject
 	
 public:	// use public for quick acces during signal processing
 	
-	TTUInt16			mNumber;					///< ATTRIBUTE : number of Input signals
 	TTSymbolPtr			mType;						///< ATTRIBUTE : the type of the input signal (like audio, video, ...)
 	TTNodeAddressPtr	mOutputAddress;				///< ATTRIBUTE : address of the output to bind
 	
 	TTBoolean			mMute;						///< ATTRIBUTE : to mute signal
 	TTBoolean			mBypass;					///< ATTRIBUTE : to pass signal directly to a TTOutput object
 	
-	TTObjectPtr			mSignalIn;					///< any data structure to receive complex signal 
+	TTObjectPtr			mSignalIn;					///< any data structure to receive complex signal
+	TTListPtr			mSignalCache;				///< a list of any data structure to deal with others complex signals (like mixing, dubbing, ...)
 	TTObjectPtr			mSignalOut;					///< any data structure to send complex signal
 	
 	TTObjectPtr			mSignalZero;				///< a zero signal
-	
-	TTValue				mInfo;						///< any info needed to process the signal
-													///< example : 
-													///<	- for audio signal : <numChannels, vectorSize>
-													///<	- for video signal : <planeCount, pixelEncoding, dimX, dimY>
-	
-	TTUInt16			mIndex;						///< index of current input signal [0 :: mNumber]
 	
 	TTOutputPtr			mOutputObject;				///< TTOutput object to pass signal through
 	
@@ -63,9 +56,6 @@ private:
 	
 	/** Set the outputAddress attribute */
 	TTErr setOutputAddress(const TTValue& value);
-	
-	/** Set the info attribute */
-	TTErr setInfo(const TTValue& value);
 	
 	friend TTErr TTMODULAR_EXPORT TTInputDirectoryCallback(TTPtr baton, TTValue& data);
 

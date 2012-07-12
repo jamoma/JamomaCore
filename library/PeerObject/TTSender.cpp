@@ -13,13 +13,18 @@
 #define thisTTClassTags		"node, sender"
 
 TT_MODULAR_CONSTRUCTOR,
+mSignal(NULL),
 mAddress(kTTAdrsEmpty),
 mDirectory(NULL),
 mObjectCache(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() == 0);
+	TT_ASSERT("Correct number of args to create TTSender", arguments.getSize() <= 1);
+	
+	// a Sender can handle a signal
+	if (arguments.getSize() >= 1)
+		arguments.get(0, (TTPtr*)&mSignal);
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -35,6 +40,9 @@ mApplicationObserver(NULL)
 
 TTSender::~TTSender()
 {
+	if (mSignal)
+		TTObjectRelease(TTObjectHandle(&mSignal));
+	
 	unbindAddress();
 	unbindApplication();
 }
@@ -96,6 +104,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 				if (anObject) {
 					// DATA CASE for value attribute
 					if (anObject->getName() == TT("Data") && ttAttributeName == kTTSym_value) {
+						
 						// set the value attribute using a command
 						anObject->sendMessage(kTTSym_Command, valueToSend, kTTValNONE);
 					}
@@ -115,6 +124,11 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 						else
 							err = kTTErrGeneric;
 						
+					}
+					else if (anObject->getName() == TT("Input") && ttAttributeName == kTTSym_signal) {
+						
+						// send the value
+						anObject->sendMessage(kTTSym_Send, valueToSend, kTTValNONE);
 					}
 					// DEFAULT CASE
 					// Look for attribute and set it

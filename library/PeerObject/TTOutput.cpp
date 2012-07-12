@@ -14,7 +14,6 @@
 #define thisTTClassTags		"output"
 
 TT_MODULAR_CONSTRUCTOR,
-mNumber(0),
 mType(kTTSymEmpty),
 mInputAddress(kTTAdrsEmpty),
 mMute(NO),
@@ -30,8 +29,6 @@ mMixUnit(NULL),
 mGainUnit(NULL),
 mRampMixUnit(NULL),
 mRampGainUnit(NULL),
-mInfo(kTTValNONE),
-mIndex(0),
 mInputObject(NULL),
 mReturnSignalCallback(NULL),
 mReturnLinkCallback(NULL),
@@ -40,35 +37,30 @@ mAddressObserver(NULL),
 mSignal(kTTValNONE),
 mSignalAttr(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTOutput", arguments.getSize() >= 3);
+	TT_ASSERT("Correct number of args to create TTOutput", arguments.getSize() >= 2);
 	
-	arguments.get(0, mNumber);
-	TT_ASSERT("Number passed to TTOutput is not 0", mNumber);
-	arguments.get(1, &mType);
-	arguments.get(2, (TTPtr*)&mReturnSignalCallback);
+	arguments.get(0, &mType);
+	arguments.get(1, (TTPtr*)&mReturnSignalCallback);
 	TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
 	
-	if (arguments.getSize() > 3) {
-		arguments.get(3, (TTPtr*)&mReturnLinkCallback);
+	if (arguments.getSize() > 2) {
+		arguments.get(2, (TTPtr*)&mReturnLinkCallback);
 		TT_ASSERT("Return Link Callback passed to TTOutput is not NULL", mReturnLinkCallback);
 	}
 	
-	if (arguments.getSize() > 4) {
-		arguments.get(4, (TTPtr*)&mSignalIn);
-		arguments.get(5, (TTPtr*)&mSignalOut);
-		arguments.get(6, (TTPtr*)&mSignalTemp);
-		arguments.get(7, (TTPtr*)&mSignalZero);
+	if (arguments.getSize() > 3) {
+		arguments.get(3, (TTPtr*)&mSignalIn);
+		arguments.get(4, (TTPtr*)&mSignalOut);
+		arguments.get(5, (TTPtr*)&mSignalTemp);
+		arguments.get(6, (TTPtr*)&mSignalZero);
 	}
 	
-	if (arguments.getSize() > 8) {
-		arguments.get(8, (TTPtr*)&mMixUnit);
-		arguments.get(9, (TTPtr*)&mGainUnit);
-		arguments.get(10, (TTPtr*)&mRampMixUnit);
-		arguments.get(11, (TTPtr*)&mRampGainUnit);
+	if (arguments.getSize() > 7) {
+		arguments.get(7, (TTPtr*)&mMixUnit);
+		arguments.get(8, (TTPtr*)&mGainUnit);
+		arguments.get(9, (TTPtr*)&mRampMixUnit);
+		arguments.get(10, (TTPtr*)&mRampGainUnit);
 	}
-	
-	addAttribute(Number, kTypeUInt16);
-	addAttributeProperty(Number, readOnly, YES);
 	
 	addAttribute(Type, kTypeSymbol);
 	addAttributeProperty(Type, readOnly, YES);
@@ -80,9 +72,6 @@ mSignalAttr(NULL)
 	addAttributeWithSetter(Gain, kTypeFloat32);
 	addAttribute(Freeze, kTypeBoolean);
 	addAttribute(Preview, kTypeBoolean);
-	
-	addAttributeWithSetter(Info, kTypeLocalValue);
-	addAttributeProperty(Info, hidden, YES);
 	
 	addAttribute(Signal, kTypeLocalValue);
 	addAttributeProperty(Signal, hidden, YES);
@@ -100,9 +89,7 @@ mSignalAttr(NULL)
 	addMessage(Unlink);
 	addMessageProperty(Unlink, hidden, YES);
 	
-	mLast = new TTValue[mNumber];
-	for (TTUInt16 i=0; i<mNumber; i++)
-		mLast[i] = kTTValNONE;
+	mLast = kTTValNONE;
 	
 	this->findAttribute(TT("signal"), &mSignalAttr);
 }
@@ -149,25 +136,20 @@ TTOutput::~TTOutput()
 		delete (TTValuePtr)mAddressObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mAddressObserver));
 	}
-	
-	delete [] mLast;
 }
 
 TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTErr err;
 	
-	if (mIndex >= mNumber)
-		return kTTErrGeneric;
-	
 	if (mMute)
 		err = kTTErrNone;
 	
 	else if (mFreeze) {
 		
-		err = mReturnSignalCallback->notify(mLast[mIndex], kTTValNONE);
+		err = mReturnSignalCallback->notify(mLast, kTTValNONE);
 		
-		notifySignalObserver(mLast[mIndex]);
+		notifySignalObserver(mLast);
 	}
 	else {
 		
@@ -178,20 +160,14 @@ TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 		
 	// copy
 	if (!mFreeze)
-		mLast[mIndex] = inputValue;
+		mLast = inputValue;
 	
 	return err;
 }
 
 TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 {
-	if (mInputObject)
-		if (mInputObject->mIndex < mNumber) {
-			mIndex = mInputObject->mIndex;
-			return Send(inputValue, kTTValNONE);
-		}
-	
-	return kTTErrGeneric;
+	return Send(inputValue, kTTValNONE);
 }
 
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
@@ -288,13 +264,6 @@ TTErr TTOutput::setGain(const TTValue& value)
 	
 	if (mGainUnit)
 		return mGainUnit->setAttributeValue(TT("midiGain"), mGain);
-	
-	return kTTErrNone;
-}
-
-TTErr TTOutput::setInfo(const TTValue& value)
-{	
-	mInfo = value;
 	
 	return kTTErrNone;
 }

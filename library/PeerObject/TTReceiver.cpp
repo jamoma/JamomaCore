@@ -14,6 +14,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 
+mSignal(NULL),
 mAddress(kTTAdrsEmpty),
 mEnable(YES),
 mDirectory(NULL),
@@ -21,15 +22,19 @@ mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL),
-mNodesObserversCache(NULL)
+mNodesObserversCache(NULL),
+mObjectCache(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 2);
+	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 2 || arguments.getSize() == 3);
 	
 	if (arguments.getSize() >= 1)
 		arguments.get(0, (TTPtr*)&mReturnAddressCallback);
 	
 	if (arguments.getSize() >= 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
+	
+	if (arguments.getSize() >= 3)
+		arguments.get(2, (TTPtr*)&mSignal);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Enable, kTypeBoolean);
@@ -42,6 +47,7 @@ mNodesObserversCache(NULL)
 	addMessageProperty(Get, hidden, YES);
 	
 	mNodesObserversCache = new TTList();
+	mObjectCache = new TTList();
 }
 
 TTReceiver::~TTReceiver()
@@ -58,6 +64,9 @@ TTReceiver::~TTReceiver()
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
 	}
+	
+	if (mSignal)
+		TTObjectRelease(TTObjectHandle(&mSignal));
 }
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
@@ -198,6 +207,7 @@ TTErr TTReceiver::bindAddress()
 		return kTTErrGeneric;
 	
 	mNodesObserversCache = new TTList();
+	mObjectCache = new TTList();
 	
 	// for any Attribute observation except created, destroyed
 	ttAttributeName = ToTTName(mAddress->getAttribute());
@@ -231,7 +241,6 @@ TTErr TTReceiver::bindAddress()
 						newBaton = new TTValue(TTPtr(this));
 						aNode->getAddress(&anAddress);
 						newBaton->append(anAddress->appendAttribute(mAddress->getAttribute()));
-						newBaton->append(TTPtr(o));
 						
 						newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 						newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -244,6 +253,9 @@ TTErr TTReceiver::bindAddress()
 						newElement = (TTPtr)aNode;
 						newElement.append((TTPtr)newObserver);
 						mNodesObserversCache->appendUnique(newElement);
+						
+						// cache the object for quick access
+						mObjectCache->appendUnique((TTPtr)o);
 					}
 				}
 			}
@@ -315,6 +327,11 @@ TTErr TTReceiver::unbindAddress()
 			
 			delete mNodesObserversCache;
 			mNodesObserversCache = NULL;
+		}
+		
+		if (mObjectCache) {
+			delete mObjectCache;
+			mObjectCache = NULL;
 		}
 		
 		// stop life cycle observation
@@ -445,7 +462,6 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							
 							newBaton = new TTValue(TTPtr(aReceiver));
 							newBaton->append(anAddress->appendAttribute(aReceiver->mAddress->getAttribute()));
-							newBaton->append(TTPtr(o));
 							
 							newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 							newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -458,6 +474,9 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							newCouple = (TTPtr)aNode;
 							newCouple.append((TTPtr)newObserver);
 							aReceiver->mNodesObserversCache->appendUnique(newCouple);
+							
+							// cache the object for quick access
+							aReceiver->mObjectCache->appendUnique((TTPtr)o);
 						}
 					}
 				}
@@ -506,6 +525,9 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					
 					// forget this couple
 					aReceiver->mNodesObserversCache->remove(c);
+					
+					// forget the object
+					aReceiver->mObjectCache->remove((TTPtr)o);
 				}
 			}
 			break;
@@ -529,7 +551,6 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aReceiver);
 	b->get(1, &anAddress);
-	b->get(2, (TTPtr*)&aReceiver->mObjectCache);
 	
 	if(aReceiver->mEnable) {
 		

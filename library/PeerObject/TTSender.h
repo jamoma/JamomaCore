@@ -19,6 +19,10 @@
 class TTMODULAR_EXPORT TTSender : public TTDataObject
 {
 	TTCLASS_SETUP(TTSender)
+
+public:	// use public for quick acces during signal processing
+	
+	TTObjectPtr					mSignal;					///< any data structure to send complex signal
 	
 private:
 	

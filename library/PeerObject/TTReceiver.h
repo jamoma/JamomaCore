@@ -20,6 +20,10 @@ class TTMODULAR_EXPORT TTReceiver : public TTDataObject
 {
 	TTCLASS_SETUP(TTReceiver)
 	
+public:	// use public for quick acces during signal processing
+	
+	TTObjectPtr					mSignal;					///< any data structure to receive complex signal
+	
 private:
 	
 	TTNodeAddressPtr			mAddress;					///< ATTRIBUTE: the address to bind
@@ -31,8 +35,7 @@ private:
 	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
 	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
 	TTListPtr					mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
-	TTObjectPtr					mObjectCache;				///< ATTRIBUTE : the object from which the value is received
-
+	TTListPtr					mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);

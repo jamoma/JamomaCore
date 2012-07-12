@@ -14,36 +14,29 @@
 #define thisTTClassTags		"input"
 
 TT_MODULAR_CONSTRUCTOR,
-mNumber(0),
 mType(kTTSymEmpty),
 mOutputAddress(kTTAdrsEmpty),
 mMute(NO),
 mBypass(NO),
 mSignalIn(NULL),
+mSignalCache(NULL),
 mSignalOut(NULL),
 mSignalZero(NULL),
-mInfo(kTTValNONE),
-mIndex(0),
 mOutputObject(NULL),
 mReturnSignalCallback(NULL),
 mAddressObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 4);
+	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 3);
 	
-	arguments.get(0, mNumber);
-	TT_ASSERT("Number passed to TTInput is not 0", mNumber);
-	arguments.get(1, &mType);
-	arguments.get(2, (TTPtr*)&mReturnSignalCallback);
+	arguments.get(0, &mType);
+	arguments.get(1, (TTPtr*)&mReturnSignalCallback);
 	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
 	
-	if (arguments.getSize() > 4) {
-		arguments.get(3, (TTPtr*)&mSignalIn);
-		arguments.get(4, (TTPtr*)&mSignalOut);
-		arguments.get(5, (TTPtr*)&mSignalZero);
+	if (arguments.getSize() > 3) {
+		arguments.get(2, (TTPtr*)&mSignalIn);
+		arguments.get(3, (TTPtr*)&mSignalOut);
+		arguments.get(4, (TTPtr*)&mSignalZero);
 	}
-	
-	addAttribute(Number, kTypeUInt16);
-	addAttributeProperty(Number, readOnly, YES);
 	
 	addAttribute(Type, kTypeSymbol);
 	addAttributeProperty(Type, readOnly, YES);
@@ -53,9 +46,6 @@ mAddressObserver(NULL)
 	addAttribute(Mute, kTypeBoolean);
 	addAttribute(Bypass, kTypeBoolean);
 	
-	addAttributeWithSetter(Info, kTypeLocalValue);
-	addAttributeProperty(Info, hidden, YES);
-	
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
@@ -64,6 +54,8 @@ mAddressObserver(NULL)
 	
 	addMessage(Unlink);
 	addMessageProperty(Unlink, hidden, YES);
+	
+	mSignalCache = new TTList();
 }
 
 TTInput::~TTInput()
@@ -76,6 +68,9 @@ TTInput::~TTInput()
 	if (mSignalIn)
 		TTObjectRelease(TTObjectHandle(&mSignalIn));
 	
+	if (mSignalCache)
+		delete mSignalCache;
+	
 	if (mSignalOut)
 		TTObjectRelease(TTObjectHandle(&mSignalOut));
 	
@@ -83,8 +78,10 @@ TTInput::~TTInput()
 		TTObjectRelease(&mSignalZero);
 	
 	if (mAddressObserver) {
+		
 		if (mOutputAddress != kTTSymEmpty)
 			getLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
+		
 		delete (TTValuePtr)mAddressObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mAddressObserver));
 	}
@@ -92,9 +89,7 @@ TTInput::~TTInput()
 
 TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 {	
-	if (mIndex >= mNumber)
-		return kTTErrGeneric;
-	else if (mMute)
+	if (mMute)
 		return kTTErrNone;
 	else if (mBypass && mOutputObject)
 		return mOutputObject->sendMessage(TT("SendBypassed"), inputValue, kTTValNONE);
@@ -152,13 +147,6 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	}
 	
 	mOutputAddress = newAddress;
-	
-	return kTTErrNone;
-}
-
-TTErr TTInput::setInfo(const TTValue& value)
-{	
-	mInfo = value;
 	
 	return kTTErrNone;
 }

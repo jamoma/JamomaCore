@@ -93,6 +93,9 @@ extern "C" {
 	/**	Create a sender object */
 	TTErr			jamoma_sender_create(ObjectPtr x, TTObjectPtr *returnedSender);
 	
+	/**	Create a sender object for audio signal */
+	TTErr			jamoma_sender_create_audio(ObjectPtr x, TTObjectPtr *returnedSender);
+	
 	/**	Send Max data using a sender object */
 	TTErr			jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 	
@@ -102,6 +105,9 @@ extern "C" {
 	
 	/**	Create a receiver object */
 	TTErr			jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver);
+	
+	/**	Create a receiver object for audio signal */
+	TTErr			jamoma_receiver_create_audio(ObjectPtr x, TTObjectPtr *returnedReceiver);
 	
 	// Method to deal with TTPresetManager and TTCueManager
 	///////////////////////////////////////////////////////////////////////
@@ -117,10 +123,10 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create an input object for signal */
-	TTErr			jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number);
+	TTErr			jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput);
 	
 	/**	Create an input object for audio signal */
-	TTErr			jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long number);
+	TTErr			jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput);
 	
 	/**	Send any signal to an input object */
 	TTErr			jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -130,10 +136,10 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create an output object for signal */
-	TTErr			jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number);
+	TTErr			jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput);
 	
 	/**	Create an output object for audio signal */
-	TTErr			jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long number);
+	TTErr			jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput);
 	
 	/**	Send any signal to an output object */
 	TTErr			jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, AtomPtr argv);

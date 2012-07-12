@@ -93,6 +93,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_script;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_sharp;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_signal;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_start;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_stop;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;

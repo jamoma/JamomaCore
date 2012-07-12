@@ -319,6 +319,21 @@ TTErr jamoma_sender_create(ObjectPtr x, TTObjectPtr *returnedSender)
 	return kTTErrNone;
 }
 
+/**	Create a sender object for audio signal */
+TTErr jamoma_sender_create_audio(ObjectPtr x, TTObjectPtr *returnedSender)
+{	
+	TTValue				args;
+	TTAudioSignalPtr	audio = NULL;
+	
+	// prepare arguments
+	TTObjectInstantiate(kTTSym_audiosignal, &audio, 1);
+	args.append((TTPtr)audio);
+	
+	*returnedSender = NULL;
+	TTObjectInstantiate(TT("Sender"), TTObjectHandle(returnedSender), args);
+	return kTTErrNone;
+}
+
 /**	Send Max data using a sender object */
 TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
@@ -364,6 +379,33 @@ TTErr jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver)
 	return kTTErrNone;
 }
 
+/**	Create a receiver object for audio signal */
+TTErr jamoma_receiver_create_audio(ObjectPtr x, TTObjectPtr *returnedReceiver)
+{
+	TTValue			args;
+	TTObjectPtr		returnAddressCallback, returnValueCallback;
+	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTAudioSignalPtr	audio = NULL;
+	
+	// prepare arguments
+	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
+	returnAddressBaton = new TTValue(TTPtr(x));
+	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
+	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
+	args.append(returnAddressCallback);
+	
+	args.append(NULL);	// no return value callback
+	
+	TTObjectInstantiate(kTTSym_audiosignal, &audio, 1);
+	args.append((TTPtr)audio);
+	
+	*returnedReceiver = NULL;
+	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(returnedReceiver), args);
+	
+	return kTTErrNone;
+}
+
 // Method to deal with TTPresetManager
 ///////////////////////////////////////////////////////////////////////
 
@@ -393,14 +435,13 @@ TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager)
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create an input object for any signal */
-TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number)
+TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput)
 {	
 	TTValue			args;
 	TTObjectPtr		signalOutCallback = NULL;
 	TTValuePtr		signalOutBaton;
 	
 	// prepare arguments
-	args.append(TTUInt16(number));
 	args.append(TT("control"));
 	
 	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
@@ -417,7 +458,7 @@ TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput, long number)
 }
 
 /**	Create an input object for audio signal */
-TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long number)
+TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput)
 {
 	TTValue				args;
 	TTObjectPtr			signalOutCallback = NULL;
@@ -427,7 +468,6 @@ TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long nu
 	TTAudioSignalPtr	audioZero = NULL;
 	
 	// prepare arguments
-	args.append(TTUInt16(number));
 	args.append(TT("audio"));
 	
 	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
@@ -437,11 +477,11 @@ TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput, long nu
 	signalOutCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(signalOutCallback);
 	
-	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, number);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, 1);
 	args.append((TTPtr)audioIn);
-	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, number);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, 1);
 	args.append((TTPtr)audioOut);
-	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, number);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, 1);
 	args.append((TTPtr)audioZero);
 	
 	*returnedInput = NULL;
@@ -471,14 +511,13 @@ TTErr jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomP
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create an output object for signal */
-TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number)
+TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput)
 {	
 	TTValue			args;
 	TTObjectPtr		signalOutCallback = NULL;
 	TTValuePtr		signalOutBaton;
 	
 	// prepare arguments
-	args.append(TTUInt16(number));
 	args.append(TT("control"));
 	
 	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
@@ -495,7 +534,7 @@ TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput, long number
 }
 
 /**	Create an output object for audio signal */
-TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long number)
+TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput)
 {
 	TTValue				args;
 	TTObjectPtr			signalOutCallback = NULL;
@@ -512,7 +551,6 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long 
 	TTObjectPtr			rampGainUnit = NULL;
 	
 	// prepare arguments
-	args.append(TTUInt16(number));
 	args.append(TT("audio"));
 	
 	signalOutCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -531,26 +569,26 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput, long 
 	inputLinkCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(inputLinkCallback);
 	
-	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, number);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, 1);
 	args.append((TTPtr)audioIn);
-	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, number);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, 1);
 	args.append((TTPtr)audioOut);
-	TTObjectInstantiate(kTTSym_audiosignal, &audioTemp, number);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioTemp, 1);
 	args.append((TTPtr)audioTemp);
-	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, number);
+	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, 1);
 	args.append((TTPtr)audioZero);
 	
-	TTObjectInstantiate(TT("crossfade"), &mixUnit, number);
+	TTObjectInstantiate(TT("crossfade"), &mixUnit, 1);
 	mixUnit->setAttributeValue(TT("position"), 1.0);
 	args.append((TTPtr)mixUnit);
 	
-	TTObjectInstantiate(TT("gain"), &gainUnit, number);
+	TTObjectInstantiate(TT("gain"), &gainUnit, 1);
 	gainUnit->setAttributeValue(TT("linearGain"), 1.0);
 	args.append((TTPtr)gainUnit);
 	
-	TTObjectInstantiate(TT("ramp"), &rampMixUnit, number);
+	TTObjectInstantiate(TT("ramp"), &rampMixUnit, 1);
 	args.append((TTPtr)rampMixUnit);
-	TTObjectInstantiate(TT("ramp"), &rampGainUnit, number);
+	TTObjectInstantiate(TT("ramp"), &rampGainUnit, 1);
 	args.append((TTPtr)rampGainUnit);
 	
 	*returnedOutput = NULL;

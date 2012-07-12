@@ -28,7 +28,6 @@ class TTMODULAR_EXPORT TTOutput : public TTDataObject
 	
 public:	// use public for quick acces during signal processing
 	
-	TTUInt16					mNumber;					///< ATTRIBUTE : number of Output signals
 	TTSymbolPtr					mType;						///< ATTRIBUTE : the type of signal output (like audio, video, ...)
 	TTNodeAddressPtr			mInputAddress;				///< ATTRIBUTE : address of the input to bind
 	
@@ -50,27 +49,20 @@ public:	// use public for quick acces during signal processing
 	TTObjectPtr					mRampMixUnit;				///< the unit used to ramp the mix value
 	TTObjectPtr					mRampGainUnit;				///< the unit used to ramp the gain value
 	
-	TTValue						mInfo;						///< any info needed to process the signal
-															///< example : 
-															///<	- for audio signal : <numChannels, vectorSize>
-															///<	- for video signal : <planeCount, pixelEncoding, dimX, dimY>
-	
-	TTUInt16					mIndex;						///< index of current output signal [0 :: mNumber]
-	
 	TTInputPtr					mInputObject;				///< TTInput object to get a signal passing through
 	
 private:
 	
 	TTCallbackPtr				mReturnSignalCallback;		///< a way to return back signal to the owner of this output
 	TTCallbackPtr				mReturnLinkCallback;		///< a way to return back the input link status to the owner of this output
-	TTValuePtr					mLast;						///< keep a copy of the last sent signal for each index
+	TTValue						mLast;						///< keep a copy of the last sent signal for each index
 	TTCallbackPtr				mAddressObserver;			///< to observe mInputAddress creation/destruction
 	
 	TTValue						mSignal;					///< ATTRIBUTE : a hidden attribute to observe signal preview
 	TTAttributePtr				mSignalAttr;				///< a direct access to the signal preview attribute to notify observers
 	
 	
-	/** Send signal. The mIndex have to be choosen before */
+	/** Send signal */
 	TTErr Send(const TTValue& inputValue, TTValue& outputValue);
 	TTErr SendBypassed(const TTValue& inputValue, TTValue& outputValue);
 	
@@ -91,9 +83,6 @@ private:
 	
 	/** Set the gain attribute */
 	TTErr setGain(const TTValue& value);
-	
-	/** Set the info attribute */
-	TTErr setInfo(const TTValue& value);
 	
 	/** Notify signal observer */
 	TTErr notifySignalObserver(const TTValue& value);

@@ -94,6 +94,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_script;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_sharp;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_signal;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_start;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_stop;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
@@ -192,6 +193,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_script					= TT("script");
 	kTTSym_service					= TT("service");
 	kTTSym_sharp					= TT("#");
+	kTTSym_signal					= TT("signal");
 	kTTSym_start					= TT("start");
 	kTTSym_stop						= TT("stop");
 	kTTSym_string					= TT("string");
