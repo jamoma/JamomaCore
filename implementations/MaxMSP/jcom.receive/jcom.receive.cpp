@@ -13,23 +13,6 @@
 #define address_out 1
 #define dump_out 2
 
-#ifdef JCOM_RECEIVE_TILDE
-
-#define info_numChannels 0
-#define info_vectorSize 1
-#define info_startMeter 2
-
-#endif
-
-/** Store extra data used to bind on a jcom.out */
-typedef struct extra {
-	
-	TTBoolean	bindOutput;	// is the jcom.receive is binding an output ?
-	TTValuePtr	mapChannel;	// the channel mapping of the jcom.receive (to bind select which channel to bind)
-
-} t_extra;
-#define EXTRA ((t_extra*)x->extra)
-
 // Definitions
 
 /** Wrap the jcom.receive class as a Max object.
@@ -126,8 +109,8 @@ void WrapTTReceiverClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)receive_return_model_address,	"return_model_address",	A_CANT, 0);
 
 #ifdef JCOM_RECEIVE_TILDE
-	class_addmethod(c->maxClass, (method)receive_dsp,						"dsp", 					A_GIMME, 0L);
-	class_addmethod(c->maxClass, (method)receive_dsp64,						"dsp64",				A_CANT, 0);
+	class_addmethod(c->maxClass, (method)receive_dsp,					"dsp", 					A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)receive_dsp64,					"dsp64",				A_CANT, 0);
 #else
 	class_addmethod(c->maxClass, (method)receive_return_address,		"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)receive_return_value,			"return_value",			A_CANT, 0);
@@ -150,7 +133,6 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					address;
-	long						i, number;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
 	// read first argument
@@ -162,41 +144,22 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
 	x->argc = 0; // the argc member is usefull to count how many time the external tries to bind
 	
-	// Prepare extra data
-	x->extra = (t_extra*)malloc(sizeof(t_extra));
-	
-	jamoma_receiver_create((ObjectPtr)x, &x->wrappedObject);
-	
-	// is the jcom.send tries to bind on a Data or an Output object ?
-	if (x->address->getName() == TT("out")) {
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
 		
-		EXTRA->bindOutput = YES;
-		JamomaDebug object_post((ObjectPtr)x, "binds on a jcom.out");
+#ifdef JCOM_RECEIVE_TILDE
+		jamoma_receiver_create_audio((ObjectPtr)x, &x->wrappedObject);
 		
-		// use the signal preview mechanism
-		x->address = x->address->appendAttribute(TT("signal"));
-
-		// read second optionnal argument 
-		// (to map output channel in case we bind a jcom.out)
-		EXTRA->mapChannel = new TTValue(0);
-		if (attrstart > 1 && argv)
-			jamoma_ttvalue_from_Atom(*EXTRA->mapChannel, _sym_nothing, attrstart-1, argv+1);
+		dsp_setup((t_pxobject *)x, 1);	
+		x->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
 		
-		// Make an outlet per channel
-		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * EXTRA->mapChannel->getSize());
-		for (i = EXTRA->mapChannel->getSize()-1; i >= 0; i--)
-			x->outlets[i] = outlet_new(x, 0L);
-	}
-	else {
+		x->outlets[address_out] = outlet_new(x, NULL);					// anything outlet to output address
+		x->outlets[data_out] = outlet_new((t_pxobject *)x, "signal");	// signal outlet to output audio
+#else
+		jamoma_receiver_create((ObjectPtr)x, &x->wrappedObject);
 		
-		EXTRA->bindOutput = NO;
-		EXTRA->mapChannel = new TTValue(0);
-		
-		// Make two outlets
-		x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
 		x->outlets[address_out] = outlet_new(x, NULL);					// anything outlet to output address
 		x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
-	}
+#endif
 	
 	// Prepare memory to store internal objects
 	x->internals = new TTHash();
@@ -214,11 +177,9 @@ void WrappedReceiverClass_free(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	delete EXTRA->mapChannel;
-	free(EXTRA);
-	
 #ifdef JCOM_RECEIVE_TILDE
-	dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
+	if (x->address->getName() == TT("out"))
+		dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
 #endif
 }
 
@@ -236,6 +197,10 @@ void receive_subscribe(TTPtr self)
 	
 	if (x->address == kTTAdrsEmpty)
 		return;
+	
+	// if the jcom.receive tries to bind an Output object : bind the signal attribute
+	if (x->address->getName() == TT("out"))
+		x->address = x->address->appendAttribute(kTTSym_signal);
 	
 	// for absolute address
 	if (x->address->getType() == kAddressAbsolute) {
@@ -313,8 +278,7 @@ void receive_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	if (!EXTRA->bindOutput)
-		outlet_anything(x->outlets[address_out], msg, argc, argv);
+	outlet_anything(x->outlets[address_out], msg, argc, argv);
 }
 
 void receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -322,37 +286,12 @@ void receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 	TTObjectPtr anObject;
-	TTUInt16	map, index;
-	TTBoolean	found = NO;
 	
-	if (EXTRA->bindOutput) {
-
-		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
-			
-			v.get(0, (TTPtr*)&anObject);
-			
-			for (index = 0; index < EXTRA->mapChannel->getSize(); index++) {
-				
-				EXTRA->mapChannel->get(index, map);
-				found = map-1 == TTOutputPtr(anObject)->mIndex;
-				
-				if (found) break;
-			}
-		}
-	}
-	else {
-		index = data_out;
-		found = true;
-	}
-	
-	if (found) {
-		
-		// avoid blank before data
-		if (msg == _sym_nothing)
-			outlet_atoms(x->outlets[index], argc, argv);
-		else
-			outlet_anything(x->outlets[index], msg, argc, argv);
-	}
+	// avoid blank before data
+	if (msg == _sym_nothing)
+		outlet_atoms(x->outlets[data_out], argc, argv);
+	else
+		outlet_anything(x->outlets[data_out], msg, argc, argv);
 }
 #endif
 
@@ -410,64 +349,66 @@ t_int *receive_perform(t_int *w)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)(w[1]);
 	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
-	TTOutputPtr					anOutput;
-	TTUInt8						numChannels = 0;
+	TTListPtr					objectCache = NULL;
+	TTObjectPtr					anObject;
 	TTUInt16					vectorSize = 0;
-	short						i, j;
+	TTValue						v;
+	TTFloat32					d;
 	
-	/*
-	// get numChannels and vectorSize
-	if (anOutput) {
+	if (aReceiver) {
 		
-		anOutput->mInfo.get(info_numChannels, numChannels);
-		anOutput->mInfo.get(info_vectorSize, vectorSize);
+		// get signal vectorSize
+		aReceiver->mSignal->getAttributeValue(kTTSym_vectorSize, vectorSize);
 		
-		// Store the input from the inlets
-		for (i=0; i < numChannels; i++) {
-			j = (i*2) + 1;
-			TTAudioSignalPtr(anOutput->mSignalIn)->setVector(i, vectorSize, (TTFloat32*)w[j+1]);
-		}
+		// store the input
+		TTAudioSignalPtr(aReceiver->mSignal)->setVector(0, vectorSize, (TTFloat32*)w[2]);
 		
-		// if the output signal is muted
-		if (anOutput->mMute)
-			TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalZero), *TTAudioSignalPtr(anOutput->mSignalOut));
-		
-		// if input signal exists
-		else if (anInput) {
+		// get the object cache of the Sender object
+		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
 			
-			// if input signal is bypassed
-			if (anInput->mBypass)
-				// copy input (in Temp)
-				TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
+			v.get(0, (TTPtr*)&objectCache);
 			
-			// otherwise mix input and output signals
-			else {
+			if (objectCache) {
 				
-				// perform bypass/mix control (in Temp)
-				anInput->mInfo.get(info_numChannels, inNumCh);
-				if (inNumCh == numChannels)
-					TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));	
-				else
-					TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
+				// sum all output signals
+				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
+					
+					anObject = NULL;
+					objectCache->current().get(0, (TTPtr*)&anObject);
+					
+					if (anObject) {
+						
+						// OUTPUT case : sum the signal from the output
+						if (anObject->getName() == TT("Output")) {
+							
+							// get output signal vectorSize
+							TTOutputPtr(anObject)->mSignalOut->getAttributeValue(kTTSym_vectorSize, vectorSize);
+							
+							// sum output signal
+							*TTAudioSignalPtr(aReceiver->mSignal) += *TTAudioSignalPtr(TTOutputPtr(anObject)->mSignalOut);
+						}
+						
+						// DATA case : fill a signal with the data value and sum it
+						else if (anObject->getName() == TT("Data")) {
+							
+							// get value
+							anObject->getAttributeValue(kTTSym_value, v);
+							v.get(0, d);
+							
+							// TEST : fill the signal with the value
+							// TODO : add a += TTFloat64 inline method to TTAudioSignal class  
+							TTAudioSignalPtr(aReceiver->mSignal)->fill(d);
+						}
+					}
+				}
 			}
 			
-			// then perform gain control (from Temp)
-			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
-			
-			// otherwise just perform gain control
-		} else
-			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
-		
-		
-		// Send signal on to the outlets 
-		for (i=0; i<numChannels; i++) {
-			j = (i*2) + 1;
-			TTAudioSignalPtr(anOutput->mSignalOut)->getVector(i, vectorSize, (TTFloat32*)w[j+2]);
+			// send signal to the outlet
+			TTAudioSignalPtr(aReceiver->mSignal)->getVector(0, vectorSize, (TTFloat32*)w[3]);
 		}
 	}
-	*/
 	
-	return w + ((numChannels*2)+2);
+	return w + 4;
 }
 
 // DSP Method
@@ -475,59 +416,33 @@ void receive_dsp(TTPtr self, t_signal **sp, short *count)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
-	TTOutputPtr					anOutput;
-	short						i, j, k=0;
 	void**						audioVectors = NULL;
-	TTUInt8						numChannels = 0;
-	TTUInt16					vectorsize = sp[0]->s_n;
+	TTUInt16					vectorSize = sp[0]->s_n;
 	int							sr = sp[0]->s_sr;
 	
-	/*
-	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
-	anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
-	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
-	
-	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((anOutput->mNumber * 2) + 1));
-	audioVectors[k] = x;
-	k++;
-	
-	for (i=0; i < anOutput->mNumber; i++) {
-		j = anOutput->mNumber + i;
-		if (count[i] || count[j]) {
-			numChannels++;
-			if (sp[i]->s_n > vectorsize)
-				vectorsize = sp[i]->s_n;
+	if (aReceiver) {
+		
+		audioVectors = (void**)sysmem_newptr(sizeof(void*) * 3);
+		audioVectors[0] = x;
+		
+		if (count[0] || count[1]) {
+			if (sp[0]->s_n > vectorSize)
+				vectorSize = sp[0]->s_n;
 			
-			audioVectors[k] = sp[i]->s_vec;
-			k++;
-			audioVectors[k] = sp[j]->s_vec;
-			k++;
+			audioVectors[1] = sp[0]->s_vec;
+			audioVectors[2] = sp[1]->s_vec;
 		}
-	}
-	
-	// keep numChannels and vectorSize
-	anOutput->mInfo.set(info_numChannels, numChannels);
-	anOutput->mInfo.set(info_vectorSize, vectorsize);
-	
-	anOutput->mSignalIn->setAttributeValue(kTTSym_numChannels, numChannels);
-	anOutput->mSignalOut->setAttributeValue(kTTSym_numChannels, numChannels);
-	anOutput->mSignalTemp->setAttributeValue(kTTSym_numChannels, numChannels);
-	anOutput->mSignalZero->setAttributeValue(kTTSym_numChannels, numChannels);
-	
-	anOutput->mSignalIn->setAttributeValue(kTTSym_vectorSize, vectorsize);
-	anOutput->mSignalOut->setAttributeValue(kTTSym_vectorSize, vectorsize);
-	anOutput->mSignalTemp->setAttributeValue(kTTSym_vectorSize, vectorsize);
-	anOutput->mSignalZero->setAttributeValue(kTTSym_vectorSize, vectorsize);
-	
-	//audioIn will be set in the perform method
-	anOutput->mSignalOut->sendMessage(kTTSym_alloc);
-	anOutput->mSignalTemp->sendMessage(kTTSym_alloc);
-	anOutput->mSignalZero->sendMessage(kTTSym_alloc);
-	anOutput->mSignalZero->sendMessage(kTTSym_clear);
-	*/
-	
-	dsp_addv(receive_perform, k, audioVectors);
-	sysmem_freeptr(audioVectors);
+		
+		// set signal numChannels and vectorSize
+		aReceiver->mSignal->setAttributeValue(kTTSym_numChannels, 1);
+		aReceiver->mSignal->setAttributeValue(kTTSym_vectorSize, vectorSize);
+		
+		// anOutput->mSignal will be set in the perform method
+		aReceiver->mSignal->sendMessage(kTTSym_alloc);
+		
+		dsp_addv(receive_perform, 3, audioVectors);
+		sysmem_freeptr(audioVectors);
+	}	
 }
 
 // Perform Method 64 bit - just pass the whole vector straight through

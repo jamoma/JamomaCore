@@ -28,13 +28,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-8",
+					"id" : "obj-4",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 276.0, 139.0, 123.0, 17.0 ],
-					"text" : "/myParameter:value"
+					"patching_rect" : [ 276.0, 234.0, 120.0, 17.0 ]
 				}
 
 			}
@@ -42,12 +41,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-17",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 272.0, 233.0, 50.0, 19.0 ]
+					"id" : "obj-8",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 276.0, 139.0, 123.0, 17.0 ]
 				}
 
 			}
@@ -74,34 +73,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 224.0, 208.0, 114.0, 19.0 ],
-					"text" : "jcom.receive out 1 3"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-11",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 118.0, 182.0, 50.0, 19.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-10",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 71.0, 182.0, 50.0, 19.0 ]
+					"patching_rect" : [ 224.0, 208.0, 144.0, 19.0 ],
+					"text" : "jcom.receive out.mySignal"
 				}
 
 			}
@@ -124,11 +97,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "newobj",
-					"numinlets" : 3,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 24.0, 208.0, 113.0, 19.0 ],
-					"text" : "jcom.out 3"
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 24.0, 208.0, 105.0, 19.0 ],
+					"text" : "jcom.out mySignal"
 				}
 
 			}
@@ -196,7 +169,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 1328.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 449.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -222,24 +195,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-10", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-11", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -249,9 +204,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
+					"destination" : [ "obj-4", 1 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
+					"midpoints" : [ 296.0, 230.0, 386.5, 230.0 ],
 					"source" : [ "obj-12", 1 ]
 				}
 

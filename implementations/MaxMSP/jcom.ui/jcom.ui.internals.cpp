@@ -490,7 +490,8 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	TTBoolean	help = false;			// is there a help patch for the model ?
 	TTBoolean	ref = false;			// is there a ref page for the model ?
 	TTBoolean	change = false;
-	SymbolPtr	paramName;
+	TTNodeAddressPtr relativeAddress;
+	TTInt8		d;
 	
 	// model namespace observation
 	if (obj->modelAddress != kTTAdrsEmpty) {
@@ -498,29 +499,29 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		// look the namelist to know which data exist
 		for (long i=0; i<argc; i++) {
 			
-			paramName = atom_getsym(argv+i);
+			relativeAddress = TTADRS(atom_getsym(argv+i)->s_name);
 			
-			if (paramName == gensym("out/gain"))
+			if (relativeAddress->compare(TTADRS("out.*/gain"), d) == kAddressEqual)
 				gain = true;
-			else if (paramName == gensym("out/mix"))
+			else if (relativeAddress->compare(TTADRS("out.*/mix"), d) == kAddressEqual)
 				mix = true;
-			else if (paramName == gensym("in/bypass"))
+			else if (relativeAddress->compare(TTADRS("in.*/bypass"), d) == kAddressEqual)
 				bypass = true;
-			else if (paramName == gensym("out/freeze"))
+			else if (relativeAddress->compare(TTADRS("out.*/freeze"), d) == kAddressEqual)
 				freeze = true;
-			else if (paramName == gensym("out/preview"))
+			else if (relativeAddress->compare(TTADRS("out.*/preview"), d) == kAddressEqual)
 				preview = true;
-			else if (paramName == gensym("out/mute"))
+			else if (relativeAddress->compare(TTADRS("out.*/mute"), d) == kAddressEqual)
 				mute = true;
-			else if (paramName == gensym("model/internals"))		// TODO : create sender (a viewer is useless)
+			else if (relativeAddress->compare(TTADRS("model/internals"), d) == kAddressEqual)		// TODO : create sender (a viewer is useless)
 				internals = true;
-			else if (paramName == gensym("audio/meters/freeze"))
+			else if (relativeAddress->compare(TTADRS("audio/meters/freeze"), d) == kAddressEqual)
 				meters = true;
-			else if (paramName == gensym("preset/store"))			// the internal TTExplorer looks for Datas (not for node like /preset)
+			else if (relativeAddress->compare(TTADRS("preset/store"), d) == kAddressEqual)			// the internal TTExplorer looks for Datas (not for node like /preset)
 				preset = true;
-			else if (paramName == gensym("model/help"))			// TODO : create sender (a viewer is useless)
+			else if (relativeAddress->compare(TTADRS("model/help"), d) == kAddressEqual)			// TODO : create sender (a viewer is useless)
 				help = true;
-			else if (paramName == gensym("model/reference"))		// TODO : create sender (a viewer is useless)
+			else if (relativeAddress->compare(TTADRS("model/reference"), d) == kAddressEqual)		// TODO : create sender (a viewer is useless)
 				ref = true;
 		}
 		
@@ -530,7 +531,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (gain != obj->has_gain) {
 			obj->has_gain = gain;
 			if (gain) 
-				ui_viewer_create(obj, &anObject, gensym("return_gain"), TT("out/gain"), obj->modelAddress, YES);
+				ui_viewer_create(obj, &anObject, gensym("return_gain"), TT("out.*/gain"), obj->modelAddress, YES);
 			else {
 				ui_viewer_destroy(obj, TT("out/gain"));
 				obj->hash_viewers->remove(TT("out/gain"));
@@ -541,7 +542,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (mix != obj->has_mix) {
 			obj->has_mix = mix;
 			if (mix) 
-				ui_viewer_create(obj, &anObject, gensym("return_mix"), TT("out/mix"), obj->modelAddress, YES);
+				ui_viewer_create(obj, &anObject, gensym("return_mix"), TT("out.*/mix"), obj->modelAddress, YES);
 			else {
 				ui_viewer_destroy(obj, TT("out/mix"));
 				obj->hash_viewers->remove(TT("out/mix"));
@@ -554,7 +555,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (bypass != obj->has_bypass) {
 			obj->has_bypass = bypass;
 			if (bypass) 
-				ui_viewer_create(obj, &anObject, gensym("return_bypass"), TT("in/bypass"), obj->modelAddress, YES);
+				ui_viewer_create(obj, &anObject, gensym("return_bypass"), TT("in.*/bypass"), obj->modelAddress, YES);
 			else {
 				ui_viewer_destroy(obj, TT("in/bypass"));
 				obj->hash_viewers->remove(TT("in/bypass"));
@@ -567,7 +568,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (freeze != obj->has_freeze) {
 			obj->has_freeze = freeze;
 			if (freeze) 
-				ui_viewer_create(obj, &anObject, gensym("return_freeze"), TT("out/freeze"), obj->modelAddress, YES);
+				ui_viewer_create(obj, &anObject, gensym("return_freeze"), TT("out.*/freeze"), obj->modelAddress, YES);
 			else {
 				ui_viewer_destroy(obj, TT("out/freeze"));
 				obj->hash_viewers->remove(TT("out/freeze"));
@@ -580,7 +581,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (preview != obj->has_preview) {
 			obj->has_preview = preview;
 			if (preview)
-				ui_viewer_create(obj, &anObject, gensym("return_preview"), TT("out/preview"), obj->modelAddress, YES);
+				ui_viewer_create(obj, &anObject, gensym("return_preview"), TT("out.*/preview"), obj->modelAddress, YES);
 			else {
 				ui_viewer_destroy(obj, TT("out/preview"));
 				obj->hash_viewers->remove(TT("out/preview"));
@@ -593,7 +594,7 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (mute != obj->has_mute) {
 			obj->has_mute = mute;
 			if (mute) 
-				ui_viewer_create(obj, &anObject, gensym("return_mute"), TT("out/mute"), obj->modelAddress, YES);
+				ui_viewer_create(obj, &anObject, gensym("return_mute"), TT("out.*/mute"), obj->modelAddress, YES);
 			else {
 				ui_viewer_destroy(obj, TT("out/mute"));
 				obj->hash_viewers->remove(TT("out/mute"));
@@ -1042,13 +1043,9 @@ void ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	if (argc && argv) {
 		
-		index = obj->modelOutput->mIndex;
-		
-		// only output first signal
-		if (index == 0)
-			if (msg == _sym_nothing)
-				outlet_atoms(obj->outlets[preview_out], argc, argv);
-			else
-				outlet_anything(obj->outlets[preview_out], msg, argc, argv);
+		if (msg == _sym_nothing)
+			outlet_atoms(obj->outlets[preview_out], argc, argv);
+		else
+			outlet_anything(obj->outlets[preview_out], msg, argc, argv);
 	}
 }

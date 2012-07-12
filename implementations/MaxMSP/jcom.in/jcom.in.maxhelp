@@ -2,13 +2,15 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 6,
-			"minor" : 0,
-			"revision" : 5
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
 		}
 ,
-		"rect" : [ 271.0, 83.0, 612.0, 525.0 ],
+		"rect" : [ 601.0, 44.0, 555.0, 407.0 ],
 		"bglocked" : 0,
+		"defrect" : [ 601.0, 44.0, 555.0, 407.0 ],
+		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
@@ -16,29 +18,72 @@
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
-		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-19",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 131.0, 94.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"bgcolor2" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-20",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 131.0, 118.0, 58.0, 17.0 ],
+					"text" : "freeze $1"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-					"id" : "obj-3",
-					"linecount" : 2,
+					"id" : "obj-15",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 318.0, 457.0, 251.0, 31.0 ],
-					"presentation_rect" : [ 322.0, 458.0, 0.0, 0.0 ],
-					"text" : "A patch might only contain one instance of each of the objects jcom.in and jcom.out."
+					"patching_rect" : [ 320.0, 189.0, 225.0, 19.0 ],
+					"text" : "The first outlet passes the incoming value."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-10",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 78.0, 94.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-8",
+					"maxclass" : "toggle",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 6.0, 94.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -51,7 +96,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 176.0, 242.0, 88.0, 19.0 ],
+					"patching_rect" : [ 202.0, 182.0, 88.0, 19.0 ],
 					"text" : "your patch here"
 				}
 
@@ -62,12 +107,12 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-31",
-					"linecount" : 6,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 28.0, 225.0, 111.0, 79.0 ],
-					"text" : "If jcom.in is instantiated in a model it will create internal parameters /in/mute and /in/bypass"
+					"patching_rect" : [ 27.0, 307.0, 194.0, 55.0 ],
+					"text" : "If jcom.in is instantiated in a model it will create internal parameters : in.mySignal/mute in.mySignal/bypass"
 				}
 
 			}
@@ -80,7 +125,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 583.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 612.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -95,8 +140,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 318.0, 408.333344, 251.0, 43.0 ],
-					"text" : "At the time of this writing, you cannot mix the audio versions of these objects with the non-audio versions."
+					"patching_rect" : [ 320.0, 285.333344, 224.0, 43.0 ],
+					"text" : "At the time of this writing, you cannot mix the audio version of this object with the non-audio version."
 				}
 
 			}
@@ -110,7 +155,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 318.0, 371.666656, 251.0, 31.0 ],
+					"patching_rect" : [ 320.0, 248.666656, 224.0, 31.0 ],
 					"text" : "Another important function they provide is bypassing, freezing, and muting."
 				}
 
@@ -125,7 +170,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 318.0, 311.0, 251.0, 55.0 ],
+					"patching_rect" : [ 320.0, 333.0, 224.0, 55.0 ],
 					"text" : "Noticed that in Jamoma 0.6 jcom.in doesn't deal with communication between hub and algorithm because it is now part of the algorithm."
 				}
 
@@ -140,8 +185,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 318.0, 274.333344, 253.0, 31.0 ],
-					"text" : "The second outlet from the right for jcom.in~ is a dump outlet to get attribute's value."
+					"patching_rect" : [ 320.0, 213.333344, 225.0, 31.0 ],
+					"text" : "The second outlet is a dump outlet to get attribute's value."
 				}
 
 			}
@@ -151,24 +196,12 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
-					"linecount" : 4,
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 318.0, 213.666672, 252.0, 55.0 ],
-					"text" : "The argument specifies the number of inputs or outputs to manage for both objects. the last outlet of both objects is a standard 'dumpout' outlet for attribute return values."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"comment" : "",
-					"id" : "obj-8",
-					"maxclass" : "inlet",
-					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 257.0, 153.0, 27.0, 27.0 ]
+					"patching_rect" : [ 320.0, 152.666672, 225.0, 31.0 ],
+					"text" : "The argument specifies the name of the instance input to manage."
 				}
 
 			}
@@ -180,18 +213,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 166.0, 153.0, 27.0, 27.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"comment" : "",
-					"id" : "obj-10",
-					"maxclass" : "outlet",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 212.0, 308.0, 27.0, 27.0 ]
+					"patching_rect" : [ 192.0, 94.0, 27.0, 27.0 ]
 				}
 
 			}
@@ -202,7 +224,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 166.0, 308.0, 27.0, 27.0 ]
+					"patching_rect" : [ 192.0, 248.0, 27.0, 27.0 ]
 				}
 
 			}
@@ -212,11 +234,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-12",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 166.0, 277.0, 111.0, 19.0 ],
-					"text" : "jcom.out 2"
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 192.0, 217.0, 105.0, 19.0 ],
+					"text" : "jcom.out mySignal"
 				}
 
 			}
@@ -227,11 +249,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-13",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 166.0, 207.0, 110.0, 19.0 ],
-					"text" : "jcom.in 2"
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 192.0, 147.0, 98.0, 19.0 ],
+					"text" : "jcom.in mySignal"
 				}
 
 			}
@@ -245,8 +267,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 318.0, 153.0, 251.0, 55.0 ],
-					"text" : "jcom.in and jcom.out are input/output conduits for control signals in a jamoma model (most often these are Jitter matrices), much like jcom.in~ and jcom.out~ are for audio 'signals'."
+					"patching_rect" : [ 320.0, 93.0, 225.0, 55.0 ],
+					"text" : "jcom.in is an input conduits for control signals in a jamoma model (most often these are Jitter matrices), much like jcom.in~ is for audio 'signals'."
 				}
 
 			}
@@ -261,9 +283,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 28.0, 153.0, 69.0, 17.0 ],
-					"text" : "bypass $1",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"patching_rect" : [ 6.0, 118.0, 69.0, 17.0 ],
+					"text" : "bypass $1"
 				}
 
 			}
@@ -278,37 +299,53 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 46.0, 177.0, 51.0, 17.0 ],
-					"text" : "mute $1",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"patching_rect" : [ 78.0, 118.0, 51.0, 17.0 ],
+					"text" : "mute $1"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
-					"disabled" : 0,
+					"destination" : [ "obj-35", 0 ],
 					"hidden" : 0,
-					"source" : [ "obj-12", 1 ]
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-12", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"disabled" : 0,
+					"destination" : [ "obj-20", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 37.5, 203.0, 175.5, 203.0 ],
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 140.5, 140.5, 201.5, 140.5 ],
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 15.5, 140.5, 201.5, 140.5 ],
 					"source" : [ "obj-34", 0 ]
 				}
 
@@ -316,18 +353,17 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 55.5, 203.0, 175.5, 203.0 ],
+					"midpoints" : [ 87.5, 140.5, 201.5, 140.5 ],
 					"source" : [ "obj-35", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-13", 1 ],
-					"disabled" : 0,
+					"destination" : [ "obj-34", 0 ],
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-8", 0 ]
 				}
 
@@ -335,60 +371,11 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-9", 0 ]
 				}
 
-			}
- ],
-		"dependency_cache" : [ 			{
-				"name" : "jcom.maxhelpui.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.maxhelpuiButton.png",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.maxhelpuiResize.js",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.jamomaPath.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
-				"patcherrelativepath" : "../../../Max/library/components/jamomaPath",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.in.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.out.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.route.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.receive.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.send.mxo",
-				"type" : "iLaX"
 			}
  ]
 	}

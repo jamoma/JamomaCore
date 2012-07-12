@@ -7,9 +7,9 @@
 			"revision" : 9
 		}
 ,
-		"rect" : [ 45.0, 67.0, 462.0, 296.0 ],
+		"rect" : [ 547.0, 284.0, 462.0, 296.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 45.0, 67.0, 462.0, 296.0 ],
+		"defrect" : [ 547.0, 284.0, 462.0, 296.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -28,13 +28,55 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-8",
+					"id" : "obj-13",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 185.0, 100.0, 48.0, 19.0 ],
-					"text" : "saw~ 1"
+					"patching_rect" : [ 32.0, 95.0, 54.0, 19.0 ],
+					"text" : "cycle~ 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-4",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 228.0, 148.0, 50.0, 19.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 228.0, 121.0, 162.0, 19.0 ],
+					"text" : "jcom.parameter myParameter"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-9",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 32.0, 121.0, 141.0, 19.0 ],
+					"text" : "jcom.send~ myParameter"
 				}
 
 			}
@@ -44,7 +86,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 4.0, 75.0, 45.0, 45.0 ]
+					"patching_rect" : [ 411.0, 75.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -57,28 +99,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 101.0, 100.0, 54.0, 19.0 ],
+					"patching_rect" : [ 34.0, 186.0, 54.0, 19.0 ],
 					"text" : "cycle~ 1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-4",
-					"maxclass" : "scope~",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 251.0, 213.0, 76.0, 37.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-3",
-					"maxclass" : "scope~",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 176.0, 213.0, 76.0, 37.0 ]
 				}
 
 			}
@@ -88,7 +110,7 @@
 					"maxclass" : "scope~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 101.0, 213.0, 76.0, 37.0 ]
+					"patching_rect" : [ 228.0, 238.0, 76.0, 37.0 ]
 				}
 
 			}
@@ -99,11 +121,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-12",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
+					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 101.0, 132.0, 103.0, 19.0 ],
-					"text" : "jcom.send~ in 2 3"
+					"patching_rect" : [ 34.0, 211.0, 133.0, 19.0 ],
+					"text" : "jcom.send~ in.mySignal"
 				}
 
 			}
@@ -113,11 +135,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "newobj",
-					"numinlets" : 3,
-					"numoutlets" : 4,
-					"outlettype" : [ "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 101.0, 186.0, 244.0, 19.0 ],
-					"text" : "jcom.in~ 3"
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "signal", "" ],
+					"patching_rect" : [ 228.0, 211.0, 106.0, 19.0 ],
+					"text" : "jcom.in~ mySignal"
 				}
 
 			}
@@ -138,6 +160,15 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-12", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -156,25 +187,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-7", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-7", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-12", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-8", 0 ]

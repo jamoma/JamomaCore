@@ -9,24 +9,24 @@
 
 #include "TTModularClassWrapperMax.h"
 
-#ifdef JCOM_OUT_TILDE
-
-#define info_numChannels 0
-#define info_vectorSize 1
-#define info_startMeter 2
+#define signal_out 0
+#define	dump_out 1
 
 // This is used to store extra data
 typedef struct extra {
 	
+	TTSymbolPtr instance;		///< Output instance symbol
+	
+#ifdef JCOM_OUT_TILDE
+	// Store extra data relating to envelope tracking. Only available to jcom.out~
 	void		*clock;			///< Clock to update amplitude returns.
 	TTUInt32	pollInterval;	///< The sample rate of the amplitude follower.
-	TTHashPtr	instanceTable;	///< A table to associate "amplitude.N" to N for quick instance number access
-	//short	clock_is_set;		///< Is the clock currently scheduled to fire?
+	TTFloat32	meter;			///< meter value
+	TTFloat32	peak;			///< peak value
+#endif
 	
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
-
-#endif
 
 
 // Definitions
@@ -61,7 +61,7 @@ void		WrappedOutputClass_free(TTPtr self);
 void		out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 /** Associate jcom.out(~) with NodeLib. This is a prerequisit for communication with other Jamoma object in the module and beyond.  */
-void		out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		out_subscribe(TTPtr self);
 
 //TODO :	void out_register_preview(t_out *x, void *preview_object){ x->preview_object = preview_object; }
 
@@ -205,60 +205,51 @@ void WrapTTOutputClass(WrappedClassPtr c)
 void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	long						i, number = 0;
-	Atom						a;
-	TTValue						v;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
+	TTString					sInstance;
+	TTValue						v;
 	
-	if (attrstart && argv) 
-		number = atom_getlong(argv);
+	// Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	
-	if (number < 1)
-		number = 1;
+	// Get input instance symbol
+	if (attrstart && argv) {
+		
+		jamoma_ttvalue_from_Atom(v, _sym_nothing, attrstart, argv);
+		
+		v.toString();
+		v.get(0, sInstance);
+		EXTRA->instance = TT(sInstance.data());
+	}
+	else
+		EXTRA->instance = kTTSymEmpty;
 	
-	// Create Object, Inlets and Outlets
-	x->inlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * number);
-	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * number);
+	// Create Input Object and one outlet
+	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr));
 	
 #ifdef JCOM_OUT_TILDE
 	
-	jamoma_output_create_audio((ObjectPtr)x, &x->wrappedObject, number);
+	jamoma_output_create_audio((ObjectPtr)x, &x->wrappedObject);
 	
-	dsp_setup((t_pxobject *)x, number);	
+	dsp_setup((t_pxobject *)x, 1);	
 	x->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
 	
-	for (i=0; i < number; i++)
-		outlet_new((t_pxobject *)x, "signal");
-	
-	// prepare signal info
-	v.append(TTUInt16(number));		// numChannel
-	v.append(0);					// vectorSize
-	for (i = 0; i < number; i++)	// meter[i]
-		v.append(0);
-
-	for (i = 0; i < number; i++)	// peak[i]
-		v.append(0);
-	
-	x->wrappedObject->setAttributeValue(TT("info"), v);
+	outlet_new((t_pxobject *)x, "signal");
 	
 	// Prepare memory to store internal datas
 	x->internals = new TTHash();
 	
-	// Prepare extra data
-	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	// Prepare extra data for envelope tracking
 	EXTRA->clock = NULL;
 	EXTRA->pollInterval = 150;
-	EXTRA->instanceTable = new TTHash();
+	EXTRA->meter = 0.;
+	EXTRA->peak = 0.;
 	
 #else
 	
-	jamoma_output_create((ObjectPtr)x, &x->wrappedObject, number);
+	jamoma_output_create((ObjectPtr)x, &x->wrappedObject);
 	
-	for (i = number-1; i >= 1; i--)
-		x->inlets[i] = proxy_new(x, i, &x->index);
-	
-	for (i = number-1; i >= 0; i--)
-		x->outlets[i] = outlet_new(x, 0L);
+	x->outlets[0] = outlet_new(x, 0L);
 	
 #endif
 	
@@ -268,8 +259,7 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	atom_setlong(&a, number);
-	defer_low((ObjectPtr)x, (method)out_subscribe, NULL, 1, &a);
+	defer_low((ObjectPtr)x, (method)out_subscribe, NULL, 0, NULL);
 }
 
 void WrappedOutputClass_free(TTPtr self)
@@ -287,19 +277,22 @@ void WrappedOutputClass_free(TTPtr self)
 #pragma mark -
 #pragma mark NodeLib association
 
-void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void out_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTNodeAddressPtr			outputAddress;
+	TTNodeAddressPtr			inputAddress;
 	TTValue						v, args;
-	long						i, number = atom_getlong(argv);
 	TTNodePtr					node = NULL;
 	TTNodeAddressPtr			nodeAddress, parentAddress;
 	TTDataPtr					aData;
-	TTString					inAddress, formatName, formatDescription;;
-	SymbolPtr					outAmplitudeInstance, outDescription;
+	TTString					formatDescription, sInstance;
+	SymbolPtr					outDescription;
+	
+	outputAddress = TTADRS("out")->appendInstance(EXTRA->instance);
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTADRS("out"), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, outputAddress, &x->subscriberObject)) {
 		
 		// get patcher
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
@@ -312,40 +305,30 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
 		v.get(0, &nodeAddress);
 		
+		// update instance symbol in case of duplicate instance
+		EXTRA->instance = nodeAddress->getInstance();
+		
 		// observe /parent/in address in order to link/unlink with an Input object below
 		node->getParent()->getAddress(&parentAddress);
-		parentAddress = parentAddress->appendAddress(TTADRS("in"));
-		inAddress = parentAddress->getCString();
-		if (node->getInstance() != NO_INSTANCE) {
-			inAddress += ".";
-			inAddress += node->getInstance()->getCString();
-		}
-		x->wrappedObject->setAttributeValue(TT("inputAddress"), TTADRS(inAddress.data()));
+		inputAddress = parentAddress->appendAddress(TTADRS("in"))->appendInstance(EXTRA->instance);
+		x->wrappedObject->setAttributeValue(TT("inputAddress"), inputAddress);
 
 #ifdef JCOM_OUT_TILDE
 		
 		// make internal data to return out/amplitude
 		v = TTValue(0., 1.);
-		formatName = "amplitude.%d";
-		formatDescription = "instant amplitude of the signal %d";
+		formatDescription = "instant amplitude of %s output";
 		
-		for (i = 0; i < number; i++) {
-			
-			jamoma_edit_numeric_instance(&formatName, &outAmplitudeInstance, i+1);
-			jamoma_edit_numeric_instance(&formatDescription, &outDescription, i+1);
-			
-			makeInternals_data(x, nodeAddress, TT(outAmplitudeInstance->s_name), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
-			aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
-			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-			aData->setAttributeValue(kTTSym_rangeBounds, v);
-			aData->setAttributeValue(kTTSym_description, TT(outDescription->s_name));
-			aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
-			aData->setAttributeValue(kTTSym_dataspaceUnit, TT("linear"));
-			
-			// store name and index to retrieve instance number in the update_amplitude method
-			v = TTValue((TTUInt32)i);
-			EXTRA->instanceTable->append(TT(outAmplitudeInstance->s_name), v);
-		}
+		sInstance = EXTRA->instance->getCString();
+		jamoma_edit_string_instance(&formatDescription, &outDescription, &sInstance);
+		
+		makeInternals_data(x, nodeAddress, TT("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
+		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_rangeBounds, v);
+		aData->setAttributeValue(kTTSym_description, TT(outDescription->s_name));
+		aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
+		aData->setAttributeValue(kTTSym_dataspaceUnit, TT("linear"));
 		
 		// make internal data to parameter out/amplitude/active
 		makeInternals_data(x, nodeAddress, TT("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
@@ -362,7 +345,7 @@ void out_subscribe(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		EXTRA->clock = clock_new(x, (method)out_update_amplitude);
 		if (EXTRA->pollInterval)
 			clock_delay(EXTRA->clock, EXTRA->pollInterval);
-			//EXTRA->clock_is_set = 0;
+		
 #endif
 		
 		// expose attributes of TTOutput as TTData in the tree structure
@@ -415,7 +398,7 @@ void out_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 	if (msg==1)				// Inlets
 		strcpy(dst, "(signal) connect to the algorithm");
 	else if (msg==2) {		// Outlets
-		if (arg < TTOutputPtr(x->wrappedObject)->mNumber) 
+		if (arg == 0) 
 			strcpy(dst, "(signal) output of the model");
 		else 
 			strcpy(dst, "dumpout");
@@ -448,7 +431,6 @@ void out_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	TTOutputPtr(x->wrappedObject)->mIndex = proxy_getinlet((ObjectPtr)x);
 	jamoma_output_send((TTOutputPtr)x->wrappedObject, msg, argc, argv);
 }
 
@@ -456,7 +438,6 @@ void WrappedOutputClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	TTOutputPtr(x->wrappedObject)->mIndex = proxy_getinlet((ObjectPtr)x);
 	jamoma_output_send((TTOutputPtr)x->wrappedObject, msg, argc, argv);
 }
 
@@ -464,13 +445,11 @@ void out_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	long index = TTOutputPtr(x->wrappedObject)->mIndex;
-	
 	// avoid blank before data
 	if (msg == _sym_nothing)
-		outlet_atoms(x->outlets[index], argc, argv);
+		outlet_atoms(x->outlets[signal_out], argc, argv);
 	else
-		outlet_anything(x->outlets[index], msg, argc, argv);
+		outlet_anything(x->outlets[signal_out], msg, argc, argv);
 }
 #endif
 
@@ -485,25 +464,18 @@ t_int *out_perform(t_int *w)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)(w[1]);
 	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
 	TTInputPtr					anInput = anOutput->mInputObject;
-	TTUInt8						inNumCh, numChannels = 0;
 	TTUInt16					vectorSize = 0;
-	short						i, j;
 	t_float*					envelope;
 	TTUInt16					n;
-	float						currentvalue = 0;
-	float						peakamp, peakvalue = 0;	// values for calculating metering
+	TTFloat32					peakvalue, currentvalue;
 	
-	// get numChannels and vectorSize
 	if (anOutput) {
 		
-		anOutput->mInfo.get(info_numChannels, numChannels);
-		anOutput->mInfo.get(info_vectorSize, vectorSize);
+		// get signal vectorSize
+		anOutput->mSignalIn->getAttributeValue(kTTSym_vectorSize, vectorSize);
 		
-		// Store the input from the inlets
-		for (i=0; i < numChannels; i++) {
-			j = (i*2) + 1;
-			TTAudioSignalPtr(anOutput->mSignalIn)->setVector(i, vectorSize, (TTFloat32*)w[j+1]);
-		}
+		// Store the input from the inlet
+		TTAudioSignalPtr(anOutput->mSignalIn)->setVector(0, vectorSize, (TTFloat32*)w[2]);
 		
 		// if the output signal is muted
 		if (anOutput->mMute)
@@ -512,64 +484,53 @@ t_int *out_perform(t_int *w)
 		// if input signal exists
 		else if (anInput) {
 			
-			// if input signal is bypassed
+			// if input signal is bypassed : copy input (in Temp)
 			if (anInput->mBypass)
-				// copy input (in Temp)
 				TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
 			
-			// otherwise mix input and output signals
-			else {
-				
-				// perform bypass/mix control (in Temp)
-				anInput->mInfo.get(info_numChannels, inNumCh);
-				if (inNumCh == numChannels)
-					TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));	
-				else
-					TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
-			}
-			
+			// otherwise mix input and output signals (in Temp)
+			else 
+				TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));	
+
 			// then perform gain control (from Temp)
 			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
 			
-			// otherwise just perform gain control
-		} else
+			
+		}
+		// otherwise just perform gain control
+		else
 			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
 		
-		
 		// Send signal on to the outlets 
-		for (i=0; i<numChannels; i++) {
-			j = (i*2) + 1;
-			TTAudioSignalPtr(anOutput->mSignalOut)->getVector(i, vectorSize, (TTFloat32*)w[j+2]);
+		TTAudioSignalPtr(anOutput->mSignalOut)->getVector(0, vectorSize, (TTFloat32*)w[3]);
+		
+		// metering
+		if (!anOutput->mMute) {
+			envelope = (t_float *)(w[3]);
+			peakvalue = 0.0;
 			
-			// metering
-			if (!anOutput->mMute) {
-				envelope = (t_float *)(w[j+2]);
-				peakvalue = 0.0;
+			n = vectorSize;
+			while (n--) {
+				if ((*envelope) < 0 )						// get the current sample's absolute value
+					currentvalue = -(*envelope);
+				else
+					currentvalue = *envelope;
 				
-				n = vectorSize;
-				while (n--) {
-					if ((*envelope) < 0 )						// get the current sample's absolute value
-						currentvalue = -(*envelope);
-					else
-						currentvalue = *envelope;
-					
-					if (currentvalue > peakvalue) 				// if it's a new peak amplitude...
-						peakvalue = currentvalue;
-					envelope++; 								// increment pointer in the vector
-				}
-				
-				// set meter[i]
-				anOutput->mInfo.set(info_startMeter+i, peakvalue);
-				
-				// set peak[i]
-				anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
-				if (peakvalue > peakamp)
-					anOutput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
+				if (currentvalue > peakvalue) 				// if it's a new peak amplitude...
+					peakvalue = currentvalue;
+				envelope++; 								// increment pointer in the vector
 			}
+			
+			// set meter
+			EXTRA->meter = peakvalue;
+			
+			// set peak
+			if (peakvalue > EXTRA->peak)
+				EXTRA->peak = peakvalue;
 		}
 	}
 	
-	return w + ((numChannels*2)+2);
+	return w + 4;
 }
 
 // DSP Method
@@ -577,62 +538,54 @@ void out_dsp(TTPtr self, t_signal **sp, short *count)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
-	short						i, j, k=0;
 	void**						audioVectors = NULL;
-	TTUInt8						numChannels = 0;
-	TTUInt16					vectorsize = sp[0]->s_n;
+	TTUInt16					vectorSize = sp[0]->s_n;
 	int							sr = sp[0]->s_sr;
 	
-	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
-	anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
-	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
-	
-	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((anOutput->mNumber * 2) + 1));
-	audioVectors[k] = x;
-	k++;
-	
-	for (i=0; i < anOutput->mNumber; i++) {
-		j = anOutput->mNumber + i;
-		if (count[i] || count[j]) {
-			numChannels++;
-			if (sp[i]->s_n > vectorsize)
-				vectorsize = sp[i]->s_n;
+	if (anOutput) {
+		
+		anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
+		anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
+		anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
+		
+		audioVectors = (void**)sysmem_newptr(sizeof(void*) * 3);
+		audioVectors[0] = x;
+		
+		if (count[0] || count[1]) {
+			if (sp[0]->s_n > vectorSize)
+				vectorSize = sp[0]->s_n;
 			
-			audioVectors[k] = sp[i]->s_vec;
-			k++;
-			audioVectors[k] = sp[j]->s_vec;
-			k++;
+			audioVectors[1] = sp[0]->s_vec;
+			audioVectors[2] = sp[1]->s_vec;
 		}
+		
+		// set signal numChannels and vectorSize
+		anOutput->mSignalIn->setAttributeValue(kTTSym_numChannels, 1);
+		anOutput->mSignalOut->setAttributeValue(kTTSym_numChannels, 1);
+		anOutput->mSignalTemp->setAttributeValue(kTTSym_numChannels, 1);
+		anOutput->mSignalZero->setAttributeValue(kTTSym_numChannels, 1);
+		
+		anOutput->mSignalIn->setAttributeValue(kTTSym_vectorSize, vectorSize);
+		anOutput->mSignalOut->setAttributeValue(kTTSym_vectorSize, vectorSize);
+		anOutput->mSignalTemp->setAttributeValue(kTTSym_vectorSize, vectorSize);
+		anOutput->mSignalZero->setAttributeValue(kTTSym_vectorSize, vectorSize);
+		
+		// anOutput->mSignalIn will be set in the perform method
+		anOutput->mSignalOut->sendMessage(kTTSym_alloc);
+		anOutput->mSignalTemp->sendMessage(kTTSym_alloc);
+		anOutput->mSignalZero->sendMessage(kTTSym_alloc);
+		anOutput->mSignalZero->sendMessage(kTTSym_clear);
+		
+		dsp_addv(out_perform, 3, audioVectors);
+		sysmem_freeptr(audioVectors);
 	}
-	
-	// keep numChannels and vectorSize
-	anOutput->mInfo.set(info_numChannels, numChannels);
-	anOutput->mInfo.set(info_vectorSize, vectorsize);
-	
-	anOutput->mSignalIn->setAttributeValue(kTTSym_numChannels, numChannels);
-	anOutput->mSignalOut->setAttributeValue(kTTSym_numChannels, numChannels);
-	anOutput->mSignalTemp->setAttributeValue(kTTSym_numChannels, numChannels);
-	anOutput->mSignalZero->setAttributeValue(kTTSym_numChannels, numChannels);
-	
-	anOutput->mSignalIn->setAttributeValue(kTTSym_vectorSize, vectorsize);
-	anOutput->mSignalOut->setAttributeValue(kTTSym_vectorSize, vectorsize);
-	anOutput->mSignalTemp->setAttributeValue(kTTSym_vectorSize, vectorsize);
-	anOutput->mSignalZero->setAttributeValue(kTTSym_vectorSize, vectorsize);
-	
-	//audioIn will be set in the perform method
-	anOutput->mSignalOut->sendMessage(kTTSym_alloc);
-	anOutput->mSignalTemp->sendMessage(kTTSym_alloc);
-	anOutput->mSignalZero->sendMessage(kTTSym_alloc);
-	anOutput->mSignalZero->sendMessage(kTTSym_clear);
-	
-	dsp_addv(out_perform, k, audioVectors);
-	sysmem_freeptr(audioVectors);
 }
 
 // Perform Method 64 bit - just pass the whole vector straight through
 // (the work is all done in the dsp 64 bit method)
 void out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
+	/*
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
 	TTInputPtr					anInput = anOutput->mInputObject;
@@ -647,21 +600,21 @@ void out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doubl
 	// get numChannels and vectorSize
 	if (anOutput) {
 		
-		anOutput->mInfo.get(info_numChannels, numChannels);
-		anOutput->mInfo.get(info_vectorSize, vectorSize);
+		// get signal numChannels and vectorSize
+		anOutput->mSignalIn->getAttributeValue(kTTSym_numChannels, numChannels);
+		anOutput->mSignalIn->getAttributeValue(kTTSym_vectorSize, vectorSize);
 		
 		// Store the input from the inlets
-		for (i=0; i < numChannels; i++)
+		for (i = 0; i < numChannels; i++)
 			TTAudioSignalPtr(anOutput->mSignalIn)->setVector(i, vectorSize, ins[i]);
 		// if this doesn't work, I need to try setVector64Copy instead of setVector
-		
 		
 		if (anInput->mBypass)																		// perform mix control
 			TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalOut), *TTAudioSignalPtr(anOutput->mSignalOut));							//TODO: ideally just passing the pointer without copying memory 
 		else if ((anOutput->mMute) || (!anOutput->mGain))
 			TTAudioSignalPtr(anOutput->mSignalOut)->clear();  
 		else {																					// perform mix control
-			anInput->mInfo.get(info_numChannels, inNumCh);
+			anInput->mSignalIn->getAttributeValue(kTTSym_numChannels, inNumCh);
 			if (anInput && inNumCh) { 
 				if (anOutput->mMix == 100) // fully wet
 					TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));			//TODO: ideally just passing the pointer without copying memory 
@@ -677,7 +630,7 @@ void out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doubl
 		}
 		
 		// Send the input on to the outlets for the algorithm
-		for (i=0; i < numChannels; i++){	
+		for (i = 0; i < numChannels; i++){	
 			TTAudioSignalPtr(anOutput->mSignalOut)->getVectorCopy(i, vectorSize, outs[i]);
 			
 			// metering
@@ -698,63 +651,59 @@ void out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doubl
 				}
 				
 				// set meter[i]
-				anOutput->mInfo.set(info_startMeter+i, peakvalue);
+				EXTRA->meter->set(i, peakvalue);
 				
 				// set peak[i]
-				anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
+				EXTRA->peak->get(i, peakamp);
 				if (peakvalue > peakamp)
-					anOutput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
+					EXTRA->peak->set(i, peakvalue);
 			}
 		}
 	}
+	 */
 }
 
 // DSP64 method
 void out_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
+	/*
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTOutputPtr					anOutput = (TTOutputPtr)x->wrappedObject;
 	TTUInt8						numChannels = 0;
 	short						i, j; 
 
-	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
-	anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
-	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
-	
-	for (i=0; i < anOutput->mNumber; i++) {
-		j = anOutput->mNumber + i;
-		if (count[i] || count[j]) {
-			numChannels++;			
+	if (anOutput) {
+		
+		anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
+		anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
+		anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
+		
+		for (i=0; i < anOutput->mNumber; i++) {
+			j = anOutput->mNumber + i;
+			if (count[i] || count[j]) {
+				numChannels++;			
+			}
 		}
+		
+		anOutput->mSignalIn->setAttributeValue(kTTSym_numChannels, numChannels);
+		anOutput->mSignalOut->setAttributeValue(kTTSym_numChannels, numChannels);
+		anOutput->mSignalTemp->setAttributeValue(kTTSym_numChannels, numChannels);
+		anOutput->mSignalZero->setAttributeValue(kTTSym_numChannels, numChannels);
+		
+		anOutput->mSignalIn->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+		anOutput->mSignalOut->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+		anOutput->mSignalTemp->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+		anOutput->mSignalZero->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+		
+		// anOutput->mSignalIn will be set in the perform method
+		anOutput->mSignalOut->sendMessage(kTTSym_alloc);
+		anOutput->mSignalTemp->sendMessage(kTTSym_alloc);
+		anOutput->mSignalZero->sendMessage(kTTSym_alloc);
+		anOutput->mSignalZero->sendMessage(kTTSym_clear);
+		
+		object_method(dsp64, gensym("dsp_add64"), x, out_perform64, 0, NULL); 
 	}
-	anOutput->mInfo.set(info_numChannels, numChannels);
-	
-	anOutput->mInfo.set(info_vectorSize, (TTUInt16)maxvectorsize);
-	
-	anOutput->mSignalIn->setAttributeValue(TT("numChannels"), numChannels);
-	anOutput->mSignalOut->setAttributeValue(TT("numChannels"), numChannels);
-	anOutput->mSignalTemp->setAttributeValue(TT("numChannels"), numChannels);
-	//anOutput->mSignalZero->setAttributeValue(TT("numChannels"), numChannels);
-	
-	anOutput->mSignalIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	anOutput->mSignalOut->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	anOutput->mSignalTemp->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	//anOutput->mSignalZero->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);//Do we need zeroSignal?
-	
-	// mSignalIn will be set in the perform method
-	anOutput->mSignalOut->sendMessage(TT("alloc"));
-	anOutput->mSignalTemp->sendMessage(TT("alloc"));
-	//x->zeroSignal->sendMessage(TT("alloc"));
-	//x->zeroSignal->sendMessage(TT("clear"));
-	//audioIn will be set in the perform method
-	//x->audioOut->sendMessage(TT("alloc"));
-	
-	object_method(dsp64, gensym("dsp_add64"), x, out_perform64, 0, NULL); 
-	
-	// reset the meters info
-	for (i=0; i<numChannels; i++)
-		anOutput->mInfo.set(info_startMeter+numChannels+i, 0.);	
-
+	 */
 }
 
 void out_return_amplitude_active(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -778,44 +727,24 @@ void out_update_amplitude(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTOutputPtr		anOutput = (TTOutputPtr)x->wrappedObject;
-	float			metervalue;
-	short			i, index;
-	TTValue			keys;
-	TTSymbolPtr		name;
 	TTValue			v, storedObject;
 	TTObjectPtr		anObject;
 	TTErr			err;
-	
-	//EXTRA->clock_is_set = 0;
 	
 	if (anOutput) {
 		
 		if (x->internals) {
 			if (!x->internals->isEmpty()) {
 				
-				err = x->internals->getKeys(keys);
+				// get internal data object used to return amplitude
+				err = x->internals->lookup(TT("amplitude"), storedObject);
 				
 				if (!err) {
-					for (i=0; i<keys.getSize(); i++) {
-						
-						keys.get(i, &name);
-						
-						if (!EXTRA->instanceTable->lookup(name, v)) {
-							
-							v.get(0, index);
-							
-							// get internal data object
-							x->internals->lookup(name, storedObject);
-							storedObject.get(0, (TTPtr*)&anObject);
-							
-							// get current meter value
-							anOutput->mInfo.get(info_startMeter+index, metervalue);
-							//anOutput->mInfo.get(info_startMeter+numChannels+index, peakamp);
-							
-							// set the value
-							anObject->setAttributeValue(kTTSym_value, metervalue);
-						}						
-					}
+					
+					storedObject.get(0, (TTPtr*)&anObject);
+					
+					// set current meter value
+					anObject->setAttributeValue(kTTSym_value, EXTRA->meter);
 				}
 			}
 		}
@@ -844,7 +773,7 @@ void out_return_link(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		aData->setAttributeValue(kTTSym_valueDefault, v);							// Assume 100%, so that processed signal is passed through
 		aData->setAttributeValue(kTTSym_rampDrive, TT("scheduler"));
 		aData->setAttributeValue(kTTSym_rampFunction, TT("linear"));
-		aData->setAttributeValue(kTTSym_description, TT("Controls the wet/dry mix of the model's processing routine in percent."));
+		aData->setAttributeValue(kTTSym_description, TT("Controls the wet/dry mix in percent."));
 	}
 	else 
 		x->subscriberObject->unexposeAttribute(kTTSym_mix);
