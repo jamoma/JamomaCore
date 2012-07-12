@@ -7,7 +7,7 @@
 			"revision" : 9
 		}
 ,
-		"rect" : [ 208.0, 319.0, 300.0, 70.0 ],
+		"rect" : [ 109.0, 111.0, 502.0, 520.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 109.0, 111.0, 502.0, 520.0 ],
@@ -68,7 +68,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 451.0, 408.0, 25.0, 25.0 ]
 				}
 
@@ -80,7 +80,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 343.0, 408.0, 25.0, 25.0 ]
 				}
 
@@ -92,7 +92,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 235.0, 408.0, 25.0, 25.0 ]
 				}
 
@@ -104,7 +104,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 127.0, 408.0, 25.0, 25.0 ]
 				}
 
@@ -164,8 +164,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 308.0, 48.0, 157.0, 19.0 ],
-					"text" : "jcom.remote out/amplitude.2"
+					"patching_rect" : [ 308.0, 48.0, 159.0, 19.0 ],
+					"text" : "jcom.remote out.R/amplitude"
 				}
 
 			}
@@ -178,8 +178,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 308.0, 3.0, 157.0, 19.0 ],
-					"text" : "jcom.remote out/amplitude.1"
+					"patching_rect" : [ 308.0, 3.0, 158.0, 19.0 ],
+					"text" : "jcom.remote out.L/amplitude"
 				}
 
 			}

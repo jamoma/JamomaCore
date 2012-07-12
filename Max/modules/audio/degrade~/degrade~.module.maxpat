@@ -95,7 +95,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 610.0, 96.0, 172.0, 22.0 ],
-					"text" : "jcom.remote out/amplitude.2"
+					"text" : "jcom.remote out.2/amplitude"
 				}
 
 			}
@@ -135,7 +135,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 610.0, 33.0, 172.0, 22.0 ],
-					"text" : "jcom.remote out/amplitude.1"
+					"text" : "jcom.remote out.1/amplitude"
 				}
 
 			}
