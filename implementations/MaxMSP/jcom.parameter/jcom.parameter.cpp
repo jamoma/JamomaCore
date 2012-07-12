@@ -918,28 +918,46 @@ void param_output_generic(void *z)
 {
 	t_param *x = (t_param *)z;
 	
-	x->isSending = YES;
-	if (x->list_size == 1) {
-		param_clip_generic(x);
-		if (x->attr_value.a_type == A_LONG)
-			outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
-		else if (x->attr_value.a_type == A_FLOAT)
-			outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
-		else if (x->attr_value.a_type == A_SYM)
-			outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
-		param_send_feedback(x);
+	// TODO: Add support for dataspace conversion
+
+	// Clip to specified range, depending on clipmode
+	if (param_clip_generic(x) && x->ramper)
+		x->ramper->stop();							// stop the ramp
+	
+	int newListDiffers = param_list_compare(x, x->atom_listTemp, x->listTemp_size, x->atom_list, x->list_size);
+	
+	if ( !x->isInitialised || x->common.attr_repetitions || (newListDiffers==0) ) {
+		
+		// Update stored values
+		x->list_size = x->listTemp_size;
+		for (int i=0; i<x->listTemp_size; i++)
+			jcom_core_atom_copy(&x->atom_list[i], &x->atom_listTemp[i]);
+		
+		x->isSending = YES;
+		
+		if (x->list_size == 1) {
+		
+			if (x->attr_value.a_type == A_LONG)
+				outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
+			else if (x->attr_value.a_type == A_FLOAT)
+				outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
+			else if (x->attr_value.a_type == A_SYM)
+				outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
+			param_send_feedback(x);
+		}
+		else if (x->list_size > 1) {
+			if (param_clip_generic(x) && x->ramper)
+				x->ramper->stop();
+			outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
+			param_send_feedback(x);
+		} 
+		else {	// zero args
+			param_output_none(x);
+		}
+		
+		x->isSending = NO;
+		x->isInitialised = YES;	// We have had our value set at least once
 	}
-	else if (x->list_size > 1) {
-		if (param_clip_generic(x) && x->ramper)
-			x->ramper->stop();
-		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
-		param_send_feedback(x);
-	} 
-	else {	// zero args
-		param_output_none(x);
-	}
-	x->isSending = NO;
-	x->isInitialised = YES;	// We have had our value set at least once
 }
 
 void param_output_int(void *z)
