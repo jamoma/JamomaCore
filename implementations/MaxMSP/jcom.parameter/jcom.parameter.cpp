@@ -1101,7 +1101,8 @@ void param_output_list(void *z)
 			delete[] av;
 	}
 	
-	// Clip to specified range, depending on clipmode
+	// Clip to specified range, depending on clipmode. 
+	// The clip method also ensures that all list items are floats
 	if (param_clip_list(x) && x->ramper)
 		x->ramper->stop();							// stop the ramp
 	

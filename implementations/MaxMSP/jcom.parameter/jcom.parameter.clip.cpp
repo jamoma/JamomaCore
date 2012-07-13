@@ -14,14 +14,61 @@
 // Attempt to limit the range of values on generic input
 bool param_clip_generic(t_param *x)
 {
-	if (x->listTemp_size > 1)
-		return param_clip_list(x);
-	else if (x->atom_listTemp[0].a_type == A_LONG)
-		return param_clip_int(x);
-	else if (x->atom_listTemp[0].a_type == A_FLOAT)
-		return param_clip_float(x);
+	short i;
+	float fclipped, fbefore;
+	long iclipped, ibefore;
+	bool didClipAll;
+	
+	// If the list has any content, we initially assume that all list members have clipped, so that ramping can be halted.
+	// If we later on find a list member that did not clip, we set the flag to false
+	if (x->listTemp_size>0)
+		didClipAll = true;
 	else
-		return false;
+		didClipAll = false;
+	
+	for (i=0; i < x->listTemp_size; i++) {
+		
+		if (x->atom_listTemp[i].a_type == A_LONG) {
+			ibefore = iclipped = x->atom_listTemp[i].a_w.w_long;
+			if (x->common.attr_clipmode == jps_low)
+				TTLimitMin(iclipped, (long)x->common.attr_range[0]);
+			else if (x->common.attr_clipmode == jps_high)
+				TTLimitMax(iclipped, (long)x->common.attr_range[1]);
+			else if (x->common.attr_clipmode == jps_both)
+				TTLimit(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+			else if (x->common.attr_clipmode == jps_wrap)
+				iclipped = TTInfWrap(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+			else if (x->common.attr_clipmode == jps_fold)
+				iclipped = TTFold(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+			
+			if (iclipped==ibefore)
+				didClipAll = false; 
+			
+			x->atom_listTemp[i].a_w.w_long = iclipped;
+		}
+		else if (x->atom_listTemp[i].a_type == A_FLOAT) {
+			fbefore = fclipped = x->atom_listTemp[i].a_w.w_float;
+			if (x->common.attr_clipmode == jps_low)
+				TTLimitMin(fclipped, x->common.attr_range[0]);
+			else if (x->common.attr_clipmode == jps_high)
+				TTLimitMax(fclipped, x->common.attr_range[1]);
+			else if (x->common.attr_clipmode == jps_both)
+				TTLimit(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
+			else if (x->common.attr_clipmode == jps_wrap)
+				fclipped = TTInfWrap(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
+			else if (x->common.attr_clipmode == jps_fold)
+				fclipped = TTFold(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
+			
+			if (fbefore==fclipped)
+				didClipAll = false;
+			
+			x->atom_listTemp[i].a_w.w_float = fclipped;
+		}
+	}
+	if ((x->common.attr_clipmode==jps_fold) || (x->common.attr_clipmode== jps_wrap))
+		didClipAll = false;
+	
+	return didClipAll;
 }
 
 
@@ -93,50 +140,40 @@ bool param_clip_list(t_param *x)
 {
 	short i;
 	float fclipped, fbefore;
-	long iclipped, ibefore;
 	
 	// Initially we assume that all list members have clipped, so that ramping can be halted.
 	// If we later on find a list member that did not clip, we set the flag to false
 	bool didClipAll = true;
 	
 	for (i=0; i < x->listTemp_size; i++) {
-		if (x->atom_listTemp[i].a_type == A_LONG) {
-			ibefore = iclipped = x->atom_listTemp[i].a_w.w_long;
-			if (x->common.attr_clipmode == jps_low)
-				TTLimitMin(iclipped, (long)x->common.attr_range[0]);
-			else if (x->common.attr_clipmode == jps_high)
-				TTLimitMax(iclipped, (long)x->common.attr_range[1]);
-			else if (x->common.attr_clipmode == jps_both)
-				TTLimit(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-			else if (x->common.attr_clipmode == jps_wrap)
-				iclipped = TTInfWrap(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-			else if (x->common.attr_clipmode == jps_fold)
-				iclipped = TTFold(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+		
+		// Ints and symbols are converted to float
+		if (x->atom_listTemp[i].a_type == A_FLOAT)
+			fbefore = atom_getfloat(&x->atom_listTemp[i]);
+		else if (x->atom_listTemp[i].a_type == A_LONG)
+			fbefore = (double)atom_getlong(&x->atom_listTemp[i]);
+		else if (x->atom_listTemp[i].a_type == A_SYM)
+			fbefore = 0.;
 			
-			if (iclipped==ibefore)
-				didClipAll = false; 
+		fclipped = fbefore;
 			
-			x->atom_listTemp[i].a_w.w_long = iclipped;
-		}
-		else if (x->atom_listTemp[i].a_type == A_FLOAT) {
-			fbefore = fclipped = x->atom_listTemp[i].a_w.w_float;
-			if (x->common.attr_clipmode == jps_low)
-				TTLimitMin(fclipped, x->common.attr_range[0]);
-			else if (x->common.attr_clipmode == jps_high)
-				TTLimitMax(fclipped, x->common.attr_range[1]);
-			else if (x->common.attr_clipmode == jps_both)
-				TTLimit(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
-			else if (x->common.attr_clipmode == jps_wrap)
-				fclipped = TTInfWrap(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
-			else if (x->common.attr_clipmode == jps_fold)
-				fclipped = TTFold(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
+		if (x->common.attr_clipmode == jps_low)
+			TTLimitMin(fclipped, x->common.attr_range[0]);
+		else if (x->common.attr_clipmode == jps_high)
+			TTLimitMax(fclipped, x->common.attr_range[1]);
+		else if (x->common.attr_clipmode == jps_both)
+			TTLimit(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
+		else if (x->common.attr_clipmode == jps_wrap)
+			fclipped = TTInfWrap(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
+		else if (x->common.attr_clipmode == jps_fold)
+			fclipped = TTFold(fclipped, x->common.attr_range[0], x->common.attr_range[1]);
 			
-			if (fbefore==fclipped)
-				didClipAll = false;
+		if (fbefore==fclipped)
+			didClipAll = false;
 
-			x->atom_listTemp[i].a_w.w_float = fclipped;
-		}
+		atom_setfloat(&x->atom_listTemp[i], fclipped);
 	}
+	// prevent ramp halts for fold and wrap
 	if ((x->common.attr_clipmode==jps_fold) || (x->common.attr_clipmode== jps_wrap))
 		didClipAll = false;
 	
