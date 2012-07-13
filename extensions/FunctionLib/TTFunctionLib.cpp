@@ -9,6 +9,8 @@
 
 #include "TTDSP.h"
 #include "TTCosineFunction.h"
+#include "TTCrossFadeInFunction.h"
+#include "TTCrossFadeOutFunction.h"
 #include "TTExpFunction.h"
 #include "TTLinearFunction.h"
 #include "TTLogFunction.h"
@@ -25,7 +27,9 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_FunctionLib(void)
 	TTDSPInit();
 
 	TTCosineFunction::registerClass();
-	TTExpFunction::registerClass();	
+	TTExpFunction::registerClass();
+	TTCrossFadeInFunction::registerClass();
+	TTCrossFadeOutFunction::registerClass();
 	TTLinearFunction::registerClass();
 	TTLogFunction::registerClass();
 	TTLowpassFunction::registerClass();

@@ -2,6 +2,8 @@
 sources:
   - TTFunctionLib.cpp
   - source/TTCosineFunction.cpp
+  - source/TTCrossFadeInFunction.cpp
+  - source/TTCrossFadeOutFunction.cpp
   - source/TTExpFunction.cpp
   - source/TTFunction.cpp
   - source/TTLinearFunction.cpp

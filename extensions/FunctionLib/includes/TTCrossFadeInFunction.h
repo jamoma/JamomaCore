@@ -1,23 +1,23 @@
 /* 
- * CosineFunction Unit for TTBlue
+ * CrossFadeInFunction Unit for Jamoma DSP
  * Originally written for the Jamoma FunctionLib
- * Copyright © 2007 by Dave Watson
+ * Copyright © 2012 by Trond Lossius
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TTCOSINEFUNCTION_H__
-#define __TTCOSINEFUNCTION_H__
+#ifndef __TTCROSSFADEINFUNCTION_H__
+#define __TTCROSSFADEINFUNCTION_H__
 
 #include "TTDSP.h"
 
 
 /**	A simple function unit the implements the following:
-	y = cos(x)
+	y = sin(x*PI*0.5)
  */
-class TTCosineFunction : TTAudioObject {
-	TTCLASS_SETUP(TTCosineFunction)
+class TTCrossFadeInFunction : TTAudioObject {
+	TTCLASS_SETUP(TTCrossFadeInFunction)
 
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
@@ -28,4 +28,4 @@ class TTCosineFunction : TTAudioObject {
 };
 
 
-#endif // __TTCOSINEFUNCTION_H__
+#endif // __TTCROSSFADEINFUNCTION_H__

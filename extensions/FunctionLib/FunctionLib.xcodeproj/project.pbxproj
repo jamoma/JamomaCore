@@ -10,12 +10,16 @@
 		A776C21015AFE617003F5555 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
 		A776C21215AFE621003F5555 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
 		A776C21315AFE62A003F5555 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
+		A776C21515AFEB54003F5555 /* TTFunctionLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTFunctionLib.cpp; sourceTree = "<group>"; };
+		A776C21615AFF051003F5555 /* FunctionLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = FunctionLib.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		A776C20015AFE5D7003F5555 = {
 			isa = PBXGroup;
 			children = (
+				A776C21615AFF051003F5555 /* FunctionLib.yml */,
+				A776C21515AFEB54003F5555 /* TTFunctionLib.cpp */,
 				A776C21015AFE617003F5555 /* includes */,
 				A776C21215AFE621003F5555 /* source */,
 				A776C21315AFE62A003F5555 /* tests */,
