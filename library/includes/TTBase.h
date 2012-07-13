@@ -369,6 +369,30 @@ public:
 #endif
 	}
 	
+	
+	void TTAtomicIncrementWithBarrier(TTAtomicUInt& value)
+	{
+#ifdef TT_PLATFORM_MAC
+		OSAtomicIncrement32Barrier((int32_t*)&value);
+#elif defined (TT_PLATFORM_WIN)
+		_InterlockedIncrement((volatile long*)&value); // on windows there is always a barrier
+#else // what should we do for thread safety on Linux and iOS?
+		value++;
+#endif
+	}
+	
+	void TTAtomicDecrementWithBarrier(TTAtomicUInt& value)
+	{
+#ifdef TT_PLATFORM_MAC
+		OSAtomicDecrement32Barrier((int32_t*)&value);
+#elif defined (TT_PLATFORM_WIN)
+		_InterlockedDecrement((volatile long*)&value); // on windows there is always a barrier
+#else // what should we do for thread safety on Linux and iOS?
+		value++;
+#endif
+	}
+	
+	
 	void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, const TTAtomicInt& oldValue)
 	{
 #ifdef TT_PLATFORM_MAC
