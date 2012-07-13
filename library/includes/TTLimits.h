@@ -153,6 +153,31 @@ static void TTLimitMin(T& value, const T lowBound)
 }
 
 
+/**	Limit input to power-of-two values.
+	Non-power-of-two values are increased to the next-highest power-of-two upon return.
+	@seealso http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2
+ */
+template<class T>
+static void TTLimitPowerOfTwo(TTInt32& value)
+{
+		value--;
+		value |= value >> 1;
+		value |= value >> 2;
+		value |= value >> 4;
+		value |= value >> 8;
+		value |= value >> 16;
+		value++;
+		return value;
+}
+
+
+/**	Determine id a value is a power-of-two. */
+TTBoolean TTIsPowerOfTwo(TTInt32 value)
+{
+	return (value > 0) && ((value & (value-1)) == 0);
+}
+
+
 /** A fast routine for wrapping around the range once.  This is faster than doing an expensive module, where you know the range of the input
  	will not equal or exceed twice the range. */
 template<class T>
