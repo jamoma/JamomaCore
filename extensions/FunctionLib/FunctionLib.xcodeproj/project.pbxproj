@@ -3,335 +3,155 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
-		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
-		22FD46D011E247C5007BBF7E /* TTFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD46CF11E247C5007BBF7E /* TTFunctionLib.cpp */; };
-		666CF817131B41BF0003D7E2 /* TTCosineFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF80F131B41BF0003D7E2 /* TTCosineFunction.h */; };
-		666CF818131B41BF0003D7E2 /* TTExpFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF810131B41BF0003D7E2 /* TTExpFunction.h */; };
-		666CF819131B41BF0003D7E2 /* TTFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF811131B41BF0003D7E2 /* TTFunction.h */; };
-		666CF81A131B41BF0003D7E2 /* TTLinearFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF812131B41BF0003D7E2 /* TTLinearFunction.h */; };
-		666CF81B131B41BF0003D7E2 /* TTLogFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF813131B41BF0003D7E2 /* TTLogFunction.h */; };
-		666CF81C131B41BF0003D7E2 /* TTLowpassFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF814131B41BF0003D7E2 /* TTLowpassFunction.h */; };
-		666CF81D131B41BF0003D7E2 /* TTPowerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF815131B41BF0003D7E2 /* TTPowerFunction.h */; };
-		666CF81E131B41BF0003D7E2 /* TTTanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF816131B41BF0003D7E2 /* TTTanhFunction.h */; };
-		666CF827131B41C50003D7E2 /* TTCosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF81F131B41C50003D7E2 /* TTCosineFunction.cpp */; };
-		666CF828131B41C50003D7E2 /* TTExpFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF820131B41C50003D7E2 /* TTExpFunction.cpp */; };
-		666CF829131B41C50003D7E2 /* TTFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF821131B41C50003D7E2 /* TTFunction.cpp */; };
-		666CF82A131B41C50003D7E2 /* TTLinearFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF822131B41C50003D7E2 /* TTLinearFunction.cpp */; };
-		666CF82B131B41C50003D7E2 /* TTLogFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF823131B41C50003D7E2 /* TTLogFunction.cpp */; };
-		666CF82C131B41C50003D7E2 /* TTLowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF824131B41C50003D7E2 /* TTLowpassFunction.cpp */; };
-		666CF82D131B41C50003D7E2 /* TTPowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF825131B41C50003D7E2 /* TTPowerFunction.cpp */; };
-		666CF82E131B41C50003D7E2 /* TTTanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF826131B41C50003D7E2 /* TTTanhFunction.cpp */; };
-		66A7448A13A9836300AF9B5B /* TTLinearFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A7448913A9836300AF9B5B /* TTLinearFunction.test.cpp */; };
-		66A744B813A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A744B713A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp */; };
-		A769B90C13A8F07500441F80 /* TTSmoothPolynomialFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = A769B90B13A8F07500441F80 /* TTSmoothPolynomialFunction.h */; };
-		A769B90E13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A769B90D13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp */; };
-		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
-		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
-		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
-		22FD46CF11E247C5007BBF7E /* TTFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTFunctionLib.cpp; sourceTree = "<group>"; };
-		666CF80F131B41BF0003D7E2 /* TTCosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCosineFunction.h; path = includes/TTCosineFunction.h; sourceTree = "<group>"; };
-		666CF810131B41BF0003D7E2 /* TTExpFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTExpFunction.h; path = includes/TTExpFunction.h; sourceTree = "<group>"; };
-		666CF811131B41BF0003D7E2 /* TTFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFunction.h; path = includes/TTFunction.h; sourceTree = "<group>"; };
-		666CF812131B41BF0003D7E2 /* TTLinearFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLinearFunction.h; path = includes/TTLinearFunction.h; sourceTree = "<group>"; };
-		666CF813131B41BF0003D7E2 /* TTLogFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLogFunction.h; path = includes/TTLogFunction.h; sourceTree = "<group>"; };
-		666CF814131B41BF0003D7E2 /* TTLowpassFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassFunction.h; path = includes/TTLowpassFunction.h; sourceTree = "<group>"; };
-		666CF815131B41BF0003D7E2 /* TTPowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPowerFunction.h; path = includes/TTPowerFunction.h; sourceTree = "<group>"; };
-		666CF816131B41BF0003D7E2 /* TTTanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTanhFunction.h; path = includes/TTTanhFunction.h; sourceTree = "<group>"; };
-		666CF81F131B41C50003D7E2 /* TTCosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCosineFunction.cpp; path = source/TTCosineFunction.cpp; sourceTree = "<group>"; };
-		666CF820131B41C50003D7E2 /* TTExpFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTExpFunction.cpp; path = source/TTExpFunction.cpp; sourceTree = "<group>"; };
-		666CF821131B41C50003D7E2 /* TTFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTFunction.cpp; path = source/TTFunction.cpp; sourceTree = "<group>"; };
-		666CF822131B41C50003D7E2 /* TTLinearFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLinearFunction.cpp; path = source/TTLinearFunction.cpp; sourceTree = "<group>"; };
-		666CF823131B41C50003D7E2 /* TTLogFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLogFunction.cpp; path = source/TTLogFunction.cpp; sourceTree = "<group>"; };
-		666CF824131B41C50003D7E2 /* TTLowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassFunction.cpp; path = source/TTLowpassFunction.cpp; sourceTree = "<group>"; };
-		666CF825131B41C50003D7E2 /* TTPowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPowerFunction.cpp; path = source/TTPowerFunction.cpp; sourceTree = "<group>"; };
-		666CF826131B41C50003D7E2 /* TTTanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTanhFunction.cpp; path = source/TTTanhFunction.cpp; sourceTree = "<group>"; };
-		66A7448913A9836300AF9B5B /* TTLinearFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLinearFunction.test.cpp; path = tests/TTLinearFunction.test.cpp; sourceTree = "<group>"; };
-		66A744B713A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSmoothPolynomialFunction.test.cpp; path = tests/TTSmoothPolynomialFunction.test.cpp; sourceTree = "<group>"; };
-		A769B90B13A8F07500441F80 /* TTSmoothPolynomialFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSmoothPolynomialFunction.h; path = includes/TTSmoothPolynomialFunction.h; sourceTree = "<group>"; };
-		A769B90D13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSmoothPolynomialFunction.cpp; path = source/TTSmoothPolynomialFunction.cpp; sourceTree = "<group>"; };
-		D2AAC09D05546B4700DB518D /* FunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		A776C21015AFE617003F5555 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
+		A776C21215AFE621003F5555 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
+		A776C21315AFE62A003F5555 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		D2AAC09B05546B4700DB518D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */,
-				22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
-		034768DDFF38A45A11DB9C8B /* Products */ = {
+		A776C20015AFE5D7003F5555 = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* FunctionLib.ttdylib */,
+				A776C21015AFE617003F5555 /* includes */,
+				A776C21215AFE621003F5555 /* source */,
+				A776C21315AFE62A003F5555 /* tests */,
 			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		0867D691FE84028FC02AAC07 /* TTFunctionLib */ = {
-			isa = PBXGroup;
-			children = (
-				22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */,
-				08FB77ACFE841707C02AAC07 /* Source */,
-				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
-				034768DDFF38A45A11DB9C8B /* Products */,
-			);
-			name = TTFunctionLib;
-			sourceTree = "<group>";
-		};
-		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				22FA622D11E21BE20097F43B /* JamomaDSP.dylib */,
-				22FA623211E21BE60097F43B /* JamomaFoundation.dylib */,
-				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
-			);
-			name = "External Frameworks and Libraries";
-			sourceTree = "<group>";
-		};
-		08FB77ACFE841707C02AAC07 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				22FD46CF11E247C5007BBF7E /* TTFunctionLib.cpp */,
-				666CF821131B41C50003D7E2 /* TTFunction.cpp */,
-				666CF811131B41BF0003D7E2 /* TTFunction.h */,
-				2217FAAA0E4F284D00806778 /* Classes */,
-			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		2217FAAA0E4F284D00806778 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				666CF81F131B41C50003D7E2 /* TTCosineFunction.cpp */,
-				666CF80F131B41BF0003D7E2 /* TTCosineFunction.h */,
-				666CF820131B41C50003D7E2 /* TTExpFunction.cpp */,
-				666CF810131B41BF0003D7E2 /* TTExpFunction.h */,
-				666CF822131B41C50003D7E2 /* TTLinearFunction.cpp */,
-				666CF812131B41BF0003D7E2 /* TTLinearFunction.h */,
-				66A7448913A9836300AF9B5B /* TTLinearFunction.test.cpp */,
-				666CF823131B41C50003D7E2 /* TTLogFunction.cpp */,
-				666CF813131B41BF0003D7E2 /* TTLogFunction.h */,
-				666CF824131B41C50003D7E2 /* TTLowpassFunction.cpp */,
-				666CF814131B41BF0003D7E2 /* TTLowpassFunction.h */,
-				666CF825131B41C50003D7E2 /* TTPowerFunction.cpp */,
-				666CF815131B41BF0003D7E2 /* TTPowerFunction.h */,
-				A769B90B13A8F07500441F80 /* TTSmoothPolynomialFunction.h */,
-				A769B90D13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp */,
-				66A744B713A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp */,
-				666CF826131B41C50003D7E2 /* TTTanhFunction.cpp */,
-				666CF816131B41BF0003D7E2 /* TTTanhFunction.h */,
-			);
-			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D2AAC09905546B4700DB518D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				666CF817131B41BF0003D7E2 /* TTCosineFunction.h in Headers */,
-				666CF818131B41BF0003D7E2 /* TTExpFunction.h in Headers */,
-				666CF819131B41BF0003D7E2 /* TTFunction.h in Headers */,
-				666CF81A131B41BF0003D7E2 /* TTLinearFunction.h in Headers */,
-				666CF81B131B41BF0003D7E2 /* TTLogFunction.h in Headers */,
-				666CF81C131B41BF0003D7E2 /* TTLowpassFunction.h in Headers */,
-				666CF81D131B41BF0003D7E2 /* TTPowerFunction.h in Headers */,
-				666CF81E131B41BF0003D7E2 /* TTTanhFunction.h in Headers */,
-				A769B90C13A8F07500441F80 /* TTSmoothPolynomialFunction.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXNativeTarget section */
-		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */;
+/* Begin PBXLegacyTarget section */
+		A776C20715AFE5D8003F5555 /* FunctionLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = A776C20A15AFE5D8003F5555 /* Build configuration list for PBXLegacyTarget "FunctionLib" */;
 			buildPhases = (
-				D2AAC09905546B4700DB518D /* Headers */,
-				D2AAC09B05546B4700DB518D /* Frameworks */,
-				D2AAC09A05546B4700DB518D /* Sources */,
-				2217F9FF0E4E194400806778 /* ShellScript */,
 			);
-			buildRules = (
-			);
+			buildToolPath = /usr/bin/make;
 			dependencies = (
 			);
-			name = JamomaExtension;
-			productName = TTFunctionLib;
-			productReference = D2AAC09D05546B4700DB518D /* FunctionLib.ttdylib */;
-			productType = "com.apple.product-type.library.dynamic";
+			name = FunctionLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = FunctionLib;
 		};
-/* End PBXNativeTarget section */
+/* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		0867D690FE84028FC02AAC07 /* Project object */ = {
+		A776C20215AFE5D7003F5555 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "FunctionLib" */;
-			compatibilityVersion = "Xcode 3.1";
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
+			};
+			buildConfigurationList = A776C20515AFE5D7003F5555 /* Build configuration list for PBXProject "FunctionLib" */;
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
-			hasScannedForEncodings = 1;
+			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				en,
 			);
-			mainGroup = 0867D691FE84028FC02AAC07 /* TTFunctionLib */;
-			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			mainGroup = A776C20015AFE5D7003F5555;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AAC09C05546B4700DB518D /* JamomaExtension */,
+				A776C20715AFE5D8003F5555 /* FunctionLib */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		2217F9FF0E4E194400806778 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/mkdir -p -m 775 \"/usr/local/jamoma/extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/usr/local/jamoma/extensions\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		D2AAC09A05546B4700DB518D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22FD46D011E247C5007BBF7E /* TTFunctionLib.cpp in Sources */,
-				666CF827131B41C50003D7E2 /* TTCosineFunction.cpp in Sources */,
-				666CF828131B41C50003D7E2 /* TTExpFunction.cpp in Sources */,
-				666CF829131B41C50003D7E2 /* TTFunction.cpp in Sources */,
-				666CF82A131B41C50003D7E2 /* TTLinearFunction.cpp in Sources */,
-				666CF82B131B41C50003D7E2 /* TTLogFunction.cpp in Sources */,
-				666CF82C131B41C50003D7E2 /* TTLowpassFunction.cpp in Sources */,
-				666CF82D131B41C50003D7E2 /* TTPowerFunction.cpp in Sources */,
-				666CF82E131B41C50003D7E2 /* TTTanhFunction.cpp in Sources */,
-				A769B90E13A8F08400441F80 /* TTSmoothPolynomialFunction.cpp in Sources */,
-				66A7448A13A9836300AF9B5B /* TTLinearFunction.test.cpp in Sources */,
-				66A744B813A98AD600AF9B5B /* TTSmoothPolynomialFunction.test.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
 /* Begin XCBuildConfiguration section */
-		1DEB916108733D950010E9CD /* Development */ = {
+		A776C20815AFE5D8003F5555 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					x86_64,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
 			};
-			name = Development;
+			name = Debug;
 		};
-		1DEB916208733D950010E9CD /* Deployment */ = {
+		A776C20915AFE5D8003F5555 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					x86_64,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_OPTIMIZATION_LEVEL = 3;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
 			};
-			name = Deployment;
+			name = Release;
 		};
-		1DEB916508733D950010E9CD /* Development */ = {
+		A776C20B15AFE5D8003F5555 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
-			name = Development;
+			name = Debug;
 		};
-		1DEB916608733D950010E9CD /* Deployment */ = {
+		A776C20C15AFE5D8003F5555 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
-			name = Deployment;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */ = {
+		A776C20515AFE5D7003F5555 /* Build configuration list for PBXProject "FunctionLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916108733D950010E9CD /* Development */,
-				1DEB916208733D950010E9CD /* Deployment */,
+				A776C20815AFE5D8003F5555 /* Debug */,
+				A776C20915AFE5D8003F5555 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
+			defaultConfigurationName = Release;
 		};
-		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "FunctionLib" */ = {
+		A776C20A15AFE5D8003F5555 /* Build configuration list for PBXLegacyTarget "FunctionLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916508733D950010E9CD /* Development */,
-				1DEB916608733D950010E9CD /* Deployment */,
+				A776C20B15AFE5D8003F5555 /* Debug */,
+				A776C20C15AFE5D8003F5555 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+	rootObject = A776C20215AFE5D7003F5555 /* Project object */;
 }
