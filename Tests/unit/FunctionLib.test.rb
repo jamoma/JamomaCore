@@ -15,8 +15,20 @@ o.send "test"
 err, cpu = o.send "getProcessingBenchmark"
 cpu_total += cpu
 
-puts "TESTING SMOOTHPOLYNOMIALFUNCTION WINDOW"
+puts "TESTING SMOOTH POLYNOMIAL FUNCTION"
 o = TTObject.new "smoothPolynomial"
+o.send "test"
+err, cpu = o.send "getProcessingBenchmark"
+cpu_total += cpu
+
+puts "TESTING CROSS FADE IN FUNCTION"
+o = TTObject.new "crossFadeIn"
+o.send "test"
+err, cpu = o.send "getProcessingBenchmark"
+cpu_total += cpu
+
+puts "TESTING CROSS FADE OUT FUNCTION"
+o = TTObject.new "crossFadeOut"
 o.send "test"
 err, cpu = o.send "getProcessingBenchmark"
 cpu_total += cpu
