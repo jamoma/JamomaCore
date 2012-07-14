@@ -155,24 +155,25 @@ static void TTLimitMin(T& value, const T lowBound)
 
 /**	Limit input to power-of-two values.
 	Non-power-of-two values are increased to the next-highest power-of-two upon return.
+	Only works for ints up to 32-bits.
 	@seealso http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2
  */
 template<class T>
-static void TTLimitPowerOfTwo(TTUInt32& value)
+static void TTLimitPowerOfTwo(T& value)
 {
-		value--;
-		value |= value >> 1;
-		value |= value >> 2;
-		value |= value >> 4;
-		value |= value >> 8;
-		value |= value >> 16;
-		value++;
-		return value;
+	value--;
+	value |= value >> 1;
+	value |= value >> 2;
+	value |= value >> 4;
+	value |= value >> 8;
+	value |= value >> 16;
+	value++;
 }
 
 
-/**	Determine id a value is a power-of-two. */
-TTBoolean TTIsPowerOfTwo(TTUInt32 value)
+/**	Determine id a value is a power-of-two. Only works for ints. */
+template<class T>
+static TTBoolean TTIsPowerOfTwo(T value)
 {
 	return (value > 0) && ((value & (value-1)) == 0);
 }
@@ -252,26 +253,15 @@ static TTInt32 TTRound(T value)
 		return((long)(value - 0.5));
 }
 
-/** Determine if an integer is a power of two. */
-template<class T>
-static TTBoolean TTIsPowerOfTwo(T value)
-{
-	return (value > 0) && ((value & (value-1)) == 0);
-}
-
 
 #if 0
 #pragma mark -
 #pragma mark - new code from Tristan
 #endif
 
-//#include <cassert>
-//#include <cmath>
-//#include <iostream>
-//#include <algorithm>
 	
 template <class T>
-T limitMin(T value, T low_bound)
+static T limitMin(T value, T low_bound)
 {
     value -= low_bound;
 #ifdef TT_PLATFORM_MAC
@@ -287,9 +277,8 @@ T limitMin(T value, T low_bound)
 // template specialization for the unsigned case in limitMin, as per http://redmine.jamoma.org/issues/show/300
 // otherwise the algorithm can wrap around (below zero) and produce unexpected results
 
-// at least on the mac, this specialization produces a confict at link time -- tap
 template <class T>
-TTUInt8 limitMin(TTUInt8 value, TTUInt8 low_bound)
+static TTUInt8 limitMin(TTUInt8 value, TTUInt8 low_bound)
 {
     value -= std::min(low_bound, value); // so 0 at lowest
 #ifdef TT_PLATFORM_MAC
@@ -303,7 +292,7 @@ TTUInt8 limitMin(TTUInt8 value, TTUInt8 low_bound)
 }
 
 template <class T>
-TTUInt16 limitMin(TTUInt16 value, TTUInt16 low_bound)
+static TTUInt16 limitMin(TTUInt16 value, TTUInt16 low_bound)
 {
     value -= std::min(low_bound, value); // so 0 at lowest
 #ifdef TT_PLATFORM_MAC
@@ -317,7 +306,7 @@ TTUInt16 limitMin(TTUInt16 value, TTUInt16 low_bound)
 }
 
 template <class T>
-TTUInt32 limitMin(TTUInt32 value, TTUInt32 low_bound)
+static TTUInt32 limitMin(TTUInt32 value, TTUInt32 low_bound)
 {
     value -= std::min(low_bound, value); // so 0 at lowest
 #ifdef TT_PLATFORM_MAC
@@ -332,7 +321,7 @@ TTUInt32 limitMin(TTUInt32 value, TTUInt32 low_bound)
  
  
 template <class T>	
-TTUInt64 limitMin(TTUInt64 value, TTUInt64 low_bound)
+static TTUInt64 limitMin(TTUInt64 value, TTUInt64 low_bound)
 {
 	value -= std::min(low_bound, value); // so 0 at lowest
 #ifdef TT_PLATFORM_MAC
@@ -349,46 +338,27 @@ TTUInt64 limitMin(TTUInt64 value, TTUInt64 low_bound)
 /*
 int main(int argc, char* argv[])
 {
-	
-	if (argc != 3)
-	
-	{
-	
+	if (argc != 3) {
 	    std::cout << "Usage: limitMin <value> <lowerBound>\n";
-	
 	    return 1;
-	
 	}
-	
 	
 	TTUInt16 u, l;
 	
 	std::cout << "Enter a value:\n";
-	
 	u = atoi(argv[1]);
-	
 	std::cout << "u is " << u << std::endl;
-	
 	std::cout << "Enter a lower bound:\n";
-	
 	l = atoi(argv[2]);
-	
 	std::cout << "l is " << l << std::endl;
-	
 	
 	long long iterations = 100000000LL;
 	
-	
 	// execute a lot of times
-	
 	while (iterations--)
-	
 	    TTUInt16 v = limitMin<TTUInt16>(u, l);
 	
-	
-	
 	return 0;
-	
 }
 */
 
