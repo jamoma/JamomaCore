@@ -85,11 +85,11 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_preset_recall, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/recall"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/copy",				x->container,	"array",		"none",	"Create a new preset (2nd argument) by copying the contents of another preset (1st argument)", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/copy",				x->container,	"generic",		"none",	"Create a new preset (2nd argument) by copying the contents of another preset (1st argument)", 1);
 	anObject->setAction((method)hub_preset_copy, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/copy"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/store",				x->container,	"array",		"none",	"Store a preset by number in memory.  All presets present in memory will be written to disk when you send a /preset/write message to the module.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"preset/store",				x->container,	"generic",		"none",	"Store a preset by number in memory.  All presets present in memory will be written to disk when you send a /preset/write message to the module.", 1);
 	anObject->setAction((method)hub_preset_store, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/store"), (t_object*)anObject);
 
@@ -101,11 +101,11 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_preset_store_current, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("preset/storecurrent"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/interpolate",		x->container,	"array",		"none",	"Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.", 0);
+	anObject = new hubInternalObject("jcom.message", 	"preset/interpolate",		x->container,	"generic",		"none",	"Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.", 0);
 	anObject->setAction((method)hub_preset_interpolate, (t_object*)x);
 	hashtab_store(x->hash_internals, jps_preset_slash_interpolate, (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/mix",			x->container,	"array",		"none",	"Mix list of pairs of (preset name, mix value) using a ratio (float).", 0);
+	anObject = new hubInternalObject("jcom.message", 	"preset/mix",			x->container,	"generic",		"none",	"Mix list of pairs of (preset name, mix value) using a ratio (float).", 0);
 	anObject->setAction((method)hub_preset_mix, (t_object*)x);
 	hashtab_store(x->hash_internals, jps_preset_slash_mix, (t_object*)anObject);
 
