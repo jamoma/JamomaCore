@@ -14,6 +14,7 @@
  * coefficients calculated in Matlab using:
 
  x = linspace(0,1,128);
+ printf("%.16e,\n", x)
  
  */
 
