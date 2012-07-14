@@ -13,6 +13,7 @@
 
 #include "TTBase.h"
 #include "TTThread.h"
+#include "TTFifo.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
 #include "TTNodeLib.h"
