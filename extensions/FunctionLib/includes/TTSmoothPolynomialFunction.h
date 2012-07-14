@@ -32,7 +32,7 @@ class TTSmoothPolynomialFunction : TTAudioObject {
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Unit Tests	*/
-	virtual TTErr test(TTValue& returnedTestInfo);	
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 

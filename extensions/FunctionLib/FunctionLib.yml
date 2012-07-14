@@ -13,10 +13,15 @@ sources:
   - source/TTSmoothPolynomialFunction.cpp  
   - source/TTTanhFunction.cpp
   
-  - tests/TTLinearFunction.test.cpp
-  - tests/TTSmoothPolynomialFunction.test.cpp
+  - tests/TTCosineFunction.test.cpp
   - tests/TTCrossFadeInFunction.test.cpp
   - tests/TTCrossFadeOutFunction.test.cpp
+  - tests/TTExpFunction.test.cpp
+  - tests/TTLinearFunction.test.cpp
+  - tests/TTLogFunction.test.cpp
+  - tests/TTPowerFunction.test.cpp
+  - tests/TTSmoothPolynomialFunction.test.cpp
+  - tests/TTTanhFunction.test.cpp
   
 includes:
   - "includes"
