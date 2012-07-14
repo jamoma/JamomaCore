@@ -1,6 +1,6 @@
 /* 
- * TTBlue Audio Object Base Class
- * Copyright © 2008, Timothy Place
+ * Jamoma DSP Audio Object Base Class
+ * Copyright 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -11,14 +11,6 @@
 #include "TTEnvironment.h"
 #include "TTUnitTest.h"
 
-
-// This coeff is used in GainDataspace mapping MIDI to and from linear gain 
-// so that MIDI=100 equals 0 dB and MIDI = 127 equals +10 dB
-//static const double kGainMidiPower = log(pow(10.,10./20.))/log(127./100.);
-//static const double kGainMidiPowerInv = 1./kGainMidiPower;
-
-
-/****************************************************************************************************/
 
 TTAudioObject::TTAudioObject(TTValue& arguments) : 
 	TTObject(arguments), 
