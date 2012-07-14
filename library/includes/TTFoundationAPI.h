@@ -14,6 +14,7 @@
 #include "TTDataObject.h"
 #include "TTDictionary.h"
 #include "TTEnvironment.h"
+#include "TTFifo.h"
 #include "TTPath.h"
 #include "TTHash.h"
 #include "TTLimits.h"

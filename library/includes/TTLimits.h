@@ -158,7 +158,7 @@ static void TTLimitMin(T& value, const T lowBound)
 	@seealso http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2
  */
 template<class T>
-static void TTLimitPowerOfTwo(TTInt32& value)
+static void TTLimitPowerOfTwo(TTUInt32& value)
 {
 		value--;
 		value |= value >> 1;
@@ -172,7 +172,7 @@ static void TTLimitPowerOfTwo(TTInt32& value)
 
 
 /**	Determine id a value is a power-of-two. */
-TTBoolean TTIsPowerOfTwo(TTInt32 value)
+TTBoolean TTIsPowerOfTwo(TTUInt32 value)
 {
 	return (value > 0) && ((value & (value-1)) == 0);
 }
