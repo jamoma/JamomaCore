@@ -1,6 +1,6 @@
 /*
  * The Jamoma Object Base Class
- * Copyright © 2008, Timothy Place
+ * Copyright 2008, Timothy Place
  *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -12,7 +12,7 @@
 
 TTObject::TTObject(TTValue& arguments)
 	: classPtr(NULL), observers(NULL), messageObservers(NULL), attributeObservers(NULL),
-	  locked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
+	  mLocked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
 {
 	messages = new TTHash;
 	attributes = new TTHash;

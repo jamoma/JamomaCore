@@ -1,6 +1,6 @@
 /* 
  * The Jamoma Object Base Class
- * Copyright © 2008, Timothy Place
+ * Copyright 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -78,7 +78,7 @@ enum TTAttributeFlags {
 /**
 	Base class for all first-class Jamoma objects.
 	Internal objects may inherit directly from #TTObject, 
-	but most objects should inherit from #TTDataObject or #TTAudioObject.
+	but most objects will inherit from #TTDataObject or #TTAudioObject.
 */
 class TTFOUNDATION_EXPORT TTObject : public TTBase {
 private:
@@ -92,7 +92,7 @@ protected:
 private:
 	TTList*				messageObservers;	///< List of all objects watching this object for messages sent to it.
 	TTList*				attributeObservers;	///< List of all objects watching this object for changes to attribute values.
-	TTUInt8				locked;				///< Is there a lock placed on this object using lock() or unlock()?
+	TTAtomicInt			mLocked;			///< E.g. is this object busy doing something that would prevent us from being able to free it?
 	TTUInt16			referenceCount;		///< Reference count for this instance.
 public:
 	TTBoolean			valid;				///< If the object isn't completely built, or is in the process of freeing, this will be false.
@@ -271,19 +271,31 @@ public:
 	
 	inline TTErr lock()
 	{
-		locked++;
+		TTAtomicIncrement(mLocked);
 		return kTTErrNone;
 	}
 	
 	inline TTErr unlock()
 	{
-		locked--;
+		TTAtomicDecrement(mLocked);
 		return kTTErrNone;
 	}
 	
-	inline TTBoolean getlock()
+	inline TTBoolean isLocked()
 	{
-		return locked > 0;
+		return mLocked > 0;
+	}
+	
+	/** If the object is locked (e.g. in the middle of processing a vector in another thread)
+		then we spin until the lock is released
+
+		TODO: we should also be able to time-out in the event that we have a dead lock.
+	*/
+	inline TTBoolean waitForLock()
+	{
+		while (isLocked())
+			;
+		return true; // TODO: might return false if the operation timed-out.
 	}
 	
 	virtual TTErr test(TTValue& returnedTestInfo)
