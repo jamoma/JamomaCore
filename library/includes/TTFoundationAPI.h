@@ -16,6 +16,7 @@
 #include "TTEnvironment.h"
 #include "TTPath.h"
 #include "TTHash.h"
+#include "TTInterpolate.h"
 #include "TTLimits.h"
 #include "TTList.h"
 #include "TTMatrix.h"

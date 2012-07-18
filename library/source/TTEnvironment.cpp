@@ -260,11 +260,7 @@ TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 	(*anObject)->valid = false;
 	(*anObject)->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
 
-	// If the object is locked (e.g. in the middle of processing a vector in another thread)
-	//	then we spin until the lock is released
-	//	TODO: we should also be able to time-out in the event that we have a dead lock.
-	while ((*anObject)->getlock())
-		;
+	waitForLock(); // in case an object is processing a vector of audio in another thread or something...
 
 	(*anObject)->referenceCount--;
 	if ((*anObject)->referenceCount < 1) {
