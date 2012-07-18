@@ -395,10 +395,9 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	TTAttributePtr	anAttribute = NULL;
 	TTObjectPtr		newObserver, oldObserver, o;
 	TTNodePtr		aNode, p_node;
-	TTValue			c, address, v;
+	TTValue			c, v;
 	TTUInt8			flag;
 	TTBoolean		found;
-	TTCallbackPtr	anObserver;
 	TTValuePtr		newBaton;
 	TTValue			newCouple;
 	TTErr			err;
@@ -407,11 +406,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aReceiver);
 	
-	// Unpack data (oscAddress, aNode, flag, anObserver)
+	// Unpack data (anAddress, aNode, flag, anObserver)
 	data.get(0, &anAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
-	data.get(3, (TTPtr*)&anObserver);
 	
 	ttAttributeName = ToTTName(aReceiver->mAddress->getAttribute());
 	
@@ -423,9 +421,9 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			if (ttAttributeName == kTTSym_created)
 			{
 				// return the address
-				address.append(anAddress);
+				v.append(anAddress);
 				if (aReceiver->mReturnAddressCallback)
-					aReceiver->mReturnAddressCallback->notify(address, kTTValNONE);
+					aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
 			}
 			else if (ttAttributeName != kTTSym_destroyed)
 			{
@@ -490,9 +488,9 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			if (ttAttributeName == kTTSym_destroyed)
 			{
 				// return the address
-				address.append(anAddress);
+				v.append(anAddress);
 				if (aReceiver->mReturnAddressCallback)
-					aReceiver->mReturnAddressCallback->notify(address, kTTValNONE);
+					aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
 			}
 			else if (ttAttributeName != kTTSym_created)
 			{
