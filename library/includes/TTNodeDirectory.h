@@ -91,11 +91,10 @@ public:
 	TTHashPtr		getDirectory();
 
 	/**	Given an address, return a pointer to a TTNode.
-	 @param	anAddress				The address for which to find the TTNode.
+	 @param	anAddress				A pointer to the address for which to find the TTNode (it is replaced by the real address if it contains an alias).
 	 @param	returnedTTNode			The .
 	 @return						An error code. */
 	TTErr			getTTNode(const char* anAddress, TTNodePtr *returnedTTNode);
-	
 	TTErr			getTTNode(TTNodeAddressPtr anAddress, TTNodePtr *returnedTTNode);
 	
 	/** Given an address, return an alias if exists
@@ -103,6 +102,11 @@ public:
 	 @param	returnedAlias			The .
 	 @return						An error code if there is no alias. */
 	TTErr			getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *returnedAlias);
+	
+	/** Given an address with alias, return an address with no alias if exists
+	 @param	anAddress				The address with an alias inside to replace.
+	 @return						An error code if there is no alias. */
+	TTErr			replaceAlias(TTNodeAddressPtr* anAddress);
 	
 	/**	Find TTNodes by address
 	 @param	anAddress				The address you wish to find, possibly including wildcards and instance names/numbers.

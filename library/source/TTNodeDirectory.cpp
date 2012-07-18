@@ -88,10 +88,9 @@ TTErr TTNodeDirectory::getTTNode(const char* anAddress, TTNodePtr* returnedTTNod
 
 TTErr TTNodeDirectory::getTTNode(TTNodeAddressPtr anAddress, TTNodePtr* returnedTTNode)
 {
-	TTErr err;
-	TTValue	found, ak;
-	TTUInt32 s;
-	TTInt8 d;
+	TTNodeAddressPtr noAlias;
+	TTErr		err;
+	TTValue		found;
 
 	if (!directory) 
 		return kTTErrGeneric;
@@ -105,52 +104,10 @@ TTErr TTNodeDirectory::getTTNode(TTNodeAddressPtr anAddress, TTNodePtr* returned
 		return kTTErrNone;
 	}
 	
-	// if this address doesn't exist look into aliases
-	aliases->getKeys(ak);
-	s = ak.getSize();
-	if (s == 0)
-		return kTTErrGeneric;
-	
-	// compare the address to each aliases
-	TTUInt32 i, c;
-	TTNodeAddressPtr alias, aliasNodeAddress, p1, p2;
-	TTNodePtr aliasNode;
-	TTNodeAddressComparisonFlag comp;
-	TTString join;
-	
-	found = kTTValNONE;
-	
-	for (i=0; i<s; i++) {
-		ak.get(i, &alias);
-		comp = anAddress->compare(alias, d);
-		
-		// if the address is an alias : return the TTNode
-		if (comp == kAddressEqual) {
-			aliases->lookup(alias, found);
-			found.get(0,(TTPtr*)returnedTTNode);
-			
-			break;
-		}
-		
-		// the address is under an alias : 
-		// get the address of the alias and join anAddress (without the alias part)
-		if (comp == kAddressLower) {
-			aliases->lookup(alias, found);
-			found.get(1, &aliasNodeAddress);
-			found.get(2, c);
-
-			anAddress->splitAt(c, &p1, &p2);
-			
-			join = aliasNodeAddress->getCString();
-			join += S_SEPARATOR->getCString();
-			join += p2->getCString();
-			
-			getTTNode(TTADRS(join), returnedTTNode);
-			break;
-		}
-	}
-	
-	if (found == kTTValNONE)
+	noAlias = anAddress;
+	if (!this->replaceAlias(&noAlias))
+		getTTNode(noAlias, returnedTTNode);
+	else
 		return kTTErrGeneric;
 	
 	return kTTErrNone;
@@ -186,6 +143,54 @@ TTErr TTNodeDirectory::getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *re
 		return kTTErrGeneric;
 	
 	return kTTErrNone;
+}
+
+TTErr TTNodeDirectory::replaceAlias(TTNodeAddressPtr* anAddress)
+{
+	TTInt8				d;
+	TTUInt32			s, i, c;
+	TTNodeAddressPtr	alias, aliasNodeAddress, p1, p2;
+	TTNodeAddressComparisonFlag comp;
+	TTValue				ak, found = kTTValNONE;
+	
+	// if this address doesn't exist look into aliases
+	this->aliases->getKeys(ak);
+	s = ak.getSize();
+	if (s == 0)
+		return kTTErrGeneric;
+	
+	// compare the address to each aliases
+	for (i = 0; i < s; i++) {
+		
+		ak.get(i, &alias);
+		comp = (*anAddress)->compare(alias, d);
+		
+		// if the address is an alias : return the TTNode
+		if (comp == kAddressEqual) {
+			aliases->lookup(alias, found);
+			found.get(1, &aliasNodeAddress);
+			
+			(*anAddress) = aliasNodeAddress;
+			break;
+		}
+		
+		// the address is under an alias : 
+		// get the address of the alias and join anAddress (without the alias part)
+		if (comp == kAddressLower) {
+			aliases->lookup(alias, found);
+			found.get(1, &aliasNodeAddress);
+			found.get(2, c);
+			
+			(*anAddress)->splitAt(c, &p1, &p2);
+			(*anAddress) = aliasNodeAddress->appendAddress(p2);
+			break;
+		}
+	}
+	
+	if (found == kTTValNONE)
+		return kTTErrGeneric;
+	else
+		return kTTErrNone;
 }
 
 TTErr TTNodeDirectory::TTNodeCreate(TTNodeAddressPtr anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
@@ -324,7 +329,7 @@ TTErr TTNodeDirectory::AliasCreate(TTNodeAddressPtr alias, TTNodeAddressPtr anAd
 	
 	if (!err) {
 		
-		// add the alias and store the TTNode and info usefull for getTTNode method
+		// add the alias and store the TTNode and info usefull for replaceAlias method
 		v = TTValue(aNode);
 		v.append(anAddress);
 		v.append(alias->countSeparator());
@@ -378,14 +383,13 @@ TTErr TTNodeDirectory::Lookup(TTNodeAddressPtr anAddress, TTList& returnedTTNode
 
 	// Is there a wild card ?
 	if (strrchr(anAddress->getCString(), C_WILDCARD)) {
-
+		
 		// Here is a recursive call to the TTNodeDirectory Lookup to get all TTNodes at upper levels
 		err = Lookup(anAddress->getParent(), returnedTTNodes, firstReturnedTTNode);
-
+		
 		// for each returned TTNodes at upper levels
 		// select all corresponding "name.instance" TTNodes
 		// among the TTNode list.
-
 		if (!returnedTTNodes.isEmpty()) {
 
 			// select all children of all parent nodes
@@ -414,7 +418,7 @@ TTErr TTNodeDirectory::Lookup(TTNodeAddressPtr anAddress, TTList& returnedTTNode
 	// no wild card : do a lookup in the global hashtab
 	else {
 
-		// look into the hashtab (don't care about the attribute part)
+		// look into the hashtab
 		err = getTTNode(anAddress, &n_r);
 
 		// if the node exists
@@ -622,40 +626,56 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTNodeAddressPtr anAddress
 
 TTErr TTNodeDirectory::notifyObservers(TTNodeAddressPtr anAddress, TTNodePtr aNode, TTNodeAddressNotificationFlag flag)
 {
-	unsigned int i;
-	TTValue hk, lk, o, f, data;
-	TTNodeAddressPtr key, adrs;
 	TTNodeAddressComparisonFlag comp;
-	TTListPtr lk_o;
-	TTCallbackPtr anObserver;
-	TTInt8	depthDifference, maxDepthDifference;
-	bool foundObsv = false;
+	TTValue				hk, lk, o, f, data;
+	TTNodeAddressPtr	key, adrs, noAlias;
+	TTListPtr			lk_o;
+	TTNodePtr			n;
+	TTCallbackPtr		anObserver;
+	TTInt8				depthDifference, maxDepthDifference;
+	TTUInt32			i;
+	TTBoolean			foundObsv = NO;
+	TTErr				err;
 
 	// if there are observers
 	if (!this->observers->isEmpty()) {
-
+		
 		// enable observers protection
 		mutex->lock();
-
+		
 		this->observers->getKeys(hk);
 		
 		// don't look at attribute and address
 		adrs = anAddress->normalize();
-
+		
 		// for each key of mObserver tab
-		for (i=0; i<hk.getSize(); i++) {
-
+		for (i = 0; i < hk.getSize(); i++) {
+			
 			hk.get(i, &key);
-
-			// compare the key with the address
+			
+			// compare the key
 			comp = adrs->compare(key, depthDifference);
-
-			if ((comp == kAddressEqual) || (comp == kAddressLower)){
-
+			
+			// if the address is upper in the tree : the observer don't need to be notified
+			if (comp == kAddressUpper)
+				continue;
+			
+			// if the address is different : maybe the observer used an alias
+			if (comp == kAddressDifferent) {
+			
+				// remove the alias part of the key if exists
+				noAlias = key;
+				if (!this->replaceAlias(&noAlias))
+					comp = adrs->compare(noAlias, depthDifference);
+			}
+			
+			// if the address is equal or lower : the observer have to be notified
+			if ((comp == kAddressEqual) || (comp == kAddressLower)) {
+				
 				// get the Observers list
 				this->observers->lookup(key, lk);
 				lk.get(0,(TTPtr*)&lk_o);
-
+				
 				if (!lk_o->isEmpty()) {
 					for (lk_o->begin(); lk_o->end(); lk_o->next())
 					{
@@ -678,15 +698,15 @@ TTErr TTNodeDirectory::notifyObservers(TTNodeAddressPtr anAddress, TTNodePtr aNo
 						data.append((TTPtr*)anObserver);
 						anObserver->notify(data,data);
 					}
-
+					
 					foundObsv = true;
 				}
 			}
 		}
-
+		
 		// disable observers protection
 		mutex->unlock();
-
+		
 		if (foundObsv)
 			return kTTErrNone;
 		else
