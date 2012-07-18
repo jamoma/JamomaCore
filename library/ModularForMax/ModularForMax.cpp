@@ -941,39 +941,44 @@ void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& v)
 void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *argc, AtomPtr *argv, TTBoolean& shifted)
 {
 	AtomCount	i;
+	TTFloat64	f;
+	TTSymbolPtr	s;
+	TTInt32		t;
 	
 	*msg = _sym_nothing;
 	*argc = v.getSize();
+	
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * (*argc));
 	
 	if (*argc && !(v == kTTValNONE)) {
+		
 		for (i=0; i<*argc; i++) {
+			
 			if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
-				TTFloat64	value;
-				v.get(i, value);
-				atom_setfloat((*argv)+i, value);
+				v.get(i, f);
+				atom_setfloat((*argv)+i, f);
 				*msg = _sym_float;
 			}
 			else if(v.getType(i) == kTypeSymbol){
-				TTSymbolPtr	value = NULL;
-				v.get(i, &value);
-				if (value == kTTSymEmpty || value == kTTAdrsEmpty)
+				v.get(i, &s);
+				if (s == kTTSymEmpty || s == kTTAdrsEmpty)
 					atom_setsym((*argv)+i, _sym_bang);
 				else
-					atom_setsym((*argv)+i, gensym((char*)value->getCString()));
+					atom_setsym((*argv)+i, gensym((char*)s->getCString()));
 				//*msg = _sym_symbol;
 			}
 			else{	// assume int
-				TTInt32	value;
-				v.get(i, value);
-				atom_setlong((*argv)+i, value);
+				v.get(i, t);
+				atom_setlong((*argv)+i, t);
 				*msg = _sym_int;
 			}
 		}
 		
 		if (i>0) {
+			
 			if (atom_gettype(*argv) == A_SYM) {
+				
 				*msg = atom_getsym(*argv);
 				*argc = (*argc)-1;
 				*argv = (*argv)+1;
@@ -984,6 +989,7 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 		}
 	}
 	else {
+		
 		*msg = _sym_bang;
 		*argc = 0;
 		*argv = NULL;
@@ -994,6 +1000,9 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 {
 	AtomCount	i;
+	TTFloat64	f;
+	TTSymbolPtr	s;
+	TTInt32		t;
 	
 	*argc = v.getSize();
 	
@@ -1003,21 +1012,19 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * (*argc));
 	
-	for (i=0; i<*argc; i++) {
+	for (i = 0; i < *argc; i++) {
+		
 		if (v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
-			TTFloat64	value;
-			v.get(i, value);
-			atom_setfloat((*argv)+i, value);
+			v.get(i, f);
+			atom_setfloat((*argv)+i, f);
 		}
 		else if (v.getType(i) == kTypeSymbol) {
-			TTSymbolPtr	value = NULL;
-			v.get(i, &value);
-			atom_setsym((*argv)+i, gensym((char*)value->getCString()));
+			v.get(i, &s);
+			atom_setsym((*argv)+i, gensym((char*)s->getCString()));
 		}
 		else {	// assume int
-			TTInt32	value;
-			v.get(i, value);
-			atom_setlong((*argv)+i, value);
+			v.get(i, t);
+			atom_setlong((*argv)+i, t);
 		}
 	}
 }
