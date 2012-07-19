@@ -5,12 +5,14 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='audio/bypass' type='boolean' priority='0'>0</item>
-    <item name='audio/gain' type='decimal' priority='0'>0.000000</item>
-    <item name='audio/mix' type='decimal' priority='0'>100.000000</item>
-    <item name='audio/mute' type='boolean' priority='0'>1</item>
-    <item name='delay/left' type='integer' priority='0'>512</item>
-    <item name='delay/right' type='integer' priority='0'>512</item>
-    <item name='view/freeze' type='boolean' priority='0'>0</item>
+    <item name='audio/bypass' type='boolean' priority='0' mixweight='1'>0</item>
+    <item name='audio/gain' type='decimal' priority='0' mixweight='1'>0.000000</item>
+    <item name='audio/mix' type='decimal' priority='0' mixweight='1'>100.000000</item>
+    <item name='audio/mute' type='boolean' priority='0' mixweight='1'>1</item>
+    <item name='delay/left' type='integer' priority='0' mixweight='1'>0</item>
+    <item name='delay/maxSize' type='integer' priority='0' mixweight='1'>1000000</item>
+    <item name='delay/right' type='integer' priority='0' mixweight='1'>0</item>
+    <item name='view/freeze' type='boolean' priority='0' mixweight='1'>0</item>
+    <item name='view/highlight' type='string' priority='0' mixweight='1'>0</item>
   </preset>
 </jamoma>
