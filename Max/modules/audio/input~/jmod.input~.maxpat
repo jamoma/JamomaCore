@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 5
+			"revision" : 7
 		}
 ,
 		"rect" : [ 0.0, 44.0, 1377.0, 753.0 ],
@@ -187,7 +187,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"hidden" : 1,
 					"id" : "obj-40",
 					"linecount" : 2,
@@ -232,8 +232,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 819.0, 119.0, 595.0, 43.0 ],
-					"text" : "jcom.parameter testtone/frequency @type integer @ramp/drive scheduler @description \"The Frequency of the test tone. in [Hz] by default.\" @range/bounds 0.2 16000. @range/clipmode both @dataspace time @dataspace/unit hz",
+					"patching_rect" : [ 819.0, 119.0, 552.0, 43.0 ],
+					"text" : "jcom.parameter testtone/frequency @type integer @ramp/drive scheduler @description \"The Frequency of the test tone. in [Hz] by default.\" @range/bounds 0.2 16000. @range/clipmode both @dataspace time @dataspace/unit Hz",
 					"varname" : "ch_1[2]"
 				}
 
@@ -242,7 +242,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-63",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -258,7 +258,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-60",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -296,12 +296,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 11.595187,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-34",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 316.0, 425.0, 19.0, 20.0 ],
+					"patching_rect" : [ 316.0, 425.0, 19.0, 19.0 ],
 					"text" : "s"
 				}
 
@@ -332,12 +332,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 11.595187,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-44",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 259.0, 425.0, 20.0, 20.0 ],
+					"patching_rect" : [ 259.0, 425.0, 20.0, 19.0 ],
 					"text" : "m"
 				}
 
@@ -368,12 +368,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 11.595187,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-47",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 203.0, 425.0, 19.0, 20.0 ],
+					"patching_rect" : [ 203.0, 425.0, 19.0, 19.0 ],
 					"text" : "h"
 				}
 
@@ -392,7 +392,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 542.0, 99.0, 640.0, 480.0 ],
@@ -456,7 +456,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 198.0, 226.0, 72.0, 20.0 ],
+									"patching_rect" : [ 198.0, 226.0, 72.0, 19.0 ],
 									"text" : "expr $f1-$i2"
 								}
 
@@ -470,7 +470,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "float" ],
-									"patching_rect" : [ 198.0, 292.0, 34.0, 20.0 ],
+									"patching_rect" : [ 198.0, 292.0, 34.0, 19.0 ],
 									"text" : "* 60."
 								}
 
@@ -484,7 +484,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 63.0, 137.0, 72.0, 20.0 ],
+									"patching_rect" : [ 63.0, 137.0, 72.0, 19.0 ],
 									"text" : "expr $f1-$i2"
 								}
 
@@ -498,7 +498,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "float" ],
-									"patching_rect" : [ 118.0, 178.0, 34.0, 20.0 ],
+									"patching_rect" : [ 118.0, 178.0, 34.0, 19.0 ],
 									"text" : "* 60."
 								}
 
@@ -512,7 +512,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "float" ],
-									"patching_rect" : [ 44.0, 98.0, 65.0, 20.0 ],
+									"patching_rect" : [ 44.0, 98.0, 65.0, 19.0 ],
 									"text" : "/ 3600000."
 								}
 
@@ -625,22 +625,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [  ]
+ ]
 					}
 ,
 					"patching_rect" : [ 170.0, 398.0, 130.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"tags" : "",
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
 						"digest" : "",
+						"fontface" : 0,
+						"fontname" : "Verdana",
+						"fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"tags" : ""
 					}
 ,
 					"text" : "p time"
@@ -651,7 +650,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"hidden" : 1,
 					"id" : "obj-32",
 					"linecount" : 2,
@@ -695,7 +694,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 21.0, 223.0, 1102.0, 446.0 ],
@@ -929,22 +928,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [  ]
+ ]
 					}
 ,
 					"patching_rect" : [ 1056.0, 47.0, 17.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"tags" : "",
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
 						"digest" : "",
+						"fontface" : 0,
+						"fontname" : "Verdana",
+						"fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"tags" : ""
 					}
 ,
 					"text" : "p"
@@ -981,8 +979,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 819.0, 73.0, 526.0, 43.0 ],
-					"text" : "jcom.parameter clicktrain/rate @type decimal @ramp/drive scheduler @description \"How often a click is generated. in [Hz] by default.\" @range/bounds 0.01 100. @range/clipmode both @dataspace time @dataspace/unit hz",
+					"patching_rect" : [ 819.0, 73.0, 540.0, 43.0 ],
+					"text" : "jcom.parameter clicktrain/rate @type decimal @ramp/drive scheduler @description \"How often a click is generated. in [Hz] by default.\" @range/bounds 0.01 100. @range/clipmode both @dataspace time @dataspace/unit Hz",
 					"varname" : "ch_1[1]"
 				}
 
@@ -1428,7 +1426,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 334.0, 81.0, 358.0, 55.0 ],
+					"patching_rect" : [ 334.0, 81.0, 328.0, 55.0 ],
 					"text" : "jcom.parameter audio/gain @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit midi @description \"master gain\"",
 					"varname" : "jcom.parameter.gain"
 				}
@@ -1522,7 +1520,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.290196, 0.611765, 0.380392, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-39",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1551,7 +1549,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.290196, 0.611765, 0.380392, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-50",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1566,7 +1564,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.290196, 0.611765, 0.380392, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-51",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1581,7 +1579,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.290196, 0.611765, 0.380392, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-52",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1596,7 +1594,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.290196, 0.611765, 0.380392, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-53",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1611,7 +1609,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.290196, 0.611765, 0.380392, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-54",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1636,7 +1634,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 0.0, 44.0, 946.0, 733.0 ],
@@ -1662,7 +1660,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-42",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -1753,7 +1751,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 867.0, 149.0, 344.0, 297.0 ],
@@ -1966,22 +1964,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [  ]
+ ]
 									}
 ,
 									"patching_rect" : [ 623.0, 312.0, 99.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
 										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana"
+										"tags" : ""
 									}
 ,
 									"text" : "p clicktrain~"
@@ -2214,7 +2211,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 185.0, 98.0, 617.0, 390.0 ],
@@ -2338,7 +2335,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-8",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -2352,7 +2349,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-9",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -2426,7 +2423,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-15",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -2440,7 +2437,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-16",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -2550,22 +2547,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [  ]
+ ]
 									}
 ,
 									"patching_rect" : [ 20.0, 557.0, 185.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
 										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana"
+										"tags" : ""
 									}
 ,
 									"text" : "p smooth_in_out"
@@ -2588,7 +2584,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-14",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -2603,7 +2599,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-15",
 									"linecount" : 3,
 									"maxclass" : "comment",
@@ -2618,7 +2614,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-16",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2632,7 +2628,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-17",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -2647,7 +2643,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-18",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2661,7 +2657,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-19",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -2718,7 +2714,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 349.0, 139.0, 529.0, 535.0 ],
@@ -2925,7 +2921,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-9",
 													"linecount" : 2,
 													"maxclass" : "comment",
@@ -2940,7 +2936,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-10",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -2954,7 +2950,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-11",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -2968,7 +2964,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-12",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -3070,7 +3066,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+													"frgb" : 0.0,
 													"id" : "obj-20",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -3308,26 +3304,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.dataspace.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 20.0, 520.0, 185.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
 										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana"
+										"tags" : ""
 									}
 ,
 									"text" : "p gain"
@@ -3338,7 +3329,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-24",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -3390,7 +3381,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 218.0, 133.0, 933.0, 411.0 ],
@@ -3561,7 +3552,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 448.0, 77.0, 832.0, 519.0 ],
@@ -3839,22 +3830,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [  ]
+ ]
 													}
 ,
 													"patching_rect" : [ 372.0, 292.0, 80.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
-														"fontname" : "Verdana",
-														"default_fontface" : 0,
 														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
 														"globalpatchername" : "",
-														"default_fontname" : "Verdana"
+														"tags" : ""
 													}
 ,
 													"text" : "p playPosition"
@@ -3931,7 +3921,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 5
+															"revision" : 7
 														}
 ,
 														"rect" : [ 848.0, 46.0, 432.0, 397.0 ],
@@ -4062,7 +4052,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-11",
 																	"linecount" : 2,
 																	"maxclass" : "comment",
@@ -4077,7 +4067,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-12",
 																	"linecount" : 3,
 																	"maxclass" : "comment",
@@ -4092,7 +4082,7 @@
 																"box" : 																{
 																	"fontname" : "Verdana",
 																	"fontsize" : 10.0,
-																	"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+																	"frgb" : 0.0,
 																	"id" : "obj-13",
 																	"maxclass" : "comment",
 																	"numinlets" : 1,
@@ -4175,22 +4165,21 @@
 																}
 
 															}
- ],
-														"dependency_cache" : [  ]
+ ]
 													}
 ,
 													"patching_rect" : [ 8.0, 72.0, 101.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"fontface" : 0,
-														"fontsize" : 10.0,
+														"default_fontface" : 0,
+														"default_fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"description" : "",
-														"tags" : "",
-														"fontname" : "Verdana",
-														"default_fontface" : 0,
 														"digest" : "",
+														"fontface" : 0,
+														"fontname" : "Verdana",
+														"fontsize" : 10.0,
 														"globalpatchername" : "",
-														"default_fontname" : "Verdana"
+														"tags" : ""
 													}
 ,
 													"text" : "p OLD_open_stuff"
@@ -4582,34 +4571,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.init.mxo",
-												"type" : "iLaX"
-											}
-, 											{
-												"name" : "jcom.oscroute.mxo",
-												"type" : "iLaX"
-											}
-, 											{
-												"name" : "jcom.return.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 376.0, 315.0, 56.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
 										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana"
+										"tags" : ""
 									}
 ,
 									"text" : "p sfplay~"
@@ -4630,7 +4606,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 44.0, 59.0, 305.0, 403.0 ],
@@ -4884,26 +4860,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [ 											{
-												"name" : "jcom.oscroute.mxo",
-												"type" : "iLaX"
-											}
  ]
 									}
 ,
 									"patching_rect" : [ 270.0, 313.0, 61.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
 										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana"
+										"tags" : ""
 									}
 ,
 									"text" : "p audio_in"
@@ -4924,7 +4895,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 141.0, 153.0, 600.0, 426.0 ],
@@ -5060,22 +5031,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [  ]
+ ]
 									}
 ,
 									"patching_rect" : [ 455.0, 313.0, 70.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
 										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana"
+										"tags" : ""
 									}
 ,
 									"text" : "p testtone~"
@@ -5096,7 +5066,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 5
+											"revision" : 7
 										}
 ,
 										"rect" : [ 40.0, 59.0, 344.0, 297.0 ],
@@ -5188,22 +5158,21 @@
 												}
 
 											}
- ],
-										"dependency_cache" : [  ]
+ ]
 									}
 ,
 									"patching_rect" : [ 540.0, 313.0, 48.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"fontface" : 0,
-										"fontsize" : 10.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"description" : "",
-										"tags" : "",
-										"fontname" : "Verdana",
-										"default_fontface" : 0,
 										"digest" : "",
+										"fontface" : 0,
+										"fontname" : "Verdana",
+										"fontsize" : 10.0,
 										"globalpatchername" : "",
-										"default_fontname" : "Verdana"
+										"tags" : ""
 									}
 ,
 									"text" : "p pink~"
@@ -5214,7 +5183,7 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
-									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+									"frgb" : 0.0,
 									"id" : "obj-31",
 									"linecount" : 2,
 									"maxclass" : "comment",
@@ -5719,44 +5688,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.audioOnOff.maxpat",
-								"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/audioOnOff",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
-								"name" : "jcom.oscroute.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.init.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.return.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.dataspace.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 45.0, 376.0, 143.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"description" : "",
-						"tags" : "",
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
 						"digest" : "",
+						"fontface" : 0,
+						"fontname" : "Verdana",
+						"fontsize" : 10.0,
 						"globalpatchername" : "",
-						"default_fontname" : "Verdana"
+						"tags" : ""
 					}
 ,
 					"text" : "p Sound_sources"
@@ -5844,7 +5790,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-68",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -5945,7 +5891,6 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-27",
-					"ignoreclick" : 1,
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -5958,7 +5903,6 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-26",
-					"ignoreclick" : 1,
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -5971,7 +5915,6 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-13",
-					"ignoreclick" : 1,
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -5985,7 +5928,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-76",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -6000,7 +5943,6 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-11",
-					"ignoreclick" : 1,
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -6582,14 +6524,14 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.audioOnOff.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/audioOnOff",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/audioOnOff",
 				"patcherrelativepath" : "../../../library/components/audioOnOff",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.meter_receive.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/meter_receive",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/meter_receive",
 				"patcherrelativepath" : "../../../library/components/meter_receive",
 				"type" : "JSON",
 				"implicit" : 1
