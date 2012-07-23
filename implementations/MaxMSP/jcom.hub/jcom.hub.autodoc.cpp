@@ -490,8 +490,8 @@ void hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* 
 	range[1] = atom_getfloat(argv+1);
 	if ( (msg_type==jps_integer) || (msg_type==jps_boolean) )
 		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeBounds\"> %ld %ld </td>", (long)range[0], (long)range[1]);
-	else if ( (msg_type==jps_decimal) || (msg_type==jps_generic) )
-		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeBounds\"> %f %f </td>", range[0], range[1]);
+	else if ( (msg_type==jps_decimal) || (msg_type==jps_generic) || (msg_type==jps_array))
+		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeBounds\"> %g %g </td>", range[0], range[1]);
 	else
 		snprintf(tempstring, 1024, "\t\t\t<th class = \"instructionRangeBounds\"> N/A </td>");
 	jcom_core_file_writeline(file_handle, myEof, tempstring);
@@ -605,7 +605,7 @@ void hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t
 	if ( (msg_type==jps_integer) || (msg_type==jps_boolean) )
 		snprintf(rangeBounds, 32, "%ld %ld", (long)range[0], (long)range[1]);
 	else if ( (msg_type==jps_decimal) || (msg_type==jps_generic) )
-		snprintf(rangeBounds, 32, "%.3f %.3f", range[0], range[1]);
+		snprintf(rangeBounds, 32, "%g %g", range[0], range[1]);
 	else
 		snprintf(rangeBounds, 32, "N/A");
 
