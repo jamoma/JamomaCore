@@ -258,7 +258,7 @@ public:
 	t_object	*theObject;
 	//method		action;
 	
-	uiInternalObject(char *classname, char *subscribername, ObjectPtr patcher, char *subscribertype, char *ramptype, char *description, float *rangebounds, char *dataspace, char *activeUnit, char *defaultValue)
+	uiInternalObject(char *classname, char *subscribername, ObjectPtr patcher, char *subscribertype, char *ramptype, char *description, char *rangeclipmode, float *rangebounds, char *dataspace, char *activeUnit, char *defaultValue)
 	{
 		t_atom	a[20];
 		int		i=0;
@@ -272,6 +272,10 @@ public:
 		atom_setsym(a+(i++), gensym(ramptype));
 		atom_setsym(a+(i++), gensym("@description"));
 		atom_setsym(a+(i++), gensym(description));
+		if (rangeclipmode) {
+			atom_setsym(a+(i++), gensym("@range/clipmode"));
+			atom_setsym(a+(i++), gensym(rangeclipmode));				
+		}
 		if (rangebounds) {
 			atom_setsym(a+(i++), gensym("@range/bounds"));
 			atom_setfloat(a+(i++), rangebounds[0]);	
