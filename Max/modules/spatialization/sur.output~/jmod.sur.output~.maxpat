@@ -2563,7 +2563,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 289.0, 341.0, 319.0, 31.0 ],
-									"text" : "jcom.parameter setup @type array @description \"List of output channels that multicable signal is routed to.\"",
+									"text" : "jcom.parameter setup @type generic @description \"List of output channels that multicable signal is routed to.\"",
 									"varname" : "setup"
 								}
 
