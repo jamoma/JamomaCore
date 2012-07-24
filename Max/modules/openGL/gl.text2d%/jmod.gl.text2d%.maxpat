@@ -410,7 +410,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 620.0, 730.0, 286.0, 31.0 ],
-					"text" : "jcom.parameter shadow/color/rgb @type array @description \"Object color as red, green, blue (0.-1.).\"",
+					"text" : "jcom.parameter shadow/color/rgb @type array @range/bounds 0. 1. @dataspace color @dataspace/unit rgb @description \"Object color as red, green, blue (0.-1.).\"",
 					"varname" : "shadow/color/rgb"
 				}
 

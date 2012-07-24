@@ -2349,7 +2349,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 415.0, 334.0, 31.0 ],
-					"text" : "jcom.parameter positions @repetitions/allow 1 @type array @description \"list of modules + position + show/hide\"",
+					"text" : "jcom.parameter positions @repetitions/allow 1 @type generic @description \"list of modules + position + show/hide\"",
 					"varname" : "hue_angle"
 				}
 

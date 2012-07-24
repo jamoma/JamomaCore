@@ -775,7 +775,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 628.0, 448.0, 184.0, 55.0 ],
-					"text" : "jcom.message move @type array @repetitions/allow 1 @description \"move a cue {source name or index} destination index\""
+					"text" : "jcom.message move @type generic @repetitions/allow 1 @description \"move a cue {source name or index} destination index\""
 				}
 
 			}
@@ -805,7 +805,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 545.0, 232.0, 298.0, 31.0 ],
-					"text" : "jcom.message cue @type array @repetitions/allow 1 @description \"trigger the selected cue by its name\""
+					"text" : "jcom.message cue @type generic @repetitions/allow 1 @description \"trigger the selected cue by its name\""
 				}
 
 			}
@@ -2229,7 +2229,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 179.0, 407.0, 320.0, 31.0 ],
-									"text" : "jcom.message create/cue @type array @repetitions/allow 1 @description \"insert a cue after the current\""
+									"text" : "jcom.message create/cue @type generic @repetitions/allow 1 @description \"insert a cue after the current\""
 								}
 
 							}
@@ -2272,7 +2272,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 136.0, 375.0, 338.0, 31.0 ],
-									"text" : "jcom.message create/keycue @type array @repetitions/allow 1 @description \"insert a keycue after the current\""
+									"text" : "jcom.message create/keycue @type generic @repetitions/allow 1 @description \"insert a keycue after the current\""
 								}
 
 							}
@@ -4264,7 +4264,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 401.0, 511.0, 277.0, 31.0 ],
-					"text" : "jcom.message rename @type array @repetitions/allow 1 @description \"rename a cue\""
+					"text" : "jcom.message rename @type generic @repetitions/allow 1 @description \"rename a cue\""
 				}
 
 			}
@@ -4279,7 +4279,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 297.0, 447.0, 290.0, 31.0 ],
-					"text" : "jcom.message copy @type array @repetitions/allow 1 @description \"copy a cue (insert)\""
+					"text" : "jcom.message copy @type generic @repetitions/allow 1 @description \"copy a cue (insert)\""
 				}
 
 			}
@@ -4703,7 +4703,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 11.0, 54.0, 527.0, 19.0 ],
-									"text" : "jcom.return cuelist @type array @description \"output all cues in the cuelist [id mode name option]\""
+									"text" : "jcom.return cuelist @type generic @description \"output all cues in the cuelist [id mode name option]\""
 								}
 
 							}

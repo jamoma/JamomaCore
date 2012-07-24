@@ -151,7 +151,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 600.0, 130.0, 234.0, 43.0 ],
-					"text" : "jcom.parameter dim @type array @description \"dimension of matrix to perform Fourier Transform on.\""
+					"text" : "jcom.parameter dim @type generic @description \"dimension of matrix to perform Fourier Transform on.\""
 				}
 
 			}

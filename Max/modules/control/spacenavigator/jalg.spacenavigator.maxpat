@@ -1423,7 +1423,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 258.0, 395.0, 563.0, 31.0 ],
-									"text" : "jcom.return cooked/position @range/bounds -1. 1. @type array @range/clipmode none @repetitions/allow 0 @description \"XYZ position\" @enable 0 @dataspace position @dataspace/unit xyz"
+									"text" : "jcom.return cooked/position @range/bounds -1. 1. @type array @range/clipmode none @repetitions/allow 0 @dataspace position @dataspace/unit xyz @description \"XYZ position\" @enable 0 @dataspace position @dataspace/unit xyz"
 								}
 
 							}

@@ -236,7 +236,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 600.0, 130.0, 417.0, 31.0 ],
-					"text" : "jcom.parameter dim @type array @range/bounds 1 512 @range/clipmode low @description \"dimension of matrix to perform Fourier Transform on.\""
+					"text" : "jcom.parameter dim @type generic @range/bounds 1 512 @range/clipmode low @description \"dimension of matrix to perform Fourier Transform on.\""
 				}
 
 			}

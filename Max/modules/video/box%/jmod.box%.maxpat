@@ -1021,7 +1021,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 764.0, 387.0, 249.0, 31.0 ],
-									"text" : "jcom.parameter centroid/color @type array @description \"Change color of centroid.\"",
+									"text" : "jcom.parameter centroid/color @type array @range/bounds 0 255 @dataspace color @dataspace/unit rgb8 @description \"Change color of centroid.\"",
 									"varname" : "centroid/color"
 								}
 
@@ -1037,7 +1037,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 764.0, 224.0, 211.0, 43.0 ],
-									"text" : "jcom.parameter contraction/max/color @type array @description \"Change color of max contraction box.\"",
+									"text" : "jcom.parameter contraction/max/color @type array @range/bounds 0 255 @dataspace color @dataspace/unit rgb8 @description \"Change color of max contraction box.\"",
 									"varname" : "contraction/max/color"
 								}
 
@@ -1053,7 +1053,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 764.0, 71.0, 278.0, 31.0 ],
-									"text" : "jcom.parameter contraction/color @type array @description \"Change color of local contraction box.\"",
+									"text" : "jcom.parameter contraction/color @type array @range/bounds 0 255 @dataspace color @dataspace/unit rgb8 @description \"Change color of local contraction box.\"",
 									"varname" : "contraction/color"
 								}
 
