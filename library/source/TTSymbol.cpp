@@ -12,50 +12,42 @@
 
 /****************************************************************************************************/
 
-TTSymbol::TTSymbol() {;}
+//TTSymbol::TTSymbol() {;}
 
-TTSymbol::TTSymbol(const TTString& newString, TTInt32 newId)
+TTSymbol::TTSymbol(const TTCString newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
-	init(newString, newId);
+	init(newString, newSymbolTableId, newSymbolId);
 }
 
 
 TTSymbol::~TTSymbol()
 {
-	;
+	delete[] mCString;
 }
 
 
 // Copy Constructor
 TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
 {
-	id = oldSymbol.id;
-	theString = oldSymbol.theString;
+	mSymbolId = oldSymbol.mSymbolId;
+	mSymbolTableId = oldSymbol.mSymbolTableId;
+	mCString = oldSymbol.mCString;
 }
 
 
-void TTSymbol::init(const TTString& newString, TTInt32 newId)
+void TTSymbol::init(const TTCString newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
-	theString = newString;
-	id = newId;
+	TTUInt32 len = strlen(newString)+1;
+	
+	mSymbolId = newSymbolId;
+	mSymbolTableId = newSymbolTableId;
+	mCString = new char[len];
+	strncpy(mCString, newString, len);
 }
 
 
-#ifdef LIVE_DANGEROUSLY
-const TTString TTSymbol::getString()
-{
-	return theString;
-}
-#endif
-
-
-const char* TTSymbol::getCString()
-{
-	return theString.c_str();
-}
-
-
-/*const*/ TTUInt32 TTSymbol::getId()
+/*const*//* TTUInt32 TTSymbol::getId()
 {
 	return id;
 }
+*/

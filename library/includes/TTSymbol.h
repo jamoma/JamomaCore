@@ -37,15 +37,17 @@ __pragma(warning(push))
 __pragma(warning(disable:4251))
 #endif
 
-	TTUInt32		id;					///< a unique identifier for the given string
-	TTString		theString;			///< the actual string represented by this symbol
+	TTPtrSizedInt	mSymbolTableId;		///< a unique identifier for the symbol table that owns this symbol
+	TTUInt32		mSymbolId;			///< a unique identifier for the given string
+//	TTString		theString;			///< the actual string represented by this symbol
+	TTCString		mCString;			///< the actual string represented by this symbol
 
 #if defined(_MSC_VER)
 __pragma(warning(pop))
 #endif
 
 	/** used by the constructors to create the new symbol */
-	void init(const TTString& newString, TTInt32 newId);
+	void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newId);
 
 public:
 	
@@ -54,47 +56,41 @@ public:
 	
 	/** The constructor is intended only for use by the TTSymbolTable object when creating new symbols
 		in the table.  Perhaps this could be made private and then the class made a friend... */
-	TTSymbol(const TTString& newString, TTInt32 newId);
+	TTSymbol(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
 
 	virtual	~TTSymbol();
 	
 	/** Copy Constructor */
 	TTSymbol(const TTSymbol& oldSymbol);
-
-#ifdef LIVE_DANGEROUSLY
-	/**	Return a pointer to the internal string. */
-	const TTString getString();
-#endif
 	
 	/**	Return a pointer to the internal string as a C-string. */
-	const char* getCString();
+	const char* getCString()
+	{
+		return mCString;
+	}
 	
 	/**	Return this symbol's unique id. */
-	/*const*/ TTUInt32 getId();
+//	/*const*/ TTUInt32 getId();
 	
-	// make sure this is a friend so that it can access the private members of the other
 	/** Compare two symbols for equality. */
 	inline friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
 	{
-		if (symbol1.id == symbol2.id)
-			return true;
-		else
-			return false;
+		if (symbol1.mSymbolTableId == symbol2.mSymbolTableId) {
+			// both symbols are in the same symbol table 
+			// this should typically be the case and we optimize for this	
+			return (symbol1.mSymbolId == symbol2.mSymbolId);
+		}
+		else {
+			// hopefully this won't happen, but it could if there are libs statically linked and communicate with each other
+			return !strcmp(symbol1.mCString, symbol2.mCString);
+		}
 	}
 	
 	/** Cast a symbol to a C-string. */
 	operator const char*() const
 	{
-		return theString.c_str();
-	}
-	
-#ifdef LIVE_DANGEROUSLY
-	/** Cast a symbol to a std::string. */
-	operator TTString() const
-	{
-		return theString;
-	}
-#endif
+		return mCString;
+	}	
 };
 
 

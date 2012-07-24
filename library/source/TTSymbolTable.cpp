@@ -61,7 +61,7 @@ TTSymbolTable::TTSymbolTable()
 	if (!sMutex)
 		sMutex = new TTMutex(true);
 	mSymbolTable = (TTPtr) new TTSymbolTableHash;
-	mSYMBOLTABLE->insert(TTSymbolTablePair("", new TTSymbol("", 0)));
+	mSYMBOLTABLE->insert(TTSymbolTablePair("", new TTSymbol("", (TTPtrSizedInt)this, 0)));
 }
 
 
