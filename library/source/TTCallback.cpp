@@ -15,7 +15,7 @@
 TT_BASE_OBJECT_CONSTRUCTOR,
 	mFunction(NULL),
 	mBaton(NULL),
-	mOwner(NULL)
+	mOwner(kTTSymEmpty)
 {
 	addAttribute(Function, kTypePointer);
 	addAttribute(Baton, kTypePointer);
@@ -32,7 +32,7 @@ TTCallback::~TTCallback()
 	mFunction = NULL;
 	mBaton = NULL;
 	if (mOwner) {
-		mOwner = NULL;
+		mOwner = kTTSymEmpty;
 	}
 }
 
@@ -49,6 +49,6 @@ TTErr TTCallback::notify(const TTValue& anInputValue, TTValue &anUnusedOutputVal
 TTErr TTCallback::setOwner(const TTValue& input)
 {
 	input.get(0, &mOwner);
-	cout << "TTCallback::setOwner() -- " << mOwner->getCString() << endl;
+	cout << "TTCallback::setOwner() -- " << (const char*)mOwner << endl;
 	return kTTErrNone;
 }
