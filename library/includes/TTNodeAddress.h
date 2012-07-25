@@ -88,14 +88,14 @@ class TTFOUNDATION_EXPORT TTNodeAddress : public TTSymbol
 {
 private:
 	
-	TTSymbolPtr					directory;				///< the directory part (optional)
+	TTSymbolRef					directory;				///< the directory part (optional)
 	
 	TTNodeAddressPtr			parent;					///< the parent address pointer (optional)
 	
-	TTSymbolPtr					name;					///< the name part
-	TTSymbolPtr					instance;				///< the instance part (optional)
+	TTSymbolRef					name;					///< the name part
+	TTSymbolRef					instance;				///< the instance part (optional)
 	
-	TTSymbolPtr					attribute;				///< the attribute part (optional)
+	TTSymbolRef					attribute;				///< the attribute part (optional)
 	
 	TTNodeAddressType			type;					///< is the address relative or absolute
 	
@@ -111,25 +111,25 @@ public:
 	virtual ~TTNodeAddress();
 	
 	/** Get the directory part */
-	TTSymbolPtr					getDirectory();
+	TTSymbolRef					getDirectory();
 	
 	/** Get a pointer to the parent address */
 	TTNodeAddressPtr			getParent();
 	
 	/** Get the name part */
-	TTSymbolPtr					getName();
+	TTSymbolRef					getName();
 	
 	/** Get the instance part */
-	TTSymbolPtr					getInstance();
+	TTSymbolRef					getInstance();
 	
 	/** Get the attribute part */
-	TTSymbolPtr					getAttribute();
+	TTSymbolRef					getAttribute();
 	
 	/** Get the type */
 	TTNodeAddressType			getType();
 	
 	/** Get the name.instance part */
-	TTSymbolPtr					getNameInstance();
+	TTSymbolRef					getNameInstance();
 	
 	/** Normalize an address for lookup and other directory operations
 		This would return an address without directory and attribute	*/
@@ -139,13 +139,13 @@ public:
 	TTNodeAddressPtr			removeAttribute();
 	
 	/** Return a new TTNodeAddress with attribute part */
-	TTNodeAddressPtr			appendAttribute(TTSymbolPtr anAttribute);
+	TTNodeAddressPtr			appendAttribute(TTSymbolRef anAttribute);
 	
 	/** Return a new TTNodeAddress with the appended part */
 	TTNodeAddressPtr			appendAddress(const TTNodeAddressPtr toAppend);
 	
 	/** Return a new TTNodeAddress with a instance part */
-	TTNodeAddressPtr			appendInstance(TTSymbolPtr anInstance);
+	TTNodeAddressPtr			appendInstance(TTSymbolRef anInstance);
 
 	/**	A comparison tool
 	 @param	toCompare					An address to compare (it doesn't compare attribute part)
@@ -180,16 +180,16 @@ private:
 	
 	/** Edit address from directory, parent, name, instance and attribute part 
 	 @return							A new TTNodeAddressPtr */
-	TTNodeAddressPtr			edit(const TTSymbolPtr newDirectory, const TTNodeAddressPtr newParent, const TTSymbolPtr newName, const TTSymbolPtr newInstance, const TTSymbolPtr newAttribute);
+	TTNodeAddressPtr			edit(const TTSymbolRef newDirectory, const TTNodeAddressPtr newParent, const TTSymbolRef newName, const TTSymbolRef newInstance, const TTSymbolRef newAttribute);
 
 
-	friend TTNodeAddressPtr TTFOUNDATION_EXPORT	makeTTNodeAddress(const TTSymbolPtr newDirectory, const TTNodeAddressPtr newParent, const TTSymbolPtr newName, const TTSymbolPtr newInstance, const TTSymbolPtr newAttribute);
+	friend TTNodeAddressPtr TTFOUNDATION_EXPORT	makeTTNodeAddress(const TTSymbolRef newDirectory, const TTNodeAddressPtr newParent, const TTSymbolRef newName, const TTSymbolRef newInstance, const TTSymbolRef newAttribute);
 };
 
 /**	Make a "public/name" symbol from "PublicName" symbol
  @param	ttName							"PublicName" symbol
  @return								"public/name" symbol */
-TTNodeAddressPtr TTFOUNDATION_EXPORT	convertTTNameInTTNodeAddress(TTSymbolPtr ttName);
+TTNodeAddressPtr TTFOUNDATION_EXPORT	convertTTNameInTTNodeAddress(TTSymbolRef ttName);
 
 /**	Make an address from directory, parent, name, instance and attribute part
 @param	newDirectory						directory symbol
@@ -198,7 +198,7 @@ TTNodeAddressPtr TTFOUNDATION_EXPORT	convertTTNameInTTNodeAddress(TTSymbolPtr tt
 @param	newInstance						instance symbol
 @param	newAttribute					attribute symbol
 @return									directory:/parent/name.instance:attribute address */
-TTNodeAddressPtr TTFOUNDATION_EXPORT	makeTTNodeAddress(const TTSymbolPtr newDirectory, const TTNodeAddressPtr newParent, const TTSymbolPtr newName, const TTSymbolPtr newInstance, const TTSymbolPtr newAttribute);
+TTNodeAddressPtr TTFOUNDATION_EXPORT	makeTTNodeAddress(const TTSymbolRef newDirectory, const TTNodeAddressPtr newParent, const TTSymbolRef newName, const TTSymbolRef newInstance, const TTSymbolRef newAttribute);
 
 
 #endif // __TT_NODE_ADDRESS_H__

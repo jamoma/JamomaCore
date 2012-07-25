@@ -140,11 +140,11 @@ public:
 	TTErr iterate(const TTObjectPtr target, const TTFunctionWithBatonAndValue callback);
 
 	/**	Traverse the entire list, sending each item of the list to a specified object with the specified message.	*/
-	TTErr iterate(const TTObjectPtr target, const TTSymbolPtr messageName);
+	TTErr iterate(const TTObjectPtr target, const TTSymbolRef messageName);
 	
 	/**	Traverse the entire list, and if the item in the list is an object, then send it the specified message.		*/
-	TTErr iterateObjectsSendingMessage(const TTSymbolPtr messageName);
-	TTErr iterateObjectsSendingMessage(const TTSymbolPtr messageName, TTValue& aValue);
+	TTErr iterateObjectsSendingMessage(const TTSymbolRef messageName);
+	TTErr iterateObjectsSendingMessage(const TTSymbolRef messageName, TTValue& aValue);
 	
 	
 	void setThreadProtection(TTBoolean threadProtection)

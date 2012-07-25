@@ -49,13 +49,13 @@ public:
 	TTHash(TTHash& that);
 
 	/** Insert an item into the hash table. */
-	TTErr append(const TTSymbolPtr key, const TTValue& value);
+	TTErr append(const TTSymbolRef key, const TTValue& value);
 
 	/** Find the value for the given key. */
-	TTErr lookup(const TTSymbolPtr key, TTValue& value);
+	TTErr lookup(const TTSymbolRef key, TTValue& value);
 
 	/** Remove an item from the hash table. */
-	TTErr remove(const TTSymbolPtr key);
+	TTErr remove(const TTSymbolRef key);
 
 	/** Remove all items from the hash table. */
 	TTErr clear();

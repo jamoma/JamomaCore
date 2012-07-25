@@ -51,13 +51,13 @@
 class TTFOUNDATION_EXPORT TTMessage : public TTObject {
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbolPtr	name;		///< the name of the message.
+	const TTSymbolRef	name;		///< the name of the message.
 	TTMessageFlags		flags;		///< define the behavior of the message.
 	TTMethod			method;		///< method associated with this message.
 	TTBoolean			hidden;		///< Property: this message is private/hidden from outside usage
-	TTSymbolPtr			description;	///< Property: description of this message
+	TTSymbolRef			description;	///< Property: description of this message
 
-	TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags);
+	TTMessage(const TTSymbolRef newName, TTMethod newMethod, TTMessageFlags newFlags);
 	virtual ~TTMessage();
 	
 	TTErr sethidden(const TTValue& newHiddenFlag);

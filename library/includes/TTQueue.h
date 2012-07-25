@@ -82,8 +82,8 @@ public:
 //
 //class TTFOUNDATION_EXPORT TTQueueItem : public TTBase {
 //	TTObjectPtr	mObject;	// the object to which to send the message
-//	TTSymbolPtr	mKind;		// 'attribute' or 'message'
-//	TTSymbolPtr mName;		// the name of the attribute or message
+//	TTSymbolRef	mKind;		// 'attribute' or 'message'
+//	TTSymbolRef mName;		// the name of the attribute or message
 //	TTValue		mValue;		// the arguments to send to the attribute or message
 //};
 
