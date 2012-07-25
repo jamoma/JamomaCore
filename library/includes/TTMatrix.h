@@ -42,7 +42,7 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTUInt32			mComponentCount;		///< mDimension[0] * mDimension[1] ...
 	TTUInt8				mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
-	TTSymbolRef			mType;					///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
+	TTSymbolPtr			mType;					///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
 	TTUInt8				mTypeSizeInBytes;		///< number of bytes present in mType
 	TTUInt32			mDataSize;				///< mTypeSizeInBytes * mDataCount
 	TTBoolean			mDataIsLocallyOwned;	///< If false, then we are referencing outside memory which we don't own
@@ -198,7 +198,7 @@ public:
 		return kTTErrNone;
 	}
 	
-	TTSymbolRef	getTypeAsSymbol()
+	TTSymbolPtr	getTypeAsSymbol()
 	{
 		return mType;
 	}

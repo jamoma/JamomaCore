@@ -56,17 +56,16 @@ TTHash::TTHash(TTHash& that)
 }
 
 
-TTErr TTHash::append(const TTSymbolRef key, const TTValue& value)
+TTErr TTHash::append(const TTSymbolPtr key, const TTValue& value)
 {
 	lock();
-//	HASHMAP->insert(TTKeyVal(TTPtrSizedInt(key), value));
-	HASHMAP->insert(TTKeyVal(key->mSymbolID, value));
+	HASHMAP->insert(TTKeyVal(TTPtrSizedInt(key), value));
 	unlock();
 	return kTTErrNone;
 }
 
 
-TTErr TTHash::lookup(const TTSymbolRef key, TTValue& value)
+TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
 {
 	lock();
 	TTHashMapIter iter = HASHMAP->find(TTPtrSizedInt(key));
@@ -83,7 +82,7 @@ TTErr TTHash::lookup(const TTSymbolRef key, TTValue& value)
 }
 
 
-TTErr TTHash::remove(const TTSymbolRef key)
+TTErr TTHash::remove(const TTSymbolPtr key)
 {
 	lock();
 	HASHMAP->erase(TTPtrSizedInt(key));
@@ -107,7 +106,7 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 	hashKeys.clear();
 
 	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++)
-		hashKeys.append(TTSymbolRef(iter->first));
+		hashKeys.append(TTSymbolPtr(iter->first));
 	unlock();
 	return kTTErrNone;
 }
@@ -118,18 +117,18 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 	lock();
 	TTList		listToSort;
 	TTValue		v;
-	TTSymbolRef key;
+	TTSymbolPtr key;
 	
 	// fill a list to sort
 	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++) {
 		
 		if (comparisonFunction) {
-			v = TTSymbolRef(iter->first);	// the key
+			v = TTSymbolPtr(iter->first);	// the key
 			v.append(TTPtr(iter->second));	// a pointer to the stored value
 			listToSort.append(v);
 		}
 		else
-			listToSort.append(TTSymbolRef(iter->first));
+			listToSort.append(TTSymbolPtr(iter->first));
 	}
 	
 	listToSort.sort(comparisonFunction);

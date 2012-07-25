@@ -97,7 +97,7 @@ private:
 		TTInt64			int64;
 		TTUInt64		uint64;
 		TTBoolean		boolean;
-		TTSymbol*		sym;		///< can't be a TTSymbolRef because it is in a union and this generates a compiler error
+		TTSymbolPtr		sym;
 		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
 		TTObject*		object;
 		TTMatrix*		matrix;
@@ -133,7 +133,7 @@ public:
 	TTValue(const TTInt64 initialValue);
 	TTValue(const TTUInt64 initialValue);
 	TTValue(const TTBoolean initialValue);
-	TTValue(const TTSymbolRef initialValue);
+	TTValue(const TTSymbolPtr initialValue);
 	TTValue(const TTString& initialValue);
 	TTValue(const TTObject& initialValue);
 	TTValue(const TTMatrix& initialValue);
@@ -236,8 +236,8 @@ public:
 	operator TTBoolean() const;
 
 	// SYMBOL
-	TTValue& operator = (TTSymbolRef value);
-	operator TTSymbolRef() const;
+	TTValue& operator = (TTSymbol* value);
+	operator TTSymbol*() const;
 	
 	// STRING
 	TTValue& operator = (TTString& value);
@@ -298,7 +298,7 @@ public:
 	void get(const TTUInt16 index, TTInt64 &value) const;
 	void get(const TTUInt16 index, TTUInt64 &value) const;
 	void get(const TTUInt16 index, TTBoolean &value) const;
-	void get(const TTUInt16 index, TTSymbol* value) const;
+	void get(const TTUInt16 index, TTSymbol** value) const;
 	void get(const TTUInt16 index, TTString& value) const;
 	void get(const TTUInt16 index, TTObject& value) const;
 	void get(const TTUInt16 index, TTObject** value) const;
@@ -440,7 +440,7 @@ public:
 	void append(const TTInt64 newValue);
 	void append(const TTUInt64 newValue);
 	void append(const TTBoolean newValue);
-	void append(const TTSymbolRef newValue);
+	void append(const TTSymbol* newValue);
 	void append(const TTString& newValue);
 	void append(const TTObject& newValue);
 	void append(const TTMatrix& newValue);
@@ -1005,13 +1005,13 @@ public:
 								editString += currentString;
 							}
 							
-							data[n].sym = &TT(editString.substr(0, editString.size()-1));			// don't keep the last "
+							data[n].sym = TT(editString.substr(0, editString.size()-1));			// don't keep the last "
 							type[n] = kTypeSymbol;
 							n++;
 
 						} else {
-							TTSymbolRef editSymbol = TT(currentString.data());
-							data[n].sym = &editSymbol;
+							TTSymbolPtr editSymbol = TT(currentString.data());
+							data[n].sym = editSymbol;
 							type[n] = kTypeSymbol;
 							n++;
 						}

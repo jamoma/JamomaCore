@@ -492,8 +492,8 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// TODO: want to implement this:
-	// TTSymbolRef s = v1[1];
-	TTSymbolRef s(kTTSymEmpty);
+	// TTSymbolPtr s = v1[1];
+	TTSymbolPtr s = NULL;
 	v1.get(1, &s);
 	TTTestAssertion("second item has correct value, retreiving with get() method",
 					s == TT("foo"),

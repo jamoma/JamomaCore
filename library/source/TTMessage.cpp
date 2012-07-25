@@ -10,13 +10,12 @@
 #include "TTEnvironment.h"
 
 
-TTMessage::TTMessage(const TTSymbolRef newName, TTMethod newMethod, TTMessageFlags newFlags) : 
+TTMessage::TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags) : 
 	TTObject(kTTValNONE), 
 	name(newName), 
 	flags(newFlags),
 	method(newMethod),
-	hidden(NO),
-	description(kTTSymEmpty)
+	hidden(NO)
 {
 	;
 }

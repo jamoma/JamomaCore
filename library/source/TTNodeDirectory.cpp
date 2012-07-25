@@ -9,7 +9,7 @@
 #include "TTNodeDirectory.h"
 #include <algorithm>
 
-TTNodeDirectory::TTNodeDirectory(TTSymbolRef aName) :
+TTNodeDirectory::TTNodeDirectory(TTSymbolPtr aName) :
 	name(kTTSymEmpty),	
 	root(NULL),	
 	directory(NULL),
@@ -60,13 +60,13 @@ TTErr TTNodeDirectory::init()
 	return TTNodeCreate(kTTAdrsRoot, NULL, this, &this->root, &nodeCreated);
 }
 
-TTErr TTNodeDirectory::setName(TTSymbolRef aName)
+TTErr TTNodeDirectory::setName(TTSymbolPtr aName)
 {
 	name = aName;
 	return kTTErrNone;
 }
 
-TTSymbolRef	TTNodeDirectory::getName()
+TTSymbolPtr	TTNodeDirectory::getName()
 {
 	return name;
 }
@@ -128,7 +128,7 @@ TTErr TTNodeDirectory::getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *re
 	for (i=0; i<aliases->getKeys(ak); i++) {
 		
 		ak.get(i, &alias);
-		aliases->lookup(*alias, v);
+		aliases->lookup(alias, v);
 		v.get(1, &aliasNodeAddress);
 		comp = anAddress->compare(aliasNodeAddress, d);
 		
@@ -196,7 +196,7 @@ TTErr TTNodeDirectory::replaceAlias(TTNodeAddressPtr* anAddress)
 TTErr TTNodeDirectory::TTNodeCreate(TTNodeAddressPtr anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
 	TTNodeAddressPtr	effectiveAddress;
-	TTSymbolRef			newInstance;
+	TTSymbolPtr			newInstance;
 	TTBoolean			parent_created;
 	TTValue				found;
 	TTNodePtr			newTTNode = NULL;
@@ -721,7 +721,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 	unsigned int i, s;
 	TTValue hk, lk, vo;
 	TTValuePtr vk;
-	TTSymbolRef key(kTTSymEmpty), owner(kTTSymEmpty);
+	TTSymbolPtr key, owner;
 	TTString ownerptStr;
 	TTListPtr lk_o;
 	TTCallbackPtr anObserver;
@@ -740,7 +740,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 		s = hk.getSize();
 		for (i=0; i<s; i++) {
 
-			hk.get(i,(TTSymbolRef*)&key);
+			hk.get(i,(TTSymbolPtr*)&key);
 
 			vk = new TTValue(key);
 
@@ -759,7 +759,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 					vo.get(0, &owner);
 
 					// edit a "owner (pointer)" string
-					ownerptStr = owner.getCString();
+					ownerptStr = owner->getCString();
 
 					char buf[20];
 					snprintf(buf, sizeof(char)*20, "( %p )", (TTPtr)anObserver);
@@ -798,9 +798,7 @@ TTBoolean testNodeObjectType(TTNodePtr n, TTPtr args)
 	o = n->getObject();
 
 	if (o)
-//		return o->getName() == (TTSymbolRef)args;
-//FIXME: I'm just commenting this out because I'm not sure how to update it for SymbolRefs [tap]
-return NO;
+		return o->getName() == (TTSymbolPtr)args;
 	else
 		return NO;
 }
@@ -832,7 +830,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTValuePtr		argsValue = (TTValuePtr)args;
 	TTHashPtr		filterBank;
 	TTListPtr		filterList;
-	TTSymbolRef		aFilterName(kTTSymEmpty), filterMode(kTTSymEmpty);
+	TTSymbolPtr		aFilterName, filterMode;
 	TTDictionaryPtr aFilter;
 	TTObjectPtr		anObject;
 	TTNodeAddressPtr anAddress;
@@ -892,7 +890,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				// test object name
 				if (!aFilter->lookup(kTTSym_object, v)) {
 					
-					TTSymbolRef objectFilter(kTTSymEmpty);
+					TTSymbolPtr objectFilter;
 					v.get(0, &objectFilter);
 					
 					// a node without object can be selected using the none symbol
@@ -905,7 +903,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				// test attribute name
 				if (!aFilter->lookup(kTTSym_attribute, v)) {
 					
-					TTSymbolRef attributeFilter(kTTSymEmpty);
+					TTSymbolPtr attributeFilter;
 					TTValue		valueFilter;
 					v.get(0, &attributeFilter);
 					
@@ -934,9 +932,9 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				// test any part of address 
 				if (!aFilter->lookup(kTTSym_part, v)) {
 					
-					TTSymbolRef partFilter(kTTSymEmpty);
+					TTSymbolPtr partFilter;
 					v.get(0, &partFilter);
-					aRegex = new TTRegex(partFilter.getCString());
+					aRegex = new TTRegex(partFilter->getCString());
 					
 					s_toParse = anAddress->getCString();
 					begin = s_toParse.begin();
@@ -954,9 +952,9 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				// test address parent part
 				if (!aFilter->lookup(kTTSym_parent, v)) {
 					
-					TTSymbolRef parentFilter(kTTSymEmpty);
+					TTSymbolPtr parentFilter;
 					v.get(0, &parentFilter);
-					aRegex = new TTRegex(parentFilter.getCString());
+					aRegex = new TTRegex(parentFilter->getCString());
 					
 					s_toParse = anAddress->getParent()->getCString();
 					begin = s_toParse.begin();
@@ -974,11 +972,11 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				// test address name part
 				if (!aFilter->lookup(kTTSym_name, v)) {
 					
-					TTSymbolRef nameFilter(kTTSymEmpty);
+					TTSymbolPtr nameFilter;
 					v.get(0, &nameFilter);
-					aRegex = new TTRegex(nameFilter.getCString());
+					aRegex = new TTRegex(nameFilter->getCString());
 					
-					s_toParse = anAddress->getName().getCString();
+					s_toParse = anAddress->getName()->getCString();
 					begin = s_toParse.begin();
 					end = s_toParse.end();
 					
@@ -994,11 +992,11 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				// test address instance part
 				if (!aFilter->lookup(kTTSym_instance, v)) {
 					
-					TTSymbolRef instanceFilter(kTTSymEmpty);
+					TTSymbolPtr instanceFilter;
 					v.get(0, &instanceFilter);
-					aRegex = new TTRegex(instanceFilter.getCString());
+					aRegex = new TTRegex(instanceFilter->getCString());
 					
-					s_toParse = anAddress->getInstance().getCString();
+					s_toParse = anAddress->getInstance()->getCString();
 					begin = s_toParse.begin();
 					end = s_toParse.end();
 					

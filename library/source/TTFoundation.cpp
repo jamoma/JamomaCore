@@ -42,7 +42,7 @@ static TTString	TTFoundationBinaryPath = "";
 
 void		TTFoundationLoadExternalClasses();
 TTErr		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
-TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbolRef className, TTValue& arguments);
+TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbol* className, TTValue& arguments);
 
 
 /****************************************************************************************************/

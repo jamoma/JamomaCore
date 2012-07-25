@@ -14,7 +14,7 @@
 
 
 /**	A function pointer for an instance creation function required to be provided by all classes. */
-typedef TTObject* (*TTObjectInstantiationMethod)(TTSymbolRef className, TTValue& arguments);
+typedef TTObject* (*TTObjectInstantiationMethod)(TTSymbol* className, TTValue& arguments);
 
 /**	A function pointer for an instance creation function required to be provided by all classes. */
 typedef TTErr (*TTExtensionInitializationMethod)();
@@ -59,7 +59,7 @@ public:
 		@param	tags					A comma-delimited list of tags in a string.
 		@param	anInstantiationMethod	A pointer to the C-function that is used to create a new instance of the class.
 		@return				An error code.	*/
-	TTErr registerClass(const TTSymbolRef className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+	TTErr registerClass(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
 
 	// The above creates a class and registers it -- this one just registers a class after it is created.
 	TTErr registerClass(TTClass* theClass);
@@ -69,12 +69,12 @@ public:
 		If the executable from which it is loaded is no longer referenced by other classes, then also unload the executable.
 		@param	className	The name of the class to remove the registry.
 		@return				An error code.	
-	TTErr unregisterClass(const TTSymbolRef className);
+	TTErr unregisterClass(const TTSymbolPtr className);
 	*/
 	
 	
 	/*
-	TTErr refreshClass(const TTSymbolRef className)
+	TTErr refreshClass(const TTSymbolPtr className)
 	{
 		// TODO: cache class Info (like the path of the extension) here
 		unregisterClass(className);
@@ -119,8 +119,8 @@ public:
 		@param	anArgument	For most audio processing objects, this should be passed the maximum number of channels.
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return				An error code.	*/
-	TTErr createInstance(const TTSymbolRef className, TTObjectPtr* anObject, TTValue& anArgument);
-	TTErr createInstance(const TTSymbolRef className, TTObjectPtr* anObject, const TTValue& anArgument);
+	TTErr createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, TTValue& anArgument);
+	TTErr createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, const TTValue& anArgument);
 	
 	
 	/**	Create a reference to an object. */
@@ -149,15 +149,15 @@ extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 // Public Interface
 // Some of this looks a bit crazy due to duplication -- however the use of templates causes problems for linking on some Macs and PCs
 // (while not neccessarily on others)
-TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolRef className, TTObjectPtr* returnedObjectPtr, TTValue& arguments);
-TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolRef className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments);
-TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolRef className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, TTValue& arguments);
+TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments);
+TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
 
 TTFOUNDATION_EXPORT TTObjectPtr TTObjectReference(TTObjectPtr anObject);
 TTFOUNDATION_EXPORT TTErr TTObjectRelease(TTObjectPtr* anObject);
 
-TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbolRef className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
-TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbolRef className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbolPtr className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod);
 TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames);
 TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
 
