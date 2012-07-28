@@ -36,7 +36,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 439.0, 426.0, 117.0, 17.0 ],
-					"text" : "\"drop soundfile here\""
+					"text" : "\"Drop soundfile here\""
 				}
 
 			}
@@ -216,7 +216,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 3.0, 21.0, 293.669922, 19.15332 ],
 					"rounded" : 0.0,
-					"text" : "drop soundfile here",
+					"text" : "Drop soundfile here",
 					"truncate" : 2
 				}
 
@@ -1494,7 +1494,7 @@
 									"presentation" : 1,
 									"presentation_rect" : [ 6.0, 5.0, 506.669922, 19.15332 ],
 									"rounded" : 0.0,
-									"text" : "Drag soundfile into the module",
+									"text" : "Drop soundfile here",
 									"truncate" : 2
 								}
 

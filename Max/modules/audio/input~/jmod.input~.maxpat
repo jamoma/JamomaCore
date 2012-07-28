@@ -51,7 +51,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 243.0, 603.0, 177.0, 17.0 ],
-					"text" : "text \"drag soundfile into module\""
+					"text" : "text \"Drop soundfile here\""
 				}
 
 			}
@@ -82,7 +82,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 99.0, 110.0, 191.0, 20.0 ],
 					"showvalue" : 0,
-					"text" : "drag soundfile into module",
+					"text" : "Drop soundfile here",
 					"varname" : "filetext"
 				}
 

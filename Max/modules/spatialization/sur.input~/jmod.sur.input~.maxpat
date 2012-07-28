@@ -96,7 +96,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 1.0, 20.0, 299.0, 15.0 ],
 					"showvalue" : 0,
-					"text" : "drag file into the module",
+					"text" : "Drop soundfile here",
 					"textpos" : [ 10.0, 2.0 ]
 				}
 
