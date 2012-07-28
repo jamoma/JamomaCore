@@ -264,7 +264,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 3.0, 21.0, 275.669922, 19.15332 ],
 					"rounded" : 0.0,
-					"text" : "Drag soundfile into the module",
+					"text" : "Drop soundfile here",
 					"truncate" : 2
 				}
 
@@ -1351,7 +1351,7 @@
 									"presentation" : 1,
 									"presentation_rect" : [ 6.0, 5.0, 506.669922, 19.15332 ],
 									"rounded" : 0.0,
-									"text" : "Drag soundfile into the module",
+									"text" : "Drop soundfile here",
 									"truncate" : 2
 								}
 
