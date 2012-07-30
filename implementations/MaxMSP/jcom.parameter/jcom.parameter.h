@@ -112,38 +112,44 @@ void		param_bang(t_param *x);
 
 /** Method called from the bang method pointer in our struct in order to output an int.
  * @param z The parameger instance that is requested to output an int.
- * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
+ * @see param_output_int param_output_float param_output_symbol param_output_generic @param_output_decimalArray param_output_none */
 void 		param_output_int(void *z);
 
 
 /** Method called from the bang method pointer in our struct in order to output a float.
  * @param z The parameger instance that is requested to output a float.
- * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
+ * @see param_output_int param_output_float param_output_symbol param_output_generic @param_output_decimalArray param_output_none */
 void 		param_output_float(void *z);
 
 
 /** Method called from the bang method pointer in our struct in order to output a symbol.
  * @param z The parameger instance that is requested to output a symbol.
- * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
+ * @see param_output_int param_output_float param_output_symbol param_output_generic @param_output_decimalArray param_output_none */
 void 		param_output_symbol(void *z);
 
 
 /** Method called from the bang method pointer in our struct in order to output a generic message.
  * @param z The parameger instance that is requested to output a generic message.
- * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
+ * @see param_output_int param_output_float param_output_symbol param_output_generic @param_output_decimalArray param_output_none */
 void 		param_output_generic(void *z);
 
 
-/** Method called from the bang method pointer in our struct in order to output a list.
+/** Method called from the bang method pointer in our struct in order to output a list containing floats only.
  * @param z The parameger instance that is requested to output a list.
- * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
-void 		param_output_list(void *z);
+ * @see param_output_int param_output_float param_output_symbol param_output_generic @param_output_decimalArray param_output_none */
+void 		param_output_decimalArray(void *z);
+
+
+/** Method called from the bang method pointer in our struct in order to output a list containing integers only.
+ * @param z The parameger instance that is requested to output a list.
+ * @see param_output_int param_output_float param_output_symbol param_output_generic @param_output_decimalArray param_output_none */
+void 		param_output_integerArray(void *z);
 
 
 /** Method called from the bang method pointer in our struct in order to output a message with no arguments.
     Typically used by jcom.return to return an OSC message with no arguments.
  * @param z The parameger instance that is requested to output a message.
- * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
+ * @see param_output_int param_output_float param_output_symbol param_output_generic @param_output_decimalArray param_output_none */
 void		param_output_none(void *z);
 
 
@@ -221,7 +227,8 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 void		param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		param_ramp_callback_float(void *v, float value);
 void		param_ramp_callback_int(void *v, float value);
-void		param_ramp_callback_list(void *v, AtomCount argc, double *value);
+void		param_ramp_callback_decimalArray(void *v, AtomCount argc, double *value);
+void		param_ramp_callback_integerArray(void *v, AtomCount argc, double *value);
 void		atom_clip(t_param *x, AtomPtr a);
 
 /** Messages received from jcom.hub
@@ -472,6 +479,7 @@ MaxErr		param_attr_getrampfunction(t_param *x, void *attr, long *argc, AtomPtr *
 bool 		param_clip_generic(t_param *x);
 bool 		param_clip_int(t_param *x);
 bool 		param_clip_float(t_param *x);
-bool		param_clip_list(t_param *x);
+bool		param_clip_decimalArray(t_param *x);
+bool		param_clip_integerArray(t_param *x);
 
 #endif // #ifndef __JMOD_PARAM_H__
