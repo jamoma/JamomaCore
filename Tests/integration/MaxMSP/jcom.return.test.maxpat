@@ -1209,7 +1209,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 90.25, 522.0, 165.0, 55.0 ],
-													"text" : "jcom.return test9 @type array @repetitions/allow 1 @range/bounds 0 20 @range/clipmode both"
+													"text" : "jcom.return test9 @type decimalArray @repetitions/allow 1 @range/bounds 0 20 @range/clipmode both"
 												}
 
 											}
@@ -1239,7 +1239,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 90.25, 454.0, 165.0, 55.0 ],
-													"text" : "jcom.return test8 @type array @repetitions/allow 1 @range/bounds 0 20 @range/clipmode both"
+													"text" : "jcom.return test8 @type decimalArray @repetitions/allow 1 @range/bounds 0 20 @range/clipmode both"
 												}
 
 											}
@@ -1269,7 +1269,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 90.25, 384.0, 165.0, 55.0 ],
-													"text" : "jcom.return test7 @type array @repetitions/allow 1 @range/bounds 0 20 @range/clipmode both"
+													"text" : "jcom.return test7 @type decimalArray @repetitions/allow 1 @range/bounds 0 20 @range/clipmode both"
 												}
 
 											}
@@ -1452,7 +1452,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 1156.75, 172.0, 137.0, 43.0 ],
-													"text" : "jcom.return test6 @type array @repetitions/allow 1"
+													"text" : "jcom.return test6 @type decimalArray @repetitions/allow 1"
 												}
 
 											}
@@ -1537,7 +1537,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 831.75, 200.0, 136.0, 43.0 ],
-													"text" : "jcom.return test5 @type array @repetitions/allow 1"
+													"text" : "jcom.return test5 @type decimalArray @repetitions/allow 1"
 												}
 
 											}
@@ -1623,7 +1623,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 660.0, 200.0, 128.0, 43.0 ],
-													"text" : "jcom.return test4 @type array @repetitions/allow 1"
+													"text" : "jcom.return test4 @type decimalArray @repetitions/allow 1"
 												}
 
 											}
@@ -1680,7 +1680,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 450.0, 200.0, 126.0, 43.0 ],
-													"text" : "jcom.return test3 @type array @repetitions/allow 1"
+													"text" : "jcom.return test3 @type decimalArray @repetitions/allow 1"
 												}
 
 											}
@@ -1709,7 +1709,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 240.0, 200.0, 121.0, 43.0 ],
-													"text" : "jcom.return test2 @type array @repetitions/allow 1"
+													"text" : "jcom.return test2 @type decimalArray @repetitions/allow 1"
 												}
 
 											}
@@ -1777,7 +1777,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 90.0, 200.0, 129.0, 43.0 ],
-													"text" : "jcom.return test @type array @repetitions/allow 1"
+													"text" : "jcom.return test @type decimalArray @repetitions/allow 1"
 												}
 
 											}
