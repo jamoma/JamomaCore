@@ -203,7 +203,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 28.0, 365.0, 285.0, 31.0 ],
-					"text" : "jcom.return color @type array @description \"RGB triplet representing a mix of the colors on the palette.\""
+					"text" : "jcom.return color @type decimalArray @description \"RGB triplet representing a mix of the colors on the palette.\""
 				}
 
 			}

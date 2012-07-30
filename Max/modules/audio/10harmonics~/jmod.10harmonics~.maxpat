@@ -521,7 +521,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 980.0, 415.0, 574.0, 31.0 ],
-					"text" : "jcom.parameter factors @type array @description \"list of factors that determines the frequencies of the 10 partials as a factor of /frequency, default is 1 2 3 4 5 6 7 8 9 10\" @range/bounds 1. 100. @range/clipmode low"
+					"text" : "jcom.parameter factors @type decimalArray @description \"list of factors that determines the frequencies of the 10 partials as a factor of /frequency, default is 1 2 3 4 5 6 7 8 9 10\" @range/bounds 1. 100. @range/clipmode low"
 				}
 
 			}

@@ -1375,7 +1375,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 550.0, 600.0, 43.0 ],
-					"text" : "jcom.parameter source.8/position @dataspace position @dataspace/unit xyz @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.8/position @dataspace position @dataspace/unit xyz @type decimalArray @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"varname" : "pos8"
 				}
 
@@ -1456,7 +1456,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 475.0, 600.0, 43.0 ],
-					"text" : "jcom.parameter source.7/position @dataspace position @dataspace/unit xyz @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.7/position @dataspace position @dataspace/unit xyz @type decimalArray @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"varname" : "pos7"
 				}
 
@@ -1537,7 +1537,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 400.0, 600.0, 43.0 ],
-					"text" : "jcom.parameter source.6/position @dataspace position @dataspace/unit xyz @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.6/position @dataspace position @dataspace/unit xyz @type decimalArray @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"varname" : "pos6"
 				}
 
@@ -1618,7 +1618,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 325.0, 600.0, 43.0 ],
-					"text" : "jcom.parameter source.5/position @dataspace position @dataspace/unit xyz @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.5/position @dataspace position @dataspace/unit xyz @type decimalArray @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"varname" : "pos5"
 				}
 
@@ -1699,7 +1699,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 250.0, 600.0, 43.0 ],
-					"text" : "jcom.parameter source.4/position @dataspace position @dataspace/unit xyz @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.4/position @dataspace position @dataspace/unit xyz @type decimalArray @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"varname" : "pos4"
 				}
 
@@ -1780,7 +1780,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 175.0, 600.0, 43.0 ],
-					"text" : "jcom.parameter source.3/position @dataspace position @dataspace/unit xyz @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.3/position @dataspace position @dataspace/unit xyz @type decimalArray @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"varname" : "pos3"
 				}
 
@@ -1865,7 +1865,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 100.0, 600.0, 43.0 ],
-					"text" : "jcom.parameter source.2/position @dataspace position @dataspace/unit xyz @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.2/position @dataspace position @dataspace/unit xyz @type decimalArray @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"varname" : "pos2"
 				}
 
@@ -1983,7 +1983,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 25.0, 600.0, 43.0 ],
-					"text" : "jcom.parameter source.1/position @dataspace position @dataspace/unit xyz @type array @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
+					"text" : "jcom.parameter source.1/position @dataspace position @dataspace/unit xyz @type decimalArray @ramp/drive scheduler @ramp/function linear @range/bounds -10 10 @range/clipmode none @description \"Position of nth source.\"",
 					"varname" : "pos1"
 				}
 

@@ -587,7 +587,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 490.0, 515.0, 603.0, 31.0 ],
-					"text" : "jcom.parameter chromakey/color @type array @range/bounds 0. 255. @range/clipmode both @dataspace color @dataspace/unit rgb8 @description \"Color target (RGB).\"",
+					"text" : "jcom.parameter chromakey/color @type decimalArray @range/bounds 0. 255. @range/clipmode both @dataspace color @dataspace/unit rgb8 @description \"Color target (RGB).\"",
 					"varname" : "color"
 				}
 

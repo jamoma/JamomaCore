@@ -692,7 +692,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 425.0, 530.0, 31.0 ],
-					"text" : "jcom.parameter delay/right @type array @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for right channel.\"",
+					"text" : "jcom.parameter delay/right @type decimalArray @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for right channel.\"",
 					"varname" : "right[1]"
 				}
 
@@ -815,7 +815,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 300.0, 523.0, 31.0 ],
-					"text" : "jcom.parameter delay/left @type array @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for left channel.\"",
+					"text" : "jcom.parameter delay/left @type decimalArray @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for left channel.\"",
 					"varname" : "left[1]"
 				}
 

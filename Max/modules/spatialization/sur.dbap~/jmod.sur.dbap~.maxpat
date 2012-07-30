@@ -51,7 +51,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 393.0, 589.0, 31.0 ],
-					"text" : "jcom.parameter.array 32 source weight @type array @range/bounds 0. 1. @description \"Set spatial weight of the nth source.\""
+					"text" : "jcom.parameter.array 32 source weight @type decimalArray @range/bounds 0. 1. @description \"Set spatial weight of the nth source.\""
 				}
 
 			}
@@ -139,7 +139,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 460.0, 602.0, 31.0 ],
-					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit xyz @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 32 speaker position @type decimalArray @dataspace position @dataspace/unit xyz @description \"Position of the nth source.\""
 				}
 
 			}
@@ -154,7 +154,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 255.0, 596.0, 31.0 ],
-					"text" : "jcom.message.array 32 source position @type array @dataspace position @dataspace/unit xyz @description \"Position of the nth source.\""
+					"text" : "jcom.message.array 32 source position @type decimalArray @dataspace position @dataspace/unit xyz @description \"Position of the nth source.\""
 				}
 
 			}

@@ -31989,7 +31989,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.16/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.16/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 420.0, 702.0, 19.0 ],
 									"id" : "obj-1",
@@ -32003,7 +32003,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.14/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.14/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 370.0, 702.0, 19.0 ],
 									"id" : "obj-2",
@@ -32017,7 +32017,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.13/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.13/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 345.0, 702.0, 19.0 ],
 									"id" : "obj-3",
@@ -32031,7 +32031,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.11/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.11/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 295.0, 702.0, 19.0 ],
 									"id" : "obj-4",
@@ -32045,7 +32045,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.10/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.10/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 270.0, 702.0, 19.0 ],
 									"id" : "obj-5",
@@ -32059,7 +32059,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.9/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.9/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 245.0, 702.0, 19.0 ],
 									"id" : "obj-6",
@@ -32073,7 +32073,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.8/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.8/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 220.0, 702.0, 19.0 ],
 									"id" : "obj-7",
@@ -32087,7 +32087,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.7/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.7/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 195.0, 702.0, 19.0 ],
 									"id" : "obj-8",
@@ -32101,7 +32101,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.15/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.15/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 395.0, 702.0, 19.0 ],
 									"id" : "obj-9",
@@ -32115,7 +32115,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.6/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.6/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 170.0, 702.0, 19.0 ],
 									"id" : "obj-10",
@@ -32129,7 +32129,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.5/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.5/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 145.0, 702.0, 19.0 ],
 									"id" : "obj-11",
@@ -32143,7 +32143,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.12/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.12/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 320.0, 702.0, 19.0 ],
 									"id" : "obj-12",
@@ -32157,7 +32157,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.4/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.4/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 120.0, 702.0, 19.0 ],
 									"id" : "obj-13",
@@ -32171,7 +32171,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.3/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.3/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 95.0, 702.0, 19.0 ],
 									"id" : "obj-14",
@@ -32185,7 +32185,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.2/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.2/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 70.0, 702.0, 19.0 ],
 									"id" : "obj-15",
@@ -32199,7 +32199,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.1/poly @type array @description \"Send MID Aftertouch message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.1/poly @type integerArray @description \"Send MID Aftertouch message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 45.0, 702.0, 19.0 ],
 									"id" : "obj-16",
@@ -32256,7 +32256,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.12/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.12/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 320.333344, 600.0, 19.0 ],
 									"id" : "obj-1",
@@ -32270,7 +32270,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.16/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.16/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 420.333344, 600.0, 19.0 ],
 									"id" : "obj-2",
@@ -32284,7 +32284,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.14/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.14/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 370.333344, 600.0, 19.0 ],
 									"id" : "obj-3",
@@ -32298,7 +32298,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.13/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.13/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 345.333344, 600.0, 19.0 ],
 									"id" : "obj-4",
@@ -32312,7 +32312,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.11/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.11/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 295.333344, 600.0, 19.0 ],
 									"id" : "obj-5",
@@ -32326,7 +32326,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.10/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.10/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 270.333344, 600.0, 19.0 ],
 									"id" : "obj-6",
@@ -32340,7 +32340,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.9/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.9/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 245.333328, 600.0, 19.0 ],
 									"id" : "obj-7",
@@ -32354,7 +32354,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.8/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.8/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 220.333328, 600.0, 19.0 ],
 									"id" : "obj-8",
@@ -32368,7 +32368,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.7/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.7/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 195.333328, 600.0, 19.0 ],
 									"id" : "obj-9",
@@ -32382,7 +32382,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.15/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.15/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 395.333344, 600.0, 19.0 ],
 									"id" : "obj-10",
@@ -32396,7 +32396,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.6/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.6/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 170.333328, 600.0, 19.0 ],
 									"id" : "obj-11",
@@ -32410,7 +32410,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.5/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.5/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 145.333328, 600.0, 19.0 ],
 									"id" : "obj-12",
@@ -32424,7 +32424,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.4/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.4/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 120.333336, 600.0, 19.0 ],
 									"id" : "obj-13",
@@ -32438,7 +32438,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.3/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.3/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 95.333336, 600.0, 19.0 ],
 									"id" : "obj-14",
@@ -32452,7 +32452,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.2/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.2/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 70.333336, 600.0, 19.0 ],
 									"id" : "obj-15",
@@ -32466,7 +32466,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.message raw/voice.1/note @type array @description \"Send MIDI Note On message to VST plug-in.\"",
+									"text" : "jcom.message raw/voice.1/note @type integerArray @description \"Send MIDI Note On message to VST plug-in.\"",
 									"numoutlets" : 3,
 									"patching_rect" : [ 50.0, 45.0, 600.0, 19.0 ],
 									"id" : "obj-16",
