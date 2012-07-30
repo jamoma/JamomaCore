@@ -16686,7 +16686,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 255.0, 520.0, 97.0, 19.0 ],
+									"patching_rect" : [ 255.0, 520.0, 135.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
@@ -16700,7 +16700,7 @@
 										"tags" : ""
 									}
 ,
-									"text" : "p arrayFastRamp"
+									"text" : "p decimalArrayFastRamp"
 								}
 
 							}
@@ -17597,7 +17597,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 255.0, 550.0, 112.0, 19.0 ],
+									"patching_rect" : [ 255.0, 550.0, 151.0, 19.0 ],
 									"saved_object_attributes" : 									{
 										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
@@ -17611,7 +17611,7 @@
 										"tags" : ""
 									}
 ,
-									"text" : "p arrayInstantRamp"
+									"text" : "p decimalArrayInstantRamp"
 								}
 
 							}
