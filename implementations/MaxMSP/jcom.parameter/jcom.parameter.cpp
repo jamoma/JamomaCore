@@ -919,14 +919,16 @@ void param_output_generic(void *z)
 	t_param *x = (t_param *)z;
 	
 	// TODO: Add support for dataspace conversion
-
-	// Clip to specified range, depending on clipmode
-	if (param_clip_generic(x) && x->ramper)
-		x->ramper->stop();							// stop the ramp
 	
+	// Test for repetitions before clipping and outputting. 
+	// Refer to comment in param_output_float for further details.
 	int newListDiffers = param_list_compare(x, x->atom_listTemp, x->listTemp_size, x->atom_list, x->list_size);
 	
 	if ( !x->isInitialised || x->common.attr_repetitions || (newListDiffers==0) ) {
+		
+		// Clip to specified range, depending on clipmode
+		if (param_clip_generic(x) && x->ramper)
+			x->ramper->stop();							// stop the ramp
 		
 		// Update stored values
 		x->list_size = x->listTemp_size;
@@ -986,12 +988,13 @@ void param_output_int(void *z)
 	else
 		atom_setlong(&x->attr_valueTemp, atom_getfloat(&x->attr_valueTemp));
 	
-	// Clipping
-	if (param_clip_int(x) && x->ramper)
-		x->ramper->stop();							// stop the ramp
-	
-	// Test for repetitions before outputting
+	// Test for repetitions before clipping and outputting. 
+	// Refer to comment in param_output_float for further details.
 	if (!x->isInitialised || x->common.attr_repetitions || (atom_getlong(&x->attr_valueTemp) != atom_getlong(&x->attr_value))) {
+		
+		// Clipping
+		if (param_clip_int(x) && x->ramper)
+			x->ramper->stop();							// stop the ramp
 		
 		// Update stored value
 		atom_setlong(&x->attr_value, atom_getlong(&x->attr_valueTemp));
@@ -1024,12 +1027,20 @@ void param_output_float(void *z)
 			delete[] av;
 	}
 	
-	// Clip to specified range, depending on clipmode
-	if (param_clip_float(x) && x->ramper)
-		x->ramper->stop();							// stop the ramp
-	
-	// Test for repetitions before outputting
+	// Test for repetitions before clipping and outputting
 	if (!x->isInitialised || x->common.attr_repetitions || (atom_getfloat(&x->attr_valueTemp) != atom_getfloat(&x->attr_value))) {
+		
+		// Clip to specified range, depending on clipmode
+		/*
+		 Clipping happens after repetition filtering.
+		 This implies that if incoming values from ramp or GUI are out of range,
+		 the boundary value might be output more than once. This is unfortunate, but necsessary
+		 to ensure that e.g. GUI widget might not be accidentally set to and display out of range values
+		 that do not reflect the correct current value of the parameter, as reported in
+		 http://redmine.jamoma.org/issues/1177
+		 */
+		if (param_clip_float(x) && x->ramper)
+			x->ramper->stop();							// stop the ramp
 		
 		// Update stored value
 		atom_setfloat(&x->attr_value, atom_getfloat(&x->attr_valueTemp));
@@ -1101,15 +1112,17 @@ void param_output_list(void *z)
 			delete[] av;
 	}
 	
-	// Clip to specified range, depending on clipmode. 
-	// The clip method also ensures that all list items are floats
-	if (param_clip_list(x) && x->ramper)
-		x->ramper->stop();							// stop the ramp
-	
+	// Test for repetitions before clipping and outputting. 
+	// Refer to comment in param_output_float for further details.
 	int newListDiffers = param_list_compare(x, x->atom_listTemp, x->listTemp_size, x->atom_list, x->list_size);
-	// Test for repetitions before outputting	
+	
 	if ( !x->isInitialised || x->common.attr_repetitions || (newListDiffers==0) ) {
 	
+		// Clip to specified range, depending on clipmode. 
+		// The clip method also ensures that all list items are floats
+		if (param_clip_list(x) && x->ramper)
+			x->ramper->stop();							// stop the ramp
+		
 		// Update stored values
 		x->list_size = x->listTemp_size;
 		for (i=0; i<x->listTemp_size; i++)
