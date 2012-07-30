@@ -45,11 +45,13 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_inc,							// increase, decrease
 				*jps_dec,
 				*jps_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE
-				*jps_integer,						// 
-				*jps_decimal,						// 
-				*jps_string,					// 
-				*jps_array,						//
-				*jps_boolean,					// 
+				*jps_integer,
+				*jps_decimal,
+				*jps_string,
+				*jps_array,						// This is deprecated, but required for backwards compatibility
+				*jps_decimalArray,
+				*jps_integerArray,
+				*jps_boolean,
                 *jps_list_int,
                 *jps_list_float,
 				*jps_none,						// this type only used by jcom.message
