@@ -72,7 +72,7 @@ class TTFOUNDATION_EXPORT TTAttribute : public TTObject {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbolPtr	name;			///< The name of the attribute.
+	const TTSymbolRef	name;			///< The name of the attribute.
 	TTDataType			type;			///< The data type of the attribute value.
 	void*				address;		///< Pointer to the memory holding the attribute value.
 	TTGetterMethod		getter;			///< Method to fetch the attribute value.
@@ -86,15 +86,15 @@ public:
 	TTBoolean			readOnly;		///< The readonly property, if defined, means an attribute cannot be set.
 	TTFloat64			rangeLowBound;	///< If the range property is defined, this is the bottom of a value's range.
 	TTFloat64			rangeHighBound;	///< If the range property is defined, this is the top of a value's range.
-	TTSymbolPtr			rangeChecking;	///< If the rangeChecking property is defined, the value should be checked for range and modified accordingly.
+	TTSymbolRef			rangeChecking;	///< If the rangeChecking property is defined, the value should be checked for range and modified accordingly.
 	TTBoolean			hidden;			///< Property: this attribute is private/invisible to the outside world
-	TTSymbolPtr			description;	///< Property: description of this attribute
+	TTSymbolRef			description;	///< Property: description of this attribute
 	
-	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress);
-	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
-	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
-	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
-	TTAttribute(const TTSymbolPtr newName, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
+	TTAttribute(const TTSymbolRef newName, TTDataType newType, void* newAddress);
+	TTAttribute(const TTSymbolRef newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
+	TTAttribute(const TTSymbolRef newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
+	TTAttribute(const TTSymbolRef newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
+	TTAttribute(const TTSymbolRef newName, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
 	TTAttribute(TTAttributePtr extendedAttribute, const TTObjectPtr extendedObject);
 	virtual ~TTAttribute();
 	

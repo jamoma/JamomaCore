@@ -27,7 +27,7 @@ class TTFOUNDATION_EXPORT TTCallback : public TTObject			///< we will subclass T
 	
 public:
 	
-	TTSymbolPtr					mOwner;		///< A symbol usefull to know the owner of the TTCallback
+	TTSymbolRef					mOwner;		///< A symbol usefull to know the owner of the TTCallback
 	
 	/**	message called because we are registered as an observer to some other object, and then 
 		calls our external function. */

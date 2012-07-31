@@ -27,56 +27,56 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
 	
 	TTNodeAddressPtr testAddress1 = TTADRS("directory1:/gran/parent1/name1.instance1:attribute1");
 	
-	TTSymbolPtr directory1 = testAddress1->getDirectory();
+	TTSymbolRef directory1 = testAddress1->getDirectory();
 	TTNodeAddressPtr parent1 = testAddress1->getParent();
-	TTSymbolPtr name1 = testAddress1->getName();
-	TTSymbolPtr instance1 = testAddress1->getInstance();
-	TTSymbolPtr attribute1 = testAddress1->getAttribute();
+	TTSymbolRef name1 = testAddress1->getName();
+	TTSymbolRef instance1 = testAddress1->getInstance();
+	TTSymbolRef attribute1 = testAddress1->getAttribute();
 	TTNodeAddressType type1 = testAddress1->getType();
 	
 	TTNodeAddressPtr testAddress2 = TTADRS("/gran/parent2/name2.instance2");
 	
-	TTSymbolPtr directory2 = testAddress2->getDirectory();
+	TTSymbolRef directory2 = testAddress2->getDirectory();
 	TTNodeAddressPtr parent2 = testAddress2->getParent();
-	TTSymbolPtr name2 = testAddress2->getName();
-	TTSymbolPtr instance2 = testAddress2->getInstance();
-	TTSymbolPtr attribute2 = testAddress2->getAttribute();
+	TTSymbolRef name2 = testAddress2->getName();
+	TTSymbolRef instance2 = testAddress2->getInstance();
+	TTSymbolRef attribute2 = testAddress2->getAttribute();
 	TTNodeAddressType type2 = testAddress2->getType();
 	
 	TTNodeAddressPtr testAddress3 = TTADRS("parent3/name3.instance3");
 	
-	TTSymbolPtr directory3 = testAddress3->getDirectory();
+	TTSymbolRef directory3 = testAddress3->getDirectory();
 	TTNodeAddressPtr parent3 = testAddress3->getParent();
-	TTSymbolPtr name3 = testAddress3->getName();
-	TTSymbolPtr instance3 = testAddress3->getInstance();
-	TTSymbolPtr attribute3 = testAddress3->getAttribute();
+	TTSymbolRef name3 = testAddress3->getName();
+	TTSymbolRef instance3 = testAddress3->getInstance();
+	TTSymbolRef attribute3 = testAddress3->getAttribute();
 	TTNodeAddressType type3 = testAddress3->getType();
 	
 	TTNodeAddressPtr testAddress4 = TTADRS("/");
 	
-	TTSymbolPtr directory4 = testAddress4->getDirectory();
+	TTSymbolRef directory4 = testAddress4->getDirectory();
 	TTNodeAddressPtr parent4 = testAddress4->getParent();
-	TTSymbolPtr name4 = testAddress4->getName();
-	TTSymbolPtr instance4 = testAddress4->getInstance();
-	TTSymbolPtr attribute4 = testAddress4->getAttribute();
+	TTSymbolRef name4 = testAddress4->getName();
+	TTSymbolRef instance4 = testAddress4->getInstance();
+	TTSymbolRef attribute4 = testAddress4->getAttribute();
 	TTNodeAddressType type4 = testAddress4->getType();
 	
 	TTNodeAddressPtr testAddress5 = TTADRS(":attribute5");
 	
-	TTSymbolPtr directory5 = testAddress5->getDirectory();
+	TTSymbolRef directory5 = testAddress5->getDirectory();
 	TTNodeAddressPtr parent5 = testAddress5->getParent();
-	TTSymbolPtr name5 = testAddress5->getName();
-	TTSymbolPtr instance5 = testAddress5->getInstance();
-	TTSymbolPtr attribute5 = testAddress5->getAttribute();
+	TTSymbolRef name5 = testAddress5->getName();
+	TTSymbolRef instance5 = testAddress5->getInstance();
+	TTSymbolRef attribute5 = testAddress5->getAttribute();
 	TTNodeAddressType type5 = testAddress5->getType();
 	
 	TTNodeAddressPtr testAddress6 = TTADRS("/gran/parent6.0/name6.0:attribute6");
 	
-	TTSymbolPtr directory6 = testAddress6->getDirectory();
+	TTSymbolRef directory6 = testAddress6->getDirectory();
 	TTNodeAddressPtr parent6 = testAddress6->getParent();
-	TTSymbolPtr name6 = testAddress6->getName();
-	TTSymbolPtr instance6 = testAddress6->getInstance();
-	TTSymbolPtr attribute6 = testAddress6->getAttribute();
+	TTSymbolRef name6 = testAddress6->getName();
+	TTSymbolRef instance6 = testAddress6->getInstance();
+	TTSymbolRef attribute6 = testAddress6->getAttribute();
 	TTNodeAddressType type6 = testAddress6->getType();
 	
 	// The first set of tests checks parsing of addresses
@@ -144,7 +144,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
 void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 {
 	TTNodeAddressItemPtr aNamespace, aParent, n, f;
-	TTSymbolPtr	aSymbol;
+	TTSymbolRef	aSymbol(kTTSymEmpty);
 	TTBoolean aSelection, empty;
 	TTUInt8 size;
 	TTErr err;
@@ -153,7 +153,7 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 	TTTestLog("Testing Node Address Item management");
 	
 	// The first test checks item creation and member access
-	aNamespace = new TTNodeAddressItem();
+	aNamespace = new TTNodeAddressItem(kTTSymEmpty);
 	aSymbol = aNamespace->getSymbol();
 	aParent = aNamespace->getParent();
 	aSelection = aNamespace->getSelection();

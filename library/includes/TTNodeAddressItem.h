@@ -31,7 +31,7 @@ class TTFOUNDATION_EXPORT TTNodeAddressItem : public TTList
 	
 private:
 	
-	TTSymbolPtr					symbol;					// any symbol
+	TTSymbolRef					symbol;					// any symbol
 	TTNodeAddressItemPtr		parent;					// the parent item
 	TTBoolean					selection;				// selection state of the item
 	TTList						handlers;				// list of all TTObject handling the item
@@ -39,7 +39,7 @@ private:
 public:
 	
 	/** Constructor */
-	TTNodeAddressItem (TTSymbolPtr aSymbol=NULL, TTNodeAddressItemPtr aParent=NULL, TTBoolean aSelection=NO);
+	TTNodeAddressItem (TTSymbolRef aSymbol, TTNodeAddressItemPtr aParent=NULL, TTBoolean aSelection=NO);
 	
 	/** Destructor */
 	virtual ~TTNodeAddressItem ();
@@ -55,7 +55,7 @@ public:
 	void						setSelection(const TTBoolean newSelectionState, TTBoolean recursively=NO);
 
 	/** Get the symbol of the item */
-	TTSymbolPtr					getSymbol();
+	TTSymbolRef					getSymbol();
 	
 	/** Get the parent of the item */
 	TTNodeAddressItemPtr		getParent();
@@ -64,7 +64,7 @@ public:
 	TTBoolean					getSelection();
 	
 	/** Get an Item below this item */
-	TTNodeAddressItemPtr		getItem(TTSymbolPtr aSymbol);
+	TTNodeAddressItemPtr		getItem(TTSymbolRef aSymbol);
 	
 	/** Overwrite the TTList::clear() method to delete all items below */
 	void						clear();
@@ -101,8 +101,8 @@ public:
 	void						unregisterHandler(TTObject& anObject);
 	
 	/** Send a message to all handlers */
-	void						iterateHandlersSendingMessage(TTSymbolPtr messageName);
-	void						iterateHandlersSendingMessage(TTSymbolPtr messageName, TTValue& aValue);
+	void						iterateHandlersSendingMessage(TTSymbolRef messageName);
+	void						iterateHandlersSendingMessage(TTSymbolRef messageName, TTValue& aValue);
 	
 	friend void TTFOUNDATION_EXPORT TTNodeAddressItemFind(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBoolean& found);
 };

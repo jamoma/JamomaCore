@@ -10,11 +10,11 @@
 
 #include "TTNode.h"
 
-TTNode::TTNode(TTSymbolPtr aName, TTSymbolPtr anInstance, TTObjectPtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
+TTNode::TTNode(TTSymbolRef aName, TTSymbolRef anInstance, TTObjectPtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
 parent(NULL)
+name(kTTSymEmpty),
+instance(kTTSymEmpty)
 {
-	name = aName;
-	instance = anInstance;
 	object = anObject;
 	context = aContext;
 	directory = aDirectory;
@@ -29,7 +29,7 @@ TTNode::~TTNode()
 	unsigned int i, j, nb_c, nb_i;
 	TTValue hk, hk_i;
 	TTNodeAddressPtr anAddress;
-	TTSymbolPtr key, key_i;
+	TTSymbolRef key(kTTSymEmpty), key_i(kTTSymEmpty);
 	TTValue c, c_i, p_c, data;
 	TTHashPtr ht_i, p_ht_i;
 	TTNodePtr n_c;
@@ -42,7 +42,7 @@ TTNode::~TTNode()
 
 		for (i=0; i<nb_c; i++) {
 
-			hk.get(i,(TTSymbolPtr*)&key);
+			hk.get(i,(TTSymbolRef*)&key);
 			err = this->children->lookup(key, c);
 
 			if (err != kTTErrValueNotFound) {
@@ -60,7 +60,7 @@ TTNode::~TTNode()
 					// for each instance
 					for (j=0; j<nb_i; j++) {
 
-						hk_i.get(j,(TTSymbolPtr*)&key_i);
+						hk_i.get(j,(TTSymbolRef*)&key_i);
 						err = ht_i->lookup(key_i, c_i);
 
 						if (err != kTTErrValueNotFound) {
@@ -102,14 +102,14 @@ TTNode::~TTNode()
 	this->instance = NULL;
 }
 
-TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
+TTErr TTNode::setName(TTSymbolRef aName, TTSymbolRef *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
 	TTUInt32 i;
 	TTValue hk, p_c, c;
 	TTString temp, t;
 	TTNodeAddressPtr oldAddress, newAaddress;
-	TTSymbolPtr old_key;
+	TTSymbolRef old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
 
@@ -153,7 +153,7 @@ TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *ne
 	// for each key
 	for (i=0; i<this->directory->getDirectory()->getSize(); i++) {
 
-		hk.get(i,(TTSymbolPtr*)&old_key);
+		hk.get(i,(TTSymbolRef*)&old_key);
 
 		// if the key starts by the oldAddress
 		if (strstr(old_key->getCString(), oldAddress->getCString()) == old_key->getCString()) {
@@ -183,14 +183,14 @@ TTErr TTNode::setName(TTSymbolPtr aName, TTSymbolPtr *newInstance, TTBoolean *ne
 	return kTTErrNone;
 }
 
-TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBoolean *newInstanceCreated)
+TTErr TTNode::setInstance(TTSymbolRef anInstance, TTSymbolRef *newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
 	TTUInt32 i;
 	TTValue hk, p_c, c;
 	TTString temp, t;
 	TTNodeAddressPtr oldAddress, newAddress;
-	TTSymbolPtr old_key;
+	TTSymbolRef old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
 
@@ -227,7 +227,7 @@ TTErr TTNode::setInstance(TTSymbolPtr anInstance, TTSymbolPtr *newInstance, TTBo
 	// for each key
 	for (i=0; i<this->directory->getDirectory()->getSize(); i++) {
 
-		hk.get(i,(TTSymbolPtr*)&old_key);
+		hk.get(i,(TTSymbolRef*)&old_key);
 
 		// if the key starts by the address
 		if (strstr(old_key->getCString(), oldAddress->getCString()) == old_key->getCString()) {
@@ -340,12 +340,12 @@ TTErr TTNode::setContext(TTPtr aContext)
 
 
 
-TTSymbolPtr TTNode::getName()
+TTSymbolRef TTNode::getName()
 {
 	return this->name;
 }
 
-TTSymbolPtr TTNode::getInstance()
+TTSymbolRef TTNode::getInstance()
 {
 return this->instance;
 }
@@ -355,12 +355,12 @@ TTNodePtr TTNode::getParent()
 return this->parent;
 }
 
-TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& returnedChildren)
+TTErr TTNode::getChildren(TTSymbolRef aName, TTSymbolRef anInstance, TTList& returnedChildren)
 {
 	unsigned int i, j;
 	TTErr err;
 	TTValue hk, hk_i, c, c_i;
-	TTSymbolPtr key, key_i;
+	TTSymbolRef key, key_i;
 	TTHashPtr ht_i;
 	TTNodePtr n_c;
 
@@ -376,7 +376,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 			// for each children
 			for (i=0; i<this->children->getSize(); i++) {
 
-				hk.get(i,(TTSymbolPtr*)&key);
+				hk.get(i,(TTSymbolRef*)&key);
 				this->children->lookup(key, c);
 				c.get(0,(TTPtr*)&ht_i);
 
@@ -388,7 +388,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 					if (anInstance == S_WILDCARD) {
 						// for each instance
 						for (j=0; j<ht_i->getSize(); j++) {
-							hk_i.get(j,(TTSymbolPtr*)&key_i);
+							hk_i.get(j,(TTSymbolRef*)&key_i);
 							ht_i->lookup(key_i, c_i);
 							c_i.get(0,(TTPtr*)&n_c);
 
@@ -421,7 +421,7 @@ TTErr TTNode::getChildren(TTSymbolPtr aName, TTSymbolPtr anInstance, TTList& ret
 					if (anInstance == S_WILDCARD) {
 						// for each instance
 						for (j=0; j<ht_i->getSize(); j++) {
-							hk_i.get(j,(TTSymbolPtr*)&key_i);
+							hk_i.get(j,(TTSymbolRef*)&key_i);
 							ht_i->lookup(key_i, c_i);
 							c_i.get(0,(TTPtr*)&n_c);
 
@@ -454,7 +454,7 @@ TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
 {
 	unsigned int i;
 	TTValue hk;
-	TTSymbolPtr key;
+	TTSymbolRef key;
 
 	// default : no child
 	returnedChildrenName.clear();
@@ -467,7 +467,7 @@ TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
 		// for each children
 		for(i=0; i<this->children->getSize(); i++){
 
-			hk.get(i,(TTSymbolPtr*)&key);
+			hk.get(i,(TTSymbolRef*)&key);
 			returnedChildrenName.append(key);
 		}
 	}
@@ -477,12 +477,12 @@ TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
 	return kTTErrNone;
 }
 
-TTErr TTNode::getChildrenInstance(TTSymbolPtr aName, TTList& returnedChildrenInstance)
+TTErr TTNode::getChildrenInstance(TTSymbolRef aName, TTList& returnedChildrenInstance)
 {
 	unsigned int j;
 	TTErr err;
 	TTValue hk, hk_i, c;
-	TTSymbolPtr key_i;
+	TTSymbolRef key_i;
 	TTHashPtr ht_i;
 
 	// default : no child
@@ -505,7 +505,7 @@ TTErr TTNode::getChildrenInstance(TTSymbolPtr aName, TTList& returnedChildrenIns
 				// for each instance
 				for(j=0; j<ht_i->getSize(); j++){
 
-					hk_i.get(j,(TTSymbolPtr*)&key_i);
+					hk_i.get(j,(TTSymbolRef*)&key_i);
 					returnedChildrenInstance.append(TTValue(key_i));
 				}
 			}
@@ -548,10 +548,10 @@ TTErr TTNode::getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr fro
 	nb_ancestor = 0;
 
 	if (this->name != NO_NAME)
-		len = strlen(this->name->getCString());
+		len = strlen(this->name.getCString());
 
 	if (this->instance != NO_INSTANCE)
-		len += strlen(this->instance->getCString()) + 1;
+		len += strlen(this->instance.getCString()) + 1;
 
 	ptr = this;
 
@@ -561,10 +561,10 @@ TTErr TTNode::getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr fro
 		nb_ancestor++;
 
 		if (ptr->name != NO_NAME)
-			len += (strlen(ptr->name->getCString()) + 1);		// +1 for /
+			len += (strlen(ptr->name.getCString()) + 1);		// +1 for /
 
 		if (ptr->instance != NO_INSTANCE)
-			len += (strlen(ptr->instance->getCString()) + 1);	// +1 for .
+			len += (strlen(ptr->instance.getCString()) + 1);	// +1 for .
 	}
 
 	// Then, create an array to register all the ancestor and a string
@@ -588,26 +588,26 @@ TTErr TTNode::getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr fro
 
 	// Finaly, copy the name of each ancestor
 	// copy the root before
-	anAddressString = ancestor[0]->name->getCString();
+	anAddressString = ancestor[0]->name.getCString();
 	for (i=1; i<nb_ancestor; i++) {
 
 		if (ancestor[i]->name != NO_NAME)
-			anAddressString += ancestor[i]->name->getCString();
+			anAddressString += ancestor[i]->name.getCString();
 
 		if (ancestor[i]->instance != NO_INSTANCE) {
-			anAddressString += S_INSTANCE->getCString();
-			anAddressString += ancestor[i]->instance->getCString();
+			anAddressString += S_INSTANCE.getCString();
+			anAddressString += ancestor[i]->instance.getCString();
 		}
 
-		anAddressString += S_SEPARATOR->getCString();
+		anAddressString += S_SEPARATOR.getCString();
 	}
 
 	if (this->name != NO_NAME)
-		anAddressString += this->name->getCString();
+		anAddressString += this->name.getCString();
 
 	if (this->instance != NO_INSTANCE) {
-		anAddressString += S_INSTANCE->getCString();
-		anAddressString += this->instance->getCString();
+		anAddressString += S_INSTANCE.getCString();
+		anAddressString += this->instance.getCString();
 	}
 
 	if (len) {
@@ -633,7 +633,7 @@ TTErr TTNode::getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr fro
 	return kTTErrGeneric;
 }
 
-TTErr	TTNode::generateInstance(TTSymbolPtr childName, TTSymbolPtr *newInstance)
+TTErr	TTNode::generateInstance(TTSymbolRef childName, TTSymbolRef *newInstance)
 {
 	TTErr err;
 	unsigned int i;

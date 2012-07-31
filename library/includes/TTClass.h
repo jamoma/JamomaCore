@@ -30,7 +30,7 @@ private:
 	friend class TTEnvironment;
 	friend class TTObject;
 	
-	TTSymbolPtr						name;					///< The name of the class.
+	TTSymbolRef						name;					///< The name of the class.
 	TTValue							tags;					///< An array of TTSymbols containing tags associated with this class.
 	TTObjectInstantiationMethod		instantiationMethod;	///< Pointer to the function that will create a new instance.
 	TTString						path;					///< The path to executable from which this class loaded.
@@ -40,7 +40,7 @@ private:
 public:
 	
 	/**	Constructor	*/
-	TTClass(const TTSymbolPtr className, const TTValue& tags, const TTObjectInstantiationMethod anInstantiationMethod);
+	TTClass(const TTSymbolRef className, const TTValue& tags, const TTObjectInstantiationMethod anInstantiationMethod);
 		
 	/**	Destructor */
 	virtual ~TTClass();

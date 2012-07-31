@@ -21,7 +21,7 @@
  
 	Note that generally speaking you should not directly create a TTSymbol!
 	Instead, TTSymbol objects should only by created by the TTSymbolTable that you are using.  
-	Because of this we *always* pass TTSymbols as pointers (#TTSymbolPtr) into the symbol table rather than as references or copies.
+	Because of this we *always* pass TTSymbols as pointers (#TTSymbolRef) into the symbol table rather than as references or copies.
  
 	Also, if you don't need the fast lookup capabilities of the symbol table (such as for message or attribute lookup)
 	then consider passing a #TTString instead.
@@ -30,7 +30,7 @@ class TTFOUNDATION_EXPORT TTSymbol : public TTBase {
 protected:
 
 // Microsoft's compiler complains because TTString (std::string) does not have a DLL-Interface
-// In this case, we never pass TTSymbols or reference them directly -- we always use TTSymbolPtrs,
+// In this case, we never pass TTSymbols or reference them directly -- we always use TTSymbolRefs,
 // So it's okay that this class's struct may be of an undetermined size depending on compiler or compiler settings.
 #if defined(_MSC_VER)
 __pragma(warning(push))
@@ -93,7 +93,8 @@ public:
 
 
 /**	A pointer to a symbol.  This is the way symbols are typically communicated throughout the environment. */
-typedef TTSymbol*  TTSymbolPtr;
+//typedef TTSymbol*  TTSymbolRef;
+typedef TTSymbol& TTSymbolRef;
 
 
 #endif // __TT_SYMBOL_H__

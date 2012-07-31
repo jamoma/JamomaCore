@@ -103,10 +103,10 @@ TTValue::TTValue(const TTBoolean initialValue)
 	*type = kTypeBoolean;
 }
 
-TTValue::TTValue(const TTSymbolPtr initialValue)
+TTValue::TTValue(const TTSymbolRef initialValue)
 {
 	init();
-	data->sym = initialValue;
+	data->sym = &initialValue;
 	*type = kTypeSymbol;
 }
 
@@ -609,20 +609,20 @@ TTValue::operator TTBoolean() const
 
 
 // SYMBOL
-TTValue& TTValue::operator = (TTSymbol* value)
+TTValue& TTValue::operator = (TTSymbolRef value)
 {
 	setSize(1);
-	if ((TTSymbol*)this != value) {
+	if ((TTSymbolRef)this != value) {
 		*type = kTypeSymbol;
-		data->sym = value;
+		data->sym = &value;
 	}
 	return *this;
 }
 
-TTValue::operator TTSymbol*() const
+TTValue::operator TTSymbolRef() const
 {
 	if (*type == kTypeSymbol)
-		return data->sym;
+		return *data->sym;
 	else {
 		return TT("");
 	}
@@ -965,7 +965,7 @@ void TTValue::get(const TTUInt16 index, TTBoolean &value) const
 		CONVERT(TTBoolean)
 }
 
-void TTValue::get(const TTUInt16 index, TTSymbol** value) const
+void TTValue::get(const TTUInt16 index, TTSymbol* value) const
 {
 	if (type[index] == kTypeSymbol)
 		*value = (data+index)->sym;
@@ -1094,7 +1094,7 @@ void TTValue::append(const TTBoolean newValue)
 	set(numValues-1, newValue);
 }
 
-void TTValue::append(const TTSymbol* newValue)
+void TTValue::append(const TTSymbolRef newValue)
 {
 	setSize(numValues + 1);
 	set(numValues-1, newValue);

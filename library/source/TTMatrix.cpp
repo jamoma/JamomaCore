@@ -130,7 +130,7 @@ TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 
 TTErr TTMatrix::setType(const TTValue& aType)
 {
-	TTSymbolPtr typeName = aType;
+	TTSymbolRef typeName = aType;
 
 	// TODO: it's dumb to do this big switch below...
 	// TODO: we should use the info already defined in TTDataInfo

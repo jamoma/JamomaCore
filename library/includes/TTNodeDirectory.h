@@ -58,7 +58,7 @@ class TTFOUNDATION_EXPORT TTNodeDirectory : public TTBase
 	
 private:
 
-	TTSymbolPtr		name;					///< the name of the tree
+	TTSymbolRef		name;					///< the name of the tree
 	TTNodePtr		root;					///< the root of the tree
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all address of the tree
 	TTHashPtr		aliases;				///< a pointer to a global hashtab which reference all aliases of the tree
@@ -69,7 +69,7 @@ private:
 public:
 	
 	/** Constructor */
-	TTNodeDirectory (TTSymbolPtr aName);
+	TTNodeDirectory (TTSymbolRef aName);
 	
 	/** Destructor */
 	virtual ~TTNodeDirectory ();
@@ -79,10 +79,10 @@ public:
 
 	/** Set the name of the TTNodeDirectory. 
 		@param	newName				The name to set */
-	TTErr			setName(TTSymbolPtr aname);
+	TTErr			setName(TTSymbolRef aname);
 
 	/** Get the name of the TTNodeDirectory */
-	TTSymbolPtr		getName();
+	TTSymbolRef		getName();
 	
 	/** Get the root of the TTNodeDirectory */
 	TTNodePtr		getRoot();
@@ -196,14 +196,14 @@ public:
 /**	An test tool : test the type of the object stored inside the node. 
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
- @param args						An TTSymbolPtr argument for the type
+ @param args						An TTSymbolRef argument for the type
  @return							true if the object have the correct type */
 TTBoolean TTFOUNDATION_EXPORT testNodeObjectType(TTNodePtr n, TTPtr args);
 
 /**	An test tool : test the context of the object stored inside the node. 
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
- @param args						An TTSymbolPtr argument for the type
+ @param args						An TTSymbolRef argument for the type
  @return							true if the object have the correct context */
 TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
 
