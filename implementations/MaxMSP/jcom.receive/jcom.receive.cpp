@@ -190,6 +190,7 @@ void receive_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
+	Atom						a[1];
 	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
 	TTNodeAddressPtr			absoluteAddress;
 	TTObjectPtr					anObject;
@@ -206,6 +207,8 @@ void receive_subscribe(TTPtr self)
 	if (x->address->getType() == kAddressAbsolute) {
 		
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
+		atom_setsym(a, gensym((char*)x->address->getCString()));
+		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 		return;
 	}
 	
@@ -231,6 +234,9 @@ void receive_subscribe(TTPtr self)
 		contextAddress = kTTAdrsRoot;
 		absoluteAddress = contextAddress->appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+		
+		atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 		return;
 	}
 	
@@ -261,15 +267,24 @@ void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTNodeAddressPtr			absoluteAddress;
+	Atom						a[1];
 	
-	if (argc && argv) {
+	if (argc && argv && x->wrappedObject) {
 		
 		// set address attribute of the wrapped Receiver object
 		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		x->argc = 0; // the index member is usefull to count how many time the external tries to bind
 		
+		atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
+		
 		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress->getCString());
+		
+		// in view patcher, get the value to refresh it
+		if (x->patcherContext == kTTSym_view) {
+			x->wrappedObject->sendMessage(kTTSym_Get);
+		}
 	}
 }
 
