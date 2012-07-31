@@ -18,15 +18,12 @@
 typedef struct extra {
 	
 #ifndef JMOD_RETURN
-	SymbolPtr			attr_format;		// Is it 'single' data output or 'array' output
-	TTUInt32			array_size;			// keep array size in memory
-	TTValuePtr			*array_value;		// store each value in an array to output them together
+	TTValuePtr			*arrayValue;		// store each value in an array to output them together
 #endif
 	
-	TTNodeAddressPtr	array_address;		// keep the address in memory to filter repetitions
 	TTBoolean			changingAddress;	// a flag to protect from succession of address changes
 	TTBoolean			firstArray;			// a flag to know if it is the first instanciation (do not init data)
-	TTValue				args;				// keep attributes argument of the external
+
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
@@ -39,16 +36,11 @@ void		WrappedDataClass_free(TTPtr self);
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		data_new_address(TTPtr self, SymbolPtr msg);
-void		data_subscribe_array(TTPtr self);
-void		data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index);
-void		data_array_select(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbolPtr service, TTUInt8 index);
 void		data_address(TTPtr self, SymbolPtr name);
 
 #ifndef JMOD_RETURN
 void		data_array_return_value(TTPtr baton, TTValue& v);
-
-t_max_err	data_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
-t_max_err	data_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
 #endif
 
 #ifndef JMOD_MESSAGE
@@ -101,17 +93,9 @@ void WrapTTDataClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)data_inc,							"+",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)data_dec,							"-",					A_GIMME, 0);
-	
-	class_addmethod(c->maxClass, (method)data_array_select,					"array/select",			A_GIMME,0);
 #endif
 	
 	class_addmethod(c->maxClass, (method)data_address,						"address",				A_SYM,0);
-	
-#ifndef JMOD_RETURN
-	CLASS_ATTR_SYM(c->maxClass,			"format",	0,		WrappedModularInstance,	extra);		// use extra member to store format
-	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	data_get_format,	data_set_format);
-	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"single array");
-#endif	
 }
 
 void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -135,7 +119,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 #ifndef JMOD_MESSAGE
 	// add an inlet for the index
 	x->inlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
-	x->inlets[0] = proxy_new(x, 1, &x->argc);	// use this member to store index (because index is used for data array)
+	x->inlets[0] = proxy_new(x, 1, &x->index);	// use this member to store index (because index is used for data array)
 	
 #endif
 	
@@ -149,17 +133,20 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
 #endif
 	
+	x->arraySize = 0;
+	x->arrayIndex = 0;
+	x->arrayAddress = kTTAdrsEmpty;
+	x->arrayArgs = kTTValNONE;
+	x->arrayAttrFormat = gensym("single");
+	
 	// Prepare extra data for parameters and messages
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
+	
 #ifndef JMOD_RETURN
-	EXTRA->attr_format = gensym("single");
-	EXTRA->array_size = 0;
-	EXTRA->array_value = NULL;
+	EXTRA->arrayValue = NULL;
 #endif
-	EXTRA->array_address = kTTAdrsEmpty;
 	EXTRA->changingAddress = NO;
 	EXTRA->firstArray = YES;
-	EXTRA->args = kTTValNONE;
 	
 	// handle args
 	if (argc && argv) {
@@ -169,7 +156,7 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		
 		// keep args to set the wrapped object attributes
 		if (argc > 1)
-			jamoma_ttvalue_from_Atom(EXTRA->args, _sym_list, argc--, argv++);
+			jamoma_ttvalue_from_Atom(x->arrayArgs, _sym_list, argc--, argv++);
 	}
 	
 	// The following must be deferred because we have to interrogate our box,
@@ -184,12 +171,12 @@ void WrappedDataClass_free(TTPtr self)
 	
 #ifndef JMOD_RETURN
 	// delete array
-	if (x->extra && EXTRA->array_value) {
-		for (TTUInt32 i=0; i<EXTRA->array_size; i++)
-			if (EXTRA->array_value[i])
-				delete EXTRA->array_value[i];
+	if (x->extra && EXTRA->arrayValue) {
+		for (TTUInt8 i = 0; i < x->arraySize; i++)
+			if (EXTRA->arrayValue[i])
+				delete EXTRA->arrayValue[i];
 		
-		free(EXTRA->array_value);
+		free(EXTRA->arrayValue);
 	}
 #endif
 	
@@ -201,7 +188,8 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	AtomCount					argc = 0; 
 	AtomPtr						argv = NULL;
-	TTUInt32					number, i;
+	TTUInt32					number;
+	TTUInt8						i, j;
 	TTNodeAddressPtr			newAddress = TTADRS(relativeAddress->s_name);
 	SymbolPtr					instanceAddress;
 	TTObjectPtr					anObject;
@@ -216,44 +204,45 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 		x->cursor = kTTSymEmpty;
 		
 		// filter repetitions
-		if (!(EXTRA->array_address == newAddress)) {
+		if (!(x->arrayAddress == newAddress)) {
 			
-			EXTRA->array_address = newAddress;
+			x->arrayAddress = newAddress;
 			
-			if (EXTRA->array_address->getType() == kAddressRelative) {
+			if (x->arrayAddress->getType() == kAddressRelative) {
 				
-				number = jamoma_parse_bracket(relativeAddress, x->i_format, x->s_format);
+				number = jamoma_parse_bracket(relativeAddress, x->arrayFormatInteger, x->arrayFormatString);
 				
 				// don't resize to 0
-				if (number) {
+				if (number && number <= 255) {
 					
 					// Starts iteration on internals
 					x->iterateInternals = YES;
 					
+					x->arraySize = number;
+					
 #ifndef JMOD_RETURN
-					// prepare array_value
-					EXTRA->array_size = number;
-					EXTRA->array_value = (TTValuePtr*)malloc(sizeof(TTValuePtr)*number);
-					for (TTUInt32 j=0; j<EXTRA->array_size; j++)
-						EXTRA->array_value[j] = NULL;
+					// prepare arrayValue
+					EXTRA->arrayValue = (TTValuePtr*)malloc(sizeof(TTValuePtr)*number);
+					for (j = 0 ; j < x->arraySize; j++)
+						EXTRA->arrayValue[j] = NULL;
 #endif
 					
-					for (i = 1; i <= number; i++) {
+					for (i = 1; i <= x->arraySize; i++) {
 						
-						jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
+						jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
 						
 						// create a data
 #ifdef JMOD_MESSAGE
-						data_array_create((ObjectPtr)x, &anObject, kTTSym_message, i);
+						data_array_create(self, &anObject, kTTSym_message, i);
 #endif
 						
 #if JMOD_RETURN
-						data_array_create((ObjectPtr)x, &anObject, kTTSym_return, i);
+						data_array_create(self, &anObject, kTTSym_return, i);
 #endif
 						
 #ifndef JMOD_MESSAGE
 #ifndef JMOD_RETURN
-						data_array_create((ObjectPtr)x, &anObject, kTTSym_parameter, i);
+						data_array_create(self, &anObject, kTTSym_parameter, i);
 #endif
 #endif
 						aSubscriber = NULL;
@@ -273,12 +262,12 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 					x->iterateInternals = NO;
 					
 					// handle args
-					jamoma_ttvalue_to_Atom(EXTRA->args, &argc, &argv);
+					jamoma_ttvalue_to_Atom(x->arrayArgs, &argc, &argv);
 					if (argc && argv)
 						attr_args_process(x, argc, argv);
 					
 					// select all datas
-					data_array_select(self, gensym("*"), 0, NULL);
+					wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
 
 #ifndef JMOD_MESSAGE
 					// reset all datas created dynamically
@@ -298,7 +287,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	EXTRA->firstArray = NO;
 }
 
-void data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service, long index)
+void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbolPtr service, TTUInt8 index)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
@@ -309,8 +298,8 @@ void data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr servi
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
 #ifndef JMOD_RETURN
-	returnValueBaton = new TTValue(TTPtr(x));
-	returnValueBaton->append(TTUInt32(index));
+	returnValueBaton = new TTValue(self);
+	returnValueBaton->append(index);
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&data_array_return_value));
 #endif
@@ -321,51 +310,6 @@ void data_array_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr servi
 	
 	*returnedData = NULL;
 	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
-}
-
-void data_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					instanceAddress;
-	unsigned long				i;
-	TTValue						v;
-	
-	if (x->internals) {
-		
-		if (argc && argv) {
-			if (atom_gettype(argv) == A_LONG) {
-				i = atom_getlong(argv);
-				if (i > 0 && i <= x->internals->getSize()) {
-					x->index = i;
-					jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
-					x->cursor = TT(instanceAddress->s_name);
-				}
-				else
-					object_error((ObjectPtr)x, "array/select : %ld is not a valid index", i);
-			}
-			else if (atom_gettype(argv) == A_SYM) {
-				
-				if (atom_getsym(argv) == gensym("*")) {
-					x->index = -1;
-					jamoma_edit_numeric_instance(x->i_format, &instanceAddress, 1);
-					x->cursor = TT(instanceAddress->s_name);
-				}
-				else
-					object_error((ObjectPtr)x, "array/select : %s is not a valid index", i);
-			}
-		}
-		else {
-			if (msg == gensym("*")) {
-				x->index = -1;
-				jamoma_edit_numeric_instance(x->i_format, &instanceAddress, 1);
-				x->cursor = TT(instanceAddress->s_name);
-			}
-			else
-				object_error((ObjectPtr)x, "array/select : %s is not a valid index", i);
-		}
-	}
-	else
-		object_error((ObjectPtr)x, "array/select : the array is empty");
 }
 
 void data_address(TTPtr self, SymbolPtr address)
@@ -382,13 +326,13 @@ void data_address(TTPtr self, SymbolPtr address)
 		
 #ifndef JMOD_RETURN		
 		// delete array
-		if (EXTRA->array_value) {
-			for (TTUInt32 i=0; i<EXTRA->array_size; i++)
-				if (EXTRA->array_value[i])
-					delete EXTRA->array_value[i];
+		if (EXTRA->arrayValue) {
+			for (TTUInt8 i = 0; i < x->arraySize; i++)
+				if (EXTRA->arrayValue[i])
+					delete EXTRA->arrayValue[i];
 			
-			EXTRA->array_size = 0;
-			free(EXTRA->array_value);
+			x->arraySize = 0;
+			free(EXTRA->arrayValue);
 		}
 #endif
 		
@@ -439,7 +383,7 @@ void data_int(TTPtr self, long value)
 	
 	if (proxy_getinlet((ObjectPtr)x)) {
 		atom_setlong(&a, value);
-		data_array_select(self, _sym_nothing, 1, &a);
+		wrappedModularClass_ArraySelect(self, _sym_nothing, 1, &a);
 	}
 	else {
 		if (x->internals) {
@@ -471,11 +415,11 @@ void data_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	if (x->internals) {
 		
 		// send to each data
-		if (x->index == -1) {
+		if (x->arrayIndex == 0) {
 			TTValue keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
-				for (int i=0; i<keys.getSize(); i++) {
+				for (TTUInt32 i = 0; i < keys.getSize(); i++) {
 					keys.get(i, &x->cursor);
 					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
 				}
@@ -495,16 +439,16 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	if (proxy_getinlet((ObjectPtr)x)) {
-		data_array_select(self, msg, argc, argv);
+		wrappedModularClass_ArraySelect(self, msg, argc, argv);
 	}
 	else {
 		
 		// send to each data
-		if (x->index == -1) {
+		if (x->arrayIndex == 0) {
 			TTValue keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
-				for (int i=0; i<keys.getSize(); i++) {
+				for (TTUInt32 i=0; i<keys.getSize(); i++) {
 					keys.get(i, &x->cursor);
 					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
 				}
@@ -525,7 +469,8 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	TTValuePtr					b, m;
 	TTSymbolPtr					type;
 	SymbolPtr					msg, iAdrs;
-	long						i, argc = 0;
+	TTUInt8						i; 
+	long						argc = 0;
 	AtomPtr						argv = NULL;
 	TTBoolean					shifted = NO;
 	TTSymbolPtr					memoCursor;
@@ -536,38 +481,38 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	b->get(1, i);
 	
 	// output index
-	if (x->index == -1) {
-		jamoma_edit_numeric_instance(x->i_format, &iAdrs, i);
+	if (x->arrayIndex == 0) {
+		jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i);
 		x->cursor = TT(iAdrs->s_name);
 	}
 	
 	outlet_int(x->outlets[index_out], i);
 	
 	// store value
-	if (EXTRA->array_value) {
+	if (EXTRA->arrayValue) {
 		
 		// delete former value
-		if (EXTRA->array_value[i-1])
-			delete EXTRA->array_value[i-1];
+		if (EXTRA->arrayValue[i-1])
+			delete EXTRA->arrayValue[i-1];
 		
 		// store new value
 		m = new TTValue(v);
-		EXTRA->array_value[i-1] = m;
+		EXTRA->arrayValue[i-1] = m;
 	}
 	
 	// in array output mode 
 	// edit a value containing all values
-	if (EXTRA->attr_format == gensym("array")) {
+	if (x->arrayAttrFormat == gensym("array")) {
 		
-		if (EXTRA->array_value)
-			for (TTUInt32 i=0; i<EXTRA->array_size; i++) {
+		if (EXTRA->arrayValue)
+			for (i = 0; i < x->arraySize; i++) {
 				
 				// if the data have not been updated yet
-				m = EXTRA->array_value[i];
+				m = EXTRA->arrayValue[i];
 				if (m == NULL) {
 					
 					memoCursor = x->cursor;
-					jamoma_edit_numeric_instance(x->i_format, &iAdrs, i+1);
+					jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i+1);
 					x->cursor = TT(iAdrs->s_name);
 					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
 					selectedObject->getAttributeValue(kTTSym_type, t);
@@ -585,7 +530,7 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 					else		
 						m = new TTValue(g);
 					
-					EXTRA->array_value[i] = m;
+					EXTRA->arrayValue[i] = m;
 					x->cursor = memoCursor;
 				}
 				
@@ -629,7 +574,7 @@ t_max_err data_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
 		}
 	}
 	
-	atom_setsym(*av, EXTRA->attr_format);
+	atom_setsym(*av, x->arrayAttrFormat);
 	
 	return MAX_ERR_NONE;
 }
@@ -639,10 +584,10 @@ t_max_err data_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	if (ac&&av) {
-		EXTRA->attr_format = atom_getsym(av);
+		x->arrayAttrFormat = atom_getsym(av);
 	} else {
 		// no args, set to single
-		EXTRA->attr_format = gensym("single");
+		x->arrayAttrFormat = gensym("single");
 	}
 	return MAX_ERR_NONE;
 }

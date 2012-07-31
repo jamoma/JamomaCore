@@ -1,4 +1,5 @@
 defines:
+  - ARRAY_EXTERNAL
   - JMOD_RETURN
   
 sources:

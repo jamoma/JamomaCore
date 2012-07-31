@@ -1,4 +1,6 @@
-
+defines:
+  - ARRAY_EXTERNAL
+  
 sources:
   - jcom.parameterArray.cpp		
   - ../../../../Support/max/TTModularClassWrapperMax.cpp

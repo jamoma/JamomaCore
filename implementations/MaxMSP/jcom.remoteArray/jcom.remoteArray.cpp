@@ -14,42 +14,34 @@
 #define index_out 2
 #define	dump_out 3
 
+
 // This is used to store extra data
 typedef struct extra {
-	
-	long		array_index;		/// the index cursor
-	
-	TTPtr		ui_qelem;			///< to output "qlim'd" data for ui object
-	
-	SymbolPtr	attr_format;		// Is it 'single' data output or 'array' output
-	TTUInt32	array_size;			// keep array size in memory
-	TTValuePtr	*array_value;		// store each value in an array to output them together
-	
-	TTBoolean	changingAddress;	// a flag to protect from succession of address changes
-	TTValue		args;				// keep attributes argument of the external
+
+	TTValuePtr			*arrayValue;		// store each value in an array to output them together
+	TTBoolean			changingAddress;	// a flag to protect from succession of address changes
+	TTPtr				ui_qelem;			// to output "qlim'd" data for ui object
+
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
-
 // Definitions
-void		WrapTTDataClass(WrappedClassPtr c);
-void		WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
-void		WrappedDataClass_free(TTPtr self);
+void		WrapTTViewerClass(WrappedClassPtr c);
+void		WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void		WrappedViewerClass_free(TTPtr self);
 
 void		remote_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
-void		remote_new_address(TTPtr self, SymbolPtr msg);
-void		remote_array_subscribe(TTPtr self, SymbolPtr address, AtomCount index, AtomPtr argv);
-void		remote_array_create(ObjectPtr x, TTObjectPtr *returnedViewer, long index);
+void		remote_new_address(TTPtr self, SymbolPtr address);
+void		remote_array_create(TTPtr self, TTObjectPtr *returnedViewer, TTUInt8 index);
+void		remote_array_subscribe(TTPtr self, SymbolPtr address);
 void		remote_array_select(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		remote_address(TTPtr self, SymbolPtr name);
 
 void		remote_array_return_value(TTPtr baton, TTValue& v);
+void		remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-t_max_err	remote_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
-t_max_err	remote_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
-
-void		WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		remote_bang(TTPtr self);
 void		remote_int(TTPtr self, long value);
 void		remote_float(TTPtr self, double value);
@@ -60,48 +52,42 @@ void		remote_ui_queuefn(TTPtr self);
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ModularSpec *spec = new ModularSpec;
-	spec->_wrap = &WrapTTDataClass;
-	spec->_new = &WrappedDataClass_new;
-	spec->_free = &WrappedDataClass_free;
-	spec->_any = &WrappedDataClass_anything;
+	spec->_wrap = &WrapTTViewerClass;
+	spec->_new = &WrappedViewerClass_new;
+	spec->_free = &WrappedViewerClass_free;
+	spec->_any = &WrappedViewerClass_anything;
 
-	return wrapTTModularClassAsMaxClass(TT("Viewer"), "jcom.remoteArray", NULL, spec);
-
+	return wrapTTModularClassAsMaxClass(kTTSym_Viewer, "jcom.remoteArray", NULL, spec);
 }
 
-void WrapTTDataClass(WrappedClassPtr c)
+void WrapTTViewerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)remote_assist,						"assist",				A_CANT, 0L);
+	class_addmethod(c->maxClass, (method)remote_return_model_address,		"return_model_address",	A_CANT, 0);
 		
 	class_addmethod(c->maxClass, (method)remote_bang,						"bang",					0L);
 	class_addmethod(c->maxClass, (method)remote_int,						"int",					A_LONG, 0);
 	class_addmethod(c->maxClass, (method)remote_float,						"float",				A_FLOAT, 0);
 	class_addmethod(c->maxClass, (method)remote_list,						"list",					A_GIMME, 0);
 	
-	class_addmethod(c->maxClass, (method)remote_array_select,				"array/select",			A_GIMME,0);
-	
 	class_addmethod(c->maxClass, (method)remote_address,					"address",				A_SYM,0);
-
-	CLASS_ATTR_SYM(c->maxClass,			"format",	0,		WrappedModularInstance,	extra);		// use extra member to store format
-	CLASS_ATTR_ACCESSORS(c->maxClass,	"format",	remote_get_format,	remote_set_format);
-	CLASS_ATTR_ENUM(c->maxClass,		"format",	0,		"single array");
-
 }
 
-void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
+void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					relativeAddress;
 	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
+	SymbolPtr					address;
 	
 	// check address argument
-	relativeAddress = _sym_nothing;
+	address = _sym_nothing;
 	if (attrstart && argv)
 		if (atom_gettype(argv) == A_SYM)
-			relativeAddress = atom_getsym(argv);
+			address = atom_getsym(argv);
 	
-	if (relativeAddress == _sym_nothing) {
-		object_error((ObjectPtr)x, "needs a name as first argument");
+	if (address == _sym_nothing) {
+		object_error((ObjectPtr)x, "needs an address as first argument");
+		x->extra = NULL;
 		return;
 	}
 
@@ -118,18 +104,18 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
 	x->outlets[set_out] = outlet_new(x, NULL);						// anything outlet to output defered data prepend with a 'set'
 	
+	x->arraySize = 0;
+	x->arrayIndex = 0;
+	x->arrayAddress = kTTAdrsEmpty;
+	x->arrayArgs = kTTValNONE;
+	x->arrayAttrFormat = gensym("single");
+	
 	// Prepare extra data for parameters and messages
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 
-	// Make qelem object
-	EXTRA->ui_qelem = qelem_new(x, (method)remote_ui_queuefn);
-	
-	EXTRA->attr_format = gensym("single");
-	EXTRA->array_size = 0;
-	EXTRA->array_value = NULL;
-
+	EXTRA->arrayValue = NULL;
 	EXTRA->changingAddress = NO;
-	EXTRA->args = kTTValNONE;
+	EXTRA->ui_qelem = qelem_new(x, (method)remote_ui_queuefn);
 	
 	// handle args
 	if (argc && argv) {
@@ -138,39 +124,42 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		attr_args_process(x, argc, argv);
 		
 		// keep args to set the wrapped object attributes
-		jamoma_ttvalue_from_Atom(EXTRA->args, _sym_list, argc--, argv++);
+		if (argc > 1)
+			jamoma_ttvalue_from_Atom(x->arrayArgs, _sym_list, argc--, argv++);
 	}
 
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-	defer_low((ObjectPtr)x, (method)remote_new_address, relativeAddress, 0, NULL);
+	defer_low((ObjectPtr)x, (method)remote_new_address, address, 0, NULL);
 }
 
-void WrappedDataClass_free(TTPtr self)
+void WrappedViewerClass_free(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-
+	
 	// delete array
-	if (EXTRA->array_value) {
-		for (TTUInt32 i=0; i<EXTRA->array_size; i++)
-			if (EXTRA->array_value[i])
-				delete EXTRA->array_value[i];
-			
-		free(EXTRA->array_value);
+	if (EXTRA->arrayValue) {
+		for (TTUInt8 i = 0; i < x->arraySize; i++)
+			if (EXTRA->arrayValue[i])
+				delete EXTRA->arrayValue[i];
+		
+		free(EXTRA->arrayValue);
 	}
 	
 	qelem_free(EXTRA->ui_qelem);
 	
 	free(EXTRA);
 }
-	
-void remote_new_address(TTPtr self, SymbolPtr relativeAddress)
+
+void remote_new_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	AtomCount					argc = 0; 
 	AtomPtr						argv = NULL;
-	long						number, i;
+	TTUInt32					number;
+	TTUInt8						i, j;
+	TTNodeAddressPtr			newAddress = TTADRS(address->s_name);
 	SymbolPtr					instanceAddress;
 	TTObjectPtr					anObject;
 	TTValue						v;
@@ -182,120 +171,211 @@ void remote_new_address(TTPtr self, SymbolPtr relativeAddress)
 		x->internals->setThreadProtection(YES);
 		x->cursor = kTTSymEmpty;
 		
-		// in any case
-		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
-		
-		number = jamoma_parse_bracket(relativeAddress, x->i_format, x->s_format);
-		
-		if (number) {
+		// filter repetitions
+		if (!(x->arrayAddress == newAddress)) {
 			
-			// Starts iteration on internals
-			x->iterateInternals = YES;
+			x->arrayAddress = newAddress;
 			
-			// prepare array_value
-			EXTRA->array_size = number;
-			EXTRA->array_value = (TTValuePtr*)malloc(sizeof(TTValuePtr)*number);
-			for (TTUInt32 j=0; j<EXTRA->array_size; j++)
-				EXTRA->array_value[j] = NULL;
+			number = jamoma_parse_bracket(address, x->arrayFormatInteger, x->arrayFormatString);
 			
-			for (i = 1; i <= number; i++) {
+			// don't resize to 0
+			if (number && number <= 255) {
 				
-				jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
+				// Starts iteration on internals
+				x->iterateInternals = YES;
 				
-				// create a viewer
-				remote_array_create((ObjectPtr)x, &anObject, i);
+				// prepare arrayValue
+				x->arraySize = number;
+				EXTRA->arrayValue = (TTValuePtr*)malloc(sizeof(TTValuePtr)*number);
+				for (j = 0; j < x->arraySize; j++)
+					EXTRA->arrayValue[j] = NULL;
 				
-				// append the viewer to the internals table
-				v = TTValue(TTPtr(anObject));
-				v.append(TTADRS(instanceAddress->s_name));
-				x->internals->append(TT(instanceAddress->s_name), v);
+				for (i = 1; i <= x->arraySize; i++) {
+					
+					jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+					
+					remote_array_create(x, &anObject, i);
+					
+					// append the viewer to the internals table
+					v = TTValue(TTPtr(anObject));
+					v.append(TT(instanceAddress->s_name));
+					v.append((TTPtr)NULL);
+					
+					x->internals->append(TT(instanceAddress->s_name), v);
+				}
 				
-				// subscribe the viewer
-				remote_array_subscribe(anObject, instanceAddress, i, NULL);
+				// Ends iteration on internals
+				x->iterateInternals = NO;
+				
+				// try to subscribe the entire array
+				remote_array_subscribe(self, address);
+				
+				// handle args
+				jamoma_ttvalue_to_Atom(x->arrayArgs, &argc, &argv);
+				if (argc && argv)
+					attr_args_process(x, argc, argv);
+				
+				// select all viewers
+				wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
+				
+				// refresh all viewer
+				defer((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
+				
+				// attach the jcom.remote to connected ui object
+				//remote_attach(self);
 			}
-			
-			// Ends iteration on internals
-			x->iterateInternals = NO;
-			
-			// handle args
-			jamoma_ttvalue_to_Atom(EXTRA->args, &argc, &argv);
-			if (argc && argv)
-				attr_args_process(x, argc, argv);
-			
-			// select all views
-			remote_array_select(self, gensym("*"), 0, NULL);
 		}
 	}
 	else 
-		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", relativeAddress->s_name);
+		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", address->s_name);
 	
 	EXTRA->changingAddress = NO;
 }
 
-void remote_array_subscribe(TTPtr obj, SymbolPtr msg, AtomCount index, AtomPtr argv)
+void remote_array_create(TTPtr self, TTObjectPtr *returnedViewer, TTUInt8 index)
 {
-	TTViewerPtr			aViewer = (TTViewerPtr)self;
-	TTSubscriberPtr		aSubscriber = NULL;
-	TTNodeAddressPtr	address = TTADRS(msg->s_name);
-	TTNodeAddressPtr	contextAddress = kTTAdrsEmpty;
-	TTNodeAddressPtr	absoluteAddress;
-	TTObjectPtr			toSubscribe;
-	TTValue				v;
+	TTValue			args;
+	TTObjectPtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	
+	// prepare arguments
+	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+
+	returnValueBaton = new TTValue(self);
+	returnValueBaton->append(index);
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&remote_array_return_value));
+	
+	args.append(returnValueCallback);
+	
+	*returnedViewer = NULL;
+	TTObjectInstantiate(kTTSym_Viewer, TTObjectHandle(returnedViewer), args);
+}
+
+void remote_array_subscribe(TTPtr self, SymbolPtr address)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	SymbolPtr					instanceAddress;
+	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
+	TTNodeAddressPtr			absoluteAddress;
+	TTObjectPtr					toSubscribe, anObject;
+	TTBoolean					subscribe;
+	TTSubscriberPtr				aSubscriber;
+	TTUInt8						i;
+	TTValue						v;
 	
 	// for absolute address
-	if (address->getType() == kAddressAbsolute) {
+	if (TTADRS(address->s_name)->getType() == kAddressAbsolute) {
 		
-		aViewer->setAttributeValue(kTTSym_address, x->address);
+		// Starts iteration on internals
+		x->iterateInternals = YES;
+		
+		for (i = 1; i <= x->arraySize; i++) {
+			jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+			x->cursor = TT(instanceAddress->s_name);
+			
+			selectedObject->setAttributeValue(kTTSym_address, x->cursor);
+		}
+		
+		// Ends iteration on internals
+		x->iterateInternals = NO;
 		return;
 	}
 	
-	// Do we subscribe the Viewer ?
+	// for relative address
+	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+
+	
+	// Do we subscribe all Viewers ?
 	
 	// View patcher case :
-	if (x->patcherContext == kTTSym_view) {
-		
-		// if the address refer to the hub (only :attributeName) don't subscribe the Viewer
-		if (address->getParent() == NO_PARENT && 
-			address->getName() == NO_NAME && 
-			address->getInstance() == NO_INSTANCE && 
-			address->getAttribute() != NO_ATTRIBUTE)
-			toSubscribe = NULL;
-		
-		// else try to subscribe the Viewer
-		else toSubscribe = aViewer;
-		
-	}
+	if (x->patcherContext == kTTSym_view)
+		subscribe = YES;
+	
 	// Model patcher case : 
 	// try to binds on the parameter|message|return of the model without subscribing the Viewer
 	else if (x->patcherContext == kTTSym_model)
-		toSubscribe = NULL;
+		subscribe = NO;
 	
 	// Any other case : no subscription
 	else 
-		toSubscribe = NULL;
+		subscribe = NO;
 	
+	// Starts iteration on internals
+	x->iterateInternals = YES;
 	
-	// Try to subscribe the Viewer or just use the Subscriber to get the context address
-	if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, address, &aSubscriber)) {
-		// get the context address to make
-		// a viewer on the contextAddress/model/address parameter
-		aSubscriber->getAttributeValue(TT("contextAddress"), v);
-		v.get(0, (TTSymbolPtr*)&contextAddress);
+	for (i = 1; i <= x->arraySize; i++) {
+		
+		jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+		x->cursor = TT(instanceAddress->s_name);
+		
+		if (subscribe) 
+			toSubscribe = selectedObject;
+		else 
+			toSubscribe = NULL;
+		
+		// Try to subscribe the Viewer or just use the Subscriber to get the context address
+		aSubscriber = NULL;
+		if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, TTADRS(instanceAddress->s_name), &aSubscriber)) {
+			
+			// get the context address once to make
+			// a viewer on the contextAddress/model/address parameter
+			if (contextAddress == kTTAdrsEmpty) {
+				aSubscriber->getAttributeValue(TT("contextAddress"), v);
+				v.get(0, (TTSymbolPtr*)&contextAddress);
+			}
+			
+			if (aSubscriber) {
+				
+				v = TTValue(TTPtr(selectedObject));
+				v.append(x->cursor);
+				v.append(TTPtr(aSubscriber));
+				
+				// replace the internal
+				x->internals->remove(x->cursor);
+				x->internals->append(x->cursor, v);
+				
+				continue;
+			}
+		}
+		else if (contextAddress == kTTAdrsEmpty)
+			contextAddress = kTTAdrsRoot;
+		
+		// if an object can't subscribe, the other object will fails too
+		break;
 	}
-	else
-		contextAddress = kTTAdrsRoot;
 	
-	// bind on the /model/address parameter (in view patch)  or set address directly
+	// Ends iteration on internals
+	x->iterateInternals = NO;
+	
+	// bind on the /model/address parameter (in view patch) or set address directly
 	if (contextAddress != kTTAdrsEmpty) {
 		
 		if (x->patcherContext == kTTSym_view) {
-			post("TODO jcom.remoteArray : makeInternals_receiver for model/address");
-			// makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
-			// anObject->sendMessage(kTTSym_Get);
+			
+			// if there is no internal receiver
+			if (x->internals->lookup(TT("/model/address"), v)) {
+				makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+				anObject->sendMessage(kTTSym_Get);
+			}
 		}
 		else {
-			absoluteAddress = contextAddress->appendAddress(x->address);
-			aViewer->setAttributeValue(kTTSym_address, absoluteAddress);
+			
+			// Starts iteration on internals
+			x->iterateInternals = YES;
+			
+			for (i = 1; i <= x->arraySize; i++) {
+				jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+				
+				x->cursor = TT(instanceAddress->s_name);
+				absoluteAddress = contextAddress->appendAddress(TTADRS(instanceAddress->s_name));
+				
+				selectedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+			}
+			
+			// Ends iteration on internals
+			x->iterateInternals = NO;
 		}
 	}
 	
@@ -306,110 +386,101 @@ void remote_array_subscribe(TTPtr obj, SymbolPtr msg, AtomCount index, AtomPtr a
 	// jamoma_subscriber_create with NULL object to bind)
 	else if (x->patcherContext == kTTSym_model) {
 		
-		// release the subscriber
-		TTObjectRelease(TTObjectHandle(&aSubscriber));
-		aSubscriber = NULL;
+		// Starts iteration on internals
+		x->iterateInternals = YES;
+		
+		for (i = 1; i <= x->arraySize; i++) {
+			
+			jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+			x->cursor = TT(instanceAddress->s_name);
+			
+			if (!x->internals->lookup(x->cursor, v)) {
+				
+				aSubscriber = NULL;
+				v.get(2, (TTPtr*)&aSubscriber);
+				
+				// release the subscriber
+				if (aSubscriber) {
+					TTObjectRelease(TTObjectHandle(&aSubscriber));
+					aSubscriber = NULL;
+				}
+				
+				// keep only the viewer object and his address
+				v.set(2, (TTPtr)NULL);
+				
+				// replace the internal
+				x->internals->remove(x->cursor);
+				x->internals->append(x->cursor, v);
+			}
+		}
+		
+		// Ends iteration on internals
+		x->iterateInternals = NO;
 		
 		// The following must be deferred because we have to interrogate our box,
 		// and our box is not yet valid until we have finished instantiating the object.
 		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)remote_array_subscribe, msg, index, argv);
-		return;
+		defer_low((ObjectPtr)x, (method)remote_array_subscribe, NULL, 0, NULL);
 	}
-}
-
-void remote_array_create(ObjectPtr x, TTObjectPtr *returnedViewer, long index)
-{
-	TTValue			args;
-	TTObjectPtr		returnValueCallback;
-	TTValuePtr		returnValueBaton;
-	
-	// prepare arguments
-	
-	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
-
-	returnValueBaton = new TTValue(TTPtr(x));
-	returnValueBaton->append(TTUInt32(index));
-	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&remote_array_return_value));
-	
-	args.append(returnValueCallback);
-	
-	*returnedViewer = NULL;
-	TTObjectInstantiate(TT("Viewer"), TTObjectHandle(returnedViewer), args);
-}
-
-void remote_array_select(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					instanceAddress;
-	unsigned long				i;
-	TTValue						v;
-	
-	if (x->internals) {
-		
-		if (argc && argv) {
-			if (atom_gettype(argv) == A_LONG) {
-				i = atom_getlong(argv);
-				if (i > 0 && i <= x->internals->getSize()) {
-					EXTRA->array_index = i;
-					jamoma_edit_numeric_instance(x->i_format, &instanceAddress, i);
-					x->cursor = TT(instanceAddress->s_name);
-				}
-				else
-					object_error((ObjectPtr)x, "array/select : %ld is not a valid index", i);
-			}
-			else if (atom_gettype(argv) == A_SYM) {
-				
-				if (atom_getsym(argv) == gensym("*")) {
-					EXTRA->array_index = -1;
-					jamoma_edit_numeric_instance(x->i_format, &instanceAddress, 1);
-					x->cursor = TT(instanceAddress->s_name);
-				}
-				else
-					object_error((ObjectPtr)x, "array/select : %s is not a valid index", i);
-			}
-		}
-		else {
-			if (msg == gensym("*")) {
-				EXTRA->array_index = -1;
-				jamoma_edit_numeric_instance(x->i_format, &instanceAddress, 1);
-				x->cursor = TT(instanceAddress->s_name);
-			}
-			else
-				object_error((ObjectPtr)x, "array/select : %s is not a valid index", i);
-		}
-	}
-	else
-		object_error((ObjectPtr)x, "array/select : the array is empty");
 }
 
 void remote_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTObjectPtr		anObject, aSubscriber;
+	SymbolPtr		instanceAddress;
+	TTValue			v;
+	TTUInt8			i;
 	
 	// Avoid succession of address changes
 	// the changingAddress flag is set to YES below and 
 	// set to NO at the end of remote_new_address method
 	if (!x->iterateInternals && !EXTRA->changingAddress) {
 		
-		// unregister internals
-		wrappedModularClass_unregister(x);
+		// unregister all internals viewers
+		
+		// Starts iteration on internals
+		x->iterateInternals = YES;
+		
+		for (i = 1; i <= x->arraySize; i++) {
 			
+			jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+			x->cursor = TT(instanceAddress->s_name);
+			
+			if (!x->internals->lookup(x->cursor, v)) {
+				
+				anObject = NULL;
+				aSubscriber = NULL;
+				
+				v.get(0, (TTPtr*)&anObject);
+				v.get(2, (TTPtr*)&aSubscriber);
+
+				if (aSubscriber)
+					TTObjectRelease(&aSubscriber);
+				
+				if (anObject)
+					TTObjectRelease(&anObject);
+				
+				x->internals->remove(x->cursor);
+			}
+		}
+		
+		// Ends iteration on internals
+		x->iterateInternals = NO;
+		
 		// delete array
-		if (EXTRA->array_value) {
-			for (TTUInt32 i=0; i<EXTRA->array_size; i++)
-				if (EXTRA->array_value[i])
-					delete EXTRA->array_value[i];
+		if (EXTRA->arrayValue) {
+			for (TTUInt8 i = 0; i < x->arraySize; i++)
+				if (EXTRA->arrayValue[i])
+					delete EXTRA->arrayValue[i];
 			
-			EXTRA->array_size = 0;
-			free(EXTRA->array_value);
+			x->arraySize = 0;
+			free(EXTRA->arrayValue);
 		}
 		
 		// rebuild internals
 		EXTRA->changingAddress = YES;
-		defer_low(self,(method)remote_new_address, address, 0, NULL);
+		defer(self,(method)remote_new_address, address, 0, NULL);
 	}
 	else 
 		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", address->s_name);
@@ -422,6 +493,9 @@ void remote_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 		strcpy(dst, "input");
 	else {							// Outlets
 		switch(arg) {
+			case set_out:
+				strcpy(dst, "set: connect to ui object");
+				break;
 			case data_out:
 				strcpy(dst, "direct: values");
 				break;
@@ -453,7 +527,7 @@ void remote_int(TTPtr self, long value)
 
 	if (proxy_getinlet((ObjectPtr)x)) {
 		atom_setlong(&a, value);
-		remote_array_select(self, _sym_nothing, 1, &a);
+		wrappedModularClass_ArraySelect(self, _sym_nothing, 1, &a);
 	}
 	else {
 		if (x->internals) {
@@ -485,7 +559,7 @@ void remote_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	if (x->internals) {
 		
 		// send to each view
-		if (EXTRA->array_index == -1) {
+		if (x->arrayIndex == 0) {
 			TTValue keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
@@ -504,17 +578,17 @@ void remote_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 		object_error((ObjectPtr)x, "list : the array is empty");
 }
 
-void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	if (proxy_getinlet((ObjectPtr)x)) {
-		remote_array_select(self, msg, argc, argv);
+		wrappedModularClass_ArraySelect(self, msg, argc, argv);
 	}
 	else {
 		
 		// send to each view
-		if (EXTRA->array_index == -1) {
+		if (x->arrayIndex == 0) {
 			TTValue keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
@@ -536,7 +610,8 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 	TTValue						array, g;
 	TTValuePtr					b, m;
 	SymbolPtr					msg, iAdrs;
-	long						i, argc = 0;
+	long						argc = 0;
+	TTUInt8						i;
 	AtomPtr						argv = NULL;
 	TTBoolean					shifted = NO;
 	TTSymbolPtr					memoCursor;
@@ -547,48 +622,53 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 	b->get(1, i);
 	
 	// output index
-	if (EXTRA->array_index == -1) {
-		jamoma_edit_numeric_instance(x->i_format, &iAdrs, i);
+	if (x->arrayIndex == 0) {
+		jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i);
 		x->cursor = TT(iAdrs->s_name);
 	}
 
 	outlet_int(x->outlets[index_out], i);
 	
 	// store value
-	if (EXTRA->array_value) {
+	if (EXTRA->arrayValue) {
 		
 		// delete former value
-		if (EXTRA->array_value[i-1])
-			delete EXTRA->array_value[i-1];
+		if (EXTRA->arrayValue[i-1])
+			delete EXTRA->arrayValue[i-1];
 		
 		// store new value
 		m = new TTValue(v);
-		EXTRA->array_value[i-1] = m;
+		EXTRA->arrayValue[i-1] = m;
 	}
 	
 	// in array output mode 
 	// edit a value containing all values
-	if (EXTRA->attr_format == gensym("array")) {
+	if (x->arrayAttrFormat == gensym("array")) {
 		
-		if (EXTRA->array_value)
-			for (TTUInt32 i=0; i<EXTRA->array_size; i++) {
+		if (EXTRA->arrayValue)
+			for (i = 0; i < x->arraySize; i++) {
 				
 				// if the view have not been updated yet
-				m = EXTRA->array_value[i];
+				m = EXTRA->arrayValue[i];
 				if (m == NULL) {
 					
 					memoCursor = x->cursor;
-					jamoma_edit_numeric_instance(x->i_format, &iAdrs, i+1);
+					jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i+1);
 					x->cursor = TT(iAdrs->s_name);
 					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
 					
 					m = new TTValue(g);
 					
-					EXTRA->array_value[i] = m;
+					EXTRA->arrayValue[i] = m;
 					x->cursor = memoCursor;
 				}
 				
-				array.append((TTValuePtr)m);
+				TTValue v = *m;
+				v.prepend(array);
+				array = v;
+				
+				// TODO : a real append method for value !
+				//array.append((TTValuePtr)m);
 			}
 		
 		jamoma_ttvalue_to_typed_Atom(array, &msg, &argc, &argv, shifted);
@@ -620,35 +700,56 @@ void remote_ui_queuefn(TTPtr self)
 	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
 }
 
-t_max_err remote_get_format(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av)
+void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	SymbolPtr	instanceAddress;
+	TTNodeAddressPtr address;
+	TTSymbolPtr service;
+	TTList		returnedNodes;
+	TTNodePtr	firstNode;
+	TTObjectPtr anObject;
+	TTUInt8		i;
+	TTValue		v;
+	TTErr		err;
 	
-	if ((*ac)&&(*av)) {
-		//memory passed in, use it
-	} else {
-		//otherwise allocate memory
-		*ac = 1;
-		if (!(*av = (AtomPtr)getbytes(sizeof(Atom)*(*ac)))) {
-			*ac = 0;
-			return MAX_ERR_OUT_OF_MEM;
+	if (argc && argv) {
+		
+		if (x->internals) {
+			
+			// Starts iteration on internals
+			x->iterateInternals = YES;
+			
+			for (i = 1; i <= x->arraySize; i++) {
+				
+				jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+				x->cursor = TT(instanceAddress->s_name);
+				
+				// set address attribute of the internal Viewer object
+				address = TTADRS(atom_getsym(argv)->s_name)->appendAddress(TTADRS(instanceAddress->s_name));
+				selectedObject->setAttributeValue(kTTSym_address, address);
+				
+				// for Data object, if service is parameter or return : refresh !
+				// note : this would only work if the address already exists
+				err = getDirectoryFrom(address)->Lookup(address, returnedNodes, &firstNode);
+				
+				if (!err) {
+					if (anObject = firstNode->getObject()) {
+						if (anObject->getName() == kTTSym_Data) {
+							anObject->getAttributeValue(kTTSym_service, v);
+							v.get(0, &service);
+							
+							if (service == kTTSym_parameter || service == kTTSym_return)
+								selectedObject->sendMessage(kTTSym_Refresh);
+						}
+						else
+							selectedObject->sendMessage(kTTSym_Refresh);
+					}
+				}
+			}
+			
+			// Ends iteration on internals
+			x->iterateInternals = NO;
 		}
 	}
-	
-	atom_setsym(*av, EXTRA->attr_format);
-	
-	return MAX_ERR_NONE;
-}
-
-t_max_err remote_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av) 
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	
-	if (ac&&av) {
-		EXTRA->attr_format = atom_getsym(av);
-	} else {
-		// no args, set to single
-		EXTRA->attr_format = gensym("single");
-	}
-	return MAX_ERR_NONE;
 }
