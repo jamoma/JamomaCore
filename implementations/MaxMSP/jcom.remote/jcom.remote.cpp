@@ -343,7 +343,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	TTValue		v;
 	TTErr		err;
 	
-	if (argc && argv) {
+	if (argc && argv && x->wrappedObject) {
 		
 		// set address attribute of the wrapped Viewer object
 		address = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
