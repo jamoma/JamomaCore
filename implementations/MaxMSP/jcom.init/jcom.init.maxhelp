@@ -2,13 +2,15 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 6,
-			"minor" : 0,
-			"revision" : 5
+			"major" : 5,
+			"minor" : 1,
+			"revision" : 9
 		}
 ,
 		"rect" : [ 11.0, 54.0, 569.0, 465.0 ],
 		"bglocked" : 0,
+		"defrect" : [ 11.0, 54.0, 569.0, 465.0 ],
+		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
@@ -16,16 +18,12 @@
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
-		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
-		"description" : "",
-		"digest" : "",
-		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Verdana",
@@ -68,7 +66,7 @@
 					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"maxclass" : "newobj",
-					"numinlets" : 3,
+					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ],
 					"patching_rect" : [ 438.0, 154.0, 46.0, 19.0 ],
@@ -83,7 +81,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"parameter_enable" : 0,
 					"patching_rect" : [ 438.0, 127.0, 20.0, 20.0 ]
 				}
 
@@ -115,13 +112,15 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 6,
-							"minor" : 0,
-							"revision" : 5
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
 						}
 ,
 						"rect" : [ 582.0, 312.0, 374.0, 207.0 ],
 						"bglocked" : 0,
+						"defrect" : [ 582.0, 312.0, 374.0, 207.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
@@ -129,16 +128,12 @@
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
-						"statusbarvisible" : 2,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
-						"description" : "",
-						"digest" : "",
-						"tags" : "",
 						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
@@ -167,8 +162,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 160.0, 38.0, 32.5, 17.0 ],
-									"text" : "init",
-									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+									"text" : "init"
 								}
 
 							}
@@ -211,7 +205,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-3",
 									"maxclass" : "newobj",
-									"numinlets" : 3,
+									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "bang", "bang", "" ],
 									"patching_rect" : [ 6.0, 57.0, 46.0, 19.0 ],
@@ -228,8 +222,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 160.0, 105.0, 111.0, 19.0 ],
-									"text" : "jcom.parameter bar",
+									"patching_rect" : [ 160.0, 105.0, 204.0, 19.0 ],
+									"text" : "jcom.parameter bar @value/default 1.",
 									"varname" : "foo"
 								}
 
@@ -241,7 +235,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"parameter_enable" : 0,
 									"patching_rect" : [ 6.0, 27.0, 20.0, 20.0 ]
 								}
 
@@ -294,8 +287,8 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-6", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-1", 0 ]
 								}
 
@@ -303,8 +296,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-8", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-22", 0 ]
 								}
 
@@ -312,8 +305,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-3", 1 ]
 								}
 
@@ -321,8 +314,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-2", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-3", 0 ]
 								}
 
@@ -330,8 +323,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-5", 0 ]
 								}
 
@@ -339,7 +332,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-4", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
 									"midpoints" : [ 15.5, 51.5, 64.5, 51.5 ],
 									"source" : [ "obj-5", 0 ]
@@ -349,40 +341,24 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-7", 0 ]
 								}
 
-							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.model.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.init.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.parameter.mxo",
-								"type" : "iLaX"
 							}
  ]
 					}
 ,
 					"patching_rect" : [ 20.0, 395.0, 133.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"digest" : "",
 						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
-						"tags" : "",
-						"fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0,
-						"description" : ""
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p other_sub_level",
@@ -402,13 +378,15 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 6,
-							"minor" : 0,
-							"revision" : 5
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
 						}
 ,
 						"rect" : [ 582.0, 54.0, 374.0, 208.0 ],
 						"bglocked" : 0,
+						"defrect" : [ 582.0, 54.0, 374.0, 208.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
@@ -416,16 +394,12 @@
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
-						"statusbarvisible" : 2,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
-						"description" : "",
-						"digest" : "",
-						"tags" : "",
 						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
@@ -454,8 +428,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 161.0, 41.0, 32.5, 17.0 ],
-									"text" : "init",
-									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+									"text" : "init"
 								}
 
 							}
@@ -498,7 +471,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-3",
 									"maxclass" : "newobj",
-									"numinlets" : 3,
+									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "bang", "bang", "" ],
 									"patching_rect" : [ 7.0, 58.0, 46.0, 19.0 ],
@@ -515,8 +488,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 161.0, 104.0, 117.0, 19.0 ],
-									"text" : "jcom.parameter kuru",
+									"patching_rect" : [ 161.0, 104.0, 210.0, 19.0 ],
+									"text" : "jcom.parameter kuru @value/default 1.",
 									"varname" : "foo"
 								}
 
@@ -528,7 +501,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"parameter_enable" : 0,
 									"patching_rect" : [ 7.0, 28.0, 20.0, 20.0 ]
 								}
 
@@ -581,8 +553,8 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-6", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-1", 0 ]
 								}
 
@@ -590,8 +562,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-8", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-22", 0 ]
 								}
 
@@ -599,8 +571,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-3", 1 ]
 								}
 
@@ -608,8 +580,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-2", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-3", 0 ]
 								}
 
@@ -617,8 +589,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-5", 0 ]
 								}
 
@@ -626,7 +598,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-4", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
 									"midpoints" : [ 16.5, 52.5, 64.5, 52.5 ],
 									"source" : [ "obj-5", 0 ]
@@ -636,40 +607,24 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-7", 0 ]
 								}
 
-							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.model.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.init.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.parameter.mxo",
-								"type" : "iLaX"
 							}
  ]
 					}
 ,
 					"patching_rect" : [ 20.0, 372.0, 133.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"digest" : "",
 						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
-						"tags" : "",
-						"fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0,
-						"description" : ""
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p sub_level",
@@ -729,7 +684,7 @@
 					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "newobj",
-					"numinlets" : 3,
+					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ],
 					"patching_rect" : [ 306.0, 154.0, 46.0, 19.0 ],
@@ -865,8 +820,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 20.0, 214.0, 32.5, 17.0 ],
-					"text" : "init",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"text" : "init"
 				}
 
 			}
@@ -879,8 +833,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 156.0, 240.0, 123.0, 19.0 ],
-					"text" : "jcom.parameter foo",
+					"patching_rect" : [ 156.0, 240.0, 203.0, 19.0 ],
+					"text" : "jcom.parameter foo @value/default 1.",
 					"varname" : "foo"
 				}
 
@@ -911,13 +865,15 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 6,
-							"minor" : 0,
-							"revision" : 5
+							"major" : 5,
+							"minor" : 1,
+							"revision" : 9
 						}
 ,
 						"rect" : [ 581.0, 569.0, 375.0, 142.0 ],
 						"bglocked" : 0,
+						"defrect" : [ 581.0, 569.0, 375.0, 142.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
@@ -925,16 +881,12 @@
 						"gridonopen" : 0,
 						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
-						"statusbarvisible" : 2,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
 						"enablehscroll" : 1,
 						"enablevscroll" : 1,
 						"devicewidth" : 0.0,
-						"description" : "",
-						"digest" : "",
-						"tags" : "",
 						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
@@ -977,7 +929,7 @@
 									"fontsize" : 10.0,
 									"id" : "obj-3",
 									"maxclass" : "newobj",
-									"numinlets" : 3,
+									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "bang", "bang", "" ],
 									"patching_rect" : [ 6.0, 60.0, 46.0, 19.0 ],
@@ -992,7 +944,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"parameter_enable" : 0,
 									"patching_rect" : [ 6.0, 30.0, 20.0, 20.0 ]
 								}
 
@@ -1016,8 +967,8 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-12", 0 ]
 								}
 
@@ -1025,8 +976,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-3", 1 ]
 								}
 
@@ -1034,8 +985,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-2", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-3", 0 ]
 								}
 
@@ -1043,8 +994,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [  ],
 									"source" : [ "obj-5", 0 ]
 								}
 
@@ -1052,33 +1003,24 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-4", 0 ],
-									"disabled" : 0,
 									"hidden" : 0,
 									"midpoints" : [ 15.5, 54.5, 64.5, 54.5 ],
 									"source" : [ "obj-5", 0 ]
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.init.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 20.0, 418.0, 134.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"default_fontface" : 0,
-						"digest" : "",
 						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
-						"tags" : "",
-						"fontface" : 0,
+						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
+						"fontface" : 0,
 						"fontsize" : 10.0,
-						"description" : ""
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p subpatch"
@@ -1092,7 +1034,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"parameter_enable" : 0,
 					"patching_rect" : [ 306.0, 127.0, 20.0, 20.0 ]
 				}
 
@@ -1161,8 +1102,8 @@
 		"lines" : [ 			{
 				"patchline" : 				{
 					"destination" : [ "obj-19", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -1170,7 +1111,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 315.5, 150.0, 364.5, 150.0 ],
 					"source" : [ "obj-11", 0 ]
@@ -1180,8 +1120,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -1189,8 +1129,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-15", 1 ]
 				}
 
@@ -1198,8 +1138,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -1207,8 +1147,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-16", 0 ]
 				}
 
@@ -1216,8 +1156,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
-					"disabled" : 0,
 					"hidden" : 1,
+					"midpoints" : [  ],
 					"source" : [ "obj-18", 0 ]
 				}
 
@@ -1225,8 +1165,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-22", 0 ]
 				}
 
@@ -1234,8 +1174,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
-					"disabled" : 0,
 					"hidden" : 1,
+					"midpoints" : [  ],
 					"source" : [ "obj-23", 0 ]
 				}
 
@@ -1243,8 +1183,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-25", 0 ]
 				}
 
@@ -1252,7 +1192,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 447.5, 150.0, 496.5, 150.0 ],
 					"source" : [ "obj-25", 0 ]
@@ -1262,8 +1201,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-25", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-26", 0 ]
 				}
 
@@ -1271,8 +1210,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-42", 0 ],
-					"disabled" : 0,
 					"hidden" : 1,
+					"midpoints" : [  ],
 					"source" : [ "obj-41", 0 ]
 				}
 
@@ -1280,8 +1219,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-43", 0 ],
-					"disabled" : 0,
 					"hidden" : 1,
+					"midpoints" : [  ],
 					"source" : [ "obj-42", 0 ]
 				}
 
@@ -1289,8 +1228,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-7", 1 ]
 				}
 
@@ -1298,68 +1237,11 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
-					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [  ],
 					"source" : [ "obj-7", 0 ]
 				}
 
-			}
- ],
-		"dependency_cache" : [ 			{
-				"name" : "jcom.maxhelpui.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.maxhelpuiButton.png",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.maxhelpuiResize.js",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.jamomaPath.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
-				"patcherrelativepath" : "../../../Max/library/components/jamomaPath",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.init.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.model.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.parameter.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.route.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.receive.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.send.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.preset.mxo",
-				"type" : "iLaX"
 			}
  ]
 	}
