@@ -6,6 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#ifndef DISABLE_NODELIB
+
 #include "TTFoundationAPI.h"
 #include "TTNodeAddressItem.h"
 
@@ -302,3 +304,5 @@ void TTNodeAddressItemFind(const TTValue& itemValue, TTPtr aSymbolToMatch, TTBoo
 	
 	found = anItem->symbol == aSymbolToMatch;
 }
+
+#endif

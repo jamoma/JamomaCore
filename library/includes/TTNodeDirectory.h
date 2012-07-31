@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_NODE_DIRECTORY_H__
+#if !defined( __TT_NODE_DIRECTORY_H__ ) && !defined ( DISABLE_NODELIB )
 #define __TT_NODE_DIRECTORY_H__
 
 #ifdef WIN_VERSION

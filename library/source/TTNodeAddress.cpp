@@ -6,6 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#ifndef DISABLE_NODELIB
+
 #include "TTFoundationAPI.h"
 
 #include <boost/regex.hpp>
@@ -663,3 +665,4 @@ TTNodeAddressPtr makeTTNodeAddress(const TTSymbolPtr newDirectory,
 	return kTTAdrsEmpty->edit(newDirectory, newParent, newName, newInstance, newAttribute);
 }
 
+#endif

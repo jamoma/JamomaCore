@@ -14,7 +14,7 @@
 
 //TTSymbol::TTSymbol() {;}
 
-TTSymbol::TTSymbol(const TTCString newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
+TTSymbol::TTSymbol(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
 	init(newString, newSymbolTableId, newSymbolId);
 }
@@ -35,7 +35,7 @@ TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
 }
 
 
-void TTSymbol::init(const TTCString newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
+void TTSymbol::init(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
 	TTUInt32 len = strlen(newString)+1;
 	

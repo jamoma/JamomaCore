@@ -307,7 +307,7 @@ public:
 	void get(const TTUInt16 index, TTPtr* value) const;
 
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS
+#ifndef DISABLE_NODELIB
 	void get(const TTUInt16 index, TTNodeAddressPtr* value) const;
 #endif
 	
@@ -863,7 +863,7 @@ public:
 	void toString()
 	{
 		TTString*	str = new TTString;
-		TTCString	temp;
+		char*	temp;
 		TTBoolean	addQuotes;
 		
 		for (TTUInt16 i=0; i<numValues; i++) {

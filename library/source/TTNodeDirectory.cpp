@@ -6,6 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#ifndef DISABLE_NODELIB
+
 #include "TTNodeDirectory.h"
 #include <algorithm>
 
@@ -1056,3 +1058,5 @@ void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found)
 	
 	found = anObserver == observerToMatch;
 }
+
+#endif

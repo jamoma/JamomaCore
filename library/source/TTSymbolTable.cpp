@@ -118,7 +118,7 @@ TTSymbol* TTSymbolTable::lookup(const TTString& aString)
 	if (iter == mSYMBOLTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbolPtr	newSymbol = new TTSymbol(aString, mSYMBOLTABLE->size());
+		TTSymbolPtr	newSymbol = new TTSymbol(aString.c_str(), (TTPtrSizedInt)this, mSYMBOLTABLE->size());
 		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->getCString(), newSymbol));
 		sMutex->unlock();
 		return newSymbol;

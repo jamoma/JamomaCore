@@ -6,6 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#ifndef DISABLE_NODELIB
+
 #include "TTNodeAddressTable.h"
 #include "TTMutex.h"
 #include "TTValue.h"
@@ -140,3 +142,5 @@ void TTNodeAddressTable::dump(TTValue& allNodeAddresss)
 	}
 	//TTLogMessage("---- DUMPING SYMBOL TABLE -- END ----\n");
 }
+
+#endif

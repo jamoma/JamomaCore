@@ -11,6 +11,8 @@
 
 void TTNodeLibInit()
 {
+#ifndef DISABLE_NODELIB
+
 	// Global regex for TTNodeAddress parsing
 	ttRegexForDirectory = new TTRegex("([\\w]+)\\:/");
 	ttRegexForAttribute = new TTRegex(":+");
@@ -19,4 +21,6 @@ void TTNodeLibInit()
 	ttRegexForInstanceZero = new TTRegex("\\.0");
 	
 	ttNodeAddressTable = new TTNodeAddressTable;
+	
+#endif
 }

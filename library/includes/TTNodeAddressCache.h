@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_NODE_ADDRESS_CACHE_H__
+#if !defined( __TT_NODE_ADDRESS_CACHE_H__ ) && !defined ( DISABLE_NODELIB )
 #define __TT_NODE_ADDRESS_CACHE_H__
 
 #include "TTNodeAddress.h"

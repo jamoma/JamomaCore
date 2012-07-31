@@ -59,7 +59,7 @@ void TTFoundationInit(const char* pathToBinaries)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
 
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS
+#ifndef DISABLE_NODELIB
 		TTNodeLibInit();
 #endif
 
@@ -68,7 +68,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTSymbolCacheInit();
 		TTValueCacheInit();
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS		
+#ifndef DISABLE_NODELIB		
 		TTNodeAddressCacheInit();
 #endif
 		
@@ -89,7 +89,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTMatrixArray::registerClass();
 		TTValueTest::registerClass();
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS
+#ifndef DISABLE_NODELIB
 		TTNodeLibTest::registerClass();
 #endif
 

@@ -6,6 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#ifndef DISABLE_NODELIB
+
 #include "TTNodeLib.test.h"
 
 #define thisTTClass			TTNodeLibTest
@@ -354,3 +356,6 @@ TTErr TTNodeLibTest::test(TTValue& returnedTestInfo)
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
+
+#endif
+

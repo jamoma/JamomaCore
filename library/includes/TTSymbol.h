@@ -40,23 +40,21 @@ __pragma(warning(disable:4251))
 	TTPtrSizedInt	mSymbolTableId;		///< a unique identifier for the symbol table that owns this symbol
 	TTUInt32		mSymbolId;			///< a unique identifier for the given string
 //	TTString		theString;			///< the actual string represented by this symbol
-	TTCString		mCString;			///< the actual string represented by this symbol
+	char*			mCString;			///< the actual string represented by this symbol
 
 #if defined(_MSC_VER)
 __pragma(warning(pop))
 #endif
 
 	/** used by the constructors to create the new symbol */
-	void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newId);
+	//void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newId);
+	void init(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
 
 public:
-	
-	/** To authorize inheritance */
-	TTSymbol();
-	
+		
 	/** The constructor is intended only for use by the TTSymbolTable object when creating new symbols
 		in the table.  Perhaps this could be made private and then the class made a friend... */
-	TTSymbol(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
+	TTSymbol(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
 
 	virtual	~TTSymbol();
 	

@@ -6,6 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#ifndef DISABLE_NODELIB
 
 #include "TTNodeAddressCache.h"
 
@@ -19,3 +20,5 @@ void TTNodeAddressCacheInit()
 	kTTAdrsRoot					= TTADRS("/");
 	kTTAdrsZero					= TTADRS("0");
 }
+
+#endif
