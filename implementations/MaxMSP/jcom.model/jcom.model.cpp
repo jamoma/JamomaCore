@@ -266,7 +266,6 @@ void model_subscribe(TTPtr self)
 			// In model patcher : set /model/address with his address
 			if (x->patcherContext == kTTSym_model) {
 				aData->setAttributeValue(kTTSym_value, nodeAdrs);
-				aData->setAttributeValue(kTTSym_valueDefault, nodeAdrs); // because of init process
 				
 				// use aPatcher args to setup the model attributes (like @priority)
 				if (ac && av)
@@ -309,10 +308,9 @@ void model_subscribe(TTPtr self)
 						EXTRA->modelAddress = kTTAdrsRoot->appendAddress(argAdrs);
 				}
 				
-				if (EXTRA->modelAddress != kTTAdrsEmpty) {
+				if (EXTRA->modelAddress != kTTAdrsEmpty)
 					aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
-					aData->setAttributeValue(kTTSym_valueDefault, EXTRA->modelAddress); // because of init process
-				}
+				
 			}
 			
 			// output ContextNode address
