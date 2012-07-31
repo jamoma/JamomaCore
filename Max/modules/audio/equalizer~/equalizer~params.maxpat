@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 5
 		}
 ,
 		"rect" : [ 486.0, 120.0, 708.0, 539.0 ],
@@ -27,6 +27,20 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 153.25, 77.0, 100.0, 19.0 ],
+					"text" : "prepend priority"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -91,7 +105,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "int" ],
-					"patching_rect" : [ 110.0, 48.0, 100.0, 19.0 ],
+					"patching_rect" : [ 110.0, 44.0, 100.0, 19.0 ],
 					"text" : "thispoly~"
 				}
 
@@ -105,7 +119,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 110.0, 24.0, 100.0, 19.0 ],
+					"patching_rect" : [ 110.0, 20.0, 100.0, 19.0 ],
 					"text" : "loadbang"
 				}
 
@@ -133,7 +147,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 422.0, 65.0, 148.0, 19.0 ],
+					"patching_rect" : [ 153.25, 96.0, 148.0, 19.0 ],
 					"text" : "jcom.model component"
 				}
 
@@ -163,7 +177,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 119.0, 256.0, 556.0, 31.0 ],
-					"text" : "jcom.parameter gain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @dataspace gain @dataspace/unit dB @value/default 0."
+					"text" : "jcom.parameter gain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\" @dataspace gain @dataspace/unit dB"
 				}
 
 			}
@@ -181,7 +195,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 87.0, 510.0, 633.0, 445.0 ],
@@ -707,16 +721,16 @@
 ,
 					"patching_rect" : [ 52.0, 456.0, 154.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 12.0,
-						"globalpatchername" : "",
 						"description" : "",
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"tags" : ""
+						"tags" : "",
+						"default_fontface" : 0,
+						"digest" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p PrepareForFiltergraph~",
@@ -760,13 +774,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-24",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 81.0, 206.0, 594.0, 43.0 ],
-					"text" : "jcom.parameter frequency @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace pitch @dataspace/unit Hz @value/default 1000."
+					"patching_rect" : [ 81.0, 206.0, 594.0, 31.0 ],
+					"text" : "jcom.parameter frequency @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\" @dataspace pitch @dataspace/unit Hz"
 				}
 
 			}
@@ -780,8 +794,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 153.25, 317.0, 525.0, 31.0 ],
-					"text" : "jcom.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\" @value/default 2."
+					"patching_rect" : [ 153.25, 319.0, 525.0, 31.0 ],
+					"text" : "jcom.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\""
 				}
 
 			}
@@ -796,7 +810,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 52.0, 153.0, 518.0, 31.0 ],
-					"text" : "jcom.parameter type @type string @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\" @value/default peaknotch"
+					"text" : "jcom.parameter type @type string @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\""
 				}
 
 			}
@@ -903,6 +917,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -952,6 +975,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}
