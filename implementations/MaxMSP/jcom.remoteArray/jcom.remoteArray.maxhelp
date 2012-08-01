@@ -34,7 +34,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 47.0, 297.0, 65.0, 31.0 ],
+					"patching_rect" : [ 47.0, 297.0, 69.0, 31.0 ],
 					"text" : "value for ui updates"
 				}
 
@@ -435,7 +435,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 34.0, 484.0, 211.0, 17.0 ],
-					"text" : "source.4/position 0.023"
+					"text" : "source.3/position 11."
 				}
 
 			}
@@ -549,7 +549,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 333.0, 143.0, 217.0, 31.0 ],
+					"patching_rect" : [ 333.0, 143.0, 219.0, 31.0 ],
 					"text" : "jcom.parameterArray source.[6]/position @description Hello"
 				}
 

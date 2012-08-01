@@ -21,6 +21,7 @@ typedef struct extra {
 	TTValuePtr			*arrayValue;		// store each value in an array to output them together
 	TTBoolean			changingAddress;	// a flag to protect from succession of address changes
 	TTPtr				ui_qelem;			// to output "qlim'd" data for ui object
+	TTUInt8				countSubscription;	// to count how many time we try to subscribe
 
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
@@ -116,6 +117,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	EXTRA->arrayValue = NULL;
 	EXTRA->changingAddress = NO;
 	EXTRA->ui_qelem = qelem_new(x, (method)remote_ui_queuefn);
+	EXTRA->countSubscription = 0;
 	
 	// handle args
 	if (argc && argv) {
@@ -207,19 +209,13 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 				// Ends iteration on internals
 				x->iterateInternals = NO;
 				
-				// try to subscribe the entire array
-				remote_array_subscribe(self, address);
-				
 				// handle args
 				jamoma_ttvalue_to_Atom(x->arrayArgs, &argc, &argv);
 				if (argc && argv)
 					attr_args_process(x, argc, argv);
 				
-				// select all viewers
-				wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
-				
-				// refresh all viewer
-				defer((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
+				// try to subscribe the entire array
+				remote_array_subscribe(self, address);
 				
 				// attach the jcom.remote to connected ui object
 				//remote_attach(self);
@@ -259,11 +255,12 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	SymbolPtr					instanceAddress;
 	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
 	TTNodeAddressPtr			absoluteAddress;
-	TTObjectPtr					toSubscribe, anObject;
+	TTObjectPtr					toSubscribe, aReceiver;
 	TTBoolean					subscribe;
 	TTSubscriberPtr				aSubscriber;
 	TTUInt8						i;
 	TTValue						v;
+	Atom						a[1];
 	
 	// for absolute address
 	if (TTADRS(address->s_name)->getType() == kAddressAbsolute) {
@@ -286,9 +283,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	// for relative address
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 
-	
 	// Do we subscribe all Viewers ?
-	
 	// View patcher case :
 	if (x->patcherContext == kTTSym_view)
 		subscribe = YES;
@@ -299,12 +294,13 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 		subscribe = NO;
 	
 	// Any other case : no subscription
-	else 
+	else
 		subscribe = NO;
 	
 	// Starts iteration on internals
 	x->iterateInternals = YES;
 	
+	aReceiver = NULL;
 	for (i = 1; i <= x->arraySize; i++) {
 		
 		jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
@@ -315,17 +311,15 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 		else 
 			toSubscribe = NULL;
 		
-		// Try to subscribe the Viewer or just use the Subscriber to get the context address
 		aSubscriber = NULL;
 		if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, TTADRS(instanceAddress->s_name), &aSubscriber)) {
 			
-			// get the context address once to make
+			// get the context address to make
 			// a viewer on the contextAddress/model/address parameter
-			if (contextAddress == kTTAdrsEmpty) {
-				aSubscriber->getAttributeValue(TT("contextAddress"), v);
-				v.get(0, (TTSymbolPtr*)&contextAddress);
-			}
+			aSubscriber->getAttributeValue(TT("contextAddress"), v);
+			v.get(0, (TTSymbolPtr*)&contextAddress);
 			
+			// append the subscriber to the internal
 			if (aSubscriber) {
 				
 				v = TTValue(TTPtr(selectedObject));
@@ -336,92 +330,107 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 				x->internals->remove(x->cursor);
 				x->internals->append(x->cursor, v);
 				
-				continue;
+				// Create one internal receiver to observe the model address
+				if (x->patcherContext) {
+					
+					// do not create it if it already exists
+					if (x->internals->lookup(TT("/model/address"), v)) {
+						makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &aReceiver);
+					}
+					
+					continue;
+				}
 			}
 		}
-		else if (contextAddress == kTTAdrsEmpty)
-			contextAddress = kTTAdrsRoot;
 		
-		// if an object can't subscribe, the other object will fails too
+		// else, if no context, set address directly
+		else if (x->patcherContext == NULL) {
+			contextAddress = kTTAdrsRoot;
+			absoluteAddress = contextAddress->appendAddress(TTADRS(instanceAddress->s_name));
+			selectedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+			
+			atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+			object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
+			continue;
+		}
+		
+		// if an object can't subscribe, the other objects will fail too
 		break;
 	}
 	
 	// Ends iteration on internals
 	x->iterateInternals = NO;
 	
-	// bind on the /model/address parameter (in view patch) or set address directly
-	if (contextAddress != kTTAdrsEmpty) {
+	// if the subscription success
+	if (aReceiver || contextAddress != kTTAdrsEmpty) {
 		
-		if (x->patcherContext == kTTSym_view) {
-			
-			// if there is no internal receiver
-			if (x->internals->lookup(TT("/model/address"), v)) {
-				makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
-				anObject->sendMessage(kTTSym_Get);
-			}
+		// get the model/address value
+		if (aReceiver) {
+			aReceiver->sendMessage(kTTSym_Get);
+			return;
 		}
-		else {
+		// anyway if there is a context address : the subscription is done
+		else if (contextAddress != kTTAdrsEmpty) {
 			
-			// Starts iteration on internals
-			x->iterateInternals = YES;
+			// select all viewers
+			wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
 			
-			for (i = 1; i <= x->arraySize; i++) {
-				jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-				
-				x->cursor = TT(instanceAddress->s_name);
-				absoluteAddress = contextAddress->appendAddress(TTADRS(instanceAddress->s_name));
-				
-				selectedObject->setAttributeValue(kTTSym_address, absoluteAddress);
-			}
+			// refresh all viewers
+			defer((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
 			
-			// Ends iteration on internals
-			x->iterateInternals = NO;
+			return;
 		}
 	}
 	
-	// In Model case : while the context node is not registered : try to binds again :(
+	
+	// otherwise while the context node is not registered : try to binds again :(
 	// (to -- this is not a good way todo. For binding we should make a subscription 
 	// to a notification mechanism and each time an TTObjet subscribes to the namespace
 	// using jamoma_subscriber_create we notify all the externals which have used 
 	// jamoma_subscriber_create with NULL object to bind)
-	else if (x->patcherContext == kTTSym_model) {
 		
-		// Starts iteration on internals
-		x->iterateInternals = YES;
+	// Starts iteration on internals
+	x->iterateInternals = YES;
+	
+	for (i = 1; i <= x->arraySize; i++) {
 		
-		for (i = 1; i <= x->arraySize; i++) {
+		jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+		x->cursor = TT(instanceAddress->s_name);
+		
+		if (!x->internals->lookup(x->cursor, v)) {
 			
-			jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-			x->cursor = TT(instanceAddress->s_name);
+			aSubscriber = NULL;
+			v.get(2, (TTPtr*)&aSubscriber);
 			
-			if (!x->internals->lookup(x->cursor, v)) {
-				
+			// release the subscriber
+			if (aSubscriber) {
+				TTObjectRelease(TTObjectHandle(&aSubscriber));
 				aSubscriber = NULL;
-				v.get(2, (TTPtr*)&aSubscriber);
-				
-				// release the subscriber
-				if (aSubscriber) {
-					TTObjectRelease(TTObjectHandle(&aSubscriber));
-					aSubscriber = NULL;
-				}
-				
-				// keep only the viewer object and his address
-				v.set(2, (TTPtr)NULL);
-				
-				// replace the internal
-				x->internals->remove(x->cursor);
-				x->internals->append(x->cursor, v);
 			}
+			
+			// keep only the viewer object and his address
+			v.set(2, (TTPtr)NULL);
+			
+			// replace the internal
+			x->internals->remove(x->cursor);
+			x->internals->append(x->cursor, v);
 		}
-		
-		// Ends iteration on internals
-		x->iterateInternals = NO;
-		
-		// The following must be deferred because we have to interrogate our box,
-		// and our box is not yet valid until we have finished instantiating the object.
-		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)remote_array_subscribe, NULL, 0, NULL);
 	}
+	
+	// Ends iteration on internals
+	x->iterateInternals = NO;
+	
+	EXTRA->countSubscription++; // the index member is usefull to count how many time the external tries to bind
+	if (EXTRA->countSubscription > 100) {
+		object_error((ObjectPtr)x, "tries to bind too many times on %s", address->s_name);
+		object_obex_dumpout((ObjectPtr)x, gensym("error"), 0, NULL);
+		return;
+	}
+	
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)remote_array_subscribe, address, 0, NULL);
 }
 
 void remote_address(TTPtr self, SymbolPtr address)
@@ -480,6 +489,7 @@ void remote_address(TTPtr self, SymbolPtr address)
 		
 		// rebuild internals
 		EXTRA->changingAddress = YES;
+		EXTRA->countSubscription = 0;
 		defer(self,(method)remote_new_address, address, 0, NULL);
 	}
 	else 
@@ -703,15 +713,16 @@ void remote_ui_queuefn(TTPtr self)
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr	instanceAddress;
-	TTNodeAddressPtr address;
-	TTSymbolPtr service;
-	TTList		returnedNodes;
-	TTNodePtr	firstNode;
-	TTObjectPtr anObject;
-	TTUInt8		i;
-	TTValue		v;
-	TTErr		err;
+	SymbolPtr			instanceAddress;
+	TTNodeAddressPtr	address;
+	TTSymbolPtr			service;
+	TTList				returnedNodes;
+	TTNodePtr			firstNode;
+	TTObjectPtr			anObject;
+	TTUInt8				i;
+	TTValue				v;
+	Atom				a[1];
+	TTErr				err;
 	
 	if (argc && argv) {
 		
@@ -750,6 +761,14 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			
 			// Ends iteration on internals
 			x->iterateInternals = NO;
+			
+			// select all viewers
+			wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
+			
+			// why not use this way to refresh ?
+			// defer((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
+
+			EXTRA->countSubscription = 0;
 		}
 	}
 }
