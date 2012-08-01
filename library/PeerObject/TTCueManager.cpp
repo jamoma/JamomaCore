@@ -15,7 +15,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mOrder(kTTValNONE),
 mCurrent(kTTSymEmpty),
-mNamespace(kTTSymEmpty),
+mNamespace(kTTSym_none),
 mCues(NULL),
 mCurrentCue(NULL),
 mDefaultNamespace(NULL)
