@@ -1284,7 +1284,7 @@
 					"presentation" : 1,
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 343.0, 271.0, 252.0, 35.0 ],
-					"text" : "The 0 instance is equal to no instance at all :\n/input~.0 equals /input~ "
+					"text" : "The 0 instance is equivalent to no instance  :\n/input~.0 equals /input~ "
 				}
 
 			}
@@ -1401,7 +1401,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 212.0, 477.0, 50.0, 18.0 ],
-									"text" : "2"
+									"text" : "102"
 								}
 
 							}
@@ -1989,8 +1989,8 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 412.0, 343.0, 223.0, 20.0 ],
-									"text" : "filter addresses with a \"/preset\" part into"
+									"patching_rect" : [ 412.0, 343.0, 227.0, 20.0 ],
+									"text" : "filter addresses containing \"/preset\" "
 								}
 
 							}
@@ -2092,7 +2092,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 412.0, 196.0, 278.0, 34.0 ],
-									"text" : "filter addresses with a name part beginning by \"amplitude\" and with an instance beginning by \"2\""
+									"text" : "filter addresses with a name part beginning by \"in\" and with an instance beginning by \"2\""
 								}
 
 							}
@@ -2194,7 +2194,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 22.0, 655.0, 457.0, 34.0 ],
-									"text" : "For this reason some ready made filters exist : parameter, message, return, remote, model, view."
+									"text" : "For this reason some ready-made filters exist : parameter, message, return, remote, model, view."
 								}
 
 							}
@@ -2235,7 +2235,7 @@
 									"fontsize" : 12.0,
 									"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 									"id" : "obj-9",
-									"items" : [ "degrade~.1/in.2", ",", "degrade~/in.2" ],
+									"items" : [ "degrade~", ",", "degrade~(view)", ",", "degrade~(view).1", ",", "degrade~(view).1/bitdepth", ",", "degrade~(view).1/model", ",", "degrade~(view).1/model/address", ",", "degrade~(view).1/out.1", ",", "degrade~(view).1/out.1/amplitude", ",", "degrade~(view).1/out.2", ",", "degrade~(view).1/out.2/amplitude", ",", "degrade~(view).1/samplerateRatio", ",", "degrade~(view).1/ui", ",", "degrade~(view).1/ui/color", ",", "degrade~(view).1/ui/color/border", ",", "degrade~(view).1/ui/color/contentBackground", ",", "degrade~(view).1/ui/color/toolbarBackground", ",", "degrade~(view).1/ui/color/toolbarText", ",", "degrade~(view).1/ui/freeze", ",", "degrade~(view).1/ui/in.*", ",", "degrade~(view).1/ui/in.*/bypass", ",", "degrade~(view).1/ui/out.*", ",", "degrade~(view).1/ui/out.*/gain", ",", "degrade~(view).1/ui/out.*/mix", ",", "degrade~(view).1/ui/out.*/mute", ",", "degrade~(view).1/ui/refresh", ",", "degrade~(view).1/ui/size", ",", "degrade~(view)/bitdepth", ",", "degrade~(view)/model", ",", "degrade~(view)/model/address", ",", "degrade~(view)/out.1", ",", "degrade~(view)/out.1/amplitude", ",", "degrade~(view)/out.2", ",", "degrade~(view)/out.2/amplitude", ",", "degrade~(view)/samplerateRatio", ",", "degrade~(view)/ui", ",", "degrade~(view)/ui/color", ",", "degrade~(view)/ui/color/border", ",", "degrade~(view)/ui/color/contentBackground", ",", "degrade~(view)/ui/color/toolbarBackground", ",", "degrade~(view)/ui/color/toolbarText", ",", "degrade~(view)/ui/freeze", ",", "degrade~(view)/ui/in.*", ",", "degrade~(view)/ui/in.*/bypass", ",", "degrade~(view)/ui/out.*", ",", "degrade~(view)/ui/out.*/gain", ",", "degrade~(view)/ui/out.*/mix", ",", "degrade~(view)/ui/out.*/mute", ",", "degrade~(view)/ui/refresh", ",", "degrade~(view)/ui/size", ",", "degrade~.1", ",", "degrade~.1/bitdepth", ",", "degrade~.1/in.1", ",", "degrade~.1/in.1/amplitude", ",", "degrade~.1/in.1/amplitude/active", ",", "degrade~.1/in.1/bypass", ",", "degrade~.1/in.1/mute", ",", "degrade~.1/in.2", ",", "degrade~.1/in.2/amplitude", ",", "degrade~.1/in.2/amplitude/active", ",", "degrade~.1/in.2/bypass", ",", "degrade~.1/in.2/mute", ",", "degrade~.1/model", ",", "degrade~.1/model/address", ",", "degrade~.1/out.1", ",", "degrade~.1/out.1/amplitude", ",", "degrade~.1/out.1/amplitude/active", ",", "degrade~.1/out.1/gain", ",", "degrade~.1/out.1/mix", ",", "degrade~.1/out.1/mute", ",", "degrade~.1/out.2", ",", "degrade~.1/out.2/amplitude", ",", "degrade~.1/out.2/amplitude/active", ",", "degrade~.1/out.2/gain", ",", "degrade~.1/out.2/mix", ",", "degrade~.1/out.2/mute", ",", "degrade~.1/samplerateRatio", ",", "degrade~/bitdepth", ",", "degrade~/in.1", ",", "degrade~/in.1/amplitude", ",", "degrade~/in.1/amplitude/active", ",", "degrade~/in.1/bypass", ",", "degrade~/in.1/mute", ",", "degrade~/in.2", ",", "degrade~/in.2/amplitude", ",", "degrade~/in.2/amplitude/active", ",", "degrade~/in.2/bypass", ",", "degrade~/in.2/mute", ",", "degrade~/model", ",", "degrade~/model/address", ",", "degrade~/out.1", ",", "degrade~/out.1/amplitude", ",", "degrade~/out.1/amplitude/active", ",", "degrade~/out.1/gain", ",", "degrade~/out.1/mix", ",", "degrade~/out.1/mute", ",", "degrade~/out.2", ",", "degrade~/out.2/amplitude", ",", "degrade~/out.2/amplitude/active", ",", "degrade~/out.2/gain", ",", "degrade~/out.2/mix", ",", "degrade~/out.2/mute", ",", "degrade~/samplerateRatio" ],
 									"maxclass" : "umenu",
 									"numinlets" : 1,
 									"numoutlets" : 3,
@@ -3276,8 +3276,8 @@
 					"patching_rect" : [ 823.0, 80.0, 197.0, 62.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 675.0, 405.0, 248.0, 48.0 ],
-					"text" : "umenus are automatically updated when the namespace changes but this can be disable setting the update attribute to 0."
+					"presentation_rect" : [ 675.0, 405.0, 258.0, 48.0 ],
+					"text" : "umenus are automatically updated when the namespace changes - this can be disabled by setting the update attribute to 0."
 				}
 
 			}
@@ -3327,8 +3327,8 @@
 					"patching_rect" : [ 867.0, 158.0, 151.0, 48.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 345.0, 135.0, 211.0, 34.0 ],
-					"text" : "Here the discovering is more than a tree exploration."
+					"presentation_rect" : [ 345.0, 135.0, 222.0, 34.0 ],
+					"text" : "Here the discovering is performed as  a tree exploration."
 				}
 
 			}
@@ -3346,7 +3346,7 @@
 					"presentation" : 1,
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 15.0, 135.0, 236.0, 34.0 ],
-					"text" : "Here the discovering focus on models, paremeters, messages and returns."
+					"text" : "Here the discovering focuses on models, parameters, messages and returns."
 				}
 
 			}
