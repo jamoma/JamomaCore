@@ -57,6 +57,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToAppName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToTTName;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
 
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dash;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspace;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnit;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_debug;
@@ -188,6 +189,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_ConvertToTTName			= TT("ConvertToTTName");
 	kTTSym_created					= TT("created");
 	
+	kTTSym_dash						= TT("-");
 	kTTSym_dataspace				= TT("dataspace");
 	kTTSym_dataspaceUnit			= TT("dataspaceUnit");
 	kTTSym_debug					= TT("debug");

@@ -708,9 +708,9 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			else aString = "";
 			
 			// write flag name and arguments
-			*buffer += "# (";
+			*buffer += "- ";
 			*buffer += name->getCString();
-			*buffer += ") ";
+			*buffer += " ";
 			*buffer += aString.data();
 			*buffer += "\n";
 		}	
@@ -863,33 +863,30 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 TTDictionaryPtr TTScriptParseLine(const TTValue& newLine)
 {
 	TTDictionaryPtr line = NULL;
-	TTSymbolPtr		firstSymbol, secondSymbol;
+	TTSymbolPtr		firstSymbol;
 	TTValue			v, rest;
 	
 	if (newLine.getType(0) == kTypeSymbol) {
 		
 		newLine.get(0, &firstSymbol);
 		
-		// if starts by a "#"
-		if (firstSymbol == kTTSym_sharp) {
+		// if starts by a "-" : flag line
+		if (firstSymbol == kTTSym_dash) {
 			
 			if (newLine.getType(1) == kTypeSymbol) {
-				newLine.get(1, &secondSymbol);
-				secondSymbol = TTScriptParseFlagName(secondSymbol);
 				
-				// if starts by a "(flag)" : append flag
-				if (secondSymbol != kTTSymEmpty) {
-					rest.copyFrom(newLine, 2);
-					rest.prepend(secondSymbol);
-					line = TTScriptParseFlag(rest);
-				}
-				// else : append comment
-				else {
-					rest.copyFrom(newLine, 1);
-					line = TTScriptParseComment(rest);
-				}
+				rest.copyFrom(newLine, 1);
+				line = TTScriptParseFlag(rest);
 			}
-			// else : append empty comment
+		}
+		// if starts by a "#" : comment line
+		else if (firstSymbol == kTTSym_sharp) {
+			
+			if (newLine.getType(1) == kTypeSymbol) {
+				
+				rest.copyFrom(newLine, 1);
+				line = TTScriptParseComment(rest);
+			}
 			else line = TTScriptParseComment(kTTValNONE);
 
 		}
@@ -984,27 +981,6 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 	}
 	
 	return line;
-}
-
-TTSymbolPtr TTScriptParseFlagName(TTSymbolPtr toParse)
-{
-	TTString			s_toParse;
-	TTString			s_name;
-	TTRegex*			ttRegexForParenthesis = new TTRegex("\\(|\\)");
-	TTRegexStringPosition begin, end;
-	
-	s_toParse = toParse->getCString();
-	begin = s_toParse.begin();
-	end = s_toParse.end();
-	
-	// parse parenthesis
-	if (!ttRegexForParenthesis->parse(begin, end))
-	{
-		s_name = string(begin+1, end-1);
-		return TT(s_name);
-	}	
-	
-	return kTTSymEmpty;
 }
 
 TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position)
