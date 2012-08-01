@@ -37,21 +37,6 @@ mObserver(NULL)
 	addAttribute(Type, kTypeSymbol);
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	
-	/* to - is the content usefull considering Explorer feature ?
-	 
-	registerAttribute(TT("content"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContent, NULL);
-	addAttributeProperty(content, readOnly, YES);
-	
-	registerAttribute(TT("contentParameters"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentParameters, NULL);
-	addAttributeProperty(contentParameters, readOnly, YES);
-	
-	registerAttribute(TT("contentMessages"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentMessages, NULL);
-	addAttributeProperty(contentMessages, readOnly, YES);
-	
-	registerAttribute(TT("contentReturns"), kTypeLocalValue, NULL, (TTGetterMethod)&TTContainer::getContentReturns, NULL);
-	addAttributeProperty(contentReturns, readOnly, YES);
-	 */
-	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(Initialized, readOnly, YES);
 	addAttributeProperty(Initialized, hidden, YES);
@@ -432,96 +417,6 @@ TTErr TTContainer::setPriority(const TTValue& value)
 	
 	return kTTErrNone;
 }
-
-/* to - is the content usefull considering Explorer feature ?
- 
-TTErr TTContainer::getContent(TTValue& value)
-{
-	// get keys in priority order
-	return mObjectsObserversCache->getKeysSorted(value);
-}
-
-TTErr TTContainer::getContentParameters(TTValue& value)
-{
-	TTValue		content, v;
-	TTInt32		i;
-	TTSymbolPtr key, service;
-	TTObjectPtr anObject;
-	
-	value.clear();
-	
-	// get keys in priority order
-	mObjectsObserversCache->getKeysSorted(content);
-	
-	for (i=0; i<content.getSize(); i++) {
-		content.get(i, &key);
-		mObjectsObserversCache->lookup(key, v);
-		v.get(0, (TTPtr*)&anObject);
-		
-		anObject->getAttributeValue(kTTSym_service, v);
-		v.get(0, &service);
-		
-		if (service == kTTSym_parameter)
-			value.append(key);
-	}
-	
-	return kTTErrNone;
-}
-
-TTErr TTContainer::getContentMessages(TTValue& value)
-{
-	TTValue		content, v;
-	TTInt32		i;
-	TTSymbolPtr key, service;
-	TTObjectPtr anObject;
-	
-	value.clear();
-	
-	// get keys in priority order
-	mObjectsObserversCache->getKeysSorted(content);
-	
-	for (i=0; i<content.getSize(); i++) {
-		content.get(i, &key);
-		mObjectsObserversCache->lookup(key, v);
-		v.get(0, (TTPtr*)&anObject);
-		
-		anObject->getAttributeValue(kTTSym_service, v);
-		v.get(0, &service);
-		
-		if (service == kTTSym_message)
-			value.append(key);
-	}
-	
-	return kTTErrNone;
-}
-
-TTErr TTContainer::getContentReturns(TTValue& value)
-{
-	TTValue		content, v;
-	TTInt32		i;
-	TTSymbolPtr key, service;
-	TTObjectPtr anObject;
-	
-	value.clear();
-	
-	// get keys in priority order
-	mObjectsObserversCache->getKeysSorted(content);
-	
-	for (i=0; i<content.getSize(); i++) {
-		content.get(i, &key);
-		mObjectsObserversCache->lookup(key, v);
-		v.get(0, (TTPtr*)&anObject);
-		
-		anObject->getAttributeValue(kTTSym_service, v);
-		v.get(0, &service);
-		
-		if (service == kTTSym_return)
-			value.append(key);
-	}
-	
-	return kTTErrNone;
-}
-*/
 
 TTErr TTContainer::bind()
 {
