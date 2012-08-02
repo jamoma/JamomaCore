@@ -615,9 +615,9 @@ MaxErr param_attr_settype(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 	}
 	else if (arg == jps_array) {
 #ifdef JMOD_MESSAGE
-		post("Jamoma - %s jcom.message in the %s module: @type array is deprecated, set to decimalArray", x->common.attr_name->s_name, x->common.module_name->s_name);
+		object_post((t_object*)x, "Jamoma - jcom.message %s in the module %s: @type array is deprecated, set to decimalArray", x->common.attr_name->s_name, x->common.module_name->s_name);
 #else
-		post("Jamoma - %s jcom.parameter in the %s module: @type array is deprecated, set to decimalArray", x->common.attr_name->s_name, x->common.module_name->s_name);
+		object_post((t_object*)x, "Jamoma - jcom.parameter %s in the module %s: @type array is deprecated, set to decimalArray", x->common.attr_name->s_name, x->common.module_name->s_name);
 #endif
 		x->common.attr_type = jps_decimalArray;
 		x->param_output = &param_output_decimalArray;
