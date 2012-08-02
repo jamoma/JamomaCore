@@ -4,10 +4,10 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 5
 		}
 ,
-		"rect" : [ 684.0, 356.0, 678.0, 356.0 ],
+		"rect" : [ 491.0, 44.0, 885.0, 361.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -30,13 +30,27 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-35",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 435.0, 102.0, 135.0, 19.0 ],
+					"text" : "prepend range/bounds 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-26",
 					"maxclass" : "number",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 381.0, 216.0, 50.0, 19.0 ]
+					"patching_rect" : [ 307.0, 102.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -82,7 +96,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
@@ -230,18 +244,18 @@
 						"dependency_cache" : [  ]
 					}
 ,
-					"patching_rect" : [ 598.0, 29.0, 44.0, 19.0 ],
+					"patching_rect" : [ 631.0, 67.0, 44.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"digest" : "",
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
 						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"description" : "",
+						"fontname" : "Arial",
+						"tags" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
+						"globalpatchername" : "",
 						"fontsize" : 10.0,
-						"tags" : ""
+						"digest" : ""
 					}
 ,
 					"text" : "p init#"
@@ -257,7 +271,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 125.0, 135.0, 90.0, 19.0 ],
+					"patching_rect" : [ 125.0, 147.0, 90.0, 19.0 ],
 					"text" : "prepend nfilters"
 				}
 
@@ -300,8 +314,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 141.0, 20.0, 456.0, 31.0 ],
-					"text" : "jcom.parameter bands @type integer @repetitions/allow 1 @priority 1 @value/default 5 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0",
+					"patching_rect" : [ 141.0, 20.0, 505.0, 31.0 ],
+					"text" : "jcom.parameter bands @type integer @priority -1 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0 @range/clipmode both @value/default 5 @range/bounds 1 8",
 					"varname" : "bands[1]"
 				}
 
@@ -368,13 +382,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-14",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 214.0, 61.0, 410.0, 43.0 ],
-					"text" : "jcom.parameter bands/max @type integer @repetitions/allow 1 @priority 1 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0 @value/default 8",
+					"patching_rect" : [ 214.0, 61.0, 410.0, 31.0 ],
+					"text" : "jcom.parameter bands/max @type integer @repetitions/allow 1 @priority -2 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0",
 					"varname" : "bands"
 				}
 
@@ -389,7 +403,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 431.0, 109.0, 215.0, 43.0 ],
+					"patching_rect" : [ 435.0, 136.0, 221.0, 43.0 ],
 					"text" : "jcom.message filtergraph @description \"Messages to filtergraph. See the MSP reference for further details\""
 				}
 
@@ -403,8 +417,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 214.0, 136.0, 206.0, 19.0 ],
-					"text" : "poly~ equalizer~params 8 @args filter"
+					"patching_rect" : [ 214.0, 148.0, 214.0, 19.0 ],
+					"text" : "poly~ equalizer~params #2 @args filter"
 				}
 
 			}
@@ -449,7 +463,7 @@
 					"numoutlets" : 7,
 					"outlettype" : [ "list", "float", "float", "float", "float", "list", "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 214.0, 172.0, 133.0, 53.0 ],
+					"patching_rect" : [ 214.0, 184.0, 133.0, 53.0 ],
 					"setfilter" : [ 4, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3, 5, 1, 0, 0, 92.847565, 1.051168, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2, 5, 1, 0, 0, 359.441589, 1.167328, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
 				}
 
@@ -483,7 +497,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 65.0, 185.0, 25.0, 25.0 ]
 				}
 
@@ -511,7 +525,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 381.0, 250.0, 50.0, 17.0 ],
+					"patching_rect" : [ 307.0, 121.0, 50.0, 17.0 ],
 					"text" : "open $1"
 				}
 
@@ -559,6 +573,16 @@
 					"destination" : [ "obj-17", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-35", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 223.5, 98.0, 444.5, 98.0 ],
 					"source" : [ "obj-14", 0 ]
 				}
 
@@ -614,7 +638,7 @@
 					"destination" : [ "obj-10", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 440.5, 162.0, 223.5, 162.0 ],
+					"midpoints" : [ 444.5, 181.0, 223.5, 181.0 ],
 					"source" : [ "obj-20", 0 ]
 				}
 
@@ -624,7 +648,7 @@
 					"destination" : [ "obj-10", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 134.5, 163.5, 223.5, 163.5 ],
+					"midpoints" : [ 134.5, 175.5, 223.5, 175.5 ],
 					"source" : [ "obj-21", 0 ]
 				}
 
@@ -652,8 +676,18 @@
 					"destination" : [ "obj-14", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 607.5, 56.0, 223.5, 56.0 ],
+					"midpoints" : [ 640.5, 56.0, 223.5, 56.0 ],
 					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 444.5, 125.0, 681.5, 125.0, 681.5, 10.0, 150.5, 10.0 ],
+					"source" : [ "obj-35", 0 ]
 				}
 
 			}
@@ -680,7 +714,7 @@
 					"destination" : [ "obj-13", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 150.5, 127.5, 223.5, 127.5 ],
+					"midpoints" : [ 150.5, 141.5, 223.5, 141.5 ],
 					"source" : [ "obj-65", 0 ]
 				}
 
@@ -699,7 +733,7 @@
 					"destination" : [ "obj-13", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 165.5, 127.5, 223.5, 127.5 ],
+					"midpoints" : [ 165.5, 141.5, 223.5, 141.5 ],
 					"source" : [ "obj-66", 0 ]
 				}
 
