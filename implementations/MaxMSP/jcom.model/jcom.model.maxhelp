@@ -58,7 +58,7 @@
 							"revision" : 5
 						}
 ,
-						"rect" : [ 25.0, 69.0, 543.0, 406.0 ],
+						"rect" : [ 25.0, 69.0, 537.0, 519.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -78,6 +78,53 @@
 						"digest" : "",
 						"tags" : "",
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-22",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 49.5, 458.0, 372.0, 43.0 ],
+									"presentation_rect" : [ 51.5, 458.0, 0.0, 0.0 ],
+									"text" : "when a subpatcher is duplicated andthen  renamed, jcom.model keeps the name of the original subpatcher, until it is rebuilt (by reloading the patcher, or cutting/pasting the subpatcher)"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-21",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 49.5, 419.0, 372.0, 31.0 ],
+									"presentation_rect" : [ 46.5, 418.0, 0.0, 0.0 ],
+									"text" : "jcom.models have to be created first, in order for the jcom.parameters in the same patcher (or below) to subscribe to them"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+									"id" : "obj-20",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 25.5, 384.0, 295.0, 19.0 ],
+									"presentation_rect" : [ 22.5, 384.0, 0.0, 0.0 ],
+									"text" : "NOTES :"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
