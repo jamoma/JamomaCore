@@ -142,7 +142,7 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		address = _sym_nothing;
 	
 	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
-	x->argc = 0; // the argc member is usefull to count how many time the external tries to bind
+	x->index = 0; // the index member is usefull to count how many time the external tries to bind
 	
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
 		
@@ -250,8 +250,8 @@ void receive_subscribe(TTPtr self)
 	TTObjectRelease(TTObjectHandle(&x->subscriberObject));
 	x->subscriberObject = NULL;
 	
-	x->argc++; // the index member is usefull to count how many time the external tries to bind
-	if (x->argc > 100) {
+	x->index++; // the index member is usefull to count how many time the external tries to bind
+	if (x->index > 100) {
 		object_error((ObjectPtr)x, "tries to bind too many times on %s", x->address->getCString());
 		object_obex_dumpout((ObjectPtr)x, gensym("error"), 0, NULL);
 		return;
@@ -274,7 +274,7 @@ void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 		// set address attribute of the wrapped Receiver object
 		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
-		x->argc = 0; // the index member is usefull to count how many time the external tries to bind
+		x->index = 0; // the index member is usefull to count how many time the external tries to bind
 		
 		atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);

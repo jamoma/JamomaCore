@@ -108,6 +108,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		address = _sym_nothing;
 	
 	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
+	x->index = 0; // the index member is usefull to count how many time the external tries to bind
 	
 	// Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
@@ -183,6 +184,7 @@ void remote_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
+	Atom						a[1];
 	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
 	TTNodeAddressPtr			absoluteAddress;
 	TTObjectPtr					toSubscribe, anObject;
@@ -193,16 +195,13 @@ void remote_subscribe(TTPtr self)
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
 		
 		// attach the jcom.remote to connected ui object
-		remote_attach(self);
-		return;
+		return remote_attach(self);
 	}
 	
 	// for relative address
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
 	
-	
 	// Do we subscribe the Viewer ?
-	
 	// View patcher case :
 	if (x->patcherContext == kTTSym_view) {
 		
@@ -226,51 +225,56 @@ void remote_subscribe(TTPtr self)
 	else 
 		toSubscribe = NULL;
 
-	
-	// Try to subscribe the Viewer or just use the Subscriber to get the context address
 	if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, x->address, &x->subscriberObject)) {
+		
 		// get the context address to make
 		// a viewer on the contextAddress/model/address parameter
 		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
 		v.get(0, (TTSymbolPtr*)&contextAddress);
-	}
-	else
-		contextAddress = kTTAdrsRoot;
-	
-	
-	// bind on the /model/address parameter (in view patch)  or set address directly
-	if (contextAddress != kTTAdrsEmpty) {
 		
-		if (x->patcherContext == kTTSym_view) {
+		if (x->patcherContext) {
 			makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
 			anObject->sendMessage(kTTSym_Get);
-		}
-		else {
-			absoluteAddress = contextAddress->appendAddress(x->address);
-			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+			
+			// attach the jcom.remote to connected ui object
+			return remote_attach(self);
 		}
 	}
 	
-	// In Model case : while the context node is not registered : try to binds again :(
+	// else, if no context, set address directly
+	else if (x->patcherContext == NULL) {
+		contextAddress = kTTAdrsRoot;
+		absoluteAddress = contextAddress->appendAddress(x->address);
+		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+		
+		atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
+		
+		// attach the jcom.remote to connected ui object
+		return remote_attach(self);
+	}
+	
+	// otherwise while the context node is not registered : try to binds again :(
 	// (to -- this is not a good way todo. For binding we should make a subscription 
 	// to a notification mechanism and each time an TTObjet subscribes to the namespace
 	// using jamoma_subscriber_create we notify all the externals which have used 
 	// jamoma_subscriber_create with NULL object to bind)
-	else if (x->patcherContext == kTTSym_model) {
-		
-		// release the subscriber
-		TTObjectRelease(TTObjectHandle(&x->subscriberObject));
-		x->subscriberObject = NULL;
-		
-		// The following must be deferred because we have to interrogate our box,
-		// and our box is not yet valid until we have finished instantiating the object.
-		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
-		defer_low((ObjectPtr)x, (method)remote_subscribe, NULL, 0, 0);
+	
+	// release the subscriber
+	TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+	x->subscriberObject = NULL;
+	
+	x->index++; // the index member is usefull to count how many time the external tries to bind
+	if (x->index > 100) {
+		object_error((ObjectPtr)x, "tries to bind too many times on %s", x->address->getCString());
+		object_obex_dumpout((ObjectPtr)x, gensym("error"), 0, NULL);
 		return;
 	}
 	
-	// attach the jcom.remote to connected ui object
-	remote_attach(self);
+	// The following must be deferred because we have to interrogate our box,
+	// and our box is not yet valid until we have finished instantiating the object.
+	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+	defer_low((ObjectPtr)x, (method)remote_subscribe, NULL, 0, 0);
 }
 
 void remote_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -335,23 +339,30 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTNodeAddressPtr address;
-	TTSymbolPtr service;
-	TTList		returnedNodes;
-	TTNodePtr	firstNode;
-	TTObjectPtr anObject;
-	TTValue		v;
-	TTErr		err;
+	TTNodeAddressPtr	absoluteAddress;
+	Atom				a[1];
+	TTSymbolPtr			service;
+	TTList				returnedNodes;
+	TTNodePtr			firstNode;
+	TTObjectPtr			anObject;
+	TTValue				v;
+	TTErr				err;
 	
 	if (argc && argv && x->wrappedObject) {
 		
 		// set address attribute of the wrapped Viewer object
-		address = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
-		x->wrappedObject->setAttributeValue(kTTSym_address, address);
+		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
+		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
+		x->index = 0; // the index member is usefull to count how many time the external tries to bind
+		
+		atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
+		
+		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress->getCString());
 		
 		// for Data object, if service is parameter or return : refresh !
 		// note : this would only work if the address already exists
-		err = getDirectoryFrom(address)->Lookup(address, returnedNodes, &firstNode);
+		err = getDirectoryFrom(absoluteAddress)->Lookup(absoluteAddress, returnedNodes, &firstNode);
 		
 		if (!err) {
 			if (anObject = firstNode->getObject()) {
@@ -366,6 +377,9 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 					x->wrappedObject->sendMessage(kTTSym_Refresh);
 			}
 		}
+		
+		// why not use this way to refresh ?
+		// defer((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
 	}
 }
 

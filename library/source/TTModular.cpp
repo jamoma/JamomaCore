@@ -120,7 +120,7 @@ TTNodeAddressItemPtr	TTModularNamespacesLookup(TTSymbolPtr namespaceName)
 	TTNodeAddressItemPtr	aNamespace = NULL;
 	TTValue			v;
 	
-	if (namespaceName != kTTSymEmpty) {
+	if (namespaceName != kTTSymEmpty && namespaceName != kTTSym_none) {
 		
 		if (!TTModularNamespaces->lookup(namespaceName, v))
 			v.get(0, (TTPtr*)&aNamespace);

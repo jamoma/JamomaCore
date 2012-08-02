@@ -85,7 +85,6 @@ private:
 	/** CSS definitions -- we include them in the html file itself so that we don't have problems with paths to external references */
 	void cssDefinition(TTString *buffer);
 	
-
 	
 	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& data);

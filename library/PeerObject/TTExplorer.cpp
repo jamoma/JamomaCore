@@ -13,7 +13,7 @@
 #define thisTTClassTags		"explorer"
 
 TT_MODULAR_CONSTRUCTOR,
-mNamespace(kTTSymEmpty),
+mNamespace(kTTSym_none),
 mAddress(kTTAdrsEmpty),
 mOutput(kTTSym_descendants),
 mUpdate(YES),
