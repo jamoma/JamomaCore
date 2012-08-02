@@ -7,7 +7,7 @@
 			"revision" : 5
 		}
 ,
-		"rect" : [ 141.0, 704.0, 880.0, 310.0 ],
+		"rect" : [ 56.0, 485.0, 880.0, 310.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -44,7 +44,7 @@
 							"revision" : 5
 						}
 ,
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 9.0,
@@ -150,7 +150,7 @@
 						"dependency_cache" : [  ]
 					}
 ,
-					"patching_rect" : [ 231.0, 97.0, 49.0, 18.0 ],
+					"patching_rect" : [ 230.0, 98.0, 49.0, 18.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 28.0, 214.0, 98.0, 18.0 ],
 					"saved_object_attributes" : 					{
@@ -187,7 +187,7 @@
 							"revision" : 5
 						}
 ,
-						"rect" : [ 25.0, 69.0, 355.0, 256.0 ],
+						"rect" : [ 328.0, 124.0, 355.0, 256.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 9.0,
@@ -207,6 +207,20 @@
 						"digest" : "",
 						"tags" : "",
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-35",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 84.0, 69.0, 217.0, 18.0 ],
+									"text" : "filter/set value part /value mode restrict"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 9.0,
@@ -230,8 +244,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 41.0, 168.0, 143.0, 25.0 ],
-									"text" : "append (choose a BCF widget ), append <separator>"
+									"patching_rect" : [ 41.0, 168.0, 312.0, 25.0 ],
+									"text" : "append (choose a BCF widget or click its destination menu below), append <separator>"
 								}
 
 							}
@@ -272,8 +286,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 39.0, 93.0, 300.0, 18.0 ],
-									"text" : "jcom.namespace+ @lookfor jcom.parameter @restrict/keys value"
+									"patching_rect" : [ 39.0, 93.0, 285.0, 18.0 ],
+									"text" : "jcom.namespace @filter/list parameter @format umenu_prefix"
 								}
 
 							}
@@ -328,7 +342,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "/BCF" ],
 									"patching_rect" : [ 39.0, 69.0, 39.0, 18.0 ],
-									"text" : "t /BCF"
+									"text" : "t #1"
 								}
 
 							}
@@ -371,10 +385,29 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-35", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"midpoints" : [ 48.5, 65.5, 93.5, 65.5 ],
+									"source" : [ "obj-2", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-6", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-6", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-35", 0 ]
 								}
 
 							}
@@ -425,21 +458,11 @@
 							}
  ],
 						"dependency_cache" : [ 							{
-								"name" : "jcom.namespace+.maxpat",
-								"bootpath" : "/Users/bltzr/Documents/dev/Jamoma/Modules/Modular/Max/library/components/namespace+",
-								"type" : "JSON",
-								"implicit" : 1
-							}
-, 							{
 								"name" : "jcom.init.mxo",
 								"type" : "iLaX"
 							}
 , 							{
 								"name" : "jcom.namespace.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.receive.mxo",
 								"type" : "iLaX"
 							}
  ]
@@ -487,7 +510,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-28",
-					"items" : [ "(choose", "a", "BCF", "widget", ")", ",", "<separator>" ],
+					"items" : [ "(choose", "a", "BCF", "widget", "or", "click", "its", "destination", "menu", "below)", ",", "<separator>", ",", "track.1/fader/value", ",", "track.1/key.1/value", ",", "track.1/key.2/value", ",", "track.1/press.1/value", ",", "track.1/press.2/value", ",", "track.1/press.3/value", ",", "track.1/press.4/value", ",", "track.1/turn.1/value", ",", "track.1/turn.2/value", ",", "track.1/turn.3/value", ",", "track.1/turn.4/value", ",", "track.2/fader/value", ",", "track.2/key.1/value", ",", "track.2/key.2/value", ",", "track.2/press.1/value", ",", "track.2/press.2/value", ",", "track.2/press.3/value", ",", "track.2/press.4/value", ",", "track.2/turn.1/value", ",", "track.2/turn.2/value", ",", "track.2/turn.3/value", ",", "track.2/turn.4/value", ",", "track.3/fader/value", ",", "track.3/key.1/value", ",", "track.3/key.2/value", ",", "track.3/press.1/value", ",", "track.3/press.2/value", ",", "track.3/press.3/value", ",", "track.3/press.4/value", ",", "track.3/turn.1/value", ",", "track.3/turn.2/value", ",", "track.3/turn.3/value", ",", "track.3/turn.4/value", ",", "track.4/fader/value", ",", "track.4/key.1/value", ",", "track.4/key.2/value", ",", "track.4/press.1/value", ",", "track.4/press.2/value", ",", "track.4/press.3/value", ",", "track.4/press.4/value", ",", "track.4/turn.1/value", ",", "track.4/turn.2/value", ",", "track.4/turn.3/value", ",", "track.4/turn.4/value", ",", "track.5/fader/value", ",", "track.5/key.1/value", ",", "track.5/key.2/value", ",", "track.5/press.1/value", ",", "track.5/press.2/value", ",", "track.5/press.3/value", ",", "track.5/press.4/value", ",", "track.5/turn.1/value", ",", "track.5/turn.2/value", ",", "track.5/turn.3/value", ",", "track.5/turn.4/value", ",", "track.6/fader/value", ",", "track.6/key.1/value", ",", "track.6/key.2/value", ",", "track.6/press.1/value", ",", "track.6/press.2/value", ",", "track.6/press.3/value", ",", "track.6/press.4/value", ",", "track.6/turn.1/value", ",", "track.6/turn.2/value", ",", "track.6/turn.3/value", ",", "track.6/turn.4/value", ",", "track.7/fader/value", ",", "track.7/key.1/value", ",", "track.7/key.2/value", ",", "track.7/press.1/value", ",", "track.7/press.2/value", ",", "track.7/press.3/value", ",", "track.7/press.4/value", ",", "track.7/turn.1/value", ",", "track.7/turn.2/value", ",", "track.7/turn.3/value", ",", "track.7/turn.4/value", ",", "track.8/fader/value", ",", "track.8/key.1/value", ",", "track.8/key.2/value", ",", "track.8/press.1/value", ",", "track.8/press.2/value", ",", "track.8/press.3/value", ",", "track.8/press.4/value", ",", "track.8/turn.1/value", ",", "track.8/turn.2/value", ",", "track.8/turn.3/value", ",", "track.8/turn.4/value" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -540,7 +563,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 133.0, 215.0, 52.0, 18.0 ],
+					"patching_rect" : [ 114.0, 236.0, 52.0, 18.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 28.0, 3.0, 52.0, 18.0 ],
 					"text" : ": enabled"
@@ -769,7 +792,7 @@
 						"dependency_cache" : [  ]
 					}
 ,
-					"patching_rect" : [ 170.0, 192.0, 46.0, 18.0 ],
+					"patching_rect" : [ 151.0, 213.0, 46.0, 18.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"digest" : "",
@@ -800,7 +823,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 129.0, 190.0, 43.0, 20.0 ],
+					"patching_rect" : [ 110.0, 211.0, 43.0, 20.0 ],
 					"prefix_mode" : 1,
 					"presentation" : 1,
 					"presentation_rect" : [ 2.0, 1.0, 26.0, 20.0 ]
@@ -816,7 +839,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 128.0, 168.0, 97.0, 18.0 ],
+					"patching_rect" : [ 109.0, 189.0, 97.0, 18.0 ],
 					"text" : "jcom.remote enable"
 				}
 
@@ -1238,7 +1261,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 38.0, 170.0, 25.0, 25.0 ]
+					"patching_rect" : [ 53.0, 178.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -1250,7 +1273,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 38.0, 112.0, 25.0, 25.0 ]
+					"patching_rect" : [ 53.0, 120.0, 25.0, 25.0 ]
 				}
 
 			}
@@ -1263,7 +1286,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 38.0, 142.0, 119.0, 18.0 ],
+					"patching_rect" : [ 53.0, 150.0, 119.0, 18.0 ],
 					"text" : "jcom.view"
 				}
 
@@ -1519,13 +1542,6 @@
 				"name" : "jcom.namespaceMenu.maxpat",
 				"bootpath" : "/Users/bltzr/Documents/dev/Jamoma/Modules/Modular/Max/library/components/namespaceMenu",
 				"patcherrelativepath" : "../../../library/components/namespaceMenu",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.namespace+.maxpat",
-				"bootpath" : "/Users/bltzr/Documents/dev/Jamoma/Modules/Modular/Max/library/components/namespace+",
-				"patcherrelativepath" : "../../../library/components/namespace+",
 				"type" : "JSON",
 				"implicit" : 1
 			}
