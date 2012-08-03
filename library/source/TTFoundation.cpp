@@ -36,6 +36,10 @@
 #include <ShlObj.h>
 #endif
 
+#ifdef TT_PLATFORM_MAC
+#include <Carbon/Carbon.h>
+#endif
+
 
 static bool		TTFoundationHasInitialized = false;
 static TTString	TTFoundationBinaryPath = "";

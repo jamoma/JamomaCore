@@ -53,7 +53,7 @@ TTErr TTMatrix::resize()
 {
 	TTUInt32 productOfDimensions = 1;
 
-	for (uint i=0; i<mDimensions.size(); i++) {
+	for (unsigned int i=0; i<mDimensions.size(); i++) {
 		if (i == 0)
 			productOfDimensions = mDimensions[i];
 		else
@@ -122,7 +122,7 @@ TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 	TTUInt8	size = mDimensions.size();
 
 	returnedDimensions.setSize(size);
-	for (uint i=0; i<size; i++)
+	for (unsigned int i=0; i<size; i++)
 		returnedDimensions.set(i, mDimensions[i]);
 	return kTTErrNone;
 }

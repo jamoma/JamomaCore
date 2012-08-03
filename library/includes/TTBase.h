@@ -25,10 +25,6 @@
 	#endif
 #endif
 
-#ifdef TT_PLATFORM_MAC
-#include <Carbon/Carbon.h>
-#endif
-
 #include <algorithm>
 #include <cstring>
 #include <cmath>
@@ -149,9 +145,10 @@ typedef unsigned short		TTUInt16;
 	#endif
 #endif
 
-#ifndef uint
-#define uint unsigned int
-#endif
+// can't do the follow -- conflicts on the mac with Carbon headers
+//#ifndef uint
+//#define uint unsigned int
+//#endif
 
 typedef float					TTFloat32;
 typedef double					TTFloat64;
