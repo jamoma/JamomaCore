@@ -298,7 +298,7 @@ public:
 	void get(const TTUInt16 index, TTInt64 &value) const;
 	void get(const TTUInt16 index, TTUInt64 &value) const;
 	void get(const TTUInt16 index, TTBoolean &value) const;
-	void get(const TTUInt16 index, TTSymbol* value) const;
+	void get(const TTUInt16 index, TTSymbol& value) const;
 	void get(const TTUInt16 index, TTString& value) const;
 	void get(const TTUInt16 index, TTObject& value) const;
 	void get(const TTUInt16 index, TTObject** value) const;

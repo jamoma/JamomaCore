@@ -11,6 +11,8 @@
 #include "TTSymbolTable.h"
 #include "TTMutex.h"
 
+#include "TTSymbolCache.h"
+
 #ifdef TT_PLATFORM_WIN
 	#include <hash_map>
 	using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
@@ -60,7 +62,7 @@ TTErr TTHash::append(const TTSymbolRef key, const TTValue& value)
 {
 	lock();
 //	HASHMAP->insert(TTKeyVal(TTPtrSizedInt(key), value));
-	HASHMAP->insert(TTKeyVal(key->mSymbolID, value));
+	HASHMAP->insert(TTKeyVal(key.getSymbolId(), value));
 	unlock();
 	return kTTErrNone;
 }
@@ -69,7 +71,7 @@ TTErr TTHash::append(const TTSymbolRef key, const TTValue& value)
 TTErr TTHash::lookup(const TTSymbolRef key, TTValue& value)
 {
 	lock();
-	TTHashMapIter iter = HASHMAP->find(TTPtrSizedInt(key));
+	TTHashMapIter iter = HASHMAP->find(TTPtrSizedInt(&key));
 
 	if (iter == HASHMAP->end()) {
 		unlock();
@@ -86,7 +88,7 @@ TTErr TTHash::lookup(const TTSymbolRef key, TTValue& value)
 TTErr TTHash::remove(const TTSymbolRef key)
 {
 	lock();
-	HASHMAP->erase(TTPtrSizedInt(key));
+	HASHMAP->erase(TTPtrSizedInt(&key));
 	unlock();
 	return kTTErrNone;
 }
@@ -118,7 +120,7 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 	lock();
 	TTList		listToSort;
 	TTValue		v;
-	TTSymbolRef key;
+	TTSymbolRef key(kTTSymEmpty);
 	
 	// fill a list to sort
 	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++) {
@@ -139,7 +141,7 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 	for (listToSort.begin(); listToSort.end(); listToSort.next()) {
 		
 		if (comparisonFunction) {
-			listToSort.current().get(0, &key);
+			listToSort.current().get(0, key);
 			hashKeysSorted.append(key);
 		}
 		else

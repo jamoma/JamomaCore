@@ -10,6 +10,14 @@
 #include "TTMutex.h"
 #include "TTValue.h"
 
+#include<iostream>
+#include<unordered_map>
+
+std::unordered_map<const char*, TTSymbolRef> gTTSymbolTable;
+
+
+
+
 #ifdef TT_PLATFORM_WIN
     #include <hash_map>
     using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
@@ -118,7 +126,7 @@ TTSymbolRef TTSymbolTable::lookup(const TTString& aString)
 	if (iter == mSYMBOLTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbol*	newSymbol = new TTSymbol(aString, mSYMBOLTABLE->size());
+		TTSymbol*	newSymbol = new TTSymbol(aString, (TTPtrSizedInt)this, mSYMBOLTABLE->size());
 		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->getCString(), newSymbol));
 		sMutex->unlock();
 		return *newSymbol;

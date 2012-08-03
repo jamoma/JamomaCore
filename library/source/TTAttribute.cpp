@@ -200,9 +200,9 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 		case kTypeObject:
 			*((TTObject*)attribute.address) = value;
 			return kTTErrNone;
-		case kTypeMatrix:
-			*((TTMatrix*)attribute.address) = value;
-			return kTTErrNone;
+//		case kTypeMatrix:
+//			*((TTMatrix*)attribute.address) = value;
+//			return kTTErrNone;
 		case kTypePointer:
 			*((TTPtr*)attribute.address) = (TTPtr)value;
 			return kTTErrNone;
@@ -306,7 +306,7 @@ TTErr TTAttribute::gethidden(TTValue& currentHiddenFlag)
 
 TTErr TTAttribute::setdescription(const TTValue& newDescription)
 {
-	newDescription.get(0, &description);
+	newDescription.get(0, description);
 	return kTTErrNone;
 }
 

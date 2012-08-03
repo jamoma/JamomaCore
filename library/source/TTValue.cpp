@@ -612,10 +612,8 @@ TTValue::operator TTBoolean() const
 TTValue& TTValue::operator = (TTSymbolRef value)
 {
 	setSize(1);
-	if ((TTSymbolRef)this != value) {
-		*type = kTypeSymbol;
-		data->sym = &value;
-	}
+	*type = kTypeSymbol;
+	data->sym = &value;
 	return *this;
 }
 
@@ -965,10 +963,10 @@ void TTValue::get(const TTUInt16 index, TTBoolean &value) const
 		CONVERT(TTBoolean)
 }
 
-void TTValue::get(const TTUInt16 index, TTSymbol* value) const
+void TTValue::get(const TTUInt16 index, TTSymbol& value) const
 {
 	if (type[index] == kTypeSymbol)
-		*value = (data+index)->sym;
+		value = *(data+index)->sym;
 }
 
 void TTValue::get(const TTUInt16 index, TTString& value) const
@@ -989,11 +987,11 @@ void TTValue::get(const TTUInt16 index, TTObject** value) const
 		*value = (data+index)->object;
 }
 
-void TTValue::get(const TTUInt16 index, TTMatrix &value) const
-{
-	if (type[index] == kTypeMatrix)
-		value = *(data+index)->matrix;
-}
+//void TTValue::get(const TTUInt16 index, TTMatrix &value) const
+//{
+//	if (type[index] == kTypeMatrix)
+//		value = *(data+index)->matrix;
+//}
 
 void TTValue::get(const TTUInt16 index, TTMatrix** value) const
 {

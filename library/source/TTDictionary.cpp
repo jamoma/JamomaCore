@@ -66,7 +66,7 @@ TTErr TTDictionary::getValue(TTValue& returnedValue) const
 
 TTErr TTDictionary::append(const TTSymbolRef key, const TTValue& value)
 {
-	TTValue v = new TTKeyVal(TTPtrSizedInt(key), value);
+	TTValue v = new TTKeyVal(TTPtrSizedInt(&key), value);
 	
 	remove(key);
 	mList->append(v);
@@ -85,7 +85,7 @@ TTErr TTDictionary::remove(const TTSymbolRef key)
 	TTValue	v;
 	TTErr	err;
 	
-	err = mList->find(TTDictionaryFindKeyInList, key, v);
+	err = mList->find(TTDictionaryFindKeyInList, &key, v);
 	if (!err)
 		mList->remove(v);
 	return mHashTable->remove(key);

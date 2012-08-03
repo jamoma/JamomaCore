@@ -43,7 +43,7 @@ TTErr TTMessage::gethidden(TTValue& currentHiddenFlag)
 
 TTErr TTMessage::setdescription(const TTValue& newDescription)
 {
-	newDescription.get(0, &description);
+	newDescription.get(0, description);
 	return kTTErrNone;
 }
 

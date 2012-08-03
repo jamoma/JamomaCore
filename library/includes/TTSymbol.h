@@ -68,7 +68,10 @@ public:
 	}
 	
 	/**	Return this symbol's unique id. */
-//	/*const*/ TTUInt32 getId();
+	/*const*/ TTUInt32 getSymbolId()
+	{
+		return mSymbolId;
+	}
 	
 	/** Compare two symbols for equality. */
 	inline friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
