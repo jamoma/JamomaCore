@@ -38,7 +38,7 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 
 	// Set Defaults...
 		
-	setAttributeValue(kTTSym_sampleRate,	(uint)ttEnvironment->mSampleRate);
+	setAttributeValue(kTTSym_sampleRate,	(unsigned int)ttEnvironment->mSampleRate);
 	setProcess(&TTAudioObject::bypassProcess);
     setCalculate(&TTAudioObject::defaultCalculateMethod);
 	setAttributeValue(TT("bypass"),			kTTBoolNo);	
