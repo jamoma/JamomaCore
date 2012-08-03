@@ -165,7 +165,7 @@ TTErr MaxAudioGraphDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject
 	TTAudioGraphObjectPtr	sourceObject = NULL;
 	TTErr 					err;
 	
-	err = (TTErr)int(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
+	err = (TTErr)long(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
 	if (self->audioGraphObject && sourceObject && !err)
 		err = self->audioGraphObject->dropAudio(sourceObject, sourceOutletNumber, inletNumber);	
 	return err;
