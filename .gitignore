@@ -32,3 +32,5 @@ Max/library/javascript/jcom.js_systeminfo.js
 
 # Git conflict files
 *.orig
+
+*.o
