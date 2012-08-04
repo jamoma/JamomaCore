@@ -69,10 +69,10 @@ TTPulseSub::~TTPulseSub()
 
 TTErr TTPulseSub::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
-	phasor->setAttributeValue(kTTSym_sampleRate, (uint)sr);
-	offset->setAttributeValue(kTTSym_sampleRate, (uint)sr);
-	env_gen->setAttributeValue(kTTSym_sampleRate, (uint)sr);
-	scaler->setAttributeValue(kTTSym_sampleRate, (uint)sr);
+	phasor->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
+	offset->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
+	env_gen->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
+	scaler->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
 	return kTTErrNone;
 }
 
