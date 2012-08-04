@@ -115,7 +115,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 
 TTErr TTAllpass::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
-	return mFilterObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
+	return mFilterObject->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
 }
 
 

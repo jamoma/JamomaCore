@@ -55,7 +55,7 @@ public:
 			if (err == kTTErrInvalidAttribute)
 				err = mActualFilterObject->setAttributeValue(TT("resonance"), mQ);
 			mActualFilterObject->setAttributeValue(TT("bypass"), this->attrBypass);
-			mActualFilterObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
+			mActualFilterObject->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
 		}
 		return err;
 	}
@@ -93,7 +93,7 @@ public:
 	
 	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 	{
-		return mActualFilterObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
+		return mActualFilterObject->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
 	}
 	
 	
