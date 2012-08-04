@@ -231,10 +231,10 @@ public:
 	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 	{
 		//for (int i=0; i<3; i++) {
-		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, (uint)sr);
-		mRamps[0]->setAttributeValue(kTTSym_sampleRate, (uint)sr); 
+		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
+		mRamps[0]->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr); 
 		//}
-		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, (uint)sr);
+		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
 	}
 
 	TTErr setMode(const TTValue& newValue)
