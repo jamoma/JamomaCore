@@ -1,8 +1,8 @@
 sources:
   - FFTLib.cpp
   - source/TTFFT.cpp
-  - mayer/mayer_fft.c
-  - fft/fftsg.c   
+  - mayer/mayer_fft.cpp
+  - fft/fftsg.cpp
     
 includes:
   - includes
