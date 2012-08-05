@@ -134,7 +134,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 685.0, 135.0, 427.0, 31.0 ],
-					"text" : "jcom.parameter range @type array @ramp/drive scheduler @ramp/function linear @description \"The range of the sweeps as MIDI values.\"",
+					"text" : "jcom.parameter range @type decimalArray @ramp/drive scheduler @ramp/function linear @description \"The range of the sweeps as MIDI values.\"",
 					"varname" : "range"
 				}
 

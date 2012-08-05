@@ -164,7 +164,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 100.0, 343.0, 31.0 ],
-					"text" : "jcom.message colors @type array @description \"Set what colors to mix from (list containing 1 to 12 triplets of RGB values).\"",
+					"text" : "jcom.message colors @type decimalArray @description \"Set what colors to mix from (list containing 1 to 12 triplets of RGB values).\"",
 					"varname" : "jcom.parameter[7]"
 				}
 

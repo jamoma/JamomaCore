@@ -280,8 +280,19 @@ t_max_err return_attr_gettype(t_return *x, void *attr, long *argc, t_atom **argv
 
 t_max_err return_attr_settype(t_return *x, void *attr, long argc, t_atom *argv)
 {
-	if (argc && argv)
+	/*
+	 The @type attribute in jcom.return mainly serves documentation purposes. 
+	 jcom.return do not perform any real type checking and convertion the way jcom.parameter do.
+	 Instead we assume that the module is developed in such a way that it gets the type of the messages right before they are passed to jcom.return.
+	 */
+
+	if (argc && argv) {
 		x->common.attr_type = atom_getsym(argv);
+		if (x->common.attr_type == jps_array) {
+			x->common.attr_type = jps_decimalArray;
+			object_post((t_object*)x, "Jamoma - jcom.return %s in the module %s: @type array is deprecated, set to decimalArray", x->common.attr_name->s_name, x->common.module_name->s_name);			
+		}
+	}
 	return MAX_ERR_NONE;
 }
 
@@ -356,13 +367,13 @@ void return_int(t_return *x, long value)
 	}
 	if (x->common.attr_clipmode != _sym_none) {
 		if (x->common.attr_clipmode == jps_both)
-			TTLimit<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
+			TTLimit<TTInt32>(value, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_low)
-			TTLimitMin<TTInt32>(value, x->common.attr_range[0]);
+			TTLimitMin<TTInt32>(value, (long)x->common.attr_range[0]);
 		else if (x->common.attr_clipmode == jps_high)
-			TTLimitMax<TTInt32>(value, x->common.attr_range[1]);
+			TTLimitMax<TTInt32>(value, (long)x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_wrap)
-			value = TTInfWrap<TTInt32>(value,x->common.attr_range[0], x->common.attr_range[1]);
+			value = TTInfWrap<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_fold)
 			value = TTFold<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
 	}
@@ -435,7 +446,7 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 			return_int(x, 0);
 		}
 	else 
-		if ((x->common.attr_type == jps_array) || (x->common.attr_type == jps_generic)){			
+		if ((x->common.attr_type == jps_decimalArray) || (x->common.attr_type == jps_integerArray) || (x->common.attr_type == jps_generic)){			
 			int rc = argc+1;
 			AtomPtr rv = (AtomPtr)sysmem_newptr(sizeof(Atom) * rc);
 			
@@ -500,7 +511,7 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 			return;
 	}
 	
-	else {								// type is none, generic or array:
+	else {								// type is none, generic, decimalArray or integerArray:
 		
 		// If the list starts with a symbol, this need to be passed as the message from k_outlet_thru, and the list of arguments need to be reduced by one
 		if (argv[0].a_type == A_SYM){			

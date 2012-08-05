@@ -1561,7 +1561,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 779.0, 201.0, 185.0, 55.0 ],
-					"text" : "jcom.parameter file/loop/bounds @type array @repetitions/allow 0 @description \"List of low and high loop point values\"",
+					"text" : "jcom.parameter file/loop/bounds @type decimalArray @repetitions/allow 0 @description \"List of low and high loop point values\"",
 					"varname" : "file/loop_points"
 				}
 

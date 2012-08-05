@@ -2740,7 +2740,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 373.0, 220.0, 150.0, 47.0 ],
-													"text" : "jcom.return array/value/2 @type array @repetitions/allow 1"
+													"text" : "jcom.return array/value/2 @type decimalArray @repetitions/allow 1"
 												}
 
 											}
@@ -2794,7 +2794,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 207.0, 220.0, 149.0, 47.0 ],
-													"text" : "jcom.return array/value/1 @type array @repetitions/allow 1"
+													"text" : "jcom.return array/value/1 @type decimalArray @repetitions/allow 1"
 												}
 
 											}

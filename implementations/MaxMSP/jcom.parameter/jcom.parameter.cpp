@@ -607,8 +607,20 @@ MaxErr param_attr_settype(t_param *x, void *attr, AtomCount argc, AtomPtr argv)
 	else if (arg == jps_generic) {
 		x->param_output = &param_output_generic;
 	} 
+	else if (arg == jps_decimalArray) {
+		x->param_output = &param_output_decimalArray;
+	}
+	else if (arg == jps_integerArray) {
+		x->param_output = &param_output_integerArray;
+	}
 	else if (arg == jps_array) {
-		x->param_output = &param_output_list;
+#ifdef JMOD_MESSAGE
+		object_post((t_object*)x, "Jamoma - jcom.message %s in the module %s: @type array is deprecated, set to decimalArray", x->common.attr_name->s_name, x->common.module_name->s_name);
+#else
+		object_post((t_object*)x, "Jamoma - jcom.parameter %s in the module %s: @type array is deprecated, set to decimalArray", x->common.attr_name->s_name, x->common.module_name->s_name);
+#endif
+		x->common.attr_type = jps_decimalArray;
+		x->param_output = &param_output_decimalArray;
 	}
 
 #ifdef JMOD_MESSAGE
@@ -1092,7 +1104,7 @@ void param_output_symbol(void *z)
 	
 }
 
-void param_output_list(void *z)
+void param_output_decimalArray(void *z)
 {
 	int i;
 	t_param *x = (t_param *)z;
@@ -1120,7 +1132,7 @@ void param_output_list(void *z)
 	
 		// Clip to specified range, depending on clipmode. 
 		// The clip method also ensures that all list items are floats
-		if (param_clip_list(x) && x->ramper)
+		if (param_clip_decimalArray(x) && x->ramper)
 			x->ramper->stop();							// stop the ramp
 		
 		// Update stored values
@@ -1133,6 +1145,64 @@ void param_output_list(void *z)
 		param_send_feedback(x);
 		x->isSending = NO;
 	
+		x->isInitialised = YES;	// We have had our value set at least once
+	}
+}
+
+
+void param_output_integerArray(void *z)
+{
+	int i;
+	t_param *x = (t_param *)z;
+	
+	// Dataspace conversion
+	if (x->isOverriding)
+	{
+		long	ac = 0;
+		AtomPtr	av = NULL;
+		bool	alloc = false;
+		
+		param_convert_units(x, x->listTemp_size, x->atom_listTemp, &ac, &av, &alloc);
+		for (i=0; i<x->listTemp_size; i++)
+			atom_setfloat(&x->atom_listTemp[i], atom_getfloat(av+i));
+		
+		if (alloc)
+			delete[] av;
+	}
+	
+	// Convert to integers - if ramping, then round, else truncate
+	if (x->receivedCallback) {
+		for (i=0; i<x->listTemp_size; i++) {
+			atom_setlong(&x->atom_listTemp[i], round(atom_getfloat(&x->atom_listTemp[i])));
+			x->receivedCallback = false;
+		}
+	}
+	else {
+		for (i=0; i<x->listTemp_size; i++)
+			atom_setlong(&x->atom_listTemp[i], atom_getfloat(&x->atom_listTemp[i]));
+	}
+	
+	// Test for repetitions before clipping and outputting. 
+	// Refer to comment in param_output_float for further details.
+	int newListDiffers = param_list_compare(x, x->atom_listTemp, x->listTemp_size, x->atom_list, x->list_size);
+	
+	if ( !x->isInitialised || x->common.attr_repetitions || (newListDiffers==0) ) {
+		
+		// Clip to specified range, depending on clipmode. 
+		// The clip method also ensures that all list items are floats
+		if (param_clip_integerArray(x) && x->ramper)
+			x->ramper->stop();							// stop the ramp
+		
+		// Update stored values
+		x->list_size = x->listTemp_size;
+		for (i=0; i<x->listTemp_size; i++)
+			atom_setlong(&x->atom_list[i], atom_getlong(&x->atom_listTemp[i]));
+		
+		x->isSending = YES;
+		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
+		param_send_feedback(x);
+		x->isSending = NO;
+		
 		x->isInitialised = YES;	// We have had our value set at least once
 	}
 }
@@ -1688,7 +1758,7 @@ void param_list(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	} 
 	else {
 		// Restrict the length of the list for @type integer, boolean, decimal and string
-		if ((x->common.attr_type != jps_array) && (x->common.attr_type != jps_generic) && (x->common.attr_type != jps_none))
+		if ((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_decimal) || (x->common.attr_type == jps_boolean) || (x->common.attr_type==jps_string))
 			if (vectorSize>1)
 				vectorSize = 1;
 		
@@ -1802,7 +1872,9 @@ void param_dispatched(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
 			//if (x->common.attr_type == jps_generic)
 			x->list_size = 0;
-			if (x->common.attr_type != jps_array)	// zero length list parameters are not allowed
+			
+			// zero length list parameters are not allowed
+			if ((x->common.attr_type!=jps_decimalArray) && (x->common.attr_type!=jps_integerArray))
 				x->param_output(x);
 		}
 	}
@@ -1889,8 +1961,8 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 	else if (x->common.attr_type==jps_none)
 		return 0;
 	
-	// Dedicated test for @type array. If we spot a difference, we return 0.
-	else if (x->common.attr_type== jps_array) {
+	// Dedicated test for @type decimalArray. If we spot a difference, we return 0.
+	else if (x->common.attr_type== jps_decimalArray) {
 		// If length differs => the lists  differs
 		if (length1 != length2)
 			return 0;
@@ -1898,6 +1970,22 @@ int param_list_compare(t_param* x, AtomPtr a, long lengthA, AtomPtr b, long leng
 			// Values are compared as floats
 			for (i = 0; i < length1; i++, a++, b++) {
 				if (atom_getfloat(a) != atom_getfloat(b))
+					return 0;
+			}
+			// Did not find any differences => the two lists are identical
+			return 1;
+		}
+	}
+
+	// Dedicated test for @type integerArray. If we spot a difference, we return 0.
+	else if (x->common.attr_type== jps_integerArray) {
+		// If length differs => the lists  differs
+		if (length1 != length2)
+			return 0;
+		else {
+			// Values are compared as floats
+			for (i = 0; i < length1; i++, a++, b++) {
+				if (atom_getlong(a) != atom_getlong(b))
 					return 0;
 			}
 			// Did not find any differences => the two lists are identical
@@ -2016,7 +2104,7 @@ void param_ramp_callback_int(void *v, long, double *value)
 }
 
 
-void param_ramp_callback_list(void *v, AtomCount argc, double *value)
+void param_ramp_callback_decimalArray(void *v, AtomCount argc, double *value)
 {
 	long i;
 	t_param *x = (t_param *)v;
@@ -2025,7 +2113,20 @@ void param_ramp_callback_list(void *v, AtomCount argc, double *value)
 	
 	for (i=0; i<argc; i++)
 		atom_setfloat(&x->atom_listTemp[i], value[i]);
-	param_output_list(x);
+	param_output_decimalArray(x);
+}
+
+
+void param_ramp_callback_integerArray(void *v, AtomCount argc, double *value)
+{
+	long i;
+	t_param *x = (t_param *)v;
+	
+	// x->listTemp_size was set when initiating the ramp, and we don't need to repeat that here
+	
+	for (i=0; i<argc; i++)
+		atom_setfloat(&x->atom_listTemp[i], value[i]);
+	param_output_integerArray(x);
 }
 
 
@@ -2047,8 +2148,10 @@ void param_ramp_setup(t_param *x)
 		
 	if ((x->common.attr_type == jps_integer) || (x->common.attr_type == jps_boolean))
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_int, (void *)x);
-	else if (x->common.attr_type == jps_array)
-		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_list, (void *)x);
+	else if (x->common.attr_type == jps_decimalArray)
+		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_decimalArray, (void *)x);
+	else if (x->common.attr_type == jps_integerArray)
+		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_integerArray, (void *)x);
 	else
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_float, (void *)x);
 

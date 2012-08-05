@@ -1060,7 +1060,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 100.0, 548.0, 19.0 ],
-									"text" : "jcom.parameter color/rgb2native @type array @dataspace color @dataspace/unit hsl @repetitions/allow 1"
+									"text" : "jcom.parameter color/rgb2native @type decimalArray @dataspace color @dataspace/unit hsl @repetitions/allow 1"
 								}
 
 							}
@@ -1074,7 +1074,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 50.0, 255.0, 548.0, 19.0 ],
-									"text" : "jcom.parameter color/hsl2native @type array @dataspace color @dataspace/unit rgb @repetitions/allow 1"
+									"text" : "jcom.parameter color/hsl2native @type decimalArray @dataspace color @dataspace/unit rgb @repetitions/allow 1"
 								}
 
 							}

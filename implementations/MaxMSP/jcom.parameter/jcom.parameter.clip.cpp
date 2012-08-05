@@ -135,8 +135,8 @@ bool param_clip_float(t_param *x)
 }
 
 
-// range limiting on list input
-bool param_clip_list(t_param *x)
+// range limiting on decimalArray input
+bool param_clip_decimalArray(t_param *x)
 {
 	short i;
 	float fclipped, fbefore;
@@ -180,3 +180,48 @@ bool param_clip_list(t_param *x)
 	return didClipAll;
 }
 
+
+// range limiting on decimalArray input
+bool param_clip_integerArray(t_param *x)
+{
+	short i;
+	long iclipped, ibefore;
+	
+	// Initially we assume that all list members have clipped, so that ramping can be halted.
+	// If we later on find a list member that did not clip, we set the flag to false
+	bool didClipAll = true;
+	
+	for (i=0; i < x->listTemp_size; i++) {
+		
+		// Floats and symbols are converted to int
+		if (x->atom_listTemp[i].a_type == A_LONG)
+			ibefore = atom_getlong(&x->atom_listTemp[i]);
+		else if (x->atom_listTemp[i].a_type == A_FLOAT)
+			ibefore = atom_getlong(&x->atom_listTemp[i]);
+		else if (x->atom_listTemp[i].a_type == A_SYM)
+			ibefore = 0.;
+		
+		iclipped = ibefore;
+		
+		if (x->common.attr_clipmode == jps_low)
+			TTLimitMin(iclipped, (long)x->common.attr_range[0]);
+		else if (x->common.attr_clipmode == jps_high)
+			TTLimitMax(iclipped, (long)x->common.attr_range[1]);
+		else if (x->common.attr_clipmode == jps_both)
+			TTLimit(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+		else if (x->common.attr_clipmode == jps_wrap)
+			iclipped = TTInfWrap(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+		else if (x->common.attr_clipmode == jps_fold)
+			iclipped = TTFold(iclipped, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+		
+		if (ibefore==iclipped)
+			didClipAll = false;
+		
+		atom_setlong(&x->atom_listTemp[i], iclipped);
+	}
+	// prevent ramp halts for fold and wrap
+	if ((x->common.attr_clipmode==jps_fold) || (x->common.attr_clipmode== jps_wrap))
+		didClipAll = false;
+	
+	return didClipAll;
+}

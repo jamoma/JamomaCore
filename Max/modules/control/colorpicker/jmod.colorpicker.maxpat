@@ -297,7 +297,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 315.0, 280.0, 412.0, 19.0 ],
-					"text" : "jcom.return colors/return @type array @description \"List of all selected colors.\""
+					"text" : "jcom.return colors/return @type decimalArray @description \"List of all selected colors.\""
 				}
 
 			}
@@ -1396,7 +1396,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 35.0, 270.0, 365.0, 31.0 ],
-									"text" : "jcom.message colors/in @type array @repetitions/allow 1 @description \"Shortcut for setting colors: List of 1 to 12 HSL triplets.\"",
+									"text" : "jcom.message colors/in @type decimalArray @repetitions/allow 1 @description \"Shortcut for setting colors: List of 1 to 12 HSL triplets.\"",
 									"varname" : "colors"
 								}
 

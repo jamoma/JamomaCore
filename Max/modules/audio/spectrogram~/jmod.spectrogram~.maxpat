@@ -283,7 +283,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 720.0, 549.0, 581.0, 31.0 ],
-					"text" : "jcom.parameter colors @type array @range/bounds 0. 1. @range/clipmode none@ramp/drive none @dataspace color @dataspace/unit rgb @description \"Color adjustments to spectrogram\"",
+					"text" : "jcom.parameter colors @type decimalArray @range/bounds 0. 1. @range/clipmode none@ramp/drive none @dataspace color @dataspace/unit rgb @description \"Color adjustments to spectrogram\"",
 					"varname" : "threshold[2]"
 				}
 

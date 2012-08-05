@@ -334,7 +334,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 940.0, 390.0, 248.0, 31.0 ],
-					"text" : "jcom.parameter shadow/offset @type array @description \"Offset of shadow position (%).\"",
+					"text" : "jcom.parameter shadow/offset @type decimalArray @description \"Offset of shadow position (%).\"",
 					"varname" : "shadow/offset"
 				}
 
@@ -410,7 +410,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 620.0, 730.0, 286.0, 31.0 ],
-					"text" : "jcom.parameter shadow/color/rgb @type array @range/bounds 0. 1. @dataspace color @dataspace/unit rgb @description \"Object color as red, green, blue (0.-1.).\"",
+					"text" : "jcom.parameter shadow/color/rgb @type decimalArray @range/bounds 0. 1. @dataspace color @dataspace/unit rgb @description \"Object color as red, green, blue (0.-1.).\"",
 					"varname" : "shadow/color/rgb"
 				}
 

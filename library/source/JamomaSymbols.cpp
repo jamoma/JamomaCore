@@ -32,6 +32,8 @@ t_symbol	*jps_done,
 			*jps_decimal, 
 			*jps_string,
 			*jps_array,
+			*jps_decimalArray,
+			*jps_integerArray,
 			*jps_boolean, 
             *jps_list_int,
             *jps_list_float,
@@ -233,15 +235,17 @@ void jamomaSymbolsInit()
 	jps_inc							= SymbolGen("inc");
 	jps_dec							= SymbolGen("dec");
 	// types
-	jps_generic					= SymbolGen("generic"); 
+	jps_generic						= SymbolGen("generic"); 
 	jps_integer						= SymbolGen("integer"); 
-	jps_decimal					= SymbolGen("decimal"); 
-	jps_string					= SymbolGen("string");
-	jps_array					= SymbolGen("array");
-	jps_boolean					= SymbolGen("boolean");
+	jps_decimal						= SymbolGen("decimal"); 
+	jps_string						= SymbolGen("string");
+	jps_array						= SymbolGen("array");
+	jps_decimalArray				= SymbolGen("decimalArray");
+	jps_integerArray				= SymbolGen("integerArray");
+	jps_boolean						= SymbolGen("boolean");
     jps_list_int                    = SymbolGen("list_int");
     jps_list_float                  = SymbolGen("list_float");
-	jps_none					= SymbolGen("none");			// this type only used by jcom.message
+	jps_none						= SymbolGen("none");			// this type only used by jcom.message
 	jps_jcom_hub					= SymbolGen("jcom.hub"); 
     jps_feedback					= SymbolGen("__feedback__");		// used for parameter feedback to the hub
 	// common OSC messages according to the JIG

@@ -28,7 +28,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 620.0, 485.0, 471.0, 31.0 ],
-					"text" : "jcom.parameter chromakey/color @repetitions/allow 0 @type array  @dataspace color @dataspace/unit rgb @range/bounds 0. 1. @range/clipmode both @description \"Chroma keying color (RGB in the range 0-1).\"",
+					"text" : "jcom.parameter chromakey/color @repetitions/allow 0 @type decimalArray  @dataspace color @dataspace/unit rgb @range/bounds 0. 1. @range/clipmode both @description \"Chroma keying color (RGB in the range 0-1).\"",
 					"varname" : "key/blue[1]"
 				}
 

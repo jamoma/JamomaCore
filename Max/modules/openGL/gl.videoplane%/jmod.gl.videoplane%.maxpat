@@ -271,7 +271,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 470.0, 544.0, 19.0 ],
-					"text" : "jcom.parameter videoplane/texture/scale @type array @description \"Texture scale (x, y coordinates).\"",
+					"text" : "jcom.parameter videoplane/texture/scale @type decimalArray @description \"Texture scale (x, y coordinates).\"",
 					"varname" : "videoplane/texture/scale"
 				}
 
