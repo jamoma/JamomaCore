@@ -37,7 +37,9 @@
 #endif
 
 #ifdef TT_PLATFORM_MAC
-#include <Carbon/Carbon.h>
+//#include <Carbon/Carbon.h>
+#define __COREFOUNDATION_CFMESSAGEPORT__ 1
+#include <CoreFoundation/CFBundle.h> 
 #endif
 
 
