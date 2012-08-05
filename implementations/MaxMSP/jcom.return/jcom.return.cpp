@@ -367,13 +367,13 @@ void return_int(t_return *x, long value)
 	}
 	if (x->common.attr_clipmode != _sym_none) {
 		if (x->common.attr_clipmode == jps_both)
-			TTLimit<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
+			TTLimit<TTInt32>(value, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_low)
-			TTLimitMin<TTInt32>(value, x->common.attr_range[0]);
+			TTLimitMin<TTInt32>(value, (long)x->common.attr_range[0]);
 		else if (x->common.attr_clipmode == jps_high)
-			TTLimitMax<TTInt32>(value, x->common.attr_range[1]);
+			TTLimitMax<TTInt32>(value, (long)x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_wrap)
-			value = TTInfWrap<TTInt32>(value,x->common.attr_range[0], x->common.attr_range[1]);
+			value = TTInfWrap<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
 		else if (x->common.attr_clipmode == jps_fold)
 			value = TTFold<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
 	}
