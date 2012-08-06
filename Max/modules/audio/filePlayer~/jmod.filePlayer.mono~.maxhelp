@@ -94,14 +94,14 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 57.0, 266.0, 300.0, 140.0 ],
+					"patching_rect" : [ 57.0, 280.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jmod.filePlayer.stereo~", "@description", "Playback of stereo sound files with preloading of files to play." ],
+					"args" : [ "@name", "jmod.filePlayer.stereo~", "@description", "Playback of mono sound files with preloading of files to play." ],
 					"bgmode" : 1,
 					"id" : "obj-2",
 					"maxclass" : "bpatcher",
@@ -118,10 +118,10 @@
 					"args" : [ "filePlayer" ],
 					"id" : "obj-1",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.filePlayer.stereo~.maxpat",
+					"name" : "jmod.filePlayer.mono~.maxpat",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "signal", "signal" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "signal" ],
 					"patching_rect" : [ 57.0, 108.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
 				}
@@ -133,7 +133,7 @@
 					"destination" : [ "obj-7", 2 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-1", 2 ]
+					"source" : [ "obj-1", 1 ]
 				}
 
 			}
@@ -157,7 +157,7 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "jmod.filePlayer.stereo~.maxpat",
+				"name" : "jmod.filePlayer.mono~.maxpat",
 				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/modules/audio/filePlayer~",
 				"patcherrelativepath" : "",
 				"type" : "JSON",

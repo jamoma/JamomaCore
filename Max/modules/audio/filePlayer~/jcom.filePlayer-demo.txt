@@ -6,9 +6,6 @@ CUE Initialisation	# (fold)
 		/output~/alias/remove
 		/output~/audio/active 0
 		/output~/audio/gain 0.000
-		/output~/balance 0.000
-		/output~/ch.1 1
-		/output~/ch.2 2
 		/output~/limiter/active 0
 		/output~/limiter/dcblocker/active 1
 		/output~/limiter/lookahead 64
@@ -19,21 +16,19 @@ CUE Initialisation	# (fold)
 		/output~/limiter/threshold -1.000
 		/output~/record/filetype aiff
 		/output~/record/samptype int24
-		/output~/saturation/active 1
-		/output~/saturation/depth 10.000
 		/output~/view/freeze 0
 		/output~/view/highlight 0
-	# Module /stereoPlayer
-		/stereoPlayer/alias/remove
-		/stereoPlayer/nextFile/loop/start 0.000
-		/stereoPlayer/nextFile/loop/end 0.000
-		/stereoPlayer/nextFile/rate 1.000
-		/stereoPlayer/audio/gain 0.000
-		/stereoPlayer/audio/mute 0
-		/stereoPlayer/loop 1
-		/stereoPlayer/play 0
-		/stereoPlayer/view/freeze 0
-		/stereoPlayer/view/highlight 0
+	# Module /filePlayer
+		/filePlayer/alias/remove
+		/filePlayer/nextFile/loop/start 0.000
+		/filePlayer/nextFile/loop/end 0.000
+		/filePlayer/nextFile/rate 1.000
+		/filePlayer/audio/gain 0.000
+		/filePlayer/audio/mute 0
+		/filePlayer/loop 1
+		/filePlayer/play 0
+		/filePlayer/view/freeze 0
+		/filePlayer/view/highlight 0
 
 # (end)
 
@@ -41,8 +36,8 @@ CUE Initialisation	# (fold)
 CUE AudioOn	# (fold)
 ###########################################################################
 
-	# Module /stereoPlayer
-		/stereoPlayer/audio/gain 100.000
+	# Module /filePlayer
+		/filePlayer/audio/gain 100.000
 
 	# Module /output~
 		/output~/audio/active 1
@@ -55,14 +50,14 @@ CUE PreloadDrums	# (fold)
 ###########################################################################
 
 	# First we set the file to play, start and end positions, and playback rate
-	/stereoPlayer/nextFile/open drumLoop.aif
-	/stereoPlayer/nextFile/loop/start 0.
-	/stereoPlayer/nextFile/loop/end 0.		# 0: Play to end of file
-	/stereoPlayer/nextFile/rate 1.
+	/filePlayer/nextFile/open drumLoop.aif
+	/filePlayer/nextFile/loop/start 0.
+	/filePlayer/nextFile/loop/end 0.		# 0: Play to end of file
+	/filePlayer/nextFile/rate 1.
 	
 	# Next we preload it.
 	# This way it can be triggered instantly by next cue, without delays caused by disk seek times
-	/stereoPlayer/nextFile/preload
+	/filePlayer/nextFile/preload
 
 # (end)
 
@@ -71,9 +66,9 @@ CUE PlayDrums	# (fold)
 ###########################################################################
 
 	# We make the preloaded file the current one
-	/stereoPlayer/nextFile/makeCurrent
+	/filePlayer/nextFile/makeCurrent
 	
-	/stereoPlayer/play 1
+	/filePlayer/play 1
 
 # (end)
 
@@ -82,14 +77,14 @@ CUE PreloadCello	# (fold)
 ###########################################################################
 
 	# First we set the file to play, start and end positions, and playback rate
-	/stereoPlayer/nextFile/open cello-f2.aif
-	/stereoPlayer/nextFile/loop/start 0.
-	/stereoPlayer/nextFile/loop/end 0.
-	/stereoPlayer/nextFile/rate -1.			# Reverse playback
+	/filePlayer/nextFile/open cello-f2.aif
+	/filePlayer/nextFile/loop/start 0.
+	/filePlayer/nextFile/loop/end 0.
+	/filePlayer/nextFile/rate -1.			# Reverse playback
 	
 	# Next we preload it.
 	# This way it can be triggered instantly by next cue, without delays caused by disk seek times
-	/stereoPlayer/nextFile/preload
+	/filePlayer/nextFile/preload
 
 # (end)
 
@@ -98,9 +93,9 @@ CUE PlayCello	# (fold)
 ###########################################################################
 
 	# We make the preloaded file the current one
-	/stereoPlayer/nextFile/makeCurrent
+	/filePlayer/nextFile/makeCurrent
 
-	/stereoPlayer/play 1
+	/filePlayer/play 1
 
 # (end)
 
@@ -110,14 +105,14 @@ CUE PreloadVibes	# (fold)
 ###########################################################################
 
 	# First we set the file to play, start and end positions, and playback rate
-	/stereoPlayer/nextFile/open vibes-a1.aif
-	/stereoPlayer/nextFile/loop/start 450	# Start playback 200 ms into the sound file
-	/stereoPlayer/nextFile/loop/end 0		# Loop end point at end of sound file
-	/stereoPlayer/nextFile/rate -0.5		# Reverse playback at reduced speed
+	/filePlayer/nextFile/open vibes-a1.aif
+	/filePlayer/nextFile/loop/start 450	# Start playback 200 ms into the sound file
+	/filePlayer/nextFile/loop/end 0		# Loop end point at end of sound file
+	/filePlayer/nextFile/rate -0.5		# Reverse playback at reduced speed
 	
 	# Next we preload it.
 	# This way it can be triggered instantly by next cue, without delays caused by disk seek times
-	/stereoPlayer/nextFile/preload
+	/filePlayer/nextFile/preload
 
 # (end)
 
@@ -126,8 +121,8 @@ CUE PlayVibes	# (fold)
 ###########################################################################
 
 	# We make the preloaded file the current one
-	/stereoPlayer/nextFile/makeCurrent
+	/filePlayer/nextFile/makeCurrent
 
-	/stereoPlayer/play 1
+	/filePlayer/play 1
 	
 # (end)

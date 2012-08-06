@@ -30,14 +30,84 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"id" : "obj-18",
+					"maxclass" : "newobj",
+					"numinlets" : 4,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 301.0, 480.5, 81.0, 20.0 ],
+					"text" : "jcom.pack≈ 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-14",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 381.0, 140.0, 141.0, 20.0 ],
+					"text" : "jcom.meter_receive 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-15",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 381.0, 100.0, 141.0, 20.0 ],
+					"text" : "jcom.meter_receive 3"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"annotation" : "amplitude of output signal 2",
+					"id" : "obj-16",
+					"maxclass" : "jcom.meter~",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 381.0, 165.0, 80.0, 4.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 180.0, 13.0, 80.0, 4.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"annotation" : "amplitude of output signal 1",
+					"id" : "obj-17",
+					"maxclass" : "jcom.meter~",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 381.0, 125.0, 80.0, 4.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 180.0, 9.0, 80.0, 4.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-25",
 					"linecount" : 3,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 44.0, 308.5, 245.0, 47.0 ],
-					"text" : "jcom.hub @description \"Sound file playback module with preloading of files. Stereo version.\""
+					"patching_rect" : [ 44.0, 308.5, 246.0, 47.0 ],
+					"text" : "jcom.hub @description \"Sound file playback module with preloading of files. 4 channel (ambisonic) version.\""
 				}
 
 			}
@@ -92,11 +162,11 @@
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
-					"numoutlets" : 4,
-					"outlettype" : [ "signal", "signal", "signal", "bang" ],
+					"numoutlets" : 6,
+					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "bang" ],
 					"patching_rect" : [ 301.0, 392.0, 133.0, 20.0 ],
-					"save" : [ "#N", "sfplay~", "$0__sflist", 2, 120960, 1, "", ";" ],
-					"text" : "sfplay~ #0__sflist 2 0 1"
+					"save" : [ "#N", "sfplay~", "$0__sflist", 4, 120960, 1, "", ";" ],
+					"text" : "sfplay~ #0__sflist 4 0 1"
 				}
 
 			}
@@ -124,7 +194,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 376.0, 63.0, 141.0, 20.0 ],
+					"patching_rect" : [ 381.0, 63.0, 141.0, 20.0 ],
 					"text" : "jcom.meter_receive 2"
 				}
 
@@ -151,9 +221,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 376.0, 88.0, 80.0, 4.0 ],
+					"patching_rect" : [ 381.0, 88.0, 80.0, 4.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 180.0, 10.0, 80.0, 4.0 ]
+					"presentation_rect" : [ 180.0, 5.0, 80.0, 4.0 ]
 				}
 
 			}
@@ -167,18 +237,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 381.0, 48.0, 80.0, 4.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 180.0, 5.0, 80.0, 4.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"comment" : "",
-					"id" : "obj-2",
-					"maxclass" : "outlet",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 328.0, 500.5, 25.0, 25.0 ]
+					"presentation_rect" : [ 180.0, 1.0, 80.0, 4.0 ]
 				}
 
 			}
@@ -189,7 +248,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 301.0, 500.5, 25.0, 25.0 ]
+					"patching_rect" : [ 301.0, 510.5, 25.0, 25.0 ]
 				}
 
 			}
@@ -199,11 +258,11 @@
 					"fontsize" : 12.0,
 					"id" : "obj-36",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 3,
-					"outlettype" : [ "signal", "signal", "" ],
-					"patching_rect" : [ 301.0, 443.5, 73.0, 20.0 ],
-					"text" : "jcom.out~ 2"
+					"numinlets" : 4,
+					"numoutlets" : 5,
+					"outlettype" : [ "signal", "signal", "signal", "signal", "" ],
+					"patching_rect" : [ 301.0, 443.5, 87.400002, 20.0 ],
+					"text" : "jcom.out~ 4"
 				}
 
 			}
@@ -278,6 +337,33 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-17", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-28", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -296,19 +382,37 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-18", 3 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-36", 0 ]
+					"source" : [ "obj-36", 3 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
+					"destination" : [ "obj-18", 2 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-36", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-36", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-36", 0 ]
 				}
 
 			}
@@ -327,7 +431,7 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"midpoints" : [ 424.5, 421.5, 621.0, 421.5, 621.0, 210.5, 592.5, 210.5 ],
-					"source" : [ "obj-6", 3 ]
+					"source" : [ "obj-6", 5 ]
 				}
 
 			}
@@ -336,7 +440,25 @@
 					"destination" : [ "obj-12", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 386.5, 437.5, 638.0, 437.5, 638.0, 198.5, 310.5, 198.5 ],
+					"midpoints" : [ 401.700012, 437.5, 638.0, 437.5, 638.0, 198.5, 310.5, 198.5 ],
+					"source" : [ "obj-6", 4 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-36", 3 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-6", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-36", 2 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-6", 2 ]
 				}
 
@@ -433,6 +555,10 @@
 			}
 , 			{
 				"name" : "jcom.hub.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.pack≈.mxo",
 				"type" : "iLaX"
 			}
  ]

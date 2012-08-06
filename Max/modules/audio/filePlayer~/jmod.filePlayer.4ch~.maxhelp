@@ -28,6 +28,20 @@
 		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"args" : [ "output~" ],
+					"id" : "obj-3",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.sur.output~.maxpat",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 57.0, 270.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"frgb" : 0.0,
@@ -87,21 +101,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "output~" ],
-					"id" : "obj-7",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.output~.maxpat",
-					"numinlets" : 3,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 57.0, 266.0, 300.0, 140.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "@name", "jmod.filePlayer.stereo~", "@description", "Playback of stereo sound files with preloading of files to play." ],
+					"args" : [ "@name", "jmod.filePlayer.stereo~", "@description", "Playback of 4 channel (ambisonic) sound files with preloading of files to play." ],
 					"bgmode" : 1,
 					"id" : "obj-2",
 					"maxclass" : "bpatcher",
@@ -118,10 +118,10 @@
 					"args" : [ "filePlayer" ],
 					"id" : "obj-1",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.filePlayer.stereo~.maxpat",
+					"name" : "jmod.filePlayer.4ch~.maxpat",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "signal", "signal" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "audio.connect" ],
 					"patching_rect" : [ 57.0, 108.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ]
 				}
@@ -130,16 +130,7 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 2 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-1", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 1 ],
+					"destination" : [ "obj-3", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-1", 1 ]
@@ -157,7 +148,7 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "jmod.filePlayer.stereo~.maxpat",
+				"name" : "jmod.filePlayer.4ch~.maxpat",
 				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/modules/audio/filePlayer~",
 				"patcherrelativepath" : "",
 				"type" : "JSON",
@@ -213,27 +204,6 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "jmod.output~.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/modules/audio/output~",
-				"patcherrelativepath" : "../output~",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.audioOnOff.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/audioOnOff",
-				"patcherrelativepath" : "../../../library/components/audioOnOff",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.js_systeminfo.js",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/javascript",
-				"patcherrelativepath" : "../../../library/javascript",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "jmod.cueScript.maxpat",
 				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/modules/control/cueScript",
 				"patcherrelativepath" : "../../control/cueScript",
@@ -255,9 +225,37 @@
 				"implicit" : 1
 			}
 , 			{
+				"name" : "jcom.js_systeminfo.js",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/javascript",
+				"patcherrelativepath" : "../../../library/javascript",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "jcom.filewatcher.maxpat",
 				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/filewatcher",
 				"patcherrelativepath" : "../../../library/components/filewatcher",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jmod.sur.output~.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/modules/spatialization/sur.output~",
+				"patcherrelativepath" : "../../spatialization/sur.output~",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jalg.sur.output~.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/modules/spatialization/sur.output~",
+				"patcherrelativepath" : "../../spatialization/sur.output~",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.audioOnOff.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/audioOnOff",
+				"patcherrelativepath" : "../../../library/components/audioOnOff",
 				"type" : "JSON",
 				"implicit" : 1
 			}
@@ -314,6 +312,10 @@
 				"type" : "iLaX"
 			}
 , 			{
+				"name" : "jcom.pack≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
 				"name" : "jcom.route.mxo",
 				"type" : "iLaX"
 			}
@@ -326,19 +328,15 @@
 				"type" : "iLaX"
 			}
 , 			{
+				"name" : "jcom.in.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.unpack≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
 				"name" : "jcom.pass.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.dataspace.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.overdrive~.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.limiter~.mxo",
 				"type" : "iLaX"
 			}
 , 			{
@@ -346,7 +344,11 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.in.mxo",
+				"name" : "jcom.limiter≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.gain≈.mxo",
 				"type" : "iLaX"
 			}
  ]
