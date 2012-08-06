@@ -1616,7 +1616,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 132.0, 723.5, 86.0, 20.0 ],
+									"patching_rect" : [ 132.0, 719.5, 86.0, 20.0 ],
 									"text" : "pv currentCue"
 								}
 
