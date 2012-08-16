@@ -6,19 +6,10 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXFileReference section */
-		A702D0CF15DCFC4300CA71C6 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
-		A702D0D115DCFC4B00CA71C6 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
-		A702D0D215DCFC5100CA71C6 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
 /* Begin PBXGroup section */
 		A702D0BF15DCFBDB00CA71C6 = {
 			isa = PBXGroup;
 			children = (
-				A702D0CF15DCFC4300CA71C6 /* includes */,
-				A702D0D115DCFC4B00CA71C6 /* source */,
-				A702D0D215DCFC5100CA71C6 /* tests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -151,7 +142,6 @@
 				A702D0CB15DCFBDB00CA71C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
