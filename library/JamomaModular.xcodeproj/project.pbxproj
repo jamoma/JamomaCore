@@ -42,8 +42,6 @@
 		A734369D14A9295400C41E3F /* TTModularVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
 		A7AC5B8514B0535D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../Foundation/library/includes; sourceTree = "<group>"; };
 		A7AC5B8614B0537D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../DSP/library/includes; sourceTree = "<group>"; };
-		A7AC5B8814B054BE004FCA8F /* c74support */ = {isa = PBXFileReference; lastKnownFileType = folder; name = c74support; path = ../supports/objectivemax/SDKs/Max5/c74support; sourceTree = "<group>"; };
-		A7AC5B8914B05558004FCA8F /* MaxObject */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MaxObject; path = ../supports/objectivemax/MaxObject; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -140,8 +138,6 @@
 			children = (
 				A7AC5B8414B05344004FCA8F /* DSP */,
 				A7AC5B8314B05336004FCA8F /* Foundation */,
-				A7AC5B8914B05558004FCA8F /* MaxObject */,
-				A7AC5B8814B054BE004FCA8F /* c74support */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
