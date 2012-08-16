@@ -99,16 +99,11 @@ void SchedulerRamp::tick()
 	if (functionUnit && isRunning) {
 		// 1. go to the the next step in our ramp
 		numgrains--;
-		if (numgrains <= 0.) {
-			for (i=0; i < numValues; i++)
-				currentValue[i] = targetValue[i];
-		}
-		else {
-			normalizedValue += stepsize;
-			functionUnit->calculate(normalizedValue, mapped);
-			for (i=0; i < numValues; i++)
-				current[i] = start[i] + ((target[i] - start[i]) * mapped);
-		}
+
+		normalizedValue += stepsize;
+		functionUnit->calculate(normalizedValue, mapped);
+		for (i=0; i < numValues; i++)
+			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		
 		// 2. send the value to the host
 		(callback)(baton, numValues, currentValue);
