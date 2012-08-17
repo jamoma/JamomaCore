@@ -158,16 +158,11 @@ typedef std::complex<double>	TTComplex;
 typedef TTFloat64			TTSampleValue;
 
 /** A TTSampleVector is simply a pointer to the first of an array of TTSampleValues. */
-//typedef TTSampleValue*			TTSampleVector;
 typedef std::vector<TTSampleValue>	TTSampleVector;
 typedef TTSampleVector::iterator	TTSampleIter;
 
 typedef TTSampleValue*				TTSampleValuePtr;
 typedef TTSampleVector*				TTSampleVectorPtr;
-
-/** A TTSampleMatrix is vector of TTSampleVectors. */
-typedef std::vector<TTSampleVector>	TTSampleMatrix;
-typedef TTSampleMatrix::iterator	TTSampleMatrixIter;
 
 /** An integer that is the same size as a pointer.	*/
 typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on the Mac
