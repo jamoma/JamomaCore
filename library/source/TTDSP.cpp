@@ -81,7 +81,8 @@ void TTDSPRegisterInternalClasses()
 	TTAudioSignalArray::registerClass();
 	TTBuffer::registerClass();
 	TTDelay::registerClass();
-	
+	TTSampleMatrix::registerClass();
+		
 	TTAudioEngine::registerClass();	
 }
 

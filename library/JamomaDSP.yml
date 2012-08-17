@@ -6,10 +6,12 @@ sources:
   - source/TTAudioSignal.cpp
   - source/TTAudioSignalArray.cpp
   - source/TTBuffer.cpp
+  - source/TTSampleMatrix.cpp
   - source/TTDelay.cpp
   - source/TTDSP.cpp
   - tests/TTBuffer.test.cpp
   - tests/TTDelay.test.cpp
+  - tests/TTSampleMatrix.test.cpp
   
 includes:
   - "includes"
