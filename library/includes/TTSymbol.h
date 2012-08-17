@@ -95,6 +95,11 @@ public:
 		return theString;
 	}
 #endif
+	
+	
+	/** Generate a pseudo-random symbol */
+	static TTSymbol* random();
+	
 };
 
 
