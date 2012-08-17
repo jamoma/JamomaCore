@@ -3,383 +3,157 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
-		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
-		22FD47AA11E2495B007BBF7E /* TTWindowFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD47A711E2495B007BBF7E /* TTWindowFunctionLib.cpp */; };
-		6641EB9E132CA23000CBB37B /* TTKaiserWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6641EB9C132CA23000CBB37B /* TTKaiserWindow.test.cpp */; };
-		666CF7E6131B415E0003D7E2 /* TTBartlettWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7DC131B415E0003D7E2 /* TTBartlettWindow.h */; };
-		666CF7E7131B415E0003D7E2 /* TTBlackmanWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7DD131B415E0003D7E2 /* TTBlackmanWindow.h */; };
-		666CF7E8131B415E0003D7E2 /* TTHammingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7DE131B415E0003D7E2 /* TTHammingWindow.h */; };
-		666CF7E9131B415E0003D7E2 /* TTHanningWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7DF131B415E0003D7E2 /* TTHanningWindow.h */; };
-		666CF7EA131B415E0003D7E2 /* TTKaiserWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7E0131B415E0003D7E2 /* TTKaiserWindow.h */; };
-		666CF7EB131B415E0003D7E2 /* TTRectangularWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7E1131B415E0003D7E2 /* TTRectangularWindow.h */; };
-		666CF7EC131B415E0003D7E2 /* TTTrapezoidWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7E2131B415E0003D7E2 /* TTTrapezoidWindow.h */; };
-		666CF7ED131B415E0003D7E2 /* TTTukeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7E3131B415E0003D7E2 /* TTTukeyWindow.h */; };
-		666CF7EE131B415E0003D7E2 /* TTWelchWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7E4131B415E0003D7E2 /* TTWelchWindow.h */; };
-		666CF7EF131B415E0003D7E2 /* TTWindowFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CF7E5131B415E0003D7E2 /* TTWindowFunction.h */; };
-		666CF7FA131B41640003D7E2 /* TTBartlettWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F0131B41640003D7E2 /* TTBartlettWindow.cpp */; };
-		666CF7FB131B41640003D7E2 /* TTBlackmanWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F1131B41640003D7E2 /* TTBlackmanWindow.cpp */; };
-		666CF7FC131B41640003D7E2 /* TTHammingWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F2131B41640003D7E2 /* TTHammingWindow.cpp */; };
-		666CF7FD131B41640003D7E2 /* TTHanningWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F3131B41640003D7E2 /* TTHanningWindow.cpp */; };
-		666CF7FE131B41640003D7E2 /* TTKaiserWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F4131B41640003D7E2 /* TTKaiserWindow.cpp */; };
-		666CF7FF131B41640003D7E2 /* TTRectangularWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F5131B41640003D7E2 /* TTRectangularWindow.cpp */; };
-		666CF800131B41640003D7E2 /* TTTrapezoidWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F6131B41640003D7E2 /* TTTrapezoidWindow.cpp */; };
-		666CF801131B41640003D7E2 /* TTTukeyWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F7131B41640003D7E2 /* TTTukeyWindow.cpp */; };
-		666CF802131B41640003D7E2 /* TTWelchWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F8131B41640003D7E2 /* TTWelchWindow.cpp */; };
-		666CF803131B41640003D7E2 /* TTWindowFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 666CF7F9131B41640003D7E2 /* TTWindowFunction.cpp */; };
-		66D67217131C225B00148F5F /* TTBlackmanHarrisWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66D67216131C225B00148F5F /* TTBlackmanHarrisWindow.cpp */; };
-		66D67219131C226200148F5F /* TTBlackmanHarrisWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D67218131C226200148F5F /* TTBlackmanHarrisWindow.h */; };
-		66D6722C131C25D600148F5F /* TTNuttallWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66D6722B131C25D600148F5F /* TTNuttallWindow.cpp */; };
-		66D6722E131C25DE00148F5F /* TTNuttallWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D6722D131C25DE00148F5F /* TTNuttallWindow.h */; };
-		8E1F5630134B921C003ACA83 /* TTGaussWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E1F562F134B921C003ACA83 /* TTGaussWindow.h */; };
-		8E1F5636134B9245003ACA83 /* TTGaussWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F5634134B9245003ACA83 /* TTGaussWindow.cpp */; };
-		8E1F56B1134BAC71003ACA83 /* TTGaussWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F5657134BA2AD003ACA83 /* TTGaussWindow.test.cpp */; };
-		8E1F56B2134BACE4003ACA83 /* TTHammingWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6641EB9B132CA23000CBB37B /* TTHammingWindow.test.cpp */; };
-		8EC60799131D4A60006CFA86 /* TTExpodecWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EC60798131D4A60006CFA86 /* TTExpodecWindow.h */; };
-		8EC607BB131D57F6006CFA86 /* TTExpodecWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EC607BA131D57F6006CFA86 /* TTExpodecWindow.cpp */; };
-		8EDCFF0D1339280900EBF252 /* TTTukeyWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EDCFF0C1339280900EBF252 /* TTTukeyWindow.test.cpp */; };
-		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
-		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
-		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
-		22FD47A711E2495B007BBF7E /* TTWindowFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTWindowFunctionLib.cpp; sourceTree = "<group>"; };
-		6641EB9B132CA23000CBB37B /* TTHammingWindow.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHammingWindow.test.cpp; path = tests/TTHammingWindow.test.cpp; sourceTree = "<group>"; };
-		6641EB9C132CA23000CBB37B /* TTKaiserWindow.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTKaiserWindow.test.cpp; path = tests/TTKaiserWindow.test.cpp; sourceTree = "<group>"; };
-		666CF7DC131B415E0003D7E2 /* TTBartlettWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBartlettWindow.h; path = includes/TTBartlettWindow.h; sourceTree = "<group>"; };
-		666CF7DD131B415E0003D7E2 /* TTBlackmanWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBlackmanWindow.h; path = includes/TTBlackmanWindow.h; sourceTree = "<group>"; };
-		666CF7DE131B415E0003D7E2 /* TTHammingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHammingWindow.h; path = includes/TTHammingWindow.h; sourceTree = "<group>"; };
-		666CF7DF131B415E0003D7E2 /* TTHanningWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHanningWindow.h; path = includes/TTHanningWindow.h; sourceTree = "<group>"; };
-		666CF7E0131B415E0003D7E2 /* TTKaiserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTKaiserWindow.h; path = includes/TTKaiserWindow.h; sourceTree = "<group>"; };
-		666CF7E1131B415E0003D7E2 /* TTRectangularWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTRectangularWindow.h; path = includes/TTRectangularWindow.h; sourceTree = "<group>"; };
-		666CF7E2131B415E0003D7E2 /* TTTrapezoidWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTrapezoidWindow.h; path = includes/TTTrapezoidWindow.h; sourceTree = "<group>"; };
-		666CF7E3131B415E0003D7E2 /* TTTukeyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTukeyWindow.h; path = includes/TTTukeyWindow.h; sourceTree = "<group>"; };
-		666CF7E4131B415E0003D7E2 /* TTWelchWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTWelchWindow.h; path = includes/TTWelchWindow.h; sourceTree = "<group>"; };
-		666CF7E5131B415E0003D7E2 /* TTWindowFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTWindowFunction.h; path = includes/TTWindowFunction.h; sourceTree = "<group>"; };
-		666CF7F0131B41640003D7E2 /* TTBartlettWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBartlettWindow.cpp; path = source/TTBartlettWindow.cpp; sourceTree = "<group>"; };
-		666CF7F1131B41640003D7E2 /* TTBlackmanWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBlackmanWindow.cpp; path = source/TTBlackmanWindow.cpp; sourceTree = "<group>"; };
-		666CF7F2131B41640003D7E2 /* TTHammingWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHammingWindow.cpp; path = source/TTHammingWindow.cpp; sourceTree = "<group>"; };
-		666CF7F3131B41640003D7E2 /* TTHanningWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHanningWindow.cpp; path = source/TTHanningWindow.cpp; sourceTree = "<group>"; };
-		666CF7F4131B41640003D7E2 /* TTKaiserWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTKaiserWindow.cpp; path = source/TTKaiserWindow.cpp; sourceTree = "<group>"; };
-		666CF7F5131B41640003D7E2 /* TTRectangularWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRectangularWindow.cpp; path = source/TTRectangularWindow.cpp; sourceTree = "<group>"; };
-		666CF7F6131B41640003D7E2 /* TTTrapezoidWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTrapezoidWindow.cpp; path = source/TTTrapezoidWindow.cpp; sourceTree = "<group>"; };
-		666CF7F7131B41640003D7E2 /* TTTukeyWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTukeyWindow.cpp; path = source/TTTukeyWindow.cpp; sourceTree = "<group>"; };
-		666CF7F8131B41640003D7E2 /* TTWelchWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTWelchWindow.cpp; path = source/TTWelchWindow.cpp; sourceTree = "<group>"; };
-		666CF7F9131B41640003D7E2 /* TTWindowFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTWindowFunction.cpp; path = source/TTWindowFunction.cpp; sourceTree = "<group>"; };
-		66D67216131C225B00148F5F /* TTBlackmanHarrisWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBlackmanHarrisWindow.cpp; path = source/TTBlackmanHarrisWindow.cpp; sourceTree = "<group>"; };
-		66D67218131C226200148F5F /* TTBlackmanHarrisWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBlackmanHarrisWindow.h; path = includes/TTBlackmanHarrisWindow.h; sourceTree = "<group>"; };
-		66D6722B131C25D600148F5F /* TTNuttallWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNuttallWindow.cpp; path = source/TTNuttallWindow.cpp; sourceTree = "<group>"; };
-		66D6722D131C25DE00148F5F /* TTNuttallWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNuttallWindow.h; path = includes/TTNuttallWindow.h; sourceTree = "<group>"; };
-		8E1F562F134B921C003ACA83 /* TTGaussWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGaussWindow.h; path = includes/TTGaussWindow.h; sourceTree = "<group>"; };
-		8E1F5634134B9245003ACA83 /* TTGaussWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGaussWindow.cpp; path = source/TTGaussWindow.cpp; sourceTree = "<group>"; };
-		8E1F5657134BA2AD003ACA83 /* TTGaussWindow.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGaussWindow.test.cpp; path = tests/TTGaussWindow.test.cpp; sourceTree = "<group>"; };
-		8EC60798131D4A60006CFA86 /* TTExpodecWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTExpodecWindow.h; path = includes/TTExpodecWindow.h; sourceTree = "<group>"; };
-		8EC607BA131D57F6006CFA86 /* TTExpodecWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTExpodecWindow.cpp; path = source/TTExpodecWindow.cpp; sourceTree = "<group>"; };
-		8EDCFF0C1339280900EBF252 /* TTTukeyWindow.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTukeyWindow.test.cpp; path = tests/TTTukeyWindow.test.cpp; sourceTree = "<group>"; };
-		D2AAC09D05546B4700DB518D /* WindowFunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = WindowFunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		A702D0CF15DCFC4300CA71C6 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
+		A702D0D115DCFC4B00CA71C6 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
+		A702D0D215DCFC5100CA71C6 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		D2AAC09B05546B4700DB518D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */,
-				22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
-		034768DDFF38A45A11DB9C8B /* Products */ = {
+		A702D0BF15DCFBDB00CA71C6 = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* WindowFunctionLib.ttdylib */,
+				A702D0CF15DCFC4300CA71C6 /* includes */,
+				A702D0D115DCFC4B00CA71C6 /* source */,
+				A702D0D215DCFC5100CA71C6 /* tests */,
 			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		0867D691FE84028FC02AAC07 /* TTFunctionLib */ = {
-			isa = PBXGroup;
-			children = (
-				22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */,
-				08FB77ACFE841707C02AAC07 /* Source */,
-				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
-				034768DDFF38A45A11DB9C8B /* Products */,
-			);
-			name = TTFunctionLib;
-			sourceTree = "<group>";
-		};
-		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				22FA622D11E21BE20097F43B /* JamomaDSP.dylib */,
-				22FA623211E21BE60097F43B /* JamomaFoundation.dylib */,
-				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
-			);
-			name = "External Frameworks and Libraries";
-			sourceTree = "<group>";
-		};
-		08FB77ACFE841707C02AAC07 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				22FD47A711E2495B007BBF7E /* TTWindowFunctionLib.cpp */,
-				666CF7F9131B41640003D7E2 /* TTWindowFunction.cpp */,
-				666CF7E5131B415E0003D7E2 /* TTWindowFunction.h */,
-				2217FAAA0E4F284D00806778 /* Classes */,
-			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		2217FAAA0E4F284D00806778 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				66D67218131C226200148F5F /* TTBlackmanHarrisWindow.h */,
-				66D67216131C225B00148F5F /* TTBlackmanHarrisWindow.cpp */,
-				666CF7DC131B415E0003D7E2 /* TTBartlettWindow.h */,
-				666CF7F0131B41640003D7E2 /* TTBartlettWindow.cpp */,
-				666CF7DD131B415E0003D7E2 /* TTBlackmanWindow.h */,
-				666CF7F1131B41640003D7E2 /* TTBlackmanWindow.cpp */,
-				8EC60798131D4A60006CFA86 /* TTExpodecWindow.h */,
-				8EC607BA131D57F6006CFA86 /* TTExpodecWindow.cpp */,
-				8E1F562F134B921C003ACA83 /* TTGaussWindow.h */,
-				8E1F5634134B9245003ACA83 /* TTGaussWindow.cpp */,
-				8E1F5657134BA2AD003ACA83 /* TTGaussWindow.test.cpp */,
-				666CF7DE131B415E0003D7E2 /* TTHammingWindow.h */,
-				666CF7F2131B41640003D7E2 /* TTHammingWindow.cpp */,
-				6641EB9B132CA23000CBB37B /* TTHammingWindow.test.cpp */,
-				666CF7DF131B415E0003D7E2 /* TTHanningWindow.h */,
-				666CF7F3131B41640003D7E2 /* TTHanningWindow.cpp */,
-				666CF7E0131B415E0003D7E2 /* TTKaiserWindow.h */,
-				666CF7F4131B41640003D7E2 /* TTKaiserWindow.cpp */,
-				6641EB9C132CA23000CBB37B /* TTKaiserWindow.test.cpp */,
-				66D6722D131C25DE00148F5F /* TTNuttallWindow.h */,
-				66D6722B131C25D600148F5F /* TTNuttallWindow.cpp */,
-				666CF7E1131B415E0003D7E2 /* TTRectangularWindow.h */,
-				666CF7F5131B41640003D7E2 /* TTRectangularWindow.cpp */,
-				666CF7E2131B415E0003D7E2 /* TTTrapezoidWindow.h */,
-				666CF7F6131B41640003D7E2 /* TTTrapezoidWindow.cpp */,
-				666CF7E3131B415E0003D7E2 /* TTTukeyWindow.h */,
-				666CF7F7131B41640003D7E2 /* TTTukeyWindow.cpp */,
-				8EDCFF0C1339280900EBF252 /* TTTukeyWindow.test.cpp */,
-				666CF7E4131B415E0003D7E2 /* TTWelchWindow.h */,
-				666CF7F8131B41640003D7E2 /* TTWelchWindow.cpp */,
-			);
-			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D2AAC09905546B4700DB518D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				666CF7E6131B415E0003D7E2 /* TTBartlettWindow.h in Headers */,
-				666CF7E7131B415E0003D7E2 /* TTBlackmanWindow.h in Headers */,
-				666CF7E8131B415E0003D7E2 /* TTHammingWindow.h in Headers */,
-				666CF7E9131B415E0003D7E2 /* TTHanningWindow.h in Headers */,
-				666CF7EA131B415E0003D7E2 /* TTKaiserWindow.h in Headers */,
-				666CF7EB131B415E0003D7E2 /* TTRectangularWindow.h in Headers */,
-				666CF7EC131B415E0003D7E2 /* TTTrapezoidWindow.h in Headers */,
-				666CF7ED131B415E0003D7E2 /* TTTukeyWindow.h in Headers */,
-				666CF7EE131B415E0003D7E2 /* TTWelchWindow.h in Headers */,
-				666CF7EF131B415E0003D7E2 /* TTWindowFunction.h in Headers */,
-				66D67219131C226200148F5F /* TTBlackmanHarrisWindow.h in Headers */,
-				66D6722E131C25DE00148F5F /* TTNuttallWindow.h in Headers */,
-				8EC60799131D4A60006CFA86 /* TTExpodecWindow.h in Headers */,
-				8E1F5630134B921C003ACA83 /* TTGaussWindow.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXNativeTarget section */
-		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */;
+/* Begin PBXLegacyTarget section */
+		A702D0C615DCFBDB00CA71C6 /* WindowFunctionLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = A702D0C915DCFBDB00CA71C6 /* Build configuration list for PBXLegacyTarget "WindowFunctionLib" */;
 			buildPhases = (
-				D2AAC09905546B4700DB518D /* Headers */,
-				D2AAC09B05546B4700DB518D /* Frameworks */,
-				D2AAC09A05546B4700DB518D /* Sources */,
-				2217F9FF0E4E194400806778 /* ShellScript */,
 			);
-			buildRules = (
-			);
+			buildToolPath = /usr/bin/make;
 			dependencies = (
 			);
-			name = JamomaExtension;
-			productName = TTFunctionLib;
-			productReference = D2AAC09D05546B4700DB518D /* WindowFunctionLib.ttdylib */;
-			productType = "com.apple.product-type.library.dynamic";
+			name = WindowFunctionLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = WindowFunctionLib;
 		};
-/* End PBXNativeTarget section */
+/* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		0867D690FE84028FC02AAC07 /* Project object */ = {
+		A702D0C115DCFBDB00CA71C6 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "WindowFunctionLib" */;
-			compatibilityVersion = "Xcode 3.1";
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = org.jamoma;
+			};
+			buildConfigurationList = A702D0C415DCFBDB00CA71C6 /* Build configuration list for PBXProject "WindowFunctionLib" */;
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
-			hasScannedForEncodings = 1;
+			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				en,
 			);
-			mainGroup = 0867D691FE84028FC02AAC07 /* TTFunctionLib */;
-			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			mainGroup = A702D0BF15DCFBDB00CA71C6;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AAC09C05546B4700DB518D /* JamomaExtension */,
+				A702D0C615DCFBDB00CA71C6 /* WindowFunctionLib */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		2217F9FF0E4E194400806778 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/mkdir -p -m 775 \"/usr/local/jamoma/extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/usr/local/jamoma/extensions\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		D2AAC09A05546B4700DB518D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22FD47AA11E2495B007BBF7E /* TTWindowFunctionLib.cpp in Sources */,
-				666CF7FA131B41640003D7E2 /* TTBartlettWindow.cpp in Sources */,
-				666CF7FB131B41640003D7E2 /* TTBlackmanWindow.cpp in Sources */,
-				666CF7FC131B41640003D7E2 /* TTHammingWindow.cpp in Sources */,
-				666CF7FD131B41640003D7E2 /* TTHanningWindow.cpp in Sources */,
-				666CF7FE131B41640003D7E2 /* TTKaiserWindow.cpp in Sources */,
-				666CF7FF131B41640003D7E2 /* TTRectangularWindow.cpp in Sources */,
-				666CF800131B41640003D7E2 /* TTTrapezoidWindow.cpp in Sources */,
-				666CF801131B41640003D7E2 /* TTTukeyWindow.cpp in Sources */,
-				666CF802131B41640003D7E2 /* TTWelchWindow.cpp in Sources */,
-				666CF803131B41640003D7E2 /* TTWindowFunction.cpp in Sources */,
-				66D67217131C225B00148F5F /* TTBlackmanHarrisWindow.cpp in Sources */,
-				66D6722C131C25D600148F5F /* TTNuttallWindow.cpp in Sources */,
-				8EC607BB131D57F6006CFA86 /* TTExpodecWindow.cpp in Sources */,
-				6641EB9E132CA23000CBB37B /* TTKaiserWindow.test.cpp in Sources */,
-				8EDCFF0D1339280900EBF252 /* TTTukeyWindow.test.cpp in Sources */,
-				8E1F5636134B9245003ACA83 /* TTGaussWindow.cpp in Sources */,
-				8E1F56B1134BAC71003ACA83 /* TTGaussWindow.test.cpp in Sources */,
-				8E1F56B2134BACE4003ACA83 /* TTHammingWindow.test.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
 /* Begin XCBuildConfiguration section */
-		1DEB916108733D950010E9CD /* Development */ = {
+		A702D0C715DCFBDB00CA71C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					x86_64,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
 			};
-			name = Development;
+			name = Debug;
 		};
-		1DEB916208733D950010E9CD /* Deployment */ = {
+		A702D0C815DCFBDB00CA71C6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					x86_64,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_OPTIMIZATION_LEVEL = 3;
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
 			};
-			name = Deployment;
+			name = Release;
 		};
-		1DEB916508733D950010E9CD /* Development */ = {
+		A702D0CA15DCFBDB00CA71C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
-			name = Development;
+			name = Debug;
 		};
-		1DEB916608733D950010E9CD /* Deployment */ = {
+		A702D0CB15DCFBDB00CA71C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
-			name = Deployment;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */ = {
+		A702D0C415DCFBDB00CA71C6 /* Build configuration list for PBXProject "WindowFunctionLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916108733D950010E9CD /* Development */,
-				1DEB916208733D950010E9CD /* Deployment */,
+				A702D0C715DCFBDB00CA71C6 /* Debug */,
+				A702D0C815DCFBDB00CA71C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
+			defaultConfigurationName = Release;
 		};
-		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "WindowFunctionLib" */ = {
+		A702D0C915DCFBDB00CA71C6 /* Build configuration list for PBXLegacyTarget "WindowFunctionLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916508733D950010E9CD /* Development */,
-				1DEB916608733D950010E9CD /* Deployment */,
+				A702D0CA15DCFBDB00CA71C6 /* Debug */,
+				A702D0CB15DCFBDB00CA71C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Deployment;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+	rootObject = A702D0C115DCFBDB00CA71C6 /* Project object */;
 }

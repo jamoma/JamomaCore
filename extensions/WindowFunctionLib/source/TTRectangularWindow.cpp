@@ -28,7 +28,11 @@ RectangularWindow::~RectangularWindow()
 
 TTErr RectangularWindow::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = 1.0;
+	if ((x>0) && (x<1.0))
+		y = 1.0;
+	else
+		y = 0.0;
+	
 	return kTTErrNone;
 }
 
