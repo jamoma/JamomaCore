@@ -1,5 +1,5 @@
 /* 
- * TTBlue Wavetable Oscillator
+ * Jamoma DSP  Wavetable Oscillator
  * Copyright © 2003, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
