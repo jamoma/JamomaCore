@@ -546,7 +546,7 @@ void dbap_info(t_dbap *x)
 		atom_setlong(&a[1], (x->src_not_muted[i]==0));
 		object_obex_dumpout(x, ps_src_mute, 2, a);
 		atom_setfloat(&a[1], x->blur[i]);
-		object_obex_dumpout(x, ps_src_blur, 1, a);
+		object_obex_dumpout(x, ps_src_blur, 2, a);
 	}
 	
 	atom_setlong(&a[0], x->attr_num_destinations);
