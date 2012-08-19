@@ -34,9 +34,11 @@ class RectangularWindow : TTAudioObject {
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
-	/**	A standard audio processing method as used by TTBlue objects.*/
+	/**	A standard audio processing method as used by Jamoma DSP objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
+	/** A standard unit testing method as used by Jamoma DSP objects. */
+	TTErr test(TTValue& returnedTestInfo);
 };
 
 

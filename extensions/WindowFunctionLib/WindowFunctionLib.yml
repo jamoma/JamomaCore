@@ -18,6 +18,7 @@ sources:
   - tests/TTGaussWindow.test.cpp		
   - tests/TTKaiserWindow.test.cpp
   - tests/TTHammingWindow.test.cpp	
+  - tests/TTRectangularWindow.test.cpp	
   - tests/TTTukeyWindow.test.cpp
 
 includes:
