@@ -7,6 +7,7 @@ environment = TTObject.new "environment"
 environment.set "benchmarking", 1
 
 o = TTObject.new "samplematrix"
+o.send "test"
 # trying to access elements of this object
 # it's not working, but it's likely due to my lack of undrstanding
 # -- NW
