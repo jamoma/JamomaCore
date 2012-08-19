@@ -33,6 +33,13 @@ o.send "test"
 err, cpu = o.send "getProcessingBenchmark", 1
 cpu_total += cpu
 
+puts "  TESTING RECTANGULAR WINDOW"
+o = TTObject.new "rectangular"
+o.send "test"
+err, cpu = o.send "getProcessingBenchmark", 1
+cpu_total += cpu
+
+
 puts
 puts "time spent calculating audio process method: #{cpu_total} µs"
 puts

@@ -4,7 +4,7 @@ _________________________________________________________________
 
 
 Introduction
-The Jamoma DSP Library is an open source, cross-platform, C++ programming layer for creating dynamically-bound objects optimized for realtime processing contexts.  It the basis of commercial products such as Tap.Tools, Jade, and Hipno, and is used by other open source projects such as Jamoma Modular.
+The Jamoma DSP Library is an open source, cross-platform, C++ programming layer for creating dynamically-bound objects optimized for realtime processing contexts.  It the basis of commercial products such as TapTools, Jade, and Hipno, and is used by other open source projects such as Jamoma Modular.
 
 
 Features
