@@ -3,7 +3,7 @@
 
 puts "Installing Ruby Language Extensions..."
 
-`cd library; sudo make install`
+`cd library; make install`
 
 puts
 puts "=================DONE===================="
