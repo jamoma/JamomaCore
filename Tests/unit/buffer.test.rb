@@ -6,13 +6,8 @@ require 'Jamoma'
 environment = TTObject.new "environment"
 environment.set "benchmarking", 1
 
-o = TTObject.new "samplematrix"
-# trying to access elements of this object
-# it's not working, but it's likely due to my lack of undrstanding
-# -- NW
-
-# puts "Samplematrix dimensions: #{o.dim}"
-# o.send "test"
+o = TTAudio.new "buffer", 1
+o.send "test"
 
 err, cpu = o.send "getProcessingBenchmark", 1
 
