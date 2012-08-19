@@ -65,17 +65,18 @@ void AsyncRamp::tick()
 	float			ratio;
 	
 	if (active && functionUnit) {
+		
+		// This approach at the end of the ramp caters for regular functions as well as windows
 		if (currentTime > targetTime) {
 			active = 0;
-			for (i=0; i < numValues; i++)
-				currentValue[i] = targetValue[i];
+			ratio = 1.;
 		}
-		else {
+		else
 			ratio = (currentTime - startTime) / (float)ramptime;
-			functionUnit->calculate(ratio, mapped);			
-			for (i=0; i < numValues; i++)
-				current[i] = start[i] + ((target[i] - start[i]) * mapped);
-		}
+		
+		functionUnit->calculate(ratio, mapped);
+		for (i=0; i < numValues; i++)
+			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		(callback)(baton, numValues, currentValue);		// send the value to the host
 	}
 }
