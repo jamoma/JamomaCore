@@ -99,8 +99,13 @@ void SchedulerRamp::tick()
 	if (functionUnit && isRunning) {
 		// 1. go to the the next step in our ramp
 		numgrains--;
-
-		normalizedValue += stepsize;
+		
+		// Safety measure at end of ramp in case of accumulated numeric errors
+		if (numgrains <= 0.)
+			normalizedValue = 1.0;
+		else
+			normalizedValue += stepsize;
+		
 		functionUnit->calculate(normalizedValue, mapped);
 		for (i=0; i < numValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
