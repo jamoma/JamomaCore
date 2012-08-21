@@ -45,7 +45,7 @@ puts "I want to know if setting the dimensions impacts the elementCount..."
 
 attributeTest = "dimensions"
 attributeTest2 = "elementCount"
-attributeValue = 2
+attributeValue = 44100
 
 o.set attributeTest, attributeValue
 temp = o.get attributeTest
@@ -67,55 +67,12 @@ temp = p.get attributeTest2
 
 puts "#{pName} #{attributeTest2} has a value of #{temp}"
 
-
 #####
 puts
 puts "**********"
-puts "Now the opposite..."
+puts "Let's check the type just for fun..."
 
-attributeTest = "elementCount"
-attributeTest2 = "dimensions"
-attributeValue = 65
 
-o.set attributeTest, attributeValue
-temp = o.get attributeTest
-
-puts
-puts "#{oName} #{attributeTest} was set to #{temp}"
-
-temp = o.get attributeTest2
-
-puts "#{oName} #{attributeTest2} has a value of #{temp}"
-
-p.set attributeTest, attributeValue
-temp = p.get attributeTest
-
-puts
-puts "#{pName} #{attributeTest} was set to #{temp}"
-
-temp = p.get attributeTest2
-
-puts "#{pName} #{attributeTest2} has a value of #{temp}"
-
-#####
-puts
-puts "**********"
-
-attributeTest = "type"
-
-temp = o.get attributeTest
-
-puts
-puts "#{oName} #{attributeTest} is #{temp}"
-
-temp = p.get attributeTest
-
-puts
-puts "#{pName} #{attributeTest} is #{temp}"
-
-#####
-puts
-puts "**********"
 
 #err, cpu = o.send "getProcessingBenchmark", 1
 
