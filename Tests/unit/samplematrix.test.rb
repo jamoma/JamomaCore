@@ -55,7 +55,7 @@ puts "#{oName} #{attributeTest} were set to #{temp}"
 
 temp = o.get attributeTest2
 
-puts "#{oName} #{attributeTest2} has a value of #{temp}"
+puts "but #{oName} #{attributeTest2} has a value of #{temp}"
 
 p.set attributeTest, attributeValue
 temp = p.get attributeTest
@@ -65,14 +65,44 @@ puts "#{pName} #{attributeTest} were set to #{temp}"
 
 temp = p.get attributeTest2
 
-puts "#{pName} #{attributeTest2} has a value of #{temp}"
+puts "but #{pName} #{attributeTest2} has a value of #{temp}"
+
+#####
+puts
+puts "**********"
+puts "Setting the number of channels for #{pName} does not work..."
+
+attributeTest = "numChannels"
+attributeValue = 2
+p.set attributeTest, attributeValue
+temp = p.get attributeTest
+
+puts
+puts "After I try to set it to #{attributeValue}, instead it reports a value of #{temp}"
 
 #####
 puts
 puts "**********"
 puts "Let's check the type just for fun..."
 
+attributeTest = "type"
 
+temp = o.get attributeTest
+
+puts
+puts "#{oName} #{attributeTest} is #{temp}"
+
+temp = p.get attributeTest
+
+puts
+puts "#{pName} #{attributeTest} is #{temp}"
+
+puts
+puts "These numbers tend to vary."
+
+#####
+puts
+puts "**********"
 
 #err, cpu = o.send "getProcessingBenchmark", 1
 
