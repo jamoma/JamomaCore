@@ -114,7 +114,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 		mDimensions[i] = aNewDimension;
 	}
 	return resize();
-	}
+}
 
 
 TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
