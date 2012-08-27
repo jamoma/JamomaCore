@@ -28,6 +28,8 @@ typedef TTPathVector::iterator  TTPathIter;
 	Represent folders and paths
 */
 class TTFOUNDATION_EXPORT TTPath : public TTBase {
+
+protected:
     TTPtr   mPathObject;
 
 public:
