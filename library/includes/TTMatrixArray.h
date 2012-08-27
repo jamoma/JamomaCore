@@ -25,9 +25,12 @@ typedef TTMatrixVector::iterator	TTMatrixIter;
 class TTFOUNDATION_EXPORT TTMatrixArray : public TTObject {
 	TTCLASS_SETUP(TTMatrixArray)
 
+protected:
+
 	TTMatrixVector	mMatrices;
 	
 public:
+
 	TTMatrixPtr getMatrix(TTUInt32 aMatrixId) const
 	{
 		if (aMatrixId < mMatrices.size())
