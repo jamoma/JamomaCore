@@ -21,6 +21,8 @@
 class TTExpFunction : TTAudioObject {
 	TTCLASS_SETUP(TTExpFunction)
 
+protected:
+
 	TTFloat64	mBase;			///< Base for the exponential function
 	double		k;				///< Internal coefficient
 

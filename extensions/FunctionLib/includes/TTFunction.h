@@ -17,6 +17,8 @@
 class TTFunction : TTAudioObject {
 	TTCLASS_SETUP(TTFunction)
 
+protected:
+
 	TTSymbolPtr			mFunction;			///< Name of the window function to use
 	TTAudioObjectPtr	mFunctionObject;	///< The actual window function object for mFunction
 	TTUInt32			mNumPoints;			///< Number of Points in the lookup table

@@ -20,6 +20,8 @@
 class TTLogFunction : TTAudioObject {
 	TTCLASS_SETUP(TTLogFunction)
 
+protected:
+
 	TTFloat64	mBase;		///< Base for the exponential function
 	double		k;			///< Internal coefficient
 	double		l;			///< Internal coefficient

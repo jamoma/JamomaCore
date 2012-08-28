@@ -20,6 +20,8 @@
 class TTTanhFunction : TTAudioObject {
 	TTCLASS_SETUP(TTTanhFunction)
 
+protected:
+
 	TTFloat64	mWidth;			///< Parameter for function: y pow(x,pow(2,powerValue))	
 	TTFloat64	mOffset;		///< k = pow(2,powerValue)
 	double		a;				///< Internal coefficient

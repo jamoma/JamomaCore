@@ -22,6 +22,8 @@
 class TTLowpassFunction : TTAudioObject {
 	TTCLASS_SETUP(TTLowpassFunction)
 
+protected:
+
 	TTFloat64		mCoefficient;
 	TTFloat64		mOneMinusCoefficient;
 	TTFloat64*		mFeedback;

@@ -19,6 +19,8 @@
 class TTLinearFunction : TTAudioObject {
 	TTCLASS_SETUP(TTLinearFunction)
 
+protected:
+
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
