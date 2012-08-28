@@ -21,6 +21,8 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphGenerator : public TTAudioObject
 {
 	TTCLASS_SETUP(TTAudioGraphGenerator)
 
+protected:
+
 	TTUInt16	mVectorSize;
 	
 	TTErr setVectorSize(const TTValue& newVectorSize);

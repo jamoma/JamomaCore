@@ -20,9 +20,13 @@
 */
 class TTAudioGraphOutlet {
 	friend class TTAudioGraphObject;
+	
+protected:	
+	
 	TTAudioSignalPtr		mBufferedOutput;	
 	
 public:
+
 	TTAudioGraphOutlet() : 
 		mBufferedOutput(NULL)
 	{

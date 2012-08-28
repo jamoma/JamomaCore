@@ -29,6 +29,7 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphObject : public TTGraphObject {
 	TTCLASS_SETUP(TTAudioGraphObject)
 	
 protected:
+
 	TTAudioGraphProcessStatus	mStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
 	TTAudioGraphDescription		mAudioDescription;	///< Used to prevent feedback loops etc. when describing a graph
 	TTUInt32					mAudioFlags;		///< A bitmask of values defined in #TTAudioGraphFlags

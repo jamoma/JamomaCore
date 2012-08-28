@@ -28,12 +28,16 @@
 		A signal may have many channels.
 */
 class TTAudioGraphInlet {
+
+protected:
+
 	TTAudioGraphSourceVector	mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
 	TTAudioSignalPtr		mBufferedInput;		///< summed samples from all sources
 	TTAudioSignalPtr		mDirectInput;		///< pointer to the (non-buffered) input samples if there was no requirement to sum them
 	TTBoolean				mClean;
 	
 public:
+
 	TTAudioGraphInlet() : 
 		mBufferedInput(NULL),
 		mDirectInput(NULL),

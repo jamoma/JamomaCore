@@ -21,12 +21,15 @@
 class TTAudioGraphSource {
 	friend void TTAudioGraphSourceObserverCallback(TTAudioGraphSource* self, TTValue& arg);
 	
+protected:	
+	
 	TTAudioGraphObjectPtr	mSourceObject;		// the object from which we pull samples
 	TTUInt16				mOutletNumber;		// zero-based
 	TTObjectPtr				mCallbackHandler;
 	TTAudioGraphInletPtr		mOwner;				// the owning inlet
 	
 public:
+
 	TTAudioGraphSource();	
 	~TTAudioGraphSource();			
 
