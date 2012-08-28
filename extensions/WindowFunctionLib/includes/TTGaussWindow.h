@@ -24,6 +24,8 @@
 class GaussWindow : TTAudioObject {
 	TTCLASS_SETUP(GaussWindow)
 	
+protected:
+	
 	TTFloat64	mSigma;			///< sigma effects the width of the Gaussion window.  0. <= sigma <= 0.5
 	
 	/** y = f(x) for a single value */

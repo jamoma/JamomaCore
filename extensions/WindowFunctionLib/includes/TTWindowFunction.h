@@ -20,8 +20,10 @@
  */
 class WindowFunction : TTAudioObject {
 	TTCLASS_SETUP(WindowFunction)
+
+	friend class KaiserWindow;				// need this for the unit testing - NW: should protected be before this?
 	
-	friend class KaiserWindow;				// need this for the unit testing
+protected:
 
 	TTSymbolPtr			mFunction;			///< Name of the window function to use
 	TTAudioObjectPtr	mFunctionObject;	///< The actual window function object for mFunction

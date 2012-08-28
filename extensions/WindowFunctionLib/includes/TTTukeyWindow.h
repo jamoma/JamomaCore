@@ -25,6 +25,8 @@
 class TukeyWindow : TTAudioObject {
 	TTCLASS_SETUP(TukeyWindow)
 	
+protected:	
+	
 	TTFloat64	mAlpha;			///< ratio of window fades to total window duration. 0 <= alpha <= 1., 0 = no fades, 1 = no sustain
 	
 	/** y = f(x) for a single value */

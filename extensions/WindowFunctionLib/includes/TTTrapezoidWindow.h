@@ -22,6 +22,8 @@
 class TrapezoidWindow : TTAudioObject {
 	TTCLASS_SETUP(TrapezoidWindow)
 
+protected:
+
 	TTFloat64	mAlpha;			///< ratio of window fades to total window duration. 0 <= alpho <= 1., 0 = no fades, 1 = no sustain
 	
 	/** y = f(x) for a single value */

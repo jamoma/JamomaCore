@@ -19,7 +19,9 @@
 class KaiserWindow : TTAudioObject {
 	TTCLASS_SETUP(KaiserWindow)
 	
-	/* 
+protected:	
+	
+	/** 
 		alpha and beta atributes are linked to allow congruence with both references above.
 		setting one updates the other so that the following relationship is always true:
 		beta = alpha * pi

@@ -18,6 +18,8 @@
 class NuttallWindow : TTAudioObject {
 	TTCLASS_SETUP(NuttallWindow)
 
+protected:
+
 	/** y = f(x) for a single value */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
