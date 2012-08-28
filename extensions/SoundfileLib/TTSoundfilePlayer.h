@@ -21,6 +21,8 @@
 class TTSoundfilePlayer : public TTAudioObject {
 	TTCLASS_SETUP(TTSoundfilePlayer)
 
+protected:
+
 	TTSymbolPtr			mFilePath;			///< full POSIX path to the file, including file name
 	TTSymbolPtr			mTitle, mAnnotation, mArtist, mDate;
 	SNDFILE*			mSoundFile;			///< libsndfile handle for the actual file we open

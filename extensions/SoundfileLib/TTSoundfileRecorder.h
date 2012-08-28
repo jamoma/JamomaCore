@@ -21,6 +21,8 @@
 class TTSoundfileRecorder : public TTAudioObject {
 	TTCLASS_SETUP(TTSoundfileRecorder)
 
+protected:
+
 	TTSymbolPtr			mFilePath;			///< full POSIX path to the file, including file name
 	TTSymbolPtr			mFormat;			///< format of the file, e.g. "WAV", "AIFF", "FLAC", "FLAC-16bit", etc.
 	SNDFILE*			mSoundFile;			///< libsndfile handle for the actual file we open
