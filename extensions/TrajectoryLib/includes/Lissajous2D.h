@@ -16,6 +16,8 @@
 class Lissajous2D : TTAudioObject {
 	TTCLASS_SETUP(Lissajous2D)
 
+protected:
+
 	TTFloat64			mA,mAa, mAb, mDeltaX;
 
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

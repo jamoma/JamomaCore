@@ -16,6 +16,8 @@
 class Bean2D : TTAudioObject {
 	TTCLASS_SETUP(Bean2D)
 
+protected:
+
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/

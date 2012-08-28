@@ -16,6 +16,8 @@
 class Rose3D : TTAudioObject {
 	TTCLASS_SETUP(Rose3D)
 
+protected:
+
 	TTFloat64			mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	

@@ -17,6 +17,8 @@
 class Hypocycloid2D : TTAudioObject {
 	TTCLASS_SETUP(Hypocycloid2D)
 
+protected:
+
 	TTFloat64	mA, aMinusOne;
 
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

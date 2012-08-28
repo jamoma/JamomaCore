@@ -16,6 +16,8 @@
 class Catmullrom3D : TTAudioObject {
 	TTCLASS_SETUP(Catmullrom3D)		
 	
+protected:	
+	
 	TTUInt16	mResolution, mSteps; 
 	TTFloat64	b_control[3 * MAXSIZE];
 	TTFloat64	b_op[3];

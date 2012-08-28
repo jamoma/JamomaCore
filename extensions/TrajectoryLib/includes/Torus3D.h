@@ -18,6 +18,8 @@
 class Torus3D : TTAudioObject {
 	TTCLASS_SETUP(Torus3D)
 
+protected:
+
 	TTFloat64			mA, mB;
 	/** y = f(x) for a single value */
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

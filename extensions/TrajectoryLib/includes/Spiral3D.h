@@ -19,6 +19,8 @@
 class Spiral3D : TTAudioObject {
 	TTCLASS_SETUP(Spiral3D)
 
+protected:
+
 	TTFloat64	mA;
 	
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);

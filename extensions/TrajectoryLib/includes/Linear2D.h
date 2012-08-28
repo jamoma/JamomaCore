@@ -19,6 +19,8 @@
 class Linear2D : TTAudioObject {
 	TTCLASS_SETUP(Linear2D)
 	
+protected:	
+	
 	TTFloat64 mA;
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
