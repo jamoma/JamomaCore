@@ -15,7 +15,7 @@ typedef boost::regex	TTExpression;
 typedef boost::match_results <TTRegexStringPosition> TTRegexStringResult;
 #else
 #include <regex>
-typedef regex	TTExpression;
+typedef std::regex	TTExpression;
 typedef match_results <TTRegexStringPosition> TTRegexStringResult;
 #endif
 
@@ -25,10 +25,10 @@ typedef match_results <TTRegexStringPosition> TTRegexStringResult;
 #define RESULT  ((TTRegexStringResult*)(mResult))
 #define mRESULT (*RESULT)
 
-TTRegex::TTRegex(TTString anExpression):
+TTRegex::TTRegex(const char* anExpression):
 mExpression(NULL), mResult(NULL)
 {
-	mExpression = new TTExpression(anExpression.data());
+	mExpression = new TTExpression(anExpression, std::regex_constants::extended);	
 	mResult = new TTRegexStringResult();
 }
 
