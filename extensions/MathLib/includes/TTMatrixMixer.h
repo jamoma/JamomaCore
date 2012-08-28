@@ -16,6 +16,8 @@
 class TTMatrixMixer : TTAudioObject {
 	TTCLASS_SETUP(TTMatrixMixer)
 
+protected:
+
 	TTUInt16		mNumInputs;
 	TTUInt16		mNumOutputs;
 	TTMatrixPtr		mGainMatrix, tempGainMatrix;

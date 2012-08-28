@@ -16,6 +16,8 @@
 class TTAudioMatrix : TTAudioObject {
 	TTCLASS_SETUP(TTAudioMatrix)
 
+protected:
+
 	TTMatrixPtr		mGainMatrix;
 	TTBoolean		mInterpolated;
 	TTMatrixPtr		oldGainMatrix, tempGainMatrix;

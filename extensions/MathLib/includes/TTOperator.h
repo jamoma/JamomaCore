@@ -16,6 +16,8 @@
 class TTOperator : TTAudioObject {
 	TTCLASS_SETUP(TTOperator)
 
+protected:
+
 	TTSymbolPtr		mOperator;				///< The type of calculation to perform
 	TTFloat64		mOperand;				///< The right-hand value of the calculation
 	TTBoolean		mOperandIsInteger;		///< Set to true if there is no fractional part
