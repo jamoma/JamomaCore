@@ -16,6 +16,8 @@
 class TTfft : TTAudioObject {
 	TTCLASS_SETUP(TTfft)
 
+protected:
+
 	static const int kTTFFTPerformFFT;
 	static const int kTTFFTPerformIFFT;
 	
