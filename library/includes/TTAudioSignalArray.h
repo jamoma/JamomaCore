@@ -20,9 +20,13 @@
 class TTDSP_EXPORT TTAudioSignalArray : public TTDataObject {
 	TTCLASS_SETUP(TTAudioSignalArray)
 
+protected:
+
 	TTAudioSignalPtr*	audioSignals;			///< The actual array of audio signal pointers.
 	TTUInt16			maxNumAudioSignals;		///< The maximum number of audio signals that can be passed in this array.
+
 public:
+
 	TTUInt16			numAudioSignals;		///< The number of audio signal pointers which are actually valid.
 	
 	void		init();

@@ -17,6 +17,8 @@
 class TTDSP_EXPORT TTDelay : public TTAudioObject {
 	TTCLASS_SETUP(TTDelay)
 
+protected:
+
 	TTFloat64			mDelay;
 	TTUInt64			mDelayInSamples;
 	TTFloat64			mDelayMax;
@@ -80,6 +82,7 @@ class TTDSP_EXPORT TTDelay : public TTAudioObject {
 //	TTErr processAudioCubicInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&);
 	
 public:
+
 	TTErr calculateNoInterpolation(const TTFloat64& x,		TTFloat64& y,	TTPtrSizedInt channel);
 	TTErr calculateLinearInterpolation(const TTFloat64& x,	TTFloat64& y,	TTPtrSizedInt channel);
 	TTErr calculateCosineInterpolation(const TTFloat64& x,	TTFloat64& y,	TTPtrSizedInt channel);

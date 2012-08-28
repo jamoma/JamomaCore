@@ -20,7 +20,9 @@
 // class TTDSP_EXPORT TTDelayBuffer {
 // This class is designed to be inlined, so there is nothing to export
 class TTDelayBuffer {
-public:
+
+public: // NW: Should these be protected?
+
 	TTSampleVector		mBuffer;
 	TTSampleValuePtr	mWritePointer;		///< "record" pointer for buffer
 	TTSampleValuePtr	mReadPointer;		///< "playback" pointer

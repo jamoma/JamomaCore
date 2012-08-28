@@ -27,7 +27,9 @@ typedef TTAudioObjectVector::iterator	TTAudioObjectIter;
  */
 class TTAudioObjectArray : public TTAudioObject {
 	TTCLASS_SETUP(TTAudioObjectArray)
-
+	
+protected:
+	
 	TTSymbolPtr			mClass;					///< The name of the object we will instantiate in the array
 	TTUInt16			mSize;					///< The number of instances in the array
 	TTAudioObjectVector	mInstances;				///< The actual vector containing object instance pointers

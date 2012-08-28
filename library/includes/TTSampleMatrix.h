@@ -24,9 +24,12 @@
 class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 	TTCLASS_SETUP(TTSampleMatrix)
 
+protected:
+
 	TTFloat64			mSampleRate;
 	
 public:
+
 	/**	Attribute accessor: set the number of channels for this buffer.
 		@return Returns a TTErr error code.	*/
 	TTErr setNumChannels(const TTValue& newNumChannels);

@@ -32,6 +32,8 @@
 class TTDSP_EXPORT TTAudioEngine : public TTObject {
 	TTCLASS_SETUP(TTAudioEngine)
 	
+protected:
+
 	TTUInt16			mNumInputChannels;
 	TTUInt16			mNumOutputChannels;
 	TTUInt16			mVectorSize;			///< framesPerBuffer
@@ -45,11 +47,14 @@ class TTDSP_EXPORT TTAudioEngine : public TTObject {
 	TTInt16				mInputDeviceIndex;
 	TTInt16				mOutputDeviceIndex;
 	TTBoolean			mIsRunning;
+
 public:
+
 	TTAudioSignalPtr	mInputBuffer;
 	TTAudioSignalPtr	mOutputBuffer;
 
 public:
+
 	// we are a singleton, so this is how we work with the lifecycle...
 	static TTObjectPtr	sSingletonInstance;
 	static TTObjectPtr create();

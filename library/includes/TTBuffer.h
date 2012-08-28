@@ -28,6 +28,8 @@ extern TTHashPtr gTTBufferNameMap;	// maps names to TTSampleMatrix instances for
 class TTDSP_EXPORT TTBuffer : public TTAudioObject {
 	TTCLASS_SETUP(TTBuffer)
 	
+protected:
+	
 	TTSymbolPtr				mName;				// The name of the TTSampleMatrix with which this buffer is currently associated
 	TTSampleMatrixPtr		mMatrix;			// The actual TTSampleMatrix
 	
