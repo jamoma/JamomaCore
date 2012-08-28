@@ -17,6 +17,8 @@
 class TTResample : TTAudioObject {
 	TTCLASS_SETUP(TTResample)
 	
+protected:
+	
 	TTAudioObjectPtr	mResamplingFilter;
 	TTSymbolPtr			mDirection;	// up or down
 	TTSymbolPtr			mMode;		// staircase, third, fifth

@@ -17,6 +17,8 @@
 class TTStaircase : TTAudioObject {
 	TTCLASS_SETUP(TTStaircase)
 	
+protected:
+	
 	TTSymbolPtr	mMode;
 	
 	TTErr setMode(const TTValue& newMode);
