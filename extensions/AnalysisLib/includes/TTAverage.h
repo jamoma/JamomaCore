@@ -15,6 +15,8 @@
 class TTAverage : TTAudioObject {
 	TTCLASS_SETUP(TTAverage)
 
+protected:
+
 	TTUInt64			mMaxInterval;
 	TTUInt64			mInterval;
 	TTFloat64			mIntervalReciprocal;
