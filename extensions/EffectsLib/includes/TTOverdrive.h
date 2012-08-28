@@ -31,6 +31,8 @@
 class TT_OVERDRIVE_EXPORT TTOverdrive : public TTAudioObject {
 	TTCLASS_SETUP(TTOverdrive)
 
+protected:
+
 	TTFloat64			mDrive;			///< Attribute: The amount of saturation to apply
 	TTBoolean			mDcBlocker;		///< Attribute: Pass processed signal through a DC blocking filter?
 	TTBoolean			mMode;			///< Attribute: What distortion function to use

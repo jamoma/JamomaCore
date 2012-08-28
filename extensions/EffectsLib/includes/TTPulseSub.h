@@ -16,6 +16,8 @@
 class TTPulseSub : public TTAudioObject {
 	TTCLASS_SETUP(TTPulseSub)
 
+protected:
+
 	TTFloat64			attrAttack;
 	TTFloat64			attrDecay;
 	TTFloat64			attrSustain;

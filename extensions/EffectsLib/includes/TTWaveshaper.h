@@ -16,6 +16,8 @@
 class TTWaveshaper : public TTAudioObject {
 	TTCLASS_SETUP(TTWaveshaper)
 
+protected:
+
 	TTFloat64		mStrength, mInvStrength, mSigmoidGainCorrection, mPoly1GainCorrection;
 	TTSymbol*		mShape;
 	/**	Setter for the shape attribute. */

@@ -23,6 +23,8 @@
 class TTBalance : public TTAudioObject {
 	TTCLASS_SETUP(TTBalance)
 
+protected:
+
 	TTFloat64		mFrequency;					///< filter cutoff frequency of inherent lowpass filter
 	TTFloat64		c, a0, a1, a2, b1, b2;		///< filter coefficients
 	TTSampleVector	xm1A, xm2A, ym1A, ym2A;		///< previous input and output values of signal to be balanced

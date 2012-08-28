@@ -19,6 +19,8 @@
 class TTDegrade : public TTAudioObject {
 	TTCLASS_SETUP(TTDegrade)
 
+protected:
+
 	TTUInt16		mBitShift;		///< Amount of bits to shift away based on attrBitdepth.
 	TTSampleVector	mAccumulator;	///< Holds values over from one vector to the next for each channel.
 	TTSampleVector	mOutput;		///< Holds values over from one vector to the next for each channel..

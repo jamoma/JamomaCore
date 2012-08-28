@@ -28,6 +28,8 @@
 class TTLimiter : public TTAudioObject {
 	TTCLASS_SETUP(TTLimiter)
 
+protected:
+
 	TTFloat64			recover;				///< 
 	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
 	TTUInt32			lookaheadBufferIndex;

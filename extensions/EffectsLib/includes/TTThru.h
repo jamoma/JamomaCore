@@ -16,6 +16,8 @@
 class TTThru : public TTAudioObject {
 	TTCLASS_SETUP(TTThru)
 
+protected:
+
 	/**	A standard audio processing method as used by TTBlue objects.	*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 

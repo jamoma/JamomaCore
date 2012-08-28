@@ -14,6 +14,8 @@
 class TTPanorama : public TTAudioObject {
 	TTCLASS_SETUP(TTPanorama)
 	
+protected:	
+	
 	TTFloat64		mPosition;	///< Use a range of -1.0 to 1.0 to specify the panning position
 	TTFloat64		mScaledPosition;///< rescaled value of mPosition between 0 and 1.
 	TTSymbol*		mShape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"

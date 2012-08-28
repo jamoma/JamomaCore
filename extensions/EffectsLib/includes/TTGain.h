@@ -16,6 +16,8 @@
 class TTGain : public TTAudioObject {
 	TTCLASS_SETUP(TTGain)
 
+protected:
+
 	TTFloat64		mGain, oldGain;	///< linear gain to be applied to the input signal
 	TTBoolean		mInterpolated;
 	/**	A standard audio processing method as used by TTBlue objects.*/
