@@ -8,8 +8,12 @@
 
 #include "TTFoundationAPI.h"
 
+#if OLD
 #include <boost/regex.hpp>
 using namespace boost;
+#else
+#include <regex>
+#endif
 
 TTFOUNDATION_EXPORT TTRegex* ttRegexForDirectory = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute = NULL;

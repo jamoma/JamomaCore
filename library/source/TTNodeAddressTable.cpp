@@ -31,9 +31,13 @@ public:
 typedef hash_map<TTString, TTNodeAddressPtr>     TTNodeAddressTableHash;
 
 #else
-#include "boost/unordered_map.hpp"
-using namespace boost;
-typedef unordered_map<std::string, TTNodeAddressPtr>		TTNodeAddressTableHash;
+#if OLD
+	#include "boost/unordered_map.hpp"
+	using namespace boost;
+#else
+	#include <unordered_map>
+#endif
+	typedef unordered_map<std::string, TTNodeAddressPtr>		TTNodeAddressTableHash;
 #endif
 
 
