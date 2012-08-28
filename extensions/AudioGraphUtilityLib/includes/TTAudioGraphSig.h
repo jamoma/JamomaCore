@@ -16,6 +16,8 @@
 class TTAudioGraphSig : public TTAudioObject {
 	TTCLASS_SETUP(TTAudioGraphSig)
 
+protected:
+
 	TTFloat64	mValue;
 	
 	/** A value passed in as a dictionary will set the value attribute

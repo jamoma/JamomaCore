@@ -15,6 +15,8 @@
 class TTAudioGraphOffset : public TTAudioObject {
 	TTCLASS_SETUP(TTAudioGraphOffset)
 	
+protected:
+	
 	TTInt16			mOffset; ///< how much we want to offset our channels, can be also negative  
 	
 	TTErr setOffset(const TTValue& value);

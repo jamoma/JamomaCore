@@ -18,6 +18,8 @@
 class TTAudioGraphJoin : public TTAudioObject {
 	TTCLASS_SETUP(TTAudioGraphJoin)
 	
+protected:
+	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
 		TTUInt16		numSignals = inputs->numAudioSignals;

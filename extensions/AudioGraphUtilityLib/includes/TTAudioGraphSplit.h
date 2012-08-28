@@ -16,6 +16,8 @@
 class TTAudioGraphSplit : public TTAudioObject {
 	TTCLASS_SETUP(TTAudioGraphSplit)
 	
+protected:
+	
 	vector<TTUInt16>	mSplitChannels;	///< The number of channels in each of N groups of signals
 	
 	TTErr setGroups(const TTValueRef args)

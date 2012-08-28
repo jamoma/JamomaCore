@@ -15,6 +15,8 @@
 class TTAudioGraphPick : public TTAudioObject {
 	TTCLASS_SETUP(TTAudioGraphPick)
 	
+protected:
+	
 	vector<TTUInt16>	mPickChannels;	///< The specific channels we want to pick
 	TTUInt16			mNumPickChannels; ///< The number of channels we pick
 	TTBoolean			outputNeedsResize;
