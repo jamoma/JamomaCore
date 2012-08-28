@@ -19,6 +19,8 @@
 class TTBandRejectButterworth2 : public TTAudioObject {
 	TTCLASS_SETUP(TTBandRejectButterworth2)
 
+protected:
+
 	TTFloat64			mFrequency;				///< filter cutoff frequency
 	TTFloat64			mQ;						///< filter resonance
 	TTFloat64			mC, mD, mBw, mA0, mA1, mA2, mB1, mB2;	///< filter coefficients. 

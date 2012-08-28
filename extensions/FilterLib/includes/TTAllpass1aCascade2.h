@@ -16,6 +16,8 @@
 class TTAllpass1aCascade2 : public TTAudioObject {
 	TTCLASS_SETUP(TTAllpass1aCascade2)
 
+protected:
+
 	TTFloat64			mAlpha0;	///< coefficient for filter 0
 	TTFloat64			mAlpha1;	///< coefficient for filter 1
 	TTSampleVector		mX1;		///< previous input sample (n-1) for each channel of the cascade

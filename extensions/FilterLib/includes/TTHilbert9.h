@@ -47,6 +47,8 @@
 class TTHilbert9 : TTAudioObject {
 	TTCLASS_SETUP(TTHilbert9)
 
+protected:
+
 	TTAllpass1b*	mF0;		///< path0
 	TTAllpass1b*	mF2;		///< path0
 

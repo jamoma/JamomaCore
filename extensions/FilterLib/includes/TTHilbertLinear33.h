@@ -32,6 +32,8 @@
 class TTHilbertLinear33 : TTAudioObject {
 	TTCLASS_SETUP(TTHilbertLinear33)
 
+protected:
+
 	TTDelay*		mP0Delay;	///< path0, pure delay, 16 samples
 	
 	TTAllpass1a*	mP1Delay;	///< path1

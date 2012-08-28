@@ -16,6 +16,8 @@
 class TTLowpassFourPole : public TTAudioObject {
 	TTCLASS_SETUP(TTLowpassFourPole)
 
+protected:
+
 	TTFloat64		mFrequency;				///< filter cutoff frequency
 	TTFloat64		mResonance;				///< filter resonance -- range is best between 1.0 and 16.0
 	TTFloat64		mDeciResonance;			///< attrResonance * 0.1

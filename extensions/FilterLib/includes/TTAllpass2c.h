@@ -27,6 +27,8 @@
 class TTAllpass2c : public TTAudioObject {
 	TTCLASS_SETUP(TTAllpass2c)
 	
+protected:
+	
 	TTFloat64			mE1;	///< first coefficient
 	TTFloat64			mE2;	///< second coefficient
 	

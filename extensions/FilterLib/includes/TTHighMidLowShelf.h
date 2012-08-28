@@ -14,6 +14,8 @@
 class TTHighMidLowShelf : public TTAudioObject {
 	TTCLASS_SETUP(TTHighMidLowShelf)
 
+protected:
+
 	TTFloat64		mFrequencyLm, mFrequencyMh, mGainL, mGainM, mGainH;///< filter parameter
 	TTFloat64		mA0, mA1, mA2, mB1, mB2;		///< filter coefficients
 	TTSampleVector		mX1;

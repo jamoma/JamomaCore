@@ -22,6 +22,8 @@
 class TTSvf : public TTAudioObject {
 	TTCLASS_SETUP(TTSvf)
 
+protected:
+
 	TTFloat64			mFrequency;			///< filter cutoff frequency
 	TTFloat64			mResonance;			///< filter resonance -- range is best between 1.0 and 16.0
 	TTSymbolPtr			mMode;				///< lowpass, highpass, bandpass, notch, or peak

@@ -20,6 +20,8 @@
 class TTHalfband3 : TTAudioObject {
 	TTCLASS_SETUP(TTHalfband3)
 
+protected:
+
 	TTAllpass1b*	mF0;		///< path0 (used by lowpass/highpass modes)
 	TTAllpass1a*	mDelay;		///< pure delay (used by lowpass/highpass modes)
 	TTAllpass1a*	mR0;		///< path 0 (used by resampling modes)
@@ -39,6 +41,7 @@ class TTHalfband3 : TTAudioObject {
 	TTErr processUpsample	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 public:
+
 	TTErr calculateLowpass		(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
 	TTErr calculateHighpass		(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
 	TTErr calculateDownsample	(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);

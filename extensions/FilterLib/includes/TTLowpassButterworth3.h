@@ -25,6 +25,8 @@
 class TTLowpassButterworth3 : public TTAudioObject {
 	TTCLASS_SETUP(TTLowpassButterworth3)
 
+protected:
+
 	TTFloat64			mFrequency;				///< filter cutoff frequency
 	TTFloat64			mK,mKSquared,mKCubic, mRadians, mRadiansSquared, mRadiansCubic;		///< filter coefficients
 	TTFloat64			mA0, mA1, mA2, mA3;			///< filter coefficients for input samples

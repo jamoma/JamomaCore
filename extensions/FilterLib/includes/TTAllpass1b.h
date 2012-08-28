@@ -17,6 +17,8 @@
 class TTAllpass1b : public TTAudioObject {
 	TTCLASS_SETUP(TTAllpass1b)
 
+protected:
+
 	TTFloat64			mAlpha;				///< single coefficient for the first-order allpass
 	TTSampleVector		mX1;				///< previous input sample (n-1) for each channel
 	TTSampleVector		mX2;				///< previous input sample (n-2) for each channel

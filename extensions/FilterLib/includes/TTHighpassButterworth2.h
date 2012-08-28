@@ -19,6 +19,8 @@
 class TTHighpassButterworth2 : public TTAudioObject {
 	TTCLASS_SETUP(TTHighpassButterworth2)
 
+protected:
+
 	TTFloat64			mFrequency;				///< filter cutoff frequency
 	TTFloat64			mC, mCSquared, mA0, mA1, mB1, mB2;	///< filter coefficients. 
 	TTSampleVector		mX1;						///< Input sample n-1

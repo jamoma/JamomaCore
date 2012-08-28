@@ -15,6 +15,9 @@
 /**	The simplest of lowpass filters: a single-pole, no-zero algorithm. */
 class TTLowpassOnePole : public TTOnePole {
 	TTCLASS_SETUP(TTLowpassOnePole)
+
+protected:
+	
 };
 
 

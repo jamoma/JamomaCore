@@ -56,6 +56,8 @@
 class TTHalfbandLinear33 : TTAudioObject {
 	TTCLASS_SETUP(TTHalfbandLinear33)
 
+protected:
+
 	TTDelay*		mP0Delay;	///< path0, pure delay, 16 samples
 	
 	TTAllpass1a*	mP1Delay;	///< path1
@@ -83,8 +85,10 @@ class TTHalfbandLinear33 : TTAudioObject {
 	inline void filterKernel(const TTFloat64& input, TTFloat64& outputPath0, TTFloat64& outputPath1, TTPtrSizedInt channel);
 	
 public:
+
 	TTErr calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
 	TTErr calculateHighpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
+
 };
 
 

@@ -22,6 +22,8 @@
 class TTMirrorBandpass10 : TTAudioObject {
 	TTCLASS_SETUP(TTMirrorBandpass10)
 
+protected:
+
 	TTAllpass4a*	mF0;				///< filter0 (in the upper path)
 	TTAllpass2c*	mF1;				///< filter1 (in the lower path, first block)
 	TTAllpass4a*	mF2;				///< filter2 (in the lower path, second block)

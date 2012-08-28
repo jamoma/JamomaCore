@@ -22,6 +22,8 @@
 class TTHalfband9 : TTAudioObject {
 	TTCLASS_SETUP(TTHalfband9)
 
+protected:
+
 	TTAllpass1b*	mF0;		///< path0
 	TTAllpass1b*	mF2;		///< path0
 	TTAllpass1a*	mR0;		///< path0, resampling
@@ -57,10 +59,12 @@ class TTHalfband9 : TTAudioObject {
 	TTErr processUpsample	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 public:
+
 	TTErr calculateLowpass		(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
 	TTErr calculateHighpass		(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
 	TTErr calculateDownsample	(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
 	TTErr calculateUpsample		(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);
+
 };
 
 

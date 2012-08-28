@@ -17,6 +17,8 @@
 class TTAllpass1 : public TTAudioObject {
 	TTCLASS_SETUP(TTAllpass1)
 
+protected:
+
 	TTFloat64			mDelay;				///< Attribute: delay time in milliseconds
 	TTFloat64			mDelayMax;			///< Maximum delay time in milliseconds (how long is the buffer?)
 	TTUInt32			mDelayInSamples;	///< Delay time in samples (internal)		

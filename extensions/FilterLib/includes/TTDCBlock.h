@@ -76,6 +76,8 @@
 class TTDCBlock : public TTAudioObject {
 	TTCLASS_SETUP(TTDCBlock)
 
+protected:
+
 	TTSampleVector		mLastInput;		///< Feedback values used for the audio filter			
 	TTSampleVector		mLastOutput;	///< Feedback values used for the audio filter
 

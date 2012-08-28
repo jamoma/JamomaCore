@@ -16,6 +16,8 @@
 class TTLowpassTwoPole : public TTAudioObject {
 	TTCLASS_SETUP(TTLowpassTwoPole)
 
+protected:
+
 	TTFloat64			mFrequency;				///< filter cutoff frequency
 	TTFloat64			mResonance;				///< filter resonance
 	TTFloat64			mCoefficientA;			///< filter coefficient

@@ -18,6 +18,7 @@ class TTFilter : TTAudioObject {
 	TTCLASS_SETUP(TTFilter)
 	
 protected:
+
 	TTAudioObjectPtr	mActualFilterObject;	///< The actual filter object that this object is currently wrapping
 	TTFloat64			mFrequency;				///< The center or cutoff frequency of the filter
 	TTFloat64			mQ;						///< The width of the filter

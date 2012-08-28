@@ -18,6 +18,8 @@
 class TTAllpass2b : public TTAudioObject {
 	TTCLASS_SETUP(TTAllpass2b)
 
+protected:
+
 	TTFloat64			mC1;	///< first coefficient
 	TTFloat64			mC2;	///< second coefficient
 

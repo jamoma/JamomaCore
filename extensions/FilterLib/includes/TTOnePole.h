@@ -16,6 +16,8 @@
 class TTOnePole : public TTAudioObject {
 	TTCLASS_SETUP(TTOnePole)
 
+protected:
+
 	TTSymbolPtr			mMode;							///< filter mode: 'lowpass' or 'highpass'
 	TTFloat64			mFrequency;						///< filter cutoff frequency
 	

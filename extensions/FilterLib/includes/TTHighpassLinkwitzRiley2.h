@@ -33,6 +33,8 @@
 class TTHighpassLinkwitzRiley2 : public TTAudioObject {
 	TTCLASS_SETUP(TTHighpassLinkwitzRiley2)
 
+protected:
+
 	TTFloat64			mFrequency;				///< filter cutoff frequency
 	TTFloat64			mK, mRadians, mKSquared, mRadiansSquared;		
 	TTFloat64			mA0, mA1, mA2;					///< filter coefficients for input samples
