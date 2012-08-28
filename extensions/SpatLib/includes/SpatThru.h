@@ -16,6 +16,8 @@
 class SpatThru : public TTAudioObject {
 	TTCLASS_SETUP(SpatThru)
 	
+protected:
+	
 	TTUInt16 mSourceCount;
 	TTUInt16 mDestinationCount;
 	

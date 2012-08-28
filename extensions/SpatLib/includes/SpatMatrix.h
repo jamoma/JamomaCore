@@ -17,6 +17,8 @@
 class SpatMatrix : TTAudioObject {
 	TTCLASS_SETUP(SpatMatrix)
 	
+protected:
+	
 	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
 	TTFloat64			mDummyTest;
 	TTFloat64			mDummyTest2;

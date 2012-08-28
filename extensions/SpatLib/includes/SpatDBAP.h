@@ -20,6 +20,8 @@
 class SpatDBAP : TTAudioObject {
 	TTCLASS_SETUP(SpatDBAP)
 	
+protected:
+	
 	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/

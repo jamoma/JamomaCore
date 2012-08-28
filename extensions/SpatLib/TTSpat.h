@@ -15,6 +15,8 @@
 class TTSpat : TTAudioObject {
 	TTCLASS_SETUP(TTSpat)
 
+protected:
+
 	TTAudioObjectPtr	mSpatFunctionObject;
 	TTSymbolPtr			mSpatFunction;	
 	TTUInt16			mSourceCount;	
