@@ -18,6 +18,8 @@
 class TTWavetable : TTAudioObject {
 	TTCLASS_SETUP(TTWavetable)
 
+protected:
+
 	TTSymbolPtr			mMode;
 	TTFloat64			mFrequency;
 	TTFloat64			mGain;

@@ -20,6 +20,8 @@
 class TTRamp : TTAudioObject {
 	TTCLASS_SETUP(TTRamp)
 
+protected:
+
 	enum rampDirection {
 		kUP = 0,
 		kDOWN

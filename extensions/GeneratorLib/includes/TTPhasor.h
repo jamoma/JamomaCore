@@ -16,6 +16,8 @@
 class TTPhasor : TTAudioObject {
 	TTCLASS_SETUP(TTPhasor)
 
+protected:
+
 	TTFloat64 			mFrequency;				///< ramp time in milliseconds
 	TTSampleValue		mPhase, phaseInternal;	///< current location in the ramp
 	TTFloat64			mOffset;				///< offset value (adding DC) 

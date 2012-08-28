@@ -16,6 +16,8 @@
 class TTAdsr : TTAudioObject {
 	TTCLASS_SETUP(TTAdsr)
 
+protected:
+
 	TTFloat64	attack_ms;
 	TTInt32		attack_samples;
 	TTFloat64	attack_step;

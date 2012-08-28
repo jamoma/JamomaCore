@@ -22,6 +22,8 @@
 class TTNoise : TTAudioObject {
 	TTCLASS_SETUP(TTNoise)
 
+protected:
+
 #ifdef USE_MERSENNE_TWISTER_ALGORITHM
 	MTRand				mTwister;	///< class implementing Mersenne Twister algorithm
 	TTFloat64			mMean;		///< mean value for gauss distribution process method
