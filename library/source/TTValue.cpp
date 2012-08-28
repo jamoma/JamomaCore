@@ -1199,8 +1199,8 @@ TTBoolean isTTInt32( const TTString & str )
 {
 	char * pEnd;
 	
-	TTInt32 tmp = strtol(str.data(), &pEnd, 10);
-	return *pEnd == NULL;
+	strtol(str.data(), &pEnd, 10);
+	return *pEnd == 0;
 }
 
 /*	note : isTTFloat32 works only because the TTInt32 case is matched before 
@@ -1210,8 +1210,8 @@ TTBoolean isTTFloat32( const TTString & str )
 {
 	char * pEnd;
 	
-	TTFloat32 tmp = strtod(str.data(), &pEnd);
-	return *pEnd == NULL;
+	strtod(str.data(), &pEnd);
+	return *pEnd == 0;
 }
 
 TTInt32 toTTInt32( const TTString & str )
