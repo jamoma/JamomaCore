@@ -71,8 +71,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 824.0, 534.0, 599.0, 43.0 ],
-					"text" : "jcom.parameter soundfile/transpose @type array @range/bounds -12. 12. @range/clipmode none @dataspace time @dataspace/unit midi @ramp/drive scheduler @ramp/function linear @description \"Control soundfile playback speed/transposition as MIDI transposition.\""
+					"patching_rect" : [ 824.0, 534.0, 596.0, 43.0 ],
+					"text" : "jcom.parameter soundfile/transpose @type decimal @range/bounds -12. 12. @range/clipmode none @dataspace time @dataspace/unit midi @ramp/drive scheduler @ramp/function linear @description \"Control soundfile playback speed/transposition as MIDI transposition.\""
 				}
 
 			}
