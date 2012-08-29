@@ -300,6 +300,7 @@ public:
 	void get(const TTUInt16 index, TTBoolean &value) const;
 	void get(const TTUInt16 index, TTSymbol** value) const;
 	void get(const TTUInt16 index, TTString& value) const;
+	void get(const TTUInt16 index, const char* value) const;
 	void get(const TTUInt16 index, TTObject& value) const;
 	void get(const TTUInt16 index, TTObject** value) const;
 	void get(const TTUInt16 index, TTMatrix& value) const;
