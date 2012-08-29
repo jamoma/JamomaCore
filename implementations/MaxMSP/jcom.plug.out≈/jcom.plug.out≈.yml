@@ -41,7 +41,7 @@ postbuilds:
 
 arch: i386  
 
-compiler: gcc  
+#compiler: gcc  
 # I've set the compiler to gcc beause for gcc46, I got the error:
 # g++: error: PlugtasticProgressWindow.mm: Objective-C++ compiler not installed on this system 
 
