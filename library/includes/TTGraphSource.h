@@ -24,16 +24,19 @@ class TTGraphDescription;
 class TTGRAPH_EXPORT TTGraphSource {
 	friend void TTGraphSourceObserverCallback(TTGraphSource* self, TTValue& arg);
 	
-	TTGraphObjectPtr	mSourceObject;		// the object from which we pull samples
-	TTUInt16			mOutletNumber;		// zero-based
+protected:
+
+	TTGraphObjectPtr	mSourceObject;		///< the object from which we pull samples
+	TTUInt16			mOutletNumber;		///< zero-based
 	TTObjectPtr			mCallbackHandler;
-	TTGraphInletPtr		mOwner;				// the owning inlet
+	TTGraphInletPtr		mOwner;				///< the owning inlet
 	
 public:
+
 	TTGraphSource();	
 	~TTGraphSource();			
 
-	// Internal method shared/called by constructors.
+	/** Internal method shared/called by constructors. */
 	void create();
 	
 	TTBoolean match(TTGraphObjectPtr anObject, TTUInt16 anOutletNumber)

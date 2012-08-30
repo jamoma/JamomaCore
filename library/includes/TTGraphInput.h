@@ -19,12 +19,16 @@
 class TTGRAPH_EXPORT TTGraphInput : public TTDataObject
 {
 	TTCLASS_SETUP(TTGraphInput)
+
+protected:
 	
 	TTGraphObjectPtr	mOwner;
 	
 public:
+
 	TTErr setOwner(TTGraphObjectPtr newOwner);
 	TTErr push(const TTDictionary& aDictionary);
+
 };
 
 

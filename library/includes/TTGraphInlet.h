@@ -21,9 +21,13 @@
 	TTGraphObject maintains a vector of these inlets.
 */
 class TTGRAPH_EXPORT TTGraphInlet {
+
+protected:
+
 	TTGraphSourceVector		mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
 	
 public:
+
 	TTGraphInlet()
 	{
 		;
