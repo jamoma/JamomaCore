@@ -25,6 +25,23 @@
   <command address="filter.4/frequency">2500</command>
   <command address="filter.4/q">2.00000</command>
   <command address="filter.3/q">2.00000</command>
-  <command address="filter.5/q">2.00000</command>
+  <command address="filter.5/q">2.00000</command>     
+  <command address="filter.1/type">lowshelf</command>  
+  <command address="filter.2/type">peaknotch</command>  
+  <command address="filter.3/type">peaknotch</command>  
+  <command address="filter.4/type">peaknotch</command>  
+  <command address="filter.5/type">highshelf</command>
+  <command address="filter.6/gain">0.</command>
+  <command address="filter.6/frequency">6000</command>
+  <command address="filter.6/q">2</command>
+  <command address="filter.6/type">peaknotch</command>   
+  <command address="filter.7/gain">0.</command>
+  <command address="filter.7/frequency">7000</command>
+  <command address="filter.7/q">2</command>
+  <command address="filter.7/type">peaknotch</command>
+  <command address="filter.8/gain">0.</command>
+  <command address="filter.8/frequency">800</command>
+  <command address="filter.8/q">2</command>
+  <command address="filter.8/type">peaknotch</command>
  </preset>
 </jamoma>
