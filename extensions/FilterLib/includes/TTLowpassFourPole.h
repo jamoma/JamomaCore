@@ -40,6 +40,12 @@ protected:
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
+    
+    /**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
+	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
+	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
+	 *	neccesary to clear the filter by calling this method.
+	 *	@return Returns a TTErr error code.												*/
     TTErr clear();
 	
 	void calculateCoefficients();
@@ -52,12 +58,6 @@ protected:
 	// Attributes
 	TTErr setFrequency(const TTValue& value);
 	TTErr setResonance(const TTValue& value);
-	
-	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
-	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
-	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
-	 *	neccesary to clear the filter by calling this method.
-	 *	@return Returns a TTErr error code.												*/
 	
 };
 
