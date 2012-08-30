@@ -17,6 +17,8 @@
 class PlugtasticOutput : public TTAudioObject {
 	TTCLASS_SETUP(PlugtasticOutput)
 	
+protected:	
+	
 	TTFloat64		mGain;	///< linear gain to be applied to the input signal
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
@@ -33,6 +35,7 @@ class PlugtasticOutput : public TTAudioObject {
 	
 	/** retreive the gain in midi units. */
 	TTErr getMidiGain(TTValue& value);
+
 };
 
 

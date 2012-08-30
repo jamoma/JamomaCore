@@ -17,10 +17,13 @@
 class PlugtasticInput : public TTAudioObject {
 	TTCLASS_SETUP(PlugtasticInput)
 	
+protected:
+
 	TTBoolean	mSidechain; ///< attr
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 };
 
 
