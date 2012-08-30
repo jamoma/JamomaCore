@@ -31,6 +31,7 @@ public:
 	TTErr dictionary(const TTValue& aDictionary, TTValue&);
 	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 	TTErr setDevice(TTValue& newDeviceName);
+
 };
 
 

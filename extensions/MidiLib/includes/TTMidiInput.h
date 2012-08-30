@@ -33,6 +33,7 @@ public:
 	
 	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 	TTErr setDevice(TTValue& newDeviceName);
+
 };
 
 

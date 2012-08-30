@@ -15,7 +15,10 @@
 class TTMidiFormat : TTDataObject {
 	TTCLASS_SETUP(TTMidiFormat)
 	
+protected:	
+	
 	TTErr dictionary(const TTValue& input, TTValue& output);
+	
 };
 
 

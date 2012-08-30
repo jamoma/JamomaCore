@@ -15,9 +15,12 @@
 class TTMidiFilter : TTDataObject {
 	TTCLASS_SETUP(TTMidiFilter)
 
+protected:
+
 	TTSymbolPtr	mType;
 	
 	TTErr dictionary(const TTValue& input, TTValue& output);
+	
 };
 
 

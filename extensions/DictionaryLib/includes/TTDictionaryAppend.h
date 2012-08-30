@@ -16,6 +16,8 @@
 class TTDictionaryAppend : public TTDataObject {
 	TTCLASS_SETUP(TTDictionaryAppend)
 	
+protected:
+	
 	TTSymbolPtr	mKey;
 	TTValuePtr	mValue;
 	
