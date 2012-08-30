@@ -7,7 +7,7 @@
 			"revision" : 7
 		}
 ,
-		"rect" : [ 201.0, 45.0, 1444.0, 806.0 ],
+		"rect" : [ 0.0, 44.0, 1280.0, 706.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -57,7 +57,8 @@
 					"patching_rect" : [ 764.0, 534.0, 50.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 241.0, 90.0, 43.0, 19.0 ],
-					"triangle" : 0
+					"triangle" : 0,
+					"varname" : "transpose_disp"
 				}
 
 			}
@@ -299,7 +300,8 @@
 					"patching_rect" : [ 259.0, 449.0, 18.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 266.0, 111.0, 18.0, 19.0 ],
-					"text" : ":"
+					"text" : ":",
+					"varname" : "sep2_disp"
 				}
 
 			}
@@ -308,6 +310,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frgb" : 0.0,
+					"hint" : "",
 					"id" : "obj-60",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -315,7 +318,8 @@
 					"patching_rect" : [ 203.0, 448.0, 18.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 248.0, 111.0, 18.0, 19.0 ],
-					"text" : ":"
+					"text" : ":",
+					"varname" : "sep1_disp"
 				}
 
 			}
@@ -337,7 +341,8 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 273.333313, 111.0, 23.0, 19.0 ],
 					"triangle" : 0,
-					"triscale" : 0.9
+					"triscale" : 0.9,
+					"varname" : "s_disp"
 				}
 
 			}
@@ -373,7 +378,8 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 255.333344, 111.0, 23.0, 19.0 ],
 					"triangle" : 0,
-					"triscale" : 0.9
+					"triscale" : 0.9,
+					"varname" : "min_disp"
 				}
 
 			}
@@ -409,7 +415,8 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 234.0, 111.0, 23.0, 19.0 ],
 					"triangle" : 0,
-					"triscale" : 0.9
+					"triscale" : 0.9,
+					"varname" : "h_disp"
 				}
 
 			}
@@ -723,7 +730,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 1077.0, 47.0, 67.0, 19.0 ],
+					"patching_rect" : [ 1056.0, 48.0, 67.0, 19.0 ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
 					"text" : "thispatcher"
 				}
@@ -770,13 +777,13 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-9",
-									"linecount" : 6,
+									"linecount" : 14,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 835.333313, 112.0, 193.0, 77.0 ],
-									"text" : "script hide clicktrainText, script hide clicktrainFreq, script hide toneText, script hide toneFreq, script show filename, script hide Channel_Left, script hide Channel_Right, script hide filetext"
+									"patching_rect" : [ 835.333313, 112.0, 193.0, 175.0 ],
+									"text" : "script hide clicktrainText, script hide clicktrainFreq, script hide toneText, script hide toneFreq, script show filename, script hide Channel_Left, script hide Channel_Right, script hide filetext, script hide Open_button, script hide Play_button, script hide h_disp, script hide min_disp, script hide s_disp, script hide sep1_disp, script hide sep2_disp, script hide loop_disp, script hide transpose_disp, script hide loop_desc"
 								}
 
 							}
@@ -785,13 +792,13 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-5",
-									"linecount" : 7,
+									"linecount" : 15,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 440.666656, 112.0, 170.0, 90.0 ],
-									"text" : "script hide filename, script hide clicktrainFreq, script hide clicktrainText, script hide Channel_Left, script hide Channel_Right, script show toneFreq, script show toneText, script hide filetext"
+									"patching_rect" : [ 440.666656, 112.0, 178.0, 187.0 ],
+									"text" : "script hide filename, script hide clicktrainFreq, script hide clicktrainText, script hide Channel_Left, script hide Channel_Right, script show toneFreq, script show toneText, script hide filetext, script hide Open_button, script hide Play_button, script hide h_disp, script hide min_disp, script hide s_disp, script hide sep1_disp, script hide sep2_disp, script hide loop_disp, script hide transpose_disp, script hide loop_desc"
 								}
 
 							}
@@ -800,13 +807,13 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-4",
-									"linecount" : 7,
+									"linecount" : 14,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 241.0, 112.0, 161.0, 90.0 ],
-									"text" : "script hide clicktrainText, script hide clicktrainFreq, script hide toneText, script hide toneFreq, script show Channel_Left, script show Channel_Right, script hide filename, script hide filetext"
+									"patching_rect" : [ 241.0, 112.0, 182.0, 175.0 ],
+									"text" : "script hide clicktrainText, script hide clicktrainFreq, script hide toneText, script hide toneFreq, script show Channel_Left, script show Channel_Right, script hide filename, script hide filetext, script hide Open_button, script hide Play_button, script hide h_disp, script hide min_disp, script hide s_disp, script hide sep1_disp, script hide sep2_disp, script hide loop_disp, script hide transpose_disp, script hide loop_desc"
 								}
 
 							}
@@ -815,13 +822,13 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-7",
-									"linecount" : 7,
+									"linecount" : 16,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 638.0, 112.0, 180.0, 90.0 ],
-									"text" : "script hide clicktrainText, script hide clicktrainFreq, script hide toneText, script hide toneFreq, script show filename, script hide Channel_Left, script hide Channel_Right, script show filetext"
+									"patching_rect" : [ 638.0, 112.0, 169.0, 199.0 ],
+									"text" : "script hide clicktrainText, script hide clicktrainFreq, script hide toneText, script hide toneFreq, script show filename, script hide Channel_Left, script hide Channel_Right, script show filetext, script show Open_button, script show Play_button, script show h_disp, script show min_disp, script show s_disp, script show sep1_disp, script show sep2_disp, script show loop_disp, script show transpose_disp, script show loop_desc"
 								}
 
 							}
@@ -830,13 +837,13 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-6",
-									"linecount" : 7,
+									"linecount" : 15,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 46.0, 111.0, 175.0, 90.0 ],
-									"text" : "script hide filename, script show clicktrainFreq, script show clicktrainText, script hide Channel_Left, script hide Channel_Right, script hide toneFreq,, script hide toneText, script hide filetext"
+									"patching_rect" : [ 46.0, 111.0, 187.0, 187.0 ],
+									"text" : "script hide filename, script show clicktrainFreq, script show clicktrainText, script hide Channel_Left, script hide Channel_Right, script hide toneFreq,, script hide toneText, script hide filetext, script hide Open_button, script hide Play_button, script hide h_disp, script hide min_disp, script hide s_disp, script hide sep1_disp, script hide sep2_disp, script hide loop_disp, script hide transpose_disp, script hide loop_desc"
 								}
 
 							}
@@ -980,7 +987,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 1056.0, 47.0, 17.0, 19.0 ],
+					"patching_rect" : [ 1056.0, 28.0, 75.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
@@ -994,7 +1001,7 @@
 						"tags" : ""
 					}
 ,
-					"text" : "p"
+					"text" : "p show&hide"
 				}
 
 			}
@@ -1131,7 +1138,8 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 824.0, 474.0, 20.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 241.0, 70.0, 18.0, 18.0 ]
+					"presentation_rect" : [ 241.0, 70.0, 18.0, 18.0 ],
+					"varname" : "loop_disp"
 				}
 
 			}
@@ -1291,7 +1299,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 828.0, 47.0, 100.0, 19.0 ],
+					"patching_rect" : [ 828.0, 30.0, 100.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 7.0, 111.0, 90.0, 19.0 ],
 					"rounded" : 10,
@@ -5983,7 +5991,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 828.0, 24.0, 475.0, 19.0 ],
+					"patching_rect" : [ 828.0, 7.0, 475.0, 19.0 ],
 					"text" : "jcom.parameter source @type string @description \"Select what audio source to use.\"",
 					"varname" : "source_select"
 				}
@@ -6185,7 +6193,8 @@
 					"patching_rect" : [ 257.0, 69.0, 30.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 257.0, 70.0, 30.0, 19.0 ],
-					"text" : "loop"
+					"text" : "loop",
+					"varname" : "loop_desc"
 				}
 
 			}
@@ -6581,7 +6590,7 @@
 					"destination" : [ "obj-64", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 878.0, 69.0, 811.0, 69.0, 811.0, 20.0, 837.5, 20.0 ],
+					"midpoints" : [ 878.0, 52.0, 811.0, 52.0, 811.0, 3.0, 837.5, 3.0 ],
 					"source" : [ "obj-62", 1 ]
 				}
 
@@ -6791,14 +6800,14 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.audioOnOff.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/audioOnOff",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/audioOnOff",
 				"patcherrelativepath" : "../../../library/components/audioOnOff",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.meter_receive.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/meter_receive",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Modular/Max/library/components/meter_receive",
 				"patcherrelativepath" : "../../../library/components/meter_receive",
 				"type" : "JSON",
 				"implicit" : 1
