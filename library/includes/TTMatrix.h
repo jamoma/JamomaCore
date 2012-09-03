@@ -35,7 +35,9 @@ typedef TTInt32 TTColumnID;
 /**	An N-dimensional matrix of compound values.	*/
 class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
-	
+
+protected:	
+
 	TTBytePtr			mData;					///< matrix of values
 	vector<TTUInt32>	mDimensions;			///< N dimensions, each int specifying the size of that dimension
 	TTUInt8				mElementCount;			///< how many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1)

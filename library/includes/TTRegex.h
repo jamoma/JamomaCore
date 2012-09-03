@@ -35,7 +35,7 @@ private:
 public:
 	
 	/** Constructor */
-	TTRegex (TTString anExpression);
+	TTRegex (const char*  anExpression);
 	
 	/** Destructor */
 	virtual ~TTRegex ();

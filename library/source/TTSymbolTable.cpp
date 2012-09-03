@@ -31,9 +31,14 @@
     typedef hash_map<TTString, TTSymbolPtr>     TTSymbolTableHash;
 
 #else
+#if OLD
     #include "boost/unordered_map.hpp"
     using namespace boost;
     typedef unordered_map<std::string, TTSymbolPtr>		TTSymbolTableHash;
+#else
+	#include <unordered_map>
+	typedef unordered_map<std::string, TTSymbolPtr>		TTSymbolTableHash;
+#endif
 #endif
 
 

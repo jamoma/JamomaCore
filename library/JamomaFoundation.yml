@@ -43,6 +43,14 @@ sources:
   - win source/TTNodeAddressCache.cpp
   - win source/TTNodeDirectory.cpp
   - win tests/TTNodeLib.test.cpp
+  - mac boost/libs/filesystem/src/codecvt_error_category.cpp
+  - mac boost/libs/filesystem/src/operations.cpp
+  - mac boost/libs/filesystem/src/path_traits.cpp
+  - mac boost/libs/filesystem/src/path.cpp
+  - mac boost/libs/filesystem/src/portability.cpp
+  - mac boost/libs/filesystem/src/unique_path.cpp
+  - mac boost/libs/filesystem/src/utf8_codecvt_facet.cpp
+  - mac boost/libs/system/src/error_code.cpp
   
 # See the note below about us not including the NodeLib on Linux (or iOS)
   
@@ -53,13 +61,10 @@ includes:
   - "boost"
 
 libraries:
-  - mac boost/lib-mac/libboost_filesystem.a
   - win RELEASE boost/lib-windows/libboost_filesystem-vc90-mt-s-1_46.lib
   - win DEBUG boost/lib-windows/libboost_filesystem-vc90-mt-sgd-1_46.lib
-  - mac boost/lib-mac/libboost_system.a
   - win RELEASE boost/lib-windows/libboost_system-vc90-mt-s-1_46.lib
   - win DEBUG boost/lib-windows/libboost_system-vc90-mt-sgd-1_46.lib
-  - mac boost/lib-mac/libboost_regex.a
   - win RELEASE boost/lib-windows/libboost_regex-vc90-mt-s-1_46.lib
   - win DEBUG boost/lib-windows/libboost_regex-vc90-mt-sgd-1_46.lib
 

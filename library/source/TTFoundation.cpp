@@ -36,6 +36,12 @@
 #include <ShlObj.h>
 #endif
 
+#ifdef TT_PLATFORM_MAC
+//#include <Carbon/Carbon.h>
+#define __COREFOUNDATION_CFMESSAGEPORT__ 1
+#include <CoreFoundation/CFBundle.h> 
+#endif
+
 
 static bool		TTFoundationHasInitialized = false;
 static TTString	TTFoundationBinaryPath = "";

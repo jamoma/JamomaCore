@@ -628,12 +628,12 @@ TTErr TTNodeDirectory::notifyObservers(TTNodeAddressPtr anAddress, TTNodePtr aNo
 	TTValue				hk, lk, o, f, data;
 	TTNodeAddressPtr	key, adrs, noAlias;
 	TTListPtr			lk_o;
-	TTNodePtr			n;
+	//TTNodePtr			n;
 	TTCallbackPtr		anObserver;
 	TTInt8				depthDifference, maxDepthDifference;
 	TTUInt32			i;
 	TTBoolean			foundObsv = NO;
-	TTErr				err;
+	//TTErr				err;
 
 	// if there are observers
 	if (!this->observers->isEmpty()) {

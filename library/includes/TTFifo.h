@@ -21,15 +21,17 @@
 
 template<class T>
 class TTFifo : TTBase {
+
+protected:	
 	
 	typedef	T							TTFifoItem;
 	typedef std::vector<TTFifoItem>		TTFifoItemVector;
 	//typedef TTFifoItemVector::iterator	TTFifoItemIter;
 	
-	TTAtomicUInt		mUpdateCounter;				// UC -- only modified by the producer
-	TTAtomicUInt		mAcknowledgementCounter;	// AC -- only modified by the consumer
-	TTUInt32			mSlotCount;					// count of slots in mBuffer -- should be power of 2, will use as a bitmask
-	TTUInt32			mDoubleSlotCount;			// 2 * mBufferSize, cached for performance
+	TTAtomicUInt		mUpdateCounter;				///< UC -- only modified by the producer
+	TTAtomicUInt		mAcknowledgementCounter;	///< AC -- only modified by the consumer
+	TTUInt32			mSlotCount;					///< count of slots in mBuffer -- should be power of 2, will use as a bitmask
+	TTUInt32			mDoubleSlotCount;			///< 2 * mBufferSize, cached for performance
 	TTFifoItemVector	mSlots;
 	
 public:

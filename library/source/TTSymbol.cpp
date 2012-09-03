@@ -59,3 +59,17 @@ const char* TTSymbol::getCString()
 {
 	return id;
 }
+
+
+#include "MersenneTwister.h"
+
+TTSymbol* TTSymbol::random()
+{
+	MTRand			twister;
+	unsigned int	i = twister.randInt();
+	char			s[16];
+		
+	snprintf(s, 16, "j%u", i);
+	s[15] = 0;
+	return TT(s);
+}

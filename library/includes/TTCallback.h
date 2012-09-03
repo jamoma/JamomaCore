@@ -22,6 +22,8 @@ class TTFOUNDATION_EXPORT TTCallback : public TTObject			///< we will subclass T
 {
 	TTCLASS_SETUP(TTCallback)
 
+protected:
+
 	TTFunctionWithBatonAndValue	mFunction;	///< Function called when the notify message is engaged
 	TTPtr						mBaton;		///< User data to be passed back when the callback is triggered
 	

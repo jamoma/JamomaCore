@@ -25,10 +25,6 @@
 	#endif
 #endif
 
-#ifdef TT_PLATFORM_MAC
-#include <Carbon/Carbon.h>
-#endif
-
 #include <algorithm>
 #include <cstring>
 #include <cmath>
@@ -149,9 +145,10 @@ typedef unsigned short		TTUInt16;
 	#endif
 #endif
 
-#ifndef uint
-#define uint unsigned int
-#endif
+// can't do the follow -- conflicts on the mac with Carbon headers
+//#ifndef uint
+//#define uint unsigned int
+//#endif
 
 typedef float					TTFloat32;
 typedef double					TTFloat64;
@@ -161,16 +158,11 @@ typedef std::complex<double>	TTComplex;
 typedef TTFloat64			TTSampleValue;
 
 /** A TTSampleVector is simply a pointer to the first of an array of TTSampleValues. */
-//typedef TTSampleValue*			TTSampleVector;
 typedef std::vector<TTSampleValue>	TTSampleVector;
 typedef TTSampleVector::iterator	TTSampleIter;
 
 typedef TTSampleValue*				TTSampleValuePtr;
 typedef TTSampleVector*				TTSampleVectorPtr;
-
-/** A TTSampleMatrix is vector of TTSampleVectors. */
-typedef std::vector<TTSampleVector>	TTSampleMatrix;
-typedef TTSampleMatrix::iterator	TTSampleMatrixIter;
 
 /** An integer that is the same size as a pointer.	*/
 typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on the Mac
