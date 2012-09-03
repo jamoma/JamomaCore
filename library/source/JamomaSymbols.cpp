@@ -113,7 +113,10 @@ t_symbol	*jps_done,
 			*jps__jcom_out__,
 			*jps___preview__,
 			*jps_return,
+			*jps_return_address,
 			*jps_return_extended,
+			*jps_return_signal,
+			*jps_return_value,
 			*jps_go,
 			*jps_init,
 			//*jps_ATTRIBUTES,
@@ -330,7 +333,10 @@ void jamomaSymbolsInit()
 	jps__jcom_out__					= SymbolGen("__jcom_out__");	// name of the module's jcom.out object
 	jps___preview__					= SymbolGen("__preview__");	// name of the remote for jitter preview matrices
 	jps_return						= SymbolGen("return");			// method called in the hub by jcom.return
+	jps_return_address				= SymbolGen("return_address");
 	jps_return_extended				= SymbolGen("return_extended");
+	jps_return_signal				= SymbolGen("return_signal");
+	jps_return_value				= SymbolGen("return_value");
 	jps_go							= SymbolGen("go");				// method in jcom.init called by the hub
 	jps_init						= SymbolGen("/init");			// method in the hub called from jcom.init
 	//jps_ATTRIBUTES					= SymbolGen("ATTRIBUTES");
