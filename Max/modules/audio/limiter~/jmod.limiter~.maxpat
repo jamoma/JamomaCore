@@ -243,7 +243,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 70.0, 565.0, 610.0, 31.0 ],
-					"text" : "jcom.parameter release @type decimal @range/bounds 0 500 @range/clipmode low @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms @ramp/drive scheduler @description \"The release time (ms).\"",
+					"text" : "jcom.parameter release @type decimal @range/bounds 0 500 @range/clipmode low @dataspace time @dataspace/unit ms @ramp/drive scheduler @description \"The release time (ms).\"",
 					"varname" : "release"
 				}
 
@@ -259,7 +259,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 70.0, 485.0, 659.0, 43.0 ],
-					"text" : "jcom.parameter lookahead @type integer @range/bounds 0 256 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @dataspace time @dataspace/unit/native sample @dataspace/unit/active sample @description \"The number of samples (up to 256) to look ahead into the signal to see what is coming.\"",
+					"text" : "jcom.parameter lookahead @type integer @range/bounds 0 256 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @dataspace time @dataspace/unit sample @description \"The number of samples (up to 256) to look ahead into the signal to see what is coming.\"",
 					"varname" : "lookahead"
 				}
 
@@ -275,7 +275,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 70.0, 400.0, 656.0, 43.0 ],
-					"text" : "jcom.parameter threshold @type decimal @range/bounds -48 6 @range/clipmode none @ramp/drive scheduler @dataspace gain @dataspace/unit/native dB @dataspace/unit/active dB @description \"The limiter threshold (in dB below full scale). When the input signal level exceeds this threshold, it will be attenuated as necessary to keep the level below the threshold.\"",
+					"text" : "jcom.parameter threshold @type decimal @range/bounds -48 6 @range/clipmode none @ramp/drive scheduler @dataspace gain @dataspace/unit dB @description \"The limiter threshold (in dB below full scale). When the input signal level exceeds this threshold, it will be attenuated as necessary to keep the level below the threshold.\"",
 					"varname" : "threshold"
 				}
 
@@ -291,7 +291,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 70.0, 340.0, 674.0, 31.0 ],
-					"text" : "jcom.parameter postamp @type decimal @range/bounds -6 48 @range/clipmode none @dataspace gain @dataspace/unit/native dB @dataspace/unit/active dB @ramp/drive scheduler @description \"The gain in dB applied to the signal after limiting. \"",
+					"text" : "jcom.parameter postamp @type decimal @range/bounds -6 48 @range/clipmode none @dataspace gain @dataspace/unit dB @ramp/drive scheduler @description \"The gain in dB applied to the signal after limiting. \"",
 					"varname" : "postamp"
 				}
 
@@ -307,7 +307,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 70.0, 275.0, 739.0, 31.0 ],
-					"text" : "jcom.parameter preamp @type decimal @range/bounds -6 48 @range/clipmode none @ramp/drive scheduler @dataspace gain @dataspace/unit/active dB @dataspace/unit/native dB @ramp/function linear @description \"The gain in dB applied to the signal before limiting.\"",
+					"text" : "jcom.parameter preamp @type decimal @range/bounds -6 48 @range/clipmode none @ramp/drive scheduler @dataspace gain @dataspace/unit dB @ramp/function linear @description \"The gain in dB applied to the signal before limiting.\"",
 					"varname" : "preamp"
 				}
 
@@ -633,8 +633,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 35.0, 155.0, 274.0, 31.0 ],
-					"text" : "jcom.model @type audio @description \"A stereo limiter\"",
-					"varname" : "jcom.model"
+					"text" : "jcom.hub @module_type audio @description \"A stereo limiter\"",
+					"varname" : "jcom.hub"
 				}
 
 			}
@@ -980,7 +980,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.model.mxo",
+				"name" : "jcom.hub.mxo",
 				"type" : "iLaX"
 			}
 , 			{

@@ -73,18 +73,21 @@ void QueueRamp::tick()
 	float			ratio;
 	
 	if (active && functionUnit) {
+		
+		// Ensure that we get right value at end of ramp. This approach caters for regular functions as well as window functions.
 		if (currentTime > targetTime) {
 			active = 0;
-			for (i=0; i < numValues; i++)
-				currentValue[i] = targetValue[i];
+			ratio = 1.;
 		}
 		else {
 			ratio = (currentTime - startTime) / (float)ramptime;
-			functionUnit->calculate(ratio, mapped);
-			for (i=0; i < numValues; i++)
-				current[i] = start[i] + ((target[i] - start[i]) * mapped);
 			qelem_set(qelem);							// set the qelem element to run again
 		}
+		functionUnit->calculate(ratio, mapped);
+		
+		for (i=0; i < numValues; i++)
+			current[i] = start[i] + ((target[i] - start[i]) * mapped);
+		
 		(callback)(baton, numValues, currentValue);		// send the value to the host
 	}
 }

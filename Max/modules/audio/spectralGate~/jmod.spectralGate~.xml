@@ -14,6 +14,6 @@
     <item name='response/decay' type='decimal' priority='0' mixweight='1'>0.563291</item>
     <item name='threshold' type='decimal' priority='0' mixweight='1'>-22.518997</item>
     <item name='view/freeze' type='boolean' priority='0' mixweight='1'>0</item>
-    <item name='view/size' type='array' priority='0' mixweight='1'>300 70 </item>
+
   </preset>
 </jamoma>

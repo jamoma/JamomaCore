@@ -32,7 +32,7 @@ Dir.chdir "#{glibdir}"
 if  win32?
 else
   # Copy into Max 5 - comment this out if you don't want it
-  `rm -r "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
+  `rm -rf "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "../../Builds/MaxMSP/jcom.loader.mxo" "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "./Max/support/JamomaConfiguration.xml" "/Applications/Max5/Cycling '74/init/JamomaConfiguration.xml"`
 
@@ -51,7 +51,7 @@ else
   `cp -r "Max/support/JamomaNoir.maxdefaults" "/Applications/Max5/Cycling '74/default-settings/JamomaNoir.maxdefaults"`	
 	
 	# Copy into Max 6 - comment this out if you don't want it
-  `rm -r "/Applications/Max6/Cycling '74/extensions/jcom.loader.mxo"`
+  `rm -rf "/Applications/Max6/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "../../Builds/MaxMSP/jcom.loader.mxo" "/Applications/Max6/Cycling '74/extensions/jcom.loader.mxo"`
 	`cp -r "./Max/support/JamomaConfiguration.xml" "/Applications/Max6/Cycling '74/init/JamomaConfiguration.xml"`
 	

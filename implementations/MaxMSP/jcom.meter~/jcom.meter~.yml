@@ -20,6 +20,7 @@ includes:
 libraries:
   - FOUNDATION
   - MODULAR  
+  - DSP
   - C74-MAX
   - C74-MSP
 

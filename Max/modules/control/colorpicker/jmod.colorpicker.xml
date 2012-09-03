@@ -19,6 +19,6 @@
     <item name='color.9' type='array' priority='0'>240.000000 100.000000 50.000000 </item>
     <item name='numberOfColors' type='integer' priority='1' mixweight='1'>3</item>
     <item name='view/freeze' type='boolean' priority='0' mixweight='1'>0</item>
-    <item name='view/size' type='array' priority='0'>150 70 </item>
+
   </preset>
 </jamoma>

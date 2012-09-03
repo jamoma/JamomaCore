@@ -4,10 +4,10 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 5
 		}
 ,
-		"rect" : [ 120.0, 71.0, 681.0, 221.0 ],
+		"rect" : [ 413.0, 219.0, 681.0, 221.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -107,7 +107,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 4
+							"revision" : 5
 						}
 ,
 						"rect" : [ 568.0, 319.0, 507.0, 186.0 ],
@@ -408,16 +408,16 @@
 ,
 					"patching_rect" : [ 33.5, 127.0, 50.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"fontface" : 0,
-						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"description" : "",
+						"fontname" : "Verdana",
 						"tags" : "",
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontface" : 0,
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"digest" : "",
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p name"
@@ -434,8 +434,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 90.0, 166.5, 431.0, 47.0 ],
-					"text" : "jcom.return audio/amplitude @repetitions/allow 1 @type decimal @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number #1\" @dataspace gain @dataspace/unit/native linear"
+					"patching_rect" : [ 90.0, 166.5, 569.0, 47.0 ],
+					"text" : "jcom.return audio/amplitude @repetitions/allow 1 @type decimal @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number #1\" @dataspace gain @dataspace/unit linear"
 				}
 
 			}

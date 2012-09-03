@@ -11,7 +11,6 @@
     <item name='depth' type='decimal' priority='0'>10.000000</item>
     <item name='audio/mute' type='boolean' priority='0'>1</item>
     <item name='audio/mix' type='decimal' priority='0'>100.000000</item>
-    <item name='audio/meters/freeze' type='boolean' priority='0'>0</item>
     <item name='audio/gain' type='decimal' priority='0'>0.000000</item>
     <item name='audio/bypass' type='boolean' priority='0'>0</item>
   </preset>

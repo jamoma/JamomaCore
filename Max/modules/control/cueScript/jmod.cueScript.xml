@@ -6,6 +6,6 @@
 >
   <preset number='1' name='default'>
     <item name='view/freeze' type='boolean' priority='0' mixweight='1'>0</item>
-    <item name='view/size' type='array' priority='0'>300 70 </item>
+
   </preset>
 </jamoma>

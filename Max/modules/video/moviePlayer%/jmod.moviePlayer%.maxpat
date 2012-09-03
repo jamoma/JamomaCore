@@ -320,7 +320,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 552.0, 357.0, 421.0, 19.0 ],
-					"text" : "jcom.parameter dim @type array @ramp/drive none @description \"Image size\"",
+					"text" : "jcom.parameter dim @type generic @range/bounds 1 1000 @range/clipmode low @ramp/drive none @description \"Image size\"",
 					"varname" : "dim"
 				}
 

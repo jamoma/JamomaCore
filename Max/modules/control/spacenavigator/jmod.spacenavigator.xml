@@ -8,6 +8,6 @@
     <item name='active' type='boolean' priority='0' mixweight='1'>0</item>
     <item name='model' type='string' priority='0' mixweight='1'>SpaceNavigator</item>
     <item name='view/freeze' type='boolean' priority='0' mixweight='1'>0</item>
-    <item name='view/size' type='array' priority='0'>300 70 </item>
+
   </preset>
 </jamoma>

@@ -98,16 +98,16 @@ void SchedulerRamp::tick()
 	if (functionUnit && isRunning) {
 		// 1. go to the the next step in our ramp
 		numgrains--;
-		if (numgrains <= 0.) {
-			for (i=0; i < numValues; i++)
-				currentValue[i] = targetValue[i];
-		}
-		else {
+		
+		// Safety measure at end of ramp in case of accumulated numeric errors. Setting the input value to the function ensures that it works with regular functions as well as window functions.
+		if (numgrains <= 0.)
+			normalizedValue = 1.0;
+		else
 			normalizedValue += stepsize;
-			functionUnit->calculate(normalizedValue, mapped);
-			for (i=0; i < numValues; i++)
-				current[i] = start[i] + ((target[i] - start[i]) * mapped);
-		}
+		
+		functionUnit->calculate(normalizedValue, mapped);
+		for (i=0; i < numValues; i++)
+			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		
 		// 2. send the value to the host
 		(callback)(baton, numValues, currentValue);

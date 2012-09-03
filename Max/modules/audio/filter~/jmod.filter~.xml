@@ -9,8 +9,7 @@
 		<item name="audio/gain" type="decimal">0.0</item>
 		<item name="audio/mix" type="decimal">100.</item>
 		<item name="audio/bypass" type="boolean">0</item>
-		<item name="audio/mute" type="integer">1</item>
-		
+		<item name="audio/mute" type="integer">1</item>		
 		<item name="frequency" type="decimal">1548.</item>
 		<item name="q" type="decimal">1.</item>
 		<item name="filtergain" type="decimal">0.</item>

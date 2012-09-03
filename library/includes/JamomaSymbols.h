@@ -36,6 +36,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				//*jps_none,				
 				*jps_linear,
 				*jps_linear_q,
+			    *jps_slash_ramp_slash_update,
 				*jps_low,							// clip stuff
 				*jps_high, 
 				*jps_both,
@@ -44,11 +45,13 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_inc,							// increase, decrease
 				*jps_dec,
 				*jps_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE
-				*jps_integer,						// 
-				*jps_decimal,						// 
-				*jps_string,					// 
-				*jps_array,						//
-				*jps_boolean,					// 
+				*jps_integer,
+				*jps_decimal,
+				*jps_string,
+				*jps_array,						// This is deprecated, but required for backwards compatibility
+				*jps_decimalArray,
+				*jps_integerArray,
+				*jps_boolean,
                 *jps_list_int,
                 *jps_list_float,
 				*jps_none,						// this type only used by jcom.message
@@ -90,28 +93,30 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_num_outputs,
 				*jps_type,
 				*jps_dataspace,
-				*jps_unit_active,
-				*jps_unit_native,
-				*jps_unit_display,
+				*jps_unit,
 				*jps_algorithm_type,
 				*jps_name,
-				*jps_range,
+				*jps_priority,	 
+				*jps_readonly,	 	 
 				*jps_range_bounds,
 				*jps_range_clipmode,
-				*jps_clipmode,
 				*jps_ramp,
 				*jps_ramp_drive,
 				*jps_ramp_function,
-				*jps_repetitions,
 				*jps_repetitions_allow,
 				*jps_description,
 				*jps_enable,
 				*jps_value,	
+ 				*jps_value_default,
+ 				*jps_value_stepsize,
 				*jps_sigcount,
 				*jps_siglist,
 				*jps_config_changed,
 				*jps_algorithm,
 				*jps_get_num_channels,
+				*jps_module_name,
+				*jps_slash_module_name,	 
+				*jps_module_class,
 				*jps_module_type,
 				//*jps_poly,
 				*jps_default,
@@ -125,22 +130,19 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps__jcom_out__,
 				*jps___preview__,
 				*jps_return,
-				*jps_return_address,
 				*jps_return_extended,
-				*jps_return_value,
-				*jps_return_signal,
 				*jps_go,
 				*jps_init,
-				*jps_ATTRIBUTES,					// used by the hub for setting up the gui...
-				*jps_BUILD,
-				*jps_MODULE_NAME,
-				*jps_MODULE_TITLE,
-				*jps_PARAMETER,
-				*jps_NEW_PRESETS_START,
-				*jps_NEW_PRESETS,
-				*jps_MENU_REBUILD,
+				//*jps_ATTRIBUTES,					// used by the hub for setting up the gui...
+				//*jps_BUILD,
+				//*jps_MODULE_NAME,
+				//*jps_MODULE_TITLE,
+				//*jps_PARAMETER,
+				//*jps_NEW_PRESETS_START,
+				//*jps_NEW_PRESETS,
+				//*jps_MENU_REBUILD,
 				*jps_size,
-				*jps_skin,
+				//*jps_skin,
 				*jps_jcom_send,						// object names needed to load externs inside other objects...
 				*jps_jcom_receive,
 				*jps_jcom_remote_fromModule, 			
@@ -153,12 +155,16 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_link_out,
 				*jps_unlink_in,
 				*jps_unlink_out,
-				*jps_audio_gain_midi,
-				*jps_slash_audio_gain_midi,
+		 		*jps_audio_gain,
+		 		*jps_slash_audio_gain,			
+		 		//*jps_audio_gain_midi,
+				//*jps_slash_audio_gain_midi,
 				*jps_audio_mute,
 				*jps_slash_audio_mute,
 				*jps_audio_bypass,
 				*jps_slash_audio_bypass,
+	 			*jps_bypass,
+	 			*jps_slash_bypass,					 
 				*jps_audio_mix,
 				*jps_slash_audio_mix,
 				//*jps_audio_sample_rate,
@@ -169,21 +175,37 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_slash_video_mute,
 				*jps_video_bypass,
 				*jps_slash_video_bypass,
+		 		*jps_freeze,
+		 		*jps_slash_freeze,					 
 				*jps_video_freeze,
 				*jps_slash_video_freeze,
 				*jps_video_preview,
 				*jps_slash_video_preview,
+		 		*jps_preview,		
+		 		*jps_slash_preview,								 
 				*jps_open,							//  open
-				*jps_slash_module_view_internals,	// /module/view_internals
+		 		*jps_slash_getstate,
+			    *jps_slash_view_slash_panel,        // /view/panel
+		 		*jps_slash_module_view_internals,	//	/module/view_internals
+		 		*jps_slash_module_slash_reference,	//	/module/reference
+		 		*jps_slash_module_slash_help,		//	/module/help				
+		 		*jps_slash_preset_slash_interface,	// /preset/interface
 				*jps_slash_preset_slash_default,	// /preset/default
 				*jps_slash_preset_slash_load,		// /preset/load
 				*jps_slash_preset_slash_store,		// /preset/store
 				*jps_slash_preset_slash_storenext,	// /preset/storenext
 				*jps_slash_preset_slash_storecurrent,	// /preset/storecurrent
 				*jps_slash_preset_slash_recall,
-				*jps_slash_preset_slash_write,		// /preset/save
-				*jps_slash_preset_slash_writeagain,	// /preset/save
+				*jps_slash_preset_slash_write,		// /preset/write
+				*jps_preset_slash_write,			// preset/write 
+				*jps_slash_preset_slash_writeagain,	// /preset/writeagain
+				*jps_preset_slash_writeagain,		// 	preset/writeagain					 
 				*jps_slash_preset_slash_copy,		// /preset/save
+				*jps_preset_slash_mix, 			 	// preset/mix
+				*jps_preset_slash_default,			// preset/default
+				*jps_preset_slash_interpolate,		// preset/interpolate	 
+				*jps_slash_ui_slash_internals,      // /view/internals	 
+				 *jps_ui_slash_internals,      		// view/internals
 				*jps_ui_slash_freeze,				//	view/freeze
 				*jps_slash_ui_slash_freeze,			// /view/freeze
 				*jps_ui_slash_refresh,				//	view/refresh
@@ -191,15 +213,23 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_register_meter,
 				*jps_register_preview,
 				//*jps_voices,
+				*jps_gain,
+				*jps_slash_gain,
+				*jps_mix,
+			    *jps_slash_mix,	
+        		*jps_mix_slash_weight,				  
+				*jps_settext,
 				*jps_mute,
+	  			*jps_slash_mute,
 				*jps_target,
 				*jps_sendlastvalue,
 				*jps_sendbypassedvalue,
 				*jps_star,
-				*jps_priority,
 				*jps_add,							// used for calling methods on jcom.receivemaster
 				*jps_remove,
-				*jps_dispatch
+				*jps_dispatch,
+	  			*jps_subpatcher,
+	  			*jps_bpatcher						  
 				;
 
 extern "C" void jamomaSymbolsInit();

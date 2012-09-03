@@ -1133,7 +1133,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 602.0, 528.0, 296.0, 43.0 ],
-					"text" : "jcom.parameter orderWeights @type array @description \"manually set weights for given number of orders.\" @repetitions/allow 0 @ramp/drive scheduler"
+					"text" : "jcom.parameter orderWeights @type decimalArray @description \"manually set weights for given number of orders.\" @repetitions/allow 0 @ramp/drive scheduler"
 				}
 
 			}
@@ -1254,7 +1254,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 601.0, 82.0, 598.0, 43.0 ],
-					"text" : "jcom.message.array 32 speaker position @type array @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/display xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
+					"text" : "jcom.message.array 32 speaker position @type decimalArray @dataspace position @dataspace/unit xyz @value/default 0. 0. 0. @description \"Position of the Nth speaker. In cartesian coordinates (xyz) by default \""
 				}
 
 			}

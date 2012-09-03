@@ -19,6 +19,6 @@
     <item name='source.7/weight' type='array' priority='0' mixweight='1'>1.000000</item>
     <item name='source.8/weight' type='array' priority='0' mixweight='1'>1.000000</item>
     <item name='view/freeze' type='boolean' priority='0' mixweight='1'>0</item>
-    <item name='view/size' type='array' priority='0' mixweight='1'>300 70 </item>
+
   </preset>
 </jamoma>

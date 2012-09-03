@@ -45,7 +45,7 @@
     <item name='video/freeze' type='boolean' priority='0'>0</item>
     <item name='video/mute' type='boolean' priority='0'>0</item>
     <item name='video/preview' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 105 </item>
+
     <item name='zoom' type='array' priority='0'>1.000000 1.000000 </item>
   </preset>
 </jamoma>

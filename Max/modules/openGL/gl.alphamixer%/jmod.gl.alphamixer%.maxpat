@@ -283,7 +283,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 761.0, 366.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter layer.3 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 3 (backmost layer) as list of rgba values.\"",
+					"text" : "jcom.parameter layer.3 @type decimalArray @ramp/drive scheduler @description \"Blend coefficients for layer 3 (backmost layer) as list of rgba values.\"",
 					"varname" : "layer_3"
 				}
 
@@ -313,7 +313,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 760.0, 267.0, 586.0, 31.0 ],
-					"text" : "jcom.parameter layer.2 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 2 as list of rgba values.\"",
+					"text" : "jcom.parameter layer.2 @type decimalArray @ramp/drive scheduler @description \"Blend coefficients for layer 2 as list of rgba values.\"",
 					"varname" : "layer_2"
 				}
 
@@ -343,7 +343,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 760.0, 180.0, 586.0, 31.0 ],
-					"text" : "jcom.parameter layer.1 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 1 as list of rgba values.\"",
+					"text" : "jcom.parameter layer.1 @type decimalArray @ramp/drive scheduler @description \"Blend coefficients for layer 1 as list of rgba values.\"",
 					"varname" : "layer_1"
 				}
 
@@ -373,7 +373,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 760.0, 92.0, 597.0, 31.0 ],
-					"text" : "jcom.parameter layer.0 @type array @ramp/drive scheduler @description \"Blend coefficients for layer 0 (frontmost layer) as list of rgba values.\"",
+					"text" : "jcom.parameter layer.0 @type decimalArray @ramp/drive scheduler @description \"Blend coefficients for layer 0 (frontmost layer) as list of rgba values.\"",
 					"varname" : "layer_0"
 				}
 

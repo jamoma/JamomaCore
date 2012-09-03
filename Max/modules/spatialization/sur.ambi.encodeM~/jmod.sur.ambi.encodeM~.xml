@@ -46,6 +46,6 @@
     <item name='source.7/order' type='integer' priority='0'>3</item>
     <item name='source.8/order' type='integer' priority='0'>3</item>
     <item name='source.9/order' type='integer' priority='0'>3</item>
-    <item name='view/size' type='array' priority='0'>300 70 </item>
+
   </preset>
 </jamoma>

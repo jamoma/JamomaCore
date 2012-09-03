@@ -46,9 +46,9 @@
 					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
+					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 195.0, 325.0, 373.0, 19.0 ],
+					"patching_rect" : [ 195.0, 325.0, 329.0, 19.0 ],
 					"text" : "jcom.test.assert.equal.old \"TEST Modular allExternalsLoadingProperly\" 1"
 				}
 
@@ -213,11 +213,10 @@
 					"id" : "obj-45",
 					"maxclass" : "jcom.ui",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 730.0, 380.0, 300.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"text" : "waiting for a model/address"
+					"text" : "/Jamoma"
 				}
 
 			}
@@ -253,8 +252,9 @@
 					"fontsize" : 10.0,
 					"id" : "obj-42",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 730.0, 305.0, 100.0, 19.0 ],
 					"text" : "jcom.send~"
 				}
@@ -309,10 +309,10 @@
 					"id" : "obj-38",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 730.0, 205.0, 125.0, 19.0 ],
-					"text" : "jcom.return returnThis"
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 730.0, 205.0, 100.0, 19.0 ],
+					"text" : "jcom.return"
 				}
 
 			}
@@ -323,8 +323,8 @@
 					"id" : "obj-37",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "", "", "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 730.0, 180.0, 100.0, 19.0 ],
 					"text" : "jcom.remote"
 				}
@@ -336,8 +336,9 @@
 					"fontsize" : 10.0,
 					"id" : "obj-36",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 730.0, 155.0, 100.0, 19.0 ],
 					"text" : "jcom.receive~"
 				}
@@ -350,8 +351,8 @@
 					"id" : "obj-35",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 730.0, 130.0, 100.0, 19.0 ],
 					"text" : "jcom.receive"
 				}
@@ -388,7 +389,7 @@
 , 			{
 				"box" : 				{
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"description" : "\"\\\"This parameter should do something.\\\"\"",
+					"description" : "\"This parameter should do something.\"",
 					"id" : "obj-31",
 					"maxclass" : "jcom.paramui",
 					"numinlets" : 1,
