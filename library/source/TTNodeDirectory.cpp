@@ -106,11 +106,9 @@ TTErr TTNodeDirectory::getTTNode(TTNodeAddressPtr anAddress, TTNodePtr* returned
 	
 	noAlias = anAddress;
 	if (!this->replaceAlias(&noAlias))
-		getTTNode(noAlias, returnedTTNode);
+		return getTTNode(noAlias, returnedTTNode);
 	else
 		return kTTErrGeneric;
-	
-	return kTTErrNone;
 }
 
 TTErr TTNodeDirectory::getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *returnedAlias)
