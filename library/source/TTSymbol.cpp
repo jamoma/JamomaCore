@@ -51,3 +51,19 @@ void TTSymbol::init(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt
 	return id;
 }
 */
+
+
+
+#include "MersenneTwister.h"
+
+TTSymbol* TTSymbol::random()
+{
+	MTRand			twister;
+	unsigned int	i = twister.randInt();
+	char			s[16];
+		
+	snprintf(s, 16, "j%u", i);
+	s[15] = 0;
+	return TT(s);
+}
+

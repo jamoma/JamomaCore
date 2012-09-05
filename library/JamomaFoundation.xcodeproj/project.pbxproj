@@ -8,6 +8,7 @@
 
 /* Begin PBXFileReference section */
 		2262733915B0604A00B13F9D /* TTFifo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTFifo.h; sourceTree = "<group>"; };
+		229E3DBB15ED1F6900BD1FC0 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		D2333F301580D97F00D5CBAF /* TTNodeAddressItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeAddressItem.cpp; sourceTree = "<group>"; };
 		D2333F311580D98F00D5CBAF /* TTNodeAddressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNodeAddressItem.h; sourceTree = "<group>"; };
 		D2F0974B14A0D70100EC0396 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAttribute.h; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		08FB7794FE84155DC02AAC07 /* JamomaFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				229E3DBB15ED1F6900BD1FC0 /* Makefile */,
 				D2F0974A14A0D70100EC0396 /* includes */,
 				D2F0976C14A0D70F00EC0396 /* source */,
 				D2F097E914A0E03400EC0396 /* tests */,
@@ -250,6 +252,10 @@
 		1DEB919008733D9F0010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					i386,
+					x86_64,
+				);
 				COPY_PHASE_STRIP = NO;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -264,6 +270,10 @@
 		1DEB919108733D9F0010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					i386,
+					x86_64,
+				);
 				COPY_PHASE_STRIP = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
@@ -274,19 +284,12 @@
 		1DEB919408733D9F0010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
 		1DEB919508733D9F0010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};

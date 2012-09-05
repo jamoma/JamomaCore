@@ -975,6 +975,14 @@ void TTValue::get(const TTUInt16 index, TTString& value) const
 		value = *(data+index)->stringPtr;
 }
 
+
+void TTValue::get(const TTUInt16 index, const char* value) const
+{
+	if (type[index] == kTypeString)
+		value = (*(data+index)->stringPtr).c_str();
+}
+
+
 void TTValue::get(const TTUInt16 index, TTObject &value) const
 {
 	if (type[index] == kTypeObject)

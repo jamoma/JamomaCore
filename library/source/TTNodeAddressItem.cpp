@@ -176,7 +176,7 @@ TTNodeAddressItemPtr TTNodeAddressItem::current()
 TTErr TTNodeAddressItem::merge(const TTNodeAddressItemPtr anItemToMerge)
 {
 	TTNodeAddressItemPtr	anItem;
-	//TTErr					err;	
+	//TTErr					err;
 	
 	if (!anItemToMerge)
 		return kTTErrGeneric;
@@ -198,7 +198,7 @@ TTErr TTNodeAddressItem::merge(const TTNodeAddressItemPtr anItemToMerge)
 TTErr TTNodeAddressItem::destroy(const TTNodeAddressItemPtr anItemToRemove)
 {
 	TTNodeAddressItemPtr	anItem;
-	//TTErr					err;	
+	//TTErr					err;
 	
 	if (!anItemToRemove)
 		return kTTErrGeneric;

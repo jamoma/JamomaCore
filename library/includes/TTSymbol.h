@@ -21,7 +21,7 @@
  
 	Note that generally speaking you should not directly create a TTSymbol!
 	Instead, TTSymbol objects should only by created by the TTSymbolTable that you are using.  
-	Because of this we *always* pass TTSymbols as pointers (#TTSymbolRef) into the symbol table rather than as references or copies.
+	Because of this we *always* pass TTSymbols as references (#TTSymbolRef) into the symbol table rather than as pointers or copies.
  
 	Also, if you don't need the fast lookup capabilities of the symbol table (such as for message or attribute lookup)
 	then consider passing a #TTString instead.
@@ -91,7 +91,12 @@ public:
 	operator const char*() const
 	{
 		return mCString;
-	}	
+	}
+
+	
+	/** Generate a pseudo-random symbol */
+	static TTSymbol* random();
+
 };
 
 

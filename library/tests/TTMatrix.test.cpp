@@ -50,7 +50,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 
 		// Test the clear message
 		// first fill with arbitrary values
-		for (uint i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
+		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
 			*((TTFloat64*)(matrix->mData+i)) = i*0.1;							// real
 			*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)) = i*0.2;	// imaginary
 		}
@@ -63,7 +63,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		matrix->sendMessage(kTTSym_clear);
 		int count = 0;
-		for (uint i=0; i < matrix->mDataSize; i += matrix->mTypeSizeInBytes) {
+		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mTypeSizeInBytes) {
 			if (*((TTFloat64*)(matrix->mData+i)) != 0.0)
 				count++;
 		}
@@ -93,7 +93,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		matrix->set2d(1, 9, z);
 		
 		cout << "		";
-		for (uint i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
+		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
 			cout << "[" << *((TTFloat64*)(matrix->mData+i));
 			TTFloat64 imag = *((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes));
 			if (imag >= 0.0)
@@ -104,7 +104,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		// TODO: would be nice to have a method to compare two matrices!
 		int index = 1;
-		for (uint i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
+		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
 			if (index == 9) {
 				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i)), 14.0))
 					count++;

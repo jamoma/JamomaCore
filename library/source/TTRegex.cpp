@@ -7,10 +7,18 @@
  */
 
 #include "TTRegex.h"
+
+#if OLD
 #include <boost/regex.hpp>
 using namespace boost;
 typedef boost::regex	TTExpression;
 typedef boost::match_results <TTRegexStringPosition> TTRegexStringResult;
+#else
+#include <regex>
+using namespace std;
+typedef std::regex	TTExpression;
+typedef std::match_results <TTRegexStringPosition> TTRegexStringResult;
+#endif
 
 #define EXPRESSION  ((TTExpression*)(mExpression))
 #define mEXPRESSION (*EXPRESSION)
@@ -18,10 +26,20 @@ typedef boost::match_results <TTRegexStringPosition> TTRegexStringResult;
 #define RESULT  ((TTRegexStringResult*)(mResult))
 #define mRESULT (*RESULT)
 
-TTRegex::TTRegex(TTString anExpression):
+TTRegex::TTRegex(const char* anExpression):
 mExpression(NULL), mResult(NULL)
 {
-	mExpression = new TTExpression(anExpression.data());
+	try {
+		
+		mExpression = new TTExpression(anExpression, regex_constants::extended);
+		
+	}
+	catch (const regex_error& e) {
+		std::cout << e.what() << " caught: " << anExpression << '\n';
+		if (e.code() == regex_constants::error_brack)
+			std::cout << "The code was error_brack\n";
+	}
+	
 	mResult = new TTRegexStringResult();
 }
 
@@ -32,10 +50,10 @@ TTRegex::~TTRegex()
 }
 
 TTErr TTRegex::parse(TTRegexStringPosition& begin, TTRegexStringPosition& end)
-{	
-	if (boost::regex_search(begin, end, mRESULT, mEXPRESSION))
+{
+	if (regex_search(begin, end, mRESULT, mEXPRESSION))
 		return kTTErrNone;
-	
+
 	return kTTErrGeneric;
 }
 

@@ -28,22 +28,48 @@ sources:
   - source/TTRegex.cpp
   - tests/TTMatrix.test.cpp
   - tests/TTValue.test.cpp
-  - mac source/TTNodeLib.cpp
-  - mac source/TTNode.cpp
-  - mac source/TTNodeAddress.cpp
-  - mac source/TTNodeAddressTable.cpp
-  - mac source/TTNodeAddressCache.cpp
-  - mac source/TTNodeAddressItem.cpp
-  - mac source/TTNodeDirectory.cpp
-  - mac tests/TTNodeLib.test.cpp
-  - win source/TTNodeLib.cpp
-  - win source/TTNode.cpp
-  - win source/TTNodeAddress.cpp
-  - win source/TTNodeAddressTable.cpp
-  - win source/TTNodeAddressCache.cpp
-  - win source/TTNodeDirectory.cpp
-  - win tests/TTNodeLib.test.cpp
-  
+  - boost/libs/filesystem/src/codecvt_error_category.cpp
+  - boost/libs/filesystem/src/operations.cpp
+  - boost/libs/filesystem/src/path_traits.cpp
+  - boost/libs/filesystem/src/path.cpp
+  - boost/libs/filesystem/src/portability.cpp
+  - boost/libs/filesystem/src/unique_path.cpp
+  - boost/libs/filesystem/src/utf8_codecvt_facet.cpp
+  - boost/libs/system/src/error_code.cpp
+  - boost/libs/regex/src/c_regex_traits.cpp
+  - boost/libs/regex/src/cpp_regex_traits.cpp
+  - boost/libs/regex/src/cregex.cpp
+  - boost/libs/regex/src/fileiter.cpp
+  - boost/libs/regex/src/icu.cpp
+  - boost/libs/regex/src/instances.cpp
+  - boost/libs/regex/src/internals.hpp
+  - boost/libs/regex/src/posix_api.cpp
+  - boost/libs/regex/src/regex_debug.cpp
+  - boost/libs/regex/src/regex_raw_buffer.cpp
+  - boost/libs/regex/src/regex_traits_defaults.cpp
+  - boost/libs/regex/src/regex.cpp
+  - boost/libs/regex/src/static_mutex.cpp
+  - boost/libs/regex/src/usinstances.cpp
+  - boost/libs/regex/src/w32_regex_traits.cpp
+  - boost/libs/regex/src/wc_regex_traits.cpp
+  - boost/libs/regex/src/wide_posix_api.cpp
+  - boost/libs/regex/src/winstances.cpp
+  - source/TTNodeLib.cpp
+  - source/TTNode.cpp
+  - source/TTNodeAddress.cpp
+  - source/TTNodeAddressTable.cpp
+  - source/TTNodeAddressCache.cpp
+  - source/TTNodeAddressItem.cpp
+  - source/TTNodeDirectory.cpp
+  - tests/TTNodeLib.test.cpp
+#  - win source/TTNodeLib.cpp
+#  - win source/TTNode.cpp
+#  - win source/TTNodeAddress.cpp
+#  - win source/TTNodeAddressTable.cpp
+#  - win source/TTNodeAddressCache.cpp
+#  - win source/TTNodeDirectory.cpp
+#  - win tests/TTNodeLib.test.cpp
+#  
 # See the note below about us not including the NodeLib on Linux (or iOS)
   
 includes:
@@ -52,16 +78,13 @@ includes:
   - "Mersenne-1.1"
   - "boost"
 
-libraries:
-  - mac boost/lib-mac/libboost_filesystem.a
-  - win RELEASE boost/lib-windows/libboost_filesystem-vc90-mt-s-1_46.lib
-  - win DEBUG boost/lib-windows/libboost_filesystem-vc90-mt-sgd-1_46.lib
-  - mac boost/lib-mac/libboost_system.a
-  - win RELEASE boost/lib-windows/libboost_system-vc90-mt-s-1_46.lib
-  - win DEBUG boost/lib-windows/libboost_system-vc90-mt-sgd-1_46.lib
-  - mac boost/lib-mac/libboost_regex.a
-  - win RELEASE boost/lib-windows/libboost_regex-vc90-mt-s-1_46.lib
-  - win DEBUG boost/lib-windows/libboost_regex-vc90-mt-sgd-1_46.lib
+#libraries:
+#  - win RELEASE boost/lib-windows/libboost_regex-vc90-mt-s-1_46.lib
+#  - win DEBUG boost/lib-windows/libboost_regex-vc90-mt-sgd-1_46.lib
+#  - win RELEASE boost/lib-windows/libboost_filesystem-vc90-mt-s-1_46.lib
+#  - win DEBUG boost/lib-windows/libboost_filesystem-vc90-mt-sgd-1_46.lib
+#  - win RELEASE boost/lib-windows/libboost_system-vc90-mt-s-1_46.lib
+#  - win DEBUG boost/lib-windows/libboost_system-vc90-mt-sgd-1_46.lib
 
 defines:
   - TTFOUNDATION_EXPORTS

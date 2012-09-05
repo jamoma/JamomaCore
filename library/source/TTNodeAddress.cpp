@@ -10,8 +10,12 @@
 
 #include "TTFoundationAPI.h"
 
+#if OLD
 #include <boost/regex.hpp>
 using namespace boost;
+#else
+#include <regex>
+#endif
 
 TTFOUNDATION_EXPORT TTRegex* ttRegexForDirectory = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute = NULL;
@@ -417,11 +421,12 @@ TTNodeAddressPtr TTNodeAddress::edit(const TTSymbolRef newDirectory,
 		address += ":"; // don't put :/ here because the parent or the name should have one.
 	}
 	
-	if (newParent != NO_PARENT)
+	if (newParent != NO_PARENT) {
 		if (newDirectory == NO_DIRECTORY)
 			address = newParent->getCString();
 		else
 			address += newParent->getCString();
+	}
 	
 	if(newName != NO_NAME){
 		if((newName != S_SEPARATOR) && (newParent != kTTAdrsRoot))
@@ -641,7 +646,7 @@ TTNodeAddressPtr convertTTNameInTTNodeAddress(TTSymbolRef ttName)
 		}
 		
 		// ends the CString with a NULL letter
-		addrNameCString[addrNameSize] = NULL;
+		addrNameCString[addrNameSize] = 0;
 		
 		addrNameSymbol = TTADRS(addrNameCString);
 	}
