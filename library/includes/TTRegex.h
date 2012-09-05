@@ -35,10 +35,10 @@ private:
 public:
 	
 	/** Constructor */
-	TTRegex (const char*  anExpression);
+	TTRegex(const char*  anExpression);
 	
 	/** Destructor */
-	virtual ~TTRegex ();
+	virtual ~TTRegex();
 
 	/** Parse a string using the expression
 		@param	begin					the beginning of the string to parse
