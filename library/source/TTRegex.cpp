@@ -8,7 +8,7 @@
 
 #include "TTRegex.h"
 
-#if OLD
+#if BOOST_REGEX
 #include <boost/regex.hpp>
 using namespace boost;
 typedef boost::regex	TTExpression;
