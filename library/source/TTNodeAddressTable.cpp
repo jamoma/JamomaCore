@@ -115,7 +115,7 @@ TTNodeAddress* TTNodeAddressTable::lookup(const TTString& aString)
 
 	aMutex->lock();
 
-	iter = mNODEADDRESSTABLE->find(aString);
+	iter = mNODEADDRESSTABLE->find(aString.c_str());
 	if (iter == mNODEADDRESSTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding node address: %s  With Address: %x", aString, aString);

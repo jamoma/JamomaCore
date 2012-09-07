@@ -156,12 +156,28 @@ TTErr TTNodeAddress::parseInstanceZero(const TTString& toParse, TTString& parsed
 		
 		parsed = toParse;
 		
-		TTRegexStringPosition begin = parsed.begin();
-		TTRegexStringPosition end = parsed.end();
+//		TTRegexStringPosition begin = parsed.begin();
+//		TTRegexStringPosition end = parsed.end();
+
+//		auto begin = parsed.begin();
+//		auto end = parsed.end();
+
+		TTStringIter begin = parsed.begin();
+		TTStringIter end = parsed.end();
+
+//		TTStringIter begin = parsed.begin();
+//		TTStringIter end = parsed.end();
 		
 		// parse and remove ".0"
 		while (!ttRegexForInstanceZero->parse(begin, end)) {
-			parsed = string(begin, ttRegexForInstanceZero->begin()-2) + string(ttRegexForInstanceZero->end(), end);	// -2 to remove .0
+			TTStringIter z_begin = ttRegexForInstanceZero->begin() - 2;
+			TTStringIter z_end = ttRegexForInstanceZero->end();
+						
+			TTString a(begin, z_begin);
+			TTString b(z_end, end);
+			parsed = a+b;
+			// parsed = TTString(begin, ttRegexForInstanceZero->begin()-2) + TTString(ttRegexForInstanceZero->end(), end);	// -2 to remove .0
+
 			begin = parsed.begin();
 			end = parsed.end();
 		}
@@ -209,17 +225,22 @@ TTErr TTNodeAddress::parse()
 	TTString s_name;
 	TTString s_instance;
 	TTString s_attribute;
-	TTRegexStringPosition begin, end;
+//	TTRegexStringPosition begin, end;
 	
 	//cout << "*** s_toParse    " << s_toParse << "    ***" << endl;
-	begin = s_toParse.begin();
-	end = s_toParse.end();
+	TTStringIter begin = s_toParse.begin();
+	TTStringIter end = s_toParse.end();
 	
 	// parse directory
 	if (!ttRegexForDirectory->parse(begin, end))
 	{
-		s_directory = string(ttRegexForDirectory->begin(), ttRegexForDirectory->end());
-		s_toParse = string(ttRegexForDirectory->end()+1, end);			// +1 to remove ":"
+		TTStringIter temp_begin = ttRegexForDirectory->begin();
+		TTStringIter temp_end = ttRegexForDirectory->end();
+		
+		s_directory = TTString(temp_begin, temp_end);
+		
+		temp_begin = ttRegexForDirectory->end()+1;
+		s_toParse = TTString(temp_begin, end);			// +1 to remove ":"
 		
 		begin = s_toParse.begin();
 		end = s_toParse.end();
@@ -571,7 +592,7 @@ TTErr TTNodeAddress::splitAt(TTUInt32 whereToSplit, TTNodeAddressPtr *returnedPa
 
 TTUInt32 TTNodeAddress::countSeparator()
 {
-	TTString toCount = this->getCString();
+	std::string toCount = this->getCString();
 	
 	return count(toCount.begin(), toCount.end(), C_SEPARATOR);
 }

@@ -7,7 +7,9 @@
  */
 
 #include "TTPath.h"
+#define BOOST_SYSTEM_NO_DEPRECATED 1
 #include "boost/filesystem.hpp"
+#undef BOOST_SYSTEM_NO_DEPRECATED
 using namespace boost::filesystem;
 
 typedef vector<boost::filesystem::path> path_vec;
@@ -92,21 +94,18 @@ TTErr TTPath::getDirectoryListing(TTPathVector& returnedPaths)
 
 void TTPath::getString(TTString& pathString)
 {
-    pathString = (*PATHOBJ).string();
+    pathString = (*PATHOBJ).string().c_str();
 }
 
 
 void TTPath::getStem(TTString& pathStemString)
 {
-	pathStemString = (*PATHOBJ).stem().string();
+	pathStemString = (*PATHOBJ).stem().string().c_str();
 }
 
 
 void TTPath::getExtension(TTString& pathExtensionString)
 {
-    pathExtensionString = (*PATHOBJ).extension().string();
+    pathExtensionString = (*PATHOBJ).extension().string().c_str();
 }
-
-
-
 

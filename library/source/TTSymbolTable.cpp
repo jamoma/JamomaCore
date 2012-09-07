@@ -116,10 +116,11 @@ TTSymbol* TTSymbolTable::lookup(const TTString& aString)
 	return lookup(aString.c_str());
 #else
 	TTSymbolTableIter	iter;
+	std::string			str(aString.c_str());
 
 	sMutex->lock();
 
-	iter = mSYMBOLTABLE->find(aString);
+	iter = mSYMBOLTABLE->find(str);
 	if (iter == mSYMBOLTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);

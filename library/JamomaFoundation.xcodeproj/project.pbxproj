@@ -9,6 +9,7 @@
 /* Begin PBXFileReference section */
 		2262733915B0604A00B13F9D /* TTFifo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTFifo.h; sourceTree = "<group>"; };
 		229E3DBB15ED1F6900BD1FC0 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		22EFB4B115F7E24400A85A8C /* TTString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTString.h; sourceTree = "<group>"; };
 		D2333F301580D97F00D5CBAF /* TTNodeAddressItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeAddressItem.cpp; sourceTree = "<group>"; };
 		D2333F311580D98F00D5CBAF /* TTNodeAddressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNodeAddressItem.h; sourceTree = "<group>"; };
 		D2F0974B14A0D70100EC0396 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAttribute.h; sourceTree = "<group>"; };
@@ -148,6 +149,7 @@
 				D2F0976214A0D70100EC0396 /* TTPath.h */,
 				D2F0976314A0D70100EC0396 /* TTQueue.h */,
 				D2F0976414A0D70100EC0396 /* TTRegex.h */,
+				22EFB4B115F7E24400A85A8C /* TTString.h */,
 				D2F0976514A0D70100EC0396 /* TTSymbol.h */,
 				D2F0976614A0D70100EC0396 /* TTSymbolCache.h */,
 				D2F0976714A0D70100EC0396 /* TTSymbolTable.h */,
@@ -210,11 +212,12 @@
 /* Begin PBXLegacyTarget section */
 		D28A88AD04BDD90700651E21 /* JamomaFoundation */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildArgumentsString = "-j 4 $(Configuration) $(ACTION)";
 			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "JamomaFoundation" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = JamomaFoundation;

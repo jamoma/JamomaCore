@@ -118,7 +118,8 @@ void TTFoundationLoadExternalClasses()
 #ifdef TT_PLATFORM_MAC
 	if (!TTFoundationBinaryPath.empty()) {
 		// Look in the specified folder rather than the default location
-		TTString extensionsPath = TTFoundationBinaryPath + "/Extensions";
+		TTString extensionsPath = TTFoundationBinaryPath;
+		extensionsPath += "/Extensions";
 		TTFoundationLoadExternalClassesFromFolder(extensionsPath);
 	}
 	else {

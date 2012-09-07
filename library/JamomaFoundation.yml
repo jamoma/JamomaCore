@@ -22,6 +22,7 @@ sources:
   - source/TTMatrixMath.cpp
   - source/TTMatrixArray.cpp
   - source/TTValue.cpp
+  - source/TTString.cpp
   - source/TTSymbol.cpp
   - source/TTSymbolCache.cpp
   - source/TTSymbolTable.cpp
@@ -42,7 +43,6 @@ sources:
   - boost/libs/regex/src/fileiter.cpp
   - boost/libs/regex/src/icu.cpp
   - boost/libs/regex/src/instances.cpp
-  - boost/libs/regex/src/internals.hpp
   - boost/libs/regex/src/posix_api.cpp
   - boost/libs/regex/src/regex_debug.cpp
   - boost/libs/regex/src/regex_raw_buffer.cpp

@@ -1207,7 +1207,7 @@ TTBoolean isTTInt32( const TTString & str )
 {
 	char * pEnd;
 	
-	strtol(str.data(), &pEnd, 10);
+	strtol(str.c_str(), &pEnd, 10);
 	return *pEnd == 0;
 }
 
@@ -1218,32 +1218,27 @@ TTBoolean isTTFloat32( const TTString & str )
 {
 	char * pEnd;
 	
-	strtod(str.data(), &pEnd);
+	strtod(str.c_str(), &pEnd);
 	return *pEnd == 0;
 }
 
 TTInt32 toTTInt32( const TTString & str )
 {
-	std::istringstream iss(str);
-	
-	TTInt32 result;
+	std::string			stdString(str.c_str());
+	std::istringstream	iss(stdString);
+	TTInt32				result;
 	
 	iss >> result;
-	
 	return result;
 }
 
 TTFloat32 toTTFloat32( const TTString & str )
 {
-	std::istringstream iss(str);
-	
-	TTFloat32 result;
+	std::string			stdString(str.c_str());
+	std::istringstream	iss(stdString);
+	TTFloat32			result;
 	
 	iss >> result;
-	
 	return result;
 }
-
-
-
 

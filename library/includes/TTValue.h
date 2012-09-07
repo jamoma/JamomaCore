@@ -10,6 +10,7 @@
 #define __TT_VALUE_H__
 
 #include "TTBase.h"
+#include "TTString.h"
 #include "TTLimits.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
@@ -967,8 +968,9 @@ public:
 			
 			TTUInt32 n = 0;
 			std::vector<std::string> strList;
+			std::string str(data->stringPtr->c_str());
 			
-			std::istringstream iss(*(data->stringPtr));
+			std::istringstream iss(str);
 			std::copy(
 				 std::istream_iterator<string>( iss ),
 				 std::istream_iterator<string>(),
@@ -979,26 +981,28 @@ public:
 				setSize(strList.size());
 				
 				for (unsigned int i = 0; i < strList.size(); ++i) {
-					TTString currentString = strList.at(i);
+					TTString currentString = strList.at(i).c_str();
 					if (isTTInt32(currentString) && !numberAsSymbol) {
 						
 						data[n].int32 = toTTInt32(currentString);
 						type[n] = kTypeInt32;
 						n++;
 						
-					} else if (isTTFloat32(currentString) && !numberAsSymbol) {
+					}
+					else if (isTTFloat32(currentString) && !numberAsSymbol) {
 						
 						data[n].float32 = toTTFloat32(currentString);
 						type[n] = kTypeFloat32;
 						n++;
 						
-					} else {
+					}
+					else {
 						
-						if (currentString.data()[0] == '"') {
+						if (currentString.c_str()[0] == '"') {
 							
 							TTString editString = currentString.substr(1, currentString.size());	// don't keep the leading "
 							
-							while (currentString.data()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
+							while (currentString.c_str()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
 								i++;
 								currentString = strList.at(i);
 								
@@ -1011,7 +1015,7 @@ public:
 							n++;
 
 						} else {
-							TTSymbolPtr editSymbol = TT(currentString.data());
+							TTSymbolPtr editSymbol = TT(currentString.c_str());
 							data[n].sym = editSymbol;
 							type[n] = kTypeSymbol;
 							n++;

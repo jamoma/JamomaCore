@@ -32,7 +32,8 @@ typedef TTList*		TTListPtr;
 #define NO_ATTRIBUTE	kTTSymEmpty
 
 #define C_SEPARATOR		'/'
-#define C_INSTANCE		'.'
+//#define C_INSTANCE	'.'
+const char C_INSTANCE = '.';
 #define C_ATTRIBUTE		':'
 #define C_WILDCARD		'*'
 #define C_ZERO			'0'

@@ -232,6 +232,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&A, kTTValNONE);
 		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&B, kTTValNONE);
+		err = err; // prevent 'unused' warning
 		
 		dims.setSize(2);
 		dims.set(0, 3);	// 3 rows
