@@ -11,6 +11,7 @@
 #if BOOST_REGEX
 #include <boost/regex.hpp>
 using namespace boost;
+using namespace std;
 typedef boost::regex	TTExpression;
 typedef boost::match_results <TTRegexStringPosition> TTRegexStringResult;
 #else
