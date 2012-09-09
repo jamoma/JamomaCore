@@ -102,9 +102,7 @@ void jamoma_init(void)
 		ttRegexForView = new TTRegex("(.view)");
 		ttRegexForMaxpat = new TTRegex("(.maxpat)");
 		ttRegexForMaxhelp = new TTRegex("(.maxhelp)");
-		
-		//ttRegexForBracket = new TTRegex("\\[(\\d|\\d\\d|\\d\\d\\d)\\]");	// this regex crashes !
-		ttRegexForBracket = new TTRegex("\[(\d|\dd|\ddd)]");					// parse until 999. 
+		ttRegexForBracket = new TTRegex("\\[(\\d|\\d\\d|\\d\\d\\d)\\]");	// parse until 999
 		
 		ModelPatcherFormat = new TTString("%s.model.maxpat");
 		ModelPresetFormat = new TTString("%s.model.xml");
