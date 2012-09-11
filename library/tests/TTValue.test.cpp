@@ -561,8 +561,34 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing TTValue string conversion methods");
 	
+	TTValue v;
+	TTString s;
+	
 	// TODO: test toString()
-	// TODO: test fromString()
+	
+	// test fromString()
+	s = TTString("0");
+	v = s;
+	v.fromString();
+	
+	TTTestAssertion("\"0\" string is converted into a TTInt32 0 value",
+					v.getType() == kTypeInt32 &&
+					v.getInt32(0) == 0,
+					testAssertionCount,
+					errorCount);
+	
+	v.clear();
+	s = TTString("0.000000");
+	v = s;
+	v.fromString();
+	
+	TTTestAssertion("\"0.000000\" string is converted into a TTFloat32 0.000000 value",
+					v.getType() == kTypeFloat32 &&
+					v.getFloat32(0) == 0.000000,
+					testAssertionCount,
+					errorCount);
+	
+	
 	// TODO: test transformCSVStringToSymbolArray()
 	
 	TTValue v1(3.14);
