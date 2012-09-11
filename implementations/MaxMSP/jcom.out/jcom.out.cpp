@@ -353,7 +353,7 @@ void out_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute turns off model's outputs."));
-		v = TTValue(0);
+		v = TTValue(NO);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 
 #ifdef JCOM_OUT_TILDE
@@ -378,11 +378,15 @@ void out_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Freezes the last state of model's outputs from the  processing algorithm."));
+		v = TTValue(NO);
+		aData->setAttributeValue(kTTSym_valueDefault, v);
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_preview, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Turns on/off preview display of model's outputs from the  processing algorithm."));
+		v = TTValue(NO);
+		aData->setAttributeValue(kTTSym_valueDefault, v);
 #endif
 	}
 }
