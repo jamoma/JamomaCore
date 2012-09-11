@@ -88,6 +88,10 @@ includes:
 
 defines:
   - TTFOUNDATION_EXPORTS
+  - BOOST_REGEX
+  - BOOST_REGEX_USE_C_LOCALE 
+  
+# BOOST_REGEX_USE_C_LOCALE is a Boost Regex definition option (see boost/regex/user.hpp file)
 
 # For the moment we aren't going to add the dependency on Boost for the Linux platforms.
 # We do have compiled libs for the i386 arch but not for 64-bit or ARM architectures.
