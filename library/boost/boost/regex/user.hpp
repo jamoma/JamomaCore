@@ -18,7 +18,7 @@
 
 // define if you want the regex library to use the C locale
 // even on Win32:
-#define BOOST_REGEX_USE_C_LOCALE
+// #define BOOST_REGEX_USE_C_LOCALE
 
 // define this is you want the regex library to use the C++
 // locale:
