@@ -32,7 +32,7 @@ mExpression(NULL), mResult(NULL)
 {
 	try {
 		
-		mExpression = new TTExpression(anExpression);
+		mExpression = new TTExpression(anExpression, regex_constants::extended);
 		
 	}
 	catch (const regex_error& e) {
