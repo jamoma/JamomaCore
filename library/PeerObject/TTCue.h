@@ -41,6 +41,9 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	/** Run the cue */
 	TTErr	Recall();
 	
+	/** Output the cue */
+	TTErr	Output();
+	
 	/** Edit selection on a namespace using namespace pointer or name */
 	TTErr	Select(const TTValue& inputValue, TTValue& outputValue);
 	

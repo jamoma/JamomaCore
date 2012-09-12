@@ -40,6 +40,8 @@ private:
 	TTCuePtr			mCurrentCue;					///< the current cue
 	TTNodeAddressItemPtr mDefaultNamespace;				///< an internal default namespace
 	
+	TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
+	
 	/** */
 	TTErr	setOrder(const TTValue& value);
 	
@@ -73,6 +75,11 @@ private:
 		name : recall the cue.
 		nothing : recall the current cue */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Output a cue using the mReturnLineCallback : 
+	 name : output the cue.
+	 nothing : output the current cue */
+	TTErr	Output(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Interpolate 2 cues : 
 		name1, name2, position : interpolate between the 2 given cues

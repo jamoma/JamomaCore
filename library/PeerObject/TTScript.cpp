@@ -15,8 +15,16 @@
 TT_MODULAR_CONSTRUCTOR,
 mLines(NULL),
 mSubScript(NULL),
-mParentScript(NULL)
+mParentScript(NULL),
+mReturnLineCallback(NULL)
 {
+	TT_ASSERT("Correct number of args to create TTScript", arguments.getSize() == 0 || arguments.getSize() == 1);
+	
+	if (arguments.getSize() == 1)
+		arguments.get(0, (TTPtr*)&mReturnLineCallback);
+	
+	TT_ASSERT("Return Line Callback passed to TTScript is not NULL", mReturnLineCallback);
+	
 	mLines = new TTList();
 	
 	addAttribute(Lines, kTypePointer);
@@ -30,6 +38,7 @@ mParentScript(NULL)
 	
 	addMessage(Clear);
 	addMessageWithArguments(Run);
+	addMessageWithArguments(Dump);
 	
 	addMessageWithArguments(Bind);
 	addMessageProperty(Bind, hidden, YES);
@@ -221,6 +230,112 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			
 			// run the script
 			mSubScript->sendMessage(TT("Run"), address, kTTValNONE);
+		}
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTDictionaryPtr		aLine;
+	TTSymbolPtr			name, unit;
+	TTNodeAddressPtr	address, containerAddress = kTTAdrsRoot;
+	TTValue				v, valueToDump;
+	TTUInt32			ramp;
+	TTErr				err;
+	
+	if (!mReturnLineCallback)
+		return kTTErrGeneric;
+	
+	// It is possible to output the command address relatively to a container address 
+	if (inputValue.getType() == kTypeSymbol)
+		inputValue.get(0, &containerAddress);
+	
+	// output each line of the script
+	for (mLines->begin(); mLines->end(); mLines->next()) {
+		
+		valueToDump.clear();
+		mLines->current().get(0, (TTPtr*)&aLine);
+		
+		// output script line depending on his schema
+		if (aLine->getSchema() == kTTSym_flag) {
+			
+			// get flag value
+			aLine->getValue(valueToDump);
+			
+			// prepend flag name
+			aLine->lookup(kTTSym_name, v);
+			v.get(0, &name);
+			valueToDump.prepend(name);
+			
+			// prepend dash
+			valueToDump.prepend(kTTSym_dash);
+			
+			// output line value
+			mReturnLineCallback->notify(valueToDump, kTTValNONE);
+		}	
+		else if (aLine->getSchema() == kTTSym_comment) {
+			
+			// get comment value
+			aLine->getValue(valueToDump);
+			
+			// prepend sharp
+			valueToDump.prepend(kTTSym_sharp);
+			
+			// output line value
+			mReturnLineCallback->notify(valueToDump, kTTValNONE);
+		}
+		else if (aLine->getSchema() == kTTSym_command) {
+			
+			// get command value
+			aLine->getValue(valueToDump);
+			
+			// get the unit
+			if (!aLine->lookup(kTTSym_unit, v)) {
+				v.get(0, &unit);
+				valueToDump.append(unit);
+			}
+			
+			// get the ramp
+			if (!aLine->lookup(kTTSym_ramp, v)) {
+				v.get(0, ramp);
+				valueToDump.append(kTTSym_ramp);
+				valueToDump.append(ramp);
+			}
+			
+			// get the address
+			aLine->lookup(kTTSym_address, v);
+			v.get(0, &address);
+			
+			// if relative, append to container address
+			if (address->getType() == kAddressRelative)
+				address = containerAddress->appendAddress(address);
+			
+			// append the address
+			valueToDump.prepend(address);
+			
+			// output line value
+			mReturnLineCallback->notify(valueToDump, kTTValNONE);
+		}
+		else if (aLine->getSchema() == kTTSym_script) {
+			
+			// get the script
+			aLine->getValue(v);
+			v.get(0, (TTPtr*)&mSubScript);
+			
+			TTScriptPtr(mSubScript)->mReturnLineCallback = mReturnLineCallback;
+			
+			// get address
+			aLine->lookup(kTTSym_address, v);
+			v.get(0, &address);
+			
+			// if relative, append to container address
+			if (address->getType() == kAddressRelative)
+				address = containerAddress->appendAddress(address);
+			
+			// run the script
+			mSubScript->sendMessage(TT("Dump"), address, kTTValNONE);
 		}
 	}
 	

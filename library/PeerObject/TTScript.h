@@ -39,10 +39,12 @@ class TTMODULAR_EXPORT TTScript : public TTDataObject
 	
 private:
 	
-	TTListPtr			mLines;				///< a linked list containing all lines of the script
+	TTListPtr			mLines;					///< a linked list containing all lines of the script
 	
-	TTObjectPtr			mSubScript;			///< the current sub script to manage
-	TTObjectPtr			mParentScript;		///< the current parent script to manage (usefull for ReadFrom method)
+	TTObjectPtr			mSubScript;				///< the current sub script to manage
+	TTObjectPtr			mParentScript;			///< the current parent script to manage (usefull for ReadFrom method)
+	
+	TTCallbackPtr		mReturnLineCallback;	///< a callback to return back lines to the owner of this script
 	
 	/** */
 	TTErr	getLines(TTValue& value);
@@ -53,11 +55,14 @@ private:
 	/**	Run all command lines of the script (considering also wait flag lines) */
 	TTErr	Run(const TTValue& inputValue, TTValue& outputValue);
 	
+	/**	Dump all lines of the script using mReturnLineCallback */
+	TTErr	Dump(const TTValue& inputValue, TTValue& outputValue);
+	
 	/**	Process all command lines of the script to bind on each TTObject.
 		This is usefull for client which have to manage lines depending on their object */
 	TTErr	Bind(const TTValue& inputValue, TTValue& outputValue);
 	
-	/**	Append anything line to the script (a parsing will find which kind of line it is)	*/
+	/**	Append any line to the script (a parsing will find which kind of line it is)	*/
 	TTErr	Append(const TTValue& newLine, TTValue& outputValue);
 	
 	/**	Append a command line to the script and output the dictionnary associated to the parsed line
@@ -109,7 +114,7 @@ TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseFlag(const TTValue& newflagAndArgu
    Returns NULL in case of error */
 TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseCommand(const TTValue& newCommand);
 
-/* Parse a value into a sub script line. 
+/* Parse a value into a sub script line and optionnaly pass a callback to output
    Returns NULL in case of error */
 TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScript);
 

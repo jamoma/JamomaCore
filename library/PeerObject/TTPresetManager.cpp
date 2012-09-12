@@ -471,7 +471,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 		// replace the buffer line value by the parsed line dictionary
 		aTextHandler->mLine = new TTValue((TTPtr)line);
 		
-		// match preset flag line : # (preset) name
+		// match preset flag line : - preset name
 		if (line->getSchema() == kTTSym_flag) {
 			
 			line->lookup(kTTSym_name, v);

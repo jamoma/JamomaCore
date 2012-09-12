@@ -19,7 +19,7 @@ typedef struct extra {
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
-#define data_out 0
+#define line_out 0
 #define dump_out 1
 
 // Definitions
@@ -29,6 +29,7 @@ void		WrappedCueManageClass_free(TTPtr self);
 
 void		cue_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
+void		cue_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		cue_return_order(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 
 void		cue_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -64,6 +65,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTCueManagerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)cue_assist,				"assist",				A_CANT, 0L);
+	
+	class_addmethod(c->maxClass, (method)cue_return_value,			"return_value",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)cue_return_order,			"return_order",			A_CANT, 0);
 	
@@ -110,7 +113,7 @@ void WrappedCueManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
-	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	x->outlets[line_out] = outlet_new(x, NULL);						// anything outlet to output data
 	
 	// Prepare Internals hash to store XmlHanler and TextHandler object
 	x->internals = new TTHash();
@@ -221,7 +224,7 @@ void cue_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "");		
 	else {							// Outlets
 		switch(arg) {
-			case data_out:
+			case line_out:
 				strcpy(dst, "cue output");
 				break;
 			case dump_out:
@@ -231,10 +234,21 @@ void cue_assist(TTPtr self, void *b, long msg, long arg, char *dst)
  	}
 }
 
+void cue_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	// avoid blank before line
+	if (msg == _sym_nothing)
+		outlet_atoms(x->outlets[line_out], argc, argv);
+	else
+		outlet_anything(x->outlets[line_out], msg, argc, argv);
+}
+
 void cue_return_order(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[data_out], gensym("order"), argc, argv);
+	outlet_anything(x->outlets[dump_out], gensym("order"), argc, argv);
 }
 
 void cue_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

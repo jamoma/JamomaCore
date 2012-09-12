@@ -17,7 +17,7 @@ mName(kTTSymEmpty),
 mRamp(0),
 mScript(NULL)
 {
-	TTValue args;
+	TT_ASSERT("Correct number of args to create TTCue", arguments.getSize() == 0 || arguments.getSize() == 1);
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Ramp, kTypeUInt32);
@@ -25,6 +25,7 @@ mScript(NULL)
 	addMessage(Clear);
 	addMessageWithArguments(Store);
 	addMessage(Recall);
+	addMessage(Output);
 	addMessageWithArguments(Select);
 	
 	// needed to be handled by a TTXmlHandler
@@ -39,7 +40,7 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&mScript), args);
+	TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&mScript), arguments); // use arguments to pass the returnLineCallback
 }
 
 TTCue::~TTCue()
@@ -138,14 +139,20 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		v.append(mName);
 		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
 		
-		// 2. Append a comment line
-		v = TTValue(TT("edit a comment"));
-		mScript->sendMessage(TT("AppendComment"), v, parsedLine);
+		// 2. Append a description flag
+		v = TTValue(TT("description"));
+		v.append(TT("edit a description"));
+		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
 		
-		// 3. Process namespace storage
+		// 3. Append an autofollow flag
+		v = TTValue(TT("autofollow"));
+		v.append(kTTVal0);
+		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
+		
+		// 4. Process namespace storage
 		processStore(mScript, kTTAdrsEmpty, aNamespace);
 		
-		// 4. Process ramp
+		// 5. Process ramp
 		if (mRamp) setRamp(mRamp);
 		
 		return kTTErrNone;
@@ -306,6 +313,11 @@ TTErr TTCue::Clear()
 TTErr TTCue::Recall()
 {
 	return mScript->sendMessage(TT("Run"), kTTAdrsRoot, kTTValNONE);
+}
+
+TTErr TTCue::Output()
+{
+	return mScript->sendMessage(TT("Dump"), kTTAdrsRoot, kTTValNONE);
 }
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
