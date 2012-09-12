@@ -33,6 +33,7 @@ private:
 	
 	TTValue				mOrder;							///< ATTRIBUTE : cues are ordered by name
 	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current cue name
+	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 	TTSymbolPtr			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
 	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
 	

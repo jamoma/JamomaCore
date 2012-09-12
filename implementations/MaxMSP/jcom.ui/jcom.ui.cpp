@@ -1086,7 +1086,7 @@ void ui_menu_qfn(t_ui *x)
 		defer(x, (method)ui_preset_dowrite, NULL, 0, 0L);
 	
 	else if (item->sym == gensym("Restore Default Settings"))
-		ui_viewer_send(x, TT("preset/recall"), 1);
+		ui_viewer_send(x, TT("preset/recall"), kTTVal1);
 	
 	else if (item->sym == gensym("Store Current Preset"))
 		ui_viewer_send(x, TT("preset/store"), kTTValNONE);

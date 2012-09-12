@@ -418,6 +418,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTTextHandlerPtr	aTextHandler = NULL;
 	TTHashPtr			allCues;
 	TTValue				v, o, args;
+	TTSymbolPtr			name = kTTSymEmpty;
 	TTErr				tterr;
 	
 	// choose object to edit : default the cuelist
@@ -425,8 +426,24 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	EXTRA->cueName = kTTSymEmpty;
 	
 	if (argc && argv) {
-		if (atom_gettype(argv) == A_SYM) {
-
+		
+		if (atom_gettype(argv) == A_LONG) {
+			
+			// get cues order
+			x->wrappedObject->getAttributeValue(TT("order"), v);
+			
+			if (atom_getlong(argv) <= v.getSize())
+				v.get(atom_getlong(argv)-1, &name);
+			else {
+				object_error((ObjectPtr)x, "%d does'nt exist", atom_getlong(argv));
+				return;
+			}
+		}
+		else if (atom_gettype(argv) == A_SYM)
+			name = TT(atom_getsym(argv)->s_name);
+		
+		if (name != kTTSymEmpty) {
+			
 			// get cue object table
 			x->wrappedObject->getAttributeValue(TT("cues"), v);
 			v.get(0, (TTPtr*)&allCues);
@@ -434,11 +451,11 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			if (allCues) {
 				
 				// get cue to edit
-				if (!allCues->lookup(TT(atom_getsym(argv)->s_name), v)) {
+				if (!allCues->lookup(name, v)) {
 					
 					// edit a cue
 					v.get(0, (TTPtr*)&EXTRA->toEdit);
-					EXTRA->cueName = TT(atom_getsym(argv)->s_name);
+					EXTRA->cueName = name;
 				}
 				else {
 					object_error((ObjectPtr)x, "%s does'nt exist", atom_getsym(argv)->s_name);

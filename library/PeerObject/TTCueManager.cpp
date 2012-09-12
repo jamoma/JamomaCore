@@ -15,6 +15,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mOrder(kTTValNONE),
 mCurrent(kTTSymEmpty),
+mCurrentPosition(0),
 mNamespace(kTTSym_none),
 mCues(NULL),
 mCurrentCue(NULL),
@@ -24,6 +25,9 @@ mDefaultNamespace(NULL)
 	
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
+	
+	addAttribute(CurrentPosition, kTypeInt32);
+	addAttributeProperty(CurrentPosition, readOnly, YES);
 	
 	addAttribute(Namespace, kTypeSymbol);
 	
@@ -99,7 +103,7 @@ TTErr TTCueManager::setOrder(const TTValue& value)
 			newOrder.append(name);
 	}
 	
-	// if the newOrder size is equal to the current name list 
+	// if the newOrder size is not equal to the current name list 
 	if (newOrder.getSize() != mOrder.getSize())
 		return kTTErrGeneric;
 	
@@ -220,6 +224,12 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 	if (inputValue.getType() == kTypeSymbol)
 		inputValue.get(0, &mCurrent);
 	
+	// get cue at position
+	if (inputValue.getType(0) == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, &mCurrent);
+	}
+	
 	// if cue exists
 	if (!mCues->lookup(mCurrent, v)) {
 		
@@ -239,6 +249,8 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 			return kTTErrNone;
 		}
 	}
+	else 
+		mCurrentPosition = 0;
 	
 	return kTTErrGeneric;
 }
@@ -265,6 +277,7 @@ TTErr TTCueManager::Clear()
 		mCues = new TTHash();
 		mCurrentCue = NULL;
 		mCurrent = kTTSymEmpty;
+		mCurrentPosition = 0;
 		mOrder = kTTValNONE;
 		
 		notifyOrderObservers();
@@ -298,6 +311,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		v = TTValue((TTPtr)mCurrentCue);
 		mCues->append(mCurrent, v);
 		mOrder.append(mCurrent);
+		mCurrentPosition = mOrder.getSize();
 		
 		notifyOrderObservers();
 	}
@@ -318,8 +332,24 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 	TTValue		v;
 	
 	// get cue name
-	if (inputValue.getType() == kTypeSymbol)
+	if (inputValue.getType() == kTypeSymbol) {
 		inputValue.get(0, &mCurrent);
+		
+		TTSymbolPtr name;
+		for (TTInt32 i = 0; i < mOrder.getSize(); i++) {
+			mOrder.get(i, &name);
+			if (name == mCurrent) {
+				mCurrentPosition = i+1;
+				break;
+			}
+		}
+	}
+	
+	// get cue at position
+	if (inputValue.getType(0) == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, &mCurrent);
+	}
 	
 	// if cue exists
 	if (!mCues->lookup(mCurrent, v)) {
@@ -406,6 +436,12 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	if (inputValue.getType() == kTypeSymbol)
 		inputValue.get(0, &mCurrent);
 	
+	// get cue at position
+	if (inputValue.getType(0) == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, &mCurrent);
+	}
+	
 	// if cue exists
 	if (!mCues->lookup(mCurrent, v)) {
 		
@@ -414,9 +450,9 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 		mCues->remove(mCurrent);
 		
 		// remove the name without changing the order
-		for (TTUInt32 i=0; i<newOrder.getSize(); i++) {
+		for (TTUInt32 i=0; i<mOrder.getSize(); i++) {
 			
-			newOrder.get(i, &name);
+			mOrder.get(i, &name);
 			
 			if (name != mCurrent)
 				newOrder.append(name);
@@ -424,6 +460,7 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentCue = NULL;
 		mCurrent = kTTSymEmpty;
+		mCurrentPosition = 0;
 		mOrder = newOrder;
 		
 		notifyOrderObservers();

@@ -16,6 +16,7 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
 mOrder(kTTValNONE),
 mCurrent(kTTSymEmpty),
+mCurrentPosition(0),
 mPresets(NULL),
 mCurrentPreset(NULL)
 {
@@ -27,6 +28,9 @@ mCurrentPreset(NULL)
 	
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
+	
+	addAttribute(CurrentPosition, kTypeInt32);
+	addAttributeProperty(CurrentPosition, readOnly, YES);
 	
 	addAttribute(Presets, kTypePointer);
 	addAttributeProperty(Presets, readOnly, YES);
@@ -97,7 +101,7 @@ TTErr TTPresetManager::setOrder(const TTValue& value)
 			newOrder.append(name);
 	}
 	
-	// if the newOrder size is equal to the current name list 
+	// if the newOrder size is not equal to the current name list 
 	if (newOrder.getSize() != mOrder.getSize())
 		return kTTErrGeneric;
 
@@ -127,6 +131,7 @@ TTErr TTPresetManager::Clear()
 		mPresets = new TTHash();
 		mCurrentPreset = NULL;
 		mCurrent = kTTSymEmpty;
+		mCurrentPosition = 0;
 		mOrder = kTTValNONE;
 		
 		notifyOrderObservers();
@@ -160,6 +165,7 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		v = TTValue((TTPtr)mCurrentPreset);
 		mPresets->append(mCurrent, v);
 		mOrder.append(mCurrent);
+		mCurrentPosition = mOrder.getSize();
 		
 		notifyOrderObservers();
 	}
@@ -178,8 +184,24 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 	TTValue		v;
 	
 	// get preset name
-	if (inputValue.getType() == kTypeSymbol)
+	if (inputValue.getType() == kTypeSymbol) {
 		inputValue.get(0, &mCurrent);
+		
+		TTSymbolPtr name;
+		for (TTInt32 i = 0; i < mOrder.getSize(); i++) {
+			mOrder.get(i, &name);
+			if (name == mCurrent) {
+				mCurrentPosition = i+1;
+				break;
+			}
+		}
+	}
+	
+	// get preset at position
+	if (inputValue.getType(0) == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, &mCurrent);
+	}
 	
 	// if preset exists
 	if (!mPresets->lookup(mCurrent, v)) {
@@ -267,6 +289,12 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	if (inputValue.getType() == kTypeSymbol)
 		inputValue.get(0, &mCurrent);
 	
+	// get preset at position
+	if (inputValue.getType(0) == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, &mCurrent);
+	}
+	
 	// if preset exists
 	if (!mPresets->lookup(mCurrent, v)) {
 		
@@ -285,6 +313,7 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentPreset = NULL;
 		mCurrent = kTTSymEmpty;
+		mCurrentPosition = 0;
 		mOrder = newOrder;
 		
 		notifyOrderObservers();
