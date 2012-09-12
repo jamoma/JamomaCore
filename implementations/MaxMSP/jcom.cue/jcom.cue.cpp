@@ -156,7 +156,7 @@ void cue_subscribe(TTPtr self)
 		
 		// expose messages of TTCue as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_array);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store a cue giving his name"));
 		

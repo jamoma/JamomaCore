@@ -186,12 +186,12 @@ void preset_subscribe(TTPtr self)
 
 		// expose messages of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store a preset giving a name"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall a preset using a name"));
 		
@@ -206,7 +206,7 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_description, TT("Mix several presets using their names followed by a factor"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Remove a preset using a name"));		
 		
