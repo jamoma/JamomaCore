@@ -261,8 +261,8 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 				address = containerAddress->appendAddress(address);
 				
 			// retreive the object
-			getDirectoryFrom(address)->getTTNode(address, &aNode);
-			if (aNode) {
+			err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+			if (!err && aNode) {
 				
 				anObject = aNode->getObject();
 				
