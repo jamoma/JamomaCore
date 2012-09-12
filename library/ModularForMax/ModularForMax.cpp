@@ -1271,7 +1271,7 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 	SymbolPtr	patcherName, hierarchy;
 	ObjectPtr	upperPatcher;
 	TTString	s_toParse;
-	TTRegexStringPosition begin, end;
+	TTStringIter begin, end;
 	
 	// extract class from the file name
 	patcherName =  object_attr_getsym(patcher, _sym_filename);
@@ -1592,8 +1592,8 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 	TTString	s_number;
 	TTString	s_before;
 	TTString	s_after;
-	TTRegexStringPosition begin, end;
-	TTRegexStringPosition beginNumber, endNumber;
+	TTStringIter begin, end;
+	TTStringIter beginNumber, endNumber;
 	
 	begin = s_toParse.begin();
 	end = s_toParse.end();
@@ -1700,6 +1700,9 @@ SymbolPtr jamoma_parse_dieze(ObjectPtr x, SymbolPtr address)
 		if (ac > 0 && av) {
 			
 			i = 1;
+			
+			post("in jamoma_parse_dieze : TODO : used a TTRegex for this parsing");
+			/* TODO : used a TTRegex for this parsing
 			do {
 				
 				// prepare to parse #i
@@ -1731,6 +1734,7 @@ SymbolPtr jamoma_parse_dieze(ObjectPtr x, SymbolPtr address)
 				i++;
 				
 			} while (i-1 < ac); // while there are argument
+			 */
 			
 			return gensym((char*)addressStr.data());
 		}
