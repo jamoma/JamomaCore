@@ -533,8 +533,8 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			if (gain) 
 				ui_viewer_create(obj, &anObject, gensym("return_gain"), TT("out.*/gain"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out/gain"));
-				obj->hash_viewers->remove(TT("out/gain"));
+				ui_viewer_destroy(obj, TT("out.*/gain"));
+				obj->hash_viewers->remove(TT("out.*/gain"));
 			}
 		}
 		
@@ -544,8 +544,8 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			if (mix) 
 				ui_viewer_create(obj, &anObject, gensym("return_mix"), TT("out.*/mix"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out/mix"));
-				obj->hash_viewers->remove(TT("out/mix"));
+				ui_viewer_destroy(obj, TT("out.*/mix"));
+				obj->hash_viewers->remove(TT("out.*/mix"));
 			}
 			
 			change = true;
@@ -557,8 +557,8 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			if (bypass) 
 				ui_viewer_create(obj, &anObject, gensym("return_bypass"), TT("in.*/bypass"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("in/bypass"));
-				obj->hash_viewers->remove(TT("in/bypass"));
+				ui_viewer_destroy(obj, TT("in.*/bypass"));
+				obj->hash_viewers->remove(TT("in.*/bypass"));
 			}
 			
 			change = true;
@@ -570,8 +570,8 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			if (freeze) 
 				ui_viewer_create(obj, &anObject, gensym("return_freeze"), TT("out.*/freeze"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out/freeze"));
-				obj->hash_viewers->remove(TT("out/freeze"));
+				ui_viewer_destroy(obj, TT("out.*/freeze"));
+				obj->hash_viewers->remove(TT("out.*/freeze"));
 			}
 			
 			change = true;
@@ -583,8 +583,8 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			if (preview)
 				ui_viewer_create(obj, &anObject, gensym("return_preview"), TT("out.*/preview"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out/preview"));
-				obj->hash_viewers->remove(TT("out/preview"));
+				ui_viewer_destroy(obj, TT("out.*/preview"));
+				obj->hash_viewers->remove(TT("out.*/preview"));
 			}
 			
 			change = true;
@@ -596,8 +596,8 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			if (mute) 
 				ui_viewer_create(obj, &anObject, gensym("return_mute"), TT("out.*/mute"), obj->modelAddress, YES);
 			else {
-				ui_viewer_destroy(obj, TT("out/mute"));
-				obj->hash_viewers->remove(TT("out/mute"));
+				ui_viewer_destroy(obj, TT("out.*/mute"));
+				obj->hash_viewers->remove(TT("out.*/mute"));
 			}
 			
 			change = true;
