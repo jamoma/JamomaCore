@@ -46,6 +46,10 @@ private:
 	TTErr	setOrder(const TTValue& value);
 	
 	/** */
+	TTErr	getCurrentDescription(TTValue& value);
+	TTErr	setCurrentDescription(const TTValue& value);
+	
+	/** */
 	TTErr	getCurrentRamp(TTValue& value);
 	TTErr	setCurrentRamp(const TTValue& value);
 	

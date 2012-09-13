@@ -39,6 +39,7 @@ mReturnLineCallback(NULL)
 	
 	addAttribute(Namespace, kTypeSymbol);
 	
+	registerAttribute(TT("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
 	registerAttribute(TT("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
 	
 	addAttribute(Cues, kTypePointer);
@@ -125,6 +126,42 @@ TTErr TTCueManager::setOrder(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTCueManager::getCurrentDescription(TTValue& value)
+{
+	TTValue v;
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentCue);
+		
+		if (mCurrentCue) {
+			return mCurrentCue->getAttributeValue(kTTSym_description, value);
+		}
+	}
+	
+	value = kTTVal0;
+	return kTTErrGeneric;
+}
+
+TTErr TTCueManager::setCurrentDescription(const TTValue& value)
+{
+	TTValue v;
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentCue);
+		
+		if (mCurrentCue) {
+			v = value;
+			mCurrentCue->setAttributeValue(kTTSym_description, v);
+		}
+	}
+	
+	return kTTErrGeneric;
+}
+
 TTErr TTCueManager::getCurrentRamp(TTValue& value)
 {
 	TTValue v;
@@ -135,7 +172,7 @@ TTErr TTCueManager::getCurrentRamp(TTValue& value)
 		v.get(0, (TTPtr*)&mCurrentCue);
 		
 		if (mCurrentCue) {
-			return mCurrentCue->getAttributeValue(TT("ramp"), value);
+			return mCurrentCue->getAttributeValue(kTTSym_ramp, value);
 		}
 	}
 	
@@ -154,7 +191,7 @@ TTErr TTCueManager::setCurrentRamp(const TTValue& value)
 		
 		if (mCurrentCue) {
 			v = value;
-			mCurrentCue->setAttributeValue(TT("ramp"), v);
+			mCurrentCue->setAttributeValue(kTTSym_ramp, v);
 		}
 	}
 	
@@ -644,6 +681,9 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		}
 		
 		notifyOrderObservers();
+		
+		// use the namespace of the first cue
+		NamespaceSelect(kTTVal1, kTTValNONE);
 		
 		return kTTErrNone;
 	}
