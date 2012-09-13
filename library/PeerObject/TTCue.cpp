@@ -20,11 +20,9 @@ mScript(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTCue", arguments.getSize() == 0 || arguments.getSize() == 1);
 	
-	addAttribute(Name, kTypeSymbol);
+	addAttributeWithGetterAndSetter(Name, kTypeSymbol);
 	addAttributeWithGetterAndSetter(Description, kTypeSymbol);
 	addAttributeWithGetterAndSetter(Ramp, kTypeUInt32);
-	//registerAttribute(TT("description"), kTypeSymbol, &mDescription, (TTGetterMethod)&TTCue::getDescription, (TTSetterMethod)&TTCue::setDescription);
-	//registerAttribute(TT("ramp"), kTypeUInt32, &mRamp, (TTGetterMethod)&TTCue::getRamp, (TTSetterMethod)&TTCue::setRamp);
 	
 	addMessage(Clear);
 	addMessageWithArguments(Store);
@@ -51,6 +49,71 @@ TTCue::~TTCue()
 {
 	TTObjectRelease(TTObjectHandle(&mScript));
 	mScript = NULL;
+}
+
+
+TTErr TTCue::getName(TTValue& value)
+{
+	TTListPtr			lines;
+	TTDictionaryPtr		aLine;
+	TTSymbolPtr			name;
+	TTValue				v;
+	
+	mScript->getAttributeValue(TT("lines"), v);
+	v.get(0, (TTPtr*)&lines);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		lines->current().get(0, (TTPtr*)&aLine);
+		
+		if (aLine->getSchema() == kTTSym_flag) {
+			
+			aLine->lookup(kTTSym_name, v);
+			v.get(0, &name);
+			
+			if (name == TT("cue")) {
+				aLine->getValue(value);
+				break;
+			}
+		}
+	}
+	
+	mName = value;	// remind the name in case the cue is cleared
+	
+	return kTTErrNone;
+}
+
+TTErr TTCue::setName(const TTValue& value)
+{
+	TTListPtr			lines;
+	TTDictionaryPtr		aLine;
+	TTSymbolPtr			name;
+	TTValue				v;
+	
+	mScript->getAttributeValue(TT("lines"), v);
+	v.get(0, (TTPtr*)&lines);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		lines->current().get(0, (TTPtr*)&aLine);
+		
+		if (aLine->getSchema() == kTTSym_flag) {
+			
+			aLine->lookup(kTTSym_name, v);
+			v.get(0, &name);
+			
+			if (name == TT("cue")) {
+				aLine->setValue(value);
+				break;
+			}
+		}
+	}
+	
+	mName = value;	// remind the name in case the cue is cleared
+	
+	return kTTErrNone;
 }
 
 TTErr TTCue::getDescription(TTValue& value)

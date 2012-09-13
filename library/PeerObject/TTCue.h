@@ -31,6 +31,10 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
 	
 	/** */
+	TTErr	getName(TTValue& value);
+	TTErr	setName(const TTValue& value);
+	
+	/** */
 	TTErr	getDescription(TTValue& value);
 	TTErr	setDescription(const TTValue& value);
 	

@@ -60,6 +60,7 @@ mReturnLineCallback(NULL)
 	addMessageWithArguments(Mix);
 	addMessageWithArguments(Move);
 	addMessageWithArguments(Remove);
+	addMessageWithArguments(Rename);
 	addMessageWithArguments(Sequence);
 	
 	// needed to be handled by a TTXmlHandler
@@ -141,7 +142,6 @@ TTErr TTCueManager::getCurrentDescription(TTValue& value)
 		}
 	}
 	
-	value = kTTVal0;
 	return kTTErrGeneric;
 }
 
@@ -631,6 +631,65 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTCueManager::Rename(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTSymbolPtr name, newName;
+	TTUInt32	i;
+	TTValue		v;
+	
+	if (inputValue.getSize() != 2)
+		return kTTErrGeneric;
+	
+	// get cue name
+	if (inputValue.getType() == kTypeSymbol)
+		inputValue.get(0, &mCurrent);
+	
+	// get cue at position
+	if (inputValue.getType() == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, &mCurrent);
+	}
+	
+	// get new name
+	if (inputValue.getType(1) == kTypeSymbol)
+		inputValue.get(1, &newName);
+	
+	if (newName == kTTSymEmpty)
+		return kTTErrGeneric;
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentCue);
+		
+		// replace the name in the hash table
+		mCues->remove(mCurrent);
+		mCues->append(newName, v);
+		
+		mCurrentCue->setAttributeValue(kTTSym_name, newName);
+		
+		// replace the name in the order
+		for (i=0; i<mOrder.getSize(); i++) {
+			
+			mOrder.get(i, &name);
+			
+			if (name == mCurrent) {
+				mOrder.set(i, newName);
+				break;
+			}
+		}
+		
+		mCurrent = newName;
+		mCurrentPosition = i+1;
+		
+		notifyOrderObservers();
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;	
 }
 
 TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)

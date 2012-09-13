@@ -30,12 +30,28 @@
 					"bgcolor2" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"id" : "obj-77",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 182.0, 228.0, 132.0, 18.0 ],
+					"text" : "rename 2 \"Act I - Intro\""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"bgcolor2" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-70",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 222.0, 60.0, 18.0 ],
+					"patching_rect" : [ 182.0, 205.0, 60.0, 18.0 ],
 					"text" : "move 2 3"
 				}
 
@@ -51,7 +67,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 203.0, 137.0, 18.0 ],
+					"patching_rect" : [ 182.0, 186.0, 137.0, 18.0 ],
 					"text" : "move \"Act I - Scene I\" 1"
 				}
 
@@ -115,6 +131,7 @@
 					"outlettype" : [ "", "int", "", "" ],
 					"outputmode" : 1,
 					"patching_rect" : [ 489.0, 466.0, 157.0, 20.0 ],
+					"text" : "bang",
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
@@ -144,7 +161,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 482.0, 44.0, 18.0 ],
+					"patching_rect" : [ 18.0, 472.0, 44.0, 18.0 ],
 					"text" : "output"
 				}
 
@@ -160,7 +177,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 83.0, 462.0, 54.0, 18.0 ],
+					"patching_rect" : [ 83.0, 452.0, 54.0, 18.0 ],
 					"text" : "output 1"
 				}
 
@@ -175,7 +192,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 65.0, 482.0, 85.0, 34.0 ],
+					"patching_rect" : [ 65.0, 472.0, 85.0, 34.0 ],
 					"text" : "dump on the leftmost outlet"
 				}
 
@@ -191,7 +208,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 462.0, 63.0, 18.0 ],
+					"patching_rect" : [ 18.0, 452.0, 63.0, 18.0 ],
 					"text" : "output Init"
 				}
 
@@ -220,7 +237,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 69.0, 367.0, 40.0, 18.0 ],
+					"patching_rect" : [ 69.0, 357.0, 40.0, 18.0 ],
 					"text" : "edit 1"
 				}
 
@@ -236,7 +253,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 90.0, 276.0, 61.0, 18.0 ],
+					"patching_rect" : [ 90.0, 266.0, 61.0, 18.0 ],
 					"text" : "remove 1"
 				}
 
@@ -252,7 +269,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 79.0, 184.0, 49.0, 18.0 ],
+					"patching_rect" : [ 79.0, 174.0, 49.0, 18.0 ],
 					"text" : "recall 1"
 				}
 
@@ -279,7 +296,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 420.0, 88.0, 348.0, 25.0 ],
+					"patching_rect" : [ 420.0, 78.0, 348.0, 25.0 ],
 					"text" : "Fill the namespace before to store anything. "
 				}
 
@@ -434,15 +451,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 863.0, 142.0, 120.0, 25.0 ],
+					"patching_rect" : [ 863.0, 132.0, 120.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontface" : 0
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p about_mixing",
@@ -654,13 +671,13 @@
 ,
 									"patching_rect" : [ 289.0, 238.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"fontface" : 0,
-										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontface" : 0
+										"fontface" : 0,
+										"fontsize" : 12.0
 									}
 ,
 									"text" : "p press_cmd"
@@ -1049,13 +1066,13 @@
 ,
 									"patching_rect" : [ 44.0, 299.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
+										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"fontface" : 0,
-										"fontsize" : 12.0,
 										"globalpatchername" : "",
-										"default_fontface" : 0
+										"fontface" : 0,
+										"fontsize" : 12.0
 									}
 ,
 									"text" : "p press_cmd"
@@ -1489,17 +1506,17 @@
  ]
 					}
 ,
-					"patching_rect" : [ 843.0, 116.0, 140.0, 25.0 ],
+					"patching_rect" : [ 843.0, 106.0, 140.0, 25.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 825.0, 87.0, 136.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontface" : 0
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p about_selection",
@@ -1531,7 +1548,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 425.0, 264.0, 127.0, 18.0 ],
+					"patching_rect" : [ 425.0, 254.0, 127.0, 18.0 ],
 					"text" : "namespace/select Init"
 				}
 
@@ -1546,7 +1563,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 425.0, 240.0, 160.0, 18.0 ],
+					"patching_rect" : [ 425.0, 230.0, 160.0, 18.0 ],
 					"text" : "namespace/clear /degrade~"
 				}
 
@@ -1827,15 +1844,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 824.0, 90.0, 159.0, 25.0 ],
+					"patching_rect" : [ 824.0, 80.0, 159.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0,
 						"globalpatchername" : "",
-						"default_fontface" : 0
+						"fontface" : 0,
+						"fontsize" : 12.0
 					}
 ,
 					"text" : "p about_sequencing",
@@ -1910,7 +1927,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 425.0, 177.0, 159.0, 18.0 ],
+					"patching_rect" : [ 425.0, 167.0, 159.0, 18.0 ],
 					"text" : "namespace/remove /mouse"
 				}
 
@@ -1925,7 +1942,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 425.0, 196.0, 220.0, 18.0 ],
+					"patching_rect" : [ 425.0, 186.0, 220.0, 18.0 ],
 					"text" : "namespace/remove /degrade~/bitdepth"
 				}
 
@@ -1940,7 +1957,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 425.0, 221.0, 102.0, 18.0 ],
+					"patching_rect" : [ 425.0, 211.0, 102.0, 18.0 ],
 					"text" : "namespace/clear"
 				}
 
@@ -1954,7 +1971,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 53.0, 425.0, 87.0, 20.0 ],
+					"patching_rect" : [ 53.0, 415.0, 87.0, 20.0 ],
 					"text" : "all the cue list"
 				}
 
@@ -1970,7 +1987,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 427.0, 32.5, 18.0 ],
+					"patching_rect" : [ 18.0, 417.0, 32.5, 18.0 ],
 					"text" : "edit"
 				}
 
@@ -1986,7 +2003,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 407.0, 120.0, 18.0 ],
+					"patching_rect" : [ 18.0, 397.0, 120.0, 18.0 ],
 					"text" : "edit \"Act I - Scene II\""
 				}
 
@@ -2002,7 +2019,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 387.0, 117.0, 18.0 ],
+					"patching_rect" : [ 18.0, 377.0, 117.0, 18.0 ],
 					"text" : "edit \"Act I - Scene I\""
 				}
 
@@ -2018,7 +2035,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 367.0, 49.0, 18.0 ],
+					"patching_rect" : [ 18.0, 357.0, 49.0, 18.0 ],
 					"text" : "edit Init"
 				}
 
@@ -2033,7 +2050,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 425.0, 151.0, 220.0, 18.0 ],
+					"patching_rect" : [ 425.0, 141.0, 220.0, 18.0 ],
 					"text" : "namespace/append /degrade~/bitdepth"
 				}
 
@@ -2061,7 +2078,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 71.0, 334.0, 87.0, 20.0 ],
+					"patching_rect" : [ 71.0, 324.0, 87.0, 20.0 ],
 					"text" : "current cue"
 				}
 
@@ -2075,7 +2092,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 59.0, 242.0, 87.0, 20.0 ],
+					"patching_rect" : [ 59.0, 232.0, 87.0, 20.0 ],
 					"text" : "current cue"
 				}
 
@@ -2089,7 +2106,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 57.0, 151.0, 105.0, 20.0 ],
+					"patching_rect" : [ 57.0, 141.0, 105.0, 20.0 ],
 					"text" : "into current cue"
 				}
 
@@ -2118,7 +2135,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 310.0, 165.0, 103.0, 34.0 ],
+					"patching_rect" : [ 310.0, 148.0, 103.0, 34.0 ],
 					"text" : "change the order of the cue list"
 				}
 
@@ -2132,7 +2149,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 219.0, 133.0, 171.0, 20.0 ],
+					"patching_rect" : [ 219.0, 123.0, 171.0, 20.0 ],
 					"text" : "write the cue list on the disk"
 				}
 
@@ -2146,7 +2163,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 219.0, 113.0, 171.0, 20.0 ],
+					"patching_rect" : [ 219.0, 103.0, 171.0, 20.0 ],
 					"text" : "load a cue list from the disk"
 				}
 
@@ -2160,7 +2177,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 219.0, 93.0, 114.0, 20.0 ],
+					"patching_rect" : [ 219.0, 83.0, 114.0, 20.0 ],
 					"text" : "clear the cue list"
 				}
 
@@ -2177,7 +2194,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 165.0, 127.0, 32.0 ],
+					"patching_rect" : [ 182.0, 148.0, 127.0, 32.0 ],
 					"text" : "order \"Act I - Scene I\" \"Act I - Scene II\" Init"
 				}
 
@@ -2245,7 +2262,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-63",
-					"items" : [ "Act I - Scene I", ",", "Init", ",", "Act I - Scene II" ],
+					"items" : [ "Init", ",", "Act I - Intro", ",", "Act I - Scene II" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2323,7 +2340,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 336.0, 51.0, 18.0 ],
+					"patching_rect" : [ 18.0, 326.0, 51.0, 18.0 ],
 					"text" : "remove"
 				}
 
@@ -2339,7 +2356,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 316.0, 141.0, 18.0 ],
+					"patching_rect" : [ 18.0, 306.0, 141.0, 18.0 ],
 					"text" : "remove \"Act I - Scene II\""
 				}
 
@@ -2355,7 +2372,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 296.0, 138.0, 18.0 ],
+					"patching_rect" : [ 18.0, 286.0, 138.0, 18.0 ],
 					"text" : "remove \"Act I - Scene I\""
 				}
 
@@ -2371,7 +2388,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 276.0, 70.0, 18.0 ],
+					"patching_rect" : [ 18.0, 266.0, 70.0, 18.0 ],
 					"text" : "remove Init"
 				}
 
@@ -2387,7 +2404,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 224.0, 130.0, 18.0 ],
+					"patching_rect" : [ 18.0, 214.0, 130.0, 18.0 ],
 					"text" : "recall \"Act I - Scene II\""
 				}
 
@@ -2403,7 +2420,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 113.0, 124.0, 18.0 ],
+					"patching_rect" : [ 18.0, 103.0, 124.0, 18.0 ],
 					"text" : "store \"Act I - Scene I\""
 				}
 
@@ -2419,7 +2436,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 93.0, 57.0, 18.0 ],
+					"patching_rect" : [ 18.0, 83.0, 57.0, 18.0 ],
 					"text" : "store Init"
 				}
 
@@ -2435,7 +2452,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 133.0, 128.0, 18.0 ],
+					"patching_rect" : [ 18.0, 123.0, 128.0, 18.0 ],
 					"text" : "store \"Act I - Scene II\""
 				}
 
@@ -2451,7 +2468,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 204.0, 126.0, 18.0 ],
+					"patching_rect" : [ 18.0, 194.0, 126.0, 18.0 ],
 					"text" : "recall \"Act I - Scene I\""
 				}
 
@@ -2467,7 +2484,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 184.0, 59.0, 18.0 ],
+					"patching_rect" : [ 18.0, 174.0, 59.0, 18.0 ],
 					"text" : "recall Init"
 				}
 
@@ -2483,7 +2500,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 93.0, 37.0, 18.0 ],
+					"patching_rect" : [ 182.0, 83.0, 37.0, 18.0 ],
 					"text" : "clear"
 				}
 
@@ -2499,7 +2516,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 153.0, 37.0, 18.0 ],
+					"patching_rect" : [ 18.0, 143.0, 37.0, 18.0 ],
 					"text" : "store"
 				}
 
@@ -2515,7 +2532,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 133.0, 36.0, 18.0 ],
+					"patching_rect" : [ 182.0, 123.0, 36.0, 18.0 ],
 					"text" : "write"
 				}
 
@@ -2531,7 +2548,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 113.0, 35.0, 18.0 ],
+					"patching_rect" : [ 182.0, 103.0, 35.0, 18.0 ],
 					"text" : "read"
 				}
 
@@ -2547,7 +2564,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 18.0, 244.0, 39.0, 18.0 ],
+					"patching_rect" : [ 18.0, 234.0, 39.0, 18.0 ],
 					"text" : "recall"
 				}
 
@@ -2590,7 +2607,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 420.0, 112.0, 305.0, 20.0 ],
+					"patching_rect" : [ 420.0, 102.0, 305.0, 20.0 ],
 					"text" : "The order of addresses precises the order for the recall."
 				}
 
@@ -2644,7 +2661,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 425.0, 132.0, 216.0, 18.0 ],
+					"patching_rect" : [ 425.0, 122.0, 216.0, 18.0 ],
 					"text" : "namespace/append /mouse /degrade~"
 				}
 
@@ -3026,7 +3043,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-52", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 833.5, 257.0, 191.5, 257.0 ],
+					"midpoints" : [ 833.5, 251.0, 191.5, 251.0 ],
 					"source" : [ "obj-50", 0 ]
 				}
 
@@ -3244,6 +3261,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 498.5, 528.0, 176.5, 528.0, 176.5, 329.0, 235.5, 329.0 ],
 					"source" : [ "obj-73", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-52", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-77", 0 ]
 				}
 
 			}
