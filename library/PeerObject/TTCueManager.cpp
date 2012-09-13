@@ -58,6 +58,7 @@ mReturnLineCallback(NULL)
 	addMessageWithArguments(Output);
 	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Mix);
+	addMessageWithArguments(Move);
 	addMessageWithArguments(Remove);
 	addMessageWithArguments(Sequence);
 	
@@ -517,6 +518,77 @@ TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 	return TTCueMix(cues, factors);
 }
 
+TTErr TTCueManager::Move(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTSymbolPtr name;
+	TTUInt32	i, newPosition;
+	TTValue		v, newOrder;
+	
+	if (inputValue.getSize() != 2)
+		return kTTErrGeneric;
+	
+	// get cue name
+	if (inputValue.getType() == kTypeSymbol)
+		inputValue.get(0, &mCurrent);
+	
+	// get cue at position
+	if (inputValue.getType() == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, &mCurrent);
+	}
+	
+	// get new position
+	if (inputValue.getType(1) == kTypeInt32)
+		inputValue.get(1, newPosition);
+	
+	if (newPosition < 1 || newPosition > mOrder.getSize())
+		return kTTErrGeneric;
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentCue);
+		
+		// move the name				there is certainly a better way to do this [to]
+		while (i < newPosition-1) {
+			
+			mOrder.get(i, &name);
+			i++;
+			
+			if (name == mCurrent)
+				continue;
+			
+			newOrder.append(name);
+		}
+		
+		if (newPosition < mOrder.getSize())
+			newOrder.append(mCurrent);
+		
+		while (i < mOrder.getSize()) {
+			
+			mOrder.get(i, &name);
+			i++;
+			
+			if (name == mCurrent)
+				continue;
+			
+			newOrder.append(name);
+		}
+		
+		if (newPosition == mOrder.getSize())
+			newOrder.append(mCurrent);
+		
+		mCurrentPosition = newPosition;
+		mOrder = newOrder;
+		
+		notifyOrderObservers();
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
 TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbolPtr name;
@@ -527,7 +599,7 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 		inputValue.get(0, &mCurrent);
 	
 	// get cue at position
-	if (inputValue.getType(0) == kTypeInt32) {
+	if (inputValue.getType() == kTypeInt32) {
 		inputValue.get(0, mCurrentPosition);
 		mOrder.get(mCurrentPosition-1, &mCurrent);
 	}

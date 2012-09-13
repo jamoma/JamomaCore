@@ -94,6 +94,10 @@ private:
 		name1, factor1, name2, factor2, ... : mix each given cues */
 	TTErr	Mix(const TTValue& inputValue, TTValue& outputValue);
 	
+	/** Move a cue : 
+	 name + position : move the cue to the given position. */
+	TTErr	Move(const TTValue& inputValue, TTValue& outputValue);
+	
 	/** Remove a cue : 
 		name : remove the cue.
 		nothing : remove the current cue */
