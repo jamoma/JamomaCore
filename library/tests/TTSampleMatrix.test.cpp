@@ -14,14 +14,14 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	
-	TTFloat32			numChannels = 2;
-	TTFloat32			numSamples = 44100;
-	TTFloat32			returnedChannels, returnedSamples;
+	TTUInt16			numChannels = 2;
+	TTUInt16			numSamples = 44100;
+	TTUInt16			returnedChannels, returnedSamples;
 	
 	TTTestLog("Testing resize of SampleMatrix");
 	
-	this->setNumChannels(numChannels);
-	this->getNumChannels(&returnedChannels);
+	this->setAttributeValue(TT("numChannels"), 2);
+	this->getAttributeValue(TT("numChannels"), &returnedChannels);
 	
 	TTTestAssertion("The NumChannels has been set properly", 
 					numChannels == returnedChannels,
