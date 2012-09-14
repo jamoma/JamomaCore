@@ -61,6 +61,7 @@ mReturnLineCallback(NULL)
 	addMessageWithArguments(Move);
 	addMessageWithArguments(Remove);
 	addMessageWithArguments(Rename);
+	addMessageWithArguments(Copy);
 	addMessageWithArguments(Sequence);
 	
 	// needed to be handled by a TTXmlHandler
@@ -690,6 +691,61 @@ TTErr TTCueManager::Rename(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	return kTTErrGeneric;	
+}
+
+TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTCuePtr	aCueCopy;
+	TTSymbolPtr nameCopy;
+	TTString	s;
+	TTValue		v, args;
+	
+	// get cue name
+	if (inputValue.getType() == kTypeSymbol)
+		inputValue.get(0, &mCurrent);
+	
+	// get cue at position
+	if (inputValue.getType() == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, &mCurrent);
+	}
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentCue);
+		
+		// prepare arguments
+		args.append((TTPtr)mReturnLineCallback);
+		
+		// create a new cue
+		aCueCopy = NULL;
+		TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&aCueCopy), args);
+		
+		// copy the current cue into
+		TTCueCopy(mCurrentCue, aCueCopy);
+		
+		// edit a name copy : current cue name - copy
+		s = mCurrent->getCString();
+		s += " - copy";
+		nameCopy = TT(s.data());
+		
+		// rename the copy
+		aCueCopy->setAttributeValue(kTTSym_name, nameCopy);
+		
+		// append the copy
+		v = TTValue((TTPtr)aCueCopy);
+		mCues->append(nameCopy, v);
+		mOrder.append(nameCopy);
+		mCurrent = nameCopy;
+		mCurrentPosition = mOrder.getSize();
+		
+		notifyOrderObservers();
+		
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)

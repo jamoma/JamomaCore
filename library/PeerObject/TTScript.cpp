@@ -334,7 +334,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			if (address->getType() == kAddressRelative)
 				address = containerAddress->appendAddress(address);
 			
-			// run the script
+			// dump the subscript
 			mSubScript->sendMessage(TT("Dump"), address, kTTValNONE);
 		}
 	}
@@ -1606,6 +1606,46 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 		return kTTErrGeneric;
 	
 	return kTTErrNone;	
+}
+
+TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
+{
+	TTScriptPtr			aSubScriptToCopy, aSubScriptCopy;
+	TTDictionaryPtr		aLine, aLineCopy;
+	TTValue				v, args;
+	
+	// copy each line of the script
+	for (scriptTocopy->mLines->begin(); scriptTocopy->mLines->end(); scriptTocopy->mLines->next()) {
+		
+		aSubScriptToCopy = NULL;
+		aSubScriptCopy = NULL;
+		scriptTocopy->mLines->current().get(0, (TTPtr*)&aLine);
+		
+		aLineCopy = TTScriptCopyLine(aLine);
+		
+		if (aLineCopy->getSchema() == kTTSym_script) {
+			
+			// get the subscript
+			aLineCopy->getValue(v);
+			v.get(0, (TTPtr*)&aSubScriptToCopy);
+			
+			// prepare arguments
+			args.append((TTPtr)scriptTocopy->mReturnLineCallback);
+			
+			// create a subscript copy
+			TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&aSubScriptCopy), args);
+			
+			// copy the subscript into
+			TTScriptCopy(aSubScriptToCopy, aSubScriptCopy);
+			
+			v = TTValue((TTPtr)aSubScriptCopy);
+			aLineCopy->setValue(v);
+		}
+		
+		aScriptCopy->mLines->append(aLineCopy);
+	}
+	
+	return kTTErrNone;
 }
 
 void TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBoolean& found)

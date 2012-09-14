@@ -691,3 +691,13 @@ TTErr TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue)
 {
 	return TTScriptOptimize(aCueToOptimize->mScript, aCue->mScript, optimizedCue->mScript);
 }
+
+TTErr TTCueCopy(TTCue* aCueToCopy, TTCue* aCueCopy)
+{
+	TTValue				v, args;
+	
+	aCueCopy->mName = aCueToCopy->mName;
+	aCueCopy->mDescription = aCueToCopy->mDescription;
+	aCueCopy->mRamp = aCueToCopy->mRamp;
+	return TTScriptCopy(aCueToCopy->mScript, aCueCopy->mScript);
+}
