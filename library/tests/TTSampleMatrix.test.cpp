@@ -14,14 +14,18 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	
+	// for tests
 	TTUInt16			numChannels = 2;
 	TTUInt16			numSamples = 50000;
-	TTUInt16			returnedChannels, returnedSamples;
+	TTFloat32			duration = 1500;
+	TTUInt16			returnedChannels, returnedSamples, computedSamples;
+	TTFloat32			returnedDuration, computedDuration;
 	
 	TTTestLog("Test resizing of the SampleMatrix...");
 	
-	// TEST 1: the number of channels
+	// TEST 1: can we set the number of channels?
 	this->setAttributeValue(TT("numChannels"), numChannels);
+	
 	this->getAttributeValue(TT("numChannels"), returnedChannels);
 	
 	TTTestAssertion("numChannels is set properly", 
@@ -29,16 +33,34 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
 	
-	
-	// TEST 2: the number of samples	
+	// TEST 2: can we set the number of samples?
 	this->setAttributeValue(TT("lengthInSamples"), numSamples);
+	
 	this->getAttributeValue(TT("lengthInSamples"), returnedSamples);
 
 	TTTestAssertion("lengthInSamples is set properly", 
 								numSamples == returnedSamples,
 								testAssertionCount, 
-								errorCount);	
+								errorCount);
 	
+	// TEST 3: is the length in ms computed properly after setting length in samples?
+	computedDuration = (numSamples / this->mSampleRate) * 1000.;	
+	
+	this->getAttributeValue(TT("length"), returnedDuration);				
+					
+	TTBoolean result = TTTestFloatEquivalence(computedDuration, returnedDuration);
+				
+	TTTestAssertion("after lengthInSamples is set, length in ms is reported correctly", 
+								result,
+								testAssertionCount, 
+								errorCount);
+							
+	if(!result)
+	{
+		TTTestLog("Expected a value of %f, but returned duration in ms was: %f", computedDuration, returnedDuration);	
+	}	
+	
+	// TEST 4 & 5: is the matrix of samples the expected size
 	TTTestAssertion("correct amount of data storage calculated", 
 								this->mDataSize == sizeof(TTFloat64) * numChannels * numSamples, 
 								testAssertionCount,
@@ -47,6 +69,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 								this->mComponentStride == sizeof(TTFloat64), 
 								testAssertionCount,
 								errorCount);
+								
+								
 	
 	/*
 	
