@@ -24,7 +24,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	this->setAttributeValue(TT("numChannels"), numChannels);
 	this->getAttributeValue(TT("numChannels"), returnedChannels);
 	
-	TTTestAssertion("The numChannels has been set properly", 
+	TTTestAssertion("numChannels is set properly", 
 					numChannels == returnedChannels,
 					testAssertionCount, 
 					errorCount);
@@ -34,10 +34,19 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	this->setAttributeValue(TT("lengthInSamples"), numSamples);
 	this->getAttributeValue(TT("lengthInSamples"), returnedSamples);
 
-	TTTestAssertion("The lengthInSamples has been set properly", 
+	TTTestAssertion("lengthInSamples is set properly", 
 								numSamples == returnedSamples,
 								testAssertionCount, 
 								errorCount);	
+	
+	TTTestAssertion("correct amount of data storage calculated", 
+								this->mDataSize == sizeof(TTFloat64) * numChannels * numSamples, 
+								testAssertionCount,
+								errorCount);
+	TTTestAssertion("correct byte-stride between values calculated", 
+								this->mComponentStride == sizeof(TTFloat64), 
+								testAssertionCount,
+								errorCount);
 	
 	/*
 	
