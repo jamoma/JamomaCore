@@ -50,17 +50,17 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 					
 	TTBoolean result = TTTestFloatEquivalence(computedDuration, returnedDuration);
 				
-	TTTestAssertion("after lengthInSamples is set, length in ms is reported correctly", 
+	TTTestAssertion("after lengthInSamples is set, length (in ms) is correct", 
 								result,
 								testAssertionCount, 
 								errorCount);
 							
 	if(!result)
 	{
-		TTTestLog("Expected a value of %f, but returned duration in ms was: %f", computedDuration, returnedDuration);	
+		TTTestLog("Expected a value of %f, but returned length (in ms) was %f", computedDuration, returnedDuration);	
 	}	
 	
-	// TEST 4 & 5: is the matrix of samples the expected size
+	// TEST 4 & 5: is the matrix of samples the expected size? (lifted from TTMatrix.test.cpp)
 	TTTestAssertion("correct amount of data storage calculated", 
 								this->mDataSize == sizeof(TTFloat64) * numChannels * numSamples, 
 								testAssertionCount,
@@ -70,7 +70,32 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 								testAssertionCount,
 								errorCount);
 								
+	// TEST 6: can we set the length in milliseconds?
+	this->setAttributeValue(TT("length"), duration);
+	
+	this->getAttributeValue(TT("length"), returnedDuration);
+
+	TTTestAssertion("length (in ms) is set properly", 
+								duration == returnedDuration,
+								testAssertionCount, 
+								errorCount);
 								
+	// TEST 7: is the length in samples computed properly after setting length in ms?
+	computedSamples = duration * this->mSampleRate * 0.001;	
+	
+	this->getAttributeValue(TT("lengthInSamples"), returnedSamples);				
+					
+	TTBoolean result = TTTestFloatEquivalence(computedSamples, returnedSamples);
+				
+	TTTestAssertion("after length (in ms) is set, lengthInSamples is correct", 
+								result,
+								testAssertionCount, 
+								errorCount);
+							
+	if(!result)
+	{
+		TTTestLog("Expected a value of %i, but returned lengthInSamples was %i", computedSamples, returnedSamples);	
+	}														
 	
 	/*
 	
@@ -79,24 +104,11 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTAudioSignalPtr	input = NULL;
 	TTAudioSignalPtr	output = NULL;
 	
-	
-	
 	// TODO: test filling with sine wave
 	// TODO: test scaling (applying gain)
 	// TODO: test normalizing (with optional arg, and also without an optional arg)
 	
 	TTObjectInstantiate(TT("samplematrix"), &samplematrixObject, kTTVal1);
-	
-	// set some attributes
-	samplematrixObject->setAttributeValue(TT("LengthInSamples"), numSamples);
-	samplematrixObject->setAttributeValue(TT("NumChannels"), numChannels);
-	
-	
-	
-	TTTestAssertion("The LengthInSamples has been set properly", 
-					samplematrixObject->getAttributeValue(TT("LengthInSamples")) == numSamples,
-					testAssertionCount, 
-					errorCount);
 	
 	TTObjectRelease(&input);
 	TTObjectRelease(&output);
