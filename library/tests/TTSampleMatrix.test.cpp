@@ -79,23 +79,30 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 								duration == returnedDuration,
 								testAssertionCount, 
 								errorCount);
+		
 								
 	// TEST 7: is the length in samples computed properly after setting length in ms?
-	computedSamples = duration * this->mSampleRate * 0.001;	
+	computedSamples = TTUInt16(duration * this->mSampleRate * 0.001);	
 	
 	this->getAttributeValue(TT("lengthInSamples"), returnedSamples);				
-					
-	TTBoolean result = TTTestFloatEquivalence(computedSamples, returnedSamples);
+				
+	//TTBoolean result = TTTestFloatEquivalence(computedSamples, returnedSamples);
 				
 	TTTestAssertion("after length (in ms) is set, lengthInSamples is correct", 
-								result,
+								computedSamples == returnedSamples,
 								testAssertionCount, 
 								errorCount);
 							
-	if(!result)
+	if(computedSamples != returnedSamples)
 	{
 		TTTestLog("Expected a value of %i, but returned lengthInSamples was %i", computedSamples, returnedSamples);	
-	}														
+	}	
+	
+	// TEST 8 (REPEAT TEST 4): is the matrix of samples the expected size?
+	TTTestAssertion("correct amount of data storage calculated with new length", 
+								this->mDataSize == sizeof(TTFloat64) * numChannels * computedSamples, 
+								testAssertionCount,
+								errorCount);													
 	
 	/*
 	
