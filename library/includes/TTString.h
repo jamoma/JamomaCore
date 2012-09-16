@@ -137,6 +137,13 @@ public:
 //		return mSize;
 //	}
 	
+	/** Find out the length of a string.  
+		This differs from size() because size() returns the number of bytes, which includes the NULL termination.  */
+	size_t length()
+	{
+		return size() - 1;
+	}
+	
 	
 	/** Allocate (reserve) memory for the string. */
 //	void resize(size_t newSize)
