@@ -6,7 +6,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include <limits>
 #include "TTUnitTest.h"
 
 

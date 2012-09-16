@@ -10,6 +10,9 @@
 		2262733915B0604A00B13F9D /* TTFifo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTFifo.h; sourceTree = "<group>"; };
 		229E3DBB15ED1F6900BD1FC0 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		22EFB4B115F7E24400A85A8C /* TTString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTString.h; sourceTree = "<group>"; };
+		22FCC57516061A2000D77C6D /* TTString.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTString.test.cpp; path = tests/TTString.test.cpp; sourceTree = SOURCE_ROOT; };
+		22FCC57616061A2000D77C6D /* TTString.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTString.test.h; path = tests/TTString.test.h; sourceTree = SOURCE_ROOT; };
+		22FCC57816061C7E00D77C6D /* JamomaFoundation.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaFoundation.yml; sourceTree = "<group>"; };
 		D2333F301580D97F00D5CBAF /* TTNodeAddressItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeAddressItem.cpp; sourceTree = "<group>"; };
 		D2333F311580D98F00D5CBAF /* TTNodeAddressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNodeAddressItem.h; sourceTree = "<group>"; };
 		D2F0974B14A0D70100EC0396 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAttribute.h; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 		08FB7794FE84155DC02AAC07 /* JamomaFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				22FCC57816061C7E00D77C6D /* JamomaFoundation.yml */,
 				229E3DBB15ED1F6900BD1FC0 /* Makefile */,
 				D2F0974A14A0D70100EC0396 /* includes */,
 				D2F0976C14A0D70F00EC0396 /* source */,
@@ -201,6 +205,8 @@
 				D2F097EA14A0E03400EC0396 /* TTMatrix.test.cpp */,
 				D2F097EC14A0E03400EC0396 /* TTNodeLib.test.h */,
 				D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */,
+				22FCC57616061A2000D77C6D /* TTString.test.h */,
+				22FCC57516061A2000D77C6D /* TTString.test.cpp */,
 				D2F097EE14A0E03400EC0396 /* TTValue.test.h */,
 				D2F097ED14A0E03400EC0396 /* TTValue.test.cpp */,
 			);

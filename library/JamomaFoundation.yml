@@ -28,6 +28,7 @@ sources:
   - source/TTSymbolTable.cpp
   - source/TTRegex.cpp
   - tests/TTMatrix.test.cpp
+  - tests/TTString.test.cpp
   - tests/TTValue.test.cpp
   - boost/libs/filesystem/src/codecvt_error_category.cpp
   - boost/libs/filesystem/src/operations.cpp

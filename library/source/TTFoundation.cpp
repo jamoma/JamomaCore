@@ -22,6 +22,7 @@
 // Unit Tests
 #include "TTMatrix.h"
 #include "TTMatrixArray.h"
+#include "TTString.test.h"
 #include "TTValue.test.h"
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
 #ifndef TT_PLATFORM_IOS
@@ -93,6 +94,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTCallback::registerClass();
 		TTMatrix::registerClass();
 		TTMatrixArray::registerClass();
+		TTStringTest::registerClass();
 		TTValueTest::registerClass();
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef TT_PLATFORM_IOS
