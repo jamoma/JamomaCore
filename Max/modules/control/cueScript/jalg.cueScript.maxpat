@@ -3717,7 +3717,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 220.0, 350.0, 112.0, 19.0 ],
+													"patching_rect" : [ 220.0, 350.0, 115.0, 19.0 ],
 													"text" : "jcom.oscroute /alias"
 												}
 
@@ -3802,8 +3802,8 @@
 													"numinlets" : 2,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 175.0, 515.0, 116.0, 19.0 ],
-													"text" : "zl join"
+													"patching_rect" : [ 175.0, 515.0, 161.0, 19.0 ],
+													"text" : "zl join 1024 @zlmaxsize 1024"
 												}
 
 											}
@@ -3816,8 +3816,8 @@
 													"numinlets" : 2,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 325.0, 420.0, 52.0, 19.0 ],
-													"text" : "zl slice 1"
+													"patching_rect" : [ 325.0, 455.0, 145.0, 19.0 ],
+													"text" : "zl slice 1 @zlmaxsize 1024"
 												}
 
 											}
@@ -3844,7 +3844,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "bang", "" ],
-													"patching_rect" : [ 315.0, 380.0, 28.0, 19.0 ],
+													"patching_rect" : [ 316.0, 379.0, 28.0, 19.0 ],
 													"text" : "t b l"
 												}
 
@@ -3886,8 +3886,8 @@
 													"numinlets" : 2,
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 175.0, 455.0, 43.0, 19.0 ],
-													"text" : "zl reg"
+													"patching_rect" : [ 175.0, 455.0, 130.0, 19.0 ],
+													"text" : "zl reg @zlmaxsize 1024"
 												}
 
 											}
@@ -4085,7 +4085,7 @@
 													"destination" : [ "obj-12", 1 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 241.0, 100.0, 208.5, 100.0 ],
+													"midpoints" : [ 241.0, 100.0, 295.5, 100.0 ],
 													"source" : [ "obj-11", 1 ]
 												}
 
