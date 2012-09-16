@@ -24,7 +24,7 @@ typedef TTAudioGraphDescriptionVectors::iterator	TTAudioGraphDescriptionVectorsI
 
 
 typedef std::vector<TTString>		TTStringVector;
-typedef TTStringVector::iterator	TTStringIter;
+//typedef TTStringVector::iterator	TTStringVectorIter;
 
 
 /**	This object provides a description of a TTAudioGraphObject
