@@ -7,27 +7,19 @@
  */
 
 #include "TTValue.test.h"
-#include <limits>
 
 #define thisTTClass			TTValueTest
 #define thisTTClassName		"value.test"
 #define thisTTClassTags		"test, foundation"
 
-#ifdef TT_PLATFORM_LINUX
-#include <limits>
-#define FLT_MAX std::numeric_limits<float>::max()
-#define DBL_MAX std::numeric_limits<double>::max()
-#endif
-
-#ifdef TT_PLATFORM_WIN
-#include <limits>
-#endif
 
 TT_OBJECT_CONSTRUCTOR
 {;}
 
+
 TTValueTest::~TTValueTest()
 {;}
+
 
 void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 {
