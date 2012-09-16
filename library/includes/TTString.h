@@ -295,5 +295,11 @@ public:
 	
 };
 
+		
+/**	A reference to a string.  */
+typedef TTString&			TTStringRef;
+typedef TTString::iterator	TTStringIter;
+//typedef std::vector<char>::iterator	TTStringIter;
+
 
 #endif // __TT_STRING_H__
