@@ -18,17 +18,18 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTUInt16			numChannels = 2;
 	TTUInt16			numSamples = 50000;
 	TTFloat32			duration = 1500;
-	TTUInt16			test1Return, test2Return, test4Return, test5Return, test7Return, test8Return;
+	TTUInt32			test1Return, test2Return, test7Return, test8Return;
 	TTFloat32			test3Return, test6Return;
 	
 	TTTestLog("Test resizing of the SampleMatrix...");
+	
 	
 	// TEST 1: can we set the number of channels?
 	this->setAttributeValue(TT("numChannels"), numChannels);
 	
 	this->getAttributeValue(TT("numChannels"), test1Return);
 	
-	TTBoolean result = {numChannels == test1Return};
+	TTBoolean result = { numChannels == test1Return };
 	
 	TTTestAssertion("numChannels is set properly", 
 					result,
@@ -40,12 +41,13 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", numChannels, test1Return);	
 	}
 	
+	
 	// TEST 2: can we set the number of samples?
 	this->setAttributeValue(TT("lengthInSamples"), numSamples);
 	
 	this->getAttributeValue(TT("lengthInSamples"), test2Return);
 
-	TTBoolean result2 = {numSamples == test2Return};
+	TTBoolean result2 = { numSamples == test2Return };
 
 	TTTestAssertion("lengthInSamples is set properly", 
 								result2,
@@ -56,12 +58,13 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", numSamples, test2Return);	
 	}
 	
+	
 	// TEST 3: is the length in ms computed properly after setting length in samples?
-	TTFloat32 computedDuration = (numSamples / this->mSampleRate) * 1000.;	
+	TTFloat32 computedDuration3 = (numSamples / this->mSampleRate) * 1000.;	
 	
 	this->getAttributeValue(TT("length"), test3Return);				
 					
-	TTBoolean result3 = TTTestFloatEquivalence(computedDuration, test3Return);
+	TTBoolean result3 = TTTestFloatEquivalence(computedDuration3, test3Return);
 				
 	TTTestAssertion("after lengthInSamples is set, length (in ms) is correct", 
 								result3,
@@ -70,65 +73,89 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 							
 	if(!result3)
 	{
-		TTTestLog("Expected a value of %f, but returned value was %f", computedDuration, test3Return);	
+		TTTestLog("Expected a value of %f, but returned value was %f", computedDuration3, test3Return);	
 	}	
 	
-	/*
 	
-	// TEST 4 & 5: is the matrix of samples the expected size? (lifted from TTMatrix.test.cpp)
+	// TEST 4: is the matrix of samples the expected size? (lifted from TTMatrix.test.cpp)
+	TTUInt32 computedDataSize4 = sizeof(TTFloat64) * numChannels * numSamples;
+	
+	TTBoolean result4 = { computedDataSize4 == this->mDataSize };
+	
 	TTTestAssertion("correct amount of data storage calculated", 
-								this->mDataSize == sizeof(TTFloat64) * numChannels * numSamples, 
+								result4, 
 								testAssertionCount,
 								errorCount);
+								
+	if(!result4)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", computedDataSize4, this->mDataSize);
+	}
+	
+	
+	// TEST 5: Is the component stride right? (lifted from TTMatrix.test.cpp)
+	TTBoolean result5 = { sizeof(TTFloat64) == this->mComponentStride };
+								
 	TTTestAssertion("correct byte-stride between values calculated", 
-								this->mComponentStride == sizeof(TTFloat64), 
+								result5, 
 								testAssertionCount,
 								errorCount);
 								
-	TTTestLog("Expected a value of %i, but returned mDataSize was %i", sizeof(TTFloat64) * numChannels * numSamples, this->mDataSize); // TEMP
-								
+	if(!result5)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", sizeof(TTFloat64), this->mComponentStride);
+	}
+	
+									
 	// TEST 6: can we set the length in milliseconds?
 	this->setAttributeValue(TT("length"), duration);
 	
-	this->getAttributeValue(TT("length"), returnedDuration2);
+	this->getAttributeValue(TT("length"), test6Return);
+
+	TTBoolean result6 = TTTestFloatEquivalence(duration, test6Return);
 
 	TTTestAssertion("length (in ms) is set properly", 
-								duration == returnedDuration2,
+								result6,
 								testAssertionCount, 
 								errorCount);
 	
-	TTTestLog("Expected a value of %f, but returned length (in ms) was %f", duration, returnedDuration2);	// TEMP
-								
-	// TEST 7: is the length in samples computed properly after setting length in ms?
-	computedSamples = TTUInt16(duration * this->mSampleRate * 0.001);	
-	
-	this->getAttributeValue(TT("lengthInSamples"), returnedSamples2);				
+	if(!result6)
+	{
+		TTTestLog("Expected a value of %f, but returned value was %f", duration, test6Return);
+	}
+
 				
-	//TTBoolean result = TTTestFloatEquivalence(computedSamples, returnedSamples);
+	// TEST 7: is the length in samples computed properly after setting length in ms?
+	TTUInt32 computedSamples7 = TTUInt32(duration * this->mSampleRate * 0.001);	
+					
+	this->getAttributeValue(TT("lengthInSamples"), test7Return);				
+	
+	TTBoolean result7 = { computedSamples7 == test7Return };
 				
 	TTTestAssertion("after length (in ms) is set, lengthInSamples is correct", 
-								computedSamples == returnedSamples2,
+								result7,
 								testAssertionCount, 
 								errorCount);
 							
-	if(computedSamples != returnedSamples2)
+	if(!result7)
 	{
-		TTTestLog("Expected a value of %i, but returned lengthInSamples was %i", computedSamples, returnedSamples2);	
+		TTTestLog("Expected a value of %i, but returned value was %i", computedSamples7, test7Return);	
 	}	
 	
 	
+	// TEST 8 (REPEAT TEST 4 WITH NEW SIZE): is the matrix of samples the expected size?
+	TTUInt32 computedDataSize8 = sizeof(TTFloat64) * numChannels * test7Return;
 	
-	// TEST 8 (REPEAT TEST 4): is the matrix of samples the expected size?
-	TTUInt32 computedDataSize2 = sizeof(TTFloat64) * numChannels * returnedSamples2;
+	TTBoolean result8 = { computedDataSize8 == this->mDataSize };
 	
 	TTTestAssertion("correct amount of data storage calculated with new length", 
-								this->mDataSize == computedDataSize2, 
+								result8, 
 								testAssertionCount,
 								errorCount);													
 	
-	if(this->mDataSize != computedDataSize2)
+	if(!result8)
 	{
-		TTTestLog("Expected a value of %i, but returned mDataSize was %i", computedDataSize2, this->mDataSize);	
+		TTTestLog("Expected a value of %i, but returned value was %i", computedDataSize8, this->mDataSize);	
 	}
 	
 	/*
