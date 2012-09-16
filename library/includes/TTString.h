@@ -112,9 +112,9 @@ public:
 	/** Overload to assign from a C-string. */
 	void assign(const char* aCString)
 	{
-		size_t len = strlen(aCString);
+		size_t len = strlen(aCString) + 1; // pad so we can zero-terminate
 		
-		if (len > size()-1) {
+		if (len >= capacity()) {
 			reserve(len+16);
 			resize(len);
 		}
