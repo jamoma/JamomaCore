@@ -67,6 +67,31 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					foo.at(3) == 0,
 					testAssertionCount,
 					errorCount);
+	
+	// TEST: = init
+	
+	TTTestLog("\n");
+	TTTestLog("Testing = assigment");
+	
+	TTString jet;
+	jet = "jet";
+	
+	TTTestAssertion("created from = with correct size",
+					jet.size() == 3,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from = with correct length",
+					jet.length() == 3,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from = with correct chars",
+					jet.at(0) == 'j' && jet.at(1) == 'e' && jet.at(2) == 't',
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from = correctly null terminated",
+					jet.at(3) == 0,
+					testAssertionCount,
+					errorCount);
 
 
 	// TEST: individual char access
