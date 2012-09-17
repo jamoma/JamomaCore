@@ -56,7 +56,26 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 
 void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 {
+	TTString series("0123456789");
 	
+	TTString sub = series.substr(3,3);
+	
+	TTTestAssertion("created from substr with correct size",
+					sub.size() == 4,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from substr with correct length",
+					sub.length() == 3,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from substr with correct chars",
+					sub.at(0) == '3' && sub.at(1) == '4' && sub.at(2) == '5',
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from substr correctly null terminated",
+					sub.at(3) == 0,
+					testAssertionCount,
+					errorCount);
 }	
 
 
@@ -75,7 +94,7 @@ TTErr TTStringTest::test(TTValue& returnedTestInfo)
 	int testAssertionCount = 0;
 	
 	TTStringTestBasic(errorCount, testAssertionCount);
-	//TTStringTestNumericTransformations(errorCount, testAssertionCount);
+	TTStringTestNumeric(errorCount, testAssertionCount);
 	//TTStringTestStream(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
