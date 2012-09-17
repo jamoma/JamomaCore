@@ -26,8 +26,8 @@ void TTModularInit()
 	// DEBUG
 	TTObjectPtr test;
 	TTValue v;
-	TTObjectInstantiate(TT("nodelib.test"), &test, kTTValNONE);
-	//test->test(v);
+	TTObjectInstantiate(TT("string.test"), &test, kTTValNONE);
+	test->test(v);
 	
 	if (!TTModularHasInitialized) {
 		
