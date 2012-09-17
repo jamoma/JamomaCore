@@ -23,9 +23,11 @@ TTStringTest::~TTStringTest()
 
 void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 {	
+	// TEST: empty string init
+	
 	TTTestLog("\n");
 	TTTestLog("Testing empty string assigment");
-	
+		
 	TTString empty;
 	
 	TTTestAssertion("created static const char* arg with correct size",
@@ -40,6 +42,9 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					empty.at(0) == 0,
 					testAssertionCount,
 					errorCount);
+	
+	
+	// TEST: c-string init
 	
 	TTTestLog("\n");
 	TTTestLog("Testing basic string assigment");
@@ -63,6 +68,9 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 
+
+	// TEST: individual char access
+	
 	TTTestLog("\n");
 	TTTestLog("Testing [] assigment");
 	
@@ -72,6 +80,34 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					foo.at(0) == 'g' && foo.at(1) == 'o' && foo.at(2) == 'p',
 					testAssertionCount,
 					errorCount);
+	
+	
+	// TEST: comparison (depends on the result from above)
+	
+	TTTestLog("\n");
+	TTTestLog("Testing == operator");
+		
+	TTString gop("gop");
+	TTString bar("bar");
+	
+	TTTestAssertion("== operator when strings have the same content",
+					foo == gop,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("== operator when strings have different content",
+					!(foo == bar),
+					testAssertionCount,
+					errorCount);
+		
+	TTTestAssertion("!= operator when strings have the same content",
+					!(foo != gop),
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("!= operator when strings have different content",
+					(foo != bar),
+					testAssertionCount,
+					errorCount);
+	
 }
 
 
