@@ -42,9 +42,14 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 
-	//char& c = f[0];
-	//f[0] = 'g';
-
+	// note: gcc 4.7 issues a strange warning about the following two lines, but they do work
+	foo[0] = 'g';
+	foo[2] = foo[2] + 1;
+	TTTestAssertion("modified some chars using [] notation",
+					foo.at(0) == 'g' && foo.at(1) == 'o' && foo.at(2) == 'p',
+					testAssertionCount,
+					errorCount);
+	
 	
 }
 
