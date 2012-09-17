@@ -156,7 +156,40 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-}	
+	
+	// TEST: appending numbers
+	
+	TTTestLog("\n");
+	TTTestLog("Testing appending numbers");
+	
+	TTString a;
+	TTString b("Pi is roughly 7/22");
+
+	a += "Pi is roughly ";
+	a += 7u;
+	a += "/";
+	a += 22;
+	TTTestAssertion("string built-up with a couple of ints in it",
+					a == b,
+					testAssertionCount,
+					errorCount);
+	
+	b = "Pi is roughly 3.140000";
+	a = "Pi is roughly ";
+	a += 3.14f;
+	TTTestAssertion("string built-up with a float in it",
+					a == b,
+					testAssertionCount,
+					errorCount);
+	
+	a = "Pi is roughly ";
+	a += 3.14;
+	TTTestAssertion("string built-up with a double in it",
+					a == b,
+					testAssertionCount,
+					errorCount);
+
+}
 
 
 void TTStringTestStream(int& errorCount, int&testAssertionCount)

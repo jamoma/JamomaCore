@@ -146,6 +146,15 @@ public:
 	}
 	
 	
+	template<class T>
+	TTString& operator += (const T& arg)
+	{
+		append(arg);
+		return (*this);
+	}
+	
+
+	template<class T>
 	TTString& operator += (const TTString& anotherString)
 	{
 		append(anotherString.c_str(), anotherString.length());
@@ -153,23 +162,10 @@ public:
 	}
 	
 	
-	TTString& operator += (const char* aCString)
-	{
-		append(aCString);
-		return (*this);
-	}
-	
-	
+	template<class T>
 	TTString& operator += (const std::string& aStdString)
 	{
 		append(aStdString.c_str(), aStdString.length());
-		return (*this);
-	}
-	
-	
-	TTString& operator += (const char c)
-	{
-		append(&c, 1);
 		return (*this);
 	}
 	
@@ -188,6 +184,42 @@ public:
 		
 		resize(newSize);
 		memcpy(&this->at(oldSize), str, length);
+	}
+	
+	
+	void append(int anInt)
+	{
+		char s[16];
+		
+		snprintf(s, 16, "%i", anInt);
+		append(s);
+	}
+
+	
+	void append(unsigned int aUInt)
+	{
+		char s[16];
+		
+		snprintf(s, 16, "%u", aUInt);
+		append(s);
+	}
+
+	
+	void append(float aFloat)
+	{
+		char s[16];
+		
+		snprintf(s, 16, "%f", aFloat);
+		append(s);
+	}
+	
+	
+	void append(double aDouble)
+	{
+		char s[16];
+		
+		snprintf(s, 16, "%lf", aDouble);
+		append(s);
 	}
 	
 	
