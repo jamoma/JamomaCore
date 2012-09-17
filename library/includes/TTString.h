@@ -227,12 +227,12 @@ public:
 		return result;
 	}
 	
-	size_t find_first_of(const char aChar)
-	{
-		return find_first_of(aChar, 0);
-	}
 	
-	size_t find_first_of(const char aChar, size_t from)
+	/** Return the index of the first instance of a specified char in the string.
+		@param	aChar	The char for which to search
+		@param	from	A position in the string from which to begin the search.  By default it starts at the beginning (0)
+	 */
+	size_t find_first_of(const char aChar, size_t from = 0)
 	{
 		TTBoolean	found = NO;
 		size_t		i;
