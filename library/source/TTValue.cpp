@@ -1203,42 +1203,21 @@ void TTValue::test()
 	TT_ASSERT("== comparison for different values", !bool(a == b));
 }
 
-TTBoolean isTTInt32( const TTString & str )
+TTBoolean toTTInt32( const TTString & str, TTInt32 & convertedInt )
 {
 	char * pEnd;
 	
-	strtol(str.c_str(), &pEnd, 10);
+	convertedInt = strtol(str.c_str(), &pEnd, 10);
 	return *pEnd == 0;
 }
 
 /*	note : isTTFloat32 works only because the TTInt32 case is matched before 
 	see in fromString method 
  */
-TTBoolean isTTFloat32( const TTString & str )
+TTBoolean toTTFloat32( const TTString & str, TTFloat32 & convertedFloat )
 {
 	char * pEnd;
 	
-	strtod(str.c_str(), &pEnd);
+	convertedFloat = strtof(str.c_str(), &pEnd);
 	return *pEnd == 0;
 }
-
-TTInt32 toTTInt32( const TTString & str )
-{
-	std::string			stdString(str.c_str());
-	std::istringstream	iss(stdString);
-	TTInt32				result;
-	
-	iss >> result;
-	return result;
-}
-
-TTFloat32 toTTFloat32( const TTString & str )
-{
-	std::string			stdString(str.c_str());
-	std::istringstream	iss(stdString);
-	TTFloat32			result;
-	
-	iss >> result;
-	return result;
-}
-

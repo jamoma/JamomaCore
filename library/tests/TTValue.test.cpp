@@ -553,14 +553,17 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing TTValue string conversion methods");
 	
-	TTValue v;
-	TTString s;
+	TTValue		v;
+	TTString	aString;
+	TTSymbolPtr aSymbol;
+	TTInt32		i;
+	TTFloat32	f;
 	
 	// TODO: test toString()
 	
 	// test fromString()
-	s = TTString("0");
-	v = s;
+	aString = TTString("0");
+	v = aString;
 	v.fromString();
 	
 	TTTestAssertion("\"0\" string is converted into a TTInt32 0 value",
@@ -570,8 +573,8 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	v.clear();
-	s = TTString("0.000000");
-	v = s;
+	aString = TTString("0.000000");
+	v = aString;
 	v.fromString();
 	
 	TTTestAssertion("\"0.000000\" string is converted into a TTFloat32 0.000000 value",
@@ -580,10 +583,62 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
+	v.clear();
+	aString = TTString("1");
+	v = aString;
+	v.fromString();
+	
+	TTTestAssertion("\"1\" string is converted into a TTInt32 1 value",
+					v.getType() == kTypeInt32 &&
+					v.getInt32(0) == 1,
+					testAssertionCount,
+					errorCount);
+	
+	v.clear();
+	aString = TTString("1.234567");
+	v = aString;
+	v.fromString();
+	
+	TTTestAssertion("\"1.234567\" string is converted into a TTFloat32 1.234567 value",
+					v.getType() == kTypeFloat32 &&
+					v.getFloat32(0) == 1.234567,
+					testAssertionCount,
+					errorCount);
+	
+	v.clear();
+	aString = TTString("value");
+	v = aString;
+	v.fromString();
+	v.get(0, &aSymbol);
+	
+	TTTestAssertion("\"value\" string is converted into a TTSymbolPtr kTTSym_value",
+					v.getType() == kTypeSymbol &&
+					aSymbol == kTTSym_value,
+					testAssertionCount,
+					errorCount);
+	
+	v.clear();
+	aString = TTString("sampleRate 1 1.234567");
+	v = aString;
+	v.fromString();
+	v.get(0, &aSymbol);
+	v.get(1, i);
+	v.get(2, f);
+	
+	TTTestAssertion("\"sampleRate 1 1.234567\" string is converted into a 3 datas value",
+					v.getType(0) == kTypeSymbol &&
+					v.getType(1) == kTypeInt32 &&
+					v.getType(2) == kTypeFloat32 &&
+					aSymbol == kTTSym_sampleRate &&
+					i == 1 &&
+					f == 1.234567 &&
+					v.getSize() == 3,
+					testAssertionCount,
+					errorCount);
+	
+	v.clear();
 	
 	// TODO: test transformCSVStringToSymbolArray()
-	
-	TTValue v1(3.14);
 }	
 
 

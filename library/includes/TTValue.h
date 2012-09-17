@@ -70,12 +70,8 @@ class TTMatrix;
 /*	note : isTTFloat32 works only because the TTInt32 case is matched before 
 	see in fromString method 
  */
-TTBoolean TTFOUNDATION_EXPORT	isTTInt32( const TTString & str );
-TTBoolean TTFOUNDATION_EXPORT	isTTFloat32( const TTString & str );
-
-TTInt32 TTFOUNDATION_EXPORT		toTTInt32( const TTString & str );
-TTFloat32 TTFOUNDATION_EXPORT	toTTFloat32( const TTString & str );
-
+TTBoolean TTFOUNDATION_EXPORT	toTTInt32( const TTString & str, TTInt32 & convertedInt );
+TTBoolean TTFOUNDATION_EXPORT	toTTFloat32( const TTString & str, TTFloat32 & convertedFloat );
 
 /****************************************************************************************************/
 // Class Specification
@@ -967,6 +963,8 @@ public:
 		if (*type == kTypeString) {
 			
 			TTUInt32 n = 0;
+			TTInt32 convertedInt;
+			TTFloat32 convertedFloat;
 			std::vector<std::string> strList;
 			std::string str(data->stringPtr->c_str());
 			
@@ -982,16 +980,15 @@ public:
 				
 				for (unsigned int i = 0; i < strList.size(); ++i) {
 					TTString currentString = strList.at(i).c_str();
-					if (isTTInt32(currentString) && !numberAsSymbol) {
+					if (toTTInt32(currentString, convertedInt) && !numberAsSymbol) {
 						
-						data[n].int32 = toTTInt32(currentString);
+						data[n].int32 = convertedInt;
 						type[n] = kTypeInt32;
 						n++;
 						
-					}
-					else if (isTTFloat32(currentString) && !numberAsSymbol) {
+					} else if (toTTFloat32(currentString, convertedFloat) && !numberAsSymbol) {
 						
-						data[n].float32 = toTTFloat32(currentString);
+						data[n].float32 = convertedFloat;
 						type[n] = kTypeFloat32;
 						n++;
 						
