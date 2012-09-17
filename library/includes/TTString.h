@@ -241,13 +241,17 @@ public:
 		return result;
 	}
 	
-	
 	size_t find_first_of(const char aChar)
+	{
+		return find_first_of(aChar, 0);
+	}
+	
+	size_t find_first_of(const char aChar, size_t from)
 	{
 		TTBoolean	found = NO;
 		size_t		i;
 		
-		for (i=0; i<size(); i++) {
+		for (i=from; i<size(); i++) {
 			if (at(i) == aChar) {
 				found = YES;
 				break;
@@ -258,7 +262,7 @@ public:
 		else
 			return -1;
 	}
-	
+
 	
 	/** Returns a string object with its contents initialized to a substring of the current object.
 	 @param pos	Position of a character in the current string object to be used as starting character for the substring.
