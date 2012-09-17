@@ -137,7 +137,7 @@ public:
 	}
 	
 	/** Find out the length of a string.  */
-	size_t length()
+	size_t length() const
 	{
 		return size();
 	}
@@ -189,6 +189,7 @@ public:
 			push_back(*c);
 		return *this;
 	}
+	
 	
 	TTString& operator += (const char* aCString)
 	{
@@ -276,7 +277,7 @@ public:
 	// the int could also be considered an index into a char array
 	char& operator[] (const int index)
 	{
-		return (*this)[(size_t)index];
+		return this->at(index);
 	}
 	
 	/** Replace contents with a pseudo-random string. */

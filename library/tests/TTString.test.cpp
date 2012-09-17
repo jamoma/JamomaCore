@@ -66,7 +66,6 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing [] assigment");
 	
-	// note: gcc 4.7 issues a strange warning about the following two lines, but they do work
 	foo[0] = 'g';
 	foo[2] = foo[2] + 1;
 	TTTestAssertion("modified some chars using [] notation",
