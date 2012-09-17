@@ -109,10 +109,10 @@ public:
 		if (length == 0) // no length defined, so check the c-string in the traditional way
 			length = strlen(aCString);
 		
-		if ((length+1) >= capacity()) {
+		if ((length+1) >= capacity())
 			reserve(length+16);
-			resize(length);
-		}
+				
+		resize(length);		
 		memcpy(&this->at(0), aCString, length);
 	}
 	
