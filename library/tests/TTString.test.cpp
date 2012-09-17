@@ -161,7 +161,13 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 
 void TTStringTestStream(int& errorCount, int&testAssertionCount)
 {
-
+	TTTestLog("\n");
+	TTTestLog("Testing string stream");
+	TTTestLog("(there will be no assertions, look for stdout output)");
+	
+	TTString hi("Hello World!");
+	
+	cout << "	Passing TTString to stdout: " << hi << " (hooray)" << endl;
 }
 
 
@@ -175,7 +181,7 @@ TTErr TTStringTest::test(TTValue& returnedTestInfo)
 	
 	TTStringTestBasic(errorCount, testAssertionCount);
 	TTStringTestNumeric(errorCount, testAssertionCount);
-	//TTStringTestStream(errorCount, testAssertionCount);
+	TTStringTestStream(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

@@ -270,4 +270,13 @@ typedef TTString::iterator	TTStringIter;
 //typedef std::vector<char>::iterator	TTStringIter;
 
 
+
+/** Expose TTString for use in std output streams. */
+template <class charT, class traits>
+std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, traits>& stream, const TTString& aString)
+{
+	return stream << aString.c_str();
+}
+
+
 #endif // __TT_STRING_H__
