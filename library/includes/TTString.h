@@ -1,6 +1,6 @@
 /*
  Jamoma Class for representing strings
- Copyright © 2012, Timothy Place
+ Copyright © 2012, Timothy Place & Théo Delahogue
  
  License: This code is licensed under the terms of the "New BSD License"
  http://creativecommons.org/licenses/BSD/
@@ -15,29 +15,23 @@
 /****************************************************************************************************/
 // Class Specification
 
-/**
- The TTString class is used to represent a string.
- We cannot safely pass std::string across lib boundaries, particularly on Windows with potential for differences in memory alignment.
- We also don't want to simply pass naked C-Strings for a whole host of reasons.
- 
- In many cases we try to mimic the interface of std::string for ease of compatibility.
- 
- 
-FROM http://cboard.cprogramming.com/cplusplus-programming/86598-std-vector-char-vs-std-string.html
- 1. std::string has a huge number of string-related functions which make it easy to manipulate strings.
- 2. std::vector, on the other hand, is guaranteed to be contiguous in memory -- that is, &data[x + 1] = &data[x] + sizeof(data[x]). std::string has NO guarantee that it is contiguous in memory.
- So, for example, say you're using an API call that fills a character buffer. You'd need to use the vector, not the string.
+/**	The TTString class is used to represent a string.
+	We cannot safely pass std::string across lib boundaries, particularly on Windows.
+	We also don't want to simply pass naked C-Strings for a whole host of reasons.
+	 
+	In many cases we try to mimic the interface of std::string for ease of compatibility.
+	 
+	 
+	FROM http://cboard.cprogramming.com/cplusplus-programming/86598-std-vector-char-vs-std-string.html
+	1. std::string has a huge number of string-related functions which make it easy to manipulate strings.
+	2. std::vector, on the other hand, is guaranteed to be contiguous in memory -- that is, &data[x + 1] = &data[x] + sizeof(data[x]).
+		std::string has NO guarantee that it is contiguous in memory.
+		So, for example, say you're using an API call that fills a character buffer. 
+		You'd need to use the vector, not the string.
 
- 
- @seealso TTSymbol
- */
-class TTFOUNDATION_EXPORT TTString : public std::vector<char> {
-private:
-	
-//	char*		mData;		///< the c-string
-//	size_t		mLength;	///< the length of the c-string
-//	size_t		mSize;		///< the amount of memory allocated to hold the c-string
-	
+	@seealso TTSymbol
+*/
+class TTFOUNDATION_EXPORT TTString : public std::vector<char> {	
 	
 public:
 	
@@ -136,13 +130,15 @@ public:
 		return std::vector<char>::size() - 1;
 	}
 	
+	
 	/** Find out the length of a string.  */
 	size_t length() const
 	{
 		return size();
 	}
 	
-	/** Allocate (reserve) memory for the string. */
+	
+	/** Allocate  memory for the string. */
 	void resize(size_t newSize)
 	{
 		std::vector<char>::resize(newSize + 1);
@@ -150,17 +146,6 @@ public:
 	}
 	
 	
-	/** Compare two strings for equality. */
-//	inline friend bool operator == (const TTString& s1, const TTString& s2)
-//	{
-//		if (s1.size() != s2.size()) // check the length first -- this will be much faster than checking each char
-//			return false;
-//		else
-//			return !strcmp(&s1[0], &s2[0]);
-//			return !strcmp(&s1.at(0), &s2.at(0));
-//	}
-	
-		
 	TTString& operator += (const TTString& anotherString)
 	{
 		append(anotherString.c_str(), anotherString.length());
@@ -237,8 +222,8 @@ public:
 
 	
 	/** Returns a string object with its contents initialized to a substring of the current object.
-	 @param pos	Position of a character in the current string object to be used as starting character for the substring.
-	 @param n 	Length of the substring.
+		@param pos	Position of a character in the current string object to be used as starting character for the substring.
+		@param n 	Length of the substring.
 	 */
 	TTString substr (size_t pos = 0, size_t n = 1) const
 	{
@@ -248,12 +233,10 @@ public:
 		substring.reserve(n+16);
 		substring.resize(n);
 		for (i=0; i<n; i++) {
-//			substring.mData[i] = mData[pos + i];
 			substring[i] = (*this)[pos + i];
 			if (pos+i >= size())
 				break;
 		}
-//		substring.mLength = i;
 		return substring;
 	}
 	
@@ -264,6 +247,7 @@ public:
 	{
 		return this->at(index);
 	}
+	
 	
 	/** Replace contents with a pseudo-random string. */
 	void random();
