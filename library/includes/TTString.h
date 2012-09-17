@@ -160,64 +160,49 @@ public:
 //			return !strcmp(&s1.at(0), &s2.at(0));
 //	}
 	
-	
-	/** Append / Concatenate */
-	/*	TTString& operator += (const TTString& s2)
-	 {
-	 if (mLength+s2.mLength > mSize) {
-	 TTString s1(*this);
-	 
-	 resize(s1.mSize+s2.mSize);
-	 (*this) = s1.mData;
-	 (*this) += s2;
-	 }
-	 else {
-	 mLength = mLength+s2.mLength;
-	 strncat(mData, s2.mData, mLength);
-	 mData[mLength] = 0;
-	 }
-	 return *this;
-	 }
-	 */
-	
+		
 	TTString& operator += (const TTString& anotherString)
 	{
-		if (size() + anotherString.size() > capacity())
-			reserve(size() + anotherString.size() + 256);
-//		for (TTString::const_iterator c = anotherString.begin(); c != anotherString.end(); ++c)
-		for (auto c = anotherString.begin(); c != anotherString.end(); ++c)
-			push_back(*c);
-		return *this;
+		append(anotherString.c_str(), anotherString.length());
+		return (*this);
 	}
 	
 	
 	TTString& operator += (const char* aCString)
 	{
-		return (*this) += TTString(aCString);
+		append(aCString);
+		return (*this);
 	}
 	
 	
 	TTString& operator += (const std::string& aStdString)
 	{
-//		TTString anotherString(aStdString);
-//
-//		(*this) += anotherString;
-//		return (*this) += aStdString.c_str();
-		return (*this) += TTString(aStdString);
+		append(aStdString.c_str(), aStdString.length());
+		return (*this);
 	}
 	
 	
 	TTString& operator += (const char c)
 	{
-		this->push_back(c);
-		return *this;
+		append(&c, 1);
+		return (*this);
 	}
 	
 	
 	/** Append / Concatenate */
-	void append(const char *str)
+	void append(const char *str, size_t length=0)
 	{
-		(*this) += str;
+		if (length == 0)
+			length = strlen(str);
+		
+		size_t oldSize = size();
+		size_t newSize = oldSize + length;
+		
+		if (newSize >= capacity())
+			reserve(newSize + 256);
+		
+		resize(newSize);
+		memcpy(&this->at(oldSize), str, length);
 	}
 	
 	
