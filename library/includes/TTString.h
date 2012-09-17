@@ -118,7 +118,6 @@ public:
 			reserve(len+16);
 			resize(len);
 		}
-//		strncpy(mData, aCString, len);
 		strncpy(&this->at(0), aCString, len);
 		(*this)[len] = 0;
 	}
@@ -143,7 +142,6 @@ public:
 	{
 		return size() - 1;
 	}
-	
 	
 	/** Allocate (reserve) memory for the string. */
 //	void resize(size_t newSize)
