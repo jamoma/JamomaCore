@@ -26,7 +26,7 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 	TTString foo("foo");
 	
 	TTTestAssertion("created from static const char* arg with correct size",
-					foo.size() == 4,
+					foo.size() == 3,
 					testAssertionCount,
 					errorCount);
 	TTTestAssertion("created from static const char* arg with correct length",
@@ -61,7 +61,7 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 	TTString sub = series.substr(3,3);
 	
 	TTTestAssertion("created from substr with correct size",
-					sub.size() == 4,
+					sub.size() == 3,
 					testAssertionCount,
 					errorCount);
 	TTTestAssertion("created from substr with correct length",

@@ -139,7 +139,7 @@ public:
 	/** Find out the length of a string.  */
 	size_t length()
 	{
-		return size() - 1;
+		return size();
 	}
 	
 	/** Allocate (reserve) memory for the string. */
