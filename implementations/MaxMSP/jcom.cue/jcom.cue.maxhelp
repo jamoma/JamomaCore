@@ -67,7 +67,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 205.0, 60.0, 18.0 ],
+					"patching_rect" : [ 182.0, 204.0, 60.0, 18.0 ],
 					"text" : "move 2 3"
 				}
 
@@ -83,7 +83,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.0, 186.0, 137.0, 18.0 ],
+					"patching_rect" : [ 182.0, 185.0, 137.0, 18.0 ],
 					"text" : "move \"Act I - Scene I\" 1"
 				}
 
@@ -468,13 +468,13 @@
 ,
 					"patching_rect" : [ 863.0, 132.0, 120.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"globalpatchername" : "",
+						"fontface" : 0
 					}
 ,
 					"text" : "p about_mixing",
@@ -686,13 +686,13 @@
 ,
 									"patching_rect" : [ 289.0, 238.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
+										"fontsize" : 12.0,
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"fontface" : 0,
-										"fontsize" : 12.0
+										"globalpatchername" : "",
+										"fontface" : 0
 									}
 ,
 									"text" : "p press_cmd"
@@ -1081,13 +1081,13 @@
 ,
 									"patching_rect" : [ 44.0, 299.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
+										"fontsize" : 12.0,
 										"default_fontface" : 0,
-										"globalpatchername" : "",
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
-										"fontface" : 0,
-										"fontsize" : 12.0
+										"globalpatchername" : "",
+										"fontface" : 0
 									}
 ,
 									"text" : "p press_cmd"
@@ -1525,13 +1525,13 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 825.0, 87.0, 136.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"globalpatchername" : "",
+						"fontface" : 0
 					}
 ,
 					"text" : "p about_selection",
@@ -1861,13 +1861,13 @@
 ,
 					"patching_rect" : [ 824.0, 80.0, 159.0, 25.0 ],
 					"saved_object_attributes" : 					{
+						"fontsize" : 12.0,
 						"default_fontface" : 0,
-						"globalpatchername" : "",
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
-						"fontface" : 0,
-						"fontsize" : 12.0
+						"globalpatchername" : "",
+						"fontface" : 0
 					}
 ,
 					"text" : "p about_sequencing",
@@ -2277,7 +2277,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-63",
-					"items" : "Init",
+					"items" : [ "Init", ",", "Act I - Scene I", ",", "Act I - Scene II" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

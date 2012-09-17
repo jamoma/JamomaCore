@@ -285,9 +285,10 @@ TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTPresetManager::Move(const TTValue& inputValue, TTValue& outputValue)
 {
+	TTList		temp;
 	TTSymbolPtr name;
 	TTUInt32	i, newPosition;
-	TTValue		v, newOrder;
+	TTValue		v;
 	
 	if (inputValue.getSize() != 2)
 		return kTTErrGeneric;
@@ -314,37 +315,30 @@ TTErr TTPresetManager::Move(const TTValue& inputValue, TTValue& outputValue)
 		
 		v.get(0, (TTPtr*)&mCurrentPreset);
 		
-		// move the name				there is certainly a better way to do this [to]
-		while (i < newPosition-1) {
-			
+		// copy all the mOrder names into a TTList
+		// except the mCurrent
+		for (i=0; i < mOrder.getSize(); i++) {
 			mOrder.get(i, &name);
-			i++;
 			
 			if (name == mCurrent)
 				continue;
 			
-			newOrder.append(name);
+			v = TTValue(name);
+			temp.append(v);
 		}
 		
-		if (newPosition < mOrder.getSize())
-			newOrder.append(mCurrent);
+		// insert the mCurrent
+		v = TTValue(mCurrent);
+		temp.insert(newPosition-1, v);
+		mOrder.clear();
 		
-		while (i < mOrder.getSize()) {
-			
-			mOrder.get(i, &name);
-			i++;
-			
-			if (name == mCurrent)
-				continue;
-			
-			newOrder.append(name);
+		// copy the TTList names into a newOrder
+		for (temp.begin(); temp.end(); temp.next()) {
+			temp.current().get(0, &name);
+			mOrder.append(name);
 		}
-		
-		if (newPosition == mOrder.getSize())
-			newOrder.append(mCurrent);
 		
 		mCurrentPosition = newPosition;
-		mOrder = newOrder;
 		
 		notifyOrderObservers();
 		
