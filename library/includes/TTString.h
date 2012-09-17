@@ -130,36 +130,24 @@ public:
 //	}
 	
 	
-	/** Find out how much memory is allocated for the string. */
-//	size_t size()
-//	{
-//		return mSize;
-//	}
+	/** Find out the length of a string.  */
+	size_t size() const
+	{
+		return std::vector<char>::size() - 1;
+	}
 	
-	/** Find out the length of a string.  
-		This differs from size() because size() returns the number of bytes, which includes the NULL termination.  */
+	/** Find out the length of a string.  */
 	size_t length()
 	{
 		return size() - 1;
 	}
 	
 	/** Allocate (reserve) memory for the string. */
-//	void resize(size_t newSize)
-//	{
-//		// TODO: do we want to preserve memory?
-//		// TODO: do we want to make this thread-safe, or is the problem of the caller?
-//		if (newSize != mSize) {
-//			delete mData;
-//			mData = new char[newSize];
-//			mSize = newSize;
-//		}
-//	}
-	
-	
-//	bool empty()
-//	{
-//		return mLength == 0;
-//	}
+	void resize(size_t newSize)
+	{
+		std::vector<char>::resize(newSize + 1);
+		this->at(newSize) = 0; // NULL terminate for safety
+	}
 	
 	
 	/** Compare two strings for equality. */
