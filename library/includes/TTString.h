@@ -271,12 +271,13 @@ public:
 		return substring;
 	}
 	
-	
-//	char& operator[] (const int index)
-//	{
-//	    return mData[index]; // TODO: should we bounds check?
-//	}
-	
+
+	// This avoids a warning in GCC 4.7 about ambiguity between using an int vs. a size_t where
+	// the int could also be considered an index into a char array
+	char& operator[] (const int index)
+	{
+		return (*this)[(size_t)index];
+	}
 	
 	/** Replace contents with a pseudo-random string. */
 	void random();
