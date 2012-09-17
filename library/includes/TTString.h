@@ -50,7 +50,7 @@ public:
 	
 	TTString(const std::string& aStdString)
 	{
-		assign(aStdString.c_str());
+		assign(aStdString);
 	}
 	
 	
@@ -95,7 +95,7 @@ public:
 	/** Assign from a std::string. */
 	TTString& operator = (std::string& aStdString)
 	{
-		(*this) = aStdString.c_str();
+		assign(aStdString);
 		return *this;
 	}
 	
@@ -110,24 +110,24 @@ public:
 	
 	
 	/** Overload to assign from a C-string. */
-	void assign(const char* aCString)
+	void assign(const char* aCString, size_t length=0)
 	{
-		size_t len = strlen(aCString) + 1; // pad so we can zero-terminate
+		if (length == 0) // no length defined, so check the c-string in the traditional way
+			length = strlen(aCString);
 		
-		if (len >= capacity()) {
-			reserve(len+16);
-			resize(len);
+		if ((length+1) >= capacity()) {
+			reserve(length+16);
+			resize(length);
 		}
-		strncpy(&this->at(0), aCString, len);
-		(*this)[len] = 0;
+		memcpy(&this->at(0), aCString, length);
 	}
 	
 	
 	/** Assign from a std::string. */
-//	void assign(std::string& aStdString)
-//	{
-//		assign(aStdString.c_str());
-//	}
+	void assign(const std::string& aStdString)
+	{
+		assign(aStdString.c_str(), aStdString.length());
+	}
 	
 	
 	/** Find out the length of a string.  */
