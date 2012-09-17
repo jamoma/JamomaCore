@@ -223,10 +223,11 @@ public:
 	}
 	
 	
-	const TTString operator+ (const TTString& string2) const
+	template<class T>
+	TTString operator + (const T& arg)
 	{
 		TTString result = *this;	// Make a copy of myself
-		result += string2;			// Use += to add other to the copy.
+		result += arg;				// Use += to add arg to the copy.
 		return result;
 	}
 	
@@ -283,6 +284,36 @@ public:
 	
 	/** Replace contents with a pseudo-random string. */
 	void random();
+	
+
+#if 0
+	
+	
+	int String::hashCode() const throw()
+	{
+		const juce_wchar* t = text;
+		int result = 0;
+		
+		while (*t != (juce_wchar) 0)
+			result = 31 * result + *t++;
+		
+		return result;
+	}
+	
+	int64 String::hashCode64() const throw()
+	{
+		const juce_wchar* t = text;
+		int64 result = 0;
+		
+		while (*t != (juce_wchar) 0)
+			result = 101 * result + *t++;
+		
+		return result;
+	}
+	
+#endif // 0
+
+	
 	
 	
 	//void test()

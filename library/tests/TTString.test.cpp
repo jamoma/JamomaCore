@@ -214,6 +214,20 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 
+	
+	TTTestLog("\n");
+	TTTestLog("Testing + operator");
+	
+	TTString z("At the far end of town");
+	TTString y("where the grickle grass grows");
+	TTString x("and the wind smells sour as it blows");
+	TTString w = z + " " + y + " " + x + "...";
+	
+	TTTestAssertion("string built-up with + operator",
+					w == TTString("At the far end of town where the grickle grass grows and the wind smells sour as it blows..."),
+					testAssertionCount,
+					errorCount);
+	
 }
 
 
