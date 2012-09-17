@@ -23,6 +23,27 @@ TTStringTest::~TTStringTest()
 
 void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 {	
+	TTTestLog("\n");
+	TTTestLog("Testing empty string assigment");
+	
+	TTString empty;
+	
+	TTTestAssertion("created static const char* arg with correct size",
+					empty.size() == 0,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from static const char* arg with correct length",
+					empty.length() == 0,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from static const char* arg correctly null terminated",
+					empty.at(0) == 0,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestLog("\n");
+	TTTestLog("Testing basic string assigment");
+	
 	TTString foo("foo");
 	
 	TTTestAssertion("created from static const char* arg with correct size",
@@ -42,6 +63,9 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 
+	TTTestLog("\n");
+	TTTestLog("Testing [] assigment");
+	
 	// note: gcc 4.7 issues a strange warning about the following two lines, but they do work
 	foo[0] = 'g';
 	foo[2] = foo[2] + 1;
@@ -49,13 +73,14 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					foo.at(0) == 'g' && foo.at(1) == 'o' && foo.at(2) == 'p',
 					testAssertionCount,
 					errorCount);
-	
-	
 }
 
 
 void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 {
+	TTTestLog("\n");
+	TTTestLog("Testing substring operation");
+	
 	TTString series("0123456789");
 	
 	TTString sub = series.substr(3,3);
@@ -76,6 +101,26 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 					sub.at(3) == 0,
 					testAssertionCount,
 					errorCount);
+	
+	TTTestLog("\n");
+	TTTestLog("Testing summing operation");
+	
+	TTString sum;
+	sum += "/";
+	
+	TTTestAssertion("created from += operator with correct size",
+					sum.size() == 1,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from += operator with correct length",
+					sum.length() == 1,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from += operator correctly null terminated",
+					sum.at(1) == 0,
+					testAssertionCount,
+					errorCount);
+	
 }	
 
 
