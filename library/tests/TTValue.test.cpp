@@ -489,7 +489,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 	// TODO: want to implement this:
 	// TTSymbolRef s = v1[1];
 	TTSymbolRef s(kTTSymEmpty);
-	v1.get(1, &s);
+	v1.get(1, s);
 	TTTestAssertion("second item has correct value, retreiving with get() method",
 					s == TT("foo"),
 					testAssertionCount,
@@ -508,7 +508,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	v1.get(0, &s);
+	v1.get(0, s);
 	TTTestAssertion("first item should be \"value\" symbol", 
 					s == kTTSym_value,
 					testAssertionCount,
@@ -555,7 +555,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	
 	TTValue		v;
 	TTString	aString;
-	TTSymbolPtr aSymbol;
+	TTSymbolRef aSymbol = kTTSymEmpty;
 	TTInt32		i;
 	TTFloat32	f;
 	
@@ -609,7 +609,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	aString = TTString("value");
 	v = aString;
 	v.fromString();
-	v.get(0, &aSymbol);
+	v.get(0, aSymbol);
 	
 	TTTestAssertion("\"value\" string is converted into a TTSymbolPtr kTTSym_value",
 					v.getType() == kTypeSymbol &&
@@ -621,7 +621,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	aString = TTString("sampleRate 1 1.234567");
 	v = aString;
 	v.fromString();
-	v.get(0, &aSymbol);
+	v.get(0, aSymbol);
 	v.get(1, i);
 	v.get(2, f);
 	

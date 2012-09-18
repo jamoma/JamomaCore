@@ -29,49 +29,50 @@
 class TTFOUNDATION_EXPORT TTSymbol : public TTBase {
 protected:
 
-// Microsoft's compiler complains because TTString (std::string) does not have a DLL-Interface
-// In this case, we never pass TTSymbols or reference them directly -- we always use TTSymbolRefs,
-// So it's okay that this class's struct may be of an undetermined size depending on compiler or compiler settings.
-#if defined(_MSC_VER)
-__pragma(warning(push))
-__pragma(warning(disable:4251))
-#endif
 
-	TTPtrSizedInt	mSymbolTableId;		///< a unique identifier for the symbol table that owns this symbol
-	TTUInt32		mSymbolId;			///< a unique identifier for the given string
-//	TTString		theString;			///< the actual string represented by this symbol
-	char*			mCString;			///< the actual string represented by this symbol
+	const TTPtrSizedInt	mSymbolTableId;		///< a unique identifier for the symbol table that owns this symbol
+	const TTUInt32		mSymbolId;			///< a unique identifier for the given string
+	const TTString		mString;			///< the actual string represented by this symbol
 
-#if defined(_MSC_VER)
-__pragma(warning(pop))
-#endif
 
 	/** used by the constructors to create the new symbol */
 	//void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newId);
-	void init(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
+	void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
 
+	
 public:
 		
 	/** The constructor is intended only for use by the TTSymbolTable object when creating new symbols
 		in the table.  Perhaps this could be made private and then the class made a friend... */
-	TTSymbol(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
+	TTSymbol(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
 
+	
 	virtual	~TTSymbol();
+	
 	
 	/** Copy Constructor */
 	TTSymbol(const TTSymbol& oldSymbol);
 	
+	
 	/**	Return a pointer to the internal string as a C-string. */
-	const char* getCString()
+	const char* getCString() const
 	{
-		return mCString;
+		return mString.c_str();
 	}
 	
+	
+	const TTString& string() const
+	{
+		return mString;
+	}
+	
+	
 	/**	Return this symbol's unique id. */
-	/*const*/ TTUInt32 getSymbolId()
+	/*const*/ TTUInt32 getSymbolId() const
 	{
 		return mSymbolId;
 	}
+	
 	
 	/** Compare two symbols for equality. */
 	inline friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
@@ -83,25 +84,32 @@ public:
 		}
 		else {
 			// hopefully this won't happen, but it could if there are libs statically linked and communicate with each other
-			return !strcmp(symbol1.mCString, symbol2.mCString);
+			return (symbol1.mString == symbol2.mString);
 		}
 	}
+	
 	
 	/** Cast a symbol to a C-string. */
 	operator const char*() const
 	{
-		return mCString;
+		return mString.c_str();
+	}
+
+	
+	/** Cast a symbol to a TTStringRef. */
+	operator const TTString&() const
+	{
+		return mString;
 	}
 
 	
 	/** Generate a pseudo-random symbol */
-	static TTSymbol* random();
+	static TTSymbol& random();
 
 };
 
 
-/**	A pointer to a symbol.  This is the way symbols are typically communicated throughout the environment. */
-//typedef TTSymbol*  TTSymbolRef;
+/**	A reference to a symbol.  This is the way symbols are typically communicated throughout the environment. */
 typedef TTSymbol& TTSymbolRef;
 
 

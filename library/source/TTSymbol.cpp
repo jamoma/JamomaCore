@@ -14,7 +14,7 @@
 
 //TTSymbol::TTSymbol() {;}
 
-TTSymbol::TTSymbol(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
+TTSymbol::TTSymbol(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
 	init(newString, newSymbolTableId, newSymbolId);
 }
@@ -22,7 +22,7 @@ TTSymbol::TTSymbol(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt3
 
 TTSymbol::~TTSymbol()
 {
-	delete[] mCString;
+	;
 }
 
 
@@ -31,18 +31,15 @@ TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
 {
 	mSymbolId = oldSymbol.mSymbolId;
 	mSymbolTableId = oldSymbol.mSymbolTableId;
-	mCString = oldSymbol.mCString;
+	mString = oldSymbol.mString;
 }
 
 
-void TTSymbol::init(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
+void TTSymbol::init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
-	TTUInt32 len = strlen(newString)+1;
-	
 	mSymbolId = newSymbolId;
 	mSymbolTableId = newSymbolTableId;
-	mCString = new char[len];
-	strncpy(mCString, newString, len);
+	mString = newString;
 }
 
 
@@ -56,14 +53,20 @@ void TTSymbol::init(const char* newString, TTPtrSizedInt newSymbolTableId, TTInt
 
 #include "MersenneTwister.h"
 
-TTSymbol* TTSymbol::random()
+TTSymbolRef TTSymbol::random()
 {
+#if 0
 	MTRand			twister;
 	unsigned int	i = twister.randInt();
 	char			s[16];
 		
 	snprintf(s, 16, "j%u", i);
 	s[15] = 0;
+#else
+	TTString s;
+	
+	s.random();
+#endif
 	return TT(s);
 }
 

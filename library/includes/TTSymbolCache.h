@@ -97,7 +97,5 @@ extern TTFOUNDATION_EXPORT TTSymbolRef	kTTSym_float32;
 extern TTFOUNDATION_EXPORT TTSymbolRef	kTTSym_float64;
 
 
-void TTSymbolCacheInit();
-
 #endif // __TT_SYMBOL_CACHE_H__
 

@@ -61,8 +61,8 @@ TTHash::TTHash(TTHash& that)
 TTErr TTHash::append(const TTSymbolRef key, const TTValue& value)
 {
 	lock();
-//	HASHMAP->insert(TTKeyVal(TTPtrSizedInt(key), value));
-	HASHMAP->insert(TTKeyVal(key.getSymbolId(), value));
+	HASHMAP->insert(TTKeyVal(TTPtrSizedInt(&key), value));
+//	HASHMAP->insert(TTKeyVal(key.getSymbolId(), value));
 	unlock();
 	return kTTErrNone;
 }
@@ -71,9 +71,15 @@ TTErr TTHash::append(const TTSymbolRef key, const TTValue& value)
 TTErr TTHash::lookup(const TTSymbolRef key, TTValue& value)
 {
 	lock();
-	TTHashMapIter iter = HASHMAP->find(TTPtrSizedInt(&key));
+	TTHashMap* theMap = (TTHashMap*)mHashMap;
+	TTHashMapIter iter = theMap->find(TTPtrSizedInt(&key));
+	
+//	TTPtrSizedInt a = iter->first;
+//	TTSymbol*     b = (TTSymbol*)a;
+//	TTValue			v = iter->second;
+//	TTValue v = (*theMap)[TTPtrSizedInt(&key)];
 
-	if (iter == HASHMAP->end()) {
+	if (iter == theMap->end()) {
 		unlock();
 		return kTTErrValueNotFound;
 	}
@@ -108,8 +114,18 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 	lock();
 	hashKeys.clear();
 
-	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++)
-		hashKeys.append(TTSymbolRef(iter->first));
+//#define HASHMAP  ((TTHashMap*)(mHashMap))
+//#define mHASHMAP (*HASHMAP)
+
+	TTHashMap* theMap = (TTHashMap*)mHashMap;
+	
+	for (TTHashMapIter iter = theMap->begin(); iter != theMap->end(); iter++) {
+		TTPtrSizedInt a = iter->first;
+		TTSymbol*     b = (TTSymbol*)a;
+		//TTValue		  v = iter->second;
+		//hashKeys.append(TTSymbolRef(*(TTSymbol*)iter->first));
+		hashKeys.append(*b);
+	}
 	unlock();
 	return kTTErrNone;
 }
@@ -126,12 +142,12 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++) {
 		
 		if (comparisonFunction) {
-			v = TTSymbolRef(iter->first);	// the key
+			v = TTSymbolRef(*(TTSymbol*)iter->first);	// the key
 			v.append(TTPtr(iter->second));	// a pointer to the stored value
 			listToSort.append(v);
 		}
 		else
-			listToSort.append(TTSymbolRef(iter->first));
+			listToSort.append(TTSymbolRef(*(TTSymbol*)iter->first));
 	}
 	
 	listToSort.sort(comparisonFunction);

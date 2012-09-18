@@ -68,7 +68,7 @@ TTSymbolTable::TTSymbolTable()
 	if (!sMutex)
 		sMutex = new TTMutex(true);
 	mSymbolTable = (TTPtr) new TTSymbolTableHash;
-	mSYMBOLTABLE->insert(TTSymbolTablePair("", new TTSymbol("", (TTPtrSizedInt)this, 0)));
+	mSYMBOLTABLE->insert(TTSymbolTablePair(TTString(""), *(new TTSymbol(TTString(""), (TTPtrSizedInt)this, 0))));
 }
 
 
@@ -96,7 +96,7 @@ TTSymbolRef TTSymbolTable::lookup(const char* aString)
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
 		TTSymbol*	newSymbol = new TTSymbol(aString, mSYMBOLTABLE->size());
-		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->getCString(), newSymbol));
+		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
 		sMutex->unlock();
 		return *newSymbol;
 	}
@@ -114,19 +114,24 @@ TTSymbolRef TTSymbolTable::lookup(const char* aString)
 
 TTSymbolRef TTSymbolTable::lookup(const TTString& aString)
 {
+	if (!ttSymbolTable)					// symbol table hasn't been created yet!
+		ttSymbolTable = new TTSymbolTable;
+
+	TTSymbolTable *self = ttSymbolTable; // can't rely on 'this' in the case where we just created the table!
+	
 #ifdef TT_PLATFORM_WIN
-	return lookup(aString.c_str());
+	return self->lookup(aString.c_str());
 #else
 	TTSymbolTableIter	iter;
 
 	sMutex->lock();
 
-	iter = mSYMBOLTABLE->find(aString);
-	if (iter == mSYMBOLTABLE->end()) {
+	iter = ((TTSymbolTableHash*)(self->mSymbolTable))->find(aString);
+	if (iter == ((TTSymbolTableHash*)(self->mSymbolTable))->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbol*	newSymbol = new TTSymbol(aString, (TTPtrSizedInt)this, mSYMBOLTABLE->size());
-		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->getCString(), newSymbol));
+		TTSymbol*	newSymbol = new TTSymbol(aString, (TTPtrSizedInt)self, ((TTSymbolTableHash*)(self->mSymbolTable))->size());
+		((TTSymbolTableHash*)(self->mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string(), *newSymbol));
 		sMutex->unlock();
 		return *newSymbol;
 	}
@@ -157,15 +162,15 @@ TTSymbolRef TTSymbolTable::lookup(const int& aNumberToBeConvertedToAString)
 }
 
 
-void TTSymbolTable::dump(TTValue& allSymbols)
+void TTSymbolTable::dump(/*TTValue& allSymbols*/)
 {
 	TTSymbolTableIter	iter;
 
-	//TTLogMessage("---- DUMPING SYMBOL TABLE -- BEGIN ----\n");
-	allSymbols.clear();
+	TTLogMessage("---- DUMPING SYMBOL TABLE -- BEGIN ----\n");
+	//allSymbols.clear();
 	for (iter = mSYMBOLTABLE->begin(); iter != mSYMBOLTABLE->end(); iter++) {
-		allSymbols.append(TTSymbolRef(iter->second));
-		//TTLogMessage("KEY:%s   VALUE:%s\n", iter->first, TTSymbolRef(iter->second)->getCString());
+		//allSymbols.append(TTSymbolRef(iter->second));
+		TTLogMessage("KEY:%s   VALUE:%s\n", (iter->first).c_str(), (TTSymbolRef(iter->second)).getCString());
 	}
-	//TTLogMessage("---- DUMPING SYMBOL TABLE -- END ----\n");
+	TTLogMessage("---- DUMPING SYMBOL TABLE -- END ----\n");
 }

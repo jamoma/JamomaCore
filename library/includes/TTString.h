@@ -287,11 +287,9 @@ public:
 	
 };
 
-		
-/**	A reference to a string.  */
-typedef TTString&			TTStringRef;
+
+/** Iterator for using STL algorithms with TTString. */
 typedef TTString::iterator	TTStringIter;
-//typedef std::vector<char>::iterator	TTStringIter;
 
 
 /** Expose TTString for use in std output streams. */
@@ -301,6 +299,10 @@ std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, trait
 	return stream << aString.c_str();
 }
 
+
+// Only providing this for use in the Foundation itself at the moment
+// (on OS 10.8 with Xcode 4.4 and compiling with clang for the Ruby extension, this code cause compile problems)
+#ifdef TTFOUNDATION_EXPORTS
 
 /** Provide overload of std::hash so that TTString can be used the same as std::string for std::map et al. */
 namespace std
@@ -317,7 +319,7 @@ namespace std
 	
 	};
 }
+#endif // TTFOUNDATION_EXPORTS
 
-	
 
 #endif // __TT_STRING_H__

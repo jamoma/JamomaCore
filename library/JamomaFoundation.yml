@@ -29,6 +29,7 @@ sources:
   - source/TTRegex.cpp
   - tests/TTMatrix.test.cpp
   - tests/TTString.test.cpp
+  - tests/TTSymbol.test.cpp
   - tests/TTValue.test.cpp
   - boost/libs/filesystem/src/codecvt_error_category.cpp
   - boost/libs/filesystem/src/operations.cpp
@@ -90,7 +91,8 @@ includes:
 defines:
   - TTFOUNDATION_EXPORTS
   - BOOST_REGEX
-  - BOOST_REGEX_USE_C_LOCALE 
+  - BOOST_REGEX_USE_C_LOCALE
+  - DISABLE_NODELIB
   
 # BOOST_REGEX_USE_C_LOCALE is a Boost Regex definition option (see boost/regex/user.hpp file)
 

@@ -48,7 +48,7 @@ public:
 	TTSymbolRef lookup(const int& aNumberToBeConvertedToAString);
 
 	/**	Debugging tool to make it easy to examine everything that is in the symbol table. */
-	void dump(TTValue& allSymbols);
+	void dump(/*TTValue& allSymbols*/);
 };
 
 

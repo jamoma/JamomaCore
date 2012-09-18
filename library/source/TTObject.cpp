@@ -137,7 +137,7 @@ TTErr TTObject::findAttribute(const TTSymbolRef name, TTAttribute** attr)
 	TTValue v;
 	TTErr	err = kTTErrNone;
 
-	err = attributes->lookup(TTSymbolRef(name), v);
+	err = attributes->lookup(name, v);
 	if (!err) {
 		*attr = TTAttributePtr(TTPtr(v));
 		return kTTErrNone;
@@ -255,10 +255,11 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 
 	for (TTUInt32 i=0; i<attributeCount; i++) {
 		TTAttributePtr	attribute = NULL;
-		TTSymbolRef		attributeName(kTTSymEmpty);
+		TTSymbolRef		attributeName = kTTSymEmpty;
 
 		unfilteredNameList.get(i, attributeName);
-		getAttribute(attributeName, &attribute);
+//		getAttribute(attributeName, &attribute);
+		findAttribute(attributeName, &attribute);
 
 		if (attribute->hidden == NO)
 			attributeNameList.append(attributeName);

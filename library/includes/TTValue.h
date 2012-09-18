@@ -94,7 +94,7 @@ private:
 		TTInt64			int64;
 		TTUInt64		uint64;
 		TTBoolean		boolean;
-		TTSymbol*		sym;		///< can't be a TTSymbolRef because it is in a union and this generates a compiler error
+		const TTSymbol*		sym;		///< can't be a TTSymbolRef because it is in a union and this generates a compiler error
 		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
 		TTObject*		object;
 		TTMatrix*		matrix;
@@ -130,7 +130,7 @@ public:
 	TTValue(const TTInt64 initialValue);
 	TTValue(const TTUInt64 initialValue);
 	TTValue(const TTBoolean initialValue);
-	TTValue(const TTSymbolRef initialValue);
+	TTValue(const TTSymbol& initialValue);
 	TTValue(const TTString& initialValue);
 	TTValue(const TTObject& initialValue);
 	TTValue(const TTMatrix& initialValue);
@@ -271,7 +271,7 @@ public:
 	void set(const TTUInt16 index, const TTInt64 newValue);
 	void set(const TTUInt16 index, const TTUInt64 newValue);
 	void set(const TTUInt16 index, const TTBoolean newValue);
-	void set(const TTUInt16 index, const TTSymbol* newValue);
+	void set(const TTUInt16 index, const TTSymbol& newValue);
 	void set(const TTUInt16 index, const TTString& newValue);
 	void set(const TTUInt16 index, const TTObject& newValue);
 	void set(const TTUInt16 index, const TTMatrix& newValue);
@@ -438,7 +438,7 @@ public:
 	void append(const TTInt64 newValue);
 	void append(const TTUInt64 newValue);
 	void append(const TTBoolean newValue);
-	void append(const TTSymbolRef newValue);
+	void append(const TTSymbol& newValue);
 	void append(const TTString& newValue);
 	void append(const TTObject& newValue);
 	void append(const TTMatrix& newValue);

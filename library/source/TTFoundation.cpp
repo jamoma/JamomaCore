@@ -61,7 +61,8 @@ void TTFoundationInit(const char* pathToBinaries)
 		if (pathToBinaries)
 			TTFoundationBinaryPath = pathToBinaries;
 
-		ttSymbolTable = new TTSymbolTable;
+		// The symbol table is now initialized when the first lookup is performed
+		//ttSymbolTable = new TTSymbolTable;
 		for (int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
 
@@ -72,7 +73,6 @@ void TTFoundationInit(const char* pathToBinaries)
 
 		ttEnvironment = new TTEnvironment;
 
-		TTSymbolCacheInit();
 		TTValueCacheInit();
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB		
