@@ -10,6 +10,7 @@
 #define __TT_VALUE_H__
 
 #include "TTBase.h"
+#include "TTString.h"
 #include "TTLimits.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
@@ -69,12 +70,8 @@ class TTMatrix;
 /*	note : isTTFloat32 works only because the TTInt32 case is matched before 
 	see in fromString method 
  */
-TTBoolean TTFOUNDATION_EXPORT	isTTInt32( const TTString & str );
-TTBoolean TTFOUNDATION_EXPORT	isTTFloat32( const TTString & str );
-
-TTInt32 TTFOUNDATION_EXPORT		toTTInt32( const TTString & str );
-TTFloat32 TTFOUNDATION_EXPORT	toTTFloat32( const TTString & str );
-
+TTBoolean TTFOUNDATION_EXPORT	toTTInt32( const TTString & str, TTInt32 & convertedInt );
+TTBoolean TTFOUNDATION_EXPORT	toTTFloat32( const TTString & str, TTFloat32 & convertedFloat );
 
 /****************************************************************************************************/
 // Class Specification
@@ -966,9 +963,12 @@ public:
 		if (*type == kTypeString) {
 			
 			TTUInt32 n = 0;
+			TTInt32 convertedInt;
+			TTFloat32 convertedFloat;
 			std::vector<std::string> strList;
+			std::string str(data->stringPtr->c_str());
 			
-			std::istringstream iss(*(data->stringPtr));
+			std::istringstream iss(str);
 			std::copy(
 				 std::istream_iterator<string>( iss ),
 				 std::istream_iterator<string>(),
@@ -979,26 +979,27 @@ public:
 				setSize(strList.size());
 				
 				for (unsigned int i = 0; i < strList.size(); ++i) {
-					TTString currentString = strList.at(i);
-					if (isTTInt32(currentString) && !numberAsSymbol) {
+					TTString currentString = strList.at(i).c_str();
+					if (toTTInt32(currentString, convertedInt) && !numberAsSymbol) {
 						
-						data[n].int32 = toTTInt32(currentString);
+						data[n].int32 = convertedInt;
 						type[n] = kTypeInt32;
 						n++;
 						
-					} else if (isTTFloat32(currentString) && !numberAsSymbol) {
+					} else if (toTTFloat32(currentString, convertedFloat) && !numberAsSymbol) {
 						
-						data[n].float32 = toTTFloat32(currentString);
+						data[n].float32 = convertedFloat;
 						type[n] = kTypeFloat32;
 						n++;
 						
-					} else {
+					}
+					else {
 						
-						if (currentString.data()[0] == '"') {
+						if (currentString.c_str()[0] == '"') {
 							
 							TTString editString = currentString.substr(1, currentString.size());	// don't keep the leading "
 							
-							while (currentString.data()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
+							while (currentString.c_str()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
 								i++;
 								currentString = strList.at(i);
 								
@@ -1011,7 +1012,7 @@ public:
 							n++;
 
 						} else {
-							TTSymbolRef editSymbol = TT(currentString.data());
+							TTSymbolRef editSymbol = TT(currentString.c_str());
 							data[n].sym = &editSymbol;
 							type[n] = kTypeSymbol;
 							n++;

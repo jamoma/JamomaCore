@@ -878,7 +878,8 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				
 				TTRegexPtr aRegex;
 				TTString s_toParse;
-				TTRegexStringPosition begin, end;
+//				TTRegexStringPosition begin, end;
+				TTStringIter begin, end;
 				
 				// get filter
 				v.get(0, (TTPtr*)&aFilter);

@@ -48,6 +48,7 @@ TTSymbolRef TTDictionary::getSchema() const
 	TTErr	err;
 	
 	err = lookup(TT("schema"), v);
+	err = err; // silence 'unused' warning
 	return v;
 }
 

@@ -8,16 +8,19 @@
 
 #include "TTRegex.h"
 
-#if OLD
+#if BOOST_REGEX
 #include <boost/regex.hpp>
 using namespace boost;
+using namespace std;
 typedef boost::regex	TTExpression;
-typedef boost::match_results <TTRegexStringPosition> TTRegexStringResult;
+//typedef boost::match_results <TTRegexStringPosition> TTRegexStringResult;
+typedef boost::match_results <TTStringIter> TTRegexStringResult;
 #else
 #include <regex>
 using namespace std;
 typedef std::regex	TTExpression;
-typedef std::match_results <TTRegexStringPosition> TTRegexStringResult;
+//typedef std::match_results <TTRegexStringPosition> TTRegexStringResult;
+typedef std::match_results <TTStringIter> TTRegexStringResult;
 #endif
 
 #define EXPRESSION  ((TTExpression*)(mExpression))
@@ -49,7 +52,8 @@ TTRegex::~TTRegex()
 	delete RESULT;
 }
 
-TTErr TTRegex::parse(TTRegexStringPosition& begin, TTRegexStringPosition& end)
+//TTErr TTRegex::parse(TTRegexStringPosition& begin, TTRegexStringPosition& end)
+TTErr TTRegex::parse(TTStringIter& begin, TTStringIter& end)
 {
 	if (regex_search(begin, end, mRESULT, mEXPRESSION))
 		return kTTErrNone;
@@ -58,13 +62,15 @@ TTErr TTRegex::parse(TTRegexStringPosition& begin, TTRegexStringPosition& end)
 }
 
 /** Get where start the result */
-TTRegexStringPosition TTRegex::begin()
+//TTRegexStringPosition TTRegex::begin()
+TTStringIter TTRegex::begin()
 {
 	return mRESULT[1].first;
 }
 
 /** Get where end the result */
-TTRegexStringPosition TTRegex::end()
+//TTRegexStringPosition TTRegex::end()
+TTStringIter TTRegex::end()
 {
 	return mRESULT[1].second;
 }

@@ -117,7 +117,6 @@ typedef bool				TTBoolean;			// same as Boolean on the Mac
 typedef unsigned char		TTByte;
 typedef char*				TTCString;
 typedef const char*			TTImmutableCString;
-typedef std::string			TTString;
 
 typedef signed char			TTInt8;
 typedef unsigned char		TTUInt8;

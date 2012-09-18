@@ -18,7 +18,7 @@
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
 	@param	type	The type of the value.
 */
-#define addAttribute(name, type)							TTString _attrname_##name(#name); _attrname_##name[0]=tolower(_attrname_##name[0]); registerAttribute(TT(_attrname_##name), type, &m##name)
+#define addAttribute(name, type)							TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##name.at(0)); registerAttribute(TT(_attrname_##name), type, &m##name)
 #ifdef SUPPORT_OLD_ATTRIBUTE_REGISTRATION
 #define registerAttributeSimple(name, type)					registerAttribute(TT(#name), type, &name)
 #endif
@@ -27,7 +27,7 @@
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
 	@param	type	The type of the value.
 */
-#define addAttributeWithGetter(name, type)					TTString _attrname_##name(#name); _attrname_##name[0]=tolower(_attrname_##name[0]); registerAttribute(TT(_attrname_##name), type, &m##name, (TTGetterMethod)& thisTTClass ::get##name )
+#define addAttributeWithGetter(name, type)					TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##name.at(0)); registerAttribute(TT(_attrname_##name), type, &m##name, (TTGetterMethod)& thisTTClass ::get##name )
 #ifdef SUPPORT_OLD_ATTRIBUTE_REGISTRATION
 #define registerAttributeWithGetter(name, type)				registerAttribute(TT(#name), type, &name,    (TTGetterMethod)& thisTTClass ::get##name )
 #endif
@@ -36,7 +36,7 @@
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the setter method name.
 	@param	type	The type of the value.
 */
-#define addAttributeWithSetter(name, type)					TTString _attrname_##name(#name); _attrname_##name[0]=tolower(_attrname_##name[0]); registerAttribute(TT(_attrname_##name), type, &m##name, (TTSetterMethod)& thisTTClass ::set##name )
+#define addAttributeWithSetter(name, type)					TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##name.at(0)); registerAttribute(TT(_attrname_##name), type, &m##name, (TTSetterMethod)& thisTTClass ::set##name )
 #ifdef SUPPORT_OLD_ATTRIBUTE_REGISTRATION
 #define registerAttributeWithSetter(name, type)				registerAttribute(TT(#name), type, &name,    (TTSetterMethod)& thisTTClass ::set##name )
 #endif
@@ -46,7 +46,7 @@
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter/setter method names.
 	@param	type	The type of the value.
 */
-#define addAttributeWithGetterAndSetter(name, type)			TTString _attrname_##name(#name); _attrname_##name[0]=tolower(_attrname_##name[0]); registerAttribute(TT(_attrname_##name), type, NULL, 	 (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
+#define addAttributeWithGetterAndSetter(name, type)			TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##name.at(0)); registerAttribute(TT(_attrname_##name), type, NULL, 	 (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
 #ifdef SUPPORT_OLD_ATTRIBUTE_REGISTRATION
 #define registerAttributeWithSetterAndGetter(name, type)    registerAttribute(TT(#name), type, NULL, 	 (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
 #endif

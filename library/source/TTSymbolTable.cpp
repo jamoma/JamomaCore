@@ -13,7 +13,7 @@
 #include<iostream>
 #include<unordered_map>
 
-std::unordered_map<const char*, TTSymbolRef> gTTSymbolTable;
+std::unordered_map<TTString, TTSymbolRef> gTTSymbolTable;
 
 
 
@@ -39,20 +39,14 @@ std::unordered_map<const char*, TTSymbolRef> gTTSymbolTable;
     typedef hash_map<TTString, TTSymbolRef>     TTSymbolTableHash;
 
 #else
-#if OLD
-    #include "boost/unordered_map.hpp"
-    using namespace boost;
-    typedef unordered_map<std::string, TTSymbolPtr>		TTSymbolTableHash;
-#else
 	#include <unordered_map>
-	typedef unordered_map<std::string, TTSymbolRef>		TTSymbolTableHash;
-#endif
+	typedef unordered_map<TTString, TTSymbolRef>		TTSymbolTableHash;
 #endif
 
 
 
 /** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
-typedef pair<const char*, TTSymbolRef>				TTSymbolTablePair;
+typedef pair<TTString, TTSymbolRef>				TTSymbolTablePair;
 
 
 /** An iterator for the STL hash_map used by TTSymbolTable. */

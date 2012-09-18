@@ -12,6 +12,7 @@
 #define TTFOUNDATION_VERSION_STRING "0.6"
 
 #include "TTBase.h"
+#include "TTString.h"
 #include "TTThread.h"
 #include "TTFifo.h"
 #include "TTSymbolCache.h"

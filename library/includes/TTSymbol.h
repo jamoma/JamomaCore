@@ -10,7 +10,7 @@
 #define __TT_SYMBOL_H__
 
 #include "TTBase.h"
-
+#include "TTString.h"
 
 /****************************************************************************************************/
 // Class Specification

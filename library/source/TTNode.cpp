@@ -167,7 +167,7 @@ TTErr TTNode::setName(TTSymbolRef aName, TTSymbolRef *newInstance, TTBoolean *ne
 				temp = newAaddress->getCString();
 				t = (char *)(old_key->getCString() + strlen(oldAddress->getCString()));
 
-				if ((TT(t) == S_SEPARATOR) || t[0] == 0) {
+				if ((TT(t) == S_SEPARATOR) || t.at(0) == 0) {
 					temp += t;
 
 					// remove the old key
@@ -241,7 +241,7 @@ TTErr TTNode::setInstance(TTSymbolRef anInstance, TTSymbolRef *newInstance, TTBo
 				temp = newAddress->getCString();
 				t = (char *)(old_key->getCString() + strlen(oldAddress->getCString()));
 
-				if ((TT(t) == S_SEPARATOR) || t[0] == 0) {
+				if ((TT(t) == S_SEPARATOR) || t.at(0) == 0) {
 					temp += t;
 
 					// remove the old key
