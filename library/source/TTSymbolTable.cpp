@@ -31,20 +31,14 @@
     typedef hash_map<TTString, TTSymbolPtr>     TTSymbolTableHash;
 
 #else
-#if OLD
-    #include "boost/unordered_map.hpp"
-    using namespace boost;
-    typedef unordered_map<std::string, TTSymbolPtr>		TTSymbolTableHash;
-#else
 	#include <unordered_map>
-	typedef unordered_map<std::string, TTSymbolPtr>		TTSymbolTableHash;
-#endif
+	typedef unordered_map<TTString, TTSymbolPtr>		TTSymbolTableHash;
 #endif
 
 
 
 /** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
-typedef pair<const char*, TTSymbolPtr>				TTSymbolTablePair;
+typedef pair<TTString, TTSymbolPtr>				TTSymbolTablePair;
 
 
 /** An iterator for the STL hash_map used by TTSymbolTable. */
@@ -116,11 +110,10 @@ TTSymbol* TTSymbolTable::lookup(const TTString& aString)
 	return lookup(aString.c_str());
 #else
 	TTSymbolTableIter	iter;
-	std::string			str(aString.c_str());
 
 	sMutex->lock();
 
-	iter = mSYMBOLTABLE->find(str);
+	iter = mSYMBOLTABLE->find(aString);
 	if (iter == mSYMBOLTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);

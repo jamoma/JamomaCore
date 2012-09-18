@@ -285,45 +285,6 @@ public:
 	/** Replace contents with a pseudo-random string. */
 	void random();
 	
-
-#if 0
-	
-	
-	int String::hashCode() const throw()
-	{
-		const juce_wchar* t = text;
-		int result = 0;
-		
-		while (*t != (juce_wchar) 0)
-			result = 31 * result + *t++;
-		
-		return result;
-	}
-	
-	int64 String::hashCode64() const throw()
-	{
-		const juce_wchar* t = text;
-		int64 result = 0;
-		
-		while (*t != (juce_wchar) 0)
-			result = 101 * result + *t++;
-		
-		return result;
-	}
-	
-#endif // 0
-
-	
-	
-	
-	//void test()
-	//{
-	//	TTString f("foo");
-	//
-	//	char& c = f[0];
-	//	f[0] = 'g';
-	//}
-	
 };
 
 		
@@ -333,7 +294,6 @@ typedef TTString::iterator	TTStringIter;
 //typedef std::vector<char>::iterator	TTStringIter;
 
 
-
 /** Expose TTString for use in std output streams. */
 template <class charT, class traits>
 std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, traits>& stream, const TTString& aString)
@@ -341,5 +301,23 @@ std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, trait
 	return stream << aString.c_str();
 }
 
+
+/** Provide overload of std::hash so that TTString can be used the same as std::string for std::map et al. */
+namespace std
+{
+	template <>
+	struct hash<TTString>
+	{
+		public:
+		
+			size_t operator()(const TTString& self) const
+			{
+				return std::_Hash_impl::hash(self.data(), self.size());
+			}
+	
+	};
+}
+
+	
 
 #endif // __TT_STRING_H__
