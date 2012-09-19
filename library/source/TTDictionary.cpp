@@ -13,9 +13,9 @@
 void TTDictionaryFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found)
 {
 	TTKeyValPtr keyval = TTKeyValPtr(TTPtr(valueToCheck));
-	TTSymbolRef key = TTSymbolRef(baton);
+	TTSymbol key = TTSymbol((TTSymbolBase*)baton);
 	
-	if (keyval && TTSymbolRef(keyval->first) == key)
+	if (keyval && TTSymbol((TTSymbolBase*)keyval->first) == key)
 		found = YES;
 }
 
@@ -36,13 +36,13 @@ TTDictionary::~TTDictionary()
 }
 
 
-TTErr TTDictionary::setSchema(const TTSymbolRef schemaName)
+TTErr TTDictionary::setSchema(const TTSymbol& schemaName)
 {
 	return append(TT("schema"), schemaName);
 }
 
 
-TTSymbolRef TTDictionary::getSchema() const
+const TTSymbol TTDictionary::getSchema() const
 {
 	TTValue v;
 	TTErr	err;
@@ -65,7 +65,7 @@ TTErr TTDictionary::getValue(TTValue& returnedValue) const
 }
 
 
-TTErr TTDictionary::append(const TTSymbolRef key, const TTValue& value)
+TTErr TTDictionary::append(const TTSymbol& key, const TTValue& value)
 {
 	TTValue v = new TTKeyVal(TTPtrSizedInt(&key), value);
 	
@@ -75,18 +75,18 @@ TTErr TTDictionary::append(const TTSymbolRef key, const TTValue& value)
 }
 
 
-TTErr TTDictionary::lookup(const TTSymbolRef key, TTValue& value) const
+TTErr TTDictionary::lookup(const TTSymbol& key, TTValue& value) const
 {
 	return mHashTable->lookup(key, value);
 }
 
 
-TTErr TTDictionary::remove(const TTSymbolRef key)
+TTErr TTDictionary::remove(const TTSymbol& key)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = mList->find(TTDictionaryFindKeyInList, &key, v);
+	err = mList->find(TTDictionaryFindKeyInList, key.mSymbolPointer, v);
 	if (!err)
 		mList->remove(v);
 	return mHashTable->remove(key);

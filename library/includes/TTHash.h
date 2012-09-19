@@ -49,13 +49,19 @@ public:
 	TTHash(TTHash& that);
 
 	/** Insert an item into the hash table. */
-	TTErr append(const TTSymbolRef key, const TTValue& value);
+	TTErr append(const TTSymbol& key, const TTValue& value);
+
+	// Used by the Ruby extension
+	TTErr append(const TTPtr key, const TTValue& value);
 
 	/** Find the value for the given key. */
-	TTErr lookup(const TTSymbolRef key, TTValue& value);
+	TTErr lookup(const TTSymbol& key, TTValue& value);
+	
+	// This is used by the Ruby extension
+	TTErr lookup(const TTPtr key, TTValue& value);
 
 	/** Remove an item from the hash table. */
-	TTErr remove(const TTSymbolRef key);
+	TTErr remove(const TTSymbol& key);
 
 	/** Remove all items from the hash table. */
 	TTErr clear();

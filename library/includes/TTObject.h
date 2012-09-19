@@ -34,7 +34,7 @@ typedef TTClass*		TTClassPtr;
 
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTMethod)(const TTSymbolRef methodName, const TTValue& anInputValue, TTValue& anOutputValue);
+typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, const TTValue& anInputValue, TTValue& anOutputValue);
 
 /** A type that can be used to call a message for an object that does not declare the name argument. */
 typedef TTErr (TTObject::*TTMethodValue)(const TTValue& anInputValue, TTValue& anOutputValue);
@@ -115,11 +115,11 @@ public:
 		The the end-user calls setAttribute() on the object (which is defined in 
 		the base class only) and it dispatches the message as appropriate.
 	*/
-	TTErr registerAttribute(const TTSymbolRef name, const TTDataType type, void* address);
-	TTErr registerAttribute(const TTSymbolRef name, const TTDataType type, void* address, TTGetterMethod getter);
-	TTErr registerAttribute(const TTSymbolRef name, const TTDataType type, void* address, TTSetterMethod setter);
-	TTErr registerAttribute(const TTSymbolRef name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
-	TTErr registerAttribute(const TTSymbolRef name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
+	TTErr registerAttribute(const TTSymbol& name, const TTDataType type, void* address);
+	TTErr registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter);
+	TTErr registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbol& name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
 	
 	/** Extend the attribute of an existing TTObject to this TTObject (using another attribute name) 
 		@param	name			The name of the attribute as you wish for it to be in your object (e.g. myFrequency).
@@ -127,11 +127,11 @@ public:
 		@param	extendedName	The name of the attribute as defined by the object that you are extending (e.g. frequency).
 		@return					An error code.
 	 */
-	TTErr extendAttribute(const TTSymbolRef name, const TTObjectPtr extendedObject, const TTSymbolRef extendedName);
+	TTErr extendAttribute(const TTSymbol& name, const TTObjectPtr extendedObject, const TTSymbol& extendedName);
 
-	TTErr removeAttribute(const TTSymbolRef name);
+	TTErr removeAttribute(const TTSymbol& name);
 	
-	TTErr findAttribute(const TTSymbolRef name, TTAttribute** attr);
+	TTErr findAttribute(const TTSymbol& name, TTAttribute** attr);
 
 	/**	Set an attribute value for an object
 		@param	name	The name of the attribute to set.
@@ -140,8 +140,8 @@ public:
 						Hence, it is not declared const.
 		@return			An error code.
 	 */
-	TTErr setAttributeValue(const TTSymbolRef name, TTValue& value);
-	TTErr getAttributeValue(const TTSymbolRef name, TTValue& value);
+	TTErr setAttributeValue(const TTSymbol& name, TTValue& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTValue& value);
 
 /*	
 	// special case to work around "ambiguous overload" errors in GCC 4.2
@@ -160,7 +160,7 @@ public:
 */
 	// We do the following because templates cause us a lot of headaches in this case due to type ambiguity and linking
 #define TT_SETATTR_WRAP(type) \
-	TTErr setAttributeValue(const TTSymbolRef name, const type & value)	\
+	TTErr setAttributeValue(const TTSymbol& name, const type & value)	\
 	{																	\
 		TTValue v(value);												\
 		return setAttributeValue(name, v);								\
@@ -185,7 +185,7 @@ public:
 	TT_SETATTR_WRAP(TTUInt32)
 #else
 //	TT_SETATTR_WRAP(unsigned int)
-	TTErr setAttributeValue(const TTSymbolRef name, const unsigned int value)	
+	TTErr setAttributeValue(const TTSymbol& name, const unsigned int value)
 	{																	
 		TTValue v((TTUInt32)value);
 		return setAttributeValue(name, v);
@@ -200,7 +200,7 @@ public:
 #undef TT_SETATTR_WRAP
 	
 	template <class T>
-	TTErr getAttributeValue(const TTSymbolRef name, T& value)
+	TTErr getAttributeValue(const TTSymbol& name, T& value)
 	{
 		TTValue	v;
 		TTErr error = getAttributeValue(name, v);
@@ -208,20 +208,20 @@ public:
 		return error;
 	}
 	
-	TTErr getAttributeGetterFlags(const TTSymbolRef name, TTAttributeFlags& value);
-	TTErr setAttributeGetterFlags(const TTSymbolRef name, TTAttributeFlags& value);
-	TTErr getAttributeSetterFlags(const TTSymbolRef name, TTAttributeFlags& value);
-	TTErr setAttributeSetterFlags(const TTSymbolRef name, TTAttributeFlags& value);
+	TTErr getAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value);
+	TTErr setAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value);
+	TTErr getAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value);
+	TTErr setAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value);
 
-	TTErr registerAttributeProperty(const TTSymbolRef attributeName, const TTSymbolRef propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
-	TTErr registerMessageProperty(const TTSymbolRef messageName, const TTSymbolRef propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
+	TTErr registerAttributeProperty(const TTSymbol& attributeName, const TTSymbol& propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
+	TTErr registerMessageProperty(const TTSymbol& messageName, const TTSymbol& propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
 	
-	TTErr getAttribute(const TTSymbolRef name, TTAttributePtr* attributeObject)
+	TTErr getAttribute(const TTSymbol& name, TTAttributePtr* attributeObject)
 	{
 		return findAttribute(name, attributeObject);
 	}
 	
-	TTErr getMessage(const TTSymbolRef name, TTMessagePtr* messageObject)
+	TTErr getMessage(const TTSymbol& name, TTMessagePtr* messageObject)
 	{
 		return findMessage(name, messageObject);
 	}
@@ -234,30 +234,30 @@ public:
 	void getMessageNames(TTValue& messageNameList);
 	
 	/** return the name of this class */
-	TTSymbolRef getName() const;
+	TTSymbol& getName() const;
 
 	
-	TTErr registerMessage(const TTSymbolRef name, TTMethod method);
-	TTErr registerMessage(const TTSymbolRef name, TTMethod method, TTMessageFlags flags);
-	TTErr findMessage(const TTSymbolRef name, TTMessage** message);
-	TTErr sendMessage(const TTSymbolRef name);
+	TTErr registerMessage(const TTSymbol& name, TTMethod method);
+	TTErr registerMessage(const TTSymbol& name, TTMethod method, TTMessageFlags flags);
+	TTErr findMessage(const TTSymbol& name, TTMessage** message);
+	TTErr sendMessage(const TTSymbol& name);
 #ifdef TT_SUPPORT_SINGLE_ARG_MESSAGE_CALLS
-	TTErr sendMessage(const TTSymbolRef name, TTValue& anOutputValue);
-	TTErr sendMessage(const TTSymbolRef name, const TTValue& anInputValue);
+	TTErr sendMessage(const TTSymbol& name, TTValue& anOutputValue);
+	TTErr sendMessage(const TTSymbol& name, const TTValue& anInputValue);
 #endif
-	TTErr sendMessage(const TTSymbolRef name, const TTValue& anInputValue, TTValue& anOutputValue);
+	TTErr sendMessage(const TTSymbol& name, const TTValue& anInputValue, TTValue& anOutputValue);
 
 // TODO: implement
 //	TTErr registerMessageProperty(const TTSymbolRef messageName, const TTSymbolRef propertyName, const TTValue& initialValue);
 	
-	TTErr registerObserverForMessage(const TTObject& observingObject, const TTSymbolRef messageName);
-	TTErr registerObserverForAttribute(const TTObject& observingObject, const TTSymbolRef attributeName);
+	TTErr registerObserverForMessage(const TTObject& observingObject, const TTSymbol& messageName);
+	TTErr registerObserverForAttribute(const TTObject& observingObject, const TTSymbol& attributeName);
 	TTErr registerObserverForNotifications(const TTObject& observingObject);
-	TTErr unregisterObserverForMessage(const TTObject& observingObject, const TTSymbolRef messageName);
-	TTErr unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbolRef attributeName);
+	TTErr unregisterObserverForMessage(const TTObject& observingObject, const TTSymbol& messageName);
+	TTErr unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbol& attributeName);
 	TTErr unregisterObserverForNotifications(const TTObject& observingObject);
 	
-	TTErr sendNotification(const TTSymbolRef name, const TTValue& arguments);
+	TTErr sendNotification(const TTSymbol& name, const TTValue& arguments);
 	
 	
 	/**	Log messages scoped to this object instance. */

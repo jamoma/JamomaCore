@@ -1,6 +1,6 @@
 /* 
- * TTBlue Class for representing Symbols
- * Copyright © 2008, Timothy Place
+ * Jamoma Class for accessing Symbols
+ * Copyright © 2012, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -9,8 +9,13 @@
 #ifndef __TT_SYMBOL_H__
 #define __TT_SYMBOL_H__
 
-#include "TTBase.h"
-#include "TTString.h"
+#include "TTSymbolBase.h"
+#include "TTSymbolTable.h"
+
+
+/** This macro is defined as a shortcut for doing a lookup in the symbol table. */
+//#define TT gTTSymbolTable->lookup
+#define TT TTSymbol
 
 /****************************************************************************************************/
 // Class Specification
@@ -26,91 +31,114 @@
 	Also, if you don't need the fast lookup capabilities of the symbol table (such as for message or attribute lookup)
 	then consider passing a #TTString instead.
 */
-class TTFOUNDATION_EXPORT TTSymbol : public TTBase {
+class TTFOUNDATION_EXPORT TTSymbol {
+	friend class TTValue;
+	friend class TTDictionary;
+	friend class TTHash;
+
 protected:
 
-
-	const TTPtrSizedInt	mSymbolTableId;		///< a unique identifier for the symbol table that owns this symbol
-	const TTUInt32		mSymbolId;			///< a unique identifier for the given string
-	const TTString		mString;			///< the actual string represented by this symbol
-
-
-	/** used by the constructors to create the new symbol */
-	//void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newId);
-	void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
-
+	TTSymbolBase*	mSymbolPointer;		///< pointer to the symbol that we represent
 	
 public:
-		
-	/** The constructor is intended only for use by the TTSymbolTable object when creating new symbols
-		in the table.  Perhaps this could be made private and then the class made a friend... */
-	TTSymbol(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
-
 	
-	virtual	~TTSymbol();
+	TTSymbol()
+	{
+		mSymbolPointer = gTTSymbolTable->lookup("");
+	}
 	
 	
-	/** Copy Constructor */
-	TTSymbol(const TTSymbol& oldSymbol);
+	TTSymbol(const char *cstr)
+	{
+		mSymbolPointer = gTTSymbolTable->lookup(cstr);
+	}
+	
+	
+	TTSymbol(TTSymbolBase* symbolBase)
+	{
+		mSymbolPointer = symbolBase;
+	}
+	
+	
+	virtual ~TTSymbol()
+	{;}
 	
 	
 	/**	Return a pointer to the internal string as a C-string. */
-	const char* getCString() const
+	const char* c_str() const
 	{
-		return mString.c_str();
+		return mSymbolPointer->getCString();
 	}
 	
 	
 	const TTString& string() const
 	{
-		return mString;
+		return mSymbolPointer->string();
 	}
 	
 	
 	/**	Return this symbol's unique id. */
 	/*const*/ TTUInt32 getSymbolId() const
 	{
-		return mSymbolId;
+		return mSymbolPointer->getSymbolId();
 	}
 	
 	
 	/** Compare two symbols for equality. */
 	inline friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
 	{
-		if (symbol1.mSymbolTableId == symbol2.mSymbolTableId) {
-			// both symbols are in the same symbol table 
-			// this should typically be the case and we optimize for this	
-			return (symbol1.mSymbolId == symbol2.mSymbolId);
-		}
-		else {
-			// hopefully this won't happen, but it could if there are libs statically linked and communicate with each other
-			return (symbol1.mString == symbol2.mString);
-		}
+		return (*symbol1.mSymbolPointer == *symbol2.mSymbolPointer);
 	}
 	
 	
 	/** Cast a symbol to a C-string. */
 	operator const char*() const
 	{
-		return mString.c_str();
+		return mSymbolPointer->getCString();
 	}
 
 	
 	/** Cast a symbol to a TTStringRef. */
 	operator const TTString&() const
 	{
-		return mString;
+		return mSymbolPointer->string();
 	}
 
 	
 	/** Generate a pseudo-random symbol */
-	static TTSymbol& random();
+	static TTSymbol random()
+	{
+		TTString s;
+		
+		s.random();
+		return TTSymbol(s);
+	}
 
+	
+	/*
+	
+#include "MersenneTwister.h"
+	
+	TTSymbolBaseRef TTSymbolBase::random()
+	{
+#if 0
+		MTRand			twister;
+		unsigned int	i = twister.randInt();
+		char			s[16];
+		
+		snprintf(s, 16, "j%u", i);
+		s[15] = 0;
+#else
+		TTString s;
+		
+		s.random();
+#endif
+		return TT(s);
+	}
+	
+*/
+	
 };
-
-
-/**	A reference to a symbol.  This is the way symbols are typically communicated throughout the environment. */
-typedef TTSymbol& TTSymbolRef;
 
 
 #endif // __TT_SYMBOL_H__

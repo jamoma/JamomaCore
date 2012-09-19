@@ -58,7 +58,7 @@ class TTFOUNDATION_EXPORT TTNodeDirectory : public TTBase
 	
 private:
 
-	TTSymbolRef		name;					///< the name of the tree
+	TTSymbol		name;					///< the name of the tree
 	TTNodePtr		root;					///< the root of the tree
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all address of the tree
 	TTHashPtr		aliases;				///< a pointer to a global hashtab which reference all aliases of the tree
@@ -69,7 +69,7 @@ private:
 public:
 	
 	/** Constructor */
-	TTNodeDirectory (TTSymbolRef aName);
+	TTNodeDirectory (TTSymbol& aName);
 	
 	/** Destructor */
 	virtual ~TTNodeDirectory ();
@@ -79,10 +79,10 @@ public:
 
 	/** Set the name of the TTNodeDirectory. 
 		@param	newName				The name to set */
-	TTErr			setName(TTSymbolRef aname);
+	TTErr			setName(TTSymbol& aname);
 
 	/** Get the name of the TTNodeDirectory */
-	TTSymbolRef		getName();
+	TTSymbol		getName();
 	
 	/** Get the root of the TTNodeDirectory */
 	TTNodePtr		getRoot();

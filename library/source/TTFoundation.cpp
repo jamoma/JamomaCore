@@ -49,7 +49,7 @@ static TTString	TTFoundationBinaryPath = "";
 
 void		TTFoundationLoadExternalClasses();
 TTErr		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
-TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbolRef className, TTValue& arguments);
+TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbol& className, TTValue& arguments);
 
 
 /****************************************************************************************************/
@@ -62,7 +62,7 @@ void TTFoundationInit(const char* pathToBinaries)
 			TTFoundationBinaryPath = pathToBinaries;
 
 		// The symbol table is now initialized when the first lookup is performed
-		//ttSymbolTable = new TTSymbolTable;
+		//gTTSymbolTable = new TTSymbolTable;
 		for (int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
 

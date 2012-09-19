@@ -94,7 +94,7 @@ private:
 		TTInt64			int64;
 		TTUInt64		uint64;
 		TTBoolean		boolean;
-		const TTSymbol*		sym;		///< can't be a TTSymbolRef because it is in a union and this generates a compiler error
+		TTSymbolBase*	sym;		///< can't be a TTSymbolRef because it is in a union and this generates a compiler error
 		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
 		TTObject*		object;
 		TTMatrix*		matrix;
@@ -233,8 +233,8 @@ public:
 	operator TTBoolean() const;
 
 	// SYMBOL
-	TTValue& operator = (TTSymbolRef value);
-	operator TTSymbolRef() const;
+	TTValue& operator = (const TTSymbol& value);
+	operator TTSymbol() const;
 	
 	// STRING
 	TTValue& operator = (TTString& value);
@@ -583,7 +583,7 @@ public:
 					return false;
 				break;
 			case kTypeSymbol:
-				if ( strcmp( (a1.data)->sym->getCString(), (a2.data)->sym->getCString() ) >= 0 )
+				if ( *(a1.data)->sym == *(a2.data)->sym )
 					return false;
 				break;
 			case kTypeString:
@@ -1007,13 +1007,13 @@ public:
 								editString += currentString;
 							}
 							
-							data[n].sym = &TT(editString.substr(0, editString.size()-1));			// don't keep the last "
+							data[n].sym = TT(editString.substr(0, editString.size()-1)).mSymbolPointer;			// don't keep the last "
 							type[n] = kTypeSymbol;
 							n++;
 
 						} else {
-							TTSymbolRef editSymbol = TT(currentString.c_str());
-							data[n].sym = &editSymbol;
+							TTSymbol editSymbol = TT(currentString.c_str());
+							data[n].sym = editSymbol.mSymbolPointer;
 							type[n] = kTypeSymbol;
 							n++;
 						}

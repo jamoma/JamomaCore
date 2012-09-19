@@ -51,9 +51,9 @@
 	@param strname A C-string that names the object as it should be listed in the environment. */
 #define TT_CLASS_SETUP(strname, tags, className)\
 	\
-	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol*, TTValue& arguments); \
+	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol&, TTValue& arguments); \
 	\
-	TTObject*  instantiate ## className (TTSymbol*, TTValue& arguments) \
+	TTObject*  instantiate ## className (TTSymbol&, TTValue& arguments) \
 	{\
 		return new className (arguments);\
 	}\

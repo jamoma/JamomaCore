@@ -74,7 +74,7 @@ void TTSymbolTestBasic(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing random symbol generation");
 	
-	TTSymbolRef r = TTSymbol::random();
+	TTSymbol r = TTSymbol::random();
 	
 	TTTestAssertion("created from = with correct size",
 					r.string().size() == 3,

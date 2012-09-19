@@ -10,7 +10,7 @@
 #include "TTEnvironment.h"
 
 
-TTMessage::TTMessage(const TTSymbolRef newName, TTMethod newMethod, TTMessageFlags newFlags) : 
+TTMessage::TTMessage(const TTSymbol& newName, TTMethod newMethod, TTMessageFlags newFlags) :
 	TTObject(kTTValNONE), 
 	name(newName), 
 	flags(newFlags),

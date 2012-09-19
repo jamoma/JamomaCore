@@ -58,27 +58,38 @@ TTHash::TTHash(TTHash& that)
 }
 
 
-TTErr TTHash::append(const TTSymbolRef key, const TTValue& value)
+TTErr TTHash::append(const TTPtr key, const TTValue& value)
 {
 	lock();
-	HASHMAP->insert(TTKeyVal(TTPtrSizedInt(&key), value));
-//	HASHMAP->insert(TTKeyVal(key.getSymbolId(), value));
+	HASHMAP->insert(TTKeyVal(TTPtrSizedInt(key), value));
 	unlock();
 	return kTTErrNone;
 }
 
 
-TTErr TTHash::lookup(const TTSymbolRef key, TTValue& value)
+TTErr TTHash::append(const TTSymbol& key, const TTValue& value)
+{
+	return append(TTPtr(key.mSymbolPointer), value);
+}
+
+
+TTErr TTHash::lookup(const TTSymbol& key, TTValue& value)
+{
+	return lookup(TTPtr(key.mSymbolPointer), value);
+}
+
+
+TTErr TTHash::lookup(const TTPtr key, TTValue& value)
 {
 	lock();
 	TTHashMap* theMap = (TTHashMap*)mHashMap;
-	TTHashMapIter iter = theMap->find(TTPtrSizedInt(&key));
+	TTHashMapIter iter = theMap->find(TTPtrSizedInt(key));
 	
-//	TTPtrSizedInt a = iter->first;
-//	TTSymbol*     b = (TTSymbol*)a;
-//	TTValue			v = iter->second;
-//	TTValue v = (*theMap)[TTPtrSizedInt(&key)];
-
+	//	TTPtrSizedInt a = iter->first;
+	//	TTSymbol*     b = (TTSymbol*)a;
+	//	TTValue			v = iter->second;
+	//	TTValue v = (*theMap)[TTPtrSizedInt(&key)];
+	
 	if (iter == theMap->end()) {
 		unlock();
 		return kTTErrValueNotFound;
@@ -91,10 +102,11 @@ TTErr TTHash::lookup(const TTSymbolRef key, TTValue& value)
 }
 
 
-TTErr TTHash::remove(const TTSymbolRef key)
+
+TTErr TTHash::remove(const TTSymbol& key)
 {
 	lock();
-	HASHMAP->erase(TTPtrSizedInt(&key));
+	HASHMAP->erase(TTPtrSizedInt(key.mSymbolPointer));
 	unlock();
 	return kTTErrNone;
 }
@@ -120,11 +132,11 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 	TTHashMap* theMap = (TTHashMap*)mHashMap;
 	
 	for (TTHashMapIter iter = theMap->begin(); iter != theMap->end(); iter++) {
-		TTPtrSizedInt a = iter->first;
-		TTSymbol*     b = (TTSymbol*)a;
+		TTPtrSizedInt	a = iter->first;
+		TTSymbol		b((TTSymbolBase*)a);
 		//TTValue		  v = iter->second;
 		//hashKeys.append(TTSymbolRef(*(TTSymbol*)iter->first));
-		hashKeys.append(*b);
+		hashKeys.append(b);
 	}
 	unlock();
 	return kTTErrNone;
@@ -136,18 +148,20 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 	lock();
 	TTList		listToSort;
 	TTValue		v;
-	TTSymbolRef key(kTTSymEmpty);
+	TTSymbol	key;
 	
 	// fill a list to sort
 	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++) {
+		TTPtrSizedInt	a = iter->first;
+		TTSymbol		b((TTSymbolBase*)a);
 		
 		if (comparisonFunction) {
-			v = TTSymbolRef(*(TTSymbol*)iter->first);	// the key
+			v = b;	// the key
 			v.append(TTPtr(iter->second));	// a pointer to the stored value
 			listToSort.append(v);
 		}
 		else
-			listToSort.append(TTSymbolRef(*(TTSymbol*)iter->first));
+			listToSort.append(b);
 	}
 	
 	listToSort.sort(comparisonFunction);

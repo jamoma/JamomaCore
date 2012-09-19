@@ -233,7 +233,7 @@ extern TTFOUNDATION_EXPORT TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
 
 
 // from TTSymbolCache.h:
-extern TTFOUNDATION_EXPORT TTSymbol&	kTTSymEmpty;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSymEmpty;
 
 class TTFOUNDATION_EXPORT TTDataInfo {
 public:

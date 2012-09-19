@@ -13,7 +13,7 @@
 #include<iostream>
 #include<unordered_map>
 
-std::unordered_map<TTString, TTSymbolRef> gTTSymbolTable;
+//std::unordered_map<TTString, TTSymbolBase*> gTTSymbolTable;
 
 
 
@@ -40,13 +40,13 @@ std::unordered_map<TTString, TTSymbolRef> gTTSymbolTable;
 
 #else
 	#include <unordered_map>
-	typedef unordered_map<TTString, TTSymbolRef>		TTSymbolTableHash;
+	typedef unordered_map<TTString, TTSymbolBase*>		TTSymbolTableHash;
 #endif
 
 
 
 /** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
-typedef pair<TTString, TTSymbolRef>				TTSymbolTablePair;
+typedef pair<TTString, TTSymbolBase*>				TTSymbolTablePair;
 
 
 /** An iterator for the STL hash_map used by TTSymbolTable. */
@@ -55,7 +55,7 @@ typedef TTSymbolTableHash::const_iterator			TTSymbolTableIter;
 
 
 static TTMutex*				sMutex = NULL;
-TTFOUNDATION_EXPORT TTSymbolTable*		ttSymbolTable = NULL;
+TTFOUNDATION_EXPORT TTSymbolTable*		gTTSymbolTable = NULL;
 
 
 #define mSYMBOLTABLE ((TTSymbolTableHash*)(mSymbolTable))
@@ -68,7 +68,7 @@ TTSymbolTable::TTSymbolTable()
 	if (!sMutex)
 		sMutex = new TTMutex(true);
 	mSymbolTable = (TTPtr) new TTSymbolTableHash;
-	mSYMBOLTABLE->insert(TTSymbolTablePair(TTString(""), *(new TTSymbol(TTString(""), (TTPtrSizedInt)this, 0))));
+	mSYMBOLTABLE->insert(TTSymbolTablePair(TTString(""), new TTSymbolBase(TTString(""), (TTPtrSizedInt)this, 0)) );
 }
 
 
@@ -77,14 +77,14 @@ TTSymbolTable::~TTSymbolTable()
 	TTSymbolTableIter	iter;
 
 	for (iter = mSYMBOLTABLE->begin(); iter != mSYMBOLTABLE->end(); iter++)
-		delete TTSymbolRef(iter->second);
+		delete (TTSymbolBase*)(iter->second);
 	mSYMBOLTABLE->clear();
 	delete mSYMBOLTABLE;
 	// TODO: we should reference count symbol tables and then free the mutex here, yes?
 }
 
 
-TTSymbolRef TTSymbolTable::lookup(const char* aString)
+TTSymbolBase* TTSymbolTable::lookup(const char* aString)
 {
 #ifdef TT_PLATFORM_WIN
 	TTSymbolTableIter	iter;
@@ -95,7 +95,7 @@ TTSymbolRef TTSymbolTable::lookup(const char* aString)
 	if (iter == mSYMBOLTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbol*	newSymbol = new TTSymbol(aString, mSYMBOLTABLE->size());
+		TTSymbolBase*	newSymbol = new TTSymbolBase(aString, mSYMBOLTABLE->size());
 		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
 		sMutex->unlock();
 		return *newSymbol;
@@ -112,12 +112,12 @@ TTSymbolRef TTSymbolTable::lookup(const char* aString)
 }
 
 
-TTSymbolRef TTSymbolTable::lookup(const TTString& aString)
+TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
 {
-	if (!ttSymbolTable)					// symbol table hasn't been created yet!
-		ttSymbolTable = new TTSymbolTable;
+	if (!gTTSymbolTable)					// symbol table hasn't been created yet!
+		gTTSymbolTable = new TTSymbolTable;
 
-	TTSymbolTable *self = ttSymbolTable; // can't rely on 'this' in the case where we just created the table!
+	TTSymbolTable *self = gTTSymbolTable; // can't rely on 'this' in the case where we just created the table!
 	
 #ifdef TT_PLATFORM_WIN
 	return self->lookup(aString.c_str());
@@ -130,10 +130,10 @@ TTSymbolRef TTSymbolTable::lookup(const TTString& aString)
 	if (iter == ((TTSymbolTableHash*)(self->mSymbolTable))->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbol*	newSymbol = new TTSymbol(aString, (TTPtrSizedInt)self, ((TTSymbolTableHash*)(self->mSymbolTable))->size());
-		((TTSymbolTableHash*)(self->mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string(), *newSymbol));
+		TTSymbolBase*	newSymbol = new TTSymbolBase(aString, (TTPtrSizedInt)self, ((TTSymbolTableHash*)(self->mSymbolTable))->size());
+		((TTSymbolTableHash*)(self->mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
 		sMutex->unlock();
-		return *newSymbol;
+		return newSymbol;
 	}
 	else {
 		// The symbol was found, so we return it.
@@ -144,7 +144,7 @@ TTSymbolRef TTSymbolTable::lookup(const TTString& aString)
 }
 
 
-TTSymbolRef TTSymbolTable::lookup(const int& aNumberToBeConvertedToAString)
+TTSymbolBase* TTSymbolTable::lookup(const int& aNumberToBeConvertedToAString)
 {
 #ifdef TT_PLATFORM_WIN
 	char	cString[16];
@@ -170,7 +170,7 @@ void TTSymbolTable::dump(/*TTValue& allSymbols*/)
 	//allSymbols.clear();
 	for (iter = mSYMBOLTABLE->begin(); iter != mSYMBOLTABLE->end(); iter++) {
 		//allSymbols.append(TTSymbolRef(iter->second));
-		TTLogMessage("KEY:%s   VALUE:%s\n", (iter->first).c_str(), (TTSymbolRef(iter->second)).getCString());
+		TTLogMessage("KEY:%s   VALUE:%s\n", (iter->first).c_str(), ((TTSymbolBase*)(iter->second))->getCString());
 	}
 	TTLogMessage("---- DUMPING SYMBOL TABLE -- END ----\n");
 }

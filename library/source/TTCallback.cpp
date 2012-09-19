@@ -14,8 +14,7 @@
 
 TT_BASE_OBJECT_CONSTRUCTOR,
 	mFunction(NULL),
-	mBaton(NULL),
-	mOwner(kTTSymEmpty)
+	mBaton(NULL)
 {
 	addAttribute(Function, kTypePointer);
 	addAttribute(Baton, kTypePointer);

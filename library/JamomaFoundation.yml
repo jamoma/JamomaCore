@@ -23,7 +23,7 @@ sources:
   - source/TTMatrixArray.cpp
   - source/TTValue.cpp
   - source/TTString.cpp
-  - source/TTSymbol.cpp
+  - source/TTSymbolBase.cpp
   - source/TTSymbolCache.cpp
   - source/TTSymbolTable.cpp
   - source/TTRegex.cpp

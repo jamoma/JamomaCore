@@ -106,7 +106,7 @@ TTValue::TTValue(const TTBoolean initialValue)
 TTValue::TTValue(const TTSymbol& initialValue)
 {
 	init();
-	data->sym = &initialValue;
+	data->sym = initialValue.mSymbolPointer;
 	*type = kTypeSymbol;
 }
 
@@ -609,18 +609,18 @@ TTValue::operator TTBoolean() const
 
 
 // SYMBOL
-TTValue& TTValue::operator = (TTSymbolRef value)
+TTValue& TTValue::operator = (const TTSymbol& value)
 {
 	setSize(1);
 	*type = kTypeSymbol;
-	data->sym = &value;
+	data->sym = value.mSymbolPointer;
 	return *this;
 }
 
-TTValue::operator TTSymbolRef() const
+TTValue::operator TTSymbol() const
 {
 	if (*type == kTypeSymbol)
-		return *(TTSymbol*)data->sym;
+		return TTSymbol(data->sym);
 	else {
 		return TT("");
 	}
@@ -736,10 +736,8 @@ TTValue::operator TTMatrix*() const
 TTValue& TTValue::operator = (TTPtr value)
 {
 	setSize(1);
-	if ((TTSymbol*)this != value) {
-		*type = kTypePointer;
-		data->ptr = value;
-	}
+	*type = kTypePointer;
+	data->ptr = value;
 	return *this;
 }
 
@@ -831,7 +829,7 @@ void TTValue::set(const TTUInt16 index, const TTBoolean newValue)
 void TTValue::set(const TTUInt16 index, const TTSymbol& newValue)
 {
 	type[index] = kTypeSymbol;
-	data[index].sym = &newValue;
+	data[index].sym = newValue.mSymbolPointer;
 }
 
 void TTValue::set(const TTUInt16 index, const TTObject& newValue)
@@ -966,7 +964,7 @@ void TTValue::get(const TTUInt16 index, TTBoolean &value) const
 void TTValue::get(const TTUInt16 index, TTSymbol& value) const
 {
 	if (type[index] == kTypeSymbol)
-		value = *(data+index)->sym;
+		value = TTSymbol((data+index)->sym);
 }
 
 void TTValue::get(const TTUInt16 index, TTString& value) const

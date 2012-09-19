@@ -6,28 +6,28 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTSymbol.h"
+#include "TTSymbolBase.h"
 #include "TTSymbolTable.h"
 
 
 /****************************************************************************************************/
 
-//TTSymbol::TTSymbol() {;}
+//TTSymbolBase::TTSymbolBase() {;}
 
-TTSymbol::TTSymbol(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
+TTSymbolBase::TTSymbolBase(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
 	init(newString, newSymbolTableId, newSymbolId);
 }
 
 
-TTSymbol::~TTSymbol()
+TTSymbolBase::~TTSymbolBase()
 {
 	;
 }
 
 
 // Copy Constructor
-TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
+TTSymbolBase::TTSymbolBase(const TTSymbolBase& oldSymbol)
 {
 	mSymbolId = oldSymbol.mSymbolId;
 	mSymbolTableId = oldSymbol.mSymbolTableId;
@@ -35,7 +35,7 @@ TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
 }
 
 
-void TTSymbol::init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
+void TTSymbolBase::init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
 	mSymbolId = newSymbolId;
 	mSymbolTableId = newSymbolTableId;
@@ -43,30 +43,9 @@ void TTSymbol::init(const TTString& newString, TTPtrSizedInt newSymbolTableId, T
 }
 
 
-/*const*//* TTUInt32 TTSymbol::getId()
+/*const*//* TTUInt32 TTSymbolBase::getId()
 {
 	return id;
 }
 */
-
-
-
-#include "MersenneTwister.h"
-
-TTSymbolRef TTSymbol::random()
-{
-#if 0
-	MTRand			twister;
-	unsigned int	i = twister.randInt();
-	char			s[16];
-		
-	snprintf(s, 16, "j%u", i);
-	s[15] = 0;
-#else
-	TTString s;
-	
-	s.random();
-#endif
-	return TT(s);
-}
 
