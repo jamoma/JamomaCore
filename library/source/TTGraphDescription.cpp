@@ -42,7 +42,7 @@ int TTGraphDescription::exportRubyNode(TTString& content, int& index, TTStringVe
 	
 	content += objName;
 	content += " = TTControl.new \"";
-	content += mClassName->getCString();
+	content += mClassName.c_str();
 	content += "\"\n";
 	
 	for (TTGraphDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
@@ -91,7 +91,7 @@ int TTGraphDescription::exportCppNode(TTString& content, int& index, TTStringVec
 	content += "	TTObjectInstantiate(TT(\"graph.object\"), (TTObjectPtr*)&";
 	content += objName;
 	content += ", TTValue(TT(\"";
-	content += mClassName->getCString();
+	content += mClassName.c_str();
 	content += "\")))\n\n";
 	
 	for (TTGraphDescriptionIter input = mInputDescriptions.begin(); input != mInputDescriptions.end(); input++) {
@@ -156,7 +156,7 @@ int TTGraphDescription::exportMaxNode(TTString& content, int& index, TTStringVec
 	else if (mClassName == TT("graph.output"))
 		content += "unpack";
 	else
-		content += mClassName->getCString();
+		content += mClassName.c_str();
 	
 	content += "#\",\n";
 	content += "					\"patching_rect\" : [ 50.0, ";

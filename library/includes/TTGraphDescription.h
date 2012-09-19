@@ -28,7 +28,7 @@ typedef std::vector<TTString>	TTStringVector;
 
 class TTGRAPH_EXPORT TTGraphDescription {
 public:
-	TTSymbolPtr					mClassName;
+	TTSymbol					mClassName;
 	TTGraphDescriptionVector	mInputDescriptions;
 	TTObjectPtr					mObjectInstance;
 
@@ -39,7 +39,6 @@ public:
 	
 	
 	TTGraphDescription() :
-		mClassName(NULL),
 		mObjectInstance(NULL),
 		mUserData(NULL)
 	{
