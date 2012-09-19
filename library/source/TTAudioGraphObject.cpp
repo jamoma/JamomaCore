@@ -22,7 +22,7 @@ TTMutexPtr TTAudioGraphObject::sSharedMutex = NULL;
 //	3. (optional) Number of outlets, default = 1
 
 
-TTObjectPtr TTAudioGraphObject::instantiate (TTSymbolPtr name, TTValue& arguments) 
+TTObjectPtr TTAudioGraphObject::instantiate(TTSymbol& name, TTValue& arguments)
 {
 	return new TTAudioGraphObject(arguments);
 }
@@ -41,7 +41,7 @@ TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
 	mOutputSignals(NULL), 
 	mVectorSize(0)
 {
-	TTSymbolPtr	wrappedObjectName = NULL;
+	TTSymbol	wrappedObjectName = kTTSymEmpty;
 	TTUInt16	numInlets = 1;
 	TTUInt16	numOutlets = 1;
 	
@@ -50,7 +50,7 @@ TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
 	
 	TT_ASSERT(audiograph_correct_instantiation_arg_count, arguments.getSize() > 0);
 
-	arguments.get(0, &wrappedObjectName);
+	arguments.get(0, wrappedObjectName);
 	if (arguments.getSize() > 1)
 		arguments.get(1, numInlets);
 	if (arguments.getSize() > 2)
@@ -106,7 +106,7 @@ void TTAudioGraphObject::prepareAudioDescription()
 {
 	if (valid && mAudioDescription.mClassName) {
 		mAudioDescription.sIndex = 0;
-		mAudioDescription.mClassName = NULL;
+		mAudioDescription.mClassName = kTTSymEmpty;
 		
 		prepareDescription();
 		

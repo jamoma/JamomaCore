@@ -26,7 +26,7 @@ public:
 	TTAudioGraphObjectPtr		owner;			///< the owning lydbaer instance
 	TTValuePtr					me;
 	TTAudioGraphPreprocessData	mInitData;
-	TTSymbolPtr					mDevice;		///< name of the audio interface
+	TTSymbol					mDevice;		///< name of the audio interface
 	
 	TTErr start();
 	TTErr stop();
