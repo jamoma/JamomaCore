@@ -21,8 +21,6 @@ TT_BASE_OBJECT_CONSTRUCTOR,
 	mVectorSize(64),
 	mSampleRate(44100),
 	mStream(NULL),
-	mInputDevice(NULL),
-	mOutputDevice(NULL),
 	mInputDeviceInfo(NULL),
 	mOutputDeviceInfo(NULL),
 	mInputDeviceIndex(0),
@@ -98,7 +96,7 @@ TTErr TTAudioEngine::initStream()
 		mStream = NULL;
 	}
 
-	if ((mInputDevice == TT("default") || mInputDevice == NULL) && (mOutputDevice == TT("default") || mOutputDevice == NULL)) {
+	if ((mInputDevice == TT("default") || mInputDevice == kTTSymEmpty) && (mOutputDevice == TT("default") || mOutputDevice == kTTSymEmpty)) {
 		err = Pa_OpenDefaultStream(&mStream,
 								   mNumInputChannels,
 								   mNumOutputChannels,
@@ -245,7 +243,7 @@ TTErr TTAudioEngine::getAvailableOutputDeviceNames(const TTValue& unusedInput, T
 
 TTErr TTAudioEngine::setInputDevice(TTValue& newDeviceName)
 {
-	TTSymbolPtr			newDevice = newDeviceName;
+	TTSymbol			newDevice = newDeviceName;
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
 
@@ -276,7 +274,7 @@ TTErr TTAudioEngine::setInputDevice(TTValue& newDeviceName)
 
 TTErr TTAudioEngine::setOutputDevice(TTValue& newDeviceName)
 {
-	TTSymbolPtr			newDevice = newDeviceName;
+	TTSymbol			newDevice = newDeviceName;
 	const PaDeviceInfo*	deviceInfo;
     int					numDevices;
 

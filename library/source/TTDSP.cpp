@@ -89,35 +89,35 @@ void TTDSPRegisterInternalClasses()
 
 /****************************************************************************************************/
 
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments)
+TTErr TTObjectInstantiate(const TTSymbol& className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments)
 {
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
 }
 
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments)
-{
-	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
-}
-
-
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments)
-{
-	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
-}
-
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments)
+TTErr TTObjectInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments)
 {
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
 }
 
 
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments)
+TTErr TTObjectInstantiate(const TTSymbol& className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments)
+{
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
+}
+
+TTErr TTObjectInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments)
+{
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
+}
+
+
+TTErr TTObjectInstantiate(const TTSymbol& className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments)
 {
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
 }
 
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments)
+TTErr TTObjectInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments)
 {
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);

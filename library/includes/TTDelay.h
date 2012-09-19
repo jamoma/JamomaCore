@@ -23,7 +23,7 @@ protected:
 	TTUInt64			mDelayInSamples;
 	TTFloat64			mDelayMax;
 	TTUInt64			mDelayMaxInSamples;
-	TTSymbolPtr			mInterpolation;
+	TTSymbol			mInterpolation;
 	TTFloat64			mFractionalDelay;			///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
 	TTFloat64			mFractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
 

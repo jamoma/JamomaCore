@@ -30,7 +30,7 @@ class TTAudioObjectArray : public TTAudioObject {
 	
 protected:
 	
-	TTSymbolPtr			mClass;					///< The name of the object we will instantiate in the array
+	TTSymbol			mClass;					///< The name of the object we will instantiate in the array
 	TTUInt16			mSize;					///< The number of instances in the array
 	TTAudioObjectVector	mInstances;				///< The actual vector containing object instance pointers
 	TTAudioSignalPtr	mInputChannelSignal;	///< Signal used within the process method for passing to individual instances

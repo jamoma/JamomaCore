@@ -16,7 +16,7 @@
 TTHashPtr gTTBufferNameMap = NULL;
 
 
-TTObjectPtr TTBuffer::instantiate(TTSymbolPtr name, TTValue& arguments)
+TTObjectPtr TTBuffer::instantiate(TTSymbol& name, TTValue& arguments)
 {
 	return new TTBuffer(arguments);
 }
@@ -35,12 +35,12 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	// So we'll maintain that here, and then use the second argument for the name of the buffer
 	
 	TTUInt16	channelCount = 1;
-	TTSymbolPtr	name = kTTSymEmpty;
+	TTSymbol	name = kTTSymEmpty;
 	
 	if (arguments.getSize() > 0) {
 		arguments.get(0, channelCount);	// TODO: should we limit range?  should zero mean to just reference an existing buffers channelcount?
 		if (arguments.getSize() > 1)
-			arguments.get(1, &name);
+			arguments.get(1, name);
 	}
 	
 	if (!gTTBufferNameMap)

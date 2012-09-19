@@ -13,7 +13,7 @@
 #define thisTTClassTags		"audio, buffer"
 
 
-TTObjectPtr TTSampleMatrix::instantiate(TTSymbolPtr name, TTValue& arguments)
+TTObjectPtr TTSampleMatrix::instantiate(TTSymbol& name, TTValue& arguments)
 {
 	return new TTSampleMatrix(arguments);
 }
@@ -165,7 +165,7 @@ TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const T
 
 TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 {
-	TTSymbol*	fillAlgorithm = value;
+	TTSymbol	fillAlgorithm = value;
 
 	if (fillAlgorithm == kTTSym_sine) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
