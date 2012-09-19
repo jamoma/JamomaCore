@@ -67,6 +67,7 @@ extern "C" {
 // Globals and Statics
 VALUE		TTRuby_class;
 TTHashPtr	gTTRubyInstances = NULL;
+//std::unordered_map<TTPtr, TTValue> gTTRubyInstances;
 
 VALUE		TTAudio_class;
 TTHashPtr	gTTAudioInstances = NULL;
@@ -131,10 +132,10 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 	TTValue			args;
 	TTErr			err = kTTErrNone;
 	VALUE			classNameStr = StringValue(className);
-	TTSymbolPtr		classNameTTStr = TT(RSTRING_PTR(classNameStr));
+	TTSymbol		classNameTTStr = TT(RSTRING_PTR(classNameStr));
 	long			n;
 	TTValue			names;
-	TTSymbolPtr		aName;
+	TTSymbol		aName = kTTSymEmpty;
 	TTString		nameString;
 	
 	args.clear();
@@ -150,8 +151,8 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 		instance->obj->getAttributeNames(names);
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
-			names.get(i, &aName);
-			nameString = aName-> getCString();
+			names.get(i, aName);
+			nameString = aName.c_str();
 			{
 				v = aName;
 				instance->parameterNames->append(TT(nameString.c_str()), v);
@@ -162,8 +163,8 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 		instance->obj->getMessageNames(names);
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
-			names.get(i, &aName);
-			nameString = aName-> getCString();
+			names.get(i, aName);
+			nameString = aName.c_str();
 			{
 				v = aName;
 				instance->messageNames->append(TT(nameString.c_str()), v);
@@ -172,11 +173,11 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 		
 		v.setSize(1);
 		v.set(0, TTPtr(instance));
-		gTTRubyInstances->append(TTSymbolPtr(self), v);
+		gTTRubyInstances->append(TTPtr(self), v);
 		return self;
 	}
 	else
-		return NULL;
+		return 0;
 }
 
 // VALUE TTRubyInitializeCopy(VALUE self, VALUE orig)
@@ -193,11 +194,11 @@ VALUE TTRubyGetMessages(VALUE self)
 	TTErr			err = kTTErrNone;
 	TTValue			v;
 	VALUE			returnValue = rb_float_new(0.0);
-	TTSymbolPtr		s;
+	TTSymbol		s = kTTSymEmpty;
 	TTCString		c;
 	TTUInt16		size;
 
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTRubyInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {
@@ -208,8 +209,8 @@ VALUE TTRubyGetMessages(VALUE self)
 			size = names.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
-				names.get(i, &s);
-				c = (TTCString)s->getCString();
+				names.get(i, s);
+				c = (TTCString)s.c_str();
 				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
 			}
 		}
@@ -233,16 +234,16 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 	}
 	
 	messageNameStr = StringValue(argv[0]);	
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v_temp);
+	err = gTTRubyInstances->lookup(TTPtr(self), v_temp);
 	if (!err) {
 		v_temp.get(0, (TTPtr*)&instance);
 		if (instance) {
-			TTSymbolPtr	messageName;
+			TTSymbol	messageName = kTTSymEmpty;
 			TTValue		messageNameValue;
 
 			messageName = TT(RSTRING_PTR(messageNameStr));
 			instance->messageNames->lookup(messageName, messageNameValue);
-			messageNameValue.get(0, &messageName);
+			messageNameValue.get(0, messageName);
 
 //			if (argc == 1) {		// no arguments...
 //				err = instance->obj->sendMessage(messageName);
@@ -316,12 +317,12 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 					else if (v_out.getType(i) == kTypeObject)
 						cout << "objects as return values are not yet supported" << endl;
 					else if (v_out.getType(i) == kTypeSymbol) {
-						TTSymbolPtr	sp = NULL;
+						TTSymbol	sp = kTTSymEmpty;
 						TTCString	c; 
 						
-						v_out.get(i, &sp);
+						v_out.get(i, sp);
 						if (sp) {
-							c = (TTCString)sp->getCString();
+							c = (TTCString)sp.c_str();
 							rb_ary_store(ret, i+1, rb_str_new(c, strlen(c)));
 						}
 					}
@@ -349,11 +350,11 @@ VALUE TTRubyGetAttributes(VALUE self)
 	TTErr			err = kTTErrNone;
 	TTValue			v;
 	VALUE			returnValue = rb_float_new(0.0);
-	TTSymbolPtr		s;
+	TTSymbol		s = kTTSymEmpty;
 	TTCString		c;
 	TTUInt16		size;
 
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTRubyInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {
@@ -364,8 +365,8 @@ VALUE TTRubyGetAttributes(VALUE self)
 			size = names.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
-				names.get(i, &s);
-				c = (TTCString)s->getCString();
+				names.get(i, s);
+				c = (TTCString)s.c_str();
 				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
 			}
 		}
@@ -382,7 +383,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 	VALUE			attributeValueStr;
 	TTValue			v;
 	
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTRubyInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
@@ -418,12 +419,12 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					break;
 			}
 			if (!err) {
-				TTSymbolPtr	parameterName;
+				TTSymbol	parameterName = kTTSymEmpty;
 				TTValue		parameterNameValue;
 				
 				parameterName = TT(RSTRING_PTR(attributeNameStr));
 				instance->parameterNames->lookup(parameterName, parameterNameValue);
-				parameterNameValue.get(0, &parameterName);
+				parameterNameValue.get(0, parameterName);
 				
 				err = instance->obj->setAttributeValue(parameterName, v);
 			}
@@ -443,19 +444,19 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 	//VALUE			attributeValueStr;
 	TTValue			v;
 	VALUE			returnValue = rb_float_new(0.0);
-	TTSymbolPtr		s;
+	TTSymbol		s = kTTSymEmpty;
 	TTCString		c;
 	
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTRubyInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
-			TTSymbolPtr	parameterName;
+			TTSymbol	parameterName = kTTSymEmpty;
 			TTValue		parameterNameValue;
 			
 			parameterName = TT(RSTRING_PTR(attributeNameStr));
 			instance->parameterNames->lookup(parameterName, parameterNameValue);
-			parameterNameValue.get(0, &parameterName);
+			parameterNameValue.get(0, parameterName);
 			
 			err = instance->obj->getAttributeValue(parameterName, v);
 			if (err) {
@@ -487,7 +488,7 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 					break;
 				case kTypeSymbol:
 					s = v;
-					c = (TTCString)s->getCString();
+					c = (TTCString)s.c_str();
 					returnValue = rb_str_new(c, strlen(c));
 					break;
 					
@@ -514,7 +515,7 @@ VALUE TTRubyCalculate(VALUE self, VALUE x)
 	TTValue			v;
 	VALUE			returnValue = rb_float_new(0.0);
 	
-	err = gTTRubyInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTRubyInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {			
@@ -546,12 +547,12 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 	VALUE				messageArgStr;
 	long				n;
 	TTValue				names;
-	TTSymbolPtr			aName;
+	TTSymbol			aName = kTTSymEmpty;
 	TTString			nameString;
 
 	if (argc < 1) {
 		cout << "ERROR -- TTAudio requires at least 1 argument (the name of the object class to create)" << endl;
-		return NULL;
+		return 0;
 	}
 
 	args.clear();
@@ -595,8 +596,8 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		instance->obj->getUnitGenerator()->getAttributeNames(names);
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
-			names.get(i, &aName);
-			nameString = aName-> getCString();
+			names.get(i, aName);
+			nameString = aName.c_str();
 			{
 				v = aName;
 				instance->parameterNames->append(TT(nameString.c_str()), v);
@@ -607,8 +608,8 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		instance->obj->getUnitGenerator()->getMessageNames(names);
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
-			names.get(i, &aName);
-			nameString = aName-> getCString();
+			names.get(i, aName);
+			nameString = aName.c_str();
 			{
 				v = aName;
 				instance->messageNames->append(TT(nameString.c_str()), v);
@@ -617,12 +618,12 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 				
 		v.setSize(1);
 		v.set(0, TTPtr(instance));
-		gTTAudioInstances->append(TTSymbolPtr(self), v);
+		gTTAudioInstances->append(TTPtr(self), v);
 		return self;
 	}
 	else {
 		cout << "TTObjectInstantiate failed to create object" << endl;
-		return NULL;
+		return 0;
 	}
 }
 
@@ -633,11 +634,11 @@ VALUE TTAudioGetMessages(VALUE self)
 	TTErr				err = kTTErrNone;
 	TTValue				v;
 	VALUE				returnValue = rb_float_new(0.0);
-	TTSymbolPtr			s;
+	TTSymbol			s = kTTSymEmpty;
 	TTCString			c;
 	TTUInt16			size;
 
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {
@@ -648,8 +649,8 @@ VALUE TTAudioGetMessages(VALUE self)
 			size = names.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
-				names.get(i, &s);
-				c = (TTCString)s->getCString();
+				names.get(i, s);
+				c = (TTCString)s.c_str();
 				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
 			}
 		}
@@ -674,16 +675,16 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 	}
 
 	messageNameStr = StringValue(argv[0]);	
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v_temp);
+	err = gTTAudioInstances->lookup(TTPtr(self), v_temp);
 	if (!err) {
 		v_temp.get(0, (TTPtr*)&instance);
 		if (instance) {
-			TTSymbolPtr	messageName;
+			TTSymbol	messageName = kTTSymEmpty;
 			TTValue		messageNameValue;
 
 			messageName = TT(RSTRING_PTR(messageNameStr));
 			instance->messageNames->lookup(messageName, messageNameValue);
-			messageNameValue.get(0, &messageName);
+			messageNameValue.get(0, messageName);
 
 //			if (argc == 1) {		// no arguments...
 //				err = instance->obj->getUnitGenerator()->sendMessage(messageName);
@@ -757,12 +758,12 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 					else if (v_out.getType(i) == kTypeObject)
 						cout << "objects as return values are not yet supported" << endl;
 					else if (v_out.getType(i) == kTypeSymbol) {
-						TTSymbolPtr	sp = NULL;
+						TTSymbol	sp = kTTSymEmpty;
 						TTCString	c; 
 						
-						v_out.get(i, &sp);
+						v_out.get(i, sp);
 						if (sp) {
-							c = (TTCString)sp->getCString();
+							c = (TTCString)sp.c_str();
 							rb_ary_store(ret, i+1, rb_str_new(c, strlen(c)));
 						}
 					}
@@ -790,11 +791,11 @@ VALUE TTAudioGetAttributes(VALUE self)
 	TTErr				err = kTTErrNone;
 	TTValue				v;
 	VALUE				returnValue = rb_float_new(0.0);
-	TTSymbolPtr			s;
+	TTSymbol			s = kTTSymEmpty;
 	TTCString			c;
 	TTUInt16			size;
 
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {
@@ -806,8 +807,8 @@ VALUE TTAudioGetAttributes(VALUE self)
 			size = names.getSize();
 			returnValue = rb_ary_new2(size);
 			for (TTUInt16 i=0; i<size; i++) {				
-				names.get(i, &s);
-				c = (TTCString)s->getCString();
+				names.get(i, s);
+				c = (TTCString)s.c_str();
 				rb_ary_store(returnValue, i, rb_str_new(c, strlen(c)));
 			}
 		}
@@ -824,7 +825,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 	VALUE				attributeValueStr;
 	TTValue				v;
 
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
@@ -860,12 +861,12 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					break;
 			}
 			if (!err) {
-				TTSymbolPtr	parameterName;
+				TTSymbol	parameterName = kTTSymEmpty;
 				TTValue		parameterNameValue;
 				
 				parameterName = TT(RSTRING_PTR(attributeNameStr));
 				instance->parameterNames->lookup(parameterName, parameterNameValue);
-				parameterNameValue.get(0, &parameterName);
+				parameterNameValue.get(0, parameterName);
 				
 				err = instance->obj->getUnitGenerator()->setAttributeValue(parameterName, v);
 			}
@@ -885,19 +886,19 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 	//VALUE				attributeValueStr;
 	TTValue				v;
 	VALUE				returnValue = rb_float_new(0.0);
-	TTSymbolPtr			s;
+	TTSymbol			s = kTTSymEmpty;
 	TTCString			c;
 
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)&instance);
 		if (instance) {
-			TTSymbolPtr	parameterName;
+			TTSymbol	parameterName = kTTSymEmpty;
 			TTValue		parameterNameValue;
 			
 			parameterName = TT(RSTRING_PTR(attributeNameStr));
 			instance->parameterNames->lookup(parameterName, parameterNameValue);
-			parameterNameValue.get(0, &parameterName);
+			parameterNameValue.get(0, parameterName);
 			
 			err = instance->obj->getUnitGenerator()->getAttributeValue(parameterName, v);
 			if (err) {
@@ -929,7 +930,7 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 					break;
 				case kTypeSymbol:
 					s = v;
-					c = (TTCString)s->getCString();
+					c = (TTCString)s.c_str();
 					returnValue = rb_str_new(c, strlen(c));
 					break;
 					
@@ -955,7 +956,7 @@ VALUE TTAudioReset(VALUE self)
 	TTErr				err = kTTErrNone;
 	TTValue				v;
 
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {			
@@ -981,7 +982,7 @@ VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self)
 	}
 
 	if (TYPE(argv[0]) == T_OBJECT) {
-		err = gTTAudioInstances->lookup(TTSymbolPtr(argv[0]), v);
+		err = gTTAudioInstances->lookup(TTPtr(argv[0]), v);
 		if (!err) {
 			v.get(0, (TTPtr*)(&instanceToConnect));
 		}		
@@ -998,7 +999,7 @@ VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self)
 			outletNumberFromWhichToConnect = FIX2LONG(argv[2]);
 	}
 
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {			
@@ -1025,7 +1026,7 @@ VALUE TTAudioDrop(int argc, VALUE* argv, VALUE self)
 	}
 
 	if (TYPE(argv[0]) == T_OBJECT) {
-		err = gTTAudioInstances->lookup(TTSymbolPtr(argv[0]), v);
+		err = gTTAudioInstances->lookup(TTPtr(argv[0]), v);
 		if (!err) {
 			v.get(0, (TTPtr*)(&instanceToConnect));
 		}		
@@ -1042,7 +1043,7 @@ VALUE TTAudioDrop(int argc, VALUE* argv, VALUE self)
 			outletNumberFromWhichToConnect = FIX2LONG(argv[2]);
 	}
 
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {
@@ -1063,7 +1064,7 @@ VALUE TTAudioExportMax(VALUE self, VALUE pathToExportFile)
 	VALUE					pathToExportStr = StringValue(pathToExportFile);
 	TTString				path = RSTRING_PTR(pathToExportStr);
 
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {
@@ -1083,7 +1084,7 @@ VALUE TTAudioExportCpp(VALUE self, VALUE pathToExportFile)
 	VALUE					pathToExportStr = StringValue(pathToExportFile);
 	TTString				path = RSTRING_PTR(pathToExportStr);
 
-	err = gTTAudioInstances->lookup(TTSymbolPtr(self), v);
+	err = gTTAudioInstances->lookup(TTPtr(self), v);
 	if (!err) {
 		v.get(0, (TTPtr*)(&instance));
 		if (instance) {

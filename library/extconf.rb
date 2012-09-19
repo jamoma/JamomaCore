@@ -23,8 +23,11 @@ puts "audiograph: #{audiograph}"
 #find_header('TTFoundationAPI.h', "../../library/includes")
 have_func("Init_Jamoma", "Jamoma.cpp")
 
-$CFLAGS = $CFLAGS + " -I #{inc} -I #{dsp} -I #{audiograph} -I #{graph} -g -O1"
-$CPPFLAGS = $CPPFLAGS + " -I #{inc} -I #{dsp} -I #{audiograph} -I #{graph} -g -O1"
+# The following doesn't work...
+#ENV['CXX'] = ENV['CC'] = "/opt/local/bin/g++-mp-4.7"
+
+$CFLAGS = $CFLAGS + " -I #{inc} -I #{dsp} -I #{audiograph} -I #{graph} -g -O1 -std=c++11 "
+$CPPFLAGS = $CPPFLAGS + " -I #{inc} -I #{dsp} -I #{audiograph} -I #{graph} -g -O1 -std=c++11 "
 #$LDFLAGS = $LDFLAGS + " -framework JamomaFoundation -framework JamomaDSP -framework JamomaAudioGraph -framework JamomaGraph"
 $LDFLAGS = $LDFLAGS + " \"/usr/local/lib/JamomaFoundation.dylib\""
 $LDFLAGS = $LDFLAGS + " \"/usr/local/lib/JamomaDSP.dylib\""
