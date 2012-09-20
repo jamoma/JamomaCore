@@ -170,23 +170,60 @@ TTErr TTCue::setDescription(const TTValue& value)
 		
 			if (name == kTTSym_description) {
 				aLine->setValue(value);
+				mDescription = value;	// remind the description in case the cue is cleared
 				break;
 			}
 		}
 	}
-	
-	mDescription = value;	// remind the description in case the cue is cleared
 	
 	return kTTErrNone;
 }
 
 TTErr TTCue::getRamp(TTValue& value)
 {
-	value = mRamp;
+	searchRamp(mScript, mRamp);
 	
-	// TODO : read the script to find the ramp value
-	
+	value =	mRamp;
+
 	return kTTErrNone;
+}
+
+TTErr TTCue::searchRamp(TTObjectPtr aScript, TTUInt32& ramp)
+{
+	TTListPtr			lines;
+	TTScriptPtr			aSubScript;
+	TTDictionaryPtr		aLine;
+	TTValue				v, r;
+	
+	aScript->getAttributeValue(TT("lines"), v);
+	v.get(0, (TTPtr*)&lines);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		lines->current().get(0, (TTPtr*)&aLine);
+		
+		if (aLine->getSchema() == kTTSym_command) {
+			
+			// if there is a ramp
+			if (!aLine->lookup(kTTSym_ramp, v)) {
+				
+				v.get(0, ramp);
+				break;
+			}
+		}
+		else if (aLine->getSchema() == kTTSym_script) {
+			
+			// get the script
+			aLine->getValue(v);
+			v.get(0, (TTPtr*)&aSubScript);
+			
+			if (aSubScript)
+				searchRamp(aSubScript, ramp);
+		}
+	}
+	
+	return kTTErrNone;	
 }
 
 TTErr TTCue::setRamp(const TTValue& value)

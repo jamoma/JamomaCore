@@ -74,6 +74,9 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	/** a recursive method to change each ramping value into a script */
 	TTErr	processRamp(TTObjectPtr aScript, TTUInt32 ramp);
 	
+	/** a recursive method to read the ramp value from a script */
+	TTErr	searchRamp(TTObjectPtr aScript, TTUInt32& ramp);
+	
 	friend TTErr TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 	friend TTErr TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);
 	friend TTErr TTMODULAR_EXPORT TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue);
