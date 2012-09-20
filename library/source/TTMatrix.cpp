@@ -23,7 +23,9 @@ TT_OBJECT_CONSTRUCTOR,
 	mType(TT("uint8")),
 	mTypeSizeInBytes(1),
 	mDataSize(0),
-	mDataIsLocallyOwned(YES)
+	mDataIsLocallyOwned(YES),
+	mHeadPtr(NULL),
+	mTailPtr(NULL)
 {
 	addAttributeWithGetterAndSetter(Dimensions, kTypeUInt32);
 	addAttributeWithSetter(Type,				kTypeUInt8);
@@ -71,9 +73,15 @@ TTErr TTMatrix::resize()
 	}
 
 	if (mDataSize && mData)
+	{
+		mHeadPtr = &mData[0];
+		mTailPtr(mData + mDataSize - mComponentStride);
 		return kTTErrNone;
-	else
+	} else {
+		mHeadPtr(NULL);
+		mTailPtr(NULL);
 		return kTTErrAllocFailed;
+	}
 }
 
 
