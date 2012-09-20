@@ -18,7 +18,6 @@ class QueueRamp : public RampUnit{
 	TTCLASS_SETUP(QueueRamp)
 
 private:
-	char				active;			///< is the ramp running?
 	float				ramptime;		///< in ms
 	unsigned long		startTime;
 	unsigned long		targetTime;
