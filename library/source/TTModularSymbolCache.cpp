@@ -109,6 +109,7 @@ TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeBounds;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeClipmode;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampDrive;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampFunction;
+TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampStatus;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Read;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ReadAgain;
 TTMODULAR_EXPORT TTSymbolPtr	kTTSym_readonly;
@@ -241,6 +242,7 @@ void TTModularSymbolCacheInit()
 	kTTSym_rangeClipmode			= TT("rangeClipmode");
 	kTTSym_rampDrive				= TT("rampDrive");
 	kTTSym_rampFunction				= TT("rampFunction");
+	kTTSym_rampStatus				= TT("rampStatus");
 	kTTSym_Read						= TT("Read");
 	kTTSym_ReadAgain				= TT("ReadAgain");
 	kTTSym_readonly					= TT("readonly");

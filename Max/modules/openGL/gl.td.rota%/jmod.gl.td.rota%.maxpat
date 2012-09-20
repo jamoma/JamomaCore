@@ -439,7 +439,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 655.0, 195.0, 466.0, 19.0 ],
-					"text" : "jcom.parameter anchor @type array @ramp/drive scheduler @description \\\"Zooming.\\\"",
+					"text" : "jcom.parameter anchor @type decimalArray @ramp/drive scheduler @description \\\"Zooming.\\\"",
 					"varname" : "anchor"
 				}
 
@@ -468,7 +468,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 655.0, 125.0, 460.0, 19.0 ],
-					"text" : "jcom.parameter offset @type array @ramp/drive scheduler @description \\\"Zooming.\\\"",
+					"text" : "jcom.parameter offset @type decimalArray @ramp/drive scheduler @description \\\"Zooming.\\\"",
 					"varname" : "offset"
 				}
 
@@ -497,7 +497,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 655.0, 45.0, 459.0, 19.0 ],
-					"text" : "jcom.parameter zoom @type array @ramp/drive scheduler @description \\\"Zooming.\\\"",
+					"text" : "jcom.parameter zoom @type decimalArray @ramp/drive scheduler @description \\\"Zooming.\\\"",
 					"varname" : "zoom"
 				}
 

@@ -57,9 +57,9 @@ attributes:
    desc: Set what dataspace used internally by the parameter for unit conversions.
    unit:
    default: none
- - name: dataspace/unit/native
+ - name: dataspace/unit
    type: symbol
-   desc: The dataspace unit used internally by the parameter. Presets are stored according to the native unit. Output from the left outlet of jcom.hub (and hence the module) will be according to the native unit of the dataspace.
+   desc: The dataspace unit used internally by the parameter. Presets are stored according to this unit, and output from the left outlet of jcom.hub (and hence the module) will be according to this unit of the dataspace.
    unit:
    default: none
  - name: description

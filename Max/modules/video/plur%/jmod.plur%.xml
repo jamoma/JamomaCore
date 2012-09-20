@@ -14,7 +14,7 @@
     <item name='video/mute' type='boolean' priority='0'>0</item>
     <item name='video/preview' type='boolean' priority='0'>0</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 70 </item>
+
     <item name='x/range' type='integer' priority='0'>25</item>
     <item name='x/step' type='integer' priority='0'>30</item>
     <item name='y/range' type='integer' priority='0'>25</item>

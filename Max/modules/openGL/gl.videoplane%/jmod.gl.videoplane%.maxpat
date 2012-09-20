@@ -242,7 +242,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 385.0, 539.0, 19.0 ],
-					"text" : "jcom.parameter videoplane/dim @type array @description \"Dimension of the grid (x, y coordinates).\"",
+					"text" : "jcom.parameter videoplane/dim @type generic @range/bounds 1 1000 @range/clipmode low @description \"Dimension of the grid (x, y coordinates).\"",
 					"varname" : "videoplane/dim"
 				}
 
@@ -271,7 +271,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 470.0, 544.0, 19.0 ],
-					"text" : "jcom.parameter videoplane/texture/scale @type array @description \"Texture scale (x, y coordinates).\"",
+					"text" : "jcom.parameter videoplane/texture/scale @type decimalArray @description \"Texture scale (x, y coordinates).\"",
 					"varname" : "videoplane/texture/scale"
 				}
 
@@ -300,7 +300,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 560.0, 550.0, 550.0, 19.0 ],
-					"text" : "jcom.parameter videoplane/texture/offset @type array @description \"Texture offset (x, y coordinates).\"",
+					"text" : "jcom.parameter videoplane/texture/offset @type generic @description \"Texture offset (x, y coordinates).\"",
 					"varname" : "videoplane/texture/offset"
 				}
 

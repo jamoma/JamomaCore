@@ -31,6 +31,7 @@ private:
 	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the container address to manage
 	TTValue				mOrder;							///< ATTRIBUTE : presets are ordered by name
 	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current preset name
+	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 
 	TTHashPtr			mPresets;						///< a hash table containing <name, TTPresetPtr>
 	TTPresetPtr			mCurrentPreset;					///< the current preset
@@ -56,8 +57,20 @@ private:
 	/** */
 	TTErr	Mix(const TTValue& inputValue, TTValue& outputValue);
 	
+	/** Move a preset : 
+	 name + position : move the preset to the given position. */
+	TTErr	Move(const TTValue& inputValue, TTValue& outputValue);
+	
 	/** */
 	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Rename a preset : 
+	 name + newName: rename the preset with the newName */
+	TTErr	Rename(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Copy a preset : 
+	 name : copy the preset. */
+	TTErr	Copy(const TTValue& inputValue, TTValue& outputValue);	
 	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);

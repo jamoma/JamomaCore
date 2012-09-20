@@ -17,7 +17,7 @@
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarText' type='array' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>150 70 </item>
+
   </preset>
   <preset number='3' name='layout-demo3'>
     <item name='layout' type='string' priority='1'>layout-demo3</item>
@@ -27,7 +27,7 @@
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarText' type='array' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>150 70 </item>
+
   </preset>
   <preset number='4' name='layout-demo4'>
     <item name='layout' type='string' priority='1'>layout-demo4</item>
@@ -37,7 +37,7 @@
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarText' type='array' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>150 70 </item>
+
   </preset>
   <preset number='5' name='layout-demo5'>
     <item name='layout' type='string' priority='1'>layout-demo5</item>
@@ -47,7 +47,7 @@
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarText' type='array' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>150 70 </item>
+
   </preset>
   <preset number='6' name='layout-demo6'>
     <item name='layout' type='string' priority='1'>layout-demo6</item>
@@ -57,6 +57,6 @@
     <item name='view/color/contentBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarBackground' type='array' priority='0'>0</item>
     <item name='view/color/toolbarText' type='array' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>150 70 </item>
+
   </preset>
 </jamoma>

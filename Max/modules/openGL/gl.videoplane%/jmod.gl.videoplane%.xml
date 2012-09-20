@@ -44,6 +44,6 @@
     <item name='videoplane/nudge' type='decimal' priority='0'>0.010000</item>
     <item name='videoplane/texture/offset' type='array' priority='0'>0.000000 0.000000 </item>
     <item name='videoplane/texture/scale' type='array' priority='0'>1.000000 1.000000 </item>
-    <item name='view/size' type='array' priority='0'>300 140 </item>
+
   </preset>
 </jamoma>

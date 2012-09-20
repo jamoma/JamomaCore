@@ -8,7 +8,6 @@
     <item name='this_parameter' type='decimal'>1.000000</item>
     <item name='audio/mute' type='boolean'>1</item>
     <item name='audio/mix' type='decimal'>100.000000</item>
-    <item name='audio/meters/freeze' type='boolean'>0</item>
     <item name='audio/gain' type='decimal'>0.000000</item>
     <item name='audio/bypass' type='boolean'>0</item>
   </preset>
@@ -17,7 +16,6 @@
     <item name='audio/mute' type='boolean'>0</item>
     <item name='audio/bypass' type='boolean'>0</item>
     <item name='audio/mix' type='decimal'>0.000000</item>
-    <item name='audio/meters/freeze' type='boolean'>0</item>
     <item name='audio/gain' type='integer'>0</item>
   </preset>
 </jamoma>

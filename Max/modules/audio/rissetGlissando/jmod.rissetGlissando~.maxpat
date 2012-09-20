@@ -70,7 +70,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 480.0, 444.0, 571.0, 43.0 ],
-					"text" : "jcom.parameter rolloff @type decimal @range/bounds -96 0. @range/clipmode high @ramp/drive scheduler @ramp/function linear @description \"Rolloff in dB for the Gaussian windowing function.\" @dataspace gain @dataspace/unit/native dB @dataspace/unit/active dB @dataspace/unit/display dB",
+					"text" : "jcom.parameter rolloff @type decimal @range/bounds -96 0. @range/clipmode high @ramp/drive scheduler @ramp/function linear @description \"Rolloff in dB for the Gaussian windowing function.\" @dataspace gain @dataspace/unit dB",
 					"varname" : "rolloff"
 				}
 
@@ -134,7 +134,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 685.0, 135.0, 427.0, 31.0 ],
-					"text" : "jcom.parameter range @type array @ramp/drive scheduler @ramp/function linear @description \"The range of the sweeps as MIDI values.\"",
+					"text" : "jcom.parameter range @type decimalArray @ramp/drive scheduler @ramp/function linear @description \"The range of the sweeps as MIDI values.\"",
 					"varname" : "range"
 				}
 

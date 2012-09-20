@@ -30,6 +30,8 @@ mInstanceBounds(0, -1),
 #ifndef TTDATA_NO_RAMPLIB
 mRampDrive(kTTSym_none),
 mRampFunction(kTTSymEmpty),
+mRampFunctionParameters(kTTValNONE),
+mRampStatus(NO),
 #endif
 mDataspace(kTTSym_none),
 mDataspaceUnit(kTTSym_none),
@@ -72,6 +74,12 @@ mReturnValueCallback(NULL)
 #ifndef TTDATA_NO_RAMPLIB
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
 	addAttributeWithSetter(RampFunction, kTypeSymbol);
+	
+	addAttribute(RampFunctionParameters, kTypeLocalValue);
+	addAttributeProperty(RampFunctionParameters, readOnly, YES);
+	
+	addAttribute(RampStatus, kTypeBoolean);
+	addAttributeProperty(RampStatus, readOnly, YES);
 #endif
 	
 	addAttributeWithSetter(Dataspace, kTypeSymbol);
@@ -94,7 +102,6 @@ mReturnValueCallback(NULL)
 	
 #ifndef TTDATA_NO_RAMPLIB
 	mRamper = NULL;
-	mRampDataNames = new TTHash();
 #endif
 }
 
@@ -352,7 +359,13 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 			}
 			
 			mRamper->set(s, startArray);		
-			mRamper->go(s, targetArray, time);	
+			mRamper->go(s, targetArray, time);
+			
+			// update the ramp status attribute
+			if (mRampStatus != mRamper->isRunning()) {
+				mRampStatus = mRamper->isRunning();
+				notifyObservers(kTTSym_rampStatus, mRampStatus);
+			}
 			
 			delete [] startArray;
 			delete [] targetArray;
@@ -363,8 +376,15 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 	
 	// in any other cases :
 	// stop ramping before to set a value
-	if (mRamper)
+	if (mRamper) {
 		mRamper->stop();
+		
+		// update the ramp status attribute
+		if (mRampStatus != mRamper->isRunning()) {
+			mRampStatus = mRamper->isRunning();
+			notifyObservers(kTTSym_rampStatus, mRampStatus);
+		}
+	}
 #endif
 	
 	// 6. Set the value directly
@@ -660,35 +680,44 @@ TTErr TTData::setRampFunction(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mRampFunction = value;
 	
-	if (mRamper && mRampFunction != kTTSymEmpty && mRampFunction != TT("linear")) {
+	if (mRamper && mRampFunction != kTTSymEmpty) {
 		
-			// set the function of the ramper
-			mRamper->setAttributeValue(kTTSym_function, mRampFunction);
-			
-			 long		n;
-			 TTValue		names;
-			 TTSymbolPtr	aName;
-			 TTString	nameString;
-			 
-			// cache the function's attribute names
-			mRampDataNames->clear();
-			mRamper->getFunctionParameterNames(names);
-			n = names.getSize();
-			for (int i=0; i<n; i++) {
+		// set the function of the ramper
+		mRamper->setAttributeValue(kTTSym_function, mRampFunction);
+		
+		TTUInt32	i, n;
+		TTValue		names;
+		TTSymbolPtr	aName;
+		
+		// Remove former datas
+		n = mRampFunctionParameters.getSize();
+		for (i=0; i<n; i++) {
+			mRampFunctionParameters.get(i, &aName);
+			this->removeAttribute(aName);
+		}
+		mRampFunctionParameters.clear();
+		
+		// cache the function's attribute names
+		mRamper->getFunctionParameterNames(names);
+		n = names.getSize();
+		
+		if (n) {
+			for (i=0; i<n; i++) {
 				
 				names.get(i, &aName);
-				nameString = aName->getCString();
 				
 				if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
 					continue;										// don't publish these datas
 				
-				if (nameString[0] > 64 && nameString[0] < 91) {		// ignore all params not starting with upper-case
-					nameString[0] += 32;							// convert first letter to lower-case for Max
-					
-					TTValue v = aName;
-					mRampDataNames->append(TT(nameString.c_str()), v);
-				}
+				// extend attribute with the same name
+				this->extendAttribute(aName, mRamper->functionUnit, aName);
+				
+				mRampFunctionParameters.append(aName);
 			}
+		}
+		
+		if (mRampFunctionParameters.getSize() == 0)
+			mRampFunctionParameters.append(kTTSym_none);
 	}
 	
 	this->notifyObservers(kTTSym_rampFunction, n);
@@ -1053,5 +1082,17 @@ void TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 		
 	// set internal value
 	aData->setValue(rampedValue);
+	
+	// update the ramp status attribute
+	if (aData->mRampStatus != aData->mRamper->isRunning()) {
+		
+		aData->mRampStatus = aData->mRamper->isRunning();
+		
+		// stop the ramp
+		if (!aData->mRampStatus)
+			aData->mRamper->stop();
+		
+		aData->notifyObservers(kTTSym_rampStatus, aData->mRampStatus);
+	}
 }
 #endif

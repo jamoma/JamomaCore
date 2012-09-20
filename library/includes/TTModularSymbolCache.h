@@ -109,6 +109,7 @@ extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeBounds;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeClipmode;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampDrive;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampFunction;
+extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampStatus;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Read;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ReadAgain;
 extern TTMODULAR_EXPORT TTSymbolPtr	kTTSym_readonly;

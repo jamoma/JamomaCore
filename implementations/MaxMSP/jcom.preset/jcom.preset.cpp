@@ -186,12 +186,12 @@ void preset_subscribe(TTPtr self)
 
 		// expose messages of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Store a preset giving a name"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Recall a preset using a name"));
 		
@@ -206,7 +206,7 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_description, TT("Mix several presets using their names followed by a factor"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TT("Remove a preset using a name"));		
 		
@@ -516,6 +516,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTTextHandlerPtr	aTextHandler = NULL;
 	TTHashPtr			allPresets;
 	TTValue				v, o, args;
+	TTSymbolPtr			name = kTTSymEmpty;
 	TTErr				tterr;
 	
 	// choose object to edit : default the cuelist
@@ -523,7 +524,24 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	EXTRA->presetName = kTTSymEmpty;
 	
 	if (argc && argv) {
-		if (atom_gettype(argv) == A_SYM) {
+		
+		if (atom_gettype(argv) == A_LONG) {
+			
+			// get presets order
+			x->wrappedObject->getAttributeValue(TT("order"), v);
+			
+			if (atom_getlong(argv) <= v.getSize())
+				v.get(atom_getlong(argv)-1, &name);
+			
+			else {
+				object_error((ObjectPtr)x, "%d does'nt exist", atom_getlong(argv));
+				return;
+			}
+		}
+		else if (atom_gettype(argv) == A_SYM)
+			name = TT(atom_getsym(argv)->s_name);
+		
+		if (name != kTTSymEmpty) {
 			
 			// get preset object table
 			x->wrappedObject->getAttributeValue(TT("presets"), v);
@@ -532,11 +550,11 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			if (allPresets) {
 				
 				// get cue to edit
-				if (!allPresets->lookup(TT(atom_getsym(argv)->s_name), v)) {
+				if (!allPresets->lookup(name, v)) {
 					
 					// edit a preset
 					v.get(0, (TTPtr*)&EXTRA->toEdit);
-					EXTRA->presetName = TT(atom_getsym(argv)->s_name);
+					EXTRA->presetName = name;
 				}
 				else {
 					object_error((ObjectPtr)x, "%s does'nt exist", atom_getsym(argv)->s_name);

@@ -10,6 +10,6 @@
     <item name='audio/mix' type='decimal' priority='0'>0</item>
     <item name='audio/mute' type='boolean' priority='0'>1</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 210 </item>
+
   </preset>
 </jamoma>

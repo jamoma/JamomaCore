@@ -12,6 +12,6 @@
     <item name='position/beats' type='integer' priority='11'>1</item>
     <item name='position/units' type='decimal' priority='12'>0.000000</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 70 </item>
+
   </preset>
 </jamoma>

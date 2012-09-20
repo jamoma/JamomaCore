@@ -689,7 +689,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 718.0, 451.0, 172.0, 43.0 ],
-					"text" : "jcom.return raw/voice.*/poly @type array @description \"poly information on channel *.\""
+					"text" : "jcom.return raw/voice.*/poly @type generic @description \"poly information on channel *.\""
 				}
 
 			}
@@ -1506,7 +1506,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 35.0, 450.0, 175.0, 55.0 ],
-					"text" : "jcom.return raw/voice.*/note @type array @description \"MIDI note information as pitch and velocity on channel *.\""
+					"text" : "jcom.return raw/voice.*/note @type generic @description \"MIDI note information as pitch and velocity on channel *.\""
 				}
 
 			}

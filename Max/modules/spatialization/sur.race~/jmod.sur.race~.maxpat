@@ -56,7 +56,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 415.0, 82.0, 588.0, 43.0 ],
-					"text" : "jcom.parameter sidechain @type decimal @range/bounds -60. 3. @range/clipmode both @description \"gain for controlling the effect of the recursive bandpass sidechain\" @dataspace gain @dataspace/unit/active dB @dataspace/unit/display dB @dataspace/unit/native dB"
+					"text" : "jcom.parameter sidechain @type decimal @range/bounds -60. 3. @range/clipmode both @description \"gain for controlling the effect of the recursive bandpass sidechain\" @dataspace gain @dataspace/unit dB"
 				}
 
 			}
@@ -100,8 +100,7 @@
 						"range/bounds" : [ 5.0, 20000.0 ],
 						"dataspace" : "time",
 						"range/clipmode" : "both",
-						"dataspace/unit/native" : "Hz",
-						"dataspace/unit/active" : "Hz",
+						"dataspace/unit" : "Hz",
 						"value/default" : [ 5000 ],
 						"type" : "integer",
 						"description" : "Mid-high crossover frequency"
@@ -440,8 +439,7 @@
 						"range/bounds" : [ 5.0, 16000.0 ],
 						"dataspace" : "time",
 						"range/clipmode" : "both",
-						"dataspace/unit/native" : "Hz",
-						"dataspace/unit/active" : "Hz",
+						"dataspace/unit" : "Hz",
 						"value/default" : [ 250 ],
 						"type" : "integer",
 						"description" : "Low-Mid crossover frequency"

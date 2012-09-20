@@ -23,6 +23,12 @@ void TTModularInit()
 	// Initialized Foundation framework
 	TTFoundationInit();
 	
+	/* DEBUG
+	TTObjectPtr test;
+	TTValue v;
+	TTObjectInstantiate(TT("nodelib.test"), &test, kTTValNONE);
+	test->test(v); */
+	
 	if (!TTModularHasInitialized) {
 		
 		TTModularHasInitialized = true;

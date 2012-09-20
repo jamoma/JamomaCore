@@ -9,6 +9,6 @@
     <item name='host' type='string' priority='0'>192.168.0.146</item>
     <item name='port' type='integer' priority='0'>7000</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 70 </item>
+
   </preset>
 </jamoma>

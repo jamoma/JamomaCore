@@ -31,7 +31,6 @@
     <item name='filter.5/q' type='decimal' priority='0'>2.000000</item>
     <item name='filter.5/type' type='string' priority='0'>highshelf</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 140 </item>
   </preset>
   <preset number='2' name='notches'>
     <item name='audio/bypass' type='boolean' priority='0'>0</item>
@@ -136,6 +135,5 @@
     <item name='filter.9/q' type='decimal' priority='0'>2.500000</item>
     <item name='filter.9/type' type='string' priority='0'>0</item>
     <item name='view/freeze' type='boolean' priority='0'>0</item>
-    <item name='view/size' type='array' priority='0'>300 140 </item>
   </preset>
 </jamoma>

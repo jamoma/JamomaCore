@@ -14,17 +14,20 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
+mDescription(kTTValNONE),
 mRamp(0),
 mScript(NULL)
 {
-	TTValue args;
+	TT_ASSERT("Correct number of args to create TTCue", arguments.getSize() == 0 || arguments.getSize() == 1);
 	
-	addAttribute(Name, kTypeSymbol);
-	addAttributeWithSetter(Ramp, kTypeUInt32);
+	addAttributeWithGetterAndSetter(Name, kTypeSymbol);
+	addAttributeWithGetterAndSetter(Description, kTypeSymbol);
+	addAttributeWithGetterAndSetter(Ramp, kTypeUInt32);
 	
 	addMessage(Clear);
 	addMessageWithArguments(Store);
 	addMessage(Recall);
+	addMessage(Output);
 	addMessageWithArguments(Select);
 	
 	// needed to be handled by a TTXmlHandler
@@ -39,13 +42,151 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&mScript), args);
+	TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&mScript), arguments); // use arguments to pass the returnLineCallback
 }
 
 TTCue::~TTCue()
 {
 	TTObjectRelease(TTObjectHandle(&mScript));
 	mScript = NULL;
+}
+
+
+TTErr TTCue::getName(TTValue& value)
+{
+	TTListPtr			lines;
+	TTDictionaryPtr		aLine;
+	TTSymbolPtr			name;
+	TTValue				v;
+	
+	mScript->getAttributeValue(TT("lines"), v);
+	v.get(0, (TTPtr*)&lines);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		lines->current().get(0, (TTPtr*)&aLine);
+		
+		if (aLine->getSchema() == kTTSym_flag) {
+			
+			aLine->lookup(kTTSym_name, v);
+			v.get(0, &name);
+			
+			if (name == TT("cue")) {
+				aLine->getValue(value);
+				break;
+			}
+		}
+	}
+	
+	mName = value;	// remind the name in case the cue is cleared
+	
+	return kTTErrNone;
+}
+
+TTErr TTCue::setName(const TTValue& value)
+{
+	TTListPtr			lines;
+	TTDictionaryPtr		aLine;
+	TTSymbolPtr			name;
+	TTValue				v;
+	
+	mScript->getAttributeValue(TT("lines"), v);
+	v.get(0, (TTPtr*)&lines);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		lines->current().get(0, (TTPtr*)&aLine);
+		
+		if (aLine->getSchema() == kTTSym_flag) {
+			
+			aLine->lookup(kTTSym_name, v);
+			v.get(0, &name);
+			
+			if (name == TT("cue")) {
+				aLine->setValue(value);
+				break;
+			}
+		}
+	}
+	
+	mName = value;	// remind the name in case the cue is cleared
+	
+	return kTTErrNone;
+}
+
+TTErr TTCue::getDescription(TTValue& value)
+{
+	TTListPtr			lines;
+	TTDictionaryPtr		aLine;
+	TTSymbolPtr			name;
+	TTValue				v;
+	
+	mScript->getAttributeValue(TT("lines"), v);
+	v.get(0, (TTPtr*)&lines);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		lines->current().get(0, (TTPtr*)&aLine);
+		
+		if (aLine->getSchema() == kTTSym_flag) {
+			
+			aLine->lookup(kTTSym_name, v);
+			v.get(0, &name);
+			
+			if (name == kTTSym_description) {
+				aLine->getValue(value);
+				break;
+			}
+		}
+	}
+	
+	mDescription = value;	// remind the description in case the cue is cleared
+	
+	return kTTErrNone;
+}
+
+TTErr TTCue::setDescription(const TTValue& value)
+{
+	TTListPtr			lines;
+	TTDictionaryPtr		aLine;
+	TTSymbolPtr			name;
+	TTValue				v;
+	
+	mScript->getAttributeValue(TT("lines"), v);
+	v.get(0, (TTPtr*)&lines);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		lines->current().get(0, (TTPtr*)&aLine);
+		
+		if (aLine->getSchema() == kTTSym_flag) {
+		
+			aLine->lookup(kTTSym_name, v);
+			v.get(0, &name);
+		
+			if (name == kTTSym_description) {
+				aLine->setValue(value);
+				break;
+			}
+		}
+	}
+	
+	mDescription = value;	// remind the description in case the cue is cleared
+	
+	return kTTErrNone;
+}
+
+TTErr TTCue::getRamp(TTValue& value)
+{
+	value = mRamp;
+	
+	// TODO : read the script to find the ramp value
+	
+	return kTTErrNone;
 }
 
 TTErr TTCue::setRamp(const TTValue& value)
@@ -56,6 +197,7 @@ TTErr TTCue::setRamp(const TTValue& value)
 	// to make test on the rampDrive attribute
 	mScript->sendMessage(TT("Bind"), kTTAdrsRoot, kTTValNONE);
 	
+	// TODO : don't change line with a ramp value different from the mRamp
 	return processRamp(mScript, mRamp);
 }
 
@@ -138,14 +280,15 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		v.append(mName);
 		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
 		
-		// 2. Append a comment line
-		v = TTValue(TT("edit a comment"));
-		mScript->sendMessage(TT("AppendComment"), v, parsedLine);
+		// 2. Append a description flag
+		v = TTValue(TT("description"));
+		v.append(mDescription);
+		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
 		
 		// 3. Process namespace storage
 		processStore(mScript, kTTAdrsEmpty, aNamespace);
 		
-		// 4. Process ramp
+		// 5. Process ramp
 		if (mRamp) setRamp(mRamp);
 		
 		return kTTErrNone;
@@ -308,6 +451,11 @@ TTErr TTCue::Recall()
 	return mScript->sendMessage(TT("Run"), kTTAdrsRoot, kTTValNONE);
 }
 
+TTErr TTCue::Output()
+{
+	return mScript->sendMessage(TT("Dump"), kTTAdrsRoot, kTTValNONE);
+}
+
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodeAddressItemPtr aNamespace = NULL;
@@ -326,11 +474,12 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 		// unselect all the namespace
 		aNamespace->setSelection(NO, YES);
 		
-		return processSelect(mScript, aNamespace);
+		// edit selection (and fill it if the namespace is empty)
+		return processSelect(mScript, aNamespace, aNamespace->isEmpty());
 	}
 }
 
-TTErr TTCue::processSelect(TTObjectPtr aScript, TTNodeAddressItemPtr aNamespace)
+TTErr TTCue::processSelect(TTObjectPtr aScript, TTNodeAddressItemPtr aNamespace, TTBoolean fill)
 {
 	TTListPtr			lines;
 	TTNodeAddressItemPtr anItem, parentItem;
@@ -338,6 +487,7 @@ TTErr TTCue::processSelect(TTObjectPtr aScript, TTNodeAddressItemPtr aNamespace)
 	TTDictionaryPtr		aLine;
 	TTNodeAddressPtr	address;
 	TTValue				v;
+	TTErr				err;
 	
 	aScript->getAttributeValue(TT("lines"), v);
 	v.get(0, (TTPtr*)&lines);
@@ -354,7 +504,12 @@ TTErr TTCue::processSelect(TTObjectPtr aScript, TTNodeAddressItemPtr aNamespace)
 			v.get(0, &address);
 			
 			// find item into the namespace
-			if (!aNamespace->find(address, &anItem)) {
+			err = aNamespace->find(address, &anItem);
+			
+			if (err && fill)
+				err = aNamespace->append(address, &anItem);
+			
+			if (!err) {
 				
 				// select it
 				anItem->setSelection(YES);
@@ -367,7 +522,7 @@ TTErr TTCue::processSelect(TTObjectPtr aScript, TTNodeAddressItemPtr aNamespace)
 					v.get(0, (TTPtr*)&aSubScript);
 					
 					if (aSubScript)
-						processSelect(aSubScript, anItem);
+						processSelect(aSubScript, anItem, fill);
 				}
 			}
 		}
@@ -535,4 +690,14 @@ TTErr TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue)
 TTErr TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue)
 {
 	return TTScriptOptimize(aCueToOptimize->mScript, aCue->mScript, optimizedCue->mScript);
+}
+
+TTErr TTCueCopy(TTCue* aCueToCopy, TTCue* aCueCopy)
+{
+	TTValue				v, args;
+	
+	aCueCopy->mName = aCueToCopy->mName;
+	aCueCopy->mDescription = aCueToCopy->mDescription;
+	aCueCopy->mRamp = aCueToCopy->mRamp;
+	return TTScriptCopy(aCueToCopy->mScript, aCueCopy->mScript);
 }

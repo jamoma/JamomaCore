@@ -58,6 +58,8 @@ private:
 #ifndef TTDATA_NO_RAMPLIB
 	TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
 	TTSymbolPtr		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
+	TTValue			mRampFunctionParameters;	///< ATTRIBUTE: names of parameter's function
+	TTBoolean		mRampStatus;				///< ATTRIBUTE: is the ramp running ?
 #endif
 	
 	TTSymbolPtr		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none')
@@ -76,7 +78,6 @@ private:
 
 #ifndef TTDATA_NO_RAMPLIB
 	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
-	TTHashPtr		mRampDataNames;				///< Cache of data names, mapped from lowercase (Max) to uppercase (TT)
 #endif
 
 	/** Reset value to default value */

@@ -77,7 +77,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 685.0, 506.0, 19.0 ],
-					"text" : "jcom.message raw/midievent @type array @description \"Send raw midi messages to the plug-in.\""
+					"text" : "jcom.message raw/midievent @type decimalArray @description \"Send raw midi messages to the plug-in.\""
 				}
 
 			}

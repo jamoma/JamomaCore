@@ -7,9 +7,9 @@
 			"revision" : 9
 		}
 ,
-		"rect" : [ 601.0, 44.0, 555.0, 407.0 ],
+		"rect" : [ 607.0, 73.0, 555.0, 407.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 601.0, 44.0, 555.0, 407.0 ],
+		"defrect" : [ 607.0, 73.0, 555.0, 407.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -125,7 +125,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 612.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 555.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -140,7 +140,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 320.0, 285.333344, 224.0, 43.0 ],
+					"patching_rect" : [ 320.0, 285.333344, 226.0, 43.0 ],
 					"text" : "At the time of this writing, you cannot mix the audio version of this object with the non-audio version."
 				}
 
@@ -155,7 +155,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 320.0, 248.666656, 224.0, 31.0 ],
+					"patching_rect" : [ 320.0, 248.666656, 226.0, 31.0 ],
 					"text" : "Another important function they provide is bypassing, freezing, and muting."
 				}
 
@@ -268,7 +268,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 320.0, 93.0, 225.0, 55.0 ],
-					"text" : "jcom.in is an input conduits for control signals in a jamoma model (most often these are Jitter matrices), much like jcom.in~ is for audio 'signals'."
+					"text" : "jcom.in is an input conduits for control signals in a jamoma model (most often these are Jitter matrices), much like jcom.in~ is for audio signals."
 				}
 
 			}

@@ -823,7 +823,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		if (x->has_gain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)) {
 			if (x->selection) {
 				x->sel_gain = !x->sel_gain;
-				ui_viewer_highlight(x, TT("out/gain"), x->sel_gain);
+				ui_viewer_highlight(x, TT("out.*/gain"), x->sel_gain);
 			}
 			else {
 				x->gainDragging = true;
@@ -835,7 +835,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		else if (x->has_mix && px.x >= x->rect_mix.x && px.x <= (x->rect_mix.x + x->rect_mix.width)) {
 			if (x->selection) {
 				x->sel_mix = !x->sel_mix;
-				ui_viewer_highlight(x, TT("out/mix"), x->sel_mix);
+				ui_viewer_highlight(x, TT("out.*/mix"), x->sel_mix);
 			}
 			else {
 				x->mixDragging = true;
@@ -850,34 +850,34 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		else if (x->has_preview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width)) {
 			if (x->selection) {
 				x->sel_preview = !x->sel_preview;
-				ui_viewer_highlight(x, TT("out/preview"), x->sel_preview);
+				ui_viewer_highlight(x, TT("out.*/preview"), x->sel_preview);
 			}
 			else
-				ui_viewer_send(x, TT("out/preview"), TTValue(!x->is_previewing));
+				ui_viewer_send(x, TT("out.*/preview"), TTValue(!x->is_previewing));
 		}
 		else if (x->has_freeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width)) {
 			if (x->selection) {
 				x->sel_freeze = !x->sel_freeze;
-				ui_viewer_highlight(x, TT("out/freeze"), x->sel_freeze);
+				ui_viewer_highlight(x, TT("out.*/freeze"), x->sel_freeze);
 			}
 			else
-				ui_viewer_send(x, TT("out/freeze"), TTValue(!x->is_frozen));
+				ui_viewer_send(x, TT("out.*/freeze"), TTValue(!x->is_frozen));
 		}
 		else if (x->has_bypass && px.x >= x->rect_bypass.x && px.x <= (x->rect_bypass.x + x->rect_bypass.width)) {
 			if (x->selection) {
 				x->sel_bypass = !x->sel_bypass;
-				ui_viewer_highlight(x, TT("in/bypass"), x->sel_bypass);
+				ui_viewer_highlight(x, TT("in.*/bypass"), x->sel_bypass);
 			}
 			else
-				ui_viewer_send(x, TT("in/bypass"), TTValue(!x->is_bypassed));
+				ui_viewer_send(x, TT("in.*/bypass"), TTValue(!x->is_bypassed));
 		}
 		else if (x->has_mute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width)) {
 			if (x->selection) {
 				x->sel_mute = !x->sel_mute;
-				ui_viewer_highlight(x, TT("out/mute"), x->sel_mute);
+				ui_viewer_highlight(x, TT("out.*/mute"), x->sel_mute);
 			}
 			else
-				ui_viewer_send(x, TT("out/mute"), TTValue(!x->is_muted));
+				ui_viewer_send(x, TT("out.*/mute"), TTValue(!x->is_muted));
 		}
 		
 		else if (px.x < 100)
@@ -906,7 +906,7 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	if (x->mixDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 100.0f);
-		ui_viewer_send(x, TT("out/mix"), TTValue(x->anchorValue));
+		ui_viewer_send(x, TT("out.*/mix"), TTValue(x->anchorValue));
 		
 		snprintf(str, sizeof(str), "%f", x->mix);
 		object_method(textfield, gensym("settext"), str);
@@ -914,7 +914,7 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 	else if (x->gainDragging) {
 		x->anchorValue = x->anchorValue - (pt.y * factor);
 		TTLimit(x->anchorValue, 0.0f, 127.0f);
-		ui_viewer_send(x, TT("out/gain"), TTValue(x->anchorValue));
+		ui_viewer_send(x, TT("out.*/gain"), TTValue(x->anchorValue));
 		
 		snprintf(str, sizeof(str), "%f", x->gain);
 		object_method(textfield, gensym("settext"), str);
@@ -1086,7 +1086,7 @@ void ui_menu_qfn(t_ui *x)
 		defer(x, (method)ui_preset_dowrite, NULL, 0, 0L);
 	
 	else if (item->sym == gensym("Restore Default Settings"))
-		ui_viewer_send(x, TT("preset/recall"), 1);
+		ui_viewer_send(x, TT("preset/recall"), kTTVal1);
 	
 	else if (item->sym == gensym("Store Current Preset"))
 		ui_viewer_send(x, TT("preset/store"), kTTValNONE);
