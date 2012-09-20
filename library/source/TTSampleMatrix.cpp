@@ -42,6 +42,7 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 
 	addMessageWithArguments(getValueAtIndex);
 	registerMessage(TT("peek"), (TTMethod)&TTSampleMatrix::getValueAtIndex);
+	registerMessage(TT("peeki"), (TTMethod)&TTSampleMatrix::getValueAtIndex);
 
 	addMessageWithArguments(setValueAtIndex);
 	registerMessage(TT("poke"), (TTMethod)&TTSampleMatrix::setValueAtIndex);
@@ -130,11 +131,14 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 	return kTTErrNone;
 }
 
-TTErr TTSampleMatrix::peek(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value)
+// a first attempt at interpolation for the SampleMatrix. should be viewed as temporary.
+// needs to be fleshed out with different options...
+TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value)
 {
+	
 	// variables needed
 	TTUInt64 indexThisInteger = TTUInt64(index);
-	TTUInt64 indexNextInteger = index_thisInteger + 1;
+	TTUInt64 indexNextInteger = indexThisInteger + 1;
 	TTFloat64 indexFractionalPart = index - indexThisInteger;
 	
 	TTSampleValue valueThisInteger, valueNextInteger;
@@ -144,11 +148,11 @@ TTErr TTSampleMatrix::peek(const TTFloat64 index, const TTUInt16 channel, TTSamp
 	get2d(indexNextInteger, channel, valueNextInteger);
 	
 	// simple linear interpolation adapted from TTDelay
-	y = (valueNextInteger * (1.0 - indexFractionalPart)) + (valueThisInteger * indexFractionalPart);
+	value = (valueNextInteger * (1.0 - indexFractionalPart)) + (valueThisInteger * indexFractionalPart);
+	
 	return kTTErrNone;
 	
 }
-
 
 /**	Set the sample value for a given index.
 	The first number passed in the index parameter will be interpreted as the sample index.
