@@ -130,6 +130,25 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 	return kTTErrNone;
 }
 
+TTErr TTSampleMatrix::peek(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value)
+{
+	// variables needed
+	TTUInt64 indexThisInteger = TTUInt64(index);
+	TTUInt64 indexNextInteger = index_thisInteger + 1;
+	TTFloat64 indexFractionalPart = index - indexThisInteger;
+	
+	TTSampleValue valueThisInteger, valueNextInteger;
+	
+	// TODO: perhaps we should range check the input here first...
+	get2d(indexThisInteger, channel, valueThisInteger);
+	get2d(indexNextInteger, channel, valueNextInteger);
+	
+	// simple linear interpolation adapted from TTDelay
+	y = (valueNextInteger * (1.0 - indexFractionalPart)) + (valueThisInteger * indexFractionalPart);
+	return kTTErrNone;
+	
+}
+
 
 /**	Set the sample value for a given index.
 	The first number passed in the index parameter will be interpreted as the sample index.
