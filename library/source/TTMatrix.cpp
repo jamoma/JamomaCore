@@ -70,16 +70,14 @@ TTErr TTMatrix::resize()
 		// TODO: thread protection
 		delete[] mData;
 		mData = new TTByte[mDataSize];
+		mHeadPtr = mData;
+		mTailPtr = mData + mDataSize - mComponentStride;
 	}
 
 	if (mDataSize && mData)
 	{
-		mHeadPtr = &mData[0];
-		mTailPtr(mData + mDataSize - mComponentStride);
 		return kTTErrNone;
 	} else {
-		mHeadPtr(NULL);
-		mTailPtr(NULL);
 		return kTTErrAllocFailed;
 	}
 }

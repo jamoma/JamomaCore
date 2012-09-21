@@ -48,8 +48,8 @@ protected:
 	TTUInt8				mTypeSizeInBytes;		///< number of bytes present in mType
 	TTUInt32			mDataSize;				///< mTypeSizeInBytes * mDataCount
 	TTBoolean			mDataIsLocallyOwned;	///< If false, then we are referencing outside memory which we don't own
-	TTBytePtr			mHeadPtr;		///< Pointer used for checking if get/set methods are in bounds. Equal to the start of first component in mData.
-	TTBytePtr			mTailPtr;		///< Pointer used for checking if get/set methods are in bounds. Equal to the start of last component in mData.
+	TTPtr			mHeadPtr;		///< Pointer used for checking if get/set methods are in bounds. Equal to the start of first component in mData.
+	TTPtr			mTailPtr;		///< Pointer used for checking if get/set methods are in bounds. Equal to the start of last component in mData.
 	
 	
 	/**	Internal method that resizes memory allocated when various attributes change.	*/
