@@ -71,7 +71,7 @@ TTErr TTMatrix::resize()
 		delete[] mData;
 		mData = new TTByte[mDataSize];
 		mHeadPtr = mData;
-		mTailPtr = mData + mDataSize - mComponentStride;
+		mTailPtr = mData + mDataSize;
 	}
 
 	if (mDataSize && mData)
@@ -193,7 +193,6 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	delete[] fillValue;
 	return kTTErrNone;
 }
-
 
 /*
 	To find the index in the matrix:

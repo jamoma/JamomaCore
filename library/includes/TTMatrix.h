@@ -76,6 +76,11 @@ public:
 	TTErr clear();
 	TTErr fill(const TTValue& anInputValue, TTValue &anOutputValue);
 
+	/** Test to see if a specific amount of stride in within the Matrix.  Returns true or false. */
+	TTBoolean inBounds(TTUInt32 totalStride)
+	{
+		return (mData + totalStride < mTailPtr);
+	}
 	
 	/**	Get the value of a component located at any location in an N-dimensional matrix.
 		All dimension indices begin counting at one.	*/
