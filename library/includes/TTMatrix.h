@@ -123,6 +123,35 @@ public:
 	}
 	
 	
+	template<typename T>
+	TTErr get2dWithinBounds(TTRowID i, TTColumnID j, T& data) const
+	{
+		//TTUInt32 m = mDimensions[0];
+		TTUInt32 n = mDimensions[1];
+		
+		i -= 1;	// convert to zero-based indices for data access
+		j -= 1;	// convert to zero-based indices for data access
+		
+		TTUInt32 distanceFromHead = (i*n+j) * mComponentStride;
+		//this->inBounds(distanceFromHead);
+		TTBoolean whynotanothername = { this->inBounds(distanceFromHead) };
+		
+		data = *(T*)(mData + distanceFromHead);	
+		return kTTErrNone;
+		
+		/*
+		
+		TTUInt32 distanceFromHead = (i*n+j) * mComponentStride;
+		TTBoolean isInBounds = inBoundsZeroIndex(distanceFromHead);
+		if (isInBounds)
+		{
+			data = *(T*)(mData + distanceFromHead);	
+			return kTTErrNone;
+		} else {
+			return kTTErrInvalidValue;
+		}
+		*/
+	}	
 	
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, TTUInt32 element, T& data)

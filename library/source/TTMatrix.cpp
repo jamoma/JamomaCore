@@ -247,6 +247,29 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 	return kTTErrNone;
 }
 
+/*
+
+template<typename T>
+TTErr TTMatrix::get2dWithinBounds(TTRowID i, TTColumnID j, T& data) 
+{
+		//TTUInt32 m = mDimensions[0];
+		TTUInt32 n = mDimensions[1];
+		
+		i -= 1;	// convert to zero-based indices for data access
+		j -= 1;	// convert to zero-based indices for data access
+		
+		TTUInt32 distanceFromHead = (i*n+j) * mComponentStride;
+		TTBoolean isInBounds = inBoundsZeroIndex(distanceFromHead);
+		if (isInBounds)
+		{
+			data = *(T*)(mData + distanceFromHead);	
+			return kTTErrNone;
+		} else {
+			return kTTErrInvalidValue;
+		}
+}
+
+*/
 
 // args passed-in should be the coordinates plus the value
 TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
