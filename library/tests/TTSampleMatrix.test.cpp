@@ -216,6 +216,46 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %f, but returned value was %f", computedInterpValue11, test11Return);
 	}
 	
+	
+	// TEST 12: test the new inBounds method
+	
+	TTTestLog("The head pointer is set to: %i", this->mHeadPtr);
+	TTTestLog("The tail pointer is set to: %i", this->mTailPtr);
+	
+	TTUInt32 computedDistanceFromHead12 = test7Return * test1Return;
+	
+	computedDistanceFromHead12 -= 250; // 250 before tail
+	TTBoolean result12 = this->inBounds(computedDistanceFromHead12);
+	
+	if(result12)
+	{
+		TTTestLog("Testing in bounds 12 returned true, %i", computedDistanceFromHead12);
+	}
+	
+	computedDistanceFromHead12 += 250; // at tail
+	TTBoolean result13 = this->inBounds(computedDistanceFromHead12);
+	
+	if(result13)
+	{
+		TTTestLog("Testing in bounds 13 returned true, %i", computedDistanceFromHead12);
+	}
+	
+	computedDistanceFromHead12 += 250; // 250 after tail
+	TTBoolean result14 = this->inBounds(computedDistanceFromHead12);
+	
+	if(result14)
+	{
+		TTTestLog("Testing in bounds 14 returned true, %i", computedDistanceFromHead12);
+	}
+	
+	TTBoolean result15 = this->inBounds(-1);
+	
+	if(!result15)
+	{
+		TTTestLog("Negative values prohibited, %i", -1);
+	}
+	
+	
 	/*
 	
 	int					badSampleCount = 0;
