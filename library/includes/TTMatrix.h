@@ -76,10 +76,25 @@ public:
 	TTErr clear();
 	TTErr fill(const TTValue& anInputValue, TTValue &anOutputValue);
 
-	/** Test to see if a specific amount of stride in within the Matrix.  Returns true or false. */
-	TTBoolean inBounds(TTUInt32 totalStride)
+	/** Test to see if a specific distance from the head is still in within the matrix.  
+	 	This method works most efficiently just before array access, so that you can compute the distance once (using row, column & element values) before checking if it is inBounds then pulling its value.
+		Treats the first item in the array as 1, therefore 0 produces a return value of FALSE.
+		Returns true or false.
+	*/
+	TTBoolean inBounds(TTUInt32 distanceFromHead)
 	{
-		return (mData + totalStride < mTailPtr);
+		if (distanceFromHead == 0) return (0);
+		else return (distanceFromHead <= mDataCount);
+	}
+	
+	/** Test to see if a specific distance from the head is still in within the matrix. 
+	  	This method works most efficiently just before array access, so that you can compute the distance once (using row, column & element values) before checking if it is inBounds then pulling its value.
+		Treats the first item in the array as 0, therefore totalDistanceFromHead equal to mDataCount produces a return value of FALSE.
+		Returns true or false.
+	*/
+	TTBoolean inBoundsZeroIndex(TTUInt32 distanceFromHead)
+	{
+		return (distanceFromHead < mDataCount);
 	}
 	
 	/**	Get the value of a component located at any location in an N-dimensional matrix.
