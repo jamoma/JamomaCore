@@ -12,6 +12,9 @@
 #include "TTFoundation.h"
 #include "TTDataObject.h"
 
+#define INBOUNDS(distanceFromHead, dataCount) {}
+#define INBOUNDSZEROINDEX(distanceFromHead, dataCount) { distanceFromHead < dataCount } 
+
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 
 
@@ -94,7 +97,7 @@ public:
 	*/
 	TTBoolean inBoundsZeroIndex(TTUInt32 distanceFromHead)
 	{
-		return (distanceFromHead < mDataCount);
+		return INBOUNDSZEROINDEX(distanceFromHead, mDataCount);
 	}
 	
 	/**	Get the value of a component located at any location in an N-dimensional matrix.
@@ -133,16 +136,7 @@ public:
 		j -= 1;	// convert to zero-based indices for data access
 		
 		TTUInt32 distanceFromHead = (i*n+j) * mComponentStride;
-		//this->inBounds(distanceFromHead);
-		TTBoolean whynotanothername = { this->inBounds(distanceFromHead) };
-		
-		data = *(T*)(mData + distanceFromHead);	
-		return kTTErrNone;
-		
-		/*
-		
-		TTUInt32 distanceFromHead = (i*n+j) * mComponentStride;
-		TTBoolean isInBounds = inBoundsZeroIndex(distanceFromHead);
+		TTBoolean isInBounds = INBOUNDSZEROINDEX(distanceFromHead,mDataCount);
 		if (isInBounds)
 		{
 			data = *(T*)(mData + distanceFromHead);	
@@ -150,7 +144,7 @@ public:
 		} else {
 			return kTTErrInvalidValue;
 		}
-		*/
+	
 	}	
 	
 	template<typename T>
