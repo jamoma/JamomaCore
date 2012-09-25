@@ -12,8 +12,14 @@
 #include "TTFoundation.h"
 #include "TTDataObject.h"
 
-#define INBOUNDS(distanceFromHead, dataCount) {}
-#define INBOUNDSZEROINDEX(distanceFromHead, dataCount) { distanceFromHead < dataCount } 
+#define INBOUNDS(distanceFromHead, maxDistanceFromHead) 						\
+{																				\
+	distanceFromHead == 0 ? 0 : (distanceFromHead <= maxDistanceFromHead)		\
+}
+#define INBOUNDSZEROINDEX(distanceFromHead, maxDistanceFromHead) 				\
+{ 																				\
+	distanceFromHead < maxDistanceFromHead 										\
+} 
 
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 
@@ -86,8 +92,7 @@ public:
 	*/
 	TTBoolean inBounds(TTUInt32 distanceFromHead)
 	{
-		if (distanceFromHead == 0) return (0);
-		else return (distanceFromHead <= mDataCount);
+		return INBOUNDS(distanceFromHead, mDataCount);
 	}
 	
 	/** Test to see if a specific distance from the head is still in within the matrix. 
@@ -137,6 +142,7 @@ public:
 		
 		TTUInt32 distanceFromHead = (i*n+j) * mComponentStride;
 		TTBoolean isInBounds = INBOUNDSZEROINDEX(distanceFromHead,mDataCount);
+		
 		if (isInBounds)
 		{
 			data = *(T*)(mData + distanceFromHead);	
