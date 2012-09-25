@@ -28,18 +28,18 @@ class TTFOUNDATION_EXPORT TTZeroIndexMatrixDecorator : public TTMatrixDecorator 
 class TTFOUNDATION_EXPORT TTOneIndexMatrixDecorator : public TTMatrixDecorator {
 	TTCLASS_SETUP(TTOneIndexMatrixDecorator)
 	
-	TTErr where(TTRowID i, TTColumnID j, TTUInt32& distanceFromHead)
+	TTErr where(TTRowID i, TTColumnID j, TTPtr pointerReturn)
 	{
 		i -= 1;			// convert to zero-based indices for data access
 		j -= 1;			// convert to zero-based indices for data access
-		matrix->where(i,j,distanceFromHead);
+		matrix->where(i,j,pointerReturn);
 	};
-	TTErr where(TTRowID i, TTColumnID j, TTUInt32 element, TTUInt32& distanceFromHead)
+	TTErr where(TTRowID i, TTColumnID j, TTUInt32 element, TTPtr pointerReturn)
 	{
 		i -= 1;			// convert to zero-based indices for data access
 		j -= 1;			// convert to zero-based indices for data access
 		element -=1;	// convert to zero-based indices for data access
-		matrix->where(i,j,element,distanceFromHead);
+		matrix->where(i,j,element,pointerReturn);
 	};
 	
 };
@@ -47,14 +47,14 @@ class TTFOUNDATION_EXPORT TTOneIndexMatrixDecorator : public TTMatrixDecorator {
 class TTFOUNDATION_EXPORT TT2dMatrixDecorator : public TTMatrixDecorator {
 	TTCLASS_SETUP(TT2dMatrixDecorator)
 	
-	TTErr where(TTRowID i, TTColumnID j, TTUInt32& distanceFromHead);
-	TTErr where(TTRowID i, TTColumnID j, TTUInt32 element, TTUInt32& distanceFromHead);
+	TTErr where(TTRowID i, TTColumnID j, TTPtr pointerReturn);
+	TTErr where(TTRowID i, TTColumnID j, TTUInt32 element, TTPtr pointerReturn);
 	
 	template<typename T>
-	TTErr get(TTUInt32 distanceFromHead, T& data);
+	TTErr get(TTPtr pointerReturn, T& data);
 	
 	template<typename T>
-	TTErr set(TTUInt32 distanceFromHead, T& data);
+	TTErr set(TTPtr pointerReturn, T& data);
 };
 
 class TTFOUNDATION_EXPORT TTOutOfBoundsErrorMatrixDecorator : public TTMatrixDecorator {
