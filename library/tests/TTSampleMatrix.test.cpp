@@ -22,7 +22,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTUInt32			test10Index = 11;
 	TTUInt32			test1Return, test2Return, test7Return, test8Return;
 	TTFloat32			test3Return, test6Return;
-	TTSampleValue		test9Return, test10Return, test11Return;
+	TTSampleValue		test9Return, test10Return, test11Return, test12return;
 	
 	TTTestLog("Test resizing of the SampleMatrix...");
 	
@@ -219,12 +219,23 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	// TEST 12: test the new inBounds method
 	
-	TTTestLog("The head pointer is set to: %i", this->mHeadPtr);
-	TTTestLog("The tail pointer is set to: %i", this->mTailPtr);
+	TTUInt32 computedSampleAfterTail12 = -10; //test7Return + 5;
+	TTErr test12Err = this->peek(computedSampleAfterTail12, 1, test12return);
 	
-	TTUInt32 computedDistanceFromHead12 = test7Return * test1Return;
+	TTTestAssertion("retrieving sample out of bounds produces an error", 
+								test12Err == kTTErrInvalidValue, 
+								testAssertionCount,
+								errorCount);													
 	
-	computedDistanceFromHead12 -= 250; // 250 before tail
+	if(test12Err != kTTErrInvalidValue)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrInvalidValue, test12Err);
+	}
+	
+	/*
+	TTUInt32 computedDistanceFromHead12 = test7Return * test1Return
+	
+	computedDistanceFromHead12 -= 50; // 50 before tail
 	TTBoolean result12 = this->inBounds(computedDistanceFromHead12);
 	
 	if(result12)
@@ -232,7 +243,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Testing in bounds 12 returned true, %i", computedDistanceFromHead12);
 	}
 	
-	computedDistanceFromHead12 += 250; // at tail
+	computedDistanceFromHead12 += 50; // at tail
 	TTBoolean result13 = this->inBounds(computedDistanceFromHead12);
 	
 	if(result13)
@@ -240,21 +251,28 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Testing in bounds 13 returned true, %i", computedDistanceFromHead12);
 	}
 	
-	computedDistanceFromHead12 += 250; // 250 after tail
+	computedDistanceFromHead12 += 1; // 1 after tail
 	TTBoolean result14 = this->inBounds(computedDistanceFromHead12);
 	
-	if(result14)
+	if(!result14)
 	{
-		TTTestLog("Testing in bounds 14 returned true, %i", computedDistanceFromHead12);
+		TTTestLog("Testing in bounds 14 returned false, %i", computedDistanceFromHead12);
 	}
 	
 	TTBoolean result15 = this->inBounds(-1);
 	
 	if(!result15)
 	{
-		TTTestLog("Negative values prohibited, %i", -1);
+		TTTestLog("Negative values return false: %i", -1);
 	}
 	
+	TTBoolean result16 = this->inBounds(0);
+	
+	if(!result16)
+	{
+		TTTestLog("Zero returns false: %i", 0);
+	}
+	*/
 	
 	/*
 	
