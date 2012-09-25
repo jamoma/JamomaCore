@@ -12,6 +12,8 @@
 #include "TTMatrix.h"
 #include "TTEnvironment.h"
 
+// will the TTCLASS_SETUP need to be revamped for decorator purposes?
+
 class TTFOUNDATION_EXPORT TTMatrixDecorator : public TTDataObject {
 	TTCLASS_SETUP(TTMatrixDecorator)
 	
@@ -51,10 +53,10 @@ class TTFOUNDATION_EXPORT TT2dMatrixDecorator : public TTMatrixDecorator {
 	TTErr where(TTRowID i, TTColumnID j, TTUInt32 element, TTPtr pointerReturn);
 	
 	template<typename T>
-	TTErr get(TTPtr pointerReturn, T& data);
+	TTErr get(TTPtr pointerStart, T& data);
 	
 	template<typename T>
-	TTErr set(TTPtr pointerReturn, T& data);
+	TTErr set(TTPtr pointerStart, T& data);
 };
 
 class TTFOUNDATION_EXPORT TTOutOfBoundsErrorMatrixDecorator : public TTMatrixDecorator {
