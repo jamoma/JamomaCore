@@ -29,6 +29,7 @@ libraries:
   - mac /usr/lib/libxml2.dylib
   - win ../../../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
   - win ../../../../Foundation/library/libxml2/win32/lib/libxml2.lib
+  - C74-JITTER
 
 prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
 arch: "i386"

@@ -21,7 +21,7 @@ static void delete_functionunit(TTAudioObject* functionUnit)
 }
 */
 
-TTErr FunctionLib::createUnit(const TTSymbolPtr unitName, TTObject **unit)
+TTErr FunctionLib::createUnit(const TTSymbol& unitName, TTObject **unit)
 {
 	TTUInt16	numChannels = 1;
 	

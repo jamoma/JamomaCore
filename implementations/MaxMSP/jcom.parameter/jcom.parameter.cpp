@@ -24,7 +24,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	ObjectPtr		attr = NULL;
 	TTValue			dataspaceNames;
 	TTValue			functionNames;
-	TTSymbol*		functionName;
+	TTSymbol		functionName;
 	char			dataspaces[2048];
 	char			functions[2048];
 	char			drives[2048];
@@ -38,11 +38,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));	
 	dataspaces[0] = 0;
 	for (int i=0; i < dataspaceNames.getSize(); i++) {
-		TTSymbolPtr	name;
-		dataspaceNames.get(i, &name);
+		TTSymbol	name;
+		dataspaceNames.get(i, name);
 		// We jump past the first 10 characters of the name string in order to
 		// remove the initial "dataspace." part of the string. Resolves issue #707
-		strcat(dataspaces, name->getCString()+10);
+		strcat(dataspaces, name.c_str()+10);
 		strcat(dataspaces, " ");
 	}
 	
@@ -51,8 +51,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	functions[0] = 0;
 	for (i=0; i<functionNames.getSize(); i++)
 	{
-		functionNames.get(i, &functionName);
-		strcat(functions, functionName->getCString());	
+		functionNames.get(i, functionName);
+		strcat(functions, functionName);	
 		strcat(functions, " ");
 	}
     
@@ -61,8 +61,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	drives[0] = 0;
 	for (i=0; i<functionNames.getSize(); i++)
 	{
-		functionNames.get(i, &functionName); //reusing TTSymbol* functionName again here
-		strcat(drives, functionName->getCString());	
+		functionNames.get(i, functionName); //reusing TTSymbol* functionName again here
+		strcat(drives, functionName);	
 		strcat(drives, " ");
 	}
 	
@@ -411,18 +411,18 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 			return true;
 		}
 		else if (get) {	// get a property
-			TTSymbol*	parameterName = TT(property);
+			TTSymbol	parameterName = TT(property);
 			TTValue		parameterValue;
 			int			numValues;
 			AtomPtr		a;
-			TTSymbol*	tempSymbol;
+			TTSymbol	tempSymbol;
 			double		tempValue;
 			TTValue		v;
 			
 			// get the correct TT name for the parameter given the Max name
 			// parameterName = TT(atom_getsym(argv)->s_name);
 			x->rampParameterNames->lookup(parameterName, v);
-			v.get(0, &parameterName);
+			v.get(0, parameterName);
 			
 			x->ramper->getAttributeValue(parameterName, parameterValue);
 			numValues = parameterValue.getSize();
@@ -434,8 +434,8 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 				// Next the whole shebang is copied
 				for (int i=0; i<numValues; i++) {
 					if (parameterValue.getType(i) == kTypeSymbol) {
-						parameterValue.get(i, &tempSymbol);
-						atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
+						parameterValue.get(i, tempSymbol);
+						atom_setsym(a+i+1, gensym(tempSymbol));
 					}
 					else {
 						parameterValue.get(i, tempValue);
@@ -451,7 +451,7 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 		}
 		else {			// set a property
 			if (argc && argv) {
-				TTSymbol*	parameterName;
+				TTSymbol	parameterName;
 				TTValue		newValue;
 				int			i;
 				
@@ -470,18 +470,18 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 	}
 	else if (!strcmp(osc, "ramp/function")) {
 		if (get) {	// get a property
-			TTSymbol*	parameterName = TT(property);
+			TTSymbol	parameterName = TT(property);
 			TTValue		parameterValue;
 			int			numValues;
 			AtomPtr		a;
-			TTSymbol*	tempSymbol;
+			TTSymbol	tempSymbol;
 			double		tempValue;
 			TTValue		v;
 						
 			// get the correct TT name for the parameter given the Max name
 			// parameterName = TT(atom_getsym(argv)->s_name);
 			x->rampParameterNames->lookup(parameterName, v);
-			v.get(0, &parameterName);
+			v.get(0, parameterName);
 			
 			x->ramper->getFunctionParameterValue(parameterName, parameterValue);
 			numValues = parameterValue.getSize();
@@ -489,12 +489,12 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 			if (numValues) {
 				a = (AtomPtr )sysmem_newptr(sizeof(Atom) * (numValues+1));
 				// First list item is name of parameter
-				atom_setsym(a, gensym((char*)parameterName->getCString()));
+				atom_setsym(a, gensym(parameterName));
 				// Next the whole shebang is copied
 				for (int i=0; i<numValues; i++) {
 					if (parameterValue.getType(i) == kTypeSymbol) {
-						parameterValue.get(i, &tempSymbol);
-						atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
+						parameterValue.get(i, tempSymbol);
+						atom_setsym(a+i+1, gensym(tempSymbol));
 					}
 					else {
 						parameterValue.get(i, tempValue);
@@ -510,7 +510,7 @@ bool param_handleProperty(t_param *x, SymbolPtr msg, AtomCount argc, AtomPtr arg
 		}
 		else {			// set a property
 			if (argc && argv) {
-				TTSymbol*	parameterName;
+				TTSymbol	parameterName;
 				TTValue		newValue;
 				int			i;
 				
@@ -672,7 +672,7 @@ MaxErr param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPt
 	if (x->ramper) {
 		long		n;
 		TTValue		names;
-		TTSymbolPtr	aName;
+		TTSymbol	aName;
 		TTString	nameString;
 		
 		// set the function
@@ -683,8 +683,8 @@ MaxErr param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPt
 		x->ramper->getFunctionParameterNames(names);
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
-			names.get(i, &aName);
-			nameString = aName->getCString();
+			names.get(i, aName);
+			nameString = aName.string();
 			
 			if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
 				continue;										// don't publish these parameters
@@ -693,7 +693,7 @@ MaxErr param_attr_setrampfunction(t_param *x, void *attr, AtomCount argc, AtomPt
 				nameString[0] += 32;							// convert first letter to lower-case for Max
 				
 				TTValuePtr v = new TTValue(aName);
-				x->rampParameterNames->append(TT(nameString.c_str()), *v);
+				x->rampParameterNames->append(TT(nameString), *v);
 			}
 		}	
 	}
@@ -857,7 +857,7 @@ MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr a
 	if (argc && argv) {
 		MaxErr		err;
 		TTValue		v;
-		TTSymbolPtr	s;
+		TTSymbol	s;
 		
 		x->attr_dataspace = atom_getsym(argv);
 		
@@ -880,8 +880,8 @@ MaxErr param_attr_setdataspace(t_param *x, void *attr, AtomCount argc, AtomPtr a
 		// TODO: Må tenke over denne her, slik at attr_unit blir satt riktig
 		if (err) {
 			x->dataspace_override2unit->getAttributeValue(TT("outputUnit"), v);
-			v.get(0, &s);
-			x->attr_unit = gensym(s->getCString());
+			v.get(0, s);
+			x->attr_unit = gensym(s);
 			x->attr_unitOverride = x->attr_unit;
 		}
 	}

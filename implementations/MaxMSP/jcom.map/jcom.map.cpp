@@ -220,7 +220,7 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	long		numFunctions = 0;
 	long		i;
 	TTValue		functionNames;
-	TTSymbol*	aName;
+	TTSymbol	aName;
 
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("functions"), 1, a);
@@ -230,8 +230,8 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 
 	atom_setsym(a+0, gensym("append"));
 	for (i=0; i<numFunctions; i++) {
-		functionNames.get(i, &aName);
-		atom_setsym(a+1, gensym((char*)aName->getCString()));
+		functionNames.get(i, aName);
+		atom_setsym(a+1, gensym(aName));
 		object_obex_dumpout(obj, gensym("functions"), 2, a);
 	}
 }
@@ -240,11 +240,11 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_atom*		a;
-	TTSymbol*	parameterName;
+	TTSymbol	parameterName;
 	TTValue		parameterValue;
 	int			numValues;
 	int			i;
-	TTSymbol*	tempSymbol;
+	TTSymbol	tempSymbol;
 	double		tempValue;
 	TTValue		v;
 
@@ -256,19 +256,19 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	// get the correct TT name for the parameter given the Max name
 	parameterName = TT(atom_getsym(argv)->s_name);
 	obj->parameterNames->lookup(parameterName, v);
-	v.get(0, &parameterName);
+	v.get(0, parameterName);
 
 	obj->functionUnit->getAttributeValue(parameterName, parameterValue);
 	numValues = parameterValue.getSize();
 	if (numValues) {
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
-		atom_setsym(a, gensym((char*)parameterName->getCString()));
+		atom_setsym(a, gensym(parameterName));
 		// Next the whole shebang is copied
 		for (i=0; i<numValues; i++) {
 			if (parameterValue.getType(i) == kTypeSymbol) {
-				parameterValue.get(i, &tempSymbol);
-				atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
+				parameterValue.get(i, tempSymbol);
+				atom_setsym(a+i+1, gensym(tempSymbol));
 			}
 			else {
 				parameterValue.get(i, tempValue);
@@ -287,7 +287,7 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 	t_atom		a[2];
 	long		n;
 	TTValue		names;
-	TTSymbol*	aName;
+	TTSymbol	aName;
 
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("function.parameters"), 1, a);
@@ -297,8 +297,8 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 	if (n) {
 		for (int i=0; i<n; i++) {
 			atom_setsym(a+0, gensym("append"));
-			names.get(i, &aName);
-			atom_setsym(a+1, gensym((char*)aName->getCString()));
+			names.get(i, aName);
+			atom_setsym(a+1, gensym((char*)aName.c_str()));
 			object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
 		}
 	}
@@ -311,7 +311,7 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 
 void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	TTSymbol*	parameterName;
+	TTSymbol	parameterName;
 	TTValue		newValue;
 	TTValue		v;
 	int			i;
@@ -324,7 +324,7 @@ void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	// get the correct TT name for the parameter given the Max name
 	parameterName = TT(atom_getsym(argv)->s_name);
 	obj->parameterNames->lookup(parameterName, v);
-	v.get(0, &parameterName);
+	v.get(0, parameterName);
 
 	for (i=1; i<=(argc-1); i++) {
 		if (argv[i].a_type == A_SYM)
@@ -350,15 +350,15 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 	if (obj->functionUnit) {
 		long		n;
 		TTValue		names;
-		TTSymbol*	aName;
+		TTSymbol	aName;
 		TTString	nameString;
 
 		obj->parameterNames->clear();
 		obj->functionUnit->getAttributeNames(names);
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
-			names.get(i, &aName);
-			nameString = aName->getCString();
+			names.get(i, aName);
+			nameString = aName.c_str();
 
 			if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
 				continue;										// don't publish these parameters
