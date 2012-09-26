@@ -10,6 +10,16 @@
 #include "TTEnvironment.h"
 #include "TTMatrixDecorators.h"
 
+/** macro used to make sure that we setup all decorators the same */
+#define TT_MATRIXDECORATOR_CONSTRUCTOR(decorated_matrix) \
+	TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTMatrixPtr decorated_matrix, TTValue& arguments) \
+		{return new thisTTClass (decorated_matrix, arguments);} \
+	\
+	extern "C" void thisTTClass :: registerClass () \
+		{TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+	\
+	thisTTClass :: thisTTClass (TTMatrixPtr decorated_matrix, TTValue& arguments) : TTObject(arguments)
+
 
 /******************** a base class for all other matrix decorators ********************/
 
