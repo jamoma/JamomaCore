@@ -22,11 +22,11 @@ class TTGRAPH_EXPORT PlugtasticParameter : public TTDataObject
 	
 public:
 	TTGraphObjectPtr	mOwner;
-	TTSymbolPtr			mName;
+	TTSymbol			mName;
 	TTFloat64			mRangeBottom;
 	TTFloat64			mRangeTop;
 	TTFloat64			mDefault;
-	TTSymbolPtr			mStyle;
+	TTSymbol			mStyle;
 	TTFloat64			mValue;
 	TTDictionary		mDictionary;
 	

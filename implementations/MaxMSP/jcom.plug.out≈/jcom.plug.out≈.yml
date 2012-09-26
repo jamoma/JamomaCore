@@ -26,6 +26,7 @@ libraries:
   - ../../../../Plugtastic/library/build/JamomaPlugtastic.dylib
   - C74-MAX
   - C74-MSP
+  - C74-JITTER
   
 frameworks:
   - Carbon
