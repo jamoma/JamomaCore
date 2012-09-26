@@ -24,7 +24,7 @@ class TTDataspace {
 	TTDataspaceUnitPtr  outUnit;
 	TTHashPtr			unitHash;
 public:
-	TTSymbolPtr			neutralUnit;
+	TTSymbol			neutralUnit;
 	
 	
 	TTDataspace();
@@ -35,19 +35,19 @@ public:
 	TTErr convert(const TTValue& input, TTValue& output);
 
 	/** set the input unit type for this dataspace object by it's name as a symbol */
-	TTErr setInputUnit(TTSymbolPtr inUnitName);
-	TTSymbolPtr getInputUnit();
+	TTErr setInputUnit(TTSymbol& inUnitName);
+	TTSymbol& getInputUnit();
 
 	/** set the output unit type for this dataspace object by it's name as a symbol */
-	TTErr setOutputUnit(TTSymbolPtr outUnitName);
-	TTSymbolPtr getOutputUnit();
+	TTErr setOutputUnit(TTSymbol& outUnitName);
+	TTSymbol& getOutputUnit();
 
 	/** return a list of all available units for this dataspace */
 	TTErr getAvailableUnits(TTValue& unitNames);
 	
 protected:
 	/** Called by subclasses to register units with the dataspace */
-	void registerUnit(const TTSymbolPtr className, const TTSymbolPtr unitName);
+	void registerUnit(const TTSymbol& className, const TTSymbol& unitName);
 
 };
 

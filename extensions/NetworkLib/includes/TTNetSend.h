@@ -17,9 +17,9 @@
 class TTNetSend : public TTDataObject {
 	TTCLASS_SETUP(TTNetSend)
 
-	TTSymbolPtr				mAddress;	///< www.jamoma.org, 192.168.1.1, etc.
+	TTSymbol				mAddress;	///< www.jamoma.org, 192.168.1.1, etc.
 	TTUInt16				mPort;		///< port number
-	TTSymbolPtr				mMode;		///< "tcp" or "udp"	
+	TTSymbol				mMode;		///< "tcp" or "udp"	
 	TTNetSocketPtr			mSocket;
 	
 	

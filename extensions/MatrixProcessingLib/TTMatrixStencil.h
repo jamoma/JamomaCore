@@ -25,9 +25,9 @@
 class TTMatrixStencil : public TTDataObject {
 	TTCLASS_SETUP(TTMatrixStencil)
 	
-	TTSymbolPtr			mMode;			// what kind of calculation to perform on the stencil: average, firstDerivative
-	TTSymbolPtr			mEdges;			// what to do at the edges: none, clip, fold, or wrap
-	TTSymbolPtr			mStencilType;	// currently only 5-point stencil...
+	TTSymbol			mMode;			// what kind of calculation to perform on the stencil: average, firstDerivative
+	TTSymbol			mEdges;			// what to do at the edges: none, clip, fold, or wrap
+	TTSymbol			mStencilType;	// currently only 5-point stencil...
 	vector<TTUInt32>	mStepSize;		// step size for each dimension
 	
 

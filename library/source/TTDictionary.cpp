@@ -86,7 +86,7 @@ TTErr TTDictionary::remove(const TTSymbol& key)
 	TTValue	v;
 	TTErr	err;
 	
-	err = mList->find(TTDictionaryFindKeyInList, key.mSymbolPointer, v);
+	err = mList->find(TTDictionaryFindKeyInList, key.rawpointer(), v);
 	if (!err)
 		mList->remove(v);
 	return mHashTable->remove(key);

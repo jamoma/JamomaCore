@@ -32,9 +32,6 @@
 	then consider passing a #TTString instead.
 */
 class TTFOUNDATION_EXPORT TTSymbol {
-	friend class TTValue;
-	friend class TTDictionary;
-	friend class TTHash;
 
 protected:
 
@@ -54,11 +51,11 @@ public:
 	}
 	
 	
-	TTSymbol(TTSymbolBase* symbolBase)
+	TTSymbol(TTPtr do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing)
 	{
-		mSymbolPointer = symbolBase;
+		mSymbolPointer = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
 	}
-	
+
 	
 	virtual ~TTSymbol()
 	{;}
@@ -105,6 +102,15 @@ public:
 	}
 
 	
+	/** Get the value of the raw pointer into the symbol table. 
+		Do not use this unless you absolutely know what you are doing.
+	 */
+	TTPtr rawpointer() const
+	{
+		return TTPtr(mSymbolPointer);
+	}
+	
+	
 	/** Generate a pseudo-random symbol */
 	static TTSymbol random()
 	{
@@ -114,30 +120,6 @@ public:
 		return TTSymbol(s);
 	}
 
-	
-	/*
-	
-#include "MersenneTwister.h"
-	
-	TTSymbolBaseRef TTSymbolBase::random()
-	{
-#if 0
-		MTRand			twister;
-		unsigned int	i = twister.randInt();
-		char			s[16];
-		
-		snprintf(s, 16, "j%u", i);
-		s[15] = 0;
-#else
-		TTString s;
-		
-		s.random();
-#endif
-		return TT(s);
-	}
-	
-*/
-	
 };
 
 

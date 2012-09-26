@@ -1007,13 +1007,13 @@ public:
 								editString += currentString;
 							}
 							
-							data[n].sym = TT(editString.substr(0, editString.size()-1)).mSymbolPointer;			// don't keep the last "
+							data[n].sym = (TTSymbolBase*) TT(editString.substr(0, editString.size()-1)).rawpointer();			// don't keep the last "
 							type[n] = kTypeSymbol;
 							n++;
 
 						} else {
 							TTSymbol editSymbol = TT(currentString.c_str());
-							data[n].sym = editSymbol.mSymbolPointer;
+							data[n].sym = (TTSymbolBase*) editSymbol.rawpointer();
 							type[n] = kTypeSymbol;
 							n++;
 						}

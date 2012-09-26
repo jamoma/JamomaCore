@@ -11,5 +11,5 @@
 
 TTDataspaceUnit::TTDataspaceUnit(TTValue& arguments)
 {
-	arguments.get(0, &name);
+	arguments.get(0, name);
 }

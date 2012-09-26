@@ -179,7 +179,7 @@ t_jit_err StencilSetStepSize(StencilObjectPtr self, Ptr attr, AtomCount ac, Atom
 t_jit_err StencilGetEdges(StencilObjectPtr self, Ptr attr, AtomCount* ac, AtomPtr* av)
 {
 	TTValue		v;
-	TTSymbolPtr	s;
+	TTSymbol	s;
 	
 	if (*ac && *av) {
 		; // memory passed-in, use it
@@ -190,8 +190,8 @@ t_jit_err StencilGetEdges(StencilObjectPtr self, Ptr attr, AtomCount* ac, AtomPt
 	*ac = 1;
 	
 	self->stencilObject->getAttributeValue(TT("edges"), v);
-	v.get(0, &s);
-	atom_setsym(*av, gensym(s->getCString()));
+	v.get(0, s);
+	atom_setsym(*av, gensym(s.c_str()));
 	return JIT_ERR_NONE;
 }
 

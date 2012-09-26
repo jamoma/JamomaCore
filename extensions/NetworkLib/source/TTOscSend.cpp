@@ -34,13 +34,13 @@ void TTOscSend::connect()
 	if (mAddress && mPort && (mAddress != kTTSymEmpty)) {
 
 		delete mSocket;
-		mSocket = new TTOscSocket(mAddress->getCString(), mPort);
+		mSocket = new TTOscSocket(mAddress.c_str(), mPort);
 	}
 }
 
 TTErr TTOscSend::setAddress(const TTValue& newValue)
 {
-	TTSymbolPtr	newAddress = newValue;
+	TTSymbol	newAddress = newValue;
 	TTErr		err = kTTErrNone;
 	
 	if (mAddress != newAddress) {
@@ -64,14 +64,14 @@ TTErr TTOscSend::setPort(const TTValue& newValue)
 
 TTErr TTOscSend::send(const TTValue& value, TTValue& unusedOutput)
 {
-	TTSymbolPtr message;
+	TTSymbol message;
 	TTValuePtr	arguments;
 	
 	if (mSocket) {
 		
 		// set all application parameters using a TTHash
 		if (value.getSize() == 2 && value.getType(0) == kTypeSymbol && value.getType(1) == kTypePointer) {
-			value.get(0, &message);
+			value.get(0, message);
 			value.get(1, (TTPtr*)&arguments);
 			
 			return mSocket->SendMessage(message, *arguments);

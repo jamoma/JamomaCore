@@ -17,7 +17,7 @@
 class TTOscSend : public TTDataObject {
 	TTCLASS_SETUP(TTOscSend)
 
-	TTSymbolPtr				mAddress;	///< www.jamoma.org, 192.168.1.1, etc.
+	TTSymbol				mAddress;	///< www.jamoma.org, 192.168.1.1, etc.
 	TTUInt16				mPort;		///< port number
 	TTOscSocketPtr			mSocket;
 	

@@ -21,8 +21,5 @@ libraries:
   - C74-MSP
   - C74-JITTER
 
-defines:
-  - TT_JITTER
-
 prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
 arch: "i386"

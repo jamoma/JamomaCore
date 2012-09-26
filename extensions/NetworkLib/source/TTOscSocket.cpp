@@ -91,7 +91,7 @@ void TTOscSocket::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 	this->mOwner->sendMessage(TT("oscSocketReceive"), receivedMessage, kTTValNONE);
 }
 
-TTErr TTOscSocket::SendMessage(TTSymbolPtr message, const TTValue& arguments)
+TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 {
 	TTUInt32 bufferSize = computeMessageSize(message, arguments);
 	
@@ -106,10 +106,10 @@ TTErr TTOscSocket::SendMessage(TTSymbolPtr message, const TTValue& arguments)
 	
 	osc::OutboundPacketStream oscStream(buffer, bufferSize);
 	
-	oscStream << osc::BeginMessage(message->getCString());
+	oscStream << osc::BeginMessage(message.c_str());
 	
 	
-	TTSymbolPtr		symValue;
+	TTSymbol		symValue;
 	TTInt32			intValue;
 	TTFloat64		floatValue;
 	TTBoolean		booleanValue;
@@ -119,8 +119,8 @@ TTErr TTOscSocket::SendMessage(TTSymbolPtr message, const TTValue& arguments)
 		valueType = arguments.getType(i);
 		
 		if (valueType == kTypeSymbol) {
-			arguments.get(i, &symValue);
-			oscStream << symValue->getCString();
+			arguments.get(i, symValue);
+			oscStream << symValue.c_str();
 		}
 		else if (valueType == kTypeBoolean) {
 			arguments.get(i, booleanValue);
@@ -150,7 +150,7 @@ TTErr TTOscSocket::SendMessage(TTSymbolPtr message, const TTValue& arguments)
 	return kTTErrNone;
 }
 
-TTUInt32 TTOscSocket::computeMessageSize(TTSymbolPtr message, const TTValue& arguments)
+TTUInt32 TTOscSocket::computeMessageSize(TTSymbol& message, const TTValue& arguments)
  {
 	 TTUInt32 result = 0;
 	 
@@ -158,7 +158,7 @@ TTUInt32 TTOscSocket::computeMessageSize(TTSymbolPtr message, const TTValue& arg
 	 result += 8;														//timetag
 	 result += 4;														//datasize
 	 
-	 TTUInt32 messageSize = string(message->getCString()).size();
+	 TTUInt32 messageSize = string(message.c_str()).size();
 	 messageSize += 1;													// /0 for end of string
 	 
 	 result += ((messageSize/4) + 1) * 4;
@@ -172,9 +172,9 @@ TTUInt32 TTOscSocket::computeMessageSize(TTSymbolPtr message, const TTValue& arg
 		 
 		 if (arguments.getType(i) == kTypeSymbol) {
 			 
-			 TTSymbolPtr symValue;
-			 arguments.get(i, &symValue);
-			 TTUInt32 stringSize = string(symValue->getCString()).size();
+			 TTSymbol symValue;
+			 arguments.get(i, symValue);
+			 TTUInt32 stringSize = string(symValue.c_str()).size();
 			 stringSize += 1;											// /0 for end of string
 			 result += ((stringSize/4) + 1) * 4;						// String Size
 		 }

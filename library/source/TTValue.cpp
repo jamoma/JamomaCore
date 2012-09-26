@@ -106,7 +106,7 @@ TTValue::TTValue(const TTBoolean initialValue)
 TTValue::TTValue(const TTSymbol& initialValue)
 {
 	init();
-	data->sym = initialValue.mSymbolPointer;
+	data->sym = (TTSymbolBase*)initialValue.rawpointer();
 	*type = kTypeSymbol;
 }
 
@@ -613,7 +613,7 @@ TTValue& TTValue::operator = (const TTSymbol& value)
 {
 	setSize(1);
 	*type = kTypeSymbol;
-	data->sym = value.mSymbolPointer;
+	data->sym = (TTSymbolBase*)value.rawpointer();
 	return *this;
 }
 
@@ -829,7 +829,7 @@ void TTValue::set(const TTUInt16 index, const TTBoolean newValue)
 void TTValue::set(const TTUInt16 index, const TTSymbol& newValue)
 {
 	type[index] = kTypeSymbol;
-	data[index].sym = newValue.mSymbolPointer;
+	data[index].sym = (TTSymbolBase*)newValue.rawpointer();
 }
 
 void TTValue::set(const TTUInt16 index, const TTObject& newValue)
