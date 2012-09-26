@@ -187,12 +187,14 @@ t_max_err MaxAudioGraphWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr a
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 	TTValue		v;
 	AtomCount	i;
-	TTSymbolPtr	ttAttrName = NULL;
+	TTPtr		rawpointer;
 	MaxErr		err;
 	
-	err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, attrName, (ObjectPtr*)&ttAttrName);
+	err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, attrName, (ObjectPtr*)&rawpointer);
 	if (err)
 		return err;
+
+	TTSymbol	ttAttrName(rawpointer);
 
 	self->audioGraphObject->getUnitGenerator()->getAttributeValue(ttAttrName, v);
 
@@ -207,9 +209,9 @@ t_max_err MaxAudioGraphWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr a
 			atom_setfloat(*argv+i, value);
 		}
 		else if(v.getType(i) == kTypeSymbol){
-			TTSymbolPtr	value = NULL;
-			v.get(i, &value);
-			atom_setsym(*argv+i, gensym((char*)value->getCString()));
+			TTSymbol	value;
+			v.get(i, value);
+			atom_setsym(*argv+i, gensym((char*)value.c_str()));
 		}
 		else{	// assume int
 			TTInt32		value;
@@ -228,7 +230,7 @@ t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr a
 		SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 		TTValue		v;
 		AtomCount	i;
-		TTSymbolPtr	ttAttrName = NULL;
+		TTSymbol	ttAttrName;
 		MaxErr		err;
 		
 		err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, attrName, (ObjectPtr*)&ttAttrName);
@@ -279,7 +281,7 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 {	
 	TTValue		v_in;
 	TTValue		v_out;
-	TTSymbolPtr	ttName = NULL;
+	TTSymbol	ttName;
 	MaxErr		err;
 	
 	// Check to see that the message can be understood
@@ -316,9 +318,9 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 				
 				for (AtomCount i=0; i<ac; i++) {
 					if (v_out.getType() == kTypeSymbol){
-						TTSymbolPtr ttSym = NULL;
-						v_out.get(i, &ttSym);
-						atom_setsym(av+i, gensym((char*)ttSym->getCString()));
+						TTSymbol ttSym;
+						v_out.get(i, ttSym);
+						atom_setsym(av+i, gensym((char*)ttSym.c_str()));
 					}
 					else if (v_out.getType() == kTypeFloat32 || v_out.getType() == kTypeFloat64) {
 						TTFloat64 f = 0.0;
@@ -364,18 +366,18 @@ void MaxAudioGraphWrappedClass_assist(WrappedInstancePtr self, void *b, long msg
 
 
 
-TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c)
+TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c)
 {
 	return wrapAsMaxAudioGraph(ttClassName, maxClassName, c, (MaxAudioGraphWrappedClassOptionsPtr)NULL);
 }
 
-TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, MaxAudioGraphWrappedClassOptionsPtr options)
+TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, MaxAudioGraphWrappedClassOptionsPtr options)
 {
 	TTObject*					o = NULL;
 	TTValue						v;
 	TTUInt16					numChannels = 1;
 	MaxAudioGraphWrappedClassPtr	wrappedMaxClass = NULL;
-	TTSymbolPtr					name = NULL;
+	TTSymbol					name;
 	TTCString					nameCString = NULL;
 	SymbolPtr					nameMaxSymbol = NULL;
 	TTUInt32					nameSize = 0;
@@ -406,13 +408,13 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 
 	o->getMessageNames(v);
 	for (TTUInt16 i=0; i<v.getSize(); i++) {
-		v.get(i, &name);
-		nameSize = strlen(name->getCString());
+		v.get(i, name);
+		nameSize = strlen(name.c_str());
 		nameCString = new char[nameSize+1];
-		strncpy_zero(nameCString, name->getCString(), nameSize+1);
+		strncpy_zero(nameCString, name.c_str(), nameSize+1);
 
 		nameMaxSymbol = gensym(nameCString);			
-		hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name));
+		hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name.rawpointer()));
 		class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphWrappedClass_anything, nameCString, A_GIMME, 0);
 
 		delete nameCString;
@@ -425,10 +427,10 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 		SymbolPtr		maxType = _sym_long;
 		TTValue			isGenerator = kTTBoolNo;
 		
-		v.get(i, &name);
-		nameSize = strlen(name->getCString());
+		v.get(i, name);
+		nameSize = strlen(name.c_str());
 		nameCString = new char[nameSize+1];
-		strncpy_zero(nameCString, name->getCString(), nameSize+1);
+		strncpy_zero(nameCString, name.c_str(), nameSize+1);
 		nameMaxSymbol = gensym(nameCString);
 				
 		if (name == TT("maxNumChannels"))
@@ -447,12 +449,12 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 		else if (attr->type == kTypeSymbol || attr->type == kTypeString)
 			maxType = _sym_symbol;
 		
-		hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name));
-		class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)MaxAudioGraphWrappedClass_attrGet, (method)MaxAudioGraphWrappedClass_attrSet, NULL));
+		hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name.rawpointer()));
+		class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)MaxAudioGraphWrappedClass_attrGet, (method)MaxAudioGraphWrappedClass_attrSet, 0));
 		
 		// Add display styles for the Max 5 inspector
 		if (attr->type == kTypeBoolean)
-			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name->getCString(), 0, (char*)"onoff");
+			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name.c_str(), 0, (char*)"onoff");
 		if (name == TT("fontFace"))
 			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass,	(char*)"fontFace", 0, (char*)"font");
 
@@ -483,7 +485,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 			class_addattr(wrappedMaxClass->maxClass, attr_offset_new("numChannels", _sym_long, 0, 
 																	 (method)MaxAudioGraphWrappedClass_attrGetNumChannels, 
 																	 (method)MaxAudioGraphWrappedClass_attrSetNumChannels, 
-																	 NULL));			
+																	 0));			
 	}
 	
 	class_register(_sym_box, wrappedMaxClass->maxClass);
@@ -495,7 +497,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 }
 
 
-TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck)
+TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck)
 {
 	TTErr err = wrapAsMaxAudioGraph(ttClassName, maxClassName, c);
 	
@@ -506,7 +508,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 	return err;
 }
 
-TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxAudioGraphWrappedClassOptionsPtr options)
+TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxAudioGraphWrappedClassOptionsPtr options)
 {
 	TTErr err = wrapAsMaxAudioGraph(ttClassName, maxClassName, c, options);
 	
@@ -518,7 +520,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 }
 
 
-TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
+TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
 {
 	TTErr err = wrapAsMaxAudioGraph(ttClassName, maxClassName, c);
 	
@@ -529,7 +531,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioG
 	return err;
 }
 
-TTErr wrapAsMaxAudioGraph(TTSymbolPtr ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, MaxAudioGraphWrappedClassOptionsPtr options)
+TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, MaxAudioGraphWrappedClassOptionsPtr options)
 {
 	TTErr err = wrapAsMaxAudioGraph(ttClassName, maxClassName, c, options);
 	

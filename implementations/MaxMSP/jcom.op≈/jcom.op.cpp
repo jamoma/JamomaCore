@@ -228,9 +228,9 @@ MaxErr OpGetOperator(OpPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 			atom_setfloat(*argv+i, value);
 		}
 		else if(v.getType(i) == kTypeSymbol){
-			TTSymbolPtr	value = NULL;
-			v.get(i, &value);
-			atom_setsym(*argv+i, gensym((char*)value->getCString()));
+			TTSymbol	value;
+			v.get(i, value);
+			atom_setsym(*argv+i, gensym((char*)value.c_str()));
 		}
 		else{	// assume int
 			TTInt32		value;
@@ -268,9 +268,9 @@ MaxErr OpGetOperand(OpPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
 			atom_setfloat(*argv+i, value);
 		}
 		else if(v.getType(i) == kTypeSymbol){
-			TTSymbolPtr	value = NULL;
-			v.get(i, &value);
-			atom_setsym(*argv+i, gensym((char*)value->getCString()));
+			TTSymbol	value;
+			v.get(i, value);
+			atom_setsym(*argv+i, gensym((char*)value.c_str()));
 		}
 		else{	// assume int
 			TTInt32		value;
