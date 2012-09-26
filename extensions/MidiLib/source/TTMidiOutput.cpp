@@ -48,7 +48,7 @@ TTMidiOutput::~TTMidiOutput()
 TTErr TTMidiOutput::dictionary(const TTValue& aDictionaryValue, TTValue&)
 {
 	TTDictionaryPtr	d = NULL;
-	TTSymbolPtr		schema;
+	TTSymbol		schema;
 	
 	aDictionaryValue.get(0, (TTPtr*)(&d));
 	schema = d->getSchema();
@@ -96,7 +96,7 @@ TTErr TTMidiOutput::getAvailableDeviceNames(const TTValue&, TTValue& returnedDev
 
 TTErr TTMidiOutput::setDevice(TTValue& newDeviceName)
 {
-	TTSymbolPtr			newDevice = newDeviceName;
+	TTSymbol			newDevice = newDeviceName;
 	const PmDeviceInfo*	deviceInfo;
     int					deviceCount;
 	PmError				err = pmNoError;

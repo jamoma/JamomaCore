@@ -18,7 +18,7 @@ class TTDictionaryAppend : public TTDataObject {
 	
 protected:
 	
-	TTSymbolPtr	mKey;
+	TTSymbol	mKey;
 	TTValuePtr	mValue;
 	
 	TTErr dictionary(const TTValue& input, TTValue& output);

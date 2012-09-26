@@ -123,7 +123,7 @@ void* TTMidiPoll(TTMidiInput* self)
 
 TTErr TTMidiInput::setDevice(TTValue& newDeviceName)
 {
-	TTSymbolPtr			newDevice = newDeviceName;
+	TTSymbol			newDevice = newDeviceName;
 	const PmDeviceInfo*	deviceInfo;
     int					deviceCount;
 	PmError				err = pmNoError;

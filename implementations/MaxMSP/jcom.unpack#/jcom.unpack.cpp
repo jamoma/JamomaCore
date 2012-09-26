@@ -128,7 +128,7 @@ void UnpackGraphCallback(UnpackPtr self, TTValue& arg)
 	AtomCount		ac;
 	AtomPtr			ap;
 	TTBoolean		firstItemASymbol = NO;
-	TTSymbolPtr		firstItem = NULL;
+	TTSymbol		firstItem;
 	
 	arg.get(0, (TTPtr*)(&aDictionary));
 	aDictionary->getValue(v);
@@ -156,10 +156,10 @@ void UnpackGraphCallback(UnpackPtr self, TTValue& arg)
 			}
 			else if (v.getType() == kTypeSymbol)
 			{
-				TTSymbolPtr s;
+				TTSymbol s;
 				
-				v.get(i, &s);
-				atom_setsym(ap+i, gensym((char*)s->getCString()));
+				v.get(i, s);
+				atom_setsym(ap+i, gensym((char*)s.c_str()));
 				if (i==0) {
 					firstItemASymbol = YES;
 					firstItem = s;
@@ -168,7 +168,7 @@ void UnpackGraphCallback(UnpackPtr self, TTValue& arg)
 		}
 		
 		if (firstItemASymbol)
-			outlet_anything(self->graphOutlets[0], gensym((char*)firstItem->getCString()), ac-1, ap+1);
+			outlet_anything(self->graphOutlets[0], gensym((char*)firstItem.c_str()), ac-1, ap+1);
 		else if (ac == 1)
 			outlet_float(self->graphOutlets[0], atom_getfloat(ap));
 		else

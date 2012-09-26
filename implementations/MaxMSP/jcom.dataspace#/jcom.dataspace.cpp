@@ -153,12 +153,12 @@ MaxErr DataspaceSetInput(DataspacePtr self, void* attr, AtomCount argc, AtomPtr 
 MaxErr DataspaceGetInput(DataspacePtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	TTValue		v;
-	TTSymbolPtr	s;
+	TTSymbol	s;
 	
 	if (*argc && *argv) {
 		self->graphObject->mKernel->getAttributeValue(TT("inputUnit"), v);
-		v.get(0, &s);
-		atom_setsym(*argv, gensym(s->getCString()));
+		v.get(0, s);
+		atom_setsym(*argv, gensym(s.c_str()));
 	}
 	return MAX_ERR_NONE;
 }
@@ -177,12 +177,12 @@ MaxErr DataspaceSetOutput(DataspacePtr self, void* attr, AtomCount argc, AtomPtr
 MaxErr DataspaceGetOutput(DataspacePtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	TTValue		v;
-	TTSymbolPtr	s;
+	TTSymbol	s;
 	
 	if (*argc && *argv) {
 		self->graphObject->mKernel->getAttributeValue(TT("outputUnit"), v);
-		v.get(0, &s);
-		atom_setsym(*argv, gensym(s->getCString()));
+		v.get(0, s);
+		atom_setsym(*argv, gensym(s.c_str()));
 	}
 	return MAX_ERR_NONE;
 }

@@ -135,11 +135,11 @@ void IterGraphCallback(IterPtr self, TTValue& arg)
 	numKeys = keys.getSize();
 	
 	for (TTUInt32 k=0; k<numKeys; k++) {
-		TTSymbolPtr	key = NULL;
+		TTSymbol	key;
 		AtomCount	ac = 0;
 		AtomPtr		ap = NULL;
 		
-		keys.get(k, &key);
+		keys.get(k, key);
 		aDictionary->lookup(key, v);
 		
 		ac = v.getSize();
@@ -166,14 +166,14 @@ void IterGraphCallback(IterPtr self, TTValue& arg)
 				}
 				else if (v.getType() == kTypeSymbol)
 				{
-					TTSymbolPtr s;
+					TTSymbol s;
 					
-					v.get(i, &s);
-					atom_setsym(ap+i, gensym((char*)s->getCString()));
+					v.get(i, s);
+					atom_setsym(ap+i, gensym((char*)s.c_str()));
 				}
 			}
 			
-			outlet_anything(self->graphOutlets[0], gensym(key->getCString()), ac, ap);			
+			outlet_anything(self->graphOutlets[0], gensym(key.c_str()), ac, ap);			
 			delete ap;
 		}
 		
