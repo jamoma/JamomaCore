@@ -21,7 +21,7 @@ class TTPowerFunction : TTAudioObject {
 
 protected:
 
-	TTSymbolPtr	mSymmetry;		///< Mode: none, point or axis
+	TTSymbol	mSymmetry;		///< Mode: none, point or axis
 	double		mPowerValue;	///< Parameter for function: y pow(x,pow(2,powerValue))	
 	double		mK;				///< k = pow(2,powerValue)
 

@@ -18,7 +18,7 @@ class TTSpat : TTAudioObject {
 protected:
 
 	TTAudioObjectPtr	mSpatFunctionObject;
-	TTSymbolPtr			mSpatFunction;	
+	TTSymbol			mSpatFunction;	
 	TTUInt16			mSourceCount;	
 	TTUInt16			mDestinationCount;
 	TTValue				mSourcePositions;		

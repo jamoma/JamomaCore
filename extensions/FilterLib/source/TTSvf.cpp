@@ -77,7 +77,7 @@ TTErr TTSvf::clear()
 
 TTErr TTSvf::setMode(const TTValue& newValue)
 {
-	TTSymbolPtr newMode = newValue;
+	TTSymbol newMode = newValue;
 	
 	if (newMode == TT("lowpass")) {
 		setProcessMethod(processLowpass);
@@ -100,7 +100,7 @@ else if (newMode == TT("peak")) {
 		setCalculateMethod(calculatePeak);
 	}
 	else {
-		logError("bad mode specified for TTSvf: %s", newMode->getCString());
+		logError("bad mode specified for TTSvf: %s", newMode.c_str());
 		return kTTErrInvalidValue;
 	}
 	

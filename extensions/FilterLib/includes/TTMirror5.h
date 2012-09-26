@@ -26,7 +26,7 @@ protected:
 	TTAllpass1a*	mF1;		///< filter1 (in the lower path, first block)
 	TTAllpass2a*	mF2;		///< filter2 (in the lower path, second block)
 	TTFloat64		mFrequency;	///< attribute: in hertz
-	TTSymbolPtr		mMode;		///< attribute: lowpass or highpass
+	TTSymbol		mMode;		///< attribute: lowpass or highpass
 		
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);

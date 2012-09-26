@@ -68,7 +68,7 @@ TTErr TTMirror5::clear()
 
 TTErr TTMirror5::setMode(const TTValue& newValue)
 {
-	TTSymbolPtr newMode = newValue;
+	TTSymbol newMode = newValue;
 	
 	if (newMode == TT("highpass")) {
 		mMode = TT("highpass");

@@ -23,7 +23,7 @@ protected:
 	TTFloat64			attrSustain;
 	TTFloat64			attrRelease;
 	TTBoolean			attrTrigger;
-	TTSymbolPtr			attrMode;
+	TTSymbol			attrMode;
 	TTFloat64			attrFrequency;
 	TTFloat64			attrLength;
 	TTAudioObjectPtr	env_gen;		///< TTAdsr

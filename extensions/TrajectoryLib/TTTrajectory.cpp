@@ -16,7 +16,6 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mActualTrajectoryObject(NULL),
-	mType(NULL),
 	mPhasorOutputSignals(NULL),
 	mRampOutputSignals(NULL)
 

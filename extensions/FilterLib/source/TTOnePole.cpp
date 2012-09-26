@@ -74,7 +74,7 @@ TTErr TTOnePole::clear()
 
 TTErr TTOnePole::setMode(const TTValue& newValue)
 {
-	TTSymbolPtr mode = newValue;
+	TTSymbol mode = newValue;
 	
 	if (mode == TT("lowpass")) {
 		setProcessMethod(processLowpass);

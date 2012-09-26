@@ -20,8 +20,8 @@ class TTResample : TTAudioObject {
 protected:
 	
 	TTAudioObjectPtr	mResamplingFilter;
-	TTSymbolPtr			mDirection;	// up or down
-	TTSymbolPtr			mMode;		// staircase, third, fifth
+	TTSymbol			mDirection;	// up or down
+	TTSymbol			mMode;		// staircase, third, fifth
 	
 	
 	TTErr setDirection(const TTValue& newDirection);

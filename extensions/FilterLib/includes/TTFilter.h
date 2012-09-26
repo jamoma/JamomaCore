@@ -22,7 +22,7 @@ protected:
 	TTAudioObjectPtr	mActualFilterObject;	///< The actual filter object that this object is currently wrapping
 	TTFloat64			mFrequency;				///< The center or cutoff frequency of the filter
 	TTFloat64			mQ;						///< The width of the filter
-	TTSymbolPtr			mType;					///< The name of the current filter type
+	TTSymbol			mType;					///< The name of the current filter type
 	
 public:
 	
@@ -40,7 +40,7 @@ public:
 	
 	TTErr setType(const TTValue& newValue)
 	{	
-		TTSymbolPtr newType = newValue;
+		TTSymbol	newType = newValue;
 		TTErr		err = kTTErrNone;
 		
 		// if the type didn't change, then don't change the filter

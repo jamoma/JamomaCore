@@ -67,7 +67,7 @@ protected:
 	TTAllpass2b*	mF3;		///< path1
 	TTAllpass2b*	mF4;		///< path1
 	
-	TTSymbolPtr		mMode;		///< Attribute: lowpass or highpass
+	TTSymbol		mMode;		///< Attribute: lowpass or highpass
 		
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);

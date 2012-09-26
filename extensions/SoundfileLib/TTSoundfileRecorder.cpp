@@ -86,14 +86,14 @@ TTErr TTSoundfileRecorder::setLength(const TTValue& newValue)
 
 // "FLAC-24bit" -> SF_FORMAT_FLAC | SF_FORMAT_PCM_24
 // something to consider when you want to write large amount of data as fast as possible: http://www.mega-nerd.com/libsndfile/FAQ.html#Q006
-int TTSoundfileRecorder::translateFormatFromName(TTSymbolPtr name)
+int TTSoundfileRecorder::translateFormatFromName(TTSymbol& name)
 {
 	int		format = 0;
 	char	cname[64];
 	char*	s;
 	
 	if (name)
-		strncpy(cname, name->getCString(), 64);
+		strncpy(cname, name.c_str(), 64);
 	else
 		strncpy(cname, "CAF", 64);
 
@@ -149,7 +149,7 @@ TTErr TTSoundfileRecorder::openFile()
 	mSoundFileInfo.format = translateFormatFromName(mFormat);
 	mSoundFileInfo.samplerate = sr;
 	
-	mSoundFile = sf_open(mFilePath->getCString(), SFM_WRITE, &mSoundFileInfo);
+	mSoundFile = sf_open(mFilePath.c_str(), SFM_WRITE, &mSoundFileInfo);
 	
 	if (!mSoundFile) {
 		TTLogMessage("Can't create soundfile.\n");

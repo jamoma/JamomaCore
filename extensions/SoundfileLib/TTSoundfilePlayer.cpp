@@ -64,7 +64,7 @@ TTSoundfilePlayer::~TTSoundfilePlayer()
 // takes a POSIX path, e.g. /Users/tim/Music/Demos/whiteandnerdy.aif
 TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 {
-	TTSymbolPtr potentialFilePath = newValue;
+	TTSymbol 	potentialFilePath = newValue;
 	SNDFILE*	soundfile;
 	const char*	textInfo; 
 #ifdef TT_PLATFORM_WIN
@@ -78,7 +78,7 @@ TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 
 	memset(&soundfileInfo, 0, sizeof(SF_INFO));
 	//soundfileInfo.format = 0;
-	soundfile = sf_open(potentialFilePath->getCString(), SFM_READ, soundfileInfo);
+	soundfile = sf_open(potentialFilePath.c_str(), SFM_READ, soundfileInfo);
 	
 	if (soundfile) {
 		SNDFILE* oldSoundFile = mSoundFile;
@@ -114,7 +114,7 @@ TTErr TTSoundfilePlayer::setFilePath(const TTValue& newValue)
 	else {
 		char errstr[256];
 		sf_error_str (soundfile, errstr, 256);
-		TTLogMessage("cannot open soundfile %s: %s", potentialFilePath->getCString(), errstr);
+		TTLogMessage("cannot open soundfile %s: %s", potentialFilePath.c_str(), errstr);
 		return kTTErrGeneric;
 	}
 }
@@ -141,7 +141,7 @@ TTErr TTSoundfilePlayer::setSeek(const TTValue& newValue)
 		if (sf_seek(mSoundFile, mSeekInFrames, SEEK_SET) != mSeekInFrames) {
 			char errstr[256];
 			sf_error_str (mSoundFile, errstr, 256);
-			TTLogMessage("error in seek of %s: %s", mFilePath->getCString(), errstr);
+			TTLogMessage("error in seek of %s: %s", mFilePath.c_str(), errstr);
 			return kTTErrGeneric;
 		}
 		mContinue = 1; //eliminating previous pause state

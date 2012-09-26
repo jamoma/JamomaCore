@@ -30,8 +30,8 @@ class TTCrossfade : TTAudioObject {
 	TTCLASS_SETUP(TTCrossfade)
 	
 	TTFloat64		mPosition;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
-	TTSymbol*		mShape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
-	TTSymbol*		mMode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
+	TTSymbol		mShape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
+	TTSymbol		mMode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
 	
 	/** Utility used by the setters for setting up the process routine. */
 	TTErr setProcessPointers();

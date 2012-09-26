@@ -28,8 +28,8 @@ protected:
 	TTFloat64			mRVectorSize;	// reciprocal of vector size
 	TTBoolean			mInverse;		// true = IFFT, false = FFT
 	TTInt16				mInverseValue;	// -1 means IFFT, +1 means FFT
-	TTSymbolPtr			mMode;			// 'real' or 'complex'
-	TTSymbolPtr			mAlgorithm;		// 'ooura' or 'mayer'	
+	TTSymbol			mMode;			// 'real' or 'complex'
+	TTSymbol			mAlgorithm;		// 'ooura' or 'mayer'	
 
 	/** Attribute accessor.	*/
 	TTErr setInverse(const TTValue& newValue);

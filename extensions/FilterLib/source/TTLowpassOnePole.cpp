@@ -19,7 +19,7 @@ extern "C" void TTLowpassOnePole::registerClass()
 }
 
 
-TTObjectPtr TTLowpassOnePole::instantiate(TTSymbolPtr name, TTValue& arguments)
+TTObjectPtr TTLowpassOnePole::instantiate(TTSymbol& name, TTValue& arguments)
 {
 	return new TTLowpassOnePole(arguments);
 }

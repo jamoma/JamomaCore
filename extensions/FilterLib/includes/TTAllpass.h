@@ -18,7 +18,7 @@ class TTAllpass : public TTAudioObject {
 	
 protected:
 	
-	TTSymbolPtr			mFilter;			///< Name of the filter to use
+	TTSymbol			mFilter;			///< Name of the filter to use
 	TTAudioObjectPtr	mFilterObject;		///< The actual filter object for mFilter
 	
 	
