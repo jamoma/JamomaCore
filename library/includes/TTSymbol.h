@@ -51,6 +51,14 @@ public:
 	}
 	
 	
+	TTSymbol(const int int_to_convert_to_string)
+	{
+		TTString s;
+		
+		s.append(int_to_convert_to_string);
+		mSymbolPointer = gTTSymbolTable->lookup(s);
+	}
+	
 	TTSymbol(TTPtr do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing)
 	{
 		mSymbolPointer = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
