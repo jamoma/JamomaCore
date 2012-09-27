@@ -18,7 +18,7 @@
 // TODO: define a macro called "decoratematrix" that would call the proper constructor but make actions clearer
 //	-- see convenience macros in TTAttribute
 
-class TTFOUNDATION_EXPORT TTMatrixDecorator : public TTObject {
+class TTFOUNDATION_EXPORT TTMatrixDecorator : public TTDataObjectPtr {
 	TTCLASS_SETUP(TTMatrixDecorator)
 	
 	protected:

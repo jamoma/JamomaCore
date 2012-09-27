@@ -11,14 +11,14 @@
 #include "TTMatrixDecorators.h"
 
 /** macro used to make sure that we setup all decorators the same */
-#define TT_MATRIXDECORATOR_CONSTRUCTOR(decorated_matrix) \
-	TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTMatrixPtr decorated_matrix, TTValue& arguments) \
-		{return new thisTTClass (decorated_matrix, arguments);} \
+#define TT_MATRIXDECORATOR_CONSTRUCTOR \
+	TTObjectPtr thisTTClass :: decorate (TTDataObjectPtr decoratedMatrix, TTValue& arguments) \
+		{return new thisTTClass (decoratedMatrix, arguments);} \
 	\
 	extern "C" void thisTTClass :: registerClass () \
-		{TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+		{TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: decorate );} \
 	\
-	thisTTClass :: thisTTClass (TTMatrixPtr decorated_matrix, TTValue& arguments) : TTObject(arguments)
+	thisTTClass :: thisTTClass (TTDataObjectPtr decoratedMatrix, TTValue& arguments) : TTDataObjectPtr(arguments), mDecoratedMatrix(decoratedMatrix)
 
 
 /******************** a base class for all other matrix decorators ********************/
@@ -29,8 +29,7 @@
 
 // TODO: will the TT_OBJECT_CONSTRUCTOR need to be revamped for decorator purposes?
 
-TT_OBJECT_CONSTRUCTOR, 
-	mDecoratedMatrix(arguments[0])		// TODO: not sure I can do this
+TT_MATRIXDECORATOR_CONSTRUCTOR,
 {;}
 
 TTMatrixDecorator::~TTMatrixDecorator
@@ -43,8 +42,7 @@ TTMatrixDecorator::~TTMatrixDecorator
 #define thisTTClassName		"matrixdecorator.2daccess"
 #define thisTTClassTags		"matrix, decorator, 2daccess"
 
-TT_OBJECT_CONSTRUCTOR, 
-	mDecoratedMatrix(arguments[0])		// TODO: not sure I can do this
+TT_MATRIXDECORATOR_CONSTRUCTOR,
 {;}
 
 TT2dAccessMatrixDecorator::~TT2dAccessMatrixDecorator
@@ -71,8 +69,7 @@ TTErr TT2dAccessMatrixDecorator::set2d(TTPtr pointerStart, T& data)
 #define thisTTClassName		"matrixdecorator.zeroindex"
 #define thisTTClassTags		"matrix, decorator, zeroindex"
 
-TT_OBJECT_CONSTRUCTOR, 
-	mDecoratedMatrix(arguments[0])		// TODO: not sure I can do this
+TT_MATRIXDECORATOR_CONSTRUCTOR,
 {;}
 
 TTZeroIndexMatrixDecorator::~TTZeroIndexMatrixDecorator
@@ -85,8 +82,7 @@ TTZeroIndexMatrixDecorator::~TTZeroIndexMatrixDecorator
 #define thisTTClassName		"matrixdecorator.oneindex"
 #define thisTTClassTags		"matrix, decorator, oneindex"
 
-TT_OBJECT_CONSTRUCTOR, 
-	mDecoratedMatrix(arguments[0])		// TODO: not sure I can do this
+TT_MATRIXDECORATOR_CONSTRUCTOR,
 {;}
 
 TTOneIndexMatrixDecorator::~TTOneIndexMatrixDecorator
@@ -115,8 +111,7 @@ TTErr TTOneIndexMatrixDecorator::where2d(TTRowID i, TTColumnID j, TTUInt32 eleme
 #define thisTTClassName		"matrixdecorator.outofbounds.error"
 #define thisTTClassTags		"matrix, decorator, outofbounds, error"
 
-TT_OBJECT_CONSTRUCTOR, 
-	mDecoratedMatrix(arguments[0])		// TODO: not sure I can do this
+TT_MATRIXDECORATOR_CONSTRUCTOR,
 {;}
 
 TTOutOfBoundsErrorMatrixDecorator::~TTOutOfBoundsErrorMatrixDecorator
@@ -132,8 +127,7 @@ TTOutOfBoundsErrorMatrixDecorator::~TTOutOfBoundsErrorMatrixDecorator
 #define thisTTClassName		"matrixdecorator.outofbounds.zerofill"
 #define thisTTClassTags		"matrix, decorator, outofbounds, zerofill"
 
-TT_OBJECT_CONSTRUCTOR, 
-	mDecoratedMatrix(arguments[0])		// TODO: not sure I can do this
+TT_MATRIXDECORATOR_CONSTRUCTOR,
 {;}
 
 TTOutOfBoundsZeroFillMatrixDecorator::~TTOutOfBoundsZeroFillMatrixDecorator
@@ -150,8 +144,7 @@ TTOutOfBoundsZeroFillMatrixDecorator::~TTOutOfBoundsZeroFillMatrixDecorator
 #define thisTTClassName		"matrixdecorator.outofbounds.wrap"
 #define thisTTClassTags		"matrix, decorator, outofbounds, zerofill"
 
-TT_OBJECT_CONSTRUCTOR, 
-	mDecoratedMatrix(arguments[0])		// TODO: not sure I can do this
+TT_MATRIXDECORATOR_CONSTRUCTOR,
 {;}
 
 TTOutOfBoundsWrapMatrixDecorator::~TTOutOfBoundsWrapMatrixDecorator
