@@ -17,8 +17,7 @@ includes:
   - ../../../../Graphics/library/includes
   - ../../../../Support/max  
   - ../../../../Support/objectivemax/MaxObject
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
+  - C74-INCLUDES
   
 libraries:
   - FOUNDATION
