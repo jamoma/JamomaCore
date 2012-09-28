@@ -138,6 +138,12 @@ public:
 	}
 	
 	
+	// because when size() == 0 there is still a char (null terminator) in the vector, we have to override this
+	bool empty() const
+	{
+		return size() == 0;
+	}
+	
 	/** Allocate  memory for the string. */
 	void resize(size_t newSize)
 	{
