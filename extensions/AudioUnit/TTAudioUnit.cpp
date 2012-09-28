@@ -12,8 +12,8 @@
 #ifdef uint
 #undef uint
 #endif
+ 
 #include <CoreServices/CoreServices.h>
-
 #include <AudioToolbox/AudioToolBox.h>
 #include <AudioUnit/AudioUnit.h>
 
@@ -34,7 +34,7 @@ OSStatus TTAudioUnitGetInputSamples(void*						inRefCon,
 /**	Host AudioUnit plug-ins. */
 class TTAudioUnit : public TTAudioObject {
 public:
-	TTSymbolPtr			mPlugin;			///< Attribute: the name of the current plugin
+	TTSymbol			mPlugin;			///< Attribute: the name of the current plugin
 	AudioUnit			mAudioUnit;			///< the actual plugin
 	AudioBufferList*	mInputBufferList;
 	AudioBufferList*	mOutputBufferList;
@@ -46,7 +46,6 @@ public:
 	/**	Constructor. */
 	TTAudioUnit(TTValue& arguments) : 
 		TTAudioObject(arguments),
-		mPlugin(NULL),
 		mAudioUnit(NULL),
 		mInputBufferList(NULL), 
 		mOutputBufferList(NULL),
@@ -185,7 +184,7 @@ public:
 		Handle					compName;
 		char*					compNameStr;
 		int						compNameLen;
-		TTSymbolPtr				pluginName = newPluginName;
+		TTSymbol				pluginName = newPluginName;
 		TTUInt32				dataSizeDontCare;
 		AudioStreamBasicDescription		audioStreamBasicDescription;
 		OSStatus						result;
@@ -213,7 +212,7 @@ public:
 			compNameStr++;
 			compNameStr++;
 			
-			if (!strcmp(compNameStr, pluginName->getCString())) {	
+			if (!strcmp(compNameStr, pluginName)) {	
 				AURenderCallbackStruct callbackStruct;
 
 				mAudioUnit = OpenComponent(comp);
@@ -301,7 +300,7 @@ public:
 	
 	TTErr setParameter(TTValueConstRef nameAndValue, TTValueRef)
 	{
-		TTSymbolPtr	parameterName;
+		TTSymbol	parameterName;
 		TTFloat32	parameterValue;
 		TTValue		v;
 		TTErr		err;
@@ -311,7 +310,7 @@ public:
 			return kTTErrGeneric;
 		}
 		
-		nameAndValue.get(0, &parameterName);
+		nameAndValue.get(0, parameterName);
 		nameAndValue.get(1, parameterValue);
 		err = mParameterNames->lookup(parameterName, v);
 		if (!err)
@@ -322,7 +321,7 @@ public:
 	
 	TTErr getParameter(TTValueConstRef nameIn, TTValueRef valueOut)
 	{
-		TTSymbolPtr	parameterName = nameIn;
+		TTSymbol	parameterName = nameIn;
 		TTValue		v;
 		TTErr		err;
 		long		parameterID = -1;
