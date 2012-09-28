@@ -133,6 +133,25 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
+	TTTestAssertion("== operator with c-string when strings have the same content",
+					foo == "gop",
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("== operator with c-string when strings have different content",
+					!(foo == "bar"),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("!= operator with c-string when strings have the same content",
+					!(foo != "gop"),
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("!= operator with c-string when strings have different content",
+					(foo != "bar"),
+					testAssertionCount,
+					errorCount);
+	
+	
 }
 
 

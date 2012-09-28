@@ -238,6 +238,22 @@ public:
 	}
 	
 	
+	bool operator == (const char *cString) const
+	{
+		TTString s(cString);
+		return (*this) == s;
+	}
+	
+	//bool MyClass::operator==(const MyClass &other) const {
+	//bool MyClass::operator!=(const MyClass &other) const {
+	//	return !(*this == other);
+	//}
+	
+	bool operator != (const char *cString) const
+	{
+		return !(*this == cString);
+	}
+	
 	/** Return the index of the first instance of a specified char in the string.
 		@param	aChar	The char for which to search
 		@param	from	A position in the string from which to begin the search.  By default it starts at the beginning (0)
