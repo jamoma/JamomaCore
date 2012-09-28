@@ -240,19 +240,26 @@ public:
 	
 	bool operator == (const char *cString) const
 	{
-		TTString s(cString);
+		const TTString s(cString);
 		return (*this) == s;
 	}
 	
-	//bool MyClass::operator==(const MyClass &other) const {
-	//bool MyClass::operator!=(const MyClass &other) const {
-	//	return !(*this == other);
-	//}
+	bool operator == (const TTString &other) const
+	{
+		return *dynamic_cast<const std::vector<char>*>(this) == *dynamic_cast<const std::vector<char>*>(&other);
+	}
+
 	
 	bool operator != (const char *cString) const
 	{
 		return !(*this == cString);
 	}
+
+	bool operator != (const TTString &other) const
+	{
+		return !(*this == other);
+	}
+
 	
 	/** Return the index of the first instance of a specified char in the string.
 		@param	aChar	The char for which to search
