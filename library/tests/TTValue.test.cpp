@@ -132,7 +132,7 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 	// The next set of tests check things where the correct answer isn't
     // as obvious or important. Some of these tests check for cases that
     // are rare or can easily be avoided.
-	
+#ifdef RARE
 	TTTestAssertion("TTFloat32: inf == inf.",
 					TTTestFloatEquivalence(inf, inf),
 					testAssertionCount,
@@ -146,7 +146,8 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 					TTTestFloatEquivalence(inf, -inf, false),
 					testAssertionCount,
 					errorCount);
-	
+#endif
+
 // FLT_MAX is not defined for the iOS
 #ifndef TT_PLATFORM_IOS
 	TTTestAssertion("TTFloat32: FLT_MAX != inf",
@@ -331,7 +332,7 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 	// The next set of tests check things where the correct answer isn't
     // as obvious or important. Some of these tests check for cases that
     // are rare or can easily be avoided.
-	
+#ifdef RARE	
 	TTTestAssertion("TTFloat64: inf == inf.",
 					TTTestFloatEquivalence(inf, inf),
 					testAssertionCount,
@@ -345,6 +346,7 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 					TTTestFloatEquivalence(inf, -inf, false),
 					testAssertionCount,
 					errorCount);
+#endif
 	
 // DBL_MAX is not defined for the iOS
 #ifndef TT_PLATFORM_IOS
@@ -601,7 +603,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	
 	TTTestAssertion("\"1.234567\" string is converted into a TTFloat32 1.234567 value",
 					v.getType() == kTypeFloat32 &&
-					v.getFloat32(0) == 1.234567,
+					TTTestFloatEquivalence((TTFloat32)v.getFloat32(0), 1.234567f),
 					testAssertionCount,
 					errorCount);
 	
@@ -631,7 +633,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 					v.getType(2) == kTypeFloat32 &&
 					aSymbol == kTTSym_sampleRate &&
 					i == 1 &&
-					f == 1.234567 &&
+					TTTestFloatEquivalence(f, 1.234567f) &&
 					v.getSize() == 3,
 					testAssertionCount,
 					errorCount);

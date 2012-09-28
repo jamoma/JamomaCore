@@ -583,7 +583,7 @@ public:
 					return false;
 				break;
 			case kTypeSymbol:
-				if ( *(a1.data)->sym == *(a2.data)->sym )
+				if ( strcmp( (a1.data)->sym->getCString(), (a2.data)->sym->getCString() ) >= 0 )
 					return false;
 				break;
 			case kTypeString:

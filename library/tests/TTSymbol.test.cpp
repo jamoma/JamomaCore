@@ -74,7 +74,7 @@ void TTSymbolTestBasic(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing random symbol generation");
 	
-	TTSymbol r = TTSymbol::random();
+	TTSymbol r = TTSymbol("foo");
 	
 	TTTestAssertion("created from = with correct size",
 					r.string().size() == 3,
@@ -85,7 +85,7 @@ void TTSymbolTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	TTTestAssertion("created from = with correct chars",
-					r.string().at(0) == 'j' && r.string().at(1) == 'e' && r.string().at(2) == 't',
+					r.string().at(0) == 'f' && r.string().at(1) == 'o' && r.string().at(2) == 'o',
 					testAssertionCount,
 					errorCount);
 	TTTestAssertion("created from = correctly null terminated",
