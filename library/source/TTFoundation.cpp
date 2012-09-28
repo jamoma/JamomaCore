@@ -128,8 +128,6 @@ void TTFoundationLoadExternalClasses()
 	}
 	else {
 		OSErr		err = noErr;
-//		FSRef		ref;
-//		UInt8		path[4096];
 		TTString	fullpath;
 		
 		// Look in the folder of the host application
@@ -141,6 +139,9 @@ void TTFoundationLoadExternalClasses()
 		CFStringGetCString(mainBundlePath, mainBundleStr, 4096, kCFStringEncodingUTF8);
 		strncat(mainBundleStr, "/Contents/Jamoma/Extensions", 4096);
 		mainBundleStr[4095] = 0;
+		
+		CFRelease(mainBundlePath);
+		
 		err = TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
 		if (!err)
 			return; // if we loaded classes out of a standalone app, then we don't want to be corrupted by global extensions Redmine #348
