@@ -1,3 +1,4 @@
+compiler: gcc47
 
 sources:
   - source/TTFoundation.cpp
