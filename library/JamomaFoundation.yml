@@ -59,6 +59,7 @@ sources:
   - source/TTNodeLib.cpp
   - source/TTNode.cpp
   - source/TTAddress.cpp
+  - source/TTAddressBase.cpp
   - source/TTAddressTable.cpp
   - source/TTAddressCache.cpp
   - source/TTAddressItem.cpp

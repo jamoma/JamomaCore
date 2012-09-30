@@ -11,6 +11,8 @@
 #include "TTSymbolCache.h"
 
 
+TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
+
 TTFOUNDATION_EXPORT TTSymbol		kTTSymEmpty						((""));
 TTFOUNDATION_EXPORT TTSymbol		kTTSymSlash						(("/"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSymDot						(("."));

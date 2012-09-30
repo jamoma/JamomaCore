@@ -10,9 +10,12 @@
 
 #include "TTAddressCache.h"
 
-TTFOUNDATION_EXPORT TTAddressPtr kTTAdrsEmpty;
-TTFOUNDATION_EXPORT TTAddressPtr kTTAdrsRoot;
-TTFOUNDATION_EXPORT TTAddressPtr kTTAdrsZero;
+
+TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
+
+TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsEmpty;
+TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsRoot;
+TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsZero;
 
 void TTAddressCacheInit()
 {

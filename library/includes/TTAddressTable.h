@@ -12,7 +12,7 @@
 #include "TTBase.h"
 #include "TTSymbolBase.h"
 #include "TTSymbolTable.h"
-#include "TTAddress.h"
+#include "TTAddressBase.h"
 
 
 /****************************************************************************************************/
@@ -31,7 +31,7 @@ public:
 	
 };
 
-extern TTFOUNDATION_EXPORT TTAddressTable* gAddressTable;		///< The global table of addresses
+extern TTFOUNDATION_EXPORT TTAddressTable* gTTAddressTable;		///< The global table of addresses
 
 
 #endif // __TT_ADDRESS_TABLE_H__

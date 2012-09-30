@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		2236CD8116188D9D0008DF69 /* TTAddressBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAddressBase.h; sourceTree = "<group>"; };
+		2236CD8316188DB00008DF69 /* TTAddressBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAddressBase.cpp; path = source/TTAddressBase.cpp; sourceTree = SOURCE_ROOT; };
 		2262733915B0604A00B13F9D /* TTFifo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTFifo.h; sourceTree = "<group>"; };
 		229E3DBB15ED1F6900BD1FC0 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		22EFB4B115F7E24400A85A8C /* TTString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTString.h; path = includes/TTString.h; sourceTree = "<group>"; };
@@ -147,6 +149,8 @@
 				D2F0978214A0D70F00EC0396 /* TTNodeLib.cpp */,
 				D2F0975C14A0D70100EC0396 /* TTAddress.h */,
 				D2F0977E14A0D70F00EC0396 /* TTAddress.cpp */,
+				2236CD8116188D9D0008DF69 /* TTAddressBase.h */,
+				2236CD8316188DB00008DF69 /* TTAddressBase.cpp */,
 				D2F0975E14A0D70100EC0396 /* TTAddressTable.h */,
 				D2F0978014A0D70F00EC0396 /* TTAddressTable.cpp */,
 				D2333F311580D98F00D5CBAF /* TTAddressItem.h */,

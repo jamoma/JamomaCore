@@ -52,8 +52,5 @@ public:
 };
 
 
-extern TTFOUNDATION_EXPORT TTSymbolTable* gTTSymbolTable;		///< The global table of symbols
-
-
 #endif // __TT_SYMBOLTABLE_H__
 

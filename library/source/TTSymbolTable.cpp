@@ -57,7 +57,7 @@ typedef TTSymbolTableHash::const_iterator			TTSymbolTableIter;
 
 
 static TTMutex*				sMutex = NULL;
-TTFOUNDATION_EXPORT TTSymbolTable*		gTTSymbolTable = NULL;
+//TTFOUNDATION_EXPORT TTSymbolTable*		gTTSymbolTable = NULL;
 
 
 #define mSYMBOLTABLE ((TTSymbolTableHash*)(mSymbolTable))
@@ -125,11 +125,11 @@ TTSymbolBase* TTSymbolTable::lookup(const char* aString)
 
 TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
 {
-	if (!gTTSymbolTable)					// symbol table hasn't been created yet!
-		gTTSymbolTable = new TTSymbolTable;
-
-	TTSymbolTable *self = gTTSymbolTable; // can't rely on 'this' in the case where we just created the table!
-	
+//	if (!gTTSymbolTable)					// symbol table hasn't been created yet!
+//		gTTSymbolTable = new TTSymbolTable;
+//
+//	TTSymbolTable *self = gTTSymbolTable; // can't rely on 'this' in the case where we just created the table!
+TTSymbolTable *self = &gTTSymbolTable;
 #ifdef TT_PLATFORM_WIN
 	return self->lookup(aString.c_str());
 #else

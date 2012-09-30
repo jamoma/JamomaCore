@@ -12,9 +12,11 @@
 #include "TTAddress.h"
 #include "TTAddressTable.h"
 
-extern TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsEmpty;
-extern TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsRoot;
-extern TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsZero;
+extern TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
+
+extern TTFOUNDATION_EXPORT TTAddressPtr		kTTAdrsEmpty;
+extern TTFOUNDATION_EXPORT TTAddressPtr		kTTAdrsRoot;
+extern TTFOUNDATION_EXPORT TTAddressPtr		kTTAdrsZero;
 
 void TTAddressCacheInit();
 

@@ -12,6 +12,7 @@
 #include "TTSymbolBase.h"
 #include "TTSymbolTable.h"
 
+extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
 
 /** This macro is defined as a shortcut for doing a lookup in the symbol table. */
 //#define TT gTTSymbolTable->lookup
@@ -22,17 +23,13 @@
 
 /**
 	The TTSymbol class is used to represent a string and efficiently pass and compare that string.
-	At the moment the implementation is somewhat crude and really slow and it should be improved in the future.
  
-	Note that generally speaking you should not directly create a TTSymbol!
-	Instead, TTSymbol objects should only by created by the TTSymbolTable that you are using.  
-	Because of this we *always* pass TTSymbols as references (#TTSymbolRef) into the symbol table rather than as pointers or copies.
- 
-	Also, if you don't need the fast lookup capabilities of the symbol table (such as for message or attribute lookup)
-	then consider passing a #TTString instead.
+	If you don't need the fast lookup capabilities of the symbol table (such as for message or attribute lookup)
+	then consider passing a #TTString instead to keep the internal symbol table from becoming bloated.
 */
-class TTFOUNDATION_EXPORT TTSymbol {
 
+class TTFOUNDATION_EXPORT TTSymbol
+{
 protected:
 
 	TTSymbolBase*	mSymbolPointer;		///< pointer to the symbol that we represent
@@ -41,13 +38,13 @@ public:
 	
 	TTSymbol()
 	{
-		mSymbolPointer = gTTSymbolTable->lookup("");
+		mSymbolPointer = gTTSymbolTable.lookup("");
 	}
 	
 	
 	TTSymbol(const char *cstr)
 	{
-		mSymbolPointer = gTTSymbolTable->lookup(cstr);
+		mSymbolPointer = gTTSymbolTable.lookup(cstr);
 	}
 	
 	
@@ -56,7 +53,7 @@ public:
 		TTString s;
 		
 		s.append(int_to_convert_to_string);
-		mSymbolPointer = gTTSymbolTable->lookup(s);
+		mSymbolPointer = gTTSymbolTable.lookup(s);
 	}
 	
 	TTSymbol(TTPtr do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing)

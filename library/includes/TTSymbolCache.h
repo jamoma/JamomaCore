@@ -12,6 +12,8 @@
 #include "TTSymbol.h"
 
 
+extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
+
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymEmpty;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymSlash;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymDot;
