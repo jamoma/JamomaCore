@@ -11,11 +11,14 @@
 #include "TTFoundationAPI.h"
 #include "TTAddressItem.h"
 
-TTAddressItem::TTAddressItem(TTSymbolRef aSymbol, TTAddressItemPtr aParent, TTBoolean aSelection):
-symbol(kTTSymEmpty), parent(NULL), selection(NO)
+TTAddressItem::TTAddressItem(TTSymbol aSymbol, TTAddressItemPtr aParent, TTBoolean aSelection):
+	parent(NULL),
+	selection(NO)
 {
-	if (aSymbol) this->symbol = aSymbol;
-	else this->symbol = kTTSymEmpty;
+	if (aSymbol)
+		this->symbol = aSymbol;
+	else
+		this->symbol = kTTSymEmpty;
 	
 	this->parent = aParent;
 	this->selection = aSelection;
@@ -47,7 +50,7 @@ void TTAddressItem::setParent(const TTAddressItemPtr newParent)
 	this->parent = newParent;
 }
 
-TTSymbolRef TTAddressItem::getSymbol()
+TTSymbol TTAddressItem::getSymbol()
 {
 	return this->symbol;
 }
@@ -62,12 +65,12 @@ TTBoolean TTAddressItem::getSelection()
 	return this->selection;
 }
 
-TTAddressItemPtr TTAddressItem::getItem(TTSymbolRef aSymbol)
+TTAddressItemPtr TTAddressItem::getItem(TTSymbol aSymbol)
 {
 	TTAddressItemPtr anItem = NULL;
 	TTValue found;
 	
-	TTErr err = ((TTListPtr)this)->find(&TTAddressItemFind, (TTPtr)&aSymbol, found);
+	TTErr err = ((TTListPtr)this)->find(&TTAddressItemFind, aSymbol.rawpointer(), found);
 	
 	if (!err)
 		found.get(0, (TTPtr*)&anItem);
@@ -84,18 +87,17 @@ void TTAddressItem::clear()
 	((TTListPtr)this)->clear();
 }
 
-TTErr TTAddressItem::append(TTAddressPtr addressToAppend, TTAddressItemPtr *returnedItem)
+TTErr TTAddressItem::append(TTAddress addressToAppend, TTAddressItemPtr *returnedItem)
 {
 	TTAddressItemPtr	anItem = this;
 	TTAddressItemPtr	nextItem;
-	TTList					nameInstanceList;
-	TTSymbolRef				nameInstance(kTTSymEmpty);
+	TTList				nameInstanceList;
+	TTSymbol			nameInstance(kTTSymEmpty);
 	
-	addressToAppend->listNameInstance(nameInstanceList);
+	addressToAppend.listNameInstance(nameInstanceList);
 	
 	for (nameInstanceList.begin(); nameInstanceList.end(); nameInstanceList.next()) {
-		
-		nameInstanceList.current().get(0, &nameInstance);
+		nameInstanceList.current().get(0, nameInstance);
 		
 		nextItem = anItem->getItem(nameInstance);
 		
@@ -111,7 +113,7 @@ TTErr TTAddressItem::append(TTAddressPtr addressToAppend, TTAddressItemPtr *retu
 	return kTTErrNone;
 }
 
-TTErr TTAddressItem::remove(TTAddressPtr addressToRemove)
+TTErr TTAddressItem::remove(TTAddress& addressToRemove)
 {
 	TTAddressItemPtr	anItem;
 	TTAddressItemPtr	parentItem;
@@ -135,18 +137,18 @@ TTErr TTAddressItem::remove(TTAddressPtr addressToRemove)
 	return kTTErrGeneric;
 }
 
-TTErr TTAddressItem::find(TTAddressPtr addressToFind, TTAddressItemPtr *returnedItem)
+TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedItem)
 {
 	TTAddressItemPtr	anItem = this;
 	TTAddressItemPtr	nextItem;
-	TTList					nameInstanceList;
-	TTSymbolRef				nameInstance(kTTSymEmpty);
+	TTList				nameInstanceList;
+	TTSymbol			nameInstance(kTTSymEmpty);
 	
-	addressToFind->listNameInstance(nameInstanceList);
+	addressToFind.listNameInstance(nameInstanceList);
 	
 	for (nameInstanceList.begin(); nameInstanceList.end(); nameInstanceList.next()) {
 		
-		nameInstanceList.current().get(0, &nameInstance);
+		nameInstanceList.current().get(0, nameInstance);
 		
 		nextItem = anItem->getItem(nameInstance);
 		
@@ -282,12 +284,12 @@ void TTAddressItem::unregisterHandler(TTObject& anObject)
 	this->handlers.remove(v);
 }
 
-void TTAddressItem::iterateHandlersSendingMessage(TTSymbolRef messageName)
+void TTAddressItem::iterateHandlersSendingMessage(TTSymbol& messageName)
 {
 	this->handlers.iterateObjectsSendingMessage(messageName);
 }
 
-void TTAddressItem::iterateHandlersSendingMessage(TTSymbolRef messageName, TTValue& aValue)
+void TTAddressItem::iterateHandlersSendingMessage(TTSymbol& messageName, TTValue& aValue)
 {
 	this->handlers.iterateObjectsSendingMessage(messageName, aValue);
 }
@@ -298,13 +300,13 @@ void TTAddressItem::iterateHandlersSendingMessage(TTSymbolRef messageName, TTVal
 #endif
 
 ///void TTAddressItemFind(const TTValue& itemValue, TTPtr aSymbolToMatch, TTBoolean& found)
-void TTAddressItemFind(const TTValue& itemValue, TTSymbolRef aSymbolToMatch, TTBoolean& found)
+void TTAddressItemFind(const TTValue& itemValue, TTPtr aSymbolBaseToMatch, TTBoolean& found)
 {
 	TTAddressItemPtr anItem;
 	
 	itemValue.get(0, (TTPtr*)&anItem);
 	
-	found = anItem->symbol == aSymbolToMatch;
+	found = anItem->getSymbol() == TTSymbol(aSymbolBaseToMatch);
 }
 
 #endif

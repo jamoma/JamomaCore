@@ -13,15 +13,8 @@
 
 TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
 
-TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsEmpty;
-TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsRoot;
-TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsZero;
-
-void TTAddressCacheInit()
-{
-	kTTAdrsEmpty				= TTADRS("");
-	kTTAdrsRoot					= TTADRS("/");
-	kTTAdrsZero					= TTADRS("0");
-}
+TTFOUNDATION_EXPORT TTAddress	kTTAdrsEmpty("");
+TTFOUNDATION_EXPORT TTAddress	kTTAdrsRoot("/");
+TTFOUNDATION_EXPORT TTAddress	kTTAdrsZero("0");
 
 #endif

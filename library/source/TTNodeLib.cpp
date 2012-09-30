@@ -19,8 +19,6 @@ void TTNodeLibInit()
 	ttRegexForParent = new TTRegex("(.*)\\/+(\\S+)");
 	ttRegexForInstance = new TTRegex("[.]");
 	ttRegexForInstanceZero = new TTRegex("\\.0");
-	
-	ttAddressTable = new TTAddressTable;
-	
+		
 #endif
 }

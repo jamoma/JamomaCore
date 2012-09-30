@@ -12,7 +12,7 @@
 #include "TTAddressBase.h"
 #include "TTAddressTable.h"
 
-extern TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
+//extern TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
 
 /** This macro is defined as a shortcut for doing a lookup in the symbol table. */
 //#define TT gTTSymbolTable->lookup
@@ -28,7 +28,7 @@ extern TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
 		directory:/parent/name.instance:attribute
  */
 
-class TTFOUNDATION_EXPORT TTAddress : public TTSymbolBase
+class TTFOUNDATION_EXPORT TTAddress : public TTSymbol
 {	
 public:
 	
@@ -52,8 +52,137 @@ public:
 		mSymbolPointer = gTTAddressTable.lookup(s);
 	}
 	
+	
+	TTAddress(TTPtr do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing)
+	{
+		mSymbolPointer = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
+	}
+
+	
 	virtual ~TTAddress()
 	{;}
+	
+	
+	TTAddressBase* getBasePointer() const
+	{
+		return static_cast<TTAddressBase*>(mSymbolPointer);
+	}
+	
+	
+	#define mTTAddressBase getBasePointer()
+	
+	/** Get the directory part */
+	TTSymbol getDirectory()
+	{
+		return mTTAddressBase->getDirectory();
+	}
+	
+	/** Get a pointer to the parent address */
+	TTAddress getParent()
+	{
+		return TTAddress(mTTAddressBase->getParent());
+	}
+	
+	/** Get the name part */
+	TTSymbol getName()
+	{
+		return mTTAddressBase->getName();
+	}
+	
+	/** Get the instance part */
+	TTSymbol getInstance()
+	{
+		return mTTAddressBase->getInstance();
+	}
+	
+	/** Get the attribute part */
+	TTSymbol getAttribute()
+	{
+		return mTTAddressBase->getAttribute();
+	}
+	
+	/** Get the type */
+	TTAddressType getType()
+	{
+		return mTTAddressBase->getType();
+	}
+	
+	/** Get the name.instance part */
+	TTSymbol getNameInstance()
+	{
+		return mTTAddressBase->getNameInstance();
+	}
+	
+	/** Normalize an address for lookup and other directory operations
+	 This would return an address without directory and attribute	*/
+	TTAddress normalize()
+	{
+		return TTAddress(mTTAddressBase->normalize());
+	}
+	
+	/** Return a new TTAddress without attribute part */
+	TTAddress removeAttribute()
+	{
+		return TTAddress(mTTAddressBase->removeAttribute());
+	}
+	
+	/** Return a new TTAddress with attribute part */
+	TTAddress appendAttribute(TTSymbol anAttribute)
+	{
+		return TTAddress(mTTAddressBase->appendAttribute(anAttribute));
+	}
+	
+	/** Return a new TTAddress with the appended part */
+	TTAddress appendAddress(const TTAddress& toAppend)
+	{
+		return TTAddress(mTTAddressBase->appendAddress( (static_cast<TTAddressBase*>(toAppend.mSymbolPointer)) ));
+	}
+	
+	/** Return a new TTAddress with a instance part */
+	TTAddress appendInstance(const TTSymbol& anInstance)
+	{
+		return TTAddress(mTTAddressBase->appendInstance(anInstance));
+	}
+	
+	/**	A comparison tool
+	 @param	toCompare					An address to compare (it doesn't compare attribute part)
+	 @param	depthDifference				Return the number of level separating the compared addresses (> 0 for lower result, < 0 for upper result)
+	 @return							An comparison flag */
+	TTAddressComparisonFlag compare(const TTAddress& toCompare, TTInt8& depthDifference)
+	{
+		return mTTAddressBase->compare((static_cast<TTAddressBase*>(toCompare.mSymbolPointer)), depthDifference);
+	}
+	
+	/**	A parsing tool : split address in two part from a given '/' position
+	 @param whereToSplit				An int to give the '/' id where to split
+	 @param	returnedPart1				A pointer to upper part (before the given position) : /part1
+	 @param	returnedPart2				A pointer to lower part (after the given position) : /part2
+	 @return							kTTValueNotFound if the given '/' id doesn't exist */
+	TTErr splitAt(TTUInt32 whereToSplit, TTAddress& returnedPart1, TTAddress& returnedPart2)
+	{
+		TTAddressBase* returnedPart1Ptr = NULL;
+		TTAddressBase* returnedPart2Ptr = NULL;
+		TTErr err;
+		
+		err = mTTAddressBase->splitAt(whereToSplit, &returnedPart1Ptr, &returnedPart2Ptr);
+		returnedPart1 = TTAddress(returnedPart1Ptr);
+		returnedPart1 = TTAddress(returnedPart2Ptr);
+		return err;
+	}
+	
+	/**	A parsing tool : count how many C_SEPARATOR there is in the address
+	 @return							The number of C_SEPARATOR */
+	TTUInt32 countSeparator()
+	{
+		return mTTAddressBase->countSeparator();
+	}
+	
+	/**	A parsing tool : return a list containing all name.instance part (without any S_SEPARATOR)
+	 @param								The list of name.instance part to fill */
+	TTErr listNameInstance(TTList& nameInstanceList)
+	{
+		return mTTAddressBase->listNameInstance(nameInstanceList);
+	}
 	
 };
 

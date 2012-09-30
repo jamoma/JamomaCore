@@ -76,9 +76,9 @@ void TTFoundationInit(const char* pathToBinaries)
 
 		TTValueCacheInit();
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef DISABLE_NODELIB		
-		TTAddressCacheInit();
-#endif
+//#ifndef DISABLE_NODELIB
+//		TTAddressCacheInit();
+//#endif
 		
 #ifdef TT_DEBUG
 		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s", TTFOUNDATION_VERSION_STRING);

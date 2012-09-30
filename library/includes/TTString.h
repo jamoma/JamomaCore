@@ -48,7 +48,7 @@ public:
 	}
 	
 	
-	TTString(std::vector<char>::iterator& begin, std::vector<char>::iterator& end)
+	TTString(std::vector<char>::iterator begin, std::vector<char>::iterator end)
 	{
 		size_t size = end - begin;
 		reserve(size+16);

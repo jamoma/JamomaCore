@@ -303,10 +303,8 @@ public:
 	void get(const TTUInt16 index, TTMatrix& value) const;
 	void get(const TTUInt16 index, TTMatrix** value) const;
 	void get(const TTUInt16 index, TTPtr* value) const;
-
-// Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB
-	void get(const TTUInt16 index, TTAddressPtr* value) const;
+	void get(const TTUInt16 index, TTAddress& value) const;
 #endif
 	
 	// inlined for speed (e.g. for use in the matrix)

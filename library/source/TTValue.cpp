@@ -1015,10 +1015,10 @@ void TTValue::get(const TTUInt16 index, TTPtr* value) const
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB
 
-void TTValue::get(const TTUInt16 index, TTAddressPtr* value) const
+void TTValue::get(const TTUInt16 index, TTAddress& value) const
 {
 	if (type[index] == kTypeSymbol)
-		*value = TTADRS((data+index)->sym->getCString());
+		value = TTAddress((data+index)->sym);
 }
 
 #endif

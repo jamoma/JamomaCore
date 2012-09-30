@@ -14,11 +14,11 @@
 
 extern TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
 
-extern TTFOUNDATION_EXPORT TTAddressPtr		kTTAdrsEmpty;
-extern TTFOUNDATION_EXPORT TTAddressPtr		kTTAdrsRoot;
-extern TTFOUNDATION_EXPORT TTAddressPtr		kTTAdrsZero;
+extern TTFOUNDATION_EXPORT TTAddress		kTTAdrsEmpty;
+extern TTFOUNDATION_EXPORT TTAddress		kTTAdrsRoot;
+extern TTFOUNDATION_EXPORT TTAddress		kTTAdrsZero;
 
-void TTAddressCacheInit();
+//void TTAddressCacheInit();
 
 #endif // __TT_NODE_ADDRESS_CACHE_H__
 

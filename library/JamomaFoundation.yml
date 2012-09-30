@@ -93,7 +93,7 @@ defines:
   - TTFOUNDATION_EXPORTS
   - BOOST_REGEX
   - BOOST_REGEX_USE_C_LOCALE
-  - DISABLE_NODELIB
+#  - DISABLE_NODELIB
   
 # BOOST_REGEX_USE_C_LOCALE is a Boost Regex definition option (see boost/regex/user.hpp file)
 

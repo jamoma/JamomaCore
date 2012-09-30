@@ -15,13 +15,13 @@
 #include<unordered_map>
 
 
-TTFOUNDATION_EXPORT TTAddressTable* gTTAddressTable = NULL;
+//TTFOUNDATION_EXPORT TTAddressTable* gTTAddressTable = NULL;
 
 
 /****************************************************************************************************/
 
 TTSymbolBase* TTAddressTable::createEntry(const TTString& aString, TTInt32 newSymbolId)
 {
-	return new TTAddressBase(aString, newSymbolId);
+	return new TTAddressBase(aString, TTPtrSizedInt(this), newSymbolId);
 }
 

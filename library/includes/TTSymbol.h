@@ -12,7 +12,7 @@
 #include "TTSymbolBase.h"
 #include "TTSymbolTable.h"
 
-extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
+//extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
 
 /** This macro is defined as a shortcut for doing a lookup in the symbol table. */
 //#define TT gTTSymbolTable->lookup

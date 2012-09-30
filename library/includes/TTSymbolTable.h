@@ -51,6 +51,8 @@ public:
 	void dump(/*TTValue& allSymbols*/);
 };
 
+extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
+
 
 #endif // __TT_SYMBOLTABLE_H__
 
