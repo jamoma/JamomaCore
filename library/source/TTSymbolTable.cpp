@@ -6,6 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+
+
 #include "TTSymbolTable.h"
 #include "TTMutex.h"
 #include "TTValue.h"
@@ -63,12 +65,15 @@ TTFOUNDATION_EXPORT TTSymbolTable*		gTTSymbolTable = NULL;
 
 /****************************************************************************************************/
 
-TTSymbolTable::TTSymbolTable()
+TTSymbolTable::TTSymbolTable(TTBoolean createEmptyTable)
 {
 	if (!sMutex)
 		sMutex = new TTMutex(true);
 	mSymbolTable = (TTPtr) new TTSymbolTableHash;
-	mSYMBOLTABLE->insert(TTSymbolTablePair(TTString(""), new TTSymbolBase(TTString(""), (TTPtrSizedInt)this, 0)) );
+	
+	// subclasses of the symbol table will want to initialize this themselves
+	if (!createEmptyTable)
+		mSYMBOLTABLE->insert(TTSymbolTablePair(TTString(""), createEntry(TTString(""), 0)) );
 }
 
 
@@ -84,6 +89,12 @@ TTSymbolTable::~TTSymbolTable()
 }
 
 
+TTSymbolBase* TTSymbolTable::createEntry(const TTString& aString, TTInt32 newSymbolId)
+{
+	return new TTSymbolBase(aString, TTPtrSizedInt(this), newSymbolId);
+}
+
+
 TTSymbolBase* TTSymbolTable::lookup(const char* aString)
 {
 #ifdef TT_PLATFORM_WIN
@@ -95,7 +106,7 @@ TTSymbolBase* TTSymbolTable::lookup(const char* aString)
 	if (iter == mSYMBOLTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbolBase*	newSymbol = new TTSymbolBase(aString, mSYMBOLTABLE->size());
+		TTSymbolBase*	newSymbol = createEntry(aString, mSYMBOLTABLE->size());
 		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
 		sMutex->unlock();
 		return *newSymbol;
@@ -130,7 +141,7 @@ TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
 	if (iter == ((TTSymbolTableHash*)(self->mSymbolTable))->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbolBase*	newSymbol = new TTSymbolBase(aString, (TTPtrSizedInt)self, ((TTSymbolTableHash*)(self->mSymbolTable))->size());
+		TTSymbolBase*	newSymbol = createEntry(aString, ((TTSymbolTableHash*)(self->mSymbolTable))->size());
 		((TTSymbolTableHash*)(self->mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
 		sMutex->unlock();
 		return newSymbol;

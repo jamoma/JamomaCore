@@ -6,8 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#if !defined( __TT_NODE_ADDRESS_H__ ) && !defined ( DISABLE_NODELIB )
-#define __TT_NODE_ADDRESS_H__
+#ifndef __TT_ADDRESS_H__
+#define __TT_ADDRESS_H__
 
 #ifdef WIN_VERSION
 #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
@@ -85,7 +85,7 @@ extern TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero;	///< The global rege
  
  */
 
-class TTFOUNDATION_EXPORT TTAddress : public TTSymbol
+class TTFOUNDATION_EXPORT TTAddress : public TTSymbolBase
 {
 private:
 	
@@ -202,4 +202,4 @@ TTAddressPtr TTFOUNDATION_EXPORT	convertTTNameInTTAddress(TTSymbol ttName);
 TTAddressPtr TTFOUNDATION_EXPORT	makeTTAddress(const TTSymbol newDirectory, const TTAddressPtr newParent, const TTSymbol newName, const TTSymbol newInstance, const TTSymbol newAttribute);
 
 
-#endif // __TT_NODE_ADDRESS_H__
+#endif // __TT_ADDRESS_H__

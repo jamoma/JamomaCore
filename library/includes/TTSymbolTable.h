@@ -25,8 +25,13 @@ class TTFOUNDATION_EXPORT TTSymbolTable : public TTBase {
 private:
 	TTPtr	mSymbolTable;	///< The symbol table, mapping strings to pointers
 
+protected:
+	/**	Overridable method used internally when constructing a new
+		TTSymbolBase */
+	TTSymbolBase*	createEntry(const TTString& aString, TTInt32 newSymbolId);
+	
 public:
-	TTSymbolTable();
+	TTSymbolTable(TTBoolean createEmptyTable = false);
 	virtual	~TTSymbolTable();
 
 	/** Look in the symbol table for this string.  If it exists then return its id.

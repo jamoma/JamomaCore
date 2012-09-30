@@ -6,46 +6,33 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#if !defined( __TT_NODE_ADDRESS_TABLE_H__ ) && !defined ( DISABLE_NODELIB )
-#define __TT_NODE_ADDRESS_TABLE_H__
+#ifndef __TT_ADDRESS_TABLE_H__
+#define __TT_ADDRESS_TABLE_H__
 
 #include "TTBase.h"
+#include "TTSymbolBase.h"
+#include "TTSymbolTable.h"
 #include "TTAddress.h"
-
-/** This macro is defined as a shortcut for doing a lookup in the address table. */
-#define TTADRS ttAddressTable->lookup
 
 
 /****************************************************************************************************/
 // Class Specifications
 
 /**
-	The TTNodeAddressTable class is hash_map (based on Stroustrup pp 497) that keeps
-	commonly used strings in a table so that we can refer to them simply as a pointers for fast comparison.
+	The TTAddressTable class is a second symbol table, 
+	but used only for addresses to keep lookups fast.
  */
 
-class TTFOUNDATION_EXPORT TTAddressTable : public TTBase {
-private:
-	TTPtr	mAddressTable;	///< The address table, mapping strings to pointers
-
+class TTFOUNDATION_EXPORT TTAddressTable : public TTSymbolTable {
 public:
-	TTAddressTable();
-	virtual	~TTAddressTable();
-
-	/** Look in the address table for this string.  If it exists then return its id.
-		If it does not exist then it is created, added to the address table and this new address's id is returned.	*/
-	TTAddress* lookup(const char* aString);
-
-	/** Look in the address table for this string.  If it exists then return its id.
-		If it does not exist then it is created, added to the address table and this new address's id is returned.	*/
-	TTAddress* lookup(const TTString& aString);
 	
-	/**	Debugging tool to make it easy to examine everything that is in the address table. */
-	void dump(TTValue& allNodeAddresss);
+	/**	Override the method used internally when constructing a new TTSymbolBase */
+	TTSymbolBase* createEntry(const TTString& aString, TTInt32 newSymbolId);
+	
 };
 
-extern TTFOUNDATION_EXPORT TTAddressTable* ttAddressTable;		///< The global table of addresses
+extern TTFOUNDATION_EXPORT TTAddressTable* gAddressTable;		///< The global table of addresses
 
 
-#endif // __TT_NODE_ADDRESS_TABLE_H__
+#endif // __TT_ADDRESS_TABLE_H__
 
