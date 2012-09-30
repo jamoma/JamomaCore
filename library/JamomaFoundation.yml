@@ -58,17 +58,17 @@ sources:
   - boost/libs/regex/src/winstances.cpp
   - source/TTNodeLib.cpp
   - source/TTNode.cpp
-  - source/TTNodeAddress.cpp
-  - source/TTNodeAddressTable.cpp
-  - source/TTNodeAddressCache.cpp
-  - source/TTNodeAddressItem.cpp
+  - source/TTAddress.cpp
+  - source/TTAddressTable.cpp
+  - source/TTAddressCache.cpp
+  - source/TTAddressItem.cpp
   - source/TTNodeDirectory.cpp
   - tests/TTNodeLib.test.cpp
 #  - win source/TTNodeLib.cpp
 #  - win source/TTNode.cpp
-#  - win source/TTNodeAddress.cpp
-#  - win source/TTNodeAddressTable.cpp
-#  - win source/TTNodeAddressCache.cpp
+#  - win source/TTAddress.cpp
+#  - win source/TTAddressTable.cpp
+#  - win source/TTAddressCache.cpp
 #  - win source/TTNodeDirectory.cpp
 #  - win tests/TTNodeLib.test.cpp
 #  

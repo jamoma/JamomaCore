@@ -17,8 +17,8 @@
 
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef TT_PLATFORM_IOS
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
+#include "TTAddress.h"
+#include "TTAddressTable.h"
 #endif
 
 class TTObject;
@@ -306,7 +306,7 @@ public:
 
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB
-	void get(const TTUInt16 index, TTNodeAddressPtr* value) const;
+	void get(const TTUInt16 index, TTAddressPtr* value) const;
 #endif
 	
 	// inlined for speed (e.g. for use in the matrix)

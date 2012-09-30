@@ -20,67 +20,67 @@ TT_OBJECT_CONSTRUCTOR
 TTNodeLibTest::~TTNodeLibTest()
 {;}
 
-void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
+void TTNodeLibTestAddressTable(int& errorCount, int& testAssertionCount)
 {
 	TTTestLog("\n");
 	TTTestLog("Testing Node Address Table access");
 	
-	TTNodeAddressPtr testAddress1 = TTADRS("directory1:/gran/parent1/name1.instance1:attribute1");
+	TTAddressPtr testAddress1 = TTADRS("directory1:/gran/parent1/name1.instance1:attribute1");
 	
 	TTSymbolRef directory1 = testAddress1->getDirectory();
-	TTNodeAddressPtr parent1 = testAddress1->getParent();
+	TTAddressPtr parent1 = testAddress1->getParent();
 	TTSymbolRef name1 = testAddress1->getName();
 	TTSymbolRef instance1 = testAddress1->getInstance();
 	TTSymbolRef attribute1 = testAddress1->getAttribute();
-	TTNodeAddressType type1 = testAddress1->getType();
+	TTAddressType type1 = testAddress1->getType();
 	
-	TTNodeAddressPtr testAddress2 = TTADRS("/gran/parent2/name2.instance2");
+	TTAddressPtr testAddress2 = TTADRS("/gran/parent2/name2.instance2");
 	
 	TTSymbolRef directory2 = testAddress2->getDirectory();
-	TTNodeAddressPtr parent2 = testAddress2->getParent();
+	TTAddressPtr parent2 = testAddress2->getParent();
 	TTSymbolRef name2 = testAddress2->getName();
 	TTSymbolRef instance2 = testAddress2->getInstance();
 	TTSymbolRef attribute2 = testAddress2->getAttribute();
-	TTNodeAddressType type2 = testAddress2->getType();
+	TTAddressType type2 = testAddress2->getType();
 	
-	TTNodeAddressPtr testAddress3 = TTADRS("parent3/name3.instance3");
+	TTAddressPtr testAddress3 = TTADRS("parent3/name3.instance3");
 	
 	TTSymbolRef directory3 = testAddress3->getDirectory();
-	TTNodeAddressPtr parent3 = testAddress3->getParent();
+	TTAddressPtr parent3 = testAddress3->getParent();
 	TTSymbolRef name3 = testAddress3->getName();
 	TTSymbolRef instance3 = testAddress3->getInstance();
 	TTSymbolRef attribute3 = testAddress3->getAttribute();
-	TTNodeAddressType type3 = testAddress3->getType();
+	TTAddressType type3 = testAddress3->getType();
 	
-	TTNodeAddressPtr testAddress4 = TTADRS("/");
+	TTAddressPtr testAddress4 = TTADRS("/");
 	
 	TTSymbolRef directory4 = testAddress4->getDirectory();
-	TTNodeAddressPtr parent4 = testAddress4->getParent();
+	TTAddressPtr parent4 = testAddress4->getParent();
 	TTSymbolRef name4 = testAddress4->getName();
 	TTSymbolRef instance4 = testAddress4->getInstance();
 	TTSymbolRef attribute4 = testAddress4->getAttribute();
-	TTNodeAddressType type4 = testAddress4->getType();
+	TTAddressType type4 = testAddress4->getType();
 	
-	TTNodeAddressPtr testAddress5 = TTADRS(":attribute5");
+	TTAddressPtr testAddress5 = TTADRS(":attribute5");
 	
 	TTSymbolRef directory5 = testAddress5->getDirectory();
-	TTNodeAddressPtr parent5 = testAddress5->getParent();
+	TTAddressPtr parent5 = testAddress5->getParent();
 	TTSymbolRef name5 = testAddress5->getName();
 	TTSymbolRef instance5 = testAddress5->getInstance();
 	TTSymbolRef attribute5 = testAddress5->getAttribute();
-	TTNodeAddressType type5 = testAddress5->getType();
+	TTAddressType type5 = testAddress5->getType();
 	
-	TTNodeAddressPtr testAddress6 = TTADRS("/gran/parent6.0/name6.0:attribute6");
+	TTAddressPtr testAddress6 = TTADRS("/gran/parent6.0/name6.0:attribute6");
 	
 	TTSymbolRef directory6 = testAddress6->getDirectory();
-	TTNodeAddressPtr parent6 = testAddress6->getParent();
+	TTAddressPtr parent6 = testAddress6->getParent();
 	TTSymbolRef name6 = testAddress6->getName();
 	TTSymbolRef instance6 = testAddress6->getInstance();
 	TTSymbolRef attribute6 = testAddress6->getAttribute();
-	TTNodeAddressType type6 = testAddress6->getType();
+	TTAddressType type6 = testAddress6->getType();
 	
 	// The first set of tests checks parsing of addresses
-	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress1 is bad",
+	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
 					directory1 == TT("directory1") &&
 					parent1 == TTADRS("/gran/parent1") &&
 					name1 == TT("name1") &&
@@ -90,7 +90,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress2 is bad",
+	TTTestAssertion("TTAddress: Test fails if parsing of testAddress2 is bad",
 					directory2 == NO_DIRECTORY &&
 					parent2 == TTADRS("/gran/parent2") &&
 					name2 == TT("name2") &&
@@ -100,7 +100,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress3 is bad",
+	TTTestAssertion("TTAddress: Test fails if parsing of testAddress3 is bad",
 					directory3 == NO_DIRECTORY &&
 					parent3 == TTADRS("parent3") &&
 					name3 == TT("name3") &&
@@ -110,7 +110,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
 					testAssertionCount,
 					errorCount);
 
-	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress4 is bad",
+	TTTestAssertion("TTAddress: Test fails if parsing of testAddress4 is bad",
 					directory4 == NO_DIRECTORY &&
 					parent4 == NO_PARENT &&
 					name4 == S_SEPARATOR &&
@@ -120,7 +120,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress5 is bad",
+	TTTestAssertion("TTAddress: Test fails if parsing of testAddress5 is bad",
 					directory5 == NO_DIRECTORY &&
 					parent5 == NO_PARENT &&
 					name5 == NO_NAME &&
@@ -130,7 +130,7 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("TTNodeAddress: Test fails if parsing of testAddress6 is bad",
+	TTTestAssertion("TTAddress: Test fails if parsing of testAddress6 is bad",
 					directory6 == NO_DIRECTORY &&
 					parent6 == TTADRS("/gran/parent6") &&
 					name6 == TT("name6") &&
@@ -141,9 +141,9 @@ void TTNodeLibTestNodeAddressTable(int& errorCount, int& testAssertionCount)
 					errorCount);
 }
 
-void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
+void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 {
-	TTNodeAddressItemPtr aNamespace, aParent, n, f;
+	TTAddressItemPtr aNamespace, aParent, n, f;
 	TTSymbolRef	aSymbol(kTTSymEmpty);
 	TTBoolean aSelection, empty;
 	TTUInt8 size;
@@ -153,13 +153,13 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 	TTTestLog("Testing Node Address Item management");
 	
 	// The first test checks item creation and member access
-	aNamespace = new TTNodeAddressItem(kTTSymEmpty);
+	aNamespace = new TTAddressItem(kTTSymEmpty);
 	aSymbol = aNamespace->getSymbol();
 	aParent = aNamespace->getParent();
 	aSelection = aNamespace->getSelection();
 	empty = aNamespace->isEmpty();
 
-	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not empty",
+	TTTestAssertion("TTAddressItem: Test fails if the namespace is not empty",
 					empty &&
 					aSymbol == NO_NAME &&
 					aParent == NULL &&
@@ -168,10 +168,10 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 					errorCount);
 	
 	// The second set of tests checks item management
-	n = new TTNodeAddressItem(TT("test"));
+	n = new TTAddressItem(TT("test"));
 	aNamespace->merge(n);
 	
-	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace size is not equal 1",
+	TTTestAssertion("TTAddressItem: Test fails if the namespace size is not equal 1",
 					aNamespace->getSize() == 1,
 					testAssertionCount,
 					errorCount);
@@ -185,7 +185,7 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 		empty = f->isEmpty();
 	}
 	
-	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"test\" or have no parent",
+	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"test\" or have no parent",
 					empty &&
 					aSymbol == TT("test") &&
 					aParent == aNamespace &&
@@ -195,18 +195,18 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 	
 	aNamespace->destroy(n);
 	
-	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not empty",
+	TTTestAssertion("TTAddressItem: Test fails if the namespace is not empty",
 					aNamespace->isEmpty(),
 					testAssertionCount,
 					errorCount);
 	
-	// The third set of tests checks item management using TTNodeAddress
+	// The third set of tests checks item management using TTAddress
 	aNamespace->clear();
 	aNamespace->append(TTADRS("/parent/name.instance"), &f);
 	aSymbol = aNamespace->getSymbol();
 	size = aNamespace->getSize();
 	
-	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"/\" and size is not equal 1",
+	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"/\" and size is not equal 1",
 					size == 1 &&
 					aSymbol == kTTSymEmpty,
 					testAssertionCount,
@@ -222,7 +222,7 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 		empty = f->isEmpty();
 	}
 	
-	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"\" or have no parent or no child",
+	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"\" or have no parent or no child",
 					!empty &&
 					aSymbol == kTTSymEmpty &&
 					aParent == aNamespace->getItem(TT("parent")) &&
@@ -241,7 +241,7 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 		empty = f->isEmpty();
 	}
 	
-	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"name\" or have no parent or is empty",
+	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"name\" or have no parent or is empty",
 					!empty &&
 					aSymbol == TT("name") &&
 					aParent == n &&
@@ -260,7 +260,7 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 		empty = f->isEmpty();
 	}
 	
-	TTTestAssertion("TTNodeAddressItem: Test fails if the namespace is not named \"instance\" or have no parent or is not empty",
+	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"instance\" or have no parent or is not empty",
 					empty &&
 					aSymbol == TT("instance") &&
 					aParent == n &&
@@ -273,69 +273,69 @@ void TTNodeLibTestNodeAddressItem(int& errorCount, int& testAssertionCount)
 	
 	size = f->getParent()->getSize();
 	
-	TTTestAssertion("TTNodeAddressItem: Test fails if size is not equal to 2",
+	TTTestAssertion("TTAddressItem: Test fails if size is not equal to 2",
 					size == 2,
 					testAssertionCount,
 					errorCount);
 	
 }
 
-void TTNodeLibTestNodeAddressComparison(int& errorCount, int& testAssertionCount)
+void TTNodeLibTestAddressComparison(int& errorCount, int& testAssertionCount)
 {
-	TTNodeAddressComparisonFlag result;
+	TTAddressComparisonFlag result;
 	TTInt8 depthDifference;
 	
 	TTTestLog("\n");
 	TTTestLog("Testing Node Address Comparison");
 	
-	TTNodeAddressPtr testAddressA = TTADRS("/gran/parent/name.instance");
-	TTNodeAddressPtr testAddressB = TTADRS("/gran");
-	TTNodeAddressPtr testAddressC = TTADRS("gran/parent/name.instance");
-	TTNodeAddressPtr testAddressD = TTADRS("gran");
+	TTAddressPtr testAddressA = TTADRS("/gran/parent/name.instance");
+	TTAddressPtr testAddressB = TTADRS("/gran");
+	TTAddressPtr testAddressC = TTADRS("gran/parent/name.instance");
+	TTAddressPtr testAddressD = TTADRS("gran");
 	
 	result = testAddressA->compare(testAddressA, depthDifference);
-	TTTestAssertion("TTNodeAddressComparison: Test fails if comparison returns anything else than equality",
+	TTTestAssertion("TTAddressComparison: Test fails if comparison returns anything else than equality",
 					result == kAddressEqual &&
 					depthDifference == 0,
 					testAssertionCount,
 					errorCount);
 	
 	result = testAddressA->compare(testAddressB, depthDifference);
-	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is lower with 2 levels of difference",
+	TTTestAssertion("TTAddressComparison: Test passes if comparison returns the address is lower with 2 levels of difference",
 					result == kAddressLower &&
 					depthDifference == 2,
 					testAssertionCount,
 					errorCount);
 	
 	result = testAddressB->compare(testAddressA, depthDifference);
-	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is upper with 2 levels of difference",
+	TTTestAssertion("TTAddressComparison: Test passes if comparison returns the address is upper with 2 levels of difference",
 					result == kAddressUpper &&
 					depthDifference == -2,
 					testAssertionCount,
 					errorCount);
 	
 	result = testAddressC->compare(testAddressD, depthDifference);
-	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is lower with 2 levels of difference",
+	TTTestAssertion("TTAddressComparison: Test passes if comparison returns the address is lower with 2 levels of difference",
 					result == kAddressLower &&
 					depthDifference == 2,
 					testAssertionCount,
 					errorCount);
 	
 	result = testAddressD->compare(testAddressC, depthDifference);
-	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is upper with 2 levels of difference",
+	TTTestAssertion("TTAddressComparison: Test passes if comparison returns the address is upper with 2 levels of difference",
 					result == kAddressUpper &&
 					depthDifference == -2,
 					testAssertionCount,
 					errorCount);
 	
 	result = testAddressA->compare(testAddressD, depthDifference);
-	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is lower with 2 levels of difference",
+	TTTestAssertion("TTAddressComparison: Test passes if comparison returns the address is lower with 2 levels of difference",
 					result == kAddressDifferent,
 					testAssertionCount,
 					errorCount);
 	
 	result = testAddressC->compare(testAddressB, depthDifference);
-	TTTestAssertion("TTNodeAddressComparison: Test passes if comparison returns the address is upper with 2 levels of difference",
+	TTTestAssertion("TTAddressComparison: Test passes if comparison returns the address is upper with 2 levels of difference",
 					result == kAddressDifferent,
 					testAssertionCount,
 					errorCount);
@@ -348,11 +348,11 @@ TTErr TTNodeLibTest::test(TTValue& returnedTestInfo)
 	int	errorCount = 0;
 	int testAssertionCount = 0;
 	
-	TTNodeLibTestNodeAddressTable(errorCount, testAssertionCount);
+	TTNodeLibTestAddressTable(errorCount, testAssertionCount);
 	
-	TTNodeLibTestNodeAddressItem(errorCount, testAssertionCount);
+	TTNodeLibTestAddressItem(errorCount, testAssertionCount);
 	
-	TTNodeLibTestNodeAddressComparison(errorCount, testAssertionCount);
+	TTNodeLibTestAddressComparison(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

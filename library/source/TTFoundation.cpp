@@ -77,7 +77,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTValueCacheInit();
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB		
-		TTNodeAddressCacheInit();
+		TTAddressCacheInit();
 #endif
 		
 #ifdef TT_DEBUG

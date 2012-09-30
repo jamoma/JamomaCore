@@ -1,5 +1,5 @@
 /*
- * TTNodeAddressItem
+ * TTAddressItem
  * Copyright © 2012, Théo de la Hogue
  *
  * License: This code is licensed under the terms of the "New BSD License"
@@ -9,9 +9,9 @@
 #ifndef DISABLE_NODELIB
 
 #include "TTFoundationAPI.h"
-#include "TTNodeAddressItem.h"
+#include "TTAddressItem.h"
 
-TTNodeAddressItem::TTNodeAddressItem(TTSymbolRef aSymbol, TTNodeAddressItemPtr aParent, TTBoolean aSelection):
+TTAddressItem::TTAddressItem(TTSymbolRef aSymbol, TTAddressItemPtr aParent, TTBoolean aSelection):
 symbol(kTTSymEmpty), parent(NULL), selection(NO)
 {
 	if (aSymbol) this->symbol = aSymbol;
@@ -21,12 +21,12 @@ symbol(kTTSymEmpty), parent(NULL), selection(NO)
 	this->selection = aSelection;
 }
 
-TTNodeAddressItem::~TTNodeAddressItem()
+TTAddressItem::~TTAddressItem()
 {
 	this->clear();
 }
 
-void TTNodeAddressItem::setSelection(const TTBoolean newSelectionState, TTBoolean recursively)
+void TTAddressItem::setSelection(const TTBoolean newSelectionState, TTBoolean recursively)
 {
 	// filter repetitions
 	if (newSelectionState != this->selection)
@@ -42,32 +42,32 @@ void TTNodeAddressItem::setSelection(const TTBoolean newSelectionState, TTBoolea
 		this->parent->setSelection(newSelectionState, NO);
 }
 
-void TTNodeAddressItem::setParent(const TTNodeAddressItemPtr newParent)
+void TTAddressItem::setParent(const TTAddressItemPtr newParent)
 {
 	this->parent = newParent;
 }
 
-TTSymbolRef TTNodeAddressItem::getSymbol()
+TTSymbolRef TTAddressItem::getSymbol()
 {
 	return this->symbol;
 }
 
-TTNodeAddressItemPtr TTNodeAddressItem::getParent()
+TTAddressItemPtr TTAddressItem::getParent()
 {
 	return this->parent;
 }
 
-TTBoolean TTNodeAddressItem::getSelection()
+TTBoolean TTAddressItem::getSelection()
 {
 	return this->selection;
 }
 
-TTNodeAddressItemPtr TTNodeAddressItem::getItem(TTSymbolRef aSymbol)
+TTAddressItemPtr TTAddressItem::getItem(TTSymbolRef aSymbol)
 {
-	TTNodeAddressItemPtr anItem = NULL;
+	TTAddressItemPtr anItem = NULL;
 	TTValue found;
 	
-	TTErr err = ((TTListPtr)this)->find(&TTNodeAddressItemFind, (TTPtr)&aSymbol, found);
+	TTErr err = ((TTListPtr)this)->find(&TTAddressItemFind, (TTPtr)&aSymbol, found);
 	
 	if (!err)
 		found.get(0, (TTPtr*)&anItem);
@@ -75,7 +75,7 @@ TTNodeAddressItemPtr TTNodeAddressItem::getItem(TTSymbolRef aSymbol)
 	return anItem;
 }
 
-void TTNodeAddressItem::clear()
+void TTAddressItem::clear()
 {
 	// delete all items below
 	for (this->begin(); this->end(); this->next())
@@ -84,10 +84,10 @@ void TTNodeAddressItem::clear()
 	((TTListPtr)this)->clear();
 }
 
-TTErr TTNodeAddressItem::append(TTNodeAddressPtr addressToAppend, TTNodeAddressItemPtr *returnedItem)
+TTErr TTAddressItem::append(TTAddressPtr addressToAppend, TTAddressItemPtr *returnedItem)
 {
-	TTNodeAddressItemPtr	anItem = this;
-	TTNodeAddressItemPtr	nextItem;
+	TTAddressItemPtr	anItem = this;
+	TTAddressItemPtr	nextItem;
 	TTList					nameInstanceList;
 	TTSymbolRef				nameInstance(kTTSymEmpty);
 	
@@ -100,7 +100,7 @@ TTErr TTNodeAddressItem::append(TTNodeAddressPtr addressToAppend, TTNodeAddressI
 		nextItem = anItem->getItem(nameInstance);
 		
 		if (!nextItem) {
-			nextItem = new TTNodeAddressItem(nameInstance, anItem);
+			nextItem = new TTAddressItem(nameInstance, anItem);
 			((TTListPtr)anItem)->append((TTPtr)nextItem);
 		}
 		
@@ -111,10 +111,10 @@ TTErr TTNodeAddressItem::append(TTNodeAddressPtr addressToAppend, TTNodeAddressI
 	return kTTErrNone;
 }
 
-TTErr TTNodeAddressItem::remove(TTNodeAddressPtr addressToRemove)
+TTErr TTAddressItem::remove(TTAddressPtr addressToRemove)
 {
-	TTNodeAddressItemPtr	anItem;
-	TTNodeAddressItemPtr	parentItem;
+	TTAddressItemPtr	anItem;
+	TTAddressItemPtr	parentItem;
 	
 	// if the item exist
 	if (!this->find(addressToRemove, &anItem)) {
@@ -135,10 +135,10 @@ TTErr TTNodeAddressItem::remove(TTNodeAddressPtr addressToRemove)
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeAddressItem::find(TTNodeAddressPtr addressToFind, TTNodeAddressItemPtr *returnedItem)
+TTErr TTAddressItem::find(TTAddressPtr addressToFind, TTAddressItemPtr *returnedItem)
 {
-	TTNodeAddressItemPtr	anItem = this;
-	TTNodeAddressItemPtr	nextItem;
+	TTAddressItemPtr	anItem = this;
+	TTAddressItemPtr	nextItem;
 	TTList					nameInstanceList;
 	TTSymbolRef				nameInstance(kTTSymEmpty);
 	
@@ -164,18 +164,18 @@ TTErr TTNodeAddressItem::find(TTNodeAddressPtr addressToFind, TTNodeAddressItemP
 	return kTTErrGeneric;
 }
 
-TTNodeAddressItemPtr TTNodeAddressItem::current()
+TTAddressItemPtr TTAddressItem::current()
 {
-	TTNodeAddressItemPtr anItem;
+	TTAddressItemPtr anItem;
 	
 	((TTListPtr)this)->current().get(0, (TTPtr*)&anItem);
 	
 	return anItem;
 }
 
-TTErr TTNodeAddressItem::merge(const TTNodeAddressItemPtr anItemToMerge)
+TTErr TTAddressItem::merge(const TTAddressItemPtr anItemToMerge)
 {
-	TTNodeAddressItemPtr	anItem;
+	TTAddressItemPtr	anItem;
 	//TTErr					err;
 	
 	if (!anItemToMerge)
@@ -195,9 +195,9 @@ TTErr TTNodeAddressItem::merge(const TTNodeAddressItemPtr anItemToMerge)
 	return kTTErrNone;
 }
 
-TTErr TTNodeAddressItem::destroy(const TTNodeAddressItemPtr anItemToRemove)
+TTErr TTAddressItem::destroy(const TTAddressItemPtr anItemToRemove)
 {
-	TTNodeAddressItemPtr	anItem;
+	TTAddressItemPtr	anItem;
 	//TTErr					err;
 	
 	if (!anItemToRemove)
@@ -219,9 +219,9 @@ TTErr TTNodeAddressItem::destroy(const TTNodeAddressItemPtr anItemToRemove)
 	return kTTErrNone;
 }
 
-TTBoolean TTNodeAddressItem::exist(TTNodeAddressItemPtr anItemToCheck, TTNodeAddressItemPtr *returnedItem)
+TTBoolean TTAddressItem::exist(TTAddressItemPtr anItemToCheck, TTAddressItemPtr *returnedItem)
 {
-	TTNodeAddressItemPtr	anItem;
+	TTAddressItemPtr	anItem;
 	TTBoolean				same = anItemToCheck->getSymbol() == this->symbol;
 
 	if (same) {
@@ -251,12 +251,12 @@ TTBoolean TTNodeAddressItem::exist(TTNodeAddressItemPtr anItemToCheck, TTNodeAdd
 	return same;
 }
 
-TTErr TTNodeAddressItem::copy(TTNodeAddressItemPtr *anItemCopy)
+TTErr TTAddressItem::copy(TTAddressItemPtr *anItemCopy)
 {
-	TTNodeAddressItemPtr anItem;
+	TTAddressItemPtr anItem;
 	
 	if (!(*anItemCopy))
-		*anItemCopy = new TTNodeAddressItem(this->symbol, NULL, this->selection);
+		*anItemCopy = new TTAddressItem(this->symbol, NULL, this->selection);
 	
 	for (this->begin(); this->end(); this->next()) {
 		
@@ -270,24 +270,24 @@ TTErr TTNodeAddressItem::copy(TTNodeAddressItemPtr *anItemCopy)
 	return kTTErrNone;
 }
 
-void TTNodeAddressItem::registerHandler(TTObject& anObject)
+void TTAddressItem::registerHandler(TTObject& anObject)
 {
 	TTValue v = TTValue(anObject);
 	this->handlers.appendUnique(v);
 }
 
-void TTNodeAddressItem::unregisterHandler(TTObject& anObject)
+void TTAddressItem::unregisterHandler(TTObject& anObject)
 {
 	TTValue v = TTValue(anObject);
 	this->handlers.remove(v);
 }
 
-void TTNodeAddressItem::iterateHandlersSendingMessage(TTSymbolRef messageName)
+void TTAddressItem::iterateHandlersSendingMessage(TTSymbolRef messageName)
 {
 	this->handlers.iterateObjectsSendingMessage(messageName);
 }
 
-void TTNodeAddressItem::iterateHandlersSendingMessage(TTSymbolRef messageName, TTValue& aValue)
+void TTAddressItem::iterateHandlersSendingMessage(TTSymbolRef messageName, TTValue& aValue)
 {
 	this->handlers.iterateObjectsSendingMessage(messageName, aValue);
 }
@@ -297,10 +297,10 @@ void TTNodeAddressItem::iterateHandlersSendingMessage(TTSymbolRef messageName, T
 #pragma mark Some Methods
 #endif
 
-///void TTNodeAddressItemFind(const TTValue& itemValue, TTPtr aSymbolToMatch, TTBoolean& found)
-void TTNodeAddressItemFind(const TTValue& itemValue, TTSymbolRef aSymbolToMatch, TTBoolean& found)
+///void TTAddressItemFind(const TTValue& itemValue, TTPtr aSymbolToMatch, TTBoolean& found)
+void TTAddressItemFind(const TTValue& itemValue, TTSymbolRef aSymbolToMatch, TTBoolean& found)
 {
-	TTNodeAddressItemPtr anItem;
+	TTAddressItemPtr anItem;
 	
 	itemValue.get(0, (TTPtr*)&anItem);
 	

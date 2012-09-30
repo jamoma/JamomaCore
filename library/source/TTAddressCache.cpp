@@ -8,13 +8,13 @@
 
 #ifndef DISABLE_NODELIB
 
-#include "TTNodeAddressCache.h"
+#include "TTAddressCache.h"
 
-TTFOUNDATION_EXPORT TTNodeAddressPtr kTTAdrsEmpty;
-TTFOUNDATION_EXPORT TTNodeAddressPtr kTTAdrsRoot;
-TTFOUNDATION_EXPORT TTNodeAddressPtr kTTAdrsZero;
+TTFOUNDATION_EXPORT TTAddressPtr kTTAdrsEmpty;
+TTFOUNDATION_EXPORT TTAddressPtr kTTAdrsRoot;
+TTFOUNDATION_EXPORT TTAddressPtr kTTAdrsZero;
 
-void TTNodeAddressCacheInit()
+void TTAddressCacheInit()
 {
 	kTTAdrsEmpty				= TTADRS("");
 	kTTAdrsRoot					= TTADRS("/");

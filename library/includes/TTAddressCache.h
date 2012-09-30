@@ -9,14 +9,14 @@
 #if !defined( __TT_NODE_ADDRESS_CACHE_H__ ) && !defined ( DISABLE_NODELIB )
 #define __TT_NODE_ADDRESS_CACHE_H__
 
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
+#include "TTAddress.h"
+#include "TTAddressTable.h"
 
-extern TTFOUNDATION_EXPORT TTNodeAddressPtr	kTTAdrsEmpty;
-extern TTFOUNDATION_EXPORT TTNodeAddressPtr	kTTAdrsRoot;
-extern TTFOUNDATION_EXPORT TTNodeAddressPtr	kTTAdrsZero;
+extern TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsEmpty;
+extern TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsRoot;
+extern TTFOUNDATION_EXPORT TTAddressPtr	kTTAdrsZero;
 
-void TTNodeAddressCacheInit();
+void TTAddressCacheInit();
 
 #endif // __TT_NODE_ADDRESS_CACHE_H__
 

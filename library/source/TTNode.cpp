@@ -28,7 +28,7 @@ TTNode::~TTNode()
 	TTErr err;
 	unsigned int i, j, nb_c, nb_i;
 	TTValue hk, hk_i;
-	TTNodeAddressPtr anAddress;
+	TTAddressPtr anAddress;
 	TTSymbolRef key(kTTSymEmpty), key_i(kTTSymEmpty);
 	TTValue c, c_i, p_c, data;
 	TTHashPtr ht_i, p_ht_i;
@@ -108,7 +108,7 @@ TTErr TTNode::setName(TTSymbolRef aName, TTSymbolRef *newInstance, TTBoolean *ne
 	TTUInt32 i;
 	TTValue hk, p_c, c;
 	TTString temp, t;
-	TTNodeAddressPtr oldAddress, newAaddress;
+	TTAddressPtr oldAddress, newAaddress;
 	TTSymbolRef old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
@@ -189,7 +189,7 @@ TTErr TTNode::setInstance(TTSymbolRef anInstance, TTSymbolRef *newInstance, TTBo
 	TTUInt32 i;
 	TTValue hk, p_c, c;
 	TTString temp, t;
-	TTNodeAddressPtr oldAddress, newAddress;
+	TTAddressPtr oldAddress, newAddress;
 	TTSymbolRef old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
@@ -257,7 +257,7 @@ TTErr TTNode::setInstance(TTSymbolRef anInstance, TTSymbolRef *newInstance, TTBo
 	return kTTErrNone;
 }
 
-TTErr TTNode::setParent(TTNodeAddressPtr parentAddress, TTBoolean *newParentCreated)
+TTErr TTNode::setParent(TTAddressPtr parentAddress, TTBoolean *newParentCreated)
 {
 	TTValue	found;
 	TTErr	err;
@@ -535,10 +535,10 @@ TTPtr TTNode::getContext()
 	return this->context;
 }
 
-TTErr TTNode::getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr from)
+TTErr TTNode::getAddress(TTAddressPtr *returnedAddress, TTAddressPtr from)
 {
 	unsigned int	i, nb_ancestor, len = 0;
-	TTNodeAddressPtr fromNorm, returnedPart1, returnedPart2;
+	TTAddressPtr fromNorm, returnedPart1, returnedPart2;
 	TTNodePtr		ptr;
 	TTNodePtr		*ancestor;
 	TTString		anAddressString;

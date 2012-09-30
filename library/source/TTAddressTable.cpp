@@ -8,7 +8,7 @@
 
 #ifndef DISABLE_NODELIB
 
-#include "TTNodeAddressTable.h"
+#include "TTAddressTable.h"
 #include "TTMutex.h"
 #include "TTValue.h"
 
@@ -16,7 +16,7 @@
 #include <hash_map>
 using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
 
-/** A simple helper class used by TTNodeAddressTable for comparing hash_map keys.  */
+/** A simple helper class used by TTAddressTable for comparing hash_map keys.  */
 class TTStringCompare : public stdext::hash_compare<const TTCString> {
 public:
 	bool operator()(const TTCString s1, const TTCString s2) const
@@ -30,7 +30,7 @@ public:
 	}
 };
 
-typedef hash_map<TTString, TTNodeAddressPtr>     TTNodeAddressTableHash;
+typedef hash_map<TTString, TTAddressPtr>     TTAddressTableHash;
 
 #else
 #if OLD
@@ -39,51 +39,51 @@ typedef hash_map<TTString, TTNodeAddressPtr>     TTNodeAddressTableHash;
 #else
 	#include <unordered_map>
 #endif
-	typedef unordered_map<std::string, TTNodeAddressPtr>		TTNodeAddressTableHash;
+	typedef unordered_map<std::string, TTAddressPtr>		TTAddressTableHash;
 #endif
 
 
 
-/** A type that represents the key as a C-String and the value as a pointer to the matching TTNodeAddress object. */
-typedef pair<const char*, TTNodeAddressPtr>				TTNodeAddressTablePair;
+/** A type that represents the key as a C-String and the value as a pointer to the matching TTAddress object. */
+typedef pair<const char*, TTAddressPtr>				TTAddressTablePair;
 
 
-/** An iterator for the STL hash_map used by TTNodeAddressTable. */
-typedef TTNodeAddressTableHash::const_iterator			TTNodeAddressTableIter;
+/** An iterator for the STL hash_map used by TTAddressTable. */
+typedef TTAddressTableHash::const_iterator			TTAddressTableIter;
 
 
 
 static TTMutex*				aMutex = NULL;
-TTFOUNDATION_EXPORT TTNodeAddressTable* ttNodeAddressTable = NULL;
+TTFOUNDATION_EXPORT TTAddressTable* ttAddressTable = NULL;
 
-#define mNODEADDRESSTABLE ((TTNodeAddressTableHash*)(mNodeAddressTable))
+#define mNODEADDRESSTABLE ((TTAddressTableHash*)(mAddressTable))
 
 /****************************************************************************************************/
 
-TTNodeAddressTable::TTNodeAddressTable()
+TTAddressTable::TTAddressTable()
 {
 	if (!aMutex)
 		aMutex = new TTMutex(true);
-	mNodeAddressTable = (TTPtr) new TTNodeAddressTableHash;
-	mNODEADDRESSTABLE->insert(TTNodeAddressTablePair("", new TTNodeAddress("", 0)));
+	mAddressTable = (TTPtr) new TTAddressTableHash;
+	mNODEADDRESSTABLE->insert(TTAddressTablePair("", new TTAddress("", 0)));
 }
 
 
-TTNodeAddressTable::~TTNodeAddressTable()
+TTAddressTable::~TTAddressTable()
 {
-	TTNodeAddressTableIter	iter;
+	TTAddressTableIter	iter;
 	
 	for (iter = mNODEADDRESSTABLE->begin(); iter != mNODEADDRESSTABLE->end(); iter++)
-		delete TTNodeAddressPtr(iter->second);
+		delete TTAddressPtr(iter->second);
 	mNODEADDRESSTABLE->clear();
 	delete mNODEADDRESSTABLE;
 	// TODO: we should reference count symbol tables and then free the mutex here, yes?
 }
 
-TTNodeAddress* TTNodeAddressTable::lookup(const char* aString)
+TTAddress* TTAddressTable::lookup(const char* aString)
 {
 #ifdef TT_PLATFORM_WIN
-	TTNodeAddressTableIter	iter;
+	TTAddressTableIter	iter;
 
 	aMutex->lock();
 
@@ -91,10 +91,10 @@ TTNodeAddress* TTNodeAddressTable::lookup(const char* aString)
 	if (iter == mNODEADDRESSTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding node address: %s  With Address: %x", aString, aString);
-		TTNodeAddressPtr	newNodeAddress = new TTNodeAddress(aString, mNODEADDRESSTABLE->size());
-		mNODEADDRESSTABLE->insert(TTNodeAddressTablePair(newNodeAddress->getCString(), newNodeAddress));
+		TTAddressPtr	newAddress = new TTAddress(aString, mNODEADDRESSTABLE->size());
+		mNODEADDRESSTABLE->insert(TTAddressTablePair(newAddress->getCString(), newAddress));
 		aMutex->unlock();
-		return newNodeAddress;
+		return newAddress;
 	}
 	else {
 		// The symbol was found, so we return it.
@@ -108,12 +108,12 @@ TTNodeAddress* TTNodeAddressTable::lookup(const char* aString)
 }
 
 
-TTNodeAddress* TTNodeAddressTable::lookup(const TTString& aString)
+TTAddress* TTAddressTable::lookup(const TTString& aString)
 {
 #ifdef TT_PLATFORM_WIN
 	return lookup(aString.c_str());
 #else
-	TTNodeAddressTableIter	iter;
+	TTAddressTableIter	iter;
 
 	aMutex->lock();
 
@@ -121,10 +121,10 @@ TTNodeAddress* TTNodeAddressTable::lookup(const TTString& aString)
 	if (iter == mNODEADDRESSTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding node address: %s  With Address: %x", aString, aString);
-		TTNodeAddressPtr	newNodeAddress = new TTNodeAddress(aString, mNODEADDRESSTABLE->size());
-		mNODEADDRESSTABLE->insert(TTNodeAddressTablePair(newNodeAddress->getCString(), newNodeAddress));
+		TTAddressPtr	newAddress = new TTAddress(aString, mNODEADDRESSTABLE->size());
+		mNODEADDRESSTABLE->insert(TTAddressTablePair(newAddress->getCString(), newAddress));
 		aMutex->unlock();
-		return newNodeAddress;
+		return newAddress;
 	}
 	else {
 		// The symbol was found, so we return it.
@@ -134,15 +134,15 @@ TTNodeAddress* TTNodeAddressTable::lookup(const TTString& aString)
 #endif
 }
 
-void TTNodeAddressTable::dump(TTValue& allNodeAddresss)
+void TTAddressTable::dump(TTValue& allAddresss)
 {
-	TTNodeAddressTableIter	iter;
+	TTAddressTableIter	iter;
 	
 	//TTLogMessage("---- DUMPING SYMBOL TABLE -- BEGIN ----\n");
-	allNodeAddresss.clear();
+	allAddresss.clear();
 	for (iter = mNODEADDRESSTABLE->begin(); iter != mNODEADDRESSTABLE->end(); iter++) {
-		allNodeAddresss.append(TTNodeAddressPtr(iter->second));
-		//TTLogMessage("KEY:%s   VALUE:%s\n", iter->first, TTNodeAddressPtr(iter->second)->getCString());
+		allAddresss.append(TTAddressPtr(iter->second));
+		//TTLogMessage("KEY:%s   VALUE:%s\n", iter->first, TTAddressPtr(iter->second)->getCString());
 	}
 	//TTLogMessage("---- DUMPING SYMBOL TABLE -- END ----\n");
 }

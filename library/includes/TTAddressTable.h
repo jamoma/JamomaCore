@@ -10,10 +10,10 @@
 #define __TT_NODE_ADDRESS_TABLE_H__
 
 #include "TTBase.h"
-#include "TTNodeAddress.h"
+#include "TTAddress.h"
 
 /** This macro is defined as a shortcut for doing a lookup in the address table. */
-#define TTADRS ttNodeAddressTable->lookup
+#define TTADRS ttAddressTable->lookup
 
 
 /****************************************************************************************************/
@@ -24,27 +24,27 @@
 	commonly used strings in a table so that we can refer to them simply as a pointers for fast comparison.
  */
 
-class TTFOUNDATION_EXPORT TTNodeAddressTable : public TTBase {
+class TTFOUNDATION_EXPORT TTAddressTable : public TTBase {
 private:
-	TTPtr	mNodeAddressTable;	///< The address table, mapping strings to pointers
+	TTPtr	mAddressTable;	///< The address table, mapping strings to pointers
 
 public:
-	TTNodeAddressTable();
-	virtual	~TTNodeAddressTable();
+	TTAddressTable();
+	virtual	~TTAddressTable();
 
 	/** Look in the address table for this string.  If it exists then return its id.
 		If it does not exist then it is created, added to the address table and this new address's id is returned.	*/
-	TTNodeAddress* lookup(const char* aString);
+	TTAddress* lookup(const char* aString);
 
 	/** Look in the address table for this string.  If it exists then return its id.
 		If it does not exist then it is created, added to the address table and this new address's id is returned.	*/
-	TTNodeAddress* lookup(const TTString& aString);
+	TTAddress* lookup(const TTString& aString);
 	
 	/**	Debugging tool to make it easy to examine everything that is in the address table. */
 	void dump(TTValue& allNodeAddresss);
 };
 
-extern TTFOUNDATION_EXPORT TTNodeAddressTable* ttNodeAddressTable;		///< The global table of addresses
+extern TTFOUNDATION_EXPORT TTAddressTable* ttAddressTable;		///< The global table of addresses
 
 
 #endif // __TT_NODE_ADDRESS_TABLE_H__

@@ -1,5 +1,5 @@
 /*
- * TTNodeAddress
+ * TTAddress
  * Copyright © 2011, Théo de la Hogue
  *
  * License: This code is licensed under the terms of the "New BSD License"
@@ -24,7 +24,7 @@ TTFOUNDATION_EXPORT TTRegex* ttRegexForParent = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero = NULL;
 
-TTNodeAddress::TTNodeAddress(const TTString& newAddressString, TTInt32 newId)
+TTAddress::TTAddress(const TTString& newAddressString, TTInt32 newId)
 	: directory(NO_DIRECTORY), parent(NO_PARENT), name(NO_NAME), instance(NO_INSTANCE), attribute(NO_ATTRIBUTE), parsed(NO)
 {
 	// check if there is a '0'
@@ -39,48 +39,48 @@ TTNodeAddress::TTNodeAddress(const TTString& newAddressString, TTInt32 newId)
 		this->init(newAddressString, newId);
 }
 
-TTNodeAddress::~TTNodeAddress()
+TTAddress::~TTAddress()
 {
 	;
 }
 
-TTSymbolRef TTNodeAddress::getDirectory()
+TTSymbolRef TTAddress::getDirectory()
 {
 	if (!parsed) parse();
 	return directory;
 }
 
-TTNodeAddressPtr TTNodeAddress::getParent()
+TTAddressPtr TTAddress::getParent()
 {
 	if (!parsed) parse();
 	return parent;
 }
 
-TTSymbolRef TTNodeAddress::getName()
+TTSymbolRef TTAddress::getName()
 {
 	if (!parsed) parse();
 	return name;
 }
 
-TTSymbolRef TTNodeAddress::getInstance()
+TTSymbolRef TTAddress::getInstance()
 {
 	if (!parsed) parse();
 	return instance;
 }
 
-TTSymbolRef TTNodeAddress::getAttribute()
+TTSymbolRef TTAddress::getAttribute()
 {
 	if (!parsed) parse();
 	return this->attribute;
 }
 
-TTNodeAddressType TTNodeAddress::getType()
+TTAddressType TTAddress::getType()
 {
 	if (!parsed) parse();
 	return type;
 }
 
-TTSymbolRef	TTNodeAddress::getNameInstance()
+TTSymbolRef	TTAddress::getNameInstance()
 {
 	TTString nameInstance = this->getName().getCString();
 	
@@ -92,7 +92,7 @@ TTSymbolRef	TTNodeAddress::getNameInstance()
 	return TT(nameInstance);
 }
 
-TTNodeAddressPtr TTNodeAddress::normalize()
+TTAddressPtr TTAddress::normalize()
 {
 	if (!parsed) parse();
 	
@@ -102,7 +102,7 @@ TTNodeAddressPtr TTNodeAddress::normalize()
 		return this;
 }
 
-TTNodeAddressPtr TTNodeAddress::removeAttribute()
+TTAddressPtr TTAddress::removeAttribute()
 {
 	if (!parsed) parse();
 	
@@ -112,14 +112,14 @@ TTNodeAddressPtr TTNodeAddress::removeAttribute()
 		return this;
 }
 
-TTNodeAddressPtr TTNodeAddress::appendAttribute(TTSymbolRef anAttribute)
+TTAddressPtr TTAddress::appendAttribute(TTSymbolRef anAttribute)
 {
 	if (!parsed) parse();
 	
 	return edit(this->directory, this->parent, this->name, this->instance, anAttribute);
 }
 
-TTNodeAddressPtr TTNodeAddress::appendAddress(const TTNodeAddressPtr toAppend)
+TTAddressPtr TTAddress::appendAddress(const TTAddressPtr toAppend)
 {
 	TTString tmp = "";
 	
@@ -145,14 +145,14 @@ TTNodeAddressPtr TTNodeAddress::appendAddress(const TTNodeAddressPtr toAppend)
 	return TTADRS(tmp.data());
 }
 
-TTNodeAddressPtr TTNodeAddress::appendInstance(TTSymbolRef anInstance)
+TTAddressPtr TTAddress::appendInstance(TTSymbolRef anInstance)
 {
 	if (!parsed) parse();
 	
 	return edit(this->directory, this->parent, this->name, anInstance, this->attribute);
 }
 
-TTErr TTNodeAddress::parseInstanceZero(const TTString& toParse, TTString& parsed)
+TTErr TTAddress::parseInstanceZero(const TTString& toParse, TTString& parsed)
 {
 	// filter single "0" string
 	if (toParse.size() > 1) {
@@ -191,7 +191,7 @@ TTErr TTNodeAddress::parseInstanceZero(const TTString& toParse, TTString& parsed
 
 #ifndef TTNODEADDRESS_OLD_WAY_TO_PARSE
 
-TTErr TTNodeAddress::parse()
+TTErr TTAddress::parse()
 {	
 	// "directory:/parent/address/name.instance:attribute" parsing
 	
@@ -308,7 +308,7 @@ TTErr TTNodeAddress::parse()
 	if (this->parent != NO_PARENT)
 		this->type = this->parent->getType();
 	else
-		this->type = (TTNodeAddressType)(this->directory != NO_DIRECTORY || this->name == S_SEPARATOR);
+		this->type = (TTAddressType)(this->directory != NO_DIRECTORY || this->name == S_SEPARATOR);
 	
 	this->parsed = YES;
 	return kTTErrNone;
@@ -316,7 +316,7 @@ TTErr TTNodeAddress::parse()
 
 #else
 
-TTErr TTNodeAddress::parse()
+TTErr TTAddress::parse()
 {
 	TTString address = this->getCString();
 	long len, pos, first_slash, first_colon;
@@ -423,15 +423,15 @@ TTErr TTNodeAddress::parse()
 	if (parent != NO_PARENT)
 		this->type = parent->getType();
 	else
-		this->type = (TTNodeAddressType)(directory != NO_DIRECTORY || name == S_SEPARATOR);
+		this->type = (TTAddressType)(directory != NO_DIRECTORY || name == S_SEPARATOR);
 	
 	this->parsed = YES;
 	return kTTErrNone;
 }
 #endif
 
-TTNodeAddressPtr TTNodeAddress::edit(const TTSymbolRef newDirectory, 
-						  const TTNodeAddressPtr newParent, 
+TTAddressPtr TTAddress::edit(const TTSymbolRef newDirectory, 
+						  const TTAddressPtr newParent, 
 						  const TTSymbolRef newName, 
 						  const TTSymbolRef newInstance, 
 						  const TTSymbolRef newAttribute)
@@ -470,12 +470,12 @@ TTNodeAddressPtr TTNodeAddress::edit(const TTSymbolRef newDirectory,
 	return TTADRS(address);
 }
 
-TTNodeAddressComparisonFlag TTNodeAddress::compare(const TTNodeAddressPtr toCompare, TTInt8& depthDifference)
+TTAddressComparisonFlag TTAddress::compare(const TTAddressPtr toCompare, TTInt8& depthDifference)
 {
 	TTErr err1 = kTTErrNone;
 	TTErr err2 = kTTErrNone;
-	TTNodeAddressPtr adrs1, adrs2, top1, rest1;
-	TTNodeAddressPtr top2, rest2;
+	TTAddressPtr adrs1, adrs2, top1, rest1;
+	TTAddressPtr top2, rest2;
 	bool cParent, cName, cInstance;
 	
 	adrs1 = this->normalize();
@@ -551,7 +551,7 @@ TTNodeAddressComparisonFlag TTNodeAddress::compare(const TTNodeAddressPtr toComp
 	return kAddressDifferent;
 }
 
-TTErr TTNodeAddress::splitAt(TTUInt32 whereToSplit, TTNodeAddressPtr *returnedPart1, TTNodeAddressPtr *returnedPart2)
+TTErr TTAddress::splitAt(TTUInt32 whereToSplit, TTAddressPtr *returnedPart1, TTAddressPtr *returnedPart2)
 {
 	TTErr		err = kTTErrNone;
 	TTUInt32	nb, pos, i;
@@ -593,14 +593,14 @@ TTErr TTNodeAddress::splitAt(TTUInt32 whereToSplit, TTNodeAddressPtr *returnedPa
 	return err;
 }
 
-TTUInt32 TTNodeAddress::countSeparator()
+TTUInt32 TTAddress::countSeparator()
 {
 	std::string toCount = this->getCString();
 	
 	return count(toCount.begin(), toCount.end(), C_SEPARATOR);
 }
 
-TTErr TTNodeAddress::listNameInstance(TTList& nameInstanceList)
+TTErr TTAddress::listNameInstance(TTList& nameInstanceList)
 {
 	if (!parsed) parse();
 	
@@ -621,7 +621,7 @@ TTErr TTNodeAddress::listNameInstance(TTList& nameInstanceList)
  *
  ************************************************************************************/
 
-TTNodeAddressPtr convertTTNameInTTNodeAddress(TTSymbolRef ttName)
+TTAddressPtr convertTTNameInTTAddress(TTSymbolRef ttName)
 {
 	TTUInt32	ttNameSize = 0;
 	TTCString	ttNameCString;
@@ -629,7 +629,7 @@ TTNodeAddressPtr convertTTNameInTTNodeAddress(TTSymbolRef ttName)
 	TTUInt32	i;
 	TTCString	addrNameCString = NULL;
 	TTUInt32	addrNameSize = 0;
-	TTNodeAddressPtr addrNameSymbol;
+	TTAddressPtr addrNameSymbol;
 	
 	ttNameSize = strlen(ttName.getCString());
 	ttNameCString = new char[ttNameSize+1];
@@ -683,8 +683,8 @@ TTNodeAddressPtr convertTTNameInTTNodeAddress(TTSymbolRef ttName)
 	return addrNameSymbol;
 }
 
-TTNodeAddressPtr makeTTNodeAddress(const TTSymbolRef newDirectory, 
-								   const TTNodeAddressPtr newParent, 
+TTAddressPtr makeTTAddress(const TTSymbolRef newDirectory, 
+								   const TTAddressPtr newParent, 
 								   const TTSymbolRef newName, 
 								   const TTSymbolRef newInstance, 
 								   const TTSymbolRef newAttribute)

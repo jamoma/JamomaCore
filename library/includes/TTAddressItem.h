@@ -1,5 +1,5 @@
 /* 
- * TTNodeAddressItem
+ * TTAddressItem
  * Copyright © 2012, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -14,10 +14,10 @@
 #endif // WIN_VERSION
 
 #include "TTList.h"
-#include "TTNodeAddress.h"
+#include "TTAddress.h"
 
-class TTNodeAddressItem;
-typedef TTNodeAddressItem*	TTNodeAddressItemPtr;
+class TTAddressItem;
+typedef TTAddressItem*	TTAddressItemPtr;
 
 /****************************************************************************************************/
 // Class Specifications
@@ -26,28 +26,28 @@ typedef TTNodeAddressItem*	TTNodeAddressItemPtr;
  
  */
 
-class TTFOUNDATION_EXPORT TTNodeAddressItem : public TTList
+class TTFOUNDATION_EXPORT TTAddressItem : public TTList
 {
 	
 private:
 	
 	TTSymbol					symbol;					// any symbol
-	TTNodeAddressItemPtr		parent;					// the parent item
+	TTAddressItemPtr		parent;					// the parent item
 	TTBoolean					selection;				// selection state of the item
 	TTList						handlers;				// list of all TTObject handling the item
 	
 public:
 	
 	/** Constructor */
-	TTNodeAddressItem (TTSymbol& aSymbol, TTNodeAddressItemPtr aParent=NULL, TTBoolean aSelection=NO);
+	TTAddressItem (TTSymbol& aSymbol, TTAddressItemPtr aParent=NULL, TTBoolean aSelection=NO);
 	
 	/** Destructor */
-	virtual ~TTNodeAddressItem ();
+	virtual ~TTAddressItem ();
 	
 	/** Set the parent of the item
 	 @param	newParent					a namespace item pointer
 	 @return							a error code	*/
-	void						setParent(const TTNodeAddressItemPtr newParent);
+	void						setParent(const TTAddressItemPtr newParent);
 
 	/** Set the selection state of the item
 		@param	newSelectionState		YES to select the item
@@ -58,41 +58,41 @@ public:
 	TTSymbol					getSymbol();
 	
 	/** Get the parent of the item */
-	TTNodeAddressItemPtr		getParent();
+	TTAddressItemPtr		getParent();
 	
 	/** Get the selection state of the item */
 	TTBoolean					getSelection();
 	
 	/** Get an Item below this item */
-	TTNodeAddressItemPtr		getItem(TTSymbol& aSymbol);
+	TTAddressItemPtr		getItem(TTSymbol& aSymbol);
 	
 	/** Overwrite the TTList::clear() method to delete all items below */
 	void						clear();
 	
 	/** Overwrite the TTList::append() method to append a node address */
-	TTErr						append(TTNodeAddressPtr addressToAppend, TTNodeAddressItemPtr *returnedItem);
+	TTErr						append(TTAddressPtr addressToAppend, TTAddressItemPtr *returnedItem);
 	
 	/** Overwrite the TTList::remove() method to remove a node address */
-	TTErr						remove(TTNodeAddressPtr addressToRemove);
+	TTErr						remove(TTAddressPtr addressToRemove);
 	
 	/** Overwrite the TTList::current() method to access directly to the current item */
-	TTNodeAddressItemPtr		current();
+	TTAddressItemPtr		current();
 	
 	/** Overwrite the TTList::find() method to find a node address
-		Note : if it fails, it returns the TTNodeAddressItem where the find fails */
-	TTErr						find(TTNodeAddressPtr addressToFind, TTNodeAddressItemPtr *returnedItem);
+		Note : if it fails, it returns the TTAddressItem where the find fails */
+	TTErr						find(TTAddressPtr addressToFind, TTAddressItemPtr *returnedItem);
 	
 	/** Merge an item */
-	TTErr						merge(const TTNodeAddressItemPtr anItemToAppend);
+	TTErr						merge(const TTAddressItemPtr anItemToAppend);
 	
 	/** Destroy an item and his parent if he's empty */
-	TTErr						destroy(const TTNodeAddressItemPtr anItemToRemove);
+	TTErr						destroy(const TTAddressItemPtr anItemToRemove);
 	
 	/** Check if a similar item exist and returns the last tested item */
-	TTBoolean					exist(TTNodeAddressItemPtr anItemToCheck, TTNodeAddressItemPtr *returnedItem);
+	TTBoolean					exist(TTAddressItemPtr anItemToCheck, TTAddressItemPtr *returnedItem);
 
 	/** Copy the item into a given item */
-	TTErr						copy(TTNodeAddressItemPtr *anItemCopy);
+	TTErr						copy(TTAddressItemPtr *anItemCopy);
 	
 	/** Register a TTObject handler */
 	void						registerHandler(TTObject& anObject);
@@ -104,11 +104,11 @@ public:
 	void						iterateHandlersSendingMessage(TTSymbol& messageName);
 	void						iterateHandlersSendingMessage(TTSymbol& messageName, TTValue& aValue);
 	
-	friend void TTFOUNDATION_EXPORT TTNodeAddressItemFind(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBoolean& found);
+	friend void TTFOUNDATION_EXPORT TTAddressItemFind(const TTValue& itemValue, TTPtr itemPtrToMatch, TTBoolean& found);
 };
 
 /* a TTFunctionMatch to find an item */
-void TTFOUNDATION_EXPORT TTNodeAddressItemFind(const TTValue& itemValue, TTPtr aSymbolToMatch, TTBoolean& found);
+void TTFOUNDATION_EXPORT TTAddressItemFind(const TTValue& itemValue, TTPtr aSymbolToMatch, TTBoolean& found);
 
 	
 #endif // __TT_NODE_ADDRESS_ITEM_H__

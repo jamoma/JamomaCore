@@ -30,10 +30,10 @@
 
 #include "TTRegex.h"
 
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
-#include "TTNodeAddressCache.h"
-#include "TTNodeAddressItem.h"
+#include "TTAddress.h"
+#include "TTAddressTable.h"
+#include "TTAddressCache.h"
+#include "TTAddressItem.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 

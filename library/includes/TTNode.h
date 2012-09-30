@@ -15,8 +15,8 @@
 
 #include "TTFoundationAPI.h"
 #include "TTCallback.h"
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
+#include "TTAddress.h"
+#include "TTAddressTable.h"
 #include "TTNodeDirectory.h"
 
 class TTNode;
@@ -95,7 +95,7 @@ public:
 		@param	newParentCreated		This parameter will be set to true upon return if a new TTNode was created, or false if one was not created - 
 										e.g. because a TTNode already existed with this address and instance name.			
 		@return							An error code. */
-	TTErr			setParent(TTNodeAddressPtr parentAddress, TTBoolean *newParentCreated);
+	TTErr			setParent(TTAddressPtr parentAddress, TTBoolean *newParentCreated);
 
 	/** Add a TTNode as a child of the TTNode
 		@param child			a TTNodePtr to add as children of the TTNode.
@@ -134,9 +134,9 @@ public:
 
 	/** Get the address of the TTNode
 	 It is computed dynamicaly by asking to all the ancestor of the TTNode	
-	 @param	returnedAddress		A TTNodeAddressPtr with the address is returned in this parameter.
+	 @param	returnedAddress		A TTAddressPtr with the address is returned in this parameter.
 	 @param	from				An address from where to start the returned address in order to have a relative address */
-	TTErr			getAddress(TTNodeAddressPtr *returnedAddress, TTNodeAddressPtr from = kTTAdrsEmpty);
+	TTErr			getAddress(TTAddressPtr *returnedAddress, TTAddressPtr from = kTTAdrsEmpty);
 
 	/** Generate a new instance of a given child
 		@param childName		the name of a child.
