@@ -118,7 +118,7 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 {
 	TTUInt32 aNewRowCount = 0;
-	TTUInt32 aNewColumnCount = 1;  // needed to support calls with 1D
+	TTUInt32 aNewColumnCount = 1;  // needed to support calls with 1D? zero is corrected in resize()
 
 	someNewDimensions.get(0, aNewRowCount);
 	mRowCount = aNewRowCount;
