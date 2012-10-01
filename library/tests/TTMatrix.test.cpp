@@ -202,7 +202,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		
+/* DEPRECATION in progress: 3D support is being removed, therefore section will be removed 	
 		
 		TTTestLog("");
 		TTTestLog("Setting to a 3D matrix with a size of 5 x 3 x 4 using float32 data and a single element per value");
@@ -245,6 +245,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);		
 
+/* DEPRECATION in progress: 3D support is being removed, end of section to be removed */
+/* DEPRECATION in progress: 4D support is being removed, therefore section will be removed
 		
 		TTTestLog("");
 		TTTestLog("Setting to a 4D matrix with a size of 6 x 7 x 8 x 9 using int32 data and a single element per value");
@@ -286,7 +288,9 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTTestAssertion("value dataCount + 1 is out of bounds", 
 						matrix->inBounds(matrix->mDataCount + 1) == 0, 
 						testAssertionCount,
-						errorCount);		
+						errorCount);	
+							
+/* DEPRECATION in progress: 4D support is being removed, end of section to be removed */		
 		
 		err = TTObjectRelease((TTObjectPtr*)&matrix);
 		TTTestAssertion("frees successfully", 
@@ -299,10 +303,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 	
 	
 	
-	
-	
-	
-	
+		
 	{
 		TTTestLog("\n");
 		TTTestLog("Testing TTMatrix Math...");

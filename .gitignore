@@ -35,3 +35,5 @@ builds
 # Backup files from various Linux text editors
 *~
 
+# TextMate project files
+*.tmproj

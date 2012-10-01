@@ -118,21 +118,30 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 {
 	TTUInt32 aNewRowCount = 0;
-	TTUInt32 aNewColumnCount = 1;  // DEPRECATION in progress: needed to support calls with 1D
+	TTUInt32 aNewColumnCount = 1;  // needed to support calls with 1D
 
 	someNewDimensions.get(0, aNewRowCount);
-	mDimensions[0] = aNewRowCount; // DEPRECATION in progress: 
 	mRowCount = aNewRowCount;
 	
-	if (someNewDimensions.getSize() > 1)  // DEPRECATION in progress: needed to support calls with 1D
-	{
-		someNewDimensions.get(1, aNewColumnCount);
-	}
-	mDimensions[1] = aNewColumnCount; // DEPRECATION in progress: 
+	someNewDimensions.get(1, aNewColumnCount);
 	mColumnCount = aNewColumnCount;
+	
+	/* DEPRECATION in progress: the following section will be removed */
+	
+	TTUInt8	size = someNewDimensions.getSize();
 
+	mDimensions.resize(size);
+	for (int i=0; i<size; i++) {
+		TTInt32 aNewDimension = 0;
+
+		someNewDimensions.get(i, aNewDimension);
+		mDimensions[i] = aNewDimension;
+	}
+	
+	/* DEPRECATION in progress: end of section to be removed */
 	
 	return resize();
+
 }
 
 
