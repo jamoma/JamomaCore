@@ -1,6 +1,6 @@
 /*
- * Jamoma N-Dimensional Matrix Data Class
- * Copyright © 2011, Timothy Place
+ * Jamoma 2-Dimensional Matrix Data Class
+ * Copyright © 2011-2012, Timothy Place & Nathan Wolek
  *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -16,6 +16,8 @@
 
 TT_OBJECT_CONSTRUCTOR,
 	mData(NULL),
+	mRowCount(1), // initialize to a 1x1 matrix by default (maybe we should be using the args?)
+	mColumnCount(1), // initialize to a 1x1 matrix by default (maybe we should be using the args?)
 	mElementCount(1),
 	mComponentCount(1),
 	mComponentStride(1),
@@ -27,9 +29,11 @@ TT_OBJECT_CONSTRUCTOR,
 	mHeadPtr(NULL),
 	mTailPtr(NULL)
 {
-	addAttributeWithGetterAndSetter(Dimensions, kTypeUInt32);
-	addAttributeWithSetter(Type,				kTypeUInt8);
-	addAttributeWithSetter(ElementCount,		kTypeUInt8);
+	addAttributeWithGetterAndSetter(Dimensions, 	kTypeUInt32); // DEPRECATION in progress
+	//addAttributeWithGetterAndSetter(RowCount, 		kTypeUInt32);
+	//addAttributeWithGetterAndSetter(ColumnCount, 	kTypeUInt32);
+	addAttributeWithSetter(Type,					kTypeUInt8);
+	addAttributeWithSetter(ElementCount,			kTypeUInt8);
 
 	addMessage(clear);
 	addMessageWithArguments(fill);
@@ -39,8 +43,12 @@ TT_OBJECT_CONSTRUCTOR,
 	// TODO: getLockedPointer -- returns a pointer to the data, locks the matrix mutex
 	// TODO: releaseLockedPointer -- releases the matrix mutex
 	// TODO: the above two items mean we need a TTMutex member
+	
+	resize();
 
-	setAttributeValue(TT("dimensions"), kTTVal1); // initialize to a 1x1 matrix by default (maybe we should be using the args?
+	// DEPRECATION in progress: setAttributeValue(TT("dimensions"), kTTVal1); 
+	
+	
 }
 
 
@@ -107,29 +115,33 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 	return kTTErrNone;
 }
 
-
 TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 {
-	TTUInt8	size = someNewDimensions.getSize();
+	TTUInt32 aNewRowCount = 0;
+	TTUInt32 aNewColumnCount = 1;  // DEPRECATION in progress: needed to support calls with 1D
 
-	mDimensions.resize(size);
-	for (int i=0; i<size; i++) {
-		TTInt32 aNewDimension = 0;
-
-		someNewDimensions.get(i, aNewDimension);
-		mDimensions[i] = aNewDimension;
+	someNewDimensions.get(0, aNewRowCount);
+	mDimensions[0] = aNewRowCount; // DEPRECATION in progress: 
+	mRowCount = aNewRowCount;
+	
+	if (someNewDimensions.getSize() > 1)  // DEPRECATION in progress: needed to support calls with 1D
+	{
+		someNewDimensions.get(1, aNewColumnCount);
 	}
+	mDimensions[1] = aNewColumnCount; // DEPRECATION in progress: 
+	mColumnCount = aNewColumnCount;
+
+	
 	return resize();
 }
 
 
 TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 {
-	TTUInt8	size = mDimensions.size();
-
-	returnedDimensions.setSize(size);
-	for (unsigned int i=0; i<size; i++)
-		returnedDimensions.set(i, mDimensions[i]);
+	returnedDimensions.setSize(2);
+	returnedDimensions.set(0, mRowCount);
+	returnedDimensions.set(1, mColumnCount);
+	
 	return kTTErrNone;
 }
 

@@ -1,6 +1,6 @@
 /* 
- * Jamoma N-Dimensional Matrix Data Class
- * Copyright © 2011, Timothy Place
+ * Jamoma 2-Dimensional Matrix Data Class
+ * Copyright © 2011-2012, Timothy Place & Nathan Wolek
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -48,8 +48,10 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 protected:	
 
 	TTBytePtr			mData;					///< matrix of values
-	vector<TTUInt32>	mDimensions;			///< N dimensions, each int specifying the size of that dimension
-	TTUInt8				mElementCount;			///< how many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1)
+	vector<TTUInt32>	mDimensions;			///< DEPRECATION in progress: N dimensions, each int specifying the size of that dimension 
+	TTUInt32			mRowCount;				///< How many rows of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
+	TTUInt32			mColumnCount;			///< How many columns of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
+	TTUInt8				mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an unsigned 8-bit integer which provides a maximum value of 255.
 	TTUInt32			mComponentCount;		///< mDimension[0] * mDimension[1] ...
 	TTUInt8				mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
