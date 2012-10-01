@@ -63,12 +63,17 @@ TTErr TTMatrix::resize()
 {
 	TTUInt32 productOfDimensions = 1;
 
+	
 	for (unsigned int i=0; i<mDimensions.size(); i++) {
 		if (i == 0)
 			productOfDimensions = mDimensions[i];
 		else
 			productOfDimensions *= mDimensions[i];
-	}
+	} /*
+	if (mRowCount != 0) productOfDimensions *= mRowCount;
+	if (mColumnCount != 0) productOfDimensions *= mColumnCount;
+	*/
+	
 	mDataCount = productOfDimensions * mElementCount;
 	mDataSize = mDataCount * mTypeSizeInBytes;
 	mComponentStride = mTypeSizeInBytes * mElementCount;
