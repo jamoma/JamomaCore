@@ -63,16 +63,16 @@ TTErr TTMatrix::resize()
 {
 	TTUInt32 productOfDimensions = 1;
 
-	
+	/*
 	for (unsigned int i=0; i<mDimensions.size(); i++) {
 		if (i == 0)
 			productOfDimensions = mDimensions[i];
 		else
 			productOfDimensions *= mDimensions[i];
-	} /*
-	if (mRowCount != 0) productOfDimensions *= mRowCount;
+	} */
+	if (mRowCount != 0) productOfDimensions = mRowCount;
 	if (mColumnCount != 0) productOfDimensions *= mColumnCount;
-	*/
+	
 	
 	mDataCount = productOfDimensions * mElementCount;
 	mDataSize = mDataCount * mTypeSizeInBytes;
@@ -122,19 +122,27 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 
 TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 {
-	TTUInt32 aNewRowCount = 0;
-	TTUInt32 aNewColumnCount = 1;  // needed to support calls with 1D? zero is corrected in resize()
-
-	someNewDimensions.get(0, aNewRowCount);
-	mRowCount = aNewRowCount;
+	TTUInt32 aNewRowCount = 1;
+	TTUInt32 aNewColumnCount = 1; 
 	
-	someNewDimensions.get(1, aNewColumnCount);
+	TTUInt8	size = someNewDimensions.getSize();
+	
+	// values must be greater than 0
+	for (int i=0; i<size; i++) {
+		TTInt32 aNewDimension = 0;
+		someNewDimensions.get(i, aNewDimension);
+		if (aNewDimension < 1) return kTTErrInvalidValue;
+	}
+	
+	// needed to support old calls with only 1 dimension
+	if (size > 0) { someNewDimensions.get(0, aNewRowCount); }
+	if (size > 1) { someNewDimensions.get(1, aNewColumnCount); }
+	
+	mRowCount = aNewRowCount;
 	mColumnCount = aNewColumnCount;
 	
 	/* DEPRECATION in progress: the following section will be removed */
 	
-	TTUInt8	size = someNewDimensions.getSize();
-
 	mDimensions.resize(size);
 	for (int i=0; i<size; i++) {
 		TTInt32 aNewDimension = 0;
@@ -346,10 +354,19 @@ TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMat
 	if (A->mType == B->mType  &&  A->mElementCount == B->mElementCount && A->mDimensions == B->mDimensions) {
 		int stride = A->mTypeSizeInBytes;
 		int size = A->mDataSize;
+		TTValue		dims;		// DEPRECATION in progress
 		
 		C->setAttributeValue(kTTSym_type, A->mType);
-		C->setAttributeValue(kTTSym_elementCount, A->mElementCount);	
-		C->setDimensionsWithVector(A->mDimensions);
+		C->setAttributeValue(kTTSym_elementCount, A->mElementCount);
+		
+		/* DEPRECATION in progress: the following section had to be changed to prevent malloc errors. results are less efficient code, but this will be regained once mRowCount & mColumnCount are fully implemented. */
+		
+		dims.setSize(2);
+		dims.set(0, A->mRowCount);
+		dims.set(1, A->mColumnCount);	
+		C->setAttributeValue(kTTSym_dimensions, dims);
+		
+		/* DEPRECATION in progress: end section to be changed */
 		
 		for (int k=0; k<size; k+=stride)
 			(*iterator)(C->mData+k, A->mData+k, B->mData+k);

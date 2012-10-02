@@ -77,7 +77,7 @@ protected:
 	
 public:
 	
-	/**	Attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values other than the first two will be ignored without an error.	*/
+	/**	Attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values beyond the first two will be ignored without an error.	Values that are less than 1 will produce an error. */
 	TTErr setDimensions(const TTValue& someNewDimensions);
 	
 	/**	Attribute accessor. Included for legacy.  Returns the values saved as RowCount & ColumnCount as a 2-item TTValue.	*/
