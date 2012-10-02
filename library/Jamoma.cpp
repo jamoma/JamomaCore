@@ -132,7 +132,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 	TTValue			args;
 	TTErr			err = kTTErrNone;
 	VALUE			classNameStr = StringValue(className);
-	TTSymbol		classNameTTStr = TT(RSTRING_PTR(classNameStr));
+	TTSymbol		classNameTTStr(RSTRING_PTR(classNameStr));
 	long			n;
 	TTValue			names;
 	TTSymbol		aName = kTTSymEmpty;
@@ -140,7 +140,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 	
 	args.clear();
 	
-	if (classNameTTStr == TT("environment"))
+	if (classNameTTStr == "environment")
 		instance->obj = (TTAudioObject*)ttEnvironment;
 		// right now we just leak all of our instances (oops), but when we do free them correctly we don't want to free the environment!
 	else
@@ -155,7 +155,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 			nameString = aName.c_str();
 			{
 				v = aName;
-				instance->parameterNames->append(TT(nameString.c_str()), v);
+				instance->parameterNames->append(TTSymbol(nameString.c_str()), v);
 			}
 		}
 		
@@ -167,7 +167,7 @@ VALUE TTRubyInitialize(VALUE self, VALUE className)
 			nameString = aName.c_str();
 			{
 				v = aName;
-				instance->messageNames->append(TT(nameString.c_str()), v);
+				instance->messageNames->append(TTSymbol(nameString.c_str()), v);
 			}
 		}
 		
@@ -241,7 +241,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 			TTSymbol	messageName = kTTSymEmpty;
 			TTValue		messageNameValue;
 
-			messageName = TT(RSTRING_PTR(messageNameStr));
+			messageName = RSTRING_PTR(messageNameStr);
 			instance->messageNames->lookup(messageName, messageNameValue);
 			messageNameValue.get(0, messageName);
 
@@ -268,7 +268,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 							break;
 						case T_STRING:
 							messageArgStr = StringValue(argv[i]);
-							v_in.append(TT(RSTRING_PTR(messageArgStr)));
+							v_in.append(TTSymbol(RSTRING_PTR(messageArgStr)));
 							break;
 						case T_ARRAY:
 							cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
@@ -403,7 +403,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					break;
 				case T_STRING:
 					attributeValueStr = StringValue(attributeValue);
-					v.append(TT(RSTRING_PTR(attributeValueStr)));
+					v.append(TTSymbol(RSTRING_PTR(attributeValueStr)));
 					break;
 				case T_ARRAY:
 					cout << "TTError: Array arguments for attributes not yet supported in Ruby" << endl;
@@ -422,7 +422,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				TTSymbol	parameterName = kTTSymEmpty;
 				TTValue		parameterNameValue;
 				
-				parameterName = TT(RSTRING_PTR(attributeNameStr));
+				parameterName = RSTRING_PTR(attributeNameStr);
 				instance->parameterNames->lookup(parameterName, parameterNameValue);
 				parameterNameValue.get(0, parameterName);
 				
@@ -454,7 +454,7 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 			TTSymbol	parameterName = kTTSymEmpty;
 			TTValue		parameterNameValue;
 			
-			parameterName = TT(RSTRING_PTR(attributeNameStr));
+			parameterName = RSTRING_PTR(attributeNameStr);
 			instance->parameterNames->lookup(parameterName, parameterNameValue);
 			parameterNameValue.get(0, parameterName);
 			
@@ -572,7 +572,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 				break;
 			case T_STRING:
 				messageArgStr = StringValue(argv[i]);
-				args.append(TT(RSTRING_PTR(messageArgStr)));
+				args.append(TTSymbol(RSTRING_PTR(messageArgStr)));
 				break;
 			case T_ARRAY:
 				cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
@@ -588,8 +588,8 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		}
 	}				
 	
-	//err = TTObjectInstantiate(TT(RSTRING_PTR(classNameStr)), &instance->obj, args);
-	err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&instance->obj, args);
+	//err = TTObjectInstantiate(RSTRING_PTR(classNameStr), &instance->obj, args);
+	err = TTObjectInstantiate("audio.object", (TTObjectPtr*)&instance->obj, args);
 	
 	if (!err) {
 		instance->parameterNames = new TTHash;	// TODO: need to free this
@@ -600,7 +600,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 			nameString = aName.c_str();
 			{
 				v = aName;
-				instance->parameterNames->append(TT(nameString.c_str()), v);
+				instance->parameterNames->append(TTSymbol(nameString.c_str()), v);
 			}
 		}
 
@@ -612,7 +612,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 			nameString = aName.c_str();
 			{
 				v = aName;
-				instance->messageNames->append(TT(nameString.c_str()), v);
+				instance->messageNames->append(TTSymbol(nameString.c_str()), v);
 			}
 		}
 				
@@ -682,7 +682,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 			TTSymbol	messageName = kTTSymEmpty;
 			TTValue		messageNameValue;
 
-			messageName = TT(RSTRING_PTR(messageNameStr));
+			messageName = RSTRING_PTR(messageNameStr);
 			instance->messageNames->lookup(messageName, messageNameValue);
 			messageNameValue.get(0, messageName);
 
@@ -709,7 +709,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 							break;
 						case T_STRING:
 							messageArgStr = StringValue(argv[i]);
-							v_in.append(TT(RSTRING_PTR(messageArgStr)));
+							v_in.append(TTSymbol(RSTRING_PTR(messageArgStr)));
 							break;
 						case T_ARRAY:
 							cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
@@ -845,7 +845,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					break;
 				case T_STRING:
 					attributeValueStr = StringValue(attributeValue);
-					v.append(TT(RSTRING_PTR(attributeValueStr)));
+					v.append(TTSymbol(RSTRING_PTR(attributeValueStr)));
 					break;
 				case T_ARRAY:
 					cout << "TTError: Array arguments for attributes not yet supported in Ruby" << endl;
@@ -864,7 +864,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				TTSymbol	parameterName = kTTSymEmpty;
 				TTValue		parameterNameValue;
 				
-				parameterName = TT(RSTRING_PTR(attributeNameStr));
+				parameterName = RSTRING_PTR(attributeNameStr);
 				instance->parameterNames->lookup(parameterName, parameterNameValue);
 				parameterNameValue.get(0, parameterName);
 				
@@ -896,7 +896,7 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 			TTSymbol	parameterName = kTTSymEmpty;
 			TTValue		parameterNameValue;
 			
-			parameterName = TT(RSTRING_PTR(attributeNameStr));
+			parameterName = RSTRING_PTR(attributeNameStr);
 			instance->parameterNames->lookup(parameterName, parameterNameValue);
 			parameterNameValue.get(0, parameterName);
 			
