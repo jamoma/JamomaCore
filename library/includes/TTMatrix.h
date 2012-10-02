@@ -200,7 +200,7 @@ public:
 		return kTTErrNone;
 	}
 	
-	TTSymbol&	getTypeAsSymbol()
+	TTSymbol getTypeAsSymbol()
 	{
 		return mType;
 	}

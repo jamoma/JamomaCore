@@ -62,8 +62,6 @@ void TTFoundationInit(const char* pathToBinaries)
 		if (pathToBinaries)
 			TTFoundationBinaryPath = pathToBinaries;
 
-		// The symbol table is now initialized when the first lookup is performed
-		//gTTSymbolTable = new TTSymbolTable;
 		for (int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
 

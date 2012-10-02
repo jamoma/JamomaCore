@@ -55,6 +55,7 @@ public:
 		for (std::vector<char>::iterator c = begin; c != end; ++c) {
 			push_back(*c);
 		}
+		push_back(0); // add NULL termination
 	}
 	
 	

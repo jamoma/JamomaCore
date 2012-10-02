@@ -234,7 +234,7 @@ public:
 	void getMessageNames(TTValue& messageNameList);
 	
 	/** return the name of this class */
-	TTSymbol& getName() const;
+	TTSymbol getName() const;
 
 	
 	TTErr registerMessage(const TTSymbol& name, TTMethod method);

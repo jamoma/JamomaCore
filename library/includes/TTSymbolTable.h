@@ -28,7 +28,7 @@ private:
 protected:
 	/**	Overridable method used internally when constructing a new
 		TTSymbolBase */
-	TTSymbolBase*	createEntry(const TTString& aString, TTInt32 newSymbolId);
+	virtual TTSymbolBase*	createEntry(const TTString& aString, TTInt32 newSymbolId);
 	
 public:
 	TTSymbolTable(TTBoolean createEmptyTable = false);

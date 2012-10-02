@@ -39,7 +39,7 @@ protected:
 	//void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newId);
 	void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
 
-	
+
 public:
 		
 	/** The constructor is intended only for use by the TTSymbolBaseTable object when creating new symbols
@@ -87,7 +87,14 @@ public:
 			return (symbol1.mString == symbol2.mString);
 		}
 	}
+
 	
+	/** Compare two symbols for inequality. */
+	inline friend bool operator != (const TTSymbolBase& symbol1, const TTSymbolBase& symbol2)
+	{
+		return !(symbol1 == symbol2);
+	}
+
 	
 	/** Cast a symbol to a C-string. */
 	operator const char*() const

@@ -255,7 +255,7 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 
 	for (TTUInt32 i=0; i<attributeCount; i++) {
 		TTAttributePtr	attribute = NULL;
-		TTSymbol&		attributeName = kTTSymEmpty;
+		TTSymbol		attributeName = kTTSymEmpty;
 
 		unfilteredNameList.get(i, attributeName);
 //		getAttribute(attributeName, &attribute);
@@ -322,7 +322,7 @@ void TTObject::getMessageNames(TTValue& messageNameList)
 }
 
 
-TTSymbol& TTObject::getName() const
+TTSymbol TTObject::getName() const
 {
 	return classPtr->name;
 }

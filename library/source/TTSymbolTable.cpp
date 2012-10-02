@@ -129,7 +129,7 @@ TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
 //		gTTSymbolTable = new TTSymbolTable;
 //
 //	TTSymbolTable *self = gTTSymbolTable; // can't rely on 'this' in the case where we just created the table!
-TTSymbolTable *self = &gTTSymbolTable;
+//TTSymbolTable *self = &gTTSymbolTable;
 #ifdef TT_PLATFORM_WIN
 	return self->lookup(aString.c_str());
 #else
@@ -137,12 +137,12 @@ TTSymbolTable *self = &gTTSymbolTable;
 
 	sMutex->lock();
 
-	iter = ((TTSymbolTableHash*)(self->mSymbolTable))->find(aString);
-	if (iter == ((TTSymbolTableHash*)(self->mSymbolTable))->end()) {
+	iter = ((TTSymbolTableHash*)(mSymbolTable))->find(aString);
+	if (iter == ((TTSymbolTableHash*)(mSymbolTable))->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbolBase*	newSymbol = createEntry(aString, ((TTSymbolTableHash*)(self->mSymbolTable))->size());
-		((TTSymbolTableHash*)(self->mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
+		TTSymbolBase*	newSymbol = createEntry(aString, ((TTSymbolTableHash*)(mSymbolTable))->size());
+		((TTSymbolTableHash*)(mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
 		sMutex->unlock();
 		return newSymbol;
 	}

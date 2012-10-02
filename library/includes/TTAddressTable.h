@@ -27,7 +27,7 @@ class TTFOUNDATION_EXPORT TTAddressTable : public TTSymbolTable {
 public:
 	
 	/**	Override the method used internally when constructing a new TTSymbolBase */
-	TTSymbolBase* createEntry(const TTString& aString, TTInt32 newSymbolId);
+	virtual TTSymbolBase* createEntry(const TTString& aString, TTInt32 newSymbolId);
 	
 };
 
