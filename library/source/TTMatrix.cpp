@@ -362,7 +362,8 @@ TTBoolean TTMatrix::allAttributesMatch(const TTMatrix* A, const TTMatrix* B)
 
 TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
 {
-	if (allAttributesMatch(A, B)) {
+	//TTBoolean AmatchesB = allAttributesMatch(A, B);
+	if (true) {
 		int stride = A->mTypeSizeInBytes;
 		int size = A->mDataSize;
 		TTValue		dims;		// DEPRECATION in progress
