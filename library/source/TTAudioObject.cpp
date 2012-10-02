@@ -23,15 +23,15 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	accumulatedProcessingCalls(0.0)
 {
 	// Convention: 'Public' attribute names begin with a capital letter, 'Private' attribute names begin with a lower case letter
-	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
+	registerAttribute("maxNumChannels",		kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
 	registerAttribute(kTTSym_sampleRate,	kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
-	registerAttribute(TT("bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
-	registerAttribute(TT("mute"),			kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
+	registerAttribute("bypass",				kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
+	registerAttribute("mute",				kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
 	
-	registerMessage(TT("calculate"), (TTMethod)&TTAudioObject::calculateMessage);
-	registerMessage(TT("test"), TTMethod(&TTObject::test));
-	registerMessage(TT("resetBenchmarking"), (TTMethod)&TTAudioObject::resetBenchmarking, kTTMessagePassNone);
-	registerMessage(TT("getProcessingBenchmark"), (TTMethod)&TTAudioObject::getProcessingBenchmark);
+	registerMessage("calculate",				(TTMethod)&TTAudioObject::calculateMessage);
+	registerMessage("test",						TTMethod(&TTObject::test));
+	registerMessage("resetBenchmarking",		(TTMethod)&TTAudioObject::resetBenchmarking, kTTMessagePassNone);
+	registerMessage("getProcessingBenchmark",	(TTMethod)&TTAudioObject::getProcessingBenchmark);
 	
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
 	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
@@ -41,7 +41,7 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	setAttributeValue(kTTSym_sampleRate,	(unsigned int)ttEnvironment->mSampleRate);
 	setProcess(&TTAudioObject::bypassProcess);
     setCalculate(&TTAudioObject::defaultCalculateMethod);
-	setAttributeValue(TT("bypass"),			kTTBoolNo);	
+	setAttributeValue("bypass",			kTTBoolNo);	
 }
 
 
@@ -58,7 +58,7 @@ TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 		TTValue	oldMaxNumChannels = maxNumChannels;
 		
 		maxNumChannels = newValue;
-		sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels, kTTValNONE);
+		sendMessage("updateMaxNumChannels", oldMaxNumChannels, kTTValNONE);
 	}
 	return kTTErrNone;
 }
@@ -71,7 +71,7 @@ TTErr TTAudioObject::setSr(const TTValue& newValue)
 	sr = newValue;
 	srInv = 1.0/sr;
 	srMill = sr * 0.001;
-	sendMessage(TT("updateSampleRate"), oldSampleRate, kTTValNONE);
+	sendMessage("updateSampleRate", oldSampleRate, kTTValNONE);
 	return kTTErrNone;
 }
 

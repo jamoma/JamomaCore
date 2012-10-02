@@ -28,9 +28,9 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	input->mSampleVectors[0][0] = 1.0;	// set the first sample to 1
 	
 	// setup the delay
-	this->setAttributeValue(TT("delayMaxInSamples"), 64);
-	this->setAttributeValue(TT("delayInSamples"), 1);
-	this->setAttributeValue(TT("interpolation"), TT("none")), 
+	this->setAttributeValue("delayMaxInSamples", 64);
+	this->setAttributeValue("delayInSamples", 1);
+	this->setAttributeValue("interpolation", "none"), 
 	this->process(input, output);
 	
 

@@ -60,8 +60,8 @@ TT_BASE_OBJECT_CONSTRUCTOR,
 	addMessageProperty(removeCallbackObserver, hidden, YES);
 
 	// Set defaults -- there are no devices actually named 'default', so we set the values directly
-	mInputDevice = TT("default");
-	mOutputDevice = TT("default");
+	mInputDevice = "default";
+	mOutputDevice = "default";
 }
 
 
@@ -96,7 +96,7 @@ TTErr TTAudioEngine::initStream()
 		mStream = NULL;
 	}
 
-	if ((mInputDevice == TT("default") || mInputDevice == kTTSymEmpty) && (mOutputDevice == TT("default") || mOutputDevice == kTTSymEmpty)) {
+	if ((mInputDevice == "default" || mInputDevice == kTTSymEmpty) && (mOutputDevice == "default" || mOutputDevice == kTTSymEmpty)) {
 		err = Pa_OpenDefaultStream(&mStream,
 								   mNumInputChannels,
 								   mNumOutputChannels,
@@ -213,7 +213,7 @@ TTErr TTAudioEngine::getAvailableInputDeviceNames(const TTValue& unusedInput, TT
     for (int i=0; i<numDevices; i++) {
         deviceInfo = Pa_GetDeviceInfo(i);
 		if (deviceInfo->maxInputChannels)
-			returnedDeviceNames.append(TT(deviceInfo->name));
+			returnedDeviceNames.append(deviceInfo->name);
     }
 	return kTTErrNone;
 }
@@ -235,7 +235,7 @@ TTErr TTAudioEngine::getAvailableOutputDeviceNames(const TTValue& unusedInput, T
     for (int i=0; i<numDevices; i++) {
         deviceInfo = Pa_GetDeviceInfo(i);
 		if (deviceInfo->maxOutputChannels)
-			returnedDeviceNames.append(TT(deviceInfo->name));
+			returnedDeviceNames.append(deviceInfo->name);
     }
 	return kTTErrNone;
 }
@@ -251,7 +251,7 @@ TTErr TTAudioEngine::setInputDevice(TTValue& newDeviceName)
 		numDevices = Pa_GetDeviceCount();
 		for (int i=0; i<numDevices; i++) {
 			deviceInfo = Pa_GetDeviceInfo(i);
-			if (newDevice == TT(deviceInfo->name)) {
+			if (newDevice == TTSymbol(deviceInfo->name)) {
 				mInputDeviceInfo = deviceInfo;
 				mInputDeviceIndex = i;
 				mNumInputChannels = mInputDeviceInfo->maxInputChannels;
@@ -282,7 +282,7 @@ TTErr TTAudioEngine::setOutputDevice(TTValue& newDeviceName)
 		numDevices = Pa_GetDeviceCount();
 		for (int i=0; i<numDevices; i++) {
 			deviceInfo = Pa_GetDeviceInfo(i);
-			if (newDevice == TT(deviceInfo->name)) {
+			if (newDevice == TTSymbol(deviceInfo->name)) {
 				mOutputDeviceInfo = deviceInfo;
 				mOutputDeviceIndex = i;
 				mNumOutputChannels = mOutputDeviceInfo->maxOutputChannels;
@@ -397,7 +397,7 @@ TTObjectPtr TTAudioEngine::create()
 	if (!sSingletonInstance) {
 		paErr = Pa_Initialize();
 		if (paErr == paNoError)
-			err = TTObjectInstantiate(TT(thisTTClassName), &sSingletonInstance, kTTValNONE);
+			err = TTObjectInstantiate(thisTTClassName, &sSingletonInstance, kTTValNONE);
 		else {
 			TTLogError("PortAudio error: %s", Pa_GetErrorText(paErr));
 			TT_ASSERT("PortAudio initialized", false);

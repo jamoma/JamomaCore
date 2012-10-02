@@ -38,9 +38,9 @@ TT_AUDIO_CONSTRUCTOR,
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	arguments);
-	setAttributeValue(TT("delayMaxInSamples"), 256);
-	setAttributeValue(TT("delayInSamples"), 100);
-	setAttributeValue(TT("interpolation"), TT("cubic"));
+	setAttributeValue("delayMaxInSamples", 256);
+	setAttributeValue("delayInSamples", 100);
+	setAttributeValue("interpolation", "cubic");
 }
 
 
@@ -146,16 +146,16 @@ TTErr TTDelay::setInterpolation(const TTValue& newValue)
 {
 	mInterpolation = newValue;
 
-	if (mInterpolation == TT("none")) {
+	if (mInterpolation == "none") {
 		setProcessMethod(processAudioNoInterpolation);
 	}
-	else if (mInterpolation == TT("linear")) {
+	else if (mInterpolation == "linear") {
 		setProcessMethod(processAudioLinearInterpolation);
 	}
-	else if (mInterpolation == TT("cosine")) {
+	else if (mInterpolation == "cosine") {
 		setProcessMethod(processAudioCosineInterpolation);
 	}
-	else if (mInterpolation == TT("cubic")) {
+	else if (mInterpolation == "cubic") {
 		setProcessMethod(processAudioCubicInterpolation);
 	}
 	else {

@@ -24,7 +24,7 @@ TTObjectPtr TTBuffer::instantiate(TTSymbol& name, TTValue& arguments)
 
 extern "C" void TTBuffer::registerClass() 
 {
-	TTClassRegister(TT("buffer"), thisTTClassTags, TTBuffer::instantiate);
+	TTClassRegister("buffer", thisTTClassTags, TTBuffer::instantiate);
 }
 
 
@@ -58,15 +58,15 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	addMessageWithArguments(fill);
 
 	addMessageWithArguments(getValueAtIndex);
-	registerMessage(TT("peek"), (TTMethod)&TTBuffer::getValueAtIndex);
+	registerMessage("peek", (TTMethod)&TTBuffer::getValueAtIndex);
 
 	addMessageWithArguments(setValueAtIndex);
-	registerMessage(TT("poke"), (TTMethod)&TTBuffer::setValueAtIndex);
+	registerMessage("poke", (TTMethod)&TTBuffer::setValueAtIndex);
 	
 	// initialize
-	setAttributeValue(TT("name"), name);
+	setAttributeValue("name", name);
 	if (channelCount)
-		setAttributeValue(TT("numChannels"), channelCount);			
+		setAttributeValue("numChannels", channelCount);			
 }
 
 

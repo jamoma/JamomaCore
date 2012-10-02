@@ -32,7 +32,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessageWithArguments(set);
 
 	setAttributeValue(kTTSym_maxNumChannels, initialMaxNumChannels);
-	setAttributeValue(TT("class"), TT("gain"));
+	setAttributeValue("class", "gain");
 	setProcessMethod(processAudio);
 }
 
@@ -46,7 +46,7 @@ TTAudioObjectArray::~TTAudioObjectArray()
 
 TTErr TTAudioObjectArray::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	return setAttributeValue(TT("size"), maxNumChannels);
+	return setAttributeValue("size", maxNumChannels);
 }
 
 

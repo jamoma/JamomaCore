@@ -43,7 +43,7 @@
 #define TT_AUDIO_CONSTRUCTOR \
 TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
-extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+extern "C" void thisTTClass :: registerClass () {TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );} \
 \
 thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
 
@@ -77,7 +77,7 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
 	TTErr TTLoadJamomaExtension_ ## className (void)\
 	{\
 		TTFoundationInit();\
-		TTClassRegister(TT(strname), tags, & instantiate ## className);\
+		TTClassRegister(strname, tags, & instantiate ## className);\
 		return kTTErrNone;\
 	}
 

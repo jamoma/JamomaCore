@@ -21,7 +21,7 @@ TTObjectPtr TTSampleMatrix::instantiate(TTSymbol& name, TTValue& arguments)
 
 extern "C" void TTSampleMatrix::registerClass() 
 {
-	TTClassRegister(TT(thisTTClassName), thisTTClassTags, TTSampleMatrix::instantiate);
+	TTClassRegister(thisTTClassName, thisTTClassTags, TTSampleMatrix::instantiate);
 }
 
 
@@ -29,7 +29,7 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	TTMatrix(arguments),
 	mSampleRate(44100.0)
 {
-	this->setType(TT("float64"));
+	this->setType("float64");
 	this->setElementCount(1);
 
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeUInt16);
@@ -41,10 +41,10 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	addMessageWithArguments(fill);
 
 	addMessageWithArguments(getValueAtIndex);
-	registerMessage(TT("peek"), (TTMethod)&TTSampleMatrix::getValueAtIndex);
+	registerMessage("peek", (TTMethod)&TTSampleMatrix::getValueAtIndex);
 
 	addMessageWithArguments(setValueAtIndex);
-	registerMessage(TT("poke"), (TTMethod)&TTSampleMatrix::setValueAtIndex);
+	registerMessage("poke", (TTMethod)&TTSampleMatrix::setValueAtIndex);
 
 	// TODO: more messages to implement
 	//	"readFile"   (requires libsndfile straightening-out)

@@ -72,7 +72,7 @@ public:
 			newMatrix = TTSampleMatrixPtr(TTPtr(returnedValue));
 		
 		if (!newMatrix) {
-			TTObjectInstantiate(TT("samplematrix"), (TTObjectPtr*)&newMatrix, kTTValNONE);
+			TTObjectInstantiate("samplematrix", (TTObjectPtr*)&newMatrix, kTTValNONE);
 			
 			// TODO: set attributes to match our matrix attrs?
 			

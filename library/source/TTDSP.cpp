@@ -44,8 +44,8 @@ void TTDSPInit(const char* pathToBinaries)
 			TTObjectPtr engine = TTAudioEngine::create();
 			TTValue		v(engine);
 			
-			ttEnvironment->registerAttribute(TT("audioEngine"), kTypeLocalValue, NULL);
-			ttEnvironment->setAttributeValue(TT("audioEngine"), v);
+			ttEnvironment->registerAttribute("audioEngine", kTypeLocalValue, NULL);
+			ttEnvironment->setAttributeValue("audioEngine", v);
 		}
 	}
 }
