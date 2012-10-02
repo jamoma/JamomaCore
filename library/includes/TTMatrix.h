@@ -354,6 +354,9 @@ public:
 	/**	A function (method) type for implementing iterators used by the iterate() method	*/
 	typedef void (*TTMatrixIterator)(TTPtr c, const TTPtr a, const TTPtr b);
 	
+	/**	Compare the attributes of matrix A and B to see if they all match. Useful before conducting certain math operations.	*/
+	TTBoolean allAttributesMatch(const TTMatrix* A, const TTMatrix* B);
+	
 	/**	Step through every component in the matrix A and B to produce matrix C using the specified iterator method.	*/
 	static TTErr iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator);
 

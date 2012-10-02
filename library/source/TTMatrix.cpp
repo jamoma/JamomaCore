@@ -348,10 +348,21 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	return kTTErrNone;
 }
 
+TTBoolean TTMatrix::allAttributesMatch(const TTMatrix* A, const TTMatrix* B)
+{
+	if (A->mType == B->mType  &&  
+		A->mElementCount == B->mElementCount && 
+		A->mDimensions == B->mDimensions)
+		{
+			return true;
+		} else {
+			return false;
+		}
+}
 
 TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
 {
-	if (A->mType == B->mType  &&  A->mElementCount == B->mElementCount && A->mDimensions == B->mDimensions) {
+	if (allAttributesMatch(A, B)) {
 		int stride = A->mTypeSizeInBytes;
 		int size = A->mDataSize;
 		TTValue		dims;		// DEPRECATION in progress

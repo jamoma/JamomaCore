@@ -312,7 +312,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTMatrixPtr	B = NULL;
 		TTMatrixPtr	C = NULL;
 		TTErr		err;
-		TTValue		dims;
+		TTBoolean	match;
+		TTValue		dims, dims_mismatch;
 		
 		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&A, kTTValNONE);
 		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&B, kTTValNONE);
@@ -320,13 +321,27 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		dims.setSize(2);
 		dims.set(0, 3);	// 3 rows
 		dims.set(1, 4);	// 4 columns
+		
+		dims_mismatch.setSize(2);
+		dims_mismatch.set(0, 4);	// 4 rows
+		dims_mismatch.set(1, 3);	// 3 columns
+		
 		A->setAttributeValue(TT("dimensions"), dims);
 		A->setAttributeValue(TT("type"), TT("int32"));
 		A->setAttributeValue(TT("elementCount"), 1);
 		
-		B->setAttributeValue(TT("dimensions"), dims);
+		B->setAttributeValue(TT("dimensions"), dims_mismatch);
 		B->setAttributeValue(TT("type"), TT("int32"));
 		B->setAttributeValue(TT("elementCount"), 1);
+		
+		match = allAttributesMatch(A, B);
+		
+		TTTestAssertion("generates error when there is attribute mismatch between 2 matrices", 
+						match == false, 
+						testAssertionCount,
+						errorCount);
+		
+		B->setAttributeValue(TT("dimensions"), dims);
 
 		A->set2d(1, 1, 101);	A->set2d(1, 2, 102);	A->set2d(1, 3, 103);	A->set2d(1, 4, 104);
 		A->set2d(2, 1, 201);	A->set2d(2, 2, 202);	A->set2d(2, 3, 203);	A->set2d(2, 4, 204);
