@@ -12,6 +12,7 @@
 #include "TTAddressItem.h"
 
 TTAddressItem::TTAddressItem(TTSymbol aSymbol, TTAddressItemPtr aParent, TTBoolean aSelection):
+	symbol(kTTSymEmpty),
 	parent(NULL),
 	selection(NO)
 {

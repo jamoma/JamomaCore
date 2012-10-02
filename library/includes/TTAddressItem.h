@@ -39,7 +39,7 @@ private:
 public:
 	
 	/** Constructor */
-	TTAddressItem (TTSymbol aSymbol, TTAddressItemPtr aParent=NULL, TTBoolean aSelection=NO);
+	TTAddressItem (TTSymbol aSymbol=kTTSymEmpty, TTAddressItemPtr aParent=NULL, TTBoolean aSelection=NO);
 	
 	/** Destructor */
 	virtual ~TTAddressItem ();
