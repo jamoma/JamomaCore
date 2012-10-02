@@ -58,13 +58,13 @@ public:
 	TTSymbol					getSymbol();
 	
 	/** Get the parent of the item */
-	TTAddressItemPtr		getParent();
+	TTAddressItemPtr			getParent();
 	
 	/** Get the selection state of the item */
 	TTBoolean					getSelection();
 	
 	/** Get an Item below this item */
-	TTAddressItemPtr		getItem(TTSymbol aSymbol);
+	TTAddressItemPtr			getItem(TTSymbol aSymbol);
 	
 	/** Overwrite the TTList::clear() method to delete all items below */
 	void						clear();
@@ -73,10 +73,10 @@ public:
 	TTErr						append(TTAddress addressToAppend, TTAddressItemPtr *returnedItem);
 	
 	/** Overwrite the TTList::remove() method to remove a node address */
-	TTErr						remove(TTAddress& addressToRemove);
+	TTErr						remove(TTAddress addressToRemove);
 	
 	/** Overwrite the TTList::current() method to access directly to the current item */
-	TTAddressItemPtr		current();
+	TTAddressItemPtr			current();
 	
 	/** Overwrite the TTList::find() method to find a node address
 		Note : if it fails, it returns the TTAddressItem where the find fails */
@@ -101,8 +101,8 @@ public:
 	void						unregisterHandler(TTObject& anObject);
 	
 	/** Send a message to all handlers */
-	void						iterateHandlersSendingMessage(TTSymbol& messageName);
-	void						iterateHandlersSendingMessage(TTSymbol& messageName, TTValue& aValue);
+	void						iterateHandlersSendingMessage(TTSymbol messageName);
+	void						iterateHandlersSendingMessage(TTSymbol messageName, TTValue& aValue);
 	
 	friend void TTFOUNDATION_EXPORT TTAddressItemFind(const TTValue& itemValue, TTPtr aSymbolBaseToMatch, TTBoolean& found);
 };

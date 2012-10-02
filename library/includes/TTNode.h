@@ -79,7 +79,7 @@ public:
 		@param	newInstance				the returned instance if a new have been created
 		@param	newInstanceCreated		true if a new instance have been created
 		@return							a error code	*/
-	TTErr			setName(TTSymbol& name, TTSymbol& newInstance, TTBoolean *newInstanceCreated);
+	TTErr			setName(TTSymbol name, TTSymbol newInstance, TTBoolean *newInstanceCreated);
 
 	/** Set the instance of the TTNode. 
 		It maintains the directory and the global hashtab	
@@ -87,7 +87,7 @@ public:
 		@param	newInstance				the returned instance if a new have been created
 		@param	newInstanceCreated		true if a new instance have been created
 		@return							a error code	*/
-	TTErr			setInstance(TTSymbol& instance, TTSymbol& newInstance, TTBoolean *newInstanceCreated);
+	TTErr			setInstance(TTSymbol instance, TTSymbol newInstance, TTBoolean *newInstanceCreated);
 
 	/** Set the parent of the TTNode 
 		This method ensure that the path to the TTNode exist
@@ -124,7 +124,7 @@ public:
 	TTErr			getChildrenName(TTList& returnedChildrenName);
 	
 	/** Get a linklist of children instance for a given name */
-	TTErr			getChildrenInstance(TTSymbol& aName, TTList& returnedChildrenInstance);
+	TTErr			getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstance);
 	
 	/** Get a pointer to the object binded by this node. It return also NUL when the object is not valid */
 	TTObjectPtr		getObject();
@@ -136,7 +136,7 @@ public:
 	 It is computed dynamicaly by asking to all the ancestor of the TTNode	
 	 @param	returnedAddress		A TTAddressPtr with the address is returned in this parameter.
 	 @param	from				An address from where to start the returned address in order to have a relative address */
-	TTErr			getAddress(TTAddress& returnedAddress, TTAddress& from = kTTAdrsEmpty);
+	TTErr			getAddress(TTAddress& returnedAddress, TTAddress from = kTTAdrsEmpty);
 
 	/** Generate a new instance of a given child
 		@param childName		the name of a child.

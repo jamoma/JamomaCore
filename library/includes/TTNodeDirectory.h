@@ -67,7 +67,7 @@ private:
 public:
 	
 	/** Constructor */
-	TTNodeDirectory (TTSymbol& aName);
+	TTNodeDirectory (TTSymbol aName);
 	
 	/** Destructor */
 	virtual ~TTNodeDirectory ();
@@ -77,7 +77,7 @@ public:
 
 	/** Set the name of the TTNodeDirectory. 
 		@param	newName				The name to set */
-	TTErr			setName(TTSymbol& aname);
+	TTErr			setName(TTSymbol aname);
 
 	/** Get the name of the TTNodeDirectory */
 	TTSymbol		getName();
@@ -93,18 +93,18 @@ public:
 	 @param	returnedTTNode			The .
 	 @return						An error code. */
 	TTErr			getTTNode(const char* anAddress, TTNodePtr *returnedTTNode);
-	TTErr			getTTNode(TTAddress& anAddress, TTNodePtr *returnedTTNode);
+	TTErr			getTTNode(TTAddress anAddress, TTNodePtr *returnedTTNode);
 	
 	/** Given an address, return an alias if exists
 	 @param	anAddress				The address for which to find the TTNode.
 	 @param	returnedAlias			The .
 	 @return						An error code if there is no alias. */
-	TTErr			getAlias(TTAddress& anAddress, TTAddress& returnedAlias);
+	TTErr			getAlias(TTAddress anAddress, TTAddress& returnedAlias);
 	
 	/** Given an address with alias, return an address with no alias if exists
 	 @param	anAddress				The address with an alias inside to replace.
 	 @return						An error code if there is no alias. */
-	TTErr			replaceAlias(TTAddress& anAddress);
+	TTErr			replaceAlias(TTAddress anAddress);
 	
 	/**	Find TTNodes by address
 	 @param	anAddress				The address you wish to find, possibly including wildcards and instance names/numbers.
@@ -148,44 +148,44 @@ public:
 	 @param	returnedTTNode			A pointer to the TTNode at the given address 
 	 @param	nodeCreated				A boolean : true if a TTNode have been created, else false
 	 @return						An error code. */
-	TTErr			TTNodeCreate(TTAddress& anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
+	TTErr			TTNodeCreate(TTAddress anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
 	
 	/**	Remove a TTNodefrom the directory.
 	 @param	anAddress				The address for which you wish to remove the TTNode.
 									The address may (optionally) include an instance name or number in the address of the terminal TTNode.
 	 @return						An error code. */
-	TTErr			TTNodeRemove(TTAddress& anAddress);
+	TTErr			TTNodeRemove(TTAddress anAddress);
 	
 	/**	Create an alias address
 	 @param	alias					The alias address (absolute)
 	 @param	anAddress				The address for which you wish to create an alias.
 	 @return							An error code. */
-	TTErr			AliasCreate(TTAddress& alias, TTAddress& anAddress);
+	TTErr			AliasCreate(TTAddress alias, TTAddress anAddress);
 	
 	/**	Create an alias address
 	 @param	alias					The alias address to remove
 	 @return						An error code. */
-	TTErr			AliasRemove(TTAddress& alias);
+	TTErr			AliasRemove(TTAddress alias);
 	
 	/** Add a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address to observe
 	 @param observer				a TTCallbackPtr to add
 	 @param maxDepthDifference		precise the max depth difference to filter nodes which are below this limit
 	 @return						an error code */
-	TTErr			addObserverForNotifications(TTAddress& anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference=-1);
+	TTErr			addObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference=-1);
 	
 	/** Remove a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address
 	 @param observer				a TTCallbackPtr to remove
 	 @return						a kTTErrGeneric if there isn't observer */
-	TTErr			removeObserverForNotifications(TTAddress& anAddress, TTCallbackPtr anObserver);
+	TTErr			removeObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver);
 	
 	/** Notify life cycle observers that something appends below this TTNode
 	 @param data					an address where something append
 	 @param aNode					a TTNodePtr where something append (NULL in case of destruction)
 	 @param flag					a flag to notify about creation or destruction (or anything else)
 	 @return						a kTTErrGeneric if there isn't observer	*/
-	TTErr			notifyObservers(TTAddress& anAddress, TTNodePtr aNode, TTAddressNotificationFlag flag);
+	TTErr			notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTAddressNotificationFlag flag);
 	
 	TTErr			dumpObservers(TTValue& value);
 

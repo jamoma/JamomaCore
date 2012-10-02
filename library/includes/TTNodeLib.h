@@ -17,5 +17,10 @@
 
 void TTFOUNDATION_EXPORT TTNodeLibInit();
 
+/**	Convert a "upper/cased/name" symbol from "UpperCasedName" symbol
+ @param	upperCasedName					"UpperCasedName" symbol
+ @param	convertedName					"upper/cased/name" symbol converted */
+TTErr TTFOUNDATION_EXPORT	convertUpperCasedName(TTSymbol upperCasedName, TTSymbol& convertedName);
+
 #endif // __TT_NODELIB_H__
 

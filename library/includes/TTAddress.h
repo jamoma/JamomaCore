@@ -12,12 +12,6 @@
 #include "TTAddressBase.h"
 #include "TTAddressTable.h"
 
-//extern TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
-
-/** This macro is defined as a shortcut for doing a lookup in the symbol table. */
-//#define TT gTTSymbolTable->lookup
-//#define TT TTSymbol
-
 /****************************************************************************************************/
 // Class Specifications
 
@@ -64,7 +58,20 @@ public:
 		mSymbolPointer = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
 		mAddressPointer = (TTAddressBase*)mSymbolPointer;
 	}
-
+	
+	/**	TTAddress constructor from directory, parent, name, instance and attribute part
+	 @param	newDirectory					directory symbol
+	 @param	newParent						parent address
+	 @param	newName							name symbol
+	 @param	newInstance						instance symbol
+	 @param	newAttribute					attribute symbol */
+	TTAddress(const TTSymbol newDirectory, const TTAddress newParent, const TTSymbol newName, const TTSymbol newInstance, const TTSymbol newAttribute)
+	{
+		TTAddressBase* newAddressPointer = ((TTAddressBase*)(gTTAddressTable.lookup("")))->edit(newDirectory, newParent.mAddressPointer, newName, newInstance, newAttribute);
+		
+		mSymbolPointer = (TTSymbolBase*) newAddressPointer;
+		mAddressPointer = newAddressPointer;
+	}
 	
 	virtual ~TTAddress()
 	{;}
@@ -190,6 +197,5 @@ public:
 	}
 	
 };
-
 
 #endif // __TT_ADDRESS_H__

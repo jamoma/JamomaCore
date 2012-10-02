@@ -101,7 +101,7 @@ TTNode::~TTNode()
 //	this->instance = NULL;
 }
 
-TTErr TTNode::setName(TTSymbol& aName, TTSymbol& newInstance, TTBoolean *newInstanceCreated)
+TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
 	TTUInt32 i;
@@ -183,7 +183,7 @@ TTErr TTNode::setName(TTSymbol& aName, TTSymbol& newInstance, TTBoolean *newInst
 	return kTTErrNone;
 }
 
-TTErr TTNode::setInstance(TTSymbol& anInstance, TTSymbol& newInstance, TTBoolean *newInstanceCreated)
+TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
 	TTUInt32 i;
@@ -478,7 +478,7 @@ TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
 	return kTTErrNone;
 }
 
-TTErr TTNode::getChildrenInstance(TTSymbol& aName, TTList& returnedChildrenInstance)
+TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstance)
 {
 	unsigned int j;
 	TTErr err;
@@ -536,7 +536,7 @@ TTPtr TTNode::getContext()
 	return this->context;
 }
 
-TTErr TTNode::getAddress(TTAddress& returnedAddress, TTAddress& from)
+TTErr TTNode::getAddress(TTAddress& returnedAddress, TTAddress from)
 {
 	unsigned int	i, nb_ancestor, len = 0;
 	TTAddress		fromNorm;

@@ -15,13 +15,8 @@
 
 #include "TTSymbol.h"
 
-
 class TTRegex;
-//typedef TTRegex*	TTRegexPtr;
-
 class TTList;
-//typedef TTList*		TTListPtr;
-
 
 #define NO_DIRECTORY	kTTSymEmpty
 #define NO_PARENT		kTTAdrsEmpty
@@ -89,24 +84,22 @@ private:
 	
 	TTSymbol					directory;				///< the directory part (optional)
 	
-//	TTAddressPtr			parent;					///< the parent address pointer (optional)
-	TTAddressBase*			parent;					///< the parent address pointer (optional)
+	TTAddressBase*				parent;					///< the parent address pointer (optional)
 	
 	TTSymbol					name;					///< the name part
 	TTSymbol					instance;				///< the instance part (optional)
 	
 	TTSymbol					attribute;				///< the attribute part (optional)
 	
-	TTAddressType			type;					///< is the address relative or absolute
+	TTAddressType				type;					///< is the address relative or absolute
 	
 	TTBoolean					parsed;					///< is the address has been parsed ?
 	
 public:
 	
 	/** Constructor */
-	TTAddressBase();
 	TTAddressBase(const TTString& newAddressString, TTPtrSizedInt newAddressTableId, TTInt32 newId);
-
+	
 	/** Destructor */
 	virtual ~TTAddressBase();
 	
@@ -114,7 +107,7 @@ public:
 	TTSymbol					getDirectory();
 	
 	/** Get a pointer to the parent address */
-	TTAddressBase*			getParent();
+	TTAddressBase*				getParent();
 	
 	/** Get the name part */
 	TTSymbol					getName();
@@ -126,32 +119,36 @@ public:
 	TTSymbol					getAttribute();
 	
 	/** Get the type */
-	TTAddressType			getType();
+	TTAddressType				getType();
 	
 	/** Get the name.instance part */
 	TTSymbol					getNameInstance();
 	
 	/** Normalize an address for lookup and other directory operations
 		This would return an address without directory and attribute	*/
-	TTAddressBase*			normalize();
+	TTAddressBase*				normalize();
 	
 	/** Return a new TTAddress without attribute part */
-	TTAddressBase*			removeAttribute();
+	TTAddressBase*				removeAttribute();
 	
 	/** Return a new TTAddress with attribute part */
-	TTAddressBase*			appendAttribute(TTSymbol& anAttribute);
+	TTAddressBase*				appendAttribute(TTSymbol& anAttribute);
 	
 	/** Return a new TTAddress with the appended part */
-	TTAddressBase*			appendAddress(TTAddressBase* toAppend);
+	TTAddressBase*				appendAddress(TTAddressBase* toAppend);
 	
 	/** Return a new TTAddress with a instance part */
-	TTAddressBase*			appendInstance(const TTSymbol& anInstance);
+	TTAddressBase*				appendInstance(const TTSymbol& anInstance);
+	
+	/** Edit address from directory, parent, name, instance and attribute part 
+	 @return							A new TTAddressPtr */
+	TTAddressBase*				edit(const TTSymbol& newDirectory, const TTAddressBase* newParent, const TTSymbol& newName, const TTSymbol& newInstance, const TTSymbol& newAttribute);
 
 	/**	A comparison tool
 	 @param	toCompare					An address to compare (it doesn't compare attribute part)
 	 @param	depthDifference				Return the number of level separating the compared addresses (> 0 for lower result, < 0 for upper result)
 	 @return							An comparison flag */
-	TTAddressComparisonFlag compare(TTAddressBase* toCompare, TTInt8& depthDifference);
+	TTAddressComparisonFlag		compare(TTAddressBase* toCompare, TTInt8& depthDifference);
 	
 	/**	A parsing tool : split address in two part from a given '/' position
 	 @param whereToSplit				An int to give the '/' id where to split
@@ -178,31 +175,6 @@ private:
 	 @return							An error code if the parsing failed */
 	TTErr						parse();
 	
-	/** Edit address from directory, parent, name, instance and attribute part 
-	 @return							A new TTAddressPtr */
-	TTAddressBase*			edit(const TTSymbol& newDirectory, const TTAddressBase* newParent, const TTSymbol& newName, const TTSymbol& newInstance, const TTSymbol& newAttribute);
-
-#if IS_THIS_NOT_USED
-
-	friend TTAddressBase* TTFOUNDATION_EXPORT	makeTTAddress(const TTSymbol& newDirectory, const TTAddressBase* newParent, const TTSymbol& newName, const TTSymbol& newInstance, const TTSymbol& newAttribute);
-#endif
 };
-
-#if IS_THIS_NOT_USED
-/**	Make a "public/name" symbol from "PublicName" symbol
- @param	ttName							"PublicName" symbol
- @return								"public/name" symbol */
-TTAddressBase* TTFOUNDATION_EXPORT	convertTTNameInTTAddress(TTSymbol& ttName);
-
-
-/**	Make an address from directory, parent, name, instance and attribute part
-@param	newDirectory						directory symbol
-@param	newParent						parent address
-@param	newName							name symbol
-@param	newInstance						instance symbol
-@param	newAttribute					attribute symbol
-@return									directory:/parent/name.instance:attribute address */
-TTAddressBase* TTFOUNDATION_EXPORT	makeTTAddress(const TTSymbol newDirectory, const TTAddressBase* newParent, const TTSymbol newName, const TTSymbol newInstance, const TTSymbol newAttribute);
-#endif
 
 #endif // __TT_ADDRESS_BASE_H__

@@ -11,7 +11,7 @@
 #include "TTNodeDirectory.h"
 #include <algorithm>
 
-TTNodeDirectory::TTNodeDirectory(TTSymbol& aName) :
+TTNodeDirectory::TTNodeDirectory(TTSymbol aName) :
 	root(NULL),	
 	directory(NULL),
 	aliases(NULL),
@@ -61,7 +61,7 @@ TTErr TTNodeDirectory::init()
 	return TTNodeCreate(kTTAdrsRoot, NULL, this, &this->root, &nodeCreated);
 }
 
-TTErr TTNodeDirectory::setName(TTSymbol& aName)
+TTErr TTNodeDirectory::setName(TTSymbol aName)
 {
 	name = aName;
 	return kTTErrNone;
@@ -87,7 +87,7 @@ TTErr TTNodeDirectory::getTTNode(const char* anAddress, TTNodePtr* returnedTTNod
 	return getTTNode(TTAddress(anAddress), returnedTTNode);
 }
 
-TTErr TTNodeDirectory::getTTNode(TTAddress& anAddress, TTNodePtr* returnedTTNode)
+TTErr TTNodeDirectory::getTTNode(TTAddress anAddress, TTNodePtr* returnedTTNode)
 {
 	TTAddress	noAlias;
 	TTErr		err;
@@ -112,7 +112,7 @@ TTErr TTNodeDirectory::getTTNode(TTAddress& anAddress, TTNodePtr* returnedTTNode
 		return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::getAlias(TTAddress& anAddress, TTAddress& returnedAlias)
+TTErr TTNodeDirectory::getAlias(TTAddress anAddress, TTAddress& returnedAlias)
 {
 	TTUInt32 i;
 	TTValue	 v, ak;
@@ -144,7 +144,7 @@ TTErr TTNodeDirectory::getAlias(TTAddress& anAddress, TTAddress& returnedAlias)
 	return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
+TTErr TTNodeDirectory::replaceAlias(TTAddress anAddress)
 {
 	TTInt8				d;
 	TTUInt32			s, i, c;
@@ -195,7 +195,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 		return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
+TTErr TTNodeDirectory::TTNodeCreate(TTAddress anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
 	TTAddress			effectiveAddress;
 	TTSymbol			newInstance;
@@ -268,7 +268,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObjectPtr newObject,
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::TTNodeRemove(TTAddress& anAddress)
+TTErr TTNodeDirectory::TTNodeRemove(TTAddress anAddress)
 {
 	TTErr			err;
 	TTNodePtr		oldNode, parentNode;
@@ -315,7 +315,7 @@ TTErr TTNodeDirectory::TTNodeRemove(TTAddress& anAddress)
 	return err;
 }
 
-TTErr TTNodeDirectory::AliasCreate(TTAddress& alias, TTAddress& anAddress)
+TTErr TTNodeDirectory::AliasCreate(TTAddress alias, TTAddress anAddress)
 {
 	TTNodePtr	aNode;
 	TTValue		v;
@@ -346,7 +346,7 @@ TTErr TTNodeDirectory::AliasCreate(TTAddress& alias, TTAddress& anAddress)
 	return err;
 }
 
-TTErr TTNodeDirectory::AliasRemove(TTAddress& alias)
+TTErr TTNodeDirectory::AliasRemove(TTAddress alias)
 {
 	TTNodePtr		aNode;
 	TTAddress		anAddress;
@@ -548,7 +548,7 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::addObserverForNotifications(TTAddress& anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference)
+TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference)
 {
 	TTErr			err;
 	TTValue			lk;
@@ -588,7 +588,7 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress& anAddress, TTCallb
 	return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress& anAddress, TTCallbackPtr anObserver)
+TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver)
 {
 	TTErr			err;
 	TTValue			lk, o, v;
@@ -626,7 +626,7 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress& anAddress, TTCa
 	return err;
 }
 
-TTErr TTNodeDirectory::notifyObservers(TTAddress& anAddress, TTNodePtr aNode, TTAddressNotificationFlag flag)
+TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTAddressNotificationFlag flag)
 {
 	TTAddressComparisonFlag comp;
 	TTValue				hk, lk, o, f, data;

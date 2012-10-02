@@ -114,7 +114,7 @@ TTErr TTAddressItem::append(TTAddress addressToAppend, TTAddressItemPtr *returne
 	return kTTErrNone;
 }
 
-TTErr TTAddressItem::remove(TTAddress& addressToRemove)
+TTErr TTAddressItem::remove(TTAddress addressToRemove)
 {
 	TTAddressItemPtr	anItem;
 	TTAddressItemPtr	parentItem;
@@ -285,12 +285,12 @@ void TTAddressItem::unregisterHandler(TTObject& anObject)
 	this->handlers.remove(v);
 }
 
-void TTAddressItem::iterateHandlersSendingMessage(TTSymbol& messageName)
+void TTAddressItem::iterateHandlersSendingMessage(TTSymbol messageName)
 {
 	this->handlers.iterateObjectsSendingMessage(messageName);
 }
 
-void TTAddressItem::iterateHandlersSendingMessage(TTSymbol& messageName, TTValue& aValue)
+void TTAddressItem::iterateHandlersSendingMessage(TTSymbol messageName, TTValue& aValue)
 {
 	this->handlers.iterateObjectsSendingMessage(messageName, aValue);
 }
