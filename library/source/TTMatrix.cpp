@@ -166,7 +166,19 @@ TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 	
 	return kTTErrNone;
 }
+/*
+TTErr TTMatrix::setRowCount(const TTValue& aNewColumnCount)
+{return kTTErrNone;}
 
+TTErr TTMatrix::getRowCount(TTValue& returnedColumnCount) const
+{return kTTErrNone;}
+
+TTErr TTMatrix::setColumnCount(const TTValue& aNewColumnCount)
+{return kTTErrNone;}
+
+TTErr TTMatrix::getColumnCount(TTValue& returnedColumnCount) const
+{return kTTErrNone;}
+*/
 
 TTErr TTMatrix::setType(const TTValue& aType)
 {
