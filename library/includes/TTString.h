@@ -50,14 +50,29 @@ public:
 	
 	TTString(std::vector<char>::iterator begin, std::vector<char>::iterator end)
 	{
-		size_t size = end - begin;
-		reserve(size+16);
+		TTPtrSizedInt newsize = (end - begin);
+		
+		reserve(newsize+16);
 		for (std::vector<char>::iterator c = begin; c != end; ++c) {
 			push_back(*c);
 		}
-		push_back(0); // add NULL termination
+		
+		// In some cases the range has NULL termination included, in other cases not.
+		// In these cases we need to correct the size of the string to match the C-String.
+		// If we don't then two strings with identical contents (e.g. "foo" and "foo") will hash to different values.
+		// If then looked-up in the symbol table we corrupt the symbol table with two entries for the same string!
+		TTBoolean resized = NO;
+		
+		for (TTPtrSizedInt i=newsize-1; i>0; i--) {
+			if (at(i) != 0) {
+				resize(i+1);
+				resized = YES;
+				break;
+			}
+		}
+		if (!resized)
+			resize(newsize); // ensure NULL termination
 	}
-	
 	
 	/** Destructor */
 	~TTString()
