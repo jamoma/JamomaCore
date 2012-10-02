@@ -64,7 +64,7 @@ TTPresetManager::~TTPresetManager()
 	
 	mPresets->getKeys(names);
 	for (i = 0; i < names.getSize(); i++) {
-		names.get(i, &presetName);
+		names.get(i, presetName);
 		mPresets->lookup(presetName, v);
 		v.get(0, (TTPtr*)&oldPreset);
 		TTObjectRelease(TTObjectHandle(&oldPreset));
@@ -78,7 +78,7 @@ TTErr TTPresetManager::setAddress(const TTValue& value)
 {	
 	Clear();
 	
-	value.get(0, &mAddress);
+	value.get(0, mAddress);
 	
 	return kTTErrNone;
 }
@@ -91,7 +91,7 @@ TTErr TTPresetManager::setOrder(const TTValue& value)
 	// check if each name is part of the list
 	for (TTUInt32 i=0; i<value.getSize(); i++) {
 		
-		value.get(i, &name);
+		value.get(i, name);
 		
 		if (!mPresets->lookup(name, v))
 			newOrder.append(name);
@@ -117,7 +117,7 @@ TTErr TTPresetManager::Clear()
 		
 		for (i = 0; i < names.getSize(); i++) {
 			
-			names.get(i, &presetName);
+			names.get(i, presetName);
 			mPresets->lookup(presetName, v);
 			v.get(0, (TTPtr*)&oldPreset);
 			TTObjectRelease(TTObjectHandle(&oldPreset));
@@ -141,7 +141,7 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	
 	// get preset name
 	if (inputValue.getType(0) == kTypeSymbol)
-		inputValue.get(0, &mCurrent);
+		inputValue.get(0, mCurrent);
 	
 	if (mCurrent == kTTSymEmpty)
 		return kTTErrGeneric;
@@ -179,7 +179,7 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 	
 	// get preset name
 	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, &mCurrent);
+		inputValue.get(0, mCurrent);
 	
 	// if preset exists
 	if (!mPresets->lookup(mCurrent, v)) {
@@ -206,8 +206,8 @@ TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputVal
 		
 		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat32) {
 			
-			inputValue.get(0, &name1);
-			inputValue.get(1, &name2);
+			inputValue.get(0, name1);
+			inputValue.get(1, name2);
 			inputValue.get(2, position);
 			
 			// if presets exist
@@ -240,7 +240,7 @@ TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 		
 		if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat32) {
 			
-			inputValue.get(i, &name);
+			inputValue.get(i, name);
 			
 			// if preset exist
 			if (!mPresets->lookup(name, v)) {
@@ -265,7 +265,7 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	
 	// get preset name
 	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, &mCurrent);
+		inputValue.get(0, mCurrent);
 	
 	// if preset exists
 	if (!mPresets->lookup(mCurrent, v)) {
@@ -277,7 +277,7 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 		// remove the name without changing the order
 		for (TTUInt32 i=0; i<mOrder.getSize(); i++) {
 			
-			mOrder.get(i, &name);
+			mOrder.get(i, name);
 			
 			if (name != mCurrent)
 				newOrder.append(name);
@@ -306,12 +306,12 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 	
 	for (i = 0; i < mOrder.getSize(); i++) {
 		
-		mOrder.get(i, &presetName);
+		mOrder.get(i, presetName);
 		if (!mPresets->lookup(presetName, v)) {
 			
 			// start to write a preset
 			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "preset");
-			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST presetName->getCString());
+			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST presetName.c_str());
 			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TT("Write"));
@@ -345,7 +345,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	// Ends file reading : bind on first preset
 	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
 		
-		mOrder.get(0, &mCurrent);
+		mOrder.get(0, mCurrent);
 		if (!mPresets->lookup(mCurrent, v))
 			v.get(0, (TTPtr*)&mCurrentPreset);
 		
@@ -365,7 +365,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 			
 			if (v.getType() == kTypeSymbol) {
 				
-				v.get(0, &mCurrent);
+				v.get(0, mCurrent);
 				
 				// Create a new preset
 				mCurrentPreset = NULL;
@@ -408,7 +408,7 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 	
 	for (TTUInt32 i = 0; i < mOrder.getSize(); i++) {
 		
-		mOrder.get(i, &presetName);
+		mOrder.get(i, presetName);
 		if (!mPresets->lookup(presetName, v)) {
 			
 			*buffer += "\n";
@@ -446,14 +446,14 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 		if (line->getSchema() == kTTSym_flag) {
 			
 			line->lookup(kTTSym_name, v);
-			v.get(0, &flagName);
+			v.get(0, flagName);
 			
 			if (flagName == TT("preset")) {
 				
 				// get preset name
 				if (!line->getValue(v)) {
 					
-					v.get(0, &mCurrent);
+					v.get(0, mCurrent);
 					
 					// Create a new preset
 					mCurrentPreset = NULL;
@@ -480,7 +480,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 		// if it is the last line : bind on the first preset
 		if (aTextHandler->mLastLine) {
 			
-			mOrder.get(0, &mCurrent);
+			mOrder.get(0, mCurrent);
 			if (!mPresets->lookup(mCurrent, v))
 				v.get(0, (TTPtr*)&mCurrentPreset);
 			

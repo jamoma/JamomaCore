@@ -61,7 +61,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 		// if the first argument is kTypeSymbol : get the path of the file to write
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			/* Create a new text file
 			std::ofstream file(mFilePath->getCString());
@@ -138,7 +138,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 		// if the first argument is kTypeSymbol : get the path of the file to read
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			/*
 			std::ifstream file(mFilePath->getCString());

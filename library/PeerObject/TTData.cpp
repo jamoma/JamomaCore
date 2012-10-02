@@ -43,7 +43,7 @@ mReturnValueCallback(NULL)
 	TT_ASSERT("Return Value Callback passed to TTData is not NULL", mReturnValueCallback);
 	
 	if (arguments.getSize() == 2)
-		arguments.get(1, &mService);
+		arguments.get(1, mService);
 	
 	addAttributeWithGetterAndSetter(Value, kTypeNone);
 	addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
@@ -166,7 +166,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 				}
 				
 				if (inputValue.getType(1) == kTypeSymbol) {
-					inputValue.get(1, &ramp);
+					inputValue.get(1, ramp);
 					if (ramp == kTTSym_ramp) {
 						command.append(ramp);
 						if (inputValue.getType(2) == kTypeFloat32 || inputValue.getType(2)  == kTypeInt32) {
@@ -233,7 +233,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 				}
 				
 				if (inputValue.getType(1) == kTypeSymbol) {
-					inputValue.get(1, &ramp);
+					inputValue.get(1, ramp);
 					if (ramp == kTTSym_ramp) {
 						command.append(ramp);
 						if (inputValue.getType(2) == kTypeFloat32 || inputValue.getType(2)  == kTypeInt32) {
@@ -304,7 +304,7 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 	////////////////////////////////////////////////////////////////
 	if (!command->lookup(kTTSym_unit, v)) {
 		
-		v.get(0, &unit);
+		v.get(0, unit);
 		
 		if (mDataspaceConverter) {
 			TTValue convertedValue;
@@ -676,8 +676,8 @@ TTErr TTData::setRampFunction(const TTValue& value)
 			n = names.getSize();
 			for (int i=0; i<n; i++) {
 				
-				names.get(i, &aName);
-				nameString = aName->getCString();
+				names.get(i, aName);
+				nameString = aName.c_str();
 				
 				if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
 					continue;										// don't publish these datas
@@ -714,7 +714,7 @@ TTErr TTData::setDataspace(const TTValue& value)
 
 	if (err) {
 		mDataspaceConverter->getAttributeValue(TT("outputUnit"), v);
-		v.get(0, &mDataspaceUnit);
+		v.get(0, mDataspaceUnit);
 		mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
 	}
 	
@@ -850,7 +850,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	
 	// Type
 	*buffer += "\t\t\t<td class =\"instructionType\">";
-	*buffer += this->mType->getCString();
+	*buffer += this->mType.c_str();
 	*buffer += "</td>";
 
 	// range/bounds
@@ -868,29 +868,29 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 
 	// range/clipmode
 	*buffer += "\t\t\t<td class =\"instructionRangeClipmode\">";
-	*buffer += this->mRangeClipmode->getCString();
+	*buffer += this->mRangeClipmode.c_str();
 	*buffer += "</td>";
 
 #ifndef TTDATA_NO_RAMPLIB
 	// ramp/drive
 	*buffer += "\t\t\t<td class =\"instructionRampDrive\">";
-	*buffer += this->mRampDrive->getCString();
+	*buffer += this->mRampDrive.c_str();
 	*buffer += "</td>";
 	
 	// ramp/function
 	*buffer += "\t\t\t<td class =\"instructionRampFunction\">";
-	*buffer += this->mRampFunction->getCString();
+	*buffer += this->mRampFunction.c_str();
 	*buffer += "</td>";
 #endif
 	
 	// dataspace
 	*buffer += "\t\t\t<td class =\"instructionDataspace\">";
-	*buffer += this->mDataspace->getCString();
+	*buffer += this->mDataspace.c_str();
 	*buffer += "</td>";
 	
 	// dataspace/unit/native
 	*buffer += "\t\t\t<td class =\"instructionDataspaceUnit\">";
-	*buffer += this->mDataspaceUnit->getCString();
+	*buffer += this->mDataspaceUnit.c_str();
 	*buffer += "</td>";
 	
 	// repetitions/allow
@@ -903,7 +903,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	
 	// description
 	*buffer += "\t\t\t<td class =\"instructionDescription\">";
-	*buffer += this->mDescription->getCString();
+	*buffer += this->mDescription.c_str();
 	*buffer += "</td>";
 	return kTTErrNone;
 }
@@ -948,7 +948,7 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 			// Is the second element is a unit symbol ?
 			if (commandValue.getType(0) != kTypeSymbol && commandValue.getType(1) == kTypeSymbol) {
 				hasUnit = true;
-				commandValue.get(1, &unit);
+				commandValue.get(1, unit);
 			}
 			
 			break;	
@@ -959,14 +959,14 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 		{
 			// Is the second element is a ramp symbol ?
 			if (commandValue.getType(1) == kTypeSymbol) {
-				commandValue.get(1, &ramp);
+				commandValue.get(1, ramp);
 				if (ramp == kTTSym_ramp)
 					hasRamp = true;
 			}
 			// or is the last element is a unit symbol ?
 			else if (commandValue.getType(0) != kTypeSymbol && commandValue.getType(2) == kTypeSymbol) {
 				hasUnit = true;
-				commandValue.get(2, &unit);
+				commandValue.get(2, unit);
 			}
 			
 			break;	
@@ -977,7 +977,7 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 		{
 			// Is the X-2 element is a ramp symbol ?
 			if (commandValue.getType(commandSize - 2) == kTypeSymbol) {
-				commandValue.get(commandSize - 2, &ramp);
+				commandValue.get(commandSize - 2, ramp);
 				if (ramp == kTTSym_ramp)
 					hasRamp = true;
 			}
@@ -987,12 +987,12 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 				if (hasRamp) {
 					if (commandValue.getType(commandSize - 3) == kTypeSymbol) {
 						hasUnit = true;
-						commandValue.get(commandSize - 3, &unit);
+						commandValue.get(commandSize - 3, unit);
 					}
 					else
 						if (commandValue.getType(commandSize - 1) == kTypeSymbol) {
 							hasUnit = true;
-							commandValue.get(commandSize - 1, &unit);
+							commandValue.get(commandSize - 1, unit);
 						}
 				}
 			}

@@ -83,7 +83,7 @@ TTMapper::~TTMapper() // TODO : delete things...
 		// Remove former datas
 		n = mFunctionParameters.getSize();
 		for (int i=0; i<n; i++) {
-			mFunctionParameters.get(i, &aName);
+			mFunctionParameters.get(i, aName);
 			this->removeAttribute(aName);
 		}
 		
@@ -169,7 +169,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	if (mReceiver)
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 	
-	value.get(0, &mInput);
+	value.get(0, mInput);
 	
 	mObserveInputRange = true;
 	
@@ -186,7 +186,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	mReceiver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mReceiver), args);
 	
-	mReceiver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_value));
+	mReceiver->setAttributeValue(kTTSym_address, mInput.appendAttribute(kTTSym_value));
 	
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
@@ -238,7 +238,7 @@ TTErr TTMapper::observeInput()
 	mInputObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mInputObserver), args);
 	
-	mInputObserver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_created));
+	mInputObserver->setAttributeValue(kTTSym_address, mInput.appendAttribute(kTTSym_created));
 
 	return kTTErrNone;
 }
@@ -265,7 +265,7 @@ TTErr TTMapper::observeInputRange()
 	mInputRangeObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mInputRangeObserver), args);
 	
-	mInputRangeObserver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_rangeBounds));
+	mInputRangeObserver->setAttributeValue(kTTSym_address, mInput.appendAttribute(kTTSym_rangeBounds));
 	
 	return kTTErrNone;
 }
@@ -280,7 +280,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	if (mSender)
 		TTObjectRelease(TTObjectHandle(&mSender));
 	
-	value.get(0, &mOutput);
+	value.get(0, mOutput);
 	
 	mObserveOutputRange = true;
 		
@@ -288,7 +288,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	mSender = NULL;
 	TTObjectInstantiate(kTTSym_Sender, TTObjectHandle(&mSender), kTTValNONE);
 	
-	mSender->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_value));
+	mSender->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_value));
 	
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
@@ -340,7 +340,7 @@ TTErr TTMapper::observeOutput()
 	mOutputObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mOutputObserver), args);
 	
-	mOutputObserver->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_created));
+	mOutputObserver->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_created));
 	
 	return kTTErrNone;
 }
@@ -367,7 +367,7 @@ TTErr TTMapper::observeOutputRange()
 	mOutputRangeObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mOutputRangeObserver), args);
 	
-	mOutputRangeObserver->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_rangeBounds));
+	mOutputRangeObserver->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_rangeBounds));
 	
 	return kTTErrNone;
 }
@@ -383,7 +383,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		// Remove former datas
 		n = mFunctionParameters.getSize();
 		for (int i=0; i<n; i++) {
-			mFunctionParameters.get(i, &aName);
+			mFunctionParameters.get(i, aName);
 			this->removeAttribute(aName);
 		}
 		
@@ -408,7 +408,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		if (n) {
 			for (int i=0; i<n; i++) {
 				
-				names.get(i, &aName);
+				names.get(i, aName);
 				
 				// don't publish these datas
 				if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
@@ -589,7 +589,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aMapper);
 	
 	// unpack data (an address)
-	data.get(0, &address);
+	data.get(0, address);
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
@@ -635,7 +635,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aMapper);
 	
 	// unpack data (an address)
-	data.get(0, &address);
+	data.get(0, address);
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 

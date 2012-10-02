@@ -62,13 +62,13 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	if (args.getSize() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
 			
 			// Create a new OpmlWriter for filePath, with no compression.
-			mWriter = xmlNewTextWriterFilename(mFilePath->getCString(), 0);
+			mWriter = xmlNewTextWriterFilename(mFilePath.c_str(), 0);
 			if (mWriter == NULL) {
 				TT_ASSERT("testOpmlwriterFilename: Error creating the opml writer\n", true);
 				return kTTErrGeneric;
@@ -89,8 +89,8 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			xmlTextWriterSetIndent(mWriter, 1);
 			
 			// Start Header information
-			xmlTextWriterStartElement(mWriter, BAD_CAST mHeaderNodeName->getCString());
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version", BAD_CAST mVersion->getCString());
+			xmlTextWriterStartElement(mWriter, BAD_CAST mHeaderNodeName.c_str());
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version", BAD_CAST mVersion.c_str());
 			
 			// Start opml header
 			xmlTextWriterStartElement(mWriter, BAD_CAST "head");
@@ -179,13 +179,13 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	if (args.getSize() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			// Init the opml library
 			LIBXML_TEST_VERSION
 			
 			// Parse the file
-			mReader = xmlReaderForFile(mFilePath->getCString(), NULL, 0);
+			mReader = xmlReaderForFile(mFilePath.c_str(), NULL, 0);
 			if (mReader != NULL) {
 				
 				ret = xmlTextReaderRead(mReader);

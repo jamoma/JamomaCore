@@ -88,7 +88,7 @@ TTErr TTCue::processRamp(TTObjectPtr aScript, TTUInt32 ramp)
 				if (anObject->getName() == kTTSym_Data) {
 					
 					anObject->getAttributeValue(kTTSym_rampDrive, v);
-					v.get(0, &rampDrive);
+					v.get(0, rampDrive);
 					
 					if (rampDrive != kTTSym_none) {
 						
@@ -125,7 +125,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		inputValue.get(0, (TTPtr*)&aNamespace);
 	
 	else if (inputValue.getType() == kTypeSymbol) {
-		inputValue.get(0, &name);
+		inputValue.get(0, name);
 		aNamespace = lookupNamespace(name);
 	}
 	
@@ -162,7 +162,7 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TT
 	TTDictionaryPtr	aLine;
 	TTObjectPtr		anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
-	TTAddress address, childAddress;
+	TTAddress		address, childAddress;
 	TTSymbol		service;
 	TTValue			v, parsedLine;
 	TTBoolean		empty = YES;
@@ -184,13 +184,13 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TT
 				continue;
 			
 			// edit absolute address to retreive the node
-			nameInstance = nameItem->getSymbol()->getCString();
+			nameInstance = nameItem->getSymbol().c_str();
 			if (instanceItem->getSymbol() != kTTSymEmpty) {
 				nameInstance += C_INSTANCE;
-				nameInstance += instanceItem->getSymbol()->getCString();
+				nameInstance += instanceItem->getSymbol().c_str();
 			}
 			
-			address = scriptAddress->appendAddress(TTADRS(nameInstance));
+			address = scriptAddress.appendAddress(TTAddress(nameInstance));
 			
 			aNodeList.clear();
 			err = getDirectoryFrom(address)->Lookup(address, aNodeList, &aNode);
@@ -208,7 +208,7 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TT
 						
 						v.clear();
 						anObject->getAttributeValue(kTTSym_service, v);
-						v.get(0, &service);
+						v.get(0, service);
 						
 						if (service != kTTSym_parameter) {
 							
@@ -259,7 +259,7 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TT
 						childrenNodes.current().get(0, (TTPtr*)&aNode);
 						
 						// get name.instance
-						aNode->getAddress(&childAddress, address);
+						aNode->getAddress(childAddress, address);
 						
 						// append to the namespace
 						instanceItem->append(childAddress, &anItem);
@@ -317,7 +317,7 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 		inputValue.get(0, (TTPtr*)&aNamespace);
 	
 	else if (inputValue.getType() == kTypeSymbol) {
-		inputValue.get(0, &name);
+		inputValue.get(0, name);
 		aNamespace = lookupNamespace(name);
 	}
 	
@@ -351,7 +351,7 @@ TTErr TTCue::processSelect(TTObjectPtr aScript, TTAddressItemPtr aNamespace)
 			
 			// get the address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, &address);
+			v.get(0, address);
 			
 			// find item into the namespace
 			if (!aNamespace->find(address, &anItem)) {

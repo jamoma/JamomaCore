@@ -29,7 +29,7 @@ mAppToTT(NULL),
 mTTToApp(NULL),
 mTempAddress(kTTAdrsEmpty)
 {
-	arguments.get(0, &mName);
+	arguments.get(0, mName);
 	
 	addAttributeWithSetter(Name, kTypeSymbol);
 	
@@ -158,7 +158,7 @@ TTErr TTApplication::setActivity(const TTValue& value)
 	
 	for (TTUInt32 i=0; i<protocols.getSize(); i++) {
 		
-		protocols.get(i, &protocolName);
+		protocols.get(i, protocolName);
 		getProtocol(protocolName)->setAttributeValue(kTTSym_activity, mActivity);
 	}
 	
@@ -197,18 +197,18 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 {
 	TTString			editKey;
 	TTSymbol			appToNotify, key;
-	TTAddress	whereToListen;
+	TTAddress			whereToListen;
 	TTCallbackPtr		returnValueCallback;
 	TTValuePtr			returnValueBaton;
 	TTValue				cacheElement;
 	TTErr				err;
 	
-	inputValue.get(1, &appToNotify);
-	inputValue.get(2, &whereToListen);
+	inputValue.get(1, appToNotify);
+	inputValue.get(2, whereToListen);
 	
-	editKey = appToNotify->getCString();
+	editKey = appToNotify.c_str();
 	editKey += "<>";
-	editKey	+= whereToListen->getCString();
+	editKey	+= whereToListen.c_str();
 	key = TT(editKey);
 	
 	// if this listener doesn't exist yet
@@ -243,16 +243,16 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 {
 	TTString			editKey;
 	TTSymbol			appToNotify, key;
-	TTAddress	whereToListen;
+	TTAddress			whereToListen;
 	TTCallbackPtr		returnValueCallback;
 	TTValue				cacheElement;
 	
-	inputValue.get(0, &appToNotify);
-	inputValue.get(1, &whereToListen);
+	inputValue.get(0, appToNotify);
+	inputValue.get(1, whereToListen);
 	
-	editKey = appToNotify->getCString();
+	editKey = appToNotify.c_str();
 	editKey += "<>";
-	editKey	+= whereToListen->getCString();
+	editKey	+= whereToListen.c_str();
 	key = TT(editKey);
 	
 	// if this listener exists
@@ -271,7 +271,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 {
 	TTString			editKey;
 	TTSymbol			appToNotify, key;
-	TTAddress	whereToListen;
+	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
@@ -280,12 +280,12 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 	TTValue				cacheElement;
 	TTErr				err;
 	
-	inputValue.get(1, &appToNotify);
-	inputValue.get(2, &whereToListen);
+	inputValue.get(1, appToNotify);
+	inputValue.get(2, whereToListen);
 	
-	editKey = appToNotify->getCString();
+	editKey = appToNotify.c_str();
 	editKey += "<>";
-	editKey	+= whereToListen->getCString();
+	editKey	+= whereToListen.c_str();
 	key = TT(editKey);
 
 	// if this listener doesn't exist yet
@@ -305,7 +305,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 					
 					// create an Attribute observer 
 					anAttribute = NULL;
-					err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
+					err = anObject->findAttribute(whereToListen.getAttribute(), &anAttribute);
 					
 					if (!err) {
 						// prepare a callback based on ProtocolAttributeCallback
@@ -339,7 +339,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 {
 	TTString			editKey;
 	TTSymbol			appToNotify, key;
-	TTAddress	whereToListen;
+	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
@@ -348,12 +348,12 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 	TTUInt32			i;
 	TTErr				err;
 	
-	inputValue.get(0, &appToNotify);
-	inputValue.get(1, &whereToListen);
+	inputValue.get(0, appToNotify);
+	inputValue.get(1, whereToListen);
 	
-	editKey = appToNotify->getCString();
+	editKey = appToNotify.c_str();
 	editKey += "<>";
-	editKey	+= whereToListen->getCString();
+	editKey	+= whereToListen.c_str();
 	key = TT(editKey);
 
 	// if this listener exists
@@ -374,7 +374,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 					
 					// delete Attribute observer 
 					anAttribute = NULL;
-					err = anObject->findAttribute(whereToListen->getAttribute(), &anAttribute);
+					err = anObject->findAttribute(whereToListen.getAttribute(), &anAttribute);
 					
 					if (!err) {
 						
@@ -396,10 +396,10 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddress	whereComesFrom;
-	TTValuePtr			newValue;
-	TTBoolean			enable;
+	TTValuePtr	newValue;
+	TTBoolean	enable;
 	
-	inputValue.get(0, &whereComesFrom);
+	inputValue.get(0, whereComesFrom);
 	inputValue.get(1, (TTPtr*)&newValue);
 	
 	newValue->get(0, enable);
@@ -419,12 +419,12 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodePtr			nodeToUpdate;
-	TTAddress	whereComesFrom;
+	TTAddress			whereComesFrom;
 	TTValuePtr			newValue;
 	TTMirrorPtr			aMirror;
 	TTErr				err;
 	
-	inputValue.get(0, &whereComesFrom);
+	inputValue.get(0, whereComesFrom);
 	inputValue.get(1, (TTPtr*)&newValue);
 	
 	err = mDirectory->getTTNode(whereComesFrom, &nodeToUpdate);
@@ -434,7 +434,7 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 		aMirror = (TTMirrorPtr)nodeToUpdate->getObject();
 		if (aMirror)
 			if (aMirror->getName() == kTTSym_Mirror)
-				return aMirror->updateAttributeValue(whereComesFrom->getAttribute(), *newValue);
+				return aMirror->updateAttributeValue(whereComesFrom.getAttribute(), *newValue);
 	}
 	
 	return kTTErrGeneric;
@@ -463,16 +463,16 @@ TTErr TTApplication::getAllTTNames(TTValue& value)
 
 TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue				c;
-	TTSymbol			ttName;
-	TTSymbol			appName;
+	TTValue		c;
+	TTSymbol	ttName;
+	TTSymbol	appName;
 	
 	// if there is only 1 symbol : replace value directly by the found one.
 	// because it's possible to have conversion containing several appNames for 1 ttname
 	if (inputValue.getSize() == 1) 
 		if (inputValue.getType(0) == kTypeSymbol){
 			
-			inputValue.get(0, &ttName);
+			inputValue.get(0, ttName);
 			return this->mTTToApp->lookup(ttName, outputValue);
 		}
 	
@@ -480,9 +480,9 @@ TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& output
 	// !!! in this case 1 to many conversion is not handled
 	for (TTUInt8 i=0; i<inputValue.getSize(); i++)
 		if (inputValue.getType(i) == kTypeSymbol) {
-			inputValue.get(i, &ttName);
+			inputValue.get(i, ttName);
 			if (!this->mTTToApp->lookup(ttName, c)) {
-				c.get(0, &appName);
+				c.get(0, appName);
 				outputValue.set(i, appName);
 			}
 		}
@@ -492,16 +492,16 @@ TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& output
 
 TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue				c;
-	TTSymbol			appName;
-	TTSymbol			ttName;
+	TTValue		c;
+	TTSymbol	appName;
+	TTSymbol	ttName;
 	
 	// if there is only 1 symbol : replace value directly by the founded one.
 	// because it's possible to have conversion containing several ttNames for 1 appName
 	if (inputValue.getSize() == 1) 
 		if (inputValue.getType(0) == kTypeSymbol){
 			
-			inputValue.get(0, &appName);
+			inputValue.get(0, appName);
 			return this->mAppToTT->lookup(appName, outputValue);
 		}
 	
@@ -509,9 +509,9 @@ TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputV
 	// !!! in this case 1 to many conversion is not handled
 	for (TTUInt8 i=0; i<inputValue.getSize(); i++)
 		if (inputValue.getType(i) == kTypeSymbol) {
-			inputValue.get(i, &appName);
+			inputValue.get(i, appName);
 			if (!this->mAppToTT->lookup(appName, c)) {
-				c.get(0, &ttName);
+				c.get(0, ttName);
 				outputValue.set(i, ttName);
 			}
 		}
@@ -534,22 +534,22 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	protocolNames = getApplicationProtocols(mName);
 	for (TTUInt16 i=0; i<protocolNames.getSize(); i++) {
 		
-		protocolNames.get(i, &protocolName);
+		protocolNames.get(i, protocolName);
 		getProtocol(protocolName)->getAttributeValue(TT("applicationParameters"), v);
 		v.get(0, (TTPtr*)&parameters);
 		
 		// Start "protocol" xml node
 		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "protocol");
-		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST protocolName->getCString());
+		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST protocolName.c_str());
 		
 		// For each parameter
 		parameters->getKeys(p_keys);
 		for (TTUInt16 j=0; j<p_keys.getSize(); j++) {
-			p_keys.get(j, &parameterName);
+			p_keys.get(j, parameterName);
 			parameters->lookup(parameterName, v);
 			v.toString();
 			v.get(0, aString);
-			xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST parameterName->getCString(), "%s", BAD_CAST aString.data());
+			xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST parameterName.c_str(), "%s", BAD_CAST aString.data());
 		}
 		
 		// End "protocol" xml node
@@ -652,7 +652,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("name"));
 		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 		if (v.getType() == kTypeSymbol) {
-			v.get(0, &protocolName);
+			v.get(0, protocolName);
 		}
 		
 		// Check if the protocol have been loaded
@@ -670,7 +670,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 			// get parameter name
 			aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
 			if (v.getType() == kTypeSymbol) {
-				v.get(0, &parameterName);
+				v.get(0, parameterName);
 				
 				// get parameter value
 				aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), parameterValue);
@@ -697,7 +697,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 			xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("file"));
 			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 			if (v.getType() == kTypeSymbol)
-				v.get(0, &mNamespaceFile);
+				v.get(0, mNamespaceFile);
 		}
 	}
 	
@@ -761,24 +761,24 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 		xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("text"));
 		aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v, YES);
 		if (v.getType() == kTypeSymbol) {
-			v.get(0, &nodeNameInstance);
+			v.get(0, nodeNameInstance);
 		}
 		
 		// Is it the beginning of a new node or the end of one ?
-		if (mTempAddress->getNameInstance() != nodeNameInstance) {
+		if (mTempAddress.getNameInstance() != nodeNameInstance) {
 			
-			absoluteAddress = mTempAddress->appendAddress(TTADRS(nodeNameInstance->getCString()));
+			absoluteAddress = mTempAddress.appendAddress(TTAddress(nodeNameInstance.c_str()));
 			
 			// get the object name
 			if (xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("object")) == 1) {
 				aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v);
 				
 				if (v.getType() == kTypeSymbol) {
-					v.get(0, &objectName);
+					v.get(0, objectName);
 					
 					// a distant application should have one protocol
 					protocolNames = getApplicationProtocols(mName);
-					protocolNames.get(0, &protocolName);
+					protocolNames.get(0, protocolName);
 					
 					aProtocol = (ProtocolPtr)getProtocol(protocolName);
 					if (aProtocol) {
@@ -861,7 +861,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 		// when a node ends : 
 		// keep the parent address for next nodes
 		else
-			mTempAddress = mTempAddress->getParent();
+			mTempAddress = mTempAddress.getParent();
 			
 	}
 	
@@ -880,7 +880,7 @@ TTNodeDirectoryPtr TTApplicationGetDirectory(TTAddress anAddress)
 	
 	if (TTModularApplications && anAddress != kTTAdrsEmpty) {
 		
-		applicationName = anAddress->getDirectory();
+		applicationName = anAddress.getDirectory();
 		
 		if (applicationName != NO_DIRECTORY)
 			anApplication = TTApplicationManagerGetApplication(applicationName);
@@ -898,14 +898,14 @@ TTSymbol TTApplicationConvertAppNameToTTName(TTSymbol anAppName)
 {
 	TTErr		err;
 	TTValue		c;
-	TTSymbol converted = anAppName;
+	TTSymbol	converted = anAppName;
 	
 	if (TTModularApplications) {
 		
 		err = getLocalApplication->mAppToTT->lookup(anAppName, c);
 		
 		if (!err)
-			c.get(0, &converted);
+			c.get(0, converted);
 		
 	}
 	
@@ -916,14 +916,14 @@ TTSymbol TTApplicationConvertTTNameToAppName(TTSymbol aTTName)
 {
 	TTErr		err;
 	TTValue		c;
-	TTSymbol converted = kTTSymEmpty;
+	TTSymbol	converted = kTTSymEmpty;
 	
 	if (TTModularApplications) {
 		
 		err = getLocalApplication->mTTToApp->lookup(aTTName, c);
 		
 		if (!err)
-			c.get(0, &converted);
+			c.get(0, converted);
 		
 	}
 	

@@ -124,7 +124,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 TTAddressItemPtr	TTModularNamespacesLookup(TTSymbol namespaceName)
 {
 	TTAddressItemPtr	aNamespace = NULL;
-	TTValue			v;
+	TTValue				v;
 	
 	if (namespaceName != kTTSymEmpty && namespaceName != kTTSym_none) {
 		

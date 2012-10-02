@@ -28,7 +28,7 @@ mListenAttributeCallback(NULL)
 	TT_ASSERT("Correct number of args to create TTMirror", arguments.getSize() == 5);
 
 	if (arguments.getSize() >= 1)
-		arguments.get(0, &mType);
+		arguments.get(0, mType);
 
 	if (arguments.getSize() >= 2)
 		arguments.get(1, (TTPtr*)&mGetAttributeCallback);
@@ -51,7 +51,7 @@ mListenAttributeCallback(NULL)
 	for (TTUInt32 i=0; i<attributeNames.getSize(); i++) {
 		
 		anAttribute = NULL;
-		attributeNames.get(i, (TTSymbol*)&name);
+		attributeNames.get(i, name);
 		anObject->getAttribute(name, &anAttribute);
 		
 		addMirrorAttribute(name, anAttribute->type);
@@ -65,7 +65,7 @@ mListenAttributeCallback(NULL)
 	anObject->getMessageNames(messageNames);
 	for (TTUInt32 i=0; i<messageNames.getSize(); i++) {
 		
-		messageNames.get(i, (TTSymbol*)&name);
+		messageNames.get(i, name);
 		anObject->getMessage(name, &aMessage);
 		
 		addMirrorMessage(name, aMessage->flags);

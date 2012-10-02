@@ -52,11 +52,11 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 	unbindAddress();
 	unbindApplication();
 	
-	newValue.get(0, &mAddress);
+	newValue.get(0, mAddress);
 	
 	// default attribute to bind is value
-	if (mAddress->getAttribute() == NO_ATTRIBUTE)
-		mAddress = mAddress->appendAttribute(kTTSym_value);
+	if (mAddress.getAttribute() == NO_ATTRIBUTE)
+		mAddress = mAddress.appendAttribute(kTTSym_value);
 	
 	mDirectory = getDirectoryFrom(mAddress);
 	if (mDirectory)
@@ -91,7 +91,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 		
 		if (!mObjectCache->isEmpty()) {
 			
-			ttAttributeName = ToTTName(mAddress->getAttribute());
+			ttAttributeName = ToTTName(mAddress.getAttribute());
 			
 			// send data to each node of the selection
 			for (mObjectCache->begin(); mObjectCache->end(); mObjectCache->next()) {
@@ -112,7 +112,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 					else if (anObject->getName() == kTTSym_Container && ttAttributeName == kTTSym_value) {
 						
 						if (valueToSend.getType() == kTypeSymbol) {
-							valueToSend.get(0, &relativeAddress);
+							valueToSend.get(0, relativeAddress);
 							c.copyFrom(valueToSend, 1);
 						
 							v = TTValue(relativeAddress);
@@ -176,7 +176,6 @@ TTErr TTSender::bindAddress()
 	TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
-	newBaton->append(TTPtr(kTTSymEmpty));
 	
 	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
@@ -229,7 +228,7 @@ TTErr TTSender::bindApplication()
 		
 		mApplicationObserver->setAttributeValue(TT("owner"), TT("TTSender"));		// this is usefull only to debug
 		
-		return TTApplicationManagerAddApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
+		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 	}
 	
 	return kTTErrGeneric;
@@ -240,7 +239,7 @@ TTErr TTSender::unbindApplication()
 	
 	if (mApplicationObserver) {
 		
-		TTApplicationManagerRemoveApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
+		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 		
 		delete (TTValuePtr)mApplicationObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mApplicationObserver));
@@ -258,7 +257,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject, aCacheObject;
-	TTAddress anAddress;
+	TTAddress		anAddress;
 	TTValue			v;
 	TTUInt8			flag;
 
@@ -267,7 +266,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aSender);
 
 	// Unpack data (address, aNode, flag, anObserver)
-	data.get(0, &anAddress);
+	data.get(0, anAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
 	
@@ -322,7 +321,7 @@ TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aSender);
 	
 	// Unpack data (applicationName, application, flag, observer)
-	data.get(0, &anApplicationName);
+	data.get(0, anApplicationName);
 	data.get(1, (TTPtr*)&anApplication);
 	data.get(2, flag);
 	

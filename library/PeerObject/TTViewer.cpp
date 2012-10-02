@@ -83,7 +83,7 @@ TTViewer::~TTViewer() // TODO : delete things...
 
 TTErr TTViewer::setAddress(const TTValue& value)
 {
-	value.get(0, &mAddress);
+	value.get(0, mAddress);
 	
 	bind();
 	
@@ -101,8 +101,8 @@ TTErr TTViewer::bind()
 		return kTTErrGeneric;
 	
 	// The default attribute to bind is value
-	if (mAddress->getAttribute() == NO_ATTRIBUTE)
-		mAddress->appendAttribute(kTTSym_value);
+	if (mAddress.getAttribute() == NO_ATTRIBUTE)
+		mAddress.appendAttribute(kTTSym_value);
 
 	// Replace a TTSender object
 	if (mSender)
@@ -164,7 +164,7 @@ TTErr TTViewer::observeDataspace()
 	mDataspaceObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mDataspaceObserver), args);
 	
-	mDataspaceObserver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_dataspace));
+	mDataspaceObserver->setAttributeValue(kTTSym_address, mAddress.appendAttribute(kTTSym_dataspace));
 	
 	mDataspaceObserver->sendMessage(kTTSym_Get);
 	
@@ -193,7 +193,7 @@ TTErr TTViewer::observeDataspaceUnit()
 	mDataspaceUnitObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mDataspaceUnitObserver), args);
 	
-	mDataspaceUnitObserver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_dataspaceUnit));
+	mDataspaceUnitObserver->setAttributeValue(kTTSym_address, mAddress.appendAttribute(kTTSym_dataspaceUnit));
 	
 	mDataspaceUnitObserver->sendMessage(kTTSym_Get);
 	
@@ -358,7 +358,7 @@ TTErr TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data)
 		err = aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
 		if (err) {
 			aViewer->mDataspaceConverter->getAttributeValue(TT("outputUnit"), v);
-			v.get(0, &aViewer->mDataspaceUnit);
+			v.get(0, aViewer->mDataspaceUnit);
 			aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
 		}
 	}

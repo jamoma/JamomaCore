@@ -65,7 +65,7 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 	TTErr		err;
 	TTSymbol	newFunctionName = NULL;
 	
-	functionName.get(0, &newFunctionName);
+	functionName.get(0, newFunctionName);
 	
 	if (newFunctionName == TT("none"))
 		newFunctionName = TT("linear");
@@ -88,14 +88,14 @@ TTErr RampUnit::getFunctionParameterNames(TTValue& names)
 }
 
 
-TTErr RampUnit::setFunctionParameterValue(TTSymbol* ParameterName, TTValue& newValue)
+TTErr RampUnit::setFunctionParameterValue(TTSymbol ParameterName, TTValue& newValue)
 {
 	functionUnit->setAttributeValue(ParameterName, newValue);
 	return kTTErrNone;
 }
 
 
-TTErr RampUnit::getFunctionParameterValue(TTSymbol* ParameterName, TTValue& value)
+TTErr RampUnit::getFunctionParameterValue(TTSymbol ParameterName, TTValue& value)
 {
 	functionUnit->getAttributeValue(ParameterName, value);
 	return kTTErrNone;
@@ -130,7 +130,7 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 #include "SchedulerRamp.h"
 
 
-TTErr RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
+TTErr RampLib::createUnit(const TTSymbol unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
 {
 	TTValue v;
 	
@@ -153,7 +153,7 @@ TTErr RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCal
 //		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
 	else {
 		// Invalid function specified default to linear
-		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", (char*)unitName);
+		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", unitName.c_str());
 		TTObjectInstantiate(TT("NoneRamp"), (TTObjectPtr*)unit, v);
 //		*unit = (RampUnit*) new NoneRamp(callback, baton);
 	}

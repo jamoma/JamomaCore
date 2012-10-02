@@ -74,11 +74,11 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 	unbindAddress();
 	unbindApplication();
 	
-	newValue.get(0, &mAddress);
+	newValue.get(0, mAddress);
 	
 	// default attribute to bind is value
-	if (mAddress->getAttribute() == NO_ATTRIBUTE)
-		mAddress = mAddress->appendAttribute(kTTSym_value);
+	if (mAddress.getAttribute() == NO_ATTRIBUTE)
+		mAddress = mAddress.appendAttribute(kTTSym_value);
 	
 	mDirectory = getDirectoryFrom(mAddress);
 	if (mDirectory)
@@ -103,7 +103,7 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 		
 		if (!mNodesObserversCache->isEmpty()) {
 			
-			ttAttributeName = ToTTName(mAddress->getAttribute());
+			ttAttributeName = ToTTName(mAddress.getAttribute());
 			
 			// for each node of the selection
 			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()) {
@@ -148,7 +148,7 @@ TTErr TTReceiver::Get()
 		
 		if (!mNodesObserversCache->isEmpty()) {
 			
-			ttAttributeName = ToTTName(mAddress->getAttribute());
+			ttAttributeName = ToTTName(mAddress.getAttribute());
 			
 			// for each node of the selection
 			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()) {
@@ -165,8 +165,8 @@ TTErr TTReceiver::Get()
 					if (!err) {
 						
 						// output the address of the node (in case we use * inside the binded address)
-						aNode->getAddress(&anAddress);
-						anAddress = anAddress->appendAttribute(mAddress->getAttribute());
+						aNode->getAddress(anAddress);
+						anAddress = anAddress.appendAttribute(mAddress.getAttribute());
 						
 						// return the address
 						v.clear();
@@ -210,7 +210,7 @@ TTErr TTReceiver::bindAddress()
 	mObjectCache = new TTList();
 	
 	// for any Attribute observation except created, destroyed
-	ttAttributeName = ToTTName(mAddress->getAttribute());
+	ttAttributeName = ToTTName(mAddress.getAttribute());
 	
 	if ((ttAttributeName != kTTSym_created) && (ttAttributeName != kTTSym_destroyed))
 	{
@@ -239,8 +239,8 @@ TTErr TTReceiver::bindAddress()
 						TTObjectInstantiate(TT("callback"), TTObjectHandle(&newObserver), kTTValNONE);
 						
 						newBaton = new TTValue(TTPtr(this));
-						aNode->getAddress(&anAddress);
-						newBaton->append(anAddress->appendAttribute(mAddress->getAttribute()));
+						aNode->getAddress(anAddress);
+						newBaton->append(anAddress.appendAttribute(mAddress.getAttribute()));
 						
 						newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 						newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -267,7 +267,6 @@ TTErr TTReceiver::bindAddress()
 	TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
-	newBaton->append(TTPtr(kTTSymEmpty));
 	
 	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
@@ -294,7 +293,7 @@ TTErr TTReceiver::unbindAddress()
 		// for each node of the selection
 		if (mNodesObserversCache) {
 			
-			ttAttributeName = ToTTName(mAddress->getAttribute());
+			ttAttributeName = ToTTName(mAddress.getAttribute());
 			
 			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()){
 				
@@ -365,7 +364,7 @@ TTErr TTReceiver::bindApplication()
 		
 		mApplicationObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));		// this is usefull only to debug
 		
-		return TTApplicationManagerAddApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
+		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 	}
 	
 	return kTTErrGeneric;
@@ -375,7 +374,7 @@ TTErr TTReceiver::unbindApplication()
 {
 	if (mApplicationObserver) {
 		
-		TTApplicationManagerRemoveApplicationObserver(mAddress->getDirectory(), *mApplicationObserver);
+		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 		
 		delete (TTValuePtr)mApplicationObserver->getBaton();
 		TTObjectRelease(TTObjectHandle(&mApplicationObserver));
@@ -407,11 +406,11 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aReceiver);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
-	data.get(0, &anAddress);
+	data.get(0, anAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
 	
-	ttAttributeName = ToTTName(aReceiver->mAddress->getAttribute());
+	ttAttributeName = ToTTName(aReceiver->mAddress.getAttribute());
 	
 	switch (flag) {
 			
@@ -459,7 +458,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
 							
 							newBaton = new TTValue(TTPtr(aReceiver));
-							newBaton->append(anAddress->appendAttribute(aReceiver->mAddress->getAttribute()));
+							newBaton->append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
 							
 							newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 							newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -548,7 +547,7 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 	// unpack baton
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aReceiver);
-	b->get(1, &anAddress);
+	b->get(1, anAddress);
 	
 	if(aReceiver->mEnable) {
 		
@@ -581,7 +580,7 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aReceiver);
 	
 	// Unpack data (applicationName, application, flag, observer)
-	data.get(0, &anApplicationName);
+	data.get(0, anApplicationName);
 	data.get(1, (TTPtr*)&anApplication);
 	data.get(2, flag);
 	

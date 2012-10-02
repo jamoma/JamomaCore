@@ -28,7 +28,7 @@ mAddressObserver(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 3);
 	
-	arguments.get(0, &mType);
+	arguments.get(0, mType);
 	arguments.get(1, (TTPtr*)&mReturnSignalCallback);
 	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
 	
@@ -113,12 +113,12 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 {
 	TTValue			args;
 	TTValuePtr		newBaton;
-	TTAddress newAddress;
+	TTAddress		newAddress;
 	TTNodePtr		aNode;
 	TTList			aNodeList;
 	TTObjectPtr		o;
 	
-	value.get(0, &newAddress);
+	value.get(0, newAddress);
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
@@ -160,7 +160,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTInputPtr		anInput;
-	TTSymbol		oscAddress;
+	TTSymbol		anAddress;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTObjectPtr		o;
@@ -169,8 +169,8 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&anInput);
 	
-	// Unpack data (oscAddress, aNode, flag, anObserver)
-	data.get(0, &oscAddress);
+	// Unpack data (anAddress, aNode, flag, anObserver)
+	data.get(0, anAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
 	

@@ -61,7 +61,7 @@ class Minuit : public Protocol {
 	
 private:
 	
-	TTSymbolPtr				mIp;						///< ATTRIBUTE : IP of the local application (to share with clients)		(default : loacalhost, readonly)
+	TTSymbol				mIp;						///< ATTRIBUTE : IP of the local application (to share with clients)		(default : loacalhost, readonly)
 	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception (to share with clients)	(default : MINUIT_RECEPTION_PORT)
 	
 	TTObjectPtr				mOscSend;
@@ -69,7 +69,7 @@ private:
 	
 	MinuitAnswerManagerPtr	mAnswerManager;
 	
-	TTErr sendMessage(TTSymbolPtr distantApplicationName, TTSymbolPtr header, TTValue& message);
+	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
 	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
 	/** Get parameters names needed by this protocol */
@@ -101,7 +101,7 @@ private:
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
-	TTErr SendDiscoverRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+	TTErr SendDiscoverRequest(TTSymbol to, TTAddress address, 
 							  TTValue& returnedChildrenNames,
 							  TTValue& returnedChildrenTypes,
 							  TTValue& returnedAttributes);
@@ -115,7 +115,7 @@ private:
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
-	TTErr SendGetRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+	TTErr SendGetRequest(TTSymbol to, TTAddress address, 
 						 TTValue& returnedValue);
 	
 	/*!
@@ -126,7 +126,7 @@ private:
 	 * \param value					: anything to send
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	TTErr SendSetRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+	TTErr SendSetRequest(TTSymbol to, TTAddress address, 
 						 TTValue& value);
 	
 	/*!
@@ -138,7 +138,7 @@ private:
 	 * \param enable				: enable/disable the listening
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	TTErr SendListenRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+	TTErr SendListenRequest(TTSymbol to, TTAddress address, 
 							TTBoolean enable);
 	
 	
@@ -157,7 +157,7 @@ private:
 	 * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
 	 * \param returnedAttributes	: all attributes the node at the address
 	 */
-	TTErr SendDiscoverAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
+	TTErr SendDiscoverAnswer(TTSymbol to, TTAddress address,
 							 TTValue& returnedChildrenNames,
 							 TTValue& returnedChildrenTypes,
 							 TTValue& returnedAttributes,
@@ -170,7 +170,7 @@ private:
 	 * \param address				: the address where comes from the value
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	TTErr SendGetAnswer(TTSymbolPtr to, TTNodeAddressPtr address, 
+	TTErr SendGetAnswer(TTSymbol to, TTAddress address, 
 						TTValue& returnedValue,
 						TTErr err=kTTErrNone);
 	
@@ -181,7 +181,7 @@ private:
 	 * \param address				: the address where comes from the value
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	TTErr SendListenAnswer(TTSymbolPtr to, TTNodeAddressPtr address, 
+	TTErr SendListenAnswer(TTSymbol to, TTAddress address, 
 						   TTValue& returnedValue,
 						   TTErr err=kTTErrNone);
 	

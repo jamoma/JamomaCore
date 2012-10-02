@@ -34,21 +34,21 @@ TTSymbol					kTTSym_Jamoma = NULL;
 TTApplicationPtr			JamomaApplication = NULL;
 TTNodeDirectoryPtr			JamomaDirectory = NULL;
 
-TTRegexPtr					ttRegexForJmod = NULL;
-TTRegexPtr					ttRegexForJcom = NULL;
-TTRegexPtr					ttRegexForModel = NULL;
-TTRegexPtr					ttRegexForModule = NULL;
-TTRegexPtr					ttRegexForView = NULL;
-TTRegexPtr					ttRegexForMaxpat = NULL;
-TTRegexPtr					ttRegexForMaxhelp = NULL;
-TTRegexPtr					ttRegexForBracket = NULL;
+TTRegex*					ttRegexForJmod = NULL;
+TTRegex*					ttRegexForJcom = NULL;
+TTRegex*					ttRegexForModel = NULL;
+TTRegex*					ttRegexForModule = NULL;
+TTRegex*					ttRegexForView = NULL;
+TTRegex*					ttRegexForMaxpat = NULL;
+TTRegex*					ttRegexForMaxhelp = NULL;
+TTRegex*					ttRegexForBracket = NULL;
 
-TTString					*ModelPatcherFormat = NULL;
-TTString					*ModelPresetFormat = NULL;
-TTString					*ViewPresetFormat = NULL;
-TTString					*HelpPatcherFormat = NULL;
-TTString					*RefpageFormat = NULL;
-TTString					*DocumentationFormat = NULL;
+TTString*					ModelPatcherFormat = NULL;
+TTString*					ModelPresetFormat = NULL;
+TTString*					ViewPresetFormat = NULL;
+TTString*					HelpPatcherFormat = NULL;
+TTString*					RefpageFormat = NULL;
+TTString*					DocumentationFormat = NULL;
 
 /************************************************************************************/
 // Init the framework

@@ -161,7 +161,7 @@ TTErr Minuit::Stop()
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  else it returns kTTErrGeneric if no answer or timeout
  */
-TTErr Minuit::SendDiscoverRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address, 
 								  TTValue& returnedChildrenNames,
 								  TTValue& returnedChildrenTypes,
 								  TTValue& returnedAttributes)
@@ -171,7 +171,7 @@ TTErr Minuit::SendDiscoverRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 	TTInt32		state;
 	
 	// edit header "localAppName?namespace"
-	header = protocolGetLocalApplicationName->getCString();
+	header = protocolGetLocalApplicationName.c_str();
 	header += MINUIT_REQUEST_DISCOVER;
 	
 	// edit arguments <header address>
@@ -184,7 +184,7 @@ TTErr Minuit::SendDiscoverRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 #endif
 		
 		// Wait for an answer
-		mAnswerManager->AddDiscoverAnswer(to->getCString(), address);
+		mAnswerManager->AddDiscoverAnswer(to.c_str(), address);
 		
 		state = ANSWER_RECEIVED;
 		do
@@ -194,7 +194,7 @@ TTErr Minuit::SendDiscoverRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 #else
 			usleep(1000);
 #endif
-			state = mAnswerManager->CheckDiscoverAnswer(to->getCString(), address, answer);
+			state = mAnswerManager->CheckDiscoverAnswer(to.c_str(), address, answer);
 		}
 		while (state == NO_ANSWER);
 		
@@ -214,7 +214,7 @@ TTErr Minuit::SendDiscoverRequest(TTSymbolPtr to, TTNodeAddressPtr address,
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  else it returns kTTErrGeneric if no answer or timeout
  */
-TTErr Minuit::SendGetRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address, 
 							 TTValue& returnedValue)
 {	
 	TTValue		v, arguments;
@@ -222,7 +222,7 @@ TTErr Minuit::SendGetRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 	TTInt32		state;
 	
 	// edit header "localAppName?get"
-	header = protocolGetLocalApplicationName->getCString();
+	header = protocolGetLocalApplicationName.c_str();
 	header += MINUIT_REQUEST_GET;
 	
 	// edit arguments <header address>
@@ -235,7 +235,7 @@ TTErr Minuit::SendGetRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 #endif
 		
 		// Wait for an answer
-		mAnswerManager->AddGetAnswer(to->getCString(), address);
+		mAnswerManager->AddGetAnswer(to.c_str(), address);
 		
 		state = ANSWER_RECEIVED;
 		do
@@ -245,7 +245,7 @@ TTErr Minuit::SendGetRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 #else
 			usleep(1000);
 #endif
-			state = mAnswerManager->CheckGetAnswer(to->getCString(), address, returnedValue);
+			state = mAnswerManager->CheckGetAnswer(to.c_str(), address, returnedValue);
 		}
 		while(state == NO_ANSWER);
 		
@@ -266,7 +266,7 @@ TTErr Minuit::SendGetRequest(TTSymbolPtr to, TTNodeAddressPtr address,
  * \param value					: anything to send
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  */
-TTErr Minuit::SendSetRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+TTErr Minuit::SendSetRequest(TTSymbol to, TTAddress address, 
 							 TTValue& value)
 {
 		
@@ -274,8 +274,8 @@ TTErr Minuit::SendSetRequest(TTSymbolPtr to, TTNodeAddressPtr address,
 		std::cout << "Minuit : applicationSendSetRequest " << std::endl;
 #endif
 
-	if (address->getAttribute() == kTTSym_value)
-		return sendMessage(to, address->removeAttribute(), value);
+	if (address.getAttribute() == kTTSym_value)
+		return sendMessage(to, address.removeAttribute(), value);
 	else
 		return sendMessage(to, address, value);
 }
@@ -288,14 +288,14 @@ TTErr Minuit::SendSetRequest(TTSymbolPtr to, TTNodeAddressPtr address,
  * \param enable				: enable/disable the listening
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  */
-TTErr Minuit::SendListenRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+TTErr Minuit::SendListenRequest(TTSymbol to, TTAddress address, 
 								TTBoolean enable)
 {
 	TTValue		v, arguments;
 	TTString	header;
 	
 	// edit header "appName?listen"
-	header = protocolGetLocalApplicationName->getCString();
+	header = protocolGetLocalApplicationName.c_str();
 	header += MINUIT_REQUEST_LISTEN;
 	
 	// edit arguments <header address, enable>
@@ -329,7 +329,7 @@ TTErr Minuit::SendListenRequest(TTSymbolPtr to, TTNodeAddressPtr address,
  * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
  * \param returnedAttributes	: all attributes the node at the address
  */
-TTErr Minuit::SendDiscoverAnswer(TTSymbolPtr to, TTNodeAddressPtr address, 
+TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address, 
 								 TTValue& returnedChildrenNames, 
 								 TTValue& returnedChildrenTypes, 
 								 TTValue& returnedAttributes, 
@@ -340,11 +340,11 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	
 	// edit header "appName:get"
 	if (!err) {
-		header = protocolGetLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName.c_str();
 		header += MINUIT_ANSWER_DISCOVER;
 	}
 	else {
-		header = protocolGetLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName.c_str();
 		header += MINUIT_ERROR_DISCOVER;
 	}
 	
@@ -404,7 +404,7 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
  * \param address				: the address where comes from the value
  * \param returnedValue			: the value of the attribute at the address
  */
-TTErr Minuit::SendGetAnswer(TTSymbolPtr to, TTNodeAddressPtr address, 
+TTErr Minuit::SendGetAnswer(TTSymbol to, TTAddress address, 
 							TTValue& returnedValue, 
 							TTErr err)
 {
@@ -413,11 +413,11 @@ TTErr Minuit::SendGetAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	
 	// edit header "appName:get"
 	if (!err) {
-		header = protocolGetLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName.c_str();
 		header += MINUIT_ANSWER_GET;
 	}
 	else {
-		header = protocolGetLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName.c_str();
 		header += MINUIT_ERROR_GET;
 	}
 	
@@ -440,7 +440,7 @@ TTErr Minuit::SendGetAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
  * \param address				: the address where comes from the value
  * \param returnedValue			: the value of the attribute at the address
  */
-TTErr Minuit::SendListenAnswer(TTSymbolPtr to, TTNodeAddressPtr address, 
+TTErr Minuit::SendListenAnswer(TTSymbol to, TTAddress address, 
 							   TTValue& returnedValue, 
 							   TTErr err)
 {
@@ -449,11 +449,11 @@ TTErr Minuit::SendListenAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	
 	// edit header "appName:get"
 	if (!err) {
-		header = protocolGetLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName.c_str();
 		header += MINUIT_ANSWER_LISTEN;
 	}
 	else {
-		header = protocolGetLocalApplicationName->getCString();
+		header = protocolGetLocalApplicationName.c_str();
 		header += MINUIT_ERROR_LISTEN;
 	}
 	
@@ -469,7 +469,7 @@ TTErr Minuit::SendListenAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
 	return sendMessage(to, TT(header), arguments);
 }
 
-TTErr Minuit::sendMessage(TTSymbolPtr distantApplicationName, TTSymbolPtr header, TTValue& arguments)
+TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& arguments)
 {
 	TTHashPtr	parameters = NULL;
 	TTValue		v, vIp, vPort, message;
@@ -517,11 +517,11 @@ TTErr Minuit::sendMessage(TTSymbolPtr distantApplicationName, TTSymbolPtr header
 
 TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 {
-	TTSymbolPtr			aSymbol, sender, operation;
+	TTSymbol			aSymbol, sender, operation;
 	TTString			headerString;
 	TTInt32				operationStart;
 	TTValue				arguments;
-	TTNodeAddressPtr	whereTo = kTTAdrsEmpty;
+	TTAddress	whereTo = kTTAdrsEmpty;
 	TTValue				v;
 	TTErr				err;
 	
@@ -551,28 +551,28 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 	
 	if (mActivity) ActivityInMessage(message);
 	
-	message.get(0, &aSymbol);
-	headerString = aSymbol->getCString();
+	message.get(0, aSymbol);
+	headerString = aSymbol.c_str();
 	
 	// if message starts with '/'
 	if (headerString[0] == '/')
 	{
-		message.get(0, &aSymbol);
-		whereTo = TTADRS(aSymbol->getCString());
+		message.get(0, aSymbol);
+		whereTo = TTAddress(aSymbol.c_str());
 		
 		arguments.copyFrom(message, 1);
 		
 #ifdef TT_PROTOCOL_DEBUG
-		cout << "Receive set request at " << whereTo->getCString() << endl;
+		cout << "Receive set request at " << whereTo.c_str() << endl;
 #endif
 		
-		return ReceiveSetRequest(NULL, whereTo, arguments);
+		return ReceiveSetRequest(kTTSymEmpty, whereTo, arguments);
 	} 
 	else {
 		
 		// Is it a request ?
-		operationStart = headerString.find('?');
-		if (operationStart != headerString.npos)
+		operationStart = headerString.find_first_of('?');
+		if (operationStart >= 0)
 		{
 			sender = TT(headerString.substr(0, operationStart));				// get sender application
 			
@@ -583,12 +583,12 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 				operation = TT(headerString.substr(operationStart));				// get request
 				
 				if (message.getType(1) == kTypeSymbol) {							// parse /whereTo
-					message.get(1, &aSymbol);
-					whereTo = TTADRS(aSymbol->getCString());
+					message.get(1, aSymbol);
+					whereTo = TTAddress(aSymbol.c_str());
 				}
 				
 #ifdef TT_PROTOCOL_DEBUG
-				cout << "Receive " << operation->getCString() << " request from "<< sender->getCString() << " at " << whereTo->getCString() << endl;
+				cout << "Receive " << operation.c_str() << " request from "<< sender.c_str() << " at " << whereTo.c_str() << endl;
 #endif
 				
 				// switch on request
@@ -601,7 +601,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 				else if (operation == TT(MINUIT_REQUEST_LISTEN)) {
 					
 					if (message.getType(2) == kTypeSymbol) {						// parse enable/disable
-						message.get(2, &aSymbol);
+						message.get(2, aSymbol);
 						
 						if (aSymbol == TT(MINUIT_REQUEST_LISTEN_ENABLE))
 							return ReceiveListenRequest(sender, whereTo, true);
@@ -618,8 +618,8 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 		}// end if starts by '?'
 		
 		// Is it a answer :
-		operationStart = headerString.find(':');
-		if (operationStart != headerString.npos)
+		operationStart = headerString.find_first_of(':');
+		if (operationStart >= 0)
 		{
 			sender = TT(headerString.substr(0, operationStart));				// get sender application
 			
@@ -630,22 +630,22 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 				operation = TT(headerString.substr(operationStart));				// get request
 				
 				if (message.getType(1) == kTypeSymbol) {							// parse /whereTo
-					message.get(1, &aSymbol);
-					whereTo = TTADRS(aSymbol->getCString());
+					message.get(1, aSymbol);
+					whereTo = TTAddress(aSymbol.c_str());
 				}
 				
 #ifdef TT_PROTOCOL_DEBUG
-				cout << "Receive " << operation->getCString() << " answer from "<< sender->getCString() << " at " << whereTo->getCString() << endl;
+				cout << "Receive " << operation.c_str() << " answer from "<< sender.c_str() << " at " << whereTo.c_str() << endl;
 #endif
 				
 				arguments.copyFrom(message, 2);
 				
 				// switch on answer
 				if (operation == TT(MINUIT_ANSWER_DISCOVER))
-					return mAnswerManager->ReceiveDiscoverAnswer(sender->getCString(), whereTo, arguments);
+					return mAnswerManager->ReceiveDiscoverAnswer(sender.c_str(), whereTo, arguments);
 				
 				else if (operation == TT(MINUIT_ANSWER_GET))
-					return mAnswerManager->ReceiveGetAnswer(sender->getCString(), whereTo, arguments);
+					return mAnswerManager->ReceiveGetAnswer(sender.c_str(), whereTo, arguments);
 				
 				else if (operation == TT(MINUIT_ANSWER_LISTEN))
 					return ReceiveListenAnswer(sender, whereTo, arguments);

@@ -30,13 +30,13 @@ TTErr jamoma_application_dump_configuration(void)
 	
 	for (i=0; i<appNames.getSize(); i++) {
 		
-		appNames.get(i, &anAppKey);
+		appNames.get(i, anAppKey);
 		
 		toConvert = TTValue(anAppKey);
 		JamomaApplication->sendMessage(kTTSym_ConvertToTTName, toConvert, converted); 
 		converted.toString();
 		converted.get(0, aTTStr);
-		post("%s <-> %s", anAppKey->getCString(), aTTStr.data());
+		post("%s <-> %s", anAppKey.c_str(), aTTStr.data());
 	}
 	
 	post("----------------------------------------------");
@@ -76,13 +76,13 @@ TTErr jamoma_directory_dump_observers(void)
 	for (i=0; i<s; i++) {
 		
 		v.get(i,(TTPtr*)&pv);
-		pv->get(0, &key);
-		post("%s :", key->getCString());
+		pv->get(0, key);
+		post("%s :", key.c_str());
 		
 		for (j=1; j<pv->getSize(); j++) {
 		
-			pv->get(j, &owner);
-			post("    %s", owner->getCString());
+			pv->get(j, owner);
+			post("    %s", owner.c_str());
 		}
 	}
 	
@@ -129,14 +129,14 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress rel
 			
 			if (newInstance) {
 				(*returnedSubscriber)->getAttributeValue(TT("relativeAddress"), v);
-				v.get(0, &newRelativeAddress);
-				object_warn(x, "Jamoma cannot registers multiple object with the same OSC identifier (%s).  Using %s instead.", relativeAddress->getCString(), newRelativeAddress->getCString());
+				v.get(0, newRelativeAddress);
+				object_warn(x, "Jamoma cannot registers multiple object with the same OSC identifier (%s).  Using %s instead.", relativeAddress.c_str(), newRelativeAddress.c_str());
 			}
 			
 			JamomaDebug {
 				(*returnedSubscriber)->getAttributeValue(TT("nodeAddress"), v);
-				v.get(0, &absoluteAddress);
-				object_post(x, "registers at %s", absoluteAddress->getCString());
+				v.get(0, absoluteAddress);
+				object_post(x, "registers at %s", absoluteAddress.c_str());
 			}
 		}
 
@@ -144,7 +144,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress rel
 	}
 	
 	if (aTTObject)
-		object_error(x, "Jamoma cannot registers %s", relativeAddress->getCString());
+		object_error(x, "Jamoma cannot registers %s", relativeAddress.c_str());
 	else
 		// don't display this message because the objects can try many times before to binds
 		; //object_error(x, "Jamoma cannot binds %s", relativeAddress->s_name);
@@ -157,10 +157,10 @@ void jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data)
 	TTValuePtr	b;
 	TTValue		v;
 	ObjectPtr	objPtr, patcherPtr = NULL;
-	TTSymbol	patcherContext = NULL;
-	TTSymbol	patcherName = NULL;
-	TTSymbol patcherClass = NULL;
-	TTSymbol lowerContext = NULL;
+	TTSymbol	patcherContext;
+	TTSymbol	patcherName;
+	TTSymbol	patcherClass;
+	TTSymbol	lowerContext;
 	TTListPtr	nameAndPtrList;
 	
 	// unpack baton
@@ -174,12 +174,12 @@ void jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data)
 	// above the object looking at all parent patcher
 	do {
 		// get all info from the current object
-		jamoma_patcher_get_info(objPtr, &patcherPtr, &patcherContext, &patcherClass, &patcherName);
+		jamoma_patcher_get_info(objPtr, &patcherPtr, patcherContext, patcherClass, patcherName);
 		
 		if (patcherName && patcherPtr) {
 			
 			// check if the patcher have the same context than lower patchers
-			if (patcherContext == lowerContext || lowerContext == NULL) {
+			if (patcherContext == lowerContext || lowerContext == kTTSymEmpty) {
 				
 				// keep it as lowerContext
 				lowerContext = patcherContext;
@@ -239,21 +239,21 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddressAndAttribute, AtomCount argc, AtomPtr argv)
 {
 	TTAddress anAddress;
-	TTValue			v, data;
+	TTValue	v, data;
 	
 	if (aContainer) {
 		
-		anAddress = TTADRS(relativeAddressAndAttribute->s_name);
+		anAddress = relativeAddressAndAttribute->s_name;
 		
-		if (anAddress->getType() != kAddressRelative) {
+		if (anAddress.getType() != kAddressRelative) {
 			error("%s is an absolute address", relativeAddressAndAttribute->s_name);
 			return kTTErrGeneric;
 		}
 		
-		if (anAddress->getAttribute() == NO_ATTRIBUTE)
-			anAddress = anAddress->appendAttribute(kTTSym_value);
+		if (anAddress.getAttribute() == NO_ATTRIBUTE)
+			anAddress = anAddress.appendAttribute(kTTSym_value);
 		else
-			anAddress = anAddress->appendAttribute(ToTTName(anAddress->getAttribute()));
+			anAddress = anAddress.appendAttribute(ToTTName(anAddress.getAttribute()));
 
 		data.append(anAddress);
 		
@@ -819,10 +819,10 @@ void jamoma_callback_return_address(TTPtr baton, TTValue& v)
 	b->get(0, (TTPtr*)&x);
 	
 	// unpack data (address)
-	v.get(0, &address);
+	v.get(0, address);
 	
 	// send data to a data using the return_value method
-	object_method(x, jps_return_address, SymbolGen(address->getCString()), 0, 0);
+	object_method(x, jps_return_address, SymbolGen(address.c_str()), 0, 0);
 }
 
 /** Return the value to a jcom. external as _sym_nothing, argc, argv */
@@ -961,11 +961,11 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 				*msg = _sym_float;
 			}
 			else if(v.getType(i) == kTypeSymbol){
-				v.get(i, &s);
+				v.get(i, s);
 				if (s == kTTSymEmpty || s == kTTAdrsEmpty)
 					atom_setsym((*argv)+i, _sym_bang);
 				else
-					atom_setsym((*argv)+i, gensym((char*)s->getCString()));
+					atom_setsym((*argv)+i, gensym((char*)s.c_str()));
 				//*msg = _sym_symbol;
 			}
 			else{	// assume int
@@ -1019,8 +1019,8 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 			atom_setfloat((*argv)+i, f);
 		}
 		else if (v.getType(i) == kTypeSymbol) {
-			v.get(i, &s);
-			atom_setsym((*argv)+i, gensym((char*)s->getCString()));
+			v.get(i, s);
+			atom_setsym((*argv)+i, gensym((char*)s.c_str()));
 		}
 		else {	// assume int
 			v.get(i, t);
@@ -1066,9 +1066,10 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
  or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
 SymbolPtr jamoma_TTName_To_MaxName(TTSymbol TTName)
 {
-	TTSymbol MaxName = convertTTNameInTTAddress(TTName);
-	if (MaxName)
-		return gensym((char*)MaxName->getCString());
+	TTSymbol MaxName;
+	
+	if (!convertUpperCasedName(TTName, MaxName))
+		return gensym((char*)MaxName.c_str());
 	else
 		return NULL;
 }
@@ -1187,7 +1188,7 @@ SymbolPtr jamoma_patcher_get_hierarchy(ObjectPtr patcher)
 }
 
 /** Get the context from the upper jcom model|view in the patcher or from patcher's name */
-void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol *returnedContext)
+void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol& returnedContext)
 {
 	SymbolPtr	hierarchy, _sym_jcommodel, _sym_jcomview, _sym_context, patcherName;
 	ObjectPtr	obj, upperPatcher;
@@ -1206,13 +1207,13 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol *returnedContext)
 		
 		if (_sym_context == _sym_jcommodel) {
 			
-			*returnedContext = kTTSym_model;
+			returnedContext = kTTSym_model;
 			found = YES;
 			break;
 			
 		} else if (_sym_context == _sym_jcomview) {
 			
-			*returnedContext = kTTSym_view;
+			returnedContext = kTTSym_view;
 			found = YES;
 			break;
 		}
@@ -1230,12 +1231,12 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol *returnedContext)
 		if (patcherName != _sym_nothing) {
 			// Is there a ".model.maxpat" string in the patcher name ?
 			if (strstr(patcherName->s_name, ".model.maxpat")) {
-				*returnedContext = kTTSym_model;
+				returnedContext = kTTSym_model;
 				return;
 			}
 			// Is there a ".view.maxpat" string in the patcher name ?
 			else if (strstr(patcherName->s_name, ".view.maxpat")) {
-				*returnedContext = kTTSym_view;
+				returnedContext = kTTSym_view;
 				return;
 			}
 		}
@@ -1252,8 +1253,8 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol *returnedContext)
 			
 			// if the context is still NULL and there is a jcom model|view at this level
 			// the default case would be to set it as a model patcher by default
-			if (!(*returnedContext) && found)
-				*returnedContext = kTTSym_model;
+			if (returnedContext == kTTSymEmpty && found)
+				returnedContext = kTTSym_model;
 			// keep the upperPatcher if no jcom model|view around
 			// because it is where the context is defined
 			else if (!found)
@@ -1261,12 +1262,12 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol *returnedContext)
 		}
 		// default case : a patcher has no type
 		else if (hierarchy == _sym_topmost)
-			*returnedContext = NULL;
+			returnedContext = kTTSymEmpty;
 	}
 }
 
 /** Get the class of the patcher from the file name (removing .model and .view convention name if they exist) */
-void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol *returnedClass)
+void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol& returnedClass)
 {
 	SymbolPtr	patcherName, hierarchy;
 	ObjectPtr	upperPatcher;
@@ -1336,7 +1337,7 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol *ret
 			end = s_toParse.end();
 		}
 		
-		*returnedClass = TT(s_toParse);	// TODO : replace each "." by the Uppercase of the letter after the "."
+		returnedClass = TT(s_toParse);	// TODO : replace each "." by the Uppercase of the letter after the "."
 	}
 	else {
 		
@@ -1351,12 +1352,12 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol *ret
 		}
 		// default case : a patcher has no class
 		else if (hierarchy == _sym_topmost)
-			*returnedClass = NULL;
+			returnedClass = kTTSymEmpty;
 	}
 }
 
 /** Get the name of the patcher from his arguments */
-void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol *returnedName)
+void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol& returnedName)
 {
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
@@ -1364,7 +1365,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol *retu
 	TTString		voiceFormat;
 	long			index;
 	
-	*returnedName = NULL;
+	returnedName = kTTSymEmpty;
 	
 	// try to get context name from the patcher arguments
 	hierarchy = jamoma_patcher_get_hierarchy(patcher);
@@ -1402,13 +1403,13 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol *retu
 				jamoma_edit_numeric_instance(&voiceFormat, &argName, index);
 			}
 			
-			*returnedName = TT(jamoma_parse_dieze(patcher, argName)->s_name);
+			returnedName = TT(jamoma_parse_dieze(patcher, argName)->s_name);
 		}
 	}
 }
 
 /** Get all context info from the root jcom model|view in the patcher */
-void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbol *returnedContext, TTSymbol *returnedClass,  TTSymbol *returnedName)
+void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbol& returnedContext, TTSymbol& returnedClass,  TTSymbol& returnedName)
 {
 	TTValue		patcherInfo;
 	ObjectPtr	obj;
@@ -1498,16 +1499,16 @@ void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 }
 
 /** Get all context info from an object (his patcher and the context, the class and the name of his patcher) */
-TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbol *returnedContext, TTSymbol *returnedClass,  TTSymbol *returnedName)
+TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbol& returnedContext, TTSymbol& returnedClass, TTSymbol& returnedName)
 {
 	TTBoolean	canShare;
 	SymbolPtr	_sym_jcomcontext;
 	TTString	viewName;
 	ObjectPtr	patcher;
 	ObjectPtr	sharedPatcher = NULL;
-	TTSymbol sharedContext = NULL;
-	TTSymbol sharedClass = NULL;
-	TTSymbol sharedName = NULL;
+	TTSymbol	sharedContext;
+	TTSymbol	sharedClass;
+	TTSymbol	sharedName;
 	
 	*returnedPatcher = jamoma_patcher_get(obj);
 	
@@ -1522,14 +1523,14 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		// try to get them from a jcom model|view around to go faster (except for jcom model|view of course)
 		if (!canShare) {
 			
-			jamoma_patcher_share_info(*returnedPatcher, &sharedPatcher, &sharedContext, &sharedClass, &sharedName);
+			jamoma_patcher_share_info(*returnedPatcher, &sharedPatcher, sharedContext, sharedClass, sharedName);
 			
 			if (sharedPatcher && sharedContext && sharedClass && sharedName) {
 
 				*returnedPatcher = sharedPatcher;
-				*returnedContext = sharedContext;
-				*returnedClass = sharedClass;
-				*returnedName = sharedName;
+				returnedContext = sharedContext;
+				returnedClass = sharedClass;
+				returnedName = sharedName;
 				return kTTErrNone;
 			}
 		}
@@ -1539,8 +1540,8 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		jamoma_patcher_get_context(returnedPatcher, returnedContext);
 		
 		// if still no context : stop the subscription process
-		if (!*returnedContext) {
-			*returnedName = S_SEPARATOR;
+		if (returnedContext != kTTSymEmpty) {
+			returnedName = S_SEPARATOR;
 			// can't find any jcom model|view with a correct context attribute in the patcher
 			// so this means the object have to be registered under the root
 			return kTTErrGeneric;
@@ -1550,28 +1551,28 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		jamoma_patcher_get_class(*returnedPatcher, *returnedContext, returnedClass);
 		
 		// if no class : set it as "Untitled" to continue the process
-		if (!*returnedClass)
-			*returnedClass = TT("Untitled");
+		if (returnedClass  != kTTSymEmpty)
+			returnedClass = TT("Untitled");
 		
 		// for jcom model|view object, use the patcher where it is to get the name
 		if (canShare)
-			jamoma_patcher_get_name(patcher, *returnedContext, returnedName);
+			jamoma_patcher_get_name(patcher, returnedContext, returnedName);
 		// else get the name from the argument of the patcher
 		else
-			jamoma_patcher_get_name(*returnedPatcher, *returnedContext, returnedName);
+			jamoma_patcher_get_name(*returnedPatcher, returnedContext, returnedName);
 		
 		// if no name
-		if (!*returnedName) {
+		if (returnedName != kTTSymEmpty) {
 			
 			// for model : used "class"
-			if (*returnedContext == kTTSym_model)
-				*returnedName = *returnedClass;
+			if (returnedContext == kTTSym_model)
+				returnedName = returnedClass;
 			
 			// for view : used "class(view)"
-			else if (*returnedContext == kTTSym_view) {
-				viewName = (*returnedClass)->getCString();
+			else if (returnedContext == kTTSym_view) {
+				viewName = returnedClass.c_str();
 				viewName += "(view)";
-				*returnedName = TT(viewName.data());
+				returnedName = TT(viewName.data());
 			}
 		}
 	}
@@ -1660,9 +1661,9 @@ void jamoma_edit_filename(TTString *format, TTSymbol className, SymbolPtr *retur
 	char *s_str;
 	long len;
 	
-	len = strlen(format->data()) + strlen(className->getCString());
+	len = strlen(format->data()) + strlen(className.c_str());
 	s_str = (char *)malloc(sizeof(char)*len);
-	snprintf(s_str, len, format->data(), className->getCString());
+	snprintf(s_str, len, format->data(), className.c_str());
 	*returnedFileName = gensym(s_str);
 	free(s_str);
 }

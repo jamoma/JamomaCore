@@ -67,13 +67,13 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	if (args.getSize() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
 			
 			// Create a new XmlWriter for filePath, with no compression.
-			mWriter = xmlNewTextWriterFilename(mFilePath->getCString(), 0);
+			mWriter = xmlNewTextWriterFilename(mFilePath.c_str(), 0);
 			if (mWriter == NULL) {
 				TT_ASSERT("testXmlwriterFilename: Error creating the xml writer\n", true);
 				return kTTErrGeneric;
@@ -94,10 +94,10 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			xmlTextWriterSetIndent(mWriter, 1);
 			
 			// Start Header information
-			xmlTextWriterStartElement(mWriter, BAD_CAST mHeaderNodeName->getCString());
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",			BAD_CAST mVersion->getCString());
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi",			BAD_CAST mXmlSchemaInstance->getCString());
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST mXmlSchemaLocation->getCString());
+			xmlTextWriterStartElement(mWriter, BAD_CAST mHeaderNodeName.c_str());
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",			BAD_CAST mVersion.c_str());
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi",			BAD_CAST mXmlSchemaInstance.c_str());
+			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST mXmlSchemaLocation.c_str());
 			
 			// Write data of the given TTObject (which have to implement a WriteAsXml message)
 			v.clear();
@@ -159,13 +159,13 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	if (args.getSize() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
 			
 			// Parse the file
-			mReader = xmlReaderForFile(mFilePath->getCString(), NULL, 0);
+			mReader = xmlReaderForFile(mFilePath.c_str(), NULL, 0);
 			if (mReader != NULL) {
 				
 				// Start reading
@@ -313,7 +313,7 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedVal
 {
 	TTErr err;
 	
-	if (xmlTextReaderMoveToAttribute(mReader, BAD_CAST attributeName->getCString()) == 1) {
+	if (xmlTextReaderMoveToAttribute(mReader, BAD_CAST attributeName.c_str()) == 1) {
 		
 		return fromXmlChar(xmlTextReaderValue(mReader), returnedValue, addQuote, numberAsSymbol);
 	}
@@ -321,7 +321,7 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedVal
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol *returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
 	TTErr	err;

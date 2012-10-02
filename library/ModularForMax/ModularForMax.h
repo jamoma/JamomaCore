@@ -13,25 +13,25 @@
 #include "TTModular.h"
 #include "TTSubscriber.h"
 
-extern TTSymbol			kTTSym_Jamoma;
+extern TTSymbol				kTTSym_Jamoma;
 extern TTApplicationPtr		JamomaApplication;
 extern TTNodeDirectoryPtr	JamomaDirectory;
 
-extern TTRegexPtr			ttRegexForJmod;			///< A global regex to parse jmod. (usefull to detect a 0.5 module)
-extern TTRegexPtr			ttRegexForJcom;			///< A global regex to parse jcom.
-extern TTRegexPtr			ttRegexForModel;		///< A global regex to parse .model
-extern TTRegexPtr			ttRegexForModule;		///< A global regex to parse .module
-extern TTRegexPtr			ttRegexForView;			///< A global regex to parse .view
-extern TTRegexPtr			ttRegexForMaxpat;		///< A global regex to parse .maxpat
-extern TTRegexPtr			ttRegexForMaxhelp;		///< A global regex to parse .maxhelp
-extern TTRegexPtr			ttRegexForBracket;		///< A global regex to parse [ and ]
+extern TTRegex*				ttRegexForJmod;			///< A global regex to parse jmod. (usefull to detect a 0.5 module)
+extern TTRegex*				ttRegexForJcom;			///< A global regex to parse jcom.
+extern TTRegex*				ttRegexForModel;		///< A global regex to parse .model
+extern TTRegex*				ttRegexForModule;		///< A global regex to parse .module
+extern TTRegex*				ttRegexForView;			///< A global regex to parse .view
+extern TTRegex*				ttRegexForMaxpat;		///< A global regex to parse .maxpat
+extern TTRegex*				ttRegexForMaxhelp;		///< A global regex to parse .maxhelp
+extern TTRegex*				ttRegexForBracket;		///< A global regex to parse [ and ]
 
-extern TTString				*ModelPatcherFormat;
-extern TTString				*ModelPresetFormat;
-extern TTString				*ViewPresetFormat;
-extern TTString				*HelpPatcherFormat;
-extern TTString				*RefpageFormat;
-extern TTString				*DocumentationFormat;
+extern TTString*			ModelPatcherFormat;
+extern TTString*			ModelPresetFormat;
+extern TTString*			ViewPresetFormat;
+extern TTString*			HelpPatcherFormat;
+extern TTString*			RefpageFormat;
+extern TTString*			DocumentationFormat;
 
 #define ModelPatcher "model" 
 #define ViewPatcher "view"
@@ -204,22 +204,22 @@ extern "C" {
 	SymbolPtr		jamoma_patcher_get_hierarchy(ObjectPtr patcher);
 
 	/** Get the context from the upper jcom model|view in the patcher or from patcher's name */
-	void			jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol *returnedContext);
+	void			jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol& returnedContext);
 
 	/** Get the class of the patcher from the file name (removing .model and .view convention name if they are in) */
-	void			jamoma_patcher_get_class(ObjectPtr patcher,  TTSymbol context, TTSymbol *returnedClass);
+	void			jamoma_patcher_get_class(ObjectPtr patcher,  TTSymbol context, TTSymbol& returnedClass);
 	
 	/** Get the name of the patcher from his arguments */
-	void			jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol *returnedName);
+	void			jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol& returnedName);
 	
 	/** Get all context info from the root jcom model|view in the patcher */
-	void			jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbol *returnedContext, TTSymbol *returnedClass,  TTSymbol *returnedName);
+	void			jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbol& returnedContext, TTSymbol& returnedClass,  TTSymbol& returnedName);
 
 	/** Get patcher's node from the root jcom model|view in the patcher */
 	void			jamoma_patcher_share_node(ObjectPtr obj, TTNodePtr *patcherNode);
 	
 	/** Get all context info from an object (his patcher and the context, the class and the name of his patcher) */
-	TTErr			jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbol *returnedContext, TTSymbol *returnedClass,  TTSymbol *returnedName);
+	TTErr			jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbol& returnedContext, TTSymbol& returnedClass,  TTSymbol& returnedName);
 
 	/** Get the "aClass.model" external in the patcher */
 	void			jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbol modelClass, ObjectPtr *returnedModelPatcher);

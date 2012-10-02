@@ -12,7 +12,7 @@
 #include "TTFoundationAPI.h"
 
 #define PROTOCOL_CONSTRUCTOR \
-TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
@@ -47,7 +47,7 @@ protected:
 
 	TTHashPtr					mDistantApplicationParameters;		///< ATTRIBUTE : hash table containing hash table of parameters 
 																	///< for each application registered for communication with this protocol
-																	///< <TTSymbolPtr applicationName, <TTSymbolPtr parameterName, TTValue value>>
+																	///< <TTSymbol applicationName, <TTSymbol parameterName, TTValue value>>
 public:																															
 	TTSymbol					mName;								///< ATTRIBUTE : the name of the protocol to use							
 	TTSymbol					mVersion;							///< ATTRIBUTE : the version of the protocol								

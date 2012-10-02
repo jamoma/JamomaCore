@@ -181,7 +181,7 @@ t_max_err send_setaddress(t_send *x, void *attr, AtomCount argc, AtomPtr argv)
 t_max_err send_getaddress(t_send *x, void *attr, AtomCount *argc, AtomPtr *argv)
 {
 	TTValue v;
-	TTSymbolPtr s;
+	TTSymbol s;
 	
 	*argc = 1;
 	
@@ -190,8 +190,8 @@ t_max_err send_getaddress(t_send *x, void *attr, AtomCount *argc, AtomPtr *argv)
 		
 		x->sender->getAttributeValue(TT("Address"), v);
 		s = NULL;
-		v.get(0, &s);
-		atom_setsym(*argv, gensym((char*)s->getCString()));
+		v.get(0, s);
+		atom_setsym(*argv, gensym((char*)s.c_str()));
 	}
 	else
 		return MAX_ERR_GENERIC;
@@ -219,7 +219,7 @@ t_max_err send_setattribute(t_send *x, void *attr, AtomCount argc, AtomPtr argv)
 t_max_err send_getattribute(t_send *x, void *attr, AtomCount *argc, AtomPtr *argv)
 {
 	TTValue v;
-	TTSymbolPtr s;
+	TTSymbol s;
 	
 	*argc = 1;
 	
@@ -228,8 +228,8 @@ t_max_err send_getattribute(t_send *x, void *attr, AtomCount *argc, AtomPtr *arg
 		
 		x->sender->getAttributeValue(TT("Attribute"), v);
 		s = NULL;
-		v.get(0, &s);
-		atom_setsym(*argv, gensym((char*)s->getCString()));
+		v.get(0, s);
+		atom_setsym(*argv, gensym((char*)s.c_str()));
 	}
 	else
 		return MAX_ERR_GENERIC;

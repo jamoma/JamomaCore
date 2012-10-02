@@ -83,7 +83,7 @@ private:
 	TTHashPtr					mTTToApp;			///< Hash table to convert TT names into Application names
 	TTValue						mAllTTNames;		///< All TT names
 	
-	TTAddress			mTempAddress;		///< a temporary address to parse opml file
+	TTAddress					mTempAddress;		///< a temporary address to parse opml file
 	
 	/** Set name of the application (and his directory) */
 	TTErr setName(const TTValue& value);

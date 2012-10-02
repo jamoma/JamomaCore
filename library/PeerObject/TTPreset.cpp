@@ -51,7 +51,7 @@ TTPreset::~TTPreset()
 TTErr TTPreset::setAddress(const TTValue& value)
 {	
 	Clear();
-	value.get(0, &mAddress);
+	value.get(0, mAddress);
 	
 	mDirectory = getDirectoryFrom(mAddress);
 	
@@ -98,7 +98,7 @@ TTErr TTPreset::Store()
 			allObjectNodes.current().get(0, (TTPtr*)&aNode);
 			
 			// get relative address
-			aNode->getAddress(&aRelativeAddress, mAddress);
+			aNode->getAddress(aRelativeAddress, mAddress);
 			
 			// get object
 			anObject = aNode->getObject();
@@ -232,7 +232,7 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 		
 		if (o->getName() == kTTSym_Data) {
 			o->getAttributeValue(kTTSym_service, v);
-			v.get(0, &s);
+			v.get(0, s);
 			return s == kTTSym_parameter;
 		}
 	}

@@ -75,7 +75,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 		aMapper->getAttributeNames(attributesList);
 		for (int i = 0; i < attributesList.getSize(); i++) {
 
-			attributesList.get(i, &attributeName);
+			attributesList.get(i, attributeName);
 
 			// Get string value and fill xml except for FunctionLibrary & FunctionSamples attributes (don't need in xml)
 			if (attributeName != TT("functionLibrary") && attributeName != TT("functionSamples") && attributeName != TT("functionParameters")) {
@@ -84,7 +84,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 				v.toString();
 				v.get(0, s);
 
-				xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST attributeName->getCString(), "%s", BAD_CAST s.c_str());
+				xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), "%s", BAD_CAST s.c_str());
 				v.clear();
 				s.clear();
 			}
@@ -140,7 +140,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "mute") == 1) {
 			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
 			if (v.getType() == kTypeSymbol)
-				v.get(0, &mute);
+				v.get(0, mute);
 		}
 		
 		if (mute == TT("false")) {
@@ -155,7 +155,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 				// Get attribute name
 				aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
 				if (v.getType() == kTypeSymbol) {
-					v.get(0, &attributeName);
+					v.get(0, attributeName);
 					v.clear();
 
 					// Get attribute value
@@ -177,6 +177,6 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 TTErr TTMapperManager::setAddress(const TTValue& value)
 {	
 	New();
-	value.get(0, &mAddress);
+	value.get(0, mAddress);
 	return kTTErrNone;
 }
