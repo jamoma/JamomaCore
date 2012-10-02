@@ -59,7 +59,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 	TTXmlHandlerPtr		aXmlHandler;
 	TTMapperPtr			aMapper;
 	TTValue				v, attributesList;
-	TTSymbolPtr			attributeName;
+	TTSymbol			attributeName;
 	TTString			s;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
@@ -106,7 +106,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
-	TTSymbolPtr		attributeName, mute;
+	TTSymbol		attributeName, mute;
 	TTMapperPtr		newMapper;
 	TTValue			v, args;
 

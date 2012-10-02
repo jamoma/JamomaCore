@@ -90,7 +90,7 @@ TTExplorer::~TTExplorer()
 
 TTErr TTExplorer::setNamespace(const TTValue& value)
 {
-	TTNodeAddressItemPtr aNamespace;
+	TTAddressItemPtr aNamespace;
 	
 	// unregister from the former namespace
 	aNamespace = lookupNamespace(mNamespace);
@@ -112,7 +112,7 @@ TTErr TTExplorer::setNamespace(const TTValue& value)
 
 TTErr TTExplorer::setOutput(const TTValue& value)
 {
-	TTSymbolPtr newOutput = value;
+	TTSymbol newOutput = value;
 	
 	if (newOutput == kTTSym_descendants || 
 		newOutput == kTTSym_children || 
@@ -159,7 +159,7 @@ TTErr TTExplorer::setUpdate(const TTValue& value)
 
 TTErr TTExplorer::setSort(const TTValue& value)
 {
-	TTSymbolPtr oldSort = mSort;
+	TTSymbol oldSort = mSort;
 	
 	mSort = value;
 	
@@ -276,8 +276,8 @@ TTErr TTExplorer::unbindApplication()
 
 TTErr TTExplorer::Explore()
 {
-	TTNodeAddressPtr relativeAddress;
-	TTSymbolPtr	attributeName;
+	TTAddress relativeAddress;
+	TTSymbol	attributeName;
 	TTList		aNodeList, internalFilterList, allObjectNodes;
 	TTNodePtr	aNode;
 	TTObjectPtr	o;
@@ -309,7 +309,7 @@ TTErr TTExplorer::Explore()
 				
 				// memorized the result in a hash table
 				for (TTUInt32 i=0; i<v.getSize(); i++) {
-					v.get(i, (TTSymbolPtr*)&attributeName);
+					v.get(i, (TTSymbol*)&attributeName);
 					mResult->append(attributeName, kTTValNONE);
 				}
 			}
@@ -378,9 +378,9 @@ TTErr TTExplorer::Explore()
 
 TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTNodeAddressItemPtr aNamespace = lookupNamespace(mNamespace);
-	TTNodeAddressItemPtr anItem;
-	TTNodeAddressPtr	itemSymbol;	
+	TTAddressItemPtr aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr anItem;
+	TTAddress	itemSymbol;	
 	TTInt32				i, number;
 	TTBoolean			state;
 	
@@ -459,9 +459,9 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTExplorer::SelectAll()
 {
-	TTNodeAddressItemPtr aNamespace = lookupNamespace(mNamespace);
-	TTNodeAddressItemPtr anItem;
-	TTNodeAddressPtr	itemSymbol;	
+	TTAddressItemPtr aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr anItem;
+	TTAddress	itemSymbol;	
 	TTInt32				i;
 	
 	if (aNamespace) {
@@ -493,9 +493,9 @@ TTErr TTExplorer::SelectAll()
 /** Set all selection state to NO */
 TTErr TTExplorer::SelectNone()
 {
-	TTNodeAddressItemPtr aNamespace = lookupNamespace(mNamespace);
-	TTNodeAddressItemPtr anItem;
-	TTNodeAddressPtr	itemSymbol;	
+	TTAddressItemPtr aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr anItem;
+	TTAddress	itemSymbol;	
 	TTInt32				i;
 	
 	if (aNamespace) {
@@ -531,7 +531,7 @@ TTErr TTExplorer::SelectRefresh()
 TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr afilter = NULL;
-	TTSymbolPtr		filterName, filterKey;
+	TTSymbol		filterName, filterKey;
 	TTValue			v, filterValue;
 	TTErr			err;
 	
@@ -584,7 +584,7 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr afilter;
-	TTSymbolPtr		filterName;
+	TTSymbol		filterName;
 	TTValue			v, filterValue;
 	TTErr			err;
 	
@@ -622,7 +622,7 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTExplorer::FilterInfo(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr aFilter;
-	TTSymbolPtr		filterName, key;
+	TTSymbol		filterName, key;
 	TTValue			v, filterKeys, filterValue;
 	TTErr			err;
 	
@@ -662,7 +662,7 @@ TTErr TTExplorer::FilterInfo(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTExplorer::getFilterList(TTValue& value)
 {
-	TTSymbolPtr filterName;
+	TTSymbol filterName;
 	value.clear();
 	
 	for (mFilterList->begin(); mFilterList->end(); mFilterList->next())
@@ -676,7 +676,7 @@ TTErr TTExplorer::getFilterList(TTValue& value)
 
 TTErr TTExplorer::setFilterList(const TTValue& value)
 {
-	TTSymbolPtr filterName;
+	TTSymbol filterName;
 	TTUInt32	i;
 	TTValue		v;
 	TTBoolean	anError = NO;
@@ -721,8 +721,8 @@ TTErr TTExplorer::WriteAsOpml(const TTValue& inputValue, TTValue& outputValue)
 
 void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 {
-	TTNodeAddressPtr nameInstance;
-	TTSymbolPtr objectName, attributeName;
+	TTAddress nameInstance;
+	TTSymbol objectName, attributeName;
 	TTObjectPtr anObject;
 	TTValue		attributeNameList, v, c;
 	TTList		nodeList;
@@ -733,7 +733,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
 	
 	// Write address attribute
-	nameInstance = makeTTNodeAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
+	nameInstance = makeTTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
 	xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST nameInstance->getCString());
 	
 	anObject = aNode->getObject();
@@ -796,9 +796,9 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 TTErr TTExplorer::returnResultBack()
 {
 	TTValue				keys, result;
-	TTNodeAddressItemPtr aNamespace, anItem;
-	TTNodeAddressPtr	relativeAddress;
-	TTSymbolPtr			newName, lastName = kTTSymEmpty;
+	TTAddressItemPtr aNamespace, anItem;
+	TTAddress	relativeAddress;
+	TTSymbol			newName, lastName = kTTSymEmpty;
 	TTUInt32			i, j;
 	TTBoolean			found;
 	
@@ -886,9 +886,9 @@ TTErr TTExplorer::returnResultBack()
 
 TTErr TTExplorer::returnSelectionBack()
 {
-	TTNodeAddressItemPtr aNamespace = lookupNamespace(mNamespace);
-	TTNodeAddressItemPtr anItem;
-	TTNodeAddressPtr	itemSymbol;
+	TTAddressItemPtr aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr anItem;
+	TTAddress	itemSymbol;
 	TTValue				selection;
 	TTInt32				i;
 	
@@ -934,8 +934,8 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTValue			t, v = kTTValNONE;
 	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
-	TTNodeAddressPtr anAddress, relativeAddress;
-	TTSymbolPtr		key;
+	TTAddress anAddress, relativeAddress;
+	TTSymbol		key;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTCallbackPtr	anObserver;
@@ -1036,7 +1036,7 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
-	TTSymbolPtr		anApplicationName;
+	TTSymbol		anApplicationName;
 	TTApplicationPtr anApplication;
 	TTValue			v;
 	TTUInt8			flag;

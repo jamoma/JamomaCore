@@ -42,7 +42,7 @@
 
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
-#include "TTNodeAddressItem.h"
+#include "TTAddressItem.h"
 
 #include "TTModularSymbolCache.h"
 
@@ -121,7 +121,7 @@ void	TTMODULAR_EXPORT	TTModularInit();
 void	TTMODULAR_EXPORT	TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);
 
 /** Get a namespace */
-TTNodeAddressItemPtr	TTMODULAR_EXPORT	TTModularNamespacesLookup(TTSymbolPtr namespaceName);
+TTAddressItemPtr	TTMODULAR_EXPORT	TTModularNamespacesLookup(TTSymbol namespaceName);
 
 
 #endif // __TT_MODULAR_H__

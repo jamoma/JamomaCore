@@ -41,15 +41,15 @@ public:
 
 private:
 	
-	TTNodeAddressPtr			mRelativeAddress;			///< the address of this subscriber relative to the Context node
+	TTAddress			mRelativeAddress;			///< the address of this subscriber relative to the Context node
 	
 	TTObjectPtr					mObject;					///< the object to subscribe
 	
 	TTNodePtr					mNode;						///< cache the TTNode relative to this subscriber
-	TTNodeAddressPtr			mNodeAddress;				///< cache the address of this subscriber in the tree structure
+	TTAddress			mNodeAddress;				///< cache the address of this subscriber in the tree structure
 	
 	TTNodePtr					mContextNode;				///< cache the TTNode relative to the Context
-	TTNodeAddressPtr			mContextAddress;			///< cache the address of the Context node in the tree structure
+	TTAddress			mContextAddress;			///< cache the address of the Context node in the tree structure
 	
 	TTBoolean					mNewInstanceCreated;		///< a flag to know if a new instance has been automatically generated
 	
@@ -77,16 +77,16 @@ private:
 public:
 	
 	/** Expose a message of any TTObject as TTData in the same context than subscribed object */
-	TTErr exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName, TTDataPtr *returnedData);
+	TTErr exposeMessage(TTObjectPtr anObject, TTSymbol messageName, TTDataPtr *returnedData);
 	
 	/** Expose an attribute of any TTObject as TTData (parameter or return) in the same context than subscribed object */
-	TTErr exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeName, TTSymbolPtr service, TTDataPtr *returnedData);
+	TTErr exposeAttribute(TTObjectPtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData);
 	
 	/** Remove message exposition */
-	TTErr unexposeMessage(TTSymbolPtr messageName);
+	TTErr unexposeMessage(TTSymbol messageName);
 	
 	/** Remove attribute exposition */
-	TTErr unexposeAttribute(TTSymbolPtr attributeName);
+	TTErr unexposeAttribute(TTSymbol attributeName);
 };
 
 typedef TTSubscriber* TTSubscriberPtr;

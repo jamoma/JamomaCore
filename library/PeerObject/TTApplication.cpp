@@ -152,7 +152,7 @@ TTErr TTApplication::setName(const TTValue& value)
 TTErr TTApplication::setActivity(const TTValue& value)
 {	
 	TTValue		protocols = getApplicationProtocols(mName);
-	TTSymbolPtr protocolName;
+	TTSymbol protocolName;
 	
 	mActivity = value;
 	
@@ -196,8 +196,8 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTString			editKey;
-	TTSymbolPtr			appToNotify, key;
-	TTNodeAddressPtr	whereToListen;
+	TTSymbol			appToNotify, key;
+	TTAddress	whereToListen;
 	TTCallbackPtr		returnValueCallback;
 	TTValuePtr			returnValueBaton;
 	TTValue				cacheElement;
@@ -242,8 +242,8 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTString			editKey;
-	TTSymbolPtr			appToNotify, key;
-	TTNodeAddressPtr	whereToListen;
+	TTSymbol			appToNotify, key;
+	TTAddress	whereToListen;
 	TTCallbackPtr		returnValueCallback;
 	TTValue				cacheElement;
 	
@@ -270,8 +270,8 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTString			editKey;
-	TTSymbolPtr			appToNotify, key;
-	TTNodeAddressPtr	whereToListen;
+	TTSymbol			appToNotify, key;
+	TTAddress	whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
@@ -338,8 +338,8 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTString			editKey;
-	TTSymbolPtr			appToNotify, key;
-	TTNodeAddressPtr	whereToListen;
+	TTSymbol			appToNotify, key;
+	TTAddress	whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
 	TTObjectPtr			anObject, returnValueCallback;
@@ -395,7 +395,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 
 TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTNodeAddressPtr	whereComesFrom;
+	TTAddress	whereComesFrom;
 	TTValuePtr			newValue;
 	TTBoolean			enable;
 	
@@ -419,7 +419,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodePtr			nodeToUpdate;
-	TTNodeAddressPtr	whereComesFrom;
+	TTAddress	whereComesFrom;
 	TTValuePtr			newValue;
 	TTMirrorPtr			aMirror;
 	TTErr				err;
@@ -464,8 +464,8 @@ TTErr TTApplication::getAllTTNames(TTValue& value)
 TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue				c;
-	TTSymbolPtr			ttName;
-	TTSymbolPtr			appName;
+	TTSymbol			ttName;
+	TTSymbol			appName;
 	
 	// if there is only 1 symbol : replace value directly by the found one.
 	// because it's possible to have conversion containing several appNames for 1 ttname
@@ -493,8 +493,8 @@ TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& output
 TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue				c;
-	TTSymbolPtr			appName;
-	TTSymbolPtr			ttName;
+	TTSymbol			appName;
+	TTSymbol			ttName;
 	
 	// if there is only 1 symbol : replace value directly by the founded one.
 	// because it's possible to have conversion containing several ttNames for 1 appName
@@ -523,7 +523,7 @@ TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputV
 TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
-	TTSymbolPtr			protocolName, parameterName;
+	TTSymbol			protocolName, parameterName;
 	TTString			aString;
 	TTHashPtr			parameters;
     TTValue				keys, p_keys, v, protocolNames;
@@ -598,7 +598,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTString		anAppKey, aTTKey;
 	TTHashPtr		parameters;
-	TTSymbolPtr		protocolName, parameterName;
+	TTSymbol		protocolName, parameterName;
 	TTValue			appValue, ttValue, v, nameValue, parameterValue;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
@@ -719,8 +719,8 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTOpmlHandlerPtr	aOpmlHandler = NULL;	
-	TTSymbolPtr			nodeNameInstance, objectName, attributeName, protocolName;
-	TTNodeAddressPtr	absoluteAddress;
+	TTSymbol			nodeNameInstance, objectName, attributeName, protocolName;
+	TTAddress	absoluteAddress;
 	TTMirrorPtr			aMirror;
 	TTNodePtr			aNode;
 	TTBoolean			empty, newInstanceCreated;
@@ -873,9 +873,9 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 #pragma mark Some Methods
 #endif
 
-TTNodeDirectoryPtr TTApplicationGetDirectory(TTNodeAddressPtr anAddress)
+TTNodeDirectoryPtr TTApplicationGetDirectory(TTAddress anAddress)
 {
-	TTSymbolPtr			applicationName;
+	TTSymbol			applicationName;
 	TTApplicationPtr	anApplication;
 	
 	if (TTModularApplications && anAddress != kTTAdrsEmpty) {
@@ -894,11 +894,11 @@ TTNodeDirectoryPtr TTApplicationGetDirectory(TTNodeAddressPtr anAddress)
 	return NULL;
 }
 
-TTSymbolPtr TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName)
+TTSymbol TTApplicationConvertAppNameToTTName(TTSymbol anAppName)
 {
 	TTErr		err;
 	TTValue		c;
-	TTSymbolPtr converted = anAppName;
+	TTSymbol converted = anAppName;
 	
 	if (TTModularApplications) {
 		
@@ -912,11 +912,11 @@ TTSymbolPtr TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName)
 	return converted;
 }
 
-TTSymbolPtr TTApplicationConvertTTNameToAppName(TTSymbolPtr aTTName)
+TTSymbol TTApplicationConvertTTNameToAppName(TTSymbol aTTName)
 {
 	TTErr		err;
 	TTValue		c;
-	TTSymbolPtr converted = kTTSymEmpty;
+	TTSymbol converted = kTTSymEmpty;
 	
 	if (TTModularApplications) {
 		

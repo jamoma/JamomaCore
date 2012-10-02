@@ -23,12 +23,12 @@ class TTMODULAR_EXPORT TTContainer : public TTDataObject
 private:
 
 	TTUInt8				mPriority;						///< ATTRIBUTE: does this container have a priority over other containers ?
-	TTSymbolPtr			mDescription;					///< ATTRIBUTE: a text label to describe the role of this container
-	TTSymbolPtr			mType;							///< ATTRIBUTE: a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
+	TTSymbol			mDescription;					///< ATTRIBUTE: a text label to describe the role of this container
+	TTSymbol			mType;							///< ATTRIBUTE: a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
 	TTValue				mTag;							///< ATTRIBUTE: tag list for this container (to -- why keep the type attribute in this case ?)
 	TTBoolean			mInitialized;					///< ATTRIBUTE: is it initialized ?
-	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE: the address of the container in the directory
-	TTNodeAddressPtr	mAlias;							///< ATTRIBUTE: an alias address to retrieve the container using another address
+	TTAddress	mAddress;						///< ATTRIBUTE: the address of the container in the directory
+	TTAddress	mAlias;							///< ATTRIBUTE: an alias address to retrieve the container using another address
 	TTValue				mActivityIn;					///< ATTRIBUTE : a local value to allow observation of incoming data
 	TTValue				mActivityOut;					///< ATTRIBUTE : a local value to allow observation of outputing data
 	

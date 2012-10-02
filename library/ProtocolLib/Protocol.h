@@ -49,9 +49,9 @@ protected:
 																	///< for each application registered for communication with this protocol
 																	///< <TTSymbolPtr applicationName, <TTSymbolPtr parameterName, TTValue value>>
 public:																															
-	TTSymbolPtr					mName;								///< ATTRIBUTE : the name of the protocol to use							
-	TTSymbolPtr					mVersion;							///< ATTRIBUTE : the version of the protocol								
-	TTSymbolPtr					mAuthor;							///< ATTRIBUTE : the author of the protocol								
+	TTSymbol					mName;								///< ATTRIBUTE : the name of the protocol to use							
+	TTSymbol					mVersion;							///< ATTRIBUTE : the version of the protocol								
+	TTSymbol					mAuthor;							///< ATTRIBUTE : the author of the protocol								
 	TTBoolean					mExploration;						///< ATTRIBUTE : is the Protocol provide namespace exploration features ?
 	TTBoolean					mRunning;							///< ATTRIBUTE : is the Protocol reception thread enable ?
 	TTBoolean					mActivity;							///< ATTRIBUTE : is the Protocol activity thread enable ?
@@ -122,7 +122,7 @@ public:
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
-	virtual TTErr SendDiscoverRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendDiscoverRequest(TTSymbol to, TTAddress address, 
 									  TTValue& returnedChildrenNames,
 									  TTValue& returnedChildrenTypes,
 									  TTValue& returnedAttributes)=0;
@@ -136,7 +136,7 @@ public:
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
-	virtual TTErr SendGetRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendGetRequest(TTSymbol to, TTAddress address, 
 								 TTValue& returnedValue)=0;
 	
 	/*!
@@ -147,7 +147,7 @@ public:
 	 * \param value					: anything to send
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	virtual TTErr SendSetRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendSetRequest(TTSymbol to, TTAddress address, 
 								 TTValue& value)=0;
 	
 	/*!
@@ -159,7 +159,7 @@ public:
 	 * \param enable				: enable/disable the listening
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
-	virtual TTErr SendListenRequest(TTSymbolPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendListenRequest(TTSymbol to, TTAddress address, 
 									TTBoolean enable)=0;
 	
 	
@@ -178,7 +178,7 @@ public:
 	 * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
 	 * \param returnedAttributes	: all attributes the node at the address
 	 */
-	virtual TTErr SendDiscoverAnswer(TTSymbolPtr to, TTNodeAddressPtr address,
+	virtual TTErr SendDiscoverAnswer(TTSymbol to, TTAddress address,
 									 TTValue& returnedChildrenNames,
 									 TTValue& returnedChildrenTypes,
 									 TTValue& returnedAttributes,
@@ -191,7 +191,7 @@ public:
 	 * \param address				: the address where comes from the value
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	virtual TTErr SendGetAnswer(TTSymbolPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendGetAnswer(TTSymbol to, TTAddress address, 
 								TTValue& returnedValue,
 								TTErr err=kTTErrNone)=0;
 	
@@ -202,7 +202,7 @@ public:
 	 * \param address				: the address where comes from the value
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
-	virtual TTErr SendListenAnswer(TTSymbolPtr to, TTNodeAddressPtr address, 
+	virtual TTErr SendListenAnswer(TTSymbol to, TTAddress address, 
 								   TTValue& returnedValue,
 								   TTErr err=kTTErrNone)=0;
 	
@@ -220,7 +220,7 @@ public:
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to discover
 	 */
-	TTErr ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address);
+	TTErr ReceiveDiscoverRequest(TTSymbol from, TTAddress address);
 	
 	/*!
 	 * Notify the protocol that an application ask for value
@@ -230,7 +230,7 @@ public:
 	 * \param from					: the application where comes from the request
 	 * \param address				: the address the application wants to get
 	 */
-	TTErr ReceiveGetRequest(TTSymbolPtr from, TTNodeAddressPtr address);
+	TTErr ReceiveGetRequest(TTSymbol from, TTAddress address);
 	
 	/*!
 	 * Notify the protocol that an application wants to set value
@@ -241,7 +241,7 @@ public:
 	 * \param address				: the address the application wants to get
 	 * \param newValue				: the incoming value
 	 */
-	TTErr ReceiveSetRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue);
+	TTErr ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& newValue);
 	
 	/*!
 	 * Notify the protocol that an application wants to listen (or not) the namespace
@@ -252,7 +252,7 @@ public:
 	 * \param address				: the address the application wants to listen
 	 * \param enable				: enable/disable the listening
 	 */
-	TTErr ReceiveListenRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTBoolean enable);
+	TTErr ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean enable);
 	
 	/**************************************************************************************************************************
 	 *
@@ -271,7 +271,7 @@ public:
 	 * \param address				: the address where comes from the answer
 	 * \param newValue				: the answered value
 	 */
-	TTErr ReceiveListenAnswer(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue);
+	TTErr ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& newValue);
 	
 	/**************************************************************************************************************************
 	 *
@@ -307,7 +307,7 @@ public:
 	friend TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(TTPtr baton, TTValue& data);
 	friend TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& data);
 	
-	friend TTSymbolPtr TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
+	friend TTSymbol TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
 
 };
 typedef Protocol* ProtocolPtr;
@@ -353,7 +353,7 @@ TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& 
 /** Get the current name of the local application
  @param	aProtocol					..
  @return							the name of the local application */
-TTSymbolPtr TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
+TTSymbol TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
 
 #endif	//__PROTOCOL_H__
 
@@ -363,7 +363,7 @@ TTSymbolPtr TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol)
 class TT_EXTENSION_EXPORT ProtocolLib {
 public:
 	/** Instantiate a protocol by name */
-	static TTErr createProtocol(const TTSymbolPtr protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback);
+	static TTErr createProtocol(const TTSymbol protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback);
 	
 	/**	Return a list of all available protocols. */
 	static void getProtocolNames(TTValue& protocolNames);

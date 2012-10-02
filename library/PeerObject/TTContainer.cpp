@@ -93,8 +93,8 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTNodeAddressPtr aRelativeAddress, topAddress, belowAddress;
-	TTSymbolPtr		attrOrMess, service;
+	TTAddress aRelativeAddress, topAddress, belowAddress;
+	TTSymbol		attrOrMess, service;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 	TTErr			err = kTTErrNone;
@@ -205,7 +205,7 @@ TTErr TTContainer::Init()
 	TTValue			cacheElement;
 	TTObjectPtr		anObject;
 	TTAttributePtr	anAttribute;
-	TTSymbolPtr		key, service;
+	TTSymbol		key, service;
 	TTUInt32		i;
 	
 	// Restart initialisation
@@ -278,11 +278,11 @@ TTErr TTContainer::setAddress(const TTValue& value)
 TTErr TTContainer::setAlias(const TTValue& value)
 {
 	TTNodeDirectoryPtr localDirectory = getLocalDirectory;
-	TTNodeAddressPtr oldAlias = mAlias;
+	TTAddress oldAlias = mAlias;
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject;
 	TTValue			hk, cacheElement;
-	TTSymbolPtr		key;
+	TTSymbol		key;
 	TTUInt32		i;
 	TTString		aliasKey;
 	
@@ -463,8 +463,8 @@ TTErr TTContainer::bind()
 TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 {
 	TTValue			cacheElement, v;
-	TTNodeAddressPtr aRelativeAddress;
-	TTSymbolPtr		service;
+	TTAddress aRelativeAddress;
+	TTSymbol		service;
 	TTObjectPtr		anObject, valueObserver, commandObserver, returnedValueObserver, activityInObserver, activityOutObserver;
 	TTAttributePtr	anAttribute = NULL;
 	TTMessagePtr	aMessage;
@@ -624,10 +624,10 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 
 TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 {
-	TTNodeAddressPtr aRelativeAddress;
+	TTAddress aRelativeAddress;
 	TTValue			v, cacheElement;
 	TTObjectPtr		anObject, anObserver;
-	TTSymbolPtr		service;
+	TTSymbol		service;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 	TTErr			err;
@@ -749,7 +749,7 @@ TTErr TTContainer::unbind()
 	TTObjectPtr		anObject, aValueObserver, aCommandObserver;//, anInitObserver;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
-	TTSymbolPtr		key;
+	TTSymbol		key;
 	TTUInt8			i;
 	TTErr			err;
 	
@@ -820,7 +820,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTString		*buffer;
 	TTUInt16		i;
 	TTValue			keys, cacheElement, s, arg;
-	TTSymbolPtr		name, service;
+	TTSymbol		name, service;
 	TTObjectPtr		anObject;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
@@ -1253,7 +1253,7 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTPtr			hisContext;
 	TTCallbackPtr	anObserver;
 	TTNodePtr		aNode;
-	TTNodeAddressPtr anAddress;
+	TTAddress anAddress;
 	TTUInt8			flag;
 	
 	// unpack baton (a TTContainerPtr, his Context)
@@ -1301,7 +1301,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 	TTValue			cacheElement, v;
 	TTObjectPtr		anObject;
 	TTContainerPtr	aContainer;
-	TTNodeAddressPtr relativeAddress, relativeDataAddress;
+	TTAddress relativeAddress, relativeDataAddress;
 	TTValue			address;
 	TTErr			err;
 	
@@ -1356,7 +1356,7 @@ TTErr TTContainerCommandMessageCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTContainerPtr	aContainer;
-	TTNodeAddressPtr relativeAddress;
+	TTAddress relativeAddress;
 	TTValue			address;
 	
 	// unpack baton

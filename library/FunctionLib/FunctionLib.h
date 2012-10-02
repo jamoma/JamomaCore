@@ -23,7 +23,7 @@ public:
 	 @param unitName	The name of the unit.
 	 @param unit		Pointer to the unit.
 	 */
-	static TTErr createUnit(const TTSymbolPtr unitName, TTObject **unit);
+	static TTErr createUnit(const TTSymbol unitName, TTObject **unit);
 
 	/**	Return a list of all available functions. */
 	static void getUnitNames(TTValue& unitNames);

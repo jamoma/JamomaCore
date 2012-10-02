@@ -25,7 +25,7 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	
 	private :
 	
-	TTSymbolPtr					mName;							///< ATTRIBUTE : the name of the cue
+	TTSymbol					mName;							///< ATTRIBUTE : the name of the cue
 	TTUInt32					mRamp;							///< ATTRIBUTE : a time ramping value for the cue
 	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
 	
@@ -53,10 +53,10 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** a recursive method to store a namespace into a script object */
-	TTErr	processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, const TTNodeAddressItemPtr aNamespace);
+	TTErr	processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TTAddressItemPtr aNamespace);
 	
 	/** a recursive method to process a namespace selection from a script object */
-	TTErr	processSelect(TTObjectPtr aScript, TTNodeAddressItemPtr aNamespace);
+	TTErr	processSelect(TTObjectPtr aScript, TTAddressItemPtr aNamespace);
 	
 	/** a recursive method to change each ramping value into a script */
 	TTErr	processRamp(TTObjectPtr aScript, TTUInt32 ramp);

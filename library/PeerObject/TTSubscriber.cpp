@@ -68,8 +68,8 @@ TTSubscriber::~TTSubscriber()
 	TTValue				aTempValue;
 	TTValue				keys;
 	TTValue				storedObject;
-	TTNodeAddressPtr	objectAddress, nameToAddress;
-	TTSymbolPtr			k;
+	TTAddress	objectAddress, nameToAddress;
+	TTSymbol			k;
 	TTObjectPtr			anObject;
 	TTUInt8				i;
 	TTErr				err;
@@ -112,7 +112,7 @@ TTSubscriber::~TTSubscriber()
 			mExposedMessages->lookup(k, storedObject);
 			storedObject.get(0, (TTPtr*)&anObject);
 			
-			nameToAddress = convertTTNameInTTNodeAddress(k);
+			nameToAddress = convertTTNameInTTAddress(k);
 			objectAddress = mNodeAddress->appendAddress(nameToAddress);
 			
 			aDirectory->TTNodeRemove(objectAddress);
@@ -133,7 +133,7 @@ TTSubscriber::~TTSubscriber()
 			mExposedAttributes->lookup(k, storedObject);
 			storedObject.get(0, (TTPtr*)&anObject);
 			
-			nameToAddress = convertTTNameInTTNodeAddress(k);
+			nameToAddress = convertTTNameInTTAddress(k);
 			objectAddress = mNodeAddress->appendAddress(nameToAddress);
 			
 			aDirectory->TTNodeRemove(objectAddress);
@@ -149,7 +149,7 @@ TTSubscriber::~TTSubscriber()
 TTErr TTSubscriber::subscribe( )
 {
 	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribe into local directory
-	TTNodeAddressPtr	contextAddress, absoluteAddress;
+	TTAddress	contextAddress, absoluteAddress;
 	TTValue				aTempValue, args;
 	TTPtr				ourContext, hisContext;
 	TTListPtr			aContextList;
@@ -244,8 +244,8 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 {
 	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTValue				args;
-	TTSymbolPtr			formatedContextSymbol;
-	TTNodeAddressPtr	relativeContextAddress, contextAddress, lowerContextAddress;
+	TTSymbol			formatedContextSymbol;
+	TTAddress	relativeContextAddress, contextAddress, lowerContextAddress;
 	TTList				contextNodeList, attributesAccess;
 	TTNodePtr			contextNode, lowerContextNode;
 	TTPtr				aContext, lowerContext;
@@ -337,13 +337,13 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 	return kTTErrNone;
 }
 
-TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName, TTDataPtr *returnedData)
+TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbol messageName, TTDataPtr *returnedData)
 {
 	TTValue			args, v;
 	TTDataPtr		aData;
 	TTCallbackPtr	returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTNodeAddressPtr nameToAddress, dataAddress;
+	TTAddress nameToAddress, dataAddress;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
 	TTPtr			aContext;
@@ -363,7 +363,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName,
 	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(&aData), args);
 	
 	// register TTData into the local tree
-	nameToAddress = convertTTNameInTTNodeAddress(messageName);
+	nameToAddress = convertTTNameInTTAddress(messageName);
 	dataAddress = mNodeAddress->appendAddress(nameToAddress);
 	aContext = mNode->getContext();
 	getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
@@ -378,7 +378,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbolPtr messageName,
 	return kTTErrNone;
 }
 
-TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeName, TTSymbolPtr service, TTDataPtr *returnedData)
+TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData)
 {
 	TTValue			args, v;
 	TTDataPtr		aData;
@@ -387,7 +387,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 	TTCallbackPtr	observeValueCallback;			// to set the data when an object attribute changed
 	TTValuePtr		observeValueBaton;
 	TTAttributePtr	anAttribute = NULL;
-	TTNodeAddressPtr nameToAddress, dataAddress;
+	TTAddress nameToAddress, dataAddress;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
 	TTPtr			aContext;
@@ -409,7 +409,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 		TTObjectInstantiate(kTTSym_Data, TTObjectHandle(&aData), args);
 		
 		// register TTData into the local tree
-		nameToAddress = convertTTNameInTTNodeAddress(attributeName);
+		nameToAddress = convertTTNameInTTAddress(attributeName);
 		dataAddress = mNodeAddress->appendAddress(nameToAddress);
 		aContext = mNode->getContext();
 		getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
@@ -442,17 +442,17 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbolPtr attributeN
 	return kTTErrNone;
 }
 
-TTErr TTSubscriber::unexposeMessage(TTSymbolPtr messageName)
+TTErr TTSubscriber::unexposeMessage(TTSymbol messageName)
 {
 	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTValue				storedObject;
-	TTNodeAddressPtr	objectAddress, nameToAddress;
+	TTAddress	objectAddress, nameToAddress;
 	TTObjectPtr			anObject;
 	
 	if (!mExposedMessages->lookup(messageName, storedObject)) {
 		storedObject.get(0, (TTPtr*)&anObject);
 		
-		nameToAddress = convertTTNameInTTNodeAddress(messageName);
+		nameToAddress = convertTTNameInTTAddress(messageName);
 		objectAddress = mNodeAddress->appendAddress(nameToAddress);
 		
 		aDirectory->TTNodeRemove(objectAddress);
@@ -468,17 +468,17 @@ TTErr TTSubscriber::unexposeMessage(TTSymbolPtr messageName)
 	return kTTErrGeneric;
 }
 
-TTErr TTSubscriber::unexposeAttribute(TTSymbolPtr attributeName)
+TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 {
 	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTValue				storedObject;
-	TTNodeAddressPtr	objectAddress, nameToAddress;
+	TTAddress	objectAddress, nameToAddress;
 	TTObjectPtr			anObject;
 	
 	if (!mExposedAttributes->lookup(attributeName, storedObject)) {
 		storedObject.get(0, (TTPtr*)&anObject);
 		
-		nameToAddress = convertTTNameInTTNodeAddress(attributeName);
+		nameToAddress = convertTTNameInTTAddress(attributeName);
 		objectAddress = mNodeAddress->appendAddress(nameToAddress);
 		
 		aDirectory->TTNodeRemove(objectAddress);
@@ -503,7 +503,7 @@ TTErr TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data)
 {
 	TTSubscriberPtr aSubscriber;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		messageName;
+	TTSymbol		messageName;
 	TTValuePtr		b;
 	TTValue			v;
 	TTErr			err;
@@ -535,7 +535,7 @@ TTErr TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data)
 {
 	TTSubscriberPtr aSubscriber;
 	TTObjectPtr		anObject;
-	TTSymbolPtr		attributeName;
+	TTSymbol		attributeName;
 	TTValuePtr		b;
 	TTValue			v;
 	TTErr			err;
@@ -567,7 +567,7 @@ TTErr TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data)
 {
 	TTSubscriberPtr aSubscriber;
 	TTObjectPtr		aData;
-	TTSymbolPtr		attributeName;
+	TTSymbol		attributeName;
 	TTValuePtr		b;
 	TTValue			v;
 	TTErr			err;

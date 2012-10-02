@@ -60,13 +60,13 @@ mDefaultNamespace(NULL)
 	addMessageProperty(ReadFromText, hidden, YES);
 	
 	mCues = new TTHash();
-	mDefaultNamespace = new TTNodeAddressItem();
+	mDefaultNamespace = new TTAddressItem();
 }
 
 TTCueManager::~TTCueManager()
 {
 	TTCuePtr oldCue;
-	TTSymbolPtr cueName;
+	TTSymbol cueName;
 	TTValue		v, names;
 	TTUInt32	i;
 	
@@ -87,7 +87,7 @@ TTCueManager::~TTCueManager()
 
 TTErr TTCueManager::setOrder(const TTValue& value)
 {	
-	TTSymbolPtr name;
+	TTSymbol name;
 	TTValue		v, newOrder;
 	
 	// check if each name is part of the list
@@ -145,8 +145,8 @@ TTErr TTCueManager::setCurrentRamp(const TTValue& value)
 
 TTErr TTCueManager::NamespaceClear(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTNodeAddressItemPtr aNamespace;
-	TTNodeAddressPtr	address = kTTAdrsEmpty;
+	TTAddressItemPtr aNamespace;
+	TTAddress	address = kTTAdrsEmpty;
 	
 	if (inputValue.getType() == kTypeSymbol)
 		inputValue.get(0, &address);
@@ -164,8 +164,8 @@ TTErr TTCueManager::NamespaceClear(const TTValue& inputValue, TTValue& outputVal
 
 TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTNodeAddressItemPtr aNamespace, anItem;
-	TTNodeAddressPtr	address;
+	TTAddressItemPtr aNamespace, anItem;
+	TTAddress	address;
 	TTUInt32			i;
 	TTErr				err;
 	
@@ -190,9 +190,9 @@ TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputVa
 
 TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTNodeAddressItemPtr aNamespace;
+	TTAddressItemPtr aNamespace;
 	TTUInt32			i;
-	TTNodeAddressPtr	address;
+	TTAddress	address;
 	
 	aNamespace = lookupNamespace(mNamespace);
 	if (!aNamespace) aNamespace = mDefaultNamespace;
@@ -212,7 +212,7 @@ TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputVa
 
 TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTNodeAddressItemPtr aNamespace;
+	TTAddressItemPtr aNamespace;
 	TTObjectPtr	aHandler;
 	TTValue		v;
 	
@@ -246,7 +246,7 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 TTErr TTCueManager::Clear()
 {
 	TTCuePtr	oldCue;
-	TTSymbolPtr cueName;
+	TTSymbol cueName;
 	TTValue		v, names;
 	TTUInt32	i;
 	
@@ -275,7 +275,7 @@ TTErr TTCueManager::Clear()
 
 TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTNodeAddressItemPtr aNamespace;
+	TTAddressItemPtr aNamespace;
 	TTValue	v;
 	
 	// get cue name
@@ -336,7 +336,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v1, v2;
-	TTSymbolPtr name1, name2;
+	TTSymbol name1, name2;
 	TTCuePtr	cue1, cue2;
 	TTFloat32	position;
 	
@@ -367,7 +367,7 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt32	i, mixSize;
-	TTSymbolPtr name;
+	TTSymbol name;
 	TTCuePtr	cue;
 	TTValue		v, cues, factors;
 	
@@ -399,7 +399,7 @@ TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTSymbolPtr name;
+	TTSymbol name;
 	TTValue		v, newOrder;
 	
 	// get cue name
@@ -437,7 +437,7 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt32	i;
-	TTSymbolPtr nameToMerge, nameToOptimize;
+	TTSymbol nameToMerge, nameToOptimize;
 	TTCuePtr	aCueToMerge, aCueToOptimize, stateCue, optimizedCue;
 	TTValue		v;
 	TTErr		err;
@@ -496,7 +496,7 @@ TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
-	TTSymbolPtr			cueName;
+	TTSymbol			cueName;
     TTValue				v;
 	TTUInt32			i;
 	
@@ -602,7 +602,7 @@ TTErr TTCueManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
 	TTString	*buffer;
-	TTSymbolPtr cueName;
+	TTSymbol cueName;
 	TTValue		v;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
@@ -628,7 +628,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 {
 	TTTextHandlerPtr aTextHandler;
 	TTDictionaryPtr	line;
-	TTSymbolPtr		flagName;
+	TTSymbol		flagName;
 	TTValue			v;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);

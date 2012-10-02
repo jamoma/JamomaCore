@@ -113,7 +113,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 {
 	TTValue			args;
 	TTValuePtr		newBaton;
-	TTNodeAddressPtr newAddress;
+	TTAddress newAddress;
 	TTNodePtr		aNode;
 	TTList			aNodeList;
 	TTObjectPtr		o;
@@ -160,7 +160,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTInputPtr		anInput;
-	TTSymbolPtr		oscAddress;
+	TTSymbol		oscAddress;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTObjectPtr		o;

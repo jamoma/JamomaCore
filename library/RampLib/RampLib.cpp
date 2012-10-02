@@ -63,7 +63,7 @@ void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 TTErr RampUnit::setFunction(const TTValue& functionName)
 {
 	TTErr		err;
-	TTSymbolPtr	newFunctionName = NULL;
+	TTSymbol	newFunctionName = NULL;
 	
 	functionName.get(0, &newFunctionName);
 	

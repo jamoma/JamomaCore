@@ -117,13 +117,13 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			anXmlHandler->sendMessage(TT("Read"), args, kTTValNONE);
 		}
 		else
-			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName->getCString());
+			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName.c_str());
 	}
 }
 
-TTNodeAddressItemPtr	TTModularNamespacesLookup(TTSymbolPtr namespaceName)
+TTAddressItemPtr	TTModularNamespacesLookup(TTSymbol namespaceName)
 {
-	TTNodeAddressItemPtr	aNamespace = NULL;
+	TTAddressItemPtr	aNamespace = NULL;
 	TTValue			v;
 	
 	if (namespaceName != kTTSymEmpty && namespaceName != kTTSym_none) {
@@ -132,7 +132,7 @@ TTNodeAddressItemPtr	TTModularNamespacesLookup(TTSymbolPtr namespaceName)
 			v.get(0, (TTPtr*)&aNamespace);
 		
 		else {
-			aNamespace = new TTNodeAddressItem();
+			aNamespace = new TTAddressItem();
 			
 			v = TTValue((TTPtr)aNamespace);
 			TTModularNamespaces->append(namespaceName, v);

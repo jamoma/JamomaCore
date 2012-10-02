@@ -92,7 +92,7 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
 	TTAttributePtr	anAttribute = NULL;
-	TTSymbolPtr	ttAttributeName;
+	TTSymbol	ttAttributeName;
 	TTValue		data, v;
 	TTErr		err;
 	
@@ -139,8 +139,8 @@ TTErr TTReceiver::Get()
 {
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
-	TTNodeAddressPtr anAddress;
-	TTSymbolPtr	ttAttributeName;
+	TTAddress anAddress;
+	TTSymbol	ttAttributeName;
 	TTValue		data, v;
 	TTErr		err;
 	
@@ -193,8 +193,8 @@ TTErr TTReceiver::Get()
 
 TTErr TTReceiver::bindAddress()
 {
-	TTNodeAddressPtr anAddress;
-	TTSymbolPtr		ttAttributeName;
+	TTAddress anAddress;
+	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
 	TTObjectPtr		newObserver, o;
 	TTList			aNodeList;
@@ -284,7 +284,7 @@ TTErr TTReceiver::unbindAddress()
 	TTValue				oldElement, v;
 	TTNodePtr			aNode;
 	TTObjectPtr			oldObserver, o;
-	TTSymbolPtr			ttAttributeName;
+	TTSymbol			ttAttributeName;
 	TTAttributePtr		anAttribute;
 	TTErr				err = kTTErrNone;
 	
@@ -390,8 +390,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
-	TTNodeAddressPtr anAddress;
-	TTSymbolPtr		ttAttributeName;
+	TTAddress anAddress;
+	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
 	TTObjectPtr		newObserver, oldObserver, o;
 	TTNodePtr		aNode, p_node;
@@ -542,7 +542,7 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
-	TTNodeAddressPtr anAddress;
+	TTAddress anAddress;
 	TTValue			v;
 	
 	// unpack baton
@@ -571,7 +571,7 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
-	TTSymbolPtr		anApplicationName;
+	TTSymbol		anApplicationName;
 	TTApplicationPtr anApplication;
 	TTValue			v;
 	TTUInt8			flag;

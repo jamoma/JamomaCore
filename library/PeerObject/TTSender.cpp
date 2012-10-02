@@ -75,9 +75,9 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 	TTObjectPtr		anObject;
 	TTValue			aCacheElement, v, c;
 	TTAttributePtr	anAttribute;
-	TTSymbolPtr		ttAttributeName;
+	TTSymbol		ttAttributeName;
 	TTMessagePtr	aMessage;
-	TTNodeAddressPtr relativeAddress;
+	TTAddress relativeAddress;
 	TTUInt16		index = 0;
 	TTErr			err = kTTErrNone;
 	
@@ -258,7 +258,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject, aCacheObject;
-	TTNodeAddressPtr anAddress;
+	TTAddress anAddress;
 	TTValue			v;
 	TTUInt8			flag;
 
@@ -312,7 +312,7 @@ TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTSenderPtr		aSender;
-	TTSymbolPtr		anApplicationName;
+	TTSymbol		anApplicationName;
 	TTApplicationPtr anApplication;
 	TTValue			v;
 	TTUInt8			flag;

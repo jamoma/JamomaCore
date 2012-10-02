@@ -194,7 +194,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 {
 	TTValue			args;
 	TTValuePtr		newBaton;
-	TTNodeAddressPtr newAddress;
+	TTAddress newAddress;
 	TTNodePtr		aNode;
 	TTObjectPtr		o;
 	TTValue			n = value;		// use new value to protect the attribute
@@ -286,7 +286,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTOutputPtr		anOutput;
-	TTSymbolPtr		oscAddress;
+	TTSymbol		oscAddress;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTObjectPtr		o;

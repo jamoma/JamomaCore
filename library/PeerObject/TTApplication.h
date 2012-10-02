@@ -65,11 +65,11 @@ public:
 private:
 	TTNodeDirectoryPtr			mDirectory;			///< ATTRIBUTE : the namespace directory of the application
 
-	TTSymbolPtr					mName;				///< ATTRIBUTE : the name of the application
-	TTSymbolPtr					mVersion;			///< ATTRIBUTE : the version of the application
-	TTSymbolPtr					mAuthor;			///< ATTRIBUTE : the author of the application
+	TTSymbol					mName;				///< ATTRIBUTE : the name of the application
+	TTSymbol					mVersion;			///< ATTRIBUTE : the version of the application
+	TTSymbol					mAuthor;			///< ATTRIBUTE : the author of the application
 	
-	TTSymbolPtr					mNamespaceFile;		///< ATTRIBUTE : the namespace file to load (default : <empty>). Usefull to save a config...
+	TTSymbol					mNamespaceFile;		///< ATTRIBUTE : the namespace file to load (default : <empty>). Usefull to save a config...
 	
 	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
 	TTValue						mActivityIn;		///< ATTRIBUTE : a local value to allow observation of incoming protocol messages
@@ -83,7 +83,7 @@ private:
 	TTHashPtr					mTTToApp;			///< Hash table to convert TT names into Application names
 	TTValue						mAllTTNames;		///< All TT names
 	
-	TTNodeAddressPtr			mTempAddress;		///< a temporary address to parse opml file
+	TTAddress			mTempAddress;		///< a temporary address to parse opml file
 	
 	/** Set name of the application (and his directory) */
 	TTErr setName(const TTValue& value);
@@ -139,9 +139,9 @@ private:
 		read a directory description */
 	TTErr ReadFromOpml(const TTValue& inputValue, TTValue& outputValue);
 	
-	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTNodeAddressPtr anAddress);
-	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName);
-	friend TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbolPtr aTTName);
+	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTAddress anAddress);
+	friend TTSymbol TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbol anAppName);
+	friend TTSymbol TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbol aTTName);
 };
 
 
@@ -150,17 +150,17 @@ private:
  note : it uses the extern TTModularApplications variable
  @param						..
  @return					a TTNodeDirectoryPtr */
-TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTNodeAddressPtr anAddress);
+TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTAddress anAddress);
 
 /**	To convert an application name into standard TT name
  @param						a TTsymbol
  @return					a TTsymbol */
-TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbolPtr anAppName);
+TTSymbol TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbol anAppName);
 
 /**	To convert standard TT name into an application name
  @param						a TTsymbol
  @return					a TTsymbol */
-TTSymbolPtr TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbolPtr aTTName);
+TTSymbol TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbol aTTName);
 
 #endif // __TT_APPLICATION_H__
 

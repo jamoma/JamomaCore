@@ -31,15 +31,15 @@ class TTMODULAR_EXPORT TTViewer : public TTDataObject
 	
 private:
 	
-	TTNodeAddressPtr			mAddress;					///< ATTRIBUTE : data address to bind
-	TTSymbolPtr					mDescription;				///< ATTRIBUTE : text to describe the role of this data
-	TTSymbolPtr					mType;						///< ATTRIBUTE : type of the gui
-	TTSymbolPtr					mTag;						///< ATTRIBUTE: a tag for this viewer
+	TTAddress			mAddress;					///< ATTRIBUTE : data address to bind
+	TTSymbol					mDescription;				///< ATTRIBUTE : text to describe the role of this data
+	TTSymbol					mType;						///< ATTRIBUTE : type of the gui
+	TTSymbol					mTag;						///< ATTRIBUTE: a tag for this viewer
 	TTBoolean					mHighlight;					///< ATTRIBUTE : highlight state of the gui
 	TTBoolean					mFreeze;					///< ATTRIBUTE : freeze data returning
 	
-	TTSymbolPtr					mDataspace;					///< ATTRIBUTE: The dataspace that this view uses (default is 'none')
-	TTSymbolPtr					mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
+	TTSymbol					mDataspace;					///< ATTRIBUTE: The dataspace that this view uses (default is 'none')
+	TTSymbol					mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
 	TTObjectPtr					mDataspaceConverter;		///< Performs conversions from data unit to the view unit
 	TTReceiverPtr				mDataspaceObserver;			///< the receiver which observe the data's dataspace attribute
 	TTReceiverPtr				mDataspaceUnitObserver;		///< the receiver which observe the data's unit attribute

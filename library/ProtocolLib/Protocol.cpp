@@ -56,7 +56,7 @@ mDistantApplicationParameters(NULL)
 Protocol::~Protocol()
 {
 	TTValue		v, distantApplicationNames;
-	TTSymbolPtr aDistantApplicationName;
+	TTSymbol aDistantApplicationName;
 	TTHashPtr	distantApplicationParameters;
 	
 	// for each distant application registered
@@ -93,7 +93,7 @@ TTErr Protocol::setApplicationManager(const TTValue& value)
 TTErr Protocol::getParameterNames(TTValue& value)
 {
 	TTValue		attributeNames;
-	TTSymbolPtr	attributeName;
+	TTSymbol	attributeName;
 	
 	// filter all default attributes (Name, Version, Author, Exploration, ...)
 	this->getAttributeNames(attributeNames);
@@ -117,7 +117,7 @@ TTErr Protocol::getParameterNames(TTValue& value)
 
 TTErr Protocol::registerApplication(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTSymbolPtr applicationName, parameterName;
+	TTSymbol applicationName, parameterName;
 	TTHashPtr	applicationParameters = new TTHash();
 	TTValue		v, parameterNames;
 	TTErr		err;
@@ -150,7 +150,7 @@ TTErr Protocol::registerApplication(const TTValue& inputValue, TTValue& outputVa
 
 TTErr Protocol::unregisterApplication(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTSymbolPtr applicationName;
+	TTSymbol applicationName;
 	TTHashPtr	applicationParameters;
 	TTValue		v, parameterNames;
 	TTErr		err;
@@ -178,9 +178,9 @@ TTErr Protocol::unregisterApplication(const TTValue& inputValue, TTValue& output
 
 TTErr Protocol::getApplicationParameters(TTValue& value)
 {
-	TTSymbolPtr applicationName;
+	TTSymbol applicationName;
 	TTValue		parametersNames, parameterValue;
-	TTSymbolPtr parameterName;
+	TTSymbol parameterName;
 	TTHashPtr	parametersTable = new TTHash();
 	
 	if (value.getType(0) == kTypeSymbol) {
@@ -213,9 +213,9 @@ TTErr Protocol::getApplicationParameters(TTValue& value)
 
 TTErr Protocol::setApplicationParameters(TTValue& value)
 {
-	TTSymbolPtr applicationName;
+	TTSymbol applicationName;
 	TTValue		v, parametersNames, parameterValue;
-	TTSymbolPtr parameterName;
+	TTSymbol parameterName;
 	TTHashPtr	parametersTable = NULL;
 	TTErr		err;
 	
@@ -268,7 +268,7 @@ TTErr Protocol::getDistantApplicationNames(TTValue& value)
 
 TTErr Protocol::isRegistered(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTSymbolPtr applicationName;
+	TTSymbol applicationName;
 	TTValue		v;
 	
 	inputValue.get(0, &applicationName);
@@ -281,7 +281,7 @@ TTErr Protocol::isRegistered(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
-TTErr Protocol::ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr address) 
+TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address) 
 {
 	TTValue inputValue, outputValue;
 	TTErr	err;
@@ -307,7 +307,7 @@ TTErr Protocol::ReceiveDiscoverRequest(TTSymbolPtr from, TTNodeAddressPtr addres
 	return kTTErrGeneric;
 }
 
-TTErr Protocol::ReceiveGetRequest(TTSymbolPtr from, TTNodeAddressPtr address)
+TTErr Protocol::ReceiveGetRequest(TTSymbol from, TTAddress address)
 {
 	TTErr	err;
 	TTValue returnedValue;
@@ -326,7 +326,7 @@ TTErr Protocol::ReceiveGetRequest(TTSymbolPtr from, TTNodeAddressPtr address)
 	return kTTErrGeneric;
 }
 
-TTErr Protocol::ReceiveSetRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue) 
+TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& newValue) 
 {
 	TTValue v;
 	TTErr	err;
@@ -348,7 +348,7 @@ TTErr Protocol::ReceiveSetRequest(TTSymbolPtr from, TTNodeAddressPtr address, TT
 	return kTTErrGeneric;
 }
 
-TTErr Protocol::ReceiveListenRequest(TTSymbolPtr from, TTNodeAddressPtr address, TTBoolean enable) 
+TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean enable) 
 {
 	TTValue v;
 	TTErr	err;
@@ -373,7 +373,7 @@ TTErr Protocol::ReceiveListenRequest(TTSymbolPtr from, TTNodeAddressPtr address,
 	return kTTErrGeneric;
 }
 
-TTErr Protocol::ReceiveListenAnswer(TTSymbolPtr from, TTNodeAddressPtr address, TTValue& newValue)
+TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& newValue)
 {
 	TTValue v;
 	TTErr	err;
@@ -424,8 +424,8 @@ TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b;
 	ProtocolPtr			aProtocol;
-	TTSymbolPtr			anApplicationName;
-	TTNodeAddressPtr	anAddress;
+	TTSymbol			anApplicationName;
+	TTAddress	anAddress;
 	TTNodePtr			aNode;
 	TTUInt8				flag;
 	TTCallbackPtr		anObserver;
@@ -450,8 +450,8 @@ TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b;
 	ProtocolPtr			aProtocol;
-	TTSymbolPtr			anApplicationName;
-	TTNodeAddressPtr	anAddress;
+	TTSymbol			anApplicationName;
+	TTAddress	anAddress;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -466,9 +466,9 @@ TTErr ProtocolGetAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b, value;
 	ProtocolPtr			aProtocol;
-	TTSymbolPtr			anApplicationName;
-	TTNodeAddressPtr	anAddress;
-	TTSymbolPtr			attribute;
+	TTSymbol			anApplicationName;
+	TTAddress	anAddress;
+	TTSymbol			attribute;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -488,9 +488,9 @@ TTErr ProtocolSetAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b, value;
 	ProtocolPtr			aProtocol;
-	TTSymbolPtr			anApplicationName;
-	TTNodeAddressPtr	anAddress;
-	TTSymbolPtr			attribute;
+	TTSymbol			anApplicationName;
+	TTAddress	anAddress;
+	TTSymbol			attribute;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -510,9 +510,9 @@ TTErr ProtocolSendMessageCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b, value;
 	ProtocolPtr			aProtocol;
-	TTSymbolPtr			anApplicationName;
-	TTNodeAddressPtr	anAddress;
-	TTSymbolPtr			message;
+	TTSymbol			anApplicationName;
+	TTAddress	anAddress;
+	TTSymbol			message;
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
@@ -532,9 +532,9 @@ TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr			b;
 	ProtocolPtr			aProtocol;
-	TTSymbolPtr			anApplicationName;
-	TTNodeAddressPtr	anAddress;
-	TTSymbolPtr			attribute;
+	TTSymbol			anApplicationName;
+	TTAddress	anAddress;
+	TTSymbol			attribute;
 	TTBoolean			enable;
 	
 	// unpack baton
@@ -551,13 +551,13 @@ TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
 	return aProtocol->SendListenRequest(anApplicationName, anAddress->appendAttribute(attribute), enable);
 }
 
-TTSymbolPtr ProtocolGetLocalApplicationName(TTPtr aProtocol)
+TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)
 {
 	// TODO : make this faster !
 	ProtocolPtr p = (ProtocolPtr)aProtocol;
 	TTValue v;
 	TTObjectPtr anApplication;
-	TTSymbolPtr applicationName;
+	TTSymbol applicationName;
 	
 	p->mApplicationManager->getAttributeValue(TT("localApplication"), v);
 	v.get(0, (TTPtr*)&anApplication);
@@ -574,7 +574,7 @@ TTSymbolPtr ProtocolGetLocalApplicationName(TTPtr aProtocol)
  
  ***************************************************************************/
 
-TTErr ProtocolLib::createProtocol(const TTSymbolPtr protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback)
+TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback)
 {
 	TTValue args;
 	

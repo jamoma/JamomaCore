@@ -58,7 +58,7 @@ class TTMODULAR_EXPORT TTMirror : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr					mType;							///< ATTRIBUTE : the type of the object binded by the mirror
+	TTSymbol					mType;							///< ATTRIBUTE : the type of the object binded by the mirror
 	
 	TTCallbackPtr				mGetAttributeCallback;			///< a way to get the attribute value
 	TTCallbackPtr				mSetAttributeCallback;			///< a way to set the attribute value
@@ -71,7 +71,7 @@ private:
 	
 	
 public:
-	TTErr						updateAttributeValue(const TTSymbolPtr attributeName, TTValue& value);
+	TTErr						updateAttributeValue(const TTSymbol attributeName, TTValue& value);
 	TTErr						enableListening(const TTAttribute& anAttribute, TTBoolean enable);
 	
 };

@@ -26,9 +26,9 @@ class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to manage
-	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
-	TTSymbolPtr			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
+	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to manage
+	TTAddress	mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
+	TTSymbol			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
 														///<	- descendants : any address below the node at any level (default)
 														///<	- children : all children of the node
 														///<	- brothers : all instances of the node
@@ -36,7 +36,7 @@ private:
 	
 	TTBoolean			mUpdate;						///< ATTRIBUTE : is the explorer listen to the namespace to update the result ?
 	
-	TTSymbolPtr			mSort;							///< ATTRIBUTE : to sort the result : none, alphabetic, priority (default : alphabetic)
+	TTSymbol			mSort;							///< ATTRIBUTE : to sort the result : none, alphabetic, priority (default : alphabetic)
 	
 	TTUInt8				mDepth;							///< ATTRIBUTE : a depth limit for the exploration (only usefull for descendants mode)
 	

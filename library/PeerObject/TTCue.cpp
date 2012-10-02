@@ -65,7 +65,7 @@ TTErr TTCue::processRamp(TTObjectPtr aScript, TTUInt32 ramp)
 	TTScriptPtr			aSubScript;
 	TTDictionaryPtr		aLine;
 	TTObjectPtr			anObject;
-	TTSymbolPtr			rampDrive;
+	TTSymbol			rampDrive;
 	TTValue				v, r;
 	
 	r = TTValue((int)ramp);
@@ -117,8 +117,8 @@ TTErr TTCue::processRamp(TTObjectPtr aScript, TTUInt32 ramp)
 
 TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTNodeAddressItemPtr aNamespace = NULL;
-	TTSymbolPtr			name;
+	TTAddressItemPtr aNamespace = NULL;
+	TTSymbol			name;
 	TTValue				v, parsedLine;
 	
 	if (inputValue.getType() == kTypePointer)
@@ -154,16 +154,16 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTCue::processStore(TTObjectPtr aScript, TTNodeAddressPtr scriptAddress, const TTNodeAddressItemPtr aNamespace)
+TTErr TTCue::processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TTAddressItemPtr aNamespace)
 {
-	TTNodeAddressItemPtr nameItem, instanceItem, anItem;
+	TTAddressItemPtr nameItem, instanceItem, anItem;
 	TTString		nameInstance;
 	TTNodePtr		aNode;
 	TTDictionaryPtr	aLine;
 	TTObjectPtr		anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
-	TTNodeAddressPtr address, childAddress;
-	TTSymbolPtr		service;
+	TTAddress address, childAddress;
+	TTSymbol		service;
 	TTValue			v, parsedLine;
 	TTBoolean		empty = YES;
 	TTErr			err;
@@ -310,8 +310,8 @@ TTErr TTCue::Recall()
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTNodeAddressItemPtr aNamespace = NULL;
-	TTSymbolPtr			name;
+	TTAddressItemPtr aNamespace = NULL;
+	TTSymbol			name;
 	
 	if (inputValue.getType() == kTypePointer)
 		inputValue.get(0, (TTPtr*)&aNamespace);
@@ -330,13 +330,13 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 	}
 }
 
-TTErr TTCue::processSelect(TTObjectPtr aScript, TTNodeAddressItemPtr aNamespace)
+TTErr TTCue::processSelect(TTObjectPtr aScript, TTAddressItemPtr aNamespace)
 {
 	TTListPtr			lines;
-	TTNodeAddressItemPtr anItem, parentItem;
+	TTAddressItemPtr anItem, parentItem;
 	TTScriptPtr			aSubScript;
 	TTDictionaryPtr		aLine;
-	TTNodeAddressPtr	address;
+	TTAddress	address;
 	TTValue				v;
 	
 	aScript->getAttributeValue(TT("lines"), v);

@@ -21,7 +21,7 @@ TTErr jamoma_application_dump_configuration(void)
 {
 	TTUInt16 i;
 	TTValue v, appNames;
-	TTSymbolPtr anAppKey;
+	TTSymbol anAppKey;
 	TTValue toConvert, converted;
 	TTString aTTStr;
 	
@@ -67,7 +67,7 @@ TTErr jamoma_directory_dump_observers(void)
 	unsigned int i, j, s;
 	TTValue v;
 	TTValuePtr pv;
-	TTSymbolPtr key, owner;
+	TTSymbol key, owner;
 	
 	post("--- JamomaDirectory Observers ---");
 	JamomaDirectory->dumpObservers(v);
@@ -94,13 +94,13 @@ TTErr jamoma_directory_dump_observers(void)
 // Method to deal with TTSubscriber
 ///////////////////////////////////////////////////////////////////////
 
-TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTNodeAddressPtr relativeAddress, TTSubscriberPtr *returnedSubscriber)
+TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber)
 {
 	TTValue			v, args;
 	TTNodePtr		aNode;
 	TTObjectPtr		contextListCallback;
 	TTValuePtr		contextListBaton;
-	TTNodeAddressPtr newRelativeAddress, absoluteAddress;
+	TTAddress newRelativeAddress, absoluteAddress;
 	TTBoolean		newInstance;
 		
 	// prepare arguments
@@ -157,10 +157,10 @@ void jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data)
 	TTValuePtr	b;
 	TTValue		v;
 	ObjectPtr	objPtr, patcherPtr = NULL;
-	TTSymbolPtr	patcherContext = NULL;
-	TTSymbolPtr	patcherName = NULL;
-	TTSymbolPtr patcherClass = NULL;
-	TTSymbolPtr lowerContext = NULL;
+	TTSymbol	patcherContext = NULL;
+	TTSymbol	patcherName = NULL;
+	TTSymbol patcherClass = NULL;
+	TTSymbol lowerContext = NULL;
 	TTListPtr	nameAndPtrList;
 	
 	// unpack baton
@@ -238,7 +238,7 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 /**	Send Max data using a container object */
 TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddressAndAttribute, AtomCount argc, AtomPtr argv)
 {
-	TTNodeAddressPtr anAddress;
+	TTAddress anAddress;
 	TTValue			v, data;
 	
 	if (aContainer) {
@@ -270,7 +270,7 @@ TTErr jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddress
 ///////////////////////////////////////////////////////////////////////
 
 /**	Create a data object */
-TTErr jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service)
+TTErr jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbol service)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
@@ -812,7 +812,7 @@ void jamoma_callback_return_address(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
-	TTSymbolPtr	address;
+	TTSymbol	address;
 	
 	// unpack baton (a t_object* and the name of the method to call)
 	b = (TTValuePtr)baton;
@@ -942,7 +942,7 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 {
 	AtomCount	i;
 	TTFloat64	f;
-	TTSymbolPtr	s;
+	TTSymbol	s;
 	TTInt32		t;
 	
 	*msg = _sym_nothing;
@@ -1001,7 +1001,7 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 {
 	AtomCount	i;
 	TTFloat64	f;
-	TTSymbolPtr	s;
+	TTSymbol	s;
 	TTInt32		t;
 	
 	*argc = v.getSize();
@@ -1064,9 +1064,9 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 
 /** Convert a TTSymbolPtr "MyObjectMessage" into a SymbolPtr "my/object/message" 
  or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
-SymbolPtr jamoma_TTName_To_MaxName(TTSymbolPtr TTName)
+SymbolPtr jamoma_TTName_To_MaxName(TTSymbol TTName)
 {
-	TTSymbolPtr MaxName = convertTTNameInTTNodeAddress(TTName);
+	TTSymbol MaxName = convertTTNameInTTAddress(TTName);
 	if (MaxName)
 		return gensym((char*)MaxName->getCString());
 	else
@@ -1187,7 +1187,7 @@ SymbolPtr jamoma_patcher_get_hierarchy(ObjectPtr patcher)
 }
 
 /** Get the context from the upper jcom model|view in the patcher or from patcher's name */
-void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext)
+void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol *returnedContext)
 {
 	SymbolPtr	hierarchy, _sym_jcommodel, _sym_jcomview, _sym_context, patcherName;
 	ObjectPtr	obj, upperPatcher;
@@ -1266,7 +1266,7 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext
 }
 
 /** Get the class of the patcher from the file name (removing .model and .view convention name if they exist) */
-void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedClass)
+void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol *returnedClass)
 {
 	SymbolPtr	patcherName, hierarchy;
 	ObjectPtr	upperPatcher;
@@ -1356,7 +1356,7 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPt
 }
 
 /** Get the name of the patcher from his arguments */
-void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedName)
+void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol *returnedName)
 {
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
@@ -1408,7 +1408,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr
 }
 
 /** Get all context info from the root jcom model|view in the patcher */
-void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName)
+void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbol *returnedContext, TTSymbol *returnedClass,  TTSymbol *returnedName)
 {
 	TTValue		patcherInfo;
 	ObjectPtr	obj;
@@ -1440,7 +1440,7 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 }
 
 /** Get the "aClass.model" external in the patcher */
-void jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbolPtr modelClass, ObjectPtr *returnedModelPatcher)
+void jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbol modelClass, ObjectPtr *returnedModelPatcher)
 {
 	ObjectPtr	obj;
 	SymbolPtr	_sym_modelfilename, _sym_objmaxclass, _sym_objfilename;
@@ -1498,16 +1498,16 @@ void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 }
 
 /** Get all context info from an object (his patcher and the context, the class and the name of his patcher) */
-TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName)
+TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbol *returnedContext, TTSymbol *returnedClass,  TTSymbol *returnedName)
 {
 	TTBoolean	canShare;
 	SymbolPtr	_sym_jcomcontext;
 	TTString	viewName;
 	ObjectPtr	patcher;
 	ObjectPtr	sharedPatcher = NULL;
-	TTSymbolPtr sharedContext = NULL;
-	TTSymbolPtr sharedClass = NULL;
-	TTSymbolPtr sharedName = NULL;
+	TTSymbol sharedContext = NULL;
+	TTSymbol sharedClass = NULL;
+	TTSymbol sharedName = NULL;
 	
 	*returnedPatcher = jamoma_patcher_get(obj);
 	
@@ -1655,7 +1655,7 @@ void jamoma_edit_string_instance(TTString *format, SymbolPtr *returnedName, TTSt
 }
 
 /** edit a file name from a given file format and a class name */
-void jamoma_edit_filename(TTString *format, TTSymbolPtr className, SymbolPtr *returnedFileName)
+void jamoma_edit_filename(TTString *format, TTSymbol className, SymbolPtr *returnedFileName)
 {
 	char *s_str;
 	long len;
@@ -1749,14 +1749,14 @@ SymbolPtr jamoma_parse_dieze(ObjectPtr x, SymbolPtr address)
 
 
 /** Get BOOT style filepath from args or, if no args open a dialog to write a file */
-TTSymbolPtr jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* default_filename)
+TTSymbol jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* default_filename)
 {
 	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
 	short 			err, path;						// pathID#, error number
 	t_filehandle	file_handle;					// a reference to our file (for opening it, closing it, etc.)
 	long			filetype = 'TEXT', outtype;		// the file type that is actually true
 	SymbolPtr		userpath;
-	TTSymbolPtr		result = kTTSymEmpty;
+	TTSymbol		result = kTTSymEmpty;
 	
 	// Give a path ...
 	if (argc && argv) {
@@ -1799,14 +1799,14 @@ TTSymbolPtr jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* d
 }
 
 /** Get BOOT style filepath grom args or, if no args open a dialog to read a file */
-TTSymbolPtr jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype)
+TTSymbol jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype)
 {
 	char 			filepath[MAX_FILENAME_CHARS];	// for storing the name of the file locally
 	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	short 			path;							// pathID#
 	long			outtype;
 	SymbolPtr		userpath;
-	TTSymbolPtr		result = kTTSymEmpty;
+	TTSymbol		result = kTTSymEmpty;
 	
 	// Give a path ...
 	if (argc && argv) {

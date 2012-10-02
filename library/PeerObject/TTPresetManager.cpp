@@ -58,7 +58,7 @@ mCurrentPreset(NULL)
 TTPresetManager::~TTPresetManager()
 {
 	TTPresetPtr oldPreset;
-	TTSymbolPtr presetName;
+	TTSymbol presetName;
 	TTValue		v, names;
 	TTUInt32	i;
 	
@@ -85,7 +85,7 @@ TTErr TTPresetManager::setAddress(const TTValue& value)
 
 TTErr TTPresetManager::setOrder(const TTValue& value)
 {	
-	TTSymbolPtr name;
+	TTSymbol name;
 	TTValue		v, newOrder;
 	
 	// check if each name is part of the list
@@ -108,7 +108,7 @@ TTErr TTPresetManager::setOrder(const TTValue& value)
 TTErr TTPresetManager::Clear()
 {
 	TTPresetPtr oldPreset;
-	TTSymbolPtr presetName;
+	TTSymbol presetName;
 	TTValue		v, names;
 	TTUInt32	i;
 	
@@ -197,7 +197,7 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v1, v2;
-	TTSymbolPtr name1, name2;
+	TTSymbol name1, name2;
 	TTPresetPtr preset1, preset2;
 	TTFloat32	position;
 	
@@ -228,7 +228,7 @@ TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputVal
 TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt32	i, mixSize;
-	TTSymbolPtr name;
+	TTSymbol name;
 	TTPresetPtr preset;
 	TTValue		v, presets, factors;
 	
@@ -260,7 +260,7 @@ TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTSymbolPtr name;
+	TTSymbol name;
 	TTValue		v, newOrder;
 	
 	// get preset name
@@ -298,7 +298,7 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
-	TTSymbolPtr			presetName;
+	TTSymbol			presetName;
     TTValue				v;
 	TTUInt32			i;
 	
@@ -327,7 +327,7 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
-	TTSymbolPtr		flagName;
+	TTSymbol		flagName;
 	TTValue			v;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
@@ -399,7 +399,7 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 {
 	TTTextHandlerPtr aTextHandler;
 	TTString	*buffer;
-	TTSymbolPtr presetName;
+	TTSymbol presetName;
 	TTValue		v;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);
@@ -425,7 +425,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 {
 	TTTextHandlerPtr aTextHandler;
 	TTDictionaryPtr	line;
-	TTSymbolPtr		flagName;
+	TTSymbol		flagName;
 	TTValue			v;
 	
 	inputValue.get(0, (TTPtr*)&aTextHandler);

@@ -69,7 +69,7 @@ TTErr TTPreset::Store()
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject;
 	TTList			aNodeList, allObjectNodes;
-	TTNodeAddressPtr aRelativeAddress;
+	TTAddress aRelativeAddress;
 	TTValue			v, parsedLine;					
 	
 	Clear();
@@ -223,7 +223,7 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 {
 	TTObjectPtr o;
 	TTValue		v;
-	TTSymbolPtr s;
+	TTSymbol s;
 
 	// Here we decide to keep nodes which binds on :
 	//		- Data with @service == parameter

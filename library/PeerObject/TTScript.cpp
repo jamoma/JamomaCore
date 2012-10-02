@@ -114,9 +114,9 @@ TTErr TTScript::Clear()
 TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr		aLine;
-	TTSymbolPtr			name;
+	TTSymbol			name;
 	TTNodePtr			aNode;
-	TTNodeAddressPtr	address, containerAddress = kTTAdrsRoot;
+	TTAddress	address, containerAddress = kTTAdrsRoot;
 	TTObjectPtr			anObject, container;
 	TTValue				v, c;
 	TTErr				err;
@@ -230,9 +230,9 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr		aLine;
-	TTSymbolPtr			name;
+	TTSymbol			name;
 	TTNodePtr			aNode;
-	TTNodeAddressPtr	address, containerAddress = kTTAdrsRoot;
+	TTAddress	address, containerAddress = kTTAdrsRoot;
 	TTObjectPtr			anObject;
 	TTValue				v, c;
 	TTErr				err;
@@ -321,7 +321,7 @@ TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
 TTErr TTScript::AppendCommand(const TTValue& newCommand, TTValue& outputValue)
 {
 	TTDictionaryPtr		line = NULL;
-	TTNodeAddressPtr	address;
+	TTAddress	address;
 	TTValue				v;
 	
 	line = TTScriptParseCommand(newCommand);
@@ -362,7 +362,7 @@ TTErr TTScript::AppendComment(const TTValue& newComment, TTValue& outputValue)
 TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 {
 	TTDictionaryPtr		line = new TTDictionary();
-	TTNodeAddressPtr	address;
+	TTAddress	address;
 	TTValue				v;
 	
 	line = TTScriptParseScript(newScript);
@@ -408,8 +408,8 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
 	TTDictionaryPtr		aLine = NULL;
-	TTSymbolPtr			name, unit;
-	TTNodeAddressPtr	address;
+	TTSymbol			name, unit;
+	TTAddress	address;
 	TTNodePtr			aNode;
 	TTObjectPtr			anObject;
 	TTValue				v;
@@ -526,8 +526,8 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
 	TTDictionaryPtr		aLine;
-	TTSymbolPtr			name, attributeName;
-	TTNodeAddressPtr	address;
+	TTSymbol			name, attributeName;
+	TTAddress	address;
 	TTValue				v, parsedLine;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
@@ -669,8 +669,8 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr	aTextHandler;
 	TTString			*buffer;
 	TTDictionaryPtr		aLine;
-	TTNodeAddressPtr	address;
-	TTSymbolPtr			name;
+	TTAddress	address;
+	TTSymbol			name;
 	TTString			aString;
 	TTBoolean			addQuote;
 	TTUInt8				i;
@@ -863,7 +863,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 TTDictionaryPtr TTScriptParseLine(const TTValue& newLine)
 {
 	TTDictionaryPtr line = NULL;
-	TTSymbolPtr		firstSymbol;
+	TTSymbol		firstSymbol;
 	TTValue			v, rest;
 	
 	if (newLine.getType(0) == kTypeSymbol) {
@@ -916,7 +916,7 @@ TTDictionaryPtr TTScriptParseComment(const TTValue& newComment)
 TTDictionaryPtr TTScriptParseFlag(const TTValue& newflagAndArguments)
 {
 	TTDictionaryPtr line = NULL;
-	TTSymbolPtr		flagName;
+	TTSymbol		flagName;
 	TTValue			v, arguments;
 	
 	if (newflagAndArguments.getType() == kTypeSymbol) {
@@ -936,7 +936,7 @@ TTDictionaryPtr TTScriptParseFlag(const TTValue& newflagAndArguments)
 TTDictionaryPtr TTScriptParseCommand(const TTValue& newCommand) 
 {
 	TTDictionaryPtr line = NULL;
-	TTSymbolPtr		firstSymbol;
+	TTSymbol		firstSymbol;
 	TTValue			v, commandValue;
 	
 	// parse name + command
@@ -957,7 +957,7 @@ TTDictionaryPtr TTScriptParseCommand(const TTValue& newCommand)
 TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 {
 	TTDictionaryPtr line = NULL;
-	TTSymbolPtr		firstSymbol;
+	TTSymbol		firstSymbol;
 	TTObjectPtr		script = NULL;
 	TTValue			v;
 	
@@ -986,7 +986,7 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position)
 {
 	TTDictionaryPtr line1, line2;
-	TTSymbolPtr		type1;
+	TTSymbol		type1;
 	TTObjectPtr		obj1, obj2;
 	TTScriptPtr		sub1, sub2;
 	TTFloat64		value;
@@ -1090,7 +1090,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 	TTDictionaryPtr firstScriptLine, aLine;
 	TTObjectPtr		anObject;
     TTValue			v, valueToMix, mixedValue, found, subScripts;
-	TTSymbolPtr		firstScriptLineSchema, dataType;
+	TTSymbol		firstScriptLineSchema, dataType;
     TTFloat64		sumFactors;
     TTUInt32		i, mixSize;
 	
@@ -1233,7 +1233,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 	return kTTErrNone;
 }
 
-TTFloat64 TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbolPtr dataType, TTUInt32 mixSize, TTFloat64 factor, TTValue& mixedValue, TTBoolean init)
+TTFloat64 TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbol dataType, TTUInt32 mixSize, TTFloat64 factor, TTValue& mixedValue, TTBoolean init)
 {
 	TTUInt32	i, s;
 	TTFloat64	mixWeight = 1.;	// TODO : introduce a mixWeight information into command lines
@@ -1281,7 +1281,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 {
 	TTDictionaryPtr		lineToMerge, mergedLine;
 	TTScriptPtr			subScriptToMerge, mergedSubScript;
-	TTNodeAddressPtr	addressToMerged, mergedAddress;
+	TTAddress	addressToMerged, mergedAddress;
 	TTValue				v, valueToMerged, mergedValue, found, parsedLine;
 	TTBoolean			merged = NO; // to know if a line have already been merged
 	TTErr				err;
@@ -1380,7 +1380,7 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 {
 	TTDictionaryPtr		lineToOptimize, aLine, optimizedLine;
 	TTScriptPtr			subScriptToOptimize, aSubScript, optimizedSubScript;
-	TTNodeAddressPtr	addressToOptimize, address;
+	TTAddress	addressToOptimize, address;
 	TTValue				v, valueToOptimize, value, found, parsedLine;
 	TTBoolean			empty = YES; // to know if the optimized script contains at least one command
 	TTErr				err;
@@ -1510,7 +1510,7 @@ void TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBool
 void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found)
 {
 	TTDictionaryPtr		aLine;
-	TTNodeAddressPtr	address;
+	TTAddress	address;
 	TTValue				v;
 	
 	lineValue.get(0, (TTPtr*)&aLine);
@@ -1518,13 +1518,13 @@ void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBo
 	if (!aLine->lookup(kTTSym_address, v))
 		v.get(0, &address);
 	
-	found = address == ((TTNodeAddressPtr)addressPtrToMatch);
+	found = address == ((TTAddress)addressPtrToMatch);
 }
 
 TTDictionaryPtr TTScriptCopyLine(TTDictionaryPtr lineTocopy)
 {
 	TTValue		keys, v;
-	TTSymbolPtr key;
+	TTSymbol key;
 	TTUInt32	i;
 	
 	TTDictionaryPtr newLine = new TTDictionary();

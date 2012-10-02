@@ -143,7 +143,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	const xmlChar		*xName = 0;
 	const xmlChar		*xValue = 0;
 	TTObjectPtr			aTTObject;
-	TTSymbolPtr			lastNodeName;
+	TTSymbol			lastNodeName;
 	TTValue				v;
 	int					ret;
 	
@@ -309,7 +309,7 @@ TTErr TTXmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuo
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlAttribute(TTSymbolPtr attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTErr err;
 	
@@ -321,7 +321,7 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbolPtr attributeName, TTValue& returned
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol *returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
 	TTErr	err;

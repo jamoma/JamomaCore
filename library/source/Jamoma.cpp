@@ -30,7 +30,7 @@ static t_hashtab	*hash_modules = NULL;			///< A hashtab of all modules (jcom.hub
 bool				max5 = false;					///< Is Jamoma currently running in Max 5 or newer?
 bool				max6 = false;					///< Is Jamoma currently running in Max 6 or newer?
 
-TTSymbolPtr					kTTSym_Jamoma = NULL;
+TTSymbol					kTTSym_Jamoma = NULL;
 TTApplicationPtr			JamomaApplication = NULL;
 TTNodeDirectoryPtr			JamomaDirectory = NULL;
 

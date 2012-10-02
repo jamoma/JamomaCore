@@ -76,7 +76,7 @@ mValid(NO)
 TTMapper::~TTMapper() // TODO : delete things...
 {
 	long		n;
-	TTSymbolPtr	aName;
+	TTSymbol	aName;
 #ifndef TT_NO_DSP	
 	if (mFunctionUnit) {
 		
@@ -376,7 +376,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 {
 	long		n;
 	TTValue		names;
-	TTSymbolPtr	aName;
+	TTSymbol	aName;
 #ifndef TT_NO_DSP	
 	if (mFunctionUnit) {
 
@@ -557,7 +557,7 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
-TTErr TTMapper::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
+TTErr TTMapper::notifyObservers(TTSymbol attrName, const TTValue& value)
 {
 	TTAttributePtr	anAttribute = NULL;
 	TTErr			err;
@@ -580,7 +580,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
 	TTValue		v;
-	TTNodeAddressPtr address;
+	TTAddress address;
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
 	
@@ -626,7 +626,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
 	TTValue		v;
-	TTNodeAddressPtr address;
+	TTAddress address;
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
 	

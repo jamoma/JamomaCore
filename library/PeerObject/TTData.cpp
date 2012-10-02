@@ -133,7 +133,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt32	i;
 	TTFloat64	inc, ramptime, v, vStepsize;
-	TTSymbolPtr	ramp;
+	TTSymbol	ramp;
 	TTValue		command;
 	
 	mValueStepsize.get(0, vStepsize);
@@ -200,7 +200,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt32	i;
 	TTFloat64	dec, ramptime, v, vStepsize;
-	TTSymbolPtr	ramp;
+	TTSymbol	ramp;
 	TTValue		command;
 	
 	mValueStepsize.get(0, vStepsize);
@@ -267,7 +267,7 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 {
 	TTDictionaryPtr command = NULL;
 	TTMessagePtr	aMessage;
-	TTSymbolPtr		unit;
+	TTSymbol		unit;
 #ifndef TTDATA_NO_RAMPLIB
 	double			time;
 #endif
@@ -667,7 +667,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 			
 			 long		n;
 			 TTValue		names;
-			 TTSymbolPtr	aName;
+			 TTSymbol	aName;
 			 TTString	nameString;
 			 
 			// cache the function's attribute names
@@ -825,7 +825,7 @@ TTErr TTData::convertUnit(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
-TTErr TTData::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
+TTErr TTData::notifyObservers(TTSymbol attrName, const TTValue& value)
 {
 	TTAttributePtr	anAttribute = NULL;
 	TTErr			err;
@@ -918,7 +918,7 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 	TTDictionaryPtr		command = new TTDictionary();
 	TTUInt32			time;
 	TTUInt32			commandSize;
-	TTSymbolPtr			unit, ramp;
+	TTSymbol			unit, ramp;
 	TTValue				aValue, c;
 	TTBoolean			hasRamp = false;
 	TTBoolean			hasUnit = false;
