@@ -31,15 +31,15 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphObject : public TTGraphObject {
 protected:
 
 	TTAudioGraphProcessStatus	mStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
-	TTAudioGraphDescription		mAudioDescription;	///< Used to prevent feedback loops etc. when describing a graph
-	TTUInt32					mAudioFlags;		///< A bitmask of values defined in #TTAudioGraphFlags
-	TTAudioGraphInletVector		mAudioInlets;		///< The inlets through which we pull audio from sources
-	TTAudioGraphOutletVector	mAudioOutlets;		///< The inlets through which we pull audio from sources
-	TTUInt32					mNumAudioInlets;	///< Attribute
-	TTUInt32					mNumAudioOutlets;	///< Attribute
+	TTAudioGraphDescription		mAudioDescription;	///< Used to prevent feedback loops etc. when describing a graph.
+	TTUInt32					mAudioFlags;		///< A bitmask of values defined in #TTAudioGraphFlags.
+	TTAudioGraphInletVector		mAudioInlets;		///< The inlets through which we pull audio from sources.
+	TTAudioGraphOutletVector	mAudioOutlets;		///< The outlets that processed audio sampled will be passed to.
+	TTUInt32					mNumAudioInlets;	///< Attribute: The number of inputs for this object.
+	TTUInt32					mNumAudioOutlets;	///< Attribute: The number of outlets for this object.
 	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
-	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it
-	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess
+	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it.
+	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess.
 	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTAudioGraphObjects to prevent changes to the graph while processing.
 
 	
@@ -66,7 +66,9 @@ public:
 		mAudioFlags = mAudioFlags & ~flag;
 	}
 	
-	
+	/** Get the number of channels for an outlet.
+	 @param forOutletNumber		The outlet that we want to retrieve informaiton about.
+	 */
 	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
 	{
 		if (forOutletNumber < mAudioOutlets.size())
@@ -75,6 +77,10 @@ public:
 			return 0;
 	}
 	
+	/** Set the number of channels for an outlet.
+	 @param forOutletNumber		The outlet that we want to retrieve information about.
+	 @param numChannels			The number of channels that the audio signal from this outlet is to have.
+	 */
 	void setOutputNumChannels(TTUInt16 forOutletNumber, TTUInt16 numChannels)
 	{
 		sSharedMutex->lock();
@@ -89,7 +95,9 @@ public:
 		sSharedMutex->unlock();
 	}
 	
-	
+	/** Get the vector size for an outlet.
+	 @param forOutletNumber		The outlet that we want to retrieve information about.
+	 */
 	TTUInt16 getOutputVectorSize(TTUInt16 forOutletNumber)
 	{
 		if (forOutletNumber < mAudioOutlets.size())
@@ -98,6 +106,9 @@ public:
 			return 0;
 	}
 	
+	/** Get the sample rate of the audio passed from one of the outlets.
+	 @param forOutletNumber		The outlet that we want to retrieve information about.
+	 */
 	TTUInt32 getOutputSampleRate(TTUInt16 forOutletNumber)
 	{
 		if (forOutletNumber < mAudioOutlets.size())
@@ -106,6 +117,8 @@ public:
 			return 0;
 	}
 	
+	/** Get the sample rate htta this object use when processing audio.
+	 */
 	TTUInt32 getSampleRate()
 	{
 		TTUInt32 sr;
@@ -113,8 +126,14 @@ public:
 		return sr;
 	}
 	
-	
+	/** Prepare for a request to descibe all of the graph.
+	 */
 	void prepareAudioDescription();
+	
+	/** The node is requested to declare itself as part of an action to describe all of the audio graph.
+	 As part of this action the request is also propagated to its upstream neighboors, and retrieved information on the graph is passed back down again to the sink(s) of the graph.
+	 @param descs		Pointer to the graph description vector used by the downstream neighboor(s) to retrieve information on this node and its upstesream connections.
+	 */
 	void getAudioDescription(TTAudioGraphDescription& desc);
 	
 	

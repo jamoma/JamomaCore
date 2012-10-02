@@ -13,6 +13,7 @@
 #include "TTDSP.h"
 #include "TTGraph.h"
 
+// Platform-specific definitions
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
 	#if defined( _DLL_EXPORT ) && defined( TTAUDIOGRAPH_EXPORTS )
@@ -34,25 +35,30 @@
 
 /******************************************************************************************/
 
-// the state of each node in the graph
+/** Enumeration recording the audio processing state of each node of the graph.
+*/
 enum TTAudioGraphProcessStatus {
-	kTTAudioGraphProcessUnknown = 0,
-	kTTAudioGraphProcessNotStarted,
-	kTTAudioGraphProcessingCurrently,	
-	kTTAudioGraphProcessComplete
+	kTTAudioGraphProcessUnknown = 0,		///< The current processing status of the node is unknown.
+	kTTAudioGraphProcessNotStarted,			///< Audio processing has not yet started for this node.
+	kTTAudioGraphProcessingCurrently,		///< This node is currently processing audio.
+	kTTAudioGraphProcessComplete			///< This node has completed processing audio for now.
 };
 
+/** Enumeration recording the state of each node when the graph is asked to describe itself.
+ */
 enum TTAudioGraphDescriptionStatus {
-	kTTAudioGraphDescriptionUnknown = 0,
-	kTTAudioGraphDescriptionNotStarted,
-	kTTAudioGraphDescriptionHasStarted,	
+	kTTAudioGraphDescriptionUnknown = 0,	///< The current status of the node is unknown with respect to describing itself as a member of a graph.
+	kTTAudioGraphDescriptionNotStarted,		///< The process of describing this node in the graph has not yet begun.
+	kTTAudioGraphDescriptionHasStarted,		///< The process of describing this node in the graph has begun.
 };
 
-// values to be used as a bitmask
+/** Enumeration flags signaling specific properties of this node.
+ Values are used as a bitmask.
+ */
 enum TTAudioGraphFlags {
 	kTTAudioGraphFlagsNone = 0x00,
-	kTTAudioGraphProcessor = 0x01,
-	kTTAudioGraphGenerator = 0x02,		///< This object generates signals, it has no inputs
+	kTTAudioGraphProcessor = 0x01,			///< This node is an audio effect processor. It expects audio input that will be processed.
+	kTTAudioGraphGenerator = 0x02,			///< This object is an audio generator, and do not expect audio input.
 	kTTAudioGraphNonAdapting = 0x04,		///< This object does not adapt its number of output channels to the number of input channels
 };
 

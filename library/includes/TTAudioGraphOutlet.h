@@ -23,7 +23,7 @@ class TTAudioGraphOutlet {
 	
 protected:	
 	
-	TTAudioSignalPtr		mBufferedOutput;	
+	TTAudioSignalPtr		mBufferedOutput;			///< Output vector from the audio graph node
 	
 public:
 

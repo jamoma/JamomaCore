@@ -32,9 +32,9 @@ class TTAudioGraphInlet {
 protected:
 
 	TTAudioGraphSourceVector	mSourceObjects;		///< A vector of object pointers from which we pull our source samples using the ::getAudioOutput() method.
-	TTAudioSignalPtr		mBufferedInput;		///< summed samples from all sources
-	TTAudioSignalPtr		mDirectInput;		///< pointer to the (non-buffered) input samples if there was no requirement to sum them
-	TTBoolean				mClean;
+	TTAudioSignalPtr			mBufferedInput;		///< Summed samples from all sources.
+	TTAudioSignalPtr			mDirectInput;		///< Pointer to the (non-buffered) input samples if there was no requirement to sum them.
+	TTBoolean					mClean;				///<
 	
 public:
 
@@ -46,6 +46,8 @@ public:
 		createBuffer();
 	}
 
+	/** Object destructor.
+	 */
 	~TTAudioGraphInlet()
 	{
 		TTObjectRelease(&mBufferedInput);
@@ -64,6 +66,7 @@ public:
 	// We need to be on the alert for strange behaviors caused by this situation.
 	// At some point perhaps we should switch to just using a vector of pointers, though there are sensitive issues there too...
 	
+	
 	TTAudioGraphInlet(const TTAudioGraphInlet& original) : 
 		mBufferedInput(NULL),
 		mDirectInput(NULL),
@@ -76,7 +79,8 @@ public:
 		mClean			= original.mClean;
 	}
 	
-	// The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...
+	/** The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...
+	 */
 	TTAudioGraphInlet& operator=(const TTAudioGraphInlet& source)
 	{
 		TTObjectRelease(&mBufferedInput);
@@ -88,7 +92,8 @@ public:
 		return *this;
 	}
 	
-	
+	/* Create a buffer that will be used to summerize samples from all sources arriving at this inlet.
+	 */
 	void createBuffer()
 	{
 		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedInput, 1);
@@ -101,12 +106,18 @@ public:
 	
 	// Graph Methods
 	
-	// reset
+	/** Reset the graph by dropping all connections to all sources in preparation of a rebuilding of all of the graph.
+	 */
 	void reset()
 	{
 		mSourceObjects.clear();
 	}
-		
+	
+	/** Establish a connection from an output of an upstream node to one of the inlets of this node so that processing might occur.
+	 @param anObject			Reference to an upstream node.
+	 @param fromOutletNumber	The outlet of the upstrem node that the connection is being made from.
+	 
+	 */
 	TTErr connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
 		TTUInt16 size = mSourceObjects.size();
@@ -124,6 +135,10 @@ public:
 		return kTTErrNone;
 	}
 	
+	/** Drop a connection from an upstream node.
+	 @param anObject			Reference to an upstream node.
+	 @param fromOutletNumber	The outlet of the upstrem node that the connection for which the connection will be dropped.
+	 */
 	TTErr drop(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
 		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
@@ -135,6 +150,10 @@ public:
 		return kTTErrNone;
 	}
 	
+	/** Drop all connections (if any) to a potential upstream node. 
+	 This method is called if a node is being destroyed to ensure that no stray connections from it are left behind.
+	 @param	aSource				The potential upstream node (source) for which all connections are to be dropped.
+	 */
 	void drop(TTAudioGraphSource& aSource)
 	{
 		TTAudioGraphSourceIter iter = find(mSourceObjects.begin(), mSourceObjects.end(), aSource);
@@ -143,7 +162,11 @@ public:
 			mSourceObjects.erase(iter);
 	}
 	
-
+	/** Just before audio processing, a preprocess() method is propagated up the audio graph chain from the terminal object.
+	 This can be used to zero buffers and also sets flags that indicate each object’s processing state.
+	 It is of no consequence if an object receives multiple preprocess calls, such as would happen if there are multiple terminal nodes.
+	 @param initData
+	 */
 	void preprocess(const TTAudioGraphPreprocessData& initData)
 	{
 		mBufferedInput->clear();
@@ -153,7 +176,9 @@ public:
 	}
 
 		
-	// collect and sum the sources
+	/** With the objects in the graph prepared by the preprocess() call, the audio can be pulled from nodes connected upstream using the process() call on each source.
+	 When asked for a vector of audio by the unit generator, the inlets each request audio from each of their sources (other objects’ outlets). If an inlet has multiple sources, those sources are summed. When all of the inlets have performed this operation, then the unit generator proceeds to process the audio buffered in the inlets and fills the buffers in the outlets. Sources manage a one-to-one connection between an inlet and an outlet; inlets may have zero or more sources.
+	 */
 	TTErr process()
 	{
 		int					err = kTTErrNone;
@@ -168,10 +193,12 @@ public:
 		else {
 			for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
 				err |= (*source).process(foo);
+				// Buffering sample values from the first connection
 				if (mClean) {
 					(*mBufferedInput) = (*foo);
 					mClean = NO;
 				}
+				// Adding sample values from the remaining connections
 				else
 					(*mBufferedInput) += (*foo);
 				mDirectInput = NULL;
@@ -181,7 +208,8 @@ public:
 		return (TTErr)err;
 	}
 	
-	
+	/** Get the most recently processed audio for this inlet as summerized from all connected upstream nodes.
+	 */
 	TTAudioSignalPtr getBuffer()
 	{
 		if (mDirectInput)
@@ -190,14 +218,20 @@ public:
 			return mBufferedInput;
 	}
 	
-	
+	/** Prepare for a request that wants to descibe all of the graph.
+	 The request for preparing to describe the graph is propagated to all nodes that are connected upstream.
+	 */
 	void prepareDescriptions()
 	{
+		// Currently this method is doing nothing put propagating the request to the upstream neighboors of the node.
 		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
 			source->prepareDescription();
 	}
 
-	
+	/** The node is requested to declare itself as part of an action to describe all of the audio graph.
+	 As part of this action the request is also propagated to its upstream neighboors, and retrieved information on the graph is passed back down again to the sink(s) of the graph.
+	 @param descs		Pointer to the graph description vector used by the downstream neighboor(s) to retrieve information on this node and its upstesream connections.
+	 */
 	void getDescriptions(TTAudioGraphDescriptionVector& descs)
 	{
 		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {

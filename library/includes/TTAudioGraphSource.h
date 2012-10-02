@@ -23,10 +23,10 @@ class TTAudioGraphSource {
 	
 protected:	
 	
-	TTAudioGraphObjectPtr	mSourceObject;		// the object from which we pull samples
-	TTUInt16				mOutletNumber;		// zero-based
+	TTAudioGraphObjectPtr	mSourceObject;		///< The object from which we pull samples
+	TTUInt16				mOutletNumber;		///< Zero-based
 	TTObjectPtr				mCallbackHandler;
-	TTAudioGraphInletPtr		mOwner;				// the owning inlet
+	TTAudioGraphInletPtr	mOwner;				///< The owning inlet
 	
 public:
 
