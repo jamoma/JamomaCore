@@ -62,7 +62,7 @@
 	TTErr loadTTExtension(void)\
 	{\
 		TTFoundationInit();\
-		TTClassRegister(TT(strname), tags, & instantiate ## className);\
+		TTClassRegister(strname, tags, & instantiate ## className);\
 		return kTTErrNone;\
 	}
 

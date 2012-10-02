@@ -359,7 +359,9 @@ namespace std
 		
 			size_t operator()(const TTString& self) const
 			{
-				return std::_Hash_impl::hash(self.data(), self.size());
+				size_t hashkey = std::_Hash_impl::hash(self.data(), self.size());
+				//cout << "HASH: " << self.data() << " with size: " << self.size() << " = " << hashkey << endl;
+				return hashkey;
 			}
 	
 	};

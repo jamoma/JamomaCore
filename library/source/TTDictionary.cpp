@@ -38,7 +38,7 @@ TTDictionary::~TTDictionary()
 
 TTErr TTDictionary::setSchema(const TTSymbol& schemaName)
 {
-	return append(TT("schema"), schemaName);
+	return append(TTSymbol("schema"), schemaName);
 }
 
 
@@ -47,7 +47,7 @@ const TTSymbol TTDictionary::getSchema() const
 	TTValue v;
 	TTErr	err;
 	
-	err = lookup(TT("schema"), v);
+	err = lookup(TTSymbol("schema"), v);
 	err = err; // silence 'unused' warning
 	return v;
 }
@@ -55,13 +55,13 @@ const TTSymbol TTDictionary::getSchema() const
 
 TTErr TTDictionary::setValue(const TTValue& newValue)
 {
-	return append(TT("value"), newValue);
+	return append(TTSymbol("value"), newValue);
 }
 
 
 TTErr TTDictionary::getValue(TTValue& returnedValue) const
 {
-	return lookup(TT("value"), returnedValue);
+	return lookup(TTSymbol("value"), returnedValue);
 }
 
 

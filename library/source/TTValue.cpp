@@ -622,7 +622,7 @@ TTValue::operator TTSymbol() const
 	if (*type == kTypeSymbol)
 		return TTSymbol(data->sym);
 	else {
-		return TT("");
+		return kTTSymEmpty;
 	}
 }
 
@@ -1172,10 +1172,10 @@ TTErr TTValue::transformCSVStringToSymbolArray()
 		while (current[strlen(current)-1] == ' ')
 			current[strlen(current)-1] = 0;
 			
-		append(TT(current));
+		append(TTSymbol(current));
 		current = strrchr(cStr, ',');
 	}
-	append(TT(cStr));
+	append(TTSymbol(cStr));
 	delete[] cStr;
 	return kTTErrNone;
 }

@@ -181,9 +181,9 @@ TTErr TTTestFinish(int testAssertionCount, int errorCount, TTValue& returnedTest
 {
 	TTDictionaryPtr d = new TTDictionary;
 
-	d->setSchema(TT("TestInfo"));
-	d->append(TT("testAssertionCount"), testAssertionCount);
-	d->append(TT("errorCount"), errorCount);
+	d->setSchema("TestInfo");
+	d->append("testAssertionCount", testAssertionCount);
+	d->append("errorCount", errorCount);
 	returnedTestInfo = d;
 	
 	TTTestLog("\n");

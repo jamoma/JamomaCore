@@ -80,11 +80,20 @@ void TTNodeLibTestAddressTable(int& errorCount, int& testAssertionCount)
 	TTAddressType	type6		= testAddress6.getType();
 	
 	// The first set of tests checks parsing of addresses
+	TTBoolean dir = (directory1 == TT("directory1"));
+	TTBoolean par = (parent1 == TTAddress("/gran/parent1"));
+	TTBoolean nam = (name1 == TT("name1"));
+	
+	TTBoolean ins = (instance1 == TT("instance1"));
+	
+	TTBoolean att = (attribute1 == TT("attribute1"));
+	TTBoolean typ = (type1 == kAddressAbsolute);
+	
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
 					directory1 == TT("directory1") &&
 					parent1 == TTAddress("/gran/parent1") &&
 					name1 == TT("name1") &&
-					instance1 == TT("instance1") &&
+					ins && //instance1 == TT("instance1") &&
 					attribute1 == TT("attribute1") &&
 					type1 == kAddressAbsolute,
 					testAssertionCount,

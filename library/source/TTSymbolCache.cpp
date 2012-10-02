@@ -31,6 +31,8 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_bypass					(("bypass"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_clear					(("clear"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_clipmode					(("clipmode"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_clip						(("clip"));
+TTFOUNDATION_EXPORT TTSymbol		kTTSym_cliplow					(("cliplow"));
+TTFOUNDATION_EXPORT TTSymbol		kTTSym_cliphigh					(("cliphigh"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_exclude					(("exclude"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_wrap						(("wrap"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_fold						(("fold"));

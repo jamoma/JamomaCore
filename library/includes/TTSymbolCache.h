@@ -34,6 +34,8 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_bypass;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_clear;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_clipmode;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_clip;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_cliplow;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_cliphigh;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_exclude;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_wrap;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_fold;

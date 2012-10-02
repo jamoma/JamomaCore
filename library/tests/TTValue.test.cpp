@@ -466,7 +466,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestLog("Appending a symbol to TTValue");	
-	v1.append(TT("foo"));
+	v1.append(TTSymbol("foo"));
 
 	TTTestAssertion("TTValue correctly updated element count to 2", 
 					v1.getSize() == 2,
@@ -493,7 +493,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 	TTSymbol s(kTTSymEmpty);
 	v1.get(1, s);
 	TTTestAssertion("second item has correct value, retreiving with get() method",
-					s == TT("foo"),
+					s == "foo",
 					testAssertionCount,
 					errorCount);
 	
@@ -1862,8 +1862,8 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// TTSymbol
-	v1 = TT("azerty");
-	v2 = TT("qwerty");
+	v1 = TTSymbol("azerty");
+	v2 = TTSymbol("qwerty");
 	TTTestAssertion("TTSymbol < operator comparison (with A < B)",
 					v1 < v2,
 					testAssertionCount,

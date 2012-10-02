@@ -175,11 +175,11 @@ TTErr TTObject::setAttributeValue(const TTSymbol& name, TTValue& value)
 		if (attribute->readOnly)
 			err = kTTErrReadOnly;
 		else {
-			if (attribute->rangeChecking == TT("clip"))
+			if (attribute->rangeChecking == kTTSym_clip)
 				value.clip(attribute->rangeLowBound, attribute->rangeHighBound);
-			else if (attribute->rangeChecking == TT("cliplow"))
+			else if (attribute->rangeChecking == kTTSym_cliplow)
 				value.cliplow(attribute->rangeLowBound);
-			else if (attribute->rangeChecking == TT("cliphigh"))
+			else if (attribute->rangeChecking == kTTSym_cliphigh)
 				value.cliphigh(attribute->rangeHighBound);
 
 			if (attribute->setterFlags & kTTAttrPassObject)

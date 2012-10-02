@@ -302,8 +302,13 @@ TTErr TTAddressBase::parse()
 	// parse attribute
 	if (!ttRegexForAttribute->parse(begin, end))
 	{
-		s_attribute = TTString(ttRegexForAttribute->begin(), end);
-		s_toParse = TTString(begin, ttRegexForAttribute->end()-1);			// -1 to remove ":"
+		TTStringIter temp_begin = ttRegexForAttribute->begin();
+		TTStringIter temp_end = ttRegexForAttribute->end();
+		
+//		s_directory = TTString(temp_begin, temp_end);
+		s_attribute = TTString(temp_begin, end);
+//		s_attribute = TTString(temp_begin, temp_end);
+		s_toParse = TTString(begin, temp_end-1);	// -1 to remove ":"
 		
 		begin = s_toParse.begin();
 		end = s_toParse.end();

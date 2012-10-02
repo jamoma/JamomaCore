@@ -12,11 +12,6 @@
 #include "TTSymbolBase.h"
 #include "TTSymbolTable.h"
 
-//extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
-
-/** This macro is defined as a shortcut for doing a lookup in the symbol table. */
-//#define TT gTTSymbolTable->lookup
-#define TT TTSymbol
 
 /****************************************************************************************************/
 // Class Specification
@@ -45,6 +40,12 @@ public:
 	TTSymbol(const char *cstr)
 	{
 		mSymbolPointer = gTTSymbolTable.lookup(cstr);
+	}
+	
+	
+	TTSymbol(const TTString& aString)
+	{
+		mSymbolPointer = gTTSymbolTable.lookup(aString);
 	}
 	
 	
@@ -91,7 +92,14 @@ public:
 	{
 		return (*symbol1.mSymbolPointer == *symbol2.mSymbolPointer);
 	}
+
 	
+	/** Compare a symbols against a c-string for equality. */
+	inline friend bool operator == (const TTSymbol& symbol1, const char* aCString)
+	{
+		return symbol1 == TTSymbol(aCString);
+	}
+
 	
 	/** Cast a symbol to a C-string. */
 	operator const char*() const
@@ -126,6 +134,10 @@ public:
 	}
 
 };
+
+	
+/** This macro is defined as a shortcut for doing a lookup in the symbol table. */
+#define TT TTSymbol
 
 
 #endif // __TT_SYMBOL_H__

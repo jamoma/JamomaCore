@@ -98,6 +98,15 @@ using namespace std;
 #endif
 
 
+#ifdef __GNUC__
+#define TT_DEPRECATED(func) func __attribute__ ((deprecated))
+#elif defined(_MSC_VER)
+#define TT_DEPRECATED(func) __declspec(deprecated) func
+#else
+#define TT_DEPRECATED(func) func
+#endif
+
+
 /****************************************************************************************************/
 // Memory alignment
 

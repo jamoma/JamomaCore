@@ -35,7 +35,7 @@ TTEnvironment::TTEnvironment()
 	addMessageWithArguments(getClassNamesForTags);
 
 	// can't use the SymbolCache here because it hasn't been initialized yet!
-	setAttributeValue(TT("sampleRate"), 44100);
+	setAttributeValue("sampleRate", 44100);
 }
 
 
@@ -51,7 +51,7 @@ TTEnvironment::~TTEnvironment()
 
 TTErr TTEnvironment::getVersion(const TTValue& anInputValue, TTValue &anOutputValue)
 {
-	anOutputValue = TT(TTFOUNDATION_VERSION_STRING);
+	anOutputValue = TTSymbol(TTFOUNDATION_VERSION_STRING);
 	return kTTErrNone;
 }
 
@@ -258,7 +258,7 @@ TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
 
 	(*anObject)->valid = false;
-	(*anObject)->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
+	(*anObject)->observers->iterateObjectsSendingMessage("objectFreeing", v);
 
 	waitForLock(); // in case an object is processing a vector of audio in another thread or something...
 

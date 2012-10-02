@@ -20,7 +20,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mComponentCount(1),
 	mComponentStride(1),
 	mDataCount(0),
-	mType(TT("uint8")),
+	mType("uint8"),
 	mTypeSizeInBytes(1),
 	mDataSize(0),
 	mDataIsLocallyOwned(YES)
@@ -38,7 +38,7 @@ TT_OBJECT_CONSTRUCTOR,
 	// TODO: releaseLockedPointer -- releases the matrix mutex
 	// TODO: the above two items mean we need a TTMutex member
 
-	setAttributeValue(TT("dimensions"), kTTVal1); // initialize to a 1x1 matrix by default (maybe we should be using the args?
+	setAttributeValue("dimensions", kTTVal1); // initialize to a 1x1 matrix by default (maybe we should be using the args?
 }
 
 
@@ -135,13 +135,13 @@ TTErr TTMatrix::setType(const TTValue& aType)
 	// TODO: it's dumb to do this big switch below...
 	// TODO: we should use the info already defined in TTDataInfo
 
-	if (typeName == TT("uint8"))
+	if (typeName == "uint8")
 		mTypeSizeInBytes = 1;
-	else if (typeName == TT("int32"))
+	else if (typeName == "int32")
 		mTypeSizeInBytes = 4;
-	else if (typeName == TT("float32"))
+	else if (typeName == "float32")
 		mTypeSizeInBytes = 4;
-	else if (typeName == TT("float64"))
+	else if (typeName == "float64")
 		mTypeSizeInBytes = 8;
 	else {
 		// don't change the matrix data if something bogus was passed-in
@@ -172,13 +172,13 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	TTBytePtr fillValue = new TTByte[mComponentStride];
 
 	// TODO: here we have this ugly switch again...
-	if (mType == TT("uint8"))
+	if (mType == "uint8")
 		anInputValue.getArray((TTUInt8*)fillValue, mElementCount);
-	else if (mType == TT("int32"))
+	else if (mType == "int32")
 		anInputValue.getArray((TTInt32*)fillValue, mElementCount);
-	else if (mType == TT("float32"))
+	else if (mType == "float32")
 		anInputValue.getArray((TTFloat32*)fillValue, mElementCount);
-	else if (mType == TT("float64"))
+	else if (mType == "float64")
 		anInputValue.getArray((TTFloat64*)fillValue, mElementCount);
 
 	for (TTUInt32 i=0; i<mDataSize; i += mComponentStride)
@@ -222,19 +222,19 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 
 	// TODO: here we have this ugly switch again...
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
-	if (mType == TT("uint8")) {
+	if (mType == "uint8") {
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("int32")) {
+	else if (mType == "int32") {
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float32")) {
+	else if (mType == "float32") {
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float64")) {
+	else if (mType == "float64") {
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
@@ -266,19 +266,19 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 		productOfLowerDimensionSizes *= mDimensions[d];
 	}
 	
-	if (mType == TT("uint8")) {
+	if (mType == "uint8") {
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("int32")) {
+	else if (mType == "int32") {
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float32")) {
+	else if (mType == "float32") {
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float64")) {
+	else if (mType == "float64") {
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
 	}
