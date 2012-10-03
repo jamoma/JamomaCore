@@ -35,9 +35,11 @@
 /******************************************************************************************/
 
 
-// values to be used as a bitmask
+/** \ingroup bitmasks
+ Flags to be used as a bitmask.
+*/
 enum TTGraphFlags {
-	kTTGraphFlagsNone = 0x00,
+	kTTGraphFlagsNone = 0x00,				///< No flags are set.
 };
 
 

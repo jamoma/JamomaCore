@@ -28,11 +28,15 @@ protected:
 	
 public:
 
+	/** Object constructor.
+	 */
 	TTGraphInlet()
 	{
 		;
 	}
 
+	/** Object destructor.
+	 */
 	~TTGraphInlet()
 	{
 		;
