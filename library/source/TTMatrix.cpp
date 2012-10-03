@@ -120,6 +120,57 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 	return kTTErrNone;
 }
 
+
+TTBoolean TTMatrix::setRowCountWithoutResize(TTUInt32 aNewRowCount)
+{
+	if (aNewRowCount > 0)
+	{
+		mRowCount = aNewRowCount;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+TTBoolean TTMatrix::setColumnCountWithoutResize(TTUInt32 aNewColumnCount)
+{
+	if (aNewColumnCount > 0)
+	{
+		mColumnCount = aNewColumnCount;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+TTErr TTMatrix::setRowCount(const TTValue& aNewRowCount)
+{
+	TTUInt32 aNewRowCountInt = aNewRowCount;
+	
+	if (setRowCountWithoutResize(aNewRowCountInt))
+	{
+		return resize();
+	} else {
+		return kTTErrInvalidValue;
+	}
+}
+
+
+TTErr TTMatrix::setColumnCount(const TTValue& aNewColumnCount)
+{
+	TTUInt32 aNewColumnCountInt = aNewColumnCount;
+	
+	if (setColumnCountWithoutResize(aNewColumnCountInt))
+	{
+		return resize();
+	} else {
+		return kTTErrInvalidValue;
+	}
+}
+
+
 TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 {
 	TTUInt32 aNewRowCount = 1;
@@ -164,17 +215,6 @@ TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 	returnedDimensions.set(0, mRowCount);
 	returnedDimensions.set(1, mColumnCount);
 	
-	return kTTErrNone;
-}
-
-TTErr TTMatrix::setRowCount(const TTValue& aNewRowCount)
-{
-	return kTTErrNone;
-}
-
-
-TTErr TTMatrix::setColumnCount(const TTValue& aNewColumnCount)
-{
 	return kTTErrNone;
 }
 
