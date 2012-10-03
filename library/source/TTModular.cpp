@@ -24,10 +24,13 @@ void TTModularInit()
 	TTFoundationInit();
 	
 	// DEBUG
-	TTObjectPtr test;
+	TTObjectPtr stringTest, nodeTest;
 	TTValue v;
-	TTObjectInstantiate(TTSymbol("string.test"), &test, kTTValNONE);
-	test->test(v);
+	TTObjectInstantiate(TTSymbol("string.test"), &stringTest, kTTValNONE);
+	stringTest->test(v);
+	
+	TTObjectInstantiate(TTSymbol("nodelib.test"), &nodeTest, kTTValNONE);
+	nodeTest->test(v);
 	
 	if (!TTModularHasInitialized) {
 		
