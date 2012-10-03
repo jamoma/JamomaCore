@@ -76,12 +76,14 @@ TTBoolean TTFOUNDATION_EXPORT	toTTFloat32( const TTString & str, TTFloat32 & con
 /****************************************************************************************************/
 // Class Specification
 
-/**	The TTValue class represents a value that can be passed around to functions in TTBlue.  It may be a
- *	single value, or an array of homogenous values.  It maybe one of a number of types defined in the 
- *	DataType enumeration.
+/** The TTValue class represents a value that can be passed around to functions in TTBlue.  It may be a
+ single value, or an array of homogenous values.  It maybe one of a number of types defined in the
+ DataType enumeration.
  */
 class TTFOUNDATION_EXPORT TTValue : TTBase {
 private:
+	/** The data value of TTValue is stored using a union.
+	 */
 	union DataValue{
 		TTFloat32		float32;
 		TTFloat64		float64;
@@ -145,7 +147,7 @@ public:
 	virtual ~TTValue();
 
 	
-	/** Return this value to NULL state (no values) */
+	/** Return this value to NULL state (no values). */
 	void clear();
 	
 	/** Return the type of this value. */

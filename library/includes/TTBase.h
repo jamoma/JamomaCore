@@ -122,34 +122,34 @@ using namespace std;
 
 // Note http://developer.apple.com/mac/library/documentation/Darwin/Conceptual/64bitPorting/MakingCode64-BitClean/MakingCode64-BitClean.html#//apple_ref/doc/uid/TP40001064-CH226-SW2
 
-typedef bool				TTBoolean;			// same as Boolean on the Mac
-typedef unsigned char		TTByte;
+typedef bool				TTBoolean;				///< Boolean flag, same as Boolean on the Mac
+typedef unsigned char		TTByte;					///< Byte value
 typedef char*				TTCString;
 typedef const char*			TTImmutableCString;
 
-typedef signed char			TTInt8;
-typedef unsigned char		TTUInt8;
-typedef signed short		TTInt16;
-typedef unsigned short		TTUInt16;
+typedef signed char			TTInt8;					///< 8 bit signed integer (char)
+typedef unsigned char		TTUInt8;				///< 8 bit unsigned integer (char)
+typedef signed short		TTInt16;				///< 16 bit signed integer
+typedef unsigned short		TTUInt16;				///< 16 bit unsigned integer
 
 #ifdef __LP64__		// Mac 64-bit
-	typedef signed int			TTInt32;
-	typedef unsigned int		TTUInt32;
+	typedef signed int			TTInt32;			///< 32 bit signed integer
+	typedef unsigned int		TTUInt32;			///< 32 bit unsigned integer
 #else				// Mac 32-bit, Win32 32-bit
-	typedef signed long			TTInt32;
-	typedef unsigned long		TTUInt32;
+	typedef signed long			TTInt32;			///< 32 bit signed integer
+	typedef unsigned long		TTUInt32;			///< 32 bit unsigned integer
 #endif
 
 #if defined(_MSC_VER) || defined(__BORLANDC__)
-	typedef __int64				TTInt64;
-	typedef unsigned __int64	TTUInt64;
+	typedef __int64				TTInt64;			///< 64 bit signed integer
+	typedef unsigned __int64	TTUInt64;			///< 64 bit unsigned integer
 #else
 	#if defined(__LP64__)	// Mac 64-bit
-		typedef signed long			TTInt64;
-		typedef unsigned long		TTUInt64;
+		typedef signed long			TTInt64;		///< 64 bit unsigned integer
+		typedef unsigned long		TTUInt64;		///< 64 bit unsigned integer
 	#else // Max 32-bit
-		typedef signed long long	TTInt64;
-		typedef unsigned long long	TTUInt64;
+		typedef signed long long	TTInt64;		///< 64 bit unsigned integer
+		typedef unsigned long long	TTUInt64;		///< 64 bit unsigned integer
 	#endif
 #endif
 
@@ -158,9 +158,9 @@ typedef unsigned short		TTUInt16;
 //#define uint unsigned int
 //#endif
 
-typedef float					TTFloat32;
-typedef double					TTFloat64;
-typedef std::complex<double>	TTComplex;
+typedef float					TTFloat32;			///< 32 bit floating point number
+typedef double					TTFloat64;			///< 64 bit floating point number
+typedef std::complex<double>	TTComplex;			///< Conmplex number
 
 /** A value representing a single audio sample.  TTSampleValue should be used any place a sample value is what the value represents.  This will enable us to change the type in the future if needed.  For example, to use 64-bit floats. */
 typedef TTFloat64			TTSampleValue;
@@ -207,9 +207,18 @@ typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBool
 
 /****************************************************************************************************/
 
-/**	TTBlue Data Types
- *	Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
- *	TTAttribute objects.																			*/
+
+/** \defgroup enums Enumerations
+ *
+ * Various enumerations used in %Jamoma.
+ */
+
+
+
+/**	\ingroup enums
+ TTBlue Data Types
+ Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
+ TTAttribute objects.																			*/
 enum TTDataType{
 	kTypeNone = 0,
 	kTypeFloat32,
@@ -270,8 +279,9 @@ public:
 
 
 
-/**	TTBlue Error Codes
- *	Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
+/**	\ingroup enums
+ Jamoma Error Codes
+ Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
 enum TTErr {
 	kTTErrNone = 0,			///< No Error.
 	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
