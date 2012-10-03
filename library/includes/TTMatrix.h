@@ -86,14 +86,8 @@ public:
 	/**	Attribute accessor. Sets the value for RowCount. Values that are less than 1 will produce an error. */
 	TTErr setRowCount(const TTValue& aNewRowCount);
 	
-	/**	Attribute accessor. Returns the saved value for RowCount.	*/
-	TTErr getRowCount(TTValue& returnedRowCount) const;
-	
 	/**	Attribute accessor. Sets the value for ColumnCount. Values that are less than 1 will produce an error. */
 	TTErr setColumnCount(const TTValue& aNewColumnCount);
-	
-	/**	Attribute accessor. Returns the saved value for ColumnCount.	*/
-	TTErr getColumnCount(TTValue& returnedColumnCount) const;
 	
 
 	TTErr clear();

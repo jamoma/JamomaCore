@@ -30,8 +30,8 @@ TT_OBJECT_CONSTRUCTOR,
 	mTailPtr(NULL)
 {
 	addAttributeWithGetterAndSetter(Dimensions, 	kTypeUInt32); // DEPRECATION in progress
-	addAttributeWithGetterAndSetter(RowCount, 		kTypeUInt32);
-	addAttributeWithGetterAndSetter(ColumnCount, 	kTypeUInt32);
+	addAttributeWithSetter(RowCount, 				kTypeUInt32);
+	addAttributeWithSetter(ColumnCount, 			kTypeUInt32);
 	addAttributeWithSetter(Type,					kTypeUInt8);
 	addAttributeWithSetter(ElementCount,			kTypeUInt8);
 
@@ -169,31 +169,15 @@ TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 
 TTErr TTMatrix::setRowCount(const TTValue& aNewRowCount)
 {
-	if (aNewRowCount < 1) 
-	{
-		return kTTErrInvalidValue;
-	} else {
-		mRowCount = aNewRowCount;
-		return resize();
-	}
+	return kTTErrNone;
 }
 
-TTErr TTMatrix::getRowCount(const TTValue& returnedRowCount)  // DEPRECATION in progress: for now, does nothing
-	{return kTTErrNone;}
 
 TTErr TTMatrix::setColumnCount(const TTValue& aNewColumnCount)
 {
-	if (aNewColumnCount < 1) 
-	{
-		return kTTErrInvalidValue;
-	} else {
-		mColumnCount = aNewColumnCount;
-		return resize();
-	}
+	return kTTErrNone;
 }
 
-TTErr TTMatrix::getColumnCount(const TTValue& returnedColumnCount)  // DEPRECATION in progress: for now, does nothing
-	{return kTTErrNone;}
 
 TTErr TTMatrix::setType(const TTValue& aType)
 {
