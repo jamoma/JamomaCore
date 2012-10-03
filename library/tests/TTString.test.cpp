@@ -114,6 +114,7 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 		
 	TTString gop("gop");
 	TTString bar("bar");
+	TTString foobar("foobar");
 	
 	TTTestAssertion("== operator when strings have the same content",
 					foo == gop,
@@ -151,6 +152,14 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
+	// here the length given to the substring is too long 
+	// so the foobar string is bar\00 after the substring
+	// bu the last zero makes foobar different to bar
+	foobar = foobar.substr(3, 4);		
+	TTTestAssertion("== operator with string when strings have the same content but one have some 0 after the NULL",
+					bar == foobar,
+					testAssertionCount,
+					errorCount);
 	
 }
 
