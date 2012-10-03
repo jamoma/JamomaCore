@@ -69,9 +69,6 @@ protected:
 	/**	Attribute accessor	*/
 	TTErr setType(const TTValue& aType);
 
-	/**	Attribute accessor	*/
-	TTErr setElementCount(const TTValue& newElementCount);
-
 	/**	Run unit tests.	*/	
 	virtual TTErr test(TTValue& returnedTestInfo);
 	
@@ -81,6 +78,9 @@ protected:
 	/**	Internal method that sets the value for ColumnCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. */
 	TTBoolean setColumnCountWithoutResize(TTUInt32 aNewColumnCount);
 	
+	/**	Internal method that sets the value for ElementCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. */
+	TTBoolean setElementCountWithoutResize(TTUInt8 aNewElementCount);
+	
 public:
 	
 	/**	Attribute accessor. Sets the value for RowCount. Values that are less than 1 will produce an error. */
@@ -88,6 +88,9 @@ public:
 	
 	/**	Attribute accessor. Sets the value for ColumnCount. Values that are less than 1 will produce an error. */
 	TTErr setColumnCount(const TTValue& aNewColumnCount);
+	
+	/**	Attribute accessor	Sets the value for ElementCount. Values that are less than 1 will produce an error. */
+	TTErr setElementCount(const TTValue& newElementCount);
 	
 	/**	Attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values beyond the first two will be ignored without an error.	Values that are less than 1 will produce an error. */
 	TTErr setDimensions(const TTValue& someNewDimensions);

@@ -145,6 +145,18 @@ TTBoolean TTMatrix::setColumnCountWithoutResize(TTUInt32 aNewColumnCount)
 }
 
 
+TTBoolean TTMatrix::setElementCountWithoutResize(TTUInt8 aNewElementCount)
+{
+	if (aNewElementCount > 0)
+	{
+		mElementCount = aNewElementCount;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
 TTErr TTMatrix::setRowCount(const TTValue& aNewRowCount)
 {
 	TTUInt32 aNewRowCountInt = aNewRowCount;
@@ -163,6 +175,19 @@ TTErr TTMatrix::setColumnCount(const TTValue& aNewColumnCount)
 	TTUInt32 aNewColumnCountInt = aNewColumnCount;
 	
 	if (setColumnCountWithoutResize(aNewColumnCountInt))
+	{
+		return resize();
+	} else {
+		return kTTErrInvalidValue;
+	}
+}
+
+
+TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
+{
+	TTUInt8 aNewElementCountInt = newElementCount;
+	
+	if (setElementCountWithoutResize(aNewElementCountInt))
 	{
 		return resize();
 	} else {
@@ -242,14 +267,6 @@ TTErr TTMatrix::setType(const TTValue& aType)
 	mType = typeName;
 	return resize();
 }
-
-
-TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
-{
-	mElementCount = newElementCount;
-	return resize();
-}
-
 
 TTErr TTMatrix::clear()
 {
