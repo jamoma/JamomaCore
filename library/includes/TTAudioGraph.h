@@ -35,7 +35,8 @@
 
 /******************************************************************************************/
 
-/** Enumeration recording the audio processing state of each node of the graph.
+/** \ingroup enums
+ Enumeration recording the audio processing state of each node of the graph.
 */
 enum TTAudioGraphProcessStatus {
 	kTTAudioGraphProcessUnknown = 0,		///< The current processing status of the node is unknown.
@@ -44,7 +45,8 @@ enum TTAudioGraphProcessStatus {
 	kTTAudioGraphProcessComplete			///< This node has completed processing audio for now.
 };
 
-/** Enumeration recording the state of each node when the graph is asked to describe itself.
+/** \ingroup enums
+ Enumeration recording the state of each node when the graph is asked to describe itself.
  */
 enum TTAudioGraphDescriptionStatus {
 	kTTAudioGraphDescriptionUnknown = 0,	///< The current status of the node is unknown with respect to describing itself as a member of a graph.
@@ -52,7 +54,8 @@ enum TTAudioGraphDescriptionStatus {
 	kTTAudioGraphDescriptionHasStarted,		///< The process of describing this node in the graph has begun.
 };
 
-/** Enumeration flags signaling specific properties of this node.
+/** \ingroup enums
+ Enumeration flags signaling specific properties of this node.
  Values are used as a bitmask.
  */
 enum TTAudioGraphFlags {
