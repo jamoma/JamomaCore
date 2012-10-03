@@ -317,6 +317,9 @@ public:
 		TTString	substring;
 		size_t		i;
 		
+		if (pos+n > size())		// If the size is too large and thus the range extends past the end of the string...
+			n = size() - pos;	// we limit the range to end at the end of the string.
+		
 		substring.reserve(n+16);
 		substring.resize(n);
 		for (i=0; i<n; i++) {
