@@ -20,10 +20,10 @@ TT_OBJECT_CONSTRUCTOR
 TTNodeLibTest::~TTNodeLibTest()
 {;}
 
-void TTNodeLibTestAddressTable(int& errorCount, int& testAssertionCount)
+void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 {
 	TTTestLog("\n");
-	TTTestLog("Testing Node Address Table access");
+	TTTestLog("Testing Address Parsing");
 	
 	TTAddress		testAddress1("directory1:/gran/parent1/name1.instance1:attribute1");
 	
@@ -80,20 +80,11 @@ void TTNodeLibTestAddressTable(int& errorCount, int& testAssertionCount)
 	TTAddressType	type6		= testAddress6.getType();
 	
 	// The first set of tests checks parsing of addresses
-	TTBoolean dir = (directory1 == TT("directory1"));
-	TTBoolean par = (parent1 == TTAddress("/gran/parent1"));
-	TTBoolean nam = (name1 == TT("name1"));
-	
-	TTBoolean ins = (instance1 == TT("instance1"));
-	
-	TTBoolean att = (attribute1 == TT("attribute1"));
-	TTBoolean typ = (type1 == kAddressAbsolute);
-	
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
 					directory1 == TT("directory1") &&
 					parent1 == TTAddress("/gran/parent1") &&
 					name1 == TT("name1") &&
-					ins && //instance1 == TT("instance1") &&
+					instance1 == TT("instance1") &&
 					attribute1 == TT("attribute1") &&
 					type1 == kAddressAbsolute,
 					testAssertionCount,
@@ -150,6 +141,117 @@ void TTNodeLibTestAddressTable(int& errorCount, int& testAssertionCount)
 					errorCount);
 }
 
+void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
+{
+	TTAddress testAddressA("directory:/gran/parent/name.instance:attribute");
+	TTAddress testAddressB("/parent/name");
+	TTAddress testAddressC("name");
+	
+	TTAddress testAddressD("/gran/parent");
+	TTAddress testAddressE("directory:/gran/parent");
+	
+	TTAddress testAddressF("name.instance:attribute");
+	TTAddress testAddressG("/name.instance:attribute");
+	TTSymbol result;
+	
+	// the first set of tests checks the getNameInstance method
+	TTTestLog("\n");
+	TTTestLog("Testing Address getNameInstance Method");
+	
+	result = testAddressA.getNameInstance();
+	TTTestAssertion("TTAddress: Test passes if the getNameInstance() method returns \"name.instance\"",
+					result == TTSymbol("name.instance"),
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressB.getNameInstance();
+	TTTestAssertion("TTAddress: Test passes if the getNameInstance() method returns \"name\"",
+					result == TTSymbol("name"),
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressC.getNameInstance();
+	TTTestAssertion("TTAddress: Test passes if the getNameInstance() method returns \"name\"",
+					result == TTSymbol("name"),
+					testAssertionCount,
+					errorCount);
+	
+	result = kTTAdrsEmpty.getNameInstance();
+	TTTestAssertion("TTAddress: Test passes if the getNameInstance() method returns kTTSymEmpty",
+					result == kTTSymEmpty,
+					testAssertionCount,
+					errorCount);
+	
+	// the second set of tests checks the appendAddress method
+	TTTestLog("\n");
+	TTTestLog("Testing Address appendAddress Method");
+	
+	result = testAddressD.appendAddress(kTTAdrsEmpty);
+	TTTestAssertion("TTAddress: Test passes if the appendAddress() method returns the same address",
+					result ==testAddressD,
+					testAssertionCount,
+					errorCount);
+	
+	result = kTTAdrsEmpty.appendAddress(testAddressD);
+	TTTestAssertion("TTAddress: Test passes if the appendAddress() method returns the same address",
+					result == testAddressD,
+					testAssertionCount,
+					errorCount);
+	
+	result = kTTAdrsRoot.appendAddress(testAddressD);
+	TTTestAssertion("TTAddress: Test passes if the appendAddress() method returns the same address",
+					result == testAddressD,
+					testAssertionCount,
+					errorCount);
+	
+	result = kTTAdrsEmpty.appendAddress(testAddressE);
+	TTTestAssertion("TTAddress: Test passes if the appendAddress() method returns the same address",
+					result == testAddressE,
+					testAssertionCount,
+					errorCount);
+	
+	result = kTTAdrsRoot.appendAddress(testAddressE);
+	TTTestAssertion("TTAddress: Test passes if the appendAddress() method returns the same address",
+					result == testAddressE,
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressD.appendAddress(testAddressF);
+	TTTestAssertion("TTAddress: Test passes if the appendAddress() method returns \"/gran/parent/name.instance:attribute\"",
+					result == TTAddress("/gran/parent/name.instance:attribute"),
+					testAssertionCount,
+					errorCount);
+	
+	result = testAddressD.appendAddress(testAddressG);
+	TTTestAssertion("TTAddress: Test passes if the appendAddress() method returns \"/gran/parent/name.instance:attribute\"",
+					result == TTAddress("/gran/parent/name.instance:attribute"),
+					testAssertionCount,
+					errorCount);
+	
+	// This test checks appendInstance() and appendAttribute() methods
+	result = kTTAdrsRoot.appendAddress(TTAddress("name")).appendInstance(TTAddress("instance")).appendAttribute(TTAddress("attribute"));
+	TTTestAssertion("TTAddress: Test passes if appendAddress + appendInstance + appendAttribute methods returns \"/name.instance:attribute\"",
+					result == TTAddress("/name.instance:attribute"),
+					testAssertionCount,
+					errorCount);
+	/*
+	// the third set of tests checks the splitAt method
+	TTTestLog("\n");
+	TTTestLog("Testing Address splitAt Method");
+	
+	
+	// the fourth set of tests checks the countSeparator method
+	TTTestLog("\n");
+	TTTestLog("Testing Address countSeparator Method");
+	
+	
+	// the fift set of tests checks the listNameInstance method
+	TTTestLog("\n");
+	TTTestLog("Testing Address listNameInstance Method");
+	 */
+	
+}
+
 void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 {
 	TTAddressItemPtr aNamespace, aParent, n, f;
@@ -159,7 +261,7 @@ void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 	TTErr err;
 	
 	TTTestLog("\n");
-	TTTestLog("Testing Node Address Item management");
+	TTTestLog("Testing Address Item management");
 	
 	// The first test checks item creation and member access
 	aNamespace = new TTAddressItem(kTTSymEmpty);
@@ -286,7 +388,6 @@ void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 					size == 2,
 					testAssertionCount,
 					errorCount);
-	
 }
 
 void TTNodeLibTestAddressComparison(int& errorCount, int& testAssertionCount)
@@ -295,7 +396,7 @@ void TTNodeLibTestAddressComparison(int& errorCount, int& testAssertionCount)
 	TTInt8 depthDifference;
 	
 	TTTestLog("\n");
-	TTTestLog("Testing Node Address Comparison");
+	TTTestLog("Testing Address Comparison");
 	
 	TTAddress testAddressA("/gran/parent/name.instance");
 	TTAddress testAddressB("/gran");
@@ -350,6 +451,36 @@ void TTNodeLibTestAddressComparison(int& errorCount, int& testAssertionCount)
 					errorCount);
 }
 
+void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
+{
+	TTTestLog("\n");
+	TTTestLog("Miscellaneous Tests");
+	
+	// test convertUpperCasedName global method
+	TTSymbol testSymbolA = "TestSymbolName";
+	TTSymbol testSymbolB = "testSymbolName";
+	TTSymbol testSymbolC = "testsymbolname";
+	TTSymbol result;
+
+	convertUpperCasedName(testSymbolA, result);
+	TTTestAssertion("convertUpperCasedName: Test passes if \"TestSymbolName\" is converted in \"test/symbol/name\"",
+					result == TTSymbol("test/symbol/name"),
+					testAssertionCount,
+					errorCount);
+	
+	convertUpperCasedName(testSymbolB, result);
+	TTTestAssertion("convertUpperCasedName: Test passes if \"testSymbolName\" is converted in \"test/symbol/name\"",
+					result == TTSymbol("test/symbol/name"),
+					testAssertionCount,
+					errorCount);
+	
+	convertUpperCasedName(testSymbolC, result);
+	TTTestAssertion("convertUpperCasedName: Test passes if \"testsymbolname\" is not converted",
+					result == testSymbolC,
+					testAssertionCount,
+					errorCount);
+}
+
 // TODO: Benchmarking
 
 TTErr TTNodeLibTest::test(TTValue& returnedTestInfo)
@@ -357,11 +488,15 @@ TTErr TTNodeLibTest::test(TTValue& returnedTestInfo)
 	int	errorCount = 0;
 	int testAssertionCount = 0;
 	
-	TTNodeLibTestAddressTable(errorCount, testAssertionCount);
+	TTNodeLibTestAddressParsing(errorCount, testAssertionCount);
+	
+	TTNodeLibTestAddressMethods(errorCount, testAssertionCount);
 	
 	TTNodeLibTestAddressItem(errorCount, testAssertionCount);
 	
 	TTNodeLibTestAddressComparison(errorCount, testAssertionCount);
+	
+	TTNodeLibTestMiscellaneous(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
