@@ -7,18 +7,72 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A79C81E4152314B500119511 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
-		A79C81E5152314BE00119511 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
-		A79C81E6152314CA00119511 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
+		A73F2C74161CB818007A4E83 /* TTAudioGraphObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphObject.cpp; path = source/TTAudioGraphObject.cpp; sourceTree = "<group>"; };
+		A73F2C75161CB818007A4E83 /* TTAudioGraphDescription.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphDescription.cpp; path = source/TTAudioGraphDescription.cpp; sourceTree = "<group>"; };
+		A73F2C76161CB818007A4E83 /* TTAudioGraphOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphOutput.cpp; path = source/TTAudioGraphOutput.cpp; sourceTree = "<group>"; };
+		A73F2C77161CB818007A4E83 /* TTAudioGraphInput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphInput.cpp; path = source/TTAudioGraphInput.cpp; sourceTree = "<group>"; };
+		A73F2C78161CB818007A4E83 /* TTAudioGraphSource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSource.cpp; path = source/TTAudioGraphSource.cpp; sourceTree = "<group>"; };
+		A73F2C79161CB818007A4E83 /* TTAudioGraphGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphGenerator.cpp; path = source/TTAudioGraphGenerator.cpp; sourceTree = "<group>"; };
+		A73F2C7A161CB818007A4E83 /* TTAudioGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraph.cpp; path = source/TTAudioGraph.cpp; sourceTree = "<group>"; };
+		A73F2C7C161CB83A007A4E83 /* split-gain-join.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "split-gain-join.test.cpp"; path = "tests/split-gain-join.test.cpp"; sourceTree = "<group>"; };
+		A73F2C7E161CB897007A4E83 /* TTAudioGraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraph.h; path = includes/TTAudioGraph.h; sourceTree = "<group>"; };
+		A73F2C7F161CB897007A4E83 /* TTAudioGraphAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphAPI.h; path = includes/TTAudioGraphAPI.h; sourceTree = "<group>"; };
+		A73F2C80161CB897007A4E83 /* TTAudioGraphDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphDescription.h; path = includes/TTAudioGraphDescription.h; sourceTree = "<group>"; };
+		A73F2C81161CB897007A4E83 /* TTAudioGraphGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphGenerator.h; path = includes/TTAudioGraphGenerator.h; sourceTree = "<group>"; };
+		A73F2C82161CB897007A4E83 /* TTAudioGraphInlet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphInlet.h; path = includes/TTAudioGraphInlet.h; sourceTree = "<group>"; };
+		A73F2C83161CB897007A4E83 /* TTAudioGraphInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphInput.h; path = includes/TTAudioGraphInput.h; sourceTree = "<group>"; };
+		A73F2C84161CB897007A4E83 /* TTAudioGraphObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphObject.h; path = includes/TTAudioGraphObject.h; sourceTree = "<group>"; };
+		A73F2C85161CB897007A4E83 /* TTAudioGraphOutlet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOutlet.h; path = includes/TTAudioGraphOutlet.h; sourceTree = "<group>"; };
+		A73F2C86161CB897007A4E83 /* TTAudioGraphOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOutput.h; path = includes/TTAudioGraphOutput.h; sourceTree = "<group>"; };
+		A73F2C87161CB897007A4E83 /* TTAudioGraphSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSource.h; path = includes/TTAudioGraphSource.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		A73F2C7B161CB822007A4E83 /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				A73F2C74161CB818007A4E83 /* TTAudioGraphObject.cpp */,
+				A73F2C75161CB818007A4E83 /* TTAudioGraphDescription.cpp */,
+				A73F2C76161CB818007A4E83 /* TTAudioGraphOutput.cpp */,
+				A73F2C77161CB818007A4E83 /* TTAudioGraphInput.cpp */,
+				A73F2C78161CB818007A4E83 /* TTAudioGraphSource.cpp */,
+				A73F2C79161CB818007A4E83 /* TTAudioGraphGenerator.cpp */,
+				A73F2C7A161CB818007A4E83 /* TTAudioGraph.cpp */,
+			);
+			name = sources;
+			sourceTree = "<group>";
+		};
+		A73F2C7D161CB83E007A4E83 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				A73F2C7C161CB83A007A4E83 /* split-gain-join.test.cpp */,
+			);
+			name = tests;
+			sourceTree = "<group>";
+		};
+		A73F2C88161CB89F007A4E83 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				A73F2C7E161CB897007A4E83 /* TTAudioGraph.h */,
+				A73F2C7F161CB897007A4E83 /* TTAudioGraphAPI.h */,
+				A73F2C80161CB897007A4E83 /* TTAudioGraphDescription.h */,
+				A73F2C81161CB897007A4E83 /* TTAudioGraphGenerator.h */,
+				A73F2C82161CB897007A4E83 /* TTAudioGraphInlet.h */,
+				A73F2C83161CB897007A4E83 /* TTAudioGraphInput.h */,
+				A73F2C84161CB897007A4E83 /* TTAudioGraphObject.h */,
+				A73F2C85161CB897007A4E83 /* TTAudioGraphOutlet.h */,
+				A73F2C86161CB897007A4E83 /* TTAudioGraphOutput.h */,
+				A73F2C87161CB897007A4E83 /* TTAudioGraphSource.h */,
+			);
+			name = includes;
+			sourceTree = "<group>";
+		};
 		A79C81D21523142400119511 = {
 			isa = PBXGroup;
 			children = (
-				A79C81E5152314BE00119511 /* includes */,
-				A79C81E4152314B500119511 /* source */,
-				A79C81E6152314CA00119511 /* tests */,
+				A73F2C88161CB89F007A4E83 /* includes */,
+				A73F2C7B161CB822007A4E83 /* sources */,
+				A73F2C7D161CB83E007A4E83 /* tests */,
 			);
 			sourceTree = "<group>";
 		};
