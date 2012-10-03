@@ -243,6 +243,19 @@ public:
 	{
 		return ttDataTypeInfo[type];
 	}
+	
+	static TTDataInfoPtr getInfoForType(TTSymbol* typeAsSymbolPtr)
+	{		
+		// look through the symbols for each type in the enumerated list and see if there is a match...
+		int type = kNumTTDataTypes;
+		while (--type) 
+		{
+			// if yes, then return that TTDataInfoPtr
+			if (ttDataTypeInfo[type]->name == typeAsSymbolPtr) return ttDataTypeInfo[type];
+		}
+		// if no, then return the TTDataInfoPtr for type "none"
+		return ttDataTypeInfo[kTypeNone];
+	}
 
 	static TTBoolean getIsNumerical(TTDataType type)
 	{
