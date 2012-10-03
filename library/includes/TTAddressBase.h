@@ -38,8 +38,10 @@ class TTList;
 #define C_ZERO			'0'
 
 
-// Comparison flags between address returned by address1->compare(address2)
-// The comparison function doesn't compare attribute part
+/** \ingroup enums
+ Comparison flags between address returned by address1->compare(address2).
+ The comparison function doesn't compare attribute part. 
+*/
 enum TTAddressComparisonFlag {
 	kAddressLower = -1,					///< this flag means that address1 refers to a node at a lower level than address2 in the tree structure
 	kAddressDifferent = 0,				///< this flag means that address1 an address2 refer to nodes which are in a different branch in the tree structure
@@ -47,13 +49,17 @@ enum TTAddressComparisonFlag {
 	kAddressUpper = 2					///< this flag means that address1 refers to a node at a upper level than address2 in the tree structure
 };
 
-// Notification flags to notify observers of a directory
+/** \ingroup enums
+ Notification flags to notify observers of a directory.
+*/
 enum TTAddressNotificationFlag {
 	kAddressDestroyed = 0,				///< this flag means that a TTNode have been destroyed in the tree structure
 	kAddressCreated = 1					///< this flag means that a TTNode have been created in the tree structure
 };
 
-// Type flags to state about absolute or relative address
+/** \ingroup enums
+ Type flags to state about absolute or relative address.
+*/
 enum TTAddressType {
 	kAddressRelative = 0,				///< this flag means that an address have no leading slash
 	kAddressAbsolute = 1,				///< this flag means that an address have a leading slash
