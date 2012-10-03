@@ -184,19 +184,35 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing summing operation");
 	
-	TTString sum;
-	sum += "/";
+	TTString sumA;
+	sumA += "/";
 	
 	TTTestAssertion("created from += operator with correct size",
-					sum.size() == 1,
+					sumA.size() == 1,
 					testAssertionCount,
 					errorCount);
 	TTTestAssertion("created from += operator with correct length",
-					sum.length() == 1,
+					sumA.length() == 1,
 					testAssertionCount,
 					errorCount);
 	TTTestAssertion("created from += operator correctly null terminated",
-					sum.at(1) == 0,
+					sumA.at(1) == 0,
+					testAssertionCount,
+					errorCount);
+	
+	TTString sumB;
+	sumB += '/';
+	
+	TTTestAssertion("created from += operator with correct size",
+					sumB.size() == 1,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from += operator with correct length",
+					sumB.length() == 1,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("created from += operator correctly null terminated",
+					sumB.at(1) == 0,
 					testAssertionCount,
 					errorCount);
 	
@@ -221,6 +237,7 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 	b = "Pi is roughly 3.140000";
 	a = "Pi is roughly ";
 	a += 3.14f;
+	
 	TTTestAssertion("string built-up with a float in it",
 					a == b,
 					testAssertionCount,
@@ -232,7 +249,6 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 					a == b,
 					testAssertionCount,
 					errorCount);
-
 	
 	TTTestLog("\n");
 	TTTestLog("Testing + operator");
