@@ -144,133 +144,133 @@ TTMODULAR_EXPORT TTSymbol	kTTSym_WriteAgain;
 void TTModularSymbolCacheInit()
 {
 	// object classe name
-	kTTSym_Application				= TT("Application");
-	kTTSym_ApplicationManager		= TT("ApplicationManager");	
-	kTTSym_Container				= TT("Container");		
-	kTTSym_Cue						= TT("Cue");					
-	kTTSym_CueManager				= TT("CueManager");			
-	kTTSym_Data						= TT("Data");					
-	kTTSym_Explorer					= TT("Explorer");				
-	kTTSym_Input					= TT("Input");				
-	kTTSym_Mapper					= TT("Mapper");				
-	kTTSym_MapperManager			= TT("MapperManager");		
-	kTTSym_Mirror					= TT("Mirror");				
-	kTTSym_OpmlHandler				= TT("OpmlHandler");			
-	kTTSym_Output					= TT("Output");				
-	kTTSym_Preset					= TT("Preset");				
-	kTTSym_PresetManager			= TT("PresetManager");		
-	kTTSym_Receiver					= TT("Receiver");				
-	kTTSym_Sender					= TT("Sender");				
-	kTTSym_Script					= TT("Script");				
-	kTTSym_Subscriber				= TT("Subscriber");			
-	kTTSym_TextHandler				= TT("TextHandler");			
-	kTTSym_Viewer					= TT("Viewer");				
-	kTTSym_XmlHandler				= TT("XmlHandler");
+	kTTSym_Application				= TTSymbol("Application");
+	kTTSym_ApplicationManager		= TTSymbol("ApplicationManager");	
+	kTTSym_Container				= TTSymbol("Container");		
+	kTTSym_Cue						= TTSymbol("Cue");					
+	kTTSym_CueManager				= TTSymbol("CueManager");			
+	kTTSym_Data						= TTSymbol("Data");					
+	kTTSym_Explorer					= TTSymbol("Explorer");				
+	kTTSym_Input					= TTSymbol("Input");				
+	kTTSym_Mapper					= TTSymbol("Mapper");				
+	kTTSym_MapperManager			= TTSymbol("MapperManager");		
+	kTTSym_Mirror					= TTSymbol("Mirror");				
+	kTTSym_OpmlHandler				= TTSymbol("OpmlHandler");			
+	kTTSym_Output					= TTSymbol("Output");				
+	kTTSym_Preset					= TTSymbol("Preset");				
+	kTTSym_PresetManager			= TTSymbol("PresetManager");		
+	kTTSym_Receiver					= TTSymbol("Receiver");				
+	kTTSym_Sender					= TTSymbol("Sender");				
+	kTTSym_Script					= TTSymbol("Script");				
+	kTTSym_Subscriber				= TTSymbol("Subscriber");			
+	kTTSym_TextHandler				= TTSymbol("TextHandler");			
+	kTTSym_Viewer					= TTSymbol("Viewer");				
+	kTTSym_XmlHandler				= TTSymbol("XmlHandler");
 
 	// attribute, message or any word often used
-	kTTSym_activity					= TT("activity");
-	kTTSym_activityIn				= TT("activityIn");
-	kTTSym_activityOut				= TT("activityOut");
-	kTTSym_address					= TT("address");
-	kTTSym_addresses				= TT("addresses");
-	kTTSym_alias					= TT("alias");
-	kTTSym_alphabetic				= TT("alphabetic");
-	kTTSym_attributes				= TT("attributes");
-	kTTSym_array					= TT("array");
+	kTTSym_activity					= TTSymbol("activity");
+	kTTSym_activityIn				= TTSymbol("activityIn");
+	kTTSym_activityOut				= TTSymbol("activityOut");
+	kTTSym_address					= TTSymbol("address");
+	kTTSym_addresses				= TTSymbol("addresses");
+	kTTSym_alias					= TTSymbol("alias");
+	kTTSym_alphabetic				= TTSymbol("alphabetic");
+	kTTSym_attributes				= TTSymbol("attributes");
+	kTTSym_array					= TTSymbol("array");
 	
-	kTTSym_boolean					= TT("boolean");
-	kTTSym_brothers					= TT("brothers");
+	kTTSym_boolean					= TTSymbol("boolean");
+	kTTSym_brothers					= TTSymbol("brothers");
 	
-	kTTSym_children					= TT("children");
-	kTTSym_command					= TT("command");
-	kTTSym_Command					= TT("Command");
-	kTTSym_comment					= TT("comment");
-	kTTSym_ConvertToAppName			= TT("ConvertToAppName");
-	kTTSym_ConvertToTTName			= TT("ConvertToTTName");
-	kTTSym_created					= TT("created");
+	kTTSym_children					= TTSymbol("children");
+	kTTSym_command					= TTSymbol("command");
+	kTTSym_Command					= TTSymbol("Command");
+	kTTSym_comment					= TTSymbol("comment");
+	kTTSym_ConvertToAppName			= TTSymbol("ConvertToAppName");
+	kTTSym_ConvertToTTName			= TTSymbol("ConvertToTTName");
+	kTTSym_created					= TTSymbol("created");
 	
-	kTTSym_dash						= TT("-");
-	kTTSym_dataspace				= TT("dataspace");
-	kTTSym_dataspaceUnit			= TT("dataspaceUnit");
-	kTTSym_debug					= TT("debug");
-	kTTSym_decimal					= TT("decimal");
-	kTTSym_descendants				= TT("descendants");
-	kTTSym_description				= TT("description");
-	kTTSym_destroyed				= TT("destroyed");
-	kTTSym_directory				= TT("directory");
+	kTTSym_dash						= TTSymbol("-");
+	kTTSym_dataspace				= TTSymbol("dataspace");
+	kTTSym_dataspaceUnit			= TTSymbol("dataspaceUnit");
+	kTTSym_debug					= TTSymbol("debug");
+	kTTSym_decimal					= TTSymbol("decimal");
+	kTTSym_descendants				= TTSymbol("descendants");
+	kTTSym_description				= TTSymbol("description");
+	kTTSym_destroyed				= TTSymbol("destroyed");
+	kTTSym_directory				= TTSymbol("directory");
 	
-	kTTSym_enable					= TT("enable");
-	kTTSym_end						= TT("end");
+	kTTSym_enable					= TTSymbol("enable");
+	kTTSym_end						= TTSymbol("end");
 	
-	kTTSym_Fill						= TT("Fill");
-	kTTSym_filter					= TT("filter");
-	kTTSym_flag						= TT("flag");
-	kTTSym_freeze					= TT("freeze");
+	kTTSym_Fill						= TTSymbol("Fill");
+	kTTSym_filter					= TTSymbol("filter");
+	kTTSym_flag						= TTSymbol("flag");
+	kTTSym_freeze					= TTSymbol("freeze");
 	
-	kTTSym_generic					= TT("generic");
-	kTTSym_Get						= TT("Get");
-	kTTSym_global					= TT("global");
+	kTTSym_generic					= TTSymbol("generic");
+	kTTSym_Get						= TTSymbol("Get");
+	kTTSym_global					= TTSymbol("global");
 	
-	kTTSym_highlight				= TT("highlight");
+	kTTSym_highlight				= TTSymbol("highlight");
 	
-	kTTSym_Init						= TT("Init");
-	kTTSym_initialized				= TT("initialized");
-	kTTSym_instances				= TT("instances");
-	kTTSym_integer					= TT("integer");
+	kTTSym_Init						= TTSymbol("Init");
+	kTTSym_initialized				= TTSymbol("initialized");
+	kTTSym_instances				= TTSymbol("instances");
+	kTTSym_integer					= TTSymbol("integer");
 	
-	kTTSym_life						= TT("life");
-	kTTSym_lookfor					= TT("lookfor");
+	kTTSym_life						= TTSymbol("life");
+	kTTSym_lookfor					= TTSymbol("lookfor");
 	
-	kTTSym_Map						= TT("Map");
-	kTTSym_message					= TT("message");
-	kTTSym_mix						= TT("mix");
-	kTTSym_model					= TT("model");
-	kTTSym_mute						= TT("mute");
+	kTTSym_Map						= TTSymbol("Map");
+	kTTSym_message					= TTSymbol("message");
+	kTTSym_mix						= TTSymbol("mix");
+	kTTSym_model					= TTSymbol("model");
+	kTTSym_mute						= TTSymbol("mute");
 	
-	kTTSym_namespace				= TT("namespace");
+	kTTSym_namespace				= TTSymbol("namespace");
 	
-	kTTSym_object					= TT("object");
-	kTTSym_objectCache				= TT("objectCache");
-	kTTSym_order					= TT("order");
+	kTTSym_object					= TTSymbol("object");
+	kTTSym_objectCache				= TTSymbol("objectCache");
+	kTTSym_order					= TTSymbol("order");
 	
-	kTTSym_parameter				= TT("parameter");
-	kTTSym_preview					= TT("preview");
-	kTTSym_priority					= TT("priority");
+	kTTSym_parameter				= TTSymbol("parameter");
+	kTTSym_preview					= TTSymbol("preview");
+	kTTSym_priority					= TTSymbol("priority");
 	
-	kTTSym_rangeBounds				= TT("rangeBounds");
-	kTTSym_rangeClipmode			= TT("rangeClipmode");
-	kTTSym_rampDrive				= TT("rampDrive");
-	kTTSym_rampFunction				= TT("rampFunction");
-	kTTSym_Read						= TT("Read");
-	kTTSym_ReadAgain				= TT("ReadAgain");
-	kTTSym_readonly					= TT("readonly");
-	kTTSym_Recall					= TT("Recall");
-	kTTSym_receiver					= TT("receiver");
-	kTTSym_Refresh					= TT("Refresh");
-	kTTSym_repetitionsAllow			= TT("repetitionsAllow");
-	kTTSym_return					= TT("return");
-	kTTSym_returnedValue			= TT("returnedValue");
+	kTTSym_rangeBounds				= TTSymbol("rangeBounds");
+	kTTSym_rangeClipmode			= TTSymbol("rangeClipmode");
+	kTTSym_rampDrive				= TTSymbol("rampDrive");
+	kTTSym_rampFunction				= TTSymbol("rampFunction");
+	kTTSym_Read						= TTSymbol("Read");
+	kTTSym_ReadAgain				= TTSymbol("ReadAgain");
+	kTTSym_readonly					= TTSymbol("readonly");
+	kTTSym_Recall					= TTSymbol("Recall");
+	kTTSym_receiver					= TTSymbol("receiver");
+	kTTSym_Refresh					= TTSymbol("Refresh");
+	kTTSym_repetitionsAllow			= TTSymbol("repetitionsAllow");
+	kTTSym_return					= TTSymbol("return");
+	kTTSym_returnedValue			= TTSymbol("returnedValue");
 	
-	kTTSym_Send						= TT("Send");
-	kTTSym_script					= TT("script");
-	kTTSym_service					= TT("service");
-	kTTSym_sharp					= TT("#");
-	kTTSym_signal					= TT("signal");
-	kTTSym_start					= TT("start");
-	kTTSym_stop						= TT("stop");
-	kTTSym_string					= TT("string");
+	kTTSym_Send						= TTSymbol("Send");
+	kTTSym_script					= TTSymbol("script");
+	kTTSym_service					= TTSymbol("service");
+	kTTSym_sharp					= TTSymbol("#");
+	kTTSym_signal					= TTSymbol("signal");
+	kTTSym_start					= TTSymbol("start");
+	kTTSym_stop						= TTSymbol("stop");
+	kTTSym_string					= TTSymbol("string");
 
-	kTTSym_tag						= TT("tag");
+	kTTSym_tag						= TTSymbol("tag");
 	
-	kTTSym_unit						= TT("unit");
+	kTTSym_unit						= TTSymbol("unit");
 	
-	kTTSym_value					= TT("value");
-	kTTSym_valueDefault				= TT("valueDefault");
-	kTTSym_valueStepsize			= TT("valueStepsize");
-	kTTSym_viewFreeze				= TT("viewFreeze");
-	kTTSym_view						= TT("view");
+	kTTSym_value					= TTSymbol("value");
+	kTTSym_valueDefault				= TTSymbol("valueDefault");
+	kTTSym_valueStepsize			= TTSymbol("valueStepsize");
+	kTTSym_viewFreeze				= TTSymbol("viewFreeze");
+	kTTSym_view						= TTSymbol("view");
 	
-	kTTSym_Write					= TT("Write");
-	kTTSym_WriteAgain				= TT("WriteAgain");
+	kTTSym_Write					= TTSymbol("Write");
+	kTTSym_WriteAgain				= TTSymbol("WriteAgain");
 }
 

@@ -27,7 +27,7 @@ mDefaultNamespace(NULL)
 	
 	addAttribute(Namespace, kTypeSymbol);
 	
-	registerAttribute(TT("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
+	registerAttribute(TTSymbol("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
 	
 	addAttribute(Cues, kTypePointer);
 	addAttributeProperty(Cues, readOnly, YES);
@@ -117,7 +117,7 @@ TTErr TTCueManager::getCurrentRamp(TTValue& value)
 		v.get(0, (TTPtr*)&mCurrentCue);
 		
 		if (mCurrentCue) {
-			return mCurrentCue->getAttributeValue(TT("ramp"), value);
+			return mCurrentCue->getAttributeValue(TTSymbol("ramp"), value);
 		}
 	}
 	
@@ -136,7 +136,7 @@ TTErr TTCueManager::setCurrentRamp(const TTValue& value)
 		
 		if (mCurrentCue) {
 			v = value;
-			mCurrentCue->setAttributeValue(TT("ramp"), v);
+			mCurrentCue->setAttributeValue(TTSymbol("ramp"), v);
 		}
 	}
 	
@@ -231,10 +231,10 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 			if (!aNamespace) aNamespace = mDefaultNamespace;
 			
 			v = TTValue((TTPtr)aNamespace);
-			mCurrentCue->sendMessage(TT("Select"), v, kTTValNONE);
+			mCurrentCue->sendMessage(TTSymbol("Select"), v, kTTValNONE);
 			
 			// refresh all namespace handlers (TTExplorer only)
-			aNamespace->iterateHandlersSendingMessage(TT("SelectRefresh"));
+			aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectRefresh"));
 			
 			return kTTErrNone;
 		}
@@ -303,14 +303,14 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	}
 	else {
 		v.get(0, (TTPtr*)&mCurrentCue);
-		mCurrentCue->sendMessage(TT("Clear"));
+		mCurrentCue->sendMessage(TTSymbol("Clear"));
 	}
 	
 	aNamespace = lookupNamespace(mNamespace);
 	if (!aNamespace) aNamespace = mDefaultNamespace;
 	
 	v = TTValue((TTPtr)aNamespace);
-	return mCurrentCue->sendMessage(TT("Store"), v, kTTValNONE);
+	return mCurrentCue->sendMessage(TTSymbol("Store"), v, kTTValNONE);
 }
 
 TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
@@ -327,7 +327,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		v.get(0, (TTPtr*)&mCurrentCue);
 		
 		if (mCurrentCue)
-			return mCurrentCue->sendMessage(TT("Recall"));
+			return mCurrentCue->sendMessage(TTSymbol("Recall"));
 	}
 	
 	return kTTErrGeneric;
@@ -512,7 +512,7 @@ TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST cueName.c_str());
 			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
-			aXmlHandler->sendMessage(TT("Write"));
+			aXmlHandler->sendMessage(TTSymbol("Write"));
 			
 			// end to write a cue
 			xmlTextWriterEndElement(aXmlHandler->mWriter);
@@ -550,7 +550,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 			// send the end file to the cue to process the namespace
 			v = TTValue(TTPtr(mCurrentCue));
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
-			aXmlHandler->sendMessage(TT("Read"));
+			aXmlHandler->sendMessage(TTSymbol("Read"));
 		}
 		
 		notifyOrderObservers();
@@ -559,7 +559,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	// Flag node :
-	if (aXmlHandler->mXmlNodeName == TT("cue")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("cue")) {
 		
 		if (!aXmlHandler->mXmlNodeStart)
 			return kTTErrNone;
@@ -592,7 +592,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		
 		v = TTValue(TTPtr(mCurrentCue));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
-		return aXmlHandler->sendMessage(TT("Read"));
+		return aXmlHandler->sendMessage(TTSymbol("Read"));
 	}
 	else
 		return kTTErrGeneric;
@@ -617,7 +617,7 @@ TTErr TTCueManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			*buffer += "\n";
 			
 			aTextHandler->setAttributeValue(kTTSym_object, v);
-			aTextHandler->sendMessage(TT("Write"));
+			aTextHandler->sendMessage(TTSymbol("Write"));
 		}
 	}
 	
@@ -652,7 +652,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 			line->lookup(kTTSym_name, v);
 			v.get(0, flagName);
 			
-			if (flagName == TT("cue")) {
+			if (flagName == TTSymbol("cue")) {
 				
 				// get cue name
 				if (!line->getValue(v)) {
@@ -678,7 +678,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 		
 		v = TTValue(TTPtr(mCurrentCue));
 		aTextHandler->setAttributeValue(kTTSym_object, v);
-		aTextHandler->sendMessage(TT("Read"));
+		aTextHandler->sendMessage(TTSymbol("Read"));
 	}
 	
 	// if it is the last line : bind on the first cue

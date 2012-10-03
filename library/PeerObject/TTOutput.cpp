@@ -91,7 +91,7 @@ mSignalAttr(NULL)
 	
 	mLast = kTTValNONE;
 	
-	this->findAttribute(TT("signal"), &mSignalAttr);
+	this->findAttribute(TTSymbol("signal"), &mSignalAttr);
 }
 
 TTOutput::~TTOutput()
@@ -213,12 +213,12 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		
 		// prepare arguments
 		mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
-		mAddressObserver->setAttributeValue(TT("owner"), TT("TTOutput"));		// this is usefull only to debug
+		mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTOutput"));		// this is usefull only to debug
 	}
 	
 	if (mAddressObserver) {
@@ -240,9 +240,9 @@ TTErr TTOutput::setMute(const TTValue& value)
 	if (mGainUnit) {
 		
 		if (mMute)
-			return mGainUnit->setAttributeValue(TT("linearGain"), 0.0);
+			return mGainUnit->setAttributeValue(TTSymbol("linearGain"), 0.0);
 		else 
-			return mGainUnit->setAttributeValue(TT("midiGain"), mGain);
+			return mGainUnit->setAttributeValue(TTSymbol("midiGain"), mGain);
 	}
 	
 	return kTTErrNone;
@@ -253,7 +253,7 @@ TTErr TTOutput::setMix(const TTValue& value)
 	mMix = value;
 	
 	if (mMixUnit)
-		return mMixUnit->setAttributeValue(TT("position"), mMix * 0.01);
+		return mMixUnit->setAttributeValue(TTSymbol("position"), mMix * 0.01);
 	
 	return kTTErrNone;
 }
@@ -263,7 +263,7 @@ TTErr TTOutput::setGain(const TTValue& value)
 	mGain = value;
 	
 	if (mGainUnit)
-		return mGainUnit->setAttributeValue(TT("midiGain"), mGain);
+		return mGainUnit->setAttributeValue(TTSymbol("midiGain"), mGain);
 	
 	return kTTErrNone;
 }

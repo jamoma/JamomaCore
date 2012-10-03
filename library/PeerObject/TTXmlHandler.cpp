@@ -18,10 +18,10 @@
 TT_MODULAR_CONSTRUCTOR,
 mObject(NULL),
 mFilePath(kTTSymEmpty),
-mHeaderNodeName(TT("jamoma")),
-mVersion(TT("0.6")),
-mXmlSchemaInstance(TT("'http://www.w3.org/2001/XMLSchema-instance'")),
-mXmlSchemaLocation(TT("'http://jamoma.org/ file:jamoma.xsd'")),
+mHeaderNodeName(TTSymbol("jamoma")),
+mVersion(TTSymbol("0.6")),
+mXmlSchemaInstance(TTSymbol("'http://www.w3.org/2001/XMLSchema-instance'")),
+mXmlSchemaLocation(TTSymbol("'http://jamoma.org/ file:jamoma.xsd'")),
 mWriter(NULL),
 mReader(NULL),
 mIsWriting(false),
@@ -102,7 +102,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			// Write data of the given TTObject (which have to implement a WriteAsXml message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("WriteAsXml"), v, kTTValNONE);
+			aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 			
 			// End Header information
 			xmlTextWriterEndElement(mWriter);
@@ -126,7 +126,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("WriteAsXml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 }
 
 TTErr TTXmlHandler::WriteAgain()
@@ -244,7 +244,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						
 						// process the mObject parsing on this node
 						v.append((TTPtr)this);
-						aTTObject->sendMessage(TT("ReadFromXml"), v, kTTValNONE);
+						aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 					}
 						
 					// next node
@@ -270,7 +270,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("ReadFromXml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 }
 
 TTErr TTXmlHandler::ReadAgain()

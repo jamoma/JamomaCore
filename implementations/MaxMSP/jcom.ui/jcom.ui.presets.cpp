@@ -21,7 +21,7 @@ void ui_preset_store_next(t_ui *x)
 	if (result != 1)
 		return;
 	
-	ui_viewer_send(x, TT("preset/store"), TT(text));
+	ui_viewer_send(x, TTSymbol("preset/store"), TT(text));
 	
 	// TODO: do we not have to free text?
 }
@@ -40,7 +40,7 @@ void ui_preset_doread(t_ui *x)
 	path_topathname(path, filename, fullpath);
 	path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 	
-	ui_viewer_send(x, TT("preset/read"), TT(posixpath));
+	ui_viewer_send(x, TTSymbol("preset/read"), TT(posixpath));
 }
 
 void ui_preset_dowrite(t_ui *x)
@@ -54,17 +54,17 @@ void ui_preset_dowrite(t_ui *x)
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
 	TTNodePtr		patcherNode;
 	ObjectPtr		modelPatcher = NULL;
-	TTSymbolPtr		modelClass = NULL;
+	TTSymbol		modelClass;
 	
 	// get model patcher class for preset file name
 	JamomaDirectory->getTTNode(x->modelAddress, &patcherNode);
 	modelPatcher = (ObjectPtr)patcherNode->getContext();
 
 	if (modelPatcher) {
-		jamoma_patcher_get_class(modelPatcher, kTTSym_model, &modelClass);
+		jamoma_patcher_get_class(modelPatcher, kTTSym_model, modelClass);
 		
 		if (modelClass)
-			snprintf(filename, MAX_FILENAME_CHARS, "%s.model.xml", modelClass->getCString());	// Default File Name
+			snprintf(filename, MAX_FILENAME_CHARS, "%s.model.xml", modelClass.c_str());	// Default File Name
 		else
 			snprintf(filename, MAX_FILENAME_CHARS, ".model.xml");		// Default File Name
 	}
@@ -88,7 +88,7 @@ void ui_preset_dowrite(t_ui *x)
 	path_topathname(path, filename, fullpath);
 	path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 	
-	ui_viewer_send(x, TT("preset/write"), TT(posixpath));
+	ui_viewer_send(x, TTSymbol("preset/write"), TT(posixpath));
 }
 
 void ui_return_preset_order(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -134,7 +134,7 @@ void ui_preset_interface(t_ui *x)
 	object_method(p, _sym_vis);													// "vis" happens immediately, "front" is defer_lowed
 	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
 	
-	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)x->modelAddress->getCString()));	// the patch needs a [jcom.interfaceArguments.js]
+	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)x->modelAddress.c_str()));	// the patch needs a [jcom.interfaceArguments.js]
 	
 	object_method(p, _sym_loadbang);
 }

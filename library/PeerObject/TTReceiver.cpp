@@ -236,7 +236,7 @@ TTErr TTReceiver::bindAddress()
 					if (!err) {
 						
 						newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectInstantiate(TT("callback"), TTObjectHandle(&newObserver), kTTValNONE);
+						TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&newObserver), kTTValNONE);
 						
 						newBaton = new TTValue(TTPtr(this));
 						aNode->getAddress(anAddress);
@@ -245,7 +245,7 @@ TTErr TTReceiver::bindAddress()
 						newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 						newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
 						
-						newObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));					// this is usefull only to debug
+						newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));					// this is usefull only to debug
 						
 						anAttribute->registerObserverForNotifications(*newObserver);
 						
@@ -264,14 +264,14 @@ TTErr TTReceiver::bindAddress()
 	
 	// observe any creation or destruction below the attr_name address
 	mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
 	
 	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
 	
-	mAddressObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));							// this is usefull only to debug
+	mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));							// this is usefull only to debug
 	
 	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
@@ -355,14 +355,14 @@ TTErr TTReceiver::bindApplication()
 	if (!mApplicationObserver) {
 		
 		mApplicationObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
+		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverApplicationManagerCallback));
 		
-		mApplicationObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));		// this is usefull only to debug
+		mApplicationObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));		// this is usefull only to debug
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 	}
@@ -455,7 +455,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 						if (!err) {
 							
 							newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-							TTObjectInstantiate(TT("callback"), &newObserver, kTTValNONE);
+							TTObjectInstantiate(TTSymbol("callback"), &newObserver, kTTValNONE);
 							
 							newBaton = new TTValue(TTPtr(aReceiver));
 							newBaton->append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
@@ -463,7 +463,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 							newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
 							
-							newObserver->setAttributeValue(TT("owner"), TT("TTReceiver"));			// this is usefull only to debug
+							newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));			// this is usefull only to debug
 							
 							anAttribute->registerObserverForNotifications(*newObserver);
 							

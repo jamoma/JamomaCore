@@ -60,7 +60,7 @@ void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		relativeAddress = _sym_nothing;
 	
-	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name);
+	x->address = TTAddress(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name);
 	
 	jamoma_mapper_create((ObjectPtr)x, &x->wrappedObject);
 	
@@ -109,34 +109,34 @@ void map_subscribe(TTPtr self)
 	 // if the subscription is successful
 	 if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject)) {
 	 // expose attributes of TTMapper as TTData in the tree structure
-	 x->subscriberObject->exposeAttribute(x->wrappedObject, TT("input"), kTTSym_parameter, &aData);
+	 x->subscriberObject->exposeAttribute(x->wrappedObject, TTSymbol("input"), kTTSym_parameter, &aData);
 	 aData->setAttributeValue(kTTSym_type, kTTSym_string);
 	 aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-	 aData->setAttributeValue(kTTSym_description, TT("The input address to map"));
-	 x->subscriberObject->exposeAttribute(x->wrappedObject, TT("output"), kTTSym_parameter, &aData);
+	 aData->setAttributeValue(kTTSym_description, TTSymbol("The input address to map"));
+	 x->subscriberObject->exposeAttribute(x->wrappedObject, TTSymbol("output"), kTTSym_parameter, &aData);
 	 aData->setAttributeValue(kTTSym_type, kTTSym_string);
 	 aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-	 aData->setAttributeValue(kTTSym_description, TT("The output address to map"));
-	 x->subscriberObject->exposeAttribute(x->wrappedObject, TT("inputMin"), kTTSym_parameter, &aData);
+	 aData->setAttributeValue(kTTSym_description, TTSymbol("The output address to map"));
+	 x->subscriberObject->exposeAttribute(x->wrappedObject, TTSymbol("inputMin"), kTTSym_parameter, &aData);
 	 aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 	 aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-	 aData->setAttributeValue(kTTSym_description, TT("The low bound input value"));
-	 x->subscriberObject->exposeAttribute(x->wrappedObject, TT("inputMax"), kTTSym_parameter, &aData);
+	 aData->setAttributeValue(kTTSym_description, TTSymbol("The low bound input value"));
+	 x->subscriberObject->exposeAttribute(x->wrappedObject, TTSymbol("inputMax"), kTTSym_parameter, &aData);
 	 aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 	 aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-	 aData->setAttributeValue(kTTSym_description, TT("The high bound input value"));
-	 x->subscriberObject->exposeAttribute(x->wrappedObject, TT("outputMin"), kTTSym_parameter, &aData);
+	 aData->setAttributeValue(kTTSym_description, TTSymbol("The high bound input value"));
+	 x->subscriberObject->exposeAttribute(x->wrappedObject, TTSymbol("outputMin"), kTTSym_parameter, &aData);
 	 aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 	 aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-	 aData->setAttributeValue(kTTSym_description, TT("The low bound output value"));
-	 x->subscriberObject->exposeAttribute(x->wrappedObject, TT("outputMax"), kTTSym_parameter, &aData);
+	 aData->setAttributeValue(kTTSym_description, TTSymbol("The low bound output value"));
+	 x->subscriberObject->exposeAttribute(x->wrappedObject, TTSymbol("outputMax"), kTTSym_parameter, &aData);
 	 aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 	 aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-	 aData->setAttributeValue(kTTSym_description, TT("The high bound output value"));
-	 x->subscriberObject->exposeAttribute(x->wrappedObject, TT("enable"), kTTSym_parameter, &aData);
+	 aData->setAttributeValue(kTTSym_description, TTSymbol("The high bound output value"));
+	 x->subscriberObject->exposeAttribute(x->wrappedObject, TTSymbol("enable"), kTTSym_parameter, &aData);
 	 aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 	 aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-	 aData->setAttributeValue(kTTSym_description, TT("Turn on and off the mapping"));
+	 aData->setAttributeValue(kTTSym_description, TTSymbol("Turn on and off the mapping"));
 	 }
 	 */
 }

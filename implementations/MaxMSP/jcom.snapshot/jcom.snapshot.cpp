@@ -182,32 +182,32 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
     numModules = moduleNodes.getSize();
     for (TTUInt32 i=0; i<numModules; i++) {
         TTNodePtr   module = NULL;
-        TTSymbolPtr type;
+        TTSymbol type;
 
         moduleNodes.get(i, (TTPtr*)(&module));
         if (module) {
 			if (module->getObject()) {
 				
 				type = module->getObject()->getName();
-				if (type == TT("Container")) {
+				if (type == TTSymbol("Container")) {
 					TTValue     parameterNodes;
 					TTUInt32    numParameters;
 					
-					post("  Module: %s", module->getName()->getCString());
+					post("  Module: %s", module->getName().c_str());
 					err = module->getChildren(S_WILDCARD, S_WILDCARD, returnedChildren);
 					returnedChildren.assignToValue(parameterNodes);
 					numParameters = parameterNodes.getSize();
 					for (TTUInt32 i=0; i<numParameters; i++) {
 						TTNodePtr   parameter = NULL;
-						TTSymbolPtr childType;
+						TTSymbol childType;
 						
 						parameterNodes.get(i, (TTPtr*)(&parameter));
 						if (parameter) {
 							bool exclude = false;
 							// first check for the name in the excludes list
 							for (TTInt32 e=0; e < self->excludeSize; e++) {
-								TTSymbolPtr s1 = parameter->getName();
-								TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
+								TTSymbol s1 = parameter->getName();
+								TTSymbol s2 = TT(self->excludes[e]->s_name);
 								
 								if (s1 == s2) {
 									exclude = true;
@@ -220,7 +220,7 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 							// then make sure it is actually a parameter
 							if (parameter->getObject()) {
 								childType = parameter->getObject()->getName();
-							if (childType == TT("Data")) {   // FIXME: this name sucks for the type.
+							if (childType == TTSymbol("Data")) {   // FIXME: this name sucks for the type.
 								ObjectPtr maxObject = (ObjectPtr)parameter->getObject();
 								SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
 								
@@ -230,30 +230,30 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 									SnapshotParameterValue  spv(value, maxObject);
 									
 									snapshot->push_back(spv);
-									post("    parameter: %s -- value: %lf", parameter->getName()->getCString(), value);
+									post("    parameter: %s -- value: %lf", parameter->getName().c_str(), value);
 								}
 							}
 							// FIXME: the code below sucks big-time -- need to redo as a recursive function
-							else if (childType == TT("container")) {
+							else if (childType == TTSymbol("container")) {
 								TTValue     containerNodes;
 								TTUInt32    numParameters2;
 								TTList		containerChildren;
 								
-								post("  Container: %s", parameter->getName()->getCString());
-								err = parameter->getChildren(TT("*"), TT("*"), containerChildren);
+								post("  Container: %s", parameter->getName().c_str());
+								err = parameter->getChildren(TTSymbol("*"), TTSymbol("*"), containerChildren);
 								containerChildren.assignToValue(containerNodes);
 								numParameters2 = containerNodes.getSize();
 								for (TTUInt32 i=0; i<numParameters2; i++) {
 									TTNodePtr   parameter2 = NULL;
-									TTSymbolPtr childType2;
+									TTSymbol childType2;
 									
 									containerNodes.get(i, (TTPtr*)(&parameter2));
 									if (parameter2) {
 										bool exclude = false;
 										// first check for the name in the excludes list
 										for (TTInt32 e=0; e < self->excludeSize; e++) {
-											TTSymbolPtr s1 = parameter2->getName();
-											TTSymbolPtr s2 = TT(self->excludes[e]->s_name);
+											TTSymbol s1 = parameter2->getName();
+											TTSymbol s2 = TT(self->excludes[e]->s_name);
 											
 											if (s1 == s2) {
 												exclude = true;
@@ -265,7 +265,7 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 										
 										// then make sure it is actually a parameter
 										childType2 = parameter2->getType();
-										if (childType2 == TT("subscribe_parameter")) {   // FIXME: this name sucks for the type.
+										if (childType2 == TTSymbol("subscribe_parameter")) {   // FIXME: this name sucks for the type.
 											ObjectPtr maxObject = (ObjectPtr)parameter2->getObject();
 											SymbolPtr maxType = object_attr_getsym(maxObject, SymbolGen("type"));
 											
@@ -275,7 +275,7 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 												SnapshotParameterValue  spv(value, maxObject);
 												
 												snapshot->push_back(spv);
-												post("    parameter: %s -- value: %lf", parameter2->getName()->getCString(), value);
+												post("    parameter: %s -- value: %lf", parameter2->getName().c_str(), value);
 											}
 										}
 									}

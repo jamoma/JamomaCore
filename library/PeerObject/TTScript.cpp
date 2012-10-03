@@ -220,7 +220,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 				address = containerAddress.appendAddress(address);
 			
 			// run the script
-			mSubScript->sendMessage(TT("Run"), address, kTTValNONE);
+			mSubScript->sendMessage(TTSymbol("Run"), address, kTTValNONE);
 		}
 	}
 	
@@ -281,7 +281,7 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 				v.get(0, (TTPtr*)&mSubScript);
 				
 				// prepare the sub script
-				mSubScript->sendMessage(TT("Bind"), address, kTTValNONE);
+				mSubScript->sendMessage(TTSymbol("Bind"), address, kTTValNONE);
 			}
 		}
 	}
@@ -431,7 +431,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			
 			// dont't write preset or cue flags
 			// TODO : we need to filter those flag line before (in TTPreset or TTCue)
-			if (name == TT("preset") || name == TT("cue"))
+			if (name == TTSymbol("preset") || name == TTSymbol("cue"))
 				continue;
 			
 			// else get flag arguments value
@@ -512,7 +512,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// use WriteAsXml of the script
 			v = TTValue(TTPtr(mSubScript));
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
-			aXmlHandler->sendMessage(TT("Write"));
+			aXmlHandler->sendMessage(TTSymbol("Write"));
 			
 			// close script Element
 			xmlTextWriterEndElement(aXmlHandler->mWriter);
@@ -538,7 +538,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	if (mSubScript) {
 		
 		// use ReadFromXml of the sub script
-		return mSubScript->sendMessage(TT("ReadFromXml"), inputValue, outputValue);
+		return mSubScript->sendMessage(TTSymbol("ReadFromXml"), inputValue, outputValue);
 	}
 	
 	// Switch on the name of the XML node
@@ -640,7 +640,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 				
 				// set NULL as sub script of the parent script
 				v = TTValue((TTPtr)NULL);
-				mParentScript->setAttributeValue(TT("subScript"), v);
+				mParentScript->setAttributeValue(TTSymbol("subScript"), v);
 			}
 		}
 		
@@ -654,7 +654,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 				
 				// set this as parent script of the subscript
 				v = TTValue((TTPtr)this);
-				mSubScript->setAttributeValue(TT("parentScript"), v);
+				mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
 			}
 		}
 		
@@ -783,13 +783,13 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			
 			// set this as parent script of the subscript
 			v = TTValue((TTPtr)this);
-			mSubScript->setAttributeValue(TT("parentScript"), v);
+			mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
 			
 			// increment the tab count to indent lines
 			aTextHandler->mTabCount++;
 			
 			// use WriteAsText of the sub script
-			mSubScript->sendMessage(TT("WriteAsText"), inputValue, outputValue);
+			mSubScript->sendMessage(TTSymbol("WriteAsText"), inputValue, outputValue);
 			
 			// decrement the tab count
 			aTextHandler->mTabCount--;
@@ -800,7 +800,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		
 		// set NULL as sub script of the parent script
 		v = TTValue((TTPtr)NULL);
-		mParentScript->setAttributeValue(TT("subScript"), v);
+		mParentScript->setAttributeValue(TTSymbol("subScript"), v);
 	}
 	
 	return kTTErrNone;	
@@ -844,12 +844,12 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 		
 		// set this as parent script of the subscript
 		v = TTValue((TTPtr)this);
-		mSubScript->setAttributeValue(TT("parentScript"), v);
+		mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
 		
 		// use ReadFromText of the sub script
 		v = TTValue(TTPtr(mSubScript));
 		aTextHandler->setAttributeValue(kTTSym_object, v);
-		aTextHandler->sendMessage(TT("Read"));
+		aTextHandler->sendMessage(TTSymbol("Read"));
 	}
 
 	return kTTErrNone;

@@ -15,7 +15,7 @@
 // This is used to store extra data
 typedef struct extra {
 	
-	TTSymbolPtr instance;		///< Input instance symbol
+	TTSymbol instance;		///< Input instance symbol
 
 #ifdef JCOM_IN_TILDE
 	// Store extra data relating to envelope tracking. Only available to jcom.in~
@@ -264,16 +264,16 @@ void WrappedInputClass_free(TTPtr self)
 void in_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr x = (WrappedModularInstancePtr)self;
-	TTNodeAddressPtr inputAddress;
-	TTNodeAddressPtr outputAddress;
+	TTAddress inputAddress;
+	TTAddress outputAddress;
 	TTValue			v, args;
 	TTNodePtr		node = NULL;
-	TTNodeAddressPtr nodeAddress, parentAddress;
+	TTAddress nodeAddress, parentAddress;
 	TTDataPtr		aData;
 	TTString		formatDescription, sInstance;
 	SymbolPtr		inDescription;
 	
-	inputAddress = TTADRS("in")->appendInstance(EXTRA->instance);
+	inputAddress = TTAddress("in").appendInstance(EXTRA->instance);
 	
 	// if the subscription is successful
 	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, inputAddress, &x->subscriberObject)) {
@@ -282,20 +282,20 @@ void in_subscribe(TTPtr self)
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
 		
 		// get the Node
-		x->subscriberObject->getAttributeValue(TT("node"), v);
+		x->subscriberObject->getAttributeValue(TTSymbol("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
 		// get the Node address
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, &nodeAddress);
+		x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
+		v.get(0, nodeAddress);
 		
 		// update instance symbol in case of duplicate instance
-		EXTRA->instance = nodeAddress->getInstance();
+		EXTRA->instance = nodeAddress.getInstance();
 		
 		// observe /parent/out address in order to link/unlink with an Input object below
-		node->getParent()->getAddress(&parentAddress);
-		outputAddress = parentAddress->appendAddress(TTADRS("out"))->appendInstance(EXTRA->instance);
-		x->wrappedObject->setAttributeValue(TT("outputAddress"), outputAddress);
+		node->getParent()->getAddress(parentAddress);
+		outputAddress = parentAddress.appendAddress(TTAddress("out")).appendInstance(EXTRA->instance);
+		x->wrappedObject->setAttributeValue(TTSymbol("outputAddress"), outputAddress);
 		
 #ifdef JCOM_IN_TILDE
 		
@@ -303,19 +303,19 @@ void in_subscribe(TTPtr self)
 		v = TTValue(0., 1.);
 		formatDescription = "instant amplitude of %s input";
 		
-		sInstance = EXTRA->instance->getCString();
+		sInstance = EXTRA->instance.c_str();
 		jamoma_edit_string_instance(&formatDescription, &inDescription, &sInstance);
 			
-		makeInternals_data(x, nodeAddress, TT("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
+		makeInternals_data(x, nodeAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		aData->setAttributeValue(kTTSym_description, TT(inDescription->s_name));
-		aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
-		aData->setAttributeValue(kTTSym_dataspaceUnit, TT("linear"));
+		aData->setAttributeValue(kTTSym_dataspace, TTSymbol("gain"));
+		aData->setAttributeValue(kTTSym_dataspaceUnit, TTSymbol("linear"));
 		
 		// make internal data to parameter in/amplitude/active
-		makeInternals_data(x, nodeAddress, TT("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
+		makeInternals_data(x, nodeAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue((int)EXTRA->pollInterval);
@@ -323,7 +323,7 @@ void in_subscribe(TTPtr self)
 		v = TTValue(0, 1000);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_low);
-		aData->setAttributeValue(kTTSym_description, TT("set the sample rate of the amplitude follower"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("set the sample rate of the amplitude follower"));
 		
 		// launch the clock to update amplitude regulary
 		EXTRA->clock = clock_new(x, (method)in_update_amplitude);
@@ -336,14 +336,14 @@ void in_subscribe(TTPtr self)
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_bypass, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute bypasses the model's processing algtorithm, letting incoming signal pass through unaffected"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("When active, this attribute bypasses the model's processing algtorithm, letting incoming signal pass through unaffected"));
 		v = TTValue(0);
 		aData->setAttributeValue(kTTSym_valueDefault, v);			
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mute, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute turns off model's inputs."));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("When active, this attribute turns off model's inputs."));
 		v = TTValue(0);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 	}
@@ -613,7 +613,7 @@ void in_update_amplitude(TTPtr self)
 			if (!x->internals->isEmpty()) {
 				
 				// get internal data object used to return amplitude
-				err = x->internals->lookup(TT("amplitude"), storedObject);
+				err = x->internals->lookup(TTSymbol("amplitude"), storedObject);
 				
 				if (!err) {
 					

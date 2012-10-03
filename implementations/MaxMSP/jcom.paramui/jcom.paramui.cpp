@@ -24,7 +24,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	t_class*	c;
 	TTValue		dataspaceNames;
 	TTValue		functionNames;
-	TTSymbolPtr	functionName, aName;
+	TTSymbol	functionName, aName;
 	char		dataspaces[2048];
 	char		functions[2048];
 	char		tempstr[64];
@@ -33,21 +33,21 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_init();
 	common_symbols_init();
 
-	TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));	
+	TTGetRegisteredClassNamesForTags(dataspaceNames, TTSymbol("dataspace"));	
 	dataspaces[0] = 0;
 	for (int i=0; i < dataspaceNames.getSize(); i++) {
-		TTSymbolPtr	name;
+		TTSymbol	name;
 		
-		dataspaceNames.get(i, &name);
-		strcat(dataspaces, name->getCString());
+		dataspaceNames.get(i, name);
+		strcat(dataspaces, name.c_str());
 		strcat(dataspaces, " ");
 	}
 
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
 	for (i=0; i<functionNames.getSize(); i++) {
-		functionNames.get(i, &functionName);
-		strcat(functions, functionName->getCString());	
+		functionNames.get(i, functionName);
+		strcat(functions, functionName.c_str());	
 		strcat(functions, " ");
 	}
 

@@ -95,7 +95,7 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	SymbolPtr					name;
-	TTNodeAddressPtr			address;
+	TTAddress			address;
 	TTOpmlHandlerPtr			aOpmlHandler;
 	TTValue						v, args;
 	
@@ -159,26 +159,26 @@ void nmspc_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
-	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
-	TTNodeAddressPtr			absoluteAddress;
+	TTAddress			contextAddress = kTTAdrsEmpty;
+	TTAddress			absoluteAddress;
 	TTObjectPtr					anObject;
 	
-	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 	
 	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, kTTAdrsEmpty, &x->subscriberObject)) {
 		// get the context address to make
 		// a receiver on the contextAddress/model/address parameter
-		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-		v.get(0, (TTSymbolPtr*)&contextAddress);
+		x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
+		v.get(0, contextAddress);
 	}
 	
 	// bind on the /model/address parameter (view patch) or return (model patch)
 	if (contextAddress != kTTAdrsEmpty) {
 		
-		absoluteAddress = contextAddress->appendAddress(x->address);
+		absoluteAddress = contextAddress.appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
 		
-		makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+		makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
 		anObject->sendMessage(kTTSym_Get);
 	}
 	
@@ -203,14 +203,14 @@ void nmspc_subscribe(TTPtr self)
 void nmspc_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTNodeAddressPtr			absoluteAddress;
+	TTAddress			absoluteAddress;
 	
 	if (argc && argv) {
 		
 		// set address attribute of the wrapped Receiver object
-		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
+		absoluteAddress = TTAddress(atom_getsym(argv)->s_name).appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
-		x->wrappedObject->sendMessage(TT("Explore"));
+		x->wrappedObject->sendMessage(TTSymbol("Explore"));
 	}
 }
 
@@ -218,18 +218,18 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTSymbolPtr	output;
-	TTNodeAddressPtr address;
+	TTSymbol	output;
+	TTAddress address;
 	SymbolPtr	s;
 	TTUInt32	i;
 	Atom		a[1], c[2], j[3];
 	
 	// Ask Explorer object
-	x->wrappedObject->getAttributeValue(TT("output"), v);
-	v.get(0, &output);
+	x->wrappedObject->getAttributeValue(TTSymbol("output"), v);
+	v.get(0, output);
 	
 	x->wrappedObject->getAttributeValue(kTTSym_address, v);
-	v.get(0, &address);
+	v.get(0, address);
 	
 	// UMENU OR UMENU_PREFIX FORMAT
 	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix")) {
@@ -244,7 +244,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			outlet_anything(x->outlets[data_out], gensym("prefix_mode"), 1, a);
 			
 			// prepare umenu prefix 
-			if (address->getName() == S_SEPARATOR) {
+			if (address.getName() == S_SEPARATOR) {
 				
 				if(output == kTTSym_attributes)
 					atom_setsym(a, gensym("/:"));
@@ -252,7 +252,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 					atom_setsym(a, gensym("/"));
 			}
 			else {
-				TTString prefix = address->getCString();
+				TTString prefix = address.c_str();
 				
 				if(output == kTTSym_children)
 					prefix += "/";
@@ -274,7 +274,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		for (i=0; i<argc; i++) {
 			s = atom_getsym(argv+i);
 			
-			if (output == kTTSym_descendants && address->getName() == S_SEPARATOR)
+			if (output == kTTSym_descendants && address.getName() == S_SEPARATOR)
 				if (s->s_name[0] == C_SEPARATOR)
 					s = gensym(s->s_name+1); // remove the / in this case
 			
@@ -364,13 +364,13 @@ void nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTSymbolPtr	output;
+	TTSymbol	output;
 	TTUInt32	i, state;
 	Atom		u[2], j[6];
 	
 	// Ask Explorer object
-	x->wrappedObject->getAttributeValue(TT("output"), v);
-	v.get(0, &output);
+	x->wrappedObject->getAttributeValue(TTSymbol("output"), v);
+	v.get(0, output);
 	
 	// UMENU OR UMENU_PREFIX FORMAT
 	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix")) {
@@ -433,24 +433,24 @@ void nmspc_bang(TTPtr self)
 	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix"))
 		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
 
-	x->wrappedObject->sendMessage(TT("Explore"));
+	x->wrappedObject->sendMessage(TTSymbol("Explore"));
 }
 
 void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTNodeAddressPtr absoluteAddress;
+	TTAddress absoluteAddress;
 	
 	// for absolute address
-	if (TTADRS(msg->s_name)->getType() == kAddressAbsolute) {
-		v.append(TTADRS(msg->s_name));
+	if (TTAddress(msg->s_name).getType() == kAddressAbsolute) {
+		v.append(TTAddress(msg->s_name));
 	}
 	else {
 		
 		// if the relative attribute is on
 		if (x->index) {
-			absoluteAddress = x->patcherAddress->appendAddress(TTADRS(msg->s_name));
+			absoluteAddress = x->patcherAddress.appendAddress(TTAddress(msg->s_name));
 			v.append(absoluteAddress);
 		}
 		else {
@@ -465,7 +465,7 @@ void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix"))
 		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
 	
-	x->wrappedObject->sendMessage(TT("Explore"));
+	x->wrappedObject->sendMessage(TTSymbol("Explore"));
 }
 
 void nmspc_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -477,7 +477,7 @@ void nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	char 			filename[MAX_FILENAME_CHARS];
-	TTSymbolPtr		fullpath;
+	TTSymbol		fullpath;
 	TTValue			o, v;
 	TTOpmlHandlerPtr aOpmlHandler;
 	TTErr			tterr;

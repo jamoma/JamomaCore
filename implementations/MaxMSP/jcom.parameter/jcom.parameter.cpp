@@ -147,8 +147,8 @@ void data_subscribe(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomP
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 
 	// for relative address
-	if (TTADRS(relativeAddress->s_name)->getType() == kAddressRelative) {
-		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTADRS(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name), &x->subscriberObject);
+	if (TTAddress(relativeAddress->s_name).getType() == kAddressRelative) {
+		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name), &x->subscriberObject);
 		
 		if (argc && argv)
 			attr_args_process(x, argc, argv);
@@ -242,7 +242,7 @@ void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Inc"), v, kTTValNONE);
+	selectedObject->sendMessage(TTSymbol("Inc"), v, kTTValNONE);
 }
 
 void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -251,6 +251,6 @@ void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 	
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Dec"), v, kTTValNONE);
+	selectedObject->sendMessage(TTSymbol("Dec"), v, kTTValNONE);
 }
 #endif

@@ -23,9 +23,9 @@ mDistantApplicationParameters(NULL)
 	arguments.get(1, (TTPtr*)&mActivityInCallback);
 	arguments.get(2, (TTPtr*)&mActivityOutCallback);
 	
-	registerAttribute(TT("applicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Protocol::getApplicationParameters, (TTSetterMethod)& Protocol::setApplicationParameters);
+	registerAttribute(TTSymbol("applicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Protocol::getApplicationParameters, (TTSetterMethod)& Protocol::setApplicationParameters);
 
-	registerAttribute(TT("distantApplicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& Protocol::getDistantApplicationNames);
+	registerAttribute(TTSymbol("distantApplicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& Protocol::getDistantApplicationNames);
 
 	addAttribute(Name, kTypeSymbol);
 	addAttributeProperty(Name, readOnly, YES);
@@ -102,10 +102,10 @@ TTErr Protocol::getParameterNames(TTValue& value)
 	for (TTUInt8 i=0; i<attributeNames.getSize(); i++) {
 		attributeNames.get(0, attributeName);
 		
-		if (attributeName == TT("name")		||
-			attributeName == TT("version")	||
-			attributeName == TT("author")	||
-			attributeName == TT("exploration"))
+		if (attributeName == TTSymbol("name")		||
+			attributeName == TTSymbol("version")	||
+			attributeName == TTSymbol("author")	||
+			attributeName == TTSymbol("exploration"))
 			continue;
 		
 		value.append(attributeName);
@@ -298,7 +298,7 @@ TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address)
 		outputValue.append((TTPtr)&returnedChildrenTypes);
 		outputValue.append((TTPtr)&returnedAttributes);
 		
-		err = mApplicationManager->sendMessage(TT("ApplicationDiscover"), inputValue, outputValue);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationDiscover"), inputValue, outputValue);
 		
 		// send result
 		return SendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes, err);
@@ -318,7 +318,7 @@ TTErr Protocol::ReceiveGetRequest(TTSymbol from, TTAddress address)
 		if (address.getAttribute() == NO_ATTRIBUTE)
 			address = address.appendAttribute(kTTSym_value);
 
-		err = mApplicationManager->sendMessage(TT("ApplicationGet"), address, returnedValue);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationGet"), address, returnedValue);
 		
 		return SendGetAnswer(from, address, returnedValue, err);
 	}		
@@ -339,7 +339,7 @@ TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& new
 		
 		v.append(address);
 		v.append((TTPtr)&newValue);
-		err = mApplicationManager->sendMessage(TT("ApplicationSet"), v, kTTValNONE);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationSet"), v, kTTValNONE);
 		
 		// TODO : test error and send notification if error
 		return err;
@@ -364,7 +364,7 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
 		v.append(address);
 		v.append(enable);
 		
-		err = mApplicationManager->sendMessage(TT("ApplicationListen"), v, kTTValNONE);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListen"), v, kTTValNONE);
 		
 		if (err)
 			return SendListenAnswer(from, address, kTTValNONE, err);
@@ -388,7 +388,7 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& n
 		v.append((TTPtr)&newValue);
 		
 		// TODO
-		err = mApplicationManager->sendMessage(TT("ApplicationListenAnswer"), v, kTTValNONE);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListenAnswer"), v, kTTValNONE);
 		
 		if (err)
 			return SendListenAnswer(from, address, kTTValNONE, err);
@@ -443,7 +443,7 @@ TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(3, (TTPtr*)&anObserver);
 	
 	v.append(flag);
-	return aProtocol->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TT("life")), v);
+	return aProtocol->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TTSymbol("life")), v);
 }
 
 TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
@@ -559,7 +559,7 @@ TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)
 	TTObjectPtr anApplication;
 	TTSymbol applicationName;
 	
-	p->mApplicationManager->getAttributeValue(TT("localApplication"), v);
+	p->mApplicationManager->getAttributeValue(TTSymbol("localApplication"), v);
 	v.get(0, (TTPtr*)&anApplication);
 	
 	anApplication->getAttributeValue(kTTSym_name, v);
@@ -583,17 +583,17 @@ TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *retu
 	args.append(TTPtr(activityOutCallback));
 	
 	// These should be alphabetized
-	if (protocolName == TT("Minuit"))
-		return TTObjectInstantiate(TT("Minuit"), (TTObjectPtr*)returnedProtocol, args);
+	if (protocolName == TTSymbol("Minuit"))
+		return TTObjectInstantiate(TTSymbol("Minuit"), (TTObjectPtr*)returnedProtocol, args);
 	/*
-	else if (protocolName == TT("OSC"))
-		return TTObjectInstantiate(TT("OSC"), (TTObjectPtr*)returnedProtocol, args);
-	else if (protocolName == TT("MIDI"))
-		return TTObjectInstantiate(TT("MIDI"), (TTObjectPtr*)returnedProtocol, args);
-	else if (protocolName == TT("CopperLan"))
-		return TTObjectInstantiate(TT("CopperLan"), (TTObjectPtr*)returnedProtocol, args);
-	else if (protocolName == TT("Serial"))
-		return TTObjectInstantiate(TT("Serial"), (TTObjectPtr*)returnedProtocol, args);
+	else if (protocolName == TTSymbol("OSC"))
+		return TTObjectInstantiate(TTSymbol("OSC"), (TTObjectPtr*)returnedProtocol, args);
+	else if (protocolName == TTSymbol("MIDI"))
+		return TTObjectInstantiate(TTSymbol("MIDI"), (TTObjectPtr*)returnedProtocol, args);
+	else if (protocolName == TTSymbol("CopperLan"))
+		return TTObjectInstantiate(TTSymbol("CopperLan"), (TTObjectPtr*)returnedProtocol, args);
+	else if (protocolName == TTSymbol("Serial"))
+		return TTObjectInstantiate(TTSymbol("Serial"), (TTObjectPtr*)returnedProtocol, args);
 	 */
 	
 	TTLogError("Jamoma ProtocolLib : Invalid Protocol ( %s ) specified", protocolName.c_str());
@@ -603,12 +603,12 @@ TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *retu
 void ProtocolLib::getProtocolNames(TTValue& protocolNames)
 {
 	protocolNames.clear();
-	protocolNames.append(TT("Minuit"));
+	protocolNames.append(TTSymbol("Minuit"));
 	/*
-	protocolNames.append(TT("OSC"));
-	protocolNames.append(TT("MIDI"));
-	protocolNames.append(TT("CopperLan"));
-	protocolNames.append(TT("Serial"));
+	protocolNames.append(TTSymbol("OSC"));
+	protocolNames.append(TTSymbol("MIDI"));
+	protocolNames.append(TTSymbol("CopperLan"));
+	protocolNames.append(TTSymbol("Serial"));
 	 */
 }
 

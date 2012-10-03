@@ -15,7 +15,7 @@
 // This is used to store extra data
 typedef struct extra {
 	
-	TTSymbolPtr			protocolName;	// remember the handled protocol 
+	TTSymbol			protocolName;	// remember the handled protocol 
 	
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
@@ -56,8 +56,8 @@ void WrapTTApplicationClass(WrappedClassPtr c)
 void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr					applicationName = NULL;
-	TTSymbolPtr					protocolName = NULL;
+	TTSymbol					applicationName = NULL;
+	TTSymbol					protocolName = NULL;
 	TTOpmlHandlerPtr			aOpmlHandler;
 	TTValue						v, args;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
@@ -98,16 +98,16 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		
 		// check if the protocol has been loaded
 		if (!getProtocol(protocolName)) {
-			object_error((ObjectPtr)x, "the %s protocol is not available", protocolName->getCString());
+			object_error((ObjectPtr)x, "the %s protocol is not available", protocolName.c_str());
 			return;
 		}
 		
 		// register the application to the protocol
 		v = TTValue(applicationName);
-		getProtocol(protocolName)->sendMessage(TT("registerApplication"), v, kTTValNONE);
+		getProtocol(protocolName)->sendMessage(TTSymbol("registerApplication"), v, kTTValNONE);
 		
 		// run this protocol
-		TTModularApplications->sendMessage(TT("ProtocolRun"), protocolName, kTTValNONE);
+		TTModularApplications->sendMessage(TTSymbol("ProtocolRun"), protocolName, kTTValNONE);
 	}
 	
 	// Prepare extra data
@@ -156,7 +156,7 @@ void modular_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr applicationName, parameterName;
+	TTSymbol applicationName, parameterName;
 	TTObjectPtr	aProtocol = NULL;
 	TTHashPtr	hashParameters;
 	TTValue		v, keys, parameterValue;
@@ -169,10 +169,10 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 		
 		if (x->wrappedObject) {
 			x->wrappedObject->getAttributeValue(kTTSym_name, v);
-			v.get(0, &applicationName);
+			v.get(0, applicationName);
 			
 			// get parameters
-			err = aProtocol->getAttributeValue(TT("applicationParameters"), v);
+			err = aProtocol->getAttributeValue(TTSymbol("applicationParameters"), v);
 
 			if (!err) {
 				
@@ -195,18 +195,18 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 						hashParameters->append(parameterName, parameterValue);
 						
 						// stop the protocol
-						aProtocol->sendMessage(TT("Stop"));
+						aProtocol->sendMessage(TTSymbol("Stop"));
 						
 						// set parameters
 						v = TTValue(applicationName);
 						v.append(TTPtr(hashParameters));
-						err = aProtocol->setAttributeValue(TT("applicationParameters"), v);
+						err = aProtocol->setAttributeValue(TTSymbol("applicationParameters"), v);
 						
 						// run the protocol
-						aProtocol->sendMessage(TT("Run"));
+						aProtocol->sendMessage(TTSymbol("Run"));
 					}
 					else
-						object_error((ObjectPtr)x, "%s is not a parameter of %s protocol", parameterName->getCString(), EXTRA->protocolName->getCString());
+						object_error((ObjectPtr)x, "%s is not a parameter of %s protocol", parameterName.c_str(), EXTRA->protocolName.c_str());
 					
 				}
 				// or if no arg : dumpout the current setup
@@ -215,7 +215,7 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 					hashParameters->getKeys(keys);
 					for (TTUInt8 i=0; i<keys.getSize(); i++) {
 						
-						keys.get(i, &parameterName);
+						keys.get(i, parameterName);
 						hashParameters->lookup(parameterName, parameterValue);
 						
 						parameterValue.prepend(parameterName);
@@ -241,7 +241,7 @@ void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 {	
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue				o, v;
-	TTSymbolPtr			fullpath;
+	TTSymbol			fullpath;
 	TTOpmlHandlerPtr	aOpmlHandler = NULL;
 	TTErr				tterr;
 	

@@ -23,7 +23,7 @@ mName = TT(thisTTClassName); \
 mVersion = TT(thisProtocolVersion); \
 mAuthor = TT(thisProtocolAuthor); \
 mExploration = TT(thisProtocolExploration); \
-registerAttribute(TT("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
+registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 /*addAttributeProperty(ParameterNames, readOnly, YES); \ */
 
 

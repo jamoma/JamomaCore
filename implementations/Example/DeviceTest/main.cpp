@@ -2,9 +2,9 @@
 
 using namespace std;
 
-#define APP_NAME		TT("DeviceTest")
+#define APP_NAME		TTSymbol("DeviceTest")
 #define	PLUGINS_PATH	"C:\\Users\\Laurent Garnier\\Travail\\Galamus\\Jamoma\\Modules\\Modular\\library\\DeviceManagerLib\\Plugins"
-#define CONFIG_PATH		TT("C:\\Users\\Laurent Garnier\\Travail\\Galamus\\Jamoma\\Modules\\Modular\\implementations\\Example\\Config.xml")
+#define CONFIG_PATH		TTSymbol("C:\\Users\\Laurent Garnier\\Travail\\Galamus\\Jamoma\\Modules\\Modular\\implementations\\Example\\Config.xml")
 
 
 void myData_return_value_callback(TTPtr baton, TTValue& v);
@@ -35,7 +35,7 @@ main(int argc, char **argv)
 	mDirectory		= TTApplicationGetDirectory(TTObjectPtr(mApplication));
 
 	TTApplicationPtr	TestModular = NULL;
-	TestModular		= (TTApplicationPtr)TTModularGetApplication(TT("TestModularApp"));
+	TestModular		= (TTApplicationPtr)TTModularGetApplication(TTSymbol("TestModularApp"));
 	
 	
 	// Create a TTDeviceManager
@@ -46,25 +46,25 @@ main(int argc, char **argv)
 	args.append(mApplication);
 	args.append(APP_NAME);
 	
-	TTObjectInstantiate(TT("DeviceManager"), TTObjectHandle(&mDeMan), args);
+	TTObjectInstantiate(TTSymbol("DeviceManager"), TTObjectHandle(&mDeMan), args);
 	
 	args.clear();
 	args.append(TT(PLUGINS_PATH));
 	args.append(CONFIG_PATH);
-	mDeMan->sendMessage(TT("LoadPlugins"), args);
+	mDeMan->sendMessage(TTSymbol("LoadPlugins"), args);
 	
 //	// add a TTDevice
 //	args.clear();
-//	args.append(TT("TestModularApp"));
-//	args.append(TT("Minuit"));
+//	args.append(TTSymbol("TestModularApp"));
+//	args.append(TTSymbol("Minuit"));
 //	
-//	args.append(TT("ip"));
-//	args.append(TT("127.0.0.1"));
-//	args.append(TT("port"));
+//	args.append(TTSymbol("ip"));
+//	args.append(TTSymbol("127.0.0.1"));
+//	args.append(TTSymbol("port"));
 //	TTValue valu = TTValue(7002);
 //	args.append(&valu);
 //	
-//	mDeMan->sendMessage(TT("AddDevice"), args);
+//	mDeMan->sendMessage(TTSymbol("AddDevice"), args);
 	
 	
 //	TTSenderPtr	sender = NULL;
@@ -72,10 +72,10 @@ main(int argc, char **argv)
 //	// prepare arguments : see TTSender.h to know which args are needed
 //	args.clear();
 //	args.append(mApplication);
-//	args.append(TT("/TestModularApp"));
+//	args.append(TTSymbol("/TestModularApp"));
 //	args.append(kTTSym_value);
 //	
-//	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&sender), args);
+//	TTObjectInstantiate(TTSymbol("Sender"), TTObjectHandle(&sender), args);
 //	
 //	TTValue val = TTValue(2);
 //	sender->sendMessage(kTTSym_Send, val);
@@ -83,28 +83,28 @@ main(int argc, char **argv)
 	
 	TTList			nodeList;
 	TTNodePtr		node;
-	mDirectory->Lookup(TT("/TestModularApp"), nodeList, &node);
+	mDirectory->Lookup(TTSymbol("/TestModularApp"), nodeList, &node);
 	
 	// get the object store in the node
 	TTObjectPtr	o;
 	o = node->getObject();
 	
 	if (o) {
-		if (o->getName() == TT("Device")) {
+		if (o->getName() == TTSymbol("Device")) {
 			
 			// set a data on the remote device
-			o->setAttributeValue(TT("addressToSpeakWith"), TT("/TestModularApp/control/volume"));
+			o->setAttributeValue(TTSymbol("addressToSpeakWith"), TTSymbol("/TestModularApp/control/volume"));
 			args.clear();
-			args.append(TT("kjhgf"));
+			args.append(TTSymbol("kjhgf"));
 			
-			o->sendMessage(TT("Set"), args);
+			o->sendMessage(TTSymbol("Set"), args);
 			//
 			//// get a data from the remote device
 			//args.clear();
-			//args.append(TT("/TestModularApp/control/volume"));
+			//args.append(TTSymbol("/TestModularApp/control/volume"));
 			//args.append(kTTSym_description);
 			//
-			//o->sendMessage(TT("Get"), args);
+			//o->sendMessage(TTSymbol("Get"), args);
 			//std::cout << args.getSize() << std::endl;
 
 			//TTSymbolPtr s;
@@ -114,8 +114,8 @@ main(int argc, char **argv)
 			//// discover a namespace on the remote device
 			//TTSymbolPtr sLeaveName;
 			//args.clear();
-			//args.append(TT("/TestModularApp/control"));
-			//o->sendMessage(TT("Discover"), args);
+			//args.append(TTSymbol("/TestModularApp/control"));
+			//o->sendMessage(TTSymbol("Discover"), args);
 			//for (int i = 0; i < args.getSize(); i++) {
 			//	args.get(i, &sLeaveName);
 			//	std::cout << sLeaveName->getCString() << std::endl;
@@ -124,10 +124,10 @@ main(int argc, char **argv)
 
 			//// listen a parameter on a remote device
 			//args.clear();
-			//args.append(TT("/TestModularApp/control/volume"));
+			//args.append(TTSymbol("/TestModularApp/control/volume"));
 			//args.append(kTTSym_value);
 			//args.append(true);
-			//o->sendMessage(TT("ListenRequest"), args);
+			//o->sendMessage(TTSymbol("ListenRequest"), args);
 		}	
 	}
 	

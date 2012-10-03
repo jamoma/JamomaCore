@@ -22,8 +22,8 @@
 #define NSPAttr_DESCRIPTION		kTTSym_description
 #define NSPAttr_REPETITION		kTTSym_repetitionsAllow
 #define NSPAttr_READONLY		kTTSym_readonly
-#define NSPAttr_DYNAMIC			TT("dynamicInstances")
-#define NSPAttr_INSTANCEBOUNDS  TT("instanceBounds")
+#define NSPAttr_DYNAMIC			TTSymbol("dynamicInstances")
+#define NSPAttr_INSTANCEBOUNDS  TTSymbol("instanceBounds")
 
 #define NSPTask_CREATE			kTTSym_created
 #define NSPTask_DESTROY			kTTSym_destroyed

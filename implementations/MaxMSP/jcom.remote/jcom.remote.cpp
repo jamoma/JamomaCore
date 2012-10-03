@@ -107,7 +107,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
-	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
+	x->address = TTAddress(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
 	x->index = 0; // the index member is usefull to count how many time the external tries to bind
 	
 	// Prepare extra data
@@ -185,12 +185,12 @@ void remote_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	Atom						a[1];
-	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
-	TTNodeAddressPtr			absoluteAddress;
+	TTAddress			contextAddress = kTTAdrsEmpty;
+	TTAddress			absoluteAddress;
 	TTObjectPtr					toSubscribe, anObject;
 	
 	// for absolute address
-	if (x->address->getType() == kAddressAbsolute) {
+	if (x->address.getType() == kAddressAbsolute) {
 		
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
 		
@@ -199,17 +199,17 @@ void remote_subscribe(TTPtr self)
 	}
 	
 	// for relative address
-	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 	
 	// Do we subscribe the Viewer ?
 	// View patcher case :
 	if (x->patcherContext == kTTSym_view) {
 		
 		// if the address refer to the hub (only :attributeName) don't subscribe the Viewer
-		if (x->address->getParent() == NO_PARENT && 
-			x->address->getName() == NO_NAME && 
-			x->address->getInstance() == NO_INSTANCE && 
-			x->address->getAttribute() != NO_ATTRIBUTE)
+		if (x->address.getParent() == NO_PARENT && 
+			x->address.getName() == NO_NAME && 
+			x->address.getInstance() == NO_INSTANCE && 
+			x->address.getAttribute() != NO_ATTRIBUTE)
 			toSubscribe = NULL;
 	
 		// else try to subscribe the Viewer
@@ -229,11 +229,11 @@ void remote_subscribe(TTPtr self)
 		
 		// get the context address to make
 		// a viewer on the contextAddress/model/address parameter
-		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-		v.get(0, (TTSymbolPtr*)&contextAddress);
+		x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
+		v.get(0, contextAddress);
 		
 		if (x->patcherContext) {
-			makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+			makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
 			anObject->sendMessage(kTTSym_Get);
 			
 			// attach the jcom.remote to connected ui object
@@ -242,12 +242,12 @@ void remote_subscribe(TTPtr self)
 	}
 	
 	// else, if no context, set address directly
-	else if (x->patcherContext == NULL) {
+	else if (x->patcherContext == kTTSymEmpty) {
 		contextAddress = kTTAdrsRoot;
-		absoluteAddress = contextAddress->appendAddress(x->address);
+		absoluteAddress = contextAddress.appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		
-		atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+		atom_setsym(a, gensym((char*)absoluteAddress.c_str()));
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 		
 		// attach the jcom.remote to connected ui object
@@ -266,7 +266,7 @@ void remote_subscribe(TTPtr self)
 	
 	x->index++; // the index member is usefull to count how many time the external tries to bind
 	if (x->index > 100) {
-		object_error((ObjectPtr)x, "tries to bind too many times on %s", x->address->getCString());
+		object_error((ObjectPtr)x, "tries to bind too many times on %s", x->address.c_str());
 		object_obex_dumpout((ObjectPtr)x, gensym("error"), 0, NULL);
 		return;
 	}
@@ -339,9 +339,9 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTNodeAddressPtr	absoluteAddress;
+	TTAddress	absoluteAddress;
 	Atom				a[1];
-	TTSymbolPtr			service;
+	TTSymbol			service;
 	TTList				returnedNodes;
 	TTNodePtr			firstNode;
 	TTObjectPtr			anObject;
@@ -351,14 +351,14 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	if (argc && argv && x->wrappedObject) {
 		
 		// set address attribute of the wrapped Viewer object
-		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
+		absoluteAddress = TTAddress(atom_getsym(argv)->s_name).appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		x->index = 0; // the index member is usefull to count how many time the external tries to bind
 		
-		atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+		atom_setsym(a, gensym((char*)absoluteAddress.c_str()));
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 		
-		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress->getCString());
+		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress.c_str());
 		
 		// for Data object, if service is parameter or return : refresh !
 		// note : this would only work if the address already exists
@@ -368,7 +368,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			if (anObject = firstNode->getObject()) {
 				if (anObject->getName() == kTTSym_Data) {
 					anObject->getAttributeValue(kTTSym_service, v);
-					v.get(0, &service);
+					v.get(0, service);
 					
 					if (service == kTTSym_parameter || service == kTTSym_return)
 						x->wrappedObject->sendMessage(kTTSym_Refresh);
@@ -447,7 +447,7 @@ void remote_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers
 				object_attr_getvalueof(EXTRA->connected, _sym_presentation_rect , &ac, &av);
 				if (ac && av && EXTRA->label) {
 					object_method_long(EXTRA->label, _sym_fontsize, 10, &a);
-					object_method_sym(EXTRA->label, _sym_set, gensym((char*)x->address->getCString()), &a);
+					object_method_sym(EXTRA->label, _sym_set, gensym((char*)x->address.c_str()), &a);
 					object_method_typed(EXTRA->label, _sym_presentation_rect, ac, av, &a);
 				}
 			}

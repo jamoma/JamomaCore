@@ -64,7 +64,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 }
 
 PROTOCOL_CONSTRUCTOR,
-mIp(TT("localhost")),
+mIp(TTSymbol("localhost")),
 mPort(MINUIT_RECEPTION_PORT),
 mOscSend(NULL),
 mOscReceive(NULL),
@@ -87,8 +87,8 @@ Minuit::~Minuit()
 TTErr Minuit::getParameterNames(TTValue& value)
 {
 	value.clear();
-	value.append(TT("ip"));
-	value.append(TT("port"));
+	value.append(TTSymbol("ip"));
+	value.append(TTSymbol("port"));
 	
 	return kTTErrNone;
 }
@@ -112,9 +112,9 @@ TTErr Minuit::Run()
 		
 		mAnswerManager = new MinuitAnswerManager((MinuitPtr)this);
 		
-		err = TTObjectInstantiate(TT("osc.receive"), &mOscReceive, kTTValNONE);
+		err = TTObjectInstantiate(TTSymbol("osc.receive"), &mOscReceive, kTTValNONE);
 		if (!err) {
-				mOscReceive->setAttributeValue(TT("port"), mPort);
+				mOscReceive->setAttributeValue(TTSymbol("port"), mPort);
 				mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
 			
 			mRunning = YES;
@@ -485,21 +485,21 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 		
 		if (parameters) {
 			
-			errIp = parameters->lookup(TT("ip"), vIp);
-			errPort = parameters->lookup(TT("port"), vPort);
+			errIp = parameters->lookup(TTSymbol("ip"), vIp);
+			errPort = parameters->lookup(TTSymbol("port"), vPort);
 			
 			if (errIp || errPort)
 				return kTTErrGeneric;
 			
-			err = TTObjectInstantiate(TT("osc.send"), &mOscSend, kTTValNONE);
+			err = TTObjectInstantiate(TTSymbol("osc.send"), &mOscSend, kTTValNONE);
 			if (!err) {
-				mOscSend->setAttributeValue(TT("address"), vIp);
-				mOscSend->setAttributeValue(TT("port"), vPort);
+				mOscSend->setAttributeValue(TTSymbol("address"), vIp);
+				mOscSend->setAttributeValue(TTSymbol("port"), vPort);
 				
 				message = TTValue(header);
 				message.append((TTPtr)&arguments);
 				
-				err = mOscSend->sendMessage(TT("send"), message, kTTValNONE);
+				err = mOscSend->sendMessage(TTSymbol("send"), message, kTTValNONE);
 				
 				TTObjectRelease(&mOscSend);
 				

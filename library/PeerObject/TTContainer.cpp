@@ -15,7 +15,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mPriority(0), 
 mDescription(kTTSymEmpty),
-mType(TT("control")),
+mType(TTSymbol("control")),
 mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
@@ -128,7 +128,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 				if (anObject->getName() == kTTSym_Data && attrOrMess == kTTSym_value) {
 					
 					// what kind of service the data is used for ?
-					anObject->getAttributeValue(TT("service"), v);
+					anObject->getAttributeValue(TTSymbol("service"), v);
 					v.get(0, service);
 					
 					if (service == kTTSym_return)
@@ -233,7 +233,7 @@ TTErr TTContainer::Init()
 					anObject->getAttributeValue(kTTSym_service, v);
 					v.get(0, service);
 					if (service == kTTSym_parameter)
-						anObject->sendMessage(TT("Reset"));
+						anObject->sendMessage(TTSymbol("Reset"));
 				}
 		}
 		
@@ -247,7 +247,7 @@ TTErr TTContainer::Init()
 			
 			if (anObject)
 				if (anObject->getName() == kTTSym_Container)
-					anObject->sendMessage(TT("Init"));
+					anObject->sendMessage(TTSymbol("Init"));
 		}
 	}
 	
@@ -445,7 +445,7 @@ TTErr TTContainer::bind()
 	
 	// 3. Observe any creation or destruction below the address
 	mObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), TTObjectHandle(&mObserver), kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mObserver), kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
 	newBaton->append(aContext);
@@ -453,7 +453,7 @@ TTErr TTContainer::bind()
 	mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerDirectoryCallback));
 	
-	mObserver->setAttributeValue(TT("owner"), TT("TTContainer"));		// this is usefull only to debug
+	mObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));		// this is usefull only to debug
 	
 	getLocalDirectory->addObserverForNotifications(mAddress, mObserver); // ask for notification for addresses below
 	
@@ -495,14 +495,14 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 			anObject->findAttribute(kTTSym_value, &anAttribute);
 			
 			valueObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("callback"), &valueObserver, kTTValNONE);
+			TTObjectInstantiate(TTSymbol("callback"), &valueObserver, kTTValNONE);
 			
 			valueBaton = new TTValue(TTPtr(this));
 			valueBaton->append(aRelativeAddress);
 			
 			valueObserver->setAttributeValue(kTTSym_baton, TTPtr(valueBaton));
 			valueObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
-			valueObserver->setAttributeValue(TT("owner"), TT("TTContainer"));					// this is usefull only to debug
+			valueObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 			
 			anAttribute->registerObserverForNotifications(*valueObserver);
 			
@@ -520,14 +520,14 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 			anObject->findMessage(kTTSym_Command, &aMessage);
 			
 			commandObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("callback"), &commandObserver, kTTValNONE);
+			TTObjectInstantiate(TTSymbol("callback"), &commandObserver, kTTValNONE);
 			
 			commandBaton = new TTValue(TTPtr(this));
 			commandBaton->append(aRelativeAddress);
 			
 			commandObserver->setAttributeValue(kTTSym_baton, TTPtr(commandBaton));
 			commandObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerCommandMessageCallback));
-			commandObserver->setAttributeValue(TT("owner"), TT("TTContainer"));					// this is usefull only to debug
+			commandObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 			
 			aMessage->registerObserverForNotifications(*commandObserver);
 			
@@ -547,14 +547,14 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		anObject->findAttribute(kTTSym_returnedValue, &anAttribute);
 		
 		returnedValueObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), &returnedValueObserver, kTTValNONE);
+		TTObjectInstantiate(TTSymbol("callback"), &returnedValueObserver, kTTValNONE);
 		
 		returnedValueBaton = new TTValue(TTPtr(this));
 		returnedValueBaton->append(aRelativeAddress);
 		
 		returnedValueObserver->setAttributeValue(kTTSym_baton, TTPtr(returnedValueBaton));
 		returnedValueObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
-		returnedValueObserver->setAttributeValue(TT("owner"), TT("TTContainer"));					// this is usefull only to debug
+		returnedValueObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 		
 		anAttribute->registerObserverForNotifications(*returnedValueObserver);
 		
@@ -572,14 +572,14 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		anObject->findAttribute(kTTSym_activityIn, &anAttribute);
 		
 		activityInObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), &activityInObserver, kTTValNONE);
+		TTObjectInstantiate(TTSymbol("callback"), &activityInObserver, kTTValNONE);
 		
 		activityInBaton = new TTValue(TTPtr(this));
 		activityInBaton->append(aRelativeAddress);
 		
 		activityInObserver->setAttributeValue(kTTSym_baton, TTPtr(activityInBaton));
 		activityInObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerCommandMessageCallback));
-		activityInObserver->setAttributeValue(TT("owner"), TT("TTContainer"));					// this is usefull only to debug
+		activityInObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 		
 		anAttribute->registerObserverForNotifications(*activityInObserver);
 		
@@ -591,14 +591,14 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		anObject->findAttribute(kTTSym_activityOut, &anAttribute);
 		
 		activityOutObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), &activityOutObserver, kTTValNONE);
+		TTObjectInstantiate(TTSymbol("callback"), &activityOutObserver, kTTValNONE);
 		
 		activityOutBaton = new TTValue(TTPtr(this));
 		activityOutBaton->append(aRelativeAddress);
 		
 		activityOutObserver->setAttributeValue(kTTSym_baton, TTPtr(activityOutBaton));
 		activityOutObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
-		activityOutObserver->setAttributeValue(TT("owner"), TT("TTContainer"));					// this is usefull only to debug
+		activityOutObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 		
 		anAttribute->registerObserverForNotifications(*activityOutObserver);
 		
@@ -902,7 +902,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
+				anObject->sendMessage(TTSymbol("WriteAsText"), arg, kTTValNONE);
 				*buffer += "\t\t<tr>";
 			}
 		}
@@ -940,7 +940,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
+				anObject->sendMessage(TTSymbol("WriteAsText"), arg, kTTValNONE);
 				*buffer += "\t\t<tr>";
 			}
 		}
@@ -979,7 +979,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(TTPtr(aTextHandler));
-				anObject->sendMessage(TT("WriteAsText"), arg, kTTValNONE);
+				anObject->sendMessage(TTSymbol("WriteAsText"), arg, kTTValNONE);
 				*buffer += "\t\t<tr>";
 			}
 		}

@@ -177,7 +177,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	args.append(NULL);
 	
 	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(this));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
@@ -227,7 +227,7 @@ TTErr TTMapper::observeInput()
 	
 	// Make a TTReceiver object
 	returnInputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnInputCreationCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnInputCreationCallback, kTTValNONE);
 	returnInputCreationBaton = new TTValue(TTPtr(this));
 	returnInputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputCreationBaton));
 	returnInputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
@@ -256,7 +256,7 @@ TTErr TTMapper::observeInputRange()
 	args.append(NULL);
 	
 	returnInputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnInputRangeCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnInputRangeCallback, kTTValNONE);
 	returnInputRangeBaton = new TTValue(TTPtr(this));
 	returnInputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputRangeBaton));
 	returnInputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputRangeCallback));
@@ -329,7 +329,7 @@ TTErr TTMapper::observeOutput()
 	
 	// Make a TTReceiver object
 	returnOutputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnOutputCreationCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnOutputCreationCallback, kTTValNONE);
 	returnOutputCreationBaton = new TTValue(TTPtr(this));
 	returnOutputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputCreationBaton));
 	returnOutputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
@@ -358,7 +358,7 @@ TTErr TTMapper::observeOutputRange()
 	args.append(NULL);
 	
 	returnOutputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnOutputRangeCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnOutputRangeCallback, kTTValNONE);
 	returnOutputRangeBaton = new TTValue(TTPtr(this));
 	returnOutputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputRangeBaton));
 	returnOutputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputRangeCallback));
@@ -424,7 +424,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		
 		mValid = true;
 		notifyObservers(kTTSym_function, value);
-		notifyObservers(TT("functionParameters"), mFunctionParameters);
+		notifyObservers(TTSymbol("functionParameters"), mFunctionParameters);
 		return kTTErrNone;
 	}
 #endif	
@@ -441,7 +441,7 @@ TTErr TTMapper::setInputMin(const TTValue& value)
 	if (mInputRangeObserver)
 		TTObjectRelease(TTObjectHandle(&mInputRangeObserver));
 	
-	notifyObservers(TT("inputMin"), value);
+	notifyObservers(TTSymbol("inputMin"), value);
 	return scaleInput();
 }
 
@@ -455,7 +455,7 @@ TTErr TTMapper::setInputMax(const TTValue& value)
 	if (mInputRangeObserver)
 		TTObjectRelease(TTObjectHandle(&mInputRangeObserver));
 	
-	notifyObservers(TT("inputMax"), value);
+	notifyObservers(TTSymbol("inputMax"), value);
 	return scaleInput();
 }
 
@@ -469,7 +469,7 @@ TTErr TTMapper::setOutputMin(const TTValue& value)
 	if (mOutputRangeObserver)
 		TTObjectRelease(TTObjectHandle(&mOutputRangeObserver));
 	
-	notifyObservers(TT("outputMin"), value);
+	notifyObservers(TTSymbol("outputMin"), value);
 	return scaleOutput();
 }
 
@@ -483,7 +483,7 @@ TTErr TTMapper::setOutputMax(const TTValue& value)
 	if (mOutputRangeObserver)
 		TTObjectRelease(TTObjectHandle(&mOutputRangeObserver));
 	
-	notifyObservers(TT("outputMax"), value);
+	notifyObservers(TTSymbol("outputMax"), value);
 	return scaleOutput();
 }
 

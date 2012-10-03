@@ -76,7 +76,7 @@ void jamoma_init(void)
 		kTTSym_Jamoma = TT(JAMOMA);
 		
 		// Check if the configuration file have been loaded correctly
-		JamomaApplication->getAttributeValue(TT("allAppNames"), v);
+		JamomaApplication->getAttributeValue(TTSymbol("allAppNames"), v);
 		if (!v.getSize())
 			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
 		

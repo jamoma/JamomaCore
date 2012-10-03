@@ -49,7 +49,7 @@ mLastResult(kTTValNONE)
 	addAttributeWithSetter(Sort, kTypeSymbol);
 	addAttributeWithSetter(Depth, kTypeUInt8);
 	
-	registerAttribute(TT("filterList"), kTypeLocalValue, NULL, (TTGetterMethod)&TTExplorer::getFilterList, (TTSetterMethod)&TTExplorer::setFilterList);
+	registerAttribute(TTSymbol("filterList"), kTypeLocalValue, NULL, (TTGetterMethod)&TTExplorer::getFilterList, (TTSetterMethod)&TTExplorer::setFilterList);
 	
 	addMessage(Explore);
 	addMessageWithArguments(Select);
@@ -198,14 +198,14 @@ TTErr TTExplorer::bindAddress()
 			
 			// observe any creation or destruction below the address
 			mAddressObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+			TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 			
 			newBaton = new TTValue(TTPtr(this));
 			
 			mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 			mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 			
-			mAddressObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));						// this is usefull only to debug
+			mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTExplorer"));						// this is usefull only to debug
 			
 			if (mDepth)
 				mDirectory->addObserverForNotifications(mAddress, mAddressObserver, mDepth);
@@ -241,14 +241,14 @@ TTErr TTExplorer::bindApplication()
 	if (!mApplicationObserver) {
 		
 		mApplicationObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
+		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
 		
-		mApplicationObserver->setAttributeValue(TT("owner"), TT("TTExplorer"));		// this is usefull only to debug
+		mApplicationObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTExplorer"));		// this is usefull only to debug
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 	}
@@ -753,12 +753,12 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 			attributeNameList.get(i, attributeName);
 			
 			// Filter object type : Data, Viewer and Container
-			if (anObject->getName() == kTTSym_Data || anObject->getName() == TT("View") || anObject->getName() == kTTSym_Container) {
+			if (anObject->getName() == kTTSym_Data || anObject->getName() == TTSymbol("View") || anObject->getName() == kTTSym_Container) {
 				
 				// Filter attribute names
 				if (attributeName != kTTSym_value && 
 					attributeName != kTTSym_address && 
-					// attributeName != TT("content") &&
+					// attributeName != TTSymbol("content") &&
 					attributeName != kTTSym_bypass &&
 					attributeName != kTTSym_activityIn &&
 					attributeName != kTTSym_activityOut) {

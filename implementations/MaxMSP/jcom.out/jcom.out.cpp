@@ -15,7 +15,7 @@
 // This is used to store extra data
 typedef struct extra {
 	
-	TTSymbolPtr instance;		///< Output instance symbol
+	TTSymbol instance;		///< Output instance symbol
 	
 #ifdef JCOM_OUT_TILDE
 	// Store extra data relating to envelope tracking. Only available to jcom.out~
@@ -280,16 +280,16 @@ void WrappedOutputClass_free(TTPtr self)
 void out_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTNodeAddressPtr			outputAddress;
-	TTNodeAddressPtr			inputAddress;
+	TTAddress			outputAddress;
+	TTAddress			inputAddress;
 	TTValue						v, args;
 	TTNodePtr					node = NULL;
-	TTNodeAddressPtr			nodeAddress, parentAddress;
+	TTAddress			nodeAddress, parentAddress;
 	TTDataPtr					aData;
 	TTString					formatDescription, sInstance;
 	SymbolPtr					outDescription;
 	
-	outputAddress = TTADRS("out")->appendInstance(EXTRA->instance);
+	outputAddress = TTAddress("out").appendInstance(EXTRA->instance);
 	
 	// if the subscription is successful
 	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, outputAddress, &x->subscriberObject)) {
@@ -298,20 +298,20 @@ void out_subscribe(TTPtr self)
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
 		
 		// get the Node
-		x->subscriberObject->getAttributeValue(TT("node"), v);
+		x->subscriberObject->getAttributeValue(TTSymbol("node"), v);
 		v.get(0, (TTPtr*)&node);
 		
 		// get the Node address
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, &nodeAddress);
+		x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
+		v.get(0, nodeAddress);
 		
 		// update instance symbol in case of duplicate instance
-		EXTRA->instance = nodeAddress->getInstance();
+		EXTRA->instance = nodeAddress.getInstance();
 		
 		// observe /parent/in address in order to link/unlink with an Input object below
-		node->getParent()->getAddress(&parentAddress);
-		inputAddress = parentAddress->appendAddress(TTADRS("in"))->appendInstance(EXTRA->instance);
-		x->wrappedObject->setAttributeValue(TT("inputAddress"), inputAddress);
+		node->getParent()->getAddress(parentAddress);
+		inputAddress = parentAddress.appendAddress(TTAddress("in")).appendInstance(EXTRA->instance);
+		x->wrappedObject->setAttributeValue(TTSymbol("inputAddress"), inputAddress);
 
 #ifdef JCOM_OUT_TILDE
 		
@@ -319,19 +319,19 @@ void out_subscribe(TTPtr self)
 		v = TTValue(0., 1.);
 		formatDescription = "instant amplitude of %s output";
 		
-		sInstance = EXTRA->instance->getCString();
+		sInstance = EXTRA->instance.c_str();
 		jamoma_edit_string_instance(&formatDescription, &outDescription, &sInstance);
 		
-		makeInternals_data(x, nodeAddress, TT("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
+		makeInternals_data(x, nodeAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		aData->setAttributeValue(kTTSym_description, TT(outDescription->s_name));
-		aData->setAttributeValue(kTTSym_dataspace, TT("gain"));
-		aData->setAttributeValue(kTTSym_dataspaceUnit, TT("linear"));
+		aData->setAttributeValue(kTTSym_dataspace, TTSymbol("gain"));
+		aData->setAttributeValue(kTTSym_dataspaceUnit, TTSymbol("linear"));
 		
 		// make internal data to parameter out/amplitude/active
-		makeInternals_data(x, nodeAddress, TT("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
+		makeInternals_data(x, nodeAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue((int)EXTRA->pollInterval);
@@ -339,7 +339,7 @@ void out_subscribe(TTPtr self)
 		v = TTValue(0, 1000);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
 		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_low);
-		aData->setAttributeValue(kTTSym_description, TT("set the sample rate of the amplitude follower"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("set the sample rate of the amplitude follower"));
 		
 		// launch the clock to update amplitude regulary
 		EXTRA->clock = clock_new(x, (method)out_update_amplitude);
@@ -352,7 +352,7 @@ void out_subscribe(TTPtr self)
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_mute, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("When active, this attribute turns off model's outputs."));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("When active, this attribute turns off model's outputs."));
 		v = TTValue(NO);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 
@@ -368,23 +368,23 @@ void out_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_both);
 		v = TTValue(100.);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
-		aData->setAttributeValue(kTTSym_rampDrive, TT("scheduler"));
-		aData->setAttributeValue(kTTSym_rampFunction, TT("linear"));
-		aData->setAttributeValue(kTTSym_description, TT("Set gain of model's outputs (as MIDI value by default)."));
+		aData->setAttributeValue(kTTSym_rampDrive, TTSymbol("scheduler"));
+		aData->setAttributeValue(kTTSym_rampFunction, TTSymbol("linear"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Set gain of model's outputs (as MIDI value by default)."));
 #endif
 		
 #ifndef JCOM_OUT_TILDE		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_freeze, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Freezes the last state of model's outputs from the  processing algorithm."));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Freezes the last state of model's outputs from the  processing algorithm."));
 		v = TTValue(NO);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 		
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_preview, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Turns on/off preview display of model's outputs from the  processing algorithm."));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Turns on/off preview display of model's outputs from the  processing algorithm."));
 		v = TTValue(NO);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
 #endif
@@ -549,7 +549,7 @@ void out_dsp(TTPtr self, t_signal **sp, short *count)
 	if (anOutput) {
 		
 		anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
-		anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
+		anOutput->mGainUnit->setAttributeValue(TTSymbol("interpolated"), 1);
 		anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, sr);	// convert midi to db for tap_gain
 		
 		audioVectors = (void**)sysmem_newptr(sizeof(void*) * 3);
@@ -679,7 +679,7 @@ void out_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, lon
 	if (anOutput) {
 		
 		anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
-		anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
+		anOutput->mGainUnit->setAttributeValue(TTSymbol("interpolated"), 1);
 		anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
 		
 		for (i=0; i < anOutput->mNumber; i++) {
@@ -741,7 +741,7 @@ void out_update_amplitude(TTPtr self)
 			if (!x->internals->isEmpty()) {
 				
 				// get internal data object used to return amplitude
-				err = x->internals->lookup(TT("amplitude"), storedObject);
+				err = x->internals->lookup(TTSymbol("amplitude"), storedObject);
 				
 				if (!err) {
 					
@@ -775,9 +775,9 @@ void out_return_link(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_both);
 		v = TTValue(100.);
 		aData->setAttributeValue(kTTSym_valueDefault, v);							// Assume 100%, so that processed signal is passed through
-		aData->setAttributeValue(kTTSym_rampDrive, TT("scheduler"));
-		aData->setAttributeValue(kTTSym_rampFunction, TT("linear"));
-		aData->setAttributeValue(kTTSym_description, TT("Controls the wet/dry mix in percent."));
+		aData->setAttributeValue(kTTSym_rampDrive, TTSymbol("scheduler"));
+		aData->setAttributeValue(kTTSym_rampFunction, TTSymbol("linear"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Controls the wet/dry mix in percent."));
 	}
 	else 
 		x->subscriberObject->unexposeAttribute(kTTSym_mix);

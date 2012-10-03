@@ -92,7 +92,7 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 	if (mMute)
 		return kTTErrNone;
 	else if (mBypass && mOutputObject)
-		return mOutputObject->sendMessage(TT("SendBypassed"), inputValue, kTTValNONE);
+		return mOutputObject->sendMessage(TTSymbol("SendBypassed"), inputValue, kTTValNONE);
 	else
 		return mReturnSignalCallback->notify(inputValue, kTTValNONE);
 }
@@ -131,12 +131,12 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	if (!mAddressObserver) {
 		// prepare arguments
 		mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
-		mAddressObserver->setAttributeValue(TT("owner"), TT("TTInput"));		// this is usefull only to debug
+		mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTInput"));		// this is usefull only to debug
 	}
 	
 	if (mAddressObserver) {

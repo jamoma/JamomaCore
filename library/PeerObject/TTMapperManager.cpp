@@ -78,7 +78,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 			attributesList.get(i, attributeName);
 
 			// Get string value and fill xml except for FunctionLibrary & FunctionSamples attributes (don't need in xml)
-			if (attributeName != TT("functionLibrary") && attributeName != TT("functionSamples") && attributeName != TT("functionParameters")) {
+			if (attributeName != TTSymbol("functionLibrary") && attributeName != TTSymbol("functionSamples") && attributeName != TTSymbol("functionParameters")) {
 
 				aMapper->getAttributeValue(attributeName, v);
 				v.toString();
@@ -93,7 +93,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 		v.clear();
 		v = TTValue(TTPtr(aMapper));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
-		aXmlHandler->sendMessage(TT("Write"));
+		aXmlHandler->sendMessage(TTSymbol("Write"));
 		
 		// End a mapper
 		xmlTextWriterEndElement(aXmlHandler->mWriter);
@@ -117,24 +117,24 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	// Switch on the name of the XML node
 
 	// Starts reading
-	if (aXmlHandler->mXmlNodeName == TT("start")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("start")) {
 		New();
 		return kTTErrNone;
 	}
 
 	// Ends reading
-	if (aXmlHandler->mXmlNodeName == TT("end")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("end")) {
 
 		return kTTErrNone;
 	}
 
 	// Comment node
-	if (aXmlHandler->mXmlNodeName == TT("#comment"))
+	if (aXmlHandler->mXmlNodeName == TTSymbol("#comment"))
 		return kTTErrNone;
 
 	// Mapper node
-	if (aXmlHandler->mXmlNodeName == TT("mapper")) {
-		mute = TT("false");
+	if (aXmlHandler->mXmlNodeName == TTSymbol("mapper")) {
+		mute = TTSymbol("false");
 
 		// get mute state
 		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "mute") == 1) {
@@ -143,7 +143,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 				v.get(0, mute);
 		}
 		
-		if (mute == TT("false")) {
+		if (mute == TTSymbol("false")) {
 
 			// Create a new mapper
 			newMapper = NULL;

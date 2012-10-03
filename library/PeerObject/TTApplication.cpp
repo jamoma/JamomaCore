@@ -117,7 +117,7 @@ mTempAddress(kTTAdrsEmpty)
 	
 	// add itself to the application manager
 	TTValue args = TTValue((TTPtr)this);
-	TTModularApplications->sendMessage(TT("ApplicationAdd"), args, kTTValNONE);
+	TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
 }
 
 TTApplication::~TTApplication()
@@ -126,7 +126,7 @@ TTApplication::~TTApplication()
 	
 	// remove itself to the application manager
 	TTValue args = TTValue(mName);
-	TTModularApplications->sendMessage(TT("ApplicationRemove"), args, kTTValNONE);
+	TTModularApplications->sendMessage(TTSymbol("ApplicationRemove"), args, kTTValNONE);
 	
 	// TODO : delete observers
 	
@@ -139,14 +139,14 @@ TTErr TTApplication::setName(const TTValue& value)
 {	
 	// remove itself to the application manager
 	TTValue args = TTValue(mName);
-	TTModularApplications->sendMessage(TT("ApplicationRemove"), args, kTTValNONE);
+	TTModularApplications->sendMessage(TTSymbol("ApplicationRemove"), args, kTTValNONE);
 	
 	mName = value;
 	mDirectory->setName(mName);
 	
 	// add itself to the application manager
 	args = TTValue((TTPtr)this);
-	return TTModularApplications->sendMessage(TT("ApplicationAdd"), args, kTTValNONE);
+	return TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
 }
 
 TTErr TTApplication::setActivity(const TTValue& value)
@@ -216,7 +216,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 		
 		// prepare a callback based on ProtocolDirectoryCallback
 		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), TTObjectHandle(&returnValueCallback), kTTValNONE);
+		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&returnValueCallback), kTTValNONE);
 		
 		returnValueBaton = new TTValue();
 		*returnValueBaton = inputValue;
@@ -310,7 +310,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 					if (!err) {
 						// prepare a callback based on ProtocolAttributeCallback
 						returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+						TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 						
 						returnValueBaton = new TTValue();
 						*returnValueBaton = inputValue;
@@ -535,7 +535,7 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	for (TTUInt16 i=0; i<protocolNames.getSize(); i++) {
 		
 		protocolNames.get(i, protocolName);
-		getProtocol(protocolName)->getAttributeValue(TT("applicationParameters"), v);
+		getProtocol(protocolName)->getAttributeValue(TTSymbol("applicationParameters"), v);
 		v.get(0, (TTPtr*)&parameters);
 		
 		// Start "protocol" xml node
@@ -623,7 +623,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		return kTTErrNone;
 	
 	// Entry node
-	if (aXmlHandler->mXmlNodeName == TT("entry")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("entry")) {
 	
 		// get App Symbol
 		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "App") == 1) {
@@ -646,7 +646,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	}
 	
 	// Protocol node
-	if (aXmlHandler->mXmlNodeName == TT("protocol")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("protocol")) {
 		
 		// get the protocol name
 		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("name"));
@@ -661,7 +661,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		
 		// register the application to the protocol
 		nameValue = TTValue(mName);
-		getProtocol(protocolName)->sendMessage(TT("registerApplication"), nameValue, kTTValNONE);
+		getProtocol(protocolName)->sendMessage(TTSymbol("registerApplication"), nameValue, kTTValNONE);
 		
 		// get all protocol attributes and their value
 		parameters = new TTHash();
@@ -682,11 +682,11 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		// configure the protocol parameters for this application
 		v = TTValue(mName);
 		v.append((TTPtr)parameters);
-		getProtocol(protocolName)->setAttributeValue(TT("applicationParameters"), v);
+		getProtocol(protocolName)->setAttributeValue(TTSymbol("applicationParameters"), v);
 	}
 	
 	// Namespace node 
-	if (aXmlHandler->mXmlNodeName == TT("namespace")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("namespace")) {
 		
 		// note : don't load namespace for local application in order 
 		// to use the same configuration file for local and distant application
@@ -709,7 +709,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		TTObjectInstantiate(kTTSym_OpmlHandler, TTObjectHandle(&aOpmlHandler), args);
 		o = TTValue(TTPtr(this));
 		aOpmlHandler->setAttributeValue(kTTSym_object, o);
-		aOpmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
+		aOpmlHandler->sendMessage(TTSymbol("Read"), v, kTTValNONE);
 		TTObjectRelease(TTObjectHandle(&aOpmlHandler));
 	}
 	
@@ -736,7 +736,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 	// Switch on the name of the XML node
 	
 	// Starts reading
-	if (aOpmlHandler->mXmlNodeName == TT("start")) {
+	if (aOpmlHandler->mXmlNodeName == TTSymbol("start")) {
 		
 		mDirectory->init();
 		mTempAddress = kTTAdrsEmpty;
@@ -745,15 +745,15 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 	}
 	
 	// Ends reading
-	if (aOpmlHandler->mXmlNodeName == TT("end"))
+	if (aOpmlHandler->mXmlNodeName == TTSymbol("end"))
 		return kTTErrNone;
 	
 	// Text Node
-	if (aOpmlHandler->mXmlNodeName == TT("#text"))
+	if (aOpmlHandler->mXmlNodeName == TTSymbol("#text"))
 		return kTTErrNone;
 	
 	// Outline node
-	if (aOpmlHandler->mXmlNodeName == TT("outline")) {
+	if (aOpmlHandler->mXmlNodeName == TTSymbol("outline")) {
 		
 		empty = (TTBoolean)xmlTextReaderIsEmptyElement(aOpmlHandler->mReader);
 		
@@ -788,7 +788,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 						args = TTValue(objectName);
 						
 						getAttributeCallback = NULL;
-						TTObjectInstantiate(TT("callback"), &getAttributeCallback, kTTValNONE);
+						TTObjectInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
 						getAttributeBaton = new TTValue(TTPtr(aProtocol));
 						getAttributeBaton->append(mName);
 						getAttributeBaton->append(absoluteAddress);
@@ -797,7 +797,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 						args.append(getAttributeCallback);
 						
 						setAttributeCallback = NULL;
-						TTObjectInstantiate(TT("callback"), &setAttributeCallback, kTTValNONE);
+						TTObjectInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
 						setAttributeBaton = new TTValue(TTPtr(aProtocol));
 						setAttributeBaton->append(mName);
 						setAttributeBaton->append(absoluteAddress);
@@ -806,7 +806,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 						args.append(setAttributeCallback);
 						
 						sendMessageCallback = NULL;
-						TTObjectInstantiate(TT("callback"), &sendMessageCallback, kTTValNONE);
+						TTObjectInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
 						sendMessageBaton = new TTValue(TTPtr(aProtocol));
 						sendMessageBaton->append(mName);
 						sendMessageBaton->append(absoluteAddress);
@@ -815,7 +815,7 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 						args.append(sendMessageCallback);
 						
 						listenAttributeCallback = NULL;
-						TTObjectInstantiate(TT("callback"), &listenAttributeCallback, kTTValNONE);
+						TTObjectInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
 						listenAttributeBaton = new TTValue(TTPtr(aProtocol));
 						listenAttributeBaton->append(mName);
 						listenAttributeBaton->append(absoluteAddress);

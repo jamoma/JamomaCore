@@ -59,12 +59,12 @@ typedef struct _ui{
 	TTCallbackPtr		previewSignal;			///< internal TTCallback to get back preview signal
 	TTOutputPtr			modelOutput;			///< a pointer to TTOutput object of the binded model
 	
-	TTNodeAddressPtr	viewAddress;
-	TTNodeAddressPtr	modelAddress;
+	TTAddress	viewAddress;
+	TTAddress	modelAddress;
 	ObjectPtr			patcherPtr;				///< the patcher in which the external is (ignoring subpatcher)
-	TTSymbolPtr			patcherContext;			///< the patcher context in which the external is (model, view)
-	TTSymbolPtr			patcherClass;			///< the patcher class in which the external is
-	TTSymbolPtr			patcherName;
+	TTSymbol			patcherContext;			///< the patcher context in which the external is (model, view)
+	TTSymbol			patcherClass;			///< the patcher class in which the external is
+	TTSymbol			patcherName;
 	
 	TTBoolean			hover;					// is the mouse hover the jcom.ui panel ?
 	TTBoolean			selection;				// is the user selecting things ?
@@ -171,24 +171,24 @@ void 		ui_refmenu_qfn(t_ui *x);
 void 		ui_refmenu_build(t_ui *x);
 
 // prototypes: internal TTData and TTViewer
-void		ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbolPtr service, TTSymbolPtr name);
+void		ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbol service, TTSymbol name);
 void		ui_data_create_all(t_ui* obj);
-void		ui_data_destroy(t_ui *obj, TTSymbolPtr name);
+void		ui_data_destroy(t_ui *obj, TTSymbol name);
 void		ui_data_destroy_all(t_ui* obj);
-void		ui_data_send(t_ui *obj, TTSymbolPtr name, TTValue v);
-void		ui_data_interface(t_ui *x, TTSymbolPtr name);
+void		ui_data_send(t_ui *obj, TTSymbol name, TTValue v);
+void		ui_data_interface(t_ui *x, TTSymbol name);
 
-void		ui_receiver_create(t_ui *obj, TTObjectPtr *returnedReceiver, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTNodeAddressPtr address);
-void		ui_receiver_destroy(t_ui *obj, TTSymbolPtr name);
+void		ui_receiver_create(t_ui *obj, TTObjectPtr *returnedReceiver, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address);
+void		ui_receiver_destroy(t_ui *obj, TTSymbol name);
 void		ui_receiver_destroy_all(t_ui *obj);
 
-void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbolPtr name, TTNodeAddressPtr address, TTBoolean subscribe);
-void		ui_viewer_destroy(t_ui *obj, TTSymbolPtr name);
+void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address, TTBoolean subscribe);
+void		ui_viewer_destroy(t_ui *obj, TTSymbol name);
 void		ui_viewer_destroy_all(t_ui *obj);
-void		ui_viewer_send(t_ui *obj, TTSymbolPtr name, TTValue v);
-void		ui_viewer_highlight(t_ui *obj, TTSymbolPtr name, TTBoolean s);
-void		ui_viewer_freeze(t_ui *obj, TTSymbolPtr name, TTBoolean f);
-void		ui_viewer_refresh(t_ui *obj, TTSymbolPtr name);
+void		ui_viewer_send(t_ui *obj, TTSymbol name, TTValue v);
+void		ui_viewer_highlight(t_ui *obj, TTSymbol name, TTBoolean s);
+void		ui_viewer_freeze(t_ui *obj, TTSymbol name, TTBoolean f);
+void		ui_viewer_refresh(t_ui *obj, TTSymbol name);
 
 void		ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr method);
 void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

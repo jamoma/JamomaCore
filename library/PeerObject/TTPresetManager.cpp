@@ -165,10 +165,10 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	}
 	else {
 		v.get(0, (TTPtr*)&mCurrentPreset);
-		mCurrentPreset->sendMessage(TT("Clear"));
+		mCurrentPreset->sendMessage(TTSymbol("Clear"));
 	}
 	
-	mCurrentPreset->sendMessage(TT("Store"));
+	mCurrentPreset->sendMessage(TTSymbol("Store"));
 	
 	return kTTErrNone;
 }
@@ -187,7 +187,7 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		v.get(0, (TTPtr*)&mCurrentPreset);
 		
 		if (mCurrentPreset)
-			return mCurrentPreset->sendMessage(TT("Recall"));
+			return mCurrentPreset->sendMessage(TTSymbol("Recall"));
 	}
 	
 	return kTTErrGeneric;
@@ -314,7 +314,7 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST presetName.c_str());
 			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
-			aXmlHandler->sendMessage(TT("Write"));
+			aXmlHandler->sendMessage(TTSymbol("Write"));
 			
 			// end to write a preset
 			xmlTextWriterEndElement(aXmlHandler->mWriter);
@@ -355,7 +355,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	}
 
 	// Preset node :
-	if (aXmlHandler->mXmlNodeName == TT("preset")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("preset")) {
 		
 		if (!aXmlHandler->mXmlNodeStart)
 			return kTTErrNone;
@@ -389,7 +389,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 		
 		v = TTValue(TTPtr(mCurrentPreset));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
-		return aXmlHandler->sendMessage(TT("Read"));
+		return aXmlHandler->sendMessage(TTSymbol("Read"));
 	}
 	else
 		return kTTErrGeneric;
@@ -414,7 +414,7 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 			*buffer += "\n";
 			
 			aTextHandler->setAttributeValue(kTTSym_object, v);
-			aTextHandler->sendMessage(TT("Write"));
+			aTextHandler->sendMessage(TTSymbol("Write"));
 		}
 	}
 	
@@ -448,7 +448,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 			line->lookup(kTTSym_name, v);
 			v.get(0, flagName);
 			
-			if (flagName == TT("preset")) {
+			if (flagName == TTSymbol("preset")) {
 				
 				// get preset name
 				if (!line->getValue(v)) {
@@ -474,7 +474,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 			
 			v = TTValue(TTPtr(mCurrentPreset));
 			aTextHandler->setAttributeValue(kTTSym_object, v);
-			aTextHandler->sendMessage(TT("Read"));
+			aTextHandler->sendMessage(TTSymbol("Read"));
 		}
 		
 		// if it is the last line : bind on the first preset

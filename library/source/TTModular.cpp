@@ -26,7 +26,7 @@ void TTModularInit()
 	// DEBUG
 	TTObjectPtr test;
 	TTValue v;
-	TTObjectInstantiate(TT("string.test"), &test, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("string.test"), &test, kTTValNONE);
 	test->test(v);
 	
 	if (!TTModularHasInitialized) {
@@ -105,7 +105,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			
 			// set it as local application
 			args = TTValue((TTPtr)anApplication);
-			TTModularApplications->setAttributeValue(TT("localApplication"), args);
+			TTModularApplications->setAttributeValue(TTSymbol("localApplication"), args);
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
@@ -114,7 +114,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			
 			args = TTValue(TT(xmlConfigFilePath));
-			anXmlHandler->sendMessage(TT("Read"), args, kTTValNONE);
+			anXmlHandler->sendMessage(TTSymbol("Read"), args, kTTValNONE);
 		}
 		else
 			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName.c_str());

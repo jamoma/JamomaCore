@@ -36,7 +36,7 @@ void		WrappedDataClass_free(TTPtr self);
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		data_new_address(TTPtr self, SymbolPtr msg);
-void		data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbolPtr service, TTUInt8 index);
+void		data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, TTUInt8 index);
 void		data_address(TTPtr self, SymbolPtr name);
 
 #ifndef JMOD_RETURN
@@ -190,7 +190,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	AtomPtr						argv = NULL;
 	TTUInt32					number;
 	TTUInt8						i, j;
-	TTNodeAddressPtr			newAddress = TTADRS(relativeAddress->s_name);
+	TTAddress					newAddress = relativeAddress->s_name;
 	SymbolPtr					instanceAddress;
 	TTObjectPtr					anObject;
 	TTSubscriberPtr				aSubscriber;
@@ -208,7 +208,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 			
 			x->arrayAddress = newAddress;
 			
-			if (x->arrayAddress->getType() == kAddressRelative) {
+			if (x->arrayAddress.getType() == kAddressRelative) {
 				
 				number = jamoma_parse_bracket(relativeAddress, x->arrayFormatInteger, x->arrayFormatString);
 				
@@ -246,7 +246,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 #endif
 #endif
 						aSubscriber = NULL;
-						if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTADRS(instanceAddress->s_name),  &aSubscriber)) {
+						if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTAddress(instanceAddress->s_name),  &aSubscriber)) {
 							
 							if (aSubscriber) {
 								// append the data to the internals table
@@ -287,7 +287,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	EXTRA->firstArray = NO;
 }
 
-void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbolPtr service, TTUInt8 index)
+void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, TTUInt8 index)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
@@ -296,7 +296,7 @@ void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbolPtr servic
 	// prepare arguments
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 #ifndef JMOD_RETURN
 	returnValueBaton = new TTValue(self);
 	returnValueBaton->append(index);
@@ -420,7 +420,7 @@ void data_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
 				for (TTUInt32 i = 0; i < keys.getSize(); i++) {
-					keys.get(i, &x->cursor);
+					keys.get(i, x->cursor);
 					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
 				}
 			}
@@ -449,7 +449,7 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
 				for (TTUInt32 i=0; i<keys.getSize(); i++) {
-					keys.get(i, &x->cursor);
+					keys.get(i, x->cursor);
 					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
 				}
 				x->cursor = kTTSymEmpty;
@@ -467,13 +467,13 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	WrappedModularInstancePtr	x;
 	TTValue						array, g, t;
 	TTValuePtr					b, m;
-	TTSymbolPtr					type;
+	TTSymbol					type;
 	SymbolPtr					msg, iAdrs;
 	TTUInt8						i; 
 	long						argc = 0;
 	AtomPtr						argv = NULL;
 	TTBoolean					shifted = NO;
-	TTSymbolPtr					memoCursor;
+	TTSymbol					memoCursor;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
@@ -517,7 +517,7 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
 					selectedObject->getAttributeValue(kTTSym_type, t);
 					
-					t.get(0, &type);
+					t.get(0, type);
 					
 					// if there is no default value
 					if (g == kTTValNONE) {
@@ -600,7 +600,7 @@ void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 	
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Inc"), v, kTTValNONE);
+	selectedObject->sendMessage(TTSymbol("Inc"), v, kTTValNONE);
 }
 
 void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -609,6 +609,6 @@ void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 	
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Dec"), v, kTTValNONE);
+	selectedObject->sendMessage(TTSymbol("Dec"), v, kTTValNONE);
 }
 #endif

@@ -18,8 +18,8 @@
 TT_MODULAR_CONSTRUCTOR,
 mObject(NULL),
 mFilePath(kTTSymEmpty),
-mHeaderNodeName(TT("opml")),
-mVersion(TT("1.0")),
+mHeaderNodeName(TTSymbol("opml")),
+mVersion(TTSymbol("1.0")),
 mWriter(NULL),
 mReader(NULL),
 mIsWriting(false),
@@ -122,7 +122,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			// Write data of the given TTObject (which have to implement a WriteAsOpml message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("WriteAsOpml"), v, kTTValNONE);
+			aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 			
 			// Close opml body
 			xmlTextWriterEndElement(mWriter);
@@ -149,7 +149,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("WriteAsOpml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 }
 
 TTErr TTOpmlHandler::WriteAgain()
@@ -204,17 +204,17 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						// Starting
 						if (!mIsReading) {
 							mIsReading = true;
-							mXmlNodeName = TT("start");
+							mXmlNodeName = TTSymbol("start");
 						}
 						// Ending
 						else {
 							mIsReading = false;
-							mXmlNodeName = TT("end");
+							mXmlNodeName = TTSymbol("end");
 						}
 					}
 					
 					v.append((TTPtr)this);
-					aTTObject->sendMessage(TT("ReadFromOpml"), v, kTTValNONE);
+					aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 					
 					// next node
 					ret = xmlTextReaderRead(mReader);
@@ -238,7 +238,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("ReadFromOpml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 }
 
 TTErr TTOpmlHandler::ReadAgain()

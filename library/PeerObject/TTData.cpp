@@ -309,7 +309,7 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 		if (mDataspaceConverter) {
 			TTValue convertedValue;
 			
-			mDataspaceConverter->setAttributeValue(TT("inputUnit"), unit);
+			mDataspaceConverter->setAttributeValue(TTSymbol("inputUnit"), unit);
 			convertUnit(aValue, convertedValue);
 			aValue = convertedValue;
 		}
@@ -660,7 +660,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mRampFunction = value;
 	
-	if (mRamper && mRampFunction != kTTSymEmpty && mRampFunction != TT("linear")) {
+	if (mRamper && mRampFunction != kTTSymEmpty && mRampFunction != TTSymbol("linear")) {
 		
 			// set the function of the ramper
 			mRamper->setAttributeValue(kTTSym_function, mRampFunction);
@@ -703,19 +703,19 @@ TTErr TTData::setDataspace(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspace = value;
 	
-	TTObjectInstantiate(TT("dataspace"),  &mDataspaceConverter, kTTValNONE);
-	mDataspaceConverter->setAttributeValue(TT("dataspace"), mDataspace);
+	TTObjectInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, kTTValNONE);
+	mDataspaceConverter->setAttributeValue(TTSymbol("dataspace"), mDataspace);
 	
 	// If there is already a unit defined, then we try to use that
 	// Otherwise we use the default (neutral) unit.
 	err = kTTErrGeneric;
 	if (mDataspaceUnit)
-		err = mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
+		err = mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), mDataspaceUnit);
 
 	if (err) {
-		mDataspaceConverter->getAttributeValue(TT("outputUnit"), v);
+		mDataspaceConverter->getAttributeValue(TTSymbol("outputUnit"), v);
 		v.get(0, mDataspaceUnit);
-		mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
+		mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), mDataspaceUnit);
 	}
 	
 	this->notifyObservers(kTTSym_dataspace, n);
@@ -727,7 +727,7 @@ TTErr TTData::setDataspaceUnit(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnit = value;
 	if (mDataspaceConverter)
-		mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
+		mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), mDataspaceUnit);
 	
 	this->notifyObservers(kTTSym_dataspaceUnit, n);
 	return kTTErrNone;
@@ -820,7 +820,7 @@ TTErr TTData::rampSetup()
 TTErr TTData::convertUnit(const TTValue& inputValue, TTValue& outputValue)
 {
 	if (mDataspaceConverter)
-		return mDataspaceConverter->sendMessage(TT("convert"), inputValue, outputValue);
+		return mDataspaceConverter->sendMessage(TTSymbol("convert"), inputValue, outputValue);
 
 	return kTTErrNone;
 }

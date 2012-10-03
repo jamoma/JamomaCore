@@ -77,13 +77,13 @@ TTErr TTPreset::Store()
 	if (mDirectory) {
 		
 		// 1. Append a preset flag with the name
-		v = TTValue(TT("preset"));
+		v = TTValue(TTSymbol("preset"));
 		v.append(mName);
-		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
+		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
 		
 		// 2. Append a comment line
-		v = TTValue(TT("edit a comment"));
-		mScript->sendMessage(TT("AppendComment"), v, parsedLine);
+		v = TTValue(TTSymbol("edit a comment"));
+		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
 		
 		// 3. Look for all Objects under the address into the directory
 		mDirectory->Lookup(mAddress, aNodeList, &aNode);
@@ -116,7 +116,7 @@ TTErr TTPreset::Store()
 						continue;
 					
 					v.prepend(aRelativeAddress);
-					mScript->sendMessage(TT("AppendCommand"), v, parsedLine);
+					mScript->sendMessage(TTSymbol("AppendCommand"), v, parsedLine);
 				}
 			}
 		}
@@ -129,12 +129,12 @@ TTErr TTPreset::Store()
 
 TTErr TTPreset::Clear()
 {
-	return mScript->sendMessage(TT("Clear"));
+	return mScript->sendMessage(TTSymbol("Clear"));
 }
 
 TTErr TTPreset::Recall()
 {
-	return mScript->sendMessage(TT("Run"), mAddress, kTTValNONE);
+	return mScript->sendMessage(TTSymbol("Run"), mAddress, kTTValNONE);
 }
 
 TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
@@ -147,7 +147,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	// use WriteAsXml of the script
 	v = TTValue(TTPtr(mScript));
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
-	aXmlHandler->sendMessage(TT("Write"));
+	aXmlHandler->sendMessage(TTSymbol("Write"));
 	
 	return kTTErrNone;
 }
@@ -160,14 +160,14 @@ TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
 	// Preset node : append a preset flag with the name
-	if (aXmlHandler->mXmlNodeName == TT("preset")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("preset")) {
 		
 		if (!aXmlHandler->mXmlNodeStart)
 			return kTTErrNone;
 		
-		v = TTValue(TT("preset"));
+		v = TTValue(TTSymbol("preset"));
 		v.append(mName);
-		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
+		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
 		
 		return kTTErrNone;
 	}
@@ -175,7 +175,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	// use ReadFromXml of the script
 	v = TTValue(TTPtr(mScript));
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
-	aXmlHandler->sendMessage(TT("Read"));
+	aXmlHandler->sendMessage(TTSymbol("Read"));
 	
 	return kTTErrNone;
 }
@@ -190,7 +190,7 @@ TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	// use WriteAsBuffer of the script
 	v = TTValue(TTPtr(mScript));
 	aTextHandler->setAttributeValue(kTTSym_object, v);
-	aTextHandler->sendMessage(TT("Write"));
+	aTextHandler->sendMessage(TTSymbol("Write"));
 	
 	return kTTErrNone;
 }
@@ -209,7 +209,7 @@ TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	// use ReadAsbuffer of the script
 	v = TTValue(TTPtr(mScript));
 	aTextHandler->setAttributeValue(kTTSym_object, v);
-	aTextHandler->sendMessage(TT("Read"));
+	aTextHandler->sendMessage(TTSymbol("Read"));
 	
 	return kTTErrNone;
 }
@@ -276,8 +276,8 @@ TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2)
 
 TTErr TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position)
 {
-	preset1->mScript->sendMessage(TT("Bind"), preset1->mAddress, kTTValNONE);
-	preset2->mScript->sendMessage(TT("Bind"), preset2->mAddress, kTTValNONE);
+	preset1->mScript->sendMessage(TTSymbol("Bind"), preset1->mAddress, kTTValNONE);
+	preset2->mScript->sendMessage(TTSymbol("Bind"), preset2->mAddress, kTTValNONE);
 	
 	return TTScriptInterpolate(preset1->mScript, preset2->mScript, position);
 }
@@ -290,7 +290,7 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
 	
 	for (i = 0; i < presets.getSize(); i++) {
 		presets.get(i, (TTPtr*)&aPreset);
-		aPreset->mScript->sendMessage(TT("Bind"), aPreset->mAddress, kTTValNONE);
+		aPreset->mScript->sendMessage(TTSymbol("Bind"), aPreset->mAddress, kTTValNONE);
 		
 		scripts.append((TTPtr)aPreset->mScript);
 	}

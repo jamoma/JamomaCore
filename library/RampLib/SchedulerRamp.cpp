@@ -28,11 +28,11 @@ TT_RAMPUNIT_CONSTRUCTOR,
 {
 	clock = clock_new(this, (method)&schedulerramp_clockfn);	// install the max timer
 
-	registerAttribute(TT("granularity"), kTypeFloat32, &attrGranularity);	
-	registerAttribute(TT("clock"), kTypeSymbol, &attrClock, (TTSetterMethod)&SchedulerRamp::setClock);	
+	registerAttribute(TTSymbol("granularity"), kTypeFloat32, &attrGranularity);	
+	registerAttribute(TTSymbol("clock"), kTypeSymbol, &attrClock, (TTSetterMethod)&SchedulerRamp::setClock);	
 
-	setAttributeValue(TT("granularity"), 20.0);
-	setAttributeValue(TT("clock"), TT(""));
+	setAttributeValue(TTSymbol("granularity"), 20.0);
+	setAttributeValue(TTSymbol("clock"), TTSymbol(""));
 }
 
 
