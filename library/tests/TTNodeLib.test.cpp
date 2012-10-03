@@ -154,7 +154,6 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 	TTAddress testAddressG("/name.instance:attribute");
 	TTSymbol result;
 	TTAddress part1, part2;
-	TTAddress testPart1, testPart2;
 	
 	// the first set of tests checks the getNameInstance method
 	TTTestLog("\n");
@@ -242,11 +241,9 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 	TTTestLog("Testing Address splitAt Method");
 	
 	testAddressA.splitAt(0, part1, part2);
-	testPart1 = TTAddress("directory:/");
-	testPart2 = TTAddress("gran/parent/name.instance:attribute");
 	TTTestAssertion("TTAddress: Test passes if splitAt method returns \"directory:/\" and \"gran/parent/name.instance:attribute\"",
-					part1 == testPart1 &&
-					part2 == testPart2,
+					part1 == TTAddress("directory:/") &&
+					part2 == TTAddress("gran/parent/name.instance:attribute"),
 					testAssertionCount,
 					errorCount);
 	

@@ -470,7 +470,7 @@ TTErr TTAddressBase::splitAt(TTUInt32 whereToSplit, TTAddressBase* *returnedPart
 		{
 			pos = part2.find_first_of(C_SEPARATOR);
 			part1 += part2.substr(0, pos+1);
-			part2 = part2.substr(pos+1, part2.size());
+			part2 = part2.substr(pos+1, part2.size() - (pos+1));
 		}
 		else
 		{
@@ -484,11 +484,13 @@ TTErr TTAddressBase::splitAt(TTUInt32 whereToSplit, TTAddressBase* *returnedPart
 	}
 	
 	// if exists, remove SEPARATOR at the end of the part1
-	if (part1.at(part1.size()-1) == C_SEPARATOR)
+	if (part1.at(part1.size()-1) == C_SEPARATOR) {
 		
-		// except in case of "directory:/" part
-		if (part1.at(part1.size()-2) != ':')
+		// except in case part1 is a directory:/ part
+		size_t sc = part1.find_first_of(':');
+		if (sc > 0 && sc != part1.size()-2)
 			part1 = part1.substr(0, part1.size()-1);
+	}
 	
 	*returnedPart1 = (TTAddressBase*)gTTAddressTable.lookup(part1);
 	*returnedPart2 = (TTAddressBase*)gTTAddressTable.lookup(part2);
