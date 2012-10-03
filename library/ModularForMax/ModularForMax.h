@@ -64,8 +64,8 @@ extern "C" {
 	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber);
 	
 	/** Get the <patcher name, patcher pointer> list above an external
-	 To understand how this method have to work see in TTSubscriber.h and .cpp */
-	void			jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data);
+		To understand what this method have to provide see in TTSubscriber.h and .cpp */
+	void			jamoma_subscriber_get_patcher_list(ObjectPtr x, TTList& aContextListToFill);
 	
 	// Method to deal with TTContainer
 	///////////////////////////////////////////////////////////////////////

@@ -26,7 +26,7 @@ TTErr jamoma_application_dump_configuration(void)
 	TTString aTTStr;
 	
 	post("--- Jamoma Application : Symbol Convertion ---");
-	JamomaApplication->getAttributeValue(TT("allAppNames"), appNames);
+	JamomaApplication->getAttributeValue(TTSymbol("allAppNames"), appNames);
 	
 	for (i=0; i<appNames.getSize(); i++) {
 		
@@ -56,7 +56,7 @@ TTErr jamoma_application_write_configuration(void)
 	anXmlHandler->setAttributeValue(kTTSym_object, v);
 	
 	v = TTValue(TT(JamomaConfigurationFilePath));
-	return anXmlHandler->sendMessage(TT("Write"), v, kTTValNONE);
+	return anXmlHandler->sendMessage(TTSymbol("Write"), v, kTTValNONE);
 }
 
 // Method to deal with the jamoma directory
@@ -98,43 +98,39 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress rel
 {
 	TTValue			v, args;
 	TTNodePtr		aNode;
-	TTObjectPtr		contextListCallback;
-	TTValuePtr		contextListBaton;
-	TTAddress newRelativeAddress, absoluteAddress;
+	TTList			aContextList;
+	TTAddress		newRelativeAddress, absoluteAddress;
 	TTBoolean		newInstance;
 		
 	// prepare arguments
 	args.append(TTPtr(aTTObject));
 	args.append(relativeAddress);
 	
-	contextListCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &contextListCallback, kTTValNONE);
-	contextListBaton = new TTValue(TTPtr(x));
-	contextListCallback->setAttributeValue(kTTSym_baton, TTPtr(contextListBaton));
-	contextListCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_subscriber_get_patcher_list));
-	args.append(contextListCallback);
+	// Get all Context above the object and their name 
+	jamoma_subscriber_get_patcher_list(x, aContextList);
+	args.append((TTPtr)&aContextList);
 	
 	*returnedSubscriber = NULL;
 	TTObjectInstantiate(kTTSym_Subscriber, TTObjectHandle(returnedSubscriber), args);
 	
 	// Check if the subscription is ok (or the binding in case of NULL object)
-	(*returnedSubscriber)->getAttributeValue(TT("node"), v);
+	(*returnedSubscriber)->getAttributeValue(TTSymbol("node"), v);
 	v.get(0, (TTPtr*)&aNode);
 	if (aNode) {
 		
 		if (aTTObject) {
 			// Is a new instance have been created ?
-			(*returnedSubscriber)->getAttributeValue(TT("newInstanceCreated"), v);
+			(*returnedSubscriber)->getAttributeValue(TTSymbol("newInstanceCreated"), v);
 			v.get(0, newInstance);
 			
 			if (newInstance) {
-				(*returnedSubscriber)->getAttributeValue(TT("relativeAddress"), v);
+				(*returnedSubscriber)->getAttributeValue(TTSymbol("relativeAddress"), v);
 				v.get(0, newRelativeAddress);
 				object_warn(x, "Jamoma cannot registers multiple object with the same OSC identifier (%s).  Using %s instead.", relativeAddress.c_str(), newRelativeAddress.c_str());
 			}
 			
 			JamomaDebug {
-				(*returnedSubscriber)->getAttributeValue(TT("nodeAddress"), v);
+				(*returnedSubscriber)->getAttributeValue(TTSymbol("nodeAddress"), v);
 				v.get(0, absoluteAddress);
 				object_post(x, "registers at %s", absoluteAddress.c_str());
 			}
@@ -152,26 +148,18 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress rel
 	return kTTErrGeneric;
 }
 
-void jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data)
+void jamoma_subscriber_get_patcher_list(ObjectPtr x, TTList& aContextListToFill)
 {
-	TTValuePtr	b;
 	TTValue		v;
-	ObjectPtr	objPtr, patcherPtr = NULL;
+	ObjectPtr	objPtr = x;
+	ObjectPtr	patcherPtr = NULL;
 	TTSymbol	patcherContext;
 	TTSymbol	patcherName;
 	TTSymbol	patcherClass;
 	TTSymbol	lowerContext;
-	TTListPtr	nameAndPtrList;
-	
-	// unpack baton
-	b = (TTValuePtr)p_baton;
-	b->get(0, (TTPtr*)&objPtr);
-	
-	// unpack data to get a TTListPtr
-	data.get(0, (TTPtr*)&nameAndPtrList);
 	
 	// Edit the list of all patcher's name and pointer 
-	// above the object looking at all parent patcher
+	// above the object x looking at all parent patcher
 	do {
 		// get all info from the current object
 		jamoma_patcher_get_info(objPtr, &patcherPtr, patcherContext, patcherClass, patcherName);
@@ -187,7 +175,7 @@ void jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data)
 				// insert the current patcher name and his pointer to the list
 				v = patcherName;
 				v.append((TTPtr)patcherPtr);
-				nameAndPtrList->insert(0, v);
+				aContextListToFill.insert(0, v);
 				
 				// replace current object by his parent patcher
 				objPtr = patcherPtr;
@@ -216,14 +204,14 @@ TTErr jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer)
 	
 	// prepare arguments
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
 	returnAddressBaton = new TTValue(TTPtr(x));
 	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
 	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
 	args.append(returnAddressCallback);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
@@ -278,7 +266,7 @@ TTErr jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbol servic
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value_typed));
@@ -360,14 +348,14 @@ TTErr jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver)
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
 	returnAddressBaton = new TTValue(TTPtr(x));
 	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
 	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
 	args.append(returnAddressCallback);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value_typed));
@@ -389,7 +377,7 @@ TTErr jamoma_receiver_create_audio(ObjectPtr x, TTObjectPtr *returnedReceiver)
 	
 	// prepare arguments
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
 	returnAddressBaton = new TTValue(TTPtr(x));
 	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
 	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
@@ -442,9 +430,9 @@ TTErr jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput)
 	TTValuePtr		signalOutBaton;
 	
 	// prepare arguments
-	args.append(TT("control"));
+	args.append(TTSymbol("control"));
 	
-	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));
 	signalOutBaton->append(TTPtr(jps_return_signal));
 	signalOutCallback->setAttributeValue(kTTSym_baton, TTPtr(signalOutBaton));
@@ -468,9 +456,9 @@ TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput)
 	TTAudioSignalPtr	audioZero = NULL;
 	
 	// prepare arguments
-	args.append(TT("audio"));
+	args.append(TTSymbol("audio"));
 	
-	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));
 	signalOutBaton->append(TTPtr(jps_return_signal));
 	signalOutCallback->setAttributeValue(kTTSym_baton, TTPtr(signalOutBaton));
@@ -518,9 +506,9 @@ TTErr jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput)
 	TTValuePtr		signalOutBaton;
 	
 	// prepare arguments
-	args.append(TT("control"));
+	args.append(TTSymbol("control"));
 	
-	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));
 	signalOutBaton->append(TTPtr(jps_return_signal));
 	signalOutCallback->setAttributeValue(kTTSym_baton, TTPtr(signalOutBaton));
@@ -551,10 +539,10 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput)
 	TTObjectPtr			rampGainUnit = NULL;
 	
 	// prepare arguments
-	args.append(TT("audio"));
+	args.append(TTSymbol("audio"));
 	
 	signalOutCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &signalOutCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &signalOutCallback, kTTValNONE);
 	signalOutBaton = new TTValue(TTPtr(x));
 	signalOutBaton->append(TTPtr(jps_return_signal));
 	signalOutCallback->setAttributeValue(kTTSym_baton, TTPtr(signalOutBaton));
@@ -562,7 +550,7 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput)
 	args.append(signalOutCallback);
 	
 	inputLinkCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &inputLinkCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &inputLinkCallback, kTTValNONE);
 	inputLinkBaton = new TTValue(TTPtr(x));
 	inputLinkBaton->append(TTPtr(gensym("return_link")));
 	inputLinkCallback->setAttributeValue(kTTSym_baton, TTPtr(inputLinkBaton));
@@ -578,17 +566,17 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput)
 	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, 1);
 	args.append((TTPtr)audioZero);
 	
-	TTObjectInstantiate(TT("crossfade"), &mixUnit, 1);
-	mixUnit->setAttributeValue(TT("position"), 1.0);
+	TTObjectInstantiate(TTSymbol("crossfade"), &mixUnit, 1);
+	mixUnit->setAttributeValue(TTSymbol("position"), 1.0);
 	args.append((TTPtr)mixUnit);
 	
-	TTObjectInstantiate(TT("gain"), &gainUnit, 1);
-	gainUnit->setAttributeValue(TT("linearGain"), 1.0);
+	TTObjectInstantiate(TTSymbol("gain"), &gainUnit, 1);
+	gainUnit->setAttributeValue(TTSymbol("linearGain"), 1.0);
 	args.append((TTPtr)gainUnit);
 	
-	TTObjectInstantiate(TT("ramp"), &rampMixUnit, 1);
+	TTObjectInstantiate(TTSymbol("ramp"), &rampMixUnit, 1);
 	args.append((TTPtr)rampMixUnit);
-	TTObjectInstantiate(TT("ramp"), &rampGainUnit, 1);
+	TTObjectInstantiate(TTSymbol("ramp"), &rampGainUnit, 1);
 	args.append((TTPtr)rampGainUnit);
 	
 	*returnedOutput = NULL;
@@ -626,7 +614,7 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper)
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
@@ -651,7 +639,7 @@ TTErr jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer)
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value_typed));
@@ -691,7 +679,7 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
@@ -700,7 +688,7 @@ TTErr jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer)
 	args.append((TTPtr)jamoma_explorer_default_filter_bank());
 
 	returnSelectionCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnSelectionCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnSelectionCallback, kTTValNONE);
 	returnSelectionBaton = new TTValue(TTPtr(x));
 	returnSelectionBaton->append((TTPtr)gensym("return_selection"));
 	returnSelectionCallback->setAttributeValue(kTTSym_baton, TTPtr(returnSelectionBaton));
@@ -725,7 +713,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Data);
 	aFilter->append(kTTSym_mode, kTTSym_include);
-	defaultFilterBank->append(TT("data"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("data"), (TTPtr)aFilter);
 	
 	// to look for jcom.parameter
 	aFilter = new TTDictionary;
@@ -734,7 +722,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_parameter);
 	aFilter->append(kTTSym_mode, kTTSym_include);
-	defaultFilterBank->append(TT("parameter"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("parameter"), (TTPtr)aFilter);
 	
 	// to look for jcom.message
 	aFilter = new TTDictionary;
@@ -743,7 +731,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_message);
 	aFilter->append(kTTSym_mode, kTTSym_include);
-	defaultFilterBank->append(TT("message"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("message"), (TTPtr)aFilter);
 	
 	// to look for jcom.return
 	aFilter = new TTDictionary;
@@ -752,7 +740,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_return);
 	aFilter->append(kTTSym_mode, kTTSym_include);
-	defaultFilterBank->append(TT("return"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("return"), (TTPtr)aFilter);
 	
 	// to look for jcom.model
 	aFilter = new TTDictionary;
@@ -761,7 +749,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_model);
 	aFilter->append(kTTSym_mode, kTTSym_include);
-	defaultFilterBank->append(TT("model"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("model"), (TTPtr)aFilter);
 	
 	// to look for jcom.view
 	aFilter = new TTDictionary;
@@ -770,21 +758,21 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_view);
 	aFilter->append(kTTSym_mode, kTTSym_include);
-	defaultFilterBank->append(TT("view"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("view"), (TTPtr)aFilter);
 	
 	// to look for empty nodes
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
-	aFilter->append(kTTSym_object, TT("none"));
+	aFilter->append(kTTSym_object, TTSymbol("none"));
 	aFilter->append(kTTSym_mode, kTTSym_include);
-	defaultFilterBank->append(TT("none"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("none"), (TTPtr)aFilter);
 	
 	// to look for jcom.remote
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Viewer);
 	aFilter->append(kTTSym_mode, kTTSym_include);
-	defaultFilterBank->append(TT("remote"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("remote"), (TTPtr)aFilter);
 	
 	// to look for user-defined object
 	aFilter = new TTDictionary;
@@ -792,7 +780,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_generic);
 	aFilter->append(kTTSym_mode, kTTSym_exclude);
-	defaultFilterBank->append(TT("noGenericTag"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("noGenericTag"), (TTPtr)aFilter);
 	
 	// to look for generic tagged object
 	aFilter = new TTDictionary;
@@ -800,7 +788,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_attribute, kTTSym_tag);
 	aFilter->append(kTTSym_value, kTTSym_generic);
 	aFilter->append(kTTSym_mode, kTTSym_restrict);
-	defaultFilterBank->append(TT("genericTag"), (TTPtr)aFilter);
+	defaultFilterBank->append(TTSymbol("genericTag"), (TTPtr)aFilter);
 	
 	return defaultFilterBank;
 }
@@ -1540,7 +1528,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		jamoma_patcher_get_context(returnedPatcher, returnedContext);
 		
 		// if still no context : stop the subscription process
-		if (returnedContext != kTTSymEmpty) {
+		if (returnedContext == kTTSymEmpty) {
 			returnedName = S_SEPARATOR;
 			// can't find any jcom model|view with a correct context attribute in the patcher
 			// so this means the object have to be registered under the root
@@ -1552,7 +1540,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		
 		// if no class : set it as "Untitled" to continue the process
 		if (returnedClass  != kTTSymEmpty)
-			returnedClass = TT("Untitled");
+			returnedClass = TTSymbol("Untitled");
 		
 		// for jcom model|view object, use the patcher where it is to get the name
 		if (canShare)
