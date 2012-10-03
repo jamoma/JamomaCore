@@ -20,7 +20,7 @@
 /**	This object represents a single 'inlet' to a TTAudioGraphObject.
 	TTAudioGraphObject maintains a vector of these inlets.
 	
-	The relationship of an inlet to other parts of the audio graph heirarchy is as follows:
+	The relationship of an inlet to other parts of the audio graph hierarchy is as follows:
 
 		A graph may have many objects.
 		An object may have many inlets.	
