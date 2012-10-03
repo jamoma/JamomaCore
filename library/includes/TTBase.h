@@ -206,6 +206,11 @@ typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBool
  */
 
 
+/** \defgroup bitmasks Bit Masks
+ *
+ * Various enumerations used as bitmasks in %Jamoma.
+ */
+
 
 /**	\ingroup enums
  TTBlue Data Types
