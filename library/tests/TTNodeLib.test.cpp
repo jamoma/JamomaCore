@@ -153,6 +153,8 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 	TTAddress testAddressF("name.instance:attribute");
 	TTAddress testAddressG("/name.instance:attribute");
 	TTSymbol result;
+	TTAddress part1, part2;
+	TTAddress testPart1, testPart2;
 	
 	// the first set of tests checks the getNameInstance method
 	TTTestLog("\n");
@@ -234,17 +236,40 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 					result == TTAddress("/name.instance:attribute"),
 					testAssertionCount,
 					errorCount);
-	/*
+
 	// the third set of tests checks the splitAt method
 	TTTestLog("\n");
 	TTTestLog("Testing Address splitAt Method");
+	
+	testAddressA.splitAt(0, part1, part2);
+	testPart1 = TTAddress("directory:/");
+	testPart2 = TTAddress("gran/parent/name.instance:attribute");
+	TTTestAssertion("TTAddress: Test passes if splitAt method returns \"directory:/\" and \"gran/parent/name.instance:attribute\"",
+					part1 == testPart1 &&
+					part2 == testPart2,
+					testAssertionCount,
+					errorCount);
+	
+	testAddressA.splitAt(1, part1, part2);
+	TTTestAssertion("TTAddress: Test passes if splitAt method returns \"directory:/gran\" and \"parent/name.instance:attribute\"",
+					part1 == TTAddress("directory:/gran") &&
+					part2 == TTAddress("parent/name.instance:attribute"),
+					testAssertionCount,
+					errorCount);
+	
+	testAddressA.splitAt(2, part1, part2);
+	TTTestAssertion("TTAddress: Test passes if splitAt method returns \"directory:/gran/parent\" and \"name.instance:attribute\"",
+					part1 == TTAddress("directory:/gran/parent") &&
+					part2 == TTAddress("name.instance:attribute"),
+					testAssertionCount,
+					errorCount);
 	
 	
 	// the fourth set of tests checks the countSeparator method
 	TTTestLog("\n");
 	TTTestLog("Testing Address countSeparator Method");
 	
-	
+	/*	
 	// the fift set of tests checks the listNameInstance method
 	TTTestLog("\n");
 	TTTestLog("Testing Address listNameInstance Method");
