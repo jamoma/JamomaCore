@@ -209,7 +209,7 @@ public:
 	}
 	
 	
-	void append(char aChar)
+	void append(const char aChar)
 	{
 		char s[2];
 		

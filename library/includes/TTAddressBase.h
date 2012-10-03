@@ -31,11 +31,11 @@ class TTList;
 #define S_WILDCARD		kTTSymStar
 #define S_ZERO			TTSymbol("0")
 
-#define C_SEPARATOR		(char)'/'
-#define C_INSTANCE		(char)'.'
-#define C_ATTRIBUTE		(char)':'
-#define C_WILDCARD		(char)'*'
-#define C_ZERO			(char)'0'
+#define C_SEPARATOR		'/'
+#define C_INSTANCE		'.'
+#define C_ATTRIBUTE		':'
+#define C_WILDCARD		'*'
+#define C_ZERO			'0'
 
 
 // Comparison flags between address returned by address1->compare(address2)
