@@ -101,7 +101,7 @@ TTSymbol	TTAddressBase::getNameInstance()
 		nameInstance +=  this->getInstance().c_str();
 	}
 	
-	return TT(nameInstance);
+	return TTSymbol(nameInstance);
 }
 
 TTAddressBase* TTAddressBase::normalize()
@@ -136,12 +136,13 @@ TTAddressBase* TTAddressBase::appendAttribute(TTSymbol& anAttribute)
 
 TTAddressBase* TTAddressBase::appendAddress(TTAddressBase* toAppend)
 {
-	TTString tmp = "";
-	
 	if (*toAppend == kTTAdrsEmpty || *toAppend == kTTAdrsRoot)
 		return this;
 	
-	tmp += this->getCString();
+	else if (this == kTTAdrsEmpty)
+		return toAppend;
+	
+	TTString tmp = this->getCString();
 
 	// insert a / if the first part is not the root and the address to append is not absolute
 	if (*this != kTTAdrsRoot  &&  toAppend->getType() != kAddressAbsolute  &&  toAppend->getName() != NO_NAME) {

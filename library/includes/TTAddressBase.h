@@ -24,20 +24,18 @@ class TTList;
 #define NO_INSTANCE		kTTSymEmpty
 #define NO_ATTRIBUTE	kTTSymEmpty
 
-#define C_SEPARATOR		'/'
-//#define C_INSTANCE	'.'
-const char C_INSTANCE = '.';
-#define C_ATTRIBUTE		':'
-#define C_WILDCARD		'*'
-#define C_ZERO			'0'
-
+#define S_DIRECTORY		TTSymbol(":/")
 #define S_SEPARATOR		kTTSymSlash
 #define S_INSTANCE		kTTSymDot
 #define S_ATTRIBUTE		kTTSymColon
 #define S_WILDCARD		kTTSymStar
+#define S_ZERO			TTSymbol("0")
 
-#define S_DIRECTORY		TT(":/")
-#define S_ZERO			TT("0")
+#define C_SEPARATOR		(char)'/'
+#define C_INSTANCE		(char)'.'
+#define C_ATTRIBUTE		(char)':'
+#define C_WILDCARD		(char)'*'
+#define C_ZERO			(char)'0'
 
 
 // Comparison flags between address returned by address1->compare(address2)
