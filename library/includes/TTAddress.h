@@ -178,7 +178,7 @@ public:
 		
 		err = mAddressPointer->splitAt(whereToSplit, &returnedPart1Ptr, &returnedPart2Ptr);
 		returnedPart1 = TTAddress(returnedPart1Ptr);
-		returnedPart1 = TTAddress(returnedPart2Ptr);
+		returnedPart2 = TTAddress(returnedPart2Ptr);
 		return err;
 	}
 	

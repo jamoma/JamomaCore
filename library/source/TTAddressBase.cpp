@@ -484,9 +484,11 @@ TTErr TTAddressBase::splitAt(TTUInt32 whereToSplit, TTAddressBase* *returnedPart
 	}
 	
 	// if exists, remove SEPARATOR at the end of the part1
-	 pos = part1.find_first_of(C_SEPARATOR);
-	 if ((pos + 1) == part1.size())
-		 part1 = part1.substr(0, pos);
+	if (part1.at(part1.size()-1) == C_SEPARATOR)
+		
+		// except in case of "directory:/" part
+		if (part1.at(part1.size()-2) != ':')
+			part1 = part1.substr(0, part1.size()-1);
 	
 	*returnedPart1 = (TTAddressBase*)gTTAddressTable.lookup(part1);
 	*returnedPart2 = (TTAddressBase*)gTTAddressTable.lookup(part2);
