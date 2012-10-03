@@ -54,7 +54,7 @@ enum TTAudioGraphDescriptionStatus {
 	kTTAudioGraphDescriptionHasStarted,		///< The process of describing this node in the graph has begun.
 };
 
-/** \ingroup enums
+/** \ingroup bitmasks
  Enumeration flags signaling specific properties of this node.
  Values are used as a bitmask.
  */
