@@ -209,6 +209,15 @@ public:
 	}
 	
 	
+	void append(char aChar)
+	{
+		char s[2];
+		
+		snprintf(s, 2, "%c", aChar);
+		append(s);
+	}
+	
+	
 	void append(int anInt)
 	{
 		char s[16];
