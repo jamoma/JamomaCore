@@ -65,9 +65,6 @@ protected:
 	
 	/**	Internal method that resizes memory allocated when various attributes change.	*/
 	TTErr resize();
-	
-	/**	Attribute accessor	*/
-	TTErr setType(const TTValue& aType);
 
 	/**	Run unit tests.	*/	
 	virtual TTErr test(TTValue& returnedTestInfo);
@@ -81,6 +78,9 @@ protected:
 	/**	Internal method that sets the value for ElementCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. */
 	TTBoolean setElementCountWithoutResize(TTUInt8 aNewElementCount);
 	
+	/**	Internal method that sets the values for Type and TypeSizeInBytes without resizing the matrix of values. It is included so that other methods in the class consistently check for valid entries. Values that are not a numeric type defined by ttDataTypeInfo in TTBase will return false and leave the values unchanged. */
+	TTBoolean setTypeWithoutResize(TTDataInfoPtr aNewType);
+	
 public:
 	
 	/**	Attribute accessor. Sets the value for RowCount. Values that are less than 1 will produce an error. */
@@ -89,8 +89,11 @@ public:
 	/**	Attribute accessor. Sets the value for ColumnCount. Values that are less than 1 will produce an error. */
 	TTErr setColumnCount(const TTValue& aNewColumnCount);
 	
-	/**	Attribute accessor	Sets the value for ElementCount. Values that are less than 1 will produce an error. */
+	/**	Attribute accessor.	Sets the value for ElementCount. Values that are less than 1 will produce an error. */
 	TTErr setElementCount(const TTValue& newElementCount);
+	
+	/**	Attribute accessor.	Sets the value for Type and TypeSizeInBytes.  Values must be one of the numeric types defined by ttDataTypeInfo in TTBase (i.e., float32, float64, int8, uint8, int16, uint16, int32, uint32, int64, uint64). */
+	TTErr setType(const TTValue& aType);
 	
 	/**	Attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values beyond the first two will be ignored without an error.	Values that are less than 1 will produce an error. */
 	TTErr setDimensions(const TTValue& someNewDimensions);

@@ -8,6 +8,7 @@
 
 #include "TTMatrix.h"
 #include "TTEnvironment.h"
+#include "TTBase.h"
 
 #define thisTTClass			TTMatrix
 #define thisTTClassName		"matrix"
@@ -157,6 +158,19 @@ TTBoolean TTMatrix::setElementCountWithoutResize(TTUInt8 aNewElementCount)
 }
 
 
+TTBoolean TTMatrix::setTypeWithoutResize(TTDataInfoPtr aNewType)
+{
+	if (aNewType->isNumerical)
+	{
+		mType = aNewType->name;
+		mTypeSizeInBytes = (aNewType->bitdepth / 8);
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
 TTErr TTMatrix::setRowCount(const TTValue& aNewRowCount)
 {
 	TTUInt32 aNewRowCountInt = aNewRowCount;
@@ -188,6 +202,20 @@ TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
 	TTUInt8 aNewElementCountInt = newElementCount;
 	
 	if (setElementCountWithoutResize(aNewElementCountInt))
+	{
+		return resize();
+	} else {
+		return kTTErrInvalidValue;
+	}
+}
+
+
+TTErr TTMatrix::setType(const TTValue& aType)
+{
+	TTSymbolPtr aNewTypeName = aType;
+	TTDataInfoPtr aNewDataType = TTDataInfo::getInfoForType(aNewTypeName);
+	
+	if (setTypeWithoutResize(aNewDataType))
 	{
 		return resize();
 	} else {
@@ -243,30 +271,6 @@ TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 	return kTTErrNone;
 }
 
-
-TTErr TTMatrix::setType(const TTValue& aType)
-{
-	TTSymbolPtr typeName = aType;
-
-	// TODO: it's dumb to do this big switch below...
-	// TODO: we should use the info already defined in TTDataInfo
-
-	if (typeName == TT("uint8"))
-		mTypeSizeInBytes = 1;
-	else if (typeName == TT("int32"))
-		mTypeSizeInBytes = 4;
-	else if (typeName == TT("float32"))
-		mTypeSizeInBytes = 4;
-	else if (typeName == TT("float64"))
-		mTypeSizeInBytes = 8;
-	else {
-		// don't change the matrix data if something bogus was passed-in
-		return kTTErrInvalidValue;
-	}
-
-	mType = typeName;
-	return resize();
-}
 
 TTErr TTMatrix::clear()
 {
