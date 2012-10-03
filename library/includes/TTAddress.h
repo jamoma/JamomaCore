@@ -23,23 +23,18 @@
  */
 
 class TTFOUNDATION_EXPORT TTAddress : public TTSymbol
-{
-private:
-	TTAddressBase*	mAddressPointer; // This really just duplicates the pointer we inherit, but it makes debugging more convenient to have it typed properly
-	
+{	
 public:
 	
 	TTAddress()
 	{	
 		mSymbolPointer = gTTAddressTable.lookup("");
-		mAddressPointer = (TTAddressBase*)mSymbolPointer;
 	}
 	
 	
 	TTAddress(const char *cstr)
 	{
 		mSymbolPointer = gTTAddressTable.lookup(cstr);
-		mAddressPointer = (TTAddressBase*)mSymbolPointer;
 	}
 	
 	
@@ -49,15 +44,14 @@ public:
 		
 		s.append(int_to_convert_to_string);
 		mSymbolPointer = gTTAddressTable.lookup(s);
-		mAddressPointer = (TTAddressBase*)mSymbolPointer;
 	}
 	
 	
 	TTAddress(TTPtr do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing)
 	{
 		mSymbolPointer = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
-		mAddressPointer = (TTAddressBase*)mSymbolPointer;
 	}
+	
 	
 	/**	TTAddress constructor from directory, parent, name, instance and attribute part
 	 @param	newDirectory					directory symbol
@@ -67,11 +61,9 @@ public:
 	 @param	newAttribute					attribute symbol */
 	TTAddress(const TTSymbol newDirectory, const TTAddress newParent, const TTSymbol newName, const TTSymbol newInstance, const TTSymbol newAttribute)
 	{
-		TTAddressBase* newAddressPointer = ((TTAddressBase*)(gTTAddressTable.lookup("")))->edit(newDirectory, newParent.mAddressPointer, newName, newInstance, newAttribute);
-		
-		mSymbolPointer = (TTSymbolBase*) newAddressPointer;
-		mAddressPointer = newAddressPointer;
+		mSymbolPointer = ((TTAddressBase*)gTTAddressTable.lookup(""))->edit(newDirectory, newParent.getBasePointer(), newName, newInstance, newAttribute);
 	}
+	
 	
 	virtual ~TTAddress()
 	{;}
@@ -86,74 +78,74 @@ public:
 	/** Get the directory part */
 	TTSymbol getDirectory()
 	{
-		return mAddressPointer->getDirectory();
+		return getBasePointer()->getDirectory();
 	}
 	
 	/** Get a pointer to the parent address */
 	TTAddress getParent()
 	{
-		return TTAddress(mAddressPointer->getParent());
+		return TTAddress(getBasePointer()->getParent());
 	}
 	
 	/** Get the name part */
 	TTSymbol getName()
 	{
-		return mAddressPointer->getName();
+		return getBasePointer()->getName();
 	}
 	
 	/** Get the instance part */
 	TTSymbol getInstance()
 	{
-		return mAddressPointer->getInstance();
+		return getBasePointer()->getInstance();
 	}
 	
 	/** Get the attribute part */
 	TTSymbol getAttribute()
 	{
-		return mAddressPointer->getAttribute();
+		return getBasePointer()->getAttribute();
 	}
 	
 	/** Get the type */
 	TTAddressType getType()
 	{
-		return mAddressPointer->getType();
+		return getBasePointer()->getType();
 	}
 	
 	/** Get the name.instance part */
 	TTSymbol getNameInstance()
 	{
-		return mAddressPointer->getNameInstance();
+		return getBasePointer()->getNameInstance();
 	}
 	
 	/** Normalize an address for lookup and other directory operations
 	 This would return an address without directory and attribute	*/
 	TTAddress normalize()
 	{
-		return TTAddress(mAddressPointer->normalize());
+		return TTAddress(getBasePointer()->normalize());
 	}
 	
 	/** Return a new TTAddress without attribute part */
 	TTAddress removeAttribute()
 	{
-		return TTAddress(mAddressPointer->removeAttribute());
+		return TTAddress(getBasePointer()->removeAttribute());
 	}
 	
 	/** Return a new TTAddress with attribute part */
 	TTAddress appendAttribute(TTSymbol anAttribute)
 	{
-		return TTAddress(mAddressPointer->appendAttribute(anAttribute));
+		return TTAddress(getBasePointer()->appendAttribute(anAttribute));
 	}
 	
 	/** Return a new TTAddress with the appended part */
 	TTAddress appendAddress(const TTAddress& toAppend)
 	{
-		return TTAddress(mAddressPointer->appendAddress( (static_cast<TTAddressBase*>(toAppend.mSymbolPointer)) ));
+		return TTAddress(getBasePointer()->appendAddress( (static_cast<TTAddressBase*>(toAppend.mSymbolPointer)) ));
 	}
 	
 	/** Return a new TTAddress with a instance part */
 	TTAddress appendInstance(const TTSymbol& anInstance)
 	{
-		return TTAddress(mAddressPointer->appendInstance(anInstance));
+		return TTAddress(getBasePointer()->appendInstance(anInstance));
 	}
 	
 	/**	A comparison tool
@@ -162,7 +154,7 @@ public:
 	 @return							An comparison flag */
 	TTAddressComparisonFlag compare(const TTAddress& toCompare, TTInt8& depthDifference)
 	{
-		return mAddressPointer->compare((static_cast<TTAddressBase*>(toCompare.mSymbolPointer)), depthDifference);
+		return getBasePointer()->compare((static_cast<TTAddressBase*>(toCompare.mSymbolPointer)), depthDifference);
 	}
 	
 	/**	A parsing tool : split address in two part from a given '/' position
@@ -176,7 +168,7 @@ public:
 		TTAddressBase* returnedPart2Ptr = NULL;
 		TTErr err;
 		
-		err = mAddressPointer->splitAt(whereToSplit, &returnedPart1Ptr, &returnedPart2Ptr);
+		err = getBasePointer()->splitAt(whereToSplit, &returnedPart1Ptr, &returnedPart2Ptr);
 		returnedPart1 = TTAddress(returnedPart1Ptr);
 		returnedPart2 = TTAddress(returnedPart2Ptr);
 		return err;
@@ -186,14 +178,14 @@ public:
 	 @return							The number of C_SEPARATOR */
 	TTUInt32 countSeparator()
 	{
-		return mAddressPointer->countSeparator();
+		return getBasePointer()->countSeparator();
 	}
 	
 	/**	A parsing tool : return a list containing all name.instance part (without any S_SEPARATOR)
 	 @param								The list of name.instance part to fill */
 	TTErr listNameInstance(TTList& nameInstanceList)
 	{
-		return mAddressPointer->listNameInstance(nameInstanceList);
+		return getBasePointer()->listNameInstance(nameInstanceList);
 	}
 	
 };
