@@ -1,6 +1,6 @@
 /* 
  * Unit tests for the TTSampleMatrix Object for Jamoma DSP
- * Copyright © 2012, Tim Place
+ * Copyright © 2012, Tim Place & Nathan Wolek
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -13,7 +13,155 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 {
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
-	//int					badSampleCount = 0;
+	
+	// for tests
+	TTUInt16			numChannels = 2;
+	TTUInt16			numSamples = 50000;
+	TTFloat32			duration = 1500;
+	TTUInt32			test1Return, test2Return, test7Return, test8Return;
+	TTFloat32			test3Return, test6Return;
+	
+	TTTestLog("Test resizing of the SampleMatrix...");
+	
+	
+	// TEST 1: can we set the number of channels?
+	this->setAttributeValue("numChannels", numChannels);
+	
+	this->getAttributeValue("numChannels", test1Return);
+	
+	TTBoolean result = { numChannels == test1Return };
+	
+	TTTestAssertion("numChannels is set properly", 
+					result,
+					testAssertionCount, 
+					errorCount);
+	
+	if(!result)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", numChannels, test1Return);	
+	}
+	
+	
+	// TEST 2: can we set the number of samples?
+	this->setAttributeValue(TT("lengthInSamples"), numSamples);
+	
+	this->getAttributeValue(TT("lengthInSamples"), test2Return);
+
+	TTBoolean result2 = { numSamples == test2Return };
+
+	TTTestAssertion("lengthInSamples is set properly", 
+								result2,
+								testAssertionCount, 
+								errorCount);
+	if(!result2)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", numSamples, test2Return);	
+	}
+	
+	
+	// TEST 3: is the length in ms computed properly after setting length in samples?
+	TTFloat32 computedDuration3 = (numSamples / this->mSampleRate) * 1000.;	
+	
+	this->getAttributeValue(TT("length"), test3Return);				
+					
+	TTBoolean result3 = TTTestFloatEquivalence(computedDuration3, test3Return);
+				
+	TTTestAssertion("after lengthInSamples is set, length (in ms) is correct", 
+								result3,
+								testAssertionCount, 
+								errorCount);
+							
+	if(!result3)
+	{
+		TTTestLog("Expected a value of %f, but returned value was %f", computedDuration3, test3Return);	
+	}	
+	
+	
+	// TEST 4: is the matrix of samples the expected size? (lifted from TTMatrix.test.cpp)
+	TTUInt32 computedDataSize4 = sizeof(TTFloat64) * numChannels * numSamples;
+	
+	TTBoolean result4 = { computedDataSize4 == this->mDataSize };
+	
+	TTTestAssertion("correct amount of data storage calculated", 
+								result4, 
+								testAssertionCount,
+								errorCount);
+								
+	if(!result4)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", computedDataSize4, this->mDataSize);
+	}
+	
+	
+	// TEST 5: Is the component stride right? (lifted from TTMatrix.test.cpp)
+	TTBoolean result5 = { sizeof(TTFloat64) == this->mComponentStride };
+								
+	TTTestAssertion("correct byte-stride between values calculated", 
+								result5, 
+								testAssertionCount,
+								errorCount);
+								
+	if(!result5)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", sizeof(TTFloat64), this->mComponentStride);
+	}
+	
+									
+	// TEST 6: can we set the length in milliseconds?
+	this->setAttributeValue(TT("length"), duration);
+	
+	this->getAttributeValue(TT("length"), test6Return);
+
+	TTBoolean result6 = TTTestFloatEquivalence(duration, test6Return);
+
+	TTTestAssertion("length (in ms) is set properly", 
+								result6,
+								testAssertionCount, 
+								errorCount);
+	
+	if(!result6)
+	{
+		TTTestLog("Expected a value of %f, but returned value was %f", duration, test6Return);
+	}
+
+				
+	// TEST 7: is the length in samples computed properly after setting length in ms?
+	TTUInt32 computedSamples7 = TTUInt32(duration * this->mSampleRate * 0.001);	
+					
+	this->getAttributeValue(TT("lengthInSamples"), test7Return);				
+	
+	TTBoolean result7 = { computedSamples7 == test7Return };
+				
+	TTTestAssertion("after length (in ms) is set, lengthInSamples is correct", 
+								result7,
+								testAssertionCount, 
+								errorCount);
+							
+	if(!result7)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", computedSamples7, test7Return);	
+	}	
+	
+	
+	// TEST 8 (REPEAT TEST 4 WITH NEW SIZE): is the matrix of samples the expected size?
+	TTUInt32 computedDataSize8 = sizeof(TTFloat64) * numChannels * test7Return;
+	
+	TTBoolean result8 = { computedDataSize8 == this->mDataSize };
+	
+	TTTestAssertion("correct amount of data storage calculated with new length", 
+								result8, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result8)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", computedDataSize8, this->mDataSize);	
+	}
+	
+	/*
+	
+	int					badSampleCount = 0;
+	TTAudioObjectPtr	samplematrixObject = NULL;
 	TTAudioSignalPtr	input = NULL;
 	TTAudioSignalPtr	output = NULL;
 	
@@ -21,110 +169,13 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	// TODO: test scaling (applying gain)
 	// TODO: test normalizing (with optional arg, and also without an optional arg)
 	
-	/*
-	// create 1 channel audio signal objects
-	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
-	TTObjectInstantiate(kTTSym_audiosignal, &output, 1);
-	input->allocWithVectorSize(64);
-	output->allocWithVectorSize(64);
-	
-	// create an impulse
-	input->clear();						// set all samples to zero
-	input->mSampleVectors[0][0] = 1.0;	// set the first sample to 1
-	
-	// setup the delay
-	this->setAttributeValue("delayMaxInSamples", 64);
-	this->setAttributeValue("delayInSamples", 1);
-	this->setAttributeValue("interpolation", "none"), 
-	this->process(input, output);
-	
-
-	TTFloat64 expectedImpulseResponse[64] = {
-		0.0000000000000000e+00,
-		1.0,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00		
-	};
-	
-	for (int i=0; i<64; i++) {
-		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse[i]);
-		badSampleCount += result;
-		if (result)
-			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse[i]);
-	}
-
-	TTTestAssertion("Produces correct impulse response for a delay of 1 sample", 
-					badSampleCount == 0, 
-					testAssertionCount, 
-					errorCount);
-	if (badSampleCount)
-		TTTestLog("badSampleCount is %i", badSampleCount);
-	*/
-	
-	
+	TTObjectInstantiate(TT("samplematrix"), &samplematrixObject, kTTVal1);
 	
 	TTObjectRelease(&input);
 	TTObjectRelease(&output);
+	TTObjectRelease(&samplematrixObject);
+	
+	*/
 	
 	
 	// Wrap up the test results to pass back to whoever called this test
