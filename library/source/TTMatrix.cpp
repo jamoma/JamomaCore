@@ -407,7 +407,8 @@ TTBoolean TTMatrix::allAttributesMatch(const TTMatrix* A, const TTMatrix* B)
 {
 	if (A->mType == B->mType  &&  
 		A->mElementCount == B->mElementCount && 
-		A->mDimensions == B->mDimensions)
+		A->mRowCount == B->mRowCount &&
+		A->mColumnCount == B->mColumnCount)
 		{
 			return true;
 		} else {
