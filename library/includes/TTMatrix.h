@@ -52,7 +52,7 @@ protected:
 	TTUInt32			mRowCount;				///< How many rows of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
 	TTUInt32			mColumnCount;			///< How many columns of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
 	TTUInt8				mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an unsigned 8-bit integer which provides a maximum value of 255.
-	TTUInt32			mComponentCount;		///< mDimension[0] * mDimension[1] ...
+	TTUInt32			mComponentCount;		///< mRowCount * mColumnCount
 	TTUInt8				mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
 	TTSymbolPtr			mType;					///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
@@ -129,6 +129,13 @@ public:
 	TTUInt32 getElementCount()
 	{
 		return mElementCount;
+	}
+	
+	/**	Simple data accessor. 
+	* @return - the value stored at mComponentCount as a TTUInt32 */
+	TTUInt32 getComponentCount()
+	{
+		return mComponentCount;
 	}
 	
 	/**	Simple data accessor. 
