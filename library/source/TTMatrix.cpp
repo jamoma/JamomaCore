@@ -281,15 +281,21 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
  */
 
 
-// args passed-in should be the coordinates
-// args returned will be the value at those coordinates
+// args passed-in should be the 2 coordinates
+// args returned will be the value(s) at those coordinates
 TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 {
 	TTUInt16 dimensionCount = anInputValue.getSize();
-
-	if (dimensionCount != mDimensions.size())
+	
+	if (dimensionCount != 2) // 2 dimensions only
 		return kTTErrWrongNumValues;
-
+/*
+	TTUInt32 i, j, index;
+	anInputValue.get(0, i);
+	anInputValue.get(1, j)
+	index = i*mColumnCount+j;
+*/
+	
 	int productOfLowerDimensionSizes = 1;
 	int index = 0;
 
@@ -355,7 +361,7 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	TTValue		theDimensions = anInputValue;
 	TTUInt16	dimensionCount = anInputValue.getSize() - mElementCount;
 
-	if (dimensionCount != mDimensions.size())
+	if (dimensionCount != ( 2 + mElementCount )) // 2 dimensions plus number of elements at coordinates
 		return kTTErrWrongNumValues;
 
 	theValue.copyFrom(anInputValue, dimensionCount);
