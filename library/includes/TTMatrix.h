@@ -98,6 +98,18 @@ public:
 	/**	Attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values beyond the first two will be ignored without an error.	Values that are less than 1 will produce an error. */
 	TTErr setDimensions(const TTValue& someNewDimensions);
 	
+	/**	Alternative attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values beyond the first two will be ignored without an error.	Values that are less than 1 will produce an error. */
+	TTErr setDimensionsWithVector(const vector<TTUInt32>& newDimensions)
+	{
+		if (this->setRowCountWithoutResize(newDimensions[0]) &&
+			this->setColumnCountWithoutResize(newDimensions[1]))
+		{
+			return resize();
+		} else {
+			return kTTErrInvalidValue;
+		}
+	}
+	
 	/**	Attribute accessor. Included for legacy.  Returns the values saved as RowCount & ColumnCount as a 2-item TTValue.	*/
 	TTErr getDimensions(TTValue& returnedDimensions) const;
 	
@@ -290,14 +302,17 @@ public:
 		return mElementCount;
 	}
 	
-	TTErr setDimensionsWithVector(const vector<TTUInt32>& newDimensions)
+	TTUInt32 getRowCount()
 	{
-		mDimensions = newDimensions;
-		// DEPRECATION in progress: will need to set these addition attributes
-		//newDimensions.set(0, mRowCount);
-		//newDimensions.set(1, mColumnCount);
-		return resize();
+		return mRowCount;
 	}
+	
+	TTUInt32 getColumnCount()
+	{
+		return mColumnCount;
+	}
+	
+
 	
 	
 	/**	You must proceed to set the various attributes, dimensions, etc. to match the data format of the matrix you are referencing.
