@@ -361,7 +361,7 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	TTValue		theDimensions = anInputValue;
 	TTUInt16	dimensionCount = anInputValue.getSize() - mElementCount;
 
-	if (dimensionCount != ( 2 + mElementCount )) // 2 dimensions plus number of elements at coordinates
+	if (dimensionCount != 2) // 2 dimensions only
 		return kTTErrWrongNumValues;
 
 	theValue.copyFrom(anInputValue, dimensionCount);
