@@ -83,22 +83,22 @@ protected:
 	
 public:
 	
-	/**	Attribute accessor. Sets the value for RowCount. Values that are less than 1 will produce an error. */
+	/**	Attribute accessor. Sets the value for RowCount. Values that are less than 1 will return an error. */
 	TTErr setRowCount(const TTValue& aNewRowCount);
 	
-	/**	Attribute accessor. Sets the value for ColumnCount. Values that are less than 1 will produce an error. */
+	/**	Attribute accessor. Sets the value for ColumnCount. Values that are less than 1 will return an error. */
 	TTErr setColumnCount(const TTValue& aNewColumnCount);
 	
-	/**	Attribute accessor.	Sets the value for ElementCount. Values that are less than 1 will produce an error. */
+	/**	Attribute accessor.	Sets the value for ElementCount. Values that are less than 1 will return an error. */
 	TTErr setElementCount(const TTValue& newElementCount);
 	
 	/**	Attribute accessor.	Sets the value for Type and TypeSizeInBytes.  Values must be one of the numeric types defined by ttDataTypeInfo in TTBase (i.e., float32, float64, int8, uint8, int16, uint16, int32, uint32, int64, uint64). */
 	TTErr setType(const TTValue& aType);
 	
-	/**	Attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values beyond the first two will be ignored without an error.	Values that are less than 1 will produce an error. */
+	/**	Attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values beyond the first two items in the TTValue array will be ignored without an error. Values that are less than 1 will return an error. */
 	TTErr setDimensions(const TTValue& someNewDimensions);
 	
-	/**	Alternative attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values beyond the first two will be ignored without an error.	Values that are less than 1 will produce an error. */
+	/**	Alternative to attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D. Allows you to set the dimensions with a vector of type TTUInt32 instead of TTValue. Values beyond the first two items in the vector will be ignored without an error. Values that are less than 1 will return an error. */
 	TTErr setDimensionsWithVector(const vector<TTUInt32>& newDimensions)
 	{
 		if (this->setRowCountWithoutResize(newDimensions[0]) &&
@@ -110,7 +110,49 @@ public:
 		}
 	}
 	
-	/**	Attribute accessor. Included for legacy.  Returns the values saved as RowCount & ColumnCount as a 2-item TTValue.	*/
+	/**	Simple data accessor. 
+	* @return - the value stored at mRowCount as a TTUInt32 */	
+	TTUInt32 getRowCount()
+	{
+		return mRowCount;
+	}
+	
+	/**	Simple data accessor. 
+	* @return - the value stored at mColumnCount as a TTUInt32 */
+	TTUInt32 getColumnCount()
+	{
+		return mColumnCount;
+	}
+	
+	/**	Simple data accessor. 
+	* @return - the value stored at mElementCount as a TTUInt32 */
+	TTUInt32 getElementCount()
+	{
+		return mElementCount;
+	}
+	
+	/**	Simple data accessor. 
+	* @return - the value stored at mType as a TTSymbolPtr */
+	TTSymbolPtr	getTypeAsSymbol()
+	{
+		return mType;
+	}
+	
+	/**	Simple data accessor. 
+	* @return - the value stored at mDataCount as a TTUInt32 */
+	TTUInt32 getDataCount()
+	{
+		return mDataCount;
+	}
+	
+	/**	Simple data accessor. 
+	* @return - the value stored at mComponentStride as a TTUInt32 */
+	TTUInt32 getComponentStride()
+	{
+		return mComponentStride;
+	}
+	
+	/**	Attribute accessor. Included for legacy.  Will set returnedDimensions as a 2-item TTValue using the values saved as mRowCount & mColumnCount.	*/
 	TTErr getDimensions(TTValue& returnedDimensions) const;
 	
 	TTErr clear();
@@ -281,38 +323,6 @@ public:
 		*(T*)(mData + ((i*n+j) * mComponentStride) + element) = data;		
 		return kTTErrNone;
 	}
-	
-	TTSymbolPtr	getTypeAsSymbol()
-	{
-		return mType;
-	}
-	
-	TTUInt32 getDataCount()
-	{
-		return mDataCount;
-	}
-	
-	TTUInt32 getComponentStride()
-	{
-		return mComponentStride;
-	}
-	
-	TTUInt32 getElementCount()
-	{
-		return mElementCount;
-	}
-	
-	TTUInt32 getRowCount()
-	{
-		return mRowCount;
-	}
-	
-	TTUInt32 getColumnCount()
-	{
-		return mColumnCount;
-	}
-	
-
 	
 	
 	/**	You must proceed to set the various attributes, dimensions, etc. to match the data format of the matrix you are referencing.
