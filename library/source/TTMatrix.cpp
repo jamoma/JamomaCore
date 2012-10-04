@@ -341,8 +341,8 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 template<typename T>
 TTErr TTMatrix::get2dWithinBounds(TTRowID i, TTColumnID j, T& data) 
 {
-		//TTUInt32 m = mDimensions[0];
-		TTUInt32 n = mDimensions[1];
+		//TTUInt32 m = mRowCount;
+		TTUInt32 n = mColumnCount;
 		
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access

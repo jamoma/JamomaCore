@@ -193,8 +193,8 @@ public:
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, T& data) const
 	{
-		//TTUInt32 m = mDimensions[0];
-		TTUInt32 n = mDimensions[1];
+		//TTUInt32 m = mRowCount;
+		TTUInt32 n = mColumnCount;
 		
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access
@@ -207,8 +207,8 @@ public:
 	template<typename T>
 	TTErr get2dWithinBounds(TTRowID i, TTColumnID j, T& data) const
 	{
-		//TTUInt32 m = mDimensions[0];
-		TTUInt32 n = mDimensions[1];
+		//TTUInt32 m = mRowCount;
+		TTUInt32 n = mColumnCount;
 		
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access
@@ -229,8 +229,8 @@ public:
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, TTUInt32 element, T& data)
 	{
-		//TTUInt32 m = mDimensions[0];
-		TTUInt32 n = mDimensions[1];
+		//TTUInt32 m = mRowCount;
+		TTUInt32 n = mColumnCount;
 		
 		i -= 1;			// convert to zero-based indices for data access
 		j -= 1;			// convert to zero-based indices for data access
@@ -246,7 +246,7 @@ public:
 	template<typename T>
 	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, T& data) const
 	{
-		TTUInt32 n = mDimensions[1];		
+		TTUInt32 n = mColumnCount;		
 		data = *(T*)(mData + (i*n+j) * mComponentStride);	
 		return kTTErrNone;
 	}
@@ -254,7 +254,7 @@ public:
 	template<typename T>
 	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, TTUInt32 element, T& data)
 	{
-		TTUInt32 n = mDimensions[1];
+		TTUInt32 n = mColumnCount;
 		data = *(T*)((mData + (i*n+j) * mComponentStride) + element);	
 		return kTTErrNone;
 	}
@@ -277,8 +277,8 @@ public:
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, T data)
 	{
-		//TTUInt32 m = mDimensions[0];
-		TTUInt32 n = mDimensions[1];
+		//TTUInt32 m = mRowCount;
+		TTUInt32 n = mColumnCount;
 		
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access
@@ -292,8 +292,8 @@ public:
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, TTUInt32 element, T data)
 	{
-		//TTUInt32 m = mDimensions[0];
-		TTUInt32 n = mDimensions[1];
+		//TTUInt32 m = mRowCount;
+		TTUInt32 n = mColumnCount;
 		
 		i -= 1;			// convert to zero-based indices for data access
 		j -= 1;			// convert to zero-based indices for data access
@@ -310,7 +310,7 @@ public:
 	template<typename T>
 	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, T data)
 	{
-		TTUInt32 n = mDimensions[1];
+		TTUInt32 n = mColumnCount;
 		*(T*)(mData + (i*n+j) * mComponentStride) = data;		
 		return kTTErrNone;
 	}
@@ -319,7 +319,7 @@ public:
 	template<typename T>
 	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, TTUInt32 element, T data)
 	{
-		TTUInt32 n = mDimensions[1];
+		TTUInt32 n = mColumnCount;
 		*(T*)(mData + ((i*n+j) * mComponentStride) + element) = data;		
 		return kTTErrNone;
 	}
