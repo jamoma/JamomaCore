@@ -231,34 +231,17 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 	
 	TTUInt8	size = someNewDimensions.getSize();
 	
-	// values must be greater than 0
-	for (int i=0; i<size; i++) {
-		TTInt32 aNewDimension = 0;
-		someNewDimensions.get(i, aNewDimension);
-		if (aNewDimension < 1) return kTTErrInvalidValue;
-	}
-	
-	// needed to support old calls with only 1 dimension
+	// needed to support old calls with 1 or 2 dimensions
 	if (size > 0) { someNewDimensions.get(0, aNewRowCount); }
 	if (size > 1) { someNewDimensions.get(1, aNewColumnCount); }
 	
-	mRowCount = aNewRowCount;
-	mColumnCount = aNewColumnCount;
-	
-	/* DEPRECATION in progress: the following section will be removed */
-	
-	mDimensions.resize(size);
-	for (int i=0; i<size; i++) {
-		TTInt32 aNewDimension = 0;
-
-		someNewDimensions.get(i, aNewDimension);
-		mDimensions[i] = aNewDimension;
+	if (this->setRowCountWithoutResize(aNewRowCount) &&
+		this->setColumnCountWithoutResize(aNewColumnCount))
+	{
+		return resize();
+	} else {
+		return kTTErrInvalidValue;
 	}
-	
-	/* DEPRECATION in progress: end of section to be removed */
-	
-	return resize();
-
 }
 
 
