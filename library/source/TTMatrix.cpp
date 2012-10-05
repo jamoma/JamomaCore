@@ -289,23 +289,15 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 	
 	if (dimensionCount != 2) // 2 dimensions only
 		return kTTErrWrongNumValues;
-/*
+
+	// TODO: this will be a good place to use the planned where() method
 	TTUInt32 i, j, index;
+
 	anInputValue.get(0, i);
-	anInputValue.get(1, j)
-	index = i*mColumnCount+j;
-*/
+	anInputValue.get(1, j);
+	index = i * mColumnCount + j;
+	// TODO: there is no bounds checking here
 	
-	int productOfLowerDimensionSizes = 1;
-	int index = 0;
-
-	for (int d=0; d<dimensionCount; d++) {
-		int position = anInputValue.getInt32(d);
-
-		index += position * productOfLowerDimensionSizes;
-		productOfLowerDimensionSizes *= mDimensions[d];
-	}
-
 	anOutputValue.clear();
 
 	// TODO: here we have this ugly switch again...
