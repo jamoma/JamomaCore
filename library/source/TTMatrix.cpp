@@ -30,7 +30,8 @@ TT_OBJECT_CONSTRUCTOR,
 	mHeadPtr(NULL),
 	mTailPtr(NULL)
 {
-	addAttributeWithGetterAndSetter(Dimensions, 	kTypeUInt32); // DEPRECATION in progress
+	addAttributeWithGetterAndSetter(Dimensions, 	kTypeUInt32); 	// mDimensions deprecated, should we delete this too?
+																	// we will keep setDimensions() & getDimensions()
 	addAttributeWithSetter(RowCount, 				kTypeUInt32);
 	addAttributeWithSetter(ColumnCount, 			kTypeUInt32);
 	addAttributeWithSetter(Type,					kTypeUInt8);
@@ -46,8 +47,6 @@ TT_OBJECT_CONSTRUCTOR,
 	// TODO: the above two items mean we need a TTMutex member
 	
 	resize();
-
-	// DEPRECATION in progress: setAttributeValue(TT("dimensions"), kTTVal1); 
 	
 	
 }

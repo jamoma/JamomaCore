@@ -41,14 +41,17 @@ typedef TTInt32 TTColumnID;
 /****************************************************************************************************/
 // Class Specification
 
-/**	An N-dimensional matrix of compound values.	*/
+/**	An 2-dimensional matrix of compound values with N elements.	
+* Locations for individual values in the matrix are identified by (row, column) pairs.  These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. Note that support for N dimensions has been deprecated and the TTMatrix class is now fixed at 2 dimensions.
+* Each value in the matrix can have a variable amount of elements, enabling the storage of things like complex numbers or RGBA colors at each location.
+*/
 class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
 
 protected:	
 
 	TTBytePtr			mData;					///< matrix of values
-	vector<TTUInt32>	mDimensions;			///< DEPRECATION in progress: N dimensions, each int specifying the size of that dimension 
+	vector<TTUInt32>	mDimensions;			///< variable dimensions - @deprecated use mRowCount and mColumnCount instead
 	TTUInt32			mRowCount;				///< How many rows of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
 	TTUInt32			mColumnCount;			///< How many columns of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
 	TTUInt8				mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an unsigned 8-bit integer which provides a maximum value of 255.
@@ -95,10 +98,10 @@ public:
 	/**	Attribute accessor.	Sets the value for Type and TypeSizeInBytes.  Values must be one of the numeric types defined by ttDataTypeInfo in TTBase (i.e., float32, float64, int8, uint8, int16, uint16, int32, uint32, int64, uint64). */
 	TTErr setType(const TTValue& aType);
 	
-	/**	Attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D.  Values beyond the first two items in the TTValue array will be ignored without an error. Values that are less than 1 will return an error. */
+	/**	Attribute accessor.  Set the values of RowCount and ColumnCount using a TTValue array. Values beyond the first two items in the TTValue array will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. */
 	TTErr setDimensions(const TTValue& someNewDimensions);
 	
-	/**	Alternative to attribute accessor. DEPRECATION in progress: we are removing support for N dimensions and limiting to 2D. Allows you to set the dimensions with a vector of type TTUInt32 instead of TTValue. Values beyond the first two items in the vector will be ignored without an error. Values that are less than 1 will return an error. */
+	/**	Alternative to attribute accessor. Set the values of RowCount and ColumnCount with a TTUInt32 vector (instead of using  TTValue array). Values beyond the first two items in the vector will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. */
 	TTErr setDimensionsWithVector(const vector<TTUInt32>& newDimensions)
 	{
 		if (this->setRowCountWithoutResize(newDimensions[0]) &&
@@ -159,7 +162,7 @@ public:
 		return mComponentStride;
 	}
 	
-	/**	Attribute accessor. Included for legacy.  Will set returnedDimensions as a 2-item TTValue using the values saved as mRowCount & mColumnCount.	*/
+	/**	Attribute accessor. Included for legacy.  Will set returnedDimensions as a 2-item TTValue using the values saved as RowCount & ColumnCount.	*/
 	TTErr getDimensions(TTValue& returnedDimensions) const;
 	
 	TTErr clear();
@@ -185,12 +188,13 @@ public:
 		return INBOUNDSZEROINDEX(distanceFromHead, mDataCount);
 	}
 	
-	/**	Get the value of a component located at any location in an N-dimensional matrix.
-		All dimension indices begin counting at one.	*/
+	/**	Get the value of a component located at any location in 2-dimensional matrix.
+		Will set anOutputValue as a N-item TTValue using the values saved at ElementCount & return all elements that are stored at the coordinates specied by anInputValue.
+		All dimension indices begin counting at one. INDEX revision underway.	*/
 	TTErr get(const TTValue& anInputValue, TTValue &anOutputValue) const;
 
 	/**	Get the value of a component located at (i,j) in a 2-dimensional matrix.
-		The first location in the matrix is (1,1).
+		The first location in the matrix is (1,1). INDEX revision underway.
 		In order to provide some degree of efficiency, the data passed-in is not bounds checked --
 		you must ensure that you are passing memory that is at least mComponentStride bytes large.
 	 
@@ -248,7 +252,7 @@ public:
 	}
 
 	/**	Get the value of a component located at (i,j) in a 2-dimensional matrix.
-	 similar to get2d but the first location in the matrix is (0,0). **/
+	 similar to get2d but the first location in the matrix is (0,0). INDEX revision underway. **/
 	
 	template<typename T>
 	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, T& data) const
@@ -268,12 +272,12 @@ public:
 	
 	
 	
-	/**	Set the value of a component located at any location in an N-dimensional matrix.
-	 All dimension indices begin counting at one.		*/
+	/**	Set the value of a component located at any location in an 2-dimensional matrix.
+	 All dimension indices begin counting at one.	INDEX revision underway.	*/
 	TTErr set(const TTValue& anInputValue, TTValue &anOutputValue);
 
 	/**	Set the value of a component located at (i,j) in a 2-dimensional matrix.	
-		The first location in the matrix is (1,1).
+		The first location in the matrix is (1,1).  INDEX revision underway.
 		In order to provide some degree of efficiency, the data passed-in is not bounds checked --
 		you must ensure that you are passing memory that is at least mComponentStride bytes large.
 	 
@@ -312,7 +316,7 @@ public:
 	}
 	
 	/**	Set the value of a component located at (i,j) in a 2-dimensional matrix.	
-	 Similar to set2d but the first location in the matrix is (0,0). **/
+	 Similar to set2d but the first location in the matrix is (0,0). INDEX revision underway.**/
 	
 	template<typename T>
 	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, T data)
