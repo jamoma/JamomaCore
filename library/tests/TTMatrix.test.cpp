@@ -101,15 +101,26 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		v.setSize(3);		
-		v.set(0, 15);	// index
-		v.set(1, 3.14);	// real (no imaginary)
-		v.set(2, -2);	// real (no imaginary)
-		matrix->sendMessage(TT("set"), v, kTTValNONE);
-		v.set(0, 10);	// index
-		v.set(1, 4);	// real
-		v.set(2, 1.2);	// imaginary
-		matrix->sendMessage(TT("set"), v, kTTValNONE);
+		// the following use of set() does not work because it will interpret first two values as coordinates
+		// that is the source of FAIL that the test produces
+		v.setSize(4);		
+		v.set(0, 0);	// index x
+		v.set(1, 15);	// index y
+		v.set(2, 3.14);	// real (no imaginary)
+		v.set(3, -2);	// real (no imaginary)
+		err = matrix->sendMessage(TT("set"), v, kTTValNONE);
+		TTTestAssertion("set message -- enough data provided to completely set value", 
+						err == kTTErrNone, 
+						testAssertionCount,
+						errorCount);
+		v.set(1, 10);	// index y
+		v.set(2, 4);	// real
+		v.set(3, 1.2);	// imaginary
+		err = matrix->sendMessage(TT("set"), v, kTTValNONE);
+		TTTestAssertion("set message -- enough data provided to completely set value", 
+						err == kTTErrNone, 
+						testAssertionCount,
+						errorCount);
 		
 		TTComplex z(14, 0.92);
 		matrix->set2d(1, 9, z);
