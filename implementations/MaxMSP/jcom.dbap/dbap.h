@@ -7,6 +7,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#include "jit.common.h"
 #include "hull2D.h"
 
 // This seems to be the current restrictions of matrix~
@@ -69,8 +70,9 @@ typedef struct _dbap{									///< Data structure for this object
 	long		attr_num_sources;						///< number of active sources
 	long		attr_num_destinations;					///< number of active destinations
 
-	unsigned char view_matrix[MAX_SIZE_VIEW_X][MAX_SIZE_VIEW_Y]; ///< handle to the hitmap view matrix
-	long		attr_view_size[2];						///< size of the hitmap view window (pixel,pixel)
+	void		*view_matrix;							///< a jitter matrix to handle the view
+	t_symbol	*view_name;								///< a unique name for the jitter matrix
+	t_jit_matrix_info view_info;						///< a data structure to handle the jitter matrix properties
 	t_xyz		attr_view_start;						///< coordinate of the start point of the view
 	t_xyz		attr_view_end;							///< coordinate of the end point of the view
 	bool		attr_view_update;						///< IO the view updating
@@ -84,6 +86,8 @@ typedef struct _dbap{									///< Data structure for this object
 
 void *dbap_new(t_symbol *msg, long argc, t_atom *argv);
 t_max_err dbap_setstep(t_dbap *x, void *attr, long argc, t_atom *argv);
+
+void dbap_free(t_dbap *x);
 
 /** Set spatial blur for nth source. */
 void dbap_blur(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
