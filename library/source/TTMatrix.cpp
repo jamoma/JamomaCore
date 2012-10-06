@@ -379,6 +379,7 @@ TTBoolean TTMatrix::allAttributesMatch(const TTMatrix& anotherMatrix)
 
 TTErr TTMatrix::copy(const TTMatrix& source, TTMatrix& dest)
 {
+	// TODO: could this be rethought as an iterator?
 	dest.adaptTo(source);
 	memcpy(dest.mData, source.mData, source.mDataSize);
 	return kTTErrNone;
@@ -407,7 +408,8 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 
 TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
 {
-	//TTBoolean AmatchesB = A->allAttributesMatch(B);
+	// TTBoolean match = A->allAttributesMatch(B);
+	// TODO: above line fails to build. if working, the returned "match" would be used of if statement that follows.
 	
 	if (true) {
 		C->adaptTo(A);
