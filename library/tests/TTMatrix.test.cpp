@@ -345,7 +345,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		B->setAttributeValue(TT("type"), TT("int32"));
 		B->setAttributeValue(TT("elementCount"), 1);
 		
-		match = allAttributesMatch(A, B);
+		match = A->allAttributesMatch(B);
 		
 		TTTestAssertion("generates error when there is attribute mismatch between 2 matrices", 
 						match == false, 

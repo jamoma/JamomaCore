@@ -377,22 +377,6 @@ public:
 	}
 	
 	
-	/**	Copy the data from one matrix into another.	*/
-	static TTErr copy(const TTMatrix& source, TTMatrix& dest);
-	static TTErr copy(const TTMatrix* source, TTMatrix* dest)
-	{
-		return TTMatrix::copy(*source, *dest);
-	}
-
-	
-	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
-	 to match the another matrix which is passed-in as an argument.	*/
-	TTErr adaptTo(const TTMatrix& anotherMatrix);
-	TTErr adaptTo(const TTMatrix* anotherMatrix)
-	{
-		return adaptTo(*anotherMatrix);
-	}
-	
 	/** Return a pointer to the matrix data, and lock the matrix so that others cannot access the data.
 		If matrix is already locked, this function waits until it becomes free. */
 	TTBytePtr getLockedPointer()
@@ -415,11 +399,31 @@ public:
 #pragma mark -
 #endif
 
+	
+	/**	Compare the attributes of this matrix to another to see if they all match. Used before conducting certain math operations.	*/
+	TTBoolean allAttributesMatch(const TTMatrix& anotherMatrix);
+	TTBoolean allAttributesMatch(const TTMatrix* anotherMatrix)
+	{
+		return TTMatrix::allAttributesMatch(*anotherMatrix);
+	}
+	
+	/**	Copy the data from one matrix into another.	*/
+	static TTErr copy(const TTMatrix& source, TTMatrix& dest);
+	static TTErr copy(const TTMatrix* source, TTMatrix* dest)
+	{
+		return TTMatrix::copy(*source, *dest);
+	}
+
+	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
+	 to match the another matrix which is passed-in as an argument.	*/
+	TTErr adaptTo(const TTMatrix& anotherMatrix);
+	TTErr adaptTo(const TTMatrix* anotherMatrix)
+	{
+		return adaptTo(*anotherMatrix);
+	}
+	
 	/**	A function (method) type for implementing iterators used by the iterate() method	*/
 	typedef void (*TTMatrixIterator)(TTPtr c, const TTPtr a, const TTPtr b);
-	
-	/**	Compare the attributes of matrix A and B to see if they all match. Useful before conducting certain math operations.	*/
-	TTBoolean allAttributesMatch(const TTMatrix* A, const TTMatrix* B);
 	
 	/**	Step through every component in the matrix A and B to produce matrix C using the specified iterator method.	*/
 	static TTErr iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator);

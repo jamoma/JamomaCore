@@ -84,43 +84,6 @@ TTErr TTMatrix::resize()
 }
 
 
-TTErr TTMatrix::copy(const TTMatrix& source, TTMatrix& dest)
-{
-	dest.adaptTo(source);
-	memcpy(dest.mData, source.mData, source.mDataSize);
-	return kTTErrNone;
-}
-
-
-TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
-{
-	//TTValue v;
-	
-	// TODO: what should we do if anotherMatrix is not locally owned?
-	// It would be nice to re-dimension the data, but we can't re-alloc / resize the number of bytes...
-	
-	if (setRowCountWithoutResize(anotherMatrix.mRowCount) &&
-		setColumnCountWithoutResize(anotherMatrix.mColumnCount) &&
-		setElementCountWithoutResize(anotherMatrix.mElementCount))
-	{
-		resize();
-		return kTTErrNone;
-	} else {
-		return kTTErrInvalidValue;
-	}
-	
-	/*
-	anotherMatrix.getDimensions(v);
-	setDimensions(v);
-	
-	setType(anotherMatrix.mType);
-	setElementCount(anotherMatrix.mElementCount);
-	
-	return kTTErrNone;
-	*/
-}
-
-
 TTBoolean TTMatrix::setRowCountWithoutResize(TTUInt32 aNewRowCount)
 {
 	if (aNewRowCount > 0)
@@ -398,12 +361,14 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	return kTTErrNone;
 }
 
-TTBoolean TTMatrix::allAttributesMatch(const TTMatrix* A, const TTMatrix* B)
+
+TTBoolean TTMatrix::allAttributesMatch(const TTMatrix& anotherMatrix)
 {
-	if (A->mType == B->mType  &&  
-		A->mElementCount == B->mElementCount && 
-		A->mRowCount == B->mRowCount &&
-		A->mColumnCount == B->mColumnCount)
+	// TODO: should/could this be inlined?
+	if (mTypeAsDataInfo == anotherMatrix.mTypeAsDataInfo  &&  
+		mElementCount == anotherMatrix.mElementCount && 
+		mRowCount == anotherMatrix.mRowCount &&
+		mColumnCount == anotherMatrix.mColumnCount)
 		{
 			return true;
 		} else {
@@ -411,9 +376,47 @@ TTBoolean TTMatrix::allAttributesMatch(const TTMatrix* A, const TTMatrix* B)
 		}
 }
 
+
+TTErr TTMatrix::copy(const TTMatrix& source, TTMatrix& dest)
+{
+	dest.adaptTo(source);
+	memcpy(dest.mData, source.mData, source.mDataSize);
+	return kTTErrNone;
+}
+
+
+TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
+{
+	//TTValue v;
+	
+	// TODO: what should we do if anotherMatrix is not locally owned?
+	// It would be nice to re-dimension the data, but we can't re-alloc / resize the number of bytes...
+	
+	if (setRowCountWithoutResize(anotherMatrix.mRowCount) &&
+		setColumnCountWithoutResize(anotherMatrix.mColumnCount) &&
+		setElementCountWithoutResize(anotherMatrix.mElementCount))
+	{
+		resize();
+		return kTTErrNone;
+	} else {
+		return kTTErrInvalidValue;
+	}
+	
+	/*
+	anotherMatrix.getDimensions(v);
+	setDimensions(v);
+	
+	setType(anotherMatrix.mType);
+	setElementCount(anotherMatrix.mElementCount);
+	
+	return kTTErrNone;
+	*/
+}
+
+
 TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
 {
-	//TTBoolean AmatchesB = allAttributesMatch(A, B);
+	//TTBoolean AmatchesB = A->allAttributesMatch(B);
 	if (true) {
 		int stride = A->mTypeSizeInBytes;
 		int size = A->mDataSize;
