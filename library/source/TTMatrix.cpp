@@ -387,30 +387,21 @@ TTErr TTMatrix::copy(const TTMatrix& source, TTMatrix& dest)
 
 TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 {
-	//TTValue v;
-	
 	// TODO: what should we do if anotherMatrix is not locally owned?
 	// It would be nice to re-dimension the data, but we can't re-alloc / resize the number of bytes...
+	// NW: don't understand above comment, previous set attribute methods *were* calling resize()
 	
 	if (setRowCountWithoutResize(anotherMatrix.mRowCount) &&
 		setColumnCountWithoutResize(anotherMatrix.mColumnCount) &&
-		setElementCountWithoutResize(anotherMatrix.mElementCount))
+		setElementCountWithoutResize(anotherMatrix.mElementCount) &&
+		setTypeWithoutResize(anotherMatrix.mTypeAsDataInfo))
 	{
 		resize();
 		return kTTErrNone;
 	} else {
 		return kTTErrInvalidValue;
 	}
-	
-	/*
-	anotherMatrix.getDimensions(v);
-	setDimensions(v);
-	
-	setType(anotherMatrix.mType);
-	setElementCount(anotherMatrix.mElementCount);
-	
-	return kTTErrNone;
-	*/
+
 }
 
 
