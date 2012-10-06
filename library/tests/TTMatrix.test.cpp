@@ -347,12 +347,19 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		match = A->allAttributesMatch(B);
 		
-		TTTestAssertion("generates error when there is attribute mismatch between 2 matrices", 
+		TTTestAssertion("reports false when there is attribute mismatch between 2 matrices", 
 						match == false, 
 						testAssertionCount,
 						errorCount);
 		
 		B->setAttributeValue(TT("dimensions"), dims);
+		
+		match = A->allAttributesMatch(B);
+		
+		TTTestAssertion("reports true when all attributes match between 2 matrices", 
+						match == true, 
+						testAssertionCount,
+						errorCount);
 
 		A->set2d(1, 1, 101);	A->set2d(1, 2, 102);	A->set2d(1, 3, 103);	A->set2d(1, 4, 104);
 		A->set2d(2, 1, 201);	A->set2d(2, 2, 202);	A->set2d(2, 3, 203);	A->set2d(2, 4, 204);
