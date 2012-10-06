@@ -59,6 +59,7 @@ protected:
 	TTUInt8				mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
 	TTSymbolPtr			mType;					///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
+	TTDataInfoPtr		mTypeAsDataInfo;		///< local pointer to info about the data type found in TTBase::ttDataTypeInfo
 	TTUInt8				mTypeSizeInBytes;		///< number of bytes present in mType
 	TTUInt32			mDataSize;				///< mTypeSizeInBytes * mDataCount
 	TTBoolean			mDataIsLocallyOwned;	///< If false, then we are referencing outside memory which we don't own
@@ -146,6 +147,13 @@ public:
 	TTSymbolPtr	getTypeAsSymbol()
 	{
 		return mType;
+	}
+	
+	/**	Simple data accessor. 
+	* @return - the value stored at mTypeAsDataInfo as a TTDataInfoPtr */
+	TTSymbolPtr	getTypeAsDataInfo()
+	{
+		return mTypeAsDataInfo;
 	}
 	
 	/**	Simple data accessor. 

@@ -94,11 +94,22 @@ TTErr TTMatrix::copy(const TTMatrix& source, TTMatrix& dest)
 
 TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 {
-	TTValue v;
+	//TTValue v;
 	
 	// TODO: what should we do if anotherMatrix is not locally owned?
 	// It would be nice to re-dimension the data, but we can't re-alloc / resize the number of bytes...
 	
+	if (setRowCountWithoutResize(anotherMatrix.mRowCount) &&
+		setColumnCountWithoutResize(anotherMatrix.mColumnCount) &&
+		setElementCountWithoutResize(anotherMatrix.mElementCount))
+	{
+		resize();
+		return kTTErrNone;
+	} else {
+		return kTTErrInvalidValue;
+	}
+	
+	/*
 	anotherMatrix.getDimensions(v);
 	setDimensions(v);
 	
@@ -106,6 +117,7 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 	setElementCount(anotherMatrix.mElementCount);
 	
 	return kTTErrNone;
+	*/
 }
 
 
@@ -149,6 +161,7 @@ TTBoolean TTMatrix::setTypeWithoutResize(TTDataInfoPtr aNewType)
 {
 	if (aNewType->isNumerical)
 	{
+		mTypeAsDataInfo = aNewType;
 		mType = aNewType->name;
 		mTypeSizeInBytes = (aNewType->bitdepth / 8);
 		return true;
@@ -200,7 +213,7 @@ TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
 TTErr TTMatrix::setType(const TTValue& aType)
 {
 	TTSymbolPtr aNewTypeName = aType;
-	TTDataInfoPtr aNewDataType = TTDataInfo::getInfoForType(aNewTypeName);
+	TTDataInfoPtr aNewDataType = TTDataInfo::getInfoForType(aNewTypeName);  // move into the "withoutResize" method?
 	
 	if (setTypeWithoutResize(aNewDataType))
 	{
