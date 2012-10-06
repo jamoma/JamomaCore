@@ -151,7 +151,7 @@ public:
 	
 	/**	Simple data accessor. 
 	* @return - the value stored at mTypeAsDataInfo as a TTDataInfoPtr */
-	TTSymbolPtr	getTypeAsDataInfo()
+	TTDataInfoPtr getTypeAsDataInfo()
 	{
 		return mTypeAsDataInfo;
 	}
