@@ -408,29 +408,19 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
 {
 	//TTBoolean AmatchesB = A->allAttributesMatch(B);
+	
 	if (true) {
+		C->adaptTo(A);
+		
 		int stride = A->mTypeSizeInBytes;
 		int size = A->mDataSize;
-		TTValue		dims;		// DEPRECATION in progress
-		
-		C->setAttributeValue(kTTSym_type, A->mType);
-		C->setAttributeValue(kTTSym_elementCount, A->mElementCount);
-		
-		/* DEPRECATION in progress: the following section had to be changed to prevent malloc errors. results are less efficient code, but this will be regained once mRowCount & mColumnCount are fully implemented. */
-		
-		dims.setSize(2);
-		dims.set(0, A->mRowCount);
-		dims.set(1, A->mColumnCount);	
-		C->setAttributeValue(kTTSym_dimensions, dims);
-		
-		/* DEPRECATION in progress: end section to be changed */
 		
 		for (int k=0; k<size; k+=stride)
 			(*iterator)(C->mData+k, A->mData+k, B->mData+k);
 		
 		return kTTErrNone;
-	}
-	else
+	} else {
 		return kTTErrGeneric;
+	}
 }
 
