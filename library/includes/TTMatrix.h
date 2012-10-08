@@ -433,8 +433,8 @@ public:
 
 	
 	/**	Compare the attributes of this matrix to another to see if they all match. Used before conducting certain math operations.	*/
-	TTBoolean allAttributesMatch(const TTMatrix& anotherMatrix);
-	TTBoolean allAttributesMatch(const TTMatrix* anotherMatrix)
+	TTBoolean allAttributesMatch(const TTMatrix& anotherMatrix) const;
+	TTBoolean allAttributesMatch(const TTMatrix* anotherMatrix) const
 	{
 		return TTMatrix::allAttributesMatch(*anotherMatrix);
 	}

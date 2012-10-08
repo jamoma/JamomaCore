@@ -373,7 +373,7 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 }
 
 
-TTBoolean TTMatrix::allAttributesMatch(const TTMatrix& anotherMatrix)
+TTBoolean TTMatrix::allAttributesMatch(const TTMatrix& anotherMatrix) const
 {
 	// TODO: should/could this be inlined?
 	if (mTypeAsDataInfo == anotherMatrix.mTypeAsDataInfo  &&  
@@ -419,7 +419,7 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 
 TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
 {
-	// TTBoolean match = A->allAttributesMatch(B);
+	TTBoolean match = A->allAttributesMatch(B);
 	// TODO: above line fails to build. if working, the returned "match" would be used of if statement that follows.
 	
 	if (true) {
