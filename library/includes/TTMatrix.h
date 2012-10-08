@@ -32,7 +32,7 @@ typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
  
 	While C internally is indexed beginning at zero, the interface we create to the matrix data is a one-based.
 	We do this to be consistent with mathematical and engineering conventions and as used by applications
-	such as Octave and Matlab.
+	such as Octave and Matlab.  INDEX revision underway
  */
 typedef TTInt32 TTRowID;
 typedef TTInt32 TTColumnID;
@@ -175,6 +175,35 @@ public:
 	
 	TTErr clear();
 	TTErr fill(const TTValue& anInputValue, TTValue &anOutputValue);
+	
+	
+	/** Internal method used by both set() and get() functions to locate the data within mData to be operated on. 
+	 *	Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.
+	 *	@return - a TTBytePtr within mData that is between mHeadPtr and mTailPtr
+	*/
+	TTBytePtr where(TTRowID i, TTColumnID j)
+	{
+		TTBytePtr locationAsBytePtr;
+		TTUInt32 indexOfComponent = i * mColumnCount + j;
+		
+		// I would ideally like to use mHeadPtr instead of mData in the next line, but type mismatch needs to be resolved
+		locationAsBytePtr = mData + ( indexOfComponent * mComponentStride );
+		
+		return locationAsBytePtr;
+	}
+	
+	TTBytePtr where(TTRowID i, TTColumnID j, TTUInt32 e)
+	{
+		TTBytePtr locationAsBytePtr;
+		TTUInt32 indexOfComponent = i * mColumnCount + j;
+		TTUInt16 bytesToElement = e * mTypeSizeInBytes;
+		
+		// I would ideally like to use mHeadPtr instead of mData in the next line, but type mismatch needs to be resolved
+		locationAsBytePtr = mData + ( indexOfComponent * mComponentStride ) + bytesToElement;
+		
+		return locationAsBytePtr;
+	}
+	
 
 	/** Test to see if a specific distance from the head is still in within the matrix.  
 	 	This method works most efficiently just before array access, so that you can compute the distance once (using row, column & element values) before checking if it is inBounds then pulling its value.
