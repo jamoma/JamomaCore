@@ -24,19 +24,16 @@
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 
 
-/**	Two types for the numbers used to indicate rows and columns.
-	This is so that we can have multiple overrides of functions that take the numbers in either order.
-
-	For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order.
-	However, video processing objects will likely access elements in TTColumnID, TTRowID order.
- 
-	While C internally is indexed beginning at zero, the interface we create to the matrix data is a one-based.
-	We do this to be consistent with mathematical and engineering conventions and as used by applications
-	such as Octave and Matlab.  INDEX revision underway
+/**	Three typedefs for the numbers used to indicate rows, columns and elements within the matrix.
+	
+	This is so that we can have consistent datatypes throughout the TTMatrix class and easily change the datatype used should the need arise in the future.
+	
+	It may also potentially be used to override functions that take the numbers in either order. For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order. However, video processing objects will likely access elements in TTColumnID, TTRowID order.
  */
-typedef TTInt32 TTRowID;
-typedef TTInt32 TTColumnID;
-
+typedef TTUInt32 TTRowID;
+typedef TTUInt32 TTColumnID;
+typedef TTUInt16 TTElementID;
+// TODO: should there be a similar typedef for math operations that combine these values, i.e. TTIndexMathType?
 
 /****************************************************************************************************/
 // Class Specification
@@ -52,9 +49,9 @@ protected:
 
 	TTBytePtr			mData;					///< matrix of values
 	vector<TTUInt32>	mDimensions;			///< variable dimensions - @deprecated use mRowCount and mColumnCount instead
-	TTUInt32			mRowCount;				///< How many rows of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
-	TTUInt32			mColumnCount;			///< How many columns of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
-	TTUInt8				mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an unsigned 8-bit integer which provides a maximum value of 255.
+	TTRowID				mRowCount;				///< How many rows of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
+	TTColumnID			mColumnCount;			///< How many columns of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
+	TTElementID			mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an unsigned 16-bit integer which provides a maximum value of 65,535.
 	TTUInt32			mComponentCount;		///< mRowCount * mColumnCount
 	TTUInt8				mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
@@ -74,13 +71,13 @@ protected:
 	virtual TTErr test(TTValue& returnedTestInfo);
 	
 	/**	Internal method that sets the value for RowCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. */
-	TTBoolean setRowCountWithoutResize(TTUInt32 aNewRowCount);
+	TTBoolean setRowCountWithoutResize(TTRowID aNewRowCount);
 	
 	/**	Internal method that sets the value for ColumnCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. */
-	TTBoolean setColumnCountWithoutResize(TTUInt32 aNewColumnCount);
+	TTBoolean setColumnCountWithoutResize(TTColumnID aNewColumnCount);
 	
 	/**	Internal method that sets the value for ElementCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. */
-	TTBoolean setElementCountWithoutResize(TTUInt8 aNewElementCount);
+	TTBoolean setElementCountWithoutResize(TTElementID aNewElementCount);
 	
 	/**	Internal method that sets the values for Type and TypeSizeInBytes without resizing the matrix of values. It is included so that other methods in the class consistently check for valid entries. Values that are not a numeric type defined by ttDataTypeInfo in TTBase will return false and leave the values unchanged. */
 	TTBoolean setTypeWithoutResize(TTDataInfoPtr aNewType);
@@ -116,21 +113,21 @@ public:
 	
 	/**	Simple data accessor. 
 	* @return - the value stored at mRowCount as a TTUInt32 */	
-	TTUInt32 getRowCount()
+	TTRowID getRowCount()
 	{
 		return mRowCount;
 	}
 	
 	/**	Simple data accessor. 
 	* @return - the value stored at mColumnCount as a TTUInt32 */
-	TTUInt32 getColumnCount()
+	TTColumnID getColumnCount()
 	{
 		return mColumnCount;
 	}
 	
 	/**	Simple data accessor. 
 	* @return - the value stored at mElementCount as a TTUInt32 */
-	TTUInt32 getElementCount()
+	TTElementID getElementCount()
 	{
 		return mElementCount;
 	}
@@ -241,8 +238,8 @@ public:
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, T& data) const
 	{
-		//TTUInt32 m = mRowCount;
-		TTUInt32 n = mColumnCount;
+		//TTRowID m = mRowCount;
+		TTColumnID n = mColumnCount;
 		
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access
@@ -255,8 +252,8 @@ public:
 	template<typename T>
 	TTErr get2dWithinBounds(TTRowID i, TTColumnID j, T& data) const
 	{
-		//TTUInt32 m = mRowCount;
-		TTUInt32 n = mColumnCount;
+		//TTRowID m = mRowCount;
+		TTColumnID n = mColumnCount;
 		
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access
@@ -275,10 +272,10 @@ public:
 	}	
 	
 	template<typename T>
-	TTErr get2d(TTRowID i, TTColumnID j, TTUInt32 element, T& data)
+	TTErr get2d(TTRowID i, TTColumnID j, TTElementID element, T& data)
 	{
-		//TTUInt32 m = mRowCount;
-		TTUInt32 n = mColumnCount;
+		//TTRowID m = mRowCount;
+		TTColumnID n = mColumnCount;
 		
 		i -= 1;			// convert to zero-based indices for data access
 		j -= 1;			// convert to zero-based indices for data access
@@ -294,15 +291,15 @@ public:
 	template<typename T>
 	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, T& data) const
 	{
-		TTUInt32 n = mColumnCount;		
+		TTColumnID n = mColumnCount;		
 		data = *(T*)(mData + (i*n+j) * mComponentStride);	
 		return kTTErrNone;
 	}
 		
 	template<typename T>
-	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, TTUInt32 element, T& data)
+	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, TTElementID element, T& data)
 	{
-		TTUInt32 n = mColumnCount;
+		TTColumnID n = mColumnCount;
 		data = *(T*)((mData + (i*n+j) * mComponentStride) + element);	
 		return kTTErrNone;
 	}
@@ -325,8 +322,8 @@ public:
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, T data)
 	{
-		//TTUInt32 m = mRowCount;
-		TTUInt32 n = mColumnCount;
+		//TTRowID m = mRowCount;
+		TTColumnID n = mColumnCount;
 		
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access
@@ -338,10 +335,10 @@ public:
 	
 	
 	template<typename T>
-	TTErr set2d(TTRowID i, TTColumnID j, TTUInt32 element, T data)
+	TTErr set2d(TTRowID i, TTColumnID j, TTElementID element, T data)
 	{
-		//TTUInt32 m = mRowCount;
-		TTUInt32 n = mColumnCount;
+		//TTRowID m = mRowCount;
+		TTColumnID n = mColumnCount;
 		
 		i -= 1;			// convert to zero-based indices for data access
 		j -= 1;			// convert to zero-based indices for data access
@@ -358,16 +355,16 @@ public:
 	template<typename T>
 	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, T data)
 	{
-		TTUInt32 n = mColumnCount;
+		TTColumnID n = mColumnCount;
 		*(T*)(mData + (i*n+j) * mComponentStride) = data;		
 		return kTTErrNone;
 	}
 	
 	
 	template<typename T>
-	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, TTUInt32 element, T data)
+	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, TTElementID element, T data)
 	{
-		TTUInt32 n = mColumnCount;
+		TTColumnID n = mColumnCount;
 		*(T*)(mData + ((i*n+j) * mComponentStride) + element) = data;		
 		return kTTErrNone;
 	}

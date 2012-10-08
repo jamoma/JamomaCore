@@ -84,7 +84,7 @@ TTErr TTMatrix::resize()
 }
 
 
-TTBoolean TTMatrix::setRowCountWithoutResize(TTUInt32 aNewRowCount)
+TTBoolean TTMatrix::setRowCountWithoutResize(TTRowID aNewRowCount)
 {
 	if (aNewRowCount > 0)
 	{
@@ -96,7 +96,7 @@ TTBoolean TTMatrix::setRowCountWithoutResize(TTUInt32 aNewRowCount)
 }
 
 
-TTBoolean TTMatrix::setColumnCountWithoutResize(TTUInt32 aNewColumnCount)
+TTBoolean TTMatrix::setColumnCountWithoutResize(TTColumnID aNewColumnCount)
 {
 	if (aNewColumnCount > 0)
 	{
@@ -108,7 +108,7 @@ TTBoolean TTMatrix::setColumnCountWithoutResize(TTUInt32 aNewColumnCount)
 }
 
 
-TTBoolean TTMatrix::setElementCountWithoutResize(TTUInt8 aNewElementCount)
+TTBoolean TTMatrix::setElementCountWithoutResize(TTElementID aNewElementCount)
 {
 	if (aNewElementCount > 0)
 	{
@@ -136,7 +136,7 @@ TTBoolean TTMatrix::setTypeWithoutResize(TTDataInfoPtr aNewType)
 
 TTErr TTMatrix::setRowCount(const TTValue& aNewRowCount)
 {
-	TTUInt32 aNewRowCountInt = aNewRowCount;
+	TTRowID aNewRowCountInt = aNewRowCount;
 	
 	if (setRowCountWithoutResize(aNewRowCountInt))
 	{
@@ -149,7 +149,7 @@ TTErr TTMatrix::setRowCount(const TTValue& aNewRowCount)
 
 TTErr TTMatrix::setColumnCount(const TTValue& aNewColumnCount)
 {
-	TTUInt32 aNewColumnCountInt = aNewColumnCount;
+	TTColumnID aNewColumnCountInt = aNewColumnCount;
 	
 	if (setColumnCountWithoutResize(aNewColumnCountInt))
 	{
@@ -162,7 +162,7 @@ TTErr TTMatrix::setColumnCount(const TTValue& aNewColumnCount)
 
 TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
 {
-	TTUInt8 aNewElementCountInt = newElementCount;
+	TTElementID aNewElementCountInt = newElementCount;
 	
 	if (setElementCountWithoutResize(aNewElementCountInt))
 	{
@@ -189,8 +189,8 @@ TTErr TTMatrix::setType(const TTValue& aType)
 
 TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 {
-	TTUInt32 aNewRowCount = 1;
-	TTUInt32 aNewColumnCount = 1; 
+	TTRowID aNewRowCount = 1;
+	TTColumnID aNewColumnCount = 1; 
 	
 	TTUInt8	size = someNewDimensions.getSize();
 	
@@ -302,8 +302,8 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 template<typename T>
 TTErr TTMatrix::get2dWithinBounds(TTRowID i, TTColumnID j, T& data) 
 {
-		//TTUInt32 m = mRowCount;
-		TTUInt32 n = mColumnCount;
+		//TTRowID m = mRowCount;
+		TTColumnID n = mColumnCount;
 		
 		i -= 1;	// convert to zero-based indices for data access
 		j -= 1;	// convert to zero-based indices for data access
