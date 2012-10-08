@@ -33,13 +33,15 @@ typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 typedef TTUInt32 TTRowID;
 typedef TTUInt32 TTColumnID;
 typedef TTUInt16 TTElementID;
-// TODO: should there be a similar typedef for math operations that combine these values, i.e. TTIndexMathType?
+// TODO: should there be a similar typedef for results of math operations that combine these values, i.e. TTIndexMathType?
 
 /****************************************************************************************************/
 // Class Specification
 
 /**	An 2-dimensional matrix of compound values with N elements.	
+
 * Locations for individual values in the matrix are identified by (row, column) pairs.  These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. Note that support for N dimensions has been deprecated and the TTMatrix class is now fixed at 2 dimensions.
+
 * Each value in the matrix can have a variable amount of elements, enabling the storage of things like complex numbers or RGBA colors at each location.
 */
 class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
@@ -112,21 +114,21 @@ public:
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mRowCount as a TTUInt32 */	
+	* @return - the value stored at mRowCount as a TTRowID */	
 	TTRowID getRowCount()
 	{
 		return mRowCount;
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mColumnCount as a TTUInt32 */
+	* @return - the value stored at mColumnCount as a TTColumnID */
 	TTColumnID getColumnCount()
 	{
 		return mColumnCount;
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mElementCount as a TTUInt32 */
+	* @return - the value stored at mElementCount as a TTElementID */
 	TTElementID getElementCount()
 	{
 		return mElementCount;
@@ -200,6 +202,10 @@ public:
 		
 		return locationAsBytePtr;
 	}
+	
+	
+	/** Reboot of the get() method that utilizes the where() and memcopy() */
+	TTErr getBytes(TTRowID i, TTColumnID j, TTBytePtr dataOutLocation, TTUInt32 dataOutNumBytes);
 	
 
 	/** Test to see if a specific distance from the head is still in within the matrix.  

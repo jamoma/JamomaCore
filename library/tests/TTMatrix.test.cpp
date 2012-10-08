@@ -426,7 +426,36 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		TTObjectRelease((TTObjectPtr*)&A);
 		TTObjectRelease((TTObjectPtr*)&B);
-	}	
+	}
+	
+/*	{
+		TTTestLog("\n");
+		TTTestLog("Testing new versions of get functions...");
+		
+		//TTMatrixPtr	A = NULL;
+		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&A, kTTValNONE);
+		
+		A->setAttributeValue(TT("rowCount"), 5);
+		A->setAttributeValue(TT("columnCount"), 5);
+		A->setAttributeValue(TT("type"), TT("int32"));
+		A->setAttributeValue(TT("elementCount"), 1);
+		
+		TTint32 valueIn = 301;
+		A->set2d(3, 1, valueIn);
+		
+		TTint32 valueOut;
+		//A->getBytes(3,1,*valueOut,4);
+		
+		
+		TTTestAssertion("valueIn equals valueOut", 
+						valueIn == valueOut, 
+						testAssertionCount,
+						errorCount);
+		
+		
+	}*/	
+	
+		
 	
 
 

@@ -246,6 +246,7 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	return kTTErrNone;
 }
 
+
 /*
 	To find the index in the matrix:
 
@@ -254,6 +255,16 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	3D Matrix:	index = dim_0 dim_1 z  +  dim_0 y  +  x
 	etc.
  */
+
+
+TTErr TTMatrix::getBytes(TTRowID i, TTColumnID j, TTBytePtr dataOutLocation, TTUInt32 dataOutNumBytes)
+{
+	TTBytePtr locationAsBytePtr = where(i,j);
+	
+	memcpy(locationAsBytePtr,dataOutLocation,dataOutNumBytes);
+	
+	return kTTErrNone;
+}
 
 
 // args passed-in should be the 2 coordinates
