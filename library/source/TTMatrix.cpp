@@ -419,19 +419,24 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 
 TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
 {
-	TTBoolean match = A->allAttributesMatch(B);
-	// TODO: above line fails to build. if working, the returned "match" would be used of if statement that follows.
-	
-	if (true) {
-		C->adaptTo(A);
-		
+	if(C->adaptTo(A) == kTTErrNone)
+	{
 		int stride = A->mTypeSizeInBytes;
 		int size = A->mDataSize;
-		
+
 		for (int k=0; k<size; k+=stride)
 			(*iterator)(C->mData+k, A->mData+k, B->mData+k);
-		
+
 		return kTTErrNone;
+	} else {
+		return kTTErrGeneric;
+	}
+}
+
+TTErr TTMatrix::iterateWhenAllAttributesMatch(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
+{
+	if (A->allAttributesMatch(B)) {
+		return iterate(C,A,B,iterator);
 	} else {
 		return kTTErrGeneric;
 	}

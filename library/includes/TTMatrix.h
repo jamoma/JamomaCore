@@ -454,11 +454,30 @@ public:
 		return adaptTo(*anotherMatrix);
 	}
 	
-	/**	A function (method) type for implementing iterators used by the iterate() method	*/
+	/**	A function (method) type for implementing iterators used by the iterate() method.	
+	@param	c			pointer to matrix that holds the results of the operation
+	@param	a			pointer to matrix 1 of 2 for the iteration operation
+	@param	b			pointer to matrix 2 of 2 for the iteration operation
+	*/
 	typedef void (*TTMatrixIterator)(TTPtr c, const TTPtr a, const TTPtr b);
 	
-	/**	Step through every component in the matrix A and B to produce matrix C using the specified iterator method.	*/
+	/**	Step through every component in the matrix A and B to produce matrix C using the specified iterator method.
+	@param	C			pointer to matrix that holds the results of the operation
+	@param	A			pointer to matrix 1 of 2 for the iteration operation
+	@param	B			pointer to matrix 2 of 2 for the iteration operation
+	@param	iterator	function that will be used to operate on matrices A and B
+	@return	TTErr		kTTErrGeneric if attributes do not match or if iterate fails, otherwise returns kTTErrNone
+	*/
 	static TTErr iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator);
+	
+	/**	Only if all the attributes of matrix A and B match, then step through every component to produce matrix C using the specified iterator method.	
+	@param	C			pointer to matrix that holds the results of the operation
+	@param	A			pointer to matrix 1 of 2 for the iteration operation
+	@param	B			pointer to matrix 2 of 2 for the iteration operation
+	@param	iterator	function that will be used to operate on matrices A and B
+	@return	TTErr		kTTErrGeneric if attributes do not match or if iterate fails, otherwise returns kTTErrNone
+	*/
+	static TTErr iterateWhenAllAttributesMatch(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator);
 
 	/**	Add two matrices to produce a third matrix.
 		The resulting matrix is instantiated by this method.

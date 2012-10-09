@@ -15,13 +15,13 @@
 
 #define TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(type,a,b,c,template) { \
 	if (type == kTTSym_uint8) \
-		TTMatrix::iterate(a, b, c, template<TTUInt8>); \
+		TTMatrix::iterateWhenAllAttributesMatch(a, b, c, template<TTUInt8>); \
 	else if (type == kTTSym_int32) \
-		TTMatrix::iterate(a, b, c, template<TTInt32>); \
+		TTMatrix::iterateWhenAllAttributesMatch(a, b, c, template<TTInt32>); \
 	else if (type == kTTSym_float32) \
-		TTMatrix::iterate(a, b, c, template<TTFloat32>); \
+		TTMatrix::iterateWhenAllAttributesMatch(a, b, c, template<TTFloat32>); \
 	else if (type == kTTSym_float64) \
-		TTMatrix::iterate(a, b, c, template<TTFloat64>); }
+		TTMatrix::iterateWhenAllAttributesMatch(a, b, c, template<TTFloat64>); }
 
 
 
