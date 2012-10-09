@@ -247,8 +247,8 @@ public:
 	static TTDataInfoPtr getInfoForType(TTSymbol* typeAsSymbolPtr)
 	{		
 		// look through the symbols for each type in the enumerated list and see if there is a match...
-		int type = kNumTTDataTypes;
-		while (--type) 
+		int type = 0;
+		while (++type < kNumTTDataTypes) 
 		{
 			// if yes, then return that TTDataInfoPtr
 			if (ttDataTypeInfo[type]->name == typeAsSymbolPtr) return ttDataTypeInfo[type];
