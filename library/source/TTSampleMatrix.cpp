@@ -126,7 +126,7 @@ TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)
 {
 	// TODO: perhaps we should range check the input here first...
-	get2dWithinBounds(index, channel, value);
+	get2d(index, channel, value);
 	return kTTErrNone;
 }
 
@@ -143,8 +143,8 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 	TTSampleValue valueThisInteger, valueNextInteger;
 	
 	// TODO: perhaps we should range check the input here first...
-	get2dWithinBounds(indexThisInteger, channel, valueThisInteger);
-	get2dWithinBounds(indexNextInteger, channel, valueNextInteger);
+	get2d(indexThisInteger, channel, valueThisInteger);
+	get2d(indexNextInteger, channel, valueNextInteger);
 	
 	// simple linear interpolation adapted from TTDelay
 	value = (valueNextInteger * (1.0 - indexFractionalPart)) + (valueThisInteger * indexFractionalPart);
