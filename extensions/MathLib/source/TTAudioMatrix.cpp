@@ -121,7 +121,7 @@ TTErr TTAudioMatrix::restoreMatrix()
 	TTLimit(yy,(TTUInt16) 1, mNumOutputs);
 	for (TTUInt16 y=0; y < yy; y++) {
 		for (TTUInt16 x=0; x < xx; x++) {
-			tempGainMatrix->get2dZeroIndex(x, y, tempValue);
+			tempGainMatrix->get2d(x, y, tempValue);
 			mGainMatrix->set2dZeroIndex(   x, y, tempValue);
 			oldGainMatrix->set2dZeroIndex( x, y, tempValue);
 		}
@@ -253,7 +253,7 @@ TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 		for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
 			outSample = out.mSampleVectors[outChannel];
 			for (inChannel=0; inChannel<numInputChannels; inChannel++) {
-				mGainMatrix->get2dZeroIndex(inChannel, outChannel, gainValue);
+				mGainMatrix->get2d(inChannel, outChannel, gainValue);
 				if (gainValue != 0.0){
 					inSample = in.mSampleVectors[inChannel];					
 					for (int i=0; i<vs; i++) {				
@@ -299,9 +299,9 @@ TTErr TTAudioMatrix::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAu
 	for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
 		outSample = out.mSampleVectors[outChannel];
 		for (inChannel=0; inChannel<numInputChannels; inChannel++) {		
-			mGainMatrix->get2dZeroIndex(inChannel, outChannel, value);
+			mGainMatrix->get2d(inChannel, outChannel, value);
 			//if (value != 0.0){  // this condition caused a click when the destination value is 0
-				oldGainMatrix->get2dZeroIndex(inChannel, outChannel, oldValue);
+				oldGainMatrix->get2d(inChannel, outChannel, oldValue);
 				increment = (value-oldValue)/vs;
 			TTAntiDenormal(increment); // TODO: necessary if we use flush-to-zero compiling flag?
 				gainValue = oldValue;

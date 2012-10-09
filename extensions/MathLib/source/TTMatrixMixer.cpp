@@ -108,7 +108,7 @@ TTErr TTMatrixMixer::restoreMatrix()
 	TTLimit(yy,(TTUInt16) 1, mNumOutputs);
 	for (TTUInt16 y=0; y < yy; y++) {
 		for (TTUInt16 x=0; x < xx; x++) {
-			tempGainMatrix->get2dZeroIndex(x, y, tempValue);
+			tempGainMatrix->get2d(x, y, tempValue);
 			mGainMatrix->set2dZeroIndex(x, y, tempValue);
 		}
 	}
@@ -230,7 +230,7 @@ TTErr TTMatrixMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 		out.clear(); // zeroing output memory
 		if (y < (mNumOutputs)){
 			for (TTUInt16 x=0; x < minChannelIn; x++) {
-				mGainMatrix->get2dZeroIndex(x, y, gain);  
+				mGainMatrix->get2d(x, y, gain);  
 				if (gain){ //if the gain value is zero, just pass processOne 
 					TTAudioSignal&	in = inputs->getSignal(x);
 					processOne(in, out, gain);
