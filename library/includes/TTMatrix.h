@@ -182,8 +182,8 @@ public:
 	*/
 	TTUInt32 whereAsComponentIndex(TTRowID i, TTColumnID j)
 	{
-		TTUInt32 indexOfComponent = i * mColumnCount + j;
-		return indexOfComponent;
+		//TTUInt32 indexOfComponent = i * mColumnCount + j;
+		return (i * mColumnCount + j);
 	}
 	
 	TTBytePtr where(TTRowID i, TTColumnID j, TTUInt32 e)
@@ -249,29 +249,7 @@ public:
 		data = *(T*)(mData + (i*n+j) * mComponentStride);	
 		return kTTErrNone;
 	}
-	
-	
-	template<typename T>
-	TTErr get2dWithinBounds(TTRowID i, TTColumnID j, T& data) const
-	{
-		//TTRowID m = mRowCount;
-		TTColumnID n = mColumnCount;
 		
-		i -= 1;	// convert to zero-based indices for data access
-		j -= 1;	// convert to zero-based indices for data access
-		
-		TTUInt32 distanceFromHead = (i*n+j) * mComponentStride;
-		TTBoolean isInBounds = INBOUNDSZEROINDEX(distanceFromHead,mDataCount);
-		
-		if (isInBounds)
-		{
-			data = *(T*)(mData + distanceFromHead);	
-			return kTTErrNone;
-		} else {
-			return kTTErrInvalidValue;
-		}
-	
-	}	
 	
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, TTElementID element, T& data)
