@@ -243,8 +243,8 @@ public:
 		//TTRowID m = mRowCount;
 		TTColumnID n = mColumnCount;
 		
-		i -= 1;	// convert to zero-based indices for data access
-		j -= 1;	// convert to zero-based indices for data access
+		//i -= 1;	// convert to zero-based indices for data access
+		//j -= 1;	// convert to zero-based indices for data access
 		
 		data = *(T*)(mData + (i*n+j) * mComponentStride);	
 		return kTTErrNone;
@@ -257,9 +257,9 @@ public:
 		//TTRowID m = mRowCount;
 		TTColumnID n = mColumnCount;
 		
-		i -= 1;			// convert to zero-based indices for data access
-		j -= 1;			// convert to zero-based indices for data access
-		element -=1;	// convert to zero-based indices for data access
+		//i -= 1;			// convert to zero-based indices for data access
+		//j -= 1;			// convert to zero-based indices for data access
+		//element -=1;	// convert to zero-based indices for data access
 		
 		data = *(T*)((mData + (i*n+j) * mComponentStride) + element);	
 		return kTTErrNone;
@@ -311,8 +311,8 @@ public:
 		//TTRowID m = mRowCount;
 		TTColumnID n = mColumnCount;
 		
-		i -= 1;	// convert to zero-based indices for data access
-		j -= 1;	// convert to zero-based indices for data access
+		//i -= 1;	// convert to zero-based indices for data access
+		//j -= 1;	// convert to zero-based indices for data access
 		
 		*(T*)(mData + (i*n+j) * mComponentStride) = data;
 		
@@ -326,9 +326,9 @@ public:
 		//TTRowID m = mRowCount;
 		TTColumnID n = mColumnCount;
 		
-		i -= 1;			// convert to zero-based indices for data access
-		j -= 1;			// convert to zero-based indices for data access
-		element -=1;	// convert to zero-based indices for data access
+		//i -= 1;			// convert to zero-based indices for data access
+		//j -= 1;			// convert to zero-based indices for data access
+		//element -=1;	// convert to zero-based indices for data access
 		
 		*(T*)(mData + ((i*n+j) * mComponentStride) + element) = data;
 		
