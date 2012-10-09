@@ -14,11 +14,7 @@
 
 #define INBOUNDS(distanceFromHead, maxDistanceFromHead) 						\
 {																				\
-	distanceFromHead == 0 ? 0 : (distanceFromHead <= maxDistanceFromHead)		\
-}
-#define INBOUNDSZEROINDEX(distanceFromHead, maxDistanceFromHead) 				\
-{ 																				\
-	distanceFromHead < maxDistanceFromHead 										\
+	distanceFromHead < maxDistanceFromHead										\
 } 
 
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
@@ -209,15 +205,6 @@ public:
 		return INBOUNDS(distanceFromHead, mDataCount);
 	}
 	
-	/** Test to see if a specific distance from the head is still in within the matrix. 
-	  	This method works most efficiently just before array access, so that you can compute the distance once (using row, column & element values) before checking if it is inBounds then pulling its value.
-		Treats the first item in the array as 0, therefore totalDistanceFromHead equal to mDataCount produces a return value of FALSE.
-		Returns true or false.
-	*/
-	TTBoolean inBoundsZeroIndex(TTUInt32 distanceFromHead)
-	{
-		return INBOUNDSZEROINDEX(distanceFromHead, mDataCount);
-	}
 	
 	/**	Get the value of a component located at any location in 2-dimensional matrix.
 		Pass in coordinate pair using anInputValue. Returns via anOutputValue an ElementCount-item TTValue using the values stored at the coordinates specified by anInputValue.
@@ -264,28 +251,8 @@ public:
 		data = *(T*)((mData + (i*n+j) * mComponentStride) + element);	
 		return kTTErrNone;
 	}
-
-	/**	Get the value of a component located at (i,j) in a 2-dimensional matrix.
-	 similar to get2d but the first location in the matrix is (0,0). INDEX revision underway. **/
 	
-	template<typename T>
-	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, T& data) const
-	{
-		TTColumnID n = mColumnCount;		
-		data = *(T*)(mData + (i*n+j) * mComponentStride);	
-		return kTTErrNone;
-	}
 		
-	template<typename T>
-	TTErr get2dZeroIndex(TTRowID i, TTColumnID j, TTElementID element, T& data)
-	{
-		TTColumnID n = mColumnCount;
-		data = *(T*)((mData + (i*n+j) * mComponentStride) + element);	
-		return kTTErrNone;
-	}
-	
-	
-	
 	/**	Set the value of a component located at any location in an 2-dimensional matrix.
 		Pass in coordinate pair and new value using anInputValue. Returns nothing via anOutputValue.
 		Used primarily as an interface to the matrix data from Jamoma implementations in Ruby and Max. To store values in the matrix with less overhead, see the set2d() method.
@@ -332,26 +299,6 @@ public:
 		
 		*(T*)(mData + ((i*n+j) * mComponentStride) + element) = data;
 		
-		return kTTErrNone;
-	}
-	
-	/**	Set the value of a component located at (i,j) in a 2-dimensional matrix.	
-	 Similar to set2d but the first location in the matrix is (0,0). INDEX revision underway.**/
-	
-	template<typename T>
-	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, T data)
-	{
-		TTColumnID n = mColumnCount;
-		*(T*)(mData + (i*n+j) * mComponentStride) = data;		
-		return kTTErrNone;
-	}
-	
-	
-	template<typename T>
-	TTErr set2dZeroIndex(TTRowID i, TTColumnID j, TTElementID element, T data)
-	{
-		TTColumnID n = mColumnCount;
-		*(T*)(mData + ((i*n+j) * mComponentStride) + element) = data;		
 		return kTTErrNone;
 	}
 	

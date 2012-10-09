@@ -53,16 +53,16 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->inBounds(-1) == 0, 
 						testAssertionCount,
 						errorCount);
-		TTTestAssertion("value 0 is out of bounds", 
-						matrix->inBounds(0) == 0, 
+		TTTestAssertion("value 0 is in bounds", 
+						matrix->inBounds(0) == 1, 
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("value 1 is in bounds", 
 						matrix->inBounds(1) == 1, 
 						testAssertionCount,
 						errorCount);
-		TTTestAssertion("value dataCount is in bounds", 
-						matrix->inBounds(matrix->mDataCount) == 1, 
+		TTTestAssertion("value dataCount is out of bounds", 
+						matrix->inBounds(matrix->mDataCount) == 0, 
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("value dataCount + 1 is out of bounds", 
@@ -196,112 +196,23 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->inBounds(-1) == 0, 
 						testAssertionCount,
 						errorCount);
-		TTTestAssertion("value 0 is out of bounds", 
-						matrix->inBounds(0) == 0, 
+		TTTestAssertion("value 0 is in bounds", 
+						matrix->inBounds(0) == 1, 
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("value 1 is in bounds", 
 						matrix->inBounds(1) == 1, 
 						testAssertionCount,
 						errorCount);
-		TTTestAssertion("value dataCount is in bounds", 
-						matrix->inBounds(matrix->mDataCount) == 1, 
+		TTTestAssertion("value dataCount is out of bounds", 
+						matrix->inBounds(matrix->mDataCount) == 0, 
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("value dataCount + 1 is out of bounds", 
 						matrix->inBounds(matrix->mDataCount + 1) == 0, 
 						testAssertionCount,
 						errorCount);
-		
-/* DEPRECATION in progress: 3D support is being removed, therefore section will be removed 	
-		
-		TTTestLog("");
-		TTTestLog("Setting to a 3D matrix with a size of 5 x 3 x 4 using float32 data and a single element per value");
-		dims.setSize(3);
-		dims.set(0, 5);
-		dims.set(1, 3);
-		dims.set(2, 4);
-		matrix->setAttributeValue(TT("dimensions"), dims);
-		matrix->setAttributeValue(TT("type"), TT("float32"));
-		matrix->setAttributeValue(TT("elementCount"), 1);
-		
-		TTTestAssertion("correct amount of data storage calculated", 
-						matrix->mDataSize == sizeof(TTFloat32) * 5 * 3 * 4 * 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("correct byte-stride between values calculated", 
-						matrix->mComponentStride == sizeof(TTFloat32) * 1, 
-						testAssertionCount,
-						errorCount);
-		
-		// inbounds tests				
-		TTTestAssertion("value -1 is out of bounds", 
-						matrix->inBounds(-1) == 0, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value 0 is out of bounds", 
-						matrix->inBounds(0) == 0, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value 1 is in bounds", 
-						matrix->inBounds(1) == 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value dataCount is in bounds", 
-						matrix->inBounds(matrix->mDataCount) == 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value dataCount + 1 is out of bounds", 
-						matrix->inBounds(matrix->mDataCount + 1) == 0, 
-						testAssertionCount,
-						errorCount);		
-
-/* DEPRECATION in progress: 3D support is being removed, end of section to be removed */
-/* DEPRECATION in progress: 4D support is being removed, therefore section will be removed
-		
-		TTTestLog("");
-		TTTestLog("Setting to a 4D matrix with a size of 6 x 7 x 8 x 9 using int32 data and a single element per value");
-		dims.setSize(4);
-		dims.set(0, 6);
-		dims.set(1, 7);
-		dims.set(2, 8);
-		dims.set(3, 9);
-		matrix->setAttributeValue(TT("dimensions"), dims);
-		matrix->setAttributeValue(TT("type"), TT("int32"));
-		matrix->setAttributeValue(TT("elementCount"), 1);
-		
-		TTTestAssertion("correct amount of data storage calculated", 
-						matrix->mDataSize == sizeof(TTInt32) * 6 * 7 * 8 * 9 * 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("correct byte-stride between values calculated", 
-						matrix->mComponentStride == sizeof(TTInt32) * 1, 
-						testAssertionCount,
-						errorCount);
-
-		// inbounds tests				
-		TTTestAssertion("value -1 is out of bounds", 
-						matrix->inBounds(-1) == 0, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value 0 is out of bounds", 
-						matrix->inBounds(0) == 0, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value 1 is in bounds", 
-						matrix->inBounds(1) == 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value dataCount is in bounds", 
-						matrix->inBounds(matrix->mDataCount) == 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value dataCount + 1 is out of bounds", 
-						matrix->inBounds(matrix->mDataCount + 1) == 0, 
-						testAssertionCount,
-						errorCount);	
-							
-/* DEPRECATION in progress: 4D support is being removed, end of section to be removed */		
+				
 		
 		err = TTObjectRelease((TTObjectPtr*)&matrix);
 		TTTestAssertion("frees successfully", 
