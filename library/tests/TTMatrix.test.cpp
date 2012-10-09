@@ -361,34 +361,33 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 
-		A->set2d(1, 1, 101);	A->set2d(1, 2, 102);	A->set2d(1, 3, 103);	A->set2d(1, 4, 104);
-		A->set2d(2, 1, 201);	A->set2d(2, 2, 202);	A->set2d(2, 3, 203);	A->set2d(2, 4, 204);
-		A->set2d(3, 1, 301);	A->set2d(3, 2, 302);	A->set2d(3, 3, 303);	A->set2d(3, 4, 304);
+		A->set2d(0, 0, 101);	A->set2d(0, 1, 102);	A->set2d(0, 2, 103);	A->set2d(0, 3, 104);
+		A->set2d(1, 0, 201);	A->set2d(1, 1, 202);	A->set2d(1, 2, 203);	A->set2d(1, 3, 204);
+		A->set2d(2, 0, 301);	A->set2d(2, 1, 302);	A->set2d(2, 2, 303);	A->set2d(2, 3, 304);
 		
-		B->set2d(1, 1, 11);		B->set2d(1, 2, 12);		B->set2d(1, 3, 13);		B->set2d(1, 4, 14);
-		B->set2d(2, 1, 21);		B->set2d(2, 2, 22);		B->set2d(2, 3, 23);		B->set2d(2, 4, 24);
-		B->set2d(3, 1, 31);		B->set2d(3, 2, 32);		B->set2d(3, 3, 33);		B->set2d(3, 4, 34);
-	
+		B->set2d(0, 0, 11);		B->set2d(0, 1, 12);		B->set2d(0, 2, 13);		B->set2d(0, 3, 14);
+		B->set2d(1, 0, 21);		B->set2d(1, 1, 22);		B->set2d(1, 2, 23);		B->set2d(1, 3, 24);
+		B->set2d(2, 0, 31);		B->set2d(2, 1, 32);		B->set2d(2, 2, 33);		B->set2d(2, 3, 34);
 		
 		C = (*A)+(*B);
 		
 		TTInt32	componentValue;
 		int		wrongComponentCount = 0;
 		
-		C->get2d(1, 1, componentValue);		if (componentValue != 112) wrongComponentCount++;
-		C->get2d(1, 2, componentValue);		if (componentValue != 114) wrongComponentCount++;
-		C->get2d(1, 3, componentValue);		if (componentValue != 116) wrongComponentCount++;
-		C->get2d(1, 4, componentValue);		if (componentValue != 118) wrongComponentCount++;
+		C->get2d(0, 0, componentValue);		if (componentValue != 112) wrongComponentCount++;
+		C->get2d(0, 1, componentValue);		if (componentValue != 114) wrongComponentCount++;
+		C->get2d(0, 2, componentValue);		if (componentValue != 116) wrongComponentCount++;
+		C->get2d(0, 3, componentValue);		if (componentValue != 118) wrongComponentCount++;
 				 
-		C->get2d(2, 1, componentValue);		if (componentValue != 222) wrongComponentCount++;
-		C->get2d(2, 2, componentValue);		if (componentValue != 224) wrongComponentCount++;
-		C->get2d(2, 3, componentValue);		if (componentValue != 226) wrongComponentCount++;
-		C->get2d(2, 4, componentValue);		if (componentValue != 228) wrongComponentCount++;
+		C->get2d(1, 0, componentValue);		if (componentValue != 222) wrongComponentCount++;
+		C->get2d(1, 1, componentValue);		if (componentValue != 224) wrongComponentCount++;
+		C->get2d(1, 2, componentValue);		if (componentValue != 226) wrongComponentCount++;
+		C->get2d(1, 3, componentValue);		if (componentValue != 228) wrongComponentCount++;
 
-		C->get2d(3, 1, componentValue);		if (componentValue != 332) wrongComponentCount++;
-		C->get2d(3, 2, componentValue);		if (componentValue != 334) wrongComponentCount++;
-		C->get2d(3, 3, componentValue);		if (componentValue != 336) wrongComponentCount++;
-		C->get2d(3, 4, componentValue);		if (componentValue != 338) wrongComponentCount++;
+		C->get2d(2, 0, componentValue);		if (componentValue != 332) wrongComponentCount++;
+		C->get2d(2, 1, componentValue);		if (componentValue != 334) wrongComponentCount++;
+		C->get2d(2, 2, componentValue);		if (componentValue != 336) wrongComponentCount++;
+		C->get2d(2, 3, componentValue);		if (componentValue != 338) wrongComponentCount++;
 
 		TTTestAssertion("correct result for matrix addition on 3x4 matrix of simple ints", 
 						wrongComponentCount == 0, 
@@ -400,20 +399,20 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		C = (*A)-(*B);
 
-		C->get2d(1, 1, componentValue);		if (componentValue != 90) wrongComponentCount++;
-		C->get2d(1, 2, componentValue);		if (componentValue != 90) wrongComponentCount++;
-		C->get2d(1, 3, componentValue);		if (componentValue != 90) wrongComponentCount++;
-		C->get2d(1, 4, componentValue);		if (componentValue != 90) wrongComponentCount++;
+		C->get2d(0, 0, componentValue);		if (componentValue != 90) wrongComponentCount++;
+		C->get2d(0, 1, componentValue);		if (componentValue != 90) wrongComponentCount++;
+		C->get2d(0, 2, componentValue);		if (componentValue != 90) wrongComponentCount++;
+		C->get2d(0, 3, componentValue);		if (componentValue != 90) wrongComponentCount++;
 		
-		C->get2d(2, 1, componentValue);		if (componentValue != 180) wrongComponentCount++;
-		C->get2d(2, 2, componentValue);		if (componentValue != 180) wrongComponentCount++;
-		C->get2d(2, 3, componentValue);		if (componentValue != 180) wrongComponentCount++;
-		C->get2d(2, 4, componentValue);		if (componentValue != 180) wrongComponentCount++;
+		C->get2d(1, 0, componentValue);		if (componentValue != 180) wrongComponentCount++;
+		C->get2d(1, 1, componentValue);		if (componentValue != 180) wrongComponentCount++;
+		C->get2d(1, 2, componentValue);		if (componentValue != 180) wrongComponentCount++;
+		C->get2d(1, 3, componentValue);		if (componentValue != 180) wrongComponentCount++;
 		
-		C->get2d(3, 1, componentValue);		if (componentValue != 270) wrongComponentCount++;
-		C->get2d(3, 2, componentValue);		if (componentValue != 270) wrongComponentCount++;
-		C->get2d(3, 3, componentValue);		if (componentValue != 270) wrongComponentCount++;
-		C->get2d(3, 4, componentValue);		if (componentValue != 270) wrongComponentCount++;
+		C->get2d(2, 0, componentValue);		if (componentValue != 270) wrongComponentCount++;
+		C->get2d(2, 1, componentValue);		if (componentValue != 270) wrongComponentCount++;
+		C->get2d(2, 2, componentValue);		if (componentValue != 270) wrongComponentCount++;
+		C->get2d(2, 3, componentValue);		if (componentValue != 270) wrongComponentCount++;
 		
 		TTTestAssertion("correct result for matrix subtraction on 3x4 matrix of simple ints", 
 						wrongComponentCount == 0, 
@@ -429,6 +428,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 	}
 	
 	{
+	/*
 		TTTestLog("\n");
 		TTTestLog("Testing new versions of get functions...");
 		
@@ -454,7 +454,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 		TTTestLog("Expected a value of %i, but returned value was %i", valueIn, valueOut);
 		
-		
+	*/	
 	}
 	
 		
