@@ -408,8 +408,7 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 		setElementCountWithoutResize(anotherMatrix.mElementCount) &&
 		setTypeWithoutResize(anotherMatrix.mTypeAsDataInfo))
 	{
-		resize();
-		return kTTErrNone;
+		return resize();
 	} else {
 		return kTTErrInvalidValue;
 	}
