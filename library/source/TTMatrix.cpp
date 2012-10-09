@@ -257,16 +257,6 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
  */
 
 
-TTErr TTMatrix::getBytes(TTRowID i, TTColumnID j, TTBytePtr dataOutLocation, TTUInt32 dataOutNumBytes)
-{
-	TTBytePtr locationAsBytePtr = where(i,j);
-	
-	memcpy(locationAsBytePtr,dataOutLocation,dataOutNumBytes);
-	
-	return kTTErrNone;
-}
-
-
 // args passed-in should be the 2 coordinates
 // args returned will be the value(s) at those coordinates
 TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const

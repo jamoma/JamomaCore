@@ -178,17 +178,12 @@ public:
 	
 	/** Internal method used by both set() and get() functions to locate the data within mData to be operated on. 
 	 *	Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.
-	 *	@return - a TTBytePtr within mData that is between mHeadPtr and mTailPtr
+	 *	@return TTUInt32	index within mData where the component begins
 	*/
-	TTBytePtr where(TTRowID i, TTColumnID j)
+	TTUInt32 whereAsComponentIndex(TTRowID i, TTColumnID j)
 	{
-		TTBytePtr locationAsBytePtr;
 		TTUInt32 indexOfComponent = i * mColumnCount + j;
-		
-		// I would ideally like to use mHeadPtr instead of mData in the next line, but type mismatch needs to be resolved
-		locationAsBytePtr = mData + ( indexOfComponent * mComponentStride );
-		
-		return locationAsBytePtr;
+		return indexOfComponent;
 	}
 	
 	TTBytePtr where(TTRowID i, TTColumnID j, TTUInt32 e)
@@ -204,10 +199,6 @@ public:
 	}
 	
 	
-	/** Reboot of the get() method that utilizes the where() and memcopy() */
-	TTErr getBytes(TTRowID i, TTColumnID j, TTBytePtr dataOutLocation, TTUInt32 dataOutNumBytes);
-	
-
 	/** Test to see if a specific distance from the head is still in within the matrix.  
 	 	This method works most efficiently just before array access, so that you can compute the distance once (using row, column & element values) before checking if it is inBounds then pulling its value.
 		Treats the first item in the array as 1, therefore 0 produces a return value of FALSE.

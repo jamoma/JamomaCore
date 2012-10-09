@@ -445,7 +445,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		TTInt32 valueOut;
 		TTBytePtr valueOutPtr = (TTBytePtr)&valueOut;
-		A->getBytes(3,1,valueOutPtr,4);
+		//new method will eventually go here
 		
 		
 		TTTestAssertion("valueIn equals valueOut", 
