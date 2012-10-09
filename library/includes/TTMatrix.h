@@ -229,8 +229,13 @@ public:
 	}
 	
 	/**	Get the value of a component located at any location in 2-dimensional matrix.
-		Will set anOutputValue as a N-item TTValue using the values saved at ElementCount & return all elements that are stored at the coordinates specied by anInputValue.
-		All dimension indices begin counting at one. INDEX revision underway.	*/
+		Pass in coordinate pair using anInputValue. Returns via anOutputValue an ElementCount-item TTValue using the values stored at the coordinates specified by anInputValue.
+		Used primarily as an interface to the matrix data from Jamoma implementations in Ruby and Max. To retrieve values from the matrix with less overhead, see the get2d() method.
+		All dimension indices begin counting at one. INDEX revision underway.	
+		@param	anInputValue		TTValue array containing the row and column values of coordinates
+		@param	anOutputValue		method sets to a TTValue array containing element(s) found at the given coordinates
+		@return	TTErr				kTTErrWrongNumValues if anInputValue does not have 2 items, else kTTErrNone 
+		*/
 	TTErr get(const TTValue& anInputValue, TTValue &anOutputValue) const;
 
 	/**	Get the value of a component located at (i,j) in a 2-dimensional matrix.
@@ -313,7 +318,13 @@ public:
 	
 	
 	/**	Set the value of a component located at any location in an 2-dimensional matrix.
-	 All dimension indices begin counting at one.	INDEX revision underway.	*/
+		Pass in coordinate pair and new value using anInputValue. Returns nothing via anOutputValue.
+		Used primarily as an interface to the matrix data from Jamoma implementations in Ruby and Max. To store values in the matrix with less overhead, see the set2d() method.
+		All dimension indices begin counting at one. INDEX revision underway.	
+		@param	anInputValue		TTValue array containing the row and column values of coordinates and elements to be stored at this location, therefore anInputValue requires (2 + mElementCount) items
+		@param	anOutputValue		unused
+		@return	TTErr				kTTErrWrongNumValues if anInputValue does not have (2 + mElementCount) items, else kTTErrNone 
+		*/
 	TTErr set(const TTValue& anInputValue, TTValue &anOutputValue);
 
 	/**	Set the value of a component located at (i,j) in a 2-dimensional matrix.	
