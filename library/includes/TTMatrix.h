@@ -25,6 +25,7 @@ typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 	This is so that we can have consistent datatypes throughout the TTMatrix class and easily change the datatype used should the need arise in the future.
 	
 	It may also potentially be used to override functions that take the numbers in either order. For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order. However, video processing objects will likely access elements in TTColumnID, TTRowID order.
+	
  */
 typedef TTUInt32 TTRowID;
 typedef TTUInt32 TTColumnID;
@@ -39,6 +40,8 @@ typedef TTUInt16 TTElementID;
 * Locations for individual values in the matrix are identified by (row, column) pairs.  These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. Note that support for N dimensions has been deprecated and the TTMatrix class is now fixed at 2 dimensions.
 
 * Each value in the matrix can have a variable amount of elements, enabling the storage of things like complex numbers or RGBA colors at each location.
+
+* 	All dimension indices begin counting at zero. This means that index values that are greater than or equal to the respective mRowCount, mColumnCount or mElementCount will be out of bounds.
 */
 class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
@@ -207,17 +210,19 @@ public:
 	
 	
 	/**	Get the value of a component located at any location in 2-dimensional matrix.
-		Pass in coordinate pair using anInputValue. Returns via anOutputValue an ElementCount-item TTValue using the values stored at the coordinates specified by anInputValue.
+		Pass in coordinate pair using anInputValue. Returns via anOutputValue an mElementCount-item TTValue using the values stored at the coordinates specified by anInputValue. 
+		Remember that the first location in the matrix is row 0 and column 0.
 		Used primarily as an interface to the matrix data from Jamoma implementations in Ruby and Max. To retrieve values from the matrix with less overhead, see the get2d() method.
-		All dimension indices begin counting at one. INDEX revision underway.	
 		@param	anInputValue		TTValue array containing the row and column values of coordinates
 		@param	anOutputValue		method sets to a TTValue array containing element(s) found at the given coordinates
 		@return	TTErr				kTTErrWrongNumValues if anInputValue does not have 2 items, else kTTErrNone 
 		*/
 	TTErr get(const TTValue& anInputValue, TTValue &anOutputValue) const;
 
+
 	/**	Get the value of a component located at (i,j) in a 2-dimensional matrix.
-		The first location in the matrix is (1,1). INDEX revision underway.
+		Remember that the first component in the matrix is (0,0).
+		
 		In order to provide some degree of efficiency, the data passed-in is not bounds checked --
 		you must ensure that you are passing memory that is at least mComponentStride bytes large.
 	 
@@ -227,36 +232,32 @@ public:
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, T& data) const
 	{
-		//TTRowID m = mRowCount;
-		TTColumnID n = mColumnCount;
-		
-		//i -= 1;	// convert to zero-based indices for data access
-		//j -= 1;	// convert to zero-based indices for data access
-		
-		data = *(T*)(mData + (i*n+j) * mComponentStride);	
+		data = *(T*)(mData + (i*mColumnCount+j) * mComponentStride);	
 		return kTTErrNone;
 	}
-		
 	
+		
+	/**	Get the value of element e of the component located at (i,j) in a 2-dimensional matrix.
+		Remember that the first component in the matrix is (0,0) and its first element is 0.
+		
+		In order to provide some degree of efficiency, the data passed-in is not bounds checked --
+		you must ensure that you are passing memory that is at least mComponentStride bytes large.
+	 
+		In fact, you should pass a compound type if you want more than one of the primitive types.
+		For example, pass a pointer to a TTComplex if you want two doubles.
+	 */
 	template<typename T>
-	TTErr get2d(TTRowID i, TTColumnID j, TTElementID element, T& data)
+	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data)
 	{
-		//TTRowID m = mRowCount;
-		TTColumnID n = mColumnCount;
-		
-		//i -= 1;			// convert to zero-based indices for data access
-		//j -= 1;			// convert to zero-based indices for data access
-		//element -=1;	// convert to zero-based indices for data access
-		
-		data = *(T*)((mData + (i*n+j) * mComponentStride) + element);	
+		data = *(T*)((mData + (i*mColumnCount+j) * mComponentStride) + e);	
 		return kTTErrNone;
 	}
 	
 		
 	/**	Set the value of a component located at any location in an 2-dimensional matrix.
 		Pass in coordinate pair and new value using anInputValue. Returns nothing via anOutputValue.
-		Used primarily as an interface to the matrix data from Jamoma implementations in Ruby and Max. To store values in the matrix with less overhead, see the set2d() method.
-		All dimension indices begin counting at one. INDEX revision underway.	
+		Remember that the first location in the matrix is row 0 and column 0.
+		Used primarily as an interface to the matrix data from Jamoma implementations in Ruby and Max. To store values in the matrix with less overhead, see the set2d() method.	
 		@param	anInputValue		TTValue array containing the row and column values of coordinates and elements to be stored at this location, therefore anInputValue requires (2 + mElementCount) items
 		@param	anOutputValue		unused
 		@return	TTErr				kTTErrWrongNumValues if anInputValue does not have (2 + mElementCount) items, else kTTErrNone 
@@ -264,10 +265,10 @@ public:
 	TTErr set(const TTValue& anInputValue, TTValue &anOutputValue);
 
 	/**	Set the value of a component located at (i,j) in a 2-dimensional matrix.	
-		The first location in the matrix is (1,1).  INDEX revision underway.
+		Remember that the first component in the matrix is (0,0).
+		
 		In order to provide some degree of efficiency, the data passed-in is not bounds checked --
 		you must ensure that you are passing memory that is at least mComponentStride bytes large.
-	 
 	 
 		In fact, you should pass a compound type if you want more than one of the primitive types.
 		For example, pass a pointer to a TTComplex if you want two doubles.
@@ -275,30 +276,23 @@ public:
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, T data)
 	{
-		//TTRowID m = mRowCount;
-		TTColumnID n = mColumnCount;
-		
-		//i -= 1;	// convert to zero-based indices for data access
-		//j -= 1;	// convert to zero-based indices for data access
-		
-		*(T*)(mData + (i*n+j) * mComponentStride) = data;
-		
+		*(T*)(mData + (i*mColumnCount+j) * mComponentStride) = data;
 		return kTTErrNone;
 	}
 	
-	
+	/**	Set the value of element e of the component located at (i,j) in a 2-dimensional matrix.
+		Remember that the first component in the matrix is (0,0) and its first element is 0.
+		
+		In order to provide some degree of efficiency, the data passed-in is not bounds checked --
+		you must ensure that you are passing memory that is at least mComponentStride bytes large.
+	 
+		In fact, you should pass a compound type if you want more than one of the primitive types.
+		For example, pass a pointer to a TTComplex if you want two doubles.
+	 */
 	template<typename T>
-	TTErr set2d(TTRowID i, TTColumnID j, TTElementID element, T data)
+	TTErr set2d(TTRowID i, TTColumnID j, TTElementID e, T data)
 	{
-		//TTRowID m = mRowCount;
-		TTColumnID n = mColumnCount;
-		
-		//i -= 1;			// convert to zero-based indices for data access
-		//j -= 1;			// convert to zero-based indices for data access
-		//element -=1;	// convert to zero-based indices for data access
-		
-		*(T*)(mData + ((i*n+j) * mComponentStride) + element) = data;
-		
+		*(T*)(mData + ((i*mColumnCount+j) * mComponentStride) + e) = data;
 		return kTTErrNone;
 	}
 	
