@@ -1,4 +1,4 @@
-/*
+/*! \file TTBase.h
  * Jamoma's lowest-level base class and related infrastructure
  * Copyright © 2008, Timothy Place
  *
@@ -199,9 +199,33 @@ typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBool
 
 /****************************************************************************************************/
 
-/**	TTBlue Data Types
- *	Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
- *	TTAttribute objects.																			*/
+
+/** \defgroup enums Enumerations
+ *
+ * Various enumerations used in %Jamoma.
+ */
+
+
+/** \defgroup bitmasks Bit Masks
+ *
+ * Various enumerations used as bitmasks in %Jamoma.
+ */
+
+/** \defgroup typedefs Typedefs
+ *
+ * Various typedefs used in %Jamoma.
+ */
+
+/** \defgroup consts Constants
+ *
+ * Various constants used in %Jamoma.
+ */
+
+
+/**	\ingroup enums
+ TTBlue Data Types
+ Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
+ TTAttribute objects.																			*/
 enum TTDataType{
 	kTypeNone = 0,
 	kTypeFloat32,
@@ -268,8 +292,9 @@ public:
 
 
 
-/**	TTBlue Error Codes
- *	Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
+/**	\ingroup enums
+ Jamoma Error Codes
+ Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
 enum TTErr {
 	kTTErrNone = 0,			///< No Error.
 	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
@@ -443,13 +468,36 @@ public:
 TTFOUNDATION_EXPORT TTFloat64 TTRandom64();
 
 
+/** \ingroup consts
+ Equal Power lookup table, 512 elements 
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];
 
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table, 512 elements
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRoot[];			///< Square Root lookup table, 512 elements
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPowerSymetric[];	///< Equal Power lookup table with 0.701 at element 256
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRootSymetric[];	///< Square Root lookup table with 0.701 at element 256
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
+/** \ingroup consts
+ Square Root lookup table, 512 elements
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRoot[];
+
+/** \ingroup consts
+ Equal Power lookup table with 0.701 at element 256
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPowerSymetric[];
+
+/** \ingroup consts
+ Square Root lookup table with 0.701 at element 256
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRootSymetric[];
+
+/** \ingroup consts
+ 256 point window table (the first half of it)
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];
+
+/** \ingroup consts
+ Quarter Sine lookup table
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];
+
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi     (3.1416)
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;						///< pre-calculated value of pi/2
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTQuarterPi;					///< pre-calculated value of pi/4
