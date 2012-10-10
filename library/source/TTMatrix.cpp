@@ -266,12 +266,11 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 	if (dimensionCount != 2) // 2 dimensions only
 		return kTTErrWrongNumValues;
 
-	// TODO: this will be a good place to use the planned where() method
 	TTUInt32 i, j, index;
-
 	anInputValue.get(0, i);
 	anInputValue.get(1, j);
-	index = i * mColumnCount + j;
+	index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+	
 	// TODO: there is no bounds checking here
 	
 	anOutputValue.clear();
@@ -280,19 +279,19 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			anOutputValue.append((TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anOutputValue.append((TTUInt8*)(mData+(index+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			anOutputValue.append((TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anOutputValue.append((TTInt32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			anOutputValue.append((TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anOutputValue.append((TTFloat32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			anOutputValue.append((TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anOutputValue.append((TTFloat64*)(mData+(index+e*mTypeSizeInBytes)));
 	}
 
 	return kTTErrNone;
@@ -311,29 +310,28 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 
 	theValue.copyFrom(anInputValue, dimensionCount);
 
-	// TODO: this will be a good place to use the planned where() method
 	TTUInt32 i, j, index;
-
 	anInputValue.get(0, i);
 	anInputValue.get(1, j);
-	index = i * mColumnCount + j;
+	index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+	
 	// TODO: there is no bounds checking here
 	
 	if (mType == TT("uint8")) {
 		for (int e=0; e<mElementCount; e++)
-			anInputValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anInputValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("int32")) {
 		for (int e=0; e<mElementCount; e++)
-			anInputValue.get(e+dimensionCount, *(TTInt32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anInputValue.get(e+dimensionCount, *(TTInt32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float32")) {
 		for (int e=0; e<mElementCount; e++)
-			anInputValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anInputValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
 	else if (mType == TT("float64")) {
 		for (int e=0; e<mElementCount; e++)
-			anInputValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index*mComponentStride+e*mTypeSizeInBytes)));
+			anInputValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index+e*mTypeSizeInBytes)));
 	}
 
 	return kTTErrNone;

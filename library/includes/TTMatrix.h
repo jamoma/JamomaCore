@@ -224,29 +224,15 @@ public:
 	TTErr fill(const TTValue& anInputValue, TTValue &anOutputValue);
 	
 	
-	/** Internal method used by both set() and get() functions to locate the data within mData to be operated on. 
+	/** Internal macro used by both set() and get() functions to locate the data within mData to be operated on. 
 		Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.
 
 		@param	i			row in matrix
 		@param	j			column in matrix
-		@return TTUInt32	index within mData where the component begins
 	*/
-	TTUInt32 whereAsComponentIndex(TTRowID i, TTColumnID j)
-	{
-		//TTUInt32 indexOfComponent = i * mColumnCount + j;
-		return (i * mColumnCount + j);
-	}
-	
-	TTBytePtr where(TTRowID i, TTColumnID j, TTUInt32 e)
-	{
-		TTBytePtr locationAsBytePtr;
-		TTUInt32 indexOfComponent = i * mColumnCount + j;
-		TTUInt16 bytesToElement = e * mTypeSizeInBytes;
-		
-		// I would ideally like to use mHeadPtr instead of mData in the next line, but type mismatch needs to be resolved
-		locationAsBytePtr = mData + ( indexOfComponent * mComponentStride ) + bytesToElement;
-		
-		return locationAsBytePtr;
+	#define INDEX_OF_FIRSTCOMPONENTBYTE(i, j)			\
+	{													\
+		(i * mColumnCount + j) * mComponentStride		\
 	}
 	
 	
@@ -290,7 +276,8 @@ public:
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, T& data) const
 	{
-		data = *(T*)(mData + (i*mColumnCount+j) * mComponentStride);	
+		TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+		data = *(T*)(mData + index);
 		return kTTErrNone;
 	}
 	
@@ -313,7 +300,8 @@ public:
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data)
 	{
-		data = *(T*)((mData + (i*mColumnCount+j) * mComponentStride) + e);	
+		TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+		data = *(T*)(mData + index + e);	// TODO: don't we need to account for bytes per element?
 		return kTTErrNone;
 	}
 	
@@ -346,7 +334,8 @@ public:
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, T data)
 	{
-		*(T*)(mData + (i*mColumnCount+j) * mComponentStride) = data;
+		TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+		*(T*)(mData + index) = data;
 		return kTTErrNone;
 	}
 	
@@ -368,7 +357,8 @@ public:
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, TTElementID e, T data)
 	{
-		*(T*)(mData + ((i*mColumnCount+j) * mComponentStride) + e) = data;
+		TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+		*(T*)(mData + index + e) = data;	// TODO: don't we need to account for bytes per element?
 		return kTTErrNone;
 	}
 	
