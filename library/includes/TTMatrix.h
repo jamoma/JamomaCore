@@ -35,13 +35,15 @@ typedef TTUInt16 TTElementID;
 /****************************************************************************************************/
 // Class Specification
 
-/**	An 2-dimensional matrix of compound values with N elements.	
+/**	An 2-dimensional matrix of compound values with N elements each.	
 
-* Locations for individual values in the matrix are identified by (row, column) pairs.  These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. Note that support for N dimensions has been deprecated and the TTMatrix class is now fixed at 2 dimensions.
+* Each compound value stored in the matrix is known as a component. The number of elements in each component is variable, enabling the storage of things like complex numbers or RGBA colors. However, this element count for each component and their datatype is uniform across the entire matrix.
 
-* Each value in the matrix can have a variable amount of elements, enabling the storage of things like complex numbers or RGBA colors at each location.
+* Locations for individual components in the matrix are identified by (row, column) pairs.  These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. 
 
-* 	All dimension indices begin counting at zero. This means that index values that are greater than or equal to the respective mRowCount, mColumnCount or mElementCount will be out of bounds.
+* All dimension indices begin counting at zero. This means that index values greater than or equal to the respective mRowCount, mColumnCount or mElementCount will be out of bounds.
+
+* Please note that previous support for N dimensions has been deprecated and the TTMatrix class is now fixed at 2 dimensions. Throughout this documentation, dimension 1 is referred to as the "row" and dimension 2 is referred to as the "column".
 */
 class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
@@ -65,42 +67,73 @@ protected:
 	TTPtr			mTailPtr;		///< Pointer used for checking if get/set methods are in bounds. Equal to the start of last component in mData.
 	
 	
-	/**	Internal method that resizes memory allocated when various attributes change.	*/
+	/**	Internal method that resizes memory allocated when various attributes change.	
+		@return	TTErr		kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone */
 	TTErr resize();
 
 	/**	Run unit tests.	*/	
 	virtual TTErr test(TTValue& returnedTestInfo);
 	
-	/**	Internal method that sets the value for RowCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. */
+	/**	Internal method that sets the value for RowCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. 
+		@param	aNewRowCount	number of desired rows in this matrix
+		@return TTBoolean		false if value was outside allowed range and therefore not changed, otherwise true
+		*/
 	TTBoolean setRowCountWithoutResize(TTRowID aNewRowCount);
 	
-	/**	Internal method that sets the value for ColumnCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. */
+	/**	Internal method that sets the value for ColumnCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. 
+		@param	aNewColumnCount		number of desired columns in this matrix
+		@return TTBoolean			false if value was outside allowed range and therefore not changed, otherwise true
+		*/
 	TTBoolean setColumnCountWithoutResize(TTColumnID aNewColumnCount);
 	
-	/**	Internal method that sets the value for ElementCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. */
+	/**	Internal method that sets the value for ElementCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. 
+		@param	aNewElementCount	number of desired elements in each component
+		@return TTBoolean			false if value was outside allowed range and therefore not changed, otherwise true
+		*/
 	TTBoolean setElementCountWithoutResize(TTElementID aNewElementCount);
 	
-	/**	Internal method that sets the values for Type and TypeSizeInBytes without resizing the matrix of values. It is included so that other methods in the class consistently check for valid entries. Values that are not a numeric type defined by ttDataTypeInfo in TTBase will return false and leave the values unchanged. */
+	/**	Internal method that sets the values for Type and TypeSizeInBytes without resizing the matrix of values. It is included so that other methods in the class consistently check for valid entries. Values that are not a numeric type defined by ttDataTypeInfo in TTBase will return false and leave the values unchanged. 
+		@param	aNewType	desired datatype to be used for each element
+		@return TTBoolean	false if value was outside allowed range and therefore not changed, otherwise true
+		*/
 	TTBoolean setTypeWithoutResize(TTDataInfoPtr aNewType);
 	
 public:
 	
-	/**	Attribute accessor. Sets the value for RowCount. Values that are less than 1 will return an error. */
+	/**	Attribute accessor. Sets the value for RowCount. Values that are less than 1 will return an error. 
+		@param	aNewRowCount	number of desired rows in this matrix	
+		@return	TTErr			kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
+	*/
 	TTErr setRowCount(const TTValue& aNewRowCount);
 	
-	/**	Attribute accessor. Sets the value for ColumnCount. Values that are less than 1 will return an error. */
+	/**	Attribute accessor. Sets the value for ColumnCount. Values that are less than 1 will return an error.
+		@param	aNewColumnCount	number of desired columns in this matrix	
+		@return	TTErr			kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
+	*/
 	TTErr setColumnCount(const TTValue& aNewColumnCount);
 	
-	/**	Attribute accessor.	Sets the value for ElementCount. Values that are less than 1 will return an error. */
+	/**	Attribute accessor.	Sets the value for ElementCount. Values that are less than 1 will return an error. 
+		@param	newElementCount	number of desired elements in each component	
+		@return	TTErr			kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
+	*/
 	TTErr setElementCount(const TTValue& newElementCount);
 	
-	/**	Attribute accessor.	Sets the value for Type and TypeSizeInBytes.  Values must be one of the numeric types defined by ttDataTypeInfo in TTBase (i.e., float32, float64, int8, uint8, int16, uint16, int32, uint32, int64, uint64). */
+	/**	Attribute accessor.	Sets the value for Type and TypeSizeInBytes.  Values must be one of the numeric types defined by ttDataTypeInfo in TTBase (i.e., float32, float64, int8, uint8, int16, uint16, int32, uint32, int64, uint64). 
+		@param	aType		desired datatype to be used for each element	
+		@return	TTErr		kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
+	*/
 	TTErr setType(const TTValue& aType);
 	
-	/**	Attribute accessor.  Set the values of RowCount and ColumnCount using a TTValue array. Values beyond the first two items in the TTValue array will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. */
+	/**	Attribute accessor.  Set the values of mRowCount and mColumnCount using a TTValue array. Values beyond the first two items in the TTValue array will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. 
+		@param	someNewDimensions	a 2-item TTValue array with the desired mRowCount and mColumnCount 	
+		@return	TTErr				kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
+	*/
 	TTErr setDimensions(const TTValue& someNewDimensions);
 	
-	/**	Alternative to attribute accessor. Set the values of RowCount and ColumnCount with a TTUInt32 vector (instead of using  TTValue array). Values beyond the first two items in the vector will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. */
+	/**	Alternative to attribute accessor. Set the values of mRowCount and mColumnCount with a TTUInt32 vector (instead of using  TTValue array). Values beyond the first two items in the vector will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. 
+		@param	newDimensions	a 2-item TTUInt32 vector with the desired mRowCount and mColumnCount 	
+		@return	TTErr			kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
+	*/
 	TTErr setDimensionsWithVector(const vector<TTUInt32>& newDimensions)
 	{
 		if (this->setRowCountWithoutResize(newDimensions[0]) &&
@@ -113,71 +146,90 @@ public:
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mRowCount as a TTRowID */	
+		@return	TTRowID		the value stored at mRowCount */	
 	TTRowID getRowCount()
 	{
 		return mRowCount;
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mColumnCount as a TTColumnID */
+		@return	TTColumnID		the value stored at mColumnCount */
 	TTColumnID getColumnCount()
 	{
 		return mColumnCount;
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mElementCount as a TTElementID */
+		@return	TTElementID		the value stored at mElementCount */
 	TTElementID getElementCount()
 	{
 		return mElementCount;
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mComponentCount as a TTUInt32 */
+		@return	TTUInt32		the value stored at mComponentCount */
 	TTUInt32 getComponentCount()
 	{
 		return mComponentCount;
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mType as a TTSymbolPtr */
+		@return	TTSymbolPtr		the value stored at mType */
 	TTSymbolPtr	getTypeAsSymbol()
 	{
 		return mType;
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mTypeAsDataInfo as a TTDataInfoPtr */
+		@return	TTDataInfoPtr		the value stored at mTypeAsDataInfo*/
 	TTDataInfoPtr getTypeAsDataInfo()
 	{
 		return mTypeAsDataInfo;
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mDataCount as a TTUInt32 */
+		@return	TTUInt32		the value stored at mDataCount */
 	TTUInt32 getDataCount()
 	{
 		return mDataCount;
 	}
 	
 	/**	Simple data accessor. 
-	* @return - the value stored at mComponentStride as a TTUInt32 */
+		@return	TTUInt32		the value stored at mComponentStride */
 	TTUInt32 getComponentStride()
 	{
 		return mComponentStride;
 	}
 	
-	/**	Attribute accessor. Included for legacy.  Will set returnedDimensions as a 2-item TTValue using the values saved as RowCount & ColumnCount.	*/
+	/**	Legacy attribute accessor. Will set returnedDimensions as a 2-item TTValue using the values saved as RowCount & ColumnCount.	
+	
+	@param[out]	returnedDimensions	a 2-item TTValue with mRowCount first & mColumnCount second
+	@return		TTErr				always returns kTTErrNone 
+	*/
 	TTErr getDimensions(TTValue& returnedDimensions) const;
 	
+	
+	/** Set every element in the matrix to zero.
+	
+	@return	TTErr				always returns kTTErrNone 
+	*/
 	TTErr clear();
+	
+	/** Fill every component in the matrix with the same value.
+	
+	@param[in]	anInputValue		TTValue array containing the elements used to fill matrix
+	@param[out]	anOutputValue		unused
+	@return		TTErr				always returns kTTErrNone 
+	*/
 	TTErr fill(const TTValue& anInputValue, TTValue &anOutputValue);
 	
 	
 	/** Internal method used by both set() and get() functions to locate the data within mData to be operated on. 
-	 *	Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.
-	 *	@return TTUInt32	index within mData where the component begins
+		Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.
+
+		@param	i			row in matrix
+		@param	j			column in matrix
+		@return TTUInt32	index within mData where the component begins
 	*/
 	TTUInt32 whereAsComponentIndex(TTRowID i, TTColumnID j)
 	{
@@ -213,9 +265,10 @@ public:
 		Pass in coordinate pair using anInputValue. Returns via anOutputValue an mElementCount-item TTValue using the values stored at the coordinates specified by anInputValue. 
 		Remember that the first location in the matrix is row 0 and column 0.
 		Used primarily as an interface to the matrix data from Jamoma implementations in Ruby and Max. To retrieve values from the matrix with less overhead, see the get2d() method.
-		@param	anInputValue		TTValue array containing the row and column values of coordinates
-		@param	anOutputValue		method sets to a TTValue array containing element(s) found at the given coordinates
-		@return	TTErr				kTTErrWrongNumValues if anInputValue does not have 2 items, else kTTErrNone 
+
+		@param[in]	anInputValue		TTValue array containing the row and column values of coordinates
+		@param[out]	anOutputValue		method sets to a TTValue array containing element(s) found at the given coordinates
+		@return		TTErr				kTTErrWrongNumValues if anInputValue does not have 2 items, else kTTErrNone 
 		*/
 	TTErr get(const TTValue& anInputValue, TTValue &anOutputValue) const;
 
@@ -228,6 +281,11 @@ public:
 	 
 		In fact, you should pass a compound type if you want more than one of the primitive types.
 		For example, pass a pointer to a TTComplex if you want two doubles.
+		
+		@param[in]	i			row in matrix of desired component
+		@param[in]	j			column in matrix of desired component
+		@param[out]	data		reference to where method should return value
+		@return 	TTErr		always returns kTTErrNone
 	 */
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, T& data) const
@@ -245,6 +303,12 @@ public:
 	 
 		In fact, you should pass a compound type if you want more than one of the primitive types.
 		For example, pass a pointer to a TTComplex if you want two doubles.
+		
+		@param[in]	i			row in matrix of desired component
+		@param[in]	j			column in matrix of desired component
+		@param[in]	e			element within matrix component
+		@param[out]	data		reference to where method should return value
+		@return 	TTErr		always returns kTTErrNone
 	 */
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data)
@@ -258,9 +322,10 @@ public:
 		Pass in coordinate pair and new value using anInputValue. Returns nothing via anOutputValue.
 		Remember that the first location in the matrix is row 0 and column 0.
 		Used primarily as an interface to the matrix data from Jamoma implementations in Ruby and Max. To store values in the matrix with less overhead, see the set2d() method.	
-		@param	anInputValue		TTValue array containing the row and column values of coordinates and elements to be stored at this location, therefore anInputValue requires (2 + mElementCount) items
-		@param	anOutputValue		unused
-		@return	TTErr				kTTErrWrongNumValues if anInputValue does not have (2 + mElementCount) items, else kTTErrNone 
+
+		@param[in]	anInputValue		TTValue array containing the row and column values of coordinates and elements to be stored at this location, therefore anInputValue requires (2 + mElementCount) items
+		@param[out]	anOutputValue		unused
+		@return		TTErr				kTTErrWrongNumValues if anInputValue does not have (2 + mElementCount) items, else kTTErrNone 
 		*/
 	TTErr set(const TTValue& anInputValue, TTValue &anOutputValue);
 
@@ -272,6 +337,11 @@ public:
 	 
 		In fact, you should pass a compound type if you want more than one of the primitive types.
 		For example, pass a pointer to a TTComplex if you want two doubles.
+		
+		@param[in]	i			row in matrix of component to be set
+		@param[in]	j			column in matrix of component to be set
+		@param[out]	data		reference to where method should return value
+		@return 	TTErr		always returns kTTErrNone
 	 */
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, T data)
@@ -288,6 +358,12 @@ public:
 	 
 		In fact, you should pass a compound type if you want more than one of the primitive types.
 		For example, pass a pointer to a TTComplex if you want two doubles.
+		
+		@param[in]	i			row in matrix of component to be set
+		@param[in]	j			column in matrix of component to be set
+		@param[in]	e			element within matrix component
+		@param[out]	data		reference to where method should return value
+		@return 	TTErr		always returns kTTErrNone
 	 */
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, TTElementID e, T data)
@@ -353,14 +429,23 @@ public:
 #endif
 
 	
-	/**	Compare the attributes of this matrix to another to see if they all match. Used before conducting certain math operations.	*/
+	/**	Compare the attributes of this matrix to another to see if they all match. Used before conducting certain math operations.	
+	
+	@param	anotherMatrix		matrix that you would like to compare to this one
+	@return	TTBoolean			true if mTypeAsDataInfo, mElementCount, mRowCount AND mColumnCount match, otherwise false
+	*/
 	TTBoolean allAttributesMatch(const TTMatrix& anotherMatrix) const;
 	TTBoolean allAttributesMatch(const TTMatrix* anotherMatrix) const
 	{
 		return TTMatrix::allAttributesMatch(*anotherMatrix);
 	}
 	
-	/**	Copy the data from one matrix into another.	*/
+	/**	Copy the data from one matrix into another.
+	
+	@param[in]	source			matrix that you would like to copy FROM
+	@param[out]	dest			matrix that you would like to copy TO
+	@return		TTErr			kTTErrInvalidValue if operation is not completed, otherwise kTTErrNone
+	*/
 	static TTErr copy(const TTMatrix& source, TTMatrix& dest);
 	static TTErr copy(const TTMatrix* source, TTMatrix* dest)
 	{
@@ -368,7 +453,11 @@ public:
 	}
 
 	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
-	 to match the another matrix which is passed-in as an argument.	*/
+	 to match the another matrix which is passed-in as an argument.	
+	
+	@param	anotherMatrix	matrix to which you would like to conform the attributes of this one
+	@return	TTErr			kTTErrInvalidValue if operation is not completed, otherwise kTTErrNone
+	*/
 	TTErr adaptTo(const TTMatrix& anotherMatrix);
 	TTErr adaptTo(const TTMatrix* anotherMatrix)
 	{
@@ -376,27 +465,27 @@ public:
 	}
 	
 	/**	A function (method) type for implementing iterators used by the iterate() method.	
-	@param	c			pointer to matrix that holds the results of the operation
-	@param	a			pointer to matrix 1 of 2 for the iteration operation
-	@param	b			pointer to matrix 2 of 2 for the iteration operation
+	@param[out]	c			pointer to matrix that holds the results of the operation
+	@param[in]	a			pointer to matrix 1 of 2 for the iteration operation
+	@param[in]	b			pointer to matrix 2 of 2 for the iteration operation
 	*/
 	typedef void (*TTMatrixIterator)(TTPtr c, const TTPtr a, const TTPtr b);
 	
 	/**	Step through every component in the matrix A and B to produce matrix C using the specified iterator method.
-	@param	C			pointer to matrix that holds the results of the operation
-	@param	A			pointer to matrix 1 of 2 for the iteration operation
-	@param	B			pointer to matrix 2 of 2 for the iteration operation
-	@param	iterator	function that will be used to operate on matrices A and B
-	@return	TTErr		kTTErrGeneric if attributes do not match or if iterate fails, otherwise returns kTTErrNone
+	@param[out]	C			pointer to matrix that holds the results of the operation
+	@param[in]	A			pointer to matrix 1 of 2 for the iteration operation
+	@param[in]	B			pointer to matrix 2 of 2 for the iteration operation
+	@param[in]	iterator	function that will be used to operate on matrices A and B
+	@return		TTErr		kTTErrGeneric if attributes do not match or if iterate fails, otherwise returns kTTErrNone
 	*/
 	static TTErr iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator);
 	
 	/**	Only if all the attributes of matrix A and B match, then step through every component to produce matrix C using the specified iterator method.	
-	@param	C			pointer to matrix that holds the results of the operation
-	@param	A			pointer to matrix 1 of 2 for the iteration operation
-	@param	B			pointer to matrix 2 of 2 for the iteration operation
-	@param	iterator	function that will be used to operate on matrices A and B
-	@return	TTErr		kTTErrGeneric if attributes do not match or if iterate fails, otherwise returns kTTErrNone
+	@param[out]	C			pointer to matrix that holds the results of the operation
+	@param[in]	A			pointer to matrix 1 of 2 for the iteration operation
+	@param[in]	B			pointer to matrix 2 of 2 for the iteration operation
+	@param[in]	iterator	function that will be used to operate on matrices A and B
+	@return		TTErr		kTTErrGeneric if attributes do not match or if iterate fails, otherwise returns kTTErrNone
 	*/
 	static TTErr iterateWhenAllAttributesMatch(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator);
 
