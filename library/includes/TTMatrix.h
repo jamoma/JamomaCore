@@ -60,6 +60,7 @@ protected:
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
 	TTSymbolPtr			mType;					///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
 	TTDataInfoPtr		mTypeAsDataInfo;		///< local pointer to info about the data type found in TTBase::ttDataTypeInfo
+	TTDataType			mTypeAsDataType;		///< data type defined in global enumerated list TTBase::TTDataType
 	TTUInt8				mTypeSizeInBytes;		///< number of bytes present in mType
 	TTUInt32			mDataSize;				///< mTypeSizeInBytes * mDataCount
 	TTBoolean			mDataIsLocallyOwned;	///< If false, then we are referencing outside memory which we don't own
@@ -96,7 +97,7 @@ protected:
 		@param	aNewType	desired datatype to be used for each element
 		@return TTBoolean	false if value was outside allowed range and therefore not changed, otherwise true
 		*/
-	TTBoolean setTypeWithoutResize(TTDataInfoPtr aNewType);
+	TTBoolean setTypeWithoutResize(TTDataType aNewType);
 	
 public:
 	

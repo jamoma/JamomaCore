@@ -281,6 +281,19 @@ public:
 		return ttDataTypeInfo[kTypeNone];
 	}
 
+	static TTDataType matchSymbolToDataType(TTSymbol* typeAsSymbolPtr)
+	{		
+		// look through the symbols for each type in the enumerated list and see if there is a match...
+		int type = 0;
+		while (++type < kNumTTDataTypes) 
+		{
+			// if yes, then return that type 
+			if (ttDataTypeInfo[type]->name == typeAsSymbolPtr) return TTDataType(type);
+		}
+		// if no, then return the TTDataInfoPtr for type "none"
+		return kTypeNone;
+	}
+
 	static TTBoolean getIsNumerical(TTDataType type)
 	{
 		return ttDataTypeInfo[type]->isNumerical;

@@ -120,13 +120,14 @@ TTBoolean TTMatrix::setElementCountWithoutResize(TTElementID aNewElementCount)
 }
 
 
-TTBoolean TTMatrix::setTypeWithoutResize(TTDataInfoPtr aNewType)
+TTBoolean TTMatrix::setTypeWithoutResize(TTDataType aNewType)
 {
-	if (aNewType->isNumerical)
+	if (ttDataTypeInfo[aNewType]->isNumerical)
 	{
-		mTypeAsDataInfo = aNewType;
-		mType = aNewType->name;
-		mTypeSizeInBytes = (aNewType->bitdepth / 8);
+		mTypeAsDataType = aNewType;
+		mTypeAsDataInfo = TTDataInfo::getInfoForType(aNewType);
+		mType = mTypeAsDataInfo->name;
+		mTypeSizeInBytes = (mTypeAsDataInfo->bitdepth / 8);
 		return true;
 	} else {
 		return false;
@@ -176,7 +177,8 @@ TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
 TTErr TTMatrix::setType(const TTValue& aType)
 {
 	TTSymbolPtr aNewTypeName = aType;
-	TTDataInfoPtr aNewDataType = TTDataInfo::getInfoForType(aNewTypeName);  // move into the "withoutResize" method?
+	TTDataType aNewDataType = TTDataInfo::matchSymbolToDataType(aNewTypeName);
+	TTDataInfoPtr aNewDataInfoPtr = TTDataInfo::getInfoForType(aNewTypeName);  // move into the "withoutResize" method?
 	
 	if (setTypeWithoutResize(aNewDataType))
 	{
@@ -371,7 +373,7 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 	if (setRowCountWithoutResize(anotherMatrix.mRowCount) &&
 		setColumnCountWithoutResize(anotherMatrix.mColumnCount) &&
 		setElementCountWithoutResize(anotherMatrix.mElementCount) &&
-		setTypeWithoutResize(anotherMatrix.mTypeAsDataInfo))
+		setTypeWithoutResize(anotherMatrix.mTypeAsDataType))
 	{
 		return resize();
 	} else {
