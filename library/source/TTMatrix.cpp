@@ -23,7 +23,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mComponentCount(1),
 	mComponentStride(1),
 	mDataCount(0),
-	mType(TT("uint8")), // TYPECHANGE kTypeUInt8
+	mType(kTypeUInt8),
 	mTypeSizeInBytes(1),
 	mDataSize(0),
 	mDataIsLocallyOwned(YES),
@@ -34,7 +34,8 @@ TT_OBJECT_CONSTRUCTOR,
 																	// we will keep setDimensions() & getDimensions()
 	addAttributeWithSetter(RowCount, 				kTypeUInt32);
 	addAttributeWithSetter(ColumnCount, 			kTypeUInt32);
-	addAttributeWithSetter(Type,					kTypeUInt8);
+	addAttributeWithGetterAndSetter(Type,			kTypeUInt8);	// necessary so that public interface uses symbols
+																	// internally we use TTDataType
 	addAttributeWithSetter(ElementCount,			kTypeUInt8);
 
 	addMessage(clear);
@@ -124,9 +125,9 @@ TTBoolean TTMatrix::setTypeWithoutResize(TTDataType aNewType)
 {
 	if (ttDataTypeInfo[aNewType]->isNumerical)
 	{
-		mTypeAsDataType = aNewType;
+		mType = aNewType;
+		mType = aNewType;
 		mTypeAsDataInfo = TTDataInfo::getInfoForType(aNewType);
-		//mType = mTypeAsDataInfo->name;
 		mTypeSizeInBytes = (mTypeAsDataInfo->bitdepth / 8);
 		return true;
 	} else {
@@ -209,6 +210,15 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 }
 
 
+TTErr TTMatrix::getType(TTValue& returnedType) const
+{
+	TTSymbolPtr dataTypeName = mTypeAsDataInfo->name;
+	returnedType = new TTValue(dataTypeName);
+	
+	return kTTErrNone;
+}
+
+
 TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 {
 	returnedDimensions.setSize(2);
@@ -231,13 +241,13 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	TTBytePtr fillValue = new TTByte[mComponentStride];
 
 	// TODO: here we have this ugly switch again...
-	if (mTypeAsDataType == kTypeUInt8) // kTypeUInt8 TYPECHANGE done
+	if (mType == kTypeUInt8) 
 		anInputValue.getArray((TTUInt8*)fillValue, mElementCount);
-	else if (mTypeAsDataType == kTypeInt32) // kTypeInt32 TYPECHANGE done
+	else if (mType == kTypeInt32) 
 		anInputValue.getArray((TTInt32*)fillValue, mElementCount);
-	else if (mTypeAsDataType == kTypeFloat32) // kTypeFloat32 TYPECHANGE done
+	else if (mType == kTypeFloat32) 
 		anInputValue.getArray((TTFloat32*)fillValue, mElementCount);
-	else if (mTypeAsDataType == kTypeFloat64) // kTypeFloat64 TYPECHANGE done
+	else if (mType == kTypeFloat64) 
 		anInputValue.getArray((TTFloat64*)fillValue, mElementCount);
 
 	for (TTUInt32 i=0; i<mDataSize; i += mComponentStride)
@@ -278,19 +288,19 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 
 	// TODO: here we have this ugly switch again...
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
-	if (mTypeAsDataType == kTypeUInt8) { // kTypeUInt8 TYPECHANGE done
+	if (mType == kTypeUInt8) { 
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTUInt8*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mTypeAsDataType == kTypeInt32) { // kTypeInt32 TYPECHANGE done
+	else if (mType == kTypeInt32) { 
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTInt32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mTypeAsDataType == kTypeFloat32) { // kTypeFloat32 TYPECHANGE done
+	else if (mType == kTypeFloat32) { 
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTFloat32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mTypeAsDataType == kTypeFloat64) { // kTypeFloat64 TYPECHANGE done
+	else if (mType == kTypeFloat64) { 
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTFloat64*)(mData+(index+e*mTypeSizeInBytes)));
 	}
@@ -318,19 +328,19 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	
 	// TODO: there is no bounds checking here
 	
-	if (mTypeAsDataType == kTypeUInt8) { // kTypeUInt8 TYPECHANGE done
+	if (mType == kTypeUInt8) { 
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mTypeAsDataType == kTypeInt32) { // kTypeInt32 TYPECHANGE done
+	else if (mType == kTypeInt32) { 
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTInt32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mTypeAsDataType == kTypeFloat32) { // kTypeFloat32 TYPECHANGE done
+	else if (mType == kTypeFloat32) { 
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mTypeAsDataType == kTypeFloat64) { // kTypeFloat64 TYPECHANGE done
+	else if (mType == kTypeFloat64) { 
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index+e*mTypeSizeInBytes)));
 	}
@@ -342,7 +352,7 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 TTBoolean TTMatrix::allAttributesMatch(const TTMatrix& anotherMatrix) const
 {
 	// TODO: should/could this be inlined?
-	if (mTypeAsDataType == anotherMatrix.mTypeAsDataType  &&  // TYPECHANGE done
+	if (mType == anotherMatrix.mType  && 
 		mElementCount == anotherMatrix.mElementCount && 
 		mRowCount == anotherMatrix.mRowCount &&
 		mColumnCount == anotherMatrix.mColumnCount)
@@ -372,7 +382,7 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 	if (setRowCountWithoutResize(anotherMatrix.mRowCount) &&
 		setColumnCountWithoutResize(anotherMatrix.mColumnCount) &&
 		setElementCountWithoutResize(anotherMatrix.mElementCount) &&
-		setTypeWithoutResize(anotherMatrix.mTypeAsDataType))
+		setTypeWithoutResize(anotherMatrix.mType))
 	{
 		return resize();
 	} else {

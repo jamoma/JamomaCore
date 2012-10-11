@@ -58,9 +58,8 @@ protected:
 	TTUInt32			mComponentCount;		///< mRowCount * mColumnCount
 	TTUInt8				mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
-	TTSymbolPtr			mType;					///< "uint8", "float32", etc. --> kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, or kTypeFloat64
+	TTDataType			mType;					///< member of global enumerated list TTBase::TTDataType (i.e., kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, kTypeFloat64)
 	TTDataInfoPtr		mTypeAsDataInfo;		///< local pointer to info about the data type found in TTBase::ttDataTypeInfo
-	TTDataType			mTypeAsDataType;		///< member of global enumerated list TTBase::TTDataType
 	TTUInt8				mTypeSizeInBytes;		///< number of bytes present in mType
 	TTUInt32			mDataSize;				///< mTypeSizeInBytes * mDataCount
 	TTBoolean			mDataIsLocallyOwned;	///< If false, then we are referencing outside memory which we don't own
@@ -93,8 +92,8 @@ protected:
 		*/
 	TTBoolean setElementCountWithoutResize(TTElementID aNewElementCount);
 	
-	/**	Internal method that sets the values for Type and TypeSizeInBytes without resizing the matrix of values. It is included so that other methods in the class consistently check for valid entries. Values that are not a numeric type defined by ttDataTypeInfo in TTBase will return false and leave the values unchanged. 
-		@param	aNewType	desired datatype to be used for each element
+	/**	Internal method that sets the values for type-related variables without resizing the matrix of values. It is included so that other methods in the class consistently check for valid entries. Values that are not a defined numeric type in TTBase::ttDataTypeInfo will return false and leave the values unchanged. 
+		@param	aNewType	desired TTDataType to be used for elements
 		@return TTBoolean	false if value was outside allowed range and therefore not changed, otherwise true
 		*/
 	TTBoolean setTypeWithoutResize(TTDataType aNewType);
@@ -119,11 +118,11 @@ public:
 	*/
 	TTErr setElementCount(const TTValue& newElementCount);
 	
-	/**	Attribute accessor.	Sets the value for Type and TypeSizeInBytes.  Values must be one of the numeric types defined by ttDataTypeInfo in TTBase (i.e., float32, float64, int8, uint8, int16, uint16, int32, uint32, int64, uint64). 
-		@param	aType		desired datatype to be used for each element	
+	/**	Attribute accessor.	Sets the value for type-related variables. Value must be a symbol that matches the name of a numeric type defined in TTBase::ttDataTypeInfo (i.e., float32, float64, int8, uint8, int16, uint16, int32, uint32, int64, uint64). 
+		@param	aType		name of desired datatype to be used for each element	
 		@return	TTErr		kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
 	*/
-	TTErr setType(const TTValue& aType); //TYPECHANGE not sure
+	TTErr setType(const TTValue& aType);
 	
 	/**	Attribute accessor.  Set the values of mRowCount and mColumnCount using a TTValue array. Values beyond the first two items in the TTValue array will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. 
 		@param	someNewDimensions	a 2-item TTValue array with the desired mRowCount and mColumnCount 	
@@ -174,12 +173,18 @@ public:
 		return mComponentCount;
 	}
 	
-	// TODO: Should there be an accessor for mType directly? TYPECHANGE
+	/**	Attribute accessor. Will set returnedType to a symbol matching the name of data type used in matrix.	
+	
+	@param[out]	returnedType		a TValue with a symbol matching the name of data type
+	@return		TTErr				always returns kTTErrNone 
+	*/
+	TTErr getType(TTValue& returnedType) const;
+	
 	/**	Simple data accessor. 
-		@return	TTSymbolPtr		the value stored at mTypeAsDataInfo->name */
+		@return	TTDataType		the value stored at mType */
 	TTDataType	getTypeAsDataType()
 	{
-		return mTypeAsDataType;
+		return mType;
 	}
 	
 	/**	Simple data accessor. 
@@ -507,7 +512,6 @@ typedef TTMatrix& TTMatrixRef;
 //TTMatrixPtr operator + (const TTMatrix& A, const TTMatrix& B);
 
 
-// TYPECHANGE not sure
 #define TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(template_name, input_matrix, output_matrix) \
 	if (input_matrix->getTypeAsDataType() == kTypeUInt8) \
 		err = template_name<TTUInt8>(input_matrix, output_matrix); \
