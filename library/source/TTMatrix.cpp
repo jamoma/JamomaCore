@@ -232,13 +232,13 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	TTBytePtr fillValue = new TTByte[mComponentStride];
 
 	// TODO: here we have this ugly switch again...
-	if (mType == TT("uint8"))
+	if (mType == TT("uint8")) // kTypeUInt8 TYPECHANGE
 		anInputValue.getArray((TTUInt8*)fillValue, mElementCount);
-	else if (mType == TT("int32"))
+	else if (mType == TT("int32")) // kTypeInt32 TYPECHANGE
 		anInputValue.getArray((TTInt32*)fillValue, mElementCount);
-	else if (mType == TT("float32"))
+	else if (mType == TT("float32")) // kTypeFloat32 TYPECHANGE
 		anInputValue.getArray((TTFloat32*)fillValue, mElementCount);
-	else if (mType == TT("float64"))
+	else if (mType == TT("float64")) // kTypeFloat64 TYPECHANGE
 		anInputValue.getArray((TTFloat64*)fillValue, mElementCount);
 
 	for (TTUInt32 i=0; i<mDataSize; i += mComponentStride)
@@ -279,19 +279,19 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 
 	// TODO: here we have this ugly switch again...
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
-	if (mType == TT("uint8")) {
+	if (mType == TT("uint8")) { // kTypeUInt8 TYPECHANGE
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTUInt8*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("int32")) {
+	else if (mType == TT("int32")) { // kTypeInt32 TYPECHANGE
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTInt32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float32")) {
+	else if (mType == TT("float32")) { // kTypeFloat32 TYPECHANGE
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTFloat32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float64")) {
+	else if (mType == TT("float64")) { // kTypeFloat64 TYPECHANGE
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTFloat64*)(mData+(index+e*mTypeSizeInBytes)));
 	}
@@ -319,19 +319,19 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	
 	// TODO: there is no bounds checking here
 	
-	if (mType == TT("uint8")) {
+	if (mType == TT("uint8")) { // kTypeUInt8 TYPECHANGE
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("int32")) {
+	else if (mType == TT("int32")) { // kTypeInt32 TYPECHANGE
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTInt32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float32")) {
+	else if (mType == TT("float32")) { // kTypeFloat32 TYPECHANGE
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float64")) {
+	else if (mType == TT("float64")) { // kTypeFloat64 TYPECHANGE
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index+e*mTypeSizeInBytes)));
 	}
