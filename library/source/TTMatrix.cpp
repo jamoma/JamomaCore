@@ -23,7 +23,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mComponentCount(1),
 	mComponentStride(1),
 	mDataCount(0),
-	mType(TT("uint8")),
+	mType(TT("uint8")), // TYPECHANGE kTypeUInt8
 	mTypeSizeInBytes(1),
 	mDataSize(0),
 	mDataIsLocallyOwned(YES),
@@ -126,7 +126,7 @@ TTBoolean TTMatrix::setTypeWithoutResize(TTDataType aNewType)
 	{
 		mTypeAsDataType = aNewType;
 		mTypeAsDataInfo = TTDataInfo::getInfoForType(aNewType);
-		mType = mTypeAsDataInfo->name;
+		//mType = mTypeAsDataInfo->name;
 		mTypeSizeInBytes = (mTypeAsDataInfo->bitdepth / 8);
 		return true;
 	} else {

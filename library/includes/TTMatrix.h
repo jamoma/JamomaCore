@@ -174,11 +174,19 @@ public:
 		return mComponentCount;
 	}
 	
+	// TODO: Should there be an accessor for mType directly? TYPECHANGE
 	/**	Simple data accessor. 
-		@return	TTSymbolPtr		the value stored at mType */
+		@return	TTSymbolPtr		the value stored at mTypeAsDataInfo->name */
+	TTDataType	getTypeAsDataType()
+	{
+		return mTypeAsDataType;
+	}
+	
+	/**	Simple data accessor. 
+		@return	TTSymbolPtr		the value stored at mTypeAsDataInfo->name */
 	TTSymbolPtr	getTypeAsSymbol()
 	{
-		return mTypeAsDataInfo->name; // mTypeAsDataInfo->name TYPECHANGE done
+		return mTypeAsDataInfo->name;
 	}
 	
 	/**	Simple data accessor. 
@@ -501,13 +509,13 @@ typedef TTMatrix& TTMatrixRef;
 
 // TYPECHANGE not sure
 #define TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(template_name, input_matrix, output_matrix) \
-	if (input_matrix->getTypeAsSymbol() == kTTSym_uint8) \
+	if (input_matrix->getTypeAsDataType() == kTypeUInt8) \
 		err = template_name<TTUInt8>(input_matrix, output_matrix); \
-	else if (input_matrix->getTypeAsSymbol() == kTTSym_int32) \
+	else if (input_matrix->getTypeAsDataType() == kTypeInt32) \
 		err = template_name<TTInt32>(input_matrix, output_matrix); \
-	else if (input_matrix->getTypeAsSymbol() == kTTSym_float32) \
+	else if (input_matrix->getTypeAsDataType() == kTypeFloat32) \
 		err = template_name<TTFloat32>(input_matrix, output_matrix); \
-	else if (input_matrix->getTypeAsSymbol() == kTTSym_float64) \
+	else if (input_matrix->getTypeAsDataType() == kTypeFloat64) \
 		err = template_name<TTFloat64>(input_matrix, output_matrix); \
 	else \
 		err = kTTErrInvalidType;

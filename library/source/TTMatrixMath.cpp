@@ -12,15 +12,15 @@
 
 
 // Macro so that we don't have to duplicate this cumbersome and ugly if statement many many times
-
+// TYPECHANGE
 #define TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(type,a,b,c,template) { \
-	if (type == kTTSym_uint8) \
+	if (type == kTypeUInt8) \
 		TTMatrix::iterateWhenAllAttributesMatch(a, b, c, template<TTUInt8>); \
-	else if (type == kTTSym_int32) \
+	else if (type == kTypeInt32) \
 		TTMatrix::iterateWhenAllAttributesMatch(a, b, c, template<TTInt32>); \
-	else if (type == kTTSym_float32) \
+	else if (type == kTypeFloat32) \
 		TTMatrix::iterateWhenAllAttributesMatch(a, b, c, template<TTFloat32>); \
-	else if (type == kTTSym_float64) \
+	else if (type == kTypeFloat64) \
 		TTMatrix::iterateWhenAllAttributesMatch(a, b, c, template<TTFloat64>); }
 
 
@@ -54,7 +54,7 @@ TTMatrix* TTMatrix::operator + (const TTMatrix& other) const
 	TTMatrix*		C = NULL;
 	
 	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&C, kTTValNONE);
-	TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mType, C, A, B, TTMatrixIteratorAdd);
+	TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mTypeAsDataType, C, A, B, TTMatrixIteratorAdd); //TYPECHANGE
 	return C;
 }
 
@@ -66,7 +66,7 @@ TTMatrix* TTMatrix::operator - (const TTMatrix& other) const
 	TTMatrix*		C = NULL;
 	
 	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&C, kTTValNONE);
-	TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mType, C, A, B, TTMatrixIteratorSubtract);
+	TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mTypeAsDataType, C, A, B, TTMatrixIteratorSubtract); //TYPECHANGE
 	return C;
 }
 
