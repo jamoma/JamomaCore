@@ -109,7 +109,7 @@ TTErr TTMatrixMixer::restoreMatrix()
 	for (TTUInt16 y=0; y < yy; y++) {
 		for (TTUInt16 x=0; x < xx; x++) {
 			tempGainMatrix->get2d(x, y, tempValue);
-			mGainMatrix->set2dZeroIndex(x, y, tempValue);
+			mGainMatrix->set2d(x, y, tempValue);
 		}
 	}
 	return kTTErrNone;
@@ -137,7 +137,7 @@ TTErr TTMatrixMixer::setGain(const TTValue& newValue, TTValue&)
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
 
-	mGainMatrix->set2dZeroIndex(x, y, dbToLinear(gainValue)); 
+	mGainMatrix->set2d(x, y, dbToLinear(gainValue)); 
 	return kTTErrNone;
 }
 
@@ -157,7 +157,7 @@ TTErr TTMatrixMixer::setLinearGain(const TTValue& newValue, TTValue&)
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);
 
-	mGainMatrix->set2dZeroIndex(x, y, gainValue); 
+	mGainMatrix->set2d(x, y, gainValue); 
 	return kTTErrNone;
 }
 
@@ -176,7 +176,7 @@ TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue, TTValue&e)
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
 
-	mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue));
+	mGainMatrix->set2d(x, y, midiToLinearGain(gainValue));
 	return kTTErrNone;
 }
 

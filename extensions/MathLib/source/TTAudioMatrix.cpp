@@ -122,8 +122,8 @@ TTErr TTAudioMatrix::restoreMatrix()
 	for (TTUInt16 y=0; y < yy; y++) {
 		for (TTUInt16 x=0; x < xx; x++) {
 			tempGainMatrix->get2d(x, y, tempValue);
-			mGainMatrix->set2dZeroIndex(   x, y, tempValue);
-			oldGainMatrix->set2dZeroIndex( x, y, tempValue);
+			mGainMatrix->set2d(   x, y, tempValue);
+			oldGainMatrix->set2d( x, y, tempValue);
 		}
 	}
 	return kTTErrNone;
@@ -170,7 +170,7 @@ TTErr TTAudioMatrix::setGain(const TTValue& newValue, TTValue&)
 
 	checkMatrixSize(x,y);
     
-	mGainMatrix->set2dZeroIndex(x, y, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
+	mGainMatrix->set2d(x, y, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
  	return kTTErrNone;
@@ -192,7 +192,7 @@ TTErr TTAudioMatrix::setLinearGain(const TTValue& newValue, TTValue&)
 
 	checkMatrixSize(x,y);
 	
-	mGainMatrix->set2dZeroIndex(x, y, gainValue); 
+	mGainMatrix->set2d(x, y, gainValue); 
 	if (mInterpolated) 		
 		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;	
@@ -213,7 +213,7 @@ TTErr TTAudioMatrix::setMidiGain(const TTValue& newValue, TTValue&)
 	newValue.get(2, gainValue);
 
 	checkMatrixSize(x,y);
-	mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
+	mGainMatrix->set2d(x, y, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;
@@ -311,7 +311,7 @@ TTErr TTAudioMatrix::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAu
 					outSample[i] += inSample[i] * gainValue;
 				}				
 			//}
-			oldGainMatrix->set2dZeroIndex(inChannel, outChannel, value);
+			oldGainMatrix->set2d(inChannel, outChannel, value);
 		}
 	}	
 	setProcessMethod(processAudio);
