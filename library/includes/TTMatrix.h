@@ -123,7 +123,7 @@ public:
 		@param	aType		desired datatype to be used for each element	
 		@return	TTErr		kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
 	*/
-	TTErr setType(const TTValue& aType); //TYPECHANGE
+	TTErr setType(const TTValue& aType); //TYPECHANGE not sure
 	
 	/**	Attribute accessor.  Set the values of mRowCount and mColumnCount using a TTValue array. Values beyond the first two items in the TTValue array will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. 
 		@param	someNewDimensions	a 2-item TTValue array with the desired mRowCount and mColumnCount 	
@@ -178,7 +178,7 @@ public:
 		@return	TTSymbolPtr		the value stored at mType */
 	TTSymbolPtr	getTypeAsSymbol()
 	{
-		return mType; // mTypeAsDataInfo->name TYPECHANGE
+		return mTypeAsDataInfo->name; // mTypeAsDataInfo->name TYPECHANGE done
 	}
 	
 	/**	Simple data accessor. 
@@ -423,7 +423,7 @@ public:
 	/**	Compare the attributes of this matrix to another to see if they all match. Used before conducting certain math operations.	
 	
 	@param	anotherMatrix		matrix that you would like to compare to this one
-	@return	TTBoolean			true if mTypeAsDataInfo TYPECHANGE, mElementCount, mRowCount AND mColumnCount match, otherwise false
+	@return	TTBoolean			true if mType, mElementCount, mRowCount AND mColumnCount match, otherwise false
 	*/
 	TTBoolean allAttributesMatch(const TTMatrix& anotherMatrix) const;
 	TTBoolean allAttributesMatch(const TTMatrix* anotherMatrix) const
@@ -499,7 +499,7 @@ typedef TTMatrix& TTMatrixRef;
 //TTMatrixPtr operator + (const TTMatrix& A, const TTMatrix& B);
 
 
-// TYPECHANGE
+// TYPECHANGE not sure
 #define TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(template_name, input_matrix, output_matrix) \
 	if (input_matrix->getTypeAsSymbol() == kTTSym_uint8) \
 		err = template_name<TTUInt8>(input_matrix, output_matrix); \

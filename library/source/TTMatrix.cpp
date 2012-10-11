@@ -178,7 +178,6 @@ TTErr TTMatrix::setType(const TTValue& aType)
 {
 	TTSymbolPtr aNewTypeName = aType;
 	TTDataType aNewDataType = TTDataInfo::matchSymbolToDataType(aNewTypeName);
-	TTDataInfoPtr aNewDataInfoPtr = TTDataInfo::getInfoForType(aNewTypeName);  // move into the "withoutResize" method?
 	
 	if (setTypeWithoutResize(aNewDataType))
 	{
@@ -232,13 +231,13 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	TTBytePtr fillValue = new TTByte[mComponentStride];
 
 	// TODO: here we have this ugly switch again...
-	if (mType == TT("uint8")) // kTypeUInt8 TYPECHANGE
+	if (mTypeAsDataType == kTypeUInt8) // kTypeUInt8 TYPECHANGE done
 		anInputValue.getArray((TTUInt8*)fillValue, mElementCount);
-	else if (mType == TT("int32")) // kTypeInt32 TYPECHANGE
+	else if (mTypeAsDataType == kTypeInt32) // kTypeInt32 TYPECHANGE done
 		anInputValue.getArray((TTInt32*)fillValue, mElementCount);
-	else if (mType == TT("float32")) // kTypeFloat32 TYPECHANGE
+	else if (mTypeAsDataType == kTypeFloat32) // kTypeFloat32 TYPECHANGE done
 		anInputValue.getArray((TTFloat32*)fillValue, mElementCount);
-	else if (mType == TT("float64")) // kTypeFloat64 TYPECHANGE
+	else if (mTypeAsDataType == kTypeFloat64) // kTypeFloat64 TYPECHANGE done
 		anInputValue.getArray((TTFloat64*)fillValue, mElementCount);
 
 	for (TTUInt32 i=0; i<mDataSize; i += mComponentStride)
@@ -279,19 +278,19 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 
 	// TODO: here we have this ugly switch again...
 	// Maybe we could just have duplicate pointers of different types in our class, and then we could access them more cleanly?
-	if (mType == TT("uint8")) { // kTypeUInt8 TYPECHANGE
+	if (mTypeAsDataType == kTypeUInt8) { // kTypeUInt8 TYPECHANGE done
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTUInt8*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("int32")) { // kTypeInt32 TYPECHANGE
+	else if (mTypeAsDataType == kTypeInt32) { // kTypeInt32 TYPECHANGE done
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTInt32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float32")) { // kTypeFloat32 TYPECHANGE
+	else if (mTypeAsDataType == kTypeFloat32) { // kTypeFloat32 TYPECHANGE done
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTFloat32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float64")) { // kTypeFloat64 TYPECHANGE
+	else if (mTypeAsDataType == kTypeFloat64) { // kTypeFloat64 TYPECHANGE done
 		for (int e=0; e<mElementCount; e++)
 			anOutputValue.append((TTFloat64*)(mData+(index+e*mTypeSizeInBytes)));
 	}
@@ -319,19 +318,19 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	
 	// TODO: there is no bounds checking here
 	
-	if (mType == TT("uint8")) { // kTypeUInt8 TYPECHANGE
+	if (mTypeAsDataType == kTypeUInt8) { // kTypeUInt8 TYPECHANGE done
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("int32")) { // kTypeInt32 TYPECHANGE
+	else if (mTypeAsDataType == kTypeInt32) { // kTypeInt32 TYPECHANGE done
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTInt32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float32")) { // kTypeFloat32 TYPECHANGE
+	else if (mTypeAsDataType == kTypeFloat32) { // kTypeFloat32 TYPECHANGE done
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index+e*mTypeSizeInBytes)));
 	}
-	else if (mType == TT("float64")) { // kTypeFloat64 TYPECHANGE
+	else if (mTypeAsDataType == kTypeFloat64) { // kTypeFloat64 TYPECHANGE done
 		for (int e=0; e<mElementCount; e++)
 			anInputValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index+e*mTypeSizeInBytes)));
 	}
@@ -343,7 +342,7 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 TTBoolean TTMatrix::allAttributesMatch(const TTMatrix& anotherMatrix) const
 {
 	// TODO: should/could this be inlined?
-	if (mTypeAsDataInfo == anotherMatrix.mTypeAsDataInfo  &&  
+	if (mTypeAsDataType == anotherMatrix.mTypeAsDataType  &&  // TYPECHANGE done
 		mElementCount == anotherMatrix.mElementCount && 
 		mRowCount == anotherMatrix.mRowCount &&
 		mColumnCount == anotherMatrix.mColumnCount)
