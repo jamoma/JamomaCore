@@ -1,5 +1,5 @@
 /* 
- *	matrixmixer≈
+ *	multimixer≈
  *	External object for Jamoma AudioGraph
  *	Copyright © 2009 by Timothy Place
  * 
@@ -19,7 +19,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	options->append(TT("argumentDefinesNumInlets"), value);
 	value = 1L;
 	options->append(TT("argumentDefinesNumOutlets"), value);
-	wrapAsMaxAudioGraph(TT("matrixmixer"), "jcom.matrixmixer≈", NULL, options);
-	wrapAsMaxAudioGraph(TT("matrixmixer"), "matrixmixer≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("multimixer"), "jcom.multimixer≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("multimixer"), "multimixer≈", NULL, options);
 	return 0;
 }

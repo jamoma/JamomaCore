@@ -35,7 +35,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.matrixmixer≈", "@description", "Mixing matrix for NxM multicore signals" ],
+					"args" : [ "@name", "jcom.multimixer≈", "@description", "Mixing matrix for NxM multicore signals" ],
 					"bgmode" : 1,
 					"id" : "obj-44",
 					"maxclass" : "bpatcher",
@@ -687,7 +687,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "audio.connect", "audio.connect", "audio.connect", "audio.connect", "" ],
 					"patching_rect" : [ 40.0, 385.0, 639.0, 19.0 ],
-					"text" : "jcom.matrixmixer≈ 4 4"
+					"text" : "jcom.multimixer≈ 4 4"
 				}
 
 			}
