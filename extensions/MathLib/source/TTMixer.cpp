@@ -1,19 +1,19 @@
 /* 
- * TTAudioMatrix Object
+ * DSP Audio Mixer Object
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTAudioMatrix.h"
+#include "TTMixer.h"
 #ifdef TT_PLATFORM_WIN
 #include <algorithm>
 #endif
 
-#define thisTTClass			TTAudioMatrix
-#define thisTTClassName		"audiomatrix"
-#define thisTTClassTags		"audio, matrix"
+#define thisTTClass			TTMixer
+#define thisTTClassName		"mixer"
+#define thisTTClassTags		"audio, mixer"
 
 
 TT_AUDIO_CONSTRUCTOR,
@@ -50,7 +50,7 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-TTAudioMatrix::~TTAudioMatrix()
+TTMixer::~TTMixer()
 {
 	TTObjectRelease((TTObjectPtr*)&mGainMatrix);
 	TTObjectRelease((TTObjectPtr*)&oldGainMatrix);
@@ -62,7 +62,7 @@ TTAudioMatrix::~TTAudioMatrix()
 //	columns == inputs
 //	rows == outputs
 
-/*TTErr TTAudioMatrix::setInterpolated(const TTValue& newValue)
+/*TTErr TTMixer::setInterpolated(const TTValue& newValue)
 {
 	mInterpolated = newValue;
 	if (mInterpolated)
@@ -74,7 +74,7 @@ TTAudioMatrix::~TTAudioMatrix()
 
 
 
-TTErr TTAudioMatrix::setNumInputs(const TTValue& newValue)
+TTErr TTMixer::setNumInputs(const TTValue& newValue)
 {
 	TTUInt16	numInputs = newValue;
 	TTValue		v(numInputs, mNumOutputs);
@@ -92,7 +92,7 @@ TTErr TTAudioMatrix::setNumInputs(const TTValue& newValue)
 }
 
 
-TTErr TTAudioMatrix::setNumOutputs(const TTValue& newValue)
+TTErr TTMixer::setNumOutputs(const TTValue& newValue)
 {
 	TTUInt16	numOutputs = newValue;
 	TTValue		v(mNumInputs, numOutputs);
@@ -109,7 +109,7 @@ TTErr TTAudioMatrix::setNumOutputs(const TTValue& newValue)
 	return kTTErrNone;
 }
 	
-TTErr TTAudioMatrix::restoreMatrix()
+TTErr TTMixer::restoreMatrix()
 {
 	TTValue dim;
 	TTFloat64 tempValue; 	
@@ -130,14 +130,14 @@ TTErr TTAudioMatrix::restoreMatrix()
 }	
 
 
-TTErr TTAudioMatrix::clear()
+TTErr TTMixer::clear()
 {
 	mGainMatrix->clear();
 	oldGainMatrix->clear();
 	return kTTErrNone;
 }
 
-TTErr TTAudioMatrix::checkMatrixSize(TTUInt16 x, TTUInt16 y)
+TTErr TTMixer::checkMatrixSize(TTUInt16 x, TTUInt16 y)
 //this function will resize mGainMatrix if necessary while preserving its content 
 {	
 	if (x > (mNumInputs-1)){
@@ -155,7 +155,7 @@ TTErr TTAudioMatrix::checkMatrixSize(TTUInt16 x, TTUInt16 y)
 
 
 
-TTErr TTAudioMatrix::setGain(const TTValue& newValue, TTValue&)
+TTErr TTMixer::setGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -177,7 +177,7 @@ TTErr TTAudioMatrix::setGain(const TTValue& newValue, TTValue&)
 }
 
 
-TTErr TTAudioMatrix::setLinearGain(const TTValue& newValue, TTValue&)
+TTErr TTMixer::setLinearGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -199,7 +199,7 @@ TTErr TTAudioMatrix::setLinearGain(const TTValue& newValue, TTValue&)
 }
 
 
-TTErr TTAudioMatrix::setMidiGain(const TTValue& newValue, TTValue&)
+TTErr TTMixer::setMidiGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -221,7 +221,7 @@ TTErr TTAudioMatrix::setMidiGain(const TTValue& newValue, TTValue&)
 
 
 // Here we are mixing channels within a signal rather than between multiple signals
-TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	
 	TTAudioSignal&		in = inputs->getSignal(0);
@@ -266,7 +266,7 @@ TTErr TTAudioMatrix::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 }
 
 
-TTErr TTAudioMatrix::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTMixer::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	
 	TTAudioSignal&		in = inputs->getSignal(0);

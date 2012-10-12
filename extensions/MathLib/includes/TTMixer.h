@@ -1,20 +1,20 @@
 /* 
- * DSP Audio Matrix Object
+ * DSP Audio Mixer Object
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_AUDIOMATRIX_H__
-#define __TT_AUDIOMATRIX_H__
+#ifndef __TT_MIXER_H__
+#define __TT_MIXER_H__
 
 #include "TTDSP.h"
 
 
-/**	TTAudioMatrix mixes N input channels to M output channels */
-class TTAudioMatrix : TTAudioObject {
-	TTCLASS_SETUP(TTAudioMatrix)
+/**	TTMixer mixes N input channels of a signal to M output channels of a signal. */
+class TTMixer : TTAudioObject {
+	TTCLASS_SETUP(TTMixer)
 
 protected:
 
@@ -24,7 +24,6 @@ protected:
 	TTUInt16		mNumInputs;
 	TTUInt16		mNumOutputs;
 	
-
 	// Attributes
 	TTErr setNumInputs(const TTValue& newValue);
 	TTErr setNumOutputs(const TTValue& newValue);
@@ -43,4 +42,4 @@ protected:
 };
 
 
-#endif // __TT_MATRIX_H__
+#endif // __TT_MIXER_H__
