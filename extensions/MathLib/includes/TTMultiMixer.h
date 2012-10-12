@@ -11,6 +11,7 @@
 
 #include "TTDSP.h"
 
+// TODO: Rename to TTMultiMixer
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
 class TTMatrixMixer : TTAudioObject {
