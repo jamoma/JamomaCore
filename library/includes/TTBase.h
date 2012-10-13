@@ -485,20 +485,75 @@ TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];
  */
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];
 
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi     (3.1416)
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;						///< pre-calculated value of pi/2
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTQuarterPi;					///< pre-calculated value of pi/4
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2 (1.4142)
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfSqrt2;					///< pre-calculated value of sqrt(2)/2 (0.701)
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoSqrt2;						///< pre-calculated value of 2 * sqrt(2) (2.8284)
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTEpsilon;						///< a very very small value
+/** \ingroup consts
+ Pre-calculated value of pi     (3.1416).
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;
+
+/** \ingroup consts
+ Pre-calculated value of pi/2.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;
+
+/** \ingroup consts
+ Pre-calculated value of pi/4.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTQuarterPi;
+
+/** \ingroup consts
+ Pre-calculated value of pi * 2.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;
+
+/** \ingroup consts
+ Constant used by the ttantidenormal function.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;
+
+/** \ingroup consts
+ Pre-calculated square-root of 2 (1.4142).
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;
+
+/** \ingroup consts
+ Pre-calculated value of sqrt(2)/2 (0.701).
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfSqrt2;
+
+/** \ingroup consts
+ Pre-calculated value of 2 * sqrt(2) (2.8284).
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoSqrt2;
+
+/** \ingroup consts
+ A very very small value, used for float equality comaprisments.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTEpsilon;
+
+/** \ingroup consts
+ Factor constant for converting radians to degrees.
+ */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTRadiansToDegrees;
+
+/** \ingroup consts
+ Factor constant for converting degrees to radians.
+ */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTDegreesToRadians;
+
+/** \ingroup consts
+ Power constant used when calculating MID gain.
+ */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPower;
+
+/** \ingroup consts
+ Invverse power constant used when calculating MID gain.
+ */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPowerInv;
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTInv255;						///< pre-calculated value of 1/255
+
+/** \ingroup consts
+ Constant for color representation when converting from char8 to float representation.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTInv255;
 
 /** Platform and host independent method for posting messages. */
 void TTFOUNDATION_EXPORT TTLogMessage(TTImmutableCString message, ...);
