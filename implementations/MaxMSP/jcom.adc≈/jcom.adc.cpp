@@ -167,7 +167,7 @@ void AdcGetDeviceNames(AdcPtr self)
 	TTErr		err;
 	AtomCount	ac;
 	AtomPtr		ap;
-	TTSymbolPtr	name;
+	TTSymbol	name;
 	
 	err = self->audioGraphObject->getUnitGenerator()->sendMessage(TT("getAvailableDeviceNames"), kTTValNONE, v);
 	if (!err) {
@@ -175,8 +175,8 @@ void AdcGetDeviceNames(AdcPtr self)
 		ap = new Atom[ac];
 		
 		for (AtomCount i=0; i<ac; i++) {
-			v.get(i, &name);
-			atom_setsym(ap+i, gensym((char*)name->getCString()));
+			v.get(i, name);
+			atom_setsym(ap+i, gensym((char*)name.c_str()));
 		}
 		object_obex_dumpout(self, gensym("getAvailableDeviceNames"), ac, ap);
 		delete ap;
@@ -242,16 +242,16 @@ MaxErr AdcSetDevice(AdcPtr self, void* attr, AtomCount argc, AtomPtr argv)
 MaxErr AdcGetDevice(AdcPtr self, void* attr, AtomCount* argc, AtomPtr* argv)
 {
 	TTValue		v;
-	TTSymbolPtr	s;
+	TTSymbol	s;
 	
 	self->audioGraphObject->getUnitGenerator()->getAttributeValue(TT("device"), v);
-	v.get(0, &s);
+	v.get(0, s);
 	if (!s)
 		return MAX_ERR_GENERIC;
 	
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
-	atom_setsym(*argv, gensym((char*)s->getCString()));
+	atom_setsym(*argv, gensym((char*)s.c_str()));
 	return MAX_ERR_NONE;
 }

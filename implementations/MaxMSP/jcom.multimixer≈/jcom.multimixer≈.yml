@@ -1,6 +1,6 @@
 
 sources:
-  - jcom.matrixmixer.cpp		
+  - jcom.multimixer.cpp		
   - ../MaxAudioGraph.cpp
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
   - ../../../../Support/max/maxGraph.cpp
@@ -23,6 +23,7 @@ libraries:
   - GRAPH
   - C74-MAX
   - C74-MSP
+  - C74-JITTER
 
 prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
 arch: "i386"
