@@ -26,19 +26,19 @@ TTDataObject::TTDataObject(TTValue& arguments) :
 	mReserved1(0),					
 	mReserved2(0)
 {
-	registerAttribute(TT("bypass"),	kTypeBoolean,	&mBypass,	(TTSetterMethod)&TTDataObject::setBypass);
+	registerAttribute("bypass",	kTypeBoolean,	&mBypass,	(TTSetterMethod)&TTDataObject::setBypass);
 
-//	registerMessage(TT("calculate"),				(TTMethod)&TTAudioObject::calculateMessage);
-	registerMessage(TT("test"),						TTMethod(&TTObject::test));
-	registerMessage(TT("resetBenchmarking"),		(TTMethod)&TTDataObject::resetBenchmarking, kTTMessagePassNone);
-	registerMessage(TT("getProcessingBenchmark"),	(TTMethod)&TTDataObject::getProcessingBenchmark);
+//	registerMessage(calculate",					(TTMethod)&TTAudioObject::calculateMessage);
+	registerMessage("test",						TTMethod(&TTObject::test));
+	registerMessage("resetBenchmarking",		(TTMethod)&TTDataObject::resetBenchmarking, kTTMessagePassNone);
+	registerMessage("getProcessingBenchmark",	(TTMethod)&TTDataObject::getProcessingBenchmark);
 
 	TTObjectInstantiate(kTTSym_matrixarray, (TTObjectPtr*)&mInputArray, 2);
 	TTObjectInstantiate(kTTSym_matrixarray, (TTObjectPtr*)&mOutputArray, 2);
 	
 	// Set Defaults...	
     setMatrixCalculate(&TTDataObject::defaultMatrixCalculateMethod);
-	setAttributeValue(TT("bypass"),			kTTBoolNo);	
+	setAttributeValue("bypass",			kTTBoolNo);	
 }
 
 

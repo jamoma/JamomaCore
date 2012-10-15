@@ -58,7 +58,7 @@ public:
 		@param	port		could be a string with a port number but also could be "http" or "ftp" (etc.)
 		@param	transport	should be the symbol "udp" or "tcp"
 	*/
-	TTNetSocket(const TTObjectPtr owner, const TTString& address, const TTString& port, const TTSymbolPtr transport);
+	TTNetSocket(const TTObjectPtr owner, const TTString& address, const TTString& port, const TTSymbol& transport);
 
 	~TTNetSocket()
 	{

@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_NODE_DIRECTORY_H__
+#if !defined( __TT_NODE_DIRECTORY_H__ ) && !defined ( DISABLE_NODELIB )
 #define __TT_NODE_DIRECTORY_H__
 
 #ifdef WIN_VERSION
@@ -20,13 +20,11 @@
 #include "TTList.h"
 #include "TTMutex.h"
 #include "TTNode.h"
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
+#include "TTAddress.h"
+#include "TTAddressTable.h"
 
 class TTNode;
 typedef TTNode*	TTNodePtr;
-class TTNodeAddress;
-typedef TTNodeAddress* TTNodeAddressPtr;
 class TTNodeDirectory;
 typedef TTNodeDirectory* TTNodeDirectoryPtr;
 class TTCallback;
@@ -58,7 +56,7 @@ class TTFOUNDATION_EXPORT TTNodeDirectory : public TTBase
 	
 private:
 
-	TTSymbolPtr		name;					///< the name of the tree
+	TTSymbol		name;					///< the name of the tree
 	TTNodePtr		root;					///< the root of the tree
 	TTHashPtr		directory;				///< a pointer to a global hashtab which reference all address of the tree
 	TTHashPtr		aliases;				///< a pointer to a global hashtab which reference all aliases of the tree
@@ -69,7 +67,7 @@ private:
 public:
 	
 	/** Constructor */
-	TTNodeDirectory (TTSymbolPtr aName);
+	TTNodeDirectory (TTSymbol aName);
 	
 	/** Destructor */
 	virtual ~TTNodeDirectory ();
@@ -79,10 +77,10 @@ public:
 
 	/** Set the name of the TTNodeDirectory. 
 		@param	newName				The name to set */
-	TTErr			setName(TTSymbolPtr aname);
+	TTErr			setName(TTSymbol aname);
 
 	/** Get the name of the TTNodeDirectory */
-	TTSymbolPtr		getName();
+	TTSymbol		getName();
 	
 	/** Get the root of the TTNodeDirectory */
 	TTNodePtr		getRoot();
@@ -95,18 +93,18 @@ public:
 	 @param	returnedTTNode			The .
 	 @return						An error code. */
 	TTErr			getTTNode(const char* anAddress, TTNodePtr *returnedTTNode);
-	TTErr			getTTNode(TTNodeAddressPtr anAddress, TTNodePtr *returnedTTNode);
+	TTErr			getTTNode(TTAddress anAddress, TTNodePtr *returnedTTNode);
 	
 	/** Given an address, return an alias if exists
 	 @param	anAddress				The address for which to find the TTNode.
 	 @param	returnedAlias			The .
 	 @return						An error code if there is no alias. */
-	TTErr			getAlias(TTNodeAddressPtr anAddress, TTNodeAddressPtr *returnedAlias);
+	TTErr			getAlias(TTAddress anAddress, TTAddress& returnedAlias);
 	
 	/** Given an address with alias, return an address with no alias if exists
 	 @param	anAddress				The address with an alias inside to replace.
 	 @return						An error code if there is no alias. */
-	TTErr			replaceAlias(TTNodeAddressPtr* anAddress);
+	TTErr			replaceAlias(TTAddress anAddress);
 	
 	/**	Find TTNodes by address
 	 @param	anAddress				The address you wish to find, possibly including wildcards and instance names/numbers.
@@ -114,7 +112,7 @@ public:
 	 @param	firstReturnedTTNode		If non-null, the address of the first TTNode object pointer that is found for the given pattern is returned here.  
 									The value of the pointer will be set upon return.
 	 @return						An error code. */
-	TTErr			Lookup(TTNodeAddressPtr anAddress, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
+	TTErr			Lookup(TTAddress anAddress, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode);
 	
 	/**	Find TTNodes by testing each TTNodes below an address 
 	 @param	whereToSearch			A TTNode list from where to start the research
@@ -150,44 +148,44 @@ public:
 	 @param	returnedTTNode			A pointer to the TTNode at the given address 
 	 @param	nodeCreated				A boolean : true if a TTNode have been created, else false
 	 @return						An error code. */
-	TTErr			TTNodeCreate(TTNodeAddressPtr anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
+	TTErr			TTNodeCreate(TTAddress anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *nodeCreated);
 	
 	/**	Remove a TTNodefrom the directory.
 	 @param	anAddress				The address for which you wish to remove the TTNode.
 									The address may (optionally) include an instance name or number in the address of the terminal TTNode.
 	 @return						An error code. */
-	TTErr			TTNodeRemove(TTNodeAddressPtr anAddress);
+	TTErr			TTNodeRemove(TTAddress anAddress);
 	
 	/**	Create an alias address
 	 @param	alias					The alias address (absolute)
 	 @param	anAddress				The address for which you wish to create an alias.
 	 @return							An error code. */
-	TTErr			AliasCreate(TTNodeAddressPtr alias, TTNodeAddressPtr anAddress);
+	TTErr			AliasCreate(TTAddress alias, TTAddress anAddress);
 	
 	/**	Create an alias address
 	 @param	alias					The alias address to remove
 	 @return						An error code. */
-	TTErr			AliasRemove(TTNodeAddressPtr alias);
+	TTErr			AliasRemove(TTAddress alias);
 	
 	/** Add a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address to observe
 	 @param observer				a TTCallbackPtr to add
 	 @param maxDepthDifference		precise the max depth difference to filter nodes which are below this limit
 	 @return						an error code */
-	TTErr			addObserverForNotifications(TTNodeAddressPtr anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference=-1);
+	TTErr			addObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference=-1);
 	
 	/** Remove a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address
 	 @param observer				a TTCallbackPtr to remove
 	 @return						a kTTErrGeneric if there isn't observer */
-	TTErr			removeObserverForNotifications(TTNodeAddressPtr anAddress, TTCallbackPtr anObserver);
+	TTErr			removeObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver);
 	
 	/** Notify life cycle observers that something appends below this TTNode
 	 @param data					an address where something append
 	 @param aNode					a TTNodePtr where something append (NULL in case of destruction)
 	 @param flag					a flag to notify about creation or destruction (or anything else)
 	 @return						a kTTErrGeneric if there isn't observer	*/
-	TTErr			notifyObservers(TTNodeAddressPtr anAddress, TTNodePtr aNode, TTNodeAddressNotificationFlag flag);
+	TTErr			notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTAddressNotificationFlag flag);
 	
 	TTErr			dumpObservers(TTValue& value);
 
@@ -196,14 +194,14 @@ public:
 /**	An test tool : test the type of the object stored inside the node. 
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
- @param args						An TTSymbolPtr argument for the type
+ @param args						An TTSymbolRef argument for the type
  @return							true if the object have the correct type */
 TTBoolean TTFOUNDATION_EXPORT testNodeObjectType(TTNodePtr n, TTPtr args);
 
 /**	An test tool : test the context of the object stored inside the node. 
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
- @param args						An TTSymbolPtr argument for the type
+ @param args						An TTSymbolRef argument for the type
  @return							true if the object have the correct context */
 TTBoolean TTFOUNDATION_EXPORT testNodeContext(TTNodePtr n, TTPtr args);
 

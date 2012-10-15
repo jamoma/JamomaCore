@@ -7,27 +7,19 @@
  */
 
 #include "TTValue.test.h"
-#include <limits>
 
 #define thisTTClass			TTValueTest
 #define thisTTClassName		"value.test"
 #define thisTTClassTags		"test, foundation"
 
-#ifdef TT_PLATFORM_LINUX
-#include <limits>
-#define FLT_MAX std::numeric_limits<float>::max()
-#define DBL_MAX std::numeric_limits<double>::max()
-#endif
-
-#ifdef TT_PLATFORM_WIN
-#include <limits>
-#endif
 
 TT_OBJECT_CONSTRUCTOR
 {;}
 
+
 TTValueTest::~TTValueTest()
 {;}
+
 
 void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 {
@@ -140,7 +132,7 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 	// The next set of tests check things where the correct answer isn't
     // as obvious or important. Some of these tests check for cases that
     // are rare or can easily be avoided.
-	
+#ifdef RARE
 	TTTestAssertion("TTFloat32: inf == inf.",
 					TTTestFloatEquivalence(inf, inf),
 					testAssertionCount,
@@ -154,7 +146,8 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 					TTTestFloatEquivalence(inf, -inf, false),
 					testAssertionCount,
 					errorCount);
-	
+#endif
+
 // FLT_MAX is not defined for the iOS
 #ifndef TT_PLATFORM_IOS
 	TTTestAssertion("TTFloat32: FLT_MAX != inf",
@@ -339,7 +332,7 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 	// The next set of tests check things where the correct answer isn't
     // as obvious or important. Some of these tests check for cases that
     // are rare or can easily be avoided.
-	
+#ifdef RARE	
 	TTTestAssertion("TTFloat64: inf == inf.",
 					TTTestFloatEquivalence(inf, inf),
 					testAssertionCount,
@@ -353,6 +346,7 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 					TTTestFloatEquivalence(inf, -inf, false),
 					testAssertionCount,
 					errorCount);
+#endif
 	
 // DBL_MAX is not defined for the iOS
 #ifndef TT_PLATFORM_IOS
@@ -472,7 +466,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestLog("Appending a symbol to TTValue");	
-	v1.append(TT("foo"));
+	v1.append(TTSymbol("foo"));
 
 	TTTestAssertion("TTValue correctly updated element count to 2", 
 					v1.getSize() == 2,
@@ -495,11 +489,11 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// TODO: want to implement this:
-	// TTSymbolPtr s = v1[1];
-	TTSymbolPtr s = NULL;
-	v1.get(1, &s);
+	// TTSymbolRef s = v1[1];
+	TTSymbol s(kTTSymEmpty);
+	v1.get(1, s);
 	TTTestAssertion("second item has correct value, retreiving with get() method",
-					s == TT("foo"),
+					s == "foo",
 					testAssertionCount,
 					errorCount);
 	
@@ -516,7 +510,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	v1.get(0, &s);
+	v1.get(0, s);
 	TTTestAssertion("first item should be \"value\" symbol", 
 					s == kTTSym_value,
 					testAssertionCount,
@@ -563,7 +557,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	
 	TTValue		v;
 	TTString	aString;
-	TTSymbolPtr aSymbol;
+	TTSymbol	aSymbol = kTTSymEmpty;
 	TTInt32		i;
 	TTFloat32	f;
 	
@@ -609,7 +603,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	
 	TTTestAssertion("\"1.234567\" string is converted into a TTFloat32 1.234567 value",
 					v.getType() == kTypeFloat32 &&
-					v.getFloat32(0) == 1.234567,
+					TTTestFloatEquivalence((TTFloat32)v.getFloat32(0), 1.234567f),
 					testAssertionCount,
 					errorCount);
 	
@@ -617,7 +611,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	aString = TTString("value");
 	v = aString;
 	v.fromString();
-	v.get(0, &aSymbol);
+	v.get(0, aSymbol);
 	
 	TTTestAssertion("\"value\" string is converted into a TTSymbolPtr kTTSym_value",
 					v.getType() == kTypeSymbol &&
@@ -629,7 +623,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	aString = TTString("sampleRate 1 1.234567");
 	v = aString;
 	v.fromString();
-	v.get(0, &aSymbol);
+	v.get(0, aSymbol);
 	v.get(1, i);
 	v.get(2, f);
 	
@@ -639,7 +633,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 					v.getType(2) == kTypeFloat32 &&
 					aSymbol == kTTSym_sampleRate &&
 					i == 1 &&
-					f == 1.234567 &&
+					TTTestFloatEquivalence(f, 1.234567f) &&
 					v.getSize() == 3,
 					testAssertionCount,
 					errorCount);
@@ -1868,8 +1862,8 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// TTSymbol
-	v1 = TT("azerty");
-	v2 = TT("qwerty");
+	v1 = TTSymbol("azerty");
+	v2 = TTSymbol("qwerty");
 	TTTestAssertion("TTSymbol < operator comparison (with A < B)",
 					v1 < v2,
 					testAssertionCount,

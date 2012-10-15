@@ -40,14 +40,14 @@ void TTNetSend::connect()
 		
 		snprintf(portAsCString, 8, "%i", mPort);
 		delete mSocket;
-		mSocket = new TTNetSocket(this, mAddress->getCString(), TTString(portAsCString), mMode);
+		mSocket = new TTNetSocket(this, mAddress.c_str(), TTString(portAsCString), mMode);
 	}
 }
 
 
 TTErr TTNetSend::setAddress(const TTValue& newValue)
 {
-	TTSymbolPtr	newAddress = newValue;
+	TTSymbol	newAddress = newValue;
 	TTErr		err = kTTErrNone;
 	
 	if (mAddress != newAddress) {
@@ -73,7 +73,7 @@ TTErr TTNetSend::setPort(const TTValue& newValue)
 
 TTErr TTNetSend::setMode(const TTValue& newValue)
 {
-	TTSymbolPtr	newMode = newValue;
+	TTSymbol	newMode = newValue;
 	TTErr		err = kTTErrNone;
 	
 	if (mMode != newMode) {

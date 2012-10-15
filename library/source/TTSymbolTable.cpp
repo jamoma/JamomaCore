@@ -6,9 +6,19 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+
+
 #include "TTSymbolTable.h"
 #include "TTMutex.h"
 #include "TTValue.h"
+
+#include<iostream>
+#include<unordered_map>
+
+//std::unordered_map<TTString, TTSymbolBase*> gTTSymbolTable;
+
+
+
 
 #ifdef TT_PLATFORM_WIN
     #include <hash_map>
@@ -28,23 +38,17 @@
         }
     };
 
-    typedef hash_map<TTString, TTSymbolPtr>     TTSymbolTableHash;
+    typedef hash_map<TTString, TTSymbolRef>     TTSymbolTableHash;
 
 #else
-#if OLD
-    #include "boost/unordered_map.hpp"
-    using namespace boost;
-    typedef unordered_map<std::string, TTSymbolPtr>		TTSymbolTableHash;
-#else
 	#include <unordered_map>
-	typedef unordered_map<std::string, TTSymbolPtr>		TTSymbolTableHash;
-#endif
+	typedef unordered_map<TTString, TTSymbolBase*>		TTSymbolTableHash;
 #endif
 
 
 
 /** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
-typedef pair<const char*, TTSymbolPtr>				TTSymbolTablePair;
+typedef pair<TTString, TTSymbolBase*>				TTSymbolTablePair;
 
 
 /** An iterator for the STL hash_map used by TTSymbolTable. */
@@ -53,7 +57,7 @@ typedef TTSymbolTableHash::const_iterator			TTSymbolTableIter;
 
 
 static TTMutex*				sMutex = NULL;
-TTFOUNDATION_EXPORT TTSymbolTable*		ttSymbolTable = NULL;
+//TTFOUNDATION_EXPORT TTSymbolTable*		gTTSymbolTable = NULL;
 
 
 #define mSYMBOLTABLE ((TTSymbolTableHash*)(mSymbolTable))
@@ -61,12 +65,15 @@ TTFOUNDATION_EXPORT TTSymbolTable*		ttSymbolTable = NULL;
 
 /****************************************************************************************************/
 
-TTSymbolTable::TTSymbolTable()
+TTSymbolTable::TTSymbolTable(TTBoolean createEmptyTable)
 {
 	if (!sMutex)
 		sMutex = new TTMutex(true);
 	mSymbolTable = (TTPtr) new TTSymbolTableHash;
-	mSYMBOLTABLE->insert(TTSymbolTablePair("", new TTSymbol("", 0)));
+	
+	// subclasses of the symbol table will want to initialize this themselves
+	if (!createEmptyTable)
+		mSYMBOLTABLE->insert(TTSymbolTablePair(TTString(""), createEntry(TTString(""), 0)) );
 }
 
 
@@ -75,14 +82,20 @@ TTSymbolTable::~TTSymbolTable()
 	TTSymbolTableIter	iter;
 
 	for (iter = mSYMBOLTABLE->begin(); iter != mSYMBOLTABLE->end(); iter++)
-		delete TTSymbolPtr(iter->second);
+		delete (TTSymbolBase*)(iter->second);
 	mSYMBOLTABLE->clear();
 	delete mSYMBOLTABLE;
 	// TODO: we should reference count symbol tables and then free the mutex here, yes?
 }
 
 
-TTSymbol* TTSymbolTable::lookup(const char* aString)
+TTSymbolBase* TTSymbolTable::createEntry(const TTString& aString, TTInt32 newSymbolId)
+{
+	return new TTSymbolBase(aString, TTPtrSizedInt(this), newSymbolId);
+}
+
+
+TTSymbolBase* TTSymbolTable::lookup(const char* aString)
 {
 #ifdef TT_PLATFORM_WIN
 	TTSymbolTableIter	iter;
@@ -93,10 +106,10 @@ TTSymbol* TTSymbolTable::lookup(const char* aString)
 	if (iter == mSYMBOLTABLE->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbolPtr	newSymbol = new TTSymbol(aString, mSYMBOLTABLE->size());
-		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->getCString(), newSymbol));
+		TTSymbolBase*	newSymbol = createEntry(aString, mSYMBOLTABLE->size());
+		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
 		sMutex->unlock();
-		return newSymbol;
+		return *newSymbol;
 	}
 	else {
 		// The symbol was found, so we return it.
@@ -110,21 +123,26 @@ TTSymbol* TTSymbolTable::lookup(const char* aString)
 }
 
 
-TTSymbol* TTSymbolTable::lookup(const TTString& aString)
+TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
 {
+//	if (!gTTSymbolTable)					// symbol table hasn't been created yet!
+//		gTTSymbolTable = new TTSymbolTable;
+//
+//	TTSymbolTable *self = gTTSymbolTable; // can't rely on 'this' in the case where we just created the table!
+//TTSymbolTable *self = &gTTSymbolTable;
 #ifdef TT_PLATFORM_WIN
-	return lookup(aString.c_str());
+	return self->lookup(aString.c_str());
 #else
 	TTSymbolTableIter	iter;
 
 	sMutex->lock();
 
-	iter = mSYMBOLTABLE->find(aString);
-	if (iter == mSYMBOLTABLE->end()) {
+	iter = ((TTSymbolTableHash*)(mSymbolTable))->find(aString);
+	if (iter == ((TTSymbolTableHash*)(mSymbolTable))->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbolPtr	newSymbol = new TTSymbol(aString, mSYMBOLTABLE->size());
-		mSYMBOLTABLE->insert(TTSymbolTablePair(newSymbol->getCString(), newSymbol));
+		TTSymbolBase*	newSymbol = createEntry(aString, ((TTSymbolTableHash*)(mSymbolTable))->size());
+		((TTSymbolTableHash*)(mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
 		sMutex->unlock();
 		return newSymbol;
 	}
@@ -137,7 +155,7 @@ TTSymbol* TTSymbolTable::lookup(const TTString& aString)
 }
 
 
-TTSymbol* TTSymbolTable::lookup(const int& aNumberToBeConvertedToAString)
+TTSymbolBase* TTSymbolTable::lookup(const int& aNumberToBeConvertedToAString)
 {
 #ifdef TT_PLATFORM_WIN
 	char	cString[16];
@@ -155,15 +173,15 @@ TTSymbol* TTSymbolTable::lookup(const int& aNumberToBeConvertedToAString)
 }
 
 
-void TTSymbolTable::dump(TTValue& allSymbols)
+void TTSymbolTable::dump(/*TTValue& allSymbols*/)
 {
 	TTSymbolTableIter	iter;
 
-	//TTLogMessage("---- DUMPING SYMBOL TABLE -- BEGIN ----\n");
-	allSymbols.clear();
+	TTLogMessage("---- DUMPING SYMBOL TABLE -- BEGIN ----\n");
+	//allSymbols.clear();
 	for (iter = mSYMBOLTABLE->begin(); iter != mSYMBOLTABLE->end(); iter++) {
-		allSymbols.append(TTSymbolPtr(iter->second));
-		//TTLogMessage("KEY:%s   VALUE:%s\n", iter->first, TTSymbolPtr(iter->second)->getCString());
+		//allSymbols.append(TTSymbolRef(iter->second));
+		TTLogMessage("KEY:%s   VALUE:%s\n", (iter->first).c_str(), ((TTSymbolBase*)(iter->second))->getCString());
 	}
-	//TTLogMessage("---- DUMPING SYMBOL TABLE -- END ----\n");
+	TTLogMessage("---- DUMPING SYMBOL TABLE -- END ----\n");
 }

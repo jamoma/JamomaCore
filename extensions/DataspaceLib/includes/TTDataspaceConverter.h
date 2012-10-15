@@ -18,7 +18,7 @@
 class TTDataspaceConverter : public TTDataObject {
 	TTCLASS_SETUP(TTDataspaceConverter)
 	
-	TTSymbolPtr			mDataspace;
+	TTSymbol			mDataspace;
 	TTObjectPtr			mDataspaceTTObject;	// TTObject
 	TTDataspacePtr		mDataspaceObject;	//   the above, cast to it's other parent class
 		

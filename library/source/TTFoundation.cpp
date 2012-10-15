@@ -22,6 +22,8 @@
 // Unit Tests
 #include "TTMatrix.h"
 #include "TTMatrixArray.h"
+#include "TTString.test.h"
+#include "TTSymbol.test.h"
 #include "TTValue.test.h"
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
 #ifndef TT_PLATFORM_IOS
@@ -48,7 +50,7 @@ static TTString	TTFoundationBinaryPath = "";
 
 void		TTFoundationLoadExternalClasses();
 TTErr		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
-TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbol* className, TTValue& arguments);
+TTObjectPtr	TTFoundationInstantiateInternalClass(TTSymbol& className, TTValue& arguments);
 
 
 /****************************************************************************************************/
@@ -60,23 +62,21 @@ void TTFoundationInit(const char* pathToBinaries)
 		if (pathToBinaries)
 			TTFoundationBinaryPath = pathToBinaries;
 
-		ttSymbolTable = new TTSymbolTable;
 		for (int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
 
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS
+#ifndef DISABLE_NODELIB
 		TTNodeLibInit();
 #endif
 
 		ttEnvironment = new TTEnvironment;
 
-		TTSymbolCacheInit();
 		TTValueCacheInit();
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS		
-		TTNodeAddressCacheInit();
-#endif
+//#ifndef DISABLE_NODELIB
+//		TTAddressCacheInit();
+//#endif
 		
 #ifdef TT_DEBUG
 		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s", TTFOUNDATION_VERSION_STRING);
@@ -93,9 +93,11 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTCallback::registerClass();
 		TTMatrix::registerClass();
 		TTMatrixArray::registerClass();
+		TTStringTest::registerClass();
+		TTSymbolTest::registerClass();
 		TTValueTest::registerClass();
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS
+#ifndef DISABLE_NODELIB
 		TTNodeLibTest::registerClass();
 #endif
 
@@ -118,13 +120,12 @@ void TTFoundationLoadExternalClasses()
 #ifdef TT_PLATFORM_MAC
 	if (!TTFoundationBinaryPath.empty()) {
 		// Look in the specified folder rather than the default location
-		TTString extensionsPath = TTFoundationBinaryPath + "/Extensions";
+		TTString extensionsPath = TTFoundationBinaryPath;
+		extensionsPath += "/Extensions";
 		TTFoundationLoadExternalClassesFromFolder(extensionsPath);
 	}
 	else {
 		OSErr		err = noErr;
-//		FSRef		ref;
-//		UInt8		path[4096];
 		TTString	fullpath;
 		
 		// Look in the folder of the host application
@@ -136,6 +137,9 @@ void TTFoundationLoadExternalClasses()
 		CFStringGetCString(mainBundlePath, mainBundleStr, 4096, kCFStringEncodingUTF8);
 		strncat(mainBundleStr, "/Contents/Jamoma/Extensions", 4096);
 		mainBundleStr[4095] = 0;
+		
+		CFRelease(mainBundlePath);
+		
 		err = TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
 		if (!err)
 			return; // if we loaded classes out of a standalone app, then we don't want to be corrupted by global extensions Redmine #348

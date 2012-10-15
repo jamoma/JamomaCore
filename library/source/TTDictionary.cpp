@@ -13,9 +13,9 @@
 void TTDictionaryFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found)
 {
 	TTKeyValPtr keyval = TTKeyValPtr(TTPtr(valueToCheck));
-	TTSymbolPtr key = TTSymbolPtr(baton);
+	TTSymbol key = TTSymbol((TTSymbolBase*)baton);
 	
-	if (keyval && TTSymbolPtr(keyval->first) == key)
+	if (keyval && TTSymbol((TTSymbolBase*)keyval->first) == key)
 		found = YES;
 }
 
@@ -36,37 +36,38 @@ TTDictionary::~TTDictionary()
 }
 
 
-TTErr TTDictionary::setSchema(const TTSymbolPtr schemaName)
+TTErr TTDictionary::setSchema(const TTSymbol& schemaName)
 {
-	return append(TT("schema"), schemaName);
+	return append(TTSymbol("schema"), schemaName);
 }
 
 
-TTSymbolPtr TTDictionary::getSchema() const
+const TTSymbol TTDictionary::getSchema() const
 {
 	TTValue v;
 	TTErr	err;
 	
-	err = lookup(TT("schema"), v);
+	err = lookup(TTSymbol("schema"), v);
+	err = err; // silence 'unused' warning
 	return v;
 }
 
 
 TTErr TTDictionary::setValue(const TTValue& newValue)
 {
-	return append(TT("value"), newValue);
+	return append(TTSymbol("value"), newValue);
 }
 
 
 TTErr TTDictionary::getValue(TTValue& returnedValue) const
 {
-	return lookup(TT("value"), returnedValue);
+	return lookup(TTSymbol("value"), returnedValue);
 }
 
 
-TTErr TTDictionary::append(const TTSymbolPtr key, const TTValue& value)
+TTErr TTDictionary::append(const TTSymbol& key, const TTValue& value)
 {
-	TTValue v = new TTKeyVal(TTPtrSizedInt(key), value);
+	TTValue v = new TTKeyVal(TTPtrSizedInt(&key), value);
 	
 	remove(key);
 	mList->append(v);
@@ -74,18 +75,18 @@ TTErr TTDictionary::append(const TTSymbolPtr key, const TTValue& value)
 }
 
 
-TTErr TTDictionary::lookup(const TTSymbolPtr key, TTValue& value) const
+TTErr TTDictionary::lookup(const TTSymbol& key, TTValue& value) const
 {
 	return mHashTable->lookup(key, value);
 }
 
 
-TTErr TTDictionary::remove(const TTSymbolPtr key)
+TTErr TTDictionary::remove(const TTSymbol& key)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = mList->find(TTDictionaryFindKeyInList, key, v);
+	err = mList->find(TTDictionaryFindKeyInList, key.rawpointer(), v);
 	if (!err)
 		mList->remove(v);
 	return mHashTable->remove(key);

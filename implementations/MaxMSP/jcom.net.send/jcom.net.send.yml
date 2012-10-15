@@ -9,8 +9,7 @@ includes:
   - ../../../../DSP/library/includes
   - ../../../../Graphics/library/includes
   - "../../../../Support/max"
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
+  - C74-INCLUDES
 
 libraries:
   - FOUNDATION
@@ -19,6 +18,7 @@ libraries:
   - mac ../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI
   - win ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.lib
   - win ../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudio.lib
+  - C74-JITTER
 
 prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
 arch: "i386"

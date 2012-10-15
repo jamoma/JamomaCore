@@ -98,6 +98,15 @@ using namespace std;
 #endif
 
 
+#ifdef __GNUC__
+#define TT_DEPRECATED(func) func __attribute__ ((deprecated))
+#elif defined(_MSC_VER)
+#define TT_DEPRECATED(func) __declspec(deprecated) func
+#else
+#define TT_DEPRECATED(func) func
+#endif
+
+
 /****************************************************************************************************/
 // Memory alignment
 
@@ -117,7 +126,6 @@ typedef bool				TTBoolean;				///< Boolean flag, same as Boolean on the Mac
 typedef unsigned char		TTByte;					///< Byte value
 typedef char*				TTCString;
 typedef const char*			TTImmutableCString;
-typedef std::string			TTString;
 
 typedef signed char			TTInt8;					///< 8 bit signed integer (char)
 typedef unsigned char		TTUInt8;				///< 8 bit unsigned integer (char)
@@ -257,12 +265,19 @@ typedef TTDataInfo* TTDataInfoPtr;
 extern TTFOUNDATION_EXPORT TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
 
 
+// from TTSymbolCache.h:
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSymEmpty;
+
 class TTFOUNDATION_EXPORT TTDataInfo {
 public:
 	TTSymbol*	name;			///< The name of the type as a symbol, e.g. float32, float64, etc.
 	TTBoolean	isNumerical;	///< Is this type numeric?
 	TTInt8		bitdepth;		///< Negative numbers indicate dynamic or unknown bitdepth.
 
+	TTDataInfo() :
+		name(NULL)
+	{;}
+	
 	static TTDataInfoPtr getInfoForType(TTDataType type)
 	{
 		return ttDataTypeInfo[type];
