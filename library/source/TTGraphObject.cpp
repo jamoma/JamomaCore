@@ -25,14 +25,14 @@ TT_OBJECT_CONSTRUCTOR,
 	mKernel(NULL)
 {
 	TTErr		err = kTTErrNone;
-	TTSymbolPtr	wrappedObjectName = NULL;
+	TTSymbol	wrappedObjectName = kTTSymEmpty;
 	TTUInt16	initialNumChannels = 1;
 	TTUInt16	numInlets = 1;
 	TTUInt16	numOutlets = 1;
 	
 	TT_ASSERT(graph_correct_instantiation_args, arguments.getSize() > 0);
 	
-	arguments.get(0, &wrappedObjectName);
+	arguments.get(0, wrappedObjectName);
 	if (arguments.getSize() > 1)
 		arguments.get(1, numInlets);
 	if (arguments.getSize() > 2)
@@ -57,7 +57,7 @@ void TTGraphObject::prepareDescription()
 {
 	if (valid && mDescription.mClassName) {
 		mDescription.sIndex = 0;
-		mDescription.mClassName = NULL;
+		mDescription.mClassName = kTTSymEmpty;
 		
 		for (TTGraphInletIter inlet = mInlets.begin(); inlet != mInlets.end(); inlet++)
 			inlet->prepareDescriptions();
@@ -125,7 +125,7 @@ TTErr TTGraphObject::drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber, 
 
 TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 {
-	TTSymbolPtr		schema = aDictionary.getSchema();
+	TTSymbol		schema = aDictionary.getSchema();
 	TTValue			v;
 	TTErr			err = kTTErrMethodNotFound;
 	TTMessagePtr	message = NULL;
@@ -150,11 +150,11 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 		}
 		else if (schema == TT("message")) {
 			TTValue		nameValue;
-			TTSymbolPtr	nameSymbol = NULL;
+			TTSymbol	nameSymbol = kTTSymEmpty;
 			
 			aDictionary.lookup(TT("name"), nameValue);
 			aDictionary.getValue(v);
-			nameValue.get(0, &nameSymbol);
+			nameValue.get(0, nameSymbol);
 			err = mKernel->sendMessage(nameSymbol, v, v);
 			
 			mDictionary->setSchema(TT("message"));
@@ -163,11 +163,11 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 		}
 		else if (schema == TT("attribute")) {
 			TTValue		nameValue;
-			TTSymbolPtr	nameSymbol = NULL;
+			TTSymbol	nameSymbol = kTTSymEmpty;
 			
 			aDictionary.lookup(TT("name"), nameValue);
 			aDictionary.getValue(v);
-			nameValue.get(0, &nameSymbol);
+			nameValue.get(0, nameSymbol);
 			err = mKernel->setAttributeValue(nameSymbol, v);
 			
 			mDictionary->setSchema(TT("attribute"));

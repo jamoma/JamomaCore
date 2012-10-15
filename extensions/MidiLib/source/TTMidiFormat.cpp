@@ -32,7 +32,7 @@ TTMidiFormat::~TTMidiFormat()
 TTErr TTMidiFormat::dictionary(const TTValue& input, TTValue& output)
 {
 	TTDictionaryPtr	d = NULL;
-	TTSymbolPtr		schema;
+	TTSymbol		schema;
 	
 	input.get(0, (TTPtr*)(&d));
 	schema = d->getSchema();

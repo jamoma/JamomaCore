@@ -23,7 +23,7 @@ class TTMidiInput : TTDataObject {
 
 public:
 	
-	TTSymbolPtr			mDevice;			///< attr: selected device name
+	TTSymbol			mDevice;			///< attr: selected device name
 	const PmDeviceInfo*	mDeviceInfo;		///< selected device info struct
 	PmDeviceID			mID;				///< selected device ID number
 	PortMidiStream*		mStream;			///< a descriptor for a MIDI device that is opened when the device is set
