@@ -15,6 +15,7 @@ includes:
   - ../../../../Support/objectivemax/MaxObject
   - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
   - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
+  - "../../../../Support/objectivemax/SDKs/Max5/c74support/jit-includes"
   
 libraries:
   - FOUNDATION
@@ -22,6 +23,7 @@ libraries:
   - DSP
   - C74-MAX
   - C74-MSP
+  - C74-JITTER
 
 prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
 arch: "i386"

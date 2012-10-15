@@ -18,7 +18,6 @@
 //RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton) : 
 RampUnit::RampUnit(TTValue& arguments) :
 	TTObject(kTTValNONE),
-	mFunction(NULL),
 	callback(NULL),
 	baton(NULL),
 	startValue(NULL),
@@ -64,9 +63,9 @@ void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 TTErr RampUnit::setFunction(const TTValue& functionName)
 {
 	TTErr		err;
-	TTSymbolPtr	newFunctionName = NULL;
+	TTSymbol	newFunctionName;
 	
-	functionName.get(0, &newFunctionName);
+	functionName.get(0, newFunctionName);
 	
 	if (newFunctionName == TT("none"))
 		newFunctionName = TT("linear");
@@ -89,14 +88,14 @@ TTErr RampUnit::getFunctionParameterNames(TTValue& names)
 }
 
 
-TTErr RampUnit::setFunctionParameterValue(TTSymbol* parameterName, TTValue& newValue)
+TTErr RampUnit::setFunctionParameterValue(const TTSymbol& parameterName, TTValue& newValue)
 {
 	functionUnit->setAttributeValue(parameterName, newValue);
 	return kTTErrNone;
 }
 
 
-TTErr RampUnit::getFunctionParameterValue(TTSymbol* parameterName, TTValue& value)
+TTErr RampUnit::getFunctionParameterValue(const TTSymbol& parameterName, TTValue& value)
 {
 	functionUnit->getAttributeValue(parameterName, value);
 	return kTTErrNone;
@@ -131,7 +130,7 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 #include "SchedulerRamp.h"
 
 
-JamomaError RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
+JamomaError RampLib::createUnit(const TTSymbol& unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
 {
 	TTValue v;
 	
@@ -154,7 +153,7 @@ JamomaError RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampU
 //		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
 	else {
 		// Invalid function specified default to linear
-		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", (char*)unitName);
+		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", (const char*)unitName);
 		TTObjectInstantiate(TT("NoneRamp"), (TTObjectPtr*)unit, v);
 //		*unit = (RampUnit*) new NoneRamp(callback, baton);
 	}

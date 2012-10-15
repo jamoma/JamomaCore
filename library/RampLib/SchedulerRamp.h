@@ -23,7 +23,7 @@ private:
 	unsigned long		targetTime;
 	void				*clock;				///< Pointer to a Max clock instance
 	TTFloat32			attrGranularity;	///< The granularity or time intervals between successive values in ms
-	TTSymbol*			attrClock;			///< The name of the setclock object to use
+	TTSymbol			attrClock;			///< The name of the setclock object to use
 	TTFloat32			numgrains;			///< The number of steps left to take in this ramp. We use float value to cope with ramps shorter than the duration of attrGranularity
 	double				stepsize;			///< The size of the steps we need to take in the normalized range
 	TTBoolean			isRunning;			///< Is this running right now?
