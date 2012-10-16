@@ -19,7 +19,14 @@ class TTAudioGraphDescription;
 typedef std::vector<TTAudioGraphDescription>		TTAudioGraphDescriptionVector;
 typedef TTAudioGraphDescriptionVector::iterator		TTAudioGraphDescriptionIter;
 
+/** \ingroup typedefs
+ Here I'm documenting TTAudioGraphDescriptionVectors
+ */
 typedef std::vector<TTAudioGraphDescriptionVector>	TTAudioGraphDescriptionVectors;
+
+/** \ingroup typedefs
+ Here I'm documenting TTAudioGraphDescriptionVectorsIter
+ */
 typedef TTAudioGraphDescriptionVectors::iterator	TTAudioGraphDescriptionVectorsIter;
 
 
@@ -30,7 +37,6 @@ typedef std::vector<TTString>		TTStringVector;
 /**	This object provides a description of a TTAudioGraphObject
 	and its sources.
 */
-
 class TTAUDIOGRAPH_EXPORT TTAudioGraphDescription : public TTGraphDescription {
 public:
 	// A bunch of arrays (one for each inlet), each with an array of descriptions for nodes connected to that inlet

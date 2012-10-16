@@ -30,7 +30,12 @@ protected:
 	
 public:
 
-	TTAudioGraphSource();	
+	/** Constructor
+	 */
+	TTAudioGraphSource();
+	
+	/** Destructor
+	 */
 	~TTAudioGraphSource();			
 
 	// Internal method shared/called by constructors.
@@ -94,7 +99,10 @@ public:
 		return *this;
 	}
 	
-	/** Compare two sources for equality. */
+	/** Compare two sources for equality.
+	 @param source1		The first source to be compared.
+	 @param source2		The second source to be compared.
+	 */
 	inline friend bool operator == (const TTAudioGraphSource& source1, const TTAudioGraphSource& source2)
 	{
 		if (source1.mSourceObject == source2.mSourceObject && source1.mOutletNumber == source2.mOutletNumber)
