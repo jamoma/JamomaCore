@@ -10,14 +10,15 @@
 #define __TT_VALUE_H__
 
 #include "TTBase.h"
+#include "TTString.h"
 #include "TTLimits.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
 
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef TT_PLATFORM_IOS
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
+#include "TTAddress.h"
+#include "TTAddressTable.h"
 #endif
 
 class TTObject;
@@ -75,12 +76,14 @@ TTBoolean TTFOUNDATION_EXPORT	toTTFloat32( const TTString & str, TTFloat32 & con
 /****************************************************************************************************/
 // Class Specification
 
-/**	The TTValue class represents a value that can be passed around to functions in TTBlue.  It may be a
- *	single value, or an array of homogenous values.  It maybe one of a number of types defined in the 
- *	DataType enumeration.
+/** The TTValue class represents a value that can be passed around to functions in TTBlue.  It may be a
+ single value, or an array of homogenous values.  It maybe one of a number of types defined in the
+ DataType enumeration.
  */
 class TTFOUNDATION_EXPORT TTValue : TTBase {
 private:
+	/** The data value of TTValue is stored using a union.
+	 */
 	union DataValue{
 		TTFloat32		float32;
 		TTFloat64		float64;
@@ -93,7 +96,7 @@ private:
 		TTInt64			int64;
 		TTUInt64		uint64;
 		TTBoolean		boolean;
-		TTSymbolPtr		sym;
+		TTSymbolBase*	sym;		///< can't be a TTSymbolRef because it is in a union and this generates a compiler error
 		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
 		TTObject*		object;
 		TTMatrix*		matrix;
@@ -129,7 +132,7 @@ public:
 	TTValue(const TTInt64 initialValue);
 	TTValue(const TTUInt64 initialValue);
 	TTValue(const TTBoolean initialValue);
-	TTValue(const TTSymbolPtr initialValue);
+	TTValue(const TTSymbol& initialValue);
 	TTValue(const TTString& initialValue);
 	TTValue(const TTObject& initialValue);
 	TTValue(const TTMatrix& initialValue);
@@ -144,7 +147,7 @@ public:
 	virtual ~TTValue();
 
 	
-	/** Return this value to NULL state (no values) */
+	/** Return this value to NULL state (no values). */
 	void clear();
 	
 	/** Return the type of this value. */
@@ -232,8 +235,8 @@ public:
 	operator TTBoolean() const;
 
 	// SYMBOL
-	TTValue& operator = (TTSymbol* value);
-	operator TTSymbol*() const;
+	TTValue& operator = (const TTSymbol& value);
+	operator TTSymbol() const;
 	
 	// STRING
 	TTValue& operator = (TTString& value);
@@ -270,7 +273,7 @@ public:
 	void set(const TTUInt16 index, const TTInt64 newValue);
 	void set(const TTUInt16 index, const TTUInt64 newValue);
 	void set(const TTUInt16 index, const TTBoolean newValue);
-	void set(const TTUInt16 index, const TTSymbol* newValue);
+	void set(const TTUInt16 index, const TTSymbol& newValue);
 	void set(const TTUInt16 index, const TTString& newValue);
 	void set(const TTUInt16 index, const TTObject& newValue);
 	void set(const TTUInt16 index, const TTMatrix& newValue);
@@ -294,7 +297,7 @@ public:
 	void get(const TTUInt16 index, TTInt64 &value) const;
 	void get(const TTUInt16 index, TTUInt64 &value) const;
 	void get(const TTUInt16 index, TTBoolean &value) const;
-	void get(const TTUInt16 index, TTSymbol** value) const;
+	void get(const TTUInt16 index, TTSymbol& value) const;
 	void get(const TTUInt16 index, TTString& value) const;
 	void get(const TTUInt16 index, const char* value) const;
 	void get(const TTUInt16 index, TTObject& value) const;
@@ -302,10 +305,8 @@ public:
 	void get(const TTUInt16 index, TTMatrix& value) const;
 	void get(const TTUInt16 index, TTMatrix** value) const;
 	void get(const TTUInt16 index, TTPtr* value) const;
-
-// Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS
-	void get(const TTUInt16 index, TTNodeAddressPtr* value) const;
+#ifndef DISABLE_NODELIB
+	void get(const TTUInt16 index, TTAddress& value) const;
 #endif
 	
 	// inlined for speed (e.g. for use in the matrix)
@@ -437,7 +438,7 @@ public:
 	void append(const TTInt64 newValue);
 	void append(const TTUInt64 newValue);
 	void append(const TTBoolean newValue);
-	void append(const TTSymbol* newValue);
+	void append(const TTSymbol& newValue);
 	void append(const TTString& newValue);
 	void append(const TTObject& newValue);
 	void append(const TTMatrix& newValue);
@@ -860,7 +861,7 @@ public:
 	void toString()
 	{
 		TTString*	str = new TTString;
-		TTCString	temp;
+		char*	temp;
 		TTBoolean	addQuotes;
 		
 		for (TTUInt16 i=0; i<numValues; i++) {
@@ -965,8 +966,9 @@ public:
 			TTInt32 convertedInt;
 			TTFloat32 convertedFloat;
 			std::vector<std::string> strList;
+			std::string str(data->stringPtr->c_str());
 			
-			std::istringstream iss(*(data->stringPtr));
+			std::istringstream iss(str);
 			std::copy(
 				 std::istream_iterator<string>( iss ),
 				 std::istream_iterator<string>(),
@@ -977,7 +979,7 @@ public:
 				setSize(strList.size());
 				
 				for (unsigned int i = 0; i < strList.size(); ++i) {
-					TTString currentString = strList.at(i);
+					TTString currentString = strList.at(i).c_str();
 					if (toTTInt32(currentString, convertedInt) && !numberAsSymbol) {
 						
 						data[n].int32 = convertedInt;
@@ -990,13 +992,14 @@ public:
 						type[n] = kTypeFloat32;
 						n++;
 						
-					} else {
+					}
+					else {
 						
-						if (currentString.data()[0] == '"') {
+						if (currentString.c_str()[0] == '"') {
 							
 							TTString editString = currentString.substr(1, currentString.size());	// don't keep the leading "
 							
-							while (currentString.data()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
+							while (currentString.c_str()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
 								i++;
 								currentString = strList.at(i);
 								
@@ -1004,13 +1007,14 @@ public:
 								editString += currentString;
 							}
 							
-							data[n].sym = TT(editString.substr(0, editString.size()-1));			// don't keep the last "
+							data[n].sym = (TTSymbolBase*) TTSymbol(editString.substr(0, editString.size()-1)).rawpointer();			// don't keep the last "
 							type[n] = kTypeSymbol;
 							n++;
 
 						} else {
-							TTSymbolPtr editSymbol = TT(currentString.data());
-							data[n].sym = editSymbol;
+							TTSymbol editSymbol(currentString.c_str());
+							
+							data[n].sym = (TTSymbolBase*) editSymbol.rawpointer();
 							type[n] = kTypeSymbol;
 							n++;
 						}

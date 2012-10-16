@@ -15,15 +15,15 @@
 /**	A convenience macro to be used by subclasses for registering messages.
 	@param	name	The name of the message, and also the name of the classes' method to be called.
 */
-#define addMessage(name)					registerMessage(TT(#name), (TTMethod)& thisTTClass ::name , kTTMessagePassNone )
-#define registerMessageSimple(name)			registerMessage(TT(#name), (TTMethod)& thisTTClass ::name , kTTMessagePassNone )
+#define addMessage(name)					registerMessage(#name, (TTMethod)& thisTTClass ::name , kTTMessagePassNone )
+#define registerMessageSimple(name)			registerMessage(#name, (TTMethod)& thisTTClass ::name , kTTMessagePassNone )
 
 
 /**	A convenience macro to be used by subclasses for registering messages.
 	@param	name	The name of the message, and also the name of the classes' method to be called.
 */
-#define addMessageWithArguments(name)		registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
-#define registerMessageWithArguments(name)	registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
+#define addMessageWithArguments(name)		registerMessage(#name, (TTMethod)& thisTTClass ::name )
+#define registerMessageWithArguments(name)	registerMessage(#name, (TTMethod)& thisTTClass ::name )
 
 
 /** A convenience macro to be used for registering properties of messages.
@@ -31,7 +31,7 @@
  If you are adding a custom property then you must define your own accessor methods and register the property by calling the
  TTObject::registerMessageProperty() method directly.
  */
-#define addMessageProperty(messageName, propertyName, initialValue)		registerMessageProperty(TT(#messageName), TT(#propertyName), initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
+#define addMessageProperty(messageName, propertyName, initialValue)		registerMessageProperty(#messageName, #propertyName, initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
 
 
 /**	An 'update' is a message sent to a subclass instance from its parent class.
@@ -51,13 +51,13 @@
 class TTFOUNDATION_EXPORT TTMessage : public TTObject {
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbolPtr	name;		///< the name of the message.
+	const TTSymbol		name;		///< the name of the message.
 	TTMessageFlags		flags;		///< define the behavior of the message.
 	TTMethod			method;		///< method associated with this message.
 	TTBoolean			hidden;		///< Property: this message is private/hidden from outside usage
-	TTSymbolPtr			description;	///< Property: description of this message
+	TTSymbol			description;	///< Property: description of this message
 
-	TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags);
+	TTMessage(const TTSymbol& newName, TTMethod newMethod, TTMessageFlags newFlags);
 	virtual ~TTMessage();
 	
 	TTErr sethidden(const TTValue& newHiddenFlag);

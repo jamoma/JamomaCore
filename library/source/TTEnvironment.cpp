@@ -35,7 +35,7 @@ TTEnvironment::TTEnvironment()
 	addMessageWithArguments(getClassNamesForTags);
 
 	// can't use the SymbolCache here because it hasn't been initialized yet!
-	setAttributeValue(TT("sampleRate"), 44100);
+	setAttributeValue("sampleRate", 44100);
 }
 
 
@@ -51,12 +51,12 @@ TTEnvironment::~TTEnvironment()
 
 TTErr TTEnvironment::getVersion(const TTValue& anInputValue, TTValue &anOutputValue)
 {
-	anOutputValue = TT(TTFOUNDATION_VERSION_STRING);
+	anOutputValue = TTSymbol(TTFOUNDATION_VERSION_STRING);
 	return kTTErrNone;
 }
 
 
-TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod)
+TTErr TTEnvironment::registerClass(const TTSymbol& className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod)
 {
 	TTValue		v((TTString&)tagString);	// The tags to be associated with the class we are registering.
 	TTValue		tagObjects;					// Contains a TTList of objects in the environment with the given tag.
@@ -64,10 +64,10 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 	TTErr		err;
 	TTList*		classNamesForTag;			// The TTList contained by tagObjects
 	TTUInt16	size;
-	TTSymbolPtr	tag;
+	TTSymbol	tag(kTTSymEmpty);
 	TTValue		result;
 
-	TTLogDebug("Jamoma registering class: %s\n", className->getCString());
+	TTLogDebug("Jamoma registering class: %s\n", className.c_str());
 	
 	err = classes->lookup(className, result);
 
@@ -83,7 +83,7 @@ TTErr TTEnvironment::registerClass(const TTSymbolPtr className, const TTString& 
 		// 3. For each symbol in the TTValue array...
 		size = v.getSize();
 		for (TTUInt16 i=0; i<size; i++) {
-			v.get(i, &tag);
+			v.get(i, tag);
 
 			// 4. Look to see if this tag exists yet
 			err = tags->lookup(tag, tagObjects);
@@ -147,14 +147,14 @@ TTErr TTEnvironment::getClassNamesForTags(const TTValue& anInputValue, TTValue &
 TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& searchTags)
 {
 	TTUInt16	size = searchTags.getSize();
-	TTSymbolPtr	tag;
+	TTSymbol	tag(kTTSymEmpty);
 	TTValue		tagObjects;
 	TTErr		err = kTTErrGeneric;
 	TTList*		classNamesForTag;
 
 	classNames.clear();
 
-	searchTags.get(0, &tag);
+	searchTags.get(0, tag);
 	err = tags->lookup(tag, tagObjects);
 	if (err)
 		return err;
@@ -163,26 +163,26 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 
 	for (TTUInt16 i=0; i<classNamesForTag->getSize(); i++) {
 		TTValue		classNameValue;
-		TTSymbolPtr className;
+		TTSymbol	className(kTTSymEmpty);
 		TTValue		tags;
 		TTValue		aClassValue;
 		TTClassPtr	aClass;
 		TTUInt16	success = 1;
 
 		classNamesForTag->getIndex(i, classNameValue);
-		classNameValue.get(0, &className);
+		classNameValue.get(0, className);
 
 		classes->lookup(className, aClassValue);
 		aClass = TTClassPtr(TTPtr(aClassValue));
 		tags = aClass->tags;
 
 		for (TTUInt16 j=0; j<tags.getSize(); j++){
-			TTSymbolPtr someTag;
+			TTSymbol someTag(kTTSymEmpty);
 
-			tags.get(j, &someTag);
+			tags.get(j, someTag);
 
 			for (TTUInt16 k=1; k<size; k++){
-				searchTags.get(k, &tag);
+				searchTags.get(k, tag);
 				if (tag == someTag) {
 					success += 1;
 					break;
@@ -199,12 +199,12 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 }
 
 
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, const TTValue& anArgument)
+TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectPtr* anObject, const TTValue& anArgument)
 {
 	return createInstance(className, anObject, (TTValue&)anArgument); // throw away the const (I know, I know...), maybe the non-const constructor shouldn't exist at all?
 }
 
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, TTValue& anArgument)
+TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectPtr* anObject, TTValue& anArgument)
 {
 	TTValue		v;
 	TTClassPtr	theClass;
@@ -258,7 +258,7 @@ TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
 
 	(*anObject)->valid = false;
-	(*anObject)->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
+	(*anObject)->observers->iterateObjectsSendingMessage("objectFreeing", v);
 
 	waitForLock(); // in case an object is processing a vector of audio in another thread or something...
 
@@ -276,19 +276,19 @@ TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 #pragma mark Public Interface
 #endif
 
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, TTValue& arguments)
+TTErr TTObjectInstantiate(const TTSymbol& className, TTObjectPtr* returnedObjectPtr, TTValue& arguments)
 {
 	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
 }
 
 
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments)
+TTErr TTObjectInstantiate(const TTSymbol& className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments)
 {
 	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
 }
 
 
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments)
+TTErr TTObjectInstantiate(const TTSymbol& className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments)
 {
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, returnedObjectPtr, v);
@@ -310,12 +310,12 @@ TTErr TTObjectRelease(TTObjectPtr* anObject)
 }
 
 
-TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod)
+TTErr TTClassRegister(const TTSymbol& className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod)
 {
 	return ttEnvironment->registerClass(className, tagString, anInstantiationMethod);
 }
 
-TTErr TTClassRegister(const TTSymbolPtr className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod)
+TTErr TTClassRegister(const TTSymbol& className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod)
 {
 	return ttEnvironment->registerClass(className, TTString(tagString), anInstantiationMethod);
 }

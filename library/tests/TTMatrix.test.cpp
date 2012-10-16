@@ -25,7 +25,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTMatrixPtr matrix = NULL;
 		TTErr err;
 		
-		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&matrix, kTTValNONE);
+		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&matrix, kTTValNONE);
 		TTTestAssertion("instantiates successfully", 
 						err == kTTErrNone, 
 						testAssertionCount,
@@ -35,9 +35,9 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		
 		TTTestLog("Setting to a 1D, float64, matrix with a length of 16 for complex numbers (2 elements per value)");
-		matrix->setAttributeValue(TT("dimensions"), 16);
-		matrix->setAttributeValue(TT("type"), TT("float64"));
-		matrix->setAttributeValue(TT("elementCount"), 2);
+		matrix->setAttributeValue("dimensions", 16);
+		matrix->setAttributeValue("type", "float64");
+		matrix->setAttributeValue("elementCount", 2);
 		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTFloat64) * 16 * 2, 
@@ -73,7 +73,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 
 		TTValue v(0, 1);// specify the index and real, but forgot the imaginary
-		err = matrix->sendMessage(TT("set"), v, kTTValNONE);
+		err = matrix->sendMessage("set", v, kTTValNONE);
 		TTTestAssertion("set message -- error returned when not enough data provided to completely set value", 
 						err, 
 						testAssertionCount,
@@ -83,11 +83,11 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		v.set(0, 15);	// index
 		v.set(1, 3.14);	// real (no imaginary)
 		v.set(2, -2);	// real (no imaginary)
-		matrix->sendMessage(TT("set"), v, kTTValNONE);
+		matrix->sendMessage("set", v, kTTValNONE);
 		v.set(0, 10);	// index
 		v.set(1, 4);	// real
 		v.set(2, 1.2);	// imaginary
-		matrix->sendMessage(TT("set"), v, kTTValNONE);
+		matrix->sendMessage("set", v, kTTValNONE);
 		
 		TTComplex z(14, 0.92);
 		matrix->set2d(1, 9, z);
@@ -145,9 +145,9 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("");
 		TTTestLog("Setting to a 2D image matrix (8-bit int, 4 elements per value for rgba color) with a size of 160 x 120");
 		TTValue dims(160, 120);
-		matrix->setAttributeValue(TT("dimensions"), dims);
-		matrix->setAttributeValue(TT("type"), TT("uint8"));
-		matrix->setAttributeValue(TT("elementCount"), 4);
+		matrix->setAttributeValue("dimensions", dims);
+		matrix->setAttributeValue("type", "uint8");
+		matrix->setAttributeValue("elementCount", 4);
 		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTUInt8) * 160 * 120 * 4, 
@@ -168,9 +168,9 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		dims.set(0, 5);
 		dims.set(1, 3);
 		dims.set(2, 4);
-		matrix->setAttributeValue(TT("dimensions"), dims);
-		matrix->setAttributeValue(TT("type"), TT("float32"));
-		matrix->setAttributeValue(TT("elementCount"), 1);
+		matrix->setAttributeValue("dimensions", dims);
+		matrix->setAttributeValue("type", "float32");
+		matrix->setAttributeValue("elementCount", 1);
 		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTFloat32) * 5 * 3 * 4 * 1, 
@@ -191,9 +191,9 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		dims.set(1, 7);
 		dims.set(2, 8);
 		dims.set(3, 9);
-		matrix->setAttributeValue(TT("dimensions"), dims);
-		matrix->setAttributeValue(TT("type"), TT("int32"));
-		matrix->setAttributeValue(TT("elementCount"), 1);
+		matrix->setAttributeValue("dimensions", dims);
+		matrix->setAttributeValue("type", "int32");
+		matrix->setAttributeValue("elementCount", 1);
 		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTInt32) * 6 * 7 * 8 * 9 * 1, 
@@ -230,19 +230,20 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTErr		err;
 		TTValue		dims;
 		
-		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&A, kTTValNONE);
-		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&B, kTTValNONE);
+		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&A, kTTValNONE);
+		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&B, kTTValNONE);
+		err = err; // prevent 'unused' warning
 		
 		dims.setSize(2);
 		dims.set(0, 3);	// 3 rows
 		dims.set(1, 4);	// 4 columns
-		A->setAttributeValue(TT("dimensions"), dims);
-		A->setAttributeValue(TT("type"), TT("int32"));
-		A->setAttributeValue(TT("elementCount"), 1);
+		A->setAttributeValue("dimensions", dims);
+		A->setAttributeValue("type", "int32");
+		A->setAttributeValue("elementCount", 1);
 		
-		B->setAttributeValue(TT("dimensions"), dims);
-		B->setAttributeValue(TT("type"), TT("int32"));
-		B->setAttributeValue(TT("elementCount"), 1);
+		B->setAttributeValue("dimensions", dims);
+		B->setAttributeValue("type", "int32");
+		B->setAttributeValue("elementCount", 1);
 
 		A->set2d(1, 1, 101);	A->set2d(1, 2, 102);	A->set2d(1, 3, 103);	A->set2d(1, 4, 104);
 		A->set2d(2, 1, 201);	A->set2d(2, 2, 202);	A->set2d(2, 3, 203);	A->set2d(2, 4, 204);

@@ -30,7 +30,7 @@ private:
 	friend class TTEnvironment;
 	friend class TTObject;
 	
-	TTSymbolPtr						name;					///< The name of the class.
+	TTSymbol						name;					///< The name of the class.
 	TTValue							tags;					///< An array of TTSymbols containing tags associated with this class.
 	TTObjectInstantiationMethod		instantiationMethod;	///< Pointer to the function that will create a new instance.
 	TTString						path;					///< The path to executable from which this class loaded.
@@ -40,14 +40,13 @@ private:
 public:
 	
 	/**	Constructor	*/
-	TTClass(const TTSymbolPtr className, const TTValue& tags, const TTObjectInstantiationMethod anInstantiationMethod);
+	TTClass(const TTSymbol& className, const TTValue& tags, const TTObjectInstantiationMethod anInstantiationMethod);
 		
 	/**	Destructor */
 	virtual ~TTClass();
 	
 	
 	/**	Create a new instance of a registered #TTObject class.
-		@param	className	Pass in a #TTSymbol* with the name of the unit to load.  
 		@param	anObject	Upon successful return, the value will be set to a #TTObject which is the new instance.
 							If the pointer is passed in as non-NULL then createUnit() will try to free to the
 							existing object to which it points prior to instantiating the new unit.

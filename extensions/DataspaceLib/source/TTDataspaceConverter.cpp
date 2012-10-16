@@ -39,14 +39,14 @@ TTDataspaceConverter::~TTDataspaceConverter()
 
 TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 {
-	TTSymbolPtr		name;
+	TTSymbol		name;
 	TTErr			err;
 	TTString		objectName = "dataspace.";
 	
-	newValue.get(0, &name);
+	newValue.get(0, name);
 	
 	// TODO: validate the name provided before proceeding
-	objectName += name->getCString();
+	objectName += name.c_str();
 	err = TTObjectInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
 	if (err) {
         // Rather than crashing:
@@ -94,7 +94,8 @@ TTErr TTDataspaceConverter::getInputUnit(TTValue& inUnitName)
 
 TTErr TTDataspaceConverter::setInputUnit(const TTValue& inUnitName)
 {
-	return mDataspaceObject->setInputUnit(inUnitName);
+	TTSymbol s = inUnitName;
+	return mDataspaceObject->setInputUnit(s);
 }
 
 
@@ -107,7 +108,8 @@ TTErr TTDataspaceConverter::getOutputUnit(TTValue& outUnitName)
 
 TTErr TTDataspaceConverter::setOutputUnit(const TTValue& outUnitName)
 {
-	return mDataspaceObject->setOutputUnit(outUnitName);
+	TTSymbol s = outUnitName;
+	return mDataspaceObject->setOutputUnit(s);
 }
 
 
@@ -125,16 +127,16 @@ TTErr TTDataspaceConverter::getAvailableDataspaces(const TTValue& anUnusedInputV
 	if (!err) {
 		// strip the leading "dataspace." prefix off all the names
 		for (int i=0; i < dataspaceNames.getSize(); i++) {
-			TTSymbolPtr s;
+			TTSymbol s;
 			//TTString	str;
 			const char* cStr;
 			
-			dataspaceNames.get(i, &s);
+			dataspaceNames.get(i, s);
 			/* 
 			str = s->getString();	// this causes crashes on Windows, need to use C string instead
 			str.erase(0, 10);
 			*/
-			cStr = s->getCString() + 10;
+			cStr = s.c_str() + 10;
 			s = TT(cStr);
 			dataspaceNames.set(i, s);
 		}

@@ -1,4 +1,4 @@
-/*
+/*! \file TTBase.h
  * Jamoma's lowest-level base class and related infrastructure
  * Copyright © 2008, Timothy Place
  *
@@ -98,6 +98,15 @@ using namespace std;
 #endif
 
 
+#ifdef __GNUC__
+#define TT_DEPRECATED(func) func __attribute__ ((deprecated))
+#elif defined(_MSC_VER)
+#define TT_DEPRECATED(func) __declspec(deprecated) func
+#else
+#define TT_DEPRECATED(func) func
+#endif
+
+
 /****************************************************************************************************/
 // Memory alignment
 
@@ -117,7 +126,6 @@ typedef bool				TTBoolean;				///< Boolean flag, same as Boolean on the Mac
 typedef unsigned char		TTByte;					///< Byte value
 typedef char*				TTCString;
 typedef const char*			TTImmutableCString;
-typedef std::string			TTString;
 
 typedef signed char			TTInt8;					///< 8 bit signed integer (char)
 typedef unsigned char		TTUInt8;				///< 8 bit unsigned integer (char)
@@ -199,9 +207,33 @@ typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBool
 
 /****************************************************************************************************/
 
-/**	TTBlue Data Types
- *	Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
- *	TTAttribute objects.																			*/
+
+/** \defgroup enums Enumerations
+ *
+ * Various enumerations used in %Jamoma.
+ */
+
+
+/** \defgroup bitmasks Bit Masks
+ *
+ * Various enumerations used as bitmasks in %Jamoma.
+ */
+
+/** \defgroup typedefs Typedefs
+ *
+ * Various typedefs used in %Jamoma.
+ */
+
+/** \defgroup consts Constants
+ *
+ * Various constants used in %Jamoma.
+ */
+
+
+/**	\ingroup enums
+ TTBlue Data Types
+ Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
+ TTAttribute objects.																			*/
 enum TTDataType{
 	kTypeNone = 0,
 	kTypeFloat32,
@@ -233,12 +265,19 @@ typedef TTDataInfo* TTDataInfoPtr;
 extern TTFOUNDATION_EXPORT TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
 
 
+// from TTSymbolCache.h:
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSymEmpty;
+
 class TTFOUNDATION_EXPORT TTDataInfo {
 public:
 	TTSymbol*	name;			///< The name of the type as a symbol, e.g. float32, float64, etc.
 	TTBoolean	isNumerical;	///< Is this type numeric?
 	TTInt8		bitdepth;		///< Negative numbers indicate dynamic or unknown bitdepth.
 
+	TTDataInfo() :
+		name(NULL)
+	{;}
+	
 	static TTDataInfoPtr getInfoForType(TTDataType type)
 	{
 		return ttDataTypeInfo[type];
@@ -255,8 +294,9 @@ public:
 
 
 
-/**	TTBlue Error Codes
- *	Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
+/**	\ingroup enums
+ Jamoma Error Codes
+ Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
 enum TTErr {
 	kTTErrNone = 0,			///< No Error.
 	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
@@ -430,27 +470,105 @@ public:
 TTFOUNDATION_EXPORT TTFloat64 TTRandom64();
 
 
+/** \ingroup consts
+ Equal Power lookup table, 512 elements 
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];
 
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table, 512 elements
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRoot[];			///< Square Root lookup table, 512 elements
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPowerSymetric[];	///< Equal Power lookup table with 0.701 at element 256
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRootSymetric[];	///< Square Root lookup table with 0.701 at element 256
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
-TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi     (3.1416)
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;						///< pre-calculated value of pi/2
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTQuarterPi;					///< pre-calculated value of pi/4
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2 (1.4142)
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfSqrt2;					///< pre-calculated value of sqrt(2)/2 (0.701)
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoSqrt2;						///< pre-calculated value of 2 * sqrt(2) (2.8284)
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTEpsilon;						///< a very very small value
+/** \ingroup consts
+ Square Root lookup table, 512 elements
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRoot[];
+
+/** \ingroup consts
+ Equal Power lookup table with 0.701 at element 256
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPowerSymetric[];
+
+/** \ingroup consts
+ Square Root lookup table with 0.701 at element 256
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupSquareRootSymetric[];
+
+/** \ingroup consts
+ 256 point window table (the first half of it)
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];
+
+/** \ingroup consts
+ Quarter Sine lookup table
+ */
+TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];
+
+/** \ingroup consts
+ Pre-calculated value of pi     (3.1416).
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;
+
+/** \ingroup consts
+ Pre-calculated value of pi/2.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;
+
+/** \ingroup consts
+ Pre-calculated value of pi/4.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTQuarterPi;
+
+/** \ingroup consts
+ Pre-calculated value of pi * 2.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoPi;
+
+/** \ingroup consts
+ Constant used by the ttantidenormal function.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTAntiDenormalValue;
+
+/** \ingroup consts
+ Pre-calculated square-root of 2 (1.4142).
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTSqrt2;
+
+/** \ingroup consts
+ Pre-calculated value of sqrt(2)/2 (0.701).
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfSqrt2;
+
+/** \ingroup consts
+ Pre-calculated value of 2 * sqrt(2) (2.8284).
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTTwoSqrt2;
+
+/** \ingroup consts
+ A very very small value, used for float equality comaprisments.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTEpsilon;
+
+/** \ingroup consts
+ Factor constant for converting radians to degrees.
+ */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTRadiansToDegrees;
+
+/** \ingroup consts
+ Factor constant for converting degrees to radians.
+ */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTDegreesToRadians;
+
+/** \ingroup consts
+ Power constant used when calculating MID gain.
+ */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPower;
+
+/** \ingroup consts
+ Invverse power constant used when calculating MID gain.
+ */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPowerInv;
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTInv255;						///< pre-calculated value of 1/255
+
+/** \ingroup consts
+ Constant for color representation when converting from char8 to float representation.
+ */
+TTFOUNDATION_EXPORT extern const TTFloat64 kTTInv255;
 
 /** Platform and host independent method for posting messages. */
 void TTFOUNDATION_EXPORT TTLogMessage(TTImmutableCString message, ...);

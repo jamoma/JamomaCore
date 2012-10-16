@@ -11,6 +11,8 @@
 #include "TTSymbolTable.h"
 #include "TTMutex.h"
 
+#include "TTSymbolCache.h"
+
 #ifdef TT_PLATFORM_WIN
 	#include <hash_map>
 	using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
@@ -56,7 +58,7 @@ TTHash::TTHash(TTHash& that)
 }
 
 
-TTErr TTHash::append(const TTSymbolPtr key, const TTValue& value)
+TTErr TTHash::append(const TTPtr key, const TTValue& value)
 {
 	lock();
 	HASHMAP->insert(TTKeyVal(TTPtrSizedInt(key), value));
@@ -65,12 +67,30 @@ TTErr TTHash::append(const TTSymbolPtr key, const TTValue& value)
 }
 
 
-TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
+TTErr TTHash::append(const TTSymbol& key, const TTValue& value)
+{
+	return append(TTPtr(key.rawpointer()), value);
+}
+
+
+TTErr TTHash::lookup(const TTSymbol& key, TTValue& value)
+{
+	return lookup(TTPtr(key.rawpointer()), value);
+}
+
+
+TTErr TTHash::lookup(const TTPtr key, TTValue& value)
 {
 	lock();
-	TTHashMapIter iter = HASHMAP->find(TTPtrSizedInt(key));
-
-	if (iter == HASHMAP->end()) {
+	TTHashMap* theMap = (TTHashMap*)mHashMap;
+	TTHashMapIter iter = theMap->find(TTPtrSizedInt(key));
+	
+	//	TTPtrSizedInt a = iter->first;
+	//	TTSymbol*     b = (TTSymbol*)a;
+	//	TTValue			v = iter->second;
+	//	TTValue v = (*theMap)[TTPtrSizedInt(&key)];
+	
+	if (iter == theMap->end()) {
 		unlock();
 		return kTTErrValueNotFound;
 	}
@@ -82,10 +102,11 @@ TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
 }
 
 
-TTErr TTHash::remove(const TTSymbolPtr key)
+
+TTErr TTHash::remove(const TTSymbol& key)
 {
 	lock();
-	HASHMAP->erase(TTPtrSizedInt(key));
+	HASHMAP->erase(TTPtrSizedInt(key.rawpointer()));
 	unlock();
 	return kTTErrNone;
 }
@@ -105,8 +126,18 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 	lock();
 	hashKeys.clear();
 
-	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++)
-		hashKeys.append(TTSymbolPtr(iter->first));
+//#define HASHMAP  ((TTHashMap*)(mHashMap))
+//#define mHASHMAP (*HASHMAP)
+
+	TTHashMap* theMap = (TTHashMap*)mHashMap;
+	
+	for (TTHashMapIter iter = theMap->begin(); iter != theMap->end(); iter++) {
+		TTPtrSizedInt	a = iter->first;
+		TTSymbol		b((TTSymbolBase*)a);
+		//TTValue		  v = iter->second;
+		//hashKeys.append(TTSymbolRef(*(TTSymbol*)iter->first));
+		hashKeys.append(b);
+	}
 	unlock();
 	return kTTErrNone;
 }
@@ -117,18 +148,20 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 	lock();
 	TTList		listToSort;
 	TTValue		v;
-	TTSymbolPtr key;
+	TTSymbol	key;
 	
 	// fill a list to sort
 	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++) {
+		TTPtrSizedInt	a = iter->first;
+		TTSymbol		b((TTSymbolBase*)a);
 		
 		if (comparisonFunction) {
-			v = TTSymbolPtr(iter->first);	// the key
+			v = b;	// the key
 			v.append(TTPtr(iter->second));	// a pointer to the stored value
 			listToSort.append(v);
 		}
 		else
-			listToSort.append(TTSymbolPtr(iter->first));
+			listToSort.append(b);
 	}
 	
 	listToSort.sort(comparisonFunction);
@@ -138,7 +171,7 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 	for (listToSort.begin(); listToSort.end(); listToSort.next()) {
 		
 		if (comparisonFunction) {
-			listToSort.current().get(0, &key);
+			listToSort.current().get(0, key);
 			hashKeysSorted.append(key);
 		}
 		else

@@ -53,11 +53,11 @@ public:
 	
 	virtual ~TTOscSocket();
 	
-	TTErr		SendMessage(TTSymbolPtr message, const TTValue& arguments);
+	TTErr		SendMessage(TTSymbol& message, const TTValue& arguments);
 	
 private:
 	// internal helper method
-	TTUInt32	computeMessageSize(TTSymbolPtr message, const TTValue& arguments);
+	TTUInt32	computeMessageSize(TTSymbol& message, const TTValue& arguments);
 	
 protected:
 	

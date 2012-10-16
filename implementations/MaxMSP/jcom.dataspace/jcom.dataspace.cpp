@@ -181,11 +181,11 @@ void dataspace_getDataspaces(t_dataspace *self)
 	
 	self->dataspace->sendMessage(TT("getAvailableDataspaces"), v, v);	
 	for (int i=0; i < v.getSize(); i++) {
-		TTSymbolPtr	name;
+		TTSymbol	name;
 		
-		v.get(i, &name);
+		v.get(i, name);
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, gensym(name->getCString()));
+		atom_setsym(a+1, gensym(name.c_str()));
 		object_obex_dumpout(self, gensym("DataspacesMenu"), 2, a);
 	}
 }
@@ -201,11 +201,11 @@ void dataspace_getUnits(t_dataspace *self)
 	
 	self->dataspace->sendMessage(TT("getAvailableUnits"), v, v);	
 	for (int i=0; i < v.getSize(); i++) {
-		TTSymbolPtr	name;
+		TTSymbol	name;
 		
-		v.get(i, &name);
+		v.get(i, name);
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, gensym(name->getCString()));
+		atom_setsym(a+1, gensym(name.c_str()));
 		object_obex_dumpout(self, gensym("UnitMenu"), 2, a);
 	}
 }
@@ -218,18 +218,18 @@ void dataspace_getUnits(t_dataspace *self)
 t_max_err dataspace_setDataspace(t_dataspace *self, void *attr, long argc, t_atom *argv)
 {
 	TTValue		v;
-	TTSymbolPtr	s;
+	TTSymbol	s;
 	
 	self->attr_dataspace = atom_getsym(argv);
 	self->dataspace->setAttributeValue(TT("dataspace"), TT(self->attr_dataspace->s_name));
 
 	self->dataspace->getAttributeValue(TT("inputUnit"), v);
-	v.get(0, &s);
-	self->attr_dataspace_active = gensym(s->getCString());
+	v.get(0, s);
+	self->attr_dataspace_active = gensym(s.c_str());
 	
 	self->dataspace->getAttributeValue(TT("outputUnit"), v);
-	v.get(0, &s);
-	self->attr_dataspace_native = gensym(s->getCString());
+	v.get(0, s);
+	self->attr_dataspace_native = gensym(s.c_str());
 
 	return MAX_ERR_NONE;
 }
