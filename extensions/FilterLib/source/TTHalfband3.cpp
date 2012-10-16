@@ -70,7 +70,7 @@ TTErr TTHalfband3::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValu
 
 TTErr TTHalfband3::setMode(const TTValue& newValue)
 {
-	TTSymbolPtr newMode = newValue;
+	TTSymbol newMode = newValue;
 
 	if (newMode == mMode)
 		return kTTErrNone;

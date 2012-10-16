@@ -32,7 +32,7 @@ protected:
 	TTSampleVector	mRSwitch;	///< resampling switch (so we know which path to calculate)
 	TTSampleVector	mY0;		///< resampling path0 output (for each channel)
 	TTSampleVector	mY1;		///< resampling path1 output (for each channel)	
-	TTSymbolPtr		mMode;		///< Attribute: lowpass or highpass
+	TTSymbol		mMode;		///< Attribute: lowpass or highpass
 	
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);

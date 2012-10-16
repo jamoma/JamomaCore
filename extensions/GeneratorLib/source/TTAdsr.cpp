@@ -14,7 +14,7 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-, output(0.), output_db(NOISE_FLOOR), eg_state(k_eg_inactive), trigger(false), attrMode(TT("linear"))
+, output(0.), output_db(NOISE_FLOOR), eg_state(k_eg_inactive), trigger(false), attrMode("linear")
 {
 	registerAttribute(TT("attack"), kTypeFloat64, &attack_ms, (TTSetterMethod)&TTAdsr::setAttack);
 	registerAttribute(TT("decay"), kTypeFloat64, &decay_ms, (TTSetterMethod)&TTAdsr::setDecay);
@@ -43,7 +43,7 @@ TTAdsr::~TTAdsr()
 TTErr TTAdsr::dictionary(const TTValue& input, TTValue& output)
 {
 	TTDictionaryPtr	d = NULL;
-	TTSymbolPtr		schema;
+	TTSymbol		schema;
 	
 	input.get(0, (TTPtr*)(&d));
 	schema = d->getSchema();

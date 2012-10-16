@@ -21,7 +21,7 @@ protected:
 	TTUInt64			mInterval;
 	TTFloat64			mIntervalReciprocal;
 	TTSampleVector		mAccumulator;
-	TTSymbol*			mMode;
+	TTSymbol			mMode;
 	TTDelayBufferVector	mBins;
 	
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */

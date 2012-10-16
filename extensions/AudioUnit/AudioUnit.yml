@@ -13,3 +13,5 @@ libraries:
 frameworks:
   - Carbon
   - AudioUnit
+
+compiler: clang

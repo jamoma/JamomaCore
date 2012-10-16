@@ -26,7 +26,7 @@ protected:
 
 	TTFloat64			mFrequency;			///< filter cutoff frequency
 	TTFloat64			mResonance;			///< filter resonance -- range is best between 1.0 and 16.0
-	TTSymbolPtr			mMode;				///< lowpass, highpass, bandpass, notch, or peak
+	TTSymbol			mMode;				///< lowpass, highpass, bandpass, notch, or peak
 	TTFloat64			mF, mR, mDamp;		// coefficients
 	TTSampleVector		mLowpass_output;		// feedback storage...
 	TTSampleVector 		mHighpass_output;

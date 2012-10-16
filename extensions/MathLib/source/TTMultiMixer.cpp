@@ -1,19 +1,19 @@
 /* 
- * TTMatrixMixer Object
+ * DSP Multi-Signal Mixer Object
  * Copyright © 2009, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTMatrixMixer.h"
+#include "TTMultiMixer.h"
 #ifdef TT_PLATFORM_WIN
 #include <algorithm>
 #endif
 
-#define thisTTClass			TTMatrixMixer
-#define thisTTClassName		"matrixmixer"
-#define thisTTClassTags		"audio, mixing, matrix"
+#define thisTTClass			TTMultiMixer
+#define thisTTClassName		"multimixer"
+#define thisTTClassTags		"audio, mixer, matrix"
 
 
 TT_AUDIO_CONSTRUCTOR,
@@ -47,7 +47,7 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-TTMatrixMixer::~TTMatrixMixer()
+TTMultiMixer::~TTMultiMixer()
 {
 	TTObjectRelease((TTObjectPtr*)&mGainMatrix);
 	TTObjectRelease((TTObjectPtr*)&tempGainMatrix);
@@ -61,7 +61,7 @@ TTMatrixMixer::~TTMatrixMixer()
 
 // TODO: the next two methods should never decrease their size
 
-TTErr TTMatrixMixer::setNumInputs(const TTUInt16 newValue)
+TTErr TTMultiMixer::setNumInputs(const TTUInt16 newValue)
 {
 	TTUInt16	numInputs = newValue;
 	TTValue		v(numInputs, mNumOutputs);
@@ -78,7 +78,7 @@ TTErr TTMatrixMixer::setNumInputs(const TTUInt16 newValue)
 }
 	
 
-TTErr TTMatrixMixer::setNumOutputs(const TTUInt16 newValue)
+TTErr TTMultiMixer::setNumOutputs(const TTUInt16 newValue)
 {
 	TTUInt16	numOutputs = newValue;
 	TTValue		v(mNumInputs, numOutputs);
@@ -95,7 +95,7 @@ TTErr TTMatrixMixer::setNumOutputs(const TTUInt16 newValue)
 	return kTTErrNone;
 }
 
-TTErr TTMatrixMixer::restoreMatrix()
+TTErr TTMultiMixer::restoreMatrix()
 {
 	
 	TTValue		v;						
@@ -116,14 +116,14 @@ TTErr TTMatrixMixer::restoreMatrix()
 }
 
 
-TTErr TTMatrixMixer::clear()
+TTErr TTMultiMixer::clear()
 {
 	mGainMatrix->clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTMatrixMixer::setGain(const TTValue& newValue, TTValue&)
+TTErr TTMultiMixer::setGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -142,7 +142,7 @@ TTErr TTMatrixMixer::setGain(const TTValue& newValue, TTValue&)
 }
 
 
-TTErr TTMatrixMixer::setLinearGain(const TTValue& newValue, TTValue&)
+TTErr TTMultiMixer::setLinearGain(const TTValue& newValue, TTValue&)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -162,7 +162,7 @@ TTErr TTMatrixMixer::setLinearGain(const TTValue& newValue, TTValue&)
 }
 
 
-TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue, TTValue&e)
+TTErr TTMultiMixer::setMidiGain(const TTValue& newValue, TTValue&e)
 {
 	TTUInt16	x;
 	TTUInt16	y;
@@ -180,7 +180,7 @@ TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue, TTValue&e)
 	return kTTErrNone;
 }
 
-TTErr TTMatrixMixer::checkMatrixSize(TTUInt16 x, TTUInt16 y)
+TTErr TTMultiMixer::checkMatrixSize(TTUInt16 x, TTUInt16 y)
 //this function will resize mGainMatrix if necessary while preserving its content 
 {	
 	if (x > (mNumInputs-1)){
@@ -195,7 +195,7 @@ TTErr TTMatrixMixer::checkMatrixSize(TTUInt16 x, TTUInt16 y)
 	return kTTErrNone;
 }
 
-void TTMatrixMixer::processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 gain)
+void TTMultiMixer::processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 gain)
 {
 	TTUInt16			vs, channel;
 	TTSampleValuePtr	inSample, outSample;
@@ -219,7 +219,7 @@ void TTMatrixMixer::processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 
 	
 	We may need to speed up this operation by iterating through the signals using direct access of the structs.
 */
-TTErr TTMatrixMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTMultiMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 { //TODO: if mGainMatrix is sparse (i.e. it has a lot of zeros), we can do better than this algorithm which iterates through the entire matrix
 	
 	TTUInt16 minChannelIn = min(mNumInputs,inputs->numAudioSignals);

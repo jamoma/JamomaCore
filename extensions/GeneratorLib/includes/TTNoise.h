@@ -29,7 +29,7 @@ protected:
 	TTFloat64			mMean;		///< mean value for gauss distribution process method
 	TTFloat64			mStd;		///< Standard deviation value for gauss distribution process method	
 #endif
-	TTSymbol*			mMode;		///< Attribute: what color is the noise?
+	TTSymbol			mMode;		///< Attribute: what color is the noise?
 	TTFloat64			mGain;		// gain stage
 	TTUInt16			mNumChannels;		///< sets the number of noise channels
 	TTUInt32			accum;		///< accumulator for the noise generation

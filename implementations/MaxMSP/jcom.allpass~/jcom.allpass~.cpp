@@ -16,7 +16,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	TTDSPInit();	
 	wrapTTClassAsMaxClass(TT("allpass"), "jcom.allpass~", &c, options);
 	CLASS_ATTR_ENUM(c->maxClass, "filter", 0, "allpass.1a allpass.1b allpass.2a allpass.2b allpass.2c allpass.4a");
-	//return 0;
-	
+	return 0;
 }
 

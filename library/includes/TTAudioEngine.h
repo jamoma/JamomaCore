@@ -40,8 +40,8 @@ protected:
 	TTUInt32			mSampleRate;
     PaStream*			mStream;
 	TTListPtr			mCallbackObservers;
-	TTSymbolPtr			mInputDevice;
-	TTSymbolPtr			mOutputDevice;
+	TTSymbol			mInputDevice;
+	TTSymbol			mOutputDevice;
 	const PaDeviceInfo*	mInputDeviceInfo;
 	const PaDeviceInfo*	mOutputDeviceInfo;
 	TTInt16				mInputDeviceIndex;

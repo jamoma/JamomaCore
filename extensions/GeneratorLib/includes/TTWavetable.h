@@ -20,11 +20,11 @@ class TTWavetable : TTAudioObject {
 
 protected:
 
-	TTSymbolPtr			mMode;
+	TTSymbol			mMode;
 	TTFloat64			mFrequency;
 	TTFloat64			mGain;
 	TTFloat64			mLinearGain;
-	TTSymbolPtr			mInterpolation;	///< should be none, linear, or eventually something better...
+	TTSymbol			mInterpolation;	///< should be none, linear, or eventually something better...
 	TTUInt32			mSize;			///< how many samples in the wave table
 	TTFloat64			mIndex;
 	TTFloat64			mIndexDelta;

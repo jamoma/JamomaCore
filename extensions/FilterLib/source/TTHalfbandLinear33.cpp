@@ -103,7 +103,7 @@ TTErr TTHalfbandLinear33::clear()
 
 TTErr TTHalfbandLinear33::setMode(const TTValue& newValue)
 {
-	TTSymbolPtr newMode = newValue;
+	TTSymbol newMode = newValue;
 	
 	if (newMode == TT("highpass")) {
 		mMode = TT("highpass");

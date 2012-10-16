@@ -16,7 +16,6 @@
 
 
 TT_AUDIO_CONSTRUCTOR,
-	mClass(NULL),
 	mSize(0),
 	mInputChannelSignal(NULL),
 	mOutputChannelSignal(NULL)
@@ -33,7 +32,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessageWithArguments(set);
 
 	setAttributeValue(kTTSym_maxNumChannels, initialMaxNumChannels);
-	setAttributeValue(TT("class"), TT("gain"));
+	setAttributeValue("class", "gain");
 	setProcessMethod(processAudio);
 }
 
@@ -47,7 +46,7 @@ TTAudioObjectArray::~TTAudioObjectArray()
 
 TTErr TTAudioObjectArray::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	return setAttributeValue(TT("size"), maxNumChannels);
+	return setAttributeValue("size", maxNumChannels);
 }
 
 
@@ -77,7 +76,7 @@ TTErr TTAudioObjectArray::setSize(const TTValueRef newSize)
 
 TTErr TTAudioObjectArray::setClass(const TTValueRef newClass)
 {
-	TTSymbolPtr theClassName = newClass;
+	TTSymbol	theClassName = newClass;
 	int			err = 0;
 
 	// TODO: find out if the specified class name is a legitimate class before proceeding
@@ -100,7 +99,7 @@ TTErr TTAudioObjectArray::set(TTValue& arguments, TTValue&)
 	// the args past that are the value
 
 	TTInt32		target = -1; // -1 means all voices
-	TTSymbolPtr	attrName;
+	TTSymbol	attrName(kTTSymEmpty);
 	TTValue		attrValue;
 	int			err = kTTErrNone;
 
@@ -112,7 +111,7 @@ TTErr TTAudioObjectArray::set(TTValue& arguments, TTValue&)
 		if (arguments.getSize() < 3)
 			return kTTErrWrongNumValues;
 		else
-			arguments.get(1, &attrName);
+			arguments.get(1, attrName);
 
 		if (!attrName)
 			return kTTErrInvalidAttribute;
@@ -127,7 +126,7 @@ TTErr TTAudioObjectArray::set(TTValue& arguments, TTValue&)
 		if (arguments.getSize() < 2)
 			return kTTErrWrongNumValues;
 		else
-			arguments.get(0, &attrName);
+			arguments.get(0, attrName);
 
 		if (!attrName)
 			return kTTErrInvalidAttribute;

@@ -1,8 +1,8 @@
 
 sources:
   - MathLib.cpp
-  - source/TTAudioMatrix.cpp
-  - source/TTMatrixMixer.cpp
+  - source/TTMixer.cpp
+  - source/TTMultiMixer.cpp
   - source/TTOperator.cpp
   
 includes:

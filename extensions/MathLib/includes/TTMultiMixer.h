@@ -1,20 +1,22 @@
 /* 
- * DSP Matrix Mixer Object
+ * DSP Multi-Signal Mixer Object
  * Copyright © 2009, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_MATRIXMIXER_H__
-#define __TT_MATRIXMIXER_H__
+#ifndef __TT_MULTIMIXER_H__
+#define __TT_MULTIMIXER_H__
 
 #include "TTDSP.h"
 
 
-/**	TTGain is an exceptionally simple audio processor scales an input audio signal */
-class TTMatrixMixer : TTAudioObject {
-	TTCLASS_SETUP(TTMatrixMixer)
+/**	TTMultiMixer mixes N input signals (presumably of matching channel counts) 
+	to M output signals (again presumably of matching channel counts). 
+*/
+class TTMultiMixer : TTAudioObject {
+	TTCLASS_SETUP(TTMultiMixer)
 
 protected:
 
@@ -48,4 +50,4 @@ protected:
 };
 
 
-#endif // __TT_MATRIXMIXER_H__
+#endif // __TT_MULTIMIXER_H__

@@ -19,11 +19,11 @@ class TTFunction : TTAudioObject {
 
 protected:
 
-	TTSymbolPtr			mFunction;			///< Name of the window function to use
+	TTSymbol			mFunction;			///< Name of the window function to use
 	TTAudioObjectPtr	mFunctionObject;	///< The actual window function object for mFunction
 	TTUInt32			mNumPoints;			///< Number of Points in the lookup table
 	TTSampleVector		mLookupTable;		///< Cached table of size mNumPoints
-	TTSymbolPtr			mMode;				///< Options: 'generate', 'lookup', 'apply'
+	TTSymbol			mMode;				///< Options: 'generate', 'lookup', 'apply'
 	TTUInt32			mPadding;			///< for generating the lookup table - (e.g. padded welch window padded by 16 zeros on both sides)
 											// further padding references: http://www.dsprelated.com/dspbooks/sasp/Sliding_FFT_Maximum_Overlap.html
 

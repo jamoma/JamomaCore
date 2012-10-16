@@ -18,7 +18,7 @@ class TTOperator : TTAudioObject {
 
 protected:
 
-	TTSymbolPtr		mOperator;				///< The type of calculation to perform
+	TTSymbol		mOperator;				///< The type of calculation to perform
 	TTFloat64		mOperand;				///< The right-hand value of the calculation
 	TTBoolean		mOperandIsInteger;		///< Set to true if there is no fractional part
 	TTBoolean		mOperandIsPowerOfTwo;	///< Set to true is the operand is a power of two to optimize some operations

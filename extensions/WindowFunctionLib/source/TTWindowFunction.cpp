@@ -56,7 +56,7 @@ TTErr WindowFunction::setParameter(const TTValue& aParameterValueForTheFunction,
 	if (aParameterValueForTheFunction.getSize() < 2)
 		err = kTTErrWrongNumValues;
 	else {
-		TTSymbolPtr parameterName = aParameterValueForTheFunction;
+		TTSymbol	parameterName = aParameterValueForTheFunction;
 		TTValue		v;
 		
 		v.copyFrom(aParameterValueForTheFunction, 1);

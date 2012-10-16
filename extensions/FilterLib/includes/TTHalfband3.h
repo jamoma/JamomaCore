@@ -26,7 +26,7 @@ protected:
 	TTAllpass1a*	mDelay;		///< pure delay (used by lowpass/highpass modes)
 	TTAllpass1a*	mR0;		///< path 0 (used by resampling modes)
 	TTSampleVector	mX1;		///< previous input sample (for each channel)	
-	TTSymbolPtr		mMode;		///< Attribute: upsample or downsample
+	TTSymbol		mMode;		///< Attribute: upsample or downsample
 	
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);

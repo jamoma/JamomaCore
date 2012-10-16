@@ -28,9 +28,9 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	
 	// TEST 1: can we set the number of channels?
-	this->setAttributeValue(TT("numChannels"), numChannels);
+	this->setAttributeValue("numChannels", numChannels);
 	
-	this->getAttributeValue(TT("numChannels"), test1Return);
+	this->getAttributeValue("numChannels", test1Return);
 	
 	TTBoolean result = { numChannels == test1Return };
 	

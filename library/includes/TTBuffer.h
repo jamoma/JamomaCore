@@ -30,7 +30,7 @@ class TTDSP_EXPORT TTBuffer : public TTAudioObject {
 	
 protected:
 	
-	TTSymbolPtr				mName;				// The name of the TTSampleMatrix with which this buffer is currently associated
+	TTSymbol				mName;				// The name of the TTSampleMatrix with which this buffer is currently associated
 	TTSampleMatrixPtr		mMatrix;			// The actual TTSampleMatrix
 	
 public:
@@ -42,7 +42,7 @@ public:
 	
 	
 	// internal method used for disposing of a no-longer used matrix
-	void chuckMatrix(TTSampleMatrixPtr oldMatrix, TTSymbolPtr oldMatrixName)
+	void chuckMatrix(TTSampleMatrixPtr oldMatrix, TTSymbol& oldMatrixName)
 	{
 		if (oldMatrix->getReferenceCount() == 1) // only one of these, it is about to go away, so we'll pop it from the map
 			gTTBufferNameMap->remove(oldMatrixName);
@@ -53,14 +53,14 @@ public:
 	
 	TTErr setName(const TTValueRef newName)
 	{
-		TTSymbolPtr			name = NULL;
+		TTSymbol			name = kTTSymEmpty;
 		TTSampleMatrixPtr	oldMatrix = mMatrix;
-		TTSymbolPtr			oldName = mName;
+		TTSymbol			oldName = mName;
 		TTSampleMatrixPtr	newMatrix = NULL;
 		TTValue				returnedValue;
 		TTErr				err = kTTErrNone;
 		
-		newName.get(0, &name);
+		newName.get(0, name);
 		
 		if (name == mName)
 			return kTTErrNone;
@@ -72,7 +72,7 @@ public:
 			newMatrix = TTSampleMatrixPtr(TTPtr(returnedValue));
 		
 		if (!newMatrix) {
-			TTObjectInstantiate(TT("samplematrix"), (TTObjectPtr*)&newMatrix, kTTValNONE);
+			TTObjectInstantiate("samplematrix", (TTObjectPtr*)&newMatrix, kTTValNONE);
 			
 			// TODO: set attributes to match our matrix attrs?
 			

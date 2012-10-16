@@ -16,8 +16,7 @@
 TT_AUDIO_CONSTRUCTOR,
 mStrength(1),
 mSigmoidGainCorrection(1),
-mPoly1GainCorrection(1),
-mShape(NULL)
+mPoly1GainCorrection(1)
 {
 	addAttributeWithSetter(Strength,			kTypeFloat64);
 		addAttributeProperty(Strength,			range,			TTValue(kTTEpsilon, 100000.0));

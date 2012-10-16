@@ -101,7 +101,7 @@ TTErr TTHalfband5::clear()
 
 TTErr TTHalfband5::setMode(const TTValue& newValue)
 {
-	TTSymbolPtr newMode = newValue;
+	TTSymbol newMode = newValue;
 	
 	if (newMode == TT("upsample")) {
 		mMode = TT("upsample");

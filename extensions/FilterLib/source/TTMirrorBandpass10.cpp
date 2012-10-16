@@ -74,7 +74,7 @@ TTErr TTMirrorBandpass10::clear()
 
 TTErr TTMirrorBandpass10::setMode(const TTValue& newValue)
 {
-	TTSymbolPtr newMode = newValue;
+	TTSymbol newMode = newValue;
 	
 	if (newMode == TT("notch")) {
 		mMode = TT("notch");

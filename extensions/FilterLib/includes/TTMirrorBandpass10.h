@@ -28,7 +28,7 @@ protected:
 	TTAllpass2c*	mF1;				///< filter1 (in the lower path, first block)
 	TTAllpass4a*	mF2;				///< filter2 (in the lower path, second block)
 	TTFloat64		mFrequency;			///< attribute: in hertz
-	TTSymbolPtr		mMode;				///< attribute: lowpass or highpass
+	TTSymbol		mMode;				///< attribute: lowpass or highpass
 	TTFloat64		mBandwidth;			///< attribute: in hertz
 	TTFloat64		mQ;					///< attribute: bandwidth expressed as Q
 	TTBoolean		mBandwidthSetWithQ;	///< flag to tell us whether to adjust bandwidth when frequency changes

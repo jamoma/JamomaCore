@@ -20,8 +20,8 @@ class TTTrajectory : TTAudioObject {
 protected:
 	TTAudioObjectPtr		mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
 	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
-	TTSymbolPtr				mType;					///< The name of the current trajectory type
-	TTSymbolPtr				mMode;
+	TTSymbol				mType;					///< The name of the current trajectory type
+	TTSymbol				mMode;
 	//TTList					mAnchorPoints;
 	TTAudioObjectPtr		mPhasors[1];
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;
@@ -32,7 +32,7 @@ public:
 	
 	TTErr setType(const TTValue& newValue)
 	{	
-		TTSymbolPtr newType = newValue;
+		TTSymbol	newType = newValue;
 		TTErr		err = kTTErrNone;
 		
 		// if the type didn't change, then don't change the trajectory
@@ -86,15 +86,14 @@ public:
 	{
 		long		n;
 		TTValue		names;
-		TTSymbol*	aName;
-		TTString	nameString;
+		TTSymbol	aName;
 		
 		listOfCurrentAttributesToReturn.clear();
 		mActualTrajectoryObject->getAttributeNames(names);
 		n = names.getSize();
 		for (int i=0; i<n; i++) {
-			names.get(i, &aName);
-			nameString = aName->getCString();
+			names.get(i, aName);
+
 			if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
 				continue;	
 			listOfCurrentAttributesToReturn.append(aName);
@@ -114,7 +113,7 @@ public:
 		 ramp <stopValue|double> <time|double> 
 		*/
 		long		n;
-		TTSymbolPtr	attrType;
+		TTSymbol	attrType;
 		TTFloat64   x;
 		TTErr		err = kTTErrNone;
 		
@@ -125,7 +124,7 @@ public:
 				{
 					case 4:
 						if (ttDataTypeInfo[arguments.getType(2)]->isNumerical and ttDataTypeInfo[arguments.getType(3)]->isNumerical == false){
-							arguments.get(3, &attrType);
+							arguments.get(3, attrType);
 							setType(attrType);
 							arguments.get(0, x); x = x * 2.0;  // scaling						
 							mRamps[0]->setAttributeValue(TT("startValue"), x);
@@ -146,7 +145,7 @@ public:
 							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
 						}
 						else {// stop time type
-							arguments.get(2, &attrType);
+							arguments.get(2, attrType);
 							setType(attrType);
 							arguments.get(0, x); x = x * 2.0;  // scaling
 							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	

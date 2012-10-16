@@ -19,7 +19,7 @@ class TTWaveshaper : public TTAudioObject {
 protected:
 
 	TTFloat64		mStrength, mInvStrength, mSigmoidGainCorrection, mPoly1GainCorrection;
-	TTSymbol*		mShape;
+	TTSymbol		mShape;
 	/**	Setter for the shape attribute. */
 	TTErr setShape(const TTValue& newValue);
 	/**	Setter for the strength attribute. */

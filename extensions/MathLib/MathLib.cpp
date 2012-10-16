@@ -9,8 +9,8 @@
 
 #include "TTDSP.h"
 #include "TTOperator.h"
-#include "TTAudioMatrix.h"
-#include "TTMatrixMixer.h"
+#include "TTMixer.h"
+#include "TTMultiMixer.h"
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_MathLib(void)
@@ -18,8 +18,8 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_MathLib(void)
 	TTDSPInit();
 
 	TTOperator::registerClass();
-	TTAudioMatrix::registerClass();	
-	TTMatrixMixer::registerClass();	
+	TTMixer::registerClass();	
+	TTMultiMixer::registerClass();	
 	
 	return kTTErrNone;
 }

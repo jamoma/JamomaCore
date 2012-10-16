@@ -16,7 +16,6 @@
 
 TT_AUDIO_CONSTRUCTOR,
 mSpatFunctionObject(NULL),
-mSpatFunction(NULL),
 mSourceCount(0),
 mDestinationCount(0)
 {
@@ -51,10 +50,10 @@ TTSpat::~TTSpat()
 TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 {
 	TTErr				err;
-	TTSymbolPtr			spatFunctionName = NULL;
+	TTSymbol			spatFunctionName;
 	TTAudioObjectPtr	spatFunction = NULL;
 	
-	aSpatFunction.get(0, &spatFunctionName);
+	aSpatFunction.get(0, spatFunctionName);
 	
 	// if the function didn't change, then don't change the function
 	if (spatFunctionName == mSpatFunction)
@@ -111,19 +110,19 @@ TTErr TTSpat::getFunctionParameters(const TTValue&, TTValue& aListOfParameterNam
 
 TTErr TTSpat::getFunctionParameter(const TTValue& aParameterNameIn, TTValue& aValueOut)
 {
-	TTSymbolPtr parameterName = NULL;
+	TTSymbol parameterName;
 	
-	aParameterNameIn.get(0, &parameterName);
+	aParameterNameIn.get(0, parameterName);
 	return mSpatFunctionObject->getAttributeValue(parameterName, aValueOut);
 }
 
 
 TTErr TTSpat::setFunctionParameter(const TTValue& aParameterNameAndValue, TTValue&)
 {
-	TTSymbolPtr parameterName = NULL;
+	TTSymbol	parameterName;
 	TTValue		parameterValue;
 	
-	aParameterNameAndValue.get(0, &parameterName);
+	aParameterNameAndValue.get(0, parameterName);
 	parameterValue.copyFrom(aParameterNameAndValue, 1); //TODO: maybe there are more arguments ? 
 	//aParameterNameAndValue.clear(); // only needed so that we don't return a value
 	return mSpatFunctionObject->setAttributeValue(parameterName, parameterValue);

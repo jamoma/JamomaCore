@@ -12,7 +12,7 @@
 #define thisTTClassName		"samplematrix"
 #define thisTTClassTags		"audio, buffer"
 
-TTObjectPtr TTSampleMatrix::instantiate(TTSymbolPtr name, TTValue& arguments)
+TTObjectPtr TTSampleMatrix::instantiate(TTSymbol& name, TTValue& arguments)
 {
 	return new TTSampleMatrix(arguments);
 }
@@ -20,7 +20,7 @@ TTObjectPtr TTSampleMatrix::instantiate(TTSymbolPtr name, TTValue& arguments)
 
 extern "C" void TTSampleMatrix::registerClass() 
 {
-	TTClassRegister(TT(thisTTClassName), thisTTClassTags, TTSampleMatrix::instantiate);
+	TTClassRegister(thisTTClassName, thisTTClassTags, TTSampleMatrix::instantiate);
 }
 
 
@@ -28,7 +28,7 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	TTMatrix(arguments),
 	mSampleRate(44100.0)
 {
-	this->setType(TT("float64"));
+	this->setType("float64");
 	this->setElementCount(1);
 
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeUInt16);
@@ -40,11 +40,11 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	addMessageWithArguments(fill);
 
 	addMessageWithArguments(getValueAtIndex);
-	registerMessage(TT("peek"), (TTMethod)&TTSampleMatrix::getValueAtIndex);
-	registerMessage(TT("peeki"), (TTMethod)&TTSampleMatrix::getValueAtIndex);
+	registerMessage("peek", (TTMethod)&TTSampleMatrix::getValueAtIndex);
+	registerMessage("peeki", (TTMethod)&TTSampleMatrix::getValueAtIndex);
 
 	addMessageWithArguments(setValueAtIndex);
-	registerMessage(TT("poke"), (TTMethod)&TTSampleMatrix::setValueAtIndex);
+	registerMessage("poke", (TTMethod)&TTSampleMatrix::setValueAtIndex);
 
 	// TODO: more messages to implement
 	//	"readFile"   (requires libsndfile straightening-out)
@@ -183,7 +183,7 @@ TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const T
 
 TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 {
-	TTSymbol*	fillAlgorithm = value;
+	TTSymbol	fillAlgorithm = value;
 
 	if (fillAlgorithm == kTTSym_sine) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {

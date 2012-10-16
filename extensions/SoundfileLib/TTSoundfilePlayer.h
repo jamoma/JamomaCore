@@ -23,8 +23,8 @@ class TTSoundfilePlayer : public TTAudioObject {
 
 protected:
 
-	TTSymbolPtr			mFilePath;			///< full POSIX path to the file, including file name
-	TTSymbolPtr			mTitle, mAnnotation, mArtist, mDate;
+	TTSymbol			mFilePath;			///< full POSIX path to the file, including file name
+	TTSymbol			mTitle, mAnnotation, mArtist, mDate;
 	SNDFILE*			mSoundFile;			///< libsndfile handle for the actual file we open
 	SF_INFO				mSoundFileInfo;		///< libsndfile metadata for the file we open
 	sf_count_t			mSeekInFrames;

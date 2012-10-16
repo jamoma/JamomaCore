@@ -17,8 +17,7 @@
 TT_AUDIO_CONSTRUCTOR,
 	mActualFilterObject(NULL),
 	mFrequency(0),
-	mQ(0),
-	mType(NULL)
+	mQ(0)
 {
 	addAttributeWithSetter(Frequency, kTypeFloat64);
 	addAttributeWithSetter(Q, kTypeFloat64);

@@ -23,8 +23,8 @@ class TTSoundfileRecorder : public TTAudioObject {
 
 protected:
 
-	TTSymbolPtr			mFilePath;			///< full POSIX path to the file, including file name
-	TTSymbolPtr			mFormat;			///< format of the file, e.g. "WAV", "AIFF", "FLAC", "FLAC-16bit", etc.
+	TTSymbol			mFilePath;			///< full POSIX path to the file, including file name
+	TTSymbol			mFormat;			///< format of the file, e.g. "WAV", "AIFF", "FLAC", "FLAC-16bit", etc.
 	SNDFILE*			mSoundFile;			///< libsndfile handle for the actual file we open
 	SF_INFO				mSoundFileInfo;		///< libsndfile metadata for the file we open
 	TTBoolean			mRecord;			///< is actively recording the file?
@@ -41,7 +41,7 @@ protected:
 	TTErr setFilePath(const TTValue& value);
 	
 	// internal use: map human symbols to libsndfile's bitmask
-	int translateFormatFromName(TTSymbolPtr name);
+	int translateFormatFromName(TTSymbol& name);
 	
 	TTErr updateSampleRate(const TTValue& oldSampleRate);
 
