@@ -19,6 +19,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 	
 	
 	{
+
+
 		TTTestLog("\n");
 		TTTestLog("Testing TTMatrix Basics...");
 		
@@ -38,7 +40,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		matrix->setAttributeValue("dimensions", 16);
 		matrix->setAttributeValue("type", "float64");
 		matrix->setAttributeValue("elementCount", 2);
-		
+/*		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTFloat64) * 16 * 2, 
 						testAssertionCount,
@@ -47,7 +49,18 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->mComponentStride == sizeof(TTFloat64) * 2, 
 						testAssertionCount,
 						errorCount);
+*/		
+		TTSymbol temp_symbol;
+		matrix->getAttributeValue("type", temp_symbol);
+		
+		TTTestLog(temp_symbol);
+		TTTestLog("\n");
+		TTTestLog(temp_symbol.string());
+		TTTestLog("\n");
+		TTTestLog(temp_symbol.c_str());
+		TTTestLog("\n");
 						
+		/*				
 		// inbounds tests				
 		TTTestAssertion("value -1 is out of bounds", 
 						matrix->inBounds(-1) == 0, 
@@ -336,6 +349,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		TTObjectRelease((TTObjectPtr*)&A);
 		TTObjectRelease((TTObjectPtr*)&B);
+		*/
 	}
 
 	
