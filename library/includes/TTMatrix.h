@@ -11,6 +11,7 @@
 
 #include "TTFoundation.h"
 #include "TTDataObject.h"
+#include "TTLimits.h"
 
 #define INBOUNDS(distanceFromHead, maxDistanceFromHead) 						\
 {																				\
@@ -250,6 +251,14 @@ public:
 	}
 	
 	
+	/**	A function (method) type for implementing various out of bounds handlers used by get() & set() methods.	
+	@param[out]	index		reference to an index that will be checked and corrected if not in bounds
+	@param[in]	lowBound	lowest value allowed for index
+	@param[in]	highBound	highest value allowed for index
+	*/
+	typedef void (*TTMatrixOutOfBoundsHandler)(TTUInt32 index, const TTUInt32 lowBound, const TTUInt32 highBound);
+	
+	
 	/** Test to see if a specific distance from the head is still in within the matrix.  
 	 	This method works most efficiently just before array access, so that you can compute the distance once (using row, column & element values) before checking if it is inBounds then pulling its value.
 		Treats the first item in the array as 1, therefore 0 produces a return value of FALSE.
@@ -291,6 +300,7 @@ public:
 	TTErr get2d(TTRowID i, TTColumnID j, T& data) const
 	{
 		TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+		//cout << "the size of your datatype is: " << sizeof(T) << "\n"; //test to prove that sizeof works on templates
 		data = *(T*)(mData + index);
 		return kTTErrNone;
 	}

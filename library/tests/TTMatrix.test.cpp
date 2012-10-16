@@ -123,7 +123,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 		
 		TTComplex z(14, 0.92);
-		matrix->set2d(1, 9, z);
+		matrix->set2d(0, 9, z);
 		
 		cout << "		";
 		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
@@ -151,7 +151,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 					count++;
 			}
 			else if (index == 15) {
-				matrix->get2d(1, 15, z);
+				matrix->get2d(0, 15, z);
 				
 				if (!TTTestFloatEquivalence(real(z), 3.14))
 					count++;
