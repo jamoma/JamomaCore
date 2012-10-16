@@ -17,7 +17,7 @@ We, in general, have a couple of ideals to hold up while writing the code in the
 
 + It's okay for the code look funny, have template syntax, etc. inside the library.  However, it is not okay to impose this syntax on people writing subclassed of TTObject.  They should be unencumbered as much as possible.
 
-+ All use of third-party software (which includes Boost) should be wrapped inside of classes and function -- not exported directly.  This gives us he ability to change our internals at will without forcing a recompile by all software linking to us.  It also allows us to deal with platforms not supporting the third-party library (on embedded systems, for example).
++ All use of third-party software (which includes Boost) should be wrapped inside of classes and function -- not exported directly.  This gives us the ability to change our internals at will without forcing a recompile by all software linking to us.  It also allows us to deal with platforms not supporting the third-party library (on embedded systems, for example).
 
 
 
