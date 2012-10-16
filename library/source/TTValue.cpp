@@ -103,10 +103,10 @@ TTValue::TTValue(const TTBoolean initialValue)
 	*type = kTypeBoolean;
 }
 
-TTValue::TTValue(const TTSymbolPtr initialValue)
+TTValue::TTValue(const TTSymbol& initialValue)
 {
 	init();
-	data->sym = initialValue;
+	data->sym = (TTSymbolBase*)initialValue.rawpointer();
 	*type = kTypeSymbol;
 }
 
@@ -609,22 +609,20 @@ TTValue::operator TTBoolean() const
 
 
 // SYMBOL
-TTValue& TTValue::operator = (TTSymbol* value)
+TTValue& TTValue::operator = (const TTSymbol& value)
 {
 	setSize(1);
-	if ((TTSymbol*)this != value) {
-		*type = kTypeSymbol;
-		data->sym = value;
-	}
+	*type = kTypeSymbol;
+	data->sym = (TTSymbolBase*)value.rawpointer();
 	return *this;
 }
 
-TTValue::operator TTSymbol*() const
+TTValue::operator TTSymbol() const
 {
 	if (*type == kTypeSymbol)
-		return data->sym;
+		return TTSymbol(data->sym);
 	else {
-		return TT("");
+		return kTTSymEmpty;
 	}
 }
 
@@ -738,10 +736,8 @@ TTValue::operator TTMatrix*() const
 TTValue& TTValue::operator = (TTPtr value)
 {
 	setSize(1);
-	if ((TTSymbol*)this != value) {
-		*type = kTypePointer;
-		data->ptr = value;
-	}
+	*type = kTypePointer;
+	data->ptr = value;
 	return *this;
 }
 
@@ -830,10 +826,10 @@ void TTValue::set(const TTUInt16 index, const TTBoolean newValue)
 	data[index].boolean = newValue;
 }
 
-void TTValue::set(const TTUInt16 index, const TTSymbol* newValue)
+void TTValue::set(const TTUInt16 index, const TTSymbol& newValue)
 {
 	type[index] = kTypeSymbol;
-	data[index].sym = (TTSymbol*)newValue;
+	data[index].sym = (TTSymbolBase*)newValue.rawpointer();
 }
 
 void TTValue::set(const TTUInt16 index, const TTObject& newValue)
@@ -965,10 +961,10 @@ void TTValue::get(const TTUInt16 index, TTBoolean &value) const
 		CONVERT(TTBoolean)
 }
 
-void TTValue::get(const TTUInt16 index, TTSymbol** value) const
+void TTValue::get(const TTUInt16 index, TTSymbol& value) const
 {
 	if (type[index] == kTypeSymbol)
-		*value = (data+index)->sym;
+		value = TTSymbol((data+index)->sym);
 }
 
 void TTValue::get(const TTUInt16 index, TTString& value) const
@@ -997,11 +993,11 @@ void TTValue::get(const TTUInt16 index, TTObject** value) const
 		*value = (data+index)->object;
 }
 
-void TTValue::get(const TTUInt16 index, TTMatrix &value) const
-{
-	if (type[index] == kTypeMatrix)
-		value = *(data+index)->matrix;
-}
+//void TTValue::get(const TTUInt16 index, TTMatrix &value) const
+//{
+//	if (type[index] == kTypeMatrix)
+//		value = *(data+index)->matrix;
+//}
 
 void TTValue::get(const TTUInt16 index, TTMatrix** value) const
 {
@@ -1017,12 +1013,12 @@ void TTValue::get(const TTUInt16 index, TTPtr* value) const
 
 
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS
+#ifndef DISABLE_NODELIB
 
-void TTValue::get(const TTUInt16 index, TTNodeAddressPtr* value) const
+void TTValue::get(const TTUInt16 index, TTAddress& value) const
 {
 	if (type[index] == kTypeSymbol)
-		*value = TTADRS((data+index)->sym->getCString());
+		value = TTAddress((data+index)->sym);
 }
 
 #endif
@@ -1102,7 +1098,7 @@ void TTValue::append(const TTBoolean newValue)
 	set(numValues-1, newValue);
 }
 
-void TTValue::append(const TTSymbol* newValue)
+void TTValue::append(const TTSymbol& newValue)
 {
 	setSize(numValues + 1);
 	set(numValues-1, newValue);
@@ -1176,10 +1172,10 @@ TTErr TTValue::transformCSVStringToSymbolArray()
 		while (current[strlen(current)-1] == ' ')
 			current[strlen(current)-1] = 0;
 			
-		append(TT(current));
+		append(TTSymbol(current));
 		current = strrchr(cStr, ',');
 	}
-	append(TT(cStr));
+	append(TTSymbol(cStr));
 	delete[] cStr;
 	return kTTErrNone;
 }
@@ -1207,7 +1203,7 @@ TTBoolean toTTInt32( const TTString & str, TTInt32 & convertedInt )
 {
 	char * pEnd;
 	
-	convertedInt = strtol(str.data(), &pEnd, 10);
+	convertedInt = strtol(str.c_str(), &pEnd, 10);
 	return *pEnd == 0;
 }
 
@@ -1218,6 +1214,6 @@ TTBoolean toTTFloat32( const TTString & str, TTFloat32 & convertedFloat )
 {
 	char * pEnd;
 	
-	convertedFloat = strtof(str.data(), &pEnd);
+	convertedFloat = strtof(str.c_str(), &pEnd);
 	return *pEnd == 0;
 }

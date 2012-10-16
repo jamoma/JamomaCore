@@ -20,7 +20,7 @@ class TTNetReceive : public TTDataObject {
 
 public:
 	TTUInt16				mPort;		///< port number
-	TTSymbolPtr				mMode;		///< "tcp" or "udp"
+	TTSymbol				mMode;		///< "tcp" or "udp"
 	
 	TTNetSocketPtr			mSocket;
 	

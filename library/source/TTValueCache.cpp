@@ -20,13 +20,12 @@ TTFOUNDATION_EXPORT TTValue	kTTVal0_pt_0;
 
 void TTValueCacheInit()
 {
-	kTTBoolNo = *new TTValue(TTBoolean(NO));
-	kTTBoolYes = *new TTValue(TTBoolean(YES));
+	kTTBoolNo = TTBoolean(NO);
+	kTTBoolYes = TTBoolean(YES);
 
-	kTTValNONE = *new TTValue;
 	kTTValNONE.clear();
 	
-	kTTVal0 = *new TTValue(0);
-	kTTVal1 = *new TTValue(1);
-	kTTVal0_pt_0 = *new TTValue(double(0.0));
+	kTTVal0 = 0l;
+	kTTVal1 = 1l;
+	kTTVal0_pt_0 = 0.0;
 }

@@ -10,12 +10,17 @@
 #define __TT_NODELIB_H__
 
 #include "TTHash.h"
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
-#include "TTNodeAddressItem.h"
-#include "TTNodeAddressCache.h"
+#include "TTAddress.h"
+#include "TTAddressTable.h"
+#include "TTAddressItem.h"
+#include "TTAddressCache.h"
 
 void TTFOUNDATION_EXPORT TTNodeLibInit();
+
+/**	Convert a "upper/cased/name" symbol from "UpperCasedName" symbol
+ @param	upperCasedName					"UpperCasedName" symbol
+ @param	convertedName					"upper/cased/name" symbol converted */
+TTErr TTFOUNDATION_EXPORT	convertUpperCasedName(TTSymbol upperCasedName, TTSymbol& convertedName);
 
 #endif // __TT_NODELIB_H__
 

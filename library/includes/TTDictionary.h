@@ -46,21 +46,21 @@ public:
 	}
 		
 	
-	TTErr setSchema(const TTSymbolPtr schemaName);
-	TTSymbolPtr getSchema() const;
+	TTErr setSchema(const TTSymbol& schemaName);
+	const TTSymbol getSchema() const;
 	
 	TTErr setValue(const TTValue& newValue);
 	TTErr getValue(TTValue& returnedValue) const;
 	
 	
 	/** Insert an item into the hash table. */
-	TTErr append(const TTSymbolPtr key, const TTValue& value);
+	TTErr append(const TTSymbol& key, const TTValue& value);
 	
 	/** Find the value for the given key. */
-	TTErr lookup(const TTSymbolPtr key, TTValue& value) const;
+	TTErr lookup(const TTSymbol& key, TTValue& value) const;
 	
 	/** Remove an item from the hash table. */
-	TTErr remove(const TTSymbolPtr key);
+	TTErr remove(const TTSymbol& key);
 	
 	/** Remove all items from the hash table. */
 	TTErr clear();

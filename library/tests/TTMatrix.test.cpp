@@ -25,7 +25,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTMatrixPtr matrix = NULL;
 		TTErr err;
 		
-		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&matrix, kTTValNONE);
+		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&matrix, kTTValNONE);
 		TTTestAssertion("instantiates successfully", 
 						err == kTTErrNone, 
 						testAssertionCount,
@@ -35,9 +35,9 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		
 		TTTestLog("Setting to a 1D, float64, matrix with a length of 16 for complex numbers (2 elements per value)");
-		matrix->setAttributeValue(TT("dimensions"), 16);
-		matrix->setAttributeValue(TT("type"), TT("float64"));
-		matrix->setAttributeValue(TT("elementCount"), 2);
+		matrix->setAttributeValue("dimensions", 16);
+		matrix->setAttributeValue("type", "float64");
+		matrix->setAttributeValue("elementCount", 2);
 		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTFloat64) * 16 * 2, 
@@ -95,7 +95,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 
 		TTValue v(0, 1);// specify the index and real, but forgot the imaginary
-		err = matrix->sendMessage(TT("set"), v, kTTValNONE);
+		err = matrix->sendMessage("set", v, kTTValNONE);
 		TTTestAssertion("set message -- error returned when not enough data provided to completely set value", 
 						err, 
 						testAssertionCount,
@@ -108,7 +108,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		v.set(1, 15);	// index y
 		v.set(2, 3.14);	// real (no imaginary)
 		v.set(3, -2);	// real (no imaginary)
-		err = matrix->sendMessage(TT("set"), v, kTTValNONE);
+		err = matrix->sendMessage("set", v, kTTValNONE);
 		TTTestAssertion("set message -- enough data provided to completely set value", 
 						err == kTTErrNone, 
 						testAssertionCount,
@@ -116,7 +116,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		v.set(1, 10);	// index y
 		v.set(2, 4);	// real
 		v.set(3, 1.2);	// imaginary
-		err = matrix->sendMessage(TT("set"), v, kTTValNONE);
+		err = matrix->sendMessage("set", v, kTTValNONE);
 		TTTestAssertion("set message -- enough data provided to completely set value", 
 						err == kTTErrNone, 
 						testAssertionCount,
@@ -178,9 +178,9 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("");
 		TTTestLog("Setting to a 2D image matrix (8-bit int, 4 elements per value for rgba color) with a size of 160 x 120");
 		TTValue dims(160, 120);
-		matrix->setAttributeValue(TT("dimensions"), dims);
-		matrix->setAttributeValue(TT("type"), TT("uint8"));
-		matrix->setAttributeValue(TT("elementCount"), 4);
+		matrix->setAttributeValue("dimensions", dims);
+		matrix->setAttributeValue("type", "uint8");
+		matrix->setAttributeValue("elementCount", 4);
 		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTUInt8) * 160 * 120 * 4, 
@@ -237,8 +237,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTBoolean	match;
 		TTValue		dims, dims_mismatch;
 		
-		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&A, kTTValNONE);
-		err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&B, kTTValNONE);
+		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&A, kTTValNONE);
+		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&B, kTTValNONE);
 		
 		dims.setSize(2);
 		dims.set(0, 3);	// 3 rows
@@ -248,13 +248,13 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		dims_mismatch.set(0, 4);	// 4 rows
 		dims_mismatch.set(1, 3);	// 3 columns
 		
-		A->setAttributeValue(TT("dimensions"), dims);
-		A->setAttributeValue(TT("type"), TT("int32"));
-		A->setAttributeValue(TT("elementCount"), 1);
+		A->setAttributeValue("dimensions", dims);
+		A->setAttributeValue("type", "int32");
+		A->setAttributeValue("elementCount", 1);
 		
-		B->setAttributeValue(TT("dimensions"), dims_mismatch);
-		B->setAttributeValue(TT("type"), TT("int32"));
-		B->setAttributeValue(TT("elementCount"), 1);
+		B->setAttributeValue("dimensions", dims_mismatch);
+		B->setAttributeValue("type", "int32");
+		B->setAttributeValue("elementCount", 1);
 		
 		match = A->allAttributesMatch(B);
 		
@@ -263,7 +263,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		B->setAttributeValue(TT("dimensions"), dims);
+		B->setAttributeValue("dimensions", dims);
 		
 		match = A->allAttributesMatch(B);
 		
@@ -337,36 +337,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTObjectRelease((TTObjectPtr*)&A);
 		TTObjectRelease((TTObjectPtr*)&B);
 	}
-	
-	{
-	/*
-		TTTestLog("\n");
-		TTTestLog("Testing new versions of get functions...");
-		
-		TTMatrixPtr	A = NULL;
-		TTErr err = TTObjectInstantiate(TT("matrix"), (TTObjectPtr*)&A, kTTValNONE);
-		
-		A->setAttributeValue(TT("rowCount"), 5);
-		A->setAttributeValue(TT("columnCount"), 5);
-		A->setAttributeValue(TT("type"), TT("int32"));
-		A->setAttributeValue(TT("elementCount"), 1);
-		
-		TTInt32 valueIn = 301;
-		A->set2dZeroIndex(3, 1, valueIn);
-		
-		TTInt32 valueOut;
-		TTBytePtr valueOutPtr = (TTBytePtr)&valueOut;
-		//new method will eventually go here
-		
-		
-		TTTestAssertion("valueIn equals valueOut", 
-						valueIn == valueOut, 
-						testAssertionCount,
-						errorCount);
-		TTTestLog("Expected a value of %i, but returned value was %i", valueIn, valueOut);
-		
-	*/	
-	}
+
 	
 		
 	

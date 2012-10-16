@@ -22,7 +22,7 @@
 class TTDataspaceUnit {
 
 public:	
-	TTSymbolPtr name;				/// < name of this unit
+	TTSymbol name;				/// < name of this unit
 	
 	
 	/** Constructor. Must be passed the name of this DataspaceUnit as a TTSymbolPtr. */

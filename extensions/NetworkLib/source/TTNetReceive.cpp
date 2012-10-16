@@ -61,7 +61,7 @@ TTErr TTNetReceive::setPort(const TTValue& newValue)
 
 TTErr TTNetReceive::setMode(const TTValue& newValue)
 {
-	TTSymbolPtr	newMode = newValue;
+	TTSymbol	newMode = newValue;
 	TTErr		err = kTTErrNone;
 	
 	if (mMode != newMode) {

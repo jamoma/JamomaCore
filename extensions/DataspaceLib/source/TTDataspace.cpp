@@ -41,9 +41,9 @@ TTErr TTDataspace::convert(const TTValue& input, TTValue& output)
 }
 
 
-TTErr TTDataspace::setInputUnit(TTSymbolPtr inUnitName)
+TTErr TTDataspace::setInputUnit(TTSymbol& inUnitName)
 {
-	TTSymbolPtr	newUnitClassName = NULL;
+	TTSymbol	newUnitClassName;
 	TTErr		err;
 	TTValue		v;
 	
@@ -51,7 +51,7 @@ TTErr TTDataspace::setInputUnit(TTSymbolPtr inUnitName)
 		return kTTErrNone;
 	else {
 		err = unitHash->lookup(inUnitName, v);
-		newUnitClassName = TTSymbolPtr(v);
+		newUnitClassName = v;
 		if (!err && newUnitClassName) {
 			//v.clear();
 			v = inUnitName;
@@ -63,15 +63,15 @@ TTErr TTDataspace::setInputUnit(TTSymbolPtr inUnitName)
 }
 
 
-TTSymbolPtr TTDataspace::getInputUnit()
+TTSymbol& TTDataspace::getInputUnit()
 {
 	return inUnit->name;
 }
 
 
-TTErr TTDataspace::setOutputUnit(TTSymbolPtr outUnitName)
+TTErr TTDataspace::setOutputUnit(TTSymbol& outUnitName)
 {
-	TTSymbolPtr	newUnitClassName = NULL;
+	TTSymbol	newUnitClassName;
 	TTErr		err;
 	TTValue		v;
 	
@@ -79,7 +79,7 @@ TTErr TTDataspace::setOutputUnit(TTSymbolPtr outUnitName)
 		return kTTErrNone;
 	else {
 		err = unitHash->lookup(outUnitName, v);
-		newUnitClassName = TTSymbolPtr(v);
+		newUnitClassName = v;
 		if (!err && newUnitClassName) {
 			//v.clear();
 			v = outUnitName;
@@ -91,13 +91,13 @@ TTErr TTDataspace::setOutputUnit(TTSymbolPtr outUnitName)
 }
 
 
-TTSymbolPtr TTDataspace::getOutputUnit()
+TTSymbol& TTDataspace::getOutputUnit()
 {
 	return outUnit->name;
 }
 
 
-void TTDataspace::registerUnit(const TTSymbolPtr className, const TTSymbolPtr unitName)
+void TTDataspace::registerUnit(const TTSymbol& className, const TTSymbol& unitName)
 {
 	TTValuePtr v = new TTValue(className);
 

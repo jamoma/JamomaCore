@@ -30,10 +30,10 @@
 
 #include "TTRegex.h"
 
-#include "TTNodeAddress.h"
-#include "TTNodeAddressTable.h"
-#include "TTNodeAddressCache.h"
-#include "TTNodeAddressItem.h"
+#include "TTAddress.h"
+#include "TTAddressTable.h"
+#include "TTAddressCache.h"
+#include "TTAddressItem.h"
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
 
@@ -51,9 +51,9 @@
 	@param strname A C-string that names the object as it should be listed in the environment. */
 #define TT_CLASS_SETUP(strname, tags, className)\
 	\
-	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol*, TTValue& arguments); \
+	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol&, TTValue& arguments); \
 	\
-	TTObject*  instantiate ## className (TTSymbol*, TTValue& arguments) \
+	TTObject*  instantiate ## className (TTSymbol&, TTValue& arguments) \
 	{\
 		return new className (arguments);\
 	}\
@@ -62,7 +62,7 @@
 	TTErr loadTTExtension(void)\
 	{\
 		TTFoundationInit();\
-		TTClassRegister(TT(strname), tags, & instantiate ## className);\
+		TTClassRegister(strname, tags, & instantiate ## className);\
 		return kTTErrNone;\
 	}
 
