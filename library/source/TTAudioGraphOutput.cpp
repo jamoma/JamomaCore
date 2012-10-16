@@ -17,7 +17,8 @@
 #define thisTTClassTags		"audio, graph, output"
 
 TT_AUDIO_CONSTRUCTOR,
-	placeHolder(NULL)
+	placeHolder(NULL),
+	mDevice(kTTSymEmpty)
 {
 	TTObjectInstantiate(kTTSym_audiosignal, &placeHolder, 1);
 	audioEngine = TTAudioEngine::create();

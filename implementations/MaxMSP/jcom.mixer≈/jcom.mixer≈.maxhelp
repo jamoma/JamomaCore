@@ -381,7 +381,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "@name", "jcom.matrix≈", "@description", "Apply matrix to channels within multicore signals" ],
+					"args" : [ "@name", "jcom.mixer≈", "@description", "Apply matrix to channels within multicore signals" ],
 					"bgmode" : 1,
 					"id" : "obj-44",
 					"maxclass" : "bpatcher",
@@ -471,7 +471,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 40.0, 455.0, 243.0, 19.0 ],
-					"text" : "jcom.matrix≈ @numInputs 2 @numOutputs 8"
+					"text" : "jcom.mixer≈ @numInputs 2 @numOutputs 8"
 				}
 
 			}
@@ -770,7 +770,7 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "jcom.matrix≈.mxo",
+				"name" : "jcom.mixer≈.mxo",
 				"type" : "iLaX"
 			}
 , 			{

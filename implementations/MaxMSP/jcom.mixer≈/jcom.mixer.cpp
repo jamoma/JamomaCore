@@ -1,5 +1,5 @@
 /* 
- *	matrix≈
+ *	mixer≈
  *	External object for Jamoma AudioGraph
  *	Copyright © 2009 by Timothy Place
  * 
@@ -18,7 +18,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	TTAudioGraphInit();
 
 	options->append(TT("nonadapting"), value); // don't change the number of out-channels in response to changes in the number of in-channels
-	wrapAsMaxAudioGraph(TT("audiomatrix"), "jcom.matrix≈", NULL, options);
-	wrapAsMaxAudioGraph(TT("audiomatrix"), "matrix≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("mixer"), "jcom.mixer≈", NULL, options);
+	wrapAsMaxAudioGraph(TT("mixer"), "mixer≈", NULL, options);
 	return 0;
 }

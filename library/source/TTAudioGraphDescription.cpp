@@ -41,7 +41,7 @@ int TTAudioGraphDescription::exportRubyNode(TTString& content, int& index, TTStr
 	
 	content += objName;
 	content += " = TTAudio.new \"";
-	content += mClassName->getCString();
+	content += mClassName.c_str();
 	content += "\"\n";
 #ifdef SORRY_THIS_IS_BROKEN
 	for (TTAudioGraphDescriptionIter input = mAudioDescriptions.begin(); input != mAudioDescriptions.end(); input++) {
@@ -98,7 +98,7 @@ int TTAudioGraphDescription::exportCppNode(TTString& content, int& index, TTStri
 	content += "	TTObjectInstantiate(TT(\"audio.object\"), (TTObjectPtr*)&";
 	content += objName;
 	content += ", TTValue(TT(\"";
-	content += mClassName->getCString();
+	content += mClassName.c_str();
 	content += "\")))\n\n";
 #ifdef SORRY_THIS_IS_BROKEN
 	
@@ -174,7 +174,7 @@ int TTAudioGraphDescription::exportMaxNode(TTString& content, int& index, TTStri
 	if (mClassName == TT("operator"))
 		content += "op";
 	else
-		content += mClassName->getCString();
+		content += mClassName.c_str();
 	
 	content += "≈\",\n";
 	content += "					\"patching_rect\" : [ 50.0, ";
