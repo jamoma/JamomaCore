@@ -283,20 +283,20 @@ public:
 		return ttDataTypeInfo[type];
 	}
 	
-	static TTDataInfoPtr getInfoForType(TTSymbol* typeAsSymbolPtr)
+	static TTDataInfoPtr getInfoForType(TTSymbol& typeAsSymbol)
 	{		
-		TTDataType type = matchSymbolToDataType(typeAsSymbolPtr);
+		TTDataType type = matchSymbolToDataType(typeAsSymbol);
 		return getInfoForType(type);
 	}
 
-	static TTDataType matchSymbolToDataType(TTSymbol* typeAsSymbolPtr)
+	static TTDataType matchSymbolToDataType(TTSymbol& typeAsSymbol)
 	{		
 		// look through the symbols for each type in the enumerated list and see if there is a match...
 		int type = 0;
 		while (++type < kNumTTDataTypes) 
 		{
 			// if yes, then return that type 
-			if (ttDataTypeInfo[type]->name == typeAsSymbolPtr) return TTDataType(type);
+			if (ttDataTypeInfo[type]->name == &typeAsSymbol) return TTDataType(type);
 		}
 		// if no, then return the TTDataInfoPtr for type "none"
 		return kTypeNone;

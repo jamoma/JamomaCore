@@ -190,7 +190,7 @@ public:
 	
 	/**	Simple data accessor. 
 		@return	TTSymbolPtr		the value stored at mTypeAsDataInfo->name */
-	TTSymbolPtr	getTypeAsSymbol()
+	TTSymbol	getTypeAsSymbol()
 	{
 		return mTypeAsDataInfo->name;
 	}

@@ -177,7 +177,7 @@ TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
 
 TTErr TTMatrix::setType(const TTValue& aType)
 {
-	TTSymbolPtr aNewTypeName = aType;
+	TTSymbol aNewTypeName = aType;
 	TTDataType aNewDataType = TTDataInfo::matchSymbolToDataType(aNewTypeName);
 	
 	if (setTypeWithoutResize(aNewDataType))
@@ -212,7 +212,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 
 TTErr TTMatrix::getType(TTValue& returnedType) const
 {
-	TTSymbolPtr dataTypeName = mTypeAsDataInfo->name;
+	TTSymbol dataTypeName = mTypeAsDataInfo->name;
 	returnedType = new TTValue(dataTypeName);
 	
 	return kTTErrNone;
