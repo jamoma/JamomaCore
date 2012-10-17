@@ -35,12 +35,15 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		
 		
+		TTTestLog("default datatype value is %i", matrix->getTypeAsDataType());
 		
 		TTTestLog("Setting to a 1D, float64, matrix with a length of 16 for complex numbers (2 elements per value)");
 		matrix->setAttributeValue("dimensions", 16);
 		matrix->setAttributeValue("type", "float64");
 		matrix->setAttributeValue("elementCount", 2);
-/*		
+    
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTFloat64) * 16 * 2, 
 						testAssertionCount,
@@ -49,7 +52,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->mComponentStride == sizeof(TTFloat64) * 2, 
 						testAssertionCount,
 						errorCount);
-*/		
+		
 		// inbounds tests
         TTInt32 i = -1;
         TTInt32 j = 0;
