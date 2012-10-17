@@ -259,6 +259,25 @@ public:
 	typedef void (*TTMatrixOutOfBoundsHandler)(TTUInt32 index, const TTUInt32 lowBound, const TTUInt32 highBound);
 	
 	
+	/**
+		@return		TTBoolean	true if values changed, false if they remained constant
+	*/
+	TTBoolean makeInBounds(TTInt32& i, TTInt32& j)//, TTMatrixOutOfBoundsHandler handler);
+	{
+		TTInt32 i_input = i;
+		TTInt32 j_input = j;
+		
+        TTLimit(i, TTInt32(0), TTInt32(mRowCount));
+		TTLimit(j, TTInt32(0), TTInt32(mColumnCount));
+		
+		if (i_input == i && j_input == j)
+		{
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	/** Test to see if a specific distance from the head is still in within the matrix.  
 	 	This method works most efficiently just before array access, so that you can compute the distance once (using row, column & element values) before checking if it is inBounds then pulling its value.
 		Treats the first item in the array as 1, therefore 0 produces a return value of FALSE.

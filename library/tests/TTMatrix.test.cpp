@@ -50,6 +50,19 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 */		
+		// inbounds tests
+        TTInt32 i = -1;
+        TTInt32 j = 0;
+        
+		TTTestAssertion("value is out of bounds", 
+						matrix->makeInBounds(i,j) == 1,
+						testAssertionCount,
+						errorCount);
+        TTTestAssertion("value was changed by out of bounds operation",
+						i == 0,
+						testAssertionCount,
+						errorCount);
+		
 		TTSymbol temp_symbol;
 		matrix->getAttributeValue("type", temp_symbol);
 		
@@ -63,7 +76,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		/*				
 		// inbounds tests				
 		TTTestAssertion("value -1 is out of bounds", 
-						matrix->inBounds(-1) == 0, 
+						matrix->makeInBounds(-1,0) == 0, 
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("value 0 is in bounds", 
