@@ -34,9 +34,31 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 		
 		
-		
+		// a clear test to try solving issue with getInfoForType() method
 		TTTestLog("default datatype value is %i", matrix->getTypeAsDataType());
 		
+		matrix->setAttributeValue("type", "float32");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		matrix->setAttributeValue("type", "float64");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		matrix->setAttributeValue("type", "int8");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		matrix->setAttributeValue("type", "uint8");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		matrix->setAttributeValue("type", "int16");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		matrix->setAttributeValue("type", "uint16");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		matrix->setAttributeValue("type", "int32");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		matrix->setAttributeValue("type", "uint32");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		matrix->setAttributeValue("type", "int64");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		matrix->setAttributeValue("type", "uint64");
+		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		
+/*		
 		TTTestLog("Setting to a 1D, float64, matrix with a length of 16 for complex numbers (2 elements per value)");
 		matrix->setAttributeValue("dimensions", 16);
 		matrix->setAttributeValue("type", "float64");
