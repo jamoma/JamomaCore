@@ -34,40 +34,68 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 		
 		
-		// a clear test to try solving issue with getInfoForType() method
-		TTTestLog("default datatype value is %i", matrix->getTypeAsDataType());
-		
+		// a clear series of tests to ensure type switching via TTDataInfo::matchSymbolToDataType() method works
+		TTTestAssertion("default datatype is uint8", 
+						matrix->getTypeAsDataType() == 4, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "float32");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to float32", 
+						matrix->getTypeAsDataType() == 1, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "float64");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to float64", 
+						matrix->getTypeAsDataType() == 2, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "int8");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to int8", 
+						matrix->getTypeAsDataType() == 3, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "uint8");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to uint8", 
+						matrix->getTypeAsDataType() == 4, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "int16");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to int16", 
+						matrix->getTypeAsDataType() == 5, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "uint16");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to uint16", 
+						matrix->getTypeAsDataType() == 6, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "int32");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to int32", 
+						matrix->getTypeAsDataType() == 7, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "uint32");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to uint32", 
+						matrix->getTypeAsDataType() == 8, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "int64");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to int64", 
+						matrix->getTypeAsDataType() == 9, 
+						testAssertionCount,
+						errorCount);
 		matrix->setAttributeValue("type", "uint64");
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
+		TTTestAssertion("changed datatype to uint64", 
+						matrix->getTypeAsDataType() == 10, 
+						testAssertionCount,
+						errorCount);
 		
-		//gTTSymbolTable.dump();
 		
-/*		
 		TTTestLog("Setting to a 1D, float64, matrix with a length of 16 for complex numbers (2 elements per value)");
 		matrix->setAttributeValue("dimensions", 16);
 		matrix->setAttributeValue("type", "float64");
 		matrix->setAttributeValue("elementCount", 2);
     
-		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
-		
 		TTTestAssertion("correct amount of data storage calculated", 
 						matrix->mDataSize == sizeof(TTFloat64) * 16 * 2, 
 						testAssertionCount,
@@ -77,7 +105,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		// inbounds tests
+		// new type of inbounds tests
         TTInt32 i = -1;
         TTInt32 j = 0;
         
@@ -90,16 +118,6 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		TTSymbol temp_symbol;
-		matrix->getAttributeValue("type", temp_symbol);
-		
-		TTTestLog(temp_symbol);
-		TTTestLog("\n");
-		TTTestLog(temp_symbol.string());
-		TTTestLog("\n");
-		TTTestLog(temp_symbol.c_str());
-		TTTestLog("\n");
-						
 		/*				
 		// inbounds tests				
 		TTTestAssertion("value -1 is out of bounds", 
@@ -122,6 +140,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->inBounds(matrix->mDataCount + 1) == 0, 
 						testAssertionCount,
 						errorCount);
+		*/
 
 		// Test the clear message
 		// first fill with arbitrary values
@@ -243,7 +262,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->mComponentStride == sizeof(TTUInt8) * 4, 
 						testAssertionCount,
 						errorCount);
-
+		
+		/*			
 		// inbounds tests				
 		TTTestAssertion("value -1 is out of bounds", 
 						matrix->inBounds(-1) == 0, 
@@ -265,7 +285,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->inBounds(matrix->mDataCount + 1) == 0, 
 						testAssertionCount,
 						errorCount);
-				
+		*/	
 		
 		err = TTObjectRelease((TTObjectPtr*)&matrix);
 		TTTestAssertion("frees successfully", 
@@ -389,7 +409,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		TTObjectRelease((TTObjectPtr*)&A);
 		TTObjectRelease((TTObjectPtr*)&B);
-		*/
+		
 	}
 
 	

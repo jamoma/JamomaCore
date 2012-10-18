@@ -270,7 +270,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSymEmpty;
 
 class TTFOUNDATION_EXPORT TTDataInfo {
 public:
-	TTSymbol*	name;			///< The name of the type as a symbol, e.g. float32, float64, etc.
+	TTSymbol*	name;			///< Pointer to the name of type in global symbol table, e.g. float32, float64, etc.
 	TTBoolean	isNumerical;	///< Is this type numeric?
 	TTInt8		bitdepth;		///< Negative numbers indicate dynamic or unknown bitdepth.
 

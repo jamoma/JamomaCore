@@ -127,6 +127,7 @@ TTBoolean TTMatrix::setTypeWithoutResize(TTDataType aNewType)
 	{
 		mType = aNewType;
 		mTypeAsDataInfo = TTDataInfo::getInfoForType(aNewType);
+		mTypeAsSymbol = &(mTypeAsDataInfo->name);
 		mTypeSizeInBytes = (mTypeAsDataInfo->bitdepth / 8);
 		return true;
 	} else {
@@ -176,14 +177,13 @@ TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
 
 TTErr TTMatrix::setType(const TTValue& aType)
 {
-	mTypeAsSymbol = aType;
-	cout << "this symbol is located at pointer " << &mTypeAsSymbol << "\n";
-	cout << "the string has been set to " << mTypeAsSymbol.c_str() << "\n";
-	cout << "the symbol has internal pointer to " << mTypeAsSymbol.rawpointer() << "\n";
-	TTDataType aNewDataType = TTDataInfo::matchSymbolToDataType(mTypeAsSymbol);
+	TTSymbol aNewTypeAsSymbol = aType;
+	TTDataType aNewDataType = TTDataInfo::matchSymbolToDataType(aNewTypeAsSymbol);
 	
 	if (setTypeWithoutResize(aNewDataType))
 	{
+		mTypeAsSymbol = aNewTypeAsSymbol; // TODO: dereferencing TTDataInfo->name not working, so this is temp solution
+										// after if{} because we should not change unless resize() will occur
 		return resize();
 	} else {
 		return kTTErrInvalidValue;
@@ -214,8 +214,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 
 TTErr TTMatrix::getType(TTValue& returnedType) const
 {
-	TTSymbol dataTypeName = mTypeAsDataInfo->name;
-	returnedType = new TTValue(dataTypeName);
+	returnedType = mTypeAsSymbol;
 	
 	return kTTErrNone;
 }
