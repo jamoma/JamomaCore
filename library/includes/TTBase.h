@@ -270,12 +270,12 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSymEmpty;
 
 class TTFOUNDATION_EXPORT TTDataInfo {
 public:
-	TTSymbol&	name;			///< The name of the type as a symbol, e.g. float32, float64, etc.
+	TTSymbol*	name;			///< The name of the type as a symbol, e.g. float32, float64, etc.
 	TTBoolean	isNumerical;	///< Is this type numeric?
 	TTInt8		bitdepth;		///< Negative numbers indicate dynamic or unknown bitdepth.
 
 	TTDataInfo() :
-		name(kTTSymEmpty)
+		name(NULL)
 	{;}
 	
 	static TTDataInfoPtr getInfoForType(TTDataType type)
@@ -289,14 +289,14 @@ public:
 		return getInfoForType(type);
 	}
 
-	static TTDataType matchSymbolToDataType(TTSymbol& typeAsSymbol);
-
 	static TTBoolean getIsNumerical(TTDataType type)
 	{
 		return ttDataTypeInfo[type]->isNumerical;
 	}
 
 	static void addDataInfoForType(TTDataType type);
+	
+	static TTDataType matchSymbolToDataType(TTSymbol& typeAsSymbol);
 
 };
 
