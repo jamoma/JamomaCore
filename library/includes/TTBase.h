@@ -295,6 +295,7 @@ public:
 		int type = 0;
 		while (++type < kNumTTDataTypes) 
 		{
+			cout << "matching " << ttDataTypeInfo[type]->name << " to " << &typeAsSymbol << "\n";
 			// if yes, then return that type 
 			if (ttDataTypeInfo[type]->name == &typeAsSymbol) return TTDataType(type);
 		}
