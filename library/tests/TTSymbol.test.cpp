@@ -92,7 +92,24 @@ void TTSymbolTestBasic(int& errorCount, int&testAssertionCount)
 					r.string().at(3) == 0,
 					testAssertionCount,
 					errorCount);
-
+					
+	TTTestLog("\n");
+	TTTestLog("Testing == operator for symbols");
+	
+	TTSymbol my_symbol_ref = TTSymbol("puppies");
+	TTSymbol my_symbol_ref2 = TTSymbol("puppies");
+	
+	TTTestAssertion("two symbols created together are equivalent",
+					my_symbol_ref == my_symbol_ref2,
+					testAssertionCount,
+					errorCount);
+					
+	my_symbol_ref2 = TTSymbol("sine");
+	
+	TTTestAssertion("symbol matching item in global symbol table is equivalent",
+					kTTSym_sine == my_symbol_ref2,
+					testAssertionCount,
+					errorCount);
 	
 }
 
