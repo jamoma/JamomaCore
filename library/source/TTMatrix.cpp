@@ -177,8 +177,11 @@ TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
 
 TTErr TTMatrix::setType(const TTValue& aType)
 {
-	TTSymbol aNewTypeName = aType;
-	TTDataType aNewDataType = TTDataInfo::matchSymbolToDataType(aNewTypeName);
+	mTypeAsSymbol = aType;
+	cout << "this symbol is located at pointer " << &mTypeAsSymbol << "\n";
+	cout << "the string has been set to " << mTypeAsSymbol.c_str() << "\n";
+	cout << "the symbol has inytrenal pointer to " << mTypeAsSymbol.rawpointer() << "\n";
+	TTDataType aNewDataType = TTDataInfo::matchSymbolToDataType(mTypeAsSymbol);
 	
 	if (setTypeWithoutResize(aNewDataType))
 	{

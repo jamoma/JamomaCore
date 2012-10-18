@@ -61,6 +61,7 @@ protected:
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
 	TTDataType			mType;					///< member of global enumerated list TTBase::TTDataType (i.e., kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, kTypeFloat64)
 	TTDataInfoPtr		mTypeAsDataInfo;		///< local pointer to info about the data type found in TTBase::ttDataTypeInfo
+	TTSymbol			mTypeAsSymbol;			///< local symbol with the name of the data type used
 	TTUInt8				mTypeSizeInBytes;		///< number of bytes present in mType
 	TTUInt32			mDataSize;				///< mTypeSizeInBytes * mDataCount
 	TTBoolean			mDataIsLocallyOwned;	///< If false, then we are referencing outside memory which we don't own

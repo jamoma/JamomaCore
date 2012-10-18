@@ -58,6 +58,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		matrix->setAttributeValue("type", "uint64");
 		TTTestLog("just changed datatype, but value is still %i", matrix->getTypeAsDataType());
 		
+		gTTSymbolTable.dump();
+		
 /*		
 		TTTestLog("Setting to a 1D, float64, matrix with a length of 16 for complex numbers (2 elements per value)");
 		matrix->setAttributeValue("dimensions", 16);
