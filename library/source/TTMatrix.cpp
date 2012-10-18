@@ -126,7 +126,6 @@ TTBoolean TTMatrix::setTypeWithoutResize(TTDataType aNewType)
 	if (ttDataTypeInfo[aNewType]->isNumerical)
 	{
 		mType = aNewType;
-		mType = aNewType;
 		mTypeAsDataInfo = TTDataInfo::getInfoForType(aNewType);
 		mTypeSizeInBytes = (mTypeAsDataInfo->bitdepth / 8);
 		return true;
@@ -180,7 +179,7 @@ TTErr TTMatrix::setType(const TTValue& aType)
 	mTypeAsSymbol = aType;
 	cout << "this symbol is located at pointer " << &mTypeAsSymbol << "\n";
 	cout << "the string has been set to " << mTypeAsSymbol.c_str() << "\n";
-	cout << "the symbol has inytrenal pointer to " << mTypeAsSymbol.rawpointer() << "\n";
+	cout << "the symbol has internal pointer to " << mTypeAsSymbol.rawpointer() << "\n";
 	TTDataType aNewDataType = TTDataInfo::matchSymbolToDataType(mTypeAsSymbol);
 	
 	if (setTypeWithoutResize(aNewDataType))

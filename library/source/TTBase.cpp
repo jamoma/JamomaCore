@@ -429,92 +429,106 @@ void TTDataInfo::addDataInfoForType(TTDataType type)
 	ttDataTypeInfo[type] = new TTDataInfo;
 	
 	if (type == kTypeNone) {
-		ttDataTypeInfo[type]->name = new TTSymbol("none");
+		ttDataTypeInfo[type]->name = kTTSym_none;
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = 0;
 	}
 	
 	else if (type == kTypeFloat32) {
-		ttDataTypeInfo[type]->name = new TTSymbol("float32");
+		ttDataTypeInfo[type]->name = kTTSym_float32;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 32;
 	}
 	else if (type == kTypeFloat64) {
-		ttDataTypeInfo[type]->name = new TTSymbol("float64");
+		ttDataTypeInfo[type]->name = kTTSym_float64;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 64;
 	}
 	else if (type == kTypeInt8) {
-		ttDataTypeInfo[type]->name = new TTSymbol("int8");
+		ttDataTypeInfo[type]->name = kTTSym_int8;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 8;
 	}
 	else if (type == kTypeUInt8) {
-		ttDataTypeInfo[type]->name = new TTSymbol("uint8");
+		ttDataTypeInfo[type]->name = kTTSym_uint8;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 8;
 	}
 	else if (type == kTypeInt16) {
-		ttDataTypeInfo[type]->name = new TTSymbol("int16");
+		ttDataTypeInfo[type]->name = kTTSym_int16;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 16;
 	}
 	else if (type == kTypeUInt16) {
-		ttDataTypeInfo[type]->name = new TTSymbol("uint16");
+		ttDataTypeInfo[type]->name = kTTSym_uint16;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 16;
 	}
 	else if (type == kTypeInt32) {
-		ttDataTypeInfo[type]->name = new TTSymbol("int32");
+		ttDataTypeInfo[type]->name = kTTSym_int32;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 32;
 	}
 	else if (type == kTypeUInt32) {
-		ttDataTypeInfo[type]->name = new TTSymbol("uint32");
+		ttDataTypeInfo[type]->name = kTTSym_uint32;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 32;
 	}
 	else if (type == kTypeInt64) {
-		ttDataTypeInfo[type]->name = new TTSymbol("int64");
+		ttDataTypeInfo[type]->name = kTTSym_int64;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 64;
 	}
 	else if (type == kTypeUInt64) {
-		ttDataTypeInfo[type]->name = new TTSymbol("uint64");
+		ttDataTypeInfo[type]->name = kTTSym_uint64;
 		ttDataTypeInfo[type]->isNumerical = YES;
 		ttDataTypeInfo[type]->bitdepth = 64;
 	}
 	
 	else if (type == kTypeBoolean) {
-		ttDataTypeInfo[type]->name = new TTSymbol("boolean");
+		ttDataTypeInfo[type]->name = kTTSym_boolean;
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = 1;
 	}
 	else if (type == kTypeSymbol) {
-		ttDataTypeInfo[type]->name = new TTSymbol("symbol");
+		ttDataTypeInfo[type]->name = kTTSym_symbol;
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = -1;
 	}
 	else if (type == kTypeObject) {
-		ttDataTypeInfo[type]->name = new TTSymbol("object");
+		ttDataTypeInfo[type]->name = kTTSym_object;
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = -1;
 	}
 	else if (type == kTypePointer) {
-		ttDataTypeInfo[type]->name = new TTSymbol("pointer");
+		ttDataTypeInfo[type]->name = kTTSym_pointer;
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = sizeof(void*);
 	}
 	else if (type == kTypeString) {
-		ttDataTypeInfo[type]->name = new TTSymbol("string");
+		ttDataTypeInfo[type]->name = kTTSym_string;
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = -1;
 	}
 	else if (type == kTypeLocalValue) {
-		ttDataTypeInfo[type]->name = new TTSymbol("value");
+		ttDataTypeInfo[type]->name = kTTSym_value;
 		ttDataTypeInfo[type]->isNumerical = NO;
 		ttDataTypeInfo[type]->bitdepth = -1;
 	}	
+}
+
+TTDataType TTDataInfo::matchSymbolToDataType(TTSymbol& typeAsSymbol)
+{		
+	// look through the symbols for each type in the enumerated list and see if there is a match...
+	int type = 0;
+	while (++type < kNumTTDataTypes) 
+	{
+		cout << "matching " << ttDataTypeInfo[type]->name.c_str() << " to " << typeAsSymbol.c_str() << "\n";
+		// if yes, then return that type 
+		if (ttDataTypeInfo[type]->name.rawpointer() == typeAsSymbol.rawpointer()) return TTDataType(type);
+	}
+	// if no, then return the TTDataInfoPtr for type "none"
+	return kTypeNone;
 }
 
 
