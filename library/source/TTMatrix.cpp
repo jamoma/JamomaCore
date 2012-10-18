@@ -34,9 +34,9 @@ TT_OBJECT_CONSTRUCTOR,
 																	// we will keep setDimensions() & getDimensions()
 	addAttributeWithSetter(RowCount, 				kTypeUInt32);
 	addAttributeWithSetter(ColumnCount, 			kTypeUInt32);
-	addAttributeWithGetterAndSetter(Type,			kTypeSymbol);	// necessary so that public interface uses symbols
+	addAttributeWithGetterAndSetter(Type,			kTypeUInt8);	// necessary so that public interface uses symbols
 																	// internally we use TTDataType
-	addAttributeWithSetter(ElementCount,			kTypeUInt8);
+	addAttributeWithSetter(ElementCount,			kTypeUInt16);
 
 	addMessage(clear);
 	addMessageWithArguments(fill);
