@@ -197,6 +197,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTComplex z(14, 0.92);
 		matrix->set2d(0, 9, z);
 		
+		/*
 		cout << "		";
 		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
 			cout << "[" << *((TTFloat64*)(matrix->mData+i));
@@ -206,9 +207,10 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 			cout <<        *((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)) << "i] ";
 		}
 		cout << endl;
+		*/
 		
 		// TODO: would be nice to have a method to compare two matrices!
-		int index = 1;
+		int index = 0;
 		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
 			if (index == 9) {
 				if (!TTTestFloatEquivalence(*((TTFloat64*)(matrix->mData+i)), 14.0))
@@ -236,10 +238,10 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 				if (*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)) != 0.0)
 					count++;
 			}
-			//TTTestLog("count: %ld   @  %ld", count, index);
+			//TTTestLog("count: %ld   @  %ld", count, i);
 			index++;
 		}
-		TTTestAssertion("set message correctly sets compound values in a vector (1D matrix)", 
+		TTTestAssertion("set message correctly sets compound values in 1D matrix (rowCount = 0)", 
 						count == 0, 
 						testAssertionCount,
 						errorCount);
