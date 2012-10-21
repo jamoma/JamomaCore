@@ -22,16 +22,15 @@ TT_AUDIO_CONSTRUCTOR,
 	mF2(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
-	TTErr		err;
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
 	addAttributeWithSetter(Frequency, kTypeFloat64);
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
-	err = TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.2a"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"),			TT("lowpass"));

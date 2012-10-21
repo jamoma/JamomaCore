@@ -258,31 +258,82 @@ public:
 	/** Return the decay time based on the feedback coefficient */
 	TTFloat64 feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay);
 
-	/** Convert linear amplitude into deciBels.*/
-	TTFloat64 linearToDb(const TTFloat64 value);
-
-	/** Convert deciBels into linear ampliude.*/
-	TTFloat64 dbToLinear(TTFloat64 value);
-	
-	/** Convert midi into linear amplitude. */
-	TTFloat64 midiToLinearGain(TTFloat64 value);
-	
-	/** Convert linear amplitude into midi. */
-	TTFloat64 linearGainToMidi(TTFloat64 value);
-	
-
-	/** An idiosyncratic utility for slightly randomizing a number. 
-		Specifically this is used in applications such as randoming delay times for a reverb. */
-	TTFloat64 deviate(TTFloat64 value);
-
-	/** Generate the next prime number higher than the value passed in.*/
-	TTUInt32 prime(TTUInt32 value);
 
 };
-
 
 typedef TTAudioObject* TTAudioObjectPtr;
 
 
-#endif // __TT_AUDIO_OBJECT_H__
+/** Convert linear amplitude into deciBels.*/
+inline TTFloat64 TTLinearGainToDecibels(const TTFloat64 value)
+{
+	if (value >= 0) 
+		return(20.0 * (log10(value)));
+	else
+	 	return 0;
+}
 
+
+/** Convert deciBels into linear ampliude.*/
+inline TTFloat64 TTDecibelsToLinearGain(TTFloat64 value)
+{
+	return(pow(10., (value / 20.)));
+}
+
+
+/** Convert midi into linear amplitude. */
+inline TTFloat64 TTMidiToLinearGain(TTFloat64 value)
+{
+	return pow(value * 0.01, kTTGainMidiPower);
+}
+
+	
+/** Convert linear amplitude into midi. */
+inline TTFloat64 TTLinearGainToMidi(TTFloat64 value)
+{
+	return 100.0 * pow(value, kTTGainMidiPowerInv);
+}
+	
+
+/** Generate the next prime number higher than the value passed in.*/
+inline TTUInt32 TTPrime(TTUInt32 value)
+{
+	long	candidate, last, i, isPrime;
+
+   	if (value < 2)
+  		candidate = 2;
+	else if (value == 2)
+		candidate = 3;
+	else {
+		candidate = value;
+		if (candidate % 2 == 0)								// Test only odd numbers
+			candidate--;
+		do{
+			isPrime = true;									// Assume glorious success
+			candidate += 2;									// Bump to the next number to test
+			last = TTUInt32(sqrt((TTFloat32)candidate));  	// We'll check to see if candidate has any factors, from 2 to last
+			for (i=3; (i <= last) && isPrime; i+=2) {		// Loop through odd numbers only
+				if ((candidate % i) == 0)
+				isPrime = false;
+			}
+		} 
+		while (!isPrime);
+	}
+	return candidate;
+}
+
+
+/** An idiosyncratic utility for slightly randomizing a number.
+ Specifically this is used in applications such as randoming delay times for a reverb. */
+inline TTFloat64 TTDeviate(TTFloat64 value, TTFloat64 aSampleRate = 1.0)
+{   //TODO use Mersedian Twister for rand-generatior
+	value += (2.0 * (TTFloat32(rand()) / TTFloat32(RAND_MAX))) - 1.0;	// randomize input with +1 to -1 ms
+	value = value * 0.001 * aSampleRate;											// convert from ms to samples
+	value = (TTFloat32)TTPrime(TTUInt32(value));							// find the nearest prime number (in samples)
+	value = (value / aSampleRate) * 1000.0;										// convert back to ms
+	
+	return value;
+}
+
+
+#endif // __TT_AUDIO_OBJECT_H__

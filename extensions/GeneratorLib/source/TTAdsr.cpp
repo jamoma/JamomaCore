@@ -118,20 +118,20 @@ TTErr TTAdsr::setRelease(const TTValue& newValue)
 TTErr TTAdsr::setSustainAmp(const TTValue& newValue)
 {
 	sustain_amp = newValue;
-	sustain_db = linearToDb(sustain_amp);
+	sustain_db = TTLinearGainToDecibels(sustain_amp);
 	return kTTErrNone;
 }
 
 TTErr TTAdsr::setSustainDb(const TTValue& newValue)
 {
 	sustain_db = newValue;
-	sustain_amp = dbToLinear(sustain_db);
+	sustain_amp = TTDecibelsToLinearGain(sustain_db);
 	return kTTErrNone;
 }
 
 TTErr TTAdsr::getSustainDb(TTValue& value)
 {
-	value = linearToDb(sustain_amp);
+	value = TTLinearGainToDecibels(sustain_amp);
 	return kTTErrNone;
 }
 
@@ -249,11 +249,11 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 					output = 1.0;						// Make sure we didn't go over 1.0
 				}
 				else
-					output = dbToLinear(output_db);
+					output = TTDecibelsToLinearGain(output_db);
 				break;
 			case k_eg_decay:						// DECAY
 				output_db -= decay_step_db;
-				output = dbToLinear(output_db);	// Decrement the output
+				output = TTDecibelsToLinearGain(output_db);	// Decrement the output
 				if (output <= sustain_amp) {				// If we've hit the bottom of the decay,
 					eg_state = k_eg_sustain;			// start the sustain stage
 					output = sustain_amp;				// Lock in the sustain value
@@ -269,7 +269,7 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 					output = 0.0;						// Make sure we didn't dip too low
 				}
 				else
-					output = dbToLinear(output_db);		// Decrement the output
+					output = TTDecibelsToLinearGain(output_db);		// Decrement the output
 				break;
 		}
 		*outSample++ = output;
@@ -319,11 +319,11 @@ TTErr TTAdsr::processAudioHybrid(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 					eg_state = k_eg_decay;
 				}
 				else
-					output_db = linearToDb(output);
+					output_db = TTLinearGainToDecibels(output);
 				break;
 			case k_eg_decay:						// DECAY
 				output_db -= decay_step_db;
-				output = dbToLinear(output_db);	// Decrement the output
+				output = TTDecibelsToLinearGain(output_db);	// Decrement the output
 				if (output <= sustain_amp) {				// If we've hit the bottom of the decay,
 					eg_state = k_eg_sustain;			// start the sustain stage
 					output = sustain_amp;				// Lock in the sustain value
@@ -339,7 +339,7 @@ TTErr TTAdsr::processAudioHybrid(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 					output = 0.0;						// Make sure we didn't dip too low
 				}
 				else
-					output = dbToLinear(output_db);		// Decrement the output
+					output = TTDecibelsToLinearGain(output_db);		// Decrement the output
 				break;
 		}
 		*outSample++ = output;

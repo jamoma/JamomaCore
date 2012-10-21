@@ -14,7 +14,7 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-, mPhase(0.0), step(0.0), linearGain(1.0), mFrequency(1.0), mOffset(0.0)
+, mFrequency(1.0), mPhase(0.0), mOffset(0.0), step(0.0), linearGain(1.0)
 {
 	addAttributeWithSetter(			Frequency,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(Gain,		kTypeFloat64);
@@ -85,13 +85,13 @@ TTErr TTPhasor::setPhase(const TTValue& newValue)
 
 TTErr TTPhasor::setGain(const TTValue& newValue)
 {
-	linearGain = dbToLinear(newValue);
+	linearGain = TTDecibelsToLinearGain(newValue);
 	return kTTErrNone;
 }
 
 TTErr TTPhasor::getGain(TTValue& value)
 {
-	value = linearToDb(linearGain);
+	value = TTLinearGainToDecibels(linearGain);
 	return kTTErrNone;
 }
 

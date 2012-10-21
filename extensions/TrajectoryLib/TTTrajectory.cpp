@@ -42,7 +42,7 @@ TT_AUDIO_CONSTRUCTOR,
 		TTObjectInstantiate(kTTSym_audiosignal, &anAudioSignal, 1);
 		mPhasorOutputSignals->setSignal(0, (TTAudioSignal*)anAudioSignal);
 		mRampOutputSignals->setSignal(0, (TTAudioSignal*)anAudioSignal);
-		mPhasors[0]->setAttributeValue(TT("gain"),linearToDb(2)); // factor 2 in [dB] 
+		mPhasors[0]->setAttributeValue(TT("gain"), TTLinearGainToDecibels(2)); // factor 2 in [dB] 
 		mRamps[0]->setAttributeValue(TT("mode"), TT("sample"));
 	//}
 	addAttributeWithSetter(A,				kTypeFloat64);

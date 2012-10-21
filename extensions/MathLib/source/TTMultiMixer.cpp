@@ -22,8 +22,8 @@ TT_AUDIO_CONSTRUCTOR,
 	mGainMatrix(NULL),
 	tempGainMatrix(NULL)
 {
-	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, NULL);
-	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&tempGainMatrix, NULL);
+	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, 0);
+	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&tempGainMatrix, 0);
 
 	addAttribute(NumInputs, kTypeUInt16);	
 	addAttributeProperty(NumInputs,	readOnly, kTTBoolYes);
@@ -137,7 +137,7 @@ TTErr TTMultiMixer::setGain(const TTValue& newValue, TTValue&)
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
 
-	mGainMatrix->set2dZeroIndex(x, y, dbToLinear(gainValue)); 
+	mGainMatrix->set2dZeroIndex(x, y, TTDecibelsToLinearGain(gainValue)); 
 	return kTTErrNone;
 }
 
@@ -176,7 +176,7 @@ TTErr TTMultiMixer::setMidiGain(const TTValue& newValue, TTValue&e)
 	newValue.get(2, gainValue);
 	checkMatrixSize(x,y);	
 
-	mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue));
+	mGainMatrix->set2dZeroIndex(x, y, TTMidiToLinearGain(gainValue));
 	return kTTErrNone;
 }
 

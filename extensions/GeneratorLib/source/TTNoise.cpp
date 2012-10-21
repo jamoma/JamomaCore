@@ -86,14 +86,14 @@ TTErr TTNoise::setMode(const TTValue& newMode)
 
 TTErr TTNoise::setGain(const TTValue& newValue)
 {
-	mGain = dbToLinear(newValue);
+	mGain = TTDecibelsToLinearGain(newValue);
 	return kTTErrNone;	
 }
 
 
 TTErr TTNoise::getGain(TTValue& returnedValue)
 {
-	returnedValue = linearToDb(mGain);
+	returnedValue = TTLinearGainToDecibels(mGain);
 	return kTTErrNone;
 }
 
@@ -241,11 +241,11 @@ TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	}
 	return kTTErrNone;
 }
+
 #ifdef USE_MERSENNE_TWISTER_ALGORITHM
 TTErr TTNoise::processGauss(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue	tempSample;
 	TTSampleValuePtr	outSample;
 	TTUInt16		numChannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;

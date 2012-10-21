@@ -59,22 +59,20 @@ TTErr Lissajous3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	}
 	
 	TTAudioSignal&		in0 = inputs->getSignal(0);
-		
-	TTUInt16			vs = in0.getVectorSizeAsInt();
-	
+	TTUInt16			vs = in0.getVectorSizeAsInt();	
 	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];
 	TTSampleValuePtr	outSampleY			= out.mSampleVectors[1];
 	TTSampleValuePtr	outSampleZ			= out.mSampleVectors[2];
-	TTFloat64 phi;
+	//TTFloat64 phi;
 	
 	for (int i=0; i<vs; i++) {	
-		phi = inSampleX[i] * kTTPi;
+		//phi = inSampleX[i] * kTTPi;
 		outSampleX[i] = cos((inSampleX[i]* mA *kTTTwoPi) + mDeltaX);
 		outSampleY[i] = cos((inSampleX[i]* mB *kTTTwoPi) + mDeltaY);
 		outSampleZ[i] = cos((inSampleX[i]* mC *kTTTwoPi));
-		}
-return kTTErrNone;
+	}
+	return kTTErrNone;
 }
 	
 

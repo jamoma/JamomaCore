@@ -99,13 +99,13 @@ TTErr TTOverdrive::setMode(const TTValue& newValue)
 
 TTErr TTOverdrive::getPreamp(TTValue& value)
 {
-	value = linearToDb(mPreamp);
+	value = TTLinearGainToDecibels(mPreamp);
 	return kTTErrNone;
 }
 
 TTErr TTOverdrive::setPreamp(const TTValue& newValue)
 {
-	mPreamp = dbToLinear(newValue);
+	mPreamp = TTDecibelsToLinearGain(newValue);
 	return kTTErrNone;
 }
 

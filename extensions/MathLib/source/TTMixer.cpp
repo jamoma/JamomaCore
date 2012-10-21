@@ -24,9 +24,9 @@ TT_AUDIO_CONSTRUCTOR,
 	mNumInputs(1),
 	mNumOutputs(1)
 {
-	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, NULL);
-	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&oldGainMatrix, NULL);
-	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&tempGainMatrix, NULL);
+	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, 0);
+	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&oldGainMatrix, 0);
+	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&tempGainMatrix, 0);
 	
 	addAttributeWithSetter(NumInputs,	kTypeUInt16);
 	addAttributeWithSetter(NumOutputs,	kTypeUInt16);
@@ -170,7 +170,7 @@ TTErr TTMixer::setGain(const TTValue& newValue, TTValue&)
 
 	checkMatrixSize(x,y);
     
-	mGainMatrix->set2dZeroIndex(x, y, dbToLinear(gainValue)); //the Matrix starts similar to Matlab with 1-index 
+	mGainMatrix->set2dZeroIndex(x, y, TTDecibelsToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
  	return kTTErrNone;
@@ -213,7 +213,7 @@ TTErr TTMixer::setMidiGain(const TTValue& newValue, TTValue&)
 	newValue.get(2, gainValue);
 
 	checkMatrixSize(x,y);
-	mGainMatrix->set2dZeroIndex(x, y, midiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
+	mGainMatrix->set2dZeroIndex(x, y, TTMidiToLinearGain(gainValue)); //the Matrix starts similar to Matlab with 1-index 
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;

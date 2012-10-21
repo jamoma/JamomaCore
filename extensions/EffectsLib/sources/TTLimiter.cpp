@@ -115,26 +115,26 @@ TTErr TTLimiter::getPreamp(TTValue& value)
 
 TTErr TTLimiter::setPostamp(const TTValue& newValue)
 {
-	attrPostamp = dbToLinear(newValue);
+	attrPostamp = TTDecibelsToLinearGain(newValue);
 	return kTTErrNone;
 }
 
 TTErr TTLimiter::getPostamp(TTValue& value)
 {
-	value = linearToDb(attrPostamp);
+	value = TTLinearGainToDecibels(attrPostamp);
 	return kTTErrNone;
 }
 
 
 TTErr TTLimiter::setThreshold(const TTValue& newValue)
 {
-	attrThreshold = dbToLinear(newValue);
+	attrThreshold = TTDecibelsToLinearGain(newValue);
 	return kTTErrNone;
 }
 
 TTErr TTLimiter::getThreshold(TTValue& value)
 {
-	value = linearToDb(attrThreshold);
+	value = TTLinearGainToDecibels(attrThreshold);
 	return kTTErrNone;
 }
 

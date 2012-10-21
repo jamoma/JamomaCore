@@ -108,7 +108,7 @@ TTErr TTAllpass1::clear()
 TTErr TTAllpass1::setGain(const TTValue& newValue)
 {	
 	mGain = newValue;
-	mLinearGain = dbToLinear(mGain);
+	mLinearGain = TTDecibelsToLinearGain(mGain);
 	return kTTErrNone;
 }
 
@@ -116,7 +116,7 @@ TTErr TTAllpass1::setGain(const TTValue& newValue)
 TTErr TTAllpass1::setLinearGain(const TTValue& newValue)
 {	
 	mLinearGain = newValue;
-	mGain = linearToDb(mLinearGain);
+	mGain = TTLinearGainToDecibels(mLinearGain);
 	return kTTErrNone;
 }
 

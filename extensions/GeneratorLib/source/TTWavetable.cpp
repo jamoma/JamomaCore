@@ -93,7 +93,7 @@ TTErr TTWavetable::setInterpolation(const TTValue& newValue)
 TTErr TTWavetable::setGain(const TTValue& newValue)
 {
 	mGain = newValue;
-	mLinearGain = dbToLinear(mGain);
+	mLinearGain = TTDecibelsToLinearGain(mGain);
 	return kTTErrNone;
 }
 

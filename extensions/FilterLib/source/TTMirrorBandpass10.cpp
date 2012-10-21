@@ -25,7 +25,6 @@ TT_AUDIO_CONSTRUCTOR,
 	mBandwidth(1000.0)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
-	TTErr		err;
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
 	addAttributeWithSetter(Frequency, kTypeFloat64);
@@ -34,9 +33,9 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
-	err = TTObjectInstantiate(TT("allpass.4a"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.2c"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.4a"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.4a"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.2c"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.4a"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"),			TT("bandpass"));

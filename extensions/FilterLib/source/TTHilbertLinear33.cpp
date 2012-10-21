@@ -28,19 +28,18 @@ TT_AUDIO_CONSTRUCTOR,
 	mF4(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
-	TTErr		err;
 	
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
-	err = TTObjectInstantiate(TT("delay"), (TTObjectPtr*)&mP0Delay, initialMaxNumChannels);
+	TTObjectInstantiate(TT("delay"), (TTObjectPtr*)&mP0Delay, initialMaxNumChannels);
 	
-	err = TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mP1Delay, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF3, initialMaxNumChannels);
-	err = TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF4, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mP1Delay, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF3, initialMaxNumChannels);
+	TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF4, initialMaxNumChannels);
 	
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 		
