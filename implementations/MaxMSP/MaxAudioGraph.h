@@ -45,6 +45,9 @@ typedef TTErr (*TTValidityCheckFunction)(const TTPtr data);         ///< A type 
 
 class MaxAudioGraphWrappedClassOptions;
 
+/**
+ An AudioGraph class wrapped as a Max external.
+ */
 typedef struct _MaxAudioGraphWrappedClass {
 	ClassPtr							maxClass;					///< The Max class pointer.
 	SymbolPtr							maxClassName;				///< The name to give the Max class.
@@ -97,7 +100,7 @@ typedef MaxAudioGraphWrappedClassOptions* MaxAudioGraphWrappedClassOptionsPtr;		
 // FUNCTIONS
 
 /**
- Wrap a TTBlue class as a Max class. 
+ Wrap an AudioGraph class as a Max class. 
  * @param ttClassName           Name of the Jamoma Audio Graph class that will be wrapped.
  * @param maxClassName          Name of the resulting Max external
  * @param c                     Address to a variable to hold the wrapped Max class upon return.
