@@ -207,14 +207,21 @@ typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBool
 
 /****************************************************************************************************/
 
+/** \defgroup consts Constants
+ *
+ * Various constants used in %Jamoma.
+ */
+
 
 /** \defgroup enums Enumerations
+ * \ingroup consts
  *
  * Various enumerations used in %Jamoma.
  */
 
 
 /** \defgroup bitmasks Bit Masks
+ * \ingroup consts
  *
  * Various enumerations used as bitmasks in %Jamoma.
  */
@@ -224,10 +231,7 @@ typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBool
  * Various typedefs used in %Jamoma.
  */
 
-/** \defgroup consts Constants
- *
- * Various constants used in %Jamoma.
- */
+
 
 
 /**	\ingroup enums
