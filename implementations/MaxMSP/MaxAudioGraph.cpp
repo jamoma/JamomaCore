@@ -230,12 +230,14 @@ t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr a
 		SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 		TTValue		v;
 		AtomCount	i;
-		TTSymbol	ttAttrName;
+		TTPtr		rawpointer;
 		MaxErr		err;
 		
-		err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, attrName, (ObjectPtr*)&ttAttrName);
+		err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, attrName, (ObjectPtr*)&rawpointer);
 		if (err)
 			return err;
+		
+		TTSymbol	ttAttrName(rawpointer);
 		
 		v.setSize(argc);
 		for (i=0; i<argc; i++) {
