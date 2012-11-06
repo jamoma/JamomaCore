@@ -1,7 +1,7 @@
 /** @file
  * @ingroup foundation
  *
- * @brief The TTClass object represents a class in the TTBlue environment.
+ * @brief The TTClass object represents a class in the Jamoma environment.
  *
  * @details This is to say that it represents everything about a class except for the class itself,
  * which is a subclass of TTObject.
