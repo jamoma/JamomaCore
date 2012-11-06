@@ -1,8 +1,15 @@
-/* 
- * TTCallback
- * Copyright © 2008, Théo de la Hogue & Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ * @ingroup foundation
+ *
+ * @brief This class is used to create a backward communication to notify a client that something changed in the TTnode
+ *
+ * @details
+ *
+ * @todo Use the TTObject class fonctionnality besause TTNode is also a TTObject
+ *
+ * @authors Théo de la Hogue, Tim Place, Nathan Wolek, Trond Lossius
+ *
+ * @copyright This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
