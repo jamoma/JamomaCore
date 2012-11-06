@@ -7,7 +7,8 @@
  *
  * @authors Timothy Place, Theo de la Hogue, Nils Peters, Trond Lossius
  *
- * @copyright This code is licensed under the terms of the "New BSD License" @n
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -148,18 +149,22 @@ public:
 	TTErr defaultSetter(const TTAttribute& attribute, const TTValue& value);
 	
 	/** TODO: This needs to be documented.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr callbackGetter(const TTAttribute& attribute, TTValue& value);
 	
 	/** TODO: This needs to be documented.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr callbackSetter(const TTAttribute& attribute, TTValue& value);
 	
 	/** TODO: This needs to be documented.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr extendedGetter(const TTAttribute& attribute, TTValue& value);
 	
 	/** TODO: This needs to be documented.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr extendedSetter(const TTAttribute& attribute, TTValue& value);
 	

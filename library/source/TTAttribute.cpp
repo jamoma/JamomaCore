@@ -7,7 +7,8 @@
  *
  * @authors Timothy Place, Theo de la Hogue, Nils Peters, Trond Lossius
  *
- * @copyright This code is licensed under the terms of the "New BSD License" @n
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

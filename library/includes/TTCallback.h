@@ -9,7 +9,8 @@
  *
  * @authors Théo de la Hogue, Tim Place, Nathan Wolek, Trond Lossius
  *
- * @copyright This code is licensed under the terms of the "New BSD License" @n
+ * @copyright Copyright © 2009, Théo de la Hogue and Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
