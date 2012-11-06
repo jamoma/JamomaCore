@@ -1,8 +1,16 @@
-/*
- * TTBlue Class Object
- * Copyright © 2008, Timothy Place
+/** @file
+ * @ingroup foundation
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @brief The TTClass object represents a class in the TTBlue environment.
+ *
+ * @details This is to say that it represents everything about a class except for the class itself,
+ * which is a subclass of TTObject.
+ *
+ * @todo: We could override the () operator to make TTClass a functor for creating instances.
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

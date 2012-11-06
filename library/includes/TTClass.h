@@ -1,10 +1,19 @@
-/* 
- * TTBlue Class Object
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ * @ingroup foundation
+ *
+ * @brief The TTClass object represents a class in the TTBlue environment.
+ *
+ * @details This is to say that it represents everything about a class except for the class itself,
+ * which is a subclass of TTObject.
+ *
+ * @todo: We could override the () operator to make TTClass a functor for creating instances.
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_CLASS_H__
 #define __TT_CLASS_H__
@@ -15,16 +24,6 @@
 #include "TTEnvironment.h"
 
 
-/****************************************************************************************************/
-// Class Specifications
-
-/**
-	The TTClass object represents a class in the TTBlue environment.
-	This is to say that it represents everything about a class except for the class itself,
-	which is a subclass of TTObject.
-	
-	//TODO: we could override the () operator to make TTClass a functor for creating instances.
-*/
 class TTFOUNDATION_EXPORT TTClass : public TTBase {
 private:
 	friend class TTEnvironment;
@@ -39,10 +38,16 @@ private:
 		
 public:
 	
-	/**	Constructor	*/
+	/**	Constructor method.	
+	 @param className				The name of the class.
+	 @param tags					The tags that this class is associated with.
+	 @param anInstantiationMethod	The instantiation method for this class.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTClass(const TTSymbol& className, const TTValue& tags, const TTObjectInstantiationMethod anInstantiationMethod);
 		
-	/**	Destructor */
+	
+	/**	Destructor. */
 	virtual ~TTClass();
 	
 	
@@ -52,23 +57,27 @@ public:
 							existing object to which it points prior to instantiating the new unit.
 		@param	anArgument	For most audio processing objects, this should be passed the maximum number of channels.
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
-		@return				An error code.	*/
+		@return				#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr createInstance(TTObject** anObject, TTValue& anArgument);
 	
 	
 	/**	Free an instance of a #TTObject class.
 		There are a couple of reasons we want to have this wrapper around the delete operator.
-		- For instrumenting the code to investigate bugs, performance, etc.
+		- For instrumenting the code to investigate bugs, performance, etc.@n
 		- So that we can handle any threading, spin-locks, mutexes, or other issues before actually freeing the object.
 
 		@param	unit		A pointer to the unit to free.
-		@return				An error code.	*/
+		@return				#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr releaseInstance(TTObject* anObject);
 	
 	
 };
 
-
+/** Pointer to a #TTClass.
+ @ingroup typedefs
+ */
 typedef TTClass* TTClassPtr;
 
 
