@@ -1,10 +1,16 @@
-/* 
- * TTBlue Object Base Class
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ * @ingroup foundation
+ *
+ * @brief The TTAttribute class represents a single attribute, as used by the TTObject class.
+ *
+ * @details 
+ *
+ * @authors Timothy Place, Theo de la Hogue, Nils Peters, Trond Lossius
+ *
+ * @copyright This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_ATTRIBUTE_H__
 #define __TT_ATTRIBUTE_H__
@@ -90,43 +96,137 @@ public:
 	TTBoolean			hidden;			///< Property: this attribute is private/invisible to the outside world
 	TTSymbol			description;	///< Property: description of this attribute
 	
+	/** Object constructor.
+	 */
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress);
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
 	TTAttribute(const TTSymbol& newName, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
 	TTAttribute(TTAttributePtr extendedAttribute, const TTObjectPtr extendedObject);
+	
+	/** Object destructor.
+	 */
 	virtual ~TTAttribute();
 	
+	/** Set the getterFlag property of the attribute, defining the behavior of the attribute getter method.
+	 @param newFlags				The new value for the getterFlag property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	void setGetterFlags(TTAttributeFlags newFlags);
+	
+	/** Get the current getterFlag property of the attribute, describing the behavior of the attribute getter method.
+	 @param currentFlags			Pointer to a #TTValue used to return the current value of the getterFlag property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	void getGetterFlags(TTAttributeFlags& currentFlags);
 
+	/** Set the setterFlag property of the attribute, defining the behavior of the attribute setter method.
+	 @param newFlags				The new value for the setterFlag property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	void setSetterFlags(TTAttributeFlags newFlags);
+	
+	/** Get the current setterFlag property of the attribute, describing the behavior of the attribute setter method.
+	 @param currentFlags			Pointer to a #TTValue used to return the current value of the setterFlag property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	void getSetterFlags(TTAttributeFlags& currentFlags);
 
+	/** The default method for getting the current attribute value.
+	 @param TTAttribute			The attribute
+	 @param TTValue				Pointer to a #TTValue used to return the current value of the attribute.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone .
+	 */
 	TTErr defaultGetter(const TTAttribute& attribute, TTValue& value);
+	
+	/** The default method for setting the attribute value.
+	 @param TTAttribute			The attribute
+	 @param TTValue				The new value of the attribute.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr defaultSetter(const TTAttribute& attribute, const TTValue& value);
 	
+	/** TODO: This needs to be documented.
+	 */
 	TTErr callbackGetter(const TTAttribute& attribute, TTValue& value);
+	
+	/** TODO: This needs to be documented.
+	 */
 	TTErr callbackSetter(const TTAttribute& attribute, TTValue& value);
 	
+	/** TODO: This needs to be documented.
+	 */
 	TTErr extendedGetter(const TTAttribute& attribute, TTValue& value);
+	
+	/** TODO: This needs to be documented.
+	 */
 	TTErr extendedSetter(const TTAttribute& attribute, TTValue& value);
 	
-	// Potential Attributes of TTAttribute
+	
+	/** Set the readOnly property of the attribute, controlling if the attribute value can be changed or not.
+	 @param newReadOnlyValue		The new value for the readOnly property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setreadOnly(const TTValue& newReadOnlyValue);
+	
+	
+	/** Get the readOnly property of the attribute, controlling if the attribute value can be changed or not.
+	 @param currentReadOnlyValue	Pointer to a #TTValue used to return the current value of the readOnly property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getreadOnly(TTValue& currentReadOnlyValue);
 	
+	
+	/** Set the range of possible values for the attribute.
+	 @param newRange				The new value for the range property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setrange(const TTValue& newRange);
+	
+	
+	/** Get the range of possible values for the attribute.
+	 @param currentRange			Pointer to a #TTValue used to return the current value for the range property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getrange(TTValue& currentRange);
 	
+	
+	/** Set the range boundary checking mode property for the attribute.
+	 @param newRangeCheckingMode	The new range range boundary checking mode property for the attribute.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setrangeChecking(const TTValue& newRangeCheckingMode);
+	
+	
+	/** Get the range boundary checking mode property for the attribute.
+	 @param currentRangeCheckingMode	Pointer to a #TTValue used to return the current value for the range boundary checking mode property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getrangeChecking(TTValue& currentRangeCheckingMode);
 	
+	/** Set the hidden flag for the attribute, determining if this attribute is private/invisible to the outside world.
+	 @param newHiddenFlag			The new value for the hidden flag.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr sethidden(const TTValue& newHiddenFlag);
+	
+	/** Get the hidden flag for the attribute, indicating if this attribute is private/invisible to the outside world.
+	 @param currentHiddenFlag		Pointer to a #TTValue used to return the current value for the hidden flag.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr gethidden(TTValue& currentHiddenFlag);
 	
+	/** Set the description property of the attribute, used for documentation purposes.
+	 @param newDescription			The new value for the documentation property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setdescription(const TTValue& newDescription);
+	
+	/** Get the description property of the attribute, used for documentation purposes.
+	 @param returnedDescription		Pointer to a #TTValue used to return the current value for the documentation property.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getdescription(TTValue& returnedDescription);
 	
 };

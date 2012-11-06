@@ -1,8 +1,13 @@
-/* 
- * TTBlue Object Base Class
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ * @ingroup foundation
+ *
+ * @brief The TTAttribute class represents a single attribute, as used by the TTObject class.
+ *
+ * @details 
+ *
+ * @authors Timothy Place, Theo de la Hogue, Nils Peters, Trond Lossius
+ *
+ * @copyright This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
