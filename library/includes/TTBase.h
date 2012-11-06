@@ -1,5 +1,6 @@
-/*! \file TTBase.h
+/** @file TTBase.h
  * Jamoma's lowest-level base class and related infrastructure
+ *
  * Copyright © 2008, Timothy Place
  *
  * License: This code is licensed under the terms of the "New BSD License"
@@ -202,36 +203,6 @@ typedef TTVector::iterator		TTVectorIter;
 
 /** Use for finding stuff in a list or a hash or a dictionary. */
 typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found);
-
-
-
-/****************************************************************************************************/
-
-/** \defgroup consts Constants
- *
- * Various constants used in %Jamoma.
- */
-
-
-/** \defgroup enums Enumerations
- * \ingroup consts
- *
- * Various enumerations used in %Jamoma.
- */
-
-
-/** \defgroup bitmasks Bit Masks
- * \ingroup consts
- *
- * Various enumerations used as bitmasks in %Jamoma.
- */
-
-/** \defgroup typedefs Typedefs
- *
- * Various typedefs used in %Jamoma.
- */
-
-
 
 
 /**	\ingroup enums
