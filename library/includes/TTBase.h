@@ -1,9 +1,9 @@
 /** @file
  * @ingroup foundation 
  *
- * @brief Jamoma's lowest-level base class and related infrastructure
+ * @brief Jamoma's lowest-level base class and related infrastructure.
  *
- * @details 
+ * @details The Jamoma base class.
  *
  * @authors Timothy Place, Trond Lossius, Nils Peters
  *
