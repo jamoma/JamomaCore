@@ -1,7 +1,7 @@
 /** @file
  * @ingroup foundation
  *
- * @brief This class is used to create a backward communication to notify a client that something changed in the TTnode
+ * @brief This class is used to create a backward communication to notify a client that something changed in the #TTnode
  *
  * @details
  *
