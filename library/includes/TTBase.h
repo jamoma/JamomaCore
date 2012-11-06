@@ -549,16 +549,24 @@ TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPowerInv;
  */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTInv255;
 
-/** Platform and host independent method for posting messages. */
+/** Platform and host independent method for posting log messages. 
+ @param message		The message to post.
+ */
 void TTFOUNDATION_EXPORT TTLogMessage(TTImmutableCString message, ...);
 
-/** Platform and host independent method for posting messages. */
+/** Platform and host independent method for posting warnings. 
+ @param message		The message to post.
+ */
 void TTFOUNDATION_EXPORT TTLogWarning(TTImmutableCString message, ...);
 
-/** Platform and host independent method for posting errors. */
+/** Platform and host independent method for posting errors. 
+ @param message		The message to post.
+ */
 void TTFOUNDATION_EXPORT TTLogError(TTImmutableCString message, ...);
 
-/** Platform and host independent method for posting messages only when debugging is enabled in the environment. */
+/** Platform and host independent method for posting messages only when debugging is enabled in the environment. 
+ @param message		The message to post.
+ */
 void TTFOUNDATION_EXPORT TTLogDebug(TTImmutableCString message, ...);
 
 
