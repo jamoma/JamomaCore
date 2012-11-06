@@ -1,8 +1,13 @@
-/* 
- * TTBlue Data Object Base Class
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ * @ingroup foundation
+ *
+ * @brief TTDataObject is the base class for all data generating and processing objects.
+ *
+ * @details It still has knowledge and support for sample-rates, but not channel counts or vector processing.
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -17,7 +22,9 @@
 class TTDataObject;
 class TTMatrixArray;
 
-/**	A type that can be used to store a pointer to a calculate method (which calculates an array of matrices). */
+/**	A type that can be used to store a pointer to a calculate method (which calculates an array of matrices).
+ @ingroup typedefs
+ */
 typedef TTErr (TTDataObject::*TTMatrixCalculateMethod)(const TTMatrixArray* inputMatrices, TTMatrixArray* outputMatrices);
 
 #define setMatrixCalculateMethod(methodName)	setMatrixCalculate((TTMatrixCalculateMethod)& thisTTClass ::methodName )
@@ -43,27 +50,64 @@ protected:
 	TTPtrSizedInt				mReserved2;						///< Reserved -- May be used for something in the future without changing the size of the struct.
 
 protected:
-	//** Constructor.	*/
+	/** Object constructor.
+	@param arguments			Arguments to the constructor method.
+	*/
 	TTDataObject(TTValue& arguments);
 
-	/** Destructor. */
+	
+	/** Object destructor. */
 	virtual ~TTDataObject();	
 
-	/** Set the sample calculate routine to point to a method that is defined as an arg to this function.	*/
+	
+	/** Set the sample calculate routine to point to a method that is defined as an arg to this function.
+	 @param newMatrixCalculateMethod	The new matrix calculation method to use.
+	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setMatrixCalculate(TTMatrixCalculateMethod newMatrixCalculateMethod);
 	
-	/** Bypass the audio processing routine and copy all input samples to the output unchanged.				*/
+	
+	/** Bypass the audio processing routine and copy all input samples to the output unchanged.
+	 @param value				Set bypass property for the object, controling whether matrix calculation will be bypassed.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setBypass(const TTValue& value);
 
-	// Built-in matrix calculation methods.
+	
+	/** Built-in method to be used when calculation is to bypassed. It simply copied input to output.
+	 @param input					Input the calculation routine.
+	 @param output					Output from the calculation routine.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	*/
 	TTErr bypassMatrixCalculate(const TTMatrixArray* inputs, TTMatrixArray* outputs);
+	
+	
+	/** The default calculation method to use.
+	 @param input					Input the calculation routine.
+	 @param output					Output from the calculation routine.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr defaultMatrixCalculateMethod(const TTMatrixArray* inputs, TTMatrixArray* outputs);
 
-	// Messages for accessing performance benchmarking data
+	
+	/** Reset internal values used when benchmarking performance.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr resetBenchmarking();
+	
+	
+	/** Do performance benchmarking.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getProcessingBenchmark(TTValueRef v);
 	
+	
 public:
+	/**
+	 @param input					Input the calculation routine.
+	 @param output					Output from the calculation routine.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr calculate(const TTMatrixArray* inputs, TTMatrixArray* outputs);
 	TTErr calculate(const TTMatrix& x, TTMatrix& y);
 	TTErr calculate(const TTMatrix* x, TTMatrix* y)
@@ -73,6 +117,9 @@ public:
 
 };
 
+/** Pointer to a #TTDataObject.
+ @ingroup typedefs
+ */
 typedef TTDataObject* TTDataObjectPtr;
 
 #endif // __TT_DATA_OBJECT_H__

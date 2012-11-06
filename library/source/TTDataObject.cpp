@@ -1,8 +1,13 @@
-/* 
- * TTBlue Data Object Base Class
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ * @ingroup foundation
+ *
+ * @brief TTDataObject is the base class for all data generating and processing objects.
+ *
+ * @details It still has knowledge and support for sample-rates, but not channel counts or vector processing.
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
