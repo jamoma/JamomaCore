@@ -1,9 +1,13 @@
-/** @file TTBase.h
- * Jamoma's lowest-level base class and related infrastructure
+/** @file
+ * @ingroup foundation 
  *
- * Copyright © 2008, Timothy Place
+ * @brief Jamoma's lowest-level base class and related infrastructure
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @details 
+ *
+ * @authors Timothy Place, Trond Lossius, Nils Peters
+ *
+ * @copyright This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
