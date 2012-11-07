@@ -1,9 +1,14 @@
-/** 
- * \file jcom.cuemanager.h
- * External for Jamoma: to manage cues in a text file 
- * By ThÈo de la Hogue, Copyright 2009
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: Manage cues in a text file 
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue, Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2009, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

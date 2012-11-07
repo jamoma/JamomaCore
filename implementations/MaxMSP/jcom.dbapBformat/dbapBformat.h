@@ -1,9 +1,14 @@
-/** 
- * \file dbapBformat.h
- * External for Jamoma: DBAP - Distance Based Amplitude Panning
- * By Trond Lossius, Copyright 2011
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: DBAP - Distance Based Amplitude Panning using 4-channel ambisonic Bformat signals as sources.
+ *
+ * @details
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2011, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -23,7 +28,9 @@ t_symbol		*psRollOff,
 				*psSourceBlur;
 
 
-/** Data structure for storing a 1,2 or 3 dimensional space data */
+/** Data structure for storing a 1,2 or 3 dimensional space data 
+ @ingroup typedefs
+ */
 typedef struct _xyz{
 	float		x;												///< x position
 	float		y;												///< y position
@@ -31,7 +38,9 @@ typedef struct _xyz{
 } t_xyz;														///< Cartesian coordinate of a point
 
 
-/** Data structure for storing ambisonics decoding coeficients */
+/** Data structure for storing ambisonics decoding coeficients 
+ @ingroup typedefs
+ */
 typedef struct _decodeCoefficients{
 	float		w;												///< Zero  order W coefficient
 	float		x;												///< First order X coefficient
@@ -39,7 +48,9 @@ typedef struct _decodeCoefficients{
 	float		z;												///< First order Z coefficient
 } t_decodeCoefficients;
 
-
+/** Structure for the jcom.dbapBformat Max object.
+ @ingroup typedefs
+ */
 typedef struct _dbapBformat{									///< Data structure for this object
 	// Max stuff
 	t_object	ob;												///< Must always be the first field; used by Max

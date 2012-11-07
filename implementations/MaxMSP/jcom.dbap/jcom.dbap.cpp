@@ -1,11 +1,17 @@
-/* 
- * jcom.dbap
- * External for Jamoma: DBAP - Distance Based Amplitude Panning
- * By Trond Lossius, Copyright 2008
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: DBAP - Distance Based Amplitude Panning
+ *
+ * @details
+ *
+ * @authors Trond Lossius, Tim Place, Théo de la Hogue
+ *
+ * @copyright Copyright © 2009, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "Jamoma.h"
 #include "dbap.h"
