@@ -2,9 +2,9 @@
  *
  * @ingroup modularMax
  *
- * @brief External for Jamoma: Calculate 1st/2nd order differences and velocity.
+ * @brief External for Jamoma: jcom.delta - Calculate 1st/2nd order differences and velocity.
  *
- * @details This object replaces tl.delta, jcom.delta2 and jcom.velocity from the tl.objects distribution.
+ * @details This object replaces tl.delta, tl.delta2 and tl.velocity from the tl.objects distribution.
  *
  * @authors Trond Lossius, Tim Place, Jan Schacher, François-Eudes Chanfrault
  *

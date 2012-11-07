@@ -2,7 +2,7 @@
  *
  * @ingroup modularMax
  *
- * @brief External for Jamoma: Perform operations on folders in the filesystem.
+ * @brief External for Jamoma: jcom.folder - Perform operations on folders in the filesystem.
  *
  * @details
  *

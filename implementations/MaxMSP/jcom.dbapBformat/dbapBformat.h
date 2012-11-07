@@ -1,7 +1,7 @@
 /** @file
  * @ingroup modularMax
  *
- * @brief External for Jamoma: DBAP - Distance Based Amplitude Panning using 4-channel ambisonic Bformat signals as sources.
+ * @brief External for Jamoma: jcom.dbapBformat - Distance Based Amplitude Panning using 4-channel ambisonic Bformat signals as sources.
  *
  * @details
  *

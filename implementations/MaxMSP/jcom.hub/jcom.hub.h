@@ -2,7 +2,7 @@
  *
  * @ingroup modularMax
  *
- * @brief External for Jamoma: jcom.hub - Dispatch messages to jcom.parameter objects.
+ * @brief External for Jamoma: jcom.hub - The main control center of a Jamoma module
  *
  * @details
  *

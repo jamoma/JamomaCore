@@ -2,7 +2,7 @@
  *
  * @ingroup modularMax
  *
- * @brief External for Jamoma: Gang multiple objects together
+ * @brief External for Jamoma: jcom.gang - Gang multiple objects together
  *
  * @details
  *

@@ -1,9 +1,15 @@
-/* 
- * \file jcom.in.h
- * jcom.in~: External for Jamoma: manage audio inputs for a module
- * By Tim Place, Copyright � 2006
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief Externals for Jamoma: jcom.in & jcom.in~ - Manage control and audio inputs for a module
+ *
+ * @details
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2006 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

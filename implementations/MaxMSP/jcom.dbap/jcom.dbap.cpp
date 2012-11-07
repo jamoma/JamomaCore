@@ -2,7 +2,7 @@
  *
  * @ingroup modularMax
  *
- * @brief External for Jamoma: DBAP - Distance Based Amplitude Panning
+ * @brief External for Jamoma: jcom.dbap - Distance Based Amplitude Panning
  *
  * @details
  *

@@ -2,7 +2,7 @@
  *
  * @ingroup modularMax
  *
- * @brief External for Jamoma: Manage cues in a text file 
+ * @brief External for Jamoma: jcom.cueManager - Manage cues in a text file 
  *
  * @details
  *

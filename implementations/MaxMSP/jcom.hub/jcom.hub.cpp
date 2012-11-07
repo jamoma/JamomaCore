@@ -2,7 +2,7 @@
  *
  * @ingroup modularMax
  *
- * @brief External for Jamoma: jcom.hub - The main control center of Jamoma modules
+ * @brief External for Jamoma: jcom.hub - The main control center of a Jamoma module
  *
  * @details
  *
