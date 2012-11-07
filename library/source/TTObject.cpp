@@ -1,8 +1,16 @@
-/*
- * The Jamoma Object Base Class
- * Copyright 2008, Timothy Place
+/** @file
+ * @ingroup foundation
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @brief The Jamoma Object Base Class.
+ *
+ * @details Base class for all first-class Jamoma objects.
+ * Internal objects may inherit directly from #TTObject,
+ * but most objects will inherit from #TTDataObject or #TTAudioObject.
+ *
+ * @authors Timothy Place, Theo de la Hogue, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

@@ -137,7 +137,7 @@ public:
 	/** The default method for getting the current attribute value.
 	 @param TTAttribute			The attribute
 	 @param TTValue				Pointer to a #TTValue used to return the current value of the attribute.
-	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone .
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr defaultGetter(const TTAttribute& attribute, TTValue& value);
 	
