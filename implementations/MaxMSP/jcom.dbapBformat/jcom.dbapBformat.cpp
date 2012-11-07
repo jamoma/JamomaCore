@@ -14,7 +14,7 @@
  */
 
 #include "Jamoma.h"
-#include "dbapBformat.h"
+#include "jcom.dbapBformat.h"
 
 // Globals
 t_class		*this_class;				// Required. Global pointing to this class 

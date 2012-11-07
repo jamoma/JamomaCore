@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A75C3E0E151889BB00774BD7 /* dbapBformat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dbapBformat.h; sourceTree = "<group>"; };
+		A75C3E0E151889BB00774BD7 /* jcom.dbapBformat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.dbapBformat.h; sourceTree = "<group>"; };
 		A75C3E0F151889BB00774BD7 /* jcom.dbapBformat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.dbapBformat.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -22,7 +22,7 @@
 		A75C3E0D151889AC00774BD7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A75C3E0E151889BB00774BD7 /* dbapBformat.h */,
+				A75C3E0E151889BB00774BD7 /* jcom.dbapBformat.h */,
 				A75C3E0F151889BB00774BD7 /* jcom.dbapBformat.cpp */,
 			);
 			name = Sources;
