@@ -1,11 +1,18 @@
-/** 
- * \file jcom.hub.h
- * External for Jamoma: Dispatch messages to jcom.parameter objects.
- * By Tim Place, Copyright © 2006
- * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.hub - Dispatch messages to jcom.parameter objects.
+ *
+ * @details
+ *
+ * @authors Tim Place, Trond Lossius, Nils Peters, Diemo Schwarz
+ *
+ * @copyright Copyright © 2006 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __jcom_HUB_H__
 #define __jcom_HUB_H__

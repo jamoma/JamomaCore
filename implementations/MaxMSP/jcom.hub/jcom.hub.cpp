@@ -1,4 +1,25 @@
-/* 
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.hub - The main control center of Jamoma modules
+ *
+ * @details
+ *
+ * @todo: - Get module name (by default) from the patcher name so it doesn't have to be specified manually
+ * - Idea from Adrian Freed is to use jit.cellblock for a documentation interface
+ * - Adrian Freed suggested adding beta functions to the FunctionLib (lots of unpublished work and use previously by David Wessel)
+ *
+ * @authors Tim Place, Trond Lossius, Nils Peters, Théo de la Hogue
+ *
+ * @copyright Copyright © 2006 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
+
+
+/*
  * jcom.hub
  * External for Jamoma: the main control center
  * By Tim Place, Copyright � 2006

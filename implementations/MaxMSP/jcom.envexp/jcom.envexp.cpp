@@ -2,7 +2,7 @@
  *
  * @ingroup modularMax
  *
- * @brief Create envelope with linear attack and exponential decay.
+ * @brief External for Jamoma: Create envelope with linear attack and exponential decay.
  *
  * @details This object replaces tl.envexp, previously a part of the tl.objects distribution.
  *

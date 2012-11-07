@@ -1,12 +1,18 @@
-/* 
- * jcom.hub - autodoc
- * Generate HTML documentation for the jcom.hub external
- * By Tim Place & Trond Lossius, Copyright � 2006
- * Tex support added by Nils Peters 2010
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.hub - Autodocumentation of Jamoma modules as HTML and LaTex
+ *
+ * @details
+ *
+ * @authors Trond Lossius, Tim Place, Nils Peters
+ *
+ * @copyright Copyright © 2009 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "jcom.hub.h"
 

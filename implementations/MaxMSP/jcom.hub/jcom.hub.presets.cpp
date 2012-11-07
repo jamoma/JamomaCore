@@ -1,11 +1,18 @@
-/* 
- * jcom.hub - presets
- * handle preset functions (including XML reading and writing)
- * By Tim Place, Copyright © 2006
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.hub - Handle preset functions (including XML reading and writing)
+ *
+ * @details
+ *
+ * @authors Tim Place, Trond Lossius, Nils Peters, Diemo Schwarz
+ *
+ * @copyright Copyright © 2006 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "jcom.hub.h"
 #include "ext_dictionary.h"

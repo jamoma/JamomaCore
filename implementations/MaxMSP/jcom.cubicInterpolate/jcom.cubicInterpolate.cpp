@@ -1,7 +1,8 @@
 /** @file
+ * 
  * @ingroup modularMax
  *
- * @brief External for Jamoma: cubic interpolation on a stream of floats
+ * @brief External for Jamoma: Cubic interpolation on a stream of floats
  *
  * @details
  *

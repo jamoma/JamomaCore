@@ -1,8 +1,18 @@
-/**	
- *	\file jcom.folder.cpp
- *	Perform operations on folders in the filesystem.
- *	Copyright © 2009 by Tim Place
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: Perform operations on folders in the filesystem.
+ *
+ * @details
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2009 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
  
 #include "Jamoma.h"
 

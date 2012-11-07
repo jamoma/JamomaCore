@@ -1,11 +1,18 @@
-/* 
- * jcom.hub - internals
- * manage internal objects that are hosted within the hub for a module
- * By Tim Place, Copyright � 2007
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.hub - Manage internal objects that are hosted within the hub for a module
+ *
+ * @details
+ *
+ * @authors Tim Place, Trond Lossius, Nils Peters, Diemo Schwarz
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "jcom.hub.h"
 

@@ -1,4 +1,5 @@
 /** @file
+ *
  * @ingroup modularMax
  *
  * @brief External for Jamoma: Manage cues in a text file
