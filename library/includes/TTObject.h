@@ -1,5 +1,6 @@
 /** @file
- * @ingroup foundation
+ *
+ * @ingroup foundationLibrary
  *
  * @brief The Jamoma Object Base Class.
  *

@@ -1,5 +1,6 @@
 /** @file
- * @ingroup foundation
+ *
+ * @ingroup foundationLibrary
  *
  * @brief The TTAttribute class represents a single attribute, as used by the TTObject class.
  *

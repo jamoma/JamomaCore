@@ -1,5 +1,6 @@
 /** @file
- * @ingroup foundation
+ *
+ * @ingroup foundationLibrary
  *
  * @brief The TTClass object represents a class in the Jamoma environment.
  *

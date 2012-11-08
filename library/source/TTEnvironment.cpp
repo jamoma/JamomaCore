@@ -1,10 +1,20 @@
-/*
- * TTBlue Global Object
- * Copyright © 2008, Timothy Place
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup foundationLibrary
+ *
+ * @brief TTEnvironment is a global object providing information on the environemt.
+ *
+ * @details The global TTEnvironent object maintains all global attributes/settings for the Jamoma environment.
+ * All attribute members of the environment are made public, since essentially every class is a friend.
+ * They should, however, be treated as read-only.
+ *
+ * @authors Timothy Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTFoundation.h"
 #include "TTEnvironment.h"

@@ -1,5 +1,6 @@
 /** @file
- * @ingroup foundation 
+ *
+ * @ingroup foundationLibrary 
  *
  * @brief Jamoma's lowest-level base class and related infrastructure.
  *

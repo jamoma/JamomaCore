@@ -1,5 +1,6 @@
 /** @file
- * @ingroup foundation
+ *
+ * @ingroup foundationLibrary
  *
  * @brief This class is used to create a backward communication channel to notify a client that something changed in the #TTnode.
  *

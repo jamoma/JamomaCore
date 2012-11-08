@@ -1,10 +1,20 @@
-/* 
- * TTBlue Global Object
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationLibrary
+ *
+ * @brief TTEnvironment is a global object providing information on the environemt.
+ *
+ * @details The global TTEnvironent object maintains all global attributes/settings for the Jamoma environment.
+ * All attribute members of the environment are made public, since essentially every class is a friend.
+ * They should, however, be treated as read-only.
+ *
+ * @authors Timothy Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_ENVIRONMENT_H__
 #define __TT_ENVIRONMENT_H__
@@ -13,10 +23,14 @@
 #include "TTHash.h"
 
 
-/**	A function pointer for an instance creation function required to be provided by all classes. */
+/**	A function pointer for an instance creation function required to be provided by all classes.
+ @ingroup typedefs
+ */
 typedef TTObject* (*TTObjectInstantiationMethod)(TTSymbol& className, TTValue& arguments);
 
-/**	A function pointer for an instance creation function required to be provided by all classes. */
+/**	A function pointer for an instance creation function required to be provided by all classes.
+ @ingroup typedefs
+ */
 typedef TTErr (*TTExtensionInitializationMethod)();
 
 class TTClass;
@@ -25,7 +39,7 @@ class TTClass;
 // Class Specifications
 
 /**
-	The global object maintains all global attributes/settings for the TTBlue environment.
+	The global object maintains all global attributes/settings for the Jamoma environment.
  
 	All attribute members of the environment are made public, since essentially every class is a friend.
 	They should, however, be treated as read-only.
@@ -36,10 +50,10 @@ private:
 	TTHash*		tags;				///< A hash keyed on tag names, which map to TTLists of all classes with that tag name.
 	
 public:
-	TTBoolean	mDebugBasic;		///< Attribute: basic debug functionality is enabled when true.
-	TTBoolean	mDebugMessaging;	///< Attribute: should all message traffic be logged?
+	TTBoolean	mDebugBasic;		///< Attribute: Basic debug functionality is enabled when true.
+	TTBoolean	mDebugMessaging;	///< Attribute: Should all message traffic be logged?
 	TTUInt32	mSampleRate;		///< Current sample rate as understood by the environment as a whole.
-	TTBoolean	mBenchmarking;		///< Attribute: enable benchmarking in TTAudioObject and TTDataObject ?
+	TTBoolean	mBenchmarking;		///< Attribute: Enable benchmarking in TTAudioObject and TTDataObject ?
 
 	
 	/**	Constructor	*/
@@ -50,7 +64,11 @@ public:
 	virtual ~TTEnvironment();
 
 	
-	/**	Retrieve the environment version number. */
+	/**	Retrieve the environment version number. 
+	 @param anInputValue				This is ignored.
+	 @param anOutputValue				Returns the current version number of the environment.
+	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getVersion(const TTValue& anInputValue, TTValue &anOutputValue);
 
 	
@@ -58,7 +76,8 @@ public:
 		@param	className				The name of the class to register.
 		@param	tags					A comma-delimited list of tags in a string.
 		@param	anInstantiationMethod	A pointer to the C-function that is used to create a new instance of the class.
-		@return				An error code.	*/
+		@return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr registerClass(const TTSymbol& className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
 
 	// The above creates a class and registers it -- this one just registers a class after it is created.
@@ -95,8 +114,10 @@ public:
 	
 	
 	/**	Retreive the names of all registered #TTObject classes in the environment.
-		@param	unitNames	Pass a #TTValue that will be filled with an array of #TTSymbol pointers with the names of the classes.
-		@return				An error code.	*/
+		@param anInputValue			This is not being used.
+		@param	anOutputValue		Pass a #TTValue that will be filled with an array of #TTSymbol pointers with the names of the classes.
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getAllClassNames(const TTValue& anInputValue, TTValue &anOutputValue);
 	
 	
@@ -104,7 +125,8 @@ public:
 		are associated with the given tag(s). 
 		@param	classNames	An array of TTSymbols upon return.
 		@param	tags		An array of tags by which to search the environment's registry.
-		@return				An error code.	*/
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getClassNamesWithTags(TTValue& classNames, const TTValue& searchTags);
 
 	/**	A message-bound version of getClassNamesWithTags()	*/
@@ -118,7 +140,8 @@ public:
 							existing object to which it points prior to instantiating the new unit.
 		@param	anArgument	For most audio processing objects, this should be passed the maximum number of channels.
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
-		@return				An error code.	*/
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr createInstance(const TTSymbol& className, TTObjectPtr* anObject, TTValue& anArgument);
 	TTErr createInstance(const TTSymbol& className, TTObjectPtr* anObject, const TTValue& anArgument);
 	
@@ -137,7 +160,8 @@ public:
 		- At some point we may do a more release-like-thing where we reference count for pseudo-garbage-collection.
 
 		@param	unit		A pointer to the unit to free.
-		@return				An error code.	*/
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr releaseInstance(TTObjectPtr* anObject);	
 };
 
