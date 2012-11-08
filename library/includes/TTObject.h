@@ -453,6 +453,7 @@ public:
 	 TODO: What do this imply?
 	 @param name					TODO: Document this
 	 @param arguments				TODO: Document this
+	 */
 	TTErr sendNotification(const TTSymbol& name, const TTValue& arguments);
 	
 	
