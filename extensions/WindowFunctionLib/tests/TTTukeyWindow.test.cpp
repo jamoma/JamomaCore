@@ -1,8 +1,15 @@
-/* 
- * Unit tests for the Jamoma DSP Tukey Window Function
- * Copyright © 2011, Nathan Wolek
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Unit tests for the Tukey Window Function Unit
+ *
+ * @details
+ *
+ * @authors Nathan Wolek, Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2011 by Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

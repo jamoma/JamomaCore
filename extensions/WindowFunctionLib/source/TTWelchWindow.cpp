@@ -1,8 +1,17 @@
-/* 
- * Welch Window Function Unit for Jamoma DSP
- * Copyright © 2010 by Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Welch Window Function Unit for Jamoma DSP
+ *
+ * @details This implements a window function as described @n
+ * http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/windows/ @n
+ * welch(i) = 1.0 - ((i-n/2)/(n/2)) * ((i-n/2)/(n/2))
+ *
+ * @authors Tim Place, Nathan Wolek, Trond Lossius
+ *
+ * @copyrightCopyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

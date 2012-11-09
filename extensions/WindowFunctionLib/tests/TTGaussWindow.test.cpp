@@ -1,8 +1,15 @@
-/*
- * Unit tests for the Jamoma DSP Gauss Window Function
- * Copyright © 2011, Nathan Wolek
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Unit test for the Gauss Window Function Unit for Jamoma DSP
+ *
+ * @details
+ *
+ * @authors Nathan Wolek, Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2011 by Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

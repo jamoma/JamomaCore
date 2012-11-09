@@ -1,9 +1,15 @@
-/* 
- * WindowFunctionLib
- * Extension Class for Jamoma DSP
- * Copyright © 2009, Timothy Place & Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief WindowFunctionLib: Extension Class for Jamoma DSP
+ *
+ * @details This library provides a set of window functions that can be used for e.g., granular synthesis and spectral processing.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2009 by Timothy Place & Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -26,6 +32,9 @@
 #include "TTWindowFunction.h"
 
 
+/** Register classes for all of the window functions.
+ @return 
+ */
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_WindowFunctionLib(void)
 {
 	TTDSPInit();

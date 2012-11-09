@@ -1,10 +1,19 @@
-/* 
- * Nuttall Window Function Unit for Jamoma DSP
- * Copyright © 2011 by Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Nuttall Window Function Unit for Jamoma DSP
+ *
+ * @details This implements a window function as described at
+ http://en.wikipedia.org/wiki/Window_function#Nuttall_window.2C_continuous_first_derivative @n
+ *
+ * @authors Nils Peters, Nathan Wolek, Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __NUTTALLWINDOW_H__
 #define __NUTTALLWINDOW_H__

@@ -1,10 +1,18 @@
-/* 
- * Unit tests for the Jamoma DSP Kaiser Window Function
- * Copyright © 2011, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Unot tests for the Kaiser Window Function Unit
+ *
+ * @details 
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2011 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTWindowFunction.h"
 #include "TTKaiserWindow.h"

@@ -1,8 +1,17 @@
-/* 
- * Hanning Window Function Unit for Jamoma DSP
- * Copyright © 2010 by Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Hanning Window Function Unit for Jamoma DSP
+ *
+ * @details This implements a window function as described @
+ http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/windows/ @n
+ hanning(x) = 0.5 + 0.5*cos(2*PI*(x-0.5)) @n
+ *
+ * @authors Nils Peters, Trond Lossius, Tim Place, Nathan Wolek
+ *
+ * @copyright Copyright © 2010 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

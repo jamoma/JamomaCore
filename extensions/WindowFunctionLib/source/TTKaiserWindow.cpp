@@ -1,8 +1,17 @@
-/* 
- * Kaiser Window Function Unit for Jamoma DSP
- * Copyright © 2010 by Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Kaiser Window Function Unit for Jamoma DSP
+ *
+ * @details This implements a window function as described @n
+ https://ccrma.stanford.edu/~jos/sasp/Kaiser_Window.html @n
+ http://en.wikipedia.org/wiki/Window_function#Kaiser_windows 
+ *
+ * @authors Nils Peters, Trond Lossius, Tim Place, Nathan Wolek
+ *
+ * @copyright Copyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

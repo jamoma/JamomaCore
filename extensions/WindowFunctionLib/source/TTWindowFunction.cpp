@@ -1,8 +1,15 @@
-/* 
- * Generalized Window Function Wrapper for Jamoma DSP
- * Copyright © 2010 by Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Generalized Window Function Wrapper for Jamoma DSP
+ *
+ * @details
+ *
+ * @authors Tim Place, Nathan Wolek, Trond Lossius,
+ *
+ * @copyright Copyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

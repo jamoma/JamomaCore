@@ -1,8 +1,21 @@
-/*
- * Gauss Window Function Unit for Jamoma DSP
- * Copyright © 2011 by Nathan Wolek
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Gauss Window Function Unit for Jamoma DSP
+ *
+ * @details This implements the Gauss window function described here: @n
+ http://en.wikipedia.org/wiki/File:Window_function_(gauss).png @n
+ Be aware that when higher values are used for mSigma, minimum sample value will approach -17 dB @n
+ @n
+ Where 0. <= x <= 1. and 0. <= mSigma <= 0.5: @n
+ superscript = -0.5 * ( ( (2 * x) - 1 ) / mSigma )^2 @n
+ y = e^ superscript @n
+ *
+ * @authors Nathan Wolek, Tim Place, Trond Lossius
+ *
+ * @copyright © 2011 by Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
