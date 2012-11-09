@@ -34,28 +34,28 @@ PlugtasticOutput::~PlugtasticOutput()
 
 TTErr PlugtasticOutput::setGain(const TTValue& newValue)
 {
-	mGain = dbToLinear(newValue);
+	mGain = TTDecibelsToLinearGain(newValue);
 	return kTTErrNone;
 }
 
 
 TTErr PlugtasticOutput::getGain(TTValue& value)
 {
-	value = linearToDb(mGain);
+	value = TTLinearGainToDecibels(mGain);
 	return kTTErrNone;
 }
 
 
 TTErr PlugtasticOutput::setMidiGain(const TTValue& newValue)
 {
-	mGain = midiToLinearGain(newValue);
+	mGain = TTMidiToLinearGain(newValue);
 	return kTTErrNone;
 }
 
 
 TTErr PlugtasticOutput::getMidiGain(TTValue& value)
 {
-	value = linearGainToMidi(mGain);
+	value = TTLinearGainToMidi(mGain);
 	return kTTErrNone;
 }
 

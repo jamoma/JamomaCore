@@ -21,7 +21,11 @@ protected:
 
 	TTBoolean	mSidechain; ///< attr
 	
-	/**	A standard audio processing method as used by TTBlue objects.*/
+	/**	A standard audio processing method as used by Jamoma DSP objects.
+	 @param inputs
+	 @param outputs
+	 @return
+	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 };
