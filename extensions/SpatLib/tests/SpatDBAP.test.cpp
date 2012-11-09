@@ -1,8 +1,15 @@
-/* 
- * Super simple Spatialization object for Jamoma DSP
- * Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspSpatLib
+ *
+ * @brief Unit tests for the SpatDBAP SpatLib spatialisation renderer.
+ *
+ * @details
+ *
+ * @authors Trond Lossius, Nils Peters, Timothy Place
+ *
+ * @copyright Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

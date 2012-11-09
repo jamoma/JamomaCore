@@ -1,10 +1,18 @@
-/* 
- * Host a SpatLib object
- * Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspSpatLib
+ *
+ * @brief Host a SpatLib object
+ *
+ * @details
+ *
+ * @authors Trond Lossius, Nils Peters, Timothy Place
+ *
+ * @copyright Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_SPAT_H__
 #define __TT_SPAT_H__

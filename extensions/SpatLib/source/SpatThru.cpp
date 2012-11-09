@@ -1,11 +1,21 @@
-/* 
- * Super simple Spatialization object for Jamoma DSP
- * Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspSpatLib
+ *
+ * @brief Super simple through-putting spatialization object for Jamoma DSP
+ *
+ * @details This unit simply throughputs whatever comes in.
+ * As a real-world spatialisation technique that is pretty much useless, but
+ * it could be considered a bypassing method, and it is also useful while
+ * developing this library in order to first implement simple-stupid units
+ * before delving into the real spatialisation renderers.
+ *
+ * @authors Trond Lossius, Nils Peters, Timothy Place
+ *
+ * @copyright Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
-
 #include "SpatThru.h"
 
 #define thisTTClass			SpatThru
