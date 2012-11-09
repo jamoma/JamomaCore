@@ -47,10 +47,21 @@ protected:
 	
 	TTFloat64	mRatio;			///< ratio expresses where to place the loudest sample 0 <= ratio <= 1., 0 = no attack, 1 = no release
 	
-	/** y = f(x) for a single value */
+	
+	/** Calculate y = f(x) for a single value.
+	 @param x					The input value to the window function.
+	 @param y					The resulting value for the window function.
+	 @param data				Not used.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
-	/**	A standard audio processing method as used by TTBlue objects.*/
+	
+	/**	A standard audio processing method as used by TTBlue objects.
+	 @param inputs				The input vector that is to be processed.
+	 @param outputs				The resulting windowed vector.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 };
