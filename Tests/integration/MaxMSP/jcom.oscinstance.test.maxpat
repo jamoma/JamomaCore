@@ -7,7 +7,7 @@
 			"revision" : 8
 		}
 ,
-		"rect" : [ 747.0, 527.0, 968.0, 375.0 ],
+		"rect" : [ 472.0, 527.0, 968.0, 375.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -82,8 +82,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 247.0, 164.0, 226.0, 31.0 ],
-									"text" : "jcom.test.assert.equal.old TEST::ICC_bug /source/orientation/active"
+									"patching_rect" : [ 247.0, 164.0, 360.0, 31.0 ],
+									"text" : "jcom.test.assert.equal.old TEST::ICC_bug /source/orientation/active @issue 1220"
 								}
 
 							}
@@ -3256,14 +3256,14 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.test.assert.equal.old.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components/test.assert.equal.old",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.assert.equal.old",
 				"patcherrelativepath" : "../../../../Test/components/test.assert.equal.old",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.finished.maxpat",
-				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components/test.finished",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.finished",
 				"patcherrelativepath" : "../../../../Test/components/test.finished",
 				"type" : "JSON",
 				"implicit" : 1
