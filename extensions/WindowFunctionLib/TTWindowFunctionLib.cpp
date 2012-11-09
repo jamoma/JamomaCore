@@ -33,7 +33,7 @@
 
 
 /** Register classes for all of the window functions.
- @return 
+ @return		#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_WindowFunctionLib(void)
 {

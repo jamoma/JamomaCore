@@ -32,7 +32,7 @@ protected:
 	 @param x					The input value to the window function.
 	 @param y					The resulting value for the window function.
 	 @param data				Not used.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
@@ -40,7 +40,7 @@ protected:
 	/**	A standard audio processing method as used by TTBlue objects.
 	 @param inputs				The input vector that is to be processed.
 	 @param outputs				The resulting windowed vector.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
