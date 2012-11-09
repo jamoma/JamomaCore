@@ -7,19 +7,107 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A702D0CF15DCFC4300CA71C6 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
-		A702D0D115DCFC4B00CA71C6 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
-		A702D0D215DCFC5100CA71C6 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
+		A7ECFA6D164C4D1E00C3D0E9 /* TTBartlettWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBartlettWindow.h; path = includes/TTBartlettWindow.h; sourceTree = "<group>"; };
+		A7ECFA6E164C4D1E00C3D0E9 /* TTBlackmanHarrisWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBlackmanHarrisWindow.h; path = includes/TTBlackmanHarrisWindow.h; sourceTree = "<group>"; };
+		A7ECFA6F164C4D1E00C3D0E9 /* TTBlackmanWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBlackmanWindow.h; path = includes/TTBlackmanWindow.h; sourceTree = "<group>"; };
+		A7ECFA70164C4D1E00C3D0E9 /* TTExpodecWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTExpodecWindow.h; path = includes/TTExpodecWindow.h; sourceTree = "<group>"; };
+		A7ECFA71164C4D1E00C3D0E9 /* TTGaussWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTGaussWindow.h; path = includes/TTGaussWindow.h; sourceTree = "<group>"; };
+		A7ECFA72164C4D1E00C3D0E9 /* TTHammingWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHammingWindow.h; path = includes/TTHammingWindow.h; sourceTree = "<group>"; };
+		A7ECFA73164C4D1E00C3D0E9 /* TTHanningWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHanningWindow.h; path = includes/TTHanningWindow.h; sourceTree = "<group>"; };
+		A7ECFA74164C4D1E00C3D0E9 /* TTKaiserWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTKaiserWindow.h; path = includes/TTKaiserWindow.h; sourceTree = "<group>"; };
+		A7ECFA75164C4D1E00C3D0E9 /* TTNuttallWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTNuttallWindow.h; path = includes/TTNuttallWindow.h; sourceTree = "<group>"; };
+		A7ECFA76164C4D1E00C3D0E9 /* TTRectangularWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTRectangularWindow.h; path = includes/TTRectangularWindow.h; sourceTree = "<group>"; };
+		A7ECFA77164C4D1E00C3D0E9 /* TTTrapezoidWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTrapezoidWindow.h; path = includes/TTTrapezoidWindow.h; sourceTree = "<group>"; };
+		A7ECFA78164C4D1E00C3D0E9 /* TTTukeyWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTukeyWindow.h; path = includes/TTTukeyWindow.h; sourceTree = "<group>"; };
+		A7ECFA79164C4D1E00C3D0E9 /* TTWelchWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTWelchWindow.h; path = includes/TTWelchWindow.h; sourceTree = "<group>"; };
+		A7ECFA7A164C4D1E00C3D0E9 /* TTWindowFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTWindowFunction.h; path = includes/TTWindowFunction.h; sourceTree = "<group>"; };
+		A7ECFA7B164C4D2B00C3D0E9 /* TTBartlettWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBartlettWindow.cpp; path = source/TTBartlettWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA7C164C4D2B00C3D0E9 /* TTBlackmanHarrisWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBlackmanHarrisWindow.cpp; path = source/TTBlackmanHarrisWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA7D164C4D2B00C3D0E9 /* TTBlackmanWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBlackmanWindow.cpp; path = source/TTBlackmanWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA7E164C4D2B00C3D0E9 /* TTExpodecWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTExpodecWindow.cpp; path = source/TTExpodecWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA7F164C4D2B00C3D0E9 /* TTGaussWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTGaussWindow.cpp; path = source/TTGaussWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA80164C4D2B00C3D0E9 /* TTHammingWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHammingWindow.cpp; path = source/TTHammingWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA81164C4D2B00C3D0E9 /* TTHanningWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHanningWindow.cpp; path = source/TTHanningWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA82164C4D2B00C3D0E9 /* TTKaiserWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTKaiserWindow.cpp; path = source/TTKaiserWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA83164C4D2B00C3D0E9 /* TTNuttallWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTNuttallWindow.cpp; path = source/TTNuttallWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA84164C4D2B00C3D0E9 /* TTRectangularWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTRectangularWindow.cpp; path = source/TTRectangularWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA85164C4D2B00C3D0E9 /* TTTrapezoidWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTrapezoidWindow.cpp; path = source/TTTrapezoidWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA86164C4D2B00C3D0E9 /* TTTukeyWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTukeyWindow.cpp; path = source/TTTukeyWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA87164C4D2B00C3D0E9 /* TTWelchWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTWelchWindow.cpp; path = source/TTWelchWindow.cpp; sourceTree = "<group>"; };
+		A7ECFA88164C4D2B00C3D0E9 /* TTWindowFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTWindowFunction.cpp; path = source/TTWindowFunction.cpp; sourceTree = "<group>"; };
+		A7ECFA89164C4D4000C3D0E9 /* TTGaussWindow.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTGaussWindow.test.cpp; path = tests/TTGaussWindow.test.cpp; sourceTree = "<group>"; };
+		A7ECFA8A164C4D4000C3D0E9 /* TTHammingWindow.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHammingWindow.test.cpp; path = tests/TTHammingWindow.test.cpp; sourceTree = "<group>"; };
+		A7ECFA8B164C4D4000C3D0E9 /* TTKaiserWindow.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTKaiserWindow.test.cpp; path = tests/TTKaiserWindow.test.cpp; sourceTree = "<group>"; };
+		A7ECFA8C164C4D4000C3D0E9 /* TTRectangularWindow.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTRectangularWindow.test.cpp; path = tests/TTRectangularWindow.test.cpp; sourceTree = "<group>"; };
+		A7ECFA8D164C4D4000C3D0E9 /* TTTukeyWindow.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTukeyWindow.test.cpp; path = tests/TTTukeyWindow.test.cpp; sourceTree = "<group>"; };
+		A7ECFA8E164C4D5500C3D0E9 /* TTWindowFunctionLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTWindowFunctionLib.cpp; sourceTree = "<group>"; };
+		A7ECFA8F164C4D6000C3D0E9 /* WindowFunctionLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = WindowFunctionLib.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		A702D0BF15DCFBDB00CA71C6 = {
 			isa = PBXGroup;
 			children = (
-				A702D0CF15DCFC4300CA71C6 /* includes */,
-				A702D0D115DCFC4B00CA71C6 /* source */,
-				A702D0D215DCFC5100CA71C6 /* tests */,
+				A7ECFA8E164C4D5500C3D0E9 /* TTWindowFunctionLib.cpp */,
+				A7ECFA8F164C4D6000C3D0E9 /* WindowFunctionLib.yml */,
+				A7ECFA69164C4CED00C3D0E9 /* includes */,
+				A7ECFA6B164C4CF500C3D0E9 /* source */,
+				A7ECFA6C164C4CFF00C3D0E9 /* tests */,
 			);
+			sourceTree = "<group>";
+		};
+		A7ECFA69164C4CED00C3D0E9 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				A7ECFA6D164C4D1E00C3D0E9 /* TTBartlettWindow.h */,
+				A7ECFA6E164C4D1E00C3D0E9 /* TTBlackmanHarrisWindow.h */,
+				A7ECFA6F164C4D1E00C3D0E9 /* TTBlackmanWindow.h */,
+				A7ECFA70164C4D1E00C3D0E9 /* TTExpodecWindow.h */,
+				A7ECFA71164C4D1E00C3D0E9 /* TTGaussWindow.h */,
+				A7ECFA72164C4D1E00C3D0E9 /* TTHammingWindow.h */,
+				A7ECFA73164C4D1E00C3D0E9 /* TTHanningWindow.h */,
+				A7ECFA74164C4D1E00C3D0E9 /* TTKaiserWindow.h */,
+				A7ECFA75164C4D1E00C3D0E9 /* TTNuttallWindow.h */,
+				A7ECFA76164C4D1E00C3D0E9 /* TTRectangularWindow.h */,
+				A7ECFA77164C4D1E00C3D0E9 /* TTTrapezoidWindow.h */,
+				A7ECFA78164C4D1E00C3D0E9 /* TTTukeyWindow.h */,
+				A7ECFA79164C4D1E00C3D0E9 /* TTWelchWindow.h */,
+				A7ECFA7A164C4D1E00C3D0E9 /* TTWindowFunction.h */,
+			);
+			name = includes;
+			sourceTree = "<group>";
+		};
+		A7ECFA6B164C4CF500C3D0E9 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				A7ECFA7B164C4D2B00C3D0E9 /* TTBartlettWindow.cpp */,
+				A7ECFA7C164C4D2B00C3D0E9 /* TTBlackmanHarrisWindow.cpp */,
+				A7ECFA7D164C4D2B00C3D0E9 /* TTBlackmanWindow.cpp */,
+				A7ECFA7E164C4D2B00C3D0E9 /* TTExpodecWindow.cpp */,
+				A7ECFA7F164C4D2B00C3D0E9 /* TTGaussWindow.cpp */,
+				A7ECFA80164C4D2B00C3D0E9 /* TTHammingWindow.cpp */,
+				A7ECFA81164C4D2B00C3D0E9 /* TTHanningWindow.cpp */,
+				A7ECFA82164C4D2B00C3D0E9 /* TTKaiserWindow.cpp */,
+				A7ECFA83164C4D2B00C3D0E9 /* TTNuttallWindow.cpp */,
+				A7ECFA84164C4D2B00C3D0E9 /* TTRectangularWindow.cpp */,
+				A7ECFA85164C4D2B00C3D0E9 /* TTTrapezoidWindow.cpp */,
+				A7ECFA86164C4D2B00C3D0E9 /* TTTukeyWindow.cpp */,
+				A7ECFA87164C4D2B00C3D0E9 /* TTWelchWindow.cpp */,
+				A7ECFA88164C4D2B00C3D0E9 /* TTWindowFunction.cpp */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		A7ECFA6C164C4CFF00C3D0E9 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				A7ECFA89164C4D4000C3D0E9 /* TTGaussWindow.test.cpp */,
+				A7ECFA8A164C4D4000C3D0E9 /* TTHammingWindow.test.cpp */,
+				A7ECFA8B164C4D4000C3D0E9 /* TTKaiserWindow.test.cpp */,
+				A7ECFA8C164C4D4000C3D0E9 /* TTRectangularWindow.test.cpp */,
+				A7ECFA8D164C4D4000C3D0E9 /* TTTukeyWindow.test.cpp */,
+			);
+			name = tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
