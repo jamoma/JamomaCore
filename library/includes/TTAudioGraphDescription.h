@@ -1,11 +1,18 @@
-/* 
- * AudioGraph Audio Graph Layer for Jamoma DSP
- * Describe a node in an audio processing graph.
- * Copyright © 2010, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphLibrary
+ *
+ * @brief Describe a node in an audio processing graph
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TTAUDIOGRAPH_DESCRIPTION_H__
 #define __TTAUDIOGRAPH_DESCRIPTION_H__

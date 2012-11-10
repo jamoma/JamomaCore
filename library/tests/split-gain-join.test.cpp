@@ -1,11 +1,18 @@
-/* 
- * Jamoma Audio Graph integration test
- * Implemented as a unit test for TTAudioGraphGenerator for the time-being...
- * Copyright © 2011 Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphLibrary
+ *
+ * @brief Jamoma Audio Graph integration test
+ *
+ * @details Implemented as a unit test for TTAudioGraphGenerator for the time-being...
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2011, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAudioGraphObject.h"
 #include "TTAudioGraphGenerator.h"

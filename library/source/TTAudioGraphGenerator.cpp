@@ -1,11 +1,18 @@
-/* 
- * AudioGraph Audio Graph Layer for Jamoma DSP
- * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphLibrary
+ *
+ * @brief Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAudioGraphGenerator.h"
 
