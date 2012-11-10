@@ -6,11 +6,58 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		A7E1F5E2164A8FA70072ECE7 /* TTAudioGraphJoin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphJoin.h; path = includes/TTAudioGraphJoin.h; sourceTree = "<group>"; };
+		A7E1F5E3164A8FA70072ECE7 /* TTAudioGraphOffset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOffset.h; path = includes/TTAudioGraphOffset.h; sourceTree = "<group>"; };
+		A7E1F5E4164A8FA70072ECE7 /* TTAudioGraphPick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphPick.h; path = includes/TTAudioGraphPick.h; sourceTree = "<group>"; };
+		A7E1F5E5164A8FA70072ECE7 /* TTAudioGraphSig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSig.h; path = includes/TTAudioGraphSig.h; sourceTree = "<group>"; };
+		A7E1F5E6164A8FA70072ECE7 /* TTAudioGraphSplit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSplit.h; path = includes/TTAudioGraphSplit.h; sourceTree = "<group>"; };
+		A7E1F5E7164A8FBC0072ECE7 /* TTAudioGraphJoin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphJoin.cpp; path = source/TTAudioGraphJoin.cpp; sourceTree = "<group>"; };
+		A7E1F5E8164A8FBC0072ECE7 /* TTAudioGraphOffset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphOffset.cpp; path = source/TTAudioGraphOffset.cpp; sourceTree = "<group>"; };
+		A7E1F5E9164A8FBC0072ECE7 /* TTAudioGraphPick.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphPick.cpp; path = source/TTAudioGraphPick.cpp; sourceTree = "<group>"; };
+		A7E1F5EA164A8FBC0072ECE7 /* TTAudioGraphSig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSig.cpp; path = source/TTAudioGraphSig.cpp; sourceTree = "<group>"; };
+		A7E1F5EB164A8FBC0072ECE7 /* TTAudioGraphSplit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSplit.cpp; path = source/TTAudioGraphSplit.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		2219FD02148594880086DD17 = {
 			isa = PBXGroup;
 			children = (
+				A7E1F5DE164A8F4F0072ECE7 /* include */,
+				A7E1F5E0164A8F5F0072ECE7 /* source */,
+				A7E1F5E1164A8F680072ECE7 /* tests */,
 			);
+			sourceTree = "<group>";
+		};
+		A7E1F5DE164A8F4F0072ECE7 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				A7E1F5E2164A8FA70072ECE7 /* TTAudioGraphJoin.h */,
+				A7E1F5E3164A8FA70072ECE7 /* TTAudioGraphOffset.h */,
+				A7E1F5E4164A8FA70072ECE7 /* TTAudioGraphPick.h */,
+				A7E1F5E5164A8FA70072ECE7 /* TTAudioGraphSig.h */,
+				A7E1F5E6164A8FA70072ECE7 /* TTAudioGraphSplit.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		A7E1F5E0164A8F5F0072ECE7 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				A7E1F5E7164A8FBC0072ECE7 /* TTAudioGraphJoin.cpp */,
+				A7E1F5E8164A8FBC0072ECE7 /* TTAudioGraphOffset.cpp */,
+				A7E1F5E9164A8FBC0072ECE7 /* TTAudioGraphPick.cpp */,
+				A7E1F5EA164A8FBC0072ECE7 /* TTAudioGraphSig.cpp */,
+				A7E1F5EB164A8FBC0072ECE7 /* TTAudioGraphSplit.cpp */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		A7E1F5E1164A8F680072ECE7 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +189,7 @@
 				2219FD0E148594880086DD17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
