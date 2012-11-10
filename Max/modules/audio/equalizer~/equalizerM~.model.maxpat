@@ -7,7 +7,7 @@
 			"revision" : 5
 		}
 ,
-		"rect" : [ 491.0, 44.0, 885.0, 361.0 ],
+		"rect" : [ 491.0, 44.0, 721.0, 354.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -99,7 +99,7 @@
 							"revision" : 5
 						}
 ,
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 25.0, 69.0, 215.0, 246.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -127,7 +127,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"patching_rect" : [ 85.0, 172.0, 31.0, 19.0 ],
+									"patching_rect" : [ 64.0, 93.0, 31.0, 19.0 ],
 									"text" : "t 24"
 								}
 
@@ -141,7 +141,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
-									"patching_rect" : [ 50.0, 145.0, 34.0, 19.0 ],
+									"patching_rect" : [ 29.0, 66.0, 34.0, 19.0 ],
 									"text" : "sel 0"
 								}
 
@@ -155,7 +155,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 123.0, 54.0, 19.0 ],
+									"patching_rect" : [ 29.0, 44.0, 54.0, 19.0 ],
 									"text" : "route int"
 								}
 
@@ -169,7 +169,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 100.0, 100.0, 19.0 ],
+									"patching_rect" : [ 29.0, 12.0, 100.0, 19.0 ],
 									"text" : "loadmess #2"
 								}
 
@@ -181,7 +181,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 62.5, 251.0, 25.0, 25.0 ]
+									"patching_rect" : [ 41.5, 172.0, 25.0, 25.0 ]
 								}
 
 							}
@@ -244,18 +244,18 @@
 						"dependency_cache" : [  ]
 					}
 ,
-					"patching_rect" : [ 631.0, 67.0, 44.0, 19.0 ],
+					"patching_rect" : [ 646.0, 12.0, 44.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"fontname" : "Arial",
-						"tags" : "",
 						"default_fontface" : 0,
-						"fontface" : 0,
+						"fontname" : "Arial",
+						"digest" : "",
+						"default_fontname" : "Arial",
 						"globalpatchername" : "",
+						"fontface" : 0,
+						"default_fontsize" : 10.0,
 						"fontsize" : 10.0,
-						"digest" : ""
+						"description" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p init#"
@@ -314,8 +314,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 141.0, 20.0, 505.0, 31.0 ],
-					"text" : "jcom.parameter bands @type integer @priority -1 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0 @range/clipmode both @value/default 5 @range/bounds 1 8",
+					"patching_rect" : [ 141.0, 12.0, 505.0, 31.0 ],
+					"text" : "jcom.parameter bands @type integer @priority -1 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0 @range/clipmode both @value/default #2 @range/bounds 1 8",
 					"varname" : "bands[1]"
 				}
 
@@ -387,8 +387,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 214.0, 61.0, 410.0, 31.0 ],
-					"text" : "jcom.parameter bands/max @type integer @repetitions/allow 1 @priority -2 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0",
+					"patching_rect" : [ 214.0, 53.0, 463.0, 31.0 ],
+					"text" : "jcom.parameter bands/max @type integer @repetitions/allow 1 @priority -2 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0 @value/default #2",
 					"varname" : "bands"
 				}
 
@@ -464,7 +464,7 @@
 					"outlettype" : [ "list", "float", "float", "float", "float", "list", "int" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 214.0, 184.0, 133.0, 53.0 ],
-					"setfilter" : [ 4, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3, 5, 1, 0, 0, 92.847565, 1.051168, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2, 5, 1, 0, 0, 359.441589, 1.167328, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+					"setfilter" : [ 4, 7, 1, 0, 0, 7753.508789, 2.250262, 1.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3, 5, 1, 0, 0, 2035.496094, 1.997932, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2, 5, 1, 0, 0, 700.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 5, 1, 0, 0, 256.040649, 0.451047, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 6, 1, 0, 0, 65.645294, 0.248258, 1.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
 				}
 
 			}
@@ -497,7 +497,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 65.0, 185.0, 25.0, 25.0 ]
 				}
 
@@ -570,19 +570,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-14", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-35", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 223.5, 98.0, 444.5, 98.0 ],
+					"midpoints" : [ 223.5, 97.0, 444.5, 97.0 ],
 					"source" : [ "obj-14", 0 ]
 				}
 
@@ -676,7 +667,7 @@
 					"destination" : [ "obj-14", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 640.5, 56.0, 223.5, 56.0 ],
+					"midpoints" : [ 655.5, 46.0, 223.5, 46.0 ],
 					"source" : [ "obj-28", 0 ]
 				}
 
@@ -686,7 +677,7 @@
 					"destination" : [ "obj-18", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 444.5, 125.0, 681.5, 125.0, 681.5, 10.0, 150.5, 10.0 ],
+					"midpoints" : [ 444.5, 130.0, 697.5, 130.0, 697.5, 2.0, 150.5, 2.0 ],
 					"source" : [ "obj-35", 0 ]
 				}
 

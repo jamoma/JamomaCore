@@ -7,7 +7,7 @@
 			"revision" : 5
 		}
 ,
-		"rect" : [ 492.0, 487.0, 678.0, 356.0 ],
+		"rect" : [ 492.0, 487.0, 724.0, 357.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -238,7 +238,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 1,
-									"outlettype" : [ "int" ],
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 20.0, 63.0, 100.0, 19.0 ],
 									"text" : "t #2"
 								}
@@ -336,18 +336,18 @@
  ]
 					}
 ,
-					"patching_rect" : [ 597.0, 100.0, 44.0, 19.0 ],
+					"patching_rect" : [ 640.0, 23.0, 44.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Arial",
-						"default_fontsize" : 10.0,
-						"description" : "",
-						"fontname" : "Arial",
-						"tags" : "",
 						"default_fontface" : 0,
-						"fontface" : 0,
+						"fontname" : "Arial",
+						"digest" : "",
+						"default_fontname" : "Arial",
 						"globalpatchername" : "",
+						"fontface" : 0,
+						"default_fontsize" : 10.0,
 						"fontsize" : 10.0,
-						"digest" : ""
+						"description" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p init#"
@@ -407,7 +407,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 125.0, 23.0, 505.0, 31.0 ],
-					"text" : "jcom.parameter bands @type integer @priority -1 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0 @range/clipmode both @value/default 5 @range/bounds 1 8",
+					"text" : "jcom.parameter bands @type integer @priority -1 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0 @range/clipmode both @value/default #2 @range/bounds 1 8",
 					"varname" : "bands[1]"
 				}
 
@@ -479,8 +479,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 216.0, 62.0, 414.0, 31.0 ],
-					"text" : "jcom.parameter bands/max @type integer @repetitions/allow 1 @priority -2 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0",
+					"patching_rect" : [ 216.0, 62.0, 468.0, 31.0 ],
+					"text" : "jcom.parameter bands/max @type integer @repetitions/allow 1 @priority -2 @description \"Number of bands of the filter\" @tag setup @repetitions/allow 0 @value/default #2",
 					"varname" : "bands"
 				}
 
@@ -556,7 +556,7 @@
 					"outlettype" : [ "list", "float", "float", "float", "float", "list", "int" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 216.0, 186.0, 133.0, 53.0 ],
-					"setfilter" : [ 4, 5, 1, 0, 0, 5000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3, 5, 1, 0, 0, 2500.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2, 5, 1, 0, 0, 1000.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 5, 1, 0, 0, 500.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 5, 1, 0, 0, 250.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+					"setfilter" : [ 4, 5, 1, 0, 0, 404.0, 1.258925, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3, 5, 1, 0, 0, 404.0, 1.258925, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2, 5, 1, 0, 0, 404.0, 1.258925, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 5, 1, 0, 0, 404.0, 1.258925, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 5, 1, 0, 0, 404.0, 1.258925, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
 				}
 
 			}
@@ -600,7 +600,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 111.0, 199.0, 25.0, 25.0 ]
 				}
 
@@ -612,7 +612,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 30.0, 199.0, 25.0, 25.0 ]
 				}
 
@@ -848,7 +848,7 @@
 					"destination" : [ "obj-14", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 606.5, 123.0, 644.0, 123.0, 644.0, 57.0, 225.5, 57.0 ],
+					"midpoints" : [ 649.5, 58.5, 225.5, 58.5 ],
 					"source" : [ "obj-28", 0 ]
 				}
 
@@ -876,7 +876,7 @@
 					"destination" : [ "obj-18", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 471.5, 127.0, 648.0, 127.0, 648.0, 12.0, 134.5, 12.0 ],
+					"midpoints" : [ 471.5, 127.0, 694.0, 127.0, 694.0, 12.0, 134.5, 12.0 ],
 					"source" : [ "obj-35", 0 ]
 				}
 

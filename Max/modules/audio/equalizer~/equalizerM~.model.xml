@@ -2,11 +2,6 @@
 <jamoma version="0.6" xmlns:xsi="'http://www.w3.org/2001/XMLSchema-instance'" xsi:schemaLocation="'http://jamoma.org/ file:jamoma.xsd'">
  <preset name="default">
   <!--""edit a comment""-->
-  <command address="bands">5</command>
-  <command address="bands/max">8</command>
-  <command address="filter.2/gain">0.327712</command>
-  <command address="filter.2/frequency">427.995911</command>
-  <command address="filter.2/q">3.005548</command>
   <command address="out/amplitude/active">150</command>
   <command address="out/mute">0</command>
   <command address="out/gain">100.000000</command>
@@ -14,34 +9,25 @@
   <command address="in/amplitude/active">0</command>
   <command address="in/bypass">0</command>
   <command address="in/mute">0</command>
-  <command address="filter.1/frequency">51.007008</command>
+  <command address="filter.1/frequency">75</command>
+  <command address="filter.1/gain">0.</command>
+  <command address="filter.1/q">1.3</command>   
+  <command address="filter.1/type">lowshelf</command>        
+  <command address="filter.2/gain">0.</command>
+  <command address="filter.2/frequency">250</command>
+  <command address="filter.2/q">2</command>       
+  <command address="filter.2/type">peaknotch</command>     
+  <command address="filter.3/frequency">700.</command>  
+  <command address="filter.3/q">2.00000</command>  
   <command address="filter.3/gain">0.000000</command>
-  <command address="filter.1/gain">0.327712</command>
-  <command address="filter.1/q">1.472789</command>
-  <command address="filter.3/frequency">1520.059082</command>
-  <command address="filter.5/frequency">177.152664</command>
-  <command address="filter.5/gain">0.000000</command>
+  <command address="filter.3/type">peaknotch</command>       
   <command address="filter.4/gain">0.000000</command>
-  <command address="filter.4/frequency">5934.227051</command>
-  <command address="filter.4/q">2.500000</command>
-  <command address="filter.3/q">2.500000</command>
-  <command address="filter.5/q">2.500000</command>    
-  <command address="filter.1/type">lowshelf</command>  
-  <command address="filter.2/type">peaknotch</command>  
-  <command address="filter.3/type">peaknotch</command>  
-  <command address="filter.4/type">peaknotch</command>  
-  <command address="filter.5/type">highshelf</command>  
-  <command address="filter.6/gain">0.</command>
-  <command address="filter.6/frequency">6000</command>
-  <command address="filter.6/q">2</command>
-  <command address="filter.6/type">peaknotch</command>   
-  <command address="filter.7/gain">0.</command>
-  <command address="filter.7/frequency">7000</command>
-  <command address="filter.7/q">2</command>
-  <command address="filter.7/type">peaknotch</command>
-  <command address="filter.8/gain">0.</command>
-  <command address="filter.8/frequency">800</command>
-  <command address="filter.8/q">2</command>
-  <command address="filter.8/type">peaknotch</command>
+  <command address="filter.4/frequency">2000</command>
+  <command address="filter.4/q">2.00000</command>
+  <command address="filter.4/type">peaknotch</command>    
+  <command address="filter.5/q">1.3</command>   
+  <command address="filter.5/frequency">6000.</command>
+  <command address="filter.5/gain">0.000000</command>  
+  <command address="filter.5/type">highshelf</command>
  </preset>
 </jamoma>
