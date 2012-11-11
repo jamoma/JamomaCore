@@ -140,18 +140,21 @@ void WrappedViewerClass_free(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	// delete array
-	if (EXTRA->arrayValue) {
-		for (TTUInt8 i = 0; i < x->arraySize; i++)
-			if (EXTRA->arrayValue[i])
-				delete EXTRA->arrayValue[i];
-		
-		free(EXTRA->arrayValue);
-	}
-	
-	qelem_free(EXTRA->ui_qelem);
-	
-	free(EXTRA);
+    if (EXTRA) {
+        
+        // delete array
+        if (EXTRA->arrayValue) {
+            for (TTUInt8 i = 0; i < x->arraySize; i++)
+                if (EXTRA->arrayValue[i])
+                    delete EXTRA->arrayValue[i];
+            
+            free(EXTRA->arrayValue);
+        }
+        
+        qelem_free(EXTRA->ui_qelem);
+        
+        free(EXTRA);
+    }
 }
 
 void remote_new_address(TTPtr self, SymbolPtr address)
