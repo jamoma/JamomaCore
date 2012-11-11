@@ -2,9 +2,9 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief AudioGraph Audio Graph Layer for Jamoma DSP
+ * @brief This object represents a single 'outlet' from a TTAudioGraphObject.
  *
- * @details
+ * @details TTAudioGraphObject maintains a vector of these outlets.
  *
  * @authors Timothy Place, Trond Lossius
  *

@@ -22,7 +22,7 @@
 
 /******************************************************************************************/
 
-/**	TTAudioGraphSource is a very simple audio object that holds a signal from TTBlue
+/**	TTAudioGraphSource is a very simple audio object that holds a signal from Jamoma DSP
  that can be used by a TTAudioGraph graph.		*/
 class TTAUDIOGRAPH_EXPORT TTAudioGraphGenerator : public TTAudioObject
 {

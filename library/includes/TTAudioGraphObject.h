@@ -2,9 +2,10 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief AudioGraph Audio Graph Layer for Jamoma DSP
+ * @brief The TTAudioGraphObject wraps a TTDSP object such that it is possible to build a dynamic graph of audio processing units.
  *
- * @details
+ * @details It is implemented as a TTObject so that it can receive dynamically bound messages,
+ * including notifications from other objects.
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -26,11 +27,11 @@
 /******************************************************************************************/
 
 /**
-	The TTAudioGraphObject wraps a TTDSP object such that it is possible to 
-	build a dynamic graph of audio processing units.
- 
-	It is implemented as a TTObject so that it can receive dynamically bound messages, 
-	incliding notifications from other objects.
+ *	The TTAudioGraphObject wraps a TTDSP object such that it is possible to
+ *	build a dynamic graph of audio processing units.
+ *
+ *	It is implemented as a TTObject so that it can receive dynamically bound messages,
+ *	including notifications from other objects.
 */
 class TTAUDIOGRAPH_EXPORT TTAudioGraphObject : public TTGraphObject {	
 	TTCLASS_SETUP(TTAudioGraphObject)
@@ -51,7 +52,15 @@ protected:
 
 	
 	// Attribute Setters
+	
+	/** Set the number of audio inlets.
+	 @param newNumInlets							The number of inlets. Each inlet can receieve multichannel signals.
+	 */
 	TTErr setNumAudioInlets(const TTValue& newNumInlets);
+	
+	/** Set the number of audio outlets.
+	 @param newNumOutlets							The numebr of outlets. Each outlet can pass on multichannel signals.
+	 */
 	TTErr setNumAudioOutlets(const TTValue& newNumOutlets);	
 	
 	

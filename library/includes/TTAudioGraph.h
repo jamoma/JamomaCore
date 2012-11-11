@@ -73,10 +73,11 @@ enum TTAudioGraphFlags {
 };
 
 
-// data passed to all nodes in the graph when the graph is performing it's pre-process
+/** Data passed to all nodes in the graph when the graph is performing it's pre-process
+ */
 class TTAudioGraphPreprocessData {
 public:
-	TTUInt16 vectorSize;	// the global/recommended/initial vectorSize (which can be overriden during process)
+	TTUInt16 vectorSize;	///< The global/recommended/initial vectorSize (which can be overriden during process)
 };
 
 

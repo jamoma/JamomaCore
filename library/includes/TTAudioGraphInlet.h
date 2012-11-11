@@ -2,9 +2,15 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief AudioGraph Audio Graph Layer for Jamoma DSP
+ * @brief A single 'inlet' to a TTAudioGraphObject.
  *
- * @details Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
+ * @details TTAudioGraphObject maintains a vector of these inlets.
+ * The relationship of an inlet to other parts of the audio graph hierarchy is as follows:
+ * 
+ * - A graph may have many objects.
+ * - An object may have many inlets.
+ * - An inlet may have many signals connected.
+ * - A signal may have many channels.
  *
  * @authors Timothy Place, Trond Lossius, Nathan Wolek
  *
@@ -25,14 +31,15 @@
 /******************************************************************************************/
 
 /**	This object represents a single 'inlet' to a TTAudioGraphObject.
-	TTAudioGraphObject maintains a vector of these inlets.
-	
-	The relationship of an inlet to other parts of the audio graph hierarchy is as follows:
-
-		A graph may have many objects.
-		An object may have many inlets.	
-		An inlet may have many signals connected.
-		A signal may have many channels.
+ *	TTAudioGraphObject maintains a vector of these inlets.
+ *
+ *	The relationship of an inlet to other parts of the audio graph hierarchy is as follows:
+ *
+ *	- A graph may have many objects.
+ *	- An object may have many inlets.
+ *	- An inlet may have many signals connected.
+ *	- A signal may have many channels.
+ *
 */
 class TTAudioGraphInlet {
 
