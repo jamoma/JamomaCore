@@ -40,7 +40,7 @@ protected:
 	TTErr setVectorSize(const TTValue& newVectorSize);
 	
 	
-	/** Update the maximim number of channels to process.
+	/** Update the maximum number of channels to process.
 	 @param oldMaxNumChannels				TODO: This doesn't seem to be used
 	 @return								#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
@@ -66,7 +66,7 @@ public:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 	
 	
-	/** Unit test for the window function unit.
+	/** AudioGraphGenerator Unit test.
 	 @param returnedTestInfo				The outcome from the performed unit test.
 	 @return								#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */

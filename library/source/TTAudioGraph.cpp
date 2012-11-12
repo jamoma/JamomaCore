@@ -13,6 +13,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+
+// TODO: Why are these header files included here rather than in TTAudioGraph.h?
 #include "TTAudioGraph.h"
 #include "TTAudioGraphGenerator.h"
 #include "TTAudioGraphObject.h"

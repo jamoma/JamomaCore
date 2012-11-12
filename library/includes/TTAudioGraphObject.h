@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief The TTAudioGraphObject wraps a TTDSP object such that it is possible to build a dynamic graph of audio processing units.
+ * @brief The TTAudioGraphObject wraps a Jamoma DSP object such that it is possible to build a dynamic graph of audio processing units.
  *
  * @details It is implemented as a TTObject so that it can receive dynamically bound messages,
  * including notifications from other objects.

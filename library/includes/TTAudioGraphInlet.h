@@ -9,7 +9,7 @@
  * 
  * - A graph may have many objects.
  * - An object may have many inlets.
- * - An inlet may have many signals connected.
+ * - An inlet may have many signals (sources) connected.
  * - A signal may have many channels.
  *
  * @authors Timothy Place, Trond Lossius, Nathan Wolek
