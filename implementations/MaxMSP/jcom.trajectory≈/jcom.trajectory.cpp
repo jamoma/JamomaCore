@@ -1,9 +1,15 @@
-/* 
- *	trajectory≈
- *	Jamoma AudioGraph external object for Max
- *	Copyright © 2010 by Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphMax
+ *
+ * @brief jcom.trajectory≈ - a 2D/3D trajectory generator at signal rate
+ *
+ * @details 
+ *
+ * @authors Nils Peters, Tim Place 
+ *
+ * @copyright Copyright © 2010, Nils Peters, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

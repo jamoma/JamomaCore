@@ -1,12 +1,18 @@
-/* 
- *	split≈
- *	External object for Jamoma AudioGraph
- *	Copyright © 2008 by Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphMax
+ *
+ * @brief jcom.pick≈ - extracts N specific audio signals from a Jamoma AudioGraph signal
+ *
+ * @details 
+ *
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011, Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
-
+ 
 #include "maxAudioGraph.h"
 
 
