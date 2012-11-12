@@ -1,12 +1,18 @@
-/* 
- *	MaxAudioGraph
- *	A thin wrapper of the Audio Graph audio system for use in the Cycling '74 Max/MSP environment.
- *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
- *	Copyright © 2008 by Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphMax
+ *
+ * @brief A thin wrapper of Jamoma AudioGraph for use in the Cycling '74 Max/MSP environment.
+ *
+ * @details Includes an automated class wrapper to make Jamoma DSP object's available as objects for Max/MSP.
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "maxAudioGraph.h"
 #include "ext_hashtab.h"

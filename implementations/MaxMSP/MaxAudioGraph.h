@@ -1,12 +1,18 @@
-/* 
- *	MaxAudioGraph
- *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
- *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
- *	Copyright © 2008 by Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphMax
+ *
+ * @brief A thin wrapper of Jamoma AudioGraph for use in the Cycling '74 Max/MSP environment.
+ *
+ * @details Includes an automated class wrapper to make Jamoma DSP object's available as objects for Max/MSP.
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_MAX_AUDIOGRAPH_H__
 #define __TT_MAX_AUDIOGRAPH_H__
@@ -19,7 +25,8 @@
 #include "jpatcher_api.h"			// Required for patcher traversal code
 
 #include "TTAudioGraphAPI.h"		// Definitions for Jamoma AudioGraph
-#include "maxGraph.h"
+#include "maxGraph.h"				// Max wrapper for Jamoma Graph. Located in Support/max
+
 
 
 #ifdef WIN_VERSION
@@ -46,7 +53,8 @@ typedef TTErr (*TTValidityCheckFunction)(const TTPtr data);         ///< A type 
 class MaxAudioGraphWrappedClassOptions;
 
 /**
- An AudioGraph class wrapped as a Max external.
+ Type definition for an AudioGraph class wrapped as a Max external.
+ @ingroup typedefs
  */
 typedef struct _MaxAudioGraphWrappedClass {
 	ClassPtr							maxClass;					///< The Max class pointer.
@@ -59,31 +67,45 @@ typedef struct _MaxAudioGraphWrappedClass {
 } MaxAudioGraphWrappedClass;
 
 
-
+/** A class representing the options of a #MaxAudioGraphWrappedClass.
+ */
 class MaxAudioGraphWrappedClassOptions {
 protected:
 	TTHash*	options;
 
 public:
+	
+	/** Constructor.
+	 */
 	MaxAudioGraphWrappedClassOptions()
 	{
 		options = new TTHash;
 	}
 	
+	
+	/** Destructor.
+	 */
 	virtual ~MaxAudioGraphWrappedClassOptions()
 	{
 		delete options;
 	}
 	
+	
+	/** Append a new option to this class.
+	 @param optionName			The name of the option.
+	 @param optionValue			The value of the option.
+	 * @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr append(const TTSymbol& optionName, const TTValue& optionValue)
 	{
 		return options->append(optionName, optionValue);
 	}
 	
-	/**	
-     Returns an error if the requested option doesn't exist.
+	
+	/**	Loopup the value of an option. Returns an error if the requested option doesn't exist.
      * @param optionName        Name of the option.
-     * @param optionValue       Value of the option.
+     * @param optionValue       Used to pass back the current value of the option.
+	 * @return					Returns an #TTErr error code if the requested option doesn't exist, else it returns #kTTErrNone.
      */
 	TTErr lookup(const TTSymbol& optionName, TTValue& optionValue)
 	{
@@ -93,8 +115,16 @@ public:
 };
 	
 
-typedef MaxAudioGraphWrappedClass* MaxAudioGraphWrappedClassPtr;						///< A pointer to a WrappedClass.
-typedef MaxAudioGraphWrappedClassOptions* MaxAudioGraphWrappedClassOptionsPtr;			///< A pointer to WrappedClassOptions.
+/** A pointer to a #MaxAudioGraphWrappedClass.
+ @ingroup typedefs
+ */
+typedef MaxAudioGraphWrappedClass* MaxAudioGraphWrappedClassPtr;
+
+
+/** A pointer to #MaxAudioGraphWrappedClassOptions.
+ @ingroup typedefs
+ */
+typedef MaxAudioGraphWrappedClassOptions* MaxAudioGraphWrappedClassOptionsPtr;
 
 
 // FUNCTIONS
@@ -104,6 +134,7 @@ typedef MaxAudioGraphWrappedClassOptions* MaxAudioGraphWrappedClassOptionsPtr;		
  * @param ttClassName           Name of the Jamoma Audio Graph class that will be wrapped.
  * @param maxClassName          Name of the resulting Max external
  * @param c                     Address to a variable to hold the wrapped Max class upon return.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c);
 
@@ -115,6 +146,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGrap
  * @param maxClassName          Name of the resulting Max external.
  * @param c                     Address to a variable to hold the wrapped Max class upon return.
  * @param validityCheck			Pointer to a function that will return a true or false regarding whether or not it is okay to instantiate the object.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck);
 
@@ -127,6 +159,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGrap
  * @param c                     Address to a variable to hold the wrapped Max class upon return.
  * @param validityCheck			Pointer to a function that will return a true or false regarding whether or not it is okay to instantiate the object.
  * @param validityCheckArgument	An argument that will be passed to the validity check function, or NULL if you don't wish to pass an argument.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
 
@@ -140,6 +173,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGrap
  * @param maxClassName          Name of the resulting Max external.
  * @param c                     Address to a variable to hold the wrapped Max class upon return.
  * @param options               Pointer to additional options that will be forwarded to the wrapped object when instantiated.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr wrapAsMaxAudioGraph(TTSymbol ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, MaxAudioGraphWrappedClassOptionsPtr options);
 
@@ -152,6 +186,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttblueClassName, char* maxClassName, MaxAudio
  * @param c                     Address to a variable to hold the wrapped Max class upon return.
  * @param validityCheck			Pointer to a function that will return a true or false regarding whether or not it is okay to instantiate the object.
  * @param options               Pointer to additional options that will be forwarded to the wrapped object when instantiated.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr wrapAsMaxAudioGraph(TTSymbol ttblueClassName, char* maxClassName, MaxAudioGraphWrappedClassPtr* c, TTValidityCheckFunction validityCheck, MaxAudioGraphWrappedClassOptionsPtr options);
 
@@ -174,6 +209,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttblueClassName, char* maxClassName, MaxAudio
  * @param inletNumber           The inlet of this object who is now loosing a connection.
  * @param sourceMaxObject       The upstream (source) object who is now disconnecting.
  * @param sourceOutletNumber    The outlet of the source object that is now being disconnected.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr MaxAudioGraphDrop(ObjectPtr self, long inletNumber, ObjectPtr sourceMaxObject, long sourceOutletNumber);
 
@@ -182,6 +218,7 @@ TTErr MaxAudioGraphDrop(ObjectPtr self, long inletNumber, ObjectPtr sourceMaxObj
  Returns a pointer to the Jamoma Audio Graph object that is wrapped by this Max object.
  * @param self                      This Max object.
  * @param returnedAudioGraphObject	Pointer to the wrapped Jamoma Audio Graph object.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr MaxAudioGraphObject(ObjectPtr self, TTAudioGraphObjectPtr* returnedAudioGraphObject);
 
@@ -191,6 +228,7 @@ TTErr MaxAudioGraphObject(ObjectPtr self, TTAudioGraphObjectPtr* returnedAudioGr
  * @param x						This Max object.
  * @param audioSourceObject     The upstream object/node that is now connecting.
  * @param sourceOutletNumber    What outlet of the upstream object that is now connecting to this object.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber);
 
@@ -199,6 +237,7 @@ TTErr MaxAudioGraphConnect(ObjectPtr x, TTAudioGraphObjectPtr audioSourceObject,
  Clear the list of source objects from which this object will try to pull audio
  * @param x				This Max object.
  * @param vectorSize    Initial vector size, might be overruled by subsequent process calls.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr MaxAudioGraphReset(ObjectPtr x, long vectorSize);
 
@@ -206,6 +245,7 @@ TTErr MaxAudioGraphReset(ObjectPtr x, long vectorSize);
 /** 
  Set up fresh connections from this object to nodes that are connected downstream.
  * @param self          This Max object.
+ * @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 TTErr MaxAudioGraphSetup(ObjectPtr self);
 
