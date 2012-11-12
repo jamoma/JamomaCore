@@ -1,11 +1,18 @@
-/* 
- *	array≈
- *	Array object for Jamoma AudioGraph
- *	Copyright © 2011 by Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphMax
+ *
+ * @brief jcom.array≈ : Array object for Jamoma AudioGraph.
+ *
+ * @details This wraps the Jamoma DSP class #TTAudioObjectArray as a Jamoma AudioGraph external for Max.
+ *
+ * @authors Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "maxAudioGraph.h"
 

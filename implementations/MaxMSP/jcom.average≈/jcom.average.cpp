@@ -1,11 +1,18 @@
-/* 
- *	averag≈
- *	Jamoma AudioGraph external object for Max
- *	Copyright © 2011 by Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphMax
+ *
+ * @brief jcom.average≈ : Array object for Jamoma AudioGraph.
+ *
+ * @details This wraps the Jamoma DSP class #TTAverage as a Jamoma AudioGraph external for Max.
+ *
+ * @authors Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "maxAudioGraph.h"
 
@@ -13,7 +20,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 {   
 	MaxAudioGraphWrappedClassOptionsPtr	options = new MaxAudioGraphWrappedClassOptions;
 	TTValue								value(0);
-	MaxAudioGraphWrappedClassPtr			c = NULL;
+	MaxAudioGraphWrappedClassPtr		c = NULL;
 	
 	TTAudioGraphInit();
 	
