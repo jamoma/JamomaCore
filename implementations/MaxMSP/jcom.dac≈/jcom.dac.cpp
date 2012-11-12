@@ -1,11 +1,18 @@
-/* 
- *	dac≈
- *	Jamoma AudioGraph external object for Max
- *	Copyright © 2008 by Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphMax
+ *
+ * @brief jcom.adc≈ - Pass output to D/A converter for Jamoma AudioGraph
+ *
+ * @details
+ *
+ * @authors Timothy Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2008 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "maxAudioGraph.h"
 

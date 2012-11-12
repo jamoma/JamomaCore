@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphMax
  *
- * @brief jcom.average≈ : Array object for Jamoma AudioGraph.
+ * @brief jcom.average≈ : Signal average analysis object for Jamoma AudioGraph.
  *
  * @details This wraps the Jamoma DSP class #TTAverage as a Jamoma AudioGraph external for Max.
  *
