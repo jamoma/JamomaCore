@@ -1,11 +1,15 @@
-/* 
- *	unsig≈
- *	External object for Max/MSP to convert TTAudioSignals from JAG to a Max message list.
- *  based on jcom.unpack≈ by Tim Place
+/** @file
  *
- *	Copyright © 2011 by Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup audioGraphMax
+ *
+ * @brief jcom.unsig≈ - converts Jamoma AudioGraph signal to a Max message list.
+ *
+ * @details 
+ *
+ * @authors Nils Peters, Tim Place
+ *
+ * @copyright Copyright © 2011, Nils Peters, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
