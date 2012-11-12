@@ -548,7 +548,7 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 		if (!mInverse)
 			outputValue.append(mC * f + mD);
 		else
-			outputValue.append(mOutputMax - (mC * f + mD));
+			outputValue.append(mC * (mOutputMax - f) + mD);
 	}
 	
 	// clip output value
