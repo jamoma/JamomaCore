@@ -2,6 +2,7 @@
 sources:
   - GeneratorLib.cpp
   - source/TTAdsr.cpp
+  - source/TTCounter.cpp
   - source/TTNoise.cpp
   - source/TTPhasor.cpp
   - source/TTRamp.cpp

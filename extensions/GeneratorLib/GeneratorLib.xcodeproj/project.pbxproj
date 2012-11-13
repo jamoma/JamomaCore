@@ -21,6 +21,8 @@
 		A7B79E1E1652B78D0099C2DD /* TTWavetable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTWavetable.cpp; path = source/TTWavetable.cpp; sourceTree = "<group>"; };
 		A7B79E1F1652B7950099C2DD /* TTPhasor.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTPhasor.test.cpp; path = tests/TTPhasor.test.cpp; sourceTree = "<group>"; };
 		A7B79E201652B7950099C2DD /* TTRamp.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTRamp.test.cpp; path = tests/TTRamp.test.cpp; sourceTree = "<group>"; };
+		A7B79E271652CF2B0099C2DD /* TTCounter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTCounter.cpp; path = source/TTCounter.cpp; sourceTree = "<group>"; };
+		A7B79E281652CF3A0099C2DD /* TTCounter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTCounter.h; path = includes/TTCounter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -39,6 +41,7 @@
 			isa = PBXGroup;
 			children = (
 				A7B79E151652B77D0099C2DD /* TTAdsr.h */,
+				A7B79E281652CF3A0099C2DD /* TTCounter.h */,
 				A7B79E161652B77D0099C2DD /* TTNoise.h */,
 				A7B79E171652B77D0099C2DD /* TTPhasor.h */,
 				A7B79E181652B77D0099C2DD /* TTRamp.h */,
@@ -51,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				A7B79E1A1652B78D0099C2DD /* TTAdsr.cpp */,
+				A7B79E271652CF2B0099C2DD /* TTCounter.cpp */,
 				A7B79E1B1652B78D0099C2DD /* TTNoise.cpp */,
 				A7B79E1C1652B78D0099C2DD /* TTPhasor.cpp */,
 				A7B79E1D1652B78D0099C2DD /* TTRamp.cpp */,
