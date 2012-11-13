@@ -48,6 +48,8 @@ void		remote_int(TTPtr self, long value);
 void		remote_float(TTPtr self, double value);
 void		remote_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+void		remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
 void		remote_ui_queuefn(TTPtr self);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -70,6 +72,8 @@ void WrapTTViewerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)remote_int,						"int",					A_LONG, 0);
 	class_addmethod(c->maxClass, (method)remote_float,						"float",				A_FLOAT, 0);
 	class_addmethod(c->maxClass, (method)remote_list,						"list",					A_GIMME, 0);
+    
+    class_addmethod(c->maxClass, (method)remote_array,						"array",				A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)remote_address,					"address",				A_SYM,0);
 }
@@ -615,6 +619,44 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 		else
 			jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
 	}
+}
+
+void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+    WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+    TTInt32     d, i;
+    TTValue     keys;
+    TTSymbolPtr memoCursor;
+    
+	if (x->internals) {
+		
+		// is the incoming data size is a multiple of the array size ?
+        d = argc / x->arraySize;
+        if ((d * x->arraySize) == argc) {
+            
+            memoCursor = x->cursor;
+            
+            if (!x->internals->isEmpty()) {
+                
+                x->internals->getKeysSorted(keys);
+                
+                // the first internal object is always the model container
+                // so we deals with the i index to avoid it
+                for (i = 0; i < keys.getSize()-1; i++) {
+                    
+                    keys.get(i+1, &x->cursor);
+                    jamoma_viewer_send((TTViewerPtr)selectedObject, _sym_nothing, d, argv+(i*d));
+                }
+            }
+            
+            x->cursor = memoCursor;
+        }
+        else
+            object_error((ObjectPtr)x, "array : the array message size have to be a multiple of the array size");
+		
+	}
+	else
+		object_error((ObjectPtr)x, "array : the array is empty");
 }
 
 void remote_array_return_value(TTPtr baton, TTValue& v)

@@ -50,6 +50,8 @@ void		data_int(TTPtr self, long value);
 void		data_float(TTPtr self, double value);
 void		data_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+void		data_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
 void		data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 #endif
@@ -90,6 +92,8 @@ void WrapTTDataClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)data_int,							"int",					A_LONG, 0);
 	class_addmethod(c->maxClass, (method)data_float,						"float",				A_FLOAT, 0);
 	class_addmethod(c->maxClass, (method)data_list,							"list",					A_GIMME, 0);
+    
+    class_addmethod(c->maxClass, (method)data_array,						"array",				A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)data_inc,							"+",					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)data_dec,							"-",					A_GIMME, 0);
@@ -408,7 +412,7 @@ void data_float(TTPtr self, double value)
 		object_error((ObjectPtr)x, "float : the array is empty");
 }
 
-void data_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+void data_list(TTPtr self, SymbolPtr msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
@@ -458,6 +462,41 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		else
 			jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
 	}
+}
+
+void data_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+    WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+    TTInt32     d, i;
+    TTValue     keys;
+    TTSymbolPtr memoCursor;
+    
+	if (x->internals) {
+		
+		// is the incoming data size is a multiple of the array size ?
+        d = argc / x->arraySize;
+        if ((d * x->arraySize) == argc) {
+            
+            memoCursor = x->cursor;
+            
+            if (!x->internals->isEmpty()) {
+                
+                x->internals->getKeysSorted(keys);
+
+                for (i = 0; i < keys.getSize(); i++) {
+                    keys.get(i, &x->cursor);
+                    jamoma_data_command((TTDataPtr)selectedObject, _sym_nothing, d, argv+(i*d));
+                }
+            }
+            
+            x->cursor = memoCursor;
+        }
+        else
+            object_error((ObjectPtr)x, "array : the array message size have to be a multiple of the array size");
+		
+	}
+	else
+		object_error((ObjectPtr)x, "array : the array is empty");
 }
 #endif
 
