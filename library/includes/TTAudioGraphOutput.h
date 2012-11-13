@@ -31,17 +31,26 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphOutput : public TTAudioObject
 	TTCLASS_SETUP(TTAudioGraphOutput)
 
 public:
-	TTObjectPtr					audioEngine;
+	TTObjectPtr					audioEngine;	///< The audio engine that signals are output to.
 	TTAudioSignalPtr			placeHolder;	///< An unused audio signal that we pass
 	TTAudioGraphObjectPtr		owner;			///< The owning AudioGraph instance
 	TTValuePtr					me;
 	TTAudioGraphPreprocessData	mInitData;
 	TTSymbol					mDevice;		///< Name of the audio interface
 	
+	
+	/** Start audio processing.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr start();
+	
+	
+	/** Stop audio processing.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr stop();
 	
-	/** Called by the audio engine every time a new vector of output is required. 
+	/** This method is called by the audio engine every time a new vector of output is required. 
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr audioEngineWillProcess();
@@ -53,13 +62,15 @@ public:
 	TTErr setOwner(TTValue& newOwner, TTValue&);
 
 	
-	/**
+	/** Get a list of available audio devices.
+	 @param returnedDeviceNames	Used to return a list of available devices.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 
 	
-	/**
+	/** Get current CPU load for the system, monitoring how demanding current processing is on the processor.
+	 @param returnedValue		Used to return current CPU load in percents.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr getCpuLoad(const TTValue&, TTValue& returnedValue);
@@ -67,37 +78,43 @@ public:
 	
 	// Attribute Accessors
 	
-	/** 
+	/** Set sample rate.
+	 @param newValue			The new value for sample rate.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setSampleRate(const TTValue& newValue);
 	
 	
-	/**
+	/** Get current sample rate.
+	 @param returnedValue		Used to return current sample rate.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr getSampleRate(TTValue& returnedValue);
 	
 	
-	/**
+	/** Set vector size.
+	 @param						The new vector size.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setVectorSize(const TTValue& newValue);
 	
 	
-	/**
+	/** Get current vector size
+	 @param returnedValue		Used to return the current vector size.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr getVectorSize(TTValue& returnedValue);
 	
 	
-	/**
+	/** Set what audio output device to use.
+	 @param newValue			The new audio output device to use.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setDevice(const TTValue& newValue);
 	
 	
-	/**
+	/** Get the current audio output device.
+	 @parsam returnedValue		Used to return what audio output device is currently being used.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr getDevice(TTValue& returnedValue);

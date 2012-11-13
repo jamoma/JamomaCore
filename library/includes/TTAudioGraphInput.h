@@ -42,13 +42,14 @@ public:
 	TTErr start();
 	
 	
-	/** Stop asudio processing.
+	/** Stop audio processing.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr stop();
 	
 	
 	/** Get the name of available devices.
+	 @param returnedDeviceNames	An array of names of available devices.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
