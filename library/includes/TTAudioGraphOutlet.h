@@ -34,12 +34,17 @@ protected:
 	
 public:
 
+	/** Constructor.
+	 */
 	TTAudioGraphOutlet() : 
 		mBufferedOutput(NULL)
 	{
 		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
 	}
 	
+	
+	/** destructor.
+	 */
 	~TTAudioGraphOutlet()
 	{
 		TTObjectRelease(&mBufferedOutput);
@@ -54,6 +59,7 @@ public:
 //		mBufferedOutput = TTObjectReference(original.mBufferedOutput);
 		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
 	}
+	
 	
 	TTAudioGraphOutlet& operator=(const TTAudioGraphOutlet& source)
 	{

@@ -41,25 +41,72 @@ public:
 	TTErr start();
 	TTErr stop();
 	
-	/** Called by the audio engine every time a new vector of output is required. */
+	/** Called by the audio engine every time a new vector of output is required. 
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr audioEngineWillProcess();
 	
+	
+	/**
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setOwner(TTValue& newOwner, TTValue&);
 
+	
+	/**
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 
+	
+	/**
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getCpuLoad(const TTValue&, TTValue& returnedValue);
 	
+	
 	// Attribute Accessors
+	
+	/** 
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setSampleRate(const TTValue& newValue);
+	
+	
+	/**
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getSampleRate(TTValue& returnedValue);
+	
+	
+	/**
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setVectorSize(const TTValue& newValue);
+	
+	
+	/**
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getVectorSize(TTValue& returnedValue);
+	
+	
+	/**
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setDevice(const TTValue& newValue);
+	
+	
+	/**
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getDevice(TTValue& returnedValue);
-		
+	
+	
 	/**	A standard audio processing method as used by Jamoma DSP objects.
-		@param	outputs	unused.		*/
+	 @param	outputs				Unused.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 

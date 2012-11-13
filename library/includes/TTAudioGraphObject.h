@@ -4,7 +4,7 @@
  *
  * @brief The TTAudioGraphObject wraps a Jamoma DSP object such that it is possible to build a dynamic graph of audio processing units.
  *
- * @details It is implemented as a TTObject so that it can receive dynamically bound messages,
+ * @details It is implemented as a #TTObject so that it can receive dynamically bound messages,
  * including notifications from other objects.
  *
  * @authors Timothy Place, Trond Lossius
@@ -54,33 +54,46 @@ protected:
 	// Attribute Setters
 	
 	/** Set the number of audio inlets.
-	 @param newNumInlets							The number of inlets. Each inlet can receieve multichannel signals.
+	 @param newNumInlets		The number of inlets. Each inlet can receieve multichannel signals from several sources.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setNumAudioInlets(const TTValue& newNumInlets);
 	
+	
 	/** Set the number of audio outlets.
-	 @param newNumOutlets							The numebr of outlets. Each outlet can pass on multichannel signals.
+	 @param newNumOutlets		The number of outlets. Each outlet can pass on multichannel signals to inlets of one or more downstream TTAudioGraphObjects.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setNumAudioOutlets(const TTValue& newNumOutlets);	
 	
 	
 public:
 
+	/** TODO
+	 */
 	TTAudioObjectPtr getUnitGenerator()
 	{
 		return TTAudioObjectPtr(mKernel);
 	}
 	
 
+	/** Set an audio flag. Flags are defined as bitmasks.
+	 @param flag				The flag to set.
+	 */
 	void addAudioFlag(TTAudioGraphFlags flag)
 	{
 		mAudioFlags |= flag;
 	}
 	
+	
+	/** remove an audio flag. Flags are defined as bitmasks.
+	 @param flag				The flag to remove.
+	 */
 	void removeAudioFlag(TTAudioGraphFlags flag)
 	{
 		mAudioFlags = mAudioFlags & ~flag;
 	}
+	
 	
 	/** Get the number of channels for an outlet.
 	 @param forOutletNumber		The outlet that we want to retrieve informaiton about.
@@ -92,6 +105,7 @@ public:
 		else
 			return 0;
 	}
+	
 	
 	/** Set the number of channels for an outlet.
 	 @param forOutletNumber		The outlet that we want to retrieve information about.
@@ -111,8 +125,10 @@ public:
 		sSharedMutex->unlock();
 	}
 	
+	
 	/** Get the vector size for an outlet.
 	 @param forOutletNumber		The outlet that we want to retrieve information about.
+	 @return					Vector size.
 	 */
 	TTUInt16 getOutputVectorSize(TTUInt16 forOutletNumber)
 	{
@@ -122,8 +138,10 @@ public:
 			return 0;
 	}
 	
+	
 	/** Get the sample rate of the audio passed from one of the outlets.
 	 @param forOutletNumber		The outlet that we want to retrieve information about.
+	 @param						The sample rate of the audio passed from the outlet.
 	 */
 	TTUInt32 getOutputSampleRate(TTUInt16 forOutletNumber)
 	{
@@ -133,7 +151,9 @@ public:
 			return 0;
 	}
 	
-	/** Get the sample rate htta this object use when processing audio.
+	
+	/** Get the sample rate that this object use when processing audio.
+	 @return					The current sample rate of the object.
 	 */
 	TTUInt32 getSampleRate()
 	{
@@ -142,11 +162,14 @@ public:
 		return sr;
 	}
 	
+	
 	/** Prepare for a request to descibe all of the graph.
 	 */
 	void prepareAudioDescription();
 	
-	/** The node is requested to declare itself as part of an action to describe all of the audio graph.
+	
+	/** @brief Describe this object as part of the action of describing a complete audio graph.
+	 @details The node is requested to declare itself as part of an action to describe all of the audio graph.
 	 As part of this action the request is also propagated to its upstream neighboors, and retrieved information on the graph is passed back down again to the sink(s) of the graph.
 	 @param descs		Pointer to the graph description vector used by the downstream neighboor(s) to retrieve information on this node and its upstesream connections.
 	 */
@@ -154,30 +177,34 @@ public:
 	
 	
 	/**	
-     Clear the list of source objects from which this object will try to pull audio.	
+     Clear the list of source objects from which this object will try to pull audio.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
      */
 	TTErr resetAudio();
 	
 	
 	/**	Add a source to the list of objects from which to request audio.
-		@param	anObject		The lydbaer object which is supplying us with input.
-		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
+	 @param	anObject			The Jamoma AudioGraph object which is supplying us with input.
+	 @param	anInletNumber		If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 								Typically the value passed here will be 0, indicating the normal audio input.
-		@return					An error code.	*/
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr connectAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 	
 	
 	/**	Drop a source from the list of objects from which to request audio.  In other words, disconnect.
-		@param	anObject		The lydbaer object which is supplying us with input.
+		@param	anObject		The Jamoma AudioGraph object which is supplying us with input.
 		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 								Typically the value passed here will be 0, indicating the normal audio input.
-		@return					An error code.	*/
+		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr dropAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
 	
 	/**	The thread protection for processing is important: we cannot have the graph nodes being deleted or re-arranged while we are pulling. 
-		Further more, this is true for the entire process cycle: preprocess, process, and postprocess.
-		Thus, this lock must be thrown by the code the is calling the methods from outside of this class. */
+	 Further more, this is true for the entire process cycle: preprocess, process, and postprocess.
+	 Thus, this lock must be thrown by the code the is calling the methods from outside of this class.
+	 */
 	void lockProcessing()
 	{
 		sSharedMutex->lock();
@@ -192,16 +219,18 @@ public:
 	}
 	
 	/**	This method is called by an object about to process audio, prior to calling getAudioOutput().
-		As with the getAudioOutput() method, this is driven by the destination object and working up through the chains.
-		@param	initData		Data provided by the terminal object so that the graph will be able to adapt to it.
-		@return					An error code.		*/
+	 As with the getAudioOutput() method, this is driven by the destination object and working up through the chains.
+	 @param	initData		Data provided by the terminal object so that the graph will be able to adapt to it.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	virtual TTErr preprocess(const TTAudioGraphPreprocessData& initData);
 	
 	
 	/**	This method is required to be implemented by all objects except for those existing solely as a destination.
-		@param	audioOutput		This method is passed a reference to an audio signal pointer.
-								We then set this audio signal pointer to point to the TTAudioSignal containing our calculated samples.
-	 	@return					An error code.	*/
+	 @param	audioOutput		This method is passed a reference to an audio signal pointer.
+							We then set this audio signal pointer to point to the TTAudioSignal containing our calculated samples.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	virtual TTErr process(TTAudioSignalPtr& returnedSignal, TTUInt16 forOutletNumber=0);
 	
 };

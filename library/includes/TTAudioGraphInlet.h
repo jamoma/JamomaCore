@@ -52,7 +52,7 @@ protected:
 	
 public:
 
-	TTAudioGraphInlet() : 
+	TTAudioGraphInlet() :
 		mBufferedInput(NULL),
 		mDirectInput(NULL),
 		mClean(NO)
@@ -93,6 +93,7 @@ public:
 		mClean			= original.mClean;
 	}
 	
+	
 	/** The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...
 	 */
 	TTAudioGraphInlet& operator=(const TTAudioGraphInlet& source)
@@ -105,6 +106,7 @@ public:
 		
 		return *this;
 	}
+	
 	
 	/* Create a buffer that will be used to summerize samples from all sources arriving at this inlet.
 	 */
@@ -130,7 +132,7 @@ public:
 	/** Establish a connection from an output of an upstream node to one of the inlets of this node so that processing might occur.
 	 @param anObject			Reference to an upstream node.
 	 @param fromOutletNumber	The outlet of the upstrem node that the connection is being made from.
-	 
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
@@ -149,9 +151,11 @@ public:
 		return kTTErrNone;
 	}
 	
+	
 	/** Drop a connection from an upstream node.
 	 @param anObject			Reference to an upstream node.
 	 @param fromOutletNumber	The outlet of the upstrem node that the connection for which the connection will be dropped.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr drop(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
 	{
@@ -164,7 +168,8 @@ public:
 		return kTTErrNone;
 	}
 	
-	/** Drop all connections (if any) to a potential upstream node. 
+	
+	/** Drop a connection (if any) to an upstream source.
 	 This method is called if a node is being destroyed to ensure that no stray connections from it are left behind.
 	 @param	aSource				The potential upstream node (source) for which all connections are to be dropped.
 	 */
@@ -175,6 +180,7 @@ public:
 		if (iter != mSourceObjects.end())
 			mSourceObjects.erase(iter);
 	}
+	
 	
 	/** Just before audio processing, a preprocess() method is propagated up the audio graph chain from the terminal object.
 	 This can be used to zero buffers and also sets flags that indicate each object’s processing state.
@@ -192,6 +198,7 @@ public:
 		
 	/** With the objects in the graph prepared by the preprocess() call, the audio can be pulled from nodes connected upstream using the process() call on each source.
 	 When asked for a vector of audio by the unit generator, the inlets each request audio from each of their sources (other objects’ outlets). If an inlet has multiple sources, those sources are summed. When all of the inlets have performed this operation, then the unit generator proceeds to process the audio buffered in the inlets and fills the buffers in the outlets. Sources manage a one-to-one connection between an inlet and an outlet; inlets may have zero or more sources.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr process()
 	{
@@ -222,7 +229,9 @@ public:
 		return (TTErr)err;
 	}
 	
+	
 	/** Get the most recently processed audio for this inlet as summerized from all connected upstream nodes.
+	 @return					Pointer to the audio buffer used for summerizing signals from connected upstream nodes.
 	 */
 	TTAudioSignalPtr getBuffer()
 	{
@@ -231,6 +240,7 @@ public:
 		else
 			return mBufferedInput;
 	}
+	
 	
 	/** Prepare for a request that wants to descibe all of the graph.
 	 The request for preparing to describe the graph is propagated to all nodes that are connected upstream.
@@ -241,7 +251,8 @@ public:
 		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++)
 			source->prepareDescription();
 	}
-
+	
+	
 	/** The node is requested to declare itself as part of an action to describe all of the audio graph.
 	 As part of this action the request is also propagated to its upstream neighboors, and retrieved information on the graph is passed back down again to the sink(s) of the graph.
 	 @param descs		Pointer to the graph description vector used by the downstream neighboor(s) to retrieve information on this node and its upstesream connections.

@@ -31,14 +31,16 @@
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
+/** TTAudioGraphSource represents one link from a #TTAudioGraphInlet of a #TTAudioGraphObject to a #TTAudioGraphOutlet of an upstream #TTAudioGraphObject.
+ */
 class TTAudioGraphSource {
 	friend void TTAudioGraphSourceObserverCallback(TTAudioGraphSource* self, TTValue& arg);
 	
 protected:	
 	
 	TTAudioGraphObjectPtr	mSourceObject;		///< The object from which we pull samples
-	TTUInt16				mOutletNumber;		///< Zero-based
-	TTObjectPtr				mCallbackHandler;
+	TTUInt16				mOutletNumber;		///< The outlet of the upstream object that we pull samples from. This is zero-based.
+	TTObjectPtr				mCallbackHandler;	///< TODO
 	TTAudioGraphInletPtr	mOwner;				///< The owning inlet
 	
 public:
@@ -47,13 +49,24 @@ public:
 	 */
 	TTAudioGraphSource();
 	
+	
 	/** Destructor
 	 */
-	~TTAudioGraphSource();			
-
+	~TTAudioGraphSource();
+	
+	
 	// Internal method shared/called by constructors.
+	
+	/** Create a link to a source. This establish a link between a #TTAudioGraphInlet and a #TTAudioGraphOutlet of an upstream #TTAudioGraphObject.
+	 */
 	void create();
 	
+	
+	/** Check to see if this source (link) is connected to the requested outlet of the requested upstream object.
+	 @param anObject			The upstream object that we want to check if match this source.
+	 @param anOutletNumber		The object outlet that we want to check if match this source.
+	 @return					TRUE if we have a match, else FALSE.
+	 */
 	TTBoolean match(TTAudioGraphObjectPtr anObject, TTUInt16 anOutletNumber)
 	{
 		if (anObject == mSourceObject && anOutletNumber == mOutletNumber)
@@ -62,6 +75,10 @@ public:
 			return NO;
 	}
 	
+	
+	/** Set the owning inlet of this source.
+	 @param theOwningInlet		The inlet that will be owning this source (link).
+	 */
 	void setOwner(TTAudioGraphInletPtr theOwningInlet)
 	{
 		mOwner = theOwningInlet;
@@ -86,7 +103,9 @@ public:
 			connect(original.mSourceObject, original.mOutletNumber);
 	}
 	
-	// This one is called, for example, on the Mac when dropping a source and the vector has to be re-arranged.	
+	
+	/** This operator is called, for example, on the Mac when dropping a source and the vector has to be re-arranged.
+	 */
 	TTAudioGraphSource& operator=(const TTAudioGraphSource& original)
 	{
 		mSourceObject = NULL;
@@ -112,9 +131,11 @@ public:
 		return *this;
 	}
 	
-	/** Compare two sources for equality.
+	
+	/** Compare two sources for equality, that is: It they are representing a connection between the same inlet/outlet pair of the same objects.
 	 @param source1		The first source to be compared.
 	 @param source2		The second source to be compared.
+	 @return			TRUE if the two sources (links or connections) are the same, else FALSE.
 	 */
 	inline friend bool operator == (const TTAudioGraphSource& source1, const TTAudioGraphSource& source2)
 	{
@@ -127,11 +148,17 @@ public:
 	
 	// Info Methods
 	
+	/** Prepare to describe this source (link or connection).
+	 */
 	void prepareDescription()
 	{
 		mSourceObject->prepareAudioDescription();
 	}
 	
+	
+	/** Describe this source.
+	 @param desc		Pointer to #TTAudioGraphDescription used for returning the description.
+	 */
 	void getDescription(TTAudioGraphDescription& desc)
 	{
 		mSourceObject->getAudioDescription(desc);
@@ -140,13 +167,26 @@ public:
 	
 	// Graph Methods
 	
+	
+	/** Create a source (a connection or a link) to an outlet of an upstream object.
+	 @param anObject			The upstream object that we want to connect to.
+	 @param fromOutletNumber	The outlet of the upstream object that we want to connect to.
+	 */
 	void connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber);
-		
+	
+	
+	/** Prepare for audio processing.
+	 */
 	void preprocess(const TTAudioGraphPreprocessData& initData)
 	{
 		mSourceObject->preprocess(initData);
 	}
 	
+	
+	/** Perform audio processing.
+	 @details					This pass a request for a buffer of processed audio to the upstream associated source.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr process(TTAudioSignalPtr& returnedSignal) 
 	{
 		return mSourceObject->process(returnedSignal, mOutletNumber);
@@ -154,8 +194,22 @@ public:
 	
 };
 
+
+/** Pointer to a #TTAudioGraphSource.
+ @ingroup typedefs
+ */
 typedef TTAudioGraphSource*					TTAudioGraphSourcePtr;
+
+
+/** A vector of #TTAudioGraphSources
+ @ingroup typedefs
+ */
 typedef vector<TTAudioGraphSource>			TTAudioGraphSourceVector;
+
+
+/** An iterator on TTAudioGraphSourceVector
+ @ingroup typedefs
+ */
 typedef TTAudioGraphSourceVector::iterator	TTAudioGraphSourceIter;
 
 

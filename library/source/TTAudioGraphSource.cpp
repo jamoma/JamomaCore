@@ -2,9 +2,15 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief AudioGraph Audio Graph Layer for Jamoma DSP
+ * @brief TTAudioGraphSource represents one link or connection between two AudioGraph objects.
  *
- * @details
+ * @details TTAudioGraphSource is an upstream connection from a #TTAudioGraphInlet of a #TTAudioGraphObject to a "TTAudioGraphOutlet of an upstream #TTAudioGraphObject.
+ * The relationship of a source to other parts of the audio graph hierarchy is as follows:
+ *
+ * - A graph may have many objects.
+ * - An object may have many inlets.
+ * - An inlet may have many signals (sources) connected.
+ * - A signal may have many channels.
  *
  * @authors Timothy Place, Trond Lossius
  *

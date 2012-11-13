@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief TTAudioGraphInput is an audio object functioning as a source at the top of the #TTAudioGraph graph, providing sound signals to the graph for further downstream processing.
+ * @brief TTAudioGraphInput is an audio object functioning as a source at the top of the #TTAudioGraph graph, providing sound signals from an external audio input device to the graph for further downstream processing.
  *
  * @details In Jamoma AudioGraph audio processing is driven from a from a ‘terminal object’ or ‘sink’ at the bottom of the chain.
  * Hence TTAudioGraphInput objects are not driving the audio graph processing, they simply provides audio signals for further downstream processing
@@ -32,26 +32,82 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphInput : public TTAudioObject
 	TTCLASS_SETUP(TTAudioGraphInput)
 
 public:
-	TTObjectPtr				mAudioEngine;
-	TTAudioSignalPtr		mBuffer;			///< an unused audio signal that we pass
+	TTObjectPtr				mAudioEngine;		///<
+	TTAudioSignalPtr		mBuffer;			///< An unused audio signal that we pass.
 	
+	
+	/** Start audio processing.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr start();
+	
+	
+	/** Stop asudio processing.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr stop();
+	
+	
+	/** Get the name of available devices.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 	
 	// Attribute Accessors
+	
+	/** Set sample rate.
+	 @param newValue			The new sampe rate to be set.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setSampleRate(const TTValue& newValue);
+	
+	
+	/** Get sample rate.
+	 @param returnedValue		The current sample rate.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getSampleRate(TTValue& returnedValue);
+	
+	
+	/** Set the vector size for audio processing.
+	 @param newValue			The new vector size.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setVectorSize(const TTValue& newValue);
-	TTErr getVectorSize(TTValue& returnedValue);	
+	
+	
+	/** Get current vector size.
+	 @param returnedValue		The current vector size.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr getVectorSize(TTValue& returnedValue);
+	
+	
+	/** Set what device to use for audio input.
+	 @param newValue			The input device to use.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setDevice(const TTValue& newValue);
+	
+	
+	/** Get current audio input device.
+	 @param returnedValue		The current audio input device.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getDevice(TTValue& returnedValue);
 	
+	
 	/**	A standard audio processing method as used by TTBlue objects.
-		@param	outputs	unused.		*/
+	 @param	outputs	unused.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 
+
+/** A pointer to #TTAudioGraphInput.
+ @ingroup typedefs
+ */
 typedef TTAudioGraphInput* TTAudioGraphInputPtr;
 
 
