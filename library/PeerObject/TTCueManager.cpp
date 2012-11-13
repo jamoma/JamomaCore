@@ -270,7 +270,6 @@ TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputVa
 TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodeAddressItemPtr aNamespace;
-	TTObjectPtr	aHandler;
 	TTValue		v;
 	
 	// get cue name
@@ -458,29 +457,42 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v1, v2;
+    TTInt32     i1, i2;
 	TTSymbolPtr name1, name2;
 	TTCuePtr	cue1, cue2;
 	TTFloat32	position;
 	
-	// get cues name
 	if (inputValue.getSize() == 3) {
 		
+        // get cues by name
 		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat32) {
 			
 			inputValue.get(0, &name1);
 			inputValue.get(1, &name2);
 			inputValue.get(2, position);
+        }
+        
+        // get cues by position
+        else if (inputValue.getType(0) == kTypeInt32 && inputValue.getType(1) == kTypeInt32 && inputValue.getType(2) == kTypeFloat32) {
+            
+            inputValue.get(0, i1);
+            mOrder.get(i1-1, &name1);
+            
+            inputValue.get(1, i2);
+            mOrder.get(i2-1, &name2);
+            
+            inputValue.get(2, position);
+        }
 			
-			// if cues exist
-			if (!mCues->lookup(name1, v1) && !mCues->lookup(name2, v2)) {
-				
-				v1.get(0, (TTPtr*)&cue1);
-				v2.get(0, (TTPtr*)&cue2);
-				
-				if (cue1 && cue2)
-					return TTCueInterpolate(cue1, cue2, position);
-			}
-		}
+        // if cues exist
+        if (!mCues->lookup(name1, v1) && !mCues->lookup(name2, v2)) {
+            
+            v1.get(0, (TTPtr*)&cue1);
+            v2.get(0, (TTPtr*)&cue2);
+            
+            if (cue1 && cue2)
+                return TTCueInterpolate(cue1, cue2, position);
+        }
 	}
 	
 	return kTTErrGeneric;
@@ -488,7 +500,7 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTUInt32	i, mixSize;
+	TTUInt32	i, id, mixSize;
 	TTSymbolPtr name;
 	TTCuePtr	cue;
 	TTValue		v, cues, factors;
@@ -499,21 +511,26 @@ TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 	
 	for (i = 0; i < mixSize * 2; i = i+2) {
 		
-		if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat32) {
-			
+        if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat32) {
+            
 			inputValue.get(i, &name);
-			
-			// if cue exist
-			if (!mCues->lookup(name, v)) {
-				
-				v.get(0, (TTPtr*)&cue);
-				
-				if (cue) {
-					cues.append((TTPtr)cue);
-					factors.append((TTFloat64)inputValue.getFloat32(i+1));
-				}
-			}
-		}
+        }
+        else if (inputValue.getType(i) == kTypeInt32 && inputValue.getType(i+1) == kTypeFloat32) {
+            
+            inputValue.get(i, id);
+            mOrder.get(id-1, &name);
+        }
+        
+        // if cue exist
+        if (!mCues->lookup(name, v)) {
+            
+            v.get(0, (TTPtr*)&cue);
+            
+            if (cue) {
+                cues.append((TTPtr)cue);
+                factors.append((TTFloat64)inputValue.getFloat32(i+1));
+            }
+        }
 	}
 	
 	return TTCueMix(cues, factors);

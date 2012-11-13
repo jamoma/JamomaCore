@@ -222,29 +222,42 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v1, v2;
+    TTInt32     i1, i2;
 	TTSymbolPtr name1, name2;
 	TTPresetPtr preset1, preset2;
 	TTFloat32	position;
 	
-	// get presets name
 	if (inputValue.getSize() == 3) {
 		
+        // get presets by name
 		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat32) {
 			
 			inputValue.get(0, &name1);
 			inputValue.get(1, &name2);
 			inputValue.get(2, position);
+        }
+        
+        // get presets by position
+        else if (inputValue.getType(0) == kTypeInt32 && inputValue.getType(1) == kTypeInt32 && inputValue.getType(2) == kTypeFloat32) {
+            
+            inputValue.get(0, i1);
+            mOrder.get(i1-1, &name1);
+            
+            inputValue.get(1, i2);
+            mOrder.get(i2-1, &name2);
+            
+            inputValue.get(2, position);
+        }
 			
-			// if presets exist
-			if (!mPresets->lookup(name1, v1) && !mPresets->lookup(name2, v2)) {
-				
-				v1.get(0, (TTPtr*)&preset1);
-				v2.get(0, (TTPtr*)&preset2);
-				
-				if (preset1 && preset2)
-					return TTPresetInterpolate(preset1, preset2, position);
-			}
-		}
+        // if presets exist
+        if (!mPresets->lookup(name1, v1) && !mPresets->lookup(name2, v2)) {
+            
+            v1.get(0, (TTPtr*)&preset1);
+            v2.get(0, (TTPtr*)&preset2);
+            
+            if (preset1 && preset2)
+                return TTPresetInterpolate(preset1, preset2, position);
+        }
 	}
 	
 	return kTTErrGeneric;
@@ -252,7 +265,7 @@ TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputVal
 
 TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTUInt32	i, mixSize;
+	TTUInt32	i, id, mixSize;
 	TTSymbolPtr name;
 	TTPresetPtr preset;
 	TTValue		v, presets, factors;
@@ -264,20 +277,25 @@ TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 	for (i = 0; i < mixSize * 2; i = i+2) {
 		
 		if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat32) {
-			
+            
 			inputValue.get(i, &name);
+        }
+        else if (inputValue.getType(i) == kTypeInt32 && inputValue.getType(i+1) == kTypeFloat32) {
+            
+            inputValue.get(i, id);
+            mOrder.get(id-1, &name);
+        }
 			
-			// if preset exist
-			if (!mPresets->lookup(name, v)) {
-				
-				v.get(0, (TTPtr*)&preset);
-				
-				if (preset) {
-					presets.append((TTPtr)preset);
-					factors.append((TTFloat64)inputValue.getFloat32(i+1));
-				}
-			}
-		}
+        // if preset exist
+        if (!mPresets->lookup(name, v)) {
+            
+            v.get(0, (TTPtr*)&preset);
+            
+            if (preset) {
+                presets.append((TTPtr)preset);
+                factors.append((TTFloat64)inputValue.getFloat32(i+1));
+            }
+        }
 	}
 	
 	return TTPresetMix(presets, factors);
@@ -535,7 +553,6 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
-	TTSymbolPtr		flagName;
 	TTValue			v;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
