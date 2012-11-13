@@ -6,20 +6,13 @@
  *
  * @details
  *
- * @authors Tim Place, Dave Watsonb, Trond Lossius
+ * @authors Tim Place, Dave Watson, Trond Lossius
  *
  * @copyright Copyright © 2009 by Timothy Place @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
-/*
- * TTBlue Cycling Ramp Generator
- * Copyright © 2008, Timothy Place & Dave Watson
- * 
- * License: This code is licensed under the terms of the "New BSD License"
- * http://creativecommons.org/licenses/BSD/
- */
 
 #ifndef __TT_ADSR_H__
 #define __TT_ADSR_H__
