@@ -1,10 +1,18 @@
-/*
- * TTBlue Noise Generator
- * Copyright © 2003, Timothy Place
+/** @file
  *
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html
+ * @ingroup dspGeneratorLib
+ *
+ * @brief GeneratorLib: Noise Generator
+ *
+ * @details
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2003 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTNoise.h"
 
