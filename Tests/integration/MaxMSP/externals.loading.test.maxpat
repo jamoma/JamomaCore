@@ -4,10 +4,10 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 8
 		}
 ,
-		"rect" : [ 378.0, 44.0, 822.0, 893.0 ],
+		"rect" : [ 378.0, 44.0, 961.0, 893.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -27,6 +27,22 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : 0.0,
+					"id" : "obj-2",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 635.0, 716.0, 169.0, 19.0 ],
+					"presentation_rect" : [ 752.0, 670.0, 0.0, 0.0 ],
+					"text" : "not testing wavetable≈ for now",
+					"textcolor" : [ 1.0, 0.0, 0.0, 1.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -198,7 +214,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -297,20 +313,6 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-42",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 635.0, 716.0, 98.0, 19.0 ],
-					"text" : "jcom.wavetable≈"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
 					"id" : "obj-41",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -397,9 +399,8 @@
 					"fontsize" : 10.0,
 					"id" : "obj-34",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "audio.connect", "" ],
+					"numinlets" : 0,
+					"numoutlets" : 0,
 					"patching_rect" : [ 635.0, 340.0, 79.0, 19.0 ],
 					"text" : "jcom.matrix≈"
 				}
@@ -411,9 +412,8 @@
 					"fontsize" : 10.0,
 					"id" : "obj-33",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "audio.connect", "" ],
+					"numinlets" : 0,
+					"numoutlets" : 0,
 					"patching_rect" : [ 635.0, 321.0, 108.0, 19.0 ],
 					"text" : "jcom.matrixmixer≈"
 				}
@@ -579,9 +579,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-14",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 195.0, 325.0, 348.0, 19.0 ],
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 195.0, 325.0, 394.0, 19.0 ],
 					"text" : "jcom.test.assert.equal.old \"TEST AudioGraph AllExternalsLoadingProperly\" 1"
 				}
 
@@ -607,9 +608,9 @@
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 50.0, 85.0, 57.0, 19.0 ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "bang", "bang" ],
+					"patching_rect" : [ 50.0, 85.0, 83.0, 19.0 ],
 					"text" : "jcom.test.start"
 				}
 
@@ -721,6 +722,7 @@
 					"outlettype" : [ "", "", "", "", "" ],
 					"patching_rect" : [ 245.0, 215.0, 104.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"filename" : "patchdescribe.js",
 						"parameter_enable" : 0
 					}
 ,
@@ -841,8 +843,29 @@
 		"dependency_cache" : [ 			{
 				"name" : "patchdescribe.js",
 				"bootpath" : "/Applications/Max6/examples/javascript/patcher-scripting",
-				"patcherrelativepath" : "../../../../../../../../Applications/Max6/examples/javascript/patcher-scripting",
+				"patcherrelativepath" : "../../../../../../../../../Applications/Max6/examples/javascript/patcher-scripting",
 				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.finished.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.finished",
+				"patcherrelativepath" : "../../../../Test/components/test.finished",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.start.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.start",
+				"patcherrelativepath" : "../../../../Test/components/test.start",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.assert.equal.old.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.assert.equal.old",
+				"patcherrelativepath" : "../../../../Test/components/test.assert.equal.old",
+				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
@@ -890,14 +913,6 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.matrixmixer≈.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.matrix≈.mxo",
-				"type" : "iLaX"
-			}
-, 			{
 				"name" : "jcom.noise≈.mxo",
 				"type" : "iLaX"
 			}
@@ -919,10 +934,6 @@
 			}
 , 			{
 				"name" : "jcom.unpack≈.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.wavetable≈.mxo",
 				"type" : "iLaX"
 			}
 , 			{
