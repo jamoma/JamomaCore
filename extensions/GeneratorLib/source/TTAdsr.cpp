@@ -1,9 +1,24 @@
+/** @file
+ *
+ * @ingroup dspGeneratorLib
+ *
+ * @brief GeneratorLib: Generate classic ADSR envelope (attack, decay, sustain, release).
+ *
+ * @details
+ *
+ * @authors Tim Place, Dave Watsonb, Trond Lossius
+ *
+ * @copyright Copyright © 2009 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
 /*
  * TTBlue Cycling Ramp Generator
  * Copyright © 2008, Timothy Place & Dave Watson
  *
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTAdsr.h"
@@ -33,6 +48,7 @@ TT_AUDIO_CONSTRUCTOR
 	setAttributeValue(TT("release"), 500.);
 	setAttributeValue(TT("mode"), TT("hybrid"));	// <-- sets the process method
 }
+
 
 TTAdsr::~TTAdsr()
 {
