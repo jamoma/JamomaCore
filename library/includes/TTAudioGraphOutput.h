@@ -32,11 +32,11 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphOutput : public TTAudioObject
 
 public:
 	TTObjectPtr					audioEngine;
-	TTAudioSignalPtr			placeHolder;	///< an unused audio signal that we pass
-	TTAudioGraphObjectPtr		owner;			///< the owning lydbaer instance
+	TTAudioSignalPtr			placeHolder;	///< An unused audio signal that we pass
+	TTAudioGraphObjectPtr		owner;			///< The owning AudioGraph instance
 	TTValuePtr					me;
 	TTAudioGraphPreprocessData	mInitData;
-	TTSymbol					mDevice;		///< name of the audio interface
+	TTSymbol					mDevice;		///< Name of the audio interface
 	
 	TTErr start();
 	TTErr stop();
@@ -58,11 +58,14 @@ public:
 	TTErr setDevice(const TTValue& newValue);
 	TTErr getDevice(TTValue& returnedValue);
 		
-	/**	A standard audio processing method as used by TTBlue objects.
+	/**	A standard audio processing method as used by Jamoma DSP objects.
 		@param	outputs	unused.		*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 
+/** A pointer to a #TTAudioGraphOutput.
+ @ingroup typedefs
+ */
 typedef TTAudioGraphOutput* TTAudioGraphOutputPtr;
 
 
