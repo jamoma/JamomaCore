@@ -1,10 +1,30 @@
-/*
- * TTBlue Audio Engine
- * Copyright © 2008, Timothy Place
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup dspLibrary
+ *
+ * @brief The #TTAudioEngine class is the Audio Engine of Jamoma DSP
+ *
+ * @details #TTAudioEngine is a class that is used to drive realtime audio and scheduling operations in the Jamoma DSP environment.
+ * It is currently implemented as a wrapper around PortAudio.
+ *
+ * QUESTIONS
+ *
+ * - Should this be a singleton, like the environment object?
+ * - How do we properly clean-up the environment from something like Max?  I guess we need a quittask?
+ *
+ * THOUGHTS
+ *
+ * - A #TTAudioOutput class will work by writing to the #TTAudioEngine's output buffer.
+ * - Likewise a #TTAudioInput class will work by retrieving from the #TTAudioEngine's input buffer.
+ * - The scheduler, and others like the Jamoma AudioGraph output class, will subscribe to this class for notifications on each call from PortAudio.
+ *
+ * @authors Tim Place, Nathan Wolek, Trond Lossius
+ *
+ * @copyright Copyright © 2008 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAudioEngine.h"
 

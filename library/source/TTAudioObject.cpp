@@ -1,10 +1,18 @@
-/* 
- * Jamoma DSP Audio Object Base Class
- * Copyright 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief #TTAudioObject is the Jamoma DSP Audio Object Base Class
+ *
+ * @details
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2008 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDSP.h"
 #include "TTAudioObject.h"
