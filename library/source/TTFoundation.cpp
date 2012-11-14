@@ -106,6 +106,7 @@ void TTFoundationInit(const char* pathToBinaries)
 }
 
 
+void TTFoundationShutdown();
 void TTFoundationShutdown()
 {
 	// FIXME: How do we call this (i.e. TTDSPShutdown()?) -- do we need to setup an observer of some sort on the environment class?
