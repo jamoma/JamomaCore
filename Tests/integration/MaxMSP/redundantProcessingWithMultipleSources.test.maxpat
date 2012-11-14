@@ -45,13 +45,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-36",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 258.0, 384.5, 181.0, 47.0 ],
-					"text" : "jcom.test.assert.equal vectorIsProcessOnlyOneTime @input none @compareTo 1."
+					"patching_rect" : [ 258.0, 384.5, 178.0, 60.0 ],
+					"text" : "jcom.test.assert.equal vectorIsProcessOnlyOneTime @input none @compareTo 1. @issue 574"
 				}
 
 			}
@@ -203,7 +203,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 239.0, 451.0, 37.0, 20.0 ],
+					"patching_rect" : [ 239.0, 465.0, 37.0, 20.0 ],
 					"text" : "dac~"
 				}
 
