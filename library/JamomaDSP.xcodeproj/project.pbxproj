@@ -83,12 +83,16 @@
 		22C57CBD15EC2A4400B755FA /* TTUnitTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTUnitTest.cpp; path = ../../Foundation/library/source/TTUnitTest.cpp; sourceTree = "<group>"; };
 		22C57CBE15EC2A4400B755FA /* TTValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = ../../Foundation/library/source/TTValue.cpp; sourceTree = "<group>"; };
 		22C57CBF15EC2A4400B755FA /* TTValueCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = ../../Foundation/library/source/TTValueCache.cpp; sourceTree = "<group>"; };
+		A79EEBE11653E09100E9B742 /* JamomaDSP.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaDSP.yml; sourceTree = "<group>"; };
+		A79EEBE21653E0AA00E9B742 /* TTBluePrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTBluePrefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		22C57C5815EC1D9D00B755FA = {
 			isa = PBXGroup;
 			children = (
+				A79EEBE11653E09100E9B742 /* JamomaDSP.yml */,
+				A79EEBE21653E0AA00E9B742 /* TTBluePrefix.pch */,
 				22C57C8615EC2A1100B755FA /* Foundation */,
 				22C57C8515EC29FF00B755FA /* DSP */,
 			);
@@ -173,10 +177,10 @@
 				22C57C6A15EC21B200B755FA /* TTAudioObjectArray.h */,
 				22C57C6B15EC21B200B755FA /* TTAudioSignal.h */,
 				22C57C6D15EC21B200B755FA /* TTAudioSignalArray.h */,
+				22C57C6E15EC21B200B755FA /* TTBuffer.h */,
 				22C57C7015EC21B200B755FA /* TTDelay.h */,
 				22C57C7115EC21B200B755FA /* TTDelayBuffer.h */,
 				22C57C7215EC21B200B755FA /* TTDSP.h */,
-				22C57C6E15EC21B200B755FA /* TTBuffer.h */,
 				22C57C7315EC21B200B755FA /* TTSampleMatrix.h */,
 			);
 			name = includes;
@@ -185,7 +189,6 @@
 		A752BBE216373BC5007CE627 /* sources */ = {
 			isa = PBXGroup;
 			children = (
-				22C57C7C15EC21C600B755FA /* TTDSP.cpp */,
 				22C57C7515EC21C600B755FA /* TTAudioEngine.cpp */,
 				22C57C7615EC21C600B755FA /* TTAudioObject.cpp */,
 				22C57C7715EC21C600B755FA /* TTAudioObjectArray.cpp */,
@@ -193,6 +196,7 @@
 				22C57C7915EC21C600B755FA /* TTAudioSignalArray.cpp */,
 				22C57C7A15EC21C600B755FA /* TTBuffer.cpp */,
 				22C57C7B15EC21C600B755FA /* TTDelay.cpp */,
+				22C57C7C15EC21C600B755FA /* TTDSP.cpp */,
 				22C57C7D15EC21C600B755FA /* TTSampleMatrix.cpp */,
 			);
 			name = sources;
