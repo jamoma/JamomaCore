@@ -500,6 +500,26 @@ void data_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 }
 #endif
 
+#ifndef JMOD_MESSAGE
+void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue v;
+	
+	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
+	selectedObject->sendMessage(TT("Inc"), v, kTTValNONE);
+}
+
+void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTValue v;
+	
+	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
+	selectedObject->sendMessage(TT("Dec"), v, kTTValNONE);
+}
+#endif
+
 #ifndef JMOD_RETURN
 void data_array_return_value(TTPtr baton, TTValue& v)
 {
@@ -629,25 +649,5 @@ t_max_err data_set_format(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av)
 		x->arrayAttrFormat = gensym("single");
 	}
 	return MAX_ERR_NONE;
-}
-#endif
-
-#ifndef JMOD_MESSAGE
-void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue v;
-	
-	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Inc"), v, kTTValNONE);
-}
-
-void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue v;
-	
-	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Dec"), v, kTTValNONE);
 }
 #endif
