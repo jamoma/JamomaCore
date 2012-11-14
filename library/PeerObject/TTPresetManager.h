@@ -69,7 +69,7 @@ private:
 	TTErr	Rename(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Copy a preset : 
-	 name : copy the preset. */
+	 name : copy the preset (and optionally give a new name + a position) */
 	TTErr	Copy(const TTValue& inputValue, TTValue& outputValue);	
 	
 	/**  needed to be handled by a TTXmlHandler */

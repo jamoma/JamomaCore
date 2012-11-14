@@ -108,7 +108,7 @@ private:
 	TTErr	Rename(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Copy a cue : 
-	 name : copy the cue. */
+	 name : copy the cue (and optionally give a new name + a position)  */
 	TTErr	Copy(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Sequence a sub set of cues clearing redundant command lines :

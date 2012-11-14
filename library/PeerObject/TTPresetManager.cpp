@@ -474,6 +474,7 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 	TTPresetPtr	aPresetCopy;
 	TTSymbolPtr nameCopy;
 	TTString	s;
+    TTInt32     positionCopy;
 	TTValue		v, args;
 	
 	// get preset name
@@ -498,10 +499,17 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 		// copy the current preset into
 		TTPresetCopy(mCurrentPreset, aPresetCopy);
 		
-		// edit a name copy : current preset name - copy
-		s = mCurrent->getCString();
-		s += " - copy";
-		nameCopy = TT(s.data());
+        // maybe there is a name for the copy
+        if (inputValue.getSize() >= 2 && inputValue.getType(1) == kTypeSymbol) {
+            inputValue.get(1, &nameCopy);
+            
+        }
+        else {
+            // edit a name copy : current cue name - copy
+            s = mCurrent->getCString();
+            s += " - copy";
+            nameCopy = TT(s.data());
+        }
 		
 		// rename the copy
 		aPresetCopy->setAttributeValue(kTTSym_name, nameCopy);
@@ -513,9 +521,17 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 		mCurrent = nameCopy;
 		mCurrentPosition = mOrder.getSize();
 		
-		notifyOrderObservers();
-		
-		return kTTErrNone;
+		// maybe there is a position for the copy
+        if (inputValue.getSize() == 3 && inputValue.getType(2) == kTypeInt32) {
+            
+            inputValue.get(2, positionCopy);
+            
+            v = mCurrentPosition;
+            v.append((int)positionCopy);
+            return Move(v, kTTValNONE);
+        }
+        else
+            return notifyOrderObservers();
 	}
 	
 	return kTTErrGeneric;

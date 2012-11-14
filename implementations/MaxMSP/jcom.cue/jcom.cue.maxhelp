@@ -35,8 +35,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 318.0, 228.0, 55.0, 18.0 ],
-					"text" : "copy Init"
+					"patching_rect" : [ 318.0, 228.0, 113.0, 18.0 ],
+					"text" : "copy Init InitCopy 1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -52,7 +53,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 182.0, 228.0, 132.0, 18.0 ],
-					"text" : "rename 2 \"Act I - Intro\""
+					"text" : "rename 2 \"Act I - Intro\"",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -68,7 +70,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 182.0, 204.0, 60.0, 18.0 ],
-					"text" : "move 2 3"
+					"text" : "move 2 3",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -84,7 +87,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 182.0, 185.0, 137.0, 18.0 ],
-					"text" : "move \"Act I - Scene I\" 1"
+					"text" : "move \"Act I - Scene I\" 1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -113,7 +117,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 489.0, 508.0, 126.0, 18.0 ],
-					"text" : "current/description $1"
+					"text" : "current/description $1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -177,7 +182,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 472.0, 44.0, 18.0 ],
-					"text" : "output"
+					"text" : "output",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -193,7 +199,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 83.0, 452.0, 54.0, 18.0 ],
-					"text" : "output 1"
+					"text" : "output 1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -223,7 +230,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 452.0, 63.0, 18.0 ],
-					"text" : "output Init"
+					"text" : "output Init",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -252,7 +260,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 69.0, 357.0, 40.0, 18.0 ],
-					"text" : "edit 1"
+					"text" : "edit 1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -268,7 +277,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 90.0, 266.0, 61.0, 18.0 ],
-					"text" : "remove 1"
+					"text" : "remove 1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -284,7 +294,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 79.0, 174.0, 49.0, 18.0 ],
-					"text" : "recall 1"
+					"text" : "recall 1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -361,7 +372,8 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 214.0, 143.0, 109.0, 18.0 ],
-									"text" : "mix 1 $1 2 $2 3 $3"
+									"text" : "mix 1 $1 2 $2 3 $3",
+									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
 							}
@@ -407,7 +419,8 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 214.0, 25.0, 103.0, 18.0 ],
-									"text" : "interpolate 1 2 $1"
+									"text" : "interpolate 1 2 $1",
+									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
 							}
@@ -424,7 +437,8 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 7.0, 143.0, 170.0, 32.0 ],
-									"text" : "mix Init $1 \"Act I - Scene I\" $2 \"Act I - Scene II\" $3"
+									"text" : "mix Init $1 \"Act I - Scene I\" $2 \"Act I - Scene II\" $3",
+									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
 							}
@@ -470,7 +484,8 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 7.0, 25.0, 190.0, 18.0 ],
-									"text" : "interpolate Init \"Act I - Scene I\" $1"
+									"text" : "interpolate Init \"Act I - Scene I\" $1",
+									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
 							}
@@ -564,13 +579,13 @@
 ,
 					"patching_rect" : [ 863.0, 132.0, 120.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
 						"globalpatchername" : "",
-						"fontface" : 0
+						"fontface" : 0,
+						"default_fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p about_mixing",
@@ -645,7 +660,8 @@
 									"presentation" : 1,
 									"presentation_linecount" : 2,
 									"presentation_rect" : [ 445.0, 285.0, 75.0, 32.0 ],
-									"text" : "namespace none"
+									"text" : "namespace none",
+									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
 							}
@@ -781,13 +797,13 @@
 ,
 									"patching_rect" : [ 289.0, 238.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
+										"fontname" : "Arial",
 										"globalpatchername" : "",
-										"fontface" : 0
+										"fontface" : 0,
+										"default_fontface" : 0,
+										"fontsize" : 12.0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p press_cmd"
@@ -854,7 +870,8 @@
 									"presentation" : 1,
 									"presentation_linecount" : 2,
 									"presentation_rect" : [ 300.0, 3.0, 78.0, 32.0 ],
-									"text" : "namespace mySelection"
+									"text" : "namespace mySelection",
+									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
 							}
@@ -1173,13 +1190,13 @@
 ,
 									"patching_rect" : [ 44.0, 299.0, 79.0, 20.0 ],
 									"saved_object_attributes" : 									{
-										"fontsize" : 12.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"fontname" : "Arial",
 										"default_fontsize" : 12.0,
+										"fontname" : "Arial",
 										"globalpatchername" : "",
-										"fontface" : 0
+										"fontface" : 0,
+										"default_fontface" : 0,
+										"fontsize" : 12.0,
+										"default_fontname" : "Arial"
 									}
 ,
 									"text" : "p press_cmd"
@@ -1616,13 +1633,13 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 825.0, 87.0, 136.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
 						"globalpatchername" : "",
-						"fontface" : 0
+						"fontface" : 0,
+						"default_fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p about_selection",
@@ -1654,7 +1671,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 455.0, 254.0, 127.0, 18.0 ],
-					"text" : "namespace/select Init"
+					"text" : "namespace/select Init",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -1669,7 +1687,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 455.0, 230.0, 160.0, 18.0 ],
-					"text" : "namespace/clear /degrade~"
+					"text" : "namespace/clear /degrade~",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -1735,7 +1754,8 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 16.0, 242.0, 267.0, 18.0 ],
-									"text" : "sequence initialState anotherState optionalState"
+									"text" : "sequence initialState anotherState optionalState",
+									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
 							}
@@ -1751,7 +1771,8 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 16.0, 219.0, 195.0, 18.0 ],
-									"text" : "sequence initialState optionalState"
+									"text" : "sequence initialState optionalState",
+									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
 							}
@@ -1862,7 +1883,8 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 16.0, 196.0, 193.0, 18.0 ],
-									"text" : "sequence initialState anotherState"
+									"text" : "sequence initialState anotherState",
+									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
 							}
@@ -1947,13 +1969,13 @@
 ,
 					"patching_rect" : [ 824.0, 80.0, 159.0, 25.0 ],
 					"saved_object_attributes" : 					{
-						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
+						"fontname" : "Arial",
 						"globalpatchername" : "",
-						"fontface" : 0
+						"fontface" : 0,
+						"default_fontface" : 0,
+						"fontsize" : 12.0,
+						"default_fontname" : "Arial"
 					}
 ,
 					"text" : "p about_sequencing",
@@ -1972,7 +1994,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 412.0, 437.0, 95.0, 18.0 ],
-					"text" : "current/ramp $1"
+					"text" : "current/ramp $1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2029,7 +2052,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 455.0, 167.0, 159.0, 18.0 ],
-					"text" : "namespace/remove /mouse"
+					"text" : "namespace/remove /mouse",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2044,7 +2068,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 455.0, 186.0, 220.0, 18.0 ],
-					"text" : "namespace/remove /degrade~/bitdepth"
+					"text" : "namespace/remove /degrade~/bitdepth",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2059,7 +2084,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 455.0, 211.0, 102.0, 18.0 ],
-					"text" : "namespace/clear"
+					"text" : "namespace/clear",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2088,7 +2114,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 417.0, 32.5, 18.0 ],
-					"text" : "edit"
+					"text" : "edit",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2104,7 +2131,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 397.0, 120.0, 18.0 ],
-					"text" : "edit \"Act I - Scene II\""
+					"text" : "edit \"Act I - Scene II\"",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2120,7 +2148,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 377.0, 117.0, 18.0 ],
-					"text" : "edit \"Act I - Scene I\""
+					"text" : "edit \"Act I - Scene I\"",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2136,7 +2165,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 357.0, 49.0, 18.0 ],
-					"text" : "edit Init"
+					"text" : "edit Init",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2151,7 +2181,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 455.0, 141.0, 220.0, 18.0 ],
-					"text" : "namespace/append /degrade~/bitdepth"
+					"text" : "namespace/append /degrade~/bitdepth",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2287,7 +2318,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 182.0, 148.0, 127.0, 32.0 ],
-					"text" : "order \"Act I - Scene I\" \"Act I - Scene II\" Init"
+					"text" : "order \"Act I - Scene I\" \"Act I - Scene II\" Init",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2354,7 +2386,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-63",
-					"items" : [ "Init", ",", "Init - copy" ],
+					"items" : [ "Init", ",", "Act I - Scene I", ",", "Act I - Scene II", ",", "InitCopy" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -2433,7 +2465,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 326.0, 51.0, 18.0 ],
-					"text" : "remove"
+					"text" : "remove",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2449,7 +2482,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 306.0, 141.0, 18.0 ],
-					"text" : "remove \"Act I - Scene II\""
+					"text" : "remove \"Act I - Scene II\"",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2465,7 +2499,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 286.0, 138.0, 18.0 ],
-					"text" : "remove \"Act I - Scene I\""
+					"text" : "remove \"Act I - Scene I\"",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2481,7 +2516,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 266.0, 70.0, 18.0 ],
-					"text" : "remove Init"
+					"text" : "remove Init",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2497,7 +2533,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 214.0, 130.0, 18.0 ],
-					"text" : "recall \"Act I - Scene II\""
+					"text" : "recall \"Act I - Scene II\"",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2513,7 +2550,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 103.0, 124.0, 18.0 ],
-					"text" : "store \"Act I - Scene I\""
+					"text" : "store \"Act I - Scene I\"",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2529,7 +2567,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 83.0, 57.0, 18.0 ],
-					"text" : "store Init"
+					"text" : "store Init",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2545,7 +2584,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 123.0, 128.0, 18.0 ],
-					"text" : "store \"Act I - Scene II\""
+					"text" : "store \"Act I - Scene II\"",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2561,7 +2601,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 194.0, 126.0, 18.0 ],
-					"text" : "recall \"Act I - Scene I\""
+					"text" : "recall \"Act I - Scene I\"",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2577,7 +2618,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 174.0, 59.0, 18.0 ],
-					"text" : "recall Init"
+					"text" : "recall Init",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2593,7 +2635,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 182.0, 83.0, 37.0, 18.0 ],
-					"text" : "clear"
+					"text" : "clear",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2609,7 +2652,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 143.0, 37.0, 18.0 ],
-					"text" : "store"
+					"text" : "store",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2625,7 +2669,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 182.0, 123.0, 36.0, 18.0 ],
-					"text" : "write"
+					"text" : "write",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2641,7 +2686,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 182.0, 103.0, 35.0, 18.0 ],
-					"text" : "read"
+					"text" : "read",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2657,7 +2703,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 18.0, 234.0, 39.0, 18.0 ],
-					"text" : "recall"
+					"text" : "recall",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -2753,7 +2800,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 455.0, 122.0, 216.0, 18.0 ],
-					"text" : "namespace/append /mouse /degrade~"
+					"text" : "namespace/append /mouse /degrade~",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
