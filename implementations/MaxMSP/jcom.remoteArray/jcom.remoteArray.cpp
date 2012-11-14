@@ -753,7 +753,10 @@ void remote_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
+    if (x->arrayAttrFormat == gensym("array"))
+        outlet_anything(x->outlets[set_out], gensym("setlist"), x->argc, x->argv);
+    else
+        outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
 }
 
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
