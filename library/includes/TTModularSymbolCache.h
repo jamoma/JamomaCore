@@ -43,13 +43,13 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_address;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_addresses;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_alias;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_alphabetic;
-extern TTMODULAR_EXPORT TTSymbol kTTSym_attributes;
+extern TTMODULAR_EXPORT TTSymbol    kTTSym_attributes;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_array;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_boolean;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_brothers;
 
-extern TTMODULAR_EXPORT TTSymbol kTTSym_children;
+extern TTMODULAR_EXPORT TTSymbol    kTTSym_children;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_command;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Command;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_comment;
@@ -83,7 +83,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_highlight;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Init;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_initialized;
-extern TTMODULAR_EXPORT TTSymbol kTTSym_instances;
+extern TTMODULAR_EXPORT TTSymbol    kTTSym_instances;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_integer;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_life;
@@ -133,6 +133,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_tag;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_unit;
 
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_value;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_valueDefault;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_valueStepsize;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_viewFreeze;
@@ -140,8 +141,6 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_view;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Write;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_WriteAgain;
-
-void TTModularSymbolCacheInit();
 
 #endif // __TT_MODULAR_SYMBOL_CACHE_H__
 

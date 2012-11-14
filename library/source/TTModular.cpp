@@ -64,7 +64,6 @@ void TTModularInit()
 		TTViewer::registerClass();
 		TTXmlHandler::registerClass();
 		
-		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
 		
 		// to - this a very strange bug : the two first toString() parsing on number failed !?!

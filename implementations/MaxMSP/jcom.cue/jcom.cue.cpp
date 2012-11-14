@@ -137,7 +137,7 @@ void cue_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
-	TTAddress			absoluteAddress;
+	TTAddress                   absoluteAddress;
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
