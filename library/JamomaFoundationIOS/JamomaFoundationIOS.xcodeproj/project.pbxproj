@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22570090165463B9003D9DFB /* TTSymbolBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2257008F165463B9003D9DFB /* TTSymbolBase.cpp */; };
 		2297CF6714901C7900CC6D7E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2297CF6614901C7900CC6D7E /* Foundation.framework */; };
 		2297CF6D14901C7900CC6D7E /* JamomaFoundationIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2297CF6C14901C7900CC6D7E /* JamomaFoundationIOS.m */; };
 		2297CFB914901CBA00CC6D7E /* TTFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CF7614901CB900CC6D7E /* TTFoundation.h */; };
@@ -54,7 +55,6 @@
 		2297CFE314901CBA00CC6D7E /* TTValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFA014901CB900CC6D7E /* TTValue.h */; };
 		2297CFE414901CBA00CC6D7E /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFA114901CB900CC6D7E /* TTValue.cpp */; };
 		2297CFE514901CBA00CC6D7E /* TTSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFA214901CB900CC6D7E /* TTSymbol.h */; };
-		2297CFE614901CBA00CC6D7E /* TTSymbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFA314901CB900CC6D7E /* TTSymbol.cpp */; };
 		2297CFE714901CBA00CC6D7E /* TTSymbolCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFA414901CB900CC6D7E /* TTSymbolCache.h */; };
 		2297CFE814901CBA00CC6D7E /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFA514901CB900CC6D7E /* TTSymbolCache.cpp */; };
 		2297CFE914901CBA00CC6D7E /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFA614901CB900CC6D7E /* TTSymbolTable.h */; };
@@ -67,6 +67,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2257008F165463B9003D9DFB /* TTSymbolBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolBase.cpp; path = ../source/TTSymbolBase.cpp; sourceTree = "<group>"; };
 		2297CF6314901C7900CC6D7E /* libJamomaFoundationIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJamomaFoundationIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2297CF6614901C7900CC6D7E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2297CF6A14901C7900CC6D7E /* JamomaFoundationIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JamomaFoundationIOS-Prefix.pch"; sourceTree = "<group>"; };
@@ -117,7 +118,6 @@
 		2297CFA014901CB900CC6D7E /* TTValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValue.h; path = ../includes/TTValue.h; sourceTree = "<group>"; };
 		2297CFA114901CB900CC6D7E /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = ../source/TTValue.cpp; sourceTree = "<group>"; };
 		2297CFA214901CB900CC6D7E /* TTSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbol.h; path = ../includes/TTSymbol.h; sourceTree = "<group>"; };
-		2297CFA314901CB900CC6D7E /* TTSymbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbol.cpp; path = ../source/TTSymbol.cpp; sourceTree = "<group>"; };
 		2297CFA414901CB900CC6D7E /* TTSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolCache.h; path = ../includes/TTSymbolCache.h; sourceTree = "<group>"; };
 		2297CFA514901CB900CC6D7E /* TTSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolCache.cpp; path = ../source/TTSymbolCache.cpp; sourceTree = "<group>"; };
 		2297CFA614901CB900CC6D7E /* TTSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolTable.h; path = ../includes/TTSymbolTable.h; sourceTree = "<group>"; };
@@ -144,6 +144,7 @@
 		2297CF5814901C7900CC6D7E = {
 			isa = PBXGroup;
 			children = (
+				2257008F165463B9003D9DFB /* TTSymbolBase.cpp */,
 				2297CF7614901CB900CC6D7E /* TTFoundation.h */,
 				2297CF7714901CB900CC6D7E /* TTFoundation.cpp */,
 				2297CF7814901CB900CC6D7E /* TTCallback.h */,
@@ -189,7 +190,6 @@
 				2297CFA014901CB900CC6D7E /* TTValue.h */,
 				2297CFA114901CB900CC6D7E /* TTValue.cpp */,
 				2297CFA214901CB900CC6D7E /* TTSymbol.h */,
-				2297CFA314901CB900CC6D7E /* TTSymbol.cpp */,
 				2297CFA414901CB900CC6D7E /* TTSymbolCache.h */,
 				2297CFA514901CB900CC6D7E /* TTSymbolCache.cpp */,
 				2297CFA614901CB900CC6D7E /* TTSymbolTable.h */,
@@ -302,7 +302,7 @@
 		2297CF5A14901C7900CC6D7E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = 2297CF5D14901C7900CC6D7E /* Build configuration list for PBXProject "JamomaFoundationIOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -349,12 +349,12 @@
 				2297CFE014901CBA00CC6D7E /* TTMatrixMath.cpp in Sources */,
 				2297CFE214901CBA00CC6D7E /* TTMatrixArray.cpp in Sources */,
 				2297CFE414901CBA00CC6D7E /* TTValue.cpp in Sources */,
-				2297CFE614901CBA00CC6D7E /* TTSymbol.cpp in Sources */,
 				2297CFE814901CBA00CC6D7E /* TTSymbolCache.cpp in Sources */,
 				2297CFEA14901CBA00CC6D7E /* TTSymbolTable.cpp in Sources */,
 				2297CFF714901CBA00CC6D7E /* TTMatrix.test.cpp in Sources */,
 				2297CFF914901CBA00CC6D7E /* TTValue.test.cpp in Sources */,
 				2297CFFB14901CBA00CC6D7E /* TTNodeLib.test.cpp in Sources */,
+				22570090165463B9003D9DFB /* TTSymbolBase.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,13 +366,16 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CXX0X_EXTENSIONS = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					DISABLE_NODELIB,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -389,8 +392,11 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CXX0X_EXTENSIONS = YES;
 				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = DISABLE_NODELIB;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
