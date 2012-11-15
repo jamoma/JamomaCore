@@ -23,9 +23,9 @@ typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 	It may also potentially be used to override functions that take the numbers in either order. For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order. However, video processing objects will likely access elements in TTColumnID, TTRowID order.
 	
  */
-typedef TTUInt32 TTRowID;
-typedef TTUInt32 TTColumnID;
-typedef TTUInt16 TTElementID;
+typedef TTInt32 TTRowID;
+typedef TTInt32 TTColumnID;
+typedef TTInt16 TTElementID;
 // TODO: should there be a similar typedef for results of math operations that combine these values, i.e. TTIndexMathType?
 
 /****************************************************************************************************/
@@ -47,12 +47,12 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 protected:	
 
 	TTBytePtr			mData;					///< matrix of values
-	vector<TTUInt32>	mDimensions;			///< variable dimensions - @deprecated use mRowCount and mColumnCount instead
-	TTRowID				mRowCount;				///< How many rows of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
-	TTColumnID			mColumnCount;			///< How many columns of values the matrix should have. Uses an unsigned 32-bit integer which provides a maximum value of 4,294,967,295.
-	TTElementID			mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an unsigned 16-bit integer which provides a maximum value of 65,535.
+	vector<TTInt32>		mDimensions;			///< variable dimensions - @deprecated use mRowCount and mColumnCount instead
+	TTRowID				mRowCount;				///< How many rows of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
+	TTColumnID			mColumnCount;			///< How many columns of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
+	TTElementID			mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an signed 16-bit integer which provides a maximum value of 32,767.
 	TTUInt32			mComponentCount;		///< mRowCount * mColumnCount
-	TTUInt8				mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
+	TTUInt32			mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
 	TTDataType			mType;					///< member of global enumerated list TTBase::TTDataType (i.e., kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, kTypeFloat64)
 	TTDataInfoPtr		mTypeAsDataInfo;		///< pointer to info about the data type found in TTBase::ttDataTypeInfo
@@ -127,11 +127,11 @@ public:
 	*/
 	TTErr setDimensions(const TTValue& someNewDimensions);
 	
-	/**	Alternative to attribute accessor. Set the values of mRowCount and mColumnCount with a TTUInt32 vector (instead of using  TTValue array). Values beyond the first two items in the vector will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. 
-		@param	newDimensions	a 2-item TTUInt32 vector with the desired mRowCount and mColumnCount 	
+	/**	Alternative to attribute accessor. Set the values of mRowCount and mColumnCount with a TTInt32 vector (instead of using  TTValue array). Values beyond the first two items in the vector will be ignored without an error. Values that are less than 1 will return an error. Support for N dimensions has been deprecated. 
+		@param	newDimensions	a 2-item TTInt32 vector with the desired mRowCount and mColumnCount 	
 		@return	TTErr			kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
 	*/
-	TTErr setDimensionsWithVector(const vector<TTUInt32>& newDimensions)
+	TTErr setDimensionsWithVector(const vector<TTInt32>& newDimensions)
 	{
 		if (this->setRowCountWithoutResize(newDimensions[0]) &&
 			this->setColumnCountWithoutResize(newDimensions[1]))

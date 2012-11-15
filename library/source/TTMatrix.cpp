@@ -223,8 +223,8 @@ TTErr TTMatrix::getType(TTValue& returnedType) const
 TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 {
 	returnedDimensions.setSize(2);
-	returnedDimensions.set(0, mRowCount);
-	returnedDimensions.set(1, mColumnCount);
+	returnedDimensions.set(0, TTUInt32(mRowCount)); // compile fails if we don't cast mRowCount here
+	returnedDimensions.set(1, TTUInt32(mColumnCount)); // compile fails if we don't cast mColumnCount here
 	
 	return kTTErrNone;
 }
@@ -278,10 +278,10 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 	if (dimensionCount != 2) // 2 dimensions only
 		return kTTErrWrongNumValues;
 
-	TTUInt32 i, j, index;
+	TTInt32 i, j;
 	anInputValue.get(0, i);
 	anInputValue.get(1, j);
-	index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+	TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
 	
 	// TODO: there is no bounds checking here
 	
@@ -322,10 +322,10 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 
 	theValue.copyFrom(anInputValue, dimensionCount);
 
-	TTUInt32 i, j, index;
+	TTInt32 i, j;
 	anInputValue.get(0, i);
 	anInputValue.get(1, j);
-	index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+	TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
 	
 	// TODO: there is no bounds checking here
 	
