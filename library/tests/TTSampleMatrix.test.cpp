@@ -18,8 +18,11 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTUInt16			numChannels = 2;
 	TTUInt16			numSamples = 50000;
 	TTFloat32			duration = 1500;
+	TTUInt32			test9Index = 10;
+	TTUInt32			test10Index = 11;
 	TTUInt32			test1Return, test2Return, test7Return, test8Return;
 	TTFloat32			test3Return, test6Return;
+	TTSampleValue		test9Return, test10Return, test11Return, test12return;
 	
 	TTTestLog("Test resizing of the SampleMatrix...");
 	
@@ -157,6 +160,121 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	{
 		TTTestLog("Expected a value of %i, but returned value was %i", computedDataSize8, this->mDataSize);	
 	}
+	
+	
+	// TEST 9 & 10: set the value of two consecutive samples
+	TTSampleValue pokeValue9 = TTRandom64();
+	TTSampleValue pokeValue10 = TTRandom64();
+	
+	this->poke(test9Index, 1, pokeValue9);
+	this->poke(test10Index, 1, pokeValue10);
+	
+	this->peek(test9Index, 1, test9Return);
+	this->peek(test10Index, 1, test10Return);
+	
+	TTBoolean result9 = { pokeValue9 == test9Return };
+	
+	TTTestAssertion("set value one of two consecutive samples", 
+								result9, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result9)
+	{
+		TTTestLog("Expected a value of %f, but returned value was %f", pokeValue9, test9Return);
+	}
+	
+	TTBoolean result10 = { pokeValue10 == test10Return };
+	
+	TTTestAssertion("set value two of two consecutive samples", 
+								result10, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result10)
+	{
+		TTTestLog("Expected a value of %f, but returned value was %f", pokeValue10, test10Return);
+	}
+	
+	
+	// TEST 11: test for interpolation between two consecutive samples
+	TTFloat64 computedInterpFraction = TTRandom64();
+	TTFloat64 computedInterpIndex = test9Index + computedInterpFraction;
+	TTSampleValue computedInterpValue11 = (computedInterpFraction * pokeValue9) + ((1.0 - computedInterpFraction) * pokeValue10);
+	
+	this->peeki(computedInterpIndex, 1, test11Return);
+	
+	TTBoolean result11 = TTTestFloatEquivalence(computedInterpValue11, test11Return);
+	
+	TTTestAssertion("interpolate between two consecutive samples", 
+								result11, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result11)
+	{
+		TTTestLog("Expected a value of %f, but returned value was %f", computedInterpValue11, test11Return);
+	}
+	
+	/*
+	// TODO: inbounds testing on hold until sorted out at TTMatrix parent class
+	
+	// TEST 12: test the new inBounds method
+	
+	TTUInt32 computedSampleAfterTail12 = -10; //test7Return + 5;
+	TTErr test12Err = this->peek(computedSampleAfterTail12, 1, test12return);
+	
+	TTTestAssertion("retrieving sample out of bounds produces an error", 
+								test12Err == kTTErrInvalidValue, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(test12Err != kTTErrInvalidValue)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrInvalidValue, test12Err);
+	}
+	
+	
+	TTUInt32 computedDistanceFromHead12 = test7Return * test1Return
+	
+	computedDistanceFromHead12 -= 50; // 50 before tail
+	TTBoolean result12 = this->inBounds(computedDistanceFromHead12);
+	
+	if(result12)
+	{
+		TTTestLog("Testing in bounds 12 returned true, %i", computedDistanceFromHead12);
+	}
+	
+	computedDistanceFromHead12 += 50; // at tail
+	TTBoolean result13 = this->inBounds(computedDistanceFromHead12);
+	
+	if(result13)
+	{
+		TTTestLog("Testing in bounds 13 returned true, %i", computedDistanceFromHead12);
+	}
+	
+	computedDistanceFromHead12 += 1; // 1 after tail
+	TTBoolean result14 = this->inBounds(computedDistanceFromHead12);
+	
+	if(!result14)
+	{
+		TTTestLog("Testing in bounds 14 returned false, %i", computedDistanceFromHead12);
+	}
+	
+	TTBoolean result15 = this->inBounds(-1);
+	
+	if(!result15)
+	{
+		TTTestLog("Negative values return false: %i", -1);
+	}
+	
+	TTBoolean result16 = this->inBounds(0);
+	
+	if(!result16)
+	{
+		TTTestLog("Zero returns false: %i", 0);
+	}
+	*/
 	
 	/*
 	

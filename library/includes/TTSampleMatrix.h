@@ -1,6 +1,6 @@
 /* 
- * Jamoma DSP Audio Buffer Object 
- * Copyright © 2003, Timothy Place
+ * Jamoma DSP Sample Matrix Object 
+ * Copyright © 2003-2012, Timothy Place & Nathan Wolek
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -11,6 +11,8 @@
 
 #include "TTDSP.h"
 
+#define mLengthInSamples mRowCount
+#define mNumChannels mColumnCount
 
 /**	TTSampleMatrix is a container object that holds some audio in a chunk of memory.
 	Other objects can then access this buffer to record into it, play back from it,
@@ -46,7 +48,7 @@ public:
  	TTErr getLengthInSamples(TTValue& returnedLengthInSamples);	
   	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)
 	{
-		returnedLengthInSamples = mDimensions[1];
+		returnedLengthInSamples = mLengthInSamples;
 		return kTTErrNone;
 	}
 
@@ -60,6 +62,7 @@ public:
 
 	TTErr	getValueAtIndex(const TTValue& index, TTValue &output);
 	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value);
+	TTErr	peeki(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value);
 	
 	/**	Set the sample value for a given index.
 		The first number passed in the index parameter will be interpreted as the sample index.
