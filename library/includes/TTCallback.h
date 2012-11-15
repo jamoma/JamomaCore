@@ -38,8 +38,7 @@ public:
 	
 	TTSymbol					mOwner;		///< A symbol usefull to know the owner of the TTCallback
 	
-	/**	Message called because we are registered as an observer to some other object, and then 
-	 calls our external function.
+	/**	Message called because we are registered as an observer to some other object, and then calls our external function.
 	 @param anInputValue			TODO: Add info
 	 @param anUnusedOutputValue		TODO: Add info
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
