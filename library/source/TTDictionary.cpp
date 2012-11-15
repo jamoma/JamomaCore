@@ -19,6 +19,7 @@
 #include "TTSymbolTable.h"
 
 
+void TTDictionaryFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found);
 void TTDictionaryFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found)
 {
 	TTKeyValPtr keyval = TTKeyValPtr(TTPtr(valueToCheck));
