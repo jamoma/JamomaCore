@@ -64,6 +64,33 @@
 		2297CFF914901CBA00CC6D7E /* TTValue.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFB614901CB900CC6D7E /* TTValue.test.cpp */; };
 		2297CFFA14901CBA00CC6D7E /* TTNodeLib.test.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFB714901CB900CC6D7E /* TTNodeLib.test.h */; };
 		2297CFFB14901CBA00CC6D7E /* TTNodeLib.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFB814901CB900CC6D7E /* TTNodeLib.test.cpp */; };
+		A79E8F07165467B90004C9A1 /* TTRegex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F06165467B90004C9A1 /* TTRegex.cpp */; };
+		A79E8F09165467FE0004C9A1 /* TTFifo.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F08165467FD0004C9A1 /* TTFifo.h */; };
+		A79E8F0B1654680F0004C9A1 /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F0A1654680F0004C9A1 /* TTFoundationAPI.h */; };
+		A79E8F0D165468230004C9A1 /* TTRegex.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F0C165468230004C9A1 /* TTRegex.h */; };
+		A79E8F131654684B0004C9A1 /* TTAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F0E1654684B0004C9A1 /* TTAddress.h */; };
+		A79E8F141654684B0004C9A1 /* TTAddressBase.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F0F1654684B0004C9A1 /* TTAddressBase.h */; };
+		A79E8F151654684B0004C9A1 /* TTAddressCache.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F101654684B0004C9A1 /* TTAddressCache.h */; };
+		A79E8F161654684B0004C9A1 /* TTAddressItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F111654684B0004C9A1 /* TTAddressItem.h */; };
+		A79E8F171654684B0004C9A1 /* TTAddressTable.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F121654684B0004C9A1 /* TTAddressTable.h */; };
+		A79E8F191654685B0004C9A1 /* TTNodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F181654685B0004C9A1 /* TTNodeLib.h */; };
+		A79E8F201654688D0004C9A1 /* TTAddress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F1B1654688C0004C9A1 /* TTAddress.cpp */; };
+		A79E8F211654688D0004C9A1 /* TTAddressBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F1C1654688C0004C9A1 /* TTAddressBase.cpp */; };
+		A79E8F221654688D0004C9A1 /* TTAddressCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F1D1654688D0004C9A1 /* TTAddressCache.cpp */; };
+		A79E8F231654688D0004C9A1 /* TTAddressItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F1E1654688D0004C9A1 /* TTAddressItem.cpp */; };
+		A79E8F241654688D0004C9A1 /* TTAddressTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F1F1654688D0004C9A1 /* TTAddressTable.cpp */; };
+		A79E8F26165468B80004C9A1 /* TTNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F25165468B80004C9A1 /* TTNode.cpp */; };
+		A79E8F28165468CF0004C9A1 /* TTNode.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F27165468CF0004C9A1 /* TTNode.h */; };
+		A79E8F2A165468E30004C9A1 /* TTNodeDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F29165468E30004C9A1 /* TTNodeDirectory.h */; };
+		A79E8F2C165468F90004C9A1 /* TTNodeDirectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F2B165468F80004C9A1 /* TTNodeDirectory.cpp */; };
+		A79E8F2E165469090004C9A1 /* TTNodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F2D165469080004C9A1 /* TTNodeLib.cpp */; };
+		A79E8F301654694B0004C9A1 /* TTString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F2F1654694B0004C9A1 /* TTString.cpp */; };
+		A79E8F32165469600004C9A1 /* TTString.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F31165469600004C9A1 /* TTString.h */; };
+		A79E8F36165469F10004C9A1 /* TTString.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F34165469F10004C9A1 /* TTString.test.cpp */; };
+		A79E8F37165469F10004C9A1 /* TTString.test.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F35165469F10004C9A1 /* TTString.test.h */; };
+		A79E8F3A16546A090004C9A1 /* TTSymbol.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F3816546A090004C9A1 /* TTSymbol.test.cpp */; };
+		A79E8F3B16546A090004C9A1 /* TTSymbol.test.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F3916546A090004C9A1 /* TTSymbol.test.h */; };
+		A79E8F3D16546A2E0004C9A1 /* TTSymbolBase.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F3C16546A2E0004C9A1 /* TTSymbolBase.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +154,33 @@
 		2297CFB614901CB900CC6D7E /* TTValue.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.test.cpp; path = ../tests/TTValue.test.cpp; sourceTree = "<group>"; };
 		2297CFB714901CB900CC6D7E /* TTNodeLib.test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeLib.test.h; path = ../tests/TTNodeLib.test.h; sourceTree = "<group>"; };
 		2297CFB814901CB900CC6D7E /* TTNodeLib.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeLib.test.cpp; path = ../tests/TTNodeLib.test.cpp; sourceTree = "<group>"; };
+		A79E8F06165467B90004C9A1 /* TTRegex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRegex.cpp; path = ../source/TTRegex.cpp; sourceTree = "<group>"; };
+		A79E8F08165467FD0004C9A1 /* TTFifo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFifo.h; path = ../includes/TTFifo.h; sourceTree = "<group>"; };
+		A79E8F0A1654680F0004C9A1 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../includes/TTFoundationAPI.h; sourceTree = "<group>"; };
+		A79E8F0C165468230004C9A1 /* TTRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTRegex.h; path = ../includes/TTRegex.h; sourceTree = "<group>"; };
+		A79E8F0E1654684B0004C9A1 /* TTAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAddress.h; path = ../includes/TTAddress.h; sourceTree = "<group>"; };
+		A79E8F0F1654684B0004C9A1 /* TTAddressBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAddressBase.h; path = ../includes/TTAddressBase.h; sourceTree = "<group>"; };
+		A79E8F101654684B0004C9A1 /* TTAddressCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAddressCache.h; path = ../includes/TTAddressCache.h; sourceTree = "<group>"; };
+		A79E8F111654684B0004C9A1 /* TTAddressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAddressItem.h; path = ../includes/TTAddressItem.h; sourceTree = "<group>"; };
+		A79E8F121654684B0004C9A1 /* TTAddressTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAddressTable.h; path = ../includes/TTAddressTable.h; sourceTree = "<group>"; };
+		A79E8F181654685B0004C9A1 /* TTNodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeLib.h; path = ../includes/TTNodeLib.h; sourceTree = "<group>"; };
+		A79E8F1B1654688C0004C9A1 /* TTAddress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAddress.cpp; path = ../source/TTAddress.cpp; sourceTree = "<group>"; };
+		A79E8F1C1654688C0004C9A1 /* TTAddressBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAddressBase.cpp; path = ../source/TTAddressBase.cpp; sourceTree = "<group>"; };
+		A79E8F1D1654688D0004C9A1 /* TTAddressCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAddressCache.cpp; path = ../source/TTAddressCache.cpp; sourceTree = "<group>"; };
+		A79E8F1E1654688D0004C9A1 /* TTAddressItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAddressItem.cpp; path = ../source/TTAddressItem.cpp; sourceTree = "<group>"; };
+		A79E8F1F1654688D0004C9A1 /* TTAddressTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAddressTable.cpp; path = ../source/TTAddressTable.cpp; sourceTree = "<group>"; };
+		A79E8F25165468B80004C9A1 /* TTNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNode.cpp; path = ../source/TTNode.cpp; sourceTree = "<group>"; };
+		A79E8F27165468CF0004C9A1 /* TTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNode.h; path = ../includes/TTNode.h; sourceTree = "<group>"; };
+		A79E8F29165468E30004C9A1 /* TTNodeDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeDirectory.h; path = ../includes/TTNodeDirectory.h; sourceTree = "<group>"; };
+		A79E8F2B165468F80004C9A1 /* TTNodeDirectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeDirectory.cpp; path = ../source/TTNodeDirectory.cpp; sourceTree = "<group>"; };
+		A79E8F2D165469080004C9A1 /* TTNodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeLib.cpp; path = ../source/TTNodeLib.cpp; sourceTree = "<group>"; };
+		A79E8F2F1654694B0004C9A1 /* TTString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTString.cpp; path = ../source/TTString.cpp; sourceTree = "<group>"; };
+		A79E8F31165469600004C9A1 /* TTString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTString.h; path = ../includes/TTString.h; sourceTree = "<group>"; };
+		A79E8F34165469F10004C9A1 /* TTString.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTString.test.cpp; path = ../tests/TTString.test.cpp; sourceTree = "<group>"; };
+		A79E8F35165469F10004C9A1 /* TTString.test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTString.test.h; path = ../tests/TTString.test.h; sourceTree = "<group>"; };
+		A79E8F3816546A090004C9A1 /* TTSymbol.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbol.test.cpp; path = ../tests/TTSymbol.test.cpp; sourceTree = "<group>"; };
+		A79E8F3916546A090004C9A1 /* TTSymbol.test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbol.test.h; path = ../tests/TTSymbol.test.h; sourceTree = "<group>"; };
+		A79E8F3C16546A2E0004C9A1 /* TTSymbolBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolBase.h; path = ../includes/TTSymbolBase.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,61 +198,12 @@
 		2297CF5814901C7900CC6D7E = {
 			isa = PBXGroup;
 			children = (
-				2257008F165463B9003D9DFB /* TTSymbolBase.cpp */,
-				2297CF7614901CB900CC6D7E /* TTFoundation.h */,
-				2297CF7714901CB900CC6D7E /* TTFoundation.cpp */,
-				2297CF7814901CB900CC6D7E /* TTCallback.h */,
-				2297CF7914901CB900CC6D7E /* TTCallback.cpp */,
-				2297CF7A14901CB900CC6D7E /* TTClass.h */,
-				2297CF7B14901CB900CC6D7E /* TTClass.cpp */,
-				2297CF7C14901CB900CC6D7E /* TTEnvironment.h */,
-				2297CF7D14901CB900CC6D7E /* TTEnvironment.cpp */,
-				2297CF7E14901CB900CC6D7E /* TTLimits.h */,
-				2297CF7F14901CB900CC6D7E /* TTMutex.h */,
-				2297CF8014901CB900CC6D7E /* TTMutex.cpp */,
-				2297CF8114901CB900CC6D7E /* TTPath.h */,
-				2297CF8214901CB900CC6D7E /* TTPath.cpp */,
-				2297CF8314901CB900CC6D7E /* TTQueue.h */,
-				2297CF8414901CB900CC6D7E /* TTQueue.cpp */,
-				2297CF8514901CB900CC6D7E /* TTThread.h */,
-				2297CF8614901CB900CC6D7E /* TTThread.cpp */,
-				2297CF8714901CB900CC6D7E /* TTUnitTest.h */,
-				2297CF8814901CB900CC6D7E /* TTUnitTest.cpp */,
-				2297CF8914901CB900CC6D7E /* TTValueCache.h */,
-				2297CF8A14901CB900CC6D7E /* TTValueCache.cpp */,
-				2297CF8B14901CB900CC6D7E /* TTAttribute.h */,
-				2297CF8C14901CB900CC6D7E /* TTAttribute.cpp */,
-				2297CF8D14901CB900CC6D7E /* TTDataObject.h */,
-				2297CF8E14901CB900CC6D7E /* TTDataObject.cpp */,
-				2297CF8F14901CB900CC6D7E /* TTBase.h */,
-				2297CF9014901CB900CC6D7E /* TTBase.cpp */,
-				2297CF9114901CB900CC6D7E /* TTMessage.h */,
-				2297CF9214901CB900CC6D7E /* TTMessage.cpp */,
-				2297CF9314901CB900CC6D7E /* TTObject.h */,
-				2297CF9414901CB900CC6D7E /* TTObject.cpp */,
-				2297CF9514901CB900CC6D7E /* TTDictionary.h */,
-				2297CF9614901CB900CC6D7E /* TTDictionary.cpp */,
-				2297CF9714901CB900CC6D7E /* TTHash.h */,
-				2297CF9814901CB900CC6D7E /* TTHash.cpp */,
-				2297CF9914901CB900CC6D7E /* TTList.h */,
-				2297CF9A14901CB900CC6D7E /* TTList.cpp */,
-				2297CF9B14901CB900CC6D7E /* TTMatrix.h */,
-				2297CF9C14901CB900CC6D7E /* TTMatrix.cpp */,
-				2297CF9D14901CB900CC6D7E /* TTMatrixMath.cpp */,
-				2297CF9E14901CB900CC6D7E /* TTMatrixArray.h */,
-				2297CF9F14901CB900CC6D7E /* TTMatrixArray.cpp */,
-				2297CFA014901CB900CC6D7E /* TTValue.h */,
-				2297CFA114901CB900CC6D7E /* TTValue.cpp */,
-				2297CFA214901CB900CC6D7E /* TTSymbol.h */,
-				2297CFA414901CB900CC6D7E /* TTSymbolCache.h */,
-				2297CFA514901CB900CC6D7E /* TTSymbolCache.cpp */,
-				2297CFA614901CB900CC6D7E /* TTSymbolTable.h */,
-				2297CFA714901CB900CC6D7E /* TTSymbolTable.cpp */,
-				2297CFB414901CB900CC6D7E /* TTMatrix.test.cpp */,
-				2297CFB514901CB900CC6D7E /* TTValue.test.h */,
-				2297CFB614901CB900CC6D7E /* TTValue.test.cpp */,
-				2297CFB714901CB900CC6D7E /* TTNodeLib.test.h */,
-				2297CFB814901CB900CC6D7E /* TTNodeLib.test.cpp */,
+				A79E8EFF165464920004C9A1 /* String & Symbols */,
+				A79E8F011654649E0004C9A1 /* Values */,
+				A79E8F05165464DA0004C9A1 /* TTNodeLib */,
+				A79E8F02165464AD0004C9A1 /* includes */,
+				A79E8F03165464BC0004C9A1 /* source */,
+				A79E8F04165464D10004C9A1 /* tests */,
 				2297CF6814901C7900CC6D7E /* JamomaFoundationIOS */,
 				2297CF6514901C7900CC6D7E /* Frameworks */,
 				2297CF6414901C7900CC6D7E /* Products */,
@@ -239,6 +244,130 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A79E8EFF165464920004C9A1 /* String & Symbols */ = {
+			isa = PBXGroup;
+			children = (
+				A79E8F2F1654694B0004C9A1 /* TTString.cpp */,
+				A79E8F31165469600004C9A1 /* TTString.h */,
+				A79E8F34165469F10004C9A1 /* TTString.test.cpp */,
+				A79E8F35165469F10004C9A1 /* TTString.test.h */,
+				2297CFA214901CB900CC6D7E /* TTSymbol.h */,
+				A79E8F3816546A090004C9A1 /* TTSymbol.test.cpp */,
+				A79E8F3916546A090004C9A1 /* TTSymbol.test.h */,
+				2257008F165463B9003D9DFB /* TTSymbolBase.cpp */,
+				A79E8F3C16546A2E0004C9A1 /* TTSymbolBase.h */,
+				2297CFA514901CB900CC6D7E /* TTSymbolCache.cpp */,
+				2297CFA414901CB900CC6D7E /* TTSymbolCache.h */,
+				2297CFA714901CB900CC6D7E /* TTSymbolTable.cpp */,
+				2297CFA614901CB900CC6D7E /* TTSymbolTable.h */,
+			);
+			name = "String & Symbols";
+			sourceTree = "<group>";
+		};
+		A79E8F011654649E0004C9A1 /* Values */ = {
+			isa = PBXGroup;
+			children = (
+				2297CFA014901CB900CC6D7E /* TTValue.h */,
+				2297CFA114901CB900CC6D7E /* TTValue.cpp */,
+				2297CFB514901CB900CC6D7E /* TTValue.test.h */,
+				2297CFB614901CB900CC6D7E /* TTValue.test.cpp */,
+				2297CF8914901CB900CC6D7E /* TTValueCache.h */,
+				2297CF8A14901CB900CC6D7E /* TTValueCache.cpp */,
+			);
+			name = Values;
+			sourceTree = "<group>";
+		};
+		A79E8F02165464AD0004C9A1 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				2297CF8B14901CB900CC6D7E /* TTAttribute.h */,
+				2297CF8F14901CB900CC6D7E /* TTBase.h */,
+				2297CF7814901CB900CC6D7E /* TTCallback.h */,
+				2297CF7A14901CB900CC6D7E /* TTClass.h */,
+				2297CF8D14901CB900CC6D7E /* TTDataObject.h */,
+				2297CF9514901CB900CC6D7E /* TTDictionary.h */,
+				2297CF7C14901CB900CC6D7E /* TTEnvironment.h */,
+				A79E8F08165467FD0004C9A1 /* TTFifo.h */,
+				2297CF7614901CB900CC6D7E /* TTFoundation.h */,
+				A79E8F0A1654680F0004C9A1 /* TTFoundationAPI.h */,
+				2297CF9714901CB900CC6D7E /* TTHash.h */,
+				2297CF7E14901CB900CC6D7E /* TTLimits.h */,
+				2297CF9914901CB900CC6D7E /* TTList.h */,
+				2297CF9B14901CB900CC6D7E /* TTMatrix.h */,
+				2297CF9E14901CB900CC6D7E /* TTMatrixArray.h */,
+				2297CF9114901CB900CC6D7E /* TTMessage.h */,
+				2297CF7F14901CB900CC6D7E /* TTMutex.h */,
+				2297CF9314901CB900CC6D7E /* TTObject.h */,
+				2297CF8114901CB900CC6D7E /* TTPath.h */,
+				2297CF8314901CB900CC6D7E /* TTQueue.h */,
+				A79E8F0C165468230004C9A1 /* TTRegex.h */,
+				2297CF8514901CB900CC6D7E /* TTThread.h */,
+				2297CF8714901CB900CC6D7E /* TTUnitTest.h */,
+			);
+			name = includes;
+			sourceTree = "<group>";
+		};
+		A79E8F03165464BC0004C9A1 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				2297CF8C14901CB900CC6D7E /* TTAttribute.cpp */,
+				2297CF9014901CB900CC6D7E /* TTBase.cpp */,
+				2297CF7914901CB900CC6D7E /* TTCallback.cpp */,
+				2297CF7B14901CB900CC6D7E /* TTClass.cpp */,
+				2297CF8E14901CB900CC6D7E /* TTDataObject.cpp */,
+				2297CF9614901CB900CC6D7E /* TTDictionary.cpp */,
+				2297CF7D14901CB900CC6D7E /* TTEnvironment.cpp */,
+				2297CF7714901CB900CC6D7E /* TTFoundation.cpp */,
+				2297CF9814901CB900CC6D7E /* TTHash.cpp */,
+				2297CF9A14901CB900CC6D7E /* TTList.cpp */,
+				2297CF9C14901CB900CC6D7E /* TTMatrix.cpp */,
+				2297CF9F14901CB900CC6D7E /* TTMatrixArray.cpp */,
+				2297CF9D14901CB900CC6D7E /* TTMatrixMath.cpp */,
+				2297CF9214901CB900CC6D7E /* TTMessage.cpp */,
+				2297CF8014901CB900CC6D7E /* TTMutex.cpp */,
+				2297CF9414901CB900CC6D7E /* TTObject.cpp */,
+				2297CF8214901CB900CC6D7E /* TTPath.cpp */,
+				2297CF8414901CB900CC6D7E /* TTQueue.cpp */,
+				A79E8F06165467B90004C9A1 /* TTRegex.cpp */,
+				2297CF8614901CB900CC6D7E /* TTThread.cpp */,
+				2297CF8814901CB900CC6D7E /* TTUnitTest.cpp */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		A79E8F04165464D10004C9A1 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				2297CFB414901CB900CC6D7E /* TTMatrix.test.cpp */,
+			);
+			name = tests;
+			sourceTree = "<group>";
+		};
+		A79E8F05165464DA0004C9A1 /* TTNodeLib */ = {
+			isa = PBXGroup;
+			children = (
+				A79E8F1B1654688C0004C9A1 /* TTAddress.cpp */,
+				A79E8F0E1654684B0004C9A1 /* TTAddress.h */,
+				A79E8F1C1654688C0004C9A1 /* TTAddressBase.cpp */,
+				A79E8F0F1654684B0004C9A1 /* TTAddressBase.h */,
+				A79E8F1D1654688D0004C9A1 /* TTAddressCache.cpp */,
+				A79E8F101654684B0004C9A1 /* TTAddressCache.h */,
+				A79E8F1E1654688D0004C9A1 /* TTAddressItem.cpp */,
+				A79E8F111654684B0004C9A1 /* TTAddressItem.h */,
+				A79E8F1F1654688D0004C9A1 /* TTAddressTable.cpp */,
+				A79E8F121654684B0004C9A1 /* TTAddressTable.h */,
+				A79E8F25165468B80004C9A1 /* TTNode.cpp */,
+				A79E8F27165468CF0004C9A1 /* TTNode.h */,
+				A79E8F2B165468F80004C9A1 /* TTNodeDirectory.cpp */,
+				A79E8F29165468E30004C9A1 /* TTNodeDirectory.h */,
+				A79E8F2D165469080004C9A1 /* TTNodeLib.cpp */,
+				A79E8F181654685B0004C9A1 /* TTNodeLib.h */,
+				2297CFB814901CB900CC6D7E /* TTNodeLib.test.cpp */,
+				2297CFB714901CB900CC6D7E /* TTNodeLib.test.h */,
+			);
+			name = TTNodeLib;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -273,6 +402,21 @@
 				2297CFE914901CBA00CC6D7E /* TTSymbolTable.h in Headers */,
 				2297CFF814901CBA00CC6D7E /* TTValue.test.h in Headers */,
 				2297CFFA14901CBA00CC6D7E /* TTNodeLib.test.h in Headers */,
+				A79E8F09165467FE0004C9A1 /* TTFifo.h in Headers */,
+				A79E8F0B1654680F0004C9A1 /* TTFoundationAPI.h in Headers */,
+				A79E8F0D165468230004C9A1 /* TTRegex.h in Headers */,
+				A79E8F131654684B0004C9A1 /* TTAddress.h in Headers */,
+				A79E8F141654684B0004C9A1 /* TTAddressBase.h in Headers */,
+				A79E8F151654684B0004C9A1 /* TTAddressCache.h in Headers */,
+				A79E8F161654684B0004C9A1 /* TTAddressItem.h in Headers */,
+				A79E8F171654684B0004C9A1 /* TTAddressTable.h in Headers */,
+				A79E8F191654685B0004C9A1 /* TTNodeLib.h in Headers */,
+				A79E8F28165468CF0004C9A1 /* TTNode.h in Headers */,
+				A79E8F2A165468E30004C9A1 /* TTNodeDirectory.h in Headers */,
+				A79E8F32165469600004C9A1 /* TTString.h in Headers */,
+				A79E8F37165469F10004C9A1 /* TTString.test.h in Headers */,
+				A79E8F3B16546A090004C9A1 /* TTSymbol.test.h in Headers */,
+				A79E8F3D16546A2E0004C9A1 /* TTSymbolBase.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +499,18 @@
 				2297CFF914901CBA00CC6D7E /* TTValue.test.cpp in Sources */,
 				2297CFFB14901CBA00CC6D7E /* TTNodeLib.test.cpp in Sources */,
 				22570090165463B9003D9DFB /* TTSymbolBase.cpp in Sources */,
+				A79E8F07165467B90004C9A1 /* TTRegex.cpp in Sources */,
+				A79E8F201654688D0004C9A1 /* TTAddress.cpp in Sources */,
+				A79E8F211654688D0004C9A1 /* TTAddressBase.cpp in Sources */,
+				A79E8F221654688D0004C9A1 /* TTAddressCache.cpp in Sources */,
+				A79E8F231654688D0004C9A1 /* TTAddressItem.cpp in Sources */,
+				A79E8F241654688D0004C9A1 /* TTAddressTable.cpp in Sources */,
+				A79E8F26165468B80004C9A1 /* TTNode.cpp in Sources */,
+				A79E8F2C165468F90004C9A1 /* TTNodeDirectory.cpp in Sources */,
+				A79E8F2E165469090004C9A1 /* TTNodeLib.cpp in Sources */,
+				A79E8F301654694B0004C9A1 /* TTString.cpp in Sources */,
+				A79E8F36165469F10004C9A1 /* TTString.test.cpp in Sources */,
+				A79E8F3A16546A090004C9A1 /* TTSymbol.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +575,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 					TT_PLATFORM_IOS,
+					TTFOUNDATION_EXPORTS,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/jamoma/lib;
@@ -437,7 +594,10 @@
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JamomaFoundationIOS/JamomaFoundationIOS-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_IOS;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TT_PLATFORM_IOS,
+					TTFOUNDATION_EXPORTS,
+				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/jamoma/lib;
 				OTHER_LDFLAGS = "-ObjC";
