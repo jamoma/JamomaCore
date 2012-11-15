@@ -19,6 +19,7 @@
 		22FCC58C16089AB300D77C6D /* TTSymbol.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSymbol.test.h; path = tests/TTSymbol.test.h; sourceTree = "<group>"; };
 		22FCC5B11608DCAB00D77C6D /* Jamoma.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Jamoma.cpp; path = ../../Ruby/library/Jamoma.cpp; sourceTree = "<group>"; };
 		22FCC5B21609170A00D77C6D /* TTSymbolBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSymbolBase.h; path = includes/TTSymbolBase.h; sourceTree = "<group>"; };
+		A79E8F33165469B10004C9A1 /* TTString.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTString.cpp; path = source/TTString.cpp; sourceTree = "<group>"; };
 		D2333F301580D97F00D5CBAF /* TTAddressItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAddressItem.cpp; path = ../source/TTAddressItem.cpp; sourceTree = "<group>"; };
 		D2333F311580D98F00D5CBAF /* TTAddressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddressItem.h; sourceTree = "<group>"; };
 		D2F0974B14A0D70100EC0396 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAttribute.h; sourceTree = "<group>"; };
@@ -126,18 +127,19 @@
 		22FCC58E1608A99800D77C6D /* Strings & Symbols */ = {
 			isa = PBXGroup;
 			children = (
+				A79E8F33165469B10004C9A1 /* TTString.cpp */,
 				22EFB4B115F7E24400A85A8C /* TTString.h */,
-				22FCC57616061A2000D77C6D /* TTString.test.h */,
 				22FCC57516061A2000D77C6D /* TTString.test.cpp */,
+				22FCC57616061A2000D77C6D /* TTString.test.h */,
 				D2F0976514A0D70100EC0396 /* TTSymbol.h */,
-				22FCC58C16089AB300D77C6D /* TTSymbol.test.h */,
 				22FCC58B16089AB300D77C6D /* TTSymbol.test.cpp */,
-				22FCC5B21609170A00D77C6D /* TTSymbolBase.h */,
+				22FCC58C16089AB300D77C6D /* TTSymbol.test.h */,
 				D2F0978714A0D70F00EC0396 /* TTSymbolBase.cpp */,
-				D2F0976714A0D70100EC0396 /* TTSymbolTable.h */,
-				D2F0978914A0D70F00EC0396 /* TTSymbolTable.cpp */,
-				D2F0976614A0D70100EC0396 /* TTSymbolCache.h */,
+				22FCC5B21609170A00D77C6D /* TTSymbolBase.h */,
 				D2F0978814A0D70F00EC0396 /* TTSymbolCache.cpp */,
+				D2F0976614A0D70100EC0396 /* TTSymbolCache.h */,
+				D2F0978914A0D70F00EC0396 /* TTSymbolTable.cpp */,
+				D2F0976714A0D70100EC0396 /* TTSymbolTable.h */,
 			);
 			name = "Strings & Symbols";
 			sourceTree = "<group>";
@@ -145,24 +147,24 @@
 		D2333F201580D88200D5CBAF /* TTNodeLib */ = {
 			isa = PBXGroup;
 			children = (
-				D2F0976014A0D70100EC0396 /* TTNodeLib.h */,
-				D2F0978214A0D70F00EC0396 /* TTNodeLib.cpp */,
-				D2F0975C14A0D70100EC0396 /* TTAddress.h */,
 				D2F0977E14A0D70F00EC0396 /* TTAddress.cpp */,
-				2236CD8116188D9D0008DF69 /* TTAddressBase.h */,
+				D2F0975C14A0D70100EC0396 /* TTAddress.h */,
 				2236CD8316188DB00008DF69 /* TTAddressBase.cpp */,
-				D2F0975E14A0D70100EC0396 /* TTAddressTable.h */,
-				D2F0978014A0D70F00EC0396 /* TTAddressTable.cpp */,
-				D2333F311580D98F00D5CBAF /* TTAddressItem.h */,
-				D2333F301580D97F00D5CBAF /* TTAddressItem.cpp */,
-				D2F0975D14A0D70100EC0396 /* TTAddressCache.h */,
+				2236CD8116188D9D0008DF69 /* TTAddressBase.h */,
 				D2F0977F14A0D70F00EC0396 /* TTAddressCache.cpp */,
-				D2F0975B14A0D70100EC0396 /* TTNode.h */,
+				D2F0975D14A0D70100EC0396 /* TTAddressCache.h */,
+				D2333F301580D97F00D5CBAF /* TTAddressItem.cpp */,
+				D2333F311580D98F00D5CBAF /* TTAddressItem.h */,
+				D2F0978014A0D70F00EC0396 /* TTAddressTable.cpp */,
+				D2F0975E14A0D70100EC0396 /* TTAddressTable.h */,
 				D2F0977D14A0D70F00EC0396 /* TTNode.cpp */,
-				D2F0975F14A0D70100EC0396 /* TTNodeDirectory.h */,
+				D2F0975B14A0D70100EC0396 /* TTNode.h */,
 				D2F0978114A0D70F00EC0396 /* TTNodeDirectory.cpp */,
-				D2F097EC14A0E03400EC0396 /* TTNodeLib.test.h */,
+				D2F0975F14A0D70100EC0396 /* TTNodeDirectory.h */,
+				D2F0978214A0D70F00EC0396 /* TTNodeLib.cpp */,
+				D2F0976014A0D70100EC0396 /* TTNodeLib.h */,
 				D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */,
+				D2F097EC14A0E03400EC0396 /* TTNodeLib.test.h */,
 			);
 			name = TTNodeLib;
 			path = includes;
@@ -261,6 +263,7 @@
 			};
 			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "JamomaFoundation" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
