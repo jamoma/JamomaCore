@@ -6,7 +6,7 @@
  *
  * @details This file wraps TrajectoyLib for Max.
  *
- * @authors Nils Peters
+ * @authors Nils Peters, Tim Place
  *
  * @copyright Copyright © 2009 by Nils Peters @n
  * This code is licensed under the terms of the "New BSD License" @n
