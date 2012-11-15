@@ -2,15 +2,14 @@
 sources:
   - jcom.iter.cpp		
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
-  - ../../../../Support/max/MaxGraph.cpp
+  - ../../../../Support/max/maxGraph.cpp
 
 includes:
   - ../../../../Foundation/library/includes
   - ../../../../DSP/library/includes
   - ../../../../Graph/library/includes
   - ../../../../Support/max  
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
+  - C74-INCLUDES
 
 libraries:
   - FOUNDATION

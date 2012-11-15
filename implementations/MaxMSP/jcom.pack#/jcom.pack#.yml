@@ -2,7 +2,7 @@
 sources:
   - jcom.pack.cpp		
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
-  - ../../../../Support/max/MaxGraph.cpp
+  - ../../../../Support/max/maxGraph.cpp
 
 includes:
   - ../../../../Foundation/library/includes
