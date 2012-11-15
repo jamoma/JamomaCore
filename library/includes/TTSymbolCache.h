@@ -95,10 +95,22 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_matrixarray;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_dimensions;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_type;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_elementCount;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_uint8;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_int32;
+
+// data types - 3 defined above: none, object, value
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_float32;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_float64;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_int8;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_uint8;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_int16;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_uint16;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_int32;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_uint32;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_int64;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_uint64;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_boolean;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_symbol;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_pointer;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_string;
 
 
 #endif // __TT_SYMBOL_CACHE_H__

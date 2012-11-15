@@ -91,9 +91,9 @@ TTErr TTMatrixStencil::doCalculateAverage2D_zeroedEdges(TTMatrixPtr inMatrix, TT
 	dimensions.get(0, m);
 	dimensions.get(1, n);
 	
-	for (TTUInt8 k=1; k <= inMatrix->getElementCount(); k++) {	
-		for (TTUInt32 i=1; i<=m; i++) {
-			for (TTUInt32 j=1; j<=n; j++) {
+	for (TTUInt8 k=0; k < inMatrix->getElementCount(); k++) {	
+		for (TTUInt32 i=0; i<m; i++) {
+			for (TTUInt32 j=0; j<n; j++) {
 				TTUInt32	ii;
 				TTUInt32	jj;
 				TTFloat64	accum = 0.0;
@@ -159,9 +159,9 @@ TTErr TTMatrixStencil::doCalculateAverage2D_clippedEdges(TTMatrixPtr inMatrix, T
 	dimensions.get(0, m);
 	dimensions.get(1, n);
 	
-	for (TTUInt8 k=1; k <= inMatrix->getElementCount(); k++) {	
-		for (TTUInt32 i=1; i<=m; i++) {
-			for (TTUInt32 j=1; j<=n; j++) {
+	for (TTUInt8 k=0; k < inMatrix->getElementCount(); k++) {	
+		for (TTUInt32 i=0; i<m; i++) {
+			for (TTUInt32 j=0; j<n; j++) {
 				TTUInt32	ii;
 				TTUInt32	jj;
 				TTFloat64	accum = 0.0;
