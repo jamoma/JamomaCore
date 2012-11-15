@@ -297,6 +297,34 @@ public:
 	}
 	
 	
+	/** Make sure an (i,j,e) set is within the limits set by RowCount, ColumnCount & ElementCount.
+	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix.
+
+		@param[in,out]	i			row in matrix of desired component
+		@param[in,out]	j			column in matrix of desired component
+		@param[in,out]	e			element within desired component
+		@param[in]		handler		function used to transform out of bounds values, TTClip is default if undefined
+		@return			TTBoolean	true if values changed, false if they remained constant
+	*/
+	TTBoolean makeInBounds(TTInt32& i, TTInt32& j, TTInt32& e, TTMatrixOutOfBoundsHandler handler = TTClip)
+	{
+		TTInt32 i_input = i;
+		TTInt32 j_input = j;
+		TTInt16 e_input = e;
+		
+        i = (*handler)(i_input, TTInt32(0), TTInt32(mRowCount));
+		j = (*handler)(i_input, TTInt32(0), TTInt32(mColumnCount));
+		e = (*handler)(e_input, TTInt16(0), TTInt16(mElementCount));
+		
+		if (i_input == i && j_input == j && e_input == e)
+		{
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
 	/**	Get the value of a component located at any location in 2-dimensional matrix.
 		Pass in coordinate pair using anInputValue. Returns via anOutputValue an mElementCount-item TTValue using the values stored at the coordinates specified by anInputValue. 
 		Remember that the first location in the matrix is row 0 and column 0.
