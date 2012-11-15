@@ -235,15 +235,28 @@ public:
 	TTErr fill(const TTValue& anInputValue, TTValue &anOutputValue);
 	
 	
-	/** Internal macro used by both set() and get() functions to locate the data within mData to be operated on. 
-		Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.
+	/** Internal macro used to locate the byte within mData where a specific component begins. 
+		This macro is used by both get and set routines to ensure that the formula for access is consistent. Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.
 
 		@param	i			row in matrix
 		@param	j			column in matrix
 	*/
-	#define INDEX_OF_FIRSTCOMPONENTBYTE(i, j)			\
+	#define INDEX_OF_COMPONENT_FIRSTBYTE(i, j)			\
 	{													\
 		(i * mColumnCount + j) * mComponentStride		\
+	}
+	
+	
+	/** Internal macro used to locate the byte within mData where a specific element begins. 
+		This macro is used by both get and set routines to ensure that the formula for access is consistent. Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.
+
+		@param	i			row in matrix
+		@param	j			column in matrix
+		@param	e			element within component
+	*/
+	#define INDEX_OF_ELEMENT_FIRSTBYTE(i, j, e)								\
+	{																		\
+		(i * mColumnCount + j) * mComponentStride + e * mTypeSizeInBytes	\
 	}
 	
 	
@@ -262,10 +275,10 @@ public:
 	/** Make sure an (i,j) pair is within the limits set by RowCount & ColumnCount.
 	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix.
 
-		@param[in]	i			row in matrix of desired component
-		@param[in]	j			column in matrix of desired component
-		@param[in]	handler		the name of a function used to transform out of bounds values, TTClip is default if undefined
-		@return		TTBoolean	true if values changed, false if they remained constant
+		@param[in,out]	i			row in matrix of desired component
+		@param[in,out]	j			column in matrix of desired component
+		@param[in]		handler		function used to transform out of bounds values, TTClip is default if undefined
+		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
 	TTBoolean makeInBounds(TTInt32& i, TTInt32& j, TTMatrixOutOfBoundsHandler handler = TTClip)
 	{
@@ -313,7 +326,7 @@ public:
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, T& data) const
 	{
-		TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+		TTUInt32 index = INDEX_OF_COMPONENT_FIRSTBYTE(i, j);
 		//cout << "the size of your datatype is: " << sizeof(T) << "\n"; //test to prove that sizeof works on templates
 		data = *(T*)(mData + index);
 		return kTTErrNone;
@@ -338,8 +351,8 @@ public:
 	template<typename T>
 	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data)
 	{
-		TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
-		data = *(T*)(mData + index + e);	// TODO: don't we need to account for bytes per element?
+		TTUInt32 index = INDEX_OF_ELEMENT_FIRSTBYTE(i, j, e);
+		data = *(T*)(mData + index);	// TODO: don't we need to account for bytes per element?
 		return kTTErrNone;
 	}
 	
@@ -372,7 +385,7 @@ public:
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, T data)
 	{
-		TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+		TTUInt32 index = INDEX_OF_COMPONENT_FIRSTBYTE(i, j);
 		*(T*)(mData + index) = data;
 		return kTTErrNone;
 	}
@@ -395,8 +408,8 @@ public:
 	template<typename T>
 	TTErr set2d(TTRowID i, TTColumnID j, TTElementID e, T data)
 	{
-		TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
-		*(T*)(mData + index + e) = data;	// TODO: don't we need to account for bytes per element?
+		TTUInt32 index = INDEX_OF_ELEMENT_FIRSTBYTE(i, j, e);
+		*(T*)(mData + index) = data;	// TODO: don't we need to account for bytes per element?
 		return kTTErrNone;
 	}
 	

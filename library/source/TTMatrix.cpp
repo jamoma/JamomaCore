@@ -281,7 +281,7 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 	TTInt32 i, j;
 	anInputValue.get(0, i);
 	anInputValue.get(1, j);
-	TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+	TTUInt32 index = INDEX_OF_COMPONENT_FIRSTBYTE(i, j);
 	
 	// TODO: there is no bounds checking here
 	
@@ -325,7 +325,7 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	TTInt32 i, j;
 	anInputValue.get(0, i);
 	anInputValue.get(1, j);
-	TTUInt32 index = INDEX_OF_FIRSTCOMPONENTBYTE(i, j);
+	TTUInt32 index = INDEX_OF_COMPONENT_FIRSTBYTE(i, j);
 	
 	// TODO: there is no bounds checking here
 	
