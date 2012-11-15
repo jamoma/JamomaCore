@@ -361,7 +361,33 @@ std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, trait
 // (on OS 10.8 with Xcode 4.4 and compiling with clang for the Ruby extension, this code cause compile problems)
 #ifdef TTFOUNDATION_EXPORTS
 
+	
 /** Provide overload of std::hash so that TTString can be used the same as std::string for std::map et al. */
+
+#ifdef __clang__
+
+// GCC and Clang provide different (cryptic) ways of adding custom types to the c++ hashing classes
+// The GCC version is based on code from StackOverflow
+// The Clang version is based on the code for std::string from libc ( on the mac these are installed @ /usr/lib/c++/v1/ )
+
+#include <functional>
+namespace std
+{
+	
+	template <>
+	//struct hash<TTString> : public __hash_base<size_t, TTString>
+	struct hash<TTString> //: public __hash_node<size_t, TTString>
+	{
+		public:
+		size_t operator()(const TTString& __val) const _NOEXCEPT
+		{
+			return __do_string_hash(__val.data(), __val.data() + __val.size());
+		}
+	};
+}
+
+#else // gcc 4.7
+
 namespace std
 {
 	template <>
@@ -378,7 +404,60 @@ namespace std
 	
 	};
 }
+
+#endif // ifdef clang etc...
+
 #endif // TTFOUNDATION_EXPORTS
 
 
+
+
 #endif // __TT_STRING_H__
+
+
+
+
+/*
+	
+#include <bits/functional_hash.h>
+3033 
+3034 namespace std _GLIBCXX_VISIBILITY(default)
+3035 {
+3036 _GLIBCXX_BEGIN_NAMESPACE_VERSION
+3037 
+3038   // DR 1182.
+3039 
+3040 #ifndef _GLIBCXX_COMPATIBILITY_CXX0X
+3041   /// std::hash specialization for string.
+3042   template<>
+3043     struct hash<string>
+3044     : public __hash_base<size_t, string>
+3045     {
+3046       size_t
+3047       operator()(const string& __s) const noexcept
+3048       { return std::_Hash_impl::hash(__s.data(), __s.length()); }
+3049     };
+	
+	
+	
+*/
+
+
+/*
+
+Code from Wikipedia:
+
+namespace std {
+    template <>
+        class hash<X>{
+        public :
+        size_t operator()(const X &x ) const{
+            return hash<int>()(x.i) ^ hash<int>()(x.j) ^ hash<int>()(x.k);
+        }
+    };
+}
+ 
+//...
+ std::unordered_map<X,int> my_map;
+
+ */
