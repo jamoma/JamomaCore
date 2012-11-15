@@ -262,7 +262,7 @@
 		2297D0041490219900CC6D7E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = 2297D0071490219900CC6D7E /* Build configuration list for PBXProject "DataspaceLibIOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -360,6 +360,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -368,8 +370,9 @@
 					"DEBUG=1",
 					"$(inherited)",
 					TT_PLATFORM_IOS,
+					DISABLE_NODELIB,
 				);
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/jamoma/extensions;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -381,12 +384,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DataspaceLibIOS/DataspaceLibIOS-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_IOS;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TT_PLATFORM_IOS,
+					DISABLE_NODELIB,
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/jamoma/extensions;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -413,6 +421,7 @@
 				2297D01C1490219900CC6D7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

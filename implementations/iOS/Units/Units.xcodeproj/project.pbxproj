@@ -11,8 +11,8 @@
 		1D60589B0D05DD56006BFB54 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		2297D06E149022D700CC6D7E /* libDataspaceLibIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2297D06D149022D700CC6D7E /* libDataspaceLibIOS.a */; };
-		2297D070149022E000CC6D7E /* libJamomaFoundationIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2297D06F149022E000CC6D7E /* libJamomaFoundationIOS.a */; };
+		225700A316548450003D9DFB /* libJamomaFoundationIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 225700A216548450003D9DFB /* libJamomaFoundationIOS.a */; };
+		225700A5165484B1003D9DFB /* libDataspaceLibIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 225700A4165484B1003D9DFB /* libDataspaceLibIOS.a */; };
 		280E754D0DD40C5E005A515E /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754A0DD40C5E005A515E /* FlipsideView.xib */; };
 		280E754E0DD40C5E005A515E /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754B0DD40C5E005A515E /* MainView.xib */; };
 		280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754C0DD40C5E005A515E /* MainWindow.xib */; };
@@ -27,8 +27,8 @@
 		1D3623250D0F684500981E51 /* UnitsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Units.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Units.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2297D06D149022D700CC6D7E /* libDataspaceLibIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDataspaceLibIOS.a; path = /usr/local/jamoma/extensions/libDataspaceLibIOS.a; sourceTree = "<absolute>"; };
-		2297D06F149022E000CC6D7E /* libJamomaFoundationIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJamomaFoundationIOS.a; path = /usr/local/jamoma/lib/libJamomaFoundationIOS.a; sourceTree = "<absolute>"; };
+		225700A216548450003D9DFB /* libJamomaFoundationIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJamomaFoundationIOS.a; path = ../../../../../../../../../usr/local/jamoma/lib/libJamomaFoundationIOS.a; sourceTree = "<group>"; };
+		225700A4165484B1003D9DFB /* libDataspaceLibIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDataspaceLibIOS.a; path = ../../../../../../../../../usr/local/jamoma/extensions/libDataspaceLibIOS.a; sourceTree = "<group>"; };
 		22F15E06131EF86C0026C358 /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAttribute.h; sourceTree = "<group>"; };
 		22F15E07131EF86C0026C358 /* TTBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBase.h; sourceTree = "<group>"; };
 		22F15E08131EF86C0026C358 /* TTCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCallback.h; sourceTree = "<group>"; };
@@ -77,8 +77,8 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
-				2297D06E149022D700CC6D7E /* libDataspaceLibIOS.a in Frameworks */,
-				2297D070149022E000CC6D7E /* libJamomaFoundationIOS.a in Frameworks */,
+				225700A316548450003D9DFB /* libJamomaFoundationIOS.a in Frameworks */,
+				225700A5165484B1003D9DFB /* libDataspaceLibIOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,8 +194,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2297D06F149022E000CC6D7E /* libJamomaFoundationIOS.a */,
-				2297D06D149022D700CC6D7E /* libDataspaceLibIOS.a */,
+				225700A4165484B1003D9DFB /* libDataspaceLibIOS.a */,
+				225700A216548450003D9DFB /* libJamomaFoundationIOS.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765580DF743DE002DB57D /* CoreGraphics.framework */,
@@ -283,6 +283,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -304,6 +306,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Units_Prefix.pch;

@@ -362,6 +362,74 @@ std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, trait
 #ifdef TTFOUNDATION_EXPORTS
 
 /** Provide overload of std::hash so that TTString can be used the same as std::string for std::map et al. */
+
+#ifdef __clang__
+
+//#include <bits/functional_hash.h>
+//#include </usr/include/c++/4.2.1/tr1/functional_hash.h>
+//#include <functional_hash>
+#include <functional>
+//#include <__hash_table>
+
+//3034 namespace std _GLIBCXX_VISIBILITY(default)
+//3035 {
+//3036 _GLIBCXX_BEGIN_NAMESPACE_VERSION
+//3037 
+//3038   // DR 1182.
+//3039 
+//3040 #ifndef _GLIBCXX_COMPATIBILITY_CXX0X
+//3041   /// std::hash specialization for string.
+//3042   template<>
+//3043     struct hash<string>
+//3044     : public __hash_base<size_t, string>
+//3045     {
+//3046       size_t
+//3047       operator()(const string& __s) const noexcept
+//3048       { return std::_Hash_impl::hash(__s.data(), __s.length()); }
+//3049     };
+
+
+namespace std
+{
+	
+	template <>
+	//struct hash<TTString> : public __hash_base<size_t, TTString>
+	struct hash<TTString> //: public __hash_node<size_t, TTString>
+	{
+		public:
+		
+//			size_t operator()(const TTString& self) const noexcept
+//			{
+//				size_t hashkey = std::_Hash_impl::hash(self.data(), self.size());
+//				//cout << "HASH: " << self.data() << " with size: " << self.size() << " = " << hashkey << endl;
+//				return hashkey;
+//			}
+
+		
+		size_t operator()(const TTString& __val) const _NOEXCEPT
+		{
+			return __do_string_hash(__val.data(), __val.data() + __val.size());
+		}
+
+		
+		
+	};
+	
+	
+	
+/*
+	template<>
+	size_t hash<TTString>::operator()(const TTString& __val) const _NOEXCEPT
+	{
+		return __do_string_hash(__val.data(), __val.data() + __val.size());
+	}
+*/
+	
+}
+
+
+#else // gcc 4.7
+
 namespace std
 {
 	template <>
@@ -378,7 +446,60 @@ namespace std
 	
 	};
 }
+
+#endif // ifdef clang etc...
+
 #endif // TTFOUNDATION_EXPORTS
 
 
+
+
 #endif // __TT_STRING_H__
+
+
+
+
+/*
+	
+#include <bits/functional_hash.h>
+3033 
+3034 namespace std _GLIBCXX_VISIBILITY(default)
+3035 {
+3036 _GLIBCXX_BEGIN_NAMESPACE_VERSION
+3037 
+3038   // DR 1182.
+3039 
+3040 #ifndef _GLIBCXX_COMPATIBILITY_CXX0X
+3041   /// std::hash specialization for string.
+3042   template<>
+3043     struct hash<string>
+3044     : public __hash_base<size_t, string>
+3045     {
+3046       size_t
+3047       operator()(const string& __s) const noexcept
+3048       { return std::_Hash_impl::hash(__s.data(), __s.length()); }
+3049     };
+	
+	
+	
+*/
+
+
+/*
+
+Code from Wikipedia:
+
+namespace std {
+    template <>
+        class hash<X>{
+        public :
+        size_t operator()(const X &x ) const{
+            return hash<int>()(x.i) ^ hash<int>()(x.j) ^ hash<int>()(x.k);
+        }
+    };
+}
+ 
+//...
+ std::unordered_map<X,int> my_map;
+
+ */
