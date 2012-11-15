@@ -81,7 +81,7 @@ public:
 					content += "		TTObjectInstantiate(TT(\"graph.object\"), (TTObjectPtr*)&";
 					content += objName;
 					content += ", TTValue(TT(\"";
-					content += mClassName->getCString();
+					content += mClassName.c_str();
 					content += "\")));\n";
 					
 					if (mClassName == TT("plugtastic.parameter")) {
@@ -100,25 +100,25 @@ public:
 					
 					mObjectInstance->getAttributeNames(v);
 					for (int i=0; i < v.getSize(); i++) {
-						TTSymbolPtr attributeName;
+						TTSymbol	attributeName;
 						TTValue		attributeValue;
 						TTString	attributeValueString;
 						TTErr		err;
 						
-						v.get(i, &attributeName);
+						v.get(i, attributeName);
 						err = mObjectInstance->getAttributeValue(attributeName, attributeValue);
 						if (!err) {
 							content += "		";
 							content += objName;
 							content += "->mKernel->setAttributeValue(TT(\"";
-							content += attributeName->getCString();
+							content += attributeName.c_str();
 							content += "\"), ";
 							if (attributeValue.getType() == kTypeSymbol) {
-								TTSymbolPtr	attributeValueSymbol;
+								TTSymbol	attributeValueSymbol;
 								
-								attributeValue.get(0, &attributeValueSymbol);
+								attributeValue.get(0, attributeValueSymbol);
 								attributeValueString = "TT(\"";
-								attributeValueString += attributeValueSymbol->getCString();
+								attributeValueString += attributeValueSymbol.c_str();
 								attributeValueString += "\")";
 							}
 							else if (attributeValue.getSize() > 1) {
@@ -202,7 +202,7 @@ public:
 				if (isPlugtasticInput)
 					content += "audio.generator";
 				else
-					content += mClassName->getCString();
+					content += mClassName.c_str();
 				content += "\"));\n";
 
 				content += "		audioObjectArguments.set(1, ";
@@ -238,13 +238,13 @@ public:
 				
 				mObjectInstance->getAttributeNames(v);
 				for (int i=0; i < v.getSize(); i++) {
-					TTSymbolPtr attributeName;
+					TTSymbol	attributeName;
 					TTValue		attributeValue;
 					TTString	attributeValueString;
 					TTErr		err;
 					TTBoolean	isArray = NO;
 					
-					v.get(i, &attributeName);
+					v.get(i, attributeName);
 					err = mObjectInstance->getAttributeValue(attributeName, attributeValue);
 					if (!err) {						
 						if (attributeValue.getSize() > 1) {
@@ -266,16 +266,16 @@ public:
 						content += "		";
 						content += objName;
 						content += "->mKernel->setAttributeValue(TT(\"";
-						content += attributeName->getCString();
+						content += attributeName.c_str();
 						content += "\"), ";
 						if (isArray)
 							attributeValueString = "v";
 						else if (attributeValue.getType() == kTypeSymbol) {
-							TTSymbolPtr	attributeValueSymbol = NULL;
+							TTSymbol	attributeValueSymbol = NULL;
 							
-							attributeValue.get(0, &attributeValueSymbol);
+							attributeValue.get(0, attributeValueSymbol);
 							attributeValueString = "TT(\"";
-							attributeValueString += attributeValueSymbol->getCString();
+							attributeValueString += attributeValueSymbol.c_str();
 							attributeValueString += "\")";
 						}
 						else {
@@ -509,7 +509,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	filecontents += "	TTAudioGraphPreprocessData	mInitData;\n";
 	filecontents += "	TTAudioSignalPtr			mAudioSignal;\n";
 		
-	for (TTStringIter name = nodeNames.begin(); name != nodeNames.end(); name++) {
+	for (TTStringVectorIter name = nodeNames.begin(); name != nodeNames.end(); name++) {
 		filecontents += "	TTAudioGraphObjectPtr		";
 		filecontents += (*name).c_str();
 		filecontents += ";\n";
@@ -525,7 +525,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	else
 		filecontents += "	PlugtasticAUEffectGraph() : \n";
 
-	for (TTStringIter name = nodeNames.begin(); name != nodeNames.end(); name++) {
+	for (TTStringVectorIter name = nodeNames.begin(); name != nodeNames.end(); name++) {
 		filecontents += "		";
 		filecontents += (*name).c_str();
 		filecontents += "(NULL),\n";
@@ -551,7 +551,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 		filecontents += "	virtual ~PlugtasticAUEffectGraph()\n";
 
 	filecontents += "	{\n";
-	for (TTStringIter name = nodeNames.begin(); name != nodeNames.end(); name++) {
+	for (TTStringVectorIter name = nodeNames.begin(); name != nodeNames.end(); name++) {
 		filecontents += "		TTObjectRelease((TTObjectPtr*)&";
 		filecontents += (*name).c_str();
 		filecontents += ");\n";
@@ -653,7 +653,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 		filecontents += "CFStringRef kParameter";
 		filecontents += parameter->mName;
 		filecontents += "Name = CFSTR(\"";
-		filecontents += PlugtasticParameterPtr(parameter->mObject)->mName->getCString();
+		filecontents += PlugtasticParameterPtr(parameter->mObject)->mName.c_str();
 		filecontents += "\");\n";
 	}
 	filecontents += "\n";

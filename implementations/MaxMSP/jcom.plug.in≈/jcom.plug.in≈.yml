@@ -2,7 +2,7 @@
 sources:
   - jcom.plug.in.cpp		
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
-  - ../../../../Support/max/MaxGraph.cpp
+  - ../../../../Support/max/maxGraph.cpp
   - ../../../../AudioGraph/implementations/MaxMSP/MaxAudioGraph.cpp
     
 includes:
