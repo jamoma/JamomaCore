@@ -139,7 +139,7 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 			value = *((TTBoolean*)attribute.address);
 			return kTTErrNone;
 		case kTypeSymbol:
-			value = *((TTSymbol**)attribute.address);
+			value = *((TTSymbol*)attribute.address);
 			return kTTErrNone;
 		case kTypeObject:
 			value = *((TTObject*)attribute.address);
