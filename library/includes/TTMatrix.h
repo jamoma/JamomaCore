@@ -280,13 +280,13 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, TTClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeInBounds(TTInt32& i, TTInt32& j, TTMatrixOutOfBoundsHandler handler = TTClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = TTClip)
 	{
-		TTInt32 i_input = i;
-		TTInt32 j_input = j;
+		TTRowID i_input = i;
+		TTColumnID j_input = j;
 		
-        i = (*handler)(i_input, TTInt32(0), TTInt32(mRowCount));
-		j = (*handler)(i_input, TTInt32(0), TTInt32(mColumnCount));
+        i = (*handler)(i_input, TTRowID(0), mRowCount);
+		j = (*handler)(i_input, TTColumnID(0), mColumnCount);
 		
 		if (i_input == i && j_input == j)
 		{
@@ -306,15 +306,15 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, TTClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeInBounds(TTInt32& i, TTInt32& j, TTInt32& e, TTMatrixOutOfBoundsHandler handler = TTClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = TTClip)
 	{
-		TTInt32 i_input = i;
-		TTInt32 j_input = j;
-		TTInt16 e_input = e;
+		TTRowID i_input = i;
+		TTColumnID j_input = j;
+		TTElementID e_input = e;
 		
-        i = (*handler)(i_input, TTInt32(0), TTInt32(mRowCount));
-		j = (*handler)(i_input, TTInt32(0), TTInt32(mColumnCount));
-		e = (*handler)(e_input, TTInt16(0), TTInt16(mElementCount));
+        i = (*handler)(i_input, TTRowID(0), mRowCount);
+		j = (*handler)(i_input, TTColumnID(0), mColumnCount);
+		e = (*handler)(e_input, TTElementID(0), mElementCount);
 		
 		if (i_input == i && j_input == j && e_input == e)
 		{
