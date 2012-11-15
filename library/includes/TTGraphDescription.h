@@ -19,7 +19,8 @@ class TTGraphDescription;
 typedef std::vector<TTGraphDescription>		TTGraphDescriptionVector;
 typedef TTGraphDescriptionVector::iterator	TTGraphDescriptionIter;
 
-typedef std::vector<TTString>	TTStringVector;
+typedef std::vector<TTString>		TTStringVector;
+typedef TTStringVector::iterator	TTStringVectorIter;
 
 
 /**	This object represents a single 'outlet' from a TTGraphObject.
