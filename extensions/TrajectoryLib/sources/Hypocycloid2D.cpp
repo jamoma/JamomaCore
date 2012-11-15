@@ -1,10 +1,15 @@
-/* 
- * HypocycloidFunction Unit for TTBlue
- * http://en.wikipedia.org/wiki/Hypocycloid
- * Originally written for the Jamoma TrajectoryLib
- * Copyright © 2010 by Nils Peters
+/** @file
+ *
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief Hypocycloid Function Unit in 2D for Jamoma DSP
+ *
+ * @details see http://en.wikipedia.org/wiki/Hypocycloid fo details @n
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

@@ -1,11 +1,18 @@
-/* 
- * RoseFunction Unit for TTBlue
- * Originally written for the Jamoma TrajectoryLib
- * Copyright © 2010 by Nils Peters
+/** @file
+ *
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief Rose Function Unit in 3D for Jamoma DSP
+ *
+ * @details see http://mathworld.wolfram.com/Rose.html for details @n
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __ROSE_3D_H__
 #define __ROSE_3D_H__
@@ -19,9 +26,12 @@ class Rose3D : TTAudioObject {
 protected:
 
 	TTFloat64			mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
-	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
-	
-	/**	A standard audio processing method as used by TTBlue objects.*/
+		
+	/**	A standard audio processing method as used by Jamoma DSP objects.
+	 @param inputs				The input vector that is to be processed.
+	 @param outputs				The resulting windowed vector.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */			
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 		
 	TTErr setA(const TTValue& value);

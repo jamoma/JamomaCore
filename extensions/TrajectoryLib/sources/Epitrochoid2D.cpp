@@ -1,12 +1,18 @@
-/* 
- * EpitrochoidFunction Unit for TTBlue
- * http://mathworld.wolfram.com/Epitrochoid.html
- * Originally written for the Jamoma TrajectoryLib
- * Copyright © 2010 by Nils Peters
+/** @file
+ *
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief Epitrochoid Function Unit for Jamoma DSP
+ *
+ * @details http://mathworld.wolfram.com/Epitrochoid.html in 2D @n
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "Epitrochoid2D.h"
 

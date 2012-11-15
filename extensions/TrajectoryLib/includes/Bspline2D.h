@@ -29,7 +29,11 @@ protected:
 	
 	//inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data);
 	
-	/**	A standard audio processing method as used by TTBlue objects.*/
+	/**	A standard audio processing method as used by Jamoma DSP objects.
+ 	@param inputs				The input vector that is to be processed.
+ 	@param outputs				The resulting windowed vector.
+ 	@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+ 	*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	void calculatePoint();
 	void calculateKnots(); 

@@ -1,11 +1,15 @@
-/* 
- * Lissajous Knot Function Unit for TTBlue
- * http://en.wikipedia.org/wiki/Lissajous_knot
+/** @file
  *
- * Originally written for the Jamoma TrajectoryLib
- * Copyright © 2010 by Nils Peters
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief Lissajous Knot Function Unit in 3D for Jamoma DSP
+ *
+ * @details see http://en.wikipedia.org/wiki/Lissajous_knot for details @n
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

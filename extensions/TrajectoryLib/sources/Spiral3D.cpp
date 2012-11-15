@@ -1,11 +1,15 @@
-/* 
- * Spherical Spiral Unit for TTBlue
- * http://mathworld.wolfram.com/SphericalSpiral.html
+/** @file
  *
- * Originally written for the Jamoma TrajectoryLib
- * Copyright © 2010 by Nils Peters
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief Spiral Unit in 3D for Jamoma DSP
+ *
+ * @details see http://mathworld.wolfram.com/SpiralsCurve.html and http://www.wolframalpha.com/entities/space_curves/spherical_spiral/lu/g9/pv/ for details @n
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

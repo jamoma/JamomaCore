@@ -1,9 +1,15 @@
-/* 
- * TrajectoryLib
- * Extension Class for Jamoma DSP
- * Copyright © 2010, Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief TrajectoryLib: Extension Class for Jamoma DSP
+ *
+ * @details This library provides a set of 2D and 3D trajectories that can be used for e.g., sound spatialization.
+ *
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2009 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

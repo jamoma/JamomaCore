@@ -1,11 +1,15 @@
-/* 
- * Spherical Spiral Unit for TTBlue
- * http://mathworld.wolfram.com/LogarithmicSpiral.html
+/** @file
  *
- * Originally written for the Jamoma TrajectoryLib
- * Copyright © 2010 by Nils Peters
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief Spiral Function Unit in 2D for Jamoma DSP
+ *
+ * @details see http://mathworld.wolfram.com/LogarithmicSpiral.html for details @n
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

@@ -1,10 +1,15 @@
-/* 
- * Butterfly2D Unit for TTBlue
- * http://mathworld.wolfram.com/ButterflyCurve.html
- * Originally written for the Jamoma TrajectoryLib
- * Copyright © 2010 by Nils Peters
+/** @file
+ *
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief Butterfly2D Unit for Jamoma DSP
+ *
+ * @details Implementation of the buterfly trajectory function http://mathworld.wolfram.com/ButterflyCurve.html @n
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

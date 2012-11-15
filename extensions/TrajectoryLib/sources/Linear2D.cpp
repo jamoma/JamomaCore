@@ -1,11 +1,18 @@
-/* 
- * linear2D Unit for TTBlue
- * Originally written for the Jamoma TrajectoryLib
- * Copyright © 2010 by Nils Peters
+/** @file
+ *
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief Linear Function Unit in 2D for Jamoma DSP
+ *
+ * @details a simple linear function in two dimensions @n
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "Linear2D.h"
 

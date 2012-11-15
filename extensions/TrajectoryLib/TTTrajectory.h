@@ -1,9 +1,15 @@
-/* 
- *	Trajectory≈
- *	Trajectory generator/wrapper object for Jamoma
- *	Copyright © 2010 by Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief A generalized Trajectory generator wrapper object for Jamoma DSP
+ *
+ * @details This file wraps TrajectoyLib for Max.
+ *
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2009 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -12,24 +18,33 @@
 
 #include "TTDSP.h"
 
-
-/**	A Generalized trajectory generator/wrapper object for Jamoma. */
+/** Generalized Trajectory Function Wrapper
+*/
 class TTTrajectory : TTAudioObject {
 	TTCLASS_SETUP(TTTrajectory)
 	
 protected:
 	TTAudioObjectPtr		mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
-	TTFloat64				mA, mB, mC, mDeltaX, mDeltaY, mDeltaZ;
+	TTFloat64				mA; 						///< Trajectory Parameter, usage depend on the actual trajectory
+	TTFloat64				mB; 					///< Trajectory Parameter, usage depend on the actual trajectory
+	TTFloat64				mC; 					///< Trajectory Parameter, usage depend on the actual trajectory
+	TTFloat64				mDeltaX; 				///< Trajectory Parameter, usage depend on the actual trajectory
+	TTFloat64				mDeltaY; 				///< Trajectory Parameter, usage depend on the actual trajectory
+	TTFloat64				mDeltaZ; 				///< Trajectory Parameter, usage depend on the actual trajectory function 
 	TTSymbol				mType;					///< The name of the current trajectory type
-	TTSymbol				mMode;
+	TTSymbol				mMode;					///< the underlying signal generator, can be "phasor" or "ramp"
 	//TTList					mAnchorPoints;
-	TTAudioObjectPtr		mPhasors[1];
-	TTAudioSignalArrayPtr	mPhasorOutputSignals;
-	TTAudioObjectPtr		mRamps[1];
-	TTAudioSignalArrayPtr	mRampOutputSignals;
+	TTAudioObjectPtr		mPhasors[1];			///< Object pointer to the internal phasor generator
+	TTAudioSignalArrayPtr	mPhasorOutputSignals;   ///< The output vector of the phasor generator
+	TTAudioObjectPtr		mRamps[1];				///< Object pointer to the internal ramp generator
+	TTAudioSignalArrayPtr	mRampOutputSignals;		///< The output vector of the ramp generator
 	
 public:
 	
+	/** Setting the trajectory type
+	 @param newValue
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setType(const TTValue& newValue)
 	{	
 		TTSymbol	newType = newValue;
@@ -64,6 +79,10 @@ public:
 	}
 	
 	
+	/**	Return a list of all the available trajectory types.
+	 @param listOfTrajectoryTypesToReturn Pointer to an array that will be filled with a list of all available trajectory types.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getTypes(const TTValue&, TTValue& listOfTrajectoryTypesToReturn)
 	{
 		TTValue v;
@@ -72,7 +91,11 @@ public:
 		v.set(1, TT("audio")); 
 		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
-	
+
+	/**	Return the current trajectory type.
+ 	@param CurrentTypeToReturn Pointer to an array that will be filled the current trajectory type.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getCurrentType(const TTValue&, TTValue& CurrentTypeToReturn)
 
 	{
@@ -81,7 +104,10 @@ public:
 	}
 	
 	
-	
+	/**	Return a list of the attribute names used in the selected trajectory type.
+ 	@param listOfCurrentAttributesToReturn Pointer to an array that will be filled all attributes used in the current trajectory type.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getCurrentAttributeNames(const TTValue&, TTValue& listOfCurrentAttributesToReturn)
 	{
 		long		n;
@@ -104,6 +130,14 @@ public:
 		return kTTErrNone;
 	}
 	
+	/**	Function to trigger the trajectory generation when ramp mode is selected
+ 	@param arguments additional arguments will determine ramping:
+	 ramp <startValue|double> <stopValue|double> <time|double> <type|string>
+	 ramp <stopValue|double> <time|double> <type|string>
+	 ramp <startValue|double> <stopValue|double> <time|double> 
+	 ramp <stopValue|double> <time|double> @n
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr ramp(const TTValue& arguments, TTValue&)
 	{
 		/*
@@ -167,7 +201,9 @@ public:
 		return err;
 	}
 	
-	
+	/**	reset the phasor and ramp generators
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr reset()
 	{
 		TTValue v;
@@ -185,47 +221,66 @@ public:
 		return mActualTrajectoryObject->setAttributeValue(TT("anchorPoints"), mAnchorPoints);
 	}*/
 	
-	
+   	/**	Set parameter A, actual usage depends on selected trajectory type
+	 @param newValue new value
+   	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+   	 */
 	TTErr setA(const TTValue& newValue)
 	{	
 		mA = newValue;
 		return mActualTrajectoryObject->setAttributeValue(TT("a"), mA);
 	}
 	
-	
+  	/**	Set parameter B, actual usage depends on selected trajectory type
+	 @param newValue new value
+  	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+  	 */
 	TTErr setB(const TTValue& newValue)
 	{	
 		mB = newValue;
 		return mActualTrajectoryObject->setAttributeValue(TT("b"), mB);
 	}
 	
-	
+  	/**	Set parameter C, actual usage depends on selected trajectory type
+ 	@param newValue new value
+  	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+  	 */
 	TTErr setC(const TTValue& newValue)
 	{	
 		mC = newValue;
 		return mActualTrajectoryObject->setAttributeValue(TT("c"), mC);
 	}
 	
-	
+  	/**	Set parameter DeltaX, actual usage depends on selected trajectory type
+	 @param newValue new value
+  	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+  	 */
 	TTErr setDeltaX(const TTValue& newValue)
 	{	
 		mDeltaX = newValue;
 		return mActualTrajectoryObject->setAttributeValue(TT("deltaX"), mDeltaX);
 	}
 	
-	
+ 	/**	Set parameter DeltaY, actual usage depends on selected trajectory type
+	 @param newValue new value
+ 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+ 	 */
 	TTErr setDeltaY(const TTValue& newValue)
 	{	
 		mDeltaY = newValue;
 		return mActualTrajectoryObject->setAttributeValue(TT("deltaY"), mDeltaY);
 	}
 	
-	
+ 	/**	Set parameter DeltaZ, actual usage depends on selected trajectory type
+ 	@param newValue new value
+ 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+ 	 */
 	TTErr setDeltaZ(const TTValue& newValue)
 	{	
 		mDeltaZ = newValue;
 		return mActualTrajectoryObject->setAttributeValue(TT("deltaZ"), mDeltaZ);
 	}
+	
 	
 	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 	{
@@ -236,12 +291,19 @@ public:
 		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
 	}
 
+ 	/**	Set mode to "ramp" or "phasor" 
+	 @param newValue new value
+ 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+ 	 */
 	TTErr setMode(const TTValue& newValue)
 	{	
 		mMode = newValue;
 		return setProcessPointers();
 	}
 	
+	/**	Internal function to set the process pointers to the ramp o phasor generator according to the setMode function
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setProcessPointers()
 	{
 		TTErr	err = kTTErrNone;
@@ -255,6 +317,10 @@ public:
 		return err;
 	}
 	
+	/**	Internal Computing the phasor signal to drive the trajectory functions
+	@param newValue new value
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+ 	*/
 	TTErr processAudioPhasorInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
 		mPhasorOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
@@ -266,6 +332,10 @@ public:
 		return mActualTrajectoryObject->process(mPhasorOutputSignals, outputs);
 	}
 
+	/**	Internal Computing the ramp signal to drive the trajectory functions
+	@param newValue new value
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+ 	*/
 	TTErr processAudioRampInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
 		mRampOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());

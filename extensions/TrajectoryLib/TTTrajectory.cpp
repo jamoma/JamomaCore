@@ -1,9 +1,15 @@
-/* 
- *	Trajectory≈
- *	trajectory generator wrapper object for Jamoma
- *	Copyright © 2010 by Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspTrajectoryLib
+ *
+ * @brief A generalized Trajectory generator wrapper object for Jamoma DSP
+ *
+ * @details This file wraps TrajectoyLib for Max.
+ *
+ * @authors Nils Peters, Tim Place
+ *
+ * @copyright Copyright © 2009 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
