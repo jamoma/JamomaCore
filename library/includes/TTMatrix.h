@@ -11,12 +11,7 @@
 
 #include "TTFoundation.h"
 #include "TTDataObject.h"
-#include "TTLimits.h"
-
-#define INBOUNDS(distanceFromHead, maxDistanceFromHead) 						\
-{																				\
-	distanceFromHead < maxDistanceFromHead										\
-} 
+#include "TTLimits.h" 
 
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 
@@ -260,7 +255,11 @@ public:
 	typedef void (*TTMatrixOutOfBoundsHandler)(TTUInt32 index, const TTUInt32 lowBound, const TTUInt32 highBound);
 	
 	
-	/**
+	/** Make sure an (i,j) pair is within the limits set by RowCount & ColumnCount.
+	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix.
+
+		@param[in]	i			row in matrix of desired component
+		@param[in]	j			column in matrix of desired component
 		@return		TTBoolean	true if values changed, false if they remained constant
 	*/
 	TTBoolean makeInBounds(TTInt32& i, TTInt32& j)//, TTMatrixOutOfBoundsHandler handler);
@@ -277,16 +276,6 @@ public:
 		} else {
 			return true;
 		}
-	}
-	
-	/** Test to see if a specific distance from the head is still in within the matrix.  
-	 	This method works most efficiently just before array access, so that you can compute the distance once (using row, column & element values) before checking if it is inBounds then pulling its value.
-		Treats the first item in the array as 1, therefore 0 produces a return value of FALSE.
-		Returns true or false.
-	*/
-	TTBoolean inBounds(TTUInt32 distanceFromHead)
-	{
-		return INBOUNDS(distanceFromHead, mDataCount);
 	}
 	
 	

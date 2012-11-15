@@ -118,29 +118,6 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		/*				
-		// inbounds tests				
-		TTTestAssertion("value -1 is out of bounds", 
-						matrix->makeInBounds(-1,0) == 0, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value 0 is in bounds", 
-						matrix->inBounds(0) == 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value 1 is in bounds", 
-						matrix->inBounds(1) == 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value dataCount is out of bounds", 
-						matrix->inBounds(matrix->mDataCount) == 0, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value dataCount + 1 is out of bounds", 
-						matrix->inBounds(matrix->mDataCount + 1) == 0, 
-						testAssertionCount,
-						errorCount);
-		*/
 
 		// Test the clear message
 		// first fill with arbitrary values
@@ -264,30 +241,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->mComponentStride == sizeof(TTUInt8) * 4, 
 						testAssertionCount,
 						errorCount);
-		
-		/*			
-		// inbounds tests				
-		TTTestAssertion("value -1 is out of bounds", 
-						matrix->inBounds(-1) == 0, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value 0 is in bounds", 
-						matrix->inBounds(0) == 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value 1 is in bounds", 
-						matrix->inBounds(1) == 1, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value dataCount is out of bounds", 
-						matrix->inBounds(matrix->mDataCount) == 0, 
-						testAssertionCount,
-						errorCount);
-		TTTestAssertion("value dataCount + 1 is out of bounds", 
-						matrix->inBounds(matrix->mDataCount + 1) == 0, 
-						testAssertionCount,
-						errorCount);
-		*/	
+
 		
 		err = TTObjectRelease((TTObjectPtr*)&matrix);
 		TTTestAssertion("frees successfully", 
