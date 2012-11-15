@@ -247,28 +247,33 @@ public:
 	}
 	
 	
-	/**	A function (method) type for implementing various out of bounds handlers used by get() & set() methods.	
-	@param[out]	index		reference to an index that will be checked and corrected if not in bounds
+	/**	A function pointer for implementing different types of handlers for the makeInBounds() method.	
+		The format for this function pointer follows most of the methods defined in TTLimits.h (i.e. TTClip, TTInfWrap, TTFold) so that they can be used here to handle out of bounds values.
+	
+	@param[in]	index		reference to an index that will be checked and corrected if not in bounds
 	@param[in]	lowBound	lowest value allowed for index
 	@param[in]	highBound	highest value allowed for index
-	*/
-	typedef void (*TTMatrixOutOfBoundsHandler)(TTUInt32 index, const TTUInt32 lowBound, const TTUInt32 highBound);
+	@return		TTInt32		new index value that is within bounds
 	
+	@seealso TTLimits
+	*/
+	typedef TTInt32 (*TTMatrixOutOfBoundsHandler)(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound);
 	
 	/** Make sure an (i,j) pair is within the limits set by RowCount & ColumnCount.
 	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix.
 
 		@param[in]	i			row in matrix of desired component
 		@param[in]	j			column in matrix of desired component
+		@param[in]	handler		the name of a function used to transform out of bounds values, TTClip is default if undefined
 		@return		TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeInBounds(TTInt32& i, TTInt32& j)//, TTMatrixOutOfBoundsHandler handler);
+	TTBoolean makeInBounds(TTInt32& i, TTInt32& j, TTMatrixOutOfBoundsHandler handler = TTClip)
 	{
 		TTInt32 i_input = i;
 		TTInt32 j_input = j;
 		
-        TTLimit(i, TTInt32(0), TTInt32(mRowCount));
-		TTLimit(j, TTInt32(0), TTInt32(mColumnCount));
+        i = (*handler)(i_input, TTInt32(0), TTInt32(mRowCount));
+		j = (*handler)(i_input, TTInt32(0), TTInt32(mColumnCount));
 		
 		if (i_input == i && j_input == j)
 		{

@@ -106,15 +106,25 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 		
 		// new type of inbounds tests
-        TTInt32 i = -1;
-        TTInt32 j = 0;
+		TTInt32 i_prebounds = -3;
+		TTInt32 j_prebounds = 0;
+        TTInt32 i = i_prebounds;
+        TTInt32 j = j_prebounds;
         
 		TTTestAssertion("value is out of bounds", 
 						matrix->makeInBounds(i,j) == 1,
 						testAssertionCount,
 						errorCount);
-        TTTestAssertion("value was changed by out of bounds operation",
+        TTTestAssertion("negative value was clipped by out of bounds operation",
 						i == 0,
+						testAssertionCount,
+						errorCount);
+		
+		// reset and try different limiting function
+		i = i_prebounds; 
+		matrix->makeInBounds(i,j,TTInfWrap); // 16 should be max, so i will be 16 - 3
+		TTTestAssertion("negative value was wrapped by out of bounds operation",
+						i == 13,
 						testAssertionCount,
 						errorCount);
 		
