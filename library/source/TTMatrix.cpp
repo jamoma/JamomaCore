@@ -1,8 +1,13 @@
-/*
- * Jamoma 2-Dimensional Matrix Data Class
- * Copyright © 2011-2012, Timothy Place & Nathan Wolek
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup foundationLibrary
+ *
+ * @brief 2-dimensional matrix of compound values with N elements each.
+ * 
+ * @authors Timothy Place & Nathan Wolek
+ *
+ * @copyright Copyright © 2011-2012, Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -30,8 +35,9 @@ TT_OBJECT_CONSTRUCTOR,
 	mHeadPtr(NULL),
 	mTailPtr(NULL)
 {
-	addAttributeWithGetterAndSetter(Dimensions, 	kTypeUInt32); 	// mDimensions deprecated, should we delete this too?
-																	// we will keep setDimensions() & getDimensions()
+	addAttributeWithGetterAndSetter(Dimensions, 	kTypeUInt32); 	// mDimensions deprecated, we should delete this too
+																	// NW: had trouble removing it in Oct 2012
+																	// we can keep setDimensions() & getDimensions()
 	addAttributeWithSetter(RowCount, 				kTypeUInt32);
 	addAttributeWithSetter(ColumnCount, 			kTypeUInt32);
 	addAttributeWithGetterAndSetter(Type,			kTypeUInt8);	// necessary so that public interface uses symbols

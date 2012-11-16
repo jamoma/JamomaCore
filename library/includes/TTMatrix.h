@@ -1,8 +1,18 @@
-/* 
- * Jamoma 2-Dimensional Matrix Data Class
- * Copyright © 2011-2012, Timothy Place & Nathan Wolek
+/** @file
+ *
+ * @ingroup foundationLibrary
+ *
+ * @brief 2-dimensional matrix of compound values with N elements each.
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @details Each compound value stored in the matrix is known as a component. The number of elements in each component is variable, enabling the storage of things like complex numbers or RGBA colors. However, this element count for each component and their datatype is uniform across the entire matrix. @n@n
+ * Locations for individual components in the matrix are identified by (row, column) pairs.  These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. @n@n
+ * All dimension indices begin counting at zero. This means that index values greater than or equal to the respective mRowCount, mColumnCount or mElementCount will be out of bounds. @n@n
+ * Please note that previous support for N dimensions has been deprecated and the TTMatrix class is now fixed at 2 dimensions. Throughout this documentation, dimension 1 is referred to as the "row" and dimension 2 is referred to as the "column".
+ *  
+ * @authors Timothy Place & Nathan Wolek
+ *
+ * @copyright Copyright © 2011-2012, Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -16,38 +26,42 @@
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 
 
-/**	Three typedefs for the numbers used to indicate rows, columns and elements within the matrix.
+/**	@typedef TTRowID
+	@brief Datatype for any number used to indicate a row index within the matrix.
 	
-	This is so that we can have consistent datatypes throughout the TTMatrix class and easily change the datatype used should the need arise in the future.
+	Three typedefs (TTRowID, TTColumnID & TTElementID) are used so that we can easily distinguish between these important matrix attributes, have consistent datatypes throughout the TTMatrix class and quickly change those datatypes should the need arise in the future.
 	
-	It may also potentially be used to override functions that take the numbers in either order. For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order. However, video processing objects will likely access elements in TTColumnID, TTRowID order.
+	Although these values should always be positive, we have intentionally avoided unsigned numbers because of boundary checking considerations in the makeInBounds() method. Negative, signed integers have the potential to become very large numbers when casting to an unsigned integers. This can cause errors during boundary check, such as values clipping to the high boundary instead of the low boundary or numerous iterations of loop to bring a wrapped value back into the acceptable range.
+	
+	They can potentially be used to override functions that take the numbers in either order. For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order. However, video processing objects will likely access elements in TTColumnID, TTRowID order.
 	
  */
 typedef TTInt32 TTRowID;
+/**	@typedef TTColumnID
+	@brief Datatype for any number used to indicate a column index within the matrix.
+	@see TTRowID
+ */
 typedef TTInt32 TTColumnID;
+/**	@typedef TTElementID
+	@brief Datatype for any number used to indicate an element index within the matrix.
+	@see TTRowID
+ */
 typedef TTInt16 TTElementID;
 // TODO: should there be a similar typedef for results of math operations that combine these values, i.e. TTIndexMathType?
 
 /****************************************************************************************************/
 // Class Specification
+/** 2-dimensional matrix of compound values with N elements each.
 
-/**	An 2-dimensional matrix of compound values with N elements each.	
-
-* Each compound value stored in the matrix is known as a component. The number of elements in each component is variable, enabling the storage of things like complex numbers or RGBA colors. However, this element count for each component and their datatype is uniform across the entire matrix.
-
-* Locations for individual components in the matrix are identified by (row, column) pairs.  These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. 
-
-* All dimension indices begin counting at zero. This means that index values greater than or equal to the respective mRowCount, mColumnCount or mElementCount will be out of bounds.
-
-* Please note that previous support for N dimensions has been deprecated and the TTMatrix class is now fixed at 2 dimensions. Throughout this documentation, dimension 1 is referred to as the "row" and dimension 2 is referred to as the "column".
+	Each compound value stored in the matrix is known as a component. The number of elements in each component is variable, enabling the storage of things like complex numbers or RGBA colors. However, this element count for each component and their datatype is uniform across the entire matrix.
 */
 class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 	TTCLASS_SETUP(TTMatrix)
 
 protected:	
 
-	TTBytePtr			mData;					///< matrix of values
-	vector<TTInt32>		mDimensions;			///< variable dimensions - @deprecated use mRowCount and mColumnCount instead
+	TTBytePtr			mData;					///< memory used to store matrix values
+	vector<TTInt32>		mDimensions;			///< matrix dimensions, use mRowCount and mColumnCount instead of accessing directly
 	TTRowID				mRowCount;				///< How many rows of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
 	TTColumnID			mColumnCount;			///< How many columns of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
 	TTElementID			mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an signed 16-bit integer which provides a maximum value of 32,767.
@@ -260,15 +274,15 @@ public:
 	}
 	
 	
-	/**	A function pointer for implementing different types of handlers for the makeInBounds() method.	
-		The format for this function pointer follows most of the methods defined in TTLimits.h (i.e. TTClip, TTInfWrap, TTFold) so that they can be used here to handle out of bounds values.
+	/**	A function pointer for implementing handlers in the makeInBounds() method.	
+		The format for this function pointer follows most of the methods defined in TTLimits (i.e. TTClip, TTInfWrap, TTFold) so that they can be used here to handle out of bounds values.
 	
 	@param[in]	index		reference to an index that will be checked and corrected if not in bounds
 	@param[in]	lowBound	lowest value allowed for index
 	@param[in]	highBound	highest value allowed for index
 	@return		TTInt32		new index value that is within bounds
 	
-	@seealso TTLimits
+	@seealso TTLimits.h
 	*/
 	typedef TTInt32 (*TTMatrixOutOfBoundsHandler)(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound);
 	
@@ -533,7 +547,7 @@ public:
 		return adaptTo(*anotherMatrix);
 	}
 	
-	/**	A function (method) type for implementing iterators used by the iterate() method.	
+	/**	A function pointer for implementing iterators used in the iterate() method.	
 	@param[out]	c			pointer to matrix that holds the results of the operation
 	@param[in]	a			pointer to matrix 1 of 2 for the iteration operation
 	@param[in]	b			pointer to matrix 2 of 2 for the iteration operation
