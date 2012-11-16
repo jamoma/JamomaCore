@@ -1602,7 +1602,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 431.0, 209.0, 79.0, 19.0 ],
-					"text" : "jcom.matrix≈",
+					"text" : "jcom.mixer≈",
 					"varname" : "MATRIX"
 				}
 

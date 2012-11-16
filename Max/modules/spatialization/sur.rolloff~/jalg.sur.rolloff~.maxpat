@@ -389,7 +389,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 0,
 													"patching_rect" : [ 303.0, 405.0, 156.0, 34.0 ],
-													"text" : "smoothing should be done inside jcom.matrix≈"
+													"text" : "smoothing should be done inside jcom.mixer≈"
 												}
 
 											}
@@ -1937,7 +1937,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 235.0, 239.0, 79.0, 19.0 ],
-					"text" : "jcom.matrix≈"
+					"text" : "jcom.mixer≈"
 				}
 
 			}
