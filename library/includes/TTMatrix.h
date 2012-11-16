@@ -31,7 +31,7 @@ typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 	
 	Three typedefs (TTRowID, TTColumnID & TTElementID) are used so that we can easily distinguish between these important matrix attributes, have consistent datatypes throughout the TTMatrix class and quickly change those datatypes should the need arise in the future.
 	
-	Although these values should always be positive, we have intentionally avoided unsigned numbers because of boundary checking considerations in the makeInBounds() method. Negative, signed integers have the potential to become very large numbers when casting to an unsigned integers. This can cause errors during boundary check, such as values clipping to the high boundary instead of the low boundary or numerous iterations of loop to bring a wrapped value back into the acceptable range.
+	Although these values should always be positive, we have intentionally avoided unsigned numbers because of boundary checking considerations in the makeInBounds() method. Negative, signed integers have the potential to become very large numbers when casting to an unsigned integers. This can cause errors during a boundary check, such as values clipping to the high boundary instead of the low boundary or numerous iterations of loop to bring a wrapped value back into the acceptable range.
 	
 	They can potentially be used to override functions that take the numbers in either order. For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order. However, video processing objects will likely access elements in TTColumnID, TTRowID order.
 	
