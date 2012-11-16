@@ -1,9 +1,15 @@
-/**
- * \file jcom.map.cpp
- * External for Jamoma: map input to output: y=f(x)
- * Copyright © 2007
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.map - Map input to output : y=f(x)
+ *
+ * @details Mapping functions are defined in the Jamoma DSP FunctionLib extension.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -254,9 +260,9 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	}
 
 	// get the correct TT name for the parameter given the Max name
-	parameterName = TT(atom_getsym(argv)->s_name);
-	obj->parameterNames->lookup(parameterName, v);
-	v.get(0, parameterName);
+	parameterName = atom_getsym(argv)->s_name;
+	//obj->parameterNames->lookup(parameterName, v);
+	//v.get(0, parameterName);
 
 	obj->functionUnit->getAttributeValue(parameterName, parameterValue);
 	numValues = parameterValue.getSize();
@@ -328,7 +334,7 @@ void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 
 	for (i=1; i<=(argc-1); i++) {
 		if (argv[i].a_type == A_SYM)
-			newValue.append(TT(atom_getsym(argv+1)->s_name));
+			newValue.append(TTSymbol(atom_getsym(argv+1)->s_name));
 		else
 			newValue.append(atom_getfloat(argv+i));
 	}
