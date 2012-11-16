@@ -106,7 +106,7 @@ public:
 };
 
 typedef TTGraphOutlet*					TTGraphOutletPtr;
-typedef vector<TTGraphOutlet>			TTGraphOutletVector;
+typedef std::vector<TTGraphOutlet>		TTGraphOutletVector;
 typedef TTGraphOutletVector::iterator	TTGraphOutletIter;
 
 #endif // __TTGRAPH_OUTLET_H__

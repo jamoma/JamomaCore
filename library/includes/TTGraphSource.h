@@ -115,7 +115,7 @@ public:
 };
 
 typedef TTGraphSource*					TTGraphSourcePtr;
-typedef vector<TTGraphSource>			TTGraphSourceVector;
+typedef std::vector<TTGraphSource>		TTGraphSourceVector;
 typedef TTGraphSourceVector::iterator	TTGraphSourceIter;
 
 

@@ -85,8 +85,8 @@ void TTGraphObject::getDescription(TTGraphDescription& desc)
 
 TTErr TTGraphObject::reset()
 {
-	for_each(mInlets.begin(), mInlets.end(), mem_fun_ref(&TTGraphInlet::reset));		
-	for_each(mOutlets.begin(), mOutlets.end(), mem_fun_ref(&TTGraphOutlet::reset));		
+	for_each(mInlets.begin(), mInlets.end(), std::mem_fun_ref(&TTGraphInlet::reset));
+	for_each(mOutlets.begin(), mOutlets.end(), std::mem_fun_ref(&TTGraphOutlet::reset));
 	return kTTErrNone;
 }
 

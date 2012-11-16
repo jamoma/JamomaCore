@@ -115,7 +115,7 @@ public:
 };
 
 typedef TTGraphInlet*					TTGraphInletPtr;
-typedef vector<TTGraphInlet>			TTGraphInletVector;
+typedef std::vector<TTGraphInlet>		TTGraphInletVector;
 typedef TTGraphInletVector::iterator	TTGraphInletIter;
 
 

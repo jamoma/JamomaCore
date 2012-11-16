@@ -52,7 +52,7 @@ public:
 
 class	TTGraphObject;
 typedef TTGraphObject*					TTGraphObjectPtr;
-typedef vector<TTGraphObjectPtr>		TTGraphObjectVector;
+typedef std::vector<TTGraphObjectPtr>	TTGraphObjectVector;
 typedef TTGraphObjectVector::iterator	TTGraphObjectIter;
 
 //#include "TTGraphInlet.h"

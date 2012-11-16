@@ -117,7 +117,7 @@ public:
 };
 
 typedef TTGraphDestination*					TTGraphDestinationPtr;
-typedef vector<TTGraphDestination>			TTGraphDestinationVector;
+typedef std::vector<TTGraphDestination>		TTGraphDestinationVector;
 typedef TTGraphDestinationVector::iterator	TTGraphDestinationIter;
 
 
