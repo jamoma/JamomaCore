@@ -1,10 +1,18 @@
-/* 
- * A wrapper for an array of audio objects
- * Copyright © 2011, Timothy Place and Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief #TTAudioObjectArray is a wrapper for an array of audio objects
+ *
+ * @details
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2011 by Timothy Place and Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_AUDIO_OBJECT_ARRAY_H__
 #define __TT_AUDIO_OBJECT_ARRAY_H__
@@ -14,16 +22,10 @@
 typedef vector<TTAudioObjectPtr>		TTAudioObjectVector;
 typedef TTAudioObjectVector::iterator	TTAudioObjectIter;
 
-/****************************************************************************************************/
-// Class Specification
 
-/**	TTAudioObjectArray instantiates an array of TTAudioObjects, manages their life-cycles, and
-	process audio through the array.
- 
-	This permits the processing of an N-channel audio signal through N instances of a given
-	class while using different attribute values for the instances.
- 
-	One application of such a structure is a graphic eq.
+/**	TTAudioObjectArray instantiates an array of TTAudioObjects, manages their life-cycles, and process audio through the array.
+ @details This permits the processing of an N-channel audio signal through N instances of a given class while using different attribute values for the 
+ One application of such a structure is a graphic equalizer.
  */
 class TTAudioObjectArray : public TTAudioObject {
 	TTCLASS_SETUP(TTAudioObjectArray)
@@ -36,16 +38,47 @@ protected:
 	TTAudioSignalPtr	mInputChannelSignal;	///< Signal used within the process method for passing to individual instances
 	TTAudioSignalPtr	mOutputChannelSignal;	///< Signal used within the process method for passing to individual instances
 	
-	// accessors
+	//// accessors /////
+	
+	/** Update the maximum number of channels that the array will be able to process.
+	 @param oldMaxNumChannels
+	 @param
+	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
+	
+	
+	/**
+	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setSize(const TTValueRef newSize);
+	
+	
+	/**
+	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setClass(const TTValueRef newClass);
 
-	// access the objects inside the array
+	//// access the objects inside the array ///
+	
+	/**
+	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr set(TTValue& arguments, TTValue&);
 	
+	
+	/** Process audio.
+	 @param inputs		The incoming audio signals to be processed.
+	 @param outputs		The processed audio signals.
+	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
+	
+	/** Unit test for the TTAudioObjectArray.
+	 @param returnedTestInfo		The outcome from the performed unit test.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	virtual TTErr test(TTValue& returnedTestInfo);
 };
 

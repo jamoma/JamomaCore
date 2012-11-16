@@ -1,10 +1,18 @@
-/*
- * A wrapper for an array of audio objects
- * Copyright © 2011, Timothy Place and Nils Peters
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup dspLibrary
+ *
+ * @brief #TTAudioObjectArray is a wrapper for an array of audio objects
+ *
+ * @details
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2011 by Timothy Place and Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDSP.h"
 #include "TTAudioObjectArray.h"
