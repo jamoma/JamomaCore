@@ -48,7 +48,7 @@ public:
 		char	objName[16];
 		TTValue	v;
 		
-		if (!mClassName)	// This should never be the case...
+		if (mClassName == kTTSymEmpty)	// This should never be the case...
 			return index;
 
 		if (mUserData) {
@@ -84,7 +84,7 @@ public:
 					content += mClassName.c_str();
 					content += "\")));\n";
 					
-					if (mClassName == TT("plugtastic.parameter")) {
+					if (mClassName == "plugtastic.parameter") {
 						PlugtasticParameterNode	parameterNode;
 						
 						parameterNode.mObject = mObjectInstance;
@@ -168,10 +168,10 @@ public:
 		TTValue	v;
 		char	str[16];
 		
-		if (!mClassName)	// This should never be the case...
+		if (mClassName == kTTSymEmpty)	// This should never be the case...
 			return index;
 				
-		if (mClassName == TT("plugtastic.input"))
+		if (mClassName == "plugtastic.input")
 			isPlugtasticInput = true;
 		
 		if (mUserData) {
@@ -271,7 +271,7 @@ public:
 						if (isArray)
 							attributeValueString = "v";
 						else if (attributeValue.getType() == kTypeSymbol) {
-							TTSymbol	attributeValueSymbol = NULL;
+							TTSymbol	attributeValueSymbol;
 							
 							attributeValue.get(0, attributeValueSymbol);
 							attributeValueString = "TT(\"";

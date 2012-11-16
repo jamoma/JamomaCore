@@ -6,10 +6,27 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		2213D9531655887A00F7B2BC /* jcom.plug.out.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.plug.out.cpp; sourceTree = "<group>"; };
+		2213D9541655887A00F7B2BC /* jcom.plug.out.export.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = jcom.plug.out.export.mm; sourceTree = "<group>"; };
+		2213D9551655887A00F7B2BC /* jcom.plug.out.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.plug.out.h; sourceTree = "<group>"; };
+		2213D9561655887A00F7B2BC /* jcom.plug.out≈.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = "jcom.plug.out≈.yml"; sourceTree = "<group>"; };
+		2213D9571655887A00F7B2BC /* PlugtasticProgressWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlugtasticProgressWindow.h; sourceTree = "<group>"; };
+		2213D9581655887A00F7B2BC /* PlugtasticProgressWindow.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlugtasticProgressWindow.mm; sourceTree = "<group>"; };
+		2213D95A1655892000F7B2BC /* TTGraphDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTGraphDescription.h; path = ../../../../Graph/library/includes/TTGraphDescription.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		A79C81E71523171D00119511 = {
 			isa = PBXGroup;
 			children = (
+				2213D9561655887A00F7B2BC /* jcom.plug.out≈.yml */,
+				2213D9551655887A00F7B2BC /* jcom.plug.out.h */,
+				2213D9531655887A00F7B2BC /* jcom.plug.out.cpp */,
+				2213D9541655887A00F7B2BC /* jcom.plug.out.export.mm */,
+				2213D9571655887A00F7B2BC /* PlugtasticProgressWindow.h */,
+				2213D9581655887A00F7B2BC /* PlugtasticProgressWindow.mm */,
+				2213D95A1655892000F7B2BC /* TTGraphDescription.h */,
 			);
 			sourceTree = "<group>";
 		};
