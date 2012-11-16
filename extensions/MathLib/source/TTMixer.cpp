@@ -1,10 +1,18 @@
-/* 
- * DSP Audio Mixer Object
- * Copyright © 2010, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspMathLib
+ *
+ * @brief #TTMixer is a Jamoma DSP Audio Mixer Object
+ *
+ * @details
+ *
+ * @authors Tim Place, Nathan Wolek, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTMixer.h"
 #ifdef TT_PLATFORM_WIN
@@ -61,17 +69,6 @@ TTMixer::~TTMixer()
 // conceptually:
 //	columns == inputs
 //	rows == outputs
-
-/*TTErr TTMixer::setInterpolated(const TTValue& newValue)
-{
-	mInterpolated = newValue;
-	if (mInterpolated)
-		setProcessMethod(processAudioInterpolated);
-	else 
-		setProcessMethod(processAudio);	
-	return kTTErrNone;
-}*/
-
 
 
 TTErr TTMixer::setNumInputs(const TTValue& newValue)
