@@ -55,7 +55,7 @@ TTGraphObject::~TTGraphObject()
 
 void TTGraphObject::prepareDescription()
 {
-	if (valid && mDescription.mClassName) {
+	if (valid && mDescription.mClassName != kTTSymEmpty) {
 		mDescription.sIndex = 0;
 		mDescription.mClassName = kTTSymEmpty;
 		
@@ -67,7 +67,7 @@ void TTGraphObject::prepareDescription()
 
 void TTGraphObject::getDescription(TTGraphDescription& desc)
 {
-	if (mDescription.mClassName) {		// a description for this object has already been created -- use it.
+	if (mDescription.mClassName != kTTSymEmpty) {		// a description for this object has already been created -- use it.
 		desc = mDescription;
 	}
 	else {					// create a new description for this object.
@@ -134,7 +134,7 @@ TTErr TTGraphObject::push(const TTDictionary& aDictionary)
 	err = mKernel->findMessage(TT("dictionary"), &message);
 	if (!err && message) {
 		(*mDictionary) = aDictionary;
-		v.set(0, TTPtr(mDictionary));
+		v.append(TTPtr(mDictionary));
 		err = mKernel->sendMessage(TT("dictionary"), v, v);	// returns an error if dictionary is unhandled
 	}
 	

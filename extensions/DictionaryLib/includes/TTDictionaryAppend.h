@@ -22,6 +22,10 @@ protected:
 	TTValuePtr	mValue;
 	
 	TTErr dictionary(const TTValue& input, TTValue& output);
+
+	TTErr getKey(TTValue& newValue);
+	TTErr setKey(const TTValue& newValue);
+	
 	TTErr getValue(TTValue& newValue);
 	TTErr setValue(const TTValue& newValue);
 };
