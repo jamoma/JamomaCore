@@ -63,7 +63,6 @@ typedef struct _MaxAudioGraphWrappedClass {
 	TTValidityCheckFunction				validityCheck;				///< A function to call to validate the context for an object before it is instantiated.
 	TTPtr								validityCheckArgument;		///< An argument to pass to the validityCheck function when it is called.
 	MaxAudioGraphWrappedClassOptions*	options;					///< Additional configuration options specified for the class.
-	t_hashtab*							maxNamesToTTNames;			///< names may not be direct mappings, as we downcase the first letter.
 } MaxAudioGraphWrappedClass;
 
 

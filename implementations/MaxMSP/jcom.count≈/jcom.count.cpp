@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphMax
  *
- * @brief jcom.counter≈ : Sample Counting Generator object for Jamoma Audio Graph
+ * @brief jcom.count≈ : Sample Counting Generator object for Jamoma Audio Graph
  *
  * @details This wraps the Jamoma DSP class #TTCounter as a Jamoma AudioGraph external for Max.
  *
@@ -28,9 +28,9 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	
 	options->append(TT("userCanSetNumChannels"), kTTBoolYes);
 	
-	wrapAsMaxAudioGraph(TT("counter"), "jcom.counter≈", &c, options);
+	wrapAsMaxAudioGraph(TT("count"), "jcom.count≈", &c, options);
 
-	wrapAsMaxAudioGraph(TT("counter"), "counter≈", &c, options);
+	wrapAsMaxAudioGraph(TT("count"), "count≈", &c, options);
 	
 	return 0;
 }

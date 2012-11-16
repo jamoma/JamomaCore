@@ -193,14 +193,8 @@ t_max_err MaxAudioGraphWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr a
 	SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 	TTValue		v;
 	AtomCount	i;
-	TTPtr		rawpointer;
-	MaxErr		err;
 	
-	err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, attrName, (ObjectPtr*)&rawpointer);
-	if (err)
-		return err;
-
-	TTSymbol	ttAttrName(rawpointer);
+	TTSymbol	ttAttrName(attrName->s_name);
 
 	self->audioGraphObject->getUnitGenerator()->getAttributeValue(ttAttrName, v);
 
@@ -236,14 +230,8 @@ t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr a
 		SymbolPtr	attrName = (SymbolPtr)object_method(attr, _sym_getname);
 		TTValue		v;
 		AtomCount	i;
-		TTPtr		rawpointer;
-		MaxErr		err;
 		
-		err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, attrName, (ObjectPtr*)&rawpointer);
-		if (err)
-			return err;
-		
-		TTSymbol	ttAttrName(rawpointer);
+		TTSymbol	ttAttrName(attrName->s_name);
 		
 		v.setSize(argc);
 		for (i=0; i<argc; i++) {
@@ -289,15 +277,7 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 {	
 	TTValue		v_in;
 	TTValue		v_out;
-	TTSymbol	ttName;
-	MaxErr		err;
-	
-	// Check to see that the message can be understood
-	err = hashtab_lookup(self->wrappedClassDefinition->maxNamesToTTNames, s, (ObjectPtr*)&ttName);
-	if (err) {
-		object_post(SELF, "no method found for %s", s->s_name);
-		return;
-	}
+	TTSymbol	ttName(s->s_name);
 	
 	if (argc && argv) {
 		v_in.setSize(argc);
@@ -409,7 +389,6 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGrap
 	wrappedMaxClass->validityCheck = NULL;
 	wrappedMaxClass->validityCheckArgument = NULL;
 	wrappedMaxClass->options = options;
-	wrappedMaxClass->maxNamesToTTNames = hashtab_new(0);
 	
 	// Create a temporary instance of the class so that we can query it.
 	TTObjectInstantiate(ttClassName, &o, numChannels);
@@ -422,7 +401,6 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGrap
 		strncpy_zero(nameCString, name.c_str(), nameSize+1);
 
 		nameMaxSymbol = gensym(nameCString);			
-		hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name.rawpointer()));
 		class_addmethod(wrappedMaxClass->maxClass, (method)MaxAudioGraphWrappedClass_anything, nameCString, A_GIMME, 0);
 
 		delete nameCString;
@@ -457,7 +435,6 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGrap
 		else if (attr->type == kTypeSymbol || attr->type == kTypeString)
 			maxType = _sym_symbol;
 		
-		hashtab_store(wrappedMaxClass->maxNamesToTTNames, nameMaxSymbol, ObjectPtr(name.rawpointer()));
 		class_addattr(wrappedMaxClass->maxClass, attr_offset_new(nameCString, maxType, 0, (method)MaxAudioGraphWrappedClass_attrGet, (method)MaxAudioGraphWrappedClass_attrSet, 0));
 		
 		// Add display styles for the Max 5 inspector

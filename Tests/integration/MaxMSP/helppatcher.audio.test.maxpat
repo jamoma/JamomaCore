@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 8
 		}
 ,
 		"rect" : [ 194.0, 44.0, 856.0, 822.0 ],
@@ -156,7 +156,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-51",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -199,7 +199,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -219,7 +219,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 485.0, 580.0, 93.0, 18.0 ],
+					"patching_rect" : [ 485.0, 580.0, 93.0, 17.0 ],
 					"text" : "Now Testing: $1"
 				}
 
@@ -232,7 +232,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 485.0, 605.0, 48.0, 19.0 ],
+					"patching_rect" : [ 485.0, 605.0, 74.0, 19.0 ],
 					"text" : "jcom.test.log"
 				}
 
@@ -243,9 +243,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-57",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 365.0, 790.0, 389.0, 19.0 ],
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 365.0, 790.0, 433.0, 19.0 ],
 					"text" : "jcom.test.assert.equal.old \"TEST AudioGraph NoErrorsRunningDSPinHelpPatchers\" 0"
 				}
 
@@ -669,7 +670,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 205.0, 690.0, 92.0, 18.0 ],
+					"patching_rect" : [ 205.0, 690.0, 92.0, 17.0 ],
 					"text" : "script delete foo"
 				}
 
@@ -683,7 +684,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 310.0, 580.0, 172.0, 18.0 ],
+					"patching_rect" : [ 310.0, 580.0, 172.0, 17.0 ],
 					"text" : "script newdefault foo 200 65 $1"
 				}
 
@@ -707,7 +708,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-45",
 					"linecount" : 5,
 					"maxclass" : "comment",
@@ -722,7 +723,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-44",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -884,7 +885,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 620.0, 698.0, 98.0, 19.0 ],
-					"text" : "jcom.wavetable≈"
+					"text" : "jcom.wavetableThisOneJustCrash≈"
 				}
 
 			}
@@ -981,8 +982,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 325.0, 79.0, 19.0 ],
-					"text" : "jcom.matrix≈"
+					"patching_rect" : [ 620.0, 306.0, 75.0, 19.0 ],
+					"text" : "jcom.mixer≈"
 				}
 
 			}
@@ -995,8 +996,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 620.0, 306.0, 108.0, 19.0 ],
-					"text" : "jcom.matrixmixer≈"
+					"patching_rect" : [ 620.0, 325.0, 101.0, 19.0 ],
+					"text" : "jcom.multimixer≈"
 				}
 
 			}
@@ -1175,9 +1176,9 @@
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 40.0, 57.0, 19.0 ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "bang", "bang" ],
+					"patching_rect" : [ 30.0, 40.0, 83.0, 19.0 ],
 					"text" : "jcom.test.start"
 				}
 
@@ -1217,7 +1218,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 55.0, 405.0, 72.0, 19.0 ],
+					"patching_rect" : [ 55.0, 405.0, 98.0, 19.0 ],
 					"text" : "jcom.test.finished"
 				}
 
@@ -1262,10 +1263,25 @@
 					"outlettype" : [ "", "", "", "", "" ],
 					"patching_rect" : [ 160.0, 135.0, 104.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"filename" : "patchdescribe.js",
 						"parameter_enable" : 0
 					}
 ,
 					"text" : "js patchdescribe.js"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-94",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 200.0, 65.0, 114.0, 19.0 ],
+					"text" : "jcom.adsr≈.maxhelp",
+					"varname" : "foo"
 				}
 
 			}
@@ -1766,11 +1782,105 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "patchdescribe.js",
-				"bootpath" : "/Applications/Max6/examples/javascript/patcher-scripting",
-				"patcherrelativepath" : "../../../../../../../../Applications/Max6/examples/javascript/patcher-scripting",
+				"name" : "jcom.adsr≈.maxhelp",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Builds/MaxMSP",
+				"patcherrelativepath" : "../../../../../Builds/MaxMSP",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.maxhelpui.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/maxhelpui",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.maxhelpuiButton.png",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/maxhelpui",
+				"type" : "PNG ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.maxhelpuiResize.js",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/maxhelpui",
 				"type" : "TEXT",
 				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.jamomaPath.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/jamomaPath",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.thru.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Modular/Max/library/components/thru",
+				"patcherrelativepath" : "../../../../Modular/Max/library/components/thru",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "patchdescribe.js",
+				"bootpath" : "/Applications/Max6/examples/javascript/patcher-scripting",
+				"patcherrelativepath" : "../../../../../../../../../Applications/Max6/examples/javascript/patcher-scripting",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.finished.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.finished",
+				"patcherrelativepath" : "../../../../Test/components/test.finished",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.start.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.start",
+				"patcherrelativepath" : "../../../../Test/components/test.start",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.assert.equal.old.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.assert.equal.old",
+				"patcherrelativepath" : "../../../../Test/components/test.assert.equal.old",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.log.maxpat",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.log",
+				"patcherrelativepath" : "../../../../Test/components/test.log",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.adsr≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.unpack≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.route.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.loader.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.loader.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.info≈.mxo",
+				"type" : "iLaX"
 			}
 , 			{
 				"name" : "jcom.adc≈.mxo",
@@ -1805,10 +1915,6 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.info≈.mxo",
-				"type" : "iLaX"
-			}
-, 			{
 				"name" : "jcom.join≈.mxo",
 				"type" : "iLaX"
 			}
@@ -1817,11 +1923,11 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.matrixmixer≈.mxo",
+				"name" : "jcom.multimixer≈.mxo",
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.matrix≈.mxo",
+				"name" : "jcom.mixer≈.mxo",
 				"type" : "iLaX"
 			}
 , 			{
@@ -1845,11 +1951,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.unpack≈.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.wavetable≈.mxo",
+				"name" : "jcom.wavetableThisOneJustCrash≈.mxo",
 				"type" : "iLaX"
 			}
 , 			{
@@ -1882,10 +1984,6 @@
 			}
 , 			{
 				"name" : "jcom.array≈.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.adsr≈.mxo",
 				"type" : "iLaX"
 			}
 , 			{

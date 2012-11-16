@@ -30,13 +30,29 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : 0.0,
+					"id" : "obj-16",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 765.0, 343.0, 165.0, 19.0 ],
+					"presentation_rect" : [ 765.0, 343.0, 0.0, 0.0 ],
+					"text" : "not testing audiounit≈ for now",
+					"textcolor" : [ 1.0, 0.0, 0.0, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-15",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 635.0, 118.0, 85.0, 19.0 ],
-					"text" : "jcom.counter≈"
+					"text" : "jcom.count≈"
 				}
 
 			}
@@ -412,10 +428,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-34",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
-					"patching_rect" : [ 635.0, 362.0, 79.0, 19.0 ],
-					"text" : "jcom.matrix≈"
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 635.0, 343.0, 75.0, 19.0 ],
+					"text" : "jcom.mixer≈"
 				}
 
 			}
@@ -425,10 +442,11 @@
 					"fontsize" : 10.0,
 					"id" : "obj-33",
 					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 0,
-					"patching_rect" : [ 635.0, 343.0, 108.0, 19.0 ],
-					"text" : "jcom.matrixmixer≈"
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 635.0, 362.0, 101.0, 19.0 ],
+					"text" : "jcom.multimixer≈"
 				}
 
 			}
@@ -926,6 +944,14 @@
 				"type" : "iLaX"
 			}
 , 			{
+				"name" : "jcom.multimixer≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.mixer≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
 				"name" : "jcom.noise≈.mxo",
 				"type" : "iLaX"
 			}
@@ -1022,7 +1048,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.counter≈.mxo",
+				"name" : "jcom.count≈.mxo",
 				"type" : "iLaX"
 			}
  ]
