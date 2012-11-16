@@ -52,7 +52,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 635.0, 118.0, 85.0, 19.0 ],
-					"text" : "jcom.counter≈"
+					"text" : "jcom.count≈"
 				}
 
 			}
@@ -1048,7 +1048,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.counter≈.mxo",
+				"name" : "jcom.count≈.mxo",
 				"type" : "iLaX"
 			}
  ]

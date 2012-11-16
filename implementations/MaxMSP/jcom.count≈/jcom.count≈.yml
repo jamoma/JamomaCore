@@ -1,6 +1,6 @@
 
 sources:
-  - jcom.counter.cpp		
+  - jcom.count.cpp		
   - ../MaxAudioGraph.cpp
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
   - ../../../../Support/max/maxGraph.cpp
