@@ -57,6 +57,6 @@ TTErr TTCallback::notify(const TTValue& anInputValue, TTValue &anUnusedOutputVal
 TTErr TTCallback::setOwner(const TTValue& input)
 {
 	input.get(0, mOwner);
-	cout << "TTCallback::setOwner() -- " << (const char*)mOwner << endl;
+	std::cout << "TTCallback::setOwner() -- " << (const char*)mOwner << std::endl;
 	return kTTErrNone;
 }

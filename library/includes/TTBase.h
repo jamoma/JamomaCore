@@ -45,8 +45,6 @@
 #include <iterator>
 #include <stdexcept>
 
-using namespace std;
-
 #ifdef TT_PLATFORM_LINUX
 #include <stdarg.h>
 #endif

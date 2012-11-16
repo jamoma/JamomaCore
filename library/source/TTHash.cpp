@@ -25,7 +25,7 @@
 //		#include "boost/unordered_map.hpp"
 //		using namespace boost;
 //	#endif
-	typedef unordered_map<TTPtrSizedInt,TTValue>	TTHashMap;
+typedef std::unordered_map<TTPtrSizedInt,TTValue>	TTHashMap;
 #endif
 
 typedef TTHashMap::const_iterator	TTHashMapIter;

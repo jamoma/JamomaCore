@@ -13,7 +13,6 @@
 #include "TTValue.h"
 #include "TTMutex.h"
 #include <list>
-using namespace std;
 
 class TTObject;
 typedef TTObject* TTObjectPtr;

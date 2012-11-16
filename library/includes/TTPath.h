@@ -21,7 +21,7 @@ class TTPath;
 
 typedef TTPath*                 TTPathPtr;
 typedef TTPath&                 TTPathRef;
-typedef vector<TTPath>          TTPathVector;
+typedef std::vector<TTPath>		TTPathVector;
 typedef TTPathVector::iterator  TTPathIter;
 
 

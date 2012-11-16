@@ -12,7 +12,7 @@
 #undef BOOST_SYSTEM_NO_DEPRECATED
 using namespace boost::filesystem;
 
-typedef vector<boost::filesystem::path> path_vec;
+typedef std::vector<boost::filesystem::path> path_vec;
 
 #define PATHOBJ ((path*)mPathObject)
 

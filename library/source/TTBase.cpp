@@ -554,7 +554,7 @@ void TTLogMessage(TTImmutableCString message, ...)
 #else
 	// we fail to compile on linux with the current settings if we use fprintf()
 	// fprintf(stderr, str);
-	cerr << str;
+	std::cerr << str;
 #endif
 }
 
@@ -573,7 +573,7 @@ void TTLogWarning(TTImmutableCString message, ...)
 #else
 	// we fail to compile on linux with the current settings if we use fprintf()
 	// fprintf(stderr, str);
-	cerr << str;
+	std::cerr << str;
 #endif
 }
 
@@ -592,7 +592,7 @@ void TTLogError(TTImmutableCString message, ...)
 #else
 	// we fail to compile on linux with the current settings if we use fprintf()
 	// fprintf(stderr, str);
-	cerr << str;
+	std::cerr << str;
 #endif
 }
 
@@ -612,7 +612,7 @@ void TTLogDebug(TTImmutableCString message, ...)
 #else
 	// we fail to compile on linux with the current settings if we use fprintf()
 	// fprintf(stderr, str);
-	cerr << str;
+	std::cerr << str;
 #endif
 	}
 }

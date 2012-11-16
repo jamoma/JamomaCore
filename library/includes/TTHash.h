@@ -15,7 +15,7 @@
 
 
 /** A type that contains a key and a value. */
-typedef pair<TTPtrSizedInt,TTValue>	TTKeyVal;
+typedef std::pair<TTPtrSizedInt,TTValue>	TTKeyVal;
 typedef	TTKeyVal*			TTKeyValPtr;
 typedef void (*TTHashIteratorType)(TTPtr, const TTKeyVal&);
 

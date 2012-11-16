@@ -61,7 +61,7 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 protected:	
 
 	TTBytePtr			mData;					///< memory used to store matrix values
-	vector<TTInt32>		mDimensions;			///< matrix dimensions, use mRowCount and mColumnCount instead of accessing directly
+	std::vector<TTInt32>	mDimensions;			///< matrix dimensions, use mRowCount and mColumnCount instead of accessing directly
 	TTRowID				mRowCount;				///< How many rows of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
 	TTColumnID			mColumnCount;			///< How many columns of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
 	TTElementID			mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an signed 16-bit integer which provides a maximum value of 32,767.
@@ -145,7 +145,7 @@ public:
 		@param	newDimensions	a 2-item TTInt32 vector with the desired mRowCount and mColumnCount 	
 		@return	TTErr			kTTErrInvalidValue if value was outside allowed range, kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone 
 	*/
-	TTErr setDimensionsWithVector(const vector<TTInt32>& newDimensions)
+	TTErr setDimensionsWithVector(const std::vector<TTInt32>& newDimensions)
 	{
 		if (this->setRowCountWithoutResize(newDimensions[0]) &&
 			this->setColumnCountWithoutResize(newDimensions[1]))

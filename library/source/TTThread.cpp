@@ -36,7 +36,6 @@ TTThread::TTThread(TTThreadCallbackType aCallback, void* anArgument)
 	pthread_attr_init(&attr);
 	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 	err = pthread_create(&thread, &attr, TTThreadCallback, this);
-	err = err; // silence 'unused' warning
 	pthread_attr_destroy(&attr);
 #endif
 }

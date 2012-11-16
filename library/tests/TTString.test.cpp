@@ -283,7 +283,7 @@ void TTStringTestStream(int& errorCount, int&testAssertionCount)
 	
 	TTString hi("Hello World!");
 	
-	cout << "	Passing TTString to stdout: " << hi << " (hooray)" << endl;
+	std::cout << "	Passing TTString to stdout: " << hi << " (hooray)" << std::endl;
 }
 
 

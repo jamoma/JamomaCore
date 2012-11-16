@@ -12,7 +12,7 @@
 #include "TTMatrix.h"
 #include "TTEnvironment.h"
 
-typedef vector<TTMatrixPtr>			TTMatrixVector;
+typedef std::vector<TTMatrixPtr>	TTMatrixVector;
 typedef TTMatrixVector::iterator	TTMatrixIter;
 
 

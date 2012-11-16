@@ -970,9 +970,9 @@ public:
 			
 			std::istringstream iss(str);
 			std::copy(
-				 std::istream_iterator<string>( iss ),
-				 std::istream_iterator<string>(),
-				 back_inserter( strList ) );
+					  std::istream_iterator<std::string>( iss ),
+					  std::istream_iterator<std::string>(),
+					  back_inserter( strList ) );
 			
 			if (strList.size() > 0) {
 				

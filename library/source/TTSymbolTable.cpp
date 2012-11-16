@@ -42,13 +42,13 @@
 
 #else
 	#include <unordered_map>
-	typedef unordered_map<TTString, TTSymbolBase*>		TTSymbolTableHash;
+typedef std::unordered_map<TTString, TTSymbolBase*>		TTSymbolTableHash;
 #endif
 
 
 
 /** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
-typedef pair<TTString, TTSymbolBase*>				TTSymbolTablePair;
+typedef std::pair<TTString, TTSymbolBase*>				TTSymbolTablePair;
 
 
 /** An iterator for the STL hash_map used by TTSymbolTable. */
