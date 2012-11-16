@@ -76,7 +76,7 @@ public:
 	
 	
 	/** TODO: Add documentation
-	 @para, schemaName			TODO: Add documentation
+	 @para schemaName			TODO: Add documentation
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setSchema(const TTSymbol& schemaName);
