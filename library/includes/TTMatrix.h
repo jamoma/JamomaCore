@@ -68,8 +68,8 @@ protected:
 	TTUInt32			mComponentCount;		///< mRowCount * mColumnCount
 	TTUInt32			mComponentStride;		///< how many bytes from one the beginning one matrix component to the next
 	TTUInt32			mDataCount;				///< mComponentCount * mElementCount (e.g. total number of floats or ints in the matrix)
-	TTDataType			mType;					///< member of global enumerated list TTBase::TTDataType (i.e., kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, kTypeFloat64)
-	TTDataInfoPtr		mTypeAsDataInfo;		///< pointer to info about the data type found in TTBase::ttDataTypeInfo
+	TTDataType			mType;					///< member of global enumerated list #TTBase::#TTDataType (i.e., kTypeUInt8, kTypeUInt16, kTypeInt32, kTypeUInt64, kTypeFloat32, kTypeFloat64)
+	TTDataInfoPtr		mTypeAsDataInfo;		///< pointer to info about the data type found in #TTBase::#ttDataTypeInfo
 	TTSymbol			mTypeAsSymbol;			///< symbol with data type name for the public interface
 	TTUInt8				mTypeSizeInBytes;		///< number of bytes present in mType
 	TTUInt32			mDataSize;				///< mTypeSizeInBytes * mDataCount
