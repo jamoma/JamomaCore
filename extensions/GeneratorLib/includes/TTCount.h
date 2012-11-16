@@ -2,7 +2,7 @@
  *
  * @ingroup dspGeneratorLib
  *
- * @brief GeneratorLib: Count the number of processd samples, starting from zero.
+ * @brief GeneratorLib: Count the number of processed samples, starting from zero.
  *
  * @details
  *
@@ -14,20 +14,20 @@
  */
 
 
-#ifndef __TT_COUNTER_H__
-#define __TT_COUNTER_H__
+#ifndef __TT_COUNT_H__
+#define __TT_COUNT_H__
 
 #include "TTDSP.h"
 
 
-/**	TTCounter counts the number of samples processed so far.
+/**	TTCount counts the number of samples processed so far.
  */ 
-class TTCounter : TTAudioObject {
-	TTCLASS_SETUP(TTCounter)
+class TTCount : TTAudioObject {
+	TTCLASS_SETUP(TTCount)
 
 protected:
 
-	TTFloat64 			counter;			///< Sample counter
+	TTFloat64 			count;			///< Sample count
 
 	
 	/**	Process method
@@ -52,4 +52,4 @@ protected:
 };
 
 
-#endif // __TT_COUNTER_H__
+#endif // __TT_COUNT_H__

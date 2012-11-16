@@ -16,7 +16,7 @@
 
 #include "TTDSP.h"
 #include "TTAdsr.h"
-#include "TTCounter.h"
+#include "TTCount.h"
 #include "TTNoise.h"
 #include "TTPhasor.h"
 #include "TTRamp.h"
@@ -31,7 +31,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_GeneratorLib(void)
 	TTDSPInit();
 
 	TTAdsr::registerClass();
-	TTCounter::registerClass();
+	TTCount::registerClass();
 	TTNoise::registerClass();
 	TTPhasor::registerClass();
 	TTRamp::registerClass();

@@ -13,10 +13,10 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTCounter.h"
+#include "TTCount.h"
 
-#define thisTTClass TTCounter
-#define thisTTClassName		"counter"
+#define thisTTClass TTCount
+#define thisTTClassName		"count"
 #define thisTTClassTags		"audio, generator"
 
 
@@ -28,20 +28,20 @@ TT_AUDIO_CONSTRUCTOR
 }
 
 
-TTCounter::~TTCounter()
+TTCount::~TTCount()
 {
 	;
 }
 
 
-TTErr TTCounter::reset()
+TTErr TTCount::reset()
 {
-	counter = 0.;
+	count = 0.;
 	return kTTErrNone;
 }
 
 
-TTErr TTCounter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTCount::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
@@ -53,13 +53,13 @@ TTErr TTCounter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	for (channel=0; channel<numchannels; channel++) {
 		vs = out.getVectorSizeAsInt();
 		outSample = out.mSampleVectors[channel];
-		thisVectorCount = counter;
+		thisVectorCount = count;
 		while (vs--) {
 			*outSample++ = thisVectorCount;
 			thisVectorCount += 1.;
 		}
 	}
 
-	counter = thisVectorCount;
+	count = thisVectorCount;
 	return kTTErrNone;
 }
