@@ -112,7 +112,7 @@ TTErr TTAudioGraphObject::setNumAudioOutlets(const TTValue& newNumOutlets)
 
 void TTAudioGraphObject::prepareAudioDescription()
 {
-	if (valid && mAudioDescription.mClassName) {
+	if (valid && mAudioDescription.mClassName != kTTSymEmpty) {
 		mAudioDescription.sIndex = 0;
 		mAudioDescription.mClassName = kTTSymEmpty;
 		
@@ -126,7 +126,7 @@ void TTAudioGraphObject::prepareAudioDescription()
 
 void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 {
-	if (mAudioDescription.mClassName) {		// a description for this object has already been created -- use it.
+	if (mAudioDescription.mClassName != kTTSymEmpty) {		// a description for this object has already been created -- use it.
 		desc = mAudioDescription;
 	}
 	else {					// create a new description for this object.
