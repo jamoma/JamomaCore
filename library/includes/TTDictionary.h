@@ -19,14 +19,30 @@
 #ifndef __TT_DICTIONARY_H__
 #define __TT_DICTIONARY_H__
 
-#include "TTHash.h"
-#include "TTList.h"
+#include "TTValue.h"
+#include <unordered_map>
+//#include "TTBase.h"
+//#include "TTHash.h"
+//#include "TTList.h"
 
 
 /****************************************************************************************************/
 // Class Specification
 
-/**	
+typedef std::pair<TTPtrSizedInt,TTValue>			TTDictionaryPair;
+typedef std::unordered_map<TTPtrSizedInt, TTValue>	TTDictionaryMap;
+typedef TTDictionaryMap::iterator					TTDictionaryMapIter;
+typedef TTDictionaryMap::const_iterator				TTDictionaryMapIterK;
+
+
+/** A type that contains a key and a value. */
+//typedef pair<TTPtrSizedInt,TTValue>	TTKeyVal;
+//typedef	TTKeyVal*			TTKeyValPtr;
+//typedef void (*TTHashIteratorType)(TTPtr, const TTKeyVal&);
+
+
+
+/**
  The dictionary is a data structure that combines the fast lookup of a hashtable,
 but may be sorted like a linked-list.
  
@@ -34,8 +50,9 @@ The linked list contains the key-value pairs of the hash a linked-list of TTKeyV
 */
 class TTFOUNDATION_EXPORT TTDictionary : TTBase {
 private:
-	TTHashPtr	mHashTable;
-	TTListPtr	mList;
+//	TTHashPtr	mHashTable;
+//	TTListPtr	mList;
+	TTDictionaryMap	mMap;
 	
 public:
 	TTDictionary();
@@ -45,13 +62,15 @@ public:
 	// This operator is used when pushing to an append# object, however...
 	TTDictionary& operator=(const TTDictionary& source)
 	{
-		if (mHashTable)
-			delete mHashTable;
-		mHashTable = new TTHash(*source.mHashTable);
+//		if (mHashTable)
+//			delete mHashTable;
+//		mHashTable = new TTHash(*source.mHashTable);
 		
-		if (mList)
-			delete mList;
-		mList = new TTList(*source.mList);
+		mMap = source.mMap;
+		
+//		if (mList)
+//			delete mList;
+//		mList = new TTList(*source.mList);
 		return *this;
 	}
 	
