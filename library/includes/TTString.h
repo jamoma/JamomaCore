@@ -195,6 +195,9 @@ public:
 	/** Append / Concatenate */
 	void append(const char *str, size_t length=0)
 	{
+		if (!str)
+			return;
+		
 		if (length == 0)
 			length = strlen(str);
 		
@@ -410,54 +413,4 @@ namespace std
 #endif // TTFOUNDATION_EXPORTS
 
 
-
-
 #endif // __TT_STRING_H__
-
-
-
-
-/*
-	
-#include <bits/functional_hash.h>
-3033 
-3034 namespace std _GLIBCXX_VISIBILITY(default)
-3035 {
-3036 _GLIBCXX_BEGIN_NAMESPACE_VERSION
-3037 
-3038   // DR 1182.
-3039 
-3040 #ifndef _GLIBCXX_COMPATIBILITY_CXX0X
-3041   /// std::hash specialization for string.
-3042   template<>
-3043     struct hash<string>
-3044     : public __hash_base<size_t, string>
-3045     {
-3046       size_t
-3047       operator()(const string& __s) const noexcept
-3048       { return std::_Hash_impl::hash(__s.data(), __s.length()); }
-3049     };
-	
-	
-	
-*/
-
-
-/*
-
-Code from Wikipedia:
-
-namespace std {
-    template <>
-        class hash<X>{
-        public :
-        size_t operator()(const X &x ) const{
-            return hash<int>()(x.i) ^ hash<int>()(x.j) ^ hash<int>()(x.k);
-        }
-    };
-}
- 
-//...
- std::unordered_map<X,int> my_map;
-
- */
