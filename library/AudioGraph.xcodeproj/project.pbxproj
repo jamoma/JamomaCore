@@ -99,7 +99,7 @@
 		A79C81D41523142400119511 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
 			buildConfigurationList = A79C81D71523142400119511 /* Build configuration list for PBXProject "AudioGraph" */;

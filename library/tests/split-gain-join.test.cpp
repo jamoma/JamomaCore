@@ -169,7 +169,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	
 	obj0->lockProcessing();
 	obj0->preprocess(mInitData);
-	obj0->process(output);
+	obj0->process(output, 0);
 	obj0->unlockProcessing();
 	
 	output->getVectorCopy(0, 64, chan1output);
@@ -206,7 +206,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	
 	obj0->lockProcessing();
 	obj0->preprocess(mInitData);
-	obj0->process(output);
+	obj0->process(output, 64);
 	obj0->unlockProcessing();
 	
 	output->getVectorCopy(0, 64, chan1output);

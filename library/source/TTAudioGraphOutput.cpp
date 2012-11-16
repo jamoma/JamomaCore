@@ -28,7 +28,8 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	placeHolder(NULL),
-	mDevice(kTTSymEmpty)
+	mDevice(kTTSymEmpty),
+	mSampleStamp(0)
 {
 	TTObjectInstantiate(kTTSym_audiosignal, &placeHolder, 1);
 	audioEngine = TTAudioEngine::create();
@@ -90,7 +91,8 @@ TTErr TTAudioGraphOutput::audioEngineWillProcess()
 	
 	owner->lockProcessing();
 	owner->preprocess(mInitData);
-	owner->process(placeHolder);
+	owner->process(placeHolder, mSampleStamp);
+	mSampleStamp += mInitData.vectorSize;
 	owner->unlockProcessing();
 	return kTTErrNone;
 }

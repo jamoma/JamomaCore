@@ -83,17 +83,17 @@ public:
 
 class	TTAudioGraphObject;
 typedef TTAudioGraphObject*					TTAudioGraphObjectPtr;
-typedef vector<TTAudioGraphObjectPtr>		TTAudioGraphObjectVector;
+typedef std::vector<TTAudioGraphObjectPtr>	TTAudioGraphObjectVector;
 typedef TTAudioGraphObjectVector::iterator	TTAudioGraphObjectIter;
 
 class	TTAudioGraphInlet;
 typedef TTAudioGraphInlet*					TTAudioGraphInletPtr;
-typedef vector<TTAudioGraphInlet>			TTAudioGraphInletVector;
+typedef std::vector<TTAudioGraphInlet>		TTAudioGraphInletVector;
 typedef TTAudioGraphInletVector::iterator	TTAudioGraphInletIter;
 
 class	TTAudioGraphOutlet;
 typedef TTAudioGraphOutlet*					TTAudioGraphOutletPtr;
-typedef vector<TTAudioGraphOutlet>			TTAudioGraphOutletVector;
+typedef std::vector<TTAudioGraphOutlet>		TTAudioGraphOutletVector;
 typedef TTAudioGraphOutletVector::iterator	TTAudioGraphOutletIter;
 
 #include "TTAudioGraphDescription.h"

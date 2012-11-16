@@ -26,6 +26,7 @@ struct Unpack {
 	ObjectPtr					patcherview;	// first view of the top-level patcher (for dirty notifications)
 	TTPtr						qelem;			// for clumping patcher dirty notifications
 	TTAudioGraphPreprocessData	initData;		// for the preprocess method
+	TTUInt64					sampleStamp;	// current count of samples processed since DSP was started
 };
 typedef Unpack* UnpackPtr;
 
@@ -41,8 +42,6 @@ TTErr	UnpackConnect(UnpackPtr self, TTAudioGraphObjectPtr audioSourceObject, lon
 void	UnpackIterateResetCallback(UnpackPtr self, ObjectPtr obj);
 void	UnpackIterateSetupCallback(UnpackPtr self, ObjectPtr obj);
 void	UnpackAttachToPatchlinesForPatcher(UnpackPtr self, ObjectPtr patcher);
-t_int*	UnpackPerform(t_int* w);
-void	UnpackDsp(UnpackPtr self, t_signal** sp, short* count);
 void	UnpackDsp64(UnpackPtr self, ObjectPtr dsp64, short *count, double samplerate, long maxvectorsize, long flags);
 //MaxErr	UnpackSetGain(UnpackPtr self, void* attr, AtomCount argc, AtomPtr argv);
 
@@ -68,7 +67,6 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	class_addmethod(c, (method)UnpackConnect,		"audio.connect",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)MaxAudioGraphDrop,	"audio.drop",		A_CANT, 0);
 	class_addmethod(c, (method)MaxAudioGraphObject,	"audio.object",		A_CANT, 0);
- 	class_addmethod(c, (method)UnpackDsp,			"dsp",				A_CANT, 0);		
  	class_addmethod(c, (method)UnpackDsp64,			"dsp64",			A_CANT, 0);		
 	class_addmethod(c, (method)UnpackAssist,		"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,	"dumpout",			A_CANT, 0);  
@@ -280,42 +278,6 @@ void UnpackAttachToPatchlinesForPatcher(UnpackPtr self, ObjectPtr patcher)
 
 
 // Perform (signal) Method
-t_int* UnpackPerform(t_int* w)
-{
-   	UnpackPtr		self = (UnpackPtr)(w[1]);
-	TTUInt16	numChannels;
-	
-	if (!self->obj.z_disabled) {
-		if (self->hasConnections) {
-			self->audioGraphObject->lockProcessing();
-			self->audioGraphObject->preprocess(self->initData);
-			self->audioGraphObject->process(self->audioSignal);
-			self->audioGraphObject->unlockProcessing();
-			
-			numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannelsAsInt());			
-			for(TTUInt16 channel=0; channel<numChannels; channel++) //TODO: what happens if the incomming multicable has 100 channels and we only want to unpack the first two, are we looping 100 times ?
-				self->audioSignal->getVector(channel, self->vectorSize, (TTFloat32*)w[channel+2]);
-			
-			if (numChannels  < self->maxNumChannels){ // in case the incomming multicable has less channels than jcom.unpack has outlets
-				for(TTUInt16 channel=numChannels; channel<self->maxNumChannels; channel++)
-					for (int i=0 ; i < self->vectorSize; i++)
-						((TTFloat32*)(w[channel+2]))[i] = 0.0;
-			}
-		}
-		else {
-			for (TTUInt16 channel=0; channel < self->numChannels; channel++) {
-				for (int i=0 ; i < self->vectorSize; i++)
-					((TTFloat32*)(w[channel+2]))[i] = 0.0;
-			}
-		}
-	}
-	
-	self->hasReset = false;
-	return w + (self->numChannels+2);
-}
-
-
-// Perform (signal) Method
 void UnpackPerform64(UnpackPtr self, ObjectPtr dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
 	TTUInt16	numChannels;
@@ -323,7 +285,8 @@ void UnpackPerform64(UnpackPtr self, ObjectPtr dsp64, double **ins, long numins,
 	if (self->hasConnections) {
 		self->audioGraphObject->lockProcessing();
 		self->audioGraphObject->preprocess(self->initData);
-		self->audioGraphObject->process(self->audioSignal);
+		self->audioGraphObject->process(self->audioSignal, self->sampleStamp);
+		self->sampleStamp += sampleframes;
 		self->audioGraphObject->unlockProcessing();
 		
 		numChannels = TTClip<TTUInt16>(self->numChannels, 0, self->audioSignal->getNumChannelsAsInt());			
@@ -344,93 +307,6 @@ void UnpackPerform64(UnpackPtr self, ObjectPtr dsp64, double **ins, long numins,
 	}
 	
 	self->hasReset = false;
-}
-
-
-// DSP Method
-void UnpackDsp(UnpackPtr self, t_signal** sp, short* count)
-{
-	TTUInt16	i, k=0;
-	void		**audioVectors = NULL;
-	MaxErr		err;
-	long		result = 0;
-	
-	self->vectorSize = sp[0]->s_n;
-	
-	#ifdef DEBUG_NOTIFICATIONS
-	object_post(SELF, "dsp method called");
-	#endif // DEBUG_NOTIFICATIONS
-	
-	/*	We need to figure out what objects are connected to what inlets to build the graph:
-		
-		1. Broadcast 'audio.reset' to every object in the patcher, to remove all existing connections.
-		2. Broadcast 'audio.setup' to every object in the patcher, to tell objects to then send
-			'audio.connect' messages to any objects below them.
-		3. When an object received 'audio.connect', then it makes the connection.
-		
-		At this point, the graph is configured and we just need to execute it.
-		We execute the graph from our perform method, which MSP calls once per signal vector.
-	 
-		5. Crawl the graph from bottom to top, calling the audio graph preprocess method (prepare for process)
-		6. Crawl the graph from bottom to top, calling the audio graph process method (calculate the samples)
-		7. (Maybe) crawl the graph from bottom to top, calling a audio graph postprocess method
-	 
-		For steps 1 & 2, we have to traverse thge patcher twice, 
-		because we have to clear all connections first, then add connections.
-		It won't work to do them both during the same traversal because situations arise
-		Where we setup the chain and then it gets reset again by another object 
-		(since the order in which we traverse objects is undefined).
-	 */ 
-
-	if (!self->hasReset) {
-		ObjectPtr	patcher = NULL;
-		ObjectPtr	parent = NULL;
-		ObjectPtr	patcherview = NULL;
-
-		// first find the top-level patcher
-		err = object_obex_lookup(self, gensym("#P"), &patcher);
-		parent = patcher;
-		while (parent) {
-			patcher = parent;
-			parent = object_attr_getobj(patcher, _sym_parentpatcher);
-		}
-
-		// now iterate recursively from the top-level patcher down through all of the subpatchers
-		object_method(patcher, gensym("iterate"), (method)UnpackIterateResetCallback, self, PI_DEEP, &result);
-		object_method(patcher, gensym("iterate"), (method)UnpackIterateSetupCallback, self, PI_DEEP, &result);
-		
-		// now let's attach to the patcherview to get notifications about any further changes to the patch cords
-		// the patcher 'dirty' attribute is not modified for each change, but the patcherview 'dirty' attribute is
-		if (!self->patcherview) {
-			patcherview = jpatcher_get_firstview(patcher);
-			self->patcherview = patcherview;
-			self->patcher = patcher;
-			object_attach_byptr_register(self, patcherview, _sym_nobox);			
-		}
-	}
-	
-	// now we want to go a step further and attach to all of the patch cords 
-	// this is how we will know if one is deleted
-	UnpackAttachToPatchlinesForPatcher(self, self->patcher);
-
-	// Setup the perform method
-	audioVectors = (void**)sysmem_newptr(sizeof(void*) * (self->maxNumChannels + 1));
-	audioVectors[k] = self;
-	k++;
-	
-	self->numChannels = 0;
-	for (i=1; i <= self->maxNumChannels; i++) {
-		self->numChannels++;				
-		audioVectors[k] = sp[i]->s_vec;
-		k++;
-	}
-	
-	self->audioGraphObject->getUnitGenerator()->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
-	
-	dsp_addv(UnpackPerform, k, audioVectors);
-	sysmem_freeptr(audioVectors);
-	
-	self->initData.vectorSize = self->vectorSize;
 }
 
 
@@ -505,6 +381,8 @@ void UnpackDsp64(UnpackPtr self, ObjectPtr dsp64, short *count, double samplerat
 	}
 	
 	self->audioGraphObject->getUnitGenerator()->setAttributeValue(kTTSym_sampleRate, samplerate);
+	self->audioGraphObject->resetSampleStamp();
+	self->sampleStamp = 0;
 	
 	self->initData.vectorSize = self->vectorSize;
 	

@@ -37,7 +37,7 @@ public:
 	TTValuePtr					me;
 	TTAudioGraphPreprocessData	mInitData;
 	TTSymbol					mDevice;		///< Name of the audio interface
-	
+	TTUInt64					mSampleStamp;	///< The current time in samples
 	
 	/** Start audio processing.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.

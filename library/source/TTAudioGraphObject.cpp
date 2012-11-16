@@ -47,7 +47,8 @@ TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
 	mAudioFlags(kTTAudioGraphProcessor), 
 	mInputSignals(NULL), 
 	mOutputSignals(NULL), 
-	mVectorSize(0)
+	mVectorSize(0),
+	mSampleStamp(-1)
 {
 	TTSymbol	wrappedObjectName = kTTSymEmpty;
 	TTUInt16	numInlets = 1;
@@ -154,7 +155,7 @@ void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 TTErr TTAudioGraphObject::resetAudio()
 {
 	sSharedMutex->lock();
-	for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::reset));		
+	for_each(mAudioInlets.begin(), mAudioInlets.end(), std::mem_fun_ref(&TTAudioGraphInlet::reset));
 	sSharedMutex->unlock();
 	return kTTErrNone;
 }
@@ -229,83 +230,90 @@ TTErr TTAudioGraphObject::preprocess(const TTAudioGraphPreprocessData& initData)
 }
 
 
-TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt16 forOutletNumber)
+TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt64 sampleStamp, TTUInt16 forOutletNumber)
 {
 	lock();
-	switch (mStatus) {		
+	
+	if (sampleStamp == mSampleStamp) // we have already processed this slice of time!
+		returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+	else {
+		mSampleStamp = sampleStamp;	// update our notion of time and proceed
+		
+		switch (mStatus) {
 
-		// we have not processed anything yet, so let's get started
-		case kTTAudioGraphProcessNotStarted:
-			mStatus = kTTAudioGraphProcessingCurrently;
-			
-			if (mAudioFlags & kTTAudioGraphGenerator) {			// a generator (or no input)
-				getUnitGenerator()->process(mInputSignals, mOutputSignals);
-			}
-			else {												// a processor
-				// zero our collected input samples
-
-				// WE CANNOT DO THIS!!!  IF THE INLET IS JUST A POINTER TO MEMORY IN ANOTHER OBJECT'S OUTLET
-				// THEN WE END UP CLEARING THAT OBJECT'S COMPUTED OUTPUT!!!
-				// INSTEAD, WE MOVE THE CLEARING INTO THE inlet->process() call
-				//mInputSignals->clearAll();
+			// we have not processed anything yet, so let's get started
+			case kTTAudioGraphProcessNotStarted:
+				mStatus = kTTAudioGraphProcessingCurrently;
 				
+				if (mAudioFlags & kTTAudioGraphGenerator) {			// a generator (or no input)
+					getUnitGenerator()->process(mInputSignals, mOutputSignals);
+				}
+				else {												// a processor
+					// zero our collected input samples
 
-				// pull (process, sum, and collect) all of our source audio
-//				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::process));
-				for(TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet !=  mAudioInlets.end(); inlet++) {
-					inlet->process();
-				}
+					// WE CANNOT DO THIS!!!  IF THE INLET IS JUST A POINTER TO MEMORY IN ANOTHER OBJECT'S OUTLET
+					// THEN WE END UP CLEARING THAT OBJECT'S COMPUTED OUTPUT!!!
+					// INSTEAD, WE MOVE THE CLEARING INTO THE inlet->process() call
+					//mInputSignals->clearAll();
+					
 
-				// TEMPORARY -- DUPLICATING CODE FROM PREPROCESS
-				// If there is a change in the inlet/source configuration during processing, including channel counts, then the information cached at preprocess is WRONG!
-				// If there is feedback, then the problem gets compounded into future pulls on the graph!
-				int index = 0;
-				for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
-					TTAudioSignalPtr audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
-					mInputSignals->setSignal(index, audioSignal);
-					index++;
+					// pull (process, sum, and collect) all of our source audio
+	//				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::process));
+					for(TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet !=  mAudioInlets.end(); inlet++) {
+						inlet->process(sampleStamp);
+					}
+
+					// TEMPORARY -- DUPLICATING CODE FROM PREPROCESS
+					// If there is a change in the inlet/source configuration during processing, including channel counts, then the information cached at preprocess is WRONG!
+					// If there is feedback, then the problem gets compounded into future pulls on the graph!
+					int index = 0;
+					for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
+						TTAudioSignalPtr audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
+						mInputSignals->setSignal(index, audioSignal);
+						index++;
+					}
+									
+					if (!(mAudioFlags & kTTAudioGraphNonAdapting)) {
+						// examples of non-adapting objects are join≈ and matrix≈
+						// non-adapting in this case means channel numbers -- vector sizes still adapt
+						mOutputSignals->matchNumChannels(mInputSignals);
+					}
+					mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
+					
+					// adapt ugen based on the input we are going to process
+					getUnitGenerator()->adaptMaxNumChannels(mInputSignals->getMaxNumChannels());
+					getUnitGenerator()->setSampleRate(mInputSignals->getSignal(0).getSampleRate());
+							
+					// finally, process the audio
+					getUnitGenerator()->process(mInputSignals, mOutputSignals);
 				}
-								
-				if (!(mAudioFlags & kTTAudioGraphNonAdapting)) {
-					// examples of non-adapting objects are join≈ and matrix≈
-					// non-adapting in this case means channel numbers -- vector sizes still adapt
-					mOutputSignals->matchNumChannels(mInputSignals);
-				}
-				mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
 				
-				// adapt ugen based on the input we are going to process
-				getUnitGenerator()->adaptMaxNumChannels(mInputSignals->getMaxNumChannels());
-				getUnitGenerator()->setSampleRate(mInputSignals->getSignal(0).getSampleRate());
-						
-				// finally, process the audio
-				getUnitGenerator()->process(mInputSignals, mOutputSignals);
-			}
+				// These two lines should be equivalent
+				//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+				returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+							
+				mStatus = kTTAudioGraphProcessComplete;
+				break;
 			
-			// These two lines should be equivalent
-			//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
-						
-			mStatus = kTTAudioGraphProcessComplete;
-			break;
-		
-		// we already processed everything that needs to be processed, so just set the pointer
-		case kTTAudioGraphProcessComplete:
-			// These two lines should be equivalent
-			//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
-			break;
-		
-		// to prevent feedback / infinite loops, we just hand back the last calculated output here
-		case kTTAudioGraphProcessingCurrently:
-			// These two lines should be equivalent
-			//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-			returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
-			break;
-		
-		// we should never get here
-		default:
-			unlock();
-			return kTTErrGeneric;
+			// we already processed everything that needs to be processed, so just set the pointer
+			case kTTAudioGraphProcessComplete:
+				// These two lines should be equivalent
+				//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+				returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+				break;
+			
+			// to prevent feedback / infinite loops, we just hand back the last calculated output here
+			case kTTAudioGraphProcessingCurrently:
+				// These two lines should be equivalent
+				//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
+				returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+				break;
+			
+			// we should never get here
+			default:
+				unlock();
+				return kTTErrGeneric;
+		}
 	}
 	unlock();
 	return kTTErrNone;

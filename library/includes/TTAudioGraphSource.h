@@ -187,9 +187,9 @@ public:
 	 @details					This pass a request for a buffer of processed audio to the upstream associated source.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr process(TTAudioSignalPtr& returnedSignal) 
+	TTErr process(TTAudioSignalPtr& returnedSignal, TTUInt64 sampleStamp)
 	{
-		return mSourceObject->process(returnedSignal, mOutletNumber);
+		return mSourceObject->process(returnedSignal, sampleStamp, mOutletNumber);
 	}
 	
 };
@@ -204,7 +204,7 @@ typedef TTAudioGraphSource*					TTAudioGraphSourcePtr;
 /** A vector of #TTAudioGraphSources
  @ingroup typedefs
  */
-typedef vector<TTAudioGraphSource>			TTAudioGraphSourceVector;
+typedef std::vector<TTAudioGraphSource>		TTAudioGraphSourceVector;
 
 
 /** An iterator on TTAudioGraphSourceVector

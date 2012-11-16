@@ -48,6 +48,7 @@ protected:
 	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
 	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it.
 	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess.
+	TTUInt64					mSampleStamp;		///< The current time in samples, as determined from the pulling of this object.
 	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTAudioGraphObjects to prevent changes to the graph while processing.
 
 	
@@ -74,6 +75,12 @@ public:
 	TTAudioObjectPtr getUnitGenerator()
 	{
 		return TTAudioObjectPtr(mKernel);
+	}
+	
+	
+	void resetSampleStamp()
+	{
+		mSampleStamp = -1;
 	}
 	
 
@@ -231,7 +238,7 @@ public:
 							We then set this audio signal pointer to point to the TTAudioSignal containing our calculated samples.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	virtual TTErr process(TTAudioSignalPtr& returnedSignal, TTUInt16 forOutletNumber=0);
+	virtual TTErr process(TTAudioSignalPtr& returnedSignal, TTUInt64 sampleStamp, TTUInt16 forOutletNumber=0);
 	
 };
 

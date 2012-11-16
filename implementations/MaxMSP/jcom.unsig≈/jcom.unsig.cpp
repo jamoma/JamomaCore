@@ -35,6 +35,7 @@ struct Out {
 	TTAudioGraphPreprocessData	initData;		// for the preprocess method
 	t_atom						*output_buffer;    // allocating list for output samples
 	void*						clock;			///< clock for pushing the data onto the scheduler from the audio thread
+	TTUInt64					sampleCount;
 };
 typedef Out* OutPtr;
 
@@ -305,7 +306,8 @@ t_int* OutPerform(t_int* w)
 		if (self->hasConnections) {
 			self->audioGraphObject->lockProcessing();
 			self->audioGraphObject->preprocess(self->initData);
-			self->audioGraphObject->process(self->audioSignal);
+			self->audioGraphObject->process(self->audioSignal, self->sampleCount);
+			self->sampleCount += self->vectorSize;
 			self->audioGraphObject->unlockProcessing();
 			
 			numChannels = TTClip<TTUInt16>(self->maxNumChannels, 0, self->audioSignal->getNumChannelsAsInt());	
@@ -411,20 +413,11 @@ void OutDsp(OutPtr self, t_signal** sp, short* count)
 	}*/
 	self->numChannels = self->maxNumChannels; //[np]
 	self->audioGraphObject->getUnitGenerator()->setAttributeValue(kTTSym_sampleRate, sp[0]->s_sr);
+	self->audioGraphObject->resetSampleStamp();
+	self->sampleCount = 0;
 	
 	dsp_addv(OutPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
 	
 	self->initData.vectorSize = self->vectorSize;
 }
-
-
-/*MaxErr OutSetGain(OutPtr self, void* attr, AtomCount argc, AtomPtr argv)
-{
-	if (argc) {
-		self->gain = atom_getfloat(argv);
-		self->audioGraphObject->getUnitGenerator()->setAttributeValue(TT("linearGain"), self->gain);
-	}
-	return MAX_ERR_NONE;
-}
-*/

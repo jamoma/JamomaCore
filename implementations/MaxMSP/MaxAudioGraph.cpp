@@ -17,6 +17,8 @@
 #include "maxAudioGraph.h"
 #include "ext_hashtab.h"
 
+using namespace std;
+
 #define MAX_NUM_INLETS  32
 #define MAX_NUM_OUTLETS 32
 

@@ -83,7 +83,7 @@
 		2219FD04148594880086DD17 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = 2219FD07148594880086DD17 /* Build configuration list for PBXProject "AudioGraphUtilityLib" */;
 			compatibilityVersion = "Xcode 3.2";
