@@ -79,7 +79,7 @@ void TTAverage::reset()
 
 TTErr TTAverage::clear()
 {   
-	for_each(mBins.begin(), mBins.end(), mem_fun_ref(&TTDelayBuffer::clear));
+	for_each(mBins.begin(), mBins.end(), std::mem_fun_ref(&TTDelayBuffer::clear));
 	mAccumulator.assign(maxNumChannels, 0.0);
 	return kTTErrNone;
 }

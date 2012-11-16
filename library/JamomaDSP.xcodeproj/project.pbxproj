@@ -235,7 +235,7 @@
 		22C57C5A15EC1D9D00B755FA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = Jamoma;
 			};
 			buildConfigurationList = 22C57C5D15EC1D9D00B755FA /* Build configuration list for PBXProject "JamomaDSP" */;
@@ -305,6 +305,7 @@
 		22C57C6315EC1D9D00B755FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -317,6 +318,7 @@
 		22C57C6415EC1D9D00B755FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

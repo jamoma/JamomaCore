@@ -19,7 +19,7 @@
 
 #include "TTAudioObject.h"
 
-typedef vector<TTAudioObjectPtr>		TTAudioObjectVector;
+typedef std::vector<TTAudioObjectPtr>	TTAudioObjectVector;
 typedef TTAudioObjectVector::iterator	TTAudioObjectIter;
 
 

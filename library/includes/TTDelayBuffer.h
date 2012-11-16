@@ -106,7 +106,7 @@ public:
 	
 };
 typedef TTDelayBuffer*					TTDelayBufferPtr;
-typedef vector<TTDelayBuffer>			TTDelayBufferVector;
+typedef std::vector<TTDelayBuffer>		TTDelayBufferVector;
 typedef TTDelayBufferVector::iterator	TTDelayBufferIter;
 
 

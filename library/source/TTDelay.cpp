@@ -86,7 +86,7 @@ TTErr TTDelay::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 
 TTErr TTDelay::clear()
 {
-	for_each(mBuffers.begin(), mBuffers.end(), mem_fun_ref(&TTDelayBuffer::clear));
+	for_each(mBuffers.begin(), mBuffers.end(), std::mem_fun_ref(&TTDelayBuffer::clear));
 	return kTTErrNone;
 }
 

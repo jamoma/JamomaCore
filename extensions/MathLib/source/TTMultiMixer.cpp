@@ -222,7 +222,7 @@ void TTMultiMixer::processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 g
 TTErr TTMultiMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 { //TODO: if mGainMatrix is sparse (i.e. it has a lot of zeros), we can do better than this algorithm which iterates through the entire matrix
 	
-	TTUInt16 minChannelIn = min(mNumInputs,inputs->numAudioSignals);
+	TTUInt16 minChannelIn = std::min(mNumInputs,inputs->numAudioSignals);
 	TTFloat64 gain;
 	
 	for (TTUInt16 y=0; y < outputs->numAudioSignals; y++) {

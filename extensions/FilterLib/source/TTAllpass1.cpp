@@ -99,8 +99,8 @@ TTErr TTAllpass1::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 
 TTErr TTAllpass1::clear()
 {
-	for_each(mFeedforward.begin(), mFeedforward.end(), mem_fun_ref(&TTDelayBuffer::clear));
-	for_each(mFeedback.begin(), mFeedback.end(), mem_fun_ref(&TTDelayBuffer::clear));
+	for_each(mFeedforward.begin(), mFeedforward.end(), std::mem_fun_ref(&TTDelayBuffer::clear));
+	for_each(mFeedback.begin(), mFeedback.end(), std::mem_fun_ref(&TTDelayBuffer::clear));
 	return kTTErrNone;
 }
 
