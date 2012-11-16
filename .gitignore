@@ -49,3 +49,4 @@ CMakeLists.txt
 CMakeScripts
 
 *.o
+*.tmproj
