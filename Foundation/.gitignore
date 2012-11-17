@@ -1,0 +1,39 @@
+# Mac OSX Finder stuff
+.DS_Store
+Makefile
+
+logs
+build
+html
+Debug
+Release
+*.layout
+*.depends
+*.map
+*.ncb
+*.suo
+*.user
+*.mode1v3
+*.pbxuser
+*.perspectivev3
+xcuserdata
+project.xcworkspace
+*.orig
+*.o
+*.bundle
+*.log
+*.tm_build_errors
+
+#Windows implementation build files
+implementations/MaxMSP/builds/
+extensions/builds/
+builds
+*.vcproj
+*.sln
+*.old
+
+# Backup files from various Linux text editors
+*~
+
+# TextMate project files
+*.tmproj

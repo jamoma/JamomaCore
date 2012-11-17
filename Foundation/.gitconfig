@@ -1,0 +1,16 @@
+[user]
+name = theod
+email = theod@gmea.net
+[core]
+editor = mate -w
+excludesfile = /Users/TO/.gitignore
+[github]
+user = theod
+token = 6e1469e6b85edfaaa06f62749c73aa90
+[color]
+ui = auto
+[alias]
+stat = status
+co = checkout
+ci = commit
+b = branch
