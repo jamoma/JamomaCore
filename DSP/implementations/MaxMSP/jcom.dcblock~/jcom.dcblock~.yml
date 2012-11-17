@@ -2,13 +2,13 @@
 sources:
   - jcom.dcblock~.cpp		
   - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
-  - ../../../../Support/max/TTClassWrapperMax.cpp
+  - ../../../../Shared/max/TTClassWrapperMax.cpp
     
 includes:
   - ../../../../Foundation/library/includes
   - ../../../../DSP/library/includes
   - ../../../../Graphics/library/includes
-  - ../../../../Support/max  
+  - ../../../../Shared/max  
   - C74-INCLUDES
 
 libraries:

@@ -10,5 +10,5 @@ projectName = projectNameParts.last;
 projectName.gsub!(/Jamoma/, "")
 ENV['JAMOMAPROJECT'] = projectName
 
-Dir.chdir "#{glibdir}/../Support"
+Dir.chdir "#{glibdir}/../Shared"
 load "build.rb"

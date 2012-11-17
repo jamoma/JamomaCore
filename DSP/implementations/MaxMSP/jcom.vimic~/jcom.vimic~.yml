@@ -22,7 +22,7 @@ includes:
   - ../../../../Foundation/library/includes
   - ../../../../DSP/library/includes  
   - ../../../../Graphics/library/includes
-  - ../../../../Support/max  
+  - ../../../../Shared/max  
   - C74-INCLUDES
 
 libraries:
