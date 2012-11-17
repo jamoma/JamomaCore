@@ -1,0 +1,197 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		A7E1F5E2164A8FA70072ECE7 /* TTAudioGraphJoin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphJoin.h; path = includes/TTAudioGraphJoin.h; sourceTree = "<group>"; };
+		A7E1F5E3164A8FA70072ECE7 /* TTAudioGraphOffset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOffset.h; path = includes/TTAudioGraphOffset.h; sourceTree = "<group>"; };
+		A7E1F5E4164A8FA70072ECE7 /* TTAudioGraphPick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphPick.h; path = includes/TTAudioGraphPick.h; sourceTree = "<group>"; };
+		A7E1F5E5164A8FA70072ECE7 /* TTAudioGraphSig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSig.h; path = includes/TTAudioGraphSig.h; sourceTree = "<group>"; };
+		A7E1F5E6164A8FA70072ECE7 /* TTAudioGraphSplit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSplit.h; path = includes/TTAudioGraphSplit.h; sourceTree = "<group>"; };
+		A7E1F5E7164A8FBC0072ECE7 /* TTAudioGraphJoin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphJoin.cpp; path = source/TTAudioGraphJoin.cpp; sourceTree = "<group>"; };
+		A7E1F5E8164A8FBC0072ECE7 /* TTAudioGraphOffset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphOffset.cpp; path = source/TTAudioGraphOffset.cpp; sourceTree = "<group>"; };
+		A7E1F5E9164A8FBC0072ECE7 /* TTAudioGraphPick.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphPick.cpp; path = source/TTAudioGraphPick.cpp; sourceTree = "<group>"; };
+		A7E1F5EA164A8FBC0072ECE7 /* TTAudioGraphSig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSig.cpp; path = source/TTAudioGraphSig.cpp; sourceTree = "<group>"; };
+		A7E1F5EB164A8FBC0072ECE7 /* TTAudioGraphSplit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSplit.cpp; path = source/TTAudioGraphSplit.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2219FD02148594880086DD17 = {
+			isa = PBXGroup;
+			children = (
+				A7E1F5DE164A8F4F0072ECE7 /* include */,
+				A7E1F5E0164A8F5F0072ECE7 /* source */,
+				A7E1F5E1164A8F680072ECE7 /* tests */,
+			);
+			sourceTree = "<group>";
+		};
+		A7E1F5DE164A8F4F0072ECE7 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				A7E1F5E2164A8FA70072ECE7 /* TTAudioGraphJoin.h */,
+				A7E1F5E3164A8FA70072ECE7 /* TTAudioGraphOffset.h */,
+				A7E1F5E4164A8FA70072ECE7 /* TTAudioGraphPick.h */,
+				A7E1F5E5164A8FA70072ECE7 /* TTAudioGraphSig.h */,
+				A7E1F5E6164A8FA70072ECE7 /* TTAudioGraphSplit.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		A7E1F5E0164A8F5F0072ECE7 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				A7E1F5E7164A8FBC0072ECE7 /* TTAudioGraphJoin.cpp */,
+				A7E1F5E8164A8FBC0072ECE7 /* TTAudioGraphOffset.cpp */,
+				A7E1F5E9164A8FBC0072ECE7 /* TTAudioGraphPick.cpp */,
+				A7E1F5EA164A8FBC0072ECE7 /* TTAudioGraphSig.cpp */,
+				A7E1F5EB164A8FBC0072ECE7 /* TTAudioGraphSplit.cpp */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		A7E1F5E1164A8F680072ECE7 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		2219FD09148594880086DD17 /* AudioGraphUtilityLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildConfigurationList = 2219FD0C148594880086DD17 /* Build configuration list for PBXLegacyTarget "AudioGraphUtilityLib" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = AudioGraphUtilityLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = AudioGraphUtilityLib;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		2219FD04148594880086DD17 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+			};
+			buildConfigurationList = 2219FD07148594880086DD17 /* Build configuration list for PBXProject "AudioGraphUtilityLib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2219FD02148594880086DD17;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2219FD09148594880086DD17 /* AudioGraphUtilityLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		2219FD0A148594880086DD17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2219FD0B148594880086DD17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2219FD0D148594880086DD17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2219FD0E148594880086DD17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2219FD07148594880086DD17 /* Build configuration list for PBXProject "AudioGraphUtilityLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2219FD0A148594880086DD17 /* Debug */,
+				2219FD0B148594880086DD17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2219FD0C148594880086DD17 /* Build configuration list for PBXLegacyTarget "AudioGraphUtilityLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2219FD0D148594880086DD17 /* Debug */,
+				2219FD0E148594880086DD17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2219FD04148594880086DD17 /* Project object */;
+}

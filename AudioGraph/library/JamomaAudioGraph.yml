@@ -1,0 +1,25 @@
+
+sources:
+  - source/TTAudioGraph.cpp
+  - source/TTAudioGraphDescription.cpp
+  - source/TTAudioGraphSource.cpp
+  - source/TTAudioGraphObject.cpp
+  - source/TTAudioGraphGenerator.cpp
+  - source/TTAudioGraphInput.cpp
+  - source/TTAudioGraphOutput.cpp
+  - tests/split-gain-join.test.cpp
+  
+includes:
+  - "includes"
+  - "../../DSP/library/portaudio/include"
+  - "../../Foundation/library/includes"
+  - "../../DSP/library/includes"
+  - "../../Graph/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+  - GRAPH
+
+frameworks:
+  - Carbon

@@ -1,0 +1,214 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		A73F2C74161CB818007A4E83 /* TTAudioGraphObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphObject.cpp; path = source/TTAudioGraphObject.cpp; sourceTree = "<group>"; };
+		A73F2C75161CB818007A4E83 /* TTAudioGraphDescription.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphDescription.cpp; path = source/TTAudioGraphDescription.cpp; sourceTree = "<group>"; };
+		A73F2C76161CB818007A4E83 /* TTAudioGraphOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphOutput.cpp; path = source/TTAudioGraphOutput.cpp; sourceTree = "<group>"; };
+		A73F2C77161CB818007A4E83 /* TTAudioGraphInput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphInput.cpp; path = source/TTAudioGraphInput.cpp; sourceTree = "<group>"; };
+		A73F2C78161CB818007A4E83 /* TTAudioGraphSource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSource.cpp; path = source/TTAudioGraphSource.cpp; sourceTree = "<group>"; };
+		A73F2C79161CB818007A4E83 /* TTAudioGraphGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphGenerator.cpp; path = source/TTAudioGraphGenerator.cpp; sourceTree = "<group>"; };
+		A73F2C7A161CB818007A4E83 /* TTAudioGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraph.cpp; path = source/TTAudioGraph.cpp; sourceTree = "<group>"; };
+		A73F2C7C161CB83A007A4E83 /* split-gain-join.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "split-gain-join.test.cpp"; path = "tests/split-gain-join.test.cpp"; sourceTree = "<group>"; };
+		A73F2C7E161CB897007A4E83 /* TTAudioGraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraph.h; path = includes/TTAudioGraph.h; sourceTree = "<group>"; };
+		A73F2C7F161CB897007A4E83 /* TTAudioGraphAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphAPI.h; path = includes/TTAudioGraphAPI.h; sourceTree = "<group>"; };
+		A73F2C80161CB897007A4E83 /* TTAudioGraphDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphDescription.h; path = includes/TTAudioGraphDescription.h; sourceTree = "<group>"; };
+		A73F2C81161CB897007A4E83 /* TTAudioGraphGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphGenerator.h; path = includes/TTAudioGraphGenerator.h; sourceTree = "<group>"; };
+		A73F2C82161CB897007A4E83 /* TTAudioGraphInlet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphInlet.h; path = includes/TTAudioGraphInlet.h; sourceTree = "<group>"; };
+		A73F2C83161CB897007A4E83 /* TTAudioGraphInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphInput.h; path = includes/TTAudioGraphInput.h; sourceTree = "<group>"; };
+		A73F2C84161CB897007A4E83 /* TTAudioGraphObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphObject.h; path = includes/TTAudioGraphObject.h; sourceTree = "<group>"; };
+		A73F2C85161CB897007A4E83 /* TTAudioGraphOutlet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOutlet.h; path = includes/TTAudioGraphOutlet.h; sourceTree = "<group>"; };
+		A73F2C86161CB897007A4E83 /* TTAudioGraphOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOutput.h; path = includes/TTAudioGraphOutput.h; sourceTree = "<group>"; };
+		A73F2C87161CB897007A4E83 /* TTAudioGraphSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSource.h; path = includes/TTAudioGraphSource.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		A73F2C7B161CB822007A4E83 /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				A73F2C74161CB818007A4E83 /* TTAudioGraphObject.cpp */,
+				A73F2C75161CB818007A4E83 /* TTAudioGraphDescription.cpp */,
+				A73F2C76161CB818007A4E83 /* TTAudioGraphOutput.cpp */,
+				A73F2C77161CB818007A4E83 /* TTAudioGraphInput.cpp */,
+				A73F2C78161CB818007A4E83 /* TTAudioGraphSource.cpp */,
+				A73F2C79161CB818007A4E83 /* TTAudioGraphGenerator.cpp */,
+				A73F2C7A161CB818007A4E83 /* TTAudioGraph.cpp */,
+			);
+			name = sources;
+			sourceTree = "<group>";
+		};
+		A73F2C7D161CB83E007A4E83 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				A73F2C7C161CB83A007A4E83 /* split-gain-join.test.cpp */,
+			);
+			name = tests;
+			sourceTree = "<group>";
+		};
+		A73F2C88161CB89F007A4E83 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				A73F2C7E161CB897007A4E83 /* TTAudioGraph.h */,
+				A73F2C7F161CB897007A4E83 /* TTAudioGraphAPI.h */,
+				A73F2C80161CB897007A4E83 /* TTAudioGraphDescription.h */,
+				A73F2C81161CB897007A4E83 /* TTAudioGraphGenerator.h */,
+				A73F2C82161CB897007A4E83 /* TTAudioGraphInlet.h */,
+				A73F2C83161CB897007A4E83 /* TTAudioGraphInput.h */,
+				A73F2C84161CB897007A4E83 /* TTAudioGraphObject.h */,
+				A73F2C85161CB897007A4E83 /* TTAudioGraphOutlet.h */,
+				A73F2C86161CB897007A4E83 /* TTAudioGraphOutput.h */,
+				A73F2C87161CB897007A4E83 /* TTAudioGraphSource.h */,
+			);
+			name = includes;
+			sourceTree = "<group>";
+		};
+		A79C81D21523142400119511 = {
+			isa = PBXGroup;
+			children = (
+				A73F2C88161CB89F007A4E83 /* includes */,
+				A73F2C7B161CB822007A4E83 /* sources */,
+				A73F2C7D161CB83E007A4E83 /* tests */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		A79C81D91523142500119511 /* AudioGraph */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildConfigurationList = A79C81DC1523142500119511 /* Build configuration list for PBXLegacyTarget "AudioGraph" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = AudioGraph;
+			passBuildSettingsInEnvironment = 1;
+			productName = AudioGraph;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		A79C81D41523142400119511 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
+			};
+			buildConfigurationList = A79C81D71523142400119511 /* Build configuration list for PBXProject "AudioGraph" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A79C81D21523142400119511;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A79C81D91523142500119511 /* AudioGraph */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		A79C81DA1523142500119511 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A79C81DB1523142500119511 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A79C81DD1523142500119511 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A79C81DE1523142500119511 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A79C81D71523142400119511 /* Build configuration list for PBXProject "AudioGraph" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79C81DA1523142500119511 /* Debug */,
+				A79C81DB1523142500119511 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A79C81DC1523142500119511 /* Build configuration list for PBXLegacyTarget "AudioGraph" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79C81DD1523142500119511 /* Debug */,
+				A79C81DE1523142500119511 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A79C81D41523142400119511 /* Project object */;
+}
