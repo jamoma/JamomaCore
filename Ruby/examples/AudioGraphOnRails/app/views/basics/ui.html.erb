@@ -1,0 +1,84 @@
+<h1>Jamoma Audio Graph</h1>
+<div id="info_zone">Basic amplitude modulation of your default audio input to your default audio output</div>
+<br/><br/>
+
+
+<h2>Modulator</h2>
+<div>
+	Oscillator Frequency <%= text_field_tag :frequency_value, @frequency %>
+	<%= observe_field :frequency_value,
+										:frequency => 0.25,
+										:url => { :controller => 'basics', :action => 'oscil_frequency' },
+										:with => 'frequency_value'
+	%>
+	<br/><br/>
+	Oscillator Amplitude <%= text_field_tag :amplitude_value, @amplitude %>
+	<%= observe_field :amplitude_value,
+										:frequency => 0.25,
+										:url => { :controller => 'basics', :action => 'oscil_amplitude' },
+										:with => 'amplitude_value' 
+	%>
+	<br/><br/>
+	
+	Oscillator Waveform:
+	<ul>		
+		<% on_radio_click = "new Ajax.Request('/basics/oscil_waveform', {asynchronous:true, evalScripts:true, parameters:'id=1&value=' + encodeURIComponent(this.value) })" %>
+		
+		<%= radio_button_tag :waveform_value, "sine",			@waveform == "sine",			:onclick => on_radio_click %> 	Sine			<br/>
+		<%= radio_button_tag :waveform_value, "triangle", @waveform == "triangle",	:onclick => on_radio_click %> 	Triangle	<br/>
+		<%= radio_button_tag :waveform_value, "square",		@waveform == "square",		:onclick => on_radio_click %> 	Square <br/>
+		<%= radio_button_tag :waveform_value, "sawtooth", @waveform == "sawtooth",	:onclick => on_radio_click %> 	Sawtooth <br/>
+		<%= radio_button_tag :waveform_value, "ramp",			@waveform == "ramp",			:onclick => on_radio_click %> 	Ramp <br/>
+	</ul>
+	
+	
+	<br/>
+	
+</div>
+
+
+<h2>Master Gain</h2>
+
+<style type="text/css">
+  div.slider { width:256px; margin:10px 0; background-color:#ccc; height:10px; position: relative; }
+  div.slider div.handle { width:10px; height:15px; background-color:#f00; cursor:move; position: absolute; }
+
+  div#zoom_element { width:50px; height:50px; background:#2d86bd; position:relative; }
+</style>
+
+<div id="zoom_slider" class="slider">
+	<div class="handle"></div>
+</div>
+
+<div id="slider_info"><%= @master_gain -%> dB</div>
+<script type="text/javascript">
+  (function() {
+    var zoom_slider = $('zoom_slider'),
+        rgb_slider = $('rgb_slider'),
+        box = $('zoom_element');
+
+    new Control.Slider(zoom_slider.down('.handle'), zoom_slider, {
+      range: $R(-120, 18),
+      sliderValue: -96,
+      onSlide: function(value) {
+        new Ajax.Updater('slider_info', '/slider_value', {asynchronous:true, evalScripts:true, parameters:'slider_value=' + encodeURIComponent(value) });
+				box.setStyle({ width: value + 'px', height: value + 'px' });
+      },
+      onChange: function(value) { 
+        box.setStyle({ width: value + 'px', height: value + 'px' });
+      }
+    });
+  })();
+</script>
+
+
+
+<br/><br/>
+
+<h2>Audio Processing</h2>
+<p>You may need to set up your default input and output.  On Mac, for example, you can set this up in the Audio MIDI Setup application.</p>
+
+<%= link_to_remote "Start",	{:url => dac_start_button_path } %>
+<%= link_to_remote "Stop",	{:url => dac_stop_button_path } %>
+
+<br/><br/>
