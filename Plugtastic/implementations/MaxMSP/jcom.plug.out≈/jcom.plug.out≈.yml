@@ -1,0 +1,45 @@
+sources:
+  - jcom.plug.out.cpp
+  - PlugtasticProgressWindow.mm		
+  - jcom.plug.out.export.mm
+  - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
+  - ../../../../Support/max/maxGraph.cpp
+  - ../../../../AudioGraph/implementations/MaxMSP/MaxAudioGraph.cpp
+    
+includes:
+  - .
+  - ../../../../Foundation/library/includes
+  - ../../../../DSP/library/includes
+  - ../../../../Graph/library/includes
+  - ../../../../AudioGraph/library/includes
+  - ../../../../Plugtastic/library/includes
+  - ../../../../Support/max  
+  - ../../../../AudioGraph/implementations/MaxMSP
+  - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
+  - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
+
+libraries:
+  - FOUNDATION
+  - AUDIOGRAPH
+  - GRAPH
+  - DSP
+  - ../../../../Plugtastic/library/build/JamomaPlugtastic.dylib
+  - C74-MAX
+  - C74-MSP
+  - C74-JITTER
+  
+frameworks:
+  - Carbon
+  - Cocoa
+
+prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
+
+postbuilds:
+  - "rm -rf ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"
+  - "mkdir -p ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"
+  - "cp -r ../../../../Plugtastic/implementations/AudioUnits/ ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"	
+  - "cp Info.plist ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/" 
+
+arch: i386  
+compiler: clang  
+

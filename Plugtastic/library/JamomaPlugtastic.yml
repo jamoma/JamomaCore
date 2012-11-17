@@ -1,0 +1,22 @@
+
+sources:
+  - source/Plugtastic.cpp
+  - source/PlugtasticInput.cpp
+  - source/PlugtasticOutput.cpp
+  - source/PlugtasticParameter.cpp
+  
+includes:
+  - "includes"
+  - "../../Foundation/library/includes"
+  - "../../DSP/library/includes"
+  - "../../Graph/library/includes"
+  - "../../AudioGraph/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+  - GRAPH
+  - AUDIOGRAPH
+
+frameworks:
+  - Carbon

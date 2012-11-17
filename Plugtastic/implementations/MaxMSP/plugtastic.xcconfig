@@ -1,0 +1,12 @@
+// Xcode target configuration settings for building Max 5 Externals
+//
+// Changes to the settings in this file will be applied all projects
+// To change settings for only one of the examples, override the settings using Xcode's target inspector.
+//
+// Copyright ¬© 2009, Timothy Place
+// License: This code is licensed under the terms of the "New BSD License"
+// http://creativecommons.org/licenses/BSD/
+
+#include "../../../supports/max/tt-max.xcconfig"
+
+OTHER_LDFLAGS = "$(FOUNDATION)/library/build"/JamomaFoundation.dylib "$(DSPLIB)/library/build"/JamomaDSP.dylib "$(GRAPH)/library/build"/JamomaGraph.dylib "$(AUDIOGRAPH)/library/build"/JamomaAudioGraph.dylib $(SRCROOT)/../../../library/build/JamomaPlugtastic.dylib
