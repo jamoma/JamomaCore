@@ -1,0 +1,145 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		22F19FF114673F8A002CF320 /* AnalysisLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AnalysisLib.cpp; sourceTree = "<group>"; };
+		22F19FF314673F8A002CF320 /* TTAverage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAverage.h; sourceTree = "<group>"; };
+		22F19FF414673F8A002CF320 /* TTZerocross.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTZerocross.h; sourceTree = "<group>"; };
+		22F19FF614673F8A002CF320 /* TTAverage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTAverage.cpp; sourceTree = "<group>"; };
+		22F19FF714673F8A002CF320 /* TTZerocross.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTZerocross.cpp; sourceTree = "<group>"; };
+		22F19FF914673F8A002CF320 /* TTAverage.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTAverage.test.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		22F19FDD14673EEA002CF320 = {
+			isa = PBXGroup;
+			children = (
+				22F19FF114673F8A002CF320 /* AnalysisLib.cpp */,
+				22F19FF214673F8A002CF320 /* includes */,
+				22F19FF514673F8A002CF320 /* source */,
+				22F19FF814673F8A002CF320 /* tests */,
+			);
+			sourceTree = "<group>";
+		};
+		22F19FF214673F8A002CF320 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				22F19FF314673F8A002CF320 /* TTAverage.h */,
+				22F19FF414673F8A002CF320 /* TTZerocross.h */,
+			);
+			path = includes;
+			sourceTree = "<group>";
+		};
+		22F19FF514673F8A002CF320 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				22F19FF614673F8A002CF320 /* TTAverage.cpp */,
+				22F19FF714673F8A002CF320 /* TTZerocross.cpp */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		22F19FF814673F8A002CF320 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				22F19FF914673F8A002CF320 /* TTAverage.test.cpp */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		22F19FE414673EEA002CF320 /* AnalysisLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildConfigurationList = 22F19FE714673EEA002CF320 /* Build configuration list for PBXLegacyTarget "AnalysisLib" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = AnalysisLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = AnalysisLib;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		22F19FDF14673EEA002CF320 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 22F19FE214673EEA002CF320 /* Build configuration list for PBXProject "AnalysisLib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 22F19FDD14673EEA002CF320;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				22F19FE414673EEA002CF320 /* AnalysisLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		22F19FE514673EEA002CF320 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		22F19FE614673EEA002CF320 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		22F19FE814673EEA002CF320 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		22F19FE914673EEA002CF320 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22F19FE214673EEA002CF320 /* Build configuration list for PBXProject "AnalysisLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22F19FE514673EEA002CF320 /* Debug */,
+				22F19FE614673EEA002CF320 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22F19FE714673EEA002CF320 /* Build configuration list for PBXLegacyTarget "AnalysisLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22F19FE814673EEA002CF320 /* Debug */,
+				22F19FE914673EEA002CF320 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 22F19FDF14673EEA002CF320 /* Project object */;
+}

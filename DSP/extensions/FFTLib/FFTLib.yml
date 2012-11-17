@@ -1,0 +1,18 @@
+sources:
+  - FFTLib.cpp
+  - source/TTFFT.cpp
+  - mayer/mayer_fft.cpp
+  - fft/fftsg.cpp
+    
+includes:
+  - includes
+  - mayer
+  - fft 
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+
+#compiler: gcc #options are icc, gcc46, gcc

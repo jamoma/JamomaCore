@@ -1,0 +1,25 @@
+
+sources:
+  - SoundfileLib.cpp
+  - TTSoundfilePlayer.cpp
+  - TTSoundfileRecorder.cpp
+  
+includes:
+  - "."
+  - "libsndfile"
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+  - libsndfile/libsndfile-jamoma.a
+  - libsndfile/lib/libFLAC-jamoma.a
+  - libsndfile/lib/libogg-jamoma.a
+  - libsndfile/lib/libvorbis-jamoma.a
+  - libsndfile/lib/libvorbisenc-jamoma.a
+  - libsndfile/lib/libvorbisfile-jamoma.a
+
+frameworks:
+  - Carbon
+  - AudioUnit

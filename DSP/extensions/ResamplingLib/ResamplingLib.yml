@@ -1,0 +1,14 @@
+
+sources:
+  - ResamplingLib.cpp
+  - TTResample.cpp
+  - TTStaircase.cpp
+    
+includes:
+  - "."
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP

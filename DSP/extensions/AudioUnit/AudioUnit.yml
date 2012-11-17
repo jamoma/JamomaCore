@@ -1,0 +1,17 @@
+
+sources:
+  - TTAudioUnit.cpp
+  
+includes:
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+
+frameworks:
+  - Carbon
+  - AudioUnit
+
+compiler: clang

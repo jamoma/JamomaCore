@@ -1,0 +1,184 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		660420F414A988C800FEC268 /* SpatDBAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatDBAP.h; path = includes/SpatDBAP.h; sourceTree = "<group>"; };
+		660420F514A988C800FEC268 /* SpatMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatMatrix.h; path = includes/SpatMatrix.h; sourceTree = "<group>"; };
+		660420F614A988C800FEC268 /* SpatThru.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatThru.h; path = includes/SpatThru.h; sourceTree = "<group>"; };
+		660420F714A988D100FEC268 /* SpatDBAP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatDBAP.cpp; path = source/SpatDBAP.cpp; sourceTree = "<group>"; };
+		660420F814A988D100FEC268 /* SpatMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatMatrix.cpp; path = source/SpatMatrix.cpp; sourceTree = "<group>"; };
+		660420F914A988D100FEC268 /* SpatThru.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatThru.cpp; path = source/SpatThru.cpp; sourceTree = "<group>"; };
+		6659A12414A985CC00D83E3C /* SpatLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatLib.cpp; sourceTree = "<group>"; };
+		6659A12614A985CC00D83E3C /* TTSpat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSpat.cpp; sourceTree = "<group>"; };
+		6659A12714A985CC00D83E3C /* TTSpat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSpat.h; sourceTree = "<group>"; };
+		A7957BF1164DA184002E58EF /* SpatDBAP.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SpatDBAP.test.cpp; path = tests/SpatDBAP.test.cpp; sourceTree = "<group>"; };
+		A7957BF2164DA184002E58EF /* SpatMatrix.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SpatMatrix.test.cpp; path = tests/SpatMatrix.test.cpp; sourceTree = "<group>"; };
+		A7957BF3164DA184002E58EF /* SpatThru.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SpatThru.test.cpp; path = tests/SpatThru.test.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* SpatLib */ = {
+			isa = PBXGroup;
+			children = (
+				6659A12714A985CC00D83E3C /* TTSpat.h */,
+				6659A12614A985CC00D83E3C /* TTSpat.cpp */,
+				6659A12414A985CC00D83E3C /* SpatLib.cpp */,
+				A7957BED164DA159002E58EF /* include */,
+				A7957BF0164DA164002E58EF /* test */,
+				A7957BEF164DA15F002E58EF /* source */,
+			);
+			name = SpatLib;
+			sourceTree = "<group>";
+		};
+		A7957BED164DA159002E58EF /* include */ = {
+			isa = PBXGroup;
+			children = (
+				660420F414A988C800FEC268 /* SpatDBAP.h */,
+				660420F514A988C800FEC268 /* SpatMatrix.h */,
+				660420F614A988C800FEC268 /* SpatThru.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		A7957BEF164DA15F002E58EF /* source */ = {
+			isa = PBXGroup;
+			children = (
+				A7957BF1164DA184002E58EF /* SpatDBAP.test.cpp */,
+				A7957BF2164DA184002E58EF /* SpatMatrix.test.cpp */,
+				A7957BF3164DA184002E58EF /* SpatThru.test.cpp */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		A7957BF0164DA164002E58EF /* test */ = {
+			isa = PBXGroup;
+			children = (
+				660420F714A988D100FEC268 /* SpatDBAP.cpp */,
+				660420F814A988D100FEC268 /* SpatMatrix.cpp */,
+				660420F914A988D100FEC268 /* SpatThru.cpp */,
+			);
+			name = test;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		D28A88AD04BDD90700651E21 /* SpatLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "SpatLib" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = SpatLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = SpatLib;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "SpatLib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* SpatLib */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D28A88AD04BDD90700651E21 /* SpatLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB919008733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = SpatLib;
+			};
+			name = Debug;
+		};
+		1DEB919108733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = SpatLib;
+			};
+			name = Release;
+		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "SpatLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "SpatLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

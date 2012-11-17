@@ -1,0 +1,20 @@
+
+sources:
+  - SpatLib.cpp
+  - TTSpat.cpp
+  - source/SpatDBAP.cpp
+  - source/SpatMatrix.cpp
+  - source/SpatThru.cpp
+  - tests/SpatDBAP.test.cpp
+  - tests/SpatMatrix.test.cpp
+  - tests/SpatThru.test.cpp
+  
+includes:
+  - "."
+  - "includes"
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP

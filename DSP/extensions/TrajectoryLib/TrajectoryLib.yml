@@ -1,0 +1,34 @@
+
+sources:
+  - TrajectoryLib.cpp  
+  - TTTrajectory.cpp
+  - sources/Bean2D.cpp		
+  - sources/Hypocycloid2D.cpp	
+  - sources/Bspline2D.cpp		
+  - sources/Limacon2D.cpp		
+  - sources/Scarabaeus2D.cpp
+  - sources/Butterfly2D.cpp		
+  - sources/Linear2D.cpp		
+  - sources/Slinky3D.cpp
+  - sources/Linear3D.cpp		
+  - sources/Spiral3D.cpp
+  - sources/Circular2D.cpp		
+  - sources/Lissajous2D.cpp		
+  - sources/Torus3D.cpp
+  - sources/CircularHelix3D.cpp	
+  - sources/Lissajous3D.cpp		
+  - sources/Viviani3D.cpp
+  - sources/Epitrochoid2D.cpp	
+  - sources/LogSpiral2D.cpp
+  - sources/Gear2D.cpp		
+  - sources/Rose2D.cpp
+
+includes:
+  - "."
+  - "includes"
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP

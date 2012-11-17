@@ -1,0 +1,221 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		A752BBC516373A14007CE627 /* TTBalance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBalance.h; path = includes/TTBalance.h; sourceTree = "<group>"; };
+		A752BBC616373A14007CE627 /* TTDegrade.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDegrade.h; path = includes/TTDegrade.h; sourceTree = "<group>"; };
+		A752BBC716373A14007CE627 /* TTGain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTGain.h; path = includes/TTGain.h; sourceTree = "<group>"; };
+		A752BBC816373A14007CE627 /* TTLimiter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLimiter.h; path = includes/TTLimiter.h; sourceTree = "<group>"; };
+		A752BBC916373A14007CE627 /* TTOverdrive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTOverdrive.h; path = includes/TTOverdrive.h; sourceTree = "<group>"; };
+		A752BBCA16373A14007CE627 /* TTPanorama.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTPanorama.h; path = includes/TTPanorama.h; sourceTree = "<group>"; };
+		A752BBCB16373A14007CE627 /* TTPulseSub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTPulseSub.h; path = includes/TTPulseSub.h; sourceTree = "<group>"; };
+		A752BBCC16373A14007CE627 /* TTThru.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTThru.h; path = includes/TTThru.h; sourceTree = "<group>"; };
+		A752BBCD16373A14007CE627 /* TTWaveshaper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTWaveshaper.h; path = includes/TTWaveshaper.h; sourceTree = "<group>"; };
+		A752BBD016373A33007CE627 /* TTBalance.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBalance.cpp; path = sources/TTBalance.cpp; sourceTree = "<group>"; };
+		A752BBD116373A33007CE627 /* TTDegrade.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDegrade.cpp; path = sources/TTDegrade.cpp; sourceTree = "<group>"; };
+		A752BBD216373A33007CE627 /* TTGain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTGain.cpp; path = sources/TTGain.cpp; sourceTree = "<group>"; };
+		A752BBD316373A33007CE627 /* TTLimiter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLimiter.cpp; path = sources/TTLimiter.cpp; sourceTree = "<group>"; };
+		A752BBD416373A33007CE627 /* TTOverdrive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTOverdrive.cpp; path = sources/TTOverdrive.cpp; sourceTree = "<group>"; };
+		A752BBD516373A33007CE627 /* TTPanorama.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTPanorama.cpp; path = sources/TTPanorama.cpp; sourceTree = "<group>"; };
+		A752BBD616373A33007CE627 /* TTPulseSub.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTPulseSub.cpp; path = sources/TTPulseSub.cpp; sourceTree = "<group>"; };
+		A752BBD716373A33007CE627 /* TTThru.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTThru.cpp; path = sources/TTThru.cpp; sourceTree = "<group>"; };
+		A752BBD816373A33007CE627 /* TTWaveshaper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTWaveshaper.cpp; path = sources/TTWaveshaper.cpp; sourceTree = "<group>"; };
+		A752BBDA16373A47007CE627 /* TTGain.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTGain.test.cpp; path = tests/TTGain.test.cpp; sourceTree = "<group>"; };
+		A752BBDB16373A47007CE627 /* TTThru.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTThru.test.cpp; path = tests/TTThru.test.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		A738FF4E163739D100BD5C89 = {
+			isa = PBXGroup;
+			children = (
+				A752BBCF16373A19007CE627 /* includes */,
+				A752BBD916373A37007CE627 /* sources */,
+				A752BBDC16373A4B007CE627 /* tests */,
+			);
+			sourceTree = "<group>";
+		};
+		A752BBCF16373A19007CE627 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				A752BBC516373A14007CE627 /* TTBalance.h */,
+				A752BBC616373A14007CE627 /* TTDegrade.h */,
+				A752BBC716373A14007CE627 /* TTGain.h */,
+				A752BBC816373A14007CE627 /* TTLimiter.h */,
+				A752BBC916373A14007CE627 /* TTOverdrive.h */,
+				A752BBCA16373A14007CE627 /* TTPanorama.h */,
+				A752BBCB16373A14007CE627 /* TTPulseSub.h */,
+				A752BBCC16373A14007CE627 /* TTThru.h */,
+				A752BBCD16373A14007CE627 /* TTWaveshaper.h */,
+			);
+			name = includes;
+			sourceTree = "<group>";
+		};
+		A752BBD916373A37007CE627 /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				A752BBD016373A33007CE627 /* TTBalance.cpp */,
+				A752BBD116373A33007CE627 /* TTDegrade.cpp */,
+				A752BBD216373A33007CE627 /* TTGain.cpp */,
+				A752BBD316373A33007CE627 /* TTLimiter.cpp */,
+				A752BBD416373A33007CE627 /* TTOverdrive.cpp */,
+				A752BBD516373A33007CE627 /* TTPanorama.cpp */,
+				A752BBD616373A33007CE627 /* TTPulseSub.cpp */,
+				A752BBD716373A33007CE627 /* TTThru.cpp */,
+				A752BBD816373A33007CE627 /* TTWaveshaper.cpp */,
+			);
+			name = sources;
+			sourceTree = "<group>";
+		};
+		A752BBDC16373A4B007CE627 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				A752BBDA16373A47007CE627 /* TTGain.test.cpp */,
+				A752BBDB16373A47007CE627 /* TTThru.test.cpp */,
+			);
+			name = tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		A738FF55163739D100BD5C89 /* EffectsLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = A738FF58163739D100BD5C89 /* Build configuration list for PBXLegacyTarget "EffectsLib" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = EffectsLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = EffectsLib;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		A738FF50163739D100BD5C89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = org.jamoma;
+			};
+			buildConfigurationList = A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "EffectsLib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A738FF4E163739D100BD5C89;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A738FF55163739D100BD5C89 /* EffectsLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		A738FF56163739D100BD5C89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A738FF57163739D100BD5C89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A738FF59163739D100BD5C89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A738FF5A163739D100BD5C89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "EffectsLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A738FF56163739D100BD5C89 /* Debug */,
+				A738FF57163739D100BD5C89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A738FF58163739D100BD5C89 /* Build configuration list for PBXLegacyTarget "EffectsLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A738FF59163739D100BD5C89 /* Debug */,
+				A738FF5A163739D100BD5C89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A738FF50163739D100BD5C89 /* Project object */;
+}

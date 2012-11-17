@@ -1,0 +1,29 @@
+
+sources:
+  - source/TTAudioEngine.cpp
+  - source/TTAudioObject.cpp
+  - source/TTAudioObjectArray.cpp
+  - source/TTAudioSignal.cpp
+  - source/TTAudioSignalArray.cpp
+  - source/TTBuffer.cpp
+  - source/TTSampleMatrix.cpp
+  - source/TTDelay.cpp
+  - source/TTDSP.cpp
+  - tests/TTBuffer.test.cpp
+  - tests/TTDelay.test.cpp
+  - tests/TTSampleMatrix.test.cpp
+  
+includes:
+  - "includes"
+  - "portaudio/include"
+  - "../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - portaudio/libportaudio-jamoma.a
+
+frameworks:
+  - Carbon
+  - CoreAudio
+  - AudioUnit
+  - AudioToolbox

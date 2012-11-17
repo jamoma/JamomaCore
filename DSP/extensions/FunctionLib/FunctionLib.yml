@@ -1,0 +1,33 @@
+
+sources:
+  - TTFunctionLib.cpp
+  - source/TTCosineFunction.cpp
+  - source/TTCrossFadeInFunction.cpp
+  - source/TTCrossFadeOutFunction.cpp
+  - source/TTExpFunction.cpp
+  - source/TTFunction.cpp
+  - source/TTLinearFunction.cpp
+  - source/TTLogFunction.cpp
+  - source/TTLowpassFunction.cpp    
+  - source/TTPowerFunction.cpp
+  - source/TTSmoothPolynomialFunction.cpp  
+  - source/TTTanhFunction.cpp
+  
+  - tests/TTCosineFunction.test.cpp
+  - tests/TTCrossFadeInFunction.test.cpp
+  - tests/TTCrossFadeOutFunction.test.cpp
+  - tests/TTExpFunction.test.cpp
+  - tests/TTLinearFunction.test.cpp
+  - tests/TTLogFunction.test.cpp
+  - tests/TTPowerFunction.test.cpp
+  - tests/TTSmoothPolynomialFunction.test.cpp
+  - tests/TTTanhFunction.test.cpp
+  
+includes:
+  - "includes"
+  - "../../library/includes"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP

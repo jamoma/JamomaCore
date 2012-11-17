@@ -1,0 +1,197 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		A79D073F1655C95800D02D46 /* TTMixer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTMixer.h; path = includes/TTMixer.h; sourceTree = "<group>"; };
+		A79D07401655C95800D02D46 /* TTMultiMixer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTMultiMixer.h; path = includes/TTMultiMixer.h; sourceTree = "<group>"; };
+		A79D07411655C95800D02D46 /* TTOperator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTOperator.h; path = includes/TTOperator.h; sourceTree = "<group>"; };
+		A79D07441655C97700D02D46 /* TTMixer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTMixer.cpp; path = source/TTMixer.cpp; sourceTree = "<group>"; };
+		A79D07451655C97700D02D46 /* TTMultiMixer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTMultiMixer.cpp; path = source/TTMultiMixer.cpp; sourceTree = "<group>"; };
+		A79D07461655C97700D02D46 /* TTOperator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTOperator.cpp; path = source/TTOperator.cpp; sourceTree = "<group>"; };
+		A79D07491655C99900D02D46 /* MathLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MathLib.cpp; sourceTree = "<group>"; };
+		A79D074A1655C99F00D02D46 /* MathLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = MathLib.yml; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		A79D072F1655C93E00D02D46 = {
+			isa = PBXGroup;
+			children = (
+				A79D074A1655C99F00D02D46 /* MathLib.yml */,
+				A79D07491655C99900D02D46 /* MathLib.cpp */,
+				A79D07431655C95C00D02D46 /* includes */,
+				A79D07471655C97A00D02D46 /* source */,
+				A79D07481655C98800D02D46 /* test */,
+			);
+			sourceTree = "<group>";
+		};
+		A79D07431655C95C00D02D46 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				A79D073F1655C95800D02D46 /* TTMixer.h */,
+				A79D07401655C95800D02D46 /* TTMultiMixer.h */,
+				A79D07411655C95800D02D46 /* TTOperator.h */,
+			);
+			name = includes;
+			sourceTree = "<group>";
+		};
+		A79D07471655C97A00D02D46 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				A79D07441655C97700D02D46 /* TTMixer.cpp */,
+				A79D07451655C97700D02D46 /* TTMultiMixer.cpp */,
+				A79D07461655C97700D02D46 /* TTOperator.cpp */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		A79D07481655C98800D02D46 /* test */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = test;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		A79D07361655C93E00D02D46 /* MathLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = A79D07391655C93E00D02D46 /* Build configuration list for PBXLegacyTarget "MathLib" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = MathLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = MathLib;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		A79D07311655C93E00D02D46 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = org.jamoma;
+			};
+			buildConfigurationList = A79D07341655C93E00D02D46 /* Build configuration list for PBXProject "MathLib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A79D072F1655C93E00D02D46;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A79D07361655C93E00D02D46 /* MathLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		A79D07371655C93E00D02D46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A79D07381655C93E00D02D46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A79D073A1655C93E00D02D46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A79D073B1655C93E00D02D46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A79D07341655C93E00D02D46 /* Build configuration list for PBXProject "MathLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79D07371655C93E00D02D46 /* Debug */,
+				A79D07381655C93E00D02D46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A79D07391655C93E00D02D46 /* Build configuration list for PBXLegacyTarget "MathLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79D073A1655C93E00D02D46 /* Debug */,
+				A79D073B1655C93E00D02D46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A79D07311655C93E00D02D46 /* Project object */;
+}

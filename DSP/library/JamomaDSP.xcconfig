@@ -1,0 +1,47 @@
+// Xcode target configuration settings for the Jamoma DSP Library.
+// Used as the basis for Xcode projects to build Max externals.
+//
+// Changes to the settings in this file will be applied to all SDK examples
+// To change settings for only one of the examples, override the settings using
+// Xcode's target inspector.
+//
+// by Timothy Place
+// Copyright © 2008, Cycling '74
+
+
+// Name & Version
+PRODUCT_NAME = $(PROJECT_NAME)
+PRODUCT_VERSION = 0.6
+SVNREV = $Rev$
+
+
+// Paths
+DSTROOT = /
+//INSTALL_PATH = /Library/Application Support/Jamoma/Libraries
+//INSTALL_PATH = /usr/local/jamoma/lib
+INSTALL_PATH = @executable_path/../Jamoma/lib
+SKIP_INSTALL = YES
+
+
+// Special Files
+INFOPLIST_FILE = $(SRCROOT)/Info.plist
+
+HEADER_SEARCH_PATHS = $(inherited) "$(SRCROOT)/../../Foundation/library/includes"
+LIBRARY_SEARCH_PATHS = $(inherited) "$(SRCROOT)/portaudio"
+
+// Per architecture and deployment settings
+ARCHS = i386 x86_64
+MACOSX_DEPLOYMENT_TARGET = 10.6
+SDKROOT = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
+//SDKROOT[arch=i386] = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
+//SDKROOT[arch=x86_64] = $(DEVELOPER_DIR)/SDKs/MacOSX10.6.sdk
+//GCC_VERSION = com.apple.compilers.llvm.clang.1_0
+GCC_VERSION = com.apple.compilers.llvmgcc42
+GCC_ENABLE_SSE3_EXTENSIONS = YES
+GCC_AUTO_VECTORIZATION = YES;
+GCC_UNROLL_LOOPS = YES;
+
+// Static Configuration
+WRAPPER_EXTENSION = dylib;
+WARNING_CFLAGS = -Wmost -Wno-four-char-constants -Wno-unknown-pragmas
+DEPLOYMENT_LOCATION = YES
