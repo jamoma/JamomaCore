@@ -1,0 +1,22 @@
+
+sources:
+  - source/TTGraph.cpp
+  - source/TTGraphDescription.cpp
+  - source/TTGraphInlet.cpp
+  - source/TTGraphObject.cpp
+  - source/TTGraphSource.cpp
+  - source/TTGraphDestination.cpp
+  - source/TTGraphInput.cpp
+  - source/TTGraphOutput.cpp
+  
+includes:
+  - "includes"
+  - "../../Foundation/library/includes"
+  - "../../DSP/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+
+frameworks:
+  - Carbon

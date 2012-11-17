@@ -1,0 +1,29 @@
+
+sources:
+  - MidiLib.cpp
+  - source/TTMidiFilter.cpp
+  - source/TTMidiFormat.cpp
+  - source/TTMidiInput.cpp
+  - source/TTMidiOutput.cpp
+  
+includes:
+  - "includes"
+  - "portmidi/pm_common"
+  - "../../../Foundation/library/includes"
+  - "../../../DSP/library/includes"
+  - "../../../Graph/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+  - GRAPH
+  - mac "portmidi/libportmidi-jamoma.a"
+  - win "portmidi/pm_win_static_lib/Release_/libportmidi_s_jamoma.lib"
+  - win Winmm.lib
+
+frameworks:
+  - CoreMIDI
+  - CoreFoundation
+  - CoreAudio
+  - Carbon
+  

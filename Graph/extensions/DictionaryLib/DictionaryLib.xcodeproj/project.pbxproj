@@ -1,0 +1,165 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		222ECD0F1655BC9A003246EA /* DictionaryLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DictionaryLib.cpp; sourceTree = "<group>"; };
+		222ECD101655BC9A003246EA /* DictionaryLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = DictionaryLib.yml; sourceTree = "<group>"; };
+		222ECD121655BCAE003246EA /* TTDictionaryAppend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDictionaryAppend.h; path = includes/TTDictionaryAppend.h; sourceTree = "<group>"; };
+		222ECD131655BCB5003246EA /* TTDictionaryAppend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDictionaryAppend.cpp; path = source/TTDictionaryAppend.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		222ECCFF1655BC81003246EA = {
+			isa = PBXGroup;
+			children = (
+				222ECD0F1655BC9A003246EA /* DictionaryLib.cpp */,
+				222ECD101655BC9A003246EA /* DictionaryLib.yml */,
+				222ECD121655BCAE003246EA /* TTDictionaryAppend.h */,
+				222ECD131655BCB5003246EA /* TTDictionaryAppend.cpp */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		222ECD061655BC81003246EA /* DictionaryLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 222ECD091655BC81003246EA /* Build configuration list for PBXLegacyTarget "DictionaryLib" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = DictionaryLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = DictionaryLib;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		222ECD011655BC81003246EA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = Jamoma;
+			};
+			buildConfigurationList = 222ECD041655BC81003246EA /* Build configuration list for PBXProject "DictionaryLib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 222ECCFF1655BC81003246EA;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				222ECD061655BC81003246EA /* DictionaryLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		222ECD071655BC81003246EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		222ECD081655BC81003246EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		222ECD0A1655BC81003246EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		222ECD0B1655BC81003246EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		222ECD041655BC81003246EA /* Build configuration list for PBXProject "DictionaryLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				222ECD071655BC81003246EA /* Debug */,
+				222ECD081655BC81003246EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		222ECD091655BC81003246EA /* Build configuration list for PBXLegacyTarget "DictionaryLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				222ECD0A1655BC81003246EA /* Debug */,
+				222ECD0B1655BC81003246EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 222ECD011655BC81003246EA /* Project object */;
+}
