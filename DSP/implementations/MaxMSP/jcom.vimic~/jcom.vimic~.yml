@@ -15,7 +15,7 @@ sources:
   - Room.cpp
   - Source.cpp
   - ViMic_Engine.cpp
-  - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
+  - ../../../../Shared/max/c74support/max-includes/common/commonsyms.cpp
     
 includes:  
   - .
@@ -32,6 +32,6 @@ libraries:
   - C74-MSP
   - C74-JITTER
 
-prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
+prefix: ../../../../Shared/max/c74support/max-includes/macho-prefix.pch
 arch: "i386"
 

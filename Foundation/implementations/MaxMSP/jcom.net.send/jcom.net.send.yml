@@ -1,7 +1,7 @@
 
 sources:
   - jcom.net.send.cpp		
-  - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
+  - ../../../../Shared/max/c74support/max-includes/common/commonsyms.cpp
   - ../../../../Shared/max/TTClassWrapperMax.cpp
     
 includes:
@@ -14,11 +14,11 @@ includes:
 libraries:
   - FOUNDATION
   - DSP
-  - mac ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI
-  - mac ../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI
-  - win ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.lib
-  - win ../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudio.lib
+  - mac ../../../../Shared/max/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI
+  - mac ../../../../Shared/max/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI
+  - win ../../../../Shared/max/c74support/max-includes/MaxAPI.lib
+  - win ../../../../Shared/max/c74support/msp-includes/MaxAudio.lib
   - C74-JITTER
 
-prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
+prefix: ../../../../Shared/max/c74support/max-includes/macho-prefix.pch
 arch: "i386"

@@ -637,7 +637,7 @@ end
           end
           
           if (include_file == "C74-INCLUDES")
-            include_file = "#{path_to_moduleroot}/../Support/objectivemax/SDKs/Max5/c74support/max-includes -I#{path_to_moduleroot}/../Support/objectivemax/SDKs/Max5/c74support/msp-includes -I#{path_to_moduleroot}/../Support/objectivemax/SDKs/Max5/c74support/jit-includes"     
+            include_file = "#{path_to_moduleroot}/../Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../Shared/max/c74support/jit-includes"     
           end
           
           if (i==0)
@@ -727,11 +727,11 @@ end
               elsif (lib == "GRAPHICS")
                 makefile.write("#{path_to_moduleroot}/../Graphics/library/build/JamomaGraphics.dylib")
               elsif (lib == "C74-MAX")
-                makefile.write("#{path_to_moduleroot}/../Support/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI")
+                makefile.write("#{path_to_moduleroot}/../Shared/max/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI")
               elsif (lib == "C74-MSP")
-                makefile.write("#{path_to_moduleroot}/../Support/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI")              
+                makefile.write("#{path_to_moduleroot}/../Shared/max/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI")              
               elsif (lib == "C74-JITTER")
-                makefile.write("#{path_to_moduleroot}/../Support/objectivemax/SDKs/Max5/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI")       
+                makefile.write("#{path_to_moduleroot}/../Shared/max/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI")       
               else
                 makefile.write(lib)
               end
@@ -1111,7 +1111,7 @@ end
           makefile.write("\tmkdir -p #{build_temp}\n")
           makefile.write("\tmkdir -p #{extension_dest}\n")
           makefile.write("\ttouch #{touch_dest}\n")
-          makefile.write("\tcp #{path_to_moduleroot}/../Support/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+          makefile.write("\tcp #{path_to_moduleroot}/../Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
           makefile.write("\n")
           
           # All compiled object files are dependent upon their individual source file and _all_ headers
@@ -1196,7 +1196,7 @@ end
               extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
               touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
               makefile.write("\tmkdir -p #{extension_dest}\n")
-              makefile.write("\tcp #{path_to_moduleroot}/../Support/max/PkgInfo #{extension_dest}/../PkgInfo\n")
+              makefile.write("\tcp #{path_to_moduleroot}/../Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n")
               makefile.write("\ttouch #{touch_dest}\n")
             end
             extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win32?
@@ -1224,7 +1224,7 @@ end
           makefile.write("\tmkdir -p build\n")
           if mac?
             makefile.write("\tmkdir -p #{extension_dest}\n")
-            makefile.write("\tcp #{path_to_moduleroot}/../Support/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+            makefile.write("\tcp #{path_to_moduleroot}/../Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
           
             if arch == "i386"
               makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_RELEASE) -o build/$(NAME)-i386#{extension_suffix}\n")

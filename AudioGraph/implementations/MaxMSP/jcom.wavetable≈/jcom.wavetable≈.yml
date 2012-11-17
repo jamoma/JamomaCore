@@ -2,7 +2,7 @@
 sources:
   - jcom.wavetable.cpp		
   - ../MaxAudioGraph.cpp
-  - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
+  - ../../../../Shared/max/c74support/max-includes/common/commonsyms.cpp
   - ../../../../Shared/max/maxGraph.cpp
     
 includes:
@@ -13,8 +13,8 @@ includes:
   - ../../../../Graph/library/includes
   - ../../../../Graphics/library/includes
   - ../../../../Shared/max  
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
+  - "../../../../Shared/max/c74support/max-includes"
+  - "../../../../Shared/max/c74support/msp-includes"
 
 libraries:
   - FOUNDATION
@@ -25,5 +25,5 @@ libraries:
   - C74-MSP
   - C74-JITTER
 
-prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
+prefix: ../../../../Shared/max/c74support/max-includes/macho-prefix.pch
 arch: "i386"
