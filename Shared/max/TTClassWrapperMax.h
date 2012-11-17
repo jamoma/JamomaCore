@@ -17,7 +17,6 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include "TTFoundationAPI.h"		// Jamoma Foundation API
 #include "TTDSP.h"					// Jamoma DSP API
-#include "TTGraphics.h"				// Jamoma Graphics API
 
 #ifdef WIN_VERSION
 #define TTCLASSWRAPPERMAX_EXPORT __declspec(dllexport) 
