@@ -1,0 +1,171 @@
+//-----------------------------------------------------
+// DSP Group Definitions for Doxygen
+//-----------------------------------------------------
+
+/**
+ * @defgroup dsp Jamoma DSP
+ * @ingroup framework
+ * 
+ * Jamoma DSP specializes the Foundation classes to provide a framework for 
+ * creating a library of unit generators.
+*/
+
+// Library
+
+/**
+ * @defgroup dspLibrary Jamoma DSP Library
+ * @ingroup dsp
+ * 
+ * The Jamoma DSP Library
+*/
+
+// DSP Extensions
+
+/**
+ * @defgroup dspExtensions Jamoma DSP Extensions
+ * @ingroup dsp
+ * 
+ * Extends Jamoma DSP capabilities
+*/
+
+/**
+ * @defgroup dspAnalysisLib Jamoma DSP AnalysisLib
+ * @ingroup dspExtensions
+ * 
+ * Audio analysis utilities
+*/
+
+/**
+ * @defgroup dspAudioUnitExtension Jamoma DSP AudioUnit
+ * @ingroup dspExtensions
+ * 
+ * Extension adding support for hosting AudioUnit plugins.
+*/
+
+/**
+ * @defgroup dspClipper Jamoma DSP Clipper
+ * @ingroup dspExtensions
+ * 
+ * Audio clipping utility
+*/
+
+/**
+ * @defgroup dspCrossfade Jamoma DSP Crossfade
+ * @ingroup dspExtensions
+ * 
+ * Utility for crossfading between signals.
+*/
+
+/**
+ * @defgroup dspEffectsLib Jamoma DSP EffectsLib
+ * @ingroup dspExtensions
+ * 
+ * Various audio effects units.
+*/
+
+/**
+ * @defgroup dspFFTLib Jamoma DSP FFT Lib
+ * @ingroup dspExtensions
+ * 
+ * Fast Fourier Transform utilities for spectral processing.
+*/
+
+/**
+ * @defgroup dspFilterLib Jamoma DSP FilterLib
+ * @ingroup dspExtensions
+ * 
+ * Implementation of a wide set of audio filters.
+*/
+
+/**
+ * @defgroup dspFunctionLib Jamoma DSP FunctionLib
+ * @ingroup dspExtensions
+ * 
+ * Implementation of mapping functions.
+*/
+
+/**
+ * @defgroup dspGeneratorLib Jamoma DSP GeneratorLib
+ * @ingroup dspExtensions
+ * 
+ * Audio signal unit generators.
+*/
+
+/**
+ * @defgroup dspMathLib Jamoma DSP MathLib
+ * @ingroup dspExtensions
+ * 
+ * Math operations for audio processing purposes.
+*/
+
+/**
+ * @defgroup dspResamplingLib Jamoma DSP ResamplingLib
+ * @ingroup dspExtensions
+ * 
+ * Utilities for resampling of audio signals.
+*/
+
+/**
+ * @defgroup dspSoundFileLib Jamoma DSP SoundFileLib
+ * @ingroup dspExtensions
+ * 
+ * Support for reading and writing soundfiles using libsndfile.
+*/
+
+/**
+ * @defgroup dspSpatLib Jamoma DSP SpatLib
+ * @ingroup dspExtensions
+ * 
+ * Implementation of a number of spatialization techniques.
+*/
+
+/**
+ * @defgroup dspTrajectoryLib Jamoma DSP TrajectoryLib
+ * @ingroup dspExtensions
+ * 
+ * Description of trajectories e.g., for describing source positioning and movement in spatialization.
+*/
+
+/**
+ * @defgroup dspWindowFunctionLib Jamoma DSP WindowFunctionLib
+ * @ingroup dspExtensions
+ * 
+ * Window functions to be used for spectral and granular processing, etc.
+*/
+
+// DSP Implementations
+
+/**
+ * @defgroup dspImplementations Jamoma DSP Implementations
+ * @ingroup dsp
+ * 
+ * Implementation of DSP in various hosting environments
+*/
+
+/**
+ * @defgroup dspAudioUnitImplementation AudioUnit implementation of Jamoma DSP
+ * @ingroup dspImplementations
+ * 
+ * DSP implementation as AudioUnit plugins
+*/
+
+/**
+ * @defgroup dspMax Max implementation of Jamoma DSP
+ * @ingroup dspImplementations
+ * 
+ * DSP implementation for the Max environment
+*/
+
+/**
+ * @defgroup dspPd PureData implementation of Jamoma DSP
+ * @ingroup dspImplementations
+ * 
+ * DSP implementation for the PureData environment
+*/
+
+/**
+ * @defgroup dspVst VST implementation of Jamoma DSP
+ * @ingroup dspImplementations
+ * 
+ * DSP implementation as VST plugins
+*/

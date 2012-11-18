@@ -1,0 +1,45 @@
+//-----------------------------------------------------
+// Plugtastic Group Definitions for Doxygen
+//-----------------------------------------------------
+
+/**
+ * @defgroup plugtastic Jamoma Plugtastic
+ * @ingroup framework
+ * 
+ * Jamoma Plugtastic enables graphs created in Jamoma Graph and Plugtastic 
+ * to be described, exported and compiled as AudioUnit plugins.
+*/
+
+// Library
+
+/**
+ * @defgroup plugtasticLibrary Jamoma Plugtastic Library
+ * @ingroup plugtastic
+ * 
+ * The Jamoma Plugtastic Library
+*/
+
+// There are currently no extensions for Plugtastic
+
+// Plugtastic Implementations
+
+/**
+ * @defgroup plugtasticImplementations Jamoma Plugtastic Implementations
+ * @ingroup plugtastic
+ * 
+ * Implementation of Plugtastic in various hosting environments
+*/
+
+/**
+ * @defgroup plugtasticAudioUnit AudioUnit
+ * @ingroup plugtasticImplementations
+ * 
+ * Plugtastic implementation as AudioUnit plugins
+*/
+
+/**
+ * @defgroup plugtasticMax Max implementation of Jamoma Plugtastic
+ * @ingroup plugtasticImplementations
+ * 
+ * Plugtastic implementation for the Max environment
+*/

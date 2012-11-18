@@ -1,0 +1,13 @@
+//-----------------------------------------------------
+// Support Group Definitions for Doxygen
+//-----------------------------------------------------
+
+/**
+ * @defgroup support Jamoma Support
+ * @ingroup framework
+ * 
+ * Jamoma Support provides functionalities and scripts required for building
+ * the various frameworks. This includes embedding libraries and SDKs
+ * such as the Max SDK, rosc (OSC implementation for Ruby) and 
+ * ObjectiveMax.
+*/
