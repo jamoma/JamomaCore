@@ -2,22 +2,22 @@
 sources:
   - jcom.parameter.cpp		
   - jcom.parameter.clip.cpp
-  - ../../../../Support/max/TTClassWrapperMax.cpp
-  - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
+  - ../../../../../Core/Shared/max/TTClassWrapperMax.cpp
+  - ../../../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
     
 includes:
   - .
-  - ../../../../Foundation/library/includes
+  - ../../../../../Core/Foundation/library/includes
   - ../../../../Modular/library/includes
   - ../../../../Modular/library/FunctionLib
   - ../../../../Modular/library/RampLib
-  - ../../../../DSP/library/includes
+  - ../../../../../Core/DSP/library/includes
   - ../../../../Graphics/library/includes
-  - ../../../../Support/max  
+  - ../../../../../Core/Shared/max  
   - ../../../../Support/objectivemax/MaxObject
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/jit-includes"
+  - "../../../../../Core/Shared/max/c74support/max-includes"
+  - "../../../../../Core/Shared/max/c74support/msp-includes"
+  - "../../../../../Core/Shared/max/c74support/jit-includes"
   
 libraries:
   - FOUNDATION
@@ -27,5 +27,5 @@ libraries:
   - C74-MSP
   - C74-JITTER
 
-prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
+prefix: ../../../../../Core/Shared/max/c74support/max-includes/macho-prefix.pch
 arch: "i386"

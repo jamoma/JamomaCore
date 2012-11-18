@@ -40,8 +40,8 @@
 		A734369B14A9295400C41E3F /* JamomaSymbols.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaSymbols.cpp; sourceTree = "<group>"; };
 		A734369C14A9295400C41E3F /* jcom.core.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.core.cpp; sourceTree = "<group>"; };
 		A734369D14A9295400C41E3F /* TTModularVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
-		A7AC5B8514B0535D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../Foundation/library/includes; sourceTree = "<group>"; };
-		A7AC5B8614B0537D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../DSP/library/includes; sourceTree = "<group>"; };
+		A7AC5B8514B0535D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../../Core/Foundation/library/includes; sourceTree = "<group>"; };
+		A7AC5B8614B0537D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../../Core/DSP/library/includes; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
