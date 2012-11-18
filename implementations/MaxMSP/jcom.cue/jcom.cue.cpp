@@ -434,7 +434,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTTextHandlerPtr	aTextHandler = NULL;
 	TTHashPtr			allCues;
 	TTValue				v, o, args;
-	TTSymbolPtr			name = kTTSymEmpty;
+	TTSymbol			name = kTTSymEmpty;
 	TTErr				tterr;
 	
 	// choose object to edit : default the cuelist
@@ -449,7 +449,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			x->wrappedObject->getAttributeValue(TT("order"), v);
 			
 			if (atom_getlong(argv) <= v.getSize())
-				v.get(atom_getlong(argv)-1, &name);
+				v.get(atom_getlong(argv)-1, name);
 			else {
 				object_error((ObjectPtr)x, "%d does'nt exist", atom_getlong(argv));
 				return;
