@@ -18,8 +18,13 @@ if(ARGV.length == 0)
 end
 
 configuration = ARGV[0];
-configuration = "Development" if configuration == "dev"
-configuration = "Deployment" if configuration == "dep"
+
+if (configuration=="Deployment" || configuration=="Release" || configuration=="dep")
+  configuration = "Deployment"
+else
+  configuration = "Development"
+end
+
 if win32? || linux?
  	 if(configuration == "Development" || configuration == "Debug" )
     		configuration = "Debug"
@@ -60,9 +65,6 @@ revision = nil # argument not implemented yet
 if (ARGV.length > 5)
   @distropath = ARGV[5]
 end
-
-
-
 
 ###################################################################
 # Get Revision Info
