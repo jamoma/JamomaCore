@@ -903,7 +903,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	return kTTErrNone;
 }
 
-TTErr makeInternals_explorer(TTPtr self, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedExplorer)
+TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedExplorer)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
@@ -930,7 +930,7 @@ TTErr makeInternals_explorer(TTPtr self, TTSymbol& name, SymbolPtr callbackMetho
 	return kTTErrNone;
 }
 
-TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedViewer)
+TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedViewer)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
@@ -961,7 +961,7 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol& name, Symbol
 	return kTTErrNone;
 }
 
-TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedReceiver)
+TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedReceiver)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
