@@ -236,8 +236,8 @@ extern "C" {
 	/** Make a TTValue from Atom array */
 	void			jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 	
-	/** Convert a TTSymbolPtr "MyObjectMessage" into a SymbolPtr "my/object/message" 
-		or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
+	/** Convert a TTSymbol "MyObjectMessage" into a SymbolPtr "my/object/message" 
+		or return NULL if the TTSymbol doesn't begin by an uppercase letter */
 	SymbolPtr		jamoma_TTName_To_MaxName(TTSymbol TTName);
 	
 	/** Load an external for internal use. Returns true if successful */
@@ -257,6 +257,10 @@ extern "C" {
 	
 	/** Parse #N inside address and replace them by parent patcher arguments if there are */
 	SymbolPtr		jamoma_parse_dieze(ObjectPtr x, SymbolPtr address);
+
+#ifdef __cplusplus
+}
+#endif
 	
 	// Files
 	///////////////////////////////////////////////
@@ -267,9 +271,5 @@ extern "C" {
 	/** Get BOOT style filepath from args or, if no args open a dialog to read a file */
 	TTSymbol		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype);
 		
-#ifdef __cplusplus
-}
-#endif
-
 
 

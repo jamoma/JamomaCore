@@ -57,8 +57,8 @@ class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
 	
 private:
 
-	TTHashPtr			mApplications;						///< hash table containing <TTSymbolPtr applicationName, TTApplicationPtr anApplication>
-	TTHashPtr			mProtocols;							///< hash table containing <TTSymbolPtr protocolName, ProtocolPtr aProtocol>
+	TTHashPtr			mApplications;						///< hash table containing <TTSymbol applicationName, TTApplicationPtr anApplication>
+	TTHashPtr			mProtocols;							///< hash table containing <TTSymbol protocolName, ProtocolPtr aProtocol>
 		
 	TTApplicationPtr	mLocalApplication;					///< a pointer to the local application
 	TTApplicationPtr	mCurrentApplication;				///< a pointer used for ReadFromXml mechanism
@@ -75,42 +75,42 @@ private:
 	/** Get all protocol names */
 	TTErr getProtocolNames(TTValue& value);
 	
-	/** Add an application giving <TTSymbolPtr applicationName, applicationPointer> */
+	/** Add an application giving <TTSymbol applicationName, applicationPointer> */
 	TTErr ApplicationAdd(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Remove an application */
 	TTErr ApplicationRemove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Discover the namespace of an application under an address
-		arguments are <TTSymbolPtr whereToDiscover, TTValuePtr returnedChildrenNames, TTValuePtr returnedChildrenTypes, TTValuePtrreturnedAttributes> */
+		arguments are <TTSymbol whereToDiscover, TTValuePtr returnedChildrenNames, TTValuePtr returnedChildrenTypes, TTValuePtrreturnedAttributes> */
 	TTErr ApplicationDiscover(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get a value from an attribute of an object at an address in an application
-		arguments are <TTSymbolPtr whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */
+		arguments are <TTSymbol whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */
 	TTErr ApplicationGet(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Set a value from an attribute of an object at an address in an application
-		arguments are <TTSymbolPtr whereToDiscover, TTsymbolPtr attributeToSet, TTValuePtr newValue> */
+		arguments are <TTSymbol whereToDiscover, TTsymbolPtr attributeToSet, TTValuePtr newValue> */
 	TTErr ApplicationSet(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Listen for value changes from an attribute of an object at an address in an application
 		or for creation/destruction under an address.
-		arguments are <TTObjectPtr appToNotify, TTSymbolPtr whereToListen, TTSymbolPtr attribute, TTBoolean enable> */
+		arguments are <TTObjectPtr appToNotify, TTSymbol whereToListen, TTSymbol attribute, TTBoolean enable> */
 	TTErr ApplicationListen(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Update value changes of an attribute of an object at an address in an application
 		or for creation/destruction under an address.
 		note : this is usually the answer of distant namespace or Mirror attribute listening
-		arguments are <TTObjectPtr appAnswering, TTSymbolPtr whereComesFrom, TTSymbolPtr attribute, TTValuePtr newValue> */
+		arguments are <TTObjectPtr appAnswering, TTSymbol whereComesFrom, TTSymbol attribute, TTValuePtr newValue> */
 	TTErr ApplicationListenAnswer(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Scan a protocol network in order to add distant application automatically <TTSymbolPtr protocolName> */
+	/** Scan a protocol network in order to add distant application automatically <TTSymbol protocolName> */
 	TTErr ProtocolScan(const TTValue& inputValue, TTValue& outputValue);
 
-	/** Run the reception thread mecanism of a Protocol <TTSymbolPtr protocolName> */
+	/** Run the reception thread mecanism of a Protocol <TTSymbol protocolName> */
 	TTErr ProtocolRun(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Stop the reception thread mecanism of a Protocol <TTSymbolPtr protocolName> */
+	/** Stop the reception thread mecanism of a Protocol <TTSymbol protocolName> */
 	TTErr ProtocolStop(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler 
@@ -140,7 +140,7 @@ typedef TTApplicationManager* TTApplicationManagerPtr;
 
 /**	To get the local application name
  note : it uses the extern TTModularApplications variable
- @return							a TTSymbolPtr */
+ @return							a TTSymbol */
 TTSymbol TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationName();
 
 /**	To get the local application debug status

@@ -19,7 +19,7 @@
 
 /**	A convenience macro to be used for registering mirror attribute.
 	Note that we don't lower the attribute name because we use the name of an existing attribute.
-		@param	name	The TTSymbolPtr name of the attribute.
+		@param	name	The TTSymbol name of the attribute.
 		@param	type	The type of the value.
  */
 #define addMirrorAttribute(name, type)		TTObject::registerAttribute(name, type, NULL, (TTGetterMethod)& TTMirror::getMirrorAttribute, (TTSetterMethod)& TTMirror::setMirrorAttribute )
@@ -28,7 +28,7 @@
  
 	A convenience macro to be used for registering properties of mirror attributes.
 	Note that we don't lower the attribute name because we use the name of an existing attribute.
-		@param	name			The TTSymbolPtr name of the attribute.
+		@param	name			The TTSymbol name of the attribute.
 		@param	propertyName	The name of the property.
 		@param	initialValue	The value of the property.
  */
@@ -45,7 +45,7 @@
 	
 	A convenience macro to be used for registering properties of messages.
 	Note that we don't lower the message name because we use the name of an existing attribute.
-		@param	name			The TTSymbolPtr name of the attribute.
+		@param	name			The TTSymbol name of the attribute.
 		@param	propertyName	The name of the property.
 		@param	initialValue	The value of the property.
  */

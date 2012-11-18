@@ -109,6 +109,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_rangeBounds                      (("range
 TTMODULAR_EXPORT TTSymbol       kTTSym_rangeClipmode					(("rangeClipmode"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_rampDrive                        (("rampDrive"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_rampFunction                     (("rampFunction"));
+TTMODULAR_EXPORT TTSymbol		kTTSym_rampStatus						(("rampStatus"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Read                             (("Read"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_ReadAgain                        (("ReadAgain"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_readonly                         (("readonly"));

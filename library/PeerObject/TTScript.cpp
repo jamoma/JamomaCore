@@ -118,6 +118,7 @@ TTErr TTScript::Clear()
 	
 	delete mLines;
 	mLines = new TTList();
+	return kTTErrNone;
 }
 
 TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
@@ -239,18 +240,18 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr		aLine;
-	TTSymbolPtr			name, unit;
-	TTNodeAddressPtr	address, containerAddress = kTTAdrsRoot;
+	TTSymbol			name, unit;
+	TTAddress			address, containerAddress = kTTAdrsRoot;
 	TTValue				v, valueToDump;
 	TTUInt32			ramp;
-	TTErr				err;
+//	TTErr				err;
 	
 	if (!mReturnLineCallback)
 		return kTTErrGeneric;
 	
 	// It is possible to output the command address relatively to a container address 
 	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, &containerAddress);
+		inputValue.get(0, containerAddress);
 	
 	// output each line of the script
 	for (mLines->begin(); mLines->end(); mLines->next()) {
@@ -266,7 +267,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// prepend flag name
 			aLine->lookup(kTTSym_name, v);
-			v.get(0, &name);
+			v.get(0, name);
 			valueToDump.prepend(name);
 			
 			// prepend dash
@@ -293,7 +294,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the unit
 			if (!aLine->lookup(kTTSym_unit, v)) {
-				v.get(0, &unit);
+				v.get(0, unit);
 				valueToDump.append(unit);
 			}
 			
@@ -306,11 +307,11 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, &address);
+			v.get(0, address);
 			
 			// if relative, append to container address
-			if (address->getType() == kAddressRelative)
-				address = containerAddress->appendAddress(address);
+			if (address.getType() == kAddressRelative)
+				address = containerAddress.appendAddress(address);
 			
 			// append the address
 			valueToDump.prepend(address);
@@ -328,11 +329,11 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, &address);
+			v.get(0, address);
 			
 			// if relative, append to container address
-			if (address->getType() == kAddressRelative)
-				address = containerAddress->appendAddress(address);
+			if (address.getType() == kAddressRelative)
+				address = containerAddress.appendAddress(address);
 			
 			// dump the subscript
 			mSubScript->sendMessage(TT("Dump"), address, kTTValNONE);
@@ -525,8 +526,8 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTDictionaryPtr		aLine = NULL;
 	TTSymbol			name, unit;
 	TTAddress	address;
-	TTNodePtr			aNode;
-	TTObjectPtr			anObject;
+//	TTNodePtr			aNode;
+//	TTObjectPtr			anObject;
 	TTValue				v;
 	TTString			aString;
 	
@@ -1104,7 +1105,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 	TTSymbol		type1;
 	TTObjectPtr		obj1, obj2;
 	TTScriptPtr		sub1, sub2;
-	TTFloat64		value;
+//	TTFloat64		value;
 	TTValue			v, v1, v2, newValue;
 	TTValue			found;
 	TTUInt32		i, s;
@@ -1128,7 +1129,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 		if (obj1 && obj2) {
 			
 			// obj1 and obj2 have to be the same object
-			if (obj1 != obj1) {
+			if (obj1 != obj2) {
 				script2->mLines->find(&TTScriptFindObject, (TTPtr)obj1, found);
 				
 				// couldn't find the same object in script2 : skip the command

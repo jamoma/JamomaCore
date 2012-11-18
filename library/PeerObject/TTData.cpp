@@ -687,12 +687,12 @@ TTErr TTData::setRampFunction(const TTValue& value)
 		
 		TTUInt32	i, n;
 		TTValue		names;
-		TTSymbolPtr	aName;
+		TTSymbol	aName;
 		
 		// Remove former datas
 		n = mRampFunctionParameters.getSize();
 		for (i=0; i<n; i++) {
-			mRampFunctionParameters.get(i, &aName);
+			mRampFunctionParameters.get(i, aName);
 			this->removeAttribute(aName);
 		}
 		mRampFunctionParameters.clear();
@@ -704,7 +704,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 		if (n) {
 			for (i=0; i<n; i++) {
 				
-				names.get(i, &aName);
+				names.get(i, aName);
 				
 				if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
 					continue;										// don't publish these datas

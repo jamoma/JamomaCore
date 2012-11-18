@@ -13,8 +13,6 @@
 #define thisTTClassTags		"cue"
 
 TT_MODULAR_CONSTRUCTOR,
-mName(kTTSymEmpty),
-mDescription(kTTValNONE),
 mRamp(0),
 mScript(NULL)
 {
@@ -56,7 +54,7 @@ TTErr TTCue::getName(TTValue& value)
 {
 	TTListPtr			lines;
 	TTDictionaryPtr		aLine;
-	TTSymbolPtr			name;
+	TTSymbol			name;
 	TTValue				v;
 	
 	mScript->getAttributeValue(TT("lines"), v);
@@ -70,7 +68,7 @@ TTErr TTCue::getName(TTValue& value)
 		if (aLine->getSchema() == kTTSym_flag) {
 			
 			aLine->lookup(kTTSym_name, v);
-			v.get(0, &name);
+			v.get(0, name);
 			
 			if (name == TT("cue")) {
 				aLine->getValue(value);
@@ -88,7 +86,7 @@ TTErr TTCue::setName(const TTValue& value)
 {
 	TTListPtr			lines;
 	TTDictionaryPtr		aLine;
-	TTSymbolPtr			name;
+	TTSymbol			name;
 	TTValue				v;
 	
 	mScript->getAttributeValue(TT("lines"), v);
@@ -102,7 +100,7 @@ TTErr TTCue::setName(const TTValue& value)
 		if (aLine->getSchema() == kTTSym_flag) {
 			
 			aLine->lookup(kTTSym_name, v);
-			v.get(0, &name);
+			v.get(0, name);
 			
 			if (name == TT("cue")) {
 				aLine->setValue(value);
@@ -120,7 +118,7 @@ TTErr TTCue::getDescription(TTValue& value)
 {
 	TTListPtr			lines;
 	TTDictionaryPtr		aLine;
-	TTSymbolPtr			name;
+	TTSymbol			name;
 	TTValue				v;
 	
 	mScript->getAttributeValue(TT("lines"), v);
@@ -134,7 +132,7 @@ TTErr TTCue::getDescription(TTValue& value)
 		if (aLine->getSchema() == kTTSym_flag) {
 			
 			aLine->lookup(kTTSym_name, v);
-			v.get(0, &name);
+			v.get(0, name);
 			
 			if (name == kTTSym_description) {
 				aLine->getValue(value);
@@ -152,7 +150,7 @@ TTErr TTCue::setDescription(const TTValue& value)
 {
 	TTListPtr			lines;
 	TTDictionaryPtr		aLine;
-	TTSymbolPtr			name;
+	TTSymbol			name;
 	TTValue				v;
 	
 	mScript->getAttributeValue(TT("lines"), v);
@@ -166,7 +164,7 @@ TTErr TTCue::setDescription(const TTValue& value)
 		if (aLine->getSchema() == kTTSym_flag) {
 		
 			aLine->lookup(kTTSym_name, v);
-			v.get(0, &name);
+			v.get(0, name);
 		
 			if (name == kTTSym_description) {
 				aLine->setValue(value);

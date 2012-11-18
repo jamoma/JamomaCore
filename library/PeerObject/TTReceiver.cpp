@@ -392,7 +392,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	TTAddress anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
-	TTObjectPtr		newObserver, oldObserver, o;
+	TTObjectPtr		newObserver, oldObserver, o = NULL;
 	TTNodePtr		aNode, p_node;
 	TTValue			c, v;
 	TTUInt8			flag;

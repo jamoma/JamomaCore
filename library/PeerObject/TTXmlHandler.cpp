@@ -24,10 +24,10 @@ mXmlSchemaInstance(TTSymbol("'http://www.w3.org/2001/XMLSchema-instance'")),
 mXmlSchemaLocation(TTSymbol("'http://jamoma.org/ file:jamoma.xsd'")),
 mWriter(NULL),
 mReader(NULL),
-mIsWriting(false),
-mIsReading(false),
 mXmlNodeName(kTTSymEmpty),
-mXmlNodeValue(kTTValNONE)
+mXmlNodeValue(kTTValNONE),
+mIsWriting(false),
+mIsReading(false)
 {
 	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.getSize() == 0);
 	
@@ -311,7 +311,7 @@ TTErr TTXmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuo
 
 TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
-	TTErr err;
+//	TTErr err;
 	
 	if (xmlTextReaderMoveToAttribute(mReader, BAD_CAST attributeName.c_str()) == 1) {
 		
@@ -324,7 +324,7 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedVal
 TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
-	TTErr	err;
+//	TTErr	err;
 	
 	if (xmlTextReaderMoveToNextAttribute(mReader) == 1) {
 		

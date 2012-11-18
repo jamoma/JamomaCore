@@ -77,8 +77,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 	TTAttributePtr	anAttribute;
 	TTSymbol		ttAttributeName;
 	TTMessagePtr	aMessage;
-	TTAddress relativeAddress;
-	TTUInt16		index = 0;
+	TTAddress		relativeAddress;
 	TTErr			err = kTTErrNone;
 	
 	if (!mDirectory || mAddress == kTTAdrsEmpty)

@@ -558,7 +558,7 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	
 	
 	/* to -- do we need to write the Application name table ?
-	 TTSymbolPtr			k;
+	 TTSymbol			k;
 	 TTString			aString;
 	 TTValue				v, keys;
 	 TTUInt16			i;

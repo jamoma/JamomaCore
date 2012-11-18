@@ -1060,8 +1060,8 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 	}
 }
 
-/** Convert a TTSymbolPtr "MyObjectMessage" into a SymbolPtr "my/object/message" 
- or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
+/** Convert a TTSymbol "MyObjectMessage" into a SymbolPtr "my/object/message" 
+ or return NULL if the TTSymbol doesn't begin by an uppercase letter */
 SymbolPtr jamoma_TTName_To_MaxName(TTSymbol TTName)
 {
 	TTSymbol MaxName;
@@ -1287,28 +1287,28 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol& ret
 			
 			object_error(patcher, "jmod. prefix in %s is a 0.5 convention. Please use .module suffix instead", patcherName->s_name);
 			
-			s_toParse = string(ttRegexForJmod->end(), end);
+			s_toParse = TTString(ttRegexForJmod->end(), end);
 			begin = s_toParse.begin();
 			end = s_toParse.end();
 		} 
 		// parse jcom.
 		else if (!ttRegexForJcom->parse(begin, end)) {
 			
-			s_toParse = string(ttRegexForJcom->end(), end);
+			s_toParse = TTString(ttRegexForJcom->end(), end);
 			begin = s_toParse.begin();
 			end = s_toParse.end();
 		}
 		
 		// parse .module or if not parse context (model or view)
 		if (!ttRegexForModule->parse(begin, end)) {
-			s_toParse = string(begin, ttRegexForModule->begin());
+			s_toParse = TTString(begin, ttRegexForModule->begin());
 			begin = s_toParse.begin();
 			end = s_toParse.end();
 		}
 		else if (context == kTTSym_model) {
 			
 			if (!ttRegexForModel->parse(begin, end)) {
-				s_toParse = string(begin, ttRegexForModel->begin());
+				s_toParse = TTString(begin, ttRegexForModel->begin());
 				begin = s_toParse.begin();
 				end = s_toParse.end();
 			}
@@ -1316,7 +1316,7 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol& ret
 		else if (context == kTTSym_view) {
 			
 			if (!ttRegexForView->parse(begin, end)) {
-				s_toParse = string(begin, ttRegexForView->begin());
+				s_toParse = TTString(begin, ttRegexForView->begin());
 				begin = s_toParse.begin();
 				end = s_toParse.end();
 			}
@@ -1324,13 +1324,13 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol& ret
 		
 		// parse .maxpat
 		if (!ttRegexForMaxpat->parse(begin, end)) {
-			s_toParse = string(begin, ttRegexForMaxpat->begin());
+			s_toParse = TTString(begin, ttRegexForMaxpat->begin());
 			begin = s_toParse.begin();
 			end = s_toParse.end();
 		}
 		// parse .maxhelp
 		else if (!ttRegexForMaxhelp->parse(begin, end)) {
-			s_toParse = string(begin, ttRegexForMaxhelp->begin());
+			s_toParse = TTString(begin, ttRegexForMaxhelp->begin());
 			begin = s_toParse.begin();
 			end = s_toParse.end();
 		}
@@ -1603,9 +1603,9 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 		beginNumber = ttRegexForBracket->begin();
 		endNumber = ttRegexForBracket->end();
 		
-		s_before = string(begin, ttRegexForBracket->begin()-1);
-		s_number = string(ttRegexForBracket->begin(), ttRegexForBracket->end());
-		s_after = string(ttRegexForBracket->end()+1, end);
+		s_before = TTString(begin, ttRegexForBracket->begin()-1);
+		s_number = TTString(ttRegexForBracket->begin(), ttRegexForBracket->end());
+		s_after = TTString(ttRegexForBracket->end()+1, end);
 		
 		sscanf(s_number.data(), "%ld", &number);
 		
