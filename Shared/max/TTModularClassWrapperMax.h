@@ -135,7 +135,7 @@ TTObjectPtr	getSelectedObject(WrappedModularInstancePtr x);
 
 
 // Wrap a TTBlue class as a Max class.
-TTErr		wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, char* maxClassName, WrappedClassPtr* c, ModularSpec* specificities);
+TTErr		wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxClassName, WrappedClassPtr* c, ModularSpec* specificities);
 
 
 // Wrapped methods ('self' has to be TTPtr because different wrappers (such as the ui wrapper) have different implementations)

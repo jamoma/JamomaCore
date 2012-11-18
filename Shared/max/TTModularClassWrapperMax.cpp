@@ -713,7 +713,7 @@ int convertModifiersFromMaxToTTGraphics(int maxModifiers)
 #endif
 
 
-TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, char* maxClassName, WrappedClassPtr* c, ModularSpec* specificities)
+TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxClassName, WrappedClassPtr* c, ModularSpec* specificities)
 {
 	TTObject*		o = NULL;
 	TTValue			v, args;
