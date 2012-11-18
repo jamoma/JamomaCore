@@ -2,8 +2,8 @@
 // Copyright © 2009, Timothy Place
 // License: New BSD License -- http://creativecommons.org/licenses/BSD/
 
-#include "ruby.h"
 #include "TTAudioGraphAPI.h"
+#include "ruby.h"
 
 
 //
@@ -229,7 +229,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 	TTValue			v_temp;
 	
 	if (argc < 1) {
-		cout << "ERROR -- TTRuby.send requires at least 1 argument (the name of the message to send)" << endl;
+		std::cout << "ERROR -- TTRuby.send requires at least 1 argument (the name of the message to send)" << std::endl;
 		goto bye;
 	}
 	
@@ -255,7 +255,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 				for (int i=1; i<argc; i++) {
 					int t = TYPE(argv[i]);
 					
-					//cout << "the type of the message arg is " << t << endl;
+					//std::cout << "the type of the message arg is " << t << std::endl;
 					switch (t) {
 						case T_FLOAT:
 							v_in.append(NUM2DBL(argv[i]));
@@ -271,11 +271,11 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 							v_in.append(TTSymbol(RSTRING_PTR(messageArgStr)));
 							break;
 						case T_ARRAY:
-							cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
+							std::cout << "TTError: Array arguments for messages not yet supported in Ruby" << std::endl;
 							err = kTTErrGeneric;
 							break;
 						case T_OBJECT:
-							cout << "TTError: Object arguments for messages not yet supported in Ruby" << endl;
+							std::cout << "TTError: Object arguments for messages not yet supported in Ruby" << std::endl;
 							err = kTTErrGeneric;
 							break;
 						default:
@@ -290,7 +290,7 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 //			}
 			
 			if (err)
-				cout << "TTRubySendMessage: Error " << err << endl;
+				std::cout << "TTRubySendMessage: Error " << err << std::endl;
 			else {
 				// return an array -- the first item is the error code
 				// additional values may follow
@@ -310,12 +310,12 @@ VALUE TTRubySendMessage(int argc, VALUE* argv, VALUE self)
 							
 						v_out.get(i, f);
 						fv = rb_float_new(f);
-						//cout << "return value " << i << " is " << f << endl;
+						//std::cout << "return value " << i << " is " << f << std::endl;
 
 						rb_ary_store(ret, i+1, fv);
 					}
 					else if (v_out.getType(i) == kTypeObject)
-						cout << "objects as return values are not yet supported" << endl;
+						std::cout << "objects as return values are not yet supported" << std::endl;
 					else if (v_out.getType(i) == kTypeSymbol) {
 						TTSymbol	sp = kTTSymEmpty;
 						TTCString	c; 
@@ -390,7 +390,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 			int t = TYPE(attributeValue);
 
 			v.clear();
-			//cout << "the type of the attr arg is " << t << endl;
+			//std::cout << "the type of the attr arg is " << t << std::endl;
 			switch (t) {
 				case T_FLOAT:
 					v.append(NUM2DBL(attributeValue));
@@ -406,15 +406,15 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					v.append(TTSymbol(RSTRING_PTR(attributeValueStr)));
 					break;
 				case T_ARRAY:
-					cout << "TTError: Array arguments for attributes not yet supported in Ruby" << endl;
+					std::cout << "TTError: Array arguments for attributes not yet supported in Ruby" << std::endl;
 					err = kTTErrGeneric;
 					break;
 				case T_OBJECT:
-					cout << "TTError: Object arguments for attributes not yet supported in Ruby" << endl;
+					std::cout << "TTError: Object arguments for attributes not yet supported in Ruby" << std::endl;
 					err = kTTErrGeneric;
 					break;
 				default:
-					cout << "TTError: Unknown type for arguments to attribute" << endl;
+					std::cout << "TTError: Unknown type for arguments to attribute" << std::endl;
 					err = kTTErrGeneric;
 					break;
 			}
@@ -429,7 +429,7 @@ VALUE TTRubySetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				err = instance->obj->setAttributeValue(parameterName, v);
 			}
 			if (err)
-				cout << "TTRubySetAttribute: Error " << err << endl;
+				std::cout << "TTRubySetAttribute: Error " << err << std::endl;
 		}
 	}
 	return 0;
@@ -460,7 +460,7 @@ VALUE TTRubyGetAttribute(VALUE self, VALUE attributeName)
 			
 			err = instance->obj->getAttributeValue(parameterName, v);
 			if (err) {
-				cout << "TTRubyGetAttribute: Error " << err << endl;
+				std::cout << "TTRubyGetAttribute: Error " << err << std::endl;
 				goto out;
 			}
 
@@ -551,7 +551,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 	TTString			nameString;
 
 	if (argc < 1) {
-		cout << "ERROR -- TTAudio requires at least 1 argument (the name of the object class to create)" << endl;
+		std::cout << "ERROR -- TTAudio requires at least 1 argument (the name of the object class to create)" << std::endl;
 		return 0;
 	}
 
@@ -559,7 +559,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 	for (int i=0; i<argc; i++) {
 		int t = TYPE(argv[i]);
 
-		//cout << "the type of the message arg is " << t << endl;
+		//std::cout << "the type of the message arg is " << t << std::endl;
 		switch (t) {
 			case T_FLOAT:
 				args.append(NUM2DBL(argv[i]));
@@ -575,11 +575,11 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 				args.append(TTSymbol(RSTRING_PTR(messageArgStr)));
 				break;
 			case T_ARRAY:
-				cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
+				std::cout << "TTError: Array arguments for messages not yet supported in Ruby" << std::endl;
 				err = kTTErrGeneric;
 				break;
 			case T_OBJECT:
-				cout << "TTError: Object arguments for messages not yet supported in Ruby" << endl;
+				std::cout << "TTError: Object arguments for messages not yet supported in Ruby" << std::endl;
 				err = kTTErrGeneric;
 				break;
 			default:
@@ -622,7 +622,7 @@ VALUE TTAudioInitialize(int argc, VALUE* argv, VALUE self)
 		return self;
 	}
 	else {
-		cout << "TTObjectInstantiate failed to create object" << endl;
+		std::cout << "TTObjectInstantiate failed to create object" << std::endl;
 		return 0;
 	}
 }
@@ -670,7 +670,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 	TTValue				v_temp;
 
 	if (argc < 1) {
-		cout << "ERROR -- TTRuby.send requires at least 1 argument (the name of the message to send)" << endl;
+		std::cout << "ERROR -- TTRuby.send requires at least 1 argument (the name of the message to send)" << std::endl;
 		goto bye;
 	}
 
@@ -696,7 +696,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 				for (int i=1; i<argc; i++) {
 					int t = TYPE(argv[i]);
 
-					//cout << "the type of the message arg is " << t << endl;
+					//std::cout << "the type of the message arg is " << t << std::endl;
 					switch (t) {
 						case T_FLOAT:
 							v_in.append(NUM2DBL(argv[i]));
@@ -712,11 +712,11 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 							v_in.append(TTSymbol(RSTRING_PTR(messageArgStr)));
 							break;
 						case T_ARRAY:
-							cout << "TTError: Array arguments for messages not yet supported in Ruby" << endl;
+							std::cout << "TTError: Array arguments for messages not yet supported in Ruby" << std::endl;
 							err = kTTErrGeneric;
 							break;
 						case T_OBJECT:
-							cout << "TTError: Object arguments for messages not yet supported in Ruby" << endl;
+							std::cout << "TTError: Object arguments for messages not yet supported in Ruby" << std::endl;
 							err = kTTErrGeneric;
 							break;
 						default:
@@ -731,7 +731,7 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 //			}
 
 			if (err)
-				cout << "TTAudioSendMessage ('" << RSTRING_PTR(messageNameStr) << "'): Error " << err << endl;
+				std::cout << "TTAudioSendMessage ('" << RSTRING_PTR(messageNameStr) << "'): Error " << err << std::endl;
 			else {
 				// return an array -- the first item is the error code
 				// additional values may follow
@@ -751,12 +751,12 @@ VALUE TTAudioSendMessage(int argc, VALUE* argv, VALUE self)
 							
 						v_out.get(i, f);
 						fv = rb_float_new(f);
-						//cout << "return value " << i << " is " << f << endl;
+						//std::cout << "return value " << i << " is " << f << std::endl;
 
 						rb_ary_store(ret, i+1, fv);
 					}
 					else if (v_out.getType(i) == kTypeObject)
-						cout << "objects as return values are not yet supported" << endl;
+						std::cout << "objects as return values are not yet supported" << std::endl;
 					else if (v_out.getType(i) == kTypeSymbol) {
 						TTSymbol	sp = kTTSymEmpty;
 						TTCString	c; 
@@ -832,7 +832,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 			int t = TYPE(attributeValue);
 
 			v.clear();
-			//cout << "the type of the attr arg is " << t << endl;
+			//std::cout << "the type of the attr arg is " << t << std::endl;
 			switch (t) {
 				case T_FLOAT:
 					v.append(NUM2DBL(attributeValue));
@@ -848,15 +848,15 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 					v.append(TTSymbol(RSTRING_PTR(attributeValueStr)));
 					break;
 				case T_ARRAY:
-					cout << "TTError: Array arguments for attributes not yet supported in Ruby" << endl;
+					std::cout << "TTError: Array arguments for attributes not yet supported in Ruby" << std::endl;
 					err = kTTErrGeneric;
 					break;
 				case T_OBJECT:
-					cout << "TTError: Object arguments for attributes not yet supported in Ruby" << endl;
+					std::cout << "TTError: Object arguments for attributes not yet supported in Ruby" << std::endl;
 					err = kTTErrGeneric;
 					break;
 				default:
-					cout << "TTError: Unknown type for arguments to attribute" << endl;
+					std::cout << "TTError: Unknown type for arguments to attribute" << std::endl;
 					err = kTTErrGeneric;
 					break;
 			}
@@ -871,7 +871,7 @@ VALUE TTAudioSetAttribute(VALUE self, VALUE attributeName, VALUE attributeValue)
 				err = instance->obj->getUnitGenerator()->setAttributeValue(parameterName, v);
 			}
 			if (err)
-				cout << "TTAudioSetAttribute: Error " << err << endl;
+				std::cout << "TTAudioSetAttribute: Error " << err << std::endl;
 		}
 	}
 	return 0;
@@ -902,7 +902,7 @@ VALUE TTAudioGetAttribute(VALUE self, VALUE attributeName)
 			
 			err = instance->obj->getUnitGenerator()->getAttributeValue(parameterName, v);
 			if (err) {
-				cout << "TTAudioGetAttribute: Error " << err << endl;
+				std::cout << "TTAudioGetAttribute: Error " << err << std::endl;
 				goto out;
 			}
 
@@ -977,7 +977,7 @@ VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self)
 	TTUInt16			outletNumberFromWhichToConnect = 0;
 
 	if (argc < 1) {
-		cout << "ERROR -- TTAudioConnect requires at least 1 argument (the object whose output should be connected to our input)" << endl;
+		std::cout << "ERROR -- TTAudioConnect requires at least 1 argument (the object whose output should be connected to our input)" << std::endl;
 		goto bye;
 	}
 
@@ -989,7 +989,7 @@ VALUE TTAudioConnect(int argc, VALUE* argv, VALUE self)
 	}
 
 	if (!instanceToConnect) {
-		cout << "ERROR -- TTAudioConnect cannot verify the object you would like to connect" << endl;
+		std::cout << "ERROR -- TTAudioConnect cannot verify the object you would like to connect" << std::endl;
 		goto bye;
 	}
 	
@@ -1021,7 +1021,7 @@ VALUE TTAudioDrop(int argc, VALUE* argv, VALUE self)
 	TTUInt16			outletNumberFromWhichToConnect = 0;
 
 	if (argc < 1) {
-		cout << "ERROR -- TTAudioConnect requires at least 1 argument (the object whose output should be connected to our input)" << endl;
+		std::cout << "ERROR -- TTAudioConnect requires at least 1 argument (the object whose output should be connected to our input)" << std::endl;
 		goto bye;
 	}
 
@@ -1033,7 +1033,7 @@ VALUE TTAudioDrop(int argc, VALUE* argv, VALUE self)
 	}
 
 	if (!instanceToConnect) {
-		cout << "ERROR -- TTAudioConnect cannot verify the object you would like to connect" << endl;
+		std::cout << "ERROR -- TTAudioConnect cannot verify the object you would like to connect" << std::endl;
 		goto bye;
 	}
 	
