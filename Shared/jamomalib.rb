@@ -17,7 +17,7 @@ else
   require 'fileutils'
   require 'pathname'
   if defined? $main_repository
-    require "#{Dir.pwd}/Support/platform"
+    require "#{Dir.pwd}/../Core/Shared/platform"
   else
     require "#{Dir.pwd}/platform"
   end
@@ -46,9 +46,9 @@ else
 if win32?
   if defined? $main_repository
     if Platform::IMPL == :cygwin
-      require "#{Dir.pwd}/Support/wininit"
+      require "#{Dir.pwd}/../Core/Shared/wininit"
     else
-      require "#{Dir.pwd}/Support/wininit.rb"
+      require "#{Dir.pwd}/../Core/Shared/wininit.rb"
     end
   else
     if Platform::IMPL == :cygwin
@@ -269,7 +269,12 @@ end
   def build_make_project(projectdir, makefilename, configuration, clean)
     out = ""
     projectname = projectdir.split("/").last
+    printedprojname = "#{projectname} ".ljust(27, '.')
+    print "#{printedprojname} "
+    STDOUT.flush
 
+    sleep 1
+    
     `make -j 4 clean 2>&1` if clean
 
     configuration = "Debug" if configuration == "Development"
@@ -278,13 +283,11 @@ end
     # if error is not followed by a colon then the clang-compiled build will claim to fail when there are no real errors  
     if /error:/.match(out) || /Error: /.match(out) || /make: \*\*\* No rule to make target/.match(out) || /No such file or directory/.match(out)
       @fail_array.push("#{projectname}")
-      projectname = "#{projectname} ".ljust(27, '*')
-      puts "#{projectname} BUILD FAILED **************************************"
+      puts "BUILD FAILED **************************************"
       log_error(out)
     else
-      @cur_count+=1
-      projectname = "#{projectname}".ljust(27)
-      puts "#{projectname} BUILD SUCCEEDED"
+      @cur_count+=1      
+      puts "BUILD SUCCEEDED"
       log_build(out)
       return 1
     end
@@ -373,8 +376,8 @@ end
     if (File.exists?("/usr/local/jamoma/lib/libgcc_s.1.dylib") && File.exists?("/usr/local/jamoma/lib/libstdc++.6.dylib"))
       # do nothing
     else
-      `cp "#{path_to_moduleroot}/Support/gcc47/libgcc_s.1.dylib"  "/usr/local/jamoma/lib/libgcc_s.1.dylib" `
-      `cp "#{path_to_moduleroot}/Support/gcc47/libstdc++.6.dylib" "/usr/local/jamoma/lib/libstdc++.6.dylib"`
+      `cp "#{path_to_moduleroot}/Shared/gcc47/libgcc_s.1.dylib"  "/usr/local/jamoma/lib/libgcc_s.1.dylib" `
+      `cp "#{path_to_moduleroot}/Shared/gcc47/libstdc++.6.dylib" "/usr/local/jamoma/lib/libstdc++.6.dylib"`
       `sudo ln -s /usr/local/jamoma/lib/libgcc_s.1.dylib  /usr/local/lib/libgcc_s.1.dylib `
       `sudo ln -s /usr/local/jamoma/lib/libstdc++.6.dylib /usr/local/lib/libstdc++.6.dylib`
     end
@@ -533,32 +536,21 @@ end
         makefile.write("\n")
         makefile.write("NAME = #{projectname}\n\n")
         if mac?
-          puts
           if ((File.exists? "/usr/bin/icc") && (skipIcc == false))
             makefile.write("CC_32 = icc -arch i386\n")
             makefile.write("CC_64 = icc -arch x86_64\n\n")
             icc = true
-            puts("compiling with icc")
           elsif ((File.exists? "/usr/bin/clang++") && (skipClang == false))
             makefile.write("CC_32 = /usr/bin/clang++ -arch i386\n")
             makefile.write("CC_64 = /usr/bin/clang++ -arch x86_64\n\n")
             clang = true
-            puts("compiling with clang")
           elsif ((File.exists? "/opt/local/bin/g++-mp-4.7") && (skipGcc47 == false))
             makefile.write("CC_32 = /opt/local/bin/g++-mp-4.7 -arch i386\n")
             makefile.write("CC_64 = /opt/local/bin/g++-mp-4.7 -arch x86_64\n\n")
             gcc47 = true
-            puts("compiling with gcc 4.7")
-          elsif ((File.exists? "/usr/local/gcc46_32/bin/g++") && (skipGcc46 == false))
-            makefile.write("CC_32 = /usr/local/gcc46_32/bin/g++\n")
-            makefile.write("CC_64 = /usr/local/gcc46_64/bin/g++\n\n")
-            gcc46 = true
-            puts("compiling with gcc 4.6")
           else
-            makefile.write("CC_32 = g++-4.2 -arch i386\n")
-            makefile.write("CC_64 = g++-4.2 -arch x86_64\n\n")
-            gcc42 = true
-            puts("compiling with gcc 4.2")
+            puts "you don't have a support compiler.  it probably isn't going to work out for the two of us..."
+            clang = true
           end
           #makefile.write("CC_32 = llvm-g++-4.2 -arch i386\n")
           #makefile.write("CC_64 = llvm-g++-4.2 -arch x86_64\n\n")
@@ -856,13 +848,13 @@ end
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Graphics\\library\\$(ConfigurationName)\";"
           elsif (lib == "C74-MAX")
             concatenated_libs_debug += "MaxAPI.lib "
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Support\\objectivemax\\SDKs\\Max5\\c74support\\max-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Shared\\max\\c74support\\max-includes\";"
           elsif (lib == "C74-MSP")
             concatenated_libs_debug += "MaxAudio.lib "
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Support\\objectivemax\\SDKs\\Max5\\c74support\\msp-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Shared\\max\\c74support\\msp-includes\";"
           elsif (lib == "C74-JITTER")
             concatenated_libs_debug += "jitlib.lib "
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Support\\objectivemax\\SDKs\\Max5\\c74support\\jit-includes\";"            
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Shared\\max\\c74support\\jit-includes\";"            
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
@@ -902,13 +894,13 @@ end
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Graphics\\library\\$(ConfigurationName)\";"
           elsif (lib == "C74-MAX")
             concatenated_libs_debug += "MaxAPI.lib "
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Support\\objectivemax\\SDKs\\Max5\\c74support\\max-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Shared\\max\\c74support\\max-includes\";"
           elsif (lib == "C74-MSP")
             concatenated_libs_debug += "MaxAudio.lib "
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Support\\objectivemax\\SDKs\\Max5\\c74support\\msp-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Shared\\max\\c74support\\msp-includes\";"
           elsif (lib == "C74-JITTER")
             concatenated_libs_debug += "jitlib.lib "
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Support\\objectivemax\\SDKs\\Max5\\c74support\\jit-includes\";" 
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\Shared\\max\\c74support\\jit-includes\";" 
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
