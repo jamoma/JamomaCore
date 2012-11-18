@@ -1,21 +1,21 @@
 
 sources:
   - jcom.ramp.cpp		
-  - ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
+  - ../../../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
     
 includes:
-  - ../../../../Foundation/library/includes
+  - ../../../../../Core/Foundation/library/includes
   - ../../../../Modular/library/includes
   - ../../../../Modular/library/PeerObject
   - ../../../../Modular/library/ModularForMax
   - ../../../../Modular/library/FunctionLib
   - ../../../../Modular/library/RampLib
   - ../../../../Modular/library/ProtocolLib
-  - ../../../../DSP/library/includes
-  - ../../../../Support/max  
-  - ../../../../Support/objectivemax/MaxObject
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes"
-  - "../../../../Support/objectivemax/SDKs/Max5/c74support/msp-includes"
+  - ../../../../../Core/DSP/library/includes
+  - ../../../../../Core/Shared/max  
+  - ../../../../../Core/Shared/objectivemax/MaxObject
+  - "../../../../../Core/Shared/max/c74support/max-includes"
+  - "../../../../../Core/Shared/max/c74support/msp-includes"
   
 libraries:
   - FOUNDATION
@@ -23,5 +23,5 @@ libraries:
   - C74-MAX
   - C74-MSP
 
-prefix: ../../../../Support/objectivemax/SDKs/Max5/c74support/max-includes/macho-prefix.pch
+prefix: ../../../../../Core/Shared/max/c74support/max-includes/macho-prefix.pch
 arch: "i386"

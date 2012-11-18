@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		46FA54A61654325400101DB0 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.cpp; sourceTree = "<group>"; };
+		46FA54A71654325400101DB0 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.h; sourceTree = "<group>"; };
 		D2AFB57B157CE81C0060BDE5 /* jcom.cue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.cue.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 

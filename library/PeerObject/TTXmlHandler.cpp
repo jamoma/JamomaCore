@@ -10,6 +10,9 @@
  */
 
 #include "TTXmlHandler.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTXmlHandler
 #define thisTTClassName		"XmlHandler"
@@ -82,7 +85,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			/* Start the document with the xml default for the version,
 			 * encoding ISO 8859-1 and the default for the standalone
 			 * declaration. */
-			ret = xmlTextWriterStartDocument(mWriter, NULL, TTMODULAR_XML_ENCODING, "yes");
+			ret = xmlTextWriterStartDocument((xmlTextWriterPtr)mWriter, NULL, TTMODULAR_XML_ENCODING, "yes");
 			if (ret < 0) {
 				TT_ASSERT("testXmlwriterFilename: Error at xmlTextWriterStartDocument\n", true);
 				return kTTErrGeneric;
@@ -91,13 +94,13 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			mIsWriting = true;
 			
 			// to write a human readable file
-			xmlTextWriterSetIndent(mWriter, 1);
+			xmlTextWriterSetIndent((xmlTextWriterPtr)mWriter, 1);
 			
 			// Start Header information
-			xmlTextWriterStartElement(mWriter, BAD_CAST mHeaderNodeName->getCString());
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version",			BAD_CAST mVersion->getCString());
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xmlns:xsi",			BAD_CAST mXmlSchemaInstance->getCString());
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST mXmlSchemaLocation->getCString());
+			xmlTextWriterStartElement((xmlTextWriterPtr)mWriter, BAD_CAST mHeaderNodeName.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "version",			BAD_CAST mVersion.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "xmlns:xsi",			BAD_CAST mXmlSchemaInstance.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST mXmlSchemaLocation.c_str());
 			
 			// Write data of the given TTObject (which have to implement a WriteAsXml message)
 			v.clear();
@@ -105,15 +108,15 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			aTTObject->sendMessage(TT("WriteAsXml"), v, kTTValNONE);
 			
 			// End Header information
-			xmlTextWriterEndElement(mWriter);
+			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
 			
 			/* Here we could close the elements ORDER and EXAMPLE using the
 			 * function xmlTextWriterEndElement, but since we do not want to
 			 * write any other elements, we simply call xmlTextWriterEndDocument,
 			 * which will do all the work. */
-			xmlTextWriterEndDocument(mWriter);
+			xmlTextWriterEndDocument((xmlTextWriterPtr)mWriter);
 			
-			xmlFreeTextWriter(mWriter);
+			xmlFreeTextWriter((xmlTextWriterPtr)mWriter);
 			
 			mIsWriting = false;
 			
@@ -171,13 +174,13 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 				// Start reading
 				mIsReading = true;
 				
-				ret = xmlTextReaderRead(mReader);
+				ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
 				while (ret == 1) {
                     
                     mXmlNodeIsEmpty = xmlTextReaderIsEmptyElement(mReader);
 					
 					// Get the type of the XML node
-					xType = xmlTextReaderNodeType(mReader);
+					xType = xmlTextReaderNodeType((xmlTextReaderPtr)mReader);
 					
 					// Keep element (1) and comment (8) and end element (15) nodes
 					if (xType == 1 || xType == 8 || xType == 15) {
@@ -190,7 +193,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								mXmlNodeStart = YES;
 								
 								// Get the node name
-								xName = xmlTextReaderName(mReader);
+								xName = xmlTextReaderName((xmlTextReaderPtr)mReader);
 								if (xName == NULL)
 									break;
 								mXmlNodeName = TT((char*)xName);
@@ -203,7 +206,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								if (mXmlNodeName == mHeaderNodeName) mXmlNodeName = kTTSym_start;
 								
 								// Get the node value
-								xValue = xmlTextReaderReadString(mReader);
+								xValue = xmlTextReaderReadString((xmlTextReaderPtr)mReader);
 								fromXmlChar(xValue, mXmlNodeValue);
 								if (xValue)	xmlFree((void*)xValue);
 								
@@ -212,7 +215,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 							case 15: // For end element node
 								
 								// Get the node name
-								xName = xmlTextReaderName(mReader);
+								xName = xmlTextReaderName((xmlTextReaderPtr)mReader);
 								if (xName == NULL)
 									break;
 								mXmlNodeName = TT((char*)xName);
@@ -235,7 +238,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								mXmlNodeName = kTTSym_comment;
 								
 								// Get the node value
-								xValue = xmlTextReaderValue(mReader);
+								xValue = xmlTextReaderValue((xmlTextReaderPtr)mReader);
 								fromXmlChar(xValue, mXmlNodeValue, YES);
 								if (xValue)	xmlFree((void*)xValue);
 								break;
@@ -250,14 +253,14 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 					}
 						
 					// next node
-					ret = xmlTextReaderRead(mReader);
+					ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
 				}
 				
 				if (ret != 0)
 					;// TODO : failed to parse
 				
 				// End reading
-				xmlFreeTextReader(mReader);
+				xmlFreeTextReader((xmlTextReaderPtr)mReader);
 				mIsReading = false;
 				
 				// memorize the TTObject as the last handled object
@@ -283,9 +286,10 @@ TTErr TTXmlHandler::ReadAgain()
 	return Read(args, kTTValNONE);
 }
 
-TTErr TTXmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::fromXmlChar(const void* axCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTString cString;
+	const xmlChar* xCh = (const xmlChar*)axCh;
 	
 	v.clear();
 	
@@ -315,9 +319,9 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbolPtr attributeName, TTValue& returned
 {
 	TTErr err;
 	
-	if (xmlTextReaderMoveToAttribute(mReader, BAD_CAST attributeName->getCString()) == 1) {
+	if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)mReader, BAD_CAST attributeName.c_str()) == 1) {
 		
-		return fromXmlChar(xmlTextReaderValue(mReader), returnedValue, addQuote, numberAsSymbol);
+		return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
 	}
 	
 	return kTTErrGeneric;
@@ -328,14 +332,14 @@ TTErr TTXmlHandler::getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTVa
 	TTValue v;
 	TTErr	err;
 	
-	if (xmlTextReaderMoveToNextAttribute(mReader) == 1) {
+	if (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)mReader) == 1) {
 		
-		fromXmlChar(xmlTextReaderName(mReader), v);
+		fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)mReader), v);
 		
 		if (v.getType() == kTypeSymbol) {
 			
 			v.get(0, returnedAttributeName);
-			return fromXmlChar(xmlTextReaderValue(mReader), returnedValue, addQuote, numberAsSymbol);
+			return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
 		}
 	}
 	

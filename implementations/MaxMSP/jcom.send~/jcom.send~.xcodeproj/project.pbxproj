@@ -8,8 +8,8 @@
 
 /* Begin PBXFileReference section */
 		D24041E815AC3E4700D5CCD5 /* jcom.send.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.send.cpp; path = ../jcom.send/jcom.send.cpp; sourceTree = SOURCE_ROOT; };
-		D24041E915AC3E5600D5CCD5 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../Support/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
-		D24041EA15AC3E5600D5CCD5 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../Support/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
+		D24041E915AC3E5600D5CCD5 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
+		D24041EA15AC3E5600D5CCD5 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
