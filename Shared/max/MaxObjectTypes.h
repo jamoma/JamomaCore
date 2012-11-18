@@ -45,7 +45,8 @@ SymbolPtr SymbolGen(const char* stringArg)
 	return gensym((char*)stringArg);
 }
 											
-
+#ifndef SELF
 #define SELF (ObjectPtr(self))
+#endif
 
 #endif // __MAX_OBJECT_TYPES_H__

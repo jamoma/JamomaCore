@@ -88,18 +88,18 @@ typedef struct _wrappedModularInstance {
 	TTBoolean								iterateInternals;			///< The flag is true when an iteration is done on the internals
 	TTSymbol								cursor;						///< to select an entry in x->internals
 	
-	TTNodeAddressPtr						address;					///< sometime external needs to store an address (e.g. send, receive, view, ...)
+	TTAddress								address;					///< sometime external needs to store an address (e.g. send, receive, view, ...)
 	
 	ObjectPtr								patcherPtr;					///< the patcher in which the external is (ignoring subpatcher)
 	TTSymbol								patcherContext;				///< the patcher context in which the external is (model, view)
 	TTSymbol								patcherClass;				///< the patcher class in which the external is
 	TTSymbol								patcherName;				///< the patcher name in which the external is
-	TTNodeAddressPtr						patcherAddress;				///< the patcher address in which the external is
+	TTAddress								patcherAddress;				///< the patcher address in which the external is
 	
 #ifdef ARRAY_EXTERNAL
 	TTUInt8									arraySize;					// the size of the array size for iteration
 	TTUInt8									arrayIndex;					// the index number for array selection
-	TTNodeAddressPtr						arrayAddress;				// keep the address in memory to filter repetitions
+	TTAddress								arrayAddress;				// keep the address in memory to filter repetitions
 	TTValue									arrayArgs;					// keep attributes argument of the external for dynamic creation
 	
 	TTString								*arrayFormatInteger;		///< a format string to edit numeric instance
@@ -122,11 +122,11 @@ typedef WrappedModularInstance* WrappedModularInstancePtr;	///< Pointer to a wra
 void		copy_msg_argc_argv(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 // Use internals to store several objects :
-TTErr		makeInternals_data(TTPtr self, TTNodeAddressPtr address, TTSymbol& name, SymbolPtr callbackMethod, TTPtr context, TTSymbol& service, TTObjectPtr *returnedData);
-TTErr		makeInternals_explorer(TTPtr self, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedExplorer);
-TTErr		makeInternals_viewer(TTPtr self, TTNodeAddressPtr address, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedViewer);
-TTErr		makeInternals_receiver(TTPtr self, TTNodeAddressPtr address, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedReceiver);
-TTErr		removeInternals_data(TTPtr self, TTNodeAddressPtr address, TTSymbol& name);
+TTErr		makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectPtr *returnedData);
+TTErr		makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedExplorer);
+TTErr		makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedViewer);
+TTErr		makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedReceiver);
+TTErr		removeInternals_data(TTPtr self, TTAddress address, TTSymbol name);
 
 
 // In case internals table is used as an array of wrappedObject here is a method

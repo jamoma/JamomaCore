@@ -112,7 +112,7 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 {
 	TTValue			keys, storedObject;
 	TTSymbol		name;
-	TTNodeAddressPtr objectAddress;
+	TTAddress		objectAddress;
 	TTObjectPtr		anObject;
 	TTSubscriberPtr aSubscriber;
 	TTErr			err;
@@ -137,7 +137,7 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 				
 				for (int i=0; i<keys.getSize(); i++) {
 					
-					keys.get(i, &name);
+					keys.get(i, name);
 					storedObject.clear();
 					err = x->internals->lookup(name, storedObject);
 					
@@ -147,9 +147,9 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 						
 						// absolute registration case : remove the address
 						if (storedObject.getSize() == 2) {
-							storedObject.get(1, &objectAddress);
+							storedObject.get(1, objectAddress);
 							
-							JamomaDebug object_post((ObjectPtr)x, "Remove internal %s object at : %s", name->getCString(), objectAddress->getCString());
+							JamomaDebug object_post((ObjectPtr)x, "Remove internal %s object at : %s", name.c_str(), objectAddress.c_str());
 							JamomaDirectory->TTNodeRemove(objectAddress);
 						}
 						
@@ -209,7 +209,7 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 	ModularSpec*				spec = (ModularSpec*)x->wrappedClassDefinition->specificities;
 	TTValue						v;
 	ObjectPtr					context;
-	TTNodeAddressPtr			contextAddress;
+	TTAddress			contextAddress;
 
 #ifndef ARRAY_EXTERNAL
 	if (x->subscriberObject) {
@@ -222,7 +222,7 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 				
 				// delete the context node if it exists
 				x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-				v.get(0, (TTSymbol*)&contextAddress);
+				v.get(0, contextAddress);
 				
 				JamomaDirectory->TTNodeRemove(contextAddress);
 				
@@ -311,7 +311,7 @@ t_max_err wrappedModularClass_attrSet(TTPtr self, ObjectPtr attr, AtomCount argc
 			err = x->internals->getKeys(keys);
 			if (!err) {
 				for (TTUInt32 i=0; i<keys.getSize(); i++) {
-					keys.get(i, &x->cursor);
+					keys.get(i, x->cursor);
 					wrappedModularClass_attrSet(self, attr, argc, argv);
 				}
 			}
@@ -386,7 +386,7 @@ void wrappedModularClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomP
 				memoCursor = x->cursor;
 				while (i < keys.getSize() && !err) {
 					
-					keys.get(i, &x->cursor);
+					keys.get(i, x->cursor);
 
 					// Is it a message of the wrapped object ?
 					err = wrappedModularClass_sendMessage(self, s, argc, argv);
@@ -514,8 +514,8 @@ void wrappedModularClass_dump(TTPtr self)
     {
     	// send out the absolute address of the subscriber
         x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-        v.get(0, &address);
-        atom_setsym(&a, gensym((char *) address->getCString()));
+        v.get(0, address);
+        atom_setsym(&a, gensym((char *) address.c_str()));
         object_obex_dumpout(self, gensym("address"), 1, &a);
     }
     else
@@ -528,7 +528,7 @@ void wrappedModularClass_dump(TTPtr self)
 	
     for (i=0; i<names.getSize(); i++) {
 		
-        names.get(i, &aName);
+        names.get(i, aName);
 		
 		selectedObject->getAttributeValue(aName, v);
 		
@@ -759,7 +759,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, char* maxClassName
 	// Register Messages as Max method
 	o->getMessageNames(v);
 	for (TTUInt16 i=0; i<v.getSize(); i++) {
-		v.get(i, &TTName);
+		v.get(i, TTName);
 
 #ifdef UI_EXTERNAL
 		if (TTName == TT("mouseDown"))
@@ -782,8 +782,8 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, char* maxClassName
 #endif
 		if (TTName == TT("test")) // to -- TTDataObject class have also a bypass attribute and some messages to hide too...
 			continue;
-		else if (MaxName = jamoma_TTName_To_MaxName(TTName)) {
-			hashtab_store(wrappedMaxClass->maxNamesToTTNames, MaxName, ObjectPtr(TTName));
+		else if ((MaxName = jamoma_TTName_To_MaxName(TTName))) {
+			hashtab_store(wrappedMaxClass->maxNamesToTTNames, MaxName, ObjectPtr(TTName.rawpointer()));
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedModularClass_anything, MaxName->s_name, A_GIMME, 0);
 		}
 	}
@@ -794,9 +794,9 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, char* maxClassName
 		TTAttributePtr	attr = NULL;
 		SymbolPtr		maxType = _sym_long;
 		
-		v.get(i, &TTName);
+		v.get(i, TTName);
 		
-		if (MaxName = jamoma_TTName_To_MaxName(TTName)) {
+		if ((MaxName = jamoma_TTName_To_MaxName(TTName))) {
 			o->findAttribute(TTName, &attr);
 			
 			if (attr->type == kTypeFloat32)
@@ -808,12 +808,12 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, char* maxClassName
 			else if (attr->type == kTypeLocalValue)
 				maxType = _sym_atom;
 			
-			hashtab_store(wrappedMaxClass->maxNamesToTTNames, MaxName, ObjectPtr(TTName));
+			hashtab_store(wrappedMaxClass->maxNamesToTTNames, MaxName, ObjectPtr(TTName.rawpointer()));
 			class_addattr(wrappedMaxClass->maxClass, attr_offset_new(MaxName->s_name, maxType, 0, (method)wrappedModularClass_attrGet, (method)wrappedModularClass_attrSet, NULL));
 			
 			// Add display styles for the Max 5 inspector
 			if (attr->type == kTypeBoolean)
-				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)TTName->getCString(), 0, "onoff");
+				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)TTName.c_str(), 0, "onoff");
 			if (TTName == TT("fontFace"))
 				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass,	"fontFace", 0, "font");
 		}
@@ -859,7 +859,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, char* maxClassName
 	return kTTErrNone;
 }
 
-TTErr makeInternals_data(TTPtr self, TTNodeAddressPtr address, TTSymbol& name, SymbolPtr callbackMethod, TTPtr context, TTSymbol& service, TTObjectPtr *returnedData)
+TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectPtr *returnedData)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args;
@@ -867,7 +867,7 @@ TTErr makeInternals_data(TTPtr self, TTNodeAddressPtr address, TTSymbol& name, S
 	TTValuePtr		returnValueBaton;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
-	TTNodeAddressPtr dataAddress, dataName;
+	TTAddress dataAddress, dataName;
 	TTValue			storedObject;
 	
 	// Prepare arguments to create a TTData object
@@ -887,18 +887,18 @@ TTErr makeInternals_data(TTPtr self, TTNodeAddressPtr address, TTSymbol& name, S
 	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
 	
 	// absolute registration
-	dataAddress = address->appendAddress(TTADRS(name->getCString()));
+	dataAddress = address.appendAddress(name.c_str());
 	JamomaDirectory->TTNodeCreate(dataAddress, *returnedData, context, &aNode, &nodeCreated);
 	
-	aNode->getAddress(&dataAddress);
-	aNode->getAddress(&dataName, address);
+	aNode->getAddress(dataAddress);
+	aNode->getAddress(dataName, address);
 
 	// absolute registration case : set the address in second position (see in unregister method)
 	storedObject = TTValue(TTPtr(*returnedData));
 	storedObject.append(dataAddress);
-	x->internals->append(TT(dataName->getCString()), storedObject);
+	x->internals->append(TT(dataName.c_str()), storedObject);
 	
-	JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" %s at : %s", dataName->getCString(), service->getCString(), dataAddress->getCString());
+	JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" %s at : %s", dataName.c_str(), service.c_str(), dataAddress.c_str());
 	
 	return kTTErrNone;
 }
@@ -930,13 +930,13 @@ TTErr makeInternals_explorer(TTPtr self, TTSymbol& name, SymbolPtr callbackMetho
 	return kTTErrNone;
 }
 
-TTErr makeInternals_viewer(TTPtr self, TTNodeAddressPtr address, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedViewer)
+TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedViewer)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTNodeAddressPtr adrs;
+	TTAddress adrs;
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -951,7 +951,7 @@ TTErr makeInternals_viewer(TTPtr self, TTNodeAddressPtr address, TTSymbol& name,
 	TTObjectInstantiate(kTTSym_Viewer, TTObjectHandle(returnedViewer), args);
 	
 	// Set address attributes
-	adrs = address->appendAddress(TTADRS(name->getCString()));
+	adrs = address.appendAddress(name.c_str());
 										 
 	(*returnedViewer)->setAttributeValue(kTTSym_address, adrs);
 	
@@ -961,13 +961,13 @@ TTErr makeInternals_viewer(TTPtr self, TTNodeAddressPtr address, TTSymbol& name,
 	return kTTErrNone;
 }
 
-TTErr makeInternals_receiver(TTPtr self, TTNodeAddressPtr address, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedReceiver)
+TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol& name, SymbolPtr callbackMethod, TTObjectPtr *returnedReceiver)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTNodeAddressPtr adrs;
+	TTAddress adrs;
 	
 	// prepare arguments
 	
@@ -986,7 +986,7 @@ TTErr makeInternals_receiver(TTPtr self, TTNodeAddressPtr address, TTSymbol& nam
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(returnedReceiver), args);
 	
 	// Set address attributes
-	adrs = address->appendAddress(TTADRS(name->getCString()));
+	adrs = address.appendAddress(name.c_str());
 	
 	(*returnedReceiver)->setAttributeValue(kTTSym_address, adrs);
 	
@@ -996,21 +996,21 @@ TTErr makeInternals_receiver(TTPtr self, TTNodeAddressPtr address, TTSymbol& nam
 	return kTTErrNone;
 }
 
-TTErr removeInternals_data(TTPtr self, TTNodeAddressPtr address, TTNodeAddressPtr name)
+TTErr removeInternals_data(TTPtr self, TTAddress address, TTAddress name)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			storedObject;
 	TTObjectPtr		aData;
-	TTNodeAddressPtr dataAddress;
+	TTAddress dataAddress;
 	TTErr			err;
 	
 	err = x->internals->lookup(name, storedObject);
 	
 	if (!err) {
 		storedObject.get(0, (TTPtr*)&aData);
-		storedObject.get(1, (TTSymbol*)&dataAddress);
+		storedObject.get(1, dataAddress);
 		
-		JamomaDebug object_post((ObjectPtr)x, "Remove internal %s object at : %s", name->getCString(), dataAddress->getCString());
+		JamomaDebug object_post((ObjectPtr)x, "Remove internal %s object at : %s", name.c_str(), dataAddress.c_str());
 		JamomaDirectory->TTNodeRemove(dataAddress);
 		
 		if (aData)
