@@ -10,7 +10,6 @@ includes:
   - ../../../../Modular/library/ModularForMax
   - ../../../../Modular/library/FunctionLib
   - ../../../../Modular/library/RampLib
-  - ../../../../Modular/library/ProtocolLib
   - ../../../../../Core/DSP/library/includes
   - ../../../../../Core/Shared/max  
   - ../../../../../Core/Shared/objectivemax/MaxObject
