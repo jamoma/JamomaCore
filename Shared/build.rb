@@ -156,7 +156,7 @@ puts "  "
 @svn_root = "../#{@projectName}"
 @svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
 @svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
-@svn_root = "../../UserLib/#{@projectName}" if @projectName == "TapTools"
+@svn_root = "#{libdir}/../../../JamomaUserLibraries/#{@projectName}" if @projectName == "TapTools"
 @fail_array = Array.new
 @zerolink = false
 
@@ -299,16 +299,6 @@ if (@distropath == nil && !linux?) # if a custom distropath is defined, don't bu
   build_dir("implementations/MaxMSP", configuration, clean, forcedCompiler, nil)
   ex_total, ex_count = get_count
   puts ""
-
-  if @projectName == "Modular"
-    build_dir("implementations/MaxMSP-core", configuration, clean, forcedCompiler, nil)
-    ex_total, ex_count = get_count
-    puts ""
-
-    build_dir("implementations/MaxMSP-utilities", configuration, clean, forcedCompiler, nil)
-    ex_total, ex_count = get_count
-    puts ""
-  end
 
   ###################################################################
   # HELP FILES
