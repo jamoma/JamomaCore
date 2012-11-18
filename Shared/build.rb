@@ -154,6 +154,7 @@ puts "  "
 @svn_root = "../#{@projectName}"
 @svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
 @svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
+@svn_root = "../../UserLib/#{@projectName}" if @projectName == "TapTools"
 @fail_array = Array.new
 @zerolink = false
 

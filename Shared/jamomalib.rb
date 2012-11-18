@@ -4,6 +4,7 @@
 
 require 'yaml'
 $g_use_yaml_project_files = true
+@debug = false
 
 require 'rexml/document'
 require 'rexml/formatters/pretty'
