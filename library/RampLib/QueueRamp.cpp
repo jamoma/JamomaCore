@@ -22,8 +22,7 @@ void queueramp_qfn(QueueRamp *x)
 }
 
 
-TT_RAMPUNIT_CONSTRUCTOR,
-	active(0)
+TT_RAMPUNIT_CONSTRUCTOR
 {
 	qelem = qelem_new(this, (method)queueramp_qfn);	// install the queue element
 }
@@ -50,14 +49,14 @@ void QueueRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time)
 		startValue[i] = currentValue[i];
 	}
 	normalizedValue = 0.0;	// set the ramp to the beginning
-	active = 1;
+	mIsRunning = YES;
 	qelem_set(qelem);		// Start the ramp!
 }
 
 
 void QueueRamp::stop()
 {
-	active = 0;
+	mIsRunning = NO;
 	qelem_unset(qelem);
 }
 
@@ -72,11 +71,11 @@ void QueueRamp::tick()
 	double			*start = startValue;
 	float			ratio;
 	
-	if (active && functionUnit) {
+	if (mIsRunning && functionUnit) {
 		
 		// Ensure that we get right value at end of ramp. This approach caters for regular functions as well as window functions.
 		if (currentTime > targetTime) {
-			active = 0;
+			mIsRunning = NO;
 			ratio = 1.;
 		}
 		else {

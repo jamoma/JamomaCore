@@ -18,14 +18,15 @@
 RampUnit::RampUnit(TTValue& arguments) :
 	TTDataObject(kTTValNONE),
 	mFunction(NULL),
+	functionUnit(NULL),
+	mIsRunning(NO),
 	callback(NULL),
 	baton(NULL),
 	startValue(NULL),
 	targetValue(NULL),
 	currentValue(NULL),
 	normalizedValue(0.0),
-	numValues(0),
-	functionUnit(NULL)
+	numValues(0)
 {
 	setNumValues(1);
 	currentValue[0] = 0.0;
@@ -80,6 +81,10 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 	return err;
 }
 
+TTBoolean RampUnit::isRunning()
+{
+	return mIsRunning;
+}
 
 TTErr RampUnit::getFunctionParameterNames(TTValue& names)
 {
@@ -100,7 +105,6 @@ TTErr RampUnit::getFunctionParameterValue(TTSymbol ParameterName, TTValue& value
 	functionUnit->getAttributeValue(ParameterName, value);
 	return kTTErrNone;
 }
-
 
 void RampUnit::setNumValues(TTUInt32 newNumValues)
 {

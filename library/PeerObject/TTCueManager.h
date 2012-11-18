@@ -33,14 +33,21 @@ private:
 	
 	TTValue				mOrder;							///< ATTRIBUTE : cues are ordered by name
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current cue name
+	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
 	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
 	
 	TTCuePtr			mCurrentCue;					///< the current cue
 	TTAddressItemPtr mDefaultNamespace;				///< an internal default namespace
 	
+	TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
+	
 	/** */
 	TTErr	setOrder(const TTValue& value);
+	
+	/** */
+	TTErr	getCurrentDescription(TTValue& value);
+	TTErr	setCurrentDescription(const TTValue& value);
 	
 	/** */
 	TTErr	getCurrentRamp(TTValue& value);
@@ -73,6 +80,11 @@ private:
 		nothing : recall the current cue */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
 	
+	/** Output a cue using the mReturnLineCallback : 
+	 name : output the cue.
+	 nothing : output the current cue */
+	TTErr	Output(const TTValue& inputValue, TTValue& outputValue);
+	
 	/** Interpolate 2 cues : 
 		name1, name2, position : interpolate between the 2 given cues
 		TODO : name1, position : interpolate between the current cue and the given cue */
@@ -82,10 +94,22 @@ private:
 		name1, factor1, name2, factor2, ... : mix each given cues */
 	TTErr	Mix(const TTValue& inputValue, TTValue& outputValue);
 	
+	/** Move a cue : 
+	 name + position : move the cue to the given position. */
+	TTErr	Move(const TTValue& inputValue, TTValue& outputValue);
+	
 	/** Remove a cue : 
 		name : remove the cue.
 		nothing : remove the current cue */
 	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Rename a cue : 
+	 name + newName: rename the cue with the newName */
+	TTErr	Rename(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Copy a cue : 
+	 name : copy the cue (and optionally give a new name + a position)  */
+	TTErr	Copy(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Sequence a sub set of cues clearing redundant command lines :
 		name1, name2, name3, ... : make the optimization between all given cues. */

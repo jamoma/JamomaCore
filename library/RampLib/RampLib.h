@@ -40,8 +40,13 @@ class TTMODULAR_EXPORT RampUnit : public TTDataObject {
 
 		/** Attribute setter. */
 		TTErr setFunction(const TTValue& functionName);
+	
+	public:
+		TTAudioObject		*functionUnit;		///< The actual functionUnit object defined by attrFunction
+												///< it is public in order to be able to extend his parameter to as attribute of another object
 
 	protected:
+		TTBoolean			mIsRunning;			///< Is the ramp is running right now ?
 		RampUnitCallback	callback;			///< usually a function in a Max external
 		void				*baton;				///< usually a pointer to the Max external's instance
 		TTFloat64			*startValue;
@@ -49,7 +54,6 @@ class TTMODULAR_EXPORT RampUnit : public TTDataObject {
 		TTFloat64			*currentValue;
 		TTFloat64			normalizedValue;	///< normalized current progress in the ramp
 		TTUInt32			numValues;
-		TTAudioObject		*functionUnit;		///< The actual functionUnit object defined by attrFunction
 
 		/** memory allocation -- sends a message "numValuesChanged" to subclasses after this has run */
 		void setNumValues(TTUInt32 newNumValues);
@@ -62,6 +66,8 @@ class TTMODULAR_EXPORT RampUnit : public TTDataObject {
 		virtual ~RampUnit();
 		
 	public:
+		TTBoolean isRunning();
+	
 		TTErr getFunctionParameterNames(TTValue& names);
 		TTErr setFunctionParameterValue(TTSymbol ParameterName, TTValue& newValue);
 		TTErr getFunctionParameterValue(TTSymbol ParameterName, TTValue& value);
@@ -77,6 +83,7 @@ class TTMODULAR_EXPORT RampUnit : public TTDataObject {
 
 		/** called every time a new ramp value should be sent */
 		virtual void tick() = 0;
+
 };
 
 

@@ -12,9 +12,16 @@
 #define data_out 0
 #define dump_out 1
 
+// This is used to store extra data
+typedef struct extra {
+	TTValue     arguments;      // keep creation arguments to reset the mapper to the initial state
+} t_extra;
+#define EXTRA ((t_extra*)x->extra)
+
 // Definitions
 void WrapTTMapperClass(WrappedClassPtr c);
 void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void WrappedMapperClass_free(TTPtr self);
 
 void map_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
@@ -24,6 +31,8 @@ void map_int(TTPtr self, long value);
 void map_float(TTPtr self, double value);
 void map_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+void map_reset(TTPtr self);
+
 void map_subscribe(TTPtr self);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -31,7 +40,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTMapperClass;
 	spec->_new = &WrappedMapperClass_new;
-	spec->_free = NULL;
+	spec->_free = &WrappedMapperClass_free;
 	spec->_any = NULL;
 	
 	return wrapTTModularClassAsMaxClass(kTTSym_Mapper, "jcom.map", NULL, spec);
@@ -46,6 +55,8 @@ void WrapTTMapperClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)map_int, "int", A_LONG, 0L);
 	class_addmethod(c->maxClass, (method)map_float, "float", A_FLOAT, 0L);
 	class_addmethod(c->maxClass, (method)map_list, "list", A_GIMME, 0L);
+    
+    class_addmethod(c->maxClass, (method)map_reset, "reset", 0L);
 }
 
 void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -70,11 +81,22 @@ void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
+    
+    // Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
+    EXTRA->arguments = kTTValNONE;
+    jamoma_ttvalue_from_Atom(EXTRA->arguments, _sym_nothing, argc, argv);
 	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
 	defer_low((ObjectPtr)x, (method)map_subscribe, NULL, 0, 0);
+}
+
+void WrappedMapperClass_free(TTPtr self)
+{
+    WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	free(EXTRA);
 }
 
 // Method for Assistance Messages
@@ -178,4 +200,16 @@ void map_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	x->wrappedObject->sendMessage(kTTSym_Map, inputValue, outputValue);
 	
 	// we don't send the output value here because there is callback for this
+}
+
+void map_reset(TTPtr self)
+{
+    WrappedModularInstancePtr x = (WrappedModularInstancePtr)self;
+    AtomCount   argc;
+    AtomPtr     argv;
+    
+    jamoma_ttvalue_to_Atom(EXTRA->arguments, &argc, &argv);
+    
+    // handle attribute args to reset to creation state
+	attr_args_process(x, argc, argv);
 }

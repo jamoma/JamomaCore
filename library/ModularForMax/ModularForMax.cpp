@@ -412,6 +412,16 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManage
 TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager)
 {
 	TTValue			args;
+	TTObjectPtr		returnLineCallback;
+	TTValuePtr		returnLineBaton;
+	
+	// prepare arguments
+	returnLineCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectInstantiate(TT("callback"), &returnLineCallback, kTTValNONE);
+	returnLineBaton = new TTValue(TTPtr(x));
+	returnLineCallback->setAttributeValue(kTTSym_baton, TTPtr(returnLineBaton));
+	returnLineCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+	args.append(returnLineCallback);
 	
 	*returnedCueManager = NULL;
 	TTObjectInstantiate(kTTSym_CueManager, TTObjectHandle(returnedCueManager), args);

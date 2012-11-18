@@ -23,8 +23,7 @@ void schedulerramp_clockfn(SchedulerRamp *x)
 
 
 TT_RAMPUNIT_CONSTRUCTOR,
-	stepsize(0.0), 
-	isRunning(false)
+	stepsize(0.0)
 {
 	clock = clock_new(this, (method)&schedulerramp_clockfn);	// install the max timer
 
@@ -62,7 +61,7 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 	if (ramptime<=0.) {
 		for (i=0; i<numValues; i++)
 			currentValue[i] = inValues[i];
-		isRunning = false;
+		mIsRunning = NO;
 		(callback)(baton, numValues, currentValue);		// output end values
 	}
 	else {
@@ -73,7 +72,7 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 			startValue[i] = currentValue[i];
 		}
 		normalizedValue = 0.0;							// set the ramp to the beginning
-		isRunning = true;
+		mIsRunning = YES;
 		(callback)(baton, numValues, currentValue);		// output start values
 		setclock_fdelay(NULL, clock, attrGranularity);	// and schedule first tick
 	}
@@ -83,7 +82,7 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 void SchedulerRamp::stop()
 {
 	clock_unset(clock);
-	isRunning = false;
+	mIsRunning = NO;
 }
 
 
@@ -95,7 +94,7 @@ void SchedulerRamp::tick()
 	double			*target = targetValue;
 	double			*start = startValue;
 
-	if (functionUnit && isRunning) {
+	if (functionUnit && mIsRunning) {
 		// 1. go to the the next step in our ramp
 		numgrains--;
 		
@@ -109,14 +108,16 @@ void SchedulerRamp::tick()
 		for (i=0; i < numValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		
+		// is the ramp still active ?
+		if (numgrains <= 0.)
+			mIsRunning = NO;
+		
 		// 2. send the value to the host
 		(callback)(baton, numValues, currentValue);
 
 		// 3. set the clock to fire again
 		if (numgrains > 0.)
 			setclock_fdelay(NULL, clock, attrGranularity);
-		else
-			isRunning = false;
 	}
 }
 

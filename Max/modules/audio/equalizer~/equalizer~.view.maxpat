@@ -7,7 +7,7 @@
 			"revision" : 5
 		}
 ,
-		"rect" : [ 1119.0, 126.0, 710.0, 464.0 ],
+		"rect" : [ 381.0, 94.0, 710.0, 464.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -156,16 +156,16 @@
 ,
 					"patching_rect" : [ 56.0, 229.0, 63.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"description" : "",
+						"digest" : "",
 						"globalpatchername" : "",
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
+						"description" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"tags" : "",
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"default_fontsize" : 10.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p"
@@ -180,7 +180,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 64.0, 326.0, 125.0, 19.0 ],
+					"patching_rect" : [ 63.0, 330.0, 125.0, 19.0 ],
 					"text" : "s #0_model/address"
 				}
 
@@ -235,7 +235,6 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -248,30 +247,6 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 472.0, 85.0, 65.0, 31.0 ],
 									"text" : "loadmess #1"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 10.0,
-									"id" : "obj-32",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 462.0, 134.0, 50.0, 17.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-31",
-									"maxclass" : "button",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 472.0, 168.0, 20.0, 20.0 ]
 								}
 
 							}
@@ -731,15 +706,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-32", 1 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"source" : [ "obj-12", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
@@ -1004,13 +970,13 @@
  ],
 						"dependency_cache" : [ 							{
 								"name" : "equalizer~views.maxpat",
-								"bootpath" : "/Users/bltzr/Documents/dev/Jamoma/Modules/Modular/Max/modules/audio/equalizer~",
+								"bootpath" : "/Applications/Max6/Cycling '74/Jamoma/modules/audio/equalizer~",
 								"type" : "JSON",
 								"implicit" : 1
 							}
 , 							{
 								"name" : "jcom.thru.maxpat",
-								"bootpath" : "/Users/bltzr/Documents/dev/Jamoma/Modules/Modular/Max/library/components/thru",
+								"bootpath" : "/Applications/Max6/Cycling '74/Jamoma/library/components/thru",
 								"type" : "JSON",
 								"implicit" : 1
 							}
@@ -1018,25 +984,21 @@
 								"name" : "jcom.remote.mxo",
 								"type" : "iLaX"
 							}
-, 							{
-								"name" : "jcom.view.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 428.166656, 378.0, 239.833359, 19.0 ],
 					"saved_object_attributes" : 					{
-						"description" : "",
+						"digest" : "",
 						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"description" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"tags" : "",
-						"default_fontface" : 0,
-						"digest" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p filter",
@@ -1084,7 +1046,7 @@
 					"patching_rect" : [ 384.0, 256.0, 284.0, 93.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 10.0, 41.0, 284.0, 93.0 ],
-					"setfilter" : [ 4, 5, 1, 0, 0, 177.152664, 1.102125, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3, 5, 1, 0, 0, 5934.227051, 3.21489, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2, 5, 1, 0, 0, 1557.506226, 2.120349, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 5, 1, 0, 0, 427.995911, 1.671447, 3.005548, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 5, 1, 0, 0, 64.016273, 1.39827, 1.472789, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+					"setfilter" : [ 4, 5, 1, 0, 0, 177.152664, 1.102125, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3, 5, 1, 0, 0, 5934.227051, 1.169699, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2, 5, 1, 0, 0, 1520.059082, 1.241409, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 5, 1, 0, 0, 460.531708, 1.102125, 3.005548, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 5, 1, 0, 0, 69.024536, 1.03845, 1.472789, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
 					"varname" : "filter"
 				}
 
@@ -1143,17 +1105,6 @@
 					"patching_rect" : [ 399.0, 84.0, 134.0, 19.0 ],
 					"text" : "jcom.remote bands/max",
 					"varname" : "bands[1]"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-43",
-					"maxclass" : "button",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 323.0, 169.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -1370,7 +1321,7 @@
 					"patching_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
-					"text" : "/equalizer~"
+					"text" : "/track.1/eq"
 				}
 
 			}
@@ -1611,14 +1562,14 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.thru.maxpat",
-				"bootpath" : "/Users/bltzr/Documents/dev/Jamoma/Modules/Modular/Max/library/components/thru",
+				"bootpath" : "/Applications/Max6/Cycling '74/Jamoma/library/components/thru",
 				"patcherrelativepath" : "../../../library/components/thru",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "equalizer~views.maxpat",
-				"bootpath" : "/Users/bltzr/Documents/dev/Jamoma/Modules/Modular/Max/modules/audio/equalizer~",
+				"bootpath" : "/Applications/Max6/Cycling '74/Jamoma/modules/audio/equalizer~",
 				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1

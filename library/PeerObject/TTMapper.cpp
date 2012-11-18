@@ -25,6 +25,7 @@ mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
 mFunctionParameters(kTTValNONE),
 mFunctionSamples(kTTValNONE),
+mRamp(0),
 mReceiver(NULL),
 mSender(NULL),
 mInputObserver(NULL),
@@ -65,6 +66,8 @@ mValid(NO)
 	
 	addAttributeWithGetter(FunctionSamples, kTypeLocalValue);
 	addAttributeProperty(FunctionSamples, readOnly, YES);
+    
+    addAttribute(Ramp, kTypeUInt32);
 	
 	addMessageWithArguments(Map);
 	addMessageProperty(Map, hidden, YES);
@@ -548,7 +551,7 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 		if (!mInverse)
 			outputValue.append(mC * f + mD);
 		else
-			outputValue.append(mOutputMax - (mC * f + mD));
+			outputValue.append(mC * (mOutputMax - f) + mD);
 	}
 	
 	// clip output value
@@ -721,6 +724,16 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 		
 		// process the mapping
 		aMapper->processMapping(data, mappedValue);
+        
+        // if there is a ramp value, edit the command here
+        if (aMapper->mRamp > 0) {
+            TTDictionaryPtr	command = new TTDictionary();
+            command->setSchema(kTTSym_command);
+            command->setValue(mappedValue);
+            command->append(kTTSym_ramp, aMapper->mRamp);
+            
+            mappedValue = TTValue((TTPtr)command);
+        }
 		
 		// return value
 		if (aMapper->mSender)

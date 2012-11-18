@@ -34,13 +34,16 @@ void NoneRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time)
 	setNumValues(inNumValues);
 	for (i=0; i<numValues; i++)
 		targetValue[i] = inValues[i];
+	
+	mIsRunning = YES;
+	
 	tick();		// no ramping, just call tick() directly
 }
 
 
 void NoneRamp::stop()
 {
-	;
+	mIsRunning = NO;
 }
 
 

@@ -297,3 +297,14 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
 	
 	return TTScriptMix(scripts, factors);
 }
+
+
+TTErr TTPresetCopy(TTPreset* aPresetToCopy, TTPreset* aPresetCopy)
+{
+	TTValue v, args;
+	
+	aPresetCopy->mName = aPresetToCopy->mName;
+	aPresetCopy->mAddress = aPresetToCopy->mAddress;
+	aPresetCopy->mDirectory = aPresetToCopy->mDirectory;
+	return TTScriptCopy(aPresetToCopy->mScript, aPresetCopy->mScript);
+}

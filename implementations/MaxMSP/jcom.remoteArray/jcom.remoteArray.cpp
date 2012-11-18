@@ -48,6 +48,8 @@ void		remote_int(TTPtr self, long value);
 void		remote_float(TTPtr self, double value);
 void		remote_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+void		remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
 void		remote_ui_queuefn(TTPtr self);
 
 int TTCLASSWRAPPERMAX_EXPORT main(void)
@@ -70,6 +72,8 @@ void WrapTTViewerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)remote_int,						"int",					A_LONG, 0);
 	class_addmethod(c->maxClass, (method)remote_float,						"float",				A_FLOAT, 0);
 	class_addmethod(c->maxClass, (method)remote_list,						"list",					A_GIMME, 0);
+    
+    class_addmethod(c->maxClass, (method)remote_array,						"array",				A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)remote_address,					"address",				A_SYM,0);
 }
@@ -140,18 +144,21 @@ void WrappedViewerClass_free(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	// delete array
-	if (EXTRA->arrayValue) {
-		for (TTUInt8 i = 0; i < x->arraySize; i++)
-			if (EXTRA->arrayValue[i])
-				delete EXTRA->arrayValue[i];
-		
-		free(EXTRA->arrayValue);
-	}
-	
-	qelem_free(EXTRA->ui_qelem);
-	
-	free(EXTRA);
+    if (EXTRA) {
+        
+        // delete array
+        if (EXTRA->arrayValue) {
+            for (TTUInt8 i = 0; i < x->arraySize; i++)
+                if (EXTRA->arrayValue[i])
+                    delete EXTRA->arrayValue[i];
+            
+            free(EXTRA->arrayValue);
+        }
+        
+        qelem_free(EXTRA->ui_qelem);
+        
+        free(EXTRA);
+    }
 }
 
 void remote_new_address(TTPtr self, SymbolPtr address)
@@ -614,6 +621,45 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	}
 }
 
+void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+    WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+    TTInt32     d, i, offset;
+    TTValue     keys;
+    TTSymbolPtr memoCursor;
+    
+	if (x->internals) {
+		
+		// is the incoming data size is a multiple of the array size ?
+        d = argc / x->arraySize;
+        if ((d * x->arraySize) == argc) {
+            
+            memoCursor = x->cursor;
+            
+            if (!x->internals->isEmpty()) {
+                
+                x->internals->getKeysSorted(keys);
+                
+                // in a model or a view patcher, the first internal object is
+                // always the model container so we an offset to avoid it
+                offset = x->patcherContext != NULL;
+                for (i = 0; i < keys.getSize()-offset; i++) {
+                    
+                    keys.get(i+offset, &x->cursor);                    
+                    jamoma_viewer_send((TTViewerPtr)selectedObject, _sym_nothing, d, argv+(i*d));
+                }
+            }
+            
+            x->cursor = memoCursor;
+        }
+        else
+            object_error((ObjectPtr)x, "array : the array message size have to be a multiple of the array size");
+		
+	}
+	else
+		object_error((ObjectPtr)x, "array : the array is empty");
+}
+
 void remote_array_return_value(TTPtr baton, TTValue& v)
 {
 	WrappedModularInstancePtr	x;
@@ -707,7 +753,10 @@ void remote_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
+    if (x->arrayAttrFormat == gensym("array"))
+        outlet_anything(x->outlets[set_out], gensym("setlist"), x->argc, x->argv);
+    else
+        outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
 }
 
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

@@ -45,6 +45,8 @@ private:
 	TTSymbol					mFunction;					///< ATTRIBUTE : name of the map function
 	TTValue						mFunctionParameters;		///< ATTRIBUTE : names of parameter's function
 	TTValue						mFunctionSamples;			///< ATTRIBUTE : an overview of the mapping (each value between [map(InputMin) :: map(InputMax)])
+    
+    TTUInt32                    mRamp;                      ///< ATTRIBUTE : a ramp time to pass to the output data
 	
 	TTReceiverPtr				mReceiver;					///< the receiver which binds on In data(s)
 	TTSenderPtr					mSender;					///< the sender which binds on Out data(s)

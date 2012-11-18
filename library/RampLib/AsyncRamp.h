@@ -19,7 +19,6 @@ class AsyncRamp : public RampUnit{
 	TTCLASS_SETUP(AsyncRamp)
 
 private:
-	char				active;			///< is the ramp running?
 	float				ramptime;		///< in ms
 	unsigned long		startTime;
 	unsigned long		targetTime;
