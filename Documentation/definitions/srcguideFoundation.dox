@@ -1,0 +1,81 @@
+//-----------------------------------------------------
+// Foundation
+//-----------------------------------------------------
+
+/**
+ * @defgroup foundation Jamoma Foundation
+ * @ingroup framework
+ * 
+ * Jamoma Foundation provides low-level support, base classes, and 
+ * communication systems.
+*/
+
+// Library
+
+/**
+ * @defgroup foundationLibrary Jamoma Foundation Library
+ * @ingroup foundation
+ * 
+ * The Jamoma Foundation Library
+*/
+
+// Extensions
+
+/**
+ * @defgroup foundationExtensions Jamoma Foundation Extensions
+ * @ingroup foundation
+ * 
+ * Extends Jamoma Foundation capabilities
+*/
+
+/**
+	 * @defgroup foundationChaosLib Jamoma Foundation ChaosLib
+	 * @ingroup foundationExtensions
+	 * 
+	 * Not yet implemented
+*/
+
+/**
+	 * @defgroup foundationDataspaceLib Jamoma Foundation DataspaceLib
+	 * @ingroup foundationExtensions
+	 * 
+	 * Conversion between different units. This enables data to be expressed using alternative units. 
+	 * For example distance might be interchangeably expressed using meters, feet, cm or mm.
+*/
+
+/**
+	 * @defgroup foundationMatrixProcessingLib Jamoma Foundation MatrixProcessingLib
+	 * @ingroup foundationExtensions
+	 * 
+	 * Utilities for matrix processing
+*/
+
+/**
+	 * @defgroup foundationMatrixNetworkLib Jamoma Foundation NetworkProcessingLib
+	 * @ingroup foundationExtensions
+	 * 
+	 * Network communication using OSC (OpenSoundControl) over the UDP and TCP protocols
+*/
+
+// Implementations
+
+/**
+ * @defgroup foundationImplementations Jamoma Foundation Implementations
+ * @ingroup foundation
+ * 
+ * Implementation of Foundation in various hosting environments
+*/
+
+/**
+ * @defgroup foundationMax Max implementation of Jamoma Foundation
+ * @ingroup foundationImplementations
+ * 
+ * Foundation implementation for the Max environment
+*/
+
+/**
+ * @defgroup foundationPd Pd implementation of Jamoma Foundation
+ * @ingroup foundationImplementations
+ * 
+ * Foundation implementation for the Pure Data (Pd) environment
+*/
