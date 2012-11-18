@@ -626,7 +626,7 @@ void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
     WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
     TTInt32     d, i, offset;
     TTValue     keys;
-    TTSymbolPtr memoCursor;
+    TTSymbol	memoCursor;
     
 	if (x->internals) {
 		
@@ -645,7 +645,7 @@ void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
                 offset = x->patcherContext != NULL;
                 for (i = 0; i < keys.getSize()-offset; i++) {
                     
-                    keys.get(i+offset, &x->cursor);                    
+                    keys.get(i+offset, x->cursor);
                     jamoma_viewer_send((TTViewerPtr)selectedObject, _sym_nothing, d, argv+(i*d));
                 }
             }
@@ -770,7 +770,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	TTObjectPtr			anObject;
 	TTUInt8				i;
 	TTValue				v;
-	Atom				a[1];
+//	Atom				a[1];
 	TTErr				err;
 	
 	if (argc && argv) {
@@ -794,7 +794,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 				err = getDirectoryFrom(address)->Lookup(address, returnedNodes, &firstNode);
 				
 				if (!err) {
-					if (anObject = firstNode->getObject()) {
+					if ((anObject = firstNode->getObject())) {
 						if (anObject->getName() == kTTSym_Data) {
 							anObject->getAttributeValue(kTTSym_service, v);
 							v.get(0, service);
