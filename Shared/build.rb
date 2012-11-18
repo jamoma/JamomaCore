@@ -152,6 +152,8 @@ puts "  "
 
 @log_root = "./logs-#{@projectName}"
 @svn_root = "../#{@projectName}"
+@svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
+@svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
 @fail_array = Array.new
 @zerolink = false
 
@@ -177,29 +179,9 @@ if @projectName == "Modular"
   ###################################################################
   # REV NUMBERS
   ###################################################################
-  puts "Updating Version Information..."
+  puts "Updating Version Information"
+  puts
   zero_count
-
-  #XCConfig
-  file_path = "#{@svn_root}/library/JamomaModular.xcconfig"
-  `cp "#{@svn_root}/library/JamomaModular.template.xcconfig" "#{file_path}"`
-
-  if FileTest.exist?(file_path)
-    f = File.open("#{file_path}", "r+")
-    str = f.read
-
-    if (version_mod == '' || version_mod.match(/rc(.*)/))
-      str.sub!(/PRODUCT_VERSION = (.*)/, "PRODUCT_VERSION = #{version_maj}.#{version_min}.#{version_sub}")
-    else
-      str.sub!(/PRODUCT_VERSION = (.*)/, "PRODUCT_VERSION = #{version_maj}.#{version_min}.#{version_sub}#{version_mod}")
-    end
-    str.sub!(/SVNREV = (.*)/, "SVNREV = #{revision}")
-
-    f.rewind
-    f.write(str)
-    f.truncate(f.pos)
-    f.close
-  end
 
   #Header
   file_path = "#{@svn_root}/library/includes/TTModularVersion.h"
@@ -261,7 +243,8 @@ zero_count
 ###################################################################
 
 if File.directory? "#{@svn_root}/library"
-  puts "Building Framework(s)..."
+  puts "Building Framework(s)"
+  puts
   zero_count
 
   use_make = generate_makefile("#{@svn_root}/library", "Jamoma#{@projectName}", forcedCompiler, "..", @distropath)
@@ -285,7 +268,8 @@ if File.directory? "#{@svn_root}/library"
 end
 
 if File.directory? "#{@svn_root}/extensions"
-  puts "Building Extensions..."
+  puts "Building Extensions"
+  puts
   zero_count
   if @distropath
     build_dir("extensions", configuration, clean, forcedCompiler, "#{@distropath}/Extensions")
@@ -305,7 +289,8 @@ if (@distropath == nil && !linux?) # if a custom distropath is defined, don't bu
   ###################################################################
   # EXTERNALS
   ###################################################################
-  puts "Building Max Externals..."
+  puts "Building Max Externals"
+  puts
 
   zero_count
   build_dir("implementations/MaxMSP", configuration, clean, forcedCompiler, nil)
@@ -325,7 +310,7 @@ if (@distropath == nil && !linux?) # if a custom distropath is defined, don't bu
   ###################################################################
   # HELP FILES
   ###################################################################
-  puts "Copying Maxhelp files..."
+  puts "Copying Maxhelp files"
   zero_count
   maxhelp_dir("implementations/MaxMSP", "../../Builds/MaxMSP")
   ex_total, ex_count = get_count
