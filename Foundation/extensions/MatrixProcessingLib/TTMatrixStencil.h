@@ -28,7 +28,7 @@ class TTMatrixStencil : public TTDataObject {
 	TTSymbol			mMode;			// what kind of calculation to perform on the stencil: average, firstDerivative
 	TTSymbol			mEdges;			// what to do at the edges: none, clip, fold, or wrap
 	TTSymbol			mStencilType;	// currently only 5-point stencil...
-	vector<TTUInt32>	mStepSize;		// step size for each dimension
+	std::vector<TTUInt32>	mStepSize;		// step size for each dimension
 	
 
 	// Attribute Accessors
