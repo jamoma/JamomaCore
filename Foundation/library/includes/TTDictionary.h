@@ -20,7 +20,6 @@
 #define __TT_DICTIONARY_H__
 
 #include "TTValue.h"
-#include <unordered_map>
 //#include "TTBase.h"
 //#include "TTHash.h"
 //#include "TTList.h"
@@ -30,7 +29,13 @@
 // Class Specification
 
 typedef std::pair<TTPtrSizedInt,TTValue>			TTDictionaryPair;
+#if defined( __ICC )
+#include "boost/unordered_map.hpp"
+typedef boost::unordered_map<TTPtrSizedInt, TTValue>	TTDictionaryMap;
+#else
+#include <unordered_map>
 typedef std::unordered_map<TTPtrSizedInt, TTValue>	TTDictionaryMap;
+#endif
 typedef TTDictionaryMap::iterator					TTDictionaryMapIter;
 typedef TTDictionaryMap::const_iterator				TTDictionaryMapIterK;
 
