@@ -10,6 +10,9 @@
  */
 
 #include "TTOpmlHandler.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTOpmlHandler
 #define thisTTClassName		"OpmlHandler"
@@ -77,7 +80,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			/* Start the document with the opml default for the version,
 			 * encoding ISO 8859-1 and the default for the standalone
 			 * declaration. */
-			ret = xmlTextWriterStartDocument(mWriter, NULL, TTMODULAR_OPML_ENCODING, "yes");
+			ret = xmlTextWriterStartDocument((xmlTextWriterPtr)mWriter, NULL, TTMODULAR_OPML_ENCODING, "yes");
 			if (ret < 0) {
 				TT_ASSERT("testOpmlwriterFilename: Error at opmlTextWriterStartDocument\n", true);
 				return kTTErrGeneric;
@@ -86,19 +89,19 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			mIsWriting = true;
 			
 			// to write a human readable file
-			xmlTextWriterSetIndent(mWriter, 1);
+			xmlTextWriterSetIndent((xmlTextWriterPtr)mWriter, 1);
 			
 			// Start Header information
-			xmlTextWriterStartElement(mWriter, BAD_CAST mHeaderNodeName.c_str());
-			xmlTextWriterWriteAttribute(mWriter, BAD_CAST "version", BAD_CAST mVersion.c_str());
+			xmlTextWriterStartElement((xmlTextWriterPtr)mWriter, BAD_CAST mHeaderNodeName.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "version", BAD_CAST mVersion.c_str());
 			
 			// Start opml header
-			xmlTextWriterStartElement(mWriter, BAD_CAST "head");
+			xmlTextWriterStartElement((xmlTextWriterPtr)mWriter, BAD_CAST "head");
 			
 			// Start opml header
-			xmlTextWriterStartElement(mWriter, BAD_CAST "title");
-			xmlTextWriterWriteString(mWriter, BAD_CAST "namespace.opml");
-			xmlTextWriterEndElement(mWriter);
+			xmlTextWriterStartElement((xmlTextWriterPtr)mWriter, BAD_CAST "title");
+			xmlTextWriterWriteString((xmlTextWriterPtr)mWriter, BAD_CAST "namespace.opml");
+			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
 			
 			/* 
 			<dateCreated>Mon, 11 Feb 2002 22:48:02 GMT</dateCreated>");
@@ -114,10 +117,10 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			 */
 			
 			// Close opml header
-			xmlTextWriterEndElement(mWriter);
+			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
 			
 			// Start opml body
-			xmlTextWriterStartElement(mWriter, BAD_CAST "body");
+			xmlTextWriterStartElement((xmlTextWriterPtr)mWriter, BAD_CAST "body");
 			
 			// Write data of the given TTObject (which have to implement a WriteAsOpml message)
 			v.clear();
@@ -125,18 +128,18 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 			
 			// Close opml body
-			xmlTextWriterEndElement(mWriter);
+			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
 			
 			// End Header information
-			xmlTextWriterEndElement(mWriter);
+			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
 			
 			/* Here we could close the elements ORDER and EXAMPLE using the
 			 * function opmlTextWriterEndElement, but since we do not want to
 			 * write any other elements, we simply call opmlTextWriterEndDocument,
 			 * which will do all the work. */
-			xmlTextWriterEndDocument(mWriter);
+			xmlTextWriterEndDocument((xmlTextWriterPtr)mWriter);
 			
-			xmlFreeTextWriter(mWriter);
+			xmlFreeTextWriter((xmlTextWriterPtr)mWriter);
 			
 			mIsWriting = false;
 			
@@ -188,11 +191,11 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 			mReader = xmlReaderForFile(mFilePath.c_str(), NULL, 0);
 			if (mReader != NULL) {
 				
-				ret = xmlTextReaderRead(mReader);
+				ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
 				while (ret == 1) {
 					
 					// Get the name of the OPML node
-					xName = xmlTextReaderName(mReader);
+					xName = xmlTextReaderName((xmlTextReaderPtr)mReader);
 					if (xName == NULL)
 						break;
 					mXmlNodeName = TT((char*)xName);
@@ -217,13 +220,13 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 					aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 					
 					// next node
-					ret = xmlTextReaderRead(mReader);
+					ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
 				}
 				
 				if (ret != 0)
 					;// TODO : failed to parse
 				
-				xmlFreeTextReader(mReader);
+				xmlFreeTextReader((xmlTextReaderPtr)mReader);
 				mIsReading = false;
 				
 				// memorize the TTObject as the last handled object
@@ -249,9 +252,10 @@ TTErr TTOpmlHandler::ReadAgain()
 	return Read(args, kTTValNONE);
 }
 
-TTErr TTOpmlHandler::fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTOpmlHandler::fromXmlChar(const void* aXCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTString cString;
+	const xmlChar* xCh = (const xmlChar*)aXCh;
 	
 	if (xCh) {
 		

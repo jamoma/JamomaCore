@@ -9,6 +9,9 @@
  */
 
 #include "TTApplication.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTApplication
 #define thisTTClassName		"Application"
@@ -539,8 +542,8 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 		v.get(0, (TTPtr*)&parameters);
 		
 		// Start "protocol" xml node
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "protocol");
-		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST protocolName.c_str());
+		xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "protocol");
+		xmlTextWriterWriteFormatAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST protocolName.c_str());
 		
 		// For each parameter
 		parameters->getKeys(p_keys);
@@ -549,11 +552,11 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			parameters->lookup(parameterName, v);
 			v.toString();
 			v.get(0, aString);
-			xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST parameterName.c_str(), "%s", BAD_CAST aString.data());
+			xmlTextWriterWriteFormatAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST parameterName.c_str(), "%s", BAD_CAST aString.data());
 		}
 		
 		// End "protocol" xml node
-		xmlTextWriterEndElement(aXmlHandler->mWriter);
+		xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 	}
 	
 	
@@ -626,16 +629,16 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	if (aXmlHandler->mXmlNodeName == TTSymbol("entry")) {
 	
 		// get App Symbol
-		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "App") == 1) {
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), appValue);
+		if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, BAD_CAST "App") == 1) {
+			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), appValue);
 			v = appValue;
 			v.toString();
 			v.get(0, anAppKey);
 		}
 		
 		// get TT Value
-		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "TT") == 1) {
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), ttValue);
+		if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, BAD_CAST "TT") == 1) {
+			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), ttValue);
 			v = ttValue;
 			v.toString();
 			v.get(0, aTTKey);
@@ -649,8 +652,8 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	if (aXmlHandler->mXmlNodeName == TTSymbol("protocol")) {
 		
 		// get the protocol name
-		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("name"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("name"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
 		if (v.getType() == kTypeSymbol) {
 			v.get(0, protocolName);
 		}
@@ -665,15 +668,15 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		
 		// get all protocol attributes and their value
 		parameters = new TTHash();
-		while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+		while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
 			
 			// get parameter name
-			aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+			aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
 			if (v.getType() == kTypeSymbol) {
 				v.get(0, parameterName);
 				
 				// get parameter value
-				aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), parameterValue);
+				aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue);
 				
 				parameters->append(parameterName, parameterValue);
 			}
@@ -694,8 +697,8 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		if (mName != getLocalApplicationName) {
 			
 			// get the file path
-			xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("file"));
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+			xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("file"));
+			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
 			if (v.getType() == kTypeSymbol)
 				v.get(0, mNamespaceFile);
 		}
@@ -755,11 +758,11 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 	// Outline node
 	if (aOpmlHandler->mXmlNodeName == TTSymbol("outline")) {
 		
-		empty = (TTBoolean)xmlTextReaderIsEmptyElement(aOpmlHandler->mReader);
+		empty = (TTBoolean)xmlTextReaderIsEmptyElement((xmlTextReaderPtr)aOpmlHandler->mReader);
 		
 		// get the relative address
-		xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("text"));
-		aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v, YES);
+		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aOpmlHandler->mReader, (const xmlChar*)("text"));
+		aOpmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aOpmlHandler->mReader), v, YES);
 		if (v.getType() == kTypeSymbol) {
 			v.get(0, nodeNameInstance);
 		}
@@ -770,8 +773,8 @@ TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValu
 			absoluteAddress = mTempAddress.appendAddress(TTAddress(nodeNameInstance.c_str()));
 			
 			// get the object name
-			if (xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("object")) == 1) {
-				aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v);
+			if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aOpmlHandler->mReader, (const xmlChar*)("object")) == 1) {
+				aOpmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aOpmlHandler->mReader), v);
 				
 				if (v.getType() == kTypeSymbol) {
 					v.get(0, objectName);

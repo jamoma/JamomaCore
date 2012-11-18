@@ -14,9 +14,6 @@
 
 #include "TTModular.h"
 #include <stdio.h>
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
-#include <libxml/xmlreader.h>
 
 #define TTMODULAR_OPML_ENCODING "ISO-8859-1"
 
@@ -57,8 +54,8 @@ public:	// use public for recursive access
 	TTSymbol			mHeaderNodeName;				///< the name of the header node in the opml file
 	TTSymbol			mVersion;						///< the version number
 
-	xmlTextWriterPtr	mWriter;
-	xmlTextReaderPtr	mReader;
+	TTPtr				mWriter;						// xmlTextWriterPtr type, but using generic pointer in the shared header
+	TTPtr				mReader;						// xmlTextReaderPtr type, but using generic pointer in the shared header
 	
 	TTSymbol			mXmlNodeName;					///< the Node being read by the Reader
 	
@@ -79,7 +76,8 @@ public:	// use public for recursive access
 	TTErr ReadAgain();
 	
 	/** TTOpmlReader make a TTValue from an opmlChar* using the fromString method (see in TTValue.h) */
-	TTErr fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
+//	TTErr fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
+	TTErr fromXmlChar(const void* xCh, TTValue& v, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
 	
 private :
 	

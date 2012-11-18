@@ -7,6 +7,9 @@
  */
 
 #include "TTCueManager.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTCueManager
 #define thisTTClassName		"CueManager"
@@ -849,14 +852,14 @@ TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 		if (!mCues->lookup(cueName, v)) {
 			
 			// start to write a cue
-			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "cue");
-			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST cueName.c_str());
+			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "cue");
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST cueName.c_str());
 			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TTSymbol("Write"));
 			
 			// end to write a cue
-			xmlTextWriterEndElement(aXmlHandler->mWriter);
+			xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 		}
 	}
 	
@@ -928,7 +931,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		}
 		
 		// go back to the element to allow the cue to parse it
-		xmlTextReaderMoveToElement(aXmlHandler->mReader);
+		xmlTextReaderMoveToElement((xmlTextReaderPtr)aXmlHandler->mReader);
 	}
 	
 	// edit the current cue from the xml file using the XmlHandler

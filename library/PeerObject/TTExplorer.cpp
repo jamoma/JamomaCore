@@ -7,6 +7,9 @@
  */
 
 #include "TTExplorer.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTExplorer
 #define thisTTClassName		"Explorer"
@@ -729,11 +732,11 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	TTString	aString;
 	
 	// Start opml node
-	xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
+	xmlTextWriterStartElement((xmlTextWriterPtr)anOpmlHandler->mWriter, BAD_CAST "outline");
 	
 	// Write address attribute
 	nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
-	xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST nameInstance.c_str());
+	xmlTextWriterWriteAttribute((xmlTextWriterPtr)anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST nameInstance.c_str());
 	
 	anObject = aNode->getObject();
 	if (anObject) {
@@ -741,9 +744,9 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 		// Write object name attribute
 		objectName = anObject->getName();
 		if (objectName != kTTSymEmpty)
-			xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)anOpmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName.c_str());
 		else
-			xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)anOpmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
 		
 		// write attributes
 		anObject->getAttributeNames(attributeNameList);
@@ -771,7 +774,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 					c.toString();
 					c.get(0, aString);
 					
-					xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
+					xmlTextWriterWriteAttribute((xmlTextWriterPtr)anOpmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
 				}
 			}
 		}
@@ -788,7 +791,7 @@ void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
 	}
 	
 	// Close opml node
-	xmlTextWriterEndElement(anOpmlHandler->mWriter);
+	xmlTextWriterEndElement((xmlTextWriterPtr)anOpmlHandler->mWriter);
 }
 
 /** */

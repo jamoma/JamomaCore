@@ -8,6 +8,9 @@
 
 #include "TTApplicationManager.h"
 #include "Protocol.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTApplicationManager
 #define thisTTClassName		"ApplicationManager"
@@ -608,7 +611,7 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outpu
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
-    xmlTextWriterWriteComment(aXmlHandler->mWriter, BAD_CAST "TODO : a TTApplication Manager comment");
+    xmlTextWriterWriteComment((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "TODO : a TTApplication Manager comment");
 	
 	// For each application
 	mApplications->getKeys(keys);
@@ -619,19 +622,19 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outpu
 		v.get(0, (TTPtr*)&anApplication);
 		
 		// Start "application" xml node
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "application");
-		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST applicationName.c_str());
+		xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "application");
+		xmlTextWriterWriteFormatAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST applicationName.c_str());
 		
 		anApplication->getAttributeValue(TTSymbol("version"), v);
 		v.get(0, version);
-		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "version", "%s", BAD_CAST version.c_str());
+		xmlTextWriterWriteFormatAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "version", "%s", BAD_CAST version.c_str());
 		
 		v = TTValue(TTPtr(anApplication));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		aXmlHandler->sendMessage(TTSymbol("Write"));
 		
 		// End "application" xml node
-		xmlTextWriterEndElement(aXmlHandler->mWriter);
+		xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 	}
 	
 	return kTTErrNone;
@@ -692,8 +695,8 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	if (aXmlHandler->mXmlNodeName == TTSymbol("application")) {
 		
 		// get the application name 
-		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("name"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("name"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
 		if (v.getType() == kTypeSymbol) {
 			v.get(0, applicationName);
 		}
@@ -710,8 +713,8 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		}
 		
 		// get the application version 
-		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("version"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("version"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
 		if (v.getType() == kTypeSymbol) {
 			v.get(0, version);
 		}

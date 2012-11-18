@@ -7,6 +7,9 @@
  */
 
 #include "TTScript.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTScript
 #define thisTTClassName		"Script"
@@ -556,10 +559,10 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			v.get(0, aString);
 			
 			// write flag name and arguments as an Element
-			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "flag");
-			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST name.c_str());
-			xmlTextWriterWriteRaw(aXmlHandler->mWriter, BAD_CAST aString.data());
-			xmlTextWriterEndElement(aXmlHandler->mWriter);
+			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "flag");
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST name.c_str());
+			xmlTextWriterWriteRaw((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST aString.data());
+			xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 		}	
 		if (aLine->getSchema() == kTTSym_comment) {
 			
@@ -569,7 +572,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			v.get(0, aString);
 			
 			// write comment attribute
-			xmlTextWriterWriteFormatComment(aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
+			xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
 		}
 		else if (aLine->getSchema() == kTTSym_command) {
 			
@@ -578,16 +581,16 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			v.get(0, address);
 					
 			// start command Element
-			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST kTTSym_command.c_str());
+			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST kTTSym_command.c_str());
 			
 			// write name attribute
-			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST address.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST address.c_str());
 			
 			// write unit attribute
 			if (!aLine->lookup(kTTSym_unit, v)) {
 				v.get(0, unit);
 				
-				xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "unit", BAD_CAST unit.c_str());
+				xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "unit", BAD_CAST unit.c_str());
 			}
 			
 			// write ramp attribute
@@ -595,7 +598,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 				v.toString();
 				v.get(0, aString);
 				
-				xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "ramp", BAD_CAST aString.data());
+				xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "ramp", BAD_CAST aString.data());
 			}
 			
 			// write value
@@ -603,11 +606,11 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 				v.toString();
 				v.get(0, aString);
 				
-				xmlTextWriterWriteRaw(aXmlHandler->mWriter, BAD_CAST aString.data());
+				xmlTextWriterWriteRaw((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST aString.data());
 			}
 			
 			// close command Element
-			xmlTextWriterEndElement(aXmlHandler->mWriter);
+			xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 		}
 		else if (aLine->getSchema() == kTTSym_script) {
 			
@@ -616,10 +619,10 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			v.get(0, address);
 			
 			// start script Element
-			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST kTTSym_script.c_str());
+			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST kTTSym_script.c_str());
 			
 			// write address attribute
-			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST address.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST address.c_str());
 			
 			// get the script
 			aLine->getValue(v);
@@ -631,7 +634,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			aXmlHandler->sendMessage(TTSymbol("Write"));
 			
 			// close script Element
-			xmlTextWriterEndElement(aXmlHandler->mWriter);
+			xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 		}
 	}
 	

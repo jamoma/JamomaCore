@@ -14,9 +14,6 @@
 
 #include "TTModular.h"
 #include <stdio.h>
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
-#include <libxml/xmlreader.h>
 
 #define TTMODULAR_XML_ENCODING "ISO-8859-1"
 
@@ -59,8 +56,8 @@ public:	// use public for recursive access
 	TTSymbol			mXmlSchemaInstance;				///< the URL of the schema instance location
 	TTSymbol			mXmlSchemaLocation;				///< the URL of the xml schema location
 
-	xmlTextWriterPtr	mWriter;
-	xmlTextReaderPtr	mReader;
+	TTPtr				mWriter;						// xmlTextWriterPtr
+	TTPtr				mReader;						// xmlTextReaderPtr
 	
 	TTBoolean			mXmlNodeStart;					///< true if the Reader starts to read a Node
 	TTSymbol			mXmlNodeName;					///< the Node name being read by the Reader
@@ -83,7 +80,8 @@ public:	// use public for recursive access
 	TTErr ReadAgain();
 	
 	/** TTXmlReader make a TTValue from an xmlChar* using the fromString method (see in TTValue.h) */
-	TTErr fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
+//	TTErr fromXmlChar(const xmlChar* xCh, TTValue& v, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
+	TTErr fromXmlChar(const void* xCh, TTValue& v, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
 	
 	/** Get the value of an xml element attribute */
 	TTErr getXmlAttribute(TTSymbol attributeName, TTValue& returnedValue, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);

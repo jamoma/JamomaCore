@@ -21,9 +21,9 @@
 		22C6B21E109A5D8C00AD8BBF /* jcom.paramui.attrs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.paramui.attrs.cpp; sourceTree = "<group>"; };
 		22C6B21F109A5D8C00AD8BBF /* jcom.paramui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.paramui.cpp; sourceTree = "<group>"; };
 		22C6B220109A5D8C00AD8BBF /* jcom.paramui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.paramui.h; sourceTree = "<group>"; };
-		22C9F7D1103338310062F7B8 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
-		22C9F7D7103338390062F7B8 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
-		22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/objectivemax/SDKs/Max5/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
+		22C9F7D1103338310062F7B8 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../supports/max/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
+		22C9F7D7103338390062F7B8 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../supports/max/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
+		22C9F7DB1033383F0062F7B8 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../supports/max/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
 		22C9F81810333A130062F7B8 /* MaxObjectTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaxObjectTypes.h; path = ../../../supports/objectivemax/MaxObject/MaxObjectTypes.h; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* jcom.paramui.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.paramui.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		A79D2BE71205B9FB006A158E /* tt-max-modular.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "tt-max-modular.xcconfig"; path = "../tt-max-modular.xcconfig"; sourceTree = SOURCE_ROOT; };
@@ -198,12 +198,12 @@
 					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
 					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
 					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
-					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../Core/Graph/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../Framework/build/Development\"",
 					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
 					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
-					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../Core/Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../AudioGraph/library/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -227,12 +227,12 @@
 					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
 					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
 					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
-					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../Core/Graph/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../Framework/build/Development\"",
 					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/max-includes\"",
 					"\"$(SRCROOT)/../../../../../Tools/library/max-sdk/c74support/msp-includes\"",
-					"\"$(SRCROOT)/../../../../Foundation/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../../../Core/Foundation/library/build/UninstalledProducts\"",
 					"\"$(SRCROOT)/../../../../AudioGraph/library/build/UninstalledProducts\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
