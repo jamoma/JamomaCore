@@ -39,9 +39,9 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	this->setElementCountWithoutResize(1);
 	this->resize();
 
-	addAttributeWithGetterAndSetter(NumChannels,		kTypeUInt16);
+	addAttributeWithGetterAndSetter(NumChannels,		kTypeInt32);
 	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);
-	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeUInt64);
+	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
 	addAttribute(SampleRate,							kTypeFloat64);
 	
 	addMessage(normalize);
