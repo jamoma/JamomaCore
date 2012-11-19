@@ -125,11 +125,13 @@ TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 	return err;
 }
 
-
-TTErr TTSampleMatrix::peek(TTRowID index, TTColumnID channel, TTSampleValue& value)
+TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)
 {
-	makeInBounds(index, channel);
-	get2d(index, channel, value);
+	TTRowID p_index = index;
+	TTColumnID p_channel = channel;
+	
+	//makeInBounds(p_index, p_channel);
+	get2d(p_index, p_channel, value);
 	return kTTErrNone;
 }
 
