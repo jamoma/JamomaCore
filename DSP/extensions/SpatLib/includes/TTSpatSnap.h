@@ -44,9 +44,7 @@ public:
 	 @param sinks
 	 */
 	void recalculateMatrixCoefficients(TTSpatEntityVector& sources, TTSpatEntityVector& sinks);
-	
-
-	
+		
 };
 
 
@@ -54,16 +52,11 @@ public:
 /**	TODO
  */
 class TTSpatSnap : TTAudioObject {
-	
 	TTCLASS_SETUP(TTSpatSnap)
 	
 	TTSpatEntityVector	mSources;					///< A vector describing the geometry of the sources
 	TTSpatEntityVector	mSinks;						///< A vector describing the geometry of the sinks (e.g., speakers)
-	
 	TTSpatSnapRenderer	mRenderer;					///< The actual spatial renderer for this class
-	
-protected:
-	
 	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/

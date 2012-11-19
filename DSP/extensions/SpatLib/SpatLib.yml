@@ -1,14 +1,10 @@
 
 sources:
-  - SpatLib.cpp
+  - TTSpatLib.cpp
   - TTSpat.cpp
   - source/TTSpatEntity.cpp
   - source/TTSpatSnap.cpp
-  - source/TTSpatMatrix.cpp
-  - source/TTSpatThru.cpp
   - tests/TTSpatSnap.test.cpp
-  - tests/TTSpatMatrix.test.cpp
-  - tests/TTSpatThru.test.cpp
   
 includes:
   - "."

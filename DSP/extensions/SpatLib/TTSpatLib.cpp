@@ -27,8 +27,6 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_SpatLib(void)
 {
 	TTDSPInit();
 	TTSpat::registerClass();
-	//TTSpatMatrix::registerClass();
-	//TTSpatThru::registerClass();
 	TTSpatSnap::registerClass();
 	return kTTErrNone;
 }
