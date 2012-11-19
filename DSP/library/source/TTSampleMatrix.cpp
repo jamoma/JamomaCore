@@ -130,9 +130,9 @@ TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 }
 
 
-TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)
+TTErr TTSampleMatrix::peek(TTRowID index, TTColumnID channel, TTSampleValue& value)
 {
-	// TODO: perhaps we should range check the input here first...
+	makeInBounds(index, channel);
 	get2d(index, channel, value);
 	return kTTErrNone;
 }

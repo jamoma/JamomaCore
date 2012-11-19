@@ -71,7 +71,7 @@ public:
 	}
 
 	TTErr	getValueAtIndex(const TTValue& index, TTValue &output);
-	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value);
+	TTErr	peek(TTRowID index, TTColumnID channel, TTSampleValue& value);
 	TTErr	peeki(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value);
 	
 	/**	Set the sample value for a given index.
