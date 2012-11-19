@@ -35,8 +35,9 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	TTMatrix(arguments),
 	mSampleRate(44100.0)
 {
-	this->setType("float64");
-	this->setElementCount(1);
+	this->setTypeWithoutResize(kTypeFloat64);
+	this->setElementCountWithoutResize(1);
+	this->resize();
 
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeUInt16);
 	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);
