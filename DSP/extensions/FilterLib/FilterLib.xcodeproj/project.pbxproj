@@ -1,0 +1,343 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		A71787621659BD6300FA808D /* TTAllpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass.h; path = includes/TTAllpass.h; sourceTree = "<group>"; };
+		A71787631659BD6300FA808D /* TTAllpass1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass1.h; path = includes/TTAllpass1.h; sourceTree = "<group>"; };
+		A71787641659BD6300FA808D /* TTAllpass1a.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass1a.h; path = includes/TTAllpass1a.h; sourceTree = "<group>"; };
+		A71787651659BD6300FA808D /* TTAllpass1aCascade2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass1aCascade2.h; path = includes/TTAllpass1aCascade2.h; sourceTree = "<group>"; };
+		A71787661659BD6300FA808D /* TTAllpass1b.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass1b.h; path = includes/TTAllpass1b.h; sourceTree = "<group>"; };
+		A71787671659BD6300FA808D /* TTAllpass1c.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass1c.h; path = includes/TTAllpass1c.h; sourceTree = "<group>"; };
+		A71787681659BD6300FA808D /* TTAllpass2a.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass2a.h; path = includes/TTAllpass2a.h; sourceTree = "<group>"; };
+		A71787691659BD6300FA808D /* TTAllpass2b.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass2b.h; path = includes/TTAllpass2b.h; sourceTree = "<group>"; };
+		A717876A1659BD6300FA808D /* TTAllpass2c.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass2c.h; path = includes/TTAllpass2c.h; sourceTree = "<group>"; };
+		A717876B1659BD6300FA808D /* TTAllpass4a.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass4a.h; path = includes/TTAllpass4a.h; sourceTree = "<group>"; };
+		A717876C1659BD6300FA808D /* TTBandpassButterworth2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBandpassButterworth2.h; path = includes/TTBandpassButterworth2.h; sourceTree = "<group>"; };
+		A717876D1659BD6300FA808D /* TTBandrejectButterworth2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBandrejectButterworth2.h; path = includes/TTBandrejectButterworth2.h; sourceTree = "<group>"; };
+		A717876E1659BD6300FA808D /* TTDCBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDCBlock.h; path = includes/TTDCBlock.h; sourceTree = "<group>"; };
+		A717876F1659BD6300FA808D /* TTFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTFilter.h; path = includes/TTFilter.h; sourceTree = "<group>"; };
+		A71787701659BD6300FA808D /* TTHalfband3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHalfband3.h; path = includes/TTHalfband3.h; sourceTree = "<group>"; };
+		A71787711659BD6300FA808D /* TTHalfband5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHalfband5.h; path = includes/TTHalfband5.h; sourceTree = "<group>"; };
+		A71787721659BD6300FA808D /* TTHalfband9.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHalfband9.h; path = includes/TTHalfband9.h; sourceTree = "<group>"; };
+		A71787731659BD6300FA808D /* TTHalfbandLinear33.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHalfbandLinear33.h; path = includes/TTHalfbandLinear33.h; sourceTree = "<group>"; };
+		A71787741659BD6300FA808D /* TTHighMidLowShelf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHighMidLowShelf.h; path = includes/TTHighMidLowShelf.h; sourceTree = "<group>"; };
+		A71787751659BD6300FA808D /* TTHighpassButterworth1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth1.h; path = includes/TTHighpassButterworth1.h; sourceTree = "<group>"; };
+		A71787761659BD6300FA808D /* TTHighpassButterworth2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth2.h; path = includes/TTHighpassButterworth2.h; sourceTree = "<group>"; };
+		A71787771659BD6300FA808D /* TTHighpassButterworth3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth3.h; path = includes/TTHighpassButterworth3.h; sourceTree = "<group>"; };
+		A71787781659BD6300FA808D /* TTHighpassButterworth4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth4.h; path = includes/TTHighpassButterworth4.h; sourceTree = "<group>"; };
+		A71787791659BD6300FA808D /* TTHighpassLinkwitzRiley2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHighpassLinkwitzRiley2.h; path = includes/TTHighpassLinkwitzRiley2.h; sourceTree = "<group>"; };
+		A717877A1659BD6300FA808D /* TTHighpassLinkwitzRiley4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHighpassLinkwitzRiley4.h; path = includes/TTHighpassLinkwitzRiley4.h; sourceTree = "<group>"; };
+		A717877B1659BD6300FA808D /* TTHilbert9.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHilbert9.h; path = includes/TTHilbert9.h; sourceTree = "<group>"; };
+		A717877C1659BD6300FA808D /* TTHilbertLinear33.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTHilbertLinear33.h; path = includes/TTHilbertLinear33.h; sourceTree = "<group>"; };
+		A717877D1659BD6300FA808D /* TTLowpassButterworth1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth1.h; path = includes/TTLowpassButterworth1.h; sourceTree = "<group>"; };
+		A717877E1659BD6300FA808D /* TTLowpassButterworth2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth2.h; path = includes/TTLowpassButterworth2.h; sourceTree = "<group>"; };
+		A717877F1659BD6300FA808D /* TTLowpassButterworth3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth3.h; path = includes/TTLowpassButterworth3.h; sourceTree = "<group>"; };
+		A71787801659BD6300FA808D /* TTLowpassButterworth4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth4.h; path = includes/TTLowpassButterworth4.h; sourceTree = "<group>"; };
+		A71787811659BD6300FA808D /* TTLowpassFourPole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLowpassFourPole.h; path = includes/TTLowpassFourPole.h; sourceTree = "<group>"; };
+		A71787821659BD6300FA808D /* TTLowpassLinkwitzRiley2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLowpassLinkwitzRiley2.h; path = includes/TTLowpassLinkwitzRiley2.h; sourceTree = "<group>"; };
+		A71787831659BD6300FA808D /* TTLowpassLinkwitzRiley4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLowpassLinkwitzRiley4.h; path = includes/TTLowpassLinkwitzRiley4.h; sourceTree = "<group>"; };
+		A71787841659BD6300FA808D /* TTLowpassOnePole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLowpassOnePole.h; path = includes/TTLowpassOnePole.h; sourceTree = "<group>"; };
+		A71787851659BD6300FA808D /* TTLowpassTwoPole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLowpassTwoPole.h; path = includes/TTLowpassTwoPole.h; sourceTree = "<group>"; };
+		A71787861659BD6300FA808D /* TTMirror5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTMirror5.h; path = includes/TTMirror5.h; sourceTree = "<group>"; };
+		A71787871659BD6300FA808D /* TTMirrorBandpass10.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTMirrorBandpass10.h; path = includes/TTMirrorBandpass10.h; sourceTree = "<group>"; };
+		A71787881659BD6300FA808D /* TTOnePole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTOnePole.h; path = includes/TTOnePole.h; sourceTree = "<group>"; };
+		A71787891659BD6300FA808D /* TTSvf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSvf.h; path = includes/TTSvf.h; sourceTree = "<group>"; };
+		A737BF921659BDB5001FC856 /* TTAllpass1.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1.test.cpp; path = tests/TTAllpass1.test.cpp; sourceTree = "<group>"; };
+		A737BF941659BDD7001FC856 /* TTAllpass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass.cpp; path = source/TTAllpass.cpp; sourceTree = "<group>"; };
+		A737BF951659BDD7001FC856 /* TTAllpass1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1.cpp; path = source/TTAllpass1.cpp; sourceTree = "<group>"; };
+		A737BF961659BDD7001FC856 /* TTAllpass1a.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1a.cpp; path = source/TTAllpass1a.cpp; sourceTree = "<group>"; };
+		A737BF971659BDD7001FC856 /* TTAllpass1aCascade2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1aCascade2.cpp; path = source/TTAllpass1aCascade2.cpp; sourceTree = "<group>"; };
+		A737BF981659BDD7001FC856 /* TTAllpass1b.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1b.cpp; path = source/TTAllpass1b.cpp; sourceTree = "<group>"; };
+		A737BF991659BDD7001FC856 /* TTAllpass1c.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1c.cpp; path = source/TTAllpass1c.cpp; sourceTree = "<group>"; };
+		A737BF9A1659BDD7001FC856 /* TTAllpass2a.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass2a.cpp; path = source/TTAllpass2a.cpp; sourceTree = "<group>"; };
+		A737BF9B1659BDD7001FC856 /* TTAllpass2b.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass2b.cpp; path = source/TTAllpass2b.cpp; sourceTree = "<group>"; };
+		A737BF9C1659BDD7001FC856 /* TTAllpass2c.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass2c.cpp; path = source/TTAllpass2c.cpp; sourceTree = "<group>"; };
+		A737BF9D1659BDD7001FC856 /* TTAllpass4a.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass4a.cpp; path = source/TTAllpass4a.cpp; sourceTree = "<group>"; };
+		A737BF9E1659BDD7001FC856 /* TTBandpassButterworth2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandpassButterworth2.cpp; path = source/TTBandpassButterworth2.cpp; sourceTree = "<group>"; };
+		A737BF9F1659BDD7001FC856 /* TTBandrejectButterworth2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandrejectButterworth2.cpp; path = source/TTBandrejectButterworth2.cpp; sourceTree = "<group>"; };
+		A737BFA01659BDD7001FC856 /* TTDCBlock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDCBlock.cpp; path = source/TTDCBlock.cpp; sourceTree = "<group>"; };
+		A737BFA11659BDD7001FC856 /* TTFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTFilter.cpp; path = source/TTFilter.cpp; sourceTree = "<group>"; };
+		A737BFA21659BDD7001FC856 /* TTHalfband3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfband3.cpp; path = source/TTHalfband3.cpp; sourceTree = "<group>"; };
+		A737BFA31659BDD7001FC856 /* TTHalfband5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfband5.cpp; path = source/TTHalfband5.cpp; sourceTree = "<group>"; };
+		A737BFA41659BDD7001FC856 /* TTHalfband9.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfband9.cpp; path = source/TTHalfband9.cpp; sourceTree = "<group>"; };
+		A737BFA51659BDD7001FC856 /* TTHalfbandLinear33.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfbandLinear33.cpp; path = source/TTHalfbandLinear33.cpp; sourceTree = "<group>"; };
+		A737BFA61659BDD7001FC856 /* TTHighMidLowShelf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighMidLowShelf.cpp; path = source/TTHighMidLowShelf.cpp; sourceTree = "<group>"; };
+		A737BFA71659BDD7001FC856 /* TTHighpassButterworth1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth1.cpp; path = source/TTHighpassButterworth1.cpp; sourceTree = "<group>"; };
+		A737BFA81659BDD7001FC856 /* TTHighpassButterworth2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth2.cpp; path = source/TTHighpassButterworth2.cpp; sourceTree = "<group>"; };
+		A737BFA91659BDD7001FC856 /* TTHighpassButterworth3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth3.cpp; path = source/TTHighpassButterworth3.cpp; sourceTree = "<group>"; };
+		A737BFAA1659BDD7001FC856 /* TTHighpassButterworth4.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth4.cpp; path = source/TTHighpassButterworth4.cpp; sourceTree = "<group>"; };
+		A737BFAB1659BDD7001FC856 /* TTHighpassLinkwitzRiley2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassLinkwitzRiley2.cpp; path = source/TTHighpassLinkwitzRiley2.cpp; sourceTree = "<group>"; };
+		A737BFAC1659BDD7001FC856 /* TTHighpassLinkwitzRiley4.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassLinkwitzRiley4.cpp; path = source/TTHighpassLinkwitzRiley4.cpp; sourceTree = "<group>"; };
+		A737BFAD1659BDD7001FC856 /* TTHilbert9.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHilbert9.cpp; path = source/TTHilbert9.cpp; sourceTree = "<group>"; };
+		A737BFAE1659BDD7001FC856 /* TTHilbertLinear33.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHilbertLinear33.cpp; path = source/TTHilbertLinear33.cpp; sourceTree = "<group>"; };
+		A737BFAF1659BDD7001FC856 /* TTLowpassButterworth1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth1.cpp; path = source/TTLowpassButterworth1.cpp; sourceTree = "<group>"; };
+		A737BFB01659BDD7001FC856 /* TTLowpassButterworth2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth2.cpp; path = source/TTLowpassButterworth2.cpp; sourceTree = "<group>"; };
+		A737BFB11659BDD7001FC856 /* TTLowpassButterworth3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth3.cpp; path = source/TTLowpassButterworth3.cpp; sourceTree = "<group>"; };
+		A737BFB21659BDD7001FC856 /* TTLowpassButterworth4.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth4.cpp; path = source/TTLowpassButterworth4.cpp; sourceTree = "<group>"; };
+		A737BFB31659BDD7001FC856 /* TTLowpassFourPole.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassFourPole.cpp; path = source/TTLowpassFourPole.cpp; sourceTree = "<group>"; };
+		A737BFB41659BDD7001FC856 /* TTLowpassLinkwitzRiley2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassLinkwitzRiley2.cpp; path = source/TTLowpassLinkwitzRiley2.cpp; sourceTree = "<group>"; };
+		A737BFB51659BDD7001FC856 /* TTLowpassLinkwitzRiley4.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassLinkwitzRiley4.cpp; path = source/TTLowpassLinkwitzRiley4.cpp; sourceTree = "<group>"; };
+		A737BFB61659BDD7001FC856 /* TTLowpassOnePole.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassOnePole.cpp; path = source/TTLowpassOnePole.cpp; sourceTree = "<group>"; };
+		A737BFB71659BDD7001FC856 /* TTLowpassTwoPole.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassTwoPole.cpp; path = source/TTLowpassTwoPole.cpp; sourceTree = "<group>"; };
+		A737BFB81659BDD7001FC856 /* TTMirror5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTMirror5.cpp; path = source/TTMirror5.cpp; sourceTree = "<group>"; };
+		A737BFB91659BDD7001FC856 /* TTMirrorBandpass10.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTMirrorBandpass10.cpp; path = source/TTMirrorBandpass10.cpp; sourceTree = "<group>"; };
+		A737BFBA1659BDD7001FC856 /* TTOnePole.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTOnePole.cpp; path = source/TTOnePole.cpp; sourceTree = "<group>"; };
+		A737BFBB1659BDD7001FC856 /* TTSvf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSvf.cpp; path = source/TTSvf.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		A737BF901659BD9A001FC856 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				A71787621659BD6300FA808D /* TTAllpass.h */,
+				A71787631659BD6300FA808D /* TTAllpass1.h */,
+				A71787641659BD6300FA808D /* TTAllpass1a.h */,
+				A71787651659BD6300FA808D /* TTAllpass1aCascade2.h */,
+				A71787661659BD6300FA808D /* TTAllpass1b.h */,
+				A71787671659BD6300FA808D /* TTAllpass1c.h */,
+				A71787681659BD6300FA808D /* TTAllpass2a.h */,
+				A71787691659BD6300FA808D /* TTAllpass2b.h */,
+				A717876A1659BD6300FA808D /* TTAllpass2c.h */,
+				A717876B1659BD6300FA808D /* TTAllpass4a.h */,
+				A717876C1659BD6300FA808D /* TTBandpassButterworth2.h */,
+				A717876D1659BD6300FA808D /* TTBandrejectButterworth2.h */,
+				A717876E1659BD6300FA808D /* TTDCBlock.h */,
+				A717876F1659BD6300FA808D /* TTFilter.h */,
+				A71787701659BD6300FA808D /* TTHalfband3.h */,
+				A71787711659BD6300FA808D /* TTHalfband5.h */,
+				A71787721659BD6300FA808D /* TTHalfband9.h */,
+				A71787731659BD6300FA808D /* TTHalfbandLinear33.h */,
+				A71787741659BD6300FA808D /* TTHighMidLowShelf.h */,
+				A71787751659BD6300FA808D /* TTHighpassButterworth1.h */,
+				A71787761659BD6300FA808D /* TTHighpassButterworth2.h */,
+				A71787771659BD6300FA808D /* TTHighpassButterworth3.h */,
+				A71787781659BD6300FA808D /* TTHighpassButterworth4.h */,
+				A71787791659BD6300FA808D /* TTHighpassLinkwitzRiley2.h */,
+				A717877A1659BD6300FA808D /* TTHighpassLinkwitzRiley4.h */,
+				A717877B1659BD6300FA808D /* TTHilbert9.h */,
+				A717877C1659BD6300FA808D /* TTHilbertLinear33.h */,
+				A717877D1659BD6300FA808D /* TTLowpassButterworth1.h */,
+				A717877E1659BD6300FA808D /* TTLowpassButterworth2.h */,
+				A717877F1659BD6300FA808D /* TTLowpassButterworth3.h */,
+				A71787801659BD6300FA808D /* TTLowpassButterworth4.h */,
+				A71787811659BD6300FA808D /* TTLowpassFourPole.h */,
+				A71787821659BD6300FA808D /* TTLowpassLinkwitzRiley2.h */,
+				A71787831659BD6300FA808D /* TTLowpassLinkwitzRiley4.h */,
+				A71787841659BD6300FA808D /* TTLowpassOnePole.h */,
+				A71787851659BD6300FA808D /* TTLowpassTwoPole.h */,
+				A71787861659BD6300FA808D /* TTMirror5.h */,
+				A71787871659BD6300FA808D /* TTMirrorBandpass10.h */,
+				A71787881659BD6300FA808D /* TTOnePole.h */,
+				A71787891659BD6300FA808D /* TTSvf.h */,
+			);
+			name = includes;
+			sourceTree = "<group>";
+		};
+		A737BF931659BDB9001FC856 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				A737BF921659BDB5001FC856 /* TTAllpass1.test.cpp */,
+			);
+			name = tests;
+			sourceTree = "<group>";
+		};
+		A737BFBC1659BDDE001FC856 /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				A737BF941659BDD7001FC856 /* TTAllpass.cpp */,
+				A737BF951659BDD7001FC856 /* TTAllpass1.cpp */,
+				A737BF961659BDD7001FC856 /* TTAllpass1a.cpp */,
+				A737BF971659BDD7001FC856 /* TTAllpass1aCascade2.cpp */,
+				A737BF981659BDD7001FC856 /* TTAllpass1b.cpp */,
+				A737BF991659BDD7001FC856 /* TTAllpass1c.cpp */,
+				A737BF9A1659BDD7001FC856 /* TTAllpass2a.cpp */,
+				A737BF9B1659BDD7001FC856 /* TTAllpass2b.cpp */,
+				A737BF9C1659BDD7001FC856 /* TTAllpass2c.cpp */,
+				A737BF9D1659BDD7001FC856 /* TTAllpass4a.cpp */,
+				A737BF9E1659BDD7001FC856 /* TTBandpassButterworth2.cpp */,
+				A737BF9F1659BDD7001FC856 /* TTBandrejectButterworth2.cpp */,
+				A737BFA01659BDD7001FC856 /* TTDCBlock.cpp */,
+				A737BFA11659BDD7001FC856 /* TTFilter.cpp */,
+				A737BFA21659BDD7001FC856 /* TTHalfband3.cpp */,
+				A737BFA31659BDD7001FC856 /* TTHalfband5.cpp */,
+				A737BFA41659BDD7001FC856 /* TTHalfband9.cpp */,
+				A737BFA51659BDD7001FC856 /* TTHalfbandLinear33.cpp */,
+				A737BFA61659BDD7001FC856 /* TTHighMidLowShelf.cpp */,
+				A737BFA71659BDD7001FC856 /* TTHighpassButterworth1.cpp */,
+				A737BFA81659BDD7001FC856 /* TTHighpassButterworth2.cpp */,
+				A737BFA91659BDD7001FC856 /* TTHighpassButterworth3.cpp */,
+				A737BFAA1659BDD7001FC856 /* TTHighpassButterworth4.cpp */,
+				A737BFAB1659BDD7001FC856 /* TTHighpassLinkwitzRiley2.cpp */,
+				A737BFAC1659BDD7001FC856 /* TTHighpassLinkwitzRiley4.cpp */,
+				A737BFAD1659BDD7001FC856 /* TTHilbert9.cpp */,
+				A737BFAE1659BDD7001FC856 /* TTHilbertLinear33.cpp */,
+				A737BFAF1659BDD7001FC856 /* TTLowpassButterworth1.cpp */,
+				A737BFB01659BDD7001FC856 /* TTLowpassButterworth2.cpp */,
+				A737BFB11659BDD7001FC856 /* TTLowpassButterworth3.cpp */,
+				A737BFB21659BDD7001FC856 /* TTLowpassButterworth4.cpp */,
+				A737BFB31659BDD7001FC856 /* TTLowpassFourPole.cpp */,
+				A737BFB41659BDD7001FC856 /* TTLowpassLinkwitzRiley2.cpp */,
+				A737BFB51659BDD7001FC856 /* TTLowpassLinkwitzRiley4.cpp */,
+				A737BFB61659BDD7001FC856 /* TTLowpassOnePole.cpp */,
+				A737BFB71659BDD7001FC856 /* TTLowpassTwoPole.cpp */,
+				A737BFB81659BDD7001FC856 /* TTMirror5.cpp */,
+				A737BFB91659BDD7001FC856 /* TTMirrorBandpass10.cpp */,
+				A737BFBA1659BDD7001FC856 /* TTOnePole.cpp */,
+				A737BFBB1659BDD7001FC856 /* TTSvf.cpp */,
+			);
+			name = sources;
+			sourceTree = "<group>";
+		};
+		A7D89B6A1659BD38005E9FF9 = {
+			isa = PBXGroup;
+			children = (
+				A737BF901659BD9A001FC856 /* includes */,
+				A737BFBC1659BDDE001FC856 /* sources */,
+				A737BF931659BDB9001FC856 /* tests */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		A7D89B711659BD38005E9FF9 /* FilterLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = A7D89B741659BD38005E9FF9 /* Build configuration list for PBXLegacyTarget "FilterLib" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = FilterLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = FilterLib;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		A7D89B6C1659BD38005E9FF9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = org.jamoma;
+			};
+			buildConfigurationList = A7D89B6F1659BD38005E9FF9 /* Build configuration list for PBXProject "FilterLib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A7D89B6A1659BD38005E9FF9;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A7D89B711659BD38005E9FF9 /* FilterLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		A7D89B721659BD38005E9FF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A7D89B731659BD38005E9FF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A7D89B751659BD38005E9FF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A7D89B761659BD38005E9FF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A7D89B6F1659BD38005E9FF9 /* Build configuration list for PBXProject "FilterLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7D89B721659BD38005E9FF9 /* Debug */,
+				A7D89B731659BD38005E9FF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7D89B741659BD38005E9FF9 /* Build configuration list for PBXLegacyTarget "FilterLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7D89B751659BD38005E9FF9 /* Debug */,
+				A7D89B761659BD38005E9FF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A7D89B6C1659BD38005E9FF9 /* Project object */;
+}
