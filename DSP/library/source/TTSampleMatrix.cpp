@@ -69,9 +69,7 @@ TTSampleMatrix::~TTSampleMatrix()
 
 TTErr TTSampleMatrix::setNumChannels(const TTValue& newNumChannels)
 {
-	TTValue v(mLengthInSamples, TTUInt32(newNumChannels));
-	
-	return setDimensions(v);
+	return setColumnCount(newNumChannels);
 }
 
 
