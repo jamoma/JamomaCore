@@ -2,7 +2,7 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief Unit tests for the SpatMatrix SpatLib spatialisation renderer.
+ * @brief Unit tests for the SpatSnap SpatLib spatialisation renderer.
  *
  * @details
  *
@@ -15,11 +15,11 @@
 
 
 #include "TTDSP.h"
-#include "SpatMatrix.h"
+#include "TTSpatSnap.h"
 
 
 
-TTErr SpatMatrix::test(TTValue& returnedTestInfo)
+TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 {
 	int					errorCount = 0;
 	int					testAssertionCount = 0;

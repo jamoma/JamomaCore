@@ -2,12 +2,13 @@
 sources:
   - SpatLib.cpp
   - TTSpat.cpp
-  - source/SpatDBAP.cpp
-  - source/SpatMatrix.cpp
-  - source/SpatThru.cpp
-  - tests/SpatDBAP.test.cpp
-  - tests/SpatMatrix.test.cpp
-  - tests/SpatThru.test.cpp
+  - source/TTSpatEntity.cpp
+  - source/TTSpatSnap.cpp
+  - source/TTSpatMatrix.cpp
+  - source/TTSpatThru.cpp
+  - tests/TTSpatSnap.test.cpp
+  - tests/TTSpatMatrix.test.cpp
+  - tests/TTSpatThru.test.cpp
   
 includes:
   - "."

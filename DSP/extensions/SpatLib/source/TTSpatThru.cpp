@@ -16,7 +16,7 @@
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
-#include "SpatThru.h"
+#include "TTSpatThru.h"
 
 #define thisTTClass			SpatThru
 #define thisTTClassName		"spat.thru"

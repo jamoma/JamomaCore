@@ -22,8 +22,8 @@
  */
 class TTSpatEntity {
 	
-	TTFLoat64 position[3];		///< Position as Cartesian coordinates
-	TTFLoat64 orientation[4];	///< The orientation of the object using Euler coordinates
+	TTFloat64 position[3];		///< Position as Cartesian coordinates
+	TTFloat64 orientation[4];	///< The orientation of the object using Euler coordinates
 	
 protected:
 	
@@ -35,14 +35,14 @@ public:
 	
 	~TTSpatEntity();
 	
-	void getPosition(TTFLoat64& x, TTFLoat64& y, TTFLoat64& z);
+	void getPosition(TTFloat64& x, TTFloat64& y, TTFloat64& z);
 	
-	void setPosition(TTFLoat64 x, TTFLoat64 y, TTFLoat64 z);
+	void setPosition(TTFloat64 x, TTFloat64 y, TTFloat64 z);
 	
-	void getOrientation(TTFLoat64& q1, TTFLoat64& q2, TTFLoat64& q3, TTFLoat64& q4);
+	void getOrientation(TTFloat64& q1, TTFloat64& q2, TTFloat64& q3, TTFloat64& q4);
 	
-	void setOrientation(TTFLoat64 q1, TTFLoat64 q2, TTFLoat64 q3, TTFLoat64 q4);
-}
+	void setOrientation(TTFloat64 q1, TTFloat64 q2, TTFloat64 q3, TTFloat64 q4);
+};
 
 
 

@@ -14,7 +14,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "SpatMatrix.h"
+#include "TTSpatMatrix.h"
 
 #define thisTTClass			SpatMatrix
 #define thisTTClassName		"spat.matrix"

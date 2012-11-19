@@ -14,7 +14,7 @@
  */
 
 
-#include "SpatEntity.h"
+#include "TTSpatEntity.h"
 
 TTSpatEntity::TTSpatEntity()
 {
@@ -34,7 +34,7 @@ TTSpatEntity::~TTSpatEntity()
 	
 }
 
-TTSpatEntity::getPosition(TTFLoat64& x, TTFLoat64& y, TTFLoat64& z)
+void TTSpatEntity::getPosition(TTFloat64& x, TTFloat64& y, TTFloat64& z)
 {
 	x = position[0];
 	y = position[1];
@@ -42,7 +42,7 @@ TTSpatEntity::getPosition(TTFLoat64& x, TTFLoat64& y, TTFLoat64& z)
 }
 
 
-TTSpatEntity::setPosition(TTFLoat64 x, TTFLoat64 y, TTFLoat64 z)
+void TTSpatEntity::setPosition(TTFloat64 x, TTFloat64 y, TTFloat64 z)
 {
 	position[0] = x;
 	position[1] = y;
@@ -50,7 +50,7 @@ TTSpatEntity::setPosition(TTFLoat64 x, TTFLoat64 y, TTFLoat64 z)
 }
 
 
-TTSpatEntity::getOrientation(TTFLoat64& q1, TTFLoat64& q2, TTFLoat64& q3, TTFLoat64& q4)
+void TTSpatEntity::getOrientation(TTFloat64& q1, TTFloat64& q2, TTFloat64& q3, TTFloat64& q4)
 {
 	q1 = orientation[0];
 	q2 = orientation[1];
@@ -59,7 +59,7 @@ TTSpatEntity::getOrientation(TTFLoat64& q1, TTFLoat64& q2, TTFLoat64& q3, TTFLoa
 }
 
 
-TTSpatEntity::setOrientation(TTFLoat64 q1, TTFLoat64 q2, TTFLoat64 q3, TTFLoat64 q4)
+void TTSpatEntity::setOrientation(TTFloat64 q1, TTFloat64 q2, TTFloat64 q3, TTFloat64 q4)
 {
 	orientation[0] = q1;
 	orientation[1] = q2;

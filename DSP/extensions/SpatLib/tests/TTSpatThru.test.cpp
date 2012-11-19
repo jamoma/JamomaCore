@@ -15,7 +15,7 @@
 
 
 #include "TTDSP.h"
-#include "SpatThru.h"
+#include "TTSpatThru.h"
 
 
 
