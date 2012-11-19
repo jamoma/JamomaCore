@@ -44,6 +44,9 @@ public:
 	 @param sinks
 	 */
 	void recalculateMatrixCoefficients(TTSpatEntityVector& sources, TTSpatEntityVector& sinks);
+	
+	/**	A standard audio processing method as used by TTBlue objects.*/
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 		
 };
 
@@ -57,7 +60,6 @@ class TTSpatSnap : TTAudioObject {
 	TTSpatEntityVector	mSources;					///< A vector describing the geometry of the sources
 	TTSpatEntityVector	mSinks;						///< A vector describing the geometry of the sinks (e.g., speakers)
 	TTSpatSnapRenderer	mRenderer;					///< The actual spatial renderer for this class
-	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
@@ -75,13 +77,22 @@ public:
 	
 	TTErr setSinkCount(const TTValue& value);
 	
-	void getSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
-	
-	void setSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
 
-	void getSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
+	void getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
 	
-	void setSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
+	TTErr getSourcePosition(TTValue& aPosition);
+	
+	void setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
+
+	TTErr setSourcePosition(const TTValue& aPosition);
+	
+	void getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
+	
+	TTErr getSinkPosition(TTValue& aPosition);
+
+	void setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
+	
+	TTErr setSinkPosition(const TTValue& aPosition);
 
 };
 

@@ -43,8 +43,8 @@ void TTSpatSnapRenderer::recalculateMatrixCoefficients(TTSpatEntityVector& sourc
 	TTFloat64 sourceX, sourceY, sourceZ;
 	TTFloat64 sinkX, sinkY, sinkZ;
 	
-	mMixerMatrixCoefficients->setColumnCount(sources.size());
-	mMixerMatrixCoefficients->setRowCount(sinks.size());
+	mMixerMatrixCoefficients->setRowCount(sources.size());
+	mMixerMatrixCoefficients->setColumnCount(sinks.size());
 	
 	for (TTInt32 source=0; source<sources.size(); source++) {
 		
@@ -72,25 +72,83 @@ void TTSpatSnapRenderer::recalculateMatrixCoefficients(TTSpatEntityVector& sourc
 				
 			}
 			// We also set all coefficients to 0:
-			mMixerMatrixCoefficients->set2d(sink, source, 0.);
+			mMixerMatrixCoefficients->set2d(source, sink, 0.);
 		}
 		
 		// Second we update matrix coefficient for the nearest sink
-		mMixerMatrixCoefficients->set2d(nearestSink, source, 1.);
+		mMixerMatrixCoefficients->set2d(source, nearestSink, 1.);
 									
 	}
 	// TODO: Make sure that when we iterate over the matrix, this is done in an efficient way.
 }
 
-									
+
+TTErr TTSpatSnapRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{	
+	TTAudioSignal&		in = inputs->getSignal(0);
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTUInt16			vs = in.getVectorSizeAsInt();
+	TTSampleValuePtr	inSample;
+	TTSampleValuePtr	outSample;
+	TTUInt16			numInputChannels = in.getNumChannelsAsInt();
+	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
+	TTUInt16			outChannel;
+	TTUInt16			inChannel;
+    TTSampleValue       gainValue;
+	
+	TTInt16				sourceCount = mMixerMatrixCoefficients->getColumnCount();
+	TTInt16				sinkCount	= mMixerMatrixCoefficients->getRowCount();
+	
+	// If the input signal has more channels than we have sources, the additional channels are ignored.
+	if (numInputChannels > sourceCount) {
+		numInputChannels = sourceCount;
+	}
+	
+	// Fource the right number of sinks
+	if ( numOutputChannels != sinkCount ) {
+		TTValue v = sinkCount;
+		
+		out.setMaxNumChannels(v);
+		out.setNumChannels(v);
+		numOutputChannels = sinkCount;
+	}
+	// Setting all output signals to zero.
+	out.clear();
+	
+	// TODO: this multiply-nested for-loop has got to be horrendously slow, there should be a much faster way to do this?
+	
+	for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
+		outSample = out.mSampleVectors[outChannel];
+		for (inChannel=0; inChannel<numInputChannels; inChannel++) {
+			
+			mMixerMatrixCoefficients->get2d(inChannel, outChannel, gainValue);
+			
+			if (gainValue != 0.0){
+				inSample = in.mSampleVectors[inChannel];
+				for (int i=0; i<vs; i++) {
+					outSample[i] += inSample[i] * gainValue;
+				}
+			}
+		}
+	}
+	return kTTErrNone;
+	
+}
+
+
 /// Methods for SpatSnap: ////////////////////////////////
 
 
-TT_AUDIO_CONSTRUCTOR,
-	mMatrixObject(NULL)
+TT_AUDIO_CONSTRUCTOR
 {
-	// Instantiate an audio matrix
-	TTObjectInstantiate("audiomatrix", &mMatrixObject, kTTValNONE);
+	addAttributeWithGetterAndSetter(SourceCount, kTypeInt32);
+	addAttributeWithGetterAndSetter(SinkCount, kTypeInt32);
+	
+	addMessageWithArguments(setSourcePosition);
+	addMessageWithArguments(getSourcePosition);
+	
+	addMessageWithArguments(setSinkPosition);
+	addMessageWithArguments(getSinkPosition);
 	
 	setProcessMethod(processAudio);
 }
@@ -98,13 +156,13 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTSpatSnap::~TTSpatSnap()
 {
-	TTObjectRelease(&mMatrixObject);
+	
 }
 
 
 TTErr TTSpatSnap::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	return mMatrixObject->process(inputs, outputs);
+	return mRenderer.processAudio(inputs, outputs);
 }
 
 
@@ -143,7 +201,7 @@ TTErr TTSpatSnap::setSinkCount(const TTValue& value)
 }
 
 
-void TTSpatSnap::getSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+void TTSpatSnap::getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
 {
 	// Ensure that source number is within range
 	TTInt32 source = sourceNumber - 1;
@@ -153,7 +211,30 @@ void TTSpatSnap::getSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64
 }
 
 
-void TTSpatSnap::setSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+TTErr TTSpatSnap::getSourcePosition(TTValue& aPosition)
+{
+	TTInt16 sourceNumber;
+	TTFloat64 x, y, z;
+
+	// TODO: We need to think of what to do if there are no arguments...
+	// or if sinkNumber is out of range of the available sources
+	
+	aPosition.get(0, sourceNumber);
+	
+	getOneSourcePosition(sourceNumber, x, y, z);
+	
+	aPosition.setSize(4);
+	
+	aPosition.set(0, sourceNumber);
+	aPosition.set(1, x);
+	aPosition.set(2, y);
+	aPosition.set(3, z);
+	
+	return kTTErrNone;
+}
+
+
+void TTSpatSnap::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
 {
 	// Ensure that source number is within range
 	TTInt32 source = sourceNumber - 1;
@@ -162,8 +243,25 @@ void TTSpatSnap::setSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 
 	mSources[source].setPosition(x, y, z);
 }
 
+TTErr TTSpatSnap::setSourcePosition(const TTValue& aPosition)
+{
+	TTInt32 sourceNumber;
+	TTFloat64 x, y, z;
+	
+	// TODO: We need to think of what to do if there are not four arguments...
+	
+	aPosition.get(0, sourceNumber);
+	aPosition.get(1, x);
+	aPosition.get(2, y);
+	aPosition.get(3, z);
+	
+	setOneSourcePosition(sourceNumber, x, y, z);
+	
+	return kTTErrNone; // Return something else if we don't have four arguments
+}
 
-void TTSpatSnap::getSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+
+void TTSpatSnap::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
 {
 	// Ensure that sink number is within range
 	TTInt32 sink = sinkNumber - 1;
@@ -173,7 +271,30 @@ void TTSpatSnap::getSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y,
 }
 
 
-void TTSpatSnap::setSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+TTErr TTSpatSnap::getSinkPosition(TTValue& aPosition)
+{
+	TTInt16 sinkNumber;
+	TTFloat64 x, y, z;
+	
+	// TODO: We need to think of what to do if there are no arguments...
+	// or if sinkNumber is out of range of the available sources
+	
+	aPosition.get(0, sinkNumber);
+	
+	getOneSinkPosition(sinkNumber, x, y, z);
+	
+	aPosition.setSize(4);
+	
+	aPosition.set(0, sinkNumber);
+	aPosition.set(1, x);
+	aPosition.set(2, y);
+	aPosition.set(3, z);
+	
+	return kTTErrNone;
+}
+
+
+void TTSpatSnap::setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
 {
 	// Ensure that sink number is within range
 	TTInt32 sink = sinkNumber - 1;
@@ -181,4 +302,23 @@ void TTSpatSnap::setSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, T
 	
 	mSources[sink].setPosition(x, y, z);
 }
+
+
+TTErr TTSpatSnap::setSinkPosition(const TTValue& aPosition)
+{
+	TTInt32 sinkNumber;
+	TTFloat64 x, y, z;
+	
+	// TODO: We need to think of what to do if there are not four arguments...
+	
+	aPosition.get(0, sinkNumber);
+	aPosition.get(1, x);
+	aPosition.get(2, y);
+	aPosition.get(3, z);
+	
+	setOneSinkPosition(sinkNumber, x, y, z);
+	
+	return kTTErrNone; // Return something else if we don't have four arguments
+}
+
 
