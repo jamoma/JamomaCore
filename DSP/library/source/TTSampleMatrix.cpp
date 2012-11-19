@@ -84,9 +84,8 @@ TTErr TTSampleMatrix::getNumChannels(TTValue& returnedChannelCount)
 
 TTErr TTSampleMatrix::setLength(const TTValue& newLength)
 {
-	TTValue v(TTFloat64(newLength) * mSampleRate * 0.001, mNumChannels);
-	
-	return setDimensions(v);
+	TTValue newLengthInSamples = TTFloat64(newLength) * mSampleRate * 0.001;
+	return setRowCount(newLengthInSamples);
 }
 
 
@@ -99,9 +98,7 @@ TTErr TTSampleMatrix::getLength(TTValue& returnedLength)
 
 TTErr TTSampleMatrix::setLengthInSamples(const TTValue& newLengthInSamples)
 {
-	TTValue v(TTUInt32(newLengthInSamples), mNumChannels);
-	
-	return setDimensions(v);
+	return setRowCount(newLengthInSamples);
 }
 
 

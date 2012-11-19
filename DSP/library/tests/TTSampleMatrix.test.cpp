@@ -16,7 +16,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	// for tests
 	TTInt16				numChannels = 2;
-	TTInt32				numSamples = 50000;
+	TTUInt32				numSamples = 50000;  // TODO: xcode says this is ambiguous when signed?
 	TTFloat32			duration = 1500;
 	TTInt32				test9Index = 10;
 	TTInt32				test10Index = 11;
@@ -46,7 +46,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	
 	// TEST 2: can we set the number of samples?
-	this->setAttributeValue("lengthInSamples", numSamples);
+	//this->setAttributeValue("lengthInSamples", numSamples);  // TODO: xcode says this is ambiguous?
+	this->setLengthInSamples(numSamples);
 	
 	this->getAttributeValue("lengthInSamples", test2Return);
 
