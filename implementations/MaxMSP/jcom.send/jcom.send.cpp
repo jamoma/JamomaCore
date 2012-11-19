@@ -160,7 +160,7 @@ void WrapTTSenderClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)send_return_model_address,		"return_model_address",		A_CANT, 0);
 	
 #ifdef JCOM_SEND_TILDE	
-	class_addmethod(c->maxClass, (method)send_dsp,						"dsp",						A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)send_dsp,						"dsp",						A_CANT, 0L);
 	class_addmethod(c->maxClass, (method)send_dsp64,					"dsp64",					A_CANT, 0);
 #else
 	class_addmethod(c->maxClass, (method)send_bang,						"bang",						0L);
@@ -241,7 +241,6 @@ void send_subscribe(TTPtr self)
 	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
 	TTNodeAddressPtr			absoluteAddress;
 	TTObjectPtr					anObject;
-	TTErr						err;
 	
 	if (x->address == kTTAdrsEmpty)
 		return;
@@ -432,11 +431,9 @@ t_int *send_perform(t_int *w)
 	TTListPtr					objectCache = NULL;
 	TTObjectPtr					anObject;
 	TTUInt16					vectorSize = 0;
-	
+    TTUInt16					n;
 	t_float*					envelope;
-	TTUInt16					n;
 	TTFloat32					sum, mean;
-	
 	TTValue						v;
 	
 	if (aSender) {
@@ -488,6 +485,66 @@ t_int *send_perform(t_int *w)
 	return w + 4;
 }
 
+// Perform Method 64 bit - just pass the whole vector straight through
+// (the work is all done in the dsp 64 bit method)
+void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+    WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTSenderPtr					aSender = (TTSenderPtr)x->wrappedObject;
+	TTListPtr					objectCache = NULL;
+	TTObjectPtr					anObject;
+	TTUInt16					vectorSize = 0;
+    TTUInt16					n;
+	TTSampleValue*              envelope;
+	TTFloat32					sum, mean;
+	TTValue						v;
+	
+	if (aSender) {
+		
+		// get the object cache of the Sender object
+		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
+			
+			v.get(0, (TTPtr*)&objectCache);
+			
+			if (objectCache) {
+				
+				// get signal vectorSize
+				aSender->mSignal->getAttributeValue(kTTSym_vectorSize, vectorSize);
+				
+				// store the input from the inlet
+				TTAudioSignalPtr(aSender->mSignal)->setVector(0, vectorSize, ins[0]);
+				
+				// process the mean value
+				envelope = ins[0];
+				n = vectorSize;
+				while (n--) {
+					sum += *envelope;
+					envelope++;
+				}
+				mean = sum / vectorSize;
+				v = TTValue(mean);
+				
+				// send signal or mean to each object
+				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
+					
+					objectCache->current().get(0, (TTPtr*)&anObject);
+					
+					if (anObject) {
+						
+						// INPUT case : cache the signal into the input
+						if (anObject->getName() == kTTSym_Input)
+							TTInputPtr(anObject)->mSignalCache->appendUnique((TTPtr)aSender->mSignal);
+						
+						// DATA case : send the mean value of the sample
+						else if (anObject->getName() == kTTSym_Data)
+							anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+					}
+				}
+			}
+		}
+	}
+}
+
 // DSP Method
 void send_dsp(TTPtr self, t_signal **sp, short *count)
 {
@@ -518,71 +575,21 @@ void send_dsp(TTPtr self, t_signal **sp, short *count)
 	}
 }
 
-// Perform Method 64 bit - just pass the whole vector straight through
-// (the work is all done in the dsp 64 bit method)
-void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSenderPtr					aSender = (TTSenderPtr)x->wrappedObject;
-	TTInputPtr					anInput;
-	TTUInt8						numChannels = 0;
-	TTUInt16					vectorSize = 0;
-	short						i; 
-	
-	/*
-	// get numChannels and vectorSize
-	if (anInput) {
-		
-		anInput->mInfo.get(info_numChannels, numChannels);
-		anInput->mInfo.get(info_vectorSize, vectorSize);
-		
-		// Store the input from the inlets
-		for (i=0; i < numChannels; i++)
-			TTAudioSignalPtr(anInput->mSignalIn)->setVector(i, vectorSize, ins[i]);
-		// if this doesn't work, I need to try setVector64Copy instead of setVector
-		
-		// TODO: need to mix in input here from jcom.send~ objects (as in the old code above)
-		TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
-		
-		// Send the input on to the outlets for the algorithm
-		for (short i=0; i < numChannels; i++)	
-			TTAudioSignalPtr(anInput->mSignalOut)->getVectorCopy(i, vectorSize, outs[i]);
-	}
-	 */
-}
-
 // DSP64 method
 void send_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSenderPtr					aSender = (TTSenderPtr)x->wrappedObject;
-	TTInputPtr					anInput;
-	TTUInt8						numChannels = 0;
-	short						i, j;
 	
-	/*
-	// get numChannels and vectorSize
-	if (anInput) {
+	if (aSender) {
 		
-		for (i=0; i < anInput->mNumber; i++) {
-			j = anInput->mNumber + i;
-			if (count[i] || count[j]) {
-				numChannels++;			
-			}
-		}
-		anInput->mInfo.set(info_numChannels, numChannels);
-		
-		anInput->mInfo.set(info_vectorSize, (TTUInt16)maxvectorsize);
-		
-		anInput->mSignalIn->setAttributeValue(TT("numChannels"), numChannels);
-		anInput->mSignalOut->setAttributeValue(TT("numChannels"), numChannels);
-		anInput->mSignalIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-		anInput->mSignalOut->setAttributeValue(TT("vectorSize"),(TTUInt16)maxvectorsize);
-		// mSignalIn will be set in the perform method
-		anInput->mSignalOut->sendMessage(TT("alloc"));
+        // set signal numChannels and vectorSize
+		aSender->mSignal->setAttributeValue(kTTSym_numChannels, 1);
+		aSender->mSignal->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+        
+		// mSignal will be set in the perform method
 		
 		object_method(dsp64, gensym("dsp_add64"), x, send_perform64, 0, NULL); 
 	}
-	 */
 }
 #endif
