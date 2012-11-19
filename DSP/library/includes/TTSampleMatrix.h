@@ -1,8 +1,19 @@
-/* 
- * Jamoma DSP Sample Matrix Object 
- * Copyright © 2003-2012, Timothy Place & Nathan Wolek
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Container object that holds some audio in a chunk of memory.
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @details SampleMatrix extends the Matrix class found in Foundation to provide support for loading audio into a chunk of memory. Each sample value is stored as a one-element component with a datatype of 64-bit Float. Locations for individual components in the matrix can be identified by (sample, channel) pairs where samples correspond to rows in the matrix and channels translate to columns. 
+ * Because the Matrix class uses <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>, it results in channels being <a href="http://en.wikipedia.org/wiki/Interleave">interleaved</a> and provides more efficient memory access for multi-channel sound.  However, this interleaving must be accounted for when developing other objects to process or playback the audio.@n@n
+ * Both sample and channel indices begin counting at zero. This means that index values greater than or equal to the respective mLengthInSamples or mNumChannels will be out of bounds. @n@n
+ * 
+ * @see TTMatrix, TTAudioSignal
+ *  
+ * @authors Timothy Place & Nathan Wolek
+ *
+ * @copyright Copyright © 2003-2012, Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -14,14 +25,11 @@
 #define mLengthInSamples mRowCount
 #define mNumChannels mColumnCount
 
-/**	TTSampleMatrix is a container object that holds some audio in a chunk of memory.
-	Other objects can then access this buffer to record into it, play back from it,
-	or perform other operations on it.
-	
-	This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
-	Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
-	
-	@see TTAudioSignal
+/**	Container object that holds some audio in a chunk of memory.
+
+SampleMatrix extends the Matrix class found in Foundation to provide support for loading audio into a chunk of memory. Each sample value is stored as a one-element component with a datatype of 64-bit Float. Locations for individual components in the matrix can be identified by (sample, channel) pairs where samples correspond to rows in the matrix and channels translate to columns. 
+
+	@see TTAudioSignal, TTMatrix
 */
 class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 	TTCLASS_SETUP(TTSampleMatrix)
@@ -29,6 +37,8 @@ class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 protected:
 
 	TTFloat64			mSampleRate;
+	// NOTE: This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
+	// TODO: Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
 	
 public:
 
