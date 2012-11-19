@@ -33,14 +33,14 @@ TT_OBJECT_CONSTRUCTOR,
 	mDataSize(0),
 	mDataIsLocallyOwned(YES)
 {
-	addAttributeWithGetterAndSetter(Dimensions, 	kTypeUInt32); 	// mDimensions deprecated, we should delete this too
+	addAttributeWithGetterAndSetter(Dimensions, 	kTypeInt32); 	// mDimensions deprecated, we should delete this too
 																	// NW: had trouble removing it in Oct 2012
 																	// we can keep setDimensions() & getDimensions()
-	addAttributeWithSetter(RowCount, 				kTypeUInt32);
-	addAttributeWithSetter(ColumnCount, 			kTypeUInt32);
+	addAttributeWithSetter(RowCount, 				kTypeInt32);
+	addAttributeWithSetter(ColumnCount, 			kTypeInt32);
 	addAttributeWithGetterAndSetter(Type,			kTypeUInt8);	// necessary so that public interface uses symbols
 																	// internally we use TTDataType
-	addAttributeWithSetter(ElementCount,			kTypeUInt16);
+	addAttributeWithSetter(ElementCount,			kTypeInt16);
 
 	addMessage(clear);
 	addMessageWithArguments(fill);
