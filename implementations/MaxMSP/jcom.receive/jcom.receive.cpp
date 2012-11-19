@@ -194,7 +194,6 @@ void receive_subscribe(TTPtr self)
 	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
 	TTNodeAddressPtr			absoluteAddress;
 	TTObjectPtr					anObject;
-	TTErr						err;
 	
 	if (x->address == kTTAdrsEmpty)
 		return;
@@ -378,7 +377,7 @@ t_int *receive_perform(t_int *w)
 		// store the input
 		TTAudioSignalPtr(aReceiver->mSignal)->setVector(0, vectorSize, (TTFloat32*)w[2]);
 		
-		// get the object cache of the Sender object
+		// get the object cache of the Receiver object
 		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
 			
 			v.get(0, (TTPtr*)&objectCache);
@@ -426,6 +425,73 @@ t_int *receive_perform(t_int *w)
 	return w + 4;
 }
 
+
+// Perform Method 64 bit - just pass the whole vector straight through
+// (the work is all done in the dsp 64 bit method)
+void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
+	TTListPtr					objectCache = NULL;
+	TTObjectPtr					anObject;
+	TTUInt16					vectorSize = 0;
+	TTValue						v;
+	TTFloat32					d;
+	
+	if (aReceiver) {
+		
+		// get signal vectorSize
+		aReceiver->mSignal->getAttributeValue(kTTSym_vectorSize, vectorSize);
+		
+		// store the input
+		TTAudioSignalPtr(aReceiver->mSignal)->setVector(0, vectorSize, ins[0]);
+		
+		// get the object cache of the Receiver object
+		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
+			
+			v.get(0, (TTPtr*)&objectCache);
+			
+			if (objectCache) {
+				
+				// sum all object signals
+				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
+					
+					anObject = NULL;
+					objectCache->current().get(0, (TTPtr*)&anObject);
+					
+					if (anObject) {
+						
+						// OUTPUT case : sum the signal from the output
+						if (anObject->getName() == kTTSym_Output) {
+							
+							// get output signal vectorSize
+							TTOutputPtr(anObject)->mSignalOut->getAttributeValue(kTTSym_vectorSize, vectorSize);
+							
+							// sum output signal
+							*TTAudioSignalPtr(aReceiver->mSignal) += *TTAudioSignalPtr(TTOutputPtr(anObject)->mSignalOut);
+						}
+						
+						// DATA case : fill a signal with the data value and sum it
+						else if (anObject->getName() == kTTSym_Data) {
+							
+							// get value
+							anObject->getAttributeValue(kTTSym_value, v);
+							v.get(0, d);
+							
+							// TEST : fill the signal with the value
+							// TODO : add a += TTFloat64 inline method to TTAudioSignal class
+							TTAudioSignalPtr(aReceiver->mSignal)->fill(d);
+						}
+					}
+				}
+			}
+			
+			// send signal to the outlet
+			TTAudioSignalPtr(aReceiver->mSignal)->getVector(0, vectorSize, outs[0]);
+		}
+	}
+}
+
 // DSP Method
 void receive_dsp(TTPtr self, t_signal **sp, short *count)
 {
@@ -433,7 +499,6 @@ void receive_dsp(TTPtr self, t_signal **sp, short *count)
 	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
 	void**						audioVectors = NULL;
 	TTUInt16					vectorSize = sp[0]->s_n;
-	int							sr = sp[0]->s_sr;
 	
 	if (aReceiver) {
 		
@@ -460,130 +525,23 @@ void receive_dsp(TTPtr self, t_signal **sp, short *count)
 	}	
 }
 
-// Perform Method 64 bit - just pass the whole vector straight through
-// (the work is all done in the dsp 64 bit method)
-void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
-	TTOutputPtr					anOutput;
-	TTUInt8						numChannels = 0;
-	TTUInt16					vectorSize = 0;
-	short						i; 
-	TTUInt16					n;
-	
-	/*
-	// get numChannels and vectorSize
-	if (anOutput) {
-		
-		anOutput->mInfo.get(info_numChannels, numChannels);
-		anOutput->mInfo.get(info_vectorSize, vectorSize);
-		
-		// Store the input from the inlets
-		for (i=0; i < numChannels; i++)
-			TTAudioSignalPtr(anOutput->mSignalIn)->setVector(i, vectorSize, ins[i]);
-		// if this doesn't work, I need to try setVector64Copy instead of setVector
-		
-		
-		if (anInput->mBypass)																		// perform mix control
-			TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalOut), *TTAudioSignalPtr(anOutput->mSignalOut));							//TODO: ideally just passing the pointer without copying memory 
-		else if ((anOutput->mMute) || (!anOutput->mGain))
-			TTAudioSignalPtr(anOutput->mSignalOut)->clear();  
-		else {																					// perform mix control
-			anInput->mInfo.get(info_numChannels, inNumCh);
-			if (anInput && inNumCh) { 
-				if (anOutput->mMix == 100) // fully wet
-					TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));			//TODO: ideally just passing the pointer without copying memory 
-				else if(!anOutput->mMix) //fully dry
-					TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalOut), *TTAudioSignalPtr(anOutput->mSignalTemp));			//TODO: ideally just passing the pointer without copying memory 
-				else // we mix wet and dry
-					TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));
-			}
-			else
-				TTAudioSignal::copy(*TTAudioSignalPtr(anOutput->mSignalIn), *TTAudioSignalPtr(anOutput->mSignalTemp));
-			
-			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));			// perform gain control
-		}
-		
-		// Send the input on to the outlets for the algorithm
-		for (i=0; i < numChannels; i++){	
-			TTAudioSignalPtr(anOutput->mSignalOut)->getVectorCopy(i, vectorSize, outs[i]);
-			
-			// metering
-			if (!anOutput->mMute) {
-				TTSampleValue* envelope = outs[i];
-				peakvalue = 0.0;
-				
-				n = vectorSize;
-				while (n--) {
-					if ((*envelope) < 0 )						// get the current sample's absolute value
-						currentvalue = -(*envelope); //TODO: we could do a sign flip instead of multiply
-					else
-						currentvalue = *envelope;
-					
-					if (currentvalue > peakvalue) 					// if it's a new peak amplitude...
-						peakvalue = currentvalue;
-					envelope++; 										// increment pointer in the vector
-				}
-				
-				// set meter[i]
-				anOutput->mInfo.set(info_startMeter+i, peakvalue);
-				
-				// set peak[i]
-				anOutput->mInfo.get(info_startMeter+numChannels+i, peakamp);
-				if (peakvalue > peakamp)
-					anOutput->mInfo.set(info_startMeter+numChannels+i, peakvalue);
-			}
-		}
-	}
-	 */
-}
-
 // DSP64 method
 void receive_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
-	TTOutputPtr					anOutput;
-	TTUInt8						numChannels = 0;
-	short						i, j; 
 	
-	/*
-	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
-	anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
-	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
-	
-	for (i=0; i < anOutput->mNumber; i++) {
-		j = anOutput->mNumber + i;
-		if (count[i] || count[j]) {
-			numChannels++;			
-		}
+	if (aReceiver) {
+		
+		// set signal numChannels and vectorSize
+		aReceiver->mSignal->setAttributeValue(kTTSym_numChannels, 1);
+		aReceiver->mSignal->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+		
+		// aaReceiver->mSignal- will be set in the perform method
+		aReceiver->mSignal->sendMessage(kTTSym_alloc);
+        
+        object_method(dsp64, gensym("dsp_add64"), x, receive_perform64, 0, NULL);
 	}
-	anOutput->mInfo.set(info_numChannels, numChannels);
-	
-	anOutput->mInfo.set(info_vectorSize, (TTUInt16)maxvectorsize);
-	
-	anOutput->mSignalIn->setAttributeValue(TT("numChannels"), numChannels);
-	anOutput->mSignalOut->setAttributeValue(TT("numChannels"), numChannels);
-	anOutput->mSignalTemp->setAttributeValue(TT("numChannels"), numChannels);
-	//anOutput->mSignalZero->setAttributeValue(TT("numChannels"), numChannels);
-	
-	anOutput->mSignalIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	anOutput->mSignalOut->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	anOutput->mSignalTemp->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	//anOutput->mSignalZero->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);//Do we need zeroSignal?
-	
-	// mSignalIn will be set in the perform method
-	anOutput->mSignalOut->sendMessage(TT("alloc"));
-	anOutput->mSignalTemp->sendMessage(TT("alloc"));
-	//x->zeroSignal->sendMessage(TT("alloc"));
-	//x->zeroSignal->sendMessage(TT("clear"));
-	//audioIn will be set in the perform method
-	//x->audioOut->sendMessage(TT("alloc"));
-	
-	*/
-	
-	object_method(dsp64, gensym("dsp_add64"), x, receive_perform64, 0, NULL); 
 }
 
 #endif // JCOM_RECEIVE_TILDE
