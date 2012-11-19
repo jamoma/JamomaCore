@@ -1093,7 +1093,11 @@ end
           makefile.write("\tmkdir -p #{build_temp}\n")
           makefile.write("\tmkdir -p #{extension_dest}\n")
           makefile.write("\ttouch #{touch_dest}\n")
-          makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+          if ($alternate_pkgInfo)
+            makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+          else
+            makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+          end
           makefile.write("\n")
           
           # All compiled object files are dependent upon their individual source file and _all_ headers
@@ -1178,7 +1182,11 @@ end
               extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
               touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
               makefile.write("\tmkdir -p #{extension_dest}\n")
-              makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n")
+              if ($alternate_pkgInfo)
+                makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n")
+              else
+                makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n")
+              end
               makefile.write("\ttouch #{touch_dest}\n")
             end
             extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win32?
@@ -1206,7 +1214,11 @@ end
           makefile.write("\tmkdir -p build\n")
           if mac?
             makefile.write("\tmkdir -p #{extension_dest}\n")
-            makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+            if ($alternate_pkgInfo)
+              makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+            else
+              makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+            end
           
             if arch == "i386"
               makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_RELEASE) -o build/$(NAME)-i386#{extension_suffix}\n")
