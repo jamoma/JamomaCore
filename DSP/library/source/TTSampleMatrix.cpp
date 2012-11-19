@@ -1,8 +1,15 @@
-/*
- * Jamoma DSP Sample Matrix Object 
- * Copyright © 2003-2012, Timothy Place & Nathan Wolek
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Container object that holds some audio in a chunk of memory.
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @see TTMatrix, TTAudioSignal
+ *  
+ * @authors Timothy Place & Nathan Wolek
+ *
+ * @copyright Copyright © 2003-2012, Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -28,12 +35,13 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	TTMatrix(arguments),
 	mSampleRate(44100.0)
 {
-	this->setType("float64");
-	this->setElementCount(1);
+	this->setTypeWithoutResize(kTypeFloat64);
+	this->setElementCountWithoutResize(1);
+	this->resize();
 
-	addAttributeWithGetterAndSetter(NumChannels,		kTypeUInt16);
+	addAttributeWithGetterAndSetter(NumChannels,		kTypeInt32);
 	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);
-	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeUInt64);
+	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
 	addAttribute(SampleRate,							kTypeFloat64);
 	
 	addMessage(normalize);
@@ -61,9 +69,7 @@ TTSampleMatrix::~TTSampleMatrix()
 
 TTErr TTSampleMatrix::setNumChannels(const TTValue& newNumChannels)
 {
-	TTValue v(mLengthInSamples, TTUInt32(newNumChannels));
-	
-	return setDimensions(v);
+	return setColumnCount(newNumChannels);
 }
 
 
@@ -76,9 +82,8 @@ TTErr TTSampleMatrix::getNumChannels(TTValue& returnedChannelCount)
 
 TTErr TTSampleMatrix::setLength(const TTValue& newLength)
 {
-	TTValue v(TTFloat64(newLength) * mSampleRate * 0.001, mNumChannels);
-	
-	return setDimensions(v);
+	TTValue newLengthInSamples = TTFloat64(newLength) * mSampleRate * 0.001;
+	return setRowCount(newLengthInSamples);
 }
 
 
@@ -91,9 +96,7 @@ TTErr TTSampleMatrix::getLength(TTValue& returnedLength)
 
 TTErr TTSampleMatrix::setLengthInSamples(const TTValue& newLengthInSamples)
 {
-	TTValue v(TTUInt32(newLengthInSamples), mNumChannels);
-	
-	return setDimensions(v);
+	return setRowCount(newLengthInSamples);
 }
 
 
@@ -122,11 +125,13 @@ TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 	return err;
 }
 
-
 TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)
 {
-	// TODO: perhaps we should range check the input here first...
-	get2d(index, channel, value);
+	TTRowID p_index = index;
+	TTColumnID p_channel = channel;
+	
+	//makeInBounds(p_index, p_channel);
+	get2d(p_index, p_channel, value);
 	return kTTErrNone;
 }
 

@@ -147,24 +147,24 @@
 		D2333F201580D88200D5CBAF /* TTNodeLib */ = {
 			isa = PBXGroup;
 			children = (
-				D2F0977E14A0D70F00EC0396 /* TTAddress.cpp */,
 				D2F0975C14A0D70100EC0396 /* TTAddress.h */,
-				2236CD8316188DB00008DF69 /* TTAddressBase.cpp */,
+				D2F0977E14A0D70F00EC0396 /* TTAddress.cpp */,
 				2236CD8116188D9D0008DF69 /* TTAddressBase.h */,
-				D2F0977F14A0D70F00EC0396 /* TTAddressCache.cpp */,
+				2236CD8316188DB00008DF69 /* TTAddressBase.cpp */,
 				D2F0975D14A0D70100EC0396 /* TTAddressCache.h */,
-				D2333F301580D97F00D5CBAF /* TTAddressItem.cpp */,
+				D2F0977F14A0D70F00EC0396 /* TTAddressCache.cpp */,
 				D2333F311580D98F00D5CBAF /* TTAddressItem.h */,
-				D2F0978014A0D70F00EC0396 /* TTAddressTable.cpp */,
+				D2333F301580D97F00D5CBAF /* TTAddressItem.cpp */,
 				D2F0975E14A0D70100EC0396 /* TTAddressTable.h */,
-				D2F0977D14A0D70F00EC0396 /* TTNode.cpp */,
+				D2F0978014A0D70F00EC0396 /* TTAddressTable.cpp */,
 				D2F0975B14A0D70100EC0396 /* TTNode.h */,
-				D2F0978114A0D70F00EC0396 /* TTNodeDirectory.cpp */,
+				D2F0977D14A0D70F00EC0396 /* TTNode.cpp */,
 				D2F0975F14A0D70100EC0396 /* TTNodeDirectory.h */,
-				D2F0978214A0D70F00EC0396 /* TTNodeLib.cpp */,
+				D2F0978114A0D70F00EC0396 /* TTNodeDirectory.cpp */,
 				D2F0976014A0D70100EC0396 /* TTNodeLib.h */,
-				D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */,
+				D2F0978214A0D70F00EC0396 /* TTNodeLib.cpp */,
 				D2F097EC14A0E03400EC0396 /* TTNodeLib.test.h */,
+				D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */,
 			);
 			name = TTNodeLib;
 			path = includes;
@@ -288,6 +288,7 @@
 					i386,
 					x86_64,
 				);
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -306,6 +307,7 @@
 					i386,
 					x86_64,
 				);
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";

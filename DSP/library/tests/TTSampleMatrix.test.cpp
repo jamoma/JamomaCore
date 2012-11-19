@@ -15,12 +15,12 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	int					testAssertionCount = 0;
 	
 	// for tests
-	TTUInt16			numChannels = 2;
-	TTUInt16			numSamples = 50000;
+	TTInt16				numChannels = 2;
+	TTUInt32				numSamples = 50000;  // TODO: xcode says this is ambiguous when signed?
 	TTFloat32			duration = 1500;
-	TTUInt32			test9Index = 10;
-	TTUInt32			test10Index = 11;
-	TTUInt32			test1Return, test2Return, test7Return, test8Return;
+	TTInt32				test9Index = 10;
+	TTInt32				test10Index = 11;
+	TTInt32				test1Return, test2Return, test7Return, test8Return;
 	TTFloat32			test3Return, test6Return;
 	TTSampleValue		test9Return, test10Return, test11Return, test12return;
 	
@@ -46,9 +46,10 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	
 	// TEST 2: can we set the number of samples?
-	this->setAttributeValue(TT("lengthInSamples"), numSamples);
+	//this->setAttributeValue("lengthInSamples", numSamples);  // TODO: xcode says this is ambiguous?
+	this->setLengthInSamples(numSamples);
 	
-	this->getAttributeValue(TT("lengthInSamples"), test2Return);
+	this->getAttributeValue("lengthInSamples", test2Return);
 
 	TTBoolean result2 = { numSamples == test2Return };
 
@@ -65,7 +66,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	// TEST 3: is the length in ms computed properly after setting length in samples?
 	TTFloat32 computedDuration3 = (numSamples / this->mSampleRate) * 1000.;	
 	
-	this->getAttributeValue(TT("length"), test3Return);				
+	this->getAttributeValue("length", test3Return);				
 					
 	TTBoolean result3 = TTTestFloatEquivalence(computedDuration3, test3Return);
 				
@@ -111,9 +112,9 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 									
 	// TEST 6: can we set the length in milliseconds?
-	this->setAttributeValue(TT("length"), duration);
+	this->setAttributeValue("length", duration);
 	
-	this->getAttributeValue(TT("length"), test6Return);
+	this->getAttributeValue("length", test6Return);
 
 	TTBoolean result6 = TTTestFloatEquivalence(duration, test6Return);
 
@@ -131,7 +132,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	// TEST 7: is the length in samples computed properly after setting length in ms?
 	TTUInt32 computedSamples7 = TTUInt32(duration * this->mSampleRate * 0.001);	
 					
-	this->getAttributeValue(TT("lengthInSamples"), test7Return);				
+	this->getAttributeValue("lengthInSamples", test7Return);				
 	
 	TTBoolean result7 = { computedSamples7 == test7Return };
 				
@@ -287,7 +288,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	// TODO: test scaling (applying gain)
 	// TODO: test normalizing (with optional arg, and also without an optional arg)
 	
-	TTObjectInstantiate(TT("samplematrix"), &samplematrixObject, kTTVal1);
+	TTObjectInstantiate("samplematrix", &samplematrixObject, kTTVal1);
 	
 	TTObjectRelease(&input);
 	TTObjectRelease(&output);
