@@ -31,9 +31,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mType(kTypeUInt8),
 	mTypeSizeInBytes(1),
 	mDataSize(0),
-	mDataIsLocallyOwned(YES),
-	mHeadPtr(NULL),
-	mTailPtr(NULL)
+	mDataIsLocallyOwned(YES)
 {
 	addAttributeWithGetterAndSetter(Dimensions, 	kTypeUInt32); 	// mDimensions deprecated, we should delete this too
 																	// NW: had trouble removing it in Oct 2012
@@ -78,8 +76,6 @@ TTErr TTMatrix::resize()
 		// TODO: thread protection
 		delete[] mData;
 		mData = new TTByte[mDataSize];
-		mHeadPtr = mData;
-		mTailPtr = mData + mDataSize;
 	}
 
 	if (mDataSize && mData)
