@@ -29,7 +29,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_SpatLib(void)
 	TTSpat::registerClass();
 	SpatMatrix::registerClass();
 	SpatThru::registerClass();
-	SpatDBAP::registerClass();	
+	SpatSnap::registerClass();
 	return kTTErrNone;
 }
 

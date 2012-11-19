@@ -7,18 +7,20 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		660420F414A988C800FEC268 /* SpatDBAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatDBAP.h; path = includes/SpatDBAP.h; sourceTree = "<group>"; };
+		660420F414A988C800FEC268 /* SpatSnap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatSnap.h; path = includes/SpatSnap.h; sourceTree = "<group>"; };
 		660420F514A988C800FEC268 /* SpatMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatMatrix.h; path = includes/SpatMatrix.h; sourceTree = "<group>"; };
 		660420F614A988C800FEC268 /* SpatThru.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatThru.h; path = includes/SpatThru.h; sourceTree = "<group>"; };
-		660420F714A988D100FEC268 /* SpatDBAP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatDBAP.cpp; path = source/SpatDBAP.cpp; sourceTree = "<group>"; };
+		660420F714A988D100FEC268 /* SpatSnap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatSnap.cpp; path = source/SpatSnap.cpp; sourceTree = "<group>"; };
 		660420F814A988D100FEC268 /* SpatMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatMatrix.cpp; path = source/SpatMatrix.cpp; sourceTree = "<group>"; };
 		660420F914A988D100FEC268 /* SpatThru.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatThru.cpp; path = source/SpatThru.cpp; sourceTree = "<group>"; };
 		6659A12414A985CC00D83E3C /* SpatLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatLib.cpp; sourceTree = "<group>"; };
 		6659A12614A985CC00D83E3C /* TTSpat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSpat.cpp; sourceTree = "<group>"; };
 		6659A12714A985CC00D83E3C /* TTSpat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSpat.h; sourceTree = "<group>"; };
-		A7957BF1164DA184002E58EF /* SpatDBAP.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SpatDBAP.test.cpp; path = tests/SpatDBAP.test.cpp; sourceTree = "<group>"; };
+		A737BFC31659C726001FC856 /* SpatEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatEntity.cpp; path = source/SpatEntity.cpp; sourceTree = "<group>"; };
+		A7957BF1164DA184002E58EF /* SpatSnap.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SpatSnap.test.cpp; path = tests/SpatSnap.test.cpp; sourceTree = "<group>"; };
 		A7957BF2164DA184002E58EF /* SpatMatrix.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SpatMatrix.test.cpp; path = tests/SpatMatrix.test.cpp; sourceTree = "<group>"; };
 		A7957BF3164DA184002E58EF /* SpatThru.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SpatThru.test.cpp; path = tests/SpatThru.test.cpp; sourceTree = "<group>"; };
+		A7D89B651659BC97005E9FF9 /* SpatEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SpatEntity.h; path = includes/SpatEntity.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -29,8 +31,8 @@
 				6659A12614A985CC00D83E3C /* TTSpat.cpp */,
 				6659A12414A985CC00D83E3C /* SpatLib.cpp */,
 				A7957BED164DA159002E58EF /* include */,
-				A7957BF0164DA164002E58EF /* test */,
 				A7957BEF164DA15F002E58EF /* source */,
+				A7957BF0164DA164002E58EF /* test */,
 			);
 			name = SpatLib;
 			sourceTree = "<group>";
@@ -38,7 +40,8 @@
 		A7957BED164DA159002E58EF /* include */ = {
 			isa = PBXGroup;
 			children = (
-				660420F414A988C800FEC268 /* SpatDBAP.h */,
+				660420F414A988C800FEC268 /* SpatSnap.h */,
+				A7D89B651659BC97005E9FF9 /* SpatEntity.h */,
 				660420F514A988C800FEC268 /* SpatMatrix.h */,
 				660420F614A988C800FEC268 /* SpatThru.h */,
 			);
@@ -48,7 +51,8 @@
 		A7957BEF164DA15F002E58EF /* source */ = {
 			isa = PBXGroup;
 			children = (
-				A7957BF1164DA184002E58EF /* SpatDBAP.test.cpp */,
+				660420F714A988D100FEC268 /* SpatSnap.cpp */,
+				A737BFC31659C726001FC856 /* SpatEntity.cpp */,
 				A7957BF2164DA184002E58EF /* SpatMatrix.test.cpp */,
 				A7957BF3164DA184002E58EF /* SpatThru.test.cpp */,
 			);
@@ -58,7 +62,7 @@
 		A7957BF0164DA164002E58EF /* test */ = {
 			isa = PBXGroup;
 			children = (
-				660420F714A988D100FEC268 /* SpatDBAP.cpp */,
+				A7957BF1164DA184002E58EF /* SpatSnap.test.cpp */,
 				660420F814A988D100FEC268 /* SpatMatrix.cpp */,
 				660420F914A988D100FEC268 /* SpatThru.cpp */,
 			);
