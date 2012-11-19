@@ -156,11 +156,6 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
     TTAddress resultAddress;
 	TTAddress part1, part2;
 
-// to : it seems that part of code create problems for the code below... (?)
-// comment/uncomment the next line to see the problem
-#define TEST_getNameInstance
-#ifdef TEST_getNameInstance
-    
 	// the first set of tests checks the getNameInstance method
 	TTTestLog("\n");
 	TTTestLog("Testing Address getNameInstance Method");
@@ -170,25 +165,28 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 					resultSymbol == TTSymbol("name.instance"),
 					testAssertionCount,
 					errorCount);
-	
+
 	resultSymbol = testAddressB.getNameInstance();
 	TTTestAssertion("TTAddress: Test passes if the getNameInstance() method returns \"name\"",
 					resultSymbol == TTSymbol("name"),
 					testAssertionCount,
 					errorCount);
-	
+
 	resultSymbol = testAddressC.getNameInstance();
 	TTTestAssertion("TTAddress: Test passes if the getNameInstance() method returns \"name\"",
 					resultSymbol == TTSymbol("name"),
 					testAssertionCount,
 					errorCount);
-	
+
+// to : it seems that part of code create problems for the code below... (?)
+// comment/uncomment the next line to see the problem
+//#define TEST_getNameInstance
+#ifdef TEST_getNameInstance
 	resultSymbol = kTTAdrsEmpty.getNameInstance();
 	TTTestAssertion("TTAddress: Test passes if the getNameInstance() method returns kTTSymEmpty",
 					resultSymbol == kTTSymEmpty,
 					testAssertionCount,
 					errorCount);
-    
 #endif
 	
 	// the second set of tests checks the appendAddress method
