@@ -339,7 +339,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 				address = containerAddress.appendAddress(address);
 			
 			// dump the subscript
-			mSubScript->sendMessage(TT("Dump"), address, kTTValNONE);
+			mSubScript->sendMessage(TTSymbol("Dump"), address, kTTValNONE);
 		}
 	}
 	

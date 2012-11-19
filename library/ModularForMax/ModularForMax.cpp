@@ -14,51 +14,6 @@
 *
 ************************************************************************************/
 
-// Method to deal with the jamoma application
-/////////////////////////////////////////
-
-TTErr jamoma_application_dump_configuration(void)
-{
-	TTUInt16 i;
-	TTValue v, appNames;
-	TTSymbol anAppKey;
-	TTValue toConvert, converted;
-	TTString aTTStr;
-	
-	post("--- Jamoma Application : Symbol Convertion ---");
-	JamomaApplication->getAttributeValue(TTSymbol("allAppNames"), appNames);
-	
-	for (i=0; i<appNames.getSize(); i++) {
-		
-		appNames.get(i, anAppKey);
-		
-		toConvert = TTValue(anAppKey);
-		JamomaApplication->sendMessage(kTTSym_ConvertToTTName, toConvert, converted); 
-		converted.toString();
-		converted.get(0, aTTStr);
-		post("%s <-> %s", anAppKey.c_str(), aTTStr.data());
-	}
-	
-	post("----------------------------------------------");
-	
-	return kTTErrNone;
-}
-
-TTErr jamoma_application_write_configuration(void)
-{
-	// Read xml configuration file
-	TTValue			v;
-	TTXmlHandlerPtr anXmlHandler = NULL;
-	
-	TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&anXmlHandler), v);
-	
-	v = TTValue(TTPtr(JamomaApplication));
-	anXmlHandler->setAttributeValue(kTTSym_object, v);
-	
-	v = TTValue(TT(JamomaConfigurationFilePath));
-	return anXmlHandler->sendMessage(TTSymbol("Write"), v, kTTValNONE);
-}
-
 // Method to deal with the jamoma directory
 /////////////////////////////////////////
 
@@ -417,7 +372,7 @@ TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager)
 	
 	// prepare arguments
 	returnLineCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnLineCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnLineCallback, kTTValNONE);
 	returnLineBaton = new TTValue(TTPtr(x));
 	returnLineCallback->setAttributeValue(kTTSym_baton, TTPtr(returnLineBaton));
 	returnLineCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));

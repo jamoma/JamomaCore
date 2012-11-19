@@ -644,8 +644,8 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 			v.get(0, aTTKey);
 		}
 		
-		mAppToTT->append(TT(anAppKey), ttValue);		// here we register the entire value to handle 1 to many conversion
-		mTTToApp->append(TT(aTTKey), appValue);			// here we register the entire value to handle 1 to many conversion
+		mAppToTT->append(TTSymbol(anAppKey), ttValue);		// here we register the entire value to handle 1 to many conversion
+		mTTToApp->append(TTSymbol(aTTKey), appValue);			// here we register the entire value to handle 1 to many conversion
 	}
 	
 	// Protocol node

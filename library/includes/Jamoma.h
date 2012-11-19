@@ -44,8 +44,6 @@
 #include "RampLib.h"
 #include "ModularForMax.h"
 
-#define JamomaConfigurationFilePath "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml"
-
 #define JAMOMA "Jamoma"
 #define JAMOMA_UNIT_HEIGHT 35.0
 #define JAMOMA_UNIT_WIDTH 150.0

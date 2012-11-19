@@ -22,22 +22,16 @@ void TTModularInit()
 {	
 	// Initialized Foundation framework
 	TTFoundationInit();
-	
+
+#define TO_DEBUG
 #ifdef TO_DEBUG
+    
 	TTObjectPtr test = NULL;
 	TTValue v;
 	
-	TTObjectInstantiate(TT("nodelib.test"), &test, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
 	test->test(v); 
-		
-	TTObjectInstantiate(TTSymbol("string.test"), &stringTest, kTTValNONE);
-	stringTest->test(v);
-	
-	TTObjectInstantiate(TTSymbol("symbol.test"), &symbolTest, kTTValNONE);
-	symbolTest->test(v);
-	
-	TTObjectInstantiate(TTSymbol("nodelib.test"), &nodeTest, kTTValNONE);
-	nodeTest->test(v);
+
 #endif // TO_DEBUG
 	
 	if (!TTModularHasInitialized) {
@@ -124,7 +118,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			
 			args = TTValue(TT(xmlConfigFilePath));
-			anXmlHandler->sendMessage(TTSymbol("Read"), args, kTTValNONE);
+			anXmlHandler->sendMessage(kTTSym_Read, args, kTTValNONE);
 		}
 		else
 			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName.c_str());

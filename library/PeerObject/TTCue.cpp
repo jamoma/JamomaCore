@@ -57,7 +57,7 @@ TTErr TTCue::getName(TTValue& value)
 	TTSymbol			name;
 	TTValue				v;
 	
-	mScript->getAttributeValue(TT("lines"), v);
+	mScript->getAttributeValue(TTSymbol("lines"), v);
 	v.get(0, (TTPtr*)&lines);
 	
 	// lookat each line of the script
@@ -70,7 +70,7 @@ TTErr TTCue::getName(TTValue& value)
 			aLine->lookup(kTTSym_name, v);
 			v.get(0, name);
 			
-			if (name == TT("cue")) {
+			if (name == TTSymbol("cue")) {
 				aLine->getValue(value);
 				break;
 			}
@@ -89,7 +89,7 @@ TTErr TTCue::setName(const TTValue& value)
 	TTSymbol			name;
 	TTValue				v;
 	
-	mScript->getAttributeValue(TT("lines"), v);
+	mScript->getAttributeValue(TTSymbol("lines"), v);
 	v.get(0, (TTPtr*)&lines);
 	
 	// lookat each line of the script
@@ -102,7 +102,7 @@ TTErr TTCue::setName(const TTValue& value)
 			aLine->lookup(kTTSym_name, v);
 			v.get(0, name);
 			
-			if (name == TT("cue")) {
+			if (name == TTSymbol("cue")) {
 				aLine->setValue(value);
 				break;
 			}
@@ -121,7 +121,7 @@ TTErr TTCue::getDescription(TTValue& value)
 	TTSymbol			name;
 	TTValue				v;
 	
-	mScript->getAttributeValue(TT("lines"), v);
+	mScript->getAttributeValue(TTSymbol("lines"), v);
 	v.get(0, (TTPtr*)&lines);
 	
 	// lookat each line of the script
@@ -153,7 +153,7 @@ TTErr TTCue::setDescription(const TTValue& value)
 	TTSymbol			name;
 	TTValue				v;
 	
-	mScript->getAttributeValue(TT("lines"), v);
+	mScript->getAttributeValue(TTSymbol("lines"), v);
 	v.get(0, (TTPtr*)&lines);
 	
 	// lookat each line of the script
@@ -193,7 +193,7 @@ TTErr TTCue::searchRamp(TTObjectPtr aScript, TTUInt32& ramp)
 	TTDictionaryPtr		aLine;
 	TTValue				v, r;
 	
-	aScript->getAttributeValue(TT("lines"), v);
+	aScript->getAttributeValue(TTSymbol("lines"), v);
 	v.get(0, (TTPtr*)&lines);
 	
 	// lookat each line of the script
@@ -316,9 +316,9 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
 		
 		// 2. Append a description flag
-		v = TTValue(TT("description"));
+		v = TTValue(TTSymbol("description"));
 		v.append(mDescription);
-		mScript->sendMessage(TT("AppendFlag"), v, parsedLine);
+		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
 		
 		// 3. Process namespace storage
 		processStore(mScript, kTTAdrsEmpty, aNamespace);
@@ -488,7 +488,7 @@ TTErr TTCue::Recall()
 
 TTErr TTCue::Output()
 {
-	return mScript->sendMessage(TT("Dump"), kTTAdrsRoot, kTTValNONE);
+	return mScript->sendMessage(TTSymbol("Dump"), kTTAdrsRoot, kTTValNONE);
 }
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)

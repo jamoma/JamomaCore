@@ -42,8 +42,8 @@ mReturnLineCallback(NULL)
 	
 	addAttribute(Namespace, kTypeSymbol);
 	
-	registerAttribute(TT("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
-	registerAttribute(TT("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
+	registerAttribute(TTSymbol("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
+	registerAttribute(TTSymbol("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
 	
 	addAttribute(Cues, kTypePointer);
 	addAttributeProperty(Cues, readOnly, YES);
@@ -451,7 +451,7 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 		v.get(0, (TTPtr*)&mCurrentCue);
 		
 		if (mCurrentCue)
-			return mCurrentCue->sendMessage(TT("Output"));
+			return mCurrentCue->sendMessage(TTSymbol("Output"));
 	}
 	
 	return kTTErrGeneric;
