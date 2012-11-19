@@ -32,6 +32,9 @@ typedef Protocol* ProtocolPtr;
 class TTMirror;
 typedef TTMirror* TTMirrorPtr;
 
+class TTXmlHandler;
+typedef TTXmlHandler* TTXmlHandlerPtr;
+
 // Macro to have a direct acces to a directory
 #define	getDirectoryFrom(anAddress) TTApplicationGetDirectory(anAddress)
 
@@ -68,9 +71,7 @@ private:
 	TTSymbolPtr					mName;				///< ATTRIBUTE : the name of the application
 	TTSymbolPtr					mVersion;			///< ATTRIBUTE : the version of the application
 	TTSymbolPtr					mAuthor;			///< ATTRIBUTE : the author of the application
-	
-	TTSymbolPtr					mNamespaceFile;		///< ATTRIBUTE : the namespace file to load (default : <empty>). Usefull to save a config...
-	
+
 	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
 	TTValue						mActivityIn;		///< ATTRIBUTE : a local value to allow observation of incoming protocol messages
 	TTValue						mActivityOut;		///< ATTRIBUTE : a local value to allow observation of outputing protocol messages
@@ -84,7 +85,7 @@ private:
 	TTValue						mAllTTNames;		///< All TT names
 	
 	TTNodeAddressPtr			mTempAddress;		///< a temporary address to parse opml file
-	
+   
 	/** Set name of the application (and his directory) */
 	TTErr setName(const TTValue& value);
 	
@@ -129,11 +130,13 @@ private:
 	/** Convert AppName into TTName */
 	TTErr ConvertToTTName(const TTValue& inputValue, TTValue& outputValue);
 	
-	
 	/** needed to be handled by a TTXmlHandler 
-		read/write protocol parameters */
+		read/write the TTNodeDirectory */
 	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
 	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
+    
+    void writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode);
+    void readNodeFromXml(TTXmlHandlerPtr aXmlHandler);
 	
 	/** needed to be handled by a TTOpmlHandler 
 		read a directory description */

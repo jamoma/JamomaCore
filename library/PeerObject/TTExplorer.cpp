@@ -63,9 +63,6 @@ mLastResult(kTTValNONE)
 	addMessageWithArguments(FilterRemove);
 	addMessageWithArguments(FilterInfo);
 	
-	addMessageWithArguments(WriteAsOpml);
-	addMessageProperty(WriteAsOpml, hidden, YES);
-	
 	mFilterList = new TTList();
 	mResult = new TTHash();
 }
@@ -697,99 +694,6 @@ TTErr TTExplorer::setFilterList(const TTValue& value)
 	
 	if (anError) return kTTErrValueNotFound;
 	else return kTTErrNone;
-}
-
-
-TTErr TTExplorer::WriteAsOpml(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTOpmlHandlerPtr	anOpmlHandler;
-	TTNodePtr			aNode;
-	
-	inputValue.get(0, (TTPtr*)&anOpmlHandler);
-	
-	if (mDirectory && mAddress != kTTAdrsEmpty) {
-		
-		// get the mAddress node
-		mDirectory->getTTNode(mAddress, &aNode);
-		if (aNode) writeNode(anOpmlHandler, aNode);
-		else writeNode(anOpmlHandler, mDirectory->getRoot());
-		
-	}
-
-	return kTTErrNone;
-}
-
-void TTExplorer::writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode)
-{
-	TTNodeAddressPtr nameInstance;
-	TTSymbolPtr objectName, attributeName;
-	TTObjectPtr anObject;
-	TTValue		attributeNameList, v, c;
-	TTList		nodeList;
-	TTNodePtr	aChild;
-	TTString	aString;
-	
-	// Start opml node
-	xmlTextWriterStartElement(anOpmlHandler->mWriter, BAD_CAST "outline");
-	
-	// Write address attribute
-	nameInstance = makeTTNodeAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
-	xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "text", BAD_CAST nameInstance->getCString());
-	
-	anObject = aNode->getObject();
-	if (anObject) {
-		
-		// Write object name attribute
-		objectName = anObject->getName();
-		if (objectName != kTTSymEmpty)
-			xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName->getCString());
-		else
-			xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none->getCString());
-		
-		// write attributes
-		anObject->getAttributeNames(attributeNameList);
-		
-		for(TTUInt8 i = 0; i < attributeNameList.getSize(); i++)
-		{
-			attributeNameList.get(i, &attributeName);
-			
-			// Filter object type : Data, Viewer and Container
-			if (anObject->getName() == kTTSym_Data || anObject->getName() == TT("View") || anObject->getName() == kTTSym_Container) {
-				
-				// Filter attribute names
-				if (attributeName != kTTSym_value && 
-					attributeName != kTTSym_address && 
-					// attributeName != TT("content") &&
-					attributeName != kTTSym_bypass &&
-					attributeName != kTTSym_activityIn &&
-					attributeName != kTTSym_activityOut) {
-					
-					anObject->getAttributeValue(attributeName, v);
-					
-					// Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
-					ToAppNames(v, c);
-					
-					c.toString();
-					c.get(0, aString);
-					
-					xmlTextWriterWriteAttribute(anOpmlHandler->mWriter, BAD_CAST attributeName->getCString(), BAD_CAST aString.data());
-				}
-			}
-		}
-		
-		// write messages ?
-	}
-	
-	aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
-
-	for (nodeList.begin(); nodeList.end(); nodeList.next())
-	{
-		nodeList.current().get(0, (TTPtr*)&aChild);
-		writeNode(anOpmlHandler, aChild);
-	}
-	
-	// Close opml node
-	xmlTextWriterEndElement(anOpmlHandler->mWriter);
 }
 
 /** */

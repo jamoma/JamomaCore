@@ -21,7 +21,6 @@ mDirectory(NULL),
 mName(kTTSymEmpty),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
-mNamespaceFile(kTTSymEmpty),
 mActivity(NO),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
@@ -39,19 +38,15 @@ mTempAddress(kTTAdrsEmpty)
 	addAttribute(Author, kTypeSymbol);
 	addAttributeProperty(Author, readOnly, YES);
 	
-	addAttribute(NamespaceFile, kTypeSymbol);
-	addAttributeProperty(NamespaceFile, hidden, YES);
-	addAttributeProperty(NamespaceFile, readOnly, YES);
-	
 	addAttribute(Debug, kTypeBoolean);
 	
 	addAttributeWithSetter(Activity, kTypeBoolean);
 	
 	addAttributeWithSetter(ActivityIn, kTypeLocalValue);
-	addAttributeProperty(NamespaceFile, hidden, YES);
+	addAttributeProperty(ActivityIn, hidden, YES);
 	
 	addAttributeWithSetter(ActivityOut, kTypeLocalValue);
-	addAttributeProperty(NamespaceFile, hidden, YES);
+	addAttributeProperty(ActivityOut, hidden, YES);
 	
 	// relative to directory and attribute listening
 	addAttribute(Directory, kTypePointer);
@@ -99,11 +94,6 @@ mTempAddress(kTTAdrsEmpty)
 	
 	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
-	
-	// needed to be handled by a TTOpmlHandler
-	addMessageWithArguments(ReadFromOpml);
-	addMessageProperty(ReadFromOpml, hidden, YES);
-	
 	
 	mDirectory = new TTNodeDirectory(mName);
 	mDirectory->getRoot()->setObject(this);
@@ -519,86 +509,150 @@ TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputV
 	return kTTErrNone;
 }
 
-
 TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr		aXmlHandler;
-	TTSymbolPtr			protocolName, parameterName;
-	TTString			aString;
-	TTHashPtr			parameters;
-    TTValue				keys, p_keys, v, protocolNames;
+	TTXmlHandlerPtr aXmlHandler;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
 	
-	// For each protocol
-	protocolNames = getApplicationProtocols(mName);
-	for (TTUInt16 i=0; i<protocolNames.getSize(); i++) {
-		
-		protocolNames.get(i, &protocolName);
-		getProtocol(protocolName)->getAttributeValue(TT("applicationParameters"), v);
-		v.get(0, (TTPtr*)&parameters);
-		
-		// Start "protocol" xml node
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "protocol");
-		xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST protocolName->getCString());
-		
-		// For each parameter
-		parameters->getKeys(p_keys);
-		for (TTUInt16 j=0; j<p_keys.getSize(); j++) {
-			p_keys.get(j, &parameterName);
-			parameters->lookup(parameterName, v);
-			v.toString();
-			v.get(0, aString);
-			xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST parameterName->getCString(), "%s", BAD_CAST aString.data());
-		}
-		
-		// End "protocol" xml node
-		xmlTextWriterEndElement(aXmlHandler->mWriter);
-	}
-	
-	
-	/* to -- do we need to write the Application name table ?
-	 TTSymbolPtr			k;
-	 TTString			aString;
-	 TTValue				v, keys;
-	 TTUInt16			i;
-	 
-	 // Write ApplicationNames table
-	 xmlTextWriterWriteComment(aXmlHandler->mWriter, BAD_CAST "Conversion table");
-	 xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "conversionTable");
-	 
-	 mAppToTT->getKeys(keys);
-	 for (i = 0; i < keys.getSize(); i++) {
-	 
-	 keys.get(i, &k);
-	 mAppToTT->lookup(k, v);
-	 
-	 // Don't write kTTValNONE
-	 if (v == kTTValNONE)
-	 continue;
-	 
-	 v.toString();
-	 v.get(0, aString);
-	 
-	 xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "entry");
-	 xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "App", BAD_CAST k->getCString());
-	 xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "TT", BAD_CAST aString.data());
-	 xmlTextWriterEndElement(aXmlHandler->mWriter);
-	 }
-	 
-	 // End ApplicationNames writing
-	 xmlTextWriterEndElement(aXmlHandler->mWriter);
-	 */
-	
+    // Write all the namespace starting from the root of the directory
+	if (mDirectory)
+        writeNodeAsXml(aXmlHandler, mDirectory->getRoot());
+    
 	return kTTErrNone;
+}
+
+void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
+{
+	TTNodeAddressPtr    nameInstance;
+	TTSymbolPtr         objectName, attributeName;
+	TTObjectPtr         anObject;
+	TTValue             attributeNameList, v, c;
+	TTList              nodeList;
+	TTNodePtr           aChild;
+	TTString            aString;
+    
+    // Write node's object attributes
+    anObject = aNode->getObject();
+    if (anObject) {
+        
+        // Filter object type
+        if (anObject->getName() == kTTSym_Application ||
+            anObject->getName() == kTTSym_Container ||
+            anObject->getName() == kTTSym_Data ||
+            anObject->getName() == kTTSym_Viewer) {
+            
+            // Application node case
+            if (anObject->getName() == kTTSym_Application) {
+                
+                xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "application");
+                
+                // Write attributes
+                anObject->getAttributeNames(attributeNameList);
+                
+                for(TTUInt8 i = 0; i < attributeNameList.getSize(); i++)
+                {
+                    attributeNameList.get(i, &attributeName);
+                    
+                    // Filter attribute names
+                    if (attributeName != kTTSym_debug &&
+                        attributeName != kTTSym_bypass &&
+                        attributeName != kTTSym_activity &&
+                        attributeName != kTTSym_activityIn &&
+                        attributeName != kTTSym_activityOut) {
+                        
+                        anObject->getAttributeValue(attributeName, v);
+                        
+                        v.toString();
+                        v.get(0, aString);
+                        
+                        xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST attributeName->getCString(), BAD_CAST aString.data());
+                    }
+                }
+            }
+            
+            // Other node case
+            else {
+                
+                // Write description attribute as an xml comment
+                anObject->getAttributeValue(kTTSym_description, v);
+                v.toString();
+                v.get(0, aString);
+                xmlTextWriterWriteFormatComment(aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
+                
+                // Start node
+                nameInstance = makeTTNodeAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
+                xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST nameInstance->getCString());
+                
+                // Write object name attribute
+                objectName = anObject->getName();
+                if (objectName != kTTSymEmpty)
+                    xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName->getCString());
+                else
+                    xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none->getCString());
+                
+                // Write attributes
+                anObject->getAttributeNames(attributeNameList);
+                
+                for(TTUInt8 i = 0; i < attributeNameList.getSize(); i++)
+                {
+                    attributeNameList.get(i, &attributeName);
+                    
+                    // Filter attribute names
+                    if (attributeName != kTTSym_description &&
+                        attributeName != kTTSym_value &&
+                        attributeName != kTTSym_address &&
+                        attributeName != kTTSym_bypass &&
+                        attributeName != kTTSym_activityIn &&
+                        attributeName != kTTSym_activityOut &&
+                        attributeName != kTTSym_rampStatus) {
+                        
+                        anObject->getAttributeValue(attributeName, v);
+                        
+                        /* Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
+                         ToAppNames(v, c);
+                         
+                         c.toString();
+                         c.get(0, aString);
+                         */
+                        
+                        if (v == kTTValNONE)
+                            continue;
+                        
+                        v.toString();
+                        v.get(0, aString);
+                        
+                        if (aString.empty())
+                            continue;
+                        
+                        xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST attributeName->getCString(), BAD_CAST aString.data());
+                    }
+                }
+                
+                // TODO : Write messages ?
+                
+            }
+            
+            // Write nodes below
+            aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+            
+            for (nodeList.begin(); nodeList.end(); nodeList.next())
+            {
+                nodeList.current().get(0, (TTPtr*)&aChild);
+                writeNodeAsXml(aXmlHandler, aChild);
+            }
+            
+            // Close node
+            xmlTextWriterEndElement(aXmlHandler->mWriter);
+            
+        }
+    }
 }
 
 TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr	aXmlHandler = NULL;	
+	TTXmlHandlerPtr	aXmlHandler = NULL;
 	TTString		anAppKey, aTTKey;
-	TTHashPtr		parameters;
-	TTSymbolPtr		protocolName, parameterName;
 	TTValue			appValue, ttValue, v, nameValue, parameterValue;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
@@ -608,11 +662,8 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	// Switch on the name of the XML node
 	
 	// Starts reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
-		mAppToTT = new TTHash();
-		mNamespaceFile = kTTSymEmpty;
-		return kTTErrNone;
-	}
+	if (aXmlHandler->mXmlNodeName == kTTSym_start)
+        return kTTErrNone;
 	
 	// Ends reading
 	if (aXmlHandler->mXmlNodeName == kTTSym_stop)
@@ -621,10 +672,19 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	// Comment Node
 	if (aXmlHandler->mXmlNodeName == kTTSym_comment)
 		return kTTErrNone;
+    
+    // Conversion Table node
+    if (aXmlHandler->mXmlNodeName == TT("conversionTable")) {
+        
+		 if (aXmlHandler->mXmlNodeStart)
+             mAppToTT = new TTHash();
+        
+		return kTTErrNone;
+	}
 	
 	// Entry node
 	if (aXmlHandler->mXmlNodeName == TT("entry")) {
-	
+        
 		// get App Symbol
 		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "App") == 1) {
 			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), appValue);
@@ -643,229 +703,137 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		
 		mAppToTT->append(TT(anAppKey), ttValue);		// here we register the entire value to handle 1 to many conversion
 		mTTToApp->append(TT(aTTKey), appValue);			// here we register the entire value to handle 1 to many conversion
+        
+        return kTTErrNone;
 	}
 	
-	// Protocol node
-	if (aXmlHandler->mXmlNodeName == TT("protocol")) {
+	// Application node
+	if (aXmlHandler->mXmlNodeName == TT("application")) {
 		
-		// get the protocol name
-		xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("name"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-		if (v.getType() == kTypeSymbol) {
-			v.get(0, &protocolName);
-		}
-		
-		// Check if the protocol have been loaded
-		if (!getProtocol(protocolName))
-			return kTTErrGeneric;
-		
-		// register the application to the protocol
-		nameValue = TTValue(mName);
-		getProtocol(protocolName)->sendMessage(TT("registerApplication"), nameValue, kTTValNONE);
-		
-		// get all protocol attributes and their value
-		parameters = new TTHash();
-		while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
-			
-			// get parameter name
-			aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
-			if (v.getType() == kTypeSymbol) {
-				v.get(0, &parameterName);
-				
-				// get parameter value
-				aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), parameterValue);
-				
-				parameters->append(parameterName, parameterValue);
-			}
-		}
-		
-		// configure the protocol parameters for this application
-		v = TTValue(mName);
-		v.append((TTPtr)parameters);
-		getProtocol(protocolName)->setAttributeValue(TT("applicationParameters"), v);
+        if (aXmlHandler->mXmlNodeStart) {
+            mDirectory->init();
+            mTempAddress = kTTAdrsRoot;
+        }
+        
+        return kTTErrNone;
 	}
-	
-	// Namespace node 
-	if (aXmlHandler->mXmlNodeName == TT("namespace")) {
-		
-		// note : don't load namespace for local application in order 
-		// to use the same configuration file for local and distant application
-		// (the local application namespace could be loaded using mNamespaceFile attribute)
-		if (mName != getLocalApplicationName) {
-			
-			// get the file path
-			xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("file"));
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-			if (v.getType() == kTypeSymbol)
-				v.get(0, &mNamespaceFile);
-		}
-	}
-	
-	// load namespace file if one is given and there is a protocol
-	if (mNamespaceFile != kTTSymEmpty && getApplicationProtocols(mName).getSize()) {
-		
-		TTOpmlHandlerPtr	aOpmlHandler = NULL;
-		TTValue				args, o;
-		TTObjectInstantiate(kTTSym_OpmlHandler, TTObjectHandle(&aOpmlHandler), args);
-		o = TTValue(TTPtr(this));
-		aOpmlHandler->setAttributeValue(kTTSym_object, o);
-		aOpmlHandler->sendMessage(TT("Read"), v, kTTValNONE);
-		TTObjectRelease(TTObjectHandle(&aOpmlHandler));
-	}
+    
+    // Any other node
+    readNodeFromXml(aXmlHandler);
 	
 	return kTTErrNone;
 }
 
-TTErr TTApplication::ReadFromOpml(const TTValue& inputValue, TTValue& outputValue)
+void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 {
-	TTOpmlHandlerPtr	aOpmlHandler = NULL;	
-	TTSymbolPtr			nodeNameInstance, objectName, attributeName, protocolName;
-	TTNodeAddressPtr	absoluteAddress;
-	TTMirrorPtr			aMirror;
-	TTNodePtr			aNode;
-	TTBoolean			empty, newInstanceCreated;
-	TTObjectPtr			getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
-	TTValuePtr			getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
-	ProtocolPtr			aProtocol;
-	TTValue				v, args, protocolNames;
-	
-	inputValue.get(0, (TTPtr*)&aOpmlHandler);
-	if (!aOpmlHandler)
-		return kTTErrGeneric;
-	
-	// Switch on the name of the XML node
-	
-	// Starts reading
-	if (aOpmlHandler->mXmlNodeName == TT("start")) {
-		
-		mDirectory->init();
-		mTempAddress = kTTAdrsEmpty;
-		
-		return kTTErrNone;
-	}
-	
-	// Ends reading
-	if (aOpmlHandler->mXmlNodeName == TT("end"))
-		return kTTErrNone;
-	
-	// Text Node
-	if (aOpmlHandler->mXmlNodeName == TT("#text"))
-		return kTTErrNone;
-	
-	// Outline node
-	if (aOpmlHandler->mXmlNodeName == TT("outline")) {
-		
-		empty = (TTBoolean)xmlTextReaderIsEmptyElement(aOpmlHandler->mReader);
-		
-		// get the relative address
-		xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("text"));
-		aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v, YES);
-		if (v.getType() == kTypeSymbol) {
-			v.get(0, &nodeNameInstance);
-		}
-		
-		// Is it the beginning of a new node or the end of one ?
-		if (mTempAddress->getNameInstance() != nodeNameInstance) {
-			
-			absoluteAddress = mTempAddress->appendAddress(TTADRS(nodeNameInstance->getCString()));
-			
-			// get the object name
-			if (xmlTextReaderMoveToAttribute(aOpmlHandler->mReader, (const xmlChar*)("object")) == 1) {
-				aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v);
-				
-				if (v.getType() == kTypeSymbol) {
-					v.get(0, &objectName);
-					
-					// a distant application should have one protocol
-					protocolNames = getApplicationProtocols(mName);
-					protocolNames.get(0, &protocolName);
-					
-					aProtocol = (ProtocolPtr)getProtocol(protocolName);
-					if (aProtocol) {
-						
-						// instantiate Mirror object for distant application
-						aMirror = NULL;
-						args = TTValue(objectName);
-						
-						getAttributeCallback = NULL;
-						TTObjectInstantiate(TT("callback"), &getAttributeCallback, kTTValNONE);
-						getAttributeBaton = new TTValue(TTPtr(aProtocol));
-						getAttributeBaton->append(mName);
-						getAttributeBaton->append(absoluteAddress);
-						getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
-						getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
-						args.append(getAttributeCallback);
-						
-						setAttributeCallback = NULL;
-						TTObjectInstantiate(TT("callback"), &setAttributeCallback, kTTValNONE);
-						setAttributeBaton = new TTValue(TTPtr(aProtocol));
-						setAttributeBaton->append(mName);
-						setAttributeBaton->append(absoluteAddress);
-						setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
-						setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
-						args.append(setAttributeCallback);
-						
-						sendMessageCallback = NULL;
-						TTObjectInstantiate(TT("callback"), &sendMessageCallback, kTTValNONE);
-						sendMessageBaton = new TTValue(TTPtr(aProtocol));
-						sendMessageBaton->append(mName);
-						sendMessageBaton->append(absoluteAddress);
-						sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
-						sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
-						args.append(sendMessageCallback);
-						
-						listenAttributeCallback = NULL;
-						TTObjectInstantiate(TT("callback"), &listenAttributeCallback, kTTValNONE);
-						listenAttributeBaton = new TTValue(TTPtr(aProtocol));
-						listenAttributeBaton->append(mName);
-						listenAttributeBaton->append(absoluteAddress);
-						listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
-						listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
-						args.append(listenAttributeCallback);
-						
-						TTObjectInstantiate(kTTSym_Mirror, TTObjectHandle(&aMirror), args);
-						
-						// register object into the directory
-						this->mDirectory->TTNodeCreate(absoluteAddress, (TTObjectPtr)aMirror, NULL,  &aNode, &newInstanceCreated);
-						
-						// ?? to -- is it usefull to set attribute value ?
-						// yes : in modul8 case for example...
-						// so it depends of the protocol features : isGetRequestAllowed ?
-						
-						/*
-						// get all object attributes and their value
-						while (xmlTextReaderMoveToNextAttribute(aOpmlHandler->mReader) == 1) {
-							
-							// get attribute name
-							aOpmlHandler->fromXmlChar(xmlTextReaderName(aOpmlHandler->mReader), v);
-							if (v.getType() == kTypeSymbol) {
-								v.get(0, &attributeName);
-								
-								// get attribute value
-								aOpmlHandler->fromXmlChar(xmlTextReaderValue(aOpmlHandler->mReader), v);
-								
-
-								// aMirror->setAttributeValue(attributeName, v);
-							}
-						}
-						 */
-					}
-				}
-			}
-			
-			// if there are other nodes below :
-			// keep absolute address for next nodes
-			if (!empty)
-				mTempAddress = absoluteAddress;
-		}
-		// when a node ends : 
-		// keep the parent address for next nodes
-		else
-			mTempAddress = mTempAddress->getParent();
-			
-	}
-	
-	return kTTErrNone;
+	TTSymbolPtr		objectName, protocolName;
+	TTMirrorPtr		aMirror;
+	TTNodePtr		aNode;
+	TTBoolean		newInstanceCreated;
+	TTObjectPtr		getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
+	TTValuePtr		getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
+	ProtocolPtr		aProtocol;
+	TTValue			v, args, protocolNames;
+    
+    // when a node starts : append address to the current temp address
+    if (aXmlHandler->mXmlNodeStart) {
+        
+        mTempAddress = mTempAddress->appendAddress(TTADRS(aXmlHandler->mXmlNodeName->getCString()));
+    
+        // get the object name
+        if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("object")) == 1) {
+            
+            aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+            
+            if (v.getType() == kTypeSymbol) {
+                v.get(0, &objectName);
+                
+                // a distant application should have one protocol
+                protocolNames = getApplicationProtocols(mName);
+                protocolNames.get(0, &protocolName);
+                
+                aProtocol = (ProtocolPtr)getProtocol(protocolName);
+                if (aProtocol) {
+                    
+                    // instantiate Mirror object for distant application
+                    aMirror = NULL;
+                    args = TTValue(objectName);
+                    
+                    getAttributeCallback = NULL;
+                    TTObjectInstantiate(TT("callback"), &getAttributeCallback, kTTValNONE);
+                    getAttributeBaton = new TTValue(TTPtr(aProtocol));
+                    getAttributeBaton->append(mName);
+                    getAttributeBaton->append(mTempAddress);
+                    getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
+                    getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
+                    args.append(getAttributeCallback);
+                    
+                    setAttributeCallback = NULL;
+                    TTObjectInstantiate(TT("callback"), &setAttributeCallback, kTTValNONE);
+                    setAttributeBaton = new TTValue(TTPtr(aProtocol));
+                    setAttributeBaton->append(mName);
+                    setAttributeBaton->append(mTempAddress);
+                    setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
+                    setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
+                    args.append(setAttributeCallback);
+                    
+                    sendMessageCallback = NULL;
+                    TTObjectInstantiate(TT("callback"), &sendMessageCallback, kTTValNONE);
+                    sendMessageBaton = new TTValue(TTPtr(aProtocol));
+                    sendMessageBaton->append(mName);
+                    sendMessageBaton->append(mTempAddress);
+                    sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
+                    sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
+                    args.append(sendMessageCallback);
+                    
+                    listenAttributeCallback = NULL;
+                    TTObjectInstantiate(TT("callback"), &listenAttributeCallback, kTTValNONE);
+                    listenAttributeBaton = new TTValue(TTPtr(aProtocol));
+                    listenAttributeBaton->append(mName);
+                    listenAttributeBaton->append(mTempAddress);
+                    listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
+                    listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
+                    args.append(listenAttributeCallback);
+                    
+                    TTObjectInstantiate(kTTSym_Mirror, TTObjectHandle(&aMirror), args);
+                    
+                    // register object into the directory
+                    this->mDirectory->TTNodeCreate(mTempAddress, (TTObjectPtr)aMirror, NULL,  &aNode, &newInstanceCreated);
+                    
+                    // ?? to -- is it usefull to set attribute value ?
+                    // yes : in modul8 case for example...
+                    // so it depends of the protocol features : isGetRequestAllowed ?
+                    
+                    /*
+                    // get all object attributes and their value
+                    while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+                     
+                        // get attribute name
+                        aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+                     
+                        if (v.getType() == kTypeSymbol) {
+                            v.get(0, &attributeName);
+                     
+                            // get attribute value
+                            aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+                     
+                     
+                            aMirror->setAttributeValue(attributeName, v);
+                        }
+                     }
+                     */
+                }
+            }
+        }
+        
+        // when a node is empty : keep the parent address for next nodes
+        if (aXmlHandler->mXmlNodeIsEmpty)
+            mTempAddress = mTempAddress->getParent();
+    }
+    
+    // when a node ends : keep the parent address for next nodes
+    else
+        mTempAddress = mTempAddress->getParent();
 }
 
 #if 0

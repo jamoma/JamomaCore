@@ -17,9 +17,6 @@
  
  */
 
-class TTOpmlHandler;
-typedef TTOpmlHandler* TTOpmlHandlerPtr;
-
 class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 {
 	TTCLASS_SETUP(TTExplorer)
@@ -128,15 +125,6 @@ private:
 	
 	/** */
 	TTErr returnSelectionBack();
-
-	/**  needed to be handled by a TTXmlHandler */
-	TTErr WriteAsOpml(const TTValue& inputValue, TTValue& outputValue);
-	void writeNode(TTOpmlHandlerPtr anOpmlHandler, TTNodePtr aNode);
-	
-	/* TODO :
-	 TTErr WriteAsText(const TTValue& value);			// pass an text buffer ?
-	 TTErr ReadFromText(const TTValue& value);			// pass an text buffer ?
-	 */
 	
 	friend TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data);

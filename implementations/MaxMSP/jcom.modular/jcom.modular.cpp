@@ -33,6 +33,9 @@ void	modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 void	modular_namespace_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void	modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+void	modular_namespace_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void	modular_namespace_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+
 int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	ModularSpec *spec = new ModularSpec;
@@ -51,6 +54,8 @@ void WrapTTApplicationClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)modular_protocol_setup,			"protocol/setup",				A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)modular_namespace_read,			"namespace/read",				A_GIMME, 0);
+    
+    class_addmethod(c->maxClass, (method)modular_namespace_write,			"namespace/write",				A_GIMME, 0);
 }
 
 void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
@@ -58,7 +63,7 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbolPtr					applicationName = NULL;
 	TTSymbolPtr					protocolName = NULL;
-	TTOpmlHandlerPtr			aOpmlHandler;
+	TTXmlHandlerPtr			aXmlHandler;
 	TTValue						v, args;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 		
@@ -114,16 +119,16 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
 	EXTRA->protocolName = protocolName;
 	
-	// Prepare Internals hash to store OpmlHanler object
+	// Prepare Internals hash to store XmlHanler object
 	x->internals = new TTHash();
 	
-	// create internal TTOpmlHandler
-	aOpmlHandler = NULL;
-	TTObjectInstantiate(kTTSym_OpmlHandler, TTObjectHandle(&aOpmlHandler), args);
-	v = TTValue(TTPtr(aOpmlHandler));
-	x->internals->append(kTTSym_OpmlHandler, v);
+	// create internal TTXmlHandler
+	aXmlHandler = NULL;
+	TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&aXmlHandler), args);
+	v = TTValue(TTPtr(aXmlHandler));
+	x->internals->append(kTTSym_XmlHandler, v);
 	v = TTValue(TTPtr(x->wrappedObject));
-	aOpmlHandler->setAttributeValue(kTTSym_object, v);
+	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	
 	if (attrstart && argv) attr_args_process(x, argc, argv);
 }
@@ -242,7 +247,7 @@ void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue				o, v;
 	TTSymbolPtr			fullpath;
-	TTOpmlHandlerPtr	aOpmlHandler = NULL;
+	TTXmlHandlerPtr     aXmlHandler = NULL;
 	TTErr				tterr;
 	
 	if (x->wrappedObject) {
@@ -250,18 +255,56 @@ void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 		fullpath = jamoma_file_read((ObjectPtr)x, argc, argv, NULL);
 		v.append(fullpath);
 		
-		tterr = x->internals->lookup(kTTSym_OpmlHandler, o);
+		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aOpmlHandler);
+			o.get(0, (TTPtr*)&aXmlHandler);
 			
 			critical_enter(0);
-			tterr = aOpmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
+			tterr = aXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
 			critical_exit(0);
 			
 			if (!tterr)
 				object_obex_dumpout(self, _sym_read, argc, argv);
+			else
+				object_obex_dumpout(self, _sym_error, 0, NULL);
+		}
+	}
+}
+
+void	modular_namespace_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+    defer(self, (method)modular_namespace_dowrite, msg, argc, argv);
+}
+
+void	modular_namespace_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+    WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	char 			filename[MAX_FILENAME_CHARS];
+	TTSymbolPtr		fullpath;
+	TTValue			o, v;
+	TTXmlHandlerPtr aXmlHandler;
+	TTErr			tterr;
+	
+	if (x->wrappedObject) {
+		
+		// Default XML File Name
+		snprintf(filename, MAX_FILENAME_CHARS, "namespace.xml");
+		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
+		v.append(fullpath);
+		
+		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
+		
+		if (!tterr) {
+			o.get(0, (TTPtr*)&aXmlHandler);
+			
+			critical_enter(0);
+			tterr = aXmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);
+			critical_exit(0);
+			
+			if (!tterr)
+				object_obex_dumpout(self, _sym_write, argc, argv);
 			else
 				object_obex_dumpout(self, _sym_error, 0, NULL);
 		}
