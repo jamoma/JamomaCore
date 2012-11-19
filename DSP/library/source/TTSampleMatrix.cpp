@@ -1,8 +1,15 @@
-/*
- * Jamoma DSP Sample Matrix Object 
- * Copyright © 2003-2012, Timothy Place & Nathan Wolek
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Container object that holds some audio in a chunk of memory.
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @see TTMatrix, TTAudioSignal
+ *  
+ * @authors Timothy Place & Nathan Wolek
+ *
+ * @copyright Copyright © 2003-2012, Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
