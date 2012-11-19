@@ -37,3 +37,6 @@ builds
 
 # TextMate project files
 *.tmproj
+
+# Doxygen temp files:
+*.aux
