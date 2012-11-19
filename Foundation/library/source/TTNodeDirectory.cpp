@@ -756,7 +756,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 					lk_o->current().get(0, (TTPtr*)&anObserver);
 					TT_ASSERT("TTNode observer list member is not NULL", anObserver);
 
-					anObserver->getAttributeValue(TT("Owner"), vo);
+					anObserver->getAttributeValue(TTSymbol("Owner"), vo);
 					vo.get(0, owner);
 
 					// edit a "owner (pointer)" string
@@ -773,7 +773,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 					vk->append(TT(ownerptStr.data()));
 				}
 			else
-				vk->append(TT("<empty>"));
+				vk->append(TTSymbol("<empty>"));
 
 			value.append((TTPtr)vk);
 		}
@@ -1026,7 +1026,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					result = YES;					// a node is into the result by default (and resultFilter have to be YES to keep it)
 				else if (filterMode == kTTSym_exclude)
 					result = YES;					// a node is into the result by default (and resultFilter have to be NO to keep it)
-				else if (filterMode == TT("hamlet"))
+				else if (filterMode == TTSymbol("hamlet"))
 					result = NO;					// a node isn't into the result by default (and resultFilter have to be NO to keep it)
 				
 				firstFilter = NO;					// the next filter will not be a first filter anymore...
@@ -1040,7 +1040,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				result = result & resultFilter;		// keep the node if it matches this filter (and matches the first filters)
 			else if (filterMode == kTTSym_exclude)
 				result = result & !resultFilter;	// keep the node if it doesn't matches this filter (and matches the first filters)
-			else if (filterMode == TT("hamlet"))
+			else if (filterMode == TTSymbol("hamlet"))
 				result = result || !resultFilter;	// keep the node if it doesn't match this filter (what ever the first filters)
 			
 		}
