@@ -15,12 +15,12 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	int					testAssertionCount = 0;
 	
 	// for tests
-	TTUInt16			numChannels = 2;
-	TTUInt16			numSamples = 50000;
+	TTInt16				numChannels = 2;
+	TTInt32				numSamples = 50000;
 	TTFloat32			duration = 1500;
-	TTUInt32			test9Index = 10;
-	TTUInt32			test10Index = 11;
-	TTUInt32			test1Return, test2Return, test7Return, test8Return;
+	TTInt32				test9Index = 10;
+	TTInt32				test10Index = 11;
+	TTInt32				test1Return, test2Return, test7Return, test8Return;
 	TTFloat32			test3Return, test6Return;
 	TTSampleValue		test9Return, test10Return, test11Return, test12return;
 	
