@@ -5,6 +5,11 @@
 # Build Jamoma
 ###################################################################
 
+@projectName = ENV['JAMOMAPROJECT']
+
+$alternate_pkgInfo = nil
+$alternate_pkgInfo = "../../../../../Jamoma/Core/Shared/max/PkgInfo" if @projectName == "TapTools"
+
 # First include the functions in the jamoma lib
 libdir = "."
 Dir.chdir libdir             # change to libdir so that requires work
@@ -110,8 +115,6 @@ if(ARGV.length > 4 && ARGV[4] == 0)
 else
   revision = "#{git_rev}"
 end
-
-@projectName = ENV['JAMOMAPROJECT']
 
 if mac?
   unless File.exist?("/usr/local/jamoma/lib")
