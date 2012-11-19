@@ -163,7 +163,7 @@ void WrapTTInputClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)in_assist,						"assist",				A_CANT, 0L);
 	
 #ifdef JCOM_IN_TILDE
-	class_addmethod(c->maxClass, (method)in_dsp,						"dsp", 					A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)in_dsp,						"dsp", 					A_CANT, 0L);
 	class_addmethod(c->maxClass, (method)in_dsp64,						"dsp64",				A_CANT, 0);
 	//class_addmethod(c->maxClass, (method)in_remoteaudio,				"remoteaudio",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)in_return_amplitude_active,	"return_amplitude_active",	A_CANT, 0);
@@ -212,11 +212,13 @@ void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr));
 		
 #ifdef JCOM_IN_TILDE
+    TTValue sr(sys_getsr());
+    ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
 	
 	jamoma_input_create_audio((ObjectPtr)x, &x->wrappedObject);
 	 
 	dsp_setup((t_pxobject *)x, 1);	
-	x->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
+	x->obj.z_misc = Z_NO_INPLACE;
 	
 	outlet_new((t_pxobject *)x, "signal");
 	
@@ -432,9 +434,6 @@ t_int *in_perform(t_int *w)
 	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
 	TTAudioSignalPtr			sentSignal;
 	TTUInt16					vectorSize = 0;
-	t_float*					envelope;
-	TTUInt16					n;
-	TTFloat32					peakvalue, currentvalue;
 	
 	if (anInput) {
 		
@@ -469,10 +468,12 @@ t_int *in_perform(t_int *w)
 		
 		// metering
 		if (!anInput->mMute) {
-			envelope = (t_float *)(w[3]);
-			peakvalue = 0.0;
 			
-			n = vectorSize;
+            TTUInt16				n = vectorSize;
+            TTFloat32				currentvalue = 0;
+            TTFloat32				peakvalue = 0.0;
+            t_float*                envelope = (t_float *)(w[3]);
+			
 			while (n--) {
 				if ((*envelope) < 0 )						// get the current sample's absolute value
 					currentvalue = -(*envelope);
@@ -494,6 +495,75 @@ t_int *in_perform(t_int *w)
 	}
 	
 	return w + 4;
+}
+
+// Perform Method 64 bit - just pass the whole vector straight through
+// (the work is all done in the dsp 64 bit method)
+void in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
+    TTAudioSignalPtr			sentSignal;
+	TTUInt16					vectorSize = 0;
+    
+	if (anInput) {
+		
+		// get signal vectorSize
+		anInput->mSignalIn->getAttributeValue(kTTSym_vectorSize, vectorSize);
+
+		// Store the input from the inlets
+		TTAudioSignalPtr(anInput->mSignalIn)->setVector(0, vectorSize, ins[0]);
+		
+		// if signal is bypassed or muted : send a zero signal to the algorithm
+		if (anInput->mBypass || anInput->mMute) TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalZero), *TTAudioSignalPtr(anInput->mSignalOut));
+		// else copy in to out
+		else TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
+		
+		// sum signal from jcom.send~ objects
+		if (anInput->mSignalCache) {
+			
+			for (anInput->mSignalCache->begin(); anInput->mSignalCache->end(); anInput->mSignalCache->next()) {
+				
+				anInput->mSignalCache->current().get(0, (TTPtr*)&sentSignal);
+				
+				if (sentSignal)
+					*TTAudioSignalPtr(anInput->mSignalOut) += *sentSignal;
+			}
+		}
+		
+		// clear the signal cache
+		anInput->mSignalCache->clear();
+		
+		// Send the input on to the outlets for the algorithm
+		TTAudioSignalPtr(anInput->mSignalOut)->getVector(0, vectorSize, outs[0]);
+        
+        // metering
+		if (!anInput->mMute) {
+			
+            TTUInt16				n = vectorSize;;
+            TTFloat32				currentvalue = 0;
+            TTFloat32				peakvalue = 0.0;
+            TTSampleValue*          envelope = outs[0];
+			
+			while (n--) {
+				if ((*envelope) < 0 )						// get the current sample's absolute value
+					currentvalue = -(*envelope);
+				else
+					currentvalue = *envelope;
+				
+				if (currentvalue > peakvalue) 				// if it's a new peak amplitude...
+					peakvalue = currentvalue;
+				envelope++; 								// increment pointer in the vector
+			}
+			
+			// set meter
+			EXTRA->meter = peakvalue;
+			
+			// set peak
+			if (peakvalue > EXTRA->peak)
+				EXTRA->peak = peakvalue;
+		}
+	}
 }
 
 // DSP Method
@@ -531,38 +601,10 @@ void in_dsp(TTPtr self, t_signal **sp, short *count)
 	}
 }
 
-// Perform Method 64 bit - just pass the whole vector straight through
-// (the work is all done in the dsp 64 bit method)
-void in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
-{
-	/*
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
-	TTUInt16					vectorSize = 0;
-	short						i; 
-	
-	if (anInput) {
-		
-		// get signal vectorSize
-		anInput->mSignalIn->getAttributeValue(kTTSym_vectorSize, vectorSize);
-		
-		// Store the input from the inlets
-		TTAudioSignalPtr(anInput->mSignalIn)->setVector(0, vectorSize, ins[0]);
-		// if this doesn't work, I need to try setVector64Copy instead of setVector
-		
-		// TODO: need to mix in input here from jcom.send~ objects (as in the old code above)
-		TTAudioSignal::copy(*TTAudioSignalPtr(anInput->mSignalIn), *TTAudioSignalPtr(anInput->mSignalOut));
-		
-		// Send the input on to the outlets for the algorithm
-		TTAudioSignalPtr(anInput->mSignalOut)->getVectorCopy(0, vectorSize, outs[0]);
-	}
-	 */
-}
-
 // DSP64 method
 void in_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
-	/*
+
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTInputPtr					anInput = (TTInputPtr)x->wrappedObject;
 	
@@ -577,9 +619,8 @@ void in_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, long
 		// mSignalIn will be set in the perform method
 		anInput->mSignalOut->sendMessage(kTTSym_alloc);
 		
-		object_method(dsp64, gensym("dsp_add64"), x, in_perform64, 0, NULL); 
+		object_method(dsp64, gensym("dsp_add64"), x, in_perform64, 0, NULL);
 	}
-	 */
 }
 
 void in_return_amplitude_active(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
