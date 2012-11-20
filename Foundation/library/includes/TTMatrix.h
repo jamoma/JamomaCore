@@ -273,7 +273,7 @@ public:
 	
 	
 	/**	A function pointer for implementing handlers in the makeInBounds() method.	
-		The format for this function pointer follows most of the methods defined in TTLimits (i.e. TTClip, TTInfWrap, TTFold) so that they can be used here to handle out of bounds values.
+		The format for this function pointer follows most of the methods defined in TTLimits (i.e. TTClip, TTInfWrap, TTFold) which means they can be used here to handle out of bounds values.  However, the methods defined in this class (i.e. outOfBoundsClip, outOfBoundsWrap, outOfBoundsFold) are safer because they handle specific considerations
 	
 	@param[in]	index		reference to an index that will be checked and corrected if not in bounds
 	@param[in]	lowBound	lowest value allowed for index
@@ -283,8 +283,29 @@ public:
 	@seealso TTLimits.h
 	*/
 	typedef TTInt32 (*TTMatrixOutOfBoundsHandler)(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound);
+	
+	static TTInt32 outOfBoundsClip(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
+	{
+		// the TTClip method does not depend highBound being equal to the dimension size, so we just subtract 1
+		return TTClip(index, lowBound, (highBound-1));
+	}
+	
+	static TTInt32 outOfBoundsWrap(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
+	{
+		// the TTInfWrap method does not allow the highBound as a valid result, so we can pass values as is
+		return TTInfWrap(index, lowBound, highBound);
+	}
+	
+	static TTInt32 outOfBoundsFold(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
+	{
+		// the TTFold method allows highBound as a valid result, but the math depends on it being equal to the dimension size
+		TTInt32 output = TTFold(index, lowBound, highBound);
+		// so we adjust whenever highBound is produced as an output
+		if (output == highBound) --output;
+		return output;
+	}
 		
-	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = TTClip)
+	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
 		TTRowID i_input = i;
 		
@@ -293,7 +314,7 @@ public:
 		return (i_input != i); // true or false, did it change?
 	}
 	
-	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = TTClip)
+	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
 		TTColumnID j_input = j;
 		
@@ -302,7 +323,7 @@ public:
 		return (j_input != j); // true or false, did it change?
 	}
 	
-	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = TTClip)
+	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
 		TTColumnID e_input = e;
 		
@@ -319,7 +340,7 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, TTClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = TTClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
 		// do we want to keep?
 	}
@@ -333,7 +354,7 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, TTClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = TTClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
 		// do we want to keep?
 	}

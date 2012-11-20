@@ -230,7 +230,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		// test negative values for inbounds tests
+		// test values with makeInBounds functions
 		TTInt32 i_prebounds = -3;
 		TTInt32 j_prebounds = 123;
         TTInt32 i = i_prebounds;
@@ -252,19 +252,12 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						j == 119,
 						testAssertionCount,
 						errorCount);
-		TTTestLog("j value is %i but expected 119", j); // temp comment
 		
-		/** testing TTClip outside makeInBounds :: DOES NOT COMPILE
-		long input = 123;
-		long output = TTClip(input, 0, 120);
-		TTTestLog("fed TTClip a value of %i but it returned %i", input, output);
-        */
-		
-		// reset and try different limiting function
+		// reset and try wrapping function
 		i = i_prebounds; 
 		j = j_prebounds;
-		matrix->makeRowIDInBounds(i,TTInfWrap); 
-		matrix->makeColumnIDInBounds(j,TTInfWrap); 
+		matrix->makeRowIDInBounds(i,outOfBoundsWrap); 
+		matrix->makeColumnIDInBounds(j,outOfBoundsWrap); 
 		TTTestAssertion("< 0 i value was wrapped by out of bounds operation",
 						i == 157, // 160 should be max, so it will be 160 - 3
 						testAssertionCount,
@@ -273,8 +266,20 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						j == 3, // 120 should be max, so it will be 123 - 120 
 						testAssertionCount,
 						errorCount);
-		TTTestLog("j value is %i, but expected 3", j); // temp comment
 						
+		// reset and try folding function
+		i = i_prebounds; 
+		j = j_prebounds;
+		matrix->makeRowIDInBounds(i,outOfBoundsFold); 
+		matrix->makeColumnIDInBounds(j,outOfBoundsFold); 
+		TTTestAssertion("< 0 i value was folded by out of bounds operation",
+						i == 3, // 0 is min, so it will be 0 - (-3)
+						testAssertionCount,
+						errorCount);
+		TTTestAssertion("> max j value was folded by out of bounds operation",
+						j == 117, // 120 should be max, so it will be 120 - (123 - 120)
+						testAssertionCount,
+						errorCount);
 		
 		err = TTObjectRelease((TTObjectPtr*)&matrix);
 		TTTestAssertion("frees successfully", 
