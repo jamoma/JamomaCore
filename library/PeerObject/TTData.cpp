@@ -29,7 +29,7 @@ mDynamicInstances(NO),
 mInstanceBounds(0, -1),
 #ifndef TTDATA_NO_RAMPLIB
 mRampDrive(kTTSym_none),
-mRampFunction(kTTSymEmpty),
+mRampFunction(kTTSym_none),
 mRampFunctionParameters(kTTValNONE),
 mRampStatus(NO),
 #endif
@@ -143,6 +143,9 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol	ramp;
 	TTValue		command;
 	
+    if (mType == kTTSym_string)
+        return kTTErrGeneric;
+    
 	mValueStepsize.get(0, vStepsize);
 	
 	switch (inputValue.getSize()) {
@@ -209,6 +212,9 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 	TTFloat64	dec, ramptime, v, vStepsize;
 	TTSymbol	ramp;
 	TTValue		command;
+    
+    if (mType == kTTSym_string)
+        return kTTErrGeneric;
 	
 	mValueStepsize.get(0, vStepsize);
 	
@@ -449,7 +455,7 @@ TTErr TTData::setValue(const TTValue& value)
 			mValue = value;
 			mValue.toString();
 			mValue.get(0, s);
-			mValue = TTValue(TT(s.data()));
+			mValue = TTValue(TTSymbol(s));
 		}
 		else {
 			
@@ -526,7 +532,7 @@ TTErr TTData::setType(const TTValue& value)
 		
 		// Get Value, ValueDefault and ValueStepsize attributes
 		this->findAttribute(kTTSym_value, &valueAttribute);
-		this->findAttribute(kTTSym_value, &valueDefaultAttribute);
+		this->findAttribute(kTTSym_valueDefault, &valueDefaultAttribute);
 		this->findAttribute(kTTSym_valueStepsize, &valueStepSizeAttribute);
 
 		mInstanceBounds.set(0, TTInt16(0));
@@ -680,7 +686,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mRampFunction = value;
 	
-	if (mRamper && mRampFunction != kTTSymEmpty) {
+	if (mRamper && mRampFunction != kTTSym_none) {
 		
 		// set the function of the ramper
 		mRamper->setAttributeValue(kTTSym_function, mRampFunction);

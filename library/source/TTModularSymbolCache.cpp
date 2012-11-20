@@ -135,7 +135,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_unit                             (("unit"
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_value                            (("value"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_valueDefault                     (("valueDefault"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_valueStepsize					(("valvalueStepsizeue"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_valueStepsize					(("valueStepsize"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_viewFreeze                       (("viewFreeze"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_view                             (("view"));
 

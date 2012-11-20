@@ -135,6 +135,9 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 	jamoma_data_create((ObjectPtr)x, &x->wrappedObject, kTTSym_parameter);
 #endif
 #endif
+    
+    if (argc && argv)
+        attr_args_process(x, argc, argv);
 	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
@@ -150,8 +153,7 @@ void data_subscribe(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomP
 	if (TTAddress(relativeAddress->s_name).getType() == kAddressRelative) {
 		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name), &x->subscriberObject);
 		
-		if (argc && argv)
-			attr_args_process(x, argc, argv);
+		
 	}
 	else
 		object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
