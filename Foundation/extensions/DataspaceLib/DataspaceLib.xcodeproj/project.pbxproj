@@ -50,11 +50,11 @@
 		22149CC714858A4400B873B0 = {
 			isa = PBXGroup;
 			children = (
+				22149CFE14858AE100B873B0 /* TTDataspaceLib.h */,
+				22149CFD14858AE100B873B0 /* TTDataspaceLib.cpp */,
 				22149CD714858AE100B873B0 /* includes */,
 				22149CE514858AE100B873B0 /* source */,
 				22149CF314858AE100B873B0 /* tests */,
-				22149CFD14858AE100B873B0 /* TTDataspaceLib.cpp */,
-				22149CFE14858AE100B873B0 /* TTDataspaceLib.h */,
 			);
 			sourceTree = "<group>";
 		};
