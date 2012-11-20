@@ -167,11 +167,11 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTSampleValue pokeValue9 = TTRandom64();
 	TTSampleValue pokeValue10 = TTRandom64();
 	
-	this->poke(test9Index, 1, pokeValue9);
-	this->poke(test10Index, 1, pokeValue10);
+	this->poke(test9Index, 0, pokeValue9);
+	this->poke(test10Index, 0, pokeValue10);
 	
-	this->peek(test9Index, 1, test9Return);
-	this->peek(test10Index, 1, test10Return);
+	this->peek(test9Index, 0, test9Return);
+	this->peek(test10Index, 0, test10Return);
 	
 	TTBoolean result9 = { pokeValue9 == test9Return };
 	
@@ -203,7 +203,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTFloat64 computedInterpIndex = test9Index + computedInterpFraction;
 	TTSampleValue computedInterpValue11 = (computedInterpFraction * pokeValue9) + ((1.0 - computedInterpFraction) * pokeValue10);
 	
-	this->peeki(computedInterpIndex, 1, test11Return);
+	this->peeki(computedInterpIndex, 0, test11Return);
 	
 	TTBoolean result11 = TTTestFloatEquivalence(computedInterpValue11, test11Return);
 	

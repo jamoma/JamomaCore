@@ -213,7 +213,7 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 
 #ifndef ARRAY_EXTERNAL
 	if (x->subscriberObject) {
-		x->subscriberObject->getAttributeValue(TT("context"), v);
+		x->subscriberObject->getAttributeValue(TTSymbol("context"), v);
 		v.get(0, (TTPtr*)&context);
 		
 		// if the patcher is deleted
@@ -221,7 +221,7 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 			if (msg == _sym_free) {
 				
 				// delete the context node if it exists
-				x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
+				x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
 				v.get(0, contextAddress);
 				
 				JamomaDirectory->TTNodeRemove(contextAddress);
@@ -257,7 +257,7 @@ void wrappedModularClass_shareContextNode(TTPtr self, TTNodePtr *contextNode)
 	TTValue	v;
 #ifndef ARRAY_EXTERNAL
 	if (x->subscriberObject) {
-		x->subscriberObject->getAttributeValue(TT("contextNode"), v);
+		x->subscriberObject->getAttributeValue(TTSymbol("contextNode"), v);
 		v.get(0, (TTPtr*)contextNode);
 	}
 	else
@@ -434,17 +434,19 @@ TTErr wrappedModularClass_sendMessage(TTPtr self, SymbolPtr s, AtomCount argc, A
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			inputValue, outputValue;
-	TTSymbol		ttName = NULL;
+	TTSymbol		ttName;
 	TTMessagePtr	aMessage = NULL;
 	AtomCount		ac = 0;
 	AtomPtr			av = NULL;
 	MaxErr			m_err;
 	TTErr			err;
+    TTPtr           ptr;
 	
-	m_err = hashtab_lookup(x->wrappedClassDefinition->maxNamesToTTNames, s, (ObjectPtr*)&ttName);
+	m_err = hashtab_lookup(x->wrappedClassDefinition->maxNamesToTTNames, s, (ObjectPtr*)&ptr);
 	if (!m_err) {
 		
 		// Is it a message of the wrapped object ?
+        ttName = TTSymbol(ptr);
 		err = selectedObject->findMessage(ttName, &aMessage);
 		if (!err) {
 			// send message
@@ -513,7 +515,7 @@ void wrappedModularClass_dump(TTPtr self)
     if (x->subscriberObject)
     {
     	// send out the absolute address of the subscriber
-        x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
+        x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
         v.get(0, address);
         atom_setsym(&a, gensym((char *) address.c_str()));
         object_obex_dumpout(self, gensym("address"), 1, &a);
@@ -562,9 +564,9 @@ void wrappedModularClass_paint(WrappedModularInstancePtr x, t_object *view)
 	v.setSize(2);
 	v.set(0, rect.width);
 	v.set(1, rect.height);
-	err = selectedObject->sendMessage(TT("resize"), v);
-	err = selectedObject->sendMessage(TT("paint"));
-	err = selectedObject->sendMessage(TT("getData"), v);
+	err = selectedObject->sendMessage(TTSymbol("resize"), v);
+	err = selectedObject->sendMessage(TTSymbol("paint"));
+	err = selectedObject->sendMessage(TTSymbol("getData"), v);
 	if (!err) {
 		data = (unsigned char*)TTPtr(v);
 		v.get(1, width);
@@ -593,7 +595,7 @@ TTPtr wrappedModularClass_oksize(TTPtr self, t_rect *newrect)
 	v.set(2, newrect->width);
 	v.set(3, newrect->height);
 	
-	selectedObject->sendMessage(TT("verifyResize"), v);
+	selectedObject->sendMessage(TTSymbol("verifyResize"), v);
 	
 	v.get(2, newrect->width); 
 	v.get(3, newrect->height);
@@ -610,7 +612,7 @@ void wrappedModularClass_mousedblclick(TTPtr self, ObjectPtr patcherview, t_pt p
 	v.set(0, pt.x);
 	v.set(1, pt.y);
 	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
-	selectedObject->sendMessage(TT("mouseDoubleClicked"), v);
+	selectedObject->sendMessage(TTSymbol("mouseDoubleClicked"), v);
 	jbox_redraw((t_jbox *)x);
 }
 
@@ -623,7 +625,7 @@ void wrappedModularClass_mousedown(TTPtr self, ObjectPtr patcherview, t_pt pt, l
 	v.set(0, pt.x);
 	v.set(1, pt.y);
 	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
-	selectedObject->sendMessage(TT("mouseDown"), v);
+	selectedObject->sendMessage(TTSymbol("mouseDown"), v);
 	jbox_redraw((t_jbox *)x);
 }
 
@@ -636,7 +638,7 @@ void wrappedModularClass_mousedrag(TTPtr self, ObjectPtr patcherview, t_pt pt, l
 	v.set(0, pt.x);
 	v.set(1, pt.y);
 	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
-	selectedObject->sendMessage(TT("mouseDragged"), v);
+	selectedObject->sendMessage(TTSymbol("mouseDragged"), v);
 	jbox_redraw((t_jbox *)x);
 }
 
@@ -649,7 +651,7 @@ void wrappedModularClass_mouseup(TTPtr self, ObjectPtr patcherview, t_pt pt, lon
 	v.set(0, pt.x);
 	v.set(1, pt.y);
 	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
-	selectedObject->sendMessage(TT("mouseUp"), v);
+	selectedObject->sendMessage(TTSymbol("mouseUp"), v);
 	jbox_redraw((t_jbox *)x);
 }
 
@@ -663,7 +665,7 @@ void wrappedModularClass_mouseenter(TTPtr self, ObjectPtr patcherview, t_pt pt, 
 	v.set(0, pt.x);
 	v.set(1, pt.y);
 	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
-	selectedObject->sendMessage(TT("mouseEntered"), v);
+	selectedObject->sendMessage(TTSymbol("mouseEntered"), v);
 	jbox_redraw((t_jbox *)x);
 }
 
@@ -676,7 +678,7 @@ void wrappedModularClass_mousemove(TTPtr self, ObjectPtr patcherview, t_pt pt, l
 	v.set(0, pt.x);
 	v.set(1, pt.y);
 	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
-	selectedObject->sendMessage(TT("mouseMoved"), v);
+	selectedObject->sendMessage(TTSymbol("mouseMoved"), v);
 	jbox_redraw((t_jbox *)x);
 }
 
@@ -689,7 +691,7 @@ void wrappedModularClass_mouseleave(TTPtr self, ObjectPtr patcherview, t_pt pt, 
 	v.set(0, pt.x);
 	v.set(1, pt.y);
 	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
-	selectedObject->sendMessage(TT("mouseExited"), v);
+	selectedObject->sendMessage(TTSymbol("mouseExited"), v);
 	jbox_redraw((t_jbox *)x);
 }
 
@@ -762,25 +764,25 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 		v.get(i, TTName);
 
 #ifdef UI_EXTERNAL
-		if (TTName == TT("mouseDown"))
+		if (TTName == TTSymbol("mouseDown"))
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedUIClass_mousedown,	"mousedown",	A_CANT, 0);
-		else if (TTName == TT("mouseDragged"))
+		else if (TTName == TTSymbol("mouseDragged"))
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedUIClass_mousedrag,	"mousedrag",	A_CANT, 0);
-		else if (TTName == TT("mouseUp"))
+		else if (TTName == TTSymbol("mouseUp"))
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedUIClass_mouseup,		"mouseup",		A_CANT, 0);
-		else if (TTName == TT("mouseEntered"))
+		else if (TTName == TTSymbol("mouseEntered"))
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedUIClass_mouseenter,	"mouseenter",	A_CANT, 0);
-		else if (TTName == TT("mouseExited"))
+		else if (TTName == TTSymbol("mouseExited"))
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedUIClass_mouseleave,	"mouseleave",	A_CANT, 0);
-		else if (TTName == TT("mouseMoved"))
+		else if (TTName == TTSymbol("mouseMoved"))
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedUIClass_mousemove,	"mousemove",	A_CANT, 0);
-		else if (TTName == TT("mouseDoubleClicked"))
+		else if (TTName == TTSymbol("mouseDoubleClicked"))
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedUIClass_mousedblclick,"mousedoubleclick",	A_CANT, 0);
-		else if (TTName == TT("verifyResize"))
+		else if (TTName == TTSymbol("verifyResize"))
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedUIClass_oksize,		"oksize",		A_CANT, 0);
 		else 
 #endif
-		if (TTName == TT("test")) // to -- TTDataObject class have also a bypass attribute and some messages to hide too...
+		if (TTName == TTSymbol("test")) // to -- TTDataObject class have also a bypass attribute and some messages to hide too...
 			continue;
 		else if ((MaxName = jamoma_TTName_To_MaxName(TTName))) {
 			hashtab_store(wrappedMaxClass->maxNamesToTTNames, MaxName, ObjectPtr(TTName.rawpointer()));
@@ -814,7 +816,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 			// Add display styles for the Max 5 inspector
 			if (attr->type == kTypeBoolean)
 				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)TTName.c_str(), 0, "onoff");
-			if (TTName == TT("fontFace"))
+			if (TTName == TTSymbol("fontFace"))
 				CLASS_ATTR_STYLE(wrappedMaxClass->maxClass,	"fontFace", 0, "font");
 		}
 	}
@@ -867,12 +869,12 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	TTValuePtr		returnValueBaton;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
-	TTAddress dataAddress, dataName;
+	TTAddress       dataAddress, dataName;
 	TTValue			storedObject;
 	
 	// Prepare arguments to create a TTData object
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
@@ -887,7 +889,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
 	
 	// absolute registration
-	dataAddress = address.appendAddress(name.c_str());
+	dataAddress = address.appendAddress(TTAddress(name));
 	JamomaDirectory->TTNodeCreate(dataAddress, *returnedData, context, &aNode, &nodeCreated);
 	
 	aNode->getAddress(dataAddress);
@@ -896,7 +898,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	// absolute registration case : set the address in second position (see in unregister method)
 	storedObject = TTValue(TTPtr(*returnedData));
 	storedObject.append(dataAddress);
-	x->internals->append(TT(dataName.c_str()), storedObject);
+	x->internals->append(TTSymbol(dataName.c_str()), storedObject);
 	
 	JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" %s at : %s", dataName.c_str(), service.c_str(), dataAddress.c_str());
 	
@@ -912,7 +914,7 @@ TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
@@ -936,11 +938,11 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	TTValue			args, storedObject;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTAddress adrs;
+	TTAddress       adrs;
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
@@ -951,7 +953,7 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	TTObjectInstantiate(kTTSym_Viewer, TTObjectHandle(returnedViewer), args);
 	
 	// Set address attributes
-	adrs = address.appendAddress(name.c_str());
+	adrs = address.appendAddress(TTAddress(name));
 										 
 	(*returnedViewer)->setAttributeValue(kTTSym_address, adrs);
 	
@@ -967,7 +969,7 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	TTValue			args, storedObject;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTAddress adrs;
+	TTAddress       adrs;
 	
 	// prepare arguments
 	
@@ -975,7 +977,7 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	args.append(NULL);
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
@@ -986,7 +988,7 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(returnedReceiver), args);
 	
 	// Set address attributes
-	adrs = address.appendAddress(name.c_str());
+	adrs = address.appendAddress(TTAddress(name));
 	
 	(*returnedReceiver)->setAttributeValue(kTTSym_address, adrs);
 	
@@ -1001,7 +1003,7 @@ TTErr removeInternals_data(TTPtr self, TTAddress address, TTAddress name)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			storedObject;
 	TTObjectPtr		aData;
-	TTAddress dataAddress;
+	TTAddress       dataAddress;
 	TTErr			err;
 	
 	err = x->internals->lookup(name, storedObject);
