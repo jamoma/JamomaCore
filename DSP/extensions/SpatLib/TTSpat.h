@@ -83,13 +83,10 @@ protected:
 		
 	
 	
-	TTErr getSourcePosition(TTValue& aPosition);
-		
-	TTErr setSourcePosition(const TTValue& aPosition);
-	
-	TTErr getSinkPosition(TTValue& aPosition);
-	
-	TTErr setSinkPosition(const TTValue& aPosition);
+	TTErr getSourcePosition(const TTValue& anIndex, TTValue& returnedPosition);
+	TTErr setSourcePosition(const TTValue& aPosition, TTValue& unused);
+	TTErr getSinkPosition(const TTValue& anIndex, TTValue& returnedPosition);
+	TTErr setSinkPosition(const TTValue& aPosition, TTValue& unused);
 
 
 	/**	Return a list of all the available spatialisation methods.

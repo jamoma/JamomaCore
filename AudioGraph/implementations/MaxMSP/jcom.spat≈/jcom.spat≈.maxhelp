@@ -3,11 +3,12 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 6,
-			"minor" : 0,
-			"revision" : 0
+			"minor" : 1,
+			"revision" : 0,
+			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 408.0, 69.0, 735.0, 674.0 ],
+		"rect" : [ 100.0, 100.0, 735.0, 674.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -16,7 +17,7 @@
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
-		"statusbarvisible" : 2,
+		"statusbarvisible" : 1,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
@@ -27,6 +28,72 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-14",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 510.0, 90.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-5",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 520.0, 155.0, 150.0, 17.0 ],
+					"presentation_rect" : [ 531.0, 170.0, 0.0, 0.0 ],
+					"text" : "setSourcePosition 2 5. 5. 0."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-9",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 490.0, 130.0, 137.0, 17.0 ],
+					"presentation_rect" : [ 491.0, 130.0, 0.0, 0.0 ],
+					"text" : "setSinkPosition 2 4. 4. 0."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-7",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 315.0, 100.0, 20.0, 20.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-15",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 305.0, 170.0, 156.0, 17.0 ],
+					"text" : "setSourcePosition 1 0. 0.1 0."
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-12",
 					"maxclass" : "button",
@@ -41,55 +108,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-14",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "float", "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 425.0, 324.0, 50.0, 19.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-10",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 400.0, 350.0, 198.0, 17.0 ],
-					"text" : "setFunctionParameter dummyTest $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-9",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 380.0, 294.0, 183.0, 17.0 ],
-					"text" : "getFunctionParameter dummyTest"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
 					"id" : "obj-8",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 255.0, 535.0, 158.0, 17.0 ],
-					"text" : "getFunctionParameter 20."
+					"patching_rect" : [ 255.0, 535.0, 199.0, 17.0 ],
+					"text" : "spatFunction spat.snapToNearestSink"
 				}
 
 			}
@@ -134,8 +159,9 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 0
+							"minor" : 1,
+							"revision" : 0,
+							"architecture" : "x86"
 						}
 ,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -147,7 +173,7 @@
 						"gridonopen" : 0,
 						"gridsize" : [ 15.0, 15.0 ],
 						"gridsnaponopen" : 0,
-						"statusbarvisible" : 2,
+						"statusbarvisible" : 1,
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
@@ -291,22 +317,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [  ]
+ ]
 					}
 ,
 					"patching_rect" : [ 324.0, 372.0, 54.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"digest" : "",
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"tags" : "",
 						"default_fontsize" : 12.0,
 						"description" : "",
-						"globalpatchername" : "",
+						"digest" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontname" : "Arial",
+						"fontsize" : 12.0,
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p format"
@@ -318,7 +343,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-1",
-					"items" : [ "spat.matrix", ",", "spat.thru", ",", "spat.dbap" ],
+					"items" : "spat.snapToNearestSink",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -335,7 +360,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 75.0, 483.0, 20.0, 20.0 ]
+					"patching_rect" : [ 55.0, 483.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -343,12 +368,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : 0.0,
 					"id" : "obj-78",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 423.0, 480.0, 292.0, 43.0 ],
+					"patching_rect" : [ 423.0, 480.0, 563.0, 31.0 ],
 					"text" : "This is not true of the number of outputs.  But you can  dynamically change the number of outputs using the attribute."
 				}
 
@@ -357,12 +383,12 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : 0.0,
 					"id" : "obj-77",
-					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 423.0, 445.0, 283.0, 31.0 ],
+					"patching_rect" : [ 423.0, 445.0, 529.0, 19.0 ],
 					"text" : "Note: the number of inputs will be over-ridden by the actual number of channels received at the input."
 				}
 
@@ -377,7 +403,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 460.0, 600.0, 56.0, 19.0 ],
+					"patching_rect" : [ 460.0, 600.0, 32.5, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -392,7 +418,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 400.0, 600.0, 56.0, 19.0 ],
+					"patching_rect" : [ 400.0, 600.0, 32.5, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -407,7 +433,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 340.0, 600.0, 56.0, 19.0 ],
+					"patching_rect" : [ 340.0, 600.0, 32.5, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -422,7 +448,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 280.0, 600.0, 56.0, 19.0 ],
+					"patching_rect" : [ 280.0, 600.0, 32.5, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -437,7 +463,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 220.0, 600.0, 56.0, 19.0 ],
+					"patching_rect" : [ 220.0, 600.0, 32.5, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -452,7 +478,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 160.0, 600.0, 56.0, 19.0 ],
+					"patching_rect" : [ 160.0, 600.0, 32.5, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -467,7 +493,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 100.0, 600.0, 56.0, 19.0 ],
+					"patching_rect" : [ 100.0, 600.0, 32.5, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -482,7 +508,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 40.0, 600.0, 56.0, 19.0 ],
+					"patching_rect" : [ 40.0, 600.0, 32.5, 19.0 ],
 					"sig" : 0.0
 				}
 
@@ -525,7 +551,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 175.0, 205.0, 50.0, 19.0 ]
+					"patching_rect" : [ 175.0, 205.0, 32.5, 19.0 ]
 				}
 
 			}
@@ -539,7 +565,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 120.0, 205.0, 50.0, 19.0 ]
+					"patching_rect" : [ 120.0, 205.0, 32.5, 19.0 ]
 				}
 
 			}
@@ -553,7 +579,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 65.0, 205.0, 50.0, 19.0 ]
+					"patching_rect" : [ 65.0, 205.0, 32.5, 19.0 ]
 				}
 
 			}
@@ -566,7 +592,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "audio.connect", "", "", "", "" ],
-					"patching_rect" : [ 37.5, 176.0, 184.0, 19.0 ],
+					"patching_rect" : [ 37.5, 176.0, 73.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -581,7 +607,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 170.0, 535.0, 50.0, 19.0 ]
+					"patching_rect" : [ 165.0, 540.0, 32.5, 19.0 ]
 				}
 
 			}
@@ -595,7 +621,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 115.0, 535.0, 50.0, 19.0 ]
+					"patching_rect" : [ 110.0, 540.0, 32.5, 19.0 ]
 				}
 
 			}
@@ -609,7 +635,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 60.0, 535.0, 50.0, 19.0 ]
+					"patching_rect" : [ 55.0, 540.0, 32.5, 19.0 ]
 				}
 
 			}
@@ -622,7 +648,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "audio.connect", "", "", "", "" ],
-					"patching_rect" : [ 60.0, 510.0, 184.0, 19.0 ],
+					"patching_rect" : [ 40.0, 510.0, 73.0, 19.0 ],
 					"text" : "jcom.info≈"
 				}
 
@@ -636,7 +662,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 735.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 1023.0, 70.0 ]
 				}
 
 			}
@@ -659,7 +685,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 9,
 					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal", "signal", "signal", "" ],
-					"patching_rect" : [ 40.0, 570.0, 499.0, 19.0 ],
+					"patching_rect" : [ 40.0, 570.0, 127.0, 19.0 ],
 					"text" : "jcom.unpack≈ 8"
 				}
 
@@ -673,7 +699,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 40.0, 120.0, 69.0, 19.0 ],
+					"patching_rect" : [ 40.0, 120.0, 70.0, 19.0 ],
 					"text" : "jcom.pack≈"
 				}
 
@@ -687,8 +713,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
-					"patching_rect" : [ 40.0, 457.0, 261.0, 19.0 ],
-					"text" : "jcom.spat≈ @sourceCount 2 @destinationCount 8"
+					"patching_rect" : [ 40.0, 460.0, 227.0, 19.0 ],
+					"text" : "jcom.spat≈ @sourceCount 2 @sinkCount 8"
 				}
 
 			}
@@ -710,13 +736,13 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"id" : "obj-5",
+					"id" : "obj-16",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 360.0, 268.0, 136.0, 17.0 ],
-					"text" : "getFunctionParameters 1"
+					"patching_rect" : [ 265.0, 130.0, 137.0, 17.0 ],
+					"text" : "setSinkPosition 1 0. 0. 0."
 				}
 
 			}
@@ -728,15 +754,6 @@
 					"hidden" : 0,
 					"midpoints" : [ 374.0, 421.0, 333.5, 421.0 ],
 					"source" : [ "obj-1", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-10", 0 ]
 				}
 
 			}
@@ -769,10 +786,37 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
+					"destination" : [ "obj-5", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-16", 0 ]
 				}
 
 			}
@@ -868,15 +912,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-55", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -917,6 +952,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-55", 0 ]
 				}
 
 			}
@@ -1012,6 +1056,24 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -1022,57 +1084,58 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.maxhelpui.maxpat",
-				"bootpath" : "/code/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../../Modular/Max/library/components/maxhelpui",
+				"bootpath" : "/Users/tim/code/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../Modules/Modular/Max/library/components/maxhelpui",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.maxhelpuiButton.png",
-				"bootpath" : "/code/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../../Modular/Max/library/components/maxhelpui",
+				"bootpath" : "/Users/tim/code/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../Modules/Modular/Max/library/components/maxhelpui",
 				"type" : "PNG ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.maxhelpuiResize.js",
-				"bootpath" : "/code/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../../Modular/Max/library/components/maxhelpui",
+				"bootpath" : "/Users/tim/code/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../Modules/Modular/Max/library/components/maxhelpui",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.jamomaPath.maxpat",
-				"bootpath" : "/code/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
-				"patcherrelativepath" : "../../../../Modular/Max/library/components/jamomaPath",
+				"bootpath" : "/Users/tim/code/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+				"patcherrelativepath" : "../../Modules/Modular/Max/library/components/jamomaPath",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "jcom.thru.maxpat",
-				"bootpath" : "/code/Jamoma/Modules/Modular/Max/library/components/thru",
-				"patcherrelativepath" : "../../../../Modular/Max/library/components/thru",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.spat≈.mxo",
+				"name" : "jcom.spat≈..mxo",
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.pack≈.mxo",
+				"name" : "jcom.pack≈..mxo",
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.unpack≈.mxo",
+				"name" : "jcom.unpack≈..mxo",
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.route.mxo",
+				"name" : "jcom.route..mxo",
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.info≈.mxo",
+				"name" : "jcom.receive..mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.send..mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.info≈..mxo",
 				"type" : "iLaX"
 			}
  ]
