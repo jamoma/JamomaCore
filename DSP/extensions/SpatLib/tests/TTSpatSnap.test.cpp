@@ -35,10 +35,10 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 
 	TTFloat64 sourceCountTest;
 	
-	this->setAttributeValue("sourceCount", 3);
+	this->setAttributeValue("sourceCount", 7);
 	this->getAttributeValue("sourceCount", sourceCountTest);
 	TTTestAssertion("setter and getter for sourceCount attribute",
-					TTTestFloatEquivalence(sourceCountTest, 3.),
+					TTTestFloatEquivalence(sourceCountTest, 7.),
 					testAssertionCount,
 					errorCount);
 	
@@ -315,15 +315,16 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	
 	
 	// Set the location of five sources:
+	// The location will be in the vicinity of the sinks
 	
 	anEntity.setSize(4);
 	
-	// Source 1: (-2., -3.14, -4.)
+	// Source 1: (-2., -3.14, -4.2)
 	
 	anEntity.set(0, 1);
 	anEntity.set(1, -2.);
 	anEntity.set(2, -3.14);
-	anEntity.set(3, -4.);
+	anEntity.set(3, -4.2);
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
 	// Source 2: Default = (0., 0., 0.) so we don't set it.
@@ -331,25 +332,25 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	// Source 3: (33.3, 0., 0.)
 	
 	anEntity.set(0, 3);
-	anEntity.set(1, 33.3);
-	anEntity.set(2, 0.);
-	anEntity.set(3, 0.);
+	anEntity.set(1, 3.1);
+	anEntity.set(2, 0.2);
+	anEntity.set(3, -0.2);
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
-	// Source 4: (0., 44.4, 0.)
+	// Source 4: (0., 4.6, 0.)
 	
 	anEntity.set(0, 4);
 	anEntity.set(1, 0.);
-	anEntity.set(2, 44.4);
+	anEntity.set(2, 4.6);
 	anEntity.set(3, 0.);
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
-	// Source 5: (0., 0., 55.5)
+	// Source 5: (-0.1, 0.1, 5.5)
 	
 	anEntity.set(0, 5);
-	anEntity.set(1, 0.);
-	anEntity.set(2, 0.);
-	anEntity.set(3, 55.5);
+	anEntity.set(1, -0.1);
+	anEntity.set(2, 0.1);
+	anEntity.set(3, 5.5);
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
 	
@@ -396,7 +397,7 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[1]: Returning correct z-position",
-					TTTestFloatEquivalence(z, -4.),
+					TTTestFloatEquivalence(z, -4.2),
 					testAssertionCount,
 					errorCount);
 	
@@ -441,7 +442,6 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					testAssertionCount,
 					errorCount);
 	
-	
 	// Test source 3:
 	
 	TTTestLog(" ");
@@ -469,20 +469,19 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[3]: Returning correct x-position",
-					TTTestFloatEquivalence(x, 33.3),
+					TTTestFloatEquivalence(x, 3.1),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[3]: Returning correct y-position",
-					TTTestFloatEquivalence(y, 0.),
+					TTTestFloatEquivalence(y, 0.2),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[3]: Returning correct z-position",
-					TTTestFloatEquivalence(z, 0.),
+					TTTestFloatEquivalence(z, -0.2),
 					testAssertionCount,
 					errorCount);
-	
 	
 	// Test source 4:
 	
@@ -516,7 +515,7 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[4]: Returning correct y-position",
-					TTTestFloatEquivalence(y, 44.4),
+					TTTestFloatEquivalence(y, 4.6),
 					testAssertionCount,
 					errorCount);
 	
@@ -553,21 +552,19 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[5]: Returning correct x-position",
-					TTTestFloatEquivalence(x, 0.),
+					TTTestFloatEquivalence(x, -0.1),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[5]: Returning correct y-position",
-					TTTestFloatEquivalence(y, 0.),
+					TTTestFloatEquivalence(y, 0.1),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[5]: Returning correct z-position",
-					TTTestFloatEquivalence(z, 55.5),
+					TTTestFloatEquivalence(z, 5.5),
 					testAssertionCount,
 					errorCount);
-	
-	
 	
 	
 	
