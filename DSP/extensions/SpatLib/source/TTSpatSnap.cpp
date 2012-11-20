@@ -104,7 +104,7 @@ TTErr TTSpatSnapRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 		numInputChannels = sourceCount;
 	}
 	
-	// Fource the right number of sinks
+	// Force the right number of sinks
 	if ( numOutputChannels != sinkCount ) {
 		TTValue v = sinkCount;
 		
@@ -141,6 +141,9 @@ TTErr TTSpatSnapRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 
 TT_AUDIO_CONSTRUCTOR
 {
+	mSources.resize(1);
+	mSinks.resize(1);
+	
 	addAttributeWithGetterAndSetter(SourceCount, kTypeInt32);
 	addAttributeWithGetterAndSetter(SinkCount, kTypeInt32);
 	
@@ -180,6 +183,7 @@ TTErr TTSpatSnap::setSourceCount(const TTValue& value)
 		
 	TTLimitMin<TTInt32>(number, 1);
 	mSources.resize(number);
+	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 	return kTTErrNone;
 }
 
@@ -197,6 +201,7 @@ TTErr TTSpatSnap::setSinkCount(const TTValue& value)
 	
 	TTLimitMin<TTInt32>(number, 1);
 	mSinks.resize(number);
+	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 	return kTTErrNone;
 }
 
@@ -241,6 +246,7 @@ void TTSpatSnap::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat
 	source = TTClip<TTInt32>(source, 0, mSources.size()-1);
 	
 	mSources[source].setPosition(x, y, z);
+	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 }
 
 TTErr TTSpatSnap::setSourcePosition(const TTValue& aPosition)
@@ -268,6 +274,7 @@ void TTSpatSnap::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64&
 	sink = TTClip<TTInt32>(sink, 0, mSinks.size()-1);
 	
 	mSources[sink].getPosition(x, y, z);
+	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 }
 
 
