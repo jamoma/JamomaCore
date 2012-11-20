@@ -307,12 +307,12 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 				AtomPtr		av = (AtomPtr)malloc(sizeof(Atom) * ac);
 				
 				for (AtomCount i=0; i<ac; i++) {
-					if (v_out.getType() == kTypeSymbol){
+					if (v_out.getType(i) == kTypeSymbol){
 						TTSymbol ttSym;
 						v_out.get(i, ttSym);
 						atom_setsym(av+i, gensym((char*)ttSym.c_str()));
 					}
-					else if (v_out.getType() == kTypeFloat32 || v_out.getType() == kTypeFloat64) {
+					else if (v_out.getType(i) == kTypeFloat32 || v_out.getType(i) == kTypeFloat64) {
 						TTFloat64 f = 0.0;
 						v_out.get(i, f);
 						atom_setfloat(av+i, f);
