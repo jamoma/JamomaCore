@@ -130,7 +130,7 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 	TTRowID p_index = index;
 	TTColumnID p_channel = channel;
 	
-	//makeInBounds(p_index, p_channel);
+	makeInBounds(p_index, p_channel); // out of range values are clipped
 	get2d(p_index, p_channel, value);
 	return kTTErrNone;
 }
@@ -139,23 +139,25 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 // needs to be fleshed out with different options...
 TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value)
 {
-	
 	// variables needed
-	TTUInt64 indexThisInteger = TTUInt64(index);
-	TTUInt64 indexNextInteger = indexThisInteger + 1;
-	TTFloat64 indexFractionalPart = index - indexThisInteger;
+    TTColumnID p_channel = channel;
+
+	TTRowID indexThisInteger = TTRowID(index);
+	TTFloat64 indexFractionalPart = index - indexThisInteger; // before makeInBounds to get the right value!
+	makeInBounds(indexThisInteger, p_channel);  // out of range values are clipped
 	
+	TTRowID indexNextInteger = indexThisInteger + 1;
+	makeRowIDInBounds(indexNextInteger, outOfBoundsWrap); //if we went beyond the mRowCount, go back to 0th sample
+
 	TTSampleValue valueThisInteger, valueNextInteger;
 	
-	// TODO: perhaps we should range check the input here first...
-	get2d(indexThisInteger, channel, valueThisInteger);
-	get2d(indexNextInteger, channel, valueNextInteger);
+	get2d(indexThisInteger, p_channel, valueThisInteger);
+	get2d(indexNextInteger, p_channel, valueNextInteger);
 	
 	// simple linear interpolation adapted from TTDelay
 	value = (valueNextInteger * (1.0 - indexFractionalPart)) + (valueThisInteger * indexFractionalPart);
 	
 	return kTTErrNone;
-	
 }
 
 /**	Set the sample value for a given index.
@@ -180,9 +182,19 @@ TTErr TTSampleMatrix::setValueAtIndex(const TTValue& index, TTValue& unusedOutpu
 
 TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value)
 {
-	// TODO: perhaps we should range check the input here first...
-	set2d(index, channel, value);
-	return kTTErrNone;
+	TTRowID p_index = index;
+	TTColumnID p_channel = channel;
+	
+	TTBoolean weAreNotInBounds = makeInBounds(p_index,p_channel);
+	
+	if (weAreNotInBounds)
+	{
+		// don't go poking around out of bounds
+		return kTTErrInvalidValue;
+	} else {
+		set2d(p_index, p_channel, value);
+		return kTTErrNone;
+	}
 }
 
 
