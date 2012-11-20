@@ -93,7 +93,13 @@ public:
 	void setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
 	
 	TTErr setSinkPosition(const TTValue& aPosition, TTValue& unused);
+	
+private:
+	
+	TTErr testSourceAndSinkCountSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
 
+	TTErr testSourcePositionSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
+	
 };
 
 
