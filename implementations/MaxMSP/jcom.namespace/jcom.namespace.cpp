@@ -26,9 +26,6 @@ void		nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr 
 void		nmspc_bang(TTPtr self);
 void		nmspc_symbol(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-void		nmspc_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-
 void		nmspc_subscribe(TTPtr self);
 
 void		nmspc_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -72,8 +69,6 @@ void WrapTTExplorerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)nmspc_bang,				"bang",						0);
 	
 	class_addmethod(c->maxClass, (method)nmspc_symbol,				"anything",					A_GIMME, 0);
-
-	class_addmethod(c->maxClass, (method)nmspc_write,				"write",					A_GIMME, 0);
 	
 	class_addmethod(c->maxClass, (method)nmspc_bang,				"explore",					0); // overwrite explore message to use the bang method
 
@@ -95,8 +90,7 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	SymbolPtr					name;
-	TTAddress			address;
-	TTOpmlHandlerPtr			aOpmlHandler;
+	TTAddress                   address;
 	TTValue						v, args;
 	
 	// create the explorer
@@ -108,7 +102,7 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		if (atom_gettype(argv) == A_SYM) {
 			
 			name = atom_getsym(argv);
-			x->wrappedObject->setAttributeValue(kTTSym_namespace, TT(name->s_name));
+			x->wrappedObject->setAttributeValue(kTTSym_namespace, TTSymbol(name->s_name));
 		}
 		else
 			object_error((ObjectPtr)x, "argument not expected");
@@ -120,17 +114,6 @@ void WrappedExplorerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->outlets[data_out] = outlet_new(x, NULL);
 	
 	x->msg = _sym_none;
-	
-	// Prepare Internals hash to store XmlHanler object
-	x->internals = new TTHash();
-	
-	// create internal TTOpmlHandler
-	aOpmlHandler = NULL;
-	TTObjectInstantiate(kTTSym_OpmlHandler, TTObjectHandle(&aOpmlHandler), args);
-	v = TTValue(TTPtr(aOpmlHandler));
-	x->internals->append(kTTSym_OpmlHandler, v);
-	v = TTValue(TTPtr(x->wrappedObject));
-	aOpmlHandler->setAttributeValue(kTTSym_object, v);
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
@@ -159,8 +142,8 @@ void nmspc_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
-	TTAddress			contextAddress = kTTAdrsEmpty;
-	TTAddress			absoluteAddress;
+	TTAddress                   contextAddress = kTTAdrsEmpty;
+	TTAddress                   absoluteAddress;
 	TTObjectPtr					anObject;
 	
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
@@ -466,44 +449,6 @@ void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 		outlet_anything(x->outlets[data_out], _sym_clear, 0, NULL);
 	
 	x->wrappedObject->sendMessage(TTSymbol("Explore"));
-}
-
-void nmspc_write(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	defer(self, (method)nmspc_dowrite, msg, argc, argv);
-}
-
-void nmspc_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	char 			filename[MAX_FILENAME_CHARS];
-	TTSymbol		fullpath;
-	TTValue			o, v;
-	TTOpmlHandlerPtr aOpmlHandler;
-	TTErr			tterr;
-	
-	if (x->wrappedObject) {
-		
-		// Default XML File Name
-		snprintf(filename, MAX_FILENAME_CHARS, "namespace.opml");
-		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
-		v.append(fullpath);
-		
-		tterr = x->internals->lookup(kTTSym_OpmlHandler, o);
-		
-		if (!tterr) {
-			o.get(0, (TTPtr*)&aOpmlHandler);
-			
-			critical_enter(0);
-			tterr = aOpmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);
-			critical_exit(0);
-			
-			if (!tterr)
-				object_obex_dumpout(self, _sym_write, argc, argv);
-			else
-				object_obex_dumpout(self, _sym_error, 0, NULL);
-		}
-	}
 }
 
 /*

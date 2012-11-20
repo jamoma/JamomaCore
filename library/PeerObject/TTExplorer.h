@@ -27,7 +27,7 @@ class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 private:
 	
 	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to manage
-	TTAddress	mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
+	TTAddress           mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
 	TTSymbol			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
 														///<	- descendants : any address below the node at any level (default)
 														///<	- children : all children of the node

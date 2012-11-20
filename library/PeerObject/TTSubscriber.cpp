@@ -232,7 +232,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTValue				args;
 	TTSymbol			formatedContextSymbol;
-	TTAddress	relativeContextAddress, contextAddress, lowerContextAddress;
+	TTAddress           relativeContextAddress, contextAddress, lowerContextAddress;
 	TTList				contextNodeList, attributesAccess;
 	TTNodePtr			contextNode, lowerContextNode;
 	TTPtr				aContext, lowerContext;
@@ -252,7 +252,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 			
 			// get the context symbol as a relative context address
 			aContextList->current().get(0, formatedContextSymbol);
-			relativeContextAddress = formatedContextSymbol.c_str();
+			relativeContextAddress = TTAddress(formatedContextSymbol);
 			
 			// get the context
 			aContextList->current().get(1, (TTPtr*)&aContext);

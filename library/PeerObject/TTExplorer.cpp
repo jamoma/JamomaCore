@@ -278,7 +278,7 @@ TTErr TTExplorer::unbindApplication()
 
 TTErr TTExplorer::Explore()
 {
-	TTAddress relativeAddress;
+	TTAddress   relativeAddress;
 	TTSymbol	attributeName;
 	TTList		aNodeList, internalFilterList, allObjectNodes;
 	TTNodePtr	aNode;
