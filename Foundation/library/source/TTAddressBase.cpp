@@ -36,10 +36,10 @@ TTAddressBase::TTAddressBase(const TTString& newAddressString, TTPtrSizedInt new
 	// check if there is a '0'
 	if (strchr(newAddressString.data(), C_ZERO) != 0) {
 
-		TTString parsed;
-		parseInstanceZero(newAddressString, parsed);
+		TTString sparsed;
+		parseInstanceZero(newAddressString, sparsed);
 		
-		this->init(parsed, newAddressTableId, newId);
+		this->init(sparsed, newAddressTableId, newId);
 	}
 	else
 		this->init(newAddressString, newAddressTableId, newId);
@@ -94,7 +94,8 @@ TTAddressType TTAddressBase::getType()
 
 TTSymbol	TTAddressBase::getNameInstance()
 {
-	TTString nameInstance = this->getName().c_str();
+	TTSymbol nameInstanceSymbol = this->getName();
+	TTString nameInstance = nameInstanceSymbol.c_str();
 	
 	if (this->getInstance() != NO_INSTANCE) {
 		nameInstance += C_INSTANCE;
