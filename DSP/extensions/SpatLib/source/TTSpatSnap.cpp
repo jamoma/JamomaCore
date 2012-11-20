@@ -16,7 +16,7 @@
 #include "TTSpatSnap.h"
 
 #define thisTTClass			TTSpatSnap
-#define thisTTClassName		"spat.snapToNearestSink"
+#define thisTTClassName		"spat.snap"
 #define thisTTClassTags		"audio, spatialization, processing"
 
 
@@ -211,7 +211,7 @@ void TTSpatSnap::getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloa
 }
 
 
-TTErr TTSpatSnap::getSourcePosition(TTValue& aPosition)
+TTErr TTSpatSnap::getSourcePosition(const TTValue& requestedChannel, TTValue& aPosition)
 {
 	TTInt16 sourceNumber;
 	TTFloat64 x, y, z;
@@ -219,7 +219,7 @@ TTErr TTSpatSnap::getSourcePosition(TTValue& aPosition)
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	aPosition.get(0, sourceNumber);
+	requestedChannel.get(0, sourceNumber);
 	
 	getOneSourcePosition(sourceNumber, x, y, z);
 	
@@ -243,7 +243,7 @@ void TTSpatSnap::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat
 	mSources[source].setPosition(x, y, z);
 }
 
-TTErr TTSpatSnap::setSourcePosition(const TTValue& aPosition)
+TTErr TTSpatSnap::setSourcePosition(const TTValue& aPosition, TTValue& unused)
 {
 	TTInt32 sourceNumber;
 	TTFloat64 x, y, z;
@@ -271,7 +271,7 @@ void TTSpatSnap::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64&
 }
 
 
-TTErr TTSpatSnap::getSinkPosition(TTValue& aPosition)
+TTErr TTSpatSnap::getSinkPosition(const TTValue& requestedChannel, TTValue& aPosition)
 {
 	TTInt16 sinkNumber;
 	TTFloat64 x, y, z;
@@ -279,7 +279,7 @@ TTErr TTSpatSnap::getSinkPosition(TTValue& aPosition)
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	aPosition.get(0, sinkNumber);
+	requestedChannel.get(0, sinkNumber);
 	
 	getOneSinkPosition(sinkNumber, x, y, z);
 	
@@ -304,7 +304,7 @@ void TTSpatSnap::setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y
 }
 
 
-TTErr TTSpatSnap::setSinkPosition(const TTValue& aPosition)
+TTErr TTSpatSnap::setSinkPosition(const TTValue& aPosition, TTValue& unused)
 {
 	TTInt32 sinkNumber;
 	TTFloat64 x, y, z;

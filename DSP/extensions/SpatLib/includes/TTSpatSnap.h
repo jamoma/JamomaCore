@@ -80,19 +80,19 @@ public:
 
 	void getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
 	
-	TTErr getSourcePosition(TTValue& aPosition);
+	TTErr getSourcePosition(const TTValue& requestedChannel, TTValue& aPosition);
 	
 	void setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
 
-	TTErr setSourcePosition(const TTValue& aPosition);
+	TTErr setSourcePosition(const TTValue& aPosition, TTValue& unused);
 	
 	void getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
 	
-	TTErr getSinkPosition(TTValue& aPosition);
+	TTErr getSinkPosition(const TTValue& requestedChannel, TTValue& aPosition);
 
 	void setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
 	
-	TTErr setSinkPosition(const TTValue& aPosition);
+	TTErr setSinkPosition(const TTValue& aPosition, TTValue& unused);
 
 };
 
