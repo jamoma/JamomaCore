@@ -108,7 +108,7 @@ PlugParameterPtr PlugParameterNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		self->graphOutlets[0] = outlet_new(self, "graph.connect");
 		
 		v.setSize(2);
-		v.set(0, TT("plugtastic.parameter"));
+		v.set(0, TT("parameter"));
 		v.set(1, TTUInt32(1));
 		err = TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&self->graphObject, v);
 		((TTGraphInput*)self->graphObject->mKernel)->setOwner(self->graphObject);

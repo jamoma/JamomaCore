@@ -11,7 +11,7 @@
 #include <iostream>
 #include "jcom.plug.out.h"
 #include "TTAudioGraphDescription.h"
-#include "PlugtasticParameter.h"
+#include "TTParameter.h"
 
 
 class PlugtasticAudioGraphDescription;
@@ -24,15 +24,15 @@ static TTString sourceObjectName = "";
 static TTString sidechainSourceObjectName = "";
 
 // we need to cache all of the parameters
-class PlugtasticParameterNode {
+class TTParameterNode {
 public:
 	TTObjectPtr mObject;
 	TTString	mName;
 };
-typedef std::vector<PlugtasticParameterNode>		PlugtasticParameterNodeVector;
-typedef PlugtasticParameterNodeVector::iterator		PlugtasticParameterNodeIter;
+typedef std::vector<TTParameterNode>		TTParameterNodeVector;
+typedef TTParameterNodeVector::iterator		TTParameterNodeIter;
 
-static PlugtasticParameterNodeVector*	sParameterNodes = NULL;
+static TTParameterNodeVector*	sParameterNodes = NULL;
 
 
 // Here was have a vector of bools to indicate whether or not we have generated the code for instantiating object with a given index
@@ -55,6 +55,7 @@ public:
 			strncpy(objName, (const char*)mUserData, 16);
 		}
 		else {
+//FIXME: This makes no sense!  We just tested for mUserData above!
 			if (mUserData) {
 				strncpy(objName, (const char*)mUserData, 16);
 			}
@@ -84,14 +85,14 @@ public:
 					content += mClassName.c_str();
 					content += "\")));\n";
 					
-					if (mClassName == "plugtastic.parameter") {
-						PlugtasticParameterNode	parameterNode;
+					if (mClassName == "parameter") {
+						TTParameterNode	parameterNode;
 						
 						parameterNode.mObject = mObjectInstance;
 						parameterNode.mName = objName;
 						sParameterNodes->push_back(parameterNode);
 						
-						content += "		((PlugtasticParameter*)";
+						content += "		((TTParameter*)";
 						content += objName;
 						content += "->mKernel)->setOwner(";
 						content += objName;
@@ -387,7 +388,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	TTStringVector					nodeNames;
 	
 	if (!sParameterNodes)
-		sParameterNodes = new PlugtasticParameterNodeVector;
+		sParameterNodes = new TTParameterNodeVector;
 	else
 		sParameterNodes->clear();
 	
@@ -495,7 +496,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	filecontents += "\n";
 	filecontents += "#include \"PlugtasticAPI.h\"\n";
 	filecontents += "#include \"AUEffectBase.h\"\n";
-	filecontents += "#include \"PlugtasticParameter.h\"";
+	filecontents += "#include \"TTParameter.h\"";
 	filecontents += "\n";
 	filecontents += "\n";
 	
@@ -638,29 +639,29 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 
 	// 5b. now we can setup parameter info
 	
-	for (PlugtasticParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
+	for (TTParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
 		filecontents += "float kDefaultValue_";
 		filecontents += parameter->mName;
 		filecontents += " = ";
 		
-		snprintf(str, 16, "%f", PlugtasticParameterPtr(parameter->mObject)->mDefault);
+		snprintf(str, 16, "%f", TTParameterPtr(parameter->mObject)->mDefault);
 		filecontents += str;
 		filecontents += ";\n";
 	}
 	filecontents += "\n";
 		
-	for (PlugtasticParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
+	for (TTParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
 		filecontents += "CFStringRef kParameter";
 		filecontents += parameter->mName;
 		filecontents += "Name = CFSTR(\"";
-		filecontents += PlugtasticParameterPtr(parameter->mObject)->mName.c_str();
+		filecontents += TTParameterPtr(parameter->mObject)->mName.c_str();
 		filecontents += "\");\n";
 	}
 	filecontents += "\n";
 	
 	filecontents += "enum {\n";
 	int j = 0;
-	for (PlugtasticParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
+	for (TTParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
 		filecontents += "	kParam_";
 		filecontents += parameter->mName;
 		filecontents += " = ";
@@ -704,7 +705,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 	filecontents += "	    if (inScope == kAudioUnitScope_Global) {\n";
 	filecontents += "	        switch (inParameterID) {\n";
 	
-	for (PlugtasticParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {	
+	for (TTParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {	
 		filecontents += "	            case kParam_";
 		filecontents += parameter->mName;
 		filecontents += ":\n";
@@ -714,24 +715,24 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 		filecontents += "Name, false);\n";
 		
 		// TODO: implement these styles, maybe using the DataspaceLib?
-		if (PlugtasticParameterPtr(parameter->mObject)->mStyle == TT("boolean"))
+		if (TTParameterPtr(parameter->mObject)->mStyle == TT("boolean"))
 			filecontents += "	                outParameterInfo.unit = kAudioUnitParameterUnit_Boolean;\n";
-		else if (PlugtasticParameterPtr(parameter->mObject)->mStyle == TT("hertz"))
+		else if (TTParameterPtr(parameter->mObject)->mStyle == TT("hertz"))
 			filecontents += "	                outParameterInfo.unit = kAudioUnitParameterUnit_Hertz;\n";
-		else if (PlugtasticParameterPtr(parameter->mObject)->mStyle == TT("decibels"))
+		else if (TTParameterPtr(parameter->mObject)->mStyle == TT("decibels"))
 			filecontents += "	                outParameterInfo.unit = kAudioUnitParameterUnit_Decibels;\n";
-		else if (PlugtasticParameterPtr(parameter->mObject)->mStyle == TT("milliseconds"))
+		else if (TTParameterPtr(parameter->mObject)->mStyle == TT("milliseconds"))
 			filecontents += "	                outParameterInfo.unit = kAudioUnitParameterUnit_Milliseconds;\n";
 		else
 			filecontents += "	                outParameterInfo.unit = kAudioUnitParameterUnit_Generic;\n";
 		
 		filecontents += "	                outParameterInfo.minValue = ";
-		snprintf(str, 16, "%f", PlugtasticParameterPtr(parameter->mObject)->mRangeBottom);
+		snprintf(str, 16, "%f", TTParameterPtr(parameter->mObject)->mRangeBottom);
 		filecontents += str;
 		filecontents += ";\n";
 		
 		filecontents += "	                outParameterInfo.maxValue = ";
-		snprintf(str, 16, "%f", PlugtasticParameterPtr(parameter->mObject)->mRangeTop);
+		snprintf(str, 16, "%f", TTParameterPtr(parameter->mObject)->mRangeTop);
 		filecontents += str;
 		filecontents += ";\n";
 		
@@ -759,7 +760,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 		filecontents += "	void setDefaults(PlugtasticAUEffect* self)\n";
 	filecontents += "	{\n";
 	
-	for (PlugtasticParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
+	for (TTParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
 		filecontents += "		self->SetParameter(kParam_";
 		filecontents += parameter->mName;
 		filecontents += ", kDefaultValue_";
@@ -777,7 +778,7 @@ void PlugOutDoBuildAudioUnit_Export(PlugOutPtr self)
 		filecontents += "	void setParameter(PlugtasticAUEffectGraph* graph, AudioUnitParameterID inID, Float32 inValue)\n";
 	filecontents += "	{\n";
 	filecontents += "		switch (inID) {\n";
-	for (PlugtasticParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
+	for (TTParameterNodeIter parameter = sParameterNodes->begin(); parameter != sParameterNodes->end(); parameter++) {
 		filecontents += "			case kParam_";
 		filecontents += parameter->mName;
 		filecontents += ":\n";
