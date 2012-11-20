@@ -48,17 +48,21 @@ void TTSpatSnapRenderer::recalculateMatrixCoefficients(TTSpatEntityVector& sourc
 	
 	for (TTInt32 source=0; source<sources.size(); source++) {
 		
-		// First find the nearest sink for each of the sources
-		
-		// Start with sinks[0] being the nearest
+		// The source that we want to locate the nearest sink for:
 		sources[source].getPosition(sourceX, sourceY, sourceZ);
+		
+		// In order to find the nearest sink for a source, we'll start by assuming that sink 0 is the nearest
 		sinks[0].getPosition(sinkX, sinkY, sinkZ);
 		
+		// It is more efficient to do comparement on square of the distance
 		sqrDistance = (sourceX-sinkX)*(sourceX-sinkX) + (sourceY-sinkY)*(sourceY-sinkY) + (sourceZ-sinkZ)*(sourceZ-sinkZ);
 		smallestDist = sqrDistance;
 		nearestSink = 0;
 		
-		// Iterate over sinks
+		// We also ensures that the matrix coefficient is set to 0 for the first sink
+		mMixerMatrixCoefficients->set2d(source, 0., 0.);
+		
+		// Now we iterate over the remaining sinks to see if any of them are closer
 		for (TTInt32 sink=1; sink<sinks.size(); sink++) {
 			
 			sinks[sink].getPosition(sinkX, sinkY, sinkZ);
@@ -71,15 +75,14 @@ void TTSpatSnapRenderer::recalculateMatrixCoefficients(TTSpatEntityVector& sourc
 				nearestSink = sink;
 				
 			}
-			// We also set all coefficients to 0:
+			// In the process we also set all matrix coefficients to 0
 			mMixerMatrixCoefficients->set2d(source, sink, 0.);
 		}
 		
-		// Second we update matrix coefficient for the nearest sink
+		// We have now found the nearest sink, and all coefficients have been reset to 0.
+		// The only thing left to do is to send the coefficient of the nearest sink to 1
 		mMixerMatrixCoefficients->set2d(source, nearestSink, 1.);
-									
 	}
-	// TODO: Make sure that when we iterate over the matrix, this is done in an efficient way.
 }
 
 
@@ -115,7 +118,7 @@ TTErr TTSpatSnapRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 	// Setting all output signals to zero.
 	out.clear();
 	
-	// TODO: this multiply-nested for-loop has got to be horrendously slow, there should be a much faster way to do this?
+	// TODO: Make sure that when we iterate over the matrix, this is done in an efficient way.
 	
 	for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
 		outSample = out.mSampleVectors[outChannel];
