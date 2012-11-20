@@ -791,13 +791,16 @@ public:
 			if (TTDataInfo::getIsNumerical(type[i])) {
 				// TODO: find a way to make this routine faster
 				switch(type[i]) {
-					case kTypeFloat32:
-						data[i].float32 = (TTInt32)data[i].float32;
+					case kTypeFloat32: {
+						data[i].int32 = (TTInt32)data[i].float32;
+                        type[i] = kTypeInt32;
 						break;
-					case kTypeFloat64:
-						data[i].float64 = (TTInt32)data[i].float64;
+                    }
+					case kTypeFloat64: {
+						data[i].int32 = (TTInt32)data[i].float64;
+                        type[i] = kTypeInt32;
 						break;
-
+                    }
 					default:
 						break;
 				}
