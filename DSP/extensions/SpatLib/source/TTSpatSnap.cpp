@@ -273,7 +273,7 @@ void TTSpatSnap::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64&
 	TTInt32 sink = sinkNumber - 1;
 	sink = TTClip<TTInt32>(sink, 0, mSinks.size()-1);
 	
-	mSources[sink].getPosition(x, y, z);
+	mSinks[sink].getPosition(x, y, z);
 	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 }
 
@@ -307,7 +307,7 @@ void TTSpatSnap::setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y
 	TTInt32 sink = sinkNumber - 1;
 	sink = TTClip<TTInt32>(sink, 0, mSinks.size()-1);
 	
-	mSources[sink].setPosition(x, y, z);
+	mSinks[sink].setPosition(x, y, z);
 }
 
 
