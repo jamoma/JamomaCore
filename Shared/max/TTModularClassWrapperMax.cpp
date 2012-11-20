@@ -869,7 +869,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	TTValuePtr		returnValueBaton;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
-	TTAddress dataAddress, dataName;
+	TTAddress       dataAddress, dataName;
 	TTValue			storedObject;
 	
 	// Prepare arguments to create a TTData object
@@ -889,7 +889,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
 	
 	// absolute registration
-	dataAddress = address.appendAddress(name.c_str());
+	dataAddress = address.appendAddress(TTAddress(name));
 	JamomaDirectory->TTNodeCreate(dataAddress, *returnedData, context, &aNode, &nodeCreated);
 	
 	aNode->getAddress(dataAddress);
@@ -898,7 +898,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	// absolute registration case : set the address in second position (see in unregister method)
 	storedObject = TTValue(TTPtr(*returnedData));
 	storedObject.append(dataAddress);
-	x->internals->append(TT(dataName.c_str()), storedObject);
+	x->internals->append(TTSymbol(dataName.c_str()), storedObject);
 	
 	JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" %s at : %s", dataName.c_str(), service.c_str(), dataAddress.c_str());
 	
@@ -938,7 +938,7 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	TTValue			args, storedObject;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTAddress adrs;
+	TTAddress       adrs;
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -953,7 +953,7 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	TTObjectInstantiate(kTTSym_Viewer, TTObjectHandle(returnedViewer), args);
 	
 	// Set address attributes
-	adrs = address.appendAddress(name.c_str());
+	adrs = address.appendAddress(TTAddress(name));
 										 
 	(*returnedViewer)->setAttributeValue(kTTSym_address, adrs);
 	
@@ -969,7 +969,7 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	TTValue			args, storedObject;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTAddress adrs;
+	TTAddress       adrs;
 	
 	// prepare arguments
 	
@@ -988,7 +988,7 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(returnedReceiver), args);
 	
 	// Set address attributes
-	adrs = address.appendAddress(name.c_str());
+	adrs = address.appendAddress(TTAddress(name));
 	
 	(*returnedReceiver)->setAttributeValue(kTTSym_address, adrs);
 	
@@ -1003,7 +1003,7 @@ TTErr removeInternals_data(TTPtr self, TTAddress address, TTAddress name)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			storedObject;
 	TTObjectPtr		aData;
-	TTAddress dataAddress;
+	TTAddress       dataAddress;
 	TTErr			err;
 	
 	err = x->internals->lookup(name, storedObject);
