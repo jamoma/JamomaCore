@@ -26,7 +26,8 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	
-	TTTestLog("Tjotlandotte");
+	TTTestLog("Testing TTSpatSnap attributes and messages");
+	TTTestLog(" ");
 	
 	// N test assertions
 	
@@ -98,14 +99,20 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	TTFloat64 x, y, z;
 	TTInt16 channelNumber;
 	
-	anEntity.clear();
 	getChannel.setSize(1);
 	
+	// Test sink 1:
+	
+	TTTestLog(" ");
+	TTTestLog("Testing position of sink 1");
+	TTTestLog(" ");
+	
+	anEntity.clear();
 	getChannel.set(0, 1);
 	
 	this->sendMessage("getSinkPosition", getChannel, anEntity);
 	
-	TTTestAssertion("getSinkPosition[0]: Returning TTValue array with four members",
+	TTTestAssertion("getSinkPosition[1]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
 					testAssertionCount,
 					errorCount);
@@ -115,25 +122,195 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	anEntity.get(2, y);
 	anEntity.get(3, z);
 	
-	TTTestAssertion("getSinkPosition[0]: Returning position for correct channel",
+	TTTestAssertion("getSinkPosition[1]: Returning position for correct channel",
 					(channelNumber==1),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("getSinkPosition[0]: Returning correct default x-position",
+	TTTestAssertion("getSinkPosition[1]: Returning correct default x-position",
 					TTTestFloatEquivalence(x, 0.),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("getSinkPosition[0]: Returning correct default y-position",
+	TTTestAssertion("getSinkPosition[1]: Returning correct default y-position",
 					TTTestFloatEquivalence(y, 0.),
 					testAssertionCount,
 					errorCount);
 	
-	TTTestAssertion("getSinkPosition[0]: Returning correct default z-position",
+	TTTestAssertion("getSinkPosition[1]: Returning correct default z-position",
 					TTTestFloatEquivalence(z, 0.),
 					testAssertionCount,
 					errorCount);
+	
+	
+	// Test sink 2:
+	
+	TTTestLog(" ");
+	TTTestLog("Testing position of sink 2");
+	TTTestLog(" ");
+	
+	anEntity.clear();
+	getChannel.set(0, 2);
+	
+	this->sendMessage("getSinkPosition", getChannel, anEntity);
+	
+	TTTestAssertion("getSinkPosition[2]: Returning TTValue array with four members",
+					(anEntity.getSize() == 4),
+					testAssertionCount,
+					errorCount);
+	
+	anEntity.get(0, channelNumber);
+	anEntity.get(1, x);
+	anEntity.get(2, y);
+	anEntity.get(3, z);
+	
+	TTTestAssertion("getSinkPosition[2]: Returning position for correct channel",
+					(channelNumber==2),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[2]: Returning correct x-position",
+					TTTestFloatEquivalence(x, 1.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[2]: Returning correct y-position",
+					TTTestFloatEquivalence(y, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[2]: Returning correct z-position",
+					TTTestFloatEquivalence(z, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	
+	// Test sink 3:
+	
+	TTTestLog(" ");
+	TTTestLog("Testing position of sink 3");
+	TTTestLog(" ");
+	
+	anEntity.clear();
+	getChannel.set(0, 3);
+	
+	this->sendMessage("getSinkPosition", getChannel, anEntity);
+	
+	TTTestAssertion("getSinkPosition[3]: Returning TTValue array with four members",
+					(anEntity.getSize() == 4),
+					testAssertionCount,
+					errorCount);
+	
+	anEntity.get(0, channelNumber);
+	anEntity.get(1, x);
+	anEntity.get(2, y);
+	anEntity.get(3, z);
+	
+	TTTestAssertion("getSinkPosition[3]: Returning position for correct channel",
+					(channelNumber==3),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[3]: Returning correct x-position",
+					TTTestFloatEquivalence(x, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[3]: Returning correct y-position",
+					TTTestFloatEquivalence(y, 1.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[3]: Returning correct z-position",
+					TTTestFloatEquivalence(z, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	
+	// Test sink 4:
+	
+	TTTestLog(" ");
+	TTTestLog("Testing position of sink 4");
+	TTTestLog(" ");
+	
+	anEntity.clear();
+	getChannel.set(0, 4);
+	
+	this->sendMessage("getSinkPosition", getChannel, anEntity);
+	
+	TTTestAssertion("getSinkPosition[4]: Returning TTValue array with four members",
+					(anEntity.getSize() == 4),
+					testAssertionCount,
+					errorCount);
+	
+	anEntity.get(0, channelNumber);
+	anEntity.get(1, x);
+	anEntity.get(2, y);
+	anEntity.get(3, z);
+	
+	TTTestAssertion("getSinkPosition[4]: Returning position for correct channel",
+					(channelNumber==4),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[4]: Returning correct x-position",
+					TTTestFloatEquivalence(x, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[4]: Returning correct y-position",
+					TTTestFloatEquivalence(y, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[4]: Returning correct z-position",
+					TTTestFloatEquivalence(z, 1.),
+					testAssertionCount,
+					errorCount);
+	
+	
+	// Test sink 5:
+	
+	TTTestLog(" ");
+	TTTestLog("Testing position of sink 5");
+	TTTestLog(" ");
+	
+	anEntity.clear();
+	getChannel.set(0, 5);
+	
+	this->sendMessage("getSinkPosition", getChannel, anEntity);
+	
+	TTTestAssertion("getSinkPosition[5]: Returning TTValue array with four members",
+					(anEntity.getSize() == 4),
+					testAssertionCount,
+					errorCount);
+	
+	anEntity.get(0, channelNumber);
+	anEntity.get(1, x);
+	anEntity.get(2, y);
+	anEntity.get(3, z);
+	
+	TTTestAssertion("getSinkPosition[5]: Returning position for correct channel",
+					(channelNumber==5),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[5]: Returning correct x-position",
+					TTTestFloatEquivalence(x, -2.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[5]: Returning correct y-position",
+					TTTestFloatEquivalence(y, -3.14),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSinkPosition[5]: Returning correct z-position",
+					TTTestFloatEquivalence(z, -4.),
+					testAssertionCount,
+					errorCount);
+	
+	
 	
 	
 	
