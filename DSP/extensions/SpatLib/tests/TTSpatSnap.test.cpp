@@ -708,5 +708,115 @@ TTErr TTSpatSnap::testMatrixCoefficients(int& testAssertionCount, int& errorCoun
 
 TTErr TTSpatSnap::testAudioProcessing(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
 {
+	TTAudioSignalPtr input = NULL;
+	TTAudioSignalPtr output = NULL;
+	
+	// create audio signal objects
+	TTObjectInstantiate(kTTSym_audiosignal, &input, 7);
+	TTObjectInstantiate(kTTSym_audiosignal, &output, 5);
+	
+	input->allocWithVectorSize(64);
+	output->allocWithVectorSize(64);
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[0][sample] = 1.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[1][sample] = 2.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[2][sample] = 4.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[3][sample] = 8.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[4][sample] = 16.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[5][sample] = 32.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[6][sample] = 64.0;
+	
+	this->process(input, output);
+	
+	
+	// Test processed audio
+	TTTestLog("");
+	
+	// Sink 1 receieves signal fra source 2, 6 and 7: Expected value equals 2. + 32. +64. = 98.
+	
+	int validSampleCount = 0;
+	TTSampleValuePtr samples = output->mSampleVectors[0];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(98., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 1",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	// Sink 2 receieves signal fra source 3: Expected value equals 4.
+	
+	validSampleCount = 0;
+	samples = output->mSampleVectors[1];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(4., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 2",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	// Sink 3 receieves signal fra source 4: Expected value equals 8.
+	
+	validSampleCount = 0;
+	samples = output->mSampleVectors[2];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(8., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 3",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	// Sink 4 receieves signal fra source 5: Expected value equals 16.
+	
+	validSampleCount = 0;
+	samples = output->mSampleVectors[3];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(16., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 4",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	// Sink 5 receieves signal fra source 1: Expected value equals 1.
+	
+	validSampleCount = 0;
+	samples = output->mSampleVectors[4];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(1., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 5",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	TTObjectRelease(&input);
+	TTObjectRelease(&output);
+	
 	return kTTErrNone;
 }
