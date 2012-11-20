@@ -273,7 +273,7 @@ public:
 	
 	
 	/**	A function pointer for implementing handlers in the makeInBounds() method.	
-		The format for this function pointer follows most of the methods defined in TTLimits (i.e. TTClip, TTInfWrap, TTFold) so that they can be used here to handle out of bounds values.
+		The format for this function pointer follows most of the methods defined in TTLimits (i.e. TTClip, TTInfWrap, TTFold) which means they can be used here to handle out of bounds values.  However, the methods defined in this class (i.e. outOfBoundsClip, outOfBoundsWrap, outOfBoundsFold) are safer because they handle considerations specific to TTMatrix.
 	
 	@param[in]	index		reference to an index that will be checked and corrected if not in bounds
 	@param[in]	lowBound	lowest value allowed for index
@@ -284,56 +284,114 @@ public:
 	*/
 	typedef TTInt32 (*TTMatrixOutOfBoundsHandler)(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound);
 	
+	/**	In implementation of the TTMatrixOutOfBoundsHandler that wraps #TTClip.
+	@seealso TTMatrixOutOfBoundsHandler
+	*/
+	static TTInt32 outOfBoundsClip(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
+	{
+		// the TTClip method does not depend highBound being equal to the dimension size, so we just subtract 1
+		return TTClip(index, lowBound, (highBound-1));
+	}
+	
+	/**	In implementation of the TTMatrixOutOfBoundsHandler that wraps #TTInfWrap.
+	@seealso TTMatrixOutOfBoundsHandler
+	*/
+	static TTInt32 outOfBoundsWrap(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
+	{
+		// the TTInfWrap method does not allow the highBound as a valid result, so we can pass values as is
+		return TTInfWrap(index, lowBound, highBound);
+	}
+	
+	/**	In implementation of the TTMatrixOutOfBoundsHandler that wraps #TTFold.
+	@seealso TTMatrixOutOfBoundsHandler
+	*/
+	static TTInt32 outOfBoundsFold(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
+	{
+		// the TTFold method allows highBound as a valid result, but the math depends on it being equal to the dimension size
+		TTInt32 output = TTFold(index, lowBound, highBound);
+		// so we adjust whenever highBound is produced as an output
+		if (output == highBound) --output;
+		return output;
+	}
+	
+	/** Make sure a TTRowID is within the limits set by RowCount.
+	 	This method can be used to force row values to fall within the defined limits of the TTMatrix.
+
+		@param[in,out]	i			row in matrix of desired component
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
+		@return			TTBoolean	true if values changed, false if they remained constant
+	*/	
+	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	{
+		TTRowID i_input = i;
+		i = (*handler)(i_input, TTRowID(0), mRowCount);
+		return (i_input != i); // true or false, did it change?
+	}
+	
+	/** Make sure a TTColumnID is within the limits set by ColumnCount.
+	 	This method can be used to force column values to fall within the defined limits of the TTMatrix.
+
+		@param[in,out]	j			column in matrix of desired component
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
+		@return			TTBoolean	true if values changed, false if they remained constant
+	*/
+	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	{
+		TTColumnID j_input = j;
+        j = (*handler)(j_input, TTColumnID(0), mColumnCount);
+		return (j_input != j); // true or false, did it change?
+	}
+	
+	/** Make sure a TTElementID is within the limits set by ElementCount.
+	 	This method can be used to force element values to fall within the defined limits of the TTMatrix.
+
+		@param[in,out]	e			element within desired component
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
+		@return			TTBoolean	true if values changed, false if they remained constant
+	*/
+	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	{
+		TTColumnID e_input = e;
+        e = (*handler)(e_input, TTElementID(0), mElementCount);
+		return (e_input != e); // true or false, did it change?
+	}
+	
 	/** Make sure an (i,j) pair is within the limits set by RowCount & ColumnCount.
-	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix.
+	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix. This is simpler than checking the boundaries of (i,j) separately, but may be less efficient when one value is not changing as frequently as the other. It will also always use the same TTMatrixOutOfBoundsHandler on all dimensions.
 
 		@param[in,out]	i			row in matrix of desired component
 		@param[in,out]	j			column in matrix of desired component
-		@param[in]		handler		function used to transform out of bounds values, TTClip is default if undefined
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
+		
+		@seealso makeRowIDInBounds, makeColumnIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = TTClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
-		TTRowID i_input = i;
-		TTColumnID j_input = j;
-		
-        i = (*handler)(i_input, TTRowID(0), mRowCount);
-		j = (*handler)(i_input, TTColumnID(0), mColumnCount);
-		
-		if (i_input == i && j_input == j)
-		{
-			return false;
-		} else {
-			return true;
-		}
+		TTUInt8 changes; // keep track of how many changes are made
+		changes += makeRowIDInBounds(i, handler);
+		changes += makeColumnIDInBounds(j, handler);
+		return (changes > 0); // true or false, did anything change?
 	}
 	
-	
 	/** Make sure an (i,j,e) set is within the limits set by RowCount, ColumnCount & ElementCount.
-	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix.
+	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix. This is simpler than checking the boundaries of (i,j, e) separately, but may be less efficient when one value is not changing as frequently as the others. It will also always use the same TTMatrixOutOfBoundsHandler on all dimensions.
 
 		@param[in,out]	i			row in matrix of desired component
 		@param[in,out]	j			column in matrix of desired component
 		@param[in,out]	e			element within desired component
-		@param[in]		handler		function used to transform out of bounds values, TTClip is default if undefined
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
+		
+		@seealso makeRowIDInBounds, makeColumnIDInBounds, makeElementIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = TTClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
-		TTRowID i_input = i;
-		TTColumnID j_input = j;
-		TTElementID e_input = e;
-		
-        i = (*handler)(i_input, TTRowID(0), mRowCount);
-		j = (*handler)(i_input, TTColumnID(0), mColumnCount);
-		e = (*handler)(e_input, TTElementID(0), mElementCount);
-		
-		if (i_input == i && j_input == j && e_input == e)
-		{
-			return false;
-		} else {
-			return true;
-		}
+		TTUInt8 changes; // keep track of how many changes are made
+		changes += makeRowIDInBounds(i, handler);
+		changes += makeColumnIDInBounds(j, handler);
+		changes += makeElementIDInBounds(e, handler);
+		return (changes > 0); // true or false, did anything change?
 	}
 	
 	
