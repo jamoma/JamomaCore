@@ -8,6 +8,7 @@
 
 #include "TTMatrix.h"
 #include "TTUnitTest.h"
+//#include "TTLimits.h"
 
 
 TTErr TTMatrix::test(TTValue& returnedTestInfo)
@@ -239,29 +240,35 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->makeInBounds(i,j) == 1,
 						testAssertionCount,
 						errorCount);
-        TTTestAssertion("negative value was clipped by out of bounds operation",
+        TTTestAssertion("< 0 i value was clipped by out of bounds operation",
 						i == 0,
 						testAssertionCount,
 						errorCount);
-		TTTestAssertion("greater than max value was clipped by out of bounds operation",
+		TTTestAssertion("> max j value was clipped by out of bounds operation",
 						j == 119,
 						testAssertionCount,
 						errorCount);
-		TTTestLog("j value is %i but expected 119", j);
+		TTTestLog("j value is %i but expected 119", j); // temp comment
+		
+		/** testing TTClip outside makeInBounds :: DOES NOT COMPILE
+		long input = 123;
+		long output = TTClip(input, 0, 120);
+		TTTestLog("fed TTClip a value of %i but it returned %i", input, output);
+        */
 		
 		// reset and try different limiting function
 		i = i_prebounds; 
 		j = j_prebounds;
 		matrix->makeInBounds(i,j,TTInfWrap); 
-		TTTestAssertion("negative value was wrapped by out of bounds operation",
+		TTTestAssertion("< 0 i value was wrapped by out of bounds operation",
 						i == 157, // 160 should be max, so it will be 160 - 3
 						testAssertionCount,
 						errorCount);
-		TTTestAssertion("greater than max value was wrapped by out of bounds operation",
+		TTTestAssertion("> max j value was wrapped by out of bounds operation",
 						j == 3, // 120 should be max, so it will be 123 - 120 
 						testAssertionCount,
 						errorCount);
-		TTTestLog("j value is %i, but expected 3", j);
+		TTTestLog("j value is %i, but expected 3", j); // temp comment
 						
 		
 		err = TTObjectRelease((TTObjectPtr*)&matrix);
