@@ -13,7 +13,7 @@
 #include "PlugtasticParameter.h"
 
 
-extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_AudioGraphUtilityLib(void)
+extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Plugtastic(void)
 {
 	TTAudioGraphInit();	
 	

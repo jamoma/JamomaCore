@@ -8,6 +8,7 @@ sources:
   - source/TTGraphDestination.cpp
   - source/TTGraphInput.cpp
   - source/TTGraphOutput.cpp
+  - source/TTParameter.cpp
   
 includes:
   - "includes"

@@ -1,17 +1,16 @@
-/* 
- *	Plugtastic 
- *	
- *	Copyright © 2010 by Timothy Place
- *
- *	License: This code is licensed under the terms of the "New BSD License"
- *	http://creativecommons.org/licenses/BSD/
- */
+/*
+	 Jamoma Class for representing parameters for modules, plug-ins, etc.
+	 Copyright © 2010 by Timothy Place
+	 
+	 License: This code is licensed under the terms of the "New BSD License"
+	 http://creativecommons.org/licenses/BSD/
+*/
 
 #include "TTGraphObject.h"
-#include "PlugtasticParameter.h"
+#include "TTParameter.h"
 
-#define thisTTClass			PlugtasticParameter
-#define thisTTClassName		"plugtastic.parameter"
+#define thisTTClass			TTParameter
+#define thisTTClassName		"parameter"
 #define thisTTClassTags		"plugtastic, parameter"
 
 
@@ -36,13 +35,13 @@ TT_OBJECT_CONSTRUCTOR,
 }
 
 
-PlugtasticParameter::~PlugtasticParameter()
+TTParameter::~PlugtasticParameter()
 {
 	;
 }
 
 
-TTErr PlugtasticParameter::setName(const TTValue& newValue)
+TTErr TTParameter::setName(const TTValue& newValue)
 {
 	mName = newValue;
 	mDictionary.remove(TT("name"));
@@ -51,7 +50,7 @@ TTErr PlugtasticParameter::setName(const TTValue& newValue)
 }
 
 
-TTErr PlugtasticParameter::setValue(const TTValue& newValue)
+TTErr TTParameter::setValue(const TTValue& newValue)
 {
 	mValue = newValue;
 	mDictionary.setValue(newValue);
@@ -59,14 +58,14 @@ TTErr PlugtasticParameter::setValue(const TTValue& newValue)
 }
 
 
-TTErr PlugtasticParameter::setOwner(TTGraphObjectPtr newOwner)
+TTErr TTParameter::setOwner(TTGraphObjectPtr newOwner)
 {
 	mOwner = newOwner;
 	return kTTErrNone;
 }
 
 
-TTErr PlugtasticParameter::push(const TTDictionary& aDictionary)
+TTErr TTParameter::push(const TTDictionary& aDictionary)
 {
 	if (mOwner) {
 		return mOwner->push(aDictionary);
