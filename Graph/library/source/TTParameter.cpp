@@ -35,7 +35,7 @@ TT_OBJECT_CONSTRUCTOR,
 }
 
 
-TTParameter::~PlugtasticParameter()
+TTParameter::~TTParameter()
 {
 	;
 }
