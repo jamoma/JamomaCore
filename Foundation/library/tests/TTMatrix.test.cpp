@@ -8,6 +8,7 @@
 
 #include "TTMatrix.h"
 #include "TTUnitTest.h"
+//#include "TTLimits.h"
 
 
 TTErr TTMatrix::test(TTValue& returnedTestInfo)
@@ -105,30 +106,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		// new type of inbounds tests
-		TTInt32 i_prebounds = -3;
-		TTInt32 j_prebounds = 0;
-        TTInt32 i = i_prebounds;
-        TTInt32 j = j_prebounds;
-        
-		TTTestAssertion("value is out of bounds", 
-						matrix->makeInBounds(i,j) == 1,
-						testAssertionCount,
-						errorCount);
-        TTTestAssertion("negative value was clipped by out of bounds operation",
-						i == 0,
-						testAssertionCount,
-						errorCount);
 		
-		// reset and try different limiting function
-		i = i_prebounds; 
-		matrix->makeInBounds(i,j,TTInfWrap); // 16 should be max, so i will be 16 - 3
-		TTTestAssertion("negative value was wrapped by out of bounds operation",
-						i == 13,
-						testAssertionCount,
-						errorCount);
-		
-
 		// Test the clear message
 		// first fill with arbitrary values
 		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
@@ -251,7 +229,57 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->mComponentStride == sizeof(TTUInt8) * 4, 
 						testAssertionCount,
 						errorCount);
-
+		
+		// test values with makeInBounds functions
+		TTInt32 i_prebounds = -3;
+		TTInt32 j_prebounds = 123;
+        TTInt32 i = i_prebounds;
+        TTInt32 j = j_prebounds;
+        
+		TTTestAssertion("reports row ID is out of bounds", 
+						matrix->makeRowIDInBounds(i) == 1,
+						testAssertionCount,
+						errorCount);
+        TTTestAssertion("< 0 i value was clipped by out of bounds operation",
+						i == 0,
+						testAssertionCount,
+						errorCount);
+		TTTestAssertion("reports column ID is out of bounds", 
+						matrix->makeColumnIDInBounds(j) == 1,
+						testAssertionCount,
+						errorCount);
+		TTTestAssertion("> max j value was clipped by out of bounds operation",
+						j == 119,
+						testAssertionCount,
+						errorCount);
+		
+		// reset and try wrapping function
+		i = i_prebounds; 
+		j = j_prebounds;
+		matrix->makeRowIDInBounds(i,outOfBoundsWrap); 
+		matrix->makeColumnIDInBounds(j,outOfBoundsWrap); 
+		TTTestAssertion("< 0 i value was wrapped by out of bounds operation",
+						i == 157, // 160 should be max, so it will be 160 - 3
+						testAssertionCount,
+						errorCount);
+		TTTestAssertion("> max j value was wrapped by out of bounds operation",
+						j == 3, // 120 should be max, so it will be 123 - 120 
+						testAssertionCount,
+						errorCount);
+						
+		// reset and try folding function
+		i = i_prebounds; 
+		j = j_prebounds;
+		matrix->makeRowIDInBounds(i,outOfBoundsFold); 
+		matrix->makeColumnIDInBounds(j,outOfBoundsFold); 
+		TTTestAssertion("< 0 i value was folded by out of bounds operation",
+						i == 3, // 0 is min, so it will be 0 - (-3)
+						testAssertionCount,
+						errorCount);
+		TTTestAssertion("> max j value was folded by out of bounds operation",
+						j == 117, // 120 should be max, so it will be 120 - (123 - 120)
+						testAssertionCount,
+						errorCount);
 		
 		err = TTObjectRelease((TTObjectPtr*)&matrix);
 		TTTestAssertion("frees successfully", 
