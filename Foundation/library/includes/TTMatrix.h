@@ -368,7 +368,7 @@ public:
 	*/
 	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
-		TTUInt8 changes; // keep track of how many changes are made
+		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);
 		changes += makeColumnIDInBounds(j, handler);
 		return (changes > 0); // true or false, did anything change?
