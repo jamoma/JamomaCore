@@ -96,8 +96,8 @@ TTErr TTSpatSnapRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 	TTUInt16			inChannel;
     TTSampleValue       gainValue;
 	
-	TTInt16				sourceCount = mMixerMatrixCoefficients->getColumnCount();
-	TTInt16				sinkCount	= mMixerMatrixCoefficients->getRowCount();
+	TTInt16				sourceCount = mMixerMatrixCoefficients->getRowCount();
+	TTInt16				sinkCount	= mMixerMatrixCoefficients->getColumnCount();
 	
 	// If the input signal has more channels than we have sources, the additional channels are ignored.
 	if (numInputChannels > sourceCount) {
