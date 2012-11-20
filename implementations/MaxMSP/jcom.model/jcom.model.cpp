@@ -12,7 +12,7 @@
 // This is used to store extra data
 typedef struct extra {
 	ObjectPtr			modelInternal;		// store an internal model patcher
-	TTAddress	modelAddress;		// store the /model/address parameter
+	TTAddress           modelAddress;		// store the /model/address parameter
 	TTBoolean			component;			// is the model a simple component ?
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
@@ -136,15 +136,15 @@ void model_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
-	TTAddress			nodeAdrs, argAdrs;
+	TTAddress                   nodeAdrs, argAdrs;
 	TTSymbol					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
-	TTObjectPtr					aData, anExplorer;
+	TTObjectPtr					aData;
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
 	TTList						whereToSearch;
 	TTBoolean					isThere, isSubModel;
 	TTNodePtr					firstTTNode;
-	TTAddress			containerAdrs;
+	TTAddress                   containerAdrs;
 	SymbolPtr					hierarchy;
 	AtomCount					ac;
 	AtomPtr						av;

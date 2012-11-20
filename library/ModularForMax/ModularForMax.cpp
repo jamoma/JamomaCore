@@ -1290,7 +1290,7 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol& ret
 			end = s_toParse.end();
 		}
 		
-		returnedClass = TT(s_toParse);	// TODO : replace each "." by the Uppercase of the letter after the "."
+		returnedClass = TTSymbol(s_toParse);	// TODO : replace each "." by the Uppercase of the letter after the "."
 	}
 	else {
 		
@@ -1356,7 +1356,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol& retu
 				jamoma_edit_numeric_instance(&voiceFormat, &argName, index);
 			}
 			
-			returnedName = TT(jamoma_parse_dieze(patcher, argName)->s_name);
+			returnedName = TTSymbol(jamoma_parse_dieze(patcher, argName)->s_name);
 		}
 	}
 }
@@ -1501,10 +1501,10 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		}
 		
 		// get the class from the patcher filename
-		jamoma_patcher_get_class(*returnedPatcher, *returnedContext, returnedClass);
+		jamoma_patcher_get_class(*returnedPatcher, returnedContext, returnedClass);
 		
 		// if no class : set it as "Untitled" to continue the process
-		if (returnedClass  != kTTSymEmpty)
+		if (returnedClass == kTTSymEmpty)
 			returnedClass = TTSymbol("Untitled");
 		
 		// for jcom model|view object, use the patcher where it is to get the name
@@ -1515,7 +1515,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 			jamoma_patcher_get_name(*returnedPatcher, returnedContext, returnedName);
 		
 		// if no name
-		if (returnedName != kTTSymEmpty) {
+		if (returnedName == kTTSymEmpty) {
 			
 			// for model : used "class"
 			if (returnedContext == kTTSym_model)
