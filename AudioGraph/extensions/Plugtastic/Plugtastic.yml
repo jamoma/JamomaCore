@@ -1,0 +1,18 @@
+
+sources:
+  - Plugtastic.cpp
+  - PlugtasticInput.cpp
+  - PlugtasticOutput.cpp
+  - PlugtasticParameter.cpp
+  
+includes:
+  - "../../../Foundation/library/includes"
+  - "../../../DSP/library/includes"
+  - "../../../Graph/library/includes"
+  - "../../../AudioGraph/library/includes"
+
+libraries:
+  - FOUNDATION
+  - DSP
+  - GRAPH
+  - AUDIOGRAPH

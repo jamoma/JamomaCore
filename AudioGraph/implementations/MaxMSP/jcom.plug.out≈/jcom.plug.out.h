@@ -9,7 +9,6 @@
 
 
 #include "MaxAudioGraph.h"
-#include "PlugtasticAPI.h"
 
 
 // Data Structure for this object

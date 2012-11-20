@@ -9,7 +9,7 @@
 
 
 #include "MaxAudioGraph.h"
-#include "PlugtasticAPI.h"
+#include "TTAudioGraphAPI.h"
 
 
 // Data Structure for this object
@@ -41,7 +41,7 @@ int main(void)
 {
 	ClassPtr c;
 
-	PlugtasticInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 
 	c = class_new((char*)"jcom.plug.in≈", (method)PlugInNew, (method)PlugInFree, sizeof(PlugIn), (method)0L, A_GIMME, 0);

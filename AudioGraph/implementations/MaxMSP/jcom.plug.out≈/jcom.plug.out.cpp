@@ -35,7 +35,7 @@ int main(void)
 {
 	ClassPtr c;
 
-	PlugtasticInit();	
+	TTAudioGraphInit();	
 	common_symbols_init();
 
 	c = class_new((char*)"jcom.plug.out≈", (method)PlugOutNew, (method)PlugOutFree, sizeof(PlugOut), (method)0L, A_GIMME, 0);

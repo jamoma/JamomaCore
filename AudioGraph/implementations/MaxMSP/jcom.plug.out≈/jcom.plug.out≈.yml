@@ -23,7 +23,6 @@ libraries:
   - AUDIOGRAPH
   - GRAPH
   - DSP
-  - ../../../../Plugtastic/library/build/JamomaPlugtastic.dylib
   - C74-MAX
   - C74-MSP
   - C74-JITTER
@@ -37,7 +36,7 @@ prefix: ../../../../Shared/max/c74support/max-includes/macho-prefix.pch
 postbuilds:
   - "rm -rf ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"
   - "mkdir -p ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"
-  - "cp -r ../../../../Plugtastic/implementations/AudioUnits/ ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"	
+  - "cp -r ../../../../AudioGraph/implementations/AudioUnits/ ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"	
   - "cp Info.plist ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/" 
 
 arch: i386  

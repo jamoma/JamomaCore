@@ -10,7 +10,6 @@ includes:
   - ../../../../DSP/library/includes
   - ../../../../Graph/library/includes
   - ../../../../AudioGraph/library/includes
-  - ../../../../Plugtastic/library/includes
   - ../../../../Shared/max  
   - ../../../../AudioGraph/implementations/MaxMSP
   - "../../../../Shared/max/c74support/max-includes"
@@ -21,7 +20,6 @@ libraries:
   - AUDIOGRAPH
   - GRAPH
   - DSP
-  - ../../../../Plugtastic/library/build/JamomaPlugtastic.dylib
   - ../../../../Shared/max/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI
   - ../../../../Shared/max/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI
   - C74-JITTER
