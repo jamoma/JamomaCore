@@ -17,8 +17,6 @@
 #include "TTDSP.h"
 #include "TTSpat.h"
 #include "TTSpatSnap.h"
-#include "TTSpatMatrix.h"
-#include "TTSpatThru.h"
 
 /** Register classes for all of the SpatLib rendering techniques (aka units).
  @return		#TTErr error code if the method fails to execute, else #kTTErrNone.
