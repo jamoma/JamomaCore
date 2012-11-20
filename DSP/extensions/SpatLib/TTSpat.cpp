@@ -44,7 +44,7 @@ mSinkCount(0)
 	
 	//addUpdate(MaxNumChannels);
 	
-	setAttributeValue(TT("spatFunction"), TT("spat.snapToNearestSink"));
+	setAttributeValue(TT("spatFunction"), TT("spat.snap"));
 	setAttributeValue(TT("sourceCount"), 2);
 	setAttributeValue(TT("sinkCount"), 8);
 	setProcessMethod(process);
