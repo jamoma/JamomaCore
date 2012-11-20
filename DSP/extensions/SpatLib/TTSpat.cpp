@@ -24,29 +24,32 @@
 TT_AUDIO_CONSTRUCTOR,
 mSpatFunctionObject(NULL),
 mSourceCount(0),
-mDestinationCount(0)
+mSinkCount(0)
 {
 	//TTValue v;
 	
-	addAttributeWithSetter(SpatFunction,					kTypeSymbol);
-	addAttributeWithSetter(SourceCount,						kTypeUInt16);
-	addAttributeWithSetter(DestinationCount,				kTypeUInt16);
-	addAttributeWithGetterAndSetter(SourcePositions,		kTypeFloat64);
-	addAttributeWithGetterAndSetter(DestinationPositions,	kTypeFloat64);
-	
+	addAttributeWithSetter(SpatFunction,	kTypeSymbol);
+	addAttributeWithSetter(SourceCount,		kTypeUInt16);
+	addAttributeWithSetter(SinkCount,		kTypeUInt16);
 
+	addMessageWithArguments(getSourcePosition);
+	addMessageWithArguments(setSourcePosition);
+	addMessageWithArguments(getSinkPosition);
+	addMessageWithArguments(setSinkPosition);
+	
 	addMessageWithArguments(getSpatFunctions);
-	addMessageWithArguments(getFunctionParameters);
-	addMessageWithArguments(getFunctionParameter);
-	addMessageWithArguments(setFunctionParameter);
+//	addMessageWithArguments(getFunctionParameters);
+//	addMessageWithArguments(getFunctionParameter);
+//	addMessageWithArguments(setFunctionParameter);
 	
 	//addUpdate(MaxNumChannels);
 	
-	setAttributeValue(TT("spatFunction"), TT("spat.thru"));
+	setAttributeValue(TT("spatFunction"), TT("spat.snapToNearestSink"));
 	setAttributeValue(TT("sourceCount"), 2);
-	setAttributeValue(TT("destinationCount"), 8);
+	setAttributeValue(TT("sinkCount"), 8);
 	setProcessMethod(process);
 }
+
 
 TTSpat::~TTSpat()
 {
@@ -71,9 +74,9 @@ TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 	if (!err && spatFunction) {
 		// Now set the state of the object to the state we have stored
 		spatFunction->setAttributeValue(TT("sourceCount"), mSourceCount);
-		spatFunction->setAttributeValue(TT("destinationCount"), mDestinationCount);
-		spatFunction->setAttributeValue(TT("sourcePositions"), mSourcePositions);
-		spatFunction->setAttributeValue(TT("destinationPositions"), mDestinationPositions);
+		spatFunction->setAttributeValue(TT("sinkCount"), mSinkCount);
+//		spatFunction->setAttributeValue(TT("sourcePositions"), mSourcePositions);
+//		spatFunction->setAttributeValue(TT("destinationPositions"), mDestinationPositions);
 		
 		mSpatFunction = spatFunctionName;
 		mSpatFunctionObject = spatFunction;
@@ -107,7 +110,7 @@ TTErr TTSpat::getSpatFunctions(const TTValue&, TTValue& listOfSpatFunctionsToRet
 	return TTGetRegisteredClassNamesForTags(listOfSpatFunctionsToReturn, v);
 }		   
 
-
+/*
 TTErr TTSpat::getFunctionParameters(const TTValue&, TTValue& aListOfParameterNamesToReturn)
 {
 	mSpatFunctionObject->getAttributeNames(aListOfParameterNamesToReturn);
@@ -134,7 +137,7 @@ TTErr TTSpat::setFunctionParameter(const TTValue& aParameterNameAndValue, TTValu
 	//aParameterNameAndValue.clear(); // only needed so that we don't return a value
 	return mSpatFunctionObject->setAttributeValue(parameterName, parameterValue);
 }
-
+*/
 
 
 TTErr TTSpat::setSourceCount(const TTValue& aSourceCount)
@@ -144,13 +147,43 @@ TTErr TTSpat::setSourceCount(const TTValue& aSourceCount)
 }
 
 
-TTErr TTSpat::setDestinationCount(const TTValue& aDestinationCount)
+TTErr TTSpat::setSinkCount(const TTValue& aSinkCount)
 {
-	mDestinationCount = aDestinationCount;
-	return mSpatFunctionObject->setAttributeValue(TT("destinationCount"), (TTValue&)aDestinationCount);
+	mSinkCount = aSinkCount;
+	return mSpatFunctionObject->setAttributeValue(TT("sinkCount"), (TTValue&)aSinkCount);
 }
 
 
+TTErr TTSpat::getSourcePosition(TTValue& aPosition)
+{
+//	return mSpatFunctionObject->getSourcePosition(aPosition);
+	return mSpatFunctionObject->sendMessage("getSourcePosition", aPosition, aPosition);
+}
+
+
+TTErr TTSpat::setSourcePosition(const TTValue& aPosition)
+{
+//	return mSpatFunctionObject->setSourcePosition(aPosition);
+	TTValue dummy;
+	return mSpatFunctionObject->sendMessage("setSourcePosition", aPosition, dummy);
+}
+
+
+TTErr TTSpat::getSinkPosition(TTValue& aPosition)
+{
+//	return mSpatFunctionObject->getSinkPosition(aPosition);
+	return mSpatFunctionObject->sendMessage("getSinkPosition", aPosition, aPosition);
+}
+
+
+TTErr TTSpat::setSinkPosition(const TTValue& aPosition)
+{
+//	return mSpatFunctionObject->setSinkPosition(aPosition);
+	TTValue dummy;
+	return mSpatFunctionObject->sendMessage("setSinkPosition", aPosition, dummy);
+}
+
+/*
 TTErr TTSpat::setSourcePositions(const TTValue& newSourcePositions)
 {
 	// newSourcePositions is an array of 3N values specified in x/y/z triplets
@@ -167,7 +200,6 @@ TTErr TTSpat::getSourcePositions(TTValue& returnedSourcePositions)
 }
 
 
-
 TTErr TTSpat::setDestinationPositions(const TTValue& newDestinationPositions)
 {
 	mDestinationPositions = newDestinationPositions;
@@ -180,6 +212,7 @@ TTErr TTSpat::getDestinationPositions(TTValue& returnedDestinationPositions)
 	returnedDestinationPositions = mDestinationPositions;
 	return kTTErrNone;
 }
+ */
 
 
 #if 0

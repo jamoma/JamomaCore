@@ -29,9 +29,9 @@ protected:
 	TTAudioObjectPtr	mSpatFunctionObject;
 	TTSymbol			mSpatFunction;	
 	TTUInt16			mSourceCount;			///< The number of sources
-	TTUInt16			mDestinationCount;		///< The number of destinations
-	TTValue				mSourcePositions;		///< Position of the sources
-	TTValue				mDestinationPositions;	///< Position of the destinations
+	TTUInt16			mSinkCount;				///< The number of destinations
+//	TTValue				mSourcePositions;		///< Position of the sources
+//	TTValue				mDestinationPositions;	///< Position of the destinations
 		
 	/**	Set what spatialisation function to use.
 	 @param aSpatFunction			The SpatLib renderer to use.
@@ -44,43 +44,53 @@ protected:
 	 @param	aPosition				Array of source positions.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getSourcePositions(TTValue& aPosition);
+//	TTErr getSourcePositions(TTValue& aPosition);
 	
 	
 	/**	Set source positions. 
 	 @param aPosition				Array of source positions.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSourcePositions(const TTValue& aPosition);
+//	TTErr setSourcePositions(const TTValue& aPosition);
 	
 	
 	/**	Get destination positions.
 	 @param aPosition				Array of destination positions.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getDestinationPositions(TTValue& aPosition);
+//	TTErr getDestinationPositions(TTValue& aPosition);
 	
 	
 	/**	Set destination positions.
 	 @param aPosition				Array of destination positions.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setDestinationPositions(const TTValue& aPosition);
+//	TTErr setDestinationPositions(const TTValue& aPosition);
 	
 	
 	/**	Set the number of sources.
 	 @param mode					The number of sources to spatialise.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSourceCount(const TTValue& mode);
+	TTErr setSourceCount(const TTValue& aSource);
 	
 	
 	/**	Set number of destinations
 	 @param mode					The number of destinations that sound will be rendered to.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setDestinationCount(const TTValue& mode);
+	TTErr setSinkCount(const TTValue& aSink);
 		
+	
+	
+	TTErr getSourcePosition(TTValue& aPosition);
+		
+	TTErr setSourcePosition(const TTValue& aPosition);
+	
+	TTErr getSinkPosition(TTValue& aPosition);
+	
+	TTErr setSinkPosition(const TTValue& aPosition);
+
 
 	/**	Return a list of all the available spatialisation methods.
 	 @param
@@ -95,7 +105,7 @@ protected:
 	 @param listOfParameterNamesToReturn An array of available spatialisation rendering units.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getFunctionParameters(const TTValue&, TTValue& listOfParameterNamesToReturn);
+//	TTErr getFunctionParameters(const TTValue&, TTValue& listOfParameterNamesToReturn);
 	
 	
 	/** Get the current value of a parameter (attribute) used by the current spatialisation method.
@@ -103,7 +113,7 @@ protected:
 	 @param
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getFunctionParameter(const TTValue& aParameterNameIn, TTValue& aValueOut);
+//	TTErr getFunctionParameter(const TTValue& aParameterNameIn, TTValue& aValueOut);
 	
 	
 	/** Set the value of a parameter (attribute) used by the current spatialisation method.
@@ -111,7 +121,7 @@ protected:
 	 @param
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setFunctionParameter(const TTValue& aParameterNameAndValue, TTValue&);
+//	TTErr setFunctionParameter(const TTValue& aParameterNameAndValue, TTValue&);
 	
 	
 	/**	@brief A standard audio processing method as used by Jamoma DSP objects.
