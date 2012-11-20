@@ -26,44 +26,17 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	
+	// Attributes and messages
 	TTSpatSnap::testSourceAndSinkCountSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
 	TTSpatSnap::testSourcePositionSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
 	TTSpatSnap::testSinkPositionSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
 	
-	/************************************************************
-	 *
-	 * Test mRenderer matrix coefficients for current sources and sinks
-	 *
-	 ************************************************************/
+	// Inspect matrix coefficients
+	TTSpatSnap::testMatrixCoefficients(testAssertionCount, errorCount, returnedTestInfo);
 	
-	TTFloat64 cellValue;
-	TTFloat64 cellValueSquareSum;
-	
-	// Test that all cell values are still equaling 0.
-	cellValueSquareSum = 0.;
-	for (TTInt16 row=0; row<7; row++)
-	{
-		for (TTInt16 col=0; col<5; col++)
-		{
-			this->mRenderer.mMixerMatrixCoefficients->get2d(row, col, cellValue);
-			cellValueSquareSum += cellValue*cellValue;
-			TTTestLog("cellValueSquareSum = %f", cellValueSquareSum);
-			TTTestLog("cell[%i,%i] = %f", row, col, cellValue);
-		}
-	}
-	
-	// Test that all cell values are still equaling 0.
-	cellValueSquareSum = 0.;
-	for (TTInt16 row=0; row<7; row++)
-	{
-		for (TTInt16 col=0; col<5; col++)
-		{
-			this->mRenderer.mMixerMatrixCoefficients->get2d(row, col, cellValue);
-			TTTestLog("cell[%i,%i] = %f", row, col, cellValue);
-		}
-		TTTestLog(" ");
-	}
-	
+	// Test audio processing
+	TTSpatSnap::testAudioProcessing(testAssertionCount, errorCount, returnedTestInfo);
+		
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
@@ -159,7 +132,8 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	// Source 2: Default = (0., 0., 0.) so we don't set it.
 	
-	// Set source 3: (33.3, 0., 0.)
+	// Set source 3: (3.1, 0.2, -0.2)
+	
 	anEntity.set(0, 3);
 	anEntity.set(1, 3.1);
 	anEntity.set(2, 0.2);
@@ -661,5 +635,78 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 					testAssertionCount,
 					errorCount);
 	
+	return kTTErrNone;
+}
+
+TTErr TTSpatSnap::testMatrixCoefficients(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+{
+	TTFloat64 expectedValues[7][5];
+	TTFloat64 retrievedCoefficientValues[7][5];
+	TTFloat64 diff;
+	TTFloat64 absDiffSum=0;
+	
+	// Extected matrix values based on matrix size and source/sink positions as set in previous methods
+	expectedValues[0][0] = 0.;
+	expectedValues[0][1] = 0.;
+	expectedValues[0][2] = 0.;
+	expectedValues[0][3] = 0.;
+	expectedValues[0][4] = 1.;
+
+	expectedValues[1][0] = 1.;
+	expectedValues[1][1] = 0.;
+	expectedValues[1][2] = 0.;
+	expectedValues[1][3] = 0.;
+	expectedValues[1][4] = 0.;
+
+	expectedValues[2][0] = 0.;
+	expectedValues[2][1] = 1.;
+	expectedValues[2][2] = 0.;
+	expectedValues[2][3] = 0.;
+	expectedValues[2][4] = 0.;
+
+	expectedValues[3][0] = 0.;
+	expectedValues[3][1] = 0.;
+	expectedValues[3][2] = 1.;
+	expectedValues[3][3] = 0.;
+	expectedValues[3][4] = 0.;
+
+	expectedValues[4][0] = 0.;
+	expectedValues[4][1] = 0.;
+	expectedValues[4][2] = 0.;
+	expectedValues[4][3] = 1.;
+	expectedValues[4][4] = 0.;
+
+	expectedValues[5][0] = 1.;
+	expectedValues[5][1] = 0.;
+	expectedValues[5][2] = 0.;
+	expectedValues[5][3] = 0.;
+	expectedValues[5][4] = 0.;
+
+	expectedValues[6][0] = 1.;
+	expectedValues[6][1] = 0.;
+	expectedValues[6][2] = 0.;
+	expectedValues[6][3] = 0.;
+	expectedValues[6][4] = 0.;
+	
+	// Get all current matrix coefficients
+	for (TTInt16 row=0; row<7; row++) {
+		for (TTInt16 col=0; col<5; col++) {
+			this->mRenderer.mMixerMatrixCoefficients->get2d(row, col, retrievedCoefficientValues[row][col]);
+			diff = retrievedCoefficientValues[row][col] - expectedValues[row][col];
+			absDiffSum += diff*diff;
+		}
+	}
+	
+	TTTestLog("");
+	TTTestAssertion("Correct matrix coefficients",
+					TTTestFloatEquivalence(absDiffSum, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	return kTTErrNone;
+}
+
+TTErr TTSpatSnap::testAudioProcessing(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+{
 	return kTTErrNone;
 }

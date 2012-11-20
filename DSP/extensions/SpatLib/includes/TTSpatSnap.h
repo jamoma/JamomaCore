@@ -102,6 +102,10 @@ private:
 	
 	TTErr testSinkPositionSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
 	
+	TTErr testMatrixCoefficients(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
+	
+	TTErr testAudioProcessing(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
+	
 };
 
 
