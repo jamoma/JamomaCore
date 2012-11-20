@@ -357,7 +357,7 @@ public:
 	}
 	
 	/** Make sure an (i,j) pair is within the limits set by RowCount & ColumnCount.
-	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix. This is simpler than checking the boundaries of (i,j) separately, but may be less efficient when one value is not changing as frequently as the other.
+	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix. This is simpler than checking the boundaries of (i,j) separately, but may be less efficient when one value is not changing as frequently as the other. It will also always use the same TTMatrixOutOfBoundsHandler on all dimensions.
 
 		@param[in,out]	i			row in matrix of desired component
 		@param[in,out]	j			column in matrix of desired component
@@ -368,11 +368,14 @@ public:
 	*/
 	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
-		// do we want to keep?
+		TTUInt8 changes; // keep track of how many changes are made
+		changes += makeRowIDInBounds(i, handler);
+		changes += makeColumnIDInBounds(j, handler);
+		return (changes > 0); // true or false, did anything change?
 	}
 	
 	/** Make sure an (i,j,e) set is within the limits set by RowCount, ColumnCount & ElementCount.
-	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix. This is simpler than checking the boundaries of (i,j, e) separately, but may be less efficient when one value is not changing as frequently as the others.
+	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix. This is simpler than checking the boundaries of (i,j, e) separately, but may be less efficient when one value is not changing as frequently as the others. It will also always use the same TTMatrixOutOfBoundsHandler on all dimensions.
 
 		@param[in,out]	i			row in matrix of desired component
 		@param[in,out]	j			column in matrix of desired component
@@ -384,7 +387,11 @@ public:
 	*/
 	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
-		// do we want to keep?
+		TTUInt8 changes; // keep track of how many changes are made
+		changes += makeRowIDInBounds(i, handler);
+		changes += makeColumnIDInBounds(j, handler);
+		changes += makeElementIDInBounds(e, handler);
+		return (changes > 0); // true or false, did anything change?
 	}
 	
 	
