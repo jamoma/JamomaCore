@@ -283,6 +283,33 @@ public:
 	@seealso TTLimits.h
 	*/
 	typedef TTInt32 (*TTMatrixOutOfBoundsHandler)(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound);
+		
+	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = TTClip)
+	{
+		TTRowID i_input = i;
+		
+		i = (*handler)(i_input, TTRowID(0), mRowCount);
+		
+		return (i_input != i); // true or false, did it change?
+	}
+	
+	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = TTClip)
+	{
+		TTColumnID j_input = j;
+		
+        j = (*handler)(j_input, TTColumnID(0), mColumnCount);
+		
+		return (j_input != j); // true or false, did it change?
+	}
+	
+	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = TTClip)
+	{
+		TTColumnID e_input = e;
+		
+        e = (*handler)(e_input, TTElementID(0), mElementCount);
+		
+		return (e_input != e); // true or false, did it change?
+	}
 	
 	/** Make sure an (i,j) pair is within the limits set by RowCount & ColumnCount.
 	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix.
@@ -294,20 +321,8 @@ public:
 	*/
 	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = TTClip)
 	{
-		TTRowID i_input = i;
-		TTColumnID j_input = j;
-		
-        i = (*handler)(i_input, TTRowID(0), mRowCount);
-		j = (*handler)(i_input, TTColumnID(0), mColumnCount);
-		
-		if (i_input == i && j_input == j)
-		{
-			return false;
-		} else {
-			return true;
-		}
+		// do we want to keep?
 	}
-	
 	
 	/** Make sure an (i,j,e) set is within the limits set by RowCount, ColumnCount & ElementCount.
 	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix.
@@ -320,20 +335,7 @@ public:
 	*/
 	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = TTClip)
 	{
-		TTRowID i_input = i;
-		TTColumnID j_input = j;
-		TTElementID e_input = e;
-		
-        i = (*handler)(i_input, TTRowID(0), mRowCount);
-		j = (*handler)(i_input, TTColumnID(0), mColumnCount);
-		e = (*handler)(e_input, TTElementID(0), mElementCount);
-		
-		if (i_input == i && j_input == j && e_input == e)
-		{
-			return false;
-		} else {
-			return true;
-		}
+		// do we want to keep?
 	}
 	
 	

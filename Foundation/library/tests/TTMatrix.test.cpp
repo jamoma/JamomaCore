@@ -236,12 +236,16 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
         TTInt32 i = i_prebounds;
         TTInt32 j = j_prebounds;
         
-		TTTestAssertion("reports value is out of bounds", 
-						matrix->makeInBounds(i,j) == 1,
+		TTTestAssertion("reports row ID is out of bounds", 
+						matrix->makeRowIDInBounds(i) == 1,
 						testAssertionCount,
 						errorCount);
         TTTestAssertion("< 0 i value was clipped by out of bounds operation",
 						i == 0,
+						testAssertionCount,
+						errorCount);
+		TTTestAssertion("reports column ID is out of bounds", 
+						matrix->makeColumnIDInBounds(j) == 1,
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("> max j value was clipped by out of bounds operation",
@@ -259,7 +263,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		// reset and try different limiting function
 		i = i_prebounds; 
 		j = j_prebounds;
-		matrix->makeInBounds(i,j,TTInfWrap); 
+		matrix->makeRowIDInBounds(i,TTInfWrap); 
+		matrix->makeColumnIDInBounds(j,TTInfWrap); 
 		TTTestAssertion("< 0 i value was wrapped by out of bounds operation",
 						i == 157, // 160 should be max, so it will be 160 - 3
 						testAssertionCount,
