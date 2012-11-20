@@ -19,16 +19,35 @@
 
 
 
+
 TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 {
 	// preliminary setup
-	
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	
-	TTTestLog("Testing TTSpatSnap attributes and messages");
-	TTTestLog(" ");
+	// Attributes and messages
+	TTSpatSnap::testSourceAndSinkCountSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
+	TTSpatSnap::testSourcePositionSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
+	TTSpatSnap::testSinkPositionSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
+	
+	// Inspect matrix coefficients
+	TTSpatSnap::testMatrixCoefficients(testAssertionCount, errorCount, returnedTestInfo);
+	
+	// Test audio processing
+	TTSpatSnap::testAudioProcessing(testAssertionCount, errorCount, returnedTestInfo);
 		
+	// Wrap up the test results to pass back to whoever called this test
+	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
+}
+
+TTErr TTSpatSnap::testSourceAndSinkCountSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+{
+	
+	TTTestLog(" ");
+	TTTestLog("Changing number of sources and sinks");
+	TTTestLog(" ");
+	
 	// Check that sourceCount defaults to 1
 	
 	TTFloat64 sourceCountTest;
@@ -47,7 +66,7 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					TTTestFloatEquivalence(sinkCountTest, 1.),
 					testAssertionCount,
 					errorCount);
-		
+	
 	// Test initial matrix size:
 	
 	TTTestAssertion("Initial matrix has 1 row",
@@ -57,19 +76,6 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	
 	TTTestAssertion("Initial matrix has 1 column",
 					(this->mRenderer.mMixerMatrixCoefficients->getColumnCount())==1,
-					testAssertionCount,
-					errorCount);
-	
-	//this->mRenderer.mMixerMatrixCoefficients->get2d(row,col));
-	
-	// Initial coefficient matrix cell equals 0:
-	
-	TTFloat64 cellValue;
-	TTFloat64 cellValueSquareSum;
-	
-	this->mRenderer.mMixerMatrixCoefficients->get2d(0, 0, cellValue);
-	TTTestAssertion("Initial cell value is 0.",
-					TTTestFloatEquivalence(cellValue, 0.),
 					testAssertionCount,
 					errorCount);
 	
@@ -83,7 +89,7 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	// Test setter and getter for sinkCount attribute
-		
+	
 	this->setAttributeValue("sinkCount", 5);
 	this->getAttributeValue("sinkCount", sinkCountTest);
 	TTTestAssertion("setter and getter for sinkCount attribute",
@@ -91,24 +97,6 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					testAssertionCount,
 					errorCount);
 	
-	
-	// Test that all cell values are still equaling 0.
-	cellValueSquareSum = 0.;
-	for (TTInt16 row=0; row<7; row++)
-	{
-		for (TTInt16 col=0; col<5; col++)
-		{
-			this->mRenderer.mMixerMatrixCoefficients->get2d(0, 0, cellValue);
-			cellValueSquareSum += cellValue*cellValue;
-			TTTestLog("cell[%i,%i] = %f", row, col, cellValue);
-		}
-	}
-	
-	TTTestAssertion("All cells of resized matrix are initially 0.",
-					TTTestFloatEquivalence(cellValueSquareSum, 0.),
-					testAssertionCount,
-					errorCount);
-
 	// Test initial matrix size:
 	
 	TTTestAssertion("Matrix now has 7 rows",
@@ -120,8 +108,276 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					(this->mRenderer.mMixerMatrixCoefficients->getColumnCount())==5,
 					testAssertionCount,
 					errorCount);
+
+	
+	TTTestLog("testing");
+	return kTTErrNone;
+}
+
+
+TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+{
+	TTValue anEntity;
+	TTValue unused;
+	anEntity.setSize(4);
+	
+	anEntity.setSize(4);
+	
+	// Set source 1: (-2., -3.14, -4.2)
+	anEntity.set(0, 1);
+	anEntity.set(1, -2.);
+	anEntity.set(2, -3.14);
+	anEntity.set(3, -4.2);
+	this->sendMessage("setSourcePosition", anEntity, unused);
+	
+	// Source 2: Default = (0., 0., 0.) so we don't set it.
+	
+	// Set source 3: (3.1, 0.2, -0.2)
+	
+	anEntity.set(0, 3);
+	anEntity.set(1, 3.1);
+	anEntity.set(2, 0.2);
+	anEntity.set(3, -0.2);
+	this->sendMessage("setSourcePosition", anEntity, unused);
+	
+	// Set source 4: (0., 4.6, 0.)
+	
+	anEntity.set(0, 4);
+	anEntity.set(1, 0.);
+	anEntity.set(2, 4.6);
+	anEntity.set(3, 0.);
+	this->sendMessage("setSourcePosition", anEntity, unused);
+	
+	// Set source 5: (-0.1, 0.1, 5.5)
+	
+	anEntity.set(0, 5);
+	anEntity.set(1, -0.1);
+	anEntity.set(2, 0.1);
+	anEntity.set(3, 5.5);
+	this->sendMessage("setSourcePosition", anEntity, unused);
+	
+	// Now we test five source positions:
+	
+	TTValue getChannel;
+	TTFloat64 x, y, z;
+	TTInt16 channelNumber;
+	
+	getChannel.setSize(1);
+	
+	getChannel.setSize(1);
 	
 	
+	// Get and test source 1:
+	
+	TTTestLog(" ");
+	TTTestLog("Setting and getting position of source 1");
+	TTTestLog(" ");
+	
+	anEntity.clear();
+	getChannel.set(0, 1);
+	
+	this->sendMessage("getSourcePosition", getChannel, anEntity);
+	
+	TTTestAssertion("getSourcePosition[1]: Returning TTValue array with four members",
+					(anEntity.getSize() == 4),
+					testAssertionCount,
+					errorCount);
+	
+	anEntity.get(0, channelNumber);
+	anEntity.get(1, x);
+	anEntity.get(2, y);
+	anEntity.get(3, z);
+	
+	TTTestAssertion("getSourcePosition[1]: Returning position for correct channel",
+					(channelNumber==1),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[1]: Returning correct x-position",
+					TTTestFloatEquivalence(x, -2.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[1]: Returning correct y-position",
+					TTTestFloatEquivalence(y, -3.14),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[1]: Returning correct z-position",
+					TTTestFloatEquivalence(z, -4.2),
+					testAssertionCount,
+					errorCount);
+	
+	// Get and test source 2:
+	
+	TTTestLog(" ");
+	TTTestLog("Getting default position of source 2");
+	TTTestLog(" ");
+	
+	anEntity.clear();
+	getChannel.set(0, 2);
+	
+	this->sendMessage("getSourcePosition", getChannel, anEntity);
+	
+	TTTestAssertion("getSourcePosition[2]: Returning TTValue array with four members",
+					(anEntity.getSize() == 4),
+					testAssertionCount,
+					errorCount);
+	
+	anEntity.get(0, channelNumber);
+	anEntity.get(1, x);
+	anEntity.get(2, y);
+	anEntity.get(3, z);
+	
+	TTTestAssertion("getSourcePosition[2]: Returning position for correct channel",
+					(channelNumber==2),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[2]: Returning correct default x-position",
+					TTTestFloatEquivalence(x, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[2]: Returning correct default y-position",
+					TTTestFloatEquivalence(y, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[2]: Returning correct default z-position",
+					TTTestFloatEquivalence(z, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	// Get and test source 3:
+	
+	TTTestLog(" ");
+	TTTestLog("Setting and getting position of source 3");
+	TTTestLog(" ");
+	
+	anEntity.clear();
+	getChannel.set(0, 3);
+	
+	this->sendMessage("getSourcePosition", getChannel, anEntity);
+	
+	TTTestAssertion("getSourcePosition[3]: Returning TTValue array with four members",
+					(anEntity.getSize() == 4),
+					testAssertionCount,
+					errorCount);
+	
+	anEntity.get(0, channelNumber);
+	anEntity.get(1, x);
+	anEntity.get(2, y);
+	anEntity.get(3, z);
+	
+	TTTestAssertion("getSourcePosition[3]: Returning position for correct channel",
+					(channelNumber==3),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[3]: Returning correct x-position",
+					TTTestFloatEquivalence(x, 3.1),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[3]: Returning correct y-position",
+					TTTestFloatEquivalence(y, 0.2),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[3]: Returning correct z-position",
+					TTTestFloatEquivalence(z, -0.2),
+					testAssertionCount,
+					errorCount);
+	
+	// Get and test source 4:
+	
+	TTTestLog(" ");
+	TTTestLog("Setting and getting position of source 4");
+	TTTestLog(" ");
+	
+	anEntity.clear();
+	getChannel.set(0, 4);
+	
+	this->sendMessage("getSourcePosition", getChannel, anEntity);
+	
+	TTTestAssertion("getSourcePosition[4]: Returning TTValue array with four members",
+					(anEntity.getSize() == 4),
+					testAssertionCount,
+					errorCount);
+	
+	anEntity.get(0, channelNumber);
+	anEntity.get(1, x);
+	anEntity.get(2, y);
+	anEntity.get(3, z);
+	
+	TTTestAssertion("getSourcePosition[4]: Returning position for correct channel",
+					(channelNumber==4),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[4]: Returning correct x-position",
+					TTTestFloatEquivalence(x, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[4]: Returning correct y-position",
+					TTTestFloatEquivalence(y, 4.6),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[4]: Returning correct z-position",
+					TTTestFloatEquivalence(z, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	
+	// Get and test source 5:
+	
+	TTTestLog(" ");
+	TTTestLog("Setting and getting position of source 5");
+	TTTestLog(" ");
+	
+	anEntity.clear();
+	getChannel.set(0, 5);
+	
+	this->sendMessage("getSourcePosition", getChannel, anEntity);
+	
+	TTTestAssertion("getSourcePosition[5]: Returning TTValue array with four members",
+					(anEntity.getSize() == 4),
+					testAssertionCount,
+					errorCount);
+	
+	anEntity.get(0, channelNumber);
+	anEntity.get(1, x);
+	anEntity.get(2, y);
+	anEntity.get(3, z);
+	
+	TTTestAssertion("getSourcePosition[5]: Returning position for correct channel",
+					(channelNumber==5),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[5]: Returning correct x-position",
+					TTTestFloatEquivalence(x, -0.1),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[5]: Returning correct y-position",
+					TTTestFloatEquivalence(y, 0.1),
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("getSourcePosition[5]: Returning correct z-position",
+					TTTestFloatEquivalence(z, 5.5),
+					testAssertionCount,
+					errorCount);
+	
+	return kTTErrNone;
+}
+
+TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+{	
 	// Set the location of five sinks:
 	
 	TTValue anEntity;
@@ -162,7 +418,7 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	anEntity.set(3, -4.);
 	this->sendMessage("setSinkPosition", anEntity, unused);
 	
-	// Now we test five positions:
+	// Now we test five sink positions:
 	
 	TTValue getChannel;
 	TTFloat64 x, y, z;
@@ -170,10 +426,10 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	
 	getChannel.setSize(1);
 	
-	// Test sink 1:
+	// Get and test sink 1:
 	
 	TTTestLog(" ");
-	TTTestLog("Testing position of sink 1");
+	TTTestLog("Getting default position of sink 1");
 	TTTestLog(" ");
 	
 	anEntity.clear();
@@ -212,10 +468,10 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	
-	// Test sink 2:
+	// Get and test sink 2:
 	
 	TTTestLog(" ");
-	TTTestLog("Testing position of sink 2");
+	TTTestLog("Setting and getting position of sink 2");
 	TTTestLog(" ");
 	
 	anEntity.clear();
@@ -254,10 +510,10 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	
-	// Test sink 3:
+	// Get and test sink 3:
 	
 	TTTestLog(" ");
-	TTTestLog("Testing position of sink 3");
+	TTTestLog("Setting and getting position of sink 3");
 	TTTestLog(" ");
 	
 	anEntity.clear();
@@ -296,10 +552,10 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	
-	// Test sink 4:
+	// Get and test sink 4:
 	
 	TTTestLog(" ");
-	TTTestLog("Testing position of sink 4");
+	TTTestLog("Setting and getting position of sink 4");
 	TTTestLog(" ");
 	
 	anEntity.clear();
@@ -338,10 +594,10 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	
-	// Test sink 5:
+	// Get and test sink 5:
 	
 	TTTestLog(" ");
-	TTTestLog("Testing position of sink 5");
+	TTTestLog("Setting and getting position of sink 5");
 	TTTestLog(" ");
 	
 	anEntity.clear();
@@ -379,275 +635,188 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					testAssertionCount,
 					errorCount);
 	
-	
-	//////////////////////////
-	
-	
-	// Set the location of five sources:
-	// The location will be in the vicinity of the sinks
-	
-	anEntity.setSize(4);
-	
-	// Source 1: (-2., -3.14, -4.2)
-	
-	anEntity.set(0, 1);
-	anEntity.set(1, -2.);
-	anEntity.set(2, -3.14);
-	anEntity.set(3, -4.2);
-	this->sendMessage("setSourcePosition", anEntity, unused);
-	
-	// Source 2: Default = (0., 0., 0.) so we don't set it.
-	
-	// Source 3: (33.3, 0., 0.)
-	
-	anEntity.set(0, 3);
-	anEntity.set(1, 3.1);
-	anEntity.set(2, 0.2);
-	anEntity.set(3, -0.2);
-	this->sendMessage("setSourcePosition", anEntity, unused);
-	
-	// Source 4: (0., 4.6, 0.)
-	
-	anEntity.set(0, 4);
-	anEntity.set(1, 0.);
-	anEntity.set(2, 4.6);
-	anEntity.set(3, 0.);
-	this->sendMessage("setSourcePosition", anEntity, unused);
-	
-	// Source 5: (-0.1, 0.1, 5.5)
-	
-	anEntity.set(0, 5);
-	anEntity.set(1, -0.1);
-	anEntity.set(2, 0.1);
-	anEntity.set(3, 5.5);
-	this->sendMessage("setSourcePosition", anEntity, unused);
-	
-	
-	
-	// Now we test five source positions:
-	
-	getChannel.setSize(1);
-	
-	
-	// Test source 1:
-	
-	TTTestLog(" ");
-	TTTestLog("Testing position of source 1");
-	TTTestLog(" ");
-	
-	anEntity.clear();
-	getChannel.set(0, 1);
-	
-	this->sendMessage("getSourcePosition", getChannel, anEntity);
-	
-	TTTestAssertion("getSourcePosition[1]: Returning TTValue array with four members",
-					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
-	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
-	
-	TTTestAssertion("getSourcePosition[1]: Returning position for correct channel",
-					(channelNumber==1),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[1]: Returning correct x-position",
-					TTTestFloatEquivalence(x, -2.),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[1]: Returning correct y-position",
-					TTTestFloatEquivalence(y, -3.14),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[1]: Returning correct z-position",
-					TTTestFloatEquivalence(z, -4.2),
-					testAssertionCount,
-					errorCount);
-	
-	// Test source 2:
-	
-	TTTestLog(" ");
-	TTTestLog("Testing position of source 2");
-	TTTestLog(" ");
-	
-	anEntity.clear();
-	getChannel.set(0, 2);
-	
-	this->sendMessage("getSourcePosition", getChannel, anEntity);
-	
-	TTTestAssertion("getSourcePosition[2]: Returning TTValue array with four members",
-					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
-	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
-	
-	TTTestAssertion("getSourcePosition[2]: Returning position for correct channel",
-					(channelNumber==2),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[2]: Returning correct default x-position",
-					TTTestFloatEquivalence(x, 0.),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[2]: Returning correct default y-position",
-					TTTestFloatEquivalence(y, 0.),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[2]: Returning correct default z-position",
-					TTTestFloatEquivalence(z, 0.),
-					testAssertionCount,
-					errorCount);
-	
-	// Test source 3:
-	
-	TTTestLog(" ");
-	TTTestLog("Testing position of source 3");
-	TTTestLog(" ");
-	
-	anEntity.clear();
-	getChannel.set(0, 3);
-	
-	this->sendMessage("getSourcePosition", getChannel, anEntity);
-	
-	TTTestAssertion("getSourcePosition[3]: Returning TTValue array with four members",
-					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
-	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
-	
-	TTTestAssertion("getSourcePosition[3]: Returning position for correct channel",
-					(channelNumber==3),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[3]: Returning correct x-position",
-					TTTestFloatEquivalence(x, 3.1),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[3]: Returning correct y-position",
-					TTTestFloatEquivalence(y, 0.2),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[3]: Returning correct z-position",
-					TTTestFloatEquivalence(z, -0.2),
-					testAssertionCount,
-					errorCount);
-	
-	// Test source 4:
-	
-	TTTestLog(" ");
-	TTTestLog("Testing position of source 4");
-	TTTestLog(" ");
-	
-	anEntity.clear();
-	getChannel.set(0, 4);
-	
-	this->sendMessage("getSourcePosition", getChannel, anEntity);
-	
-	TTTestAssertion("getSourcePosition[4]: Returning TTValue array with four members",
-					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
-	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
-	
-	TTTestAssertion("getSourcePosition[4]: Returning position for correct channel",
-					(channelNumber==4),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[4]: Returning correct x-position",
-					TTTestFloatEquivalence(x, 0.),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[4]: Returning correct y-position",
-					TTTestFloatEquivalence(y, 4.6),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[4]: Returning correct z-position",
-					TTTestFloatEquivalence(z, 0.),
-					testAssertionCount,
-					errorCount);
-	
-	
-	// Test source 5:
-	
-	TTTestLog(" ");
-	TTTestLog("Testing position of source 5");
-	TTTestLog(" ");
-	
-	anEntity.clear();
-	getChannel.set(0, 5);
-	
-	this->sendMessage("getSourcePosition", getChannel, anEntity);
-	
-	TTTestAssertion("getSourcePosition[5]: Returning TTValue array with four members",
-					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
-	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
-	
-	TTTestAssertion("getSourcePosition[5]: Returning position for correct channel",
-					(channelNumber==5),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[5]: Returning correct x-position",
-					TTTestFloatEquivalence(x, -0.1),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[5]: Returning correct y-position",
-					TTTestFloatEquivalence(y, 0.1),
-					testAssertionCount,
-					errorCount);
-	
-	TTTestAssertion("getSourcePosition[5]: Returning correct z-position",
-					TTTestFloatEquivalence(z, 5.5),
-					testAssertionCount,
-					errorCount);
-	
-	
-	// Test that all cell values are still equaling 0.
-	cellValueSquareSum = 0.;
-	for (TTInt16 row=0; row<7; row++)
-	{
-		for (TTInt16 col=0; col<5; col++)
-		{
-			this->mRenderer.mMixerMatrixCoefficients->get2d(0, 0, cellValue);
-			cellValueSquareSum += cellValue*cellValue;
-			TTTestLog("cell[%i,%i] = %f", row, col, cellValue);
+	return kTTErrNone;
+}
+
+TTErr TTSpatSnap::testMatrixCoefficients(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+{
+	TTFloat64 expectedValues[7][5];
+	TTFloat64 retrievedCoefficientValues[7][5];
+	TTFloat64 diff;
+	TTFloat64 absDiffSum=0;
+	
+	// Extected matrix values based on matrix size and source/sink positions as set in previous methods
+	expectedValues[0][0] = 0.;
+	expectedValues[0][1] = 0.;
+	expectedValues[0][2] = 0.;
+	expectedValues[0][3] = 0.;
+	expectedValues[0][4] = 1.;
+
+	expectedValues[1][0] = 1.;
+	expectedValues[1][1] = 0.;
+	expectedValues[1][2] = 0.;
+	expectedValues[1][3] = 0.;
+	expectedValues[1][4] = 0.;
+
+	expectedValues[2][0] = 0.;
+	expectedValues[2][1] = 1.;
+	expectedValues[2][2] = 0.;
+	expectedValues[2][3] = 0.;
+	expectedValues[2][4] = 0.;
+
+	expectedValues[3][0] = 0.;
+	expectedValues[3][1] = 0.;
+	expectedValues[3][2] = 1.;
+	expectedValues[3][3] = 0.;
+	expectedValues[3][4] = 0.;
+
+	expectedValues[4][0] = 0.;
+	expectedValues[4][1] = 0.;
+	expectedValues[4][2] = 0.;
+	expectedValues[4][3] = 1.;
+	expectedValues[4][4] = 0.;
+
+	expectedValues[5][0] = 1.;
+	expectedValues[5][1] = 0.;
+	expectedValues[5][2] = 0.;
+	expectedValues[5][3] = 0.;
+	expectedValues[5][4] = 0.;
+
+	expectedValues[6][0] = 1.;
+	expectedValues[6][1] = 0.;
+	expectedValues[6][2] = 0.;
+	expectedValues[6][3] = 0.;
+	expectedValues[6][4] = 0.;
+	
+	// Get all current matrix coefficients
+	for (TTInt16 row=0; row<7; row++) {
+		for (TTInt16 col=0; col<5; col++) {
+			this->mRenderer.mMixerMatrixCoefficients->get2d(row, col, retrievedCoefficientValues[row][col]);
+			diff = retrievedCoefficientValues[row][col] - expectedValues[row][col];
+			absDiffSum += diff*diff;
 		}
 	}
 	
-	// Wrap up the test results to pass back to whoever called this test
-	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
+	TTTestLog("");
+	TTTestAssertion("Correct matrix coefficients",
+					TTTestFloatEquivalence(absDiffSum, 0.),
+					testAssertionCount,
+					errorCount);
+	
+	return kTTErrNone;
+}
+
+TTErr TTSpatSnap::testAudioProcessing(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+{
+	TTAudioSignalPtr input = NULL;
+	TTAudioSignalPtr output = NULL;
+	
+	// create audio signal objects
+	TTObjectInstantiate(kTTSym_audiosignal, &input, 7);
+	TTObjectInstantiate(kTTSym_audiosignal, &output, 5);
+	
+	input->allocWithVectorSize(64);
+	output->allocWithVectorSize(64);
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[0][sample] = 1.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[1][sample] = 2.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[2][sample] = 4.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[3][sample] = 8.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[4][sample] = 16.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[5][sample] = 32.0;
+	
+	for (TTInt16 sample=0; sample<64; sample++)
+		input->mSampleVectors[6][sample] = 64.0;
+	
+	this->process(input, output);
+	
+	
+	// Test processed audio
+	TTTestLog("");
+	
+	// Sink 1 receieves signal fra source 2, 6 and 7: Expected value equals 2. + 32. +64. = 98.
+	
+	int validSampleCount = 0;
+	TTSampleValuePtr samples = output->mSampleVectors[0];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(98., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 1",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	// Sink 2 receieves signal fra source 3: Expected value equals 4.
+	
+	validSampleCount = 0;
+	samples = output->mSampleVectors[1];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(4., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 2",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	// Sink 3 receieves signal fra source 4: Expected value equals 8.
+	
+	validSampleCount = 0;
+	samples = output->mSampleVectors[2];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(8., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 3",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	// Sink 4 receieves signal fra source 5: Expected value equals 16.
+	
+	validSampleCount = 0;
+	samples = output->mSampleVectors[3];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(16., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 4",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	// Sink 5 receieves signal fra source 1: Expected value equals 1.
+	
+	validSampleCount = 0;
+	samples = output->mSampleVectors[4];
+	
+	for (int i=0; i<64; i++) {
+		validSampleCount += TTTestFloatEquivalence(1., samples[i]);
+	}
+	TTTestAssertion("Correct audio signal processed to sink 5",
+					validSampleCount == 64,
+					testAssertionCount,
+					errorCount);
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
+	
+	TTObjectRelease(&input);
+	TTObjectRelease(&output);
+	
+	return kTTErrNone;
 }

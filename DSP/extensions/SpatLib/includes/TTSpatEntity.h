@@ -4,7 +4,7 @@
  *
  * @brief Describe the geometry of a point
  *
- * @details This can be used to describe sources or sinks.
+ * @details This can be used to describe the sources or sinks of sound spatialisation renderers, etc.
  *
  * @authors Trond Lossius, Timothy Place, Nils Peters, 
  *
@@ -16,7 +16,7 @@
 #include "TTDSP.h"
 
 
-/** This class describes the geometry of a point.
+/** The TTSpatEntity class describes the geometry of a point.
  It can be used to describe a source or a sink, and includes the minimum
  amount of descriptors as defined in the core section of the SpatDIF specs.
  */
@@ -31,19 +31,52 @@ protected:
 	
 public:
 	
+	/** Constructor.
+	 */
 	TTSpatEntity();
 	
+	
+	/** Destructor.
+	 */
 	~TTSpatEntity();
 	
+	
+	/** Get the current position of the point.
+	 @param x				Cartesian x-coordinate of the point.
+	 @param y				Cartesian y-coordinate of the point.
+	 @param z				Cartesian z-coordinate of the point.
+	 */
 	void getPosition(TTFloat64& x, TTFloat64& y, TTFloat64& z);
 	
+	
+	/** Set the position of the point.
+	 @param x				Cartesian x-coordinate of the point.
+	 @param y				Cartesian y-coordinate of the point.
+	 @param z				Cartesian z-coordinate of the point.
+	 */
 	void setPosition(TTFloat64 x, TTFloat64 y, TTFloat64 z);
 	
+	
+	/** Get the orientation of the point expressed as quaternions.
+	 @param q1				First coordinate of the point.
+	 @param q2				Second coordinate of the point.
+	 @param q3				Third coordinate of the point.
+	 @param q4				Fourth coordinate of the point.
+	 */
 	void getOrientation(TTFloat64& q1, TTFloat64& q2, TTFloat64& q3, TTFloat64& q4);
 	
+	
+	/** Set the orientation of the point expressed as quaternions.
+	 @param q1				First coordinate of the point.
+	 @param q2				Second coordinate of the point.
+	 @param q3				Third coordinate of the point.
+	 @param q4				Fourth coordinate of the point.
+	 */
 	void setOrientation(TTFloat64 q1, TTFloat64 q2, TTFloat64 q3, TTFloat64 q4);
 };
 
 
-
+/** Pointer to a vector of #TTSpatEntity points.
+ @ingroup typedefs
+ */
 typedef std::vector<TTSpatEntity> TTSpatEntityVector;
