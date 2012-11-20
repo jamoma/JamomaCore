@@ -13,6 +13,8 @@
 TTNode::TTNode(TTSymbol aName, TTSymbol anInstance, TTObjectPtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
 	parent(NULL)
 {
+    name = aName;
+    instance = anInstance;
 	object = anObject;
 	context = aContext;
 	directory = aDirectory;
@@ -95,10 +97,8 @@ TTNode::~TTNode()
 	this->children->clear();
 	this->children->~TTHash();
 
-//	this->name = NULL;
 	this->object = NULL;
 	this->context = NULL;
-//	this->instance = NULL;
 }
 
 TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstanceCreated)
@@ -288,17 +288,17 @@ TTErr TTNode::setChild(TTNodePtr child)
 	TTHashPtr ht_i;
 
 	// Is an instance of this child
-	// already exist in the HashTab ?
+	// already exist in the children table ?
 	err = this->children->lookup(child->name, c);
 
 	if (err == kTTErrValueNotFound) {
 
-		// create a instance linklist
+		// create an instance table
 		// with this child as first instance
 		ht_i = new TTHash();
 		ht_i->append(child->instance,child);
 
-		// add the linklist to the hashTab
+		// add the instance table to the children table
 		this->children->append(child->name, ht_i);
 
 		// no instance created
