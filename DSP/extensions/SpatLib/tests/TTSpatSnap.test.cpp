@@ -28,31 +28,100 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	
 	TTTestLog("Testing TTSpatSnap attributes and messages");
 	TTTestLog(" ");
+		
+	// Check that sourceCount defaults to 1
 	
-	// N test assertions
+	TTFloat64 sourceCountTest;
+	TTFloat64 sinkCountTest;
+	
+	this->getAttributeValue("sourceCount", sourceCountTest);
+	TTTestAssertion("sourceCount attribute defaults to 1",
+					TTTestFloatEquivalence(sourceCountTest, 1.),
+					testAssertionCount,
+					errorCount);
+	
+	// Check that sinkCount defaults to 1
+	
+	this->getAttributeValue("sinkCount", sinkCountTest);
+	TTTestAssertion("sinkCount attribute attribute defaults to 1",
+					TTTestFloatEquivalence(sinkCountTest, 1.),
+					testAssertionCount,
+					errorCount);
+		
+	// Test initial matrix size:
+	
+	TTTestAssertion("Initial matrix has 1 row",
+					(this->mRenderer.mMixerMatrixCoefficients->getRowCount())==1,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("Initial matrix has 1 column",
+					(this->mRenderer.mMixerMatrixCoefficients->getColumnCount())==1,
+					testAssertionCount,
+					errorCount);
+	
+	//this->mRenderer.mMixerMatrixCoefficients->get2d(row,col));
+	
+	// Initial coefficient matrix cell equals 0:
+	
+	TTFloat64 cellValue;
+	TTFloat64 cellValueSquareSum;
+	
+	this->mRenderer.mMixerMatrixCoefficients->get2d(0, 0, cellValue);
+	TTTestAssertion("Initial cell value is 0.",
+					TTTestFloatEquivalence(cellValue, 0.),
+					testAssertionCount,
+					errorCount);
 	
 	// Test setter and getter for sourceCount attribute
-
-	TTFloat64 sourceCountTest;
 	
-	this->setAttributeValue("sourceCount", 3);
+	this->setAttributeValue("sourceCount", 7);
 	this->getAttributeValue("sourceCount", sourceCountTest);
 	TTTestAssertion("setter and getter for sourceCount attribute",
-					TTTestFloatEquivalence(sourceCountTest, 3.),
+					TTTestFloatEquivalence(sourceCountTest, 7.),
 					testAssertionCount,
 					errorCount);
 	
 	// Test setter and getter for sinkCount attribute
-	
-	TTFloat64 sinkCountTest;
-	
+		
 	this->setAttributeValue("sinkCount", 5);
 	this->getAttributeValue("sinkCount", sinkCountTest);
 	TTTestAssertion("setter and getter for sinkCount attribute",
 					TTTestFloatEquivalence(sinkCountTest, 5.),
 					testAssertionCount,
 					errorCount);
+	
+	
+	// Test that all cell values are still equaling 0.
+	cellValueSquareSum = 0.;
+	for (TTInt16 row=0; row<7; row++)
+	{
+		for (TTInt16 col=0; col<5; col++)
+		{
+			this->mRenderer.mMixerMatrixCoefficients->get2d(0, 0, cellValue);
+			cellValueSquareSum += cellValue*cellValue;
+			TTTestLog("cell[%i,%i] = %f", row, col, cellValue);
+		}
+	}
+	
+	TTTestAssertion("All cells of resized matrix are initially 0.",
+					TTTestFloatEquivalence(cellValueSquareSum, 0.),
+					testAssertionCount,
+					errorCount);
 
+	// Test initial matrix size:
+	
+	TTTestAssertion("Matrix now has 7 rows",
+					(this->mRenderer.mMixerMatrixCoefficients->getRowCount())==7,
+					testAssertionCount,
+					errorCount);
+	
+	TTTestAssertion("Initial matrix has 5 columns",
+					(this->mRenderer.mMixerMatrixCoefficients->getColumnCount())==5,
+					testAssertionCount,
+					errorCount);
+	
+	
 	// Set the location of five sinks:
 	
 	TTValue anEntity;
@@ -315,15 +384,16 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	
 	
 	// Set the location of five sources:
+	// The location will be in the vicinity of the sinks
 	
 	anEntity.setSize(4);
 	
-	// Source 1: (-2., -3.14, -4.)
+	// Source 1: (-2., -3.14, -4.2)
 	
 	anEntity.set(0, 1);
 	anEntity.set(1, -2.);
 	anEntity.set(2, -3.14);
-	anEntity.set(3, -4.);
+	anEntity.set(3, -4.2);
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
 	// Source 2: Default = (0., 0., 0.) so we don't set it.
@@ -331,25 +401,25 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 	// Source 3: (33.3, 0., 0.)
 	
 	anEntity.set(0, 3);
-	anEntity.set(1, 33.3);
-	anEntity.set(2, 0.);
-	anEntity.set(3, 0.);
+	anEntity.set(1, 3.1);
+	anEntity.set(2, 0.2);
+	anEntity.set(3, -0.2);
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
-	// Source 4: (0., 44.4, 0.)
+	// Source 4: (0., 4.6, 0.)
 	
 	anEntity.set(0, 4);
 	anEntity.set(1, 0.);
-	anEntity.set(2, 44.4);
+	anEntity.set(2, 4.6);
 	anEntity.set(3, 0.);
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
-	// Source 5: (0., 0., 55.5)
+	// Source 5: (-0.1, 0.1, 5.5)
 	
 	anEntity.set(0, 5);
-	anEntity.set(1, 0.);
-	anEntity.set(2, 0.);
-	anEntity.set(3, 55.5);
+	anEntity.set(1, -0.1);
+	anEntity.set(2, 0.1);
+	anEntity.set(3, 5.5);
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
 	
@@ -396,7 +466,7 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[1]: Returning correct z-position",
-					TTTestFloatEquivalence(z, -4.),
+					TTTestFloatEquivalence(z, -4.2),
 					testAssertionCount,
 					errorCount);
 	
@@ -441,7 +511,6 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					testAssertionCount,
 					errorCount);
 	
-	
 	// Test source 3:
 	
 	TTTestLog(" ");
@@ -469,20 +538,19 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[3]: Returning correct x-position",
-					TTTestFloatEquivalence(x, 33.3),
+					TTTestFloatEquivalence(x, 3.1),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[3]: Returning correct y-position",
-					TTTestFloatEquivalence(y, 0.),
+					TTTestFloatEquivalence(y, 0.2),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[3]: Returning correct z-position",
-					TTTestFloatEquivalence(z, 0.),
+					TTTestFloatEquivalence(z, -0.2),
 					testAssertionCount,
 					errorCount);
-	
 	
 	// Test source 4:
 	
@@ -516,7 +584,7 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[4]: Returning correct y-position",
-					TTTestFloatEquivalence(y, 44.4),
+					TTTestFloatEquivalence(y, 4.6),
 					testAssertionCount,
 					errorCount);
 	
@@ -553,23 +621,32 @@ TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[5]: Returning correct x-position",
-					TTTestFloatEquivalence(x, 0.),
+					TTTestFloatEquivalence(x, -0.1),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[5]: Returning correct y-position",
-					TTTestFloatEquivalence(y, 0.),
+					TTTestFloatEquivalence(y, 0.1),
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("getSourcePosition[5]: Returning correct z-position",
-					TTTestFloatEquivalence(z, 55.5),
+					TTTestFloatEquivalence(z, 5.5),
 					testAssertionCount,
 					errorCount);
 	
 	
-	
-	
+	// Test that all cell values are still equaling 0.
+	cellValueSquareSum = 0.;
+	for (TTInt16 row=0; row<7; row++)
+	{
+		for (TTInt16 col=0; col<5; col++)
+		{
+			this->mRenderer.mMixerMatrixCoefficients->get2d(0, 0, cellValue);
+			cellValueSquareSum += cellValue*cellValue;
+			TTTestLog("cell[%i,%i] = %f", row, col, cellValue);
+		}
+	}
 	
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
