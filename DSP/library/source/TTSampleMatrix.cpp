@@ -130,9 +130,15 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 	TTRowID p_index = index;
 	TTColumnID p_channel = channel;
 	
-	makeInBounds(p_index, p_channel); // out of range values are clipped
+	TTBoolean weAreNotInBounds = makeInBounds(p_index, p_channel); // out of range values are clipped
 	get2d(p_index, p_channel, value);
-	return kTTErrNone;
+	
+	if (weAreNotInBounds)
+	{
+		return kTTErrInvalidValue;
+	} else {
+		return kTTErrNone;
+	}
 }
 
 // a first attempt at interpolation for the SampleMatrix. should be viewed as temporary.
