@@ -3,7 +3,6 @@ sources:
   - Plugtastic.cpp
   - PlugtasticInput.cpp
   - PlugtasticOutput.cpp
-  - PlugtasticParameter.cpp
   
 includes:
   - "../../../Foundation/library/includes"

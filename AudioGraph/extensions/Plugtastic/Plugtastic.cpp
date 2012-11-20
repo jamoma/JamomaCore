@@ -10,7 +10,6 @@
 #include "TTAudioGraphAPI.h"
 #include "PlugtasticInput.h"
 #include "PlugtasticOutput.h"
-#include "PlugtasticParameter.h"
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Plugtastic(void)
@@ -19,7 +18,6 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Plugtastic(void)
 	
 	PlugtasticInput::registerClass();
 	PlugtasticOutput::registerClass();
-	PlugtasticParameter::registerClass();
 	
 	return kTTErrNone;
 }
