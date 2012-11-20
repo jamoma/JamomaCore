@@ -154,33 +154,31 @@ TTErr TTSpat::setSinkCount(const TTValue& aSinkCount)
 }
 
 
-TTErr TTSpat::getSourcePosition(TTValue& aPosition)
+TTErr TTSpat::getSourcePosition(const TTValue& anIndex, TTValue& returnedPosition)
 {
 //	return mSpatFunctionObject->getSourcePosition(aPosition);
-	return mSpatFunctionObject->sendMessage("getSourcePosition", aPosition, aPosition);
+	return mSpatFunctionObject->sendMessage("getSourcePosition", anIndex, returnedPosition);
 }
 
 
-TTErr TTSpat::setSourcePosition(const TTValue& aPosition)
+TTErr TTSpat::setSourcePosition(const TTValue& aPosition, TTValue& unused)
 {
 //	return mSpatFunctionObject->setSourcePosition(aPosition);
-	TTValue dummy;
-	return mSpatFunctionObject->sendMessage("setSourcePosition", aPosition, dummy);
+	return mSpatFunctionObject->sendMessage("setSourcePosition", aPosition, unused);
 }
 
 
-TTErr TTSpat::getSinkPosition(TTValue& aPosition)
+TTErr TTSpat::getSinkPosition(const TTValue& anIndex, TTValue& returnedPosition)
 {
 //	return mSpatFunctionObject->getSinkPosition(aPosition);
-	return mSpatFunctionObject->sendMessage("getSinkPosition", aPosition, aPosition);
+	return mSpatFunctionObject->sendMessage("getSinkPosition", anIndex, returnedPosition);
 }
 
 
-TTErr TTSpat::setSinkPosition(const TTValue& aPosition)
+TTErr TTSpat::setSinkPosition(const TTValue& aPosition, TTValue& unused)
 {
 //	return mSpatFunctionObject->setSinkPosition(aPosition);
-	TTValue dummy;
-	return mSpatFunctionObject->sendMessage("setSinkPosition", aPosition, dummy);
+	return mSpatFunctionObject->sendMessage("setSinkPosition", aPosition, unused);
 }
 
 /*
