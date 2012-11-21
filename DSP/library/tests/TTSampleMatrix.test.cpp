@@ -16,7 +16,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	// for tests
 	TTInt16				numChannels = 2;
-	TTUInt32				numSamples = 50000;  // TODO: xcode says this is ambiguous when signed?
+	TTUInt32			numSamples = 50000;  // TODO: xcode says this is ambiguous when signed?
 	TTFloat32			duration = 1500;
 	TTInt32				test9Index = 10;
 	TTInt32				test10Index = 11;
@@ -217,15 +217,17 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %f, but returned value was %f", computedInterpValue11, test11Return);
 	}
 	
-	/*
+
 	// TODO: inbounds testing on hold until sorted out at TTMatrix parent class
 	
-	// TEST 12: test the new inBounds method
+	// TEST 12 & 13: test whether out of bounds indices produce errors
 	
-	TTUInt32 computedSampleAfterTail12 = -10; //test7Return + 5;
-	TTErr test12Err = this->peek(computedSampleAfterTail12, 1, test12return);
+	TTInt32 computedIndexBeforeHead12 = -99;
+	TTInt32 computedIndexAfterTail13 = numSamples + 99;
+	TTErr test12Err = this->peek(computedIndexBeforeHead12, 0, test12return);
+	TTErr test13Err = this->peek(computedIndexAfterTail13, 0, test12return);
 	
-	TTTestAssertion("retrieving sample out of bounds produces an error", 
+	TTTestAssertion("retrieving sample before index 0 produces an error", 
 								test12Err == kTTErrInvalidValue, 
 								testAssertionCount,
 								errorCount);													
@@ -236,46 +238,16 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	}
 	
 	
-	TTUInt32 computedDistanceFromHead12 = test7Return * test1Return
+	TTTestAssertion("retrieving sample after last sample produces an error", 
+								test13Err == kTTErrInvalidValue, 
+								testAssertionCount,
+								errorCount);													
 	
-	computedDistanceFromHead12 -= 50; // 50 before tail
-	TTBoolean result12 = this->inBounds(computedDistanceFromHead12);
-	
-	if(result12)
+	if(test13Err != kTTErrInvalidValue)
 	{
-		TTTestLog("Testing in bounds 12 returned true, %i", computedDistanceFromHead12);
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrInvalidValue, test13Err);
 	}
 	
-	computedDistanceFromHead12 += 50; // at tail
-	TTBoolean result13 = this->inBounds(computedDistanceFromHead12);
-	
-	if(result13)
-	{
-		TTTestLog("Testing in bounds 13 returned true, %i", computedDistanceFromHead12);
-	}
-	
-	computedDistanceFromHead12 += 1; // 1 after tail
-	TTBoolean result14 = this->inBounds(computedDistanceFromHead12);
-	
-	if(!result14)
-	{
-		TTTestLog("Testing in bounds 14 returned false, %i", computedDistanceFromHead12);
-	}
-	
-	TTBoolean result15 = this->inBounds(-1);
-	
-	if(!result15)
-	{
-		TTTestLog("Negative values return false: %i", -1);
-	}
-	
-	TTBoolean result16 = this->inBounds(0);
-	
-	if(!result16)
-	{
-		TTTestLog("Zero returns false: %i", 0);
-	}
-	*/
 	
 	/*
 	
