@@ -22,7 +22,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTInt32				test10Index = 11;
 	TTInt32				test1Return, test2Return, test7Return, test8Return;
 	TTFloat32			test3Return, test6Return;
-	TTSampleValue		test9Return, test10Return, test11Return, test12return;
+	TTSampleValue		test9Return, test10Return, test11Return, test12return, test13return;
 	
 	TTTestLog("Test resizing of the SampleMatrix...");
 	
@@ -220,32 +220,66 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 
 	// TODO: inbounds testing on hold until sorted out at TTMatrix parent class
 	
-	// TEST 12 & 13: test whether out of bounds indices produce errors
+	// TEST 12 & 13: test whether out of bounds indices produce errors at head
 	
-	TTInt32 computedIndexBeforeHead12 = -99;
-	TTInt32 computedIndexAfterTail13 = numSamples + 99;
-	TTErr test12Err = this->peek(computedIndexBeforeHead12, 0, test12return);
-	TTErr test13Err = this->peek(computedIndexAfterTail13, 0, test12return);
+	TTInt32 computedIndex12 = -1; // 1 before the head
+	TTInt32 computedIndex13 = 0; // the head
+	TTErr test12Err = this->peek(computedIndex12, 0, test12return);
+	TTErr test13Err = this->peek(computedIndex13, 0, test13return);
 	
-	TTTestAssertion("retrieving sample before index 0 produces an error", 
-								test12Err == kTTErrInvalidValue, 
+	TTBoolean result12 = { test12Err == kTTErrInvalidValue };
+	TTBoolean result13 = { test13Err == kTTErrNone };
+	
+	TTTestAssertion("peeking sample before index 0 produces an error", 
+								result12, 
 								testAssertionCount,
 								errorCount);													
 	
-	if(test12Err != kTTErrInvalidValue)
+	if(!result12)
 	{
 		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrInvalidValue, test12Err);
 	}
 	
 	
-	TTTestAssertion("retrieving sample after last sample produces an error", 
-								test13Err == kTTErrInvalidValue, 
+	TTTestAssertion("peeking sample at index 0 produces no error", 
+								result13, 
 								testAssertionCount,
 								errorCount);													
 	
-	if(test13Err != kTTErrInvalidValue)
+	if(!result13)
 	{
-		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrInvalidValue, test13Err);
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrNone, test13Err);
+	}
+	
+	// TEST 14 & 15: test whether out of bounds indices produce errors at tail
+	
+	TTInt32 computedIndex14 = test7Return; // should be latest size in samples
+	TTInt32 computedIndex15 = test7Return - 1; // the tail is actually one less
+	TTErr test14Err = this->poke(computedIndex12, 0, test12return);
+	TTErr test15Err = this->poke(computedIndex13, 0, test13return);
+	
+	TTBoolean result14 = { test14Err == kTTErrInvalidValue };
+	TTBoolean result15 = { test15Err == kTTErrNone };
+	
+	TTTestAssertion("poking sample after index max produces an error", 
+								result14, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result14)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrInvalidValue, test14Err);
+	}
+	
+	
+	TTTestAssertion("poking sample at index max produces no error", 
+								result15, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result15)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrNone, test15Err);
 	}
 	
 	
