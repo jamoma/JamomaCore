@@ -130,9 +130,15 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 	TTRowID p_index = index;
 	TTColumnID p_channel = channel;
 	
-	makeInBounds(p_index, p_channel); // out of range values are clipped
+	TTBoolean weAreNotInBounds = makeInBounds(p_index, p_channel); // out of range values are clipped
 	get2d(p_index, p_channel, value);
-	return kTTErrNone;
+	
+	if (weAreNotInBounds)
+	{
+		return kTTErrInvalidValue;
+	} else {
+		return kTTErrNone;
+	}
 }
 
 // a first attempt at interpolation for the SampleMatrix. should be viewed as temporary.
@@ -144,20 +150,29 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 
 	TTRowID indexThisInteger = TTRowID(index);
 	TTFloat64 indexFractionalPart = index - indexThisInteger; // before makeInBounds to get the right value!
-	makeInBounds(indexThisInteger, p_channel);  // out of range values are clipped
 	
-	TTRowID indexNextInteger = indexThisInteger + 1;
-	makeRowIDInBounds(indexNextInteger, outOfBoundsWrap); //if we went beyond the mRowCount, go back to 0th sample
+	TTBoolean weAreNotInBounds = makeInBounds(indexThisInteger, p_channel);  // out of range values are clipped
+	
+	if (weAreNotInBounds)
+	{
+		// no reason to interpolate, just use the first or last value
+		get2d(indexThisInteger, p_channel, value);
+		return kTTErrInvalidValue; // and report an error (is that what we want?)
+	} else {
+		TTRowID indexNextInteger = indexThisInteger + 1;
+		makeRowIDInBounds(indexNextInteger); //does not allow interpolation between first and last sample
+			//  (is that what we want? if not, insert outOfBoundsWrap)
 
-	TTSampleValue valueThisInteger, valueNextInteger;
+		TTSampleValue valueThisInteger, valueNextInteger;
 	
-	get2d(indexThisInteger, p_channel, valueThisInteger);
-	get2d(indexNextInteger, p_channel, valueNextInteger);
+		get2d(indexThisInteger, p_channel, valueThisInteger);
+		get2d(indexNextInteger, p_channel, valueNextInteger);
 	
-	// simple linear interpolation adapted from TTDelay
-	value = (valueNextInteger * (1.0 - indexFractionalPart)) + (valueThisInteger * indexFractionalPart);
+		// simple linear interpolation adapted from TTDelay
+		value = (valueNextInteger * (1.0 - indexFractionalPart)) + (valueThisInteger * indexFractionalPart);
 	
-	return kTTErrNone;
+		return kTTErrNone;
+	}
 }
 
 /**	Set the sample value for a given index.
