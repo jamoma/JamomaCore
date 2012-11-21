@@ -201,7 +201,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	// TEST 11: test for interpolation between two consecutive samples
 	TTFloat64 computedInterpFraction = TTRandom64();
 	TTFloat64 computedInterpIndex = test9Index + computedInterpFraction;
-	TTSampleValue computedInterpValue11 = (computedInterpFraction * pokeValue9) + ((1.0 - computedInterpFraction) * pokeValue10);
+	TTSampleValue computedInterpValue11 = (computedInterpFraction * pokeValue10) + ((1.0 - computedInterpFraction) * pokeValue9);
 	
 	this->peeki(computedInterpIndex, 0, test11Return);
 	

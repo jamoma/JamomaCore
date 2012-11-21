@@ -170,7 +170,7 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 		get2d(indexNextInteger, p_channel, valueNextInteger);
 	
 		// simple linear interpolation adapted from TTDelay
-		value = (valueNextInteger * (1.0 - indexFractionalPart)) + (valueThisInteger * indexFractionalPart);
+		value = TTInterpolateLinear(valueThisInteger, valueNextInteger, indexFractionalPart);
 	
 		return kTTErrNone;
 	}
