@@ -227,7 +227,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTErr test12Err = this->peek(computedIndex12, 0, test12return);
 	TTErr test13Err = this->peek(computedIndex13, 0, test13return);
 	
-	TTBoolean result12 = { test12Err == kTTErrInvalidValue };
+	TTBoolean result12 = { test12Err == kTTErrOutOfBounds };
 	TTBoolean result13 = { test13Err == kTTErrNone };
 	
 	TTTestAssertion("peeking sample before index 0 produces an error", 
@@ -237,7 +237,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	if(!result12)
 	{
-		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrInvalidValue, test12Err);
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrOutOfBounds, test12Err);
 	}
 	
 	
@@ -258,7 +258,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTErr test14Err = this->poke(computedIndex12, 0, test12return);
 	TTErr test15Err = this->poke(computedIndex13, 0, test13return);
 	
-	TTBoolean result14 = { test14Err == kTTErrInvalidValue };
+	TTBoolean result14 = { test14Err == kTTErrOutOfBounds };
 	TTBoolean result15 = { test15Err == kTTErrNone };
 	
 	TTTestAssertion("poking sample after index max produces an error", 
@@ -268,7 +268,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	if(!result14)
 	{
-		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrInvalidValue, test14Err);
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrOutOfBounds, test14Err);
 	}
 	
 	

@@ -135,7 +135,7 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 	
 	if (weAreNotInBounds)
 	{
-		return kTTErrInvalidValue;
+		return kTTErrOutOfBounds;
 	} else {
 		return kTTErrNone;
 	}
@@ -158,7 +158,7 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 	{
 		// no reason to interpolate, just use the first or last value
 		get2d(indexThisInteger, p_channel, value);
-		return kTTErrInvalidValue; // and report an error (is that what we want?)
+		return kTTErrOutOfBounds; // and report an error (is that what we want?)
 	} else {
 		TTRowID indexNextInteger = indexThisInteger + 1;
 		makeRowIDInBounds(indexNextInteger); //does not allow interpolation between first and last sample
@@ -206,7 +206,7 @@ TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const T
 	if (weAreNotInBounds)
 	{
 		// don't go poking around out of bounds
-		return kTTErrInvalidValue;
+		return kTTErrOutOfBounds;
 	} else {
 		set2d(p_index, p_channel, value);
 		return kTTErrNone;
