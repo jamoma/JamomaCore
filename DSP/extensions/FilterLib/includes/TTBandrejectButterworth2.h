@@ -16,8 +16,8 @@
  *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
  */
-class TTBandRejectButterworth2 : public TTAudioObject {
-	TTCLASS_SETUP(TTBandRejectButterworth2)
+class TTBandrejectButterworth2 : public TTAudioObject {
+	TTCLASS_SETUP(TTBandrejectButterworth2)
 
 protected:
 
@@ -53,6 +53,12 @@ protected:
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
 	
+	
+	/**	Unit Tests
+	 @param	returnedTestInfo		Used to return test information
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 

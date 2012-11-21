@@ -84,6 +84,13 @@ protected:
 
 	inline void filterKernel(const TTFloat64& input, TTFloat64& outputPath0, TTFloat64& outputPath1, TTPtrSizedInt channel);
 	
+	
+	/**	Unit Tests
+	 @param	returnedTestInfo		Used to return test information
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo);
+	
 public:
 
 	TTErr calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel=0);

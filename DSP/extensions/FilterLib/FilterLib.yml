@@ -41,8 +41,47 @@ sources:
   - source/TTOnePole.cpp
   - source/TTHighpassButterworth1.cpp	
   - source/TTSvf.cpp
+  - tests/TTAllpass.test.cpp
   - tests/TTAllpass1.test.cpp
-
+  - tests/TTAllpass1a.test.cpp
+  - tests/TTAllpass1aCascade2.test.cpp
+  - tests/TTAllpass1b.test.cpp
+  - tests/TTAllpass1c.test.cpp
+  - tests/TTAllpass2a.test.cpp
+  - tests/TTAllpass2b.test.cpp
+  - tests/TTAllpass2c.test.cpp
+  - tests/TTAllpass4a.test.cpp
+  - tests/TTBandpassButterworth2.test.cpp
+  - tests/TTBandrejectButterworth2.test.cpp
+  - tests/TTDCBlock.test.cpp
+  - tests/TTFilter.test.cpp
+  - tests/TTHalfband3.test.cpp
+  - tests/TTHalfband5.test.cpp
+  - tests/TTHalfband9.test.cpp
+  - tests/TTHalfbandLinear33.test.cpp
+  - tests/TTHighMidLowShelf.test.cpp
+  - tests/TTHighpassButterworth1.test.cpp
+  - tests/TTHighpassButterworth2.test.cpp
+  - tests/TTHighpassButterworth3.test.cpp
+  - tests/TTHighpassButterworth4.test.cpp
+  - tests/TTHighpassLinkwitzRiley2.test.cpp
+  - tests/TTHighpassLinkwitzRiley4.test.cpp
+  - tests/TTHilbert9.test.cpp
+  - tests/TTHilbertLinear33.test.cpp
+  - tests/TTLowpassButterworth1.test.cpp
+  - tests/TTLowpassButterworth2.test.cpp
+  - tests/TTLowpassButterworth3.test.cpp
+  - tests/TTLowpassButterworth4.test.cpp
+  - tests/TTLowpassFourPole.test.cpp
+  - tests/TTLowpassLinkwitzRiley2.test.cpp
+  - tests/TTLowpassLinkwitzRiley4.test.cpp
+  - tests/TTLowpassOnePole.test.cpp
+  - tests/TTLowpassTwoPole.test.cpp
+  - tests/TTMirror5.test.cpp
+  - tests/TTMirrorBandpass10.test.cpp
+  - tests/TTOnePole.test.cpp
+  - tests/TTSvf.test.cpp
+  
 includes:
   - "includes"
   - "../../library/includes"

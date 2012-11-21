@@ -87,14 +87,55 @@
 		A7FF4039165D7AC900130C98 /* TTMirrorBandpass10.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTMirrorBandpass10.cpp; path = source/TTMirrorBandpass10.cpp; sourceTree = "<group>"; };
 		A7FF403A165D7AC900130C98 /* TTOnePole.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTOnePole.cpp; path = source/TTOnePole.cpp; sourceTree = "<group>"; };
 		A7FF403B165D7AC900130C98 /* TTSvf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSvf.cpp; path = source/TTSvf.cpp; sourceTree = "<group>"; };
-		A7FF403D165D7AE900130C98 /* TTAllpass1.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1.test.cpp; path = tests/TTAllpass1.test.cpp; sourceTree = "<group>"; };
 		A7FF403F165D7B1C00130C98 /* FilterLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FilterLib.cpp; sourceTree = "<group>"; };
+		A7FF4043165D7DBF00130C98 /* FilterLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = FilterLib.yml; sourceTree = "<group>"; };
+		A7FF4047165D817400130C98 /* TTAllpass.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass.test.cpp; path = tests/TTAllpass.test.cpp; sourceTree = "<group>"; };
+		A7FF4048165D817400130C98 /* TTAllpass1.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1.test.cpp; path = tests/TTAllpass1.test.cpp; sourceTree = "<group>"; };
+		A7FF4049165D817400130C98 /* TTAllpass1a.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1a.test.cpp; path = tests/TTAllpass1a.test.cpp; sourceTree = "<group>"; };
+		A7FF404A165D817400130C98 /* TTAllpass1aCascade2.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1aCascade2.test.cpp; path = tests/TTAllpass1aCascade2.test.cpp; sourceTree = "<group>"; };
+		A7FF404B165D817400130C98 /* TTAllpass1b.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1b.test.cpp; path = tests/TTAllpass1b.test.cpp; sourceTree = "<group>"; };
+		A7FF404C165D817400130C98 /* TTAllpass1c.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass1c.test.cpp; path = tests/TTAllpass1c.test.cpp; sourceTree = "<group>"; };
+		A7FF404D165D817400130C98 /* TTAllpass2a.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass2a.test.cpp; path = tests/TTAllpass2a.test.cpp; sourceTree = "<group>"; };
+		A7FF404E165D817400130C98 /* TTAllpass2b.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass2b.test.cpp; path = tests/TTAllpass2b.test.cpp; sourceTree = "<group>"; };
+		A7FF404F165D817400130C98 /* TTAllpass2c.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass2c.test.cpp; path = tests/TTAllpass2c.test.cpp; sourceTree = "<group>"; };
+		A7FF4050165D817400130C98 /* TTAllpass4a.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass4a.test.cpp; path = tests/TTAllpass4a.test.cpp; sourceTree = "<group>"; };
+		A7FF4051165D817400130C98 /* TTBandpassButterworth2.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandpassButterworth2.test.cpp; path = tests/TTBandpassButterworth2.test.cpp; sourceTree = "<group>"; };
+		A7FF4052165D817400130C98 /* TTBandrejectButterworth2.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandrejectButterworth2.test.cpp; path = tests/TTBandrejectButterworth2.test.cpp; sourceTree = "<group>"; };
+		A7FF4053165D817400130C98 /* TTDCBlock.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDCBlock.test.cpp; path = tests/TTDCBlock.test.cpp; sourceTree = "<group>"; };
+		A7FF4054165D817400130C98 /* TTFilter.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTFilter.test.cpp; path = tests/TTFilter.test.cpp; sourceTree = "<group>"; };
+		A7FF4055165D817400130C98 /* TTHalfband3.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfband3.test.cpp; path = tests/TTHalfband3.test.cpp; sourceTree = "<group>"; };
+		A7FF4056165D817400130C98 /* TTHalfband5.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfband5.test.cpp; path = tests/TTHalfband5.test.cpp; sourceTree = "<group>"; };
+		A7FF4057165D817400130C98 /* TTHalfband9.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfband9.test.cpp; path = tests/TTHalfband9.test.cpp; sourceTree = "<group>"; };
+		A7FF4058165D817400130C98 /* TTHalfbandLinear33.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfbandLinear33.test.cpp; path = tests/TTHalfbandLinear33.test.cpp; sourceTree = "<group>"; };
+		A7FF4059165D817400130C98 /* TTHighMidLowShelf.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighMidLowShelf.test.cpp; path = tests/TTHighMidLowShelf.test.cpp; sourceTree = "<group>"; };
+		A7FF405A165D817400130C98 /* TTHighpassButterworth1.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth1.test.cpp; path = tests/TTHighpassButterworth1.test.cpp; sourceTree = "<group>"; };
+		A7FF405B165D817400130C98 /* TTHighpassButterworth2.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth2.test.cpp; path = tests/TTHighpassButterworth2.test.cpp; sourceTree = "<group>"; };
+		A7FF405C165D817400130C98 /* TTHighpassButterworth3.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth3.test.cpp; path = tests/TTHighpassButterworth3.test.cpp; sourceTree = "<group>"; };
+		A7FF405D165D817400130C98 /* TTHighpassButterworth4.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth4.test.cpp; path = tests/TTHighpassButterworth4.test.cpp; sourceTree = "<group>"; };
+		A7FF405E165D817400130C98 /* TTHighpassLinkwitzRiley2.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassLinkwitzRiley2.test.cpp; path = tests/TTHighpassLinkwitzRiley2.test.cpp; sourceTree = "<group>"; };
+		A7FF405F165D817400130C98 /* TTHighpassLinkwitzRiley4.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassLinkwitzRiley4.test.cpp; path = tests/TTHighpassLinkwitzRiley4.test.cpp; sourceTree = "<group>"; };
+		A7FF4060165D817400130C98 /* TTHilbert9.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHilbert9.test.cpp; path = tests/TTHilbert9.test.cpp; sourceTree = "<group>"; };
+		A7FF4061165D817400130C98 /* TTHilbertLinear33.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHilbertLinear33.test.cpp; path = tests/TTHilbertLinear33.test.cpp; sourceTree = "<group>"; };
+		A7FF4062165D817400130C98 /* TTLowpassButterworth1.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth1.test.cpp; path = tests/TTLowpassButterworth1.test.cpp; sourceTree = "<group>"; };
+		A7FF4063165D817400130C98 /* TTLowpassButterworth2.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth2.test.cpp; path = tests/TTLowpassButterworth2.test.cpp; sourceTree = "<group>"; };
+		A7FF4064165D817400130C98 /* TTLowpassButterworth3.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth3.test.cpp; path = tests/TTLowpassButterworth3.test.cpp; sourceTree = "<group>"; };
+		A7FF4065165D817400130C98 /* TTLowpassButterworth4.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth4.test.cpp; path = tests/TTLowpassButterworth4.test.cpp; sourceTree = "<group>"; };
+		A7FF4066165D817400130C98 /* TTLowpassFourPole.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassFourPole.test.cpp; path = tests/TTLowpassFourPole.test.cpp; sourceTree = "<group>"; };
+		A7FF4067165D817400130C98 /* TTLowpassLinkwitzRiley2.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassLinkwitzRiley2.test.cpp; path = tests/TTLowpassLinkwitzRiley2.test.cpp; sourceTree = "<group>"; };
+		A7FF4068165D817400130C98 /* TTLowpassLinkwitzRiley4.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassLinkwitzRiley4.test.cpp; path = tests/TTLowpassLinkwitzRiley4.test.cpp; sourceTree = "<group>"; };
+		A7FF4069165D817400130C98 /* TTLowpassOnePole.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassOnePole.test.cpp; path = tests/TTLowpassOnePole.test.cpp; sourceTree = "<group>"; };
+		A7FF406A165D817400130C98 /* TTLowpassTwoPole.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassTwoPole.test.cpp; path = tests/TTLowpassTwoPole.test.cpp; sourceTree = "<group>"; };
+		A7FF406B165D817400130C98 /* TTMirror5.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTMirror5.test.cpp; path = tests/TTMirror5.test.cpp; sourceTree = "<group>"; };
+		A7FF406C165D817400130C98 /* TTMirrorBandpass10.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTMirrorBandpass10.test.cpp; path = tests/TTMirrorBandpass10.test.cpp; sourceTree = "<group>"; };
+		A7FF406D165D817400130C98 /* TTOnePole.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTOnePole.test.cpp; path = tests/TTOnePole.test.cpp; sourceTree = "<group>"; };
+		A7FF406E165D817400130C98 /* TTSvf.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSvf.test.cpp; path = tests/TTSvf.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		A7FF3FDA165D7A6100130C98 = {
 			isa = PBXGroup;
 			children = (
+				A7FF4043165D7DBF00130C98 /* FilterLib.yml */,
 				A7FF403F165D7B1C00130C98 /* FilterLib.cpp */,
 				A7FF4013165D7A9A00130C98 /* includes */,
 				A7FF403C165D7AD000130C98 /* source */,
@@ -199,7 +240,46 @@
 		A7FF403E165D7AEE00130C98 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				A7FF403D165D7AE900130C98 /* TTAllpass1.test.cpp */,
+				A7FF4047165D817400130C98 /* TTAllpass.test.cpp */,
+				A7FF4048165D817400130C98 /* TTAllpass1.test.cpp */,
+				A7FF4049165D817400130C98 /* TTAllpass1a.test.cpp */,
+				A7FF404A165D817400130C98 /* TTAllpass1aCascade2.test.cpp */,
+				A7FF404B165D817400130C98 /* TTAllpass1b.test.cpp */,
+				A7FF404C165D817400130C98 /* TTAllpass1c.test.cpp */,
+				A7FF404D165D817400130C98 /* TTAllpass2a.test.cpp */,
+				A7FF404E165D817400130C98 /* TTAllpass2b.test.cpp */,
+				A7FF404F165D817400130C98 /* TTAllpass2c.test.cpp */,
+				A7FF4050165D817400130C98 /* TTAllpass4a.test.cpp */,
+				A7FF4051165D817400130C98 /* TTBandpassButterworth2.test.cpp */,
+				A7FF4052165D817400130C98 /* TTBandrejectButterworth2.test.cpp */,
+				A7FF4053165D817400130C98 /* TTDCBlock.test.cpp */,
+				A7FF4054165D817400130C98 /* TTFilter.test.cpp */,
+				A7FF4055165D817400130C98 /* TTHalfband3.test.cpp */,
+				A7FF4056165D817400130C98 /* TTHalfband5.test.cpp */,
+				A7FF4057165D817400130C98 /* TTHalfband9.test.cpp */,
+				A7FF4058165D817400130C98 /* TTHalfbandLinear33.test.cpp */,
+				A7FF4059165D817400130C98 /* TTHighMidLowShelf.test.cpp */,
+				A7FF405A165D817400130C98 /* TTHighpassButterworth1.test.cpp */,
+				A7FF405B165D817400130C98 /* TTHighpassButterworth2.test.cpp */,
+				A7FF405C165D817400130C98 /* TTHighpassButterworth3.test.cpp */,
+				A7FF405D165D817400130C98 /* TTHighpassButterworth4.test.cpp */,
+				A7FF405E165D817400130C98 /* TTHighpassLinkwitzRiley2.test.cpp */,
+				A7FF405F165D817400130C98 /* TTHighpassLinkwitzRiley4.test.cpp */,
+				A7FF4060165D817400130C98 /* TTHilbert9.test.cpp */,
+				A7FF4061165D817400130C98 /* TTHilbertLinear33.test.cpp */,
+				A7FF4062165D817400130C98 /* TTLowpassButterworth1.test.cpp */,
+				A7FF4063165D817400130C98 /* TTLowpassButterworth2.test.cpp */,
+				A7FF4064165D817400130C98 /* TTLowpassButterworth3.test.cpp */,
+				A7FF4065165D817400130C98 /* TTLowpassButterworth4.test.cpp */,
+				A7FF4066165D817400130C98 /* TTLowpassFourPole.test.cpp */,
+				A7FF4067165D817400130C98 /* TTLowpassLinkwitzRiley2.test.cpp */,
+				A7FF4068165D817400130C98 /* TTLowpassLinkwitzRiley4.test.cpp */,
+				A7FF4069165D817400130C98 /* TTLowpassOnePole.test.cpp */,
+				A7FF406A165D817400130C98 /* TTLowpassTwoPole.test.cpp */,
+				A7FF406B165D817400130C98 /* TTMirror5.test.cpp */,
+				A7FF406C165D817400130C98 /* TTMirrorBandpass10.test.cpp */,
+				A7FF406D165D817400130C98 /* TTOnePole.test.cpp */,
+				A7FF406E165D817400130C98 /* TTSvf.test.cpp */,
 			);
 			name = tests;
 			sourceTree = "<group>";

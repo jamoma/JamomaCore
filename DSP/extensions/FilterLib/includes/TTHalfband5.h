@@ -50,6 +50,13 @@ protected:
 	TTErr processHighpass	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processDownsample	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	TTErr processUpsample	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	
+	/**	Unit Tests
+	 @param	returnedTestInfo		Used to return test information
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo);
 
 public:
 

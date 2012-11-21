@@ -67,6 +67,13 @@ protected:
 
 	/**	Performs the actual SVF calculations. */
 	void tick(TTSampleValue value, TTUInt16 channel);
+	
+	
+	/**	Unit Tests
+	 @param	returnedTestInfo		Used to return test information
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 

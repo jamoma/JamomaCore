@@ -82,7 +82,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_FilterLib(void)
 	//	TTAverage::registerClass();
 
 	TTBandpassButterworth2::registerClass();
-	TTBandRejectButterworth2::registerClass();
+	TTBandrejectButterworth2::registerClass();
 	TTDCBlock::registerClass();
 	TTHighMidLowShelf::registerClass();
 	
