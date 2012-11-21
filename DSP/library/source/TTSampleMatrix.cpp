@@ -147,9 +147,10 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 {
 	// variables needed
     TTColumnID p_channel = channel;
+	TTFloat64 indexIntegerPart, indexFractionalPart;
 
-	TTRowID indexThisInteger = TTRowID(index);
-	TTFloat64 indexFractionalPart = index - indexThisInteger; // before makeInBounds to get the right value!
+	indexFractionalPart = modf(index, &indexIntegerPart); // before makeInBounds to get the right value!
+	TTRowID indexThisInteger = TTRowID(indexIntegerPart);
 	
 	TTBoolean weAreNotInBounds = makeInBounds(indexThisInteger, p_channel);  // out of range values are clipped
 	
