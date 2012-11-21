@@ -450,7 +450,7 @@ public:
 	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data) const
 	{
 		TTUInt32 index = INDEX_OF_ELEMENT_FIRSTBYTE(i, j, e);
-		data = *(T*)(mData + index);	// TODO: don't we need to account for bytes per element?
+		data = *(T*)(mData + index);
 		return kTTErrNone;
 	}
 	
