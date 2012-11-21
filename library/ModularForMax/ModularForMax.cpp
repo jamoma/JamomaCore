@@ -1331,15 +1331,19 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol& retu
 	}
 	
 	if (ac && av) {
+        
+        // notice we have to test view case before model case 
+        // because a jcom.view can be in subpatcher too
+        
+        // for view : the second argument is the name
+		// (the first is reserved for the /model/address)
+        if (context == kTTSym_view) {
+            if (ac > 1)
+                argName = atom_getsym(av+1);
 		
 		// for model : the first argument is the name
-		if (context == kTTSym_model || hierarchy == _sym_subpatcher)
+		} else if (context == kTTSym_model || hierarchy == _sym_subpatcher)
 			argName = atom_getsym(av);
-		
-		// for view : the second argument is the name
-		// (the first is reserved for the /model/address)
-		else if (context == kTTSym_view && ac > 1)
-			argName = atom_getsym(av+1);
 		
 		// if the argname begin by a @ ignore it
 		if (argName->s_name[0] == '@')

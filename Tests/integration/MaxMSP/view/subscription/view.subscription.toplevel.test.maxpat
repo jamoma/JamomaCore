@@ -35,8 +35,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 8.0, 224.0, 72.0, 20.0 ],
-					"text" : "jcom.model"
+					"patching_rect" : [ 8.0, 224.0, 63.0, 20.0 ],
+					"text" : "jcom.view"
 				}
 
 			}
@@ -103,7 +103,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 8.0, 117.0, 193.0, 20.0 ],
-					"text" : "jcom.namespace @filter/list model"
+					"text" : "jcom.namespace @filter/list view"
 				}
 
 			}
@@ -224,8 +224,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 307.001862, 293.0, 33.0 ],
-									"text" : "jcom.test.assert.equal toplevel.deferlow-test @input / @compareTo model.subscription.toplevel.test 1"
+									"patching_rect" : [ 28.0, 307.001862, 295.0, 33.0 ],
+									"text" : "jcom.test.assert.equal toplevel.deferlow-test @input / @compareTo view.subscription.toplevel.test(view) 1"
 								}
 
 							}
@@ -661,7 +661,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.model.mxo",
+				"name" : "jcom.view.mxo",
 				"type" : "iLaX"
 			}
  ]

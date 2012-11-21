@@ -33,10 +33,222 @@
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 8.0, 224.0, 72.0, 20.0 ],
-					"text" : "jcom.model"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patcher" : 					{
+						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 6,
+							"minor" : 0,
+							"revision" : 8
+						}
+,
+						"rect" : [ 25.0, 69.0, 215.0, 150.0 ],
+						"bglocked" : 0,
+						"openinpresentation" : 0,
+						"default_fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 0,
+						"gridsize" : [ 15.0, 15.0 ],
+						"gridsnaponopen" : 0,
+						"statusbarvisible" : 2,
+						"toolbarvisible" : 1,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"enablehscroll" : 1,
+						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
+						"description" : "",
+						"digest" : "",
+						"tags" : "",
+						"boxes" : [ 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-5",
+									"maxclass" : "outlet",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 15.0, 75.0, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-3",
+									"maxclass" : "inlet",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 15.0, 9.0, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-1",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 15.0, 44.0, 63.0, 20.0 ],
+									"text" : "jcom.view"
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 188.0, 224.0, 127.0, 20.0 ],
+					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"description" : "",
+						"digest" : "",
+						"fontface" : 0,
+						"fontname" : "Arial",
+						"fontsize" : 12.0,
+						"globalpatchername" : "",
+						"tags" : ""
+					}
+,
+					"text" : "p subpatcher testview"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patcher" : 					{
+						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 6,
+							"minor" : 0,
+							"revision" : 8
+						}
+,
+						"rect" : [ 25.0, 69.0, 215.0, 150.0 ],
+						"bglocked" : 0,
+						"openinpresentation" : 0,
+						"default_fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 0,
+						"gridsize" : [ 15.0, 15.0 ],
+						"gridsnaponopen" : 0,
+						"statusbarvisible" : 2,
+						"toolbarvisible" : 1,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"enablehscroll" : 1,
+						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
+						"description" : "",
+						"digest" : "",
+						"tags" : "",
+						"boxes" : [ 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-5",
+									"maxclass" : "outlet",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 15.0, 75.0, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-3",
+									"maxclass" : "inlet",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 15.0, 9.0, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-1",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 15.0, 44.0, 63.0, 20.0 ],
+									"text" : "jcom.view"
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 8.0, 224.0, 127.0, 20.0 ],
+					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"default_fontsize" : 12.0,
+						"description" : "",
+						"digest" : "",
+						"fontface" : 0,
+						"fontname" : "Arial",
+						"fontsize" : 12.0,
+						"globalpatchername" : "",
+						"tags" : ""
+					}
+,
+					"text" : "p subpatcher testview"
 				}
 
 			}
@@ -48,7 +260,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 182.0, 140.037781, 133.0, 20.0 ],
+					"patching_rect" : [ 182.0, 141.037781, 133.0, 20.0 ],
 					"text" : "s namespace-dumpout"
 				}
 
@@ -61,7 +273,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 94.5, 161.037781, 107.0, 20.0 ],
+					"patching_rect" : [ 94.5, 162.037781, 107.0, 20.0 ],
 					"text" : "s namespace-size"
 				}
 
@@ -74,7 +286,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 8.0, 182.037781, 115.0, 20.0 ],
+					"patching_rect" : [ 8.0, 183.037781, 115.0, 20.0 ],
 					"text" : "s namespace-result"
 				}
 
@@ -102,8 +314,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 8.0, 117.0, 193.0, 20.0 ],
-					"text" : "jcom.namespace @filter/list model"
+					"patching_rect" : [ 8.0, 120.037781, 193.0, 20.0 ],
+					"text" : "jcom.namespace @filter/list view"
 				}
 
 			}
@@ -123,7 +335,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 327.0, 44.0, 329.0, 449.0 ],
+						"rect" : [ 327.0, 44.0, 364.0, 448.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -167,7 +379,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 28.0, 282.0, 34.0, 20.0 ],
+									"patching_rect" : [ 25.0, 280.0, 34.0, 20.0 ],
 									"text" : "gate"
 								}
 
@@ -181,7 +393,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "int", "", "int" ],
-									"patching_rect" : [ 28.0, 377.0, 46.0, 20.0 ],
+									"patching_rect" : [ 25.0, 369.0, 46.0, 20.0 ],
 									"text" : "t 0 l 1"
 								}
 
@@ -195,7 +407,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 43.0, 252.0, 139.0, 20.0 ],
+									"patching_rect" : [ 40.0, 250.0, 139.0, 20.0 ],
 									"text" : "zl join"
 								}
 
@@ -209,7 +421,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 163.0, 225.037781, 105.0, 20.0 ],
+									"patching_rect" : [ 160.0, 223.037781, 105.0, 20.0 ],
 									"text" : "r namespace-size"
 								}
 
@@ -224,8 +436,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 307.001862, 293.0, 33.0 ],
-									"text" : "jcom.test.assert.equal toplevel.deferlow-test @input / @compareTo model.subscription.toplevel.test 1"
+									"patching_rect" : [ 25.0, 305.001862, 260.0, 33.0 ],
+									"text" : "jcom.test.assert.equal subpatcher.deferlow-test @input / @compareTo testview testview.1 2"
 								}
 
 							}
@@ -238,7 +450,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 43.0, 225.037781, 113.0, 20.0 ],
+									"patching_rect" : [ 40.0, 223.037781, 113.0, 20.0 ],
 									"text" : "r namespace-result"
 								}
 
@@ -251,7 +463,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 41.5, 417.106842, 112.0, 20.0 ],
+									"patching_rect" : [ 38.5, 409.106842, 112.0, 20.0 ],
 									"text" : "s namespace-input"
 								}
 
@@ -265,7 +477,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 86.0, 40.0, 20.0 ],
+									"patching_rect" : [ 25.0, 84.0, 40.0, 20.0 ],
 									"text" : "zl reg"
 								}
 
@@ -279,7 +491,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "bang", "", "nothing" ],
-									"patching_rect" : [ 28.0, 152.0, 73.0, 20.0 ],
+									"patching_rect" : [ 25.0, 150.0, 73.0, 20.0 ],
 									"text" : "t b l nothing"
 								}
 
@@ -293,7 +505,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 28.0, 349.0, 56.0, 20.0 ],
+									"patching_rect" : [ 25.0, 344.0, 56.0, 20.0 ],
 									"text" : "deferlow"
 								}
 
@@ -308,8 +520,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 111.001862, 198.0, 33.0 ],
-									"text" : "jcom.test.assert.equal toplevel-test @input / @compareTo nothing"
+									"patching_rect" : [ 25.0, 109.001862, 219.0, 33.0 ],
+									"text" : "jcom.test.assert.equal subpatcher-test @input / @compareTo nothing"
 								}
 
 							}
@@ -322,7 +534,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 49.0, 48.037781, 113.0, 20.0 ],
+									"patching_rect" : [ 46.0, 46.037781, 113.0, 20.0 ],
 									"text" : "r namespace-result"
 								}
 
@@ -335,7 +547,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 55.0, 188.106842, 112.0, 20.0 ],
+									"patching_rect" : [ 52.0, 186.106842, 112.0, 20.0 ],
 									"text" : "s namespace-input"
 								}
 
@@ -364,7 +576,7 @@
 									"destination" : [ "obj-19", 1 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 91.5, 177.0, 111.0, 177.0, 111.0, 79.0, 58.5, 79.0 ],
+									"midpoints" : [ 88.5, 175.0, 108.0, 175.0, 108.0, 77.0, 55.5, 77.0 ],
 									"source" : [ "obj-18", 2 ]
 								}
 
@@ -374,7 +586,7 @@
 									"destination" : [ "obj-19", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 37.5, 178.0, 22.5, 178.0, 22.5, 79.0, 37.5, 79.0 ],
+									"midpoints" : [ 34.5, 176.0, 19.5, 176.0, 19.5, 77.0, 34.5, 77.0 ],
 									"source" : [ "obj-18", 0 ]
 								}
 
@@ -411,7 +623,7 @@
 									"destination" : [ "obj-20", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 64.5, 406.0, 22.0, 406.0, 22.0, 276.0, 37.5, 276.0 ],
+									"midpoints" : [ 61.5, 394.0, 19.0, 394.0, 19.0, 274.0, 34.5, 274.0 ],
 									"source" : [ "obj-21", 2 ]
 								}
 
@@ -421,7 +633,7 @@
 									"destination" : [ "obj-20", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 37.5, 406.0, 22.5, 406.0, 22.5, 276.0, 37.5, 276.0 ],
+									"midpoints" : [ 34.5, 393.0, 19.5, 393.0, 19.5, 274.0, 34.5, 274.0 ],
 									"source" : [ "obj-21", 0 ]
 								}
 
@@ -661,7 +873,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.model.mxo",
+				"name" : "jcom.view.mxo",
 				"type" : "iLaX"
 			}
  ]

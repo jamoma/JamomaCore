@@ -7,7 +7,7 @@
 			"revision" : 8
 		}
 ,
-		"rect" : [ 0.0, 44.0, 326.0, 355.0 ],
+		"rect" : [ 0.0, 44.0, 299.0, 327.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -32,11 +32,11 @@
 					"fontsize" : 12.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
+					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 8.0, 224.0, 72.0, 20.0 ],
-					"text" : "jcom.model"
+					"patching_rect" : [ 8.0, 242.0, 105.0, 20.0 ],
+					"text" : "testpatcher.model"
 				}
 
 			}
@@ -48,7 +48,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 182.0, 140.037781, 133.0, 20.0 ],
+					"patching_rect" : [ 147.0, 160.037781, 133.0, 20.0 ],
 					"text" : "s namespace-dumpout"
 				}
 
@@ -61,7 +61,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 94.5, 161.037781, 107.0, 20.0 ],
+					"patching_rect" : [ 77.5, 181.037781, 107.0, 20.0 ],
 					"text" : "s namespace-size"
 				}
 
@@ -74,7 +74,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 8.0, 182.037781, 115.0, 20.0 ],
+					"patching_rect" : [ 8.0, 202.037781, 115.0, 20.0 ],
 					"text" : "s namespace-result"
 				}
 
@@ -88,7 +88,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 91.0, 110.0, 20.0 ],
+					"patching_rect" : [ 8.0, 99.0, 110.0, 20.0 ],
 					"text" : "r namespace-input"
 				}
 
@@ -98,12 +98,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-3",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 8.0, 117.0, 193.0, 20.0 ],
-					"text" : "jcom.namespace @filter/list model"
+					"patching_rect" : [ 8.0, 125.0, 159.0, 33.0 ],
+					"text" : "jcom.namespace @filter/list parameter noGenericTag"
 				}
 
 			}
@@ -123,7 +124,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 327.0, 44.0, 329.0, 449.0 ],
+						"rect" : [ 300.0, 44.0, 352.0, 459.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -181,7 +182,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "int", "", "int" ],
-									"patching_rect" : [ 28.0, 377.0, 46.0, 20.0 ],
+									"patching_rect" : [ 28.0, 379.0, 46.0, 20.0 ],
 									"text" : "t 0 l 1"
 								}
 
@@ -209,7 +210,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 163.0, 225.037781, 105.0, 20.0 ],
+									"patching_rect" : [ 43.0, 223.037781, 105.0, 20.0 ],
 									"text" : "r namespace-size"
 								}
 
@@ -224,8 +225,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 307.001862, 293.0, 33.0 ],
-									"text" : "jcom.test.assert.equal toplevel.deferlow-test @input / @compareTo model.subscription.toplevel.test 1"
+									"patching_rect" : [ 28.0, 311.0, 248.0, 33.0 ],
+									"text" : "jcom.test.assert.equal model.deferlow-test @input /testpatcher @compareTo 1 test"
 								}
 
 							}
@@ -238,7 +239,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 43.0, 225.037781, 113.0, 20.0 ],
+									"patching_rect" : [ 163.0, 223.037781, 113.0, 20.0 ],
 									"text" : "r namespace-result"
 								}
 
@@ -251,7 +252,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 41.5, 417.106842, 112.0, 20.0 ],
+									"patching_rect" : [ 41.5, 414.106842, 112.0, 20.0 ],
 									"text" : "s namespace-input"
 								}
 
@@ -293,7 +294,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 28.0, 349.0, 56.0, 20.0 ],
+									"patching_rect" : [ 28.0, 354.0, 56.0, 20.0 ],
 									"text" : "deferlow"
 								}
 
@@ -308,8 +309,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 111.001862, 198.0, 33.0 ],
-									"text" : "jcom.test.assert.equal toplevel-test @input / @compareTo nothing"
+									"patching_rect" : [ 28.0, 111.001862, 229.0, 33.0 ],
+									"text" : "jcom.test.assert.equal model-test @input /testpatcher @compareTo nothing"
 								}
 
 							}
@@ -446,7 +447,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-25", 1 ],
+									"destination" : [ "obj-25", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-26", 0 ]
@@ -464,7 +465,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-25", 0 ],
+									"destination" : [ "obj-25", 1 ],
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-28", 0 ]
@@ -483,7 +484,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 8.0, 262.962219, 309.0, 24.0 ],
+					"patching_rect" : [ 8.0, 286.962219, 272.0, 24.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -511,7 +512,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 250.0, 12.0, 69.0, 19.0 ],
+					"patching_rect" : [ 213.0, 12.0, 69.0, 19.0 ],
 					"text" : "r TestResult"
 				}
 
@@ -524,7 +525,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 250.0, 59.0, 67.0, 20.0 ],
+					"patching_rect" : [ 213.0, 59.0, 67.0, 20.0 ],
 					"text" : "print result"
 				}
 
@@ -657,11 +658,22 @@
 				"implicit" : 1
 			}
 , 			{
+				"name" : "testpatcher.model.maxpat",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Tests/integration/MaxMSP/parameter/subscription",
+				"patcherrelativepath" : "",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "jcom.namespace.mxo",
 				"type" : "iLaX"
 			}
 , 			{
 				"name" : "jcom.model.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.parameter.mxo",
 				"type" : "iLaX"
 			}
  ]

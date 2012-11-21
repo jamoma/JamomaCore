@@ -129,7 +129,7 @@ void nmspc_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 				strcpy(dst, "result of exploration");
 				break;
 			case size_out:
-				strcpy(dst, "size of the result");
+				strcpy(dst, "size of the result (after the result)");
 				break;
 			case dump_out:
 				strcpy(dst, "dumpout");
@@ -337,8 +337,9 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		else if (msg != _sym_nothing)
 			outlet_anything(x->outlets[data_out], msg, argc, argv);
 	}
-	
+    
 	// output the size of the result after the result
+    // to perform auto selection in case the result contains only 1 item
 	atom_setlong(a, argc);
 	outlet_anything(x->outlets[size_out], _sym_int, 1, a);
 }

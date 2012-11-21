@@ -30,13 +30,27 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 136.0, 224.0, 139.0, 20.0 ],
+					"text" : "testpatcher.model tester"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 8.0, 224.0, 72.0, 20.0 ],
-					"text" : "jcom.model"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 8.0, 224.0, 105.0, 20.0 ],
+					"text" : "testpatcher.model"
 				}
 
 			}
@@ -123,7 +137,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 327.0, 44.0, 329.0, 449.0 ],
+						"rect" : [ 327.0, 44.0, 315.0, 448.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -142,7 +156,6 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Arial",
@@ -224,8 +237,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 307.001862, 293.0, 33.0 ],
-									"text" : "jcom.test.assert.equal toplevel.deferlow-test @input / @compareTo model.subscription.toplevel.test 1"
+									"patching_rect" : [ 28.0, 307.001862, 243.0, 33.0 ],
+									"text" : "jcom.test.assert.equal patcher.deferlow-test @input / @compareTo tester testpatcher 2"
 								}
 
 							}
@@ -308,8 +321,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 111.001862, 198.0, 33.0 ],
-									"text" : "jcom.test.assert.equal toplevel-test @input / @compareTo nothing"
+									"patching_rect" : [ 28.0, 111.001862, 195.0, 33.0 ],
+									"text" : "jcom.test.assert.equal patcher-test @input / @compareTo nothing"
 								}
 
 							}
@@ -653,6 +666,13 @@
 				"name" : "jcom.test.assert.equal.maxpat",
 				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.assert.equal",
 				"patcherrelativepath" : "../../../../../../Test/components/test.assert.equal",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "testpatcher.model.maxpat",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Tests/integration/MaxMSP/model/subscription",
+				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1
 			}

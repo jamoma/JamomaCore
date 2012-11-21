@@ -145,7 +145,6 @@ void model_subscribe(TTPtr self)
 	TTBoolean					isThere, isSubModel;
 	TTNodePtr					firstTTNode;
 	TTAddress                   containerAdrs;
-	SymbolPtr					hierarchy;
 	AtomCount					ac;
 	AtomPtr						av;
 	ObjectPtr					aPatcher = jamoma_patcher_get((ObjectPtr)x);
@@ -274,11 +273,6 @@ void model_subscribe(TTPtr self)
 			
 			// In view patcher :
 			if (x->patcherContext == kTTSym_view) {
-				
-				// a view expects to be in a bpatcher
-				hierarchy = jamoma_patcher_get_hierarchy(aPatcher);
-				if (hierarchy != _sym_bpatcher && hierarchy != _sym_topmost)
-					object_error((ObjectPtr)x, "a view patcher have to be embedded into a bpatcher");
 					
 				// look for a model of the same class into the patcher to get his model/address
 				jamoma_patcher_get_model_patcher(x->patcherPtr, x->patcherClass, &aPatcher);
