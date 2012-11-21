@@ -387,7 +387,7 @@ public:
 	*/
 	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
 	{
-		TTUInt8 changes; // keep track of how many changes are made
+		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);
 		changes += makeColumnIDInBounds(j, handler);
 		changes += makeElementIDInBounds(e, handler);
