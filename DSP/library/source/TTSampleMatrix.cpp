@@ -14,6 +14,7 @@
  */
 
 #include "TTSampleMatrix.h"
+#include "TTInterpolate.h"
 
 #define thisTTClass			TTSampleMatrix
 #define thisTTClassName		"samplematrix"
@@ -147,8 +148,9 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 {
 	// variables needed
     TTColumnID p_channel = channel;
-	TTFloat64 indexFractionalPart = TTSplitFractional(index); // before makeInBounds to get the right value!
-	TTRowID indexThisInteger = TTRowID(index);
+	TTFloat64 indexIntegralPart = 0;
+	TTFloat64 indexFractionalPart = modf(index, &indexIntegralPart); // before makeInBounds to get the right value!
+	TTRowID indexThisInteger = TTRowID(indexIntegralPart);
 	
 	TTBoolean weAreNotInBounds = makeInBounds(indexThisInteger, p_channel);  // out of range values are clipped
 	

@@ -19,15 +19,16 @@
 
 
 /** Isolate the fractional part from a double.
-	Essentially wraps the <a href="http://www.cplusplus.com/reference/clibrary/cmath/modf/">modf()</a> function, but protects Jamoma in case it ever prooves uneven in implementation.
+	Essentially wraps the <a href="http://www.cplusplus.com/reference/clibrary/cmath/modf/">modf()</a> function, but protects Jamoma in case it ever prooves uneven in implementation. NW: FAILS TO BUILD but Xcode can't find error.
 	@param aa		Double whose fractional part you would like.
 	@return			The fractional portion of aa.
-*/
+
 double TTSplitFractional(double& aa)
 {
 	double discard;
 	return modf(aa,&discard);
 }
+*/
 
 /** Linear interpolation.
 	@param x	Sample value at prior integer index
