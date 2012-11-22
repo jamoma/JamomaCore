@@ -14,9 +14,9 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
-mDescription(kTTSymEmpty),
-mType(kTTSymEmpty),
-mTag(kTTSymEmpty),
+mDescription(kTTSym_none),
+mType(kTTSym_generic),
+mTag(kTTSym_none),
 mHighlight(NO),
 mFreeze(NO),
 mDataspace(kTTSym_none),
@@ -151,7 +151,6 @@ TTErr TTViewer::observeDataspace()
 	if (mDataspaceObserver)
 		TTObjectRelease(TTObjectHandle(&mDataspaceObserver));
 	
-	// Make a TTReceiver object
 	args.append(NULL);
 	
 	returnDataspaceCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -282,8 +281,28 @@ TTErr TTViewer::convertUnit(const TTValue& inputValue, TTValue& outputValue)
 #endif
 
 TTErr TTViewerReceiveAddressCallback(TTPtr baton, TTValue& data)
-{	
-	return kTTErrGeneric;
+{
+    TTViewerPtr aViewer;
+	TTValuePtr	b;
+	TTValue		converted;
+	
+	// unpack baton (a TTViewer)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aViewer);
+	
+	if (aViewer->mDataspace == kTTSym_none) {
+
+        // check if the data's dataspace
+        if (aViewer->mDataspaceObserver) {
+            aViewer->mDataspaceObserver->sendMessage(kTTSym_Get);
+            
+            // then check if the data's dataspace unit
+            if (aViewer->mDataspaceUnitObserver)
+                aViewer->mDataspaceUnitObserver->sendMessage(kTTSym_Get);
+        }
+    }
+    
+	return kTTErrNone;
 }
 
 TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
@@ -321,15 +340,22 @@ TTErr TTViewerDataspaceCallback(TTPtr baton, TTValue& data)
 	TTViewerPtr aViewer;
 	TTValuePtr	b;
 	TTValue		v;
+    TTSymbol    dataspace;
 	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aViewer);
 	
-	aViewer->mDataspace = data;
+    dataspace = data;
+    
+    // filter repetitions
+    if (dataspace != aViewer->mDataspace) {
+        
+        aViewer->mDataspace = data;
 	
-	if (aViewer->mDataspaceConverter)
-		aViewer->mDataspaceConverter->setAttributeValue(TTSymbol("dataspace"), aViewer->mDataspace);
+        if (aViewer->mDataspaceConverter)
+            aViewer->mDataspaceConverter->setAttributeValue(kTTSym_dataspace, aViewer->mDataspace);
+    }
 	
 	return kTTErrNone;
 }
@@ -350,7 +376,7 @@ TTErr TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data)
 		// set input unit like the data unit
 		aViewer->mDataspaceConverter->setAttributeValue(TTSymbol("inputUnit"), data);
 		
-		// if no unit : set the output unit like the the data unit
+		// if no unit : set the output unit like the data unit
 		if (aViewer->mDataspaceUnit == kTTSym_none)
 			aViewer->mDataspaceUnit = data;
 		

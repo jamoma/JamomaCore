@@ -256,6 +256,13 @@ TTErr TTReceiver::bindAddress()
 						
 						// cache the object for quick access
 						mObjectCache->appendUnique((TTPtr)o);
+                        
+                        // notify that the address exists
+                        if (mReturnAddressCallback) {
+                            
+                            v = TTValue(mAddress);
+                            mReturnAddressCallback->notify(v, kTTValNONE);
+                        }
 					}
 				}
 			}
@@ -420,9 +427,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			if (ttAttributeName == kTTSym_created)
 			{
 				// return the address
-				v.append(anAddress);
-				if (aReceiver->mReturnAddressCallback)
+				if (aReceiver->mReturnAddressCallback) {
+                    v.append(anAddress);
 					aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
+                }
 			}
 			else if (ttAttributeName != kTTSym_destroyed)
 			{
@@ -487,9 +495,11 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			if (ttAttributeName == kTTSym_destroyed)
 			{
 				// return the address
-				v.append(anAddress);
-				if (aReceiver->mReturnAddressCallback)
+				if (aReceiver->mReturnAddressCallback) {
+                    
+                    v.append(anAddress);
 					aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
+                }
 			}
 			else if (ttAttributeName != kTTSym_created)
 			{

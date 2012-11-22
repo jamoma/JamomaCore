@@ -973,7 +973,10 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 		}
 		else if (v.getType(i) == kTypeSymbol) {
 			v.get(i, s);
-			atom_setsym((*argv)+i, gensym((char*)s.c_str()));
+            if (s == kTTSymEmpty)
+                atom_setsym((*argv)+i, _sym_bang); // because empty symbol can't be filtered in Max
+			else
+                atom_setsym((*argv)+i, gensym((char*)s.c_str()));
 		}
 		else {	// assume int
 			v.get(i, t);

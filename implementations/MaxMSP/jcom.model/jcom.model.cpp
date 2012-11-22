@@ -301,10 +301,12 @@ void model_subscribe(TTPtr self)
 					else
 						EXTRA->modelAddress = kTTAdrsRoot.appendAddress(argAdrs);
 				}
+                // else the view is not binding a model for instant
+                else
+                    EXTRA->modelAddress = TTAddress("/noModelAddress");
 				
-				if (EXTRA->modelAddress != kTTAdrsEmpty)
-					aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
-				
+                // set the model/address data value to notify all observers
+                aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
 			}
 			
 			// output ContextNode address

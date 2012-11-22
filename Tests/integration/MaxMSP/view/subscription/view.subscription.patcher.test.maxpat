@@ -193,7 +193,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 21.0, 497.0, 60.0, 20.0 ],
+									"patching_rect" : [ 96.5, 497.0, 60.0, 20.0 ],
 									"text" : "loadbang"
 								}
 
@@ -303,13 +303,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-1",
-									"linecount" : 4,
+									"linecount" : 5,
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 71.0, 582.001831, 129.0, 60.0 ],
-									"text" : "jcom.test.assert.equal patcher.noarg-test @input bang @compareTo bang"
+									"patching_rect" : [ 71.0, 575.001831, 133.0, 74.0 ],
+									"text" : "jcom.test.assert.equal patcher.noarg-test @input bang @compareTo /noModelAddress"
 								}
 
 							}
@@ -350,8 +350,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 71.0, 554.0, 50.0, 18.0 ],
-									"text" : "bang"
+									"patching_rect" : [ 71.0, 554.0, 111.0, 18.0 ],
+									"text" : "/noModelAddress"
 								}
 
 							}
@@ -387,7 +387,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 102.0, 497.0, 25.0, 25.0 ]
+									"patching_rect" : [ 163.0, 497.0, 25.0, 25.0 ]
 								}
 
 							}

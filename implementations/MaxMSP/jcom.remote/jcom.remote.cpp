@@ -201,48 +201,50 @@ void remote_subscribe(TTPtr self)
 	// for relative address
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 	
-	// Do we subscribe the Viewer ?
-	// View patcher case :
-	if (x->patcherContext == kTTSym_view) {
-		
-		// if the address refer to the hub (only :attributeName) don't subscribe the Viewer
-		if (x->address.getParent() == NO_PARENT && 
-			x->address.getName() == NO_NAME && 
-			x->address.getInstance() == NO_INSTANCE && 
-			x->address.getAttribute() != NO_ATTRIBUTE)
-			toSubscribe = NULL;
-	
-		// else try to subscribe the Viewer
-		else toSubscribe = x->wrappedObject;
-		
+    // if there is a context
+    if (x->patcherContext != kTTSymEmpty) {
+        
+        // Do we subscribe the Viewer ?
+        // View patcher case :
+        if (x->patcherContext == kTTSym_view) {
+            
+            // if the address refer to the jcom.model (only :attributeName) don't subscribe the Viewer
+            if (x->address.getParent() == NO_PARENT &&
+                x->address.getName() == NO_NAME &&
+                x->address.getInstance() == NO_INSTANCE &&
+                x->address.getAttribute() != NO_ATTRIBUTE)
+                toSubscribe = NULL;
+            
+            // else try to subscribe the Viewer
+            else toSubscribe = x->wrappedObject;
+            
+        }
+        // Model patcher case :
+        // try to binds on the parameter|message|return of the model without subscribing the Viewer
+        else if (x->patcherContext == kTTSym_model)
+            toSubscribe = NULL;
+        
+        // Any other case : give up
+        else 
+            return;
+        
+        // if the subscription is succesfull
+        if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, x->address, &x->subscriberObject)) {
+            
+            // get the context address to make
+            // a viewer on the contextAddress/model/address parameter
+            x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
+            v.get(0, contextAddress);
+            
+            makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
+            anObject->sendMessage(kTTSym_Get);
+                
+            // attach the jcom.remote to connected ui object
+            return remote_attach(self);
+        }
 	}
-	// Model patcher case : 
-	// try to binds on the parameter|message|return of the model without subscribing the Viewer
-	else if (x->patcherContext == kTTSym_model)
-		toSubscribe = NULL;
-	
-	// Any other case : no subscription
-	else 
-		toSubscribe = NULL;
-
-	if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, x->address, &x->subscriberObject)) {
-		
-		// get the context address to make
-		// a viewer on the contextAddress/model/address parameter
-		x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-		v.get(0, contextAddress);
-		
-		if (x->patcherContext) {
-			makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
-			anObject->sendMessage(kTTSym_Get);
-			
-			// attach the jcom.remote to connected ui object
-			return remote_attach(self);
-		}
-	}
-	
 	// else, if no context, set address directly
-	else if (x->patcherContext == kTTSymEmpty) {
+	else {
 		contextAddress = kTTAdrsRoot;
 		absoluteAddress = contextAddress.appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);

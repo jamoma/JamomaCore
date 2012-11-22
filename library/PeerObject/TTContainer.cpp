@@ -14,8 +14,8 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mPriority(0), 
-mDescription(kTTSymEmpty),
-mType(TTSymbol("control")),
+mDescription(kTTSym_none),
+mType(kTTSym_none),
 mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
