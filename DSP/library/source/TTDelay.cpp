@@ -24,7 +24,7 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	// declare attributes
 	addAttributeWithSetter(Delay,				kTypeFloat64);
-	addAttributeWithSetter(DelayInSamples,		kTypeInt64);
+	addAttributeWithSetter(DelayInSamples,		kTypeFloat64);
 	addAttributeWithSetter(DelayMax,			kTypeFloat64);
 	addAttributeWithSetter(DelayMaxInSamples,	kTypeInt64);
 	addAttributeWithSetter(Interpolation,		kTypeSymbol);
@@ -94,16 +94,16 @@ TTErr TTDelay::clear()
 void TTDelay::reset()
 {
 	for (TTDelayBufferIter buffer = mBuffers.begin(); buffer != mBuffers.end(); ++buffer)
-		buffer->setDelay(mDelayInSamples);
+		buffer->setDelay(mDelayInSamples); // TTDelayBuffer requires mDelayInSamples
 }
 
 
 TTErr TTDelay::setDelay(const TTValue& newValue)
 {
 	mDelay = TTClip<TTFloat64>(newValue, 0.0, mDelayMax);
-	mFractionalDelaySamples = mDelay * srMill;
-	mDelayInSamples = mFractionalDelaySamples;
-	mFractionalDelay = mFractionalDelaySamples - mDelayInSamples;
+	mDelayInSamplesWithFractional = mDelay * srMill;
+	mDelayInSamples = mDelayInSamplesWithFractional;
+	mFractionalDelay = mDelayInSamplesWithFractional - mDelayInSamples;
 
 	reset();
 	return kTTErrNone;
@@ -112,11 +112,11 @@ TTErr TTDelay::setDelay(const TTValue& newValue)
 
 TTErr TTDelay::setDelayInSamples(const TTValue& newValue)
 {
-	mFractionalDelaySamples = TTClip<TTInt64>(newValue, 0, mDelayMaxInSamples);
-	mDelayInSamples = mFractionalDelaySamples;
-	mFractionalDelay = mFractionalDelaySamples - mDelayInSamples;
+	mDelayInSamplesWithFractional = TTClip<TTFloat64>(newValue, 0, mDelayMaxInSamples);
+	mDelayInSamples = mDelayInSamplesWithFractional;
+	mFractionalDelay = mDelayInSamplesWithFractional - mDelayInSamples;
 
-	mDelay = mDelayInSamples * 1000.0 * srInv;
+	mDelay = mDelayInSamplesWithFractional * 1000.0 * srInv;
 
 	reset();
 	return kTTErrNone;
