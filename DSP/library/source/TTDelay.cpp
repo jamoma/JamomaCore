@@ -246,7 +246,7 @@ inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64
 	TTSampleValuePtr next = buffer->mReadPointer + 1;
 	next = buffer->wrapPointer(next);
 
-	y = ((*next) * (1.0 - mFractionalDelay)) + ((*buffer->mReadPointer) * mFractionalDelay);
+	y = ((*next) * (1.0 - mFractionalDelay)) + ((*buffer->mReadPointer) * mFractionalDelay); //TODO: use TTInterpolate method
 	return kTTErrNone;
 }
 
@@ -292,7 +292,7 @@ inline TTErr TTDelay::calculateCosineInterpolation(const TTFloat64& x, TTFloat64
 	TTSampleValuePtr next = buffer->mReadPointer + 1;	
 	next = buffer->wrapPointer(next);
 	
-	y = ((*next) * (1.0 - ft)) + ((*buffer->mReadPointer) * ft);
+	y = ((*next) * (1.0 - ft)) + ((*buffer->mReadPointer) * ft); //TODO: use TTInterpolate method
 	return kTTErrNone;
 }
 
@@ -335,7 +335,7 @@ inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64&
 	d = *buffer->wrapPointer(buffer->mReadPointer - 2);
 	cMinusB = c - b;
 
-	y = b + mFractionalDelay * (cMinusB - 0.1666667 * (1.0 - mFractionalDelay) * ((d - a - (3.0 * cMinusB)) * mFractionalDelay + (d + (2.0 * a) - (3.0 * b))));
+	y = b + mFractionalDelay * (cMinusB - 0.1666667 * (1.0 - mFractionalDelay) * ((d - a - (3.0 * cMinusB)) * mFractionalDelay + (d + (2.0 * a) - (3.0 * b)))); //TODO: use TTInterpolate method
 	return kTTErrNone;
 }
 
