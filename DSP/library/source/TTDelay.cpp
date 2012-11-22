@@ -112,7 +112,7 @@ TTErr TTDelay::setDelay(const TTValue& newValue)
 
 TTErr TTDelay::setDelayInSamples(const TTValue& newValue)
 {
-	mFractionalDelaySamples = TTClip<TTUInt64>(newValue, 0, mDelayMaxInSamples);
+	mFractionalDelaySamples = TTClip<TTInt64>(newValue, 0, mDelayMaxInSamples);
 	mDelayInSamples = mFractionalDelaySamples;
 	mFractionalDelay = mFractionalDelaySamples - mDelayInSamples;
 
