@@ -48,6 +48,13 @@ protected:
 	TTErr setFrequencyLm(const TTValue& value);
 	TTErr setFrequencyMh(const TTValue& value);
 	
+	
+	/**	Unit Tests
+	 @param	returnedTestInfo		Used to return test information
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo);
+	
 };
 
 #endif //  _HIMIDLOW_H_

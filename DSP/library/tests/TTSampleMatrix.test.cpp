@@ -16,13 +16,13 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	// for tests
 	TTInt16				numChannels = 2;
-	TTUInt32				numSamples = 50000;  // TODO: xcode says this is ambiguous when signed?
+	TTUInt32			numSamples = 50000;  // TODO: xcode says this is ambiguous when signed?
 	TTFloat32			duration = 1500;
 	TTInt32				test9Index = 10;
 	TTInt32				test10Index = 11;
 	TTInt32				test1Return, test2Return, test7Return, test8Return;
 	TTFloat32			test3Return, test6Return;
-	TTSampleValue		test9Return, test10Return, test11Return, test12return;
+	TTSampleValue		test9Return, test10Return, test11Return, test12return, test13return;
 	
 	TTTestLog("Test resizing of the SampleMatrix...");
 	
@@ -201,7 +201,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	// TEST 11: test for interpolation between two consecutive samples
 	TTFloat64 computedInterpFraction = TTRandom64();
 	TTFloat64 computedInterpIndex = test9Index + computedInterpFraction;
-	TTSampleValue computedInterpValue11 = (computedInterpFraction * pokeValue9) + ((1.0 - computedInterpFraction) * pokeValue10);
+	TTSampleValue computedInterpValue11 = (computedInterpFraction * pokeValue10) + ((1.0 - computedInterpFraction) * pokeValue9);
 	
 	this->peeki(computedInterpIndex, 0, test11Return);
 	
@@ -217,65 +217,71 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %f, but returned value was %f", computedInterpValue11, test11Return);
 	}
 	
-	/*
+
 	// TODO: inbounds testing on hold until sorted out at TTMatrix parent class
 	
-	// TEST 12: test the new inBounds method
+	// TEST 12 & 13: test whether out of bounds indices produce errors at head
 	
-	TTUInt32 computedSampleAfterTail12 = -10; //test7Return + 5;
-	TTErr test12Err = this->peek(computedSampleAfterTail12, 1, test12return);
+	TTInt32 computedIndex12 = -1; // 1 before the head
+	TTInt32 computedIndex13 = 0; // the head
+	TTErr test12Err = this->peek(computedIndex12, 0, test12return);
+	TTErr test13Err = this->peek(computedIndex13, 0, test13return);
 	
-	TTTestAssertion("retrieving sample out of bounds produces an error", 
-								test12Err == kTTErrInvalidValue, 
+	TTBoolean result12 = { test12Err == kTTErrOutOfBounds };
+	TTBoolean result13 = { test13Err == kTTErrNone };
+	
+	TTTestAssertion("peeking sample before index 0 produces an error", 
+								result12, 
 								testAssertionCount,
 								errorCount);													
 	
-	if(test12Err != kTTErrInvalidValue)
+	if(!result12)
 	{
-		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrInvalidValue, test12Err);
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrOutOfBounds, test12Err);
 	}
 	
 	
-	TTUInt32 computedDistanceFromHead12 = test7Return * test1Return
+	TTTestAssertion("peeking sample at index 0 produces no error", 
+								result13, 
+								testAssertionCount,
+								errorCount);													
 	
-	computedDistanceFromHead12 -= 50; // 50 before tail
-	TTBoolean result12 = this->inBounds(computedDistanceFromHead12);
-	
-	if(result12)
+	if(!result13)
 	{
-		TTTestLog("Testing in bounds 12 returned true, %i", computedDistanceFromHead12);
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrNone, test13Err);
 	}
 	
-	computedDistanceFromHead12 += 50; // at tail
-	TTBoolean result13 = this->inBounds(computedDistanceFromHead12);
+	// TEST 14 & 15: test whether out of bounds indices produce errors at tail
 	
-	if(result13)
-	{
-		TTTestLog("Testing in bounds 13 returned true, %i", computedDistanceFromHead12);
-	}
+	TTInt32 computedIndex14 = test7Return; // should be latest size in samples
+	TTInt32 computedIndex15 = test7Return - 1; // the tail is actually one less
+	TTErr test14Err = this->poke(computedIndex12, 0, test12return);
+	TTErr test15Err = this->poke(computedIndex13, 0, test13return);
 	
-	computedDistanceFromHead12 += 1; // 1 after tail
-	TTBoolean result14 = this->inBounds(computedDistanceFromHead12);
+	TTBoolean result14 = { test14Err == kTTErrOutOfBounds };
+	TTBoolean result15 = { test15Err == kTTErrNone };
+	
+	TTTestAssertion("poking sample after index max produces an error", 
+								result14, 
+								testAssertionCount,
+								errorCount);													
 	
 	if(!result14)
 	{
-		TTTestLog("Testing in bounds 14 returned false, %i", computedDistanceFromHead12);
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrOutOfBounds, test14Err);
 	}
 	
-	TTBoolean result15 = this->inBounds(-1);
+	
+	TTTestAssertion("poking sample at index max produces no error", 
+								result15, 
+								testAssertionCount,
+								errorCount);													
 	
 	if(!result15)
 	{
-		TTTestLog("Negative values return false: %i", -1);
+		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrNone, test15Err);
 	}
 	
-	TTBoolean result16 = this->inBounds(0);
-	
-	if(!result16)
-	{
-		TTTestLog("Zero returns false: %i", 0);
-	}
-	*/
 	
 	/*
 	

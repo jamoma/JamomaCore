@@ -1,8 +1,16 @@
-/*
- * TTFoundation Interpolation Utilities
- * Copyright 2012 by Timothy Place
+/** @file TTInterpolate.h
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup foundationLibrary
+ *
+ * @brief Interpolation Utilities
+
+ * @details Defines several functions for <a href="http://en.wikipedia.org/wiki/Interpolation">interpolating</a> between discrete data points such as those found in an array or matrix. These methods are commonly used in digital audio whenever we alter the rate at which a signal is read.
+ * These functions require known discrete values to be passed by reference along with a double between 0 and 1 representing the fractional location desired. They return the interpolated value.
+ * 
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2012, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

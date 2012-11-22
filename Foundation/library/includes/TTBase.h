@@ -296,7 +296,8 @@ enum TTErr {
 	kTTErrMethodNotFound,	///< Method not found.  Typically returned by the TTObject::sendMessage() function.
 	kTTErrValueNotFound,	///< A value was not found when doing a look up for it (in a TTHash, TTList, or other class).
 	kTTErrBadChannelConfig,	///< An invalid number of audio channels for a given context was encountered.
-	kTTErrReadOnly			///< Attempted a write to a read-only entity.
+	kTTErrReadOnly,			///< Attempted a write to a read-only entity.
+	kTTErrOutOfBounds		///< Attempted to access memory outside a matrix or array (in a TTMatrix & TTSampleMatrix).
 };
 
 
