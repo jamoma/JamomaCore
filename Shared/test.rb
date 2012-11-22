@@ -52,8 +52,9 @@ def run_tests_for_dir(path, subfolder_depth)
       # TODO: what we need to do here is look through "out" with a regular expression to find out
       # the results of the test.
       # below is how we do it when compiling Xcode projects
-
-      out.match /.*Number of failed assertions: (.*).*/     
+      
+      out.match(/.*Number of failed assertions: (.*).*/)
+      
       if $1 == "0" # This means there are zero failed assertions
        @cur_count+=1
        log_test_pass "*****************************************"
