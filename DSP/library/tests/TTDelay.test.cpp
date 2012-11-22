@@ -115,8 +115,21 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
 	
+	//test 2: negative values for delay in samples, should clip to 0
+	this->setAttributeValue("delayInSamples", -1);
 	
+	TTInt64 inquiry2 = this->mDelayInSamples;
+	TTBoolean result2 = { inquiry2 == 0 };
 	
+	TTTestAssertion("attempting to set delay to negative value clips to 0", 
+								result2, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result2)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", 0, inquiry2);
+	}
 	
 	TTObjectRelease(&input);
 	TTObjectRelease(&output);
