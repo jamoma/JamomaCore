@@ -16,7 +16,7 @@
 
 #include "maxAudioGraph.h"
 #include "ext_hashtab.h"
-
+//#define DEBUG_NOTIFICATIONS
 using namespace std;
 
 #define MAX_NUM_INLETS  32
@@ -120,8 +120,12 @@ ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr 
 
 void MaxAudioGraphWrappedClass_free(WrappedInstancePtr self)
 {
-	if (self->audioGraphObject)
-		TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
+	if (self->audioGraphObject){
+        #ifdef DEBUG_NOTIFICATIONS
+        object_post((t_object*)self, "%s will now be freed\n",  ((t_symbol*)object_classname(self))->s_name);
+        #endif // DEBUG_NOTIFICATIONS
+        TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
+    }
 
 	for (int i=0; i<MAX_NUM_INLETS; i++) {
 		if (self->inlets[i])
@@ -174,8 +178,12 @@ TTErr MaxAudioGraphDrop(ObjectPtr x, long inletNumber, ObjectPtr sourceMaxObject
 	TTErr 					err;
 	
 	err = (TTErr)long(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
-	if (self->audioGraphObject && sourceObject && !err)
-		err = self->audioGraphObject->dropAudio(sourceObject, sourceOutletNumber, inletNumber);	
+	if (self->audioGraphObject && sourceObject && !err){
+        #ifdef DEBUG_NOTIFICATIONS
+            post("we are here %p",x);
+        #endif // DEBUG_NOTIFICATIONS
+		err = self->audioGraphObject->dropAudio(sourceObject, sourceOutletNumber, inletNumber);
+    }
 	return err;
 }
 

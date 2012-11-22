@@ -180,6 +180,7 @@ MaxErr UnpackNotify(UnpackPtr self, SymbolPtr s, SymbolPtr msg, ObjectPtr sender
 				#endif // DEBUG_NOTIFICATIONS
 				
 				object_method(destObject, gensym("audio.drop"), destInlet, sourceObject, sourceOutlet);
+                UnpackReset(self,  self->vectorSize);               
 			}
 		out:		
 			;
