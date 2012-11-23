@@ -200,8 +200,12 @@ TTErr TTDelay::setInterpolation(const TTValue& newValue)
 
 inline TTErr TTDelay::calculateNoInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
 {
-	*buffer->mWritePointer++ = x;		// write the input into our buffer
-	y = *buffer->mReadPointer++;		// fetch the output from our buffer
+	*(buffer->mWritePointer) = x;		// write the input into our buffer
+	y = *(buffer->mReadPointer);		// fetch the output from our buffer
+
+	// advance the pointers
+	buffer->mWritePointer++;
+	buffer->mReadPointer++;
 
 	// wrap the pointers in the buffer, if needed
 	if (buffer->mWritePointer > buffer->tail())
