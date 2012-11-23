@@ -107,7 +107,7 @@ TTSubscriber::~TTSubscriber()
 			mExposedMessages->lookup(k, storedObject);
 			storedObject.get(0, (TTPtr*)&anObject);
 			
-			convertUpperCasedName(k, nameToAddress);
+			convertUpperCasedNameInAddress(k, nameToAddress);
 			objectAddress = mNodeAddress.appendAddress(nameToAddress);
 			
 			aDirectory->TTNodeRemove(objectAddress);
@@ -128,7 +128,7 @@ TTSubscriber::~TTSubscriber()
 			mExposedAttributes->lookup(k, storedObject);
 			storedObject.get(0, (TTPtr*)&anObject);
 			
-			convertUpperCasedName(k, nameToAddress);
+			convertUpperCasedNameInAddress(k, nameToAddress);
 			objectAddress = mNodeAddress.appendAddress(nameToAddress);
 			
 			aDirectory->TTNodeRemove(objectAddress);
@@ -350,7 +350,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbol messageName, TT
 	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(&aData), args);
 	
 	// register TTData into the local tree
-	convertUpperCasedName(messageName, nameToAddress);
+	convertUpperCasedNameInAddress(messageName, nameToAddress);
 	dataAddress = mNodeAddress.appendAddress(nameToAddress);
 	aContext = mNode->getContext();
 	getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
@@ -374,7 +374,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbol attributeName
 	TTCallbackPtr	observeValueCallback;			// to set the data when an object attribute changed
 	TTValuePtr		observeValueBaton;
 	TTAttributePtr	anAttribute = NULL;
-	TTAddress nameToAddress, dataAddress;
+	TTAddress       nameToAddress, dataAddress;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
 	TTPtr			aContext;
@@ -396,7 +396,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbol attributeName
 		TTObjectInstantiate(kTTSym_Data, TTObjectHandle(&aData), args);
 		
 		// register TTData into the local tree
-		convertUpperCasedName(attributeName, nameToAddress);
+		convertUpperCasedNameInAddress(attributeName, nameToAddress);
 		dataAddress = mNodeAddress.appendAddress(nameToAddress);
 		aContext = mNode->getContext();
 		getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
@@ -439,7 +439,7 @@ TTErr TTSubscriber::unexposeMessage(TTSymbol messageName)
 	if (!mExposedMessages->lookup(messageName, storedObject)) {
 		storedObject.get(0, (TTPtr*)&anObject);
 		
-		convertUpperCasedName(messageName, nameToAddress);
+		convertUpperCasedNameInAddress(messageName, nameToAddress);
 		objectAddress = mNodeAddress.appendAddress(nameToAddress);
 		
 		aDirectory->TTNodeRemove(objectAddress);
@@ -465,7 +465,7 @@ TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 	if (!mExposedAttributes->lookup(attributeName, storedObject)) {
 		storedObject.get(0, (TTPtr*)&anObject);
 		
-		convertUpperCasedName(attributeName, nameToAddress);
+		convertUpperCasedNameInAddress(attributeName, nameToAddress);
 		objectAddress = mNodeAddress.appendAddress(nameToAddress);
 		
 		aDirectory->TTNodeRemove(objectAddress);
