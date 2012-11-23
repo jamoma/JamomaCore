@@ -238,15 +238,15 @@ inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64
 		buffer->mWritePointer = buffer->head();
 
 	// move the play head
-	buffer->mReadPointer++;
+	buffer->mReadPointer++;  // TODO: you can't move this before pulling other values for interpolation!!!
 	if (buffer->mReadPointer > buffer->tail())
 		buffer->mReadPointer = buffer->head();
 
 	// store the value of the next sample in the buffer for interpolation
-	TTSampleValuePtr next = buffer->mReadPointer + 1;
+	TTSampleValuePtr next = buffer->mReadPointer - 1;
 	next = buffer->wrapPointer(next);
 
-	y = ((*next) * (1.0 - mFractionalDelay)) + ((*buffer->mReadPointer) * mFractionalDelay); //TODO: use TTInterpolate method
+	y = ((*next) * mFractionalDelay) + ((*buffer->mReadPointer) * (1.0 - mFractionalDelay)); //TODO: use TTInterpolate method
 	return kTTErrNone;
 }
 
@@ -284,7 +284,7 @@ inline TTErr TTDelay::calculateCosineInterpolation(const TTFloat64& x, TTFloat64
 		buffer->mWritePointer = buffer->head();
 	
 	// move the play head
-	buffer->mReadPointer++;
+	buffer->mReadPointer++;  // TODO: you can't move this before pulling other values for interpolation!!!
 	if (buffer->mReadPointer > buffer->tail())
 		buffer->mReadPointer = buffer->head();
 	
@@ -324,7 +324,7 @@ inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64&
 		buffer->mWritePointer = buffer->head();
 
 	// move the play head
-	buffer->mReadPointer++;
+	buffer->mReadPointer++;  // TODO: you can't move this before pulling other values for interpolation!!!
 	if (buffer->mReadPointer > buffer->tail())
 		buffer->mReadPointer = buffer->head();
 
