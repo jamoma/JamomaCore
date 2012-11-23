@@ -25,7 +25,8 @@ protected:
 	TTUInt64			mDelayMaxInSamples;
 	TTSymbol			mInterpolation;
 	TTFloat64			mFractionalDelay;			///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
-	TTFloat64			mFractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
+	TTFloat64			mDelayInSamplesWithFractional;	///< mDelayInSamples + mFractionalDelay
+		// TODO: can't see where mDelayInSamplesWithFractional value is used other than set/get
 
 	TTDelayBufferVector	mBuffers;
 
