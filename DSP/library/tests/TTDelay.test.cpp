@@ -521,7 +521,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse14[i]);
 	}
 
-	TTTestAssertion("Produces correct impulse response: 1.8 samples, cubic interp", 
+	TTTestAssertion("Produces correct impulse response: 1.8 samples, cubic interp\n****THIS TEST FAILS ONLY BECAUSE I DON'T KNOW WHAT TO EXPECT****", 
 					badSampleCount == 0, 
 					testAssertionCount, 
 					errorCount);

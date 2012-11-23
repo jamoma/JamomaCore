@@ -141,7 +141,6 @@ TTErr TTDelay::setDelayMaxInSamples(const TTValue& newValue)
 }
 
 
-// TODO: Update these when the new interpolation routines are written
 TTErr TTDelay::setInterpolation(const TTValue& newValue)
 {
 	mInterpolation = newValue;
@@ -358,6 +357,7 @@ inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64&
 	delaySampleMinus1Ptr = buffer->wrapPointer(delaySampleMinus1Ptr);
 	TTSampleValue delaySampleMinus1 = *(delaySampleMinus1Ptr);
 
+	// to switch interp formula, start comment block here
 	// store the value of the next sample in the buffer for interpolation
 	a = delaySampleMinus1;
 	b = delaySample0;
@@ -367,6 +367,8 @@ inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64&
 	// now you are ready to interpolate
 	cMinusB = c - b;
 	y = b + mFractionalDelay * (cMinusB - 0.1666667 * (1.0 - mFractionalDelay) * ((d - a - (3.0 * cMinusB)) * mFractionalDelay + (d + (2.0 * a) - (3.0 * b)))); 
+	
+	// to switch interp formula, end comment block here AND uncomment next line
 	//y = TTInterpolateCubic(a, b, c, d, mFractionalDelay); //TODO: use TTInterpolate method
 	
 	// then move the play head
