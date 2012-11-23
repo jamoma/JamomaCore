@@ -241,11 +241,15 @@ inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64
 	if (buffer->mWritePointer > buffer->tail())
 		buffer->mWritePointer = buffer->head();
 
-	// store the value of the next sample in the buffer for interpolation
+	// store the value of the integer part of delayInSamples
 	TTSampleValue delaySample0 = *(buffer->mReadPointer);
-	TTSampleValue delaySample1 = *(buffer->mReadPointer + 1);
+	
+	// store the value of the sample *before* it for interpolation
+	TTSampleValuePtr delaySample1Ptr = buffer->mReadPointer - 1;
+	delaySample1Ptr = buffer->wrapPointer(delaySample1Ptr);
+	TTSampleValue delaySample1 = *(delaySample1Ptr);
 
-	y = TTInterpolateLinear(delaySample1, delaySample0, mFractionalDelay); //TODO: use TTInterpolate method
+	y = TTInterpolateLinear(delaySample0, delaySample1, mFractionalDelay);
 	
 	// now move the play head
 	buffer->mReadPointer++;  // TODO: you can't move this before pulling other values for interpolation!!!
