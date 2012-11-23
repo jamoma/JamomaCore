@@ -16,9 +16,3 @@ load "build.rb"
 
 Dir.chdir "#{@mydir}/AudioGraph"
 load "build.rb"
-
-Dir.chdir "#{@mydir}/Plugtastic"
-load "build.rb"
-
-Dir.chdir "#{@mydir}/Ruby"
-load "build.rb"

@@ -14,6 +14,7 @@
  */
 
 #include "TTSampleMatrix.h"
+#include "TTInterpolate.h"
 
 #define thisTTClass			TTSampleMatrix
 #define thisTTClassName		"samplematrix"
@@ -135,7 +136,7 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 	
 	if (weAreNotInBounds)
 	{
-		return kTTErrInvalidValue;
+		return kTTErrOutOfBounds;
 	} else {
 		return kTTErrNone;
 	}
@@ -147,9 +148,9 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 {
 	// variables needed
     TTColumnID p_channel = channel;
-
-	TTRowID indexThisInteger = TTRowID(index);
-	TTFloat64 indexFractionalPart = index - indexThisInteger; // before makeInBounds to get the right value!
+	TTFloat64 indexIntegralPart = 0;
+	TTFloat64 indexFractionalPart = modf(index, &indexIntegralPart); // before makeInBounds to get the right value!
+	TTRowID indexThisInteger = TTRowID(indexIntegralPart);
 	
 	TTBoolean weAreNotInBounds = makeInBounds(indexThisInteger, p_channel);  // out of range values are clipped
 	
@@ -157,7 +158,7 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 	{
 		// no reason to interpolate, just use the first or last value
 		get2d(indexThisInteger, p_channel, value);
-		return kTTErrInvalidValue; // and report an error (is that what we want?)
+		return kTTErrOutOfBounds; // and report an error (is that what we want?)
 	} else {
 		TTRowID indexNextInteger = indexThisInteger + 1;
 		makeRowIDInBounds(indexNextInteger); //does not allow interpolation between first and last sample
@@ -169,7 +170,7 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 		get2d(indexNextInteger, p_channel, valueNextInteger);
 	
 		// simple linear interpolation adapted from TTDelay
-		value = (valueNextInteger * (1.0 - indexFractionalPart)) + (valueThisInteger * indexFractionalPart);
+		value = TTInterpolateLinear(valueThisInteger, valueNextInteger, indexFractionalPart);
 	
 		return kTTErrNone;
 	}
@@ -205,7 +206,7 @@ TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const T
 	if (weAreNotInBounds)
 	{
 		// don't go poking around out of bounds
-		return kTTErrInvalidValue;
+		return kTTErrOutOfBounds;
 	} else {
 		set2d(p_index, p_channel, value);
 		return kTTErrNone;

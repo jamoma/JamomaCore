@@ -69,6 +69,12 @@ protected:
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
 	
+	
+	/**	Unit Tests
+	 @param	returnedTestInfo		Used to return test information
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
 

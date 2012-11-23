@@ -33,9 +33,9 @@ TT_OBJECT_CONSTRUCTOR,
 	mDataSize(0),
 	mDataIsLocallyOwned(YES)
 {
-	addAttributeWithGetterAndSetter(Dimensions, 	kTypeInt32); 	// mDimensions deprecated, we should delete this too
+	addAttributeWithGetterAndSetter(Dimensions, 	kTypeInt32); 	// TODO: mDimensions deprecated, we should delete this too
 																	// NW: had trouble removing it in Oct 2012
-																	// we can keep setDimensions() & getDimensions()
+																	// we should keep setDimensions() & getDimensions() methods
 	addAttributeWithSetter(RowCount, 				kTypeInt32);
 	addAttributeWithSetter(ColumnCount, 			kTypeInt32);
 	addAttributeWithGetterAndSetter(Type,			kTypeUInt8);	// necessary so that public interface uses symbols
@@ -283,9 +283,13 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 	TTInt32 i, j;
 	anInputValue.get(0, i);
 	anInputValue.get(1, j);
-	TTUInt32 index = INDEX_OF_COMPONENT_FIRSTBYTE(i, j);
 	
-	// TODO: there is no bounds checking here
+	TTBoolean weAreNotInBounds = makeInBounds(i,j);
+	if (weAreNotInBounds)
+		return kTTErrOutOfBounds;
+		// TODO: for now we throw an error when out of bounds. wrapping could be option in future version.
+	
+	TTUInt32 index = INDEX_OF_COMPONENT_FIRSTBYTE(i, j);
 	
 	anOutputValue.clear();
 
@@ -327,9 +331,13 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	TTInt32 i, j;
 	anInputValue.get(0, i);
 	anInputValue.get(1, j);
-	TTUInt32 index = INDEX_OF_COMPONENT_FIRSTBYTE(i, j);
 	
-	// TODO: there is no bounds checking here
+	TTBoolean weAreNotInBounds = makeInBounds(i,j);
+	if (weAreNotInBounds)
+		return kTTErrOutOfBounds;
+		// TODO: for now we throw an error when out of bounds. wrapping could be option in future version.
+	
+	TTUInt32 index = INDEX_OF_COMPONENT_FIRSTBYTE(i, j);
 	
 	if (mType == kTypeUInt8) { 
 		for (int e=0; e<mElementCount; e++)

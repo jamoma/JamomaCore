@@ -1,14 +1,34 @@
-/*
- * TTFoundation Interpolation Utilities
- * Copyright 2012 by Timothy Place
+/** @file TTInterpolate.h
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup foundationLibrary
+ *
+ * @brief Interpolation Utilities
+
+ * @details Defines several functions for <a href="http://en.wikipedia.org/wiki/Interpolation">interpolating</a> between discrete data points such as those found in an array or matrix. These methods are commonly used in digital audio whenever we alter the rate at which a signal is read.
+ * These functions require known discrete values to be passed by reference along with a double between 0 and 1 representing the fractional location desired. They return the interpolated value.
+ * 
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2012, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_INTERPOLATE_H__
 #define __TT_INTERPOLATE_H__
 
+
+/** Isolate the fractional part from a double.
+	Essentially wraps the <a href="http://www.cplusplus.com/reference/clibrary/cmath/modf/">modf()</a> function, but protects Jamoma in case it ever prooves uneven in implementation. NW: FAILS TO BUILD but Xcode can't find error.
+	@param aa		Double whose fractional part you would like.
+	@return			The fractional portion of aa.
+
+double TTSplitFractional(double& aa)
+{
+	double discard;
+	return modf(aa,&discard);
+}
+*/
 
 /** Linear interpolation.
 	@param x	Sample value at prior integer index

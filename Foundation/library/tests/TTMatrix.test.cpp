@@ -141,8 +141,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		// the following use of set() does not work because it will interpret first two values as coordinates
 		// that is the source of FAIL that the test produces
 		v.setSize(4);		
-		v.set(0, 0);	// index x
-		v.set(1, 15);	// index y
+		v.set(0, 15);	// index x
+		v.set(1, 0);	// index y
 		v.set(2, 3.14);	// real (no imaginary)
 		v.set(3, -2);	// real (no imaginary)
 		err = matrix->sendMessage("set", v, kTTValNONE);
@@ -150,7 +150,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						err == kTTErrNone, 
 						testAssertionCount,
 						errorCount);
-		v.set(1, 10);	// index y
+		//TTTestLog("Expected a value of %i, but returned value was %i", kTTErrNone, err);
+		v.set(0, 10);	// index y
 		v.set(2, 4);	// real
 		v.set(3, 1.2);	// imaginary
 		err = matrix->sendMessage("set", v, kTTValNONE);
@@ -158,7 +159,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						err == kTTErrNone, 
 						testAssertionCount,
 						errorCount);
-		
+		//TTTestLog("Expected a value of %i, but returned value was %i", kTTErrNone, err);
 		TTComplex z(14, 0.92);
 		matrix->set2d(0, 9, z);
 		

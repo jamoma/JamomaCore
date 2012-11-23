@@ -321,7 +321,7 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/	
-	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
 		TTRowID i_input = i;
 		i = (*handler)(i_input, TTRowID(0), mRowCount);
@@ -335,7 +335,7 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
 		TTColumnID j_input = j;
         j = (*handler)(j_input, TTColumnID(0), mColumnCount);
@@ -349,7 +349,7 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
 		TTColumnID e_input = e;
         e = (*handler)(e_input, TTElementID(0), mElementCount);
@@ -366,9 +366,9 @@ public:
 		
 		@seealso makeRowIDInBounds, makeColumnIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
-		TTUInt8 changes; // keep track of how many changes are made
+		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);
 		changes += makeColumnIDInBounds(j, handler);
 		return (changes > 0); // true or false, did anything change?
@@ -385,9 +385,9 @@ public:
 		
 		@seealso makeRowIDInBounds, makeColumnIDInBounds, makeElementIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
-		TTUInt8 changes; // keep track of how many changes are made
+		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);
 		changes += makeColumnIDInBounds(j, handler);
 		changes += makeElementIDInBounds(e, handler);
@@ -447,10 +447,10 @@ public:
 		@return 	TTErr		always returns kTTErrNone
 	 */
 	template<typename T>
-	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data)
+	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data) const
 	{
 		TTUInt32 index = INDEX_OF_ELEMENT_FIRSTBYTE(i, j, e);
-		data = *(T*)(mData + index);	// TODO: don't we need to account for bytes per element?
+		data = *(T*)(mData + index);
 		return kTTErrNone;
 	}
 	
