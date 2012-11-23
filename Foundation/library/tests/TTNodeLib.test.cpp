@@ -152,6 +152,9 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 	
 	TTAddress testAddressF("name.instance:attribute");
 	TTAddress testAddressG("/name.instance:attribute");
+    
+    TTSymbol  testSymbolA("");
+    
 	TTSymbol  resultSymbol;
     TTAddress resultAddress;
 	TTAddress part1, part2;
@@ -483,23 +486,47 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
 	TTSymbol testSymbolA = "TestSymbolName";
 	TTSymbol testSymbolB = "testSymbolName";
 	TTSymbol testSymbolC = "testsymbolname";
-	TTSymbol result;
+	TTAddress result;
+   
 
-	convertUpperCasedName(testSymbolA, result);
+	convertUpperCasedNameInAddress(testSymbolA, result);
 	TTTestAssertion("convertUpperCasedName: Test passes if \"TestSymbolName\" is converted in \"test/symbol/name\"",
-					result == TTSymbol("test/symbol/name"),
+					result == TTAddress("test/symbol/name"),
 					testAssertionCount,
 					errorCount);
 	
-	convertUpperCasedName(testSymbolB, result);
+	convertUpperCasedNameInAddress(testSymbolB, result);
 	TTTestAssertion("convertUpperCasedName: Test passes if \"testSymbolName\" is converted in \"test/symbol/name\"",
-					result == TTSymbol("test/symbol/name"),
+					result == TTAddress("test/symbol/name"),
 					testAssertionCount,
 					errorCount);
 	
-	convertUpperCasedName(testSymbolC, result);
+	convertUpperCasedNameInAddress(testSymbolC, result);
 	TTTestAssertion("convertUpperCasedName: Test passes if \"testsymbolname\" is not converted",
 					result == testSymbolC,
+					testAssertionCount,
+					errorCount);
+    
+    // test TTSymbol to TTAdress casting
+    TTValue     testValue = TTValue(TTSymbol("directory:/gran/parent/name.instance:attribute"));
+    TTAddress   testAddress;
+    
+    testValue.get(0, testAddress);
+    
+    TTSymbol		directory	= testAddress.getDirectory();
+	TTAddress		parent		= testAddress.getParent();
+	TTSymbol		name		= testAddress.getName();
+	TTSymbol		instance	= testAddress.getInstance();
+	TTSymbol		attribute	= testAddress.getAttribute();
+	TTAddressType	type		= testAddress.getType();
+    
+    TTTestAssertion("TTValue::get : Test fails if a TTSymbol contained into a value is not casted into a TTAddress during a get method",
+					directory == TTSymbol("directory") &&
+					parent == TTAddress("/gran/parent") &&
+					name == TTSymbol("name") &&
+					instance == TTSymbol("instance") &&
+					attribute == TTSymbol("attribute") &&
+					type == kAddressAbsolute,
 					testAssertionCount,
 					errorCount);
 }
