@@ -234,23 +234,24 @@ TTErr TTDelay::processAudioNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudio
 
 inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
 {
-	*buffer->mWritePointer = x;		// write the input into our buffer
+	*(buffer->mWritePointer) = x;		// write the input into our buffer
 
-	// move the record head
+	// move the record head, since we are done with it
 	buffer->mWritePointer++;
 	if (buffer->mWritePointer > buffer->tail())
 		buffer->mWritePointer = buffer->head();
 
-	// move the play head
+	// store the value of the next sample in the buffer for interpolation
+	TTSampleValue delaySample0 = *(buffer->mReadPointer);
+	TTSampleValue delaySample1 = *(buffer->mReadPointer + 1);
+
+	y = TTInterpolateLinear(delaySample1, delaySample0, mFractionalDelay); //TODO: use TTInterpolate method
+	
+	// now move the play head
 	buffer->mReadPointer++;  // TODO: you can't move this before pulling other values for interpolation!!!
 	if (buffer->mReadPointer > buffer->tail())
 		buffer->mReadPointer = buffer->head();
 
-	// store the value of the next sample in the buffer for interpolation
-	TTSampleValuePtr next = buffer->mReadPointer - 1;
-	next = buffer->wrapPointer(next);
-
-	y = ((*next) * mFractionalDelay) + ((*buffer->mReadPointer) * (1.0 - mFractionalDelay)); //TODO: use TTInterpolate method
 	return kTTErrNone;
 }
 
