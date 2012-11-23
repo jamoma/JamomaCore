@@ -7,6 +7,9 @@
  */
 
 #include "TTMapperManager.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTMapperManager
 #define thisTTClassName		"MapperManager"
@@ -67,7 +70,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 	// Browse the mapper list
 	for (mMapperList->begin(); mMapperList->end(); mMapperList->next()) {
 		
-		xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "mapper");
+		xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "mapper");
 
 		mMapperList->current().get(0, (TTPtr*)&aMapper);
 
@@ -84,7 +87,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 				v.toString();
 				v.get(0, s);
 
-				xmlTextWriterWriteFormatAttribute(aXmlHandler->mWriter, BAD_CAST attributeName->getCString(), "%s", BAD_CAST s.c_str());
+				xmlTextWriterWriteFormatAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), "%s", BAD_CAST s.c_str());
 				v.clear();
 				s.clear();
 			}
@@ -96,7 +99,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 		aXmlHandler->sendMessage(TT("Write"));
 		
 		// End a mapper
-		xmlTextWriterEndElement(aXmlHandler->mWriter);
+		xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 		
 	}
 
@@ -137,8 +140,8 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 		mute = TT("false");
 
 		// get mute state
-		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "mute") == 1) {
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+		if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, BAD_CAST "mute") == 1) {
+			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
 			if (v.getType() == kTypeSymbol)
 				v.get(0, &mute);
 		}
@@ -150,16 +153,16 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 			TTObjectInstantiate(kTTSym_Mapper, TTObjectHandle(&newMapper), args);
 
 			// Browse attributes in xml
-			while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+			while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
 
 				// Get attribute name
-				aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+				aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
 				if (v.getType() == kTypeSymbol) {
 					v.get(0, &attributeName);
 					v.clear();
 
 					// Get attribute value
-					aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+					aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
 					
 					// fill the current mapper
 					newMapper->setAttributeValue(attributeName, v);

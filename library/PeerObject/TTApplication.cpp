@@ -9,6 +9,9 @@
  */
 
 #include "TTApplication.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTApplication
 #define thisTTClassName		"Application"
@@ -686,8 +689,8 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	if (aXmlHandler->mXmlNodeName == TT("entry")) {
         
 		// get App Symbol
-		if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, BAD_CAST "App") == 1) {
-			aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), appValue);
+		if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, BAD_CAST "App") == 1) {
+			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), appValue);
 			v = appValue;
 			v.toString();
 			v.get(0, anAppKey);

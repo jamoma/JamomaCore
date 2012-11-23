@@ -7,6 +7,9 @@
  */
 
 #include "TTPresetManager.h"
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTPresetManager
 #define thisTTClassName		"PresetManager"
@@ -552,14 +555,14 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 		if (!mPresets->lookup(presetName, v)) {
 			
 			// start to write a preset
-			xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST "preset");
-			xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST presetName->getCString());
+			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "preset");
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST presetName.c_str());
 			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TT("Write"));
 			
 			// end to write a preset
-			xmlTextWriterEndElement(aXmlHandler->mWriter);
+			xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 		}
 	}
     	
@@ -621,7 +624,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 			}
 			
 			// go back to the element to allow the preset to parse it
-			xmlTextReaderMoveToElement(aXmlHandler->mReader);
+			xmlTextReaderMoveToElement((xmlTextReaderPtr)aXmlHandler->mReader);
 		}
 	}
 	

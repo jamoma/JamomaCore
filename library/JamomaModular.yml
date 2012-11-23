@@ -36,7 +36,8 @@ sources:
   - RampLib/QueueRamp.cpp
   - RampLib/SchedulerRamp.cpp
   - FunctionLib/FunctionLib.cpp
-  - ../../Support/objectivemax/SDKs/Max5/c74support/max-includes/common/commonsyms.cpp
+
+  - ../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
   
 includes:
   - "includes"
@@ -45,12 +46,12 @@ includes:
   - "ProtocolLib"
   - "FunctionLib"
   - "RampLib"
-  - "../../Foundation/library/includes"
-  - "../../DSP/library/includes"
-  - ../../Support/max  
-  - ../../Support/objectivemax/MaxObject
-  - ../../Support/objectivemax/SDKs/Max5/c74support/max-includes
-  - ../../Support/objectivemax/SDKs/Max5/c74support/msp-includes
+  - "../../../Core/Foundation/library/includes"
+  - "../../../Core/DSP/library/includes"
+  - ../../../Core/Shared/max  
+  - ../../../Core/Shared/objectivemax/MaxObject
+  - ../../../Core/Shared/max/c74support/max-includes
+  - ../../../Core/Shared/max/c74support/msp-includes
 #  - "portaudio/include"
 
 libraries:
