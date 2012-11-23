@@ -340,14 +340,32 @@ inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64&
 	// sneak a zero into the buffer so that delayInSamples between 0 and 1 will work
 	*buffer->mWritePointer = 0;
 
-	// store the value of the next sample in the buffer for interpolation
-	a = *buffer->wrapPointer(buffer->mReadPointer + 1);
-	b = *buffer->wrapPointer(buffer->mReadPointer + 0);
-	c = *buffer->wrapPointer(buffer->mReadPointer - 1);
-	d = *buffer->wrapPointer(buffer->mReadPointer - 2);
-	cMinusB = c - b;
+	// store the value of the integer part of delayInSamples
+	TTSampleValue delaySample0 = *(buffer->mReadPointer);
+	
+	// store the value from 1 sample *before* mReadPointer for interpolation
+	TTSampleValuePtr delaySample1Ptr = buffer->mReadPointer - 1;
+	delaySample1Ptr = buffer->wrapPointer(delaySample1Ptr);
+	TTSampleValue delaySample1 = *(delaySample1Ptr);
+	
+	// store the value from 2 samples *before* mReadPointer for interpolation
+	TTSampleValuePtr delaySample2Ptr = buffer->mReadPointer - 2;
+	delaySample2Ptr = buffer->wrapPointer(delaySample2Ptr);
+	TTSampleValue delaySample2 = *(delaySample2Ptr);
+	
+	// store the value from 1 sample *after* mReadPointer for interpolation
+	TTSampleValuePtr delaySampleMinus1Ptr = buffer->mReadPointer + 1;
+	delaySampleMinus1Ptr = buffer->wrapPointer(delaySampleMinus1Ptr);
+	TTSampleValue delaySampleMinus1 = *(delaySampleMinus1Ptr);
 
+	// store the value of the next sample in the buffer for interpolation
+	a = delaySampleMinus1;
+	b = delaySample0;
+	c = delaySample1;
+	d = delaySample2;
+	
 	// now you are ready to interpolate
+	cMinusB = c - b;
 	y = b + mFractionalDelay * (cMinusB - 0.1666667 * (1.0 - mFractionalDelay) * ((d - a - (3.0 * cMinusB)) * mFractionalDelay + (d + (2.0 * a) - (3.0 * b)))); 
 	//y = TTInterpolateCubic(a, b, c, d, mFractionalDelay); //TODO: use TTInterpolate method
 	
