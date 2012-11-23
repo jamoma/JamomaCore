@@ -249,10 +249,11 @@ inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64
 	delaySample1Ptr = buffer->wrapPointer(delaySample1Ptr);
 	TTSampleValue delaySample1 = *(delaySample1Ptr);
 
+	// now you are ready to interpolate
 	y = TTInterpolateLinear(delaySample0, delaySample1, mFractionalDelay);
 	
-	// now move the play head
-	buffer->mReadPointer++;  // TODO: you can't move this before pulling other values for interpolation!!!
+	// then move the play head
+	buffer->mReadPointer++;
 	if (buffer->mReadPointer > buffer->tail())
 		buffer->mReadPointer = buffer->head();
 
@@ -283,25 +284,29 @@ TTErr TTDelay::calculateCosineInterpolation(const TTFloat64& x, TTFloat64& y, TT
 inline TTErr TTDelay::calculateCosineInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
 {   //http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
 	
-	TTFloat64 ft = (1 - cos(mFractionalDelay*kTTPi)) * 0.5;
-	
 	*buffer->mWritePointer = x;		// write the input into our buffer
 	
-	// move the record head
+	// move the record head, since we are done with it
 	buffer->mWritePointer++;
 	if (buffer->mWritePointer > buffer->tail())
 		buffer->mWritePointer = buffer->head();
 	
-	// move the play head
-	buffer->mReadPointer++;  // TODO: you can't move this before pulling other values for interpolation!!!
+	// store the value of the integer part of delayInSamples
+	TTSampleValue delaySample0 = *(buffer->mReadPointer);
+	
+	// store the value of the sample *before* it for interpolation
+	TTSampleValuePtr delaySample1Ptr = buffer->mReadPointer - 1;
+	delaySample1Ptr = buffer->wrapPointer(delaySample1Ptr);
+	TTSampleValue delaySample1 = *(delaySample1Ptr);
+
+	// now you are ready to interpolate
+	y = TTInterpolateCosine(delaySample0, delaySample1, mFractionalDelay);
+	
+	// then move the play head
+	buffer->mReadPointer++;
 	if (buffer->mReadPointer > buffer->tail())
 		buffer->mReadPointer = buffer->head();
 	
-	// store the value of the next sample in the buffer for interpolation
-	TTSampleValuePtr next = buffer->mReadPointer + 1;	
-	next = buffer->wrapPointer(next);
-	
-	y = ((*next) * (1.0 - ft)) + ((*buffer->mReadPointer) * ft); //TODO: use TTInterpolate method
 	return kTTErrNone;
 }
 
