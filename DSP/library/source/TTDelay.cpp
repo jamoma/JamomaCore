@@ -336,6 +336,9 @@ inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64&
 	buffer->mWritePointer++;
 	if (buffer->mWritePointer > buffer->tail())
 		buffer->mWritePointer = buffer->head();
+		
+	// sneak a zero into the buffer so that delayInSamples between 0 and 1 will work
+	*buffer->mWritePointer = 0;
 
 	// store the value of the next sample in the buffer for interpolation
 	a = *buffer->wrapPointer(buffer->mReadPointer + 1);
@@ -345,7 +348,8 @@ inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64&
 	cMinusB = c - b;
 
 	// now you are ready to interpolate
-	y = b + mFractionalDelay * (cMinusB - 0.1666667 * (1.0 - mFractionalDelay) * ((d - a - (3.0 * cMinusB)) * mFractionalDelay + (d + (2.0 * a) - (3.0 * b)))); //TODO: use TTInterpolate method
+	y = b + mFractionalDelay * (cMinusB - 0.1666667 * (1.0 - mFractionalDelay) * ((d - a - (3.0 * cMinusB)) * mFractionalDelay + (d + (2.0 * a) - (3.0 * b)))); 
+	//y = TTInterpolateCubic(a, b, c, d, mFractionalDelay); //TODO: use TTInterpolate method
 	
 	// then move the play head
 	buffer->mReadPointer++;
