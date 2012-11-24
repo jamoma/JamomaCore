@@ -20,7 +20,8 @@
 /// Methods DBAPor TTSpatDBAPRenderer: //////////////////////
 
 TTSpatDBAPRenderer::TTSpatDBAPRenderer():
-mMixerMatrixCoefficients(NULL)
+mMixerMatrixCoefficients(NULL),
+mRolloff(6.0)
 {
 	TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mMixerMatrixCoefficients, kTTValNONE);
 }
@@ -32,7 +33,7 @@ TTSpatDBAPRenderer::~TTSpatDBAPRenderer()
 }
 
 
-void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatEntityVector& sources, TTSpatEntityVector& sinks)
+void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatDBAPSourceVector& sources, TTSpatSinkVector& sinks)
 {	
 	TTInt32 nearestSink;
 	TTFloat64 sqrDistance, smallestDist;

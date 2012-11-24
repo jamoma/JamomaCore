@@ -17,14 +17,18 @@
 #define __SPATDBAPSOURCE_H__
 
 #include "TTDSP.h"
-
+#include "TTSpatEntity.h"
 
 
 class TTSpatDBAPSource : public TTSpatSource {
-	// no specialization at this time
+	
 	TTFloat64 mWidth;			///< Width may be expressed in different ways?  Typically a normalized coefficient (0.0 to 1.0)
 	
 public:
+	
+	TTSpatDBAPSource();
+	~TTSpatDBAPSource();
+	
 	/** Get the current position of the point.
 	 @param x				Cartesian x-coordinate of the point.
 	 @param y				Cartesian y-coordinate of the point.

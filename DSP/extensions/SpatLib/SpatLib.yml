@@ -5,6 +5,7 @@ sources:
   - source/TTSpatEntity.cpp
   - source/TTSpatDBAP.cpp
   - source/TTSpatDBAPRenderer.cpp
+  - source/TTSpatDBAPSource.cpp
   - source/TTSpatSnap.cpp
   - source/TTSpatSnapRenderer.cpp
   - tests/TTSpatDBAP.test.cpp

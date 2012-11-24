@@ -25,9 +25,11 @@ TT_AUDIO_CONSTRUCTOR
 	mSources.resize(1);
 	mSinks.resize(1);
 	
+	// Generic Spat Lib Stuff
+	
 	addAttributeWithGetterAndSetter(SourceCount, kTypeInt32);
 	addAttributeWithGetterAndSetter(SinkCount, kTypeInt32);
-	
+		
 	addMessageWithArguments(setSourcePosition);
 	addMessageWithArguments(getSourcePosition);
 	
@@ -35,6 +37,14 @@ TT_AUDIO_CONSTRUCTOR
 	addMessageWithArguments(getSinkPosition);
 	
 	setProcessMethod(processAudio);
+
+	// DBAP Specific Stuff
+	
+	addAttributeWithGetterAndSetter(Rolloff, kTypeFloat64);
+	
+	addMessageWithArguments(getSourceWidth);
+	addMessageWithArguments(setSourceWidth);
+	
 }
 
 
@@ -207,6 +217,67 @@ TTErr TTSpatDBAP::setSinkPosition(const TTValue& aPosition, TTValue& unused)
 	setOneSinkPosition(sinkNumber, x, y, z);
 	
 	return kTTErrNone; // Return something else if we don't have four arguments
+}
+
+
+TTErr TTSpatDBAP::getRolloff(TTValue& value)
+{
+	value = mRenderer.getRolloff();
+	return kTTErrNone;
+}
+
+
+TTErr TTSpatDBAP::setRolloff(const TTValue& value)
+{
+	TTFloat64 rolloff = value;
+	
+	mRenderer.setRolloff(rolloff);
+	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
+	return kTTErrNone;
+}
+
+
+// TODO: Problem -- when initializing the matrix will be calculated many many times
+
+
+TTErr TTSpatDBAP::setSourceWidth(const TTValue& aWidth, TTValue& unused)
+{
+	TTInt32 sourceNumber;
+	TTFloat64 width;
+	
+	// TODO: We need to think of what to do if there are not two arguments...
+	
+	aWidth.get(0, sourceNumber);
+	aWidth.get(1, width);
+	
+	sourceNumber = sourceNumber - 1;
+	sourceNumber = TTClip<TTInt32>(sourceNumber, 0, mSources.size()-1);
+	mSources[sourceNumber].setWidth(width);
+	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
+	
+	return kTTErrNone; // Return something else if we don't have four arguments
+}
+
+
+TTErr TTSpatDBAP::getSourceWidth(const TTValue& requestedChannel, TTValue& aWidth)
+{
+	TTInt16 sourceNumber;
+	TTFloat64 width;
+	
+	// TODO: We need to think of what to do if there are no arguments...
+	// or if sinkNumber is out of range of the available sources
+	
+	requestedChannel.get(0, sourceNumber);
+	
+	sourceNumber = sourceNumber - 1;
+	sourceNumber = TTClip<TTInt32>(sourceNumber, 0, mSources.size()-1);
+	mSources[sourceNumber].getWidth(width);
+	
+	aWidth.setSize(2);
+	aWidth.set(0, sourceNumber);
+	aWidth.set(1, width);
+	
+	return kTTErrNone;
 }
 
 

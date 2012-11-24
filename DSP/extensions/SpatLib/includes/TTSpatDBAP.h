@@ -34,6 +34,7 @@
 #include "TTSampleMatrix.h"
 #include "TTSpatEntity.h"
 #include "TTSpatDBAPRenderer.h"
+#include "TTSpatDBAPSource.h"
 
 
 /**	This class is eventually intended to provide a generalised interface for spatial renderers.
@@ -42,9 +43,9 @@
 class TTSpatDBAP : TTAudioObject {
 	TTCLASS_SETUP(TTSpatDBAP)
 	
-	TTSpatEntityVector	mSources;		///< A vector describing the geometry of the sources
-	TTSpatEntityVector	mSinks;			///< A vector describing the geometry of the sinks (e.g., speakers)
-	TTSpatDBAPRenderer	mRenderer;		///< The actual spatial renderer for this class
+	TTSpatDBAPSourceVector	mSources;		///< A vector describing the geometry of the sources
+	TTSpatSinkVector		mSinks;			///< A vector describing the geometry of the sinks (e.g., speakers)
+	TTSpatDBAPRenderer		mRenderer;		///< The actual spatial renderer for this class
 
 	
 	/**	A standard audio processing method as used by TTBlue objects.
@@ -157,6 +158,25 @@ public:
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setSinkPosition(const TTValue& aPosition, TTValue& unused);
+
+	
+	/** TODO: document
+	 @param value						Used to return the number of sinks.
+	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr getRolloff(TTValue& value);
+	
+	
+	/** TODO: document
+	 @param value						The desired number of sinks.
+	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr setRolloff(const TTValue& value);
+	
+
+	
+	TTErr setSourceWidth(const TTValue& aWidth, TTValue& unused);
+	TTErr getSourceWidth(const TTValue& requestedChannel, TTValue& aWidth);
 
 };
 

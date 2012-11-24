@@ -17,8 +17,9 @@
 #include "TTSpatDBAPSource.h"
 
 TTSpatDBAPSource::TTSpatDBAPSource()
+: mWidth(0.0)
 {
-	width = 0.0;
+	;
 }
 
 
