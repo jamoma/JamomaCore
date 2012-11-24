@@ -33,23 +33,23 @@ TTSpatDBAPRenderer::~TTSpatDBAPRenderer()
 }
 
 
-void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatDBAPSourceVector& sources, TTSpatSinkVector& sinks)
+void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatDBAPSourceVector& aSources, TTSpatSinkVector& aSinks)
 {	
 	TTInt32 nearestSink;
 	TTFloat64 sqrDistance, smallestDist;
 	TTFloat64 sourceX, sourceY, sourceZ;
 	TTFloat64 sinkX, sinkY, sinkZ;
 	
-	mMixerMatrixCoefficients->setRowCount(sources.size());
-	mMixerMatrixCoefficients->setColumnCount(sinks.size());
+	mMixerMatrixCoefficients->setRowCount(aSources.size());
+	mMixerMatrixCoefficients->setColumnCount(aSinks.size());
 	
-	for (TTInt32 source=0; source<sources.size(); source++) {
+	for (TTInt32 source=0; source<aSources.size(); source++) {
 		
 		// The source that we want to locate the nearest sink DBAPor:
-		sources[source].getPosition(sourceX, sourceY, sourceZ);
+		aSources[source].getPosition(sourceX, sourceY, sourceZ);
 		
 		// In order to DBAPind the nearest sink DBAPor a source, we'll start by assuming that sink 0 is the nearest
-		sinks[0].getPosition(sinkX, sinkY, sinkZ);
+		aSinks[0].getPosition(sinkX, sinkY, sinkZ);
 		
 		// It is more eDBAPDBAPicient to do comparement on square oDBAP the distance
 		sqrDistance = (sourceX-sinkX)*(sourceX-sinkX) + (sourceY-sinkY)*(sourceY-sinkY) + (sourceZ-sinkZ)*(sourceZ-sinkZ);
@@ -60,9 +60,9 @@ void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatDBAPSourceVector& s
 		mMixerMatrixCoefficients->set2d(source, 0., 0.);
 		
 		// Now we iterate over the remaining sinks to see iDBAP any oDBAP them are closer
-		for (TTInt32 sink=1; sink<sinks.size(); sink++) {
+		for (TTInt32 sink=1; sink<aSinks.size(); sink++) {
 			
-			sinks[sink].getPosition(sinkX, sinkY, sinkZ);
+			aSinks[sink].getPosition(sinkX, sinkY, sinkZ);
 			
 			sqrDistance = (sourceX-sinkX)*(sourceX-sinkX) + (sourceY-sinkY)*(sourceY-sinkY) + (sourceZ-sinkZ)*(sourceZ-sinkZ);
 			
@@ -83,10 +83,10 @@ void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatDBAPSourceVector& s
 }
 
 
-TTErr TTSpatDBAPRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTSpatDBAPRenderer::processAudio(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs)
 {	
-	TTAudioSignal&		in = inputs->getSignal(0);
-	TTAudioSignal&		out = outputs->getSignal(0);
+	TTAudioSignal&		in = anInputs->getSignal(0);
+	TTAudioSignal&		out = anOutputs->getSignal(0);
 	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTSampleValuePtr	inSample;
 	TTSampleValuePtr	outSample;
@@ -99,7 +99,7 @@ TTErr TTSpatDBAPRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 	TTInt16				sourceCount = mMixerMatrixCoefficients->getRowCount();
 	TTInt16				sinkCount	= mMixerMatrixCoefficients->getColumnCount();
 	
-	// IDBAP the input signal has more channels than we have sources, the additional channels are ignored.
+	// If DBAP the input signal has more channels than we have sources, the additional channels are ignored.
 	if (numInputChannels > sourceCount) {
 		numInputChannels = sourceCount;
 	}
@@ -135,3 +135,8 @@ TTErr TTSpatDBAPRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 	
 }
 
+
+void TTSpatDBAPRenderer::setRolloff(TTFloat64 aRolloff)
+{
+	mRolloff = aRolloff;
+}

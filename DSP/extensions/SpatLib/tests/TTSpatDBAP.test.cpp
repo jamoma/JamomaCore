@@ -18,7 +18,7 @@
 #include "TTSpatDBAP.h"
 
 
-TTErr TTSpatDBAP::test(TTValue& returnedTestInfo)
+TTErr TTSpatDBAP::test(TTValue& aReturnedTestInfo)
 {
 	// preliminary setup
 	int					errorCount = 0;
@@ -28,5 +28,5 @@ TTErr TTSpatDBAP::test(TTValue& returnedTestInfo)
 	// TODO: implement unit tests for DBAP
 
 	// Wrap up the test results to pass back to whoever called this test
-	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
+	return TTTestFinish(testAssertionCount, errorCount, aReturnedTestInfo);
 }

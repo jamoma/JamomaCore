@@ -48,14 +48,14 @@ public:
 	 @param sources						A vector of sources
 	 @param sinks						A vector of sinks
 	 */
-	void recalculateMatrixCoefficients(TTSpatDBAPSourceVector& sources, TTSpatSinkVector& sinks);
+	void recalculateMatrixCoefficients(TTSpatDBAPSourceVector& aSources, TTSpatSinkVector& aSinks);
 	
 	/**	A standard audio processing method as used by Jamoma DSP objects.
 	 @param inputs						Incomming audio signals to process from sound sources.
 	 @param outputs						Processed audio signals passed to the sinks.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAudio(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs);
 	
 	
 	// TODO: make these accessors non-inlined
@@ -65,10 +65,7 @@ public:
 	}
 	
 	// TODO: document that caller must then call recalculateMatrixCoefficients() to update the matrix
-	void setRolloff(TTFloat64 rolloff)
-	{
-		mRolloff = rolloff;
-	}
+	void setRolloff(TTFloat64 aRolloff);
 	
 };
 

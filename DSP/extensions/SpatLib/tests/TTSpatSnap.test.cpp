@@ -20,28 +20,28 @@
 
 
 
-TTErr TTSpatSnap::test(TTValue& returnedTestInfo)
+TTErr TTSpatSnap::test(TTValue& aReturnedTestInfo)
 {
 	// preliminary setup
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	
 	// Attributes and messages
-	TTSpatSnap::testSourceAndSinkCountSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
-	TTSpatSnap::testSourcePositionSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
-	TTSpatSnap::testSinkPositionSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
+	TTSpatSnap::testSourceAndSinkCountSetterAndGetter(testAssertionCount, errorCount, aReturnedTestInfo);
+	TTSpatSnap::testSourcePositionSetterAndGetter(testAssertionCount, errorCount, aReturnedTestInfo);
+	TTSpatSnap::testSinkPositionSetterAndGetter(testAssertionCount, errorCount, aReturnedTestInfo);
 	
 	// Inspect matrix coefficients
-	TTSpatSnap::testMatrixCoefficients(testAssertionCount, errorCount, returnedTestInfo);
+	TTSpatSnap::testMatrixCoefficients(testAssertionCount, errorCount, aReturnedTestInfo);
 	
 	// Test audio processing
-	TTSpatSnap::testAudioProcessing(testAssertionCount, errorCount, returnedTestInfo);
+	TTSpatSnap::testAudioProcessing(testAssertionCount, errorCount, aReturnedTestInfo);
 		
 	// Wrap up the test results to pass back to whoever called this test
-	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
+	return TTTestFinish(testAssertionCount, errorCount, aReturnedTestInfo);
 }
 
-TTErr TTSpatSnap::testSourceAndSinkCountSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+TTErr TTSpatSnap::testSourceAndSinkCountSetterAndGetter(int& aTestAssertionCount, int& anErrorCount, TTValue& aReturnedTestInfo)
 {
 	
 	TTTestLog(" ");
@@ -56,28 +56,28 @@ TTErr TTSpatSnap::testSourceAndSinkCountSetterAndGetter(int& testAssertionCount,
 	this->getAttributeValue("sourceCount", sourceCountTest);
 	TTTestAssertion("sourceCount attribute defaults to 1",
 					TTTestFloatEquivalence(sourceCountTest, 1.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	// Check that sinkCount defaults to 1
 	
 	this->getAttributeValue("sinkCount", sinkCountTest);
 	TTTestAssertion("sinkCount attribute attribute defaults to 1",
 					TTTestFloatEquivalence(sinkCountTest, 1.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	// Test initial matrix size:
 	
 	TTTestAssertion("Initial matrix has 1 row",
 					(this->mRenderer.mMixerMatrixCoefficients->getRowCount())==1,
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("Initial matrix has 1 column",
 					(this->mRenderer.mMixerMatrixCoefficients->getColumnCount())==1,
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	// Test setter and getter for sourceCount attribute
 	
@@ -85,8 +85,8 @@ TTErr TTSpatSnap::testSourceAndSinkCountSetterAndGetter(int& testAssertionCount,
 	this->getAttributeValue("sourceCount", sourceCountTest);
 	TTTestAssertion("setter and getter for sourceCount attribute",
 					TTTestFloatEquivalence(sourceCountTest, 7.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	// Test setter and getter for sinkCount attribute
 	
@@ -94,20 +94,20 @@ TTErr TTSpatSnap::testSourceAndSinkCountSetterAndGetter(int& testAssertionCount,
 	this->getAttributeValue("sinkCount", sinkCountTest);
 	TTTestAssertion("setter and getter for sinkCount attribute",
 					TTTestFloatEquivalence(sinkCountTest, 5.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	// Test initial matrix size:
 	
 	TTTestAssertion("Matrix now has 7 rows",
 					(this->mRenderer.mMixerMatrixCoefficients->getRowCount())==7,
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("Initial matrix has 5 columns",
 					(this->mRenderer.mMixerMatrixCoefficients->getColumnCount())==5,
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 
 	
 	TTTestLog("testing");
@@ -115,7 +115,7 @@ TTErr TTSpatSnap::testSourceAndSinkCountSetterAndGetter(int& testAssertionCount,
 }
 
 
-TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, int& anErrorCount, TTValue& aReturnedTestInfo)
 {
 	TTValue anEntity;
 	TTValue unused;
@@ -180,8 +180,8 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[1]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -190,23 +190,23 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[1]: Returning position for correct channel",
 					(channelNumber==1),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[1]: Returning correct x-position",
 					TTTestFloatEquivalence(x, -2.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[1]: Returning correct y-position",
 					TTTestFloatEquivalence(y, -3.14),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[1]: Returning correct z-position",
 					TTTestFloatEquivalence(z, -4.2),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	// Get and test source 2:
 	
@@ -221,8 +221,8 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[2]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -231,23 +231,23 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[2]: Returning position for correct channel",
 					(channelNumber==2),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[2]: Returning correct default x-position",
 					TTTestFloatEquivalence(x, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[2]: Returning correct default y-position",
 					TTTestFloatEquivalence(y, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[2]: Returning correct default z-position",
 					TTTestFloatEquivalence(z, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	// Get and test source 3:
 	
@@ -262,8 +262,8 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[3]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -272,23 +272,23 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[3]: Returning position for correct channel",
 					(channelNumber==3),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[3]: Returning correct x-position",
 					TTTestFloatEquivalence(x, 3.1),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[3]: Returning correct y-position",
 					TTTestFloatEquivalence(y, 0.2),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[3]: Returning correct z-position",
 					TTTestFloatEquivalence(z, -0.2),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	// Get and test source 4:
 	
@@ -303,8 +303,8 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[4]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -313,23 +313,23 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[4]: Returning position for correct channel",
 					(channelNumber==4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[4]: Returning correct x-position",
 					TTTestFloatEquivalence(x, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[4]: Returning correct y-position",
 					TTTestFloatEquivalence(y, 4.6),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[4]: Returning correct z-position",
 					TTTestFloatEquivalence(z, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	
 	// Get and test source 5:
@@ -345,8 +345,8 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[5]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -355,28 +355,28 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& testAssertionCount, int
 	
 	TTTestAssertion("getSourcePosition[5]: Returning position for correct channel",
 					(channelNumber==5),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[5]: Returning correct x-position",
 					TTTestFloatEquivalence(x, -0.1),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[5]: Returning correct y-position",
 					TTTestFloatEquivalence(y, 0.1),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSourcePosition[5]: Returning correct z-position",
 					TTTestFloatEquivalence(z, 5.5),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	return kTTErrNone;
 }
 
-TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int& anErrorCount, TTValue& aReturnedTestInfo)
 {	
 	// Set the location of five sinks:
 	
@@ -439,8 +439,8 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[1]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -449,23 +449,23 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[1]: Returning position for correct channel",
 					(channelNumber==1),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[1]: Returning correct default x-position",
 					TTTestFloatEquivalence(x, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[1]: Returning correct default y-position",
 					TTTestFloatEquivalence(y, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[1]: Returning correct default z-position",
 					TTTestFloatEquivalence(z, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	
 	// Get and test sink 2:
@@ -481,8 +481,8 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[2]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -491,23 +491,23 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[2]: Returning position for correct channel",
 					(channelNumber==2),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[2]: Returning correct x-position",
 					TTTestFloatEquivalence(x, 2.2),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[2]: Returning correct y-position",
 					TTTestFloatEquivalence(y, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[2]: Returning correct z-position",
 					TTTestFloatEquivalence(z, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	
 	// Get and test sink 3:
@@ -523,8 +523,8 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[3]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -533,23 +533,23 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[3]: Returning position for correct channel",
 					(channelNumber==3),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[3]: Returning correct x-position",
 					TTTestFloatEquivalence(x, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[3]: Returning correct y-position",
 					TTTestFloatEquivalence(y, 3.3),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[3]: Returning correct z-position",
 					TTTestFloatEquivalence(z, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	
 	// Get and test sink 4:
@@ -565,8 +565,8 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[4]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -575,23 +575,23 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[4]: Returning position for correct channel",
 					(channelNumber==4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[4]: Returning correct x-position",
 					TTTestFloatEquivalence(x, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[4]: Returning correct y-position",
 					TTTestFloatEquivalence(y, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[4]: Returning correct z-position",
 					TTTestFloatEquivalence(z, 4.4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	
 	// Get and test sink 5:
@@ -607,8 +607,8 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[5]: Returning TTValue array with four members",
 					(anEntity.getSize() == 4),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	anEntity.get(0, channelNumber);
 	anEntity.get(1, x);
@@ -617,28 +617,28 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& testAssertionCount, int& 
 	
 	TTTestAssertion("getSinkPosition[5]: Returning position for correct channel",
 					(channelNumber==5),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[5]: Returning correct x-position",
 					TTTestFloatEquivalence(x, -2.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[5]: Returning correct y-position",
 					TTTestFloatEquivalence(y, -3.14),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	TTTestAssertion("getSinkPosition[5]: Returning correct z-position",
 					TTTestFloatEquivalence(z, -4.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	return kTTErrNone;
 }
 
-TTErr TTSpatSnap::testMatrixCoefficients(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+TTErr TTSpatSnap::testMatrixCoefficients(int& aTestAssertionCount, int& anErrorCount, TTValue& aReturnedTestInfo)
 {
 	TTFloat64 expectedValues[7][5];
 	TTFloat64 retrievedCoefficientValues[7][5];
@@ -700,13 +700,13 @@ TTErr TTSpatSnap::testMatrixCoefficients(int& testAssertionCount, int& errorCoun
 	TTTestLog("");
 	TTTestAssertion("Correct matrix coefficients",
 					TTTestFloatEquivalence(absDiffSum, 0.),
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	
 	return kTTErrNone;
 }
 
-TTErr TTSpatSnap::testAudioProcessing(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo)
+TTErr TTSpatSnap::testAudioProcessing(int& aTestAssertionCount, int& anErrorCount, TTValue& aReturnedTestInfo)
 {
 	TTAudioSignalPtr input = NULL;
 	TTAudioSignalPtr output = NULL;
@@ -755,8 +755,8 @@ TTErr TTSpatSnap::testAudioProcessing(int& testAssertionCount, int& errorCount, 
 	}
 	TTTestAssertion("Correct audio signal processed to sink 1",
 					validSampleCount == 64,
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
 	
 	// Sink 2 receieves signal fra source 3: Expected value equals 4.
@@ -769,8 +769,8 @@ TTErr TTSpatSnap::testAudioProcessing(int& testAssertionCount, int& errorCount, 
 	}
 	TTTestAssertion("Correct audio signal processed to sink 2",
 					validSampleCount == 64,
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
 	
 	// Sink 3 receieves signal fra source 4: Expected value equals 8.
@@ -783,8 +783,8 @@ TTErr TTSpatSnap::testAudioProcessing(int& testAssertionCount, int& errorCount, 
 	}
 	TTTestAssertion("Correct audio signal processed to sink 3",
 					validSampleCount == 64,
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
 	
 	// Sink 4 receieves signal fra source 5: Expected value equals 16.
@@ -797,8 +797,8 @@ TTErr TTSpatSnap::testAudioProcessing(int& testAssertionCount, int& errorCount, 
 	}
 	TTTestAssertion("Correct audio signal processed to sink 4",
 					validSampleCount == 64,
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
 	
 	// Sink 5 receieves signal fra source 1: Expected value equals 1.
@@ -811,8 +811,8 @@ TTErr TTSpatSnap::testAudioProcessing(int& testAssertionCount, int& errorCount, 
 	}
 	TTTestAssertion("Correct audio signal processed to sink 5",
 					validSampleCount == 64,
-					testAssertionCount,
-					errorCount);
+					aTestAssertionCount,
+					anErrorCount);
 	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
 	
 	TTObjectRelease(&input);

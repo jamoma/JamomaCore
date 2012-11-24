@@ -51,16 +51,16 @@ TTErr TTSpatSnap::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 
 
 
-TTErr TTSpatSnap::getSourceCount(TTValue& value)
+TTErr TTSpatSnap::getSourceCount(TTValue& aValue)
 {
-	value = mSources.size();
+	aValue = mSources.size();
 	return kTTErrNone;
 }
 
-TTErr TTSpatSnap::setSourceCount(const TTValue& value)
+TTErr TTSpatSnap::setSourceCount(const TTValue& aValue)
 {
 	
-	TTInt32 number = value;
+	TTInt32 number = aValue;
 		
 	TTLimitMin<TTInt32>(number, 1);
 	mSources.resize(number);
@@ -69,16 +69,16 @@ TTErr TTSpatSnap::setSourceCount(const TTValue& value)
 }
 
 
-TTErr TTSpatSnap::getSinkCount(TTValue& value)
+TTErr TTSpatSnap::getSinkCount(TTValue& aValue)
 {
-	value = mSinks.size();
+	aValue = mSinks.size();
 	return kTTErrNone;
 }
 
 
-TTErr TTSpatSnap::setSinkCount(const TTValue& value)
+TTErr TTSpatSnap::setSinkCount(const TTValue& aValue)
 {
-	TTInt32 number = value;
+	TTInt32 number = aValue;
 	
 	TTLimitMin<TTInt32>(number, 1);
 	mSinks.resize(number);
@@ -87,17 +87,17 @@ TTErr TTSpatSnap::setSinkCount(const TTValue& value)
 }
 
 
-void TTSpatSnap::getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+void TTSpatSnap::getOneSourcePosition(TTInt32 aSourceNumber, TTFloat64& aX, TTFloat64& aY, TTFloat64& aZ)
 {
 	// Ensure that source number is within range
-	TTInt32 source = sourceNumber - 1;
+	TTInt32 source = aSourceNumber - 1;
 	source = TTClip<TTInt32>(source, 0, mSources.size()-1);
 	
-	mSources[source].getPosition(x, y, z);
+	mSources[source].getPosition(aX, aY, aZ);
 }
 
 
-TTErr TTSpatSnap::getSourcePosition(const TTValue& requestedChannel, TTValue& aPosition)
+TTErr TTSpatSnap::getSourcePosition(const TTValue& aRequestedChannel, TTValue& aPosition)
 {
 	TTInt16 sourceNumber;
 	TTFloat64 x, y, z;
@@ -105,7 +105,7 @@ TTErr TTSpatSnap::getSourcePosition(const TTValue& requestedChannel, TTValue& aP
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	requestedChannel.get(0, sourceNumber);
+	aRequestedChannel.get(0, sourceNumber);
 	
 	getOneSourcePosition(sourceNumber, x, y, z);
 	
@@ -120,17 +120,17 @@ TTErr TTSpatSnap::getSourcePosition(const TTValue& requestedChannel, TTValue& aP
 }
 
 
-void TTSpatSnap::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+void TTSpatSnap::setOneSourcePosition(TTInt32 aSourceNumber, TTFloat64 aX, TTFloat64 aY, TTFloat64 aZ)
 {
 	// Ensure that source number is within range
-	TTInt32 source = sourceNumber - 1;
+	TTInt32 source = aSourceNumber - 1;
 	source = TTClip<TTInt32>(source, 0, mSources.size()-1);
 	
-	mSources[source].setPosition(x, y, z);
+	mSources[source].setPosition(aX, aY, aZ);
 	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 }
 
-TTErr TTSpatSnap::setSourcePosition(const TTValue& aPosition, TTValue& unused)
+TTErr TTSpatSnap::setSourcePosition(const TTValue& aPosition, TTValue& anUnused)
 {
 	TTInt32 sourceNumber;
 	TTFloat64 x, y, z;
@@ -148,18 +148,18 @@ TTErr TTSpatSnap::setSourcePosition(const TTValue& aPosition, TTValue& unused)
 }
 
 
-void TTSpatSnap::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+void TTSpatSnap::getOneSinkPosition(TTInt32 aSinkNumber, TTFloat64& aX, TTFloat64& aY, TTFloat64& aZ)
 {
 	// Ensure that sink number is within range
-	TTInt32 sink = sinkNumber - 1;
+	TTInt32 sink = aSinkNumber - 1;
 	sink = TTClip<TTInt32>(sink, 0, mSinks.size()-1);
 	
-	mSinks[sink].getPosition(x, y, z);
+	mSinks[sink].getPosition(aX, aY, aZ);
 	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 }
 
 
-TTErr TTSpatSnap::getSinkPosition(const TTValue& requestedChannel, TTValue& aPosition)
+TTErr TTSpatSnap::getSinkPosition(const TTValue& aRequestedChannel, TTValue& aPosition)
 {
 	TTInt16 sinkNumber;
 	TTFloat64 x, y, z;
@@ -167,7 +167,7 @@ TTErr TTSpatSnap::getSinkPosition(const TTValue& requestedChannel, TTValue& aPos
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	requestedChannel.get(0, sinkNumber);
+	aRequestedChannel.get(0, sinkNumber);
 	
 	getOneSinkPosition(sinkNumber, x, y, z);
 	
@@ -182,17 +182,17 @@ TTErr TTSpatSnap::getSinkPosition(const TTValue& requestedChannel, TTValue& aPos
 }
 
 
-void TTSpatSnap::setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+void TTSpatSnap::setOneSinkPosition(TTInt32 aSinkNumber, TTFloat64 aX, TTFloat64 aY, TTFloat64 aZ)
 {
 	// Ensure that sink number is within range
-	TTInt32 sink = sinkNumber - 1;
+	TTInt32 sink = aSinkNumber - 1;
 	sink = TTClip<TTInt32>(sink, 0, mSinks.size()-1);
 	
-	mSinks[sink].setPosition(x, y, z);
+	mSinks[sink].setPosition(aX, aY, aZ);
 }
 
 
-TTErr TTSpatSnap::setSinkPosition(const TTValue& aPosition, TTValue& unused)
+TTErr TTSpatSnap::setSinkPosition(const TTValue& aPosition, TTValue& anUnused)
 {
 	TTInt32 sinkNumber;
 	TTFloat64 x, y, z;
