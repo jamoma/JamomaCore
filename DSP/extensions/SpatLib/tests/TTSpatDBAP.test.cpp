@@ -2,7 +2,7 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief Unit tests for the SpatSnap SpatLib spatialisation renderer.
+ * @brief Unit tests for the #TTSpatDBAP SpatLib spatialisation renderer.
  *
  * @details
  *
@@ -18,27 +18,15 @@
 #include "TTSpatDBAP.h"
 
 
-
-
 TTErr TTSpatDBAP::test(TTValue& returnedTestInfo)
 {
 	// preliminary setup
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
-	/*
 	
-	// Attributes and messages
-	TTSpatSnap::testSourceAndSinkCountSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
-	TTSpatSnap::testSourcePositionSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
-	TTSpatSnap::testSinkPositionSetterAndGetter(testAssertionCount, errorCount, returnedTestInfo);
 	
-	// Inspect matrix coefficients
-	TTSpatSnap::testMatrixCoefficients(testAssertionCount, errorCount, returnedTestInfo);
-	
-	// Test audio processing
-	TTSpatSnap::testAudioProcessing(testAssertionCount, errorCount, returnedTestInfo);
-		
-	 */
+	// TODO: implement unit tests for DBAP
+
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

@@ -21,6 +21,8 @@
 
 /*
  
+The following are development notes while developing TTSpatDBAP starting of from the source files foir TTSpatSnap:
+ 
  DIFFERENCES WITH SNAP :
  
  - sources need a width
@@ -40,8 +42,12 @@
 #include "TTSpatDBAPSource.h"
 
 
-/**	This class is eventually intended to provide a generalised interface for spatial renderers.
- @todo The class might be further generalised so that it can be reused for other spatial renderers.
+/**	Jamoma DSP SpatLib unit based on Distance-based amplitude panning (DBAP)
+ *
+ * @details DBAP permits sinks (speakers) to be positioned any way you want.
+ * Speaker configurations are not limited to circles/spheres surrounding a sweet spot, but can be used e.g. to locate speakers in several adjecent spaces.
+ * DBAP is matrix-based and ensures equal intensity while adjusting gains to each of the sinks in such a way that relative gain diminish with increasing distance from source to sink.
+ * The exact rolloff rate (in dB) can be controlled with the rolloff attribute of the #TTSpatDBAPRenderer class.
  */
 class TTSpatDBAP : TTAudioObject {
 	TTCLASS_SETUP(TTSpatDBAP)
@@ -51,57 +57,58 @@ class TTSpatDBAP : TTAudioObject {
 	TTSpatDBAPRenderer		mRenderer;		///< The actual spatial renderer for this class
 
 	
-	/**	A standard audio processing method as used by TTBlue objects.
+	/**	A standard audio processing method as used by Jamoma DSP objects.
 	 @param inputs						Incomming audio signals to process from sound sources.
 	 @param outputs						Processed audio signals passed to the sinks.
-	 */
-	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
-	// TODO: implement unit tests for DBAP
-
-	/**	Unit Tests.
-	 @param returnedTestInfo			Information on the outcome of the tests.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	virtual TTErr test(TTValue& returnedTestInfo);
+	TTErr processAudio(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs);
+
+	
+	/**	Unit Tests.
+	 @param aReturnedTestInfo			Information on the outcome of the tests.
+	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& aReturnedTestInfo);
+	
 	
 public:
 	
 	/** Get the number of sources.
-	 @param value						Used to return the number of sources.
+	 @param aValue						Used to return the number of sources.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getSourceCount(TTValue& value);
+	TTErr getSourceCount(TTValue& aValue);
 	
 	
 	/** Set the number of sources.
-	 @param value						The desired number of sources.
+	 @param aValue						The desired number of sources.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSourceCount(const TTValue& value);
+	TTErr setSourceCount(const TTValue& aValue);
 	
 	
 	/** Get the number of sinks.
-	 @param value						Used to return the number of sinks.
+	 @param aValue						Used to return the number of sinks.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getSinkCount(TTValue& value);
+	TTErr getSinkCount(TTValue& aValue);
 	
 	
 	/** Set the number of sinks.
-	 @param value						The desired number of sinks.
+	 @param aValue						The desired number of sinks.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSinkCount(const TTValue& value);
+	TTErr setSinkCount(const TTValue& aValue);
 	
 	
 	/** Get the position of one source.
-	 @param sourceNumber				The source (counting from 1) that we want to query the position of.
-	 @param x							Cartesian x-coordinate of the position.
-	 @param y							Cartesian y-coordinate of the position.
-	 @param z							Cartesian z-coordinate of the position.
+	 @param aSourceNumber				The source (counting from 1) that we want to query the position of.
+	 @param aX							Cartesian x-coordinate of the position.
+	 @param aY							Cartesian y-coordinate of the position.
+	 @param aZ							Cartesian z-coordinate of the position.
 	 */
-	void getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
+	void getOneSourcePosition(TTInt32 aSourceNumber, TTFloat64& aX, TTFloat64& aY, TTFloat64& aZ);
 	
 	
 	/** Get the position of one source.
@@ -109,16 +116,16 @@ public:
 	 @param aPosition					Used to return the position.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getSourcePosition(const TTValue& requestedChannel, TTValue& aPosition);
+	TTErr getSourcePosition(const TTValue& aRequestedChannel, TTValue& aPosition);
 	
 	
 	/** Set the position of one source.
-	 @param sourceNumber				The source (counting from 1) that we want to set the position of.
-	 @param x							Cartesian x-coordinate of the position.
-	 @param y							Cartesian y-coordinate of the position.
-	 @param z							Cartesian z-coordinate of the position.
+	 @param aSourceNumber				The source (counting from 1) that we want to set the position of.
+	 @param aX							Cartesian x-coordinate of the position.
+	 @param aY							Cartesian y-coordinate of the position.
+	 @param aZ							Cartesian z-coordinate of the position.
 	 */
-	void setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
+	void setOneSourcePosition(TTInt32 aSourceNumber, TTFloat64 aX, TTFloat64 aY, TTFloat64 aZ);
 
 	
 	/** Get the position of one source.
@@ -126,60 +133,60 @@ public:
 	 @param aPosition					Used to return the position.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSourcePosition(const TTValue& aPosition, TTValue& unused);
+	TTErr setSourcePosition(const TTValue& aPosition, TTValue& anUnused);
 	
 	
 	/** Get the position of one sink.
-	 @param sourceNumber				The sink (counting from 1) that we want to query the position of.
-	 @param x							Cartesian x-coordinate of the position.
-	 @param y							Cartesian y-coordinate of the position.
-	 @param z							Cartesian z-coordinate of the position.
+	 @param aSourceNumber				The sink (counting from 1) that we want to query the position of.
+	 @param aX							Cartesian x-coordinate of the position.
+	 @param aY							Cartesian y-coordinate of the position.
+	 @param aZ							Cartesian z-coordinate of the position.
 	 */
-	void getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
+	void getOneSinkPosition(TTInt32 aSinkNumber, TTFloat64& aX, TTFloat64& aY, TTFloat64& aZ);
 	
 	
 	/** Get the position of one sink.
-	 @param requestedChannel			The channel (counting from 1) that we want to query the position of.
+	 @param aRequestedChannel			The channel (counting from 1) that we want to query the position of.
 	 @param aPosition					Used to return the position.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getSinkPosition(const TTValue& requestedChannel, TTValue& aPosition);
+	TTErr getSinkPosition(const TTValue& aRequestedChannel, TTValue& aPosition);
 
 	
 	/** Set the position of one sink.
 	 @param sourceNumber				The sink (counting from 1) that we want to set the position of.
-	 @param x							Cartesian x-coordinate of the position.
-	 @param y							Cartesian y-coordinate of the position.
-	 @param z							Cartesian z-coordinate of the position.
+	 @param aX							Cartesian x-coordinate of the position.
+	 @param aY							Cartesian y-coordinate of the position.
+	 @param aZ							Cartesian z-coordinate of the position.
 	 */
-	void setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
+	void setOneSinkPosition(TTInt32 aSinkNumber, TTFloat64 aX, TTFloat64 aY, TTFloat64 aZ);
 	
 	
 	/** Set the position of one sink.
-	 @param requestedChannel			The channel (counting from 1) that we want to set the position of.
+	 @param aRequestedChannel			The channel (counting from 1) that we want to set the position of.
 	 @param aPosition					Used to return the position.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSinkPosition(const TTValue& aPosition, TTValue& unused);
+	TTErr setSinkPosition(const TTValue& aPosition, TTValue& anUnused);
 
 	
 	/** TODO: document
-	 @param value						Used to return the number of sinks.
+	 @param aValue						Used to return the number of sinks.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getRolloff(TTValue& value);
+	TTErr getRolloff(TTValue& aValue);
 	
 	
 	/** TODO: document
-	 @param value						The desired number of sinks.
+	 @param aValue						The desired number of sinks.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setRolloff(const TTValue& value);
+	TTErr setRolloff(const TTValue& aValue);
 	
 
 	
-	TTErr setSourceWidth(const TTValue& aWidth, TTValue& unused);
-	TTErr getSourceWidth(const TTValue& requestedChannel, TTValue& aWidth);
+	TTErr setSourceWidth(const TTValue& aWidth, TTValue& anUnused);
+	TTErr getSourceWidth(const TTValue& aRequestedChannel, TTValue& aWidth);
 
 };
 

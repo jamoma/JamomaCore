@@ -38,9 +38,6 @@ mSinkCount(0)
 	addMessageWithArguments(setSinkPosition);
 	
 	addMessageWithArguments(getSpatFunctions);
-//	addMessageWithArguments(getFunctionParameters);
-//	addMessageWithArguments(getFunctionParameter);
-//	addMessageWithArguments(setFunctionParameter);
 	
 	//addUpdate(MaxNumChannels);
 	
@@ -75,8 +72,6 @@ TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 		// Now set the state of the object to the state we have stored
 		spatFunction->setAttributeValue(TT("sourceCount"), mSourceCount);
 		spatFunction->setAttributeValue(TT("sinkCount"), mSinkCount);
-//		spatFunction->setAttributeValue(TT("sourcePositions"), mSourcePositions);
-//		spatFunction->setAttributeValue(TT("destinationPositions"), mDestinationPositions);
 		
 		mSpatFunction = spatFunctionName;
 		mSpatFunctionObject = spatFunction;
@@ -180,37 +175,6 @@ TTErr TTSpat::setSinkPosition(const TTValue& aPosition, TTValue& unused)
 //	return mSpatFunctionObject->setSinkPosition(aPosition);
 	return mSpatFunctionObject->sendMessage("setSinkPosition", aPosition, unused);
 }
-
-/*
-TTErr TTSpat::setSourcePositions(const TTValue& newSourcePositions)
-{
-	// newSourcePositions is an array of 3N values specified in x/y/z triplets
-	mSourcePositions = newSourcePositions;
-	return mSpatFunctionObject->setAttributeValue(TT("sourcePositions"), (TTValue&)newSourcePositions);
-}
-
-
-TTErr TTSpat::getSourcePositions(TTValue& returnedSourcePositions)
-{
-	// newSourcePositions is an array of 3N values specified in x/y/z triplets
-	returnedSourcePositions = mSourcePositions;
-	return kTTErrNone;
-}
-
-
-TTErr TTSpat::setDestinationPositions(const TTValue& newDestinationPositions)
-{
-	mDestinationPositions = newDestinationPositions;
-	return mSpatFunctionObject->setAttributeValue(TT("destinationPositions"), (TTValue&)newDestinationPositions);
-}
-
-
-TTErr TTSpat::getDestinationPositions(TTValue& returnedDestinationPositions)
-{
-	returnedDestinationPositions = mDestinationPositions;
-	return kTTErrNone;
-}
- */
 
 
 #if 0

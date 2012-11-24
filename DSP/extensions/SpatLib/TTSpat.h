@@ -30,42 +30,12 @@ protected:
 	TTSymbol			mSpatFunction;	
 	TTUInt16			mSourceCount;			///< The number of sources
 	TTUInt16			mSinkCount;				///< The number of destinations
-//	TTValue				mSourcePositions;		///< Position of the sources
-//	TTValue				mDestinationPositions;	///< Position of the destinations
 		
 	/**	Set what spatialisation function to use.
 	 @param aSpatFunction			The SpatLib renderer to use.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setSpatFunction(const TTValue& aSpatFunction);
-	
-	
-	/**	Get source positions.
-	 @param	aPosition				Array of source positions.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-//	TTErr getSourcePositions(TTValue& aPosition);
-	
-	
-	/**	Set source positions. 
-	 @param aPosition				Array of source positions.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-//	TTErr setSourcePositions(const TTValue& aPosition);
-	
-	
-	/**	Get destination positions.
-	 @param aPosition				Array of destination positions.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-//	TTErr getDestinationPositions(TTValue& aPosition);
-	
-	
-	/**	Set destination positions.
-	 @param aPosition				Array of destination positions.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-//	TTErr setDestinationPositions(const TTValue& aPosition);
 	
 	
 	/**	Set the number of sources.
