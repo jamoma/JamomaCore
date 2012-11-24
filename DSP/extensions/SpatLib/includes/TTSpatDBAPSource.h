@@ -2,16 +2,17 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief Describe the geometry of a point
+ * @brief The #TTSpatDBAPSource class provides an extended description of a source as compared to the #TTSpatSource class that it inherits from.
  *
- * @details This can be used to describe the sources or sinks of sound spatialisation renderers, etc.
+ * @details It is extended to describe source width.
  *
- * @authors Trond Lossius, Timothy Place, Nils Peters, 
+ * @authors Trond Lossius, Timothy Place, Nils Peters,
  *
  * @copyright Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __SPATDBAPSOURCE_H__
 #define __SPATDBAPSOURCE_H__

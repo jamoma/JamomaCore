@@ -2,9 +2,14 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief TODO
+ * @brief Jamoma DSP SpatLib unit based on Distance-based amplitude panning (DBAP)
  *
- * @details TODO @n
+ * @details DBAP permits sinks (speakers) to be positioned any way you want.
+ * Speaker configurations are not limited to circles/spheres surrounding a sweet spot, but can be used e.g. to locate speakers in several adjecent spaces.
+ * DBAP is matrix-based and ensures equal intensity while adjusting gains to each of the sinks in such a way that relative gain diminish with increasing distance from source to sink.
+ * The exact rolloff rate (in dB) can be controlled with the rolloff attribute of the #TTSpatDBAPRenderer class.
+ *
+ * @todo: Extend with a solution for interpolating to new matrix coefficients
  *
  * @authors Trond Lossius, Nils Peters, Timothy Place
  *

@@ -2,9 +2,9 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief Describe the geometry of a point
+ * @brief The #TTSpatDBAPSource class provides an extended description of a source as compared to the #TTSpatSource class that it inherits from.
  *
- * @details This can be used to describe sources or sinks.
+ * @details It is extended to describe source width.
  *
  * @authors Trond Lossius, Timothy Place, Nils Peters,
  *
