@@ -2,6 +2,7 @@
 sources:
   - TTSpatLib.cpp
   - TTSpat.cpp
+  - source/TTSpatBase.cpp
   - source/TTSpatEntity.cpp
   - source/TTSpatDBAP.cpp
   - source/TTSpatDBAPRenderer.cpp
