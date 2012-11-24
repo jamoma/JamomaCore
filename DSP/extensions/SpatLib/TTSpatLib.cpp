@@ -17,6 +17,7 @@
 #include "TTDSP.h"
 #include "TTSpat.h"
 #include "TTSpatSnap.h"
+#include "TTSpatDBAP.h"
 
 /** Register classes for all of the SpatLib rendering techniques (aka units).
  @return		#TTErr error code if the method fails to execute, else #kTTErrNone.
@@ -25,6 +26,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_SpatLib(void)
 {
 	TTDSPInit();
 	TTSpat::registerClass();
+	TTSpatDBAP::registerClass();
 	TTSpatSnap::registerClass();
 	return kTTErrNone;
 }

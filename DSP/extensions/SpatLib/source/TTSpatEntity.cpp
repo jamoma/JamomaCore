@@ -66,3 +66,4 @@ void TTSpatEntity::setOrientation(TTFloat64 q1, TTFloat64 q2, TTFloat64 q3, TTFl
 	orientation[2] = q3;
 	orientation[3] = q4;
 }
+

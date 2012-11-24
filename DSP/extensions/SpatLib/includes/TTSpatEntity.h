@@ -13,6 +13,9 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#ifndef __SPATSNAPENTITY_H__
+#define __SPATSNAPENTITY_H__
+
 #include "TTDSP.h"
 
 
@@ -21,9 +24,11 @@
  amount of descriptors as defined in the core section of the SpatDIF specs.
  */
 class TTSpatEntity {
-	
+	// TODO: convert names to mPosition and mOrientation
 	TTFloat64 position[3];		///< Position as Cartesian coordinates
 	TTFloat64 orientation[4];	///< The orientation of the object using Euler coordinates
+	
+	// ( We wish to keep the width so that the state could be maintained when switching algorithms )
 	
 protected:
 	
@@ -73,10 +78,29 @@ public:
 	 @param q4				Fourth coordinate of the point.
 	 */
 	void setOrientation(TTFloat64 q1, TTFloat64 q2, TTFloat64 q3, TTFloat64 q4);
+
+
+
+};
+
+
+class TTSpatSource : public TTSpatEntity {
+	// no specialization at this time
+};
+
+
+class TTSpatSink : public TTSpatEntity {
+	// no specialization at this time
 };
 
 
 /** Pointer to a vector of #TTSpatEntity points.
  @ingroup typedefs
  */
-typedef std::vector<TTSpatEntity> TTSpatEntityVector;
+typedef std::vector<TTSpatEntity>	TTSpatEntityVector;
+typedef std::vector<TTSpatSource>	TTSpatSourceVector;
+typedef std::vector<TTSpatSink>		TTSpatSinkVector;
+
+
+
+#endif // __SPATSNAPENTITY_H__

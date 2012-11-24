@@ -13,11 +13,11 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTSpatSnap.h"
+#include "TTSpatDBAP.h"
 
-#define thisTTClass			TTSpatSnap
-#define thisTTClassName		"spat.snap"
-#define thisTTClassTags		"audio, spatialization, processing"
+#define thisTTClass			TTSpatDBAP
+#define thisTTClassName		"spat.dbap"
+#define thisTTClassTags		"audio, spatialization, processing, dbap"
 
 
 TT_AUDIO_CONSTRUCTOR
@@ -38,26 +38,26 @@ TT_AUDIO_CONSTRUCTOR
 }
 
 
-TTSpatSnap::~TTSpatSnap()
+TTSpatDBAP::~TTSpatDBAP()
 {
 	
 }
 
 
-TTErr TTSpatSnap::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTSpatDBAP::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	return mRenderer.processAudio(inputs, outputs);
 }
 
 
 
-TTErr TTSpatSnap::getSourceCount(TTValue& value)
+TTErr TTSpatDBAP::getSourceCount(TTValue& value)
 {
 	value = mSources.size();
 	return kTTErrNone;
 }
 
-TTErr TTSpatSnap::setSourceCount(const TTValue& value)
+TTErr TTSpatDBAP::setSourceCount(const TTValue& value)
 {
 	
 	TTInt32 number = value;
@@ -69,14 +69,14 @@ TTErr TTSpatSnap::setSourceCount(const TTValue& value)
 }
 
 
-TTErr TTSpatSnap::getSinkCount(TTValue& value)
+TTErr TTSpatDBAP::getSinkCount(TTValue& value)
 {
 	value = mSinks.size();
 	return kTTErrNone;
 }
 
 
-TTErr TTSpatSnap::setSinkCount(const TTValue& value)
+TTErr TTSpatDBAP::setSinkCount(const TTValue& value)
 {
 	TTInt32 number = value;
 	
@@ -87,7 +87,7 @@ TTErr TTSpatSnap::setSinkCount(const TTValue& value)
 }
 
 
-void TTSpatSnap::getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+void TTSpatDBAP::getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
 {
 	// Ensure that source number is within range
 	TTInt32 source = sourceNumber - 1;
@@ -97,7 +97,7 @@ void TTSpatSnap::getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloa
 }
 
 
-TTErr TTSpatSnap::getSourcePosition(const TTValue& requestedChannel, TTValue& aPosition)
+TTErr TTSpatDBAP::getSourcePosition(const TTValue& requestedChannel, TTValue& aPosition)
 {
 	TTInt16 sourceNumber;
 	TTFloat64 x, y, z;
@@ -120,7 +120,7 @@ TTErr TTSpatSnap::getSourcePosition(const TTValue& requestedChannel, TTValue& aP
 }
 
 
-void TTSpatSnap::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+void TTSpatDBAP::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
 {
 	// Ensure that source number is within range
 	TTInt32 source = sourceNumber - 1;
@@ -130,7 +130,7 @@ void TTSpatSnap::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat
 	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 }
 
-TTErr TTSpatSnap::setSourcePosition(const TTValue& aPosition, TTValue& unused)
+TTErr TTSpatDBAP::setSourcePosition(const TTValue& aPosition, TTValue& unused)
 {
 	TTInt32 sourceNumber;
 	TTFloat64 x, y, z;
@@ -148,7 +148,7 @@ TTErr TTSpatSnap::setSourcePosition(const TTValue& aPosition, TTValue& unused)
 }
 
 
-void TTSpatSnap::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+void TTSpatDBAP::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
 {
 	// Ensure that sink number is within range
 	TTInt32 sink = sinkNumber - 1;
@@ -159,7 +159,7 @@ void TTSpatSnap::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64&
 }
 
 
-TTErr TTSpatSnap::getSinkPosition(const TTValue& requestedChannel, TTValue& aPosition)
+TTErr TTSpatDBAP::getSinkPosition(const TTValue& requestedChannel, TTValue& aPosition)
 {
 	TTInt16 sinkNumber;
 	TTFloat64 x, y, z;
@@ -182,7 +182,7 @@ TTErr TTSpatSnap::getSinkPosition(const TTValue& requestedChannel, TTValue& aPos
 }
 
 
-void TTSpatSnap::setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+void TTSpatDBAP::setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
 {
 	// Ensure that sink number is within range
 	TTInt32 sink = sinkNumber - 1;
@@ -192,7 +192,7 @@ void TTSpatSnap::setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y
 }
 
 
-TTErr TTSpatSnap::setSinkPosition(const TTValue& aPosition, TTValue& unused)
+TTErr TTSpatDBAP::setSinkPosition(const TTValue& aPosition, TTValue& unused)
 {
 	TTInt32 sinkNumber;
 	TTFloat64 x, y, z;

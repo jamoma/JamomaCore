@@ -16,24 +16,35 @@
  */
 
 
-#ifndef __SPATSNAP_H__
-#define __SPATSNAP_H__
+/*
+ 
+ DIFFERENCES WITH SNAP :
+ 
+ - sources need a width
+ - renderer needs to implement a global rolloff
+ - weight coefficient to be associated with each source-sink pair (a matrix)
+ 
+ */
+
+
+#ifndef __SPATDBAP_H__
+#define __SPATDBAP_H__
 
 #include "TTDSP.h"
 #include "TTSampleMatrix.h"
 #include "TTSpatEntity.h"
-#include "TTSpatSnapRenderer.h"
+#include "TTSpatDBAPRenderer.h"
 
 
 /**	This class is eventually intended to provide a generalised interface for spatial renderers.
  @todo The class might be further generalised so that it can be reused for other spatial renderers.
  */
-class TTSpatSnap : TTAudioObject {
-	TTCLASS_SETUP(TTSpatSnap)
+class TTSpatDBAP : TTAudioObject {
+	TTCLASS_SETUP(TTSpatDBAP)
 	
-	TTSpatSourceVector	mSources;		///< A vector describing the geometry of the sources
-	TTSpatSinkVector	mSinks;			///< A vector describing the geometry of the sinks (e.g., speakers)
-	TTSpatSnapRenderer	mRenderer;		///< The actual spatial renderer for this class
+	TTSpatEntityVector	mSources;		///< A vector describing the geometry of the sources
+	TTSpatEntityVector	mSinks;			///< A vector describing the geometry of the sinks (e.g., speakers)
+	TTSpatDBAPRenderer	mRenderer;		///< The actual spatial renderer for this class
 
 	
 	/**	A standard audio processing method as used by TTBlue objects.
@@ -41,6 +52,8 @@ class TTSpatSnap : TTAudioObject {
 	 @param outputs						Processed audio signals passed to the sinks.
 	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	// TODO: implement unit tests for DBAP
 
 	/**	Unit Tests.
 	 @param returnedTestInfo			Information on the outcome of the tests.
@@ -144,55 +157,9 @@ public:
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setSinkPosition(const TTValue& aPosition, TTValue& unused);
-	
-private:
-	
-	/** Unit tests of the getters and setters for the attributes sourceCont and sinkCount.
-	 @param testAssertionCount			The number of test assertions that have been performed so far.
-	 @param errorCount					The numebr of assertions that have failed so far.
-	 @param returnedTestInfo			Information on the outcome of the tests.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr testSourceAndSinkCountSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
 
-	
-	/** Unit tests for messages to set and get source positions"
-	 @param testAssertionCount			The number of test assertions that have been performed so far.
-	 @param errorCount					The numebr of assertions that have failed so far.
-	 @param returnedTestInfo			Information on the outcome of the tests.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr testSourcePositionSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
-	
-	
-	/** Unit tests for messages to set and get source positions"
-	 @param testAssertionCount			The number of test assertions that have been performed so far.
-	 @param errorCount					The numebr of assertions that have failed so far.
-	 @param returnedTestInfo			Information on the outcome of the tests.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr testSinkPositionSetterAndGetter(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
-	
-	
-	/** Unit test for checking that we have correct matrix coefficient values.
-	 @param testAssertionCount			The number of test assertions that have been performed so far.
-	 @param errorCount					The numebr of assertions that have failed so far.
-	 @param returnedTestInfo			Information on the outcome of the tests.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr testMatrixCoefficients(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
-	
-	
-	/** Unit test that pass multichannel audio to the object and test that we get correct audo for all sink channels.
-	 @param testAssertionCount			The number of test assertions that have been performed so far.
-	 @param errorCount					The numebr of assertions that have failed so far.
-	 @param returnedTestInfo			Information on the outcome of the tests.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr testAudioProcessing(int& testAssertionCount, int& errorCount, TTValue& returnedTestInfo);
-	
 };
 
 
 
-#endif // __SPATSNAP_H__
+#endif // __SPATDBAP_H__
