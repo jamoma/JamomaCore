@@ -1,8 +1,13 @@
-/*
- * Delay Unit for Jamoma DSP
- * Copyright © 2003, Timothy Place
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Basic audio delay unit with 4 interpolation options.
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Timothy Place & Nathan Wolek
+ *
+ * @copyright Copyright © 2003-2012, Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

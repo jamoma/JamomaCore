@@ -1,8 +1,13 @@
-/*
- * Delay Unit for Jamoma DSP
- * Copyright © 2003, Timothy Place
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup dspLibrary
+ *
+ * @brief Basic audio delay unit with 4 interpolation options.
+ * 
+ * @authors Timothy Place & Nathan Wolek
+ *
+ * @copyright Copyright © 2003-2012, Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -141,7 +146,6 @@ TTErr TTDelay::setDelayMaxInSamples(const TTValue& newValue)
 }
 
 
-// TODO: Update these when the new interpolation routines are written
 TTErr TTDelay::setInterpolation(const TTValue& newValue)
 {
 	mInterpolation = newValue;
@@ -200,8 +204,12 @@ TTErr TTDelay::setInterpolation(const TTValue& newValue)
 
 inline TTErr TTDelay::calculateNoInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
 {
-	*buffer->mWritePointer++ = x;		// write the input into our buffer
-	y = *buffer->mReadPointer++;		// fetch the output from our buffer
+	*(buffer->mWritePointer) = x;		// write the input into our buffer
+	y = *(buffer->mReadPointer);		// fetch the output from our buffer
+
+	// advance the pointers
+	buffer->mWritePointer++;
+	buffer->mReadPointer++;
 
 	// wrap the pointers in the buffer, if needed
 	if (buffer->mWritePointer > buffer->tail())
@@ -230,23 +238,29 @@ TTErr TTDelay::processAudioNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudio
 
 inline TTErr TTDelay::calculateLinearInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
 {
-	*buffer->mWritePointer = x;		// write the input into our buffer
+	*(buffer->mWritePointer) = x;		// write the input into our buffer
 
-	// move the record head
+	// move the record head, since we are done with it
 	buffer->mWritePointer++;
 	if (buffer->mWritePointer > buffer->tail())
 		buffer->mWritePointer = buffer->head();
 
-	// move the play head
+	// store the value of the integer part of delayInSamples
+	TTSampleValue delaySample0 = *(buffer->mReadPointer);
+	
+	// store the value of the sample *before* it for interpolation
+	TTSampleValuePtr delaySample1Ptr = buffer->mReadPointer - 1;
+	delaySample1Ptr = buffer->wrapPointer(delaySample1Ptr);
+	TTSampleValue delaySample1 = *(delaySample1Ptr);
+
+	// now you are ready to interpolate
+	y = TTInterpolateLinear(delaySample0, delaySample1, mFractionalDelay);
+	
+	// then move the play head
 	buffer->mReadPointer++;
 	if (buffer->mReadPointer > buffer->tail())
 		buffer->mReadPointer = buffer->head();
 
-	// store the value of the next sample in the buffer for interpolation
-	TTSampleValuePtr next = buffer->mReadPointer + 1;
-	next = buffer->wrapPointer(next);
-
-	y = ((*next) * (1.0 - mFractionalDelay)) + ((*buffer->mReadPointer) * mFractionalDelay); //TODO: use TTInterpolate method
 	return kTTErrNone;
 }
 
@@ -274,25 +288,29 @@ TTErr TTDelay::calculateCosineInterpolation(const TTFloat64& x, TTFloat64& y, TT
 inline TTErr TTDelay::calculateCosineInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
 {   //http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
 	
-	TTFloat64 ft = (1 - cos(mFractionalDelay*kTTPi)) * 0.5;
-	
 	*buffer->mWritePointer = x;		// write the input into our buffer
 	
-	// move the record head
+	// move the record head, since we are done with it
 	buffer->mWritePointer++;
 	if (buffer->mWritePointer > buffer->tail())
 		buffer->mWritePointer = buffer->head();
 	
-	// move the play head
+	// store the value of the integer part of delayInSamples
+	TTSampleValue delaySample0 = *(buffer->mReadPointer);
+	
+	// store the value of the sample *before* it for interpolation
+	TTSampleValuePtr delaySample1Ptr = buffer->mReadPointer - 1;
+	delaySample1Ptr = buffer->wrapPointer(delaySample1Ptr);
+	TTSampleValue delaySample1 = *(delaySample1Ptr);
+
+	// now you are ready to interpolate
+	y = TTInterpolateCosine(delaySample0, delaySample1, mFractionalDelay);
+	
+	// then move the play head
 	buffer->mReadPointer++;
 	if (buffer->mReadPointer > buffer->tail())
 		buffer->mReadPointer = buffer->head();
 	
-	// store the value of the next sample in the buffer for interpolation
-	TTSampleValuePtr next = buffer->mReadPointer + 1;	
-	next = buffer->wrapPointer(next);
-	
-	y = ((*next) * (1.0 - ft)) + ((*buffer->mReadPointer) * ft); //TODO: use TTInterpolate method
 	return kTTErrNone;
 }
 
@@ -318,24 +336,51 @@ inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64&
 
 	*buffer->mWritePointer = x;		// write the input into our buffer
 
-	// move the record head
+	// move the record head, since we are done with it
 	buffer->mWritePointer++;
 	if (buffer->mWritePointer > buffer->tail())
 		buffer->mWritePointer = buffer->head();
+		
+	// sneak a zero into the buffer so that delayInSamples between 0 and 1 will work
+	*buffer->mWritePointer = 0;
 
-	// move the play head
+	// store the value of the integer part of delayInSamples
+	TTSampleValue delaySample0 = *(buffer->mReadPointer);
+	
+	// store the value from 1 sample *before* mReadPointer for interpolation
+	TTSampleValuePtr delaySample1Ptr = buffer->mReadPointer - 1;
+	delaySample1Ptr = buffer->wrapPointer(delaySample1Ptr);
+	TTSampleValue delaySample1 = *(delaySample1Ptr);
+	
+	// store the value from 2 samples *before* mReadPointer for interpolation
+	TTSampleValuePtr delaySample2Ptr = buffer->mReadPointer - 2;
+	delaySample2Ptr = buffer->wrapPointer(delaySample2Ptr);
+	TTSampleValue delaySample2 = *(delaySample2Ptr);
+	
+	// store the value from 1 sample *after* mReadPointer for interpolation
+	TTSampleValuePtr delaySampleMinus1Ptr = buffer->mReadPointer + 1;
+	delaySampleMinus1Ptr = buffer->wrapPointer(delaySampleMinus1Ptr);
+	TTSampleValue delaySampleMinus1 = *(delaySampleMinus1Ptr);
+
+	// to switch interp formula, start comment block here
+	// store the value of the next sample in the buffer for interpolation
+	a = delaySampleMinus1;
+	b = delaySample0;
+	c = delaySample1;
+	d = delaySample2;
+	
+	// now you are ready to interpolate
+	cMinusB = c - b;
+	y = b + mFractionalDelay * (cMinusB - 0.1666667 * (1.0 - mFractionalDelay) * ((d - a - (3.0 * cMinusB)) * mFractionalDelay + (d + (2.0 * a) - (3.0 * b)))); 
+	
+	// to switch interp formula, end comment block here AND uncomment next line
+	//y = TTInterpolateCubic(a, b, c, d, mFractionalDelay); //TODO: use TTInterpolate method
+	
+	// then move the play head
 	buffer->mReadPointer++;
 	if (buffer->mReadPointer > buffer->tail())
 		buffer->mReadPointer = buffer->head();
-
-	// store the value of the next sample in the buffer for interpolation
-	a = *buffer->wrapPointer(buffer->mReadPointer + 1);
-	b = *buffer->wrapPointer(buffer->mReadPointer + 0);
-	c = *buffer->wrapPointer(buffer->mReadPointer - 1);
-	d = *buffer->wrapPointer(buffer->mReadPointer - 2);
-	cMinusB = c - b;
-
-	y = b + mFractionalDelay * (cMinusB - 0.1666667 * (1.0 - mFractionalDelay) * ((d - a - (3.0 * cMinusB)) * mFractionalDelay + (d + (2.0 * a) - (3.0 * b)))); //TODO: use TTInterpolate method
+	
 	return kTTErrNone;
 }
 
