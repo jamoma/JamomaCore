@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 5
+			"revision" : 7
 		}
 ,
 		"rect" : [ 64.0, 255.0, 950.0, 310.0 ],
@@ -54,7 +54,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
 						"rect" : [ 0.0, 178.0, 1232.0, 480.0 ],
@@ -190,8 +190,9 @@
 									"id" : "obj-4",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 872.0, 248.0, 190.0, 43.0 ],
 									"text" : "jcom.test.assert.equal.old TESTnet.receive:TCP:string \"this is jamoma\" @issue 1110"
 								}
@@ -262,8 +263,9 @@
 									"id" : "obj-29",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 666.5, 248.0, 190.0, 43.0 ],
 									"text" : "jcom.test.assert.equal.old TESTnet.receive:TCP:symbol jamoma @issue 1110"
 								}
@@ -334,8 +336,9 @@
 									"id" : "obj-22",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 461.0, 248.0, 202.0, 43.0 ],
 									"text" : "jcom.test.assert.equal.old TESTnet.receive:TCP:decimal 123.45 @issue 1110"
 								}
@@ -406,8 +409,9 @@
 									"id" : "obj-15",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 257.0, 248.0, 160.0, 43.0 ],
 									"text" : "jcom.test.assert.equal.old TESTnet.receive:TCP:int 123 @issue 1110"
 								}
@@ -673,30 +677,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.net.send.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.net.receive.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 120.0, 102.0, 39.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"tags" : "",
 						"default_fontsize" : 12.0,
 						"description" : "",
-						"globalpatchername" : "",
+						"digest" : "",
 						"fontface" : 0,
+						"fontname" : "Arial",
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"digest" : ""
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p TCP"
@@ -731,10 +726,10 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 5
+							"revision" : 7
 						}
 ,
-						"rect" : [ 0.0, 178.0, 1232.0, 480.0 ],
+						"rect" : [ 3.0, 140.0, 1232.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -755,6 +750,20 @@
 						"tags" : "",
 						"boxes" : [ 							{
 								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
+									"id" : "obj-14",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 85.0, 271.0, 81.0, 20.0 ],
+									"text" : "loadmess set"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-25",
 									"maxclass" : "button",
 									"numinlets" : 1,
@@ -769,13 +778,11 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-16",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 835.0, 378.0, 50.0, 32.0 ],
-									"text" : "\"this is jamom\""
+									"patching_rect" : [ 787.0, 328.0, 121.0, 18.0 ]
 								}
 
 							}
@@ -788,8 +795,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 579.0, 397.0, 50.0, 18.0 ],
-									"text" : "jamom"
+									"patching_rect" : [ 610.0, 328.0, 79.0, 18.0 ]
 								}
 
 							}
@@ -798,13 +804,11 @@
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-8",
-									"linecount" : 2,
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 363.0, 315.0, 50.0, 32.0 ],
-									"text" : "\"123.44999\""
+									"patching_rect" : [ 397.0, 328.0, 108.0, 18.0 ]
 								}
 
 							}
@@ -817,8 +821,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 181.0, 289.0, 50.0, 18.0 ],
-									"text" : "\"12\""
+									"patching_rect" : [ 191.0, 328.0, 64.5, 18.0 ]
 								}
 
 							}
@@ -873,8 +876,9 @@
 									"id" : "obj-4",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 872.0, 248.0, 190.0, 43.0 ],
 									"text" : "jcom.test.assert.equal.old TESTnet.receive:UDP:string \"this is jamoma\" @issue 1044"
 								}
@@ -945,8 +949,9 @@
 									"id" : "obj-29",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 666.5, 248.0, 190.0, 43.0 ],
 									"text" : "jcom.test.assert.equal.old TESTnet.receive:UDP:symbol jamoma @issue 1044"
 								}
@@ -1017,8 +1022,9 @@
 									"id" : "obj-22",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 461.0, 248.0, 192.0, 43.0 ],
 									"text" : "jcom.test.assert.equal.old TESTnet.receive:UDP:decimal 123.45 @issue 1044"
 								}
@@ -1089,8 +1095,9 @@
 									"id" : "obj-15",
 									"linecount" : 3,
 									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
 									"patching_rect" : [ 257.0, 248.0, 148.0, 43.0 ],
 									"text" : "jcom.test.assert.equal.old TESTnet.receive:UDP:int 123 @issue 1044"
 								}
@@ -1181,6 +1188,42 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-13", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-12", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-14", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-16", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-14", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-7", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-14", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-8", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-14", 0 ]
 								}
 
 							}
@@ -1356,30 +1399,21 @@
 								}
 
 							}
- ],
-						"dependency_cache" : [ 							{
-								"name" : "jcom.net.send.mxo",
-								"type" : "iLaX"
-							}
-, 							{
-								"name" : "jcom.net.receive.mxo",
-								"type" : "iLaX"
-							}
  ]
 					}
 ,
 					"patching_rect" : [ 120.0, 77.0, 41.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"fontname" : "Arial",
-						"tags" : "",
 						"default_fontsize" : 12.0,
 						"description" : "",
-						"globalpatchername" : "",
+						"digest" : "",
 						"fontface" : 0,
+						"fontname" : "Arial",
 						"fontsize" : 12.0,
-						"default_fontface" : 0,
-						"digest" : ""
+						"globalpatchername" : "",
+						"tags" : ""
 					}
 ,
 					"text" : "p UDP"
@@ -1403,7 +1437,6 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-4",
-					"int" : 1,
 					"maxclass" : "gswitch2",
 					"numinlets" : 2,
 					"numoutlets" : 2,
@@ -1463,7 +1496,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 120.0, 150.0, 79.0, 19.0 ],
+					"patching_rect" : [ 120.0, 150.0, 99.0, 19.0 ],
 					"text" : "jcom.test.finished"
 				}
 
@@ -1552,6 +1585,20 @@
 			}
  ],
 		"dependency_cache" : [ 			{
+				"name" : "jcom.test.finished.maxpat",
+				"bootpath" : "/Users/jamoma/Documents/masterJamoma/Modules/Test/components/test.finished",
+				"patcherrelativepath" : "../../../../../Modules/Test/components/test.finished",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.assert.equal.old.maxpat",
+				"bootpath" : "/Users/jamoma/Documents/masterJamoma/Modules/Test/components/test.assert.equal.old",
+				"patcherrelativepath" : "../../../../../Modules/Test/components/test.assert.equal.old",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "jcom.net.send.mxo",
 				"type" : "iLaX"
 			}
