@@ -25,8 +25,8 @@
  */
 class TTSpatEntity {
 	// TODO: convert names to mPosition and mOrientation
-	TTFloat64 position[3];		///< Position as Cartesian coordinates
-	TTFloat64 orientation[4];	///< The orientation of the object using Euler coordinates
+	TTFloat64 mPosition[3];		///< Position as Cartesian coordinates
+	TTFloat64 mOrientation[4];	///< The orientation of the object using Euler coordinates
 	
 	// ( We wish to keep the width so that the state could be maintained when switching algorithms )
 	
