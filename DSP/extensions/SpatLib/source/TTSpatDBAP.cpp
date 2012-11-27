@@ -2,9 +2,14 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief TODO
+ * @brief Jamoma DSP SpatLib unit based on Distance-based amplitude panning (DBAP)
  *
- * @details TODO @n
+ * @details DBAP permits sinks (speakers) to be positioned any way you want.
+ * Speaker configurations are not limited to circles/spheres surrounding a sweet spot, but can be used e.g. to locate speakers in several adjecent spaces.
+ * DBAP is matrix-based and ensures equal intensity while adjusting gains to each of the sinks in such a way that relative gain diminish with increasing distance from source to sink.
+ * The exact rolloff rate (in dB) can be controlled with the rolloff attribute of the #TTSpatDBAPRenderer class.
+ *
+ * @todo: Extend with a solution for interpolating to new matrix coefficients
  *
  * @authors Trond Lossius, Nils Peters, Timothy Place
  *
@@ -54,23 +59,23 @@ TTSpatDBAP::~TTSpatDBAP()
 }
 
 
-TTErr TTSpatDBAP::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTSpatDBAP::processAudio(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs)
 {
-	return mRenderer.processAudio(inputs, outputs);
+	return mRenderer.processAudio(anInputs, anOutputs);
 }
 
 
 
-TTErr TTSpatDBAP::getSourceCount(TTValue& value)
+TTErr TTSpatDBAP::getSourceCount(TTValue& aValue)
 {
-	value = mSources.size();
+	aValue = mSources.size();
 	return kTTErrNone;
 }
 
-TTErr TTSpatDBAP::setSourceCount(const TTValue& value)
+TTErr TTSpatDBAP::setSourceCount(const TTValue& aValue)
 {
 	
-	TTInt32 number = value;
+	TTInt32 number = aValue;
 		
 	TTLimitMin<TTInt32>(number, 1);
 	mSources.resize(number);
@@ -79,16 +84,16 @@ TTErr TTSpatDBAP::setSourceCount(const TTValue& value)
 }
 
 
-TTErr TTSpatDBAP::getSinkCount(TTValue& value)
+TTErr TTSpatDBAP::getSinkCount(TTValue& aValue)
 {
-	value = mSinks.size();
+	aValue = mSinks.size();
 	return kTTErrNone;
 }
 
 
-TTErr TTSpatDBAP::setSinkCount(const TTValue& value)
+TTErr TTSpatDBAP::setSinkCount(const TTValue& aValue)
 {
-	TTInt32 number = value;
+	TTInt32 number = aValue;
 	
 	TTLimitMin<TTInt32>(number, 1);
 	mSinks.resize(number);
@@ -97,17 +102,17 @@ TTErr TTSpatDBAP::setSinkCount(const TTValue& value)
 }
 
 
-void TTSpatDBAP::getOneSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+void TTSpatDBAP::getOneSourcePosition(TTInt32 aSourceNumber, TTFloat64& aX, TTFloat64& aY, TTFloat64& aZ)
 {
 	// Ensure that source number is within range
-	TTInt32 source = sourceNumber - 1;
+	TTInt32 source = aSourceNumber - 1;
 	source = TTClip<TTInt32>(source, 0, mSources.size()-1);
 	
-	mSources[source].getPosition(x, y, z);
+	mSources[source].getPosition(aX, aY, aZ);
 }
 
 
-TTErr TTSpatDBAP::getSourcePosition(const TTValue& requestedChannel, TTValue& aPosition)
+TTErr TTSpatDBAP::getSourcePosition(const TTValue& aRequestedChannel, TTValue& aPosition)
 {
 	TTInt16 sourceNumber;
 	TTFloat64 x, y, z;
@@ -115,7 +120,7 @@ TTErr TTSpatDBAP::getSourcePosition(const TTValue& requestedChannel, TTValue& aP
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	requestedChannel.get(0, sourceNumber);
+	aRequestedChannel.get(0, sourceNumber);
 	
 	getOneSourcePosition(sourceNumber, x, y, z);
 	
@@ -130,17 +135,17 @@ TTErr TTSpatDBAP::getSourcePosition(const TTValue& requestedChannel, TTValue& aP
 }
 
 
-void TTSpatDBAP::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+void TTSpatDBAP::setOneSourcePosition(TTInt32 aSourceNumber, TTFloat64 aX, TTFloat64 aY, TTFloat64 aZ)
 {
 	// Ensure that source number is within range
-	TTInt32 source = sourceNumber - 1;
+	TTInt32 source = aSourceNumber - 1;
 	source = TTClip<TTInt32>(source, 0, mSources.size()-1);
 	
-	mSources[source].setPosition(x, y, z);
+	mSources[source].setPosition(aX, aY, aZ);
 	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 }
 
-TTErr TTSpatDBAP::setSourcePosition(const TTValue& aPosition, TTValue& unused)
+TTErr TTSpatDBAP::setSourcePosition(const TTValue& aPosition, TTValue& anUnused)
 {
 	TTInt32 sourceNumber;
 	TTFloat64 x, y, z;
@@ -158,18 +163,18 @@ TTErr TTSpatDBAP::setSourcePosition(const TTValue& aPosition, TTValue& unused)
 }
 
 
-void TTSpatDBAP::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+void TTSpatDBAP::getOneSinkPosition(TTInt32 aSinkNumber, TTFloat64& aX, TTFloat64& aY, TTFloat64& aZ)
 {
 	// Ensure that sink number is within range
-	TTInt32 sink = sinkNumber - 1;
+	TTInt32 sink = aSinkNumber - 1;
 	sink = TTClip<TTInt32>(sink, 0, mSinks.size()-1);
 	
-	mSinks[sink].getPosition(x, y, z);
+	mSinks[sink].getPosition(aX, aY, aZ);
 	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
 }
 
 
-TTErr TTSpatDBAP::getSinkPosition(const TTValue& requestedChannel, TTValue& aPosition)
+TTErr TTSpatDBAP::getSinkPosition(const TTValue& aRequestedChannel, TTValue& aPosition)
 {
 	TTInt16 sinkNumber;
 	TTFloat64 x, y, z;
@@ -177,7 +182,7 @@ TTErr TTSpatDBAP::getSinkPosition(const TTValue& requestedChannel, TTValue& aPos
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	requestedChannel.get(0, sinkNumber);
+	aRequestedChannel.get(0, sinkNumber);
 	
 	getOneSinkPosition(sinkNumber, x, y, z);
 	
@@ -192,17 +197,17 @@ TTErr TTSpatDBAP::getSinkPosition(const TTValue& requestedChannel, TTValue& aPos
 }
 
 
-void TTSpatDBAP::setOneSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+void TTSpatDBAP::setOneSinkPosition(TTInt32 aSinkNumber, TTFloat64 aX, TTFloat64 aY, TTFloat64 aZ)
 {
 	// Ensure that sink number is within range
-	TTInt32 sink = sinkNumber - 1;
+	TTInt32 sink = aSinkNumber - 1;
 	sink = TTClip<TTInt32>(sink, 0, mSinks.size()-1);
 	
-	mSinks[sink].setPosition(x, y, z);
+	mSinks[sink].setPosition(aX, aY, aZ);
 }
 
 
-TTErr TTSpatDBAP::setSinkPosition(const TTValue& aPosition, TTValue& unused)
+TTErr TTSpatDBAP::setSinkPosition(const TTValue& aPosition, TTValue& anUnused)
 {
 	TTInt32 sinkNumber;
 	TTFloat64 x, y, z;
@@ -220,16 +225,16 @@ TTErr TTSpatDBAP::setSinkPosition(const TTValue& aPosition, TTValue& unused)
 }
 
 
-TTErr TTSpatDBAP::getRolloff(TTValue& value)
+TTErr TTSpatDBAP::getRolloff(TTValue& aValue)
 {
-	value = mRenderer.getRolloff();
+	aValue = mRenderer.getRolloff();
 	return kTTErrNone;
 }
 
 
-TTErr TTSpatDBAP::setRolloff(const TTValue& value)
+TTErr TTSpatDBAP::setRolloff(const TTValue& aValue)
 {
-	TTFloat64 rolloff = value;
+	TTFloat64 rolloff = aValue;
 	
 	mRenderer.setRolloff(rolloff);
 	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
@@ -240,7 +245,7 @@ TTErr TTSpatDBAP::setRolloff(const TTValue& value)
 // TODO: Problem -- when initializing the matrix will be calculated many many times
 
 
-TTErr TTSpatDBAP::setSourceWidth(const TTValue& aWidth, TTValue& unused)
+TTErr TTSpatDBAP::setSourceWidth(const TTValue& aWidth, TTValue& anUnused)
 {
 	TTInt32 sourceNumber;
 	TTFloat64 width;
@@ -259,7 +264,7 @@ TTErr TTSpatDBAP::setSourceWidth(const TTValue& aWidth, TTValue& unused)
 }
 
 
-TTErr TTSpatDBAP::getSourceWidth(const TTValue& requestedChannel, TTValue& aWidth)
+TTErr TTSpatDBAP::getSourceWidth(const TTValue& aRequestedChannel, TTValue& aWidth)
 {
 	TTInt16 sourceNumber;
 	TTFloat64 width;
@@ -267,7 +272,7 @@ TTErr TTSpatDBAP::getSourceWidth(const TTValue& requestedChannel, TTValue& aWidt
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	requestedChannel.get(0, sourceNumber);
+	aRequestedChannel.get(0, sourceNumber);
 	
 	sourceNumber = sourceNumber - 1;
 	sourceNumber = TTClip<TTInt32>(sourceNumber, 0, mSources.size()-1);

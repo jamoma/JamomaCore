@@ -2,9 +2,9 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief Describe the geometry of a point
+ * @brief #TTSpatEntity describes the geometry of a point, and #TTSpatSource and #TTSpatSink specialise this further for the description of sources and sinks.
  *
- * @details This can be used to describe sources or sinks.
+ * @details
  *
  * @authors Trond Lossius, Timothy Place, Nils Peters,
  *

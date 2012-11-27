@@ -17,6 +17,7 @@
 #ifndef __TT_AUDIO_OBJECT_ARRAY_H__
 #define __TT_AUDIO_OBJECT_ARRAY_H__
 
+#include "TTDSP.h"
 #include "TTAudioObject.h"
 
 typedef std::vector<TTAudioObjectPtr>	TTAudioObjectVector;

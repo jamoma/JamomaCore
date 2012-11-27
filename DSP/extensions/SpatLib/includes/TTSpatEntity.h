@@ -2,9 +2,9 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief Describe the geometry of a point
+ * @brief #TTSpatEntity describes the geometry of a point, and #TTSpatSource and #TTSpatSink specialise this further for the description of sources and sinks.
  *
- * @details This can be used to describe the sources or sinks of sound spatialisation renderers, etc.
+ * @details
  *
  * @authors Trond Lossius, Timothy Place, Nils Peters, 
  *
@@ -84,11 +84,17 @@ public:
 };
 
 
+/** The #TTSpatSource class extends and specialise the #TTSpatEntity class to provide attributes and methods suitable for the description of a source.
+ @details		Actually #TTSpatSource provides no specialization at this time
+ */
 class TTSpatSource : public TTSpatEntity {
 	// no specialization at this time
 };
 
 
+/** The #TTSpatSink class extends and specialise the #TTSpatEntity class to provide attributes and methods suitable for the description of a sink.
+ @details		Actually #TTSpatSink provides no specialization at this time
+ */
 class TTSpatSink : public TTSpatEntity {
 	// no specialization at this time
 };
@@ -98,7 +104,17 @@ class TTSpatSink : public TTSpatEntity {
  @ingroup typedefs
  */
 typedef std::vector<TTSpatEntity>	TTSpatEntityVector;
+
+
+/** Pointer to a vector of #TTSpatSource points.
+ @ingroup typedefs
+ */
 typedef std::vector<TTSpatSource>	TTSpatSourceVector;
+
+
+/** Pointer to a vector of #TTSpatSink points.
+ @ingroup typedefs
+ */
 typedef std::vector<TTSpatSink>		TTSpatSinkVector;
 
 
