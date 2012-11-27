@@ -33,9 +33,8 @@ TT_OBJECT_CONSTRUCTOR,
 	mDataSize(0),
 	mDataIsLocallyOwned(YES)
 {
-	addAttributeWithGetterAndSetter(Dimensions, 	kTypeInt32); 	// TODO: mDimensions deprecated, we should delete this too
-																	// NW: had trouble removing it in Oct 2012
-																	// we should keep setDimensions() & getDimensions() methods
+	addAttributeWithGetterAndSetter(Dimensions, 	kTypeInt32); 	// mDimensions deprecated and not used directly
+							// setDimensions() & getDimensions() methods actually work with RowCount and ColumnCount
 	addAttributeWithSetter(RowCount, 				kTypeInt32);
 	addAttributeWithSetter(ColumnCount, 			kTypeInt32);
 	addAttributeWithGetterAndSetter(Type,			kTypeUInt8);	// necessary so that public interface uses symbols
@@ -389,6 +388,9 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 	// TODO: what should we do if anotherMatrix is not locally owned?
 	// It would be nice to re-dimension the data, but we can't re-alloc / resize the number of bytes...
 	// NW: don't understand above comment, previous set attribute methods *were* calling resize()
+	
+	// NOTE: there is potential for some attributes to change while others fail
+	// if that happens, mData is never resized but attributes that changed will report bogus results
 	
 	if (setRowCountWithoutResize(anotherMatrix.mRowCount) &&
 		setColumnCountWithoutResize(anotherMatrix.mColumnCount) &&
