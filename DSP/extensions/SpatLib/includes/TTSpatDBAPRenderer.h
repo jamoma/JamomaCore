@@ -51,8 +51,8 @@ public:
 	 @param sinks						A vector of sinks
 	 */
 	void recalculateMatrixCoefficients(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks);
-		
 	
+		
 	// TODO: make these accessors non-inlined
 	TTFloat64 getRolloff()
 	{

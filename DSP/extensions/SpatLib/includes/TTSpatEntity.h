@@ -24,15 +24,12 @@
  amount of descriptors as defined in the core section of the SpatDIF specs.
  */
 class TTSpatEntity {
-	// TODO: convert names to mPosition and mOrientation
+protected:
+
 	TTFloat64 mPosition[3];		///< Position as Cartesian coordinates
 	TTFloat64 mOrientation[4];	///< The orientation of the object using Euler coordinates
 	TTFloat64 mData[4];			///< Storage for up to 4 values that can be used by subclasses
-	
-protected:
-	
-	
-	
+		
 public:
 	
 	/** Constructor.

@@ -70,12 +70,12 @@ TTErr TTSpatSnap::testSourceAndSinkCountSetterAndGetter(int& aTestAssertionCount
 	// Test initial matrix size:
 	
 	TTTestAssertion("Initial matrix has 1 row",
-					(this->mRenderer.mMixerMatrixCoefficients->getRowCount())==1,
+					(this->mRenderer->mMixerMatrixCoefficients->getRowCount())==1,
 					aTestAssertionCount,
 					anErrorCount);
 	
 	TTTestAssertion("Initial matrix has 1 column",
-					(this->mRenderer.mMixerMatrixCoefficients->getColumnCount())==1,
+					(this->mRenderer->mMixerMatrixCoefficients->getColumnCount())==1,
 					aTestAssertionCount,
 					anErrorCount);
 	
@@ -100,12 +100,12 @@ TTErr TTSpatSnap::testSourceAndSinkCountSetterAndGetter(int& aTestAssertionCount
 	// Test initial matrix size:
 	
 	TTTestAssertion("Matrix now has 7 rows",
-					(this->mRenderer.mMixerMatrixCoefficients->getRowCount())==7,
+					(this->mRenderer->mMixerMatrixCoefficients->getRowCount())==7,
 					aTestAssertionCount,
 					anErrorCount);
 	
 	TTTestAssertion("Initial matrix has 5 columns",
-					(this->mRenderer.mMixerMatrixCoefficients->getColumnCount())==5,
+					(this->mRenderer->mMixerMatrixCoefficients->getColumnCount())==5,
 					aTestAssertionCount,
 					anErrorCount);
 
@@ -691,7 +691,7 @@ TTErr TTSpatSnap::testMatrixCoefficients(int& aTestAssertionCount, int& anErrorC
 	// Get all current matrix coefficients
 	for (TTInt16 row=0; row<7; row++) {
 		for (TTInt16 col=0; col<5; col++) {
-			this->mRenderer.mMixerMatrixCoefficients->get2d(row, col, retrievedCoefficientValues[row][col]);
+			this->mRenderer->mMixerMatrixCoefficients->get2d(row, col, retrievedCoefficientValues[row][col]);
 			diff = retrievedCoefficientValues[row][col] - expectedValues[row][col];
 			absDiffSum += diff*diff;
 		}

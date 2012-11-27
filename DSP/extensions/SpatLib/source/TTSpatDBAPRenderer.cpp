@@ -14,7 +14,7 @@
  */
 
 #include "TTSpatDBAPRenderer.h"
-
+#include "TTSpatDBAPSource.h"
 
 
 /// Methods DBAPor TTSpatDBAPRenderer: //////////////////////
@@ -32,6 +32,13 @@ TTSpatDBAPRenderer::~TTSpatDBAPRenderer()
 }
 
 
+// A little helper method to get pointer to a DBAP source from the vector of standard spat sources
+TTSpatDBAPSource* getDBAPSource(TTSpatSourceVector& aVector, int aSourceNumber)
+{
+	return (TTSpatDBAPSource*)&aVector[aSourceNumber];
+}
+
+
 void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks)
 {	
 	TTInt32 nearestSink;
@@ -43,10 +50,10 @@ void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& aSour
 	mMixerMatrixCoefficients->setColumnCount(aSinks.size());
 	
 	for (TTInt32 source=0; source<aSources.size(); source++) {
-		TTSpatDBAPSource& dbapSource = aSources[source];
+		TTSpatDBAPSource* dbapSource = getDBAPSource(aSources, source);
 		
 		// The source that we want to locate the nearest sink DBAPor:
-		aSources[source].getPosition(sourceX, sourceY, sourceZ);
+		dbapSource->getPosition(sourceX, sourceY, sourceZ);
 		
 		// In order to DBAPind the nearest sink DBAPor a source, we'll start by assuming that sink 0 is the nearest
 		aSinks[0].getPosition(sinkX, sinkY, sinkZ);
