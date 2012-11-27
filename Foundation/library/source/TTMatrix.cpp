@@ -389,6 +389,9 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 	// It would be nice to re-dimension the data, but we can't re-alloc / resize the number of bytes...
 	// NW: don't understand above comment, previous set attribute methods *were* calling resize()
 	
+	// NOTE: there is potential for some attributes to change while others fail
+	// if that happens, mData is never resized but attributes that changed will report bogus results
+	
 	if (setRowCountWithoutResize(anotherMatrix.mRowCount) &&
 		setColumnCountWithoutResize(anotherMatrix.mColumnCount) &&
 		setElementCountWithoutResize(anotherMatrix.mElementCount) &&

@@ -144,6 +144,9 @@ public:
 	*/
 	TTErr setDimensionsWithVector(const std::vector<TTInt32>& newDimensions)
 	{
+		// NOTE: there is potential for some attributes to change while others fail
+		// if that happens, mData is never resized but attributes that changed will report bogus results
+		
 		if (this->setRowCountWithoutResize(newDimensions[0]) &&
 			this->setColumnCountWithoutResize(newDimensions[1]))
 		{
@@ -506,7 +509,7 @@ public:
 	TTErr set2d(TTRowID i, TTColumnID j, TTElementID e, T data)
 	{
 		TTUInt32 index = INDEX_OF_ELEMENT_FIRSTBYTE(i, j, e);
-		*(T*)(mData + index) = data;	// TODO: don't we need to account for bytes per element?
+		*(T*)(mData + index) = data;
 		return kTTErrNone;
 	}
 	
