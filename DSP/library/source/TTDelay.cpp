@@ -99,16 +99,16 @@ TTErr TTDelay::clear()
 void TTDelay::reset()
 {
 	for (TTDelayBufferIter buffer = mBuffers.begin(); buffer != mBuffers.end(); ++buffer)
-		buffer->setDelay(mDelayInSamples); // TTDelayBuffer requires mDelayInSamples
+		buffer->setDelay(mIntegralDelay); // TTDelayBuffer requires the integer portion of the delay in samples
 }
 
 
 TTErr TTDelay::setDelay(const TTValue& newValue)
 {
 	mDelay = TTClip<TTFloat64>(newValue, 0.0, mDelayMax);
-	mDelayInSamplesWithFractional = mDelay * srMill;
-	mDelayInSamples = mDelayInSamplesWithFractional;
-	mFractionalDelay = mDelayInSamplesWithFractional - mDelayInSamples;
+	mDelayInSamples = mDelay * srMill;
+	mIntegralDelay = mDelayInSamples;
+	mFractionalDelay = mDelayInSamples - mIntegralDelay;
 
 	reset();
 	return kTTErrNone;
@@ -117,11 +117,11 @@ TTErr TTDelay::setDelay(const TTValue& newValue)
 
 TTErr TTDelay::setDelayInSamples(const TTValue& newValue)
 {
-	mDelayInSamplesWithFractional = TTClip<TTFloat64>(newValue, 0, mDelayMaxInSamples);
-	mDelayInSamples = mDelayInSamplesWithFractional;
-	mFractionalDelay = mDelayInSamplesWithFractional - mDelayInSamples;
+	mDelayInSamples = TTClip<TTFloat64>(newValue, 0, mDelayMaxInSamples);
+	mIntegralDelay = mDelayInSamples;
+	mFractionalDelay = mDelayInSamples - mIntegralDelay;
 
-	mDelay = mDelayInSamplesWithFractional * 1000.0 * srInv;
+	mDelay = mDelayInSamples * 1000.0 * srInv;
 
 	reset();
 	return kTTErrNone;

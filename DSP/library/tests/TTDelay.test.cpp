@@ -151,10 +151,10 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	//test 4,5,6,7: setting delayInSamples supports fractional values
 	this->setAttributeValue("delayInSamples", 44.1);
 	
-	TTFloat64 inquiry4 = this->mDelayInSamplesWithFractional;
+	TTFloat64 inquiry4 = this->mDelayInSamples;
 	TTFloat64 expect4 = 44.1;
 	TTBoolean result4 = TTTestFloatEquivalence(inquiry4,expect4);
-	TTUInt64 inquiry5 = this->mDelayInSamples;
+	TTUInt64 inquiry5 = this->mIntegralDelay;
 	TTUInt64 expect5 = 44;
 	TTBoolean result5 = { inquiry5 == expect5 };
 	TTFloat64 inquiry6 = this->mFractionalDelay;
@@ -164,7 +164,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	TTFloat64 expect7 = 1.0;
 	TTBoolean result7 = TTTestFloatEquivalence(inquiry7,expect7);
 	
-	TTTestAssertion("float delayInSamples to yields correct mDelayInSamplesWithFractional", 
+	TTTestAssertion("float delayInSamples to yields correct mDelayInSamples", 
 								result4, 
 								testAssertionCount,
 								errorCount);													
@@ -174,7 +174,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %f, but returned value was %f", expect4, inquiry4);
 	}
 	
-	TTTestAssertion("float delayInSamples to yields correct mDelayInSamples", 
+	TTTestAssertion("float delayInSamples to yields correct mIntegralDelay", 
 								result5, 
 								testAssertionCount,
 								errorCount);													
@@ -207,10 +207,10 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	//test 8,9,10,11: setting delay supports fractional values
 	this->setAttributeValue("delay", 1.1);
 	
-	TTFloat64 inquiry8 = this->mDelayInSamplesWithFractional;
+	TTFloat64 inquiry8 = this->mDelayInSamples;
 	TTFloat64 expect8 = 48.51;
 	TTBoolean result8 = TTTestFloatEquivalence(inquiry8,expect8);
-	TTUInt64 inquiry9 = this->mDelayInSamples;
+	TTUInt64 inquiry9 = this->mIntegralDelay;
 	TTUInt64 expect9 = 48;
 	TTBoolean result9 = { inquiry9 == expect9 };
 	TTFloat64 inquiry10 = this->mFractionalDelay;
@@ -220,7 +220,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	TTFloat64 expect11 = 1.1;
 	TTBoolean result11 = TTTestFloatEquivalence(inquiry11,expect11);
 	
-	TTTestAssertion("float delay to yields correct mDelayInSamplesWithFractional", 
+	TTTestAssertion("float delay to yields correct mDelayInSamples", 
 								result8, 
 								testAssertionCount,
 								errorCount);													
@@ -230,7 +230,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %f, but returned value was %f", expect8, inquiry8);
 	}
 	
-	TTTestAssertion("float delay to yields correct mDelayInSamples", 
+	TTTestAssertion("float delay to yields correct mIntegralDelay", 
 								result9, 
 								testAssertionCount,
 								errorCount);													

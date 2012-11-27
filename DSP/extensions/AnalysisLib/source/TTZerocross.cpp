@@ -1,10 +1,18 @@
-/*
- * TTBlue Zero-crossing detector and counter.
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspAnalysisLib
+ *
+ * @brief Jamoma DSP zero-crossing detector and counter.
+ *
+ * @details
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTZerocross.h"
 
