@@ -33,9 +33,8 @@ TT_OBJECT_CONSTRUCTOR,
 	mDataSize(0),
 	mDataIsLocallyOwned(YES)
 {
-	addAttributeWithGetterAndSetter(Dimensions, 	kTypeInt32); 	// TODO: mDimensions deprecated, we should delete this too
-																	// NW: had trouble removing it in Oct 2012
-																	// we should keep setDimensions() & getDimensions() methods
+	addAttributeWithGetterAndSetter(Dimensions, 	kTypeInt32); 	// mDimensions deprecated and not used directly
+							// setDimensions() & getDimensions() methods actually work with RowCount and ColumnCount
 	addAttributeWithSetter(RowCount, 				kTypeInt32);
 	addAttributeWithSetter(ColumnCount, 			kTypeInt32);
 	addAttributeWithGetterAndSetter(Type,			kTypeUInt8);	// necessary so that public interface uses symbols

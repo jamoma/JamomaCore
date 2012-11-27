@@ -61,7 +61,6 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 protected:	
 
 	TTBytePtr			mData;					///< memory used to store matrix values
-	std::vector<TTInt32>	mDimensions;			///< matrix dimensions, use mRowCount and mColumnCount instead of accessing directly
 	TTRowID				mRowCount;				///< How many rows of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
 	TTColumnID			mColumnCount;			///< How many columns of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
 	TTElementID			mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an signed 16-bit integer which provides a maximum value of 32,767.
