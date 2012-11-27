@@ -19,33 +19,34 @@
 
 TTErr TTAverage::test(TTValue& returnedTestInfo)
 {
+	// preliminary setup
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
+	
+	// Set up audio signals
 	int					badSampleCount = 0;
 	TTAudioSignalPtr	input = NULL;
 	TTAudioSignalPtr	output = NULL;
 	
-	// create 1 channel audio signal objects
+	// Create 1 channel audio signal objects
 	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
 	TTObjectInstantiate(kTTSym_audiosignal, &output, 1);
 	input->allocWithVectorSize(64);
 	output->allocWithVectorSize(64);
 	
-	// create an impulse
+	// Create an impulse
 	input->clear();						// set all samples to zero
-	input->mSampleVectors[0][0] = -2.0;	// set the first sample to -2
-	input->mSampleVectors[0][1] = -2.0;	// set the second sample to -2
+	input->mSampleVectors[0][10] = -2.0;	// set the first sample to -2
+	input->mSampleVectors[0][11] = -2.0;	// set the second sample to -2
 	
-	// setup the delay
-	this->setAttributeValue(TT("interval"), 20);
+	// Setup the delay
+	this->setAttributeValue(TT("interval"), 4);
 	//this->setAttributeValue(TT("delayInSamples"), 1);
-	this->setAttributeValue(TT("mode"), TT("bipolar")), 
+	this->setAttributeValue(TT("mode"), TT("bipolar"));
 	this->process(input, output);
 	
 
 	TTFloat64 expectedImpulseResponse[64] = {
-		-0.10,
-		-0.05,
 		0.0000000000000000e+00,
 		0.0000000000000000e+00,
 		0.0000000000000000e+00,
@@ -55,11 +56,13 @@ TTErr TTAverage::test(TTValue& returnedTestInfo)
 		0.0000000000000000e+00,
 		0.0000000000000000e+00,
 		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
+		0.0000000000000000e+00, // N =  9 : Average of { 0.0,  0.0,  0.0,  0.0}
+		-0.5,					// N = 10 : Average of {-2.0,  0.0,  0.0,  0.0}
+		-1.0,					// N = 11 : Average of {-2.0, -2.0,  0.0,  0.0}
+		-1.0,					// N = 12 : Average of { 0.0, -2.0, -2.0,  0.0}
+		-1.0,					// N = 13 : Average of { 0.0,  0.0, -2.0, -2.0}
+		-0.5,					// N = 14 : Average of { 0.0,  0.0,  0.0, -2.0}
+		0.0000000000000000e+00,	// N = 15 : Average of { 0.0,  0.0,  0.0,  0.0}
 		0.0000000000000000e+00,
 		0.0000000000000000e+00,
 		0.0000000000000000e+00,
