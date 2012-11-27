@@ -40,7 +40,7 @@ public:
 	
 	/** Destructor
 	 */
-	~TTSpatBaseRenderer();
+	virtual ~TTSpatBaseRenderer();
 	
 	/** This method _must_ be defined by subclasses
 	 @details This method also takes care of matrix resizing if the number of sources or sinks change.

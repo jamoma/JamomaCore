@@ -29,7 +29,7 @@
 /**	This class is eventually intended to provide a generalised interface for spatial renderers.
  @todo The class might be further generalised so that it can be reused for other spatial renderers.
  */
-class TTSpatSnap : TTSpatBase {
+class TTSpatSnap : public TTSpatBase {
 	TTCLASS_SETUP(TTSpatSnap)
 	
 	/**	Unit Tests.

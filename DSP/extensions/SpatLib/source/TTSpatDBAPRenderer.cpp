@@ -32,7 +32,7 @@ TTSpatDBAPRenderer::~TTSpatDBAPRenderer()
 }
 
 
-void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatDBAPSourceVector& aSources, TTSpatSinkVector& aSinks)
+void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks)
 {	
 	TTInt32 nearestSink;
 	TTFloat64 sqrDistance, smallestDist;
@@ -43,6 +43,7 @@ void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatDBAPSourceVector& a
 	mMixerMatrixCoefficients->setColumnCount(aSinks.size());
 	
 	for (TTInt32 source=0; source<aSources.size(); source++) {
+		TTSpatDBAPSource& dbapSource = aSources[source];
 		
 		// The source that we want to locate the nearest sink DBAPor:
 		aSources[source].getPosition(sourceX, sourceY, sourceZ);

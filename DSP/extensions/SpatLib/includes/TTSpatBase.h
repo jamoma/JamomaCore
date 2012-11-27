@@ -28,7 +28,7 @@
 /**	This class is eventually intended to provide a generalised interface for spatial renderers.
  @todo The class might be further generalised so that it can be reused for other spatial renderers.
  */
-class TTSpatBase : TTAudioObject {
+class TTSpatBase : public TTAudioObject {
 	TTCLASS_SETUP(TTSpatBase)
 	
 	// TODO: We need to store these members as pointers to vectors instead of as vectors

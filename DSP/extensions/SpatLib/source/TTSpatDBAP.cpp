@@ -25,9 +25,21 @@
 #define thisTTClassTags		"audio, spatialization, processing, dbap"
 
 
-TT_AUDIO_CONSTRUCTOR
+TTObjectPtr TTSpatDBAP::instantiate(TTSymbol& name, TTValue& arguments)
 {
-	mRenderer = new TTSpatSnapRenderer;
+	return (TTObjectPtr) new thisTTClass(arguments);
+}
+
+
+extern "C" void thisTTClass :: registerClass ()
+{
+	TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );
+}
+
+
+TTSpatDBAP::TTSpatDBAP(TTValue& arguments) : TTSpatBase(arguments)
+{
+	mRenderer = new TTSpatDBAPRenderer;
 		
 	addAttributeWithGetterAndSetter(Rolloff, kTypeFloat64);
 	
@@ -44,7 +56,7 @@ TTSpatDBAP::~TTSpatDBAP()
 
 TTErr TTSpatDBAP::getRolloff(TTValue& aValue)
 {
-	aValue = mRenderer.getRolloff();
+	aValue = getRenderer()->getRolloff();
 	return kTTErrNone;
 }
 
@@ -53,8 +65,8 @@ TTErr TTSpatDBAP::setRolloff(const TTValue& aValue)
 {
 	TTFloat64 rolloff = aValue;
 	
-	mRenderer.setRolloff(rolloff);
-	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
+	getRenderer()->setRolloff(rolloff);
+	getRenderer()->recalculateMatrixCoefficients(mSources, mSinks);
 	return kTTErrNone;
 }
 
@@ -74,8 +86,8 @@ TTErr TTSpatDBAP::setSourceWidth(const TTValue& aWidth, TTValue& anUnused)
 	
 	sourceNumber = sourceNumber - 1;
 	sourceNumber = TTClip<TTInt32>(sourceNumber, 0, mSources.size()-1);
-	mSources[sourceNumber].setWidth(width);
-	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
+	getSource(sourceNumber)->setWidth(width);
+	mRenderer->recalculateMatrixCoefficients(mSources, mSinks);
 	
 	return kTTErrNone; // Return something else if we don't have four arguments
 }
@@ -93,7 +105,7 @@ TTErr TTSpatDBAP::getSourceWidth(const TTValue& aRequestedChannel, TTValue& aWid
 	
 	sourceNumber = sourceNumber - 1;
 	sourceNumber = TTClip<TTInt32>(sourceNumber, 0, mSources.size()-1);
-	mSources[sourceNumber].getWidth(width);
+	getSource(sourceNumber)->getWidth(width);
 	
 	aWidth.setSize(2);
 	aWidth.set(0, sourceNumber);

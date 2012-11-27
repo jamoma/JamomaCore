@@ -49,8 +49,17 @@ The following are development notes while developing TTSpatDBAP starting of from
  * DBAP is matrix-based and ensures equal intensity while adjusting gains to each of the sinks in such a way that relative gain diminish with increasing distance from source to sink.
  * The exact rolloff rate (in dB) can be controlled with the rolloff attribute of the #TTSpatDBAPRenderer class.
  */
-class TTSpatDBAP : TTSpatBase {
+class TTSpatDBAP : public TTSpatBase {
 	TTCLASS_SETUP(TTSpatDBAP)
+	
+	TTSpatDBAPRenderer* getRenderer()
+	{
+		return (TTSpatDBAPRenderer*)mRenderer;
+	}
+	
+	TTSpatDBAPSource* getSource(int aSourceNumber) {
+		return (TTSpatDBAPSource*)&mSources[aSourceNumber];
+	}
 	
 public:
 		

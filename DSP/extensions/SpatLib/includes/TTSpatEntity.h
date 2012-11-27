@@ -42,7 +42,7 @@ public:
 	
 	/** Destructor.
 	 */
-	~TTSpatEntity();
+	virtual ~TTSpatEntity();
 	
 	
 	/** Get the current position of the point.
