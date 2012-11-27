@@ -39,48 +39,48 @@
 				6659A12714A985CC00D83E3C /* TTSpat.h */,
 				6659A12614A985CC00D83E3C /* TTSpat.cpp */,
 				6659A12414A985CC00D83E3C /* TTSpatLib.cpp */,
-				A7957BED164DA159002E58EF /* include */,
-				A7957BEF164DA15F002E58EF /* source */,
-				A7957BF0164DA164002E58EF /* test */,
+				A7957BED164DA159002E58EF /* Base */,
+				22AD169E1664F8F9002FD7E3 /* Snap */,
+				A7957BEF164DA15F002E58EF /* DBAP */,
 			);
 			name = SpatLib;
 			sourceTree = "<group>";
 		};
-		A7957BED164DA159002E58EF /* include */ = {
+		22AD169E1664F8F9002FD7E3 /* Snap */ = {
 			isa = PBXGroup;
 			children = (
+				660420F414A988C800FEC268 /* TTSpatSnap.h */,
+				22AD16831660642D002FD7E3 /* TTSpatSnapRenderer.h */,
+				660420F714A988D100FEC268 /* TTSpatSnap.cpp */,
+				22AD16811660641A002FD7E3 /* TTSpatSnapRenderer.cpp */,
+				A7957BF1164DA184002E58EF /* TTSpatSnap.test.cpp */,
+			);
+			name = Snap;
+			sourceTree = "<group>";
+		};
+		A7957BED164DA159002E58EF /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A7D89B651659BC97005E9FF9 /* TTSpatEntity.h */,
+				A737BFC31659C726001FC856 /* TTSpatEntity.cpp */,
 				22AD168C16607989002FD7E3 /* TTSpatBase.h */,
+				22AD168D1660799D002FD7E3 /* TTSpatBase.cpp */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		A7957BEF164DA15F002E58EF /* DBAP */ = {
+			isa = PBXGroup;
+			children = (
 				22AD16871660673D002FD7E3 /* TTSpatDBAP.h */,
 				22AD16881660673D002FD7E3 /* TTSpatDBAPRenderer.h */,
 				22AD168B16606F77002FD7E3 /* TTSpatDBAPSource.h */,
-				660420F414A988C800FEC268 /* TTSpatSnap.h */,
-				22AD16831660642D002FD7E3 /* TTSpatSnapRenderer.h */,
-				A7D89B651659BC97005E9FF9 /* TTSpatEntity.h */,
-			);
-			name = include;
-			sourceTree = "<group>";
-		};
-		A7957BEF164DA15F002E58EF /* source */ = {
-			isa = PBXGroup;
-			children = (
-				22AD168D1660799D002FD7E3 /* TTSpatBase.cpp */,
 				22AD168516606716002FD7E3 /* TTSpatDBAP.cpp */,
 				22AD168616606716002FD7E3 /* TTSpatDBAPRenderer.cpp */,
 				22AD168A16606F62002FD7E3 /* TTSpatDBAPSource.cpp */,
-				660420F714A988D100FEC268 /* TTSpatSnap.cpp */,
-				22AD16811660641A002FD7E3 /* TTSpatSnapRenderer.cpp */,
-				A737BFC31659C726001FC856 /* TTSpatEntity.cpp */,
-			);
-			name = source;
-			sourceTree = "<group>";
-		};
-		A7957BF0164DA164002E58EF /* test */ = {
-			isa = PBXGroup;
-			children = (
 				22AD168916606C18002FD7E3 /* TTSpatDBAP.test.cpp */,
-				A7957BF1164DA184002E58EF /* TTSpatSnap.test.cpp */,
 			);
-			name = test;
+			name = DBAP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
