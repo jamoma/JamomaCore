@@ -22,12 +22,12 @@
 
 TT_AUDIO_CONSTRUCTOR
 {
-	;
+	mRenderer = new TTSpatSnapRenderer;
 }
 
 
 TTSpatSnap::~TTSpatSnap()
 {
-	
+	delete mRenderer;
 }
 

@@ -19,6 +19,8 @@
 		22AD168B16606F77002FD7E3 /* TTSpatDBAPSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatDBAPSource.h; path = includes/TTSpatDBAPSource.h; sourceTree = "<group>"; };
 		22AD168C16607989002FD7E3 /* TTSpatBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatBase.h; path = includes/TTSpatBase.h; sourceTree = "<group>"; };
 		22AD168D1660799D002FD7E3 /* TTSpatBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatBase.cpp; path = source/TTSpatBase.cpp; sourceTree = "<group>"; };
+		22AD16A01664FE80002FD7E3 /* TTSpatBaseRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatBaseRenderer.cpp; path = source/TTSpatBaseRenderer.cpp; sourceTree = "<group>"; };
+		22AD16A11664FE98002FD7E3 /* TTSpatBaseRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatBaseRenderer.h; path = includes/TTSpatBaseRenderer.h; sourceTree = "<group>"; };
 		660420F414A988C800FEC268 /* TTSpatSnap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSpatSnap.h; path = includes/TTSpatSnap.h; sourceTree = "<group>"; };
 		660420F714A988D100FEC268 /* TTSpatSnap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatSnap.cpp; path = source/TTSpatSnap.cpp; sourceTree = "<group>"; };
 		6659A12414A985CC00D83E3C /* TTSpatLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSpatLib.cpp; sourceTree = "<group>"; };
@@ -65,6 +67,8 @@
 				A737BFC31659C726001FC856 /* TTSpatEntity.cpp */,
 				22AD168C16607989002FD7E3 /* TTSpatBase.h */,
 				22AD168D1660799D002FD7E3 /* TTSpatBase.cpp */,
+				22AD16A11664FE98002FD7E3 /* TTSpatBaseRenderer.h */,
+				22AD16A01664FE80002FD7E3 /* TTSpatBaseRenderer.cpp */,
 			);
 			name = Base;
 			sourceTree = "<group>";

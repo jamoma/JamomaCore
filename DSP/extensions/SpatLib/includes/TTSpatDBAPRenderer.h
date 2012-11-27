@@ -22,11 +22,13 @@
 #include "TTDSP.h"
 #include "TTSampleMatrix.h"
 #include "TTSpatEntity.h"
+#include "TTSpatBaseRenderer.h"
 #include "TTSpatDBAPSource.h"
+
 
 /** TTSpatDBAPRenderer contains attributes and methods that are specific to this particular spatialisation renderer.
  */
-class TTSpatDBAPRenderer {
+class TTSpatDBAPRenderer : public TTSpatBaseRenderer {
 	
 public:
 	
@@ -48,15 +50,8 @@ public:
 	 @param sources						A vector of sources
 	 @param sinks						A vector of sinks
 	 */
-	void recalculateMatrixCoefficients(TTSpatDBAPSourceVector& aSources, TTSpatSinkVector& aSinks);
-	
-	/**	A standard audio processing method as used by Jamoma DSP objects.
-	 @param inputs						Incomming audio signals to process from sound sources.
-	 @param outputs						Processed audio signals passed to the sinks.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr processAudio(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs);
-	
+	void recalculateMatrixCoefficients(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks);
+		
 	
 	// TODO: make these accessors non-inlined
 	TTFloat64 getRolloff()

@@ -17,9 +17,9 @@
 #include "TTSpatEntity.h"
 
 TTSpatEntity::TTSpatEntity() :
-	mPosition(0.0, 0.0, 0.0),
-	mOrientation(0.0, 0.0, 0.0, 0.0),
-	mData(0.0, 0.0, 0.0, 0.0)
+	mPosition{0.0, 0.0, 0.0},
+	mOrientation{0.0, 0.0, 0.0, 0.0},
+	mData{0.0, 0.0, 0.0, 0.0}
 {
 	;
 }

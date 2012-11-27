@@ -37,7 +37,7 @@ The following are development notes while developing TTSpatDBAP starting of from
 
 #include "TTDSP.h"
 #include "TTSampleMatrix.h"
-#include "TTSpatEntity.h"
+#include "TTSpatBase.h"
 #include "TTSpatDBAPRenderer.h"
 #include "TTSpatDBAPSource.h"
 
@@ -49,127 +49,11 @@ The following are development notes while developing TTSpatDBAP starting of from
  * DBAP is matrix-based and ensures equal intensity while adjusting gains to each of the sinks in such a way that relative gain diminish with increasing distance from source to sink.
  * The exact rolloff rate (in dB) can be controlled with the rolloff attribute of the #TTSpatDBAPRenderer class.
  */
-class TTSpatDBAP : TTAudioObject {
+class TTSpatDBAP : TTSpatBase {
 	TTCLASS_SETUP(TTSpatDBAP)
 	
-	TTSpatDBAPSourceVector	mSources;		///< A vector describing the geometry of the sources
-	TTSpatSinkVector		mSinks;			///< A vector describing the geometry of the sinks (e.g., speakers)
-	TTSpatDBAPRenderer		mRenderer;		///< The actual spatial renderer for this class
-
-	
-	/**	A standard audio processing method as used by Jamoma DSP objects.
-	 @param inputs						Incomming audio signals to process from sound sources.
-	 @param outputs						Processed audio signals passed to the sinks.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr processAudio(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs);
-
-	
-	/**	Unit Tests.
-	 @param aReturnedTestInfo			Information on the outcome of the tests.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	virtual TTErr test(TTValue& aReturnedTestInfo);
-	
-	
 public:
-	
-	/** Get the number of sources.
-	 @param aValue						Used to return the number of sources.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr getSourceCount(TTValue& aValue);
-	
-	
-	/** Set the number of sources.
-	 @param aValue						The desired number of sources.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr setSourceCount(const TTValue& aValue);
-	
-	
-	/** Get the number of sinks.
-	 @param aValue						Used to return the number of sinks.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr getSinkCount(TTValue& aValue);
-	
-	
-	/** Set the number of sinks.
-	 @param aValue						The desired number of sinks.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr setSinkCount(const TTValue& aValue);
-	
-	
-	/** Get the position of one source.
-	 @param aSourceNumber				The source (counting from 1) that we want to query the position of.
-	 @param aX							Cartesian x-coordinate of the position.
-	 @param aY							Cartesian y-coordinate of the position.
-	 @param aZ							Cartesian z-coordinate of the position.
-	 */
-	void getOneSourcePosition(TTInt32 aSourceNumber, TTFloat64& aX, TTFloat64& aY, TTFloat64& aZ);
-	
-	
-	/** Get the position of one source.
-	 @param requestedChannel			The channel (counting from 1) that we want to query the position of.
-	 @param aPosition					Used to return the position.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr getSourcePosition(const TTValue& aRequestedChannel, TTValue& aPosition);
-	
-	
-	/** Set the position of one source.
-	 @param aSourceNumber				The source (counting from 1) that we want to set the position of.
-	 @param aX							Cartesian x-coordinate of the position.
-	 @param aY							Cartesian y-coordinate of the position.
-	 @param aZ							Cartesian z-coordinate of the position.
-	 */
-	void setOneSourcePosition(TTInt32 aSourceNumber, TTFloat64 aX, TTFloat64 aY, TTFloat64 aZ);
-
-	
-	/** Get the position of one source.
-	 @param requestedChannel			The channel (counting from 1) that we want to set the position of.
-	 @param aPosition					Used to return the position.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr setSourcePosition(const TTValue& aPosition, TTValue& anUnused);
-	
-	
-	/** Get the position of one sink.
-	 @param aSourceNumber				The sink (counting from 1) that we want to query the position of.
-	 @param aX							Cartesian x-coordinate of the position.
-	 @param aY							Cartesian y-coordinate of the position.
-	 @param aZ							Cartesian z-coordinate of the position.
-	 */
-	void getOneSinkPosition(TTInt32 aSinkNumber, TTFloat64& aX, TTFloat64& aY, TTFloat64& aZ);
-	
-	
-	/** Get the position of one sink.
-	 @param aRequestedChannel			The channel (counting from 1) that we want to query the position of.
-	 @param aPosition					Used to return the position.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr getSinkPosition(const TTValue& aRequestedChannel, TTValue& aPosition);
-
-	
-	/** Set the position of one sink.
-	 @param sourceNumber				The sink (counting from 1) that we want to set the position of.
-	 @param aX							Cartesian x-coordinate of the position.
-	 @param aY							Cartesian y-coordinate of the position.
-	 @param aZ							Cartesian z-coordinate of the position.
-	 */
-	void setOneSinkPosition(TTInt32 aSinkNumber, TTFloat64 aX, TTFloat64 aY, TTFloat64 aZ);
-	
-	
-	/** Set the position of one sink.
-	 @param aRequestedChannel			The channel (counting from 1) that we want to set the position of.
-	 @param aPosition					Used to return the position.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr setSinkPosition(const TTValue& aPosition, TTValue& anUnused);
-
-	
+		
 	/** TODO: document
 	 @param aValue						Used to return the number of sinks.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
@@ -188,6 +72,13 @@ public:
 	TTErr setSourceWidth(const TTValue& aWidth, TTValue& anUnused);
 	TTErr getSourceWidth(const TTValue& aRequestedChannel, TTValue& aWidth);
 
+	
+	/**	Unit Tests.
+	 @param aReturnedTestInfo			Information on the outcome of the tests.
+	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& aReturnedTestInfo);
+	
 };
 
 

@@ -46,7 +46,7 @@ TTSpatBase::~TTSpatBase()
 
 TTErr TTSpatBase::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	return mRenderer.processAudio(inputs, outputs);
+	return mRenderer->processAudio(inputs, outputs);
 }
 
 
@@ -64,7 +64,7 @@ TTErr TTSpatBase::setSourceCount(const TTValue& value)
 		
 	TTLimitMin<TTInt32>(number, 1);
 	mSources.resize(number);
-	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
+	mRenderer->recalculateMatrixCoefficients(mSources, mSinks);
 	return kTTErrNone;
 }
 
@@ -82,7 +82,7 @@ TTErr TTSpatBase::setSinkCount(const TTValue& value)
 	
 	TTLimitMin<TTInt32>(number, 1);
 	mSinks.resize(number);
-	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
+	mRenderer->recalculateMatrixCoefficients(mSources, mSinks);
 	return kTTErrNone;
 }
 
@@ -127,7 +127,7 @@ void TTSpatBase::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat
 	source = TTClip<TTInt32>(source, 0, mSources.size()-1);
 	
 	mSources[source].setPosition(x, y, z);
-	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
+	mRenderer->recalculateMatrixCoefficients(mSources, mSinks);
 }
 
 TTErr TTSpatBase::setSourcePosition(const TTValue& aPosition, TTValue& unused)
@@ -155,7 +155,7 @@ void TTSpatBase::getOneSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64&
 	sink = TTClip<TTInt32>(sink, 0, mSinks.size()-1);
 	
 	mSinks[sink].getPosition(x, y, z);
-	mRenderer.recalculateMatrixCoefficients(mSources, mSinks);
+	mRenderer->recalculateMatrixCoefficients(mSources, mSinks);
 }
 
 

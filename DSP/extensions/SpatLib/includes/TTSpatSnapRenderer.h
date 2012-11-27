@@ -22,14 +22,14 @@
 #include "TTDSP.h"
 #include "TTSampleMatrix.h"
 #include "TTSpatEntity.h"
+#include "TTSpatBaseRenderer.h"
+
 
 /** TTSpatSnapRenderer contains attributes and methods that are specific to this particular spatialisation renderer.
  */
-class TTSpatSnapRenderer {
+class TTSpatSnapRenderer : public TTSpatBaseRenderer {
 	
 public:
-	
-	TTSampleMatrixPtr mMixerMatrixCoefficients;			///< A matrix holding all coefficient for matrix-based mixing of sources to sinks.
 	
 	/** Constructor
 	 */
@@ -40,20 +40,14 @@ public:
 	 */
 	~TTSpatSnapRenderer();
 	
+	
 	/** This method is called whenever matrix coefficients need to be updated.
 	 @details This method also takes care of matrix resizing if the number of sources or sinks change.
 	 @param sources						A vector of sources
 	 @param sinks						A vector of sinks
 	 */
 	void recalculateMatrixCoefficients(TTSpatSourceVector& sources, TTSpatSinkVector& sinks);
-	
-	/**	A standard audio processing method as used by Jamoma DSP objects.
-	 @param inputs						Incomming audio signals to process from sound sources.
-	 @param outputs						Processed audio signals passed to the sinks.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-		
+			
 };
 
 

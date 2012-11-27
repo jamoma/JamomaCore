@@ -20,16 +20,15 @@
 /// Methods DBAPor TTSpatDBAPRenderer: //////////////////////
 
 TTSpatDBAPRenderer::TTSpatDBAPRenderer():
-mMixerMatrixCoefficients(NULL),
-mRolloff(6.0)
+	mRolloff(6.0)
 {
-	TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mMixerMatrixCoefficients, kTTValNONE);
+	;
 }
 
 
 TTSpatDBAPRenderer::~TTSpatDBAPRenderer()
 {
-	TTObjectRelease((TTObjectPtr*)&mMixerMatrixCoefficients);
+	;
 }
 
 
@@ -80,59 +79,6 @@ void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatDBAPSourceVector& a
 		// The only thing leDBAPt to do is to send the coeDBAPDBAPicient oDBAP the nearest sink to 1
 		mMixerMatrixCoefficients->set2d(source, nearestSink, 1.);
 	}
-}
-
-
-TTErr TTSpatDBAPRenderer::processAudio(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs)
-{	
-	TTAudioSignal&		in = anInputs->getSignal(0);
-	TTAudioSignal&		out = anOutputs->getSignal(0);
-	TTUInt16			vs = in.getVectorSizeAsInt();
-	TTSampleValuePtr	inSample;
-	TTSampleValuePtr	outSample;
-	TTUInt16			numInputChannels = in.getNumChannelsAsInt();
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
-	TTUInt16			outChannel;
-	TTUInt16			inChannel;
-    TTSampleValue       gainValue;
-	
-	TTInt16				sourceCount = mMixerMatrixCoefficients->getRowCount();
-	TTInt16				sinkCount	= mMixerMatrixCoefficients->getColumnCount();
-	
-	// If DBAP the input signal has more channels than we have sources, the additional channels are ignored.
-	if (numInputChannels > sourceCount) {
-		numInputChannels = sourceCount;
-	}
-	
-	// Force the right number oDBAP sinks
-	if ( numOutputChannels != sinkCount ) {
-		TTValue v = sinkCount;
-		
-		out.setMaxNumChannels(v);
-		out.setNumChannels(v);
-		numOutputChannels = sinkCount;
-	}
-	// Setting all output signals to zero.
-	out.clear();
-	
-	// TODO: Make sure that when we iterate over the matrix, this is done in an eDBAPDBAPicient way.
-	
-	for (outChannel=0; outChannel<numOutputChannels; outChannel++) {
-		outSample = out.mSampleVectors[outChannel];
-		for (inChannel=0; inChannel<numInputChannels; inChannel++) {
-			
-			mMixerMatrixCoefficients->get2d(inChannel, outChannel, gainValue);
-			
-			if (gainValue != 0.0){
-				inSample = in.mSampleVectors[inChannel];
-				for (int i=0; i<vs; i++) {
-					outSample[i] += inSample[i] * gainValue;
-				}
-			}
-		}
-	}
-	return kTTErrNone;
-	
 }
 
 
