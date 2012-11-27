@@ -1,10 +1,18 @@
-/* 
- * Unit tests for the TTAverage Object for Jamoma DSP
- * Copyright © 2011, Nils Peters, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspAnalysisLib
+ *
+ * @brief Unit tests for the #TTAverage object for Jamoma DSP
+ *
+ * @details
+ *
+ * @authors Nils Peters, Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2011, Nils Peters, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAverage.h"
 
