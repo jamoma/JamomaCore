@@ -83,6 +83,8 @@
 		22C57CBD15EC2A4400B755FA /* TTUnitTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTUnitTest.cpp; path = ../../Foundation/library/source/TTUnitTest.cpp; sourceTree = "<group>"; };
 		22C57CBE15EC2A4400B755FA /* TTValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = ../../Foundation/library/source/TTValue.cpp; sourceTree = "<group>"; };
 		22C57CBF15EC2A4400B755FA /* TTValueCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = ../../Foundation/library/source/TTValueCache.cpp; sourceTree = "<group>"; };
+		A76CD1CB166479BD0002EC35 /* TTAudioObjectArray.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObjectArray.test.cpp; path = tests/TTAudioObjectArray.test.cpp; sourceTree = "<group>"; };
+		A76CD1CD166479F20002EC35 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		A79EEBE11653E09100E9B742 /* JamomaDSP.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaDSP.yml; sourceTree = "<group>"; };
 		A79EEBE21653E0AA00E9B742 /* TTBluePrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTBluePrefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				A79EEBE11653E09100E9B742 /* JamomaDSP.yml */,
+				A76CD1CD166479F20002EC35 /* Makefile */,
 				A79EEBE21653E0AA00E9B742 /* TTBluePrefix.pch */,
 				22C57C8615EC2A1100B755FA /* Foundation */,
 				22C57C8515EC29FF00B755FA /* DSP */,
@@ -205,6 +208,7 @@
 		A752BBE316373BCC007CE627 /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				A76CD1CB166479BD0002EC35 /* TTAudioObjectArray.test.cpp */,
 				22C57C7E15EC21D100B755FA /* TTBuffer.test.cpp */,
 				22C57C7F15EC21D100B755FA /* TTDelay.test.cpp */,
 				22C57C8015EC21D100B755FA /* TTSampleMatrix.test.cpp */,

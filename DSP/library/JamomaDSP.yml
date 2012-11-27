@@ -9,6 +9,7 @@ sources:
   - source/TTSampleMatrix.cpp
   - source/TTDelay.cpp
   - source/TTDSP.cpp
+  - tests/TTAudioObjectArray.test.cpp
   - tests/TTBuffer.test.cpp
   - tests/TTDelay.test.cpp
   - tests/TTSampleMatrix.test.cpp
