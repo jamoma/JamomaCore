@@ -27,8 +27,7 @@ class TTSpatEntity {
 	// TODO: convert names to mPosition and mOrientation
 	TTFloat64 mPosition[3];		///< Position as Cartesian coordinates
 	TTFloat64 mOrientation[4];	///< The orientation of the object using Euler coordinates
-	
-	// ( We wish to keep the width so that the state could be maintained when switching algorithms )
+	TTFloat64 mData[4];			///< Storage for up to 4 values that can be used by subclasses
 	
 protected:
 	

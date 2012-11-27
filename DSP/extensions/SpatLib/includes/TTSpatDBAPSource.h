@@ -23,25 +23,17 @@
 
 class TTSpatDBAPSource : public TTSpatSource {
 	
-	TTFloat64 mWidth;			///< Width may be expressed in different ways?  Typically a normalized coefficient (0.0 to 1.0)
-	
 public:
 	
 	TTSpatDBAPSource();
 	~TTSpatDBAPSource();
 	
-	/** Get the current position of the point.
-	 @param x				Cartesian x-coordinate of the point.
-	 @param y				Cartesian y-coordinate of the point.
-	 @param z				Cartesian z-coordinate of the point.
+	/** Width may be expressed in different ways?  Typically a normalized coefficient (0.0 to 1.0)
 	 */
 	void getWidth(TTFloat64& aWidth);
 	
 	
-	/** Set the position of the point.
-	 @param x				Cartesian x-coordinate of the point.
-	 @param y				Cartesian y-coordinate of the point.
-	 @param z				Cartesian z-coordinate of the point.
+	/** Width may be expressed in different ways?  Typically a normalized coefficient (0.0 to 1.0)
 	 */
 	void setWidth(TTFloat64 aWidth);
 	

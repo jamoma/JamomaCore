@@ -17,7 +17,6 @@
 #include "TTSpatDBAPSource.h"
 
 TTSpatDBAPSource::TTSpatDBAPSource()
-: mWidth(0.0)
 {
 	;
 }
@@ -31,12 +30,12 @@ TTSpatDBAPSource::~TTSpatDBAPSource()
 
 void TTSpatDBAPSource::getWidth(TTFloat64& aWidth)
 {
-	aWidth = mWidth;
+	aWidth = mData[0];
 }
 
 
 void TTSpatDBAPSource::setWidth(TTFloat64 aWidth)
 {
-	mWidth = aWidth;
+	mData[0] = aWidth;
 }
 

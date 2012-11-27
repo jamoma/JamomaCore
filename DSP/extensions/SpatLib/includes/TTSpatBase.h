@@ -22,7 +22,7 @@
 #include "TTDSP.h"
 #include "TTSampleMatrix.h"
 #include "TTSpatEntity.h"
-#include "TTSpatBaseRenderer.h"
+//#include "TTSpatBaseRenderer.h"
 
 
 /**	This class is eventually intended to provide a generalised interface for spatial renderers.
@@ -36,7 +36,7 @@ class TTSpatBase : TTAudioObject {
 	
 	TTSpatSourceVector	mSources;		///< A vector describing the geometry of the sources
 	TTSpatSinkVector	mSinks;			///< A vector describing the geometry of the sinks (e.g., speakers)
-	TTSpatBaseRenderer	mRenderer;		///< The actual spatial renderer for this class
+//	TTSpatBaseRenderer	mRenderer;		///< The actual spatial renderer for this class
 
 	
 	/**	A standard audio processing method as used by TTBlue objects.

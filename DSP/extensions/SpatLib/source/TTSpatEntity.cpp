@@ -16,16 +16,12 @@
 
 #include "TTSpatEntity.h"
 
-TTSpatEntity::TTSpatEntity()
+TTSpatEntity::TTSpatEntity() :
+	mPosition(0.0, 0.0, 0.0),
+	mOrientation(0.0, 0.0, 0.0, 0.0),
+	mData(0.0, 0.0, 0.0, 0.0)
 {
-	mPosition[0] = 0.0;
-	mPosition[1] = 0.0;
-	mPosition[2] = 0.0;
-	
-	mOrientation[0] = 0.0;
-	mOrientation[1] = 0.0;
-	mOrientation[2] = 0.0;
-	mOrientation[2] = 0.0;
+	;
 }
 
 

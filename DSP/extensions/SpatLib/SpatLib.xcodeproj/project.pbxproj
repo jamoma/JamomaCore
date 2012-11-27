@@ -50,8 +50,8 @@
 			isa = PBXGroup;
 			children = (
 				660420F414A988C800FEC268 /* TTSpatSnap.h */,
-				22AD16831660642D002FD7E3 /* TTSpatSnapRenderer.h */,
 				660420F714A988D100FEC268 /* TTSpatSnap.cpp */,
+				22AD16831660642D002FD7E3 /* TTSpatSnapRenderer.h */,
 				22AD16811660641A002FD7E3 /* TTSpatSnapRenderer.cpp */,
 				A7957BF1164DA184002E58EF /* TTSpatSnap.test.cpp */,
 			);
@@ -73,11 +73,11 @@
 			isa = PBXGroup;
 			children = (
 				22AD16871660673D002FD7E3 /* TTSpatDBAP.h */,
-				22AD16881660673D002FD7E3 /* TTSpatDBAPRenderer.h */,
-				22AD168B16606F77002FD7E3 /* TTSpatDBAPSource.h */,
 				22AD168516606716002FD7E3 /* TTSpatDBAP.cpp */,
-				22AD168616606716002FD7E3 /* TTSpatDBAPRenderer.cpp */,
+				22AD168B16606F77002FD7E3 /* TTSpatDBAPSource.h */,
 				22AD168A16606F62002FD7E3 /* TTSpatDBAPSource.cpp */,
+				22AD16881660673D002FD7E3 /* TTSpatDBAPRenderer.h */,
+				22AD168616606716002FD7E3 /* TTSpatDBAPRenderer.cpp */,
 				22AD168916606C18002FD7E3 /* TTSpatDBAP.test.cpp */,
 			);
 			name = DBAP;
