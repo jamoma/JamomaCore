@@ -66,6 +66,7 @@ sources:
   - source/TTAddressItem.cpp
   - source/TTNodeDirectory.cpp
   - tests/TTNodeLib.test.cpp
+  - tests/TTInterpolate.test.cpp
 #  - win source/TTNodeLib.cpp
 #  - win source/TTNode.cpp
 #  - win source/TTAddress.cpp

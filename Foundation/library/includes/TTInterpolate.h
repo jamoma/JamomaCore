@@ -17,6 +17,7 @@
 #ifndef __TT_INTERPOLATE_H__
 #define __TT_INTERPOLATE_H__
 
+#include "TTBase.h"
 
 /** Isolate the fractional part from a double.
 	Essentially wraps the <a href="http://www.cplusplus.com/reference/clibrary/cmath/modf/">modf()</a> function, but protects Jamoma in case it ever prooves uneven in implementation. NW: FAILS TO BUILD but Xcode can't find error.
@@ -31,20 +32,20 @@ double TTSplitFractional(double& aa)
 */
 
 /** Linear interpolation.
-	@param x	Sample value at prior integer index
-	@param y	Sample value at next integer index
-	@param a 	Fractional location between x (0) and y (1)
-	@return 	The interpolated value.
+	@param x0		Sample value at prior integer index
+	@param x1		Sample value at next integer index
+	@param delta 	Linear interpolation between x0 (delta=0) and x1 (delta=1)
+	@return			The interpolated value.
 	
-	@seealso	TTInterpolateCosine	
-	@seealso	TTInterpolateCubic	
-	@seealso	TTInterpolateSpline	
-	@seealso	TTInterpolateHermite
+	@seealso		TTInterpolateCosine
+	@seealso		TTInterpolateCubic
+	@seealso		TTInterpolateSpline
+	@seealso		TTInterpolateHermite
 */
 template<class T>
-T TTInterpolateLinear(const T& x, const T& y, const double& a)
+T TTInterpolateLinear(const T& x0, const T& x1, const double& delta)
 {
-	return x + a * (y-x);
+	return x0 + delta * (x1-x0);
 }
 
 
@@ -68,26 +69,26 @@ T TTInterpolateCosine(const T& x, const T& y, const double& a)
 
 
 /** Cubic interpolation 
-	@param w	Sample value at integer index prior to x
-	@param x	Sample value at prior integer index
-	@param y	Sample value at next integer index
-	@param z	Sample value at integer index after y
-	@param a	Fractional location between x (0) and y (1)
-	@return		The interpolated value.
+	@param w		Sample value at integer index prior to x
+	@param x		Sample value at prior integer index
+	@param y		Sample value at next integer index
+	@param z		Sample value at integer index after y
+	@param aDelta	Fractional location between x (0) and y (1)
+	@return			The interpolated value.
 	
-	@seealso	TTInterpolateLinear	
-	@seealso	TTInterpolateCosine	
-	@seealso	TTInterpolateHermite
-	@seealso	TTInterpolateSpline	
+	@seealso		TTInterpolateLinear
+	@seealso		TTInterpolateCosine
+	@seealso		TTInterpolateHermite
+	@seealso		TTInterpolateSpline	
 */
 template<class T>
-T TTInterpolateCubic(const T& w, const T& x, const T& y, const T& z, const double& a)
+T TTInterpolateCubic(const T& w, const T& x, const T& y, const T& z, const double& aDelta)
 {
-	T a2 = a*a;
+	T deltaSqr = aDelta*aDelta;
 	T f0 = z - y - w + x;
 	T f1 = w - x - f0;
 	T f2 = y - w;
-	return f0*a*a2 + f1*a2 + f2*a + x;
+	return f0*aDelta*deltaSqr + f1*deltaSqr + f2*aDelta + x;
 }
 
 
