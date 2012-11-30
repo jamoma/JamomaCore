@@ -69,11 +69,11 @@ T TTInterpolateCosine(const T& x, const T& y, const double& a)
 
 
 /** Cubic interpolation 
-	@param w		Sample value at integer index prior to x
-	@param x		Sample value at prior integer index
-	@param y		Sample value at next integer index
-	@param z		Sample value at integer index after y
-	@param aDelta	Fractional location between x (0) and y (1)
+	@param x0		Sample value at integer index prior to x0
+	@param x1		Sample value at prior integer index
+	@param x2		Sample value at next integer index
+	@param x3		Sample value at integer index after x2
+	@param aDelta	Fractional location between x1 (0) and x2 (1)
 	@return			The interpolated value.
 	
 	@seealso		TTInterpolateLinear
@@ -82,13 +82,13 @@ T TTInterpolateCosine(const T& x, const T& y, const double& a)
 	@seealso		TTInterpolateSpline	
 */
 template<class T>
-T TTInterpolateCubic(const T& w, const T& x, const T& y, const T& z, const double& aDelta)
+T TTInterpolateCubic(const T& x0, const T& x1, const T& x2, const T& x3, const double& aDelta)
 {
 	T deltaSqr = aDelta*aDelta;
-	T f0 = z - y - w + x;
-	T f1 = w - x - f0;
-	T f2 = y - w;
-	return f0*aDelta*deltaSqr + f1*deltaSqr + f2*aDelta + x;
+	T f0 = x3 - x2 - x0 + x1;
+	T f1 = x0 - x1 - f0;
+	T f2 = x2 - x0;
+	return f0*aDelta*deltaSqr + f1*deltaSqr + f2*aDelta + x1;
 }
 
 
