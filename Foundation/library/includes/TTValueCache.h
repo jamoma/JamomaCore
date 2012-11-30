@@ -1,10 +1,18 @@
-/* 
- * TTBlue Class for caching common values for speed
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationLibrary
+ *
+ * @brief Jamoma Foundation : Caching common values for speed
+ *
+ * @details
+ *
+ * @authors Tim Place, Théo de la Hogue, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_VALUE_CACHE_H__
 #define __TT_VALUE_CACHE_H__
