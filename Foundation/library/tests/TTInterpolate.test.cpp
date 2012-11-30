@@ -59,6 +59,40 @@ void TestLinear(int& errorCount, int&testAssertionCount)
 }
 
 
+
+TTFloat64 InterpolateAndTestCosine(const TTFloat64 x0, const TTFloat64 x1, const TTFloat64& delta, TTFloat64 expectedValue)
+{
+	TTFloat64 interpolatedValue = TTInterpolateCosine(x0, x1, delta);
+	TTBoolean result = TTTestFloatEquivalence(interpolatedValue , expectedValue);
+	if (!result)
+		TTTestLog("BAD INTERPOLATION @ delta=%.5f  ( value=%.10f   expected=%.10f )", delta, interpolatedValue, expectedValue);
+	return result;
+}
+
+
+void TestCosine(int& errorCount, int&testAssertionCount)
+{
+	int			badSampleCount = 0;
+	
+	TTFloat64	x0 =  3.0;
+	TTFloat64	x1 = -1.0;
+	
+	TTTestLog("");
+	TTTestLog("Testing cosine interpolation");
+	
+	badSampleCount += !InterpolateAndTestCosine(x0, x1, 0.00,     3.0);
+	badSampleCount += !InterpolateAndTestCosine(x0, x1, (1./3.),  2.0);
+	badSampleCount += !InterpolateAndTestCosine(x0, x1, 0.50,     1.0);
+	badSampleCount += !InterpolateAndTestCosine(x0, x1, (2./3.),  0.0);
+	badSampleCount += !InterpolateAndTestCosine(x0, x1, 1.00,    -1.0);
+	
+	TTTestAssertion("Produces expected results with linear interpolation",
+					badSampleCount == 0,
+					testAssertionCount,
+					errorCount);
+}
+
+
 TTFloat64 InterpolateAndTestCubic(const TTFloat64 x0, const TTFloat64 x1, const TTFloat64 x2, const TTFloat64 x3, const TTFloat64& delta, TTFloat64 expectedValue)
 {
 	TTFloat64 interpolatedValue = TTInterpolateCubic(x0, x1, x2, x3, delta);
@@ -112,6 +146,7 @@ TTErr TTInterpolateTest::test(TTValue& returnedTestInfo)
 	int testAssertionCount = 0;
 	
 	TestLinear(errorCount, testAssertionCount);
+	TestCosine(errorCount, testAssertionCount);
 	TestCubic(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
