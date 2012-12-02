@@ -32,15 +32,15 @@ double TTSplitFractional(double& aa)
 */
 
 /** Linear interpolation.
-	@param x0		Sample value at prior integer index
-	@param x1		Sample value at next integer index
-	@param delta 	Linear interpolation between x0 (delta=0) and x1 (delta=1)
-	@return			The interpolated value.
-	
-	@seealso		TTInterpolateCosine
-	@seealso		TTInterpolateCubic
-	@seealso		TTInterpolateSpline
-	@seealso		TTInterpolateHermite
+ @param x0		Sample value at prior integer index
+ @param x1		Sample value at next integer index
+ @param delta 	Linear interpolation between x0 (delta=0) and x1 (delta=1)
+ @return			The interpolated value.
+ 
+ @seealso		TTInterpolateCosine
+ @seealso		TTInterpolateCubic
+ @seealso		TTInterpolateSpline
+ @seealso		TTInterpolateHermite
 */
 template<class T>
 T TTInterpolateLinear(const T& x0, const T& x1, const double& delta)
@@ -69,41 +69,42 @@ T TTInterpolateCosine(const T& x, const T& y, const double& a)
 
 
 /** Cubic interpolation 
-	@param x0		Sample value at integer index prior to x0
-	@param x1		Sample value at prior integer index
-	@param x2		Sample value at next integer index
-	@param x3		Sample value at integer index after x2
-	@param aDelta	Fractional location between x1 (0) and x2 (1)
-	@return			The interpolated value.
+ @param x0		Sample value at integer index prior to x0
+ @param x1		Sample value at prior integer index
+ @param x2		Sample value at next integer index
+ @param x3		Sample value at integer index after x2
+ @param aDelta	Fractional location where we want to do the interpolation. @n
+				aDelta = 0 => interpolatedeValue = x1 @n
+				aDelta = 1 => interpolatedeValue = x2
+ @return			The interpolated value.
 	
-	@seealso		TTInterpolateLinear
-	@seealso		TTInterpolateCosine
-	@seealso		TTInterpolateHermite
-	@seealso		TTInterpolateSpline	
+ @seealso		TTInterpolateLinear
+ @seealso		TTInterpolateCosine
+ @seealso		TTInterpolateHermite
+ @seealso		TTInterpolateSpline
 */
 template<class T>
 T TTInterpolateCubic(const T& x0, const T& x1, const T& x2, const T& x3, const double& aDelta)
 {
-	T deltaSqr = aDelta*aDelta;
 	T f0 = x3 - x2 - x0 + x1;
 	T f1 = x0 - x1 - f0;
 	T f2 = x2 - x0;
-	return f0*aDelta*deltaSqr + f1*deltaSqr + f2*aDelta + x1;
+	return ((f0*aDelta + f1)*aDelta + f2)*aDelta + x1;
 }
 
 
 /** Spline interpolation based on the Breeuwsma catmull-rom spline 
-	@param w	Sample value at integer index prior to x
-	@param x	Sample value at prior integer index
-	@param y	Sample value at next integer index
-	@param z	Sample value at integer index after y
-	@param a	Fractional location between x (0) and y (1)
-	@return		The interpolated value.
+ @param w	Sample value at integer index prior to x
+ @param x	Sample value at prior integer index
+ @param y	Sample value at next integer index
+ @param z	Sample value at integer index after y
+ @param a	Fractional location between x (0) and y (1)
+ @return		The interpolated value.
 	
-	@seealso	TTInterpolateLinear	
-	@seealso	TTInterpolateCosine	
-	@seealso	TTInterpolateCubic	
-	@seealso	TTInterpolateHermite
+ @seealso	TTInterpolateLinear
+ @seealso	TTInterpolateCosine
+ @seealso	TTInterpolateCubic
+ @seealso	TTInterpolateHermite
 */
 template<class T>
 T TTInterpolateSpline(const T& w, const T& x, const T& y, const T& z, const double& a)
@@ -117,17 +118,17 @@ T TTInterpolateSpline(const T& w, const T& x, const T& y, const T& z, const doub
 
 
 /** Hermite interpolation 
-	@param w	Sample value at integer index prior to x
-	@param x	Sample value at prior integer index
-	@param y	Sample value at next integer index
-	@param z	Sample value at integer index after y
-	@param a	Fractional location between x (0) and y (1)
-	@return		The interpolated value.
+ @param w	Sample value at integer index prior to x
+ @param x	Sample value at prior integer index
+ @param y	Sample value at next integer index
+ @param z	Sample value at integer index after y
+ @param a	Fractional location between x (0) and y (1)
+ @return		The interpolated value.
 
-	@seealso	TTInterpolateLinear	
-	@seealso	TTInterpolateCosine	
-	@seealso	TTInterpolateCubic	
-	@seealso	TTInterpolateSpline	
+ @seealso	TTInterpolateLinear
+ @seealso	TTInterpolateCosine
+ @seealso	TTInterpolateCubic
+ @seealso	TTInterpolateSpline
 */
 template<class T>
 T TTInterpolateHermite(const T& w, const T& x, const T& y, const T& z, const double& a, const double& bias, const double& tension)
