@@ -2,7 +2,11 @@
  *
  * @ingroup foundationLibrary
  *
+<<<<<<< HEAD
  * @brief #TTInterpolateTest is an object used for unit tests of interpolation algorithms
+=======
+ * @brief #TTInterpolateTest is an class used for unit tests of the interpolation algorithms in #TTInterpolate.h.
+>>>>>>> master
  *
  * @details
  *
@@ -22,7 +26,12 @@
 /**	Provide unit tests for #TTInterpolate */
 class TTInterpolateTest : public TTDataObject {
 	TTCLASS_SETUP(TTInterpolateTest)
-		
+
+	
+	/** Unit test.
+	 @param returnedTestInfo	The outcome from the performed unit test.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
