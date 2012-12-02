@@ -2,11 +2,7 @@
  *
  * @ingroup foundationLibrary
  *
-<<<<<<< HEAD
- * @brief #TTInterpolateTest is an object used for unit tests of interpolation algorithms
-=======
  * @brief #TTInterpolateTest is an class used for unit tests of the interpolation algorithms in #TTInterpolate.h.
->>>>>>> master
  *
  * @details
  *
