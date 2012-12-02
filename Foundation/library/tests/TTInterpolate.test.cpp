@@ -157,22 +157,25 @@ TTFloat64 InterpolateAndTestCubic(const TTFloat64 x0, const TTFloat64 x1, const 
  */
 void TestCubic(int& anErrorCount, int& aTestAssertionCount)
 {
-	/* x(delta) = cos (PI*delta) + delta + 1
+	/* We perform the interpolation on four values of the following function:
+	 g(delta) = cos (PI*delta) + delta + 1
+	 
 	 This gives the following input values to the interpolating function:
-	 x(-1) = -1
-	 x( 0) =  2
-	 x( 1) =  1
-	 x( 2) =  4
+	 
+	 g(-1) = -1
+	 g( 0) =  2
+	 g( 1) =  1
+	 g( 2) =  4
 	 
 	 The difference is calculated as
-	 ∆x(delta) = (x(delta+1)-x(delta-1)) / 2
+	 ∆g(delta) = (g(delta+1)-g(delta-1)) / 2
 	 
 	 This leads to:
 	 
-	 ∆x(0) = ( 1 -(-1) )/2 = 1
-	 ∆x(1) = ( 4 - 2)/2 = 1
+	 ∆g(0) = ( 1 -(-1) )/2 = 1
+	 ∆g(1) = ( 4 - 2)/2 = 1
 	 
-	 The cubic interpolation function is then required to fullfil the following four conditions:
+	 The cubic interpolation function f(delta) is then required to fullfil the following four conditions:
 	 
 	 (A) f( 0) =  2
 	 (B) f( 1) =  1
@@ -180,7 +183,7 @@ void TestCubic(int& anErrorCount, int& aTestAssertionCount)
 	 (D) f'(1) = 1
 	 
 	 Analytically, when solved, these four conditions are fulfilled by the following 3rd order polynomial:
-	 f(x) = 4 x^3 - 6 x^2 + x + 2
+	 f(delta) = 4 delta^3 - 6 delta^2 + delta + 2
 	 
 	 The following test compares interpolated values to expected values for this function.
 	 */
