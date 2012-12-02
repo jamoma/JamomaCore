@@ -157,30 +157,52 @@ TTFloat64 InterpolateAndTestCubic(const TTFloat64 x0, const TTFloat64 x1, const 
  */
 void TestCubic(int& anErrorCount, int& aTestAssertionCount)
 {
-	// t = delta-1
-	// x(t) = t^3 - 2*t^2 +3t - 4
-	//
-	// x(t = 0) = x(delta = -1) = -4
-	// x(t = 1) = x(delta =  0) = -2
-	// x(t = 1.5) = x(delta = 0.5) = 1.125
-	// x(t = 2) = x(delta =  1) =  2
-	// x(t = 3) = x(delta =  2) = 14
+	/* x(delta) = cos (PI*delta) + delta + 1
+	 This gives the following input values to the interpolating function:
+	 x(-1) = -1
+	 x( 0) =  2
+	 x( 1) =  1
+	 x( 2) =  4
+	 
+	 The difference is calculated as
+	 ∆x(delta) = (x(delta+1)-x(delta-1)) / 2
+	 
+	 This leads to:
+	 
+	 ∆x(0) = ( 1 -(-1) )/2 = 1
+	 ∆x(1) = ( 4 - 2)/2 = 1
+	 
+	 The cubic interpolation function is then required to fullfil the following four conditions:
+	 
+	 (A) f( 0) =  2
+	 (B) f( 1) =  1
+	 (C) f'(0) = 1
+	 (D) f'(1) = 1
+	 
+	 Analytically, when solved, these four conditions are fulfilled by the following 3rd order polynomial:
+	 f(x) = 4 x^3 - 6 x^2 + x + 2
+	 
+	 The following test compares interpolated values to expected values for this function.
+	 */
 	
 	int badSampleCount = 0;
 
-	TTFloat64 x0 = -4.0;
-	TTFloat64 x1 = -2.0;
-	TTFloat64 x2 =  2.0;
-	TTFloat64 x3 = 14.0;
+	TTFloat64 x0 = -1.0;
+	TTFloat64 x1 =  2.0;
+	TTFloat64 x2 =  1.0;
+	TTFloat64 x3 =  4.0;
 	
 	TTTestLog("");
 	TTTestLog("Testing cubic interpolation");
 	
-	badSampleCount += !InterpolateAndTestCubic(x0, x1, x2, x3, -1.00, -4.0);
-	badSampleCount += !InterpolateAndTestCubic(x0, x1, x2, x3,  0.00, -2.0);
-	badSampleCount += !InterpolateAndTestCubic(x0, x1, x2, x3,  0.50,  1.125);
-	badSampleCount += !InterpolateAndTestCubic(x0, x1, x2, x3,  1.00,  2.0);
-	badSampleCount += !InterpolateAndTestCubic(x0, x1, x2, x3,  2.00, 14.0);
+	// Test for delta = -1 => f(delta) = -9
+	badSampleCount += !InterpolateAndTestCubic(x0, x1, x2, x3, -1.00, -9.0);
+	// Test for delta = 0 => f(delta) = 2
+	badSampleCount += !InterpolateAndTestCubic(x0, x1, x2, x3,  0.00,  2.0);
+	// Test for delta = 1 => f(delta) = 1
+	badSampleCount += !InterpolateAndTestCubic(x0, x1, x2, x3,  1.00,  1.0);
+	// Test for delta = 2 => f(delta) = 12
+	badSampleCount += !InterpolateAndTestCubic(x0, x1, x2, x3,  2.00, 12.0);
 	
 	TTTestAssertion("Produces expected results with cubic interpolation",
 					badSampleCount == 0,
