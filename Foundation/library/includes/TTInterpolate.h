@@ -31,6 +31,7 @@ double TTSplitFractional(double& aa)
 }
 */
 
+
 /** Linear interpolation.
  @param x0		Sample value at prior integer index
  @param x1		Sample value at next integer index
@@ -68,7 +69,34 @@ T TTInterpolateCosine(const T& x, const T& y, const double& a)
 }
 
 
-/** Cubic interpolation 
+/** Cubic interpolation
+ 
+ @details This interpolation algorithms calculate the coefficients a, b, c, d
+ of the 3rd order polynomial
+ 
+ f(delta)	= a*aDelta^3 + b*aDelta^2 + c*aDelta + d
+			= ( (a*aDelta + b )*aDelta + c)*aDelta + d)
+ 
+so that the function fulfill the following four conditions:
+ 
+ -# f(0)  = x @n
+ -# f(1)  = y @n
+ -# f'(0) = (y-w)/2 @n
+ -# f'(1) = (z-x)/2
+ 
+ The two last conditions use a symetric estimate of the difference at the end points
+ of the region to interpolate over: 0 ≤ aDelta ≤ 1
+ 
+ These asumptions ensure that the resulting interpolated function, when moving over several 
+ subsequent sections, is:
+ 
+ -# Continuous (no sudden jump)
+ -# Has a continuous derivative (no break pints with hard edges)
+ 
+ However, the 2nd order derivate will generally be discontinuous on the points connecting two sections.
+ 
+ 
+ 
  @param x0		Sample value at integer index prior to x0
  @param x1		Sample value at prior integer index
  @param x2		Sample value at next integer index
@@ -76,7 +104,7 @@ T TTInterpolateCosine(const T& x, const T& y, const double& a)
  @param aDelta	Fractional location where we want to do the interpolation. @n
 				aDelta = 0 => interpolatedeValue = x1 @n
 				aDelta = 1 => interpolatedeValue = x2
- @return			The interpolated value.
+ @return		The interpolated value.
 	
  @seealso		TTInterpolateLinear
  @seealso		TTInterpolateCosine
@@ -86,10 +114,15 @@ T TTInterpolateCosine(const T& x, const T& y, const double& a)
 template<class T>
 T TTInterpolateCubic(const T& x0, const T& x1, const T& x2, const T& x3, const double& aDelta)
 {
-	T f0 = x3 - x2 - x0 + x1;
-	T f1 = x0 - x1 - f0;
-	T f2 = x2 - x0;
-	return ((f0*aDelta + f1)*aDelta + f2)*aDelta + x1;
+	T a = (-x0 + 3.*x1 - 3*x2 + x3)*0.5;
+	T b = x0 - 2.5*x1 + 2.*x2 - 0.5*x3;
+	T c = (x2-x0)*0.5;
+	
+	//T a = x3 - x2 - x0 + x1;
+	//T b = x0 - x1 - f0;
+	//T c = x2 - x0;
+	// T d = x1;
+	return ( (a*aDelta + b)*aDelta + c)*aDelta + x1;
 }
 
 
