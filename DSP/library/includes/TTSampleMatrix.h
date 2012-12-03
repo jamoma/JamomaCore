@@ -37,7 +37,7 @@ class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 protected:
 
 	TTFloat64			mSampleRate;
-	TTUInt16			userCount;		///< how many objects out there are currently using this TTSampleMatrix 
+	TTUInt16			mUserCount;		///< how many objects out there are currently using this TTSampleMatrix 
 	/** @enum bufferPoolStages
 		@brief Defines the stages used when TTSampleMartix is part of a pool available in TTBuffer
 	*/
@@ -46,7 +46,7 @@ protected:
 		kSM_BecomingActive,		///< being prepared for active stage by resizing or file loading operation
 		kSM_Active,				///< in use and pointer to this TTSampleMatrix will be given to users at check out
 		kSM_BecomingIdle		///< no longer active, but waiting for remaining users to check in
-	} bufferPoolStage;
+	} mBufferPoolStage;
 	// NOTE: This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
 	// TODO: Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
 	
@@ -80,7 +80,7 @@ public:
 	TTErr incrementUserCount()
 	{
 		// could technically exceed 65,535 maximum, but we'll take the chance for now
-		this->userCount++;
+		this->mUserCount++;
 		return kTTErrNone;
 	}
 
@@ -91,9 +91,9 @@ public:
 	*/
 	TTErr decrementUserCount()
 	{
-		if (this->userCount > 0)
+		if (this->mUserCount > 0)
 		{
-			this->userCount--;
+			this->mUserCount--;
 			return kTTErrNone;
 		} else {
 			return kTTErrGeneric;
@@ -109,7 +109,7 @@ public:
 	*/
 	TTBoolean isBufferPoolStage(bufferPoolStageEnum testValue)
 	{
-		return { testValue == this->bufferPoolStage };
+		return { testValue == this->mBufferPoolStage };
 	}
 	
 	/** Set the current bufferPoolStage to a new value. 
@@ -120,7 +120,7 @@ public:
 	*/
 	TTErr setBufferPoolStage(bufferPoolStageEnum newValue)
 	{
-		this->bufferPoolStage = newValue;
+		this->mBufferPoolStage = newValue;
 		return kTTErrNone;
 	}
 

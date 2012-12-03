@@ -39,8 +39,8 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	this->setTypeWithoutResize(kTypeFloat64);
 	this->setElementCountWithoutResize(1);
 	this->resize();
-	this->userCount = 0;
-	this->bufferPoolStage = kSM_Idle;
+	this->mUserCount = 0;
+	this->mBufferPoolStage = kSM_Idle;
 
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeInt32);
 	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);

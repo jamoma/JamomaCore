@@ -20,7 +20,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTFloat32			duration = 1500;
 	TTInt32				test9Index = 10;
 	TTInt32				test10Index = 11;
-	TTInt32				test1Return, test2Return, test7Return, test8Return;
+	TTInt32				test1Return, test2Return, test7Return;
 	TTFloat32			test3Return, test6Return;
 	TTSampleValue		test9Return, test10Return, test11Return, test12return, test13return;
 	
@@ -255,8 +255,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	TTInt32 computedIndex14 = test7Return; // should be latest size in samples
 	TTInt32 computedIndex15 = test7Return - 1; // the tail is actually one less
-	TTErr test14Err = this->poke(computedIndex12, 0, test12return);
-	TTErr test15Err = this->poke(computedIndex13, 0, test13return);
+	TTErr test14Err = this->poke(computedIndex14, 0, test12return);
+	TTErr test15Err = this->poke(computedIndex15, 0, test13return);
 	
 	TTBoolean result14 = { test14Err == kTTErrOutOfBounds };
 	TTBoolean result15 = { test15Err == kTTErrNone };
@@ -292,11 +292,11 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	this->incrementUserCount();
 	this->incrementUserCount();
 	this->incrementUserCount();
-	TTUInt16 test16return = this->userCount;
+	TTUInt16 test16return = this->mUserCount;
 	
 	this->decrementUserCount();
 	this->decrementUserCount();
-	TTUInt16 test17return = this->userCount;
+	TTUInt16 test17return = this->mUserCount;
 	
 	TTBoolean result16 = { test16expect == test16return };
 	TTBoolean result17 = { test17expect == test17return };
