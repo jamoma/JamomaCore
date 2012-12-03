@@ -283,6 +283,45 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	}
 	
 	
+	// TEST 16 & 17: incrementing & decrementing userCount
+	
+	TTUInt16 test16expect = 4;
+	TTUInt16 test17expect = 2;
+	
+	this->incrementUserCount();
+	this->incrementUserCount();
+	this->incrementUserCount();
+	this->incrementUserCount();
+	TTUInt16 test16return = this->userCount;
+	
+	this->decrementUserCount();
+	this->decrementUserCount();
+	TTUInt16 test17return = this->userCount;
+	
+	TTBoolean result16 = { test16expect == test16return };
+	TTBoolean result17 = { test17expect == test17return };
+	
+	TTTestAssertion("incrementing userCount produces expected results", 
+								result16, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result16)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test16expect, test16return);
+	}
+	
+	
+	TTTestAssertion("decrementing userCount produces expected results", 
+								result17, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result17)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test17expect, test17return);
+	}
+	
 	/*
 	
 	int					badSampleCount = 0;
