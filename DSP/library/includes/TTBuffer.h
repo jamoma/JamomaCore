@@ -106,6 +106,18 @@ public:
 	/****************************************************************************************************/
 	// TODO: Some will need to be rewritten as BufferPool implementation is fleshed out
 	
+	/*
+	Set methods could follow this pattern
+		1) TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE)
+		2) mBecomingActiveMatrix.adaptTo(mActiveMatrix)
+		3) mBecomingActiveMatrix->setTheWhatever(TTValue arg1)
+		4) if no error...
+			mBecomingIdle = mActiveMatrix
+			mActiveMatrix = mBecomingActiveMatrix
+		5) if mBecomingIdle->getUserCount() = 0 then delete
+			else mBecomingIdle->setBufferPoolStage(kSM_BecomingIdle)
+	*/
+	
 	// Macros to wrap TTSampleMatrix methods as our own
 	
 	#define TTBUFFER_WRAP_1ARG(methodname) \

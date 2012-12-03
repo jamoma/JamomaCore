@@ -4,8 +4,6 @@
  *
  * @brief Audio buffer that manages multiple SampleMatrices.
  * 
- * @details TODO: put more info here 
- * 
  * @see TTSampleMatrix, TTMatrix, TTAudioSignal
  *  
  * @authors Timothy Place & Nathan Wolek
