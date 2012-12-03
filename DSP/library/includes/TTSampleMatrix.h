@@ -41,7 +41,7 @@ protected:
 	/** @enum bufferPoolStages
 		@brief Defines the stages used when TTSampleMartix is part of a pool available in TTBuffer
 	*/
-	enum bufferPoolStages {
+	enum bufferPoolStageEnum {
 		kSM_Idle = 0,			///< not currently in use
 		kSM_BecomingActive,		///< being prepared for active stage by resizing or file loading operation
 		kSM_Active,				///< in use and pointer to this TTSampleMatrix will be given to users at check out
@@ -99,6 +99,17 @@ public:
 			return kTTErrGeneric;
 		}
 
+	}
+	
+	/** Test to see if current bufferPoolStage matches input. 
+		The bufferPoolStage member is used when TTSampleMartix is part of a pool available in TTBuffer.  This methods allows you to check the current stage against a test value. It is likely useful in setting up conditional statements.
+		@param		test_value		any option defined in the bufferPoolStageEnum
+		@return 	TTBoolean		returns true if the they match, false if they do not
+		@seealso 	bufferPoolStages
+	*/
+	TTBoolean bufferPoolStageIs(bufferPoolStageEnum test_value)
+	{
+		return { test_value == this->bufferPoolStage };
 	}
 
 	// METHOD: SET_BUFFER
