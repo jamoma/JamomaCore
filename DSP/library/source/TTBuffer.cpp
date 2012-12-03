@@ -7,6 +7,7 @@
 */
 
 #include "TTBuffer.h"
+#include "TTSampleMatrix.h"
 
 #define thisTTClass			TTBuffer
 #define thisTTClassName		"buffer"
@@ -38,7 +39,7 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	TTSymbol	name = kTTSymEmpty;
 	
 	if (arguments.getSize() > 0) {
-		arguments.get(0, channelCount);	// TODO: should we limit range?  should zero mean to just reference an existing buffers channelcount?
+		arguments.get(0, channelCount);	// TODO: should we limit range? what should zero mean?
 		if (arguments.getSize() > 1)
 			arguments.get(1, name);
 	}
@@ -64,6 +65,14 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	registerMessage("poke", (TTMethod)&TTBuffer::setValueAtIndex);
 	
 	// initialize
+    TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mActiveMatrix, kTTValNONE);
+	mActiveMatrix->setBufferPoolStage(kSM_Active);
+
+	TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE);
+	mBecomingActiveMatrix->setBufferPoolStage(kSM_BecomingActive);
+	
+	// TODO: setup the becomingActiveMatrix here?
+	
 	setAttributeValue("name", name);
 	if (channelCount)
 		setAttributeValue("numChannels", channelCount);			
@@ -72,6 +81,6 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 
 TTBuffer::~TTBuffer()
 {
-	chuckMatrix(mMatrix, mName);
+	chuckMatrix(mActiveMatrix, mName);
 }
 

@@ -30,8 +30,12 @@ class TTDSP_EXPORT TTBuffer : public TTAudioObject {
 	
 protected:
 	
-	TTSymbol				mName;				// The name of the TTSampleMatrix with which this buffer is currently associated
-	TTSampleMatrixPtr		mMatrix;			// The actual TTSampleMatrix
+	TTSymbol				mName;				// The name associated with this buffer
+	TTSampleMatrixPtr		mActiveMatrix;		// The active TTSampleMatrix
+	TTSampleMatrixPtr		mBecomingActiveMatrix;		// TODO: would something like this help direct changes to right place?
+	
+	// next line is causing build problems due to init issues
+	//TTSampleMatrix			mBufferPool[3];		// temporarily an array until I get more used to vectors
 	
 public:
 	
@@ -50,11 +54,11 @@ public:
 		TTObjectRelease(TTObjectHandle(&oldMatrix));
 	}
 	
-	
+	// TODO: re-write to simply change the name, not chuckMatrix.  names should not be attached to SampleMatrix, right?
 	TTErr setName(const TTValueRef newName)
 	{
 		TTSymbol			name = kTTSymEmpty;
-		TTSampleMatrixPtr	oldMatrix = mMatrix;
+		TTSampleMatrixPtr	oldMatrix = mActiveMatrix;
 		TTSymbol			oldName = mName;
 		TTSampleMatrixPtr	newMatrix = NULL;
 		TTValue				returnedValue;
@@ -79,7 +83,7 @@ public:
 			gTTBufferNameMap->append(name, TTPtr(newMatrix));
 		}
 		
-		mMatrix = (TTSampleMatrixPtr)TTObjectReference(TTObjectPtr(newMatrix));
+		mActiveMatrix = (TTSampleMatrixPtr)TTObjectReference(TTObjectPtr(newMatrix));
 		mName = name;
 		
 		// TODO: Not threadsafe !!!
@@ -90,12 +94,15 @@ public:
 	}
 	
 	
+	/****************************************************************************************************/
+	// TODO: Some will need to be rewritten as BufferPool implementation is fleshed out
+	
 	// Macros to wrap TTSampleMatrix methods as our own
 	
 	#define TTBUFFER_WRAP_1ARG(methodname) \
-			TTErr methodname (TTValue& arg1) { return mMatrix -> methodname (arg1); }
+			TTErr methodname (TTValue& arg1) { return mActiveMatrix -> methodname (arg1); }
 	#define TTBUFFER_WRAP_k1ARG(methodname) \
-			TTErr methodname (const TTValue& arg1) { return mMatrix -> methodname (arg1); }
+			TTErr methodname (const TTValue& arg1) { return mActiveMatrix -> methodname (arg1); }
 
 	// Methods of the hosted TTSampleMatrix object
 
@@ -107,19 +114,21 @@ public:
 	
 	TTBUFFER_WRAP_k1ARG( setLengthInSamples )
 	TTBUFFER_WRAP_1ARG(  getLengthInSamples )
-	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)								{ return mMatrix->lengthInSamples(returnedLengthInSamples); }
+	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)								{ return mActiveMatrix->lengthInSamples(returnedLengthInSamples); }
 
-	TTErr getContents(TTSampleValuePtr& beggining)											{ return mMatrix->getContents(beggining); }
+	TTErr getContents(TTSampleValuePtr& beggining)											{ return mActiveMatrix->getContents(beggining); }
 
-	TTErr	getValueAtIndex(const TTValue& index, TTValue &output)							{ return mMatrix->getValueAtIndex(index, output); }
-	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)		{ return mMatrix->peek(index, channel, value); }
+	TTErr	getValueAtIndex(const TTValue& index, TTValue &output)							{ return mActiveMatrix->getValueAtIndex(index, output); }
+	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)		{ return mActiveMatrix->peek(index, channel, value); }
 	
-	TTErr	setValueAtIndex(const TTValue& index, TTValue& unusedOutput)					{ return mMatrix->setValueAtIndex(index, unusedOutput); }
-	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value)	{ return mMatrix->poke(index, channel, value); }
+	TTErr	setValueAtIndex(const TTValue& index, TTValue& unusedOutput)					{ return mActiveMatrix->setValueAtIndex(index, unusedOutput); }
+	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value)	{ return mActiveMatrix->poke(index, channel, value); }
 	
-	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								{ return mMatrix->fill(value, unusedOutput); }
+	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								{ return mActiveMatrix->fill(value, unusedOutput); }
 
 	TTBUFFER_WRAP_k1ARG( normalize )
+	
+	/****************************************************************************************************/
 
 	
 	/**	Unit testing */
