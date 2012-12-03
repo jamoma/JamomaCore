@@ -322,6 +322,39 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test17expect, test17return);
 	}
 	
+	// TEST 18 & 19: setting & testing bufferPoolStage
+	
+	TTBoolean test18expect = true;
+	TTBoolean test19expect = false;
+	
+	this->setBufferPoolStage(kSM_Active);
+	TTBoolean test18return = this->isBufferPoolStage(kSM_Active);
+	TTBoolean test19return = this->isBufferPoolStage(kSM_BecomingIdle);
+	
+	TTBoolean result18 = { test18expect == test18return };
+	TTBoolean result19 = { test19expect == test19return };
+	
+	TTTestAssertion("reports bufferPoolStage as active", 
+								result18, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result18)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test18expect, test18return);
+	}
+	
+	
+	TTTestAssertion("reports bufferPoolStage as NOT becoming idle", 
+								result19, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result19)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test19expect, test19return);
+	}
+	
 	/*
 	
 	int					badSampleCount = 0;
