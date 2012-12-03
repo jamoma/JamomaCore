@@ -101,15 +101,27 @@ public:
 
 	}
 	
-	/** Test to see if current bufferPoolStage matches input. 
-		The bufferPoolStage member is used when TTSampleMartix is part of a pool available in TTBuffer.  This methods allows you to check the current stage against a test value. It is likely useful in setting up conditional statements.
+	/** Test to see if current bufferPoolStage matches a test value. 
+		The bufferPoolStage member is used when TTSampleMartix is part of a pool available in TTBuffer.  This methods allows you to check the current stage against a test value. It is useful in setting up conditional statements.
 		@param		test_value		any option defined in the bufferPoolStageEnum
 		@return 	TTBoolean		returns true if the they match, false if they do not
-		@seealso 	bufferPoolStages
+		@seealso 	bufferPoolStageEnum, setBufferPoolStage
 	*/
-	TTBoolean bufferPoolStageIs(bufferPoolStageEnum test_value)
+	TTBoolean isBufferPoolStage(bufferPoolStageEnum testValue)
 	{
-		return { test_value == this->bufferPoolStage };
+		return { testValue == this->bufferPoolStage };
+	}
+	
+	/** Set the current bufferPoolStage to a new value. 
+		The bufferPoolStage member is used when TTSampleMartix is part of a pool available in TTBuffer.  This methods allows you to set the current stage with a new value. 
+		@param		test_value		any option defined in the bufferPoolStageEnum
+		@return 	TTErr			always returns kTTErrNone
+		@seealso 	bufferPoolStageEnum, isBufferPoolStage
+	*/
+	TTErr setBufferPoolStage(bufferPoolStageEnum newValue)
+	{
+		this->bufferPoolStage = newValue;
+		return kTTErrNone;
 	}
 
 	// METHOD: SET_BUFFER
