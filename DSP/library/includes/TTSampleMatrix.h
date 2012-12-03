@@ -37,6 +37,8 @@ class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 protected:
 
 	TTFloat64			mSampleRate;
+	//TTUInt16			userCount;
+	//TTUInt8			lifeCycleStage;
 	// NOTE: This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
 	// TODO: Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
 	
