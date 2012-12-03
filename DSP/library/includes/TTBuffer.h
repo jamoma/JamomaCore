@@ -1,10 +1,19 @@
-/*
-	Jamoma DSP Audio Buffer Object 
-	Copyright © 2012, Timothy Place & Nathan Wolek
-	
-	License: This code is licensed under the terms of the "New BSD License"
-	http://creativecommons.org/licenses/BSD/
-*/
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Audio buffer that manages multiple SampleMatrices.
+ * 
+ * @details TODO: put more info here 
+ * 
+ * @see TTSampleMatrix, TTMatrix, TTAudioSignal
+ *  
+ * @authors Timothy Place & Nathan Wolek
+ *
+ * @copyright Copyright © 2012, Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
 
 #ifndef __TT_BUFFER_H__
 #define __TT_BUFFER_H__
