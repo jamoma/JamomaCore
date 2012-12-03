@@ -25,6 +25,16 @@
 #define mLengthInSamples mRowCount
 #define mNumChannels mColumnCount
 
+/** @enum bufferPoolStages
+	@brief Defines the stages used when TTSampleMartix is part of a pool available in TTBuffer
+*/
+enum TTBufferPoolStageEnum {
+	kSM_Idle = 0,			///< not currently in use
+	kSM_BecomingActive,		///< being prepared for active stage by resizing or file loading operation
+	kSM_Active,				///< in use and pointer to this TTSampleMatrix will be given to users at check out
+	kSM_BecomingIdle		///< no longer active, but waiting for remaining users to check in
+};
+
 /**	Container object that holds some audio in a chunk of memory.
 
 SampleMatrix extends the Matrix class found in Foundation to provide support for loading audio into a chunk of memory. Each sample value is stored as a one-element component with a datatype of 64-bit Float. Locations for individual components in the matrix can be identified by (sample, channel) pairs where samples correspond to rows in the matrix and channels translate to columns. 
@@ -36,17 +46,9 @@ class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 
 protected:
 
-	TTFloat64			mSampleRate;
-	TTUInt16			mUserCount;		///< how many objects out there are currently using this TTSampleMatrix 
-	/** @enum bufferPoolStages
-		@brief Defines the stages used when TTSampleMartix is part of a pool available in TTBuffer
-	*/
-	enum bufferPoolStageEnum {
-		kSM_Idle = 0,			///< not currently in use
-		kSM_BecomingActive,		///< being prepared for active stage by resizing or file loading operation
-		kSM_Active,				///< in use and pointer to this TTSampleMatrix will be given to users at check out
-		kSM_BecomingIdle		///< no longer active, but waiting for remaining users to check in
-	} mBufferPoolStage;
+	TTFloat64				mSampleRate;
+	TTUInt16				mUserCount;		///< how many objects out there are currently using this TTSampleMatrix 
+ 	TTBufferPoolStageEnum	mBufferPoolStage;
 	// NOTE: This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
 	// TODO: Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
 	
@@ -107,7 +109,7 @@ public:
 		@return 	TTBoolean		returns true if the they match, false if they do not
 		@seealso 	bufferPoolStageEnum, setBufferPoolStage
 	*/
-	TTBoolean isBufferPoolStage(bufferPoolStageEnum testValue)
+	TTBoolean isBufferPoolStage(TTBufferPoolStageEnum testValue)
 	{
 		return { testValue == this->mBufferPoolStage };
 	}
@@ -118,7 +120,7 @@ public:
 		@return 	TTErr			always returns kTTErrNone
 		@seealso 	bufferPoolStageEnum, isBufferPoolStage
 	*/
-	TTErr setBufferPoolStage(bufferPoolStageEnum newValue)
+	TTErr setBufferPoolStage(TTBufferPoolStageEnum newValue)
 	{
 		this->mBufferPoolStage = newValue;
 		return kTTErrNone;
