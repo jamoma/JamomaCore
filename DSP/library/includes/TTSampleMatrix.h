@@ -37,7 +37,7 @@ class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 protected:
 
 	TTFloat64			mSampleRate;
-	TTUInt8				userCount;		///< how many objects out there are currently using this TTSampleMatrix 
+	TTUInt16			userCount;		///< how many objects out there are currently using this TTSampleMatrix 
 	/** @enum bufferPoolStages
 		@brief Defines the stages used when TTSampleMartix is part of a pool available in TTBuffer
 	*/
@@ -70,6 +70,35 @@ public:
 	{
 		returnedLengthInSamples = mLengthInSamples;
 		return kTTErrNone;
+	}
+	
+	/** Increase the user count by one. 
+		The userCount member is used to track usage of an individual TTSampleMatrix.  When another object makes use of a specific matrix, the code should use this method to increase the user counter prior to the start of use.
+		@return 	TTErr		always returns kTTErrNone
+		@seealso 	decrementUserCount
+	*/
+	TTErr incrementUserCount()
+	{
+		// could technically exceed 65,535 maximum, but we'll take the chance for now
+		this->userCount++;
+		return kTTErrNone;
+	}
+
+	/** Decrease the user count by one. 
+		The userCount member is used to track usage of an individual TTSampleMatrix.  When another object makes use of a specific matrix, the code should use this method to decrease the reference counter at the conclusion of use.
+		@return 	TTErr		returns kTTErrGeneric if UserCount is already 0, else kTTErrNone
+		@seealso 	incrementUserCount
+	*/
+	TTErr decrementUserCount()
+	{
+		if (this->userCount > 0)
+		{
+			this->userCount--;
+			return kTTErrNone;
+		} else {
+			return kTTErrGeneric;
+		}
+
 	}
 
 	// METHOD: SET_BUFFER
