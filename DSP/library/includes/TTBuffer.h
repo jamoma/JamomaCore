@@ -39,20 +39,12 @@ class TTDSP_EXPORT TTBuffer : public TTAudioObject {
 	
 protected:
 	
-	TTSymbol				mName;				// The name associated with this buffer
-	TTSampleMatrixPtr		mActiveMatrix;		// The active TTSampleMatrix
+	TTSymbol				mName;					// The name associated with this buffer
+	TTSampleMatrixPtr		mActiveMatrix;			// The active TTSampleMatrix
 	TTSampleMatrixPtr		mBecomingActiveMatrix;		// TODO: would something like this help direct changes to right place?
 	
 	// next line is causing build problems due to init issues
 	//TTSampleMatrix			mBufferPool[3];		// temporarily an array until I get more used to vectors
-	
-public:
-	
-	TTErr getNames(const TTValueRef unusedInput, TTValueRef returnedNames)
-	{
-		return gTTBufferNameMap->getKeys(returnedNames);
-	}
-	
 	
 	// internal method used for disposing of a no-longer used matrix
 	void chuckMatrix(TTSampleMatrixPtr oldMatrix, TTSymbol& oldMatrixName)
@@ -63,6 +55,14 @@ public:
 		TTObjectRelease(TTObjectHandle(&oldMatrix));
 	}
 	
+public:
+	
+	TTErr getNames(const TTValueRef unusedInput, TTValueRef returnedNames)
+	{
+		return gTTBufferNameMap->getKeys(returnedNames);
+	}
+	
+		
 	// TODO: re-write to simply change the name, not chuckMatrix.  names should not be attached to SampleMatrix, right?
 	TTErr setName(const TTValueRef newName)
 	{
