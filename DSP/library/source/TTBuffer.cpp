@@ -117,6 +117,48 @@ TTErr TTBuffer::chuckMatrix(TTSampleMatrixPtr oldMatrix)
 		
 }
 
+
+// internal methods used for prepping mBecomingActiveMatrix, then swapping it out with mActiveMatrix
+TTErr TTBuffer::prepareBecomingActiveMatrix()
+{
+	// first we instatiate a new TTSampleMatrix
+	TTErr err = TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE);
+	
+	// only if there is no error, do we set this stuff up
+	if (!err)
+	{
+		mBecomingActiveMatrix->adaptTo(mActiveMatrix);		// start with something like the mActiveMatrix
+		mBecomingActiveMatrix->setBufferPoolStage(kSM_BecomingActive);
+	}
+	
+	// report if it worked
+	return err;
+}
+
+TTErr TTBuffer::promoteBecomingActiveMatrix()
+{
+	// TODO: i think there is a real need for mutex locking here
+	
+	// tell the mActiveMatrix it is on the way out
+	mActiveMatrix->setBufferPoolStage(kSM_BecomingIdle);
+	
+	// attempt to chuckMatrix, because if the mUserCount is 0 it will NEVER call checkInMatrix
+	if (mActiveMatrix->getUserCount() < 1) chuckMatrix(mActiveMatrix);
+	
+	// tell the mBecomingActiveMatrix it is on the way in
+	mBecomingActiveMatrix->setBufferPoolStage(kSM_Active);
+	
+	// update the mActiveMatrix pointer
+	mActiveMatrix = mBecomingActiveMatrix;
+	
+	// set to NULL for the next time prepareBecomingActiveMatrix() is called
+	mBecomingActiveMatrix = NULL;
+	
+	// no real chance of an error, yet
+	return kTTErrNone;
+}
+	
+
 TTErr TTBuffer::checkOutMatrix(TTSampleMatrixPtr startUsingThisMatrix)
 {
 	// add one to the tally of users

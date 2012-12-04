@@ -51,6 +51,10 @@ protected:
 	// internal method used for disposing of a no-longer used matrix
 	TTErr chuckMatrix(TTSampleMatrixPtr oldMatrix);
 	
+	// internal methods used for prepping mBecomingActiveMatrix, then swapping it out with mActiveMatrix
+	TTErr prepareBecomingActiveMatrix();
+	TTErr promoteBecomingActiveMatrix();
+	
 public:
 	
 	// public method to check out the mActiveMatrix
