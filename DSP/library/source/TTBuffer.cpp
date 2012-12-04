@@ -70,9 +70,6 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	
 	// initialize
 	init(channelCount, name);
-	
-	// TODO: remove once setting name is part of init()
-	setAttributeValue("name", name);
 		
 }
 
@@ -91,7 +88,7 @@ TTErr TTBuffer::init(TTUInt16 channelCount, TTSymbol name)
 	if (!gTTBufferNameMap)
 		gTTBufferNameMap = new TTHash;
 		
-	// TODO: actually store the name of the TTBuffer
+	setAttributeValue("name", name);
 		
 	err = TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mActiveMatrix, kTTValNONE);
 	if (!err)

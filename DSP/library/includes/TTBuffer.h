@@ -69,43 +69,35 @@ public:
 	}
 	
 		
-	// TODO: re-write to simply change the name, not chuckMatrix.  names should not be attached to SampleMatrix, right?
 	TTErr setName(const TTValueRef newName)
 	{
 		TTSymbol			name = kTTSymEmpty;
-		TTSampleMatrixPtr	oldMatrix = mActiveMatrix;
 		TTSymbol			oldName = mName;
-		TTSampleMatrixPtr	newMatrix = NULL;
 		TTValue				returnedValue;
 		TTErr				err = kTTErrNone;
 		
 		newName.get(0, name);
 		
+		// if the name is the same, then do nothing
 		if (name == mName)
 			return kTTErrNone;
+		
+		// if the name was left off, then generate a random value
 		if (name == kTTSymEmpty)
 			name = TTSymbol::random();
 		
+		// see if the name is already in the global buffer name map
 		err = gTTBufferNameMap->lookup(name, returnedValue);
-		if (!err)
-			newMatrix = TTSampleMatrixPtr(TTPtr(returnedValue));
 		
-		if (!newMatrix) {
-			TTObjectInstantiate("samplematrix", (TTObjectPtr*)&newMatrix, kTTValNONE);
-			
-			// TODO: set attributes to match our matrix attrs?
-			
-			gTTBufferNameMap->append(name, TTPtr(newMatrix));
+		// if it is already in use by another TTBuffer
+		if (err == kTTErrNone)
+		{
+			return kTTErrInvalidValue;
+		} else { // if it is not, then we can add it 
+			gTTBufferNameMap->append(name, TTPtr(this));
+			mName = name;
+			return kTTErrNone;
 		}
-		
-		mActiveMatrix = (TTSampleMatrixPtr)TTObjectReference(TTObjectPtr(newMatrix));
-		mName = name;
-		
-		// TODO: Not threadsafe !!!
-		// TODO: double-buffering scheme, e.g. to preserve the integrity of grains in granular synthesis	
-		chuckMatrix(oldMatrix);
-		
-		return kTTErrNone;
 	}
 	
 	
