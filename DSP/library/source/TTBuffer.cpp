@@ -79,7 +79,7 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 
 TTBuffer::~TTBuffer()
 {
-	chuckMatrix(mActiveMatrix, mName);
+	chuckMatrix(mActiveMatrix);
 }
 
 
@@ -103,5 +103,17 @@ TTErr TTBuffer::init(TTUInt16 channelCount, TTSymbol name)
 	mBecomingActiveMatrix = NULL;
 	
 	return err;
+}
+
+// internal method used for disposing of a no-longer used matrix
+TTErr TTBuffer::chuckMatrix(TTSampleMatrixPtr oldMatrix)
+{
+	if (oldMatrix->getUserCount() < 1)
+	{
+		return TTObjectRelease(TTObjectHandle(&oldMatrix));
+	} else {
+		return kTTErrFreeFailed;
+	}
+		
 }
 

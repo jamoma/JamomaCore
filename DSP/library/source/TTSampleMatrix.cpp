@@ -46,6 +46,8 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
 	addAttribute(SampleRate,							kTypeFloat64);
+	//addAttribute(UserCount,							kTypeUInt16);  // TODO: if in environment, needs to be read only 
+	
 	
 	addMessage(normalize);
 	addMessageWithArguments(fill);
@@ -109,6 +111,26 @@ TTErr TTSampleMatrix::getLengthInSamples(TTValue& returnedLengthInSamples)
 	return kTTErrNone;
 }
 
+
+TTErr TTSampleMatrix::incrementUserCount()
+{
+	// could technically exceed 65,535 maximum, but we'll take the chance for now
+	this->mUserCount++;
+	return kTTErrNone;
+}
+
+
+TTErr TTSampleMatrix::decrementUserCount()
+{
+	if (this->mUserCount > 0)
+	{
+		this->mUserCount--;
+		return kTTErrNone;
+	} else {
+		return kTTErrGeneric;
+	}
+
+}
 
 TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 {

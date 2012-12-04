@@ -49,13 +49,7 @@ protected:
 	TTErr init(TTUInt16	channelCount, TTSymbol name);
 
 	// internal method used for disposing of a no-longer used matrix
-	void chuckMatrix(TTSampleMatrixPtr oldMatrix, TTSymbol& oldMatrixName)
-	{
-		if (oldMatrix->getReferenceCount() == 1) // only one of these, it is about to go away, so we'll pop it from the map
-			gTTBufferNameMap->remove(oldMatrixName);
-		
-		TTObjectRelease(TTObjectHandle(&oldMatrix));
-	}
+	TTErr chuckMatrix(TTSampleMatrixPtr oldMatrix);
 	
 public:
 	
@@ -99,7 +93,7 @@ public:
 		
 		// TODO: Not threadsafe !!!
 		// TODO: double-buffering scheme, e.g. to preserve the integrity of grains in granular synthesis	
-		chuckMatrix(oldMatrix, oldName);
+		chuckMatrix(oldMatrix);
 		
 		return kTTErrNone;
 	}

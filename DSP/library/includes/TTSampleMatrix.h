@@ -79,28 +79,23 @@ public:
 		@return 	TTErr		always returns kTTErrNone
 		@seealso 	decrementUserCount
 	*/
-	TTErr incrementUserCount()
-	{
-		// could technically exceed 65,535 maximum, but we'll take the chance for now
-		this->mUserCount++;
-		return kTTErrNone;
-	}
+	TTErr incrementUserCount();
 
 	/** Decrease the user count by one. 
 		The userCount member is used to track usage of an individual TTSampleMatrix.  When another object makes use of a specific matrix, the code should use this method to decrease the reference counter at the conclusion of use.
 		@return 	TTErr		returns kTTErrGeneric if UserCount is already 0, else kTTErrNone
 		@seealso 	incrementUserCount
 	*/
-	TTErr decrementUserCount()
+	TTErr decrementUserCount();
+	
+	/** Report the current user count. 
+		The userCount member is used to track usage of an individual TTSampleMatrix.  
+		@return 	TTUInt16		returns current UserCount is already 0, else kTTErrNone
+		@seealso 	incrementUserCount
+	*/
+	TTUInt16 getUserCount()
 	{
-		if (this->mUserCount > 0)
-		{
-			this->mUserCount--;
-			return kTTErrNone;
-		} else {
-			return kTTErrGeneric;
-		}
-
+		return mUserCount;
 	}
 	
 	/** Test to see if current bufferPoolStage matches a test value. 
