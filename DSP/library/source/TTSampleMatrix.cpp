@@ -46,8 +46,8 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
 	addAttribute(SampleRate,							kTypeFloat64);
-	//addAttribute(UserCount,							kTypeUInt16);  // TODO: if in environment, needs to be read only 
-	
+	addAttribute(				UserCount,				kTypeUInt16); 
+		addAttributeProperty(	UserCount, 				readOnly, kTTBoolYes);
 	
 	addMessage(normalize);
 	addMessageWithArguments(fill);
