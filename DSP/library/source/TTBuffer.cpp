@@ -51,9 +51,6 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 			arguments.get(1, name);
 	}
 	
-	if (!gTTBufferNameMap)
-		gTTBufferNameMap = new TTHash;
-	
 	addMessageWithArguments(getNames);
 	addAttributeWithSetter(Name, kTypeSymbol);
 	
@@ -72,22 +69,39 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	registerMessage("poke", (TTMethod)&TTBuffer::setValueAtIndex);
 	
 	// initialize
-    TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mActiveMatrix, kTTValNONE);
-	mActiveMatrix->setBufferPoolStage(kSM_Active);
-
-	TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE);
-	mBecomingActiveMatrix->setBufferPoolStage(kSM_BecomingActive);
+	init(channelCount, name);
 	
-	// TODO: setup the becomingActiveMatrix here?
-	
+	// TODO: remove once setting name is part of init()
 	setAttributeValue("name", name);
-	if (channelCount)
-		setAttributeValue("numChannels", channelCount);			
+		
 }
 
 
 TTBuffer::~TTBuffer()
 {
 	chuckMatrix(mActiveMatrix, mName);
+}
+
+
+// internal method used for initializing the TTBuffer and mActiveMatrix for use
+TTErr TTBuffer::init(TTUInt16 channelCount, TTSymbol name)
+{
+	TTErr err = kTTErrNone;
+	
+	if (!gTTBufferNameMap)
+		gTTBufferNameMap = new TTHash;
+		
+	// TODO: actually store the name of the TTBuffer
+		
+	err = TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mActiveMatrix, kTTValNONE);
+	if (!err)
+	{
+		mActiveMatrix->setAttributeValue("numChannels", channelCount);
+		mActiveMatrix->setBufferPoolStage(kSM_Active);
+	}
+	
+	mBecomingActiveMatrix = NULL;
+	
+	return err;
 }
 

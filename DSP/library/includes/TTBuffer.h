@@ -24,7 +24,6 @@
 
 extern TTHashPtr gTTBufferNameMap;	// maps names to TTSampleMatrix instances for TTBuffer
 
-
 /**	TTBuffer is a container object that holds some audio in a chunk of memory.
 	Other objects can then access this buffer to record into it, play back from it,
 	or perform other operations on it.
@@ -46,6 +45,9 @@ protected:
 	// next line is causing build problems due to init issues
 	//TTSampleMatrix			mBufferPool[3];		// temporarily an array until I get more used to vectors
 	
+	// internal method used for initializing the TTBuffer and mActiveMatrix for use
+	TTErr init(TTUInt16	channelCount, TTSymbol name);
+
 	// internal method used for disposing of a no-longer used matrix
 	void chuckMatrix(TTSampleMatrixPtr oldMatrix, TTSymbol& oldMatrixName)
 	{
@@ -157,5 +159,6 @@ public:
 
 };
 
+typedef TTBuffer* TTBufferPtr;
 
 #endif // __TT_BUFFER_H__
