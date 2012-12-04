@@ -117,3 +117,32 @@ TTErr TTBuffer::chuckMatrix(TTSampleMatrixPtr oldMatrix)
 		
 }
 
+TTErr TTBuffer::checkOutMatrix(TTSampleMatrixPtr startUsingThisMatrix)
+{
+	// add one to the tally of users
+	mActiveMatrix->incrementUserCount();
+	
+	// then give out the pointer to the current mActiveMatrix 
+	startUsingThisMatrix = mActiveMatrix;
+	
+	// no real chance of an error, yet
+	return kTTErrNone;
+}
+
+TTErr TTBuffer::checkInMatrix(TTSampleMatrixPtr doneUsingThisMatrix)
+{
+	// sub one from the tally of users
+	doneUsingThisMatrix->decrementUserCount();
+	
+	// if this is no longer the current mActiveMatrix, then...
+	if(doneUsingThisMatrix->isBufferPoolStage(kSM_BecomingIdle))
+	{
+		// the next method checks the user count, so we don't have to 
+		// but maybe we should so that meaningful errors can be reported?
+		chuckMatrix(doneUsingThisMatrix);
+	}
+	
+	// no real chance of an error, yet
+	return kTTErrNone;
+}
+

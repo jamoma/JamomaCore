@@ -53,6 +53,12 @@ protected:
 	
 public:
 	
+	// public method to check out the mActiveMatrix
+	TTErr checkOutMatrix(TTSampleMatrixPtr startUsingThisMatrix);
+	
+	// public method to check in TTSampleMatrix. if it is no longer mActiveMatrix, action is taken.
+	TTErr checkInMatrix(TTSampleMatrixPtr doneUsingThisMatrix);
+	
 	TTErr getNames(const TTValueRef unusedInput, TTValueRef returnedNames)
 	{
 		return gTTBufferNameMap->getKeys(returnedNames);
