@@ -164,7 +164,7 @@ TTErr TTBuffer::checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix)
 	return kTTErrNone;
 }
 
-TTErr TTBuffer::checkInMatrix(TTSampleMatrixPtr doneUsingThisMatrix)
+TTErr TTBuffer::checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix)
 {
 	// sub one from the tally of users
 	doneUsingThisMatrix->decrementUserCount();
@@ -176,6 +176,9 @@ TTErr TTBuffer::checkInMatrix(TTSampleMatrixPtr doneUsingThisMatrix)
 		// but maybe we should so that meaningful errors can be reported?
 		chuckMatrix(doneUsingThisMatrix);
 	}
+	
+	// we set the pointer to NULL so that users have to check it out again
+	doneUsingThisMatrix = NULL;
 	
 	// no real chance of an error, yet
 	return kTTErrNone;

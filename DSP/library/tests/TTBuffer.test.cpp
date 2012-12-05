@@ -21,6 +21,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	// TODO: test normalizing (with optional arg, and also without an optional arg)
 	
     this->init(1,"myFirstBuffer");
+	this->setAttributeValue("lengthInSamples", 50);
 
 	TTTestLog("\nTest checkout of first SampleMatrix...");
 	
@@ -120,11 +121,11 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test6expect, test6return);
 	}
 	
-	TTTestLog("\nTest if changing length attribute spawns new SampleMatrix...");
+	TTTestLog("\nTest if changing lengthInSamples attribute spawns new SampleMatrix...");
 	
 	// TEST 7: changing length at TTBuffer should spawn a new matrix
 	TTSampleMatrixPtr mySecondCheckOut = NULL;
-	this->setAttributeValue("length", 2);
+	this->setAttributeValue("lengthInSamples", 100);
 	this->checkOutMatrix(mySecondCheckOut);
 	
 	TTBoolean result7 = { mySecondCheckOut != myFirstCheckOut };
@@ -184,11 +185,86 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test10expect, test10return);
 	}
 	
-	TTTestLog("\nAt this point, 3 distinct SampleMatrix objects have been checked out:");
-	TTTestLog("myFirstCheckOut: userCount = %i, Active = %i, Becoming Idle = %i", myFirstCheckOut->getUserCount(), myFirstCheckOut->isBufferPoolStage(kSM_Active), myFirstCheckOut->isBufferPoolStage(kSM_BecomingIdle));
-	TTTestLog("mySecondCheckOut: userCount = %i, Active = %i, Becoming Idle = %i", mySecondCheckOut->getUserCount(), mySecondCheckOut->isBufferPoolStage(kSM_Active), mySecondCheckOut->isBufferPoolStage(kSM_BecomingIdle));
-	TTTestLog("myThirdCheckOut: userCount = %i, Active = %i, Becoming Idle = %i", myThirdCheckOut->getUserCount(), myThirdCheckOut->isBufferPoolStage(kSM_Active), myThirdCheckOut->isBufferPoolStage(kSM_BecomingIdle));
 	
+	/******/
+	TTTestLog("\nAt this point, 3 SampleMatrix objects are checked out via 4 pointers:");
+	TTTestLog("myFirstCheckOut: userCount %i, Active %i, Becoming Idle %i", myFirstCheckOut->getUserCount(), myFirstCheckOut->isBufferPoolStage(kSM_Active), myFirstCheckOut->isBufferPoolStage(kSM_BecomingIdle));
+	TTTestLog("myFirstCheckOut2: userCount %i, Active %i, Becoming Idle %i", myFirstCheckOut2->getUserCount(), myFirstCheckOut2->isBufferPoolStage(kSM_Active), myFirstCheckOut2->isBufferPoolStage(kSM_BecomingIdle));
+	TTTestLog("mySecondCheckOut: userCount %i, Active %i, Becoming Idle %i", mySecondCheckOut->getUserCount(), mySecondCheckOut->isBufferPoolStage(kSM_Active), mySecondCheckOut->isBufferPoolStage(kSM_BecomingIdle));
+	TTTestLog("myThirdCheckOut: userCount %i, Active %i, Becoming Idle %i", myThirdCheckOut->getUserCount(), myThirdCheckOut->isBufferPoolStage(kSM_Active), myThirdCheckOut->isBufferPoolStage(kSM_BecomingIdle));
+	/******/
+	
+	
+	TTTestLog("\nTesting check in process...");
+	
+	// TEST 11: checking out a matrix returns NULL pointer
+	this->checkInMatrix(myFirstCheckOut);
+
+	TTBoolean result11 = { myFirstCheckOut == NULL };
+	
+	TTTestAssertion("checkInMatrix(myFirstCheckOut) resets pointer to NULL", 
+					result11,
+					testAssertionCount, 
+					errorCount);
+					
+	// TEST 12: second pointer to first matrix is still valid
+	TTBoolean result12 = { myFirstCheckOut2 != NULL };
+	
+	TTTestAssertion("myFirstCheckOut2 is still a valid pointer", 
+					result12,
+					testAssertionCount, 
+					errorCount);
+	
+	// TEST 13: poke/peek a sample into first matrix
+	TTSampleValue test13expect = TTRandom64();
+	myFirstCheckOut2->poke(10,0,test13expect);
+					
+	TTSampleValue test13return;
+	myFirstCheckOut2->peek(10,0,test13return);
+	
+	TTBoolean result13 = TTTestFloatEquivalence(test13expect,test13return);
+	
+	TTTestAssertion("poke/peek sample value still works",
+					result13,
+					testAssertionCount,
+					errorCount);
+
+	if(!result13)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test13expect, test13return);
+	}
+	
+	// TEST 14: checking out a matrix returns NULL pointer
+	this->checkInMatrix(myFirstCheckOut2);
+
+	TTBoolean result14 = { myFirstCheckOut2 == NULL };
+	
+	TTTestAssertion("checkInMatrix(myFirstCheckOut2) resets pointer to NULL", 
+					result14,
+					testAssertionCount, 
+					errorCount);
+	
+	// TEST 15: checking out a matrix returns NULL pointer
+	this->checkInMatrix(mySecondCheckOut);
+
+	TTBoolean result15 = { mySecondCheckOut == NULL };
+	
+	TTTestAssertion("checkInMatrix(mySecondCheckOut) resets pointer to NULL", 
+					result15,
+					testAssertionCount, 
+					errorCount);
+					
+	// TEST 16: checking out a matrix returns NULL pointer
+	this->checkInMatrix(myThirdCheckOut);
+
+	TTBoolean result16 = { myThirdCheckOut == NULL };
+	
+	TTTestAssertion("checkInMatrix(myThirdCheckOut) resets pointer to NULL", 
+					result16,
+					testAssertionCount, 
+					errorCount);
+
+	// The following is effectively taken care of through check in...
 	//TTObjectRelease(&myFirstCheckOut);
 	//TTObjectRelease(&mySecondCheckOut);
 	//TTObjectRelease(&myThirdCheckOut);
