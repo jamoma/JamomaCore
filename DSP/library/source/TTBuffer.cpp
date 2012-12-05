@@ -158,7 +158,7 @@ TTErr TTBuffer::promoteBecomingActiveMatrix()
 }
 	
 
-TTErr TTBuffer::checkOutMatrix(TTSampleMatrixPtr startUsingThisMatrix)
+TTErr TTBuffer::checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix)
 {
 	// add one to the tally of users
 	mActiveMatrix->incrementUserCount();

@@ -14,117 +14,41 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	//int					badSampleCount = 0;
-	TTAudioSignalPtr	input = NULL;
-	TTAudioSignalPtr	output = NULL;
 	
 	// TODO: test filling with sine wave
 	// TODO: test scaling (applying gain)
 	// TODO: test normalizing (with optional arg, and also without an optional arg)
 	
-	/*
-	// create 1 channel audio signal objects
-	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
-	TTObjectInstantiate(kTTSym_audiosignal, &output, 1);
-	input->allocWithVectorSize(64);
-	output->allocWithVectorSize(64);
+    this->init(1,"myFirstBuffer");
 	
-	// create an impulse
-	input->clear();						// set all samples to zero
-	input->mSampleVectors[0][0] = 1.0;	// set the first sample to 1
+	// TEST 1: checking out a matrix returns something
+	TTSampleMatrixPtr myfirstCheckOut = NULL;
+	this->checkOutMatrix(myfirstCheckOut);
 	
-	// setup the delay
-	this->setAttributeValue("delayMaxInSamples", 64);
-	this->setAttributeValue("delayInSamples", 1);
-	this->setAttributeValue("interpolation", "none"), 
-	this->process(input, output);
+	TTBoolean result1 = { myfirstCheckOut != NULL };
 	
-
-	TTFloat64 expectedImpulseResponse[64] = {
-		0.0000000000000000e+00,
-		1.0,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00,
-		0.0000000000000000e+00		
-	};
-	
-	for (int i=0; i<64; i++) {
-		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse[i]);
-		badSampleCount += result;
-		if (result)
-			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse[i]);
-	}
-
-	TTTestAssertion("Produces correct impulse response for a delay of 1 sample", 
-					badSampleCount == 0, 
+	TTTestAssertion("checkOutMatrix returns a pointer", 
+					result1,
 					testAssertionCount, 
 					errorCount);
-	if (badSampleCount)
-		TTTestLog("badSampleCount is %i", badSampleCount);
-	*/
 	
+	// TEST 2: how many channels does this matrix have?
+	TTInt32 test2expect = 1;
 	
+	TTInt32 test2return = 0;
+	myfirstCheckOut->getAttributeValue("numChannels", test2return);
 	
-	TTObjectRelease(&input);
-	TTObjectRelease(&output);
+	TTBoolean result2 = { test2expect == test2return };
+	
+	TTTestAssertion("numChannels is set properly", 
+					result2,
+					testAssertionCount, 
+					errorCount);
+	
+	if(!result2)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test2expect, test2return);	
+	}
 	
 	
 	// Wrap up the test results to pass back to whoever called this test
