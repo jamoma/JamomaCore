@@ -61,12 +61,6 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	
 	addMessage(normalize);
 	addMessageWithArguments(fill);
-
-	addMessageWithArguments(getValueAtIndex);
-	registerMessage("peek", (TTMethod)&TTBuffer::getValueAtIndex);
-
-	addMessageWithArguments(setValueAtIndex);
-	registerMessage("poke", (TTMethod)&TTBuffer::setValueAtIndex);
 	
 	// initialize
 	init(channelCount, name);

@@ -122,11 +122,29 @@ public:
 			TTErr methodname (TTValue& arg1) { return mActiveMatrix -> methodname (arg1); }
 	#define TTBUFFER_WRAP_k1ARG(methodname) \
 			TTErr methodname (const TTValue& arg1) { return mActiveMatrix -> methodname (arg1); }
+	#define TTBUFFER_WRAP_WITHSPAWN_k1ARG(methodname) \
+			TTErr methodname (const TTValue& arg1) \
+				{ \
+					TTErr err = prepareBecomingActiveMatrix(); \
+					if (!err) \
+						err = mBecomingActiveMatrix -> methodname (arg1); \
+					if (!err) \
+						err = promoteBecomingActiveMatrix(); \
+					return err; \
+				}
 
 	// Methods of the hosted TTSampleMatrix object
 
-	TTBUFFER_WRAP_k1ARG( setNumChannels )
 	TTBUFFER_WRAP_1ARG(  getNumChannels )
+	TTErr setNumChannels(const TTValue& newNumChannels)
+	{ 
+		TTErr err = prepareBecomingActiveMatrix();
+		if (!err)
+			err = mBecomingActiveMatrix->setNumChannels(newNumChannels);
+		if (!err)
+			err = promoteBecomingActiveMatrix();
+		return err; 
+	}
 	
 	TTBUFFER_WRAP_k1ARG( setLength )
 	TTBUFFER_WRAP_1ARG(  getLength )
@@ -135,13 +153,9 @@ public:
 	TTBUFFER_WRAP_1ARG(  getLengthInSamples )
 	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)								{ return mActiveMatrix->lengthInSamples(returnedLengthInSamples); }
 
-	TTErr getContents(TTSampleValuePtr& beggining)											{ return mActiveMatrix->getContents(beggining); }
-
-	TTErr	getValueAtIndex(const TTValue& index, TTValue &output)							{ return mActiveMatrix->getValueAtIndex(index, output); }
-	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)		{ return mActiveMatrix->peek(index, channel, value); }
-	
-	TTErr	setValueAtIndex(const TTValue& index, TTValue& unusedOutput)					{ return mActiveMatrix->setValueAtIndex(index, unusedOutput); }
-	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value)	{ return mActiveMatrix->poke(index, channel, value); }
+	/** NOTE: We do not wrap getValueAtIndex, peek, setValueAtIndex, poke and simliar methods.  
+	Objects should work directly with the TTSampleMatrixPtr that they check out for these types of operations.
+	*/
 	
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								{ return mActiveMatrix->fill(value, unusedOutput); }
 

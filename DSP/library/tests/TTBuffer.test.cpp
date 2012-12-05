@@ -1,6 +1,6 @@
 /* 
  * Unit tests for the TTBuffer Object for Jamoma DSP
- * Copyright © 2011, Tim Place
+ * Copyright © 2012, Nathan Wolek
  * 
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
@@ -15,11 +15,14 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	int					testAssertionCount = 0;
 	//int					badSampleCount = 0;
 	
+	// *** Tim's old list (we'll get there) ***
 	// TODO: test filling with sine wave
 	// TODO: test scaling (applying gain)
 	// TODO: test normalizing (with optional arg, and also without an optional arg)
 	
     this->init(1,"myFirstBuffer");
+
+	TTTestLog("Test checkout of first SampleMatrix...");
 	
 	// TEST 1: checking out a matrix returns something
 	TTSampleMatrixPtr myfirstCheckOut = NULL;
@@ -85,6 +88,20 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	{
 		TTTestLog("Expected a value of %i, but returned value was %i", test4expect, test4return);	
 	}
+	
+	TTTestLog("Test if changing an attribute spawns new SampleMatrix...");
+	
+	// TEST 5: changing numChannels at TTBuffer should spawn a new matrix
+	TTSampleMatrixPtr mySecondCheckOut = NULL;
+	this->setAttributeValue("numChannels", 2);
+	this->checkOutMatrix(mySecondCheckOut);
+	
+	TTBoolean result5 = { mySecondCheckOut != myfirstCheckOut };
+	
+	TTTestAssertion("checkOutMatrix returns pointer to new, different SampleMatrix", 
+					result5,
+					testAssertionCount, 
+					errorCount);
 	
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
