@@ -25,10 +25,10 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	TTTestLog("\nTest checkout of first SampleMatrix...");
 	
 	// TEST 1: checking out a matrix returns something
-	TTSampleMatrixPtr myfirstCheckOut = NULL;
-	this->checkOutMatrix(myfirstCheckOut);
+	TTSampleMatrixPtr myFirstCheckOut = NULL;
+	this->checkOutMatrix(myFirstCheckOut);
 	
-	TTBoolean result1 = { myfirstCheckOut != NULL };
+	TTBoolean result1 = { myFirstCheckOut != NULL };
 	
 	TTTestAssertion("checkOutMatrix returns a valid pointer", 
 					result1,
@@ -39,7 +39,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	TTInt32 test2expect = 1;
 	
 	TTInt32 test2return = 0;
-	myfirstCheckOut->getAttributeValue("numChannels", test2return);
+	myFirstCheckOut->getAttributeValue("numChannels", test2return);
 	
 	TTBoolean result2 = { test2expect == test2return };
 	
@@ -57,7 +57,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	TTInt32 test3expect = 1;
 	
 	TTInt32 test3return = 0;
-	myfirstCheckOut->getAttributeValue("userCount", test3return);
+	myFirstCheckOut->getAttributeValue("userCount", test3return);
 	
 	TTBoolean result3 = { test2expect == test3return };
 	
@@ -75,7 +75,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	TTBoolean test4expect = true;
 	
 	TTBoolean test4return = false;
-	test4return = myfirstCheckOut->isBufferPoolStage(kSM_Active);
+	test4return = myFirstCheckOut->isBufferPoolStage(kSM_Active);
 	
 	TTBoolean result4 = { test4expect == test4return };
 	
@@ -92,10 +92,10 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	TTTestLog("\nTest second checkout of first SampleMatrix...");
 	
 	// TEST 5: checking out a matrix returns something
-	TTSampleMatrixPtr myfirstCheckOut2 = NULL;
-	this->checkOutMatrix(myfirstCheckOut2);
+	TTSampleMatrixPtr myFirstCheckOut2 = NULL;
+	this->checkOutMatrix(myFirstCheckOut2);
 	
-	TTBoolean result5 = { myfirstCheckOut == myfirstCheckOut2 };
+	TTBoolean result5 = { myFirstCheckOut == myFirstCheckOut2 };
 	
 	TTTestAssertion("checkOutMatrix returns the same pointer", 
 					result5,
@@ -106,7 +106,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	TTInt32 test6expect = 2;
 	
 	TTInt32 test6return = 0;
-	myfirstCheckOut->getAttributeValue("userCount", test6return);
+	myFirstCheckOut->getAttributeValue("userCount", test6return);
 	
 	TTBoolean result6 = { test6expect == test6return };
 	
@@ -120,14 +120,14 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test6expect, test6return);
 	}
 	
-	TTTestLog("\nTest if changing an attribute spawns new SampleMatrix...");
+	TTTestLog("\nTest if changing length attribute spawns new SampleMatrix...");
 	
-	// TEST 7: changing numChannels at TTBuffer should spawn a new matrix
+	// TEST 7: changing length at TTBuffer should spawn a new matrix
 	TTSampleMatrixPtr mySecondCheckOut = NULL;
 	this->setAttributeValue("length", 2);
 	this->checkOutMatrix(mySecondCheckOut);
 	
-	TTBoolean result7 = { mySecondCheckOut != myfirstCheckOut };
+	TTBoolean result7 = { mySecondCheckOut != myFirstCheckOut };
 	
 	TTTestAssertion("checkOutMatrix returns pointer to different SampleMatrix", 
 					result7,
@@ -152,10 +152,50 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test8expect, test8return);
 	}
 	
+	TTTestLog("\nRepeat with numChannels attribute...");
+	
+	// TEST 9: changing numChannels at TTBuffer should spawn a new matrix
+	TTSampleMatrixPtr myThirdCheckOut = NULL;
+	this->setAttributeValue("numChannels", 2);
+	this->checkOutMatrix(myThirdCheckOut);
+	
+	TTBoolean result9 = { mySecondCheckOut != myThirdCheckOut && myFirstCheckOut != myThirdCheckOut};
+	
+	TTTestAssertion("checkOutMatrix returns pointer to different SampleMatrix", 
+					result9,
+					testAssertionCount, 
+					errorCount);
+					
+	// TEST 10: what is the user count on new checkout?
+	TTInt32 test10expect = 1;
+	
+	TTInt32 test10return = 0;
+	myThirdCheckOut->getAttributeValue("userCount", test10return);
+	
+	TTBoolean result10 = { test10expect == test10return };
+	
+	TTTestAssertion("userCount reports proper value",
+					result10,
+					testAssertionCount,
+					errorCount);
+	
+	if(!result10)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test10expect, test10return);
+	}
+	
+	TTTestLog("\nAt this point, 3 distinct SampleMatrix objects have been checked out:");
+	TTTestLog("myFirstCheckOut: userCount = %i, Active = %i, Becoming Idle = %i", myFirstCheckOut->getUserCount(), myFirstCheckOut->isBufferPoolStage(kSM_Active), myFirstCheckOut->isBufferPoolStage(kSM_BecomingIdle));
+	TTTestLog("mySecondCheckOut: userCount = %i, Active = %i, Becoming Idle = %i", mySecondCheckOut->getUserCount(), mySecondCheckOut->isBufferPoolStage(kSM_Active), mySecondCheckOut->isBufferPoolStage(kSM_BecomingIdle));
+	TTTestLog("myThirdCheckOut: userCount = %i, Active = %i, Becoming Idle = %i", myThirdCheckOut->getUserCount(), myThirdCheckOut->isBufferPoolStage(kSM_Active), myThirdCheckOut->isBufferPoolStage(kSM_BecomingIdle));
+	
+	//TTObjectRelease(&myFirstCheckOut);
+	//TTObjectRelease(&mySecondCheckOut);
+	//TTObjectRelease(&myThirdCheckOut);
+	
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 	
-	//TTObjectRelease(&myfirstCheckOut);
-	//TTObjectRelease(&mySecondCheckOut);
+
 }
 
