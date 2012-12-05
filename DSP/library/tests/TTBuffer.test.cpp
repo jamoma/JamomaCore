@@ -22,7 +22,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	
     this->init(1,"myFirstBuffer");
 
-	TTTestLog("Test checkout of first SampleMatrix...");
+	TTTestLog("\nTest checkout of first SampleMatrix...");
 	
 	// TEST 1: checking out a matrix returns something
 	TTSampleMatrixPtr myfirstCheckOut = NULL;
@@ -89,21 +89,73 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test4expect, test4return);	
 	}
 	
-	TTTestLog("Test if changing an attribute spawns new SampleMatrix...");
+	TTTestLog("\nTest second checkout of first SampleMatrix...");
 	
-	// TEST 5: changing numChannels at TTBuffer should spawn a new matrix
-	TTSampleMatrixPtr mySecondCheckOut = NULL;
-	this->setAttributeValue("numChannels", 2);
-	this->checkOutMatrix(mySecondCheckOut);
+	// TEST 5: checking out a matrix returns something
+	TTSampleMatrixPtr myfirstCheckOut2 = NULL;
+	this->checkOutMatrix(myfirstCheckOut2);
 	
-	TTBoolean result5 = { mySecondCheckOut != myfirstCheckOut };
+	TTBoolean result5 = { myfirstCheckOut == myfirstCheckOut2 };
 	
-	TTTestAssertion("checkOutMatrix returns pointer to new, different SampleMatrix", 
+	TTTestAssertion("checkOutMatrix returns the same pointer", 
 					result5,
 					testAssertionCount, 
 					errorCount);
+    
+    // TEST 6: what is the user count after 2 checkouts?
+	TTInt32 test6expect = 2;
+	
+	TTInt32 test6return = 0;
+	myfirstCheckOut->getAttributeValue("userCount", test6return);
+	
+	TTBoolean result6 = { test6expect == test6return };
+	
+	TTTestAssertion("userCount reports proper value after second checkout",
+					result6,
+					testAssertionCount,
+					errorCount);
+	
+	if(!result6)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test6expect, test6return);
+	}
+	
+	TTTestLog("\nTest if changing an attribute spawns new SampleMatrix...");
+	
+	// TEST 7: changing numChannels at TTBuffer should spawn a new matrix
+	TTSampleMatrixPtr mySecondCheckOut = NULL;
+	this->setAttributeValue("length", 2);
+	this->checkOutMatrix(mySecondCheckOut);
+	
+	TTBoolean result7 = { mySecondCheckOut != myfirstCheckOut };
+	
+	TTTestAssertion("checkOutMatrix returns pointer to different SampleMatrix", 
+					result7,
+					testAssertionCount, 
+					errorCount);
+					
+	// TEST 8: what is the user count on new checkout?
+	TTInt32 test8expect = 1;
+	
+	TTInt32 test8return = 0;
+	mySecondCheckOut->getAttributeValue("userCount", test8return);
+	
+	TTBoolean result8 = { test8expect == test8return };
+	
+	TTTestAssertion("userCount reports proper value",
+					result8,
+					testAssertionCount,
+					errorCount);
+	
+	if(!result8)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test8expect, test8return);
+	}
 	
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
+	
+	//TTObjectRelease(&myfirstCheckOut);
+	//TTObjectRelease(&mySecondCheckOut);
 }
 

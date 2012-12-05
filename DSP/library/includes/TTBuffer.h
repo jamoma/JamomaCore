@@ -135,29 +135,23 @@ public:
 
 	// Methods of the hosted TTSampleMatrix object
 
-	TTBUFFER_WRAP_1ARG(  getNumChannels )
-	TTErr setNumChannels(const TTValue& newNumChannels)
-	{ 
-		TTErr err = prepareBecomingActiveMatrix();
-		if (!err)
-			err = mBecomingActiveMatrix->setNumChannels(newNumChannels);
-		if (!err)
-			err = promoteBecomingActiveMatrix();
-		return err; 
-	}
+	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setNumChannels )
+	TTBUFFER_WRAP_1ARG( getNumChannels )
 	
-	TTBUFFER_WRAP_k1ARG( setLength )
+	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLength )
 	TTBUFFER_WRAP_1ARG(  getLength )
 	
-	TTBUFFER_WRAP_k1ARG( setLengthInSamples )
+	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLengthInSamples )
 	TTBUFFER_WRAP_1ARG(  getLengthInSamples )
-	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)								{ return mActiveMatrix->lengthInSamples(returnedLengthInSamples); }
+	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)								
+		{ return mActiveMatrix->lengthInSamples(returnedLengthInSamples); }
 
 	/** NOTE: We do not wrap getValueAtIndex, peek, setValueAtIndex, poke and simliar methods.  
 	Objects should work directly with the TTSampleMatrixPtr that they check out for these types of operations.
 	*/
 	
-	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								{ return mActiveMatrix->fill(value, unusedOutput); }
+	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								
+		{ return mActiveMatrix->fill(value, unusedOutput); }
 
 	TTBUFFER_WRAP_k1ARG( normalize )
 	
