@@ -22,7 +22,7 @@
 
 
 TTHashPtr gTTBufferNameMap = NULL;
-
+// TODO: we likely need second hash table to track all SampleMatrices for status and destructor
 
 TTObjectPtr TTBuffer::instantiate(TTSymbol& name, TTValue& arguments)
 {
@@ -77,6 +77,8 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 TTBuffer::~TTBuffer()
 {
 	chuckMatrix(mActiveMatrix);
+	if (mBecomingActiveMatrix) chuckMatrix(mBecomingActiveMatrix);
+	// TODO: what happens to matrices that are checked out, but no longer active?
 }
 
 
