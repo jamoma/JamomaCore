@@ -27,7 +27,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	
 	TTBoolean result1 = { myfirstCheckOut != NULL };
 	
-	TTTestAssertion("checkOutMatrix returns a pointer", 
+	TTTestAssertion("checkOutMatrix returns a valid pointer", 
 					result1,
 					testAssertionCount, 
 					errorCount);
@@ -50,6 +50,41 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test2expect, test2return);	
 	}
 	
+	// TEST 3: what is the user count?
+	TTInt32 test3expect = 1;
+	
+	TTInt32 test3return = 0;
+	myfirstCheckOut->getAttributeValue("userCount", test3return);
+	
+	TTBoolean result3 = { test2expect == test3return };
+	
+	TTTestAssertion("userCount reports proper value", 
+					result3,
+					testAssertionCount, 
+					errorCount);
+	
+	if(!result3)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test3expect, test3return);	
+	}
+	
+	// TEST 4: what is the buffer stage?
+	TTBoolean test4expect = true;
+	
+	TTBoolean test4return = false;
+	test4return = myfirstCheckOut->isBufferPoolStage(kSM_Active);
+	
+	TTBoolean result4 = { test4expect == test4return };
+	
+	TTTestAssertion("bufferPoolStage reports proper value", 
+					result4,
+					testAssertionCount, 
+					errorCount);
+	
+	if(!result4)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test4expect, test4return);	
+	}
 	
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
