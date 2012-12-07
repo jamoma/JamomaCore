@@ -64,6 +64,7 @@
 		2297CFF914901CBA00CC6D7E /* TTValue.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFB614901CB900CC6D7E /* TTValue.test.cpp */; };
 		2297CFFA14901CBA00CC6D7E /* TTNodeLib.test.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CFB714901CB900CC6D7E /* TTNodeLib.test.h */; };
 		2297CFFB14901CBA00CC6D7E /* TTNodeLib.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CFB814901CB900CC6D7E /* TTNodeLib.test.cpp */; };
+		22C2C1241672B0090034E8D1 /* TTInterpolate.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C2C1231672B0090034E8D1 /* TTInterpolate.test.cpp */; };
 		A79E8F07165467B90004C9A1 /* TTRegex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79E8F06165467B90004C9A1 /* TTRegex.cpp */; };
 		A79E8F09165467FE0004C9A1 /* TTFifo.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F08165467FD0004C9A1 /* TTFifo.h */; };
 		A79E8F0B1654680F0004C9A1 /* TTFoundationAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = A79E8F0A1654680F0004C9A1 /* TTFoundationAPI.h */; };
@@ -154,6 +155,7 @@
 		2297CFB614901CB900CC6D7E /* TTValue.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.test.cpp; path = ../tests/TTValue.test.cpp; sourceTree = "<group>"; };
 		2297CFB714901CB900CC6D7E /* TTNodeLib.test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNodeLib.test.h; path = ../tests/TTNodeLib.test.h; sourceTree = "<group>"; };
 		2297CFB814901CB900CC6D7E /* TTNodeLib.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNodeLib.test.cpp; path = ../tests/TTNodeLib.test.cpp; sourceTree = "<group>"; };
+		22C2C1231672B0090034E8D1 /* TTInterpolate.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTInterpolate.test.cpp; path = ../tests/TTInterpolate.test.cpp; sourceTree = "<group>"; };
 		A79E8F06165467B90004C9A1 /* TTRegex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRegex.cpp; path = ../source/TTRegex.cpp; sourceTree = "<group>"; };
 		A79E8F08165467FD0004C9A1 /* TTFifo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFifo.h; path = ../includes/TTFifo.h; sourceTree = "<group>"; };
 		A79E8F0A1654680F0004C9A1 /* TTFoundationAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTFoundationAPI.h; path = ../includes/TTFoundationAPI.h; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 		A79E8F04165464D10004C9A1 /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				22C2C1231672B0090034E8D1 /* TTInterpolate.test.cpp */,
 				2297CFB414901CB900CC6D7E /* TTMatrix.test.cpp */,
 			);
 			name = tests;
@@ -511,6 +514,7 @@
 				A79E8F301654694B0004C9A1 /* TTString.cpp in Sources */,
 				A79E8F36165469F10004C9A1 /* TTString.test.cpp in Sources */,
 				A79E8F3A16546A090004C9A1 /* TTSymbol.test.cpp in Sources */,
+				22C2C1241672B0090034E8D1 /* TTInterpolate.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
