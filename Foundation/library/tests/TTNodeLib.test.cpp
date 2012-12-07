@@ -519,14 +519,30 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance	= testAddress.getInstance();
 	TTSymbol		attribute	= testAddress.getAttribute();
 	TTAddressType	type		= testAddress.getType();
-    
-    TTTestAssertion("TTValue::get : Test fails if a TTSymbol contained into a value is not casted into a TTAddress during a get method",
+
+    TTTestAssertion("TTValue::get : Test2 fails if a TTSymbol contained into a value is not casted into a TTAddress during a get method",
 					directory == TTSymbol("directory") &&
 					parent == TTAddress("/gran/parent") &&
 					name == TTSymbol("name") &&
 					instance == TTSymbol("instance") &&
 					attribute == TTSymbol("attribute") &&
 					type == kAddressAbsolute,
+					testAssertionCount,
+					errorCount);
+
+    // test TTSymbol for TTHash access when a key is registered using a TTAddress
+    TTHash      testTable;
+    TTAddress   keyAddress = TTAddress("test");
+    TTValue     keyValue;
+    TTErr       err;
+    
+    testTable.append(keyAddress, keyValue);         // store a value into the table using "test" address
+    testValue = TTValue(TTSymbol("test"));          // store a "test" symbol into a value
+    testValue.get(0, testAddress);                  // get it as an address
+    err = testTable.lookup(testAddress, keyValue);  // use the sybol casted in address to lookup the table
+    
+    TTTestAssertion("TTHash::lookup : Test fails if a TTSymbol cannot be used as key for TTHash table when the key is a TTAddress",
+					err == kTTErrNone,
 					testAssertionCount,
 					errorCount);
 }
