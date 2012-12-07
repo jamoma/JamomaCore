@@ -400,7 +400,7 @@ end
     project_type = "extension"
     project_type = "library" if foldername == "library"
     project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "implementations"
-
+    define_c74_linker_syms = false
     path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.."
     path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
     
@@ -724,7 +724,9 @@ end
               elsif (lib == "C74-MSP")
                 makefile.write("#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI")              
               elsif (lib == "C74-JITTER")
-                makefile.write("#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI")       
+                makefile.write("#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI")
+              elsif (lib == "C74")
+                define_c74_linker_syms = true
               else
                 makefile.write(lib)
               end
@@ -1007,6 +1009,12 @@ end
         end
         makefile.write("LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g\n") if linux?
         makefile.write("LDFLAGS += -fPIC\n") if beagle?
+        if define_c74_linker_syms
+          if mac?
+            makefile.write("C74SYMS = -Wl,-U,_sysmem_newptr,-U,_sysmem_freeptr,-U,_strncpy_zero,-U,_stdinletinfo,-U,_outlet_new,-U,_outlet_anything,-U,_object_post,-U,_object_obex_store,-U,_object_obex_dumpout,-U,_object_method,-U,_object_error,-U,_object_alloc,-U,_hashtab_store,-U,_hashtab_new,-U,_hashtab_lookup,-U,_gensym,-U,_error,-U,_common_symbols_gettable,-U,_class_register,-U,_class_new,-U,_class_attr_addattr_parse,-U,_class_addmethod,-U,_class_addattr,-U,_attr_offset_new,-U,_attr_args_process,-U,_attr_args_offset,-U,_atom_setsym,-U,_atom_setlong,-U,_atom_setfloat,-U,_atom_gettype,-U,_atom_getsym,-U,_atom_getlong,-U,_atom_getfloat,-U,_z_dsp_setup,-U,_z_dsp_free,-U,_sys_getsr,-U,_dsp_addv,-U,_class_dspinit,-U,_jit_object_method,-U,__jit_sym_long,-U,__jit_sym_lock,-U,__jit_sym_getinfo,-U,__jit_sym_getdata,-U,__jit_sym_float64,-U,__jit_sym_float32,-U,__jit_sym_char\n")
+            makefile.write("LDFLAGS += $(C74SYMS)\n")
+          end
+        end
 
         if project_type == "library"
           extension_suffix = ".dylib" if mac?
