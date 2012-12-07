@@ -167,9 +167,4 @@ TTErr TTAudioObjectArray::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 }
 
 
-TTErr TTAudioObjectArray::test(TTValue& returnedTestInfo)
-{
-	// TODO: write unit tests
-	return TTObject::test(returnedTestInfo);
-}
 

@@ -61,7 +61,6 @@ class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
 protected:	
 
 	TTBytePtr			mData;					///< memory used to store matrix values
-	std::vector<TTInt32>	mDimensions;			///< matrix dimensions, use mRowCount and mColumnCount instead of accessing directly
 	TTRowID				mRowCount;				///< How many rows of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
 	TTColumnID			mColumnCount;			///< How many columns of values the matrix should have. Uses an signed 32-bit integer which provides a maximum value of 2,147,483,647.
 	TTElementID			mElementCount;			///< How many elements (parts) per value (e.g. 2 for complex numbers, 4 for colors, default = 1). Uses an signed 16-bit integer which provides a maximum value of 32,767.
@@ -80,7 +79,10 @@ protected:
 		@return	TTErr		kTTErrAllocFailed if the resize operation could not be completed, otherwise kTTErrNone */
 	TTErr resize();
 
-	/**	Run unit tests.	*/	
+	/** Unit test for the window function unit.
+	 @param returnedTestInfo	The outcome from the performed unit test.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	virtual TTErr test(TTValue& returnedTestInfo);
 	
 	/**	Internal method that sets the value for RowCount without resizing the matrix of values. It is included so that other methods in the class use consistent range checking. Values that are less than 1 will return false and leave the value unchanged. 
@@ -145,6 +147,9 @@ public:
 	*/
 	TTErr setDimensionsWithVector(const std::vector<TTInt32>& newDimensions)
 	{
+		// NOTE: there is potential for some attributes to change while others fail
+		// if that happens, mData is never resized but attributes that changed will report bogus results
+		
 		if (this->setRowCountWithoutResize(newDimensions[0]) &&
 			this->setColumnCountWithoutResize(newDimensions[1]))
 		{
@@ -321,7 +326,7 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/	
-	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
 		TTRowID i_input = i;
 		i = (*handler)(i_input, TTRowID(0), mRowCount);
@@ -335,7 +340,7 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
 		TTColumnID j_input = j;
         j = (*handler)(j_input, TTColumnID(0), mColumnCount);
@@ -349,7 +354,7 @@ public:
 		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
 		TTColumnID e_input = e;
         e = (*handler)(e_input, TTElementID(0), mElementCount);
@@ -366,7 +371,7 @@ public:
 		
 		@seealso makeRowIDInBounds, makeColumnIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
 		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);
@@ -385,9 +390,9 @@ public:
 		
 		@seealso makeRowIDInBounds, makeColumnIDInBounds, makeElementIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip)
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
 	{
-		TTUInt8 changes; // keep track of how many changes are made
+		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);
 		changes += makeColumnIDInBounds(j, handler);
 		changes += makeElementIDInBounds(e, handler);
@@ -447,10 +452,10 @@ public:
 		@return 	TTErr		always returns kTTErrNone
 	 */
 	template<typename T>
-	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data)
+	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data) const
 	{
 		TTUInt32 index = INDEX_OF_ELEMENT_FIRSTBYTE(i, j, e);
-		data = *(T*)(mData + index);	// TODO: don't we need to account for bytes per element?
+		data = *(T*)(mData + index);
 		return kTTErrNone;
 	}
 	
@@ -507,7 +512,7 @@ public:
 	TTErr set2d(TTRowID i, TTColumnID j, TTElementID e, T data)
 	{
 		TTUInt32 index = INDEX_OF_ELEMENT_FIRSTBYTE(i, j, e);
-		*(T*)(mData + index) = data;	// TODO: don't we need to account for bytes per element?
+		*(T*)(mData + index) = data;
 		return kTTErrNone;
 	}
 	

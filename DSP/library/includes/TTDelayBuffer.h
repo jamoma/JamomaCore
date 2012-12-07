@@ -1,8 +1,13 @@
-/* 
- * Audio Delay Buffer Object for Jamoma DSP
- * Copyright © 2010, Timothy Place
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Audio delay buffer object.
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

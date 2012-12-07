@@ -6,8 +6,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_BLUE_H__
-#define __TT_BLUE_H__
+#ifndef __TT_FOUNDATION_H__
+#define __TT_FOUNDATION_H__
 
 #define TTFOUNDATION_VERSION_STRING "0.6"
 
@@ -64,4 +64,4 @@
 void TTFOUNDATION_EXPORT TTFoundationInit(const char* pathToTheJamomaFolder = NULL);
 
 
-#endif // __TT_BLUE_H__
+#endif // __TT_FOUNDATION_H__

@@ -8,7 +8,7 @@
 
 #include "TTBandRejectButterworth2.h"
 
-#define thisTTClass			TTBandRejectButterworth2
+#define thisTTClass			TTBandrejectButterworth2
 #define thisTTClassName		"bandreject.butterworth.2"
 #define thisTTClassTags		"audio, processor, filter, notch, butterworth"
 
@@ -39,13 +39,13 @@ TT_AUDIO_CONSTRUCTOR
 }
 
 
-TTBandRejectButterworth2::~TTBandRejectButterworth2()
+TTBandrejectButterworth2::~TTBandrejectButterworth2()
 {
 	;
 }
 
 
-TTErr TTBandRejectButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
+TTErr TTBandrejectButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	mX1.resize(maxNumChannels);
 	mX2.resize(maxNumChannels);
@@ -56,14 +56,14 @@ TTErr TTBandRejectButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumCha
 }
 
 
-TTErr TTBandRejectButterworth2::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
+TTErr TTBandrejectButterworth2::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
 	TTValue	v(mFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTBandRejectButterworth2::clear()
+TTErr TTBandrejectButterworth2::clear()
 {
 	mX1.assign(maxNumChannels, 0.0);
 	mX2.assign(maxNumChannels, 0.0);
@@ -73,7 +73,7 @@ TTErr TTBandRejectButterworth2::clear()
 }
 
 
-TTErr TTBandRejectButterworth2::setFrequency(const TTValue& newValue)
+TTErr TTBandrejectButterworth2::setFrequency(const TTValue& newValue)
 {
 	mFrequency = newValue;
 	calculateCoefficients();
@@ -81,7 +81,7 @@ TTErr TTBandRejectButterworth2::setFrequency(const TTValue& newValue)
 }
 
 
-TTErr TTBandRejectButterworth2::setQ(const TTValue& newValue)
+TTErr TTBandrejectButterworth2::setQ(const TTValue& newValue)
 {
 	mQ = newValue;
 	calculateCoefficients();
@@ -89,7 +89,7 @@ TTErr TTBandRejectButterworth2::setQ(const TTValue& newValue)
 }
 
 
-void TTBandRejectButterworth2::calculateCoefficients()
+void TTBandrejectButterworth2::calculateCoefficients()
 {
 	// Avoid dividing by zero
 	if (mQ > 0.1)
@@ -105,7 +105,7 @@ void TTBandRejectButterworth2::calculateCoefficients()
 	mB2 = mA0 * (1.0 - mC);
 }
 
-inline TTErr TTBandRejectButterworth2::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+inline TTErr TTBandrejectButterworth2::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
 	//y = TTAntiDenormal(mA0*x + mA1*mX1[channel] + mA2*mX2[channel] - mB1*mY1[channel] - mB2*mY2[channel]);
 	// since mA0 = mA2 nd mB1 = mA1, one can optimize to:
@@ -119,7 +119,7 @@ inline TTErr TTBandRejectButterworth2::calculateValue(const TTFloat64& x, TTFloa
 }
 
 
-TTErr TTBandRejectButterworth2::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTBandrejectButterworth2::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
