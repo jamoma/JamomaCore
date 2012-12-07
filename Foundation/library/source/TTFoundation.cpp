@@ -22,6 +22,7 @@
 // Unit Tests
 #include "TTMatrix.h"
 #include "TTMatrixArray.h"
+#include "TTInterpolate.test.h"
 #include "TTString.test.h"
 #include "TTSymbol.test.h"
 #include "TTValue.test.h"
@@ -96,6 +97,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTStringTest::registerClass();
 		TTSymbolTest::registerClass();
 		TTValueTest::registerClass();
+		TTInterpolateTest::registerClass();
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB
 		TTNodeLibTest::registerClass();

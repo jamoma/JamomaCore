@@ -27,7 +27,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	input->clear();						// set all samples to zero
 	input->mSampleVectors[0][0] = 1.0;	// set the first sample to 1
 	
-	// setup the delay
+	// test 1: one sample delay, no interpolation
 	this->setAttributeValue("delayMaxInSamples", 64);
 	this->setAttributeValue("delayInSamples", 1);
 	this->setAttributeValue("interpolation", "none"), 
@@ -101,6 +101,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		0.0000000000000000e+00		
 	};
 	
+	badSampleCount = 0; // reset
 	for (int i=0; i<64; i++) {
 		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse[i]);
 		badSampleCount += !result;
@@ -108,7 +109,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse[i]);
 	}
 
-	TTTestAssertion("Produces correct impulse response for a delay of 1 sample", 
+	TTTestAssertion("Produces correct impulse response: 1 sample, no interp", 
 					badSampleCount == 0, 
 					testAssertionCount, 
 					errorCount);
@@ -150,10 +151,10 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	//test 4,5,6,7: setting delayInSamples supports fractional values
 	this->setAttributeValue("delayInSamples", 44.1);
 	
-	TTFloat64 inquiry4 = this->mDelayInSamplesWithFractional;
+	TTFloat64 inquiry4 = this->mDelayInSamples;
 	TTFloat64 expect4 = 44.1;
 	TTBoolean result4 = TTTestFloatEquivalence(inquiry4,expect4);
-	TTUInt64 inquiry5 = this->mDelayInSamples;
+	TTUInt64 inquiry5 = this->mIntegralDelay;
 	TTUInt64 expect5 = 44;
 	TTBoolean result5 = { inquiry5 == expect5 };
 	TTFloat64 inquiry6 = this->mFractionalDelay;
@@ -163,7 +164,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	TTFloat64 expect7 = 1.0;
 	TTBoolean result7 = TTTestFloatEquivalence(inquiry7,expect7);
 	
-	TTTestAssertion("float delayInSamples to yeilds correct mDelayInSamplesWithFractional", 
+	TTTestAssertion("float delayInSamples to yields correct mDelayInSamples", 
 								result4, 
 								testAssertionCount,
 								errorCount);													
@@ -173,7 +174,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %f, but returned value was %f", expect4, inquiry4);
 	}
 	
-	TTTestAssertion("float delayInSamples to yeilds correct mDelayInSamples", 
+	TTTestAssertion("float delayInSamples to yields correct mIntegralDelay", 
 								result5, 
 								testAssertionCount,
 								errorCount);													
@@ -183,7 +184,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", expect5, inquiry5);
 	}
 	
-	TTTestAssertion("float delayInSamples to yeilds correct mFractionalDelay", 
+	TTTestAssertion("float delayInSamples to yields correct mFractionalDelay", 
 								result6, 
 								testAssertionCount,
 								errorCount);													
@@ -193,7 +194,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %f, but returned value was %f", expect6, inquiry6);
 	}
 	
-	TTTestAssertion("float delayInSamples to yeilds correct mDelay", 
+	TTTestAssertion("float delayInSamples to yields correct mDelay", 
 								result7, 
 								testAssertionCount,
 								errorCount);													
@@ -206,10 +207,10 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	//test 8,9,10,11: setting delay supports fractional values
 	this->setAttributeValue("delay", 1.1);
 	
-	TTFloat64 inquiry8 = this->mDelayInSamplesWithFractional;
+	TTFloat64 inquiry8 = this->mDelayInSamples;
 	TTFloat64 expect8 = 48.51;
 	TTBoolean result8 = TTTestFloatEquivalence(inquiry8,expect8);
-	TTUInt64 inquiry9 = this->mDelayInSamples;
+	TTUInt64 inquiry9 = this->mIntegralDelay;
 	TTUInt64 expect9 = 48;
 	TTBoolean result9 = { inquiry9 == expect9 };
 	TTFloat64 inquiry10 = this->mFractionalDelay;
@@ -219,7 +220,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	TTFloat64 expect11 = 1.1;
 	TTBoolean result11 = TTTestFloatEquivalence(inquiry11,expect11);
 	
-	TTTestAssertion("float delay to yeilds correct mDelayInSamplesWithFractional", 
+	TTTestAssertion("float delay to yields correct mDelayInSamples", 
 								result8, 
 								testAssertionCount,
 								errorCount);													
@@ -229,7 +230,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %f, but returned value was %f", expect8, inquiry8);
 	}
 	
-	TTTestAssertion("float delay to yeilds correct mDelayInSamples", 
+	TTTestAssertion("float delay to yields correct mIntegralDelay", 
 								result9, 
 								testAssertionCount,
 								errorCount);													
@@ -239,7 +240,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", expect9, inquiry9);
 	}
 	
-	TTTestAssertion("float delay to yeilds correct mFractionalDelay", 
+	TTTestAssertion("float delay to yields correct mFractionalDelay", 
 								result10, 
 								testAssertionCount,
 								errorCount);													
@@ -249,7 +250,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %f, but returned value was %f", expect10, inquiry10);
 	}
 	
-	TTTestAssertion("float delay to yeilds correct mDelay", 
+	TTTestAssertion("float delay to yields correct mDelay", 
 								result11, 
 								testAssertionCount,
 								errorCount);													
@@ -258,6 +259,274 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	{
 		TTTestLog("Expected a value of %f, but returned value was %f", expect11, inquiry11);
 	}
+	
+	// test 12: 1.4 sample delay, linear interpolation
+	this->clear();
+	this->setAttributeValue("delayInSamples", 1.4);
+	this->setAttributeValue("interpolation", "linear"), 
+	this->process(input, output);
+	
+
+	TTFloat64 expectedImpulseResponse12[64] = {
+		0.0000000000000000e+00,
+		0.6000000000000000e+00,
+		0.4000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00		
+	};
+	
+	badSampleCount = 0; // reset
+	for (int i=0; i<64; i++) {
+		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse12[i]);
+		badSampleCount += !result;
+		if (!result)
+			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse12[i]);
+	}
+
+	TTTestAssertion("Produces correct impulse response: 1.4 samples, linear interp", 
+					badSampleCount == 0, 
+					testAssertionCount, 
+					errorCount);
+	if (badSampleCount)
+		TTTestLog("badSampleCount is %i", badSampleCount);
+		
+
+	// test 13: 1.1 sample delay, cosine interpolation
+	this->clear();
+	this->setAttributeValue("delayInSamples", 1.1);
+	this->setAttributeValue("interpolation", "cosine"), 
+	this->process(input, output);
+	
+
+	TTFloat64 expectedImpulseResponse13[64] = {
+		0.0000000000000000e+00,
+		0.9755282581475768e+00,
+		0.0244717418524232e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00		
+	};
+	
+	badSampleCount = 0; // reset
+	for (int i=0; i<64; i++) {
+		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse13[i]);
+		badSampleCount += !result;
+		if (!result)
+			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse13[i]);
+	}
+
+	TTTestAssertion("Produces correct impulse response: 1.1 samples, cosine interp", 
+					badSampleCount == 0, 
+					testAssertionCount, 
+					errorCount);
+	if (badSampleCount)
+		TTTestLog("badSampleCount is %i", badSampleCount);
+		
+	// test 14: 1.8 sample delay, cubic interpolation
+	this->clear();
+	this->setAttributeValue("delayInSamples", 1.8);
+	this->setAttributeValue("interpolation", "cubic"), 
+	this->process(input, output);
+	
+
+	TTFloat64 expectedImpulseResponse14[64] = {
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00,
+		0.0000000000000000e+00		
+	};
+	
+	badSampleCount = 0; // reset
+	for (int i=0; i<64; i++) {
+		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse14[i]);
+		badSampleCount += !result;
+		if (!result)
+			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse14[i]);
+	}
+
+	TTTestAssertion("Produces correct impulse response: 1.8 samples, cubic interp\n****THIS TEST FAILS ONLY BECAUSE I DON'T KNOW WHAT TO EXPECT****", 
+					badSampleCount == 0, 
+					testAssertionCount, 
+					errorCount);
+	if (badSampleCount)
+		TTTestLog("badSampleCount is %i", badSampleCount);
 	
 	
 	TTObjectRelease(&input);
