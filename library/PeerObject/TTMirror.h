@@ -32,7 +32,7 @@
 		@param	propertyName	The name of the property.
 		@param	initialValue	The value of the property.
  */
-//#define addMirrorAttributeProperty(name, propertyName, initialValue)		registerAttributeProperty(name, TT(#propertyName), initialValue, (TTGetterMethod)& TTAttribute::get##propertyName , (TTSetterMethod)& TTAttribute::set##propertyName )
+//#define addMirrorAttributeProperty(name, propertyName, initialValue)		registerAttributeProperty(name, TTSymbol(#propertyName), initialValue, (TTGetterMethod)& TTAttribute::get##propertyName , (TTSetterMethod)& TTAttribute::set##propertyName )
 
 
 /**	A convenience macro to be used for registering mirror message.
@@ -49,7 +49,7 @@
 		@param	propertyName	The name of the property.
 		@param	initialValue	The value of the property.
  */
-//#define addMessageProperty(name, propertyName, initialValue)		registerMessageProperty(name, TT(#propertyName), initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
+//#define addMessageProperty(name, propertyName, initialValue)		registerMessageProperty(name, TTSymbol(#propertyName), initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
 
 
 class TTMODULAR_EXPORT TTMirror : public TTDataObject

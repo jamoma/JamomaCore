@@ -194,7 +194,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								xName = xmlTextReaderName((xmlTextReaderPtr)mReader);
 								if (xName == NULL)
 									break;
-								mXmlNodeName = TT((char*)xName);
+								mXmlNodeName = TTSymbol((char*)xName);
 								xmlFree((void*)xName);
 								
 								// to filter one line element
@@ -216,7 +216,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								xName = xmlTextReaderName((xmlTextReaderPtr)mReader);
 								if (xName == NULL)
 									break;
-								mXmlNodeName = TT((char*)xName);
+								mXmlNodeName = TTSymbol((char*)xName);
 								xmlFree((void*)xName);
 								
 								// End to read a node

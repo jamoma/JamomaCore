@@ -207,7 +207,7 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 							// first check for the name in the excludes list
 							for (TTInt32 e=0; e < self->excludeSize; e++) {
 								TTSymbol s1 = parameter->getName();
-								TTSymbol s2 = TT(self->excludes[e]->s_name);
+								TTSymbol s2 = TTSymbol(self->excludes[e]->s_name);
 								
 								if (s1 == s2) {
 									exclude = true;
@@ -253,7 +253,7 @@ void TTModSnapshotStore(TTModSnapshotPtr self, SymbolPtr s, AtomCount argc, Atom
 										// first check for the name in the excludes list
 										for (TTInt32 e=0; e < self->excludeSize; e++) {
 											TTSymbol s1 = parameter2->getName();
-											TTSymbol s2 = TT(self->excludes[e]->s_name);
+											TTSymbol s2 = TTSymbol(self->excludes[e]->s_name);
 											
 											if (s1 == s2) {
 												exclude = true;

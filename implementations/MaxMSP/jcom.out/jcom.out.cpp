@@ -219,7 +219,7 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		
 		v.toString();
 		v.get(0, sInstance);
-		EXTRA->instance = TT(sInstance.data());
+		EXTRA->instance = TTSymbol(sInstance.data());
 	}
 	else
 		EXTRA->instance = kTTSymEmpty;
@@ -326,7 +326,7 @@ void out_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
-		aData->setAttributeValue(kTTSym_description, TT(outDescription->s_name));
+		aData->setAttributeValue(kTTSym_description, TTSymbol(outDescription->s_name));
 		aData->setAttributeValue(kTTSym_dataspace, TTSymbol("gain"));
 		aData->setAttributeValue(kTTSym_dataspaceUnit, TTSymbol("linear"));
 		

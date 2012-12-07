@@ -564,7 +564,7 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 				filterValue.toString();
 				TTString instanceString;
 				filterValue.get(0, instanceString);
-				filterValue.set(0, TT(instanceString));
+				filterValue.set(0, TTSymbol(instanceString));
 			}
 			
 			afilter->append(filterKey, filterValue);

@@ -255,9 +255,9 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 							if (aSubscriber) {
 								// append the data to the internals table
 								v = TTValue(TTPtr(anObject));
-								v.append(TT(instanceAddress->s_name));
+								v.append(TTSymbol(instanceAddress->s_name));
 								v.append(TTPtr(aSubscriber));
-								x->internals->append(TT(instanceAddress->s_name), v);
+								x->internals->append(TTSymbol(instanceAddress->s_name), v);
 							}
 						}
 					}
@@ -507,7 +507,7 @@ void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 	
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Inc"), v, kTTValNONE);
+	selectedObject->sendMessage(TTSymbol("Inc"), v, kTTValNONE);
 }
 
 void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -516,7 +516,7 @@ void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 	
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Dec"), v, kTTValNONE);
+	selectedObject->sendMessage(TTSymbol("Dec"), v, kTTValNONE);
 }
 #endif
 
@@ -542,7 +542,7 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	// output index
 	if (x->arrayIndex == 0) {
 		jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i);
-		x->cursor = TT(iAdrs->s_name);
+		x->cursor = TTSymbol(iAdrs->s_name);
 	}
 	
 	outlet_int(x->outlets[index_out], i);
@@ -572,7 +572,7 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 					
 					memoCursor = x->cursor;
 					jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i+1);
-					x->cursor = TT(iAdrs->s_name);
+					x->cursor = TTSymbol(iAdrs->s_name);
 					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
 					selectedObject->getAttributeValue(kTTSym_type, t);
 					

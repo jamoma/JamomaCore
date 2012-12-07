@@ -326,8 +326,8 @@ TTErr jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver)
 TTErr jamoma_receiver_create_audio(ObjectPtr x, TTObjectPtr *returnedReceiver)
 {
 	TTValue			args;
-	TTObjectPtr		returnAddressCallback, returnValueCallback;
-	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTObjectPtr		returnAddressCallback;
+	TTValuePtr		returnAddressBaton;
 	TTAudioSignalPtr	audio = NULL;
 	
 	// prepare arguments
@@ -997,7 +997,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 		// add msg to the value
 		if (msg != _sym_nothing && msg != _sym_int && msg != _sym_float && msg != _sym_symbol && msg != _sym_list) {
 			v.setSize(argc+1);
-			v.set(0, TT(msg->s_name));
+			v.set(0, TTSymbol(msg->s_name));
 			start = 1;
 		}
 		else {
@@ -1013,7 +1013,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 			else if (atom_gettype(argv+i) == A_FLOAT)
 				v.set(i+start, atom_getfloat(argv+i));
 			else if (atom_gettype(argv+i) == A_SYM)
-				v.set(i+start, TT(atom_getsym(argv+i)->s_name));
+				v.set(i+start, TTSymbol(atom_getsym(argv+i)->s_name));
 		}
 	}
 }
@@ -1149,7 +1149,7 @@ SymbolPtr jamoma_patcher_get_hierarchy(ObjectPtr patcher)
 /** Get the context from the upper jcom model|view in the patcher or from patcher's name */
 void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol& returnedContext)
 {
-	SymbolPtr	hierarchy, _sym_jcommodel, _sym_jcomview, _sym_context, patcherName;
+	SymbolPtr	hierarchy, _sym_jcommodel, _sym_jcomview, _sym_context;
 	ObjectPtr	obj, upperPatcher;
 	TTBoolean	found = NO;
 	
@@ -1184,7 +1184,8 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol& returnedContext)
 	if (!found) {
 		
 		/*	to -- don't get the context from the filename anymore because it make two ways to set it...
-		 
+		SymbolPtr  patcherName;
+         
 		// try to get it from the patcher name
 		patcherName = object_attr_getsym(*patcher, _sym_filename);
 		if (patcherName != _sym_nothing) {
@@ -1535,7 +1536,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 			else if (returnedContext == kTTSym_view) {
 				viewName = returnedClass.c_str();
 				viewName += "(view)";
-				returnedName = TT(viewName.data());
+				returnedName = TTSymbol(viewName.data());
 			}
 		}
 	}
@@ -1637,10 +1638,13 @@ SymbolPtr jamoma_parse_dieze(ObjectPtr x, SymbolPtr address)
 	TTString	diezeStr, argsStr, addressStr = address->s_name;
 	SymbolPtr	hierarchy;
 	ObjectPtr	patcher  = jamoma_patcher_get(x);
+    /* TODO : used a TTRegex for this parsing
 	char		dieze[5];
 	char		args[64];
 	size_t		found = 0;
 	long		i, sd, sa;
+     */
+    long		i;
 	AtomCount	ac = 0;
 	AtomPtr		av = NULL;
 	
@@ -1655,7 +1659,7 @@ SymbolPtr jamoma_parse_dieze(ObjectPtr x, SymbolPtr address)
 		
 		// Try to get the patcher arguments
 		jamoma_patcher_get_args(patcher, &ac, &av);
-		if ((hierarchy == _sym_subpatcher)) {
+		if (hierarchy == _sym_subpatcher) {
 			av++;
 			ac--;
 		}
@@ -1735,7 +1739,7 @@ TTSymbol jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* defa
 				// Create a file using Max API
 				path_createsysfile(fullpath, path, filetype, &file_handle);
 				
-				result = TT(fullpath);
+				result = TTSymbol(fullpath);
 			}
 		}
 	} 
@@ -1755,7 +1759,7 @@ TTSymbol jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* defa
 			path_topathname(path, default_filename, fullpath);
 			path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
 			
-			result = TT(posixpath);
+			result = TTSymbol(posixpath);
 		}
 	}
 	
@@ -1782,7 +1786,7 @@ TTSymbol jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filety
 				path = 0;
 				path_nameconform(userpath->s_name, fullpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);// Copy symbol argument to a local string
 				
-				result = TT(fullpath);
+				result = TTSymbol(fullpath);
 			}
 		}
 	}
@@ -1794,7 +1798,7 @@ TTSymbol jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filety
 			
 			path_topathname(path, filepath, fullpath);
 			path_nameconform(fullpath, posixpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);
-			result = TT(posixpath);
+			result = TTSymbol(posixpath);
 		}
 	
 	return result;

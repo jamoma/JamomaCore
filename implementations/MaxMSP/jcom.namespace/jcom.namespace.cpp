@@ -262,7 +262,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 					s = gensym(s->s_name+1); // remove the / in this case
 			
 			if (output == kTTSym_attributes)
-				s = jamoma_TTName_To_MaxName(TT(s->s_name));
+				s = jamoma_TTName_To_MaxName(TTSymbol(s->s_name));
 			
 			if (output == kTTSym_brothers && s == _sym_nothing)
 				s = gensym("0");
@@ -291,7 +291,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			s = atom_getsym(argv+i);
 			
 			if (output == kTTSym_attributes)
-				s = jamoma_TTName_To_MaxName(TT(s->s_name));
+				s = jamoma_TTName_To_MaxName(TTSymbol(s->s_name));
 			
 			if (output == kTTSym_brothers && s == _sym_nothing)
 				s = gensym("0");
@@ -317,7 +317,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			s = atom_getsym(argv+i);
 			
 			if (output == kTTSym_attributes)
-				s = jamoma_TTName_To_MaxName(TT(s->s_name));
+				s = jamoma_TTName_To_MaxName(TTSymbol(s->s_name));
 			
 			if (output == kTTSym_brothers && s == _sym_nothing)
 				s = gensym("0");

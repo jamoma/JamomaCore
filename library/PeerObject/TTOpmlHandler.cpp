@@ -198,7 +198,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 					xName = xmlTextReaderName((xmlTextReaderPtr)mReader);
 					if (xName == NULL)
 						break;
-					mXmlNodeName = TT((char*)xName);
+					mXmlNodeName = TTSymbol((char*)xName);
 					xmlFree((void*)xName);
 					
 					// Header node

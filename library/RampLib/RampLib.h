@@ -24,7 +24,7 @@ typedef void (*RampUnitCallback)(void *, TTUInt32, TTFloat64 *);
 #define TT_RAMPUNIT_CONSTRUCTOR \
 TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
-extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
 thisTTClass :: thisTTClass (TTValue& arguments) : RampUnit(arguments)
 

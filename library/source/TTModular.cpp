@@ -104,7 +104,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 		if (!getLocalApplication) {
 			
 			// create the application
-			args = TTValue(TT(applicationStr.data()));
+			args = TTValue(TTSymbol(applicationStr.data()));
 			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&anApplication), args);
 			
 			// set it as local application
@@ -117,7 +117,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			
-			args = TTValue(TT(xmlConfigFilePath));
+			args = TTValue(TTSymbol(xmlConfigFilePath));
 			anXmlHandler->sendMessage(kTTSym_Read, args, kTTValNONE);
 		}
 		else

@@ -402,7 +402,7 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TT
 							continue;
 						
 						// append a command line
-						v.prepend(TT(nameInstance));
+						v.prepend(TTSymbol(nameInstance));
 						aScript->sendMessage(TTSymbol("AppendCommand"), v, parsedLine);
 						
 						// the script is not empty
@@ -415,7 +415,7 @@ TTErr TTCue::processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TT
 				// Any other case : create a sub script
 				
 				// edit a sub script line
-				v = TTValue(TT(nameInstance));
+				v = TTValue(TTSymbol(nameInstance));
 				aLine = TTScriptParseScript(v);
 				
 				// get the sub script
@@ -512,15 +512,17 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 		// edit selection (and fill it if the namespace is empty)
 		return processSelect(mScript, aNamespace, aNamespace->isEmpty());
 	}
+    
+    return kTTErrNone;
 }
 
 TTErr TTCue::processSelect(TTObjectPtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill)
 {
 	TTListPtr			lines;
-	TTAddressItemPtr anItem, parentItem;
+	TTAddressItemPtr    anItem;
 	TTScriptPtr			aSubScript;
 	TTDictionaryPtr		aLine;
-	TTAddress	address;
+	TTAddress           address;
 	TTValue				v;
 	TTErr				err;
 	

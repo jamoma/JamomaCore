@@ -185,7 +185,7 @@ void preset_subscribe(TTPtr self)
 		}
 
 		// expose messages of TTPreset as TTData in the tree structure
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Store"), &aData);
 // TODO: Merge conflict, which of the following two is correct? [tap]
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		//aData->setAttributeValue(kTTSym_type, kTTSym_generic);
@@ -209,7 +209,7 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Mix several presets using their names followed by a factor"));
 		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Remove"), &aData);
 // TODO: Merge conflict, which of the following two is correct? [tap]
 aData->setAttributeValue(kTTSym_type, kTTSym_string);
 //		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
@@ -508,7 +508,7 @@ void preset_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 	if (argc && argv)
 		if (atom_gettype(argv) == A_SYM)
-			v = TTValue(TT(atom_getsym(argv)->s_name));
+			v = TTValue(TTSymbol(atom_getsym(argv)->s_name));
 	
 	// recall the preset
 	x->wrappedObject->sendMessage(kTTSym_Recall, v, kTTValNONE);
@@ -534,7 +534,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if (atom_gettype(argv) == A_LONG) {
 			
 			// get presets order
-			x->wrappedObject->getAttributeValue(TT("order"), v);
+			x->wrappedObject->getAttributeValue(TTSymbol("order"), v);
 			
 			if (atom_getlong(argv) <= v.getSize())
 				v.get(atom_getlong(argv)-1, name);
@@ -545,7 +545,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			}
 		}
 		else if (atom_gettype(argv) == A_SYM)
-			name = TT(atom_getsym(argv)->s_name);
+			name = TTSymbol(atom_getsym(argv)->s_name);
 		
 		if (name != kTTSymEmpty) {
 			

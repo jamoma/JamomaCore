@@ -97,7 +97,7 @@ void WrappedCueManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		if (atom_gettype(argv) == A_SYM) {
 			
 			name = atom_getsym(argv);
-			x->wrappedObject->setAttributeValue(kTTSym_namespace, TT(name->s_name));
+			x->wrappedObject->setAttributeValue(kTTSym_namespace, TTSymbol(name->s_name));
 		}
 		else
 			object_error((ObjectPtr)x, "argument not expected");
@@ -158,7 +158,7 @@ void cue_subscribe(TTPtr self)
 		node->getAddress(absoluteAddress);
 		
 		// expose messages of TTCue as TTData in the tree structure
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Store"), &aData);
 // TODO: There was a merge conflict -- which of the following two lines is correct?  [tap]
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 //		aData->setAttributeValue(kTTSym_type, kTTSym_array);
@@ -446,7 +446,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if (atom_gettype(argv) == A_LONG) {
 			
 			// get cues order
-			x->wrappedObject->getAttributeValue(TT("order"), v);
+			x->wrappedObject->getAttributeValue(TTSymbol("order"), v);
 			
 			if (atom_getlong(argv) <= v.getSize())
 				v.get(atom_getlong(argv)-1, name);
@@ -456,7 +456,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			}
 		}
 		else if (atom_gettype(argv) == A_SYM)
-			name = TT(atom_getsym(argv)->s_name);
+			name = TTSymbol(atom_getsym(argv)->s_name);
 		
 		if (name != kTTSymEmpty) {
 			

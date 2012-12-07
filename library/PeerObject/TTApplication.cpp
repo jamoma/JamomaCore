@@ -212,7 +212,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	editKey = appToNotify.c_str();
 	editKey += "<>";
 	editKey	+= whereToListen.c_str();
-	key = TT(editKey);
+	key = TTSymbol(editKey);
 	
 	// if this listener doesn't exist yet
 	if (mAttributeListenersCache->lookup(key, cacheElement)) {
@@ -256,7 +256,7 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 	editKey = appToNotify.c_str();
 	editKey += "<>";
 	editKey	+= whereToListen.c_str();
-	key = TT(editKey);
+	key = TTSymbol(editKey);
 	
 	// if this listener exists
 	if (!mDirectoryListenersCache->lookup(key, cacheElement)) {
@@ -289,7 +289,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 	editKey = appToNotify.c_str();
 	editKey += "<>";
 	editKey	+= whereToListen.c_str();
-	key = TT(editKey);
+	key = TTSymbol(editKey);
 
 	// if this listener doesn't exist yet
 	if (mAttributeListenersCache->lookup(key, cacheElement)) {
@@ -357,7 +357,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 	editKey = appToNotify.c_str();
 	editKey += "<>";
 	editKey	+= whereToListen.c_str();
-	key = TT(editKey);
+	key = TTSymbol(editKey);
 
 	// if this listener exists
 	if (!mAttributeListenersCache->lookup(key, cacheElement)) {

@@ -14,15 +14,15 @@
 #define PROTOCOL_CONSTRUCTOR \
 TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
-extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
 thisTTClass :: thisTTClass (TTValue& arguments) : Protocol(arguments)
 
 #define PROTOCOL_INITIALIZE \
-mName = TT(thisTTClassName); \
-mVersion = TT(thisProtocolVersion); \
-mAuthor = TT(thisProtocolAuthor); \
-mExploration = TT(thisProtocolExploration); \
+mName = TTSymbol(thisTTClassName); \
+mVersion = TTSymbol(thisProtocolVersion); \
+mAuthor = TTSymbol(thisProtocolAuthor); \
+mExploration = TTSymbol(thisProtocolExploration); \
 registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 /*addAttributeProperty(ParameterNames, readOnly, YES); \ */
 

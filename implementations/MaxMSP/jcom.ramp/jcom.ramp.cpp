@@ -215,7 +215,7 @@ void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 
 void ramp_clock(t_ramp *x, t_symbol *clockName)
 {
-	x->rampUnit->setAttributeValue(TTSymbol("clock"), TT(clockName->s_name));
+	x->rampUnit->setAttributeValue(TTSymbol("clock"), TTSymbol(clockName->s_name));
 }
 
 
@@ -392,7 +392,7 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 // We should eliminate the multiple firing since it is not very efficient at load time.
 t_max_err ramp_rampSetup(t_ramp *x)
 {
-	RampLib::createUnit(TT(x->attr_rampunit->s_name), &x->rampUnit, ramp_callback, (void *)x);
+	RampLib::createUnit(TTSymbol(x->attr_rampunit->s_name), &x->rampUnit, ramp_callback, (void *)x);
 	return MAX_ERR_NONE;
 }	
 
@@ -406,7 +406,7 @@ void ramp_setFunction(t_ramp *x, void *attr, long argc, t_atom *argv)
 	
 	// set the function
 	x->attr_function = atom_getsym(argv);
-	x->rampUnit->setAttributeValue(TTSymbol("function"), TT(x->attr_function->s_name));
+	x->rampUnit->setAttributeValue(TTSymbol("function"), TTSymbol(x->attr_function->s_name));
 	
 	// cache the function's attribute names
 	x->parameterNames->clear();
@@ -423,7 +423,7 @@ void ramp_setFunction(t_ramp *x, void *attr, long argc, t_atom *argv)
 			nameString[0] += 32;							// convert first letter to lower-case for Max
 			
 			TTValuePtr v = new TTValue(aName);
-			x->parameterNames->append(TT(nameString.c_str()), *v);
+			x->parameterNames->append(TTSymbol(nameString.c_str()), *v);
 		}
 	}	
 }
@@ -450,7 +450,7 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 	}
 	
 	// get the correct TT name for the parameter given the Max name
-	parameterName = TT(atom_getsym(argv)->s_name);
+	parameterName = TTSymbol(atom_getsym(argv)->s_name);
 	obj->parameterNames->lookup(parameterName, v);
 	v.get(0, parameterName);
 	
@@ -492,13 +492,13 @@ void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 	}
 	
 	// get the correct TT name for the parameter given the Max name
-	parameterName = TT(atom_getsym(argv)->s_name);
+	parameterName = TTSymbol(atom_getsym(argv)->s_name);
 	obj->parameterNames->lookup(parameterName, v);
 	v.get(0, parameterName);
 	
 	for (i=1; i<=(argc-1); i++) {
 		if (argv[i].a_type == A_SYM)
-			newValue.append(TT(atom_getsym(argv+1)->s_name));
+			newValue.append(TTSymbol(atom_getsym(argv+1)->s_name));
 		else
 			newValue.append(atom_getfloat(argv+i));
 	}
@@ -517,10 +517,10 @@ void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	
-	parameterName = TT(atom_getsym(argv)->s_name);
+	parameterName = TTSymbol(atom_getsym(argv)->s_name);
 	for (i=1; i<=(argc-1); i++) {
 		if (argv[i].a_type == A_SYM)
-			newValue.append(TT(atom_getsym(argv+1)->s_name));
+			newValue.append(TTSymbol(atom_getsym(argv+1)->s_name));
 		else
 			newValue.append(atom_getfloat(argv+i));
 	}
@@ -543,7 +543,7 @@ void ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	
-	parameterName = TT(atom_getsym(argv)->s_name);
+	parameterName = TTSymbol(atom_getsym(argv)->s_name);
 	x->rampUnit->getAttributeValue(parameterName, parameterValue);
 	numValues = parameterValue.getSize();
 

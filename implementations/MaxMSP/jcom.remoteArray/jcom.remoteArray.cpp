@@ -207,10 +207,10 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 					
 					// append the viewer to the internals table
 					v = TTValue(TTPtr(anObject));
-					v.append(TT(instanceAddress->s_name));
+					v.append(TTSymbol(instanceAddress->s_name));
 					v.append((TTPtr)NULL);
 					
-					x->internals->append(TT(instanceAddress->s_name), v);
+					x->internals->append(TTSymbol(instanceAddress->s_name), v);
 				}
 				
 				// Ends iteration on internals
@@ -277,7 +277,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 		
 		for (i = 1; i <= x->arraySize; i++) {
 			jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-			x->cursor = TT(instanceAddress->s_name);
+			x->cursor = TTSymbol(instanceAddress->s_name);
 			
 			selectedObject->setAttributeValue(kTTSym_address, x->cursor);
 		}
@@ -311,7 +311,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	for (i = 1; i <= x->arraySize; i++) {
 		
 		jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-		x->cursor = TT(instanceAddress->s_name);
+		x->cursor = TTSymbol(instanceAddress->s_name);
 		
 		if (subscribe) 
 			toSubscribe = selectedObject;
@@ -402,7 +402,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	for (i = 1; i <= x->arraySize; i++) {
 		
 		jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-		x->cursor = TT(instanceAddress->s_name);
+		x->cursor = TTSymbol(instanceAddress->s_name);
 		
 		if (!x->internals->lookup(x->cursor, v)) {
 			
@@ -461,7 +461,7 @@ void remote_address(TTPtr self, SymbolPtr address)
 		for (i = 1; i <= x->arraySize; i++) {
 			
 			jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-			x->cursor = TT(instanceAddress->s_name);
+			x->cursor = TTSymbol(instanceAddress->s_name);
 			
 			if (!x->internals->lookup(x->cursor, v)) {
 				
@@ -680,7 +680,7 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 	// output index
 	if (x->arrayIndex == 0) {
 		jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i);
-		x->cursor = TT(iAdrs->s_name);
+		x->cursor = TTSymbol(iAdrs->s_name);
 	}
 
 	outlet_int(x->outlets[index_out], i);
@@ -710,7 +710,7 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 					
 					memoCursor = x->cursor;
 					jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i+1);
-					x->cursor = TT(iAdrs->s_name);
+					x->cursor = TTSymbol(iAdrs->s_name);
 					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
 					
 					m = new TTValue(g);
@@ -783,7 +783,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			for (i = 1; i <= x->arraySize; i++) {
 				
 				jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-				x->cursor = TT(instanceAddress->s_name);
+				x->cursor = TTSymbol(instanceAddress->s_name);
 				
 				// set address attribute of the internal Viewer object
 				address = TTAddress(atom_getsym(argv)->s_name).appendAddress(TTAddress(instanceAddress->s_name));

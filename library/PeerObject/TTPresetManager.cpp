@@ -511,7 +511,7 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
             // edit a name copy : current cue name - copy
             s = mCurrent.c_str();
             s += " - copy";
-            nameCopy = TT(s.data());
+            nameCopy = TTSymbol(s.data());
         }
 		
 		// rename the copy

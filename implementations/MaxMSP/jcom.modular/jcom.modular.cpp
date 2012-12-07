@@ -70,14 +70,14 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		x->wrappedObject = getLocalApplication;
 		
 		if (attrstart == 1)
-			protocolName = TT(atom_getsym(argv)->s_name);
+			protocolName = TTSymbol(atom_getsym(argv)->s_name);
 		
 	}
 	// or it can handle a distant application (2 arguments to declare the name of the distant application and the protocol to use)
 	else if (attrstart == 2) {
 		
 		// our wrapped object is a distant application
-		applicationName = TT(atom_getsym(argv)->s_name);
+		applicationName = TTSymbol(atom_getsym(argv)->s_name);
 		x->wrappedObject = getApplication(applicationName);
 		
 		// if the application doesn't exists
@@ -89,7 +89,7 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 			
 		}
 		
-		protocolName = TT(atom_getsym(argv+1)->s_name);
+		protocolName = TTSymbol(atom_getsym(argv+1)->s_name);
 		
 	}
 	
@@ -182,7 +182,7 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 				// set one application protocol parameter
 				if (argc && argv) {
 					
-					parameterName = TT(atom_getsym(argv)->s_name);
+					parameterName = TTSymbol(atom_getsym(argv)->s_name);
 					jamoma_ttvalue_from_Atom(parameterValue, _sym_nothing, argc-1, argv+1);
 					
 					// check if parameter exists
