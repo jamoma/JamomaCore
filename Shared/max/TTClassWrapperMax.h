@@ -125,7 +125,7 @@ typedef WrappedInstance* WrappedInstancePtr;	///< Pointer to a wrapped instance 
 t_max_err wrappedClass_attrGet(TTPtr self, ObjectPtr attr, AtomCount* argc, AtomPtr* argv);
 t_max_err wrappedClass_attrSet(TTPtr self, ObjectPtr attr, AtomCount argc, AtomPtr argv);
 void wrappedClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv);
-void wrappedClass_assist(TTPtr self, void *b, long msg, long arg, char *dst);
+void wrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, char *dst);
 
 
 

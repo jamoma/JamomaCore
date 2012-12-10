@@ -311,12 +311,25 @@ void wrappedClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv
 
 
 // Method for Assistance Messages
-void wrappedClass_assist(TTPtr self, void *b, long msg, long arg, char *dst)
+void wrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1)			// Inlets
-		strcpy(dst, "signal input, control messages");		
-	else if(msg==2)		// Outlets
-		strcpy(dst, "signal output");
+	if(msg==1)	{		// Inlets
+		if (arg==0)
+			strcpy(dst, "signal input, control messages"); //leftmost inlet
+		else{ 
+			if (arg > self->numInputs-self->numControlSignals-1)
+				//strcpy(dst, "control signal input");		
+				snprintf(dst, 256, "control signal for \"%s\"", self->controlSignalNames[arg - self->numInputs+1].c_str());
+			else
+				strcpy(dst, "signal input");		
+		}
+	}
+	else if(msg==2)	{	// Outlets
+		if (arg < self->numOutputs)
+			strcpy(dst, "signal output");
+		else
+			strcpy(dst, "dumpout"); //rightmost outlet
+	}
 }
 
 
