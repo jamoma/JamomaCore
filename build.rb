@@ -12,7 +12,12 @@ projectName.gsub!(/Jamoma/, "")
 ENV['JAMOMAPROJECT'] = projectName
 Dir.chdir "#{glibdir}/../../Core/Shared"
 
-
+def cleanAndBuildExternal(glibdir, external)
+  puts "Clean and build: #{external}"
+  Dir.chdir "#{glibdir}/implementations/MaxMSP/#{external}"
+  `xcodebuild clean`
+  `xcodebuild build`
+end
 
 version = nil
 version_maj = 0
@@ -25,13 +30,30 @@ revision = nil
 
 load "build.rb"
 
+if win32?
+else
+  
+  puts "Making sure that twin projects build on Mac"
+
+  cleanAndBuildExternal glibdir, "jcom.in"
+  cleanAndBuildExternal glibdir, "jcom.in~"
+  cleanAndBuildExternal glibdir, "jcom.message"
+  cleanAndBuildExternal glibdir, "jcom.parameter"
+  cleanAndBuildExternal glibdir, "jcom.out"
+  cleanAndBuildExternal glibdir, "jcom.out~"
+
+end
 
 puts "post-build..."
 Dir.chdir "#{glibdir}"
 
 if  win32?
 else
+  
   # Copy into Max 5 - comment this out if you don't want it
+  
+  puts "Copying various files to Max5 folder"
+  
   `rm -rf "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
   `cp -r "../../Builds/MaxMSP/jcom.loader.mxo" "/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo"`
   `cp -r "./Max/support/JamomaConfiguration.xml" "/Applications/Max5/Cycling '74/init/JamomaConfiguration.xml"`
@@ -50,6 +72,9 @@ else
   `cp -r "Max/support/JamomaNoir.maxdefaults" "/Applications/Max5/Cycling '74/default-settings/JamomaNoir.maxdefaults"`	
 	
 	# Copy into Max 6 - comment this out if you don't want it
+	
+	puts "Copying various files to Max6 folder"
+	
   `rm -rf "/Applications/Max6/Cycling '74/extensions/jcom.loader.mxo"`
   `cp -r "../../Builds/MaxMSP/jcom.loader.mxo" "/Applications/Max6/Cycling '74/extensions/jcom.loader.mxo"`
   `cp -r "./Max/support/JamomaConfiguration.xml" "/Applications/Max6/Cycling '74/init/JamomaConfiguration.xml"`
