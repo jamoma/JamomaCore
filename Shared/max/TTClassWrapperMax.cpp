@@ -316,8 +316,13 @@ void wrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, c
 	if(msg==1)	{		// Inlets
 		if (arg==0)
 			strcpy(dst, "signal input, control messages"); //leftmost inlet
-		else
-			strcpy(dst, "signal input");		
+		else{ 
+			if (arg > self->numInputs-self->numControlSignals-1)
+				//strcpy(dst, "control signal input");		
+				snprintf(dst, 256, "control signal for \"%s\"", self->controlSignalNames[arg - self->numInputs+1].c_str());
+			else
+				strcpy(dst, "signal input");		
+		}
 	}
 	else if(msg==2)	{	// Outlets
 		if (arg < self->numOutputs)
