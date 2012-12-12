@@ -54,13 +54,9 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		
 		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
 
-		TTObjectInstantiate(wrappedMaxClass->ttblueClassName, &x->wrappedObject, x->maxNumChannels);
-		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels);
-		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
 		
-		attr_args_process(x,argc,argv);				// handle attribute args	
 		
-    	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
+		
 		
 		
 		if (wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("numChannelsUseFixedRatioInputsToOutputs"), v)) {
@@ -99,6 +95,13 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 				v.get(i, x->controlSignalNames[i]);
 			}
 		}
+		
+		TTObjectInstantiate(wrappedMaxClass->ttblueClassName, &x->wrappedObject, x->maxNumChannels);		
+		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->numInputs);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioOut,x->numOutputs);
+		attr_args_process(x,argc,argv);				// handle attribute args			
+    	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
+		
 		
 		dsp_setup((t_pxobject *)x, x->numInputs);			// inlets
 				
@@ -311,12 +314,25 @@ void wrappedClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomPtr argv
 
 
 // Method for Assistance Messages
-void wrappedClass_assist(TTPtr self, void *b, long msg, long arg, char *dst)
+void wrappedClass_assist(WrappedInstancePtr self, void *b, long msg, long arg, char *dst)
 {
-	if(msg==1)			// Inlets
-		strcpy(dst, "signal input, control messages");		
-	else if(msg==2)		// Outlets
-		strcpy(dst, "signal output");
+	if(msg==1)	{		// Inlets
+		if (arg==0)
+			strcpy(dst, "signal input, control messages"); //leftmost inlet
+		else{ 
+			if (arg > self->numInputs-self->numControlSignals-1)
+				//strcpy(dst, "control signal input");		
+				snprintf(dst, 256, "control signal for \"%s\"", self->controlSignalNames[arg - self->numInputs+1].c_str());
+			else
+				strcpy(dst, "signal input");		
+		}
+	}
+	else if(msg==2)	{	// Outlets
+		if (arg < self->numOutputs)
+			strcpy(dst, "signal output");
+		else
+			strcpy(dst, "dumpout"); //rightmost outlet
+	}
 }
 
 
@@ -351,25 +367,25 @@ t_int *wrappedClass_perform(t_int *w)
 void wrappedClass_perform64(WrappedInstancePtr self, ObjectPtr dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
 	TTUInt16 i;
-	TTUInt16 numChannels = numouts;
+	//TTUInt16 numChannels = numouts;
 	
 	self->numChannels = numouts; // <-- this is kinda lame, but for the time being I think we can get away with this assumption...
 	
 	for (i=0; i < self->numControlSignals; i++)
-		self->wrappedObject->setAttributeValue(self->controlSignalNames[i], *ins[numChannels + i]);
+		self->wrappedObject->setAttributeValue(self->controlSignalNames[i], *ins[self->numInputs - self->numControlSignals + i]);
 	
-	self->audioIn->setNumChannelsWithInt(numChannels);
-	self->audioOut->setNumChannelsWithInt(numChannels);
+	self->audioIn->setNumChannelsWithInt(self->numInputs-self->numControlSignals);
+	self->audioOut->setNumChannelsWithInt(self->numOutputs);
 	self->audioOut->allocWithVectorSize(sampleframes);
-	for (i=0; i < numChannels; i++) {
+	
+	for (i=0; i < self->numInputs-self->numControlSignals; i++)
 		self->audioIn->setVector(i, self->vs, ins[i]);
-	}
 	
 	self->wrappedObject->process(self->audioIn, self->audioOut);
 	
-	for (i=0; i < numChannels; i++) {
+	for (i=0; i < self->numOutputs; i++) 
 		self->audioOut->getVectorCopy(i, self->vs, outs[i]);
-	}
+	
 }
 
 
