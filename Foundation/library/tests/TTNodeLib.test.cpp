@@ -530,21 +530,39 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
 					testAssertionCount,
 					errorCount);
 
-    // test TTSymbol for TTHash access when a key is registered using a TTAddress
+    // test TTSymbol for TTHash access when a key is stored using a TTAddress
     TTHash      testTable;
-    TTAddress   keyAddress = TTAddress("test");
+    TTAddress   keyAddress = TTAddress("testKeyAddress");
     TTValue     keyValue;
     TTErr       err;
     
-    testTable.append(keyAddress, keyValue);         // store a value into the table using "test" address
-    testValue = TTValue(TTSymbol("test"));          // store a "test" symbol into a value
-    testValue.get(0, testAddress);                  // get it as an address
-    err = testTable.lookup(testAddress, keyValue);  // use the sybol casted in address to lookup the table
+    testTable.append(keyAddress, keyValue);             // store a value into the table using "testKeyAddress" address
+    testValue = TTValue(TTSymbol("testKeyAddress"));    // store a "testKeyAddress" symbol into a value
+    testValue.get(0, testAddress);                      // get it as an address
+    err = testTable.lookup(testAddress, keyValue);      // use the address to lookup the table
     
-    TTTestAssertion("TTHash::lookup : Test fails if a TTSymbol cannot be used as key for TTHash table when the key is a TTAddress",
+    TTTestAssertion("TTHash::lookup : Test fails if a TTSymbol cannot be used as storage key for TTHash table when the lookup key is a TTAddress",
 					err == kTTErrNone,
 					testAssertionCount,
 					errorCount);
+    
+    // The test below fails but it have been added only to check the opposite operation.
+    // For instant we don't need this test to pass so it is commented out until we need this feature.
+    
+    /* test TTAddress for TTHash access when a key is stored using a TTSymbol
+    TTSymbol    keySymbol = TTSymbol("testKeySymbol");
+    TTSymbol    testSymbol;
+    
+    testTable.append(keySymbol, keyValue);              // store a value into the table using "testKeySymbol" symbol
+    testValue = TTValue(TTAddress("testKeySymbol"));    // store a "testKeySymbol" address into a value
+    testValue.get(0, testSymbol);                       // get it as an symbol
+    err = testTable.lookup(testSymbol, keyValue);       // use the symbol to lookup the table
+    
+    TTTestAssertion("TTHash::lookup : Test fails if a TTAddress cannot be used as storage key for TTHash table when the lookup key is a TTSymbol",
+					err == kTTErrNone,
+					testAssertionCount,
+					errorCount);
+     */
 }
 
 // TODO: Benchmarking
