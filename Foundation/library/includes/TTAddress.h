@@ -49,7 +49,14 @@ public:
 	
 	TTAddress(TTPtr do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing)
 	{
-		mSymbolPointer = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
+        TTSymbolBase* base = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
+        
+        // we have to check if this symbol base is part of the gTTAddressTable
+        // (to not bind on a symbol base stored into gTTSymbolTable)
+        if (base->getSymbolTableId() == TTPtrSizedInt(&gTTAddressTable))
+            mSymbolPointer = base;
+        else
+            mSymbolPointer = ((TTAddressBase*)gTTAddressTable.lookup(base->getCString()));
 	}
 	
 	
