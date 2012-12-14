@@ -13,7 +13,11 @@
 #define thisTTClassTags		"audio, processor, mixing, panning"
 
 
-TT_AUDIO_CONSTRUCTOR_EXPORT(Panorama)
+TT_AUDIO_CONSTRUCTOR,
+mShape(TT("equalPower")),
+mMode(TT("lookup")),
+mPosition(0.0),
+mScaledPosition(0.5)
 {
 	addAttributeWithSetter(			Position,	kTypeFloat64);
 	addAttributeProperty(	Position,	range,			TTValue(-1.0, 1.0));
@@ -30,8 +34,9 @@ TT_AUDIO_CONSTRUCTOR_EXPORT(Panorama)
 	
 	// Set Defaults (the attribute setters will set the process method for us)...
 	setAttributeValue(TT("position"),	0.0);
-	setAttributeValue(TT("shape"),		TT("equalPower"));
+	setProcessMethod(processEqualPowerLookup);
 	setAttributeValue(TT("mode"),		TT("lookup"));
+	setAttributeValue(TT("shape"),		TT("equalPower"));
 }
 
 
