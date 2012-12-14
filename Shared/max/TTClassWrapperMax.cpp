@@ -673,23 +673,23 @@ long TTMatrixReferenceJitterMatrix(TTMatrixPtr aTTMatrix, TTPtr aJitterMatrix, T
 {
 	t_jit_matrix_info	jitterMatrixInfo;
 	TTBytePtr			jitterMatrixData;
-	long				jitterMatrixLock = (long)jit_object_method(aJitterMatrix, _jit_sym_lock, 1);
+	long				jitterMatrixLock = (long)jit_object_method(aJitterMatrix, _sym_lock, 1);
 	long				jitterDimensionCount;
 	TTValue				dimensions;
 	
-	jit_object_method(aJitterMatrix, _jit_sym_getinfo, &jitterMatrixInfo);
-	jit_object_method(aJitterMatrix, _jit_sym_getdata, &jitterMatrixData);
+	jit_object_method(aJitterMatrix, _sym_getinfo, &jitterMatrixInfo);
+	jit_object_method(aJitterMatrix, _sym_getdata, &jitterMatrixData);
 	
 	if (!copy)
 		aTTMatrix->referenceExternalData(jitterMatrixData);
 	
-	if (jitterMatrixInfo.type == _jit_sym_char)
+	if (jitterMatrixInfo.type == _sym_char)
 		aTTMatrix->setAttributeValue(kTTSym_type, kTTSym_uint8);
-	else if (jitterMatrixInfo.type == _jit_sym_long)
+	else if (jitterMatrixInfo.type == _sym_long)
 		aTTMatrix->setAttributeValue(kTTSym_type, kTTSym_int32);
-	else if (jitterMatrixInfo.type == _jit_sym_float32)
+	else if (jitterMatrixInfo.type == _sym_float32)
 		aTTMatrix->setAttributeValue(kTTSym_type, kTTSym_float32);
-	else if (jitterMatrixInfo.type == _jit_sym_float64)
+	else if (jitterMatrixInfo.type == _sym_float64)
 		aTTMatrix->setAttributeValue(kTTSym_type, kTTSym_float64);
 	
 	aTTMatrix->setAttributeValue(kTTSym_elementCount, (int)jitterMatrixInfo.planecount);
@@ -722,8 +722,8 @@ TTErr TTMatrixCopyDataFromJitterMatrix(TTMatrixPtr aTTMatrix, TTPtr aJitterMatri
 	int					dimcount;
 	TTBytePtr			data = aTTMatrix->getLockedPointer();
 	
-	jit_object_method(aJitterMatrix, _jit_sym_getinfo, &jitterMatrixInfo);
-	jit_object_method(aJitterMatrix, _jit_sym_getdata, &jitterMatrixData);
+	jit_object_method(aJitterMatrix, _sym_getinfo, &jitterMatrixInfo);
+	jit_object_method(aJitterMatrix, _sym_getdata, &jitterMatrixData);
 	
 	dimcount = jitterMatrixInfo.dimcount;
 	
@@ -754,8 +754,8 @@ TTErr TTMatrixCopyDataToJitterMatrix(TTMatrixPtr aTTMatrix, TTPtr aJitterMatrix)
 	int					dimcount;
 	TTBytePtr			data = aTTMatrix->getLockedPointer();
 	
-	jit_object_method(aJitterMatrix, _jit_sym_getinfo, &jitterMatrixInfo);
-	jit_object_method(aJitterMatrix, _jit_sym_getdata, &jitterMatrixData);
+	jit_object_method(aJitterMatrix, _sym_getinfo, &jitterMatrixInfo);
+	jit_object_method(aJitterMatrix, _sym_getdata, &jitterMatrixData);
 	
 	dimcount = jitterMatrixInfo.dimcount;
 	
