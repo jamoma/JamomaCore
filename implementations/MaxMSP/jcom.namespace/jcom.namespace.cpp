@@ -348,7 +348,7 @@ void nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTSymbolPtr	output;
+	TTSymbol    output;
 	TTUInt32	i, state;
 	Atom		u[2], j[6];
 	

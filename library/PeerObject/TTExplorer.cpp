@@ -7,9 +7,6 @@
  */
 
 #include "TTExplorer.h"
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
-#include <libxml/xmlreader.h>
 
 #define thisTTClass			TTExplorer
 #define thisTTClassName		"Explorer"

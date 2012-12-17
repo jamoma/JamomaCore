@@ -61,9 +61,9 @@ void WrapTTApplicationClass(WrappedClassPtr c)
 void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbolPtr					applicationName = NULL;
-	TTSymbolPtr					protocolName = NULL;
-	TTOpmlHandlerPtr			aOpmlHandler;
+	TTSymbol					applicationName = NULL;
+	TTSymbol					protocolName = NULL;
+	TTXmlHandlerPtr             anXmlHandler;
 	TTValue						v, args;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 		
@@ -123,12 +123,12 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	x->internals = new TTHash();
 	
 	// create internal TTXmlHandler
-	aXmlHandler = NULL;
-	TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&aXmlHandler), args);
-	v = TTValue(TTPtr(aXmlHandler));
+	anXmlHandler = NULL;
+	TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&anXmlHandler), args);
+	v = TTValue(TTPtr(anXmlHandler));
 	x->internals->append(kTTSym_XmlHandler, v);
 	v = TTValue(TTPtr(x->wrappedObject));
-	aXmlHandler->setAttributeValue(kTTSym_object, v);
+	anXmlHandler->setAttributeValue(kTTSym_object, v);
 	
 	if (attrstart && argv) attr_args_process(x, argc, argv);
 }
@@ -161,7 +161,7 @@ void modular_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbol applicationName, parameterName;
+	TTSymbol    applicationName, parameterName;
 	TTObjectPtr	aProtocol = NULL;
 	TTHashPtr	hashParameters;
 	TTValue		v, keys, parameterValue;
@@ -170,7 +170,8 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	TTErr		err;
 	
 	// get the protocol object
-	if (aProtocol = getProtocol(EXTRA->protocolName)) {
+    aProtocol = getProtocol(EXTRA->protocolName);
+	if (aProtocol) {
 		
 		if (x->wrappedObject) {
 			x->wrappedObject->getAttributeValue(kTTSym_name, v);
@@ -246,8 +247,8 @@ void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 {	
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue				o, v;
-	TTSymbolPtr			fullpath;
-	TTOpmlHandlerPtr	aOpmlHandler = NULL;
+	TTSymbol			fullpath;
+	TTXmlHandlerPtr     anXmlHandler = NULL;
 	TTErr				tterr;
 	
 	if (x->wrappedObject) {
@@ -259,10 +260,10 @@ void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aXmlHandler);
+			o.get(0, (TTPtr*)&anXmlHandler);
 			
 			critical_enter(0);
-			tterr = aXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
+			tterr = anXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
 			critical_exit(0);
 			
 			if (!tterr)
@@ -282,7 +283,7 @@ void	modular_namespace_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 {
     WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	char 			filename[MAX_FILENAME_CHARS];
-	TTSymbolPtr		fullpath;
+	TTSymbol		fullpath;
 	TTValue			o, v;
 	TTXmlHandlerPtr aXmlHandler;
 	TTErr			tterr;
