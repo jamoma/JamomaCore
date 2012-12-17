@@ -1400,7 +1400,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 {
 	TTDictionaryPtr		lineToMerge, mergedLine;
 	TTScriptPtr			subScriptToMerge, mergedSubScript;
-	TTAddress	addressToMerged, mergedAddress;
+	TTAddress           addressToMerged, mergedAddress;
 	TTValue				v, valueToMerged, mergedValue, found, parsedLine;
 	TTBoolean			merged = NO; // to know if a line have already been merged
 	TTErr				err;
@@ -1413,11 +1413,11 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 		scriptToMerge->mLines->current().get(0, (TTPtr*)&lineToMerge);
 		
 		// get address
-		addressToMerged = NULL;
+		addressToMerged = kTTAdrsEmpty;
 		if (!lineToMerge->lookup(kTTSym_address, v))
 			v.get(0, addressToMerged);
 		
-		if (addressToMerged) {
+		if (addressToMerged != kTTAdrsEmpty) {
 			
 			// try to find a line for this address into the merged script
 			merged = NO;
@@ -1499,7 +1499,7 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 {
 	TTDictionaryPtr		lineToOptimize, aLine, optimizedLine;
 	TTScriptPtr			subScriptToOptimize, aSubScript, optimizedSubScript;
-	TTAddress	addressToOptimize, address;
+	TTAddress           addressToOptimize, address;
 	TTValue				v, valueToOptimize, value, found, parsedLine;
 	TTBoolean			empty = YES; // to know if the optimized script contains at least one command
 	TTErr				err;
@@ -1515,15 +1515,15 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 		aScript->mLines->current().get(0, (TTPtr*)&aLine);
 		
 		// get addresses
-		addressToOptimize = NULL;
+		addressToOptimize = kTTAdrsEmpty;
 		if (!lineToOptimize->lookup(kTTSym_address, v))
 			v.get(0, addressToOptimize);
 
-		address = NULL;
+		address = kTTAdrsEmpty;
 		if (!aLine->lookup(kTTSym_address, v))
 			v.get(0, address);
 		
-		if (addressToOptimize && address) {
+		if (addressToOptimize != kTTAdrsEmpty && address != kTTAdrsEmpty) {
 			
 			// the both addresses have to be the same
 			if (addressToOptimize != address) {

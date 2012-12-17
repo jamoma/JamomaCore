@@ -294,7 +294,7 @@ TTErr TTCue::processRamp(TTObjectPtr aScript, TTUInt32 ramp)
 
 TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr aNamespace = NULL;
+	TTAddressItemPtr    aNamespace = NULL;
 	TTSymbol			name;
 	TTValue				v, parsedLine;
 	
@@ -493,7 +493,7 @@ TTErr TTCue::Output()
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr aNamespace = NULL;
+	TTAddressItemPtr    aNamespace = NULL;
 	TTSymbol			name;
 	
 	if (inputValue.getType() == kTypePointer)

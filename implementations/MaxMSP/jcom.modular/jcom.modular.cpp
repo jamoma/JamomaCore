@@ -56,8 +56,8 @@ void WrapTTApplicationClass(WrappedClassPtr c)
 void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbol					applicationName = NULL;
-	TTSymbol					protocolName = NULL;
+	TTSymbol					applicationName;
+	TTSymbol					protocolName;
 	TTOpmlHandlerPtr			aOpmlHandler;
 	TTValue						v, args;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
@@ -94,7 +94,7 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	}
 	
 	// jcom.modular handle only one protocol per application
-	if (protocolName) {
+	if (protocolName != kTTSymEmpty) {
 		
 		// check if the protocol has been loaded
 		if (!getProtocol(protocolName)) {

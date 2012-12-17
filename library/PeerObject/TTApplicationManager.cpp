@@ -75,7 +75,7 @@ mApplicationObserversMutex(NULL)
 	ProtocolLib::getProtocolNames(protocolNames);
 	if (protocolNames.getSize()) {
 		
-		TTSymbol protocolName = NULL;
+		TTSymbol protocolName;
 		ProtocolPtr	aProtocolObject = NULL;
 		TTObjectPtr	activityInCallback, activityOutCallback;
 		TTValuePtr	activityInBaton, activityOutBaton;

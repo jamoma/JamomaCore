@@ -1669,8 +1669,8 @@ SymbolPtr jamoma_parse_dieze(ObjectPtr x, SymbolPtr address)
 			
 			i = 1;
 			
-			post("in jamoma_parse_dieze : TODO : used a TTRegex for this parsing");
-			/* TODO : used a TTRegex for this parsing
+			object_post(x, "in jamoma_parse_dieze : TODO : use a TTRegex for this parsing");
+			/* TODO : use a TTRegex for this parsing
 			do {
 				
 				// prepare to parse #i

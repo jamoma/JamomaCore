@@ -781,7 +781,7 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt32	i;
-	TTSymbol nameToMerge, nameToOptimize;
+	TTSymbol    nameToMerge, nameToOptimize;
 	TTCuePtr	aCueToMerge, aCueToOptimize, stateCue, optimizedCue;
 	TTValue		v;
 	TTErr		err;

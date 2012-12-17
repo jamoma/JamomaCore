@@ -38,7 +38,7 @@ private:
 	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
 	
 	TTCuePtr			mCurrentCue;					///< the current cue
-	TTAddressItemPtr mDefaultNamespace;				///< an internal default namespace
+	TTAddressItemPtr    mDefaultNamespace;				///< an internal default namespace
 	
 	TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
 	
