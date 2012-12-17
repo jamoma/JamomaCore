@@ -60,7 +60,6 @@ public:	// use public for recursive access
 	TTPtr				mReader;						// xmlTextReaderPtr
 	
 	TTBoolean			mXmlNodeStart;					///< true if the Reader starts to read a Node
-    TTBoolean			mXmlNodeIsEmpty;				///< true if the Node is empty
 	TTSymbol			mXmlNodeName;					///< the Node name being read by the Reader
 	TTValue				mXmlNodeValue;					///< the Node value being read by the Reader
 	

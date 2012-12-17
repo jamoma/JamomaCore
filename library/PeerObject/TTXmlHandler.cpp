@@ -176,8 +176,6 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 				
 				ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
 				while (ret == 1) {
-                    
-                    mXmlNodeIsEmpty = xmlTextReaderIsEmptyElement(mReader);
 					
 					// Get the type of the XML node
 					xType = xmlTextReaderNodeType((xmlTextReaderPtr)mReader);
