@@ -527,13 +527,13 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 
 void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
 {
-	TTNodeAddressPtr    nameInstance;
-	TTSymbolPtr         objectName, attributeName;
-	TTObjectPtr         anObject;
-	TTValue             attributeNameList, v, c;
-	TTList              nodeList;
-	TTNodePtr           aChild;
-	TTString            aString;
+	TTAddress    nameInstance;
+	TTSymbol     objectName, attributeName;
+	TTObjectPtr  anObject;
+	TTValue      attributeNameList, v, c;
+	TTList       nodeList;
+	TTNodePtr    aChild;
+	TTString     aString;
     
     // Write node's object attributes
     anObject = aNode->getObject();
@@ -555,7 +555,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                 
                 for(TTUInt8 i = 0; i < attributeNameList.getSize(); i++)
                 {
-                    attributeNameList.get(i, &attributeName);
+                    attributeNameList.get(i, attributeName);
                     
                     // Filter attribute names
                     if (attributeName != kTTSym_debug &&
@@ -569,7 +569,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                         v.toString();
                         v.get(0, aString);
                         
-                        xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST attributeName->getCString(), BAD_CAST aString.data());
+                        xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
                     }
                 }
             }
@@ -584,22 +584,22 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                 xmlTextWriterWriteFormatComment(aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
                 
                 // Start node
-                nameInstance = makeTTNodeAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
-                xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST nameInstance->getCString());
+                nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
+                xmlTextWriterStartElement(aXmlHandler->mWriter, BAD_CAST nameInstance.c_str());
                 
                 // Write object name attribute
                 objectName = anObject->getName();
                 if (objectName != kTTSymEmpty)
-                    xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName->getCString());
+                    xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName.c_str());
                 else
-                    xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none->getCString());
+                    xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
                 
                 // Write attributes
                 anObject->getAttributeNames(attributeNameList);
                 
                 for(TTUInt8 i = 0; i < attributeNameList.getSize(); i++)
                 {
-                    attributeNameList.get(i, &attributeName);
+                    attributeNameList.get(i, attributeName);
                     
                     // Filter attribute names
                     if (attributeName != kTTSym_description &&
@@ -628,7 +628,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                         if (aString.empty())
                             continue;
                         
-                        xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST attributeName->getCString(), BAD_CAST aString.data());
+                        xmlTextWriterWriteAttribute(aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
                     }
                 }
                 
@@ -677,7 +677,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 		return kTTErrNone;
     
     // Conversion Table node
-    if (aXmlHandler->mXmlNodeName == TT("conversionTable")) {
+    if (aXmlHandler->mXmlNodeName == TTSymbol("conversionTable")) {
         
 		 if (aXmlHandler->mXmlNodeStart)
              mAppToTT = new TTHash();
@@ -686,7 +686,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	}
 	
 	// Entry node
-	if (aXmlHandler->mXmlNodeName == TT("entry")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("entry")) {
         
 		// get App Symbol
 		if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, BAD_CAST "App") == 1) {
@@ -704,14 +704,14 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 			v.get(0, aTTKey);
 		}
 		
-		mAppToTT->append(TT(anAppKey), ttValue);		// here we register the entire value to handle 1 to many conversion
-		mTTToApp->append(TT(aTTKey), appValue);			// here we register the entire value to handle 1 to many conversion
+		mAppToTT->append(TTSymbol(anAppKey), ttValue);		// here we register the entire value to handle 1 to many conversion
+		mTTToApp->append(TTSymbol(aTTKey), appValue);			// here we register the entire value to handle 1 to many conversion
         
         return kTTErrNone;
 	}
 	
 	// Application node
-	if (aXmlHandler->mXmlNodeName == TT("application")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("application")) {
 		
         if (aXmlHandler->mXmlNodeStart) {
             mDirectory->init();
@@ -729,7 +729,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 
 void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 {
-	TTSymbolPtr		objectName, protocolName;
+	TTSymbol		objectName, protocolName;
 	TTMirrorPtr		aMirror;
 	TTNodePtr		aNode;
 	TTBoolean		newInstanceCreated;
@@ -741,7 +741,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
     // when a node starts : append address to the current temp address
     if (aXmlHandler->mXmlNodeStart) {
         
-        mTempAddress = mTempAddress->appendAddress(TTADRS(aXmlHandler->mXmlNodeName->getCString()));
+        mTempAddress = mTempAddress->appendAddress(TTAddress(aXmlHandler->mXmlNodeName));
     
         // get the object name
         if (xmlTextReaderMoveToAttribute(aXmlHandler->mReader, (const xmlChar*)("object")) == 1) {
@@ -749,11 +749,11 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
             aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
             
             if (v.getType() == kTypeSymbol) {
-                v.get(0, &objectName);
+                v.get(0, objectName);
                 
                 // a distant application should have one protocol
                 protocolNames = getApplicationProtocols(mName);
-                protocolNames.get(0, &protocolName);
+                protocolNames.get(0, protocolName);
                 
                 aProtocol = (ProtocolPtr)getProtocol(protocolName);
                 if (aProtocol) {
@@ -763,7 +763,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     args = TTValue(objectName);
                     
                     getAttributeCallback = NULL;
-                    TTObjectInstantiate(TT("callback"), &getAttributeCallback, kTTValNONE);
+                    TTObjectInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
                     getAttributeBaton = new TTValue(TTPtr(aProtocol));
                     getAttributeBaton->append(mName);
                     getAttributeBaton->append(mTempAddress);
@@ -772,7 +772,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     args.append(getAttributeCallback);
                     
                     setAttributeCallback = NULL;
-                    TTObjectInstantiate(TT("callback"), &setAttributeCallback, kTTValNONE);
+                    TTObjectInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
                     setAttributeBaton = new TTValue(TTPtr(aProtocol));
                     setAttributeBaton->append(mName);
                     setAttributeBaton->append(mTempAddress);
@@ -781,7 +781,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     args.append(setAttributeCallback);
                     
                     sendMessageCallback = NULL;
-                    TTObjectInstantiate(TT("callback"), &sendMessageCallback, kTTValNONE);
+                    TTObjectInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
                     sendMessageBaton = new TTValue(TTPtr(aProtocol));
                     sendMessageBaton->append(mName);
                     sendMessageBaton->append(mTempAddress);
@@ -790,7 +790,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     args.append(sendMessageCallback);
                     
                     listenAttributeCallback = NULL;
-                    TTObjectInstantiate(TT("callback"), &listenAttributeCallback, kTTValNONE);
+                    TTObjectInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
                     listenAttributeBaton = new TTValue(TTPtr(aProtocol));
                     listenAttributeBaton->append(mName);
                     listenAttributeBaton->append(mTempAddress);
