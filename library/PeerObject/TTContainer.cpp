@@ -93,7 +93,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 	TTValue			cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTAddress aRelativeAddress, topAddress, belowAddress;
+	TTAddress       aRelativeAddress, topAddress, belowAddress;
 	TTSymbol		attrOrMess, service;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
@@ -463,7 +463,7 @@ TTErr TTContainer::bind()
 TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 {
 	TTValue			cacheElement, v;
-	TTAddress aRelativeAddress;
+	TTAddress       aRelativeAddress;
 	TTSymbol		service;
 	TTObjectPtr		anObject, valueObserver, commandObserver, returnedValueObserver, activityInObserver, activityOutObserver;
 	TTAttributePtr	anAttribute = NULL;
@@ -624,7 +624,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 
 TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 {
-	TTAddress aRelativeAddress;
+	TTAddress       aRelativeAddress;
 	TTValue			v, cacheElement;
 	TTObjectPtr		anObject, anObserver;
 	TTSymbol		service;
