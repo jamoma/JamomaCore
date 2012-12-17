@@ -260,7 +260,7 @@ TTErr TTReceiver::bindAddress()
                         // notify that the address exists
                         if (mReturnAddressCallback) {
                             
-                            v = TTValue(mAddress);
+                            v = TTValue(anAddress);
                             mReturnAddressCallback->notify(v, kTTValNONE);
                         }
 					}
