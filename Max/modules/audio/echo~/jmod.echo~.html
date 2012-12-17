@@ -11,7 +11,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 
 <body>
 	<div id="jmod_header">
-	<img src="../../../documentation/graphics/jmodular.icon.png" width="128" height="128">
+	<img src="../../../documentation/graphics/jmodular.icon.png" onError="this.src='../images/jmodular.icon.png';" width="128" height="128">
 	<h1> jmod.echo~ </h1>
 	<h2> Stereo echo module. </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../../../documentation/html/modules.html">Index of Modules</a> | <a href="../../../documentation/html/credits.html">Credits</a> | <a href="http://pledgie.com/campaigns/5615">Donate</a> | <a href="http://www.jamoma.org/">Jamoma.org</a></h6>
@@ -52,7 +52,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> audio/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -64,7 +64,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> audio/mix </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -112,7 +112,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> feedback/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> -1.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> -1 1 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -136,7 +136,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> filter/frequency </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 30.000000 11025.000000 </td>
+			<td class ="instructionRangeBounds"> 30 11025 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -148,7 +148,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> filter/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> -24.000000 24.000000 </td>
+			<td class ="instructionRangeBounds"> -24 24 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -160,7 +160,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> filter/q </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -203,7 +203,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Highlight the modul with a color tint such as red, green, or similar. </td>
+			<td class ="instructionDescription"> Highlight the module with a color tint such as red, green, or similar. </td>
 		<tr>
 	</table>
 
@@ -238,7 +238,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> documentation/generate </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -250,7 +250,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> filter/graph </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -285,8 +285,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/copy </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -321,8 +321,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/interpolate </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -333,8 +333,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/mix </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -358,7 +358,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/read </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -370,7 +370,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/recall </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -381,8 +381,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -418,7 +418,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/write </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -441,51 +441,51 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/border </td>
-			<td class ="instructionType"> array </td>
+			<td class ="instructionType"> decimalArray </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/contentBackground </td>
-			<td class ="instructionType"> array </td>
+			<td class ="instructionType"> decimalArray </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/toolbarBackground </td>
-			<td class ="instructionType"> array </td>
+			<td class ="instructionType"> decimalArray </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]. </td>
+			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/color/toolbarText </td>
-			<td class ="instructionType"> array </td>
+			<td class ="instructionType"> decimalArray </td>
 			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
+			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/internals </td>
@@ -514,7 +514,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> view/script </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -525,15 +525,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 		<tr>
 			<td class="instructionName"> view/size </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The size of the module's UI. </td>
+			<td class ="instructionDescription"> The size of the module's UI: [Width Height] </td>
 		<tr>
 	</table>
 
@@ -557,26 +557,26 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> audio/amplitude.1 </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionEnable"> 0 </td>
 			<td class ="instructionDescription"> instant amplitude of the signal number 1 </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/amplitude.2 </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive">  </td>
 			<td class ="instructionRampFunction">  </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionEnable"> 0 </td>
 			<td class ="instructionDescription"> instant amplitude of the signal number 2 </td>
 		<tr>

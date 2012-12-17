@@ -56,7 +56,6 @@
 			};
 			buildConfigurationList = A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.in" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
