@@ -62,7 +62,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 	TTXmlHandlerPtr		aXmlHandler;
 	TTMapperPtr			aMapper;
 	TTValue				v, attributesList;
-	TTSymbolPtr			attributeName;
+	TTSymbol			attributeName;
 	TTString			s;
 	
 	inputValue.get(0, (TTPtr*)&aXmlHandler);
@@ -78,10 +78,10 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 		aMapper->getAttributeNames(attributesList);
 		for (int i = 0; i < attributesList.getSize(); i++) {
 
-			attributesList.get(i, &attributeName);
+			attributesList.get(i, attributeName);
 
 			// Get string value and fill xml except for FunctionLibrary & FunctionSamples attributes (don't need in xml)
-			if (attributeName != TT("functionLibrary") && attributeName != TT("functionSamples") && attributeName != TT("functionParameters")) {
+			if (attributeName != TTSymbol("functionLibrary") && attributeName != TTSymbol("functionSamples") && attributeName != TTSymbol("functionParameters")) {
 
 				aMapper->getAttributeValue(attributeName, v);
 				v.toString();
@@ -96,7 +96,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 		v.clear();
 		v = TTValue(TTPtr(aMapper));
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
-		aXmlHandler->sendMessage(TT("Write"));
+		aXmlHandler->sendMessage(TTSymbol("Write"));
 		
 		// End a mapper
 		xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
@@ -109,7 +109,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
-	TTSymbolPtr		attributeName, mute;
+	TTSymbol		attributeName, mute;
 	TTMapperPtr		newMapper;
 	TTValue			v, args;
 
@@ -120,33 +120,33 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	// Switch on the name of the XML node
 
 	// Starts reading
-	if (aXmlHandler->mXmlNodeName == TT("start")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("start")) {
 		New();
 		return kTTErrNone;
 	}
 
 	// Ends reading
-	if (aXmlHandler->mXmlNodeName == TT("end")) {
+	if (aXmlHandler->mXmlNodeName == TTSymbol("end")) {
 
 		return kTTErrNone;
 	}
 
 	// Comment node
-	if (aXmlHandler->mXmlNodeName == TT("#comment"))
+	if (aXmlHandler->mXmlNodeName == TTSymbol("#comment"))
 		return kTTErrNone;
 
 	// Mapper node
-	if (aXmlHandler->mXmlNodeName == TT("mapper")) {
-		mute = TT("false");
+	if (aXmlHandler->mXmlNodeName == TTSymbol("mapper")) {
+		mute = TTSymbol("false");
 
 		// get mute state
 		if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, BAD_CAST "mute") == 1) {
 			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
 			if (v.getType() == kTypeSymbol)
-				v.get(0, &mute);
+				v.get(0, mute);
 		}
 		
-		if (mute == TT("false")) {
+		if (mute == TTSymbol("false")) {
 
 			// Create a new mapper
 			newMapper = NULL;
@@ -158,7 +158,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 				// Get attribute name
 				aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
 				if (v.getType() == kTypeSymbol) {
-					v.get(0, &attributeName);
+					v.get(0, attributeName);
 					v.clear();
 
 					// Get attribute value
@@ -180,6 +180,6 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 TTErr TTMapperManager::setAddress(const TTValue& value)
 {	
 	New();
-	value.get(0, &mAddress);
+	value.get(0, mAddress);
 	return kTTErrNone;
 }

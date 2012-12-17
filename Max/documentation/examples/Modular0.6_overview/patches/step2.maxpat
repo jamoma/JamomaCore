@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 8
 		}
 ,
 		"rect" : [ 308.0, 44.0, 1005.0, 476.0 ],
@@ -31,13 +31,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-17",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 568.0, 352.0, 428.0, 20.0 ],
-					"presentation_rect" : [ 567.0, 350.0, 0.0, 0.0 ],
 					"text" : "returns are intended for  outputs of the parameters"
 				}
 
@@ -46,13 +45,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-15",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 568.0, 328.0, 434.0, 20.0 ],
-					"presentation_rect" : [ 568.0, 328.0, 0.0, 0.0 ],
 					"text" : "messages are intended for non persistent variables, such as discrete messages"
 				}
 
@@ -61,13 +59,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-14",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 568.0, 308.0, 428.0, 20.0 ],
-					"presentation_rect" : [ 686.0, 319.0, 0.0, 0.0 ],
 					"text" : "parameters are intended when the value is persistent and might be memorized"
 				}
 
@@ -76,13 +73,12 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-13",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 540.0, 273.0, 255.0, 23.0 ],
-					"presentation_rect" : [ 720.0, 240.0, 0.0, 0.0 ],
+					"patching_rect" : [ 540.0, 273.0, 255.0, 22.0 ],
 					"text" : "note on parameters/messages/returns :"
 				}
 
@@ -142,7 +138,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 606.0, 98.0, 41.0, 18.0 ],
-					"text" : "dump"
+					"text" : "dump",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -175,7 +172,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 577.0, 56.0, 111.0, 18.0 ],
-					"text" : "repetitions/allow $1"
+					"text" : "repetitions/allow $1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -183,13 +181,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-59",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 599.0, 18.0, 228.0, 34.0 ],
+					"patching_rect" : [ 599.0, 18.0, 228.0, 33.0 ],
 					"text" : "If you click on inlet of a jcom external you'll see all his attributes and messages"
 				}
 
@@ -198,7 +196,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-56",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -212,7 +210,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-51",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -235,7 +233,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 591.0, 77.0, 97.0, 18.0 ],
-					"text" : "repetitions/allow"
+					"text" : "repetitions/allow",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -255,7 +254,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-1",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -308,7 +307,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 763.0, 152.0, 225.0, 62.0 ],
+					"patching_rect" : [ 763.0, 152.0, 225.0, 60.0 ],
 					"text" : "jcom.parameter rate @type decimal @range/bounds -2. 2. @value/default 1. @description \"movie playback rate\" @ramp/drive scheduler"
 				}
 
@@ -317,7 +316,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -333,7 +332,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-20",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -349,7 +348,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-22",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -365,7 +364,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-25",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -441,7 +440,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 484.0, 152.0, 205.0, 48.0 ],
+					"patching_rect" : [ 484.0, 152.0, 205.0, 47.0 ],
 					"text" : "jcom.parameter play @type boolean @description \"play the movie\" @priority 2"
 				}
 
@@ -455,7 +454,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 577.0, 228.0, 63.0, 20.0 ],
+					"patching_rect" : [ 577.0, 228.0, 63.0, 19.0 ],
 					"text" : "qmetro 30"
 				}
 
@@ -484,7 +483,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 423.0, 344.0, 80.0, 36.0 ]
+					"patching_rect" : [ 423.0, 344.0, 80.0, 35.0 ]
 				}
 
 			}
@@ -509,7 +508,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-47",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -587,7 +586,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 484.0, 413.0, 178.0, 34.0 ],
+					"patching_rect" : [ 484.0, 413.0, 178.0, 33.0 ],
 					"text" : "jcom.return fps @type decimal @description \"current fps\""
 				}
 
@@ -603,7 +602,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 235.0, 40.0, 202.0, 34.0 ],
+					"patching_rect" : [ 235.0, 40.0, 202.0, 33.0 ],
 					"text" : "jcom.message file/load @type none @description \"load a movie\""
 				}
 
@@ -619,7 +618,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 235.0, 152.0, 226.0, 48.0 ],
+					"patching_rect" : [ 235.0, 152.0, 226.0, 47.0 ],
 					"text" : "jcom.parameter file/path @type string @description \"the path to a movie\" @priority 1"
 				}
 
@@ -628,13 +627,13 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-18",
 					"linecount" : 14,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 4.0, 197.0, 232.0 ],
+					"patching_rect" : [ 3.0, 4.0, 197.0, 225.0 ],
 					"text" : "This step shows how to jamomize a Max patch simply by adding jcom.parameter jcom.message or jcom.return.\n\nThis patch is not a model yet but all parameters, messages and returns are registered to the jamoma system.\n\nLet see what are the features that this simple example allows to use :\nclick on \"Next step\""
 				}
 
@@ -643,7 +642,7 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 18.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-23",
 					"maxclass" : "comment",
 					"numinlets" : 1,

@@ -29,8 +29,8 @@ class TTMODULAR_EXPORT TTMapper : public TTDataObject
 	
 private:
 	
-	TTNodeAddressPtr			mInput;						///< ATTRIBUTE : address of the data for the incoming value
-	TTNodeAddressPtr			mOutput;					///< ATTRIBUTE : address of the data for the value to control
+	TTAddress			mInput;						///< ATTRIBUTE : address of the data for the incoming value
+	TTAddress			mOutput;					///< ATTRIBUTE : address of the data for the value to control
 	
 	TTFloat64					mInputMin;					///< ATTRIBUTE : 
 	TTFloat64					mInputMax;					///< ATTRIBUTE : 
@@ -42,7 +42,7 @@ private:
 	TTBoolean					mInverse;					///< ATTRIBUTE : to make the output equal to mOutputMax - result
 	
 	TTValue						mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
-	TTSymbolPtr					mFunction;					///< ATTRIBUTE : name of the map function
+	TTSymbol					mFunction;					///< ATTRIBUTE : name of the map function
 	TTValue						mFunctionParameters;		///< ATTRIBUTE : names of parameter's function
 	TTValue						mFunctionSamples;			///< ATTRIBUTE : an overview of the mapping (each value between [map(InputMin) :: map(InputMax)])
     
@@ -118,7 +118,7 @@ private:
 	TTErr scaleOutput();
 	
 	/** */
-	TTErr notifyObservers(TTSymbolPtr attrName, const TTValue& value);
+	TTErr notifyObservers(TTSymbol attrName, const TTValue& value);
 	
 	friend TTErr TTMODULAR_EXPORT TTMapperInputCreationCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTMapperOutputCreationCallback(TTPtr baton, TTValue& data);

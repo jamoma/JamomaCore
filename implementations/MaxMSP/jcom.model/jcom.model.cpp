@@ -12,7 +12,7 @@
 // This is used to store extra data
 typedef struct extra {
 	ObjectPtr			modelInternal;		// store an internal model patcher
-	TTNodeAddressPtr	modelAddress;		// store the /model/address parameter
+	TTAddress           modelAddress;		// store the /model/address parameter
 	TTBoolean			component;			// is the model a simple component ?
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
@@ -136,16 +136,15 @@ void model_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
-	TTNodeAddressPtr			nodeAdrs, argAdrs;
-	TTSymbolPtr					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
-	TTObjectPtr					aData, anExplorer;
+	TTAddress                   nodeAdrs, argAdrs;
+	TTSymbol					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, muteAdrs;
+	TTObjectPtr					aData;
 	TTTextHandlerPtr			aTextHandler;
 	TTPtr						context;
 	TTList						whereToSearch;
 	TTBoolean					isThere, isSubModel;
 	TTNodePtr					firstTTNode;
-	TTNodeAddressPtr			containerAdrs;
-	SymbolPtr					hierarchy;
+	TTAddress                   containerAdrs;
 	AtomCount					ac;
 	AtomPtr						av;
 	ObjectPtr					aPatcher = jamoma_patcher_get((ObjectPtr)x);
@@ -154,12 +153,12 @@ void model_subscribe(TTPtr self)
 	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, kTTAdrsEmpty, &x->subscriberObject)) {
 		
 		// get all info relative to our patcher
-		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 		
 		// get absolute address in the namespace 
 		// and set the address attribute of the Container 
-		x->subscriberObject->getAttributeValue(TT("nodeAddress"), v);
-		v.get(0, &nodeAdrs);
+		x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
+		v.get(0, nodeAdrs);
 		x->wrappedObject->setAttributeValue(kTTSym_address, v);
 		
 		// if the jcom.model is well subscribed
@@ -169,59 +168,59 @@ void model_subscribe(TTPtr self)
 			if (!EXTRA->component) {
 				
 				if (x->patcherContext == kTTSym_model) {
-					classAdrs = TT("model/class");
-					helpAdrs =  TT("model/help");
-					refAdrs = TT("model/reference");
-					internalsAdrs = TT("model/internals");
-					documentationAdrs = TT("model/documentation/generate");
-					muteAdrs = TT("model/mute");
+					classAdrs = TTSymbol("model/class");
+					helpAdrs =  TTSymbol("model/help");
+					refAdrs = TTSymbol("model/reference");
+					internalsAdrs = TTSymbol("model/internals");
+					documentationAdrs = TTSymbol("model/documentation/generate");
+					muteAdrs = TTSymbol("model/mute");
 				}
 				else if (x->patcherContext == kTTSym_view) {
-					classAdrs = TT("view/class");
-					helpAdrs =  TT("view/help");
-					refAdrs = TT("view/reference");
-					internalsAdrs = TT("view/internals");
-					documentationAdrs = TT("view/documentation/generate");
-					muteAdrs = TT("view/mute");
+					classAdrs = TTSymbol("view/class");
+					helpAdrs =  TTSymbol("view/help");
+					refAdrs = TTSymbol("view/reference");
+					internalsAdrs = TTSymbol("view/internals");
+					documentationAdrs = TTSymbol("view/documentation/generate");
+					muteAdrs = TTSymbol("view/mute");
 				}
 				
 				// Add a /class data
 				makeInternals_data(x, nodeAdrs, classAdrs, gensym("model_class"), context, kTTSym_return, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_string);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-				aData->setAttributeValue(kTTSym_description, TT("The patcher class"));
+				aData->setAttributeValue(kTTSym_description, TTSymbol("The patcher class"));
 				aData->setAttributeValue(kTTSym_value, x->patcherClass);
 				
 				// Add a /help data
 				makeInternals_data(x, nodeAdrs, helpAdrs, gensym("model_help"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-				aData->setAttributeValue(kTTSym_description, TT("Open the maxhelp patch"));
+				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the maxhelp patch"));
 				
 				// Add a /reference data
 				makeInternals_data(x, nodeAdrs, refAdrs, gensym("model_reference"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-				aData->setAttributeValue(kTTSym_description, TT("Open the reference page"));
+				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the reference page"));
 				
 				// Add a /internals data
 				makeInternals_data(x, nodeAdrs, internalsAdrs, gensym("model_internals"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-				aData->setAttributeValue(kTTSym_description, TT("Open the patcher"));
+				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the patcher"));
 				
 				// Add a /documentation/generate data
 				makeInternals_data(x, nodeAdrs, documentationAdrs, gensym("doc_generate"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-				aData->setAttributeValue(kTTSym_description, TT("Make a html page description"));
+				aData->setAttributeValue(kTTSym_description, TTSymbol("Make a html page description"));
 				
 				// Add a /model/mute data
 				makeInternals_data(x, nodeAdrs, muteAdrs, gensym("model_mute"), context, kTTSym_parameter, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_boolean);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
-				aData->setAttributeValue(kTTSym_description, TT("Mute all parameters in the patcher"));
+				aData->setAttributeValue(kTTSym_description, TTSymbol("Mute all parameters in the patcher"));
 				
 				// for auto documentation : create internal TTTextHandler and expose Write message
 				aTextHandler = NULL;
@@ -234,14 +233,14 @@ void model_subscribe(TTPtr self)
 			
 			// In model *and* view patcher : Add /model/address data
 			if (x->patcherContext == kTTSym_model) // as return
-				makeInternals_data(x, nodeAdrs,  TT("model/address"), gensym("model_address"), context, kTTSym_return, &aData);
+				makeInternals_data(x, nodeAdrs,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_return, &aData);
 			
 			if (x->patcherContext == kTTSym_view) // as parameter
-				makeInternals_data(x, nodeAdrs,  TT("model/address"), gensym("model_address"), context, kTTSym_parameter, &aData);
+				makeInternals_data(x, nodeAdrs,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_parameter, &aData);
 			
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-			aData->setAttributeValue(kTTSym_description, TT("The model address to bind for the view. A model patcher bind on himself"));
+			aData->setAttributeValue(kTTSym_description, TTSymbol("The model address to bind for the view. A model patcher bind on himself"));
 			aData->setAttributeValue(kTTSym_priority, -1); // very high priority flag
 			
 			// Get patcher arguments
@@ -274,11 +273,6 @@ void model_subscribe(TTPtr self)
 			
 			// In view patcher :
 			if (x->patcherContext == kTTSym_view) {
-				
-				// a view expects to be in a bpatcher
-				hierarchy = jamoma_patcher_get_hierarchy(aPatcher);
-				if (hierarchy != _sym_bpatcher && hierarchy != _sym_topmost)
-					object_error((ObjectPtr)x, "a view patcher have to be embedded into a bpatcher");
 					
 				// look for a model of the same class into the patcher to get his model/address
 				jamoma_patcher_get_model_patcher(x->patcherPtr, x->patcherClass, &aPatcher);
@@ -291,7 +285,7 @@ void model_subscribe(TTPtr self)
 					JamomaDirectory->IsThere(&whereToSearch, &testNodeContext, (TTPtr)aPatcher, &isThere, &firstTTNode);
 					
 					if (isThere) {
-						firstTTNode->getAddress(&containerAdrs);
+						firstTTNode->getAddress(containerAdrs);
 						EXTRA->modelAddress = containerAdrs;
 					}
 				}
@@ -299,25 +293,27 @@ void model_subscribe(TTPtr self)
 				// else, if args exists, the first argument of the patcher is the model/address value
 				else if (ac > 0) {
 					
-					argAdrs = TTADRS(atom_getsym(av)->s_name);
+					argAdrs = TTAddress(atom_getsym(av)->s_name);
 					
 					// the model/address have to be absolute
-					if (argAdrs->getType() == kAddressAbsolute)
+					if (argAdrs.getType() == kAddressAbsolute)
 						EXTRA->modelAddress = argAdrs;
 					else
-						EXTRA->modelAddress = kTTAdrsRoot->appendAddress(argAdrs);
+						EXTRA->modelAddress = kTTAdrsRoot.appendAddress(argAdrs);
 				}
+                // else the view is not binding a model for instant
+                else
+                    EXTRA->modelAddress = TTAddress("/noModelAddress");
 				
-				if (EXTRA->modelAddress != kTTAdrsEmpty)
-					aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
-				
+                // set the model/address data value to notify all observers
+                aData->setAttributeValue(kTTSym_value, EXTRA->modelAddress);
 			}
 			
 			// output ContextNode address
 			Atom a;
-			x->subscriberObject->getAttributeValue(TT("contextNodeAddress"), v);
-			v.get(0, (TTSymbolPtr*)&nodeAdrs);
-			atom_setsym(&a, gensym((char*)nodeAdrs->getCString()));
+			x->subscriberObject->getAttributeValue(TTSymbol("contextNodeAddress"), v);
+			v.get(0, nodeAdrs);
+			atom_setsym(&a, gensym((char*)nodeAdrs.c_str()));
 			object_obex_dumpout(self, gensym("address"), 1, &a);
 			
 			// init the model (but not subModel)
@@ -383,7 +379,7 @@ void model_share_patcher_node(TTPtr self, TTNodePtr *patcherNode)
 	TTValue v;
 	
 	if (x->subscriberObject) {
-		x->subscriberObject->getAttributeValue(TT("contextNode"), v);
+		x->subscriberObject->getAttributeValue(TTSymbol("contextNode"), v);
 		v.get(0, (TTPtr*)patcherNode);
 	}
 }
@@ -460,7 +456,7 @@ void model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	char				filename[MAX_FILENAME_CHARS];
-	TTSymbolPtr			fullpath;
+	TTSymbol			fullpath;
 	TTValue				o, v;
 	TTTextHandlerPtr	aTextHandler;
 	TTErr				tterr;
@@ -468,17 +464,17 @@ void model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->wrappedObject) {
 		
 		// Default HTML file name
-		snprintf(filename, MAX_FILENAME_CHARS, DocumentationFormat->data(), x->patcherClass->getCString());
+		snprintf(filename, MAX_FILENAME_CHARS, DocumentationFormat->data(), x->patcherClass.c_str());
 		fullpath = jamoma_file_write((ObjectPtr)x, argc, argv, filename);
 		v.append(fullpath);
 		
-		tterr = x->internals->lookup(TT("TextHandler"), o);
+		tterr = x->internals->lookup(TTSymbol("TextHandler"), o);
 		
 		if (!tterr) {
 			o.get(0, (TTPtr*)&aTextHandler);
 			
 			critical_enter(0);
-			aTextHandler->sendMessage(TT("Write"), v, kTTValNONE);
+			aTextHandler->sendMessage(TTSymbol("Write"), v, kTTValNONE);
 			critical_exit(0);
 		}
 	}
@@ -513,7 +509,7 @@ void model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->patcherContext == kTTSym_view) {
 		
 		if (atom_gettype(argv) == A_SYM) {
-			EXTRA->modelAddress = TTADRS(atom_getsym(argv)->s_name);
+			EXTRA->modelAddress = TTAddress(atom_getsym(argv)->s_name);
 		}
 	}
 }

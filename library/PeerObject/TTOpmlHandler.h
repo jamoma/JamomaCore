@@ -49,15 +49,15 @@ class TTMODULAR_EXPORT TTOpmlHandler : public TTDataObject
 public:	// use public for recursive access
 	
 	TTObjectPtr			mObject;						///< the last handled object
-	TTSymbolPtr			mFilePath;						///< the path to the last writen/read file
+	TTSymbol			mFilePath;						///< the path to the last writen/read file
 
-	TTSymbolPtr			mHeaderNodeName;				///< the name of the header node in the opml file
-	TTSymbolPtr			mVersion;						///< the version number
+	TTSymbol			mHeaderNodeName;				///< the name of the header node in the opml file
+	TTSymbol			mVersion;						///< the version number
 
 	TTPtr				mWriter;						// xmlTextWriterPtr type, but using generic pointer in the shared header
 	TTPtr				mReader;						// xmlTextReaderPtr type, but using generic pointer in the shared header
 	
-	TTSymbolPtr			mXmlNodeName;					///< the Node being read by the Reader
+	TTSymbol			mXmlNodeName;					///< the Node being read by the Reader
 	
 
 	/** TTOpmlWriter could takes absolute file path or nothing.

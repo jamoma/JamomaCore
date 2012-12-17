@@ -28,8 +28,8 @@ class TTMODULAR_EXPORT TTOutput : public TTDataObject
 	
 public:	// use public for quick acces during signal processing
 	
-	TTSymbolPtr					mType;						///< ATTRIBUTE : the type of signal output (like audio, video, ...)
-	TTNodeAddressPtr			mInputAddress;				///< ATTRIBUTE : address of the input to bind
+	TTSymbol					mType;						///< ATTRIBUTE : the type of signal output (like audio, video, ...)
+	TTAddress			mInputAddress;				///< ATTRIBUTE : address of the input to bind
 	
 	TTBoolean					mMute;						///< ATTRIBUTE : to mute signal output
 	TTFloat32					mMix;						///< ATTRIBUTE : to mix signal output and  a signal coming from TTInput object

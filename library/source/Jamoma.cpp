@@ -23,32 +23,32 @@ const double k_twopi = 6.2831853071795864;	// 2 * pi
 const double k_anti_denormal_value = 1e-18;	
 */
 // statics and globals
-static long			initialized = false;			///< Global variabel indicating whether Jamoma has been initiated or not.
-static t_hashtab	*hash_modules = NULL;			///< A hashtab of all modules (jcom.hubs) currently instantiated
-//t_object			*obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
-//t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
-bool				max5 = false;					///< Is Jamoma currently running in Max 5 or newer?
-bool				max6 = false;					///< Is Jamoma currently running in Max 6 or newer?
+static long                 initialized = false;			///< Global variabel indicating whether Jamoma has been initiated or not.
+static t_hashtab            *hash_modules = NULL;			///< A hashtab of all modules (jcom.hubs) currently instantiated
+//t_object                  *obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
+//t_object                  *obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
+bool                        max5 = false;					///< Is Jamoma currently running in Max 5 or newer?
+bool                        max6 = false;					///< Is Jamoma currently running in Max 6 or newer?
 
-TTSymbolPtr					kTTSym_Jamoma = NULL;
+TTSymbol					kTTSym_Jamoma;
 TTApplicationPtr			JamomaApplication = NULL;
 TTNodeDirectoryPtr			JamomaDirectory = NULL;
 
-TTRegexPtr					ttRegexForJmod = NULL;
-TTRegexPtr					ttRegexForJcom = NULL;
-TTRegexPtr					ttRegexForModel = NULL;
-TTRegexPtr					ttRegexForModule = NULL;
-TTRegexPtr					ttRegexForView = NULL;
-TTRegexPtr					ttRegexForMaxpat = NULL;
-TTRegexPtr					ttRegexForMaxhelp = NULL;
-TTRegexPtr					ttRegexForBracket = NULL;
+TTRegex*					ttRegexForJmod = NULL;
+TTRegex*					ttRegexForJcom = NULL;
+TTRegex*					ttRegexForModel = NULL;
+TTRegex*					ttRegexForModule = NULL;
+TTRegex*					ttRegexForView = NULL;
+TTRegex*					ttRegexForMaxpat = NULL;
+TTRegex*					ttRegexForMaxhelp = NULL;
+TTRegex*					ttRegexForBracket = NULL;
 
-TTString					*ModelPatcherFormat = NULL;
-TTString					*ModelPresetFormat = NULL;
-TTString					*ViewPresetFormat = NULL;
-TTString					*HelpPatcherFormat = NULL;
-TTString					*RefpageFormat = NULL;
-TTString					*DocumentationFormat = NULL;
+TTString*					ModelPatcherFormat = NULL;
+TTString*					ModelPresetFormat = NULL;
+TTString*					ViewPresetFormat = NULL;
+TTString*					HelpPatcherFormat = NULL;
+TTString*					RefpageFormat = NULL;
+TTString*					DocumentationFormat = NULL;
 
 /************************************************************************************/
 // Init the framework
@@ -56,16 +56,23 @@ TTString					*DocumentationFormat = NULL;
 void jamoma_init(void)
 {
 	if (!initialized) {
+        
 		ObjectPtr	max = SymbolGen("max")->s_thing;
 		//SymbolPtr	meth = SymbolGen("objectfile");
+        TTString    JamomaConfigurationFilePath;
 		Atom		a[4];
 		TTValue		v;
-	
-		if (maxversion() >= 0x0519)
+ 
+		if (maxversion() >= 0x0519) {
 			max5 = true;
-		if (maxversion() >= 0x0600)
+            JamomaConfigurationFilePath = "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml";
+        }
+        
+		if (maxversion() >= 0x0600) {
 			max6 = true;
-		
+            JamomaConfigurationFilePath = "/Applications/Max6/Cycling \'74/init/JamomaConfiguration.xml";
+		}
+        
 		// Init the Modular library
 		TTModularInit();
 		
@@ -73,10 +80,10 @@ void jamoma_init(void)
 		TTModularCreateLocalApplication(JAMOMA, JamomaConfigurationFilePath);
 		JamomaApplication = getLocalApplication;
 		JamomaDirectory = getLocalDirectory;
-		kTTSym_Jamoma = TT(JAMOMA);
+		kTTSym_Jamoma = TTSymbol(JAMOMA);
 		
 		// Check if the configuration file have been loaded correctly
-		JamomaApplication->getAttributeValue(TT("allAppNames"), v);
+		JamomaApplication->getAttributeValue(TTSymbol("allAppNames"), v);
 		if (!v.getSize())
 			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
 		

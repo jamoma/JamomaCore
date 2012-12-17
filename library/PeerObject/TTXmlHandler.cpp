@@ -21,16 +21,16 @@
 TT_MODULAR_CONSTRUCTOR,
 mObject(NULL),
 mFilePath(kTTSymEmpty),
-mHeaderNodeName(TT("jamoma")),
-mVersion(TT("0.6")),
-mXmlSchemaInstance(TT("'http://www.w3.org/2001/XMLSchema-instance'")),
-mXmlSchemaLocation(TT("'http://jamoma.org/ file:jamoma.xsd'")),
+mHeaderNodeName(TTSymbol("jamoma")),
+mVersion(TTSymbol("0.6")),
+mXmlSchemaInstance(TTSymbol("'http://www.w3.org/2001/XMLSchema-instance'")),
+mXmlSchemaLocation(TTSymbol("'http://jamoma.org/ file:jamoma.xsd'")),
 mWriter(NULL),
 mReader(NULL),
-mIsWriting(false),
-mIsReading(false),
 mXmlNodeName(kTTSymEmpty),
-mXmlNodeValue(kTTValNONE)
+mXmlNodeValue(kTTValNONE),
+mIsWriting(false),
+mIsReading(false)
 {
 	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.getSize() == 0);
 	
@@ -70,13 +70,13 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	if (args.getSize() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
 			
 			// Create a new XmlWriter for filePath, with no compression.
-			mWriter = xmlNewTextWriterFilename(mFilePath->getCString(), 0);
+			mWriter = xmlNewTextWriterFilename(mFilePath.c_str(), 0);
 			if (mWriter == NULL) {
 				TT_ASSERT("testXmlwriterFilename: Error creating the xml writer\n", true);
 				return kTTErrGeneric;
@@ -105,7 +105,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			// Write data of the given TTObject (which have to implement a WriteAsXml message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("WriteAsXml"), v, kTTValNONE);
+			aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 			
 			// End Header information
 			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
@@ -129,7 +129,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("WriteAsXml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 }
 
 TTErr TTXmlHandler::WriteAgain()
@@ -146,7 +146,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	const xmlChar		*xName = 0;
 	const xmlChar		*xValue = 0;
 	TTObjectPtr			aTTObject;
-	TTSymbolPtr			lastNodeName;
+	TTSymbol			lastNodeName;
 	TTValue				v;
 	int					ret;
 	
@@ -162,13 +162,13 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	if (args.getSize() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
 			
 			// Parse the file
-			mReader = xmlReaderForFile(mFilePath->getCString(), NULL, 0);
+			mReader = xmlReaderForFile(mFilePath.c_str(), NULL, 0);
 			if (mReader != NULL) {
 				
 				// Start reading
@@ -196,7 +196,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								xName = xmlTextReaderName((xmlTextReaderPtr)mReader);
 								if (xName == NULL)
 									break;
-								mXmlNodeName = TT((char*)xName);
+								mXmlNodeName = TTSymbol((char*)xName);
 								xmlFree((void*)xName);
 								
 								// to filter one line element
@@ -218,7 +218,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								xName = xmlTextReaderName((xmlTextReaderPtr)mReader);
 								if (xName == NULL)
 									break;
-								mXmlNodeName = TT((char*)xName);
+								mXmlNodeName = TTSymbol((char*)xName);
 								xmlFree((void*)xName);
 								
 								// End to read a node
@@ -249,7 +249,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						
 						// process the mObject parsing on this node
 						v.append((TTPtr)this);
-						aTTObject->sendMessage(TT("ReadFromXml"), v, kTTValNONE);
+						aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 					}
 						
 					// next node
@@ -275,7 +275,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("ReadFromXml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 }
 
 TTErr TTXmlHandler::ReadAgain()
@@ -315,9 +315,9 @@ TTErr TTXmlHandler::fromXmlChar(const void* axCh, TTValue& v, TTBoolean addQuote
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlAttribute(TTSymbolPtr attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
-	TTErr err;
+//	TTErr err;
 	
 	if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)mReader, BAD_CAST attributeName.c_str()) == 1) {
 		
@@ -327,10 +327,10 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbolPtr attributeName, TTValue& returned
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlNextAttribute(TTSymbolPtr *returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
-	TTErr	err;
+//	TTErr	err;
 	
 	if (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)mReader) == 1) {
 		

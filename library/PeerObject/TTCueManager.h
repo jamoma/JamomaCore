@@ -32,13 +32,13 @@ class TTMODULAR_EXPORT TTCueManager : public TTDataObject
 private:
 	
 	TTValue				mOrder;							///< ATTRIBUTE : cues are ordered by name
-	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current cue name
+	TTSymbol			mCurrent;						///< ATTRIBUTE : the current cue name
 	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
-	TTSymbolPtr			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
+	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
 	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
 	
 	TTCuePtr			mCurrentCue;					///< the current cue
-	TTNodeAddressItemPtr mDefaultNamespace;				///< an internal default namespace
+	TTAddressItemPtr    mDefaultNamespace;				///< an internal default namespace
 	
 	TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
 	

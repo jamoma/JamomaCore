@@ -1,0 +1,56 @@
+defines:
+  - TT_NO_DSP
+  - TTDATA_NO_RAMPLIB
+  
+sources:
+  - source/TTModular.cpp
+  - source/TTModularSymbolCache.cpp
+  - PeerObject/TTApplication.cpp
+  - PeerObject/TTApplicationManager.cpp
+  - PeerObject/TTContainer.cpp
+  - PeerObject/TTCue.cpp
+  - PeerObject/TTCueManager.cpp
+  - PeerObject/TTData.cpp
+  - PeerObject/TTExplorer.cpp
+  - PeerObject/TTInput.cpp
+  - PeerObject/TTMapper.cpp
+  - PeerObject/TTMapperManager.cpp
+  - PeerObject/TTMirror.cpp
+  - PeerObject/TTOpmlHandler.cpp
+  - PeerObject/TTOutput.cpp
+  - PeerObject/TTPreset.cpp
+  - PeerObject/TTPresetManager.cpp
+  - PeerObject/TTReceiver.cpp
+  - PeerObject/TTSender.cpp
+  - PeerObject/TTScript.cpp
+  - PeerObject/TTSubscriber.cpp
+  - PeerObject/TTTextHandler.cpp
+  - PeerObject/TTViewer.cpp
+  - PeerObject/TTXmlHandler.cpp
+  - ProtocolLib/Protocol.cpp
+  - FunctionLib/FunctionLib.cpp
+  
+includes:
+  - includes
+  - PeerObject
+  - ProtocolLib
+  - FunctionLib
+  - ../../../Core/Foundation/library/includes
+  - /usr/include/libxml2
+
+libraries:
+  - FOUNDATION
+  - mac /usr/lib/libxml2.dylib
+  - win ../../../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
+  - win ../../../../Foundation/library/libxml2/win32/lib/libxml2.lib
+#  - portaudio/libportaudio-jamoma.a
+
+frameworks:
+  - Carbon
+#  - CoreAudio
+#  - AudioUnit
+#  - AudioToolbox
+
+# This project is not available for most architectures
+
+arch: "i386"

@@ -25,8 +25,8 @@ class TTMODULAR_EXPORT TTPreset : public TTDataObject
 	
 private :
 	
-	TTSymbolPtr					mName;							///< ATTRIBUTE : the name of the preset
-	TTNodeAddressPtr			mAddress;						///< ATTRIBUTE : the parent address from where to search object to store
+	TTSymbol					mName;							///< ATTRIBUTE : the name of the preset
+	TTAddress			mAddress;						///< ATTRIBUTE : the parent address from where to search object to store
 	
 	TTNodeDirectoryPtr			mDirectory;						///< a preset depends on a directory
 	TTScriptPtr					mScript;						///< a script containing relativeAddress and value

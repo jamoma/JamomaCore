@@ -37,7 +37,7 @@ RampUnit::RampUnit(TTValue& arguments) :
 	arguments.get(1, (TTPtr*)&baton);
 	
 	addAttributeWithSetter(Function, kTypeSymbol);
-	setAttributeValue(kTTSym_function, TT("linear"));
+	setAttributeValue(kTTSym_function, TTSymbol("linear"));
 }
 
 
@@ -64,12 +64,12 @@ void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 TTErr RampUnit::setFunction(const TTValue& functionName)
 {
 	TTErr		err;
-	TTSymbolPtr	newFunctionName = NULL;
+	TTSymbol	newFunctionName = NULL;
 	
-	functionName.get(0, &newFunctionName);
+	functionName.get(0, newFunctionName);
 	
-	if (newFunctionName == TT("none"))
-		newFunctionName = TT("linear");
+	if (newFunctionName == TTSymbol("none"))
+		newFunctionName = TTSymbol("linear");
 	
 	if (newFunctionName == mFunction)
 		return kTTErrNone;
@@ -93,14 +93,14 @@ TTErr RampUnit::getFunctionParameterNames(TTValue& names)
 }
 
 
-TTErr RampUnit::setFunctionParameterValue(TTSymbol* ParameterName, TTValue& newValue)
+TTErr RampUnit::setFunctionParameterValue(TTSymbol ParameterName, TTValue& newValue)
 {
 	functionUnit->setAttributeValue(ParameterName, newValue);
 	return kTTErrNone;
 }
 
 
-TTErr RampUnit::getFunctionParameterValue(TTSymbol* ParameterName, TTValue& value)
+TTErr RampUnit::getFunctionParameterValue(TTSymbol ParameterName, TTValue& value)
 {
 	functionUnit->getAttributeValue(ParameterName, value);
 	return kTTErrNone;
@@ -120,7 +120,7 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 		startValue = new TTFloat64[newNumValues];
 		numValues = newNumValues;
 	}
-	sendMessage(TT("numValuesChanged"));	// Notify sub-classes (if they respond to this message)
+	sendMessage(TTSymbol("numValuesChanged"));	// Notify sub-classes (if they respond to this message)
 }
 
  
@@ -134,7 +134,7 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 #include "SchedulerRamp.h"
 
 
-TTErr RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
+TTErr RampLib::createUnit(const TTSymbol unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
 {
 	TTValue v;
 	
@@ -143,22 +143,22 @@ TTErr RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCal
 	v.set(1, TTPtr(baton));
 	
 	// These should be alphabetized
-	if (unitName == TT("async"))
-		TTObjectInstantiate(TT("AsyncRamp"), (TTObjectPtr*)unit, v);
+	if (unitName == TTSymbol("async"))
+		TTObjectInstantiate(TTSymbol("AsyncRamp"), (TTObjectPtr*)unit, v);
 		//*unit = (RampUnit*) new AsyncRamp(callback, baton);
-	else if (unitName == TT("none"))
-		TTObjectInstantiate(TT("NoneRamp"), (TTObjectPtr*)unit, v);
+	else if (unitName == TTSymbol("none"))
+		TTObjectInstantiate(TTSymbol("NoneRamp"), (TTObjectPtr*)unit, v);
 //		*unit = (RampUnit*) new NoneRamp(callback, baton);
-	else if (unitName == TT("queue"))
-		TTObjectInstantiate(TT("QueueRamp"), (TTObjectPtr*)unit, v);
+	else if (unitName == TTSymbol("queue"))
+		TTObjectInstantiate(TTSymbol("QueueRamp"), (TTObjectPtr*)unit, v);
 //		*unit = (RampUnit*) new QueueRamp(callback, baton);
-	else if (unitName == TT("scheduler"))
-		TTObjectInstantiate(TT("SchedulerRamp"), (TTObjectPtr*)unit, v);
+	else if (unitName == TTSymbol("scheduler"))
+		TTObjectInstantiate(TTSymbol("SchedulerRamp"), (TTObjectPtr*)unit, v);
 //		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
 	else {
 		// Invalid function specified default to linear
-		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", (char*)unitName);
-		TTObjectInstantiate(TT("NoneRamp"), (TTObjectPtr*)unit, v);
+		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", unitName.c_str());
+		TTObjectInstantiate(TTSymbol("NoneRamp"), (TTObjectPtr*)unit, v);
 //		*unit = (RampUnit*) new NoneRamp(callback, baton);
 	}
 	return kTTErrNone;
@@ -168,9 +168,9 @@ TTErr RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCal
 void RampLib::getUnitNames(TTValue& unitNames)
 {
 	unitNames.clear();
-	unitNames.append(TT("async"));
-	unitNames.append(TT("none"));
-	unitNames.append(TT("queue"));
-	unitNames.append(TT("scheduler"));
+	unitNames.append(TTSymbol("async"));
+	unitNames.append(TTSymbol("none"));
+	unitNames.append(TTSymbol("queue"));
+	unitNames.append(TTSymbol("scheduler"));
 }
 

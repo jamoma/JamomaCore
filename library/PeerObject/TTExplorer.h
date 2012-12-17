@@ -23,9 +23,9 @@ class TTMODULAR_EXPORT TTExplorer : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to manage
-	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
-	TTSymbolPtr			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
+	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to manage
+	TTAddress           mAddress;						///< ATTRIBUTE : the node where to start the exploration (default : the local root)
+	TTSymbol			mOutput;						///< ATTRIBUTE : what returns the exploration from the node :
 														///<	- descendants : any address below the node at any level (default)
 														///<	- children : all children of the node
 														///<	- brothers : all instances of the node
@@ -33,7 +33,7 @@ private:
 	
 	TTBoolean			mUpdate;						///< ATTRIBUTE : is the explorer listen to the namespace to update the result ?
 	
-	TTSymbolPtr			mSort;							///< ATTRIBUTE : to sort the result : none, alphabetic, priority (default : alphabetic)
+	TTSymbol			mSort;							///< ATTRIBUTE : to sort the result : none, alphabetic, priority (default : alphabetic)
 	
 	TTUInt8				mDepth;							///< ATTRIBUTE : a depth limit for the exploration (only usefull for descendants mode)
 	
@@ -44,7 +44,7 @@ private:
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
 	TTCallbackPtr		mReturnSelectionCallback;		///< a way to return back selection to the owner of this explorer
 	TTHashPtr			mFilterBank;					///< a hash table containing TTDictionaryPtr to store filters
-	TTListPtr			mFilterList;					///< a list containing TTSymbolPtr to retreive filters in the filter bank
+	TTListPtr			mFilterList;					///< a list containing TTSymbol to retreive filters in the filter bank
 	
 	TTNodePtr			mTempNode;						///< remember the node on which the exploration have been done	(Children cases)
 	TTHashPtr			mResult;						///< hash table containing all elements found by the explorer

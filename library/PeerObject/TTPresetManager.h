@@ -28,9 +28,9 @@ class TTMODULAR_EXPORT TTPresetManager : public TTDataObject
 	
 private:
 	
-	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the container address to manage
+	TTAddress	mAddress;						///< ATTRIBUTE : the container address to manage
 	TTValue				mOrder;							///< ATTRIBUTE : presets are ordered by name
-	TTSymbolPtr			mCurrent;						///< ATTRIBUTE : the current preset name
+	TTSymbol			mCurrent;						///< ATTRIBUTE : the current preset name
 	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 
 	TTHashPtr			mPresets;						///< a hash table containing <name, TTPresetPtr>

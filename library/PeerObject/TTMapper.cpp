@@ -79,14 +79,14 @@ mValid(NO)
 TTMapper::~TTMapper() // TODO : delete things...
 {
 	long		n;
-	TTSymbolPtr	aName;
+	TTSymbol	aName;
 #ifndef TT_NO_DSP	
 	if (mFunctionUnit) {
 		
 		// Remove former datas
 		n = mFunctionParameters.getSize();
 		for (int i=0; i<n; i++) {
-			mFunctionParameters.get(i, &aName);
+			mFunctionParameters.get(i, aName);
 			this->removeAttribute(aName);
 		}
 		
@@ -172,7 +172,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	if (mReceiver)
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 	
-	value.get(0, &mInput);
+	value.get(0, mInput);
 	
 	mObserveInputRange = true;
 	
@@ -180,7 +180,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	args.append(NULL);
 	
 	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(this));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
@@ -189,7 +189,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	mReceiver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mReceiver), args);
 	
-	mReceiver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_value));
+	mReceiver->setAttributeValue(kTTSym_address, mInput.appendAttribute(kTTSym_value));
 	
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
@@ -230,7 +230,7 @@ TTErr TTMapper::observeInput()
 	
 	// Make a TTReceiver object
 	returnInputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnInputCreationCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnInputCreationCallback, kTTValNONE);
 	returnInputCreationBaton = new TTValue(TTPtr(this));
 	returnInputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputCreationBaton));
 	returnInputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
@@ -241,7 +241,7 @@ TTErr TTMapper::observeInput()
 	mInputObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mInputObserver), args);
 	
-	mInputObserver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_created));
+	mInputObserver->setAttributeValue(kTTSym_address, mInput.appendAttribute(kTTSym_created));
 
 	return kTTErrNone;
 }
@@ -259,7 +259,7 @@ TTErr TTMapper::observeInputRange()
 	args.append(NULL);
 	
 	returnInputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnInputRangeCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnInputRangeCallback, kTTValNONE);
 	returnInputRangeBaton = new TTValue(TTPtr(this));
 	returnInputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputRangeBaton));
 	returnInputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputRangeCallback));
@@ -268,7 +268,7 @@ TTErr TTMapper::observeInputRange()
 	mInputRangeObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mInputRangeObserver), args);
 	
-	mInputRangeObserver->setAttributeValue(kTTSym_address, mInput->appendAttribute(kTTSym_rangeBounds));
+	mInputRangeObserver->setAttributeValue(kTTSym_address, mInput.appendAttribute(kTTSym_rangeBounds));
 	
 	return kTTErrNone;
 }
@@ -283,7 +283,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	if (mSender)
 		TTObjectRelease(TTObjectHandle(&mSender));
 	
-	value.get(0, &mOutput);
+	value.get(0, mOutput);
 	
 	mObserveOutputRange = true;
 		
@@ -291,7 +291,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	mSender = NULL;
 	TTObjectInstantiate(kTTSym_Sender, TTObjectHandle(&mSender), kTTValNONE);
 	
-	mSender->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_value));
+	mSender->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_value));
 	
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
@@ -332,7 +332,7 @@ TTErr TTMapper::observeOutput()
 	
 	// Make a TTReceiver object
 	returnOutputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnOutputCreationCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnOutputCreationCallback, kTTValNONE);
 	returnOutputCreationBaton = new TTValue(TTPtr(this));
 	returnOutputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputCreationBaton));
 	returnOutputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
@@ -343,7 +343,7 @@ TTErr TTMapper::observeOutput()
 	mOutputObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mOutputObserver), args);
 	
-	mOutputObserver->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_created));
+	mOutputObserver->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_created));
 	
 	return kTTErrNone;
 }
@@ -361,7 +361,7 @@ TTErr TTMapper::observeOutputRange()
 	args.append(NULL);
 	
 	returnOutputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnOutputRangeCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnOutputRangeCallback, kTTValNONE);
 	returnOutputRangeBaton = new TTValue(TTPtr(this));
 	returnOutputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputRangeBaton));
 	returnOutputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputRangeCallback));
@@ -370,7 +370,7 @@ TTErr TTMapper::observeOutputRange()
 	mOutputRangeObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mOutputRangeObserver), args);
 	
-	mOutputRangeObserver->setAttributeValue(kTTSym_address, mOutput->appendAttribute(kTTSym_rangeBounds));
+	mOutputRangeObserver->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_rangeBounds));
 	
 	return kTTErrNone;
 }
@@ -379,14 +379,14 @@ TTErr TTMapper::setFunction(const TTValue& value)
 {
 	long		n;
 	TTValue		names;
-	TTSymbolPtr	aName;
+	TTSymbol	aName;
 #ifndef TT_NO_DSP	
 	if (mFunctionUnit) {
 
 		// Remove former datas
 		n = mFunctionParameters.getSize();
 		for (int i=0; i<n; i++) {
-			mFunctionParameters.get(i, &aName);
+			mFunctionParameters.get(i, aName);
 			this->removeAttribute(aName);
 		}
 		
@@ -411,7 +411,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		if (n) {
 			for (int i=0; i<n; i++) {
 				
-				names.get(i, &aName);
+				names.get(i, aName);
 				
 				// don't publish these datas
 				if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
@@ -427,7 +427,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		
 		mValid = true;
 		notifyObservers(kTTSym_function, value);
-		notifyObservers(TT("functionParameters"), mFunctionParameters);
+		notifyObservers(TTSymbol("functionParameters"), mFunctionParameters);
 		return kTTErrNone;
 	}
 #endif	
@@ -444,7 +444,7 @@ TTErr TTMapper::setInputMin(const TTValue& value)
 	if (mInputRangeObserver)
 		TTObjectRelease(TTObjectHandle(&mInputRangeObserver));
 	
-	notifyObservers(TT("inputMin"), value);
+	notifyObservers(TTSymbol("inputMin"), value);
 	return scaleInput();
 }
 
@@ -458,7 +458,7 @@ TTErr TTMapper::setInputMax(const TTValue& value)
 	if (mInputRangeObserver)
 		TTObjectRelease(TTObjectHandle(&mInputRangeObserver));
 	
-	notifyObservers(TT("inputMax"), value);
+	notifyObservers(TTSymbol("inputMax"), value);
 	return scaleInput();
 }
 
@@ -472,7 +472,7 @@ TTErr TTMapper::setOutputMin(const TTValue& value)
 	if (mOutputRangeObserver)
 		TTObjectRelease(TTObjectHandle(&mOutputRangeObserver));
 	
-	notifyObservers(TT("outputMin"), value);
+	notifyObservers(TTSymbol("outputMin"), value);
 	return scaleOutput();
 }
 
@@ -486,7 +486,7 @@ TTErr TTMapper::setOutputMax(const TTValue& value)
 	if (mOutputRangeObserver)
 		TTObjectRelease(TTObjectHandle(&mOutputRangeObserver));
 	
-	notifyObservers(TT("outputMax"), value);
+	notifyObservers(TTSymbol("outputMax"), value);
 	return scaleOutput();
 }
 
@@ -560,7 +560,7 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
-TTErr TTMapper::notifyObservers(TTSymbolPtr attrName, const TTValue& value)
+TTErr TTMapper::notifyObservers(TTSymbol attrName, const TTValue& value)
 {
 	TTAttributePtr	anAttribute = NULL;
 	TTErr			err;
@@ -583,7 +583,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
 	TTValue		v;
-	TTNodeAddressPtr address;
+	TTAddress address;
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
 	
@@ -592,7 +592,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aMapper);
 	
 	// unpack data (an address)
-	data.get(0, &address);
+	data.get(0, address);
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
@@ -629,7 +629,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
 	TTValue		v;
-	TTNodeAddressPtr address;
+	TTAddress address;
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
 	
@@ -638,7 +638,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aMapper);
 	
 	// unpack data (an address)
-	data.get(0, &address);
+	data.get(0, address);
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 

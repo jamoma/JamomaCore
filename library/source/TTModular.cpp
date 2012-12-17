@@ -22,12 +22,17 @@ void TTModularInit()
 {	
 	// Initialized Foundation framework
 	TTFoundationInit();
-	
-	/* DEBUG
-	TTObjectPtr test;
+
+#define TO_DEBUG
+#ifdef TO_DEBUG
+    
+	TTObjectPtr test = NULL;
 	TTValue v;
-	TTObjectInstantiate(TT("nodelib.test"), &test, kTTValNONE);
-	test->test(v); */
+	
+	TTObjectInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
+	test->test(v); 
+
+#endif // TO_DEBUG
 	
 	if (!TTModularHasInitialized) {
 		
@@ -57,7 +62,6 @@ void TTModularInit()
 		TTViewer::registerClass();
 		TTXmlHandler::registerClass();
 		
-		TTModularSymbolCacheInit();
 		//TTModularValueCacheInit();
 		
 		// to - this a very strange bug : the two first toString() parsing on number failed !?!
@@ -100,12 +104,12 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 		if (!getLocalApplication) {
 			
 			// create the application
-			args = TTValue(TT(applicationStr.data()));
+			args = TTValue(TTSymbol(applicationStr.data()));
 			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&anApplication), args);
 			
 			// set it as local application
 			args = TTValue((TTPtr)anApplication);
-			TTModularApplications->setAttributeValue(TT("localApplication"), args);
+			TTModularApplications->setAttributeValue(TTSymbol("localApplication"), args);
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
@@ -113,18 +117,18 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			
-			args = TTValue(TT(xmlConfigFilePath));
-			anXmlHandler->sendMessage(TT("Read"), args, kTTValNONE);
+			args = TTValue(TTSymbol(xmlConfigFilePath));
+			anXmlHandler->sendMessage(kTTSym_Read, args, kTTValNONE);
 		}
 		else
-			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName->getCString());
+			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName.c_str());
 	}
 }
 
-TTNodeAddressItemPtr	TTModularNamespacesLookup(TTSymbolPtr namespaceName)
+TTAddressItemPtr	TTModularNamespacesLookup(TTSymbol namespaceName)
 {
-	TTNodeAddressItemPtr	aNamespace = NULL;
-	TTValue			v;
+	TTAddressItemPtr	aNamespace = NULL;
+	TTValue				v;
 	
 	if (namespaceName != kTTSymEmpty && namespaceName != kTTSym_none) {
 		
@@ -132,7 +136,7 @@ TTNodeAddressItemPtr	TTModularNamespacesLookup(TTSymbolPtr namespaceName)
 			v.get(0, (TTPtr*)&aNamespace);
 		
 		else {
-			aNamespace = new TTNodeAddressItem();
+			aNamespace = new TTAddressItem();
 			
 			v = TTValue((TTPtr)aNamespace);
 			TTModularNamespaces->append(namespaceName, v);

@@ -28,7 +28,7 @@ Network::Network(std::string appName)
 	args.append(TTModularApplications);
 	args.append(TT(m_appName));
 	
-	TTObjectInstantiate(TT("DeviceManager"), TTObjectHandle(&m_deMan), args);
+	TTObjectInstantiate(TTSymbol("DeviceManager"), TTObjectHandle(&m_deMan), args);
 }
 
 Network::~Network(void)

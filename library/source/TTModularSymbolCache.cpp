@@ -12,267 +12,132 @@
 #include "TTModularSymbolCache.h"
 
 // object classe name
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Application;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ApplicationManager;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Container;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Cue;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_CueManager;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Data;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Explorer;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Input;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Mapper;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_MapperManager;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Mirror;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_OpmlHandler;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Output;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Preset;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_PresetManager;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Receiver;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Sender;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Script;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Subscriber;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_TextHandler;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Viewer;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_XmlHandler;
+TTMODULAR_EXPORT TTSymbol       kTTSym_Application                      (("Application"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_ApplicationManager				(("ApplicationManager"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Container                        (("Container"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Cue                              (("Cue"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_CueManager                       (("CueManager"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Data                             (("Data"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Explorer                         (("Explorer"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Input                            (("Input"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Mapper                           (("Mapper"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_MapperManager					(("MapperManager"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Mirror                           (("Mirror"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_OpmlHandler                      (("OpmlHandler"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Output                           (("Output"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Preset                           (("Preset"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_PresetManager					(("PresetManager"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Receiver                         (("Receiver"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Sender                           (("Sender"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Script                           (("Script"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Subscriber                       (("Subscriber"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_TextHandler                      (("TextHandler"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Viewer                           (("Viewer"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_XmlHandler                       (("XmlHandler"));
 
 // attribute, message or any word often used
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activity;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityIn;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_activityOut;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_address;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_addresses;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_alias;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_alphabetic;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_attributes;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_array;
+TTMODULAR_EXPORT TTSymbol       kTTSym_activity                         (("activity"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_activityIn                       (("activityIn"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_activityOut                      (("activityOut"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_address                          (("address"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_addresses                        (("addresses"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_alias                            (("alias"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_alphabetic                       (("alphabetic"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_attributes                       (("attributes"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_array                            (("array"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_boolean;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_brothers;
+TTMODULAR_EXPORT TTSymbol       kTTSym_boolean                          (("boolean"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_brothers                         (("brothers"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_children;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_command;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Command;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_comment;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToAppName;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ConvertToTTName;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_created;
+TTMODULAR_EXPORT TTSymbol       kTTSym_children                         (("children"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_command                          (("command"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Command                          (("Command"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_comment                          (("comment"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_ConvertToAppName					(("ConvertToAppName"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_ConvertToTTName                  (("ConvertToTTName"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_created                          (("created"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dash;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspace;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_dataspaceUnit;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_debug;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_decimal;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_descendants;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_description;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_destroyed;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_directory;
+TTMODULAR_EXPORT TTSymbol       kTTSym_dash                             (("-"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_dataspace                        (("dataspace"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_dataspaceUnit					(("dataspaceUnit"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_debug                            (("debug"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_decimal                          (("decimal"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_descendants                      (("descendants"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_description                      (("description"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_destroyed                        (("destroyed"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_directory                        (("directory"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_enable;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_end;
+TTMODULAR_EXPORT TTSymbol       kTTSym_enable                           (("enable"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_end                              (("end"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Fill;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_filter;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_flag;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_freeze;
+TTMODULAR_EXPORT TTSymbol       kTTSym_Fill                             (("Fill"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_filter                           (("filter"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_flag                             (("flag"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_freeze                           (("freeze"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_generic;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Get;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_global;
+TTMODULAR_EXPORT TTSymbol       kTTSym_generic                          (("generic"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Get                              (("Get"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_global                           (("global"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_highlight;
+TTMODULAR_EXPORT TTSymbol       kTTSym_highlight                        (("highlight"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Init;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_initialized;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_instances;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_integer;
+TTMODULAR_EXPORT TTSymbol       kTTSym_Init                             (("Init"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_initialized                      (("initialized"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_instances                        (("instances"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_integer                          (("integer"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_life;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_lookfor;
+TTMODULAR_EXPORT TTSymbol       kTTSym_life                             (("life"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_lookfor                          (("lookfor"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Map;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_message;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mix;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_model;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_mute;
+TTMODULAR_EXPORT TTSymbol       kTTSym_Map                              (("Map"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_message                          (("message"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_mix                              (("mix"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_model                            (("model"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_mute                             (("mute"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_namespace;
+TTMODULAR_EXPORT TTSymbol       kTTSym_namespace                        (("namespace"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_object;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_objectCache;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_order;
+TTMODULAR_EXPORT TTSymbol       kTTSym_object                           (("object"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_objectCache                      (("objectCache"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_order                            (("order"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_parameter;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_preview;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_priority;
+TTMODULAR_EXPORT TTSymbol       kTTSym_parameter                        (("parameter"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_preview                          (("preview"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_priority                         (("priority"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeBounds;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rangeClipmode;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampDrive;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampFunction;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_rampStatus;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Read;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_ReadAgain;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_readonly;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Recall;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_receiver;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Refresh;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_repetitionsAllow;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_return;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_returnedValue;
+TTMODULAR_EXPORT TTSymbol       kTTSym_rangeBounds                      (("rangeBounds"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_rangeClipmode					(("rangeClipmode"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_rampDrive                        (("rampDrive"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_rampFunction                     (("rampFunction"));
+TTMODULAR_EXPORT TTSymbol		kTTSym_rampStatus						(("rampStatus"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Read                             (("Read"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_ReadAgain                        (("ReadAgain"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_readonly                         (("readonly"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Recall                           (("Recall"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_receiver                         (("receiver"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Refresh                          (("Refresh"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_repetitionsAllow					(("repetitionsAllow"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_return                           (("return"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_returnedValue					(("returnedValue"));
+        
+TTMODULAR_EXPORT TTSymbol       kTTSym_Send                             (("Send"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_script                           (("script"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_service                          (("service"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_sharp                            (("#"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_signal                           (("signal"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_start                            (("start"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_stop                             (("stop"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_string                           (("string"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Send;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_script;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_service;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_sharp;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_signal;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_start;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_stop;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_string;
+TTMODULAR_EXPORT TTSymbol       kTTSym_tag                              (("tag"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_tag;
+TTMODULAR_EXPORT TTSymbol       kTTSym_unit                             (("unit"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_unit;
+TTMODULAR_EXPORT TTSymbol       kTTSym_value                            (("value"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_valueDefault                     (("valueDefault"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_valueStepsize					(("valueStepsize"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_viewFreeze                       (("viewFreeze"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_view                             (("view"));
 
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueDefault;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_valueStepsize;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_viewFreeze;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_view;
-
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_Write;
-TTMODULAR_EXPORT TTSymbolPtr	kTTSym_WriteAgain;
-
-
-void TTModularSymbolCacheInit()
-{
-	// object classe name
-	kTTSym_Application				= TT("Application");
-	kTTSym_ApplicationManager		= TT("ApplicationManager");	
-	kTTSym_Container				= TT("Container");		
-	kTTSym_Cue						= TT("Cue");					
-	kTTSym_CueManager				= TT("CueManager");			
-	kTTSym_Data						= TT("Data");					
-	kTTSym_Explorer					= TT("Explorer");				
-	kTTSym_Input					= TT("Input");				
-	kTTSym_Mapper					= TT("Mapper");				
-	kTTSym_MapperManager			= TT("MapperManager");		
-	kTTSym_Mirror					= TT("Mirror");				
-	kTTSym_OpmlHandler				= TT("OpmlHandler");			
-	kTTSym_Output					= TT("Output");				
-	kTTSym_Preset					= TT("Preset");				
-	kTTSym_PresetManager			= TT("PresetManager");		
-	kTTSym_Receiver					= TT("Receiver");				
-	kTTSym_Sender					= TT("Sender");				
-	kTTSym_Script					= TT("Script");				
-	kTTSym_Subscriber				= TT("Subscriber");			
-	kTTSym_TextHandler				= TT("TextHandler");			
-	kTTSym_Viewer					= TT("Viewer");				
-	kTTSym_XmlHandler				= TT("XmlHandler");
-
-	// attribute, message or any word often used
-	kTTSym_activity					= TT("activity");
-	kTTSym_activityIn				= TT("activityIn");
-	kTTSym_activityOut				= TT("activityOut");
-	kTTSym_address					= TT("address");
-	kTTSym_addresses				= TT("addresses");
-	kTTSym_alias					= TT("alias");
-	kTTSym_alphabetic				= TT("alphabetic");
-	kTTSym_attributes				= TT("attributes");
-	kTTSym_array					= TT("array");
-	
-	kTTSym_boolean					= TT("boolean");
-	kTTSym_brothers					= TT("brothers");
-	
-	kTTSym_children					= TT("children");
-	kTTSym_command					= TT("command");
-	kTTSym_Command					= TT("Command");
-	kTTSym_comment					= TT("comment");
-	kTTSym_ConvertToAppName			= TT("ConvertToAppName");
-	kTTSym_ConvertToTTName			= TT("ConvertToTTName");
-	kTTSym_created					= TT("created");
-	
-	kTTSym_dash						= TT("-");
-	kTTSym_dataspace				= TT("dataspace");
-	kTTSym_dataspaceUnit			= TT("dataspaceUnit");
-	kTTSym_debug					= TT("debug");
-	kTTSym_decimal					= TT("decimal");
-	kTTSym_descendants				= TT("descendants");
-	kTTSym_description				= TT("description");
-	kTTSym_destroyed				= TT("destroyed");
-	kTTSym_directory				= TT("directory");
-	
-	kTTSym_enable					= TT("enable");
-	kTTSym_end						= TT("end");
-	
-	kTTSym_Fill						= TT("Fill");
-	kTTSym_filter					= TT("filter");
-	kTTSym_flag						= TT("flag");
-	kTTSym_freeze					= TT("freeze");
-	
-	kTTSym_generic					= TT("generic");
-	kTTSym_Get						= TT("Get");
-	kTTSym_global					= TT("global");
-	
-	kTTSym_highlight				= TT("highlight");
-	
-	kTTSym_Init						= TT("Init");
-	kTTSym_initialized				= TT("initialized");
-	kTTSym_instances				= TT("instances");
-	kTTSym_integer					= TT("integer");
-	
-	kTTSym_life						= TT("life");
-	kTTSym_lookfor					= TT("lookfor");
-	
-	kTTSym_Map						= TT("Map");
-	kTTSym_message					= TT("message");
-	kTTSym_mix						= TT("mix");
-	kTTSym_model					= TT("model");
-	kTTSym_mute						= TT("mute");
-	
-	kTTSym_namespace				= TT("namespace");
-	
-	kTTSym_object					= TT("object");
-	kTTSym_objectCache				= TT("objectCache");
-	kTTSym_order					= TT("order");
-	
-	kTTSym_parameter				= TT("parameter");
-	kTTSym_preview					= TT("preview");
-	kTTSym_priority					= TT("priority");
-	
-	kTTSym_rangeBounds				= TT("rangeBounds");
-	kTTSym_rangeClipmode			= TT("rangeClipmode");
-	kTTSym_rampDrive				= TT("rampDrive");
-	kTTSym_rampFunction				= TT("rampFunction");
-	kTTSym_rampStatus				= TT("rampStatus");
-	kTTSym_Read						= TT("Read");
-	kTTSym_ReadAgain				= TT("ReadAgain");
-	kTTSym_readonly					= TT("readonly");
-	kTTSym_Recall					= TT("Recall");
-	kTTSym_receiver					= TT("receiver");
-	kTTSym_Refresh					= TT("Refresh");
-	kTTSym_repetitionsAllow			= TT("repetitionsAllow");
-	kTTSym_return					= TT("return");
-	kTTSym_returnedValue			= TT("returnedValue");
-	
-	kTTSym_Send						= TT("Send");
-	kTTSym_script					= TT("script");
-	kTTSym_service					= TT("service");
-	kTTSym_sharp					= TT("#");
-	kTTSym_signal					= TT("signal");
-	kTTSym_start					= TT("start");
-	kTTSym_stop						= TT("stop");
-	kTTSym_string					= TT("string");
-
-	kTTSym_tag						= TT("tag");
-	
-	kTTSym_unit						= TT("unit");
-	
-	kTTSym_value					= TT("value");
-	kTTSym_valueDefault				= TT("valueDefault");
-	kTTSym_valueStepsize			= TT("valueStepsize");
-	kTTSym_viewFreeze				= TT("viewFreeze");
-	kTTSym_view						= TT("view");
-	
-	kTTSym_Write					= TT("Write");
-	kTTSym_WriteAgain				= TT("WriteAgain");
-}
-
+TTMODULAR_EXPORT TTSymbol       kTTSym_Write                            (("Write"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_WriteAgain                       (("WriteAgain"));

@@ -28,7 +28,7 @@ mAddressObserver(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 3);
 	
-	arguments.get(0, &mType);
+	arguments.get(0, mType);
 	arguments.get(1, (TTPtr*)&mReturnSignalCallback);
 	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
 	
@@ -92,7 +92,7 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 	if (mMute)
 		return kTTErrNone;
 	else if (mBypass && mOutputObject)
-		return mOutputObject->sendMessage(TT("SendBypassed"), inputValue, kTTValNONE);
+		return mOutputObject->sendMessage(TTSymbol("SendBypassed"), inputValue, kTTValNONE);
 	else
 		return mReturnSignalCallback->notify(inputValue, kTTValNONE);
 }
@@ -113,12 +113,12 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 {
 	TTValue			args;
 	TTValuePtr		newBaton;
-	TTNodeAddressPtr newAddress;
+	TTAddress		newAddress;
 	TTNodePtr		aNode;
 	TTList			aNodeList;
 	TTObjectPtr		o;
 	
-	value.get(0, &newAddress);
+	value.get(0, newAddress);
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
@@ -131,12 +131,12 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	if (!mAddressObserver) {
 		// prepare arguments
 		mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TT("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
-		mAddressObserver->setAttributeValue(TT("owner"), TT("TTInput"));		// this is usefull only to debug
+		mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTInput"));		// this is usefull only to debug
 	}
 	
 	if (mAddressObserver) {
@@ -160,7 +160,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTInputPtr		anInput;
-	TTSymbolPtr		oscAddress;
+	TTSymbol		anAddress;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTObjectPtr		o;
@@ -169,8 +169,8 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&anInput);
 	
-	// Unpack data (oscAddress, aNode, flag, anObserver)
-	data.get(0, &oscAddress);
+	// Unpack data (anAddress, aNode, flag, anObserver)
+	data.get(0, anAddress);
 	data.get(1, (TTPtr*)&aNode);
 	data.get(2, flag);
 	

@@ -21,8 +21,8 @@
 TT_MODULAR_CONSTRUCTOR,
 mObject(NULL),
 mFilePath(kTTSymEmpty),
-mHeaderNodeName(TT("opml")),
-mVersion(TT("1.0")),
+mHeaderNodeName(TTSymbol("opml")),
+mVersion(TTSymbol("1.0")),
 mWriter(NULL),
 mReader(NULL),
 mIsWriting(false),
@@ -65,13 +65,13 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	if (args.getSize() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
 			
 			// Create a new OpmlWriter for filePath, with no compression.
-			mWriter = xmlNewTextWriterFilename(mFilePath->getCString(), 0);
+			mWriter = xmlNewTextWriterFilename(mFilePath.c_str(), 0);
 			if (mWriter == NULL) {
 				TT_ASSERT("testOpmlwriterFilename: Error creating the opml writer\n", true);
 				return kTTErrGeneric;
@@ -125,7 +125,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			// Write data of the given TTObject (which have to implement a WriteAsOpml message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TT("WriteAsOpml"), v, kTTValNONE);
+			aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 			
 			// Close opml body
 			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
@@ -152,7 +152,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("WriteAsOpml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 }
 
 TTErr TTOpmlHandler::WriteAgain()
@@ -182,13 +182,13 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	if (args.getSize() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, &mFilePath);
+			args.get(0, mFilePath);
 			
 			// Init the opml library
 			LIBXML_TEST_VERSION
 			
 			// Parse the file
-			mReader = xmlReaderForFile(mFilePath->getCString(), NULL, 0);
+			mReader = xmlReaderForFile(mFilePath.c_str(), NULL, 0);
 			if (mReader != NULL) {
 				
 				ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
@@ -198,7 +198,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 					xName = xmlTextReaderName((xmlTextReaderPtr)mReader);
 					if (xName == NULL)
 						break;
-					mXmlNodeName = TT((char*)xName);
+					mXmlNodeName = TTSymbol((char*)xName);
 					xmlFree((void*)xName);
 					
 					// Header node
@@ -207,17 +207,17 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						// Starting
 						if (!mIsReading) {
 							mIsReading = true;
-							mXmlNodeName = TT("start");
+							mXmlNodeName = TTSymbol("start");
 						}
 						// Ending
 						else {
 							mIsReading = false;
-							mXmlNodeName = TT("end");
+							mXmlNodeName = TTSymbol("end");
 						}
 					}
 					
 					v.append((TTPtr)this);
-					aTTObject->sendMessage(TT("ReadFromOpml"), v, kTTValNONE);
+					aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 					
 					// next node
 					ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
@@ -241,7 +241,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TT("ReadFromOpml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 }
 
 TTErr TTOpmlHandler::ReadAgain()

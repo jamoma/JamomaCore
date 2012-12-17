@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		22AD15D616596523002FD7E3 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		22AD15D716596523002FD7E3 /* Minuit.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Minuit.yml; sourceTree = "<group>"; };
 		D26DFB7714B208E000417FFE /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
 		D26DFB7814B208E000417FFE /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 		D2AF80B314A0BA940001E901 /* Minuit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Minuit.h; sourceTree = "<group>"; };
@@ -23,6 +25,8 @@
 		08FB7794FE84155DC02AAC07 /* MinuitPlugin */ = {
 			isa = PBXGroup;
 			children = (
+				22AD15D616596523002FD7E3 /* Makefile */,
+				22AD15D716596523002FD7E3 /* Minuit.yml */,
 				D26DFB7614B208E000417FFE /* ProtocolLib */,
 				D2AF80B214A0BA940001E901 /* includes */,
 				D2AF80B814A0BAA00001E901 /* source */,

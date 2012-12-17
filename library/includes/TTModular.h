@@ -42,7 +42,7 @@
 
 #include "TTNode.h"
 #include "TTNodeDirectory.h"
-#include "TTNodeAddressItem.h"
+#include "TTAddressItem.h"
 
 #include "TTModularSymbolCache.h"
 
@@ -76,9 +76,9 @@
 // Macros
 
 #define TT_MODULAR_CONSTRUCTOR \
-TTObjectPtr thisTTClass :: instantiate (TTSymbolPtr name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
-extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
 thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
 
@@ -121,7 +121,7 @@ void	TTMODULAR_EXPORT	TTModularInit();
 void	TTMODULAR_EXPORT	TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);
 
 /** Get a namespace */
-TTNodeAddressItemPtr	TTMODULAR_EXPORT	TTModularNamespacesLookup(TTSymbolPtr namespaceName);
+TTAddressItemPtr	TTMODULAR_EXPORT	TTModularNamespacesLookup(TTSymbol namespaceName);
 
 
 #endif // __TT_MODULAR_H__

@@ -19,7 +19,7 @@
 
 /**	A convenience macro to be used for registering mirror attribute.
 	Note that we don't lower the attribute name because we use the name of an existing attribute.
-		@param	name	The TTSymbolPtr name of the attribute.
+		@param	name	The TTSymbol name of the attribute.
 		@param	type	The type of the value.
  */
 #define addMirrorAttribute(name, type)		TTObject::registerAttribute(name, type, NULL, (TTGetterMethod)& TTMirror::getMirrorAttribute, (TTSetterMethod)& TTMirror::setMirrorAttribute )
@@ -28,11 +28,11 @@
  
 	A convenience macro to be used for registering properties of mirror attributes.
 	Note that we don't lower the attribute name because we use the name of an existing attribute.
-		@param	name			The TTSymbolPtr name of the attribute.
+		@param	name			The TTSymbol name of the attribute.
 		@param	propertyName	The name of the property.
 		@param	initialValue	The value of the property.
  */
-//#define addMirrorAttributeProperty(name, propertyName, initialValue)		registerAttributeProperty(name, TT(#propertyName), initialValue, (TTGetterMethod)& TTAttribute::get##propertyName , (TTSetterMethod)& TTAttribute::set##propertyName )
+//#define addMirrorAttributeProperty(name, propertyName, initialValue)		registerAttributeProperty(name, TTSymbol(#propertyName), initialValue, (TTGetterMethod)& TTAttribute::get##propertyName , (TTSetterMethod)& TTAttribute::set##propertyName )
 
 
 /**	A convenience macro to be used for registering mirror message.
@@ -45,11 +45,11 @@
 	
 	A convenience macro to be used for registering properties of messages.
 	Note that we don't lower the message name because we use the name of an existing attribute.
-		@param	name			The TTSymbolPtr name of the attribute.
+		@param	name			The TTSymbol name of the attribute.
 		@param	propertyName	The name of the property.
 		@param	initialValue	The value of the property.
  */
-//#define addMessageProperty(name, propertyName, initialValue)		registerMessageProperty(name, TT(#propertyName), initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
+//#define addMessageProperty(name, propertyName, initialValue)		registerMessageProperty(name, TTSymbol(#propertyName), initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
 
 
 class TTMODULAR_EXPORT TTMirror : public TTDataObject
@@ -58,7 +58,7 @@ class TTMODULAR_EXPORT TTMirror : public TTDataObject
 	
 private:
 	
-	TTSymbolPtr					mType;							///< ATTRIBUTE : the type of the object binded by the mirror
+	TTSymbol					mType;							///< ATTRIBUTE : the type of the object binded by the mirror
 	
 	TTCallbackPtr				mGetAttributeCallback;			///< a way to get the attribute value
 	TTCallbackPtr				mSetAttributeCallback;			///< a way to set the attribute value
@@ -71,7 +71,7 @@ private:
 	
 	
 public:
-	TTErr						updateAttributeValue(const TTSymbolPtr attributeName, TTValue& value);
+	TTErr						updateAttributeValue(const TTSymbol attributeName, TTValue& value);
 	TTErr						enableListening(const TTAttribute& anAttribute, TTBoolean enable);
 	
 };

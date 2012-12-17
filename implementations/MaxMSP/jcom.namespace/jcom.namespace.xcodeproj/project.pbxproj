@@ -17,6 +17,8 @@
 			isa = PBXGroup;
 			children = (
 				D24A23A81510B73A008A5F67 /* jcom.namespace.cpp */,
+				46FA54B016543A4900101DB0 /* TTModularClassWrapperMax.h */,
+				46FA54AF16543A4900101DB0 /* TTModularClassWrapperMax.cpp */,
 			);
 			name = jcom.namespace;
 			sourceTree = "<group>";

@@ -16,7 +16,7 @@ typedef struct _init{
 	TTNodePtr			patcherNode;
 	TTReceiverPtr		initReceiver;
 	TTSubscriberPtr		subscriberObject;
-	TTNodeAddressPtr	address;
+	TTAddress	address;
 	void				*outlet;
 	void				*dumpout;
 } t_init;
@@ -83,7 +83,7 @@ void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 		x->patcherNode = NULL;
 		x->initReceiver = NULL;
 		x->subscriberObject = NULL;
-		x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name);
+		x->address = TTAddress(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name);
 		
 		attr_args_process(x, argc, argv);										// handle attribute args				
 
@@ -126,18 +126,18 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 void init_subscribe(t_init *x)
 {
 	TTValue			v, args;
-	TTNodeAddressPtr contextAddress = kTTAdrsEmpty;
+	TTAddress contextAddress = kTTAdrsEmpty;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// for relative address
-	if (x->address->getType() == kAddressRelative) {
+	if (x->address.getType() == kAddressRelative) {
 
 		if (!jamoma_subscriber_create((ObjectPtr)x, NULL, x->address, &x->subscriberObject)) {
 			// get the context address to make
 			// a receiver on the contextAddress/model/address parameter
-			x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-			v.get(0, &contextAddress);
+			x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
+			v.get(0, contextAddress);
 		}
 		
 		// bind on the /model/address parameter (view patch) or return (model patch)
@@ -145,14 +145,14 @@ void init_subscribe(t_init *x)
 			
 			// Make a TTReceiver object
 			returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
+			TTObjectInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
 			returnAddressBaton = new TTValue(TTPtr(x));
 			returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
 			returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
 			args.append(returnAddressCallback);
 			
 			returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+			TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 			returnValueBaton = new TTValue(TTPtr(x));
 			returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 			returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
@@ -161,7 +161,7 @@ void init_subscribe(t_init *x)
 			x->initReceiver = NULL;
 			TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&x->initReceiver), args);
 			
-			x->initReceiver->setAttributeValue(kTTSym_address, contextAddress->appendAttribute(kTTSym_initialized));
+			x->initReceiver->setAttributeValue(kTTSym_address, contextAddress.appendAttribute(kTTSym_initialized));
 		}
 		
 		// while the context node is not registered : try to binds again :(
@@ -182,7 +182,7 @@ void init_subscribe(t_init *x)
 		}
 	}
 	else
-		object_error((ObjectPtr)x, "can't bind because %s is not a relative address", x->address->getCString());
+		object_error((ObjectPtr)x, "can't bind because %s is not a relative address", x->address.c_str());
 }
 
 void init_return_address(t_init *x, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -203,6 +203,6 @@ void init_bang(t_init *x)
 {
 	if (x->contextNode)
 		if (x->contextNode->getObject())
-			x->contextNode->getObject()->sendMessage(TT("Init"));
+			x->contextNode->getObject()->sendMessage(TTSymbol("Init"));
 }
  */

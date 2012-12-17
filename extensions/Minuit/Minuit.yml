@@ -9,7 +9,7 @@ includes:
   - "."
   - "includes"
   - "../../library/ProtocolLib"
-  - "../../../Foundation/library/includes"
+  - "../../../../Core/Foundation/library/includes"
 
 libraries:
   - FOUNDATION

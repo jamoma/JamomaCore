@@ -169,7 +169,7 @@ t_max_err send_setaddress(t_send *x, void *attr, AtomCount argc, AtomPtr argv)
 	if (atom_gettype(argv) == A_SYM) {
 		
 		v.append(TT(atom_getsym(argv)->s_name));
-		x->sender->setAttributeValue(TT("Address"), v);
+		x->sender->setAttributeValue(TTSymbol("Address"), v);
 		
 	}
 	else
@@ -181,17 +181,17 @@ t_max_err send_setaddress(t_send *x, void *attr, AtomCount argc, AtomPtr argv)
 t_max_err send_getaddress(t_send *x, void *attr, AtomCount *argc, AtomPtr *argv)
 {
 	TTValue v;
-	TTSymbolPtr s;
+	TTSymbol s;
 	
 	*argc = 1;
 	
 	if (!(*argv)) { // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 		
-		x->sender->getAttributeValue(TT("Address"), v);
+		x->sender->getAttributeValue(TTSymbol("Address"), v);
 		s = NULL;
-		v.get(0, &s);
-		atom_setsym(*argv, gensym((char*)s->getCString()));
+		v.get(0, s);
+		atom_setsym(*argv, gensym((char*)s.c_str()));
 	}
 	else
 		return MAX_ERR_GENERIC;
@@ -207,7 +207,7 @@ t_max_err send_setattribute(t_send *x, void *attr, AtomCount argc, AtomPtr argv)
 	if (atom_gettype(argv) == A_SYM) {
 		
 		v.append(TT(atom_getsym(argv)->s_name));
-		x->sender->setAttributeValue(TT("Attribute"), v);
+		x->sender->setAttributeValue(TTSymbol("Attribute"), v);
 		
 	}
 	else
@@ -219,17 +219,17 @@ t_max_err send_setattribute(t_send *x, void *attr, AtomCount argc, AtomPtr argv)
 t_max_err send_getattribute(t_send *x, void *attr, AtomCount *argc, AtomPtr *argv)
 {
 	TTValue v;
-	TTSymbolPtr s;
+	TTSymbol s;
 	
 	*argc = 1;
 	
 	if (!(*argv)) { // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 		
-		x->sender->getAttributeValue(TT("Attribute"), v);
+		x->sender->getAttributeValue(TTSymbol("Attribute"), v);
 		s = NULL;
-		v.get(0, &s);
-		atom_setsym(*argv, gensym((char*)s->getCString()));
+		v.get(0, s);
+		atom_setsym(*argv, gensym((char*)s.c_str()));
 	}
 	else
 		return MAX_ERR_GENERIC;

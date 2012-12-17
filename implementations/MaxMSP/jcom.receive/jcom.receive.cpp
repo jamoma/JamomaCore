@@ -141,7 +141,7 @@ void WrappedReceiverClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	else
 		address = _sym_nothing;
 	
-	x->address = TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
+	x->address = TTAddress(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
 	x->index = 0; // the index member is usefull to count how many time the external tries to bind
 	
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 2);
@@ -178,7 +178,7 @@ void WrappedReceiverClass_free(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 #ifdef JCOM_RECEIVE_TILDE
-	if (x->address->getName() == TT("out"))
+	if (x->address.getName() == TTSymbol("out"))
 		dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
 #endif
 }
@@ -191,50 +191,50 @@ void receive_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	Atom						a[1];
-	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
-	TTNodeAddressPtr			absoluteAddress;
+	TTAddress			contextAddress = kTTAdrsEmpty;
+	TTAddress			absoluteAddress;
 	TTObjectPtr					anObject;
 	
 	if (x->address == kTTAdrsEmpty)
 		return;
 	
 	// if the jcom.receive tries to bind an Output object : bind the signal attribute
-	if (x->address->getName() == TT("out"))
-		x->address = x->address->appendAttribute(kTTSym_signal);
+	if (x->address.getName() == TTSymbol("out"))
+		x->address = x->address.appendAttribute(kTTSym_signal);
 	
 	// for absolute address
-	if (x->address->getType() == kAddressAbsolute) {
+	if (x->address.getType() == kAddressAbsolute) {
 		
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
-		atom_setsym(a, gensym((char*)x->address->getCString()));
+		atom_setsym(a, gensym((char*)x->address.c_str()));
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 		return;
 	}
 	
 	// for relative address
-	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 	
-	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, TTADRS("model/address"), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, TTAddress("model/address"), &x->subscriberObject)) {
 		
 		// get the context address to make
 		// a viewer on the contextAddress/model/address parameter
-		x->subscriberObject->getAttributeValue(TT("contextAddress"), v);
-		v.get(0, (TTSymbolPtr*)&contextAddress);
+		x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
+		v.get(0, contextAddress);
 		
 		if (x->patcherContext) {
-			makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &anObject);
+			makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
 			anObject->sendMessage(kTTSym_Get);
 			return;
 		}
 	}
 	
 	// else, if no context, set address directly
-	else if (x->patcherContext == NULL) {
+	else if (x->patcherContext == kTTSymEmpty) {
 		contextAddress = kTTAdrsRoot;
-		absoluteAddress = contextAddress->appendAddress(x->address);
+		absoluteAddress = contextAddress.appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		
-		atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+		atom_setsym(a, gensym((char*)absoluteAddress.c_str()));
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 		return;
 	}
@@ -251,7 +251,7 @@ void receive_subscribe(TTPtr self)
 	
 	x->index++; // the index member is usefull to count how many time the external tries to bind
 	if (x->index > 100) {
-		object_error((ObjectPtr)x, "tries to bind too many times on %s", x->address->getCString());
+		object_error((ObjectPtr)x, "tries to bind too many times on %s", x->address.c_str());
 		object_obex_dumpout((ObjectPtr)x, gensym("error"), 0, NULL);
 		return;
 	}
@@ -265,20 +265,20 @@ void receive_subscribe(TTPtr self)
 void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTNodeAddressPtr			absoluteAddress;
+	TTAddress			absoluteAddress;
 	Atom						a[1];
 	
 	if (argc && argv && x->wrappedObject) {
 		
 		// set address attribute of the wrapped Receiver object
-		absoluteAddress = TTADRS(atom_getsym(argv)->s_name)->appendAddress(x->address);
+		absoluteAddress = TTAddress(atom_getsym(argv)->s_name).appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		x->index = 0; // the index member is usefull to count how many time the external tries to bind
 		
-		atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+		atom_setsym(a, gensym((char*)absoluteAddress.c_str()));
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 		
-		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress->getCString());
+		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress.c_str());
 		
 		// in view patcher, get the value to refresh it
 		if (x->patcherContext == kTTSym_view) {
@@ -348,7 +348,7 @@ void receive_bang(TTPtr self)
 void receive_set(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	x->address =  TTADRS(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
+	x->address =  TTAddress(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);
 	
 	receive_subscribe(self);
 }
@@ -531,17 +531,42 @@ void receive_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate,
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
 	
-	if (aReceiver) {
-		
-		// set signal numChannels and vectorSize
-		aReceiver->mSignal->setAttributeValue(kTTSym_numChannels, 1);
-		aReceiver->mSignal->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
-		
-		// aaReceiver->mSignal- will be set in the perform method
-		aReceiver->mSignal->sendMessage(kTTSym_alloc);
-        
-        object_method(dsp64, gensym("dsp_add64"), x, receive_perform64, 0, NULL);
+	/*
+	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
+	anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
+	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
+	
+	for (i=0; i < anOutput->mNumber; i++) {
+		j = anOutput->mNumber + i;
+		if (count[i] || count[j]) {
+			numChannels++;			
+		}
 	}
+	anOutput->mInfo.set(info_numChannels, numChannels);
+	
+	anOutput->mInfo.set(info_vectorSize, (TTUInt16)maxvectorsize);
+	
+	anOutput->mSignalIn->setAttributeValue(TT("numChannels"), numChannels);
+	anOutput->mSignalOut->setAttributeValue(TT("numChannels"), numChannels);
+	anOutput->mSignalTemp->setAttributeValue(TT("numChannels"), numChannels);
+	//anOutput->mSignalZero->setAttributeValue(TT("numChannels"), numChannels);
+	
+	anOutput->mSignalIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	anOutput->mSignalOut->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	anOutput->mSignalTemp->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
+	//anOutput->mSignalZero->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);//Do we need zeroSignal?
+	
+	// mSignalIn will be set in the perform method
+	anOutput->mSignalOut->sendMessage(TT("alloc"));
+	anOutput->mSignalTemp->sendMessage(TT("alloc"));
+	//x->zeroSignal->sendMessage(TT("alloc"));
+	//x->zeroSignal->sendMessage(TT("clear"));
+	//audioIn will be set in the perform method
+	//x->audioOut->sendMessage(TT("alloc"));
+	
+	*/
+	
+	object_method(dsp64, gensym("dsp_add64"), x, receive_perform64, 0, NULL); 
 }
 
 #endif // JCOM_RECEIVE_TILDE

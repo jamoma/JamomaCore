@@ -168,7 +168,7 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 	AtomPtr						argv = NULL;
 	TTUInt32					number;
 	TTUInt8						i, j;
-	TTNodeAddressPtr			newAddress = TTADRS(address->s_name);
+	TTAddress			newAddress = TTAddress(address->s_name);
 	SymbolPtr					instanceAddress;
 	TTObjectPtr					anObject;
 	TTValue						v;
@@ -207,10 +207,10 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 					
 					// append the viewer to the internals table
 					v = TTValue(TTPtr(anObject));
-					v.append(TT(instanceAddress->s_name));
+					v.append(TTSymbol(instanceAddress->s_name));
 					v.append((TTPtr)NULL);
 					
-					x->internals->append(TT(instanceAddress->s_name), v);
+					x->internals->append(TTSymbol(instanceAddress->s_name), v);
 				}
 				
 				// Ends iteration on internals
@@ -243,7 +243,7 @@ void remote_array_create(TTPtr self, TTObjectPtr *returnedViewer, TTUInt8 index)
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 
 	returnValueBaton = new TTValue(self);
 	returnValueBaton->append(index);
@@ -260,8 +260,8 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					instanceAddress;
-	TTNodeAddressPtr			contextAddress = kTTAdrsEmpty;
-	TTNodeAddressPtr			absoluteAddress;
+	TTAddress			contextAddress = kTTAdrsEmpty;
+	TTAddress			absoluteAddress;
 	TTObjectPtr					toSubscribe, aReceiver;
 	TTBoolean					subscribe;
 	TTSubscriberPtr				aSubscriber;
@@ -270,14 +270,14 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	Atom						a[1];
 	
 	// for absolute address
-	if (TTADRS(address->s_name)->getType() == kAddressAbsolute) {
+	if (TTAddress(address->s_name).getType() == kAddressAbsolute) {
 		
 		// Starts iteration on internals
 		x->iterateInternals = YES;
 		
 		for (i = 1; i <= x->arraySize; i++) {
 			jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-			x->cursor = TT(instanceAddress->s_name);
+			x->cursor = TTSymbol(instanceAddress->s_name);
 			
 			selectedObject->setAttributeValue(kTTSym_address, x->cursor);
 		}
@@ -288,7 +288,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	}
 	
 	// for relative address
-	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, &x->patcherContext, &x->patcherClass, &x->patcherName);
+	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 
 	// Do we subscribe all Viewers ?
 	// View patcher case :
@@ -311,7 +311,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	for (i = 1; i <= x->arraySize; i++) {
 		
 		jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-		x->cursor = TT(instanceAddress->s_name);
+		x->cursor = TTSymbol(instanceAddress->s_name);
 		
 		if (subscribe) 
 			toSubscribe = selectedObject;
@@ -319,12 +319,12 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 			toSubscribe = NULL;
 		
 		aSubscriber = NULL;
-		if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, TTADRS(instanceAddress->s_name), &aSubscriber)) {
+		if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, TTAddress(instanceAddress->s_name), &aSubscriber)) {
 			
 			// get the context address to make
 			// a viewer on the contextAddress/model/address parameter
-			aSubscriber->getAttributeValue(TT("contextAddress"), v);
-			v.get(0, (TTSymbolPtr*)&contextAddress);
+			aSubscriber->getAttributeValue(TTSymbol("contextAddress"), v);
+			v.get(0, contextAddress);
 			
 			// append the subscriber to the internal
 			if (aSubscriber) {
@@ -341,8 +341,8 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 				if (x->patcherContext) {
 					
 					// do not create it if it already exists
-					if (x->internals->lookup(TT("/model/address"), v)) {
-						makeInternals_receiver(x, contextAddress, TT("/model/address"), gensym("return_model_address"), &aReceiver);
+					if (x->internals->lookup(TTSymbol("/model/address"), v)) {
+						makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &aReceiver);
 					}
 					
 					continue;
@@ -351,12 +351,12 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 		}
 		
 		// else, if no context, set address directly
-		else if (x->patcherContext == NULL) {
+		else if (x->patcherContext == kTTSymEmpty) {
 			contextAddress = kTTAdrsRoot;
-			absoluteAddress = contextAddress->appendAddress(TTADRS(instanceAddress->s_name));
+			absoluteAddress = contextAddress.appendAddress(TTAddress(instanceAddress->s_name));
 			selectedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 			
-			atom_setsym(a, gensym((char*)absoluteAddress->getCString()));
+			atom_setsym(a, gensym((char*)absoluteAddress.c_str()));
 			object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 			continue;
 		}
@@ -402,7 +402,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	for (i = 1; i <= x->arraySize; i++) {
 		
 		jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-		x->cursor = TT(instanceAddress->s_name);
+		x->cursor = TTSymbol(instanceAddress->s_name);
 		
 		if (!x->internals->lookup(x->cursor, v)) {
 			
@@ -461,7 +461,7 @@ void remote_address(TTPtr self, SymbolPtr address)
 		for (i = 1; i <= x->arraySize; i++) {
 			
 			jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-			x->cursor = TT(instanceAddress->s_name);
+			x->cursor = TTSymbol(instanceAddress->s_name);
 			
 			if (!x->internals->lookup(x->cursor, v)) {
 				
@@ -581,7 +581,7 @@ void remote_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
 				for (int i=0; i<keys.getSize(); i++) {
-					keys.get(i, &x->cursor);
+					keys.get(i, x->cursor);
 					jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
 				}
 			}
@@ -610,7 +610,7 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
 				for (int i=0; i<keys.getSize(); i++) {
-					keys.get(i, &x->cursor);
+					keys.get(i, x->cursor);
 					jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
 				}
 				x->cursor = kTTSymEmpty;
@@ -626,7 +626,7 @@ void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
     WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
     TTInt32     d, i, offset;
     TTValue     keys;
-    TTSymbolPtr memoCursor;
+    TTSymbol	memoCursor;
     
 	if (x->internals) {
 		
@@ -645,7 +645,7 @@ void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
                 offset = x->patcherContext != NULL;
                 for (i = 0; i < keys.getSize()-offset; i++) {
                     
-                    keys.get(i+offset, &x->cursor);                    
+                    keys.get(i+offset, x->cursor);
                     jamoma_viewer_send((TTViewerPtr)selectedObject, _sym_nothing, d, argv+(i*d));
                 }
             }
@@ -670,7 +670,7 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 	TTUInt8						i;
 	AtomPtr						argv = NULL;
 	TTBoolean					shifted = NO;
-	TTSymbolPtr					memoCursor;
+	TTSymbol					memoCursor;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
@@ -680,7 +680,7 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 	// output index
 	if (x->arrayIndex == 0) {
 		jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i);
-		x->cursor = TT(iAdrs->s_name);
+		x->cursor = TTSymbol(iAdrs->s_name);
 	}
 
 	outlet_int(x->outlets[index_out], i);
@@ -710,7 +710,7 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 					
 					memoCursor = x->cursor;
 					jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i+1);
-					x->cursor = TT(iAdrs->s_name);
+					x->cursor = TTSymbol(iAdrs->s_name);
 					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
 					
 					m = new TTValue(g);
@@ -763,14 +763,14 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr			instanceAddress;
-	TTNodeAddressPtr	address;
-	TTSymbolPtr			service;
+	TTAddress	address;
+	TTSymbol			service;
 	TTList				returnedNodes;
 	TTNodePtr			firstNode;
 	TTObjectPtr			anObject;
 	TTUInt8				i;
 	TTValue				v;
-	Atom				a[1];
+//	Atom				a[1];
 	TTErr				err;
 	
 	if (argc && argv) {
@@ -783,10 +783,10 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			for (i = 1; i <= x->arraySize; i++) {
 				
 				jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-				x->cursor = TT(instanceAddress->s_name);
+				x->cursor = TTSymbol(instanceAddress->s_name);
 				
 				// set address attribute of the internal Viewer object
-				address = TTADRS(atom_getsym(argv)->s_name)->appendAddress(TTADRS(instanceAddress->s_name));
+				address = TTAddress(atom_getsym(argv)->s_name).appendAddress(TTAddress(instanceAddress->s_name));
 				selectedObject->setAttributeValue(kTTSym_address, address);
 				
 				// for Data object, if service is parameter or return : refresh !
@@ -794,10 +794,10 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 				err = getDirectoryFrom(address)->Lookup(address, returnedNodes, &firstNode);
 				
 				if (!err) {
-					if (anObject = firstNode->getObject()) {
+					if ((anObject = firstNode->getObject())) {
 						if (anObject->getName() == kTTSym_Data) {
 							anObject->getAttributeValue(kTTSym_service, v);
-							v.get(0, &service);
+							v.get(0, service);
 							
 							if (service == kTTSym_parameter || service == kTTSym_return)
 								selectedObject->sendMessage(kTTSym_Refresh);

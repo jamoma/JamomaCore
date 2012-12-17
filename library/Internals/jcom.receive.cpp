@@ -170,7 +170,7 @@ t_max_err receive_setaddress(t_receive *x, void *attr, long argc, t_atom *argv)
 	if (atom_gettype(argv) == A_SYM) {
 		
 		v.append(TT(atom_getsym(argv)->s_name));
-		x->receiver->setAttributeValue(TT("Address"), v);
+		x->receiver->setAttributeValue(TTSymbol("Address"), v);
 		
 	}
 	else
@@ -182,17 +182,17 @@ t_max_err receive_setaddress(t_receive *x, void *attr, long argc, t_atom *argv)
 t_max_err receive_getaddress(t_receive *x, void *attr, AtomCount *argc, AtomPtr *argv)
 {
 	TTValue v;
-	TTSymbolPtr s;
+	TTSymbol s;
 	
 	*argc = 1;
 	
 	if (!(*argv)) { // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 		
-		x->receiver->getAttributeValue(TT("Address"), v);
+		x->receiver->getAttributeValue(TTSymbol("Address"), v);
 		s = NULL;
-		v.get(0, &s);
-		atom_setsym(*argv, gensym((char*)s->getCString()));
+		v.get(0, s);
+		atom_setsym(*argv, gensym((char*)s.c_str()));
 	}
 	else
 		return MAX_ERR_GENERIC;
@@ -209,7 +209,7 @@ t_max_err receive_setattribute(t_receive *x, void *attr, long argc, t_atom *argv
 	if (atom_gettype(argv) == A_SYM) {
 		
 		v.append(TT(atom_getsym(argv)->s_name));
-		x->receiver->setAttributeValue(TT("Attribute"), v);
+		x->receiver->setAttributeValue(TTSymbol("Attribute"), v);
 		
 	}
 	else
@@ -221,17 +221,17 @@ t_max_err receive_setattribute(t_receive *x, void *attr, long argc, t_atom *argv
 t_max_err receive_getattribute(t_receive *x, void *attr, AtomCount *argc, AtomPtr *argv)
 {
 	TTValue v;
-	TTSymbolPtr s;
+	TTSymbol s;
 	
 	*argc = 1;
 	
 	if (!(*argv)) { // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 		
-		x->receiver->getAttributeValue(TT("Attribute"), v);
+		x->receiver->getAttributeValue(TTSymbol("Attribute"), v);
 		s = NULL;
-		v.get(0, &s);
-		atom_setsym(*argv, gensym((char*)s->getCString()));
+		v.get(0, s);
+		atom_setsym(*argv, gensym((char*)s.c_str()));
 	}
 	else
 		return MAX_ERR_GENERIC;
@@ -251,7 +251,7 @@ t_max_err receive_setenable(t_receive *x, void *attr, long argc, t_atom *argv)
 		else
 			v.append((TTBoolean)kTTBoolNo);
 		
-		x->receiver->setAttributeValue(TT("Enable"), v);
+		x->receiver->setAttributeValue(TTSymbol("Enable"), v);
 		
 	}
 	else
@@ -270,7 +270,7 @@ t_max_err receive_getenable(t_receive *x, void *attr, AtomCount *argc, AtomPtr *
 	if (!(*argv)) { // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 		
-		x->receiver->getAttributeValue(TT("Enable"), v);
+		x->receiver->getAttributeValue(TTSymbol("Enable"), v);
 		b = NULL;
 		v.get(0, b);
 		atom_setlong(*argv, b);
@@ -284,7 +284,7 @@ t_max_err receive_getenable(t_receive *x, void *attr, AtomCount *argc, AtomPtr *
 // ask the value to the binded node
 void receive_get(t_receive *x)
 {
-	x->receiver->sendMessage(TT("get"));
+	x->receiver->sendMessage(TTSymbol("get"));
 }
 
 // ask the value of any node without binding on it
@@ -296,7 +296,7 @@ void receive_symbol(t_receive *x, t_symbol* msg, long argc, t_atom* argv)
 	if (msg->s_name[0] == C_SEPARATOR)
 	{
 		/*if (jamoma_receiver_create((ObjectPtr)x, msg, &aTempReceiver)) {
-			aTempReceiver->sendMessage(TT("get"));
+			aTempReceiver->sendMessage(TTSymbol("get"));
 			TTObjectRelease(TTObjectHandle(&aTempReceiver));
 		}*/
 	}

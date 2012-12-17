@@ -26,7 +26,7 @@ public:	// use public for quick acces during signal processing
 	
 private:
 	
-	TTNodeAddressPtr			mAddress;					///< ATTRIBUTE: the address to bind
+	TTAddress			mAddress;					///< ATTRIBUTE: the address to bind
 	TTBoolean					mEnable;					///< ATTRIBUTE: if false, received data won't be output without unregister the attribute observer (default true).
 	
 	TTNodeDirectoryPtr			mDirectory;					///< a receiver depends on a directory

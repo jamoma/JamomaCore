@@ -36,14 +36,14 @@ public:
 	MinuitAnswerManager(MinuitPtr aMinuitProtocol);
 	virtual ~MinuitAnswerManager();
 	
-	void	AddDiscoverAnswer(TTString from, TTNodeAddressPtr address, int timeOutInMs = DEFAULT_TIMEOUT);
-	TTErr	ReceiveDiscoverAnswer(TTString from, TTNodeAddressPtr address, const TTValue& value);
-	int		CheckDiscoverAnswer(TTString from, TTNodeAddressPtr address, TTValue& value);
+	void	AddDiscoverAnswer(TTString from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
+	TTErr	ReceiveDiscoverAnswer(TTString from, TTAddress address, const TTValue& value);
+	int		CheckDiscoverAnswer(TTString from, TTAddress address, TTValue& value);
 	TTErr	ParseDiscoverAnswer(const TTValue& answer, TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes);
 								
-	void	AddGetAnswer(TTString from, TTNodeAddressPtr address, int timeOutInMs = DEFAULT_TIMEOUT);
-	TTErr	ReceiveGetAnswer(TTString from, TTNodeAddressPtr address, const TTValue& value);
-	int		CheckGetAnswer(TTString from, TTNodeAddressPtr address, TTValue& value);
+	void	AddGetAnswer(TTString from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
+	TTErr	ReceiveGetAnswer(TTString from, TTAddress address, const TTValue& value);
+	int		CheckGetAnswer(TTString from, TTAddress address, TTValue& value);
 };
 typedef MinuitAnswerManager* MinuitAnswerManagerPtr;
 

@@ -13,7 +13,7 @@
 // This is used to store extra data
 typedef struct extra {
 	TTObjectPtr	toEdit;				// the object to edit (a cue or all the cuelist)
-	TTSymbolPtr	cueName;			// the name of the edited cue
+	TTSymbol	cueName;			// the name of the edited cue
 	TTString	*text;				// the text of the editor to read after edclose
 	ObjectPtr	textEditor;			// the text editor window
 } t_extra;
@@ -97,7 +97,7 @@ void WrappedCueManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		if (atom_gettype(argv) == A_SYM) {
 			
 			name = atom_getsym(argv);
-			x->wrappedObject->setAttributeValue(kTTSym_namespace, TT(name->s_name));
+			x->wrappedObject->setAttributeValue(kTTSym_namespace, TTSymbol(name->s_name));
 		}
 		else
 			object_error((ObjectPtr)x, "argument not expected");
@@ -140,54 +140,56 @@ void cue_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
-	TTNodeAddressPtr			absoluteAddress;
+	TTAddress                   absoluteAddress;
 	TTNodePtr					node = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
 	TTTextHandlerPtr			aTextHandler;
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTADRS("cue"), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress("cue"), &x->subscriberObject)) {
 		
 		// get patcher
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
 		
 		// get the Node address
-		x->subscriberObject->getAttributeValue(TT("node"), n);
+		x->subscriberObject->getAttributeValue(TTSymbol("node"), n);
 		n.get(0, (TTPtr*)&node);
-		node->getAddress(&absoluteAddress);
+		node->getAddress(absoluteAddress);
 		
 		// expose messages of TTCue as TTData in the tree structure
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Store"), &aData);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Store"), &aData);
+// TODO: There was a merge conflict -- which of the following two lines is correct?  [tap]
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+//		aData->setAttributeValue(kTTSym_type, kTTSym_array);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Store a cue giving his name"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Store a cue giving his name"));
 		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Recall"), &aData);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Recall"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Recall a cue using his name"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Recall a cue using his name"));
 		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Interpolate"), &aData);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Interpolate"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Interpolate 2 cues using their names and a ratio"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Interpolate 2 cues using their names and a ratio"));
 		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Mix"), &aData);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Mix"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Mix several cues using their names followed by a factor"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Mix several cues using their names followed by a factor"));
 		
-		x->subscriberObject->exposeMessage(x->wrappedObject, TT("Remove"), &aData);
+		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Remove"), &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Remove a cue using his name"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Remove a cue using his name"));
 		
 		// expose attributes of TTCueManager as TTData in the tree structure
 		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_order, kTTSym_return, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("The order of the cue list"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("The order of the cue list"));
 		
 		// create internal TTXmlHandler and internal messages for Read and Write
 		aXmlHandler = NULL;
@@ -203,17 +205,17 @@ void cue_subscribe(TTPtr self)
 		v = TTValue(TTPtr(aTextHandler));
 		x->internals->append(kTTSym_TextHandler, v);
 		
-		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Read"), &aData);
-		makeInternals_data(self, absoluteAddress, TT("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Read"), &aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Read a xml cue file"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Read a xml cue file"));
 		
-		//x->subscriberObject->exposeMessage(aXmlHandler, TT("Write"), &aData);
-		makeInternals_data(self, absoluteAddress, TT("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Write"), &aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		aData->setAttributeValue(kTTSym_description, TT("Write a xml cue file"));
+		aData->setAttributeValue(kTTSym_description, TTSymbol("Write a xml cue file"));
 	}
 }
 
@@ -260,7 +262,7 @@ void cue_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {	
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			o, v;
-	TTSymbolPtr		fullpath;
+	TTSymbol		fullpath;
 	TTXmlHandlerPtr	aXmlHandler = NULL;
 	TTErr			tterr;
 	
@@ -328,7 +330,7 @@ void cue_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	char 			filename[MAX_FILENAME_CHARS];
-	TTSymbolPtr		fullpath;
+	TTSymbol		fullpath;
 	TTValue			o, v;
 	TTXmlHandlerPtr	aXmlHandler;
 	TTErr			tterr;
@@ -407,7 +409,7 @@ void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		// Check Context Node
 		if (x->subscriberObject) {
 			
-			x->subscriberObject->getAttributeValue(TT("contextNode"), v);
+			x->subscriberObject->getAttributeValue(TTSymbol("contextNode"), v);
 			v.get(0, (TTPtr*)&contextNode);
 			
 			// If it is a none initialized Container : initialize it
@@ -432,7 +434,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTTextHandlerPtr	aTextHandler = NULL;
 	TTHashPtr			allCues;
 	TTValue				v, o, args;
-	TTSymbolPtr			name = kTTSymEmpty;
+	TTSymbol			name = kTTSymEmpty;
 	TTErr				tterr;
 	
 	// choose object to edit : default the cuelist
@@ -444,22 +446,22 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if (atom_gettype(argv) == A_LONG) {
 			
 			// get cues order
-			x->wrappedObject->getAttributeValue(TT("order"), v);
+			x->wrappedObject->getAttributeValue(TTSymbol("order"), v);
 			
 			if (atom_getlong(argv) <= v.getSize())
-				v.get(atom_getlong(argv)-1, &name);
+				v.get(atom_getlong(argv)-1, name);
 			else {
 				object_error((ObjectPtr)x, "%d does'nt exist", atom_getlong(argv));
 				return;
 			}
 		}
 		else if (atom_gettype(argv) == A_SYM)
-			name = TT(atom_getsym(argv)->s_name);
+			name = TTSymbol(atom_getsym(argv)->s_name);
 		
 		if (name != kTTSymEmpty) {
 			
 			// get cue object table
-			x->wrappedObject->getAttributeValue(TT("cues"), v);
+			x->wrappedObject->getAttributeValue(TTSymbol("cues"), v);
 			v.get(0, (TTPtr*)&allCues);
 			
 			if (allCues) {

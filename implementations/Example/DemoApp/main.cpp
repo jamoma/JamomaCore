@@ -35,19 +35,19 @@ main(int argc, char **argv)
 	// TEST TTDictionary
 	TTDictionaryPtr aDictionary = new TTDictionary;
 	
-	aDictionary->setSchema(TT("aSchema"));
-	aDictionary->append(TT("name"), TT("toto"));
-	aDictionary->append(TT("type"), TT("gars"));
-	aDictionary->append(TT("tag"), TT("blague"));
+	aDictionary->setSchema(TTSymbol("aSchema"));
+	aDictionary->append(TTSymbol("name"), TTSymbol("toto"));
+	aDictionary->append(TTSymbol("type"), TTSymbol("gars"));
+	aDictionary->append(TTSymbol("tag"), TTSymbol("blague"));
 	 */
 	
 	/*
 	// RUN TEST
 	TTObjectPtr testNodeLib = NULL;
 	TTValue	args;
-	TTObjectInstantiate(TT("nodelib.test"), &testNodeLib, args);
+	TTObjectInstantiate(TTSymbol("nodelib.test"), &testNodeLib, args);
 	
-	testNodeLib->sendMessage(TT("test"), args);
+	testNodeLib->sendMessage(TTSymbol("test"), args);
 	 */
 	
 	
@@ -64,7 +64,7 @@ main(int argc, char **argv)
 	// set TTData object attributes
 	myData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 	myData->setAttributeValue(kTTSym_valueDefault, 0);
-	myData->setAttributeValue(kTTSym_description, TT("a data for the demo"));
+	myData->setAttributeValue(kTTSym_description, TTSymbol("a data for the demo"));
 
 	
 	// Register a TTObject into the DemoApp directory
@@ -126,15 +126,15 @@ void init()
 	
 	// read the ApplicationManager Configuration file
 	aXmlHandler = NULL;
-	TTObjectInstantiate(TT("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+	TTObjectInstantiate(TTSymbol("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
 	v = TTValue(TTPtr(TTModularApplications));
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	
 	v = TTValue(TT(CONFIG_PATH));
-	aXmlHandler->sendMessage(TT("Read"), v);
+	aXmlHandler->sendMessage(TTSymbol("Read"), v);
 	
 	// launch reception thread mechanism fo each plugin (or not ?)
-	TTModularApplications->sendMessage(TT("PluginRun"), v);
+	TTModularApplications->sendMessage(TTSymbol("PluginRun"), v);
 }
 
 TTErr instantiate_Data(TTDataPtr *returnedData)
@@ -144,14 +144,14 @@ TTErr instantiate_Data(TTDataPtr *returnedData)
 	TTValuePtr		p_returnValueBaton;
 	
 	// prepare arguments : see TTData.h to know which args are needed
-	TTObjectInstantiate(TT("callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
 	p_returnValueBaton = new TTValue(NULL);
-	p_returnValueCallback->setAttributeValue(TT("baton"), TTPtr(p_returnValueBaton));
-	p_returnValueCallback->setAttributeValue(TT("function"), TTPtr(myData_return_value_callback));
+	p_returnValueCallback->setAttributeValue(TTSymbol("baton"), TTPtr(p_returnValueBaton));
+	p_returnValueCallback->setAttributeValue(TTSymbol("function"), TTPtr(myData_return_value_callback));
 	args.append(p_returnValueCallback);
 	
 	// create an instance of a TTData object
-	return TTObjectInstantiate(TT("Data"), TTObjectHandle(returnedData), args);
+	return TTObjectInstantiate(TTSymbol("Data"), TTObjectHandle(returnedData), args);
 }
 
 void myData_return_value_callback(TTPtr baton, TTValue& v)

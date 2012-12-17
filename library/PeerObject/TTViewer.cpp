@@ -14,9 +14,9 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
-mDescription(kTTSymEmpty),
-mType(kTTSymEmpty),
-mTag(kTTSymEmpty),
+mDescription(kTTSym_none),
+mType(kTTSym_generic),
+mTag(kTTSym_none),
 mHighlight(NO),
 mFreeze(NO),
 mDataspace(kTTSym_none),
@@ -55,7 +55,7 @@ mReturnValueCallback(NULL)
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
-	TTObjectInstantiate(TT("dataspace"),  &mDataspaceConverter, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, kTTValNONE);
 }
 
 TTViewer::~TTViewer() // TODO : delete things...
@@ -83,7 +83,7 @@ TTViewer::~TTViewer() // TODO : delete things...
 
 TTErr TTViewer::setAddress(const TTValue& value)
 {
-	value.get(0, &mAddress);
+	value.get(0, mAddress);
 	
 	bind();
 	
@@ -101,8 +101,8 @@ TTErr TTViewer::bind()
 		return kTTErrGeneric;
 	
 	// The default attribute to bind is value
-	if (mAddress->getAttribute() == NO_ATTRIBUTE)
-		mAddress->appendAttribute(kTTSym_value);
+	if (mAddress.getAttribute() == NO_ATTRIBUTE)
+		mAddress.appendAttribute(kTTSym_value);
 
 	// Replace a TTSender object
 	if (mSender)
@@ -118,14 +118,14 @@ TTErr TTViewer::bind()
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 	
 	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnAddressCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
 	returnAddressBaton = new TTValue(TTPtr(this));
 	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
 	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveAddressCallback));
 	args.append(returnAddressCallback);
 	
 	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(this));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveValueCallback));
@@ -151,11 +151,10 @@ TTErr TTViewer::observeDataspace()
 	if (mDataspaceObserver)
 		TTObjectRelease(TTObjectHandle(&mDataspaceObserver));
 	
-	// Make a TTReceiver object
 	args.append(NULL);
 	
 	returnDataspaceCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnDataspaceCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnDataspaceCallback, kTTValNONE);
 	returnDataspaceBaton = new TTValue(TTPtr(this));
 	returnDataspaceCallback->setAttributeValue(kTTSym_baton, TTPtr(returnDataspaceBaton));
 	returnDataspaceCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerDataspaceCallback));
@@ -164,7 +163,7 @@ TTErr TTViewer::observeDataspace()
 	mDataspaceObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mDataspaceObserver), args);
 	
-	mDataspaceObserver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_dataspace));
+	mDataspaceObserver->setAttributeValue(kTTSym_address, mAddress.appendAttribute(kTTSym_dataspace));
 	
 	mDataspaceObserver->sendMessage(kTTSym_Get);
 	
@@ -184,7 +183,7 @@ TTErr TTViewer::observeDataspaceUnit()
 	args.append(NULL);
 	
 	returnDataspaceUnitCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnDataspaceUnitCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnDataspaceUnitCallback, kTTValNONE);
 	returnDataspaceUnitBaton = new TTValue(TTPtr(this));
 	returnDataspaceUnitCallback->setAttributeValue(kTTSym_baton, TTPtr(returnDataspaceUnitBaton));
 	returnDataspaceUnitCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerDataspaceUnitCallback));
@@ -193,7 +192,7 @@ TTErr TTViewer::observeDataspaceUnit()
 	mDataspaceUnitObserver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mDataspaceUnitObserver), args);
 	
-	mDataspaceUnitObserver->setAttributeValue(kTTSym_address, mAddress->appendAttribute(kTTSym_dataspaceUnit));
+	mDataspaceUnitObserver->setAttributeValue(kTTSym_address, mAddress.appendAttribute(kTTSym_dataspaceUnit));
 	
 	mDataspaceUnitObserver->sendMessage(kTTSym_Get);
 	
@@ -262,7 +261,7 @@ TTErr TTViewer::setDataspaceUnit(const TTValue& value)
 	mDataspaceUnit = value;
 	
 	if (mDataspaceConverter)
-		mDataspaceConverter->setAttributeValue(TT("outputUnit"), mDataspaceUnit);
+		mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), mDataspaceUnit);
 	
 	// TODO : notifyObservers(kTTSym_dataspaceUnit, n);
 	return kTTErrNone;
@@ -271,7 +270,7 @@ TTErr TTViewer::setDataspaceUnit(const TTValue& value)
 TTErr TTViewer::convertUnit(const TTValue& inputValue, TTValue& outputValue)
 {
 	if (mDataspaceConverter)
-		return mDataspaceConverter->sendMessage(TT("convert"), inputValue, outputValue);
+		return mDataspaceConverter->sendMessage(TTSymbol("convert"), inputValue, outputValue);
 	
 	return kTTErrNone;
 }
@@ -282,8 +281,28 @@ TTErr TTViewer::convertUnit(const TTValue& inputValue, TTValue& outputValue)
 #endif
 
 TTErr TTViewerReceiveAddressCallback(TTPtr baton, TTValue& data)
-{	
-	return kTTErrGeneric;
+{
+    TTViewerPtr aViewer;
+	TTValuePtr	b;
+	TTValue		converted;
+	
+	// unpack baton (a TTViewer)
+	b = (TTValuePtr)baton;
+	b->get(0, (TTPtr*)&aViewer);
+	
+	if (aViewer->mDataspace == kTTSym_none) {
+
+        // check if the data's dataspace
+        if (aViewer->mDataspaceObserver) {
+            aViewer->mDataspaceObserver->sendMessage(kTTSym_Get);
+            
+            // then check if the data's dataspace unit
+            if (aViewer->mDataspaceUnitObserver)
+                aViewer->mDataspaceUnitObserver->sendMessage(kTTSym_Get);
+        }
+    }
+    
+	return kTTErrNone;
 }
 
 TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
@@ -321,15 +340,22 @@ TTErr TTViewerDataspaceCallback(TTPtr baton, TTValue& data)
 	TTViewerPtr aViewer;
 	TTValuePtr	b;
 	TTValue		v;
+    TTSymbol    dataspace;
 	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aViewer);
 	
-	aViewer->mDataspace = data;
+    dataspace = data;
+    
+    // filter repetitions
+    if (dataspace != aViewer->mDataspace) {
+        
+        aViewer->mDataspace = data;
 	
-	if (aViewer->mDataspaceConverter)
-		aViewer->mDataspaceConverter->setAttributeValue(TT("dataspace"), aViewer->mDataspace);
+        if (aViewer->mDataspaceConverter)
+            aViewer->mDataspaceConverter->setAttributeValue(kTTSym_dataspace, aViewer->mDataspace);
+    }
 	
 	return kTTErrNone;
 }
@@ -348,18 +374,18 @@ TTErr TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data)
 	if (aViewer->mDataspaceConverter) {
 		
 		// set input unit like the data unit
-		aViewer->mDataspaceConverter->setAttributeValue(TT("inputUnit"), data);
+		aViewer->mDataspaceConverter->setAttributeValue(TTSymbol("inputUnit"), data);
 		
-		// if no unit : set the output unit like the the data unit
+		// if no unit : set the output unit like the data unit
 		if (aViewer->mDataspaceUnit == kTTSym_none)
 			aViewer->mDataspaceUnit = data;
 		
 		// if the unit is wrong : use the default unit
-		err = aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
+		err = aViewer->mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), aViewer->mDataspaceUnit);
 		if (err) {
-			aViewer->mDataspaceConverter->getAttributeValue(TT("outputUnit"), v);
-			v.get(0, &aViewer->mDataspaceUnit);
-			aViewer->mDataspaceConverter->setAttributeValue(TT("outputUnit"), aViewer->mDataspaceUnit);
+			aViewer->mDataspaceConverter->getAttributeValue(TTSymbol("outputUnit"), v);
+			v.get(0, aViewer->mDataspaceUnit);
+			aViewer->mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), aViewer->mDataspaceUnit);
 		}
 	}
 	

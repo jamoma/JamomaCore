@@ -28,7 +28,7 @@ class TTMODULAR_EXPORT TTMapperManager : public TTDataObject
 	
 public:
 	
-	TTNodeAddressPtr	mAddress;						///< ATTRIBUTE : the address of the mapper manager in the directory
+	TTAddress	mAddress;						///< ATTRIBUTE : the address of the mapper manager in the directory
 
 private:
 	

@@ -36,7 +36,7 @@ void		WrappedDataClass_free(TTPtr self);
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		data_new_address(TTPtr self, SymbolPtr msg);
-void		data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbolPtr service, TTUInt8 index);
+void		data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, TTUInt8 index);
 void		data_address(TTPtr self, SymbolPtr name);
 
 #ifndef JMOD_RETURN
@@ -194,7 +194,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	AtomPtr						argv = NULL;
 	TTUInt32					number;
 	TTUInt8						i, j;
-	TTNodeAddressPtr			newAddress = TTADRS(relativeAddress->s_name);
+	TTAddress					newAddress = relativeAddress->s_name;
 	SymbolPtr					instanceAddress;
 	TTObjectPtr					anObject;
 	TTSubscriberPtr				aSubscriber;
@@ -212,7 +212,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 			
 			x->arrayAddress = newAddress;
 			
-			if (x->arrayAddress->getType() == kAddressRelative) {
+			if (x->arrayAddress.getType() == kAddressRelative) {
 				
 				number = jamoma_parse_bracket(relativeAddress, x->arrayFormatInteger, x->arrayFormatString);
 				
@@ -250,14 +250,14 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 #endif
 #endif
 						aSubscriber = NULL;
-						if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTADRS(instanceAddress->s_name),  &aSubscriber)) {
+						if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTAddress(instanceAddress->s_name),  &aSubscriber)) {
 							
 							if (aSubscriber) {
 								// append the data to the internals table
 								v = TTValue(TTPtr(anObject));
-								v.append(TT(instanceAddress->s_name));
+								v.append(TTSymbol(instanceAddress->s_name));
 								v.append(TTPtr(aSubscriber));
-								x->internals->append(TT(instanceAddress->s_name), v);
+								x->internals->append(TTSymbol(instanceAddress->s_name), v);
 							}
 						}
 					}
@@ -291,7 +291,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	EXTRA->firstArray = NO;
 }
 
-void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbolPtr service, TTUInt8 index)
+void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, TTUInt8 index)
 {
 	TTValue			args;
 	TTObjectPtr		returnValueCallback;
@@ -300,7 +300,7 @@ void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbolPtr servic
 	// prepare arguments
 	
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 #ifndef JMOD_RETURN
 	returnValueBaton = new TTValue(self);
 	returnValueBaton->append(index);
@@ -424,7 +424,7 @@ void data_list(TTPtr self, SymbolPtr msg, long argc, t_atom *argv)
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
 				for (TTUInt32 i = 0; i < keys.getSize(); i++) {
-					keys.get(i, &x->cursor);
+					keys.get(i, x->cursor);
 					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
 				}
 			}
@@ -453,7 +453,7 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
 				for (TTUInt32 i=0; i<keys.getSize(); i++) {
-					keys.get(i, &x->cursor);
+					keys.get(i, x->cursor);
 					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
 				}
 				x->cursor = kTTSymEmpty;
@@ -469,7 +469,7 @@ void data_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
     WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
     TTInt32     d, i;
     TTValue     keys;
-    TTSymbolPtr memoCursor;
+    TTSymbol    memoCursor;
     
 	if (x->internals) {
 		
@@ -484,7 +484,7 @@ void data_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
                 x->internals->getKeysSorted(keys);
 
                 for (i = 0; i < keys.getSize(); i++) {
-                    keys.get(i, &x->cursor);
+                    keys.get(i, x->cursor);
                     jamoma_data_command((TTDataPtr)selectedObject, _sym_nothing, d, argv+(i*d));
                 }
             }
@@ -507,7 +507,7 @@ void data_inc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 	
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Inc"), v, kTTValNONE);
+	selectedObject->sendMessage(TTSymbol("Inc"), v, kTTValNONE);
 }
 
 void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
@@ -516,7 +516,7 @@ void data_dec(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue v;
 	
 	jamoma_ttvalue_from_Atom(v, _sym_nothing, argc, argv);
-	selectedObject->sendMessage(TT("Dec"), v, kTTValNONE);
+	selectedObject->sendMessage(TTSymbol("Dec"), v, kTTValNONE);
 }
 #endif
 
@@ -526,13 +526,13 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	WrappedModularInstancePtr	x;
 	TTValue						array, g, t;
 	TTValuePtr					b, m;
-	TTSymbolPtr					type;
+	TTSymbol					type;
 	SymbolPtr					msg, iAdrs;
 	TTUInt8						i; 
 	long						argc = 0;
 	AtomPtr						argv = NULL;
 	TTBoolean					shifted = NO;
-	TTSymbolPtr					memoCursor;
+	TTSymbol					memoCursor;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
@@ -542,7 +542,7 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	// output index
 	if (x->arrayIndex == 0) {
 		jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i);
-		x->cursor = TT(iAdrs->s_name);
+		x->cursor = TTSymbol(iAdrs->s_name);
 	}
 	
 	outlet_int(x->outlets[index_out], i);
@@ -572,11 +572,11 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 					
 					memoCursor = x->cursor;
 					jamoma_edit_numeric_instance(x->arrayFormatInteger, &iAdrs, i+1);
-					x->cursor = TT(iAdrs->s_name);
+					x->cursor = TTSymbol(iAdrs->s_name);
 					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
 					selectedObject->getAttributeValue(kTTSym_type, t);
 					
-					t.get(0, &type);
+					t.get(0, type);
 					
 					// if there is no default value
 					if (g == kTTValNONE) {

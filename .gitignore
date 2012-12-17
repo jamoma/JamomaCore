@@ -19,7 +19,7 @@ project.xcworkspace
 
 *.layout
 *.depends
-*.map
+#*.map
 *.ncb
 *.suo
 *.user

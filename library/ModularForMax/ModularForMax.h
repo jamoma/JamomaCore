@@ -13,25 +13,25 @@
 #include "TTModular.h"
 #include "TTSubscriber.h"
 
-extern TTSymbolPtr			kTTSym_Jamoma;
+extern TTSymbol				kTTSym_Jamoma;
 extern TTApplicationPtr		JamomaApplication;
 extern TTNodeDirectoryPtr	JamomaDirectory;
 
-extern TTRegexPtr			ttRegexForJmod;			///< A global regex to parse jmod. (usefull to detect a 0.5 module)
-extern TTRegexPtr			ttRegexForJcom;			///< A global regex to parse jcom.
-extern TTRegexPtr			ttRegexForModel;		///< A global regex to parse .model
-extern TTRegexPtr			ttRegexForModule;		///< A global regex to parse .module
-extern TTRegexPtr			ttRegexForView;			///< A global regex to parse .view
-extern TTRegexPtr			ttRegexForMaxpat;		///< A global regex to parse .maxpat
-extern TTRegexPtr			ttRegexForMaxhelp;		///< A global regex to parse .maxhelp
-extern TTRegexPtr			ttRegexForBracket;		///< A global regex to parse [ and ]
+extern TTRegex*				ttRegexForJmod;			///< A global regex to parse jmod. (usefull to detect a 0.5 module)
+extern TTRegex*				ttRegexForJcom;			///< A global regex to parse jcom.
+extern TTRegex*				ttRegexForModel;		///< A global regex to parse .model
+extern TTRegex*				ttRegexForModule;		///< A global regex to parse .module
+extern TTRegex*				ttRegexForView;			///< A global regex to parse .view
+extern TTRegex*				ttRegexForMaxpat;		///< A global regex to parse .maxpat
+extern TTRegex*				ttRegexForMaxhelp;		///< A global regex to parse .maxhelp
+extern TTRegex*				ttRegexForBracket;		///< A global regex to parse [ and ]
 
-extern TTString				*ModelPatcherFormat;
-extern TTString				*ModelPresetFormat;
-extern TTString				*ViewPresetFormat;
-extern TTString				*HelpPatcherFormat;
-extern TTString				*RefpageFormat;
-extern TTString				*DocumentationFormat;
+extern TTString*			ModelPatcherFormat;
+extern TTString*			ModelPresetFormat;
+extern TTString*			ViewPresetFormat;
+extern TTString*			HelpPatcherFormat;
+extern TTString*			RefpageFormat;
+extern TTString*			DocumentationFormat;
 
 #define ModelPatcher "model" 
 #define ViewPatcher "view"
@@ -41,13 +41,6 @@ extern TTString				*DocumentationFormat;
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
-	// Method to deal with the jamoma application
-	/////////////////////////////////////////
-	
-	TTErr			jamoma_application_dump_configuration(void);
-	
-	TTErr			jamoma_application_write_configuration(void);
 
 	// Method to deal with the jamoma directory
 	/////////////////////////////////////////
@@ -61,11 +54,11 @@ extern "C" {
 	
 	/**	Create a subscriber object and register a TTObject into the tree 
 		or, if aTTObject is NULL, retrieve all context info to bind on an object */
-	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTNodeAddressPtr relativeAddress, TTSubscriberPtr *returnedSubscriber);
+	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber);
 	
 	/** Get the <patcher name, patcher pointer> list above an external
-	 To understand how this method have to work see in TTSubscriber.h and .cpp */
-	void			jamoma_subscriber_get_patcher_list(TTPtr p_baton, TTValue& data);
+		To understand what this method have to provide see in TTSubscriber.h and .cpp */
+	void			jamoma_subscriber_get_patcher_list(ObjectPtr x, TTList& aContextListToFill);
 	
 	// Method to deal with TTContainer
 	///////////////////////////////////////////////////////////////////////
@@ -81,7 +74,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a data object */
-	TTErr			jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbolPtr service);
+	TTErr			jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbol service);
 	
 	/**	Send Max data command */
 	TTErr			jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -204,25 +197,25 @@ extern "C" {
 	SymbolPtr		jamoma_patcher_get_hierarchy(ObjectPtr patcher);
 
 	/** Get the context from the upper jcom model|view in the patcher or from patcher's name */
-	void			jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbolPtr *returnedContext);
+	void			jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol& returnedContext);
 
 	/** Get the class of the patcher from the file name (removing .model and .view convention name if they are in) */
-	void			jamoma_patcher_get_class(ObjectPtr patcher,  TTSymbolPtr context, TTSymbolPtr *returnedClass);
+	void			jamoma_patcher_get_class(ObjectPtr patcher,  TTSymbol context, TTSymbol& returnedClass);
 	
 	/** Get the name of the patcher from his arguments */
-	void			jamoma_patcher_get_name(ObjectPtr patcher, TTSymbolPtr context, TTSymbolPtr *returnedName);
+	void			jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol& returnedName);
 	
 	/** Get all context info from the root jcom model|view in the patcher */
-	void			jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName);
+	void			jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TTSymbol& returnedContext, TTSymbol& returnedClass,  TTSymbol& returnedName);
 
 	/** Get patcher's node from the root jcom model|view in the patcher */
 	void			jamoma_patcher_share_node(ObjectPtr obj, TTNodePtr *patcherNode);
 	
 	/** Get all context info from an object (his patcher and the context, the class and the name of his patcher) */
-	TTErr			jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbolPtr *returnedContext, TTSymbolPtr *returnedClass,  TTSymbolPtr *returnedName);
+	TTErr			jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbol& returnedContext, TTSymbol& returnedClass,  TTSymbol& returnedName);
 
 	/** Get the "aClass.model" external in the patcher */
-	void			jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbolPtr modelClass, ObjectPtr *returnedModelPatcher);
+	void			jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbol modelClass, ObjectPtr *returnedModelPatcher);
 
 	// Tools
 	///////////////////////////////////////////////
@@ -236,9 +229,9 @@ extern "C" {
 	/** Make a TTValue from Atom array */
 	void			jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 	
-	/** Convert a TTSymbolPtr "MyObjectMessage" into a SymbolPtr "my/object/message" 
-		or return NULL if the TTSymbolPtr doesn't begin by an uppercase letter */
-	SymbolPtr		jamoma_TTName_To_MaxName(TTSymbolPtr TTName);
+	/** Convert a TTSymbol "MyObjectMessage" into a SymbolPtr "my/object/message" 
+		or return NULL if the TTSymbol doesn't begin by an uppercase letter */
+	SymbolPtr		jamoma_TTName_To_MaxName(TTSymbol TTName);
 	
 	/** Load an external for internal use. Returns true if successful */
 	TTBoolean		jamoma_extern_load(SymbolPtr objectname, AtomCount argc, AtomPtr argv, ObjectPtr *object);
@@ -253,23 +246,23 @@ extern "C" {
 	void			jamoma_edit_string_instance(TTString *format, SymbolPtr *returnedName, TTString *s);
 	
 	/** edit a file name from a given file format and a class name */
-	void			jamoma_edit_filename(TTString *format, TTSymbolPtr className, SymbolPtr *returnedFileName);
+	void			jamoma_edit_filename(TTString *format, TTSymbol className, SymbolPtr *returnedFileName);
 	
 	/** Parse #N inside address and replace them by parent patcher arguments if there are */
 	SymbolPtr		jamoma_parse_dieze(ObjectPtr x, SymbolPtr address);
+
+#ifdef __cplusplus
+}
+#endif
 	
 	// Files
 	///////////////////////////////////////////////
 	
 	/** Get BOOT style filepath from args or, if no args open a dialog to write a file */
-	TTSymbolPtr		jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* default_filename);
+	TTSymbol		jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* default_filename);
 	
 	/** Get BOOT style filepath from args or, if no args open a dialog to read a file */
-	TTSymbolPtr		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype);
+	TTSymbol		jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype);
 		
-#ifdef __cplusplus
-}
-#endif
-
 
 

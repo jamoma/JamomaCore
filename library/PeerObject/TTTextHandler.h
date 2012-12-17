@@ -46,7 +46,7 @@ class TTMODULAR_EXPORT TTTextHandler : public TTDataObject
 public:	// use public for recursive access
 	
 	TTObjectPtr			mObject;						///< the last handled object
-	TTSymbolPtr			mFilePath;						///< the path to the last writen/read file
+	TTSymbol			mFilePath;						///< the path to the last writen/read file
 	
 	TTString			*mWriter;						///< the text where to write
 	TTString			*mReader;						///< the text to read

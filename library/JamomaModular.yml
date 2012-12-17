@@ -36,23 +36,20 @@ sources:
   - RampLib/QueueRamp.cpp
   - RampLib/SchedulerRamp.cpp
   - FunctionLib/FunctionLib.cpp
-
   - ../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
   
 includes:
-  - "includes"
-  - "ModularForMax"
-  - "PeerObject"
-  - "ProtocolLib"
-  - "FunctionLib"
-  - "RampLib"
-  - "../../../Core/Foundation/library/includes"
-  - "../../../Core/DSP/library/includes"
+  - includes
+  - ModularForMax
+  - PeerObject
+  - ProtocolLib
+  - FunctionLib
+  - RampLib
+  - ../../../Core/Foundation/library/includes
+  - ../../../Core/DSP/library/includes
   - ../../../Core/Shared/max  
-  - ../../../Core/Shared/objectivemax/MaxObject
-  - ../../../Core/Shared/max/c74support/max-includes
-  - ../../../Core/Shared/max/c74support/msp-includes
-#  - "portaudio/include"
+  - C74-INCLUDES
+  - /usr/include/libxml2
 
 libraries:
   - FOUNDATION

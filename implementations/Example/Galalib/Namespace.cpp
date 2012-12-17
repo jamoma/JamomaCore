@@ -73,7 +73,7 @@ Namespace::namespaceInit(bool useDeviceManager)
 		args.append(GalamusApplication);
 		args.append(TT(m_appName));
 		
-		TTObjectInstantiate(TT("DeviceManager"), TTObjectHandle(&m_deMan), args);
+		TTObjectInstantiate(TTSymbol("DeviceManager"), TTObjectHandle(&m_deMan), args);
 		
 		// Load plugins and config with xml
 		TTValue value;
@@ -112,14 +112,14 @@ Namespace::namespaceParameterCreate(std::string address, int instanceNumber, voi
 	args.clear();
 	
 	p_returnValueCallback = NULL;
-	TTObjectInstantiate(TT("callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
 	p_returnValueBaton = new TTValue(TTPtr(object));
 	p_returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(p_returnValueBaton));
 	p_returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(returnValueCallback));
 	args.append(p_returnValueCallback);
 
 	p_returnAddressCallback = NULL;
-	TTObjectInstantiate(TT("callback"), TTObjectHandle(&p_returnAddressCallback), kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&p_returnAddressCallback), kTTValNONE);
 	p_returnAddressBaton = new TTValue(TTPtr(object));
 	p_returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(p_returnAddressBaton));
 	p_returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(p_returnAddressCallback));
@@ -135,7 +135,7 @@ Namespace::namespaceParameterCreate(std::string address, int instanceNumber, voi
 		newInstanceCreated	= NULL;
 
 		// create an instance of TTData
-		TTObjectInstantiate(TT("Data"), TTObjectHandle(&data), args);
+		TTObjectInstantiate(TTSymbol("Data"), TTObjectHandle(&data), args);
 
 		std::string absAddress = AppName + address;
 		// add instance number
@@ -264,20 +264,20 @@ Namespace::namespaceObserverCreate(std::string address, TTSymbolPtr attribute, v
 	args.append(attribute);
 		
 	r_returnAddressCallback = NULL;
-	TTObjectInstantiate(TT("callback"), TTObjectHandle(&r_returnAddressCallback), kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&r_returnAddressCallback), kTTValNONE);
 	r_returnAddressBaton = new TTValue(TTPtr(object));
 	r_returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(r_returnAddressBaton));
 	r_returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(returnAddressCallback));
 	args.append(r_returnAddressCallback);
 	
 	r_returnValueCallback = NULL;
-	TTObjectInstantiate(TT("callback"), TTObjectHandle(&r_returnValueCallback), kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&r_returnValueCallback), kTTValNONE);
 	r_returnValueBaton = new TTValue(TTPtr(object));
 	r_returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(r_returnValueBaton));
 	r_returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(returnValueCallback));
 	args.append(r_returnValueCallback);
 		
-	TTObjectInstantiate(TT("Receiver"), TTObjectHandle(&myReceiver), args);
+	TTObjectInstantiate(TTSymbol("Receiver"), TTObjectHandle(&myReceiver), args);
 
 	return NSP_NO_ERROR;
 }
@@ -306,7 +306,7 @@ Namespace::namespaceValueSend(std::string address, TTSymbolPtr attribute, TTValu
 	args.append(TT(absAddress));
 	args.append(attribute);
 		
-	TTObjectInstantiate(TT("Sender"), TTObjectHandle(&sender), args);
+	TTObjectInstantiate(TTSymbol("Sender"), TTObjectHandle(&sender), args);
 
 	sender->sendMessage(kTTSym_Send, value);
 	// note : the value is returned by the Data and the Receiver
@@ -329,7 +329,7 @@ void addAttributeToXml(TTObjectPtr param, XMLNode xmlNode, TTSymbolPtr attrName)
 	param->getAttributeValue(kTTSym_description, vDescr);
 	vDescr.get(0, &descr);
  
-	if (attrName == kTTSym_type && descr == TT("filepath")) {
+	if (attrName == kTTSym_type && descr == TTSymbol("filepath")) {
 		xmlNode.addAttribute_(attrName->getCString(), "filepath");
 	} else {
 		v.toString();
@@ -404,8 +404,8 @@ void snapshot(XMLNode xmlNode, TTNodePtr ttNode)
 				addAttributeToXml(param, childNode, kTTSym_rangeBounds);
 				addAttributeToXml(param, childNode, kTTSym_rangeClipmode);
 				addAttributeToXml(param, childNode, kTTSym_valueStepsize);
-				addAttributeToXml(param, childNode, TT("dynamicInstances"));
-				addAttributeToXml(param, childNode, TT("instanceBounds"));
+				addAttributeToXml(param, childNode, TTSymbol("dynamicInstances"));
+				addAttributeToXml(param, childNode, TTSymbol("instanceBounds"));
 				addAttributeToXml(param, childNode, kTTSym_priority);
 				addAttributeToXml(param, childNode, kTTSym_description);
 				addAttributeToXml(param, childNode, kTTSym_repetitionsAllow);
@@ -596,26 +596,26 @@ Namespace::namespaceMappingLoadFromXml(std::string filepath)
 	TTXmlHandlerPtr		aXmlHandler				= NULL;
 	
 	args.append(GalamusApplication);
-	TTObjectInstantiate(TT("MapperManager"),	TTObjectHandle(&returnedMapperManager), args);
+	TTObjectInstantiate(TTSymbol("MapperManager"),	TTObjectHandle(&returnedMapperManager), args);
 	
 	// Instanciate a XmlHandler
 	args.clear();
-	TTObjectInstantiate(TT("XmlHandler"),		TTObjectHandle(&aXmlHandler),			args);
+	TTObjectInstantiate(TTSymbol("XmlHandler"),		TTObjectHandle(&aXmlHandler),			args);
 	
 	// Set XmlHandler being used by MapperManager
 	v = TTValue(TTPtr(returnedMapperManager));
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
-	aXmlHandler->setAttributeValue(TT("headerNodeName"),	TT(XML_MAPPING_HEADER_NODE_NAME));
-	aXmlHandler->setAttributeValue(TT("version"),			TT(XML_MAPPING_VERSION));
-	aXmlHandler->setAttributeValue(TT("xmlSchemaLocation"), TT(XML_MAPPING_SCHEMA_LOCATION));
+	aXmlHandler->setAttributeValue(TTSymbol("headerNodeName"),	TT(XML_MAPPING_HEADER_NODE_NAME));
+	aXmlHandler->setAttributeValue(TTSymbol("version"),			TT(XML_MAPPING_VERSION));
+	aXmlHandler->setAttributeValue(TTSymbol("xmlSchemaLocation"), TT(XML_MAPPING_SCHEMA_LOCATION));
 	
 	v.clear();
 	v.append(TT(filepath));
-	aXmlHandler->sendMessage(TT("Read"), v);//TODO : return an error code if fail
+	aXmlHandler->sendMessage(TTSymbol("Read"), v);//TODO : return an error code if fail
 	
 //	v.clear();
-//	v.append(TT("writtenMapping.xml"));
-//	aXmlHandler->sendMessage(TT("Write"), v);
+//	v.append(TTSymbol("writtenMapping.xml"));
+//	aXmlHandler->sendMessage(TTSymbol("Write"), v);
 	
 	return NSP_NO_ERROR;
 }
@@ -634,7 +634,7 @@ Namespace::namespacePresetsLoadFromXml(std::string filepath)
 	args.append(GalamusApplication);	// add application arg
 	
 	testObjectCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TT("callback"),			&testObjectCallback,					kTTValNONE);
+	TTObjectInstantiate(TTSymbol("callback"),			&testObjectCallback,					kTTValNONE);
 //	testObjectBaton = new TTValue(TTPtr(x));
 //	testObjectCallback->setAttributeValue(kTTSym_baton, TTPtr(testObjectBaton));
 //	testObjectCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_presetManager_test_object_callback));
@@ -643,30 +643,30 @@ Namespace::namespacePresetsLoadFromXml(std::string filepath)
 	// Here we decide to store only Value and Priority attributes for Data object
 	attr = TTValue(kTTSym_value);
 	attr.append(kTTSym_priority);
-	//toStore->append(TT("Data"), attr);
+	//toStore->append(TTSymbol("Data"), attr);
 	
 	args.append((TTPtr)toStore);		// add storing hash table arg
 	
 	m_presetManager = NULL;
-	TTObjectInstantiate(TT("PresetManager"),	TTObjectHandle(&m_presetManager), args);
+	TTObjectInstantiate(TTSymbol("PresetManager"),	TTObjectHandle(&m_presetManager), args);
 	
 	// Instanciate a XmlHandler
 	args.clear();
-	TTObjectInstantiate(TT("XmlHandler"),		TTObjectHandle(&aXmlHandler),			args);
+	TTObjectInstantiate(TTSymbol("XmlHandler"),		TTObjectHandle(&aXmlHandler),			args);
 	
 	// Set XmlHandler being used by PresetManager
 	v = TTValue(TTPtr(m_presetManager));
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
-	aXmlHandler->setAttributeValue(TT("headerNodeName"),	TT(XML_PRESET_HEADER_NODE_NAME));
-	aXmlHandler->setAttributeValue(TT("version"),			TT(XML_PRESET_VERSION));
-	aXmlHandler->setAttributeValue(TT("xmlSchemaLocation"), TT(XML_PRESET_SCHEMA_LOCATION));
+	aXmlHandler->setAttributeValue(TTSymbol("headerNodeName"),	TT(XML_PRESET_HEADER_NODE_NAME));
+	aXmlHandler->setAttributeValue(TTSymbol("version"),			TT(XML_PRESET_VERSION));
+	aXmlHandler->setAttributeValue(TTSymbol("xmlSchemaLocation"), TT(XML_PRESET_SCHEMA_LOCATION));
 	
 	v.clear();
 	v.append(TT(filepath));
-	aXmlHandler->sendMessage(TT("Read"), v);//TODO : return an error code if fail
+	aXmlHandler->sendMessage(TTSymbol("Read"), v);//TODO : return an error code if fail
 	
 //	TTValue tmp;
-//	m_presetManager->getAttributeValue(TT("names"), tmp);
+//	m_presetManager->getAttributeValue(TTSymbol("names"), tmp);
 //	
 //	for (int i = 0; i < tmp.getSize(); i++) {
 //		TTString s;
@@ -683,7 +683,7 @@ NSPStatus
 Namespace::namespacePresetCall(std::string name)
 {
 	TTValue v(TT(name));
-	m_presetManager->sendMessage(TT("Recall"), v);
+	m_presetManager->sendMessage(TTSymbol("Recall"), v);
 	
 	return NSP_NO_ERROR;
 }
@@ -692,7 +692,7 @@ NSPStatus
 Namespace::namespacePresetCall(int number)
 {
 	TTValue v(number);
-	m_presetManager->sendMessage(TT("Recall"), v);
+	m_presetManager->sendMessage(TTSymbol("Recall"), v);
 	
 	return NSP_NO_ERROR;
 }

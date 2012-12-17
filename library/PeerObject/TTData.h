@@ -41,32 +41,32 @@ private:
 	TTValue			mValueDefault;				///< ATTRIBUTE: data's default value
 	TTValue			mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	
-	TTSymbolPtr		mType;						///< ATTRIBUTE: type of this data's value
+	TTSymbol		mType;						///< ATTRIBUTE: type of this data's value
 	TTValue			mTag;						///< ATTRIBUTE: tag list for this data
 	TTInt32			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
-	TTSymbolPtr		mDescription;				///< ATTRIBUTE: text to describe the role of this data
+	TTSymbol		mDescription;				///< ATTRIBUTE: text to describe the role of this data
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
 	TTBoolean		mEnable;					///< ATTRIBUTE: this used for return only to stop sending values
 	TTBoolean		mInitialized;				///< ATTRIBUTE: is the Value attribute has been initialized ?
 	
 	TTValue			mRangeBounds;				///< ATTRIBUTE: 
-	TTSymbolPtr		mRangeClipmode;				///< ATTRIBUTE: 
+	TTSymbol		mRangeClipmode;				///< ATTRIBUTE: 
 	
 	TTBoolean		mDynamicInstances;			///< ATTRIBUTE: is the data can be dynamically instanciated
 	TTValue			mInstanceBounds;			///< ATTRIBUTE: two TTValues for a range of dynamic instances (-1 = infini)
 
 #ifndef TTDATA_NO_RAMPLIB
-	TTSymbolPtr		mRampDrive;					///< ATTRIBUTE: ramp mode 
-	TTSymbolPtr		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
+	TTSymbol		mRampDrive;					///< ATTRIBUTE: ramp mode 
+	TTSymbol		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
 	TTValue			mRampFunctionParameters;	///< ATTRIBUTE: names of parameter's function
 	TTBoolean		mRampStatus;				///< ATTRIBUTE: is the ramp running ?
 #endif
 	
-	TTSymbolPtr		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none')
-	TTSymbolPtr		mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
+	TTSymbol		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none')
+	TTSymbol		mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
 	TTObjectPtr		mDataspaceConverter;		///< Performs conversions from input unit to the data unit
 	
-	TTSymbolPtr		mService;					///< how the data flows into our environnement :
+	TTSymbol		mService;					///< how the data flows into our environnement :
 												///<	as parameter : the data is in full access mode
 												///<	as message : the data don't notify observers it's changing but the value is still returned to his owner
 												///<	as return : the value is not returned to his owner anymore but the data notify observers it's changing
@@ -162,7 +162,7 @@ private:
 	TTBoolean	checkType(const TTValue& value);
 	TTBoolean	clipValue();
 	TTErr		convertUnit(const TTValue& inputValue, TTValue& outputValue);
-	TTErr		notifyObservers(TTSymbolPtr attrName, const TTValue& value);
+	TTErr		notifyObservers(TTSymbol attrName, const TTValue& value);
 	
 #ifndef TTDATA_NO_RAMPLIB
 	TTErr		rampSetup();
