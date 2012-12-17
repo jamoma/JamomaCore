@@ -583,24 +583,12 @@ void send_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate, lo
 	
 	if (aSender) {
 		
-		for (i=0; i < anInput->mNumber; i++) {
-			j = anInput->mNumber + i;
-			if (count[i] || count[j]) {
-				numChannels++;			
-			}
-		}
-		anInput->mInfo.set(info_numChannels, numChannels);
-		
-		anInput->mInfo.set(info_vectorSize, (TTUInt16)maxvectorsize);
-		
-		anInput->mSignalIn->setAttributeValue(TTSymbol("numChannels"), numChannels);
-		anInput->mSignalOut->setAttributeValue(TTSymbol("numChannels"), numChannels);
-		anInput->mSignalIn->setAttributeValue(TTSymbol("vectorSize"), (TTUInt16)maxvectorsize);
-		anInput->mSignalOut->setAttributeValue(TTSymbol("vectorSize"),(TTUInt16)maxvectorsize);
-		// mSignalIn will be set in the perform method
-		anInput->mSignalOut->sendMessage(TTSymbol("alloc"));
-		
-		object_method(dsp64, gensym("dsp_add64"), x, send_perform64, 0, NULL); 
+        // set signal numChannels and vectorSize
+        aSender->mSignal->setAttributeValue(kTTSym_numChannels, 1);
+        aSender->mSignal->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+   
+        // mSignal will be set in the perform method
+        object_method(dsp64, gensym("dsp_add64"), x, send_perform64, 0, NULL);
 	}
 }
 #endif
