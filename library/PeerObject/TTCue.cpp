@@ -321,7 +321,8 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
 		
 		// 3. Process namespace storage
-		processStore(mScript, kTTAdrsEmpty, aNamespace);
+        // TODO : deal with other Application directory
+		processStore(mScript, kTTAdrsRoot, aNamespace);
 		
 		// 5. Process ramp
 		if (mRamp) setRamp(mRamp);
