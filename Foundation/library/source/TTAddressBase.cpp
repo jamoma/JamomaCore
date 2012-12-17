@@ -291,7 +291,7 @@ TTErr TTAddressBase::parse()
 		s_directory = TTString(temp_begin, temp_end);
 		
 		temp_begin = ttRegexForDirectory->end()+1;
-		s_toParse = TTString(temp_begin, end);			// +1 to remove ":"
+		s_toParse = TTString(temp_begin, end);                              // +1 to remove ":"
 		
 		begin = s_toParse.begin();
 		end = s_toParse.end();
@@ -299,7 +299,7 @@ TTErr TTAddressBase::parse()
 		//cout << "directory :  " << s_directory << endl;
 		//cout << "s_toParse :  " << s_toParse << endl;
 	}
-	this->directory = TT(s_directory);
+	this->directory = TTSymbol(s_directory);
 	
 	// parse attribute
 	if (!ttRegexForAttribute->parse(begin, end))
@@ -307,10 +307,8 @@ TTErr TTAddressBase::parse()
 		TTStringIter temp_begin = ttRegexForAttribute->begin();
 		TTStringIter temp_end = ttRegexForAttribute->end();
 		
-//		s_directory = TTString(temp_begin, temp_end);
 		s_attribute = TTString(temp_begin, end);
-//		s_attribute = TTString(temp_begin, temp_end);
-		s_toParse = TTString(begin, temp_end-1);	// -1 to remove ":"
+		s_toParse = TTString(begin, temp_end-1);                            // -1 to remove ":"
 		
 		begin = s_toParse.begin();
 		end = s_toParse.end();
@@ -318,7 +316,7 @@ TTErr TTAddressBase::parse()
 		//cout << "attribute :  " << s_attribute << endl;
 		//cout << "s_toParse :  " << s_toParse << endl;
 	}
-	this->attribute = TT(s_attribute);
+	this->attribute = TTSymbol(s_attribute);
 	
 	// parse parent
 	if (!ttRegexForParent->parse(begin, end))
@@ -329,7 +327,7 @@ TTErr TTAddressBase::parse()
 		else
 			s_parent = TTString(ttRegexForParent->begin(), ttRegexForParent->end());
 		
-		s_toParse = TTString(ttRegexForParent->end()+1, end);			// +1 to remove "/"
+		s_toParse = TTString(ttRegexForParent->end()+1, end);               // +1 to remove "/"
 		
 		begin = s_toParse.begin();
 		end = s_toParse.end();
@@ -342,7 +340,7 @@ TTErr TTAddressBase::parse()
 	// parse instance
 	if (!ttRegexForInstance->parse(begin, end))
 	{
-		s_instance = TTString(ttRegexForInstance->end(), end);
+		s_instance = TTString(ttRegexForInstance->end(), end-1);            // -1 to remove a '\0' at the end
 		s_toParse = TTString(begin, ttRegexForInstance->begin()-1);			// -1 to remove "."
 		
 		begin = s_toParse.begin();
@@ -350,10 +348,10 @@ TTErr TTAddressBase::parse()
 		
 		//cout << "instance  :  " << s_instance << endl;
 	}
-	this->instance = TT(s_instance);
+	this->instance = TTSymbol(s_instance);
 	
 	// consider the rest is the name
-	this->name = TT(s_toParse);
+	this->name = TTSymbol(s_toParse);
 	
 	//cout << "name      :  " << s_toParse << endl;
 	
