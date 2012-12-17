@@ -1638,7 +1638,7 @@ SymbolPtr jamoma_parse_dieze(ObjectPtr x, SymbolPtr address)
 	TTString	diezeStr, argsStr, addressStr = address->s_name;
 	SymbolPtr	hierarchy;
 	ObjectPtr	patcher  = jamoma_patcher_get(x);
-    /* TODO : used a TTRegex for this parsing
+    /* TODO : use a TTRegex for this parsing
 	char		dieze[5];
 	char		args[64];
 	size_t		found = 0;
