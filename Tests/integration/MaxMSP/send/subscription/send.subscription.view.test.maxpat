@@ -88,6 +88,7 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
+						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Arial",
@@ -282,8 +283,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 8.0, 223.0, 107.0, 20.0 ],
-					"text" : "testpatcher.view"
+					"patching_rect" : [ 8.0, 223.0, 163.0, 20.0 ],
+					"text" : "testpatcher.view /testpatcher"
 				}
 
 			}
@@ -813,34 +814,34 @@
 		"dependency_cache" : [ 			{
 				"name" : "jcom.test.start.maxpat",
 				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.start",
-				"patcherrelativepath" : "../../../../../Test/components/test.start",
+				"patcherrelativepath" : "../../../../../../Test/components/test.start",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.finished.maxpat",
 				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.finished",
-				"patcherrelativepath" : "../../../../../Test/components/test.finished",
+				"patcherrelativepath" : "../../../../../../Test/components/test.finished",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.assert.equal.maxpat",
 				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.assert.equal",
-				"patcherrelativepath" : "../../../../../Test/components/test.assert.equal",
+				"patcherrelativepath" : "../../../../../../Test/components/test.assert.equal",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "testpatcher.view.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Tests/integration/MaxMSP/send",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Tests/integration/MaxMSP/send/subscription",
 				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "testpatcher.model.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Tests/integration/MaxMSP/send",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Tests/integration/MaxMSP/send/subscription",
 				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1
