@@ -12,6 +12,10 @@
 #include "TTAddressBase.h"
 #include "TTAddressTable.h"
 
+class TTRegex;
+
+extern TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero;	///< The global regex to parse instance .0
+
 /****************************************************************************************************/
 // Class Specifications
 
@@ -34,7 +38,16 @@ public:
 	
 	TTAddress(const char *cstr)
 	{
-		mSymbolPointer = gTTAddressTable.lookup(cstr);
+        // check if there is a '0'
+        if (strchr(cstr, C_ZERO) != 0) {
+            
+            TTString sparsed;
+            parseInstanceZero(cstr, sparsed);
+            
+            mSymbolPointer = gTTAddressTable.lookup(sparsed);
+        }
+        else
+            mSymbolPointer = gTTAddressTable.lookup(cstr);
 	}
 	
 	
@@ -194,7 +207,12 @@ public:
 	{
 		return getBasePointer()->listNameInstance(nameInstanceList);
 	}
-	
+    
+private:
+	/** Parse ".0"
+	 @return							An error code if the parsing failed */
+	TTErr parseInstanceZero(const char* cstr, TTString& parsed);
+    
 };
 
 #endif // __TT_ADDRESS_H__

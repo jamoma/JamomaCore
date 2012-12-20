@@ -22,7 +22,6 @@ TTFOUNDATION_EXPORT TTRegex* ttRegexForDirectory = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForParent = NULL;	
 TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance = NULL;
-TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero = NULL;
 
 TTAddressBase::TTAddressBase(const TTString& newAddressString, TTPtrSizedInt newAddressTableId, TTInt32 newId) :
 	TTSymbolBase(newAddressString, newAddressTableId, newId),
@@ -33,16 +32,7 @@ TTAddressBase::TTAddressBase(const TTString& newAddressString, TTPtrSizedInt new
 	attribute(NO_ATTRIBUTE),
 	parsed(NO)
 {
-	// check if there is a '0'
-	if (strchr(newAddressString.data(), C_ZERO) != 0) {
-
-		TTString sparsed;
-		parseInstanceZero(newAddressString, sparsed);
-		
-		this->init(sparsed, newAddressTableId, newId);
-	}
-	else
-		this->init(newAddressString, newAddressTableId, newId);
+    this->init(newAddressString, newAddressTableId, newId);
 }
 
 TTAddressBase::~TTAddressBase()
@@ -209,35 +199,6 @@ TTAddressBase* TTAddressBase::edit(const TTSymbol& newDirectory,
 	
 	return (TTAddressBase*)gTTAddressTable.lookup(address);
 }
-
-
-TTErr TTAddressBase::parseInstanceZero(const TTString& toParse, TTString& parsed)
-{
-	// filter single "0" string
-	if (toParse.size() > 1) {
-		
-		parsed = toParse;
-		
-		TTStringIter begin = parsed.begin();
-		TTStringIter end = parsed.end();
-		
-		// parse and remove ".0"
-		while (!ttRegexForInstanceZero->parse(begin, end)) {
-			TTStringIter z_begin = ttRegexForInstanceZero->begin() - 2;
-			TTStringIter z_end = ttRegexForInstanceZero->end();
-						
-			TTString a(begin, z_begin);
-			TTString b(z_end, end);
-			parsed = a+b;
-
-			begin = parsed.begin();
-			end = parsed.end();
-		}
-	}
-
-	return kTTErrNone;
-}
-
 
 TTErr TTAddressBase::parse()
 {	
