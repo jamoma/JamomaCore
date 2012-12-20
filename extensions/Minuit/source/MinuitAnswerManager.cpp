@@ -83,7 +83,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 		answer.get(i, toParse);
 		
 		// parse nodes
-		if (toParse == TT(MINUIT_START_NODES)) {
+		if (toParse == TTSymbol(MINUIT_START_NODES)) {
 			
 			endFlagFound = NO;
 			do {
@@ -93,7 +93,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 					answer.get(i, parsed);
 				
 				// don't store the end flag
-				if (parsed != TT(MINUIT_END_NODES)) {
+				if (parsed != TTSymbol(MINUIT_END_NODES)) {
 					
 					returnedChildrenNames.append(parsed);
 					
@@ -107,7 +107,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 			while (!endFlagFound);
 			
 		}
-		else if (toParse == TT(MINUIT_START_TYPES)) {
+		else if (toParse == TTSymbol(MINUIT_START_TYPES)) {
 			
 			endFlagFound = NO;
 			do {
@@ -117,7 +117,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 					answer.get(i, parsed);
 				
 				// don't store the end flag
-				if (parsed != TT(MINUIT_END_TYPES)) {
+				if (parsed != TTSymbol(MINUIT_END_TYPES)) {
 					
 					returnedChildrenTypes.append(parsed);
 					
@@ -131,7 +131,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 			while (!endFlagFound);
 			
 		}
-		else if (toParse == TT(MINUIT_START_ATTRIBUTES)) {
+		else if (toParse == TTSymbol(MINUIT_START_ATTRIBUTES)) {
 			
 			endFlagFound = NO;
 			do {
@@ -141,7 +141,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 					answer.get(i, parsed);
 				
 				// don't store the end flag
-				if (parsed != TT(MINUIT_END_ATTRIBUTES)) {
+				if (parsed != TTSymbol(MINUIT_END_ATTRIBUTES)) {
 					
 					returnedAttributes.append(parsed);
 					

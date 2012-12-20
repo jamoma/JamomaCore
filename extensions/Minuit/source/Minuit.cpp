@@ -177,7 +177,7 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 	// edit arguments <header address>
 	arguments = TTValue(address);
 	
-	if (!sendMessage(to, TT(header), arguments)) {
+	if (!sendMessage(to, TTSymbol(header), arguments)) {
 		
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendDiscoverRequest " << std::endl;
@@ -228,7 +228,7 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
 	// edit arguments <header address>
 	arguments = TTValue(address);
 	
-	if (!sendMessage(to, TT(header), arguments)) {
+	if (!sendMessage(to, TTSymbol(header), arguments)) {
 		
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendGetRequest " << std::endl;
@@ -302,15 +302,15 @@ TTErr Minuit::SendListenRequest(TTSymbol to, TTAddress address,
 	arguments = TTValue(address);
 	
 	if (enable)
-		arguments.append(TT(MINUIT_REQUEST_LISTEN_ENABLE));
+		arguments.append(TTSymbol(MINUIT_REQUEST_LISTEN_ENABLE));
 	else
-		arguments.append(TT(MINUIT_REQUEST_LISTEN_DISABLE));
+		arguments.append(TTSymbol(MINUIT_REQUEST_LISTEN_DISABLE));
 	
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendListenRequest " << std::endl;
 #endif
 	
-	return sendMessage(to, TT(header), arguments);
+	return sendMessage(to, TTSymbol(header), arguments);
 }
 
 
@@ -353,35 +353,35 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address,
 	// and then prepend fields one by one
 	if (returnedAttributes.getSize()) {
 		arguments = returnedAttributes;
-		arguments.prepend(TT(MINUIT_START_ATTRIBUTES));
-		arguments.append(TT(MINUIT_END_ATTRIBUTES));
+		arguments.prepend(TTSymbol(MINUIT_START_ATTRIBUTES));
+		arguments.append(TTSymbol(MINUIT_END_ATTRIBUTES));
 	}
 	
 	if (returnedChildrenTypes.getSize()) {
 		// if no attribute field
 		if (arguments.getSize()) {
-			arguments.prepend(TT(MINUIT_END_TYPES));
+			arguments.prepend(TTSymbol(MINUIT_END_TYPES));
 			arguments.prepend(returnedChildrenTypes);
-			arguments.prepend(TT(MINUIT_START_TYPES));
+			arguments.prepend(TTSymbol(MINUIT_START_TYPES));
 		}
 		else {
 			arguments = returnedChildrenTypes;
-			arguments.prepend(TT(MINUIT_START_TYPES));
-			arguments.append(TT(MINUIT_END_TYPES));
+			arguments.prepend(TTSymbol(MINUIT_START_TYPES));
+			arguments.append(TTSymbol(MINUIT_END_TYPES));
 		}
 	}
 	
 	if (returnedChildrenNames.getSize()) {
 		// if no types and attribute fields
 		if (arguments.getSize()) {
-			arguments.prepend(TT(MINUIT_END_NODES));
+			arguments.prepend(TTSymbol(MINUIT_END_NODES));
 			arguments.prepend(returnedChildrenNames);
-			arguments.prepend(TT(MINUIT_START_NODES));
+			arguments.prepend(TTSymbol(MINUIT_START_NODES));
 		}
 		else {
 			arguments = returnedChildrenNames;
-			arguments.prepend(TT(MINUIT_START_NODES));
-			arguments.append(TT(MINUIT_END_NODES));
+			arguments.prepend(TTSymbol(MINUIT_START_NODES));
+			arguments.append(TTSymbol(MINUIT_END_NODES));
 		}
 	}
 	
@@ -394,7 +394,7 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address,
 		std::cout << "Minuit : applicationSendDiscoverAnswer " << std::endl;
 #endif
 	
-		return sendMessage(to, TT(header), arguments);
+		return sendMessage(to, TTSymbol(header), arguments);
 }
 
 /*!
@@ -430,7 +430,7 @@ TTErr Minuit::SendGetAnswer(TTSymbol to, TTAddress address,
 		std::cout << "Minuit : applicationSendGetAnswer" << std::endl;
 #endif
 	
-	return sendMessage(to, TT(header), arguments);
+	return sendMessage(to, TTSymbol(header), arguments);
 }
 
 /*!
@@ -466,7 +466,7 @@ TTErr Minuit::SendListenAnswer(TTSymbol to, TTAddress address,
 		std::cout << "Minuit : applicationSendListenAnswer " << std::endl;
 #endif
 
-	return sendMessage(to, TT(header), arguments);
+	return sendMessage(to, TTSymbol(header), arguments);
 }
 
 TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& arguments)
@@ -475,7 +475,7 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 	TTValue		v, vIp, vPort, message;
 	TTErr		err, errIp, errPort;
 	
-	// TODO : a arguments manager to don't create a sender each time !!!!
+	// TODO : an argument manager to don't create a sender each time !!!!
 	
 	// Check the application registration
 	err = mDistantApplicationParameters->lookup(distantApplicationName, v);
@@ -517,13 +517,13 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 
 TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 {
-	TTSymbol			aSymbol, sender, operation;
-	TTString			headerString;
-	TTInt32				operationStart;
-	TTValue				arguments;
-	TTAddress	whereTo = kTTAdrsEmpty;
-	TTValue				v;
-	TTErr				err;
+	TTSymbol	aSymbol, sender, operation;
+	TTString	headerString;
+	TTInt32		operationStart;
+	TTValue		arguments;
+	TTAddress   whereTo = kTTAdrsEmpty;
+	TTValue		v;
+	TTErr		err;
 	
 	/*
 	 if message starts with '/'
@@ -553,6 +553,10 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 	
 	message.get(0, aSymbol);
 	headerString = aSymbol.c_str();
+    
+#ifdef TT_PROTOCOL_DEBUG
+    cout << "Message header is " << aSymbol.c_str() << endl;
+#endif
 	
 	// if message starts with '/'
 	if (headerString[0] == '/')
@@ -574,13 +578,13 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 		operationStart = headerString.find_first_of('?');
 		if (operationStart >= 0)
 		{
-			sender = TT(headerString.substr(0, operationStart));				// get sender application
+			sender = TTSymbol(headerString.substr(0, operationStart));				// get sender application
 			
 			// Check the sender application registration
 			err = mDistantApplicationParameters->lookup(sender, v);
 			if (!err) {
 				
-				operation = TT(headerString.substr(operationStart));				// get request
+				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));			// get request
 				
 				if (message.getType(1) == kTypeSymbol) {							// parse /whereTo
 					message.get(1, aSymbol);
@@ -592,21 +596,21 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 #endif
 				
 				// switch on request
-				if (operation == TT(MINUIT_REQUEST_DISCOVER))
+				if (operation == TTSymbol(MINUIT_REQUEST_DISCOVER))
 					return ReceiveDiscoverRequest(sender, whereTo);
 				
-				else if (operation == TT(MINUIT_REQUEST_GET))
+				else if (operation == TTSymbol(MINUIT_REQUEST_GET))
 					return ReceiveGetRequest(sender, whereTo);
 				
-				else if (operation == TT(MINUIT_REQUEST_LISTEN)) {
+				else if (operation == TTSymbol(MINUIT_REQUEST_LISTEN)) {
 					
 					if (message.getType(2) == kTypeSymbol) {						// parse enable/disable
 						message.get(2, aSymbol);
 						
-						if (aSymbol == TT(MINUIT_REQUEST_LISTEN_ENABLE))
+						if (aSymbol == TTSymbol(MINUIT_REQUEST_LISTEN_ENABLE))
 							return ReceiveListenRequest(sender, whereTo, true);
 						
-						else if (aSymbol == TT(MINUIT_REQUEST_LISTEN_DISABLE))
+						else if (aSymbol == TTSymbol(MINUIT_REQUEST_LISTEN_DISABLE))
 							return ReceiveListenRequest(sender, whereTo, false);
 						
 						else
@@ -621,13 +625,13 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 		operationStart = headerString.find_first_of(':');
 		if (operationStart >= 0)
 		{
-			sender = TT(headerString.substr(0, operationStart));				// get sender application
+			sender = TTSymbol(headerString.substr(0, operationStart));				// get sender application
 			
 			// Check the sender application registration
 			err = mDistantApplicationParameters->lookup(sender, v);
 			if (!err) {
 				
-				operation = TT(headerString.substr(operationStart));				// get request
+				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));				// get request
 				
 				if (message.getType(1) == kTypeSymbol) {							// parse /whereTo
 					message.get(1, aSymbol);
@@ -641,13 +645,13 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 				arguments.copyFrom(message, 2);
 				
 				// switch on answer
-				if (operation == TT(MINUIT_ANSWER_DISCOVER))
+				if (operation == TTSymbol(MINUIT_ANSWER_DISCOVER))
 					return mAnswerManager->ReceiveDiscoverAnswer(sender.c_str(), whereTo, arguments);
 				
-				else if (operation == TT(MINUIT_ANSWER_GET))
+				else if (operation == TTSymbol(MINUIT_ANSWER_GET))
 					return mAnswerManager->ReceiveGetAnswer(sender.c_str(), whereTo, arguments);
 				
-				else if (operation == TT(MINUIT_ANSWER_LISTEN))
+				else if (operation == TTSymbol(MINUIT_ANSWER_LISTEN))
 					return ReceiveListenAnswer(sender, whereTo, arguments);
 				
 			}	

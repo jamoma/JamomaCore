@@ -1,3 +1,5 @@
+#defines:
+#  - TT_PROTOCOL_DEBUG
 
 sources:
   - ../../library/ProtocolLib/Protocol.cpp		
@@ -13,4 +15,3 @@ includes:
 
 libraries:
   - FOUNDATION
-

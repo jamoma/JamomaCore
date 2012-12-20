@@ -445,7 +445,6 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
@@ -601,6 +600,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 401.0, 89.5, 276.0, 20.0 ],
+									"text" : "myApplication:get /mySymbol:repetitionsAllow 1",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
