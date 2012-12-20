@@ -154,6 +154,12 @@ private:
 	
 	/**	Setter for mDataspaceUnit attribute. */
 	TTErr	setDataspaceUnit(const TTValue& value);
+    
+    /**	Setter for mDescription attribute. */
+	TTErr	setDescription(const TTValue& value);
+    
+    /**	Setter for mPriority attribute. */
+	TTErr	setPriority(const TTValue& value);
 	
 	/**  needed to be handled by a TTTextHandler */
 	TTErr WriteAsText(const TTValue& inputValue, TTValue& outputValue);

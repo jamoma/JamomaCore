@@ -53,8 +53,8 @@ mReturnValueCallback(NULL)
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
 	addAttributeWithSetter(Tag, kTypeLocalValue);
-	addAttribute(Priority, kTypeInt32);
-	addAttribute(Description, kTypeSymbol);
+	addAttributeWithSetter(Priority, kTypeInt32);
+	addAttributeWithSetter(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
 	
 	addAttributeWithSetter(Enable, kTypeBoolean);
@@ -66,6 +66,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(RangeBounds, kTypeLocalValue);
 	addAttributeWithSetter(RangeClipmode, kTypeSymbol);
 	
+    // this is a temporary solution for Blue Yéti
 	addAttribute(DynamicInstances, kTypeBoolean);
 	addAttributeProperty(DynamicInstances, hidden, YES);
 	addAttributeWithSetter(InstanceBounds, kTypeLocalValue);
@@ -761,10 +762,29 @@ TTErr TTData::setDataspaceUnit(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnit = value;
+    
 	if (mDataspaceConverter)
 		mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), mDataspaceUnit);
 	
 	this->notifyObservers(kTTSym_dataspaceUnit, n);
+	return kTTErrNone;
+}
+
+TTErr TTData::setDescription(const TTValue& value)
+{
+    TTValue n = value;				// use new value to protect the attribute
+    mDescription = value;
+    
+    this->notifyObservers(kTTSym_description, n);
+	return kTTErrNone;
+}
+
+TTErr TTData::setPriority(const TTValue& value)
+{
+    TTValue n = value;				// use new value to protect the attribute
+    mPriority = value;
+    
+    this->notifyObservers(kTTSym_priority, n);
 	return kTTErrNone;
 }
 
