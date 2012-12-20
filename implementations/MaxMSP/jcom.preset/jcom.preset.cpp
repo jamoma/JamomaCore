@@ -461,8 +461,9 @@ void preset_default(TTPtr self)
 		atom_setsym(&a, gensym(posixpath));
 		defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
 		
-		// recall first preset
-		defer_low((ObjectPtr)x, (method)preset_dorecall, NULL, 0, NULL);
+		// recall the default preset if exists
+        atom_setsym(&a, gensym("default"));
+		defer_low((ObjectPtr)x, (method)preset_dorecall, NULL, 1, &a);
 		
 		// replace filewatcher
 		if (EXTRA->filewatcher) {
@@ -481,9 +482,9 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	char 		fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
-	char			posixpath[MAX_PATH_CHARS];
+	char		posixpath[MAX_PATH_CHARS];
 	TTValue		v;
-	TTSymbol current;
+	TTSymbol    current;
 	Atom		a;
 	
 	// get current preset
