@@ -8,7 +8,6 @@
 
 /* Begin PBXFileReference section */
 		22AD15D016596377002FD7E3 /* JamomaModular.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaModular.yml; sourceTree = "<group>"; };
-		22AD15D116596377002FD7E3 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		D220FB4614A21628005607C3 /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
 		D220FB4714A21628005607C3 /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 		D246012914A0A95D004CC4FD /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
@@ -93,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				22AD15D016596377002FD7E3 /* JamomaModular.yml */,
-				22AD15D116596377002FD7E3 /* Makefile */,
 				D246015614A0A97B004CC4FD /* includes */,
 				D246016214A0A98A004CC4FD /* source */,
 				D246012814A0A95D004CC4FD /* ModularForMax */,
