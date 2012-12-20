@@ -264,7 +264,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			if (output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TTSymbol(s->s_name));
 			
-			if (output == kTTSym_brothers && s == _sym_nothing)
+			if (output == kTTSym_brothers && s == _sym_bang)
 				s = gensym("0");
 			
 			if (s) {
@@ -293,7 +293,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			if (output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TTSymbol(s->s_name));
 			
-			if (output == kTTSym_brothers && s == _sym_nothing)
+			if (output == kTTSym_brothers && s == _sym_bang)
 				s = gensym("0");
 			
 			if (s) {
@@ -319,7 +319,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			if (output == kTTSym_attributes)
 				s = jamoma_TTName_To_MaxName(TTSymbol(s->s_name));
 			
-			if (output == kTTSym_brothers && s == _sym_nothing)
+			if (output == kTTSym_brothers && s == _sym_bang)
 				s = gensym("0");
 			
 			if (s) {
@@ -424,17 +424,18 @@ void nmspc_symbol(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTAddress absoluteAddress;
+	TTAddress   adrs, absoluteAddress;
 	
 	// for absolute address
-	if (TTAddress(msg->s_name).getType() == kAddressAbsolute) {
-		v.append(TTAddress(msg->s_name));
+    adrs = TTAddress(msg->s_name);
+	if (adrs.getType() == kAddressAbsolute) {
+		v.append(adrs);
 	}
 	else {
 		
 		// if the relative attribute is on
 		if (x->index) {
-			absoluteAddress = x->patcherAddress.appendAddress(TTAddress(msg->s_name));
+			absoluteAddress = x->patcherAddress.appendAddress(adrs);
 			v.append(absoluteAddress);
 		}
 		else {

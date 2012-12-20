@@ -1261,7 +1261,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 782.0, 487.0, 40.0, 20.0 ],
+					"patching_rect" : [ 749.5, 492.0, 63.0, 20.0 ],
 					"text" : "zl reg"
 				}
 
@@ -1290,7 +1290,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 934.0, 488.0, 155.0, 47.0 ],
+					"patching_rect" : [ 934.0, 492.0, 155.0, 47.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
 					"presentation_rect" : [ 343.0, 271.0, 252.0, 33.0 ],
@@ -1307,7 +1307,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 875.0, 488.0, 60.0, 20.0 ],
+					"patching_rect" : [ 875.0, 492.0, 60.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 525.0, 238.0, 62.0, 20.0 ],
 					"text" : "instances"
@@ -1323,7 +1323,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ],
-					"patching_rect" : [ 782.0, 462.0, 46.0, 20.0 ],
+					"patching_rect" : [ 749.5, 467.0, 46.0, 20.0 ],
 					"text" : "sel 0 1"
 				}
 
@@ -1342,8 +1342,8 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 835.0, 488.0, 35.0, 20.0 ],
-					"prefix" : "/degrade~.1/in/mute.",
+					"patching_rect" : [ 835.0, 492.0, 35.0, 20.0 ],
+					"prefix" : "/degrade~.",
 					"presentation" : 1,
 					"presentation_rect" : [ 478.0, 238.0, 35.0, 20.0 ]
 				}
@@ -1360,7 +1360,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 835.0, 405.0, 131.0, 47.0 ],
+					"patching_rect" : [ 835.0, 410.0, 131.0, 47.0 ],
 					"text" : "jcom.namespace @output brothers @format umenu_prefix"
 				}
 
@@ -3504,7 +3504,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 760.0, 330.0, 168.0, 20.0 ],
-					"prefix" : "/degrade~.1/in/mute/",
+					"prefix" : "Macintosh HD:/",
 					"presentation" : 1,
 					"presentation_rect" : [ 345.0, 210.0, 168.0, 20.0 ]
 				}
@@ -3567,7 +3567,7 @@
 					"patching_rect" : [ 149.0, 712.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/track.4/mod/pause_ambitus:"
+					"text" : "/:"
 				}
 
 			}
@@ -3659,7 +3659,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/track.4/mod/pause_ambitus:",
+					"prefix" : "/:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ]
 				}
@@ -3680,7 +3680,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 396.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/track.4/mod/pause_ambitus/",
+					"prefix" : "/degrade~/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 300.0, 139.0, 20.0 ]
 				}
@@ -3701,7 +3701,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 246.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/track.4/mod/pause_ambitus/",
+					"prefix" : "/degrade~/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 270.0, 139.0, 20.0 ]
 				}
@@ -3722,7 +3722,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 87.0, 397.0, 139.0, 20.0 ],
-					"prefix" : "/track.4/mod/pause_ambitus/",
+					"prefix" : "/degrade~/",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 240.0, 139.0, 20.0 ]
 				}
@@ -3870,6 +3870,7 @@
 					"destination" : [ "obj-30", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [ 867.5, 405.0, 803.0, 405.0 ],
 					"source" : [ "obj-12", 1 ]
 				}
 
@@ -3927,7 +3928,7 @@
 					"destination" : [ "obj-11", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 900.5, 457.0, 791.5, 457.0 ],
+					"midpoints" : [ 900.5, 462.0, 759.0, 462.0 ],
 					"source" : [ "obj-2", 1 ]
 				}
 
@@ -4030,7 +4031,7 @@
 					"destination" : [ "obj-49", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 791.5, 516.0, 723.0, 516.0, 723.0, 205.0, 744.5, 205.0 ],
+					"midpoints" : [ 759.0, 516.0, 723.0, 516.0, 723.0, 205.0, 744.5, 205.0 ],
 					"source" : [ "obj-30", 0 ]
 				}
 
