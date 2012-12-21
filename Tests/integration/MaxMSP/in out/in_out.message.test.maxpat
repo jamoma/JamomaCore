@@ -97,8 +97,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 297.5, 396.03772, 39.0, 20.0 ],
-									"text" : "zl len"
+									"patching_rect" : [ 297.5, 396.03772, 137.0, 20.0 ],
+									"text" : "zl len @zlmaxsize 1024"
 								}
 
 							}
@@ -140,8 +140,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 282.5, 446.001831, 263.0, 33.0 ],
-									"text" : "jcom.test.assert.equal large.list-test @input bang @compareTo 1025"
+									"patching_rect" : [ 282.5, 446.001831, 200.0, 33.0 ],
+									"text" : "jcom.test.assert.equal large.list-test @input bang @compareTo 1024"
 								}
 
 							}
@@ -182,7 +182,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "bang", "bang", "int" ],
 									"patching_rect" : [ 346.5, 487.106812, 56.0, 20.0 ],
-									"text" : "uzi 1025"
+									"text" : "uzi 1024"
 								}
 
 							}
@@ -195,8 +195,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 383.5, 513.106812, 83.0, 20.0 ],
-									"text" : "zl group 1025"
+									"patching_rect" : [ 383.5, 511.106812, 181.0, 20.0 ],
+									"text" : "zl group 1024 @zlmaxsize 1024"
 								}
 
 							}

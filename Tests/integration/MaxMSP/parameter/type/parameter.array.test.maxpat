@@ -290,7 +290,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 327.0, 44.0, 1353.0, 872.0 ],
+						"rect" : [ 1.0, 44.0, 1360.0, 872.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -329,8 +329,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 967.0, 714.03772, 39.0, 20.0 ],
-									"text" : "zl len"
+									"patching_rect" : [ 967.0, 714.03772, 137.0, 20.0 ],
+									"text" : "zl len @zlmaxsize 1024"
 								}
 
 							}
@@ -372,7 +372,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 952.0, 765.001831, 375.0, 20.0 ],
-									"text" : "jcom.test.assert.equal large.list-test @input bang @compareTo 1025"
+									"text" : "jcom.test.assert.equal large.list-test @input bang @compareTo 1024"
 								}
 
 							}
@@ -413,7 +413,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "bang", "bang", "int" ],
 									"patching_rect" : [ 1016.0, 793.106812, 56.0, 20.0 ],
-									"text" : "uzi 1025"
+									"text" : "uzi 1024"
 								}
 
 							}
@@ -426,8 +426,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1053.0, 819.106812, 83.0, 20.0 ],
-									"text" : "zl group 1025"
+									"patching_rect" : [ 1053.0, 819.106812, 181.0, 20.0 ],
+									"text" : "zl group 1024 @zlmaxsize 1024"
 								}
 
 							}
