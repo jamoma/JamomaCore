@@ -11,6 +11,7 @@
 #include "JamomaObject.h"
 
 #include "AsyncRamp.h"
+#include "ExternalRamp.h"
 #include "NoneRamp.h"
 #include "QueueRamp.h"
 #include "SchedulerRamp.h"
@@ -93,6 +94,7 @@ void jamoma_init(void)
 		//TTDSPInit();
 		
 		AsyncRamp::registerClass();
+        ExternalRamp::registerClass();
 		NoneRamp::registerClass();
 		QueueRamp::registerClass();
 		SchedulerRamp::registerClass();

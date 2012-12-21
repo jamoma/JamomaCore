@@ -129,6 +129,7 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
  ***************************************************************************/
 
 #include "AsyncRamp.h"
+#include "ExternalRamp.h"
 #include "NoneRamp.h"
 #include "QueueRamp.h"
 #include "SchedulerRamp.h"
@@ -145,21 +146,23 @@ TTErr RampLib::createUnit(const TTSymbol unitName, RampUnit **unit, RampUnitCall
 	// These should be alphabetized
 	if (unitName == TTSymbol("async"))
 		TTObjectInstantiate(TTSymbol("AsyncRamp"), (TTObjectPtr*)unit, v);
-		//*unit = (RampUnit*) new AsyncRamp(callback, baton);
+
+    else if (unitName == TTSymbol("external"))
+		TTObjectInstantiate(TTSymbol("ExternalRamp"), (TTObjectPtr*)unit, v);
+
 	else if (unitName == TTSymbol("none"))
 		TTObjectInstantiate(TTSymbol("NoneRamp"), (TTObjectPtr*)unit, v);
-//		*unit = (RampUnit*) new NoneRamp(callback, baton);
+
 	else if (unitName == TTSymbol("queue"))
 		TTObjectInstantiate(TTSymbol("QueueRamp"), (TTObjectPtr*)unit, v);
-//		*unit = (RampUnit*) new QueueRamp(callback, baton);
+
 	else if (unitName == TTSymbol("scheduler"))
 		TTObjectInstantiate(TTSymbol("SchedulerRamp"), (TTObjectPtr*)unit, v);
-//		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
+
 	else {
 		// Invalid function specified default to linear
 		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", unitName.c_str());
 		TTObjectInstantiate(TTSymbol("NoneRamp"), (TTObjectPtr*)unit, v);
-//		*unit = (RampUnit*) new NoneRamp(callback, baton);
 	}
 	return kTTErrNone;
 }
@@ -169,6 +172,7 @@ void RampLib::getUnitNames(TTValue& unitNames)
 {
 	unitNames.clear();
 	unitNames.append(TTSymbol("async"));
+    unitNames.append(TTSymbol("external"));
 	unitNames.append(TTSymbol("none"));
 	unitNames.append(TTSymbol("queue"));
 	unitNames.append(TTSymbol("scheduler"));

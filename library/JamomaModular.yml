@@ -32,6 +32,7 @@ sources:
   - ProtocolLib/Protocol.cpp
   - RampLib/RampLib.cpp
   - RampLib/AsyncRamp.cpp
+  - RampLib/ExternalRamp.cpp
   - RampLib/NoneRamp.cpp
   - RampLib/QueueRamp.cpp
   - RampLib/SchedulerRamp.cpp

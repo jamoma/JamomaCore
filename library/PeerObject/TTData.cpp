@@ -353,10 +353,14 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 		v.get(0, time);
 		
 		if (mRamper && time > 0) {
-			TTUInt16	i, s = aValue.getSize();
+            
+            TTUInt16	i, s = aValue.getSize();
 			TTFloat64*	startArray = new TTFloat64[s];		// start to mValue
 			TTFloat64*	targetArray = new TTFloat64[s];		// go to convertedValue
 			
+            // This is a temporary solution to have audio rate ramping outside the TTData
+            mExternalRampTime = time;
+            
 			if(mValue.getSize() != s)
 				mValue.setSize(s);
 			
@@ -384,6 +388,10 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 	// in any other cases :
 	// stop ramping before to set a value
 	if (mRamper) {
+        
+        // This is a temporary solution to have audio rate ramping outside the TTData
+        mExternalRampTime = 0;
+        
 		mRamper->stop();
 		
 		// update the ramp status attribute
@@ -468,7 +476,12 @@ TTErr TTData::setValue(const TTValue& value)
 		// used new values to protect the attribute
 		r = mValue;
 		n = mValue;
-		
+        
+        // This is a temporary solution to have audio rate ramping outside the TTData
+        if (mRampDrive == TT("external"))
+            if (mExternalRampTime > 0)
+                r.append(mExternalRampTime);
+        
 		// return the value to his owner
 		if (!(mService == kTTSym_return))
 			this->mReturnValueCallback->notify(r, kTTValNONE);

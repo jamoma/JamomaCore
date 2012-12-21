@@ -78,6 +78,7 @@ private:
 
 #ifndef TTDATA_NO_RAMPLIB
 	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
+    TTUInt32        mExternalRampTime;          ///< This is a temporary solution to have audio rate ramping outside the TTData
 #endif
 
 	/** Reset value to default value */

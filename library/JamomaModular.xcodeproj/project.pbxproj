@@ -8,6 +8,8 @@
 
 /* Begin PBXFileReference section */
 		22AD15D016596377002FD7E3 /* JamomaModular.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaModular.yml; sourceTree = "<group>"; };
+		4625988D1684A5660076E93F /* ExternalRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ExternalRamp.cpp; sourceTree = "<group>"; };
+		4625988E1684A5660076E93F /* ExternalRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExternalRamp.h; sourceTree = "<group>"; };
 		D220FB4614A21628005607C3 /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
 		D220FB4714A21628005607C3 /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 		D246012914A0A95D004CC4FD /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
@@ -218,6 +220,8 @@
 				D246017714A0A9BF004CC4FD /* RampLib.cpp */,
 				D246017214A0A9BF004CC4FD /* AsyncRamp.h */,
 				D246017114A0A9BF004CC4FD /* AsyncRamp.cpp */,
+				4625988E1684A5660076E93F /* ExternalRamp.h */,
+				4625988D1684A5660076E93F /* ExternalRamp.cpp */,
 				D246017414A0A9BF004CC4FD /* NoneRamp.h */,
 				D246017314A0A9BF004CC4FD /* NoneRamp.cpp */,
 				D246017614A0A9BF004CC4FD /* QueueRamp.h */,
