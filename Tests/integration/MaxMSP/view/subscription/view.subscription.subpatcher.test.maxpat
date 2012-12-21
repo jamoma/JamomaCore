@@ -354,7 +354,6 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Arial",
@@ -436,7 +435,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 25.0, 305.001862, 260.0, 33.0 ],
+									"patching_rect" : [ 25.0, 305.001862, 263.0, 33.0 ],
 									"text" : "jcom.test.assert.equal subpatcher.deferlow-test @input / @compareTo testview testview.1 2"
 								}
 
