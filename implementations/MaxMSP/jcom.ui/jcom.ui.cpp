@@ -183,6 +183,10 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		
 		x->viewAddress = kTTAdrsEmpty;
 		x->modelAddress = kTTAdrsEmpty;
+        x->patcherPtr = NULL;
+        x->patcherContext = kTTSymEmpty;
+        x->patcherClass = kTTSymEmpty;
+        x->patcherName = kTTSymEmpty;
 		
 		x->hover = false;
 		x->selectAll = false;
@@ -397,7 +401,7 @@ void ui_build(t_ui *x)
 		object_method_parse(x->patcherPtr, _sym_window, "exec", NULL);
 		
 		// set the window title to the module class, jcom.ui shows osc_name already 
-		if (x->patcherClass)
+		if (x->patcherClass != kTTSymEmpty)
 			object_attr_setsym(x->patcherPtr, _sym_title, gensym((char*)x->patcherClass.c_str()));
 		else
 			object_attr_setsym(x->patcherPtr, _sym_title, gensym("No class"));

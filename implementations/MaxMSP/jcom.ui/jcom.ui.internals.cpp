@@ -68,8 +68,8 @@ void ui_data_create_all(t_ui* obj)
 		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 		anObject->setAttributeValue(kTTSym_description, TTSymbol("The size of the view's UI."));
 		
-		v = TTValue(obj->box.b_patching_rect.width);
-		v.append(obj->box.b_patching_rect.height);
+		v = TTValue(obj->box.b_presentation_rect.width);
+		v.append(obj->box.b_presentation_rect.height);
 		anObject->setAttributeValue(kTTSym_value, v);
 		
 		// ui/freeze
