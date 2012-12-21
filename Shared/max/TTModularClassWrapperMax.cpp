@@ -58,8 +58,8 @@ ObjectPtr wrappedModularClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		x->iterateInternals = NO;
 		
 #ifdef ARRAY_EXTERNAL
-		x->arrayFormatInteger = new TTString();
-		x->arrayFormatString = new TTString();
+		x->arrayFormatInteger = TTString();
+		x->arrayFormatString = TTString();
 #endif
 		
 		// dumpout
