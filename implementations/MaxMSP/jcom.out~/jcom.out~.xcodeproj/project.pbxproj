@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		46ABF92A16842D9900B0DCB9 /* jcom.out~.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = "jcom.out~.yml"; sourceTree = "<group>"; };
 		D22F0B89155E673E0090ED01 /* jcom.out.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.out.cpp; path = ../jcom.out/jcom.out.cpp; sourceTree = SOURCE_ROOT; };
 		D24042F315ADC48400D5CCD5 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
 		D24042F415ADC48400D5CCD5 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
@@ -16,6 +17,7 @@
 		A72D873215188DFD001DA7C1 = {
 			isa = PBXGroup;
 			children = (
+				46ABF92A16842D9900B0DCB9 /* jcom.out~.yml */,
 				D22F0B89155E673E0090ED01 /* jcom.out.cpp */,
 				D24042F315ADC48400D5CCD5 /* TTModularClassWrapperMax.h */,
 				D24042F415ADC48400D5CCD5 /* TTModularClassWrapperMax.cpp */,
@@ -115,6 +117,10 @@
 		A72D873D15188DFF001DA7C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					"$(ARCHS_STANDARD_64_BIT)",
+				);
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -128,6 +134,10 @@
 		A72D873E15188DFF001DA7C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					"$(ARCHS_STANDARD_64_BIT)",
+				);
 				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";

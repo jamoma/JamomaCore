@@ -26,13 +26,13 @@ mOutputObject(NULL),
 mReturnSignalCallback(NULL),
 mAddressObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 3);
+	TT_ASSERT("Correct number of args to create TTInput", arguments.getSize() >= 2);
 	
 	arguments.get(0, mType);
 	arguments.get(1, (TTPtr*)&mReturnSignalCallback);
 	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
 	
-	if (arguments.getSize() > 3) {
+	if (arguments.getSize() > 2) {
 		arguments.get(2, (TTPtr*)&mSignalIn);
 		arguments.get(3, (TTPtr*)&mSignalOut);
 		arguments.get(4, (TTPtr*)&mSignalZero);

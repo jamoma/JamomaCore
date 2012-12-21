@@ -439,15 +439,15 @@ void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, d
 	TTFloat32					d;
 	
 	if (aReceiver) {
-		
-		// get signal vectorSize
-		aReceiver->mSignal->getAttributeValue(kTTSym_vectorSize, vectorSize);
-		
-		// store the input
-		TTAudioSignalPtr(aReceiver->mSignal)->setVector(0, vectorSize, ins[0]);
+        
+        // get signal vectorSize
+        aReceiver->mSignal->getAttributeValue(kTTSym_vectorSize, vectorSize);
+        
+        // store the input
+        TTAudioSignalPtr(aReceiver->mSignal)->setVector64Copy(0, vectorSize, ins[0]);
 		
 		// get the object cache of the Receiver object
-		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
+		if (!aReceiver->getAttributeValue(kTTSym_objectCache, v)) {
 			
 			v.get(0, (TTPtr*)&objectCache);
 			
@@ -485,10 +485,10 @@ void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, d
 					}
 				}
 			}
-			
-			// send signal to the outlet
-			TTAudioSignalPtr(aReceiver->mSignal)->getVector(0, vectorSize, outs[0]);
 		}
+        
+        // send signal to the outlet
+        TTAudioSignalPtr(aReceiver->mSignal)->getVectorCopy(0, vectorSize, outs[0]);
 	}
 }
 
@@ -531,42 +531,17 @@ void receive_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate,
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
 	
-	/*
-	anOutput->mRampGainUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
-	anOutput->mGainUnit->setAttributeValue(TT("interpolated"), 1);
-	anOutput->mRampMixUnit->setAttributeValue(kTTSym_sampleRate, samplerate);	// convert midi to db for tap_gain
-	
-	for (i=0; i < anOutput->mNumber; i++) {
-		j = anOutput->mNumber + i;
-		if (count[i] || count[j]) {
-			numChannels++;			
-		}
-	}
-	anOutput->mInfo.set(info_numChannels, numChannels);
-	
-	anOutput->mInfo.set(info_vectorSize, (TTUInt16)maxvectorsize);
-	
-	anOutput->mSignalIn->setAttributeValue(TT("numChannels"), numChannels);
-	anOutput->mSignalOut->setAttributeValue(TT("numChannels"), numChannels);
-	anOutput->mSignalTemp->setAttributeValue(TT("numChannels"), numChannels);
-	//anOutput->mSignalZero->setAttributeValue(TT("numChannels"), numChannels);
-	
-	anOutput->mSignalIn->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	anOutput->mSignalOut->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	anOutput->mSignalTemp->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);
-	//anOutput->mSignalZero->setAttributeValue(TT("vectorSize"), (TTUInt16)maxvectorsize);//Do we need zeroSignal?
-	
-	// mSignalIn will be set in the perform method
-	anOutput->mSignalOut->sendMessage(TT("alloc"));
-	anOutput->mSignalTemp->sendMessage(TT("alloc"));
-	//x->zeroSignal->sendMessage(TT("alloc"));
-	//x->zeroSignal->sendMessage(TT("clear"));
-	//audioIn will be set in the perform method
-	//x->audioOut->sendMessage(TT("alloc"));
-	
-	*/
-	
-	object_method(dsp64, gensym("dsp_add64"), x, receive_perform64, 0, NULL); 
+    if (aReceiver) {
+        
+        // set signal numChannels and vectorSize
+        aReceiver->mSignal->setAttributeValue(kTTSym_numChannels, 1);
+        aReceiver->mSignal->setAttributeValue(kTTSym_vectorSize, (TTUInt16)maxvectorsize);
+        
+        // aReceiver->mSignal will be set in the perform method
+        aReceiver->mSignal->sendMessage(kTTSym_alloc);
+        
+        object_method(dsp64, gensym("dsp_add64"), x, receive_perform64, 0, NULL);
+    }
 }
 
 #endif // JCOM_RECEIVE_TILDE

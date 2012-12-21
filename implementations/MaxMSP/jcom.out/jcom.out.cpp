@@ -173,13 +173,11 @@ void WrapTTOutputClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)out_assist,						"assist",				A_CANT, 0L);
 	
-	//class_addmethod(c, (method)out_register_preview,						"register_preview",		A_CANT, 0L);
-	
 #ifdef JCOM_OUT_TILDE
 	class_addmethod(c->maxClass, (method)out_dsp,							"dsp", 					A_GIMME, 0L);
 	class_addmethod(c->maxClass, (method)out_dsp64,							"dsp64",				A_CANT, 0);
-	//class_addmethod(c->maxClass, (method)out_remoteaudio,					"remoteaudio",			A_CANT, 0);
-	class_addmethod(c->maxClass, (method)out_return_amplitude_active,		"return_amplitude_active",	A_CANT, 0);
+	
+    class_addmethod(c->maxClass, (method)out_return_amplitude_active,		"return_amplitude_active",	A_CANT, 0);
 	//class_addmethod(c, (method)out_getAudioForChannel,					"getAudioForChannel",	A_CANT, 0);
 	class_addmethod(c->maxClass, (method)out_return_link,					"return_link",			A_CANT, 0);
 	
@@ -280,14 +278,14 @@ void WrappedOutputClass_free(TTPtr self)
 void out_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTAddress			outputAddress;
-	TTAddress			inputAddress;
-	TTValue						v, args;
-	TTNodePtr					node = NULL;
-	TTAddress			nodeAddress, parentAddress;
-	TTDataPtr					aData;
-	TTString					formatDescription, sInstance;
-	SymbolPtr					outDescription;
+	TTAddress	outputAddress;
+	TTAddress	inputAddress;
+	TTValue		v, args;
+	TTNodePtr	node = NULL;
+	TTAddress	nodeAddress, parentAddress;
+	TTDataPtr	aData;
+	TTString	formatDescription, sInstance;
+	SymbolPtr	outDescription;
 	
 	outputAddress = TTAddress("out").appendInstance(EXTRA->instance);
 	
@@ -320,7 +318,7 @@ void out_subscribe(TTPtr self)
 		formatDescription = "instant amplitude of %s output";
 		
 		sInstance = EXTRA->instance.c_str();
-		jamoma_edit_string_instance(&formatDescription, &outDescription, &sInstance);
+		jamoma_edit_string_instance(formatDescription, &outDescription, sInstance);
 		
 		makeInternals_data(x, nodeAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
@@ -496,7 +494,6 @@ t_int *out_perform(t_int *w)
 			// then perform gain control (from Temp)
 			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
 			
-			
 		}
 		// otherwise just perform gain control
 		else
@@ -553,8 +550,7 @@ void out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doubl
         anOutput->mSignalIn->getAttributeValue(kTTSym_vectorSize, vectorSize);
         
         // Store the input from the inlets
-            TTAudioSignalPtr(anOutput->mSignalIn)->setVector(0, vectorSize, ins[0]);
-            // if this doesn't work, I need to try setVector64Copy instead of setVector
+        TTAudioSignalPtr(anOutput->mSignalIn)->setVector64Copy(0, vectorSize, ins[0]);
         
         // if the output signal is muted
 		if (anOutput->mMute)
@@ -573,16 +569,14 @@ void out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doubl
             
 			// then perform gain control (from Temp)
 			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
-			
-			
 		}
 		// otherwise just perform gain control
-		else
+		else 
 			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
         
         // Send the input on to the outlets for the algorithm
         TTAudioSignalPtr(anOutput->mSignalOut)->getVectorCopy(0, vectorSize, outs[0]);
-        
+
         // metering
         if (!anOutput->mMute) {
             

@@ -439,7 +439,7 @@ t_int *send_perform(t_int *w)
 	if (aSender) {
 		
 		// get the object cache of the Sender object
-		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
+		if (!aSender->getAttributeValue(kTTSym_objectCache, v)) {
 			
 			v.get(0, (TTPtr*)&objectCache);
 			
@@ -502,7 +502,7 @@ void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doub
 	if (aSender) {
 		
 		// get the object cache of the Sender object
-		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
+		if (!aSender->getAttributeValue(kTTSym_objectCache, v)) {
 			
 			v.get(0, (TTPtr*)&objectCache);
 			
@@ -512,7 +512,7 @@ void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doub
 				aSender->mSignal->getAttributeValue(kTTSym_vectorSize, vectorSize);
 				
 				// store the input from the inlet
-				TTAudioSignalPtr(aSender->mSignal)->setVector(0, vectorSize, ins[0]);
+				TTAudioSignalPtr(aSender->mSignal)->setVector64Copy(0, vectorSize, ins[0]);
 				
 				// process the mean value
 				envelope = ins[0];
