@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		46AF786216844351004165DF /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.h; sourceTree = "<group>"; };
+		46AF786316844351004165DF /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.cpp; sourceTree = "<group>"; };
 		D2EA728F1538AFE20041FD40 /* jcom.parameterArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.parameterArray.cpp; path = ../jcom.parameterArray/jcom.parameterArray.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -15,6 +17,8 @@
 			isa = PBXGroup;
 			children = (
 				D2EA728F1538AFE20041FD40 /* jcom.parameterArray.cpp */,
+				46AF786216844351004165DF /* TTModularClassWrapperMax.h */,
+				46AF786316844351004165DF /* TTModularClassWrapperMax.cpp */,
 			);
 			name = jcom.messageArray;
 			sourceTree = "<group>";

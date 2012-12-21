@@ -1364,7 +1364,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol& retu
 			if (index) {
 				voiceFormat = argName->s_name;
 				voiceFormat += ".%d";
-				jamoma_edit_numeric_instance(&voiceFormat, &argName, index);
+				jamoma_edit_numeric_instance(voiceFormat, &argName, index);
 			}
 			
 			returnedName = TTSymbol(jamoma_parse_dieze(patcher, argName)->s_name);
@@ -1410,7 +1410,7 @@ void jamoma_patcher_get_model_patcher(ObjectPtr patcher, TTSymbol modelClass, Ob
 	ObjectPtr	obj;
 	SymbolPtr	_sym_modelfilename, _sym_objmaxclass, _sym_objfilename;
 	
-	jamoma_edit_filename(ModelPatcherFormat, modelClass, &_sym_modelfilename);
+	jamoma_edit_filename(*ModelPatcherFormat, modelClass, &_sym_modelfilename);
 	
 	obj = object_attr_getobj(patcher, _sym_firstobject);
 	
@@ -1550,7 +1550,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 }
 
 /** returned the N inside "pp/xx.[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
-TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_format)
+TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString& si_format, TTString& ss_format)
 {
 	long		number = 0;
 	TTString	s_toParse = s->s_name;
@@ -1573,61 +1573,61 @@ TTUInt32 jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_for
 		s_number = TTString(ttRegexForBracket->begin(), ttRegexForBracket->end());
 		s_after = TTString(ttRegexForBracket->end()+1, end);
 		
-		sscanf(s_number.data(), "%ld", &number);
+		sscanf(s_number.c_str(), "%ld", &number);
 		
-		(*si_format) = s_before;
-		(*si_format) += "%d";
-		(*si_format) += s_after;
+		si_format = s_before;
+		si_format += "%d";
+		si_format += s_after;
 		
-		(*ss_format) = s_before;
-		(*ss_format) += "%s";
-		(*ss_format) += s_after;
+		ss_format = s_before;
+		ss_format += "%s";
+		ss_format += s_after;
 	}
 	else {
-		(*si_format) = "";
-		(*ss_format) = "";
+		si_format = "";
+		ss_format = "";
 	}
 	
 	return number;
 }
 
 /** edit a new instance of the given format address using interger */
-void jamoma_edit_numeric_instance(TTString *format, SymbolPtr *returnedName, long i)
+void jamoma_edit_numeric_instance(TTString format, SymbolPtr *returnedName, long i)
 {
 	char *s_num;
 	TTInt32 len;
 	
 	if (i > 0) {
-		len = strlen(format->data()) + (TTInt32)log10((TTFloat32)i); // note : %d (lenght = 2) is replaced by 1 character (0::9), 2 charecters (10 :: 99), 3 char...
+		len = format.size() + (TTInt32)log10((TTFloat32)i); // note : %d (lenght = 2) is replaced by 1 character (0::9), 2 charecters (10 :: 99), 3 char...
 		s_num = (char *)malloc(sizeof(char)*len);
-		snprintf(s_num, len, format->data(), i);
+		snprintf(s_num, len, format.c_str(), i);
 		*returnedName = gensym(s_num);
 		free(s_num);
 	}
 }
 
 /** edit a new instance of the given format address using string */
-void jamoma_edit_string_instance(TTString *format, SymbolPtr *returnedName, TTString *s)
+void jamoma_edit_string_instance(TTString format, SymbolPtr *returnedName, TTString s)
 {
-	char *s_str;
+    char *s_str;
 	long len;
-	
-	len = strlen(format->data()) + strlen(s->data());
+    
+	len = format.size() + s.size();
 	s_str = (char *)malloc(sizeof(char)*len);
-	snprintf(s_str, len, format->data(), s->data());
+	snprintf(s_str, len, format.c_str(), s.c_str());
 	*returnedName = gensym(s_str);
 	free(s_str);
 }
 
 /** edit a file name from a given file format and a class name */
-void jamoma_edit_filename(TTString *format, TTSymbol className, SymbolPtr *returnedFileName)
+void jamoma_edit_filename(TTString format, TTSymbol className, SymbolPtr *returnedFileName)
 {
 	char *s_str;
 	long len;
 	
-	len = strlen(format->data()) + strlen(className.c_str());
+	len = format.size() + className.string().size();
 	s_str = (char *)malloc(sizeof(char)*len);
-	snprintf(s_str, len, format->data(), className.c_str());
+	snprintf(s_str, len, format.c_str(), className.c_str());
 	*returnedFileName = gensym(s_str);
 	free(s_str);
 }

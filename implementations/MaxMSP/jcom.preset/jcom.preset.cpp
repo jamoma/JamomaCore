@@ -443,10 +443,10 @@ void preset_default(TTPtr self)
 	if (x->patcherClass) {
 		
 		if (x->patcherContext == kTTSym_model)
-			jamoma_edit_filename(ModelPresetFormat, x->patcherClass, &xmlfile);
+			jamoma_edit_filename(*ModelPresetFormat, x->patcherClass, &xmlfile);
 		
 		else if (x->patcherContext == kTTSym_view)
-			jamoma_edit_filename(ViewPresetFormat, x->patcherClass, &xmlfile);
+			jamoma_edit_filename(*ViewPresetFormat, x->patcherClass, &xmlfile);
 		else
 			object_error((ObjectPtr)x, "preset_default : can't get the context of the patcher");
 		

@@ -237,16 +237,16 @@ extern "C" {
 	TTBoolean		jamoma_extern_load(SymbolPtr objectname, AtomCount argc, AtomPtr argv, ObjectPtr *object);
 	
 	/** returned the N inside "pp/xx.[N]/yyy" and a format string as "pp/xx.%d/yy" and a format string as "pp/xx.%s/yy" */
-	TTUInt32		jamoma_parse_bracket(SymbolPtr s, TTString *si_format, TTString *ss_format);
+	TTUInt32		jamoma_parse_bracket(SymbolPtr s, TTString& si_format, TTString& ss_format);
 	
 	/** edit a new instance of the given format address using interger */
-	void			jamoma_edit_numeric_instance(TTString *format, SymbolPtr *returnedName, long i);
+	void			jamoma_edit_numeric_instance(TTString format, SymbolPtr *returnedName, long i);
 	
 	/** edit a new instance of the given format address using string */
-	void			jamoma_edit_string_instance(TTString *format, SymbolPtr *returnedName, TTString *s);
-	
+	void			jamoma_edit_string_instance(TTString format, SymbolPtr *returnedName, TTString s);
+
 	/** edit a file name from a given file format and a class name */
-	void			jamoma_edit_filename(TTString *format, TTSymbol className, SymbolPtr *returnedFileName);
+	void			jamoma_edit_filename(TTString format, TTSymbol className, SymbolPtr *returnedFileName);
 	
 	/** Parse #N inside address and replace them by parent patcher arguments if there are */
 	SymbolPtr		jamoma_parse_dieze(ObjectPtr x, SymbolPtr address);

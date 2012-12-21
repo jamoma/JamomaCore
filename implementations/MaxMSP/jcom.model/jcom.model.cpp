@@ -421,7 +421,7 @@ void model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->patcherClass) {
 		
 		SymbolPtr helpfileName;
-		jamoma_edit_filename(HelpPatcherFormat, x->patcherClass, &helpfileName);
+		jamoma_edit_filename(*HelpPatcherFormat, x->patcherClass, &helpfileName);
 		classname_openhelp((char*)helpfileName->s_name);
 	}
 }
@@ -433,7 +433,7 @@ void model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->patcherContext && x->patcherClass) {
 		
 		SymbolPtr refpagefileName;
-		jamoma_edit_filename(RefpageFormat, x->patcherClass, &refpagefileName);
+		jamoma_edit_filename(*RefpageFormat, x->patcherClass, &refpagefileName);
 		classname_openrefpage((char*)refpagefileName->s_name);
 	}
 }
