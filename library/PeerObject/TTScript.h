@@ -58,8 +58,8 @@ private:
 	/**	Dump all lines of the script using mReturnLineCallback */
 	TTErr	Dump(const TTValue& inputValue, TTValue& outputValue);
 	
-	/**	Process all command lines of the script to bind on each TTObject.
-		This is usefull for client which have to manage lines depending on their object */
+	/**	Process all command lines of the script to bind on each TTNode.
+		This is usefull for client which have to manage lines depending on node's content */
 	TTErr	Bind(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Append any line to the script (a parsing will find which kind of line it is)	*/
@@ -137,8 +137,8 @@ TTErr			TTMODULAR_EXPORT TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScrip
 /* Copy a script */
 TTErr			TTMODULAR_EXPORT TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy);
 
-/* a TTFunctionMatch to find a line in the script depending on the object it binds */
-void			TTMODULAR_EXPORT TTScriptFindObject(const TTValue& lineValue, TTPtr objectPtrToMatch, TTBoolean& found);
+/* a TTFunctionMatch to find a line in the script depending on the node it binds */
+void			TTMODULAR_EXPORT TTScriptFindNode(const TTValue& lineValue, TTPtr nodePtrToMatch, TTBoolean& found);
 
 /* a TTFunctionMatch to find a line in the script depending on the address */
 void			TTMODULAR_EXPORT TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found);
