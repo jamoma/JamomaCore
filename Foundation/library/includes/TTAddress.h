@@ -12,6 +12,10 @@
 #include "TTAddressBase.h"
 #include "TTAddressTable.h"
 
+class TTRegex;
+
+extern TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero;	///< The global regex to parse instance .0
+
 /****************************************************************************************************/
 // Class Specifications
 
@@ -34,7 +38,16 @@ public:
 	
 	TTAddress(const char *cstr)
 	{
-		mSymbolPointer = gTTAddressTable.lookup(cstr);
+        // check if there is a '0'
+        if (strchr(cstr, C_ZERO) != 0) {
+            
+            TTString sparsed;
+            parseInstanceZero(cstr, sparsed);
+            
+            mSymbolPointer = gTTAddressTable.lookup(sparsed);
+        }
+        else
+            mSymbolPointer = gTTAddressTable.lookup(cstr);
 	}
 	
 	
@@ -49,7 +62,14 @@ public:
 	
 	TTAddress(TTPtr do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing)
 	{
-		mSymbolPointer = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
+        TTSymbolBase* base = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
+        
+        // we have to check if this symbol base is part of the gTTAddressTable
+        // (to not bind on a symbol base stored into gTTSymbolTable)
+        if (base->getSymbolTableId() == TTPtrSizedInt(&gTTAddressTable))
+            mSymbolPointer = base;
+        else
+            mSymbolPointer = ((TTAddressBase*)gTTAddressTable.lookup(base->getCString()));
 	}
 	
 	
@@ -187,7 +207,12 @@ public:
 	{
 		return getBasePointer()->listNameInstance(nameInstanceList);
 	}
-	
+    
+private:
+	/** Parse ".0"
+	 @return							An error code if the parsing failed */
+	TTErr parseInstanceZero(const char* cstr, TTString& parsed);
+    
 };
 
 #endif // __TT_ADDRESS_H__

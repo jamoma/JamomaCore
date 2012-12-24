@@ -20,6 +20,8 @@ xcuserdata
 project.xcworkspace
 *.orig
 *.o
+*.i386.o-*
+*.x64.o-*
 *.bundle
 *.log
 *.tm_build_errors

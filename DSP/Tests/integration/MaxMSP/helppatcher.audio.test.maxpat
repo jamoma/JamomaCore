@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 8
 		}
 ,
 		"rect" : [ 194.0, 44.0, 856.0, 822.0 ],
@@ -30,7 +30,21 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 1.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-39",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 290.0, 314.0, 32.5, 19.0 ],
+					"text" : "+ 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : 0.0,
 					"id" : "obj-38",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -229,7 +243,7 @@
 					"fontsize" : 10.0,
 					"id" : "obj-29",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
+					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "" ],
 					"patching_rect" : [ 654.0, 314.0, 100.0, 19.0 ],
@@ -344,7 +358,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 485.0, 580.0, 93.0, 18.0 ],
+					"patching_rect" : [ 485.0, 580.0, 93.0, 17.0 ],
 					"text" : "Now Testing: $1"
 				}
 
@@ -357,7 +371,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 485.0, 605.0, 48.0, 19.0 ],
+					"patching_rect" : [ 485.0, 605.0, 74.0, 19.0 ],
 					"text" : "jcom.test.log"
 				}
 
@@ -368,9 +382,10 @@
 					"fontsize" : 10.0,
 					"id" : "obj-57",
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 365.0, 790.0, 389.0, 19.0 ],
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 365.0, 790.0, 437.0, 19.0 ],
 					"text" : "jcom.test.assert.equal.old \"TEST JamomaDSP NoErrorsRunningDSPinHelpPatchers\" 0"
 				}
 
@@ -490,7 +505,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 290.0, 255.0, 20.0, 20.0 ]
+					"patching_rect" : [ 290.0, 253.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -532,7 +547,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 290.0, 300.0, 50.0, 19.0 ]
+					"patching_rect" : [ 290.0, 294.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -545,7 +560,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 4,
 					"outlettype" : [ "int", "", "", "int" ],
-					"patching_rect" : [ 290.0, 280.0, 87.0, 19.0 ],
+					"patching_rect" : [ 290.0, 274.0, 87.0, 19.0 ],
 					"text" : "counter 1 1000"
 				}
 
@@ -794,7 +809,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 205.0, 690.0, 92.0, 18.0 ],
+					"patching_rect" : [ 205.0, 690.0, 92.0, 17.0 ],
 					"text" : "script delete foo"
 				}
 
@@ -808,7 +823,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 310.0, 580.0, 172.0, 18.0 ],
+					"patching_rect" : [ 310.0, 580.0, 172.0, 17.0 ],
 					"text" : "script newdefault foo 200 65 $1"
 				}
 
@@ -832,7 +847,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-45",
 					"linecount" : 5,
 					"maxclass" : "comment",
@@ -847,7 +862,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-44",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -936,9 +951,9 @@
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 40.0, 57.0, 19.0 ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "bang", "bang" ],
+					"patching_rect" : [ 30.0, 40.0, 83.0, 19.0 ],
 					"text" : "jcom.test.start"
 				}
 
@@ -978,7 +993,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 55.0, 405.0, 72.0, 19.0 ],
+					"patching_rect" : [ 55.0, 405.0, 98.0, 19.0 ],
 					"text" : "jcom.test.finished"
 				}
 
@@ -1004,11 +1019,11 @@
 					"id" : "obj-54",
 					"linecount" : 3,
 					"maxclass" : "newobj",
-					"numinlets" : 24,
-					"numoutlets" : 24,
-					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 160.0, 170.0, 422.0, 43.0 ],
-					"text" : "route jbogus print button zl thispatcher trigger route prepend coll js ezdac~ comment counter delay qlim speedlim bangbang combine message gate number patcher error"
+					"numinlets" : 25,
+					"numoutlets" : 25,
+					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 203.0, 163.0, 365.0, 43.0 ],
+					"text" : "route jbogus print button zl thispatcher trigger route prepend coll js ezdac~ comment counter delay qlim speedlim bangbang combine message gate number patcher error +"
 				}
 
 			}
@@ -1023,6 +1038,7 @@
 					"outlettype" : [ "", "", "", "", "" ],
 					"patching_rect" : [ 160.0, 135.0, 104.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"filename" : "patchdescribe.js",
 						"parameter_enable" : 0
 					}
 ,
@@ -1142,6 +1158,16 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-72", 4 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 299.5, 337.0, 222.5, 337.0 ],
+					"source" : [ "obj-39", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-46", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -1209,8 +1235,8 @@
 					"destination" : [ "obj-20", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 572.5, 224.0, 169.5, 224.0 ],
-					"source" : [ "obj-54", 23 ]
+					"midpoints" : [ 558.5, 224.0, 169.5, 224.0 ],
+					"source" : [ "obj-54", 24 ]
 				}
 
 			}
@@ -1219,7 +1245,7 @@
 					"destination" : [ "obj-54", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 212.0, 162.0, 169.5, 162.0 ],
+					"midpoints" : [ 212.0, 162.0, 212.5, 162.0 ],
 					"source" : [ "obj-56", 2 ]
 				}
 
@@ -1453,10 +1479,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-72", 4 ],
+					"destination" : [ "obj-39", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 299.5, 326.0, 222.5, 326.0 ],
 					"source" : [ "obj-83", 0 ]
 				}
 
@@ -1529,8 +1554,36 @@
 		"dependency_cache" : [ 			{
 				"name" : "patchdescribe.js",
 				"bootpath" : "/Applications/Max6/examples/javascript/patcher-scripting",
-				"patcherrelativepath" : "../../../../../../../../Applications/Max6/examples/javascript/patcher-scripting",
+				"patcherrelativepath" : "../../../../../../../../../../Applications/Max6/examples/javascript/patcher-scripting",
 				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.finished.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components/test.finished",
+				"patcherrelativepath" : "../../../../../Modules/Test/components/test.finished",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.start.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components/test.start",
+				"patcherrelativepath" : "../../../../../Modules/Test/components/test.start",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.assert.equal.old.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components/test.assert.equal.old",
+				"patcherrelativepath" : "../../../../../Modules/Test/components/test.assert.equal.old",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.log.maxpat",
+				"bootpath" : "/Users/nilspeters/Documents/gits/Jamoma/Modules/Test/components/test.log",
+				"patcherrelativepath" : "../../../../../Modules/Test/components/test.log",
+				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{

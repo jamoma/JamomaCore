@@ -23,7 +23,7 @@ void TTNodeLibInit()
 #endif
 }
 
-TTErr convertUpperCasedName(TTSymbol upperCasedName, TTSymbol& convertedName)
+TTErr convertUpperCasedNameInAddress(TTSymbol upperCasedName, TTAddress& convertedInAddress)
 {
 	TTUInt32	upperCasedNameSize = strlen(upperCasedName.c_str());
 	TTCString	upperCasedNameCString = new char[upperCasedNameSize+1];
@@ -69,13 +69,13 @@ TTErr convertUpperCasedName(TTSymbol upperCasedName, TTSymbol& convertedName)
 		// ends the CString with a NULL letter
 		convertedNameCString[convertedNameSize] = 0;
 		
-		convertedName = convertedNameCString;
+		convertedInAddress = TTAddress(convertedNameCString);
 		
 		delete convertedNameCString;
 		convertedNameCString = NULL;
 	}
 	else
-		convertedName = upperCasedName;
+		convertedInAddress = TTAddress(upperCasedName);
 	
 	delete upperCasedNameCString;
 	upperCasedNameCString = NULL;

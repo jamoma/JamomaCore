@@ -400,23 +400,32 @@ end
     project_type = "extension"
     project_type = "library" if foldername == "library"
     project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "implementations"
-
+    define_c74_linker_syms = false
     path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.."
     path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
     
     if ($g_use_yaml_project_files && File.exists?("#{projectdir}/#{projectname}.yml"))
       yaml = YAML.load_file( "#{projectdir}/#{projectname}.yml")
       projectname.gsub!('#','\##')     # in case there is a # in the project name, which would be interpreted as a comment symbol
+        
       sources = yaml["sources"]
       includes = yaml["includes"]
       libraries = yaml["libraries"]
       defines = yaml["defines"]
+        
       frameworks = nil
       frameworks = yaml["frameworks"] if mac?
+        
       compiler = yaml["compiler"]
       compiler = forcedCompiler if forcedCompiler # manual overwriting the compiler setting from the YML file
       puts("   forced compiler is: #{compiler}") if forcedCompiler
-      arch = yaml["arch"]
+      
+      if (!yaml["arch"])
+          arch = 'default'
+      else
+          arch = yaml["arch"]
+      end
+        
       prefix = yaml["prefix"]
       postbuilds = yaml["postbuilds"]
       builddir = yaml["builddir"]
@@ -538,23 +547,23 @@ end
         makefile.write("NAME = #{projectname}\n\n")
         if mac?
           if ((File.exists? "/usr/bin/icc") && (skipIcc == false))
-            makefile.write("CC_32 = icc -arch i386\n")
-            makefile.write("CC_64 = icc -arch x86_64\n\n")
+            makefile.write("CC_32 = icc -arch i386\n") if (arch == 'i386' || arch == 'default')
+            makefile.write("CC_64 = icc -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
             icc = true
           elsif ((File.exists? "/usr/bin/clang++") && (skipClang == false))
-            makefile.write("CC_32 = /usr/bin/clang++ -arch i386\n")
-            makefile.write("CC_64 = /usr/bin/clang++ -arch x86_64\n\n")
+            makefile.write("CC_32 = /usr/bin/clang++ -arch i386\n") if (arch == 'i386' || arch == 'default')
+            makefile.write("CC_64 = /usr/bin/clang++ -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
             clang = true
           elsif ((File.exists? "/opt/local/bin/g++-mp-4.7") && (skipGcc47 == false))
-            makefile.write("CC_32 = /opt/local/bin/g++-mp-4.7 -arch i386\n")
-            makefile.write("CC_64 = /opt/local/bin/g++-mp-4.7 -arch x86_64\n\n")
+            makefile.write("CC_32 = /opt/local/bin/g++-mp-4.7 -arch i386\n") if (arch == 'i386' || arch == 'default')
+            makefile.write("CC_64 = /opt/local/bin/g++-mp-4.7 -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
             gcc47 = true
           else
             puts "you don't have a support compiler.  it probably isn't going to work out for the two of us..."
             clang = true
           end
-          #makefile.write("CC_32 = llvm-g++-4.2 -arch i386\n")
-          #makefile.write("CC_64 = llvm-g++-4.2 -arch x86_64\n\n")
+          # makefile.write("CC_32 = llvm-g++-4.2 -arch i386\n") if (arch == 'i386' || arch == 'default')
+          # makefile.write("CC_64 = llvm-g++-4.2 -arch x86_64\n\n") if (arch == 'x86_64' || arch != 'i386' || arch == 'default')
         else
           makefile.write("CC = g++\n\n")
         end
@@ -581,12 +590,12 @@ end
           source64 = nil
           if mac?
             if (source.match(/\.mm/))     # objective-c code
-              source32 = source.gsub(/\.mm/, ".i386.mm.o ")
-              source64 = source.gsub(/\.mm/, ".x64.mm.o ") if (!arch || arch != 'i386')
+                source32 = source.gsub(/\.mm/, ".i386.mm.o ") if (arch == 'i386' || arch == 'default')
+                source64 = source.gsub(/\.mm/, ".x64.mm.o ") if (arch == 'x86_64' || arch == 'default')
             else                          # c++ code
-              source32 = source.gsub(/\.cpp/, ".i386.o ")
-              source64 = source.gsub(/\.cpp/, ".x64.o") if (!arch || arch != 'i386')
-            end            
+                source32 = source.gsub(/\.cpp/, ".i386.o ") if (arch == 'i386' || arch == 'default')
+                source64 = source.gsub(/\.cpp/, ".x64.o") if (arch == 'x86_64' || arch == 'default')
+            end
           else
             source.gsub!(/\.cpp/, ".o")
           end
@@ -724,7 +733,9 @@ end
               elsif (lib == "C74-MSP")
                 makefile.write("#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI")              
               elsif (lib == "C74-JITTER")
-                makefile.write("#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI")       
+                makefile.write("#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI")
+              elsif (lib == "C74")
+                define_c74_linker_syms = true
               else
                 makefile.write(lib)
               end
@@ -1007,6 +1018,12 @@ end
         end
         makefile.write("LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g\n") if linux?
         makefile.write("LDFLAGS += -fPIC\n") if beagle?
+        if define_c74_linker_syms
+          if mac?
+            makefile.write("C74SYMS = -Wl,-U,_sysmem_newptr,-U,_sysmem_freeptr,-U,_strncpy_zero,-U,_stdinletinfo,-U,_outlet_new,-U,_outlet_anything,-U,_object_post,-U,_object_obex_store,-U,_object_obex_dumpout,-U,_object_method,-U,_object_error,-U,_object_alloc,-U,_hashtab_store,-U,_hashtab_new,-U,_hashtab_lookup,-U,_gensym,-U,_error,-U,_common_symbols_gettable,-U,_class_register,-U,_class_new,-U,_class_attr_addattr_parse,-U,_class_addmethod,-U,_class_addattr,-U,_attr_offset_new,-U,_attr_args_process,-U,_attr_args_offset,-U,_atom_setsym,-U,_atom_setlong,-U,_atom_setfloat,-U,_atom_gettype,-U,_atom_getsym,-U,_atom_getlong,-U,_atom_getfloat,-U,_z_dsp_setup,-U,_z_dsp_free,-U,_sys_getsr,-U,_dsp_addv,-U,_class_dspinit,-U,_jit_object_method,-U,_outlet_int,-U,_outlet_list,-U,_class_attr_get,-U,_dsp_add,-U,_fileusage_addfile,-U,_locatefile_extended,-U,_nameinpath,-U,_path_closefolder,-U,_path_foldernextfile,-U,_path_openfolder,-U,_defer_low,-U,_globalsymbol_reference,-U,_globalsymbol_dereference,-U,_bangout,-U,_freeobject,-U,_outlet_bang,-U,_outlet_float,-U,_proxy_getinlet,-U,_proxy_new,-U,_atom_arg_getlong,-U,_atom_arg_getsym,-U,_floatout,-U,_intout,-U,_post,-U,_sys_getblksize,-U,_sysmem_newptrclear,-U,_object_attr_setfloat,-U,_object_attr_setlong,-U,_atom_arg_getfloat,-U,_atom_getfloatarg,-U,_listout,-U,_attr_addfilter_clip,-U,_attr_dictionary_process,-U,_class_attr_addattr_format,-U,_jbox_free,-U,_jbox_get_rect_for_view,-U,_jbox_initclass,-U,_jbox_new,-U,_jbox_ready,-U,_jbox_redraw,-U,_jgraphics_fill,-U,_jgraphics_rectangle_rounded,-U,_jgraphics_set_source_jrgba,-U,_object_attach_byptr,-U,_object_attr_get_rect,-U,_object_attr_set_rect,-U,_object_detach_byptr,-U,_object_dictionaryarg,-U,_object_register,-U,_object_unregister,-U,_patcherview_get_jgraphics,-U,_symbol_unique,-U,_attr_offset_array_new,-U,_defer,-U,_object_free,-U,_object_method_typed,-U,_object_new_typed,-U,_path_copyfile,-U,_path_copyfolder,-U,_path_createfolder,-U,_path_frompathname,-U,_path_nameconform,-U,_clock_delay,-U,_clock_new,-U,_clock_unset,-U,_intin,-U,_addmess,-U,_newobject,-U,_setup,-U,_z_add_signalmethod,-U,_object_attr_setsym,-U,_open_dialog,-U,_path_addnamed,-U,_path_createsysfile,-U,_path_getfilemoddate,-U,_path_opensysfile,-U,_path_topotentialname,-U,_sysfile_close,-U,_sysfile_geteof,-U,_sysfile_read,-U,_sysfile_seteof,-U,_sysfile_write,-U,_systime_secondstodate,-U,_qelem_new,-U,_qelem_free,-U,_qelem_set,-U,_jit_class_addadornment,-U,_jit_class_addattr,-U,_jit_class_addmethod,-U,_jit_class_findbyname,-U,_jit_class_new,-U,_jit_class_register,-U,_jit_error_code,-U,_jit_object_alloc,-U,_jit_object_free,-U,_jit_object_new,-U,_max_addmethod_usurp_low,-U,_max_jit_attr_args,-U,_max_jit_classex_mop_wrap,-U,_max_jit_classex_setup,-U,_max_jit_classex_standard_wrap,-U,_max_jit_mop_assist,-U,_max_jit_mop_free,-U,_max_jit_mop_getoutputmode,-U,_max_jit_mop_outputmatrix,-U,_max_jit_mop_setup_simple,-U,_max_jit_obex_adornment_get,-U,_max_jit_obex_free,-U,_max_jit_obex_jitob_get,-U,_max_jit_obex_new,-U,_jbox_get_nextobject,-U,_jbox_get_object,-U,_jbox_get_varname,-U,_jpatcher_get_firstobject,-U,_object_attr_getnames,-U,_object_attr_getvalueof,-U,_object_obex_lookup,-U,_jit_atom_setfloat,-U,_jit_error_sym,-U,_jit_matrix_info_default,-U,_jit_object_findregistered,-U,_jit_symbol_unique,-U,_max_jit_obex_dumpout,-U,_jit_object_detach,-U,_jit_object_attach\n")
+            makefile.write("LDFLAGS += $(C74SYMS)\n")
+          end
+        end
 
         if project_type == "library"
           extension_suffix = ".dylib" if mac?
@@ -1081,7 +1098,7 @@ end
           makefile.write("\n")
           makefile.write("#########################################\n\n")         
           makefile.write("Debug: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
-          makefile.write("#Debug: createdirs i386 #{'x64' if arch!='i386'} lipo install\n")
+          makefile.write("#Debug: createdirs #{'i386' if (arch == 'i386' || arch == 'default')} #{'x64' if (arch == 'x86_64' || arch == 'default')} lipo install\n")
           makefile.write("Debug: createdirs install\n")
           makefile.write("\n")
 
@@ -1102,31 +1119,43 @@ end
           
           # All compiled object files are dependent upon their individual source file and _all_ headers
           # At some point we could try to be more refined about depending on _all_ headers, but for now this is the safest way to go.
-          makefile.write("%.i386.o: %.cpp ${INCLUDE_FILES}\n")
-          makefile.write("\t$(CC_32) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
-          makefile.write("%.x64.o: %.cpp ${INCLUDE_FILES}\n")
-          makefile.write("\t$(CC_64) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
-          makefile.write("%.i386.mm.o: %.mm ${INCLUDE_FILES}\n")
-          makefile.write("\t$(CC_32) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
-          makefile.write("%.x64.mm.o: %.mm ${INCLUDE_FILES}\n")
-          makefile.write("\t$(CC_64) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
+          if (arch == 'i386' || arch == 'default')
+              makefile.write("%.i386.o: %.cpp ${INCLUDE_FILES}\n")
+              makefile.write("\t$(CC_32) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
+              makefile.write("%.i386.mm.o: %.mm ${INCLUDE_FILES}\n")
+              makefile.write("\t$(CC_32) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
+          end
+          if (arch == 'x86_64' || arch == 'default')
+              makefile.write("%.x64.o: %.cpp ${INCLUDE_FILES}\n")
+              makefile.write("\t$(CC_64) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
+              makefile.write("%.x64.mm.o: %.mm ${INCLUDE_FILES}\n")
+              makefile.write("\t$(CC_64) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
+          end
           makefile.write("\n")
  
-          makefile.write("link: i386 #{'x64' if arch!='i386'} | $(SRC32) #{'$(SRC64)' if arch!='i386'}\n\n")
+          makefile.write("link: #{'i386' if (arch == 'i386' || arch == 'default')} #{'x64' if (arch == 'x86_64' || arch == 'default')} | #{'$(SRC32)' if (arch =='i386' || arch == 'default')} #{'$(SRC64)' if (arch == 'x86_64' || arch == 'default')}\n\n")
           
-          makefile.write("i386: $(SRC32)\n")
-          makefile.write("\t$(CC_32) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/$(NAME)-i386#{extension_suffix} $(SRC32)\n")
-          makefile.write("\n")
-
-          makefile.write("x64: $(SRC64)\n")
-          makefile.write("\t$(CC_64) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/$(NAME)-x86_64#{extension_suffix} $(SRC64)\n")
-          makefile.write("\n")
+          if (arch == 'i386' || arch == 'default')
+              makefile.write("i386: $(SRC32)\n")
+              makefile.write("\t$(CC_32) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/$(NAME)-i386#{extension_suffix} $(SRC32)\n")
+              makefile.write("\n")
+          end
+          
+          if (arch == 'x86_64' || arch == 'default')
+              makefile.write("x64: $(SRC64)\n")
+              makefile.write("\t$(CC_64) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/$(NAME)-x86_64#{extension_suffix} $(SRC64)\n")
+              makefile.write("\n")
+          end
 
           makefile.write("lipo: | link\n")
-          if (arch == 'i386') # not a universal binary, just copy it
-            makefile.write("\tcp #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")           
+        
+          # not a universal binary, just copy it
+          if (arch == 'i386')
+              makefile.write("\tcp #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")
+          elsif (arch == 'x86_64')
+              makefile.write("\tlipo #{build_temp}/$(NAME)-x86_64#{extension_suffix} -create -output #{build_temp}/$(NAME)#{extension_suffix}\n")
           else
-            makefile.write("\tlipo #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)-x86_64#{extension_suffix} -create -output #{build_temp}/$(NAME)#{extension_suffix}\n")
+              makefile.write("\tlipo #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)-x86_64#{extension_suffix} -create -output #{build_temp}/$(NAME)#{extension_suffix}\n")
           end
           makefile.write("\n")
 
@@ -1159,13 +1188,16 @@ end
           if mac?
             makefile.write("\tmkdir -p #{extension_dest}\n")
             makefile.write("\ttouch #{extension_dest}\n")
-            if arch == "i386"
+            if (arch == 'i386')
               makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)-i386#{extension_suffix}\n")
               makefile.write("\tcp build/$(NAME)-i386#{extension_suffix} build/$(NAME)#{extension_suffix}\n")
-            else
-              makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)-i386#{extension_suffix}\n")
+            elsif (arch == 'x86_64')
               makefile.write("\t$(CC_64) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)-x86_64#{extension_suffix}\n")
-              makefile.write("\tlipo build/$(NAME)-i386#{extension_suffix} build/$(NAME)-x86_64#{extension_suffix} -create -output build/$(NAME)#{extension_suffix}\n")
+              makefile.write("\tlipo build/$(NAME)-x86_64#{extension_suffix} -create -output build/$(NAME)#{extension_suffix}\n")
+            else
+                makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)-i386#{extension_suffix}\n")
+                makefile.write("\t$(CC_64) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)-x86_64#{extension_suffix}\n")
+                makefile.write("\tlipo build/$(NAME)-i386#{extension_suffix} build/$(NAME)-x86_64#{extension_suffix} -create -output build/$(NAME)#{extension_suffix}\n")
             end
           else
             makefile.write("\t$(CC) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)#{extension_suffix}\n")
@@ -1220,14 +1252,18 @@ end
               makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
             end
           
-            if arch == "i386"
+            if (arch == 'i386')
               makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_RELEASE) -o build/$(NAME)-i386#{extension_suffix}\n")
               makefile.write("\tcp build/$(NAME)-i386#{extension_suffix} build/$(NAME)#{extension_suffix}\n")
+            elsif (arch == 'x86_64')
+              makefile.write("\t$(CC_64) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_RELEASE) -o build/$(NAME)-x86_64#{extension_suffix}\n")
+              makefile.write("\tlipo build/$(NAME)-x86_64#{extension_suffix} -create -output build/$(NAME)#{extension_suffix}\n")
             else
               makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_RELEASE) -o build/$(NAME)-i386#{extension_suffix}\n")
               makefile.write("\t$(CC_64) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_RELEASE) -o build/$(NAME)-x86_64#{extension_suffix}\n")
               makefile.write("\tlipo build/$(NAME)-i386#{extension_suffix} build/$(NAME)-x86_64#{extension_suffix} -create -output build/$(NAME)#{extension_suffix}\n")
             end
+            
             if project_type == "implementation"
               makefile.write("\ttouch #{touch_dest}\n")
             end

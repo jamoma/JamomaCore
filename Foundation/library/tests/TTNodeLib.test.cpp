@@ -78,6 +78,15 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance6	= testAddress6.getInstance();
 	TTSymbol		attribute6	= testAddress6.getAttribute();
 	TTAddressType	type6		= testAddress6.getType();
+    
+    TTAddress		testAddress7("/*.*");
+	
+	TTSymbol		directory7	= testAddress7.getDirectory();
+	TTAddress		parent7		= testAddress7.getParent();
+	TTSymbol		name7		= testAddress7.getName();
+	TTSymbol		instance7	= testAddress7.getInstance();
+	TTSymbol		attribute7	= testAddress7.getAttribute();
+	TTAddressType	type7		= testAddress7.getType();
 	
 	// The first set of tests checks parsing of addresses
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
@@ -139,6 +148,16 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 					type6 == kAddressAbsolute,
 					testAssertionCount,
 					errorCount);
+    
+    TTTestAssertion("TTAddress: Test fails if parsing of testAddress7 is bad",
+					directory7 == NO_DIRECTORY &&
+					parent7 == kTTAdrsRoot &&
+					name7 == S_WILDCARD &&
+					instance7 == S_WILDCARD &&
+					attribute7 == NO_ATTRIBUTE &&
+					type7 == kAddressAbsolute,
+					testAssertionCount,
+					errorCount);
 }
 
 void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
@@ -152,6 +171,9 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 	
 	TTAddress testAddressF("name.instance:attribute");
 	TTAddress testAddressG("/name.instance:attribute");
+    
+    TTSymbol  testSymbolA("");
+    
 	TTSymbol  resultSymbol;
     TTAddress resultAddress;
 	TTAddress part1, part2;
@@ -483,25 +505,83 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
 	TTSymbol testSymbolA = "TestSymbolName";
 	TTSymbol testSymbolB = "testSymbolName";
 	TTSymbol testSymbolC = "testsymbolname";
-	TTSymbol result;
+	TTAddress result;
+   
 
-	convertUpperCasedName(testSymbolA, result);
+	convertUpperCasedNameInAddress(testSymbolA, result);
 	TTTestAssertion("convertUpperCasedName: Test passes if \"TestSymbolName\" is converted in \"test/symbol/name\"",
-					result == TTSymbol("test/symbol/name"),
+					result == TTAddress("test/symbol/name"),
 					testAssertionCount,
 					errorCount);
 	
-	convertUpperCasedName(testSymbolB, result);
+	convertUpperCasedNameInAddress(testSymbolB, result);
 	TTTestAssertion("convertUpperCasedName: Test passes if \"testSymbolName\" is converted in \"test/symbol/name\"",
-					result == TTSymbol("test/symbol/name"),
+					result == TTAddress("test/symbol/name"),
 					testAssertionCount,
 					errorCount);
 	
-	convertUpperCasedName(testSymbolC, result);
+	convertUpperCasedNameInAddress(testSymbolC, result);
 	TTTestAssertion("convertUpperCasedName: Test passes if \"testsymbolname\" is not converted",
 					result == testSymbolC,
 					testAssertionCount,
 					errorCount);
+    
+    // test TTSymbol to TTAdress casting
+    TTValue     testValue = TTValue(TTSymbol("directory:/gran/parent/name.instance:attribute"));
+    TTAddress   testAddress;
+    
+    testValue.get(0, testAddress);
+    
+    TTSymbol		directory	= testAddress.getDirectory();
+	TTAddress		parent		= testAddress.getParent();
+	TTSymbol		name		= testAddress.getName();
+	TTSymbol		instance	= testAddress.getInstance();
+	TTSymbol		attribute	= testAddress.getAttribute();
+	TTAddressType	type		= testAddress.getType();
+
+    TTTestAssertion("TTValue::get : Test2 fails if a TTSymbol contained into a value is not casted into a TTAddress during a get method",
+					directory == TTSymbol("directory") &&
+					parent == TTAddress("/gran/parent") &&
+					name == TTSymbol("name") &&
+					instance == TTSymbol("instance") &&
+					attribute == TTSymbol("attribute") &&
+					type == kAddressAbsolute,
+					testAssertionCount,
+					errorCount);
+
+    // test TTSymbol for TTHash access when a key is stored using a TTAddress
+    TTHash      testTable;
+    TTAddress   keyAddress = TTAddress("testKeyAddress");
+    TTValue     keyValue;
+    TTErr       err;
+    
+    testTable.append(keyAddress, keyValue);             // store a value into the table using "testKeyAddress" address
+    testValue = TTValue(TTSymbol("testKeyAddress"));    // store a "testKeyAddress" symbol into a value
+    testValue.get(0, testAddress);                      // get it as an address
+    err = testTable.lookup(testAddress, keyValue);      // use the address to lookup the table
+    
+    TTTestAssertion("TTHash::lookup : Test fails if a TTSymbol cannot be used as storage key for TTHash table when the lookup key is a TTAddress",
+					err == kTTErrNone,
+					testAssertionCount,
+					errorCount);
+    
+    // The test below fails but it have been added only to check the opposite operation.
+    // For instant we don't need this test to pass so it is commented out until we need this feature.
+    
+    /* test TTAddress for TTHash access when a key is stored using a TTSymbol
+    TTSymbol    keySymbol = TTSymbol("testKeySymbol");
+    TTSymbol    testSymbol;
+    
+    testTable.append(keySymbol, keyValue);              // store a value into the table using "testKeySymbol" symbol
+    testValue = TTValue(TTAddress("testKeySymbol"));    // store a "testKeySymbol" address into a value
+    testValue.get(0, testSymbol);                       // get it as an symbol
+    err = testTable.lookup(testSymbol, keyValue);       // use the symbol to lookup the table
+    
+    TTTestAssertion("TTHash::lookup : Test fails if a TTAddress cannot be used as storage key for TTHash table when the lookup key is a TTSymbol",
+					err == kTTErrNone,
+					testAssertionCount,
+					errorCount);
+     */
 }
 
 // TODO: Benchmarking
