@@ -93,7 +93,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	// ATTRIBUTE: type - options are generic, integer, decimal, string, boolean
 	jamoma_class_attr_new(c, "type", _sym_symbol, (method)return_attr_settype, (method)return_attr_gettype);
-	CLASS_ATTR_ENUM(c,		 "type",	0,					"integer decimal boolean string array generic");
+	CLASS_ATTR_ENUM(c,		 "type",	0,					"integer decimal boolean string decimalArray integerArray generic");
 	// ATTRIBUTES: dataspace stuff
 	
 	CLASS_ATTR_SYM(c,						"dataspace",					0,	t_return, attrDataspace);

@@ -107,9 +107,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// ATTRIBUTE: type - options are generic, integer, decimal, string, boolean, array, none
 	jamoma_class_attr_new(c,		"type",						_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
 #ifdef JMOD_MESSAGE
-	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string array generic none");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string decimalArray integerArray generic none");
 #else
-	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string array generic");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"integer decimal boolean string decimalArray integerArray generic");
 #endif
 	
 	// Attribute: repetitions/allow
