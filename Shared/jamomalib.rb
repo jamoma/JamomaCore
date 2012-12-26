@@ -1079,8 +1079,13 @@ end
           extension_dest = "/usr/local/lib/jamoma/lib" if linux?
         elsif project_type == "implementation"
           if mac?
-            extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
-            touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
+	          if max
+  	          extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
+  	          touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
+            else
+							extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
+  	          touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
+            end
           end
           extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win32?
           extension_dest = "/usr/local/jamoma/implementations" if linux?
@@ -1227,8 +1232,13 @@ end
         		end
           elsif project_type == "implementation"
             if mac?
-              extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
-              touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
+	            if max
+              	extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
+              	touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
+							else
+              	extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
+              	touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
+							end
               makefile.write("\tmkdir -p #{extension_dest}\n")
               if ($alternate_pkgInfo)
                 makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n")
