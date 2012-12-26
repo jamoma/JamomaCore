@@ -111,6 +111,12 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 			// get relativeAddress and valueToSend
 			AddressAndValue.get(0, aRelativeAddress);
             
+            // get attribute or message (default is value)
+			if (aRelativeAddress.getAttribute() != NO_ATTRIBUTE)
+				attrOrMess = aRelativeAddress.getAttribute();
+			else
+				attrOrMess = kTTSym_value;
+            
             // Is there a wild card ?
             if (strrchr(aRelativeAddress.c_str(), C_WILDCARD)) {
                 
@@ -127,7 +133,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
                     if (aRelativeAddress.compare(keyAddress, depth) == kAddressEqual) {
                     
                         // replace relativeAddress by keyAddress
-						AddressAndValue.set(0, keyAddress);
+						AddressAndValue.set(0, keyAddress.appendAttribute(attrOrMess));
                         
                         
                         if (this->Send(AddressAndValue, kTTValNONE))
@@ -139,12 +145,6 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
             }
             
 			AddressAndValue.get(1, (TTPtr*)&valueToSend);
-			
-			// get attribute or message (default is value)
-			if (aRelativeAddress.getAttribute() != NO_ATTRIBUTE)
-				attrOrMess = aRelativeAddress.getAttribute();
-			else
-				attrOrMess = kTTSym_value;
 			
 			// get the object
 			err = mObjectsObserversCache->lookup(aRelativeAddress.removeAttribute(), cacheElement);
