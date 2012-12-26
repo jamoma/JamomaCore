@@ -12,9 +12,19 @@
 #define data_out 0
 #define	dump_out 1
 
+// This is used to store extra data
+typedef struct extra {
+	
+	TTValue         arrayArgs;		// store arguments
+
+} t_extra;
+#define EXTRA ((t_extra*)x->extra)
+
+
 // Definitions
 void		WrapTTDataClass(WrappedClassPtr c);
 void		WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv);
+void        WrappedDataClass_free(TTPtr self);
 
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
@@ -42,7 +52,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	ModularSpec *spec = new ModularSpec;
 	spec->_wrap = &WrapTTDataClass;
 	spec->_new = &WrappedDataClass_new;
-	spec->_free = NULL;
+	spec->_free = &WrappedDataClass_free;
 #ifndef JMOD_MESSAGE
 	spec->_any = &WrappedDataClass_anything;
 #else
@@ -111,8 +121,23 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
 
 #endif
+    
+    // Prepare extra data
+	x->extra = (t_extra*)malloc(sizeof(t_extra));
+    
+    EXTRA->arrayArgs = kTTValNONE;
+
+    // Store arguments
+	if (argc > 1 && argv)
+        jamoma_ttvalue_from_Atom(EXTRA->arrayArgs, _sym_list, argc--, argv++);
 
 	data_new_address(self, relativeAddress, argc--, argv++);
+}
+
+void WrappedDataClass_free(TTPtr self)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	free(EXTRA);
 }
 	
 void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
@@ -151,8 +176,8 @@ void data_subscribe(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomP
 
 	// for relative address
 	if (TTAddress(relativeAddress->s_name).getType() == kAddressRelative) {
+        
 		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name), &x->subscriberObject);
-		
 		
 	}
 	else
@@ -162,12 +187,17 @@ void data_subscribe(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomP
 void data_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+    AtomCount					argc = 0;
+	AtomPtr						argv = NULL;
 	
 	// unregister wrapped object (or internals)
 	wrappedModularClass_unregister(x);
+    
+    // use stored arguments
+    jamoma_ttvalue_to_Atom(EXTRA->arrayArgs, &argc, &argv);
 	
 	// rebuild wrapped object (or internals)
-	defer_low(self,(method)data_new_address, address, 0, NULL); // TODO : give all @attribute too
+	defer_low(self,(method)data_new_address, address, argc, argv);
 }
 
 // Method for Assistance Messages
