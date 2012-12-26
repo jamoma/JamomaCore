@@ -241,30 +241,30 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						matrix->makeRowIDInBounds(i) == 1,
 						testAssertionCount,
 						errorCount);
-        TTTestAssertion("< 0 i value was clipped by out of bounds operation",
-						i == 0,
+        TTTestAssertion("< 0 i value was wrapped by out of bounds operation",
+						i == 157, // 160 should be max, so it will be 160 - 3
 						testAssertionCount,
 						errorCount);
 		TTTestAssertion("reports column ID is out of bounds", 
 						matrix->makeColumnIDInBounds(j) == 1,
 						testAssertionCount,
 						errorCount);
-		TTTestAssertion("> max j value was clipped by out of bounds operation",
-						j == 119,
+		TTTestAssertion("> max j value was wrapped by out of bounds operation",
+						j == 3, // 120 should be max, so it will be 123 - 120
 						testAssertionCount,
 						errorCount);
 		
-		// reset and try wrapping function
+		// reset and try clipping function
 		i = i_prebounds; 
 		j = j_prebounds;
-		matrix->makeRowIDInBounds(i,outOfBoundsWrap); 
-		matrix->makeColumnIDInBounds(j,outOfBoundsWrap); 
-		TTTestAssertion("< 0 i value was wrapped by out of bounds operation",
-						i == 157, // 160 should be max, so it will be 160 - 3
+		matrix->makeRowIDInBounds(i,outOfBoundsClip); 
+		matrix->makeColumnIDInBounds(j,outOfBoundsClip); 
+		TTTestAssertion("< 0 i value was clipped by out of bounds operation",
+						i == 0,
 						testAssertionCount,
 						errorCount);
-		TTTestAssertion("> max j value was wrapped by out of bounds operation",
-						j == 3, // 120 should be max, so it will be 123 - 120 
+		TTTestAssertion("> max j value was clipped by out of bounds operation",
+						j == 119,
 						testAssertionCount,
 						errorCount);
 						
