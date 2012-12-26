@@ -186,16 +186,12 @@ void preset_subscribe(TTPtr self)
 
 		// expose messages of TTPreset as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Store"), &aData);
-// TODO: Merge conflict, which of the following two is correct? [tap]
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
-		//aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Store a preset giving a name"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Recall"), &aData);
-// TODO: Merge conflict, which of the following two is correct? [tap]
-		aData->setAttributeValue(kTTSym_type, kTTSym_string);
-//aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+        aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Recall a preset using a name"));
 		
@@ -210,9 +206,7 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Mix several presets using their names followed by a factor"));
 		
 		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Remove"), &aData);
-// TODO: Merge conflict, which of the following two is correct? [tap]
-aData->setAttributeValue(kTTSym_type, kTTSym_string);
-//		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
+        aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Remove a preset using a name"));		
 		

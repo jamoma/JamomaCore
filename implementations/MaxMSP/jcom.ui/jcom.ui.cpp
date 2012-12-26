@@ -192,9 +192,7 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->selectAll = false;
 		
 		x->has_preset = false;
-		x->has_help = false;
-		x->has_ref = false;
-		x->has_internals = false;
+		x->has_model = false;
 		x->has_panel = false;
 		x->has_mute = false;
 		x->has_gain = false;
@@ -324,9 +322,7 @@ void ui_subscribe(t_ui *x, SymbolPtr address)
 		x->hash_viewers = new TTHash();
 		
 		x->has_preset = false;
-		x->has_help = false;
-		x->has_ref = false;
-		x->has_internals = false;
+		x->has_model = false;
 		x->has_mute = false;
 		x->has_gain = false;
 		x->has_bypass = false;
@@ -1101,8 +1097,8 @@ void ui_menu_qfn(t_ui *x)
 	else if (item->sym == gensym("Open Preset Interface"))
 		ui_preset_interface(x);
 	
-	else if (item->sym == gensym("Get Current State as Text"))
-		; // TODO : jcom.node /getstate
+	else if (item->sym == gensym("Edit Current State as Text"))
+		ui_viewer_send(x, TTSymbol("model/edit"), kTTValNONE);
 	
 	else if (item->sym == gensym("Open Model Internal"))
 		ui_viewer_send(x, TTSymbol("model/internals"), kTTValNONE);
@@ -1157,21 +1153,16 @@ void ui_menu_build(t_ui *x)
 	}
 	
 	linklist_append(x->menu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Get Current State as Text"));
-	linklist_append(x->menu_items, item);
 	
 	item = (t_symobject *)symobject_new(gensym("-"));
-	if (x->has_ref) {
+	if (x->has_model) {
+        
+        linklist_append(x->menu_items, item);
+        item = (t_symobject *)symobject_new(gensym("Edit Current State as Text"));
 		linklist_append(x->menu_items, item);
 		item = (t_symobject *)symobject_new(gensym("Open Model Reference Page"));
-	}
-	
-	if (x->has_help) {
 		linklist_append(x->menu_items, item);
 		item = (t_symobject *)symobject_new(gensym("Open Model Help Patch"));
-	}
-	
-	if (x->has_internals) {
 		linklist_append(x->menu_items, item);
 		item = (t_symobject *)symobject_new(gensym("Open Model Internal"));
 	}
