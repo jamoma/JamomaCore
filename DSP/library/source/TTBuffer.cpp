@@ -114,17 +114,25 @@ TTErr TTBuffer::chuckMatrix(TTSampleMatrixPtr oldMatrix)
 // internal methods used for prepping mBecomingActiveMatrix, then swapping it out with mActiveMatrix
 TTErr TTBuffer::prepareBecomingActiveMatrix()
 {
-	// first we instatiate a new TTSampleMatrix
-	TTErr err = TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE);
+	// set to generic error first
+	TTErr err = kTTErrGeneric;
 	
-	// only if there is no error, do we set this stuff up
+	// check that there isn't already another mBecomingActiveMatrix in progress
+	if (mBecomingActiveMatrix == NULL)
+	{
+		// if so, then we first we try to instatiate a new TTSampleMatrix
+		// and if it succeeds, it will override the generic error above
+		err = TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE);
+	}
+	
+	// only if there is still no error at this point, do we set up this other stuff
 	if (!err)
 	{
 		mBecomingActiveMatrix->adaptTo(mActiveMatrix);		// start with something like the mActiveMatrix
 		mBecomingActiveMatrix->setBufferPoolStage(kSM_BecomingActive);
 	}
 	
-	// report if it worked
+	// report if everything worked
 	return err;
 }
 
