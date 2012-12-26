@@ -202,7 +202,7 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 			*((TTBoolean*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeSymbol:
-			*((TTSymbol*)attribute.address) = (TTSymbol&)value;
+			*((TTSymbol*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeObject:
 			*((TTObject*)attribute.address) = value;

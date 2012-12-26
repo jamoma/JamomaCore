@@ -30,6 +30,20 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-11",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 290.0, 317.0, 32.5, 19.0 ],
+					"text" : "+ 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-92",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -394,7 +408,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 290.0, 255.0, 20.0, 20.0 ]
+					"patching_rect" : [ 290.0, 253.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -436,7 +450,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 290.0, 300.0, 50.0, 19.0 ]
+					"patching_rect" : [ 290.0, 295.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -449,7 +463,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 4,
 					"outlettype" : [ "int", "", "", "int" ],
-					"patching_rect" : [ 290.0, 280.0, 87.0, 19.0 ],
+					"patching_rect" : [ 290.0, 275.0, 87.0, 19.0 ],
 					"text" : "counter 1 1000"
 				}
 
@@ -1243,13 +1257,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-54",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "newobj",
-					"numinlets" : 24,
-					"numoutlets" : 24,
-					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 160.0, 170.0, 422.0, 43.0 ],
-					"text" : "route jbogus print button zl thispatcher trigger route prepend coll js ezdac~ comment counter delay qlim speedlim bangbang combine message gate number patcher error"
+					"numinlets" : 25,
+					"numoutlets" : 25,
+					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 160.0, 170.0, 313.0, 55.0 ],
+					"text" : "route jbogus print button zl thispatcher trigger route prepend coll js ezdac~ comment counter delay qlim speedlim bangbang combine message gate number patcher error +"
 				}
 
 			}
@@ -1279,6 +1293,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-1", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-72", 4 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
@@ -1451,8 +1474,8 @@
 					"destination" : [ "obj-20", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 572.5, 224.0, 169.5, 224.0 ],
-					"source" : [ "obj-54", 23 ]
+					"midpoints" : [ 463.5, 224.0, 169.5, 224.0 ],
+					"source" : [ "obj-54", 24 ]
 				}
 
 			}
@@ -1695,10 +1718,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-72", 4 ],
+					"destination" : [ "obj-11", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 299.5, 326.0, 222.5, 326.0 ],
 					"source" : [ "obj-83", 0 ]
 				}
 
