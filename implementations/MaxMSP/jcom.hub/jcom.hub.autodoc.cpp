@@ -494,9 +494,9 @@ void hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* 
 	object_attr_getvalueof(t->object, jps_range_bounds, &argc, &argv);
 	range[0] = atom_getfloat(argv);
 	range[1] = atom_getfloat(argv+1);
-	if ( (msg_type==jps_integer) || (msg_type==jps_boolean) )
+	if ( (msg_type==jps_integer) || (msg_type==jps_boolean) || (msg_type=jps_integerArray))
 		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeBounds\"> %ld %ld </td>", (long)range[0], (long)range[1]);
-	else if ( (msg_type==jps_decimal) || (msg_type==jps_generic) || (msg_type==jps_array))
+	else if ( (msg_type==jps_decimal) || (msg_type==jps_generic) || (msg_type==jps_array) || (msg_type==jps_decimalArray))
 		snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeBounds\"> %g %g </td>", range[0], range[1]);
 	else
 		snprintf(tempstring, 1024, "\t\t\t<th class = \"instructionRangeBounds\"> N/A </td>");

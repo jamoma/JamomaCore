@@ -274,7 +274,7 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 		} else if (item1->type == jps_boolean) {
 			val = position <= 0.5 ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
 			atom_setlong(&newValue[0], val);
-		} else if (item1->type == jps_array || item1->type == jps_list_int || item1->type == jps_list_float) {
+		} else if (item1->type == jps_array || item1->type == jps_decimalArray || item1->type ==  jps_integerArray){ //}|| item1->type == jps_list_int || item1->type == jps_list_float) {
 			for (int i = 0; i < item1->list_size; i++) {
 				val = atom_getfloat(&item1->value_list[i]) * (1. - position) + atom_getfloat(&item2->value_list[i]) * position;
 				atom_setfloat(&newValue[i], val);
@@ -345,7 +345,7 @@ static float mix_one_preset (t_preset_item *item1, int nmix, float factor, float
 	*val += atom_getlong(&item1->value) * factor * mixweight;
 	atom_setlong(&newValue[0], (*val / nmix >= 0.5));
     } 
-	else if (item1->type == jps_array || item1->type == jps_list_int || item1->type == jps_list_float) {
+	else if (item1->type == jps_array || item1->type == jps_decimalArray || item1->type == jps_integerArray) { //} || item1->type == jps_list_int || item1->type == jps_list_float) {
 		for (int i = 0; i < item1->list_size; i++) {
 			val[i] += atom_getfloat(&item1->value_list[i]) * factor * mixweight;
 			atom_setfloat(&newValue[i], val[i]);
@@ -442,7 +442,7 @@ void mix_presets(t_hub *x, int nmix, t_preset **p, float *factor)
 		val[0] /= sum;
 		atom_setfloat(&newValue[0], val[0]);
 	    } 
-	    else if (item1->type == jps_array || item1->type == jps_list_int || item1->type == jps_list_float) 	
+	    else if (item1->type == jps_array || item1->type == jps_integerArray || item1->type == jps_decimalArray) //|| item1->type == jps_list_int || item1->type == jps_list_float) 	
 	    {
 		for (int i = 0; i < item1->list_size; i++) 
 		{
@@ -1085,7 +1085,7 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 		item = p->item;
 		for (itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
-			int singleton = (presetItem->type == jps_generic  ||  presetItem->type == jps_array) 
+			int singleton = (presetItem->type == jps_generic  ||  presetItem->type == jps_array ||  presetItem->type == jps_integerArray ||  presetItem->type == jps_decimalArray) 
 					&& presetItem->list_size == 1;
 			int type = presetItem->value.a_type; // presetItem->value_list[0].a_type;
             
