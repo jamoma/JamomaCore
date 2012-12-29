@@ -13,7 +13,7 @@ include REXML
 
 if defined? win32?
 else
-  
+
   require 'open3'
   require 'fileutils'
   require 'pathname'
@@ -100,22 +100,22 @@ end
     @error_log.flush
     trap("SIGINT") { die }
   end
- 
+
   def create_test_logs
     # set up log files and ensure that the build_root is there
     `mkdir -p #{@log_root}` if !FileTest.exist?(@log_root)
     @testPass_log = File.new("#{@log_root}/pass.log", "w")
-    @testPass_log.write("JAMOMA TEST PASS LOG: #{`date`}\n\n")    
+    @testPass_log.write("JAMOMA TEST PASS LOG: #{`date`}\n\n")
     @testFail_log = File.new("#{@log_root}/fail.log", "w")
     @testFail_log.write("JAMOMA TEST FAIL LOG:\n")
     @testFail_log.write("           STARTED:   #{`date`}")
     @testFail_log.flush
-    trap("SIGINT") { 
+    trap("SIGINT") {
       puts "Crash!"
       @testFail_log.close
-    }    
+    }
   end
-  
+
   def die
     close_logs
     exit 0
@@ -127,12 +127,12 @@ end
     @error_log.close
     @build_log.write("           COMPLETED: #{`date`}")
     @build_log.close
-   
+
   end
-  
+
   def close_test_logs
     @testPass_log.write("COMPLETED: #{`date`}")
-    @testPass_log.close    
+    @testPass_log.close
     @testFail_log.write("           COMPLETED: #{`date`}")
     @testFail_log.close
   end
@@ -144,25 +144,25 @@ end
   end
 
   def log_error(str)
-    if (str.length > 0)     
+    if (str.length > 0)
       @error_log.write(str)
       @error_log.write("\n\n")
       @error_log.flush
     end
   end
-  
+
   def log_test_fail(str)
     @testFail_log.write(str)
     @testFail_log.write("\n")
     @testFail_log.flush
   end
-  
+
   def log_test_pass(str)
     @testPass_log.write(str)
     @testPass_log.write("\n")
     @testPass_log.flush
   end
-  
+
 
   def zero_count
     @cur_total = 0
@@ -178,7 +178,7 @@ end
     out = ""
     err = ""
     inputstr = "#{sourcepath}".ljust(80)
-    puts "copy -v #{inputstr} --> #{dstpath}"    
+    puts "copy -v #{inputstr} --> #{dstpath}"
     Open3.popen3("rm -rf #{dstpath}") do |stdin, stdout, stderr|
       out = stdout.read
       err = stderr.read
@@ -193,14 +193,14 @@ end
     log_build(out)
     log_error(err)
 
-    return 0  
+    return 0
   end
 
 
   def copyfile(filename, sourcepath, dstpath)
     out = ""
     err = ""
-    # enable the next two lines if yo want to see the verbose infos  
+    # enable the next two lines if yo want to see the verbose infos
     #inputstr = "#{sourcepath}/#{filename}".ljust(80)
     #puts "cp -R #{inputstr} --> #{dstpath}/#{filename}"
     Open3.popen3("cp -R #{sourcepath}/#{filename} #{dstpath}/#{filename}") do |stdin, stdout, stderr|
@@ -210,14 +210,14 @@ end
     log_build(out)
     log_error(err)
 
-    return 0  
+    return 0
   end
-  
-  
+
+
   def copyfile_adapt_name_to_win(filename, sourcepath, dstpath)
 	out = ""
     err = ""
-	
+
 	filename_adapted = filename.gsub("≈","=")
 	  inputstr = "#{sourcepath}/#{filename}".ljust(80)
     puts "copy -r  #{inputstr} --> #{dstpath}/#{filename_adapted}"
@@ -229,14 +229,14 @@ end
     log_build(out)
     log_error(err)
 
-    return 0  
+    return 0
   end
 
 
   def build_xcode_project(projectdir, projectname, configuration, clean, distropath)
     out = ""
     err = ""
-   
+
     if (distropath)
       xcode_env_vars = " INSTALL_PATH=\"#{distropath}\" "
     else
@@ -250,7 +250,7 @@ end
       end
       out = stdout.read
       err = stderr.read
-    end    
+    end
     if /BUILD SUCCEEDED/.match(out)
       @cur_count+=1
       projectname = "#{projectname}".ljust(27)
@@ -275,19 +275,19 @@ end
     STDOUT.flush
 
     sleep 1
-    
+
     `make -j 4 clean 2>&1` if clean
 
     configuration = "Debug" if configuration == "Development"
     configuration = "Release" if configuration == "Deployment"
     out = `make -j 4 #{configuration} 2>&1`
-    # if error is not followed by a colon then the clang-compiled build will claim to fail when there are no real errors  
+    # if error is not followed by a colon then the clang-compiled build will claim to fail when there are no real errors
     if /error:/.match(out) || /Error: /.match(out) || /make: \*\*\* No rule to make target/.match(out) || /No such file or directory/.match(out)
       @fail_array.push("#{projectname}")
       puts "BUILD FAILED **************************************"
       log_error(out)
     else
-      @cur_count+=1      
+      @cur_count+=1
       puts "BUILD SUCCEEDED"
       log_build(out)
       return 1
@@ -304,7 +304,7 @@ end
       out = stdout.read
       err = stderr.read
     end
-    
+
     if /(0 error|up\-to\-date|0 erreur)/.match(out)
       @cur_count+=1
       projectname = "#{projectname}".ljust(27)
@@ -327,7 +327,7 @@ end
       @cur_total+=1
       olddir = Dir.getwd
       Dir.chdir(projectdir)
-    
+
       if use_make
       	@cur_count += build_make_project(projectdir, projectname, configuration, clean)
       elsif win32?
@@ -342,8 +342,8 @@ end
     else
       puts"File Does not exist: #{projectdir}/#{projectname}"
     end
-  end     
-  
+  end
+
 
   def copy_helpfile(filename, filedir, dstdir)
     if FileTest.exist?("#{filedir}/#{filename}")
@@ -351,28 +351,28 @@ end
       if win32?
         @cur_count += copyfile_adapt_name_to_win(filename, filedir, dstdir)
       else
-        @cur_count += copyfile(filename , filedir, dstdir)       
+        @cur_count += copyfile(filename , filedir, dstdir)
       end
     else
       puts"File Does not exist: #{filedir}/#{filename}"
     end
   end
-  
-  
+
+
   # CREATE COPIES OF THE STANDARD C/C++ LIBRARIES THAT WE CAN USE FOR LINKING AND REDISTRIBUTION
   # distropath is the same as in other places in this script: it defines where the mac expects to see the lib at runtime
   # if the file is not found, then it will be searched for in /usr/local/lib
   # distropath should look something like "@executable_path/../Jamoma"
-  
+
   # NOTE -- THIS IS CURRENTLY UNUSED BUT LEFT-IN FOR REFERENCE
-  
+
   $already_configured_gcc47 = false
-  
+
   def configure_gcc47(path_to_moduleroot, distropath)
     return if ($already_configured_gcc47)
-    
+
     puts "Configuring Redistributable Libs for GCC 4.7"
-    
+
     # First, look and see if we have already copied these in the past
     if (File.exists?("/usr/local/jamoma/lib/libgcc_s.1.dylib") && File.exists?("/usr/local/jamoma/lib/libstdc++.6.dylib"))
       # do nothing
@@ -382,50 +382,54 @@ end
       `sudo ln -s /usr/local/jamoma/lib/libgcc_s.1.dylib  /usr/local/lib/libgcc_s.1.dylib `
       `sudo ln -s /usr/local/jamoma/lib/libstdc++.6.dylib /usr/local/lib/libstdc++.6.dylib`
     end
-    
+
     # Now that we have the libs to which we want to link, we need to write their install location into them
     `install_name_tool -id "#{distropath}/lib/libgcc_s.1.dylib"  "/usr/local/jamoma/lib/libgcc_s.1.dylib" `
     `install_name_tool -id "#{distropath}/lib/libstdc++.6.dylib" "/usr/local/jamoma/lib/libstdc++.6.dylib"`
-    
+
     $already_configured_gcc47 = true
   end
-  
-  
+
+
   # CREATE A MAKEFILE FROM A YAML PROJECT DEFINITION
-  
+
   def generate_makefile(projectdir, projectname, forcedCompiler=NIL, path_to_moduleroot="../..", distropath=NIL)
     makefile_generated = false
+    max = false
+
     distropath = "@executable_path/../Jamoma" if !distropath
     foldername = projectdir.split("/").last
     project_type = "extension"
     project_type = "library" if foldername == "library"
     project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "implementations"
+    project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max"
+		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max"
     define_c74_linker_syms = false
     path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.."
     path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
-    
+
     if ($g_use_yaml_project_files && File.exists?("#{projectdir}/#{projectname}.yml"))
       yaml = YAML.load_file( "#{projectdir}/#{projectname}.yml")
       projectname.gsub!('#','\##')     # in case there is a # in the project name, which would be interpreted as a comment symbol
-        
+
       sources = yaml["sources"]
       includes = yaml["includes"]
       libraries = yaml["libraries"]
       defines = yaml["defines"]
-        
+
       frameworks = nil
       frameworks = yaml["frameworks"] if mac?
-        
+
       compiler = yaml["compiler"]
       compiler = forcedCompiler if forcedCompiler # manual overwriting the compiler setting from the YML file
       puts("   forced compiler is: #{compiler}") if forcedCompiler
-      
+
       if (!yaml["arch"])
           arch = 'default'
       else
           arch = yaml["arch"]
       end
-        
+
       prefix = yaml["prefix"]
       postbuilds = yaml["postbuilds"]
       builddir = yaml["builddir"]
@@ -442,7 +446,7 @@ end
       gcc42 = false
       if compiler == "icc"
         skipIcc = false
-        skipGcc46 = true		
+        skipGcc46 = true
         skipGcc47 = true
         skipClang = true
       elsif compiler == "gcc47"
@@ -457,12 +461,12 @@ end
         skipClang = true
       elsif compiler == "gcc"
         skipIcc = true
-        skipGcc46 = true        
+        skipGcc46 = true
         skipGcc47 = true
         skipClang = true
       elsif compiler == "clang"
         skipIcc = true
-        skipGcc46 = true		
+        skipGcc46 = true
         skipGcc47 = true
         skipClang = false
       end
@@ -488,7 +492,7 @@ end
       #      zombies.each do |lib|
       #        libraries.delete lib
       #      end
-      
+
       # TODO: we also will want a STATIC option for e.g. iOS builds
       if win32?
         vcproj_root = Element.new "VisualStudioProject"
@@ -499,39 +503,39 @@ end
       	vcproj_root.attributes["RootNamespace"]           ="JamomaExtension"
       	vcproj_root.attributes["Keyword"]                 = "Win32Proj"
       	vcproj_root.attributes["TargetFrameworkVersion"]  = "131072"
-    	
+
         vcproj = Document.new
         vcproj.add_element(vcproj_root)
-      
+
         vcproj_platwin32 = Element.new "Platform"
         vcproj_platwin32.attributes["Name"] = "Win32"
         vcproj_platforms = Element.new "Platforms"
         vcproj_platforms.add_element(vcproj_platwin32)
         vcproj_root.add_element(vcproj_platforms)
-      
+
         vcproj_debug = Element.new "Configuration"
       	vcproj_debug.attributes["Name"]                   = "Debug|Win32"
       	vcproj_debug.attributes["OutputDirectory"]        = "..\\builds\\"
       	vcproj_debug.attributes["IntermediateDirectory"]  = "Debug"
       	vcproj_debug.attributes["ConfigurationType"]      = "2"
-      
+
         vcproj_release = Element.new "Configuration"
       	vcproj_release.attributes["Name"]                   = "Release|Win32"
       	vcproj_release.attributes["OutputDirectory"]        = "..\\builds\\"
       	vcproj_release.attributes["IntermediateDirectory"]  = "Release"
       	vcproj_release.attributes["ConfigurationType"]      = "2"
-    	
+
       	# Run the Script:
       	# IF NOT EXIST "$(CommonProgramFiles)\Jamoma\Extensions" mkdir "$(CommonProgramFiles)\Jamoma\Extensions"
   		  # copy $(OutDir)\$(TargetFileName) "$(CommonProgramFiles)\Jamoma\Extensions"
   		  # copy $(OutDir)\$(TargetFileName) "$(ProjectDir)..\..\..\..\Builds"
-    	
+
       	vcproj_tool = Element.new "Tool"
       	vcproj_tool.attributes["Name"] = "VCCustomBuildTool"
       	vcproj_tool.attributes["CommandLine"] = "IF NOT EXIST \"$(CommonProgramFiles)\\Jamoma\\Extensions\" mkdir \"$(CommonProgramFiles)\\Jamoma\\Extensions\"\r\ncopy $(OutDir)\\$(TargetFileName) \"$(CommonProgramFiles)\\Jamoma\\Extensions\"\r\ncopy $(OutDir)\\$(TargetFileName) \"$(ProjectDir)..\\..\\..\\..\\Builds\"\r\n"
       	vcproj_tool.attributes["Outputs"] = "foo"
      	  vcproj_debug.add_element(vcproj_tool)
-   	  
+
      	  # Even though the Tool definition is identical, it seems like adding it as an element to the debug element "eats" the element
      	  # So we need to make a new copy from scratch...
       	vcproj_tool = Element.new "Tool"
@@ -567,7 +571,7 @@ end
         else
           makefile.write("CC = g++\n\n")
         end
-  
+
         makefile.write("#########################################\n\n")
         i=0
         sources.each do |source|
@@ -577,7 +581,7 @@ end
           	source.gsub!(/mac /, '')
           elsif win32?
           	# This code is never executed!
-           	source = source.to_s           	
+           	source = source.to_s
   	       	next if source =~ /mac /
           	source.gsub!(/win /, '')
           else # linux?
@@ -585,7 +589,7 @@ end
   	       	next if source =~ /mac /
   	       	next if source =~ /win /
           end
-          
+
           source32 = nil
           source64 = nil
           if mac?
@@ -610,16 +614,16 @@ end
           end
           i+=1
         end
-        makefile.write("\n\n")      
+        makefile.write("\n\n")
       end
-  
+
       if win32?
         vcproj_files = Element.new "Files"
         sources.each do |source|
-          source = source.to_s           	
+          source = source.to_s
   	      next if source =~ /mac /
           source.gsub!(/win /, '')
-        	
+
           source_formatted_for_windows = source
           source_formatted_for_windows.gsub!(/(\/)/,'\\')
           vcproj_file = Element.new "File"
@@ -637,11 +641,15 @@ end
             next if include_file =~ /mac /
             include_file.gsub!(/win /, '')
           end
-          
+
           if (include_file == "C74-INCLUDES")
-            include_file = "#{path_to_moduleroot}/../../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes"     
+						if max
+	            include_file = "#{path_to_moduleroot}/../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/jit-includes"
+						else
+	            include_file = "#{path_to_moduleroot}/../../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes"
+            end
           end
-          
+
           if (i==0)
             makefile.write("INCLUDES = -I#{include_file}\n")
           else
@@ -667,7 +675,7 @@ end
 			concatenated_defines += "#{define}"
 		  end
 		end
-	
+
        	vcproj_tool = Element.new "Tool"
        	vcproj_tool.attributes["Name"] = "VCCLCompilerTool"
        	vcproj_tool.attributes["Optimization"] = "0"
@@ -698,10 +706,10 @@ end
       	vcproj_tool.attributes["DebugInformationFormat"] = "4"
     	  vcproj_release.add_element(vcproj_tool)
       else
-   
+
         makefile.write("#########################################\n\n")
         i=0
-        
+
         if !libraries
           # makefile.write("LIBS = ''")
         else
@@ -716,36 +724,39 @@ end
                 makefile.write("LIBS += ")
               end
 
+							up = "../"
+							up = "" if max
+
               if (lib == "FOUNDATION")
-                makefile.write("#{path_to_moduleroot}/../../Core/Foundation/library/build/JamomaFoundation.dylib")
+                makefile.write("#{path_to_moduleroot}/#{up}../Core/Foundation/library/build/JamomaFoundation.dylib")
               elsif (lib == "DSP")
-                makefile.write("#{path_to_moduleroot}/../../Core/DSP/library/build/JamomaDSP.dylib")
+                makefile.write("#{path_to_moduleroot}/#{up}../Core/DSP/library/build/JamomaDSP.dylib")
               elsif (lib == "MODULAR")
-                makefile.write("#{path_to_moduleroot}/../../Modules/Modular/library/build/JamomaModular.dylib")
+                makefile.write("#{path_to_moduleroot}/#{up}../Modules/Modular/library/build/JamomaModular.dylib")
               elsif (lib == "GRAPH")
-                makefile.write("#{path_to_moduleroot}/../../Core/Graph/library/build/JamomaGraph.dylib")
+                makefile.write("#{path_to_moduleroot}/#{up}../Core/Graph/library/build/JamomaGraph.dylib")
               elsif (lib == "AUDIOGRAPH")
-                makefile.write("#{path_to_moduleroot}/../../Core/AudioGraph/library/build/JamomaAudioGraph.dylib")
+                makefile.write("#{path_to_moduleroot}/#{up}../Core/AudioGraph/library/build/JamomaAudioGraph.dylib")
               elsif (lib == "GRAPHICS")
-                makefile.write("#{path_to_moduleroot}/../../Core/Graphics/library/build/JamomaGraphics.dylib")
+                makefile.write("#{path_to_moduleroot}/#{up}../Core/Graphics/library/build/JamomaGraphics.dylib")
               elsif (lib == "C74-MAX")
-                makefile.write("#{path_to_moduleroot}/../../Core/Shared/max/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI")
+                makefile.write("#{path_to_moduleroot}/#{up}../Core/Shared/max/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI")
               elsif (lib == "C74-MSP")
-                makefile.write("#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI")              
+                makefile.write("#{path_to_moduleroot}/#{up}../Core/Shared/max/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI")
               elsif (lib == "C74-JITTER")
-                makefile.write("#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI")
+                makefile.write("#{path_to_moduleroot}/#{up}../Core/Shared/max/c74support/jit-includes/JitterAPI.framework/Versions/A/JitterAPI")
               elsif (lib == "C74")
                 define_c74_linker_syms = true
               else
                 makefile.write(lib)
               end
-          
+
             elsif linux?
            	lib = lib.to_s
   	       	next if lib =~ /mac /
   	       	next if lib =~ /win /
           	lib.gsub!(/linux /, '')
-          
+
               if (lib == "FOUNDATION")
                 if (i == 0)
                   makefile.write("LIBS = -lJamomaFoundation\n")
@@ -769,7 +780,7 @@ end
                 else
                   makefile.write("LIBS += -lJamomaDSP\n")
                   makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../Modular/library/build\n")
-                end              
+                end
               elsif (lib == "GRAPH")
                 if (i == 0)
                   makefile.write("LIBS = -lJamomaGraph\n")
@@ -797,14 +808,14 @@ end
                 end
               end
             end
-        
+
             makefile.write("\n")
             i+=1
           end
         end
         makefile.write("\n\n")
       end
-  
+
       if frameworks
         frameworks.each do |framework|
           if i == 0
@@ -816,21 +827,21 @@ end
         end
         makefile.write("\n\n")
       end
-   
+
       if win32?
-    
+
         concatenated_libs_debug = ""
         concatenated_lib_dirs_debug = ""
         concatenated_libs_release = ""
         concatenated_lib_dirs_release = ""
-        
+
         libraries.each do |lib|
         	lib = lib.to_s
          	next if lib =~ /mac /
         	lib.gsub!(/win /, '')
-        	
+
         	next if lib =~/RELEASE /
-	       	lib.gsub!(/DEBUG /, '')     	
+	       	lib.gsub!(/DEBUG /, '')
 
           if (lib == "FOUNDATION")
             concatenated_libs_debug += "JamomaFoundation.lib "
@@ -840,7 +851,7 @@ end
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\DSP\\library\\$(ConfigurationName)\";"
           elsif (lib == "MODULAR")
             concatenated_libs_debug += "JamomaModular.lib "
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Modules\\Modular\\library\\$(ConfigurationName)\";"            
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Modules\\Modular\\library\\$(ConfigurationName)\";"
           elsif (lib == "GRAPH")
             concatenated_libs_debug += "JamomaGraph.lib "
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graph\\library\\$(ConfigurationName)\";"
@@ -855,25 +866,25 @@ end
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\msp-includes\";"
           elsif (lib == "C74-JITTER")
             concatenated_libs_debug += "jitlib.lib "
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\jit-includes\";"            
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\jit-includes\";"
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
             lib_dir = lib_dir.join "/"
-             
+
             lib_dir.gsub!(/(\/)/,'\\')
             concatenated_libs_debug += "#{lib} "
             concatenated_lib_dirs_debug += "\"#{lib_dir}\";"
           end
         end
- 
+
         libraries.each do |lib|
         	lib = lib.to_s
          	next if lib =~ /mac /
         	lib.gsub!(/win /, '')
-        	
+
         	next if lib =~/DEBUG /
-        	lib.gsub!(/RELEASE /, '')        	
+        	lib.gsub!(/RELEASE /, '')
 
           if (lib == "FOUNDATION")
             concatenated_libs_release += "JamomaFoundation.lib "
@@ -883,7 +894,7 @@ end
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\DSP\\library\\$(ConfigurationName)\";"
           elsif (lib == "MODULAR")
             concatenated_libs_release += "JamomaModular.lib "
-            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Modules\\Modular\\library\\$(ConfigurationName)\";"            
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Modules\\Modular\\library\\$(ConfigurationName)\";"
           elsif (lib == "GRAPH")
             concatenated_libs_release += "JamomaGraph.lib "
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graph\\library\\$(ConfigurationName)\";"
@@ -901,18 +912,18 @@ end
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\msp-includes\";"
           elsif (lib == "C74-JITTER")
             concatenated_libs_debug += "jitlib.lib "
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\jit-includes\";" 
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\jit-includes\";"
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
             lib_dir = lib_dir.join "/"
-             
+
             lib_dir.gsub!(/(\/)/,'\\')
             concatenated_libs_release += "#{lib} "
             concatenated_lib_dirs_release += "\"#{lib_dir}\";"
           end
         end
-      
+
        	vcproj_tool = Element.new "Tool"
        	vcproj_tool.attributes["Name"] = "VCLinkerTool"
        	vcproj_tool.attributes["AdditionalDependencies"] = "#{concatenated_libs_debug}"
@@ -929,7 +940,7 @@ end
        	vcproj_tool.attributes["SubSystem"] = "2"
        	vcproj_tool.attributes["TargetMachine"] = "1"
       	vcproj_debug.add_element(vcproj_tool)
-      
+
        	vcproj_tool = Element.new "Tool"
        	vcproj_tool.attributes["Name"] = "VCLinkerTool"
        	vcproj_tool.attributes["AdditionalDependencies"] = "#{concatenated_libs_release}"
@@ -948,24 +959,24 @@ end
   			vcproj_tool.attributes["OptimizeReferences"] = "2"
   			vcproj_tool.attributes["EnableCOMDATFolding"] = "2"
       	vcproj_release.add_element(vcproj_tool)
-      
-      else   
- 
+
+      else
+
         makefile.write("#########################################\n\n")
         makefile.write("OPTIMIZATION_DEBUG = -O0\n")
         makefile.write("OPTIMIZATION_RELEASE = -O3\n")
         makefile.write("\n")
         if mac?
-          if icc            
+          if icc
             makefile.write("OPTIONS = -dynamiclib -ip -msse3 -ftz -fno-alias -fp-model fast=2\n")
             # ftz:             Flushes denormal results to zero.
             # ip :             Interprocedural Optimizations such as function inlining, dead code elimination, etc.
-            # fp-model fast=2: use more aggressive optimizations  when  implementing  float-ing-point calculations.  
-            #                  These  optimizations  increase  speed, but may alter the accuracy of floating-point  
+            # fp-model fast=2: use more aggressive optimizations  when  implementing  float-ing-point calculations.
+            #                  These  optimizations  increase  speed, but may alter the accuracy of floating-point
             #                  computations.
             # xHost:           Tells the compiler to generate instructions for the highest instruction set
             #                  available on the compilation host processor.
-         
+
             #makefile.write("OPTIONS = -dynamiclib -msse3 -mfpmath=sse -gdwarf-2\n")
           else
             makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -gdwarf-2\n")
@@ -1020,7 +1031,7 @@ end
         makefile.write("LDFLAGS += -fPIC\n") if beagle?
         if define_c74_linker_syms
           if mac?
-            makefile.write("C74SYMS = -Wl,-U,_sysmem_newptr,-U,_sysmem_freeptr,-U,_strncpy_zero,-U,_stdinletinfo,-U,_outlet_new,-U,_outlet_anything,-U,_object_post,-U,_object_obex_store,-U,_object_obex_dumpout,-U,_object_method,-U,_object_error,-U,_object_alloc,-U,_hashtab_store,-U,_hashtab_new,-U,_hashtab_lookup,-U,_gensym,-U,_error,-U,_common_symbols_gettable,-U,_class_register,-U,_class_new,-U,_class_attr_addattr_parse,-U,_class_addmethod,-U,_class_addattr,-U,_attr_offset_new,-U,_attr_args_process,-U,_attr_args_offset,-U,_atom_setsym,-U,_atom_setlong,-U,_atom_setfloat,-U,_atom_gettype,-U,_atom_getsym,-U,_atom_getlong,-U,_atom_getfloat,-U,_z_dsp_setup,-U,_z_dsp_free,-U,_sys_getsr,-U,_dsp_addv,-U,_class_dspinit,-U,_jit_object_method,-U,_outlet_int,-U,_outlet_list,-U,_class_attr_get,-U,_dsp_add,-U,_fileusage_addfile,-U,_locatefile_extended,-U,_nameinpath,-U,_path_closefolder,-U,_path_foldernextfile,-U,_path_openfolder,-U,_defer_low,-U,_globalsymbol_reference,-U,_globalsymbol_dereference,-U,_bangout,-U,_freeobject,-U,_outlet_bang,-U,_outlet_float,-U,_proxy_getinlet,-U,_proxy_new,-U,_atom_arg_getlong,-U,_atom_arg_getsym,-U,_floatout,-U,_intout,-U,_post,-U,_sys_getblksize,-U,_sysmem_newptrclear,-U,_object_attr_setfloat,-U,_object_attr_setlong,-U,_atom_arg_getfloat,-U,_atom_getfloatarg,-U,_listout,-U,_attr_addfilter_clip,-U,_attr_dictionary_process,-U,_class_attr_addattr_format,-U,_jbox_free,-U,_jbox_get_rect_for_view,-U,_jbox_initclass,-U,_jbox_new,-U,_jbox_ready,-U,_jbox_redraw,-U,_jgraphics_fill,-U,_jgraphics_rectangle_rounded,-U,_jgraphics_set_source_jrgba,-U,_object_attach_byptr,-U,_object_attr_get_rect,-U,_object_attr_set_rect,-U,_object_detach_byptr,-U,_object_dictionaryarg,-U,_object_register,-U,_object_unregister,-U,_patcherview_get_jgraphics,-U,_symbol_unique,-U,_attr_offset_array_new,-U,_defer,-U,_object_free,-U,_object_method_typed,-U,_object_new_typed,-U,_path_copyfile,-U,_path_copyfolder,-U,_path_createfolder,-U,_path_frompathname,-U,_path_nameconform,-U,_clock_delay,-U,_clock_new,-U,_clock_unset,-U,_intin,-U,_addmess,-U,_newobject,-U,_setup,-U,_z_add_signalmethod,-U,_object_attr_setsym,-U,_open_dialog,-U,_path_addnamed,-U,_path_createsysfile,-U,_path_getfilemoddate,-U,_path_opensysfile,-U,_path_topotentialname,-U,_sysfile_close,-U,_sysfile_geteof,-U,_sysfile_read,-U,_sysfile_seteof,-U,_sysfile_write,-U,_systime_secondstodate,-U,_qelem_new,-U,_qelem_free,-U,_qelem_set,-U,_jit_class_addadornment,-U,_jit_class_addattr,-U,_jit_class_addmethod,-U,_jit_class_findbyname,-U,_jit_class_new,-U,_jit_class_register,-U,_jit_error_code,-U,_jit_object_alloc,-U,_jit_object_free,-U,_jit_object_new,-U,_max_addmethod_usurp_low,-U,_max_jit_attr_args,-U,_max_jit_classex_mop_wrap,-U,_max_jit_classex_setup,-U,_max_jit_classex_standard_wrap,-U,_max_jit_mop_assist,-U,_max_jit_mop_free,-U,_max_jit_mop_getoutputmode,-U,_max_jit_mop_outputmatrix,-U,_max_jit_mop_setup_simple,-U,_max_jit_obex_adornment_get,-U,_max_jit_obex_free,-U,_max_jit_obex_jitob_get,-U,_max_jit_obex_new,-U,_jbox_get_nextobject,-U,_jbox_get_object,-U,_jbox_get_varname,-U,_jpatcher_get_firstobject,-U,_object_attr_getnames,-U,_object_attr_getvalueof,-U,_object_obex_lookup,-U,_jit_atom_setfloat,-U,_jit_error_sym,-U,_jit_matrix_info_default,-U,_jit_object_findregistered,-U,_jit_symbol_unique,-U,_max_jit_obex_dumpout,-U,_jit_object_detach,-U,_jit_object_attach\n")
+            makefile.write("C74SYMS = -Wl,-U,_sysmem_newptr,-U,_sysmem_freeptr,-U,_strncpy_zero,-U,_stdinletinfo,-U,_outlet_new,-U,_outlet_anything,-U,_object_post,-U,_object_obex_store,-U,_object_obex_dumpout,-U,_object_method,-U,_object_error,-U,_object_alloc,-U,_hashtab_store,-U,_hashtab_new,-U,_hashtab_lookup,-U,_gensym,-U,_error,-U,_common_symbols_gettable,-U,_class_register,-U,_class_new,-U,_class_attr_addattr_parse,-U,_class_addmethod,-U,_class_addattr,-U,_attr_offset_new,-U,_attr_args_process,-U,_attr_args_offset,-U,_atom_setsym,-U,_atom_setlong,-U,_atom_setfloat,-U,_atom_gettype,-U,_atom_getsym,-U,_atom_getlong,-U,_atom_getfloat,-U,_z_dsp_setup,-U,_z_dsp_free,-U,_sys_getsr,-U,_dsp_addv,-U,_class_dspinit,-U,_jit_object_method,-U,_outlet_int,-U,_outlet_list,-U,_class_attr_get,-U,_dsp_add,-U,_fileusage_addfile,-U,_locatefile_extended,-U,_nameinpath,-U,_path_closefolder,-U,_path_foldernextfile,-U,_path_openfolder,-U,_defer_low,-U,_globalsymbol_reference,-U,_globalsymbol_dereference,-U,_bangout,-U,_freeobject,-U,_outlet_bang,-U,_outlet_float,-U,_proxy_getinlet,-U,_proxy_new,-U,_atom_arg_getlong,-U,_atom_arg_getsym,-U,_floatout,-U,_intout,-U,_post,-U,_sys_getblksize,-U,_sysmem_newptrclear,-U,_object_attr_setfloat,-U,_object_attr_setlong,-U,_atom_arg_getfloat,-U,_atom_getfloatarg,-U,_listout,-U,_attr_addfilter_clip,-U,_attr_dictionary_process,-U,_class_attr_addattr_format,-U,_jbox_free,-U,_jbox_get_rect_for_view,-U,_jbox_initclass,-U,_jbox_new,-U,_jbox_ready,-U,_jbox_redraw,-U,_jgraphics_fill,-U,_jgraphics_rectangle_rounded,-U,_jgraphics_set_source_jrgba,-U,_object_attach_byptr,-U,_object_attr_get_rect,-U,_object_attr_set_rect,-U,_object_detach_byptr,-U,_object_dictionaryarg,-U,_object_register,-U,_object_unregister,-U,_patcherview_get_jgraphics,-U,_symbol_unique,-U,_attr_offset_array_new,-U,_defer,-U,_object_free,-U,_object_method_typed,-U,_object_new_typed,-U,_path_copyfile,-U,_path_copyfolder,-U,_path_createfolder,-U,_path_frompathname,-U,_path_nameconform,-U,_clock_delay,-U,_clock_new,-U,_clock_unset,-U,_intin,-U,_addmess,-U,_newobject,-U,_setup,-U,_z_add_signalmethod,-U,_object_attr_setsym,-U,_open_dialog,-U,_path_addnamed,-U,_path_createsysfile,-U,_path_getfilemoddate,-U,_path_opensysfile,-U,_path_topotentialname,-U,_sysfile_close,-U,_sysfile_geteof,-U,_sysfile_read,-U,_sysfile_seteof,-U,_sysfile_write,-U,_systime_secondstodate,-U,_qelem_new,-U,_qelem_free,-U,_qelem_set,-U,_jit_class_addadornment,-U,_jit_class_addattr,-U,_jit_class_addmethod,-U,_jit_class_findbyname,-U,_jit_class_new,-U,_jit_class_register,-U,_jit_error_code,-U,_jit_object_alloc,-U,_jit_object_free,-U,_jit_object_new,-U,_max_addmethod_usurp_low,-U,_max_jit_attr_args,-U,_max_jit_classex_mop_wrap,-U,_max_jit_classex_setup,-U,_max_jit_classex_standard_wrap,-U,_max_jit_mop_assist,-U,_max_jit_mop_free,-U,_max_jit_mop_getoutputmode,-U,_max_jit_mop_outputmatrix,-U,_max_jit_mop_setup_simple,-U,_max_jit_obex_adornment_get,-U,_max_jit_obex_free,-U,_max_jit_obex_jitob_get,-U,_max_jit_obex_new,-U,_jbox_get_nextobject,-U,_jbox_get_object,-U,_jbox_get_varname,-U,_jpatcher_get_firstobject,-U,_object_attr_getnames,-U,_object_attr_getvalueof,-U,_object_obex_lookup,-U,_jit_atom_setfloat,-U,_jit_error_sym,-U,_jit_matrix_info_default,-U,_jit_object_findregistered,-U,_jit_symbol_unique,-U,_max_jit_obex_dumpout,-U,_jit_object_detach,-U,_jit_object_attach,-U,_atom_setobj\n")
             makefile.write("LDFLAGS += $(C74SYMS)\n")
           end
         end
@@ -1032,55 +1043,61 @@ end
         elsif project_type == "implementation"
           extension_suffix = "" if mac? # note that the bundle is a special deal...
           extension_suffix = ".mxe" if win32?
-          
+
           #TODO: binary suffix should depend on the type of implementation we are building!
-          
-          extension_suffix = "" if linux?          
+
+          extension_suffix = "" if linux?
         else
           extension_suffix = ".ttdylib" if mac?
           extension_suffix = ".ttso" if linux?
           extension_suffix = ".ttdll" if win32?
         end
-        
+
         ######################################################################################################################
         touch_dest = nil;
         build_temp = "build"
-        
+
         if project_type == "library"
           extension_dest = "/usr/local/jamoma/lib" if mac?
         elsif project_type == "implementation"
           if mac?
-            extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
+            extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
+            extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/" if max
           end
           extension_dest = "#{path_to_moduleroot_win}\\..\\..\\Builds\\MaxMSP" if win32?
 
           #TODO: binary destination should depend on the type of implementation we are building!
-            
-          extension_dest = "/usr/local/jamoma/implementations" if linux?            
+
+          extension_dest = "/usr/local/jamoma/implementations" if linux?
         else # extension
           extension_dest = "/usr/local/jamoma/extensions" if mac?
           extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
         end
-        
+
         if project_type == "library"
           extension_dest = "/usr/local/jamoma/lib" if mac?
           extension_dest = "/usr/local/lib/jamoma/lib" if linux?
         elsif project_type == "implementation"
           if mac?
-            extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
-            touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
+	          if max
+  	          extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
+  	          touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
+            else
+							extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
+  	          touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
+            end
           end
-          extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win32?            
-          extension_dest = "/usr/local/jamoma/implementations" if linux?            
+          extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win32?
+          extension_dest = "/usr/local/jamoma/implementations" if linux?
         else # extension
           extension_dest = "/usr/local/jamoma/extensions" if mac?
           extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
         end
-        
+
         if (!touch_dest)
           touch_dest = extension_dest
         end
-        
+
         # begin by setting dumb environment variables required for carbon header work correctly on OS 10.8 with Xcode 4.4
         # and GCC
         if mac?
@@ -1093,10 +1110,10 @@ end
           end
         end
         # {'environment' if (mac? && out.match(/Xcode 4/))}
- 
+
         if mac?
           makefile.write("\n")
-          makefile.write("#########################################\n\n")         
+          makefile.write("#########################################\n\n")
           makefile.write("Debug: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
           makefile.write("#Debug: createdirs #{'i386' if (arch == 'i386' || arch == 'default')} #{'x64' if (arch == 'x86_64' || arch == 'default')} lipo install\n")
           makefile.write("Debug: createdirs install\n")
@@ -1105,18 +1122,22 @@ end
           makefile.write("Release: OPTIMIZATION_FLAGS = $(OPTIMIZATION_RELEASE)\n")
           makefile.write("Release: createdirs install\n")
           makefile.write("\n")
-                                        
+
           makefile.write("createdirs:\n")
           makefile.write("\tmkdir -p #{build_temp}\n")
           makefile.write("\tmkdir -p #{extension_dest}\n")
           makefile.write("\ttouch #{touch_dest}\n")
-          if ($alternate_pkgInfo)
-            makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+          if max
+							makefile.write("\tcp #{projectdir}/../PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
           else
-            makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+						if ($alternate_pkgInfo)
+							makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+						else
+							makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+						end
           end
           makefile.write("\n")
-          
+
           # All compiled object files are dependent upon their individual source file and _all_ headers
           # At some point we could try to be more refined about depending on _all_ headers, but for now this is the safest way to go.
           if (arch == 'i386' || arch == 'default')
@@ -1132,15 +1153,15 @@ end
               makefile.write("\t$(CC_64) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
           end
           makefile.write("\n")
- 
+
           makefile.write("link: #{'i386' if (arch == 'i386' || arch == 'default')} #{'x64' if (arch == 'x86_64' || arch == 'default')} | #{'$(SRC32)' if (arch =='i386' || arch == 'default')} #{'$(SRC64)' if (arch == 'x86_64' || arch == 'default')}\n\n")
-          
+
           if (arch == 'i386' || arch == 'default')
               makefile.write("i386: $(SRC32)\n")
               makefile.write("\t$(CC_32) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/$(NAME)-i386#{extension_suffix} $(SRC32)\n")
               makefile.write("\n")
           end
-          
+
           if (arch == 'x86_64' || arch == 'default')
               makefile.write("x64: $(SRC64)\n")
               makefile.write("\t$(CC_64) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/$(NAME)-x86_64#{extension_suffix} $(SRC64)\n")
@@ -1148,7 +1169,7 @@ end
           end
 
           makefile.write("lipo: | link\n")
-        
+
           # not a universal binary, just copy it
           if (arch == 'i386')
               makefile.write("\tcp #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")
@@ -1174,17 +1195,17 @@ end
             end
           end
           makefile.write("\n")
-             
+
         else
-               
+
           #################        #################        #################        #################        #################        #################
-          #       Debug: 
+          #       Debug:
           #################        #################        #################        #################        #################        #################
           makefile.write("\n")
-          makefile.write("#########################################\n\n")         
+          makefile.write("#########################################\n\n")
           makefile.write("Debug:\n")
           makefile.write("\tmkdir -p build\n")
-        
+
           if mac?
             makefile.write("\tmkdir -p #{extension_dest}\n")
             makefile.write("\ttouch #{extension_dest}\n")
@@ -1211,8 +1232,13 @@ end
         		end
           elsif project_type == "implementation"
             if mac?
-              extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
-              touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
+	            if max
+              	extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
+              	touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
+							else
+              	extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
+              	touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
+							end
               makefile.write("\tmkdir -p #{extension_dest}\n")
               if ($alternate_pkgInfo)
                 makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n")
@@ -1224,13 +1250,13 @@ end
             extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win32?
 
             #TODO: binary destination should depend on the type of implementation we are building!
-            
-            extension_dest = "/usr/local/jamoma/implementations" if linux?            
+
+            extension_dest = "/usr/local/jamoma/implementations" if linux?
           else # extension
             extension_dest = "/usr/local/jamoma/extensions" if mac?
             extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
           end
-        
+
           makefile.write("\t#{"sudo " if linux?}cp build/$(NAME)#{extension_suffix} #{extension_dest}\n")
           if postbuilds
             postbuilds.each do |postbuild|
@@ -1239,7 +1265,7 @@ end
             end
           end
           #################        #################        #################        #################        #################        #################
-          #       Release 
+          #       Release
           #################        #################        #################        #################        #################        #################
           makefile.write("\n")
           makefile.write("Release:\n")
@@ -1251,7 +1277,7 @@ end
             else
               makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
             end
-          
+
             if (arch == 'i386')
               makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_RELEASE) -o build/$(NAME)-i386#{extension_suffix}\n")
               makefile.write("\tcp build/$(NAME)-i386#{extension_suffix} build/$(NAME)#{extension_suffix}\n")
@@ -1263,7 +1289,7 @@ end
               makefile.write("\t$(CC_64) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_RELEASE) -o build/$(NAME)-x86_64#{extension_suffix}\n")
               makefile.write("\tlipo build/$(NAME)-i386#{extension_suffix} build/$(NAME)-x86_64#{extension_suffix} -create -output build/$(NAME)#{extension_suffix}\n")
             end
-            
+
             if project_type == "implementation"
               makefile.write("\ttouch #{touch_dest}\n")
             end
@@ -1277,17 +1303,17 @@ end
               postbuild = postbuild.to_s
               makefile.write("\t#{postbuild}\n")
             end
-          end        
+          end
           #################        #################        #################        #################        #################        #################
-          #       Clean: 
-          #################        #################        #################        #################        #################        #################        
+          #       Clean:
+          #################        #################        #################        #################        #################        #################
           makefile.write("\n")
           makefile.write("clean:\n")
           makefile.write("\trm -f *.o\n")
           makefile.write("\trm -rf build\n")
           #################        #################        #################        #################        #################        #################
-          #       Install: 
-          #################        #################        #################        #################        #################        #################        
+          #       Install:
+          #################        #################        #################        #################        #################        #################
           makefile.write("\n")
           makefile.write("install:\n")
           makefile.write("\t#{"sudo " if linux?}cp build/$(NAME)#{extension_suffix} #{extension_dest}\n")
@@ -1298,26 +1324,26 @@ end
             end
           end
         end
- 
+
       end # big new if mac? statement
-  
+
       if win32?
   	    vcproj_toolfiles = Element.new("ToolFiles")
   	    vcproj_root.add_element(vcproj_toolfiles)
-	  
+
         vcproj_configurations = Element.new("Configurations")
         vcproj_configurations.add_element(vcproj_release)
         vcproj_configurations.add_element(vcproj_debug)
         vcproj_root.add_element(vcproj_configurations)
-      
+
         vcproj_refs = Element.new("References")
     	  vcproj_root.add_element(vcproj_refs)
-    
+
   	    vcproj_root.add_element(vcproj_files)
-	  
+
         vcproj_globs = Element.new("Globals")
     	  vcproj_root.add_element(vcproj_globs)
-	  
+
 
         # WRITE THE VCPROJ FILE ########################
         #f = File.new(filepath, "w")
@@ -1336,28 +1362,28 @@ end
         f.write(s)
         f.close
         # WRITE THE VCPROJ FILE ########################
-      
+
         winpath = "#{Dir.pwd}/#{projectdir}/#{projectname}.vcproj"
   	    #puts "cygwin path: #{winpath}"
   	    winpath = `cygpath -w #{winpath}`
   	    winpath.gsub!(/(\n)/,'')
   	    #puts "winpath: #{winpath}"
-        `vcbuild /upgrade "#{winpath}"` 
+        `vcbuild /upgrade "#{winpath}"`
       else
         makefile.flush
         makefile.close
         makefile_generated = true
       end
     end
-    
+
     return makefile_generated
   end
-  
-  
+
+
   def find_and_build_project(projectdir, configuration, clean, forcedCompiler, distropath)
     foldername = projectdir.split("/").last
     use_make = generate_makefile(projectdir, foldername, forcedCompiler)
-    
+
     # First look for a YAML project config file
     # If one exists, then we need to first generate the platform-specific project files using CMake
     #
@@ -1366,16 +1392,16 @@ end
     # How do we deal with iOS here?
     # TODO: switch Windows to GCC
     #
-    
+
     # fall back on a custom Makefile (e.g. for tap.loader)
     if (!use_make && !File.exists?("#{projectdir}/#{foldername}.xcodeproj") && mac?)
       use_make = true
     end
-    
+
     if projectdir == "jcom.in~" || projectdir == "jcom.out~" || projectdir == "jcom.parameter"
       clean = true
     end
-    
+
     if win32?
       rgx = /.vcproj$/
     elsif linux?
@@ -1390,18 +1416,18 @@ end
         build_project(projectdir, file, configuration, clean, distropath, use_make)
       end
     end
- 
+
   end
 
-  
+
   def find_and_copy_helpfile(filedir, dstdir)
 
     	rgx = /.maxhelp/
-    Dir.foreach(filedir) do |file|      
+    Dir.foreach(filedir) do |file|
       if rgx.match(file)
           copy_helpfile(file, filedir, dstdir)
       end
-    end 
+    end
   end
 
 
@@ -1415,29 +1441,29 @@ end
       next if !FileTest.directory?("#{dir}/#{subf}")
       find_and_build_project("#{dir}/#{subf}", configuration, clean, forcedCompiler, distropath)
     end
-  end   
+  end
 
 
   def maxhelp_dir(dir, dstdir)
     dir = "#{@svn_root}/#{dir}"
-    return if !FileTest.exist?(dir) || !FileTest.directory?(dir)     
+    return if !FileTest.exist?(dir) || !FileTest.directory?(dir)
     Dir.foreach(dir) do |subf|
       next if /^\./.match(subf)
       next if /common/.match(subf)
-      next if !FileTest.directory?("#{dir}/#{subf}")     
-      find_and_copy_helpfile("#{dir}/#{subf}", dstdir) 
+      next if !FileTest.directory?("#{dir}/#{subf}")
+      find_and_copy_helpfile("#{dir}/#{subf}", dstdir)
     end
   end
-  
-  
+
+
   def create_audiograph_objectmappings(filedir)
     return if !FileTest.exist?(filedir) || !FileTest.directory?(filedir)
-	
+
 	local_dir = Dir.pwd
     Dir.chdir(filedir)
     objectmappings = File.new("jamoma-objectmappings.txt", 'w')
     database = File.new("jamoma-database.txt", 'w')
-	
+
     rgx = /=.mxe/
 
     Dir.foreach(filedir) do |file|
@@ -1448,7 +1474,7 @@ end
         database.puts "max db.addvirtual alias " + basename.gsub("=","≈") + " " + basename + ";"
       end
     end
-	
+
     objectmappings.close
     database.close
     Dir.chdir(local_dir)

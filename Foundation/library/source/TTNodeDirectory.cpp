@@ -144,16 +144,16 @@ TTErr TTNodeDirectory::getAlias(TTAddress anAddress, TTAddress& returnedAlias)
 	return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::replaceAlias(TTAddress anAddress)
+TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 {
-	TTInt8				d;
-	TTUInt32			s, i, c;
-	TTAddress				alias;
-	TTAddress				aliasAddress;
-	TTAddress				p1;
-	TTAddress				p2;
-	TTAddressComparisonFlag	comp;
-	TTValue				ak, found = kTTValNONE;
+	TTInt8		d;
+	TTUInt32    s, i, c;
+	TTAddress	alias;
+	TTAddress	aliasAddress;
+	TTAddress	p1;
+	TTAddress	p2;
+	TTValue		ak, found = kTTValNONE;
+    TTAddressComparisonFlag	comp;
 	
 	// if this address doesn't exist look into aliases
 	this->aliases->getKeys(ak);

@@ -69,7 +69,6 @@ extern TTFOUNDATION_EXPORT TTRegex* ttRegexForDirectory;	///< The global regex t
 extern TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute;	///< The global regex to parse attribute part
 extern TTFOUNDATION_EXPORT TTRegex* ttRegexForParent;		///< The global regex to parse parent part
 extern TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance;		///< The global regex to parse instance part
-extern TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero;	///< The global regex to parse instance .0
 
 /****************************************************************************************************/
 // Class Specifications
@@ -171,10 +170,7 @@ public:
 	
 	
 private:
-	/** Parse ".0"
-	 @return							An error code if the parsing failed */
-	TTErr						parseInstanceZero(const TTString& toParse, TTString& parsed);
-	
+
 	/** Parse the address to get directory, parent, name, instance and attribute part 
 	 @return							An error code if the parsing failed */
 	TTErr						parse();

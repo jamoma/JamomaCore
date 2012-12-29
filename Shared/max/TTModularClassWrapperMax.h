@@ -102,8 +102,8 @@ typedef struct _wrappedModularInstance {
 	TTAddress								arrayAddress;				// keep the address in memory to filter repetitions
 	TTValue									arrayArgs;					// keep attributes argument of the external for dynamic creation
 	
-	TTString								*arrayFormatInteger;		///< a format string to edit numeric instance
-	TTString								*arrayFormatString;			///< a format string to edit string instance
+	TTString								arrayFormatInteger;         ///< a format string to edit numeric instance
+	TTString								arrayFormatString;			///< a format string to edit string instance
 	
 	SymbolPtr								arrayAttrFormat;			// Is it 'single' format output or 'array' format output
 #endif
