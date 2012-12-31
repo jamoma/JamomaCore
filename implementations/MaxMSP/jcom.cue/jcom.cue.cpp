@@ -402,7 +402,7 @@ void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	if (argc && argv) {
 		if (atom_gettype(argv) == A_SYM) {
-			v = TTValue((int)atom_getsym(argv));
+			v = TTValue((TTPtr)atom_getsym(argv));
 			x->wrappedObject->sendMessage(kTTSym_Recall, v, kTTValNONE);
 		}
 		

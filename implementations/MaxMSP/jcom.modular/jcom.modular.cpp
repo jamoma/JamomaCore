@@ -61,8 +61,8 @@ void WrapTTApplicationClass(WrappedClassPtr c)
 void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTSymbol					applicationName = NULL;
-	TTSymbol					protocolName = NULL;
+	TTSymbol					applicationName;
+	TTSymbol					protocolName;
 	TTXmlHandlerPtr             anXmlHandler;
 	TTValue						v, args;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
