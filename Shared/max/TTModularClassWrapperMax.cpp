@@ -208,10 +208,11 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	ModularSpec*				spec = (ModularSpec*)x->wrappedClassDefinition->specificities;
 	TTValue						v;
-	ObjectPtr					context;
 	TTAddress			contextAddress;
 
 #ifndef ARRAY_EXTERNAL
+	ObjectPtr					context;
+	
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TTSymbol("context"), v);
 		v.get(0, (TTPtr*)&context);
@@ -253,9 +254,10 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 
 void wrappedModularClass_shareContextNode(TTPtr self, TTNodePtr *contextNode)
 {
-	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue	v;
 #ifndef ARRAY_EXTERNAL
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TTSymbol("contextNode"), v);
 		v.get(0, (TTPtr*)contextNode);
@@ -509,9 +511,10 @@ void wrappedModularClass_dump(TTPtr self)
     SymbolPtr		s;
     AtomCount		ac;
     AtomPtr			av;
-    Atom			a;
 	
 #ifndef ARRAY_EXTERNAL
+    Atom			a;
+	
     if (x->subscriberObject)
     {
     	// send out the absolute address of the subscriber
@@ -1138,7 +1141,7 @@ void wrappedModularClass_ArraySelect(TTPtr self, SymbolPtr msg, AtomCount ac, At
 					x->cursor = TT(instanceAddress->s_name);
 				}
 				else
-					object_error((ObjectPtr)x, "array/select : %s is not a valid index", i);
+					object_error((ObjectPtr)x, "array/select : %s is not a valid index", atom_getsym(av)->s_name);
 			}
 		}
 		else {
@@ -1148,7 +1151,7 @@ void wrappedModularClass_ArraySelect(TTPtr self, SymbolPtr msg, AtomCount ac, At
 				x->cursor = TT(instanceAddress->s_name);
 			}
 			else
-				object_error((ObjectPtr)x, "array/select : %s is not a valid index", i);
+				object_error((ObjectPtr)x, "array/select : %s is not a valid index", msg->s_name);
 		}
 	}
 	else
