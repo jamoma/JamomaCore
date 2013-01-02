@@ -171,7 +171,7 @@ TTErr OscilDropAudio(OscilPtr self, long inletNumber, ObjectPtr sourceMaxObject,
 	
 	self->audioGraphObject->setAttributeValue(TT("numAudioInlets"), 0);
 	self->audioGraphObject->addAudioFlag(kTTAudioGraphGenerator);
-	err = (TTErr)int(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
+	err = (TTErr)(TTPtrSizedInt)(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
 	if (self->audioGraphObject && sourceObject && !err)
 		err = self->audioGraphObject->dropAudio(sourceObject, sourceOutletNumber, inletNumber);	
 	return err;
