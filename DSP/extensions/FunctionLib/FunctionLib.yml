@@ -5,6 +5,7 @@ sources:
   - source/TTCrossFadeInFunction.cpp
   - source/TTCrossFadeOutFunction.cpp
   - source/TTExpFunction.cpp
+  - source/TTFreeHandFunction.cpp
   - source/TTFunction.cpp
   - source/TTLinearFunction.cpp
   - source/TTLogFunction.cpp
@@ -17,6 +18,7 @@ sources:
   - tests/TTCrossFadeInFunction.test.cpp
   - tests/TTCrossFadeOutFunction.test.cpp
   - tests/TTExpFunction.test.cpp
+  - tests/TTFreeHandFunction.test.cpp
   - tests/TTLinearFunction.test.cpp
   - tests/TTLogFunction.test.cpp
   - tests/TTPowerFunction.test.cpp
