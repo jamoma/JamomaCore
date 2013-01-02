@@ -468,7 +468,7 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 	if (inputValue.getSize() == 3) {
 		
         // get cues by name
-		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat32) {
+		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat64) {
 			
 			inputValue.get(0, name1);
 			inputValue.get(1, name2);
@@ -476,7 +476,7 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
         }
         
         // get cues by position
-        else if (inputValue.getType(0) == kTypeInt32 && inputValue.getType(1) == kTypeInt32 && inputValue.getType(2) == kTypeFloat32) {
+        else if (inputValue.getType(0) == kTypeInt32 && inputValue.getType(1) == kTypeInt32 && inputValue.getType(2) == kTypeFloat64) {
             
             inputValue.get(0, i1);
             mOrder.get(i1-1, name1);
@@ -514,11 +514,11 @@ TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 	
 	for (i = 0; i < mixSize * 2; i = i+2) {
 		
-        if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat32) {
+        if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat64) {
             
 			inputValue.get(i, name);
         }
-        else if (inputValue.getType(i) == kTypeInt32 && inputValue.getType(i+1) == kTypeFloat32) {
+        else if (inputValue.getType(i) == kTypeInt32 && inputValue.getType(i+1) == kTypeFloat64) {
             
             inputValue.get(i, id);
             mOrder.get(id-1, name);

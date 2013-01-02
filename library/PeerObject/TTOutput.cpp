@@ -68,8 +68,8 @@ mSignalAttr(NULL)
 	addAttributeWithSetter(InputAddress, kTypeSymbol);
 	
 	addAttributeWithSetter(Mute, kTypeBoolean);
-	addAttributeWithSetter(Mix, kTypeFloat32);
-	addAttributeWithSetter(Gain, kTypeFloat32);
+	addAttributeWithSetter(Mix, kTypeFloat64);
+	addAttributeWithSetter(Gain, kTypeFloat64);
 	addAttribute(Freeze, kTypeBoolean);
 	addAttribute(Preview, kTypeBoolean);
 	

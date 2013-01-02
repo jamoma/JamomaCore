@@ -32,43 +32,43 @@ private:
 	TTAddress			mInput;						///< ATTRIBUTE : address of the data for the incoming value
 	TTAddress			mOutput;					///< ATTRIBUTE : address of the data for the value to control
 	
-	TTFloat64					mInputMin;					///< ATTRIBUTE : 
-	TTFloat64					mInputMax;					///< ATTRIBUTE : 
-	TTFloat64					mOutputMin;					///< ATTRIBUTE : 
-	TTFloat64					mOutputMax;					///< ATTRIBUTE : 
+	TTFloat64			mInputMin;					///< ATTRIBUTE : 
+	TTFloat64			mInputMax;					///< ATTRIBUTE : 
+	TTFloat64			mOutputMin;					///< ATTRIBUTE : 
+	TTFloat64			mOutputMax;					///< ATTRIBUTE : 
 	
-	TTBoolean					mEnable;					///< ATTRIBUTE : do observe Input rangeBounds attribute ?
+	TTBoolean			mEnable;					///< ATTRIBUTE : do observe Input rangeBounds attribute ?
 	
-	TTBoolean					mInverse;					///< ATTRIBUTE : to make the output equal to mOutputMax - result
+	TTBoolean			mInverse;					///< ATTRIBUTE : to make the output equal to mOutputMax - result
 	
-	TTValue						mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
-	TTSymbol					mFunction;					///< ATTRIBUTE : name of the map function
-	TTValue						mFunctionParameters;		///< ATTRIBUTE : names of parameter's function
-	TTValue						mFunctionSamples;			///< ATTRIBUTE : an overview of the mapping (each value between [map(InputMin) :: map(InputMax)])
+	TTValue				mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
+	TTSymbol			mFunction;					///< ATTRIBUTE : name of the map function
+	TTValue				mFunctionParameters;		///< ATTRIBUTE : names of parameter's function
+	TTValue				mFunctionSamples;			///< ATTRIBUTE : an overview of the mapping (each value between [map(InputMin) :: map(InputMax)])
     
-    TTUInt32                    mRamp;                      ///< ATTRIBUTE : a ramp time to pass to the output data
+    TTUInt32            smRamp;                      ///< ATTRIBUTE : a ramp time to pass to the output data
 	
-	TTReceiverPtr				mReceiver;					///< the receiver which binds on In data(s)
-	TTSenderPtr					mSender;					///< the sender which binds on Out data(s)
+	TTReceiverPtr		mReceiver;					///< the receiver which binds on In data(s)
+	TTSenderPtr			mSender;					///< the sender which binds on Out data(s)
 	
-	TTReceiverPtr				mInputObserver;				///< the receiver which observe the input address creation/destruction
-	TTReceiverPtr				mOutputObserver;			///< the receiver which observe the output address creation/destruction
+	TTReceiverPtr		mInputObserver;				///< the receiver which observe the input address creation/destruction
+	TTReceiverPtr		mOutputObserver;			///< the receiver which observe the output address creation/destruction
 	
-	TTReceiverPtr				mInputRangeObserver;		///< the receiver which observe the input rangeBounds attribute
-	TTReceiverPtr				mOutputRangeObserver;		///< the receiver which observe the output rangeBounds attribute
-	TTBoolean					mObserveInputRange;			///< do observe Input rangeBounds attribute ?
-															///< Set to true if there are a setting Input address
-															///< Set to false if there are a setting of Input Min/Max value
-	TTBoolean					mObserveOutputRange;		///< do observe Output rangeBounds attribute ?
-															///< Set to true if there are a setting Output address
-															///< Set to false if there are a setting of Output Min/Max value
+	TTReceiverPtr		mInputRangeObserver;		///< the receiver which observe the input rangeBounds attribute
+	TTReceiverPtr		mOutputRangeObserver;		///< the receiver which observe the output rangeBounds attribute
+	TTBoolean			mObserveInputRange;			///< do observe Input rangeBounds attribute ?
+													///< Set to true if there are a setting Input address
+													///< Set to false if there are a setting of Input Min/Max value
+	TTBoolean			mObserveOutputRange;		///< do observe Output rangeBounds attribute ?
+													///< Set to true if there are a setting Output address
+													///< Set to false if there are a setting of Output Min/Max value
 	
-	TTCallbackPtr				mReturnValueCallback;		///< a way to return back value to the owner of this mapper
+	TTCallbackPtr		mReturnValueCallback;		///< a way to return back value to the owner of this mapper
 	
-	TTFloat64					mA, mB, mC, mD;				//< Coefficients used for normalizing input(A, B) and output (C, D)
+	TTFloat64			mA, mB, mC, mD;				//< Coefficients used for normalizing input(A, B) and output (C, D)
 #ifndef TT_NO_DSP
-	TTAudioObjectPtr			mFunctionUnit;
-	TTBoolean					mValid;						//< true if the functionUnit can be used
+	TTAudioObjectPtr	mFunctionUnit;
+	TTBoolean			mValid;						//< true if the functionUnit can be used
 #endif
 	
 	/** process mapping */
