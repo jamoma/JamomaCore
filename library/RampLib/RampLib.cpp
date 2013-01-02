@@ -17,7 +17,6 @@
 //RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton) : 
 RampUnit::RampUnit(TTValue& arguments) :
 	TTDataObject(kTTValNONE),
-	mFunction(NULL),
 	functionUnit(NULL),
 	mIsRunning(NO),
 	callback(NULL),
@@ -64,7 +63,7 @@ void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 TTErr RampUnit::setFunction(const TTValue& functionName)
 {
 	TTErr		err;
-	TTSymbol	newFunctionName = NULL;
+	TTSymbol	newFunctionName;
 	
 	functionName.get(0, newFunctionName);
 	

@@ -55,19 +55,10 @@ includes:
 libraries:
   - FOUNDATION
   - DSP
-  - C74-MAX
-  - C74-MSP
+  - C74
   - mac /usr/lib/libxml2.dylib
   - win ../../../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
   - win ../../../../Foundation/library/libxml2/win32/lib/libxml2.lib
-#  - portaudio/libportaudio-jamoma.a
 
 frameworks:
   - Carbon
-#  - CoreAudio
-#  - AudioUnit
-#  - AudioToolbox
-
-# This project is not available for most architectures
-
-arch: "i386"

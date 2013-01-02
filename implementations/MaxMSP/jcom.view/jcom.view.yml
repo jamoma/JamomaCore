@@ -26,8 +26,6 @@ libraries:
   - FOUNDATION
   - MODULAR  
   - DSP
-  - C74-MAX
-  - C74-MSP
+  - C74
 
 prefix: ../../../../../Core/Shared/max/c74support/max-includes/macho-prefix.pch
-arch: "i386"
