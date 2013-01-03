@@ -192,7 +192,7 @@ TTErr OpDropAudio(OpPtr self, long inletNumber, ObjectPtr sourceMaxObject, long 
 	
 	if (inletNumber == 1)
 		self->audioGraphObject->setAttributeValue(TT("numAudioInlets"), 1);
-	err = (TTErr)int(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
+	err = (TTErr)TTPtrSizedInt(object_method(sourceMaxObject, GENSYM("audio.object"), &sourceObject));
 	if (self->audioGraphObject && sourceObject && !err)
 		err = self->audioGraphObject->dropAudio(sourceObject, sourceOutletNumber, inletNumber);	
 	return err;

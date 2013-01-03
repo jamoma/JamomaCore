@@ -14,11 +14,6 @@ includes:
 libraries:
   - FOUNDATION
   - DSP
-  - mac ../../../../Shared/max/c74support/max-includes/MaxAPI.framework/Versions/A/MaxAPI
-  - mac ../../../../Shared/max/c74support/msp-includes/MaxAudioAPI.framework/Versions/A/MaxAudioAPI
-  - win ../../../../Shared/max/c74support/max-includes/MaxAPI.lib
-  - win ../../../../Shared/max/c74support/msp-includes/MaxAudio.lib
-  - C74-JITTER
+  - C74
 
 prefix: ../../../../Shared/max/c74support/max-includes/macho-prefix.pch
-arch: "i386"
