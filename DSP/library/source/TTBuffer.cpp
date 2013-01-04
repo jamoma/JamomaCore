@@ -125,11 +125,14 @@ TTErr TTBuffer::prepareBecomingActiveMatrix()
 		err = TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE);
 	}
 	
-	// only if there is still no error at this point, do we set up this other stuff
+	// only if there is still no error at this point, we set up this other stuff
 	if (!err)
 	{
 		mBecomingActiveMatrix->adaptTo(mActiveMatrix);		// start with something like the mActiveMatrix
 		mBecomingActiveMatrix->setBufferPoolStage(kSM_BecomingActive);
+	} else {
+		// if there is an error, send a log message
+		TTLogError("TTBuffer failed to prepare new SampleMatrix");
 	}
 	
 	// report if everything worked
