@@ -23,10 +23,8 @@ libraries:
   - AUDIOGRAPH
   - GRAPH
   - DSP
-  - C74-MAX
-  - C74-MSP
-  - C74-JITTER
-  
+  - C74  
+
 frameworks:
   - Carbon
   - Cocoa
@@ -39,6 +37,6 @@ postbuilds:
   - "cp -r ../../../../AudioGraph/implementations/AudioUnits/ ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/Resources/"	
   - "cp Info.plist ../../../../../Builds/MaxMSP/$(NAME).mxo/Contents/" 
 
-arch: i386  
+  
 compiler: clang  
 

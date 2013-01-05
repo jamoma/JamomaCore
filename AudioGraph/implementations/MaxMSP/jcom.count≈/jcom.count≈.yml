@@ -21,9 +21,6 @@ libraries:
   - DSP
   - AUDIOGRAPH
   - GRAPH
-  - C74-MAX
-  - C74-MSP
-  - C74-JITTER
-
+  - C74
 prefix: ../../../../Shared/max/c74support/max-includes/macho-prefix.pch
-arch: "i386"
+
