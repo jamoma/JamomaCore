@@ -12,6 +12,7 @@
 		2262733915B0604A00B13F9D /* TTFifo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTFifo.h; sourceTree = "<group>"; };
 		229E3DBB15ED1F6900BD1FC0 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		22EFB4B115F7E24400A85A8C /* TTString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTString.h; path = includes/TTString.h; sourceTree = "<group>"; };
+		22F4981316961C1400D2C427 /* TTElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = includes/TTElement.h; sourceTree = "<group>"; };
 		22FCC57516061A2000D77C6D /* TTString.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTString.test.cpp; path = tests/TTString.test.cpp; sourceTree = SOURCE_ROOT; };
 		22FCC57616061A2000D77C6D /* TTString.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTString.test.h; path = tests/TTString.test.h; sourceTree = SOURCE_ROOT; };
 		22FCC57816061C7E00D77C6D /* JamomaFoundation.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaFoundation.yml; sourceTree = "<group>"; };
@@ -115,6 +116,7 @@
 		220633A316152F2E003C76E6 /* Values */ = {
 			isa = PBXGroup;
 			children = (
+				22F4981316961C1400D2C427 /* TTElement.h */,
 				D2F0976A14A0D70100EC0396 /* TTValue.h */,
 				D2F0978C14A0D70F00EC0396 /* TTValue.cpp */,
 				D2F0976B14A0D70100EC0396 /* TTValueCache.h */,

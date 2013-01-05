@@ -157,7 +157,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 	
 	// if this address doesn't exist look into aliases
 	this->aliases->getKeys(ak);
-	s = ak.getSize();
+	s = ak.size();
 	if (s == 0)
 		return kTTErrGeneric;
 	
@@ -651,7 +651,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 		adrs = anAddress.normalize();
 		
 		// for each key of mObserver tab
-		for (i = 0; i < hk.getSize(); i++) {
+		for (i = 0; i < hk.size(); i++) {
 			hk.get(i, key);
 			
 			// compare the key
@@ -685,7 +685,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 						TT_ASSERT("TTNode observer list member is not NULL", anObserver);
 						
 						// filter on the depth difference if specified
-						if (lk_o->current().getSize() > 1) {
+						if (lk_o->current().size() > 1) {
 							lk_o->current().get(1, maxDepthDifference);
 							
 							// we can cast the depth difference because it is always positive in the lower case
@@ -739,7 +739,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 		this->observers->getKeys(hk);
 
 		// for each key of mObserver tab
-		s = hk.getSize();
+		s = hk.size();
 		for (i=0; i<s; i++) {
 			hk.get(i, key);
 

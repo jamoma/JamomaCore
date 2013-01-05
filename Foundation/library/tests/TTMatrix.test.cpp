@@ -140,7 +140,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 		// the following use of set() does not work because it will interpret first two values as coordinates
 		// that is the source of FAIL that the test produces
-		v.setSize(4);		
+		v.resize(4);
 		v.set(0, 15);	// index x
 		v.set(1, 0);	// index y
 		v.set(2, 3.14);	// real (no imaginary)
@@ -308,11 +308,11 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&A, kTTValNONE);
 		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&B, kTTValNONE);
 		
-		dims.setSize(2);
+		dims.resize(2);
 		dims.set(0, 3);	// 3 rows
 		dims.set(1, 4);	// 4 columns
 		
-		dims_mismatch.setSize(2);
+		dims_mismatch.resize(2);
 		dims_mismatch.set(0, 4);	// 4 rows
 		dims_mismatch.set(1, 3);	// 3 columns
 		

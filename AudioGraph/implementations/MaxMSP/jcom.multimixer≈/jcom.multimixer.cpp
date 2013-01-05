@@ -17,7 +17,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 
 	TTAudioGraphInit();
 	options->append(TT("argumentDefinesNumInlets"), value);
-	value = 1L;
+	value = 1;
 	options->append(TT("argumentDefinesNumOutlets"), value);
 	wrapAsMaxAudioGraph(TT("multimixer"), "jcom.multimixer≈", NULL, options);
 	wrapAsMaxAudioGraph(TT("multimixer"), "multimixer≈", NULL, options);

@@ -453,12 +453,12 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 	TTValue v1(3.14);
 
 	TTTestAssertion("init with a double is correctly typed as kTypeFloat64", 
-					v1.getType(0) == kTypeFloat64, 
+					v1[0].type() == kTypeFloat64,
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("init with a double has correct element count", 
-					v1.getSize() == 1,
+					v1.size() == 1,
 					testAssertionCount,
 					errorCount);	
 	
@@ -476,12 +476,12 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 	v1.append(TTSymbol("foo"));
 
 	TTTestAssertion("TTValue correctly updated element count to 2", 
-					v1.getSize() == 2,
+					v1.size() == 2,
 					testAssertionCount,
 					errorCount);	
 	
 	TTTestAssertion("first item still is correctly typed as kTypeFloat64", 
-					v1.getType(0) == kTypeFloat64, 
+					v1[0].type() == kTypeFloat64, 
 					testAssertionCount,
 					errorCount);
 	
@@ -491,7 +491,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("second item has correct type",
-					v1.getType(1) == kTypeSymbol,
+					v1[1].type() == kTypeSymbol,
 					testAssertionCount,
 					errorCount);
 	
@@ -508,12 +508,12 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 	v1.prepend(TTValue(kTTSym_value));
 	
 	TTTestAssertion("TTValue correctly updated element count to 3", 
-					v1.getSize() == 3,
+					v1.size() == 3,
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("first item should be typed as kTypeSymbol", 
-					v1.getType(0) == kTypeSymbol, 
+					v1[0].type() == kTypeSymbol, 
 					testAssertionCount,
 					errorCount);
 	
@@ -524,12 +524,12 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	TTTestAssertion("second item still is correctly typed as kTypeFloat64", 
-					v1.getType(1) == kTypeFloat64, 
+					v1[1].type() == kTypeFloat64,
 					testAssertionCount,
 					errorCount);
 	
 	TTTestAssertion("third item has correct type",
-					v1.getType(2) == kTypeSymbol,
+					v1[2].type() == kTypeSymbol,
 					testAssertionCount,
 					errorCount);
 	
@@ -544,15 +544,17 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 	v1.clear();
 	
 	TTTestAssertion("element count is zero",
-					v1.getSize() == 0,
+					v1.size() == 0,
 					testAssertionCount,
 					errorCount);
-	
+
+	// TODO: document that we check size rather than type
+#ifdef OLD
 	TTTestAssertion("type of TTValue which is returned is kTypeNone",
 					v1.getType() == kTypeNone,
 					testAssertionCount,
 					errorCount);
-	
+#endif
 	
 }
 
@@ -576,8 +578,8 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v.fromString();
 	
 	TTTestAssertion("\"0\" string is converted into a TTInt32 0 value",
-					v.getType() == kTypeInt32 &&
-					v.getInt32(0) == 0,
+					v[0].type() == kTypeInt32 &&
+					v[0] == 0,
 					testAssertionCount,
 					errorCount);
 	
@@ -587,8 +589,8 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v.fromString();
 	
 	TTTestAssertion("\"0.000000\" string is converted into a TTFloat32 0.000000 value",
-					v.getType() == kTypeFloat32 &&
-					v.getFloat32(0) == 0.000000,
+					v[0].type() == kTypeFloat32 &&
+					v[0] == 0.f,
 					testAssertionCount,
 					errorCount);
 	
@@ -598,8 +600,8 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v.fromString();
 	
 	TTTestAssertion("\"1\" string is converted into a TTInt32 1 value",
-					v.getType() == kTypeInt32 &&
-					v.getInt32(0) == 1,
+					v[0].type() == kTypeInt32 &&
+					v[0] == 1,
 					testAssertionCount,
 					errorCount);
 	
@@ -609,8 +611,8 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v.fromString();
 	
 	TTTestAssertion("\"1.234567\" string is converted into a TTFloat32 1.234567 value",
-					v.getType() == kTypeFloat32 &&
-					TTTestFloatEquivalence((TTFloat32)v.getFloat32(0), 1.234567f),
+					v[0].type() == kTypeFloat32 &&
+					TTTestFloatEquivalence(TTFloat32(v[0]), 1.234567f),
 					testAssertionCount,
 					errorCount);
 	
@@ -621,7 +623,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v.get(0, aSymbol);
 	
 	TTTestAssertion("\"value\" string is converted into a TTSymbolPtr kTTSym_value",
-					v.getType() == kTypeSymbol &&
+					v[0].type() == kTypeSymbol &&
 					aSymbol == kTTSym_value,
 					testAssertionCount,
 					errorCount);
@@ -635,13 +637,13 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v.get(2, f);
 	
 	TTTestAssertion("\"sampleRate 1 1.234567\" string is converted into a 3 datas value",
-					v.getType(0) == kTypeSymbol &&
-					v.getType(1) == kTypeInt32 &&
-					v.getType(2) == kTypeFloat32 &&
+					v[0].type() == kTypeSymbol &&
+					v[1].type() == kTypeInt32 &&
+					v[2].type() == kTypeFloat32 &&
 					aSymbol == kTTSym_sampleRate &&
 					i == 1 &&
 					TTTestFloatEquivalence(f, 1.234567f) &&
-					v.getSize() == 3,
+					v.size() == 3,
 					testAssertionCount,
 					errorCount);
 	
@@ -899,44 +901,44 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 
 	
 	
-	// TTInt32
+	// TTInt32 -- which is a classic "int" type
 	
-	v1 = TTInt32(3);
+	v1 = 3;
 	v1.clip(6, 12);
 	TTTestAssertion("positive TTInt32 clipped (out of lower bound)",
 					TTInt32(v1) == 6,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(3);
+	v1 = 3;
 	v1.clip(0, 4);
 	TTTestAssertion("positive TTInt32 not clipped (within range)",
 					TTInt32(v1) == 3,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(3);
+	v1 = 3;
 	v1.clip(0, 2);
 	TTTestAssertion("positive TTInt32 clipped (out of upper bound)",
 					TTInt32(v1) == 2,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(-3);
+	v1 = -3;
 	v1.clip(-2, 0);
 	TTTestAssertion("negative TTInt32 clipped (out of lower bound)",
 					TTInt32(v1) == -2,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(-3);
+	v1 = -3;
 	v1.clip(-4, 0);
 	TTTestAssertion("negative TTInt32 not clipped (within range)",
 					TTInt32(v1) == -3,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(-3);
+	v1 = -3;
 	v1.clip(-8, -4);
 	TTTestAssertion("negative TTInt32 clipped (out of upper bound)",
 					TTInt32(v1) == -4,
@@ -1041,7 +1043,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// And a final test on an array
 	TTValue v2;
-	v2.setSize(6);
+	v2.resize(6);
 	v2.set(0, 2.5);
 	v2.set(1, 2);
 	v2.set(2, 3.14);
@@ -1264,23 +1266,23 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	
 	
-	// TTInt32
+	// TTInt32 -- the classic C "int" type
 	
-	v1 = TTInt32(3);
+	v1 = 3;
 	v1.cliplow(6);
 	TTTestAssertion("positive TTInt32 clipped at lower limit (out of lower bound)",
 					TTInt32(v1) == 6,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(3);
+	v1 = 3;
 	v1.cliplow(0);
 	TTTestAssertion("positive TTInt32 not clipped at lower limit (within range)",
 					TTInt32(v1) == 3,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(-3);
+	v1 = -3;
 	v1.cliplow(-2);
 	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt32 clipped at lower limit (out of lower bound)",
@@ -1288,7 +1290,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(-3);
+	v1 = -3;
 	v1.cliplow(-4);
 	// TTFloat64 myFloat = v1.get;
 	TTTestAssertion("negative TTInt32 not clipped at lower limit (within range)",
@@ -1367,7 +1369,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// And a final test on an array
-	v2.setSize(4);
+	v2.resize(4);
 	v2.set(0, 2.5);
 	v2.set(1, 2);
 	v2.set(2, 3.14);
@@ -1572,30 +1574,30 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	
 	
-	// TTInt32
+	// TTInt32 -- the classic C "int" type
 	
-	v1 = TTInt32(3);
+	v1 = 3;
 	v1.cliphigh(4);
 	TTTestAssertion("positive TTInt32 not clipped at higher limit (within range)",
 					TTInt32(v1) == 3,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(3);
+	v1 = 3;
 	v1.cliphigh(2);
 	TTTestAssertion("positive TTInt32 clipped at higher limit (out of upper bound)",
 					TTInt32(v1) == 2,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(-3);
+	v1 = -3;
 	v1.cliphigh(0);
 	TTTestAssertion("negative TTInt32 not clipped at higher limit (within range)",
 					TTInt32(v1) == -3,
 					testAssertionCount,
 					errorCount);
 	
-	v1 = TTInt32(-3);
+	v1 = -3;
 	v1.cliphigh(-4);
 	TTTestAssertion("negative TTInt32 clipped at higher limit (out of upper bound)",
 					TTInt32(v1) == -4,
@@ -1671,7 +1673,7 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// And a final test on an array
-	v2.setSize(4);
+	v2.resize(4);
 	v2.set(0, 3.14);
 	v2.set(1, 4);
 	v2.set(2, 6.28);
@@ -1791,8 +1793,8 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// TTInt32
-	v1 = TTInt32(-12);
-	v2 = TTInt32(204);
+	v1 = -12;
+	v2 = 204;
 	TTTestAssertion("TTInt32 < operator comparison (with A < B)",
 					v1 < v2,
 					testAssertionCount,

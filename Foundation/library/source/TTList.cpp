@@ -234,9 +234,10 @@ void TTList::free()
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
 		TTValue& v = *iter;
-		if (v.getType() == kTypeObject) {
+		if (v[0].type() == kTypeObject) {
 			TTObjectPtr o = NULL;
-			v.get(0, &o);
+//			v.get(0, &o);
+			o = v;
 			TTObjectRelease(&o);
 		}
 //		delete *iter;

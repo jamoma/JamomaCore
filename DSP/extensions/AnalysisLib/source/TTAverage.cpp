@@ -95,10 +95,12 @@ TTErr TTAverage::clear()
 
 TTErr TTAverage::setMode(const TTValue& aNewMode)
 {
-	if (mMode != aNewMode){
+	TTSymbol newMode = aNewMode;
+	
+	if (mMode != newMode) {
 		clear();
 		reset();
-		mMode = aNewMode;
+		mMode = newMode;
 	}
 	
 	if (mMode == TT("bipolar"))
@@ -107,7 +109,7 @@ TTErr TTAverage::setMode(const TTValue& aNewMode)
 		return setProcessMethod(processAbsoluteAverage);
 	if (mMode == TT("rms"))
 		return setProcessMethod(processRmsAverage);
-	else{
+	else {
 		setProcessMethod(processBipolarAverage);
 		return kTTErrInvalidValue;
 	}

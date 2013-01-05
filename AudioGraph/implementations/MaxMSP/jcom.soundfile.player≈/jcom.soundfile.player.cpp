@@ -18,7 +18,7 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 	TTAudioGraphInit();
     
 	options->append(TT("generator"), value);
-	value = 2L;
+	value = 2;
 	options->append(TT("wrapperDefinesNumOutlets"), value);
 	
 	wrapAsMaxAudioGraph(TT("soundfile.player"), "jcom.soundfile.player≈", &c, options);

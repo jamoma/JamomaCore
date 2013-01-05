@@ -124,7 +124,7 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 			value = *((TTUInt16*)attribute.address);
 			return kTTErrNone;
 		case kTypeInt32:
-			value = *((TTInt32*)attribute.address);
+			value = (int)*((TTInt32*)attribute.address);
 			return kTTErrNone;
 		case kTypeUInt32:
 			value = *((TTUInt32*)attribute.address);
@@ -144,9 +144,9 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 		case kTypeObject:
 			value = *((TTObject*)attribute.address);
 			return kTTErrNone;
-		case kTypeMatrix:
-			value = *((TTMatrix*)attribute.address);
-			return kTTErrNone;
+//		case kTypeMatrix:
+//			value = *((TTMatrix*)attribute.address);
+//			return kTTErrNone;
 		case kTypePointer:
 			value = *((TTPtr*)attribute.address);
 			return kTTErrNone;
@@ -159,6 +159,7 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 		case kTypeString:
 
 		case kNumTTDataTypes:
+		default:
 			return kTTErrInvalidType;
 	}
 	return kTTErrInvalidType;
@@ -167,7 +168,7 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 
 TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& value)
 {
-	switch(attribute.type) {
+	switch (attribute.type) {
 		case kTypeFloat32:
 			*((TTFloat32*)attribute.address) = value;
 			return kTTErrNone;
@@ -219,6 +220,7 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 		case kTypeString:
 		case kTypeLocalValue:
 		case kNumTTDataTypes:
+		default:
 			return kTTErrInvalidType;			
 	}
 	return kTTErrInvalidType;
@@ -267,7 +269,7 @@ TTErr TTAttribute::getreadOnly(TTValue& currentReadOnlyValue)
 
 TTErr TTAttribute::setrange(const TTValue& newRange)
 {
-	if (newRange.getSize() == 2) {
+	if (newRange.size() == 2) {
 		newRange.get(0, rangeLowBound);
 		newRange.get(1, rangeHighBound);
 		return kTTErrNone;
@@ -279,7 +281,7 @@ TTErr TTAttribute::setrange(const TTValue& newRange)
 TTErr TTAttribute::getrange(TTValue& currentRange)
 {
 	currentRange.clear();
-	currentRange.append(rangeLowBound);
+	currentRange.push_back(rangeLowBound);
 	currentRange.append(rangeHighBound);
 	return kTTErrNone;
 }

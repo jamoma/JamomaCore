@@ -91,7 +91,7 @@ TTErr TTEnvironment::registerClass(const TTSymbol& className, const TTString& ta
 		theClass = new TTClass(className, v, anInstantiationMethod);
 
 		// 3. For each symbol in the TTValue array...
-		size = v.getSize();
+		size = v.size();
 		for (TTUInt16 i=0; i<size; i++) {
 			v.get(i, tag);
 
@@ -156,7 +156,7 @@ TTErr TTEnvironment::getClassNamesForTags(const TTValue& anInputValue, TTValue &
 
 TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& searchTags)
 {
-	TTUInt16	size = searchTags.getSize();
+	TTUInt16	size = searchTags.size();
 	TTSymbol	tag(kTTSymEmpty);
 	TTValue		tagObjects;
 	TTErr		err = kTTErrGeneric;
@@ -186,7 +186,7 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 		aClass = TTClassPtr(TTPtr(aClassValue));
 		tags = aClass->tags;
 
-		for (TTUInt16 j=0; j<tags.getSize(); j++){
+		for (TTUInt16 j=0; j < tags.size(); j++){
 			TTSymbol someTag(kTTSymEmpty);
 
 			tags.get(j, someTag);

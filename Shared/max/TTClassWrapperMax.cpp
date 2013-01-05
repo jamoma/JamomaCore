@@ -153,10 +153,9 @@ void wrappedClass_free(WrappedInstancePtr x)
 
 void wrappedClass_receiveNotificationForOutlet(WrappedInstancePtr self, TTValue& arg)
 {
-    TTString    string = "";
-    SymbolPtr   s;
-    
-    arg.get(0, string);
+    const TTString&	string = arg[0];
+    SymbolPtr   	s;
+
     s = gensym((char*)string.c_str());
     outlet_anything(self->controlOutlet, s, 0, NULL);
 }

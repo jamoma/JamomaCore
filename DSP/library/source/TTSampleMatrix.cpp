@@ -76,7 +76,7 @@ TTErr TTSampleMatrix::setNumChannels(const TTValue& newNumChannels)
 
 TTErr TTSampleMatrix::getNumChannels(TTValue& returnedChannelCount)
 {
-	returnedChannelCount = mNumChannels;
+	returnedChannelCount = (int)mNumChannels;
 	return kTTErrNone;
 }
 
@@ -103,7 +103,7 @@ TTErr TTSampleMatrix::setLengthInSamples(const TTValue& newLengthInSamples)
 
 TTErr TTSampleMatrix::getLengthInSamples(TTValue& returnedLengthInSamples)
 {
-	returnedLengthInSamples = mLengthInSamples;
+	returnedLengthInSamples = (int)mLengthInSamples;
 	return kTTErrNone;
 }
 

@@ -213,7 +213,7 @@ typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBool
  TTBlue Data Types
  Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
  TTAttribute objects.																			*/
-enum TTDataType{
+enum TTDataType {
 	kTypeNone = 0,
 	kTypeFloat32,
 	kTypeFloat64,
@@ -227,6 +227,7 @@ enum TTDataType{
 	kTypeUInt64,
 	kTypeBoolean,
 	kTypeSymbol,
+	kTypeAddress,
 	kTypeObject,
 	kTypePointer,
 	kTypeString,

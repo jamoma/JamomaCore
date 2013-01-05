@@ -48,7 +48,8 @@ TTNode::~TTNode()
 
 			if (err != kTTErrValueNotFound) {
 
-				c.get(0,(TTPtr*)&ht_i);
+//				c.get(0,(TTPtr*)&ht_i);
+				ht_i = TTHashPtr(TTPtr(c[0]));
 
 				// if there are instances
 				nb_i = ht_i->getSize();
@@ -65,7 +66,8 @@ TTNode::~TTNode()
 						err = ht_i->lookup(key_i, c_i);
 
 						if (err != kTTErrValueNotFound) {
-							c_i.get(0,(TTPtr*)&n_c);
+//							c_i.get(0,(TTPtr*)&n_c);
+							n_c = TTNodePtr(TTPtr(c_i[0]));
 							n_c->getAddress(anAddress);
 							this->directory->TTNodeRemove(anAddress);		// remove children properly using the TTNodeDirectory
 						}

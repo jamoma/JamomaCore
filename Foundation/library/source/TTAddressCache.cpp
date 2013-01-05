@@ -13,6 +13,7 @@
 
 TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
 
+// TODO: rename these to, e.g. kTTAddressEmpty
 TTFOUNDATION_EXPORT TTAddress	kTTAdrsEmpty("");
 TTFOUNDATION_EXPORT TTAddress	kTTAdrsRoot("/");
 TTFOUNDATION_EXPORT TTAddress	kTTAdrsZero("0");

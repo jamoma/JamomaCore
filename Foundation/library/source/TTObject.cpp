@@ -38,7 +38,7 @@ TTObject::~TTObject()
 
 	// Delete message objects, then delete the hash that maintains them.
 	messages->getKeys(v);
-	for (TTUInt16 i=0; i<v.getSize(); i++) {
+	for (TTUInt16 i=0; i<v.size(); i++) {
 		TTSymbol	name(kTTSymEmpty);
 		TTMessage*	message = NULL;
 
@@ -51,7 +51,7 @@ TTObject::~TTObject()
 
 	// Delete attribute objects, then delete the hash that maintains them.
 	attributes->getKeys(v);
-	for (TTUInt16 i=0; i<v.getSize(); i++) {
+	for (TTUInt16 i=0; i<v.size(); i++) {
 		TTSymbol		name(kTTSymEmpty);
 		TTAttribute*	attribute = NULL;
 
@@ -258,7 +258,7 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 	TTUInt32		attributeCount;
 
 	attributes->getKeys(unfilteredNameList);
-	attributeCount = unfilteredNameList.getSize();
+	attributeCount = unfilteredNameList.size();
 
 	attributeNameList.clear();
 
@@ -314,7 +314,7 @@ void TTObject::getMessageNames(TTValue& messageNameList)
 	TTUInt32		messageCount;
 
 	messages->getKeys(unfilteredNameList);
-	messageCount = unfilteredNameList.getSize();
+	messageCount = unfilteredNameList.size();
 
 	messageNameList.clear();
 

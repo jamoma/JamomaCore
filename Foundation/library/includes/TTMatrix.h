@@ -250,7 +250,7 @@ public:
 	@return		TTErr				always returns kTTErrNone 
 	*/
 	TTErr fill(const TTValue& anInputValue, TTValue &anOutputValue);
-	
+
 	
 	/** Internal macro used to locate the byte within mData where a specific component begins. 
 		This macro is used by both get and set routines to ensure that the formula for access is consistent. Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.

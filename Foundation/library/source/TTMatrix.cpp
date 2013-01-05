@@ -197,7 +197,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 	TTRowID aNewRowCount = 1;
 	TTColumnID aNewColumnCount = 1; 
 	
-	TTUInt8	size = someNewDimensions.getSize();
+	TTUInt8	size = someNewDimensions.size();
 	
 	// needed to support old calls with 1 or 2 dimensions
 	if (size > 0) { someNewDimensions.get(0, aNewRowCount); }
@@ -223,7 +223,7 @@ TTErr TTMatrix::getType(TTValue& returnedType) const
 
 TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 {
-	returnedDimensions.setSize(2);
+	returnedDimensions.resize(2);
 	returnedDimensions.set(0, TTUInt32(mRowCount)); // compile fails if we don't cast mRowCount here
 	returnedDimensions.set(1, TTUInt32(mColumnCount)); // compile fails if we don't cast mColumnCount here
 	
@@ -259,7 +259,6 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	return kTTErrNone;
 }
 
-
 /*
 	To find the index in the matrix:
 
@@ -274,7 +273,7 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 // args returned will be the value(s) at those coordinates
 TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 {
-	TTUInt16 dimensionCount = anInputValue.getSize();
+	TTUInt16 dimensionCount = anInputValue.size();
 	
 	if (dimensionCount != 2) // 2 dimensions only
 		return kTTErrWrongNumValues;
@@ -320,7 +319,7 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	TTValue		theValue;
-	TTUInt16	dimensionCount = anInputValue.getSize() - mElementCount;
+	TTUInt16	dimensionCount = anInputValue.size() - mElementCount;
 
 	if (dimensionCount != 2) // 2 dimensions only
 		return kTTErrWrongNumValues;

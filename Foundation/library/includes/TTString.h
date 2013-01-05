@@ -345,6 +345,29 @@ public:
 	/** Replace contents with a pseudo-random string. */
 	void random();
 	
+	
+	
+//	TTBoolean toTTInt32( const TTString & str, TTInt32 & convertedInt )
+	TTBoolean toTTInt32(TTInt32& convertedInt) const
+	{
+		char * pEnd;
+		
+		convertedInt = strtol(c_str(), &pEnd, 10);
+		return *pEnd == 0;
+	}
+	
+	/*	note : isTTFloat32 works only because the TTInt32 case is matched before
+	 see in TTValue::fromString method
+	 */
+//	TTBoolean toTTFloat32( const TTString & str, TTFloat32 & convertedFloat )
+	TTBoolean toTTFloat32(TTFloat32& convertedFloat) const
+	{
+		char * pEnd;
+		
+		convertedFloat = strtof(c_str(), &pEnd);
+		return *pEnd == 0;
+	}
+
 };
 
 

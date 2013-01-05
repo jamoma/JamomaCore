@@ -61,6 +61,12 @@ public:
 	{
 		mSymbolPointer = (TTSymbolBase*)do_not_use_this_constructor_unless_you_absolutely_know_what_you_are_doing;
 	}
+	
+	// copy constructor
+	TTSymbol(const TTSymbol& otherSymbol)
+	{
+		mSymbolPointer = otherSymbol.mSymbolPointer;
+	}
 
 	
 	virtual ~TTSymbol()

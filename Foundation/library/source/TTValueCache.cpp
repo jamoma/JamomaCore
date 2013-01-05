@@ -33,7 +33,7 @@ void TTValueCacheInit()
 
 	kTTValNONE.clear();
 	
-	kTTVal0 = 0l;
-	kTTVal1 = 1l;
+	kTTVal0 = 0;
+	kTTVal1 = 1;
 	kTTVal0_pt_0 = 0.0;
 }

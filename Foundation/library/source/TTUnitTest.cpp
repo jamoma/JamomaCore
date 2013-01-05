@@ -104,18 +104,17 @@ TTBoolean TTTestFloatEquivalence(TTFloat64 aFloat, TTFloat64 bFloat, TTBoolean e
 
 TTBoolean TTTestFloat32ArrayEquivalence(TTValue &aFloat, TTValue &bFloat, TTBoolean expectedResult, TTFloat32 epsilon)
 {
-    TTInt32 i;
-    TTBoolean result;
+    TTInt32		i;
+    TTBoolean	result;
     
     // Compare vector size
-    if (aFloat.getSize()!=bFloat.getSize())
+    if (aFloat.size() != bFloat.size())
         result = false;
-    else
-    {
+    else {
         // Compare member by member
         result = true;
-        for (i=0; i<aFloat.getSize(); i++)
-            result = result && TTTestFloatEquivalence(TTFloat32(aFloat.getFloat32(i)), TTFloat32(bFloat.getFloat32(i)), expectedResult, epsilon);
+        for (i=0; i<aFloat.size(); i++)
+            result = result && TTTestFloatEquivalence(TTFloat32(aFloat[i]), TTFloat32(bFloat[i]), expectedResult, epsilon);
     }
     
     return result;
@@ -124,18 +123,17 @@ TTBoolean TTTestFloat32ArrayEquivalence(TTValue &aFloat, TTValue &bFloat, TTBool
 
 TTBoolean TTTestFloat64ArrayEquivalence(TTValue &aFloat, TTValue &bFloat, TTBoolean expectedResult, TTFloat64 epsilon)
 {
-    TTInt32 i;
-    TTBoolean result;
+    TTInt32		i;
+    TTBoolean	result;
     
     // Compare vector size
-    if (aFloat.getSize()!=bFloat.getSize())
+    if (aFloat.size() != bFloat.size())
         result = false;
-    else
-    {
+    else {
         // Compare member by member
         result = true;
-        for (i=0; i<aFloat.getSize(); i++)
-            result = result && TTTestFloatEquivalence(aFloat.getFloat64(i), bFloat.getFloat64(i), expectedResult, epsilon);
+        for (i=0; i<aFloat.size(); i++)
+            result = result && TTTestFloatEquivalence(aFloat[i], bFloat[i], expectedResult, epsilon);
     }
     
     return result;

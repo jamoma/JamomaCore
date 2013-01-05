@@ -127,13 +127,13 @@ public:
 								
 								attributeValueString = "TTValue(";
 								attributeValue.toString();
-								attributeValue.get(0, temp);
+								temp = (TTString)attributeValue[0];
 								attributeValueString += temp;
 								attributeValueString += ")";
 							}
 							else {
 								attributeValue.toString();
-								attributeValue.get(0, attributeValueString);
+								attributeValueString = (TTString)attributeValue[0];
 							}
 							content += attributeValueString;
 							content += ");\n";
@@ -253,7 +253,7 @@ public:
 							
 							content += "		TTValue v(";
 							attributeValue.toString();
-							attributeValue.get(0, temp);
+							temp = (TTString)attributeValue[0];
 //							temp.resize(temp.size()-1);
 							for (int c=0; c<temp.size(); c++) {
 								if (temp[c] == ' ')
@@ -281,7 +281,7 @@ public:
 						}
 						else {
 							attributeValue.toString();
-							attributeValue.get(0, attributeValueString);
+							attributeValueString = (TTString)attributeValue[0];
 							if (attributeValueString == "-inf ") {
 								attributeValueString = "-INFINITY";
 							}
