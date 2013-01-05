@@ -1011,7 +1011,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 			if (atom_gettype(argv+i) == A_LONG)
 				v.set(i+start, (int)atom_getlong(argv+i));
 			else if (atom_gettype(argv+i) == A_FLOAT)
-				v.set(i+start, atom_getfloat(argv+i));
+				v.set(i+start, (TTFloat64)atom_getfloat(argv+i));
 			else if (atom_gettype(argv+i) == A_SYM)
 				v.set(i+start, TTSymbol(atom_getsym(argv+i)->s_name));
 		}

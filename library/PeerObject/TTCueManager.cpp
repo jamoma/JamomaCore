@@ -205,8 +205,8 @@ TTErr TTCueManager::setCurrentRamp(const TTValue& value)
 
 TTErr TTCueManager::NamespaceClear(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr aNamespace;
-	TTAddress	address = kTTAdrsEmpty;
+	TTAddressItemPtr    aNamespace;
+	TTAddress           address = kTTAdrsEmpty;
 	
 	if (inputValue.getType() == kTypeSymbol)
 		inputValue.get(0, address);
@@ -224,8 +224,8 @@ TTErr TTCueManager::NamespaceClear(const TTValue& inputValue, TTValue& outputVal
 
 TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr aNamespace, anItem;
-	TTAddress	address;
+	TTAddressItemPtr    aNamespace, anItem;
+	TTAddress           address;
 	TTUInt32			i;
 	TTErr				err;
 	
@@ -250,9 +250,9 @@ TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputVa
 
 TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr aNamespace;
+	TTAddressItemPtr    aNamespace;
 	TTUInt32			i;
-	TTAddress	address;
+	TTAddress           address;
 	
 	aNamespace = lookupNamespace(mNamespace);
 	if (!aNamespace) aNamespace = mDefaultNamespace;
@@ -272,8 +272,8 @@ TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputVa
 
 TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr aNamespace;
-	TTValue		v;
+	TTAddressItemPtr    aNamespace;
+	TTValue             v;
 	
 	// get cue name
 	if (inputValue.getType() == kTypeSymbol)
@@ -313,7 +313,7 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 TTErr TTCueManager::Clear()
 {
 	TTCuePtr	oldCue;
-	TTSymbol cueName;
+	TTSymbol    cueName;
 	TTValue		v, names;
 	TTUInt32	i;
 	
@@ -343,8 +343,8 @@ TTErr TTCueManager::Clear()
 
 TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr aNamespace;
-	TTValue	v, args;
+	TTAddressItemPtr    aNamespace;
+	TTValue             v, args;
 	
 	// get cue name
 	if (inputValue.getType(0) == kTypeSymbol)
@@ -461,14 +461,14 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v1, v2;
     TTInt32     i1, i2;
-	TTSymbol name1, name2;
+	TTSymbol    name1, name2;
 	TTCuePtr	cue1, cue2;
 	TTFloat32	position;
 	
 	if (inputValue.getSize() == 3) {
 		
         // get cues by name
-		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat32) {
+		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat64) {
 			
 			inputValue.get(0, name1);
 			inputValue.get(1, name2);
@@ -476,7 +476,7 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
         }
         
         // get cues by position
-        else if (inputValue.getType(0) == kTypeInt32 && inputValue.getType(1) == kTypeInt32 && inputValue.getType(2) == kTypeFloat32) {
+        else if (inputValue.getType(0) == kTypeInt32 && inputValue.getType(1) == kTypeInt32 && inputValue.getType(2) == kTypeFloat64) {
             
             inputValue.get(0, i1);
             mOrder.get(i1-1, name1);
@@ -514,11 +514,11 @@ TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 	
 	for (i = 0; i < mixSize * 2; i = i+2) {
 		
-        if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat32) {
+        if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat64) {
             
 			inputValue.get(i, name);
         }
-        else if (inputValue.getType(i) == kTypeInt32 && inputValue.getType(i+1) == kTypeFloat32) {
+        else if (inputValue.getType(i) == kTypeInt32 && inputValue.getType(i+1) == kTypeFloat64) {
             
             inputValue.get(i, id);
             mOrder.get(id-1, name);

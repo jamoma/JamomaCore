@@ -92,10 +92,7 @@ typedef struct _ui{
 	t_linklist			*refmenu_items;			// ...
 
 	long				has_preset;				// is the binded model have preset features ?
-	long				has_help;				// is the binded model have help patch ?
-	long				has_ref;				// is the binded model have reference page ?
-	
-	long				has_internals;			// is the binded model have internals pather ? (always yes...)
+	long				has_model;				// is the binded model have model features ?
 	
 	long				has_panel;				// is the binded model have a panel ?
 	t_rect				rect_panel;

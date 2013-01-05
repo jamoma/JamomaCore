@@ -90,13 +90,15 @@ TTContainer::~TTContainer()
 
 TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 {
-	TTValue			cacheElement, v;
+	TTValue			hk, cacheElement, v;
 	TTValuePtr		valueToSend;
 	TTObjectPtr		anObject;
-	TTAddress       aRelativeAddress, topAddress, belowAddress;
+	TTAddress       aRelativeAddress, topAddress, belowAddress, keyAddress;
 	TTSymbol		attrOrMess, service;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
+    TTUInt32        i;
+    TTInt8          depth = 0;
 	TTErr			err = kTTErrNone;
 	
 	if (!mIsSending) {
@@ -108,13 +110,41 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 			
 			// get relativeAddress and valueToSend
 			AddressAndValue.get(0, aRelativeAddress);
-			AddressAndValue.get(1, (TTPtr*)&valueToSend);
-			
-			// get attribute or message (default is value)
+            
+            // get attribute or message (default is value)
 			if (aRelativeAddress.getAttribute() != NO_ATTRIBUTE)
 				attrOrMess = aRelativeAddress.getAttribute();
 			else
 				attrOrMess = kTTSym_value;
+            
+            // Is there a wild card ?
+            if (strrchr(aRelativeAddress.c_str(), C_WILDCARD)) {
+                
+                mIsSending = false;
+                
+                // Get each keys sorted by priority
+                mObjectsObserversCache->getKeysSorted(hk, &TTContainerCompareObjectPriority);
+                
+                // find each keyAddress equals to the relativeAddress
+                for (i=0; i<mObjectsObserversCache->getSize(); i++) {
+                    
+                    hk.get(i, keyAddress);
+                    
+                    if (aRelativeAddress.compare(keyAddress, depth) == kAddressEqual) {
+                    
+                        // replace relativeAddress by keyAddress
+						AddressAndValue.set(0, keyAddress.appendAttribute(attrOrMess));
+                        
+                        
+                        if (this->Send(AddressAndValue, kTTValNONE))
+                            err = kTTErrGeneric;
+                    }
+                }
+                
+                return err;
+            }
+            
+			AddressAndValue.get(1, (TTPtr*)&valueToSend);
 			
 			// get the object
 			err = mObjectsObserversCache->lookup(aRelativeAddress.removeAttribute(), cacheElement);

@@ -154,7 +154,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 			// 1 incrementation step	
 		case 1 :
 		{
-			if (inputValue.getType(0) == kTypeFloat32 || inputValue.getType(0)  == kTypeInt32) {
+			if (inputValue.getType(0) == kTypeFloat64 || inputValue.getType(0)  == kTypeInt32) {
 				inputValue.get(0, inc);
 				
 				for (i=0; i<mValue.getSize(); i++) {
@@ -168,7 +168,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 			// 1 incrementation step + ramp ramptime
 		case 3 :
 		{
-			if (inputValue.getType(0) == kTypeFloat32 || inputValue.getType(0)  == kTypeInt32) {
+			if (inputValue.getType(0) == kTypeFloat64 || inputValue.getType(0)  == kTypeInt32) {
 				inputValue.get(0, inc);
 				
 				for (i=0; i<mValue.getSize(); i++) {
@@ -180,7 +180,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 					inputValue.get(1, ramp);
 					if (ramp == kTTSym_ramp) {
 						command.append(ramp);
-						if (inputValue.getType(2) == kTypeFloat32 || inputValue.getType(2)  == kTypeInt32) {
+						if (inputValue.getType(2) == kTypeFloat64 || inputValue.getType(2)  == kTypeInt32) {
 							inputValue.get(2, ramptime);
 							command.append(ramptime);
 						}
@@ -224,7 +224,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 			// 1 decrementation step	
 		case 1 :
 		{
-			if (inputValue.getType(0) == kTypeFloat32 || inputValue.getType(0)  == kTypeInt32) {
+			if (inputValue.getType(0) == kTypeFloat64 || inputValue.getType(0)  == kTypeInt32) {
 				inputValue.get(0, dec);
 				
 				for (i=0; i<mValue.getSize(); i++) {
@@ -238,7 +238,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 			// 1 decrementation step + ramp ramptime
 		case 3 :
 		{
-			if (inputValue.getType(0) == kTypeFloat32 || inputValue.getType(0)  == kTypeInt32) {
+			if (inputValue.getType(0) == kTypeFloat64 || inputValue.getType(0)  == kTypeInt32) {
 				inputValue.get(0, dec);
 				
 				for (i=0; i<mValue.getSize(); i++) {
@@ -250,7 +250,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 					inputValue.get(1, ramp);
 					if (ramp == kTTSym_ramp) {
 						command.append(ramp);
-						if (inputValue.getType(2) == kTypeFloat32 || inputValue.getType(2)  == kTypeInt32) {
+						if (inputValue.getType(2) == kTypeFloat64 || inputValue.getType(2)  == kTypeInt32) {
 							inputValue.get(2, ramptime);
 							command.append(ramptime);
 						}

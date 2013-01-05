@@ -96,6 +96,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_model;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_mute;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_namespace;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_node;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_object;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_objectCache;

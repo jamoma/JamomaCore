@@ -483,14 +483,12 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	TTBoolean	bypass = false;
 	TTBoolean	freeze = false;
 	TTBoolean	preview = false;
-	TTBoolean	mute = false;
-	TTBoolean	internals = false;
 	TTBoolean	meters = false;
+    TTBoolean	mute = false;
 	TTBoolean	preset = false;			// is there a /preset node in the model ?
-	TTBoolean	help = false;			// is there a help patch for the model ?
-	TTBoolean	ref = false;			// is there a ref page for the model ?
+	TTBoolean	model = false;			// is there a /model node in the model ?
 	TTBoolean	change = false;
-	TTAddress relativeAddress;
+	TTAddress   relativeAddress;
 	TTInt8		d;
 	
 	// model namespace observation
@@ -513,16 +511,12 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 				preview = true;
 			else if (relativeAddress.compare(TTAddress("out.*/mute"), d) == kAddressEqual)
 				mute = true;
-			else if (relativeAddress.compare(TTAddress("model/internals"), d) == kAddressEqual)		// TODO : create sender (a viewer is useless)
-				internals = true;
 			else if (relativeAddress.compare(TTAddress("audio/meters/freeze"), d) == kAddressEqual)
 				meters = true;
-			else if (relativeAddress.compare(TTAddress("preset/store"), d) == kAddressEqual)			// the internal TTExplorer looks for Datas (not for node like /preset)
+			else if (relativeAddress.compare(TTAddress("preset/store"), d) == kAddressEqual)		// the internal TTExplorer looks for Datas (not for node like /preset)
 				preset = true;
-			else if (relativeAddress.compare(TTAddress("model/help"), d) == kAddressEqual)			// TODO : create sender (a viewer is useless)
-				help = true;
-			else if (relativeAddress.compare(TTAddress("model/reference"), d) == kAddressEqual)		// TODO : create sender (a viewer is useless)
-				ref = true;
+            else if (relativeAddress.compare(TTAddress("model/edit"), d) == kAddressEqual)          // the internal TTExplorer looks for Datas (not for node like /model)
+				model = true;
 		}
 		
 		// if a data appears or disappears : create or remove the viewer
@@ -603,19 +597,6 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			change = true;
 		}
 		
-		// internals
-		if (internals != obj->has_internals) {
-			obj->has_internals = internals;
-			if (internals) 
-				ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/internals"), obj->modelAddress, NO);
-			else {
-				ui_viewer_destroy(obj, TTSymbol("model/internals"));
-				obj->hash_viewers->remove(TTSymbol("model/internals"));
-			}
-			
-			change = true;
-		}
-		
 		// preset
 		if (preset != obj->has_preset) {
 			obj->has_preset = preset;
@@ -642,27 +623,24 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			change = true;
 		}
 		
-		// help
-		if (help != obj->has_help) {
-			obj->has_help = help;
-			if (help) 
+		// model
+		if (model != obj->has_model) {
+			obj->has_model = model;
+			if (model) {
+                ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/internals"), obj->modelAddress, NO);
 				ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/help"), obj->modelAddress, NO);
+                ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/reference"), obj->modelAddress, NO);
+                ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/edit"), obj->modelAddress, NO);
+            }
 			else {
+                ui_viewer_destroy(obj, TTSymbol("model/internals"));
+				obj->hash_viewers->remove(TTSymbol("model/internals"));
 				ui_viewer_destroy(obj, TTSymbol("model/help"));
 				obj->hash_viewers->remove(TTSymbol("model/help"));
-			}
-			
-			change = true;
-		}
-		
-		// ref
-		if (ref != obj->has_ref) {
-			obj->has_ref = ref;
-			if (ref) 
-				ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/reference"), obj->modelAddress, NO);
-			else {
-				ui_viewer_destroy(obj, TTSymbol("model/reference"));
+                ui_viewer_destroy(obj, TTSymbol("model/reference"));
 				obj->hash_viewers->remove(TTSymbol("model/reference"));
+                ui_viewer_destroy(obj, TTSymbol("model/edit"));
+				obj->hash_viewers->remove(TTSymbol("model/edit"));
 			}
 			
 			change = true;
