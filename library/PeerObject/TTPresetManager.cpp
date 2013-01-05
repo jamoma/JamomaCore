@@ -529,7 +529,11 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
             
             inputValue.get(2, positionCopy);
             
+#ifdef __TT_ELEMENT_H__         
+			v = (int)mCurrentPosition;
+#else
             v = mCurrentPosition;
+#endif
             v.append((int)positionCopy);
             return Move(v, kTTValNONE);
         }
