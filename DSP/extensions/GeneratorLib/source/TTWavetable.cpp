@@ -116,12 +116,10 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 	TTUInt16		i=0;
 	TTUInt16		numChannels = out.getNumChannelsAsInt();
 	TTUInt16		channel;
-	TTUInt32		p1 = (TTUInt32)mIndex;						// playback index
-	TTSampleValue*	contents = NULL;
-	TTUInt32		bufferChannelCount;
+	TTUInt64		p1 = (TTUInt64)mIndex;						// playback index
+	TTSampleMatrixPtr	contents = NULL;
 	
-	mBuffer->getContents(contents);
-	mBuffer->lengthInSamples(bufferChannelCount);
+	mBuffer->checkOutMatrix(contents);
 	
 	// Move the play head
 	mIndex += (mIndexDelta * vs);
@@ -133,11 +131,9 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 		mIndex += mSize;
 	
 	// table lookup (no interpolation)
-	// bufferChannelCount is used as the stride
-	// thus, if the buffer is mono then we are simply indexing directly, but
-	// if the buffer is stereo, then we look at every other sample because the samples are interleaved
-	// CURRENTLY: this means this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
-	tempSample = contents[p1*bufferChannelCount] * mLinearGain;
+	// CURRENTLY: this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
+	contents->peek(p1,0,tempSample);
+	tempSample *= mLinearGain;
 	
 	// TODO: in TTBlue 0.2.x this code only assigned the first sample value to save cpu -- should we bring this back as an option?
 	while (vs--) {
@@ -145,6 +141,7 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
+	mBuffer->checkInMatrix(contents);
 	return kTTErrNone;
 }
 
@@ -160,11 +157,9 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	TTUInt16			numChannels = out.getNumChannelsAsInt();
 	TTUInt16			channel;
 	TTBoolean			hasModulation = true;
-	TTSampleValuePtr	contents = NULL;
-	TTUInt32			bufferChannelCount;
+	TTSampleMatrixPtr	contents = NULL;
 	
-	mBuffer->getContents(contents);
-	mBuffer->lengthInSamples(bufferChannelCount);
+	mBuffer->checkOutMatrix(contents);
 	
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
@@ -175,7 +170,7 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 		inSample = in->mSampleVectors[0];
 	}
 	while (vs--) {
-		TTUInt32	p1 = (TTUInt32)mIndex;	// playback index
+		TTUInt64	p1 = (TTUInt64)mIndex;	// playback index
 
 		// TODO: all of this access of mIndex and mIndexDelta etc is really going to be dereference pointers in our struct/class
 		//		 This likely means that the values are not cached (or at least not cached together) in the processors registers
@@ -195,11 +190,14 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 			mIndex += mSize;
 
 		// table lookup (no interpolation)
-		tempSample = contents[p1*bufferChannelCount] * mLinearGain;
+		// CURRENTLY: this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
+		contents->peek(p1,0,tempSample);
+		tempSample *= mLinearGain;
 		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
+	mBuffer->checkInMatrix(contents);
 	return kTTErrNone;
 }
 
@@ -217,11 +215,9 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	TTBoolean		hasModulation = true;
 	TTUInt32		p1, p2;									// two playback indices
 	TTFloat64		diff;
-	TTSampleValue*	contents = NULL;
-	TTUInt32		bufferChannelCount;
+	TTSampleMatrixPtr	contents = NULL;
 	
-	mBuffer-> getContents(contents);
-	mBuffer->lengthInSamples(bufferChannelCount);
+	mBuffer->checkOutMatrix(contents);
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
@@ -246,15 +242,13 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 			mIndex += mSize;
 
 		// table lookup (linear interpolation)
-		p1 = (TTUInt32)mIndex;
-		p2 = p1 + 1;
-		diff = mIndex - p1;
-		p2 &= (mSize - 1);	// fast modulo
-
-		tempSample = ((contents[p2*bufferChannelCount] * diff) + (contents[p1*bufferChannelCount] * (1.0 - diff))) * mLinearGain;
+		// CURRENTLY: this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
+		contents->peek(mIndex,0,tempSample);
+		tempSample *= mLinearGain;
 		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
+	mBuffer->checkInMatrix(contents);
 	return kTTErrNone;
 }
