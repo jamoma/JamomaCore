@@ -16,7 +16,7 @@
 TT_AUDIO_CONSTRUCTOR,
 	mIndex(0.0),
 	mIndexDelta(0.0),
-	mWavetable(NULL)
+	mBuffer(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 
@@ -28,10 +28,10 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addUpdates(SampleRate);
 
-	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&mWavetable, kTTValNONE);
-	if (!mWavetable)
+	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&mBuffer, kTTValNONE);
+	if (!mBuffer)
 		throw TTException("Could not create internal buffer object");
-	mWavetable->setNumChannels(TTUInt32(1));
+	mBuffer->setNumChannels(TTUInt32(1));
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
@@ -45,7 +45,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTWavetable::~TTWavetable()
 {
-	TTObjectRelease((TTObject**)&mWavetable);
+	TTObjectRelease((TTObject**)&mBuffer);
 }
 
 
@@ -69,7 +69,7 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 	mMode = newValue;	// TODO: should be newValue[0]
 
 	if (mMode != TT("externalBuffer"))
-		return mWavetable->fill(newValue, kTTValNONE);
+		return mBuffer->fill(newValue, kTTValNONE);
 	else {
 		// TODO: implement the ability to use an externally defined buffer
 		return kTTErrInvalidValue;
@@ -101,7 +101,7 @@ TTErr TTWavetable::setGain(const TTValue& newValue)
 TTErr TTWavetable::setSize(const TTValue& newSize)
 {
 	mSize = newSize;
-	mWavetable->setLengthInSamples(mSize);
+	mBuffer->setLengthInSamples(mSize);
 	return setFrequency(mFrequency); // touch the frequency so that the step size is updated
 }
 
@@ -120,8 +120,8 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 	TTSampleValue*	contents = NULL;
 	TTUInt32		bufferChannelCount;
 	
-	mWavetable->getContents(contents);
-	mWavetable->lengthInSamples(bufferChannelCount);
+	mBuffer->getContents(contents);
+	mBuffer->lengthInSamples(bufferChannelCount);
 	
 	// Move the play head
 	mIndex += (mIndexDelta * vs);
@@ -163,8 +163,8 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	TTSampleValuePtr	contents = NULL;
 	TTUInt32			bufferChannelCount;
 	
-	mWavetable->getContents(contents);
-	mWavetable->lengthInSamples(bufferChannelCount);
+	mBuffer->getContents(contents);
+	mBuffer->lengthInSamples(bufferChannelCount);
 	
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
@@ -220,8 +220,8 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	TTSampleValue*	contents = NULL;
 	TTUInt32		bufferChannelCount;
 	
-	mWavetable-> getContents(contents);
-	mWavetable->lengthInSamples(bufferChannelCount);
+	mBuffer-> getContents(contents);
+	mBuffer->lengthInSamples(bufferChannelCount);
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
