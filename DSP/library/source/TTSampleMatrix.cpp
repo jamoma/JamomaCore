@@ -240,7 +240,9 @@ TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const T
 
 TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 {
-	TTSymbol	fillAlgorithm = value;
+	TTSymbol		fillAlgorithm = value;
+	TTSampleValue	tempSample = 0.;
+	TTUInt32		tempIndex = 0;
 
 	if (fillAlgorithm == kTTSym_sine) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
@@ -292,9 +294,17 @@ TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 	}
 	else if (fillAlgorithm == kTTSym_triangle) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt32 i=0; i < mLengthInSamples/2; i++) {
-				set2d(i+1, channel+1, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
-				set2d(mLengthInSamples-i, channel+1, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
+			tempIndex = 3*mLengthInSamples/4;
+			for (TTUInt32 i=0; i < mLengthInSamples/4; i++) {
+				tempSample = -1.0 + (4.0 * (float(i) / mLengthInSamples));
+				set2d(i+tempIndex, channel+1, tempSample);
+				set2d(tempIndex-i, channel+1, tempSample);
+			}
+			tempIndex = mLengthInSamples/2;
+			for (TTUInt32 i=0; i < mLengthInSamples/4; i++) {
+				tempSample = 4.0 * (float(i) / mLengthInSamples);
+				set2d(i, channel+1, tempSample);
+				set2d(tempIndex-i, channel+1, tempSample);
 			}
 		}
 	}
