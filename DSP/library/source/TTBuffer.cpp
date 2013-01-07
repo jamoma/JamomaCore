@@ -37,7 +37,9 @@ extern "C" void TTBuffer::registerClass()
 
 
 TTBuffer::TTBuffer(TTValue& arguments) : 
-	TTAudioObject(arguments)
+	TTAudioObject(arguments),
+	mActiveMatrix(NULL),
+	mBecomingActiveMatrix(NULL)
 {
 	// By convention, the first argument for a TTAudioObject is the number of channels
 	// So we'll maintain that here, and then use the second argument for the name of the buffer
@@ -92,9 +94,7 @@ TTErr TTBuffer::init(TTUInt16 channelCount, TTSymbol name)
 		mActiveMatrix->setAttributeValue("numChannels", channelCount);
 		mActiveMatrix->setBufferPoolStage(kSM_Active);
 	}
-	
-	mBecomingActiveMatrix = NULL;
-	
+
 	return err;
 }
 
