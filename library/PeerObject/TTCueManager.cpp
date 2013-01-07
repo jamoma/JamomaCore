@@ -721,7 +721,13 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 	
 	// get cue at position
 	if (inputValue.getType() == kTypeInt32) {
+
+// the following checks for whether we are using the new TTValue or the old one
+#ifdef __TT_ELEMENT_H__
+		mCurrentPosition = inputValue[0];
+#else
 		inputValue.get(0, mCurrentPosition);
+#endif
 		mOrder.get(mCurrentPosition-1, mCurrent);
 	}
 	
@@ -766,8 +772,11 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
         if (inputValue.getSize() == 3 && inputValue.getType(2) == kTypeInt32) {
             
             inputValue.get(2, positionCopy);
-            
+#ifdef __TT_ELEMENT_H__         
+			v = (int)mCurrentPosition;
+#else
             v = mCurrentPosition;
+#endif
             v.append((int)positionCopy);
             return Move(v, kTTValNONE);
         }
