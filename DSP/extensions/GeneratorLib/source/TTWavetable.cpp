@@ -37,18 +37,18 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addUpdates(SampleRate);
 
-	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&mBuffer, kTTValNONE);
+	TTObjectInstantiate("buffer", (TTObjectPtr*)&mBuffer, kTTValNONE);
 	if (!mBuffer)
 		throw TTException("Could not create internal buffer object");
 	mBuffer->setNumChannels(TTUInt32(1));
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("size"), 8192);
-	setAttributeValue(TT("mode"), kTTSym_sine);
-	setAttributeValue(TT("frequency"), 440.0);
-	setAttributeValue(TT("gain"), 0.0);			// 0 dB
-	setAttributeValue(TT("interpolation"), TT("linear"));
+	setAttributeValue("maxNumChannels",	initialMaxNumChannels);
+	setAttributeValue("size", 8192);
+	setAttributeValue("mode", kTTSym_sine);
+	setAttributeValue("frequency", 440.0);
+	setAttributeValue("gain", 0.0);			// 0 dB
+	setAttributeValue("interpolation", "linear");
 }
 
 
@@ -60,7 +60,7 @@ TTWavetable::~TTWavetable()
 
 TTErr TTWavetable::updateSampleRate(const TTValue&, TTValue&)
 {
-	setAttributeValue(TT("frequency"), mFrequency);
+	setAttributeValue("frequency", mFrequency);
 	return kTTErrNone;
 }
 
@@ -77,7 +77,7 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 {
 	mMode = newValue;	// TODO: should be newValue[0]
 
-	if (mMode != TT("externalBuffer"))
+	if (mMode != "externalBuffer")
 		return mBuffer->fill(newValue, kTTValNONE);
 	else {
 		// TODO: implement the ability to use an externally defined buffer
@@ -89,9 +89,9 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 TTErr TTWavetable::setInterpolation(const TTValue& newValue)
 {
 	mMode = newValue;
-	if (mMode == TT("linear"))
+	if (mMode == "linear")
 		setProcessMethod(processWithLinearInterpolation);
-	else if (mMode == TT("lfo"))
+	else if (mMode == "lfo")
 		setProcessMethod(processAsLFO);
 	else
 		setProcessMethod(processWithNoInterpolation);
