@@ -89,6 +89,7 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)model_autodoc,					"doc_generate",			A_CANT, 0);
     class_addmethod(c->maxClass, (method)model_edit,					"model_edit",			A_CANT, 0);
     
+    class_addmethod(c->maxClass, (method)model_edit,					"dblclick",				A_CANT, 0);
     class_addmethod(c->maxClass, (method)model_edclose,                 "edclose",				A_CANT, 0);
 }
 
