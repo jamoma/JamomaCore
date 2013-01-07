@@ -1669,7 +1669,7 @@ SymbolPtr jamoma_parse_dieze(ObjectPtr x, SymbolPtr address)
 			
 			i = 1;
 			
-			object_post(x, "in jamoma_parse_dieze : TODO : use a TTRegex for this parsing");
+			//object_post(x, "in jamoma_parse_dieze : TODO : use a TTRegex for this parsing");
 			/* TODO : use a TTRegex for this parsing
 			do {
 				
@@ -1731,7 +1731,7 @@ TTSymbol jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* defa
 		if (atom_gettype(argv) == A_SYM) {
 			userpath = atom_getsym(argv);
 			
-			if (userpath != _sym_nothing) {
+			if (userpath != _sym_nothing && userpath != _sym_bang) {
 				// Use BOOT style path
 				path = 0;
 				path_nameconform(userpath->s_name, fullpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);// Copy symbol argument to a local string
@@ -1781,7 +1781,7 @@ TTSymbol jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filety
 		if (atom_gettype(argv) == A_SYM) {
 			userpath = atom_getsym(argv);
 			
-			if (userpath != _sym_nothing) {
+			if (userpath != _sym_nothing && userpath != _sym_bang) {
 				// Use BOOT style path
 				path = 0;
 				path_nameconform(userpath->s_name, fullpath, PATH_STYLE_NATIVE, PATH_TYPE_BOOT);// Copy symbol argument to a local string
