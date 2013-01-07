@@ -75,6 +75,9 @@ void WrapTTPresetManagerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)preset_read,					"preset_read",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)preset_write,					"preset_write",			A_CANT, 0);
+    
+    class_addmethod(c->maxClass, (method)preset_read_again,				"preset_read_again",	A_CANT, 0);
+	class_addmethod(c->maxClass, (method)preset_write_again,			"preset_write_again",	A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)preset_edit,					"dblclick",				A_CANT, 0);
 	class_addmethod(c->maxClass, (method)preset_edclose,				"edclose",				A_CANT, 0);
@@ -241,7 +244,6 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write a xml preset file"));
 		
-		/*
 		makeInternals_data(self, absoluteAddress, TTSymbol("preset/read/again"), gensym("preset_read_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
@@ -251,9 +253,6 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write into the last xml preset file"));
-		*/
-		
-		// TODO : display in Max edition window
 	
 		// if desired, load default modelClass.patcherContext.xml file preset
 		if (EXTRA->attr_load_default)
