@@ -38,6 +38,7 @@ protected:
 	TTFloat64			mIndex;
 	TTFloat64			mIndexDelta;
 	TTBufferPtr			mBuffer;
+	TTSampleMatrixPtr	mWavetable;
 	
 	/**	This method gets called when the inherited sample-rate attribute is changed. */
 	TTErr updateSampleRate(const TTValue&, TTValue&);

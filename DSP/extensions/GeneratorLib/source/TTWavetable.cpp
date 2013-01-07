@@ -25,7 +25,8 @@
 TT_AUDIO_CONSTRUCTOR,
 	mIndex(0.0),
 	mIndexDelta(0.0),
-	mBuffer(NULL)
+	mBuffer(NULL),
+	mWavetable(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 
@@ -41,6 +42,7 @@ TT_AUDIO_CONSTRUCTOR,
 	if (!mBuffer)
 		throw TTException("Could not create internal buffer object");
 	mBuffer->setNumChannels(TTUInt32(1));
+	mBuffer->checkOutMatrix(mWavetable);
 
 	// Set Defaults...
 	setAttributeValue("maxNumChannels",	initialMaxNumChannels);
@@ -224,10 +226,8 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	TTBoolean			hasModulation = true;
 	TTUInt32			p1, p2;									// two playback indices
 	TTFloat64			diff;
-	TTSampleMatrixPtr	contents = NULL;
+	//TTSampleMatrixPtr	contents = mWavetable;	 // local copy of the class variable
 	
-	mBuffer->checkOutMatrix(contents);
-
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
 	if (inputs->numAudioSignals == 0)
@@ -246,18 +246,25 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 
 		// Wrap the play head
 		if (mIndex >= mSize)
+		{
 			mIndex -= mSize;
-		else if (mIndex < 0)
+			mBuffer->checkInMatrix(mWavetable);
+			mBuffer->checkOutMatrix(mWavetable);
+		} else if (mIndex < 0) {
 			mIndex += mSize;
+			mBuffer->checkInMatrix(mWavetable);
+			mBuffer->checkOutMatrix(mWavetable);
+		}
 
 		// table lookup (linear interpolation)
 		// CURRENTLY: this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
-		contents->peek(mIndex,0,tempSample);
+		mWavetable->peek(mIndex,0,tempSample);
 		tempSample *= mLinearGain;
 		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
-	mBuffer->checkInMatrix(contents);
+	
+	//mWavetable = contents; // update the class variable
 	return kTTErrNone;
 }
