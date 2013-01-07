@@ -16,7 +16,7 @@
  	This class is a good example of a very simple audio filter that can process any 
  	number of parallel audio channels, with just a couple of attributes.
  */
-class TTDegrade : public TTAudioObject {
+class TTDegrade : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTDegrade)
 
 protected:

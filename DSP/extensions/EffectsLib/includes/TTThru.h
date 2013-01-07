@@ -13,7 +13,7 @@
 
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal	*/
-class TTThru : public TTAudioObject {
+class TTThru : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTThru)
 
 protected:

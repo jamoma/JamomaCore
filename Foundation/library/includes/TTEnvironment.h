@@ -26,7 +26,7 @@
 /**	A function pointer for an instance creation function required to be provided by all classes.
  @ingroup typedefs
  */
-typedef TTObject* (*TTObjectInstantiationMethod)(TTSymbol& className, TTValue& arguments);
+typedef TTObjectBase* (*TTObjectBaseInstantiationMethod)(TTSymbol& className, TTValue& arguments);
 
 /**	A function pointer for an instance creation function required to be provided by all classes.
  @ingroup typedefs
@@ -44,7 +44,7 @@ class TTClass;
 	All attribute members of the environment are made public, since essentially every class is a friend.
 	They should, however, be treated as read-only.
 */
-class TTFOUNDATION_EXPORT TTEnvironment : public TTObject {
+class TTFOUNDATION_EXPORT TTEnvironment : public TTObjectBase {
 private:
 	TTHash*		classes;			///< A hash keyed on classNames, and returning a TTClassPtr.
 	TTHash*		tags;				///< A hash keyed on tag names, which map to TTLists of all classes with that tag name.
@@ -78,7 +78,7 @@ public:
 		@param	anInstantiationMethod	A pointer to the C-function that is used to create a new instance of the class.
 		@return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr registerClass(const TTSymbol& className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+	TTErr registerClass(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 
 	// The above creates a class and registers it -- this one just registers a class after it is created.
 	TTErr registerClass(TTClass* theClass);
@@ -113,7 +113,7 @@ public:
 	*/
 	
 	
-	/**	Retreive the names of all registered #TTObject classes in the environment.
+	/**	Retreive the names of all registered #TTObjectBase classes in the environment.
 		@param anInputValue			This is not being used.
 		@param	anOutputValue		Pass a #TTValue that will be filled with an array of #TTSymbol pointers with the names of the classes.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
@@ -121,7 +121,7 @@ public:
 	TTErr getAllClassNames(const TTValue& anInputValue, TTValue &anOutputValue);
 	
 	
-	/**	Retreive the names of all registered #TTObject classes in the environment that 
+	/**	Retreive the names of all registered #TTObjectBase classes in the environment that
 		are associated with the given tag(s). 
 		@param	classNames	An array of TTSymbols upon return.
 		@param	tags		An array of tags by which to search the environment's registry.
@@ -133,24 +133,24 @@ public:
 	TTErr getClassNamesForTags(const TTValue& anInputValue, TTValue &anOutputValue);
 	
 	
-	/**	Create a new instance of a registered #TTObject class.
+	/**	Create a new instance of a registered #TTObjectBase class.
 		@param	className	Pass in a #TTSymbol with the name of the unit to load.  
-		@param	anObject	Upon successful return, the value will be set to a #TTObject which is the new instance.
+		@param	anObject	Upon successful return, the value will be set to a #TTObjectBase which is the new instance.
 							If the pointer is passed in as non-NULL then createUnit() will try to free to the
 							existing object to which it points prior to instantiating the new unit.
 		@param	anArgument	For most audio processing objects, this should be passed the maximum number of channels.
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr createInstance(const TTSymbol& className, TTObjectPtr* anObject, TTValue& anArgument);
-	TTErr createInstance(const TTSymbol& className, TTObjectPtr* anObject, const TTValue& anArgument);
+	TTErr createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, TTValue& anArgument);
+	TTErr createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument);
 	
 	
 	/**	Create a reference to an object. */
-	TTObjectPtr referenceInstance(TTObjectPtr anObject);
+	TTObjectBasePtr referenceInstance(TTObjectBasePtr anObject);
 
 	
-	/**	Release an instance of a #TTObject class.
+	/**	Release an instance of a #TTObjectBase class.
 		At the moment this is simply freeing the class, but it may use reference counting in the future 
 		(e.g. for TTBuffer references).
 
@@ -162,7 +162,7 @@ public:
 		@param	unit		A pointer to the unit to free.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr releaseInstance(TTObjectPtr* anObject);	
+	TTErr releaseInstance(TTObjectBasePtr* anObject);
 };
 
 
@@ -173,15 +173,15 @@ extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 // Public Interface
 // Some of this looks a bit crazy due to duplication -- however the use of templates causes problems for linking on some Macs and PCs
 // (while not neccessarily on others)
-TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbol& className, TTObjectPtr* returnedObjectPtr, TTValue& arguments);
-TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbol& className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments);
-TTFOUNDATION_EXPORT TTErr TTObjectInstantiate(const TTSymbol& className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, TTValue& arguments);
+TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTValue& arguments);
+TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments);
 
-TTFOUNDATION_EXPORT TTObjectPtr TTObjectReference(TTObjectPtr anObject);
-TTFOUNDATION_EXPORT TTErr TTObjectRelease(TTObjectPtr* anObject);
+TTFOUNDATION_EXPORT TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject);
+TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject);
 
-TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol& className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
-TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol& className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
+TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol& className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames);
 TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
 

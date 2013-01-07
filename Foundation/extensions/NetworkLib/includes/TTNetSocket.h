@@ -47,7 +47,7 @@ class TTNetSocket {
 
 	TTThreadPtr			mSocketListenerThread;			/// for receiving data
 	TTList				mConnections;
-	TTObjectPtr			mOwner;							///< The object that instantiated this socket and will receive notifications.
+	TTObjectBasePtr			mOwner;							///< The object that instantiated this socket and will receive notifications.
 	
 public:
 	
@@ -58,7 +58,7 @@ public:
 		@param	port		could be a string with a port number but also could be "http" or "ftp" (etc.)
 		@param	transport	should be the symbol "udp" or "tcp"
 	*/
-	TTNetSocket(const TTObjectPtr owner, const TTString& address, const TTString& port, const TTSymbol& transport);
+	TTNetSocket(const TTObjectBasePtr owner, const TTString& address, const TTString& port, const TTSymbol& transport);
 
 	~TTNetSocket()
 	{

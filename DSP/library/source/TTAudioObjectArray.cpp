@@ -2,7 +2,7 @@
  *
  * @ingroup dspLibrary
  *
- * @brief #TTAudioObjectArray is a wrapper for an array of audio objects
+ * @brief #TTAudioObjectBaseArray is a wrapper for an array of audio objects
  *
  * @details
  *
@@ -18,7 +18,7 @@
 #include "TTAudioObjectArray.h"
 
 
-#define thisTTClass			TTAudioObjectArray
+#define thisTTClass			TTAudioObjectBaseArray
 #define thisTTClassName		"array"
 #define thisTTClassTags		"audio, array"
 
@@ -30,8 +30,8 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	TTUInt16 initialMaxNumChannels = arguments;
 
-	TTObjectInstantiate(kTTSym_audiosignal, &mInputChannelSignal, 1);
-	TTObjectInstantiate(kTTSym_audiosignal, &mOutputChannelSignal, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &mInputChannelSignal, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &mOutputChannelSignal, 1);
 
 	addAttributeWithSetter(Size,	kTypeUInt16);
 	addAttributeWithSetter(Class,	kTypeSymbol);
@@ -45,28 +45,28 @@ TT_AUDIO_CONSTRUCTOR,
 }
 
 
-TTAudioObjectArray::~TTAudioObjectArray()
+TTAudioObjectBaseArray::~TTAudioObjectBaseArray()
 {
-	TTObjectRelease(&mInputChannelSignal);
-	TTObjectRelease(&mOutputChannelSignal);
+	TTObjectBaseRelease(&mInputChannelSignal);
+	TTObjectBaseRelease(&mOutputChannelSignal);
 }
 
 
-TTErr TTAudioObjectArray::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
+TTErr TTAudioObjectBaseArray::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	return setAttributeValue("size", maxNumChannels);
 }
 
 
-TTErr TTAudioObjectArray::setSize(const TTValueRef newSize)
+TTErr TTAudioObjectBaseArray::setSize(const TTValueRef newSize)
 {
 	// TODO: lock so that audio is not processed when we are resizing!
 
 	mSize = newSize;
 
 	// 1. free the old instances
-	for (TTAudioObjectIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
-		TTObjectRelease(&(*obj));
+	for (TTAudioObjectBaseIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
+		TTObjectBaseRelease(&(*obj));
 
 	// 2. resize the vector of pointers and set to NULL
 	mInstances.resize(mSize);
@@ -74,15 +74,15 @@ TTErr TTAudioObjectArray::setSize(const TTValueRef newSize)
 
 	// 3. create the new instances (if the class has been defined)
 	if (mClass) {
-		for (TTAudioObjectIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
-			TTObjectInstantiate(mClass, &(*obj), kTTVal1);
+		for (TTAudioObjectBaseIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
+			TTObjectBaseInstantiate(mClass, &(*obj), kTTVal1);
 	}
 
 	return kTTErrNone;
 }
 
 
-TTErr TTAudioObjectArray::setClass(const TTValueRef newClass)
+TTErr TTAudioObjectBaseArray::setClass(const TTValueRef newClass)
 {
 	TTSymbol	theClassName = newClass;
 	int			err = 0;
@@ -90,7 +90,7 @@ TTErr TTAudioObjectArray::setClass(const TTValueRef newClass)
 	// TODO: find out if the specified class name is a legitimate class before proceeding
 
 	for (int i=0; i<mSize; i++)
-		err |= TTObjectInstantiate(newClass, &mInstances[i], 1);
+		err |= TTObjectBaseInstantiate(newClass, &mInstances[i], 1);
 
 	if (!err)
 		mClass = theClassName;
@@ -98,7 +98,7 @@ TTErr TTAudioObjectArray::setClass(const TTValueRef newClass)
 }
 
 
-TTErr TTAudioObjectArray::set(TTValue& arguments, TTValue&)
+TTErr TTAudioObjectBaseArray::set(TTValue& arguments, TTValue&)
 {
 	// There may be two or more arguments
 	// if the first argument is a number, it specifies which instance in the array to address
@@ -151,7 +151,7 @@ TTErr TTAudioObjectArray::set(TTValue& arguments, TTValue&)
 }
 
 
-TTErr TTAudioObjectArray::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAudioObjectBaseArray::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);

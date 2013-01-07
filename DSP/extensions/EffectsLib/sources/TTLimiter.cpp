@@ -36,8 +36,8 @@ TT_AUDIO_CONSTRUCTOR
 	// clear the history
 	addMessage(clear);
 
-	TTObjectInstantiate(kTTSym_dcblock, &dcBlocker, initialMaxNumChannels);
-	TTObjectInstantiate(kTTSym_gain, &preamp, initialMaxNumChannels);
+	TTObjectBaseInstantiate(kTTSym_dcblock, &dcBlocker, initialMaxNumChannels);
+	TTObjectBaseInstantiate(kTTSym_gain, &preamp, initialMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
@@ -63,8 +63,8 @@ TTLimiter::~TTLimiter()
 		delete [] lookaheadBuffer[i];
 	delete [] lookaheadBuffer;
 	delete [] gain;
-	TTObjectRelease(&dcBlocker);
-	TTObjectRelease(&preamp);
+	TTObjectBaseRelease(&dcBlocker);
+	TTObjectBaseRelease(&preamp);
 }
 
 

@@ -34,15 +34,15 @@ public:
 //		PlugtasticInit("/Library/Application Support/Plugtastic");
 		PlugtasticInit();
 		
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj0, TTValue(TT("plugtastic.output")));
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj0, TTValue(TT("plugtastic.output")));
 // TODO: the 'filter' object doesn't exist because it is a class that is buried inside of an extern definition
 //		 rather than as a proper extension class !!!
-//		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj1, TTValue(TT("filter")));
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj1, TTValue(TT("overdrive")));
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj2, TTValue(TT("degrade")));
+//		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj1, TTValue(TT("filter")));
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj1, TTValue(TT("overdrive")));
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj2, TTValue(TT("degrade")));
 		
-		//	TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj3, TTValue(TT("plugtastic.input")))
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj3, TTValue(TT("audio.generator")));
+		//	TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj3, TTValue(TT("plugtastic.input")))
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj3, TTValue(TT("audio.generator")));
 		obj3->addAudioFlag(kTTAudioGraphGenerator);
 	
 		obj2->connectAudio(obj3);
@@ -57,10 +57,10 @@ public:
 	
 	virtual ~PlugtasticAUEffectGraph()
 	{
-		TTObjectRelease((TTObjectPtr*)&obj0);
-		TTObjectRelease((TTObjectPtr*)&obj1);
-		TTObjectRelease((TTObjectPtr*)&obj2);
-		TTObjectRelease((TTObjectPtr*)&obj3);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj0);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj1);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj2);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj3);
 	}
 	
 

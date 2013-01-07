@@ -39,7 +39,7 @@ public:
 	TTAudioGraphOutlet() : 
 		mBufferedOutput(NULL)
 	{
-		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
+		TTObjectBaseInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
 	}
 	
 	
@@ -47,7 +47,7 @@ public:
 	 */
 	~TTAudioGraphOutlet()
 	{
-		TTObjectRelease(&mBufferedOutput);
+		TTObjectBaseRelease(&mBufferedOutput);
 	}
 	
 	
@@ -56,15 +56,15 @@ public:
 	TTAudioGraphOutlet(const TTAudioGraphOutlet& original) : 
 		mBufferedOutput(NULL)
 	{
-//		mBufferedOutput = TTObjectReference(original.mBufferedOutput);
-		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
+//		mBufferedOutput = TTObjectBaseReference(original.mBufferedOutput);
+		TTObjectBaseInstantiate(kTTSym_audiosignal, &mBufferedOutput, 1);
 	}
 	
 	
 	TTAudioGraphOutlet& operator=(const TTAudioGraphOutlet& source)
 	{
-		TTObjectRelease(&mBufferedOutput);
-		mBufferedOutput = TTObjectReference(source.mBufferedOutput);
+		TTObjectBaseRelease(&mBufferedOutput);
+		mBufferedOutput = TTObjectBaseReference(source.mBufferedOutput);
 		return *this;
 	}
 	

@@ -196,7 +196,7 @@ TTErr TTSoundfilePlayer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		mBuffer.resize(mNumBufferFrames * mNumChannels);
 	
 	if (!mNumChannels)
-		return TTAudioObject::muteProcess(inputs, outputs);
+		return TTAudioObjectBase::muteProcess(inputs, outputs);
 	
 	// if there is an input, we want to treat it as a sample-accurate on/off switch for playback
 	//if (inputs->numAudioSignals) {

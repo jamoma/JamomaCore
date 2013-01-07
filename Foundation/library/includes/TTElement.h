@@ -29,7 +29,7 @@
 #include "TTAddressCache.h"
 #endif
 
-class TTObject;
+class TTObjectBase;
 class TTMatrix;
 
 
@@ -137,7 +137,7 @@ class TTFOUNDATION_EXPORT TTElement {
 		TTSymbolBase*	sym;		///< can't be a TTSymbolRef because it is in a union and this generates a compiler error
 		TTAddressBase*	address;
 		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
-		TTObject*		object;
+		TTObjectBase*		object;
 		TTMatrix*		matrix;
 		TTPtr			ptr;
 	};
@@ -331,7 +331,7 @@ public:
 	}
 
 	// OBJECT
-	operator TTObject&() const
+	operator TTObjectBase&() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ref, (*type == kTypeObject));
 		
@@ -343,7 +343,7 @@ public:
 		}
 	}
 	
-	operator TTObject*() const
+	operator TTObjectBase*() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ptr, (*type == kTypeObject));
 		
@@ -501,14 +501,14 @@ public:
 		return *this;
 	}
 	
-	TTElement& operator = (const TTObject& value)
+	TTElement& operator = (const TTObjectBase& value)
 	{
 		mType = kTypeObject;
-		mValue.object = (TTObject*)&value;
+		mValue.object = (TTObjectBase*)&value;
 		return *this;
 	}
 	
-	TTElement& operator = (TTObject* value)
+	TTElement& operator = (TTObjectBase* value)
 	{
 		mType = kTypeObject;
 		mValue.object = value;

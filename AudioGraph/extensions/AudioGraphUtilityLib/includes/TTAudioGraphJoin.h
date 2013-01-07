@@ -15,7 +15,7 @@
 /**	The join≈ object takes N input signals and combines them
  into a single signal with all of the channels present.
  */
-class TTAudioGraphJoin : public TTAudioObject {
+class TTAudioGraphJoin : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAudioGraphJoin)
 	
 protected:

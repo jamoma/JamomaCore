@@ -17,7 +17,7 @@
 
 /**	A simple container for an array of TTAudioSignal pointers.
 	This class does not automatically manage the signals themselves, instantiate, or free them.	*/
-class TTDSP_EXPORT TTAudioSignalArray : public TTDataObject {
+class TTDSP_EXPORT TTAudioSignalArray : public TTDataObjectBase {
 	TTCLASS_SETUP(TTAudioSignalArray)
 
 protected:

@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Epitrochoid2D : TTAudioObject {
+class Epitrochoid2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Epitrochoid2D)
 
 protected:

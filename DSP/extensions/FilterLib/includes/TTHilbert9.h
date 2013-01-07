@@ -44,7 +44,7 @@
 	At the moment, however, we do not have any applications in Jamoma which require the use
 	of hilbert-transformed signals to be processed at a lower rate.
   */
-class TTHilbert9 : TTAudioObject {
+class TTHilbert9 : TTAudioObjectBase {
 	TTCLASS_SETUP(TTHilbert9)
 
 protected:

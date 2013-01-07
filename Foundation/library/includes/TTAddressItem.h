@@ -34,7 +34,7 @@ private:
 	TTSymbol				symbol;					// any symbol
 	TTAddressItemPtr		parent;					// the parent item
 	TTBoolean				selection;				// selection state of the item
-	TTList					handlers;				// list of all TTObject handling the item
+	TTList					handlers;				// list of all TTObjectBase handling the item
 	
 public:
 	
@@ -94,11 +94,11 @@ public:
 	/** Copy the item into a given item */
 	TTErr						copy(TTAddressItemPtr *anItemCopy);
 	
-	/** Register a TTObject handler */
-	void						registerHandler(TTObject& anObject);
+	/** Register a TTObjectBase handler */
+	void						registerHandler(TTObjectBase& anObject);
 	
-	/** Unregister a TTObject handler */
-	void						unregisterHandler(TTObject& anObject);
+	/** Unregister a TTObjectBase handler */
+	void						unregisterHandler(TTObjectBase& anObject);
 	
 	/** Send a message to all handlers */
 	void						iterateHandlersSendingMessage(TTSymbol messageName);

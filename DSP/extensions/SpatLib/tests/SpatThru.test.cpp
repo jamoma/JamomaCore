@@ -30,8 +30,8 @@ TTErr SpatThru::test(TTValue& returnedTestInfo)
 	 setAttributeValue(TT("destinationCount"), 4);
 	 
 	 // create four channel audio signals
-	 TTObjectInstantiate(kTTSym_audiosignal, &input, 4);
-	 TTObjectInstantiate(kTTSym_audiosignal, &output, 4);
+	 TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 4);
+	 TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 4);
 	 
 	 input->allocWithVectorSize(64);
 	 output->allocWithVectorSize(64);
@@ -66,8 +66,8 @@ TTErr SpatThru::test(TTValue& returnedTestInfo)
 					 errorCount);
 	 TTTestLog("Number of bad samples: %i", 256-validSampleCount);
 	 
-	 TTObjectRelease(&input);
-	 TTObjectRelease(&output);
+	 TTObjectBaseRelease(&input);
+	 TTObjectBaseRelease(&output);
 
 	 // Wrap up the test results to pass back to whoever called this test
 	 return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);

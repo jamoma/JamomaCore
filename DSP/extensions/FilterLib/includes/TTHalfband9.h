@@ -19,7 +19,7 @@
  
 	Passband edge (i.e. Fc or -3db) at Fs/4
  */
-class TTHalfband9 : TTAudioObject {
+class TTHalfband9 : TTAudioObjectBase {
 	TTCLASS_SETUP(TTHalfband9)
 
 protected:

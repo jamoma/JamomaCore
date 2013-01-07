@@ -20,7 +20,7 @@
 #include "TTDSP.h"
 
 
-class Slinky3D : TTAudioObject {
+class Slinky3D : TTAudioObjectBase {
 	TTCLASS_SETUP(Slinky3D)
 
 protected:

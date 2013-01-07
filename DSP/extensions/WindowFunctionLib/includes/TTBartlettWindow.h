@@ -23,7 +23,7 @@
 /**	The Bartlett window is a triangular window that reach 0 at the end points (x=0 and x=1)
 	y = 1 - |2x-1|
  */
-class BartlettWindow : TTAudioObject {
+class BartlettWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(BartlettWindow)
 
 protected:

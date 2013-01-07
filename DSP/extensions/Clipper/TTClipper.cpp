@@ -16,7 +16,7 @@
 
 
 /**	Hard-clip signals to a low and high bound. */
-class Clipper : TTAudioObject {
+class Clipper : TTAudioObjectBase {
 	TTCLASS_SETUP(Clipper)
 
 	TTFloat64	mLowBound;		///< Attribute: low bound for clipping

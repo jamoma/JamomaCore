@@ -15,7 +15,7 @@
 // Class Specifications
 
 
-class BarkUnit : public TTDataObject, public TTDataspaceUnit {
+class BarkUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(BarkUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -23,7 +23,7 @@ public:
 };
 
 
-class BpmUnit : public TTDataObject, public TTDataspaceUnit {
+class BpmUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(BpmUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -32,7 +32,7 @@ public:
 
 
 
-class CentUnit : public TTDataObject, public TTDataspaceUnit {
+class CentUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(CentUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -40,7 +40,7 @@ public:
 };
 
 
-class MelUnit : public TTDataObject, public TTDataspaceUnit {
+class MelUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(MelUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -48,7 +48,7 @@ public:
 };
 
 
-class MidiPitchUnit : public TTDataObject, public TTDataspaceUnit {
+class MidiPitchUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(MidiPitchUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -56,7 +56,7 @@ public:
 };
 
 
-class MillisecondUnit : public TTDataObject, public TTDataspaceUnit {
+class MillisecondUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(MillisecondUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -64,7 +64,7 @@ public:
 };
 
 
-class SampleUnit : public TTDataObject, public TTDataspaceUnit {
+class SampleUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(SampleUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -72,7 +72,7 @@ public:
 };
 
 
-class SecondUnit : public TTDataObject, public TTDataspaceUnit {
+class SecondUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(SecondUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -80,7 +80,7 @@ public:
 };
 
 
-class SpeedUnit : public TTDataObject, public TTDataspaceUnit {
+class SpeedUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(SpeedUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -88,7 +88,7 @@ public:
 };
 
 
-class FrequencyUnit : public TTDataObject, public TTDataspaceUnit {
+class FrequencyUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(FrequencyUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -97,7 +97,7 @@ public:
 
 
 // Specification of our base class
-class TimeDataspace : public TTDataObject, public TTDataspace {
+class TimeDataspace : public TTDataObjectBase, public TTDataspace {
 	TTCLASS_SETUP(TimeDataspace)
     
     /**	Unit Tests	*/

@@ -15,7 +15,7 @@ typedef struct _jcom_gain {
 	t_object		obj;
 	TTMatrixPtr		x;			// Jamoma matrix object for input
 	TTMatrixPtr		y;			// Jamoma matrix object for output
-	TTDataObjectPtr	gainObject;	// Jamoma object performing matrix operations
+	TTDataObjectBasePtr	gainObject;	// Jamoma object performing matrix operations
 } GainObject;
 
 typedef GainObject* GainObjectPtr;
@@ -75,9 +75,9 @@ GainObjectPtr GainNew(void)
 	TTErr			err;
 	
 	if (self) {
-		err = TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&self->x, kTTValNONE);
-		err = TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&self->y, kTTValNONE);
-		err = TTObjectInstantiate(TT("matrix.gain"), (TTObjectPtr*)&self->gainObject, kTTValNONE);				
+		err = TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&self->x, kTTValNONE);
+		err = TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&self->y, kTTValNONE);
+		err = TTObjectBaseInstantiate(TT("matrix.gain"), (TTObjectBasePtr*)&self->gainObject, kTTValNONE);
 	} 
 	return self;
 }
@@ -87,9 +87,9 @@ void GainFree(GainObjectPtr self)
 {
 	TTErr err;
 	
-	err = TTObjectRelease((TTObjectPtr*)&self->x);
-	err = TTObjectRelease((TTObjectPtr*)&self->y);
-	err = TTObjectRelease((TTObjectPtr*)&self->gainObject);
+	err = TTObjectBaseRelease((TTObjectBasePtr*)&self->x);
+	err = TTObjectBaseRelease((TTObjectBasePtr*)&self->y);
+	err = TTObjectBaseRelease((TTObjectBasePtr*)&self->gainObject);
 }
 
 

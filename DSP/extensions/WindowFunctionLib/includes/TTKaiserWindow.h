@@ -26,7 +26,7 @@
 	https://ccrma.stanford.edu/~jos/sasp/Kaiser_Window.html @n
 	http://en.wikipedia.org/wiki/Window_function#Kaiser_windows
  */
-class KaiserWindow : TTAudioObject {
+class KaiserWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(KaiserWindow)
 	
 protected:	

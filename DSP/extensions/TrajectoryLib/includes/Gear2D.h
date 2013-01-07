@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Gear2D : TTAudioObject {
+class Gear2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Gear2D)
 
 protected:

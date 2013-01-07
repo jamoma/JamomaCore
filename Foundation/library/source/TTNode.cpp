@@ -10,7 +10,7 @@
 
 #include "TTNode.h"
 
-TTNode::TTNode(TTSymbol aName, TTSymbol anInstance, TTObjectPtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
+TTNode::TTNode(TTSymbol aName, TTSymbol anInstance, TTObjectBasePtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
 	parent(NULL)
 {
     name = aName;
@@ -327,7 +327,7 @@ TTErr TTNode::setChild(TTNodePtr child)
 	}
 }
 
-TTErr TTNode::setObject(TTObjectPtr anObject)
+TTErr TTNode::setObject(TTObjectBasePtr anObject)
 {
 	this->object = anObject;
 	return kTTErrNone;
@@ -524,7 +524,7 @@ TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstan
 	return kTTErrNone;
 }
 
-TTObjectPtr TTNode::getObject()
+TTObjectBasePtr TTNode::getObject()
 {
 	if (this->object)
 		if (!this->object->valid)

@@ -20,7 +20,7 @@
 #include "TTDSP.h"
 
 
-class Rose3D : TTAudioObject {
+class Rose3D : TTAudioObjectBase {
 	TTCLASS_SETUP(Rose3D)
 
 protected:

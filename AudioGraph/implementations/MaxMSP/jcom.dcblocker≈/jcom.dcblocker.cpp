@@ -85,7 +85,7 @@ DCBlockerPtr DCBlockerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("dcblock"));
 		v.set(1, 1.);
-		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
+		err = TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&self->audioGraphObject, v);
 
 		if (!self->audioGraphObject->getUnitGenerator()) {
 			object_error(SELF, "cannot load JamomaDSP object");
@@ -101,7 +101,7 @@ DCBlockerPtr DCBlockerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void DCBlockerFree(DCBlockerPtr self)
 {
 	if (self->audioGraphObject)
-		TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
+		TTObjectBaseRelease((TTObjectBasePtr*)&self->audioGraphObject);
 }
 
 

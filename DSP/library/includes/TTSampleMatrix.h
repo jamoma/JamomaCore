@@ -37,7 +37,7 @@ class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 protected:
 
 	TTFloat64			mSampleRate;
-	// NOTE: This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
+	// NOTE: This object does not process audio by itself, but inherits from TTAudioObjectBase for sample-rate support.
 	// TODO: Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
 	
 public:

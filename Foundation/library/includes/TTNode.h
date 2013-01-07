@@ -58,7 +58,7 @@ private:
 	TTHashPtr			children;				///< a hashtab of hashtabs:
 												///< hashed on children names which containing hashtabs hashed on instances
 
-	TTObjectPtr			object;					///< an object linked to the TTNode
+	TTObjectBasePtr			object;					///< an object linked to the TTNode
 	TTPtr				context;				///< an element that contains the object in the environnement
 
 	TTNodeDirectoryPtr	directory;				///< a pointer to a directory
@@ -66,7 +66,7 @@ private:
 public:
 	
 	/** Constructor */
-	TTNode (TTSymbol aName, TTSymbol anInstance, TTObjectPtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory);
+	TTNode (TTSymbol aName, TTSymbol anInstance, TTObjectBasePtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory);
 	
 	/** Destructor */
 	virtual ~TTNode ();
@@ -101,7 +101,7 @@ public:
 	TTErr			setChild(TTNodePtr child);
 	
 	/** Set the object of this node */
-	TTErr			setObject(TTObjectPtr anObject);
+	TTErr			setObject(TTObjectBasePtr anObject);
 
 	/** Set the context of this node */
 	TTErr			setContext(TTPtr aContext);
@@ -125,7 +125,7 @@ public:
 	TTErr			getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstance);
 	
 	/** Get a pointer to the object binded by this node. It return also NUL when the object is not valid */
-	TTObjectPtr		getObject();
+	TTObjectBasePtr		getObject();
 	
 	/** Get a pointer to the context of this node */
 	TTPtr			getContext();

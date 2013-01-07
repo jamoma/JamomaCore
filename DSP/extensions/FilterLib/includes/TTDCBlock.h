@@ -16,7 +16,7 @@
 
 	This class is a good example of a very simple audio filter that can process any 
 	number of parallel audio channels.  It has a couple of simple messages, but 
-	defines no attributes beyond those that are inherited by all TTAudioObjects.
+	defines no attributes beyond those that are inherited by all TTAudioObjectBases.
 
 	TTDCBlock implements a first-order highpass filter algorithm that is  
  	used pretty much everywhere (STK, ChucK, RTCMix, SuperCollider, Max, Pd, etc),
@@ -73,7 +73,7 @@
 
  */
 
-class TTDCBlock : public TTAudioObject {
+class TTDCBlock : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTDCBlock)
 
 protected:

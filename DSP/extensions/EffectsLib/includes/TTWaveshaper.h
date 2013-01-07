@@ -13,7 +13,7 @@
 
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal	*/
-class TTWaveshaper : public TTAudioObject {
+class TTWaveshaper : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTWaveshaper)
 
 protected:

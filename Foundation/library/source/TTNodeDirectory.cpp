@@ -195,7 +195,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 		return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::TTNodeCreate(TTAddress anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
+TTErr TTNodeDirectory::TTNodeCreate(TTAddress anAddress, TTObjectBasePtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
 	TTAddress			effectiveAddress;
 	TTSymbol			newInstance;
@@ -274,7 +274,7 @@ TTErr TTNodeDirectory::TTNodeRemove(TTAddress anAddress)
 	TTNodePtr		oldNode, parentNode;
 	TTList			childrenList;
 	TTValue			v;
-	TTObjectPtr		obj;
+	TTObjectBasePtr		obj;
 	TTAddress		parentAddress;
 
 	// can't destroy the root (use the TTNodeDirectory destructor)
@@ -794,7 +794,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 
 TTBoolean testNodeObjectType(TTNodePtr n, TTPtr args)
 {
-	TTObjectPtr o;
+	TTObjectBasePtr o;
 
 	o = n->getObject();
 
@@ -834,7 +834,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTSymbol		aFilterName;
 	TTSymbol		filterMode;
 	TTDictionaryPtr aFilter;
-	TTObjectPtr		anObject;
+	TTObjectBasePtr		anObject;
 	TTAddress		anAddress;
 	TTValue			v;
 	TTBoolean		resultFilter, result;

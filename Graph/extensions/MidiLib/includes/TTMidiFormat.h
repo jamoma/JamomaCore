@@ -12,7 +12,7 @@
 #include "TTDSP.h"
 
 
-class TTMidiFormat : TTDataObject {
+class TTMidiFormat : TTDataObjectBase {
 	TTCLASS_SETUP(TTMidiFormat)
 	
 protected:	

@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
+ * @brief Creates a wrapper for TTAudioObjectBases that can be used to build an audio processing graph.
  *
  * @details
  *
@@ -24,7 +24,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mBuffer(NULL)
 {
 	// arguments is the number of inlets (not the number of channels)
-	TTObjectInstantiate(kTTSym_audiosignal, &mBuffer, arguments);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &mBuffer, arguments);
 
 	addAttributeWithSetter(VectorSize, kTypeUInt16);
 	addUpdates(MaxNumChannels);
@@ -38,7 +38,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTAudioGraphGenerator::~TTAudioGraphGenerator()
 {
-	TTObjectRelease(&mBuffer);
+	TTObjectBaseRelease(&mBuffer);
 }
 
 

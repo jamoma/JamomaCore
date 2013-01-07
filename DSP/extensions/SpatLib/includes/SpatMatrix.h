@@ -20,12 +20,12 @@
 #include "TTDSP.h"
 
 
-class SpatMatrix : TTAudioObject {
+class SpatMatrix : TTAudioObjectBase {
 	TTCLASS_SETUP(SpatMatrix)
 	
 protected:
 	
-	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
+	TTAudioObjectBasePtr	mMatrixObject;				///< TTAudioMatrix object
 	TTFloat64			mDummyTest;
 	TTFloat64			mDummyTest2;
 

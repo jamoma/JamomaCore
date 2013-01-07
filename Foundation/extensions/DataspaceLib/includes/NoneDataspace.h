@@ -16,7 +16,7 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class NoneUnit : public TTDataObject, public TTDataspaceUnit {
+class NoneUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(NoneUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -25,7 +25,7 @@ public:
 
 
 // Specification of our base class
-class NoneDataspace : public TTDataObject, public TTDataspace {
+class NoneDataspace : public TTDataObjectBase, public TTDataspace {
 	TTCLASS_SETUP(NoneDataspace)
 };
 

@@ -17,7 +17,7 @@
 	y = tanh(x)
 	but with a variety of additions to the basic trig function.
  */
-class TTTanhFunction : TTAudioObject {
+class TTTanhFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTTanhFunction)
 
 protected:

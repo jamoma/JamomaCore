@@ -2,7 +2,7 @@
  *
  * @ingroup dspLibrary
  *
- * @brief #TTAudioObject is the Jamoma DSP Audio Object Base Class
+ * @brief #TTAudioObjectBase is the Jamoma DSP Audio Object Base Class
  *
  * @details
  *
@@ -24,8 +24,8 @@
 #include "TTAudioSignalArray.h"
 
 
-// Forward declaration of TTAudioObject for the typedef that follows...
-class TTAudioObject;
+// Forward declaration of TTAudioObjectBase for the typedef that follows...
+class TTAudioObjectBase;
 
 
 /** A type that can be used to store a pointer to a process method (which calculates a vector of samples).
@@ -34,7 +34,7 @@ class TTAudioObject;
  @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
  @ingroup typedefs
  */
-typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignalArrayPtr in, TTAudioSignalArrayPtr out);
+typedef TTErr (TTAudioObjectBase::*TTProcessMethod)(TTAudioSignalArrayPtr in, TTAudioSignalArrayPtr out);
 
 
 /**	A type that can be used to store a pointer to a calculate method (which calculates a single sample).
@@ -43,7 +43,7 @@ typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignalArrayPtr in, TTAudi
  @param data		TODO
  @ingroup typedefs
  */
-typedef TTErr (TTAudioObject::*TTCalculateMethod)(const TTFloat64& x, TTFloat64& y, TTPtr data);
+typedef TTErr (TTAudioObjectBase::*TTCalculateMethod)(const TTFloat64& x, TTFloat64& y, TTPtr data);
 
 
 /**	A convenience macro to be used by subclasses for setting the process method.
@@ -85,14 +85,14 @@ return kTTErrNone;
 /****************************************************************************************************/
 // Class Specification
 
-/**	TTAudioObject is the base class for all audio generating and processing objects in Jamoma DSP.
+/**	TTAudioObjectBase is the base class for all audio generating and processing objects in Jamoma DSP.
  *	
  *	@details The theory of operation is that this class handles the public interface to any subclass,
  *	including the main processing method, which calls an appropriate method through a function pointer.
  *	By default, this points to the built-in bypassProcess().  Subclasses then set it to point to their 
  *	own process() method(s) as needed.
  */
-class TTDSP_EXPORT TTAudioObject : public TTObject {
+class TTDSP_EXPORT TTAudioObjectBase : public TTObjectBase {
 protected:
 	TTUInt32				sr;							///< Current sample rate being used by this object
 	TTFloat64				srInv;						///< 1.0 over the current sample rate (inverse)
@@ -192,14 +192,14 @@ protected:
 	 @details Requires that the maximum number of channels to be used with this instance is defined.
 	 @param arguments	Arguments to the constructor.
 	 */
-	TTAudioObject(TTValue& arguments);
+	TTAudioObjectBase(TTValue& arguments);
 	
 	
 public:
 	
 	/** Destructor. 
 	 */
-	virtual ~TTAudioObject();
+	virtual ~TTAudioObjectBase();
 		
 	
 	/**	Calculate a single sample of output for a single sample of input. 
@@ -371,10 +371,10 @@ public:
 };
 
 
-/** Pointer to a #TTAudioObject.
+/** Pointer to a #TTAudioObjectBase.
  @ingroup typedefs
  */
-typedef TTAudioObject* TTAudioObjectPtr;
+typedef TTAudioObjectBase* TTAudioObjectBasePtr;
 
 
 /** Convert linear amplitude into deciBels.

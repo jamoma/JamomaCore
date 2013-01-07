@@ -13,7 +13,7 @@
 
 
 /**	A first-order allpass filter cascade. */
-class TTAllpass1aCascade2 : public TTAudioObject {
+class TTAllpass1aCascade2 : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAllpass1aCascade2)
 
 protected:

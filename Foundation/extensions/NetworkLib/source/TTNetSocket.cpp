@@ -26,7 +26,7 @@ void* TTNetSocketReceiver(void* anArgument)
 }
 
 
-TTNetSocket::TTNetSocket(const TTObjectPtr owner, const TTString& address, const TTString& port, const TTSymbol& transport) :
+TTNetSocket::TTNetSocket(const TTObjectBasePtr owner, const TTString& address, const TTString& port, const TTSymbol& transport) :
 mSocketAddressInfo(NULL),
 mSocketListenerThread(NULL),
 mOwner(owner)

@@ -12,7 +12,7 @@
 #include "TTDSP.h"
 
 
-class TTAudioGraphOffset : public TTAudioObject {
+class TTAudioGraphOffset : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAudioGraphOffset)
 	
 protected:

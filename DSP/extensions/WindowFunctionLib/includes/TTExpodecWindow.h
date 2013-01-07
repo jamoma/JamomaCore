@@ -40,7 +40,7 @@
  * y = e^ ( ( 1 - ( x / mRatio ) ) * lambda )        : for the attack (approaching peak) @n
  * 	 = e^ ( ((x - mRatio) / (1 - mRatio)) * lambda ) : for the release (leaving peak)
  */
-class ExpodecWindow : TTAudioObject {
+class ExpodecWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(ExpodecWindow)
 	
 protected:

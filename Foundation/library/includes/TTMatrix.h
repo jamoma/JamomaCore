@@ -55,7 +55,7 @@ typedef TTInt16 TTElementID;
 
 	Each compound value stored in the matrix is known as a component. The number of elements in each component is variable, enabling the storage of things like complex numbers or RGBA colors. However, this element count for each component and their datatype is uniform across the entire matrix.
 */
-class TTFOUNDATION_EXPORT TTMatrix : public TTDataObject {
+class TTFOUNDATION_EXPORT TTMatrix : public TTDataObjectBase {
 	TTCLASS_SETUP(TTMatrix)
 
 protected:	

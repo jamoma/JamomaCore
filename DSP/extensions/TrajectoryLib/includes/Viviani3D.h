@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Viviani3D : TTAudioObject {
+class Viviani3D : TTAudioObjectBase {
 	TTCLASS_SETUP(Viviani3D)
 
 protected:

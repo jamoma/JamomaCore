@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Limacon2D : TTAudioObject {
+class Limacon2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Limacon2D)
 
 protected:

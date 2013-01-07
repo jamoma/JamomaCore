@@ -22,8 +22,8 @@ TT_AUDIO_CONSTRUCTOR,
 	mGainMatrix(NULL),
 	tempGainMatrix(NULL)
 {
-	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&mGainMatrix, 0);
-	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&tempGainMatrix, 0);
+	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&mGainMatrix, 0);
+	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&tempGainMatrix, 0);
 
 	addAttribute(NumInputs, kTypeUInt16);	
 	addAttributeProperty(NumInputs,	readOnly, kTTBoolYes);
@@ -49,8 +49,8 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTMultiMixer::~TTMultiMixer()
 {
-	TTObjectRelease((TTObjectPtr*)&mGainMatrix);
-	TTObjectRelease((TTObjectPtr*)&tempGainMatrix);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mGainMatrix);
+	TTObjectBaseRelease((TTObjectBasePtr*)&tempGainMatrix);
 }
 
 

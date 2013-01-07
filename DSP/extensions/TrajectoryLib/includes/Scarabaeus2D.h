@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Scarabaeus2D : TTAudioObject {
+class Scarabaeus2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Scarabaeus2D)
 
 protected:

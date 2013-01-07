@@ -25,7 +25,7 @@
  This class is used to create a backward communication to notify a client that something changed in the #TTnode.
  We will subclass TTObject in order to gain some functionality -- like observers and notifications.
  */
-class TTFOUNDATION_EXPORT TTCallback : public TTObject
+class TTFOUNDATION_EXPORT TTCallback : public TTObjectBase
 {
 	TTCLASS_SETUP(TTCallback)
 

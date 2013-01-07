@@ -32,7 +32,7 @@ OSStatus TTAudioUnitGetInputSamples(void*						inRefCon,
 
 
 /**	Host AudioUnit plug-ins. */
-class TTAudioUnit : public TTAudioObject {
+class TTAudioUnit : public TTAudioObjectBase {
 public:
 	TTSymbol			mPlugin;			///< Attribute: the name of the current plugin
 	AudioUnit			mAudioUnit;			///< the actual plugin
@@ -45,7 +45,7 @@ public:
 	
 	/**	Constructor. */
 	TTAudioUnit(TTValue& arguments) : 
-		TTAudioObject(arguments),
+		TTAudioObjectBase(arguments),
 		mAudioUnit(NULL),
 		mInputBufferList(NULL), 
 		mOutputBufferList(NULL),

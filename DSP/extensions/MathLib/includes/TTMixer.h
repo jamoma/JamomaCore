@@ -21,7 +21,7 @@
 
 
 /**	TTMixer mixes N input channels of a signal to M output channels of a signal. */
-class TTMixer : TTAudioObject {
+class TTMixer : TTAudioObjectBase {
 	TTCLASS_SETUP(TTMixer)
 
 protected:

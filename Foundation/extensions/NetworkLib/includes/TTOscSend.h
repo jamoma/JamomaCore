@@ -14,7 +14,7 @@
 
 /**	TTOscSend is ...
  */
-class TTOscSend : public TTDataObject {
+class TTOscSend : public TTDataObjectBase {
 	TTCLASS_SETUP(TTOscSend)
 
 	TTSymbol				mAddress;	///< www.jamoma.org, 192.168.1.1, etc.

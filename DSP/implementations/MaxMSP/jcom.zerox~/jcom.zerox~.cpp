@@ -20,7 +20,7 @@
 // Data Structure for this object
 typedef struct _zerox {
 	t_pxobject			obj;			// This object - must be first
-	TTAudioObjectPtr	zeroxUnit;		// 
+	TTAudioObjectBasePtr	zeroxUnit;		// 
     TTAudioSignalPtr	signalIn;		// 
     TTAudioSignalPtr	signalOut;		// 
 	long				attr_size;		//  
@@ -82,9 +82,9 @@ void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 		outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet
 		outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet
 
-		TTObjectInstantiate(TT("zerocross"), &x->zeroxUnit, 1);
-		TTObjectInstantiate(TT("audiosignal"), &x->signalIn, 2);
-		TTObjectInstantiate(TT("audiosignal"), &x->signalOut, 2);
+		TTObjectBaseInstantiate(TT("zerocross"), &x->zeroxUnit, 1);
+		TTObjectBaseInstantiate(TT("audiosignal"), &x->signalIn, 2);
+		TTObjectBaseInstantiate(TT("audiosignal"), &x->signalOut, 2);
 
 		x->attr_size = 0;
 		attr_args_process(x, argc, argv); 			//handle attribute args			
@@ -96,9 +96,9 @@ void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 void zerox_free(t_zerox *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(&x->zeroxUnit);
-	TTObjectRelease(&x->signalIn);
-	TTObjectRelease(&x->signalOut);
+	TTObjectBaseRelease(&x->zeroxUnit);
+	TTObjectBaseRelease(&x->signalIn);
+	TTObjectBaseRelease(&x->signalOut);
 }
 
 

@@ -23,7 +23,7 @@
 /**	This implements a window function as described at
 	http://en.wikipedia.org/wiki/Blackman-Harris_window
  */
-class BlackmanHarrisWindow : TTAudioObject {
+class BlackmanHarrisWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(BlackmanHarrisWindow)
 
 protected:

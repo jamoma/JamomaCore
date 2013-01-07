@@ -235,10 +235,10 @@ void TTList::free()
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
 		TTValue& v = *iter;
 		if (v[0].type() == kTypeObject) {
-			TTObjectPtr o = NULL;
+			TTObjectBasePtr o = NULL;
 //			v.get(0, &o);
 			o = v;
-			TTObjectRelease(&o);
+			TTObjectBaseRelease(&o);
 		}
 //		delete *iter;
 	}
@@ -261,7 +261,7 @@ void TTList::assignToValue(TTValue& value)
 }
 
 
-TTErr TTList::iterate(const TTObjectPtr target, const TTFunctionWithBatonAndValue callback)
+TTErr TTList::iterate(const TTObjectBasePtr target, const TTFunctionWithBatonAndValue callback)
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
@@ -272,7 +272,7 @@ TTErr TTList::iterate(const TTObjectPtr target, const TTFunctionWithBatonAndValu
 }
 
 
-TTErr TTList::iterate(const TTObjectPtr target, const TTSymbol& messageName)
+TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol& messageName)
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
@@ -287,7 +287,7 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName)
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
-		TTObjectPtr obj = NULL;
+		TTObjectBasePtr obj = NULL;
 		
 		(iter)->get(0, &obj);
 		if (obj && obj->valid)
@@ -302,7 +302,7 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName, TTValue&
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
-		TTObjectPtr obj = NULL;
+		TTObjectBasePtr obj = NULL;
 		
 		(iter)->get(0, &obj);
 		if (obj && obj->valid)

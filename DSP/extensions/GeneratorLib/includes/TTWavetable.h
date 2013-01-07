@@ -15,7 +15,7 @@
 
 
 /**	TTWavetable is a table-lookup oscillator. The wavetable is implemented as a TTBuffer. */ 
-class TTWavetable : TTAudioObject {
+class TTWavetable : TTAudioObjectBase {
 	TTCLASS_SETUP(TTWavetable)
 
 protected:

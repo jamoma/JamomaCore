@@ -16,7 +16,7 @@ struct Unpack {
    	Object				obj;
 	TTGraphObjectPtr	graphObject;
 	TTPtr				graphOutlets[16];	// this _must_ be third (for the setup call)
-	TTObjectPtr			callback;		// TTCallback object that attaches to the graphObject to be notified when there is new data to output.
+	TTObjectBasePtr			callback;		// TTCallback object that attaches to the graphObject to be notified when there is new data to output.
 };
 typedef Unpack* UnpackPtr;
 
@@ -75,14 +75,14 @@ UnpackPtr UnpackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("graph.output"));
 		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&self->graphObject, v);
+		err = TTObjectBaseInstantiate(TT("graph.object"), (TTObjectBasePtr*)&self->graphObject, v);
 		
 		if (!self->graphObject->mKernel) {
 			object_error(SELF, "cannot load Jamoma object");
 			return NULL;
 		}
 		
-		err = TTObjectInstantiate(TT("callback"), (TTObjectPtr*)&self->callback, kTTValNONE);
+		err = TTObjectBaseInstantiate(TT("callback"), (TTObjectBasePtr*)&self->callback, kTTValNONE);
 		self->callback->setAttributeValue(TT("function"), TTPtr(&UnpackGraphCallback));
 		self->callback->setAttributeValue(TT("baton"), TTPtr(self));	
 		// dynamically add a message to the callback object so that it can handle the 'dictionaryReceived' notification
@@ -99,7 +99,7 @@ UnpackPtr UnpackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void UnpackFree(UnpackPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->graphObject);
+	TTObjectBaseRelease((TTObjectBasePtr*)&self->graphObject);
 }
 
 

@@ -96,7 +96,7 @@ TTErr TTPhasor::getGain(TTValue& value)
 }
 
 
-// TODO: add flags so that TTAudioObject can call a process method with a different number audio signals?
+// TODO: add flags so that TTAudioObjectBase can call a process method with a different number audio signals?
 
 TTErr TTPhasor::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {

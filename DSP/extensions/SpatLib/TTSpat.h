@@ -21,12 +21,12 @@
 
 /** Generalized SpatLib rendering unit wrapper.
  */
-class TTSpat : TTAudioObject {
+class TTSpat : TTAudioObjectBase {
 	TTCLASS_SETUP(TTSpat)
 
 protected:
 
-	TTAudioObjectPtr	mSpatFunctionObject;
+	TTAudioObjectBasePtr	mSpatFunctionObject;
 	TTSymbol			mSpatFunction;	
 	TTUInt16			mSourceCount;			///< The number of sources
 	TTUInt16			mDestinationCount;		///< The number of destinations

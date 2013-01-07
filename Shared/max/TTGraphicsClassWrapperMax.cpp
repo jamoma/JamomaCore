@@ -14,7 +14,7 @@
 typedef struct _wrappedUIInstance {
     t_jbox				box;						///< Max audio object header
 	WrappedClassPtr		wrappedClassDefinition;		///< A pointer to the class definition
-	TTAudioObjectPtr	wrappedObject;				///< The instance of the TTBlue object we are wrapping
+	TTAudioObjectBasePtr	wrappedObject;				///< The instance of the TTBlue object we are wrapping
 } WrappedUIInstance;
 typedef WrappedUIInstance* WrappedUIInstancePtr;	///< Pointer to a wrapped instance of our object.
 

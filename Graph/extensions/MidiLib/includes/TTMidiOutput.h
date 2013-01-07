@@ -18,7 +18,7 @@
 	It is a wrapper around the PortMidi library. 
  */
 
-class TTMidiOutput : TTDataObject {
+class TTMidiOutput : TTDataObjectBase {
 	TTCLASS_SETUP(TTMidiOutput)
 
 public:

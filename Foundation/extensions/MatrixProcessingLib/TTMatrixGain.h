@@ -23,7 +23,7 @@
  
 	However, this simple class is useful in that it provides a testbed for basic matrix operation.
  */
-class TTMatrixGain : public TTDataObject {
+class TTMatrixGain : public TTDataObjectBase {
 	TTCLASS_SETUP(TTMatrixGain)
 	
 	

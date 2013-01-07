@@ -13,7 +13,7 @@
 
 
 /**	The split≈ object takes a single input signal and splits it out	into N output signals */
-class TTAudioGraphSplit : public TTAudioObject {
+class TTAudioGraphSplit : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAudioGraphSplit)
 	
 protected:

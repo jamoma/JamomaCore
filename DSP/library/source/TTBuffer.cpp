@@ -16,7 +16,7 @@
 TTHashPtr gTTBufferNameMap = NULL;
 
 
-TTObjectPtr TTBuffer::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTBuffer::instantiate(TTSymbol& name, TTValue& arguments)
 {
 	return new TTBuffer(arguments);
 }
@@ -29,9 +29,9 @@ extern "C" void TTBuffer::registerClass()
 
 
 TTBuffer::TTBuffer(TTValue& arguments) : 
-	TTAudioObject(arguments)
+	TTAudioObjectBase(arguments)
 {
-	// By convention, the first argument for a TTAudioObject is the number of channels
+	// By convention, the first argument for a TTAudioObjectBase is the number of channels
 	// So we'll maintain that here, and then use the second argument for the name of the buffer
 	
 	TTUInt16	channelCount = 1;

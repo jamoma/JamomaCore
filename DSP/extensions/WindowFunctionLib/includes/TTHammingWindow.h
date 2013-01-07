@@ -28,7 +28,7 @@
 	http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/windows/
 	hamming(x) = 0.54 + 0.46*cos(2*PI*(x-0.5))
  */
-class HammingWindow : TTAudioObject {
+class HammingWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(HammingWindow)
 
 protected:

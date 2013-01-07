@@ -5,7 +5,7 @@
  * @brief The TTClass object represents a class in the Jamoma environment.
  *
  * @details This is to say that it represents everything about a class except for the class itself,
- * which is a subclass of TTObject.
+ * which is a subclass of TTObjectBase.
  *
  * @todo: We could override the () operator to make TTClass a functor for creating instances.
  *
@@ -21,7 +21,7 @@
 
 /****************************************************************************************************/
 
-TTClass::TTClass(const TTSymbol& className, const TTValue& tagList, const TTObjectInstantiationMethod anInstantiationMethod)
+TTClass::TTClass(const TTSymbol& className, const TTValue& tagList, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 	: name(className), tags(tagList), instantiationMethod(anInstantiationMethod), external(false)
 {
 	;
@@ -34,7 +34,7 @@ TTClass::~TTClass()
 }
 
 
-TTErr TTClass::createInstance(TTObject** anObject, TTValue& anArgument)
+TTErr TTClass::createInstance(TTObjectBase** anObject, TTValue& anArgument)
 {
 	TTErr err = kTTErrNone;
 
@@ -50,7 +50,7 @@ TTErr TTClass::createInstance(TTObject** anObject, TTValue& anArgument)
 }
 
 
-TTErr TTClass::releaseInstance(TTObject* anObject)
+TTErr TTClass::releaseInstance(TTObjectBase* anObject)
 {
 	delete anObject;
 	return kTTErrNone;

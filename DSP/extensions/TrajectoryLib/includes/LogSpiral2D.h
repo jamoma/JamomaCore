@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class LogSpiral2D : TTAudioObject {
+class LogSpiral2D : TTAudioObjectBase {
 	TTCLASS_SETUP(LogSpiral2D)
 
 protected:

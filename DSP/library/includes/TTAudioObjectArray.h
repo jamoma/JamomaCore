@@ -2,7 +2,7 @@
  *
  * @ingroup dspLibrary
  *
- * @brief #TTAudioObjectArray is a wrapper for an array of audio objects
+ * @brief #TTAudioObjectBaseArray is a wrapper for an array of audio objects
  *
  * @details
  *
@@ -20,22 +20,22 @@
 #include "TTDSP.h"
 #include "TTAudioObject.h"
 
-typedef std::vector<TTAudioObjectPtr>	TTAudioObjectVector;
-typedef TTAudioObjectVector::iterator	TTAudioObjectIter;
+typedef std::vector<TTAudioObjectBasePtr>	TTAudioObjectBaseVector;
+typedef TTAudioObjectBaseVector::iterator	TTAudioObjectBaseIter;
 
 
-/**	TTAudioObjectArray instantiates an array of TTAudioObjects, manages their life-cycles, and process audio through the array.
+/**	TTAudioObjectBaseArray instantiates an array of TTAudioObjectBases, manages their life-cycles, and process audio through the array.
  @details This permits the processing of an N-channel audio signal through N instances of a given class while using different attribute values for the 
  One application of such a structure is a graphic equalizer.
  */
-class TTAudioObjectArray : public TTAudioObject {
-	TTCLASS_SETUP(TTAudioObjectArray)
+class TTAudioObjectBaseArray : public TTAudioObjectBase {
+	TTCLASS_SETUP(TTAudioObjectBaseArray)
 	
 protected:
 	
 	TTSymbol			mClass;					///< The name of the object we will instantiate in the array
 	TTUInt16			mSize;					///< The number of instances in the array
-	TTAudioObjectVector	mInstances;				///< The actual vector containing object instance pointers
+	TTAudioObjectBaseVector	mInstances;				///< The actual vector containing object instance pointers
 	TTAudioSignalPtr	mInputChannelSignal;	///< Signal used within the process method for passing to individual instances
 	TTAudioSignalPtr	mOutputChannelSignal;	///< Signal used within the process method for passing to individual instances
 	
@@ -76,7 +76,7 @@ protected:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	
-	/** Unit test for the TTAudioObjectArray.
+	/** Unit test for the TTAudioObjectBaseArray.
 	 @param returnedTestInfo		The outcome from the performed unit test.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */

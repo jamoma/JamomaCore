@@ -16,7 +16,7 @@
  *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
  */
-class TTHighpassButterworth2 : public TTAudioObject {
+class TTHighpassButterworth2 : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTHighpassButterworth2)
 
 protected:

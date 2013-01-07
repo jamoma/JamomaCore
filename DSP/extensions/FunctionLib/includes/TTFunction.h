@@ -14,13 +14,13 @@
 
 /**	Generalized Function Wrapper
  */
-class TTFunction : TTAudioObject {
+class TTFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTFunction)
 
 protected:
 
 	TTSymbol			mFunction;			///< Name of the window function to use
-	TTAudioObjectPtr	mFunctionObject;	///< The actual window function object for mFunction
+	TTAudioObjectBasePtr	mFunctionObject;	///< The actual window function object for mFunction
 	TTUInt32			mNumPoints;			///< Number of Points in the lookup table
 	TTSampleVector		mLookupTable;		///< Cached table of size mNumPoints
 	TTSymbol			mMode;				///< Options: 'generate', 'lookup', 'apply'

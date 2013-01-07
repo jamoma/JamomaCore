@@ -89,7 +89,7 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(0, TT("audio.generator"));
 		v.set(1, 0); // no audio graph inlets (only msp inlets)
 		v.set(2, 1); // one audio graph outlet
-		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
+		err = TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&self->audioGraphObject, v);
 		self->audioGraphObject->addAudioFlag(kTTAudioGraphGenerator);
 
 		if (!self->audioGraphObject->getUnitGenerator()) {
@@ -112,7 +112,7 @@ PackPtr PackNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void PackFree(PackPtr self)
 {
 	dsp_free((t_pxobject*)self);
-	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
+	TTObjectBaseRelease((TTObjectBasePtr*)&self->audioGraphObject);
 }
 
 

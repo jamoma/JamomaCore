@@ -11,7 +11,7 @@
 
 
 /**	High-Mid-Low shelf filter.	*/
-class TTHighMidLowShelf : public TTAudioObject {
+class TTHighMidLowShelf : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTHighMidLowShelf)
 
 protected:

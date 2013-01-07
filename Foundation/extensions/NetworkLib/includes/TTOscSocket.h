@@ -27,7 +27,7 @@ class TTOscSocket : public osc::OscPacketListener
 	
 private:
 	
-	TTObjectPtr					mOwner;							///< The object that instantiated this socket and will receive notifications.
+	TTObjectBasePtr					mOwner;							///< The object that instantiated this socket and will receive notifications.
 	
 	TTString					mAddress;
 	TTUInt16					mPort;
@@ -40,10 +40,10 @@ private:
 public:
 	
 	/**	Create a socket to receive osc messages.
-		@param	owner		the TTObject to notify
+		@param	owner		the TTObjectBase to notify
 		@param	port		the port number
 	 */
-	TTOscSocket(const TTObjectPtr owner, const TTUInt16 port);
+	TTOscSocket(const TTObjectBasePtr owner, const TTUInt16 port);
 	
 	/**	Create a socket to send osc messages.
 	 @param	address		the ip address

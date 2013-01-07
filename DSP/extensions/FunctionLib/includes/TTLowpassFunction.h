@@ -19,7 +19,7 @@
 	is much simpler and is optimized for calls to calculate a single output rather than
 	multichannel audio signals.
  */
-class TTLowpassFunction : TTAudioObject {
+class TTLowpassFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTLowpassFunction)
 
 protected:

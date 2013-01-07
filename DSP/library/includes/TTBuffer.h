@@ -20,12 +20,12 @@ extern TTHashPtr gTTBufferNameMap;	// maps names to TTSampleMatrix instances for
 	Other objects can then access this buffer to record into it, play back from it,
 	or perform other operations on it.
 	
-	This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
+	This object does not process audio by itself, but inherits from TTAudioObjectBase for sample-rate support.
 	Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
 	
 	@see TTAudioSignal
 */
-class TTDSP_EXPORT TTBuffer : public TTAudioObject {
+class TTDSP_EXPORT TTBuffer : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTBuffer)
 	
 protected:
@@ -47,7 +47,7 @@ public:
 		if (oldMatrix->getReferenceCount() == 1) // only one of these, it is about to go away, so we'll pop it from the map
 			gTTBufferNameMap->remove(oldMatrixName);
 		
-		TTObjectRelease(TTObjectHandle(&oldMatrix));
+		TTObjectBaseRelease(TTObjectBaseHandle(&oldMatrix));
 	}
 	
 	
@@ -72,14 +72,14 @@ public:
 			newMatrix = TTSampleMatrixPtr(TTPtr(returnedValue));
 		
 		if (!newMatrix) {
-			TTObjectInstantiate("samplematrix", (TTObjectPtr*)&newMatrix, kTTValNONE);
+			TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&newMatrix, kTTValNONE);
 			
 			// TODO: set attributes to match our matrix attrs?
 			
 			gTTBufferNameMap->append(name, TTPtr(newMatrix));
 		}
 		
-		mMatrix = (TTSampleMatrixPtr)TTObjectReference(TTObjectPtr(newMatrix));
+		mMatrix = (TTSampleMatrixPtr)TTObjectBaseReference(TTObjectBasePtr(newMatrix));
 		mName = name;
 		
 		// TODO: Not threadsafe !!!

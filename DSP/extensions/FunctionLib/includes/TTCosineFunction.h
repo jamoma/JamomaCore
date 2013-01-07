@@ -16,7 +16,7 @@
 /**	A simple function unit the implements the following:
 	y = cos(x)
  */
-class TTCosineFunction : TTAudioObject {
+class TTCosineFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTCosineFunction)
 
 protected:

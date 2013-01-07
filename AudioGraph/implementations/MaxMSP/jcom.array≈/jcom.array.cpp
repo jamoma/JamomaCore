@@ -4,7 +4,7 @@
  *
  * @brief jcom.array≈ : Array object for Jamoma AudioGraph.
  *
- * @details This wraps the Jamoma DSP class #TTAudioObjectArray as a Jamoma AudioGraph external for Max.
+ * @details This wraps the Jamoma DSP class #TTAudioObjectBaseArray as a Jamoma AudioGraph external for Max.
  *
  * @authors Nils Peters, Trond Lossius
  *

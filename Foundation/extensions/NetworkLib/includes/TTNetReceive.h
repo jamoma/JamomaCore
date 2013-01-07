@@ -15,7 +15,7 @@
 
 /**	TTNetReceive is a simple server that echoes network data to a user-provided callback. 
 	This code is based on the awesome tutorial @ http://beej.us/guide/bgnet/ */
-class TTNetReceive : public TTDataObject {
+class TTNetReceive : public TTDataObjectBase {
 	TTCLASS_SETUP(TTNetReceive)
 
 public:

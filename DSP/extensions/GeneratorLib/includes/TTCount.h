@@ -22,7 +22,7 @@
 
 /**	TTCount counts the number of samples processed so far.
  */ 
-class TTCount : TTAudioObject {
+class TTCount : TTAudioObjectBase {
 	TTCLASS_SETUP(TTCount)
 
 protected:

@@ -2,7 +2,7 @@
  *
  * @ingroup dspLibrary
  *
- * @brief #TTAudioObject is the Jamoma DSP Audio Object Base Class
+ * @brief #TTAudioObjectBase is the Jamoma DSP Audio Object Base Class
  *
  * @details
  *
@@ -20,8 +20,8 @@
 #include "TTUnitTest.h"
 
 
-TTAudioObject::TTAudioObject(TTValue& arguments) : 
-	TTObject(arguments), 
+TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) : 
+	TTObjectBase(arguments), 
 	maxNumChannels(0),
 	attrMute(0), 
 	inputArray(NULL),
@@ -31,36 +31,36 @@ TTAudioObject::TTAudioObject(TTValue& arguments) :
 	accumulatedProcessingCalls(0.0)
 {
 	// Convention: 'Public' attribute names begin with a capital letter, 'Private' attribute names begin with a lower case letter
-	registerAttribute("maxNumChannels",		kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
-	registerAttribute(kTTSym_sampleRate,	kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
-	registerAttribute("bypass",				kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
-	registerAttribute("mute",				kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObject::setMute);
+	registerAttribute("maxNumChannels",		kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObjectBase::setMaxNumChannels);
+	registerAttribute(kTTSym_sampleRate,	kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObjectBase::setSr);
+	registerAttribute("bypass",				kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObjectBase::setBypass);
+	registerAttribute("mute",				kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObjectBase::setMute);
 	
-	registerMessage("calculate",				(TTMethod)&TTAudioObject::calculateMessage);
-	registerMessage("test",						TTMethod(&TTObject::test));
-	registerMessage("resetBenchmarking",		(TTMethod)&TTAudioObject::resetBenchmarking, kTTMessagePassNone);
-	registerMessage("getProcessingBenchmark",	(TTMethod)&TTAudioObject::getProcessingBenchmark);
+	registerMessage("calculate",				(TTMethod)&TTAudioObjectBase::calculateMessage);
+	registerMessage("test",						TTMethod(&TTObjectBase::test));
+	registerMessage("resetBenchmarking",		(TTMethod)&TTAudioObjectBase::resetBenchmarking, kTTMessagePassNone);
+	registerMessage("getProcessingBenchmark",	(TTMethod)&TTAudioObjectBase::getProcessingBenchmark);
 	
-	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
-	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
+	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&inputArray, 2);
+	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&outputArray, 2);
 
 	// Set Defaults...
 		
 	setAttributeValue(kTTSym_sampleRate,	(unsigned int)ttEnvironment->mSampleRate);
-	setProcess(&TTAudioObject::bypassProcess);
-    setCalculate(&TTAudioObject::defaultCalculateMethod);
+	setProcess(&TTAudioObjectBase::bypassProcess);
+    setCalculate(&TTAudioObjectBase::defaultCalculateMethod);
 	setAttributeValue("bypass",			kTTBoolNo);	
 }
 
 
-TTAudioObject::~TTAudioObject()
+TTAudioObjectBase::~TTAudioObjectBase()
 {
-	TTObjectRelease((TTObjectPtr*)&inputArray);
-	TTObjectRelease((TTObjectPtr*)&outputArray);
+	TTObjectBaseRelease((TTObjectBasePtr*)&inputArray);
+	TTObjectBaseRelease((TTObjectBasePtr*)&outputArray);
 }
 
 
-TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
+TTErr TTAudioObjectBase::setMaxNumChannels(const TTValue& newValue)
 {
 	if (TTUInt16(newValue) != maxNumChannels) {
 		TTValue	oldMaxNumChannels = maxNumChannels;
@@ -72,7 +72,7 @@ TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 }
 
 
-TTErr TTAudioObject::setSr(const TTValue& newValue)
+TTErr TTAudioObjectBase::setSr(const TTValue& newValue)
 {
 	TTValue oldSampleRate(sr);
 	
@@ -84,7 +84,7 @@ TTErr TTAudioObject::setSr(const TTValue& newValue)
 }
 
 
-TTErr TTAudioObject::bypassProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAudioObjectBase::bypassProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	for (TTUInt16 i=0; i<outputs->numAudioSignals; i++) {
 		TTAudioSignal& out = outputs->getSignal(i);
@@ -100,7 +100,7 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 }
 
 
-TTErr TTAudioObject::bypassCalculate(const TTFloat64& x, TTFloat64& y, TTPtr data)
+TTErr TTAudioObjectBase::bypassCalculate(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	y = x;
 	return kTTErrNone;
@@ -108,7 +108,7 @@ TTErr TTAudioObject::bypassCalculate(const TTFloat64& x, TTFloat64& y, TTPtr dat
 
 
 
-TTErr TTAudioObject::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAudioObjectBase::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	for (TTUInt16 i=0; i<inputs->numAudioSignals; i++)
 		(inputs->getSignal(i)).clear();
@@ -119,14 +119,14 @@ TTErr TTAudioObject::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 
 
 
-TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y, TTPtr data)
+TTErr TTAudioObjectBase::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y, TTPtr data)
 {
 	TTAudioSignalPtr	in;
 	TTAudioSignalPtr	out;
 	TTErr				err;
 	
-	TTObjectInstantiate(kTTSym_audiosignal, &in, kTTVal1);
-	TTObjectInstantiate(kTTSym_audiosignal, &out, kTTVal1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &in, kTTVal1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &out, kTTVal1);
 	
 	in->allocWithVectorSize(1);
 	out->allocWithVectorSize(1);
@@ -135,18 +135,18 @@ TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y, TT
 	err = process(in, out);
 	y = out->mSampleVectors[0][0];
 	
-	TTObjectRelease(&in);
-	TTObjectRelease(&out);
+	TTObjectBaseRelease(&in);
+	TTObjectBaseRelease(&out);
 
 	return err;
 }
 
 
-TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
+TTErr TTAudioObjectBase::setProcess(TTProcessMethod newProcessMethod)
 {
 	processMethod = newProcessMethod;
 	if (!calculateMethod)
-		calculateMethod = &TTAudioObject::defaultCalculateMethod;
+		calculateMethod = &TTAudioObjectBase::defaultCalculateMethod;
 	
 	if (!attrBypass) {
 		currentProcessMethod = processMethod;
@@ -156,7 +156,7 @@ TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 }
 
 
-TTErr TTAudioObject::setCalculate(TTCalculateMethod newCalculateMethod)
+TTErr TTAudioObjectBase::setCalculate(TTCalculateMethod newCalculateMethod)
 {
 	calculateMethod = newCalculateMethod;
 	if (!attrBypass)
@@ -165,35 +165,35 @@ TTErr TTAudioObject::setCalculate(TTCalculateMethod newCalculateMethod)
 }
 
 
-TTErr TTAudioObject::setBypass(const TTValue& value)
+TTErr TTAudioObjectBase::setBypass(const TTValue& value)
 {
 	attrBypass = value;
 	if (attrBypass) {
-		currentProcessMethod = &TTAudioObject::bypassProcess;
-		currentCalculateMethod = &TTAudioObject::bypassCalculate;
+		currentProcessMethod = &TTAudioObjectBase::bypassProcess;
+		currentCalculateMethod = &TTAudioObjectBase::bypassCalculate;
 	}
 	else if (attrMute) {
-		currentProcessMethod = &TTAudioObject::muteProcess;
+		currentProcessMethod = &TTAudioObjectBase::muteProcess;
 	}
 	else {
 		currentProcessMethod = processMethod;
 		if (calculateMethod)
 			currentCalculateMethod = calculateMethod;
 		else
-			currentCalculateMethod = &TTAudioObject::defaultCalculateMethod;
+			currentCalculateMethod = &TTAudioObjectBase::defaultCalculateMethod;
 	}
 	return kTTErrNone;
 }
 
 
-TTErr TTAudioObject::setMute(const TTValue& value)
+TTErr TTAudioObjectBase::setMute(const TTValue& value)
 {
 	attrMute = value;
 	if (attrBypass) {
-		currentProcessMethod = &TTAudioObject::bypassProcess;
+		currentProcessMethod = &TTAudioObjectBase::bypassProcess;
 	}
 	else if (attrMute) {
-		currentProcessMethod = &TTAudioObject::muteProcess;
+		currentProcessMethod = &TTAudioObjectBase::muteProcess;
 	}
 	else {
 		currentProcessMethod = processMethod;
@@ -202,7 +202,7 @@ TTErr TTAudioObject::setMute(const TTValue& value)
 }
 
 
-TTErr TTAudioObject::calculateMessage(TTValueConstRef input, TTValue& output)
+TTErr TTAudioObjectBase::calculateMessage(TTValueConstRef input, TTValue& output)
 {
 	TTFloat64	x = input;
 	TTFloat64	y;
@@ -214,7 +214,7 @@ TTErr TTAudioObject::calculateMessage(TTValueConstRef input, TTValue& output)
 }
 
 
-TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
+TTErr TTAudioObjectBase::calculate(const TTFloat64& x, TTFloat64& y)
 {
 	TTErr	err = kTTErrGeneric;
 	
@@ -227,7 +227,7 @@ TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
 }
 
 
-TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y)
+TTErr TTAudioObjectBase::calculate(const TTValue& x, TTValue& y)
 {
 	TTErr	err = kTTErrGeneric;
 
@@ -259,7 +259,7 @@ TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y)
 // Note that we can implement this function here like this, but unforunately, due to the dynamic binding
 // it can't inline the calculate method, and thus it we lose all of the benefits of block processing.
 // Therefore, we have a version of this in macro form that can be used.
-TTErr TTAudioObject::calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAudioObjectBase::calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
@@ -284,7 +284,7 @@ TTErr TTAudioObject::calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioSigna
 }
 
 
-TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTAudioObjectBase::process(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTErr	err = kTTErrGeneric;
 	
@@ -309,7 +309,7 @@ TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTAudioObject::process(TTAudioSignal& out)
+TTErr TTAudioObjectBase::process(TTAudioSignal& out)
 {
 	TTErr	err = kTTErrGeneric;
 	
@@ -333,7 +333,7 @@ TTErr TTAudioObject::process(TTAudioSignal& out)
 }
 
 
-TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
+TTErr TTAudioObjectBase::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
 {
 	TTErr	err = kTTErrGeneric;
 	
@@ -361,7 +361,7 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 }
 
 
-TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out)
+TTErr TTAudioObjectBase::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out)
 {
 	TTErr	err = kTTErrGeneric;
 	
@@ -387,7 +387,7 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 }
 
 
-TTErr TTAudioObject::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAudioObjectBase::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTErr	err = kTTErrGeneric;
 	
@@ -408,7 +408,7 @@ TTErr TTAudioObject::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 }
 
 
-TTErr TTAudioObject::resetBenchmarking()
+TTErr TTAudioObjectBase::resetBenchmarking()
 {
 	accumulatedProcessingTime = 0.0;
 	startProcessingTime = 0.0;
@@ -417,7 +417,7 @@ TTErr TTAudioObject::resetBenchmarking()
 }
 
 
-TTErr TTAudioObject::getProcessingBenchmark(TTValueConstRef, TTValueRef v)
+TTErr TTAudioObjectBase::getProcessingBenchmark(TTValueConstRef, TTValueRef v)
 {
 	v = accumulatedProcessingTime / accumulatedProcessingCalls;
 	return kTTErrNone;
@@ -431,26 +431,26 @@ TTErr TTAudioObject::getProcessingBenchmark(TTValueConstRef, TTValueRef v)
 
 // RADIANS CONVERSIONS: cannot make static because of access to a member data element
 // hz-to-radians conversion
-TTFloat64 TTAudioObject::hertzToRadians(const TTFloat64 hz)			// NOTE: Be sure to set the sr before calling this function
+TTFloat64 TTAudioObjectBase::hertzToRadians(const TTFloat64 hz)			// NOTE: Be sure to set the sr before calling this function
 {
 	return(hz * kTTTwoPi / sr);
 }
 
 // radians-to-hz conversion
-TTFloat64 TTAudioObject::radiansToHertz(const TTFloat64 radians)	// NOTE: Be sure to set the sr before calling this function
+TTFloat64 TTAudioObjectBase::radiansToHertz(const TTFloat64 radians)	// NOTE: Be sure to set the sr before calling this function
 {
 	return(radians * sr / kTTTwoPi);
 }
 
 // degrees-to-radians conversion
-TTFloat64 TTAudioObject::degreesToRadians(const TTFloat64 degrees)
+TTFloat64 TTAudioObjectBase::degreesToRadians(const TTFloat64 degrees)
 {
 	//return((degrees * kTTPi) / 180.);
 	return (degrees * kTTDegreesToRadians);
 }
 
 // radians-to-degrees conversion
-TTFloat64 TTAudioObject::radiansToDegrees(const TTFloat64 radians)
+TTFloat64 TTAudioObjectBase::radiansToDegrees(const TTFloat64 radians)
 {
 	//return((radians * 180.) / kTTPi);	
 	return (radians * kTTRadiansToDegrees);
@@ -458,7 +458,7 @@ TTFloat64 TTAudioObject::radiansToDegrees(const TTFloat64 radians)
 
 
 // Decay Time (seconds) to feedback coefficient conversion
-TTFloat64 TTAudioObject::decayToFeedback(const TTFloat64 decay_time, TTFloat64 delay)
+TTFloat64 TTAudioObjectBase::decayToFeedback(const TTFloat64 decay_time, TTFloat64 delay)
 {
 	TTFloat64 	fb;
 		
@@ -478,7 +478,7 @@ TTFloat64 TTAudioObject::decayToFeedback(const TTFloat64 decay_time, TTFloat64 d
 }
 
 // return the decay time based on the feedback coefficient
-TTFloat64 TTAudioObject::feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay)
+TTFloat64 TTAudioObjectBase::feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay)
 {
 	TTFloat64 	decay_time;
 	

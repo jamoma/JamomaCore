@@ -15,11 +15,11 @@
 /****************************************************************************************************/
 // Class Specification
 
-class TTDataspaceConverter : public TTDataObject {
+class TTDataspaceConverter : public TTDataObjectBase {
 	TTCLASS_SETUP(TTDataspaceConverter)
 	
 	TTSymbol			mDataspace;
-	TTObjectPtr			mDataspaceTTObject;	// TTObject
+	TTObjectBasePtr			mDataspaceTTObject;	// TTObject
 	TTDataspacePtr		mDataspaceObject;	//   the above, cast to it's other parent class
 		
 	// Attribute Accessor

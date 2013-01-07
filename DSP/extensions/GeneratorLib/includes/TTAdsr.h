@@ -22,7 +22,7 @@
 
 /**	TTAdsr is an attack-decay-sustain-release envelope generator. 
  */
-class TTAdsr : TTAudioObject {
+class TTAdsr : TTAudioObjectBase {
 	TTCLASS_SETUP(TTAdsr)
 
 protected:

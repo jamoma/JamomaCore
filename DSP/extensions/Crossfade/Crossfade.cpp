@@ -26,7 +26,7 @@ static TTSampleValue zeroVector3[2048]; //TODO: make this dynamically sized
  channels is twice the number of output channels.  In this case the first N/2 input channels are
  considered as the A source and the last N/2 input channels are considered the B source.
  */
-class TTCrossfade : TTAudioObject {
+class TTCrossfade : TTAudioObjectBase {
 	TTCLASS_SETUP(TTCrossfade)
 	
 	TTFloat64		mPosition;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.

@@ -13,13 +13,13 @@
 
 
 /**	Generalized Allpass Filter Wrapper. */
-class TTAllpass : public TTAudioObject {
+class TTAllpass : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAllpass)
 	
 protected:
 	
 	TTSymbol			mFilter;			///< Name of the filter to use
-	TTAudioObjectPtr	mFilterObject;		///< The actual filter object for mFilter
+	TTAudioObjectBasePtr	mFilterObject;		///< The actual filter object for mFilter
 	
 	
 	// Notifications

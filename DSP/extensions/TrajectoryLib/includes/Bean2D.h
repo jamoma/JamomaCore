@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Bean2D : TTAudioObject {
+class Bean2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Bean2D)
 
 protected:

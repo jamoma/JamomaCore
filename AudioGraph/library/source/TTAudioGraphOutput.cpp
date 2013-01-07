@@ -31,7 +31,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mDevice(kTTSymEmpty),
 	mSampleStamp(0)
 {
-	TTObjectInstantiate(kTTSym_audiosignal, &placeHolder, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &placeHolder, 1);
 	audioEngine = TTAudioEngine::create();
 	
 	addAttributeWithGetterAndSetter(SampleRate, kTypeUInt32);
@@ -52,7 +52,7 @@ TT_AUDIO_CONSTRUCTOR,
 	setProcessMethod(processAudio);
 	
 	me = new TTValue;
-	(*me) = (TTObjectPtr)this;
+	(*me) = (TTObjectBasePtr)this;
 	audioEngine->sendMessage(TT("addCallbackObserver"), *me, kTTValNONE);
 }
 
@@ -62,7 +62,7 @@ TTAudioGraphOutput::~TTAudioGraphOutput()
 	audioEngine->sendMessage(TT("removeCallbackObserver"), *me, kTTValNONE);
 	delete me;
 	TTAudioEngine::destroy();
-	TTObjectRelease(&placeHolder);
+	TTObjectBaseRelease(&placeHolder);
 }
 
 

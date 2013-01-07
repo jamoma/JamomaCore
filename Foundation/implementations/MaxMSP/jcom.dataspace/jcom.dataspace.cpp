@@ -14,7 +14,7 @@
 typedef struct _dataspace{
 	Object			ob;
 	TTPtr			outlet_native;
-	TTObjectPtr		dataspace;
+	TTObjectBasePtr	dataspace;
 	SymbolPtr		attr_dataspace;			// name of the dataspace -- e.g. "temperature"
 	SymbolPtr		attr_dataspace_active;	// name of the current unit within the dataspace -- e.g. "celsius"
 	SymbolPtr		attr_dataspace_native;	// name of the desired native unit within the dataspace -- e.g. "celsius"
@@ -99,7 +99,7 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
         ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
         
         self->outlet_native = outlet_new(self, 0);
-		TTObjectInstantiate(TT("dataspace"), &self->dataspace, kTTValNONE);
+		TTObjectBaseInstantiate(TT("dataspace"), &self->dataspace, kTTValNONE);
 		
 		attr_args_process(self, argc, argv);
 		if (!self->dataspace)
@@ -111,7 +111,7 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 
 void dataspace_free(t_dataspace *self)
 {
-	TTObjectRelease(&self->dataspace);
+	TTObjectBaseRelease(&self->dataspace);
 }
 
 

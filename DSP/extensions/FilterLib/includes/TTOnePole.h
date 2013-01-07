@@ -13,7 +13,7 @@
 
 
 /**	The simplest of lowpass filters: a single-pole, no-zero algorithm. */
-class TTOnePole : public TTAudioObject {
+class TTOnePole : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTOnePole)
 
 protected:

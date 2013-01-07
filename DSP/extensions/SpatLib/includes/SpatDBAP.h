@@ -27,12 +27,12 @@
 /**	This implements a window function which basically does nothing: 
 	y = 1.0
  */
-class SpatDBAP : TTAudioObject {
+class SpatDBAP : TTAudioObjectBase {
 	TTCLASS_SETUP(SpatDBAP)
 	
 protected:
 	
-	TTAudioObjectPtr	mMatrixObject;				///< TTAudioMatrix object
+	TTAudioObjectBasePtr	mMatrixObject;				///< TTAudioMatrix object
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

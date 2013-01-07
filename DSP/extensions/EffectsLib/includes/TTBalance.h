@@ -20,7 +20,7 @@
  	channels is twice the number of output channels.  In this case the first N/2 input channels are
  	considered as the A source and the last N/2 input channels are considered the B source.
  */
-class TTBalance : public TTAudioObject {
+class TTBalance : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTBalance)
 
 protected:

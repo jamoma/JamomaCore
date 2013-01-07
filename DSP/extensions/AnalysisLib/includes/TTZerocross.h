@@ -24,7 +24,7 @@
 	When a zero crossing occurs it both reports the crossing and also 
 	keeps a count of the number of zero crossings per analysis period.
  */
-class TTZerocross : TTAudioObject {
+class TTZerocross : TTAudioObjectBase {
 	TTCLASS_SETUP(TTZerocross)
 
 protected:

@@ -15,7 +15,7 @@ typedef struct _jcom_stencil {
 	t_object		obj;
 	TTMatrixPtr		x;				// Jamoma matrix object for input
 	TTMatrixPtr		y;				// Jamoma matrix object for output
-	TTDataObjectPtr	stencilObject;	// Jamoma object performing matrix operations
+	TTDataObjectBasePtr	stencilObject;	// Jamoma object performing matrix operations
 } StencilObject;
 
 typedef StencilObject* StencilObjectPtr;
@@ -87,9 +87,9 @@ StencilObjectPtr StencilNew(void)
 	TTErr				err;
 	
 	if (self) {
-		err = TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&self->x, kTTValNONE);
-		err = TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&self->y, kTTValNONE);
-		err = TTObjectInstantiate(TT("matrix.stencil"), (TTObjectPtr*)&self->stencilObject, kTTValNONE);				
+		err = TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&self->x, kTTValNONE);
+		err = TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&self->y, kTTValNONE);
+		err = TTObjectBaseInstantiate(TT("matrix.stencil"), (TTObjectBasePtr*)&self->stencilObject, kTTValNONE);
 	} 
 	return self;
 }
@@ -99,9 +99,9 @@ void StencilFree(StencilObjectPtr self)
 {
 	TTErr err;
 	
-	err = TTObjectRelease((TTObjectPtr*)&self->x);
-	err = TTObjectRelease((TTObjectPtr*)&self->y);
-	err = TTObjectRelease((TTObjectPtr*)&self->stencilObject);
+	err = TTObjectBaseRelease((TTObjectBasePtr*)&self->x);
+	err = TTObjectBaseRelease((TTObjectBasePtr*)&self->y);
+	err = TTObjectBaseRelease((TTObjectBasePtr*)&self->stencilObject);
 }
 
 

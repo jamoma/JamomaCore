@@ -20,8 +20,8 @@ TTErr TTMatrixGain::test(TTValue& returnedTestInfo)
 	TTValue		v(16, 16);
 	TTValue		aColor;
 	
-	err = TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&x, kTTValNONE);
-	err = TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&y, kTTValNONE);
+	err = TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&x, kTTValNONE);
+	err = TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&y, kTTValNONE);
 	
 	x->setAttributeValue(kTTSym_dimensions,		v);
 	x->setAttributeValue(kTTSym_type,			kTTSym_uint8);
@@ -62,8 +62,8 @@ TTErr TTMatrixGain::test(TTValue& returnedTestInfo)
 	// TODO: test other types, dims, elem counts
 	
 	
-	TTObjectRelease((TTObjectPtr*)&x);
-	TTObjectRelease((TTObjectPtr*)&y);
+	TTObjectBaseRelease((TTObjectBasePtr*)&x);
+	TTObjectBaseRelease((TTObjectBasePtr*)&y);
 
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);

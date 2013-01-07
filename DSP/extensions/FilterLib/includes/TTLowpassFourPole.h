@@ -13,7 +13,7 @@
 
 
 /**	A resonant two-pole, no-zero, lowpass filter.  Based on moog-variation2 @ musicdsp.org. */
-class TTLowpassFourPole : public TTAudioObject {
+class TTLowpassFourPole : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTLowpassFourPole)
 
 protected:

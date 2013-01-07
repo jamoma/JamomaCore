@@ -5,7 +5,7 @@
  * @brief The Jamoma Object Base Class.
  *
  * @details Base class for all first-class Jamoma objects.
- * Internal objects may inherit directly from #TTObject,
+ * Internal objects may inherit directly from #TTObjectBase,
  * but most objects will inherit from #TTDataObject or #TTAudioObject.
  *
  * @authors Timothy Place, Theo de la Hogue, Trond Lossius
@@ -19,7 +19,7 @@
 #include "TTEnvironment.h"
 #include "TTClass.h"
 
-TTObject::TTObject(TTValue& arguments)
+TTObjectBase::TTObjectBase(TTValue& arguments)
 	: classPtr(NULL), observers(NULL), messageObservers(NULL), attributeObservers(NULL),
 	  mLocked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
 {
@@ -30,7 +30,7 @@ TTObject::TTObject(TTValue& arguments)
 }
 
 
-TTObject::~TTObject()
+TTObjectBase::~TTObjectBase()
 {
 	TTValue	v, u;
 
@@ -69,7 +69,7 @@ TTObject::~TTObject()
 #pragma mark Object Attributes
 #endif
 
-TTErr TTObject::registerAttribute(const TTSymbol& name, const TTDataType type, void* address)
+TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType type, void* address)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address);
 
@@ -79,7 +79,7 @@ TTErr TTObject::registerAttribute(const TTSymbol& name, const TTDataType type, v
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter)
+TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter);
 
@@ -88,7 +88,7 @@ TTErr TTObject::registerAttribute(const TTSymbol& name, const TTDataType type, v
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTSetterMethod setter)
+TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTSetterMethod setter)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, setter);
 
@@ -97,7 +97,7 @@ TTErr TTObject::registerAttribute(const TTSymbol& name, const TTDataType type, v
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter, setter);
 
@@ -105,7 +105,7 @@ TTErr TTObject::registerAttribute(const TTSymbol& name, const TTDataType type, v
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbol& name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject)
+TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTObjectBasePtr newGetterObject, const TTObjectBasePtr newSetterObject)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, newGetterObject, newSetterObject);
 
@@ -113,7 +113,7 @@ TTErr TTObject::registerAttribute(const TTSymbol& name, const TTObjectPtr newGet
 	return kTTErrNone;
 }
 
-TTErr TTObject::extendAttribute(const TTSymbol& name, const TTObjectPtr extendedObject, const TTSymbol& extendedName)
+TTErr TTObjectBase::extendAttribute(const TTSymbol& name, const TTObjectBasePtr extendedObject, const TTSymbol& extendedName)
 {
 	TTAttributePtr	extendedAttribute = NULL;
 	TTAttributePtr	newAttribute;
@@ -128,7 +128,7 @@ TTErr TTObject::extendAttribute(const TTSymbol& name, const TTObjectPtr extended
 		return err;
 }
 
-TTErr TTObject::removeAttribute(const TTSymbol& name)
+TTErr TTObjectBase::removeAttribute(const TTSymbol& name)
 {
 	TTAttribute*	attribute = NULL;
 	TTErr			err = findAttribute(name, &attribute);
@@ -141,7 +141,7 @@ TTErr TTObject::removeAttribute(const TTSymbol& name)
 }
 
 
-TTErr TTObject::findAttribute(const TTSymbol& name, TTAttribute** attr)
+TTErr TTObjectBase::findAttribute(const TTSymbol& name, TTAttribute** attr)
 {
 	TTValue v;
 	TTErr	err = kTTErrNone;
@@ -156,7 +156,7 @@ TTErr TTObject::findAttribute(const TTSymbol& name, TTAttribute** attr)
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTValue& value)
+TTErr TTObjectBase::getAttributeValue(const TTSymbol& name, TTValue& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -174,7 +174,7 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTValue& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, TTValue& value)
+TTErr TTObjectBase::setAttributeValue(const TTSymbol& name, TTValue& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -202,7 +202,7 @@ TTErr TTObject::setAttributeValue(const TTSymbol& name, TTValue& value)
 	return err;
 }
 
-TTErr TTObject::getAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+TTErr TTObjectBase::getAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -214,7 +214,7 @@ TTErr TTObject::getAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& 
 	return err;
 }
 
-TTErr TTObject::setAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+TTErr TTObjectBase::setAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -227,7 +227,7 @@ TTErr TTObject::setAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& 
 }
 
 
-TTErr TTObject::getAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+TTErr TTObjectBase::getAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -239,7 +239,7 @@ TTErr TTObject::getAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& 
 	return err;
 }
 
-TTErr TTObject::setAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+TTErr TTObjectBase::setAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -252,7 +252,7 @@ TTErr TTObject::setAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& 
 }
 
 
-void TTObject::getAttributeNames(TTValue& attributeNameList)
+void TTObjectBase::getAttributeNames(TTValue& attributeNameList)
 {
 	TTValue			unfilteredNameList;
 	TTUInt32		attributeCount;
@@ -276,7 +276,7 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 }
 
 
-TTErr TTObject::registerAttributeProperty(const TTSymbol& attributeName, const TTSymbol& propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObjectBase::registerAttributeProperty(const TTSymbol& attributeName, const TTSymbol& propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
 {
 	TTAttributePtr	theAttr = NULL;
 	TTValue			v;
@@ -292,7 +292,7 @@ TTErr TTObject::registerAttributeProperty(const TTSymbol& attributeName, const T
 }
 
 
-TTErr TTObject::registerMessageProperty(const TTSymbol& messageName, const TTSymbol& propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObjectBase::registerMessageProperty(const TTSymbol& messageName, const TTSymbol& propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
 {
 	TTMessagePtr	theMessage = NULL;
 	TTValue			v;
@@ -308,7 +308,7 @@ TTErr TTObject::registerMessageProperty(const TTSymbol& messageName, const TTSym
 }
 
 
-void TTObject::getMessageNames(TTValue& messageNameList)
+void TTObjectBase::getMessageNames(TTValue& messageNameList)
 {
 	TTValue			unfilteredNameList;
 	TTUInt32		messageCount;
@@ -331,7 +331,7 @@ void TTObject::getMessageNames(TTValue& messageNameList)
 }
 
 
-TTSymbol TTObject::getName() const
+TTSymbol TTObjectBase::getName() const
 {
 	return classPtr->name;
 }
@@ -342,7 +342,7 @@ TTSymbol TTObject::getName() const
 #pragma mark Object Messages
 #endif
 
-TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod method)
+TTErr TTObjectBase::registerMessage(const TTSymbol& name, TTMethod method)
 {
 	TTMessagePtr newMessage = new TTMessage(name, method, kTTMessageDefaultFlags);
 
@@ -354,7 +354,7 @@ TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod method)
 }
 
 
-TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod method, TTMessageFlags flags)
+TTErr TTObjectBase::registerMessage(const TTSymbol& name, TTMethod method, TTMessageFlags flags)
 {
 	TTMessagePtr newMessage = new TTMessage(name, method, flags);
 
@@ -366,7 +366,7 @@ TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod method, TTMessage
 }
 
 
-TTErr TTObject::findMessage(const TTSymbol& name, TTMessage** message)
+TTErr TTObjectBase::findMessage(const TTSymbol& name, TTMessage** message)
 {
 	TTValue v;
 	TTErr	err = kTTErrNone;
@@ -381,7 +381,7 @@ TTErr TTObject::findMessage(const TTSymbol& name, TTMessage** message)
 }
 
 
-TTErr TTObject::sendMessage(const TTSymbol& name)
+TTErr TTObjectBase::sendMessage(const TTSymbol& name)
 {
 	return sendMessage(name, kTTValNONE, kTTValNONE);
 }
@@ -389,13 +389,13 @@ TTErr TTObject::sendMessage(const TTSymbol& name)
 
 #ifdef TT_SUPPORT_SINGLE_ARG_MESSAGE_CALLS
 
-TTErr TTObject::sendMessage(const TTSymbolRef name, TTValue& anOutputValue)
+TTErr TTObjectBase::sendMessage(const TTSymbolRef name, TTValue& anOutputValue)
 {
 	return sendMessage(name, kTTValNONE, anOutputValue);
 }
 
 
-TTErr TTObject::sendMessage(const TTSymbolRef name, const TTValue& anInputValue)
+TTErr TTObjectBase::sendMessage(const TTSymbolRef name, const TTValue& anInputValue)
 {
 	return sendMessage(name, anInputValue, kTTValNONE);
 }
@@ -403,7 +403,7 @@ TTErr TTObject::sendMessage(const TTSymbolRef name, const TTValue& anInputValue)
 #endif
 
 
-TTErr TTObject::sendMessage(const TTSymbol& name, const TTValue& anInputValue, TTValue& anOutputValue)
+TTErr TTObjectBase::sendMessage(const TTSymbol& name, const TTValue& anInputValue, TTValue& anOutputValue)
 {
 	TTMessagePtr	message = NULL;
 	TTErr			err;
@@ -432,17 +432,17 @@ TTErr TTObject::sendMessage(const TTSymbol& name, const TTValue& anInputValue, T
 #pragma mark Observing
 #endif
 
-TTErr TTObject::registerObserverForMessage(const TTObject& observingObject, const TTSymbol& messageName)
+TTErr TTObjectBase::registerObserverForMessage(const TTObjectBase& observingObject, const TTSymbol& messageName)
 {
 	return kTTErrGeneric;
 }
 
-TTErr TTObject::registerObserverForAttribute(const TTObject& observingObject, const TTSymbol& attributeName)
+TTErr TTObjectBase::registerObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol& attributeName)
 {
 	return kTTErrGeneric;
 }
 
-TTErr TTObject::registerObserverForNotifications(const TTObject& observingObject)
+TTErr TTObjectBase::registerObserverForNotifications(const TTObjectBase& observingObject)
 {
 	TTValue v = observingObject;
 	observers->appendUnique(v);
@@ -450,17 +450,17 @@ TTErr TTObject::registerObserverForNotifications(const TTObject& observingObject
 }
 
 
-TTErr TTObject::unregisterObserverForMessage(const TTObject& observingObject, const TTSymbol& messageName)
+TTErr TTObjectBase::unregisterObserverForMessage(const TTObjectBase& observingObject, const TTSymbol& messageName)
 {
 	return kTTErrGeneric;
 }
 
-TTErr TTObject::unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbol& attributeName)
+TTErr TTObjectBase::unregisterObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol& attributeName)
 {
 	return kTTErrGeneric;
 }
 
-TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObject)
+TTErr TTObjectBase::unregisterObserverForNotifications(const TTObjectBase& observingObject)
 {
 	TTValue	c(observingObject);
 	TTValue	v;
@@ -473,7 +473,7 @@ TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObje
 }
 
 
-TTErr TTObject::sendNotification(const TTSymbol& name, const TTValue& arguments)
+TTErr TTObjectBase::sendNotification(const TTSymbol& name, const TTValue& arguments)
 {
 	return observers->iterateObjectsSendingMessage(name, TTValueRef(arguments));
 }
@@ -485,7 +485,7 @@ TTErr TTObject::sendNotification(const TTSymbol& name, const TTValue& arguments)
 #endif
 
 /**	Log messages scoped to this object instance. */
-TTErr TTObject::logMessage(TTImmutableCString fmtstring, ...)
+TTErr TTObjectBase::logMessage(TTImmutableCString fmtstring, ...)
 {
 	char	str[4096];
 	char	fullstr[4096];
@@ -504,7 +504,7 @@ TTErr TTObject::logMessage(TTImmutableCString fmtstring, ...)
 }
 
 
-TTErr TTObject::logWarning(TTImmutableCString fmtstring, ...)
+TTErr TTObjectBase::logWarning(TTImmutableCString fmtstring, ...)
 {
 	char	str[4096];
 	char	fullstr[4096];
@@ -523,7 +523,7 @@ TTErr TTObject::logWarning(TTImmutableCString fmtstring, ...)
 }
 
 
-TTErr TTObject::logError(TTImmutableCString fmtstring, ...)
+TTErr TTObjectBase::logError(TTImmutableCString fmtstring, ...)
 {
 	char	str[4096];
 	char	fullstr[4096];
@@ -546,7 +546,7 @@ TTErr TTObject::logError(TTImmutableCString fmtstring, ...)
 }
 
 
-TTErr TTObject::logDebug(TTImmutableCString fmtstring, ...)
+TTErr TTObjectBase::logDebug(TTImmutableCString fmtstring, ...)
 {
 	if (ttEnvironment->mDebugBasic) {
 		char	str[4096];

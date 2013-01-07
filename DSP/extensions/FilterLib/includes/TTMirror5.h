@@ -17,7 +17,7 @@
 /**	A 5th-order lowpass/highpass filter with arbitrary Fc built-up from allpass building blocks.
 	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Page 31.
  */
-class TTMirror5 : TTAudioObject {
+class TTMirror5 : TTAudioObjectBase {
 	TTCLASS_SETUP(TTMirror5)
 
 protected:

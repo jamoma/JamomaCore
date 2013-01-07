@@ -18,7 +18,7 @@
 	y = exp(log(base)*x)
 	but with a variety of additions to the basic trig function.
  */
-class TTExpFunction : TTAudioObject {
+class TTExpFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTExpFunction)
 
 protected:

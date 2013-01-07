@@ -29,7 +29,7 @@
 
 /**	Noise Generator.
  */
-class TTNoise : TTAudioObject {
+class TTNoise : TTAudioObjectBase {
 	TTCLASS_SETUP(TTNoise)
 
 protected:

@@ -44,7 +44,7 @@ TTErr TTAllpass::setFilter(const TTValue& filter)
 	TTErr err;
 	
 	mFilter = filter;
-	err = TTObjectInstantiate(mFilter, &mFilterObject, maxNumChannels);
+	err = TTObjectBaseInstantiate(mFilter, &mFilterObject, maxNumChannels);
 	return err;
 }
 

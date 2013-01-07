@@ -37,12 +37,12 @@ TT_AUDIO_CONSTRUCTOR,
 	addUpdates(MaxNumChannels);
 	addUpdates(SampleRate);
 
-	TTObjectInstantiate(kTTSym_adsr, &env_gen, initialMaxNumChannels);
-	TTObjectInstantiate(kTTSym_phasor, &phasor, initialMaxNumChannels);
-	TTObjectInstantiate(kTTSym_operator, &offset, initialMaxNumChannels);
-	TTObjectInstantiate(kTTSym_operator, &scaler, initialMaxNumChannels);	
-	TTObjectInstantiate(kTTSym_audiosignal, &sig1, 1);	
-	TTObjectInstantiate(kTTSym_audiosignal, &sig2, 1);	
+	TTObjectBaseInstantiate(kTTSym_adsr, &env_gen, initialMaxNumChannels);
+	TTObjectBaseInstantiate(kTTSym_phasor, &phasor, initialMaxNumChannels);
+	TTObjectBaseInstantiate(kTTSym_operator, &offset, initialMaxNumChannels);
+	TTObjectBaseInstantiate(kTTSym_operator, &scaler, initialMaxNumChannels);	
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &sig1, 1);	
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &sig2, 1);	
 	offset->setAttributeValue(TT("operator"), TT("+"));
 	scaler->setAttributeValue(TT("operator"), TT("*"));
 
@@ -58,12 +58,12 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTPulseSub::~TTPulseSub()
 {
-	TTObjectRelease(&offset);
-	TTObjectRelease(&phasor);
-	TTObjectRelease(&env_gen);
-	TTObjectRelease(&scaler);
-	TTObjectRelease(&sig1);
-	TTObjectRelease(&sig2);
+	TTObjectBaseRelease(&offset);
+	TTObjectBaseRelease(&phasor);
+	TTObjectBaseRelease(&env_gen);
+	TTObjectBaseRelease(&scaler);
+	TTObjectBaseRelease(&sig1);
+	TTObjectBaseRelease(&sig2);
 }
 
 

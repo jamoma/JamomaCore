@@ -24,7 +24,7 @@
 
 
 /**	This implements a spatialisation method that just let sources through */
-class SpatThru : public TTAudioObject {
+class SpatThru : public TTAudioObjectBase {
 	TTCLASS_SETUP(SpatThru)
 	
 protected:

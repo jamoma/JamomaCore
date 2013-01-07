@@ -104,7 +104,7 @@ OscilPtr OscilNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("wavetable"));
 		v.set(1, TTUInt32(0));
-		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
+		err = TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&self->audioGraphObject, v);
 
 		self->audioGraphObject->addAudioFlag(kTTAudioGraphGenerator);
 
@@ -118,7 +118,7 @@ OscilPtr OscilNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void OscilFree(OscilPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
+	TTObjectBaseRelease((TTObjectBasePtr*)&self->audioGraphObject);
 }
 
 

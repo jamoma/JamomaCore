@@ -25,7 +25,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mMatrixObject(NULL)
 {
 	// Instantiate an audio matrix
-	TTObjectInstantiate(TT("audiomatrix"), &mMatrixObject, kTTValNONE);
+	TTObjectBaseInstantiate(TT("audiomatrix"), &mMatrixObject, kTTValNONE);
 	
 	addAttribute(DummyTest, kTypeFloat64);
 	addAttribute(DummyTest2, kTypeFloat64);
@@ -36,7 +36,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 SpatMatrix::~SpatMatrix()
 {
-	TTObjectRelease(&mMatrixObject);
+	TTObjectBaseRelease(&mMatrixObject);
 }
 
 

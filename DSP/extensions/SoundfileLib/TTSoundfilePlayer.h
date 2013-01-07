@@ -18,7 +18,7 @@
 
 
 /**	The simplest of lowpass filters: a single-pole, no-zero algorithm. */
-class TTSoundfilePlayer : public TTAudioObject {
+class TTSoundfilePlayer : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTSoundfilePlayer)
 
 protected:

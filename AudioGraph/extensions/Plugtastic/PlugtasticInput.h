@@ -14,7 +14,7 @@
 
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
-class PlugtasticInput : public TTAudioObject {
+class PlugtasticInput : public TTAudioObjectBase {
 	TTCLASS_SETUP(PlugtasticInput)
 	
 protected:

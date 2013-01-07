@@ -17,7 +17,7 @@
 /**	A function unit providing logaritmic mapping with variable base
 	y = (log(x)/log(base)-1) / (base - 1)
  */
-class TTLogFunction : TTAudioObject {
+class TTLogFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTLogFunction)
 
 protected:

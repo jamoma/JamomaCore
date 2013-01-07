@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Spiral3D : TTAudioObject {
+class Spiral3D : TTAudioObjectBase {
 	TTCLASS_SETUP(Spiral3D)
 
 protected:

@@ -15,7 +15,7 @@
 
 /**	TTOscReceive is ...
  */
-class TTOscReceive : public TTDataObject {
+class TTOscReceive : public TTDataObjectBase {
 	TTCLASS_SETUP(TTOscReceive)
 	
 public:

@@ -17,8 +17,8 @@ TTErr TTThru::test(TTValue& returnedTestInfo)
 	TTAudioSignalPtr	output = NULL;
 	
 	// create stereo audio signals
-	TTObjectInstantiate(kTTSym_audiosignal, &input, 2);
-	TTObjectInstantiate(kTTSym_audiosignal, &output, 2);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 2);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 2);
 	
 	input->allocWithVectorSize(64);
 	output->allocWithVectorSize(64);
@@ -44,8 +44,8 @@ TTErr TTThru::test(TTValue& returnedTestInfo)
 					errorCount);
 	TTTestLog("Number of bad samples: %i", 128-validSampleCount);
 	
-	TTObjectRelease(&input);
-	TTObjectRelease(&output);
+	TTObjectBaseRelease(&input);
+	TTObjectBaseRelease(&output);
 	
 	
 	// Wrap up the test results to pass back to whoever called this test

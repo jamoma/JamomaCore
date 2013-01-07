@@ -15,7 +15,7 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class LinearAmplitudeUnit : public TTDataObject, public TTDataspaceUnit {
+class LinearAmplitudeUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(LinearAmplitudeUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -23,7 +23,7 @@ public:
 };
 
 
-class MidiGainUnit : public TTDataObject, public TTDataspaceUnit {
+class MidiGainUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(MidiGainUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -31,7 +31,7 @@ public:
 };
 
 
-class DecibelUnit : public TTDataObject, public TTDataspaceUnit {
+class DecibelUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(DecibelUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -40,7 +40,7 @@ public:
 
 
 // Specification of our base class
-class GainDataspace : public TTDataObject, public TTDataspace {
+class GainDataspace : public TTDataObjectBase, public TTDataspace {
 	TTCLASS_SETUP(GainDataspace)
     
     /**	Unit Tests	*/

@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
+ * @brief Creates a wrapper for TTAudioObjectBases that can be used to build an audio processing graph.
  *
  * @details
  *
@@ -24,7 +24,7 @@
 
 /**	TTAudioGraphSource is a very simple audio object that holds a signal from Jamoma DSP
  that can be used by a TTAudioGraph graph.		*/
-class TTAUDIOGRAPH_EXPORT TTAudioGraphGenerator : public TTAudioObject
+class TTAUDIOGRAPH_EXPORT TTAudioGraphGenerator : public TTAudioObjectBase
 {
 	TTCLASS_SETUP(TTAudioGraphGenerator)
 

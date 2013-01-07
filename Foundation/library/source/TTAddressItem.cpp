@@ -273,13 +273,13 @@ TTErr TTAddressItem::copy(TTAddressItemPtr *anItemCopy)
 	return kTTErrNone;
 }
 
-void TTAddressItem::registerHandler(TTObject& anObject)
+void TTAddressItem::registerHandler(TTObjectBase& anObject)
 {
 	TTValue v = TTValue(anObject);
 	this->handlers.appendUnique(v);
 }
 
-void TTAddressItem::unregisterHandler(TTObject& anObject)
+void TTAddressItem::unregisterHandler(TTObjectBase& anObject)
 {
 	TTValue v = TTValue(anObject);
 	this->handlers.remove(v);

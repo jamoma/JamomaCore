@@ -13,7 +13,7 @@
 
 
 /**	TTPulseSub generates a repeating ADSR envelope which is then applied to the gain of an input signal. */ 
-class TTPulseSub : public TTAudioObject {
+class TTPulseSub : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTPulseSub)
 
 protected:
@@ -26,10 +26,10 @@ protected:
 	TTSymbol			attrMode;
 	TTFloat64			attrFrequency;
 	TTFloat64			attrLength;
-	TTAudioObjectPtr	env_gen;		///< TTAdsr
-	TTAudioObjectPtr	phasor;			///< TTPhasor
-	TTAudioObjectPtr	offset;			///< TTOperator
-	TTAudioObjectPtr	scaler;			///< TTOperator
+	TTAudioObjectBasePtr	env_gen;		///< TTAdsr
+	TTAudioObjectBasePtr	phasor;			///< TTPhasor
+	TTAudioObjectBasePtr	offset;			///< TTOperator
+	TTAudioObjectBasePtr	scaler;			///< TTOperator
 	TTAudioSignalPtr	sig1;
 	TTAudioSignalPtr	sig2;
 	

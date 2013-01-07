@@ -14,7 +14,7 @@
 
 
 /**	An allpass filter. */
-class TTAllpass1 : public TTAudioObject {
+class TTAllpass1 : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAllpass1)
 
 protected:

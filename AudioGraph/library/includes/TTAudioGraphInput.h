@@ -27,12 +27,12 @@
 
 /**	TTAudioGraphOutput is an audio object that serves as the destination and master for a TTAudioGraph graph.		
  */
-class TTAUDIOGRAPH_EXPORT TTAudioGraphInput : public TTAudioObject
+class TTAUDIOGRAPH_EXPORT TTAudioGraphInput : public TTAudioObjectBase
 {
 	TTCLASS_SETUP(TTAudioGraphInput)
 
 public:
-	TTObjectPtr				mAudioEngine;		///<
+	TTObjectBasePtr				mAudioEngine;		///<
 	TTAudioSignalPtr		mBuffer;			///< An unused audio signal that we pass.
 	
 	

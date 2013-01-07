@@ -53,7 +53,7 @@
 	filters.  Thus, 0.6763427968689864 and 0.2319808172827758 are the coefficient pair for the first filter
 	0.003589671833320152 and 0.1916472793306732 are the coefficient pair for the second filter, and so on.
  */
-class TTHalfbandLinear33 : TTAudioObject {
+class TTHalfbandLinear33 : TTAudioObjectBase {
 	TTCLASS_SETUP(TTHalfbandLinear33)
 
 protected:

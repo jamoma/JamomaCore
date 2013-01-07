@@ -64,7 +64,7 @@ TTErr GaussWindow::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	int					badSampleCount = 0;
-	TTAudioObjectPtr	windowObject = NULL;
+	TTAudioObjectBasePtr	windowObject = NULL;
 	TTAudioSignalPtr	input = NULL;
 	TTAudioSignalPtr	output = NULL;
 	int					N = 128;
@@ -72,7 +72,7 @@ TTErr GaussWindow::test(TTValue& returnedTestInfo)
 	TTFloat64			testSigma = 0.4;
 	
 	// setup windowObject
-	TTObjectInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
 	windowObject->setAttributeValue(TT("function"), TT("gauss"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	
@@ -81,8 +81,8 @@ TTErr GaussWindow::test(TTValue& returnedTestInfo)
 	TTTestLog("sigma was set to %.10f for test", testSigma);
 	
 	// create 1 channel audio signal objects
-	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
-	TTObjectInstantiate(kTTSym_audiosignal, &output, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 1);
 	input->allocWithVectorSize(N);
 	output->allocWithVectorSize(N);
 	
@@ -107,9 +107,9 @@ TTErr GaussWindow::test(TTValue& returnedTestInfo)
 		TTTestLog("badSampleCount is %i", badSampleCount);
 	
 	
-	TTObjectRelease(&input);
-	TTObjectRelease(&output);
-	TTObjectRelease(&windowObject);
+	TTObjectBaseRelease(&input);
+	TTObjectBaseRelease(&output);
+	TTObjectBaseRelease(&windowObject);
 	
 	
 	// wrap up test results and pass back to whoever called test

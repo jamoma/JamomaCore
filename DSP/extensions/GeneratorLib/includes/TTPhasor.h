@@ -13,7 +13,7 @@
 
 
 /**	TTRamp is an audio processor that provides a soft saturation or overdrive effect to "warm" a sound up. */ 
-class TTPhasor : TTAudioObject {
+class TTPhasor : TTAudioObjectBase {
 	TTCLASS_SETUP(TTPhasor)
 
 protected:

@@ -19,7 +19,7 @@
 	This implementation takes a different approach which requires the selection of one of the types.
 	At some point in the future we could add a mode to get all 4 signals out of the output...
  */
-class TTSvf : public TTAudioObject {
+class TTSvf : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTSvf)
 
 protected:

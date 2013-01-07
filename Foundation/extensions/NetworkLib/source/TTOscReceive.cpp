@@ -33,7 +33,7 @@ void TTOscReceive::bind()
 {
 	if (mPort) {
 		delete mSocket;
-		mSocket = new TTOscSocket((TTObjectPtr)this, mPort);
+		mSocket = new TTOscSocket((TTObjectBasePtr)this, mPort);
 	}
 }
 

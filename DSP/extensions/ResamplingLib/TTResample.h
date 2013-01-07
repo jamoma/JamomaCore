@@ -14,12 +14,12 @@
 
 
 /**	Convert input to an output with different block size, sample rate, or other characteristics. */
-class TTResample : TTAudioObject {
+class TTResample : TTAudioObjectBase {
 	TTCLASS_SETUP(TTResample)
 	
 protected:
 	
-	TTAudioObjectPtr	mResamplingFilter;
+	TTAudioObjectBasePtr	mResamplingFilter;
 	TTSymbol			mDirection;	// up or down
 	TTSymbol			mMode;		// staircase, third, fifth
 	

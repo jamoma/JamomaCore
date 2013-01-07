@@ -77,7 +77,7 @@ PlugInPtr PlugInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("plugtastic.input"));
 		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
+		err = TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&self->audioGraphObject, v);
 
 		attr_args_process(self, argc, argv);
     	object_obex_store((void*)self, _sym_dumpout, (object*)outlet_new(self, NULL));
@@ -89,7 +89,7 @@ PlugInPtr PlugInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void PlugInFree(PlugInPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
+	TTObjectBaseRelease((TTObjectBasePtr*)&self->audioGraphObject);
 }
 
 

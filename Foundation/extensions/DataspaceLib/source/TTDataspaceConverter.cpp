@@ -33,7 +33,7 @@ TT_OBJECT_CONSTRUCTOR,
 
 TTDataspaceConverter::~TTDataspaceConverter()
 {
-	TTObjectRelease((TTObjectPtr*)&mDataspaceTTObject);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mDataspaceTTObject);
 }
 
 
@@ -47,14 +47,14 @@ TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 	
 	// TODO: validate the name provided before proceeding
 	objectName += name.c_str();
-	err = TTObjectInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
+	err = TTObjectBaseInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
 	if (err) {
         // Rather than crashing:
             //throw TTException("Error trying to load dataspace with that name");
         // we set it to "none" and post an error message to the log
         TTLogError("Error trying to load %s, set to none\n", objectName.c_str());
         objectName = "dataspace.none";
-        TTObjectInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
+        TTObjectBaseInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
     }
 	mDataspaceObject = dynamic_cast<TTDataspacePtr>(mDataspaceTTObject);
 	mDataspace = name;

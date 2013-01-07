@@ -49,11 +49,11 @@
 // Macros
 
 #define TT_AUDIO_CONSTRUCTOR \
-TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
+thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObjectBase(arguments)
 
 
 
@@ -77,9 +77,9 @@ thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObject(arguments)
  */
 #define TT_AUDIO_CLASS_SETUP(strname, tags, className)\
 	\
-	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (const TTSymbol&, TTValue& arguments); \
+	extern "C" TT_EXTENSION_EXPORT TTObjectBase* instantiate ## className (const TTSymbol&, TTValue& arguments); \
 	\
-	TTObject*  instantiate ## className (TTSymbol&, TTValue& arguments) \
+	TTObjectBase*  instantiate ## className (TTSymbol&, TTValue& arguments) \
 	{\
 		return new className (arguments);\
 	}\
@@ -111,27 +111,27 @@ void TTDSP_EXPORT TTDSPInit(const char* pathToBinaries = NULL);
  @param arguments			Additional arguments
  @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
-TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbol& className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
-TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
-TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbol& className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
-TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
-TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbol& className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
-TTErr TTDSP_EXPORT TTObjectInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTErr TTDSP_EXPORT TTObjectBaseInstantiate(const TTSymbol& className, TTAudioObjectBasePtr* returnedObjectPtr, TTValue& arguments);
+TTErr TTDSP_EXPORT TTObjectBaseInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
+TTErr TTDSP_EXPORT TTObjectBaseInstantiate(const TTSymbol& className, TTAudioObjectBasePtr* returnedObjectPtr, const TTValue& arguments);
+TTErr TTDSP_EXPORT TTObjectBaseInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
+TTErr TTDSP_EXPORT TTObjectBaseInstantiate(const TTSymbol& className, TTAudioObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments);
+TTErr TTDSP_EXPORT TTObjectBaseInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
 
 
 /** Create a reference to an object.
  @param anObject		The object that we want to reference.
  @return				Pointer to the object.
  */
-TTAudioObjectPtr TTDSP_EXPORT TTObjectReference(TTAudioObjectPtr anObject);
-TTAudioSignalPtr TTDSP_EXPORT TTObjectReference(TTAudioSignalPtr anObject);
+TTAudioObjectBasePtr TTDSP_EXPORT TTObjectBaseReference(TTAudioObjectBasePtr anObject);
+TTAudioSignalPtr TTDSP_EXPORT TTObjectBaseReference(TTAudioSignalPtr anObject);
 
 
 /** Release (destroy) an object.
  @return				#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
-TTErr TTDSP_EXPORT TTObjectRelease(TTAudioObjectPtr* anObject);
-TTErr TTDSP_EXPORT TTObjectRelease(TTAudioSignalPtr* anObject);
+TTErr TTDSP_EXPORT TTObjectBaseRelease(TTAudioObjectBasePtr* anObject);
+TTErr TTDSP_EXPORT TTObjectBaseRelease(TTAudioSignalPtr* anObject);
 
 
 

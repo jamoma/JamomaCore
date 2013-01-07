@@ -22,7 +22,7 @@
 /**	This implements a function which basically does nothing: 
 	y = f(x)
  */
-class TTSmoothPolynomialFunction : TTAudioObject {
+class TTSmoothPolynomialFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTSmoothPolynomialFunction)
 
 protected:

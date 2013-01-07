@@ -29,11 +29,11 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
-	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mDelay, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mR0, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mR1, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF0, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF1, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mDelay, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mR0, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mR1, initialMaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), TT("lowpass"));
@@ -57,11 +57,11 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTHalfband5::~TTHalfband5()
 {
-	TTObjectRelease((TTObjectPtr*)&mF0);
-	TTObjectRelease((TTObjectPtr*)&mF1);
-	TTObjectRelease((TTObjectPtr*)&mDelay);
-	TTObjectRelease((TTObjectPtr*)&mR0);
-	TTObjectRelease((TTObjectPtr*)&mR1);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF0);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF1);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mDelay);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mR0);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mR1);
 }
 
 

@@ -29,7 +29,7 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 	*/
 	
 	// create 1 channel audio signal objects
-	TTObjectInstantiate(kTTSym_audiosignal, &output, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 1);
 	output->allocWithVectorSize(64);
 	
 	// setup the generator
@@ -410,7 +410,7 @@ TTErr TTPhasor::test(TTValue& returnedTestInfo)
 	if (badSampleCountTotal)
 		TTTestLog("badSampleCountTotal is %i", badSampleCountTotal);
 	
-	TTObjectRelease(&output);
+	TTObjectBaseRelease(&output);
 	
 	
 	// Wrap up the test results to pass back to whoever called this test

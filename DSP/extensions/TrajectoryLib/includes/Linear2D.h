@@ -23,7 +23,7 @@
 /**	This implements a function which basically does nothing: 
 	y = f(x)
  */
-class Linear2D : TTAudioObject {
+class Linear2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Linear2D)
 	
 protected:	

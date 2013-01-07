@@ -20,11 +20,11 @@
 
 /** Generalized Trajectory Function Wrapper
 */
-class TTTrajectory : TTAudioObject {
+class TTTrajectory : TTAudioObjectBase {
 	TTCLASS_SETUP(TTTrajectory)
 	
 protected:
-	TTAudioObjectPtr		mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
+	TTAudioObjectBasePtr		mActualTrajectoryObject;	///< The actual trajectory object that this object is currently wrapping
 	TTFloat64				mA; 						///< Trajectory Parameter, usage depend on the actual trajectory
 	TTFloat64				mB; 					///< Trajectory Parameter, usage depend on the actual trajectory
 	TTFloat64				mC; 					///< Trajectory Parameter, usage depend on the actual trajectory
@@ -34,9 +34,9 @@ protected:
 	TTSymbol				mType;					///< The name of the current trajectory type
 	TTSymbol				mMode;					///< the underlying signal generator, can be "phasor" or "ramp"
 	//TTList					mAnchorPoints;
-	TTAudioObjectPtr		mPhasors[1];			///< Object pointer to the internal phasor generator
+	TTAudioObjectBasePtr		mPhasors[1];			///< Object pointer to the internal phasor generator
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;   ///< The output vector of the phasor generator
-	TTAudioObjectPtr		mRamps[1];				///< Object pointer to the internal ramp generator
+	TTAudioObjectBasePtr		mRamps[1];				///< Object pointer to the internal ramp generator
 	TTAudioSignalArrayPtr	mRampOutputSignals;		///< The output vector of the ramp generator
 	
 public:
@@ -55,7 +55,7 @@ public:
 			return kTTErrNone;
 		
 		mType = newType;
-		err = TTObjectInstantiate(mType, &mActualTrajectoryObject, 2);			
+		err = TTObjectBaseInstantiate(mType, &mActualTrajectoryObject, 2);			
 		if (!err) {
 			// Now that we have our new trajectory type, update it with the current state of the wrapper:
 			mActualTrajectoryObject->setAttributeValue(TT("a"), mA);

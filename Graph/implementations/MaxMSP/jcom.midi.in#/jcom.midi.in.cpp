@@ -86,7 +86,7 @@ MidiInPtr MidiInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("midi.in"));
 		v.set(1, TTUInt32(1));
-		err = TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&self->graphObject, v);
+		err = TTObjectBaseInstantiate(TT("graph.object"), (TTObjectBasePtr*)&self->graphObject, v);
 		self->graphObject->mKernel->setAttributeValue(TT("owner"), TTPtr(self->graphObject));
 
 		if (!self->graphObject->mKernel) {
@@ -109,7 +109,7 @@ MidiInPtr MidiInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 void MidiInFree(MidiInPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->graphObject);
+	TTObjectBaseRelease((TTObjectBasePtr*)&self->graphObject);
 	qelem_free(self->qelem);
 	
 	// TODO: do we need to detach from the patcher view?  Or is that automatic when we free?

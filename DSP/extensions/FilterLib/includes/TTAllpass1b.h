@@ -14,7 +14,7 @@
 
 /**	A first-order building-block allpass filter.
 	This allpass filter uses a fixed delay of 2 samples (M=2). */
-class TTAllpass1b : public TTAudioObject {
+class TTAllpass1b : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAllpass1b)
 
 protected:

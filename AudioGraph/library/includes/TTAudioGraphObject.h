@@ -4,7 +4,7 @@
  *
  * @brief The TTAudioGraphObject wraps a Jamoma DSP object such that it is possible to build a dynamic graph of audio processing units.
  *
- * @details It is implemented as a #TTObject so that it can receive dynamically bound messages,
+ * @details It is implemented as a #TTObjectBase so that it can receive dynamically bound messages,
  * including notifications from other objects.
  *
  * @authors Timothy Place, Trond Lossius
@@ -30,7 +30,7 @@
  *	The TTAudioGraphObject wraps a TTDSP object such that it is possible to
  *	build a dynamic graph of audio processing units.
  *
- *	It is implemented as a TTObject so that it can receive dynamically bound messages,
+ *	It is implemented as a TTObjectBase so that it can receive dynamically bound messages,
  *	including notifications from other objects.
 */
 class TTAUDIOGRAPH_EXPORT TTAudioGraphObject : public TTGraphObject {	
@@ -72,9 +72,9 @@ public:
 
 	/** TODO
 	 */
-	TTAudioObjectPtr getUnitGenerator()
+	TTAudioObjectBasePtr getUnitGenerator()
 	{
-		return TTAudioObjectPtr(mKernel);
+		return TTAudioObjectBasePtr(mKernel);
 	}
 	
 	

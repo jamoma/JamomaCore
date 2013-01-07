@@ -13,7 +13,7 @@
 
 
 /**	The sig≈ object takes a single input message and converts it into a JAG signal */
-class TTAudioGraphSig : public TTAudioObject {
+class TTAudioGraphSig : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAudioGraphSig)
 
 protected:

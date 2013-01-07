@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Torus3D : TTAudioObject {
+class Torus3D : TTAudioObjectBase {
 	TTCLASS_SETUP(Torus3D)
 
 protected:

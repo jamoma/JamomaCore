@@ -28,7 +28,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTMatrixPtr matrix = NULL;
 		TTErr err;
 		
-		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&matrix, kTTValNONE);
+		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&matrix, kTTValNONE);
 		TTTestAssertion("instantiates successfully", 
 						err == kTTErrNone, 
 						testAssertionCount,
@@ -282,7 +282,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		err = TTObjectRelease((TTObjectPtr*)&matrix);
+		err = TTObjectBaseRelease((TTObjectBasePtr*)&matrix);
 		TTTestAssertion("frees successfully", 
 						err == kTTErrNone, 
 						testAssertionCount,
@@ -305,8 +305,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTBoolean	match;
 		TTValue		dims, dims_mismatch;
 		
-		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&A, kTTValNONE);
-		err = TTObjectInstantiate("matrix", (TTObjectPtr*)&B, kTTValNONE);
+		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&A, kTTValNONE);
+		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&B, kTTValNONE);
 		
 		dims.resize(2);
 		dims.set(0, 3);	// 3 rows
@@ -373,7 +373,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		TTObjectRelease((TTObjectPtr*)&C);
+		TTObjectBaseRelease((TTObjectBasePtr*)&C);
 		
 		
 		C = (*A)-(*B);
@@ -398,12 +398,12 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		TTObjectRelease((TTObjectPtr*)&C);
+		TTObjectBaseRelease((TTObjectBasePtr*)&C);
 		
 		
 		
-		TTObjectRelease((TTObjectPtr*)&A);
-		TTObjectRelease((TTObjectPtr*)&B);
+		TTObjectBaseRelease((TTObjectBasePtr*)&A);
+		TTObjectBaseRelease((TTObjectBasePtr*)&B);
 		
 	}
 

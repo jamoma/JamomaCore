@@ -24,7 +24,7 @@
 
 /**	Generalized Window Function Wrapper
  */
-class WindowFunction : TTAudioObject {
+class WindowFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(WindowFunction)
 
 	friend class KaiserWindow;				// need this for the unit testing - NW: should protected be before this?
@@ -32,7 +32,7 @@ class WindowFunction : TTAudioObject {
 protected:
 
 	TTSymbol			mFunction;			///< Name of the window function to use
-	TTAudioObjectPtr	mFunctionObject;	///< The actual window function object for mFunction
+	TTAudioObjectBasePtr	mFunctionObject;	///< The actual window function object for mFunction
 	TTUInt32			mNumPoints;			///< Number of Points in the lookup table
 	TTSampleVector		mLookupTable;		///< Cached table of size mNumPoints
 	TTSymbol			mMode;				///< Options: 'generate', 'lookup', 'apply'

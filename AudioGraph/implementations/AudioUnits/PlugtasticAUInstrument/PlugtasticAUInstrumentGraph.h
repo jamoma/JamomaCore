@@ -79,7 +79,7 @@ public:
 		audioObjectArguments.set(0, TT("plugtastic.output"));
 		audioObjectArguments.set(1, 2);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj0, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj0, audioObjectArguments);
 		obj0->mKernel->setAttributeValue(TT("linearGain"), 1.000000);
 		obj0->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 		obj0->mKernel->setAttributeValue(TT("midiGain"), 100.000000);
@@ -91,7 +91,7 @@ public:
 		audioObjectArguments.set(0, TT("operator"));
 		audioObjectArguments.set(1, 1);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj1, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj1, audioObjectArguments);
 		obj1->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 		obj1->mKernel->setAttributeValue(TT("operator"), TT("*"));
 		obj1->mKernel->setAttributeValue(TT("operand"), 1.000000);
@@ -102,7 +102,7 @@ public:
 		audioObjectArguments.set(0, TT("wavetable"));
 		audioObjectArguments.set(1, 0);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj2, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj2, audioObjectArguments);
 		obj2->mKernel->setAttributeValue(TT("frequency"), 440.000000);
 		obj2->mKernel->setAttributeValue(TT("maxNumChannels"), 1);
 		obj2->mKernel->setAttributeValue(TT("size"), 8192u);
@@ -116,7 +116,7 @@ public:
 		audioObjectArguments.set(0, TT("operator"));
 		audioObjectArguments.set(1, 1);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj3, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj3, audioObjectArguments);
 		obj3->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 		obj3->mKernel->setAttributeValue(TT("operator"), TT("+"));
 		obj3->mKernel->setAttributeValue(TT("operand"), 1.000000);
@@ -127,7 +127,7 @@ public:
 		audioObjectArguments.set(0, TT("audio.sig"));
 		audioObjectArguments.set(1, 1);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj4, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj4, audioObjectArguments);
 		obj4->mKernel->setAttributeValue(TT("value"), 110.000000);
 		obj4->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 		obj4->mKernel->setAttributeValue(TT("bypass"), 0);
@@ -135,19 +135,19 @@ public:
 		obj4->mKernel->setAttributeValue(TT("sampleRate"), 44100u);
 
 
-		TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&obj6, TTValue(TT("dataspace")));
+		TTObjectBaseInstantiate(TT("graph.object"), (TTObjectBasePtr*)&obj6, TTValue(TT("dataspace")));
 		obj6->mKernel->setAttributeValue(TT("inputUnit"), TT("midi"));
 		obj6->mKernel->setAttributeValue(TT("outputUnit"), TT("hz"));
 		obj6->mKernel->setAttributeValue(TT("dataspace"), TT("time"));
 		obj6->mKernel->setAttributeValue(TT("bypass"), 0);
 
 
-		TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&obj7, TTValue(TT("midi.filter")));
+		TTObjectBaseInstantiate(TT("graph.object"), (TTObjectBasePtr*)&obj7, TTValue(TT("midi.filter")));
 		obj7->mKernel->setAttributeValue(TT("type"), TT("note"));
 		obj7->mKernel->setAttributeValue(TT("bypass"), 0);
 
 
-		TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&obj8, TTValue(TT("midi.in")));
+		TTObjectBaseInstantiate(TT("graph.object"), (TTObjectBasePtr*)&obj8, TTValue(TT("midi.in")));
 		obj8->mKernel->setAttributeValue(TT("owner"), 135826496);
 		obj8->mKernel->setAttributeValue(TT("bypass"), 0);
 		obj8->mKernel->setAttributeValue(TT("device"), TT("default"));
@@ -159,7 +159,7 @@ public:
 		audioObjectArguments.set(0, TT("operator"));
 		audioObjectArguments.set(1, 1);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj9, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj9, audioObjectArguments);
 		obj9->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 		obj9->mKernel->setAttributeValue(TT("operator"), TT("*"));
 		obj9->mKernel->setAttributeValue(TT("operand"), 1.000000);
@@ -170,7 +170,7 @@ public:
 		audioObjectArguments.set(0, TT("wavetable"));
 		audioObjectArguments.set(1, 0);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj10, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj10, audioObjectArguments);
 		obj10->mKernel->setAttributeValue(TT("frequency"), 440.000000);
 		obj10->mKernel->setAttributeValue(TT("maxNumChannels"), 1);
 		obj10->mKernel->setAttributeValue(TT("size"), 8192u);
@@ -184,7 +184,7 @@ public:
 		audioObjectArguments.set(0, TT("operator"));
 		audioObjectArguments.set(1, 1);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj11, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj11, audioObjectArguments);
 		obj11->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 		obj11->mKernel->setAttributeValue(TT("operator"), TT("*"));
 		obj11->mKernel->setAttributeValue(TT("operand"), 1.000000);
@@ -196,7 +196,7 @@ public:
 		audioObjectArguments.set(0, TT("audio.sig"));
 		audioObjectArguments.set(1, 1);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj12, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj12, audioObjectArguments);
 		obj12->mKernel->setAttributeValue(TT("value"), 10.000000);
 		obj12->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 		obj12->mKernel->setAttributeValue(TT("bypass"), 0);
@@ -209,7 +209,7 @@ public:
 		audioObjectArguments.set(0, TT("operator"));
 		audioObjectArguments.set(1, 1);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj16, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj16, audioObjectArguments);
 		obj16->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 		obj16->mKernel->setAttributeValue(TT("operator"), TT("*"));
 		obj16->mKernel->setAttributeValue(TT("operand"), 1.000000);
@@ -221,7 +221,7 @@ public:
 		audioObjectArguments.set(0, TT("adsr"));
 		audioObjectArguments.set(1, 1);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj17, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj17, audioObjectArguments);
 		obj17->mKernel->setAttributeValue(TT("sustain"), -12.000000);
 		obj17->mKernel->setAttributeValue(TT("release"), 500.000000);
 		obj17->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
@@ -243,7 +243,7 @@ public:
 		audioObjectArguments.set(0, TT("adsr"));
 		audioObjectArguments.set(1, 1);
 		audioObjectArguments.set(2, 1);
-		TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj23, audioObjectArguments);
+		TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj23, audioObjectArguments);
 		obj23->mKernel->setAttributeValue(TT("sustain"), -6.000000);
 		obj23->mKernel->setAttributeValue(TT("release"), 500.000000);
 		obj23->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
@@ -264,33 +264,33 @@ public:
 
 	virtual ~PlugtasticAUInstrumentGraph()
 	{
-		TTObjectRelease((TTObjectPtr*)&obj0);
-		TTObjectRelease((TTObjectPtr*)&obj1);
-		TTObjectRelease((TTObjectPtr*)&obj2);
-		TTObjectRelease((TTObjectPtr*)&obj3);
-		TTObjectRelease((TTObjectPtr*)&obj4);
-		TTObjectRelease((TTObjectPtr*)&obj5);
-		TTObjectRelease((TTObjectPtr*)&obj6);
-		TTObjectRelease((TTObjectPtr*)&obj7);
-		TTObjectRelease((TTObjectPtr*)&obj8);
-		TTObjectRelease((TTObjectPtr*)&obj9);
-		TTObjectRelease((TTObjectPtr*)&obj10);
-		TTObjectRelease((TTObjectPtr*)&obj11);
-		TTObjectRelease((TTObjectPtr*)&obj12);
-		TTObjectRelease((TTObjectPtr*)&obj13);
-		TTObjectRelease((TTObjectPtr*)&obj14);
-		TTObjectRelease((TTObjectPtr*)&obj15);
-		TTObjectRelease((TTObjectPtr*)&obj16);
-		TTObjectRelease((TTObjectPtr*)&obj17);
-		TTObjectRelease((TTObjectPtr*)&obj18);
-		TTObjectRelease((TTObjectPtr*)&obj19);
-		TTObjectRelease((TTObjectPtr*)&obj20);
-		TTObjectRelease((TTObjectPtr*)&obj21);
-		TTObjectRelease((TTObjectPtr*)&obj22);
-		TTObjectRelease((TTObjectPtr*)&obj23);
-		TTObjectRelease((TTObjectPtr*)&obj24);
-		TTObjectRelease((TTObjectPtr*)&obj25);
-		TTObjectRelease((TTObjectPtr*)&obj26);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj0);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj1);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj2);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj3);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj4);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj5);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj6);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj7);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj8);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj9);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj10);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj11);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj12);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj13);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj14);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj15);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj16);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj17);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj18);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj19);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj20);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj21);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj22);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj23);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj24);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj25);
+		TTObjectBaseRelease((TTObjectBasePtr*)&obj26);
 	}
 	
 

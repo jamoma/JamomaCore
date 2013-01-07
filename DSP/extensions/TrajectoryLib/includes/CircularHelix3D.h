@@ -20,7 +20,7 @@
 #include "TTDSP.h"
 
 
-class CircularHelix3D : TTAudioObject {
+class CircularHelix3D : TTAudioObjectBase {
 	TTCLASS_SETUP(CircularHelix3D)
 
 protected:

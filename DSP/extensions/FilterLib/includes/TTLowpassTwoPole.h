@@ -13,7 +13,7 @@
 
 
 /**	A resonant two-pole, no-zero, lowpass filter. Based on the Hal Chamberlin book. */
-class TTLowpassTwoPole : public TTAudioObject {
+class TTLowpassTwoPole : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTLowpassTwoPole)
 
 protected:

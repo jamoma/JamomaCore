@@ -1,6 +1,6 @@
 /* 
  * Jamoma Asynchronous Object Graph Layer
- * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
+ * Creates a wrapper for TTObjectBases that can be used to build a control graph for asynchronous message passing.
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -39,7 +39,7 @@ TTGraphSource::~TTGraphSource()
 	if (mSourceObject)
 		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
 
-	TTObjectRelease(&mCallbackHandler);
+	TTObjectBaseRelease(&mCallbackHandler);
 	
 	mSourceObject = NULL;
 	mOutletNumber = 0;
@@ -49,7 +49,7 @@ TTGraphSource::~TTGraphSource()
 
 void TTGraphSource::create()
 {
-	TTObjectInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
+	TTObjectBaseInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
 		
 	mCallbackHandler->setAttributeValue(TT("owner"), TT("TTGraphSource"));	
 	mCallbackHandler->setAttributeValue(TT("function"), TTPtr(&TTGraphSourceObserverCallback));

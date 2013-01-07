@@ -32,7 +32,7 @@
 #define thisTTClassName		"AudioEngine"
 #define thisTTClassTags		"audio, engine, singleton"
 
-TTObjectPtr	TTAudioEngine::sSingletonInstance = NULL;
+TTObjectBasePtr	TTAudioEngine::sSingletonInstance = NULL;
 
 
 TT_BASE_OBJECT_CONSTRUCTOR,
@@ -55,8 +55,8 @@ TT_BASE_OBJECT_CONSTRUCTOR,
 	mCallbackObservers = new TTList;
 	mCallbackObservers->setThreadProtection(NO);	// ... because we make calls into this at every audio vector calculation ...
 
-	TTObjectInstantiate(kTTSym_audiosignal, &mInputBuffer, 1);
-	TTObjectInstantiate(kTTSym_audiosignal, &mOutputBuffer, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &mInputBuffer, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &mOutputBuffer, 1);
 
 	// numChannels should be readonly -- how do we do that?
 	addAttribute(NumInputChannels,	kTypeUInt16);
@@ -98,8 +98,8 @@ TTAudioEngine::~TTAudioEngine()
 			TTLogError("PortAudio error freeing engine: %s", Pa_GetErrorText(err));
 	}
 	delete mCallbackObservers;
-	TTObjectRelease(&mInputBuffer);
-	TTObjectRelease(&mOutputBuffer);
+	TTObjectBaseRelease(&mInputBuffer);
+	TTObjectBaseRelease(&mOutputBuffer);
 }
 
 
@@ -392,13 +392,13 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 
 TTAudioSignalPtr TTAudioEngine::TTAudioEngineGetInputSignalReference()
 {
-	return (TTAudioSignalPtr)TTObjectReference(mInputBuffer);
+	return (TTAudioSignalPtr)TTObjectBaseReference(mInputBuffer);
 }
 
 
 TTAudioSignalPtr TTAudioEngine::TTAudioEngineGetOutputSignalReference()
 {
-	return (TTAudioSignalPtr)TTObjectReference(mOutputBuffer);
+	return (TTAudioSignalPtr)TTObjectBaseReference(mOutputBuffer);
 }
 
 
@@ -409,7 +409,7 @@ TTAudioSignalPtr TTAudioEngine::TTAudioEngineGetOutputSignalReference()
 
 
 
-TTObjectPtr TTAudioEngine::create()
+TTObjectBasePtr TTAudioEngine::create()
 {
 	PaError	paErr;
 	TTErr   err = kTTErrNone;
@@ -417,14 +417,14 @@ TTObjectPtr TTAudioEngine::create()
 	if (!sSingletonInstance) {
 		paErr = Pa_Initialize();
 		if (paErr == paNoError)
-			err = TTObjectInstantiate(thisTTClassName, &sSingletonInstance, kTTValNONE);
+			err = TTObjectBaseInstantiate(thisTTClassName, &sSingletonInstance, kTTValNONE);
 		else {
 			TTLogError("PortAudio error: %s", Pa_GetErrorText(paErr));
 			TT_ASSERT("PortAudio initialized", false);
 		}
 	}
 	if (!err)
-        return TTObjectReference(sSingletonInstance);
+        return TTObjectBaseReference(sSingletonInstance);
     else
         return NULL;
 }
@@ -437,7 +437,7 @@ TTErr TTAudioEngine::destroy()
 		if (err != paNoError)
 			TTLogError("PortAudio error: %s\n", Pa_GetErrorText( err ) );
 	}
-	return TTObjectRelease((TTObjectPtr*)&sSingletonInstance);
+	return TTObjectBaseRelease((TTObjectBasePtr*)&sSingletonInstance);
 }
 
 

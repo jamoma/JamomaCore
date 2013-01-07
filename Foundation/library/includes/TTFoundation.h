@@ -30,19 +30,19 @@
  */
 
 #define TT_OBJECT_CONSTRUCTOR \
-	TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 	\
 	extern "C" void thisTTClass :: registerClass () {TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );} \
 	\
-	thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
+	thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObjectBase(arguments)
 
 
 #define TT_BASE_OBJECT_CONSTRUCTOR \
-	TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 	\
 	extern "C" void thisTTClass :: registerClass () {TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );} \
 	\
-	thisTTClass :: thisTTClass (TTValue& arguments) : TTObject(arguments)
+	thisTTClass :: thisTTClass (TTValue& arguments) : TTObjectBase(arguments)
 
 
 #define TTCLASS_SETUP(className)												\
@@ -50,7 +50,7 @@
 	public:																		\
 		static void registerClass();											\
 	protected:																	\
-		static TTObjectPtr instantiate (TTSymbol& name, TTValue& arguments);	\
+		static TTObjectBasePtr instantiate (TTSymbol& name, TTValue& arguments);	\
 		/** Constructor */														\
 		className (TTValue& arguments);											\
 		/** Destructor */														\

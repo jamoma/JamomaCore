@@ -15,7 +15,7 @@
 /**	TTMultiMixer mixes N input signals (presumably of matching channel counts) 
 	to M output signals (again presumably of matching channel counts). 
 */
-class TTMultiMixer : TTAudioObject {
+class TTMultiMixer : TTAudioObjectBase {
 	TTCLASS_SETUP(TTMultiMixer)
 
 protected:

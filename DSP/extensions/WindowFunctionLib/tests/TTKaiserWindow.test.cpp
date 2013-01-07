@@ -54,14 +54,14 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	int					badSampleCount = 0;
-	TTAudioObjectPtr	windowObject = NULL;
+	TTAudioObjectBasePtr	windowObject = NULL;
 	TTAudioSignalPtr	input = NULL;
 	TTAudioSignalPtr	output = NULL;
 	int					N = 128;
 	TTValue				v;
 	
 	// create the object and set the beta parameter
-	TTObjectInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
 	windowObject->setAttributeValue(TT("function"), TT("kaiser"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	
@@ -98,8 +98,8 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 					errorCount);  // added 4/26 by Wolek
 	
 	// create 1 channel audio signal objects
-	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
-	TTObjectInstantiate(kTTSym_audiosignal, &output, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 1);
 	input->allocWithVectorSize(N);
 	output->allocWithVectorSize(N);
 	
@@ -123,9 +123,9 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 		TTTestLog("badSampleCount is %i", badSampleCount);
 	
 	
-	TTObjectRelease(&input);
-	TTObjectRelease(&output);
-	TTObjectRelease(&windowObject);
+	TTObjectBaseRelease(&input);
+	TTObjectBaseRelease(&output);
+	TTObjectBaseRelease(&windowObject);
 	
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);

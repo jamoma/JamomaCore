@@ -29,7 +29,7 @@
 	This may seem obvious after reading this, however it is easy to miss, especially
 	as the general rule is stated as "flip all of the signs".
 */
-class TTHilbertLinear33 : TTAudioObject {
+class TTHilbertLinear33 : TTAudioObjectBase {
 	TTCLASS_SETUP(TTHilbertLinear33)
 
 protected:

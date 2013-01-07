@@ -76,7 +76,7 @@ PlugOutPtr PlugOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("plugtastic.output"));
 		v.set(1, 2);
-		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
+		err = TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&self->audioGraphObject, v);
 
 		v = TTPtr(self->audioGraphObject);
 
@@ -104,7 +104,7 @@ void PlugOutFree(PlugOutPtr self)
 		object_detach_byptr(self, self->patcherview);
 		self->patcherview = NULL;
 	}
-	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
+	TTObjectBaseRelease((TTObjectBasePtr*)&self->audioGraphObject);
 	qelem_free(self->qelem);
 	delete self->buildThread;
 }

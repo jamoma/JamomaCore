@@ -28,7 +28,7 @@
 
 
 /**	TTOverdrive is an audio processor that provides a soft saturation or overdrive effect to "warm" a sound up. */
-class TT_OVERDRIVE_EXPORT TTOverdrive : public TTAudioObject {
+class TT_OVERDRIVE_EXPORT TTOverdrive : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTOverdrive)
 
 protected:
@@ -42,7 +42,7 @@ protected:
 						nb,
 						z,
 						scale;
-	TTAudioObjectPtr	dcBlockerUnit;	///< A TTDCBlock object
+	TTAudioObjectBasePtr	dcBlockerUnit;	///< A TTDCBlock object
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);

@@ -39,7 +39,7 @@
 	= 1																	: for the sustain
 	= 0.5 * (1 + cos ( pi * ((twoOverAlpha * x) - twoOverAlpha + 1)))	: for the release
  */
-class TukeyWindow : TTAudioObject {
+class TukeyWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(TukeyWindow)
 	
 protected:	

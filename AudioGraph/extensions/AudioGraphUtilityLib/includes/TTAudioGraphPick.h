@@ -12,7 +12,7 @@
 #include "TTDSP.h"
 
 
-class TTAudioGraphPick : public TTAudioObject {
+class TTAudioGraphPick : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAudioGraphPick)
 	
 protected:

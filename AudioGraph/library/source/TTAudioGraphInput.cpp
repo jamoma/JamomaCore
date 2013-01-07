@@ -50,7 +50,7 @@ TT_AUDIO_CONSTRUCTOR
 TTAudioGraphInput::~TTAudioGraphInput()
 {
 	TTAudioEngine::destroy();
-	TTObjectRelease(&mBuffer);
+	TTObjectBaseRelease(&mBuffer);
 }
 
 

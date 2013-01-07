@@ -34,7 +34,7 @@
  y = e^ superscript @n
 */
  
-class GaussWindow : TTAudioObject {
+class GaussWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(GaussWindow)
 	
 protected:

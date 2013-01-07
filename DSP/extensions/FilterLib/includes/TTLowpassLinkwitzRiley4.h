@@ -32,7 +32,7 @@
   5. All drivers are always wired the same (in phase).
   
  */
-class TTLowpassLinkwitzRiley4 : TTAudioObject {
+class TTLowpassLinkwitzRiley4 : TTAudioObjectBase {
 	TTCLASS_SETUP(TTLowpassLinkwitzRiley4)
 
 protected:

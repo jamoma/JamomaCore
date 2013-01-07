@@ -13,7 +13,7 @@
 #include "TTUnitTest.h"
 
 /**	Provide unit tests for #TTString */
-class TTStringTest : public TTDataObject {
+class TTStringTest : public TTDataObjectBase {
 	TTCLASS_SETUP(TTStringTest)
 		
 	virtual TTErr test(TTValue& returnedTestInfo);

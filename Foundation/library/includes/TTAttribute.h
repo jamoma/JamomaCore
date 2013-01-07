@@ -2,7 +2,7 @@
  *
  * @ingroup foundationLibrary
  *
- * @brief The TTAttribute class represents a single attribute, as used by the TTObject class.
+ * @brief The TTAttribute class represents a single attribute, as used by the TTObjectBase class.
  *
  * @details 
  *
@@ -63,7 +63,7 @@
 /** A convenience macro to be used for registering properties of attributes.
 	This assumes that the property is one that has been explicitly supported by TTAttribute through the definition of accessor methods.
 	If you are adding a custom property then you must define your own accessor methods and register the property by calling the
-	TTObject::registerAttributeProperty() method directly.
+	TTObjectBase::registerAttributeProperty() method directly.
 */
 #define addAttributeProperty(attributeName, propertyName, initialValue)	registerAttributeProperty(_attrname_##attributeName, #propertyName, initialValue, (TTGetterMethod)& TTAttribute::get##propertyName , (TTSetterMethod)& TTAttribute::set##propertyName )
 
@@ -72,11 +72,11 @@
 
 
 /**
-	This class represents a single attribute, as used by the TTObject class.
+	This class represents a single attribute, as used by the TTObjectBase class.
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTFOUNDATION_EXPORT TTAttribute : public TTObject {
+class TTFOUNDATION_EXPORT TTAttribute : public TTObjectBase {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
@@ -85,8 +85,8 @@ public:
 	void*				address;		///< Pointer to the memory holding the attribute value.
 	TTGetterMethod		getter;			///< Method to fetch the attribute value.
 	TTSetterMethod		setter;			///< Method to set the attribute value.
-	const TTObjectPtr	getterObject;	///< TTObjectPtr to fetch the attribute value.
-	const TTObjectPtr	setterObject;	///< TTObjectPtr to set the attribute value.
+	const TTObjectBasePtr	getterObject;	///< TTObjectBasePtr to fetch the attribute value.
+	const TTObjectBasePtr	setterObject;	///< TTObjectBasePtr to set the attribute value.
 	TTAttributeFlags	getterFlags;	///< Define the behavior of the attribute getter method.
 	TTAttributeFlags	setterFlags;	///< Define the behavior of the attribute setter method.
 	TTValue				internalValue;	///< Attributes that maintain their own data use this member to store it.
@@ -104,8 +104,8 @@ public:
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
-	TTAttribute(const TTSymbol& newName, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
-	TTAttribute(TTAttributePtr extendedAttribute, const TTObjectPtr extendedObject);
+	TTAttribute(const TTSymbol& newName, const TTObjectBasePtr newGetterObject, const TTObjectBasePtr newSetterObject);
+	TTAttribute(TTAttributePtr extendedAttribute, const TTObjectBasePtr extendedObject);
 	
 	/** Object destructor.
 	 */

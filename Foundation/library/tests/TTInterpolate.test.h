@@ -20,7 +20,7 @@
 #include "TTUnitTest.h"
 
 /**	Provide unit tests for #TTInterpolate */
-class TTInterpolateTest : public TTDataObject {
+class TTInterpolateTest : public TTDataObjectBase {
 	TTCLASS_SETUP(TTInterpolateTest)
 	
 	/** Unit test.

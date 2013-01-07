@@ -100,7 +100,7 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.setSize(2);
 		v.set(0, TT("operator"));
 		v.set(1, TTUInt32(1));	// we set it up with 1 inlet, and later modify to 2 inlets if the connection is made
-		err = TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&self->audioGraphObject, v);
+		err = TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&self->audioGraphObject, v);
 
 		if (!self->audioGraphObject->getUnitGenerator()) {
 			object_error(SELF, "cannot load Jamoma DSP object");
@@ -116,7 +116,7 @@ OpPtr OpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void OpFree(OpPtr self)
 {
-	TTObjectRelease((TTObjectPtr*)&self->audioGraphObject);
+	TTObjectBaseRelease((TTObjectBasePtr*)&self->audioGraphObject);
 	object_free(self->inlet);
 }
 

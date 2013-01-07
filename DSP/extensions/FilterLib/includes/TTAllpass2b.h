@@ -15,7 +15,7 @@
 /**	A second-order Z^2 building-block allpass filter.
 	This allpass filter uses a fixed delay of 2 samples (M=2).
 */
-class TTAllpass2b : public TTAudioObject {
+class TTAllpass2b : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAllpass2b)
 
 protected:

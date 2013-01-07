@@ -13,7 +13,7 @@
 
 
 /**	The append# object takes a dictionary and adds a key/value to that dictionary */
-class TTDictionaryAppend : public TTDataObject {
+class TTDictionaryAppend : public TTDataObjectBase {
 	TTCLASS_SETUP(TTDictionaryAppend)
 	
 protected:

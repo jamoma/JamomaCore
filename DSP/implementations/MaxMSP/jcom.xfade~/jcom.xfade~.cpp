@@ -27,7 +27,7 @@ typedef struct _fade{
 	long				attr_mode;
 	float				attr_position;
 	TTUInt16			numChannels;
-	TTAudioObject*		xfade;			// crossfade object from the TTBlue library
+	TTAudioObjectBase*		xfade;			// crossfade object from the TTBlue library
 	TTAudioSignal*		audioIn1;
 	TTAudioSignal*		audioIn2;
 	TTAudioSignal*		audioInControl;
@@ -122,11 +122,11 @@ void *fade_new(t_symbol *s, long argc, t_atom *argv)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal Outlet   		
 		
 		//x->xfade = new TTCrossfade(x->numChannels);			// Constructors
-		TTObjectInstantiate(TT("crossfade"),	&x->xfade,			x->numChannels);
-		TTObjectInstantiate(kTTSym_audiosignal,	&x->audioIn1,		x->numChannels);
-		TTObjectInstantiate(kTTSym_audiosignal,	&x->audioIn2,		x->numChannels);
-		TTObjectInstantiate(kTTSym_audiosignal,	&x->audioInControl,	x->numChannels);
-		TTObjectInstantiate(kTTSym_audiosignal,	&x->audioOut,		x->numChannels);
+		TTObjectBaseInstantiate(TT("crossfade"),	&x->xfade,			x->numChannels);
+		TTObjectBaseInstantiate(kTTSym_audiosignal,	&x->audioIn1,		x->numChannels);
+		TTObjectBaseInstantiate(kTTSym_audiosignal,	&x->audioIn2,		x->numChannels);
+		TTObjectBaseInstantiate(kTTSym_audiosignal,	&x->audioInControl,	x->numChannels);
+		TTObjectBaseInstantiate(kTTSym_audiosignal,	&x->audioOut,		x->numChannels);
 		
 		x->xfade->setAttributeValue(TT("mode"), TT("lookup"));
 		x->xfade->setAttributeValue(TT("shape"), TT("equalPower"));
@@ -142,11 +142,11 @@ void fade_free(t_fade *x)
 {
 	dsp_free((t_pxobject *)x);		// Always call dsp_free first in this routine
 	
-	TTObjectRelease(&x->xfade);
-	TTObjectRelease(&x->audioIn1);
-	TTObjectRelease(&x->audioIn2);
-	TTObjectRelease(&x->audioInControl);
-	TTObjectRelease(&x->audioOut);
+	TTObjectBaseRelease(&x->xfade);
+	TTObjectBaseRelease(&x->audioIn1);
+	TTObjectBaseRelease(&x->audioIn2);
+	TTObjectBaseRelease(&x->audioInControl);
+	TTObjectBaseRelease(&x->audioOut);
 }
 
 

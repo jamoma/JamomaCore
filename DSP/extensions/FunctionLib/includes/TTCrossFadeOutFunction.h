@@ -16,7 +16,7 @@
 /**	A simple function unit the implements the following:
 	y = sin((1.-x)*PI*0.5)-1.
  */
-class TTCrossFadeOutFunction : TTAudioObject {
+class TTCrossFadeOutFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTCrossFadeOutFunction)
 
 protected:

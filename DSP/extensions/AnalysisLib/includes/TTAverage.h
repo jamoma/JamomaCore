@@ -22,7 +22,7 @@
 
 /** TTAverage - measuring averaged and RMS signal energy
  */
-class TTAverage : TTAudioObject {
+class TTAverage : TTAudioObjectBase {
 	TTCLASS_SETUP(TTAverage)
 
 protected:

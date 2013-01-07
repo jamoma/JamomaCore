@@ -29,7 +29,7 @@
 /** A convenience macro to be used for registering properties of messages.
  This assumes that the property is one that has been explicitly supported by TTMessage through the definition of accessor methods.
  If you are adding a custom property then you must define your own accessor methods and register the property by calling the
- TTObject::registerMessageProperty() method directly.
+ TTObjectBase::registerMessageProperty() method directly.
  */
 #define addMessageProperty(messageName, propertyName, initialValue)		registerMessageProperty(#messageName, #propertyName, initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
 
@@ -44,11 +44,11 @@
 // Class Specifications
 
 /**
-	This class represents a single message, as used by the TTObject class.
+	This class represents a single message, as used by the TTObjectBase class.
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTFOUNDATION_EXPORT TTMessage : public TTObject {
+class TTFOUNDATION_EXPORT TTMessage : public TTObjectBase {
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
 	const TTSymbol		name;		///< the name of the message.

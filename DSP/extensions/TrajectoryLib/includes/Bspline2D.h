@@ -13,7 +13,7 @@
 #define MAXSIZE 256
 
 
-class Bspline2D : TTAudioObject {
+class Bspline2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Bspline2D)		
 	
 protected:	

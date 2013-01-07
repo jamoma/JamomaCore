@@ -13,7 +13,7 @@
 #include "TTUnitTest.h"
 
 /**	Provide unit tests for #TTSymbol */
-class TTSymbolTest : public TTDataObject {
+class TTSymbolTest : public TTDataObjectBase {
 	TTCLASS_SETUP(TTSymbolTest)
 		
 	virtual TTErr test(TTValue& returnedTestInfo);

@@ -22,7 +22,7 @@
 // Data Structure for this object
 typedef struct _op {
     t_pxobject			obj;
-	TTAudioObjectPtr	op;
+	TTAudioObjectBasePtr	op;
 	TTAudioSignalPtr	audioIn;
 	TTAudioSignalPtr	audioOut;
     float				attrOperand;
@@ -96,9 +96,9 @@ void* op_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
-		TTObjectInstantiate(TT("operator"), &x->op, x->maxNumChannels);
-		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels);
-		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
+		TTObjectBaseInstantiate(TT("operator"), &x->op, x->maxNumChannels);
+		TTObjectBaseInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels);
+		TTObjectBaseInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -116,9 +116,9 @@ void* op_new(t_symbol *msg, short argc, t_atom *argv)
 void op_free(t_op *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(&x->op);
-	TTObjectRelease(&x->audioIn);
-	TTObjectRelease(&x->audioOut);
+	TTObjectBaseRelease(&x->op);
+	TTObjectBaseRelease(&x->audioIn);
+	TTObjectBaseRelease(&x->audioOut);
 }
 
 

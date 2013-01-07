@@ -5,8 +5,8 @@
  * @brief The Jamoma Object Base Class.
  *
  * @details Base class for all first-class Jamoma objects.
- * Internal objects may inherit directly from #TTObject,
- * but most objects will inherit from #TTDataObject or #TTAudioObject.
+ * Internal objects may inherit directly from #TTObjectBase,
+ * but most objects will inherit from #TTDataObjectBase or #TTAudioObjectBase.
  *
  * @authors Timothy Place, Theo de la Hogue, Trond Lossius
  *
@@ -15,8 +15,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_OBJECT_H__
-#define __TT_OBJECT_H__
+#ifndef __TT_OBJECTBASE_H__
+#define __TT_OBJECTBASE_H__
 
 #include "TTBase.h"
 #include "TTList.h"
@@ -31,53 +31,53 @@
 // forward declarations needed by the compiler
 class TTAttribute;
 class TTMessage;
-class TTObject;
+class TTObjectBase;
 class TTClass;
 
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
-typedef TTObject*		TTObjectPtr;
-typedef TTObject**		TTObjectHandle;
-typedef TTObject&		TTObjectRef;
+typedef TTObjectBase*	TTObjectBasePtr;
+typedef TTObjectBase**	TTObjectBaseHandle;
+typedef TTObjectBase&	TTObjectBaseRef;
 typedef TTClass*		TTClassPtr;
 
 
 /** A type that can be used to store a pointer to a message for an object.
  @ingroup typedefs
  */
-typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, const TTValue& anInputValue, TTValue& anOutputValue);
+typedef TTErr (TTObjectBase::*TTMethod)(const TTSymbol& methodName, const TTValue& anInputValue, TTValue& anOutputValue);
 
 
 /** A type that can be used to call a message for an object that does not declare the name argument. 
  @ingroup typedefs
  */
-typedef TTErr (TTObject::*TTMethodValue)(const TTValue& anInputValue, TTValue& anOutputValue);
+typedef TTErr (TTObjectBase::*TTMethodValue)(const TTValue& anInputValue, TTValue& anOutputValue);
 
 /** A type that can be used to call a message for an object that does not declare the name argument. 
  @ingroup typedefs
  */
-typedef TTErr (TTObject::*TTMethodInputValue)(const TTValue& anInputValue);
+typedef TTErr (TTObjectBase::*TTMethodInputValue)(const TTValue& anInputValue);
 
 /** A type that can be used to call a message for an object that does not declare the name argument. 
  @ingroup typedefs
  */
-typedef TTErr (TTObject::*TTMethodOutputValue)(TTValue& anOutputValue);
+typedef TTErr (TTObjectBase::*TTMethodOutputValue)(TTValue& anOutputValue);
 
 /** A type that can be used to call a message for an object that does not declare any arguments. 
  @ingroup typedefs
  */
-typedef TTErr (TTObject::*TTMethodNone)();
+typedef TTErr (TTObjectBase::*TTMethodNone)();
 
 
 /** A type that can be used to store a pointer to a message for an object 
  @ingroup typedefs
  */
-typedef TTErr (TTObject::*TTGetterMethod)(const TTAttribute& attribute, TTValue& value);
+typedef TTErr (TTObjectBase::*TTGetterMethod)(const TTAttribute& attribute, TTValue& value);
 
 /** A type that can be used to store a pointer to a message for an object 
  @ingroup typedefs
  */
-typedef TTErr (TTObject::*TTSetterMethod)(const TTAttribute& attribute, const TTValue& value);
+typedef TTErr (TTObjectBase::*TTSetterMethod)(const TTAttribute& attribute, const TTValue& value);
 
 
 /** Flags that determine the behavior of messages.
@@ -105,10 +105,10 @@ enum TTAttributeFlags {
 
 /**
 	Base class for all first-class Jamoma objects.
-	Internal objects may inherit directly from #TTObject, 
-	but most objects will inherit from #TTDataObject or #TTAudioObject.
+	Internal objects may inherit directly from #TTObjectBase,
+	but most objects will inherit from #TTDataObjectBase or #TTAudioObjectBase.
 */
-class TTFOUNDATION_EXPORT TTObject : public TTBase {
+class TTFOUNDATION_EXPORT TTObjectBase : public TTBase {
 private:
 	friend class TTEnvironment;
 
@@ -132,11 +132,11 @@ protected:
 	/** Constructor.
 	 @param arguments						Arguments to the constructor.
 	 */
-	TTObject(TTValue& arguments);
+	TTObjectBase(TTValue& arguments);
 public:
 	/** Destructor.
 	 */
-	virtual ~TTObject();
+	virtual ~TTObjectBase();
 	
 	/**	Query an object to get its current reference count.	
 	 @return								Reference count.
@@ -161,16 +161,16 @@ public:
 	TTErr registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter);
 	TTErr registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
-	TTErr registerAttribute(const TTSymbol& name, const TTObjectPtr newGetterObject, const TTObjectPtr newSetterObject);
+	TTErr registerAttribute(const TTSymbol& name, const TTObjectBasePtr newGetterObject, const TTObjectBasePtr newSetterObject);
 	
 	
-	/** Extend the attribute of an existing TTObject to this TTObject (using another attribute name) 
+	/** Extend the attribute of an existing TTObjectBase to this TTObjectBase (using another attribute name)
 	 @param	name				The name of the attribute as you wish for it to be in your object (e.g. myFrequency).
 	 @param	extendedObject		A pointer to the object to which the attribute will be bound.
 	 @param	extendedName		The name of the attribute as defined by the object that you are extending (e.g. frequency).
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr extendAttribute(const TTSymbol& name, const TTObjectPtr extendedObject, const TTSymbol& extendedName);
+	TTErr extendAttribute(const TTSymbol& name, const TTObjectBasePtr extendedObject, const TTSymbol& extendedName);
 
 	
 	/** Remove an attribute.
@@ -347,13 +347,13 @@ public:
 	
 	
 	/** Return a list of names of the available attributes.
-	 @param attributeNameList		Pointer to a list of all attributes registered with this TTObject.
+	 @param attributeNameList		Pointer to a list of all attributes registered with this TTObjectBase.
 	 */
 	void getAttributeNames(TTValue& attributeNameList);
 	
 	
 	/** Return a list of names of the available messages.
-	 @param messageNameList		Pointer to a list of all messages registered with this TTObject.
+	 @param messageNameList		Pointer to a list of all messages registered with this TTObjectBase.
 	 */
 	void getMessageNames(TTValue& messageNameList);
 	
@@ -401,7 +401,7 @@ public:
 	 @param messageName				The name of the message to monitor.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr registerObserverForMessage(const TTObject& observingObject, const TTSymbol& messageName);
+	TTErr registerObserverForMessage(const TTObjectBase& observingObject, const TTSymbol& messageName);
 	
 	
 	/** Register an observer for an attribute.
@@ -410,7 +410,7 @@ public:
 	 @param attributeName			The name of the attribute to monitor.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr registerObserverForAttribute(const TTObject& observingObject, const TTSymbol& attributeName);
+	TTErr registerObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol& attributeName);
 	
 	
 	/** Register an observer.
@@ -419,7 +419,7 @@ public:
 	 @param observingObject			Pointer to the observing object.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr registerObserverForNotifications(const TTObject& observingObject);
+	TTErr registerObserverForNotifications(const TTObjectBase& observingObject);
 	
 	
 	/** Unregister an observer for a message.
@@ -428,7 +428,7 @@ public:
 	 @param messageName				The name of the message that no longer will be monitored.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr unregisterObserverForMessage(const TTObject& observingObject, const TTSymbol& messageName);
+	TTErr unregisterObserverForMessage(const TTObjectBase& observingObject, const TTSymbol& messageName);
 	
 	
 	/** Unregister an observer for an attribute.
@@ -437,7 +437,7 @@ public:
 	 @param attributeName			The name of the attribute that no longer will be monitored.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbol& attributeName);
+	TTErr unregisterObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol& attributeName);
 	
 	
 	/** Unregister an observer for notifications.
@@ -446,7 +446,7 @@ public:
 	 @param observingObject			Pointer to the observing object.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr unregisterObserverForNotifications(const TTObject& observingObject);
+	TTErr unregisterObserverForNotifications(const TTObjectBase& observingObject);
 	
 	
 	/** Send a notification.
@@ -556,5 +556,5 @@ public:
 	TT_OBJECT_CONSTRUCTOR
 
 
-#endif // __TT_OBJECT_H__
+#endif // __TT_OBJECTBASE_H__
 

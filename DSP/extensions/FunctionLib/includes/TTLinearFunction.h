@@ -16,7 +16,7 @@
 /**	This implements a function which basically does nothing: 
 	y = f(x)
  */
-class TTLinearFunction : TTAudioObject {
+class TTLinearFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTLinearFunction)
 
 protected:

@@ -22,7 +22,7 @@
 	
 	With the averaging case, and the middle point omitted, the result is thus similar to the operation of the jit.avg4 object in Jitter.
  */
-class TTMatrixStencil : public TTDataObject {
+class TTMatrixStencil : public TTDataObjectBase {
 	TTCLASS_SETUP(TTMatrixStencil)
 	
 	TTSymbol			mMode;			// what kind of calculation to perform on the stencil: average, firstDerivative

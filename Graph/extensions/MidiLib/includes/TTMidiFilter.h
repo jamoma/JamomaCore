@@ -12,7 +12,7 @@
 #include "TTDSP.h"
 
 
-class TTMidiFilter : TTDataObject {
+class TTMidiFilter : TTDataObjectBase {
 	TTCLASS_SETUP(TTMidiFilter)
 
 protected:

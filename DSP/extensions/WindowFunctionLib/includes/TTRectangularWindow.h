@@ -48,7 +48,7 @@
 	we should never receive a request for out-of-range values.
  */
 			
-class RectangularWindow : TTAudioObject {
+class RectangularWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(RectangularWindow)
 
 protected:

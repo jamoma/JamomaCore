@@ -13,7 +13,7 @@
 #define MAXPOINTS 1024 // 1024 points
 
 
-class Catmullrom3D : TTAudioObject {
+class Catmullrom3D : TTAudioObjectBase {
 	TTCLASS_SETUP(Catmullrom3D)		
 	
 protected:	

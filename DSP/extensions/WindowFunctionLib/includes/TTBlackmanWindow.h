@@ -21,7 +21,7 @@
 #include "TTDSP.h"
 
 
-class BlackmanWindow : TTAudioObject {
+class BlackmanWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(BlackmanWindow)
 
 protected:

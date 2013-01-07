@@ -22,7 +22,7 @@ typedef TTMatrixVector::iterator	TTMatrixIter;
 
 
 /**	An array of TTMatrix instance pointers.	*/
-class TTFOUNDATION_EXPORT TTMatrixArray : public TTObject {
+class TTFOUNDATION_EXPORT TTMatrixArray : public TTObjectBase {
 	TTCLASS_SETUP(TTMatrixArray)
 
 protected:

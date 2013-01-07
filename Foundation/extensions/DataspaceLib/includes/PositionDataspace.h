@@ -15,42 +15,42 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class Cartesian3DUnit : public TTDataObject, public TTDataspaceUnit {
+class Cartesian3DUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(Cartesian3DUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class Cartesian2DUnit : public TTDataObject, public TTDataspaceUnit {
+class Cartesian2DUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(Cartesian2DUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class SphericalUnit : public TTDataObject, public TTDataspaceUnit {
+class SphericalUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(SphericalUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class PolarUnit : public TTDataObject, public TTDataspaceUnit {
+class PolarUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(PolarUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 		
-class OpenGlUnit : public TTDataObject, public TTDataspaceUnit {
+class OpenGlUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(OpenGlUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class CylindricalUnit : public TTDataObject, public TTDataspaceUnit {
+class CylindricalUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(CylindricalUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -60,7 +60,7 @@ public:
 
 
 // Specification of our base class
-class PositionDataspace : public TTDataObject, public TTDataspace {
+class PositionDataspace : public TTDataObjectBase, public TTDataspace {
 	TTCLASS_SETUP(PositionDataspace)
     
     /**	Unit Tests	*/

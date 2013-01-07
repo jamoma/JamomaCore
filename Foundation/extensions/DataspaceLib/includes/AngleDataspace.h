@@ -14,14 +14,14 @@
 
 /****************************************************************************************************/
 
-class RadianUnit : public TTDataObject, public TTDataspaceUnit {
+class RadianUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(RadianUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class DegreeUnit : public TTDataObject, public TTDataspaceUnit {
+class DegreeUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(DegreeUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -31,7 +31,7 @@ public:
 
 /****************************************************************************************************/
 
-class AngleDataspace : public TTDataObject, public TTDataspace {
+class AngleDataspace : public TTDataObjectBase, public TTDataspace {
 	TTCLASS_SETUP(AngleDataspace)
     
     /**	Unit Tests	*/

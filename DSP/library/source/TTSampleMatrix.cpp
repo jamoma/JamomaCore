@@ -20,7 +20,7 @@
 #define thisTTClassName		"samplematrix"
 #define thisTTClassTags		"audio, buffer"
 
-TTObjectPtr TTSampleMatrix::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTSampleMatrix::instantiate(TTSymbol& name, TTValue& arguments)
 {
 	return new TTSampleMatrix(arguments);
 }

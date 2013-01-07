@@ -2,7 +2,7 @@
  *
  * @ingroup foundationLibrary
  *
- * @brief TTDataObject is the base class for all data generating and processing objects.
+ * @brief TTDataObjectBase is the base class for all data generating and processing objects.
  *
  * @details It still has knowledge and support for sample-rates, but not channel counts or vector processing.
  *
@@ -20,8 +20,8 @@
 
 /****************************************************************************************************/
 
-TTDataObject::TTDataObject(TTValue& arguments) : 
-	TTObject(arguments),
+TTDataObjectBase::TTDataObjectBase(TTValue& arguments) :
+	TTObjectBase(arguments),
 	mMatrixCalculateMethod(NULL),
 	mCurrentMatrixCalculateMethod(NULL),
 	mBypass(NO),
@@ -33,30 +33,30 @@ TTDataObject::TTDataObject(TTValue& arguments) :
 	mReserved1(0),					
 	mReserved2(0)
 {
-	registerAttribute("bypass",	kTypeBoolean,	&mBypass,	(TTSetterMethod)&TTDataObject::setBypass);
+	registerAttribute("bypass",	kTypeBoolean,	&mBypass,	(TTSetterMethod)&TTDataObjectBase::setBypass);
 
 //	registerMessage(calculate",					(TTMethod)&TTAudioObject::calculateMessage);
-	registerMessage("test",						TTMethod(&TTObject::test));
-	registerMessage("resetBenchmarking",		(TTMethod)&TTDataObject::resetBenchmarking, kTTMessagePassNone);
-	registerMessage("getProcessingBenchmark",	(TTMethod)&TTDataObject::getProcessingBenchmark);
+	registerMessage("test",						TTMethod(&TTObjectBase::test));
+	registerMessage("resetBenchmarking",		(TTMethod)&TTDataObjectBase::resetBenchmarking, kTTMessagePassNone);
+	registerMessage("getProcessingBenchmark",	(TTMethod)&TTDataObjectBase::getProcessingBenchmark);
 
-	TTObjectInstantiate(kTTSym_matrixarray, (TTObjectPtr*)&mInputArray, 2);
-	TTObjectInstantiate(kTTSym_matrixarray, (TTObjectPtr*)&mOutputArray, 2);
+	TTObjectBaseInstantiate(kTTSym_matrixarray, (TTObjectBasePtr*)&mInputArray, 2);
+	TTObjectBaseInstantiate(kTTSym_matrixarray, (TTObjectBasePtr*)&mOutputArray, 2);
 	
 	// Set Defaults...	
-    setMatrixCalculate(&TTDataObject::defaultMatrixCalculateMethod);
+    setMatrixCalculate(&TTDataObjectBase::defaultMatrixCalculateMethod);
 	setAttributeValue("bypass",			kTTBoolNo);	
 }
 
 
-TTDataObject::~TTDataObject()
+TTDataObjectBase::~TTDataObjectBase()
 {
-	TTObjectRelease((TTObjectPtr*)&mInputArray);
-	TTObjectRelease((TTObjectPtr*)&mOutputArray);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mInputArray);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mOutputArray);
 }
 
 
-TTErr TTDataObject::setMatrixCalculate(TTMatrixCalculateMethod newMatrixCalculateMethod)
+TTErr TTDataObjectBase::setMatrixCalculate(TTMatrixCalculateMethod newMatrixCalculateMethod)
 {
 	mMatrixCalculateMethod = newMatrixCalculateMethod;
 	if (!mBypass)
@@ -65,11 +65,11 @@ TTErr TTDataObject::setMatrixCalculate(TTMatrixCalculateMethod newMatrixCalculat
 }
 
 
-TTErr TTDataObject::setBypass(const TTValue& value)
+TTErr TTDataObjectBase::setBypass(const TTValue& value)
 {
 	mBypass = value;
 	if (mBypass) {
-		mCurrentMatrixCalculateMethod = &TTDataObject::bypassMatrixCalculate;
+		mCurrentMatrixCalculateMethod = &TTDataObjectBase::bypassMatrixCalculate;
 	}
 //	else if (attrMute) {
 //		currentProcessMethod = &TTAudioObject::muteProcess;
@@ -78,13 +78,13 @@ TTErr TTDataObject::setBypass(const TTValue& value)
 		if (mMatrixCalculateMethod)
 			mCurrentMatrixCalculateMethod = mMatrixCalculateMethod;
 		else
-			mCurrentMatrixCalculateMethod = &TTDataObject::defaultMatrixCalculateMethod;
+			mCurrentMatrixCalculateMethod = &TTDataObjectBase::defaultMatrixCalculateMethod;
 	}
 	return kTTErrNone;
 }
 
 
-TTErr TTDataObject::bypassMatrixCalculate(const TTMatrixArray* inputs, TTMatrixArray* outputs)
+TTErr TTDataObjectBase::bypassMatrixCalculate(const TTMatrixArray* inputs, TTMatrixArray* outputs)
 {
 	for (TTUInt16 i=0; i < outputs->getMatrixCount(); i++) {
 		TTMatrixPtr out = outputs->getMatrix(i);
@@ -100,13 +100,13 @@ TTErr TTDataObject::bypassMatrixCalculate(const TTMatrixArray* inputs, TTMatrixA
 }
 
 
-TTErr TTDataObject::defaultMatrixCalculateMethod(const TTMatrixArray* inputs, TTMatrixArray* outputs)
+TTErr TTDataObjectBase::defaultMatrixCalculateMethod(const TTMatrixArray* inputs, TTMatrixArray* outputs)
 {
 	return bypassMatrixCalculate(inputs, outputs);
 }
 
 
-TTErr TTDataObject::calculate(const TTMatrixArray* inputs, TTMatrixArray* outputs)
+TTErr TTDataObjectBase::calculate(const TTMatrixArray* inputs, TTMatrixArray* outputs)
 {
 	TTErr	err = kTTErrGeneric;
 	
@@ -129,7 +129,7 @@ TTErr TTDataObject::calculate(const TTMatrixArray* inputs, TTMatrixArray* output
 }
 
 
-TTErr TTDataObject::calculate(const TTMatrix& x, TTMatrix& y)
+TTErr TTDataObjectBase::calculate(const TTMatrix& x, TTMatrix& y)
 {
 	TTErr	err = kTTErrGeneric;
 	
@@ -153,7 +153,7 @@ TTErr TTDataObject::calculate(const TTMatrix& x, TTMatrix& y)
 }
 
 
-TTErr TTDataObject::resetBenchmarking()
+TTErr TTDataObjectBase::resetBenchmarking()
 {
 	mAccumulatedProcessingTime = 0.0;
 	mStartProcessingTime = 0.0;
@@ -162,7 +162,7 @@ TTErr TTDataObject::resetBenchmarking()
 }
 
 
-TTErr TTDataObject::getProcessingBenchmark(TTValueRef v)
+TTErr TTDataObjectBase::getProcessingBenchmark(TTValueRef v)
 {
 	v = mAccumulatedProcessingTime / mAccumulatedProcessingCalls;
 	return kTTErrNone;

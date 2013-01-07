@@ -24,7 +24,7 @@
 		H(Z) = ---------------------------------
 				1  +  e_1 Z^(-1)  +  e_2 Z^(-2)
  */
-class TTAllpass2c : public TTAudioObject {
+class TTAllpass2c : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTAllpass2c)
 	
 protected:

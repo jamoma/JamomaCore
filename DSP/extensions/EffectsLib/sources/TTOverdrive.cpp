@@ -32,7 +32,7 @@ TT_AUDIO_CONSTRUCTOR
 	addUpdates(MaxNumChannels);
 	
 	// Additional Initialization
-	TTObjectInstantiate(kTTSym_dcblock, &dcBlockerUnit, initialMaxNumChannels);
+	TTObjectBaseInstantiate(kTTSym_dcblock, &dcBlockerUnit, initialMaxNumChannels);
 
 	// Set Defaults
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
@@ -45,7 +45,7 @@ TT_AUDIO_CONSTRUCTOR
 
 TTOverdrive::~TTOverdrive()
 {
-	TTObjectRelease(&dcBlockerUnit);
+	TTObjectBaseRelease(&dcBlockerUnit);
 }
 
 

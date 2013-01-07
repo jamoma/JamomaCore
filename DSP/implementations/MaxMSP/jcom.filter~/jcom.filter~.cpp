@@ -25,7 +25,7 @@
 /** Data structure for the tt.filter~ object. */
 typedef struct _filter	{
     t_pxobject 				obj;						///< REQUIRED: The MSP 'base class'
-	TTAudioObjectPtr		filter;						///< The TTBlue filter unit used
+	TTAudioObjectBasePtr		filter;						///< The TTBlue filter unit used
 	TTAudioSignalPtr		audioIn;					///< The TTBlue audio signal object that is used for filter input
 	TTAudioSignalPtr		audioOut;					///< The TTBlue audio signal object that us used for filter output
 	TTUInt16				maxNumChannels;				///< The maximum number of audio channels permitted
@@ -163,8 +163,8 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
 		object_attr_setsym(x, _sym_type, gensym("lowpass.butterworth.2"));
 
-		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, x->maxNumChannels);
-		TTObjectInstantiate(kTTSym_audiosignal, &x->audioOut, x->maxNumChannels);
+		TTObjectBaseInstantiate(kTTSym_audiosignal, &x->audioIn, x->maxNumChannels);
+		TTObjectBaseInstantiate(kTTSym_audiosignal, &x->audioOut, x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 
@@ -182,9 +182,9 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 void filter_free(t_filter *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(&x->filter);
-	TTObjectRelease(&x->audioIn);
-	TTObjectRelease(&x->audioOut);
+	TTObjectBaseRelease(&x->filter);
+	TTObjectBaseRelease(&x->audioIn);
+	TTObjectBaseRelease(&x->audioOut);
 }
 
 
@@ -278,7 +278,7 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			TTErr	err = kTTErrNone;
 
 			x->attrType = atom_getsym(argv);
-			TTObjectInstantiate(TT(x->attrType->s_name), &x->filter, x->maxNumChannels);			
+			TTObjectBaseInstantiate(TT(x->attrType->s_name), &x->filter, x->maxNumChannels);			
 			if(x->filter){
 				// Now that we have our new filter, update it with the current state of the external:
 				x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);

@@ -14,7 +14,7 @@
 
 
 /**	Convert input to an output with different block size, sample rate, or other characteristics. */
-class TTStaircase : TTAudioObject {
+class TTStaircase : TTAudioObjectBase {
 	TTCLASS_SETUP(TTStaircase)
 	
 protected:

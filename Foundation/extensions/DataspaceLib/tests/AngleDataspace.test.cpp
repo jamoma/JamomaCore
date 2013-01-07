@@ -15,9 +15,9 @@ TTErr AngleDataspace::test(TTValue& returnedTestInfo)
 	int					testAssertionCount = 0;
     
     // Create dataspace object and set to angle
-    TTObjectPtr         myDataspace = NULL;
+    TTObjectBasePtr         myDataspace = NULL;
     TTErr err;
-    err = TTObjectInstantiate(TT("dataspace"), (TTObjectPtr*)&myDataspace, kTTValNONE);
+    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, kTTValNONE);
 	myDataspace->setAttributeValue(TT("dataspace"), TT("angle"));
     
     TTValue v;

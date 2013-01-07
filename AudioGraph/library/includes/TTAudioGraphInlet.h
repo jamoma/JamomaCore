@@ -64,7 +64,7 @@ public:
 	 */
 	~TTAudioGraphInlet()
 	{
-		TTObjectRelease(&mBufferedInput);
+		TTObjectBaseRelease(&mBufferedInput);
 	}
 	
 	
@@ -88,7 +88,7 @@ public:
 	{
 		createBuffer();
 		mSourceObjects	= original.mSourceObjects;
-		//mBufferedInput	= TTObjectReference(original.mBufferedInput);
+		//mBufferedInput	= TTObjectBaseReference(original.mBufferedInput);
 		(*mBufferedInput) = (*original.mBufferedInput);
 		mClean			= original.mClean;
 	}
@@ -98,10 +98,10 @@ public:
 	 */
 	TTAudioGraphInlet& operator=(const TTAudioGraphInlet& source)
 	{
-		TTObjectRelease(&mBufferedInput);
+		TTObjectBaseRelease(&mBufferedInput);
 		
 		mSourceObjects	= source.mSourceObjects;
-		mBufferedInput	= TTObjectReference(source.mBufferedInput);
+		mBufferedInput	= TTObjectBaseReference(source.mBufferedInput);
 		mClean			= source.mClean;
 		
 		return *this;
@@ -112,7 +112,7 @@ public:
 	 */
 	void createBuffer()
 	{
-		TTObjectInstantiate(kTTSym_audiosignal, &mBufferedInput, 1);
+		TTObjectBaseInstantiate(kTTSym_audiosignal, &mBufferedInput, 1);
 		// alloc to set up a default buffer
 		mBufferedInput->setAttributeValue(TT("maxNumChannels"), 1);
 		mBufferedInput->setAttributeValue(TT("numChannels"), 1);

@@ -19,7 +19,7 @@
  
 	Passband edge (i.e. Fc or -3db) at Fs/4, and stopband edge (-60db) at Fs*0.370.
  */
-class TTHalfband5 : TTAudioObject {
+class TTHalfband5 : TTAudioObjectBase {
 	TTCLASS_SETUP(TTHalfband5)
 
 protected:

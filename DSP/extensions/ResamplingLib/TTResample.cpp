@@ -34,7 +34,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTResample::~TTResample()
 {
-	TTObjectRelease((TTObjectPtr*)&mResamplingFilter);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mResamplingFilter);
 }
 
 
@@ -58,18 +58,18 @@ TTErr TTResample::setMode(const TTValue& newMode)
 	// 
 	// The sonograph shows spectral mirroring, indicating that high frequencies are not properly filtered.
 	//
-	// err = TTObjectInstantiate(TT("halfband.3"), (TTObjectPtr*)&mResamplingFilter, initialMaxNumChannels);
+	// err = TTObjectBaseInstantiate(TT("halfband.3"), (TTObjectBasePtr*)&mResamplingFilter, initialMaxNumChannels);
 	// 
 	
 	mMode = newMode;
 	if (mMode == TT("third"))
-		err = TTObjectInstantiate(TT("halfband.3"), (TTObjectPtr*)&mResamplingFilter, maxNumChannels);
+		err = TTObjectBaseInstantiate(TT("halfband.3"), (TTObjectBasePtr*)&mResamplingFilter, maxNumChannels);
 	else if (mMode == TT("fifth"))
-		err = TTObjectInstantiate(TT("halfband.5"), (TTObjectPtr*)&mResamplingFilter, maxNumChannels);
+		err = TTObjectBaseInstantiate(TT("halfband.5"), (TTObjectBasePtr*)&mResamplingFilter, maxNumChannels);
 	else if (mMode == TT("ninth"))
-		err = TTObjectInstantiate(TT("halfband.9"), (TTObjectPtr*)&mResamplingFilter, maxNumChannels);
+		err = TTObjectBaseInstantiate(TT("halfband.9"), (TTObjectBasePtr*)&mResamplingFilter, maxNumChannels);
 	else // mMode == TT("staircase")
-		err = TTObjectInstantiate(TT("staircase"), (TTObjectPtr*)&mResamplingFilter, maxNumChannels);
+		err = TTObjectBaseInstantiate(TT("staircase"), (TTObjectBasePtr*)&mResamplingFilter, maxNumChannels);
 	
 	setAttributeValue(TT("direction"), mDirection);
 	

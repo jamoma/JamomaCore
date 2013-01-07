@@ -11,7 +11,7 @@
 
 #include "TTDSP.h"
 
-class TTPanorama : public TTAudioObject {
+class TTPanorama : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTPanorama)
 	
 protected:	

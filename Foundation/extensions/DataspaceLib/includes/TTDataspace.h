@@ -18,9 +18,9 @@
 
 class TTDataspace {
 	
-	TTObjectPtr			inUnitTT;	// we maintain individual pointers to the two base-classes (multiple-inheritance)
+	TTObjectBasePtr			inUnitTT;	// we maintain individual pointers to the two base-classes (multiple-inheritance)
 	TTDataspaceUnitPtr  inUnit;		//    so we can quickly access both without expensive casting during operation
-	TTObjectPtr			outUnitTT;
+	TTObjectBasePtr			outUnitTT;
 	TTDataspaceUnitPtr  outUnit;
 	TTHashPtr			unitHash;
 public:

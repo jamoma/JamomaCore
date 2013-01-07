@@ -1,6 +1,6 @@
 /* 
  * Jamoma Asynchronous Object Graph Layer
- * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
+ * Creates a wrapper for TTObjectBases that can be used to build a control graph for asynchronous message passing.
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -33,12 +33,12 @@ TT_OBJECT_CONSTRUCTOR,
 	TT_ASSERT(graph_correct_instantiation_args, arguments.getSize() > 0);
 	
 	arguments.get(0, wrappedObjectName);
-	if (arguments.getSize() > 1)
+	if (arguments.size() > 1)
 		arguments.get(1, numInlets);
-	if (arguments.getSize() > 2)
+	if (arguments.size() > 2)
 		arguments.get(2, numOutlets);
 	
-	err = TTObjectInstantiate(wrappedObjectName, &mKernel, initialNumChannels);
+	err = TTObjectBaseInstantiate(wrappedObjectName, &mKernel, initialNumChannels);
 	mDictionary = new TTDictionary;
 	
 	mInlets.resize(numInlets);
@@ -48,7 +48,7 @@ TT_OBJECT_CONSTRUCTOR,
 
 TTGraphObject::~TTGraphObject()
 {
-	TTObjectRelease(&mKernel);
+	TTObjectBaseRelease(&mKernel);
 	delete mDictionary;
 }
 

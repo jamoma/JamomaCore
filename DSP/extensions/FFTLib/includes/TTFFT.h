@@ -13,7 +13,7 @@
 
 
 /**	TTOperator performs basic mathematical operations on an input signal, or a pair of input signals */
-class TTfft : TTAudioObject {
+class TTfft : TTAudioObjectBase {
 	TTCLASS_SETUP(TTfft)
 
 protected:

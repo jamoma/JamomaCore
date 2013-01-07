@@ -16,35 +16,35 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class MilesPerHourUnit : public TTDataObject, public TTDataspaceUnit {
+class MilesPerHourUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(MilesPerHourUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class KilometerPerHourUnit : public TTDataObject, public TTDataspaceUnit {
+class KilometerPerHourUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(KilometerPerHourUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class FootPerSecondUnit : public TTDataObject, public TTDataspaceUnit {
+class FootPerSecondUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(FootPerSecondUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class KnotUnit : public TTDataObject, public TTDataspaceUnit {
+class KnotUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(KnotUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class MeterPerSecondUnit : public TTDataObject, public TTDataspaceUnit {
+class MeterPerSecondUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(MeterPerSecondUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -53,7 +53,7 @@ public:
 
 
 // Specification of our base class
-class SpeedDataspace : public TTDataObject, public TTDataspace {
+class SpeedDataspace : public TTDataObjectBase, public TTDataspace {
 	TTCLASS_SETUP(SpeedDataspace)
     
     /**	Unit Tests	*/

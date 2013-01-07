@@ -18,7 +18,7 @@ TTPtr TTOscSocketListener(TTPtr anArgument)
 	return NULL;
 }
 
-TTOscSocket::TTOscSocket(const TTObjectPtr owner, const TTUInt16 port)
+TTOscSocket::TTOscSocket(const TTObjectBasePtr owner, const TTUInt16 port)
 {
 	mOwner = owner;
 	mPort = port;

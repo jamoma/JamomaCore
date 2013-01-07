@@ -19,7 +19,7 @@
 
 
 /**	Delay a signal. */
-class TTDSP_EXPORT TTDelay : public TTAudioObject {
+class TTDSP_EXPORT TTDelay : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTDelay)
 
 protected:

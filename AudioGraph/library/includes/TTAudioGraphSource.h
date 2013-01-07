@@ -40,7 +40,7 @@ protected:
 	
 	TTAudioGraphObjectPtr	mSourceObject;		///< The object from which we pull samples
 	TTUInt16				mOutletNumber;		///< The outlet of the upstream object that we pull samples from. This is zero-based.
-	TTObjectPtr				mCallbackHandler;	///< TODO
+	TTObjectBasePtr				mCallbackHandler;	///< TODO
 	TTAudioGraphInletPtr	mOwner;				///< The owning inlet
 	
 public:

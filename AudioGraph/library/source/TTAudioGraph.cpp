@@ -4,7 +4,7 @@
  *
  * @brief AudioGraph Audio Graph Layer for Jamoma DSP
  *
- * @details Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
+ * @details Creates a wrapper for TTAudioObjectBases that can be used to build an audio processing graph.
  *
  * @authors Timothy Place, Trond Lossius
  *

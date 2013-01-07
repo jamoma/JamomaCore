@@ -4,7 +4,7 @@
  *
  * @brief The TTAudioGraphObject wraps a Jamoma DSP object such that it is possible to build a dynamic graph of audio processing units.
  *
- * @details It is implemented as a #TTObject so that it can receive dynamically bound messages,
+ * @details It is implemented as a #TTObjectBase so that it can receive dynamically bound messages,
  * including notifications from other objects.
  *
  * @authors Timothy Place, Trond Lossius
@@ -30,7 +30,7 @@ TTMutexPtr TTAudioGraphObject::sSharedMutex = NULL;
 //	3. (optional) Number of outlets, default = 1
 
 
-TTObjectPtr TTAudioGraphObject::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTAudioGraphObject::instantiate(TTSymbol& name, TTValue& arguments)
 {
 	return new TTAudioGraphObject(arguments);
 }
@@ -60,9 +60,9 @@ TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
 	TT_ASSERT(audiograph_correct_instantiation_arg_count, arguments.getSize() > 0);
 
 	arguments.get(0, wrappedObjectName);
-	if (arguments.getSize() > 1)
+	if (arguments.size() > 1)
 		arguments.get(1, numInlets);
-	if (arguments.getSize() > 2)
+	if (arguments.size() > 2)
 		arguments.get(2, numOutlets);
 	
 	setAttributeValue(TT("numAudioInlets"), numInlets);
@@ -80,14 +80,14 @@ TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
 
 TTAudioGraphObject::~TTAudioGraphObject()
 {
-	TTObjectRelease((TTObjectPtr*)&mInputSignals);
-	TTObjectRelease((TTObjectPtr*)&mOutputSignals);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mInputSignals);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mOutputSignals);
 }
 
 
 TTErr TTAudioGraphObject::setNumAudioInlets(const TTValue& newNumInlets)
 {
-	TTErr		err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mInputSignals, newNumInlets);
+	TTErr		err = TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mInputSignals, newNumInlets);
 	TTUInt16	inletCount = newNumInlets;
 
 	mAudioInlets.resize(inletCount);
@@ -100,7 +100,7 @@ TTErr TTAudioGraphObject::setNumAudioInlets(const TTValue& newNumInlets)
 
 TTErr TTAudioGraphObject::setNumAudioOutlets(const TTValue& newNumOutlets)
 {
-	TTErr		err = TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&mOutputSignals, newNumOutlets);
+	TTErr		err = TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mOutputSignals, newNumOutlets);
 	TTUInt16	outletCount = newNumOutlets;
 
 	mAudioOutlets.resize(outletCount);

@@ -30,7 +30,7 @@ TTEnvironment*	ttEnvironment = NULL;
 /****************************************************************************************************/
 
 TTEnvironment::TTEnvironment()
-	: TTObject(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0), mBenchmarking(false)
+	: TTObjectBase(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0), mBenchmarking(false)
 {
 	classes = new TTHash();
 	tags = new TTHash();
@@ -66,7 +66,7 @@ TTErr TTEnvironment::getVersion(const TTValue& anInputValue, TTValue &anOutputVa
 }
 
 
-TTErr TTEnvironment::registerClass(const TTSymbol& className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod)
+TTErr TTEnvironment::registerClass(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
 	TTValue		v((TTString&)tagString);	// The tags to be associated with the class we are registering.
 	TTValue		tagObjects;					// Contains a TTList of objects in the environment with the given tag.
@@ -209,18 +209,18 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 }
 
 
-TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectPtr* anObject, const TTValue& anArgument)
+TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument)
 {
 	return createInstance(className, anObject, (TTValue&)anArgument); // throw away the const (I know, I know...), maybe the non-const constructor shouldn't exist at all?
 }
 
-TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectPtr* anObject, TTValue& anArgument)
+TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, TTValue& anArgument)
 {
 	TTValue		v;
 	TTClassPtr	theClass;
 	TTErr		err;
-	TTObjectPtr	newObject = NULL;
-	TTObjectPtr	oldObject = NULL;
+	TTObjectBasePtr	newObject = NULL;
+	TTObjectBasePtr	oldObject = NULL;
 
 	err = classes->lookup(className, v);
 	if (!err) {
@@ -250,18 +250,18 @@ TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectPtr* anOb
 	//	- we could access instances remotely, and perhaps then manipulate them remotely in a shared manner
 	//	- if an object is referenced by another object, and thus shared, then we need to reference counting here before freeing.
 	// THEREFORE: we should have an addReference() and release() method (instead of a deleteInstance() method).
-	//	- the reference counting itself should probably be done inside of TTObject though, yes?
+	//	- the reference counting itself should probably be done inside of TTObjectBase though, yes?
 	return err;
 }
 
-TTObjectPtr TTEnvironment::referenceInstance(TTObjectPtr anObject)
+TTObjectBasePtr TTEnvironment::referenceInstance(TTObjectBasePtr anObject)
 {
 	// TODO: make sure that anObject is valid or wrap with an exception?
 	anObject->referenceCount++;
 	return anObject;
 }
 
-TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
+TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 {
 	TTValue v = **anObject;
 
@@ -286,32 +286,32 @@ TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 #pragma mark Public Interface
 #endif
 
-TTErr TTObjectInstantiate(const TTSymbol& className, TTObjectPtr* returnedObjectPtr, TTValue& arguments)
+TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, TTValue& arguments)
 {
 	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
 }
 
 
-TTErr TTObjectInstantiate(const TTSymbol& className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments)
+TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTValue& arguments)
 {
 	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
 }
 
 
-TTErr TTObjectInstantiate(const TTSymbol& className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments)
+TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments)
 {
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, returnedObjectPtr, v);
 }
 
 
-TTObjectPtr TTObjectReference(TTObjectPtr anObject)
+TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject)
 {
 	return ttEnvironment->referenceInstance(anObject);
 }
 
 
-TTErr TTObjectRelease(TTObjectPtr* anObject)
+TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject)
 {
 	if (*anObject)
 		return ttEnvironment->releaseInstance(anObject);
@@ -320,12 +320,12 @@ TTErr TTObjectRelease(TTObjectPtr* anObject)
 }
 
 
-TTErr TTClassRegister(const TTSymbol& className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod)
+TTErr TTClassRegister(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
 	return ttEnvironment->registerClass(className, tagString, anInstantiationMethod);
 }
 
-TTErr TTClassRegister(const TTSymbol& className, TTImmutableCString tagString, const TTObjectInstantiationMethod anInstantiationMethod)
+TTErr TTClassRegister(const TTSymbol& className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
 	return ttEnvironment->registerClass(className, TTString(tagString), anInstantiationMethod);
 }

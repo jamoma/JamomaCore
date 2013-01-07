@@ -25,7 +25,7 @@
 	http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/windows/
 	hanning(x) = 0.5 + 0.5*cos(2*PI*(x-0.5))
  */
-class HanningWindow : TTAudioObject {
+class HanningWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(HanningWindow)
 
 protected:

@@ -37,7 +37,7 @@
 /**	
  The #TTAudioEngine class is the Audio Engine of Jamoma DSP.
  */
-class TTDSP_EXPORT TTAudioEngine : public TTObject {
+class TTDSP_EXPORT TTAudioEngine : public TTObjectBase {
 	TTCLASS_SETUP(TTAudioEngine)
 	
 protected:
@@ -67,12 +67,12 @@ public:
 	
 	/**
 	 */
-	static TTObjectPtr	sSingletonInstance;
+	static TTObjectBasePtr	sSingletonInstance;
 	
 	
 	/**
 	 */
-	static TTObjectPtr create();
+	static TTObjectBasePtr create();
 	
 	
 	/**

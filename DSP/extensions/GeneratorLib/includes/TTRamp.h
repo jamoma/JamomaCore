@@ -17,7 +17,7 @@
 	This behaviour makes this ramp suitable for generating a window functions or similar where 
 	all values of the function are to be present over the time encapsulated by the ramping signal.
  */ 
-class TTRamp : TTAudioObject {
+class TTRamp : TTAudioObjectBase {
 	TTCLASS_SETUP(TTRamp)
 
 protected:

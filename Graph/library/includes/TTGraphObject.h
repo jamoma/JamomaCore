@@ -1,6 +1,6 @@
 /* 
  * Jamoma Asynchronous Object Graph Layer
- * Creates a wrapper for TTObjects that can be used to build a control graph for asynchronous message passing.
+ * Creates a wrapper for TTObjectBases that can be used to build a control graph for asynchronous message passing.
  * Copyright © 2010, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -22,10 +22,10 @@
 	The TTGraphObject wraps a TTDSP object such that it is possible to 
 	build a dynamic graph of audio processing units.
  
-	It is implemented as a TTObject so that it can receive dynamically bound messages, 
+	It is implemented as a TTObjectBase so that it can receive dynamically bound messages, 
 	incliding notifications from other objects.
 */
-class TTGRAPH_EXPORT TTGraphObject : public TTDataObject {	
+class TTGRAPH_EXPORT TTGraphObject : public TTDataObjectBase {
 	TTCLASS_SETUP(TTGraphObject)
 	
 protected:
@@ -35,7 +35,7 @@ protected:
 	TTGraphDescription		mDescription;	///< Used to pr	event feedback loops etc. when describing a graph
 
 public:	
-	TTObjectPtr				mKernel;		///< The actual TT object doing the processing.
+	TTObjectBasePtr				mKernel;		///< The actual TT object doing the processing.
 			
 	
 	TTErr push(const TTDictionary& aDictionary);

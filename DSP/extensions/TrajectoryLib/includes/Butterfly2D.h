@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Butterfly2D : TTAudioObject {
+class Butterfly2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Butterfly2D)
 
 protected:

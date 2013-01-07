@@ -286,7 +286,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	/*
 	
 	int					badSampleCount = 0;
-	TTAudioObjectPtr	samplematrixObject = NULL;
+	TTAudioObjectBasePtr	samplematrixObject = NULL;
 	TTAudioSignalPtr	input = NULL;
 	TTAudioSignalPtr	output = NULL;
 	
@@ -294,11 +294,11 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	// TODO: test scaling (applying gain)
 	// TODO: test normalizing (with optional arg, and also without an optional arg)
 	
-	TTObjectInstantiate("samplematrix", &samplematrixObject, kTTVal1);
+	TTObjectBaseInstantiate("samplematrix", &samplematrixObject, kTTVal1);
 	
-	TTObjectRelease(&input);
-	TTObjectRelease(&output);
-	TTObjectRelease(&samplematrixObject);
+	TTObjectBaseRelease(&input);
+	TTObjectBaseRelease(&output);
+	TTObjectBaseRelease(&samplematrixObject);
 	
 	*/
 	

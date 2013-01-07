@@ -17,7 +17,7 @@
 /**	A 1st-order up/down-sampling filter built-up from allpass building blocks.
 	Based on Multirate Signal Processing for Communication Systems, Chapter 10.
  */
-class TTHalfband3 : TTAudioObject {
+class TTHalfband3 : TTAudioObjectBase {
 	TTCLASS_SETUP(TTHalfband3)
 
 protected:

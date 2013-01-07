@@ -52,7 +52,7 @@ TTAudioGraphSource::~TTAudioGraphSource()
 	if (mSourceObject)
 		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
 
-	TTObjectRelease(&mCallbackHandler);
+	TTObjectBaseRelease(&mCallbackHandler);
 	
 	mSourceObject = NULL;
 	mOutletNumber = 0;
@@ -62,7 +62,7 @@ TTAudioGraphSource::~TTAudioGraphSource()
 
 void TTAudioGraphSource::create()
 {
-	TTObjectInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
+	TTObjectBaseInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
 	
 	mCallbackHandler->setAttributeValue(TT("function"), TTPtr(&TTAudioGraphSourceObserverCallback));
 	mCallbackHandler->setAttributeValue(TT("baton"), TTPtr(this));	

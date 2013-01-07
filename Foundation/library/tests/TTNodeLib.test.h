@@ -18,7 +18,7 @@
 #include "TTNodeDirectory.h"
 
 /**	Provide unit tests for #TTValue */
-class TTNodeLibTest : public TTDataObject {
+class TTNodeLibTest : public TTDataObjectBase {
 	TTCLASS_SETUP(TTNodeLibTest)
 		
 	virtual TTErr test(TTValue& returnedTestInfo);

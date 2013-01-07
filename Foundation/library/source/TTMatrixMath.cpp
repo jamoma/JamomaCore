@@ -53,7 +53,7 @@ TTMatrix* TTMatrix::operator + (const TTMatrix& other) const
 	const TTMatrix*	B = &other;
 	TTMatrix*		C = NULL;
 	
-	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&C, kTTValNONE);
+	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&C, kTTValNONE);
 	TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mType, C, A, B, TTMatrixIteratorAdd); //TYPECHANGE
 	return C;
 }
@@ -65,7 +65,7 @@ TTMatrix* TTMatrix::operator - (const TTMatrix& other) const
 	const TTMatrix*	B = &other;
 	TTMatrix*		C = NULL;
 	
-	TTObjectInstantiate(kTTSym_matrix, (TTObjectPtr*)&C, kTTValNONE);
+	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&C, kTTValNONE);
 	TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mType, C, A, B, TTMatrixIteratorSubtract); //TYPECHANGE
 	return C;
 }

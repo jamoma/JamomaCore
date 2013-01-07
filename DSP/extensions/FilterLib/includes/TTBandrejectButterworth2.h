@@ -16,7 +16,7 @@
  *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
  */
-class TTBandrejectButterworth2 : public TTAudioObject {
+class TTBandrejectButterworth2 : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTBandrejectButterworth2)
 
 protected:

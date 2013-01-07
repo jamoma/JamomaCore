@@ -15,21 +15,21 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class QuaternionUnit : public TTDataObject, public TTDataspaceUnit {
+class QuaternionUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(QuaternionUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class EulerUnit : public TTDataObject, public TTDataspaceUnit {
+class EulerUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(EulerUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class AxisUnit : public TTDataObject, public TTDataspaceUnit {
+class AxisUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(AxisUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -38,7 +38,7 @@ public:
 
 
 // Specification of our base class
-class OrientationDataspace : public TTDataObject, public TTDataspace {
+class OrientationDataspace : public TTDataObjectBase, public TTDataspace {
 	TTCLASS_SETUP(OrientationDataspace)
     
     /**	Unit Tests	*/

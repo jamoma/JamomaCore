@@ -45,14 +45,14 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	TTValue						audioObjectArguments;
 
 	memset(&mInitData, 0, sizeof(mInitData));	
-	audioObjectArguments.setSize(3);
+	audioObjectArguments.resize(3);
 		   
 	// Create the Graph
 
 	audioObjectArguments.set(0, TT("thru"));	// <<-- THIS IS THE SINK ON WHICH WE WILL PULL
 	audioObjectArguments.set(1, 1);				// <<-- NUMBER OF INLETS
 	audioObjectArguments.set(2, 1);
-	TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj0, audioObjectArguments);
+	TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj0, audioObjectArguments);
 	obj0->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 	obj0->mKernel->setAttributeValue(TT("mute"), 0);
 	obj0->mKernel->setAttributeValue(TT("bypass"), 0);
@@ -61,7 +61,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	audioObjectArguments.set(0, TT("audio.join"));
 	audioObjectArguments.set(1, 2);
 	audioObjectArguments.set(2, 1);
-	TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj1, audioObjectArguments);
+	TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj1, audioObjectArguments);
 	obj1->mKernel->setAttributeValue(TT("maxNumChannels"), 1);
 	obj1->mKernel->setAttributeValue(TT("mute"), 0);
 	obj1->mKernel->setAttributeValue(TT("bypass"), 0);
@@ -70,7 +70,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	audioObjectArguments.set(0, TT("gain"));
 	audioObjectArguments.set(1, 1);
 	audioObjectArguments.set(2, 1);
-	TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj2, audioObjectArguments);
+	TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj2, audioObjectArguments);
 	//obj2->mKernel->setAttributeValue(TT("midiGain"), 86.639865);
 	obj2->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 	obj2->mKernel->setAttributeValue(TT("interpolated"), 0);
@@ -84,7 +84,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	audioObjectArguments.set(0, TT("audio.split"));
 	audioObjectArguments.set(1, 1);
 	audioObjectArguments.set(2, 2);
-	TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj3, audioObjectArguments);
+	TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj3, audioObjectArguments);
 	obj3->mKernel->setAttributeValue(TT("maxNumChannels"), 1);
 	TTValue v(1,1);
 	obj3->mKernel->setAttributeValue(TT("groups"), v);
@@ -95,7 +95,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	audioObjectArguments.set(0, TT("audio.generator"));
 	audioObjectArguments.set(1, 0);
 	audioObjectArguments.set(2, 1);
-	TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj4, audioObjectArguments);
+	TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj4, audioObjectArguments);
 	obj4->mKernel->setAttributeValue(TT("maxNumChannels"), 2);
 	obj4->mKernel->setAttributeValue(TT("mute"), 0);
 	obj4->mKernel->setAttributeValue(TT("bypass"), 0);
@@ -107,7 +107,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	obj3->connectAudio(obj4, 0, 0);
 	obj2->connectAudio(obj3, 0, 0);
 
-//	TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&obj8, TTValue(TT("plugtastic.parameter")));
+//	TTObjectBaseInstantiate(TT("graph.object"), (TTObjectBasePtr*)&obj8, TTValue(TT("plugtastic.parameter")));
 //	((PlugtasticParameter*)obj8->mKernel)->setOwner(obj8);
 //	obj8->mKernel->setAttributeValue(TT("rangeTop"), 24.000000);
 //	obj8->mKernel->setAttributeValue(TT("bypass"), 0);
@@ -122,7 +122,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	audioObjectArguments.set(0, TT("gain"));
 	audioObjectArguments.set(1, 1);
 	audioObjectArguments.set(2, 1);
-	TTObjectInstantiate(TT("audio.object"), (TTObjectPtr*)&obj9, audioObjectArguments);
+	TTObjectBaseInstantiate(TT("audio.object"), (TTObjectBasePtr*)&obj9, audioObjectArguments);
 //	obj9->mKernel->setAttributeValue(TT("midiGain"), 86.639865);
 	obj9->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 	obj9->mKernel->setAttributeValue(TT("interpolated"), 0);
@@ -135,7 +135,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 
 	obj9->connectAudio(obj3, 1, 0);
 
-//	TTObjectInstantiate(TT("graph.object"), (TTObjectPtr*)&obj11, TTValue(TT("plugtastic.parameter")));
+//	TTObjectBaseInstantiate(TT("graph.object"), (TTObjectBasePtr*)&obj11, TTValue(TT("plugtastic.parameter")));
 //	((PlugtasticParameter*)obj11->mKernel)->setOwner(obj11);
 //	obj11->mKernel->setAttributeValue(TT("rangeTop"), 24.000000);
 //	obj11->mKernel->setAttributeValue(TT("bypass"), 0);
@@ -239,20 +239,20 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 
 	// FREE MEMORY FROM OUR GRAPH
 
-	TTObjectRelease((TTObjectPtr*)&obj0);
-	TTObjectRelease((TTObjectPtr*)&obj1);
-	TTObjectRelease((TTObjectPtr*)&obj2);
-	TTObjectRelease((TTObjectPtr*)&obj3);
-	TTObjectRelease((TTObjectPtr*)&obj4);
-	TTObjectRelease((TTObjectPtr*)&obj5);
-	TTObjectRelease((TTObjectPtr*)&obj6);
-	TTObjectRelease((TTObjectPtr*)&obj7);
-//	TTObjectRelease((TTObjectPtr*)&obj8);
-	TTObjectRelease((TTObjectPtr*)&obj9);
-	TTObjectRelease((TTObjectPtr*)&obj10);
-//	TTObjectRelease((TTObjectPtr*)&obj11);
-	TTObjectRelease((TTObjectPtr*)&obj12);
-	TTObjectRelease((TTObjectPtr*)&obj13);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj0);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj1);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj2);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj3);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj4);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj5);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj6);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj7);
+//	TTObjectBaseRelease((TTObjectBasePtr*)&obj8);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj9);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj10);
+//	TTObjectBaseRelease((TTObjectBasePtr*)&obj11);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj12);
+	TTObjectBaseRelease((TTObjectBasePtr*)&obj13);
 
 		   
 	// Wrap up the test results to pass back to whoever called this test

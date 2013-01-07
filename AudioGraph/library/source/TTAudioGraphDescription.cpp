@@ -101,7 +101,7 @@ int TTAudioGraphDescription::exportCppNode(TTString& content, int& index, TTStri
 	content += "	TTAudioGraphObjectPtr ";
 	content += objName;
 	content += ";\n";
-	content += "	TTObjectInstantiate(TT(\"audio.object\"), (TTObjectPtr*)&";
+	content += "	TTObjectBaseInstantiate(TT(\"audio.object\"), (TTObjectBasePtr*)&";
 	content += objName;
 	content += ", TTValue(TT(\"";
 	content += mClassName.c_str();

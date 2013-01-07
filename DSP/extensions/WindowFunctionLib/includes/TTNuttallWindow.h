@@ -24,7 +24,7 @@
 /**	This implements a window function as described at
 	http://en.wikipedia.org/wiki/Window_function#Nuttall_window.2C_continuous_first_derivative
  */
-class NuttallWindow : TTAudioObject {
+class NuttallWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(NuttallWindow)
 
 protected:

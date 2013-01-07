@@ -2,7 +2,7 @@
  *
  * @ingroup foundationLibrary
  *
- * @brief TTDataObject is the base class for all data generating and processing objects.
+ * @brief TTDataObjectBase is the base class for all data generating and processing objects.
  *
  * @details It still has knowledge and support for sample-rates, but not channel counts or vector processing.
  *
@@ -13,21 +13,21 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_DATA_OBJECT_H__
-#define __TT_DATA_OBJECT_H__
+#ifndef __TT_DATA_OBJECTBASE_H__
+#define __TT_DATA_OBJECTBASE_H__
 
 #include "TTObject.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
 
 // Forward declaration of TTAudioObject for the typedef that follows...
-class TTDataObject;
+class TTDataObjectBase;
 class TTMatrixArray;
 
 /**	A type that can be used to store a pointer to a calculate method (which calculates an array of matrices).
  @ingroup typedefs
  */
-typedef TTErr (TTDataObject::*TTMatrixCalculateMethod)(const TTMatrixArray* inputMatrices, TTMatrixArray* outputMatrices);
+typedef TTErr (TTDataObjectBase::*TTMatrixCalculateMethod)(const TTMatrixArray* inputMatrices, TTMatrixArray* outputMatrices);
 
 #define setMatrixCalculateMethod(methodName)	setMatrixCalculate((TTMatrixCalculateMethod)& thisTTClass ::methodName )
 
@@ -35,10 +35,10 @@ typedef TTErr (TTDataObject::*TTMatrixCalculateMethod)(const TTMatrixArray* inpu
 /****************************************************************************************************/
 // Class Specification
 
-/**	TTDataObject is the base class for all data generating and processing objects.
+/**	TTDataObjectBase is the base class for all data generating and processing objects.
 	It still has knowledge and support for sample-rates, but not channel counts or vector processing.
  */
-class TTFOUNDATION_EXPORT TTDataObject : public TTObject {
+class TTFOUNDATION_EXPORT TTDataObjectBase : public TTObjectBase {
 protected:
 	TTMatrixCalculateMethod		mMatrixCalculateMethod;			///< This function pointer points to the active (non-bypass) calculate routine.
 	TTMatrixCalculateMethod		mCurrentMatrixCalculateMethod;	///< This function pointer always points to the current calculate routine.
@@ -55,11 +55,11 @@ protected:
 	/** Object constructor.
 	@param arguments			Arguments to the constructor method.
 	*/
-	TTDataObject(TTValue& arguments);
+	TTDataObjectBase(TTValue& arguments);
 
 	
 	/** Object destructor. */
-	virtual ~TTDataObject();	
+	virtual ~TTDataObjectBase();
 
 	
 	/** Set the sample calculate routine to point to a method that is defined as an arg to this function.
@@ -119,9 +119,9 @@ public:
 
 };
 
-/** Pointer to a #TTDataObject.
+/** Pointer to a #TTDataObjectBase.
  @ingroup typedefs
  */
-typedef TTDataObject* TTDataObjectPtr;
+typedef TTDataObjectBase* TTDataObjectBasePtr;
 
-#endif // __TT_DATA_OBJECT_H__
+#endif // __TT_DATA_OBJECTBASE_H__

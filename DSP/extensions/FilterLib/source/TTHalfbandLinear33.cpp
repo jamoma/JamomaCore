@@ -31,14 +31,14 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
-	TTObjectInstantiate(TT("delay"), (TTObjectPtr*)&mP0Delay, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("delay"), (TTObjectBasePtr*)&mP0Delay, initialMaxNumChannels);
 	
-	TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mP1Delay, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF3, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.2b"), (TTObjectPtr*)&mF4, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mP1Delay, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF0, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF1, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.2b"), (TTObjectBasePtr*)&mF2, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.2b"), (TTObjectBasePtr*)&mF3, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.2b"), (TTObjectBasePtr*)&mF4, initialMaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), TT("lowpass"));
@@ -60,14 +60,14 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTHalfbandLinear33::~TTHalfbandLinear33()
 {
-	TTObjectRelease((TTObjectPtr*)&mP0Delay);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mP0Delay);
 
-	TTObjectRelease((TTObjectPtr*)&mP1Delay);
-	TTObjectRelease((TTObjectPtr*)&mF0);
-	TTObjectRelease((TTObjectPtr*)&mF1);
-	TTObjectRelease((TTObjectPtr*)&mF2);
-	TTObjectRelease((TTObjectPtr*)&mF3);
-	TTObjectRelease((TTObjectPtr*)&mF4);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mP1Delay);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF0);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF1);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF2);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF3);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF4);
 }
 
 

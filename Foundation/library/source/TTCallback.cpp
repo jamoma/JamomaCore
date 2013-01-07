@@ -6,7 +6,7 @@
  *
  * @details
  *
- * @todo Use the TTObject class fonctionnality besause TTNode is also a TTObject
+ * @todo Use the TTObjectBase class fonctionnality besause TTNode is also a TTObjectBase
  *
  * @authors Théo de la Hogue, Tim Place, Nathan Wolek, Trond Lossius
  *

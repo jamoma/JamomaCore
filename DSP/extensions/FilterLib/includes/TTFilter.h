@@ -14,12 +14,12 @@
 
 
 /**	A Generalized filter wrapper object for Jamoma. */
-class TTFilter : TTAudioObject {
+class TTFilter : TTAudioObjectBase {
 	TTCLASS_SETUP(TTFilter)
 	
 protected:
 
-	TTAudioObjectPtr	mActualFilterObject;	///< The actual filter object that this object is currently wrapping
+	TTAudioObjectBasePtr	mActualFilterObject;	///< The actual filter object that this object is currently wrapping
 	TTFloat64			mFrequency;				///< The center or cutoff frequency of the filter
 	TTFloat64			mQ;						///< The width of the filter
 	TTSymbol			mType;					///< The name of the current filter type
@@ -48,7 +48,7 @@ public:
 			return kTTErrNone;
 		
 		mType = newType;
-		err = TTObjectInstantiate(mType, &mActualFilterObject, maxNumChannels);			
+		err = TTObjectBaseInstantiate(mType, &mActualFilterObject, maxNumChannels);			
 		if (!err) {
 			// Now that we have our new filter, update it with the current state of the wrapper:
 			mActualFilterObject->setAttributeValue(TT("frequency"), mFrequency);

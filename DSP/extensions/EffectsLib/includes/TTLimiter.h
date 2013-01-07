@@ -25,7 +25,7 @@
 	The release attribute (specified in seconds) determines how long it takes for a gain reduction to "wear off"
 	once the amplitude level of the input has been reduced.
 */
-class TTLimiter : public TTAudioObject {
+class TTLimiter : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTLimiter)
 
 protected:
@@ -38,8 +38,8 @@ protected:
 	TTSampleValue		last;
 	TTBoolean			isLinear;				///< is attrMode set to linear?
 
-	TTAudioObjectPtr	dcBlocker;				///< TTDCBlock object
-	TTAudioObjectPtr	preamp;					///< TTGain object to apply preamp
+	TTAudioObjectBasePtr	dcBlocker;				///< TTDCBlock object
+	TTAudioObjectBasePtr	preamp;					///< TTGain object to apply preamp
 
 	TTUInt32			maxBufferSize;			///< TODO: make this settable
 	TTBoolean			attrDCBlocker;			///< If toggled to NO, the internal DC Blocker will be turned off.

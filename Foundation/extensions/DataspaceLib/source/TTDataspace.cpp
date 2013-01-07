@@ -22,8 +22,8 @@ TTDataspace::TTDataspace() :
 TTDataspace::~TTDataspace()
 {
     delete unitHash;	
-	TTObjectRelease((TTObjectPtr*)&inUnitTT);
-	TTObjectRelease((TTObjectPtr*)&outUnitTT);
+	TTObjectBaseRelease((TTObjectBasePtr*)&inUnitTT);
+	TTObjectBaseRelease((TTObjectBasePtr*)&outUnitTT);
 }
 
 
@@ -55,7 +55,7 @@ TTErr TTDataspace::setInputUnit(TTSymbol& inUnitName)
 		if (!err && newUnitClassName) {
 			//v.clear();
 			v = inUnitName;
-			err = TTObjectInstantiate(newUnitClassName, &inUnitTT, v);	// this will free a pre-existing unit
+			err = TTObjectBaseInstantiate(newUnitClassName, &inUnitTT, v);	// this will free a pre-existing unit
 			inUnit = dynamic_cast<TTDataspaceUnitPtr>(inUnitTT);
 		}
 		return err;
@@ -83,7 +83,7 @@ TTErr TTDataspace::setOutputUnit(TTSymbol& outUnitName)
 		if (!err && newUnitClassName) {
 			//v.clear();
 			v = outUnitName;
-			err = TTObjectInstantiate(newUnitClassName, &outUnitTT, v);	// this will free a pre-existing unit
+			err = TTObjectBaseInstantiate(newUnitClassName, &outUnitTT, v);	// this will free a pre-existing unit
 			outUnit = dynamic_cast<TTDataspaceUnitPtr>(outUnitTT);
 		}
 		return err;

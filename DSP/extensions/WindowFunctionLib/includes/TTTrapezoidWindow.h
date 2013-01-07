@@ -31,7 +31,7 @@
 	= 1								: for the sustain
 	= (1 - x) * twoOverAlpha		: for the release
  */
-class TrapezoidWindow : TTAudioObject {
+class TrapezoidWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(TrapezoidWindow)
 
 protected:

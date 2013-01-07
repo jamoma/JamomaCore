@@ -29,11 +29,11 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
-	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF0, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF1, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF2, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1b"), (TTObjectPtr*)&mF3, initialMaxNumChannels);
-	TTObjectInstantiate(TT("allpass.1a"), (TTObjectPtr*)&mDelay, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF0, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF1, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF2, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF3, initialMaxNumChannels);
+	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mDelay, initialMaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 		
@@ -53,11 +53,11 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTHilbert9::~TTHilbert9()
 {
-	TTObjectRelease((TTObjectPtr*)&mF0);
-	TTObjectRelease((TTObjectPtr*)&mF1);
-	TTObjectRelease((TTObjectPtr*)&mF2);
-	TTObjectRelease((TTObjectPtr*)&mF3);
-	TTObjectRelease((TTObjectPtr*)&mDelay);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF0);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF1);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF2);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mF3);
+	TTObjectBaseRelease((TTObjectBasePtr*)&mDelay);
 }
 
 

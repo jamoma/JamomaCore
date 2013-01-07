@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Circular2D : TTAudioObject {
+class Circular2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Circular2D)
 
 protected:

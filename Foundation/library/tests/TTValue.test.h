@@ -21,7 +21,7 @@
 #include "TTUnitTest.h"
 
 /**	Provide unit tests for #TTValue */
-class TTValueTest : public TTDataObject {
+class TTValueTest : public TTDataObjectBase {
 	TTCLASS_SETUP(TTValueTest)
 		
 	virtual TTErr test(TTValue& returnedTestInfo);

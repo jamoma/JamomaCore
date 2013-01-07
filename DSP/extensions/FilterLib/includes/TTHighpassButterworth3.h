@@ -22,7 +22,7 @@
  * http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
  *
  */
-class TTHighpassButterworth3 : public TTAudioObject {
+class TTHighpassButterworth3 : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTHighpassButterworth3)
 
 protected:

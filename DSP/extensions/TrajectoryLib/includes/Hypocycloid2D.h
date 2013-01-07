@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Hypocycloid2D : TTAudioObject {
+class Hypocycloid2D : TTAudioObjectBase {
 	TTCLASS_SETUP(Hypocycloid2D)
 
 protected:

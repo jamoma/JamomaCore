@@ -26,7 +26,7 @@
 	http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/windows/
 	welch(i) = 1.0 - ((i-n/2)/(n/2)) * ((i-n/2)/(n/2))
  */
-class WelchWindow : TTAudioObject {
+class WelchWindow : TTAudioObjectBase {
 	TTCLASS_SETUP(WelchWindow)
 
 protected:

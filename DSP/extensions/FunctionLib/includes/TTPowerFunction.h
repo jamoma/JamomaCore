@@ -16,7 +16,7 @@
 /**	A function unit that provides exponential curves,
 	along with a number of options to control the behavior of the curve.
  */
-class TTPowerFunction : TTAudioObject {
+class TTPowerFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTPowerFunction)
 
 protected:

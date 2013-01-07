@@ -23,7 +23,7 @@
 // Data Structure for this object
 typedef struct _balance	{
     t_pxobject			obj;
-	TTAudioObjectPtr	balance;
+	TTAudioObjectBasePtr	balance;
 	TTAudioSignalPtr	audioIn;
 	TTAudioSignalPtr	audioOut;
 	long				attrBypass;
@@ -108,9 +108,9 @@ void* balance_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sampleRate, sr);
-		TTObjectInstantiate(TT("balance"), &x->balance, x->maxNumChannels);
-		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels*2);
-		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
+		TTObjectBaseInstantiate(TT("balance"), &x->balance, x->maxNumChannels);
+		TTObjectBaseInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels*2);
+		TTObjectBaseInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -128,9 +128,9 @@ void* balance_new(t_symbol *msg, short argc, t_atom *argv)
 void balance_free(t_balance *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(&x->balance);
-	TTObjectRelease(&x->audioIn);
-	TTObjectRelease(&x->audioOut);
+	TTObjectBaseRelease(&x->balance);
+	TTObjectBaseRelease(&x->audioIn);
+	TTObjectBaseRelease(&x->audioOut);
 }
 
 

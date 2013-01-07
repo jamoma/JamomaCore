@@ -19,7 +19,7 @@
 /**	A 10th-order bandpass/notch filter built-up from allpass building blocks.
 	Based on Multirate Signal Processing for Communication Systems, Chapter 10, Page 33.
  */
-class TTMirrorBandpass10 : TTAudioObject {
+class TTMirrorBandpass10 : TTAudioObjectBase {
 	TTCLASS_SETUP(TTMirrorBandpass10)
 
 protected:

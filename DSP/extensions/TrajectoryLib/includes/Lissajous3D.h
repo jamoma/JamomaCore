@@ -19,7 +19,7 @@
 #include "TTDSP.h"
 
 
-class Lissajous3D : TTAudioObject {
+class Lissajous3D : TTAudioObjectBase {
 	TTCLASS_SETUP(Lissajous3D)
 
 protected:

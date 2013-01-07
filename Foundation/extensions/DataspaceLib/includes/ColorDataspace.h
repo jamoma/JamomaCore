@@ -14,35 +14,35 @@
 /****************************************************************************************************/
 // Class Specifications
 
-class CMYUnit : public TTDataObject, public TTDataspaceUnit {
+class CMYUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(CMYUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class HSLUnit : public TTDataObject, public TTDataspaceUnit {
+class HSLUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(HSLUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class HSVUnit : public TTDataObject, public TTDataspaceUnit {
+class HSVUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(HSVUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class RGBUnit : public TTDataObject, public TTDataspaceUnit {
+class RGBUnit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(RGBUnit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
 };
 
-class RGB8Unit : public TTDataObject, public TTDataspaceUnit {
+class RGB8Unit : public TTDataObjectBase, public TTDataspaceUnit {
 	TTCLASS_SETUP(RGB8Unit)
 public:
 	void convertToNeutral(const TTValue& input, TTValue& output);
@@ -50,7 +50,7 @@ public:
 };
 
 // Specification of our base class
-class ColorDataspace : public TTDataObject, public TTDataspace {
+class ColorDataspace : public TTDataObjectBase, public TTDataspace {
 	TTCLASS_SETUP(ColorDataspace)
     
     /**	Unit Tests	*/

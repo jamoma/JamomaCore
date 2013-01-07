@@ -2,7 +2,7 @@
  *
  * @ingroup dspLibrary
  *
- * @brief Unit tests for the #TTAudioObjectArray class
+ * @brief Unit tests for the #TTAudioObjectBaseArray class
  *
  * @details
  *
@@ -16,7 +16,7 @@
 #include "TTAudioObjectArray.h"
 
 
-TTErr TTAudioObjectArray::test(TTValue& returnedTestInfo)
+TTErr TTAudioObjectBaseArray::test(TTValue& returnedTestInfo)
 {
 	int					errorCount = 0;
 	int					testAssertionCount = 0;

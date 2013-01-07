@@ -28,7 +28,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addUpdates(SampleRate);
 
-	TTObjectInstantiate(TT("buffer"), (TTObjectPtr*)&mWavetable, kTTValNONE);
+	TTObjectBaseInstantiate(TT("buffer"), (TTObjectBasePtr*)&mWavetable, kTTValNONE);
 	if (!mWavetable)
 		throw TTException("Could not create internal buffer object");
 	mWavetable->setNumChannels(TTUInt32(1));
@@ -45,7 +45,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTWavetable::~TTWavetable()
 {
-	TTObjectRelease((TTObject**)&mWavetable);
+	TTObjectBaseRelease((TTObjectBase**)&mWavetable);
 }
 
 

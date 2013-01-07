@@ -23,8 +23,8 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	
 	/*
 	// create 1 channel audio signal objects
-	TTObjectInstantiate(kTTSym_audiosignal, &input, 1);
-	TTObjectInstantiate(kTTSym_audiosignal, &output, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 1);
 	input->allocWithVectorSize(64);
 	output->allocWithVectorSize(64);
 	
@@ -123,8 +123,8 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	
 	
 	
-	TTObjectRelease(&input);
-	TTObjectRelease(&output);
+	TTObjectBaseRelease(&input);
+	TTObjectBaseRelease(&output);
 	
 	
 	// Wrap up the test results to pass back to whoever called this test
