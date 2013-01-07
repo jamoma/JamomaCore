@@ -110,13 +110,13 @@ TTErr TTWavetable::setSize(const TTValue& newSize)
 // LFO mode cannot be modulated
 TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue	tempSample;
-	TTUInt16		vs = out.getVectorSizeAsInt();
-	TTUInt16		i=0;
-	TTUInt16		numChannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
-	TTUInt64		p1 = (TTUInt64)mIndex;						// playback index
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTSampleValue		tempSample;
+	TTUInt16			vs = out.getVectorSizeAsInt();
+	TTUInt16			i=0;
+	TTUInt16			numChannels = out.getNumChannelsAsInt();
+	TTUInt16			channel;
+	TTUInt64			p1 = (TTUInt64)mIndex;						// playback index
 	TTSampleMatrixPtr	contents = NULL;
 	
 	mBuffer->checkOutMatrix(contents);
@@ -205,16 +205,16 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignalPtr	in; // can't call getSignal if there is no signal! = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue	*inSample = NULL;
-	TTSampleValue	tempSample;
-	TTUInt16		vs = out.getVectorSizeAsInt();
-	TTUInt16		i=0;
-	TTUInt16		numChannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
-	TTBoolean		hasModulation = true;
-	TTUInt32		p1, p2;									// two playback indices
-	TTFloat64		diff;
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTSampleValue		*inSample = NULL;
+	TTSampleValue		tempSample;
+	TTUInt16			vs = out.getVectorSizeAsInt();
+	TTUInt16			i=0;
+	TTUInt16			numChannels = out.getNumChannelsAsInt();
+	TTUInt16			channel;
+	TTBoolean			hasModulation = true;
+	TTUInt32			p1, p2;									// two playback indices
+	TTFloat64			diff;
 	TTSampleMatrixPtr	contents = NULL;
 	
 	mBuffer->checkOutMatrix(contents);
