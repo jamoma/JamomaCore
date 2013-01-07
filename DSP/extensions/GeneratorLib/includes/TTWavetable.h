@@ -1,8 +1,17 @@
-/* 
- * Jamoma DSP  Wavetable Oscillator
- * Copyright © 2003, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspGeneratorLib
+ *
+ * @brief GeneratorLib: Generate a basic, cycling waveform using a wavetable.
+ *
+ * @details Wavetable is currently limited to using an internal buffer for managing its waveshape.  Shape options include sine, triangle and sawtooth.
+ *
+ * @see TTBuffer, TTSampleMatrix, TTMatrix, TTAudioSignal
+ *
+ * @authors Tim Place, Nathan Wolek
+ *
+ * @copyright Copyright © 2003-2013 by Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
