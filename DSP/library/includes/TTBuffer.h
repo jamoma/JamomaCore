@@ -151,7 +151,14 @@ public:
 	*/
 	
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								
-		{ return mActiveMatrix->fill(value, unusedOutput); }
+	{ 
+		TTErr err = prepareBecomingActiveMatrix();
+		if (!err)
+			err = mBecomingActiveMatrix -> fill (value,unusedOutput);
+		if (!err)
+			err = promoteBecomingActiveMatrix();
+		return err;
+	}
 
 	TTBUFFER_WRAP_k1ARG( normalize )
 	
