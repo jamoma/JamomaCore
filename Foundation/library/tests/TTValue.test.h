@@ -17,7 +17,7 @@
 #ifndef __TT_VALUETEST_H__
 #define __TT_VALUETEST_H__
 
-#include "TTDataObject.h"
+#include "TTDataObjectBase.h"
 #include "TTUnitTest.h"
 
 /**	Provide unit tests for #TTValue */

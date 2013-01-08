@@ -9,7 +9,7 @@
 #ifndef __TT_SYMBOLTEST_H__
 #define __TT_SYMBOLTEST_H__
 
-#include "TTDataObject.h"
+#include "TTDataObjectBase.h"
 #include "TTUnitTest.h"
 
 /**	Provide unit tests for #TTSymbol */

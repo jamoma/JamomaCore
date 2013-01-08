@@ -15,7 +15,7 @@
 
 
 #include "TTDSP.h"
-#include "TTAudioObject.h"
+#include "TTAudioObjectBase.h"
 #include "TTEnvironment.h"
 #include "TTUnitTest.h"
 

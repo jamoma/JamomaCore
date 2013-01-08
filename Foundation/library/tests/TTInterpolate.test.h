@@ -16,7 +16,7 @@
 #ifndef __TT_INTERPOLATE_TEST_H__
 #define __TT_INTERPOLATE_TEST_H__
 
-#include "TTDataObject.h"
+#include "TTDataObjectBase.h"
 #include "TTUnitTest.h"
 
 /**	Provide unit tests for #TTInterpolate */

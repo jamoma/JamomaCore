@@ -9,7 +9,7 @@
 #ifndef __TT_NODELIBTEST_H__
 #define __TT_NODELIBTEST_H__
 
-#include "TTDataObject.h"
+#include "TTDataObjectBase.h"
 #include "TTUnitTest.h"
 
 #include "TTNode.h"

@@ -13,7 +13,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTDataObject.h"
+#include "TTDataObjectBase.h"
 #include "TTEnvironment.h"
 #include "TTMatrixArray.h"
 
