@@ -348,7 +348,7 @@ static void TTAtomicIncrement(TTAtomicInt& value)
 }
 
 
-static void TTAtomicIncrement(TTAtomicUInt& value)
+inline void TTAtomicIncrement(TTAtomicUInt& value)
 {
 #ifdef TT_PLATFORM_MAC
 	OSAtomicIncrement32((int32_t*)&value);
@@ -360,7 +360,7 @@ static void TTAtomicIncrement(TTAtomicUInt& value)
 }
 
 
-static void TTAtomicDecrement(TTAtomicInt& value)
+inline void TTAtomicDecrement(TTAtomicInt& value)
 {
 #ifdef TT_PLATFORM_MAC
 	OSAtomicDecrement32(&value);
@@ -372,7 +372,7 @@ static void TTAtomicDecrement(TTAtomicInt& value)
 }
 
 
-static void TTAtomicDecrement(TTAtomicUInt& value)
+inline void TTAtomicDecrement(TTAtomicUInt& value)
 {
 #ifdef TT_PLATFORM_MAC
 	OSAtomicDecrement32((int32_t*)&value);
@@ -384,7 +384,7 @@ static void TTAtomicDecrement(TTAtomicUInt& value)
 }
 
 	
-static void TTAtomicIncrementWithBarrier(TTAtomicUInt& value)
+inline void TTAtomicIncrementWithBarrier(TTAtomicUInt& value)
 {
 #ifdef TT_PLATFORM_MAC
 	OSAtomicIncrement32Barrier((int32_t*)&value);
@@ -396,7 +396,7 @@ static void TTAtomicIncrementWithBarrier(TTAtomicUInt& value)
 }
 
 
-static void TTAtomicDecrementWithBarrier(TTAtomicUInt& value)
+inline void TTAtomicDecrementWithBarrier(TTAtomicUInt& value)
 {
 #ifdef TT_PLATFORM_MAC
 	OSAtomicDecrement32Barrier((int32_t*)&value);
@@ -408,7 +408,7 @@ static void TTAtomicDecrementWithBarrier(TTAtomicUInt& value)
 }
 
 	
-static void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, const TTAtomicInt& oldValue)
+inline void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, const TTAtomicInt& oldValue)
 {
 #ifdef TT_PLATFORM_MAC
 	OSAtomicCompareAndSwap32(oldValue, newValue, &value);
@@ -423,7 +423,7 @@ static void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, cons
 	/**	Return the current system time in milliseconds.
 		Although it is a global kind of function, we include it as a method of TTBase
 		so that it can be defined in the header file and then inlined in other libraries.	*/
-static TTFloat64 TTGetTimeInMilliseconds()
+inline TTFloat64 TTGetTimeInMilliseconds()
 {
 	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
 #if	CLOCKS_PER_SEC == 1000000
@@ -435,7 +435,7 @@ static TTFloat64 TTGetTimeInMilliseconds()
 
 	
 	/**	Return the current system time in microseconds.	*/
-static TTFloat64 TTGetTimeInMicroseconds()
+inline TTFloat64 TTGetTimeInMicroseconds()
 {
 	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
 #if	CLOCKS_PER_SEC == 1000000
