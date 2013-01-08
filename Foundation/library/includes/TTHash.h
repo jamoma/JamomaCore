@@ -33,7 +33,7 @@ typedef void (*TTHashIteratorType)(TTPtr, const TTKeyVal&);
 	- This approach isolates coders from having to worry about an template craziness
 	- This approach offers the possibility, should the need ever arise, to change the underlying implementation away from STL.
 */
-class TTFOUNDATION_EXPORT TTHash : TTBase {
+class TTFOUNDATION_EXPORT TTHash {
 private:
 	TTPtr		mHashMap;
 	TTBoolean	mThreadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.

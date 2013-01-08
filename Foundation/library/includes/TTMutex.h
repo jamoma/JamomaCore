@@ -21,7 +21,7 @@
 	The TTMutex class maintains a mutual exclusion lock.
 	See http://en.wikipedia.org/wiki/Mutex for more details.
 */
-class TTFOUNDATION_EXPORT TTMutex : public TTBase {
+class TTFOUNDATION_EXPORT TTMutex {
 private:
 	#ifdef TT_PLATFORM_WIN
 	CRITICAL_SECTION		pMutex;

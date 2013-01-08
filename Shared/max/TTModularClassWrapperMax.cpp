@@ -113,17 +113,17 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 	TTValue			keys, storedObject;
 	TTSymbol		name;
 	TTAddress		objectAddress;
-	TTObjectPtr		anObject;
+	TTObjectBasePtr		anObject;
 	TTSubscriberPtr aSubscriber;
 	TTErr			err;
 
 #ifndef ARRAY_EXTERNAL
 	if (x->subscriberObject)
-		TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+		TTObjectBaseRelease(TTObjectBaseHandle(&x->subscriberObject));
 	
 	if (x->wrappedObject)
 		if (x->wrappedObject->getName() != kTTSym_Application)
-			TTObjectRelease(&x->wrappedObject);
+			TTObjectBaseRelease(&x->wrappedObject);
 #endif
 	
 	if (x->internals) {
@@ -160,12 +160,12 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 							
 							if (aSubscriber)
 								if (aSubscriber->valid)		// to -- should be better to understand why the subscriber is not valid
-									TTObjectRelease(TTObjectHandle(&aSubscriber));
+									TTObjectBaseRelease(TTObjectBaseHandle(&aSubscriber));
 						}
 						
 						if (anObject)
 							if (anObject->valid)	// to -- should be better to understand why the object is not valid
-								TTObjectRelease(&anObject);
+								TTObjectBaseRelease(&anObject);
 					}
 				}
 				
@@ -228,7 +228,7 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 				JamomaDirectory->TTNodeRemove(contextAddress);
 				
 				// delete
-				TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+				TTObjectBaseRelease(TTObjectBaseHandle(&x->subscriberObject));
 				
 				// no more notification
 				object_detach_byptr((ObjectPtr)x, context);
@@ -720,7 +720,7 @@ int convertModifiersFromMaxToTTGraphics(int maxModifiers)
 
 TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxClassName, WrappedClassPtr* c, ModularSpec* specificities)
 {
-	TTObject*		o = NULL;
+	TTObjectBase*		o = NULL;
 	TTValue			v, args;
 	WrappedClass*	wrappedMaxClass = NULL;
 	TTSymbol		TTName;
@@ -759,7 +759,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 #endif
 	
 	// Create a temporary instance of the class so that we can query it.
-	TTObjectInstantiate(ttblueClassName, &o, args);
+	TTObjectBaseInstantiate(ttblueClassName, &o, args);
 	
 	// Register Messages as Max method
 	o->getMessageNames(v);
@@ -824,7 +824,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 		}
 	}
 	
-	TTObjectRelease(&o);
+	TTObjectBaseRelease(&o);
 	
 #ifdef UI_EXTERNAL
 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_paint,						"paint",				A_CANT, 0L);
@@ -864,11 +864,11 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 	return kTTErrNone;
 }
 
-TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectPtr *returnedData)
+TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectBasePtr *returnedData)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args;
-	TTObjectPtr		returnValueCallback;
+	TTObjectBasePtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
@@ -876,8 +876,8 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	TTValue			storedObject;
 	
 	// Prepare arguments to create a TTData object
-	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
@@ -889,7 +889,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	args.append(service);
 	
 	*returnedData = NULL;
-	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
+	TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(returnedData), args);
 	
 	// absolute registration
 	dataAddress = address.appendAddress(TTAddress(name));
@@ -908,16 +908,16 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	return kTTErrNone;
 }
 
-TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedExplorer)
+TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedExplorer)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
-	TTObjectPtr		returnValueCallback;
+	TTObjectBasePtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
-	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
@@ -927,7 +927,7 @@ TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod
 	args.append((TTPtr)jamoma_explorer_default_filter_bank());
 	
 	*returnedExplorer = NULL;
-	TTObjectInstantiate(kTTSym_Explorer, TTObjectHandle(returnedExplorer), args);
+	TTObjectBaseInstantiate(kTTSym_Explorer, TTObjectBaseHandle(returnedExplorer), args);
 	
 	// default registration case : store object only (see in unregister method)
 	storedObject = TTValue(TTPtr(*returnedExplorer));
@@ -935,17 +935,17 @@ TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod
 	return kTTErrNone;
 }
 
-TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedViewer)
+TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedViewer)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
-	TTObjectPtr		returnValueCallback;
+	TTObjectBasePtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	TTAddress       adrs;
 	
 	// prepare arguments
-	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
@@ -953,7 +953,7 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	args.append(returnValueCallback);
 	
 	*returnedViewer = NULL;
-	TTObjectInstantiate(kTTSym_Viewer, TTObjectHandle(returnedViewer), args);
+	TTObjectBaseInstantiate(kTTSym_Viewer, TTObjectBaseHandle(returnedViewer), args);
 	
 	// Set address attributes
 	adrs = address.appendAddress(TTAddress(name));
@@ -966,11 +966,11 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	return kTTErrNone;
 }
 
-TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedReceiver)
+TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedReceiver)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
-	TTObjectPtr		returnValueCallback;
+	TTObjectBasePtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	TTAddress       adrs;
 	
@@ -979,8 +979,8 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	// we don't want the address back
 	args.append(NULL);
 	
-	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
@@ -988,7 +988,7 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	args.append(returnValueCallback);
 	
 	*returnedReceiver = NULL;
-	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(returnedReceiver), args);
+	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(returnedReceiver), args);
 	
 	// Set address attributes
 	adrs = address.appendAddress(TTAddress(name));
@@ -1005,7 +1005,7 @@ TTErr removeInternals_data(TTPtr self, TTAddress address, TTAddress name)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			storedObject;
-	TTObjectPtr		aData;
+	TTObjectBasePtr		aData;
 	TTAddress       dataAddress;
 	TTErr			err;
 	
@@ -1020,7 +1020,7 @@ TTErr removeInternals_data(TTPtr self, TTAddress address, TTAddress name)
 		
 		if (aData)
 			if (aData->valid)	// to -- should be better to understand why the data is not valid
-				TTObjectRelease(&aData);
+				TTObjectBaseRelease(&aData);
 		
 		x->internals->remove(name);
 	}
@@ -1028,11 +1028,11 @@ TTErr removeInternals_data(TTPtr self, TTAddress address, TTAddress name)
 	return kTTErrNone;
 }
 
-TTObjectPtr	getSelectedObject(WrappedModularInstancePtr x)
+TTObjectBasePtr	getSelectedObject(WrappedModularInstancePtr x)
 {
 	if (x->useInternals) {
 		TTValue v;
-		TTObjectPtr o;
+		TTObjectBasePtr o;
 		TTErr err;
 		err = x->internals->lookup(x->cursor, v);
 		if (!err)

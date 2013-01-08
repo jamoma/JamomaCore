@@ -108,7 +108,7 @@ enum TTAttributeFlags {
 	Internal objects may inherit directly from #TTObjectBase,
 	but most objects will inherit from #TTDataObjectBase or #TTAudioObjectBase.
 */
-class TTFOUNDATION_EXPORT TTObjectBase : public TTBase {
+class TTFOUNDATION_EXPORT TTObjectBase {
 private:
 	friend class TTEnvironment;
 

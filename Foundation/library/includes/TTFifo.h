@@ -20,7 +20,7 @@
  */
 
 template<class T>
-class TTFifo : TTBase {
+class TTFifo {
 
 protected:	
 	

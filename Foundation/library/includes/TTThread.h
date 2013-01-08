@@ -26,7 +26,7 @@ typedef void*(*TTThreadCallbackType)(void* arg);
 	The TTThread class implements a cross-platform thread manager.
 	It is not yet full featured, as features are being added on an as-needed basis.
 */
-class TTFOUNDATION_EXPORT TTThread : public TTBase {
+class TTFOUNDATION_EXPORT TTThread {
 private:
 #ifdef TT_PLATFORM_WIN
 	// FIXME: We need to implement this!  The following is a place holder

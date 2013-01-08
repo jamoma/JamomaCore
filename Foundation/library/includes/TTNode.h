@@ -46,8 +46,7 @@ typedef TTCallback* TTCallbackPtr;
  The case of wildcards is handled, because a request is cached (keyed on the request),
  and the value is a linked list of all of the matches.
  */
-class TTFOUNDATION_EXPORT TTNode : public TTBase
-{
+class TTFOUNDATION_EXPORT TTNode {
 	
 private:
 

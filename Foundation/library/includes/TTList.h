@@ -22,7 +22,7 @@ typedef std::list<TTValue>::iterator	TTListIter;
 /****************************************************************************************************/
 // Class Specification
 
-class TTFOUNDATION_EXPORT TTList : TTBase {
+class TTFOUNDATION_EXPORT TTList {
 private:
 	TTBoolean	mThreadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
 	TTMutexPtr	mMutex;

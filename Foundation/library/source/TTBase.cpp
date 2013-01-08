@@ -418,17 +418,6 @@ const TTFloat32 kTTLookupQuarterSine[] = {		// 128 point quarter sine wave table
 
 /****************************************************************************************************/
 
-TTBase::TTBase()
-{
-	;
-}
-
-
-TTBase::~TTBase()
-{
-	;
-}
-
 
 TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
 

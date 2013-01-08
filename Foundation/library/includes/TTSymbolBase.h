@@ -26,7 +26,7 @@
 	Also, if you don't need the fast lookup capabilities of the symbol table (such as for message or attribute lookup)
 	then consider passing a #TTString instead.
 */
-class TTFOUNDATION_EXPORT TTSymbolBase : public TTBase {
+class TTFOUNDATION_EXPORT TTSymbolBase {
 protected:
 
 

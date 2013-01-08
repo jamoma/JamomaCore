@@ -51,8 +51,7 @@ typedef TTCallback* TTCallbackPtr;
 	
 */
 
-class TTFOUNDATION_EXPORT TTNodeDirectory : public TTBase
-{
+class TTFOUNDATION_EXPORT TTNodeDirectory {
 	
 private:
 

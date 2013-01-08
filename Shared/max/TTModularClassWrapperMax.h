@@ -78,13 +78,13 @@ typedef struct _wrappedModularInstance {
 	WrappedClassPtr							wrappedClassDefinition;		///< A pointer to the class definition
 
 #ifndef ARRAY_EXTERNAL
-	TTObjectPtr								wrappedObject;				///< The instance of the TTBlue object we are wrapping
+	TTObjectBasePtr								wrappedObject;				///< The instance of the TTBlue object we are wrapping
 	TTSubscriberPtr							subscriberObject;			///< The instance of a TTSubscriber object used to 
 																		///< register the wrapped object in the tree structure
 #endif
 	
 	TTBoolean								useInternals;				///< The hash table can be used as an array of wrappedObject
-	TTHashPtr								internals;					///< An hash table to store any internal TTObjects (like TTData, TTViewer, ...)
+	TTHashPtr								internals;					///< An hash table to store any internal TTObjectBases (like TTData, TTViewer, ...)
 	TTBoolean								iterateInternals;			///< The flag is true when an iteration is done on the internals
 	TTSymbol								cursor;						///< to select an entry in x->internals
 	
@@ -122,16 +122,16 @@ typedef WrappedModularInstance* WrappedModularInstancePtr;	///< Pointer to a wra
 void		copy_msg_argc_argv(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 // Use internals to store several objects :
-TTErr		makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectPtr *returnedData);
-TTErr		makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedExplorer);
-TTErr		makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedViewer);
-TTErr		makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectPtr *returnedReceiver);
+TTErr		makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectBasePtr *returnedData);
+TTErr		makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedExplorer);
+TTErr		makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedViewer);
+TTErr		makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedReceiver);
 TTErr		removeInternals_data(TTPtr self, TTAddress address, TTSymbol name);
 
 
 // In case internals table is used as an array of wrappedObject here is a method
 // usefull to get the selected object in both case (use wrappedObject or use internals)
-TTObjectPtr	getSelectedObject(WrappedModularInstancePtr x);
+TTObjectBasePtr	getSelectedObject(WrappedModularInstancePtr x);
 
 
 // Wrap a TTBlue class as a Max class.

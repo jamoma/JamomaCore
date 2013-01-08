@@ -29,7 +29,7 @@
  * This is to say that it represents everything about a class except for the class itself,
  * which is a subclass of TTObjectBase.
  */
-class TTFOUNDATION_EXPORT TTClass : public TTBase {
+class TTFOUNDATION_EXPORT TTClass {
 private:
 	friend class TTEnvironment;
 	friend class TTObjectBase;

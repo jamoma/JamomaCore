@@ -27,8 +27,7 @@
  
  */
 
-class TTFOUNDATION_EXPORT TTRegex : public TTBase
-{
+class TTFOUNDATION_EXPORT TTRegex {
 	
 private:
 

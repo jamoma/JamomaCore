@@ -21,7 +21,7 @@
 	commonly used strings in a table so that we can refer to them simply as a pointers for fast comparison.
  */
 
-class TTFOUNDATION_EXPORT TTSymbolTable : public TTBase {
+class TTFOUNDATION_EXPORT TTSymbolTable {
 private:
 	TTPtr	mSymbolTable;	///< The symbol table, mapping strings to pointers
 
