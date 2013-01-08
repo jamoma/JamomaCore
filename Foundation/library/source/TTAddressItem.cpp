@@ -154,7 +154,7 @@ TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedIte
 		nextItem = anItem->getItem(nameInstance);
 		
 		if (!nextItem)
-			break;
+			return kTTErrGeneric;
 		else
 			anItem = nextItem;
 	}
