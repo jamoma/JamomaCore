@@ -77,7 +77,7 @@ TTPresetManager::~TTPresetManager()
 		names.get(i, presetName);
 		mPresets->lookup(presetName, v);
 		v.get(0, (TTPtr*)&oldPreset);
-		TTObjectRelease(TTObjectHandle(&oldPreset));
+		TTObjectBaseRelease(TTObjectBaseHandle(&oldPreset));
 	}
 	
 	delete mPresets;
@@ -130,7 +130,7 @@ TTErr TTPresetManager::Clear()
 			names.get(i, presetName);
 			mPresets->lookup(presetName, v);
 			v.get(0, (TTPtr*)&oldPreset);
-			TTObjectRelease(TTObjectHandle(&oldPreset));
+			TTObjectBaseRelease(TTObjectBaseHandle(&oldPreset));
 		}
 		
 		delete mPresets;
@@ -162,7 +162,7 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		
 		// Create a new preset
 		mCurrentPreset = NULL;
-		TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&mCurrentPreset), kTTValNONE);
+		TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&mCurrentPreset), kTTValNONE);
 	
 		mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
 		mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
@@ -388,7 +388,7 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	if (!mPresets->lookup(mCurrent, v)) {
 		
 		v.get(0, (TTPtr*)&mCurrentPreset);
-		TTObjectRelease(TTObjectHandle(&mCurrentPreset));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mCurrentPreset));
 		mPresets->remove(mCurrent);
 		
 		// remove the name without changing the order
@@ -497,7 +497,7 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 		
 		// create a new preset
 		aPresetCopy = NULL;
-		TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&aPresetCopy), kTTValNONE);
+		TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&aPresetCopy), kTTValNONE);
 		
 		// copy the current preset into
 		TTPresetCopy(mCurrentPreset, aPresetCopy);
@@ -617,7 +617,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 				
 				// Create a new preset
 				mCurrentPreset = NULL;
-				TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&mCurrentPreset), kTTValNONE);
+				TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&mCurrentPreset), kTTValNONE);
 				
 				mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
 				mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
@@ -705,7 +705,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 					
 					// Create a new preset
 					mCurrentPreset = NULL;
-					TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&mCurrentPreset), kTTValNONE);
+					TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&mCurrentPreset), kTTValNONE);
 					
 					mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
 					mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);

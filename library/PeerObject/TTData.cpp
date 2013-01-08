@@ -110,15 +110,15 @@ TTData::~TTData()
 {
 #ifndef TTDATA_NO_RAMPLIB	
 	if (mRamper)
-		TTObjectRelease(TTObjectHandle(&mRamper));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mRamper));
 #endif
 	
 	if (mDataspaceConverter)
-		TTObjectRelease(TTObjectHandle(&mDataspaceConverter));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceConverter));
 	
 	if (mReturnValueCallback) {
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	}
 }
 
@@ -752,7 +752,7 @@ TTErr TTData::setDataspace(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspace = value;
 	
-	TTObjectInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, kTTValNONE);
 	mDataspaceConverter->setAttributeValue(TTSymbol("dataspace"), mDataspace);
 	
 	// If there is already a unit defined, then we try to use that
@@ -864,7 +864,7 @@ TTErr TTData::rampSetup()
 
 	// 1. destroy the old rampunit
 	if (mRamper != NULL) {
-		TTObjectRelease(TTObjectHandle(&mRamper));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mRamper));
 		mRamper = NULL;
 	}
 	

@@ -305,7 +305,7 @@ void in_subscribe(TTPtr self)
 		sInstance = EXTRA->instance.c_str();
 		jamoma_edit_string_instance(formatDescription, &inDescription, sInstance);
 			
-		makeInternals_data(x, nodeAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
+		makeInternals_data(x, nodeAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
@@ -314,7 +314,7 @@ void in_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_dataspaceUnit, TTSymbol("linear"));
 		
 		// make internal data to parameter in/amplitude/active
-		makeInternals_data(x, nodeAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
+		makeInternals_data(x, nodeAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue((int)EXTRA->pollInterval);
@@ -654,7 +654,7 @@ void in_update_amplitude(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTInputPtr		anInput = (TTInputPtr)x->wrappedObject;
 	TTValue			storedObject;
-	TTObjectPtr		anObject;
+	TTObjectBasePtr		anObject;
 	TTErr			err;
 	
 	if (anInput) {

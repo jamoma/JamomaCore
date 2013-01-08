@@ -16,7 +16,7 @@
 
 //RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton) : 
 RampUnit::RampUnit(TTValue& arguments) :
-	TTDataObject(kTTValNONE),
+	TTDataObjectBase(kTTValNONE),
 	functionUnit(NULL),
 	mIsRunning(NO),
 	callback(NULL),
@@ -42,7 +42,7 @@ RampUnit::RampUnit(TTValue& arguments) :
 
 RampUnit::~RampUnit()
 {
-	TTObjectRelease(&functionUnit);
+	TTObjectBaseRelease(&functionUnit);
 	delete [] currentValue;
 	delete [] targetValue;
 	delete [] startValue;
@@ -74,7 +74,7 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 		return kTTErrNone;
 	
 	mFunction = newFunctionName;
-	err = FunctionLib::createUnit(mFunction, (TTObject**)&functionUnit);
+	err = FunctionLib::createUnit(mFunction, (TTObjectBase**)&functionUnit);
 	if (err)
 		logError("Jamoma ramp unit failed to load the requested FunctionUnit from TTBlue.");
 	return err;
@@ -144,24 +144,24 @@ TTErr RampLib::createUnit(const TTSymbol unitName, RampUnit **unit, RampUnitCall
 	
 	// These should be alphabetized
 	if (unitName == TTSymbol("async"))
-		TTObjectInstantiate(TTSymbol("AsyncRamp"), (TTObjectPtr*)unit, v);
+		TTObjectBaseInstantiate(TTSymbol("AsyncRamp"), (TTObjectBasePtr*)unit, v);
 
     else if (unitName == TTSymbol("external"))
-		TTObjectInstantiate(TTSymbol("ExternalRamp"), (TTObjectPtr*)unit, v);
+		TTObjectBaseInstantiate(TTSymbol("ExternalRamp"), (TTObjectBasePtr*)unit, v);
 
 	else if (unitName == TTSymbol("none"))
-		TTObjectInstantiate(TTSymbol("NoneRamp"), (TTObjectPtr*)unit, v);
+		TTObjectBaseInstantiate(TTSymbol("NoneRamp"), (TTObjectBasePtr*)unit, v);
 
 	else if (unitName == TTSymbol("queue"))
-		TTObjectInstantiate(TTSymbol("QueueRamp"), (TTObjectPtr*)unit, v);
+		TTObjectBaseInstantiate(TTSymbol("QueueRamp"), (TTObjectBasePtr*)unit, v);
 
 	else if (unitName == TTSymbol("scheduler"))
-		TTObjectInstantiate(TTSymbol("SchedulerRamp"), (TTObjectPtr*)unit, v);
+		TTObjectBaseInstantiate(TTSymbol("SchedulerRamp"), (TTObjectBasePtr*)unit, v);
 
 	else {
 		// Invalid function specified default to linear
 		error("Jamoma RampLib: Invalid RampUnit ( %s ) specified", unitName.c_str());
-		TTObjectInstantiate(TTSymbol("NoneRamp"), (TTObjectPtr*)unit, v);
+		TTObjectBaseInstantiate(TTSymbol("NoneRamp"), (TTObjectBasePtr*)unit, v);
 	}
 	return kTTErrNone;
 }

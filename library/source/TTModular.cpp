@@ -26,10 +26,10 @@ void TTModularInit()
 #define TO_DEBUG
 #ifdef TO_DEBUG
     
-	TTObjectPtr test = NULL;
+	TTObjectBasePtr test = NULL;
 	TTValue v;
 	
-	TTObjectInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
 	test->test(v); 
 
 #endif // TO_DEBUG
@@ -79,7 +79,7 @@ void TTModularInit()
 		v.fromString();
 		
 		// Create the Modular application manager with no application inside
-		TTObjectInstantiate(kTTSym_ApplicationManager, TTObjectHandle(&TTModularApplications), kTTValNONE);
+		TTObjectBaseInstantiate(kTTSym_ApplicationManager, TTObjectBaseHandle(&TTModularApplications), kTTValNONE);
 		
 		// Create a hash table to manage namespace selections
 		TTModularNamespaces = new TTHash();
@@ -105,7 +105,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			
 			// create the application
 			args = TTValue(TTSymbol(applicationStr.data()));
-			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&anApplication), args);
+			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&anApplication), args);
 			
 			// set it as local application
 			args = TTValue((TTPtr)anApplication);
@@ -113,7 +113,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
-			TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&anXmlHandler), kTTValNONE);
+			TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&anXmlHandler), kTTValNONE);
 			
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			

@@ -82,7 +82,7 @@ TTScript::~TTScript()
 				aLine->getValue(v);
 				v.get(0, (TTPtr*)&mSubScript);
 				
-				TTObjectRelease(&mSubScript);
+				TTObjectBaseRelease(&mSubScript);
 			}
 			
 			delete aLine;
@@ -111,7 +111,7 @@ TTErr TTScript::Clear()
 				aLine->getValue(v);
 				v.get(0, (TTPtr*)&mSubScript);
 				
-				TTObjectRelease(&mSubScript);
+				TTObjectBaseRelease(&mSubScript);
 			}
 			
 			delete aLine;
@@ -130,7 +130,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol			name;
 	TTNodePtr			aNode;
 	TTAddress	address, containerAddress = kTTAdrsRoot;
-	TTObjectPtr			anObject, container;
+	TTObjectBasePtr			anObject, container;
 	TTValue				v, c;
 	TTErr				err;
 	
@@ -524,7 +524,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol			name, unit;
 	TTAddress	address;
 //	TTNodePtr			aNode;
-//	TTObjectPtr			anObject;
+//	TTObjectBasePtr			anObject;
 	TTValue				v;
 	TTString			aString;
 	
@@ -1071,7 +1071,7 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 {
 	TTDictionaryPtr line = NULL;
 	TTSymbol		firstSymbol;
-	TTObjectPtr		script = NULL;
+	TTObjectBasePtr		script = NULL;
 	TTValue			v;
 	
 	// parse script address
@@ -1086,7 +1086,7 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 			line->setSchema(kTTSym_script);
 			line->append(kTTSym_address, firstSymbol);
 			
-			TTObjectInstantiate(kTTSym_Script, &script, kTTValNONE);
+			TTObjectBaseInstantiate(kTTSym_Script, &script, kTTValNONE);
 			
 			v = TTValue((TTPtr)script);
 			line->setValue(v);
@@ -1596,7 +1596,7 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 					else {
 						
 						// delete the line and his sub script
-						TTObjectRelease(TTObjectHandle(&optimizedSubScript));
+						TTObjectBaseRelease(TTObjectBaseHandle(&optimizedSubScript));
 						delete optimizedLine;
 					}
 				}
@@ -1640,7 +1640,7 @@ TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 			args.append((TTPtr)scriptTocopy->mReturnLineCallback);
 			
 			// create a subscript copy
-			TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&aSubScriptCopy), args);
+			TTObjectBaseInstantiate(kTTSym_Script, TTObjectBaseHandle(&aSubScriptCopy), args);
 			
 			// copy the subscript into
 			TTScriptCopy(aSubScriptToCopy, aSubScriptCopy);

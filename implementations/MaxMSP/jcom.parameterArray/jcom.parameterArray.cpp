@@ -36,7 +36,7 @@ void		WrappedDataClass_free(TTPtr self);
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		data_new_address(TTPtr self, SymbolPtr msg);
-void		data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, TTUInt8 index);
+void		data_array_create(TTPtr self, TTObjectBasePtr *returnedData, TTSymbol service, TTUInt8 index);
 void		data_address(TTPtr self, SymbolPtr name);
 
 #ifndef JMOD_RETURN
@@ -196,7 +196,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	TTUInt8						i, j;
 	TTAddress					newAddress = relativeAddress->s_name;
 	SymbolPtr					instanceAddress;
-	TTObjectPtr					anObject;
+	TTObjectBasePtr					anObject;
 	TTSubscriberPtr				aSubscriber;
 	TTValue						v;
 	
@@ -291,16 +291,16 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	EXTRA->firstArray = NO;
 }
 
-void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, TTUInt8 index)
+void data_array_create(TTPtr self, TTObjectBasePtr *returnedData, TTSymbol service, TTUInt8 index)
 {
 	TTValue			args;
-	TTObjectPtr		returnValueCallback;
+	TTObjectBasePtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
 	
-	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 #ifndef JMOD_RETURN
 	returnValueBaton = new TTValue(self);
 	returnValueBaton->append(index);
@@ -313,7 +313,7 @@ void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, 
 	args.append(service);
 	
 	*returnedData = NULL;
-	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
+	TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(returnedData), args);
 }
 
 void data_address(TTPtr self, SymbolPtr address)

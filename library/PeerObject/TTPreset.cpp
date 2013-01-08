@@ -39,12 +39,12 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&mScript), args);
+	TTObjectBaseInstantiate(kTTSym_Script, TTObjectBaseHandle(&mScript), args);
 }
 
 TTPreset::~TTPreset()
 {
-	TTObjectRelease(TTObjectHandle(&mScript));
+	TTObjectBaseRelease(TTObjectBaseHandle(&mScript));
 	mScript = NULL;
 }
 
@@ -67,7 +67,7 @@ TTErr TTPreset::setAddress(const TTValue& value)
 TTErr TTPreset::Store()
 {
 	TTNodePtr		aNode;
-	TTObjectPtr		anObject;
+	TTObjectBasePtr		anObject;
 	TTList			aNodeList, allObjectNodes;
 	TTAddress aRelativeAddress;
 	TTValue			v, parsedLine;					
@@ -221,7 +221,7 @@ TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 
 TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 {
-	TTObjectPtr o;
+	TTObjectBasePtr o;
 	TTValue		v;
 	TTSymbol s;
 
@@ -243,7 +243,7 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2) 
 {
 	TTNodePtr	n1, n2;
-	TTObjectPtr o1, o2;
+	TTObjectBasePtr o1, o2;
 	TTValue		v;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;

@@ -17,7 +17,7 @@
 typedef struct extra {
 	TTBoolean	attr_load_default;
 	TTPtr		filewatcher;		// a preset filewather
-	TTObjectPtr	toEdit;				// the object to edit (a preset or all the preset list)
+	TTObjectBasePtr	toEdit;				// the object to edit (a preset or all the preset list)
 	TTSymbol	presetName;			// the name of the edited cue
 	TTString	*text;				// the text of the editor to read after edclose
 	ObjectPtr	textEditor;			// the text editor window
@@ -221,7 +221,7 @@ void preset_subscribe(TTPtr self)
 		
 		// create internal TTXmlHandler
 		aXmlHandler = NULL;
-		TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&aXmlHandler), args);
+		TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&aXmlHandler), args);
 		v = TTValue(TTPtr(aXmlHandler));
 		x->internals->append(kTTSym_XmlHandler, v);
 		v = TTValue(TTPtr(x->wrappedObject));
@@ -229,27 +229,27 @@ void preset_subscribe(TTPtr self)
 		
 		// create internal TTTextHandler
 		aTextHandler = NULL;
-		TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
+		TTObjectBaseInstantiate(kTTSym_TextHandler, TTObjectBaseHandle(&aTextHandler), args);
 		v = TTValue(TTPtr(aTextHandler));
 		x->internals->append(kTTSym_TextHandler, v);
 		
 		// Create internal messages for Read and Write
-		makeInternals_data(self, absoluteAddress, TTSymbol("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Read a xml preset file"));
 
-		makeInternals_data(self, absoluteAddress, TTSymbol("preset/write"), gensym("preset_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("preset/write"), gensym("preset_write"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write a xml preset file"));
 		
-		makeInternals_data(self, absoluteAddress, TTSymbol("preset/read/again"), gensym("preset_read_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("preset/read/again"), gensym("preset_read_again"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Read from the last xml preset file"));
 
-		makeInternals_data(self, absoluteAddress, TTSymbol("preset/write/again"), gensym("preset_write_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("preset/write/again"), gensym("preset_write_again"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write into the last xml preset file"));

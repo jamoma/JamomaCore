@@ -144,7 +144,7 @@ void nmspc_subscribe(TTPtr self)
 	TTValue						v;
 	TTAddress                   contextAddress = kTTAdrsEmpty;
 	TTAddress                   absoluteAddress;
-	TTObjectPtr					anObject;
+	TTObjectBasePtr					anObject;
 	
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 	
@@ -173,7 +173,7 @@ void nmspc_subscribe(TTPtr self)
 	else {
 		
 		// release the subscriber
-		TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+		TTObjectBaseRelease(TTObjectBaseHandle(&x->subscriberObject));
 		x->subscriberObject = NULL;
 		
 		// The following must be deferred because we have to interrogate our box,

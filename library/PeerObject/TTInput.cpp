@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle any signal input
+ * TTObjectBase to handle any signal input
  *
  * Copyright © 2010, Théo de la Hogue
  * 
@@ -62,20 +62,20 @@ TTInput::~TTInput()
 {
 	if (mReturnSignalCallback) {
 		delete (TTValuePtr)mReturnSignalCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mReturnSignalCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnSignalCallback));
 	}
 	
 	if (mSignalIn)
-		TTObjectRelease(TTObjectHandle(&mSignalIn));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mSignalIn));
 	
 	if (mSignalCache)
 		delete mSignalCache;
 	
 	if (mSignalOut)
-		TTObjectRelease(TTObjectHandle(&mSignalOut));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mSignalOut));
 	
 	if (mSignalZero)
-		TTObjectRelease(&mSignalZero);
+		TTObjectBaseRelease(&mSignalZero);
 	
 	if (mAddressObserver) {
 		
@@ -83,7 +83,7 @@ TTInput::~TTInput()
 			getLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 		
 		delete (TTValuePtr)mAddressObserver->getBaton();
-		TTObjectRelease(TTObjectHandle(&mAddressObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
 	}
 }
 
@@ -116,7 +116,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	TTAddress		newAddress;
 	TTNodePtr		aNode;
 	TTList			aNodeList;
-	TTObjectPtr		o;
+	TTObjectBasePtr		o;
 	
 	value.get(0, newAddress);
 	
@@ -130,8 +130,8 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	
 	if (!mAddressObserver) {
 		// prepare arguments
-		mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
@@ -163,7 +163,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	TTSymbol		anAddress;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
-	TTObjectPtr		o;
+	TTObjectBasePtr		o;
 	
 	// unpack baton (an InputPtr)
 	b = (TTValuePtr)baton;

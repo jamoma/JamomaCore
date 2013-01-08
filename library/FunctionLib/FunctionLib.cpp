@@ -16,16 +16,16 @@
 /*
 static void delete_functionunit(TTAudioObject* functionUnit)
 {
-	TTObjectRelease(functionUnit);
+	TTObjectBaseRelease(functionUnit);
 	*functionUnit = NULL;
 }
 */
 
-TTErr FunctionLib::createUnit(const TTSymbol unitName, TTObject **unit)
+TTErr FunctionLib::createUnit(const TTSymbol unitName, TTObjectBase **unit)
 {
 	TTUInt16	numChannels = 1;
 	
-	return TTObjectInstantiate(unitName, unit, numChannels);
+	return TTObjectBaseInstantiate(unitName, unit, numChannels);
 }
 
 

@@ -1,5 +1,5 @@
 /*
- * TTObject to handle application data structure
+ * TTObjectBase to handle application data structure
  * like a TTNodeDirectory and a hash tables of names
  *
  * Copyright © 2010, Théo de la Hogue
@@ -208,8 +208,8 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	if (mAttributeListenersCache->lookup(key, cacheElement)) {
 		
 		// prepare a callback based on ProtocolDirectoryCallback
-		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&returnValueCallback), kTTValNONE);
+		returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
 		
 		returnValueBaton = new TTValue();
 		*returnValueBaton = inputValue;
@@ -253,7 +253,7 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
         
 		cacheElement.get(0, (TTPtr*)&returnValueCallback);
 		mDirectory->removeObserverForNotifications(whereToListen, returnValueCallback);
-		TTObjectRelease(TTObjectHandle(&returnValueCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&returnValueCallback));
 		return mDirectoryListenersCache->remove(key);
 	}
 	
@@ -267,7 +267,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
-	TTObjectPtr			anObject, returnValueCallback;
+	TTObjectBasePtr			anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
 	TTValuePtr			returnValueBaton;
 	TTValue				cacheElement;
@@ -302,8 +302,8 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 					
 					if (!err) {
 						// prepare a callback based on ProtocolAttributeCallback
-						returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+						returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+						TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 						
 						returnValueBaton = new TTValue();
 						*returnValueBaton = inputValue;
@@ -335,7 +335,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
-	TTObjectPtr			anObject, returnValueCallback;
+	TTObjectBasePtr			anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
 	TTValue				cacheElement;
 	TTUInt32			i;
@@ -373,7 +373,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 						
 						cacheElement.get(i, (TTPtr*)&returnValueCallback);
 						anAttribute->unregisterObserverForNotifications(*returnValueCallback);
-						TTObjectRelease(TTObjectHandle(&returnValueCallback));
+						TTObjectBaseRelease(TTObjectBaseHandle(&returnValueCallback));
 						i++;
 					}
 				}
@@ -529,7 +529,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
 {
 	TTAddress    nameInstance;
 	TTSymbol     objectName, attributeName;
-	TTObjectPtr  anObject;
+	TTObjectBasePtr  anObject;
 	TTValue      attributeNameList, v, c;
 	TTList       nodeList;
 	TTNodePtr    aChild;
@@ -733,7 +733,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 	TTMirrorPtr		aMirror;
 	TTNodePtr		aNode;
 	TTBoolean		newInstanceCreated;
-	TTObjectPtr		getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
+	TTObjectBasePtr		getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
 	TTValuePtr		getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
 	ProtocolPtr		aProtocol;
 	TTValue			v, args, protocolNames;
@@ -763,7 +763,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     args = TTValue(objectName);
                     
                     getAttributeCallback = NULL;
-                    TTObjectInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
+                    TTObjectBaseInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
                     getAttributeBaton = new TTValue(TTPtr(aProtocol));
                     getAttributeBaton->append(mName);
                     getAttributeBaton->append(mTempAddress);
@@ -772,7 +772,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     args.append(getAttributeCallback);
                     
                     setAttributeCallback = NULL;
-                    TTObjectInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
+                    TTObjectBaseInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
                     setAttributeBaton = new TTValue(TTPtr(aProtocol));
                     setAttributeBaton->append(mName);
                     setAttributeBaton->append(mTempAddress);
@@ -781,7 +781,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     args.append(setAttributeCallback);
                     
                     sendMessageCallback = NULL;
-                    TTObjectInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
+                    TTObjectBaseInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
                     sendMessageBaton = new TTValue(TTPtr(aProtocol));
                     sendMessageBaton->append(mName);
                     sendMessageBaton->append(mTempAddress);
@@ -790,7 +790,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     args.append(sendMessageCallback);
                     
                     listenAttributeCallback = NULL;
-                    TTObjectInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
+                    TTObjectBaseInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
                     listenAttributeBaton = new TTValue(TTPtr(aProtocol));
                     listenAttributeBaton->append(mName);
                     listenAttributeBaton->append(mTempAddress);
@@ -798,10 +798,10 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
                     args.append(listenAttributeCallback);
                     
-                    TTObjectInstantiate(kTTSym_Mirror, TTObjectHandle(&aMirror), args);
+                    TTObjectBaseInstantiate(kTTSym_Mirror, TTObjectBaseHandle(&aMirror), args);
                     
                     // register object into the directory
-                    this->mDirectory->TTNodeCreate(mTempAddress, (TTObjectPtr)aMirror, NULL,  &aNode, &newInstanceCreated);
+                    this->mDirectory->TTNodeCreate(mTempAddress, (TTObjectBasePtr)aMirror, NULL,  &aNode, &newInstanceCreated);
                     
                     // ?? to -- is it usefull to set attribute value ?
                     // yes : in modul8 case for example...

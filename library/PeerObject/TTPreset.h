@@ -19,7 +19,7 @@ typedef TTScript* TTScriptPtr;
  
  */
 
-class TTMODULAR_EXPORT TTPreset : public TTDataObject
+class TTMODULAR_EXPORT TTPreset : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTPreset)
 	

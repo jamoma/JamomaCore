@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle any signal output
+ * TTObjectBase to handle any signal output
  *
  * Copyright © 2010, Théo de la Hogue
  * 
@@ -98,43 +98,43 @@ TTOutput::~TTOutput()
 {
 	if (mReturnSignalCallback) {
 		delete (TTValuePtr)mReturnSignalCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mReturnSignalCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnSignalCallback));
 	}
 	
 	if (mReturnLinkCallback) {
 		delete (TTValuePtr)mReturnLinkCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mReturnLinkCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnLinkCallback));
 	}
 	
 	if (mSignalIn)
-		TTObjectRelease(&mSignalIn);
+		TTObjectBaseRelease(&mSignalIn);
 	
 	if (mSignalOut)
-		TTObjectRelease(&mSignalOut);
+		TTObjectBaseRelease(&mSignalOut);
 	
 	if (mSignalTemp)
-		TTObjectRelease(&mSignalTemp);
+		TTObjectBaseRelease(&mSignalTemp);
 	
 	if (mSignalZero)
-		TTObjectRelease(&mSignalZero);
+		TTObjectBaseRelease(&mSignalZero);
 	
 	if (mMixUnit)
-		TTObjectRelease(&mMixUnit);
+		TTObjectBaseRelease(&mMixUnit);
 	
 	if (mGainUnit)
-		TTObjectRelease(&mGainUnit);
+		TTObjectBaseRelease(&mGainUnit);
 	
 	if (mRampMixUnit)
-		TTObjectRelease(&mMixUnit);
+		TTObjectBaseRelease(&mMixUnit);
 	
 	if (mRampGainUnit)
-		TTObjectRelease(&mGainUnit);
+		TTObjectBaseRelease(&mGainUnit);
 	
 	if (mAddressObserver) {
 		if (mInputAddress != kTTSymEmpty)
 			getLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
 		delete (TTValuePtr)mAddressObserver->getBaton();
-		TTObjectRelease(TTObjectHandle(&mAddressObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
 	}
 }
 
@@ -196,7 +196,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	TTValuePtr		newBaton;
 	TTAddress newAddress;
 	TTNodePtr		aNode;
-	TTObjectPtr		o;
+	TTObjectBasePtr		o;
 	TTValue			n = value;		// use new value to protect the attribute
 	
 	value.get(0, newAddress);
@@ -212,8 +212,8 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	if (!mAddressObserver) {
 		
 		// prepare arguments
-		mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
@@ -289,7 +289,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	TTSymbol		anAddress;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
-	TTObjectPtr		o;
+	TTObjectBasePtr		o;
 	
 	// unpack baton (an OutputPtr)
 	b = (TTValuePtr)baton;

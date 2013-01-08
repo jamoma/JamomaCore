@@ -50,11 +50,11 @@ typedef struct _ui{
 	TTHashPtr			hash_datas;				///< hash table of TTData
 	TTHashPtr			hash_viewers;			///< hash table of TTViewer
 	TTHashPtr			hash_receivers;			///< hash table of TTReceiver
-	TTObjectPtr			nmspcExplorer;			///< internal TTExplorer object to observe the entire namespace
-	TTObjectPtr			modelExplorer;			///< internal TTExplorer object to observe the model namespace
-	TTObjectPtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
-	TTObjectPtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
-	TTObjectPtr			modelRetExplorer;		///< internal TTExplorer object to observe returns
+	TTObjectBasePtr			nmspcExplorer;			///< internal TTExplorer object to observe the entire namespace
+	TTObjectBasePtr			modelExplorer;			///< internal TTExplorer object to observe the model namespace
+	TTObjectBasePtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
+	TTObjectBasePtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
+	TTObjectBasePtr			modelRetExplorer;		///< internal TTExplorer object to observe returns
 	TTSubscriberPtr		uiSubscriber;			///< internal TTSubscriber object to create a /ui node
 	TTCallbackPtr		previewSignal;			///< internal TTCallback to get back preview signal
 	TTOutputPtr			modelOutput;			///< a pointer to TTOutput object of the binded model
@@ -168,18 +168,18 @@ void 		ui_refmenu_qfn(t_ui *x);
 void 		ui_refmenu_build(t_ui *x);
 
 // prototypes: internal TTData and TTViewer
-void		ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMethod, TTSymbol service, TTSymbol name);
+void		ui_data_create(t_ui *obj, TTObjectBasePtr *returnedData, SymbolPtr aCallbackMethod, TTSymbol service, TTSymbol name);
 void		ui_data_create_all(t_ui* obj);
 void		ui_data_destroy(t_ui *obj, TTSymbol name);
 void		ui_data_destroy_all(t_ui* obj);
 void		ui_data_send(t_ui *obj, TTSymbol name, TTValue v);
 void		ui_data_interface(t_ui *x, TTSymbol name);
 
-void		ui_receiver_create(t_ui *obj, TTObjectPtr *returnedReceiver, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address);
+void		ui_receiver_create(t_ui *obj, TTObjectBasePtr *returnedReceiver, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address);
 void		ui_receiver_destroy(t_ui *obj, TTSymbol name);
 void		ui_receiver_destroy_all(t_ui *obj);
 
-void		ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address, TTBoolean subscribe);
+void		ui_viewer_create(t_ui *obj, TTObjectBasePtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address, TTBoolean subscribe);
 void		ui_viewer_destroy(t_ui *obj, TTSymbol name);
 void		ui_viewer_destroy_all(t_ui *obj);
 void		ui_viewer_send(t_ui *obj, TTSymbol name, TTValue v);
@@ -187,7 +187,7 @@ void		ui_viewer_highlight(t_ui *obj, TTSymbol name, TTBoolean s);
 void		ui_viewer_freeze(t_ui *obj, TTSymbol name, TTBoolean f);
 void		ui_viewer_refresh(t_ui *obj, TTSymbol name);
 
-void		ui_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer, SymbolPtr method);
+void		ui_explorer_create(ObjectPtr x, TTObjectBasePtr *returnedExplorer, SymbolPtr method);
 void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

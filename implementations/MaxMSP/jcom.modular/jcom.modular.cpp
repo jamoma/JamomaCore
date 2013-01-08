@@ -90,7 +90,7 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 			
 			// create the application
 			args = TTValue(applicationName);
-			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&x->wrappedObject), args);
+			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&x->wrappedObject), args);
 			
 		}
 		
@@ -124,7 +124,7 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// create internal TTXmlHandler
 	anXmlHandler = NULL;
-	TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&anXmlHandler), args);
+	TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&anXmlHandler), args);
 	v = TTValue(TTPtr(anXmlHandler));
 	x->internals->append(kTTSym_XmlHandler, v);
 	v = TTValue(TTPtr(x->wrappedObject));
@@ -139,7 +139,7 @@ void WrappedApplicationClass_free(TTPtr self)
 
 	// don't release the local application
 	if (x->wrappedObject != getLocalApplication)
-		TTObjectRelease(&x->wrappedObject);
+		TTObjectBaseRelease(&x->wrappedObject);
 	
 	free(EXTRA);
 }
@@ -162,7 +162,7 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSymbol    applicationName, parameterName;
-	TTObjectPtr	aProtocol = NULL;
+	TTObjectBasePtr	aProtocol = NULL;
 	TTHashPtr	hashParameters;
 	TTValue		v, keys, parameterValue;
 	AtomCount	ac;

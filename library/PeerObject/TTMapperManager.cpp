@@ -47,7 +47,7 @@ TTErr TTMapperManager::New()
 
 	for (mMapperList->begin(); mMapperList->end(); mMapperList->next()) {
 		mMapperList->current().get(0, (TTPtr*)&oldMapper);
-		TTObjectRelease(TTObjectHandle(&oldMapper));
+		TTObjectBaseRelease(TTObjectBaseHandle(&oldMapper));
 	}
 
 	delete mMapperList;
@@ -150,7 +150,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 
 			// Create a new mapper
 			newMapper = NULL;
-			TTObjectInstantiate(kTTSym_Mapper, TTObjectHandle(&newMapper), args);
+			TTObjectBaseInstantiate(kTTSym_Mapper, TTObjectBaseHandle(&newMapper), args);
 
 			// Browse attributes in xml
 			while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {

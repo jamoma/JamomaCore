@@ -13,7 +13,7 @@
 /****************************************************************************************************/
 
 Protocol::Protocol(TTValue& arguments) :
-TTObject(arguments),
+TTObjectBase(arguments),
 mApplicationManager(NULL),
 mActivityInCallback(NULL),
 mActivityOutCallback(NULL),
@@ -75,12 +75,12 @@ Protocol::~Protocol()
 	// delete activity callbacks
 	if (mActivityInCallback) {
 		delete (TTValuePtr)mActivityInCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mActivityInCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mActivityInCallback));
 	}
 	
 	if (mActivityOutCallback) {
 		delete (TTValuePtr)mActivityOutCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mActivityOutCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mActivityOutCallback));
 	}
 }
 
@@ -556,7 +556,7 @@ TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)
 	// TODO : make this faster !
 	ProtocolPtr p = (ProtocolPtr)aProtocol;
 	TTValue v;
-	TTObjectPtr anApplication;
+	TTObjectBasePtr anApplication;
 	TTSymbol applicationName;
 	
 	p->mApplicationManager->getAttributeValue(TTSymbol("localApplication"), v);
@@ -574,7 +574,7 @@ TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)
  
  ***************************************************************************/
 
-TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *returnedProtocol, TTObjectPtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback)
+TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *returnedProtocol, TTObjectBasePtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback)
 {
 	TTValue args;
 	
@@ -584,16 +584,16 @@ TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *retu
 	
 	// These should be alphabetized
 	if (protocolName == TTSymbol("Minuit"))
-		return TTObjectInstantiate(TTSymbol("Minuit"), (TTObjectPtr*)returnedProtocol, args);
+		return TTObjectBaseInstantiate(TTSymbol("Minuit"), (TTObjectBasePtr*)returnedProtocol, args);
 	/*
 	else if (protocolName == TTSymbol("OSC"))
-		return TTObjectInstantiate(TTSymbol("OSC"), (TTObjectPtr*)returnedProtocol, args);
+		return TTObjectBaseInstantiate(TTSymbol("OSC"), (TTObjectBasePtr*)returnedProtocol, args);
 	else if (protocolName == TTSymbol("MIDI"))
-		return TTObjectInstantiate(TTSymbol("MIDI"), (TTObjectPtr*)returnedProtocol, args);
+		return TTObjectBaseInstantiate(TTSymbol("MIDI"), (TTObjectBasePtr*)returnedProtocol, args);
 	else if (protocolName == TTSymbol("CopperLan"))
-		return TTObjectInstantiate(TTSymbol("CopperLan"), (TTObjectPtr*)returnedProtocol, args);
+		return TTObjectBaseInstantiate(TTSymbol("CopperLan"), (TTObjectBasePtr*)returnedProtocol, args);
 	else if (protocolName == TTSymbol("Serial"))
-		return TTObjectInstantiate(TTSymbol("Serial"), (TTObjectPtr*)returnedProtocol, args);
+		return TTObjectBaseInstantiate(TTSymbol("Serial"), (TTObjectBasePtr*)returnedProtocol, args);
 	 */
 	
 	TTLogError("Jamoma ProtocolLib : Invalid Protocol ( %s ) specified", protocolName.c_str());

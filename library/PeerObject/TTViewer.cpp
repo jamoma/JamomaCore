@@ -55,30 +55,30 @@ mReturnValueCallback(NULL)
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
-	TTObjectInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, kTTValNONE);
 }
 
 TTViewer::~TTViewer() // TODO : delete things...
 {
 	if (mReturnValueCallback) {
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	}
 	
 	if (mDataspaceConverter)
-		TTObjectRelease(TTObjectHandle(&mDataspaceConverter));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceConverter));
 	
 	if (mDataspaceObserver)
-		TTObjectRelease(TTObjectHandle(&mDataspaceObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceObserver));
 	
 	if (mDataspaceUnitObserver)
-		TTObjectRelease(TTObjectHandle(&mDataspaceUnitObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceUnitObserver));
 	
 	if (mSender)
-		TTObjectRelease(TTObjectHandle(&mSender));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mSender));
 	
 	if (mReceiver)
-		TTObjectRelease(TTObjectHandle(&mReceiver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReceiver));
 }
 
 TTErr TTViewer::setAddress(const TTValue& value)
@@ -93,7 +93,7 @@ TTErr TTViewer::setAddress(const TTValue& value)
 TTErr TTViewer::bind()
 {
 	TTValue			args, v;
-	TTObjectPtr		returnAddressCallback, returnValueCallback;
+	TTObjectBasePtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// Prepare arguments
@@ -106,33 +106,33 @@ TTErr TTViewer::bind()
 
 	// Replace a TTSender object
 	if (mSender)
-		TTObjectRelease(TTObjectHandle(&mSender));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mSender));
 	
-	mSender = NULL;							// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(kTTSym_Sender, TTObjectHandle(&mSender), kTTValNONE);
+	mSender = NULL;							// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(kTTSym_Sender, TTObjectBaseHandle(&mSender), kTTValNONE);
 	
 	mSender->setAttributeValue(kTTSym_address, mAddress);
 	
 	// Replace a TTReceiver object
 	if (mReceiver)
-		TTObjectRelease(TTObjectHandle(&mReceiver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReceiver));
 	
-	returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
+	returnAddressCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
 	returnAddressBaton = new TTValue(TTPtr(this));
 	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
 	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveAddressCallback));
 	args.append(returnAddressCallback);
 	
-	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 	returnValueBaton = new TTValue(TTPtr(this));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveValueCallback));
 	args.append(returnValueCallback);
 
-	mReceiver = NULL;						// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mReceiver), args);
+	mReceiver = NULL;						// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mReceiver), args);
 	
 	mReceiver->setAttributeValue(kTTSym_address, mAddress);
 	
@@ -145,23 +145,23 @@ TTErr TTViewer::bind()
 TTErr TTViewer::observeDataspace()
 {
 	TTValue			args;
-	TTObjectPtr		returnDataspaceCallback;
+	TTObjectBasePtr		returnDataspaceCallback;
 	TTValuePtr		returnDataspaceBaton;
 	
 	if (mDataspaceObserver)
-		TTObjectRelease(TTObjectHandle(&mDataspaceObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceObserver));
 	
 	args.append(NULL);
 	
-	returnDataspaceCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnDataspaceCallback, kTTValNONE);
+	returnDataspaceCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnDataspaceCallback, kTTValNONE);
 	returnDataspaceBaton = new TTValue(TTPtr(this));
 	returnDataspaceCallback->setAttributeValue(kTTSym_baton, TTPtr(returnDataspaceBaton));
 	returnDataspaceCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerDataspaceCallback));
 	args.append(returnDataspaceCallback);
 	
 	mDataspaceObserver = NULL;
-	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mDataspaceObserver), args);
+	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mDataspaceObserver), args);
 	
 	mDataspaceObserver->setAttributeValue(kTTSym_address, mAddress.appendAttribute(kTTSym_dataspace));
 	
@@ -173,24 +173,24 @@ TTErr TTViewer::observeDataspace()
 TTErr TTViewer::observeDataspaceUnit()
 {
 	TTValue			args;
-	TTObjectPtr		returnDataspaceUnitCallback;
+	TTObjectBasePtr		returnDataspaceUnitCallback;
 	TTValuePtr		returnDataspaceUnitBaton;
 	
 	if (mDataspaceUnitObserver)
-		TTObjectRelease(TTObjectHandle(&mDataspaceUnitObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceUnitObserver));
 	
 	// Make a TTReceiver object
 	args.append(NULL);
 	
-	returnDataspaceUnitCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnDataspaceUnitCallback, kTTValNONE);
+	returnDataspaceUnitCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnDataspaceUnitCallback, kTTValNONE);
 	returnDataspaceUnitBaton = new TTValue(TTPtr(this));
 	returnDataspaceUnitCallback->setAttributeValue(kTTSym_baton, TTPtr(returnDataspaceUnitBaton));
 	returnDataspaceUnitCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerDataspaceUnitCallback));
 	args.append(returnDataspaceUnitCallback);
 	
 	mDataspaceUnitObserver = NULL;
-	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&mDataspaceUnitObserver), args);
+	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mDataspaceUnitObserver), args);
 	
 	mDataspaceUnitObserver->setAttributeValue(kTTSym_address, mAddress.appendAttribute(kTTSym_dataspaceUnit));
 	

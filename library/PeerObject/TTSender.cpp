@@ -41,7 +41,7 @@ mApplicationObserver(NULL)
 TTSender::~TTSender()
 {
 	if (mSignal)
-		TTObjectRelease(TTObjectHandle(&mSignal));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mSignal));
 	
 	unbindAddress();
 	unbindApplication();
@@ -72,7 +72,7 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 
 TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 {
-	TTObjectPtr		anObject;
+	TTObjectBasePtr		anObject;
 	TTValue			aCacheElement, v, c;
 	TTAttributePtr	anAttribute;
 	TTSymbol		ttAttributeName;
@@ -151,7 +151,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 TTErr TTSender::bindAddress()
 {
 	TTNodePtr	aNode;
-	TTObjectPtr	anObject;
+	TTObjectBasePtr	anObject;
 	TTValuePtr	newBaton;
 	TTValue		aCacheElement;
 	TTList		aNodeList;
@@ -171,8 +171,8 @@ TTErr TTSender::bindAddress()
 	}
 	
 	// 3. Observe any creation or destruction below the address
-	mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+	mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 	
 	newBaton = new TTValue(TTPtr(this));
 	
@@ -203,7 +203,7 @@ TTErr TTSender::unbindAddress()
 			
 			if(!err) {
 				delete (TTValuePtr)mAddressObserver->getBaton();
-				TTObjectRelease(TTObjectHandle(&mAddressObserver));
+				TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
 			}
 		}
 	}
@@ -217,8 +217,8 @@ TTErr TTSender::bindApplication()
 	
 	if (!mApplicationObserver) {
 		
-		mApplicationObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
+		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		
@@ -241,7 +241,7 @@ TTErr TTSender::unbindApplication()
 		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 		
 		delete (TTValuePtr)mApplicationObserver->getBaton();
-		TTObjectRelease(TTObjectHandle(&mApplicationObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
 	}
 	
 	mDirectory = NULL;
@@ -255,7 +255,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 	TTValue			aCacheElement;
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
-	TTObjectPtr		anObject, aCacheObject;
+	TTObjectBasePtr		anObject, aCacheObject;
 	TTAddress		anAddress;
 	TTValue			v;
 	TTUInt8			flag;

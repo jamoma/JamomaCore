@@ -33,7 +33,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTScript : public TTDataObject
+class TTMODULAR_EXPORT TTScript : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTScript)
 	
@@ -41,8 +41,8 @@ private:
 	
 	TTListPtr			mLines;					///< a linked list containing all lines of the script
 	
-	TTObjectPtr			mSubScript;				///< the current sub script to manage
-	TTObjectPtr			mParentScript;			///< the current parent script to manage (usefull for ReadFrom method)
+	TTObjectBasePtr			mSubScript;				///< the current sub script to manage
+	TTObjectBasePtr			mParentScript;			///< the current parent script to manage (usefull for ReadFrom method)
 	
 	TTCallbackPtr		mReturnLineCallback;	///< a callback to return back lines to the owner of this script
 	

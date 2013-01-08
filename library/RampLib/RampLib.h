@@ -22,7 +22,7 @@ typedef void (*RampUnitCallback)(void *, TTUInt32, TTFloat64 *);
 
 
 #define TT_RAMPUNIT_CONSTRUCTOR \
-TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
@@ -34,7 +34,7 @@ thisTTClass :: thisTTClass (TTValue& arguments) : RampUnit(arguments)
 
 
 // Specification of our base class
-class TTMODULAR_EXPORT RampUnit : public TTDataObject {
+class TTMODULAR_EXPORT RampUnit : public TTDataObjectBase {
 	private:
 		TTSymbol			mFunction;			///< The name of the functionUnit
 
@@ -42,7 +42,7 @@ class TTMODULAR_EXPORT RampUnit : public TTDataObject {
 		TTErr setFunction(const TTValue& functionName);
 	
 	public:
-		TTAudioObject		*functionUnit;		///< The actual functionUnit object defined by attrFunction
+		TTAudioObjectBase	*functionUnit;		///< The actual functionUnit object defined by attrFunction
 												///< it is public in order to be able to extend his parameter to as attribute of another object
 
 	protected:

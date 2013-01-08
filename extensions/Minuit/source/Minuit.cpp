@@ -112,7 +112,7 @@ TTErr Minuit::Run()
 		
 		mAnswerManager = new MinuitAnswerManager((MinuitPtr)this);
 		
-		err = TTObjectInstantiate(TTSymbol("osc.receive"), &mOscReceive, kTTValNONE);
+		err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mOscReceive, kTTValNONE);
 		if (!err) {
 				mOscReceive->setAttributeValue(TTSymbol("port"), mPort);
 				mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
@@ -135,7 +135,7 @@ TTErr Minuit::Stop()
 	if (mRunning) {
 		
 		delete mAnswerManager;
-		TTObjectRelease(&mOscReceive);
+		TTObjectBaseRelease(&mOscReceive);
 		mRunning = NO;
 		
 		return kTTErrNone;
@@ -491,7 +491,7 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 			if (errIp || errPort)
 				return kTTErrGeneric;
 			
-			err = TTObjectInstantiate(TTSymbol("osc.send"), &mOscSend, kTTValNONE);
+			err = TTObjectBaseInstantiate(TTSymbol("osc.send"), &mOscSend, kTTValNONE);
 			if (!err) {
 				mOscSend->setAttributeValue(TTSymbol("address"), vIp);
 				mOscSend->setAttributeValue(TTSymbol("port"), vPort);
@@ -501,7 +501,7 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 				
 				err = mOscSend->sendMessage(TTSymbol("send"), message, kTTValNONE);
 				
-				TTObjectRelease(&mOscSend);
+				TTObjectBaseRelease(&mOscSend);
 				
 				if (mActivity) {
 					v = arguments;

@@ -40,12 +40,12 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&mScript), arguments); // use arguments to pass the returnLineCallback
+	TTObjectBaseInstantiate(kTTSym_Script, TTObjectBaseHandle(&mScript), arguments); // use arguments to pass the returnLineCallback
 }
 
 TTCue::~TTCue()
 {
-	TTObjectRelease(TTObjectHandle(&mScript));
+	TTObjectBaseRelease(TTObjectBaseHandle(&mScript));
 	mScript = NULL;
 }
 
@@ -186,7 +186,7 @@ TTErr TTCue::getRamp(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCue::searchRamp(TTObjectPtr aScript, TTUInt32& ramp)
+TTErr TTCue::searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp)
 {
 	TTListPtr			lines;
 	TTScriptPtr			aSubScript;
@@ -228,7 +228,7 @@ TTErr TTCue::setRamp(const TTValue& value)
 {
 	mRamp = value;
 	
-	// ask the script to bind each line on his TTObject 
+	// ask the script to bind each line on his TTObjectBase 
 	// to make test on the rampDrive attribute
 	mScript->sendMessage(TTSymbol("Bind"), kTTAdrsRoot, kTTValNONE);
 	
@@ -236,12 +236,12 @@ TTErr TTCue::setRamp(const TTValue& value)
 	return processRamp(mScript, mRamp);
 }
 
-TTErr TTCue::processRamp(TTObjectPtr aScript, TTUInt32 ramp)
+TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 {
 	TTListPtr			lines;
 	TTScriptPtr			aSubScript;
 	TTDictionaryPtr		aLine;
-	TTObjectPtr			anObject;
+	TTObjectBasePtr			anObject;
 	TTSymbol			rampDrive;
 	TTValue				v, r;
 	
@@ -333,13 +333,13 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTCue::processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TTAddressItemPtr aNamespace)
+TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, const TTAddressItemPtr aNamespace)
 {
 	TTAddressItemPtr nameItem, instanceItem, anItem;
 	TTString		nameInstance;
 	TTNodePtr		aNode;
 	TTDictionaryPtr	aLine;
-	TTObjectPtr		anObject, aSubScript;
+	TTObjectBasePtr		anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
 	TTAddress		address, childAddress;
 	TTSymbol		service;
@@ -517,7 +517,7 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
     return kTTErrNone;
 }
 
-TTErr TTCue::processSelect(TTObjectPtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill)
+TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill)
 {
 	TTListPtr			lines;
 	TTAddressItemPtr    anItem;
@@ -665,7 +665,7 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 TTBoolean TTCueCompareNodePriority(TTValue& v1, TTValue& v2) 
 {
 	TTNodePtr	n1, n2;
-	TTObjectPtr o1, o2;
+	TTObjectBasePtr o1, o2;
 	TTValue		v;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;

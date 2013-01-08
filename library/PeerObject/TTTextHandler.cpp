@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle text file reading and writing
+ * TTObjectBase to handle text file reading and writing
  * to be able to store / recall state of an object 
  * into/from text files.
  *
@@ -45,14 +45,14 @@ TTTextHandler::~TTTextHandler()
 TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 {
     TTValue				v;
-	TTObjectPtr			aTTObject;
+	TTObjectBasePtr			aTTObjectBase;
 	
 	// an object have to be selected
 	if (mObject == NULL)
 		return kTTErrGeneric;
 	
 	// memorize this object because it could change if the handler is used recursively
-	aTTObject = mObject;
+	aTTObjectBase = mObject;
 	
 	if (args.getSize() == 1) {
 		
@@ -76,7 +76,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			// Call the WriteAsText method of the handled object
 			v = TTValue((TTPtr)this);
-			aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
+			aTTObjectBase->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
 			
 			// TODO : Write the writer string into the file
 			;
@@ -96,7 +96,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			// Call the WriteAsText method of the handled object
 			v = TTValue((TTPtr)this);
-			aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
+			aTTObjectBase->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
 			
 		}
 		else
@@ -104,20 +104,20 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 		
 		mIsWriting = false;
 		
-		// Memorize the TTObject as the last handled object
-		mObject = aTTObject;
+		// Memorize the TTObjectBase as the last handled object
+		mObject = aTTObjectBase;
 		
 		return kTTErrNone;
 	}
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
+	return aTTObjectBase->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
 }
 
 TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 {
-	TTObjectPtr	aTTObject;
+	TTObjectBasePtr	aTTObjectBase;
 	size_t		found, last, size;
 	TTUInt8		i;
 	TTString	line;
@@ -128,7 +128,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 		return kTTErrGeneric;
 	
 	// memorize this object because it could change if the handler is used recursively
-	aTTObject = mObject;
+	aTTObjectBase = mObject;
 	
 	
 	if (args.getSize() == 1) {
@@ -162,7 +162,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 				
 				if (file.eof()) mLastLine = YES;
 				
-				aTTObject->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
+				aTTObjectBase->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
 				
 				if (mFirstLine) mFirstLine = NO;
 			}
@@ -219,7 +219,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 					// send the line
 					if (mLine) {
 						
-						aTTObject->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
+						aTTObjectBase->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
 						
 						// set first line flag off
 						mFirstLine = NO;
@@ -232,13 +232,13 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 		
 		mIsReading = false;
 		
-		// memorize the TTObject as the last handled object
-		mObject = aTTObject;
+		// memorize the TTObjectBase as the last handled object
+		mObject = aTTObjectBase;
 		
 		return kTTErrNone;
 	}
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
+	return aTTObjectBase->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
 }

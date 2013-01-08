@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle opml file reading and writing
+ * TTObjectBase to handle opml file reading and writing
  * to be able to store / recall state of an object 
  * into/from opml files.
  *
@@ -50,7 +50,7 @@ TTOpmlHandler::~TTOpmlHandler()
 TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 {
     TTValue				v;
-	TTObjectPtr			aTTObject;
+	TTObjectBasePtr			aTTObjectBase;
 	int					ret;
 	
 	// an object have to be selected
@@ -58,7 +58,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 		return kTTErrGeneric;
 	
 	// memorize this object because it could change if the handler is used recursively
-	aTTObject = mObject;
+	aTTObjectBase = mObject;
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
@@ -122,10 +122,10 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			// Start opml body
 			xmlTextWriterStartElement((xmlTextWriterPtr)mWriter, BAD_CAST "body");
 			
-			// Write data of the given TTObject (which have to implement a WriteAsOpml message)
+			// Write data of the given TTObjectBase (which have to implement a WriteAsOpml message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
+			aTTObjectBase->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 			
 			// Close opml body
 			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
@@ -143,8 +143,8 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			mIsWriting = false;
 			
-			// memorize the TTObject as the last handled object
-			mObject = aTTObject;
+			// memorize the TTObjectBase as the last handled object
+			mObject = aTTObjectBase;
 			
 			return kTTErrNone;
 		}
@@ -152,7 +152,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
+	return aTTObjectBase->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 }
 
 TTErr TTOpmlHandler::WriteAgain()
@@ -166,7 +166,7 @@ TTErr TTOpmlHandler::WriteAgain()
 TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 {
 	const xmlChar		*xName = 0;
-	TTObjectPtr			aTTObject;
+	TTObjectBasePtr			aTTObjectBase;
 	TTValue				v;
 	int					ret;
 	
@@ -175,7 +175,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 		return kTTErrGeneric;
 	
 	// memorize this object because it could change if the handler is used recursively
-	aTTObject = mObject;
+	aTTObjectBase = mObject;
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
@@ -217,7 +217,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 					}
 					
 					v.append((TTPtr)this);
-					aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
+					aTTObjectBase->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 					
 					// next node
 					ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
@@ -229,8 +229,8 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 				xmlFreeTextReader((xmlTextReaderPtr)mReader);
 				mIsReading = false;
 				
-				// memorize the TTObject as the last handled object
-				mObject = aTTObject;
+				// memorize the TTObjectBase as the last handled object
+				mObject = aTTObjectBase;
 			}
 			else
 				return kTTErrGeneric;
@@ -241,7 +241,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
+	return aTTObjectBase->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 }
 
 TTErr TTOpmlHandler::ReadAgain()

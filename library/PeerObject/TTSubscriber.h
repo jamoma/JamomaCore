@@ -1,5 +1,5 @@
 /* 
- * A contextual subscriber to register TTObject as TTNode in a TTNodeDirectory
+ * A contextual subscriber to register TTObjectBase as TTNode in a TTNodeDirectory
  * Copyright © 2010, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -17,7 +17,7 @@
  to create each upper nodes to make a path to this node in the tree structure.
  To do that we need :
 	
-	- the TTObject to subscribe.
+	- the TTObjectBase to subscribe.
 	- a Context : a pointer to a structural element of our environnement which contains the subscriber (e.g. a Max patcher, a Pd patcher, a html page, ...).
 	- a relative address of the subscriber in this Context to get the name and the instance (but this could be ommited and be generated automatically).
 	- a way to share the node which refers on that Context with other suscribers inside.
@@ -31,7 +31,7 @@
 class TTData;
 typedef TTData* TTDataPtr;
 
-class TTMODULAR_EXPORT TTSubscriber : public TTDataObject
+class TTMODULAR_EXPORT TTSubscriber : public TTDataObjectBase
 {
 	
 public:
@@ -42,7 +42,7 @@ private:
 	
 	TTAddress					mRelativeAddress;			///< the address of this subscriber relative to the Context node
 	
-	TTObjectPtr					mObject;					///< the object to subscribe
+	TTObjectBasePtr					mObject;					///< the object to subscribe
 	
 	TTNodePtr					mNode;						///< cache the TTNode relative to this subscriber
 	TTAddress					mNodeAddress;				///< cache the address of this subscriber in the tree structure
@@ -72,11 +72,11 @@ private:
 	
 public:
 	
-	/** Expose a message of any TTObject as TTData in the same context than subscribed object */
-	TTErr exposeMessage(TTObjectPtr anObject, TTSymbol messageName, TTDataPtr *returnedData);
+	/** Expose a message of any TTObjectBase as TTData in the same context than subscribed object */
+	TTErr exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName, TTDataPtr *returnedData);
 	
-	/** Expose an attribute of any TTObject as TTData (parameter or return) in the same context than subscribed object */
-	TTErr exposeAttribute(TTObjectPtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData);
+	/** Expose an attribute of any TTObjectBase as TTData (parameter or return) in the same context than subscribed object */
+	TTErr exposeAttribute(TTObjectBasePtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData);
 	
 	/** Remove message exposition */
 	TTErr unexposeMessage(TTSymbol messageName);

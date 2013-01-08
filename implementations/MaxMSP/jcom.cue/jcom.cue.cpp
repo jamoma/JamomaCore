@@ -12,7 +12,7 @@
 
 // This is used to store extra data
 typedef struct extra {
-	TTObjectPtr	toEdit;				// the object to edit (a cue or all the cuelist)
+	TTObjectBasePtr	toEdit;				// the object to edit (a cue or all the cuelist)
 	TTSymbol	cueName;			// the name of the edited cue
 	TTString	*text;				// the text of the editor to read after edclose
 	ObjectPtr	textEditor;			// the text editor window
@@ -193,7 +193,7 @@ void cue_subscribe(TTPtr self)
 		
 		// create internal TTXmlHandler and internal messages for Read and Write
 		aXmlHandler = NULL;
-		TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&aXmlHandler), args);
+		TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&aXmlHandler), args);
 		v = TTValue(TTPtr(aXmlHandler));
 		x->internals->append(kTTSym_XmlHandler, v);
 		v = TTValue(TTPtr(x->wrappedObject));
@@ -201,18 +201,18 @@ void cue_subscribe(TTPtr self)
 		
 		// create internal TTTextHandler
 		aTextHandler = NULL;
-		TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
+		TTObjectBaseInstantiate(kTTSym_TextHandler, TTObjectBaseHandle(&aTextHandler), args);
 		v = TTValue(TTPtr(aTextHandler));
 		x->internals->append(kTTSym_TextHandler, v);
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Read"), &aData);
-		makeInternals_data(self, absoluteAddress, TTSymbol("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Read a xml cue file"));
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Write"), &aData);
-		makeInternals_data(self, absoluteAddress, TTSymbol("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write a xml cue file"));
@@ -397,7 +397,7 @@ void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 	TTNodePtr	contextNode;
-	TTObjectPtr	o;
+	TTObjectBasePtr	o;
 	TTBoolean	initialized;
 	
 	if (argc && argv) {

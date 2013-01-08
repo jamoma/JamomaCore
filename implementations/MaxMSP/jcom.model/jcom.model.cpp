@@ -151,7 +151,7 @@ void model_subscribe(TTPtr self)
 	TTValue						v, args;
 	TTAddress                   nodeAdrs, argAdrs;
 	TTSymbol					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, editAdrs, muteAdrs;
-	TTObjectPtr					aData;
+	TTObjectBaseBasePtr					aData;
 	TTTextHandlerPtr			aTextHandler;
     TTPresetPtr                 aPreset;
 	TTPtr						context;
@@ -243,7 +243,7 @@ void model_subscribe(TTPtr self)
                     
                     // create internal TTTextHandler
                     aTextHandler = NULL;
-                    TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
+                    TTObjectBaseBaseInstantiate(kTTSym_TextHandler, TTObjectBaseBaseHandle(&aTextHandler), args);
                     v = TTValue(TTPtr(aTextHandler));
                     x->internals->append(kTTSym_TextHandler, v);
                     v = TTValue(TTPtr(x->wrappedObject));
@@ -261,7 +261,7 @@ void model_subscribe(TTPtr self)
                     
                     // create internal TTPreset
                     aPreset = NULL;
-                    TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&aPreset), args);
+                    TTObjectBaseBaseInstantiate(kTTSym_Preset, TTObjectBaseBaseHandle(&aPreset), args);
                     v = TTValue(TTPtr(aPreset));
                     x->internals->append(kTTSym_Preset, v);
                     v = TTValue(nodeAdrs);

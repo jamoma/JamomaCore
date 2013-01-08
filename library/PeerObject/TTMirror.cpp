@@ -44,8 +44,8 @@ mListenAttributeCallback(NULL)
 	
 
 	// instantiate a temp object to copy visible attributes and messages
-	TTObjectPtr anObject = NULL;
-	TTObjectInstantiate(mType,  &anObject, kTTValNONE);
+	TTObjectBasePtr anObject = NULL;
+	TTObjectBaseInstantiate(mType,  &anObject, kTTValNONE);
 	
 	anObject->getAttributeNames(attributeNames);
 	for (TTUInt32 i=0; i<attributeNames.getSize(); i++) {
@@ -73,7 +73,7 @@ mListenAttributeCallback(NULL)
 		// TODO : addMirrorMessageProperty
 	}
 	
-	TTObjectRelease(&anObject);
+	TTObjectBaseRelease(&anObject);
 }
 
 TTMirror::~TTMirror() // TODO : delete things...

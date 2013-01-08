@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle xml file reading and writing
+ * TTObjectBase to handle xml file reading and writing
  * to be able to store / recall state of an object 
  * into/from xml files.
  *
@@ -55,7 +55,7 @@ TTXmlHandler::~TTXmlHandler()
 TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 {
     TTValue				v;
-	TTObjectPtr			aTTObject;
+	TTObjectBasePtr			aTTObjectBase;
 	int					ret;
 	
 	// an object have to be selected
@@ -63,7 +63,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 		return kTTErrGeneric;
 	
 	// memorize this object because it could change if the handler is used recursively
-	aTTObject = mObject;
+	aTTObjectBase = mObject;
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
@@ -102,10 +102,10 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "xmlns:xsi",			BAD_CAST mXmlSchemaInstance.c_str());
 			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST mXmlSchemaLocation.c_str());
 			
-			// Write data of the given TTObject (which have to implement a WriteAsXml message)
+			// Write data of the given TTObjectBase (which have to implement a WriteAsXml message)
 			v.clear();
 			v.append((TTPtr)this);
-			aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+			aTTObjectBase->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 			
 			// End Header information
 			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
@@ -120,8 +120,8 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			mIsWriting = false;
 			
-			// memorize the TTObject as the last handled object
-			mObject = aTTObject;
+			// memorize the TTObjectBase as the last handled object
+			mObject = aTTObjectBase;
 			
 			return kTTErrNone;
 		}
@@ -129,7 +129,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+	return aTTObjectBase->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 }
 
 TTErr TTXmlHandler::WriteAgain()
@@ -145,7 +145,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	TTUInt8				xType;
 	const xmlChar		*xName = 0;
 	const xmlChar		*xValue = 0;
-	TTObjectPtr			aTTObject;
+	TTObjectBasePtr			aTTObjectBase;
 	TTSymbol			lastNodeName;
 	TTValue				v;
 	int					ret;
@@ -155,7 +155,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 		return kTTErrGeneric;
 	
 	// memorize this object because it could change if the handler is used recursively
-	aTTObject = mObject;
+	aTTObjectBase = mObject;
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
@@ -249,7 +249,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						
 						// process the mObject parsing on this node
 						v.append((TTPtr)this);
-						aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+						aTTObjectBase->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 					}
 						
 					// next node
@@ -263,8 +263,8 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 				xmlFreeTextReader((xmlTextReaderPtr)mReader);
 				mIsReading = false;
 				
-				// memorize the TTObject as the last handled object
-				mObject = aTTObject;
+				// memorize the TTObjectBase as the last handled object
+				mObject = aTTObjectBase;
 			}
 			else
 				return kTTErrGeneric;
@@ -275,7 +275,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append((TTPtr)this);
-	return aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+	return aTTObjectBase->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 }
 
 TTErr TTXmlHandler::ReadAgain()

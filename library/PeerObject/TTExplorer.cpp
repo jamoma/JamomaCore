@@ -74,7 +74,7 @@ TTExplorer::~TTExplorer()
 	
 	if (mReturnValueCallback) {
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	}
 	
 	delete mFilterBank;
@@ -194,8 +194,8 @@ TTErr TTExplorer::bindAddress()
 		if (mUpdate && mAddress != kTTAdrsEmpty) {
 			
 			// observe any creation or destruction below the address
-			mAddressObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+			mAddressObserver = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 			
 			newBaton = new TTValue(TTPtr(this));
 			
@@ -222,7 +222,7 @@ TTErr TTExplorer::unbindAddress()
 	if (mDirectory && mAddressObserver && mAddress != kTTSymEmpty) {
 		
 		mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
-		TTObjectRelease(TTObjectHandle(&mAddressObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
 		mAddressObserver = NULL;
 		
 		return kTTErrNone;
@@ -237,8 +237,8 @@ TTErr TTExplorer::bindApplication()
 	
 	if (!mApplicationObserver) {
 		
-		mApplicationObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
+		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
 		
 		newBaton = new TTValue(TTPtr(this));
 		
@@ -262,7 +262,7 @@ TTErr TTExplorer::unbindApplication()
 		err = TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 		
 		delete (TTValuePtr)mApplicationObserver->getBaton();
-		TTObjectRelease(TTObjectHandle(&mApplicationObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
 	}
 	
 	mDirectory = NULL;
@@ -276,7 +276,7 @@ TTErr TTExplorer::Explore()
 	TTSymbol	attributeName;
 	TTList		aNodeList, internalFilterList, allObjectNodes;
 	TTNodePtr	aNode;
-	TTObjectPtr	o;
+	TTObjectBasePtr	o;
 	TTValue		v, args;
 	TTErr		err;
 	
@@ -404,8 +404,8 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 			if (anItem) {
 				
 				// set selection state
-				if (inputValue.getType(1) == kTypeInt32)
-					inputValue.get(0, state);
+				if (inputValue[1].type() == kTypeInt32)
+					state = inputValue[0];
 				
 				// or switch it
 				else
@@ -842,7 +842,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTCallbackPtr	anObserver;
-	TTObjectPtr		o;
+	TTObjectBasePtr		o;
 		
 	// Unpack baton
 	b = (TTValuePtr)baton;
@@ -989,7 +989,7 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2) 
 {
 	TTNodePtr	n1, n2;
-	TTObjectPtr o1, o2;
+	TTObjectBasePtr o1, o2;
 	TTValue		v;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;

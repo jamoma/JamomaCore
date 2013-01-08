@@ -16,7 +16,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTContainer : public TTDataObject
+class TTMODULAR_EXPORT TTContainer : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTContainer)
 	
@@ -124,8 +124,8 @@ TTErr TTMODULAR_EXPORT TTContainerCommandMessageCallback(TTPtr baton, TTValue& d
 TTBoolean TTMODULAR_EXPORT TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args);
 
 /** compare priority attribute of object's
- @param	v1							< relativeAddress, a pointer to a value containing a pointer to a TTObject >
- @param	v2							< relativeAddress, a pointer to a value containing a pointer to a TTObject >
+ @param	v1							< relativeAddress, a pointer to a value containing a pointer to a TTObjectBase >
+ @param	v2							< relativeAddress, a pointer to a value containing a pointer to a TTObjectBase >
  @return							is the priority of v1 is smaller than v2 (except if equal 0) ? */ 
 TTBoolean TTMODULAR_EXPORT	TTContainerCompareObjectPriority(TTValue& v1, TTValue& v2);
 

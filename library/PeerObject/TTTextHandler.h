@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle text file reading and writing
+ * TTObjectBase to handle text file reading and writing
  * to be able to store / recall state of an object 
  * into/from text files.
  *
@@ -18,7 +18,7 @@
  
 	writeAs<Format> / readFrom<Format> methods are not directly called using the classic message system.
 	We should prefer use one of the exported TT<Format>Reader / TT<Format>Writer method which have :
-		- an Object attribute : the TTObject you want it reads / writes a file
+		- an Object attribute : the TTObjectBase you want it reads / writes a file
 		or
 		- the data structure to pass in order to read / write depending on the selected <Format>
  
@@ -39,13 +39,13 @@
  
  */
 
-class TTMODULAR_EXPORT TTTextHandler : public TTDataObject
+class TTMODULAR_EXPORT TTTextHandler : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTTextHandler)
 	
 public:	// use public for recursive access
 	
-	TTObjectPtr			mObject;						///< the last handled object
+	TTObjectBasePtr			mObject;						///< the last handled object
 	TTSymbol			mFilePath;						///< the path to the last writen/read file
 	
 	TTString			*mWriter;						///< the text where to write

@@ -77,7 +77,7 @@ mApplicationObserversMutex(NULL)
 		
 		TTSymbol protocolName;
 		ProtocolPtr	aProtocolObject = NULL;
-		TTObjectPtr	activityInCallback, activityOutCallback;
+		TTObjectBasePtr	activityInCallback, activityOutCallback;
 		TTValuePtr	activityInBaton, activityOutBaton;
 		TTValue		args;
 		TTErr		err;
@@ -89,19 +89,19 @@ mApplicationObserversMutex(NULL)
 			
 			// create 2 callbacks to get raw protocol messages back
 			activityInCallback = NULL;
-			TTObjectInstantiate(TTSymbol("callback"), &activityInCallback, kTTValNONE);
+			TTObjectBaseInstantiate(TTSymbol("callback"), &activityInCallback, kTTValNONE);
 			activityInBaton = new TTValue(protocolName);
 			activityInCallback->setAttributeValue(kTTSym_baton, TTPtr(activityInBaton));
 			activityInCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityInCallback));
 			
 			activityOutCallback = NULL;
-			TTObjectInstantiate(TTSymbol("callback"), &activityOutCallback, kTTValNONE);
+			TTObjectBaseInstantiate(TTSymbol("callback"), &activityOutCallback, kTTValNONE);
 			activityOutBaton = new TTValue(protocolName);
 			activityOutCallback->setAttributeValue(kTTSym_baton, TTPtr(activityOutBaton));
 			activityOutCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityOutCallback));
 			
 			// create an instance of a Protocol object
-			err = ProtocolLib::createProtocol(protocolName, &aProtocolObject, (TTObjectPtr)this, (TTCallbackPtr)activityInCallback, (TTCallbackPtr)activityOutCallback);
+			err = ProtocolLib::createProtocol(protocolName, &aProtocolObject, (TTObjectBasePtr)this, (TTCallbackPtr)activityInCallback, (TTCallbackPtr)activityOutCallback);
 			
 			if (!err) {
 				
@@ -136,7 +136,7 @@ TTApplicationManager::~TTApplicationManager()
 		
 		if (!err) {
 			v.get(0, (TTPtr*)&aProtocol);
-			TTObjectRelease(TTObjectHandle(&aProtocol));
+			TTObjectBaseRelease(TTObjectBaseHandle(&aProtocol));
 		}
 	}
 }
@@ -388,7 +388,7 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	TTNodePtr			firstNode, aNode;
 	TTAddress			nodeAddress;
 	TTSymbol			objectType;
-	TTObjectPtr			anObject;
+	TTObjectBasePtr			anObject;
 	TTErr				err;
 	
 	directory = getDirectoryFrom(whereToDiscover);
@@ -446,7 +446,7 @@ TTErr TTApplicationManager::ApplicationGet(const TTValue& inputValue, TTValue& o
 	TTLogDebug("TTApplicationManager::Get");
 	
 	TTNodePtr			nodeToGet;
-	TTObjectPtr			anObject;
+	TTObjectBasePtr			anObject;
 	TTErr				err;
 	
 	directory = getDirectoryFrom(whereToGet);
@@ -480,7 +480,7 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 	TTList				aNodeList;
 	TTNodePtr			nodeToSet;
 	TTSymbol			objectType;
-	TTObjectPtr			anObject;
+	TTObjectBasePtr			anObject;
 	TTErr				err;
 	
 	directory = getDirectoryFrom(whereToSet);
@@ -670,7 +670,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 			v.get(0, (TTPtr*)&anApplication);
 			
 			if (anApplication != mLocalApplication) {
-				TTObjectRelease(TTObjectHandle(&anApplication));
+				TTObjectBaseRelease(TTObjectBaseHandle(&anApplication));
 				mApplications->remove(applicationName);
 			}
 		}
@@ -727,7 +727,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		else {
 			anApplication = NULL;
 			args = TTValue(applicationName);
-			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&anApplication), args);
+			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&anApplication), args);
 			
 			args = TTValue(version);
 			anApplication->setAttributeValue(TTSymbol("version"), args);
@@ -780,7 +780,7 @@ TTErr TTApplicationManager::notifyApplicationObservers(TTSymbol anApplicationNam
 					for (lk_o->begin(); lk_o->end(); lk_o->next())
 					{
 						anObserver = NULL;
-						lk_o->current().get(0, TTObjectHandle(&anObserver));
+						lk_o->current().get(0, TTObjectBaseHandle(&anObserver));
 						TT_ASSERT("TTApplication observer list member is not NULL", anObserver);
 						data.append(anApplicationName);
 						data.append((TTPtr*)anApplication);
@@ -866,7 +866,7 @@ TTApplicationPtr TTApplicationManagerGetApplicationFrom(TTAddress anAddress)
 	return NULL;
 }
 
-TTObjectPtr TTApplicationManagerGetProtocol(TTSymbol protocolName)
+TTObjectBasePtr TTApplicationManagerGetProtocol(TTSymbol protocolName)
 {
 	TTValue		v;
 	ProtocolPtr	aProtocol;
@@ -878,7 +878,7 @@ TTObjectPtr TTApplicationManagerGetProtocol(TTSymbol protocolName)
 		
 		if (!err) {
 			v.get(0, (TTPtr*)&aProtocol);
-			return (TTObjectPtr)aProtocol;
+			return (TTObjectBasePtr)aProtocol;
 		}
 	}
 	
@@ -905,7 +905,7 @@ TTValue TTApplicationManagerGetApplicationProtocols(TTSymbol applicationName)
 	return applicationProtocols;
 }
 
-TTErr TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObject& anObserver)
+TTErr TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver)
 {
 	TTErr		err;
 	TTValue		lk;
@@ -942,7 +942,7 @@ TTErr TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, con
 	return kTTErrGeneric;
 }
 
-TTErr TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObject& anObserver)
+TTErr TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver)
 {
 	TTErr			err;
 	TTValue			lk, o, v;

@@ -95,7 +95,7 @@ TTCueManager::~TTCueManager()
 		names.get(i, cueName);
 		mCues->lookup(cueName, v);
 		v.get(0, (TTPtr*)&oldCue);
-		TTObjectRelease(TTObjectHandle(&oldCue));
+		TTObjectBaseRelease(TTObjectBaseHandle(&oldCue));
 	}
 	
 	delete mCues;
@@ -106,7 +106,7 @@ TTCueManager::~TTCueManager()
 	
 	if (mReturnLineCallback) {
 		delete (TTValuePtr)mReturnLineCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mReturnLineCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnLineCallback));
 	}
 }
 
@@ -325,7 +325,7 @@ TTErr TTCueManager::Clear()
 			names.get(i, cueName);
 			mCues->lookup(cueName, v);
 			v.get(0, (TTPtr*)&oldCue);
-			TTObjectRelease(TTObjectHandle(&oldCue));
+			TTObjectBaseRelease(TTObjectBaseHandle(&oldCue));
 		}
 		
 		delete mCues;
@@ -361,7 +361,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		
 		// Create a new cue
 		mCurrentCue = NULL;
-		TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&mCurrentCue), args);
+		TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), args);
 		
 		mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
 		
@@ -623,7 +623,7 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	if (!mCues->lookup(mCurrent, v)) {
 		
 		v.get(0, (TTPtr*)&mCurrentCue);
-		TTObjectRelease(TTObjectHandle(&mCurrentCue));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mCurrentCue));
 		mCues->remove(mCurrent);
 		
 		// remove the name without changing the order
@@ -741,7 +741,7 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 		
 		// create a new cue
 		aCueCopy = NULL;
-		TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&aCueCopy), args);
+		TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&aCueCopy), args);
 		
 		// copy the current cue into
 		TTCueCopy(mCurrentCue, aCueCopy);
@@ -797,7 +797,7 @@ TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 	
 	// create an empty cue to merge the current state into
 	stateCue = NULL;
-	TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&stateCue), kTTValNONE);
+	TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&stateCue), kTTValNONE);
 	
 	// merge and optimize each cues except the first
 	for (i = 1; i < inputValue.getSize(); i++) {
@@ -823,7 +823,7 @@ TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 				
 				// create an empty cue to store the result of optimization
 				optimizedCue = NULL;
-				TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&optimizedCue), kTTValNONE);
+				TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&optimizedCue), kTTValNONE);
 				optimizedCue->setAttributeValue(kTTSym_name, nameToOptimize);
 				
 				// optimize the cue considering the current state
@@ -832,13 +832,13 @@ TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 				if (!err) {
 					
 					// replace the cue to optimize by the optimized cue
-					TTObjectRelease(TTObjectHandle(&aCueToOptimize));
+					TTObjectBaseRelease(TTObjectBaseHandle(&aCueToOptimize));
 					mCues->remove(nameToOptimize);
 					v = TTValue((TTPtr)optimizedCue);
 					mCues->append(nameToOptimize, v);
 				}
 				else
-					TTObjectRelease(TTObjectHandle(&optimizedCue));
+					TTObjectBaseRelease(TTObjectBaseHandle(&optimizedCue));
 			}
 		}
 	}
@@ -929,7 +929,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 				
 				// Create a new cue
 				mCurrentCue = NULL;
-				TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&mCurrentCue), kTTValNONE);
+				TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), kTTValNONE);
 				
 				mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
 				
@@ -1017,7 +1017,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 					
 					// Create a new cue
 					mCurrentCue = NULL;
-					TTObjectInstantiate(kTTSym_Cue, TTObjectHandle(&mCurrentCue), kTTValNONE);
+					TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), kTTValNONE);
 					
 					mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
 					

@@ -13,7 +13,7 @@
 
 
 #include "Jamoma.h"
-#include "TTAudioObject.h"	// use the Jamoma DSP clipping functions
+#include "TTDSP.h"	// use the Jamoma DSP clipping functions
 
 
 #define nonzero(x)				((x > 0) ? x : 1.)
