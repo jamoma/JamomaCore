@@ -17,7 +17,7 @@
 #ifndef __TT_ATTRIBUTE_H__
 #define __TT_ATTRIBUTE_H__
 
-#include "TTObject.h"
+#include "TTObjectBase.h"
 
 // for now, we support the old macros...
 #define SUPPORT_OLD_ATTRIBUTE_REGISTRATION

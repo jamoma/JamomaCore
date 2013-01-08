@@ -26,8 +26,8 @@ static TTString sidechainSourceObjectName = "";
 // we need to cache all of the parameters
 class TTParameterNode {
 public:
-	TTObjectPtr mObject;
-	TTString	mName;
+	TTObjectBasePtr mObject;
+	TTString		mName;
 };
 typedef std::vector<TTParameterNode>		TTParameterNodeVector;
 typedef TTParameterNodeVector::iterator		TTParameterNodeIter;
@@ -100,7 +100,7 @@ public:
 					}
 					
 					mObjectInstance->getAttributeNames(v);
-					for (int i=0; i < v.getSize(); i++) {
+					for (int i=0; i < v.size(); i++) {
 						TTSymbol	attributeName;
 						TTValue		attributeValue;
 						TTString	attributeValueString;
@@ -114,7 +114,7 @@ public:
 							content += "->mKernel->setAttributeValue(TT(\"";
 							content += attributeName.c_str();
 							content += "\"), ";
-							if (attributeValue.getType() == kTypeSymbol) {
+							if (attributeValue[0].type() == kTypeSymbol) {
 								TTSymbol	attributeValueSymbol;
 								
 								attributeValue.get(0, attributeValueSymbol);
@@ -122,7 +122,7 @@ public:
 								attributeValueString += attributeValueSymbol.c_str();
 								attributeValueString += "\")";
 							}
-							else if (attributeValue.getSize() > 1) {
+							else if (attributeValue.size() > 1) {
 								TTString temp;
 								
 								attributeValueString = "TTValue(";
@@ -238,7 +238,7 @@ public:
 				}
 				
 				mObjectInstance->getAttributeNames(v);
-				for (int i=0; i < v.getSize(); i++) {
+				for (int i=0; i < v.size(); i++) {
 					TTSymbol	attributeName;
 					TTValue		attributeValue;
 					TTString	attributeValueString;
@@ -248,7 +248,7 @@ public:
 					v.get(i, attributeName);
 					err = mObjectInstance->getAttributeValue(attributeName, attributeValue);
 					if (!err) {						
-						if (attributeValue.getSize() > 1) {
+						if (attributeValue.size() > 1) {
 							TTString temp;
 							
 							content += "		TTValue v(";
@@ -271,7 +271,7 @@ public:
 						content += "\"), ";
 						if (isArray)
 							attributeValueString = "v";
-						else if (attributeValue.getType() == kTypeSymbol) {
+						else if (attributeValue[0].type() == kTypeSymbol) {
 							TTSymbol	attributeValueSymbol;
 							
 							attributeValue.get(0, attributeValueSymbol);

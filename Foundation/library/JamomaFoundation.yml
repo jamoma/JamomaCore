@@ -12,10 +12,10 @@ sources:
   - source/TTUnitTest.cpp
   - source/TTValueCache.cpp
   - source/TTAttribute.cpp
-  - source/TTDataObject.cpp
+  - source/TTDataObjectBase.cpp
   - source/TTBase.cpp
   - source/TTMessage.cpp
-  - source/TTObject.cpp
+  - source/TTObjectBase.cpp
   - source/TTDictionary.cpp
   - source/TTHash.cpp
   - source/TTList.cpp

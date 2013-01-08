@@ -13,7 +13,7 @@
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
 #endif // WIN_VERSION
 
-#include "TTObject.h"
+#include "TTObjectBase.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
 #include "TTHash.h"

@@ -11,7 +11,7 @@
 
 // CORE
 #include "TTFoundation.h"
-#include "TTDataObject.h"
+#include "TTDataObjectBase.h"
 #include "TTDictionary.h"
 #include "TTEnvironment.h"
 #include "TTPath.h"
@@ -22,7 +22,7 @@
 #include "TTMatrix.h"
 #include "TTMatrixArray.h"
 #include "TTMutex.h"
-#include "TTObject.h"
+#include "TTObjectBase.h"
 #include "TTQueue.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"

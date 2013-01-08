@@ -12,7 +12,7 @@
 #include "TTBase.h"
 #include "TTThread.h"
 #include "TTList.h"
-#include "TTObject.h"
+#include "TTObjectBase.h"
 
 
 #if OLD

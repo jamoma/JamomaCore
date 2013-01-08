@@ -41,7 +41,7 @@
 #endif
 
 #include "TTFoundationAPI.h"
-#include "TTAudioObject.h"
+#include "TTAudioObjectBase.h"
 #include "TTAudioSignal.h"
 #include "TTAudioSignalArray.h"
 

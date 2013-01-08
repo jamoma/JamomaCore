@@ -9,7 +9,7 @@
 #ifndef __TT_MESSAGE_H__
 #define __TT_MESSAGE_H__
 
-#include "TTObject.h"
+#include "TTObjectBase.h"
 
 
 /**	A convenience macro to be used by subclasses for registering messages.

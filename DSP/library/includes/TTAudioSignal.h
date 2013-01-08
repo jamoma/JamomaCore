@@ -10,7 +10,7 @@
 #define __TT_AUDIO_SIGNAL_H__
 
 #include "TTFoundation.h"
-#include "TTObject.h"
+#include "TTObjectBase.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
 

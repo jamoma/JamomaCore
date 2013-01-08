@@ -1,7 +1,7 @@
 
 sources:
   - source/TTAudioEngine.cpp
-  - source/TTAudioObject.cpp
+  - source/TTAudioObjectBase.cpp
   - source/TTAudioObjectArray.cpp
   - source/TTAudioSignal.cpp
   - source/TTAudioSignalArray.cpp

@@ -16,7 +16,7 @@
 #ifndef __TT_DATA_OBJECTBASE_H__
 #define __TT_DATA_OBJECTBASE_H__
 
-#include "TTObject.h"
+#include "TTObjectBase.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
 

@@ -20,7 +20,7 @@
 #define __TT_MATRIX_H__
 
 #include "TTFoundation.h"
-#include "TTDataObject.h"
+#include "TTDataObjectBase.h"
 #include "TTLimits.h" 
 
 typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.

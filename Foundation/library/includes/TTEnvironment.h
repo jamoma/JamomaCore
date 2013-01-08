@@ -19,7 +19,7 @@
 #ifndef __TT_ENVIRONMENT_H__
 #define __TT_ENVIRONMENT_H__
 
-#include "TTObject.h"
+#include "TTObjectBase.h"
 #include "TTHash.h"
 
 
