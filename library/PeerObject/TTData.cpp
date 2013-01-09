@@ -39,12 +39,12 @@ mDataspaceConverter(NULL),
 mService(kTTSymEmpty),
 mReturnValueCallback(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTData", arguments.getSize() == 1);
+	TT_ASSERT("Correct number of args to create TTData", arguments.size() == 1);
 	
-	arguments.get(0, (TTPtr*)&mReturnValueCallback);
+	arguments[0] (TTPtr*)&mReturnValueCallback);
 	TT_ASSERT("Return Value Callback passed to TTData is not NULL", mReturnValueCallback);
 	
-	if (arguments.getSize() == 2)
+	if (arguments.size() == 2)
 		arguments.get(1, mService);
 	
 	addAttributeWithGetterAndSetter(Value, kTypeNone);
@@ -147,17 +147,17 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
     if (mType == kTTSym_string)
         return kTTErrGeneric;
     
-	mValueStepsize.get(0, vStepsize);
+	mValueStepsize[0] vStepsize);
 	
-	switch (inputValue.getSize()) {
+	switch (inputValue.size()) {
 			
 			// 1 incrementation step	
 		case 1 :
 		{
 			if (inputValue.getType(0) == kTypeFloat64 || inputValue.getType(0)  == kTypeInt32) {
-				inputValue.get(0, inc);
+				inputValue[0] inc);
 				
-				for (i=0; i<mValue.getSize(); i++) {
+				for (i=0; i<mValue.size(); i++) {
 					mValue.get(i, v);
 					command.append(v + inc * vStepsize);
 				}
@@ -169,18 +169,18 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 		case 3 :
 		{
 			if (inputValue.getType(0) == kTypeFloat64 || inputValue.getType(0)  == kTypeInt32) {
-				inputValue.get(0, inc);
+				inputValue[0] inc);
 				
-				for (i=0; i<mValue.getSize(); i++) {
+				for (i=0; i<mValue.size(); i++) {
 					mValue.get(i, v);
 					command.append(v + inc * vStepsize);
 				}
 				
-				if (inputValue.getType(1) == kTypeSymbol) {
+				if (inputValue[1].type() == kTypeSymbol) {
 					inputValue.get(1, ramp);
 					if (ramp == kTTSym_ramp) {
 						command.append(ramp);
-						if (inputValue.getType(2) == kTypeFloat64 || inputValue.getType(2)  == kTypeInt32) {
+						if (inputValue[2].type() == kTypeFloat64 || inputValue[2].type()  == kTypeInt32) {
 							inputValue.get(2, ramptime);
 							command.append(ramptime);
 						}
@@ -193,7 +193,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 			// no value or wrong value
 		default :
 		{
-			for (i=0; i<mValue.getSize(); i++) {
+			for (i=0; i<mValue.size(); i++) {
 				mValue.get(i, v);
 				command.append(v + vStepsize);
 			}
@@ -217,17 +217,17 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
     if (mType == kTTSym_string)
         return kTTErrGeneric;
 	
-	mValueStepsize.get(0, vStepsize);
+	mValueStepsize[0] vStepsize);
 	
-	switch (inputValue.getSize()) {
+	switch (inputValue.size()) {
 			
 			// 1 decrementation step	
 		case 1 :
 		{
 			if (inputValue.getType(0) == kTypeFloat64 || inputValue.getType(0)  == kTypeInt32) {
-				inputValue.get(0, dec);
+				inputValue[0] dec);
 				
-				for (i=0; i<mValue.getSize(); i++) {
+				for (i=0; i<mValue.size(); i++) {
 					mValue.get(i, v);
 					command.append(v - dec * vStepsize);
 				}
@@ -239,18 +239,18 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 		case 3 :
 		{
 			if (inputValue.getType(0) == kTypeFloat64 || inputValue.getType(0)  == kTypeInt32) {
-				inputValue.get(0, dec);
+				inputValue[0] dec);
 				
-				for (i=0; i<mValue.getSize(); i++) {
+				for (i=0; i<mValue.size(); i++) {
 					mValue.get(i, v);
 					command.append(v - dec * vStepsize);
 				}
 				
-				if (inputValue.getType(1) == kTypeSymbol) {
+				if (inputValue[1].type() == kTypeSymbol) {
 					inputValue.get(1, ramp);
 					if (ramp == kTTSym_ramp) {
 						command.append(ramp);
-						if (inputValue.getType(2) == kTypeFloat64 || inputValue.getType(2)  == kTypeInt32) {
+						if (inputValue[2].type() == kTypeFloat64 || inputValue[2].type()  == kTypeInt32) {
 							inputValue.get(2, ramptime);
 							command.append(ramptime);
 						}
@@ -263,7 +263,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 			// no value or wrong value
 		default :
 		{
-			for (i=0; i<mValue.getSize(); i++) {
+			for (i=0; i<mValue.size(); i++) {
 				mValue.get(i, v);
 				command.append(v - vStepsize);
 			}
@@ -291,8 +291,8 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 	// 0. Get the command TTDictionnary 
 	// or parse any incoming value into a TTDictionnary
 	///////////////////////////////////////////////////
-	if (commandValue.getType() == kTypePointer)
-		commandValue.get(0, (TTPtr*)&command);
+	if (commandValue[0].type() == kTypePointer)
+		commandValue[0] (TTPtr*)&command);
 	else 
 		command = TTDataParseCommand(commandValue);
 	
@@ -318,7 +318,7 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 	////////////////////////////////////////////////////////////////
 	if (!command->lookup(kTTSym_unit, v)) {
 		
-		v.get(0, unit);
+		v[0] unit);
 		
 		if (mDataspaceConverter) {
 			TTValue convertedValue;
@@ -350,18 +350,18 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 	/////////////////////////////////
 	if (!command->lookup(kTTSym_ramp, v)) {
 		
-		v.get(0, time);
+		v[0] time);
 		
 		if (mRamper && time > 0) {
             
-            TTUInt16	i, s = aValue.getSize();
+            TTUInt16	i, s = aValue.size();
 			TTFloat64*	startArray = new TTFloat64[s];		// start to mValue
 			TTFloat64*	targetArray = new TTFloat64[s];		// go to convertedValue
 			
             // This is a temporary solution to have audio rate ramping outside the TTData
             mExternalRampTime = time;
             
-			if(mValue.getSize() != s)
+			if(mValue.size() != s)
 				mValue.setSize(s);
 			
 			for (i=0; i<s; i++) {
@@ -463,7 +463,7 @@ TTErr TTData::setValue(const TTValue& value)
 		
 			mValue = value;
 			mValue.toString();
-			mValue.get(0, s);
+			mValue[0] s);
 			mValue = TTValue(TTSymbol(s));
 		}
 		else {
@@ -549,8 +549,8 @@ TTErr TTData::setType(const TTValue& value)
 		this->findAttribute(kTTSym_valueDefault, &valueDefaultAttribute);
 		this->findAttribute(kTTSym_valueStepsize, &valueStepSizeAttribute);
 
-		mInstanceBounds.set(0, TTInt16(0));
-		mInstanceBounds.set(1, TTInt16(-1));
+		mInstanceBounds[0] = TTInt16(0);
+		mInstanceBounds[1] = TTInt16(-1);
 		
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
@@ -559,8 +559,8 @@ TTErr TTData::setType(const TTValue& value)
 			valueStepSizeAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
 			mValueStepsize = TTValue(1);
-			mRangeBounds.set(0, TTUInt16(0));
-			mRangeBounds.set(1, TTUInt16(1));
+			mRangeBounds[0] = TTUInt16(0);
+			mRangeBounds[1] = TTUInt16(1);
 		}
 		else if (mType == kTTSym_decimal) {
 			valueAttribute->type = kTypeFloat64;
@@ -568,8 +568,8 @@ TTErr TTData::setType(const TTValue& value)
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
-			mRangeBounds.set(0, 0.);
-			mRangeBounds.set(1, 1.);
+			mRangeBounds[0] = 0.;
+			mRangeBounds[1] = 1.;
 		}
 		else if (mType == kTTSym_string) {
 			valueAttribute->type = kTypeSymbol;
@@ -585,8 +585,8 @@ TTErr TTData::setType(const TTValue& value)
 			valueStepSizeAttribute->type = kTypeBoolean;
 			mValue = TTValue(NO);
 			mValueStepsize = TTValue(YES);
-			mRangeBounds.set(0, NO);
-			mRangeBounds.set(1, YES);
+			mRangeBounds[0] = NO;
+			mRangeBounds[1] = YES;
 		}
 		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue?
 			valueAttribute->type = kTypeFloat64;
@@ -594,8 +594,8 @@ TTErr TTData::setType(const TTValue& value)
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
-			mRangeBounds.set(0, 0.);
-			mRangeBounds.set(1, 1.);
+			mRangeBounds[0] = 0.;
+			mRangeBounds[1] = 1.;
 		}
 		else if (mType == kTTSym_none) {
 			valueAttribute->type = kTypeNone;
@@ -675,10 +675,10 @@ TTErr TTData::setInstanceBounds(const TTValue& value)
 {
 	TTValue n;				// use new value to protect the attribute
 	TTInt16 vmin, vmax;
-	value.get(0, vmin);
+	value[0] vmin);
 	value.get(1, vmax);
-	mInstanceBounds.set(0, vmin);
-	mInstanceBounds.set(1, vmax);
+	mInstanceBounds[0] = vmin;
+	mInstanceBounds[1] = vmax;
 	
 	return kTTErrNone;
 }
@@ -710,7 +710,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 		TTSymbol	aName;
 		
 		// Remove former datas
-		n = mRampFunctionParameters.getSize();
+		n = mRampFunctionParameters.size();
 		for (i=0; i<n; i++) {
 			mRampFunctionParameters.get(i, aName);
 			this->removeAttribute(aName);
@@ -719,7 +719,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 		
 		// cache the function's attribute names
 		mRamper->getFunctionParameterNames(names);
-		n = names.getSize();
+		n = names.size();
 		
 		if (n) {
 			for (i=0; i<n; i++) {
@@ -736,7 +736,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 			}
 		}
 		
-		if (mRampFunctionParameters.getSize() == 0)
+		if (mRampFunctionParameters.size() == 0)
 			mRampFunctionParameters.append(kTTSym_none);
 	}
 	
@@ -763,7 +763,7 @@ TTErr TTData::setDataspace(const TTValue& value)
 
 	if (err) {
 		mDataspaceConverter->getAttributeValue(TTSymbol("outputUnit"), v);
-		v.get(0, mDataspaceUnit);
+		v[0] mDataspaceUnit);
 		mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), mDataspaceUnit);
 	}
 	
@@ -805,7 +805,7 @@ TTBoolean TTData::checkType(const TTValue& value)
 {
 	if (mType == kTTSym_generic || mType == kTTSym_array) return true;
 	
-	switch (value.getType()) 
+	switch (value[0].type()) 
 	{
 		case kTypeNone :		return mType == kTTSym_none;
 		case kTypeFloat32 :		return mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_boolean;
@@ -913,7 +913,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTValue			toString;
 	TTString		line;
 	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
+	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
 	buffer = aTextHandler->mWriter;
 	
 	// Type
@@ -924,7 +924,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	// range/bounds
 	toString = this->mRangeBounds;
 	toString.toString();
-	toString.get(0, line);
+	toString[0] line);
 	
 	if ( (this->mType == kTTSym_integer) || (this->mType == kTTSym_boolean) || (this->mType == kTTSym_decimal) || (this->mType == kTTSym_generic) ) {
 		*buffer +="\t\t\t<td class =\"instructionRangeBounds\">";
@@ -964,7 +964,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	// repetitions/allow
 	toString = this->mRepetitionsAllow;
 	toString.toString();
-	toString.get(0, line);
+	toString[0] line);
 	*buffer += "\t\t\t<td class =\"instructionRepetitionsAllow\">";
 	*buffer += line.data();
 	*buffer += "</td>";
@@ -993,7 +993,7 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 	
 	// Parse the command to handle unit and ramp
 	///////////////////////////////////////////////////
-	commandSize = commandValue.getSize();
+	commandSize = commandValue.size();
 	switch(commandSize) {
 			
 			// no value	
@@ -1014,7 +1014,7 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 		case 2 :
 		{
 			// Is the second element is a unit symbol ?
-			if (commandValue.getType(0) != kTypeSymbol && commandValue.getType(1) == kTypeSymbol) {
+			if (commandValue.getType(0) != kTypeSymbol && commandValue[1].type() == kTypeSymbol) {
 				hasUnit = true;
 				commandValue.get(1, unit);
 			}
@@ -1026,13 +1026,13 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 		case 3 :
 		{
 			// Is the second element is a ramp symbol ?
-			if (commandValue.getType(1) == kTypeSymbol) {
+			if (commandValue[1].type() == kTypeSymbol) {
 				commandValue.get(1, ramp);
 				if (ramp == kTTSym_ramp)
 					hasRamp = true;
 			}
 			// or is the last element is a unit symbol ?
-			else if (commandValue.getType(0) != kTypeSymbol && commandValue.getType(2) == kTypeSymbol) {
+			else if (commandValue.getType(0) != kTypeSymbol && commandValue[2].type() == kTypeSymbol) {
 				hasUnit = true;
 				commandValue.get(2, unit);
 			}
@@ -1110,7 +1110,7 @@ void TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	
 	rampedValue.setSize(n);
 	for (i=0; i<n; i++)
-		rampedValue.set(i, rampedArray[i]);
+		rampedValue[i] = rampedArray[i];
 	
 	if (aData->mType == kTTSym_integer)
 		rampedValue.truncate();

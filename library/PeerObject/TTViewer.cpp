@@ -30,8 +30,8 @@ mReceiver(NULL),
 mSender(NULL),
 mReturnValueCallback(NULL)
 {	
-	if(arguments.getSize() == 1)
-		arguments.get(0, (TTPtr*)&mReturnValueCallback);
+	if(arguments.size() == 1)
+		arguments[0] (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Description, kTypeSymbol);
@@ -83,7 +83,7 @@ TTViewer::~TTViewer() // TODO : delete things...
 
 TTErr TTViewer::setAddress(const TTValue& value)
 {
-	value.get(0, mAddress);
+	mAddress = value[0];
 	
 	bind();
 	
@@ -384,7 +384,7 @@ TTErr TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data)
 		err = aViewer->mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), aViewer->mDataspaceUnit);
 		if (err) {
 			aViewer->mDataspaceConverter->getAttributeValue(TTSymbol("outputUnit"), v);
-			v.get(0, aViewer->mDataspaceUnit);
+			v[0] aViewer->mDataspaceUnit);
 			aViewer->mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), aViewer->mDataspaceUnit);
 		}
 	}

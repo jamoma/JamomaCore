@@ -27,16 +27,16 @@ TTErr jamoma_directory_dump_observers(void)
 	post("--- JamomaDirectory Observers ---");
 	JamomaDirectory->dumpObservers(v);
 	
-	s = v.getSize();
+	s = v.size();
 	for (i=0; i<s; i++) {
 		
-		v.get(i,(TTPtr*)&pv);
-		pv->get(0, key);
+        pv = TTValuePtr((TTPtr)v[i]);
+		key = (*pv)[0];
 		post("%s :", key.c_str());
 		
-		for (j=1; j<pv->getSize(); j++) {
+		for (j=1; j<((TTValuePtr)pv)->size(); j++) {
 		
-			pv->get(j, owner);
+            owner = (*pv)[j];
 			post("    %s", owner.c_str());
 		}
 	}
@@ -70,23 +70,23 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress rel
 	
 	// Check if the subscription is ok (or the binding in case of NULL object)
 	(*returnedSubscriber)->getAttributeValue(TTSymbol("node"), v);
-	v.get(0, (TTPtr*)&aNode);
+	aNode = TTNodePtr((TTPtr)v[0]);
 	if (aNode) {
 		
 		if (aTTObject) {
 			// Is a new instance have been created ?
 			(*returnedSubscriber)->getAttributeValue(TTSymbol("newInstanceCreated"), v);
-			v.get(0, newInstance);
+			newInstance = v[0];
 			
 			if (newInstance) {
 				(*returnedSubscriber)->getAttributeValue(TTSymbol("relativeAddress"), v);
-				v.get(0, newRelativeAddress);
+				newRelativeAddress = v[0];
 				object_warn(x, "Jamoma cannot registers multiple object with the same OSC identifier (%s).  Using %s instead.", relativeAddress.c_str(), newRelativeAddress.c_str());
 			}
 			
 			JamomaDebug {
 				(*returnedSubscriber)->getAttributeValue(TTSymbol("nodeAddress"), v);
-				v.get(0, absoluteAddress);
+				absoluteAddress = v[0];
 				object_post(x, "registers at %s", absoluteAddress.c_str());
 			}
 		}
@@ -769,10 +769,10 @@ void jamoma_callback_return_address(TTPtr baton, TTValue& v)
 	
 	// unpack baton (a t_object* and the name of the method to call)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
+	x = ObjectPtr((TTPtr)b[0]);
 	
 	// unpack data (address)
-	v.get(0, address);
+	address = v[0];
 	
 	// send data to a data using the return_value method
 	object_method(x, jps_return_address, SymbolGen(address.c_str()), 0, 0);
@@ -789,9 +789,9 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
+	x = ObjectPtr((TTPtr)b[0]);
 	
-	if (b->getSize() == 2) {
+	if (b->size() == 2) {
 		b->get(1, (TTPtr*)&method);
 		if (method == NULL || method == _sym_nothing)
 			return;
@@ -819,9 +819,9 @@ void jamoma_callback_return_value_typed(TTPtr baton, TTValue& v)
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
+	x = ObjectPtr((TTPtr)b[0]);
 	
-	if (b->getSize() == 2) {
+	if (b->size() == 2) {
 		b->get(1, (TTPtr*)&method);
 		if (method == NULL || method == _sym_nothing)
 			return;
@@ -850,7 +850,7 @@ void jamoma_callback_return_signal(TTPtr baton, TTValue& v)
 	
 	// unpack baton (a t_object*)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
+	x = ObjectPtr((TTPtr)b[0]);
 	
 	jamoma_ttvalue_to_Atom(v, &argc, &argv);
 	
@@ -871,13 +871,13 @@ void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& v)
 	
 	// unpack baton (a t_object*)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
+	x = ObjectPtr((TTPtr)b[0]);
 	
 	// unpack data (signal)
-	argc = v.getSize();
+	argc = v.size();
 	argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
 	for (i=0; i<argc; i++) {
-		v.get(i, (TTPtr*)&signal);
+		signal = v[i];
 		atom_setobj(argv+i, signal);
 	}
 	
@@ -899,7 +899,7 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 	TTInt32		t;
 	
 	*msg = _sym_nothing;
-	*argc = v.getSize();
+	*argc = v.size();
 	
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * (*argc));
@@ -908,13 +908,13 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 		
 		for (i=0; i<*argc; i++) {
 			
-			if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
-				v.get(i, f);
+			if(v[i].type() == kTypeFloat32 || v[i].type() == kTypeFloat64){
+				f = v[i];
 				atom_setfloat((*argv)+i, f);
 				*msg = _sym_float;
 			}
-			else if(v.getType(i) == kTypeSymbol){
-				v.get(i, s);
+			else if(v[i].type() == kTypeSymbol){
+				s = v[i];
 				if (s == kTTSymEmpty || s == kTTAdrsEmpty)
 					atom_setsym((*argv)+i, _sym_bang);
 				else
@@ -922,7 +922,7 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 				//*msg = _sym_symbol;
 			}
 			else{	// assume int
-				v.get(i, t);
+				t = v[i];
 				atom_setlong((*argv)+i, t);
 				*msg = _sym_int;
 			}
@@ -957,7 +957,7 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 	TTSymbol	s;
 	TTInt32		t;
 	
-	*argc = v.getSize();
+	*argc = v.size();
 	
 	if (*argc == 0 || v == kTTValNONE)
 		return;
@@ -967,19 +967,19 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 	
 	for (i = 0; i < *argc; i++) {
 		
-		if (v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
-			v.get(i, f);
+		if (v[i].type() == kTypeFloat32 || v[i].type() == kTypeFloat64){
+			f = v[i];
 			atom_setfloat((*argv)+i, f);
 		}
-		else if (v.getType(i) == kTypeSymbol) {
-			v.get(i, s);
+		else if (v[i].type() == kTypeSymbol) {
+			s = v[i];
             if (s == kTTSymEmpty)
                 atom_setsym((*argv)+i, _sym_bang); // because empty symbol can't be filtered in Max
 			else
                 atom_setsym((*argv)+i, gensym((char*)s.c_str()));
 		}
 		else {	// assume int
-			v.get(i, t);
+			t = v[i];
 			atom_setlong((*argv)+i, t);
 		}
 	}
@@ -996,12 +996,12 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 		
 		// add msg to the value
 		if (msg != _sym_nothing && msg != _sym_int && msg != _sym_float && msg != _sym_symbol && msg != _sym_list) {
-			v.setSize(argc+1);
-			v.set(0, TTSymbol(msg->s_name));
+			v.resize(argc+1);
+			v[0] = TTSymbol(msg->s_name);
 			start = 1;
 		}
 		else {
-			v.setSize(argc);
+			v.resize(argc);
 			start = 0;
 		}
 			
@@ -1009,11 +1009,11 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 		for (i=0; i<argc; i++) 
 		{
 			if (atom_gettype(argv+i) == A_LONG)
-				v.set(i+start, (int)atom_getlong(argv+i));
+				v[i+start] = (int)atom_getlong(argv+i);
 			else if (atom_gettype(argv+i) == A_FLOAT)
-				v.set(i+start, (TTFloat64)atom_getfloat(argv+i));
+				v[i+start] = (TTFloat64)atom_getfloat(argv+i);
 			else if (atom_gettype(argv+i) == A_SYM)
-				v.set(i+start, TTSymbol(atom_getsym(argv+i)->s_name));
+				v[i+start] = TTSymbol(atom_getsym(argv+i)->s_name);
 		}
 	}
 }
@@ -1085,7 +1085,7 @@ long jamoma_patcher_get_args(ObjectPtr patcher, AtomCount *argc, AtomPtr *argv)
 	ObjectPtr	textfield = NULL;
 	ObjectPtr	assoc = NULL;
 	char		*text = NULL;
-	unsigned long	textlen = 0;
+	unsigned    long	textlen = 0;
 	method		m = NULL;
 	long		index = -1;
 	
@@ -1392,11 +1392,11 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 			// ask it patcher info
 			object_method(object_attr_getobj(obj, _sym_object), _sym_share, &patcherInfo);
 			
-			if (patcherInfo.getSize() == 4) {
-				patcherInfo.get(0, (TTPtr*)returnedPatcher);
-				patcherInfo.get(1, returnedContext);
-				patcherInfo.get(2, returnedClass);
-				patcherInfo.get(3, returnedName);
+			if (patcherInfo.size() == 4) {
+				*returnedPatcher = ObjectPtr((TTPtr)patcherInfo[0]);
+				returnedContext = patcherInfo[1];
+				returnedClass = patcherInfo[2];
+                returnedName = patcherInfo[3];
 				break;
 			}
 		}

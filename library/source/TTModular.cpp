@@ -133,7 +133,7 @@ TTAddressItemPtr	TTModularNamespacesLookup(TTSymbol namespaceName)
 	if (namespaceName != kTTSymEmpty && namespaceName != kTTSym_none) {
 		
 		if (!TTModularNamespaces->lookup(namespaceName, v))
-			v.get(0, (TTPtr*)&aNamespace);
+			aNamespace = TTAddressItemPtr((TTPtr)v[0]);
 		
 		else {
 			aNamespace = new TTAddressItem();

@@ -41,8 +41,8 @@ mFunctionUnit(NULL),
 mValid(NO)
 #endif
 {	
-	if(arguments.getSize() == 1)
-		arguments.get(0, (TTPtr*)&mReturnValueCallback);
+	if(arguments.size() == 1)
+		arguments[0] (TTPtr*)&mReturnValueCallback);
 	
 	addAttributeWithSetter(Input, kTypeSymbol);
 	addAttributeWithSetter(Output, kTypeSymbol);
@@ -84,7 +84,7 @@ TTMapper::~TTMapper() // TODO : delete things...
 	if (mFunctionUnit) {
 		
 		// Remove former datas
-		n = mFunctionParameters.getSize();
+		n = mFunctionParameters.size();
 		for (int i=0; i<n; i++) {
 			mFunctionParameters.get(i, aName);
 			this->removeAttribute(aName);
@@ -172,7 +172,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	if (mReceiver)
 		TTObjectRelease(TTObjectHandle(&mReceiver));
 	
-	value.get(0, mInput);
+	value[0] mInput);
 	
 	mObserveInputRange = true;
 	
@@ -283,7 +283,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	if (mSender)
 		TTObjectRelease(TTObjectHandle(&mSender));
 	
-	value.get(0, mOutput);
+	value[0] mOutput);
 	
 	mObserveOutputRange = true;
 		
@@ -384,7 +384,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	if (mFunctionUnit) {
 
 		// Remove former datas
-		n = mFunctionParameters.getSize();
+		n = mFunctionParameters.size();
 		for (int i=0; i<n; i++) {
 			mFunctionParameters.get(i, aName);
 			this->removeAttribute(aName);
@@ -406,7 +406,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	if (mFunctionUnit) {
 
 		mFunctionUnit->getAttributeNames(names);
-		n = names.getSize();
+		n = names.size();
 		
 		if (n) {
 			for (int i=0; i<n; i++) {
@@ -525,7 +525,7 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 	TTFloat64	f;
 	TTInt32		i, size;
 	
-	size = inputValue.getSize();
+	size = inputValue.size();
 	
 	// clip input value
 	inputValue.clip(mInputMin, mInputMax);
@@ -592,7 +592,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aMapper);
 	
 	// unpack data (an address)
-	data.get(0, address);
+	data[0] address);
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
@@ -638,7 +638,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aMapper);
 	
 	// unpack data (an address)
-	data.get(0, address);
+	data[0] address);
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
@@ -681,7 +681,7 @@ TTErr TTMapperInputRangeCallback(TTPtr baton, TTValue& data)
 	
 	if (aMapper->mObserveInputRange) {
 		// unpack data (min, max)
-		data.get(0, aMapper->mInputMin);
+		data[0] aMapper->mInputMin);
 		data.get(1, aMapper->mInputMax);
 		
 		aMapper->scaleInput();
@@ -701,7 +701,7 @@ TTErr TTMapperOutputRangeCallback(TTPtr baton, TTValue& data)
 	
 	if (aMapper->mObserveOutputRange) {
 		// unpack data (min, max)
-		data.get(0, aMapper->mOutputMin);
+		data[0] aMapper->mOutputMin);
 		data.get(1, aMapper->mOutputMax);
 	
 		aMapper->scaleOutput();

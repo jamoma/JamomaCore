@@ -26,9 +26,9 @@ mExposedAttributes(NULL)
 	TTErr		err;
 	TTListPtr	aContextList;
 	
-	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 3);
+	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.size() == 3);
 	
-	arguments.get(0, (TTPtr*)&mObject);
+	arguments[0] (TTPtr*)&mObject);
 	
 	arguments.get(1, mRelativeAddress);
 	
@@ -101,11 +101,11 @@ TTSubscriber::~TTSubscriber()
 	// Clear exposed Messages
 	err = mExposedMessages->getKeys(keys);
 	if (!err) {
-		for (i=0; i<keys.getSize(); i++) {
+		for (i=0; i<keys.size(); i++) {
 			
 			keys.get(i, k);
 			mExposedMessages->lookup(k, storedObject);
-			storedObject.get(0, (TTPtr*)&anObject);
+			storedObject[0] (TTPtr*)&anObject);
 			
 			convertUpperCasedNameInAddress(k, nameToAddress);
 			objectAddress = mNodeAddress.appendAddress(nameToAddress);
@@ -122,11 +122,11 @@ TTSubscriber::~TTSubscriber()
 	// Clear exposed Attributes
 	err = mExposedAttributes->getKeys(keys);
 	if (!err) {
-		for (i=0; i<keys.getSize(); i++) {
+		for (i=0; i<keys.size(); i++) {
 			
 			keys.get(i, k);
 			mExposedAttributes->lookup(k, storedObject);
-			storedObject.get(0, (TTPtr*)&anObject);
+			storedObject[0] (TTPtr*)&anObject);
 			
 			convertUpperCasedNameInAddress(k, nameToAddress);
 			objectAddress = mNodeAddress.appendAddress(nameToAddress);
@@ -251,7 +251,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 		for (aContextList->begin(); aContextList->end(); aContextList->next()){
 			
 			// get the context symbol as a relative context address
-			aContextList->current().get(0, formatedContextSymbol);
+			aContextList->current()[0] formatedContextSymbol);
 			relativeContextAddress = TTAddress(formatedContextSymbol);
 			
 			// get the context
@@ -281,7 +281,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 			lowerContextNode = NULL;
 			for (contextNodeList.begin(); contextNodeList.end(); contextNodeList.next()) {
 				
-				contextNodeList.current().get(0, (TTPtr*)&lowerContextNode);
+				contextNodeList.current()[0] (TTPtr*)&lowerContextNode);
 				
 				// Check if objects are the same
 				lowerContext = lowerContextNode->getContext();
@@ -437,7 +437,7 @@ TTErr TTSubscriber::unexposeMessage(TTSymbol messageName)
 	TTObjectPtr			anObject;
 	
 	if (!mExposedMessages->lookup(messageName, storedObject)) {
-		storedObject.get(0, (TTPtr*)&anObject);
+		storedObject[0] (TTPtr*)&anObject);
 		
 		convertUpperCasedNameInAddress(messageName, nameToAddress);
 		objectAddress = mNodeAddress.appendAddress(nameToAddress);
@@ -463,7 +463,7 @@ TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 	TTObjectPtr			anObject;
 	
 	if (!mExposedAttributes->lookup(attributeName, storedObject)) {
-		storedObject.get(0, (TTPtr*)&anObject);
+		storedObject[0] (TTPtr*)&anObject);
 		
 		convertUpperCasedNameInAddress(attributeName, nameToAddress);
 		objectAddress = mNodeAddress.appendAddress(nameToAddress);
@@ -568,7 +568,7 @@ TTErr TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data)
 	err = aSubscriber->mExposedAttributes->lookup(attributeName, v);
 	
 	if (!err) {
-		v.get(0, (TTPtr*)&aData);
+		v[0] (TTPtr*)&aData);
 		
 		// protect data
 		v = data;

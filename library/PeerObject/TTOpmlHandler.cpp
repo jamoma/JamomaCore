@@ -28,7 +28,7 @@ mReader(NULL),
 mIsWriting(false),
 mIsReading(false)
 {
-	TT_ASSERT("Correct number of args to create TTOpmlHandler", arguments.getSize() == 0);
+	TT_ASSERT("Correct number of args to create TTOpmlHandler", arguments.size() == 0);
 	
 	addAttribute(Object, kTypePointer);
 
@@ -62,10 +62,10 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
-	if (args.getSize() == 1) {
+	if (args.size() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			args[0] mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -179,10 +179,10 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
-	if (args.getSize() == 1) {
+	if (args.size() == 1) {
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			args[0] mFilePath);
 			
 			// Init the opml library
 			LIBXML_TEST_VERSION

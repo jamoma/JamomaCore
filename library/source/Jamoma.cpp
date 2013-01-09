@@ -85,7 +85,7 @@ void jamoma_init(void)
 		
 		// Check if the configuration file have been loaded correctly
 		JamomaApplication->getAttributeValue(TTSymbol("allAppNames"), v);
-		if (!v.getSize())
+		if (!v.size())
 			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
 		
 		// DEBUG

@@ -28,7 +28,7 @@ mLastLine(NO),
 mIsWriting(NO),
 mIsReading(NO)
 {
-	TT_ASSERT("Correct number of args to create TTTextHandler", arguments.getSize() == 0);
+	TT_ASSERT("Correct number of args to create TTTextHandler", arguments.size() == 0);
 	
 	addAttribute(Object, kTypePointer);
 	addAttribute(SpaceNumberForTab, kTypeInt8);
@@ -54,14 +54,14 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 	// memorize this object because it could change if the handler is used recursively
 	aTTObject = mObject;
 	
-	if (args.getSize() == 1) {
+	if (args.size() == 1) {
 		
 		mIsWriting = true;
 		
 		// if the first argument is kTypeSymbol : get the path of the file to write
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			args[0] mFilePath);
 			
 			/* Create a new text file
 			std::ofstream file(mFilePath->getCString());
@@ -92,7 +92,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 		// if the first argument is kTypePointer : get the text where to write
 		else if (args.getType(0) == kTypePointer) {
 			
-			args.get(0, (TTPtr*)&mWriter);
+			args[0] (TTPtr*)&mWriter);
 			
 			// Call the WriteAsText method of the handled object
 			v = TTValue((TTPtr)this);
@@ -131,14 +131,14 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	aTTObject = mObject;
 	
 	
-	if (args.getSize() == 1) {
+	if (args.size() == 1) {
 		
 		mIsReading = true;
 		
 		// if the first argument is kTypeSymbol : get the path of the file to read
 		if (args.getType(0) == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			args[0] mFilePath);
 			
 			/*
 			std::ifstream file(mFilePath->getCString());
@@ -173,7 +173,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 		else if (args.getType(0) == kTypePointer) {
 			
 			mReader = NULL;
-			args.get(0, (TTPtr*)&mReader);
+			args[0] (TTPtr*)&mReader);
 			
 			if (mReader) {
 				
