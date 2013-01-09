@@ -458,7 +458,7 @@ void model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	// opening the module helpfile (no help file dedicated for model or view)
-	if (x->patcherClass) {
+	if (x->patcherClass != kTTSymEmpty) {
 		
 		SymbolPtr helpfileName;
 		jamoma_edit_filename(*HelpPatcherFormat, x->patcherClass, &helpfileName);
