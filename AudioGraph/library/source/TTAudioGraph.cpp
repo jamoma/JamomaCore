@@ -19,8 +19,8 @@
 #include "TTAudioGraphGenerator.h"
 #include "TTAudioGraphObject.h"
 #include "TTAudioGraphInlet.h"		// required for windows build
-#include "TTAudioGraphInput.h"
-#include "TTAudioGraphOutput.h"
+//#include "TTAudioGraphInput.h"
+//#include "TTAudioGraphOutput.h"
 
 static bool initialized = false;
 
@@ -36,8 +36,8 @@ void TTAudioGraphInit(void)
 		
 		TTAudioGraphGenerator::registerClass();
 		TTAudioGraphObject::registerClass();
-		TTAudioGraphInput::registerClass();
-		TTAudioGraphOutput::registerClass();
+//		TTAudioGraphInput::registerClass();
+//		TTAudioGraphOutput::registerClass();
 	}
 }
 

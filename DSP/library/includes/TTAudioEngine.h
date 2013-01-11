@@ -31,8 +31,8 @@
 
 #include "TTDSP.h"
 #include "TTAudioSignal.h"
-#include "portaudio.h"
 
+//#include "portaudio.h"
 
 /**	
  The #TTAudioEngine class is the Audio Engine of Jamoma DSP.

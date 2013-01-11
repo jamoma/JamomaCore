@@ -6,7 +6,50 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23AE3C169D05D7004793F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23AE3B169D05D7004793F5 /* Foundation.framework */; };
+		2A23AE41169D05D7004793F5 /* WindowFunctionLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2A23AE40169D05D7004793F5 /* WindowFunctionLibIOS.h */; };
+		2A23AE43169D05D7004793F5 /* WindowFunctionLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AE42169D05D7004793F5 /* WindowFunctionLibIOS.m */; };
+		2A23AE48169D060B004793F5 /* TTBartlettWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA7B164C4D2B00C3D0E9 /* TTBartlettWindow.cpp */; };
+		2A23AE49169D060B004793F5 /* TTBlackmanHarrisWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA7C164C4D2B00C3D0E9 /* TTBlackmanHarrisWindow.cpp */; };
+		2A23AE4A169D060B004793F5 /* TTBlackmanWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA7D164C4D2B00C3D0E9 /* TTBlackmanWindow.cpp */; };
+		2A23AE4B169D060B004793F5 /* TTExpodecWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA7E164C4D2B00C3D0E9 /* TTExpodecWindow.cpp */; };
+		2A23AE4C169D060B004793F5 /* TTGaussWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA7F164C4D2B00C3D0E9 /* TTGaussWindow.cpp */; };
+		2A23AE4D169D060B004793F5 /* TTHammingWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA80164C4D2B00C3D0E9 /* TTHammingWindow.cpp */; };
+		2A23AE4E169D060B004793F5 /* TTHanningWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA81164C4D2B00C3D0E9 /* TTHanningWindow.cpp */; };
+		2A23AE4F169D060B004793F5 /* TTKaiserWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA82164C4D2B00C3D0E9 /* TTKaiserWindow.cpp */; };
+		2A23AE50169D060B004793F5 /* TTNuttallWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA83164C4D2B00C3D0E9 /* TTNuttallWindow.cpp */; };
+		2A23AE51169D060B004793F5 /* TTRectangularWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA84164C4D2B00C3D0E9 /* TTRectangularWindow.cpp */; };
+		2A23AE52169D060B004793F5 /* TTTrapezoidWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA85164C4D2B00C3D0E9 /* TTTrapezoidWindow.cpp */; };
+		2A23AE53169D060B004793F5 /* TTTukeyWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA86164C4D2B00C3D0E9 /* TTTukeyWindow.cpp */; };
+		2A23AE54169D060B004793F5 /* TTWelchWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA87164C4D2B00C3D0E9 /* TTWelchWindow.cpp */; };
+		2A23AE55169D060B004793F5 /* TTWindowFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA88164C4D2B00C3D0E9 /* TTWindowFunction.cpp */; };
+		2A23AE56169D0610004793F5 /* TTGaussWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA89164C4D4000C3D0E9 /* TTGaussWindow.test.cpp */; };
+		2A23AE57169D0610004793F5 /* TTHammingWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8A164C4D4000C3D0E9 /* TTHammingWindow.test.cpp */; };
+		2A23AE58169D0610004793F5 /* TTKaiserWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8B164C4D4000C3D0E9 /* TTKaiserWindow.test.cpp */; };
+		2A23AE59169D0610004793F5 /* TTRectangularWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8C164C4D4000C3D0E9 /* TTRectangularWindow.test.cpp */; };
+		2A23AE5A169D0610004793F5 /* TTTukeyWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8D164C4D4000C3D0E9 /* TTTukeyWindow.test.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2A23AE36169D05D7004793F5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2A23AE41169D05D7004793F5 /* WindowFunctionLibIOS.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2A23AE38169D05D7004793F5 /* libWindowFunctionLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWindowFunctionLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A23AE3B169D05D7004793F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2A23AE3F169D05D7004793F5 /* WindowFunctionLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WindowFunctionLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AE40169D05D7004793F5 /* WindowFunctionLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowFunctionLibIOS.h; sourceTree = "<group>"; };
+		2A23AE42169D05D7004793F5 /* WindowFunctionLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowFunctionLibIOS.m; sourceTree = "<group>"; };
 		A7ECFA6D164C4D1E00C3D0E9 /* TTBartlettWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBartlettWindow.h; path = includes/TTBartlettWindow.h; sourceTree = "<group>"; };
 		A7ECFA6E164C4D1E00C3D0E9 /* TTBlackmanHarrisWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBlackmanHarrisWindow.h; path = includes/TTBlackmanHarrisWindow.h; sourceTree = "<group>"; };
 		A7ECFA6F164C4D1E00C3D0E9 /* TTBlackmanWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBlackmanWindow.h; path = includes/TTBlackmanWindow.h; sourceTree = "<group>"; };
@@ -44,7 +87,52 @@
 		A7ECFA8F164C4D6000C3D0E9 /* WindowFunctionLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = WindowFunctionLib.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		2A23AE35169D05D7004793F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AE3C169D05D7004793F5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		2A23AE39169D05D7004793F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE38169D05D7004793F5 /* libWindowFunctionLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A23AE3A169D05D7004793F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE3B169D05D7004793F5 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A23AE3D169D05D7004793F5 /* WindowFunctionLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE40169D05D7004793F5 /* WindowFunctionLibIOS.h */,
+				2A23AE42169D05D7004793F5 /* WindowFunctionLibIOS.m */,
+				2A23AE3E169D05D7004793F5 /* Supporting Files */,
+			);
+			path = WindowFunctionLibIOS;
+			sourceTree = "<group>";
+		};
+		2A23AE3E169D05D7004793F5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE3F169D05D7004793F5 /* WindowFunctionLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A702D0BF15DCFBDB00CA71C6 = {
 			isa = PBXGroup;
 			children = (
@@ -53,6 +141,9 @@
 				A7ECFA69164C4CED00C3D0E9 /* includes */,
 				A7ECFA6B164C4CF500C3D0E9 /* source */,
 				A7ECFA6C164C4CFF00C3D0E9 /* tests */,
+				2A23AE3D169D05D7004793F5 /* WindowFunctionLibIOS */,
+				2A23AE3A169D05D7004793F5 /* Frameworks */,
+				2A23AE39169D05D7004793F5 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +219,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2A23AE37169D05D7004793F5 /* WindowFunctionLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A23AE46169D05D7004793F5 /* Build configuration list for PBXNativeTarget "WindowFunctionLibIOS" */;
+			buildPhases = (
+				2A23AE34169D05D7004793F5 /* Sources */,
+				2A23AE35169D05D7004793F5 /* Frameworks */,
+				2A23AE36169D05D7004793F5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WindowFunctionLibIOS;
+			productName = WindowFunctionLibIOS;
+			productReference = 2A23AE38169D05D7004793F5 /* libWindowFunctionLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		A702D0C115DCFBDB00CA71C6 /* Project object */ = {
 			isa = PBXProject;
@@ -143,15 +254,92 @@
 				en,
 			);
 			mainGroup = A702D0BF15DCFBDB00CA71C6;
+			productRefGroup = 2A23AE39169D05D7004793F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				A702D0C615DCFBDB00CA71C6 /* WindowFunctionLib */,
+				2A23AE37169D05D7004793F5 /* WindowFunctionLibIOS */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXSourcesBuildPhase section */
+		2A23AE34169D05D7004793F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AE43169D05D7004793F5 /* WindowFunctionLibIOS.m in Sources */,
+				2A23AE48169D060B004793F5 /* TTBartlettWindow.cpp in Sources */,
+				2A23AE49169D060B004793F5 /* TTBlackmanHarrisWindow.cpp in Sources */,
+				2A23AE4A169D060B004793F5 /* TTBlackmanWindow.cpp in Sources */,
+				2A23AE4B169D060B004793F5 /* TTExpodecWindow.cpp in Sources */,
+				2A23AE4C169D060B004793F5 /* TTGaussWindow.cpp in Sources */,
+				2A23AE4D169D060B004793F5 /* TTHammingWindow.cpp in Sources */,
+				2A23AE4E169D060B004793F5 /* TTHanningWindow.cpp in Sources */,
+				2A23AE4F169D060B004793F5 /* TTKaiserWindow.cpp in Sources */,
+				2A23AE50169D060B004793F5 /* TTNuttallWindow.cpp in Sources */,
+				2A23AE51169D060B004793F5 /* TTRectangularWindow.cpp in Sources */,
+				2A23AE52169D060B004793F5 /* TTTrapezoidWindow.cpp in Sources */,
+				2A23AE53169D060B004793F5 /* TTTukeyWindow.cpp in Sources */,
+				2A23AE54169D060B004793F5 /* TTWelchWindow.cpp in Sources */,
+				2A23AE55169D060B004793F5 /* TTWindowFunction.cpp in Sources */,
+				2A23AE56169D0610004793F5 /* TTGaussWindow.test.cpp in Sources */,
+				2A23AE57169D0610004793F5 /* TTHammingWindow.test.cpp in Sources */,
+				2A23AE58169D0610004793F5 /* TTKaiserWindow.test.cpp in Sources */,
+				2A23AE59169D0610004793F5 /* TTRectangularWindow.test.cpp in Sources */,
+				2A23AE5A169D0610004793F5 /* TTTukeyWindow.test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
 /* Begin XCBuildConfiguration section */
+		2A23AE44169D05D7004793F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WindowFunctionLibIOS/WindowFunctionLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2A23AE45169D05D7004793F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WindowFunctionLibIOS/WindowFunctionLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		A702D0C715DCFBDB00CA71C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -223,6 +411,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2A23AE46169D05D7004793F5 /* Build configuration list for PBXNativeTarget "WindowFunctionLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A23AE44169D05D7004793F5 /* Debug */,
+				2A23AE45169D05D7004793F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A702D0C415DCFBDB00CA71C6 /* Build configuration list for PBXProject "WindowFunctionLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

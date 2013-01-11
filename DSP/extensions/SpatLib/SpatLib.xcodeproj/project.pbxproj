@@ -6,7 +6,39 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23AE1A169D0552004793F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23AE19169D0552004793F5 /* Foundation.framework */; };
+		2A23AE1F169D0552004793F5 /* SpatLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2A23AE1E169D0552004793F5 /* SpatLibIOS.h */; };
+		2A23AE21169D0552004793F5 /* SpatLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AE20169D0552004793F5 /* SpatLibIOS.m */; };
+		2A23AE26169D058E004793F5 /* TTSpat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6659A12614A985CC00D83E3C /* TTSpat.cpp */; };
+		2A23AE27169D058E004793F5 /* SpatLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6659A12414A985CC00D83E3C /* SpatLib.cpp */; };
+		2A23AE28169D058E004793F5 /* SpatDBAP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 660420F714A988D100FEC268 /* SpatDBAP.cpp */; };
+		2A23AE29169D058E004793F5 /* SpatMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 660420F814A988D100FEC268 /* SpatMatrix.cpp */; };
+		2A23AE2A169D058E004793F5 /* SpatThru.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 660420F914A988D100FEC268 /* SpatThru.cpp */; };
+		2A23AE2B169D058E004793F5 /* SpatDBAP.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7957BF1164DA184002E58EF /* SpatDBAP.test.cpp */; };
+		2A23AE2C169D058E004793F5 /* SpatMatrix.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7957BF2164DA184002E58EF /* SpatMatrix.test.cpp */; };
+		2A23AE2D169D058E004793F5 /* SpatThru.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7957BF3164DA184002E58EF /* SpatThru.test.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2A23AE14169D0552004793F5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2A23AE1F169D0552004793F5 /* SpatLibIOS.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2A23AE16169D0552004793F5 /* libSpatLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSpatLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A23AE19169D0552004793F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2A23AE1D169D0552004793F5 /* SpatLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpatLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AE1E169D0552004793F5 /* SpatLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpatLibIOS.h; sourceTree = "<group>"; };
+		2A23AE20169D0552004793F5 /* SpatLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpatLibIOS.m; sourceTree = "<group>"; };
 		660420F414A988C800FEC268 /* SpatDBAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatDBAP.h; path = includes/SpatDBAP.h; sourceTree = "<group>"; };
 		660420F514A988C800FEC268 /* SpatMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatMatrix.h; path = includes/SpatMatrix.h; sourceTree = "<group>"; };
 		660420F614A988C800FEC268 /* SpatThru.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatThru.h; path = includes/SpatThru.h; sourceTree = "<group>"; };
@@ -21,6 +53,17 @@
 		A7957BF3164DA184002E58EF /* SpatThru.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SpatThru.test.cpp; path = tests/SpatThru.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		2A23AE13169D0552004793F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AE1A169D0552004793F5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		08FB7794FE84155DC02AAC07 /* SpatLib */ = {
 			isa = PBXGroup;
@@ -31,8 +74,45 @@
 				A7957BED164DA159002E58EF /* include */,
 				A7957BF0164DA164002E58EF /* test */,
 				A7957BEF164DA15F002E58EF /* source */,
+				2A23AE1B169D0552004793F5 /* SpatLibIOS */,
+				2A23AE18169D0552004793F5 /* Frameworks */,
+				2A23AE17169D0552004793F5 /* Products */,
 			);
 			name = SpatLib;
+			sourceTree = "<group>";
+		};
+		2A23AE17169D0552004793F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE16169D0552004793F5 /* libSpatLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A23AE18169D0552004793F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE19169D0552004793F5 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A23AE1B169D0552004793F5 /* SpatLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE1E169D0552004793F5 /* SpatLibIOS.h */,
+				2A23AE20169D0552004793F5 /* SpatLibIOS.m */,
+				2A23AE1C169D0552004793F5 /* Supporting Files */,
+			);
+			path = SpatLibIOS;
+			sourceTree = "<group>";
+		};
+		2A23AE1C169D0552004793F5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE1D169D0552004793F5 /* SpatLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A7957BED164DA159002E58EF /* include */ = {
@@ -83,6 +163,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2A23AE15169D0552004793F5 /* SpatLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A23AE24169D0552004793F5 /* Build configuration list for PBXNativeTarget "SpatLibIOS" */;
+			buildPhases = (
+				2A23AE12169D0552004793F5 /* Sources */,
+				2A23AE13169D0552004793F5 /* Frameworks */,
+				2A23AE14169D0552004793F5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpatLibIOS;
+			productName = SpatLibIOS;
+			productReference = 2A23AE16169D0552004793F5 /* libSpatLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
@@ -97,13 +197,34 @@
 				German,
 			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* SpatLib */;
+			productRefGroup = 2A23AE17169D0552004793F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				D28A88AD04BDD90700651E21 /* SpatLib */,
+				2A23AE15169D0552004793F5 /* SpatLibIOS */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2A23AE12169D0552004793F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AE21169D0552004793F5 /* SpatLibIOS.m in Sources */,
+				2A23AE26169D058E004793F5 /* TTSpat.cpp in Sources */,
+				2A23AE27169D058E004793F5 /* SpatLib.cpp in Sources */,
+				2A23AE28169D058E004793F5 /* SpatDBAP.cpp in Sources */,
+				2A23AE29169D058E004793F5 /* SpatMatrix.cpp in Sources */,
+				2A23AE2A169D058E004793F5 /* SpatThru.cpp in Sources */,
+				2A23AE2B169D058E004793F5 /* SpatDBAP.test.cpp in Sources */,
+				2A23AE2C169D058E004793F5 /* SpatMatrix.test.cpp in Sources */,
+				2A23AE2D169D058E004793F5 /* SpatThru.test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB919008733D9F0010E9CD /* Debug */ = {
@@ -157,6 +278,76 @@
 			};
 			name = Release;
 		};
+		2A23AE22169D0552004793F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SpatLibIOS/SpatLibIOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = /usr/local/jamoma/includes;
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2A23AE23169D0552004793F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SpatLibIOS/SpatLibIOS-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = /usr/local/jamoma/includes;
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -177,6 +368,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		2A23AE24169D0552004793F5 /* Build configuration list for PBXNativeTarget "SpatLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A23AE22169D0552004793F5 /* Debug */,
+				2A23AE23169D0552004793F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
