@@ -221,7 +221,7 @@ void *cuemng_new(t_symbol *s, long argc, t_atom *argv)
 		cuemng_clear_temp(x);
 
 		x->m_editor = NULL;
-		x->buf = new TTString();
+		x->buf = TTString();
 		x->Kcurrent = -1;
 		x->current = -1;
 		x->trigeditmode = EDIT_MODE;
@@ -360,7 +360,7 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 		object_error((t_object *)x, "modifications done inside the text editor aren't stored in the cuelist");
 	}
 	
-	x->buf->clear();
+	x->buf = TTString();
     x->m_editor = NULL;
 }
 
@@ -404,7 +404,7 @@ void cuemng_bang(t_cuemng *x)
 			x->wtof = false;	// we wan to write into the editor
 
 			// create a new buffer for text
-			x->buf->clear();
+			x->buf = TTString();
 			x->nb_written_lines = 0;
 			
 			critical_enter(0);
@@ -413,7 +413,7 @@ void cuemng_bang(t_cuemng *x)
 			cuemng_write_cue(ccue, x);
 			
 			// write buf into the editor
-			object_method(x->m_editor, gensym("settext"), x->buf->c_str(), gensym("utf-8"));
+			object_method(x->m_editor, gensym("settext"), x->buf.c_str(), gensym("utf-8"));
 
 			critical_exit(0);
 
@@ -756,7 +756,7 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	x->wtof = true;	// we wan to write on a file
 
 	// create a new buffer
-	x->buf->clear();
+	x->buf = TTString();
 	x->nb_written_lines = 0;
 
 	// write all cues in the text file
@@ -792,7 +792,7 @@ void cuemng_open(t_cuemng *x)
 		x->wtof = false;	// we wan to write into the editor
 
 		// create a new buffer for text
-		x->buf->clear();
+		x->buf = TTString();
 		x->nb_written_lines = 0;
 
 		critical_enter(0);
@@ -801,7 +801,7 @@ void cuemng_open(t_cuemng *x)
 		linklist_funall(x->cuelist,(method)cuemng_write_cue,x);
 		
 		// write buf into the editor
-		object_method(x->m_editor, gensym("settext"), x->buf->c_str(), gensym("utf-8"));
+		object_method(x->m_editor, gensym("settext"), x->buf.c_str(), gensym("utf-8"));
 
 		critical_exit(0);
 
@@ -2545,13 +2545,13 @@ void cuemng_write_atom(t_cuemng *x, t_atom *src)
 	}
 
 	// before buffer becomes full ...
-	if (x->buf->length() >= TEXT_BUFFER_SIZE) {
+	if (x->buf.length() >= TEXT_BUFFER_SIZE) {
 		// ... write the buffer into the text file
 		cuemng_write_buffer(x);
 	}
 
 	// append the temp to the text buffer
-	*x->buf += temp;
+	x->buf += temp;
 }
 
 void cuemng_write_sym(t_cuemng *x, t_symbol *src)
@@ -2561,13 +2561,13 @@ void cuemng_write_sym(t_cuemng *x, t_symbol *src)
 	snprintf(temp, sizeof(temp), "%s ", src->s_name);
 
 	// before buffer becomes full ...
-	if (x->buf->length() >= TEXT_BUFFER_SIZE) {
+	if (x->buf.length() >= TEXT_BUFFER_SIZE) {
 		// ... write the buffer into the text file
 		cuemng_write_buffer(x);
 	}
 
 	// append the temp to the text buffer
-	*x->buf += temp;
+	x->buf += temp;
 }
 
 void cuemng_write_long(t_cuemng *x, long src)
@@ -2577,13 +2577,13 @@ void cuemng_write_long(t_cuemng *x, long src)
 	snprintf(temp, sizeof(temp), "%ld ", src);
 
 	// before buffer becomes full ...
-	if (x->buf->length() >= TEXT_BUFFER_SIZE) {
+	if (x->buf.length() >= TEXT_BUFFER_SIZE) {
 		// ... write the buffer into the text file
 		cuemng_write_buffer(x);
 	}
 
 	// append the temp to the text buffer
-	*x->buf += temp;
+	x->buf += temp;
 }
 
 void cuemng_write_float(t_cuemng *x, float src)
@@ -2593,13 +2593,13 @@ void cuemng_write_float(t_cuemng *x, float src)
 	snprintf(temp, sizeof(temp), "%f ", src);
 
 	// before buffer becomes full ...
-	if (x->buf->length() >= TEXT_BUFFER_SIZE) {
+	if (x->buf.length() >= TEXT_BUFFER_SIZE) {
 		// ... write the buffer into the text file
 		cuemng_write_buffer(x);
 	}
 
 	// append the temp to the text buffer
-	*x->buf += temp;
+	x->buf += temp;
 }
 
 // write the buffer into a text file (if x->wtof is true)
@@ -2611,8 +2611,8 @@ void cuemng_write_buffer(t_cuemng *x)
 	// if we are writing into a text file
 	if (x->wtof) {
 		
-		len = x->buf->length();
-		err = sysfile_write(x->fh, &len, x->buf->c_str());
+		len = x->buf.length();
+		err = sysfile_write(x->fh, &len, x->buf.c_str());
 
 		if (err) {
 			error("cuemng_write_buffer : sysfile_write error (%d)", err);
@@ -2621,7 +2621,7 @@ void cuemng_write_buffer(t_cuemng *x)
 		x->eof += len;
 
 		// clear the buffer
-		x->buf->clear();
+		x->buf = TTString();
 	}
 	// else do nothing
 }
