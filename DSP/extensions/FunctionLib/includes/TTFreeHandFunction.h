@@ -15,7 +15,7 @@
 
 /**	A function unit providing a free hand curve based on all others function units
  */
-class TTFreeHandFunction : TTAudioObject {
+class TTFreeHandFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTFreeHandFunction)
     
 private:

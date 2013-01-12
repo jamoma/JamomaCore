@@ -41,7 +41,7 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
     TTUInt32            i, next, size;
     TTFloat64           x, y;
     TTSymbol            function, parameterName;
-    TTAudioObjectPtr    aFunction;
+    TTAudioObjectBasePtr    aFunction;
     TTValue             v;
     TTErr               err = kTTErrNone;
     
@@ -60,7 +60,7 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
             mFunctions.current().get(0, (TTPtr*)&aFunction);
             
             if (aFunction)
-                TTObjectRelease(TTObjectHandle(&aFunction));
+                TTObjectBaseRelease(TTObjectBaseHandle(&aFunction));
         }
         
         mFunctions.clear();
@@ -95,13 +95,13 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
         
         // check size
         if (i+2 >= size) {
-            TTObjectInstantiate(TTSymbol("linear"), (TTObject **)&aFunction, 1);      // 1 is the numChannel
+            TTObjectBaseInstantiate(TTSymbol("linear"), (TTObjectBase**)&aFunction, 1);      // 1 is the numChannel
             
             // set function type
         } else if (value.getType(i+2) == kTypeSymbol) {
             
             value.get(i+2, function);
-            TTObjectInstantiate(function, (TTObject **)&aFunction, 1);      // 1 is the numChannel
+            TTObjectBaseInstantiate(function, (TTObjectBase**)&aFunction, 1);      // 1 is the numChannel
             
             next = 3;
             
@@ -123,11 +123,11 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
                 err = kTTErrGeneric;
         }
         else
-            TTObjectInstantiate(TTSymbol("linear"), (TTObject **)&aFunction, 1);      // 1 is the numChannel
+            TTObjectBaseInstantiate(TTSymbol("linear"), (TTObjectBase**)&aFunction, 1);      // 1 is the numChannel
         
         // for the first point : release the function
         if (!curveId) {
-            TTObjectRelease(TTObjectHandle(&aFunction));
+            TTObjectBaseRelease(TTObjectBaseHandle(&aFunction));
         }
         
         // append the function
@@ -162,7 +162,7 @@ TTErr TTFreeHandFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr
     TTFloat64           lastX, lastY;
     TTFloat64           currentX, currentY;
     TTFloat64           scaledX, scaledY;
-    TTAudioObjectPtr    aFunction;
+    TTAudioObjectBasePtr    aFunction;
     TTErr               err;
     
     if (locked)

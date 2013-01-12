@@ -56,7 +56,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTWavetable::~TTWavetable()
 {
-	TTObjectRelease((TTObjectBase**)&mBuffer);
+	TTObjectBaseRelease((TTObjectBase**)&mBuffer);
 }
 
 
