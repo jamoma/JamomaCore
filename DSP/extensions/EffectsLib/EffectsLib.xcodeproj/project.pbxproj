@@ -6,7 +6,42 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23ACEF169CFED9004793F5 /* TTBalance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBD016373A33007CE627 /* TTBalance.cpp */; };
+		2A23ACF0169CFED9004793F5 /* TTDegrade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBD116373A33007CE627 /* TTDegrade.cpp */; };
+		2A23ACF1169CFED9004793F5 /* TTGain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBD216373A33007CE627 /* TTGain.cpp */; };
+		2A23ACF2169CFED9004793F5 /* TTLimiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBD316373A33007CE627 /* TTLimiter.cpp */; };
+		2A23ACF3169CFED9004793F5 /* TTOverdrive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBD416373A33007CE627 /* TTOverdrive.cpp */; };
+		2A23ACF4169CFED9004793F5 /* TTPanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBD516373A33007CE627 /* TTPanorama.cpp */; };
+		2A23ACF5169CFED9004793F5 /* TTPulseSub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBD616373A33007CE627 /* TTPulseSub.cpp */; };
+		2A23ACF6169CFED9004793F5 /* TTThru.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBD716373A33007CE627 /* TTThru.cpp */; };
+		2A23ACF7169CFED9004793F5 /* TTWaveshaper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBD816373A33007CE627 /* TTWaveshaper.cpp */; };
+		2A23ACF8169CFEDD004793F5 /* TTGain.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBDA16373A47007CE627 /* TTGain.test.cpp */; };
+		2A23ACF9169CFEDD004793F5 /* TTThru.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A752BBDB16373A47007CE627 /* TTThru.test.cpp */; };
+		2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD78887169CFD1C00604D7C /* Foundation.framework */; };
+		2AD7888D169CFD1C00604D7C /* EffectsLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AD7888C169CFD1C00604D7C /* EffectsLibIOS.h */; };
+		2AD7888F169CFD1C00604D7C /* EffectsLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7888E169CFD1C00604D7C /* EffectsLibIOS.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2AD78882169CFD1C00604D7C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2AD7888D169CFD1C00604D7C /* EffectsLibIOS.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2AD78884169CFD1C00604D7C /* libEffectsLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEffectsLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD78887169CFD1C00604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2AD7888B169CFD1C00604D7C /* EffectsLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EffectsLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2AD7888C169CFD1C00604D7C /* EffectsLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectsLibIOS.h; sourceTree = "<group>"; };
+		2AD7888E169CFD1C00604D7C /* EffectsLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EffectsLibIOS.m; sourceTree = "<group>"; };
 		A752BBC516373A14007CE627 /* TTBalance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBalance.h; path = includes/TTBalance.h; sourceTree = "<group>"; };
 		A752BBC616373A14007CE627 /* TTDegrade.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDegrade.h; path = includes/TTDegrade.h; sourceTree = "<group>"; };
 		A752BBC716373A14007CE627 /* TTGain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTGain.h; path = includes/TTGain.h; sourceTree = "<group>"; };
@@ -29,13 +64,61 @@
 		A752BBDB16373A47007CE627 /* TTThru.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTThru.test.cpp; path = tests/TTThru.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		2AD78881169CFD1C00604D7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		2AD78885169CFD1C00604D7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78884169CFD1C00604D7C /* libEffectsLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD78886169CFD1C00604D7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78887169CFD1C00604D7C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2AD78889169CFD1C00604D7C /* EffectsLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7888C169CFD1C00604D7C /* EffectsLibIOS.h */,
+				2AD7888E169CFD1C00604D7C /* EffectsLibIOS.m */,
+				2AD7888A169CFD1C00604D7C /* Supporting Files */,
+			);
+			path = EffectsLibIOS;
+			sourceTree = "<group>";
+		};
+		2AD7888A169CFD1C00604D7C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7888B169CFD1C00604D7C /* EffectsLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A738FF4E163739D100BD5C89 = {
 			isa = PBXGroup;
 			children = (
 				A752BBCF16373A19007CE627 /* includes */,
 				A752BBD916373A37007CE627 /* sources */,
 				A752BBDC16373A4B007CE627 /* tests */,
+				2AD78889169CFD1C00604D7C /* EffectsLibIOS */,
+				2AD78886169CFD1C00604D7C /* Frameworks */,
+				2AD78885169CFD1C00604D7C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,6 +181,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2AD78883169CFD1C00604D7C /* EffectsLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD78892169CFD1C00604D7C /* Build configuration list for PBXNativeTarget "EffectsLibIOS" */;
+			buildPhases = (
+				2AD78880169CFD1C00604D7C /* Sources */,
+				2AD78881169CFD1C00604D7C /* Frameworks */,
+				2AD78882169CFD1C00604D7C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EffectsLibIOS;
+			productName = EffectsLibIOS;
+			productReference = 2AD78884169CFD1C00604D7C /* libEffectsLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		A738FF50163739D100BD5C89 /* Project object */ = {
 			isa = PBXProject;
@@ -113,15 +216,78 @@
 				en,
 			);
 			mainGroup = A738FF4E163739D100BD5C89;
+			productRefGroup = 2AD78885169CFD1C00604D7C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				A738FF55163739D100BD5C89 /* EffectsLib */,
+				2AD78883169CFD1C00604D7C /* EffectsLibIOS */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXSourcesBuildPhase section */
+		2AD78880169CFD1C00604D7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD7888F169CFD1C00604D7C /* EffectsLibIOS.m in Sources */,
+				2A23ACEF169CFED9004793F5 /* TTBalance.cpp in Sources */,
+				2A23ACF0169CFED9004793F5 /* TTDegrade.cpp in Sources */,
+				2A23ACF1169CFED9004793F5 /* TTGain.cpp in Sources */,
+				2A23ACF2169CFED9004793F5 /* TTLimiter.cpp in Sources */,
+				2A23ACF3169CFED9004793F5 /* TTOverdrive.cpp in Sources */,
+				2A23ACF4169CFED9004793F5 /* TTPanorama.cpp in Sources */,
+				2A23ACF5169CFED9004793F5 /* TTPulseSub.cpp in Sources */,
+				2A23ACF6169CFED9004793F5 /* TTThru.cpp in Sources */,
+				2A23ACF7169CFED9004793F5 /* TTWaveshaper.cpp in Sources */,
+				2A23ACF8169CFEDD004793F5 /* TTGain.test.cpp in Sources */,
+				2A23ACF9169CFEDD004793F5 /* TTThru.test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
 /* Begin XCBuildConfiguration section */
+		2AD78890169CFD1C00604D7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EffectsLibIOS/EffectsLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2AD78891169CFD1C00604D7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EffectsLibIOS/EffectsLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		A738FF56163739D100BD5C89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -197,6 +363,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2AD78892169CFD1C00604D7C /* Build configuration list for PBXNativeTarget "EffectsLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD78890169CFD1C00604D7C /* Debug */,
+				2AD78891169CFD1C00604D7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "EffectsLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

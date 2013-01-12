@@ -323,10 +323,10 @@ public:
 	 	This method can be used to force row values to fall within the defined limits of the TTMatrix.
 
 		@param[in,out]	i			row in matrix of desired component
-		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsWrap is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/	
-	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
+	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTRowID i_input = i;
 		i = (*handler)(i_input, TTRowID(0), mRowCount);
@@ -337,10 +337,10 @@ public:
 	 	This method can be used to force column values to fall within the defined limits of the TTMatrix.
 
 		@param[in,out]	j			column in matrix of desired component
-		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsWrap is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
+	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTColumnID j_input = j;
         j = (*handler)(j_input, TTColumnID(0), mColumnCount);
@@ -351,10 +351,10 @@ public:
 	 	This method can be used to force element values to fall within the defined limits of the TTMatrix.
 
 		@param[in,out]	e			element within desired component
-		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsWrap is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
+	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTColumnID e_input = e;
         e = (*handler)(e_input, TTElementID(0), mElementCount);
@@ -366,12 +366,12 @@ public:
 
 		@param[in,out]	i			row in matrix of desired component
 		@param[in,out]	j			column in matrix of desired component
-		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsWrap is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 		
 		@seealso makeRowIDInBounds, makeColumnIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);
@@ -385,12 +385,12 @@ public:
 		@param[in,out]	i			row in matrix of desired component
 		@param[in,out]	j			column in matrix of desired component
 		@param[in,out]	e			element within desired component
-		@param[in]		handler		function used to transform out of bounds values, outOfBoundsClip is default if undefined
+		@param[in]		handler		function used to transform out of bounds values, outOfBoundsWrap is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 		
 		@seealso makeRowIDInBounds, makeColumnIDInBounds, makeElementIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsClip) const
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);

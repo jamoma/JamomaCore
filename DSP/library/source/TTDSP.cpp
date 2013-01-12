@@ -15,8 +15,9 @@
 
 
 #include "TTDSP.h"
+#ifndef TT_PLATFORM_IOS
 #include "TTAudioEngine.h"
-
+#endif
 
 static bool TTDSPHasInitialized = false;
 
@@ -44,6 +45,10 @@ void TTDSPInit(const char* pathToBinaries)
 #endif
 		
 		TTDSPRegisterInternalClasses();
+        
+#ifdef TT_PLATFORM_IOS
+        
+#else
 		
 		// create audio engine and
 		// store the audio engine singleton instance as an attribute of the environment
@@ -54,6 +59,8 @@ void TTDSPInit(const char* pathToBinaries)
 			ttEnvironment->registerAttribute("audioEngine", kTypeLocalValue, NULL);
 			ttEnvironment->setAttributeValue("audioEngine", v);
 		}
+#endif
+        
 	}
 }
 
@@ -68,7 +75,9 @@ int main(void)
 // FIXME: this is never called right now!
 void TTDSPShutdown()
 {
+#ifndef	TT_PLATFORM_IOS
 	TTAudioEngine::destroy();
+#endif
 }
 
 
@@ -89,8 +98,9 @@ void TTDSPRegisterInternalClasses()
 	TTBuffer::registerClass();
 	TTDelay::registerClass();
 	TTSampleMatrix::registerClass();
-		
-	TTAudioEngine::registerClass();	
+#ifndef	TT_PLATFORM_IOS		
+	TTAudioEngine::registerClass();
+#endif
 }
 
 

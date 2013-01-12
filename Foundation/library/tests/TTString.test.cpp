@@ -43,7 +43,6 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	
 	// TEST: c-string init
 	
 	TTTestLog("\n");
@@ -92,7 +91,27 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					jet.at(3) == 0,
 					testAssertionCount,
 					errorCount);
-
+    
+    // TEST: clear
+    
+    TTTestLog("\n");
+	TTTestLog("Testing clear method");
+    
+    TTString nothing = "something";
+    nothing.clear();
+    
+  	TTTestAssertion("cleared string with correct size",
+					empty.size() == 0,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("cleared string with correct length",
+					empty.length() == 0,
+					testAssertionCount,
+					errorCount);
+	TTTestAssertion("cleared string correctly null terminated",
+					empty.at(0) == 0,
+					testAssertionCount,
+					errorCount);
 
 	// TEST: individual char access
 	

@@ -6,12 +6,49 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23AEB3169D0E38004793F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23AEB2169D0E38004793F5 /* Foundation.framework */; };
+		2A23AEB8169D0E38004793F5 /* DictionaryLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2A23AEB7169D0E38004793F5 /* DictionaryLibIOS.h */; };
+		2A23AEBA169D0E38004793F5 /* DictionaryLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEB9169D0E38004793F5 /* DictionaryLibIOS.m */; };
+		2A23AEBF169D0EF2004793F5 /* DictionaryLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222ECD0F1655BC9A003246EA /* DictionaryLib.cpp */; };
+		2A23AEC0169D0EF2004793F5 /* TTDictionaryAppend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222ECD131655BCB5003246EA /* TTDictionaryAppend.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2A23AEAD169D0E38004793F5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2A23AEB8169D0E38004793F5 /* DictionaryLibIOS.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		222ECD0F1655BC9A003246EA /* DictionaryLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DictionaryLib.cpp; sourceTree = "<group>"; };
 		222ECD101655BC9A003246EA /* DictionaryLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = DictionaryLib.yml; sourceTree = "<group>"; };
 		222ECD121655BCAE003246EA /* TTDictionaryAppend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDictionaryAppend.h; path = includes/TTDictionaryAppend.h; sourceTree = "<group>"; };
 		222ECD131655BCB5003246EA /* TTDictionaryAppend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDictionaryAppend.cpp; path = source/TTDictionaryAppend.cpp; sourceTree = "<group>"; };
+		2A23AEAF169D0E38004793F5 /* libDictionaryLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDictionaryLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A23AEB2169D0E38004793F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2A23AEB6169D0E38004793F5 /* DictionaryLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DictionaryLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AEB7169D0E38004793F5 /* DictionaryLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DictionaryLibIOS.h; sourceTree = "<group>"; };
+		2A23AEB9169D0E38004793F5 /* DictionaryLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DictionaryLibIOS.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2A23AEAC169D0E38004793F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AEB3169D0E38004793F5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		222ECCFF1655BC81003246EA = {
@@ -21,7 +58,44 @@
 				222ECD101655BC9A003246EA /* DictionaryLib.yml */,
 				222ECD121655BCAE003246EA /* TTDictionaryAppend.h */,
 				222ECD131655BCB5003246EA /* TTDictionaryAppend.cpp */,
+				2A23AEB4169D0E38004793F5 /* DictionaryLibIOS */,
+				2A23AEB1169D0E38004793F5 /* Frameworks */,
+				2A23AEB0169D0E38004793F5 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		2A23AEB0169D0E38004793F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AEAF169D0E38004793F5 /* libDictionaryLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A23AEB1169D0E38004793F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AEB2169D0E38004793F5 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A23AEB4169D0E38004793F5 /* DictionaryLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AEB7169D0E38004793F5 /* DictionaryLibIOS.h */,
+				2A23AEB9169D0E38004793F5 /* DictionaryLibIOS.m */,
+				2A23AEB5169D0E38004793F5 /* Supporting Files */,
+			);
+			path = DictionaryLibIOS;
+			sourceTree = "<group>";
+		};
+		2A23AEB5169D0E38004793F5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AEB6169D0E38004793F5 /* DictionaryLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -42,6 +116,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2A23AEAE169D0E38004793F5 /* DictionaryLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A23AEBD169D0E38004793F5 /* Build configuration list for PBXNativeTarget "DictionaryLibIOS" */;
+			buildPhases = (
+				2A23AEAB169D0E38004793F5 /* Sources */,
+				2A23AEAC169D0E38004793F5 /* Frameworks */,
+				2A23AEAD169D0E38004793F5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DictionaryLibIOS;
+			productName = DictionaryLibIOS;
+			productReference = 2A23AEAF169D0E38004793F5 /* libDictionaryLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		222ECD011655BC81003246EA /* Project object */ = {
 			isa = PBXProject;
@@ -57,13 +151,28 @@
 				en,
 			);
 			mainGroup = 222ECCFF1655BC81003246EA;
+			productRefGroup = 2A23AEB0169D0E38004793F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				222ECD061655BC81003246EA /* DictionaryLib */,
+				2A23AEAE169D0E38004793F5 /* DictionaryLibIOS */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2A23AEAB169D0E38004793F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AEBA169D0E38004793F5 /* DictionaryLibIOS.m in Sources */,
+				2A23AEBF169D0EF2004793F5 /* DictionaryLib.cpp in Sources */,
+				2A23AEC0169D0EF2004793F5 /* TTDictionaryAppend.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		222ECD071655BC81003246EA /* Debug */ = {
@@ -138,6 +247,47 @@
 			};
 			name = Release;
 		};
+		2A23AEBB169D0E38004793F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DictionaryLibIOS/DictionaryLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2A23AEBC169D0E38004793F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DictionaryLibIOS/DictionaryLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -155,6 +305,15 @@
 			buildConfigurations = (
 				222ECD0A1655BC81003246EA /* Debug */,
 				222ECD0B1655BC81003246EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2A23AEBD169D0E38004793F5 /* Build configuration list for PBXNativeTarget "DictionaryLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A23AEBB169D0E38004793F5 /* Debug */,
+				2A23AEBC169D0E38004793F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

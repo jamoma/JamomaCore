@@ -6,7 +6,39 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23AD59169D0186004793F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23AD58169D0186004793F5 /* Foundation.framework */; };
+		2A23AD5E169D0186004793F5 /* GeneratorLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2A23AD5D169D0186004793F5 /* GeneratorLibIOS.h */; };
+		2A23AD60169D0186004793F5 /* GeneratorLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AD5F169D0186004793F5 /* GeneratorLibIOS.m */; };
+		2A23AD65169D0194004793F5 /* TTAdsr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E1A1652B78D0099C2DD /* TTAdsr.cpp */; };
+		2A23AD66169D0194004793F5 /* TTCount.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E271652CF2B0099C2DD /* TTCount.cpp */; };
+		2A23AD67169D0194004793F5 /* TTNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E1B1652B78D0099C2DD /* TTNoise.cpp */; };
+		2A23AD68169D0194004793F5 /* TTPhasor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E1C1652B78D0099C2DD /* TTPhasor.cpp */; };
+		2A23AD69169D0194004793F5 /* TTRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E1D1652B78D0099C2DD /* TTRamp.cpp */; };
+		2A23AD6A169D0194004793F5 /* TTWavetable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E1E1652B78D0099C2DD /* TTWavetable.cpp */; };
+		2A23AD6B169D0194004793F5 /* TTPhasor.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E1F1652B7950099C2DD /* TTPhasor.test.cpp */; };
+		2A23AD6C169D0194004793F5 /* TTRamp.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E201652B7950099C2DD /* TTRamp.test.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2A23AD53169D0186004793F5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2A23AD5E169D0186004793F5 /* GeneratorLibIOS.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2A23AD55169D0186004793F5 /* libGeneratorLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGeneratorLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A23AD58169D0186004793F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2A23AD5C169D0186004793F5 /* GeneratorLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GeneratorLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AD5D169D0186004793F5 /* GeneratorLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratorLibIOS.h; sourceTree = "<group>"; };
+		2A23AD5F169D0186004793F5 /* GeneratorLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneratorLibIOS.m; sourceTree = "<group>"; };
 		A7B79E131652B7690099C2DD /* GeneratorLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GeneratorLib.cpp; sourceTree = "<group>"; };
 		A7B79E141652B7710099C2DD /* GeneratorLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = GeneratorLib.yml; sourceTree = "<group>"; };
 		A7B79E151652B77D0099C2DD /* TTAdsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAdsr.h; path = includes/TTAdsr.h; sourceTree = "<group>"; };
@@ -25,7 +57,52 @@
 		A7B79E281652CF3A0099C2DD /* TTCount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTCount.h; path = includes/TTCount.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		2A23AD52169D0186004793F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AD59169D0186004793F5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		2A23AD56169D0186004793F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD55169D0186004793F5 /* libGeneratorLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A23AD57169D0186004793F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD58169D0186004793F5 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A23AD5A169D0186004793F5 /* GeneratorLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD5D169D0186004793F5 /* GeneratorLibIOS.h */,
+				2A23AD5F169D0186004793F5 /* GeneratorLibIOS.m */,
+				2A23AD5B169D0186004793F5 /* Supporting Files */,
+			);
+			path = GeneratorLibIOS;
+			sourceTree = "<group>";
+		};
+		2A23AD5B169D0186004793F5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD5C169D0186004793F5 /* GeneratorLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A7B79DFF1652B7370099C2DD = {
 			isa = PBXGroup;
 			children = (
@@ -34,6 +111,9 @@
 				A7B79E0F1652B74B0099C2DD /* include */,
 				A7B79E111652B7510099C2DD /* source */,
 				A7B79E121652B7570099C2DD /* tests */,
+				2A23AD5A169D0186004793F5 /* GeneratorLibIOS */,
+				2A23AD57169D0186004793F5 /* Frameworks */,
+				2A23AD56169D0186004793F5 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +170,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2A23AD54169D0186004793F5 /* GeneratorLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A23AD63169D0186004793F5 /* Build configuration list for PBXNativeTarget "GeneratorLibIOS" */;
+			buildPhases = (
+				2A23AD51169D0186004793F5 /* Sources */,
+				2A23AD52169D0186004793F5 /* Frameworks */,
+				2A23AD53169D0186004793F5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GeneratorLibIOS;
+			productName = GeneratorLibIOS;
+			productReference = 2A23AD55169D0186004793F5 /* libGeneratorLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		A7B79E011652B7370099C2DD /* Project object */ = {
 			isa = PBXProject;
@@ -105,15 +205,77 @@
 				en,
 			);
 			mainGroup = A7B79DFF1652B7370099C2DD;
+			productRefGroup = 2A23AD56169D0186004793F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				A7B79E061652B7370099C2DD /* GeneratorLib */,
+				2A23AD54169D0186004793F5 /* GeneratorLibIOS */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXSourcesBuildPhase section */
+		2A23AD51169D0186004793F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AD60169D0186004793F5 /* GeneratorLibIOS.m in Sources */,
+				2A23AD65169D0194004793F5 /* TTAdsr.cpp in Sources */,
+				2A23AD66169D0194004793F5 /* TTCount.cpp in Sources */,
+				2A23AD67169D0194004793F5 /* TTNoise.cpp in Sources */,
+				2A23AD68169D0194004793F5 /* TTPhasor.cpp in Sources */,
+				2A23AD69169D0194004793F5 /* TTRamp.cpp in Sources */,
+				2A23AD6A169D0194004793F5 /* TTWavetable.cpp in Sources */,
+				2A23AD6B169D0194004793F5 /* TTPhasor.test.cpp in Sources */,
+				2A23AD6C169D0194004793F5 /* TTRamp.test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
 /* Begin XCBuildConfiguration section */
+		2A23AD61169D0186004793F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GeneratorLibIOS/GeneratorLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2A23AD62169D0186004793F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GeneratorLibIOS/GeneratorLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		A7B79E071652B7370099C2DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -189,6 +351,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2A23AD63169D0186004793F5 /* Build configuration list for PBXNativeTarget "GeneratorLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A23AD61169D0186004793F5 /* Debug */,
+				2A23AD62169D0186004793F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A7B79E041652B7370099C2DD /* Build configuration list for PBXProject "GeneratorLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
