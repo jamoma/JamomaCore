@@ -33,7 +33,7 @@ extern TTHashPtr gTTBufferNameMap;	// maps names to TTSampleMatrix instances for
 	
 	@see TTAudioSignal
 */
-class TTDSP_EXPORT TTBuffer : public TTAudioObject {
+class TTDSP_EXPORT TTBuffer : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTBuffer)
 	
 protected:

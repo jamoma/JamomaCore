@@ -88,7 +88,7 @@ TTErr TTBuffer::init(TTUInt16 channelCount, TTSymbol name)
 		
 	setAttributeValue("name", name);
 		
-	err = TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mActiveMatrix, kTTValNONE);
+	err = TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&mActiveMatrix, kTTValNONE);
 	if (!err)
 	{
 		mActiveMatrix->setAttributeValue("numChannels", channelCount);
@@ -103,7 +103,7 @@ TTErr TTBuffer::chuckMatrix(TTSampleMatrixPtr oldMatrix)
 {
 	if (oldMatrix->getUserCount() < 1)
 	{
-		return TTObjectRelease(TTObjectHandle(&oldMatrix));
+		return TTObjectBaseRelease(TTObjectBaseHandle(&oldMatrix));
 	} else {
 		return kTTErrFreeFailed;
 	}
@@ -122,7 +122,7 @@ TTErr TTBuffer::prepareBecomingActiveMatrix()
 	{
 		// if so, then we first we try to instatiate a new TTSampleMatrix
 		// and if it succeeds, it will override the generic error above
-		err = TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE);
+		err = TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&mBecomingActiveMatrix, kTTValNONE);
 	}
 	
 	// only if there is still no error at this point, we set up this other stuff
