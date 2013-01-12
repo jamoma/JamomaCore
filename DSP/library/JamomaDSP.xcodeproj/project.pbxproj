@@ -442,7 +442,10 @@
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DSPiOS/DSPiOS-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				HEADER_SEARCH_PATHS = (
+					includes,
+					../../Foundation/library/includes,
+				);
 				INSTALL_PATH = /usr/local/jamoma/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
@@ -464,7 +467,10 @@
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DSPiOS/DSPiOS-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				HEADER_SEARCH_PATHS = (
+					includes,
+					../../Foundation/library/includes,
+				);
 				INSTALL_PATH = /usr/local/jamoma/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";

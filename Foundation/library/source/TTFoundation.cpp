@@ -14,7 +14,7 @@
 #include "TTCallback.h"
 
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
-#ifndef TT_PLATFORM_IOS
+#ifndef DISABLE_NODELIB
 #include "TTNodeLib.h"
 #include "TTPath.h"
 #endif
@@ -27,7 +27,7 @@
 #include "TTSymbol.test.h"
 #include "TTValue.test.h"
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
-#ifndef TT_PLATFORM_IOS
+#ifndef DISABLE_NODELIB
 #include "TTNodeLib.test.h"
 #endif
 
