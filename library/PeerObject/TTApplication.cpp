@@ -291,7 +291,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 			{
 				// get a node from the selection
-				nodeToListen = TTNodePtr((TTptr)aNodeList.current()[0]);
+				nodeToListen = TTNodePtr((TTPtr)aNodeList.current()[0]);
 				
 				anObject = nodeToListen->getObject();
 				if (anObject) {
@@ -360,7 +360,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 			{
 				// get a node from the selection
-				nodeToListen = TTNodePtr((TTptr)aNodeList.current()[0]);
+				nodeToListen = TTNodePtr((TTPtr)aNodeList.current()[0]);
 				
 				anObject = nodeToListen->getObject();
 				if (anObject) {
@@ -417,7 +417,7 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	TTMirrorPtr			aMirror;
 	TTErr				err;
 	
-	inputValue[0] whereComesFrom);
+	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
 	
 	err = mDirectory->getTTNode(whereComesFrom, &nodeToUpdate);
@@ -567,7 +567,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                         anObject->getAttributeValue(attributeName, v);
                         
                         v.toString();
-                        aString = v[0];
+                        aString = TTString(v[0]);
                         
                         xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
                     }
@@ -580,7 +580,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                 // Write description attribute as an xml comment
                 anObject->getAttributeValue(kTTSym_description, v);
                 v.toString();
-                aString = v[0];
+                aString = TTString(v[0]);
                 xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
                 
                 // Start node
@@ -623,7 +623,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                             continue;
                         
                         v.toString();
-                        aString = v[0];
+                        aString = TTString(v[0]);
                         
                         if (aString.empty())
                             continue;
@@ -693,7 +693,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), appValue);
 			v = appValue;
 			v.toString();
-			anAppKey = v[0];
+			anAppKey = TTString(v[0]);
 		}
 		
 		// get TT Value
@@ -701,7 +701,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), ttValue);
 			v = ttValue;
 			v.toString();
-			aTTKey = v[0];
+			aTTKey = TTString(v[0]);
 		}
 		
 		mAppToTT->append(TTSymbol(anAppKey), ttValue);		// here we register the entire value to handle 1 to many conversion

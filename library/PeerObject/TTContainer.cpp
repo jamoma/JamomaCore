@@ -151,7 +151,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 			// if the relativeAddress is in the cache
 			if (!err) {
 				
-				anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+				anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 				
 				// DATA CASE for value attribute
 				if (anObject->getName() == kTTSym_Data && attrOrMess == kTTSym_value) {
@@ -203,7 +203,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 				// if the topAddress is in the cache
 				if (!err) {
 					
-					anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+					anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 					
 					// CONTAINER CASE : use Send message
 					if (anObject->getName() == kTTSym_Container) {
@@ -255,7 +255,7 @@ TTErr TTContainer::Init()
 			
 			key = hk[i];
 			mObjectsObserversCache->lookup(key, cacheElement);
-			anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+			anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 			
 			if (anObject)
 				if (anObject->getName() == kTTSym_Data) {
@@ -272,7 +272,7 @@ TTErr TTContainer::Init()
 			
 			key = hk[i];
 			mObjectsObserversCache->lookup(key, cacheElement);
-			anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+			anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 			
 			if (anObject)
 				if (anObject->getName() == kTTSym_Container)
@@ -344,7 +344,7 @@ TTErr TTContainer::setAlias(const TTValue& value)
 					
 					// remove alias of Container object
 					anObject = NULL;
-					anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+					anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 					
 					if (anObject->getName() == kTTSym_Container)
 						anObject->setAttributeValue(kTTSym_alias, kTTAdrsEmpty);
@@ -376,7 +376,7 @@ TTErr TTContainer::setAlias(const TTValue& value)
 					
 					// set alias of Container object
 					anObject = NULL;
-					anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+					anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 					
 					if (anObject->getName() == kTTSym_Container)
 						anObject->setAttributeValue(kTTSym_alias, TTAddress(aliasKey));
@@ -685,7 +685,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				// delete Value observer for parameter and return
 				if (service == kTTSym_parameter || service == kTTSym_return) {
 					anObserver = NULL;
-					anObserver = TTObjectPtr((TTPtr)cacheElement[1]);
+					anObserver = TTObjectBasePtr((TTPtr)cacheElement[1]);
 					anAttribute = NULL;
 					err = anObject->findAttribute(kTTSym_value, &anAttribute);
 					
@@ -701,7 +701,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				// delete Command observer for parameter and message
 				if (service == kTTSym_parameter || service == kTTSym_message) {
 					anObserver = NULL;
-					anObserver = TTObjectPtr((TTPtr)cacheElement[2]);
+					anObserver = TTObjectBasePtr((TTPtr)cacheElement[2]);
 					aMessage = NULL;
 					err = anObject->findMessage(kTTSym_Command, &aMessage);
 					
@@ -720,7 +720,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				
 				// delete returnedValue observer
 				anObserver = NULL;
-				anObserver = TTObjectPtr((TTPtr)cacheElement[1]);
+				anObserver = TTObjectBasePtr((TTPtr)cacheElement[1]);
 				anAttribute = NULL;
 				err = anObject->findAttribute(kTTSym_value, &anAttribute);
 				
@@ -738,7 +738,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				
 				// delete activityIn observer
 				anObserver = NULL;
-				anObserver = TTObjectPtr((TTPtr)cacheElement[1]);
+				anObserver = TTObjectBasePtr((TTPtr)cacheElement[1]);
 				anAttribute = NULL;
 				err = anObject->findAttribute(kTTSym_activityIn, &anAttribute);
 				
@@ -752,7 +752,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				
 				// delete activityOut observer
 				anObserver = NULL;
-				anObserver = TTObjectPtr((TTPtr)cacheElement[2]);
+				anObserver = TTObjectBasePtr((TTPtr)cacheElement[2]);
 				anAttribute = NULL;
 				err = anObject->findAttribute(kTTSym_activityOut, &anAttribute);
 				
@@ -791,14 +791,14 @@ TTErr TTContainer::unbind()
 			
 			key = hk[i];
 			mObjectsObserversCache->lookup(key, cacheElement);
-			anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+			anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 			
 			if (anObject) {
 				// is it a Data ?
 				if (anObject->getName() == kTTSym_Data) {
 					
 					// delete Value observer
-					aValueObserver = TTObjectPtr((TTPtr)cacheElement[1]);
+					aValueObserver = TTObjectBasePtr((TTPtr)cacheElement[1]);
 					anAttribute = NULL;
 					err = anObject->findAttribute(kTTSym_value, &anAttribute);
 					
@@ -811,7 +811,7 @@ TTErr TTContainer::unbind()
 					}
 					
 					// delete Command observer
-					aCommandObserver = TTObjectPtr((TTPtr)cacheElement[2]);
+					aCommandObserver = TTObjectBasePtr((TTPtr)cacheElement[2]);
 					aMessage = NULL;
 					err = anObject->findMessage(kTTSym_Command, &aMessage);
 					
@@ -915,7 +915,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	{
 		name = keys[i];
 		mObjectsObserversCache->lookup(name, cacheElement);
-		anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+		anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 		
 		if (anObject->getName() == kTTSym_Data) {
 			anObject->getAttributeValue(kTTSym_service, s);
@@ -953,7 +953,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	{
 		name = keys[i];
 		mObjectsObserversCache->lookup(name, cacheElement);
-		anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+		anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 		
 		if (anObject->getName() == kTTSym_Data) {
 			anObject->getAttributeValue(kTTSym_service, s);
@@ -992,7 +992,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	{
 		name = keys[i];
 		mObjectsObserversCache->lookup(name, cacheElement);
-		anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+		anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 		
 		if (anObject->getName() == kTTSym_Data) {
 			anObject->getAttributeValue(kTTSym_service, s);
@@ -1346,7 +1346,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 		
 		if (!err) {
 			
-			anObject = TTObjectPtr((TTPtr)cacheElement[0]);
+			anObject = TTObjectBasePtr((TTPtr)cacheElement[0]);
 			
 			// none CONTAINER CASE
 			if (anObject->getName() != kTTSym_Container) {
@@ -1439,13 +1439,13 @@ TTBoolean TTContainerCompareObjectPriority(TTValue& v1, TTValue& v2)
 	TTInt32		p2 = 0;
 	
 	// get priority of v1
-	o1 = TTObjectPtr((TTPtr)v1[1]);
+	o1 = TTObjectBasePtr((TTPtr)v1[1]);
 	if (o1)
 		if (!o1->getAttributeValue(kTTSym_priority, v))
 			p1 = v[0];
 	
 	// get priority of v2
-    o2 = TTObjectPtr((TTPtr)v2[1]);
+    o2 = TTObjectBasePtr((TTPtr)v2[1]);
 	if (o2)
 		if (!o2->getAttributeValue(kTTSym_priority, v))
 			p2 = v[0];

@@ -260,7 +260,7 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 			// if it is a Data object with a ramp drive
 			if (!aLine->lookup(kTTSym_object, v)) {
 				
-				anObject = TTObjectPtr((TTPtr)v[0]);
+				anObject = TTObjectBasePtr((TTPtr)v[0]);
 				
 				if (anObject->getName() == kTTSym_Data) {
 					

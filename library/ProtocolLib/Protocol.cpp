@@ -19,7 +19,7 @@ mActivityInCallback(NULL),
 mActivityOutCallback(NULL),
 mDistantApplicationParameters(NULL)
 {
-    mApplicationManager = TTObjectPtr((TTPtr)arguments[0]);
+    mApplicationManager = TTObjectBasePtr((TTPtr)arguments[0]);
     mActivityInCallback = TTCallbackPtr((TTPtr)arguments[1]);
     mActivityInCallback = TTCallbackPtr((TTPtr)arguments[2]);
 	
@@ -86,7 +86,7 @@ Protocol::~Protocol()
 
 TTErr Protocol::setApplicationManager(const TTValue& value)
 {
-	mApplicationManager = TTObjectPtr((TTPtr)value[0]);
+	mApplicationManager = TTObjectBasePtr((TTPtr)value[0]);
 	return kTTErrNone;
 }
 
@@ -560,7 +560,7 @@ TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)
 	TTSymbol applicationName;
 	
 	p->mApplicationManager->getAttributeValue(TTSymbol("localApplication"), v);
-	anApplication = TTObjectPtr((TTPtr)v[0]);
+	anApplication = TTObjectBasePtr((TTPtr)v[0]);
 	
 	anApplication->getAttributeValue(kTTSym_name, v);
 	applicationName = v[0];

@@ -29,8 +29,8 @@ mTempNode(NULL),
 mResult(NULL),
 mLastResult(kTTValNONE)
 {
-	if(arguments.size() >= 1)
-		arguments[0] (TTPtr*)&mReturnValueCallback);
+	if (arguments.size() >= 1)
+		mReturnValueCallback = (TTCallbackPtr)(TTPtr)arguments[0];
 	
 	// It is possible to pass a default filter bank
 	if(arguments.size() >= 2)

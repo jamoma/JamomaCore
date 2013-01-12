@@ -80,7 +80,7 @@ TTScript::~TTScript()
 				
 				// get script
 				aLine->getValue(v);
-				mSubScript = TTObjectPtr((TTPtr)v[0]);
+				mSubScript = TTObjectBasePtr((TTPtr)v[0]);
 				
 				TTObjectBaseRelease(&mSubScript);
 			}
@@ -109,7 +109,7 @@ TTErr TTScript::Clear()
 				
 				// get script
 				aLine->getValue(v);
-				mSubScript = TTObjectPtr((TTPtr)v[0]);
+				mSubScript = TTObjectBasePtr((TTPtr)v[0]);
 				
 				TTObjectBaseRelease(&mSubScript);
 			}
@@ -222,7 +222,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			mSubScript = TTObjectPtr((TTPtr)v[0]);
+			mSubScript = TTObjectBasePtr((TTPtr)v[0]);
 			
 			// get address
 			aLine->lookup(kTTSym_address, v);
@@ -326,7 +326,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			mSubScript = TTObjectPtr((TTPtr)v[0]);
+			mSubScript = TTObjectBasePtr((TTPtr)v[0]);
 			
 			TTScriptPtr(mSubScript)->mReturnLineCallback = mReturnLineCallback;
 			
@@ -391,7 +391,7 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 				
 				// get the script
 				aLine->getValue(v);
-				mSubScript = TTObjectPtr((TTPtr)v[0]);
+				mSubScript = TTObjectBasePtr((TTPtr)v[0]);
 				
 				// prepare the sub script
 				mSubScript->sendMessage(TTSymbol("Bind"), address, kTTValNONE);
@@ -484,7 +484,7 @@ TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 		
 		// get the sub script
 		line->getValue(v);
-		mSubScript = TTObjectPtr((TTPtr)v[0]);
+		mSubScript = TTObjectBasePtr((TTPtr)v[0]);
 		
 		// append the line
 		v = TTValue((TTPtr)line);
@@ -524,7 +524,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol		name, unit;
 	TTAddress       address;
 //	TTNodePtr		aNode;
-//	TTObjectPtr		anObject;
+//	TTObjectBasePtr		anObject;
 	TTValue			v;
 	TTString		aString;
 	
@@ -620,7 +620,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			mSubScript = TTObjectPtr((TTPtr)v[0]);
+			mSubScript = TTObjectBasePtr((TTPtr)v[0]);
 			
 			// use WriteAsXml of the script
 			v = TTValue(TTPtr(mSubScript));
@@ -892,7 +892,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			mSubScript = TTObjectPtr((TTPtr)v[0]);
+			mSubScript = TTObjectBasePtr((TTPtr)v[0]);
 			
 			// set this as parent script of the subscript
 			v = TTValue((TTPtr)this);
@@ -941,7 +941,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 				
 				// get script
 				aLine->getValue(v);
-				mSubScript = TTObjectPtr((TTPtr)v[0]);
+				mSubScript = TTObjectBasePtr((TTPtr)v[0]);
 			}
 		}
 	}

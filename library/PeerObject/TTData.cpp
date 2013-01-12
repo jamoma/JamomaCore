@@ -41,7 +41,7 @@ mReturnValueCallback(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTData", arguments.size() == 1);
 	
-	arguments[0] (TTPtr*)&mReturnValueCallback);
+	mReturnValueCallback = arguments[0];
 	TT_ASSERT("Return Value Callback passed to TTData is not NULL", mReturnValueCallback);
 	
 	if (arguments.size() == 2)
