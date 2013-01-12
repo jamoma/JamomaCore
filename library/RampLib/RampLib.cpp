@@ -32,7 +32,7 @@ RampUnit::RampUnit(TTValue& arguments) :
 	targetValue[0] = 0.0;
 	startValue[0] = 0.0;
 
-	arguments.get(0, (TTPtr*)&callback);
+	arguments[0] (TTPtr*)&callback);
 	arguments.get(1, (TTPtr*)&baton);
 	
 	addAttributeWithSetter(Function, kTypeSymbol);
@@ -65,7 +65,7 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 	TTErr		err;
 	TTSymbol	newFunctionName;
 	
-	functionName.get(0, newFunctionName);
+	functionName[0] newFunctionName);
 	
 	if (newFunctionName == TTSymbol("none"))
 		newFunctionName = TTSymbol("linear");
@@ -139,8 +139,8 @@ TTErr RampLib::createUnit(const TTSymbol unitName, RampUnit **unit, RampUnitCall
 	TTValue v;
 	
 	v.setSize(2);
-	v.set(0, TTPtr(callback));
-	v.set(1, TTPtr(baton));
+	v[0] = TTPtr(callback);
+	v[1] = TTPtr(baton);
 	
 	// These should be alphabetized
 	if (unitName == TTSymbol("async"))

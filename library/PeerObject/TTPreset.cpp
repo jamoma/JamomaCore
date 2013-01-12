@@ -51,7 +51,7 @@ TTPreset::~TTPreset()
 TTErr TTPreset::setAddress(const TTValue& value)
 {	
 	Clear();
-	value.get(0, mAddress);
+	mAddress = value[0];
 	
 	mDirectory = getDirectoryFrom(mAddress);
 	
@@ -95,7 +95,7 @@ TTErr TTPreset::Store()
 		// 5. Append a script line for each object found
 		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 			
-			allObjectNodes.current().get(0, (TTPtr*)&aNode);
+			allObjectNodes.current()[0] (TTPtr*)&aNode);
 			
 			// get relative address
 			aNode->getAddress(aRelativeAddress, mAddress);
@@ -142,7 +142,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTXmlHandlerPtr		aXmlHandler = NULL;
 	TTValue				v;
 	
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
 	
 	// use WriteAsXml of the script
 	v = TTValue(TTPtr(mScript));
@@ -157,7 +157,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	TTXmlHandlerPtr		aXmlHandler = NULL;
 	TTValue				v, parsedLine;
 	
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
 	
 	// Preset node : append a preset flag with the name
 	if (aXmlHandler->mXmlNodeName == TTSymbol("preset")) {
@@ -185,7 +185,7 @@ TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr aTextHandler;
 	TTValue	v;
 	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
+	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
 	
 	// use WriteAsBuffer of the script
 	v = TTValue(TTPtr(mScript));
@@ -200,7 +200,7 @@ TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr aTextHandler;
 	TTValue	v;
 	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
+	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
 	
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
@@ -232,7 +232,7 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 		
 		if (o->getName() == kTTSym_Data) {
 			o->getAttributeValue(kTTSym_service, v);
-			v.get(0, s);
+			v[0] s);
 			return s == kTTSym_parameter;
 		}
 	}
@@ -249,21 +249,21 @@ TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2)
 	TTInt32		p2 = 0;
 	
 	// get priority of v1
-	v1.get(0, (TTPtr*)&n1);
+	v1[0] (TTPtr*)&n1);
 	if (n1) {
 		o1 = n1->getObject();
 		if (o1) 
 			if (!o1->getAttributeValue(kTTSym_priority, v))
-				v.get(0, p1);
+				v[0] p1);
 	}
 	
 	// get priority of v2
-	v2.get(0, (TTPtr*)&n2);
+	v2[0] (TTPtr*)&n2);
 	if (n2) {
 		o2 = n2->getObject();
 		if (o2) 
 			if (!o2->getAttributeValue(kTTSym_priority, v))
-				v.get(0, p2);
+				v[0] p2);
 	}
 	
 	if (p1 == 0 && p2 == 0) return v1 < v2;
@@ -288,7 +288,7 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
 	TTValue		scripts;
 	TTUInt32	i;
 	
-	for (i = 0; i < presets.getSize(); i++) {
+	for (i = 0; i < presets.size(); i++) {
 		presets.get(i, (TTPtr*)&aPreset);
 		aPreset->mScript->sendMessage(TTSymbol("Bind"), aPreset->mAddress, kTTValNONE);
 		

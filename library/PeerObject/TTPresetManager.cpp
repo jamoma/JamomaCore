@@ -73,10 +73,10 @@ TTPresetManager::~TTPresetManager()
 	TTUInt32	i;
 	
 	mPresets->getKeys(names);
-	for (i = 0; i < names.getSize(); i++) {
+	for (i = 0; i < names.size(); i++) {
 		names.get(i, presetName);
 		mPresets->lookup(presetName, v);
-		v.get(0, (TTPtr*)&oldPreset);
+		v[0] (TTPtr*)&oldPreset);
 		TTObjectBaseRelease(TTObjectBaseHandle(&oldPreset));
 	}
 	
@@ -88,7 +88,7 @@ TTErr TTPresetManager::setAddress(const TTValue& value)
 {	
 	Clear();
 	
-	value.get(0, mAddress);
+	mAddress = value[0];
 	
 	return kTTErrNone;
 }
@@ -99,16 +99,16 @@ TTErr TTPresetManager::setOrder(const TTValue& value)
 	TTValue		v, newOrder;
 	
 	// check if each name is part of the list
-	for (TTUInt32 i=0; i<value.getSize(); i++) {
+	for (TTUInt32 i=0; i<value.size(); i++) {
 		
-		value.get(i, name);
+		name = value[i];
 		
 		if (!mPresets->lookup(name, v))
 			newOrder.append(name);
 	}
 	
 	// if the newOrder size is not equal to the current name list 
-	if (newOrder.getSize() != mOrder.getSize())
+	if (newOrder.size() != mOrder.size())
 		return kTTErrGeneric;
 
 	mOrder = newOrder;
@@ -123,13 +123,13 @@ TTErr TTPresetManager::Clear()
 	TTUInt32	i;
 	
 	mPresets->getKeys(names);
-	if (names.getSize()) {
+	if (names.size()) {
 		
-		for (i = 0; i < names.getSize(); i++) {
+		for (i = 0; i < names.size(); i++) {
 			
 			names.get(i, presetName);
 			mPresets->lookup(presetName, v);
-			v.get(0, (TTPtr*)&oldPreset);
+			v[0] (TTPtr*)&oldPreset);
 			TTObjectBaseRelease(TTObjectBaseHandle(&oldPreset));
 		}
 		
@@ -152,7 +152,7 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	
 	// get preset name
 	if (inputValue.getType(0) == kTypeSymbol)
-		inputValue.get(0, mCurrent);
+		mCurrent = inputValue[0];
 	
 	if (mCurrent == kTTSymEmpty)
 		return kTTErrGeneric;
@@ -171,12 +171,12 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		v = TTValue((TTPtr)mCurrentPreset);
 		mPresets->append(mCurrent, v);
 		mOrder.append(mCurrent);
-		mCurrentPosition = mOrder.getSize();
+		mCurrentPosition = mOrder.size();
 		
 		notifyOrderObservers();
 	}
 	else {
-		v.get(0, (TTPtr*)&mCurrentPreset);
+		mCurrentPreset = TTPresetPtr((TTPtr)v[0]);
 		mCurrentPreset->sendMessage(TTSymbol("Clear"));
 	}
 	
@@ -190,12 +190,12 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 	TTValue		v;
 	
 	// get preset name
-	if (inputValue.getType() == kTypeSymbol) {
-		inputValue.get(0, mCurrent);
+	if (inputValue[0].type() == kTypeSymbol) {
+		mCurrent = inputValue[0];
 		
 		TTSymbol name;
-		for (TTInt32 i = 0; i < mOrder.getSize(); i++) {
-			mOrder.get(i, name);
+		for (TTInt32 i = 0; i < mOrder.size(); i++) {
+			name = mOrder[i];
 			if (name == mCurrent) {
 				mCurrentPosition = i+1;
 				break;
@@ -205,14 +205,14 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 	
 	// get preset at position
 	if (inputValue.getType(0) == kTypeInt32) {
-		inputValue.get(0, mCurrentPosition);
-		mOrder.get(mCurrentPosition-1, mCurrent);
+		mCurrentPosition = inputValue[0];
+		mCurrent = mOrder[mCurrentPosition-1];
 	}
 	
 	// if preset exists
 	if (!mPresets->lookup(mCurrent, v)) {
 		
-		v.get(0, (TTPtr*)&mCurrentPreset);
+		mCurrentPreset = TTPresetPtr((TTPtr)v[0]);
 		
 		if (mCurrentPreset)
 			return mCurrentPreset->sendMessage(TTSymbol("Recall"));
@@ -230,33 +230,33 @@ TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputVal
 	TTPresetPtr preset1, preset2;
 	TTFloat32	position;
 	
-	if (inputValue.getSize() == 3) {
+	if (inputValue.size() == 3) {
 		
         // get presets by name
-		if (inputValue.getType(0) == kTypeSymbol && inputValue.getType(1) == kTypeSymbol && inputValue.getType(2) == kTypeFloat64) {
+		if (inputValue.getType(0) == kTypeSymbol && inputValue[1].type() == kTypeSymbol && inputValue[2].type() == kTypeFloat64) {
 			
-			inputValue.get(0, name1);
-			inputValue.get(1, name2);
-			inputValue.get(2, position);
+			name1 = inputValue[0] ;
+			name2 = inputValue[1] ;
+			position = inputValue[2] ;
         }
         
         // get presets by position
-        else if (inputValue.getType(0) == kTypeInt32 && inputValue.getType(1) == kTypeInt32 && inputValue.getType(2) == kTypeFloat64) {
+        else if (inputValue.getType(0) == kTypeInt32 && inputValue[1].type() == kTypeInt32 && inputValue[2].type() == kTypeFloat64) {
             
-            inputValue.get(0, i1);
-            mOrder.get(i1-1, name1);
+            i1 = inputValue[0] ;
+            name1 = mOrder[i1-1] ;
             
             inputValue.get(1, i2);
-            mOrder.get(i2-1, name2);
+            name2 = mOrder[i2-1] ;
             
-            inputValue.get(2, position);
+            position = inputValue[2] ;
         }
 			
         // if presets exist
         if (!mPresets->lookup(name1, v1) && !mPresets->lookup(name2, v2)) {
             
-            v1.get(0, (TTPtr*)&preset1);
-            v2.get(0, (TTPtr*)&preset2);
+            v1[0] (TTPtr*)&preset1);
+            v2[0] (TTPtr*)&preset2);
             
             if (preset1 && preset2)
                 return TTPresetInterpolate(preset1, preset2, position);
@@ -273,26 +273,26 @@ TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 	TTPresetPtr preset;
 	TTValue		v, presets, factors;
 	
-	mixSize = inputValue.getSize() / 2;
-	if (inputValue.getSize() != mixSize * 2)
+	mixSize = inputValue.size() / 2;
+	if (inputValue.size() != mixSize * 2)
 		return kTTErrGeneric;
 	
 	for (i = 0; i < mixSize * 2; i = i+2) {
 		
-		if (inputValue.getType(i) == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat64) {
+		if (inputValue[i].type() == kTypeSymbol && inputValue.getType(i+1) == kTypeFloat64) {
             
-			inputValue.get(i, name);
+			name = inputValue[i] ;
         }
-        else if (inputValue.getType(i) == kTypeInt32 && inputValue.getType(i+1) == kTypeFloat64) {
+        else if (inputValue[i].type() == kTypeInt32 && inputValue.getType(i+1) == kTypeFloat64) {
             
-            inputValue.get(i, id);
-            mOrder.get(id-1, name);
+            id = inputValue[i] ;
+            name = mOrder[id-1] ;
         }
 			
         // if preset exist
         if (!mPresets->lookup(name, v)) {
             
-            v.get(0, (TTPtr*)&preset);
+            v[0] (TTPtr*)&preset);
             
             if (preset) {
                 presets.append((TTPtr)preset);
@@ -311,35 +311,35 @@ TTErr TTPresetManager::Move(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt32	i, newPosition;
 	TTValue		v;
 	
-	if (inputValue.getSize() != 2)
+	if (inputValue.size() != 2)
 		return kTTErrGeneric;
 	
 	// get preset name
-	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, mCurrent);
+	if (inputValue[0].type() == kTypeSymbol)
+		mCurrent = inputValue[0];
 	
 	// get preset at position
-	if (inputValue.getType() == kTypeInt32) {
-		inputValue.get(0, mCurrentPosition);
-		mOrder.get(mCurrentPosition-1, mCurrent);
+	if (inputValue[0].type() == kTypeInt32) {
+		mCurrentPosition = inputValue[0];
+		mCurrent = mOrder[mCurrentPosition-1];
 	}
 	
 	// get new position
-	if (inputValue.getType(1) == kTypeInt32)
-		inputValue.get(1, newPosition);
+	if (inputValue[1].type() == kTypeInt32)
+		newPosition = inputValue[1] ;
 	
-	if (newPosition < 1 || newPosition > mOrder.getSize())
+	if (newPosition < 1 || newPosition > mOrder.size())
 		return kTTErrGeneric;
 	
 	// if preset exists
 	if (!mPresets->lookup(mCurrent, v)) {
 		
-		v.get(0, (TTPtr*)&mCurrentPreset);
+		mCurrentPreset = TTPresetPtr((TTPtr)v[0]);
 		
 		// copy all the mOrder names into a TTList
 		// except the mCurrent
-		for (i=0; i < mOrder.getSize(); i++) {
-			mOrder.get(i, name);
+		for (i=0; i < mOrder.size(); i++) {
+			name = mOrder[i];
 			
 			if (name == mCurrent)
 				continue;
@@ -355,7 +355,7 @@ TTErr TTPresetManager::Move(const TTValue& inputValue, TTValue& outputValue)
 		
 		// copy the TTList names into a newOrder
 		for (temp.begin(); temp.end(); temp.next()) {
-			temp.current().get(0, name);
+			temp.current()[0] name);
 			mOrder.append(name);
 		}
 		
@@ -375,26 +375,26 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	TTValue		v, newOrder;
 	
 	// get preset name
-	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, mCurrent);
+	if (inputValue[0].type() == kTypeSymbol)
+		mCurrent = inputValue[0];
 	
 	// get preset at position
 	if (inputValue.getType(0) == kTypeInt32) {
-		inputValue.get(0, mCurrentPosition);
-		mOrder.get(mCurrentPosition-1, mCurrent);
+		mCurrentPosition = inputValue[0];
+		mCurrent = mOrder[mCurrentPosition-1];
 	}
 	
 	// if preset exists
 	if (!mPresets->lookup(mCurrent, v)) {
 		
-		v.get(0, (TTPtr*)&mCurrentPreset);
+		mCurrentPreset = TTPresetPtr((TTPtr)v[0]);
 		TTObjectBaseRelease(TTObjectBaseHandle(&mCurrentPreset));
 		mPresets->remove(mCurrent);
 		
 		// remove the name without changing the order
-		for (TTUInt32 i=0; i<mOrder.getSize(); i++) {
+		for (TTUInt32 i=0; i<mOrder.size(); i++) {
 			
-			mOrder.get(i, name);
+			name = mOrder[i];
 			
 			if (name != mCurrent)
 				newOrder.append(name);
@@ -419,22 +419,22 @@ TTErr TTPresetManager::Rename(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt32	i;
 	TTValue		v;
 	
-	if (inputValue.getSize() != 2)
+	if (inputValue.size() != 2)
 		return kTTErrGeneric;
 	
 	// get preset name
-	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, mCurrent);
+	if (inputValue[0].type() == kTypeSymbol)
+		mCurrent = inputValue[0];
 	
 	// get preset at position
-	if (inputValue.getType() == kTypeInt32) {
-		inputValue.get(0, mCurrentPosition);
-		mOrder.get(mCurrentPosition-1, mCurrent);
+	if (inputValue[0].type() == kTypeInt32) {
+		mCurrentPosition = inputValue[0];
+		mCurrent = mOrder[mCurrentPosition-1];
 	}
 	
 	// get new name
-	if (inputValue.getType(1) == kTypeSymbol)
-		inputValue.get(1, newName);
+	if (inputValue[1].type() == kTypeSymbol)
+		newName = inputValue[1] ;
 	
 	if (newName == kTTSymEmpty)
 		return kTTErrGeneric;
@@ -442,7 +442,7 @@ TTErr TTPresetManager::Rename(const TTValue& inputValue, TTValue& outputValue)
 	// if preset exists
 	if (!mPresets->lookup(mCurrent, v)) {
 		
-		v.get(0, (TTPtr*)&mCurrentPreset);
+		mCurrentPreset = TTPresetPtr((TTPtr)v[0]);
 		
 		// replace the name in the hash table
 		mPresets->remove(mCurrent);
@@ -451,12 +451,12 @@ TTErr TTPresetManager::Rename(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentPreset->setAttributeValue(kTTSym_name, newName);
 		
 		// replace the name in the order
-		for (i=0; i<mOrder.getSize(); i++) {
+		for (i=0; i<mOrder.size(); i++) {
 			
-			mOrder.get(i, name);
+			name = mOrder[i];
 			
 			if (name == mCurrent) {
-				mOrder.set(i, newName);
+				mOrder[i] = newName;
 				break;
 			}
 		}
@@ -481,19 +481,19 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 	TTValue		v, args;
 	
 	// get preset name
-	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, mCurrent);
+	if (inputValue[0].type() == kTypeSymbol)
+		mCurrent = inputValue[0];
 	
 	// get preset at position
-	if (inputValue.getType() == kTypeInt32) {
-		inputValue.get(0, mCurrentPosition);
-		mOrder.get(mCurrentPosition-1, mCurrent);
+	if (inputValue[0].type() == kTypeInt32) {
+		mCurrentPosition = inputValue[0];
+		mCurrent = mOrder[mCurrentPosition-1];
 	}
 	
 	// if preset exists
 	if (!mPresets->lookup(mCurrent, v)) {
 		
-		v.get(0, (TTPtr*)&mCurrentPreset);
+		mCurrentPreset = TTPresetPtr((TTPtr)v[0]);
 		
 		// create a new preset
 		aPresetCopy = NULL;
@@ -503,8 +503,8 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 		TTPresetCopy(mCurrentPreset, aPresetCopy);
 		
         // maybe there is a name for the copy
-        if (inputValue.getSize() >= 2 && inputValue.getType(1) == kTypeSymbol) {
-            inputValue.get(1, nameCopy);
+        if (inputValue.size() >= 2 && inputValue[1].type() == kTypeSymbol) {
+            nameCopy = inputValue[1] ;
             
         }
         else {
@@ -522,12 +522,12 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 		mPresets->append(nameCopy, v);
 		mOrder.append(nameCopy);
 		mCurrent = nameCopy;
-		mCurrentPosition = mOrder.getSize();
+		mCurrentPosition = mOrder.size();
 		
 		// maybe there is a position for the copy
-        if (inputValue.getSize() == 3 && inputValue.getType(2) == kTypeInt32) {
+        if (inputValue.size() == 3 && inputValue[2].type() == kTypeInt32) {
             
-            inputValue.get(2, positionCopy);
+            positionCopy = inputValue[2] ;
             
 #ifdef __TT_ELEMENT_H__         
 			v = (int)mCurrentPosition;
@@ -551,9 +551,9 @@ TTErr TTPresetManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
     TTValue				v;
 	TTUInt32			i;
 	
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
 	
-	for (i = 0; i < mOrder.getSize(); i++) {
+	for (i = 0; i < mOrder.size(); i++) {
 		
 		mOrder.get(i, presetName);
 		if (!mPresets->lookup(presetName, v)) {
@@ -578,7 +578,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
 	TTValue			v;
 	
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
@@ -593,9 +593,9 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	// Ends file reading : bind on first preset
 	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
 		
-		mOrder.get(0, mCurrent);
+		mOrder[0] mCurrent);
 		if (!mPresets->lookup(mCurrent, v))
-			v.get(0, (TTPtr*)&mCurrentPreset);
+			mCurrentPreset = TTPresetPtr((TTPtr)v[0]);
 		
 		notifyOrderObservers();
 		
@@ -611,9 +611,9 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 		// Get preset name
 		if (!aXmlHandler->getXmlAttribute(kTTSym_name, v, YES)) {
 			
-			if (v.getType() == kTypeSymbol) {
+			if (v[0].type() == kTypeSymbol) {
 				
-				v.get(0, mCurrent);
+				v[0] mCurrent);
 				
 				// Create a new preset
 				mCurrentPreset = NULL;
@@ -650,11 +650,11 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 	TTSymbol presetName;
 	TTValue		v;
 	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
+	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
 	
 	buffer = aTextHandler->mWriter;
 	
-	for (TTUInt32 i = 0; i < mOrder.getSize(); i++) {
+	for (TTUInt32 i = 0; i < mOrder.size(); i++) {
 		
 		mOrder.get(i, presetName);
 		if (!mPresets->lookup(presetName, v)) {
@@ -676,7 +676,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 	TTSymbol		flagName;
 	TTValue			v;
 	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
+	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
 	
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
@@ -694,14 +694,14 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 		if (line->getSchema() == kTTSym_flag) {
 			
 			line->lookup(kTTSym_name, v);
-			v.get(0, flagName);
+			v[0] flagName);
 			
 			if (flagName == TTSymbol("preset")) {
 				
 				// get preset name
 				if (!line->getValue(v)) {
 					
-					v.get(0, mCurrent);
+					v[0] mCurrent);
 					
 					// Create a new preset
 					mCurrentPreset = NULL;
@@ -728,9 +728,9 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 		// if it is the last line : bind on the first preset
 		if (aTextHandler->mLastLine) {
 			
-			mOrder.get(0, mCurrent);
+			mOrder[0] mCurrent);
 			if (!mPresets->lookup(mCurrent, v))
-				v.get(0, (TTPtr*)&mCurrentPreset);
+				mCurrentPreset = TTPresetPtr((TTPtr)v[0]);
 			
 			notifyOrderObservers();
 		}

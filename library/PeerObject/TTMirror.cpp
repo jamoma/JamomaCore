@@ -25,21 +25,21 @@ mListenAttributeCallback(NULL)
 	TTAttributeFlags	attributeFlags = kTTAttrPassObject;
 	TTMessagePtr		aMessage;
 	
-	TT_ASSERT("Correct number of args to create TTMirror", arguments.getSize() == 5);
+	TT_ASSERT("Correct number of args to create TTMirror", arguments.size() == 5);
 
-	if (arguments.getSize() >= 1)
-		arguments.get(0, mType);
+	if (arguments.size() >= 1)
+		arguments[0] mType);
 
-	if (arguments.getSize() >= 2)
+	if (arguments.size() >= 2)
 		arguments.get(1, (TTPtr*)&mGetAttributeCallback);
 	
-	if (arguments.getSize() >= 3)
+	if (arguments.size() >= 3)
 		arguments.get(2, (TTPtr*)&mSetAttributeCallback);
 	
-	if (arguments.getSize() >= 4)
+	if (arguments.size() >= 4)
 		arguments.get(3, (TTPtr*)&mSendMessageCallback);
 	
-	if (arguments.getSize() >= 5)
+	if (arguments.size() >= 5)
 		arguments.get(4, (TTPtr*)&mListenAttributeCallback);
 	
 
@@ -48,7 +48,7 @@ mListenAttributeCallback(NULL)
 	TTObjectBaseInstantiate(mType,  &anObject, kTTValNONE);
 	
 	anObject->getAttributeNames(attributeNames);
-	for (TTUInt32 i=0; i<attributeNames.getSize(); i++) {
+	for (TTUInt32 i=0; i<attributeNames.size(); i++) {
 		
 		anAttribute = NULL;
 		attributeNames.get(i, name);
@@ -63,7 +63,7 @@ mListenAttributeCallback(NULL)
 	}
 	
 	anObject->getMessageNames(messageNames);
-	for (TTUInt32 i=0; i<messageNames.getSize(); i++) {
+	for (TTUInt32 i=0; i<messageNames.size(); i++) {
 		
 		messageNames.get(i, name);
 		anObject->getMessage(name, &aMessage);

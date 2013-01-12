@@ -21,10 +21,10 @@ mSubScript(NULL),
 mParentScript(NULL),
 mReturnLineCallback(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTScript", arguments.getSize() == 0 || arguments.getSize() == 1);
+	TT_ASSERT("Correct number of args to create TTScript", arguments.size() == 0 || arguments.size() == 1);
 	
-	if (arguments.getSize() == 1)
-		arguments.get(0, (TTPtr*)&mReturnLineCallback);
+	if (arguments.size() == 1)
+		mReturnLineCallback = TTCallbackPtr((TTPtr)arguments[0];
 	
 	TT_ASSERT("Return Line Callback passed to TTScript is not NULL", mReturnLineCallback);
 	
@@ -72,7 +72,7 @@ TTScript::~TTScript()
 	
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		mLines->current().get(0, (TTPtr*)&aLine);
+		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
 		
 		if (aLine) {
 			
@@ -80,7 +80,7 @@ TTScript::~TTScript()
 				
 				// get script
 				aLine->getValue(v);
-				v.get(0, (TTPtr*)&mSubScript);
+				mSubScript = TTObjectPtr((TTPtr)v[0]);
 				
 				TTObjectBaseRelease(&mSubScript);
 			}
@@ -101,7 +101,7 @@ TTErr TTScript::Clear()
 	
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		mLines->current().get(0, (TTPtr*)&aLine);
+		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
 		
 		if (aLine) {
 			
@@ -109,7 +109,7 @@ TTErr TTScript::Clear()
 				
 				// get script
 				aLine->getValue(v);
-				v.get(0, (TTPtr*)&mSubScript);
+				mSubScript = TTObjectPtr((TTPtr)v[0]);
 				
 				TTObjectBaseRelease(&mSubScript);
 			}
@@ -135,9 +135,9 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 	TTErr				err;
 	
 	// It is possible to run the script passing command to a container object
-	if (inputValue.getType() == kTypeSymbol) {
+	if (inputValue[0].type() == kTypeSymbol) {
 		
-		inputValue.get(0, containerAddress);
+		containerAddress = inputValue[0];
 
 		container = NULL;
 		err = getDirectoryFrom(containerAddress)->getTTNode(containerAddress, &aNode);
@@ -159,14 +159,14 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 	// run each line of the script
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		mLines->current().get(0, (TTPtr*)&aLine);
+		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
 		
 		// run script line depending on his schema
 		if (aLine->getSchema() == kTTSym_flag) {
 			
 			// get flag name
 			aLine->lookup(kTTSym_name, v);
-			v.get(0, name);
+			name = v[0];
 			
 			// TODO : output current flag to display it
 		}	
@@ -179,7 +179,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, address);
+			address = v[0];
 			
 			// if no container edit absolute address
 			if (!container)
@@ -222,11 +222,11 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			v.get(0, (TTPtr*)&mSubScript);
+			mSubScript = TTObjectPtr((TTPtr)v[0]);
 			
 			// get address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, address);
+			address = v[0];
 			
 			// if relative, append to container address
 			if (address.getType() == kAddressRelative)
@@ -253,14 +253,14 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 		return kTTErrGeneric;
 	
 	// It is possible to output the command address relatively to a container address 
-	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, containerAddress);
+	if (inputValue[0].type() == kTypeSymbol)
+		containerAddress = inputValue[0];
 	
 	// output each line of the script
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
 		valueToDump.clear();
-		mLines->current().get(0, (TTPtr*)&aLine);
+		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
 		
 		// output script line depending on his schema
 		if (aLine->getSchema() == kTTSym_flag) {
@@ -270,7 +270,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// prepend flag name
 			aLine->lookup(kTTSym_name, v);
-			v.get(0, name);
+			name = v[0];
 			valueToDump.prepend(name);
 			
 			// prepend dash
@@ -297,20 +297,20 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the unit
 			if (!aLine->lookup(kTTSym_unit, v)) {
-				v.get(0, unit);
+				unit = v[0];
 				valueToDump.append(unit);
 			}
 			
 			// get the ramp
 			if (!aLine->lookup(kTTSym_ramp, v)) {
-				v.get(0, ramp);
+				ramp = v[0];
 				valueToDump.append(kTTSym_ramp);
 				valueToDump.append(ramp);
 			}
 			
 			// get the address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, address);
+			address = v[0];
 			
 			// if relative, append to container address
 			if (address.getType() == kAddressRelative)
@@ -326,13 +326,13 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			v.get(0, (TTPtr*)&mSubScript);
+			mSubScript = TTObjectPtr((TTPtr)v[0]);
 			
 			TTScriptPtr(mSubScript)->mReturnLineCallback = mReturnLineCallback;
 			
 			// get address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, address);
+			address = v[0];
 			
 			// if relative, append to container address
 			if (address.getType() == kAddressRelative)
@@ -348,21 +348,21 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTDictionaryPtr		aLine;
-	TTSymbol			name;
-	TTNodePtr			aNode;
-	TTAddress           address, containerAddress = kTTAdrsRoot;
-	TTValue				v, c;
-	TTErr				err;
+	TTDictionaryPtr	aLine;
+	TTSymbol		name;
+	TTNodePtr		aNode;
+	TTAddress       address, containerAddress = kTTAdrsRoot;
+	TTValue			v, c;
+	TTErr			err;
 	
 	// It is possible to make the script bind from a container address
-	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, containerAddress);
+	if (inputValue[0].type() == kTypeSymbol)
+		containerAddress = inputValue[0];
 	
 	// make each command line of the script to bind on their TTNode
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		mLines->current().get(0, (TTPtr*)&aLine);
+		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
 		
 		// lookfor command line only
 		if (aLine->getSchema() == kTTSym_command || aLine->getSchema() == kTTSym_script) {
@@ -372,7 +372,7 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, address);
+			address = v[0];
 			
 			// use container for relative address
 			if (address.getType() == kAddressRelative)
@@ -391,7 +391,7 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 				
 				// get the script
 				aLine->getValue(v);
-				v.get(0, (TTPtr*)&mSubScript);
+				mSubScript = TTObjectPtr((TTPtr)v[0]);
 				
 				// prepare the sub script
 				mSubScript->sendMessage(TTSymbol("Bind"), address, kTTValNONE);
@@ -409,7 +409,7 @@ TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
 	
 	// if the line is already parsed into a TTDictionnary
 	// append it directly (this allows script owners to parse a line before to append it)
-	if (newLine.getType() == kTypePointer) {
+	if (newLine[0].type() == kTypePointer) {
 		
 		mLines->append(newLine);
 		outputValue = newLine;
@@ -433,9 +433,9 @@ TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
 
 TTErr TTScript::AppendCommand(const TTValue& newCommand, TTValue& outputValue)
 {
-	TTDictionaryPtr		line = NULL;
-	TTAddress	address;
-	TTValue				v;
+	TTDictionaryPtr	line = NULL;
+	TTAddress       address;
+	TTValue			v;
 	
 	line = TTScriptParseCommand(newCommand);
 	
@@ -474,9 +474,9 @@ TTErr TTScript::AppendComment(const TTValue& newComment, TTValue& outputValue)
 
 TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 {
-	TTDictionaryPtr		line = new TTDictionary();
-	TTAddress	address;
-	TTValue				v;
+	TTDictionaryPtr	line = new TTDictionary();
+	TTAddress       address;
+	TTValue			v;
 	
 	line = TTScriptParseScript(newScript);
 	
@@ -484,7 +484,7 @@ TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 		
 		// get the sub script
 		line->getValue(v);
-		v.get(0, (TTPtr*)&mSubScript);
+		mSubScript = TTObjectPtr((TTPtr)v[0]);
 		
 		// append the line
 		v = TTValue((TTPtr)line);
@@ -519,28 +519,28 @@ TTErr TTScript::AppendFlag(const TTValue& newflagAndArguments, TTValue& outputVa
 
 TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr		aXmlHandler;
-	TTDictionaryPtr		aLine = NULL;
-	TTSymbol			name, unit;
-	TTAddress	address;
-//	TTNodePtr			aNode;
-//	TTObjectBasePtr			anObject;
-	TTValue				v;
-	TTString			aString;
+	TTXmlHandlerPtr	aXmlHandler;
+	TTDictionaryPtr	aLine = NULL;
+	TTSymbol		name, unit;
+	TTAddress       address;
+//	TTNodePtr		aNode;
+//	TTObjectPtr		anObject;
+	TTValue			v;
+	TTString		aString;
 	
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
 	
 	// Write all lines
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		mLines->current().get(0, (TTPtr*)&aLine);
+		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
 		
 		// Write script line depending on his schema
 		if (aLine->getSchema() == kTTSym_flag) {
 			
 			// get flag name
 			aLine->lookup(kTTSym_name, v);
-			v.get(0, name);
+			name = v[0];
 			
 			// dont't write preset or cue flags
 			// TODO : we need to filter those flag line before (in TTPreset or TTCue)
@@ -550,7 +550,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// else get flag arguments value
 			aLine->getValue(v);
 			v.toString();
-			v.get(0, aString);
+			aString = v[0];
 			
 			// write flag name and arguments as an Element
 			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "flag");
@@ -563,7 +563,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// get comment value
 			aLine->getValue(v);
 			v.toString();
-			v.get(0, aString);
+			aString = v[0];
 			
 			// write comment attribute
 			xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
@@ -572,7 +572,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, address);
+			address = v[0];
 					
 			// start command Element
 			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST kTTSym_command.c_str());
@@ -582,7 +582,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			
 			// write unit attribute
 			if (!aLine->lookup(kTTSym_unit, v)) {
-				v.get(0, unit);
+				unit = v[0];
 				
 				xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "unit", BAD_CAST unit.c_str());
 			}
@@ -590,7 +590,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// write ramp attribute
 			if (!aLine->lookup(kTTSym_ramp, v)) {
 				v.toString();
-				v.get(0, aString);
+				aString = v[0];
 				
 				xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "ramp", BAD_CAST aString.data());
 			}
@@ -598,7 +598,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// write value
 			if (!aLine->getValue(v)) {
 				v.toString();
-				v.get(0, aString);
+				aString = v[0];
 				
 				xmlTextWriterWriteRaw((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST aString.data());
 			}
@@ -610,7 +610,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, address);
+			address = v[0];
 			
 			// start script Element
 			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST kTTSym_script.c_str());
@@ -620,7 +620,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			v.get(0, (TTPtr*)&mSubScript);
+			mSubScript = TTObjectPtr((TTPtr)v[0]);
 			
 			// use WriteAsXml of the script
 			v = TTValue(TTPtr(mSubScript));
@@ -643,7 +643,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	TTAddress	address;
 	TTValue				v, parsedLine;
 	
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
@@ -690,9 +690,9 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		// Get flag name
 		if (!aXmlHandler->getXmlAttribute(kTTSym_name, v)) {
 			
-			if (v.getType() == kTypeSymbol) {
+			if (v[0].type() == kTypeSymbol) {
 				
-				v.get(0, name);
+				name = v[0];
 				
 				// edit flag line
 				aLine = new TTDictionary();
@@ -718,8 +718,8 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		// get address attribute
 		if (!aXmlHandler->getXmlAttribute(kTTSym_address, v)) {
 			
-			if (v.getType() == kTypeSymbol) {
-				v.get(0, address);
+			if (v[0].type() == kTypeSymbol) {
+				address = v[0];
 				
 				// edit command line
 				aLine = new TTDictionary();
@@ -760,7 +760,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		// get address attribute of the node
 		else if (!aXmlHandler->getXmlAttribute(kTTSym_address, v)) {
 			
-			if (v.getType() == kTypeSymbol) {
+			if (v[0].type() == kTypeSymbol) {
 				
 				// edit sub script line
 				this->AppendScript(v, parsedLine);
@@ -789,7 +789,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt8				i;
 	TTValue				v;
 	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
+	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
 	buffer = aTextHandler->mWriter;
 	
 	// write a new line for level 0
@@ -799,7 +799,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	// Write all lines
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		mLines->current().get(0, (TTPtr*)&aLine);
+		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
 		
 		// write tabulation
 		for (i = 0; i < aTextHandler->mTabCount; i++)
@@ -810,13 +810,13 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get flag name
 			aLine->lookup(kTTSym_name, v);
-			v.get(0, name);
+			name = v[0];
 			
 			// get flag arguments value if exists
 			addQuote = NO;
 			if (!aLine->getValue(v)) {
 				v.toString();
-				v.get(0, aString);
+				aString = v[0];
 			}
 			else aString = "";
 			
@@ -832,7 +832,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			// get comment value
 			if (!aLine->getValue(v)) {
 				v.toString();
-				v.get(0, aString);
+				aString = v[0];
 			}
 			else aString = "";
 			
@@ -845,7 +845,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get name
 			if (!aLine->lookup(kTTSym_address, v)) {
-				v.get(0, address);
+				address = v[0];
 
 				// write address
 				*buffer += address.c_str();
@@ -853,7 +853,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				// get and write value
 				if (!aLine->getValue(v)) {	
 					v.toString();
-					v.get(0, aString);
+					aString = v[0];
 					
 					*buffer += " ";
 					*buffer += aString.data();
@@ -861,7 +861,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 					// get and write unit
 					if (!aLine->lookup(kTTSym_unit, v)) {
 						v.toString();
-						v.get(0, aString);
+						aString = v[0];
 						
 						*buffer += " ";
 						*buffer += aString.data();
@@ -870,7 +870,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 					// get and write ramp
 					if (!aLine->lookup(kTTSym_ramp, v)) {
 						v.toString();
-						v.get(0, aString);
+						aString = v[0];
 						
 						*buffer += " ramp ";
 						*buffer += aString.data();
@@ -884,7 +884,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		
 			// get address
 			aLine->lookup(kTTSym_address, v);
-			v.get(0, address);
+			address = v[0];
 			
 			// write address
 			*buffer += address.c_str();
@@ -892,7 +892,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			v.get(0, (TTPtr*)&mSubScript);
+			mSubScript = TTObjectPtr((TTPtr)v[0]);
 			
 			// set this as parent script of the subscript
 			v = TTValue((TTPtr)this);
@@ -925,7 +925,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	TTDictionaryPtr		aLine;
 	TTValue				v, parsedLine;
 	
-	inputValue.get(0, (TTPtr*)&aTextHandler);
+	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
 	
 	// this line is for this script
 	if (aTextHandler->mTabCount == 0) {
@@ -933,7 +933,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 		this->Append(*(aTextHandler->mLine), parsedLine);
 		
 		// check for script line to set it as current mSubScript
-		parsedLine.get(0 ,(TTPtr*)&aLine);
+		aLine = TTDictionaryPtr((TTPtr)parsedLine[0]);
 		
 		if (aLine) {
 			
@@ -941,7 +941,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 				
 				// get script
 				aLine->getValue(v);
-				v.get(0, (TTPtr*)&mSubScript);
+				mSubScript = TTObjectPtr((TTPtr)v[0]);
 			}
 		}
 	}
@@ -979,14 +979,14 @@ TTDictionaryPtr TTScriptParseLine(const TTValue& newLine)
 	TTSymbol		firstSymbol;
 	TTValue			v, rest;
 	
-	if (newLine.getType(0) == kTypeSymbol) {
+	if (newLine[0].type() == kTypeSymbol) {
 		
-		newLine.get(0, firstSymbol);
+		firstSymbol = newLine[0];
 		
 		// if starts by a "-" : flag line
 		if (firstSymbol == kTTSym_dash) {
 			
-			if (newLine.getType(1) == kTypeSymbol) {
+			if (newLine[1].type() == kTypeSymbol) {
 				
 				rest.copyFrom(newLine, 1);
 				line = TTScriptParseFlag(rest);
@@ -995,7 +995,7 @@ TTDictionaryPtr TTScriptParseLine(const TTValue& newLine)
 		// if starts by a "#" : comment line
 		else if (firstSymbol == kTTSym_sharp) {
 			
-			if (newLine.getType(1) == kTypeSymbol) {
+			if (newLine[1].type() == kTypeSymbol) {
 				
 				rest.copyFrom(newLine, 1);
 				line = TTScriptParseComment(rest);
@@ -1004,7 +1004,7 @@ TTDictionaryPtr TTScriptParseLine(const TTValue& newLine)
 
 		}
 		// else if more than one symbol : append a command
-		else if (newLine.getSize() > 1) {
+		else if (newLine.size() > 1) {
 			line = TTScriptParseCommand(newLine);
 		}
 		// else : append a sub script
@@ -1032,9 +1032,9 @@ TTDictionaryPtr TTScriptParseFlag(const TTValue& newflagAndArguments)
 	TTSymbol		flagName;
 	TTValue			v, arguments;
 	
-	if (newflagAndArguments.getType() == kTypeSymbol) {
+	if (newflagAndArguments[0].type() == kTypeSymbol) {
 		
-		newflagAndArguments.get(0, flagName);
+		flagName = newflagAndArguments[0];
 		arguments.copyFrom(newflagAndArguments, 1);
 		
 		line = new TTDictionary();
@@ -1053,9 +1053,9 @@ TTDictionaryPtr TTScriptParseCommand(const TTValue& newCommand)
 	TTValue			v, commandValue;
 	
 	// parse name + command
-	if (newCommand.getType(0) == kTypeSymbol) {
+	if (newCommand[0].type() == kTypeSymbol) {
 		
-		newCommand.get(0, firstSymbol);
+		firstSymbol = newCommand[0];
 		commandValue.copyFrom(newCommand, 1);
 		
 		line = TTDataParseCommand(commandValue);
@@ -1075,9 +1075,9 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 	TTValue			v;
 	
 	// parse script address
-	if (newScript.getType(0) == kTypeSymbol) {
+	if (newScript[0].type() == kTypeSymbol) {
 		
-		newScript.get(0, firstSymbol);
+		firstSymbol = newScript[0];
 		
 		line = new TTDictionary();
 		
@@ -1110,17 +1110,17 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 		 script1->mLines->end() && script2->mLines->end(); 
 		 script1->mLines->next(), script2->mLines->next()) {
 		
-		script1->mLines->current().get(0, (TTPtr*)&line1);
-		script2->mLines->current().get(0, (TTPtr*)&line2);
+        line1 = TTDictionaryPtr((TTPtr)script1->mLines->current()[0]);
+        line2 = TTDictionaryPtr((TTPtr)script2->mLines->current()[0]);
 		
 		// get nodes
 		node1 = NULL;
 		if (!line1->lookup(kTTSym_node, v))
-			v.get(0, (TTPtr*)&node1);
+			node1 = TTNodePtr((TTPtr)v[0]);
 		
 		node2 = NULL;
 		if (!line2->lookup(kTTSym_node, v))
-			v.get(0, (TTPtr*)&node2);
+			node2 = TTNodePtr((TTPtr)v[0]);
 		
 		if (node1 && node2) {
 			
@@ -1134,11 +1134,11 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 					continue;
 				}
 				else {
-					found.get(0, (TTPtr*)&line2);
+                    line2 = TTDictionaryPtr((TTPtr)found[0]);
 					
 					node2 = NULL;
 					if (!line2->lookup(kTTSym_node, v))
-						v.get(0, (TTPtr*)&node2);
+						node2 = TTNodePtr((TTPtr)v[0]);
 					else
 						continue;
 				}
@@ -1149,25 +1149,25 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
                 if (node1->getObject()) {
                     
                     if (!node1->getObject()->getAttributeValue(kTTSym_type, v)) {
-                        v.get(0, type1);
+                        type1 = v[0];
                         
                         // get line values
                         line1->getValue(v1);
                         line2->getValue(v2);
                         
                         if (type1 == kTTSym_integer) {
-                            newValue = TTValue(v1.getInt32() * (1. - position) + v2.getInt32() * position);
+                            newValue = TTValue(TTInt32(v1[0]) * (1. - position) + TTInt32(v2[0]) * position);
                             
                         } else if (type1 == kTTSym_decimal) {
-                            newValue = TTValue((TTFloat64)(v1.getFloat64() * (1. - position) + v2.getFloat64() * position));
+                            newValue = TTValue(TTFloat64(v1[0]) * (1. - position) + TTFloat64(v2[0]) * position);
                             
                         } else if (type1 == kTTSym_array) {
-                            s = v1.getSize();
-                            if (s == v2.getSize()) {
+                            s = v1.size();
+                            if (s == v2.size()) {
                                 
-                                newValue.setSize(s);
+                                newValue.resize(s);
                                 for (i = 0; i < s; i++)
-                                    newValue.set(i, (TTFloat64)(v1.getFloat64(i) * (1. - position) + v2.getFloat64(i) * position));
+                                    newValue[i] = TTFloat64(v1[i]) * (1. - position) + TTFloat64(v2[i]) * position;
                             }
                             
                         } else
@@ -1183,11 +1183,11 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 				// get the sub scripts
 				sub1 = NULL;
 				if (!line1->getValue(v))
-					v.get(0, (TTPtr*)&sub1);
+					sub1 = TTScriptPtr((TTPtr)v[0]);
 				
 				sub2 = NULL;
 				if (!line2->getValue(v))
-					v.get(0, (TTPtr*)&sub2);
+					sub2 = TTScriptPtr((TTPtr)v[0]);
 				
 				// interpolate the script
 				if (sub1 && sub2)
@@ -1212,21 +1212,21 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
     if (scripts == kTTValNONE)
 		return kTTErrGeneric;
 	
-	mixSize = scripts.getSize();
+	mixSize = scripts.size();
 	
 	// initialized lines list iterator
-	scripts.get(0, (TTPtr*)&firstScript);
+	firstScript = TTScriptPtr((TTPtr)scripts[0]);
 	firstScript->mLines->begin();
 	
     for (i = 1; i < mixSize; i++) {
-		scripts.get(i, (TTPtr*)&aScript);
+		aScript = TTScriptPtr((TTPtr)scripts[i]);
 		aScript->mLines->begin();
     }
 	
 	// iterate over all command lines of first given script
     for (; firstScript->mLines->end(); firstScript->mLines->next()) {
 		
-		firstScript->mLines->current().get(0, (TTPtr*)&firstScriptLine);
+		firstScriptLine = TTDictionaryPtr((TTPtr)firstScript->mLines->current()[0]);
         
         // get schema
         schema = firstScriptLine->getSchema();
@@ -1234,12 +1234,12 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 		// get node
 		aNode = NULL;
 		if (!firstScriptLine->lookup(kTTSym_node, v))
-			v.get(0, (TTPtr*)&aNode);
+			aNode = TTNodePtr((TTPtr)v[0]);
         
         // else each script go to the next line
         else {
 			for (i = 1; i < mixSize; i++) {
-				scripts.get(i, (TTPtr*)&aScript);
+				aScript = TTScriptPtr((TTPtr)scripts[i]);
 				aScript->mLines->next();
 			}
 			continue;
@@ -1251,15 +1251,15 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
                 continue;
             
 			if (!aNode->getObject()->getAttributeValue(kTTSym_type, v))
-				v.get(0, dataType);
+				v[0] dataType);
 			else continue;
 			
 			// initialize the mix with the command of the first script
-			sumFactors = TTScriptMixLine(firstScriptLine, dataType, mixSize, factors.getFloat64(), mixedValue, YES);
+			sumFactors = TTScriptMixLine(firstScriptLine, dataType, mixSize, TTFloat64(factors[0]), mixedValue, YES);
 			
 			for (i = 1; i < mixSize; i++) {
 				
-				scripts.get(i, (TTPtr*)&aScript);
+				aScript = TTScriptPtr((TTPtr)scripts[i]);
 				
 				if (aScript->mLines->end()) {
 					
@@ -1273,11 +1273,11 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 						continue;
 					}
 					else {
-						found.get(0, (TTPtr*)&aLine);
+						aLine = TTDictionnaryPtr((TTPtr)found[0]);
 						
 						// mix the command of this script
 						// TODO : introduce a mixWeight information into command lines
-						sumFactors += TTScriptMixLine(aLine, dataType, mixSize, factors.getFloat64(i), mixedValue, NO);
+						sumFactors += TTScriptMixLine(aLine, dataType, mixSize, TTFloat64(factors[i]), mixedValue, NO);
 						
 						aScript->mLines->next();
 					}
@@ -1288,17 +1288,17 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 				
 				// if numeric : normalise by sum of mixWeight
 				if (dataType == kTTSym_integer)
-					mixedValue.set(0, (mixedValue.getInt32() / sumFactors) + 1); // +1 because the value is truncate in TTData::setValue
+					mixedValue[0] = (TTInt32(mixedValue[0]) / sumFactors) + 1; // +1 because the value is truncate in TTData::setValue
 				
 				else if (dataType == kTTSym_decimal)
-					mixedValue.set(0, mixedValue.getFloat64() / sumFactors);
+					mixedValue[0] = TTFloat64(mixedValue[0]) / sumFactors;
 				
 				else if (dataType == kTTSym_array)
-					for (int i = 0; i < mixedValue.getSize(); i++) 
-						mixedValue.set(i, mixedValue.getFloat64(i) / sumFactors);
+					for (int i = 0; i < mixedValue.size(); i++) 
+						mixedValue[i] = TTFloat64(mixedValue[i]) / sumFactors;
 				// for any other type : remove the coef at the end of the value
 				else
-					mixedValue.setSize(mixedValue.getSize()-1);
+					mixedValue.resize(mixedValue.size()-1);
 				
 				// set the mixed value
 				aNode->getObject()->setAttributeValue(kTTSym_value, mixedValue);
@@ -1311,14 +1311,14 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 			// get the first sub script
 			aSubScript = NULL;
 			if (!firstScriptLine->getValue(v))
-				v.get(0, (TTPtr*)&aSubScript);
+				aSubScript = TTScriptPtr((TTptr)v[0]);
 			
 			subScripts.append((TTPtr*)aSubScript);
 			
 			// get all other sub scripts
 			for (i = 1; i < mixSize; i++) {
 				
-				scripts.get(i, (TTPtr*)&aScript);
+				aScript = TTScriptPtr((TTPtr)scripts[i]);
 				
 				if (aScript->mLines->end()) {
 					
@@ -1332,12 +1332,12 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 						continue;
 					}
 					else {
-						found.get(0, (TTPtr*)&aLine);
+						aLine = TTDictionnaryPtr((TTPtr)found[0]);
 						
 						// get the sub script
 						aSubScript = NULL;
 						if (!aLine->getValue(v))
-							v.get(0, (TTPtr*)&aSubScript);
+							aSubScript = TTScriptPtr((TTPtr)v[0]);
 						
 						subScripts.append((TTPtr*)aSubScript);
 						
@@ -1347,7 +1347,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 			}
 			
 			// mix the sub scripts
-			if (subScripts.getSize() == mixSize)
+			if (subScripts.size() == mixSize)
 				TTScriptMix(subScripts, factors);
 		}
     }
@@ -1365,23 +1365,23 @@ TTFloat64 TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbol dataType, TTUInt32
 	
 	if (init) {
 		mixedValue.clear();
-		for (i = 0; i < valueToMix.getSize(); i++)
+		for (i = 0; i < valueToMix.size(); i++)
 			mixedValue.append(0);
 	}
 	
     if (dataType == kTTSym_integer)
-		mixedValue.set(0, mixedValue.getInt32() + (valueToMix.getInt32() * factor * mixWeight));
+		mixedValue[0] = TTInt32(mixedValue[0]) + (TTInt32(valueToMix[0]) * factor * mixWeight);
 
 	else if (dataType == kTTSym_decimal)
-		mixedValue.set(0, mixedValue.getFloat64() + (valueToMix.getFloat64() * factor * mixWeight));
+		mixedValue[0] = TTFloat64(mixedValue[0]) + (TTFloat64(valueToMix[0]) * factor * mixWeight);
 
 	else if (dataType == kTTSym_array) {
 		
-		s = valueToMix.getSize();
-		if (s == mixedValue.getSize()) {
+		s = valueToMix.size();
+		if (s == mixedValue.size()) {
 			
 			for (i = 0; i < s; i++)
-				mixedValue.set(i, mixedValue.getFloat64(i) + (valueToMix.getFloat64(i) * factor * mixWeight));
+				mixedValue[i] = TTFloat64(mixedValue[i]) + (TTFloat64(valueToMix[i]) * factor * mixWeight);
 		}
 	}
 	// for any other type : store the coef at the end of the value to keep only the max coef
@@ -1389,7 +1389,7 @@ TTFloat64 TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbol dataType, TTUInt32
 		
 		if (init) mixedValue.append((TTFloat64)0.);
 		
-		if (factor * mixWeight >= mixedValue.getFloat64(mixedValue.getSize()-1)) {
+		if (factor * mixWeight >= TTFloat64(mixedValue[mixedValue.size()-1])) {
 			
 			mixedValue = valueToMix;
 			mixedValue.append((TTFloat64) factor * mixWeight);
@@ -1413,12 +1413,12 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 	
 	for (scriptToMerge->mLines->begin(); scriptToMerge->mLines->end(); scriptToMerge->mLines->next()) {
 		
-		scriptToMerge->mLines->current().get(0, (TTPtr*)&lineToMerge);
+		lineToMerge = TTDictionnaryPtr((TTPtr)scriptToMerge->mLines->current()[0]);
 		
 		// get address
 		addressToMerged = kTTAdrsEmpty;
 		if (!lineToMerge->lookup(kTTSym_address, v))
-			v.get(0, addressToMerged);
+			addressToMerged = v[0];
 		
 		if (addressToMerged != kTTAdrsEmpty) {
 			
@@ -1429,7 +1429,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 				mergedScript->mLines->find(&TTScriptFindAddress, (TTPtr)&addressToMerged, found);
 				
 				if (!(found == kTTValNONE)) {
-					found.get(0, (TTPtr*)&mergedLine);
+					mergedLine = TTDictionnaryPtr((TTPtr)found[0]);
 					merged = YES;
 				}
 			}
@@ -1461,7 +1461,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 				// get the sub scripts
 				subScriptToMerge = NULL;
 				if (!lineToMerge->getValue(v))
-					v.get(0, (TTPtr*)&subScriptToMerge);
+					subScriptToMerge = TTScriptPtr((TTPtr)v[0]);
 				
 				// if this script line haven't been merged yet
 				if (!merged)
@@ -1471,7 +1471,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 				// get the new sub script
 				mergedSubScript = NULL;
 				mergedLine->getValue(v);
-				v.get(0, (TTPtr*)&mergedSubScript);
+				mergedSubScript = TTScriptPtr((TTPtr)v[0]);
 				
 				// merge the sub scripts if they exist
 				if (subScriptToMerge && mergedSubScript) {
@@ -1514,17 +1514,17 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 		 aScriptToOptimize->mLines->end() && aScript->mLines->end(); 
 		 aScriptToOptimize->mLines->next(), aScript->mLines->next()) {
 		
-		aScriptToOptimize->mLines->current().get(0, (TTPtr*)&lineToOptimize);
-		aScript->mLines->current().get(0, (TTPtr*)&aLine);
+		lineToOptimize = TTDictionnaryPtr((TTPtr)aScriptToOptimize->mLines->current()[0]);
+		aScript->aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
 		
 		// get addresses
 		addressToOptimize = kTTAdrsEmpty;
 		if (!lineToOptimize->lookup(kTTSym_address, v))
-			v.get(0, addressToOptimize);
+			addressToOptimize = v[0];
 
 		address = kTTAdrsEmpty;
 		if (!aLine->lookup(kTTSym_address, v))
-			v.get(0, address);
+			address = v[0];
 		
 		if (addressToOptimize != kTTAdrsEmpty && address != kTTAdrsEmpty) {
 			
@@ -1538,7 +1538,7 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 					continue;
 				}
 				else
-					found.get(0, (TTPtr*)&aLine);
+					aLine = TTDictionnaryPtr((TTPtr)found[0]);
 			}
 			
 			// optimize the line depending on the schema
@@ -1564,11 +1564,11 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 				// get the sub scripts
 				subScriptToOptimize = NULL;
 				if (!lineToOptimize->getValue(v))
-					v.get(0, (TTPtr*)&subScriptToOptimize);
+					subScriptToOptimize = TTScriptPtr((TTPtr)v[0]);
 				
 				aSubScript = NULL;
 				if (!aLine->getValue(v))
-					v.get(0, (TTPtr*)&aSubScript);
+					aSubScript = TTScriptPtr((TTPtr)v[0]);
 				
 				// optimize the sub scripts if they exist
 				if (subScriptToOptimize && aSubScript) {
@@ -1579,7 +1579,7 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 					// get the new sub script
 					optimizedSubScript = NULL;
 					optimizedLine->getValue(v);
-					v.get(0, (TTPtr*)&optimizedSubScript);
+					optimizedSubScript = TTScriptPtr((TTPtr)v[0]);
 					
 					err = TTScriptOptimize(subScriptToOptimize, aSubScript, optimizedSubScript);
 					
@@ -1626,7 +1626,7 @@ TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 		
 		aSubScriptToCopy = NULL;
 		aSubScriptCopy = NULL;
-		scriptTocopy->mLines->current().get(0, (TTPtr*)&aLine);
+		scriptTocopy->aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
 		
 		aLineCopy = TTScriptCopyLine(aLine);
 		
@@ -1634,7 +1634,7 @@ TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 			
 			// get the subscript
 			aLineCopy->getValue(v);
-			v.get(0, (TTPtr*)&aSubScriptToCopy);
+			aSubScriptToCopy = TTScriptPtr((TTPtr)v[0]);
 			
 			// prepare arguments
 			args.append((TTPtr)scriptTocopy->mReturnLineCallback);
@@ -1661,10 +1661,10 @@ void TTScriptFindNode(const TTValue& lineValue, TTPtr nodePtrToMatch, TTBoolean&
 	TTNodePtr		node = NULL;
 	TTValue			v;
 	
-	lineValue.get(0, (TTPtr*)&aLine);
+	aLine = TTDictionaryPtr((TTPtr)lineValue[0]);
 	
 	if (!aLine->lookup(kTTSym_node, v))
-		v.get(0, (TTPtr*)&node);
+		node = TTNodePtr((TTPtr)v[0]);
 	
 	found = node == ((TTNodePtr)nodePtrToMatch);
 }
@@ -1675,10 +1675,10 @@ void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBo
 	TTAddress			address;
 	TTValue				v;
 	
-	lineValue.get(0, (TTPtr*)&aLine);
+	aLine = TTDictionaryPtr((TTPtr)lineValue[0]);
 	
 	if (!aLine->lookup(kTTSym_address, v))
-		v.get(0, address);
+		address = v[0];
 	
 	found = address == *((TTAddress*)addressPtrToMatch);
 }
@@ -1692,8 +1692,8 @@ TTDictionaryPtr TTScriptCopyLine(TTDictionaryPtr lineTocopy)
 	TTDictionaryPtr newLine = new TTDictionary();
 	
 	lineTocopy->getKeys(keys);
-	for (i = 0; i < keys.getSize(); i++) {
-		keys.get(i, key);
+	for (i = 0; i < keys.size(); i++) {
+		key = keys[i];
 		lineTocopy->lookup(key, v);
 		newLine->append(key, v);
 	}

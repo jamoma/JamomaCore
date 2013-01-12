@@ -37,25 +37,25 @@ mAddressObserver(NULL),
 mSignal(kTTValNONE),
 mSignalAttr(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTOutput", arguments.getSize() >= 2);
+	TT_ASSERT("Correct number of args to create TTOutput", arguments.size() >= 2);
 	
-	arguments.get(0, mType);
+	arguments[0] mType);
 	arguments.get(1, (TTPtr*)&mReturnSignalCallback);
 	TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
 	
-	if (arguments.getSize() > 2) {
+	if (arguments.size() > 2) {
 		arguments.get(2, (TTPtr*)&mReturnLinkCallback);
 		TT_ASSERT("Return Link Callback passed to TTOutput is not NULL", mReturnLinkCallback);
 	}
 	
-	if (arguments.getSize() > 3) {
+	if (arguments.size() > 3) {
 		arguments.get(3, (TTPtr*)&mSignalIn);
 		arguments.get(4, (TTPtr*)&mSignalOut);
 		arguments.get(5, (TTPtr*)&mSignalTemp);
 		arguments.get(6, (TTPtr*)&mSignalZero);
 	}
 	
-	if (arguments.getSize() > 7) {
+	if (arguments.size() > 7) {
 		arguments.get(7, (TTPtr*)&mMixUnit);
 		arguments.get(8, (TTPtr*)&mGainUnit);
 		arguments.get(9, (TTPtr*)&mRampMixUnit);
@@ -172,7 +172,7 @@ TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
-	inputValue.get(0, (TTPtr*)&mInputObject);
+	inputValue[0] (TTPtr*)&mInputObject);
 	
 	if (mReturnLinkCallback)
 		return mReturnLinkCallback->notify(kTTVal1, kTTValNONE);
@@ -199,7 +199,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	TTObjectBasePtr		o;
 	TTValue			n = value;		// use new value to protect the attribute
 	
-	value.get(0, newAddress);
+	value[0] newAddress);
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
@@ -296,9 +296,9 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&anOutput);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
-	data.get(0, anAddress);
-	data.get(1, (TTPtr*)&aNode);
-	data.get(2, flag);
+	anAddress = data[0];
+	aNode = TTNodePtr((TTPtr)data[1]);
+	flag = data[2];
 	
 	o = aNode->getObject();
 	if (o) {

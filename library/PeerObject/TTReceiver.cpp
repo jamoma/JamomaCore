@@ -25,15 +25,15 @@ mApplicationObserver(NULL),
 mNodesObserversCache(NULL),
 mObjectCache(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTReceiver", arguments.getSize() == 2 || arguments.getSize() == 3);
+	TT_ASSERT("Correct number of args to create TTReceiver", arguments.size() == 2 || arguments.size() == 3);
 	
-	if (arguments.getSize() >= 1)
-		arguments.get(0, (TTPtr*)&mReturnAddressCallback);
+	if (arguments.size() >= 1)
+		arguments[0] (TTPtr*)&mReturnAddressCallback);
 	
-	if (arguments.getSize() >= 2)
+	if (arguments.size() >= 2)
 		arguments.get(1, (TTPtr*)&mReturnValueCallback);
 	
-	if (arguments.getSize() >= 3)
+	if (arguments.size() >= 3)
 		arguments.get(2, (TTPtr*)&mSignal);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
@@ -74,7 +74,7 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 	unbindAddress();
 	unbindApplication();
 	
-	newValue.get(0, mAddress);
+	newValue[0] mAddress);
 	
 	// default attribute to bind is value
 	if (mAddress.getAttribute() == NO_ATTRIBUTE)
@@ -109,7 +109,7 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()) {
 				
 				// get a node from the selection
-				mNodesObserversCache->current().get(0,(TTPtr*)&aNode);
+				mNodesObserversCache->current()[0](TTPtr*)&aNode);
 				
 				// get the type and the attribute of the object
 				anObject = aNode->getObject();
@@ -154,7 +154,7 @@ TTErr TTReceiver::Get()
 			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()) {
 				
 				// get a node from the selection
-				mNodesObserversCache->current().get(0,(TTPtr*)&aNode);
+				mNodesObserversCache->current()[0](TTPtr*)&aNode);
 				
 				// get the value of the attribute
 				anObject = aNode->getObject();
@@ -223,7 +223,7 @@ TTErr TTReceiver::bindAddress()
 			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 			{
 				// get a node from the selection
-				aNodeList.current().get(0,(TTPtr*)&aNode);
+				aNodeList.current()[0](TTPtr*)&aNode);
 				
 				// prepare the callback mecanism to
 				// be notified about changing value attribute
@@ -308,7 +308,7 @@ TTErr TTReceiver::unbindAddress()
 				oldElement = mNodesObserversCache->current();
 				
 				// get the node
-				oldElement.get(0, (TTPtr*)&aNode);
+				oldElement[0] (TTPtr*)&aNode);
 				
 				// get the observer
 				oldElement.get(1, (TTPtr*)&oldObserver);
@@ -413,9 +413,9 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aReceiver);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
-	data.get(0, anAddress);
-	data.get(1, (TTPtr*)&aNode);
-	data.get(2, flag);
+	anAddress = data[0];
+	aNode = TTNodePtr((TTPtr)data[1]);
+	flag = data[2];
 	
 	ttAttributeName = ToTTName(aReceiver->mAddress.getAttribute());
 	
@@ -442,7 +442,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					for(aReceiver->mNodesObserversCache->begin(); aReceiver->mNodesObserversCache->end(); aReceiver->mNodesObserversCache->next()) {
 						
 						// get the node of the couple
-						aReceiver->mNodesObserversCache->current().get(0, (TTPtr*)&p_node);
+						aReceiver->mNodesObserversCache->current()[0] (TTPtr*)&p_node);
 						
 						// compare it to the receive node
 						if(p_node == aNode)
@@ -513,7 +513,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					c = aReceiver->mNodesObserversCache->current();
 					
 					// get the node of the couple
-					c.get(0, (TTPtr*)&p_node);
+					c[0] (TTPtr*)&p_node);
 					
 					// compare it to the receive node
 					if(p_node == aNode){
@@ -590,9 +590,9 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aReceiver);
 	
 	// Unpack data (applicationName, application, flag, observer)
-	data.get(0, anApplicationName);
+	data[0] anApplicationName);
 	data.get(1, (TTPtr*)&anApplication);
-	data.get(2, flag);
+	flag = data[2];
 	
 	switch (flag) {
 			

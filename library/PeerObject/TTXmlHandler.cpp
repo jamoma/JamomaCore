@@ -32,7 +32,7 @@ mXmlNodeValue(kTTValNONE),
 mIsWriting(false),
 mIsReading(false)
 {
-	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.getSize() == 0);
+	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.size() == 0);
 	
 	addAttribute(Object, kTypePointer);
 
@@ -67,10 +67,10 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
-	if (args.getSize() == 1) {
-		if (args.getType(0) == kTypeSymbol) {
+	if (args.size() == 1) {
+		if (args[0].type() == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			args[0] mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -159,10 +159,10 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
-	if (args.getSize() == 1) {
-		if (args.getType(0) == kTypeSymbol) {
+	if (args.size() == 1) {
+		if (args[0].type() == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			args[0] mFilePath);
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -336,9 +336,9 @@ TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue&
 		
 		fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)mReader), v);
 		
-		if (v.getType() == kTypeSymbol) {
+		if (v[0].type() == kTypeSymbol) {
 			
-			v.get(0, returnedAttributeName);
+			v[0] returnedAttributeName);
 			return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
 		}
 	}

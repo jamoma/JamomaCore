@@ -46,7 +46,7 @@ TTErr TTMapperManager::New()
 	TTMapperPtr oldMapper;
 
 	for (mMapperList->begin(); mMapperList->end(); mMapperList->next()) {
-		mMapperList->current().get(0, (TTPtr*)&oldMapper);
+		mMapperList->current()[0] (TTPtr*)&oldMapper);
 		TTObjectBaseRelease(TTObjectBaseHandle(&oldMapper));
 	}
 
@@ -65,18 +65,18 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 	TTSymbol			attributeName;
 	TTString			s;
 	
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
 	
 	// Browse the mapper list
 	for (mMapperList->begin(); mMapperList->end(); mMapperList->next()) {
 		
 		xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "mapper");
 
-		mMapperList->current().get(0, (TTPtr*)&aMapper);
+		mMapperList->current()[0] (TTPtr*)&aMapper);
 
 		// Get mapper attributes
 		aMapper->getAttributeNames(attributesList);
-		for (int i = 0; i < attributesList.getSize(); i++) {
+		for (int i = 0; i < attributesList.size(); i++) {
 
 			attributesList.get(i, attributeName);
 
@@ -85,7 +85,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 
 				aMapper->getAttributeValue(attributeName, v);
 				v.toString();
-				v.get(0, s);
+				v[0] s);
 
 				xmlTextWriterWriteFormatAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), "%s", BAD_CAST s.c_str());
 				v.clear();
@@ -113,7 +113,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	TTMapperPtr		newMapper;
 	TTValue			v, args;
 
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 
@@ -142,8 +142,8 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 		// get mute state
 		if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, BAD_CAST "mute") == 1) {
 			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-			if (v.getType() == kTypeSymbol)
-				v.get(0, mute);
+			if (v[0].type() == kTypeSymbol)
+				v[0] mute);
 		}
 		
 		if (mute == TTSymbol("false")) {
@@ -157,8 +157,8 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 
 				// Get attribute name
 				aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
-				if (v.getType() == kTypeSymbol) {
-					v.get(0, attributeName);
+				if (v[0].type() == kTypeSymbol) {
+					v[0] attributeName);
 					v.clear();
 
 					// Get attribute value
@@ -180,6 +180,6 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 TTErr TTMapperManager::setAddress(const TTValue& value)
 {	
 	New();
-	value.get(0, mAddress);
+	mAddress = value[0];
 	return kTTErrNone;
 }
