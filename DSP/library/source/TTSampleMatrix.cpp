@@ -39,11 +39,15 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	this->setTypeWithoutResize(kTypeFloat64);
 	this->setElementCountWithoutResize(1);
 	this->resize();
+	this->mUserCount = 0;
+	this->mBufferPoolStage = kSM_Idle;
 
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeInt32);
 	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
 	addAttribute(SampleRate,							kTypeFloat64);
+	addAttribute(				UserCount,				kTypeUInt16); 
+		addAttributeProperty(	UserCount, 				readOnly, kTTBoolYes);
 	
 	addMessage(normalize);
 	addMessageWithArguments(fill);
@@ -107,6 +111,26 @@ TTErr TTSampleMatrix::getLengthInSamples(TTValue& returnedLengthInSamples)
 	return kTTErrNone;
 }
 
+
+TTErr TTSampleMatrix::incrementUserCount()
+{
+	// could technically exceed 65,535 maximum, but we'll take the chance for now
+	this->mUserCount++;
+	return kTTErrNone;
+}
+
+
+TTErr TTSampleMatrix::decrementUserCount()
+{
+	if (this->mUserCount > 0)
+	{
+		this->mUserCount--;
+		return kTTErrNone;
+	} else {
+		return kTTErrGeneric;
+	}
+
+}
 
 TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 {
@@ -216,69 +240,79 @@ TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const T
 
 TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 {
-	TTSymbol	fillAlgorithm = value;
+	TTSymbol		fillAlgorithm = value;
+	TTSampleValue	tempSample = 0.;
+	TTUInt32		tempIndex = 0;
 
 	if (fillAlgorithm == kTTSym_sine) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i+1, channel+1, sin(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0))));
+				set2d(i, channel, sin(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_sineMod) {							// (modulator version: ranges from 0.0 to 1.0, rather than -1.0 to 1.0)
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i+1, channel+1, 0.5 + (0.5 * sin(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0)))));
+				set2d(i, channel, 0.5 + (0.5 * sin(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0)))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_cosine) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i+1, channel+1, cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0))));
+				set2d(i, channel, cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_cosineMod) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i+1, channel+1, 0.5 + (0.5 * cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0)))));
+				set2d(i, channel, 0.5 + (0.5 * cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0)))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_ramp) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i+1, channel+1, -1.0 + (2.0 * (float(i) / mLengthInSamples)));
+				set2d(i, channel, -1.0 + (2.0 * (float(i) / mLengthInSamples)));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_rampMod) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(i+1, channel+1, float(i) / mLengthInSamples);
+				set2d(i, channel, float(i) / mLengthInSamples);
 		}
 	}
 	else if (fillAlgorithm == kTTSym_sawtooth) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(mLengthInSamples-i, channel+1, -1.0 + (2.0 * (float(i) / mLengthInSamples)));
+				set2d(mLengthInSamples-i, channel, -1.0 + (2.0 * (float(i) / mLengthInSamples)));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_sawtoothMod) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt64 i=0; i<mLengthInSamples; i++)
-				set2d(mLengthInSamples-i, channel+1, float(i) / mLengthInSamples);
+				set2d(mLengthInSamples-i, channel, float(i) / mLengthInSamples);
 		}
 	}
 	else if (fillAlgorithm == kTTSym_triangle) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt32 i=0; i < mLengthInSamples/2; i++) {
-				set2d(i+1, channel+1, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
-				set2d(mLengthInSamples-i, channel+1, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
+			tempIndex = 3*mLengthInSamples/4;
+			for (TTUInt32 i=0; i < mLengthInSamples/4; i++) {
+				tempSample = -1.0 + (4.0 * (float(i) / mLengthInSamples));
+				set2d(i+tempIndex, channel, tempSample);
+				set2d(tempIndex-i, channel, tempSample);
+			}
+			tempIndex = mLengthInSamples/2;
+			for (TTUInt32 i=0; i < mLengthInSamples/4; i++) {
+				tempSample = 4.0 * (float(i) / mLengthInSamples);
+				set2d(i, channel, tempSample);
+				set2d(tempIndex-i, channel, tempSample);
 			}
 		}
 	}
 	else if (fillAlgorithm == kTTSym_triangleMod) {
 		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
 			for (TTUInt32 i=0; i < mLengthInSamples/2; i++) {
-				set2d(i+1, channel+1, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
-				set2d(mLengthInSamples-i, channel+1, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
+				set2d(i, channel, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
+				set2d(mLengthInSamples-i, channel, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
 			}
 		}
 	}

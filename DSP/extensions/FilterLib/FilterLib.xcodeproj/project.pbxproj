@@ -6,7 +6,112 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23AC95169CFDD4004793F5 /* FilterLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF403F165D7B1C00130C98 /* FilterLib.cpp */; };
+		2A23AC97169CFDEB004793F5 /* TTAllpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4014165D7AC900130C98 /* TTAllpass.cpp */; };
+		2A23AC98169CFDEB004793F5 /* TTAllpass1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4015165D7AC900130C98 /* TTAllpass1.cpp */; };
+		2A23AC99169CFDEB004793F5 /* TTAllpass1a.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4016165D7AC900130C98 /* TTAllpass1a.cpp */; };
+		2A23AC9A169CFDEB004793F5 /* TTAllpass1aCascade2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4017165D7AC900130C98 /* TTAllpass1aCascade2.cpp */; };
+		2A23AC9B169CFDEB004793F5 /* TTAllpass1b.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4018165D7AC900130C98 /* TTAllpass1b.cpp */; };
+		2A23AC9C169CFDEB004793F5 /* TTAllpass1c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4019165D7AC900130C98 /* TTAllpass1c.cpp */; };
+		2A23AC9D169CFDEB004793F5 /* TTAllpass2a.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF401A165D7AC900130C98 /* TTAllpass2a.cpp */; };
+		2A23AC9E169CFDEB004793F5 /* TTAllpass2b.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF401B165D7AC900130C98 /* TTAllpass2b.cpp */; };
+		2A23AC9F169CFDEB004793F5 /* TTAllpass2c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF401C165D7AC900130C98 /* TTAllpass2c.cpp */; };
+		2A23ACA0169CFDEB004793F5 /* TTAllpass4a.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF401D165D7AC900130C98 /* TTAllpass4a.cpp */; };
+		2A23ACA1169CFDEB004793F5 /* TTBandpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF401E165D7AC900130C98 /* TTBandpassButterworth2.cpp */; };
+		2A23ACA2169CFDEB004793F5 /* TTBandrejectButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF401F165D7AC900130C98 /* TTBandrejectButterworth2.cpp */; };
+		2A23ACA3169CFDEB004793F5 /* TTDCBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4020165D7AC900130C98 /* TTDCBlock.cpp */; };
+		2A23ACA4169CFDEB004793F5 /* TTFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4021165D7AC900130C98 /* TTFilter.cpp */; };
+		2A23ACA5169CFDEB004793F5 /* TTHalfband3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4022165D7AC900130C98 /* TTHalfband3.cpp */; };
+		2A23ACA6169CFDEB004793F5 /* TTHalfband5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4023165D7AC900130C98 /* TTHalfband5.cpp */; };
+		2A23ACA7169CFDEB004793F5 /* TTHalfband9.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4024165D7AC900130C98 /* TTHalfband9.cpp */; };
+		2A23ACA8169CFDEB004793F5 /* TTHalfbandLinear33.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4025165D7AC900130C98 /* TTHalfbandLinear33.cpp */; };
+		2A23ACA9169CFDEB004793F5 /* TTHighMidLowShelf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4026165D7AC900130C98 /* TTHighMidLowShelf.cpp */; };
+		2A23ACAA169CFDEB004793F5 /* TTHighpassButterworth1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4027165D7AC900130C98 /* TTHighpassButterworth1.cpp */; };
+		2A23ACAB169CFDEB004793F5 /* TTHighpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4028165D7AC900130C98 /* TTHighpassButterworth2.cpp */; };
+		2A23ACAC169CFDEB004793F5 /* TTHighpassButterworth3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4029165D7AC900130C98 /* TTHighpassButterworth3.cpp */; };
+		2A23ACAD169CFDEB004793F5 /* TTHighpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF402A165D7AC900130C98 /* TTHighpassButterworth4.cpp */; };
+		2A23ACAE169CFDEB004793F5 /* TTHighpassLinkwitzRiley2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF402B165D7AC900130C98 /* TTHighpassLinkwitzRiley2.cpp */; };
+		2A23ACAF169CFDEB004793F5 /* TTHighpassLinkwitzRiley4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF402C165D7AC900130C98 /* TTHighpassLinkwitzRiley4.cpp */; };
+		2A23ACB0169CFDEB004793F5 /* TTHilbert9.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF402D165D7AC900130C98 /* TTHilbert9.cpp */; };
+		2A23ACB1169CFDEB004793F5 /* TTHilbertLinear33.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF402E165D7AC900130C98 /* TTHilbertLinear33.cpp */; };
+		2A23ACB2169CFDEB004793F5 /* TTLowpassButterworth1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF402F165D7AC900130C98 /* TTLowpassButterworth1.cpp */; };
+		2A23ACB3169CFDEB004793F5 /* TTLowpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4030165D7AC900130C98 /* TTLowpassButterworth2.cpp */; };
+		2A23ACB4169CFDEB004793F5 /* TTLowpassButterworth3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4031165D7AC900130C98 /* TTLowpassButterworth3.cpp */; };
+		2A23ACB5169CFDEB004793F5 /* TTLowpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4032165D7AC900130C98 /* TTLowpassButterworth4.cpp */; };
+		2A23ACB6169CFDEB004793F5 /* TTLowpassFourPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4033165D7AC900130C98 /* TTLowpassFourPole.cpp */; };
+		2A23ACB7169CFDEB004793F5 /* TTLowpassLinkwitzRiley2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4034165D7AC900130C98 /* TTLowpassLinkwitzRiley2.cpp */; };
+		2A23ACB8169CFDEB004793F5 /* TTLowpassLinkwitzRiley4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4035165D7AC900130C98 /* TTLowpassLinkwitzRiley4.cpp */; };
+		2A23ACB9169CFDEB004793F5 /* TTLowpassOnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4036165D7AC900130C98 /* TTLowpassOnePole.cpp */; };
+		2A23ACBA169CFDEB004793F5 /* TTLowpassTwoPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4037165D7AC900130C98 /* TTLowpassTwoPole.cpp */; };
+		2A23ACBB169CFDEB004793F5 /* TTMirror5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4038165D7AC900130C98 /* TTMirror5.cpp */; };
+		2A23ACBC169CFDEB004793F5 /* TTMirrorBandpass10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4039165D7AC900130C98 /* TTMirrorBandpass10.cpp */; };
+		2A23ACBD169CFDEB004793F5 /* TTOnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF403A165D7AC900130C98 /* TTOnePole.cpp */; };
+		2A23ACBE169CFDEB004793F5 /* TTSvf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF403B165D7AC900130C98 /* TTSvf.cpp */; };
+		2A23ACBF169CFDF2004793F5 /* TTAllpass.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4047165D817400130C98 /* TTAllpass.test.cpp */; };
+		2A23ACC0169CFDF2004793F5 /* TTAllpass1.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4048165D817400130C98 /* TTAllpass1.test.cpp */; };
+		2A23ACC1169CFDF2004793F5 /* TTAllpass1a.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4049165D817400130C98 /* TTAllpass1a.test.cpp */; };
+		2A23ACC2169CFDF2004793F5 /* TTAllpass1aCascade2.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF404A165D817400130C98 /* TTAllpass1aCascade2.test.cpp */; };
+		2A23ACC3169CFDF2004793F5 /* TTAllpass1b.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF404B165D817400130C98 /* TTAllpass1b.test.cpp */; };
+		2A23ACC4169CFDF2004793F5 /* TTAllpass1c.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF404C165D817400130C98 /* TTAllpass1c.test.cpp */; };
+		2A23ACC5169CFDF2004793F5 /* TTAllpass2a.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF404D165D817400130C98 /* TTAllpass2a.test.cpp */; };
+		2A23ACC6169CFDF2004793F5 /* TTAllpass2b.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF404E165D817400130C98 /* TTAllpass2b.test.cpp */; };
+		2A23ACC7169CFDF2004793F5 /* TTAllpass2c.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF404F165D817400130C98 /* TTAllpass2c.test.cpp */; };
+		2A23ACC8169CFDF2004793F5 /* TTAllpass4a.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4050165D817400130C98 /* TTAllpass4a.test.cpp */; };
+		2A23ACC9169CFDF2004793F5 /* TTBandpassButterworth2.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4051165D817400130C98 /* TTBandpassButterworth2.test.cpp */; };
+		2A23ACCA169CFDF2004793F5 /* TTBandrejectButterworth2.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4052165D817400130C98 /* TTBandrejectButterworth2.test.cpp */; };
+		2A23ACCB169CFDF2004793F5 /* TTDCBlock.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4053165D817400130C98 /* TTDCBlock.test.cpp */; };
+		2A23ACCC169CFDF2004793F5 /* TTFilter.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4054165D817400130C98 /* TTFilter.test.cpp */; };
+		2A23ACCD169CFDF2004793F5 /* TTHalfband3.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4055165D817400130C98 /* TTHalfband3.test.cpp */; };
+		2A23ACCE169CFDF2004793F5 /* TTHalfband5.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4056165D817400130C98 /* TTHalfband5.test.cpp */; };
+		2A23ACCF169CFDF2004793F5 /* TTHalfband9.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4057165D817400130C98 /* TTHalfband9.test.cpp */; };
+		2A23ACD0169CFDF2004793F5 /* TTHalfbandLinear33.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4058165D817400130C98 /* TTHalfbandLinear33.test.cpp */; };
+		2A23ACD1169CFDF2004793F5 /* TTHighMidLowShelf.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4059165D817400130C98 /* TTHighMidLowShelf.test.cpp */; };
+		2A23ACD2169CFDF2004793F5 /* TTHighpassButterworth1.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF405A165D817400130C98 /* TTHighpassButterworth1.test.cpp */; };
+		2A23ACD3169CFDF2004793F5 /* TTHighpassButterworth2.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF405B165D817400130C98 /* TTHighpassButterworth2.test.cpp */; };
+		2A23ACD4169CFDF2004793F5 /* TTHighpassButterworth3.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF405C165D817400130C98 /* TTHighpassButterworth3.test.cpp */; };
+		2A23ACD5169CFDF2004793F5 /* TTHighpassButterworth4.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF405D165D817400130C98 /* TTHighpassButterworth4.test.cpp */; };
+		2A23ACD6169CFDF2004793F5 /* TTHighpassLinkwitzRiley2.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF405E165D817400130C98 /* TTHighpassLinkwitzRiley2.test.cpp */; };
+		2A23ACD7169CFDF2004793F5 /* TTHighpassLinkwitzRiley4.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF405F165D817400130C98 /* TTHighpassLinkwitzRiley4.test.cpp */; };
+		2A23ACD8169CFDF2004793F5 /* TTHilbert9.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4060165D817400130C98 /* TTHilbert9.test.cpp */; };
+		2A23ACD9169CFDF2004793F5 /* TTHilbertLinear33.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4061165D817400130C98 /* TTHilbertLinear33.test.cpp */; };
+		2A23ACDA169CFDF2004793F5 /* TTLowpassButterworth1.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4062165D817400130C98 /* TTLowpassButterworth1.test.cpp */; };
+		2A23ACDB169CFDF2004793F5 /* TTLowpassButterworth2.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4063165D817400130C98 /* TTLowpassButterworth2.test.cpp */; };
+		2A23ACDC169CFDF2004793F5 /* TTLowpassButterworth3.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4064165D817400130C98 /* TTLowpassButterworth3.test.cpp */; };
+		2A23ACDD169CFDF2004793F5 /* TTLowpassButterworth4.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4065165D817400130C98 /* TTLowpassButterworth4.test.cpp */; };
+		2A23ACDE169CFDF2004793F5 /* TTLowpassFourPole.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4066165D817400130C98 /* TTLowpassFourPole.test.cpp */; };
+		2A23ACDF169CFDF2004793F5 /* TTLowpassLinkwitzRiley2.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4067165D817400130C98 /* TTLowpassLinkwitzRiley2.test.cpp */; };
+		2A23ACE0169CFDF2004793F5 /* TTLowpassLinkwitzRiley4.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4068165D817400130C98 /* TTLowpassLinkwitzRiley4.test.cpp */; };
+		2A23ACE1169CFDF2004793F5 /* TTLowpassOnePole.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4069165D817400130C98 /* TTLowpassOnePole.test.cpp */; };
+		2A23ACE2169CFDF2004793F5 /* TTLowpassTwoPole.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF406A165D817400130C98 /* TTLowpassTwoPole.test.cpp */; };
+		2A23ACE3169CFDF2004793F5 /* TTMirror5.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF406B165D817400130C98 /* TTMirror5.test.cpp */; };
+		2A23ACE4169CFDF2004793F5 /* TTMirrorBandpass10.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF406C165D817400130C98 /* TTMirrorBandpass10.test.cpp */; };
+		2A23ACE5169CFDF2004793F5 /* TTOnePole.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF406D165D817400130C98 /* TTOnePole.test.cpp */; };
+		2A23ACE6169CFDF2004793F5 /* TTSvf.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF406E165D817400130C98 /* TTSvf.test.cpp */; };
+		2AD788A3169CFD7000604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD788A2169CFD7000604D7C /* Foundation.framework */; };
+		2AD788A8169CFD7000604D7C /* FilterLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AD788A7169CFD7000604D7C /* FilterLibIOS.h */; };
+		2AD788AA169CFD7000604D7C /* FilterLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD788A9169CFD7000604D7C /* FilterLibIOS.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2AD7889D169CFD7000604D7C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2AD788A8169CFD7000604D7C /* FilterLibIOS.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2AD7889F169CFD7000604D7C /* libFilterLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFilterLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD788A2169CFD7000604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2AD788A6169CFD7000604D7C /* FilterLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FilterLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2AD788A7169CFD7000604D7C /* FilterLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterLibIOS.h; sourceTree = "<group>"; };
+		2AD788A9169CFD7000604D7C /* FilterLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterLibIOS.m; sourceTree = "<group>"; };
 		A7FF3FEA165D7A9500130C98 /* TTAllpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass.h; path = includes/TTAllpass.h; sourceTree = "<group>"; };
 		A7FF3FEB165D7A9500130C98 /* TTAllpass1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass1.h; path = includes/TTAllpass1.h; sourceTree = "<group>"; };
 		A7FF3FEC165D7A9500130C98 /* TTAllpass1a.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass1a.h; path = includes/TTAllpass1a.h; sourceTree = "<group>"; };
@@ -131,7 +236,52 @@
 		A7FF406E165D817400130C98 /* TTSvf.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSvf.test.cpp; path = tests/TTSvf.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		2AD7889C169CFD7000604D7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD788A3169CFD7000604D7C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		2AD788A0169CFD7000604D7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7889F169CFD7000604D7C /* libFilterLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD788A1169CFD7000604D7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD788A2169CFD7000604D7C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2AD788A4169CFD7000604D7C /* FilterLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2AD788A7169CFD7000604D7C /* FilterLibIOS.h */,
+				2AD788A9169CFD7000604D7C /* FilterLibIOS.m */,
+				2AD788A5169CFD7000604D7C /* Supporting Files */,
+			);
+			path = FilterLibIOS;
+			sourceTree = "<group>";
+		};
+		2AD788A5169CFD7000604D7C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AD788A6169CFD7000604D7C /* FilterLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A7FF3FDA165D7A6100130C98 = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +290,9 @@
 				A7FF4013165D7A9A00130C98 /* includes */,
 				A7FF403C165D7AD000130C98 /* source */,
 				A7FF403E165D7AEE00130C98 /* tests */,
+				2AD788A4169CFD7000604D7C /* FilterLibIOS */,
+				2AD788A1169CFD7000604D7C /* Frameworks */,
+				2AD788A0169CFD7000604D7C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -302,6 +455,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2AD7889E169CFD7000604D7C /* FilterLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD788AD169CFD7000604D7C /* Build configuration list for PBXNativeTarget "FilterLibIOS" */;
+			buildPhases = (
+				2AD7889B169CFD7000604D7C /* Sources */,
+				2AD7889C169CFD7000604D7C /* Frameworks */,
+				2AD7889D169CFD7000604D7C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FilterLibIOS;
+			productName = FilterLibIOS;
+			productReference = 2AD7889F169CFD7000604D7C /* libFilterLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		A7FF3FDC165D7A6100130C98 /* Project object */ = {
 			isa = PBXProject;
@@ -317,15 +490,148 @@
 				en,
 			);
 			mainGroup = A7FF3FDA165D7A6100130C98;
+			productRefGroup = 2AD788A0169CFD7000604D7C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				A7FF3FE1165D7A6100130C98 /* FilterLib */,
+				2AD7889E169CFD7000604D7C /* FilterLibIOS */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXSourcesBuildPhase section */
+		2AD7889B169CFD7000604D7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD788AA169CFD7000604D7C /* FilterLibIOS.m in Sources */,
+				2A23AC95169CFDD4004793F5 /* FilterLib.cpp in Sources */,
+				2A23AC97169CFDEB004793F5 /* TTAllpass.cpp in Sources */,
+				2A23AC98169CFDEB004793F5 /* TTAllpass1.cpp in Sources */,
+				2A23AC99169CFDEB004793F5 /* TTAllpass1a.cpp in Sources */,
+				2A23AC9A169CFDEB004793F5 /* TTAllpass1aCascade2.cpp in Sources */,
+				2A23AC9B169CFDEB004793F5 /* TTAllpass1b.cpp in Sources */,
+				2A23AC9C169CFDEB004793F5 /* TTAllpass1c.cpp in Sources */,
+				2A23AC9D169CFDEB004793F5 /* TTAllpass2a.cpp in Sources */,
+				2A23AC9E169CFDEB004793F5 /* TTAllpass2b.cpp in Sources */,
+				2A23AC9F169CFDEB004793F5 /* TTAllpass2c.cpp in Sources */,
+				2A23ACA0169CFDEB004793F5 /* TTAllpass4a.cpp in Sources */,
+				2A23ACA1169CFDEB004793F5 /* TTBandpassButterworth2.cpp in Sources */,
+				2A23ACA2169CFDEB004793F5 /* TTBandrejectButterworth2.cpp in Sources */,
+				2A23ACA3169CFDEB004793F5 /* TTDCBlock.cpp in Sources */,
+				2A23ACA4169CFDEB004793F5 /* TTFilter.cpp in Sources */,
+				2A23ACA5169CFDEB004793F5 /* TTHalfband3.cpp in Sources */,
+				2A23ACA6169CFDEB004793F5 /* TTHalfband5.cpp in Sources */,
+				2A23ACA7169CFDEB004793F5 /* TTHalfband9.cpp in Sources */,
+				2A23ACA8169CFDEB004793F5 /* TTHalfbandLinear33.cpp in Sources */,
+				2A23ACA9169CFDEB004793F5 /* TTHighMidLowShelf.cpp in Sources */,
+				2A23ACAA169CFDEB004793F5 /* TTHighpassButterworth1.cpp in Sources */,
+				2A23ACAB169CFDEB004793F5 /* TTHighpassButterworth2.cpp in Sources */,
+				2A23ACAC169CFDEB004793F5 /* TTHighpassButterworth3.cpp in Sources */,
+				2A23ACAD169CFDEB004793F5 /* TTHighpassButterworth4.cpp in Sources */,
+				2A23ACAE169CFDEB004793F5 /* TTHighpassLinkwitzRiley2.cpp in Sources */,
+				2A23ACAF169CFDEB004793F5 /* TTHighpassLinkwitzRiley4.cpp in Sources */,
+				2A23ACB0169CFDEB004793F5 /* TTHilbert9.cpp in Sources */,
+				2A23ACB1169CFDEB004793F5 /* TTHilbertLinear33.cpp in Sources */,
+				2A23ACB2169CFDEB004793F5 /* TTLowpassButterworth1.cpp in Sources */,
+				2A23ACB3169CFDEB004793F5 /* TTLowpassButterworth2.cpp in Sources */,
+				2A23ACB4169CFDEB004793F5 /* TTLowpassButterworth3.cpp in Sources */,
+				2A23ACB5169CFDEB004793F5 /* TTLowpassButterworth4.cpp in Sources */,
+				2A23ACB6169CFDEB004793F5 /* TTLowpassFourPole.cpp in Sources */,
+				2A23ACB7169CFDEB004793F5 /* TTLowpassLinkwitzRiley2.cpp in Sources */,
+				2A23ACB8169CFDEB004793F5 /* TTLowpassLinkwitzRiley4.cpp in Sources */,
+				2A23ACB9169CFDEB004793F5 /* TTLowpassOnePole.cpp in Sources */,
+				2A23ACBA169CFDEB004793F5 /* TTLowpassTwoPole.cpp in Sources */,
+				2A23ACBB169CFDEB004793F5 /* TTMirror5.cpp in Sources */,
+				2A23ACBC169CFDEB004793F5 /* TTMirrorBandpass10.cpp in Sources */,
+				2A23ACBD169CFDEB004793F5 /* TTOnePole.cpp in Sources */,
+				2A23ACBE169CFDEB004793F5 /* TTSvf.cpp in Sources */,
+				2A23ACBF169CFDF2004793F5 /* TTAllpass.test.cpp in Sources */,
+				2A23ACC0169CFDF2004793F5 /* TTAllpass1.test.cpp in Sources */,
+				2A23ACC1169CFDF2004793F5 /* TTAllpass1a.test.cpp in Sources */,
+				2A23ACC2169CFDF2004793F5 /* TTAllpass1aCascade2.test.cpp in Sources */,
+				2A23ACC3169CFDF2004793F5 /* TTAllpass1b.test.cpp in Sources */,
+				2A23ACC4169CFDF2004793F5 /* TTAllpass1c.test.cpp in Sources */,
+				2A23ACC5169CFDF2004793F5 /* TTAllpass2a.test.cpp in Sources */,
+				2A23ACC6169CFDF2004793F5 /* TTAllpass2b.test.cpp in Sources */,
+				2A23ACC7169CFDF2004793F5 /* TTAllpass2c.test.cpp in Sources */,
+				2A23ACC8169CFDF2004793F5 /* TTAllpass4a.test.cpp in Sources */,
+				2A23ACC9169CFDF2004793F5 /* TTBandpassButterworth2.test.cpp in Sources */,
+				2A23ACCA169CFDF2004793F5 /* TTBandrejectButterworth2.test.cpp in Sources */,
+				2A23ACCB169CFDF2004793F5 /* TTDCBlock.test.cpp in Sources */,
+				2A23ACCC169CFDF2004793F5 /* TTFilter.test.cpp in Sources */,
+				2A23ACCD169CFDF2004793F5 /* TTHalfband3.test.cpp in Sources */,
+				2A23ACCE169CFDF2004793F5 /* TTHalfband5.test.cpp in Sources */,
+				2A23ACCF169CFDF2004793F5 /* TTHalfband9.test.cpp in Sources */,
+				2A23ACD0169CFDF2004793F5 /* TTHalfbandLinear33.test.cpp in Sources */,
+				2A23ACD1169CFDF2004793F5 /* TTHighMidLowShelf.test.cpp in Sources */,
+				2A23ACD2169CFDF2004793F5 /* TTHighpassButterworth1.test.cpp in Sources */,
+				2A23ACD3169CFDF2004793F5 /* TTHighpassButterworth2.test.cpp in Sources */,
+				2A23ACD4169CFDF2004793F5 /* TTHighpassButterworth3.test.cpp in Sources */,
+				2A23ACD5169CFDF2004793F5 /* TTHighpassButterworth4.test.cpp in Sources */,
+				2A23ACD6169CFDF2004793F5 /* TTHighpassLinkwitzRiley2.test.cpp in Sources */,
+				2A23ACD7169CFDF2004793F5 /* TTHighpassLinkwitzRiley4.test.cpp in Sources */,
+				2A23ACD8169CFDF2004793F5 /* TTHilbert9.test.cpp in Sources */,
+				2A23ACD9169CFDF2004793F5 /* TTHilbertLinear33.test.cpp in Sources */,
+				2A23ACDA169CFDF2004793F5 /* TTLowpassButterworth1.test.cpp in Sources */,
+				2A23ACDB169CFDF2004793F5 /* TTLowpassButterworth2.test.cpp in Sources */,
+				2A23ACDC169CFDF2004793F5 /* TTLowpassButterworth3.test.cpp in Sources */,
+				2A23ACDD169CFDF2004793F5 /* TTLowpassButterworth4.test.cpp in Sources */,
+				2A23ACDE169CFDF2004793F5 /* TTLowpassFourPole.test.cpp in Sources */,
+				2A23ACDF169CFDF2004793F5 /* TTLowpassLinkwitzRiley2.test.cpp in Sources */,
+				2A23ACE0169CFDF2004793F5 /* TTLowpassLinkwitzRiley4.test.cpp in Sources */,
+				2A23ACE1169CFDF2004793F5 /* TTLowpassOnePole.test.cpp in Sources */,
+				2A23ACE2169CFDF2004793F5 /* TTLowpassTwoPole.test.cpp in Sources */,
+				2A23ACE3169CFDF2004793F5 /* TTMirror5.test.cpp in Sources */,
+				2A23ACE4169CFDF2004793F5 /* TTMirrorBandpass10.test.cpp in Sources */,
+				2A23ACE5169CFDF2004793F5 /* TTOnePole.test.cpp in Sources */,
+				2A23ACE6169CFDF2004793F5 /* TTSvf.test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
 /* Begin XCBuildConfiguration section */
+		2AD788AB169CFD7000604D7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FilterLibIOS/FilterLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2AD788AC169CFD7000604D7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FilterLibIOS/FilterLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		A7FF3FE2165D7A6100130C98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -401,6 +707,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2AD788AD169CFD7000604D7C /* Build configuration list for PBXNativeTarget "FilterLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD788AB169CFD7000604D7C /* Debug */,
+				2AD788AC169CFD7000604D7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A7FF3FDF165D7A6100130C98 /* Build configuration list for PBXProject "FilterLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

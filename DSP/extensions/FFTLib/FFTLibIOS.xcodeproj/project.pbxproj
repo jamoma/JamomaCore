@@ -1,0 +1,481 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A23AF0C169D1AA1004793F5 /* fft4g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEE0169D1AA1004793F5 /* fft4g.cpp */; };
+		2A23AF0D169D1AA1004793F5 /* fft4g_h.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEE1169D1AA1004793F5 /* fft4g_h.cpp */; };
+		2A23AF0E169D1AA1004793F5 /* fft8g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEE2169D1AA1004793F5 /* fft8g.cpp */; };
+		2A23AF0F169D1AA1004793F5 /* fft8g_h.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEE3169D1AA1004793F5 /* fft8g_h.c */; };
+		2A23AF10169D1AA1004793F5 /* fftsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEE4169D1AA1004793F5 /* fftsg.cpp */; };
+		2A23AF11169D1AA1004793F5 /* fftsg_h.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEE5169D1AA1004793F5 /* fftsg_h.c */; };
+		2A23AF12169D1AA1004793F5 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEE8169D1AA1004793F5 /* Makefile */; };
+		2A23AF13169D1AA1004793F5 /* testxg.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEE9169D1AA1004793F5 /* testxg.c */; };
+		2A23AF14169D1AA1004793F5 /* testxg_h.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEEA169D1AA1004793F5 /* testxg_h.c */; };
+		2A23AF15169D1AA1004793F5 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEEC169D1AA1004793F5 /* Makefile */; };
+		2A23AF16169D1AA1004793F5 /* pi_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEEE169D1AA1004793F5 /* pi_fft.c */; };
+		2A23AF17169D1AA1004793F5 /* alloc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEF0169D1AA1004793F5 /* alloc.cpp */; };
+		2A23AF18169D1AA1004793F5 /* fft4f2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEF2169D1AA1004793F5 /* fft4f2d.cpp */; };
+		2A23AF19169D1AA1004793F5 /* fftsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEF3169D1AA1004793F5 /* fftsg.cpp */; };
+		2A23AF1A169D1AA1004793F5 /* fftsg2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEF4169D1AA1004793F5 /* fftsg2d.cpp */; };
+		2A23AF1B169D1AA1004793F5 /* fftsg3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEF5169D1AA1004793F5 /* fftsg3d.cpp */; };
+		2A23AF1C169D1AA1004793F5 /* fft4f2dt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEF9169D1AA1004793F5 /* fft4f2dt.c */; };
+		2A23AF1D169D1AA1004793F5 /* fftsg2dt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEFA169D1AA1004793F5 /* fftsg2dt.c */; };
+		2A23AF1E169D1AA1004793F5 /* fftsg3dt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEFB169D1AA1004793F5 /* fftsg3dt.c */; };
+		2A23AF1F169D1AA1004793F5 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEFC169D1AA1004793F5 /* Makefile */; };
+		2A23AF20169D1AA1004793F5 /* shrtdctt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEFE169D1AA1004793F5 /* shrtdctt.c */; };
+		2A23AF21169D1AA1004793F5 /* shrtdct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AEFF169D1AA1004793F5 /* shrtdct.cpp */; };
+		2A23AF22169D1AA1004793F5 /* FFTLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF00169D1AA1004793F5 /* FFTLib.cpp */; };
+		2A23AF24169D1AA1004793F5 /* mayer_fft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF08169D1AA1004793F5 /* mayer_fft.cpp */; };
+		2A23AF25169D1AA1004793F5 /* TTFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF0B169D1AA1004793F5 /* TTFFT.cpp */; };
+		2A23AF28169D1B3F004793F5 /* FFTLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF27169D1B3F004793F5 /* FFTLibIOS.m */; };
+		2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD78887169CFD1C00604D7C /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2AD78882169CFD1C00604D7C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2A23AEE0169D1AA1004793F5 /* fft4g.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fft4g.cpp; sourceTree = "<group>"; };
+		2A23AEE1169D1AA1004793F5 /* fft4g_h.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fft4g_h.cpp; sourceTree = "<group>"; };
+		2A23AEE2169D1AA1004793F5 /* fft8g.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fft8g.cpp; sourceTree = "<group>"; };
+		2A23AEE3169D1AA1004793F5 /* fft8g_h.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft8g_h.c; sourceTree = "<group>"; };
+		2A23AEE4169D1AA1004793F5 /* fftsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fftsg.cpp; sourceTree = "<group>"; };
+		2A23AEE5169D1AA1004793F5 /* fftsg_h.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fftsg_h.c; sourceTree = "<group>"; };
+		2A23AEE6169D1AA1004793F5 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		2A23AEE8169D1AA1004793F5 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		2A23AEE9169D1AA1004793F5 /* testxg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = testxg.c; sourceTree = "<group>"; };
+		2A23AEEA169D1AA1004793F5 /* testxg_h.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = testxg_h.c; sourceTree = "<group>"; };
+		2A23AEEC169D1AA1004793F5 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		2A23AEED169D1AA1004793F5 /* Makefile.pth */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.pth; sourceTree = "<group>"; };
+		2A23AEEE169D1AA1004793F5 /* pi_fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pi_fft.c; sourceTree = "<group>"; };
+		2A23AEF0169D1AA1004793F5 /* alloc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = alloc.cpp; sourceTree = "<group>"; };
+		2A23AEF1169D1AA1004793F5 /* alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alloc.h; sourceTree = "<group>"; };
+		2A23AEF2169D1AA1004793F5 /* fft4f2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fft4f2d.cpp; sourceTree = "<group>"; };
+		2A23AEF3169D1AA1004793F5 /* fftsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fftsg.cpp; sourceTree = "<group>"; };
+		2A23AEF4169D1AA1004793F5 /* fftsg2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fftsg2d.cpp; sourceTree = "<group>"; };
+		2A23AEF5169D1AA1004793F5 /* fftsg3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fftsg3d.cpp; sourceTree = "<group>"; };
+		2A23AEF6169D1AA1004793F5 /* readme2d.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme2d.txt; sourceTree = "<group>"; };
+		2A23AEF8169D1AA1004793F5 /* alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alloc.h; sourceTree = "<group>"; };
+		2A23AEF9169D1AA1004793F5 /* fft4f2dt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft4f2dt.c; sourceTree = "<group>"; };
+		2A23AEFA169D1AA1004793F5 /* fftsg2dt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fftsg2dt.c; sourceTree = "<group>"; };
+		2A23AEFB169D1AA1004793F5 /* fftsg3dt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fftsg3dt.c; sourceTree = "<group>"; };
+		2A23AEFC169D1AA1004793F5 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		2A23AEFD169D1AA1004793F5 /* Makefile.pth */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.pth; sourceTree = "<group>"; };
+		2A23AEFE169D1AA1004793F5 /* shrtdctt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shrtdctt.c; sourceTree = "<group>"; };
+		2A23AEFF169D1AA1004793F5 /* shrtdct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shrtdct.cpp; sourceTree = "<group>"; };
+		2A23AF00169D1AA1004793F5 /* FFTLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTLib.cpp; sourceTree = "<group>"; };
+		2A23AF02169D1AA1004793F5 /* EffectsLibIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EffectsLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AF03169D1AA1004793F5 /* EffectsLibIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsLibIOS.h; sourceTree = "<group>"; };
+		2A23AF04169D1AA1004793F5 /* EffectsLibIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsLibIOS.m; sourceTree = "<group>"; };
+		2A23AF06169D1AA1004793F5 /* TTFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTFFT.h; sourceTree = "<group>"; };
+		2A23AF08169D1AA1004793F5 /* mayer_fft.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mayer_fft.cpp; sourceTree = "<group>"; };
+		2A23AF09169D1AA1004793F5 /* mayer_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mayer_fft.h; sourceTree = "<group>"; };
+		2A23AF0B169D1AA1004793F5 /* TTFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTFFT.cpp; sourceTree = "<group>"; };
+		2A23AF26169D1B3F004793F5 /* FFTLibIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FFTLibIOS.h; path = FFTLibIOS/FFTLibIOS.h; sourceTree = SOURCE_ROOT; };
+		2A23AF27169D1B3F004793F5 /* FFTLibIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FFTLibIOS.m; path = FFTLibIOS/FFTLibIOS.m; sourceTree = SOURCE_ROOT; };
+		2A23AF29169D1B49004793F5 /* FFTLibIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FFTLibIOS-Prefix.pch"; path = "FFTLibIOS/FFTLibIOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		2AD78884169CFD1C00604D7C /* libFFTLibIOSIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFFTLibIOSIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD78887169CFD1C00604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A752BBC516373A14007CE627 /* TTBalance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBalance.h; path = includes/TTBalance.h; sourceTree = "<group>"; };
+		A752BBC616373A14007CE627 /* TTDegrade.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDegrade.h; path = includes/TTDegrade.h; sourceTree = "<group>"; };
+		A752BBC716373A14007CE627 /* TTGain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTGain.h; path = includes/TTGain.h; sourceTree = "<group>"; };
+		A752BBC816373A14007CE627 /* TTLimiter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLimiter.h; path = includes/TTLimiter.h; sourceTree = "<group>"; };
+		A752BBC916373A14007CE627 /* TTOverdrive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTOverdrive.h; path = includes/TTOverdrive.h; sourceTree = "<group>"; };
+		A752BBCA16373A14007CE627 /* TTPanorama.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTPanorama.h; path = includes/TTPanorama.h; sourceTree = "<group>"; };
+		A752BBCB16373A14007CE627 /* TTPulseSub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTPulseSub.h; path = includes/TTPulseSub.h; sourceTree = "<group>"; };
+		A752BBCC16373A14007CE627 /* TTThru.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTThru.h; path = includes/TTThru.h; sourceTree = "<group>"; };
+		A752BBCD16373A14007CE627 /* TTWaveshaper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTWaveshaper.h; path = includes/TTWaveshaper.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2AD78881169CFD1C00604D7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2A23AEDF169D1AA1004793F5 /* fft */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AEE0169D1AA1004793F5 /* fft4g.cpp */,
+				2A23AEE1169D1AA1004793F5 /* fft4g_h.cpp */,
+				2A23AEE2169D1AA1004793F5 /* fft8g.cpp */,
+				2A23AEE3169D1AA1004793F5 /* fft8g_h.c */,
+				2A23AEE4169D1AA1004793F5 /* fftsg.cpp */,
+				2A23AEE5169D1AA1004793F5 /* fftsg_h.c */,
+				2A23AEE6169D1AA1004793F5 /* readme.txt */,
+				2A23AEE7169D1AA1004793F5 /* sample1 */,
+				2A23AEEB169D1AA1004793F5 /* sample2 */,
+			);
+			path = fft;
+			sourceTree = "<group>";
+		};
+		2A23AEE7169D1AA1004793F5 /* sample1 */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AEE8169D1AA1004793F5 /* Makefile */,
+				2A23AEE9169D1AA1004793F5 /* testxg.c */,
+				2A23AEEA169D1AA1004793F5 /* testxg_h.c */,
+			);
+			path = sample1;
+			sourceTree = "<group>";
+		};
+		2A23AEEB169D1AA1004793F5 /* sample2 */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AEEC169D1AA1004793F5 /* Makefile */,
+				2A23AEED169D1AA1004793F5 /* Makefile.pth */,
+				2A23AEEE169D1AA1004793F5 /* pi_fft.c */,
+			);
+			path = sample2;
+			sourceTree = "<group>";
+		};
+		2A23AEEF169D1AA1004793F5 /* fft2d */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AEF0169D1AA1004793F5 /* alloc.cpp */,
+				2A23AEF1169D1AA1004793F5 /* alloc.h */,
+				2A23AEF2169D1AA1004793F5 /* fft4f2d.cpp */,
+				2A23AEF3169D1AA1004793F5 /* fftsg.cpp */,
+				2A23AEF4169D1AA1004793F5 /* fftsg2d.cpp */,
+				2A23AEF5169D1AA1004793F5 /* fftsg3d.cpp */,
+				2A23AEF6169D1AA1004793F5 /* readme2d.txt */,
+				2A23AEF7169D1AA1004793F5 /* sample2d */,
+				2A23AEFF169D1AA1004793F5 /* shrtdct.cpp */,
+			);
+			path = fft2d;
+			sourceTree = "<group>";
+		};
+		2A23AEF7169D1AA1004793F5 /* sample2d */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AEF8169D1AA1004793F5 /* alloc.h */,
+				2A23AEF9169D1AA1004793F5 /* fft4f2dt.c */,
+				2A23AEFA169D1AA1004793F5 /* fftsg2dt.c */,
+				2A23AEFB169D1AA1004793F5 /* fftsg3dt.c */,
+				2A23AEFC169D1AA1004793F5 /* Makefile */,
+				2A23AEFD169D1AA1004793F5 /* Makefile.pth */,
+				2A23AEFE169D1AA1004793F5 /* shrtdctt.c */,
+			);
+			path = sample2d;
+			sourceTree = "<group>";
+		};
+		2A23AF01169D1AA1004793F5 /* FFTLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF02169D1AA1004793F5 /* EffectsLibIOS-Prefix.pch */,
+				2A23AF03169D1AA1004793F5 /* EffectsLibIOS.h */,
+				2A23AF04169D1AA1004793F5 /* EffectsLibIOS.m */,
+			);
+			path = FFTLibIOS;
+			sourceTree = "<group>";
+		};
+		2A23AF05169D1AA1004793F5 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF06169D1AA1004793F5 /* TTFFT.h */,
+			);
+			path = includes;
+			sourceTree = "<group>";
+		};
+		2A23AF07169D1AA1004793F5 /* mayer */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF08169D1AA1004793F5 /* mayer_fft.cpp */,
+				2A23AF09169D1AA1004793F5 /* mayer_fft.h */,
+			);
+			path = mayer;
+			sourceTree = "<group>";
+		};
+		2A23AF0A169D1AA1004793F5 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF0B169D1AA1004793F5 /* TTFFT.cpp */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		2AD78885169CFD1C00604D7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78884169CFD1C00604D7C /* libFFTLibIOSIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD78886169CFD1C00604D7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78887169CFD1C00604D7C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2AD78889169CFD1C00604D7C /* EffectsLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF26169D1B3F004793F5 /* FFTLibIOS.h */,
+				2A23AF27169D1B3F004793F5 /* FFTLibIOS.m */,
+				2AD7888A169CFD1C00604D7C /* Supporting Files */,
+			);
+			path = EffectsLibIOS;
+			sourceTree = "<group>";
+		};
+		2AD7888A169CFD1C00604D7C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF29169D1B49004793F5 /* FFTLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A738FF4E163739D100BD5C89 = {
+			isa = PBXGroup;
+			children = (
+				2A23AEDF169D1AA1004793F5 /* fft */,
+				2A23AEEF169D1AA1004793F5 /* fft2d */,
+				2A23AF00169D1AA1004793F5 /* FFTLib.cpp */,
+				2A23AF01169D1AA1004793F5 /* FFTLibIOS */,
+				2A23AF05169D1AA1004793F5 /* includes */,
+				2A23AF07169D1AA1004793F5 /* mayer */,
+				2A23AF0A169D1AA1004793F5 /* source */,
+				A752BBCF16373A19007CE627 /* includes */,
+				2AD78889169CFD1C00604D7C /* EffectsLibIOS */,
+				2AD78886169CFD1C00604D7C /* Frameworks */,
+				2AD78885169CFD1C00604D7C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A752BBCF16373A19007CE627 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				A752BBC516373A14007CE627 /* TTBalance.h */,
+				A752BBC616373A14007CE627 /* TTDegrade.h */,
+				A752BBC716373A14007CE627 /* TTGain.h */,
+				A752BBC816373A14007CE627 /* TTLimiter.h */,
+				A752BBC916373A14007CE627 /* TTOverdrive.h */,
+				A752BBCA16373A14007CE627 /* TTPanorama.h */,
+				A752BBCB16373A14007CE627 /* TTPulseSub.h */,
+				A752BBCC16373A14007CE627 /* TTThru.h */,
+				A752BBCD16373A14007CE627 /* TTWaveshaper.h */,
+			);
+			name = includes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2AD78883169CFD1C00604D7C /* FFTLibIOSIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD78892169CFD1C00604D7C /* Build configuration list for PBXNativeTarget "FFTLibIOSIOS" */;
+			buildPhases = (
+				2AD78880169CFD1C00604D7C /* Sources */,
+				2AD78881169CFD1C00604D7C /* Frameworks */,
+				2AD78882169CFD1C00604D7C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FFTLibIOSIOS;
+			productName = EffectsLibIOS;
+			productReference = 2AD78884169CFD1C00604D7C /* libFFTLibIOSIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A738FF50163739D100BD5C89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = org.jamoma;
+			};
+			buildConfigurationList = A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "FFTLibIOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A738FF4E163739D100BD5C89;
+			productRefGroup = 2AD78885169CFD1C00604D7C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2AD78883169CFD1C00604D7C /* FFTLibIOSIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AD78880169CFD1C00604D7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AF0C169D1AA1004793F5 /* fft4g.cpp in Sources */,
+				2A23AF0D169D1AA1004793F5 /* fft4g_h.cpp in Sources */,
+				2A23AF0E169D1AA1004793F5 /* fft8g.cpp in Sources */,
+				2A23AF0F169D1AA1004793F5 /* fft8g_h.c in Sources */,
+				2A23AF10169D1AA1004793F5 /* fftsg.cpp in Sources */,
+				2A23AF11169D1AA1004793F5 /* fftsg_h.c in Sources */,
+				2A23AF12169D1AA1004793F5 /* Makefile in Sources */,
+				2A23AF13169D1AA1004793F5 /* testxg.c in Sources */,
+				2A23AF14169D1AA1004793F5 /* testxg_h.c in Sources */,
+				2A23AF15169D1AA1004793F5 /* Makefile in Sources */,
+				2A23AF16169D1AA1004793F5 /* pi_fft.c in Sources */,
+				2A23AF17169D1AA1004793F5 /* alloc.cpp in Sources */,
+				2A23AF18169D1AA1004793F5 /* fft4f2d.cpp in Sources */,
+				2A23AF19169D1AA1004793F5 /* fftsg.cpp in Sources */,
+				2A23AF1A169D1AA1004793F5 /* fftsg2d.cpp in Sources */,
+				2A23AF1B169D1AA1004793F5 /* fftsg3d.cpp in Sources */,
+				2A23AF1C169D1AA1004793F5 /* fft4f2dt.c in Sources */,
+				2A23AF1D169D1AA1004793F5 /* fftsg2dt.c in Sources */,
+				2A23AF1E169D1AA1004793F5 /* fftsg3dt.c in Sources */,
+				2A23AF1F169D1AA1004793F5 /* Makefile in Sources */,
+				2A23AF20169D1AA1004793F5 /* shrtdctt.c in Sources */,
+				2A23AF21169D1AA1004793F5 /* shrtdct.cpp in Sources */,
+				2A23AF22169D1AA1004793F5 /* FFTLib.cpp in Sources */,
+				2A23AF24169D1AA1004793F5 /* mayer_fft.cpp in Sources */,
+				2A23AF25169D1AA1004793F5 /* TTFFT.cpp in Sources */,
+				2A23AF28169D1B3F004793F5 /* FFTLibIOS.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2AD78890169CFD1C00604D7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FFTLibIOS/FFTLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = FFTLibIOSIOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2AD78891169CFD1C00604D7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FFTLibIOS/FFTLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = FFTLibIOSIOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A738FF56163739D100BD5C89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A738FF57163739D100BD5C89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2AD78892169CFD1C00604D7C /* Build configuration list for PBXNativeTarget "FFTLibIOSIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD78890169CFD1C00604D7C /* Debug */,
+				2AD78891169CFD1C00604D7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "FFTLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A738FF56163739D100BD5C89 /* Debug */,
+				A738FF57163739D100BD5C89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A738FF50163739D100BD5C89 /* Project object */;
+}

@@ -1,0 +1,257 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A23AF2F169D1C01004793F5 /* Crossfade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF2E169D1C01004793F5 /* Crossfade.cpp */; };
+		2A23AF34169D1C0A004793F5 /* CrossfadeIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF33169D1C0A004793F5 /* CrossfadeIOS.m */; };
+		2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD78887169CFD1C00604D7C /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2AD78882169CFD1C00604D7C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2A23AF2E169D1C01004793F5 /* Crossfade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Crossfade.cpp; sourceTree = "<group>"; };
+		2A23AF31169D1C0A004793F5 /* CrossfadeIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CrossfadeIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AF32169D1C0A004793F5 /* CrossfadeIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrossfadeIOS.h; sourceTree = "<group>"; };
+		2A23AF33169D1C0A004793F5 /* CrossfadeIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrossfadeIOS.m; sourceTree = "<group>"; };
+		2AD78884169CFD1C00604D7C /* libCrossfadeIOSIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCrossfadeIOSIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD78887169CFD1C00604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2AD78881169CFD1C00604D7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2A23AF30169D1C0A004793F5 /* CrossfadeIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF31169D1C0A004793F5 /* CrossfadeIOS-Prefix.pch */,
+				2A23AF32169D1C0A004793F5 /* CrossfadeIOS.h */,
+				2A23AF33169D1C0A004793F5 /* CrossfadeIOS.m */,
+			);
+			path = CrossfadeIOS;
+			sourceTree = "<group>";
+		};
+		2AD78885169CFD1C00604D7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78884169CFD1C00604D7C /* libCrossfadeIOSIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD78886169CFD1C00604D7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78887169CFD1C00604D7C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A738FF4E163739D100BD5C89 = {
+			isa = PBXGroup;
+			children = (
+				2A23AF30169D1C0A004793F5 /* CrossfadeIOS */,
+				2A23AF2E169D1C01004793F5 /* Crossfade.cpp */,
+				2AD78886169CFD1C00604D7C /* Frameworks */,
+				2AD78885169CFD1C00604D7C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2AD78883169CFD1C00604D7C /* CrossfadeIOSIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD78892169CFD1C00604D7C /* Build configuration list for PBXNativeTarget "CrossfadeIOSIOS" */;
+			buildPhases = (
+				2AD78880169CFD1C00604D7C /* Sources */,
+				2AD78881169CFD1C00604D7C /* Frameworks */,
+				2AD78882169CFD1C00604D7C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CrossfadeIOSIOS;
+			productName = EffectsLibIOS;
+			productReference = 2AD78884169CFD1C00604D7C /* libCrossfadeIOSIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A738FF50163739D100BD5C89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = org.jamoma;
+			};
+			buildConfigurationList = A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "CrossfadeIOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A738FF4E163739D100BD5C89;
+			productRefGroup = 2AD78885169CFD1C00604D7C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2AD78883169CFD1C00604D7C /* CrossfadeIOSIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AD78880169CFD1C00604D7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AF2F169D1C01004793F5 /* Crossfade.cpp in Sources */,
+				2A23AF34169D1C0A004793F5 /* CrossfadeIOS.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2AD78890169CFD1C00604D7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CrossfadeIOS/CrossfadeIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = CrossfadeIOSIOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2AD78891169CFD1C00604D7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CrossfadeIOS/CrossfadeIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = CrossfadeIOSIOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A738FF56163739D100BD5C89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A738FF57163739D100BD5C89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2AD78892169CFD1C00604D7C /* Build configuration list for PBXNativeTarget "CrossfadeIOSIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD78890169CFD1C00604D7C /* Debug */,
+				2AD78891169CFD1C00604D7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "CrossfadeIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A738FF56163739D100BD5C89 /* Debug */,
+				A738FF57163739D100BD5C89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A738FF50163739D100BD5C89 /* Project object */;
+}

@@ -1054,7 +1054,7 @@ void copy_msg_argc_argv(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTBoolean	copyMsg = false;
-	TTUInt8		i;
+	TTUInt32	i;
 	
 	if (msg != _sym_nothing && msg != _sym_int && msg != _sym_float && msg != _sym_symbol && msg != _sym_list)
 		copyMsg = true;

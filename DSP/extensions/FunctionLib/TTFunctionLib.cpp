@@ -12,6 +12,7 @@
 #include "TTCrossFadeInFunction.h"
 #include "TTCrossFadeOutFunction.h"
 #include "TTExpFunction.h"
+#include "TTFreeHandFunction.h"
 #include "TTLinearFunction.h"
 #include "TTLogFunction.h"
 #include "TTLowpassFunction.h"
@@ -27,9 +28,10 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_FunctionLib(void)
 	TTDSPInit();
 
 	TTCosineFunction::registerClass();
-	TTExpFunction::registerClass();
 	TTCrossFadeInFunction::registerClass();
 	TTCrossFadeOutFunction::registerClass();
+    TTExpFunction::registerClass();
+    TTFreeHandFunction::registerClass();
 	TTLinearFunction::registerClass();
 	TTLogFunction::registerClass();
 	TTLowpassFunction::registerClass();

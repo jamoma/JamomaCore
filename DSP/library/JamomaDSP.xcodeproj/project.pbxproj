@@ -6,6 +6,34 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23B0DF169D5445004793F5 /* TTAudioObjectArray.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76CD1CB166479BD0002EC35 /* TTAudioObjectArray.test.cpp */; };
+		2A23B0E0169D5445004793F5 /* TTBuffer.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7E15EC21D100B755FA /* TTBuffer.test.cpp */; };
+		2A23B0E1169D5445004793F5 /* TTDelay.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7F15EC21D100B755FA /* TTDelay.test.cpp */; };
+		2A23B0E2169D5445004793F5 /* TTSampleMatrix.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C8015EC21D100B755FA /* TTSampleMatrix.test.cpp */; };
+		2A42393C169CF22B002D05D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A42393B169CF22B002D05D9 /* Foundation.framework */; };
+		2A423949169CF24F002D05D9 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7615EC21C600B755FA /* TTAudioObject.cpp */; };
+		2A42394A169CF24F002D05D9 /* TTAudioObjectArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7715EC21C600B755FA /* TTAudioObjectArray.cpp */; };
+		2A42394B169CF24F002D05D9 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7815EC21C600B755FA /* TTAudioSignal.cpp */; };
+		2A42394C169CF24F002D05D9 /* TTAudioSignalArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7915EC21C600B755FA /* TTAudioSignalArray.cpp */; };
+		2A42394D169CF24F002D05D9 /* TTBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7A15EC21C600B755FA /* TTBuffer.cpp */; };
+		2A42394E169CF24F002D05D9 /* TTDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7B15EC21C600B755FA /* TTDelay.cpp */; };
+		2A42394F169CF24F002D05D9 /* TTDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7C15EC21C600B755FA /* TTDSP.cpp */; };
+		2A423950169CF24F002D05D9 /* TTSampleMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7D15EC21C600B755FA /* TTSampleMatrix.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2A423936169CF22B002D05D9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		22C57C6815EC21B200B755FA /* TTAudioEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioEngine.h; path = includes/TTAudioEngine.h; sourceTree = "<group>"; };
 		22C57C6915EC21B200B755FA /* TTAudioObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = includes/TTAudioObject.h; sourceTree = "<group>"; };
@@ -83,11 +111,24 @@
 		22C57CBD15EC2A4400B755FA /* TTUnitTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTUnitTest.cpp; path = ../../Foundation/library/source/TTUnitTest.cpp; sourceTree = "<group>"; };
 		22C57CBE15EC2A4400B755FA /* TTValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = ../../Foundation/library/source/TTValue.cpp; sourceTree = "<group>"; };
 		22C57CBF15EC2A4400B755FA /* TTValueCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = ../../Foundation/library/source/TTValueCache.cpp; sourceTree = "<group>"; };
+		2A423938169CF22B002D05D9 /* libDSPiOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDSPiOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A42393B169CF22B002D05D9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A76CD1CB166479BD0002EC35 /* TTAudioObjectArray.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObjectArray.test.cpp; path = tests/TTAudioObjectArray.test.cpp; sourceTree = "<group>"; };
 		A76CD1CD166479F20002EC35 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		A79EEBE11653E09100E9B742 /* JamomaDSP.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaDSP.yml; sourceTree = "<group>"; };
 		A79EEBE21653E0AA00E9B742 /* TTBluePrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTBluePrefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2A423935169CF22B002D05D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A42393C169CF22B002D05D9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		22C57C5815EC1D9D00B755FA = {
@@ -98,6 +139,8 @@
 				A79EEBE21653E0AA00E9B742 /* TTBluePrefix.pch */,
 				22C57C8615EC2A1100B755FA /* Foundation */,
 				22C57C8515EC29FF00B755FA /* DSP */,
+				2A42393A169CF22B002D05D9 /* Frameworks */,
+				2A423939169CF22B002D05D9 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -172,6 +215,22 @@
 			name = Foundation;
 			sourceTree = "<group>";
 		};
+		2A423939169CF22B002D05D9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A423938169CF22B002D05D9 /* libDSPiOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A42393A169CF22B002D05D9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A42393B169CF22B002D05D9 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A752BBE016373BA1007CE627 /* includes */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +294,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2A423937169CF22B002D05D9 /* DSPiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A423946169CF22B002D05D9 /* Build configuration list for PBXNativeTarget "DSPiOS" */;
+			buildPhases = (
+				2A423934169CF22B002D05D9 /* Sources */,
+				2A423935169CF22B002D05D9 /* Frameworks */,
+				2A423936169CF22B002D05D9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DSPiOS;
+			productName = DSPiOS;
+			productReference = 2A423938169CF22B002D05D9 /* libDSPiOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		22C57C5A15EC1D9D00B755FA /* Project object */ = {
 			isa = PBXProject;
@@ -250,13 +329,37 @@
 				en,
 			);
 			mainGroup = 22C57C5815EC1D9D00B755FA;
+			productRefGroup = 2A423939169CF22B002D05D9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				22C57C5F15EC1D9D00B755FA /* JamomaDSP */,
+				2A423937169CF22B002D05D9 /* DSPiOS */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2A423934169CF22B002D05D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A423949169CF24F002D05D9 /* TTAudioObject.cpp in Sources */,
+				2A42394A169CF24F002D05D9 /* TTAudioObjectArray.cpp in Sources */,
+				2A42394B169CF24F002D05D9 /* TTAudioSignal.cpp in Sources */,
+				2A42394C169CF24F002D05D9 /* TTAudioSignalArray.cpp in Sources */,
+				2A42394D169CF24F002D05D9 /* TTBuffer.cpp in Sources */,
+				2A42394E169CF24F002D05D9 /* TTDelay.cpp in Sources */,
+				2A42394F169CF24F002D05D9 /* TTDSP.cpp in Sources */,
+				2A423950169CF24F002D05D9 /* TTSampleMatrix.cpp in Sources */,
+				2A23B0DF169D5445004793F5 /* TTAudioObjectArray.test.cpp in Sources */,
+				2A23B0E0169D5445004793F5 /* TTBuffer.test.cpp in Sources */,
+				2A23B0E1169D5445004793F5 /* TTDelay.test.cpp in Sources */,
+				2A23B0E2169D5445004793F5 /* TTSampleMatrix.test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		22C57C6015EC1D9D00B755FA /* Debug */ = {
@@ -329,6 +432,57 @@
 			};
 			name = Release;
 		};
+		2A423944169CF22B002D05D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DSPiOS/DSPiOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					includes,
+					../../Foundation/library/includes,
+				);
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2A423945169CF22B002D05D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DSPiOS/DSPiOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					includes,
+					../../Foundation/library/includes,
+				);
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -346,6 +500,15 @@
 			buildConfigurations = (
 				22C57C6315EC1D9D00B755FA /* Debug */,
 				22C57C6415EC1D9D00B755FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2A423946169CF22B002D05D9 /* Build configuration list for PBXNativeTarget "DSPiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A423944169CF22B002D05D9 /* Debug */,
+				2A423945169CF22B002D05D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

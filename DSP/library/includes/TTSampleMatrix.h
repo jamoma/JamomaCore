@@ -25,6 +25,16 @@
 #define mLengthInSamples mRowCount
 #define mNumChannels mColumnCount
 
+/** @enum bufferPoolStages
+	@brief Defines the stages used when TTSampleMartix is part of a pool available in TTBuffer
+*/
+enum TTBufferPoolStageEnum {
+	kSM_Idle = 0,			///< not currently in use
+	kSM_BecomingActive,		///< being prepared for active stage by resizing or file loading operation
+	kSM_Active,				///< in use and pointer to this TTSampleMatrix will be given to users at check out
+	kSM_BecomingIdle		///< no longer active, but waiting for remaining users to check in
+};
+
 /**	Container object that holds some audio in a chunk of memory.
 
 SampleMatrix extends the Matrix class found in Foundation to provide support for loading audio into a chunk of memory. Each sample value is stored as a one-element component with a datatype of 64-bit Float. Locations for individual components in the matrix can be identified by (sample, channel) pairs where samples correspond to rows in the matrix and channels translate to columns. 
@@ -36,8 +46,10 @@ class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 
 protected:
 
-	TTFloat64			mSampleRate;
-	// NOTE: This object does not process audio by itself, but inherits from TTAudioObjectBase for sample-rate support.
+	TTFloat64				mSampleRate;
+	TTUInt16				mUserCount;		///< how many objects out there are currently using this TTSampleMatrix 
+ 	TTBufferPoolStageEnum	mBufferPoolStage;
+	// NOTE: This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
 	// TODO: Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
 	
 public:
@@ -59,6 +71,53 @@ public:
   	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)
 	{
 		returnedLengthInSamples = mLengthInSamples;
+		return kTTErrNone;
+	}
+	
+	/** Increase the user count by one. 
+		The userCount member is used to track usage of an individual TTSampleMatrix.  When another object makes use of a specific matrix, the code should use this method to increase the user counter prior to the start of use.
+		@return 	TTErr		always returns kTTErrNone
+		@seealso 	decrementUserCount
+	*/
+	TTErr incrementUserCount();
+
+	/** Decrease the user count by one. 
+		The userCount member is used to track usage of an individual TTSampleMatrix.  When another object makes use of a specific matrix, the code should use this method to decrease the reference counter at the conclusion of use.
+		@return 	TTErr		returns kTTErrGeneric if UserCount is already 0, else kTTErrNone
+		@seealso 	incrementUserCount
+	*/
+	TTErr decrementUserCount();
+	
+	/** Report the current user count. 
+		The userCount member is used to track usage of an individual TTSampleMatrix.  
+		@return 	TTUInt16		returns current UserCount is already 0, else kTTErrNone
+		@seealso 	incrementUserCount
+	*/
+	TTUInt16 getUserCount()
+	{
+		return mUserCount;
+	}
+	
+	/** Test to see if current bufferPoolStage matches a test value. 
+		The bufferPoolStage member is used when TTSampleMartix is part of a pool available in TTBuffer.  This methods allows you to check the current stage against a test value. It is useful in setting up conditional statements.
+		@param		test_value		any option defined in the bufferPoolStageEnum
+		@return 	TTBoolean		returns true if the they match, false if they do not
+		@seealso 	bufferPoolStageEnum, setBufferPoolStage
+	*/
+	TTBoolean isBufferPoolStage(TTBufferPoolStageEnum testValue)
+	{
+		return { testValue == this->mBufferPoolStage };
+	}
+	
+	/** Set the current bufferPoolStage to a new value. 
+		The bufferPoolStage member is used when TTSampleMartix is part of a pool available in TTBuffer.  This methods allows you to set the current stage with a new value. 
+		@param		test_value		any option defined in the bufferPoolStageEnum
+		@return 	TTErr			always returns kTTErrNone
+		@seealso 	bufferPoolStageEnum, isBufferPoolStage
+	*/
+	TTErr setBufferPoolStage(TTBufferPoolStageEnum newValue)
+	{
+		this->mBufferPoolStage = newValue;
 		return kTTErrNone;
 	}
 

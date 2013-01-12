@@ -20,7 +20,7 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTFloat32			duration = 1500;
 	TTInt32				test9Index = 10;
 	TTInt32				test10Index = 11;
-	TTInt32				test1Return, test2Return, test7Return, test8Return;
+	TTInt32				test1Return, test2Return, test7Return;
 	TTFloat32			test3Return, test6Return;
 	TTSampleValue		test9Return, test10Return, test11Return, test12return, test13return;
 	
@@ -255,8 +255,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
 	TTInt32 computedIndex14 = test7Return; // should be latest size in samples
 	TTInt32 computedIndex15 = test7Return - 1; // the tail is actually one less
-	TTErr test14Err = this->poke(computedIndex12, 0, test12return);
-	TTErr test15Err = this->poke(computedIndex13, 0, test13return);
+	TTErr test14Err = this->poke(computedIndex14, 0, test12return);
+	TTErr test15Err = this->poke(computedIndex15, 0, test13return);
 	
 	TTBoolean result14 = { test14Err == kTTErrOutOfBounds };
 	TTBoolean result15 = { test15Err == kTTErrNone };
@@ -282,6 +282,78 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", kTTErrNone, test15Err);
 	}
 	
+	
+	// TEST 16 & 17: incrementing & decrementing userCount
+	
+	TTUInt16 test16expect = 4;
+	TTUInt16 test17expect = 2;
+	
+	this->incrementUserCount();
+	this->incrementUserCount();
+	this->incrementUserCount();
+	this->incrementUserCount();
+	TTUInt16 test16return = this->mUserCount;
+	
+	this->decrementUserCount();
+	this->decrementUserCount();
+	TTUInt16 test17return = this->mUserCount;
+	
+	TTBoolean result16 = { test16expect == test16return };
+	TTBoolean result17 = { test17expect == test17return };
+	
+	TTTestAssertion("incrementing userCount produces expected results", 
+								result16, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result16)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test16expect, test16return);
+	}
+	
+	
+	TTTestAssertion("decrementing userCount produces expected results", 
+								result17, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result17)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test17expect, test17return);
+	}
+	
+	// TEST 18 & 19: setting & testing bufferPoolStage
+	
+	TTBoolean test18expect = true;
+	TTBoolean test19expect = false;
+	
+	this->setBufferPoolStage(kSM_Active);
+	TTBoolean test18return = this->isBufferPoolStage(kSM_Active);
+	TTBoolean test19return = this->isBufferPoolStage(kSM_BecomingIdle);
+	
+	TTBoolean result18 = { test18expect == test18return };
+	TTBoolean result19 = { test19expect == test19return };
+	
+	TTTestAssertion("reports bufferPoolStage as active", 
+								result18, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result18)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test18expect, test18return);
+	}
+	
+	
+	TTTestAssertion("reports bufferPoolStage as NOT becoming idle", 
+								result19, 
+								testAssertionCount,
+								errorCount);													
+	
+	if(!result19)
+	{
+		TTTestLog("Expected a value of %i, but returned value was %i", test19expect, test19return);
+	}
 	
 	/*
 	

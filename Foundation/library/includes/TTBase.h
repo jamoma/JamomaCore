@@ -18,6 +18,29 @@
 
 // Platform Sniffing
 // Ideally the platform would already be set with a -D option to gcc...
+
+#if defined( __APPLE__ )
+// TARGET_OS_IPHONE is defined on the mac as 0, so use if, not ifdef below
+	#include "TargetConditionals.h"
+
+	#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+		#ifndef TT_PLATFORM_IOS
+			#define TT_PLATFORM_IOS
+		#endif
+	#else // TARGET_OS_MAC
+		#ifndef TT_PLATFORM_MAC
+			#define TT_PLATFORM_MAC
+		#endif
+	#endif
+// win64 must come before win32
+#elif defined ( _WIN64 )
+	#define TT_PLATFORM_WIN
+#elif _WIN32
+	#define TT_PLATFORM_WIN
+#elif __linux
+	#define TT_PLATFORM_LINUX
+#endif
+
 #ifndef TT_PLATFORM_LINUX
 	#ifndef TT_PLATFORM_IOS
 		#ifndef TT_PLATFORM_WIN

@@ -23,6 +23,7 @@
 		22FCC58B16089AB300D77C6D /* TTSymbol.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbol.test.cpp; path = tests/TTSymbol.test.cpp; sourceTree = "<group>"; };
 		22FCC58C16089AB300D77C6D /* TTSymbol.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSymbol.test.h; path = tests/TTSymbol.test.h; sourceTree = "<group>"; };
 		22FCC5B21609170A00D77C6D /* TTSymbolBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSymbolBase.h; path = includes/TTSymbolBase.h; sourceTree = "<group>"; };
+		2A42395B169CF3BC002D05D9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A74EAA491666353D004E1097 /* TTInterpolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTInterpolate.h; sourceTree = "<group>"; };
 		A74EAA4B16665778004E1097 /* TTInterpolate.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTInterpolate.test.cpp; sourceTree = "<group>"; };
 		A74EAA5516665CD9004E1097 /* TTInterpolate.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTInterpolate.test.h; sourceTree = "<group>"; };
@@ -110,6 +111,8 @@
 				D2F0974A14A0D70100EC0396 /* includes */,
 				D2F0976C14A0D70F00EC0396 /* source */,
 				D2F097E914A0E03400EC0396 /* tests */,
+				2A42395A169CF3BC002D05D9 /* Frameworks */,
+				2A423959169CF3BC002D05D9 /* Products */,
 			);
 			name = JamomaFoundation;
 			sourceTree = "<group>";
@@ -142,6 +145,21 @@
 				D2F0976714A0D70100EC0396 /* TTSymbolTable.h */,
 			);
 			name = "Strings & Symbols";
+			sourceTree = "<group>";
+		};
+		2A423959169CF3BC002D05D9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A42395A169CF3BC002D05D9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A42395B169CF3BC002D05D9 /* Foundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D2333F201580D88200D5CBAF /* TTNodeLib */ = {
@@ -280,6 +298,7 @@
 				German,
 			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* JamomaFoundation */;
+			productRefGroup = 2A423959169CF3BC002D05D9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (

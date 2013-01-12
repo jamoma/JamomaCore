@@ -1,9 +1,18 @@
-/*
- * Jamoma DSP Wavetable Oscillator
- * Copyright © 2003, Timothy Place
+/** @file
  *
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html
+ * @ingroup dspGeneratorLib
+ *
+ * @brief GeneratorLib: Generate a basic, cycling waveform using a wavetable.
+ *
+ * @details Wavetable is currently limited to using an internal buffer for managing its waveshape.  Shape options include sine, triangle and sawtooth.
+ *
+ * @see TTBuffer, TTSampleMatrix, TTMatrix, TTAudioSignal
+ *
+ * @authors Tim Place, Nathan Wolek
+ *
+ * @copyright Copyright © 2003-2013 by Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
 
 #include "TTWavetable.h"
@@ -16,6 +25,7 @@
 TT_AUDIO_CONSTRUCTOR,
 	mIndex(0.0),
 	mIndexDelta(0.0),
+	mBuffer(NULL),
 	mWavetable(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
@@ -28,30 +38,31 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addUpdates(SampleRate);
 
-	TTObjectBaseInstantiate(TT("buffer"), (TTObjectBasePtr*)&mWavetable, kTTValNONE);
-	if (!mWavetable)
+	TTObjectBaseInstantiate("buffer", (TTObjectBasePtr*)&mBuffer, kTTValNONE);
+	if (!mBuffer)
 		throw TTException("Could not create internal buffer object");
-	mWavetable->setNumChannels(TTUInt32(1));
+	mBuffer->setNumChannels(TTUInt32(1));
+	mBuffer->checkOutMatrix(mWavetable);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	initialMaxNumChannels);
-	setAttributeValue(TT("size"), 8192);
-	setAttributeValue(TT("mode"), kTTSym_sine);
-	setAttributeValue(TT("frequency"), 440.0);
-	setAttributeValue(TT("gain"), 0.0);			// 0 dB
-	setAttributeValue(TT("interpolation"), TT("linear"));
+	setAttributeValue("maxNumChannels",	initialMaxNumChannels);
+	setAttributeValue("size", 8192);
+	setAttributeValue("mode", kTTSym_sine);
+	setAttributeValue("frequency", 440.0);
+	setAttributeValue("gain", 0.0);			// 0 dB
+	setAttributeValue("interpolation", "linear");
 }
 
 
 TTWavetable::~TTWavetable()
 {
-	TTObjectBaseRelease((TTObjectBase**)&mWavetable);
+	TTObjectRelease((TTObjectBase**)&mBuffer);
 }
 
 
 TTErr TTWavetable::updateSampleRate(const TTValue&, TTValue&)
 {
-	setAttributeValue(TT("frequency"), mFrequency);
+	setAttributeValue("frequency", mFrequency);
 	return kTTErrNone;
 }
 
@@ -68,8 +79,8 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 {
 	mMode = newValue;	// TODO: should be newValue[0]
 
-	if (mMode != TT("externalBuffer"))
-		return mWavetable->fill(newValue, kTTValNONE);
+	if (mMode != "externalBuffer")
+		return mBuffer->fill(newValue, kTTValNONE);
 	else {
 		// TODO: implement the ability to use an externally defined buffer
 		return kTTErrInvalidValue;
@@ -80,9 +91,9 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 TTErr TTWavetable::setInterpolation(const TTValue& newValue)
 {
 	mMode = newValue;
-	if (mMode == TT("linear"))
+	if (mMode == "linear")
 		setProcessMethod(processWithLinearInterpolation);
-	else if (mMode == TT("lfo"))
+	else if (mMode == "lfo")
 		setProcessMethod(processAsLFO);
 	else
 		setProcessMethod(processWithNoInterpolation);
@@ -101,7 +112,7 @@ TTErr TTWavetable::setGain(const TTValue& newValue)
 TTErr TTWavetable::setSize(const TTValue& newSize)
 {
 	mSize = newSize;
-	mWavetable->setLengthInSamples(mSize);
+	mBuffer->setLengthInSamples(mSize);
 	return setFrequency(mFrequency); // touch the frequency so that the step size is updated
 }
 
@@ -110,34 +121,33 @@ TTErr TTWavetable::setSize(const TTValue& newSize)
 // LFO mode cannot be modulated
 TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue	tempSample;
-	TTUInt16		vs = out.getVectorSizeAsInt();
-	TTUInt16		i=0;
-	TTUInt16		numChannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
-	TTUInt32		p1 = (TTUInt32)mIndex;						// playback index
-	TTSampleValue*	contents = NULL;
-	TTUInt32		bufferChannelCount;
-	
-	mWavetable->getContents(contents);
-	mWavetable->lengthInSamples(bufferChannelCount);
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTSampleValue		tempSample;
+	TTUInt16			vs = out.getVectorSizeAsInt();
+	TTUInt16			i=0;
+	TTUInt16			numChannels = out.getNumChannelsAsInt();
+	TTUInt16			channel;
+	TTUInt64			p1 = (TTUInt64)mIndex;						// playback index
 	
 	// Move the play head
 	mIndex += (mIndexDelta * vs);
 	
 	// Wrap the play head
 	if (mIndex >= mSize)
+	{
 		mIndex -= mSize;
-	else if (mIndex < 0)
+		mBuffer->checkInMatrix(mWavetable);
+		mBuffer->checkOutMatrix(mWavetable);
+	} else if (mIndex < 0) {
 		mIndex += mSize;
+		mBuffer->checkInMatrix(mWavetable);
+		mBuffer->checkOutMatrix(mWavetable);
+	}
 	
 	// table lookup (no interpolation)
-	// bufferChannelCount is used as the stride
-	// thus, if the buffer is mono then we are simply indexing directly, but
-	// if the buffer is stereo, then we look at every other sample because the samples are interleaved
-	// CURRENTLY: this means this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
-	tempSample = contents[p1*bufferChannelCount] * mLinearGain;
+	// CURRENTLY: this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
+	mWavetable->peek(p1,0,tempSample);
+	tempSample *= mLinearGain;
 	
 	// TODO: in TTBlue 0.2.x this code only assigned the first sample value to save cpu -- should we bring this back as an option?
 	while (vs--) {
@@ -145,6 +155,7 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
+	
 	return kTTErrNone;
 }
 
@@ -160,11 +171,6 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	TTUInt16			numChannels = out.getNumChannelsAsInt();
 	TTUInt16			channel;
 	TTBoolean			hasModulation = true;
-	TTSampleValuePtr	contents = NULL;
-	TTUInt32			bufferChannelCount;
-	
-	mWavetable->getContents(contents);
-	mWavetable->lengthInSamples(bufferChannelCount);
 	
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
@@ -175,7 +181,7 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 		inSample = in->mSampleVectors[0];
 	}
 	while (vs--) {
-		TTUInt32	p1 = (TTUInt32)mIndex;	// playback index
+		TTUInt64	p1 = (TTUInt64)mIndex;	// playback index
 
 		// TODO: all of this access of mIndex and mIndexDelta etc is really going to be dereference pointers in our struct/class
 		//		 This likely means that the values are not cached (or at least not cached together) in the processors registers
@@ -190,16 +196,25 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 
 		// Wrap the play head
 		if (mIndex >= mSize)
+		{
 			mIndex -= mSize;
-		else if (mIndex < 0)
+			mBuffer->checkInMatrix(mWavetable);
+			mBuffer->checkOutMatrix(mWavetable);
+		} else if (mIndex < 0) {
 			mIndex += mSize;
+			mBuffer->checkInMatrix(mWavetable);
+			mBuffer->checkOutMatrix(mWavetable);
+		}
 
 		// table lookup (no interpolation)
-		tempSample = contents[p1*bufferChannelCount] * mLinearGain;
+		// CURRENTLY: this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
+		mWavetable->peek(p1,0,tempSample);
+		tempSample *= mLinearGain;
 		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
+	
 	return kTTErrNone;
 }
 
@@ -207,21 +222,14 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignalPtr	in; // can't call getSignal if there is no signal! = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTSampleValue	*inSample = NULL;
-	TTSampleValue	tempSample;
-	TTUInt16		vs = out.getVectorSizeAsInt();
-	TTUInt16		i=0;
-	TTUInt16		numChannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
-	TTBoolean		hasModulation = true;
-	TTUInt32		p1, p2;									// two playback indices
-	TTFloat64		diff;
-	TTSampleValue*	contents = NULL;
-	TTUInt32		bufferChannelCount;
-	
-	mWavetable-> getContents(contents);
-	mWavetable->lengthInSamples(bufferChannelCount);
+	TTAudioSignal&		out = outputs->getSignal(0);
+	TTSampleValue		*inSample = NULL;
+	TTSampleValue		tempSample;
+	TTUInt16			vs = out.getVectorSizeAsInt();
+	TTUInt16			i=0;
+	TTUInt16			numChannels = out.getNumChannelsAsInt();
+	TTUInt16			channel;
+	TTBoolean			hasModulation = true;
 
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
@@ -241,20 +249,25 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 
 		// Wrap the play head
 		if (mIndex >= mSize)
+		{
 			mIndex -= mSize;
-		else if (mIndex < 0)
+			mBuffer->checkInMatrix(mWavetable);
+			mBuffer->checkOutMatrix(mWavetable);
+		} else if (mIndex < 0) {
 			mIndex += mSize;
+			mBuffer->checkInMatrix(mWavetable);
+			mBuffer->checkOutMatrix(mWavetable);
+		}
 
 		// table lookup (linear interpolation)
-		p1 = (TTUInt32)mIndex;
-		p2 = p1 + 1;
-		diff = mIndex - p1;
-		p2 &= (mSize - 1);	// fast modulo
-
-		tempSample = ((contents[p2*bufferChannelCount] * diff) + (contents[p1*bufferChannelCount] * (1.0 - diff))) * mLinearGain;
+		// CURRENTLY: this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
+		mWavetable->peek(mIndex,0,tempSample);
+		tempSample *= mLinearGain;
 		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
 		i++;
 	}
+	
+	//mWavetable = contents; // update the class variable
 	return kTTErrNone;
 }

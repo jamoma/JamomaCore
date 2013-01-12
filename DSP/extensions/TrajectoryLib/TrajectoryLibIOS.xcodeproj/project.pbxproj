@@ -1,0 +1,411 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A23AF86169D1DF9004793F5 /* Bean2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF69169D1DF9004793F5 /* Bean2D.cpp */; };
+		2A23AF87169D1DF9004793F5 /* Bspline2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF6A169D1DF9004793F5 /* Bspline2D.cpp */; };
+		2A23AF88169D1DF9004793F5 /* Butterfly2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF6B169D1DF9004793F5 /* Butterfly2D.cpp */; };
+		2A23AF89169D1DF9004793F5 /* Catmullrom3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF6C169D1DF9004793F5 /* Catmullrom3D.cpp */; };
+		2A23AF8A169D1DF9004793F5 /* Circular2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF6D169D1DF9004793F5 /* Circular2D.cpp */; };
+		2A23AF8B169D1DF9004793F5 /* CircularHelix3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF6E169D1DF9004793F5 /* CircularHelix3D.cpp */; };
+		2A23AF8C169D1DF9004793F5 /* Epitrochoid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF6F169D1DF9004793F5 /* Epitrochoid2D.cpp */; };
+		2A23AF8D169D1DF9004793F5 /* Gear2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF70169D1DF9004793F5 /* Gear2D.cpp */; };
+		2A23AF8E169D1DF9004793F5 /* Hypocycloid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF71169D1DF9004793F5 /* Hypocycloid2D.cpp */; };
+		2A23AF8F169D1DF9004793F5 /* Limacon2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF72169D1DF9004793F5 /* Limacon2D.cpp */; };
+		2A23AF90169D1DF9004793F5 /* Linear2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF73169D1DF9004793F5 /* Linear2D.cpp */; };
+		2A23AF91169D1DF9004793F5 /* Linear3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF74169D1DF9004793F5 /* Linear3D.cpp */; };
+		2A23AF92169D1DF9004793F5 /* Lissajous2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF75169D1DF9004793F5 /* Lissajous2D.cpp */; };
+		2A23AF93169D1DF9004793F5 /* Lissajous3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF76169D1DF9004793F5 /* Lissajous3D.cpp */; };
+		2A23AF94169D1DF9004793F5 /* LogSpiral2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF77169D1DF9004793F5 /* LogSpiral2D.cpp */; };
+		2A23AF95169D1DF9004793F5 /* Rose2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF78169D1DF9004793F5 /* Rose2D.cpp */; };
+		2A23AF96169D1DF9004793F5 /* Rose3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF79169D1DF9004793F5 /* Rose3D.cpp */; };
+		2A23AF97169D1DF9004793F5 /* Scarabaeus2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF7A169D1DF9004793F5 /* Scarabaeus2D.cpp */; };
+		2A23AF98169D1DF9004793F5 /* Slinky3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF7B169D1DF9004793F5 /* Slinky3D.cpp */; };
+		2A23AF99169D1DF9004793F5 /* Spiral3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF7C169D1DF9004793F5 /* Spiral3D.cpp */; };
+		2A23AF9A169D1DF9004793F5 /* Torus3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF7D169D1DF9004793F5 /* Torus3D.cpp */; };
+		2A23AF9B169D1DF9004793F5 /* Viviani3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF7E169D1DF9004793F5 /* Viviani3D.cpp */; };
+		2A23AF9C169D1DF9004793F5 /* TrajectoryLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF7F169D1DF9004793F5 /* TrajectoryLib.cpp */; };
+		2A23AF9D169D1DF9004793F5 /* TrajectoryLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF83169D1DF9004793F5 /* TrajectoryLibIOS.m */; };
+		2A23AF9E169D1DF9004793F5 /* TTTrajectory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF84169D1DF9004793F5 /* TTTrajectory.cpp */; };
+		2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD78887169CFD1C00604D7C /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2AD78882169CFD1C00604D7C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2A23AF52169D1DF9004793F5 /* Bean2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bean2D.h; sourceTree = "<group>"; };
+		2A23AF53169D1DF9004793F5 /* Bspline2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bspline2D.h; sourceTree = "<group>"; };
+		2A23AF54169D1DF9004793F5 /* Butterfly2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Butterfly2D.h; sourceTree = "<group>"; };
+		2A23AF55169D1DF9004793F5 /* Catmullrom3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Catmullrom3D.h; sourceTree = "<group>"; };
+		2A23AF56169D1DF9004793F5 /* Circular2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circular2D.h; sourceTree = "<group>"; };
+		2A23AF57169D1DF9004793F5 /* CircularHelix3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularHelix3D.h; sourceTree = "<group>"; };
+		2A23AF58169D1DF9004793F5 /* Epitrochoid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Epitrochoid2D.h; sourceTree = "<group>"; };
+		2A23AF59169D1DF9004793F5 /* Gear2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gear2D.h; sourceTree = "<group>"; };
+		2A23AF5A169D1DF9004793F5 /* Hypocycloid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hypocycloid2D.h; sourceTree = "<group>"; };
+		2A23AF5B169D1DF9004793F5 /* Limacon2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Limacon2D.h; sourceTree = "<group>"; };
+		2A23AF5C169D1DF9004793F5 /* Linear2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Linear2D.h; sourceTree = "<group>"; };
+		2A23AF5D169D1DF9004793F5 /* Linear3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Linear3D.h; sourceTree = "<group>"; };
+		2A23AF5E169D1DF9004793F5 /* Lissajous2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lissajous2D.h; sourceTree = "<group>"; };
+		2A23AF5F169D1DF9004793F5 /* Lissajous3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lissajous3D.h; sourceTree = "<group>"; };
+		2A23AF60169D1DF9004793F5 /* LogSpiral2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogSpiral2D.h; sourceTree = "<group>"; };
+		2A23AF61169D1DF9004793F5 /* Rose2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rose2D.h; sourceTree = "<group>"; };
+		2A23AF62169D1DF9004793F5 /* Rose3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rose3D.h; sourceTree = "<group>"; };
+		2A23AF63169D1DF9004793F5 /* Scarabaeus2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scarabaeus2D.h; sourceTree = "<group>"; };
+		2A23AF64169D1DF9004793F5 /* Slinky3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slinky3D.h; sourceTree = "<group>"; };
+		2A23AF65169D1DF9004793F5 /* Spiral3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spiral3D.h; sourceTree = "<group>"; };
+		2A23AF66169D1DF9004793F5 /* Torus3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Torus3D.h; sourceTree = "<group>"; };
+		2A23AF67169D1DF9004793F5 /* Viviani3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viviani3D.h; sourceTree = "<group>"; };
+		2A23AF69169D1DF9004793F5 /* Bean2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bean2D.cpp; sourceTree = "<group>"; };
+		2A23AF6A169D1DF9004793F5 /* Bspline2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bspline2D.cpp; sourceTree = "<group>"; };
+		2A23AF6B169D1DF9004793F5 /* Butterfly2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Butterfly2D.cpp; sourceTree = "<group>"; };
+		2A23AF6C169D1DF9004793F5 /* Catmullrom3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Catmullrom3D.cpp; sourceTree = "<group>"; };
+		2A23AF6D169D1DF9004793F5 /* Circular2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Circular2D.cpp; sourceTree = "<group>"; };
+		2A23AF6E169D1DF9004793F5 /* CircularHelix3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircularHelix3D.cpp; sourceTree = "<group>"; };
+		2A23AF6F169D1DF9004793F5 /* Epitrochoid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Epitrochoid2D.cpp; sourceTree = "<group>"; };
+		2A23AF70169D1DF9004793F5 /* Gear2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gear2D.cpp; sourceTree = "<group>"; };
+		2A23AF71169D1DF9004793F5 /* Hypocycloid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hypocycloid2D.cpp; sourceTree = "<group>"; };
+		2A23AF72169D1DF9004793F5 /* Limacon2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Limacon2D.cpp; sourceTree = "<group>"; };
+		2A23AF73169D1DF9004793F5 /* Linear2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear2D.cpp; sourceTree = "<group>"; };
+		2A23AF74169D1DF9004793F5 /* Linear3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear3D.cpp; sourceTree = "<group>"; };
+		2A23AF75169D1DF9004793F5 /* Lissajous2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous2D.cpp; sourceTree = "<group>"; };
+		2A23AF76169D1DF9004793F5 /* Lissajous3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous3D.cpp; sourceTree = "<group>"; };
+		2A23AF77169D1DF9004793F5 /* LogSpiral2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogSpiral2D.cpp; sourceTree = "<group>"; };
+		2A23AF78169D1DF9004793F5 /* Rose2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rose2D.cpp; sourceTree = "<group>"; };
+		2A23AF79169D1DF9004793F5 /* Rose3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rose3D.cpp; sourceTree = "<group>"; };
+		2A23AF7A169D1DF9004793F5 /* Scarabaeus2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scarabaeus2D.cpp; sourceTree = "<group>"; };
+		2A23AF7B169D1DF9004793F5 /* Slinky3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slinky3D.cpp; sourceTree = "<group>"; };
+		2A23AF7C169D1DF9004793F5 /* Spiral3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spiral3D.cpp; sourceTree = "<group>"; };
+		2A23AF7D169D1DF9004793F5 /* Torus3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Torus3D.cpp; sourceTree = "<group>"; };
+		2A23AF7E169D1DF9004793F5 /* Viviani3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viviani3D.cpp; sourceTree = "<group>"; };
+		2A23AF7F169D1DF9004793F5 /* TrajectoryLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrajectoryLib.cpp; sourceTree = "<group>"; };
+		2A23AF81169D1DF9004793F5 /* TrajectoryLibIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TrajectoryLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AF82169D1DF9004793F5 /* TrajectoryLibIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrajectoryLibIOS.h; sourceTree = "<group>"; };
+		2A23AF83169D1DF9004793F5 /* TrajectoryLibIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrajectoryLibIOS.m; sourceTree = "<group>"; };
+		2A23AF84169D1DF9004793F5 /* TTTrajectory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTTrajectory.cpp; sourceTree = "<group>"; };
+		2A23AF85169D1DF9004793F5 /* TTTrajectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTrajectory.h; sourceTree = "<group>"; };
+		2AD78884169CFD1C00604D7C /* libTrajectoryLibIOSIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTrajectoryLibIOSIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD78887169CFD1C00604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2AD78881169CFD1C00604D7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2A23AF51169D1DF9004793F5 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF52169D1DF9004793F5 /* Bean2D.h */,
+				2A23AF53169D1DF9004793F5 /* Bspline2D.h */,
+				2A23AF54169D1DF9004793F5 /* Butterfly2D.h */,
+				2A23AF55169D1DF9004793F5 /* Catmullrom3D.h */,
+				2A23AF56169D1DF9004793F5 /* Circular2D.h */,
+				2A23AF57169D1DF9004793F5 /* CircularHelix3D.h */,
+				2A23AF58169D1DF9004793F5 /* Epitrochoid2D.h */,
+				2A23AF59169D1DF9004793F5 /* Gear2D.h */,
+				2A23AF5A169D1DF9004793F5 /* Hypocycloid2D.h */,
+				2A23AF5B169D1DF9004793F5 /* Limacon2D.h */,
+				2A23AF5C169D1DF9004793F5 /* Linear2D.h */,
+				2A23AF5D169D1DF9004793F5 /* Linear3D.h */,
+				2A23AF5E169D1DF9004793F5 /* Lissajous2D.h */,
+				2A23AF5F169D1DF9004793F5 /* Lissajous3D.h */,
+				2A23AF60169D1DF9004793F5 /* LogSpiral2D.h */,
+				2A23AF61169D1DF9004793F5 /* Rose2D.h */,
+				2A23AF62169D1DF9004793F5 /* Rose3D.h */,
+				2A23AF63169D1DF9004793F5 /* Scarabaeus2D.h */,
+				2A23AF64169D1DF9004793F5 /* Slinky3D.h */,
+				2A23AF65169D1DF9004793F5 /* Spiral3D.h */,
+				2A23AF66169D1DF9004793F5 /* Torus3D.h */,
+				2A23AF67169D1DF9004793F5 /* Viviani3D.h */,
+			);
+			path = includes;
+			sourceTree = "<group>";
+		};
+		2A23AF68169D1DF9004793F5 /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF69169D1DF9004793F5 /* Bean2D.cpp */,
+				2A23AF6A169D1DF9004793F5 /* Bspline2D.cpp */,
+				2A23AF6B169D1DF9004793F5 /* Butterfly2D.cpp */,
+				2A23AF6C169D1DF9004793F5 /* Catmullrom3D.cpp */,
+				2A23AF6D169D1DF9004793F5 /* Circular2D.cpp */,
+				2A23AF6E169D1DF9004793F5 /* CircularHelix3D.cpp */,
+				2A23AF6F169D1DF9004793F5 /* Epitrochoid2D.cpp */,
+				2A23AF70169D1DF9004793F5 /* Gear2D.cpp */,
+				2A23AF71169D1DF9004793F5 /* Hypocycloid2D.cpp */,
+				2A23AF72169D1DF9004793F5 /* Limacon2D.cpp */,
+				2A23AF73169D1DF9004793F5 /* Linear2D.cpp */,
+				2A23AF74169D1DF9004793F5 /* Linear3D.cpp */,
+				2A23AF75169D1DF9004793F5 /* Lissajous2D.cpp */,
+				2A23AF76169D1DF9004793F5 /* Lissajous3D.cpp */,
+				2A23AF77169D1DF9004793F5 /* LogSpiral2D.cpp */,
+				2A23AF78169D1DF9004793F5 /* Rose2D.cpp */,
+				2A23AF79169D1DF9004793F5 /* Rose3D.cpp */,
+				2A23AF7A169D1DF9004793F5 /* Scarabaeus2D.cpp */,
+				2A23AF7B169D1DF9004793F5 /* Slinky3D.cpp */,
+				2A23AF7C169D1DF9004793F5 /* Spiral3D.cpp */,
+				2A23AF7D169D1DF9004793F5 /* Torus3D.cpp */,
+				2A23AF7E169D1DF9004793F5 /* Viviani3D.cpp */,
+			);
+			path = sources;
+			sourceTree = "<group>";
+		};
+		2A23AF80169D1DF9004793F5 /* TrajectoryLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AF81169D1DF9004793F5 /* TrajectoryLibIOS-Prefix.pch */,
+				2A23AF82169D1DF9004793F5 /* TrajectoryLibIOS.h */,
+				2A23AF83169D1DF9004793F5 /* TrajectoryLibIOS.m */,
+			);
+			path = TrajectoryLibIOS;
+			sourceTree = "<group>";
+		};
+		2AD78885169CFD1C00604D7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78884169CFD1C00604D7C /* libTrajectoryLibIOSIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD78886169CFD1C00604D7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78887169CFD1C00604D7C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A738FF4E163739D100BD5C89 = {
+			isa = PBXGroup;
+			children = (
+				2A23AF51169D1DF9004793F5 /* includes */,
+				2A23AF68169D1DF9004793F5 /* sources */,
+				2A23AF7F169D1DF9004793F5 /* TrajectoryLib.cpp */,
+				2A23AF80169D1DF9004793F5 /* TrajectoryLibIOS */,
+				2A23AF84169D1DF9004793F5 /* TTTrajectory.cpp */,
+				2A23AF85169D1DF9004793F5 /* TTTrajectory.h */,
+				2AD78886169CFD1C00604D7C /* Frameworks */,
+				2AD78885169CFD1C00604D7C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2AD78883169CFD1C00604D7C /* TrajectoryLibIOSIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD78892169CFD1C00604D7C /* Build configuration list for PBXNativeTarget "TrajectoryLibIOSIOS" */;
+			buildPhases = (
+				2AD78880169CFD1C00604D7C /* Sources */,
+				2AD78881169CFD1C00604D7C /* Frameworks */,
+				2AD78882169CFD1C00604D7C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrajectoryLibIOSIOS;
+			productName = EffectsLibIOS;
+			productReference = 2AD78884169CFD1C00604D7C /* libTrajectoryLibIOSIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A738FF50163739D100BD5C89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = org.jamoma;
+			};
+			buildConfigurationList = A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "TrajectoryLibIOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A738FF4E163739D100BD5C89;
+			productRefGroup = 2AD78885169CFD1C00604D7C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2AD78883169CFD1C00604D7C /* TrajectoryLibIOSIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AD78880169CFD1C00604D7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AF86169D1DF9004793F5 /* Bean2D.cpp in Sources */,
+				2A23AF87169D1DF9004793F5 /* Bspline2D.cpp in Sources */,
+				2A23AF88169D1DF9004793F5 /* Butterfly2D.cpp in Sources */,
+				2A23AF89169D1DF9004793F5 /* Catmullrom3D.cpp in Sources */,
+				2A23AF8A169D1DF9004793F5 /* Circular2D.cpp in Sources */,
+				2A23AF8B169D1DF9004793F5 /* CircularHelix3D.cpp in Sources */,
+				2A23AF8C169D1DF9004793F5 /* Epitrochoid2D.cpp in Sources */,
+				2A23AF8D169D1DF9004793F5 /* Gear2D.cpp in Sources */,
+				2A23AF8E169D1DF9004793F5 /* Hypocycloid2D.cpp in Sources */,
+				2A23AF8F169D1DF9004793F5 /* Limacon2D.cpp in Sources */,
+				2A23AF90169D1DF9004793F5 /* Linear2D.cpp in Sources */,
+				2A23AF91169D1DF9004793F5 /* Linear3D.cpp in Sources */,
+				2A23AF92169D1DF9004793F5 /* Lissajous2D.cpp in Sources */,
+				2A23AF93169D1DF9004793F5 /* Lissajous3D.cpp in Sources */,
+				2A23AF94169D1DF9004793F5 /* LogSpiral2D.cpp in Sources */,
+				2A23AF95169D1DF9004793F5 /* Rose2D.cpp in Sources */,
+				2A23AF96169D1DF9004793F5 /* Rose3D.cpp in Sources */,
+				2A23AF97169D1DF9004793F5 /* Scarabaeus2D.cpp in Sources */,
+				2A23AF98169D1DF9004793F5 /* Slinky3D.cpp in Sources */,
+				2A23AF99169D1DF9004793F5 /* Spiral3D.cpp in Sources */,
+				2A23AF9A169D1DF9004793F5 /* Torus3D.cpp in Sources */,
+				2A23AF9B169D1DF9004793F5 /* Viviani3D.cpp in Sources */,
+				2A23AF9C169D1DF9004793F5 /* TrajectoryLib.cpp in Sources */,
+				2A23AF9D169D1DF9004793F5 /* TrajectoryLibIOS.m in Sources */,
+				2A23AF9E169D1DF9004793F5 /* TTTrajectory.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2AD78890169CFD1C00604D7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TrajectoryLibIOS/TrajectoryLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = TrajectoryLibIOSIOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2AD78891169CFD1C00604D7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TrajectoryLibIOS/TrajectoryLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = TrajectoryLibIOSIOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A738FF56163739D100BD5C89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A738FF57163739D100BD5C89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2AD78892169CFD1C00604D7C /* Build configuration list for PBXNativeTarget "TrajectoryLibIOSIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD78890169CFD1C00604D7C /* Debug */,
+				2AD78891169CFD1C00604D7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "TrajectoryLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A738FF56163739D100BD5C89 /* Debug */,
+				A738FF57163739D100BD5C89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A738FF50163739D100BD5C89 /* Project object */;
+}
