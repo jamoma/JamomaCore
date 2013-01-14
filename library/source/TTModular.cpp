@@ -26,11 +26,13 @@ void TTModularInit()
 #define TO_DEBUG
 #ifdef TO_DEBUG
     
+    /*
 	TTObjectPtr test = NULL;
 	TTValue v;
 	
-	TTObjectInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
-	test->test(v); 
+	TTObjectInstantiate(TTSymbol("string.test"), &test, kTTValNONE);
+	test->test(v);
+     */
 
 #endif // TO_DEBUG
 	
