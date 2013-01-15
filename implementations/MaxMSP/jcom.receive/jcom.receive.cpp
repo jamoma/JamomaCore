@@ -178,8 +178,8 @@ void WrappedReceiverClass_free(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 #ifdef JCOM_RECEIVE_TILDE
-	if (x->address.getName() == TTSymbol("out"))
-		dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
+    // Always call dsp_free first in this routine
+    dsp_free((t_pxobject *)x);
 #endif
 }
 
