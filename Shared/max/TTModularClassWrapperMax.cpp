@@ -725,6 +725,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 	WrappedClass*	wrappedMaxClass = NULL;
 	TTSymbol		TTName;
 	SymbolPtr		MaxName = NULL;
+    TTUInt16        i;
 	
 	jamoma_init();
 	common_symbols_init();
@@ -763,7 +764,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 	
 	// Register Messages as Max method
 	o->getMessageNames(v);
-	for (TTUInt16 i=0; i<v.getSize(); i++) {
+	for (i = 0; i < v.getSize(); i++) {
 		v.get(i, TTName);
 
 #ifdef UI_EXTERNAL
@@ -785,7 +786,9 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 			class_addmethod(wrappedMaxClass->maxClass, (method)wrappedUIClass_oksize,		"oksize",		A_CANT, 0);
 		else 
 #endif
-		if (TTName == TTSymbol("test")) // to -- TTDataObject class have also a bypass attribute and some messages to hide too...
+		if (TTName == TTSymbol("test")                      ||
+            TTName == TTSymbol("getProcessingBenchmark")    ||
+            TTName == TTSymbol("resetBenchmarking")) 
 			continue;
 		else if ((MaxName = jamoma_TTName_To_MaxName(TTName))) {
 			hashtab_store(wrappedMaxClass->maxNamesToTTNames, MaxName, ObjectPtr(TTName.rawpointer()));
@@ -795,13 +798,18 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 	
 	// Register Attributes as Max attr
 	o->getAttributeNames(v);
-	for (TTUInt16 i=0; i<v.getSize(); i++) {
+	for (i = 0; i < v.getSize(); i++) {
+        
 		TTAttributePtr	attr = NULL;
 		SymbolPtr		maxType = _sym_long;
 		
 		v.get(i, TTName);
 		
 		if ((MaxName = jamoma_TTName_To_MaxName(TTName))) {
+            
+            if (TTName == TTSymbol("bypass") && wrappedMaxClass->maxClassName != gensym("jcom.in"))
+                continue;
+            
 			o->findAttribute(TTName, &attr);
 			
 			if (attr->type == kTypeFloat32)
