@@ -481,17 +481,17 @@ TTErr wrappedModularClass_setAttribute(TTPtr self, SymbolPtr s, AtomCount argc, 
 	AtomPtr			av = NULL;
 	TTErr			err;
 	
-	err = selectedObject->findAttribute(TT(s->s_name), &anAttribute);
+	err = selectedObject->findAttribute(TTSymbol(s->s_name), &anAttribute);
 	if (!err) {
 		
 		// set attribute's value
 		if (argc && argv) {
 			jamoma_ttvalue_from_Atom(inputValue, _sym_nothing, argc, argv);
-			selectedObject->setAttributeValue(TT(s->s_name), inputValue);
+			selectedObject->setAttributeValue(TTSymbol(s->s_name), inputValue);
 		}
 		// or get it and dumpout his value
 		else {
-			selectedObject->getAttributeValue(TT(s->s_name), outputValue);
+			selectedObject->getAttributeValue(TTSymbol(s->s_name), outputValue);
 			
 			jamoma_ttvalue_to_Atom(outputValue, &ac, &av);
 			object_obex_dumpout(self, s, ac, av);
@@ -758,6 +758,11 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 	jbox_initclass(wrappedMaxClass->maxClass, flags);	
 	wrappedMaxClass->maxClass->c_flags |= CLASS_FLAG_NEWDICTIONARY; // to specify dictionary constructor
 #endif
+
+#ifdef AUDIO_EXTERNAL    
+    // Setup our class to work with MSP
+	class_dspinit(wrappedMaxClass->maxClass);
+#endif
 	
 	// Create a temporary instance of the class so that we can query it.
 	TTObjectInstantiate(ttblueClassName, &o, args);
@@ -804,10 +809,16 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 		SymbolPtr		maxType = _sym_long;
 		
 		v.get(i, TTName);
+        
+#ifdef AUDIO_EXTERNAL
+        // the enable word is already used by a message declared in the dsp_init method
+        if (TTName == TTSymbol("enable"))
+            continue;
+#endif
 		
 		if ((MaxName = jamoma_TTName_To_MaxName(TTName))) {
             
-            if (TTName == TTSymbol("bypass") && wrappedMaxClass->maxClassName != gensym("jcom.in"))
+            if (TTName == kTTSym_bypass && wrappedMaxClass->maxClassName != gensym("jcom.in"))
                 continue;
             
 			o->findAttribute(TTName, &attr);
@@ -1136,7 +1147,7 @@ void wrappedModularClass_ArraySelect(TTPtr self, SymbolPtr msg, AtomCount ac, At
 				if (i > 0 && i <= x->arraySize) {
 					x->arrayIndex = i;
 					jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-					x->cursor = TT(instanceAddress->s_name);
+					x->cursor = TTSymbol(instanceAddress->s_name);
 				}
 				else
 					object_error((ObjectPtr)x, "array/select : %ld is not a valid index", i);
@@ -1146,7 +1157,7 @@ void wrappedModularClass_ArraySelect(TTPtr self, SymbolPtr msg, AtomCount ac, At
 				if (atom_getsym(av) == gensym("*")) {
 					x->arrayIndex = 0;
 					jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, 1);
-					x->cursor = TT(instanceAddress->s_name);
+					x->cursor = TTSymbol(instanceAddress->s_name);
 				}
 				else
 					object_error((ObjectPtr)x, "array/select : %s is not a valid index", atom_getsym(av)->s_name);
@@ -1156,7 +1167,7 @@ void wrappedModularClass_ArraySelect(TTPtr self, SymbolPtr msg, AtomCount ac, At
 			if (msg == gensym("*")) {
 				x->arrayIndex = 0;
 				jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, 1);
-				x->cursor = TT(instanceAddress->s_name);
+				x->cursor = TTSymbol(instanceAddress->s_name);
 			}
 			else
 				object_error((ObjectPtr)x, "array/select : %s is not a valid index", msg->s_name);
