@@ -31,20 +31,20 @@ class TTMODULAR_EXPORT TTViewer : public TTDataObject
 	
 private:
 	
-	TTAddress			mAddress;					///< ATTRIBUTE : data address to bind
+	TTAddress                   mAddress;					///< ATTRIBUTE : data address to bind
 	TTSymbol					mDescription;				///< ATTRIBUTE : text to describe the role of this data
 	TTSymbol					mType;						///< ATTRIBUTE : type of the gui
-	TTSymbol					mTag;						///< ATTRIBUTE: a tag for this viewer
+	TTSymbol					mTag;						///< ATTRIBUTE : a tag for this viewer
 	TTBoolean					mHighlight;					///< ATTRIBUTE : highlight state of the gui
 	TTBoolean					mFreeze;					///< ATTRIBUTE : freeze data returning
 	
-	TTSymbol					mDataspace;					///< ATTRIBUTE: The dataspace that this view uses (default is 'none')
-	TTSymbol					mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
+	TTSymbol					mDataspace;					///< ATTRIBUTE : The dataspace that this view uses (default is 'none')
+	TTSymbol					mDataspaceUnit;				///< ATTRIBUTE : The unit within the dataspace.
 	TTObjectPtr					mDataspaceConverter;		///< Performs conversions from data unit to the view unit
 	TTReceiverPtr				mDataspaceObserver;			///< the receiver which observe the data's dataspace attribute
 	TTReceiverPtr				mDataspaceUnitObserver;		///< the receiver which observe the data's unit attribute
 	
-	TTBoolean					mEnable;					///< ATTRIBUTE: if false, received data won't be output
+	TTBoolean					mActive;					///< ATTRIBUTE : if false, received data won't be output
 	TTValue						mReturnedValue;				///< ATTRIBUTE : a local value to allow observation of this viewer
 	
 	TTReceiverPtr				mReceiver;					///< the receiver which binds on our data
@@ -61,8 +61,8 @@ private:
 	/** set the attribute */
 	TTErr setAttribute(const TTValue& value);
 	
-	/** set the enable */
-	TTErr setEnable(const TTValue& value);
+	/** set mActive */
+	TTErr setActive(const TTValue& value);
 	
 	/** set the freeze */
 	TTErr setFreeze(const TTValue& value);

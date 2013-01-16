@@ -371,7 +371,7 @@ TTErr TTApplicationManager::ProtocolStop(const TTValue& inputValue, TTValue& out
 TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTNodeDirectoryPtr	directory;
-	TTAddress	whereToDiscover;
+	TTAddress           whereToDiscover;
 	TTValuePtr			returnedChildrenNames;
 	TTValuePtr			returnedChildrenTypes;
 	TTValuePtr			returnedAttributes;

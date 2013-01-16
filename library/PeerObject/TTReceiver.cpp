@@ -16,7 +16,7 @@ TT_MODULAR_CONSTRUCTOR,
 
 mSignal(NULL),
 mAddress(kTTAdrsEmpty),
-mEnable(YES),
+mActive(YES),
 mDirectory(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
@@ -37,7 +37,7 @@ mObjectCache(NULL)
 		arguments.get(2, (TTPtr*)&mSignal);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
-	addAttributeWithSetter(Enable, kTypeBoolean);
+	addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttribute(ObjectCache, kTypePointer);
 	addAttributeProperty(ObjectCache, hidden, YES);
@@ -87,7 +87,7 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 		return bindApplication();
 }
 
-TTErr TTReceiver::setEnable(const TTValue& newValue)
+TTErr TTReceiver::setActive(const TTValue& newValue)
 {
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
@@ -96,7 +96,7 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 	TTValue		data, v;
 	TTErr		err;
 	
-	mEnable = newValue;
+	mActive = newValue;
 	
 	// enable/disable listening (for Mirror object only)
 	if (mNodesObserversCache) {
@@ -120,7 +120,7 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 					if (!err) {
 						
 						if (anObject->getName() == kTTSym_Mirror)
-							TTMirrorPtr(anObject)->enableListening(*anAttribute, mEnable);
+							TTMirrorPtr(anObject)->enableListening(*anAttribute, mActive);
 					}
 				}
 			}
@@ -559,7 +559,7 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 	b->get(0, (TTPtr*)&aReceiver);
 	b->get(1, anAddress);
 	
-	if(aReceiver->mEnable) {
+	if(aReceiver->mActive) {
 		
 		// return the address
 		v.append(anAddress);
@@ -605,13 +605,13 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 			
 		case kApplicationProtocolStarted :
 		{
-			aReceiver->setEnable(YES);
+			aReceiver->setActive(YES);
 			break;
 		}
 			
 		case kApplicationProtocolStopped :
 		{
-			aReceiver->setEnable(NO);
+			aReceiver->setActive(NO);
 			break;
 		}
 			

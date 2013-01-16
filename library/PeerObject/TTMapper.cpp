@@ -19,7 +19,7 @@ mInputMin(0.),
 mInputMax(1.),
 mOutputMin(0.),
 mOutputMax(1.),
-mEnable(YES),
+mActive(YES),
 mInverse(NO),
 mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
@@ -52,7 +52,7 @@ mValid(NO)
 	addAttributeWithSetter(OutputMin, kTypeFloat64);
 	addAttributeWithSetter(OutputMax, kTypeFloat64);
 	
-	addAttributeWithSetter(Enable, kTypeBoolean);
+	addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttribute(Inverse, kTypeBoolean);
 	
@@ -123,7 +123,7 @@ TTMapper::~TTMapper() // TODO : delete things...
 
 TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 {
-	if (mEnable) {
+	if (mActive) {
 		
 		processMapping(inputValue, outputValue);
 		
@@ -490,11 +490,11 @@ TTErr TTMapper::setOutputMax(const TTValue& value)
 	return scaleOutput();
 }
 
-TTErr TTMapper::setEnable(const TTValue& value)
+TTErr TTMapper::setActive(const TTValue& value)
 {
-	mEnable = value;
+	mActive = value;
 	
-	notifyObservers(kTTSym_enable, value);
+	notifyObservers(kTTSym_active, value);
 	return kTTErrNone;
 }
 
@@ -720,7 +720,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aMapper);
 	
-	if (aMapper->mEnable) {
+	if (aMapper->mActive) {
 		
 		// process the mapping
 		aMapper->processMapping(data, mappedValue);
