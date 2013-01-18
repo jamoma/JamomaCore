@@ -18,7 +18,6 @@ sources:
   - PeerObject/TTMapper.cpp
   - PeerObject/TTMapperManager.cpp
   - PeerObject/TTMirror.cpp
-  - PeerObject/TTOpmlHandler.cpp
   - PeerObject/TTOutput.cpp
   - PeerObject/TTPreset.cpp
   - PeerObject/TTPresetManager.cpp

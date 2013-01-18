@@ -95,7 +95,7 @@ TTErr TTPreset::Store()
 		// 5. Append a script line for each object found
 		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 			
-			allObjectNodes.current()[0] (TTPtr*)&aNode);
+			aNode = TTNodePtr((TTPtr)allObjectNodes.current()[0]);
 			
 			// get relative address
 			aNode->getAddress(aRelativeAddress, mAddress);
@@ -223,7 +223,7 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 {
 	TTObjectPtr o;
 	TTValue		v;
-	TTSymbol s;
+	TTSymbol    s;
 
 	// Here we decide to keep nodes which binds on :
 	//		- Data with @service == parameter
@@ -232,7 +232,7 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 		
 		if (o->getName() == kTTSym_Data) {
 			o->getAttributeValue(kTTSym_service, v);
-			v[0] s);
+			s = v[0];
 			return s == kTTSym_parameter;
 		}
 	}
@@ -249,21 +249,21 @@ TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2)
 	TTInt32		p2 = 0;
 	
 	// get priority of v1
-	v1[0] (TTPtr*)&n1);
+	n1 = TTNodePtr((TTPtr)v1[0]);
 	if (n1) {
 		o1 = n1->getObject();
 		if (o1) 
 			if (!o1->getAttributeValue(kTTSym_priority, v))
-				v[0] p1);
+				p1 = v[0];
 	}
 	
 	// get priority of v2
-	v2[0] (TTPtr*)&n2);
+	n2 = TTNodePtr((TTPtr)v2[0]);
 	if (n2) {
 		o2 = n2->getObject();
 		if (o2) 
 			if (!o2->getAttributeValue(kTTSym_priority, v))
-				v[0] p2);
+				p2 = v[0];
 	}
 	
 	if (p1 == 0 && p2 == 0) return v1 < v2;
@@ -289,7 +289,7 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
 	TTUInt32	i;
 	
 	for (i = 0; i < presets.size(); i++) {
-		presets.get(i, (TTPtr*)&aPreset);
+		aPreset = TTPresetPtr((TTPtr)presets[i]);
 		aPreset->mScript->sendMessage(TTSymbol("Bind"), aPreset->mAddress, kTTValNONE);
 		
 		scripts.append((TTPtr)aPreset->mScript);

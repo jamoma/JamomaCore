@@ -39,27 +39,27 @@ mSignalAttr(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTOutput", arguments.size() >= 2);
 	
-	arguments[0] mType);
-	arguments.get(1, (TTPtr*)&mReturnSignalCallback);
+	mType = arguments[0];
+	mReturnSignalCallback = TTCallbackPtr((TTPtr)arguments[1]);
 	TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
 	
 	if (arguments.size() > 2) {
-		arguments.get(2, (TTPtr*)&mReturnLinkCallback);
+		mReturnLinkCallback = TTCallbackPtr((TTPtr)arguments[2]);
 		TT_ASSERT("Return Link Callback passed to TTOutput is not NULL", mReturnLinkCallback);
 	}
 	
 	if (arguments.size() > 3) {
-		arguments.get(3, (TTPtr*)&mSignalIn);
-		arguments.get(4, (TTPtr*)&mSignalOut);
-		arguments.get(5, (TTPtr*)&mSignalTemp);
-		arguments.get(6, (TTPtr*)&mSignalZero);
+		mSignalIn = TTObjectPtr((TTPtr)arguments[3]);
+		mSignalOut = TTObjectPtr((TTPtr)arguments[4]);
+		mSignalTemp = TTObjectPtr((TTPtr)arguments[5]);
+		mSignalZero = TTObjectPtr((TTPtr)arguments[6]);
 	}
 	
 	if (arguments.size() > 7) {
-		arguments.get(7, (TTPtr*)&mMixUnit);
-		arguments.get(8, (TTPtr*)&mGainUnit);
-		arguments.get(9, (TTPtr*)&mRampMixUnit);
-		arguments.get(10, (TTPtr*)&mRampGainUnit);
+		mMixUnit = TTObjectPtr((TTPtr)arguments[7]);
+		mGainUnit = TTObjectPtr((TTPtr)arguments[8]);
+		mRampMixUnit = TTObjectPtr((TTPtr)arguments[9]);
+		mRampGainUnit = TTObjectPtr((TTPtr)arguments[10]);
 	}
 	
 	addAttribute(Type, kTypeSymbol);
@@ -172,7 +172,7 @@ TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
-	inputValue[0] (TTPtr*)&mInputObject);
+	mInputObject = TTInputPtr((TTPtr)inputValue[0]);
 	
 	if (mReturnLinkCallback)
 		return mReturnLinkCallback->notify(kTTVal1, kTTValNONE);
@@ -199,7 +199,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	TTObjectPtr		o;
 	TTValue			n = value;		// use new value to protect the attribute
 	
-	value[0] newAddress);
+	newAddress = value[0];
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
@@ -293,7 +293,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (an OutputPtr)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&anOutput);
+	anOutput = TTOutputPtr((TTPtr)(*b)[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];

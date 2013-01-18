@@ -61,7 +61,7 @@ Protocol::~Protocol()
 	
 	// for each distant application registered
 	mDistantApplicationParameters->getKeys(distantApplicationNames);
-	for (TTUInt32 i=0; i<distantApplicationNames.size(); i++) {
+	for (TTUInt32 i =0; i <distantApplicationNames.size(); i++) {
 		
 		aDistantApplicationName = distantApplicationNames[i];
 		mDistantApplicationParameters->lookup(aDistantApplicationName, v);
@@ -99,7 +99,7 @@ TTErr Protocol::getParameterNames(TTValue& value)
 	this->getAttributeNames(attributeNames);
 	
 	value.clear();
-	for (TTUInt8 i=0; i<attributeNames.size(); i++) {
+	for (TTUInt8 i =0; i <attributeNames.size(); i++) {
 		attributeName = attributeNames[0];
 		
 		if (attributeName == TTSymbol("name")		||
@@ -135,7 +135,7 @@ TTErr Protocol::registerApplication(const TTValue& inputValue, TTValue& outputVa
 		
 		// prepare parameters table
 		this->getParameterNames(parameterNames);
-		for (TTUInt32 i=0; i<parameterNames.size(); i++) {
+		for (TTUInt32 i =0; i <parameterNames.size(); i++) {
 			parameterName = parameterNames[i];
 			applicationParameters->append(parameterName, kTTValNONE);
 		}
@@ -192,8 +192,8 @@ TTErr Protocol::getApplicationParameters(TTValue& value)
 			
 			this->getParameterNames(parametersNames);
 			
-			for (TTUInt8 i=0; i<parametersNames.getSize(); i++) {
-				parametersNames.get(i, parameterName);
+			for (TTUInt8 i = 0; i < parametersNames.size(); i++) {
+				parameterName = parametersNames[i];
 				
 				this->getAttributeValue(parameterName, parameterValue);
 				parametersTable->append(parameterName, parameterValue);
@@ -231,7 +231,7 @@ TTErr Protocol::setApplicationParameters(TTValue& value)
 				
 				parametersTable->getKeys(parametersNames);
 				
-				for (TTUInt8 i=0; i<parametersNames.size(); i++) {
+				for (TTUInt8 i =0; i <parametersNames.size(); i++) {
 					
 					parameterName = parametersNames[i];
 					parametersTable->lookup(parameterName, parameterValue);

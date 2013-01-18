@@ -52,7 +52,6 @@ void TTModularInit()
 		TTMapper::registerClass();
 		TTMapperManager::registerClass();
 		TTMirror::registerClass();
-		TTOpmlHandler::registerClass();
 		TTOutput::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();

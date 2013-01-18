@@ -70,7 +70,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	if (args.size() == 1) {
 		if (args[0].type() == kTypeSymbol) {
 			
-			args[0] mFilePath);
+			mFilePath = args[0];
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -162,7 +162,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	if (args.size() == 1) {
 		if (args[0].type() == kTypeSymbol) {
 			
-			args[0] mFilePath);
+			mFilePath = args[0];
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -338,7 +338,7 @@ TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue&
 		
 		if (v[0].type() == kTypeSymbol) {
 			
-			v[0] returnedAttributeName);
+			returnedAttributeName = v[0];
 			return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
 		}
 	}

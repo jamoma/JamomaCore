@@ -24,7 +24,7 @@ mReturnLineCallback(NULL)
 	TT_ASSERT("Correct number of args to create TTScript", arguments.size() == 0 || arguments.size() == 1);
 	
 	if (arguments.size() == 1)
-		mReturnLineCallback = TTCallbackPtr((TTPtr)arguments[0];
+		mReturnLineCallback = TTCallbackPtr((TTPtr)arguments[0]);
 	
 	TT_ASSERT("Return Line Callback passed to TTScript is not NULL", mReturnLineCallback);
 	
@@ -72,7 +72,7 @@ TTScript::~TTScript()
 	
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
+		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
 		
 		if (aLine) {
 			
@@ -101,7 +101,7 @@ TTErr TTScript::Clear()
 	
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
+		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
 		
 		if (aLine) {
 			
@@ -159,7 +159,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 	// run each line of the script
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
+		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
 		
 		// run script line depending on his schema
 		if (aLine->getSchema() == kTTSym_flag) {
@@ -260,7 +260,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
 		valueToDump.clear();
-		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
+		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
 		
 		// output script line depending on his schema
 		if (aLine->getSchema() == kTTSym_flag) {
@@ -362,7 +362,7 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 	// make each command line of the script to bind on their TTNode
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
+		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
 		
 		// lookfor command line only
 		if (aLine->getSchema() == kTTSym_command || aLine->getSchema() == kTTSym_script) {
@@ -533,7 +533,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	// Write all lines
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
+		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
 		
 		// Write script line depending on his schema
 		if (aLine->getSchema() == kTTSym_flag) {
@@ -550,7 +550,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// else get flag arguments value
 			aLine->getValue(v);
 			v.toString();
-			aString = v[0];
+			aString = TTString(v[0]);
 			
 			// write flag name and arguments as an Element
 			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "flag");
@@ -563,7 +563,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// get comment value
 			aLine->getValue(v);
 			v.toString();
-			aString = v[0];
+			aString = TTString(v[0]);
 			
 			// write comment attribute
 			xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
@@ -590,7 +590,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// write ramp attribute
 			if (!aLine->lookup(kTTSym_ramp, v)) {
 				v.toString();
-				aString = v[0];
+				aString = TTString(v[0]);
 				
 				xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "ramp", BAD_CAST aString.data());
 			}
@@ -598,7 +598,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			// write value
 			if (!aLine->getValue(v)) {
 				v.toString();
-				aString = v[0];
+				aString = TTString(v[0]);
 				
 				xmlTextWriterWriteRaw((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST aString.data());
 			}
@@ -799,7 +799,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	// Write all lines
 	for (mLines->begin(); mLines->end(); mLines->next()) {
 		
-		aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
+		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
 		
 		// write tabulation
 		for (i = 0; i < aTextHandler->mTabCount; i++)
@@ -816,7 +816,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			addQuote = NO;
 			if (!aLine->getValue(v)) {
 				v.toString();
-				aString = v[0];
+				aString = TTString(v[0]);
 			}
 			else aString = "";
 			
@@ -832,7 +832,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			// get comment value
 			if (!aLine->getValue(v)) {
 				v.toString();
-				aString = v[0];
+				aString = TTString(v[0]);
 			}
 			else aString = "";
 			
@@ -853,7 +853,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				// get and write value
 				if (!aLine->getValue(v)) {	
 					v.toString();
-					aString = v[0];
+					aString = TTString(v[0]);
 					
 					*buffer += " ";
 					*buffer += aString.data();
@@ -861,7 +861,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 					// get and write unit
 					if (!aLine->lookup(kTTSym_unit, v)) {
 						v.toString();
-						aString = v[0];
+						aString = TTString(v[0]);
 						
 						*buffer += " ";
 						*buffer += aString.data();
@@ -870,7 +870,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 					// get and write ramp
 					if (!aLine->lookup(kTTSym_ramp, v)) {
 						v.toString();
-						aString = v[0];
+						aString = TTString(v[0]);
 						
 						*buffer += " ramp ";
 						*buffer += aString.data();
@@ -1251,7 +1251,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
                 continue;
             
 			if (!aNode->getObject()->getAttributeValue(kTTSym_type, v))
-				v[0] dataType);
+				dataType = v[0];
 			else continue;
 			
 			// initialize the mix with the command of the first script
@@ -1273,7 +1273,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 						continue;
 					}
 					else {
-						aLine = TTDictionnaryPtr((TTPtr)found[0]);
+						aLine = TTDictionaryPtr((TTPtr)found[0]);
 						
 						// mix the command of this script
 						// TODO : introduce a mixWeight information into command lines
@@ -1311,7 +1311,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 			// get the first sub script
 			aSubScript = NULL;
 			if (!firstScriptLine->getValue(v))
-				aSubScript = TTScriptPtr((TTptr)v[0]);
+				aSubScript = TTScriptPtr((TTPtr)v[0]);
 			
 			subScripts.append((TTPtr*)aSubScript);
 			
@@ -1332,7 +1332,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 						continue;
 					}
 					else {
-						aLine = TTDictionnaryPtr((TTPtr)found[0]);
+						aLine = TTDictionaryPtr((TTPtr)found[0]);
 						
 						// get the sub script
 						aSubScript = NULL;
@@ -1413,7 +1413,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 	
 	for (scriptToMerge->mLines->begin(); scriptToMerge->mLines->end(); scriptToMerge->mLines->next()) {
 		
-		lineToMerge = TTDictionnaryPtr((TTPtr)scriptToMerge->mLines->current()[0]);
+		lineToMerge = TTDictionaryPtr((TTPtr)scriptToMerge->mLines->current()[0]);
 		
 		// get address
 		addressToMerged = kTTAdrsEmpty;
@@ -1429,7 +1429,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 				mergedScript->mLines->find(&TTScriptFindAddress, (TTPtr)&addressToMerged, found);
 				
 				if (!(found == kTTValNONE)) {
-					mergedLine = TTDictionnaryPtr((TTPtr)found[0]);
+					mergedLine = TTDictionaryPtr((TTPtr)found[0]);
 					merged = YES;
 				}
 			}
@@ -1514,8 +1514,8 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 		 aScriptToOptimize->mLines->end() && aScript->mLines->end(); 
 		 aScriptToOptimize->mLines->next(), aScript->mLines->next()) {
 		
-		lineToOptimize = TTDictionnaryPtr((TTPtr)aScriptToOptimize->mLines->current()[0]);
-		aScript->aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
+		lineToOptimize = TTDictionaryPtr((TTPtr)aScriptToOptimize->mLines->current()[0]);
+		aLine = TTDictionaryPtr((TTPtr)aScript->mLines->current()[0]);
 		
 		// get addresses
 		addressToOptimize = kTTAdrsEmpty;
@@ -1538,7 +1538,7 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 					continue;
 				}
 				else
-					aLine = TTDictionnaryPtr((TTPtr)found[0]);
+					aLine = TTDictionaryPtr((TTPtr)found[0]);
 			}
 			
 			// optimize the line depending on the schema
@@ -1626,7 +1626,7 @@ TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 		
 		aSubScriptToCopy = NULL;
 		aSubScriptCopy = NULL;
-		scriptTocopy->aLine = TTDictionnaryPtr((TTPtr)mLines->current()[0]);
+		aLine = TTDictionaryPtr((TTPtr)scriptTocopy->mLines->current()[0]);
 		
 		aLineCopy = TTScriptCopyLine(aLine);
 		

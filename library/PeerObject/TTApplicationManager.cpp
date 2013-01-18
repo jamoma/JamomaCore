@@ -235,7 +235,7 @@ TTErr TTApplicationManager::ProtocolScan(const TTValue& inputValue, TTValue& out
 		mProtocols->getKeys(allProtocolNames);
 		for (TTUInt16 i = 0; i < allProtocolNames.size(); i++) {
 			
-			protocolNameallProtocolNames[i];
+			protocolName = allProtocolNames[i];
 			err = mProtocols->lookup(protocolName, v);
 			
 			if (!err) {
@@ -378,7 +378,7 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	
 	whereToDiscover = inputValue[0];
 	
-	returnedType = TTValuePtr((TTPtr)outputValue[0]);
+	*returnedType = TTSymbol((TTPtr)outputValue[0]);
 	returnedChildren = TTValuePtr((TTPtr)outputValue[1]);
 	returnedAttributes = TTValuePtr((TTPtr)outputValue[2]);
 	

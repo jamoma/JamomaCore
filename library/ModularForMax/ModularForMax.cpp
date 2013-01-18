@@ -28,13 +28,13 @@ TTErr jamoma_directory_dump_observers(void)
 	JamomaDirectory->dumpObservers(v);
 	
 	s = v.size();
-	for (i=0; i<s; i++) {
+	for (i =0; i <s; i++) {
 		
         pv = TTValuePtr((TTPtr)v[i]);
 		key = (*pv)[0];
 		post("%s :", key.c_str());
 		
-		for (j=1; j<((TTValuePtr)pv)->size(); j++) {
+		for (j =1; j <((TTValuePtr)pv)->size(); j++) {
 		
             owner = (*pv)[j];
 			post("    %s", owner.c_str());
@@ -792,7 +792,7 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 	x = ObjectPtr((TTPtr)b[0]);
 	
 	if (b->size() == 2) {
-		b->get(1, (TTPtr*)&method);
+		method = SymbolPtr((TTPtr)(*b)[1]);
 		if (method == NULL || method == _sym_nothing)
 			return;
 		}
@@ -822,7 +822,7 @@ void jamoma_callback_return_value_typed(TTPtr baton, TTValue& v)
 	x = ObjectPtr((TTPtr)b[0]);
 	
 	if (b->size() == 2) {
-		b->get(1, (TTPtr*)&method);
+		method = SymbolPtr((TTPtr)(*b)[1]);
 		if (method == NULL || method == _sym_nothing)
 			return;
 	}
@@ -876,7 +876,7 @@ void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& v)
 	// unpack data (signal)
 	argc = v.size();
 	argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
-	for (i=0; i<argc; i++) {
+	for (i =0; i <argc; i++) {
 		signal = v[i];
 		atom_setobj(argv+i, signal);
 	}
@@ -906,7 +906,7 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 	
 	if (*argc && !(v == kTTValNONE)) {
 		
-		for (i=0; i<*argc; i++) {
+		for (i =0; i <*argc; i++) {
 			
 			if(v[i].type() == kTypeFloat32 || v[i].type() == kTypeFloat64){
 				f = v[i];
@@ -1006,7 +1006,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 		}
 			
 		// convert Atom to TTValue
-		for (i=0; i<argc; i++) 
+		for (i =0; i <argc; i++) 
 		{
 			if (atom_gettype(argv+i) == A_LONG)
 				v[i+start] = (int)atom_getlong(argv+i);

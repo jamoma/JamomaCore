@@ -59,9 +59,9 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 		mIsWriting = true;
 		
 		// if the first argument is kTypeSymbol : get the path of the file to write
-		if (args.getType(0) == kTypeSymbol) {
+		if (args[0].type() == kTypeSymbol) {
 			
-			args[0] mFilePath);
+			mFilePath = args[0];
 			
 			/* Create a new text file
 			std::ofstream file(mFilePath->getCString());
@@ -90,9 +90,9 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 		}
 		
 		// if the first argument is kTypePointer : get the text where to write
-		else if (args.getType(0) == kTypePointer) {
+		else if (args[0].type() == kTypePointer) {
 			
-			args[0] (TTPtr*)&mWriter);
+			mWriter = (TTString*)((TTPtr)args[0]);
 			
 			// Call the WriteAsText method of the handled object
 			v = TTValue((TTPtr)this);
@@ -136,9 +136,9 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 		mIsReading = true;
 		
 		// if the first argument is kTypeSymbol : get the path of the file to read
-		if (args.getType(0) == kTypeSymbol) {
+		if (args[0].type() == kTypeSymbol) {
 			
-			args[0] mFilePath);
+			mFilePath = args[0];
 			
 			/*
 			std::ifstream file(mFilePath->getCString());
@@ -170,10 +170,10 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 		}
 		
 		// if the first argument is kTypePointer : get the text to read
-		else if (args.getType(0) == kTypePointer) {
+		else if (args[0].type() == kTypePointer) {
 			
 			mReader = NULL;
-			args[0] (TTPtr*)&mReader);
+			mReader = (TTString*)((TTPtr)args[0]);
 			
 			if (mReader) {
 				

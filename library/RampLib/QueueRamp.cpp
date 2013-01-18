@@ -44,7 +44,7 @@ void QueueRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time)
 	targetTime	= startTime + time;
 
 	setNumValues(inNumValues);
-	for (i=0; i<numValues; i++) {
+	for (i =0; i <numValues; i++) {
 		targetValue[i] = inValues[i];
 		startValue[i] = currentValue[i];
 	}
@@ -84,7 +84,7 @@ void QueueRamp::tick()
 		}
 		functionUnit->calculate(ratio, mapped);
 		
-		for (i=0; i < numValues; i++)
+		for (i =0; i < numValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		
 		(callback)(baton, numValues, currentValue);		// send the value to the host

@@ -24,7 +24,7 @@ mApplicationObserver(NULL)
 	
 	// a Sender can handle a signal
 	if (arguments.size() >= 1)
-		arguments[0] (TTPtr*)&mSignal);
+		mSignal = TTObjectPtr((TTPtr)arguments[0]);
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -52,7 +52,7 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 	unbindAddress();
 	unbindApplication();
 	
-	newValue[0] mAddress);
+	mAddress = newValue[0];
 	
 	// default attribute to bind is value
 	if (mAddress.getAttribute() == NO_ATTRIBUTE)
@@ -98,7 +98,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 				aCacheElement = mObjectCache->current();
 								
 				// then his object
-				aCacheElement[0] (TTPtr*)&anObject);
+				anObject = TTObjectPtr(aCacheElement[0]);
 				
 				if (anObject) {
 					// DATA CASE for value attribute
@@ -111,7 +111,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 					else if (anObject->getName() == kTTSym_Container && ttAttributeName == kTTSym_value) {
 						
 						if (valueToSend[0].type() == kTypeSymbol) {
-							valueToSend[0] relativeAddress);
+							relativeAddress = valueToSend[0];
 							c.copyFrom(valueToSend, 1);
 						
 							v = TTValue(relativeAddress);
@@ -164,7 +164,7 @@ TTErr TTSender::bindAddress()
 	mObjectCache  = new TTList();
 	
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
-		aNodeList.current()[0] (TTPtr*)&aNode);
+		aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
 		anObject = aNode->getObject();
 		aCacheElement = (TTPtr)anObject;
 		mObjectCache->append(aCacheElement);
@@ -262,7 +262,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 
 	// unpack baton (a TTSenderPtr)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aSender);
+	aSender = TTSenderPtr((TTPtr)(*b)[0]);
 
 	// Unpack data (address, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -289,7 +289,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 			for (aSender->mObjectCache->begin(); aSender->mObjectCache->end(); aSender->mObjectCache->next()) {
 				
 				// get a node
-				aSender->mObjectCache->current()[0](TTPtr*)&aCacheObject);
+				aCacheObject = TTObjectPtr((TTPtr)aSender->mObjectCache->current()[0]);
 				
 				if (aCacheObject == anObject) {
 					aSender->mObjectCache->remove(aSender->mObjectCache->current());
@@ -317,11 +317,11 @@ TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTSenderPtr)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aSender);
+	aSender = TTSenderPtr((TTPtr)(*b)[0]);
 	
 	// Unpack data (applicationName, application, flag, observer)
-	data[0] anApplicationName);
-	data.get(1, (TTPtr*)&anApplication);
+	anApplicationName = data[0];
+	anApplication = TTApplicationPtr((TTPtr)data[1]);
 	flag = data[2];
 	
 	switch (flag) {

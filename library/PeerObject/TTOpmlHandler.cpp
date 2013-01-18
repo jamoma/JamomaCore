@@ -63,9 +63,9 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
 	if (args.size() == 1) {
-		if (args.getType(0) == kTypeSymbol) {
+		if (args[0].type() == kTypeSymbol) {
 			
-			args[0] mFilePath);
+			mFilePath = args[0];
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -180,9 +180,9 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
 	if (args.size() == 1) {
-		if (args.getType(0) == kTypeSymbol) {
+		if (args[0].type() == kTypeSymbol) {
 			
-			args[0] mFilePath);
+			mFilePath = args[0];
 			
 			// Init the opml library
 			LIBXML_TEST_VERSION

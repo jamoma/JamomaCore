@@ -128,7 +128,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
                 // find each keyAddress equals to the relativeAddress
                 for (i = 0; i < mObjectsObserversCache->getSize(); i++) {
                     
-                    hk.get(i, keyAddress);
+                    keyAddress = hk[i];
                     
                     if (aRelativeAddress.compare(keyAddress, depth) == kAddressEqual) {
                     
