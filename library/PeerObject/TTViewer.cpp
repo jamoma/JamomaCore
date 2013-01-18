@@ -24,7 +24,7 @@ mDataspaceUnit(kTTSym_none),
 mDataspaceConverter(NULL),
 mDataspaceObserver(NULL),
 mDataspaceUnitObserver(NULL),
-mEnable(YES),
+mActive(YES),
 mReturnedValue(kTTValNONE),
 mReceiver(NULL),
 mSender(NULL),
@@ -44,7 +44,7 @@ mReturnValueCallback(NULL)
 	addAttributeProperty(Dataspace, readOnly, YES);
 	addAttributeWithSetter(DataspaceUnit, kTypeSymbol);
 	
-	addAttributeWithSetter(Enable, kTypeBoolean);
+	addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttributeWithSetter(ReturnedValue, kTypeLocalValue);
 	addAttributeProperty(ReturnedValue, readOnly, YES);
@@ -199,12 +199,12 @@ TTErr TTViewer::observeDataspaceUnit()
 	return kTTErrNone;
 }
 
-TTErr TTViewer::setEnable(const TTValue& value)
+TTErr TTViewer::setActive(const TTValue& value)
 {
-	mEnable = value;
+	mActive = value;
 	
 	if (mReceiver)
-		mReceiver->setAttributeValue(kTTSym_enable, mEnable);
+		mReceiver->setAttributeValue(kTTSym_active, mActive);
 	
 	return kTTErrNone;
 }
@@ -315,7 +315,7 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 	b = (TTValuePtr)baton;
 	b->get(0, (TTPtr*)&aViewer);
 	
-	if (aViewer->mEnable) {
+	if (aViewer->mActive) {
 		
 		if (!aViewer->mFreeze)
 			// convert data

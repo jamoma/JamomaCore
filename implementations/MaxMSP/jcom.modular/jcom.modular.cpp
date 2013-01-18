@@ -91,11 +91,9 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 			// create the application
 			args = TTValue(applicationName);
 			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&x->wrappedObject), args);
-			
 		}
 		
 		protocolName = TTSymbol(atom_getsym(argv+1)->s_name);
-		
 	}
 	
 	// jcom.modular handle only one protocol per application
@@ -200,16 +198,18 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 						hashParameters->remove(parameterName);
 						hashParameters->append(parameterName, parameterValue);
 						
-						// stop the protocol
-						aProtocol->sendMessage(TTSymbol("Stop"));
+						// stop the protocol (for local application setup only)
+                        if (applicationName == getLocalApplicationName)
+                            aProtocol->sendMessage(TTSymbol("Stop"));
 						
 						// set parameters
 						v = TTValue(applicationName);
 						v.append(TTPtr(hashParameters));
 						err = aProtocol->setAttributeValue(TTSymbol("applicationParameters"), v);
 						
-						// run the protocol
-						aProtocol->sendMessage(TTSymbol("Run"));
+						// run the protocol (for local application setup only)
+                        if (applicationName == getLocalApplicationName)
+                            aProtocol->sendMessage(TTSymbol("Run"));
 					}
 					else
 						object_error((ObjectPtr)x, "%s is not a parameter of %s protocol", parameterName.c_str(), EXTRA->protocolName.c_str());

@@ -175,11 +175,7 @@ void WrapTTInputClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)in_list,						"list", 				A_GIMME, 0L);
 #endif
 	
-#ifdef JCOM_IN_TILDE
-	// Setup our class to work with MSP
-	class_dspinit(c->maxClass);
-#endif
-
+	// no class_dspinit : it is done in wrapTTModularClassAsMaxClass for AUDIO_EXTERNAL
 }
 
 #pragma mark -

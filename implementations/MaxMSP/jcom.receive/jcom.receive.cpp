@@ -73,7 +73,6 @@ void		receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr ar
  @see				receive_int, receive_float, receive_list, WrappedOutputClass_anything
  */
 void		receive_bang(TTPtr self);
-
 #endif
 
 /** set message handler for jcom.receive. To change the address to bind.
@@ -109,7 +108,7 @@ void WrapTTReceiverClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)receive_return_model_address,	"return_model_address",	A_CANT, 0);
 
 #ifdef JCOM_RECEIVE_TILDE
-	class_addmethod(c->maxClass, (method)receive_dsp,					"dsp", 					A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)receive_dsp,					"dsp", 					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)receive_dsp64,					"dsp64",				A_CANT, 0);
 #else
 	class_addmethod(c->maxClass, (method)receive_return_address,		"return_address",		A_CANT, 0);
@@ -119,11 +118,6 @@ void WrapTTReceiverClass(WrappedClassPtr c)
 #endif
 	
 	class_addmethod(c->maxClass, (method)receive_set,					"set",					A_SYM, 0);
-	
-#ifdef JCOM_RECEIVE_TILDE
-	// Setup our class to work with MSP
-	class_dspinit(c->maxClass);
-#endif
 }
 
 #pragma mark -
@@ -178,8 +172,8 @@ void WrappedReceiverClass_free(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 #ifdef JCOM_RECEIVE_TILDE
-	if (x->address.getName() == TTSymbol("out"))
-		dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
+    // Always call dsp_free first in this routine
+    dsp_free((t_pxobject *)x);
 #endif
 }
 
@@ -191,8 +185,8 @@ void receive_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	Atom						a[1];
-	TTAddress			contextAddress = kTTAdrsEmpty;
-	TTAddress			absoluteAddress;
+	TTAddress                   contextAddress = kTTAdrsEmpty;
+	TTAddress                   absoluteAddress;
 	TTObjectPtr					anObject;
 	
 	if (x->address == kTTAdrsEmpty)
@@ -368,6 +362,13 @@ t_int *receive_perform(t_int *w)
 	TTUInt16					vectorSize = 0;
 	TTValue						v;
 	TTFloat32					d;
+    TTBoolean                   active;
+    
+    aReceiver->getAttributeValue(kTTSym_active, v);
+    v.get(0, active);
+    
+    if (x->obj.z_disabled || !active)
+        return w + 4;
 	
 	if (aReceiver) {
 		
@@ -437,6 +438,24 @@ void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, d
 	TTUInt16					vectorSize = 0;
 	TTValue						v;
 	TTFloat32					d;
+    TTBoolean                   active;
+    
+    aReceiver->getAttributeValue(kTTSym_active, v);
+    v.get(0, active);
+    
+    if (x->obj.z_disabled || !active) {
+        
+        if (aReceiver) {
+            
+            // get signal vectorSize
+            aReceiver->mSignal->getAttributeValue(kTTSym_vectorSize, vectorSize);
+            
+            // send signal to the outlet
+            TTAudioSignalPtr(aReceiver->mSignal)->getVectorCopy(0, vectorSize, outs[0]);
+        }
+        
+        return;
+    }
 	
 	if (aReceiver) {
         

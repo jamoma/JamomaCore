@@ -21,7 +21,7 @@ mTag(TTValue(kTTSym_none)),
 mPriority(0),
 mDescription(kTTSym_none),
 mRepetitionsAllow(YES),
-mEnable(YES),
+mActive(YES),
 mInitialized(NO),
 mRangeBounds(0.0, 1.0),
 mRangeClipmode(kTTSym_none),
@@ -57,7 +57,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
 	
-	addAttributeWithSetter(Enable, kTypeBoolean);
+	addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(Initialized, readOnly, YES);
@@ -423,7 +423,7 @@ TTErr TTData::setValue(const TTValue& value)
 	TTValue		r, n;
 	TTString	s;
 	
-	if (!mIsSending && mEnable) {
+	if (!mIsSending && mActive) {
 		
 		// lock
 		mIsSending = YES;
@@ -641,11 +641,11 @@ TTErr TTData::setRepetitionsAllow(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTData::setEnable(const TTValue& value)
+TTErr TTData::setActive(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mEnable = value;
-	this->notifyObservers(kTTSym_enable, n);
+	mActive = value;
+	this->notifyObservers(kTTSym_active, n);
 	return kTTErrNone;
 }
 

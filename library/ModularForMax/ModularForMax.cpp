@@ -1505,7 +1505,10 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		
 		// if still no context : stop the subscription process
 		if (returnedContext == kTTSymEmpty) {
+            
 			returnedName = S_SEPARATOR;
+            returnedClass = kTTSymEmpty;
+            
 			// can't find any jcom model|view with a correct context attribute in the patcher
 			// so this means the object have to be registered under the root
 			return kTTErrGeneric;

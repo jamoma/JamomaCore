@@ -66,9 +66,10 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 PROTOCOL_CONSTRUCTOR,
 mIp(TTSymbol("localhost")),
 mPort(MINUIT_RECEPTION_PORT),
-mOscSend(NULL),
 mOscReceive(NULL),
-mAnswerManager(NULL)
+mAnswerThread(NULL),
+mAnswerManager(NULL),
+mSenderManager(NULL)
 {	
 	PROTOCOL_INITIALIZE
 	
@@ -77,11 +78,18 @@ mAnswerManager(NULL)
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
+    
+    mAnswerThread = new TTThread(NULL, NULL);
 }
 
 Minuit::~Minuit()
 {
 	delete mAnswerManager;
+    
+    if (mAnswerThread)
+		mAnswerThread->wait();
+    
+	delete mAnswerThread;
 }
 
 TTErr Minuit::getParameterNames(TTValue& value)
@@ -111,6 +119,7 @@ TTErr Minuit::Run()
 	if (!mRunning) {
 		
 		mAnswerManager = new MinuitAnswerManager((MinuitPtr)this);
+        mSenderManager = new MinuitSenderManager();
 		
 		err = TTObjectInstantiate(TTSymbol("osc.receive"), &mOscReceive, kTTValNONE);
 		if (!err) {
@@ -135,7 +144,10 @@ TTErr Minuit::Stop()
 	if (mRunning) {
 		
 		delete mAnswerManager;
+        delete mSenderManager;
+        
 		TTObjectRelease(&mOscReceive);
+        
 		mRunning = NO;
 		
 		return kTTErrNone;
@@ -155,16 +167,16 @@ TTErr Minuit::Stop()
  *
  * \param to					: the application where to discover
  * \param address				: the address to discover
- * \param returnedChildrenNames : all names of nodes below the address
- * \param returnedChildrenTypes : all types of nodes below the address (default is none which means no type)
+ * \param returnedType          : the type of the node at the address (default is none which means no type)
+ * \param returnedChildren      : all names of nodes below the address
  * \param returnedAttributes	: all attributes the node at the address
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  else it returns kTTErrGeneric if no answer or timeout
  */
-TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address, 
-								  TTValue& returnedChildrenNames,
-								  TTValue& returnedChildrenTypes,
-								  TTValue& returnedAttributes)
+TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
+                          TTSymbol& returnedType,
+                          TTValue& returnedChildren,
+                          TTValue& returnedAttributes)
 {
 	TTValue		arguments, answer;
 	TTString	header;
@@ -184,22 +196,19 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 #endif
 		
 		// Wait for an answer
-		mAnswerManager->AddDiscoverAnswer(to.c_str(), address);
+		mAnswerManager->AddDiscoverAnswer(to, address);
 		
-		state = ANSWER_RECEIVED;
+		state = NO_ANSWER;
 		do
 		{
-#ifdef TT_PLATFORM_WIN
-			Sleep(1);
-#else
-			usleep(1000);
-#endif
-			state = mAnswerManager->CheckDiscoverAnswer(to.c_str(), address, answer);
+            mAnswerThread->sleep(1);
+            
+			state = mAnswerManager->CheckDiscoverAnswer(to, address, answer);
 		}
 		while (state == NO_ANSWER);
 		
 		if (state == ANSWER_RECEIVED)
-			mAnswerManager->ParseDiscoverAnswer(answer, returnedChildrenNames, returnedChildrenTypes, returnedAttributes);
+			return mAnswerManager->ParseDiscoverAnswer(answer, returnedType, returnedChildren, returnedAttributes);
 	}
 	
 	return kTTErrGeneric;
@@ -235,17 +244,14 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
 #endif
 		
 		// Wait for an answer
-		mAnswerManager->AddGetAnswer(to.c_str(), address);
+		mAnswerManager->AddGetAnswer(to, address);
 		
 		state = ANSWER_RECEIVED;
 		do
 		{
-#ifdef TT_PLATFORM_WIN
-			Sleep(1);
-#else
-			usleep(1000);
-#endif
-			state = mAnswerManager->CheckGetAnswer(to.c_str(), address, returnedValue);
+            mAnswerThread->sleep(1);
+            
+			state = mAnswerManager->CheckGetAnswer(to, address, returnedValue);
 		}
 		while(state == NO_ANSWER);
 		
@@ -321,19 +327,19 @@ TTErr Minuit::SendListenRequest(TTSymbol to, TTAddress address,
  **************************************************************************************************************************/
 
 /*!
- * Send a disover answer to an application which ask for.
+ * Send a disover answer to a application which ask for.
  *
  * \param to					: the application where to send answer
  * \param address				: the address where comes from the description
- * \param returnedChildrenNames : all names of nodes below the address
- * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
+ * \param returnedType          : the type of the node at the address (default is none which means no type)
+ * \param returnedChildren      : all names of nodes below the address
  * \param returnedAttributes	: all attributes the node at the address
  */
-TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address, 
-								 TTValue& returnedChildrenNames, 
-								 TTValue& returnedChildrenTypes, 
-								 TTValue& returnedAttributes, 
-								 TTErr err)
+TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address,
+                         TTSymbol& returnedType,
+                         TTValue& returnedChildren,
+                         TTValue& returnedAttributes,
+                         TTErr err)
 {
 	TTValue		v, arguments;
 	TTString	header;
@@ -357,38 +363,28 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address,
 		arguments.append(TTSymbol(MINUIT_END_ATTRIBUTES));
 	}
 	
-	if (returnedChildrenTypes.getSize()) {
-		// if no attribute field
-		if (arguments.getSize()) {
-			arguments.prepend(TTSymbol(MINUIT_END_TYPES));
-			arguments.prepend(returnedChildrenTypes);
-			arguments.prepend(TTSymbol(MINUIT_START_TYPES));
-		}
-		else {
-			arguments = returnedChildrenTypes;
-			arguments.prepend(TTSymbol(MINUIT_START_TYPES));
-			arguments.append(TTSymbol(MINUIT_END_TYPES));
-		}
-	}
-	
-	if (returnedChildrenNames.getSize()) {
-		// if no types and attribute fields
+	if (returnedChildren.getSize()) {
+		// if no attribute fields
 		if (arguments.getSize()) {
 			arguments.prepend(TTSymbol(MINUIT_END_NODES));
-			arguments.prepend(returnedChildrenNames);
+			arguments.prepend(returnedChildren);
 			arguments.prepend(TTSymbol(MINUIT_START_NODES));
 		}
 		else {
-			arguments = returnedChildrenNames;
+			arguments = returnedChildren;
 			arguments.prepend(TTSymbol(MINUIT_START_NODES));
 			arguments.append(TTSymbol(MINUIT_END_NODES));
 		}
 	}
-	
-	if (arguments.getSize())
+    
+	if (arguments.getSize()) {
+        arguments.prepend(returnedType);
 		arguments.prepend(address);
-	else
+    }
+    else {
 		arguments = TTValue(address);
+        arguments.append(returnedType);
+    }
 	
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendDiscoverAnswer " << std::endl;
@@ -472,10 +468,9 @@ TTErr Minuit::SendListenAnswer(TTSymbol to, TTAddress address,
 TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& arguments)
 {
 	TTHashPtr	parameters = NULL;
+    TTObjectPtr anOscSender;
 	TTValue		v, vIp, vPort, message;
 	TTErr		err, errIp, errPort;
-	
-	// TODO : an argument manager to don't create a sender each time !!!!
 	
 	// Check the application registration
 	err = mDistantApplicationParameters->lookup(distantApplicationName, v);
@@ -491,18 +486,14 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 			if (errIp || errPort)
 				return kTTErrGeneric;
 			
-			err = TTObjectInstantiate(TTSymbol("osc.send"), &mOscSend, kTTValNONE);
-			if (!err) {
-				mOscSend->setAttributeValue(TTSymbol("address"), vIp);
-				mOscSend->setAttributeValue(TTSymbol("port"), vPort);
-				
+			anOscSender = mSenderManager->lookup(distantApplicationName, vIp, vPort);
+			if (anOscSender) {
+
 				message = TTValue(header);
 				message.append((TTPtr)&arguments);
 				
-				err = mOscSend->sendMessage(TTSymbol("send"), message, kTTValNONE);
-				
-				TTObjectRelease(&mOscSend);
-				
+				err = anOscSender->sendMessage(TTSymbol("send"), message, kTTValNONE);
+            
 				if (mActivity) {
 					v = arguments;
 					v.prepend(header);
@@ -646,10 +637,10 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 				
 				// switch on answer
 				if (operation == TTSymbol(MINUIT_ANSWER_DISCOVER))
-					return mAnswerManager->ReceiveDiscoverAnswer(sender.c_str(), whereTo, arguments);
+					return mAnswerManager->ReceiveDiscoverAnswer(sender, whereTo, arguments);
 				
 				else if (operation == TTSymbol(MINUIT_ANSWER_GET))
-					return mAnswerManager->ReceiveGetAnswer(sender.c_str(), whereTo, arguments);
+					return mAnswerManager->ReceiveGetAnswer(sender, whereTo, arguments);
 				
 				else if (operation == TTSymbol(MINUIT_ANSWER_LISTEN))
 					return ReceiveListenAnswer(sender, whereTo, arguments);

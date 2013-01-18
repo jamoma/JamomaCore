@@ -218,7 +218,7 @@ TTErr TTApplicationManager::ProtocolScan(const TTValue& inputValue, TTValue& out
 	TTValue     v, allProtocolNames;
 	TTSymbol    protocolName;
 	ProtocolPtr aProtocol;
-	TTErr		err;
+	TTErr       err;
 	
 	// if no name do it for all protocol
 	if (inputValue.size()) {
@@ -372,14 +372,14 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 {
 	TTNodeDirectoryPtr	directory;
 	TTAddress           whereToDiscover;
-	TTValuePtr			returnedChildrenNames;
-	TTValuePtr			returnedChildrenTypes;
+    TTSymbol            *returnedType;
+	TTValuePtr			returnedChildren;
 	TTValuePtr			returnedAttributes;
 	
 	whereToDiscover = inputValue[0];
 	
-	returnedChildrenNames = TTValuePtr((TTPtr)outputValue[0]);
-	returnedChildrenTypes = TTValuePtr((TTPtr)outputValue[1]);
+	returnedType = TTValuePtr((TTPtr)outputValue[0]);
+	returnedChildren = TTValuePtr((TTPtr)outputValue[1]);
 	returnedAttributes = TTValuePtr((TTPtr)outputValue[2]);
 	
 	TTLogDebug("TTApplicationManager::Discover");
@@ -397,16 +397,28 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	
 	err = directory->Lookup(whereToDiscover, nodeList, &firstNode);
 	
+    // if the address to discover exist : fill the answer
 	if (!err) {
 		
 		firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
 		
-		// fill returned attributes
+        // check if there is an object
 		anObject = firstNode->getObject();
-		if (anObject)
+		if (anObject) {
+            
+            // fill returned type
+            objectType = anObject->getName();
+            
+            if (objectType != kTTSymEmpty)
+                *returnedType = objectType;
+            else
+                *returnedType = kTTSym_none;
+            
+            // fill returned attributes
 			anObject->getAttributeNames(*returnedAttributes);
+        }
 		
-		// fill returned children names and types value
+		// fill returned children names
 		for (childList.begin(); childList.end(); childList.next()) {
 			
 			// get the returned node
@@ -414,24 +426,11 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 			
 			// get the relative address
 			aNode->getAddress(nodeAddress, whereToDiscover);
-			returnedChildrenNames->append(nodeAddress);
-			
-			// add the type of each refered object
-			anObject = aNode->getObject();
-			if (anObject) {
-				objectType = anObject->getName();
-				
-				if (objectType != kTTSymEmpty)
-					returnedChildrenTypes->append(objectType);
-				else
-					returnedChildrenTypes->append(kTTSym_none);
-			}
-			else
-				returnedChildrenTypes->append(kTTSym_none);
+			returnedChildren->append(nodeAddress);
 		}
 		
 		return kTTErrNone;
-	} 
+	}
 	
 	return kTTErrGeneric;
 }
@@ -570,7 +569,7 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
 			else
 				return appWhereToListen->sendMessage(TTSymbol("RemoveAttributeListener"), args, kTTValNONE);
 		}
-	}	
+	}
 
 	return kTTErrGeneric;
 }

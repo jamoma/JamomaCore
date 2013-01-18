@@ -433,7 +433,7 @@ void preset_default(TTPtr self)
 	Atom		a;
 	SymbolPtr	xmlfile;
 
-	if (x->patcherClass) {
+	if (x->patcherClass != kTTSymEmpty) {
 		
 		if (x->patcherContext == kTTSym_model)
 			jamoma_edit_filename(*ModelPresetFormat, x->patcherClass, &xmlfile);
@@ -441,7 +441,7 @@ void preset_default(TTPtr self)
 		else if (x->patcherContext == kTTSym_view)
 			jamoma_edit_filename(*ViewPresetFormat, x->patcherClass, &xmlfile);
 		else
-			object_error((ObjectPtr)x, "preset_default : can't get the context of the patcher");
+			return object_error((ObjectPtr)x, "preset_default : can't get the context of the patcher");
 		
 		if (locatefile_extended((char*)xmlfile->s_name, &outvol, &outtype, &filetype, 1)) {
 			//object_warn((ObjectPtr)x, "preset_default : can't find %s file in the Max search path", xmlfile.data());

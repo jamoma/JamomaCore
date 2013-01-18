@@ -6,6 +6,7 @@ sources:
   - source/Minuit.cpp
   - source/MinuitAnswer.cpp
   - source/MinuitAnswerManager.cpp
+  - source/MinuitSenderManager.cpp
     
 includes:
   - "."

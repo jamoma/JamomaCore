@@ -51,9 +51,13 @@
 #include "Protocol.h"
 #include "MinuitInclude.h"
 #include "MinuitAnswerManager.h"
+#include "MinuitSenderManager.h"
 
 class MinuitAnswerManager;
 typedef MinuitAnswerManager* MinuitAnswerManagerPtr;
+
+class MinuitSenderManager;
+typedef MinuitSenderManager* MinuitSenderManagerPtr;
 
 class Minuit : public Protocol {
 	
@@ -64,10 +68,11 @@ private:
 	TTSymbol				mIp;						///< ATTRIBUTE : IP of the local application (to share with clients)		(default : loacalhost, readonly)
 	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception (to share with clients)	(default : MINUIT_RECEPTION_PORT)
 	
-	TTObjectPtr				mOscSend;
 	TTObjectPtr				mOscReceive;
+    TTThreadPtr             mAnswerThread;              // a thread used to wait an answer after sending a request
 	
 	MinuitAnswerManagerPtr	mAnswerManager;
+    MinuitSenderManagerPtr	mSenderManager;
 	
 	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
 	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
@@ -95,15 +100,15 @@ private:
 	 *
  	 * \param to					: the application where to discover
 	 * \param address				: the address to discover
-	 * \param returnedChildrenNames : all names of nodes below the address
-	 * \param returnedChildrenTypes : all types of nodes below the address (default is none which means no type)
+     * \param returnedType          : the type of the node at the address (default is none which means no type)
+	 * \param returnedChildren      : all names of nodes below the address
 	 * \param returnedAttributes	: all attributes the node at the address
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
-	TTErr SendDiscoverRequest(TTSymbol to, TTAddress address, 
-							  TTValue& returnedChildrenNames,
-							  TTValue& returnedChildrenTypes,
+	TTErr SendDiscoverRequest(TTSymbol to, TTAddress address,
+                              TTSymbol& returnedType,
+							  TTValue& returnedChildren,
 							  TTValue& returnedAttributes);
 	
 	/*!
@@ -153,13 +158,13 @@ private:
 	 *
 	 * \param to					: the application where to send answer
 	 * \param address				: the address where comes from the description
-	 * \param returnedChildrenNames : all names of nodes below the address
-	 * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
+     * \param returnedType          : the type of the node at the address (default is none which means no type)
+	 * \param returnedChildren      : all names of nodes below the address
 	 * \param returnedAttributes	: all attributes the node at the address
 	 */
 	TTErr SendDiscoverAnswer(TTSymbol to, TTAddress address,
-							 TTValue& returnedChildrenNames,
-							 TTValue& returnedChildrenTypes,
+                             TTSymbol& returnedType,
+							 TTValue& returnedChildren,
 							 TTValue& returnedAttributes,
 							 TTErr err=kTTErrNone);
 	
