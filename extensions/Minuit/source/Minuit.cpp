@@ -357,15 +357,15 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address,
 	// edit arguments merging all returned fields
 	// note : here we need to begin by the end
 	// and then prepend fields one by one
-	if (returnedAttributes.getSize()) {
+	if (returnedAttributes.size()) {
 		arguments = returnedAttributes;
 		arguments.prepend(TTSymbol(MINUIT_START_ATTRIBUTES));
 		arguments.append(TTSymbol(MINUIT_END_ATTRIBUTES));
 	}
 	
-	if (returnedChildren.getSize()) {
+	if (returnedChildren.size()) {
 		// if no attribute fields
-		if (arguments.getSize()) {
+		if (arguments.size()) {
 			arguments.prepend(TTSymbol(MINUIT_END_NODES));
 			arguments.prepend(returnedChildren);
 			arguments.prepend(TTSymbol(MINUIT_START_NODES));
@@ -377,7 +377,7 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address,
 		}
 	}
     
-	if (arguments.getSize()) {
+	if (arguments.size()) {
         arguments.prepend(returnedType);
 		arguments.prepend(address);
     }
@@ -476,7 +476,7 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 	err = mDistantApplicationParameters->lookup(distantApplicationName, v);
 	
 	if (!err) {
-		v.get(0, (TTPtr*)&parameters);
+		parameters = TTHashPtr((TTPtr)v[0]);
 		
 		if (parameters) {
 			
@@ -542,8 +542,8 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 	
 	if (mActivity) ActivityInMessage(message);
 	
-	message.get(0, aSymbol);
-	headerString = aSymbol.c_str();
+	aSymbol = message[0];
+	headerString = aSymbol.string();
     
 #ifdef TT_PROTOCOL_DEBUG
     cout << "Message header is " << aSymbol.c_str() << endl;
@@ -552,7 +552,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 	// if message starts with '/'
 	if (headerString[0] == '/')
 	{
-		message.get(0, aSymbol);
+		aSymbol = message[0];
 		whereTo = TTAddress(aSymbol.c_str());
 		
 		arguments.copyFrom(message, 1);
@@ -577,8 +577,8 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 				
 				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));			// get request
 				
-				if (message.getType(1) == kTypeSymbol) {							// parse /whereTo
-					message.get(1, aSymbol);
+				if (message[1].type() == kTypeSymbol) {							// parse /whereTo
+					aSymbol = message[1];
 					whereTo = TTAddress(aSymbol.c_str());
 				}
 				
@@ -595,7 +595,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 				
 				else if (operation == TTSymbol(MINUIT_REQUEST_LISTEN)) {
 					
-					if (message.getType(2) == kTypeSymbol) {						// parse enable/disable
+					if (message[2].type() == kTypeSymbol) {						// parse enable/disable
 						message.get(2, aSymbol);
 						
 						if (aSymbol == TTSymbol(MINUIT_REQUEST_LISTEN_ENABLE))
@@ -624,8 +624,8 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 				
 				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));				// get request
 				
-				if (message.getType(1) == kTypeSymbol) {							// parse /whereTo
-					message.get(1, aSymbol);
+				if (message[1].type() == kTypeSymbol) {							// parse /whereTo
+					aSymbol = message[1];
 					whereTo = TTAddress(aSymbol.c_str());
 				}
 				

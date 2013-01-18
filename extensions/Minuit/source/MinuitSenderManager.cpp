@@ -21,11 +21,11 @@ MinuitSenderManager::~MinuitSenderManager()
     
     mSenders->getKeys(keys);
     
-    for (TTUInt8 i = 0; i < keys.getSize(); i++) {
-        keys.get(i, key);
+    for (TTUInt8 i = 0; i < keys.size(); i++) {
+        key = keys[i];
         
         mSenders->lookup(key, v);
-        v.get(0, (TTPtr*)&anObject);
+        anObject = TTObjectPtr((TTPtr)v[0]);
         
         TTObjectRelease(TTObjectHandle(&anObject));
     }
@@ -48,9 +48,9 @@ TTObjectPtr MinuitSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, T
     
     else {
         
-        last.get(0, (TTPtr*)&lastObject);
-        last.get(1, lastIp);
-        last.get(2, lastPort);
+        lastObject = TTObjectPtr((TTPtr)last[0]);
+        lastIp = last[1];
+        lastPort = last[2];
         
         if (lastIp == ip && lastPort == port)
             ;
