@@ -135,28 +135,28 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 				
 				x->iterateInternals = YES;
 				
-				for (int i=0; i<keys.getSize(); i++) {
+				for (int i = 0; i < keys.size(); i++) {
 					
-					keys.get(i, name);
+					name = keys[i];
 					storedObject.clear();
 					err = x->internals->lookup(name, storedObject);
 					
 					if (!err) {
 						anObject = NULL;
-						storedObject.get(0, (TTPtr*)&anObject);
+						anObject = TTObjectPtr((TTPtr)storedObject[0]);
 						
 						// absolute registration case : remove the address
-						if (storedObject.getSize() == 2) {
-							storedObject.get(1, objectAddress);
+						if (storedObject.size() == 2) {
+							objectAddress = storedObject[1];
 							
 							JamomaDebug object_post((ObjectPtr)x, "Remove internal %s object at : %s", name.c_str(), objectAddress.c_str());
 							JamomaDirectory->TTNodeRemove(objectAddress);
 						}
 						
 						// relative registration case : get an handler on a subscriber and delete it
-						if (storedObject.getSize() == 3) {
+						if (storedObject.size() == 3) {
 							aSubscriber = NULL;
-							storedObject.get(2, (TTPtr*)&aSubscriber);
+							aSubscriber = TTSubscriberPtr((TTPtr)storedObject[2]);
 							
 							if (aSubscriber)
 								if (aSubscriber->valid)		// to -- should be better to understand why the subscriber is not valid
@@ -208,14 +208,14 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	ModularSpec*				spec = (ModularSpec*)x->wrappedClassDefinition->specificities;
 	TTValue						v;
-	TTAddress			contextAddress;
+	TTAddress                   contextAddress;
 
 #ifndef ARRAY_EXTERNAL
 	ObjectPtr					context;
 	
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TTSymbol("context"), v);
-		v.get(0, (TTPtr*)&context);
+		context = ObjectPtr((TTPtr)v[0]);
 		
 		// if the patcher is deleted
 		if (sender == context) {
@@ -223,7 +223,7 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 				
 				// delete the context node if it exists
 				x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-				v.get(0, contextAddress);
+				contextAddress = v[0];
 				
 				JamomaDirectory->TTNodeRemove(contextAddress);
 				
@@ -260,7 +260,7 @@ void wrappedModularClass_shareContextNode(TTPtr self, TTNodePtr *contextNode)
 
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TTSymbol("contextNode"), v);
-		v.get(0, (TTPtr*)contextNode);
+		*contextNode = TTNodePtr((TTPtr)v[0]);
 	}
 	else
 #endif
@@ -312,8 +312,8 @@ t_max_err wrappedModularClass_attrSet(TTPtr self, ObjectPtr attr, AtomCount argc
 		if (x->internals) {
 			err = x->internals->getKeys(keys);
 			if (!err) {
-				for (TTUInt32 i=0; i<keys.getSize(); i++) {
-					keys.get(i, x->cursor);
+				for (TTUInt32 i = 0; i < keys.size(); i++) {
+					x->cursor = keys[i];
 					wrappedModularClass_attrSet(self, attr, argc, argv);
 				}
 			}
@@ -386,9 +386,9 @@ void wrappedModularClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomP
 			if (!err) {
 				
 				memoCursor = x->cursor;
-				while (i < keys.getSize() && !err) {
+				while (i < keys.size() && !err) {
 					
-					keys.get(i, x->cursor);
+					x->cursor = keys[i];
 
 					// Is it a message of the wrapped object ?
 					err = wrappedModularClass_sendMessage(self, s, argc, argv);
@@ -519,7 +519,7 @@ void wrappedModularClass_dump(TTPtr self)
     {
     	// send out the absolute address of the subscriber
         x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
-        v.get(0, address);
+        address = v[0];
         atom_setsym(&a, gensym((char *) address.c_str()));
         object_obex_dumpout(self, gensym("address"), 1, &a);
     }
@@ -531,9 +531,9 @@ void wrappedModularClass_dump(TTPtr self)
 	
     selectedObject->getAttributeNames(names);
 	
-    for (i=0; i<names.getSize(); i++) {
+    for (i = 0; i < names.size(); i++) {
 		
-        names.get(i, aName);
+        aName = names[i];
 		
 		selectedObject->getAttributeValue(aName, v);
 		
@@ -564,17 +564,17 @@ void wrappedModularClass_paint(WrappedModularInstancePtr x, t_object *view)
 	g = (t_jgraphics*)patcherview_get_jgraphics(view);		// obtain graphics context
 	jbox_get_rect_for_view((t_object *)x, view, &rect);		// this is the box rectangle -- but we draw relative to 0 0, and thus only care about width & height
 	
-	v.setSize(2);
-	v.set(0, rect.width);
-	v.set(1, rect.height);
+	v.resize(2);
+	v[0] = rect.width;
+	v[1] = rect.height;
 	err = selectedObject->sendMessage(TTSymbol("resize"), v);
 	err = selectedObject->sendMessage(TTSymbol("paint"));
 	err = selectedObject->sendMessage(TTSymbol("getData"), v);
 	if (!err) {
 		data = (unsigned char*)TTPtr(v);
-		v.get(1, width);
-		v.get(2, height);
-		v.get(3, stride);
+		v[1] width;
+		v[2] height;
+		v[3] stride;
 		
 		jsurface = jgraphics_image_surface_create_for_data(data, JGRAPHICS_FORMAT_ARGB32, width, height, stride, NULL, NULL);
 		
@@ -593,15 +593,15 @@ TTPtr wrappedModularClass_oksize(TTPtr self, t_rect *newrect)
 	TTValue					v;
 	
 	v.setSize(4);
-	v.set(0, 0.0);
-	v.set(1, 0.0);
-	v.set(2, newrect->width);
-	v.set(3, newrect->height);
+	v[0] = 0.0;
+	v[1] = 0.0;
+	v[2] = newrect->width;
+	v[3] = newrect->height;
 	
 	selectedObject->sendMessage(TTSymbol("verifyResize"), v);
 	
-	v.get(2, newrect->width); 
-	v.get(3, newrect->height);
+	v[2] newrect->width; 
+	v[3] newrect->height;
 	return (void *)1;
 }
 
@@ -612,9 +612,9 @@ void wrappedModularClass_mousedblclick(TTPtr self, ObjectPtr patcherview, t_pt p
 	TTValue					v;
 	
 	v.setSize(3);
-	v.set(0, pt.x);
-	v.set(1, pt.y);
-	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
+	v[0] = pt.x;
+	v[1] = pt.y;
+	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
 	selectedObject->sendMessage(TTSymbol("mouseDoubleClicked"), v);
 	jbox_redraw((t_jbox *)x);
 }
@@ -625,9 +625,9 @@ void wrappedModularClass_mousedown(TTPtr self, ObjectPtr patcherview, t_pt pt, l
 	TTValue					v;
 	
 	v.setSize(3);
-	v.set(0, pt.x);
-	v.set(1, pt.y);
-	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
+	v[0] = pt.x;
+	v[1] = pt.y;
+	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
 	selectedObject->sendMessage(TTSymbol("mouseDown"), v);
 	jbox_redraw((t_jbox *)x);
 }
@@ -638,9 +638,9 @@ void wrappedModularClass_mousedrag(TTPtr self, ObjectPtr patcherview, t_pt pt, l
 	TTValue					v;
 	
 	v.setSize(3);
-	v.set(0, pt.x);
-	v.set(1, pt.y);
-	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
+	v[0] = pt.x;
+	v[1] = pt.y;
+	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
 	selectedObject->sendMessage(TTSymbol("mouseDragged"), v);
 	jbox_redraw((t_jbox *)x);
 }
@@ -651,9 +651,9 @@ void wrappedModularClass_mouseup(TTPtr self, ObjectPtr patcherview, t_pt pt, lon
 	TTValue					v;
 	
 	v.setSize(3);
-	v.set(0, pt.x);
-	v.set(1, pt.y);
-	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
+	v[0] = pt.x;
+	v[1] = pt.y;
+	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
 	selectedObject->sendMessage(TTSymbol("mouseUp"), v);
 	jbox_redraw((t_jbox *)x);
 }
@@ -665,9 +665,9 @@ void wrappedModularClass_mouseenter(TTPtr self, ObjectPtr patcherview, t_pt pt, 
 	TTValue					v;
 	
 	v.setSize(3);
-	v.set(0, pt.x);
-	v.set(1, pt.y);
-	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
+	v[0] = pt.x;
+	v[1] = pt.y;
+	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
 	selectedObject->sendMessage(TTSymbol("mouseEntered"), v);
 	jbox_redraw((t_jbox *)x);
 }
@@ -678,9 +678,9 @@ void wrappedModularClass_mousemove(TTPtr self, ObjectPtr patcherview, t_pt pt, l
 	TTValue					v;
 	
 	v.setSize(3);
-	v.set(0, pt.x);
-	v.set(1, pt.y);
-	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
+	v[0] = pt.x;
+	v[1] = pt.y;
+	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
 	selectedObject->sendMessage(TTSymbol("mouseMoved"), v);
 	jbox_redraw((t_jbox *)x);
 }
@@ -691,9 +691,9 @@ void wrappedModularClass_mouseleave(TTPtr self, ObjectPtr patcherview, t_pt pt, 
 	TTValue					v;
 	
 	v.setSize(3);
-	v.set(0, pt.x);
-	v.set(1, pt.y);
-	v.set(2, convertModifiersFromMaxToTTGraphics(modifiers));
+	v[0] = pt.x;
+	v[1] = pt.y;
+	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
 	selectedObject->sendMessage(TTSymbol("mouseExited"), v);
 	jbox_redraw((t_jbox *)x);
 }
@@ -763,8 +763,8 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 	
 	// Register Messages as Max method
 	o->getMessageNames(v);
-	for (TTUInt16 i=0; i<v.getSize(); i++) {
-		v.get(i, TTName);
+	for (TTUInt16 i = 0; i < v.size(); i++) {
+		TTName = v[i];
 
 #ifdef UI_EXTERNAL
 		if (TTName == TTSymbol("mouseDown"))
@@ -795,11 +795,11 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 	
 	// Register Attributes as Max attr
 	o->getAttributeNames(v);
-	for (TTUInt16 i=0; i<v.getSize(); i++) {
+	for (TTUInt16 i = 0; i < v.size(); i++) {
 		TTAttributePtr	attr = NULL;
 		SymbolPtr		maxType = _sym_long;
 		
-		v.get(i, TTName);
+		TTName = v[i];
 		
 		if ((MaxName = jamoma_TTName_To_MaxName(TTName))) {
 			o->findAttribute(TTName, &attr);
@@ -1012,8 +1012,8 @@ TTErr removeInternals_data(TTPtr self, TTAddress address, TTAddress name)
 	err = x->internals->lookup(name, storedObject);
 	
 	if (!err) {
-		storedObject.get(0, (TTPtr*)&aData);
-		storedObject.get(1, dataAddress);
+		aData = TTDataPtr((TTPtr)storedObject[0]);
+		dataAddress = storedObject[1];
 		
 		JamomaDebug object_post((ObjectPtr)x, "Remove internal %s object at : %s", name.c_str(), dataAddress.c_str());
 		JamomaDirectory->TTNodeRemove(dataAddress);
@@ -1034,9 +1034,10 @@ TTObjectPtr	getSelectedObject(WrappedModularInstancePtr x)
 		TTValue v;
 		TTObjectPtr o;
 		TTErr err;
+        
 		err = x->internals->lookup(x->cursor, v);
 		if (!err)
-			v.get(0, (TTPtr*)&o);
+			o = TTObjectPtr((TTPtr)v[0]);
 		else o = NULL;
 		
 		return o;
@@ -1070,11 +1071,11 @@ void copy_msg_argc_argv(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	if (x->argc) {
 		if (copyMsg) {
 			atom_setsym(&x->argv[0], msg);
-			for (i=1; i<x->argc; i++)
+			for (i = 1; i < x->argc; i++)
 				x->argv[i] = argv[i-1];
 		}
 		else
-			for (i=0; i<x->argc; i++)
+			for (i = 0; i < x->argc; i++)
 				x->argv[i] = argv[i];
 	}
 }
