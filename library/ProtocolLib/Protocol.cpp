@@ -192,7 +192,7 @@ TTErr Protocol::getApplicationParameters(TTValue& value)
 			
 			this->getParameterNames(parametersNames);
 			
-			for (TTUInt8 i=0; i<parametersNames.getSize(); i++) {
+			for (TTUInt8 i = 0; i < parametersNames.getSize(); i++) {
 				parametersNames.get(i, parameterName);
 				
 				this->getAttributeValue(parameterName, parameterValue);
@@ -283,25 +283,25 @@ TTErr Protocol::isRegistered(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address) 
 {
-	TTValue inputValue, outputValue;
-	TTErr	err;
-	TTValue returnedChildrenNames;
-	TTValue returnedChildrenTypes;
-	TTValue returnedAttributes;
+	TTValue     inputValue, outputValue;
+	TTErr       err;
+    TTSymbol    returnedType;
+	TTValue     returnedChildren;
+	TTValue     returnedAttributes;
 	
 	// discover the local namespace
 	if (mApplicationManager != NULL) {
 		
 		inputValue.append(address);
 		
-		outputValue.append((TTPtr)&returnedChildrenNames);
-		outputValue.append((TTPtr)&returnedChildrenTypes);
-		outputValue.append((TTPtr)&returnedAttributes);
+        outputValue.append((TTPtr)&returnedType);
+		outputValue.append((TTPtr)&returnedChildren);
+        outputValue.append((TTPtr)&returnedAttributes);
 		
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationDiscover"), inputValue, outputValue);
 		
 		// send result
-		return SendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes, err);
+		return SendDiscoverAnswer(from, address, returnedType, returnedChildren, returnedAttributes, err);
 	}
 	
 	return kTTErrGeneric;
@@ -442,7 +442,18 @@ TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
 	data.get(2, flag);
 	data.get(3, (TTPtr*)&anObserver);
 	
-	v.append(flag);
+    if (flag == kAddressCreated) {
+        
+        if (aNode->getObject())
+            v.append(aNode->getObject()->getName());
+        else
+            v.append(kTTSym_none);
+    }
+    else if (flag == kAddressDestroyed) {
+        
+        v.append(TTSymbol("delete"));
+    }
+
 	return aProtocol->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TTSymbol("life")), v);
 }
 

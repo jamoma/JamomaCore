@@ -248,6 +248,10 @@ TTErr TTReceiver::bindAddress()
 						newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));					// this is usefull only to debug
 						
 						anAttribute->registerObserverForNotifications(*newObserver);
+                        
+                        // for Mirror object : enable listening
+                        if (o->getName() == kTTSym_Mirror)
+							TTMirrorPtr(o)->enableListening(*anAttribute, YES);
 						
 						// memorize the node and his attribute observer
 						newElement = (TTPtr)aNode;
@@ -327,6 +331,10 @@ TTErr TTReceiver::unbindAddress()
 						
 						if(!err)
 							TTObjectRelease(&oldObserver);
+                        
+                        // for Mirror object : disable listening
+                        if (o->getName() == kTTSym_Mirror)
+							TTMirrorPtr(o)->enableListening(*anAttribute, NO);
 					}
 				}
 			}
@@ -474,6 +482,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));			// this is usefull only to debug
 							
 							anAttribute->registerObserverForNotifications(*newObserver);
+                            
+                            // for Mirror object : enable listening
+                            if (o->getName() == kTTSym_Mirror)
+                                TTMirrorPtr(o)->enableListening(*anAttribute, YES);
 							
 							// memorize the node and his attribute observer
 							newCouple = (TTPtr)aNode;
@@ -529,6 +541,19 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					
 					// destroy the observer (don't need to unregister because the object is destroyed...)
 					TTObjectRelease(&oldObserver);
+
+                    // for Mirror object : disable listening
+                    o = aNode->getObject();
+					if (o) {
+						
+                        if (o->getName() == kTTSym_Mirror) {
+                            
+                            err = o->findAttribute(ttAttributeName, &anAttribute);
+						
+                            if (!err)
+                                TTMirrorPtr(o)->enableListening(*anAttribute, NO);
+                        }
+                    }
 					
 					// forget this couple
 					aReceiver->mNodesObserversCache->remove(c);

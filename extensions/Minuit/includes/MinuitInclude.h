@@ -1,5 +1,5 @@
-#ifndef MINUITINCLUDE_HPP_
-#define MINUITINCLUDE_HPP_
+#ifndef MINUITINCLUDE_H_
+#define MINUITINCLUDE_H_
 
 #ifdef TT_PLATFORM_WIN
 	#include <time.h>
@@ -37,8 +37,6 @@ static const unsigned int MINUIT_RECEPTION_PORT = 8002;
 
 #define MINUIT_START_NODES "nodes={"
 #define MINUIT_END_NODES "}"
-#define MINUIT_START_TYPES "types={"
-#define MINUIT_END_TYPES "}"
 #define MINUIT_START_ATTRIBUTES "attributes={"
 #define MINUIT_END_ATTRIBUTES "}"
 
@@ -49,10 +47,9 @@ static const unsigned int MINUIT_RECEPTION_PORT = 8002;
 #define DEFAULT_TIMEOUT 1000
 #define NO_TIMEOUT -1
 
-// TODO use the define of Controller.h
 #define REQUEST_NOT_SENT -2
 #define TIMEOUT_EXCEEDED -1
 #define NO_ANSWER 0
 #define ANSWER_RECEIVED 1
 
-#endif /*MINUITINCLUDE_HPP_*/
+#endif /*MINUITINCLUDE_H_*/

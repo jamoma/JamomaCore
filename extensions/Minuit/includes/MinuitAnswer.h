@@ -5,7 +5,8 @@
 
 class MinuitAnswer
 {
-	
+	TTThreadPtr mThread;              // a thread used to wait an answer
+    
 private:
 	TTValue		mAnswer;
 	

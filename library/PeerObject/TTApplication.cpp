@@ -51,11 +51,14 @@ mTempAddress(kTTAdrsEmpty)
 	addAttributeWithSetter(ActivityOut, kTypeLocalValue);
 	addAttributeProperty(ActivityOut, hidden, YES);
 	
-	// relative to directory and attribute listening
 	addAttribute(Directory, kTypePointer);
 	addAttributeProperty(Directory, hidden, YES);
 	addAttributeProperty(Directory, readOnly, YES);
+    
+    addMessage(DirectoryBuild);
+    addMessageWithArguments(DirectoryObserve);
 	
+    // relative to directory and attribute listening
 	addMessageWithArguments(AddDirectoryListener);
 	addMessageProperty(AddDirectoryListener, hidden, YES);
 	
@@ -73,7 +76,6 @@ mTempAddress(kTTAdrsEmpty)
 	
 	addMessageWithArguments(UpdateAttribute);
 	addMessageProperty(UpdateAttribute, hidden, YES);
-	
 	
 	// relative to symbol conversion
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
@@ -186,15 +188,92 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTApplication::DirectoryBuild()
+{
+    TTSymbol		protocolName;
+    ProtocolPtr     aProtocol;
+	TTValue			v, protocolNames;
+    
+    // only for distant application
+    if (mName == getLocalApplicationName)
+        return kTTErrGeneric;
+    
+    // a distant application should have one protocol
+    protocolNames = getApplicationProtocols(mName);
+    protocolNames.get(0, protocolName);
+
+    aProtocol = (ProtocolPtr)getProtocol(protocolName);
+    if (aProtocol) {
+        
+        // TODO : clear the directory without deleting observers
+        
+        return buildNode(aProtocol, kTTAdrsRoot);
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
+{
+    TTAddress   nextAddress, childAddress;
+    TTSymbol    returnedType;
+    TTValue     returnedChildren;
+    TTValue     returnedAttributes;
+    TTMirrorPtr aMirror;
+    TTErr       err;
+    
+    err = aProtocol->SendDiscoverRequest(mName, anAddress, returnedType, returnedChildren, returnedAttributes); // to - the returnedAttributes field is useless !
+    
+    if (!err) {
+        
+        if (anAddress != kTTAdrsRoot)
+            aMirror = appendMirror(aProtocol, anAddress, returnedType);
+        
+        for (TTUInt32 i = 0; i < returnedChildren.getSize(); i++) {
+            
+            returnedChildren.get(i, childAddress);
+            nextAddress = anAddress.appendAddress(childAddress);
+            
+            buildNode(aProtocol, nextAddress);
+        }
+    }
+    
+    return err;
+}
+
+TTErr TTApplication::DirectoryObserve(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTSymbol		protocolName;
+    ProtocolPtr     aProtocol;
+	TTValue			v, protocolNames;
+    TTBoolean       enable;
+    
+    inputValue.get(0, enable);
+    
+    // only for distant application
+    if (mName == getLocalApplicationName)
+        return kTTErrGeneric;
+    
+    // a distant application should have one protocol
+    protocolNames = getApplicationProtocols(mName);
+    protocolNames.get(0, protocolName);
+    
+    aProtocol = (ProtocolPtr)getProtocol(protocolName);
+    if (aProtocol)
+        return aProtocol->SendListenRequest(mName, kTTAdrsRoot.appendAttribute(TTSymbol("life")), enable);
+    
+    return kTTErrGeneric;
+}
+
 TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTString			editKey;
-	TTSymbol			appToNotify, key;
-	TTAddress			whereToListen;
-	TTCallbackPtr		returnValueCallback;
-	TTValuePtr			returnValueBaton;
-	TTValue				cacheElement;
-	TTErr				err;
+	TTString		editKey;
+	TTSymbol		appToNotify, key;
+	TTAddress		whereToListen;
+	TTCallbackPtr	returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	TTValue			cacheElement;
+	TTErr			err;
 	
 	inputValue.get(1, appToNotify);
 	inputValue.get(2, whereToListen);
@@ -217,7 +296,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 		returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolDirectoryCallback));
 		
-		err = mDirectory->addObserverForNotifications(whereToListen, returnValueCallback, 0); // ask for notification only for equal addresses
+		err = mDirectory->addObserverForNotifications(whereToListen, returnValueCallback); // ask to be notified for any address below
 		
 		if (!err) {
 			
@@ -390,21 +469,44 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 {
 	TTAddress	whereComesFrom;
 	TTValuePtr	newValue;
-	TTBoolean	enable;
+    TTValue     protocolNames;
+	TTSymbol	type, protocolName;;
+    TTList      aNodeList;
+    TTNodePtr   aNode;
+    TTObjectPtr aMirror;
+    ProtocolPtr aProtocol;
+    TTErr       err;
 	
 	inputValue.get(0, whereComesFrom);
 	inputValue.get(1, (TTPtr*)&newValue);
 	
-	newValue->get(0, enable);
+	newValue->get(0, type);
+    
+    err = mDirectory->Lookup(whereComesFrom, aNodeList, &aNode);
 	
-	if (enable) {
-		// TODO : create Mirror object and register it
-		;//mDirectory->TTNodeCreate(whereComesFrom, ...
-		
+    // if the node doesn't exist already
+	if (type != TTSymbol("delete") && err) {
+        
+        // a distant application should have one protocol
+        protocolNames = getApplicationProtocols(mName);
+        protocolNames.get(0, protocolName);
+        
+        aProtocol = (ProtocolPtr)getProtocol(protocolName);
+        if (aProtocol)
+            // instantiate Mirror object for distant application
+            appendMirror(aProtocol, whereComesFrom, type);
 	}
-	else {
-		;// TODO : unregister the address and destroy the Mirror object
-	}
+    
+    // if the node exists
+	else if (!err) {
+       
+        aMirror = aNode->getObject();
+        
+        if (aMirror)
+            TTObjectRelease(TTObjectHandle(&aMirror));
+        
+        mDirectory->TTNodeRemove(whereComesFrom);
+    }
 	
 	return kTTErrGeneric;
 }
@@ -730,13 +832,9 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 {
 	TTSymbol		objectName, protocolName;
-	TTMirrorPtr		aMirror;
-	TTNodePtr		aNode;
-	TTBoolean		newInstanceCreated;
-	TTObjectPtr		getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
-	TTValuePtr		getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
-	ProtocolPtr		aProtocol;
-	TTValue			v, args, protocolNames;
+    ProtocolPtr     aProtocol;
+    TTMirrorPtr     aMirror;
+	TTValue			v, protocolNames;
     
     // when a node starts : append address to the current temp address
     if (aXmlHandler->mXmlNodeStart) {
@@ -759,72 +857,32 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                 if (aProtocol) {
                     
                     // instantiate Mirror object for distant application
-                    aMirror = NULL;
-                    args = TTValue(objectName);
+                    aMirror = appendMirror(aProtocol, mTempAddress, objectName);
                     
-                    getAttributeCallback = NULL;
-                    TTObjectInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
-                    getAttributeBaton = new TTValue(TTPtr(aProtocol));
-                    getAttributeBaton->append(mName);
-                    getAttributeBaton->append(mTempAddress);
-                    getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
-                    getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
-                    args.append(getAttributeCallback);
-                    
-                    setAttributeCallback = NULL;
-                    TTObjectInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
-                    setAttributeBaton = new TTValue(TTPtr(aProtocol));
-                    setAttributeBaton->append(mName);
-                    setAttributeBaton->append(mTempAddress);
-                    setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
-                    setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
-                    args.append(setAttributeCallback);
-                    
-                    sendMessageCallback = NULL;
-                    TTObjectInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
-                    sendMessageBaton = new TTValue(TTPtr(aProtocol));
-                    sendMessageBaton->append(mName);
-                    sendMessageBaton->append(mTempAddress);
-                    sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
-                    sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
-                    args.append(sendMessageCallback);
-                    
-                    listenAttributeCallback = NULL;
-                    TTObjectInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
-                    listenAttributeBaton = new TTValue(TTPtr(aProtocol));
-                    listenAttributeBaton->append(mName);
-                    listenAttributeBaton->append(mTempAddress);
-                    listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
-                    listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
-                    args.append(listenAttributeCallback);
-                    
-                    TTObjectInstantiate(kTTSym_Mirror, TTObjectHandle(&aMirror), args);
-                    
-                    // register object into the directory
-                    this->mDirectory->TTNodeCreate(mTempAddress, (TTObjectPtr)aMirror, NULL,  &aNode, &newInstanceCreated);
-                    
-                    // ?? to -- is it usefull to set attribute value ?
-                    // yes : in modul8 case for example...
-                    // so it depends of the protocol features : isGetRequestAllowed ?
-                    
-                    /*
-                     // get all object attributes and their value
-                     while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
-                     
-                     // get attribute name
-                     aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
-                     
-                     if (v.getType() == kTypeSymbol) {
-                     v.get(0, &attributeName);
-                     
-                     // get attribute value
-                     aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-                     
-                     
-                     aMirror->setAttributeValue(attributeName, v);
-                     }
-                     }
-                     */
+                    if (aMirror) {
+                        // ?? to -- is it usefull to set attribute value ?
+                        // yes : in modul8 case for example...
+                        // so it depends of the protocol features : isGetRequestAllowed ?
+                        
+                        /*
+                         // get all object attributes and their value
+                         while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+                         
+                         // get attribute name
+                         aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+                         
+                         if (v.getType() == kTypeSymbol) {
+                         v.get(0, &attributeName);
+                         
+                         // get attribute value
+                         aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+                         
+                         
+                         aMirror->setAttributeValue(attributeName, v);
+                         }
+                         }
+                         */
+                    }
                 }
             }
         }
@@ -837,6 +895,61 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
     // when a node ends : keep the parent address for next nodes
     else
         mTempAddress = mTempAddress.getParent();
+}
+
+TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName)
+{
+    TTMirrorPtr     aMirror = NULL;
+    TTNodePtr		aNode;
+	TTBoolean		newInstanceCreated;
+	TTObjectPtr		getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
+	TTValuePtr		getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
+    
+    TTValue         args = objectName;
+    
+    getAttributeCallback = NULL;
+    TTObjectInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
+    getAttributeBaton = new TTValue(TTPtr(aProtocol));
+    getAttributeBaton->append(mName);
+    getAttributeBaton->append(anAddress);
+    getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
+    getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
+    args.append(getAttributeCallback);
+    
+    setAttributeCallback = NULL;
+    TTObjectInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
+    setAttributeBaton = new TTValue(TTPtr(aProtocol));
+    setAttributeBaton->append(mName);
+    setAttributeBaton->append(anAddress);
+    setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
+    setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
+    args.append(setAttributeCallback);
+    
+    sendMessageCallback = NULL;
+    TTObjectInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
+    sendMessageBaton = new TTValue(TTPtr(aProtocol));
+    sendMessageBaton->append(mName);
+    sendMessageBaton->append(anAddress);
+    sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
+    sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
+    args.append(sendMessageCallback);
+    
+    listenAttributeCallback = NULL;
+    TTObjectInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
+    listenAttributeBaton = new TTValue(TTPtr(aProtocol));
+    listenAttributeBaton->append(mName);
+    listenAttributeBaton->append(anAddress);
+    listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
+    listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
+    args.append(listenAttributeCallback);
+    
+    aMirror = NULL;
+    TTObjectInstantiate(kTTSym_Mirror, TTObjectHandle(&aMirror), args);
+    
+    // register object into the directory
+    this->mDirectory->TTNodeCreate(anAddress, (TTObjectPtr)aMirror, NULL, &aNode, &newInstanceCreated);
+    
+    return aMirror;
 }
 
 #if 0
