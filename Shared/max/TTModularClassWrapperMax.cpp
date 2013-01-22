@@ -592,7 +592,7 @@ TTPtr wrappedModularClass_oksize(TTPtr self, t_rect *newrect)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue					v;
 	
-	v.setSize(4);
+	v.resize(4);
 	v[0] = 0.0;
 	v[1] = 0.0;
 	v[2] = newrect->width;
@@ -611,7 +611,7 @@ void wrappedModularClass_mousedblclick(TTPtr self, ObjectPtr patcherview, t_pt p
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue					v;
 	
-	v.setSize(3);
+	vresize(3);
 	v[0] = pt.x;
 	v[1] = pt.y;
 	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
@@ -624,7 +624,7 @@ void wrappedModularClass_mousedown(TTPtr self, ObjectPtr patcherview, t_pt pt, l
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue					v;
 	
-	v.setSize(3);
+	vresize(3);
 	v[0] = pt.x;
 	v[1] = pt.y;
 	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
@@ -637,7 +637,7 @@ void wrappedModularClass_mousedrag(TTPtr self, ObjectPtr patcherview, t_pt pt, l
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue					v;
 	
-	v.setSize(3);
+	vresize(3);
 	v[0] = pt.x;
 	v[1] = pt.y;
 	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
@@ -650,7 +650,7 @@ void wrappedModularClass_mouseup(TTPtr self, ObjectPtr patcherview, t_pt pt, lon
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue					v;
 	
-	v.setSize(3);
+	vresize(3);
 	v[0] = pt.x;
 	v[1] = pt.y;
 	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
@@ -664,7 +664,7 @@ void wrappedModularClass_mouseenter(TTPtr self, ObjectPtr patcherview, t_pt pt, 
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue					v;
 	
-	v.setSize(3);
+	vresize(3);
 	v[0] = pt.x;
 	v[1] = pt.y;
 	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
@@ -677,7 +677,7 @@ void wrappedModularClass_mousemove(TTPtr self, ObjectPtr patcherview, t_pt pt, l
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue					v;
 	
-	v.setSize(3);
+	vresize(3);
 	v[0] = pt.x;
 	v[1] = pt.y;
 	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
@@ -690,7 +690,7 @@ void wrappedModularClass_mouseleave(TTPtr self, ObjectPtr patcherview, t_pt pt, 
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue					v;
 	
-	v.setSize(3);
+	vresize(3);
 	v[0] = pt.x;
 	v[1] = pt.y;
 	v[2] = convertModifiersFromMaxToTTGraphics(modifiers);
