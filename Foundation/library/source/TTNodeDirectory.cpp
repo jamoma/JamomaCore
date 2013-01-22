@@ -552,7 +552,7 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTCallba
 {
 	TTErr			err;
 	TTValue			lk;
-	TTValue			o = (TTPtr)anObserver;
+	TTValue			o = anObserver;
 	TTListPtr		lk_o;
 	TTAddress		adrs;
 
@@ -609,7 +609,7 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTCal
 		lk_o = TTListPtr((TTPtr)lk[0]);
 
 		// is observer exists ?
-		err = lk_o->find(&findObserver, (TTPtr)anObserver, v);
+		err = lk_o->find(&findObserver, anObserver, v);
 		if(!err)
 			lk_o->remove(v);
 
