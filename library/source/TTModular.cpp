@@ -109,7 +109,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&anApplication), args);
 			
 			// set it as local application
-			args = TTValue((TTPtr)anApplication);
+			args = TTValue(anApplication);
 			TTModularApplications->setAttributeValue(TTSymbol("localApplication"), args);
 			
 			// Read xml configuration file

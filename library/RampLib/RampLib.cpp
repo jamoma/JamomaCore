@@ -55,7 +55,7 @@ void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 	
 	stop();
 	setNumValues(newNumValues);
-	for (i =0; i <newNumValues; i++)
+	for (i = 0; i < newNumValues; i++)
 		currentValue[i] = newValues[i];
 }
 

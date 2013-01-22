@@ -95,7 +95,7 @@ bool jcom_core_string_compare(char *s1, char *s2)
 	if (len2 < len1)
 		len1 = len2;	// only compare the characters of the short string
 		
-	for (i =0; i <len1 && keepgoing; i++) {
+	for (i =0 ; i < len1 && keepgoing; i++) {
 		if (s1[i] < s2[i]) {
 			result = true;
 			keepgoing = false;
