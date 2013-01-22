@@ -124,7 +124,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			// Write data of the given TTObject (which have to implement a WriteAsOpml message)
 			v.clear();
-			v.append((TTPtr)this);
+			v.append(this);
 			aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 			
 			// Close opml body
@@ -151,7 +151,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
+	v.append(this);
 	return aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 }
 
@@ -216,7 +216,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						}
 					}
 					
-					v.append((TTPtr)this);
+					v.append(this);
 					aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 					
 					// next node
@@ -240,7 +240,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
+	v.append(this);
 	return aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 }
 

@@ -30,7 +30,7 @@ mResult(NULL),
 mLastResult(kTTValNONE)
 {
 	if(arguments.size() >= 1)
-		mReturnValueCallback = TTCallbackPtr((TTPtr)arguments[0]);
+		mReturnValueCallback = TTCallbackPtr((TTObjectPtr)arguments[0]);
 	
 	// It is possible to pass a default filter bank
 	if(arguments.size() >= 2)
@@ -39,7 +39,7 @@ mLastResult(kTTValNONE)
 		mFilterBank = new TTHash();
 	
 	if(arguments.size() >= 3)
-		mReturnSelectionCallback = TTCallbackPtr((TTPtr)arguments[2]);
+		mReturnSelectionCallback = TTCallbackPtr((TTObjectPtr)arguments[2]);
 	
 	addAttributeWithSetter(Namespace, kTypeSymbol);
 	
@@ -846,13 +846,13 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 		
 	// Unpack baton
 	b = (TTValuePtr)baton;
-    anExplorer = TTExplorerPtr((TTPtr)(*b)[0]);
+    anExplorer = TTExplorerPtr((TTObjectPtr)(*b)[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
 	aNode = TTNodePtr((TTPtr)data[1]);
 	flag = data[2];
-	anObserver = TTCallbackPtr((TTPtr)data[3]);
+	anObserver = TTCallbackPtr((TTObjectPtr)data[3]);
 	
 	// get attributes names
 	if (anExplorer->mOutput == kTTSym_attributes) {
@@ -946,11 +946,11 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTExplorerPtr)
 	b = (TTValuePtr)baton;
-	anExplorer = TTExplorerPtr((TTPtr)(*b)[0]);
+	anExplorer = TTExplorerPtr((TTObjectPtr)(*b)[0]);
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];
-    anApplication = TTApplicationPtr((TTPtr)data[1]);
+    anApplication = TTApplicationPtr((TTObjectPtr)data[1]);
 	flag = data[2];
 	
 	switch (flag) {

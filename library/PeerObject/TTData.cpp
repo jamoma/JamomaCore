@@ -41,7 +41,7 @@ mReturnValueCallback(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTData", arguments.size() == 1);
 	
-	mReturnValueCallback = TTCallbackPtr((TTPtr)arguments[0]);
+	mReturnValueCallback = TTCallbackPtr((TTObjectPtr)arguments[0]);
 	TT_ASSERT("Return Value Callback passed to TTData is not NULL", mReturnValueCallback);
 	
 	if (arguments.size() == 2)
@@ -915,7 +915,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTValue			toString;
 	TTString		line;
 	
-	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
+	aTextHandler = TTTextHandlerPtr((TTObjectPtr)inputValue[0]);
 	buffer = aTextHandler->mWriter;
 	
 	// Type
@@ -1111,7 +1111,7 @@ void TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	TTUInt16	i;
 	
 	rampedValue.resize(n);
-	for (i  =0; i < n; i++)
+	for (i  = 0; i <  n; i++)
 		rampedValue[i] = rampedArray[i];
 	
 	if (aData->mType == kTTSym_integer)

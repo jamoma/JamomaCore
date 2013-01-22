@@ -75,7 +75,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			}
 			
 			// Call the WriteAsText method of the handled object
-			v = TTValue((TTPtr)this);
+			v = TTValue(this);
 			aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
 			
 			// TODO : Write the writer string into the file
@@ -95,7 +95,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			mWriter = (TTString*)((TTPtr)args[0]);
 			
 			// Call the WriteAsText method of the handled object
-			v = TTValue((TTPtr)this);
+			v = TTValue(this);
 			aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
 			
 		}
@@ -111,7 +111,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
+	v.append(this);
 	return aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
 }
 
@@ -151,7 +151,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 			// Start the document
 			mFirstLine = YES;
 			mLastLine = NO;
-			v = TTValue((TTPtr)this);
+			v = TTValue(this);
 			
 			while (!file.eof()) {
 				
@@ -182,7 +182,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 				mLastLine = NO;
 				found = mReader->find_first_of('\n');
 				size = mReader->size();
-				v = TTValue((TTPtr)this);
+				v = TTValue(this);
 				
 				while (!mLastLine)
 				{
@@ -239,6 +239,6 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
+	v.append(this);
 	return aTTObject->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
 }

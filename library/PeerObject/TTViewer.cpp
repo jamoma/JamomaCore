@@ -31,7 +31,7 @@ mSender(NULL),
 mReturnValueCallback(NULL)
 {	
 	if(arguments.size() == 1)
-		mReturnValueCallback = TTCallbackPtr((TTPtr)arguments[0]);
+		mReturnValueCallback = TTCallbackPtr((TTObjectPtr)arguments[0]);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Description, kTypeSymbol);
@@ -288,7 +288,7 @@ TTErr TTViewerReceiveAddressCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
-	aViewer = TTViewerPtr((TTPtr)(*b)[0]);
+	aViewer = TTViewerPtr((TTObjectPtr)(*b)[0]);
 	
 	if (aViewer->mDataspace == kTTSym_none) {
 
@@ -313,7 +313,7 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
-	aViewer = TTViewerPtr((TTPtr)(*b)[0]);
+	aViewer = TTViewerPtr((TTObjectPtr)(*b)[0]);
 	
 	if (aViewer->mActive) {
 		
@@ -344,7 +344,7 @@ TTErr TTViewerDataspaceCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
-	aViewer = TTViewerPtr((TTPtr)(*b)[0]);
+	aViewer = TTViewerPtr((TTObjectPtr)(*b)[0]);
 	
     dataspace = data;
     
@@ -369,7 +369,7 @@ TTErr TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
-	aViewer = TTViewerPtr((TTPtr)(*b)[0]);
+	aViewer = TTViewerPtr((TTObjectPtr)(*b)[0]);
 	
 	if (aViewer->mDataspaceConverter) {
 		

@@ -46,7 +46,7 @@ TTErr TTMapperManager::New()
 	TTMapperPtr oldMapper;
 
 	for (mMapperList->begin(); mMapperList->end(); mMapperList->next()) {
-		oldMapper = TTMapperPtr((TTPtr)mMapperList->current()[0]);
+		oldMapper = TTMapperPtr((TTObjectPtr)mMapperList->current()[0]);
 		TTObjectRelease(TTObjectHandle(&oldMapper));
 	}
 
@@ -65,14 +65,14 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 	TTSymbol			attributeName;
 	TTString			s;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// Browse the mapper list
 	for (mMapperList->begin(); mMapperList->end(); mMapperList->next()) {
 		
 		xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "mapper");
 
-		aMapper = TTMapperPtr((TTPtr)mMapperList->current()[0]);
+		aMapper = TTMapperPtr((TTObjectPtr)mMapperList->current()[0]);
 
 		// Get mapper attributes
 		aMapper->getAttributeNames(attributesList);
@@ -113,7 +113,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	TTMapperPtr		newMapper;
 	TTValue			v, args;
 
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 
@@ -170,7 +170,7 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 			}
 
 			// Add Mapper in the list
-			mMapperList->append((TTPtr)newMapper);
+			mMapperList->append(newMapper);
 		}
 	}
 

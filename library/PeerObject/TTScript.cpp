@@ -24,7 +24,7 @@ mReturnLineCallback(NULL)
 	TT_ASSERT("Correct number of args to create TTScript", arguments.size() == 0 || arguments.size() == 1);
 	
 	if (arguments.size() == 1)
-		mReturnLineCallback = TTCallbackPtr((TTPtr)arguments[0]);
+		mReturnLineCallback = TTCallbackPtr((TTObjectPtr)arguments[0]);
 	
 	TT_ASSERT("Return Line Callback passed to TTScript is not NULL", mReturnLineCallback);
 	
@@ -80,7 +80,7 @@ TTScript::~TTScript()
 				
 				// get script
 				aLine->getValue(v);
-				mSubScript = TTObjectPtr((TTPtr)v[0]);
+				mSubScript = v[0];
 				
 				TTObjectRelease(&mSubScript);
 			}
@@ -109,7 +109,7 @@ TTErr TTScript::Clear()
 				
 				// get script
 				aLine->getValue(v);
-				mSubScript = TTObjectPtr((TTPtr)v[0]);
+				mSubScript = v[0];
 				
 				TTObjectRelease(&mSubScript);
 			}
@@ -222,7 +222,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			mSubScript = TTObjectPtr((TTPtr)v[0]);
+			mSubScript = v[0];
 			
 			// get address
 			aLine->lookup(kTTSym_address, v);
@@ -326,7 +326,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			mSubScript = TTObjectPtr((TTPtr)v[0]);
+			mSubScript = v[0];
 			
 			TTScriptPtr(mSubScript)->mReturnLineCallback = mReturnLineCallback;
 			
@@ -391,7 +391,7 @@ TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
 				
 				// get the script
 				aLine->getValue(v);
-				mSubScript = TTObjectPtr((TTPtr)v[0]);
+				mSubScript = v[0];
 				
 				// prepare the sub script
 				mSubScript->sendMessage(TTSymbol("Bind"), address, kTTValNONE);
@@ -484,7 +484,7 @@ TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 		
 		// get the sub script
 		line->getValue(v);
-		mSubScript = TTObjectPtr((TTPtr)v[0]);
+		mSubScript = v[0];
 		
 		// append the line
 		v = TTValue((TTPtr)line);
@@ -528,7 +528,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTValue			v;
 	TTString		aString;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// Write all lines
 	for (mLines->begin(); mLines->end(); mLines->next()) {
@@ -620,7 +620,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			mSubScript = TTObjectPtr((TTPtr)v[0]);
+			mSubScript = v[0];
 			
 			// use WriteAsXml of the script
 			v = TTValue(TTPtr(mSubScript));
@@ -643,7 +643,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	TTAddress	address;
 	TTValue				v, parsedLine;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
@@ -766,7 +766,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 				this->AppendScript(v, parsedLine);
 				
 				// set this as parent script of the subscript
-				v = TTValue((TTPtr)this);
+				v = TTValue(this);
 				mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
 			}
 		}
@@ -789,7 +789,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt8				i;
 	TTValue				v;
 	
-	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
+	aTextHandler = TTTextHandlerPtr((TTObjectPtr)inputValue[0]);
 	buffer = aTextHandler->mWriter;
 	
 	// write a new line for level 0
@@ -892,10 +892,10 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the script
 			aLine->getValue(v);
-			mSubScript = TTObjectPtr((TTPtr)v[0]);
+			mSubScript = v[0];
 			
 			// set this as parent script of the subscript
-			v = TTValue((TTPtr)this);
+			v = TTValue(this);
 			mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
 			
 			// increment the tab count to indent lines
@@ -925,7 +925,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	TTDictionaryPtr		aLine;
 	TTValue				v, parsedLine;
 	
-	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
+	aTextHandler = TTTextHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// this line is for this script
 	if (aTextHandler->mTabCount == 0) {
@@ -941,7 +941,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 				
 				// get script
 				aLine->getValue(v);
-				mSubScript = TTObjectPtr((TTPtr)v[0]);
+				mSubScript = v[0];
 			}
 		}
 	}
@@ -956,7 +956,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 		aTextHandler->mTabCount--;
 		
 		// set this as parent script of the subscript
-		v = TTValue((TTPtr)this);
+		v = TTValue(this);
 		mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
 		
 		// use ReadFromText of the sub script
@@ -1088,7 +1088,7 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 			
 			TTObjectInstantiate(kTTSym_Script, &script, kTTValNONE);
 			
-			v = TTValue((TTPtr)script);
+			v = TTValue(script);
 			line->setValue(v);
 		}
 	}
@@ -1183,11 +1183,11 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 				// get the sub scripts
 				sub1 = NULL;
 				if (!line1->getValue(v))
-					sub1 = TTScriptPtr((TTPtr)v[0]);
+					sub1 = TTScriptPtr((TTObjectPtr)v[0]);
 				
 				sub2 = NULL;
 				if (!line2->getValue(v))
-					sub2 = TTScriptPtr((TTPtr)v[0]);
+					sub2 = TTScriptPtr((TTObjectPtr)v[0]);
 				
 				// interpolate the script
 				if (sub1 && sub2)
@@ -1215,11 +1215,11 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 	mixSize = scripts.size();
 	
 	// initialized lines list iterator
-	firstScript = TTScriptPtr((TTPtr)scripts[0]);
+	firstScript = TTScriptPtr((TTObjectPtr)scripts[0]);
 	firstScript->mLines->begin();
 	
     for (i = 1; i < mixSize; i++) {
-		aScript = TTScriptPtr((TTPtr)scripts[i]);
+		aScript = TTScriptPtr((TTObjectPtr)scripts[i]);
 		aScript->mLines->begin();
     }
 	
@@ -1239,7 +1239,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
         // else each script go to the next line
         else {
 			for (i = 1; i < mixSize; i++) {
-				aScript = TTScriptPtr((TTPtr)scripts[i]);
+				aScript = TTScriptPtr((TTObjectPtr)scripts[i]);
 				aScript->mLines->next();
 			}
 			continue;
@@ -1259,7 +1259,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 			
 			for (i = 1; i < mixSize; i++) {
 				
-				aScript = TTScriptPtr((TTPtr)scripts[i]);
+				aScript = TTScriptPtr((TTObjectPtr)scripts[i]);
 				
 				if (aScript->mLines->end()) {
 					
@@ -1311,14 +1311,14 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 			// get the first sub script
 			aSubScript = NULL;
 			if (!firstScriptLine->getValue(v))
-				aSubScript = TTScriptPtr((TTPtr)v[0]);
+				aSubScript = TTScriptPtr((TTObjectPtr)v[0]);
 			
 			subScripts.append((TTPtr*)aSubScript);
 			
 			// get all other sub scripts
 			for (i = 1; i < mixSize; i++) {
 				
-				aScript = TTScriptPtr((TTPtr)scripts[i]);
+				aScript = TTScriptPtr((TTObjectPtr)scripts[i]);
 				
 				if (aScript->mLines->end()) {
 					
@@ -1337,7 +1337,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 						// get the sub script
 						aSubScript = NULL;
 						if (!aLine->getValue(v))
-							aSubScript = TTScriptPtr((TTPtr)v[0]);
+							aSubScript = TTScriptPtr((TTObjectPtr)v[0]);
 						
 						subScripts.append((TTPtr*)aSubScript);
 						
@@ -1461,7 +1461,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 				// get the sub scripts
 				subScriptToMerge = NULL;
 				if (!lineToMerge->getValue(v))
-					subScriptToMerge = TTScriptPtr((TTPtr)v[0]);
+					subScriptToMerge = TTScriptPtr((TTObjectPtr)v[0]);
 				
 				// if this script line haven't been merged yet
 				if (!merged)
@@ -1471,7 +1471,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 				// get the new sub script
 				mergedSubScript = NULL;
 				mergedLine->getValue(v);
-				mergedSubScript = TTScriptPtr((TTPtr)v[0]);
+				mergedSubScript = TTScriptPtr((TTObjectPtr)v[0]);
 				
 				// merge the sub scripts if they exist
 				if (subScriptToMerge && mergedSubScript) {
@@ -1564,11 +1564,11 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 				// get the sub scripts
 				subScriptToOptimize = NULL;
 				if (!lineToOptimize->getValue(v))
-					subScriptToOptimize = TTScriptPtr((TTPtr)v[0]);
+					subScriptToOptimize = TTScriptPtr((TTObjectPtr)v[0]);
 				
 				aSubScript = NULL;
 				if (!aLine->getValue(v))
-					aSubScript = TTScriptPtr((TTPtr)v[0]);
+					aSubScript = TTScriptPtr((TTObjectPtr)v[0]);
 				
 				// optimize the sub scripts if they exist
 				if (subScriptToOptimize && aSubScript) {
@@ -1579,7 +1579,7 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 					// get the new sub script
 					optimizedSubScript = NULL;
 					optimizedLine->getValue(v);
-					optimizedSubScript = TTScriptPtr((TTPtr)v[0]);
+					optimizedSubScript = TTScriptPtr((TTObjectPtr)v[0]);
 					
 					err = TTScriptOptimize(subScriptToOptimize, aSubScript, optimizedSubScript);
 					
@@ -1634,10 +1634,10 @@ TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 			
 			// get the subscript
 			aLineCopy->getValue(v);
-			aSubScriptToCopy = TTScriptPtr((TTPtr)v[0]);
+			aSubScriptToCopy = TTScriptPtr((TTObjectPtr)v[0]);
 			
 			// prepare arguments
-			args.append((TTPtr)scriptTocopy->mReturnLineCallback);
+			args.append(scriptTocopy->mReturnLineCallback);
 			
 			// create a subscript copy
 			TTObjectInstantiate(kTTSym_Script, TTObjectHandle(&aSubScriptCopy), args);
@@ -1645,7 +1645,7 @@ TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 			// copy the subscript into
 			TTScriptCopy(aSubScriptToCopy, aSubScriptCopy);
 			
-			v = TTValue((TTPtr)aSubScriptCopy);
+			v = TTValue(aSubScriptCopy);
 			aLineCopy->setValue(v);
 		}
 		

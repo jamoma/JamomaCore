@@ -111,7 +111,7 @@ mTempAddress(kTTAdrsEmpty)
 	mAttributeListenersCache = new TTHash();
 	
 	// add itself to the application manager
-	TTValue args = TTValue((TTPtr)this);
+	TTValue args = TTValue(this);
 	TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
 }
 
@@ -140,7 +140,7 @@ TTErr TTApplication::setName(const TTValue& value)
 	mDirectory->setName(mName);
 	
 	// add itself to the application manager
-	args = TTValue((TTPtr)this);
+	args = TTValue(this);
 	return TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
 }
 
@@ -151,7 +151,7 @@ TTErr TTApplication::setActivity(const TTValue& value)
 	
 	mActivity = value;
 	
-	for (TTUInt32 i =0; i <protocols.size(); i++) {
+	for (TTUInt32 i = 0; i < protocols.size(); i++) {
 		
 		protocolName = protocols[i];
 		getProtocol(protocolName)->setAttributeValue(kTTSym_activity, mActivity);
@@ -301,7 +301,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 		if (!err) {
 			
 			// cache the observer in the directoryListenersCache
-			cacheElement.append((TTPtr)returnValueCallback);
+			cacheElement.append(returnValueCallback);
 			return mDirectoryListenersCache->append(key, cacheElement);
 		}
 		else
@@ -330,7 +330,7 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 	// if this listener exists
 	if (!mDirectoryListenersCache->lookup(key, cacheElement)) {
         
-		returnValueCallback = TTCallbackPtr((TTPtr)cacheElement[0]);
+		returnValueCallback = TTCallbackPtr((TTObjectPtr)cacheElement[0]);
 		mDirectory->removeObserverForNotifications(whereToListen, returnValueCallback);
 		TTObjectRelease(TTObjectHandle(&returnValueCallback));
 		return mDirectoryListenersCache->remove(key);
@@ -393,7 +393,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 						anAttribute->registerObserverForNotifications(*returnValueCallback);
 						
 						// cache the listener in the attributeListenersCache
-						cacheElement.append((TTPtr)returnValueCallback);
+						cacheElement.append(returnValueCallback);
 					}
 				}
 			}
@@ -450,7 +450,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 					
 					if (!err) {
 						
-                        returnValueCallback = TTCallbackPtr((TTPtr)cacheElement[i]);
+                        returnValueCallback = TTCallbackPtr((TTObjectPtr)cacheElement[i]);
 						anAttribute->unregisterObserverForNotifications(*returnValueCallback);
 						TTObjectRelease(TTObjectHandle(&returnValueCallback));
 						i++;
@@ -573,7 +573,7 @@ TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& output
 	
 	// else convert each symbol of the value.
 	// !!! in this case 1 to many conversion is not handled
-	for (TTUInt8 i =0; i <inputValue.size(); i++)
+	for (TTUInt8 i = 0; i < inputValue.size(); i++)
 		if (inputValue[i].type() == kTypeSymbol) {
 			ttName = inputValue[i];
 			if (!this->mTTToApp->lookup(ttName, c)) {
@@ -602,7 +602,7 @@ TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputV
 	
 	// else convert each symbol of the value.
 	// !!! in this case 1 to many conversion is not handled
-	for (TTUInt8 i =0; i <inputValue.size(); i++)
+	for (TTUInt8 i = 0; i < inputValue.size(); i++)
 		if (inputValue[i].type() == kTypeSymbol) {
 			appName = inputValue[i];
 			if (!this->mAppToTT->lookup(appName, c)) {
@@ -618,7 +618,7 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr aXmlHandler;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	
     // Write all the namespace starting from the root of the directory
 	if (mDirectory)
@@ -760,7 +760,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	TTString		anAppKey, aTTKey;
 	TTValue			appValue, ttValue, v, nameValue, parameterValue;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	

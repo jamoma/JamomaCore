@@ -24,7 +24,7 @@ mApplicationObserver(NULL)
 	
 	// a Sender can handle a signal
 	if (arguments.size() >= 1)
-		mSignal = TTObjectPtr((TTPtr)arguments[0]);
+		mSignal = arguments[0];
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -262,7 +262,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 
 	// unpack baton (a TTSenderPtr)
 	b = (TTValuePtr)baton;
-	aSender = TTSenderPtr((TTPtr)(*b)[0]);
+	aSender = TTSenderPtr((TTObjectPtr)(*b)[0]);
 
 	// Unpack data (address, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -289,7 +289,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 			for (aSender->mObjectCache->begin(); aSender->mObjectCache->end(); aSender->mObjectCache->next()) {
 				
 				// get a node
-				aCacheObject = TTObjectPtr((TTPtr)aSender->mObjectCache->current()[0]);
+				aCacheObject = aSender->mObjectCache->current()[0];
 				
 				if (aCacheObject == anObject) {
 					aSender->mObjectCache->remove(aSender->mObjectCache->current());
@@ -317,11 +317,11 @@ TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTSenderPtr)
 	b = (TTValuePtr)baton;
-	aSender = TTSenderPtr((TTPtr)(*b)[0]);
+	aSender = TTSenderPtr((TTObjectPtr)(*b)[0]);
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];
-	anApplication = TTApplicationPtr((TTPtr)data[1]);
+	anApplication = TTApplicationPtr((TTObjectPtr)data[1]);
 	flag = data[2];
 	
 	switch (flag) {

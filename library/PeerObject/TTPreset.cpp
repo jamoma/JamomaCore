@@ -142,7 +142,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTXmlHandlerPtr		aXmlHandler = NULL;
 	TTValue				v;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// use WriteAsXml of the script
 	v = TTValue(TTPtr(mScript));
@@ -157,7 +157,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	TTXmlHandlerPtr		aXmlHandler = NULL;
 	TTValue				v, parsedLine;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// Preset node : append a preset flag with the name
 	if (aXmlHandler->mXmlNodeName == TTSymbol("preset")) {
@@ -185,7 +185,7 @@ TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr aTextHandler;
 	TTValue	v;
 	
-	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
+	aTextHandler = TTTextHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// use WriteAsBuffer of the script
 	v = TTValue(TTPtr(mScript));
@@ -200,7 +200,7 @@ TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr aTextHandler;
 	TTValue	v;
 	
-	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
+	aTextHandler = TTTextHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
@@ -289,10 +289,10 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
 	TTUInt32	i;
 	
 	for (i = 0; i < presets.size(); i++) {
-		aPreset = TTPresetPtr((TTPtr)presets[i]);
+		aPreset = TTPresetPtr((TTObjectPtr)presets[i]);
 		aPreset->mScript->sendMessage(TTSymbol("Bind"), aPreset->mAddress, kTTValNONE);
 		
-		scripts.append((TTPtr)aPreset->mScript);
+		scripts.append(aPreset->mScript);
 	}
 	
 	return TTScriptMix(scripts, factors);

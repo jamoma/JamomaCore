@@ -31,16 +31,16 @@ mListenAttributeCallback(NULL)
 		mType = arguments[0];
 
 	if (arguments.size() >= 2)
-		mGetAttributeCallback = TTCallbackPtr((TTPtr)arguments[1]);
+		mGetAttributeCallback = TTCallbackPtr((TTObjectPtr)arguments[1]);
 	
 	if (arguments.size() >= 3)
-		mSetAttributeCallback = TTCallbackPtr((TTPtr)arguments[2]);
+		mSetAttributeCallback = TTCallbackPtr((TTObjectPtr)arguments[2]);
 	
 	if (arguments.size() >= 4)
-		mSendMessageCallback = TTCallbackPtr((TTPtr)arguments[3]);
+		mSendMessageCallback = TTCallbackPtr((TTObjectPtr)arguments[3]);
 	
 	if (arguments.size() >= 5)
-		mListenAttributeCallback = TTCallbackPtr((TTPtr)arguments[4]);
+		mListenAttributeCallback = TTCallbackPtr((TTObjectPtr)arguments[4]);
 	
 
 	// instantiate a temp object to copy visible attributes and messages
@@ -63,7 +63,7 @@ mListenAttributeCallback(NULL)
 	}
 	
 	anObject->getMessageNames(messageNames);
-	for (TTUInt32 i =0; i <messageNames.size(); i++) {
+	for (TTUInt32 i = 0; i < messageNames.size(); i++) {
 		
 		name = messageNames[i];
 		anObject->getMessage(name, &aMessage);

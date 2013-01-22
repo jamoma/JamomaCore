@@ -29,13 +29,13 @@ mAddressObserver(NULL)
 	TT_ASSERT("Correct number of args to create TTInput", arguments.size() >= 2);
 	
 	mType = arguments[0];
-	mReturnSignalCallback = TTCallbackPtr((TTPtr)arguments[1]);
+	mReturnSignalCallback = TTCallbackPtr((TTObjectPtr)arguments[1]);
 	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
 	
 	if (arguments.size() > 2) {
-		mSignalIn = TTObjectPtr((TTPtr)arguments[2]);
-		mSignalOut = TTObjectPtr((TTPtr)arguments[3]);
-		mSignalZero = TTObjectPtr((TTPtr)arguments[4]);
+		mSignalIn = arguments[2];
+		mSignalOut = arguments[3];
+		mSignalZero = arguments[4];
 	}
 	
 	addAttribute(Type, kTypeSymbol);
@@ -101,7 +101,7 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTInput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
-    mOutputObject = TTOutputPtr((TTPtr)inputValue[0]);
+    mOutputObject = TTOutputPtr((TTObjectPtr)inputValue[0]);
 	return kTTErrNone;
 }
 
@@ -127,7 +127,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 		o = aNode->getObject();
 		if (o)
 			if (o->getName() == kTTSym_Output)
-				Link((TTPtr)o, kTTValNONE);
+				Link(o, kTTValNONE);
 	}
 	
 	if (!mAddressObserver) {
@@ -169,7 +169,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (an InputPtr)
 	b = (TTValuePtr)baton;
-	anInput = TTInputPtr((TTPtr)(*b)[0]);
+	anInput = TTInputPtr((TTObjectPtr)(*b)[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -184,7 +184,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 					
 				case kAddressCreated :
 				{
-					anInput->Link((TTPtr)o, kTTValNONE);
+					anInput->Link(o, kTTValNONE);
 					break;
 				}
 					

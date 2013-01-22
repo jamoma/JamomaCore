@@ -40,26 +40,26 @@ mSignalAttr(NULL)
 	TT_ASSERT("Correct number of args to create TTOutput", arguments.size() >= 2);
 	
 	mType = arguments[0];
-	mReturnSignalCallback = TTCallbackPtr((TTPtr)arguments[1]);
+	mReturnSignalCallback = TTCallbackPtr((TTObjectPtr)arguments[1]);
 	TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
 	
 	if (arguments.size() > 2) {
-		mReturnLinkCallback = TTCallbackPtr((TTPtr)arguments[2]);
+		mReturnLinkCallback = TTCallbackPtr((TTObjectPtr)arguments[2]);
 		TT_ASSERT("Return Link Callback passed to TTOutput is not NULL", mReturnLinkCallback);
 	}
 	
 	if (arguments.size() > 3) {
-		mSignalIn = TTObjectPtr((TTPtr)arguments[3]);
-		mSignalOut = TTObjectPtr((TTPtr)arguments[4]);
-		mSignalTemp = TTObjectPtr((TTPtr)arguments[5]);
-		mSignalZero = TTObjectPtr((TTPtr)arguments[6]);
+		mSignalIn = arguments[3];
+		mSignalOut = arguments[4];
+		mSignalTemp = arguments[5];
+		mSignalZero = arguments[6];
 	}
 	
 	if (arguments.size() > 7) {
-		mMixUnit = TTObjectPtr((TTPtr)arguments[7]);
-		mGainUnit = TTObjectPtr((TTPtr)arguments[8]);
-		mRampMixUnit = TTObjectPtr((TTPtr)arguments[9]);
-		mRampGainUnit = TTObjectPtr((TTPtr)arguments[10]);
+		mMixUnit = arguments[7];
+		mGainUnit = arguments[8];
+		mRampMixUnit = arguments[9];
+		mRampGainUnit = arguments[10];
 	}
 	
 	addAttribute(Type, kTypeSymbol);
@@ -172,7 +172,7 @@ TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
-	mInputObject = TTInputPtr((TTPtr)inputValue[0]);
+	mInputObject = TTInputPtr((TTObjectPtr)inputValue[0]);
 	
 	if (mReturnLinkCallback)
 		return mReturnLinkCallback->notify(kTTVal1, kTTValNONE);
@@ -206,7 +206,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		o = aNode->getObject();
 		if (o)
 			if (o->getName() == kTTSym_Input)
-				Link((TTPtr)o, kTTValNONE);
+				Link(o, kTTValNONE);
 	}
 
 	if (!mAddressObserver) {
@@ -293,7 +293,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (an OutputPtr)
 	b = (TTValuePtr)baton;
-	anOutput = TTOutputPtr((TTPtr)(*b)[0]);
+	anOutput = TTOutputPtr((TTObjectPtr)(*b)[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -308,7 +308,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 					
 				case kAddressCreated :
 				{
-					anOutput->Link((TTPtr)o, kTTValNONE);
+					anOutput->Link(o, kTTValNONE);
 					break;
 				}
 					

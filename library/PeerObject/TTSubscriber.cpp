@@ -28,7 +28,7 @@ mExposedAttributes(NULL)
 	
 	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.size() == 3);
 	
-	mObject = TTObjectPtr((TTPtr)arguments[0]);
+	mObject = arguments[0];
 	
 	arguments.get(1, mRelativeAddress);
 	
@@ -101,11 +101,11 @@ TTSubscriber::~TTSubscriber()
 	// Clear exposed Messages
 	err = mExposedMessages->getKeys(keys);
 	if (!err) {
-		for (i =0; i <keys.size(); i++) {
+		for (i = 0; i < keys.size(); i++) {
 			
 			k = keys[i];
 			mExposedMessages->lookup(k, storedObject);
-			anObject = TTObjectPtr((TTPtr)storedObject[0]);
+			anObject = storedObject[0];
 			
 			convertUpperCasedNameInAddress(k, nameToAddress);
 			objectAddress = mNodeAddress.appendAddress(nameToAddress);
@@ -122,11 +122,11 @@ TTSubscriber::~TTSubscriber()
 	// Clear exposed Attributes
 	err = mExposedAttributes->getKeys(keys);
 	if (!err) {
-		for (i =0; i <keys.size(); i++) {
+		for (i = 0; i < keys.size(); i++) {
 			
 			k = keys[i];
 			mExposedAttributes->lookup(k, storedObject);
-			anObject = TTObjectPtr((TTPtr)storedObject[0]);
+			anObject = storedObject[0];
 			
 			convertUpperCasedNameInAddress(k, nameToAddress);
 			objectAddress = mNodeAddress.appendAddress(nameToAddress);
@@ -330,7 +330,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbol messageName, TT
 	TTDataPtr		aData;
 	TTCallbackPtr	returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTAddress nameToAddress, dataAddress;
+	TTAddress       nameToAddress, dataAddress;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
 	TTPtr			aContext;
@@ -357,7 +357,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectPtr anObject, TTSymbol messageName, TT
 	
 	// store TTData and given object
 	v = TTValue((TTPtr)aData);
-	v.append((TTPtr)anObject);
+	v.append(anObject);
 	mExposedMessages->append(messageName, v);
 	
 	*returnedData = aData;
@@ -417,7 +417,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectPtr anObject, TTSymbol attributeName
 		
 		// store TTData and given object
 		v = TTValue((TTPtr)aData);
-		v.append((TTPtr)anObject);
+		v.append(anObject);
 		mExposedAttributes->append(attributeName, v);
 		
 		*returnedData = aData;
@@ -437,7 +437,7 @@ TTErr TTSubscriber::unexposeMessage(TTSymbol messageName)
 	TTObjectPtr			anObject;
 	
 	if (!mExposedMessages->lookup(messageName, storedObject)) {
-		anObject = TTObjectPtr((TTPtr)storedObject[0]);
+		anObject = storedObject[0];
 		
 		convertUpperCasedNameInAddress(messageName, nameToAddress);
 		objectAddress = mNodeAddress.appendAddress(nameToAddress);
@@ -463,7 +463,7 @@ TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 	TTObjectPtr			anObject;
 	
 	if (!mExposedAttributes->lookup(attributeName, storedObject)) {
-		anObject = TTObjectPtr((TTPtr)storedObject[0]);
+		anObject = storedObject[0];
 		
 		convertUpperCasedNameInAddress(attributeName, nameToAddress);
 		objectAddress = mNodeAddress.appendAddress(nameToAddress);
@@ -497,14 +497,14 @@ TTErr TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTSubscriber)
 	b = (TTValuePtr)baton;
-	aSubscriber = TTSubscriberPtr((TTPtr)(*b)[0]);
+	aSubscriber = TTSubscriberPtr((TTObjectPtr)(*b)[0]);
 	messageName = (*b)[1];
 	
 	// get the exposed TTObject
 	err = aSubscriber->mExposedMessages->lookup(messageName, v);
 	
 	if (!err) {
-		anObject = TTObjectPtr((TTPtr)v[1]);
+		anObject = v[1];
 		
 		// protect data
 		v = data;
@@ -529,14 +529,14 @@ TTErr TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTSubscriber)
 	b = (TTValuePtr)baton;
-	aSubscriber = TTSubscriberPtr((TTPtr)(*b)[0]);
+	aSubscriber = TTSubscriberPtr((TTObjectPtr)(*b)[0]);
 	attributeName = (*b)[1];
 	
 	// get the exposed TTObject
 	err = aSubscriber->mExposedAttributes->lookup(attributeName, v);
 	
 	if (!err) {
-		anObject = TTObjectPtr((TTPtr)v[1]);
+		anObject = v[1];
 		
 		// protect data
 		v = data;
@@ -561,14 +561,14 @@ TTErr TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTSubscriber)
 	b = (TTValuePtr)baton;
-	aSubscriber = TTSubscriberPtr((TTPtr)(*b)[0]);
+	aSubscriber = TTSubscriberPtr((TTObjectPtr)(*b)[0]);
 	attributeName = (*b)[1];
 	
 	// get the TTData which expose the attribute
 	err = aSubscriber->mExposedAttributes->lookup(attributeName, v);
 	
 	if (!err) {
-		aData = TTDataPtr((TTPtr)v[0]);
+		aData = TTDataPtr((TTObjectPtr)v[0]);
 		
 		// protect data
 		v = data;

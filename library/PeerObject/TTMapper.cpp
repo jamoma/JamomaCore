@@ -42,7 +42,7 @@ mValid(NO)
 #endif
 {	
 	if(arguments.size() == 1)
-		mReturnValueCallback = TTCallbackPtr((TTPtr)arguments[0]);
+		mReturnValueCallback = TTCallbackPtr((TTObjectPtr)arguments[0]);
 	
 	addAttributeWithSetter(Input, kTypeSymbol);
 	addAttributeWithSetter(Output, kTypeSymbol);
@@ -85,7 +85,7 @@ TTMapper::~TTMapper() // TODO : delete things...
 		
 		// Remove former datas
 		n = mFunctionParameters.size();
-		for (int i =0; i <n; i++) {
+		for (int i = 0; i < n; i++) {
 			aName = mFunctionParameters[i];
 			this->removeAttribute(aName);
 		}
@@ -386,7 +386,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 
 		// Remove former datas
 		n = mFunctionParameters.size();
-		for (int i =0; i <n; i++) {
+		for (int i = 0; i < n; i++) {
 			aName = mFunctionParameters[i];
 			this->removeAttribute(aName);
 		}
@@ -410,7 +410,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		n = names.size();
 		
 		if (n) {
-			for (int i =0; i <n; i++) {
+			for (int i = 0; i < n; i++) {
 				
 				aName = names[i];
 				
@@ -590,7 +590,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTMapper)
 	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTPtr)(*b)[0]);
+	aMapper = TTMapperPtr((TTObjectPtr)(*b)[0]);
 	
 	// unpack data (an address)
 	address = data[0];
@@ -636,7 +636,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTMapper)
 	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTPtr)(*b)[0]);
+	aMapper = TTMapperPtr((TTObjectPtr)(*b)[0]);
 	
 	// unpack data (an address)
 	address = data[0];
@@ -678,7 +678,7 @@ TTErr TTMapperInputRangeCallback(TTPtr baton, TTValue& data)
 
 	// unpack baton (a TTMapper)
 	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTPtr)(*b)[0]);
+	aMapper = TTMapperPtr((TTObjectPtr)(*b)[0]);
 	
 	if (aMapper->mObserveInputRange) {
 		// unpack data (min, max)
@@ -698,7 +698,7 @@ TTErr TTMapperOutputRangeCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTMapper)
 	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTPtr)(*b)[0]);
+	aMapper = TTMapperPtr((TTObjectPtr)(*b)[0]);
 	
 	if (aMapper->mObserveOutputRange) {
 		// unpack data (min, max)
@@ -719,7 +719,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTMapper)
 	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTPtr)(*b)[0]);
+	aMapper = TTMapperPtr((TTObjectPtr)(*b)[0]);
 	
 	if (aMapper->mActive) {
 		
