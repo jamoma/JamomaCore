@@ -35,7 +35,6 @@ sources:
   - RampLib/NoneRamp.cpp
   - RampLib/QueueRamp.cpp
   - RampLib/SchedulerRamp.cpp
-  - FunctionLib/FunctionLib.cpp
   - ../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
   
 includes:
@@ -43,7 +42,6 @@ includes:
   - ModularForMax
   - PeerObject
   - ProtocolLib
-  - FunctionLib
   - RampLib
   - ../../../Core/Foundation/library/includes
   - ../../../Core/DSP/library/includes

@@ -74,7 +74,7 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 		return kTTErrNone;
 	
 	mFunction = newFunctionName;
-	err = FunctionLib::createUnit(mFunction, (TTObject**)&functionUnit);
+    err = TTObjectInstantiate(mFunction, TTObjectHandle(&functionUnit), 1); // for 1 channel only
 	if (err)
 		logError("Jamoma ramp unit failed to load the requested FunctionUnit from TTBlue.");
 	return err;

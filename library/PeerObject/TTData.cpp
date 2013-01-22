@@ -476,11 +476,13 @@ TTErr TTData::setValue(const TTValue& value)
 		// used new values to protect the attribute
 		r = mValue;
 		n = mValue;
-        
+
+#ifndef TTDATA_NO_RAMPLIB        
         // This is a temporary solution to have audio rate ramping outside the TTData
         if (mRampDrive == TT("external"))
             if (mExternalRampTime > 0)
                 r.append(mExternalRampTime);
+#endif
         
 		// return the value to his owner
 		if (!(mService == kTTSym_return))

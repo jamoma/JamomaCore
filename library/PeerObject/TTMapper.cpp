@@ -140,7 +140,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTMapper::getFunctionLibrary(TTValue& value)
 {
-	FunctionLib::getUnitNames(mFunctionLibrary);
+    TTGetRegisteredClassNamesForTags(mFunctionLibrary, kTTSym_function);
 	
 	value = mFunctionLibrary;
 	return kTTErrNone;
@@ -400,7 +400,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	// Create a new function unit
 	mValid = false;
 	mFunction = value;
-	FunctionLib::createUnit(mFunction, (TTObject **)&mFunctionUnit);
+    TTObjectInstantiate(mFunction, (TTObject **)&mFunctionUnit, 1);
 	
 	// Extend function unit attributes as attributes of this mapper
 	// and set mFunctionParameters attribute
