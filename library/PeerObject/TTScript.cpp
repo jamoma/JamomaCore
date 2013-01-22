@@ -33,10 +33,10 @@ mReturnLineCallback(NULL)
 	addAttribute(Lines, kTypePointer);
 	addAttributeProperty(Lines, readOnly, YES);
 	
-	addAttribute(SubScript, kTypePointer);
+	addAttribute(SubScript, kTypeObject);
 	addAttributeProperty(SubScript, hidden, YES);
 	
-	addAttribute(ParentScript, kTypePointer);
+	addAttribute(ParentScript, kTypeObject);
 	addAttributeProperty(ParentScript, hidden, YES);
 	
 	addMessage(Clear);
@@ -623,7 +623,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			mSubScript = v[0];
 			
 			// use WriteAsXml of the script
-			v = TTValue(TTPtr(mSubScript));
+			v = TTValue(mSubScript);
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TTSymbol("Write"));
 			
@@ -752,7 +752,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 			if (mParentScript) {
 				
 				// set NULL as sub script of the parent script
-				v = TTValue((TTPtr)NULL);
+				v = TTValue((TTObjectPtr)NULL);
 				mParentScript->setAttributeValue(TTSymbol("subScript"), v);
 			}
 		}
@@ -912,7 +912,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	if (mParentScript) {
 		
 		// set NULL as sub script of the parent script
-		v = TTValue((TTPtr)NULL);
+		v = TTValue((TTObjectPtr)NULL);
 		mParentScript->setAttributeValue(TTSymbol("subScript"), v);
 	}
 	
@@ -960,7 +960,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 		mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
 		
 		// use ReadFromText of the sub script
-		v = TTValue(TTPtr(mSubScript));
+		v = TTValue(mSubScript);
 		aTextHandler->setAttributeValue(kTTSym_object, v);
 		aTextHandler->sendMessage(TTSymbol("Read"));
 	}

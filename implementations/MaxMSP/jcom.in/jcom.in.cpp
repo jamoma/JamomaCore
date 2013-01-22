@@ -449,7 +449,7 @@ t_int *in_perform(t_int *w)
 			
 			for (anInput->mSignalCache->begin(); anInput->mSignalCache->end(); anInput->mSignalCache->next()) {
 				
-				sentSignal = TTAudioSignalPtr((TTPtr)anInput->mSignalCache->current()[0]);
+				sentSignal = TTAudioSignalPtr((TTObjectPtr)anInput->mSignalCache->current()[0]);
 				
 				if (sentSignal)
 					*TTAudioSignalPtr(anInput->mSignalOut) += *sentSignal;
@@ -524,7 +524,7 @@ void in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double
                 
                 for (anInput->mSignalCache->begin(); anInput->mSignalCache->end(); anInput->mSignalCache->next()) {
                     
-                    sentSignal = TTAudioSignalPtr((TTPtr)anInput->mSignalCache->current()[0]);
+                    sentSignal = TTAudioSignalPtr((TTObjectPtr)anInput->mSignalCache->current()[0]);
                     
                     if (sentSignal)
                         *TTAudioSignalPtr(anInput->mSignalOut) += *sentSignal;
@@ -663,7 +663,7 @@ void in_update_amplitude(TTPtr self)
 				
 				if (!err) {
 					
-					anObject = TTObjectPtr((TTPtr)storedObject[0]);
+					anObject = storedObject[0];
 					
 					// set current meter value
 					anObject->setAttributeValue(kTTSym_value, EXTRA->meter);

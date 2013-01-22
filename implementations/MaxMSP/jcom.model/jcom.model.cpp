@@ -244,9 +244,9 @@ void model_subscribe(TTPtr self)
                     // create internal TTTextHandler
                     aTextHandler = NULL;
                     TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
-                    v = TTValue(TTPtr(aTextHandler));
+                    v = TTValue(aTextHandler);
                     x->internals->append(kTTSym_TextHandler, v);
-                    v = TTValue(TTPtr(x->wrappedObject));
+                    v = TTValue(x->wrappedObject);
                     aTextHandler->setAttributeValue(kTTSym_object, v);
                 }
                 
@@ -262,7 +262,7 @@ void model_subscribe(TTPtr self)
                     // create internal TTPreset
                     aPreset = NULL;
                     TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&aPreset), args);
-                    v = TTValue(TTPtr(aPreset));
+                    v = TTValue(aPreset);
                     x->internals->append(kTTSym_Preset, v);
                     v = TTValue(nodeAdrs);
                     aPreset->setAttributeValue(kTTSym_address, v);
@@ -511,7 +511,7 @@ void model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		tterr = x->internals->lookup(TTSymbol("TextHandler"), o);
 		
 		if (!tterr) {
-			aTextHandler = TTTextHandlerPtr((TTPtr)o[0]);
+			aTextHandler = TTTextHandlerPtr((TTObjectPtr)o[0]);
 			
 			critical_enter(0);
 			aTextHandler->sendMessage(TTSymbol("Write"), v, kTTValNONE);
@@ -580,8 +580,8 @@ void model_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr1 && !tterr2) {
 			
-			aTextHandler = TTTextHandlerPtr((TTPtr)o1[0]);
-            aPreset = TTPresetPtr((TTPtr)o2[0]);
+			aTextHandler = TTTextHandlerPtr((TTObjectPtr)o1[0]);
+            aPreset = TTPresetPtr((TTObjectPtr)o2[0]);
             
             // Store the preset
             aPreset->sendMessage(TTSymbol("Store"), kTTValNONE, kTTValNONE);
@@ -633,8 +633,8 @@ void model_doedit(TTPtr self)
 	
 	if (!tterr1 && !tterr2) {
 		
-		aTextHandler = TTTextHandlerPtr((TTPtr)o1[0]);
-        aPreset = TTPresetPtr((TTPtr)o2[0]);
+		aTextHandler = TTTextHandlerPtr((TTObjectPtr)o1[0]);
+        aPreset = TTPresetPtr((TTObjectPtr)o2[0]);
 		
 		critical_enter(0);
         args = TTValue(TTPtr(aPreset));

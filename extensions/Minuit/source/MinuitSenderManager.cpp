@@ -25,7 +25,7 @@ MinuitSenderManager::~MinuitSenderManager()
         key = keys[i];
         
         mSenders->lookup(key, v);
-        anObject = TTObjectPtr((TTPtr)v[0]);
+        anObject = v[0];
         
         TTObjectRelease(TTObjectHandle(&anObject));
     }
@@ -48,7 +48,7 @@ TTObjectPtr MinuitSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, T
     
     else {
         
-        lastObject = TTObjectPtr((TTPtr)last[0]);
+        lastObject = last[0];
         lastIp = last[1];
         lastPort = last[2];
         
@@ -57,7 +57,7 @@ TTObjectPtr MinuitSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, T
         
         else {
             
-            v.append((TTPtr)lastObject);
+            v.append(lastObject);
             v.append(ip);
             v.append(port);
             
@@ -80,7 +80,7 @@ TTObjectPtr MinuitSenderManager::add(TTSymbol applicationName, TTSymbol ip, TTUI
         anObject->setAttributeValue(TTSymbol("address"), ip);
         anObject->setAttributeValue(TTSymbol("port"), port);
         
-        v.append((TTPtr)anObject);
+        v.append(anObject);
         v.append(ip);
         v.append(port);
         

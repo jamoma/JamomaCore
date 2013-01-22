@@ -718,7 +718,7 @@ void out_update_amplitude(TTPtr self)
 				
 				if (!err) {
 					
-					anObject = TTObjectPtr((TTPtr)storedObject[0]);
+					anObject = storedObject[0];
 					
 					// set current meter value
 					anObject->setAttributeValue(kTTSym_value, EXTRA->meter);

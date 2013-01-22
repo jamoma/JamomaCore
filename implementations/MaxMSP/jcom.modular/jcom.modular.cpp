@@ -123,9 +123,9 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// create internal TTXmlHandler
 	anXmlHandler = NULL;
 	TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&anXmlHandler), args);
-	v = TTValue(TTPtr(anXmlHandler));
+	v = TTValue(anXmlHandler);
 	x->internals->append(kTTSym_XmlHandler, v);
-	v = TTValue(TTPtr(x->wrappedObject));
+	v = TTValue(x->wrappedObject);
 	anXmlHandler->setAttributeValue(kTTSym_object, v);
 	
 	if (attrstart && argv) attr_args_process(x, argc, argv);
@@ -260,7 +260,7 @@ void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 		
 		if (!tterr) {
 			
-			anXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
+			anXmlHandler = TTXmlHandlerPtr((TTObjectPtr)o[0]);
 			
 			critical_enter(0);
 			tterr = anXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
@@ -298,7 +298,7 @@ void	modular_namespace_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 		
 		if (!tterr) {
-			anXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
+			anXmlHandler = TTXmlHandlerPtr((TTObjectPtr)o[0]);
 			
 			critical_enter(0);
 			tterr = anXmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);

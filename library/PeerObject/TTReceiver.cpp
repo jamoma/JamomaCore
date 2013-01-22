@@ -238,7 +238,7 @@ TTErr TTReceiver::bindAddress()
 						newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 						TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&newObserver), kTTValNONE);
 						
-						newBaton = new TTValue(TTPtr(this));
+						newBaton = new TTValue(this);
 						aNode->getAddress(anAddress);
 						newBaton->append(anAddress.appendAttribute(mAddress.getAttribute()));
 						
@@ -277,7 +277,7 @@ TTErr TTReceiver::bindAddress()
 	mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 	
-	newBaton = new TTValue(TTPtr(this));
+	newBaton = new TTValue(this);
 	
 	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
@@ -372,7 +372,7 @@ TTErr TTReceiver::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
 		
-		newBaton = new TTValue(TTPtr(this));
+		newBaton = new TTValue(this);
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverApplicationManagerCallback));
@@ -473,7 +473,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							newObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 							TTObjectInstantiate(TTSymbol("callback"), &newObserver, kTTValNONE);
 							
-							newBaton = new TTValue(TTPtr(aReceiver));
+							newBaton = new TTValue(aReceiver);
 							newBaton->append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
 							
 							newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));

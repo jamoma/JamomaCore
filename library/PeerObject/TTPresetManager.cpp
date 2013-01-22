@@ -292,7 +292,7 @@ TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
         // if preset exist
         if (!mPresets->lookup(name, v)) {
             
-            preset = TTPresetPtr((TTPtr)v[0]);
+            preset = TTPresetPtr((TTObjectPtr)v[0]);
             
             if (preset) {
                 presets.append(preset);
@@ -518,7 +518,7 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 		aPresetCopy->setAttributeValue(kTTSym_name, nameCopy);
 		
 		// append the copy
-		v = TTValue((TTPtr)aPresetCopy);
+		v = TTValue(aPresetCopy);
 		mPresets->append(nameCopy, v);
 		mOrder.append(nameCopy);
 		mCurrent = nameCopy;
@@ -635,7 +635,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	// edit the current preset from the xml file using the XmlHandler
 	if (mCurrentPreset) {
 		
-		v = TTValue(TTPtr(mCurrentPreset));
+		v = TTValue(mCurrentPreset);
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		return aXmlHandler->sendMessage(TTSymbol("Read"));
 	}
@@ -720,7 +720,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 		// edit the current preset with the line
 		if (mCurrentPreset) {
 			
-			v = TTValue(TTPtr(mCurrentPreset));
+			v = TTValue(mCurrentPreset);
 			aTextHandler->setAttributeValue(kTTSym_object, v);
 			aTextHandler->sendMessage(TTSymbol("Read"));
 		}

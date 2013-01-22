@@ -589,9 +589,9 @@ TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *retu
 {
 	TTValue args;
 	
-	args.append(TTPtr(manager));
-	args.append(TTPtr(activityInCallback));
-	args.append(TTPtr(activityOutCallback));
+	args.append(manager);
+	args.append(activityInCallback);
+	args.append(activityOutCallback);
 	
 	// These should be alphabetized
 	if (protocolName == TTSymbol("Minuit"))

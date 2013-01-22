@@ -909,7 +909,7 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     
     getAttributeCallback = NULL;
     TTObjectInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
-    getAttributeBaton = new TTValue(TTPtr(aProtocol));
+    getAttributeBaton = new TTValue(aProtocol);
     getAttributeBaton->append(mName);
     getAttributeBaton->append(anAddress);
     getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
@@ -918,7 +918,7 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     
     setAttributeCallback = NULL;
     TTObjectInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
-    setAttributeBaton = new TTValue(TTPtr(aProtocol));
+    setAttributeBaton = new TTValue(aProtocol);
     setAttributeBaton->append(mName);
     setAttributeBaton->append(anAddress);
     setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
@@ -927,7 +927,7 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     
     sendMessageCallback = NULL;
     TTObjectInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
-    sendMessageBaton = new TTValue(TTPtr(aProtocol));
+    sendMessageBaton = new TTValue(aProtocol);
     sendMessageBaton->append(mName);
     sendMessageBaton->append(anAddress);
     sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
@@ -936,7 +936,7 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     
     listenAttributeCallback = NULL;
     TTObjectInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
-    listenAttributeBaton = new TTValue(TTPtr(aProtocol));
+    listenAttributeBaton = new TTValue(aProtocol);
     listenAttributeBaton->append(mName);
     listenAttributeBaton->append(anAddress);
     listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));

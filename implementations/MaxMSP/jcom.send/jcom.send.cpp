@@ -464,13 +464,13 @@ t_int *send_perform(t_int *w)
 				// send signal or mean to each object
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
-					anObject = TTObjectPtr((TTPtr)objectCache->current()[0]);
+					anObject = objectCache->current()[0];
 					
 					if (anObject) {
 						
 						// INPUT case : cache the signal into the input
 						if (anObject->getName() == kTTSym_Input)
-							TTInputPtr(anObject)->mSignalCache->appendUnique((TTPtr)aSender->mSignal);
+							TTInputPtr(anObject)->mSignalCache->appendUnique(aSender->mSignal);
 						
 						// DATA case : send the mean value of the sample
 						else if (anObject->getName() == kTTSym_Data)
@@ -530,13 +530,13 @@ void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doub
 				// send signal or mean to each object
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
-					anObject = TTObjectPtr((TTPtr)objectCache->current()[0]);
+					anObject = objectCache->current()[0];
 					
 					if (anObject) {
 						
 						// INPUT case : cache the signal into the input
 						if (anObject->getName() == kTTSym_Input)
-							TTInputPtr(anObject)->mSignalCache->appendUnique((TTPtr)aSender->mSignal);
+							TTInputPtr(anObject)->mSignalCache->appendUnique(aSender->mSignal);
 						
 						// DATA case : send the mean value of the sample
 						else if (anObject->getName() == kTTSym_Data)

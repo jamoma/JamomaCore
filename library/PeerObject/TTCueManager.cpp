@@ -901,7 +901,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 			mCurrentCue = TTCuePtr((TTObjectPtr)v[0]);
 			
 			// send the end file to the cue to process the namespace
-			v = TTValue(TTPtr(mCurrentCue));
+			v = TTValue(mCurrentCue);
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TTSymbol("Read"));
 		}
@@ -946,7 +946,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	// edit the current cue from the xml file using the XmlHandler
 	if (mCurrentCue) {
 		
-		v = TTValue(TTPtr(mCurrentCue));
+		v = TTValue(mCurrentCue);
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		return aXmlHandler->sendMessage(TTSymbol("Read"));
 	}
@@ -1032,7 +1032,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 	// edit the current cue with the line
 	if (mCurrentCue) {
 		
-		v = TTValue(TTPtr(mCurrentCue));
+		v = TTValue(mCurrentCue);
 		aTextHandler->setAttributeValue(kTTSym_object, v);
 		aTextHandler->sendMessage(TTSymbol("Read"));
 	}

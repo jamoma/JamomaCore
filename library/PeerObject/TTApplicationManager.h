@@ -69,9 +69,6 @@ private:
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);
 	
-	/** Set local application */
-	TTErr setLocalApplication(TTValue& value);
-	
 	/** Get all protocol names */
 	TTErr getProtocolNames(TTValue& value);
 	

@@ -222,15 +222,15 @@ void preset_subscribe(TTPtr self)
 		// create internal TTXmlHandler
 		aXmlHandler = NULL;
 		TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&aXmlHandler), args);
-		v = TTValue(TTPtr(aXmlHandler));
+		v = TTValue(aXmlHandler);
 		x->internals->append(kTTSym_XmlHandler, v);
-		v = TTValue(TTPtr(x->wrappedObject));
+		v = TTValue(x->wrappedObject);
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
 		// create internal TTTextHandler
 		aTextHandler = NULL;
 		TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
-		v = TTValue(TTPtr(aTextHandler));
+		v = TTValue(aTextHandler);
 		x->internals->append(kTTSym_TextHandler, v);
 		
 		// Create internal messages for Read and Write
@@ -305,7 +305,7 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr) {
 			
-			aXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
+			aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
@@ -335,7 +335,7 @@ void preset_doread_again(TTPtr self)
 	
 	if (!tterr) {
 		
-		aXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
+		aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)o[0]);
 		
 		critical_enter(0);
 		tterr = aXmlHandler->sendMessage(kTTSym_ReadAgain);
@@ -376,7 +376,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 		
 		if (!tterr) {
-			aXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
+			aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);
@@ -410,7 +410,7 @@ void preset_dowrite_again(TTPtr self)
 	
 	if (!tterr) {
 		
-		aXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
+		aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)o[0]);
 		
 		critical_enter(0);
 		tterr = aXmlHandler->sendMessage(kTTSym_WriteAgain);
@@ -553,7 +553,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				if (!allPresets->lookup(name, v)) {
 					
 					// edit a preset
-					EXTRA->toEdit = TTObjectPtr((TTPtr)v[0]);
+					EXTRA->toEdit = v[0];
 					EXTRA->presetName = name;
 				}
 				else {
@@ -576,10 +576,10 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr) {
 			
-			aTextHandler = TTTextHandlerPtr((TTPtr)o[0]);
+			aTextHandler = TTTextHandlerPtr((TTObjectPtr)o[0]);
 			
 			critical_enter(0);
-			o = TTValue(TTPtr(EXTRA->toEdit));
+			o = TTValue(EXTRA->toEdit);
 			aTextHandler->setAttributeValue(kTTSym_object, o);
 			args = TTValue((TTPtr)buffer);
 			tterr = aTextHandler->sendMessage(kTTSym_Write, args, kTTValNONE);
@@ -621,7 +621,7 @@ void preset_doedit(TTPtr self)
 	
 	if (!tterr) {
 		
-		aTextHandler = TTTextHandlerPtr((TTPtr)o[0]);
+		aTextHandler = TTTextHandlerPtr((TTObjectPtr)o[0]);
 		
 		critical_enter(0);
 		args = TTValue((TTPtr)EXTRA->text);

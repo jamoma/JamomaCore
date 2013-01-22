@@ -94,7 +94,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 		}
 		
 		v.clear();
-		v = TTValue(TTPtr(aMapper));
+		v = TTValue(aMapper);
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		aXmlHandler->sendMessage(TTSymbol("Write"));
 		

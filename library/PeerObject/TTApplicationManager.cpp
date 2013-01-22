@@ -27,7 +27,7 @@ mApplicationObserversMutex(NULL)
 	addAttributeProperty(Applications, readOnly, YES);
 	addAttributeProperty(Applications, hidden, YES);
 	
-	addAttributeWithSetter(LocalApplication, kTypePointer);
+	addAttribute(LocalApplication, kTypeObject);
 	
 	registerAttribute(TTSymbol("applicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplicationManager::getApplicationNames);
 	registerAttribute(TTSymbol("protocolNames"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplicationManager::getProtocolNames);
@@ -141,19 +141,6 @@ TTApplicationManager::~TTApplicationManager()
 	}
 }
 
-TTErr TTApplicationManager::setLocalApplication(TTValue& value)
-{
-	// change local application
-	if (value[0].type() == kTypePointer) {
-		
-		mLocalApplication = TTApplicationPtr((TTObjectPtr)value[0]);
-		
-		return kTTErrNone;
-	}
-	
-	return kTTErrGeneric;
-}
-
 TTErr TTApplicationManager::getApplicationNames(TTValue& value)
 {
 	return mApplications->getKeys(value);
@@ -171,7 +158,7 @@ TTErr TTApplicationManager::ApplicationAdd(const TTValue& inputValue, TTValue& o
 	TTApplicationPtr	anApplication;
 	
 	// get the given application and his name
-	if (inputValue[0].type() == kTypePointer) {
+	if (inputValue[0].type() == kTypeObject) {
 		
 		anApplication = TTApplicationPtr((TTObjectPtr)inputValue[0]);
 		
@@ -179,7 +166,7 @@ TTErr TTApplicationManager::ApplicationAdd(const TTValue& inputValue, TTValue& o
 		applicationName = v[0];
 		
 		// add application to the manager
-		mApplications->append(applicationName, (TTPtr)anApplication);
+		mApplications->append(applicationName, anApplication);
 		
 		// notify applications observer that an application has been added
 		notifyApplicationObservers(applicationName, anApplication, kApplicationAdded);
@@ -372,7 +359,7 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 {
 	TTNodeDirectoryPtr	directory;
 	TTAddress           whereToDiscover;
-    TTSymbol            *returnedType;
+    TTSymbol            *returnedType = NULL;
 	TTValuePtr			returnedChildren;
 	TTValuePtr			returnedAttributes;
 	
@@ -628,7 +615,7 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outpu
 		version = v[0];
 		xmlTextWriterWriteFormatAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "version", "%s", BAD_CAST version.c_str());
 		
-		v = TTValue(TTPtr(anApplication));
+		v = TTValue(anApplication);
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		aXmlHandler->sendMessage(TTSymbol("Write"));
 		

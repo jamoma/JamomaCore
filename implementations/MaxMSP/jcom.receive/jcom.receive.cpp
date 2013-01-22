@@ -388,7 +388,7 @@ t_int *receive_perform(t_int *w)
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
 					anObject = NULL;
-					anObject = TTObjectPtr((TTPtr)objectCache->current()[0]);
+					anObject = objectCache->current()[0];
 					
 					if (anObject) {
 						
@@ -475,7 +475,7 @@ void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, d
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
 					anObject = NULL;
-					anObject = TTObjectPtr((TTPtr)objectCache->current()[0]);
+					anObject = objectCache->current()[0];
 					
 					if (anObject) {
 						

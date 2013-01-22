@@ -181,7 +181,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	
 	returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
-	returnValueBaton = new TTValue(TTPtr(this));
+	returnValueBaton = new TTValue(this);
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
 	args.append(returnValueCallback);
@@ -231,7 +231,7 @@ TTErr TTMapper::observeInput()
 	// Make a TTReceiver object
 	returnInputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TTSymbol("callback"), &returnInputCreationCallback, kTTValNONE);
-	returnInputCreationBaton = new TTValue(TTPtr(this));
+	returnInputCreationBaton = new TTValue(this);
 	returnInputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputCreationBaton));
 	returnInputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
 	args.append(returnInputCreationCallback);
@@ -260,7 +260,7 @@ TTErr TTMapper::observeInputRange()
 	
 	returnInputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TTSymbol("callback"), &returnInputRangeCallback, kTTValNONE);
-	returnInputRangeBaton = new TTValue(TTPtr(this));
+	returnInputRangeBaton = new TTValue(this);
 	returnInputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputRangeBaton));
 	returnInputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputRangeCallback));
 	args.append(returnInputRangeCallback);
@@ -334,7 +334,7 @@ TTErr TTMapper::observeOutput()
 	// Make a TTReceiver object
 	returnOutputCreationCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TTSymbol("callback"), &returnOutputCreationCallback, kTTValNONE);
-	returnOutputCreationBaton = new TTValue(TTPtr(this));
+	returnOutputCreationBaton = new TTValue(this);
 	returnOutputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputCreationBaton));
 	returnOutputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
 	args.append(returnOutputCreationCallback);
@@ -363,7 +363,7 @@ TTErr TTMapper::observeOutputRange()
 	
 	returnOutputRangeCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TTSymbol("callback"), &returnOutputRangeCallback, kTTValNONE);
-	returnOutputRangeBaton = new TTValue(TTPtr(this));
+	returnOutputRangeBaton = new TTValue(this);
 	returnOutputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputRangeBaton));
 	returnOutputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputRangeCallback));
 	args.append(returnOutputRangeCallback);

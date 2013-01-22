@@ -115,7 +115,7 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	TTValue			args, v;
 	TTObjectPtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTAddress uiAddress, dataAddress;
+	TTAddress       uiAddress, dataAddress;
 	TTNodePtr		aNode;
 	TTBoolean		nodeCreated;
 	
@@ -140,7 +140,7 @@ void ui_data_create(t_ui *obj, TTObjectPtr *returnedData, SymbolPtr aCallbackMet
 	JamomaDirectory->TTNodeCreate(dataAddress, *returnedData, obj->patcherPtr, &aNode, &nodeCreated);
 	
 	// Store data
-	args = TTValue(TTPtr(*returnedData));
+	args = TTValue(*returnedData);
 	args.append(dataAddress);
 	obj->hash_datas->append(name, args);
 	
@@ -161,7 +161,7 @@ void ui_data_destroy(t_ui *obj, TTSymbol name)
 			JamomaDirectory->TTNodeRemove(dataAddress);
 			
 			// Delete data
-			aData = TTObjectPtr((TTPtr)storedObject[0]);
+			aData = storedObject[0];
 			if (aData)
 				if (aData->valid)	// to -- should be better to understand why the data is not valid
 					TTObjectRelease(&aData);
@@ -176,7 +176,7 @@ void ui_data_send(t_ui *obj, TTSymbol name, TTValue v)
 	TTObjectPtr		anObject;
 	
 	obj->hash_datas->lookup(name, storedObject);
-    anObject = TTObjectPtr((TTPtr)storedObject[0]);
+    anObject = storedObject[0];
 	
 	anObject->setAttributeValue(kTTSym_value, v);
 }
@@ -246,7 +246,7 @@ void ui_receiver_create(t_ui *obj, TTObjectPtr *returnedReceiver, SymbolPtr aCal
 	(*returnedReceiver)->sendMessage(kTTSym_Get);
 	
 	// Store receiver
-	args = TTValue(TTPtr(*returnedReceiver));
+	args = TTValue(*returnedReceiver);
 	obj->hash_receivers->append(name, args);
 }
 
@@ -259,7 +259,7 @@ void ui_receiver_destroy(t_ui *obj, TTSymbol name)
 		if (!obj->hash_receivers->lookup(name, storedObject)) {
 			
 			// delete
-            aReceiver = TTObjectPtr((TTPtr)storedObject[0]);
+            aReceiver = storedObject[0];
 			if (aReceiver)
 				if (aReceiver->valid)	// to -- should be better to understand why the receiver is not valid
 					TTObjectRelease(&aReceiver);
@@ -332,7 +332,7 @@ void ui_viewer_create(t_ui *obj, TTObjectPtr *returnedViewer, SymbolPtr aCallbac
 	(*returnedViewer)->sendMessage(kTTSym_Refresh);
 	
 	// Store viewer
-	args = TTValue(TTPtr(*returnedViewer));
+	args = TTValue(*returnedViewer);
 	args.append(viewerAddress);
 	obj->hash_viewers->append(name, args);
 }
@@ -352,7 +352,7 @@ void ui_viewer_destroy(t_ui *obj, TTSymbol name)
 				JamomaDirectory->TTNodeRemove(viewerAddress);
 			
 			// delete
-			aViewer = TTObjectPtr((TTPtr)storedObject[0]);
+			aViewer = storedObject[0];
 			if (aViewer)
 				if (aViewer->valid)	// to -- should be better to understand why the viewer is not valid
 					TTObjectRelease(&aViewer);
@@ -393,7 +393,7 @@ void ui_viewer_send(t_ui *obj, TTSymbol name, TTValue v)
 		err = obj->hash_viewers->lookup(name, storedObject);
 		
 		if (!err) {
-			anObject = TTObjectPtr((TTPtr)storedObject[0]);
+			anObject = storedObject[0];
 			if (anObject)
 				anObject->sendMessage(kTTSym_Send, v, kTTValNONE);
 		}
@@ -409,7 +409,7 @@ void ui_viewer_highlight(t_ui *obj, TTSymbol name, TTBoolean s)
 		err = obj->hash_viewers->lookup(name, storedObject);
 		
 		if (!err) {
-			anObject = TTObjectPtr((TTPtr)storedObject[0]);
+			anObject = storedObject[0];
 			if (anObject)
 				anObject->setAttributeValue(kTTSym_highlight, s);
 		}
@@ -425,7 +425,7 @@ void ui_viewer_freeze(t_ui *obj, TTSymbol name, TTBoolean f)
 		err = obj->hash_viewers->lookup(name, storedObject);
 		
 		if (!err) {
-			anObject = TTObjectPtr((TTPtr)storedObject[0]);
+			anObject = storedObject[0];
 			if (anObject)
 				anObject->setAttributeValue(kTTSym_freeze, f);
 		}
@@ -441,7 +441,7 @@ void ui_viewer_refresh(t_ui *obj, TTSymbol name)
 		err = obj->hash_viewers->lookup(name, storedObject);
 		
 		if (!err) {
-			anObject = TTObjectPtr((TTPtr)storedObject[0]);
+			anObject = storedObject[0];
 			if (anObject)
 				anObject->sendMessage(kTTSym_Refresh);
 		}

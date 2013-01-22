@@ -30,7 +30,7 @@ mIsReading(false)
 {
 	TT_ASSERT("Correct number of args to create TTOpmlHandler", arguments.size() == 0);
 	
-	addAttribute(Object, kTypePointer);
+	addAttribute(Object, kTypeObject);
 
 	addAttribute(HeaderNodeName, kTypeSymbol);
 	addAttribute(Version, kTypeSymbol);

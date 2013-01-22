@@ -206,7 +206,7 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 					remote_array_create(x, &anObject, i);
 					
 					// append the viewer to the internals table
-					v = TTValue(TTPtr(anObject));
+					v = TTValue(anObject);
 					v.append(TTSymbol(instanceAddress->s_name));
 					v.append((TTPtr)NULL);
 					
@@ -329,9 +329,9 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 			// append the subscriber to the internal
 			if (aSubscriber) {
 				
-				v = TTValue(TTPtr(selectedObject));
+				v = TTValue(selectedObject);
 				v.append(x->cursor);
-				v.append(TTPtr(aSubscriber));
+				v.append(aSubscriber);
 				
 				// replace the internal
 				x->internals->remove(x->cursor);
@@ -407,7 +407,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 		if (!x->internals->lookup(x->cursor, v)) {
 			
 			aSubscriber = NULL;
-			aSubscriber = TTSubscriberPtr((TTPtr)v[2]);
+			aSubscriber = TTSubscriberPtr((TTObjectPtr)v[2]);
 			
 			// release the subscriber
 			if (aSubscriber) {
@@ -468,8 +468,8 @@ void remote_address(TTPtr self, SymbolPtr address)
 				anObject = NULL;
 				aSubscriber = NULL;
 				
-                anObject = TTObjectPtr((TTPtr)v[0]);
-				aSubscriber = TTSubscriberPtr((TTPtr)v[2]);
+                anObject = v[0];
+				aSubscriber = TTSubscriberPtr((TTObjectPtr)v[2]);
 
 				if (aSubscriber)
 					TTObjectRelease(&aSubscriber);

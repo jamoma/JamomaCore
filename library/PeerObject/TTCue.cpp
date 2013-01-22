@@ -577,7 +577,7 @@ TTErr TTCue::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// use WriteAsXml of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	aXmlHandler->sendMessage(TTSymbol("Write"));
 	
@@ -605,7 +605,7 @@ TTErr TTCue::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	// use ReadFromXml of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	aXmlHandler->sendMessage(TTSymbol("Read"));
 	
@@ -631,7 +631,7 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*/
 	
 	// use WriteAsText of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aTextHandler->setAttributeValue(kTTSym_object, v);
 	aTextHandler->sendMessage(TTSymbol("Write"));
 	
@@ -650,7 +650,7 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 		Clear();
 	
 	// use ReadFromText of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aTextHandler->setAttributeValue(kTTSym_object, v);
 	aTextHandler->sendMessage(TTSymbol("Read"));
 	

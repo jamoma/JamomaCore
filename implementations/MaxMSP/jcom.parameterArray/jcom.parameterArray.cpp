@@ -254,9 +254,9 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 							
 							if (aSubscriber) {
 								// append the data to the internals table
-								v = TTValue(TTPtr(anObject));
+								v = TTValue(anObject);
 								v.append(TTSymbol(instanceAddress->s_name));
-								v.append(TTPtr(aSubscriber));
+								v.append(aSubscriber);
 								x->internals->append(TTSymbol(instanceAddress->s_name), v);
 							}
 						}

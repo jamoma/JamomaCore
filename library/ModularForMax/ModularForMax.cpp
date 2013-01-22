@@ -58,7 +58,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress rel
 	TTBoolean		newInstance;
 		
 	// prepare arguments
-	args.append(TTPtr(aTTObject));
+	args.append(aTTObject);
 	args.append(relativeAddress);
 	
 	// Get all Context above the object and their name 

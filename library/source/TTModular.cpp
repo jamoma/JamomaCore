@@ -105,7 +105,7 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 		if (!getLocalApplication) {
 			
 			// create the application
-			args = TTValue(TTSymbol(applicationStr.data()));
+			args = TTValue(TTSymbol(applicationStr));
 			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&anApplication), args);
 			
 			// set it as local application

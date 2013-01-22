@@ -30,7 +30,7 @@ mIsReading(NO)
 {
 	TT_ASSERT("Correct number of args to create TTTextHandler", arguments.size() == 0);
 	
-	addAttribute(Object, kTypePointer);
+	addAttribute(Object, kTypeObject);
 	addAttribute(SpaceNumberForTab, kTypeInt8);
 	
 	addMessageWithArguments(Write);

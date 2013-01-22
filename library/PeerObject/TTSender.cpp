@@ -166,7 +166,7 @@ TTErr TTSender::bindAddress()
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
 		aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
 		anObject = aNode->getObject();
-		aCacheElement = (TTPtr)anObject;
+		aCacheElement = anObject;
 		mObjectCache->append(aCacheElement);
 	}
 	
@@ -174,7 +174,7 @@ TTErr TTSender::bindAddress()
 	mAddressObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
 	
-	newBaton = new TTValue(TTPtr(this));
+	newBaton = new TTValue(this);
 	
 	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
@@ -220,7 +220,7 @@ TTErr TTSender::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
 		
-		newBaton = new TTValue(TTPtr(this));
+		newBaton = new TTValue(this);
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderApplicationManagerCallback));
@@ -275,7 +275,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 		{
 			anObject = aNode->getObject();
 			if (anObject) {
-				aCacheElement = (TTPtr)anObject;
+				aCacheElement = anObject;
 				aSender->mObjectCache->appendUnique(aCacheElement);
 			}
 			break;

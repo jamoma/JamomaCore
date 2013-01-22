@@ -145,7 +145,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// use WriteAsXml of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	aXmlHandler->sendMessage(TTSymbol("Write"));
 	
@@ -173,7 +173,7 @@ TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	// use ReadFromXml of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	aXmlHandler->sendMessage(TTSymbol("Read"));
 	
@@ -188,7 +188,7 @@ TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	aTextHandler = TTTextHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// use WriteAsBuffer of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aTextHandler->setAttributeValue(kTTSym_object, v);
 	aTextHandler->sendMessage(TTSymbol("Write"));
 	
@@ -207,7 +207,7 @@ TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 		Clear();
 	
 	// use ReadAsbuffer of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aTextHandler->setAttributeValue(kTTSym_object, v);
 	aTextHandler->sendMessage(TTSymbol("Read"));
 	
