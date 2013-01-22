@@ -1052,7 +1052,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found)
 {
 	TTCallbackPtr anObserver;
-	anObserver = TTCallbackPtr((TTPtr)value[0]);
+	anObserver = TTCallbackPtr((TTObjectPtr)value[0]);
 	
 	found = anObserver == observerToMatch;
 }
