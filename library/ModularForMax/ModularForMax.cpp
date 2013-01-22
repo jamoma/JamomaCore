@@ -28,13 +28,13 @@ TTErr jamoma_directory_dump_observers(void)
 	JamomaDirectory->dumpObservers(v);
 	
 	s = v.size();
-	for (i =0; i <s; i++) {
+	for (i = 0; i < s; i++) {
 		
         pv = TTValuePtr((TTPtr)v[i]);
 		key = (*pv)[0];
 		post("%s :", key.c_str());
 		
-		for (j =1; j <((TTValuePtr)pv)->size(); j++) {
+		for (j = 1; j < ((TTValuePtr)pv)->size(); j++) {
 		
             owner = (*pv)[j];
 			post("    %s", owner.c_str());
@@ -270,7 +270,7 @@ TTErr jamoma_sender_create_audio(ObjectPtr x, TTObjectPtr *returnedSender)
 	
 	// prepare arguments
 	TTObjectInstantiate(kTTSym_audiosignal, &audio, 1);
-	args.append((TTPtr)audio);
+	args.append(audio);
 	
 	*returnedSender = NULL;
 	TTObjectInstantiate(kTTSym_Sender, TTObjectHandle(returnedSender), args);
@@ -341,7 +341,7 @@ TTErr jamoma_receiver_create_audio(ObjectPtr x, TTObjectPtr *returnedReceiver)
 	args.append(NULL);	// no return value callback
 	
 	TTObjectInstantiate(kTTSym_audiosignal, &audio, 1);
-	args.append((TTPtr)audio);
+	args.append(audio);
 	
 	*returnedReceiver = NULL;
 	TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(returnedReceiver), args);
@@ -431,11 +431,11 @@ TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput)
 	args.append(signalOutCallback);
 	
 	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, 1);
-	args.append((TTPtr)audioIn);
+	args.append(audioIn);
 	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, 1);
-	args.append((TTPtr)audioOut);
+	args.append(audioOut);
 	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, 1);
-	args.append((TTPtr)audioZero);
+	args.append(audioZero);
 	
 	*returnedInput = NULL;
 	TTObjectInstantiate(kTTSym_Input, TTObjectHandle(returnedInput), args);
@@ -523,26 +523,26 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput)
 	args.append(inputLinkCallback);
 	
 	TTObjectInstantiate(kTTSym_audiosignal, &audioIn, 1);
-	args.append((TTPtr)audioIn);
+	args.append(audioIn);
 	TTObjectInstantiate(kTTSym_audiosignal, &audioOut, 1);
-	args.append((TTPtr)audioOut);
+	args.append(audioOut);
 	TTObjectInstantiate(kTTSym_audiosignal, &audioTemp, 1);
-	args.append((TTPtr)audioTemp);
+	args.append(audioTemp);
 	TTObjectInstantiate(kTTSym_audiosignal, &audioZero, 1);
-	args.append((TTPtr)audioZero);
+	args.append(audioZero);
 	
 	TTObjectInstantiate(TTSymbol("crossfade"), &mixUnit, 1);
 	mixUnit->setAttributeValue(TTSymbol("position"), 1.0);
-	args.append((TTPtr)mixUnit);
+	args.append(mixUnit);
 	
 	TTObjectInstantiate(TTSymbol("gain"), &gainUnit, 1);
 	gainUnit->setAttributeValue(TTSymbol("linearGain"), 1.0);
-	args.append((TTPtr)gainUnit);
+	args.append(gainUnit);
 	
 	TTObjectInstantiate(TTSymbol("ramp"), &rampMixUnit, 1);
-	args.append((TTPtr)rampMixUnit);
+	args.append(rampMixUnit);
 	TTObjectInstantiate(TTSymbol("ramp"), &rampGainUnit, 1);
-	args.append((TTPtr)rampGainUnit);
+	args.append(rampGainUnit);
 	
 	*returnedOutput = NULL;
 	TTObjectInstantiate(kTTSym_Output, TTObjectHandle(returnedOutput), args);
@@ -876,7 +876,7 @@ void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& v)
 	// unpack data (signal)
 	argc = v.size();
 	argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
-	for (i =0; i <argc; i++) {
+	for (i = 0; i < argc; i++) {
 		signal = v[i];
 		atom_setobj(argv+i, signal);
 	}
@@ -906,7 +906,7 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 	
 	if (*argc && !(v == kTTValNONE)) {
 		
-		for (i =0; i <*argc; i++) {
+		for (i = 0; i < *argc; i++) {
 			
 			if(v[i].type() == kTypeFloat32 || v[i].type() == kTypeFloat64){
 				f = v[i];
@@ -1006,7 +1006,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 		}
 			
 		// convert Atom to TTValue
-		for (i =0; i <argc; i++) 
+		for (i = 0; i < argc; i++) 
 		{
 			if (atom_gettype(argv+i) == A_LONG)
 				v[i+start] = (int)atom_getlong(argv+i);
