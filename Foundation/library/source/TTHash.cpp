@@ -171,7 +171,7 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 	for (listToSort.begin(); listToSort.end(); listToSort.next()) {
 		
 		if (comparisonFunction) {
-			listToSort.current().get(0, key);
+			key = listToSort.current()[0];
 			hashKeysSorted.append(key);
 		}
 		else

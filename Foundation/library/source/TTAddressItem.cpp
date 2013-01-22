@@ -74,7 +74,7 @@ TTAddressItemPtr TTAddressItem::getItem(TTSymbol aSymbol)
 	TTErr err = ((TTListPtr)this)->find(&TTAddressItemFind, aSymbol.rawpointer(), found);
 	
 	if (!err)
-		found.get(0, (TTPtr*)&anItem);
+		anItem = TTAddressItemPtr((TTPtr)found[0]);
 	
 	return anItem;
 }
@@ -98,7 +98,7 @@ TTErr TTAddressItem::append(TTAddress addressToAppend, TTAddressItemPtr *returne
 	addressToAppend.listNameInstance(nameInstanceList);
 	
 	for (nameInstanceList.begin(); nameInstanceList.end(); nameInstanceList.next()) {
-		nameInstanceList.current().get(0, nameInstance);
+		nameInstance = nameInstanceList.current()[0];
 		
 		nextItem = anItem->getItem(nameInstance);
 		
@@ -149,7 +149,7 @@ TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedIte
 	
 	for (nameInstanceList.begin(); nameInstanceList.end(); nameInstanceList.next()) {
 		
-		nameInstanceList.current().get(0, nameInstance);
+		nameInstance = nameInstanceList.current()[0];
 		
 		nextItem = anItem->getItem(nameInstance);
 		
@@ -171,7 +171,7 @@ TTAddressItemPtr TTAddressItem::current()
 {
 	TTAddressItemPtr anItem;
 	
-	((TTListPtr)this)->current().get(0, (TTPtr*)&anItem);
+	anItem = TTAddressItemPtr((TTPtr) ((TTListPtr)this)->current()[0]);
 	
 	return anItem;
 }
@@ -305,7 +305,7 @@ void TTAddressItemFind(const TTValue& itemValue, TTPtr aSymbolBaseToMatch, TTBoo
 {
 	TTAddressItemPtr anItem;
 	
-	itemValue.get(0, (TTPtr*)&anItem);
+	anItem = TTAddressItemPtr((TTPtr)itemValue[0]);
 	
 	found = anItem->getSymbol() == TTSymbol(aSymbolBaseToMatch);
 }

@@ -530,7 +530,7 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
     TTValue     testValue = TTValue(TTSymbol("directory:/gran/parent/name.instance:attribute"));
     TTAddress   testAddress;
     
-    testValue.get(0, testAddress);
+    testAddress = testValue[0];
     
     TTSymbol		directory	= testAddress.getDirectory();
 	TTAddress		parent		= testAddress.getParent();
@@ -557,7 +557,7 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
     
     testTable.append(keyAddress, keyValue);             // store a value into the table using "testKeyAddress" address
     testValue = TTValue(TTSymbol("testKeyAddress"));    // store a "testKeyAddress" symbol into a value
-    testValue.get(0, testAddress);                      // get it as an address
+    testAddress = testValue[0];                         // get it as an address
     err = testTable.lookup(testAddress, keyValue);      // use the address to lookup the table
     
     TTTestAssertion("TTHash::lookup : Test fails if a TTSymbol cannot be used as storage key for TTHash table when the lookup key is a TTAddress",
@@ -574,7 +574,7 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
     
     testTable.append(keySymbol, keyValue);              // store a value into the table using "testKeySymbol" symbol
     testValue = TTValue(TTAddress("testKeySymbol"));    // store a "testKeySymbol" address into a value
-    testValue.get(0, testSymbol);                       // get it as an symbol
+    testSymbol = testValue[0];                          // get it as an symbol
     err = testTable.lookup(testSymbol, keyValue);       // use the symbol to lookup the table
     
     TTTestAssertion("TTHash::lookup : Test fails if a TTAddress cannot be used as storage key for TTHash table when the lookup key is a TTSymbol",

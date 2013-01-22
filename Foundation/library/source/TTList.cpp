@@ -236,7 +236,7 @@ void TTList::free()
 		TTValue& v = *iter;
 		if (v[0].type() == kTypeObject) {
 			TTObjectPtr o = NULL;
-//			v.get(0, &o);
+//			o = v[0];
 			o = v;
 			TTObjectRelease(&o);
 		}

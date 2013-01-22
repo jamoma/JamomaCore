@@ -270,8 +270,8 @@ TTErr TTAttribute::getreadOnly(TTValue& currentReadOnlyValue)
 TTErr TTAttribute::setrange(const TTValue& newRange)
 {
 	if (newRange.size() == 2) {
-		newRange.get(0, rangeLowBound);
-		newRange.get(1, rangeHighBound);
+		rangeLowBound = newRange[0];
+		rangeHighBound = newRange[1];
 		return kTTErrNone;
 	}
 	else
@@ -315,7 +315,7 @@ TTErr TTAttribute::gethidden(TTValue& currentHiddenFlag)
 
 TTErr TTAttribute::setdescription(const TTValue& newDescription)
 {
-	newDescription.get(0, description);
+	description = newDescription[0];
 	return kTTErrNone;
 }
 

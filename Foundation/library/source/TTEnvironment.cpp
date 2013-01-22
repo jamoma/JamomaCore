@@ -93,7 +93,7 @@ TTErr TTEnvironment::registerClass(const TTSymbol& className, const TTString& ta
 		// 3. For each symbol in the TTValue array...
 		size = v.size();
 		for (TTUInt16 i=0; i<size; i++) {
-			v.get(i, tag);
+			tag = v[i];
 
 			// 4. Look to see if this tag exists yet
 			err = tags->lookup(tag, tagObjects);
@@ -164,7 +164,7 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 
 	classNames.clear();
 
-	searchTags.get(0, tag);
+	tag = searchTags[0];
 	err = tags->lookup(tag, tagObjects);
 	if (err)
 		return err;
@@ -180,7 +180,7 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 		TTUInt16	success = 1;
 
 		classNamesForTag->getIndex(i, classNameValue);
-		classNameValue.get(0, className);
+		className = classNameValue[0];
 
 		classes->lookup(className, aClassValue);
 		aClass = TTClassPtr(TTPtr(aClassValue));
@@ -189,10 +189,10 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 		for (TTUInt16 j=0; j < tags.size(); j++){
 			TTSymbol someTag(kTTSymEmpty);
 
-			tags.get(j, someTag);
+			someTag = tags[j];
 
 			for (TTUInt16 k=1; k<size; k++){
-				searchTags.get(k, tag);
+				tag = searchTags[k];
 				if (tag == someTag) {
 					success += 1;
 					break;
