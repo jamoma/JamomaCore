@@ -363,7 +363,7 @@ void ramp_getFunctions(t_ramp *x)
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(x, gensym("functions"), 1, a);
 	
-	FunctionLib::getUnitNames(functionNames);
+    TTGetRegisteredClassNamesForTags(functionNames, kTTSym_function);
 	numFunctions = functionNames.getSize();
 	
 	atom_setsym(a+0, gensym("append"));

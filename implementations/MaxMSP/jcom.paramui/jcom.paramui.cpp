@@ -43,7 +43,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 		strcat(dataspaces, " ");
 	}
 
-	FunctionLib::getUnitNames(functionNames);
+    TTGetRegisteredClassNamesForTags(functionNames, TTSymbol("function"));
 	functions[0] = 0;
 	for (i=0; i<functionNames.getSize(); i++) {
 		functionNames.get(i, functionName);

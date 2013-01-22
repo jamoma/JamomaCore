@@ -10,7 +10,6 @@
 #define __TT_MAPPER_H__
 
 #include "TTModular.h"
-#include "FunctionLib.h"
 
 /**	TTMapper ... TODO : an explanation
  
