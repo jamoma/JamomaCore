@@ -759,6 +759,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 #endif
 	
 	// Create a temporary instance of the class so that we can query it.
+    args.resize(32);
 	TTObjectInstantiate(ttblueClassName, &o, args);
 	
 	// Register Messages as Max method
