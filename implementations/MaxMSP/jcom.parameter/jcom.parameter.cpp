@@ -15,7 +15,7 @@
 // This is used to store extra data
 typedef struct extra {
 	
-	TTValue         arrayArgs;		// store arguments
+	TTValue*         arrayArgs;		// store arguments
 
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
@@ -125,11 +125,11 @@ void WrappedDataClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
     // Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
     
-    EXTRA->arrayArgs = kTTValNONE;
+    EXTRA->arrayArgs = new TTValue();
 
     // Store arguments
 	if (argc > 1 && argv)
-        jamoma_ttvalue_from_Atom(EXTRA->arrayArgs, _sym_list, argc--, argv++);
+        jamoma_ttvalue_from_Atom(*(EXTRA->arrayArgs), _sym_list, argc--, argv++);
 
 	data_new_address(self, relativeAddress, argc--, argv++);
 }
@@ -194,7 +194,7 @@ void data_address(TTPtr self, SymbolPtr address)
 	wrappedModularClass_unregister(x);
     
     // use stored arguments
-    jamoma_ttvalue_to_Atom(EXTRA->arrayArgs, &argc, &argv);
+    jamoma_ttvalue_to_Atom(*(EXTRA->arrayArgs), &argc, &argv);
 	
 	// rebuild wrapped object (or internals)
 	defer_low(self,(method)data_new_address, address, argc, argv);

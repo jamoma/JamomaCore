@@ -172,7 +172,7 @@ void model_subscribe(TTPtr self)
 		// get absolute address in the namespace 
 		// and set the address attribute of the Container 
 		x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
-		v.get(0, nodeAdrs);
+		nodeAdrs = v[0];
 		x->wrappedObject->setAttributeValue(kTTSym_address, v);
 		
 		// if the jcom.model is well subscribed
@@ -352,7 +352,7 @@ void model_subscribe(TTPtr self)
 			// output ContextNode address
 			Atom a;
 			x->subscriberObject->getAttributeValue(TTSymbol("contextNodeAddress"), v);
-			v.get(0, nodeAdrs);
+			nodeAdrs = v[0];
 			atom_setsym(&a, gensym((char*)nodeAdrs.c_str()));
 			object_obex_dumpout(self, gensym("address"), 1, &a);
 			
@@ -371,7 +371,7 @@ void model_init(TTPtr self)
 	
 	// Check if the model has not been initialized by a upper model
 	x->wrappedObject->getAttributeValue(kTTSym_initialized, v);
-	v.get(0, initialized);
+	initialized = v[0];
 	if (!initialized)
 		x->wrappedObject->sendMessage(kTTSym_Init);
 }
@@ -420,7 +420,7 @@ void model_share_patcher_node(TTPtr self, TTNodePtr *patcherNode)
 	
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TTSymbol("contextNode"), v);
-		v.get(0, (TTPtr*)patcherNode);
+		*patcherNode = TTNodePtr((TTPtr)v[0]);
 	}
 }
 
@@ -511,7 +511,7 @@ void model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		tterr = x->internals->lookup(TTSymbol("TextHandler"), o);
 		
 		if (!tterr) {
-			o.get(0, (TTPtr*)&aTextHandler);
+			aTextHandler = TTTextHandlerPtr((TTPtr)o[0]);
 			
 			critical_enter(0);
 			aTextHandler->sendMessage(TTSymbol("Write"), v, kTTValNONE);
@@ -580,8 +580,8 @@ void model_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr1 && !tterr2) {
 			
-			o1.get(0, (TTPtr*)&aTextHandler);
-            o2.get(0, (TTPtr*)&aPreset);
+			aTextHandler = TTTextHandlerPtr((TTPtr)o1[0]);
+            aPreset = TTPresetPtr((TTPtr)o2[0]);
             
             // Store the preset
             aPreset->sendMessage(TTSymbol("Store"), kTTValNONE, kTTValNONE);
@@ -633,8 +633,8 @@ void model_doedit(TTPtr self)
 	
 	if (!tterr1 && !tterr2) {
 		
-		o1.get(0, (TTPtr*)&aTextHandler);
-        o2.get(0, (TTPtr*)&aPreset);
+		aTextHandler = TTTextHandlerPtr((TTPtr)o1[0]);
+        aPreset = TTPresetPtr((TTPtr)o2[0]);
 		
 		critical_enter(0);
         args = TTValue(TTPtr(aPreset));

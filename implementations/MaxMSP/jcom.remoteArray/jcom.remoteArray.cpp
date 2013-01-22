@@ -260,8 +260,8 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					instanceAddress;
-	TTAddress			contextAddress = kTTAdrsEmpty;
-	TTAddress			absoluteAddress;
+	TTAddress                   contextAddress = kTTAdrsEmpty;
+	TTAddress                   absoluteAddress;
 	TTObjectPtr					toSubscribe, aReceiver;
 	TTBoolean					subscribe;
 	TTSubscriberPtr				aSubscriber;
@@ -324,7 +324,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 			// get the context address to make
 			// a viewer on the contextAddress/model/address parameter
 			aSubscriber->getAttributeValue(TTSymbol("contextAddress"), v);
-			v.get(0, contextAddress);
+			contextAddress = v[0];
 			
 			// append the subscriber to the internal
 			if (aSubscriber) {
@@ -407,7 +407,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 		if (!x->internals->lookup(x->cursor, v)) {
 			
 			aSubscriber = NULL;
-			v.get(2, (TTPtr*)&aSubscriber);
+			aSubscriber = TTSubscriberPtr((TTPtr)v[2]);
 			
 			// release the subscriber
 			if (aSubscriber) {
@@ -468,8 +468,8 @@ void remote_address(TTPtr self, SymbolPtr address)
 				anObject = NULL;
 				aSubscriber = NULL;
 				
-				v.get(0, (TTPtr*)&anObject);
-				v.get(2, (TTPtr*)&aSubscriber);
+                anObject = TTObjectPtr((TTPtr)v[0]);
+				aSubscriber = TTSubscriberPtr((TTPtr)v[2]);
 
 				if (aSubscriber)
 					TTObjectRelease(&aSubscriber);
@@ -580,8 +580,8 @@ void remote_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 			TTValue keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
-				for (int i=0; i<keys.getSize(); i++) {
-					keys.get(i, x->cursor);
+				for (int i = 0; i < keys.size(); i++) {
+					x->cursor = keys[i];
 					jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
 				}
 			}
@@ -609,8 +609,8 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			TTValue keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
-				for (int i=0; i<keys.getSize(); i++) {
-					keys.get(i, x->cursor);
+				for (int i = 0; i < keys.size(); i++) {
+					x->cursor = keys[i];
 					jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
 				}
 				x->cursor = kTTSymEmpty;
@@ -643,9 +643,9 @@ void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
                 // in a model or a view patcher, the first internal object is
                 // always the model container so we an offset to avoid it
                 offset = x->patcherContext != NULL;
-                for (i = 0; i < keys.getSize()-offset; i++) {
+                for (i = 0; i < keys.size()-offset; i++) {
                     
-                    keys.get(i+offset, x->cursor);
+                    x->cursor = keys[i+offset];
                     jamoma_viewer_send((TTViewerPtr)selectedObject, _sym_nothing, d, argv+(i*d));
                 }
             }
@@ -674,8 +674,8 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
-	b->get(1, i);
+	x = WrappedModularInstancePtr((TTPtr)(*b)[0]);
+	i = (*b)[1];
 	
 	// output index
 	if (x->arrayIndex == 0) {
@@ -770,8 +770,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	TTObjectPtr			anObject;
 	TTUInt8				i;
 	TTValue				v;
-//	Atom				a[1];
-	TTErr				err;
+    TTErr				err;
 	
 	if (argc && argv) {
 		
@@ -797,7 +796,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 					if ((anObject = firstNode->getObject())) {
 						if (anObject->getName() == kTTSym_Data) {
 							anObject->getAttributeValue(kTTSym_service, v);
-							v.get(0, service);
+							service = v[0];
 							
 							if (service == kTTSym_parameter || service == kTTSym_return)
 								selectedObject->sendMessage(kTTSym_Refresh);

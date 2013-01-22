@@ -264,7 +264,7 @@ void send_subscribe(TTPtr self)
 		// get the context address to make
 		// a viewer on the contextAddress/model/address parameter
 		x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-		v.get(0, contextAddress);
+		contextAddress = v[0];
 		
 		if (x->patcherContext) {
 			makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
@@ -441,7 +441,7 @@ t_int *send_perform(t_int *w)
 		// get the object cache of the Sender object
 		if (!aSender->getAttributeValue(kTTSym_objectCache, v)) {
 			
-			v.get(0, (TTPtr*)&objectCache);
+			objectCache = TTListPtr((TTPtr)v[0]);
 			
 			if (objectCache) {
 				
@@ -464,7 +464,7 @@ t_int *send_perform(t_int *w)
 				// send signal or mean to each object
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
-					objectCache->current().get(0, (TTPtr*)&anObject);
+					anObject = TTObjectPtr((TTPtr)objectCache->current()[0]);
 					
 					if (anObject) {
 						
@@ -507,7 +507,7 @@ void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doub
 		// get the object cache of the Sender object
 		if (!aSender->getAttributeValue(kTTSym_objectCache, v)) {
 			
-			v.get(0, (TTPtr*)&objectCache);
+			objectCache = TTListPtr((TTPtr)v[0]);
 			
 			if (objectCache) {
 				
@@ -530,7 +530,7 @@ void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doub
 				// send signal or mean to each object
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
-					objectCache->current().get(0, (TTPtr*)&anObject);
+					anObject = TTObjectPtr((TTPtr)objectCache->current()[0]);
 					
 					if (anObject) {
 						

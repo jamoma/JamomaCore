@@ -234,7 +234,7 @@ void remote_subscribe(TTPtr self)
             // get the context address to make
             // a viewer on the contextAddress/model/address parameter
             x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-            v.get(0, contextAddress);
+            contextAddress = v[0];
             
             makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
             anObject->sendMessage(kTTSym_Get);
@@ -370,7 +370,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			if (anObject = firstNode->getObject()) {
 				if (anObject->getName() == kTTSym_Data) {
 					anObject->getAttributeValue(kTTSym_service, v);
-					v.get(0, service);
+					service = v[0];
 					
 					if (service == kTTSym_parameter || service == kTTSym_return)
 						x->wrappedObject->sendMessage(kTTSym_Refresh);
@@ -456,7 +456,7 @@ void remote_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers
 			
 			// display selected attribute by changing background color if selected
 			x->wrappedObject->getAttributeValue(kTTSym_highlight, v);
-			v.get(0, selected);
+			selected = v[0];
 			
 			if (EXTRA->label)
 				if (selected)
@@ -519,10 +519,10 @@ void remote_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers
 		if (pt.x > EXTRA->x && pt.x < EXTRA->x+EXTRA->w && pt.y > EXTRA->y && pt.y < EXTRA->y+EXTRA->h) {
 			
 			x->wrappedObject->getAttributeValue(kTTSym_highlight, v);
-			v.get(0, selected);
+			selected = v[0];
 			
 			// reverse selected attribute and change color
-			if (EXTRA->label)
+			if (EXTRA->label) {
 				if (selected) {
 					x->wrappedObject->setAttributeValue(kTTSym_highlight, NO);
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color0);
@@ -531,6 +531,7 @@ void remote_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers
 					x->wrappedObject->setAttributeValue(kTTSym_highlight, YES);
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color1);
 				}
+            }
 		}
 	}
 }

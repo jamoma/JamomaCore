@@ -125,10 +125,10 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 
 void init_subscribe(t_init *x)
 {
-	TTValue			v, args;
-	TTAddress contextAddress = kTTAdrsEmpty;
-	TTObjectPtr		returnAddressCallback, returnValueCallback;
-	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTValue		v, args;
+	TTAddress   contextAddress = kTTAdrsEmpty;
+	TTObjectPtr	returnAddressCallback, returnValueCallback;
+	TTValuePtr	returnAddressBaton, returnValueBaton;
 	
 	// for relative address
 	if (x->address.getType() == kAddressRelative) {
@@ -137,7 +137,7 @@ void init_subscribe(t_init *x)
 			// get the context address to make
 			// a receiver on the contextAddress/model/address parameter
 			x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-			v.get(0, contextAddress);
+			contextAddress = v[0];
 		}
 		
 		// bind on the /model/address parameter (view patch) or return (model patch)

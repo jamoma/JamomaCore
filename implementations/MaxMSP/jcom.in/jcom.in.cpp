@@ -197,7 +197,7 @@ void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, attrstart, argv);
 		
 		v.toString();
-		v.get(0, sInstance);
+		sInstance = TTString(v[0]);
 		EXTRA->instance = TTSymbol(sInstance.data());
 	}
 	else
@@ -278,11 +278,11 @@ void in_subscribe(TTPtr self)
 		
 		// get the Node
 		x->subscriberObject->getAttributeValue(TTSymbol("node"), v);
-		v.get(0, (TTPtr*)&node);
+		node = TTNodePtr((TTPtr)v[0]);
 		
 		// get the Node address
 		x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
-		v.get(0, nodeAddress);
+		nodeAddress = v[0];
 		
 		// update instance symbol in case of duplicate instance
 		EXTRA->instance = nodeAddress.getInstance();
@@ -449,7 +449,7 @@ t_int *in_perform(t_int *w)
 			
 			for (anInput->mSignalCache->begin(); anInput->mSignalCache->end(); anInput->mSignalCache->next()) {
 				
-				anInput->mSignalCache->current().get(0, (TTPtr*)&sentSignal);
+				sentSignal = TTAudioSignalPtr((TTPtr)anInput->mSignalCache->current()[0]);
 				
 				if (sentSignal)
 					*TTAudioSignalPtr(anInput->mSignalOut) += *sentSignal;
@@ -524,7 +524,7 @@ void in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double
                 
                 for (anInput->mSignalCache->begin(); anInput->mSignalCache->end(); anInput->mSignalCache->next()) {
                     
-                    anInput->mSignalCache->current().get(0, (TTPtr*)&sentSignal);
+                    sentSignal = TTAudioSignalPtr((TTPtr)anInput->mSignalCache->current()[0]);
                     
                     if (sentSignal)
                         *TTAudioSignalPtr(anInput->mSignalOut) += *sentSignal;
@@ -663,7 +663,7 @@ void in_update_amplitude(TTPtr self)
 				
 				if (!err) {
 					
-					storedObject.get(0, (TTPtr*)&anObject);
+					anObject = TTObjectPtr((TTPtr)storedObject[0]);
 					
 					// set current meter value
 					anObject->setAttributeValue(kTTSym_value, EXTRA->meter);

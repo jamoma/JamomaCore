@@ -177,11 +177,11 @@ void preset_subscribe(TTPtr self)
 		
 		// get the Node (.../preset) and his parent
 		x->subscriberObject->getAttributeValue(TTSymbol("node"), n);
-		n.get(0, (TTPtr*)&node);
+		node = TTNodePtr((TTPtr)n[0]);
 		
 		// set the Address attribute of the PresetManager if it is empty
 		x->wrappedObject->getAttributeValue(kTTSym_address, v);
-		v.get(0, absoluteAddress);
+		absoluteAddress = v[0];
 		if (absoluteAddress == kTTAdrsEmpty) {
 			node->getParent()->getAddress(absoluteAddress);
 			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
@@ -305,7 +305,7 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aXmlHandler);
+			aXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
@@ -335,7 +335,7 @@ void preset_doread_again(TTPtr self)
 	
 	if (!tterr) {
 		
-		o.get(0, (TTPtr*)&aXmlHandler);
+		aXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
 		
 		critical_enter(0);
 		tterr = aXmlHandler->sendMessage(kTTSym_ReadAgain);
@@ -376,7 +376,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 		
 		if (!tterr) {
-			o.get(0, (TTPtr*)&aXmlHandler);
+			aXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);
@@ -410,7 +410,7 @@ void preset_dowrite_again(TTPtr self)
 	
 	if (!tterr) {
 		
-		o.get(0, (TTPtr*)&aXmlHandler);
+		aXmlHandler = TTXmlHandlerPtr((TTPtr)o[0]);
 		
 		critical_enter(0);
 		tterr = aXmlHandler->sendMessage(kTTSym_WriteAgain);
@@ -490,7 +490,7 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
 	
 	// try to recall last current preset
-	v.get(0, current);
+	current = v[0];
 	atom_setsym(&a, gensym((char*)current.c_str()));
 	defer_low((ObjectPtr)x, (method)preset_dorecall, NULL, 1, &a);
 }
@@ -530,8 +530,8 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			// get presets order
 			x->wrappedObject->getAttributeValue(TTSymbol("order"), v);
 			
-			if (atom_getlong(argv) <= v.getSize())
-				v.get(atom_getlong(argv)-1, name);
+			if (atom_getlong(argv) <= v.size())
+				name = v[atom_getlong(argv)-1];
 			
 			else {
 				object_error((ObjectPtr)x, "%d does'nt exist", atom_getlong(argv));
@@ -545,7 +545,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			// get preset object table
 			x->wrappedObject->getAttributeValue(TTSymbol("presets"), v);
-			v.get(0, (TTPtr*)&allPresets);
+			allPresets = TTHashPtr((TTPtr)v[0]);
 			
 			if (allPresets) {
 				
@@ -553,7 +553,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				if (!allPresets->lookup(name, v)) {
 					
 					// edit a preset
-					v.get(0, (TTPtr*)&EXTRA->toEdit);
+					EXTRA->toEdit = TTObjectPtr((TTPtr)v[0]);
 					EXTRA->presetName = name;
 				}
 				else {
@@ -576,7 +576,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aTextHandler);
+			aTextHandler = TTTextHandlerPtr((TTPtr)o[0]);
 			
 			critical_enter(0);
 			o = TTValue(TTPtr(EXTRA->toEdit));
@@ -621,7 +621,7 @@ void preset_doedit(TTPtr self)
 	
 	if (!tterr) {
 		
-		o.get(0, (TTPtr*)&aTextHandler);
+		aTextHandler = TTTextHandlerPtr((TTPtr)o[0]);
 		
 		critical_enter(0);
 		args = TTValue((TTPtr)EXTRA->text);

@@ -151,7 +151,7 @@ void ui_data_destroy(t_ui *obj, TTSymbol name)
 {
 	TTValue			storedObject;
 	TTObjectPtr		aData;
-	TTAddress dataAddress;
+	TTAddress       dataAddress;
 	
 	if (obj->hash_datas)
 		if (!obj->hash_datas->lookup(name, storedObject)) {
@@ -161,7 +161,7 @@ void ui_data_destroy(t_ui *obj, TTSymbol name)
 			JamomaDirectory->TTNodeRemove(dataAddress);
 			
 			// Delete data
-			storedObject.get(0, (TTPtr*)&aData);
+			aData = TTObjectPtr((TTPtr)storedObject[0]);
 			if (aData)
 				if (aData->valid)	// to -- should be better to understand why the data is not valid
 					TTObjectRelease(&aData);
@@ -176,7 +176,7 @@ void ui_data_send(t_ui *obj, TTSymbol name, TTValue v)
 	TTObjectPtr		anObject;
 	
 	obj->hash_datas->lookup(name, storedObject);
-	storedObject.get(0, (TTPtr*)&anObject);
+    anObject = TTObjectPtr((TTPtr)storedObject[0]);
 	
 	anObject->setAttributeValue(kTTSym_value, v);
 }
@@ -259,7 +259,7 @@ void ui_receiver_destroy(t_ui *obj, TTSymbol name)
 		if (!obj->hash_receivers->lookup(name, storedObject)) {
 			
 			// delete
-			storedObject.get(0, (TTPtr*)&aReceiver);
+            aReceiver = TTObjectPtr((TTPtr)storedObject[0]);
 			if (aReceiver)
 				if (aReceiver->valid)	// to -- should be better to understand why the receiver is not valid
 					TTObjectRelease(&aReceiver);
@@ -352,7 +352,7 @@ void ui_viewer_destroy(t_ui *obj, TTSymbol name)
 				JamomaDirectory->TTNodeRemove(viewerAddress);
 			
 			// delete
-			storedObject.get(0, (TTPtr*)&aViewer);
+			aViewer = TTObjectPtr((TTPtr)storedObject[0]);
 			if (aViewer)
 				if (aViewer->valid)	// to -- should be better to understand why the viewer is not valid
 					TTObjectRelease(&aViewer);
@@ -393,7 +393,7 @@ void ui_viewer_send(t_ui *obj, TTSymbol name, TTValue v)
 		err = obj->hash_viewers->lookup(name, storedObject);
 		
 		if (!err) {
-			storedObject.get(0, (TTPtr*)&anObject);
+			anObject = TTObjectPtr((TTPtr)storedObject[0]);
 			if (anObject)
 				anObject->sendMessage(kTTSym_Send, v, kTTValNONE);
 		}
@@ -409,7 +409,7 @@ void ui_viewer_highlight(t_ui *obj, TTSymbol name, TTBoolean s)
 		err = obj->hash_viewers->lookup(name, storedObject);
 		
 		if (!err) {
-			storedObject.get(0, (TTPtr*)&anObject);
+			anObject = TTObjectPtr((TTPtr)storedObject[0]);
 			if (anObject)
 				anObject->setAttributeValue(kTTSym_highlight, s);
 		}
@@ -425,7 +425,7 @@ void ui_viewer_freeze(t_ui *obj, TTSymbol name, TTBoolean f)
 		err = obj->hash_viewers->lookup(name, storedObject);
 		
 		if (!err) {
-			storedObject.get(0, (TTPtr*)&anObject);
+			anObject = TTObjectPtr((TTPtr)storedObject[0]);
 			if (anObject)
 				anObject->setAttributeValue(kTTSym_freeze, f);
 		}
@@ -441,7 +441,7 @@ void ui_viewer_refresh(t_ui *obj, TTSymbol name)
 		err = obj->hash_viewers->lookup(name, storedObject);
 		
 		if (!err) {
-			storedObject.get(0, (TTPtr*)&anObject);
+			anObject = TTObjectPtr((TTPtr)storedObject[0]);
 			if (anObject)
 				anObject->sendMessage(kTTSym_Refresh);
 		}
@@ -1002,8 +1002,6 @@ void ui_return_model_init(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 	t_ui* obj = (t_ui*)self;
 	long		init = atom_getlong(argv);
 	TTValue		v;
-	TTObjectPtr anObject;
-	TTErr		err;
 	
 	if (init) {
 		
@@ -1017,7 +1015,6 @@ void ui_return_model_init(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 void ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
-	long index;
 	
 	if (argc && argv) {
 		
