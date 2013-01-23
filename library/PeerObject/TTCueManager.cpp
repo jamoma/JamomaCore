@@ -504,7 +504,7 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt32	i, id, mixSize;
-	TTSymbol name;
+	TTSymbol    name;
 	TTCuePtr	cue;
 	TTValue		v, cues, factors;
 	
@@ -542,7 +542,7 @@ TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Move(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTList		temp;
-	TTSymbol name;
+	TTSymbol    name;
 	TTUInt32	i, newPosition;
 	TTValue		v;
 	
