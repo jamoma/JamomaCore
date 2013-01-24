@@ -220,7 +220,7 @@ void receive_subscribe(TTPtr self)
 		
 		if (x->patcherContext) {
             
-            if (x->address == TTAddress("model/address") && x->patcherContext == kTTSym_model) {
+            if (x->address == TTAddress("model/address")) {
                 
                 x->wrappedObject->setAttributeValue(kTTSym_address, contextAddress.appendAddress(x->address));
                 atom_setsym(a, gensym((char*)x->address.c_str()));
