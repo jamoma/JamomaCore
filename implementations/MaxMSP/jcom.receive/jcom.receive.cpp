@@ -216,9 +216,9 @@ void receive_subscribe(TTPtr self)
 		v.get(0, contextAddress);
 		
 		if (x->patcherContext) {
-			makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
-			anObject->sendMessage(kTTSym_Get);
-			return;
+            makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
+            anObject->sendMessage(kTTSym_Get);
+            return;
 		}
 	}
 	
@@ -259,7 +259,7 @@ void receive_subscribe(TTPtr self)
 void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTAddress			absoluteAddress;
+	TTAddress                   absoluteAddress;
 	Atom						a[1];
 	
 	if (argc && argv && x->wrappedObject) {
@@ -278,6 +278,10 @@ void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 		if (x->patcherContext == kTTSym_view) {
 			x->wrappedObject->sendMessage(kTTSym_Get);
 		}
+        
+        // else if the address is model/address, return it !
+        else if (x->address == TTAddress("model/address"))
+            receive_return_value(self, msg, argc, argv);
 	}
 }
 
