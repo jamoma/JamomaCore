@@ -202,6 +202,9 @@ void receive_subscribe(TTPtr self)
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
 		atom_setsym(a, gensym((char*)x->address.c_str()));
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
+        
+        JamomaDebug object_post((ObjectPtr)x, "binds on %s", x->address.c_str());
+        
 		return;
 	}
 	
@@ -216,9 +219,24 @@ void receive_subscribe(TTPtr self)
 		v.get(0, contextAddress);
 		
 		if (x->patcherContext) {
-            makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
-            anObject->sendMessage(kTTSym_Get);
-            return;
+            
+            if (x->address == TTAddress("model/address") && x->patcherContext == kTTSym_model) {
+                
+                x->wrappedObject->setAttributeValue(kTTSym_address, contextAddress.appendAddress(x->address));
+                atom_setsym(a, gensym((char*)x->address.c_str()));
+                object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
+                
+                JamomaDebug object_post((ObjectPtr)x, "binds on %s", contextAddress.appendAddress(x->address).c_str());
+                
+                x->wrappedObject->sendMessage(kTTSym_Get);
+                return;
+            }
+            else {
+                
+                makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
+                anObject->sendMessage(kTTSym_Get);
+                return;
+            }
 		}
 	}
 	
@@ -275,13 +293,8 @@ void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress.c_str());
 		
 		// in view patcher, get the value to refresh it
-		if (x->patcherContext == kTTSym_view) {
+		if (x->patcherContext == kTTSym_view)
 			x->wrappedObject->sendMessage(kTTSym_Get);
-		}
-        
-        // else if the address is model/address, return it !
-        else if (x->address == TTAddress("model/address"))
-            receive_return_value(self, msg, argc, argv);
 	}
 }
 
