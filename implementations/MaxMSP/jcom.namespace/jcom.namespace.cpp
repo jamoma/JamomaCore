@@ -404,9 +404,8 @@ void nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	}
 	
 	// NO FORMAT
-	else if (x->msg == gensym("none") || x->msg == _sym_nothing) {
-		;
-	}
+	else if (x->msg == gensym("none") || x->msg == _sym_nothing)
+		outlet_anything(x->outlets[data_out], gensym("selection"), argc, argv);
 }
 
 void nmspc_bang(TTPtr self)
