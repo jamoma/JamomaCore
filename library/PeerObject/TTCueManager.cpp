@@ -299,7 +299,7 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 			mCurrentCue->sendMessage(TTSymbol("Select"), v, kTTValNONE);
 			
 			// refresh all namespace handlers (TTExplorer only)
-			aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectRefresh"));
+			aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
 			
 			return kTTErrNone;
 		}

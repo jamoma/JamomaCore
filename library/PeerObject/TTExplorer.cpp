@@ -56,8 +56,7 @@ mLastResult(kTTValNONE)
 	addMessageWithArguments(SelectAll);
 	addMessageWithArguments(SelectNone);
 	
-	addMessage(SelectRefresh);
-	addMessageProperty(SelectRefresh, hidden, YES);
+	addMessage(SelectionRefresh);
 	
 	addMessageWithArguments(FilterSet);
 	addMessageWithArguments(FilterRemove);
@@ -405,7 +404,7 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 				
 				// set selection state
 				if (inputValue.getType(1) == kTypeInt32)
-					inputValue.get(0, state);
+					inputValue.get(1, state);
 				
 				// or switch it
 				else
@@ -519,7 +518,7 @@ TTErr TTExplorer::SelectNone()
 	return returnSelectionBack();
 }
 
-TTErr TTExplorer::SelectRefresh()
+TTErr TTExplorer::SelectionRefresh()
 {
 	return returnSelectionBack();
 }
