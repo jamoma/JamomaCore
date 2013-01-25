@@ -143,7 +143,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
-	
+
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
@@ -185,8 +185,8 @@ void remote_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	Atom						a[1];
-	TTAddress			contextAddress = kTTAdrsEmpty;
-	TTAddress			absoluteAddress;
+	TTAddress                   contextAddress = kTTAdrsEmpty;
+	TTAddress                   absoluteAddress;
 	TTObjectPtr					toSubscribe, anObject;
 	
 	// for absolute address
@@ -341,7 +341,7 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTAddress	absoluteAddress;
+	TTAddress           absoluteAddress;
 	Atom				a[1];
 	TTSymbol			service;
 	TTList				returnedNodes;
