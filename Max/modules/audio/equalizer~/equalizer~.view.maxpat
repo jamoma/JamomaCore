@@ -31,6 +31,37 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"frgb" : 0.0,
+					"id" : "obj-6",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 586.0, 124.0, 107.0, 43.0 ],
+					"text" : "because it changes the number of voices of the poly",
+					"textcolor" : [ 0.656533, 0.023209, 0.0, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"color" : [ 0.656533, 0.023209, 0.0, 1.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 575.0, 166.0, 53.0, 19.0 ],
+					"text" : "deferlow"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-7",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -1165,6 +1196,16 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-22", 4 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 584.5, 190.0, 679.0, 190.0, 679.0, 366.0, 614.333374, 366.0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-25", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -1325,10 +1366,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-22", 4 ],
+					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 446.833344, 105.0, 679.0, 105.0, 679.0, 366.0, 614.333374, 366.0 ],
+					"midpoints" : [ 446.833344, 106.5, 584.5, 106.5 ],
 					"source" : [ "obj-41", 1 ]
 				}
 
