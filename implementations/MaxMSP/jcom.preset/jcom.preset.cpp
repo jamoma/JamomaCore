@@ -214,7 +214,7 @@ void preset_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Remove a preset using a name"));		
 		
 		// expose attributes of TTPresetManager as TTData in the tree structure
-		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_order, kTTSym_return, &aData);
+		x->subscriberObject->exposeAttribute(x->wrappedObject, kTTSym_order, kTTSym_parameter, &aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_array);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("The order of the preset list"));
