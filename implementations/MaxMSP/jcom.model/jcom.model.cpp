@@ -47,7 +47,7 @@ void		model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		model_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 //void		model_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);		// only in jview patch
+void		model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);		// only in view patch
 
 void		model_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
