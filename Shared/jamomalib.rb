@@ -569,7 +569,11 @@ end
           # makefile.write("CC_32 = llvm-g++-4.2 -arch i386\n") if (arch == 'i386' || arch == 'default')
           # makefile.write("CC_64 = llvm-g++-4.2 -arch x86_64\n\n") if (arch == 'x86_64' || arch != 'i386' || arch == 'default')
         else
-          makefile.write("CC = g++\n\n")
+          if linux?
+            makefile.write("CC = clang++\n\n")
+          else
+            makefile.write("CC = g++\n\n")
+          end
         end
 
         makefile.write("#########################################\n\n")
@@ -1111,11 +1115,10 @@ end
         end
         # {'environment' if (mac? && out.match(/Xcode 4/))}
 
-        if mac?
+        if mac? || linux?
           makefile.write("\n")
           makefile.write("#########################################\n\n")
           makefile.write("Debug: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
-          makefile.write("#Debug: createdirs #{'i386' if (arch == 'i386' || arch == 'default')} #{'x64' if (arch == 'x86_64' || arch == 'default')} lipo install\n")
           makefile.write("Debug: createdirs install\n")
           makefile.write("\n")
 
@@ -1140,6 +1143,10 @@ end
 
           # All compiled object files are dependent upon their individual source file and _all_ headers
           # At some point we could try to be more refined about depending on _all_ headers, but for now this is the safest way to go.
+          if linux?
+              makefile.write("%.o: %.cpp ${INCLUDE_FILES}\n")
+              makefile.write("\t$(CC) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
+          else
           if (arch == 'i386' || arch == 'default')
               makefile.write("%.i386.o: %.cpp ${INCLUDE_FILES}\n")
               makefile.write("\t$(CC_32) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
@@ -1152,10 +1159,19 @@ end
               makefile.write("%.x64.mm.o: %.mm ${INCLUDE_FILES}\n")
               makefile.write("\t$(CC_64) $(CFLAGS) $(OPTIMIZATION_FLAGS) -c $< -o $@\n")
           end
+          end
           makefile.write("\n")
 
-          makefile.write("link: #{'i386' if (arch == 'i386' || arch == 'default')} #{'x64' if (arch == 'x86_64' || arch == 'default')} | #{'$(SRC32)' if (arch =='i386' || arch == 'default')} #{'$(SRC64)' if (arch == 'x86_64' || arch == 'default')}\n\n")
+          if linux?
+            makefile.write("link: compile | $(SRC)' \n\n")
+          else
+            makefile.write("link: #{'i386' if (arch == 'i386' || arch == 'default')} #{'x64' if (arch == 'x86_64' || arch == 'default')} | #{'$(SRC32)' if (arch =='i386' || arch == 'default')} #{'$(SRC64)' if (arch == 'x86_64' || arch == 'default')}\n\n")
+          end
 
+          if linux?
+              makefile.write("compile: $(SRC)\n")
+              makefile.write("\t$(CC) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/$(NAME)#{extension_suffix} $(SRC)\n")
+          else
           if (arch == 'i386' || arch == 'default')
               makefile.write("i386: $(SRC32)\n")
               makefile.write("\t$(CC_32) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/$(NAME)-i386#{extension_suffix} $(SRC32)\n")
@@ -1168,8 +1184,13 @@ end
               makefile.write("\n")
           end
 
+          end
+
           makefile.write("lipo: | link\n")
 
+          if linux?
+makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")
+          else
           # not a universal binary, just copy it
           if (arch == 'i386')
               makefile.write("\tcp #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")
@@ -1177,6 +1198,7 @@ end
               makefile.write("\tlipo #{build_temp}/$(NAME)-x86_64#{extension_suffix} -create -output #{build_temp}/$(NAME)#{extension_suffix}\n")
           else
               makefile.write("\tlipo #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)-x86_64#{extension_suffix} -create -output #{build_temp}/$(NAME)#{extension_suffix}\n")
+          end
           end
           makefile.write("\n")
 
