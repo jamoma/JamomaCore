@@ -165,7 +165,7 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 						
 						if (anObject)
 							if (anObject->valid)	// to -- should be better to understand why the object is not valid
-								TTObjectRelease(&anObject);
+                                    TTObjectRelease(&anObject);
 					}
 				}
 				
@@ -208,11 +208,11 @@ t_max_err wrappedModularClass_notify(TTPtr self, t_symbol *s, t_symbol *msg, voi
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	ModularSpec*				spec = (ModularSpec*)x->wrappedClassDefinition->specificities;
 	TTValue						v;
-	TTAddress			contextAddress;
+	TTAddress                   contextAddress;
 
 #ifndef ARRAY_EXTERNAL
 	ObjectPtr					context;
-	
+    
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TTSymbol("context"), v);
 		v.get(0, (TTPtr*)&context);
@@ -951,6 +951,9 @@ TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod
 	// default registration case : store object only (see in unregister method)
 	storedObject = TTValue(TTPtr(*returnedExplorer));
 	x->internals->append(name, storedObject);
+    
+    JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" explorer", name.c_str());
+    
 	return kTTErrNone;
 }
 
@@ -982,6 +985,9 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	// default registration case : store object only (see in unregister method)
 	storedObject = TTValue(TTPtr(*returnedViewer));
 	x->internals->append(name, storedObject);
+    
+    JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" viewer to bind on : %s", name.c_str(), adrs.c_str());
+    
 	return kTTErrNone;
 }
 
@@ -1017,6 +1023,9 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	// default registration case : store object only (see in unregister method)
 	storedObject = TTValue(TTPtr(*returnedReceiver));
 	x->internals->append(name, storedObject);
+    
+     JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" receiver to bind on : %s", name.c_str(), adrs.c_str());
+    
 	return kTTErrNone;
 }
 
