@@ -168,7 +168,7 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 	AtomPtr						argv = NULL;
 	TTUInt32					number;
 	TTUInt8						i, j;
-	TTAddress			newAddress = TTAddress(address->s_name);
+	TTAddress                   newAddress = TTAddress(address->s_name);
 	SymbolPtr					instanceAddress;
 	TTObjectPtr					anObject;
 	TTValue						v;
@@ -260,8 +260,8 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					instanceAddress;
-	TTAddress			contextAddress = kTTAdrsEmpty;
-	TTAddress			absoluteAddress;
+	TTAddress                   contextAddress = kTTAdrsEmpty;
+	TTAddress                   absoluteAddress;
 	TTObjectPtr					toSubscribe, aReceiver;
 	TTBoolean					subscribe;
 	TTSubscriberPtr				aSubscriber;
@@ -770,7 +770,6 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	TTObjectPtr			anObject;
 	TTUInt8				i;
 	TTValue				v;
-//	Atom				a[1];
 	TTErr				err;
 	
 	if (argc && argv) {
@@ -788,6 +787,8 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 				// set address attribute of the internal Viewer object
 				address = TTAddress(atom_getsym(argv)->s_name).appendAddress(TTAddress(instanceAddress->s_name));
 				selectedObject->setAttributeValue(kTTSym_address, address);
+                
+                JamomaDebug object_post((ObjectPtr)x, "binds on %s", address.c_str());
 				
 				// for Data object, if service is parameter or return : refresh !
 				// note : this would only work if the address already exists
