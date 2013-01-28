@@ -763,7 +763,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr			instanceAddress;
-	TTAddress	address;
+	TTAddress           address;
 	TTSymbol			service;
 	TTList				returnedNodes;
 	TTNodePtr			firstNode;
