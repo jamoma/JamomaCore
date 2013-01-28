@@ -506,8 +506,16 @@ void remote_address(TTPtr self, SymbolPtr address)
 // Method for Assistance Messages
 void remote_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 {
-	if (msg==1) 						// Inlet
-		strcpy(dst, "input");
+	if (msg==1) {					// Inlet
+		switch(arg) {
+			case 0 :
+				strcpy(dst, "set the value of the selected instance(s)");
+				break;
+			case 1 :
+				strcpy(dst, "index (use * to bind all instances)");
+				break;
+		}
+    }
 	else {							// Outlets
 		switch(arg) {
 			case set_out:
@@ -789,24 +797,6 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 				selectedObject->setAttributeValue(kTTSym_address, address);
                 
                 JamomaDebug object_post((ObjectPtr)x, "binds on %s", address.c_str());
-				
-				// for Data object, if service is parameter or return : refresh !
-				// note : this would only work if the address already exists
-				err = getDirectoryFrom(address)->Lookup(address, returnedNodes, &firstNode);
-				
-				if (!err) {
-					if ((anObject = firstNode->getObject())) {
-						if (anObject->getName() == kTTSym_Data) {
-							anObject->getAttributeValue(kTTSym_service, v);
-							v.get(0, service);
-							
-							if (service == kTTSym_parameter || service == kTTSym_return)
-								selectedObject->sendMessage(kTTSym_Refresh);
-						}
-						else
-							selectedObject->sendMessage(kTTSym_Refresh);
-					}
-				}
 			}
 			
 			// Ends iteration on internals
@@ -816,7 +806,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
 			
 			// why not use this way to refresh ?
-			// defer((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
+			defer_low((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
 
 			EXTRA->countSubscription = 0;
 		}

@@ -351,8 +351,16 @@ void data_address(TTPtr self, SymbolPtr address)
 // Method for Assistance Messages
 void data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 {
-	if (msg==1) 						// Inlet
-		strcpy(dst, "input");
+	if (msg == 1) {					// Inlet
+        switch(arg) {
+			case 0 :
+				strcpy(dst, "set the value of the selected instance(s)");
+				break;
+			case 1 :
+				strcpy(dst, "index (use * to bind all instances)");
+				break;
+		}
+    }
 	else {							// Outlets
 		switch(arg) {
 			case data_out:

@@ -377,10 +377,10 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 					v.get(0, service);
 					
 					if (service == kTTSym_parameter || service == kTTSym_return)
-						x->wrappedObject->sendMessage(kTTSym_Refresh);
+						defer_low((ObjectPtr)x, (method)wrappedModularClass_sendMessage, gensym("refresh"), 0, 0);
 				}
 				else
-					x->wrappedObject->sendMessage(kTTSym_Refresh);
+					defer_low((ObjectPtr)x, (method)wrappedModularClass_sendMessage, gensym("refresh"), 0, 0);
 			}
 		}
 		
