@@ -1,15 +1,9 @@
-/** @file
+/**
+ * \file jcom.map.cpp
+ * External for Jamoma: map input to output: y=f(x)
+ * Copyright © 2010 by Théo de la Hogue
  *
- * @ingroup modularMax
- *
- * @brief External for Jamoma: jcom.map - Map input to output : y=f(x)
- *
- * @details Mapping functions are defined in the Jamoma DSP FunctionLib extension.
- *
- * @authors Tim Place, Trond Lossius
- *
- * @copyright Copyright © 2007 by Tim Place @n
- * This code is licensed under the terms of the "New BSD License" @n
+ * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -67,169 +61,13 @@ void WrapTTMapperClass(WrappedClassPtr c)
 
 void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
-	if (obj->functionUnit)
-		delete obj->functionUnit;
-	delete obj->parameterNames;
-}
-
-
-#pragma mark -
-#pragma mark methods
-/************************************************************************************/
-// Methods bound to input/inlets
-
-// Method for Assistance Messages
-void map_assist(t_map *x, void *b, long msg, long arg, char *dst)
-{
-	if (msg==1) 							// Inlets
-		strcpy(dst, "x");
-	else if (msg==2) { 					// Outlets
-		switch(arg) {
-			case 0: strcpy(dst, "y=f(x)"); break;
-			default: strcpy(dst, "dumpout"); break;
- 		}
- 	}
-}
-
-
-void map_int(t_map *obj, long x)
-{
-	map_float(obj, (double)x);
-}
-
-
-void map_float(t_map *obj, double x)
-{
-	double y;
-
-	if (obj->valid) {
-		//y = obj->c * obj->functionUnit->map(obj->a * x + obj->b) + obj->d;
-		obj->functionUnit->calculate(obj->a * x + obj->b, y);
-		y = obj->c * y + obj->d;
-		outlet_float(obj->outlet, y);
-	}
-}
-
-
-void map_list(t_map* obj, SymbolPtr message, AtomCount argc, AtomPtr argv)
-{
-	if (obj->valid) {
-		TTValue		v;
-		TTValue		ret;
-		double		x, y;
-		AtomCount	ac = 0;
-		AtomPtr		av = NULL;
-
-		v.clear();
-		for (int i=0; i<argc; i++) {
-			x = atom_getfloat(argv+i);
-			v.append(obj->a * x + obj->b);
-		}
-
-		obj->functionUnit->calculate(v, ret);
-
-		ac = ret.getSize();
-		av = new Atom[ac];
-		for (int i=0; i<ac; i++) {
-			ret.get(i, y);
-			y = obj->c * y + obj->d;
-			atom_setfloat(av+i, y);
-		}
-
-		outlet_anything(obj->outlet, _sym_list, ac, av);
-		delete [] av;
-	}
-}
-
-
-void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
-{
-	t_atom		a[2];
-	long		numFunctions = 0;
-	long		i;
-	TTValue		functionNames;
-	TTSymbol	aName;
-
-	atom_setsym(a+0, gensym("clear"));
-	object_obex_dumpout(obj, gensym("functions"), 1, a);
-
-	FunctionLib::getUnitNames(functionNames);
-	numFunctions = functionNames.getSize();
-
-	atom_setsym(a+0, gensym("append"));
-	for (i=0; i<numFunctions; i++) {
-		functionNames.get(i, aName);
-		atom_setsym(a+1, gensym(aName));
-		object_obex_dumpout(obj, gensym("functions"), 2, a);
-	}
-}
-
-
-void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
-{
-	t_atom*		a;
-	TTSymbol	parameterName;
-	TTValue		parameterValue;
-	int			numValues;
-	int			i;
-	TTSymbol	tempSymbol;
-	double		tempValue;
-	TTValue		v;
-
-	if (!argc) {
-		error("jcom.map: not enough arguments to parameter.get");
-		return;
-	}
-
-	// get the correct TT name for the parameter given the Max name
-	parameterName = atom_getsym(argv)->s_name;
-	//obj->parameterNames->lookup(parameterName, v);
-	//v.get(0, parameterName);
-
-	obj->functionUnit->getAttributeValue(parameterName, parameterValue);
-	numValues = parameterValue.getSize();
-	if (numValues) {
-		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
-		// First list item is name of parameter
-		atom_setsym(a, gensym(parameterName));
-		// Next the whole shebang is copied
-		for (i=0; i<numValues; i++) {
-			if (parameterValue.getType(i) == kTypeSymbol) {
-				parameterValue.get(i, tempSymbol);
-				atom_setsym(a+i+1, gensym(tempSymbol));
-			}
-			else {
-				parameterValue.get(i, tempValue);
-				atom_setfloat(a+i+1, tempValue);
-			}
-		}
-		object_obex_dumpout(obj, gensym("current.parameter"), numValues+1, a);
-
-		// The pointer to an atom assign in the getParameter method needs to be freed.
-		sysmem_freeptr(a);
-	}
-}
-
-void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
-{
-	t_atom		a[2];
-	long		n;
-	TTValue		names;
-	TTSymbol	aName;
-
-	atom_setsym(a+0, gensym("clear"));
-	object_obex_dumpout(obj, gensym("function.parameters"), 1, a);
-
-	obj->parameterNames->getKeys(names);
-	n = names.getSize();	
-	if (n) {
-		for (int i=0; i<n; i++) {
-			atom_setsym(a+0, gensym("append"));
-			names.get(i, aName);
-			atom_setsym(a+1, gensym((char*)aName.c_str()));
-			object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
-		}
-	}
+	WrappedModularInstancePtr x = (WrappedModularInstancePtr)self;
+	SymbolPtr relativeAddress;
+	long attrstart = attr_args_offset(argc, argv); // support normal arguments
+	
+	// possible relativeAddress
+	if (attrstart && argv)
+		relativeAddress = atom_getsym(argv);
 	else
 		relativeAddress = _sym_nothing;
 	
