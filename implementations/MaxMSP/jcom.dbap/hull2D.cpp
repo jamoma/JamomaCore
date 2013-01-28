@@ -1,23 +1,32 @@
-/*
-This code is described in "Computational Geometry in C" (Second Edition),
-Chapter 3.  It is not written to be comprehensible without the
-explanation in that book.
+/**
+ @file
+ 
+ @ingroup modularMax
+ 
+ @brief 2D implementation on convex hull.
+ 
+ @details This code is described in "Computational Geometry in C" (Second Edition),
+ Chapter 3.  It is not written to be comprehensible without the
+ explanation in that book. @n
+ @n
+ Input: 2n integer coordinates of points in the plane. @n
+ Output: the convex hull, cw, in PostScript; other output precedes the PS. @n
+ @n
+ NB: The original array storing the points is overwritten. @n
 
-Input: 2n integer coordinates of points in the plane. 
-Output: the convex hull, cw, in PostScript; other output precedes the PS.
+ Compile: gcc -o graham graham.c  (or simply: make) @n
 
-NB: The original array storing the points is overwritten.
+ Written by Joseph O'Rourke. @n
+ Last modified: October 1997 @n
+ Questions to orourke@cs.smith.edu. @n
 
-Compile: gcc -o graham graham.c  (or simply: make)
+ @author Joseph O'Rourke
 
-Written by Joseph O'Rourke.
-Last modified: October 1997
-Questions to orourke@cs.smith.edu.
---------------------------------------------------------------------
-This code is Copyright 1998 by Joseph O'Rourke.  It may be freely
-redistributed in its entirety provided that this copyright notice is
-not removed.
---------------------------------------------------------------------
+ @copyright -------------------------------------------------------------------- @n
+ This code is Copyright 1998 by Joseph O'Rourke.  It may be freely @n
+ redistributed in its entirety provided that this copyright notice is @n
+ not removed. @n
+ --------------------------------------------------------------------
 */
 
 #include "hull2D.h"

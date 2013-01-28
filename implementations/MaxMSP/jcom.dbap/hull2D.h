@@ -1,26 +1,32 @@
 /**
- \file hull2D.h
- Compute convex hulls in 2 dimensions.
+ @file
+ 
+ @ingroup modularMax
+ 
+ @brief Compute convex hulls in 2 dimensions.
 
-This code is described in "Computational Geometry in C" (Second Edition),
-Chapter 3.  It is not written to be comprehensible without the
-explanation in that book.
+ @details This code is described in "Computational Geometry in C" (Second Edition),
+ Chapter 3.  It is not written to be comprehensible without the
+ explanation in that book.
 
-Input: 2n integer coordinates of points in the plane. 
-Output: the convex hull, cw, in PostScript; other output precedes the PS.
+ Input: 2n integer coordinates of points in the plane.
+ Output: the convex hull, cw, in PostScript; other output precedes the PS.
 
-NB: The original array storing the points is overwritten.
+ NB: The original array storing the points is overwritten.
 
-Compile: gcc -o graham graham.c  (or simply: make)
+ Compile: gcc -o graham graham.c  (or simply: make)
 
-Written by Joseph O'Rourke.
-Last modified: October 1997
-Questions to orourke@cs.smith.edu.
---------------------------------------------------------------------
-This code is Copyright 1998 by Joseph O'Rourke.  It may be freely
-redistributed in its entirety provided that this copyright notice is
-not removed.
---------------------------------------------------------------------
+ Written by Joseph O'Rourke.
+ Last modified: October 1997
+ Questions to orourke@cs.smith.edu.
+ 
+ @author Joseph O'Rourke
+
+ @copyright -------------------------------------------------------------------- @n
+ This code is Copyright 1998 by Joseph O'Rourke.  It may be freely @n
+ redistributed in its entirety provided that this copyright notice is @n
+ not removed. @n
+ --------------------------------------------------------------------
 */
 
 #include <stdio.h>

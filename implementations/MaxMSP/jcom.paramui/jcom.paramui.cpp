@@ -24,7 +24,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	t_class*	c;
 	TTValue		dataspaceNames;
 	TTValue		functionNames;
-	TTSymbol	functionName, aName;
+	TTSymbol	functionName;
 	char		dataspaces[2048];
 	char		functions[2048];
 	char		tempstr[64];
@@ -39,7 +39,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 		TTSymbol	name;
 		
 		dataspaceNames.get(i, name);
-		strcat(dataspaces, name.c_str());
+		strcat(dataspaces, name);
 		strcat(dataspaces, " ");
 	}
 
@@ -47,7 +47,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	functions[0] = 0;
 	for (i=0; i<functionNames.getSize(); i++) {
 		functionNames.get(i, functionName);
-		strcat(functions, functionName.c_str());	
+		strcat(functions, functionName);	
 		strcat(functions, " ");
 	}
 

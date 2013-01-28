@@ -11,7 +11,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 
 <body>
 	<div id="jmod_header">
-	<img src="../../../documentation/graphics/jmodular.icon.png" width="128" height="128">
+	<img src="../../../documentation/graphics/jmodular.icon.png" onError="this.src='../images/jmodular.icon.png';" width="128" height="128">
 	<h1> jmod.sur.dbapBformat~ </h1>
 	<h2> Distance-based amplitude panning of incomming B-format signals. </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../../../documentation/html/modules.html">Index of Modules</a> | <a href="../../../documentation/html/credits.html">Credits</a> | <a href="http://pledgie.com/campaigns/5615">Donate</a> | <a href="http://www.jamoma.org/">Jamoma.org</a></h6>
@@ -40,7 +40,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> audio/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeBounds"> 0 127 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -55,23 +55,11 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> dimensions </td>
-			<td class ="instructionType"> integer </td>
-			<td class ="instructionRangeBounds"> 1 3 </td>
-			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionDataspaceUnit"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Dimensions of the space spanned by loudspeakers. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> numSources </td>
@@ -79,7 +67,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 1 8 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -91,7 +79,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 1 32 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -100,10 +88,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> rolloff </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 1.000000 6.000000 </td>
+			<td class ="instructionRangeBounds"> 1 6 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -111,11 +99,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.1/weight </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -123,11 +111,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.2/weight </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -135,11 +123,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.3/weight </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -147,11 +135,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.4/weight </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -159,11 +147,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.5/weight </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -171,11 +159,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.6/weight </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -183,11 +171,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.7/weight </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -195,63 +183,15 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.8/weight </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial weight of the nth source. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> view/color/border </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionDataspaceUnit"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range [0.0, 1.0]. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> view/color/contentBackground </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionDataspaceUnit"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range [0.0, 1.0]. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> view/color/toolbarBackground </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionDataspaceUnit"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> view/color/toolbarText </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionDataspaceUnit"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> view/freeze </td>
@@ -259,23 +199,23 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> view/size </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class="instructionName"> view/highlight </td>
+			<td class ="instructionType"> string </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> The size of the module's UI. </td>
+			<td class ="instructionDescription"> Highlight the module with a color tint such as red, green, or similar. </td>
 		<tr>
 	</table>
 
@@ -298,10 +238,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> documentation/generate </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -310,10 +250,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> info </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -322,10 +262,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> init </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -334,10 +274,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/clear </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -345,11 +285,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/copy </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -358,10 +298,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/default </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -370,10 +310,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/dump </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -381,11 +321,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/interpolate </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -393,11 +333,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/mix </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -406,10 +346,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/post </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -418,10 +358,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/read </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -430,10 +370,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/recall </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -441,11 +381,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -454,10 +394,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/storecurrent </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -466,10 +406,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/storenext </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -478,10 +418,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/write </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -490,10 +430,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/writeagain </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -505,7 +445,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -514,10 +454,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.1/blur </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -526,10 +466,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.1/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -537,11 +477,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.1/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -553,7 +493,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -562,10 +502,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.2/blur </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -574,10 +514,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.2/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -585,11 +525,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.2/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -601,7 +541,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -610,10 +550,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.3/blur </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -622,10 +562,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.3/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -633,11 +573,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.3/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -649,7 +589,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -658,10 +598,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.4/blur </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -670,10 +610,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.4/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -681,11 +621,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.4/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -697,7 +637,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -706,10 +646,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.5/blur </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -718,10 +658,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.5/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -729,11 +669,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.5/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -745,7 +685,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -754,10 +694,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.6/blur </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -766,10 +706,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.6/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -777,11 +717,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.6/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -793,7 +733,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -802,10 +742,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.7/blur </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -814,10 +754,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.7/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -825,11 +765,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.7/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -841,7 +781,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -850,10 +790,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.8/blur </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeBounds"> 0 100 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -862,10 +802,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> source.8/gain </td>
 			<td class ="instructionType"> decimal </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionDataspaceUnit"> linear </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -873,11 +813,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.8/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -885,11 +825,131 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.1/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.10/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.11/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.12/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.13/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.14/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.15/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.16/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.17/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.18/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.19/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -897,11 +957,131 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.2/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.20/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.21/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.22/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.23/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.24/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.25/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.26/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.27/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.28/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.29/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -909,11 +1089,47 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.3/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.30/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.31/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.32/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -921,11 +1137,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.4/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -933,11 +1149,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.5/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -945,11 +1161,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.6/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -957,11 +1173,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.7/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -969,23 +1185,83 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.8/position </td>
-			<td class ="instructionType"> array </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionDataspaceUnit"> xyz </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> view/internals </td>
-			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class="instructionName"> speaker.9/position </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionDataspaceUnit"> xyz </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the nth source. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/border </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnit"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/contentBackground </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnit"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarBackground </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnit"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarText </td>
+			<td class ="instructionType"> decimalArray </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnit"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/internals </td>
+			<td class ="instructionType"> none </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -994,10 +1270,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> view/refresh </td>
 			<td class ="instructionType"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
@@ -1006,14 +1282,26 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> view/script </td>
 			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionDataspaceUnit"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/size </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionDataspaceUnit"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The size of the module's UI: [Width Height] </td>
 		<tr>
 	</table>
 

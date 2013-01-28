@@ -1,16 +1,17 @@
-/** 
- * \file jcom.delta.cpp
- * External for Jamoma: calculate 1st order difference
- * This object replaces tl.delta from the tl.objects distribution.
+/** @file
  *
- * By Trond Lossius, Copyright � 2001-06
- * 20031227 initial port to OSX compiled by jasch <jasch@kat.ch>
- * 20060813 ported to Jamoma
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.delta - Calculate 1st/2nd order differences and velocity.
+ *
+ * @details This object replaces tl.delta, tl.delta2 and tl.velocity from the tl.objects distribution.
+ *
+ * @authors Trond Lossius, Tim Place, Jan Schacher, François-Eudes Chanfrault
+ *
+ * @copyright Copyright © 2006, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
- */
-	
+ */	
 
 /*
 	<---MAXREF
@@ -29,7 +30,7 @@
 
 
 		/maxref/metadata/author
-			Trond Lossius
+			Trond Lossius, Tim Place, Jan Schacher, François-Eudes Chanfrault
 
 		/maxref/metadata/tag
 			Jamoma Max Math
