@@ -215,6 +215,10 @@ void remote_subscribe(TTPtr self)
                 x->address.getAttribute() != NO_ATTRIBUTE)
                 toSubscribe = NULL;
             
+             // if the address refer to the model/address don't subscribe the Viewer (to not have model/address.1)
+            else if (x->address == TTAddress("model/address"))
+                toSubscribe = NULL;
+            
             // else try to subscribe the Viewer
             else toSubscribe = x->wrappedObject;
             
