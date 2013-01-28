@@ -240,32 +240,31 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(a+4, x->attr_rampDrive);
 		atom_setsym(a+5, gensym("@ramp/function"));
 		atom_setsym(a+6, x->attr_rampFunction);
-		atom_setsym(a+7, gensym("@view/freeze"));
-		atom_setlong(a+8, x->attr_uiFreeze);
-		atom_setsym(a+9, gensym("@value/stepsize"));
-		atom_setfloat(a+10, x->attr_stepsize);
-		atom_setsym(a+11, gensym("@priority"));
-		atom_setlong(a+12, x->attr_priority);
-		atom_setsym(a+13, gensym("@range/bounds"));
-		atom_setfloat(a+14, x->attr_range[0]);
-		atom_setfloat(a+15, x->attr_range[1]);
-		atom_setsym(a+16, gensym("@repetitions/allow"));
-		atom_setlong(a+17, x->attr_repetitions);
-		atom_setsym(a+18, gensym("@range/clipmode"));
-		atom_setsym(a+19, x->attr_clipmode);
-		atom_setsym(a+20, gensym("@description"));
-		atom_setsym(a+21, x->attr_description);
-		atom_setsym(a+22, gensym("@dataspace"));
-		atom_setsym(a+23, x->attr_dataspace);
-		atom_setsym(a+24, gensym("@dataspace/unit"));
-		atom_setsym(a+25, x->attr_unitActive);
+		atom_setlong(a+7, x->attr_uiFreeze);
+		atom_setsym(a+8, gensym("@value/stepsize"));
+		atom_setfloat(a+9, x->attr_stepsize);
+		atom_setsym(a+10, gensym("@priority"));
+		atom_setlong(a+11, x->attr_priority);
+		atom_setsym(a+12, gensym("@range/bounds"));
+		atom_setfloat(a+13, x->attr_range[0]);
+		atom_setfloat(a+14, x->attr_range[1]);
+		atom_setsym(a+15, gensym("@repetitions/allow"));
+		atom_setlong(a+16, x->attr_repetitions);
+		atom_setsym(a+17, gensym("@range/clipmode"));
+		atom_setsym(a+18, x->attr_clipmode);
+		atom_setsym(a+19, gensym("@description"));
+		atom_setsym(a+20, x->attr_description);
+		atom_setsym(a+21, gensym("@dataspace"));
+		atom_setsym(a+22, x->attr_dataspace);
+		atom_setsym(a+23, gensym("@dataspace/unit"));
+		atom_setsym(a+24, x->attr_unitActive);
 		if (x->attr_defaultSize) {
-			atom_setsym(a+26, gensym("@value/default"));
-			sysmem_copyptr(x->attr_default, a+29, sizeof(t_atom) * x->attr_defaultSize);
-			argLen = 27 + x->attr_defaultSize;
+			atom_setsym(a+25, gensym("@value/default"));
+			sysmem_copyptr(x->attr_default, a+28, sizeof(t_atom) * x->attr_defaultSize);
+			argLen = 26 + x->attr_defaultSize;
 		}
 		else
-			argLen = 26;
+			argLen = 25;
 
 		jamoma_extern_load(gensym("jcom.parameter"), argLen, a, &x->obj_parameter);
 	}
