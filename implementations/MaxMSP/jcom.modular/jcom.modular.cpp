@@ -91,7 +91,6 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 			// create the application
 			args = TTValue(applicationName);
 			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&x->wrappedObject), args);
-			
 		}
 		
 		protocolName = TTSymbol(atom_getsym(argv+1)->s_name);

@@ -139,7 +139,7 @@ TTErr TTReceiver::Get()
 {
 	TTNodePtr	aNode;
 	TTObjectBasePtr anObject;
-	TTAddress anAddress;
+	TTAddress   anAddress;
 	TTSymbol	ttAttributeName;
 	TTValue		data, v;
 	TTErr		err;

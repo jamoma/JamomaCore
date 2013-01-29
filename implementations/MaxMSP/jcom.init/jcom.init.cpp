@@ -131,10 +131,10 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 
 void init_subscribe(t_init *x)
 {
-	TTValue		v, args;
-	TTAddress   contextAddress = kTTAdrsEmpty;
+	TTValue			v, args;
+	TTAddress  		contextAddress = kTTAdrsEmpty;
 	TTObjectBasePtr	returnAddressCallback, returnValueCallback;
-	TTValuePtr	returnAddressBaton, returnValueBaton;
+	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// for relative address
 	if (x->address.getType() == kAddressRelative) {
