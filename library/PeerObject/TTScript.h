@@ -54,9 +54,15 @@ private:
 	
 	/**	Run all command lines of the script (considering also wait flag lines) */
 	TTErr	Run(const TTValue& inputValue, TTValue& outputValue);
+    
+    /**	Run one line of the script */
+	TTErr	RunLine(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Dump all lines of the script using mReturnLineCallback */
 	TTErr	Dump(const TTValue& inputValue, TTValue& outputValue);
+    
+    /**	Dump one line of the script using mReturnLineCallback */
+	TTErr	DumpLine(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Process all command lines of the script to bind on each TTNode.
 		This is usefull for client which have to manage lines depending on node's content */

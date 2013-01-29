@@ -67,6 +67,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_descendants                      (("desce
 TTMODULAR_EXPORT TTSymbol       kTTSym_description                      (("description"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_destroyed                        (("destroyed"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_directory                        (("directory"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Dump                             (("Dump"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_end                              (("end"));
 
@@ -120,6 +121,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_Refresh                          (("Refre
 TTMODULAR_EXPORT TTSymbol       kTTSym_repetitionsAllow					(("repetitionsAllow"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_return                           (("return"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_returnedValue					(("returnedValue"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Run                              (("Run"));
         
 TTMODULAR_EXPORT TTSymbol       kTTSym_Send                             (("Send"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_script                           (("script"));
