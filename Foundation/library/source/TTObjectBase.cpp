@@ -42,7 +42,7 @@ TTObjectBase::~TTObjectBase()
 		TTSymbol	name(kTTSymEmpty);
 		TTMessage*	message = NULL;
 
-		v.get(i, name);
+		name = v[i];
 		messages->lookup(name, u);
 		message = TTMessagePtr(TTPtr(u));
 		delete message;
@@ -55,7 +55,7 @@ TTObjectBase::~TTObjectBase()
 		TTSymbol		name(kTTSymEmpty);
 		TTAttribute*	attribute = NULL;
 
-		v.get(i, name);
+		name = v[i];
 		attributes->lookup(name, u);
 		attribute = TTAttributePtr(TTPtr(u));
 		delete attribute;
@@ -266,7 +266,7 @@ void TTObjectBase::getAttributeNames(TTValue& attributeNameList)
 		TTAttributePtr	attribute = NULL;
 		TTSymbol		attributeName = kTTSymEmpty;
 
-		unfilteredNameList.get(i, attributeName);
+		attributeName = unfilteredNameList[i];
 //		getAttribute(attributeName, &attribute);
 		findAttribute(attributeName, &attribute);
 
@@ -322,7 +322,7 @@ void TTObjectBase::getMessageNames(TTValue& messageNameList)
 		TTMessagePtr	message = NULL;
 		TTSymbol		messageName(kTTSymEmpty);
 
-		unfilteredNameList.get(i, messageName);
+		messageName = unfilteredNameList[i];
 		getMessage(messageName, &message);
 
 		if (message->hidden == NO)

@@ -405,10 +405,17 @@ namespace std
 	struct hash<TTString> //: public __hash_node<size_t, TTString>
 	{
 		public:
+#ifdef TT_PLATFORM_LINUX
+		size_t operator()(const TTString& __val) const
+{
+TTLogError("uh oh -- this functions doesn't work compiled with clang on ubuntu!");
+}
+#else
 		size_t operator()(const TTString& __val) const _NOEXCEPT
 		{
 			return __do_string_hash(__val.data(), __val.data() + __val.size());
 		}
+#endif
 	};
 }
 

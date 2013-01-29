@@ -25,15 +25,15 @@ TTNode::TTNode(TTSymbol aName, TTSymbol anInstance, TTObjectBasePtr anObject, TT
 
 TTNode::~TTNode()
 {
-	TTErr err;
+	TTErr       err;
 	unsigned int i, j, nb_c, nb_i;
-	TTValue hk, hk_i;
+	TTValue     hk, hk_i;
 	TTAddress	anAddress;
 	TTSymbol	key;
 	TTSymbol	key_i;
-	TTValue c, c_i, p_c, data;
-	TTHashPtr ht_i, p_ht_i;
-	TTNodePtr n_c;
+	TTValue     c, c_i, p_c, data;
+	TTHashPtr   ht_i, p_ht_i;
+	TTNodePtr   n_c;
 
 	// destroy all his children
 	nb_c = this->children->getSize();
@@ -41,32 +41,28 @@ TTNode::~TTNode()
 
 		this->children->getKeys(hk);
 
-		for (i=0; i<nb_c; i++) {
+		for (i = 0; i < nb_c; i++) {
 
-			hk.get(i, key);
+			key = hk[i];
 			err = this->children->lookup(key, c);
 
 			if (err != kTTErrValueNotFound) {
 
-//				c.get(0,(TTPtr*)&ht_i);
 				ht_i = TTHashPtr(TTPtr(c[0]));
 
 				// if there are instances
 				nb_i = ht_i->getSize();
 				if (nb_i) {
 
-					//hk_i = new TTValue();
-					//c_i = new TTValue();
 					ht_i->getKeys(hk_i);
 
 					// for each instance
-					for (j=0; j<nb_i; j++) {
+					for (j = 0; j < nb_i; j++) {
 
-						hk_i.get(j, key_i);
+						key_i = hk_i[j];
 						err = ht_i->lookup(key_i, c_i);
 
 						if (err != kTTErrValueNotFound) {
-//							c_i.get(0,(TTPtr*)&n_c);
 							n_c = TTNodePtr(TTPtr(c_i[0]));
 							n_c->getAddress(anAddress);
 							this->directory->TTNodeRemove(anAddress);		// remove children properly using the TTNodeDirectory
@@ -82,7 +78,7 @@ TTNode::~TTNode()
 		err = this->parent->children->lookup(this->name, p_c);
 		
 		if (err != kTTErrValueNotFound) {
-			p_c.get(0,(TTPtr*)&p_ht_i);
+			p_ht_i = TTHashPtr((TTPtr)p_c[0]);
 			p_ht_i->remove(this->instance);
 			
 			// If it was the last instance
@@ -122,7 +118,7 @@ TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstan
 	err = this->parent->children->lookup(this->name, p_c);
 
 	if (err != kTTErrValueNotFound) {
-		p_c.get(0,(TTPtr*)&p_ht_i);
+		p_ht_i = TTHashPtr((TTPtr)p_c[0]);
 		p_ht_i->remove(this->instance);
 
 		// If it was the last instance
@@ -155,7 +151,7 @@ TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstan
 	// for each key
 	for (i=0; i<this->directory->getDirectory()->getSize(); i++) {
 
-		hk.get(i, old_key);
+		old_key = hk[i];
 
 		// if the key starts by the oldAddress
 		if (strstr(old_key.c_str(), oldAddress.c_str()) == old_key.c_str()) {
@@ -163,7 +159,7 @@ TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstan
 			// get the TTNode
 			err = this->directory->getDirectory()->lookup(old_key, c);
 			if (err != kTTErrValueNotFound) {
-				c.get(0,(TTPtr*)&n_c);
+				n_c = TTNodePtr((TTPtr)c[0]);
 
 				// create a new key : /newAddress/end_of_the_old_key
 				temp = newAaddress.c_str();
@@ -204,7 +200,7 @@ TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *
 	err = this->parent->children->lookup(this->name, p_c);
 
 	if (err != kTTErrValueNotFound) {
-		p_c.get(0,(TTPtr*)&p_ht_i);
+		p_ht_i = TTHashPtr((TTPtr)p_c[0]);
 		p_ht_i->remove(this->instance);
 	}
 
@@ -229,7 +225,7 @@ TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *
 
 	// for each key
 	for (i=0; i<this->directory->getDirectory()->getSize(); i++) {
-		hk.get(i, old_key);
+		old_key = hk[i];
 
 		// if the key starts by the address
 		if (strstr(old_key.c_str(), oldAddress.c_str()) == old_key.c_str()) {
@@ -237,7 +233,7 @@ TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *
 			// get the TTNode
 			err = this->directory->getDirectory()->lookup(old_key, c);
 			if (err != kTTErrValueNotFound) {
-				c.get(0,(TTPtr*)&n_c);
+				n_c = TTNodePtr((TTPtr)c[0]);
 
 				// create a new key : /newAddress/end_of_the_old_key
 				temp = newAddress.c_str();
@@ -278,7 +274,7 @@ TTErr TTNode::setParent(TTAddress parentAddress, TTBoolean *newParentCreated)
 			return kTTErrGeneric;
 	}
 	else
-		found.get(0,(TTPtr*)&this->parent);
+		this->parent = TTNodePtr((TTPtr)found[0]);
 
 	return kTTErrNone;
 }
@@ -309,7 +305,7 @@ TTErr TTNode::setChild(TTNodePtr child)
 	else {
 
 		// get the instance table
-		c.get(0,(TTPtr*)&ht_i);
+		ht_i = TTHashPtr((TTPtr)c[0]);
 
 		// check if the instance already exists
 		err = ht_i->lookup(child->instance, c_i);
@@ -379,9 +375,9 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 			// for each children
 			for (i=0; i<this->children->getSize(); i++) {
 
-				hk.get(i, key);
+				key = hk[i];
 				this->children->lookup(key, c);
-				c.get(0,(TTPtr*)&ht_i);
+				ht_i = TTHashPtr((TTPtr)c[0]);
 
 				// if there are instances
 				if (ht_i->getSize()) {
@@ -391,9 +387,9 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 					if (anInstance == S_WILDCARD) {
 						// for each instance
 						for (j=0; j<ht_i->getSize(); j++) {
-							hk_i.get(j, key_i);
+							key_i = hk_i[j];
 							ht_i->lookup(key_i, c_i);
-							c_i.get(0,(TTPtr*)&n_c);
+							n_c = TTNodePtr((TTPtr)c_i[0]);
 
 							returnedChildren.append((TTPtr)n_c);
 						}
@@ -402,7 +398,7 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 					else {
 						err = ht_i->lookup(anInstance, c_i);
 						if (err == kTTErrNone) {
-							c_i.get(0,(TTPtr*)&n_c);
+							n_c = TTNodePtr((TTPtr)c_i[0]);
 							returnedChildren.append((TTPtr)n_c);
 						}
 						// don't stop because there are maybe other names
@@ -414,7 +410,7 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 		else {
 			err = this->children->lookup(aName, c);
 			if (err == kTTErrNone) {
-				c.get(0,(TTPtr*)&ht_i);
+				ht_i = TTHashPtr((TTPtr)c[0]);
 
 				// if there are instances
 				if (ht_i->getSize()) {
@@ -424,9 +420,9 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 					if (anInstance == S_WILDCARD) {
 						// for each instance
 						for (j=0; j<ht_i->getSize(); j++) {
-							hk_i.get(j, key_i);
+							key_i = hk_i[j];
 							ht_i->lookup(key_i, c_i);
-							c_i.get(0,(TTPtr*)&n_c);
+							n_c = TTNodePtr((TTPtr)c_i[0]);
 
 							returnedChildren.append((TTPtr)n_c);
 						}
@@ -435,7 +431,7 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 					else {
 						err = ht_i->lookup(anInstance, c_i);
 						if (err == kTTErrNone) {
-							c_i.get(0,(TTPtr*)&n_c);
+							n_c = TTNodePtr((TTPtr)c_i[0]);
 							returnedChildren.append((TTPtr)n_c);
 						}
 						else
@@ -470,7 +466,7 @@ TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
 		// for each children
 		for(i=0; i<this->children->getSize(); i++){
 
-			hk.get(i, key);
+			key = hk[i];
 			returnedChildrenName.append(key);
 		}
 	}
@@ -498,7 +494,7 @@ TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstan
 
 		err = this->children->lookup(aName, c);
 		if(err == kTTErrNone){
-			c.get(0,(TTPtr*)&ht_i);
+			ht_i = TTHashPtr((TTPtr)c[0]);
 
 			// if there are instances
 			if(ht_i->getSize()){
@@ -508,7 +504,7 @@ TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstan
 				// for each instance
 				for(j=0; j<ht_i->getSize(); j++){
 
-					hk_i.get(j, key_i);
+					key_i = hk_i[j];
 					returnedChildrenInstance.append(TTValue(key_i));
 				}
 			}
@@ -656,7 +652,7 @@ TTErr	TTNode::generateInstance(TTSymbol childName, TTSymbol& newInstance)
 	}
 	else {
 		// get the instance table
-		c.get(0,(TTPtr*)&ht_i);
+		ht_i = TTHashPtr((TTPtr)c[0]);
 
 		// create a new instance
 		i = 1;
