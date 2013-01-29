@@ -8,6 +8,8 @@
 
 /* Begin PBXFileReference section */
 		22AD15D716596523002FD7E3 /* Minuit.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Minuit.yml; sourceTree = "<group>"; };
+		461D557616A85F04003115C7 /* MinuitSenderManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MinuitSenderManager.cpp; sourceTree = "<group>"; };
+		461D557816A85F0D003115C7 /* MinuitSenderManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MinuitSenderManager.h; sourceTree = "<group>"; };
 		D26DFB7714B208E000417FFE /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
 		D26DFB7814B208E000417FFE /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 		D2AF80B314A0BA940001E901 /* Minuit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Minuit.h; sourceTree = "<group>"; };
@@ -49,6 +51,7 @@
 				D2AF80B314A0BA940001E901 /* Minuit.h */,
 				D2AF80B414A0BA940001E901 /* MinuitAnswer.h */,
 				D2AF80B514A0BA940001E901 /* MinuitAnswerManager.h */,
+				461D557816A85F0D003115C7 /* MinuitSenderManager.h */,
 				D2AF80B714A0BA940001E901 /* Time2.hpp */,
 			);
 			path = includes;
@@ -60,6 +63,7 @@
 				D2AF80B914A0BAA00001E901 /* Minuit.cpp */,
 				D2AF80BA14A0BAA00001E901 /* MinuitAnswer.cpp */,
 				D2AF80BB14A0BAA00001E901 /* MinuitAnswerManager.cpp */,
+				461D557616A85F04003115C7 /* MinuitSenderManager.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";

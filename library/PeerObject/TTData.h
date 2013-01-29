@@ -46,7 +46,7 @@ private:
 	TTInt32			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
 	TTSymbol		mDescription;				///< ATTRIBUTE: text to describe the role of this data
 	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
-	TTBoolean		mEnable;					///< ATTRIBUTE: this used for return only to stop sending values
+	TTBoolean		mActive;					///< ATTRIBUTE: this used by return only to stop sending values
 	TTBoolean		mInitialized;				///< ATTRIBUTE: is the Value attribute has been initialized ?
 	
 	TTValue			mRangeBounds;				///< ATTRIBUTE: 
@@ -130,8 +130,8 @@ private:
 	/**	Setter for mRepetitionsAllow attribute. */
 	TTErr	setRepetitionsAllow(const TTValue& value);
 	
-	/**	Setter for mEnable attribute. */
-	TTErr	setEnable(const TTValue& value);
+	/**	Setter for mActive attribute. */
+	TTErr	setActive(const TTValue& value);
 	
 	/**	Setter for mRangeBounds attribute. */
 	TTErr	setRangeBounds(const TTValue& value);

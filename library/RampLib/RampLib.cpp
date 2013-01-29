@@ -32,8 +32,8 @@ RampUnit::RampUnit(TTValue& arguments) :
 	targetValue[0] = 0.0;
 	startValue[0] = 0.0;
 
-	arguments[0] (TTPtr*)&callback);
-	arguments.get(1, (TTPtr*)&baton);
+	callback = RampUnitCallback((TTPtr)arguments[0]);
+	baton = (TTPtr)arguments[1];
 	
 	addAttributeWithSetter(Function, kTypeSymbol);
 	setAttributeValue(kTTSym_function, TTSymbol("linear"));
@@ -55,7 +55,7 @@ void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 	
 	stop();
 	setNumValues(newNumValues);
-	for (i=0; i<newNumValues; i++)
+	for (i = 0; i < newNumValues; i++)
 		currentValue[i] = newValues[i];
 }
 
@@ -65,7 +65,7 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 	TTErr		err;
 	TTSymbol	newFunctionName;
 	
-	functionName[0] newFunctionName);
+	newFunctionName = functionName[0];
 	
 	if (newFunctionName == TTSymbol("none"))
 		newFunctionName = TTSymbol("linear");
@@ -74,7 +74,7 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 		return kTTErrNone;
 	
 	mFunction = newFunctionName;
-	err = FunctionLib::createUnit(mFunction, (TTObjectBase**)&functionUnit);
+    err = TTObjectBaseInstantiate(mFunction, TTObjectBaseHandle(&functionUnit), 1); // for 1 channel only
 	if (err)
 		logError("Jamoma ramp unit failed to load the requested FunctionUnit from TTBlue.");
 	return err;
@@ -138,7 +138,7 @@ TTErr RampLib::createUnit(const TTSymbol unitName, RampUnit **unit, RampUnitCall
 {
 	TTValue v;
 	
-	v.setSize(2);
+	v.resize(2);
 	v[0] = TTPtr(callback);
 	v[1] = TTPtr(baton);
 	

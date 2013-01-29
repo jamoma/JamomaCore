@@ -24,8 +24,8 @@ mScript(NULL)
 	
 	addMessage(Clear);
 	addMessageWithArguments(Store);
-	addMessage(Recall);
-	addMessage(Output);
+	addMessageWithArguments(Recall);
+	addMessageWithArguments(Output);
 	addMessageWithArguments(Select);
 	
 	// needed to be handled by a TTXmlHandler
@@ -214,7 +214,7 @@ TTErr TTCue::searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp)
 			
 			// get the script
 			aLine->getValue(v);
-			aSubScript = TTScriptPtr((TTPtr)v[0]);
+			aSubScript = TTScriptPtr((TTObjectPtr)v[0]);
 			
 			if (aSubScript)
 				searchRamp(aSubScript, ramp);
@@ -260,7 +260,7 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 			// if it is a Data object with a ramp drive
 			if (!aLine->lookup(kTTSym_object, v)) {
 				
-				anObject = TTObjectBasePtr((TTPtr)v[0]);
+				anObject = v[0];
 				
 				if (anObject->getName() == kTTSym_Data) {
 					
@@ -282,7 +282,7 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 			
 			// get the script
 			aLine->getValue(v);
-			aSubScript = TTScriptPtr((TTPtr)v[0]);
+			aSubScript = TTScriptPtr((TTObjectPtr)v[0]);
 			
 			if (aSubScript)
 				processRamp(aSubScript, ramp);
@@ -421,7 +421,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, cons
 				
 				// get the sub script
 				aLine->getValue(v);
-				aSubScript = TTScriptPtr((TTPtr)v[0]);
+				aSubScript = TTScriptPtr((TTObjectPtr)v[0]);
 				
 				// if the namespace is empty : fill it with all children below
 				if (instanceItem->isEmpty()) {
@@ -482,14 +482,36 @@ TTErr TTCue::Clear()
 	return mScript->sendMessage(TTSymbol("Clear"));
 }
 
-TTErr TTCue::Recall()
+TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
-	return mScript->sendMessage(TTSymbol("Run"), kTTAdrsRoot, kTTValNONE);
+    TTAddress anAddress = kTTAdrsRoot;
+    
+    if (inputValue[0].type() == kTypeSymbol)
+        anAddress = inputValue[0];
+    
+    // if an address is passed, run the line at address
+    if (anAddress != kTTAdrsRoot)
+        return mScript->sendMessage(TTSymbol("RunLine"), inputValue, kTTValNONE);
+    
+    // else run all the script
+    else
+        return mScript->sendMessage(kTTSym_Run, inputValue, kTTValNONE);
 }
 
-TTErr TTCue::Output()
+TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
 {
-	return mScript->sendMessage(TTSymbol("Dump"), kTTAdrsRoot, kTTValNONE);
+    TTAddress anAddress = kTTAdrsRoot;
+    
+    if (inputValue[0].type() == kTypeSymbol)
+        anAddress = inputValue[0];
+    
+    // if an address is passed, dump the line at address
+    if (anAddress != kTTAdrsRoot)
+        return mScript->sendMessage(TTSymbol("DumpLine"), inputValue, kTTValNONE);
+    
+    // else dump all the script
+    else
+        return mScript->sendMessage(kTTSym_Dump, inputValue, kTTValNONE);
 }
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
@@ -557,7 +579,7 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace,
 					
 					// get the script
 					aLine->getValue(v);
-					aSubScript = TTScriptPtr((TTPtr)v[0]);
+					aSubScript = TTScriptPtr((TTObjectPtr)v[0]);
 					
 					if (aSubScript)
 						processSelect(aSubScript, anItem, fill);
@@ -574,10 +596,10 @@ TTErr TTCue::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTXmlHandlerPtr	aXmlHandler = NULL;
 	TTValue			v;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// use WriteAsXml of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	aXmlHandler->sendMessage(TTSymbol("Write"));
 	
@@ -589,7 +611,7 @@ TTErr TTCue::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	TTXmlHandlerPtr	aXmlHandler = NULL;
 	TTValue			v, parsedLine;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTPtr)inputValue[0]);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// Cue node : append a cue flag with the name
 	if (aXmlHandler->mXmlNodeName == TTSymbol("cue")) {
@@ -605,7 +627,7 @@ TTErr TTCue::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	// use ReadFromXml of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
 	aXmlHandler->sendMessage(TTSymbol("Read"));
 	
@@ -618,7 +640,7 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	//TTNodeAddressPtr	address;
 	TTValue				v;
 	
-	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
+	aTextHandler = TTTextHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	/* get the address of the script
 	mScript->getAttributeValue(kTTSym_address, v);
@@ -631,7 +653,7 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*/
 	
 	// use WriteAsText of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aTextHandler->setAttributeValue(kTTSym_object, v);
 	aTextHandler->sendMessage(TTSymbol("Write"));
 	
@@ -643,14 +665,14 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr aTextHandler;
 	TTValue	v;
 	
-	aTextHandler = TTTextHandlerPtr((TTPtr)inputValue[0]);
+	aTextHandler = TTTextHandlerPtr((TTObjectPtr)inputValue[0]);
 	
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
 		Clear();
 	
 	// use ReadFromText of the script
-	v = TTValue(TTPtr(mScript));
+	v = TTValue(mScript);
 	aTextHandler->setAttributeValue(kTTSym_object, v);
 	aTextHandler->sendMessage(TTSymbol("Read"));
 	
@@ -711,10 +733,10 @@ TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
 	TTUInt32	i;
 	
 	for (i = 0; i < cues.size(); i++) {
-		aCue = TTCuePtr((TTPtr)cues[i]);
+		aCue = TTCuePtr((TTObjectPtr)cues[i]);
 		aCue->mScript->sendMessage(TTSymbol("Bind"), kTTAdrsRoot, kTTValNONE);
 		
-		scripts.append((TTPtr)aCue->mScript);
+		scripts.append(aCue->mScript);
 	}
 	
 	return TTScriptMix(scripts, factors);

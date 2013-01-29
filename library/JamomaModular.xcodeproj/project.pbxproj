@@ -73,8 +73,6 @@
 		D246016614A0A98A004CC4FD /* jcom.core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.core.cpp; sourceTree = "<group>"; };
 		D246016714A0A98A004CC4FD /* TTModular.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModular.cpp; sourceTree = "<group>"; };
 		D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModularSymbolCache.cpp; sourceTree = "<group>"; };
-		D246016B14A0A9A0004CC4FD /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
-		D246016C14A0A9A0004CC4FD /* FunctionLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionLib.h; sourceTree = "<group>"; };
 		D246017114A0A9BF004CC4FD /* AsyncRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncRamp.cpp; sourceTree = "<group>"; };
 		D246017214A0A9BF004CC4FD /* AsyncRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncRamp.h; sourceTree = "<group>"; };
 		D246017314A0A9BF004CC4FD /* NoneRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoneRamp.cpp; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 				D246012814A0A95D004CC4FD /* ModularForMax */,
 				D246012B14A0A96C004CC4FD /* PeerObject */,
 				D220FB4514A21628005607C3 /* ProtocolLib */,
-				D246016A14A0A9A0004CC4FD /* FunctionLib */,
 				D246017014A0A9BF004CC4FD /* RampLib */,
 			);
 			sourceTree = "<group>";
@@ -202,15 +199,6 @@
 				D246016614A0A98A004CC4FD /* jcom.core.cpp */,
 			);
 			path = source;
-			sourceTree = "<group>";
-		};
-		D246016A14A0A9A0004CC4FD /* FunctionLib */ = {
-			isa = PBXGroup;
-			children = (
-				D246016C14A0A9A0004CC4FD /* FunctionLib.h */,
-				D246016B14A0A9A0004CC4FD /* FunctionLib.cpp */,
-			);
-			path = FunctionLib;
 			sourceTree = "<group>";
 		};
 		D246017014A0A9BF004CC4FD /* RampLib */ = {

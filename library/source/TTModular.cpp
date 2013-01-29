@@ -26,11 +26,13 @@ void TTModularInit()
 #define TO_DEBUG
 #ifdef TO_DEBUG
     
-	TTObjectBasePtr test = NULL;
+    /*
+	TTObjectPtr test = NULL;
 	TTValue v;
 	
-	TTObjectBaseInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
-	test->test(v); 
+	TTObjectInstantiate(TTSymbol("string.test"), &test, kTTValNONE);
+	test->test(v);
+     */
 
 #endif // TO_DEBUG
 	
@@ -50,7 +52,6 @@ void TTModularInit()
 		TTMapper::registerClass();
 		TTMapperManager::registerClass();
 		TTMirror::registerClass();
-		TTOpmlHandler::registerClass();
 		TTOutput::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
@@ -104,11 +105,11 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 		if (!getLocalApplication) {
 			
 			// create the application
-			args = TTValue(TTSymbol(applicationStr.data()));
+			args = TTValue(TTSymbol(applicationStr));
 			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&anApplication), args);
 			
 			// set it as local application
-			args = TTValue((TTPtr)anApplication);
+			args = TTValue(anApplication);
 			TTModularApplications->setAttributeValue(TTSymbol("localApplication"), args);
 			
 			// Read xml configuration file

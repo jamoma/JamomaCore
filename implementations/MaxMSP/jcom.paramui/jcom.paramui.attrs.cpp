@@ -92,7 +92,9 @@ t_max_err paramui_setRampFunction(t_paramui *x, void *attr, long argc, t_atom *a
 
 t_max_err paramui_getUIFreeze(t_paramui *x, void *attr, long *argc, t_atom **argv)
 {
-	t_symbol	*attrName = (t_symbol*)object_method(attr, _sym_getname);		
+	t_symbol	*attrName = (t_symbol*)object_method(attr, _sym_getname);
+    
+    // to - this have to be removed because it is not an attribute of TTData class
 	return object_attr_getvalueof(x->obj_parameter, attrName, argc, argv);
 }
 
@@ -101,7 +103,8 @@ t_max_err paramui_setUIFreeze(t_paramui *x, void *attr, long argc, t_atom *argv)
 	if (argc)
 		x->attr_uiFreeze = atom_getlong(argv);
 	
-	object_attr_setvalueof(x->obj_parameter, gensym("view/freeze"), argc, argv);
+    // to - this have to be removed because it is not an attribute of TTData class
+	//object_attr_setvalueof(x->obj_parameter, gensym("view/freeze"), argc, argv);
 	return MAX_ERR_NONE;
 }
 

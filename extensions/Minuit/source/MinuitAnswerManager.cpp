@@ -12,57 +12,79 @@
 MinuitAnswerManager::MinuitAnswerManager(MinuitPtr aMinuitProtocol)
 {
 	mProtocol = aMinuitProtocol;
+    
+    mDiscoverAnswers = new TTHash();
+    mGetAnswers = new TTHash();
 }
 
 MinuitAnswerManager::~MinuitAnswerManager()
 {
-	//delete mDiscoverAnswers;
-	//delete mGetAnswers;
+	delete mDiscoverAnswers;
+	delete mGetAnswers;
 }
 
-void MinuitAnswerManager::AddDiscoverAnswer(TTString from, TTAddress address, int timeOutInMs)
+void MinuitAnswerManager::AddDiscoverAnswer(TTSymbol from, TTAddress address, int timeOutInMs)
 {
-	TTString key = from + address.c_str();
-	mDiscoverAnswers[key] = new MinuitAnswer();
-	mDiscoverAnswers[key]->setTimeOut(timeOutInMs);
+	TTString key = from.string();
+    key += address.string();
+    
+    MinuitAnswerPtr anAnswer = new MinuitAnswer();
+    anAnswer->setTimeOut(timeOutInMs);
+    
+    mDiscoverAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
 }
 
-TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTString from, TTAddress address, const TTValue& value)
+TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value)
 {
-	TTString key = from + address.c_str();
-	MinuitAnswerTable::iterator it  = mDiscoverAnswers.find(key);
-	
-	if(it != mDiscoverAnswers.end()) {
-		if(mDiscoverAnswers[key]->getState() != TIMEOUT_EXCEEDED) {
-			mDiscoverAnswers[key]->setAnswer(value);
+    TTValue         v;
+	TTString        key;
+    MinuitAnswerPtr anAnswer;
+    TTErr           err;
+    
+    key = from.string();
+    key += address.string();
+    
+	err = mDiscoverAnswers->lookup(TTSymbol(key), v);
+    
+    if (!err) {
+        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        
+		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
+			anAnswer->setAnswer(value);
 			return kTTErrNone;
 		}
 	}
 	else
-		cout << "MinuitAnswerManager::ReceiveDiscoverAnswer can't find a request at " << address.c_str() << endl;
-		
+		cout << "MinuitAnswerManager::ReceiveGetAnswer can't find a request at " << key << endl;
+	
 	return kTTErrGeneric;
 }
 
-int MinuitAnswerManager::CheckDiscoverAnswer(TTString from, TTAddress address, TTValue& value)
+int MinuitAnswerManager::CheckDiscoverAnswer(TTSymbol from, TTAddress address, TTValue& value)
 {
-	int			state;
-	TTString	key = from + address.c_str();
-	TTValue		answer;
+	int             state;
+    TTValue         v;
+	TTString        key;
+    MinuitAnswerPtr anAnswer;
+    TTErr           err;
+    
+    key = from.string();
+    key += address.string();
 	
 	// Looking for a MinuitDiscoverAnswer object at the given address
-	MinuitAnswerTable::iterator it  = mDiscoverAnswers.find(key);
-	if(it != mDiscoverAnswers.end())
-	{
-		state = mDiscoverAnswers[key]->getState();
+	err = mDiscoverAnswers->lookup(TTSymbol(key), v);
+    
+    if (!err) {
+        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+		state = anAnswer->getState();
 		
 		// if an answer is received
 		if(state == ANSWER_RECEIVED)
 		{
 			// get the answer
-			it->second->getAnswer(answer);
-			delete it->second;
-			mDiscoverAnswers.erase(it);
+			anAnswer->getAnswer(value);
+			mDiscoverAnswers->remove(TTSymbol(key));
+            delete anAnswer;
 		}
 		
 		return state;
@@ -71,16 +93,18 @@ int MinuitAnswerManager::CheckDiscoverAnswer(TTString from, TTAddress address, T
 		return REQUEST_NOT_SENT;
 }
 
-TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes)
+TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& returnedType, TTValue& returnedChildren, TTValue& returnedAttributes)
 {
-	TTSymbol toParse, parsed;
+	TTSymbol    toParse, parsed;
 	TTBoolean	endFlagFound;
 	
-	// don't parse sender?operation /whereTo
-	// parse something like : nodes={ all nodes below } types={ all type of each node below } attributes={ all current node's attributes }
-	for (TTUInt32 i=1; i<answer.getSize(); i++) {
+    // pars the type
+    returnedType = answer[0];
+    
+	// parse something like : nodes={ all nodes below } attributes={ all current node's attributes }
+	for (TTUInt32 i = 1; i < answer.size(); i++) {
 		
-		answer.get(i, toParse);
+		toParse = answer[i];
 		
 		// parse nodes
 		if (toParse == TTSymbol(MINUIT_START_NODES)) {
@@ -89,40 +113,16 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 			do {
 				i++;
 				parsed = kTTSymEmpty;
-				if (answer.getType() == kTypeSymbol)
-					answer.get(i, parsed);
+				if (answer[0].type() == kTypeSymbol)
+					parsed = answer[i];
 				
 				// don't store the end flag
 				if (parsed != TTSymbol(MINUIT_END_NODES)) {
 					
-					returnedChildrenNames.append(parsed);
+					returnedChildren.append(parsed);
 					
 #ifdef TT_PROTOCOL_DEBUG	
 					cout << "Parsed node " << parsed.c_str() << endl;
-#endif
-				}
-				else
-					endFlagFound = YES;
-			}
-			while (!endFlagFound);
-			
-		}
-		else if (toParse == TTSymbol(MINUIT_START_TYPES)) {
-			
-			endFlagFound = NO;
-			do {
-				i++;
-				parsed = kTTSymEmpty;
-				if (answer.getType() == kTypeSymbol)
-					answer.get(i, parsed);
-				
-				// don't store the end flag
-				if (parsed != TTSymbol(MINUIT_END_TYPES)) {
-					
-					returnedChildrenTypes.append(parsed);
-					
-#ifdef TT_PROTOCOL_DEBUG	
-					cout << "Parsed type " << parsed.c_str() << endl;
 #endif
 				}
 				else
@@ -137,8 +137,8 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 			do {
 				i++;
 				parsed = kTTSymEmpty;
-				if (answer.getType() == kTypeSymbol)
-					answer.get(i, parsed);
+				if (answer[0].type() == kTypeSymbol)
+					parsed = answer[i];
 				
 				// don't store the end flag
 				if (parsed != TTSymbol(MINUIT_END_ATTRIBUTES)) {
@@ -162,21 +162,34 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTValue& r
 	return kTTErrNone;
 }
 
-void MinuitAnswerManager::AddGetAnswer(TTString from, TTAddress address, int timeOutInMs)
+void MinuitAnswerManager::AddGetAnswer(TTSymbol from, TTAddress address, int timeOutInMs)
 {	
-	TTString key = from + address.c_str();
-	mGetAnswers[key] = new MinuitAnswer();
-	mGetAnswers[key]->setTimeOut(timeOutInMs);
+	TTString key = from.string();
+    key += address.string();
+    
+    MinuitAnswerPtr anAnswer = new MinuitAnswer();
+    anAnswer->setTimeOut(timeOutInMs);
+    
+    mGetAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
 }
 
-TTErr MinuitAnswerManager::ReceiveGetAnswer(TTString from, TTAddress address, const TTValue& value)
+TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value)
 {
-	TTString key = from + address.c_str();
-	MinuitAnswerTable::iterator it  = mGetAnswers.find(key);
+    TTValue         v;
+	TTString        key;
+    MinuitAnswerPtr anAnswer;
+    TTErr           err;
+    
+    key = from.string();
+    key += address.string();
+    
+	err = mGetAnswers->lookup(TTSymbol(key), v);
+    
+    if (!err) {
+        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
 	
-	if (it != mGetAnswers.end()) {
-		if (mGetAnswers[key]->getState() != TIMEOUT_EXCEEDED) {
-			mGetAnswers[key]->setAnswer(value);
+		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
+			anAnswer->setAnswer(value);
 			return kTTErrNone;
 		}
 	}
@@ -186,27 +199,35 @@ TTErr MinuitAnswerManager::ReceiveGetAnswer(TTString from, TTAddress address, co
 	return kTTErrGeneric;
 }
 
-int MinuitAnswerManager::CheckGetAnswer(TTString from, TTAddress address, TTValue& value)
+int MinuitAnswerManager::CheckGetAnswer(TTSymbol from, TTAddress address, TTValue& value)
 {
-	int			state;
-	TTString	key = from + address.c_str();
+    int             state;
+    TTValue         v;
+	TTString        key;
+    MinuitAnswerPtr anAnswer;
+    TTErr           err;
+    
+    key = from.string();
+    key += address.string();
 	
-	// Looking for a MinuitGetAnswer object at the given address
-	MinuitAnswerTable::iterator it  = mGetAnswers.find(key);
-	if(it != mGetAnswers.end())
-	{
-		state =  mGetAnswers[key]->getState();
+	// Looking for a MinuitDiscoverAnswer object at the given address
+	err = mGetAnswers->lookup(TTSymbol(key), v);
+    
+    if (!err) {
+        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+		state = anAnswer->getState();
 		
 		// if an answer is received
 		if(state == ANSWER_RECEIVED)
 		{
-			 it->second->getAnswer(value);
-			delete it->second;
-			mGetAnswers.erase(it);
+			// get the answer
+			anAnswer->getAnswer(value);
+			mGetAnswers->remove(TTSymbol(key));
+            delete anAnswer;
 		}
 		
 		return state;
 	}
-	
-	return REQUEST_NOT_SENT;
+	else
+		return REQUEST_NOT_SENT;
 }

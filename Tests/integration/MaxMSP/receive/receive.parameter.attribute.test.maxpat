@@ -1724,8 +1724,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 72.0, 696.0, 119.0, 18.0 ],
-									"text" : "address /test:enable"
+									"patching_rect" : [ 72.0, 696.0, 114.0, 18.0 ],
+									"text" : "address /test:active"
 								}
 
 							}
@@ -1767,7 +1767,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 11.0, 637.001892, 202.0, 33.0 ],
-									"text" : "jcom.test.assert.equal enable-test @input enable 1 @compareTo 1"
+									"text" : "jcom.test.assert.equal active-test @input active 1 @compareTo 1"
 								}
 
 							}

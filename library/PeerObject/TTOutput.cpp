@@ -39,27 +39,27 @@ mSignalAttr(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTOutput", arguments.size() >= 2);
 	
-	arguments[0] mType);
-	arguments.get(1, (TTPtr*)&mReturnSignalCallback);
+	mType = arguments[0];
+	mReturnSignalCallback = TTCallbackPtr((TTObjectPtr)arguments[1]);
 	TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
 	
 	if (arguments.size() > 2) {
-		arguments.get(2, (TTPtr*)&mReturnLinkCallback);
+		mReturnLinkCallback = TTCallbackPtr((TTObjectPtr)arguments[2]);
 		TT_ASSERT("Return Link Callback passed to TTOutput is not NULL", mReturnLinkCallback);
 	}
 	
 	if (arguments.size() > 3) {
-		arguments.get(3, (TTPtr*)&mSignalIn);
-		arguments.get(4, (TTPtr*)&mSignalOut);
-		arguments.get(5, (TTPtr*)&mSignalTemp);
-		arguments.get(6, (TTPtr*)&mSignalZero);
+		mSignalIn = arguments[3];
+		mSignalOut = arguments[4];
+		mSignalTemp = arguments[5];
+		mSignalZero = arguments[6];
 	}
 	
 	if (arguments.size() > 7) {
-		arguments.get(7, (TTPtr*)&mMixUnit);
-		arguments.get(8, (TTPtr*)&mGainUnit);
-		arguments.get(9, (TTPtr*)&mRampMixUnit);
-		arguments.get(10, (TTPtr*)&mRampGainUnit);
+		mMixUnit = arguments[7];
+		mGainUnit = arguments[8];
+		mRampMixUnit = arguments[9];
+		mRampGainUnit = arguments[10];
 	}
 	
 	addAttribute(Type, kTypeSymbol);
@@ -172,7 +172,7 @@ TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
-	inputValue[0] (TTPtr*)&mInputObject);
+	mInputObject = TTInputPtr((TTObjectPtr)inputValue[0]);
 	
 	if (mReturnLinkCallback)
 		return mReturnLinkCallback->notify(kTTVal1, kTTValNONE);
@@ -199,14 +199,14 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	TTObjectBasePtr		o;
 	TTValue			n = value;		// use new value to protect the attribute
 	
-	value[0] newAddress);
+	newAddress = value[0];
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
 		o = aNode->getObject();
 		if (o)
 			if (o->getName() == kTTSym_Input)
-				Link((TTPtr)o, kTTValNONE);
+				Link(o, kTTValNONE);
 	}
 
 	if (!mAddressObserver) {
@@ -215,7 +215,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 		
-		newBaton = new TTValue(TTPtr(this));
+		newBaton = new TTValue(this);
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
 		mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTOutput"));		// this is usefull only to debug
@@ -293,7 +293,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (an OutputPtr)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&anOutput);
+	anOutput = TTOutputPtr((TTObjectPtr)(*b)[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -308,7 +308,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 					
 				case kAddressCreated :
 				{
-					anOutput->Link((TTPtr)o, kTTValNONE);
+					anOutput->Link(o, kTTValNONE);
 					break;
 				}
 					

@@ -41,10 +41,17 @@ bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 		if (atom_getsym(a1) == atom_getsym(a2))
 			return 1;
 	}
-	else if ((type == jps_generic) || (type == jps_array)) {
-		// type array should be checked here as well.  If type == array and this function is called
-		// it means we are dealing with a list of length 1, so we only need to compare one atom anyway.
-		
+	// type array should be checked here as well.  If type == array and this function is called
+	// it means we are dealing with a list of length 1, so we only need to compare one atom anyway.
+	else if ((type == jps_decimalArray) || (type == jps_array)) {
+		if (a1->a_w.w_float == a2->a_w.w_float)
+			return 1;
+	}
+	else if (type == jps_integerArray) {
+		if (a1->a_w.w_long == a2->a_w.w_long)
+			return 1;
+	}	
+	else if (type == jps_generic){		
 		// note that if the two are of different types, then they are obviously not the same
 		if ((a1->a_type == A_LONG) && (a2->a_type == A_LONG)) {
 			if (a1->a_w.w_long == a2->a_w.w_long)
@@ -95,7 +102,7 @@ bool jcom_core_string_compare(char *s1, char *s2)
 	if (len2 < len1)
 		len1 = len2;	// only compare the characters of the short string
 		
-	for (i=0; i<len1 && keepgoing; i++) {
+	for (i =0 ; i < len1 && keepgoing; i++) {
 		if (s1[i] < s2[i]) {
 			result = true;
 			keepgoing = false;

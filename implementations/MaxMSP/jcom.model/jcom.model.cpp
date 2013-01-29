@@ -45,9 +45,9 @@ void		model_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		model_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		model_open(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 //void		model_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);		// only in jview patch
+void		model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);		// only in view patch
 
 void		model_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -83,7 +83,7 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)model_help,					"model_help",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)model_reference,				"model_reference",		A_CANT, 0);
-	class_addmethod(c->maxClass, (method)model_internals,				"model_internals",		A_CANT, 0);
+	class_addmethod(c->maxClass, (method)model_open,                    "model_open",		A_CANT, 0);
 //	class_addmethod(c->maxClass, (method)model_mute,					"model_mute",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)model_address,					"model_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)model_autodoc,					"doc_generate",			A_CANT, 0);
@@ -150,8 +150,8 @@ void model_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
 	TTAddress                   nodeAdrs, argAdrs;
-	TTSymbol					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, editAdrs, muteAdrs;
-	TTObjectBaseBasePtr					aData;
+	TTSymbol					classAdrs, helpAdrs, refAdrs, openAdrs, documentationAdrs, editAdrs, muteAdrs;
+	TTObjectBasePtr				aData;
 	TTTextHandlerPtr			aTextHandler;
     TTPresetPtr                 aPreset;
 	TTPtr						context;
@@ -172,7 +172,7 @@ void model_subscribe(TTPtr self)
 		// get absolute address in the namespace 
 		// and set the address attribute of the Container 
 		x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
-		v.get(0, nodeAdrs);
+		nodeAdrs = v[0];
 		x->wrappedObject->setAttributeValue(kTTSym_address, v);
 		
 		// if the jcom.model is well subscribed
@@ -185,7 +185,7 @@ void model_subscribe(TTPtr self)
 					classAdrs = TTSymbol("model/class");
 					helpAdrs =  TTSymbol("model/help");
 					refAdrs = TTSymbol("model/reference");
-					internalsAdrs = TTSymbol("model/internals");
+					openAdrs = TTSymbol("model/open");
 					documentationAdrs = TTSymbol("model/documentation/generate");
                     editAdrs = TTSymbol("model/edit");
 					//muteAdrs = TTSymbol("model/mute");
@@ -194,7 +194,7 @@ void model_subscribe(TTPtr self)
 					classAdrs = TTSymbol("view/class");
 					helpAdrs =  TTSymbol("view/help");
 					refAdrs = TTSymbol("view/reference");
-					internalsAdrs = TTSymbol("view/internals");
+					openAdrs = TTSymbol("view/open");
 					documentationAdrs = TTSymbol("view/documentation/generate");
 					//muteAdrs = TTSymbol("view/mute");
 				}
@@ -218,8 +218,8 @@ void model_subscribe(TTPtr self)
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the reference page"));
 				
-				// Add a /internals data
-				makeInternals_data(x, nodeAdrs, internalsAdrs, gensym("model_internals"), context, kTTSym_message, &aData);
+				// Add a /open data
+				makeInternals_data(x, nodeAdrs, openAdrs, gensym("model_open"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the patcher"));
@@ -243,10 +243,10 @@ void model_subscribe(TTPtr self)
                     
                     // create internal TTTextHandler
                     aTextHandler = NULL;
-                    TTObjectBaseBaseInstantiate(kTTSym_TextHandler, TTObjectBaseBaseHandle(&aTextHandler), args);
-                    v = TTValue(TTPtr(aTextHandler));
+                    TTObjectBaseInstantiate(kTTSym_TextHandler, TTObjectBaseHandle(&aTextHandler), args);
+                    v = TTValue(aTextHandler);
                     x->internals->append(kTTSym_TextHandler, v);
-                    v = TTValue(TTPtr(x->wrappedObject));
+                    v = TTValue(x->wrappedObject);
                     aTextHandler->setAttributeValue(kTTSym_object, v);
                 }
                 
@@ -261,8 +261,8 @@ void model_subscribe(TTPtr self)
                     
                     // create internal TTPreset
                     aPreset = NULL;
-                    TTObjectBaseBaseInstantiate(kTTSym_Preset, TTObjectBaseBaseHandle(&aPreset), args);
-                    v = TTValue(TTPtr(aPreset));
+                    TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&aPreset), args);
+                    v = TTValue(aPreset);
                     x->internals->append(kTTSym_Preset, v);
                     v = TTValue(nodeAdrs);
                     aPreset->setAttributeValue(kTTSym_address, v);
@@ -352,7 +352,7 @@ void model_subscribe(TTPtr self)
 			// output ContextNode address
 			Atom a;
 			x->subscriberObject->getAttributeValue(TTSymbol("contextNodeAddress"), v);
-			v.get(0, nodeAdrs);
+			nodeAdrs = v[0];
 			atom_setsym(&a, gensym((char*)nodeAdrs.c_str()));
 			object_obex_dumpout(self, gensym("address"), 1, &a);
 			
@@ -371,7 +371,7 @@ void model_init(TTPtr self)
 	
 	// Check if the model has not been initialized by a upper model
 	x->wrappedObject->getAttributeValue(kTTSym_initialized, v);
-	v.get(0, initialized);
+	initialized = v[0];
 	if (!initialized)
 		x->wrappedObject->sendMessage(kTTSym_Init);
 }
@@ -420,7 +420,7 @@ void model_share_patcher_node(TTPtr self, TTNodePtr *patcherNode)
 	
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TTSymbol("contextNode"), v);
-		v.get(0, (TTPtr*)patcherNode);
+		*patcherNode = TTNodePtr((TTPtr)v[0]);
 	}
 }
 
@@ -458,7 +458,7 @@ void model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 	// opening the module helpfile (no help file dedicated for model or view)
-	if (x->patcherClass) {
+	if (x->patcherClass != kTTSymEmpty) {
 		
 		SymbolPtr helpfileName;
 		jamoma_edit_filename(*HelpPatcherFormat, x->patcherClass, &helpfileName);
@@ -478,7 +478,7 @@ void model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
-void model_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void model_open(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
@@ -511,7 +511,7 @@ void model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		tterr = x->internals->lookup(TTSymbol("TextHandler"), o);
 		
 		if (!tterr) {
-			o.get(0, (TTPtr*)&aTextHandler);
+			aTextHandler = TTTextHandlerPtr((TTObjectPtr)o[0]);
 			
 			critical_enter(0);
 			aTextHandler->sendMessage(TTSymbol("Write"), v, kTTValNONE);
@@ -580,8 +580,8 @@ void model_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr1 && !tterr2) {
 			
-			o1.get(0, (TTPtr*)&aTextHandler);
-            o2.get(0, (TTPtr*)&aPreset);
+			aTextHandler = TTTextHandlerPtr((TTObjectPtr)o1[0]);
+            aPreset = TTPresetPtr((TTObjectPtr)o2[0]);
             
             // Store the preset
             aPreset->sendMessage(TTSymbol("Store"), kTTValNONE, kTTValNONE);
@@ -633,8 +633,8 @@ void model_doedit(TTPtr self)
 	
 	if (!tterr1 && !tterr2) {
 		
-		o1.get(0, (TTPtr*)&aTextHandler);
-        o2.get(0, (TTPtr*)&aPreset);
+		aTextHandler = TTTextHandlerPtr((TTObjectPtr)o1[0]);
+        aPreset = TTPresetPtr((TTObjectPtr)o2[0]);
 		
 		critical_enter(0);
         args = TTValue(TTPtr(aPreset));

@@ -34,7 +34,7 @@ mIsReading(false)
 {
 	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.size() == 0);
 	
-	addAttribute(Object, kTypePointer);
+	addAttribute(Object, kTypeObject);
 
 	addAttribute(HeaderNodeName, kTypeSymbol);
 	addAttribute(Version, kTypeSymbol);
@@ -70,7 +70,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	if (args.size() == 1) {
 		if (args[0].type() == kTypeSymbol) {
 			
-			args[0] mFilePath);
+			mFilePath = args[0];
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -104,8 +104,8 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			// Write data of the given TTObjectBase (which have to implement a WriteAsXml message)
 			v.clear();
-			v.append((TTPtr)this);
-			aTTObjectBase->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+			v.append(this);
+			aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 			
 			// End Header information
 			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
@@ -128,8 +128,8 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
-	return aTTObjectBase->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+	v.append(this);
+	return aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 }
 
 TTErr TTXmlHandler::WriteAgain()
@@ -162,7 +162,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	if (args.size() == 1) {
 		if (args[0].type() == kTypeSymbol) {
 			
-			args[0] mFilePath);
+			mFilePath = args[0];
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -248,8 +248,8 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						}	
 						
 						// process the mObject parsing on this node
-						v.append((TTPtr)this);
-						aTTObjectBase->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+						v.append(this);
+						aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 					}
 						
 					// next node
@@ -274,8 +274,8 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
-	return aTTObjectBase->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+	v.append(this);
+	return aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 }
 
 TTErr TTXmlHandler::ReadAgain()
@@ -338,7 +338,7 @@ TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue&
 		
 		if (v[0].type() == kTypeSymbol) {
 			
-			v[0] returnedAttributeName);
+			returnedAttributeName = v[0];
 			return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
 		}
 	}

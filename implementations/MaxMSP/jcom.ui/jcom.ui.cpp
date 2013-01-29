@@ -1101,7 +1101,7 @@ void ui_menu_qfn(t_ui *x)
 		ui_viewer_send(x, TTSymbol("model/edit"), kTTValNONE);
 	
 	else if (item->sym == gensym("Open Model Internal"))
-		ui_viewer_send(x, TTSymbol("model/internals"), kTTValNONE);
+		ui_viewer_send(x, TTSymbol("model/open"), kTTValNONE);
 	
 	else if (item->sym == gensym("Open Model Help Patch"))
 		ui_viewer_send(x, TTSymbol("model/help"), kTTValNONE);

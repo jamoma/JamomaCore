@@ -98,7 +98,13 @@ private:
 	/** */
 	TTErr setActivityOut(const TTValue& value);
 
-	
+    /** Build the directory of an application (for distant application only) */
+	TTErr DirectoryBuild();
+    TTErr buildNode(ProtocolPtr aProtocol, TTAddress anAddress);
+    
+    /** Observe the directory of an application (for distant application only) */
+	TTErr DirectoryObserve(const TTValue& inputValue, TTValue& outputValue);
+    
 	/** Add Directory observer */
 	TTErr AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue);
 	
@@ -141,6 +147,8 @@ private:
 	/** needed to be handled by a TTOpmlHandler 
 		read a directory description */
 	TTErr ReadFromOpml(const TTValue& inputValue, TTValue& outputValue);
+    
+    TTMirrorPtr appendMirror(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName);
 	
 	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTAddress anAddress);
 	friend TTSymbol TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbol anAppName);

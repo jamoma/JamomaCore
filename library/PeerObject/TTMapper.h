@@ -10,7 +10,6 @@
 #define __TT_MAPPER_H__
 
 #include "TTModular.h"
-#include "FunctionLib.h"
 
 /**	TTMapper ... TODO : an explanation
  
@@ -37,7 +36,7 @@ private:
 	TTFloat64			mOutputMin;					///< ATTRIBUTE : 
 	TTFloat64			mOutputMax;					///< ATTRIBUTE : 
 	
-	TTBoolean			mEnable;					///< ATTRIBUTE : do observe Input rangeBounds attribute ?
+	TTBoolean			mActive;					///< ATTRIBUTE : does it observe Input value ?
 	
 	TTBoolean			mInverse;					///< ATTRIBUTE : to make the output equal to mOutputMax - result
 	
@@ -103,7 +102,7 @@ private:
 	TTErr setOutputMax(const TTValue& value);
 	
 	/** */
-	TTErr setEnable(const TTValue& value);
+	TTErr setActive(const TTValue& value);
 	
 	/** set the function unit and set datas name extending attributes of the unit */
 	TTErr setFunction(const TTValue& value);

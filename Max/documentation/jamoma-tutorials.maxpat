@@ -174,7 +174,7 @@
 							}
 , 							{
 								"key" : "Jamoma DSP",
-								"value" : [ "http://redmine.jamoma.org/projects/show/dsp" ]
+								"value" : [ "http://redmine.jamoma.org/projects/dsp" ]
 							}
 , 							{
 								"key" : "Jamoma Home Page",
@@ -182,19 +182,19 @@
 							}
 , 							{
 								"key" : "Jamoma Modular",
-								"value" : [ "http://redmine.jamoma.org/projects/show/modular" ]
+								"value" : [ "http://redmine.jamoma.org/projects/modular" ]
 							}
 , 							{
-								"key" : "Jamoma Multicore",
-								"value" : [ "http://redmine.jamoma.org/projects/show/multicore" ]
+								"key" : "Jamoma AudioGraph",
+								"value" : [ "http://redmine.jamoma.org/projects/audiograph" ]
 							}
 , 							{
 								"key" : "Jamoma Tools",
-								"value" : [ "http://redmine.jamoma.org/projects/show/tools" ]
+								"value" : [ "http://redmine.jamoma.org/projects/tools" ]
 							}
 , 							{
 								"key" : "Jamoma Tutorials",
-								"value" : [ "http://groupware.bek.no/groups/jamoma/wiki/c05cb/Documentation_and_tutorials.html" ]
+								"value" : [ "http://jamoma.org/tutorials" ]
 							}
 , 							{
 								"key" : "Mailing Lists",
@@ -214,7 +214,7 @@
 							}
 , 							{
 								"key" : "Publications",
-								"value" : [ "http://redmine.jamoma.org/wiki/jamoma/Papers_on_research_concerning_or_related_to_Jamoma" ]
+								"value" : [ "http://jamoma.org/publications/" ]
 							}
 , 							{
 								"key" : "Report Bugs",
@@ -804,7 +804,7 @@
 					"res_report" : 1,
 					"scrollbars" : 1,
 					"textcolor" : [  ],
-					"url" : "http://groupware.bek.no/groups/jamoma/wiki/c05cb/Documentation_and_tutorials.html"
+					"url" : "http://jamoma.org/tutorials"
 				}
 
 			}
@@ -845,7 +845,7 @@
 					"patching_rect" : [ 30.0, 725.0, 491.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 5.0, 5.0, 852.0, 20.0 ],
-					"text" : "http://groupware.bek.no/groups/jamoma/wiki/c05cb/Documentation_and_tutorials.html",
+					"text" : "http://jamoma.org/tutorials",
 					"truncate" : 2
 				}
 

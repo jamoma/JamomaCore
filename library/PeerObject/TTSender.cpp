@@ -24,7 +24,7 @@ mApplicationObserver(NULL)
 	
 	// a Sender can handle a signal
 	if (arguments.size() >= 1)
-		arguments[0] (TTPtr*)&mSignal);
+		mSignal = arguments[0];
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -52,7 +52,7 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 	unbindAddress();
 	unbindApplication();
 	
-	newValue[0] mAddress);
+	mAddress = newValue[0];
 	
 	// default attribute to bind is value
 	if (mAddress.getAttribute() == NO_ATTRIBUTE)
@@ -98,7 +98,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 				aCacheElement = mObjectCache->current();
 								
 				// then his object
-				aCacheElement[0] (TTPtr*)&anObject);
+				anObject = TTObjectPtr(aCacheElement[0]);
 				
 				if (anObject) {
 					// DATA CASE for value attribute
@@ -111,7 +111,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 					else if (anObject->getName() == kTTSym_Container && ttAttributeName == kTTSym_value) {
 						
 						if (valueToSend[0].type() == kTypeSymbol) {
-							valueToSend[0] relativeAddress);
+							relativeAddress = valueToSend[0];
 							c.copyFrom(valueToSend, 1);
 						
 							v = TTValue(relativeAddress);
@@ -164,9 +164,9 @@ TTErr TTSender::bindAddress()
 	mObjectCache  = new TTList();
 	
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
-		aNodeList.current()[0] (TTPtr*)&aNode);
+		aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
 		anObject = aNode->getObject();
-		aCacheElement = (TTPtr)anObject;
+		aCacheElement = anObject;
 		mObjectCache->append(aCacheElement);
 	}
 	
@@ -174,7 +174,7 @@ TTErr TTSender::bindAddress()
 	mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 	
-	newBaton = new TTValue(TTPtr(this));
+	newBaton = new TTValue(this);
 	
 	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
@@ -220,7 +220,7 @@ TTErr TTSender::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
 		
-		newBaton = new TTValue(TTPtr(this));
+		newBaton = new TTValue(this);
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderApplicationManagerCallback));
@@ -262,7 +262,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 
 	// unpack baton (a TTSenderPtr)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aSender);
+	aSender = TTSenderPtr((TTObjectPtr)(*b)[0]);
 
 	// Unpack data (address, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -275,7 +275,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 		{
 			anObject = aNode->getObject();
 			if (anObject) {
-				aCacheElement = (TTPtr)anObject;
+				aCacheElement = anObject;
 				aSender->mObjectCache->appendUnique(aCacheElement);
 			}
 			break;
@@ -289,7 +289,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 			for (aSender->mObjectCache->begin(); aSender->mObjectCache->end(); aSender->mObjectCache->next()) {
 				
 				// get a node
-				aSender->mObjectCache->current()[0](TTPtr*)&aCacheObject);
+				aCacheObject = aSender->mObjectCache->current()[0];
 				
 				if (aCacheObject == anObject) {
 					aSender->mObjectCache->remove(aSender->mObjectCache->current());
@@ -317,11 +317,11 @@ TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTSenderPtr)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aSender);
+	aSender = TTSenderPtr((TTObjectPtr)(*b)[0]);
 	
 	// Unpack data (applicationName, application, flag, observer)
-	data[0] anApplicationName);
-	data.get(1, (TTPtr*)&anApplication);
+	anApplicationName = data[0];
+	anApplication = TTApplicationPtr((TTObjectPtr)data[1]);
 	flag = data[2];
 	
 	switch (flag) {

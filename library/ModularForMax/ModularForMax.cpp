@@ -28,13 +28,13 @@ TTErr jamoma_directory_dump_observers(void)
 	JamomaDirectory->dumpObservers(v);
 	
 	s = v.size();
-	for (i=0; i<s; i++) {
+	for (i = 0; i < s; i++) {
 		
         pv = TTValuePtr((TTPtr)v[i]);
 		key = (*pv)[0];
 		post("%s :", key.c_str());
 		
-		for (j=1; j<((TTValuePtr)pv)->size(); j++) {
+		for (j = 1; j < ((TTValuePtr)pv)->size(); j++) {
 		
             owner = (*pv)[j];
 			post("    %s", owner.c_str());
@@ -58,7 +58,7 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectBasePtr aTTObjectBase, TTAdd
 	TTBoolean		newInstance;
 		
 	// prepare arguments
-	args.append(TTPtr(aTTObjectBase));
+	args.append(aTTObject);
 	args.append(relativeAddress);
 	
 	// Get all Context above the object and their name 
@@ -270,7 +270,7 @@ TTErr jamoma_sender_create_audio(ObjectPtr x, TTObjectBasePtr *returnedSender)
 	
 	// prepare arguments
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &audio, 1);
-	args.append((TTPtr)audio);
+	args.append(audio);
 	
 	*returnedSender = NULL;
 	TTObjectBaseInstantiate(kTTSym_Sender, TTObjectBaseHandle(returnedSender), args);
@@ -341,7 +341,7 @@ TTErr jamoma_receiver_create_audio(ObjectPtr x, TTObjectBasePtr *returnedReceive
 	args.append(NULL);	// no return value callback
 	
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &audio, 1);
-	args.append((TTPtr)audio);
+	args.append(audio);
 	
 	*returnedReceiver = NULL;
 	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(returnedReceiver), args);
@@ -431,11 +431,11 @@ TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectBasePtr *returnedInput)
 	args.append(signalOutCallback);
 	
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioIn, 1);
-	args.append((TTPtr)audioIn);
+	args.append(audioIn);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioOut, 1);
-	args.append((TTPtr)audioOut);
+	args.append(audioOut);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioZero, 1);
-	args.append((TTPtr)audioZero);
+	args.append(audioZero);
 	
 	*returnedInput = NULL;
 	TTObjectBaseInstantiate(kTTSym_Input, TTObjectBaseHandle(returnedInput), args);
@@ -523,26 +523,26 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectBasePtr *returnedOutput)
 	args.append(inputLinkCallback);
 	
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioIn, 1);
-	args.append((TTPtr)audioIn);
+	args.append(audioIn);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioOut, 1);
-	args.append((TTPtr)audioOut);
+	args.append(audioOut);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioTemp, 1);
-	args.append((TTPtr)audioTemp);
+	args.append(audioTemp);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioZero, 1);
-	args.append((TTPtr)audioZero);
+	args.append(audioZero);
 	
 	TTObjectBaseInstantiate(TTSymbol("crossfade"), &mixUnit, 1);
 	mixUnit->setAttributeValue(TTSymbol("position"), 1.0);
-	args.append((TTPtr)mixUnit);
+	args.append(mixUnit);
 	
 	TTObjectBaseInstantiate(TTSymbol("gain"), &gainUnit, 1);
 	gainUnit->setAttributeValue(TTSymbol("linearGain"), 1.0);
-	args.append((TTPtr)gainUnit);
+	args.append(gainUnit);
 	
 	TTObjectBaseInstantiate(TTSymbol("ramp"), &rampMixUnit, 1);
-	args.append((TTPtr)rampMixUnit);
+	args.append(rampMixUnit);
 	TTObjectBaseInstantiate(TTSymbol("ramp"), &rampGainUnit, 1);
-	args.append((TTPtr)rampGainUnit);
+	args.append(rampGainUnit);
 	
 	*returnedOutput = NULL;
 	TTObjectBaseInstantiate(kTTSym_Output, TTObjectBaseHandle(returnedOutput), args);
@@ -792,7 +792,7 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 	x = ObjectPtr((TTPtr)b[0]);
 	
 	if (b->size() == 2) {
-		b->get(1, (TTPtr*)&method);
+		method = SymbolPtr((TTPtr)(*b)[1]);
 		if (method == NULL || method == _sym_nothing)
 			return;
 		}
@@ -822,7 +822,7 @@ void jamoma_callback_return_value_typed(TTPtr baton, TTValue& v)
 	x = ObjectPtr((TTPtr)b[0]);
 	
 	if (b->size() == 2) {
-		b->get(1, (TTPtr*)&method);
+		method = SymbolPtr((TTPtr)(*b)[1]);
 		if (method == NULL || method == _sym_nothing)
 			return;
 	}
@@ -876,7 +876,7 @@ void jamoma_callback_return_signal_audio(TTPtr baton, TTValue& v)
 	// unpack data (signal)
 	argc = v.size();
 	argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
-	for (i=0; i<argc; i++) {
+	for (i = 0; i < argc; i++) {
 		signal = v[i];
 		atom_setobj(argv+i, signal);
 	}
@@ -906,7 +906,7 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 	
 	if (*argc && !(v == kTTValNONE)) {
 		
-		for (i=0; i<*argc; i++) {
+		for (i = 0; i < *argc; i++) {
 			
 			if(v[i].type() == kTypeFloat32 || v[i].type() == kTypeFloat64){
 				f = v[i];
@@ -1006,7 +1006,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 		}
 			
 		// convert Atom to TTValue
-		for (i=0; i<argc; i++) 
+		for (i = 0; i < argc; i++) 
 		{
 			if (atom_gettype(argv+i) == A_LONG)
 				v[i+start] = (int)atom_getlong(argv+i);
@@ -1110,8 +1110,7 @@ long jamoma_patcher_get_args(ObjectPtr patcher, AtomCount *argc, AtomPtr *argv)
 			m = zgetfn(assoc, gensym("getindex"));
 			if(m)
 				return index = (long)(*m)(assoc, patcher);
-			
-		}  
+		}
 	}
 	else {
 		*argc = 0;
@@ -1295,6 +1294,9 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol& ret
 			s_toParse = TTString(begin, ttRegexForMaxhelp->begin());
 			begin = s_toParse.begin();
 			end = s_toParse.end();
+            
+            // append Maxhelp to the class to clarify the namespace
+            s_toParse += "Maxhelp";
 		}
 		
 		returnedClass = TTSymbol(s_toParse);	// TODO : replace each "." by the Uppercase of the letter after the "."
@@ -1475,7 +1477,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 	TTSymbol	sharedName;
 	
 	*returnedPatcher = jamoma_patcher_get(obj);
-	
+
 	_sym_jcomcontext = object_classname(obj);
 	canShare = _sym_jcomcontext == gensym("jcom.model") || _sym_jcomcontext == gensym("jcom.view");
 	
@@ -1505,7 +1507,10 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 		
 		// if still no context : stop the subscription process
 		if (returnedContext == kTTSymEmpty) {
+            
 			returnedName = S_SEPARATOR;
+            returnedClass = kTTSymEmpty;
+            
 			// can't find any jcom model|view with a correct context attribute in the patcher
 			// so this means the object have to be registered under the root
 			return kTTErrGeneric;

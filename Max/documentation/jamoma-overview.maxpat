@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 7
+			"revision" : 8
 		}
 ,
 		"rect" : [ 3.0, 44.0, 221.0, 324.0 ],
@@ -111,7 +111,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 7
+							"revision" : 8
 						}
 ,
 						"rect" : [ 610.0, 117.0, 640.0, 480.0 ],
@@ -252,7 +252,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 7
+							"revision" : 8
 						}
 ,
 						"rect" : [ 50.0, 94.0, 640.0, 480.0 ],
@@ -357,7 +357,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 7
+											"revision" : 8
 										}
 ,
 										"rect" : [ 339.0, 99.0, 701.0, 484.0 ],
@@ -1389,7 +1389,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 26.0, 90.0, 158.0, 210.0 ],
 					"spacing_y" : 10.0,
-					"tabs" : [ "Modules", "Components", "Examples", "Application Builder", "UserLib", "Tutorials", "Plugtastic" ]
+					"tabs" : [ "Modules", "Components", "Examples", "Application Builder", "UserLib", "Tutorials" ]
 				}
 
 			}
@@ -1419,7 +1419,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 7
+							"revision" : 8
 						}
 ,
 						"rect" : [ 323.0, 44.0, 360.0, 237.0 ],
@@ -1560,7 +1560,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 7
+							"revision" : 8
 						}
 ,
 						"rect" : [ 191.0, 44.0, 293.0, 225.0 ],
@@ -1675,7 +1675,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 7
+							"revision" : 8
 						}
 ,
 						"rect" : [ 3.0, 44.0, 1275.0, 750.0 ],
@@ -1790,7 +1790,7 @@
 									"rounded" : 10.0,
 									"spacing_y" : 6.0,
 									"tabcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-									"tabs" : [ "*jcom.allpass~", "*jcom.array~", "*jcom.average~", "*jcom.balance~", "*jcom.clip~", "*jcom.dcblock~", "*jcom.degrade~", "*jcom.delay~", "*jcom.filter~", "*jcom.function~", "*jcom.gain~", "*jcom.hmlshelf~", "*jcom.limiter~", "*jcom.meter~", "*jcom.onepole~", "*jcom.op~", "*jcom.overdrive~", "*jcom.panorama~", "*jcom.ramp~", "*jcom.test.sample~", "*jcom.waveshaper~", "*jcom.xfade~", "*jcom.zerox~", "jcom.thru~" ]
+									"tabs" : [ "*jcom.allpass~", "*jcom.array~", "*jcom.average~", "*jcom.balance~", "*jcom.dcblock~", "*jcom.degrade~", "*jcom.delay~", "*jcom.filter~", "*jcom.function~", "*jcom.gain~", "*jcom.hmlshelf~", "*jcom.limiter~", "*jcom.meter~", "*jcom.onepole~", "*jcom.op~", "*jcom.overdrive~", "*jcom.panorama~", "*jcom.ramp~", "*jcom.waveshaper~", "*jcom.xfade~", "*jcom.zerox~", "jcom.thru~" ]
 								}
 
 							}
@@ -1808,7 +1808,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 7
+											"revision" : 8
 										}
 ,
 										"rect" : [ 48.0, 44.0, 752.0, 692.0 ],
@@ -1844,7 +1844,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 7
+															"revision" : 8
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -2027,7 +2027,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 7
+															"revision" : 8
 														}
 ,
 														"rect" : [ 50.0, 94.0, 640.0, 480.0 ],
@@ -2163,7 +2163,7 @@
 														"appversion" : 														{
 															"major" : 6,
 															"minor" : 0,
-															"revision" : 7
+															"revision" : 8
 														}
 ,
 														"rect" : [ 50.0, 94.0, 640.0, 480.0 ],
@@ -2515,7 +2515,7 @@
 													"fontname" : "Verdana",
 													"fontsize" : 11.0,
 													"id" : "obj-59",
-													"items" : [ "jcom.adc≈.maxhelp", ",", "jcom.adsr≈.maxhelp", ",", "jcom.allpass~.maxhelp", ",", "jcom.append#.maxhelp", ",", "jcom.array~.maxhelp", ",", "jcom.array≈.maxhelp", ",", "jcom.audiounit≈.maxhelp", ",", "jcom.average~.maxhelp", ",", "jcom.average≈.maxhelp", ",", "jcom.balance~.maxhelp", ",", "jcom.clip~.maxhelp", ",", "jcom.clip≈.maxhelp", ",", "jcom.cubicInterpolate.maxhelp", ",", "jcom.cuemanager.maxhelp", ",", "jcom.dac≈.maxhelp", ",", "jcom.dataspace#.maxhelp", ",", "jcom.dataspace.maxhelp", ",", "jcom.dbap.maxhelp", ",", "jcom.dbapBformat.maxhelp", ",", "jcom.dcblocker≈.maxhelp", ",", "jcom.dcblock~.maxhelp", ",", "jcom.degrade~.maxhelp", ",", "jcom.degrade≈.maxhelp", ",", "jcom.delay~.maxhelp", ",", "jcom.delay≈.maxhelp", ",", "jcom.delta.maxhelp", ",", "jcom.envexp.maxhelp", ",", "jcom.fft≈.maxhelp", ",", "jcom.filter~.maxhelp", ",", "jcom.filter≈.maxhelp", ",", "jcom.folder.maxhelp", ",", "jcom.function~.maxhelp", ",", "jcom.gain%.maxhelp", ",", "jcom.gain~.maxhelp", ",", "jcom.gain≈.maxhelp", ",", "jcom.gang.maxhelp", ",", "jcom.graphics.maxhelp", ",", "jcom.graphicsui.maxhelp", ",", "jcom.hilbert≈.maxhelp", ",", "jcom.hipnoscope.maxhelp", ",", "jcom.hmlshelf~.maxhelp", ",", "jcom.hub.maxhelp", ",", "jcom.in.maxhelp", ",", "jcom.info≈.maxhelp", ",", "jcom.init.maxhelp", ",", "jcom.in~.maxhelp", ",", "jcom.iter#.maxhelp", ",", "jcom.join≈.maxhelp", ",", "jcom.label.maxhelp", ",", "jcom.limiter~.maxhelp", ",", "jcom.limiter≈.maxhelp", ",", "jcom.map.maxhelp", ",", "jcom.matrixmixer≈.maxhelp", ",", "jcom.matrix≈.maxhelp", ",", "jcom.message.maxhelp", ",", "jcom.meter~.maxhelp", ",", "jcom.midi.filter#.maxhelp", ",", "jcom.midi.format#.maxhelp", ",", "jcom.midi.in#.maxhelp", ",", "jcom.midi.out#.maxhelp", ",", "jcom.net.receive.maxhelp", ",", "jcom.net.send.maxhelp", ",", "jcom.noise≈.maxhelp", ",", "jcom.offset≈.maxhelp", ",", "jcom.onepole~.maxhelp", ",", "jcom.op#.maxhelp", ",", "jcom.op~.maxhelp", ",", "jcom.op≈.maxhelp", ",", "jcom.oscinstance.maxhelp", ",", "jcom.oscroute.maxhelp", ",", "jcom.out.maxhelp", ",", "jcom.out~.maxhelp", ",", "jcom.overdrive~.maxhelp", ",", "jcom.overdrive≈.maxhelp", ",", "jcom.pack#.maxhelp", ",", "jcom.pack≈.maxhelp", ",", "jcom.panorama~.maxhelp", ",", "jcom.parameter.maxhelp", ",", "jcom.paramui.maxhelp", ",", "jcom.pass.maxhelp", ",", "jcom.phasor≈.maxhelp", ",", "jcom.pick≈.maxhelp", ",", "jcom.plug.in≈.maxhelp", ",", "jcom.plug.out≈.maxhelp", ",", "jcom.plug.parameter#.maxhelp", ",", "jcom.pulsesub≈.maxhelp", ",", "jcom.push.maxhelp", ",", "jcom.ramp.maxhelp", ",", "jcom.ramp~.maxhelp", ",", "jcom.ramp≈.maxhelp", ",", "jcom.remote.maxhelp", ",", "jcom.resample≈.maxhelp", ",", "jcom.return.maxhelp", ",", "jcom.route.maxhelp", ",", "jcom.savebang.maxhelp", ",", "jcom.sig≈.maxhelp", ",", "jcom.soundfile.player≈.maxhelp", ",", "jcom.soundfile.recorder≈.maxhelp", ",", "jcom.spatDisplay.maxhelp", ",", "jcom.spat≈.maxhelp", ",", "jcom.split≈.maxhelp", ",", "jcom.stats.maxhelp", ",", "jcom.stencil%.maxhelp", ",", "jcom.test.sample~.maxhelp", ",", "jcom.textslider.maxhelp", ",", "jcom.trajectory≈.maxhelp", ",", "jcom.ui.maxhelp", ",", "jcom.unpack#.maxhelp", ",", "jcom.unpack≈.maxhelp", ",", "jcom.unsig≈.maxhelp", ",", "jcom.vimic~.maxhelp", ",", "jcom.waveshaper~.maxhelp", ",", "jcom.waveshaper≈.maxhelp", ",", "jcom.wavetable≈.maxhelp", ",", "jcom.window≈.maxhelp", ",", "jcom.xfade~.maxhelp", ",", "jcom.zerox~.maxhelp" ],
+													"items" : [ "jcom.adsr≈.maxhelp", ",", "jcom.allpass~.maxhelp", ",", "jcom.append#.maxhelp", ",", "jcom.array~.maxhelp", ",", "jcom.array≈.maxhelp", ",", "jcom.audiounit≈.maxhelp", ",", "jcom.average~.maxhelp", ",", "jcom.average≈.maxhelp", ",", "jcom.balance~.maxhelp", ",", "jcom.clip≈.maxhelp", ",", "jcom.count≈.maxhelp", ",", "jcom.cubicInterpolate.maxhelp", ",", "jcom.cuemanager.maxhelp", ",", "jcom.dataspace#.maxhelp", ",", "jcom.dataspace.maxhelp", ",", "jcom.dbap.maxhelp", ",", "jcom.dbapBformat.maxhelp", ",", "jcom.dcblocker≈.maxhelp", ",", "jcom.dcblock~.maxhelp", ",", "jcom.degrade~.maxhelp", ",", "jcom.degrade≈.maxhelp", ",", "jcom.delay~.maxhelp", ",", "jcom.delay≈.maxhelp", ",", "jcom.delta.maxhelp", ",", "jcom.envexp.maxhelp", ",", "jcom.fft≈.maxhelp", ",", "jcom.filter~.maxhelp", ",", "jcom.filter≈.maxhelp", ",", "jcom.folder.maxhelp", ",", "jcom.function~.maxhelp", ",", "jcom.gain%.maxhelp", ",", "jcom.gain~.maxhelp", ",", "jcom.gain≈.maxhelp", ",", "jcom.gang.maxhelp", ",", "jcom.hilbert≈.maxhelp", ",", "jcom.hmlshelf~.maxhelp", ",", "jcom.hub.maxhelp", ",", "jcom.in.maxhelp", ",", "jcom.info≈.maxhelp", ",", "jcom.init.maxhelp", ",", "jcom.in~.maxhelp", ",", "jcom.iter#.maxhelp", ",", "jcom.join≈.maxhelp", ",", "jcom.limiter~.maxhelp", ",", "jcom.limiter≈.maxhelp", ",", "jcom.map.maxhelp", ",", "jcom.message.maxhelp", ",", "jcom.meter~.maxhelp", ",", "jcom.midi.filter#.maxhelp", ",", "jcom.midi.format#.maxhelp", ",", "jcom.midi.in#.maxhelp", ",", "jcom.midi.out#.maxhelp", ",", "jcom.mixer≈.maxhelp", ",", "jcom.multimixer≈.maxhelp", ",", "jcom.net.receive.maxhelp", ",", "jcom.net.send.maxhelp", ",", "jcom.noise≈.maxhelp", ",", "jcom.offset≈.maxhelp", ",", "jcom.onepole~.maxhelp", ",", "jcom.op#.maxhelp", ",", "jcom.op~.maxhelp", ",", "jcom.op≈.maxhelp", ",", "jcom.oscinstance.maxhelp", ",", "jcom.oscroute.maxhelp", ",", "jcom.out.maxhelp", ",", "jcom.out~.maxhelp", ",", "jcom.overdrive~.maxhelp", ",", "jcom.overdrive≈.maxhelp", ",", "jcom.pack#.maxhelp", ",", "jcom.pack≈.maxhelp", ",", "jcom.panorama~.maxhelp", ",", "jcom.parameter.maxhelp", ",", "jcom.paramui.maxhelp", ",", "jcom.pass.maxhelp", ",", "jcom.phasor≈.maxhelp", ",", "jcom.pick≈.maxhelp", ",", "jcom.plug.in≈.maxhelp", ",", "jcom.plug.out≈.maxhelp", ",", "jcom.plug.parameter#.maxhelp", ",", "jcom.pulsesub≈.maxhelp", ",", "jcom.push.maxhelp", ",", "jcom.ramp.maxhelp", ",", "jcom.ramp~.maxhelp", ",", "jcom.ramp≈.maxhelp", ",", "jcom.remote.maxhelp", ",", "jcom.resample≈.maxhelp", ",", "jcom.return.maxhelp", ",", "jcom.route.maxhelp", ",", "jcom.savebang.maxhelp", ",", "jcom.sig≈.maxhelp", ",", "jcom.soundfile.player≈.maxhelp", ",", "jcom.soundfile.recorder≈.maxhelp", ",", "jcom.spat≈.maxhelp", ",", "jcom.split≈.maxhelp", ",", "jcom.stats.maxhelp", ",", "jcom.stencil%.maxhelp", ",", "jcom.test.sample~.maxhelp", ",", "jcom.textslider.maxhelp", ",", "jcom.trajectory≈.maxhelp", ",", "jcom.ui.maxhelp", ",", "jcom.unpack#.maxhelp", ",", "jcom.unpack≈.maxhelp", ",", "jcom.unsig≈.maxhelp", ",", "jcom.vimic~.maxhelp", ",", "jcom.waveshaper~.maxhelp", ",", "jcom.waveshaper≈.maxhelp", ",", "jcom.wavetable≈.maxhelp", ",", "jcom.window≈.maxhelp", ",", "jcom.xfade~.maxhelp", ",", "jcom.zerox~.maxhelp" ],
 													"maxclass" : "umenu",
 													"numinlets" : 1,
 													"numoutlets" : 3,
@@ -2921,7 +2921,7 @@
 									"rounded" : 10.0,
 									"spacing_y" : 6.0,
 									"tabcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-									"tabs" : [ "*jcom.adc≈", "*jcom.adsr≈", "*jcom.array≈", "*jcom.average≈", "*jcom.clip≈", "*jcom.dac≈", "*jcom.dcblocker≈", "*jcom.degrade≈", "*jcom.delay≈", "*jcom.fft≈", "*jcom.filter≈", "*jcom.gain≈", "*jcom.hilbert≈", "*jcom.info≈", "*jcom.join≈", "*jcom.limiter≈", "*jcom.matrixmixer≈", "*jcom.matrix≈", "*jcom.noise≈", "*jcom.offset≈", "*jcom.op≈", "*jcom.overdrive≈", "*jcom.pack≈", "*jcom.phasor≈", "*jcom.pick≈", "*jcom.plug.in≈", "*jcom.plug.out≈", "*jcom.pulsesub≈", "*jcom.ramp≈", "*jcom.resample≈", "*jcom.sig≈", "*jcom.soundfile.player≈", "*jcom.soundfile.recorder≈", "*jcom.spat≈", "*jcom.split≈", "*jcom.trajectory≈", "*jcom.unpack≈", "*jcom.unsig≈", "*jcom.waveshaper≈", "*jcom.wavetable≈", "*jcom.window≈" ]
+									"tabs" : [ "*jcom.adsr≈", "*jcom.array≈", "*jcom.average≈", "*jcom.clip≈", "*jcom.count≈", "*jcom.dcblocker≈", "*jcom.degrade≈", "*jcom.delay≈", "*jcom.fft≈", "*jcom.filter≈", "*jcom.gain≈", "*jcom.hilbert≈", "*jcom.info≈", "*jcom.join≈", "*jcom.limiter≈", "*jcom.mixer≈", "*jcom.multimixer≈", "*jcom.noise≈", "*jcom.offset≈", "*jcom.op≈", "*jcom.overdrive≈", "*jcom.pack≈", "*jcom.phasor≈", "*jcom.pick≈", "*jcom.plug.in≈", "*jcom.plug.out≈", "*jcom.pulsesub≈", "*jcom.ramp≈", "*jcom.resample≈", "*jcom.sig≈", "*jcom.soundfile.player≈", "*jcom.soundfile.recorder≈", "*jcom.spat≈", "*jcom.split≈", "*jcom.trajectory≈", "*jcom.unpack≈", "*jcom.unsig≈", "*jcom.waveshaper≈", "*jcom.wavetable≈", "*jcom.window≈" ]
 								}
 
 							}
@@ -6775,7 +6775,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 7
+							"revision" : 8
 						}
 ,
 						"rect" : [ 320.0, 44.0, 604.0, 402.0 ],
@@ -7395,7 +7395,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 0,
-							"revision" : 7
+							"revision" : 8
 						}
 ,
 						"rect" : [ 164.0, 47.0, 959.0, 752.0 ],
@@ -7418,6 +7418,23 @@
 						"digest" : "",
 						"tags" : "",
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-156",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 10.0, 450.0, 150.0, 17.0 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 10.0, 445.0, 150.0, 17.0 ],
+									"text" : "jmod.cueComment",
+									"varname" : "jmod.cueComment"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -7661,7 +7678,7 @@
 										"appversion" : 										{
 											"major" : 6,
 											"minor" : 0,
-											"revision" : 7
+											"revision" : 8
 										}
 ,
 										"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -8250,7 +8267,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 10.0, 430.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 430.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 425.0, 150.0, 17.0 ],
 									"text" : "jmod.cueTrigger",
 									"varname" : "jmod.cueTrigger"
 								}
@@ -8833,7 +8850,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 10.0, 410.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 410.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 405.0, 150.0, 17.0 ],
 									"text" : "jmod.cueManager",
 									"varname" : "jmod.cueManager"
 								}
@@ -9254,9 +9271,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 490.0, 150.0, 17.0 ],
+									"patching_rect" : [ 10.0, 507.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 490.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 505.0, 150.0, 17.0 ],
 									"text" : "jmod.mapperDiscrete",
 									"varname" : "jmod.mapperDiscrete"
 								}
@@ -9288,9 +9305,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 470.0, 150.0, 17.0 ],
+									"patching_rect" : [ 10.0, 487.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 470.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 485.0, 150.0, 17.0 ],
 									"text" : "jmod.mapperContinuous",
 									"varname" : "jmod.mapperContinuous"
 								}
@@ -9797,7 +9814,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 10.0, 370.0, 150.0, 19.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 370.0, 150.0, 19.0 ],
+									"presentation_rect" : [ 10.0, 367.0, 150.0, 19.0 ],
 									"text" : "Controlling Jamoma"
 								}
 
@@ -10008,9 +10025,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 450.0, 150.0, 17.0 ],
+									"patching_rect" : [ 10.0, 467.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 450.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 465.0, 150.0, 17.0 ],
 									"text" : "jmod.mapper",
 									"varname" : "jmod.mapper"
 								}
@@ -10197,7 +10214,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 10.0, 390.0, 150.0, 17.0 ],
 									"presentation" : 1,
-									"presentation_rect" : [ 10.0, 390.0, 150.0, 17.0 ],
+									"presentation_rect" : [ 10.0, 385.0, 150.0, 17.0 ],
 									"text" : "jmod.cueScript",
 									"varname" : "jmod.cueScript"
 								}
@@ -10904,6 +10921,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-158", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-156", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-159", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
@@ -11600,7 +11626,7 @@
 					"patching_rect" : [ 19.0, 300.0, 203.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 17.0, 37.0, 230.0, 19.0 ],
-					"text" : "Overview of Jamoma 0.5.6 b7",
+					"text" : "Overview of Jamoma 0.5.7",
 					"textcolor" : [ 0.619608, 0.0, 0.360784, 1.0 ]
 				}
 
