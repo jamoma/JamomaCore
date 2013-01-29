@@ -30,6 +30,20 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-22",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "audio.connect", "" ],
+					"patching_rect" : [ 620.0, 711.0, 97.0, 19.0 ],
+					"text" : "jcom.wavetable≈"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-11",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
@@ -914,21 +928,6 @@
 					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 620.0, 730.0, 85.0, 19.0 ],
 					"text" : "jcom.window≈"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"frgb" : 0.0,
-					"id" : "obj-42",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 620.0, 711.0, 235.0, 19.0 ],
-					"text" : "not testing jcom.wavetable≈ due to crashing",
-					"textcolor" : [ 1.0, 0.0, 0.0, 1.0 ]
 				}
 
 			}
@@ -1967,6 +1966,10 @@
 			}
 , 			{
 				"name" : "jcom.count≈.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.wavetable≈.mxo",
 				"type" : "iLaX"
 			}
  ]

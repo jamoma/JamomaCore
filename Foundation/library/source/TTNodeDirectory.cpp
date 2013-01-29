@@ -197,75 +197,73 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 
 TTErr TTNodeDirectory::TTNodeCreate(TTAddress anAddress, TTObjectPtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
-	TTAddress			effectiveAddress;
-	TTSymbol			newInstance;
-	TTBoolean			parent_created;
-	TTValue				found;
-	TTNodePtr			newTTNode = NULL;
-	TTNodePtr			n_found = NULL;
-	TTErr				err;
-	TTValue				v, c;
+	TTAddress	normalizedAddress, effectiveAddress;
+	TTSymbol	newInstance;
+	TTBoolean	parent_created;
+	TTValue		found;
+	TTNodePtr	newTTNode = NULL;
+	TTNodePtr	n_found = NULL;
+	TTErr		err;
+	TTValue		v, c;
 
-	// If there is no attribute part
-	if (anAddress.getAttribute() == NO_ATTRIBUTE) {
-
-		// is there a TTNode with this address in the tree ?
-		err = directory->lookup(anAddress, found);
-
-		// if it's the first at this address
-		if (err == kTTErrValueNotFound) {
-			
-			// keep the instance found in the address
-			newInstance = anAddress.getInstance();
-			*newInstanceCreated = false;
-		}
-		else {
-			
-			// this address already exists
-			// get the TTNode at this address
-			n_found = TTNodePtr((TTPtr)found[0]);
-
-			// Autogenerate a new instance
-			n_found->getParent()->generateInstance(n_found->getName(), newInstance);
-			*newInstanceCreated = true;
-		}
-
-		// CREATION OF A NEW TTNode
-		///////////////////////////
-
-		// 1. Create a new TTNode
-		newTTNode = new TTNode(anAddress.getName(), newInstance, newObject, aContext, this);
-
-		// 2. Ensure that the path to the new TTNode exists
-		if (anAddress.getParent() != NO_PARENT) {
-
-			// set his parent
-			parent_created = false;
-			newTTNode->setParent(anAddress.getParent(), &parent_created);
-
-			// add the new TTNode as a children of his parent
-			newTTNode->getParent()->setChild(newTTNode);
-
-			// if the new TTNode have a NULL context, set the parent context
-			if (!aContext) newTTNode->setContext(newTTNode->getParent()->getContext());
-		}
-		else
-			// the new TTNode is the root : no parent
-			;
-
-		// 3. Add the effective address (with the generated instance) to the global hashtab
-		newTTNode->getAddress(effectiveAddress);
-		directory->append(effectiveAddress, TTValue(newTTNode));
-
-		// 4. Notify observers that a node have been created AFTER the creation
-		this->notifyObservers(effectiveAddress, newTTNode, kAddressCreated);
-
-		// 5. returned the new TTNode
-		*returnedTTNode = newTTNode;
-
-		return kTTErrNone;
-	}
-	return kTTErrGeneric;
+	// remove any directory or attribute part
+    normalizedAddress = anAddress.normalize();
+    
+    // is there a TTNode with this address in the tree ?
+    err = directory->lookup(normalizedAddress, found);
+    
+    // if it's the first at this address
+    if (err == kTTErrValueNotFound) {
+        
+        // keep the instance found in the address
+        newInstance = normalizedAddress.getInstance();
+        *newInstanceCreated = false;
+    }
+    else {
+        
+        // this address already exists
+        // get the TTNode at this address
+        n_found = TTNodePtr((TTPtr)found[0]);
+        
+        // Autogenerate a new instance
+        n_found->getParent()->generateInstance(n_found->getName(), newInstance);
+        *newInstanceCreated = true;
+    }
+    
+    // CREATION OF A NEW TTNode
+    ///////////////////////////
+    
+    // 1. Create a new TTNode
+    newTTNode = new TTNode(normalizedAddress.getName(), newInstance, newObject, aContext, this);
+    
+    // 2. Ensure that the path to the new TTNode exists
+    if (normalizedAddress.getParent() != NO_PARENT) {
+        
+        // set his parent
+        parent_created = false;
+        newTTNode->setParent(normalizedAddress.getParent(), &parent_created);
+        
+        // add the new TTNode as a children of his parent
+        newTTNode->getParent()->setChild(newTTNode);
+        
+        // if the new TTNode have a NULL context, set the parent context
+        if (!aContext) newTTNode->setContext(newTTNode->getParent()->getContext());
+    }
+    else
+        // the new TTNode is the root : no parent
+        ;
+    
+    // 3. Add the effective address (with the generated instance) to the global hashtab
+    newTTNode->getAddress(effectiveAddress);
+    directory->append(effectiveAddress, TTValue(newTTNode));
+    
+    // 4. Notify observers that a node have been created AFTER the creation
+    this->notifyObservers(effectiveAddress, newTTNode, kAddressCreated);
+    
+    // 5. returned the new TTNode
+    *returnedTTNode = newTTNode;
+    
+    return kTTErrNone;
 }
 
 TTErr TTNodeDirectory::TTNodeRemove(TTAddress anAddress)

@@ -6,10 +6,53 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		469192F916A89BE7000A75A5 /* TTNetReceive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNetReceive.h; sourceTree = "<group>"; };
+		469192FA16A89BE7000A75A5 /* TTNetSend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNetSend.h; sourceTree = "<group>"; };
+		469192FB16A89BE7000A75A5 /* TTNetSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNetSocket.h; sourceTree = "<group>"; };
+		469192FC16A89BE7000A75A5 /* TTOscReceive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOscReceive.h; sourceTree = "<group>"; };
+		469192FD16A89BE7000A75A5 /* TTOscSend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOscSend.h; sourceTree = "<group>"; };
+		469192FE16A89BE7000A75A5 /* TTOscSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOscSocket.h; sourceTree = "<group>"; };
+		4691930116A89BEC000A75A5 /* TTNetReceive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTNetReceive.cpp; sourceTree = "<group>"; };
+		4691930416A89BEC000A75A5 /* TTNetSend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTNetSend.cpp; sourceTree = "<group>"; };
+		4691930716A89BEC000A75A5 /* TTNetSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTNetSocket.cpp; sourceTree = "<group>"; };
+		4691930A16A89BEC000A75A5 /* TTOscReceive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOscReceive.cpp; sourceTree = "<group>"; };
+		4691930D16A89BEC000A75A5 /* TTOscSend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOscSend.cpp; sourceTree = "<group>"; };
+		4691931016A89BEC000A75A5 /* TTOscSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOscSocket.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
+		469192F816A89BE7000A75A5 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				469192F916A89BE7000A75A5 /* TTNetReceive.h */,
+				469192FA16A89BE7000A75A5 /* TTNetSend.h */,
+				469192FB16A89BE7000A75A5 /* TTNetSocket.h */,
+				469192FC16A89BE7000A75A5 /* TTOscReceive.h */,
+				469192FD16A89BE7000A75A5 /* TTOscSend.h */,
+				469192FE16A89BE7000A75A5 /* TTOscSocket.h */,
+			);
+			path = includes;
+			sourceTree = "<group>";
+		};
+		4691930016A89BEC000A75A5 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				4691930116A89BEC000A75A5 /* TTNetReceive.cpp */,
+				4691930416A89BEC000A75A5 /* TTNetSend.cpp */,
+				4691930716A89BEC000A75A5 /* TTNetSocket.cpp */,
+				4691930A16A89BEC000A75A5 /* TTOscReceive.cpp */,
+				4691930D16A89BEC000A75A5 /* TTOscSend.cpp */,
+				4691931016A89BEC000A75A5 /* TTOscSocket.cpp */,
+			);
+			path = source;
+			sourceTree = SOURCE_ROOT;
+		};
 		A74952881523484300798834 = {
 			isa = PBXGroup;
 			children = (
+				469192F816A89BE7000A75A5 /* includes */,
+				4691930016A89BEC000A75A5 /* source */,
 			);
 			sourceTree = "<group>";
 		};
@@ -36,7 +79,7 @@
 		A749528A1523484300798834 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
 			buildConfigurationList = A749528D1523484300798834 /* Build configuration list for PBXProject "NetworkLib" */;
@@ -106,6 +149,7 @@
 		A74952931523484400798834 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -118,6 +162,7 @@
 		A74952941523484400798834 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
