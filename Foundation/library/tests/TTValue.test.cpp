@@ -1903,7 +1903,7 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
     TTObjectBasePtr anObject;
 	TTAttribute attribute = TTAttribute(TTSymbol("test"), kTypeObject, &anObject);
     
-    TTObjectBasePtr anInstance;
+    TTObjectBasePtr anInstance = NULL;
     TTValue     v;
     
     TTObjectBaseInstantiate(TTSymbol("osc.send"), TTObjectBaseHandle(&anInstance), kTTValNONE);
