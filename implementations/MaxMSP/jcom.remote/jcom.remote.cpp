@@ -143,7 +143,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
-	
+
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
@@ -185,8 +185,8 @@ void remote_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	Atom						a[1];
-	TTAddress			contextAddress = kTTAdrsEmpty;
-	TTAddress			absoluteAddress;
+	TTAddress                   contextAddress = kTTAdrsEmpty;
+	TTAddress                   absoluteAddress;
 	TTObjectPtr					toSubscribe, anObject;
 	
 	// for absolute address
@@ -213,6 +213,10 @@ void remote_subscribe(TTPtr self)
                 x->address.getName() == NO_NAME &&
                 x->address.getInstance() == NO_INSTANCE &&
                 x->address.getAttribute() != NO_ATTRIBUTE)
+                toSubscribe = NULL;
+            
+             // if the address refer to the model/address don't subscribe the Viewer (to not have model/address.1)
+            else if (x->address == TTAddress("model/address"))
                 toSubscribe = NULL;
             
             // else try to subscribe the Viewer
@@ -341,7 +345,7 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTAddress	absoluteAddress;
+	TTAddress           absoluteAddress;
 	Atom				a[1];
 	TTSymbol			service;
 	TTList				returnedNodes;
@@ -373,10 +377,10 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 					service = v[0];
 					
 					if (service == kTTSym_parameter || service == kTTSym_return)
-						x->wrappedObject->sendMessage(kTTSym_Refresh);
+						defer_low((ObjectPtr)x, (method)wrappedModularClass_sendMessage, gensym("refresh"), 0, 0);
 				}
 				else
-					x->wrappedObject->sendMessage(kTTSym_Refresh);
+					defer_low((ObjectPtr)x, (method)wrappedModularClass_sendMessage, gensym("refresh"), 0, 0);
 			}
 		}
 		

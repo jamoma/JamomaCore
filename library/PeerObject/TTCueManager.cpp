@@ -299,7 +299,7 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 			mCurrentCue->sendMessage(TTSymbol("Select"), v, kTTValNONE);
 			
 			// refresh all namespace handlers (TTExplorer only)
-			aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectRefresh"));
+			aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
 			
 			return kTTErrNone;
 		}
@@ -388,6 +388,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v;
+    TTSymbol    anAddress = kTTAdrsRoot;
 	
 	// get cue name
 	if (inputValue[0].type() == kTypeSymbol) {
@@ -408,6 +409,10 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentPosition = inputValue[0];
 		mCurrent = mOrder[mCurrentPosition-1];
 	}
+    
+    // get address from where recall starts (default : kAdrsRoot)
+	if (inputValue[1].type() == kTypeSymbol)
+		anAddress = inputValue[1];
 	
 	// if cue exists
 	if (!mCues->lookup(mCurrent, v)) {
@@ -415,7 +420,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentCue = TTCuePtr((TTObjectPtr)v[0]);
 		
 		if (mCurrentCue)
-			return mCurrentCue->sendMessage(TTSymbol("Recall"));
+			return mCurrentCue->sendMessage(TTSymbol("Recall"), anAddress, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;
@@ -424,6 +429,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v;
+    TTSymbol    anAddress = kTTAdrsRoot;
 	
 	// get cue name
 	if (inputValue[0].type() == kTypeSymbol) {
@@ -444,6 +450,10 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentPosition = inputValue[0];
 		mCurrent = mOrder[mCurrentPosition-1];
 	}
+    
+    // get address from where recall starts
+	if (inputValue[1].type() == kTypeSymbol)
+		anAddress = inputValue[1];
 	
 	// if cue exists
 	if (!mCues->lookup(mCurrent, v)) {
@@ -451,7 +461,7 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentCue = TTCuePtr((TTObjectPtr)v[0]);
 		
 		if (mCurrentCue)
-			return mCurrentCue->sendMessage(TTSymbol("Output"));
+			return mCurrentCue->sendMessage(TTSymbol("Output"), anAddress, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;

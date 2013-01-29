@@ -24,8 +24,8 @@ mScript(NULL)
 	
 	addMessage(Clear);
 	addMessageWithArguments(Store);
-	addMessage(Recall);
-	addMessage(Output);
+	addMessageWithArguments(Recall);
+	addMessageWithArguments(Output);
 	addMessageWithArguments(Select);
 	
 	// needed to be handled by a TTXmlHandler
@@ -482,14 +482,36 @@ TTErr TTCue::Clear()
 	return mScript->sendMessage(TTSymbol("Clear"));
 }
 
-TTErr TTCue::Recall()
+TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
-	return mScript->sendMessage(TTSymbol("Run"), kTTAdrsRoot, kTTValNONE);
+    TTAddress anAddress = kTTAdrsRoot;
+    
+    if (inputValue[0].type() == kTypeSymbol)
+        anAddress = inputValue[0];
+    
+    // if an address is passed, run the line at address
+    if (anAddress != kTTAdrsRoot)
+        return mScript->sendMessage(TTSymbol("RunLine"), inputValue, kTTValNONE);
+    
+    // else run all the script
+    else
+        return mScript->sendMessage(kTTSym_Run, inputValue, kTTValNONE);
 }
 
-TTErr TTCue::Output()
+TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
 {
-	return mScript->sendMessage(TTSymbol("Dump"), kTTAdrsRoot, kTTValNONE);
+    TTAddress anAddress = kTTAdrsRoot;
+    
+    if (inputValue[0].type() == kTypeSymbol)
+        anAddress = inputValue[0];
+    
+    // if an address is passed, dump the line at address
+    if (anAddress != kTTAdrsRoot)
+        return mScript->sendMessage(TTSymbol("DumpLine"), inputValue, kTTValNONE);
+    
+    // else dump all the script
+    else
+        return mScript->sendMessage(kTTSym_Dump, inputValue, kTTValNONE);
 }
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)

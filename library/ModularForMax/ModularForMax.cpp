@@ -1110,8 +1110,7 @@ long jamoma_patcher_get_args(ObjectPtr patcher, AtomCount *argc, AtomPtr *argv)
 			m = zgetfn(assoc, gensym("getindex"));
 			if(m)
 				return index = (long)(*m)(assoc, patcher);
-			
-		}  
+		}
 	}
 	else {
 		*argc = 0;
@@ -1295,6 +1294,9 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol& ret
 			s_toParse = TTString(begin, ttRegexForMaxhelp->begin());
 			begin = s_toParse.begin();
 			end = s_toParse.end();
+            
+            // append Maxhelp to the class to clarify the namespace
+            s_toParse += "Maxhelp";
 		}
 		
 		returnedClass = TTSymbol(s_toParse);	// TODO : replace each "." by the Uppercase of the letter after the "."
@@ -1475,7 +1477,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 	TTSymbol	sharedName;
 	
 	*returnedPatcher = jamoma_patcher_get(obj);
-	
+
 	_sym_jcomcontext = object_classname(obj);
 	canShare = _sym_jcomcontext == gensym("jcom.model") || _sym_jcomcontext == gensym("jcom.view");
 	

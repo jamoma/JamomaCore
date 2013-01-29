@@ -1,9 +1,15 @@
-/* 
- * jcom.in (~) (TODO %)
- * External for Jamoma: manage any signal inputs
- * By Tim Place and ThŽo de la Hogue, Copyright © 2010
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief Externals for Jamoma: jcom.in & jcom.in~ - Manage control and audio inputs for a module
+ *
+ * @details
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright Â© 2006 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

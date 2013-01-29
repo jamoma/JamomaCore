@@ -251,7 +251,7 @@ TTErr TTApplicationManager::ProtocolRun(const TTValue& inputValue, TTValue& outp
 		
 		if (!mProtocols->lookup(protocolName, v)) {
 			aProtocol = ProtocolPtr((TTObjectPtr)v[0]);
-			start = aProtocol->sendMessage(TTSymbol("Run"));
+			start = aProtocol->sendMessage(kTTSym_Run);
 		}
 	}
 	else {

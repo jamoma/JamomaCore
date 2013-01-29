@@ -168,7 +168,7 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 	AtomPtr						argv = NULL;
 	TTUInt32					number;
 	TTUInt8						i, j;
-	TTAddress			newAddress = TTAddress(address->s_name);
+	TTAddress                   newAddress = TTAddress(address->s_name);
 	SymbolPtr					instanceAddress;
 	TTObjectPtr					anObject;
 	TTValue						v;
@@ -506,8 +506,16 @@ void remote_address(TTPtr self, SymbolPtr address)
 // Method for Assistance Messages
 void remote_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst)
 {
-	if (msg==1) 						// Inlet
-		strcpy(dst, "input");
+	if (msg==1) {					// Inlet
+		switch(arg) {
+			case 0 :
+				strcpy(dst, "set the value of the selected instance(s)");
+				break;
+			case 1 :
+				strcpy(dst, "index (use * to bind all instances)");
+				break;
+		}
+    }
 	else {							// Outlets
 		switch(arg) {
 			case set_out:
@@ -763,14 +771,14 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr			instanceAddress;
-	TTAddress	address;
+	TTAddress           address;
 	TTSymbol			service;
 	TTList				returnedNodes;
 	TTNodePtr			firstNode;
 	TTObjectPtr			anObject;
 	TTUInt8				i;
 	TTValue				v;
-    TTErr				err;
+	TTErr				err;
 	
 	if (argc && argv) {
 		
@@ -787,24 +795,8 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 				// set address attribute of the internal Viewer object
 				address = TTAddress(atom_getsym(argv)->s_name).appendAddress(TTAddress(instanceAddress->s_name));
 				selectedObject->setAttributeValue(kTTSym_address, address);
-				
-				// for Data object, if service is parameter or return : refresh !
-				// note : this would only work if the address already exists
-				err = getDirectoryFrom(address)->Lookup(address, returnedNodes, &firstNode);
-				
-				if (!err) {
-					if ((anObject = firstNode->getObject())) {
-						if (anObject->getName() == kTTSym_Data) {
-							anObject->getAttributeValue(kTTSym_service, v);
-							service = v[0];
-							
-							if (service == kTTSym_parameter || service == kTTSym_return)
-								selectedObject->sendMessage(kTTSym_Refresh);
-						}
-						else
-							selectedObject->sendMessage(kTTSym_Refresh);
-					}
-				}
+                
+                JamomaDebug object_post((ObjectPtr)x, "binds on %s", address.c_str());
 			}
 			
 			// Ends iteration on internals
@@ -814,7 +806,7 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
 			
 			// why not use this way to refresh ?
-			// defer((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
+			defer_low((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
 
 			EXTRA->countSubscription = 0;
 		}

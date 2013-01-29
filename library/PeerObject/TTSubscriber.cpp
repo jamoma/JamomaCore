@@ -290,6 +290,16 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 					found = true;
 					break;
 				}
+                
+                // else if the instance are the same
+                else if (relativeContextAddress.getInstance() == lowerContextNode->getInstance()) {
+                    
+                    // if there is no registered object
+                    if (!lowerContextNode->getObject()) {
+                        found = true;
+                        break;
+                    }
+                }
 			}
 			
 			// if no node exists : create a new instance for this context

@@ -627,14 +627,14 @@ void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		if (model != obj->has_model) {
 			obj->has_model = model;
 			if (model) {
-                ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/internals"), obj->modelAddress, NO);
+                ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/open"), obj->modelAddress, NO);
 				ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/help"), obj->modelAddress, NO);
                 ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/reference"), obj->modelAddress, NO);
                 ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/edit"), obj->modelAddress, NO);
             }
 			else {
-                ui_viewer_destroy(obj, TTSymbol("model/internals"));
-				obj->hash_viewers->remove(TTSymbol("model/internals"));
+                ui_viewer_destroy(obj, TTSymbol("model/open"));
+				obj->hash_viewers->remove(TTSymbol("model/open"));
 				ui_viewer_destroy(obj, TTSymbol("model/help"));
 				obj->hash_viewers->remove(TTSymbol("model/help"));
                 ui_viewer_destroy(obj, TTSymbol("model/reference"));

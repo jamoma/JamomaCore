@@ -1,33 +1,20 @@
-/**
- \file jcom.envexp.cpp
- Create envelope with linear attack and exponential decay.	
- This object replaces tl.envexp, previously a part of the tl.objects distribution.
-
- 	By Trond Lossius, Copyright � 2001-08
-	Change History (most recent first):
-
-		06-Apr-2008:	<tl>	Moved to Jamoma, renamed jcom.envexp
-								Upped to using 128 target-time pairs.
-								Now use attributes
-								Doxygen documented
-		17-Dec-2005:	<f.e.>	Ported to windows
-								Note: float declarations MUST be changed to double
-								Jeremy Bernstein adds:
-								You'd probably do well to replace the shorts with longs, too,
-								but it's not necessary.
-		29-Dec-2003:	<tl>	Compared code from <j> and <pc>.
-								Integrated bug fixes by <pc> to <j> code
-		27-Dec-2003:	<j>		Carbonized once more
-		15-Feb-2003:	<pc>	Made Carbonizable
-								This consisted mostly of updating some stuff
-								for ANSI-C compatibility
-
-								
-	License: This code is licensed under the terms of the GNU LGPL
-	http://www.gnu.org/licenses/lgpl.html 
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.envexp - Create envelope with linear attack and exponential decay.
+ *
+ * @details This object replaces tl.envexp, previously a part of the tl.objects distribution.
+ *
+ * @authors Trond Lossius, Tim Place, Peter Castine, Jan Schacher, François-Eudes Chanfrault, Jeremy Bernstein
+ *
+ * @copyright Copyright © 2006, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
 
 
-* ****************************************************************************
+/* ****************************************************************************
 *                                                                              
 * 	Input:																		
 *			list:	Maximum amplitude, attack time, decay time					

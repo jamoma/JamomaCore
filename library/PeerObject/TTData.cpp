@@ -124,17 +124,37 @@ TTData::~TTData()
 
 TTErr TTData::Reset()
 {
-	// if valueDefault type is right
+    // if valueDefault type is right
 	if (checkType(mValueDefault))
 		if (!(mValueDefault == kTTValNONE)) {
 			return setValue(mValueDefault);
 		}
 	
-	// In case the data have no default value : set data to be uninitialised
-	mInitialized = NO;
-	this->notifyObservers(kTTSym_initialized, NO);
-	
-	return kTTErrNone;
+	// In case the data have no default value :
+    // check if the value equals to the start value
+    TTBoolean compare;
+    if (mType == kTTSym_integer)
+        compare = mValue == TTValue(0);
+    else if (mType == kTTSym_decimal)
+        compare = mValue == TTValue(0.);
+    else if (mType == kTTSym_string)
+        compare = mValue == TTValue(kTTSymEmpty);
+    else if (mType == kTTSym_boolean)
+        compare = mValue == TTValue(NO);
+    else if (mType == kTTSym_array)
+        compare = mValue == TTValue(0.);
+    else if (mType == kTTSym_none)
+        compare = mValue == kTTValNONE;
+    else
+        compare = mValue == TTValue(0.);
+    
+    // the value is not initialized if the value equals to the start value
+    mInitialized = !compare;
+
+    // notify observers about the initialization state
+	this->notifyObservers(kTTSym_initialized, mInitialized);
+    
+    return kTTErrNone;
 }
 
 TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
@@ -408,10 +428,10 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 
 TTErr TTData::getValue(TTValue& value)
 {
-	// can't get the value before the data has been initialized
+    // can't get the value before the data has been initialized
 	if (mInitialized) {
-		
-		value = mValue;
+        
+        value = mValue;
 		return kTTErrNone;
 	}
 	else
@@ -422,10 +442,10 @@ TTErr TTData::setValue(const TTValue& value)
 {
 	TTValue		r, n;
 	TTString	s;
-	
-	if (!mIsSending && mActive) {
+   
+    if (!mIsSending && mActive) {
 		
-		// lock
+        // lock
 		mIsSending = YES;
 		
 		// a kTTValNONE would only return the actual value
@@ -505,7 +525,7 @@ TTErr TTData::setValue(const TTValue& value)
 		
 		return kTTErrNone;
 	}
-	
+
 	return kTTErrGeneric;
 }
 

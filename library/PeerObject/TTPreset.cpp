@@ -134,7 +134,40 @@ TTErr TTPreset::Clear()
 
 TTErr TTPreset::Recall()
 {
-	return mScript->sendMessage(TTSymbol("Run"), mAddress, kTTValNONE);
+    TTNodePtr   aNode = NULL;
+    TTObjectPtr anObject = NULL;
+    TTValue     v;
+    TTErr       err;
+    
+    // get the container object to make the recall faster
+    err = getDirectoryFrom(mAddress)->getTTNode(mAddress, &aNode);
+    
+    if (!err) {
+        
+        // if there is a node
+        if (aNode) {
+            
+            anObject = aNode->getObject();
+            
+            // check object type
+            if (anObject) {
+                
+                // for container object
+                if (anObject->getName() != kTTSym_Container)
+                    anObject = NULL;
+            }
+        }
+    }
+    
+    // prepare argument to run the script
+    v = mAddress;
+    
+    // use container to go faster
+    if (anObject)
+        v.append(anObject);
+
+    // run the script
+	return mScript->sendMessage(kTTSym_Run, v, kTTValNONE);
 }
 
 TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)

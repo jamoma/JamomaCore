@@ -64,7 +64,7 @@ private:
 	TTErr SelectNone();
 	
 	/** Return selection back to the owner of this explorer */
-	TTErr SelectRefresh();
+	TTErr SelectionRefresh();
 	
 	/** Create a filter, add it to the bank and append it to the list
 		< filterName filterKey1 filterValue1 filterKey2 filterValue2 ... >

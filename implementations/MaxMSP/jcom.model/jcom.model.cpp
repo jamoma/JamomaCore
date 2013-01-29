@@ -45,9 +45,9 @@ void		model_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		model_help(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		model_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		model_open(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 //void		model_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);		// only in jview patch
+void		model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);		// only in view patch
 
 void		model_autodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -83,7 +83,7 @@ void WrapTTContainerClass(WrappedClassPtr c)
 	
 	class_addmethod(c->maxClass, (method)model_help,					"model_help",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)model_reference,				"model_reference",		A_CANT, 0);
-	class_addmethod(c->maxClass, (method)model_internals,				"model_internals",		A_CANT, 0);
+	class_addmethod(c->maxClass, (method)model_open,                    "model_open",		A_CANT, 0);
 //	class_addmethod(c->maxClass, (method)model_mute,					"model_mute",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)model_address,					"model_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)model_autodoc,					"doc_generate",			A_CANT, 0);
@@ -150,7 +150,7 @@ void model_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
 	TTAddress                   nodeAdrs, argAdrs;
-	TTSymbol					classAdrs, helpAdrs, refAdrs, internalsAdrs, documentationAdrs, editAdrs, muteAdrs;
+	TTSymbol					classAdrs, helpAdrs, refAdrs, openAdrs, documentationAdrs, editAdrs, muteAdrs;
 	TTObjectPtr					aData;
 	TTTextHandlerPtr			aTextHandler;
     TTPresetPtr                 aPreset;
@@ -185,7 +185,7 @@ void model_subscribe(TTPtr self)
 					classAdrs = TTSymbol("model/class");
 					helpAdrs =  TTSymbol("model/help");
 					refAdrs = TTSymbol("model/reference");
-					internalsAdrs = TTSymbol("model/internals");
+					openAdrs = TTSymbol("model/open");
 					documentationAdrs = TTSymbol("model/documentation/generate");
                     editAdrs = TTSymbol("model/edit");
 					//muteAdrs = TTSymbol("model/mute");
@@ -194,7 +194,7 @@ void model_subscribe(TTPtr self)
 					classAdrs = TTSymbol("view/class");
 					helpAdrs =  TTSymbol("view/help");
 					refAdrs = TTSymbol("view/reference");
-					internalsAdrs = TTSymbol("view/internals");
+					openAdrs = TTSymbol("view/open");
 					documentationAdrs = TTSymbol("view/documentation/generate");
 					//muteAdrs = TTSymbol("view/mute");
 				}
@@ -218,8 +218,8 @@ void model_subscribe(TTPtr self)
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the reference page"));
 				
-				// Add a /internals data
-				makeInternals_data(x, nodeAdrs, internalsAdrs, gensym("model_internals"), context, kTTSym_message, &aData);
+				// Add a /open data
+				makeInternals_data(x, nodeAdrs, openAdrs, gensym("model_open"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the patcher"));
@@ -478,7 +478,7 @@ void model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	}
 }
 
-void model_internals(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+void model_open(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	

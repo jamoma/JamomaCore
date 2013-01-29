@@ -139,7 +139,7 @@ TTErr TTReceiver::Get()
 {
 	TTNodePtr	aNode;
 	TTObjectPtr anObject;
-	TTAddress anAddress;
+	TTAddress   anAddress;
 	TTSymbol	ttAttributeName;
 	TTValue		data, v;
 	TTErr		err;
@@ -193,7 +193,7 @@ TTErr TTReceiver::Get()
 
 TTErr TTReceiver::bindAddress()
 {
-	TTAddress anAddress;
+	TTAddress       anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
 	TTObjectPtr		newObserver, o;
