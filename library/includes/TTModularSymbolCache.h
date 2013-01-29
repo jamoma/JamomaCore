@@ -36,6 +36,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_Viewer;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_XmlHandler;
 
 // attribute, message or any word often used
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_active;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_activity;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_activityIn;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_activityOut;
@@ -66,8 +67,8 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_descendants;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_description;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_destroyed;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_directory;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_Dump;
 
-extern TTMODULAR_EXPORT TTSymbol	kTTSym_enable;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_end;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Fill;
@@ -120,6 +121,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_Refresh;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_repetitionsAllow;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_return;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_returnedValue;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_Run;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Send;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_script;

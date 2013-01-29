@@ -1,9 +1,15 @@
-/** 
- * \file jcom.loader.cpp
- * External for Jamoma: simply used to load the framework when Max is launched
- * Copyright © 2007
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.loader - Simply used to load the framework when Max is launched
+ *
+ * @details
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

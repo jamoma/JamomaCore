@@ -59,6 +59,7 @@ class TTMODULAR_EXPORT TTMirror : public TTDataObjectBase
 private:
 	
 	TTSymbol					mType;							///< ATTRIBUTE : the type of the object binded by the mirror
+    TTBoolean                   mIsListening;                   ///< to not forget to disable listening when the Mirror will be destroyed
 	
 	TTCallbackPtr				mGetAttributeCallback;			///< a way to get the attribute value
 	TTCallbackPtr				mSetAttributeCallback;			///< a way to set the attribute value

@@ -4,10 +4,10 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 4
+			"revision" : 8
 		}
 ,
-		"rect" : [ 387.0, 121.0, 753.0, 573.0 ],
+		"rect" : [ 387.0, 121.0, 753.0, 576.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -56,11 +56,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-39",
+					"linecount" : 5,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 241.0, 247.0, 35.0, 17.0 ]
+					"patching_rect" : [ 241.0, 247.0, 39.0, 65.0 ],
+					"text" : "model/address /return"
 				}
 
 			}
@@ -74,7 +76,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 161.0, 247.0, 35.0, 17.0 ],
-					"text" : "408."
+					"text" : "59"
 				}
 
 			}
@@ -115,8 +117,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 395.0, 304.0, 231.0, 55.0 ],
-					"text" : "jcom.return myCounter @type integer @enable 1 @range/bounds 0 10 @range/clipmode wrap @repetitions/allow 0 @description \"Count from 0 to 9\""
+					"patching_rect" : [ 395.0, 304.0, 269.0, 55.0 ],
+					"text" : "jcom.return myCounter @type integer @active 1 @range/bounds 0 10 @range/clipmode wrap @repetitions/allow 0 @description \"Count from 0 to 9\""
 				}
 
 			}
@@ -284,7 +286,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 14.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-29",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -313,7 +315,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-31",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -350,7 +352,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-36",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -365,7 +367,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"frgb" : 0.0,
 					"id" : "obj-43",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -536,7 +538,7 @@
 					"destination" : [ "obj-16", 0 ],
 					"disabled" : 0,
 					"hidden" : 1,
-					"midpoints" : [ 161.5, 564.0, 66.5, 564.0 ],
+					"midpoints" : [ 161.5, 394.0, 66.5, 394.0 ],
 					"source" : [ "obj-8", 0 ]
 				}
 
@@ -544,28 +546,28 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.maxhelpui.maxpat",
-				"bootpath" : "/Users/jln/@Jamoma/JamomaFresh/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.maxhelpuiButton.png",
-				"bootpath" : "/Users/jln/@Jamoma/JamomaFresh/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
 				"type" : "PNG ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.maxhelpuiResize.js",
-				"bootpath" : "/Users/jln/@Jamoma/JamomaFresh/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
 				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.jamomaPath.maxpat",
-				"bootpath" : "/Users/jln/@Jamoma/JamomaFresh/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
 				"patcherrelativepath" : "../../../Max/library/components/jamomaPath",
 				"type" : "JSON",
 				"implicit" : 1

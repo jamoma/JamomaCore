@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A7CC31241518930500992C6E /* jcom.parameter.clip.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.parameter.clip.cpp; path = ../jcom.parameter/jcom.parameter.clip.cpp; sourceTree = "<group>"; };
 		A7CC31251518930500992C6E /* jcom.parameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.parameter.cpp; path = ../jcom.parameter/jcom.parameter.cpp; sourceTree = "<group>"; };
-		A7CC31261518930500992C6E /* jcom.parameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = jcom.parameter.h; path = ../jcom.parameter/jcom.parameter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -23,9 +21,7 @@
 		A7CC3123151892DF00992C6E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A7CC31241518930500992C6E /* jcom.parameter.clip.cpp */,
 				A7CC31251518930500992C6E /* jcom.parameter.cpp */,
-				A7CC31261518930500992C6E /* jcom.parameter.h */,
 			);
 			name = Sources;
 			sourceTree = "<group>";

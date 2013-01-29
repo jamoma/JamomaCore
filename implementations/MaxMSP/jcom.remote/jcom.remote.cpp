@@ -143,7 +143,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
-	
+
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
 	// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
@@ -185,9 +185,9 @@ void remote_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	Atom						a[1];
-	TTAddress			contextAddress = kTTAdrsEmpty;
-	TTAddress			absoluteAddress;
-	TTObjectPtr					toSubscribe, anObject;
+	TTAddress                   contextAddress = kTTAdrsEmpty;
+	TTAddress                   absoluteAddress;
+	TTObjectBasePtr				toSubscribe, anObject;
 	
 	// for absolute address
 	if (x->address.getType() == kAddressAbsolute) {
@@ -215,6 +215,10 @@ void remote_subscribe(TTPtr self)
                 x->address.getAttribute() != NO_ATTRIBUTE)
                 toSubscribe = NULL;
             
+             // if the address refer to the model/address don't subscribe the Viewer (to not have model/address.1)
+            else if (x->address == TTAddress("model/address"))
+                toSubscribe = NULL;
+            
             // else try to subscribe the Viewer
             else toSubscribe = x->wrappedObject;
             
@@ -234,7 +238,7 @@ void remote_subscribe(TTPtr self)
             // get the context address to make
             // a viewer on the contextAddress/model/address parameter
             x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-            v.get(0, contextAddress);
+            contextAddress = v[0];
             
             makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
             anObject->sendMessage(kTTSym_Get);
@@ -263,7 +267,7 @@ void remote_subscribe(TTPtr self)
 	// jamoma_subscriber_create with NULL object to bind)
 	
 	// release the subscriber
-	TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+	TTObjectBaseRelease(TTObjectBaseHandle(&x->subscriberObject));
 	x->subscriberObject = NULL;
 	
 	x->index++; // the index member is usefull to count how many time the external tries to bind
@@ -341,12 +345,12 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTAddress	absoluteAddress;
+	TTAddress           absoluteAddress;
 	Atom				a[1];
 	TTSymbol			service;
 	TTList				returnedNodes;
 	TTNodePtr			firstNode;
-	TTObjectPtr			anObject;
+	TTObjectBasePtr		anObject;
 	TTValue				v;
 	TTErr				err;
 	
@@ -367,16 +371,18 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 		err = getDirectoryFrom(absoluteAddress)->Lookup(absoluteAddress, returnedNodes, &firstNode);
 		
 		if (!err) {
-			if (anObject = firstNode->getObject()) {
+            
+            anObject = firstNode->getObject();
+			if (anObject) {
 				if (anObject->getName() == kTTSym_Data) {
 					anObject->getAttributeValue(kTTSym_service, v);
-					v.get(0, service);
+					service = v[0];
 					
 					if (service == kTTSym_parameter || service == kTTSym_return)
-						x->wrappedObject->sendMessage(kTTSym_Refresh);
+						defer_low((ObjectPtr)x, (method)wrappedModularClass_sendMessage, gensym("refresh"), 0, 0);
 				}
 				else
-					x->wrappedObject->sendMessage(kTTSym_Refresh);
+					defer_low((ObjectPtr)x, (method)wrappedModularClass_sendMessage, gensym("refresh"), 0, 0);
 			}
 		}
 		
@@ -404,7 +410,8 @@ void remote_attach(TTPtr self)
 	if (connecteds) {
 		o = (t_object*)connecteds->d_x1;
 
-		if (EXTRA->connected = o) {
+        EXTRA->connected = o;
+		if (EXTRA->connected) {
 			
 			ac = 0;
 			av = NULL;
@@ -456,13 +463,14 @@ void remote_mousemove(TTPtr self, t_object *patcherview, t_pt pt, long modifiers
 			
 			// display selected attribute by changing background color if selected
 			x->wrappedObject->getAttributeValue(kTTSym_highlight, v);
-			v.get(0, selected);
+			selected = v[0];
 			
-			if (EXTRA->label)
+			if (EXTRA->label) {
 				if (selected)
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color1);
 				else
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color0);
+            }
 		}
 		// else set default color
 		// TODO : do this only one time !!!
@@ -519,10 +527,10 @@ void remote_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers
 		if (pt.x > EXTRA->x && pt.x < EXTRA->x+EXTRA->w && pt.y > EXTRA->y && pt.y < EXTRA->y+EXTRA->h) {
 			
 			x->wrappedObject->getAttributeValue(kTTSym_highlight, v);
-			v.get(0, selected);
+			selected = v[0];
 			
 			// reverse selected attribute and change color
-			if (EXTRA->label)
+			if (EXTRA->label) {
 				if (selected) {
 					x->wrappedObject->setAttributeValue(kTTSym_highlight, NO);
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color0);
@@ -531,6 +539,7 @@ void remote_mousedown(TTPtr self, t_object *patcherview, t_pt pt, long modifiers
 					x->wrappedObject->setAttributeValue(kTTSym_highlight, YES);
 					object_attr_setvalueof(EXTRA->label, _sym_bgcolor, 4, (AtomPtr)EXTRA->color1);
 				}
+            }
 		}
 	}
 }

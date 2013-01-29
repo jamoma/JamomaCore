@@ -1,11 +1,18 @@
-/** 
- \file jcom.cubicInterpolate.cpp
- * External for Jamoma: cubic interpolation on a stream of floats
- * By Trond Lossius, Copyright � 2006
+/** @file
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.cubicInterpolate - Cubic interpolation on a stream of floats
+ *
+ * @details
+ *
+ * @authors Trond Lossius, Tim Place
+ *
+ * @copyright Copyright © 2006, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "Jamoma.h"
 

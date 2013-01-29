@@ -11,7 +11,6 @@
 
 #include "TTDSP.h"
 #include "TTModular.h"
-#include "FunctionLib.h"
 
 #include "ext.h"					// Max Header
 #include "ext_proto.h"

@@ -16,7 +16,7 @@ TT_MODULAR_CONSTRUCTOR,
 
 mSignal(NULL),
 mAddress(kTTAdrsEmpty),
-mEnable(YES),
+mActive(YES),
 mDirectory(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
@@ -28,16 +28,16 @@ mObjectCache(NULL)
 	TT_ASSERT("Correct number of args to create TTReceiver", arguments.size() == 2 || arguments.size() == 3);
 	
 	if (arguments.size() >= 1)
-		arguments[0] (TTPtr*)&mReturnAddressCallback);
+		mReturnAddressCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
 	
 	if (arguments.size() >= 2)
-		arguments.get(1, (TTPtr*)&mReturnValueCallback);
+		mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
 	
 	if (arguments.size() >= 3)
-		arguments.get(2, (TTPtr*)&mSignal);
+		mSignal = TTObjectBasePtr((TTObjectBasePtr)arguments[2]);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
-	addAttributeWithSetter(Enable, kTypeBoolean);
+	addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttribute(ObjectCache, kTypePointer);
 	addAttributeProperty(ObjectCache, hidden, YES);
@@ -74,7 +74,7 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 	unbindAddress();
 	unbindApplication();
 	
-	newValue[0] mAddress);
+	mAddress = newValue[0];
 	
 	// default attribute to bind is value
 	if (mAddress.getAttribute() == NO_ATTRIBUTE)
@@ -87,7 +87,7 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 		return bindApplication();
 }
 
-TTErr TTReceiver::setEnable(const TTValue& newValue)
+TTErr TTReceiver::setActive(const TTValue& newValue)
 {
 	TTNodePtr	aNode;
 	TTObjectBasePtr anObject;
@@ -96,7 +96,7 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 	TTValue		data, v;
 	TTErr		err;
 	
-	mEnable = newValue;
+	mActive = newValue;
 	
 	// enable/disable listening (for Mirror object only)
 	if (mNodesObserversCache) {
@@ -109,7 +109,7 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()) {
 				
 				// get a node from the selection
-				mNodesObserversCache->current()[0](TTPtr*)&aNode);
+				aNode = TTNodePtr((TTPtr)mNodesObserversCache->current()[0]);
 				
 				// get the type and the attribute of the object
 				anObject = aNode->getObject();
@@ -120,7 +120,7 @@ TTErr TTReceiver::setEnable(const TTValue& newValue)
 					if (!err) {
 						
 						if (anObject->getName() == kTTSym_Mirror)
-							TTMirrorPtr(anObject)->enableListening(*anAttribute, mEnable);
+							TTMirrorPtr(anObject)->enableListening(*anAttribute, mActive);
 					}
 				}
 			}
@@ -154,7 +154,7 @@ TTErr TTReceiver::Get()
 			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()) {
 				
 				// get a node from the selection
-				mNodesObserversCache->current()[0](TTPtr*)&aNode);
+				aNode = TTNodePtr((TTPtr)mNodesObserversCache->current()[0]);
 				
 				// get the value of the attribute
 				anObject = aNode->getObject();
@@ -193,7 +193,7 @@ TTErr TTReceiver::Get()
 
 TTErr TTReceiver::bindAddress()
 {
-	TTAddress anAddress;
+	TTAddress       anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
 	TTObjectBasePtr		newObserver, o;
@@ -222,8 +222,8 @@ TTErr TTReceiver::bindAddress()
 			
 			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 			{
-				// get a node from the selection
-				aNodeList.current()[0](TTPtr*)&aNode);
+                // get a node from the selection
+                aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
 				
 				// prepare the callback mecanism to
 				// be notified about changing value attribute
@@ -238,7 +238,7 @@ TTErr TTReceiver::bindAddress()
 						newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 						TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&newObserver), kTTValNONE);
 						
-						newBaton = new TTValue(TTPtr(this));
+						newBaton = new TTValue(this);
 						aNode->getAddress(anAddress);
 						newBaton->append(anAddress.appendAttribute(mAddress.getAttribute()));
 						
@@ -248,14 +248,18 @@ TTErr TTReceiver::bindAddress()
 						newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));					// this is usefull only to debug
 						
 						anAttribute->registerObserverForNotifications(*newObserver);
+                        
+                        // for Mirror object : enable listening
+                        if (o->getName() == kTTSym_Mirror)
+							TTMirrorPtr(o)->enableListening(*anAttribute, YES);
 						
 						// memorize the node and his attribute observer
 						newElement = (TTPtr)aNode;
-						newElement.append((TTPtr)newObserver);
+						newElement.append(newObserver);
 						mNodesObserversCache->appendUnique(newElement);
 						
 						// cache the object for quick access
-						mObjectCache->appendUnique((TTPtr)o);
+						mObjectCache->appendUnique(o);
                         
                         // notify that the address exists
                         if (mReturnAddressCallback) {
@@ -273,7 +277,7 @@ TTErr TTReceiver::bindAddress()
 	mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 	
-	newBaton = new TTValue(TTPtr(this));
+	newBaton = new TTValue(this);
 	
 	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
@@ -308,10 +312,10 @@ TTErr TTReceiver::unbindAddress()
 				oldElement = mNodesObserversCache->current();
 				
 				// get the node
-				oldElement[0] (TTPtr*)&aNode);
+				aNode = TTNodePtr((TTPtr)oldElement[0]);
 				
 				// get the observer
-				oldElement.get(1, (TTPtr*)&oldObserver);
+				oldObserver = TTCallbackPtr((TTObjectBasePtr)oldElement[1]);
 				
 				// stop attribute observation of the node
 				// if the attribute exist
@@ -327,6 +331,10 @@ TTErr TTReceiver::unbindAddress()
 						
 						if(!err)
 							TTObjectBaseRelease(&oldObserver);
+                        
+                        // for Mirror object : disable listening
+                        if (o->getName() == kTTSym_Mirror)
+							TTMirrorPtr(o)->enableListening(*anAttribute, NO);
 					}
 				}
 			}
@@ -364,7 +372,7 @@ TTErr TTReceiver::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
 		
-		newBaton = new TTValue(TTPtr(this));
+		newBaton = new TTValue(this);
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverApplicationManagerCallback));
@@ -410,7 +418,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aReceiver);
+	aReceiver = TTReceiverPtr((TTObjectBasePtr)(*b)[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -442,7 +450,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					for(aReceiver->mNodesObserversCache->begin(); aReceiver->mNodesObserversCache->end(); aReceiver->mNodesObserversCache->next()) {
 						
 						// get the node of the couple
-						aReceiver->mNodesObserversCache->current()[0] (TTPtr*)&p_node);
+						p_node = TTNodePtr((TTPtr)aReceiver->mNodesObserversCache->current()[0]);
 						
 						// compare it to the receive node
 						if(p_node == aNode)
@@ -465,7 +473,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 							TTObjectBaseInstantiate(TTSymbol("callback"), &newObserver, kTTValNONE);
 							
-							newBaton = new TTValue(TTPtr(aReceiver));
+							newBaton = new TTValue(aReceiver);
 							newBaton->append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
 							
 							newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
@@ -474,14 +482,18 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));			// this is usefull only to debug
 							
 							anAttribute->registerObserverForNotifications(*newObserver);
+                            
+                            // for Mirror object : enable listening
+                            if (o->getName() == kTTSym_Mirror)
+                                TTMirrorPtr(o)->enableListening(*anAttribute, YES);
 							
 							// memorize the node and his attribute observer
 							newCouple = (TTPtr)aNode;
-							newCouple.append((TTPtr)newObserver);
+							newCouple.append(newObserver);
 							aReceiver->mNodesObserversCache->appendUnique(newCouple);
 							
 							// cache the object for quick access
-							aReceiver->mObjectCache->appendUnique((TTPtr)o);
+							aReceiver->mObjectCache->appendUnique(o);
 						}
 					}
 				}
@@ -513,7 +525,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					c = aReceiver->mNodesObserversCache->current();
 					
 					// get the node of the couple
-					c[0] (TTPtr*)&p_node);
+					p_node = TTNodePtr((TTPtr)c[0]);
 					
 					// compare it to the receive node
 					if(p_node == aNode){
@@ -525,16 +537,29 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 				if (found) {
 					
 					// get the observer of the couple
-					c.get(1, (TTPtr*)&oldObserver);
+					oldObserver = TTCallbackPtr((TTObjectBasePtr)c[1]);
 					
 					// destroy the observer (don't need to unregister because the object is destroyed...)
 					TTObjectBaseRelease(&oldObserver);
+
+                    // for Mirror object : disable listening
+                    o = aNode->getObject();
+					if (o) {
+						
+                        if (o->getName() == kTTSym_Mirror) {
+                            
+                            err = o->findAttribute(ttAttributeName, &anAttribute);
+						
+                            if (!err)
+                                TTMirrorPtr(o)->enableListening(*anAttribute, NO);
+                        }
+                    }
 					
 					// forget this couple
 					aReceiver->mNodesObserversCache->remove(c);
 					
 					// forget the object
-					aReceiver->mObjectCache->remove((TTPtr)o);
+					aReceiver->mObjectCache->remove(o);
 				}
 			}
 			break;
@@ -556,10 +581,10 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aReceiver);
-	b->get(1, anAddress);
+	aReceiver = TTReceiverPtr((TTObjectBasePtr)(*b)[0]);
+	anAddress = (*b)[1];
 	
-	if(aReceiver->mEnable) {
+	if(aReceiver->mActive) {
 		
 		// return the address
 		v.append(anAddress);
@@ -587,11 +612,11 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTReceiverPtr)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&aReceiver);
+	aReceiver = TTReceiverPtr((TTObjectBasePtr)(*b)[0]);
 	
 	// Unpack data (applicationName, application, flag, observer)
-	data[0] anApplicationName);
-	data.get(1, (TTPtr*)&anApplication);
+	anApplicationName = data[0];
+	anApplication = TTApplicationPtr((TTObjectBasePtr)data[1]);
 	flag = data[2];
 	
 	switch (flag) {
@@ -605,13 +630,13 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 			
 		case kApplicationProtocolStarted :
 		{
-			aReceiver->setEnable(YES);
+			aReceiver->setActive(YES);
 			break;
 		}
 			
 		case kApplicationProtocolStopped :
 		{
-			aReceiver->setEnable(NO);
+			aReceiver->setActive(NO);
 			break;
 		}
 			

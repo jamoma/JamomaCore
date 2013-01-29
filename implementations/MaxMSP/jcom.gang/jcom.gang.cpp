@@ -1,7 +1,18 @@
-/** \file jcom.gang.cpp
- Gang multiple objects together
- © 2005 by Tim Place
-*/
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.gang - Gang multiple objects together
+ *
+ * @details
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright Â© 2005 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
 
 #include "Jamoma.h"
 

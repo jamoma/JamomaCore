@@ -26,8 +26,8 @@ public:	// use public for quick acces during signal processing
 	
 private:
 	
-	TTAddress			mAddress;					///< ATTRIBUTE: the address to bind
-	TTBoolean					mEnable;					///< ATTRIBUTE: if false, received data won't be output without unregister the attribute observer (default true).
+	TTAddress                   mAddress;					///< ATTRIBUTE : the address to bind
+	TTBoolean					mActive;					///< ATTRIBUTE : if false, received data won't be output without unregister the attribute observer (default true).
 	
 	TTNodeDirectoryPtr			mDirectory;					///< a receiver depends on a directory
 	TTCallbackPtr				mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
@@ -40,8 +40,8 @@ private:
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
 	
-	/**	Setter for mMute attribute. */
-	TTErr setEnable(const TTValue& value);
+	/**	Setter for mActive attribute. */
+	TTErr setActive(const TTValue& value);
 	
 	/** Ask the value directly */
 	TTErr Get();

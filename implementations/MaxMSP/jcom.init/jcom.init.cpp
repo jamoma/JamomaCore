@@ -1,12 +1,18 @@
-/** 
- * \file jcom.init.cpp
- * External for Jamoma: send bang to initialize something
- *	bang source may be global or for just one module
- * By Tim Place, Copyright � 2006
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief External for Jamoma: jcom.init - Send bang to initialize something.
+ *
+ * @details Bang source may be global or for just one module
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2006 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "Jamoma.h"
 
@@ -125,10 +131,10 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 
 void init_subscribe(t_init *x)
 {
-	TTValue			v, args;
-	TTAddress contextAddress = kTTAdrsEmpty;
-	TTObjectBasePtr		returnAddressCallback, returnValueCallback;
-	TTValuePtr		returnAddressBaton, returnValueBaton;
+	TTValue		v, args;
+	TTAddress   contextAddress = kTTAdrsEmpty;
+	TTObjectBasePtr	returnAddressCallback, returnValueCallback;
+	TTValuePtr	returnAddressBaton, returnValueBaton;
 	
 	// for relative address
 	if (x->address.getType() == kAddressRelative) {
@@ -137,7 +143,7 @@ void init_subscribe(t_init *x)
 			// get the context address to make
 			// a receiver on the contextAddress/model/address parameter
 			x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-			v.get(0, contextAddress);
+			contextAddress = v[0];
 		}
 		
 		// bind on the /model/address parameter (view patch) or return (model patch)

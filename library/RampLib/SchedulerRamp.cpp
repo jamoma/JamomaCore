@@ -59,7 +59,7 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 	
 	// Test: Do we need to ramp at all?
 	if (ramptime<=0.) {
-		for (i=0; i<numValues; i++)
+		for (i = 0; i < numValues; i++)
 			currentValue[i] = inValues[i];
 		mIsRunning = NO;
 		(callback)(baton, numValues, currentValue);		// output end values
@@ -67,7 +67,7 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 	else {
 		numgrains = ramptime / attrGranularity;
 		stepsize = 1.0 / numgrains;		
-		for (i=0; i<numValues; i++) {
+		for (i = 0; i < numValues; i++) {
 			targetValue[i] = inValues[i];
 			startValue[i] = currentValue[i];
 		}
@@ -105,7 +105,7 @@ void SchedulerRamp::tick()
 			normalizedValue += stepsize;
 		
 		functionUnit->calculate(normalizedValue, mapped);
-		for (i=0; i < numValues; i++)
+		for (i = 0; i <  numValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		
 		// is the ramp still active ?

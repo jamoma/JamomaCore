@@ -69,9 +69,6 @@ private:
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);
 	
-	/** Set local application */
-	TTErr setLocalApplication(TTValue& value);
-	
 	/** Get all protocol names */
 	TTErr getProtocolNames(TTValue& value);
 	
@@ -82,26 +79,27 @@ private:
 	TTErr ApplicationRemove(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Discover the namespace of an application under an address
-		arguments are <TTSymbol whereToDiscover, TTValuePtr returnedChildrenNames, TTValuePtr returnedChildrenTypes, TTValuePtrreturnedAttributes> */
+		inputValue : <TTSymbol whereToDiscover> 
+        outputValue : <TTSymbol *returnedType, TTValuePtr returnedChildren,  TTValuePtr returnedAttributes> */
 	TTErr ApplicationDiscover(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get a value from an attribute of an object at an address in an application
-		arguments are <TTSymbol whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */
+		inputValue : <TTSymbol whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */
 	TTErr ApplicationGet(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Set a value from an attribute of an object at an address in an application
-		arguments are <TTSymbol whereToDiscover, TTsymbolPtr attributeToSet, TTValuePtr newValue> */
+		inputValue : <TTSymbol whereToDiscover, TTsymbolPtr attributeToSet, TTValuePtr newValue> */
 	TTErr ApplicationSet(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Listen for value changes from an attribute of an object at an address in an application
 		or for creation/destruction under an address.
-		arguments are <TTObjectBasePtr appToNotify, TTSymbol whereToListen, TTSymbol attribute, TTBoolean enable> */
+		inputValue : <TTObjectBasePtr appToNotify, TTSymbol whereToListen, TTSymbol attribute, TTBoolean enable> */
 	TTErr ApplicationListen(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Update value changes of an attribute of an object at an address in an application
 		or for creation/destruction under an address.
 		note : this is usually the answer of distant namespace or Mirror attribute listening
-		arguments are <TTObjectBasePtr appAnswering, TTSymbol whereComesFrom, TTSymbol attribute, TTValuePtr newValue> */
+		inputValue : <TTObjectBasePtr appAnswering, TTSymbol whereComesFrom, TTSymbol attribute, TTValuePtr newValue> */
 	TTErr ApplicationListenAnswer(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Scan a protocol network in order to add distant application automatically <TTSymbol protocolName> */

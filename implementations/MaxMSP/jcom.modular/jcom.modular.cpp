@@ -95,7 +95,6 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		}
 		
 		protocolName = TTSymbol(atom_getsym(argv+1)->s_name);
-		
 	}
 	
 	// jcom.modular handle only one protocol per application
@@ -125,9 +124,9 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	// create internal TTXmlHandler
 	anXmlHandler = NULL;
 	TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&anXmlHandler), args);
-	v = TTValue(TTPtr(anXmlHandler));
+	v = TTValue(anXmlHandler);
 	x->internals->append(kTTSym_XmlHandler, v);
-	v = TTValue(TTPtr(x->wrappedObject));
+	v = TTValue(x->wrappedObject);
 	anXmlHandler->setAttributeValue(kTTSym_object, v);
 	
 	if (attrstart && argv) attr_args_process(x, argc, argv);
@@ -175,7 +174,7 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 		
 		if (x->wrappedObject) {
 			x->wrappedObject->getAttributeValue(kTTSym_name, v);
-			v.get(0, applicationName);
+			applicationName = v[0];
 			
 			// get parameters
 			err = aProtocol->getAttributeValue(TTSymbol("applicationParameters"), v);
@@ -183,7 +182,7 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 			if (!err) {
 				
 				// get parameter's value
-				v.get(0, (TTPtr*) &hashParameters);
+				hashParameters = TTHashPtr((TTPtr)v[0]);
 				
 				// set one application protocol parameter
 				if (argc && argv) {
@@ -200,16 +199,18 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 						hashParameters->remove(parameterName);
 						hashParameters->append(parameterName, parameterValue);
 						
-						// stop the protocol
-						aProtocol->sendMessage(TTSymbol("Stop"));
+						// stop the protocol (for local application setup only)
+                        if (applicationName == getLocalApplicationName)
+                            aProtocol->sendMessage(TTSymbol("Stop"));
 						
 						// set parameters
 						v = TTValue(applicationName);
 						v.append(TTPtr(hashParameters));
 						err = aProtocol->setAttributeValue(TTSymbol("applicationParameters"), v);
 						
-						// run the protocol
-						aProtocol->sendMessage(TTSymbol("Run"));
+						// run the protocol (for local application setup only)
+                        if (applicationName == getLocalApplicationName)
+                            aProtocol->sendMessage(TTSymbol("Run"));
 					}
 					else
 						object_error((ObjectPtr)x, "%s is not a parameter of %s protocol", parameterName.c_str(), EXTRA->protocolName.c_str());
@@ -219,9 +220,9 @@ void modular_protocol_setup(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 				else {
 					
 					hashParameters->getKeys(keys);
-					for (TTUInt8 i=0; i<keys.getSize(); i++) {
+					for (TTUInt8 i = 0; i < keys.size(); i++) {
 						
-						keys.get(i, parameterName);
+						parameterName = keys[i];
 						hashParameters->lookup(parameterName, parameterValue);
 						
 						parameterValue.prepend(parameterName);
@@ -260,7 +261,7 @@ void modular_namespace_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&anXmlHandler);
+			anXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
 			tterr = anXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
@@ -285,7 +286,7 @@ void	modular_namespace_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 	char 			filename[MAX_FILENAME_CHARS];
 	TTSymbol		fullpath;
 	TTValue			o, v;
-	TTXmlHandlerPtr aXmlHandler;
+	TTXmlHandlerPtr anXmlHandler;
 	TTErr			tterr;
 	
 	if (x->wrappedObject) {
@@ -298,10 +299,10 @@ void	modular_namespace_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 		
 		if (!tterr) {
-			o.get(0, (TTPtr*)&aXmlHandler);
+			anXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
-			tterr = aXmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);
+			tterr = anXmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);
 			critical_exit(0);
 			
 			if (!tterr)

@@ -30,6 +30,20 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"id" : "obj-39",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 231.0, 324.5, 101.0, 18.0 ],
+					"text" : "namespace/write"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-34",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -142,7 +156,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-4",
-					"items" : [ "", ",", "movie", ",", "movie/fps", ",", "movie/play", ",", "movie/rate" ],
+					"items" : [ "/", ",", "movie", ",", "movie/fps", ",", "movie/play", ",", "movie/rate" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -445,6 +459,7 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
+						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
@@ -600,7 +615,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 401.0, 89.5, 276.0, 20.0 ],
-									"text" : "myApplication:get /mySymbol:repetitionsAllow 1",
+									"text" : "/movie/rate 12.00",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
@@ -1556,6 +1571,16 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-37", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 240.5, 370.0, 30.5, 370.0 ],
+					"source" : [ "obj-39", 0 ]
 				}
 
 			}

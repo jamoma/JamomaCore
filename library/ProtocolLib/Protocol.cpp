@@ -19,9 +19,9 @@ mActivityInCallback(NULL),
 mActivityOutCallback(NULL),
 mDistantApplicationParameters(NULL)
 {
-    mApplicationManager = TTObjectBasePtr((TTPtr)arguments[0]);
-    mActivityInCallback = TTCallbackPtr((TTPtr)arguments[1]);
-    mActivityInCallback = TTCallbackPtr((TTPtr)arguments[2]);
+    mApplicationManager = arguments[0];
+    mActivityInCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+    mActivityInCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
 	
 	registerAttribute(TTSymbol("applicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Protocol::getApplicationParameters, (TTSetterMethod)& Protocol::setApplicationParameters);
 
@@ -61,7 +61,7 @@ Protocol::~Protocol()
 	
 	// for each distant application registered
 	mDistantApplicationParameters->getKeys(distantApplicationNames);
-	for (TTUInt32 i=0; i<distantApplicationNames.size(); i++) {
+	for (TTUInt32 i = 0; i < distantApplicationNames.size(); i++) {
 		
 		aDistantApplicationName = distantApplicationNames[i];
 		mDistantApplicationParameters->lookup(aDistantApplicationName, v);
@@ -86,7 +86,7 @@ Protocol::~Protocol()
 
 TTErr Protocol::setApplicationManager(const TTValue& value)
 {
-	mApplicationManager = TTObjectBasePtr((TTPtr)value[0]);
+	mApplicationManager = value[0];
 	return kTTErrNone;
 }
 
@@ -99,7 +99,7 @@ TTErr Protocol::getParameterNames(TTValue& value)
 	this->getAttributeNames(attributeNames);
 	
 	value.clear();
-	for (TTUInt8 i=0; i<attributeNames.size(); i++) {
+	for (TTUInt8 i = 0; i < attributeNames.size(); i++) {
 		attributeName = attributeNames[0];
 		
 		if (attributeName == TTSymbol("name")		||
@@ -135,7 +135,7 @@ TTErr Protocol::registerApplication(const TTValue& inputValue, TTValue& outputVa
 		
 		// prepare parameters table
 		this->getParameterNames(parameterNames);
-		for (TTUInt32 i=0; i<parameterNames.size(); i++) {
+		for (TTUInt32 i = 0; i < parameterNames.size(); i++) {
 			parameterName = parameterNames[i];
 			applicationParameters->append(parameterName, kTTValNONE);
 		}
@@ -192,7 +192,7 @@ TTErr Protocol::getApplicationParameters(TTValue& value)
 			
 			this->getParameterNames(parametersNames);
 			
-			for (TTUInt8 i=0; i<parametersNames.size(); i++) {
+			for (TTUInt8 i = 0; i < parametersNames.size(); i++) {
 				parameterName = parametersNames[i];
 				
 				this->getAttributeValue(parameterName, parameterValue);
@@ -231,7 +231,7 @@ TTErr Protocol::setApplicationParameters(TTValue& value)
 				
 				parametersTable->getKeys(parametersNames);
 				
-				for (TTUInt8 i=0; i<parametersNames.size(); i++) {
+				for (TTUInt8 i = 0; i < parametersNames.size(); i++) {
 					
 					parameterName = parametersNames[i];
 					parametersTable->lookup(parameterName, parameterValue);
@@ -283,25 +283,25 @@ TTErr Protocol::isRegistered(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address) 
 {
-	TTValue inputValue, outputValue;
-	TTErr	err;
-	TTValue returnedChildrenNames;
-	TTValue returnedChildrenTypes;
-	TTValue returnedAttributes;
+	TTValue     inputValue, outputValue;
+	TTErr       err;
+    TTSymbol    returnedType;
+	TTValue     returnedChildren;
+	TTValue     returnedAttributes;
 	
 	// discover the local namespace
 	if (mApplicationManager != NULL) {
 		
 		inputValue.append(address);
 		
-		outputValue.append((TTPtr)&returnedChildrenNames);
-		outputValue.append((TTPtr)&returnedChildrenTypes);
-		outputValue.append((TTPtr)&returnedAttributes);
+        outputValue.append((TTPtr)&returnedType);
+		outputValue.append((TTPtr)&returnedChildren);
+        outputValue.append((TTPtr)&returnedAttributes);
 		
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationDiscover"), inputValue, outputValue);
 		
 		// send result
-		return SendDiscoverAnswer(from, address, returnedChildrenNames, returnedChildrenTypes, returnedAttributes, err);
+		return SendDiscoverAnswer(from, address, returnedType, returnedChildren, returnedAttributes, err);
 	}
 	
 	return kTTErrGeneric;
@@ -433,16 +433,27 @@ TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
 
 	// unpack baton
 	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTPtr)(*b)[0]);
+	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
 	anApplicationName = (*b)[1];
 	
 	// unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
 	aNode = TTNodePtr((TTPtr)data[1]);
 	flag = data[2];
-    anObserver = TTCallbackPtr((TTPtr)data[3]);
+    anObserver = TTCallbackPtr((TTObjectBasePtr)data[3]);
 	
-	v.append(flag);
+    if (flag == kAddressCreated) {
+        
+        if (aNode->getObject())
+            v.append(aNode->getObject()->getName());
+        else
+            v.append(kTTSym_none);
+    }
+    else if (flag == kAddressDestroyed) {
+        
+        v.append(TTSymbol("delete"));
+    }
+
 	return aProtocol->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TTSymbol("life")), v);
 }
 
@@ -455,7 +466,7 @@ TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton
     b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTPtr)(*b)[0]);
+	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
 	anApplicationName = (*b)[1];
 	anAddress = (*b)[2];
 	
@@ -472,7 +483,7 @@ TTErr ProtocolGetAttributeCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTPtr)(*b)[0]);
+	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
 	anApplicationName = (*b)[1];
 	anAddress = (*b)[2];
 	
@@ -494,7 +505,7 @@ TTErr ProtocolSetAttributeCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTPtr)(*b)[0]);
+	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
 	anApplicationName = (*b)[1];
 	anAddress = (*b)[2];
 	
@@ -516,7 +527,7 @@ TTErr ProtocolSendMessageCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTPtr)(*b)[0]);
+	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
 	anApplicationName = (*b)[1];
 	anAddress = (*b)[2];
 	
@@ -539,7 +550,7 @@ TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton
 	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTPtr)(*b)[0]);
+	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
 	anApplicationName = (*b)[1];
 	anAddress = (*b)[2];
 	
@@ -560,7 +571,7 @@ TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)
 	TTSymbol applicationName;
 	
 	p->mApplicationManager->getAttributeValue(TTSymbol("localApplication"), v);
-	anApplication = TTObjectBasePtr((TTPtr)v[0]);
+	anApplication = v[0];
 	
 	anApplication->getAttributeValue(kTTSym_name, v);
 	applicationName = v[0];
@@ -578,9 +589,9 @@ TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *retu
 {
 	TTValue args;
 	
-	args.append(TTPtr(manager));
-	args.append(TTPtr(activityInCallback));
-	args.append(TTPtr(activityOutCallback));
+	args.append(manager);
+	args.append(activityInCallback);
+	args.append(activityOutCallback);
 	
 	// These should be alphabetized
 	if (protocolName == TTSymbol("Minuit"))

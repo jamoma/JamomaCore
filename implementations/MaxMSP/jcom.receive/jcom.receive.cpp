@@ -73,7 +73,6 @@ void		receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr ar
  @see				receive_int, receive_float, receive_list, WrappedOutputClass_anything
  */
 void		receive_bang(TTPtr self);
-
 #endif
 
 /** set message handler for jcom.receive. To change the address to bind.
@@ -109,7 +108,7 @@ void WrapTTReceiverClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)receive_return_model_address,	"return_model_address",	A_CANT, 0);
 
 #ifdef JCOM_RECEIVE_TILDE
-	class_addmethod(c->maxClass, (method)receive_dsp,					"dsp", 					A_GIMME, 0L);
+	class_addmethod(c->maxClass, (method)receive_dsp,					"dsp", 					A_GIMME, 0);
 	class_addmethod(c->maxClass, (method)receive_dsp64,					"dsp64",				A_CANT, 0);
 #else
 	class_addmethod(c->maxClass, (method)receive_return_address,		"return_address",		A_CANT, 0);
@@ -119,11 +118,6 @@ void WrapTTReceiverClass(WrappedClassPtr c)
 #endif
 	
 	class_addmethod(c->maxClass, (method)receive_set,					"set",					A_SYM, 0);
-	
-#ifdef JCOM_RECEIVE_TILDE
-	// Setup our class to work with MSP
-	class_dspinit(c->maxClass);
-#endif
 }
 
 #pragma mark -
@@ -178,8 +172,8 @@ void WrappedReceiverClass_free(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
 #ifdef JCOM_RECEIVE_TILDE
-	if (x->address.getName() == TTSymbol("out"))
-		dsp_free((t_pxobject *)x);				// Always call dsp_free first in this routine
+    // Always call dsp_free first in this routine
+    dsp_free((t_pxobject *)x);
 #endif
 }
 
@@ -191,9 +185,9 @@ void receive_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	Atom						a[1];
-	TTAddress			contextAddress = kTTAdrsEmpty;
-	TTAddress			absoluteAddress;
-	TTObjectPtr					anObject;
+	TTAddress                   contextAddress = kTTAdrsEmpty;
+	TTAddress                   absoluteAddress;
+	TTObjectBasePtr				anObject;
 	
 	if (x->address == kTTAdrsEmpty)
 		return;
@@ -208,6 +202,9 @@ void receive_subscribe(TTPtr self)
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
 		atom_setsym(a, gensym((char*)x->address.c_str()));
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
+        
+        JamomaDebug object_post((ObjectPtr)x, "binds on %s", x->address.c_str());
+        
 		return;
 	}
 	
@@ -219,12 +216,27 @@ void receive_subscribe(TTPtr self)
 		// get the context address to make
 		// a viewer on the contextAddress/model/address parameter
 		x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-		v.get(0, contextAddress);
+		contextAddress = v[0];
 		
 		if (x->patcherContext) {
-			makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
-			anObject->sendMessage(kTTSym_Get);
-			return;
+            
+            if (x->address == TTAddress("model/address")) {
+                
+                x->wrappedObject->setAttributeValue(kTTSym_address, contextAddress.appendAddress(x->address));
+                atom_setsym(a, gensym((char*)x->address.c_str()));
+                object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
+                
+                JamomaDebug object_post((ObjectPtr)x, "binds on %s", contextAddress.appendAddress(x->address).c_str());
+                
+                x->wrappedObject->sendMessage(kTTSym_Get);
+                return;
+            }
+            else {
+                
+                makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
+                anObject->sendMessage(kTTSym_Get);
+                return;
+            }
 		}
 	}
 	
@@ -246,7 +258,7 @@ void receive_subscribe(TTPtr self)
 	// jamoma_subscriber_create with NULL object to bind)
 	
 	// release the subscriber
-	TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+	TTObjectBaseRelease(TTObjectBaseHandle(&x->subscriberObject));
 	x->subscriberObject = NULL;
 	
 	x->index++; // the index member is usefull to count how many time the external tries to bind
@@ -265,7 +277,7 @@ void receive_subscribe(TTPtr self)
 void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTAddress			absoluteAddress;
+	TTAddress                   absoluteAddress;
 	Atom						a[1];
 	
 	if (argc && argv && x->wrappedObject) {
@@ -281,9 +293,8 @@ void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress.c_str());
 		
 		// in view patcher, get the value to refresh it
-		if (x->patcherContext == kTTSym_view) {
+		if (x->patcherContext == kTTSym_view)
 			x->wrappedObject->sendMessage(kTTSym_Get);
-		}
 	}
 }
 
@@ -299,8 +310,7 @@ void receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr arg
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
-	TTObjectPtr anObject;
-	
+
 	// avoid blank before data
 	if (msg == _sym_nothing)
 		outlet_atoms(x->outlets[data_out], argc, argv);
@@ -364,10 +374,17 @@ t_int *receive_perform(t_int *w)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)(w[1]);
 	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
 	TTListPtr					objectCache = NULL;
-	TTObjectPtr					anObject;
+	TTObjectBasePtr				anObject;
 	TTUInt16					vectorSize = 0;
 	TTValue						v;
 	TTFloat32					d;
+    TTBoolean                   active;
+    
+    aReceiver->getAttributeValue(kTTSym_active, v);
+    active = v[0];
+    
+    if (x->obj.z_disabled || !active)
+        return w + 4;
 	
 	if (aReceiver) {
 		
@@ -380,7 +397,7 @@ t_int *receive_perform(t_int *w)
 		// get the object cache of the Receiver object
 		if (!x->wrappedObject->getAttributeValue(kTTSym_objectCache, v)) {
 			
-			v.get(0, (TTPtr*)&objectCache);
+			objectCache = TTListPtr((TTPtr)v[0]);
 			
 			if (objectCache) {
 				
@@ -388,7 +405,7 @@ t_int *receive_perform(t_int *w)
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
 					anObject = NULL;
-					objectCache->current().get(0, (TTPtr*)&anObject);
+					anObject = objectCache->current()[0];
 					
 					if (anObject) {
 						
@@ -407,7 +424,7 @@ t_int *receive_perform(t_int *w)
 							
 							// get value
 							anObject->getAttributeValue(kTTSym_value, v);
-							v.get(0, d);
+							d = v[0];
 							
 							// TEST : fill the signal with the value
 							// TODO : add a += TTFloat64 inline method to TTAudioSignal class  
@@ -433,10 +450,28 @@ void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, d
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTReceiverPtr				aReceiver = (TTReceiverPtr)x->wrappedObject;
 	TTListPtr					objectCache = NULL;
-	TTObjectPtr					anObject;
+	TTObjectBasePtr				anObject;
 	TTUInt16					vectorSize = 0;
 	TTValue						v;
 	TTFloat32					d;
+    TTBoolean                   active;
+    
+    aReceiver->getAttributeValue(kTTSym_active, v);
+    active = v[0];
+    
+    if (x->obj.z_disabled || !active) {
+        
+        if (aReceiver) {
+            
+            // get signal vectorSize
+            aReceiver->mSignal->getAttributeValue(kTTSym_vectorSize, vectorSize);
+            
+            // send signal to the outlet
+            TTAudioSignalPtr(aReceiver->mSignal)->getVectorCopy(0, vectorSize, outs[0]);
+        }
+        
+        return;
+    }
 	
 	if (aReceiver) {
         
@@ -449,7 +484,7 @@ void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, d
 		// get the object cache of the Receiver object
 		if (!aReceiver->getAttributeValue(kTTSym_objectCache, v)) {
 			
-			v.get(0, (TTPtr*)&objectCache);
+			objectCache = TTListPtr((TTPtr)v[0]);
 			
 			if (objectCache) {
 				
@@ -457,7 +492,7 @@ void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, d
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
 					anObject = NULL;
-					objectCache->current().get(0, (TTPtr*)&anObject);
+					anObject = objectCache->current()[0];
 					
 					if (anObject) {
 						
@@ -476,7 +511,7 @@ void receive_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, d
 							
 							// get value
 							anObject->getAttributeValue(kTTSym_value, v);
-							v.get(0, d);
+							d = v[0];
 							
 							// TEST : fill the signal with the value
 							// TODO : add a += TTFloat64 inline method to TTAudioSignal class

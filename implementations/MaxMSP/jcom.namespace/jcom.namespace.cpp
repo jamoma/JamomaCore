@@ -152,7 +152,7 @@ void nmspc_subscribe(TTPtr self)
 		// get the context address to make
 		// a receiver on the contextAddress/model/address parameter
 		x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-		v.get(0, contextAddress);
+		contextAddress = v[0];
 	}
 	
 	// bind on the /model/address parameter (view patch) or return (model patch)
@@ -209,10 +209,10 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	
 	// Ask Explorer object
 	x->wrappedObject->getAttributeValue(TTSymbol("output"), v);
-	v.get(0, output);
+	output = v[0];
 	
 	x->wrappedObject->getAttributeValue(kTTSym_address, v);
-	v.get(0, address);
+	address = v[0];
 	
 	// UMENU OR UMENU_PREFIX FORMAT
 	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix")) {
@@ -254,7 +254,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// fill umenu
 		// output argv
-		for (i=0; i<argc; i++) {
+		for (i = 0; i < argc; i++) {
 			s = atom_getsym(argv+i);
 			
 			if (output == kTTSym_descendants && address.getName() == S_SEPARATOR)
@@ -287,7 +287,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// fill jit.cellblock
 		// output argv
-		for (i=0; i<argc; i++) {
+		for (i = 0; i < argc; i++) {
 			s = atom_getsym(argv+i);
 			
 			if (output == kTTSym_attributes)
@@ -354,7 +354,7 @@ void nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	
 	// Ask Explorer object
 	x->wrappedObject->getAttributeValue(TTSymbol("output"), v);
-	v.get(0, output);
+	output = v[0];
 	
 	// UMENU OR UMENU_PREFIX FORMAT
 	if (x->msg == gensym("umenu") || x->msg == gensym("umenu_prefix")) {
@@ -363,7 +363,7 @@ void nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 		outlet_anything(x->outlets[data_out], gensym("clearchecks"), 0, NULL);
 		
 		// update check item
-		for (i=0; i<argc; i++) {
+		for (i = 0; i < argc; i++) {
 			state = atom_getlong(argv+i);
 			atom_setlong(u, i);
 			atom_setlong(u+1, state);
@@ -375,7 +375,7 @@ void nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	else if (x->msg == gensym("jit.cellblock")) {
 		
 		// update background color
-		for (i=0; i<argc; i++) {
+		for (i = 0; i < argc; i++) {
 			
 			atom_setlong(j, 0);
 			atom_setlong(j+1, i);
@@ -404,9 +404,8 @@ void nmspc_return_selection(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr a
 	}
 	
 	// NO FORMAT
-	else if (x->msg == gensym("none") || x->msg == _sym_nothing) {
-		;
-	}
+	else if (x->msg == gensym("none") || x->msg == _sym_nothing)
+		outlet_anything(x->outlets[data_out], gensym("selection"), argc, argv);
 }
 
 void nmspc_bang(TTPtr self)

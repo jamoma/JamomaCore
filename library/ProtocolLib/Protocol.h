@@ -39,7 +39,7 @@ registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMe
 class Protocol : public TTObjectBase {
 	
 protected:																																	
-	TTObjectBasePtr					mApplicationManager;				///< the application manager of the Modular framework.					
+	TTObjectBasePtr				mApplicationManager;				///< the application manager of the Modular framework.					
 																	///< protocol programmers should not have to deal with this member.
 	
 	TTCallbackPtr				mActivityInCallback;				///< a callback to trace raw incoming messages.
@@ -116,15 +116,15 @@ public:
 	 *
  	 * \param to					: the application where to discover
 	 * \param address				: the address to discover
-	 * \param returnedChildrenNames : all names of nodes below the address
-	 * \param returnedChildrenTypes : all types of nodes below the address (default is none which means no type)
-	 * \param returnedAttributes	: all attributes the node at the address
+     * \param returnedType          : the type of the node at the address (default is none which means no type)
+	 * \param returnedChildren      : all names of nodes below the address
+	 * \param returnedAttributes	: all attributes of the node at the address
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
-	virtual TTErr SendDiscoverRequest(TTSymbol to, TTAddress address, 
-									  TTValue& returnedChildrenNames,
-									  TTValue& returnedChildrenTypes,
+	virtual TTErr SendDiscoverRequest(TTSymbol to, TTAddress address,
+                                      TTSymbol& returnedType,
+									  TTValue& returnedChildren,
 									  TTValue& returnedAttributes)=0;
 	
 	/*!
@@ -174,13 +174,13 @@ public:
 	 *
 	 * \param to					: the application where to send answer
 	 * \param address				: the address where comes from the description
-	 * \param returnedChildrenNames : all names of nodes below the address
-	 * \param returnedChildrenTypes : all types of nodes below the address(default is none which means no type)
+     * \param returnedType          : the type of the node at the address (default is none which means no type)
+	 * \param returnedChildren      : all names of nodes below the address
 	 * \param returnedAttributes	: all attributes the node at the address
 	 */
 	virtual TTErr SendDiscoverAnswer(TTSymbol to, TTAddress address,
-									 TTValue& returnedChildrenNames,
-									 TTValue& returnedChildrenTypes,
+                                     TTSymbol& returnedType,
+									 TTValue& returnedChildren,
 									 TTValue& returnedAttributes,
 									 TTErr err=kTTErrNone)=0;
 	

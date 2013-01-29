@@ -28,19 +28,19 @@ mListenAttributeCallback(NULL)
 	TT_ASSERT("Correct number of args to create TTMirror", arguments.size() == 5);
 
 	if (arguments.size() >= 1)
-		arguments[0] mType);
+		mType = arguments[0];
 
 	if (arguments.size() >= 2)
-		arguments.get(1, (TTPtr*)&mGetAttributeCallback);
+		mGetAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
 	
 	if (arguments.size() >= 3)
-		arguments.get(2, (TTPtr*)&mSetAttributeCallback);
+		mSetAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
 	
 	if (arguments.size() >= 4)
-		arguments.get(3, (TTPtr*)&mSendMessageCallback);
+		mSendMessageCallback = TTCallbackPtr((TTObjectBasePtr)arguments[3]);
 	
 	if (arguments.size() >= 5)
-		arguments.get(4, (TTPtr*)&mListenAttributeCallback);
+		mListenAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[4]);
 	
 
 	// instantiate a temp object to copy visible attributes and messages
@@ -48,10 +48,10 @@ mListenAttributeCallback(NULL)
 	TTObjectBaseInstantiate(mType,  &anObject, kTTValNONE);
 	
 	anObject->getAttributeNames(attributeNames);
-	for (TTUInt32 i=0; i<attributeNames.size(); i++) {
+	for (TTUInt32 i = 0; i < attributeNames.size(); i++) {
 		
 		anAttribute = NULL;
-		attributeNames.get(i, name);
+		name = attributeNames[i];
 		anObject->getAttribute(name, &anAttribute);
 		
 		addMirrorAttribute(name, anAttribute->type);
@@ -63,9 +63,9 @@ mListenAttributeCallback(NULL)
 	}
 	
 	anObject->getMessageNames(messageNames);
-	for (TTUInt32 i=0; i<messageNames.size(); i++) {
+	for (TTUInt32 i = 0; i < messageNames.size(); i++) {
 		
-		messageNames.get(i, name);
+		name = messageNames[i];
 		anObject->getMessage(name, &aMessage);
 		
 		addMirrorMessage(name, aMessage->flags);

@@ -1,9 +1,15 @@
-/* 
- * jcom.in (~) (TODO %)
- * External for Jamoma: manage any signal inputs
- * By Tim Place and Tho de la Hogue, Copyright © 2010
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularMax
+ *
+ * @brief Externals for Jamoma: jcom.in & jcom.in~ - Manage control and audio inputs for a module
+ *
+ * @details
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright Â© 2006 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -175,11 +181,7 @@ void WrapTTInputClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)in_list,						"list", 				A_GIMME, 0L);
 #endif
 	
-#ifdef JCOM_IN_TILDE
-	// Setup our class to work with MSP
-	class_dspinit(c->maxClass);
-#endif
-
+	// no class_dspinit : it is done in wrapTTModularClassAsMaxClass for AUDIO_EXTERNAL
 }
 
 #pragma mark -
@@ -201,7 +203,7 @@ void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, attrstart, argv);
 		
 		v.toString();
-		v.get(0, sInstance);
+		sInstance = TTString(v[0]);
 		EXTRA->instance = TTSymbol(sInstance.data());
 	}
 	else
@@ -282,11 +284,11 @@ void in_subscribe(TTPtr self)
 		
 		// get the Node
 		x->subscriberObject->getAttributeValue(TTSymbol("node"), v);
-		v.get(0, (TTPtr*)&node);
+		node = TTNodePtr((TTPtr)v[0]);
 		
 		// get the Node address
 		x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
-		v.get(0, nodeAddress);
+		nodeAddress = v[0];
 		
 		// update instance symbol in case of duplicate instance
 		EXTRA->instance = nodeAddress.getInstance();
@@ -453,7 +455,7 @@ t_int *in_perform(t_int *w)
 			
 			for (anInput->mSignalCache->begin(); anInput->mSignalCache->end(); anInput->mSignalCache->next()) {
 				
-				anInput->mSignalCache->current().get(0, (TTPtr*)&sentSignal);
+				sentSignal = TTAudioSignalPtr((TTObjectBasePtr)anInput->mSignalCache->current()[0]);
 				
 				if (sentSignal)
 					*TTAudioSignalPtr(anInput->mSignalOut) += *sentSignal;
@@ -528,7 +530,7 @@ void in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double
                 
                 for (anInput->mSignalCache->begin(); anInput->mSignalCache->end(); anInput->mSignalCache->next()) {
                     
-                    anInput->mSignalCache->current().get(0, (TTPtr*)&sentSignal);
+                    sentSignal = TTAudioSignalPtr((TTObjectBasePtr)anInput->mSignalCache->current()[0]);
                     
                     if (sentSignal)
                         *TTAudioSignalPtr(anInput->mSignalOut) += *sentSignal;
@@ -667,7 +669,7 @@ void in_update_amplitude(TTPtr self)
 				
 				if (!err) {
 					
-					storedObject.get(0, (TTPtr*)&anObject);
+					anObject = storedObject[0];
 					
 					// set current meter value
 					anObject->setAttributeValue(kTTSym_value, EXTRA->meter);

@@ -14,10 +14,7 @@
 #include "MinuitAnswer.h"
 
 #include <string>
-#include <map>
 #include <vector>
-
-typedef std::map<TTString, MinuitAnswerPtr>	 MinuitAnswerTable;
 
 class Minuit;
 typedef Minuit* MinuitPtr;
@@ -26,24 +23,24 @@ class MinuitAnswerManager {
 	
 private:
 	
-	MinuitPtr			mProtocol;
+	MinuitPtr   mProtocol;
 	
-	MinuitAnswerTable	mDiscoverAnswers;
-	MinuitAnswerTable	mGetAnswers;
+	TTHashPtr   mDiscoverAnswers;
+	TTHashPtr   mGetAnswers;
 	
 public:
 
 	MinuitAnswerManager(MinuitPtr aMinuitProtocol);
 	virtual ~MinuitAnswerManager();
 	
-	void	AddDiscoverAnswer(TTString from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
-	TTErr	ReceiveDiscoverAnswer(TTString from, TTAddress address, const TTValue& value);
-	int		CheckDiscoverAnswer(TTString from, TTAddress address, TTValue& value);
-	TTErr	ParseDiscoverAnswer(const TTValue& answer, TTValue& returnedChildrenNames, TTValue& returnedChildrenTypes, TTValue& returnedAttributes);
+	void	AddDiscoverAnswer(TTSymbol from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
+	TTErr	ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value);
+	int		CheckDiscoverAnswer(TTSymbol from, TTAddress address, TTValue& value);
+	TTErr	ParseDiscoverAnswer(const TTValue& answer, TTSymbol& returnedType, TTValue& returnedChildren, TTValue& returnedAttributes);
 								
-	void	AddGetAnswer(TTString from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
-	TTErr	ReceiveGetAnswer(TTString from, TTAddress address, const TTValue& value);
-	int		CheckGetAnswer(TTString from, TTAddress address, TTValue& value);
+	void	AddGetAnswer(TTSymbol from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
+	TTErr	ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value);
+	int		CheckGetAnswer(TTSymbol from, TTAddress address, TTValue& value);
 };
 typedef MinuitAnswerManager* MinuitAnswerManagerPtr;
 
