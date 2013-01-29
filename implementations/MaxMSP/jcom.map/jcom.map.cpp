@@ -14,7 +14,7 @@
 
 // This is used to store extra data
 typedef struct extra {
-	TTValue     arguments;      // keep creation arguments to reset the mapper to the initial state
+	TTValuePtr     arguments;      // keep creation arguments to reset the mapper to the initial state
 } t_extra;
 #define EXTRA ((t_extra*)x->extra)
 
@@ -84,8 +84,8 @@ void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
     
     // Prepare extra data
 	x->extra = (t_extra*)malloc(sizeof(t_extra));
-    EXTRA->arguments = kTTValNONE;
-    jamoma_ttvalue_from_Atom(EXTRA->arguments, _sym_nothing, argc, argv);
+    EXTRA->arguments = new TTValue();
+    jamoma_ttvalue_from_Atom(*EXTRA->arguments, _sym_nothing, argc, argv);
 	
 	// The following must be deferred because we have to interrogate our box,
 	// and our box is not yet valid until we have finished instantiating the object.
@@ -96,6 +96,7 @@ void WrappedMapperClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 void WrappedMapperClass_free(TTPtr self)
 {
     WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+    delete EXTRA->arguments;
 	free(EXTRA);
 }
 
@@ -205,10 +206,10 @@ void map_list(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void map_reset(TTPtr self)
 {
     WrappedModularInstancePtr x = (WrappedModularInstancePtr)self;
-    AtomCount   argc;
-    AtomPtr     argv;
+    AtomCount   argc = 0;
+    AtomPtr     argv = NULL;
     
-    jamoma_ttvalue_to_Atom(EXTRA->arguments, &argc, &argv);
+    jamoma_ttvalue_to_Atom(*EXTRA->arguments, &argc, &argv);
     
     // handle attribute args to reset to creation state
 	attr_args_process(x, argc, argv);
