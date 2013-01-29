@@ -64,6 +64,17 @@
 						"tags" : "",
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-15",
+									"maxclass" : "button",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 16.0, 297.0, 20.0, 20.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
 									"id" : "obj-16",
@@ -114,7 +125,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 266.0, 353.0, 168.0, 33.0 ],
+									"patching_rect" : [ 266.0, 336.0, 168.0, 33.0 ],
 									"text" : "jcom.send /presetMaxhelp/preset/recall"
 								}
 
@@ -128,36 +139,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 16.0, 405.0, 239.0, 18.0 ],
-									"text" : "default \"standard setup\" \"another case\""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 12.0,
-									"id" : "obj-17",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 26.0, 322.0, 219.0, 18.0 ],
-									"text" : "default \"standard setup\" \"another case\""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 12.0,
-									"id" : "obj-15",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 16.0, 297.0, 219.0, 18.0 ],
-									"text" : "\"another case\" \"standard setup\" default"
+									"patching_rect" : [ 16.0, 385.0, 230.0, 18.0 ]
 								}
 
 							}
@@ -169,10 +151,10 @@
 									"linecount" : 2,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 4,
-									"outlettype" : [ "", "", "", "" ],
-									"patching_rect" : [ 16.0, 353.0, 163.0, 33.0 ],
-									"text" : "jcom.remote /presetMaxhelp/preset/order"
+									"numoutlets" : 3,
+									"outlettype" : [ "", "", "" ],
+									"patching_rect" : [ 16.0, 336.0, 163.0, 33.0 ],
+									"text" : "jcom.receive /presetMaxhelp/preset/order"
 								}
 
 							}
@@ -364,9 +346,10 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-12", 0 ],
+									"destination" : [ "obj-12", 1 ],
 									"disabled" : 0,
 									"hidden" : 0,
+									"midpoints" : [ 25.5, 376.5, 236.5, 376.5 ],
 									"source" : [ "obj-11", 0 ]
 								}
 
@@ -404,15 +387,6 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-16", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-11", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"source" : [ "obj-17", 0 ]
 								}
 
 							}
@@ -1346,7 +1320,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 611.0, 365.5, 57.0, 18.0 ],
-					"text" : "1000"
+					"text" : "0.03"
 				}
 
 			}
@@ -1474,7 +1448,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 611.0, 415.5, 57.0, 18.0 ],
-					"text" : "2"
+					"text" : "56"
 				}
 
 			}
@@ -1502,7 +1476,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 611.0, 464.5, 110.0, 18.0 ],
-					"text" : "ernest"
+					"text" : "foo"
 				}
 
 			}
@@ -1546,7 +1520,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 610.0, 513.5, 142.0, 18.0 ],
-					"text" : "\"bla bla bla\""
+					"text" : "33 gege 7.9"
 				}
 
 			}
@@ -2316,10 +2290,6 @@
 			}
 , 			{
 				"name" : "jcom.send.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.remote.mxo",
 				"type" : "iLaX"
 			}
  ]
