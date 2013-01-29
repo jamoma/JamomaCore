@@ -29,7 +29,7 @@ mReturnLineCallback(NULL)
 	TT_ASSERT("Return Line Callback passed to TTScript is not NULL", mReturnLineCallback);
 	
 	mLines = new TTList();
-	
+    
 	addAttribute(Lines, kTypePointer);
 	addAttributeProperty(Lines, readOnly, YES);
 	
@@ -41,7 +41,10 @@ mReturnLineCallback(NULL)
 	
 	addMessage(Clear);
 	addMessageWithArguments(Run);
+    addMessageWithArguments(RunLine);
+    
 	addMessageWithArguments(Dump);
+    addMessageWithArguments(DumpLine);
 	
 	addMessageWithArguments(Bind);
 	addMessageProperty(Bind, hidden, YES);
@@ -126,35 +129,21 @@ TTErr TTScript::Clear()
 
 TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTDictionaryPtr		aLine;
-	TTSymbol			name;
-	TTNodePtr			aNode;
-	TTAddress	address, containerAddress = kTTAdrsRoot;
-	TTObjectPtr			anObject, container;
-	TTValue				v, c;
-	TTErr				err;
+	TTDictionaryPtr	aLine;
+	TTSymbol		name;
+	TTNodePtr		aNode;
+	TTAddress       address, parentAddress = kTTAdrsRoot;
+	TTObjectPtr		anObject, aContainer, aParentContainer = NULL;
+	TTValue			v, c;
+	TTErr			err;
 	
-	// It is possible to run the script passing command to a container object
-	if (inputValue.getType() == kTypeSymbol) {
-		
-		inputValue.get(0, containerAddress);
-
-		container = NULL;
-		err = getDirectoryFrom(containerAddress)->getTTNode(containerAddress, &aNode);
-		
-		if (!err) {
-			
-			if (aNode) {
-				
-				anObject = aNode->getObject();
-				
-				// check if it's a container
-				if (anObject)
-					if (anObject->getName() == kTTSym_Container)
-						container = anObject;
-			}
-		}
-	}
+	// get the parent address
+	if (inputValue.getType(0) == kTypeSymbol)
+		inputValue.get(0, parentAddress);
+    
+    // eventually get a container to go faster
+	if (inputValue.getType(1) == kTypeSymbol)
+		inputValue.get(1, (TTPtr*)&aParentContainer);
 	
 	// run each line of the script
 	for (mLines->begin(); mLines->end(); mLines->next()) {
@@ -169,7 +158,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			v.get(0, name);
 			
 			// TODO : output current flag to display it
-		}	
+		}
 		else if (aLine->getSchema() == kTTSym_comment) {
 			
 			// TODO : output current comment to display it
@@ -180,81 +169,144 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			// get the address
 			aLine->lookup(kTTSym_address, v);
 			v.get(0, address);
-			
-			// if no container edit absolute address
-			if (!container)
-				address = containerAddress.appendAddress(address);
-			
-			// use container for relative address
-			if (address.getType() == kAddressRelative) {
+            
+			// if there is a parent container
+			if (aParentContainer) {
 				
-				v = TTValue(address);
-				c = TTValue((TTPtr)aLine);
-				v.append((TTPtr)&c);
-				
-				container->sendMessage(kTTSym_Send, v, kTTValNONE);
+                // use container to send relative address command
+                if (aLine->getSchema() == kTTSym_command && address.getType() == kAddressRelative) {
+                    
+                    v = TTValue(address);
+                    c = TTValue((TTPtr)aLine);
+                    v.append((TTPtr)&c);
+                    
+                    aParentContainer->sendMessage(kTTSym_Send, v, kTTValNONE);
+                }
 			}
-			// or use data directly for absolute address
-			else if (address.getType() == kAddressAbsolute) {
-				
-				err = getDirectoryFrom(address)->getTTNode(address, &aNode);
-				
-				if (!err) {
-					
-					if (aNode) {
-						
-						anObject = aNode->getObject();
-						
-						// check if it's a data
-						if (anObject) {
-							if (anObject->getName() == kTTSym_Data) {
-								
-								// send the line using the command message
-								v = TTValue((TTPtr)aLine);
-								anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
-							}
-						}
-					}
-				}
-			}
-		}
-		else if (aLine->getSchema() == kTTSym_script) {
-			
-			// get the script
-			aLine->getValue(v);
-			v.get(0, (TTPtr*)&mSubScript);
-			
-			// get address
-			aLine->lookup(kTTSym_address, v);
-			v.get(0, address);
-			
-			// if relative, append to container address
-			if (address.getType() == kAddressRelative)
-				address = containerAddress.appendAddress(address);
-			
-			// run the script
-			mSubScript->sendMessage(TTSymbol("Run"), address, kTTValNONE);
-		}
+			// or retreive the node
+			else {
+                
+                // if the line already binds a node : get it
+                aNode = NULL;
+                if (!aLine->lookup(kTTSym_node, v))
+                    v.get(0, (TTPtr*)&aNode);
+                
+                // or bind to the node
+                else {
+                    
+                    if (address.getType() == kAddressRelative)
+                        err = getDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
+                    else
+                        err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+                    
+                    if (!err) {
+                        v = TTValue((TTPtr)aNode);
+                        aLine->append(kTTSym_node, v);
+                    }
+                }
+                
+                // if there is a node
+                if (aNode) {
+                    
+                    anObject = aNode->getObject();
+                    
+                    // check object type
+                    if (anObject) {
+                        
+                        // for data object
+                        if (anObject->getName() == kTTSym_Data) {
+                            
+                            // send the line using the command message
+                            v = TTValue((TTPtr)aLine);
+                            anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                        }
+                    }
+                }
+            }
+        }
+        else if (aLine->getSchema() == kTTSym_script) {
+            
+            // get the script
+            aLine->getValue(v);
+            v.get(0, (TTPtr*)&mSubScript);
+            
+            // get the address
+            aLine->lookup(kTTSym_address, v);
+            v.get(0, address);
+            
+            // if the line already binds a node : get it
+            aNode = NULL;
+            if (!aLine->lookup(kTTSym_node, v))
+                v.get(0, (TTPtr*)&aNode);
+            
+            // or bind to the node
+            else {
+                
+                if (address.getType() == kAddressRelative)
+                    err = getDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
+                else
+                    err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+                
+                if (!err) {
+                    v = TTValue((TTPtr)aNode);
+                    aLine->append(kTTSym_node, v);
+                }
+            }
+            
+            // if there is a node
+            aContainer = NULL;
+            if (aNode) {
+                
+                anObject = aNode->getObject();
+                
+                // check object type
+                if (anObject) {
+                    
+                    // for container object
+                    if (anObject->getName() == kTTSym_Container) {
+                        
+                        // get the container
+                        aContainer = anObject;
+                    }
+                }
+            }
+            
+            // prepare argument to run the sub script
+            if (address.getType() == kAddressRelative)
+                v = parentAddress.appendAddress(address);
+            else
+                v = address;
+            
+            // use container to go faster
+            if (aContainer)
+                v.append((TTPtr)aContainer);
+                
+            mSubScript->sendMessage(kTTSym_Run, v, kTTValNONE);
+        }
 	}
-	
+
 	return kTTErrNone;
+}
+
+TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
+{
+	return kTTErrGeneric;
 }
 
 TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryPtr		aLine;
 	TTSymbol			name, unit;
-	TTAddress			address, containerAddress = kTTAdrsRoot;
+	TTAddress			address, parentAddress = kTTAdrsRoot;
 	TTValue				v, valueToDump;
 	TTUInt32			ramp;
-//	TTErr				err;
 	
 	if (!mReturnLineCallback)
 		return kTTErrGeneric;
 	
 	// It is possible to output the command address relatively to a container address 
 	if (inputValue.getType() == kTypeSymbol)
-		inputValue.get(0, containerAddress);
+		inputValue.get(0, parentAddress);
 	
 	// output each line of the script
 	for (mLines->begin(); mLines->end(); mLines->next()) {
@@ -314,7 +366,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// if relative, append to container address
 			if (address.getType() == kAddressRelative)
-				address = containerAddress.appendAddress(address);
+				address = parentAddress.appendAddress(address);
 			
 			// append the address
 			valueToDump.prepend(address);
@@ -336,14 +388,19 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			
 			// if relative, append to container address
 			if (address.getType() == kAddressRelative)
-				address = containerAddress.appendAddress(address);
+				address = parentAddress.appendAddress(address);
 			
 			// dump the subscript
-			mSubScript->sendMessage(TTSymbol("Dump"), address, kTTValNONE);
+			mSubScript->sendMessage(kTTSym_Dump, address, kTTValNONE);
 		}
 	}
 	
 	return kTTErrNone;
+}
+
+TTErr TTScript::DumpLine(const TTValue& inputValue, TTValue& outputValue)
+{
+	return kTTErrGeneric;
 }
 
 TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)

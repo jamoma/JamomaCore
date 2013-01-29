@@ -48,11 +48,11 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	/** Fill the cue on a namespace using namespace pointer or name */
 	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Run the cue */
-	TTErr	Recall();
+	/** Run the cue from an address (default : kAdrsRoot to recall all the cue) */
+	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Output the cue */
-	TTErr	Output();
+	/** Output the cue from an address (default : kAdrsRoot to output all the cue) */
+	TTErr	Output(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Edit selection on a namespace using namespace pointer or name */
 	TTErr	Select(const TTValue& inputValue, TTValue& outputValue);
