@@ -1065,7 +1065,7 @@ TTObjectBasePtr	getSelectedObject(WrappedModularInstancePtr x)
         
 		err = x->internals->lookup(x->cursor, v);
 		if (!err)
-			o = TTObjectPtr((TTPtr)v[0]);
+			o = v[0];
 		else o = NULL;
 		
 		return o;
