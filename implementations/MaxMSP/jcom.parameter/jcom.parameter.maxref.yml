@@ -1,21 +1,19 @@
 title: jcom.parameter
 author: [Jamoma]
 created_at: 2012/1/1
-tags: [interface, control, osc]
+tags: [parameter, control, osc]
 
 brief: Handling parameters in the Jamoma modules
 
 desc: >
- "jcom.parameter creates a parameter in a Jamoma module and interfaces with GUI elements."
+ "jcom.parameter creates a parameter in a Jamoma model."
 
 inputs:
  - name: left
-   desc: "input from the user interface object"
+   desc: "input value"
 
 outputs:
  - name: left
-   desc: connection to a user interface object
- - name: middle
    desc: direct values
  - name: right
    desc: "dumpout"
@@ -23,14 +21,14 @@ outputs:
 args:
  - name: name
    type: symbol
-   desc: "OSC name of the parameter, A couple of names are prohibited because these are reserved names used by the Jamoma module."
+   desc: "OSC name defining parameter in the namespace"
 
 messages:
 
 attributes:
  - name: type
    type: symbol
-   desc: "Datatype of the parameter. Optinons are: decimal, integer, boolean, string, decimalArray, integerArray, generic"
+   desc: "Datatype of the parameter. Options are: decimal, integer, boolean, string, decimalArray, integerArray, generic"
    unit:
    default: generic
  - name: range/bounds
@@ -53,6 +51,11 @@ attributes:
    desc: "The mapping function determining the curve of the ramping to new parameter value." # For an extensive description of all available functions, see
    unit:
    default: linear
+ - name: ramp/function/parameters
+   type: array
+   desc: "Optional parameters for the chosen ramping function."
+   unit:
+   default: NULL
  - name: repetitions/allow
    type: toggle
    desc: "Determines whether repeated parameter values will be filtered: when this attribute is disabled (default), repetitions are filtered out (like [change] object in Max)"
@@ -78,16 +81,6 @@ attributes:
    desc: "Short info about the parameter. Used for auto-documentation of the module."
    unit:
    default:
- - name: readonly
-   type: toggle
-   desc: "Freezes the value of the jcom.parameter so that it can't be updated."
-   unit:
-   default: 0
- - name: view/freeze
-   type: toggle
-   desc: "Mutes the leftmost outlet of jcom.parameter so that the GUI do not update. Useful for Jitter-related work where GUI elements compete with Jitter processing compete with Jitter processing for screen update resources."
-   unit:
-   default: 0
  - name: value
    type:
    desc: "Current parameter value"
@@ -103,16 +96,22 @@ attributes:
    desc: "Step by which the current value is being increased/decreased when a /value/inc or /value/dec message is received"
    unit:
    default: 1.
- - name: mix/weight
-   type: float
-   desc: "If set to 0.0, the parameter is excluded from taking part in preset mixing."
+ - name: tag
+   type: symbol
+   desc: "Some optional tags"
    unit:
-   default: 1.
+   default: NULL
+ # - name: mix/weight
+ #   type: float
+ #   desc: "If set to 0.0, the parameter is excluded from taking part in preset mixing."
+ #   unit:
+ #   default: 1.
 
 seealso:
+ - jcom.parameterArray
  - jcom.message
  - jcom.return
- - jcom.hub
+ - jcom.model
  - jcom.ramp
  - jcom.dataspace
 
