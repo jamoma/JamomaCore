@@ -51,12 +51,17 @@ TTErr TTDataspace::setInputUnit(TTSymbol& inUnitName)
 		return kTTErrNone;
 	else {
 		err = unitHash->lookup(inUnitName, v);
-		newUnitClassName = v;
-		if (!err && newUnitClassName) {
-			//v.clear();
-			v = inUnitName;
-			err = TTObjectBaseInstantiate(newUnitClassName, &inUnitTT, v);	// this will free a pre-existing unit
-			inUnit = dynamic_cast<TTDataspaceUnitPtr>(inUnitTT);
+		
+        if (!err) {
+            
+            newUnitClassName = v;
+            
+            if (newUnitClassName) {
+                
+                v = inUnitName;
+                err = TTObjectBaseInstantiate(newUnitClassName, &inUnitTT, v);	// this will free a pre-existing unit
+                inUnit = dynamic_cast<TTDataspaceUnitPtr>(inUnitTT);
+            }
 		}
 		return err;
 	}
@@ -79,12 +84,17 @@ TTErr TTDataspace::setOutputUnit(TTSymbol& outUnitName)
 		return kTTErrNone;
 	else {
 		err = unitHash->lookup(outUnitName, v);
-		newUnitClassName = v;
-		if (!err && newUnitClassName) {
-			//v.clear();
-			v = outUnitName;
-			err = TTObjectBaseInstantiate(newUnitClassName, &outUnitTT, v);	// this will free a pre-existing unit
-			outUnit = dynamic_cast<TTDataspaceUnitPtr>(outUnitTT);
+        
+		if (!err) {
+            
+            newUnitClassName = v;
+            
+            if (newUnitClassName) {
+			
+                v = outUnitName;
+                err = TTObjectBaseInstantiate(newUnitClassName, &outUnitTT, v);	// this will free a pre-existing unit
+                outUnit = dynamic_cast<TTDataspaceUnitPtr>(outUnitTT);
+            }
 		}
 		return err;
 	}

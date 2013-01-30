@@ -205,7 +205,7 @@ public:
 	 @param								The list of name.instance part to fill */
 	TTErr listNameInstance(TTList& nameInstanceList)
 	{
-		return getBasePointer()->listNameInstance(nameInstanceList);
+        return getBasePointer()->listNameInstance(nameInstanceList);
 	}
     
 private:

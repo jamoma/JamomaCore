@@ -146,7 +146,7 @@ TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedIte
 	TTSymbol			nameInstance(kTTSymEmpty);
 	
 	addressToFind.listNameInstance(nameInstanceList);
-	
+    
 	for (nameInstanceList.begin(); nameInstanceList.end(); nameInstanceList.next()) {
 		
 		nameInstance = nameInstanceList.current()[0];
@@ -201,7 +201,6 @@ TTErr TTAddressItem::merge(const TTAddressItemPtr anItemToMerge)
 TTErr TTAddressItem::destroy(const TTAddressItemPtr anItemToRemove)
 {
 	TTAddressItemPtr	anItem;
-	//TTErr					err;
 	
 	if (!anItemToRemove)
 		return kTTErrGeneric;
@@ -225,7 +224,7 @@ TTErr TTAddressItem::destroy(const TTAddressItemPtr anItemToRemove)
 TTBoolean TTAddressItem::exist(TTAddressItemPtr anItemToCheck, TTAddressItemPtr *returnedItem)
 {
 	TTAddressItemPtr	anItem;
-	TTBoolean				same = anItemToCheck->getSymbol() == this->symbol;
+	TTBoolean			same = anItemToCheck->getSymbol() == this->symbol;
 
 	if (same) {
 		

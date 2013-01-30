@@ -305,18 +305,20 @@ public:
 	{
 		if (mType == kTypeSymbol)
 			return TTSymbol(mValue.sym);
-		else {
+        else if (mType == kTypeAddress)
+            return TTSymbol(mValue.address);
+		else
 			return kTTSymEmpty;
-		}
 	}
 
 	operator TTAddress() const
 	{
-		if (mType == kTypeSymbol)
+		if (mType == kTypeAddress)
 			return TTAddress(mValue.address);
-		else {
+		else if (mType == kTypeSymbol)
+            return TTAddress(mValue.sym);
+        else
 			return kTTAdrsEmpty;
-		}
 	}
 	
 	operator TTString() const

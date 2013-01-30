@@ -410,17 +410,13 @@ public:
 			TTString	currentString = strList.at(i).c_str();
 			
 			if (currentString.toTTInt32(convertedInt) && !numberAsSymbol) {
-//				data[n].int32 = convertedInt;
-//				type[n] = kTypeInt32;
-				
+                
 				at(n) = int(convertedInt);
 				n++;
 			}
 			else if (currentString.toTTFloat32(convertedFloat) && !numberAsSymbol) {
-//				data[n].float32 = convertedFloat;
-//				type[n] = kTypeFloat32;
-				
-				at(n) = TTFloat32(convertedInt);
+                
+				at(n) = TTFloat32(convertedFloat);
 				n++;
 			}
 			else {
@@ -434,19 +430,12 @@ public:
 						editString += " ";
 						editString += currentString;
 					}
-					
-//					data[n].sym = (TTSymbolBase*) TTSymbol(editString.substr(0, editString.size()-1)).rawpointer();			// don't keep the last "
-//					type[n] = kTypeSymbol;
-					
+
 					at(n) = TTSymbol(editString.substr(0, editString.size()-1));
 					n++;
 
 				}
 				else {
-//					TTSymbol	editSymbol(currentString.c_str());
-					
-//					data[n].sym = (TTSymbolBase*) editSymbol.rawpointer();
-//					type[n] = kTypeSymbol;
 					
 					at(n) = TTSymbol(currentString.c_str());
 					n++;

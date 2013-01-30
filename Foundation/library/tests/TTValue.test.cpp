@@ -632,9 +632,9 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	aString = TTString("sampleRate 1 1.234567");
 	v = aString;
 	v.fromString();
-	v.get(0, aSymbol);
-	v.get(1, i);
-	v.get(2, f);
+	aSymbol = v[0];
+	i = v[1];
+	f = v[2];
 	
 	TTTestAssertion("\"sampleRate 1 1.234567\" string is converted into a 3 datas value",
 					v[0].type() == kTypeSymbol &&

@@ -358,11 +358,13 @@ void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 	
 	// The third set of tests checks item management using TTAddress
 	aNamespace->clear();
+    aNamespace->append(TTAddress("/parent/name"), &f);
 	aNamespace->append(TTAddress("/parent/name.instance"), &f);
+    
 	aSymbol = aNamespace->getSymbol();
 	size = aNamespace->getSize();
 	
-	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"/\" and size is not equal 1",
+	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"\" and size is not equal 1",
 					size == 1 &&
 					aSymbol == kTTSymEmpty,
 					testAssertionCount,
@@ -397,10 +399,10 @@ void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 		empty = f->isEmpty();
 	}
 	
-	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"name\" or have no parent or is empty",
-					!empty &&
-					aSymbol == TTSymbol("name") &&
-					aParent == n &&
+	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"\" or have no parent or is not empty",
+					empty &&
+					aSymbol == kTTSymEmpty &&
+					aParent == n->getItem(TTSymbol("name")) &&
 					aSelection == NO,
 					testAssertionCount,
 					errorCount);
@@ -538,6 +540,13 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance	= testAddress.getInstance();
 	TTSymbol		attribute	= testAddress.getAttribute();
 	TTAddressType	type		= testAddress.getType();
+    
+    TTBoolean t1 = directory == TTSymbol("directory");
+    TTBoolean t2 = parent == TTAddress("/gran/parent");
+    TTBoolean t3 = name == TTSymbol("name");
+    TTBoolean t4 = instance == TTSymbol("instance");
+    TTBoolean t5 = attribute == TTSymbol("attribute");
+    TTBoolean t6 = type == kAddressAbsolute;
 
     TTTestAssertion("TTValue::get : Test2 fails if a TTSymbol contained into a value is not casted into a TTAddress during a get method",
 					directory == TTSymbol("directory") &&
