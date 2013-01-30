@@ -1,12 +1,10 @@
-
+defines:
+  - TT_NO_DSP
+  - TTDATA_NO_RAMPLIB
+  
 sources:
   - source/TTModular.cpp
   - source/TTModularSymbolCache.cpp
-  - source/Jamoma.cpp
-  - source/JamomaObject.cpp
-  - source/JamomaSymbols.cpp
-  - source/jcom.core.cpp
-  - ModularForMax/ModularForMax.cpp
   - PeerObject/TTApplication.cpp
   - PeerObject/TTApplicationManager.cpp
   - PeerObject/TTContainer.cpp
@@ -18,6 +16,7 @@ sources:
   - PeerObject/TTMapper.cpp
   - PeerObject/TTMapperManager.cpp
   - PeerObject/TTMirror.cpp
+  - PeerObject/TTOpmlHandler.cpp
   - PeerObject/TTOutput.cpp
   - PeerObject/TTPreset.cpp
   - PeerObject/TTPresetManager.cpp
@@ -29,33 +28,29 @@ sources:
   - PeerObject/TTViewer.cpp
   - PeerObject/TTXmlHandler.cpp
   - ProtocolLib/Protocol.cpp
-  - RampLib/RampLib.cpp
-  - RampLib/AsyncRamp.cpp
-  - RampLib/ExternalRamp.cpp
-  - RampLib/NoneRamp.cpp
-  - RampLib/QueueRamp.cpp
-  - RampLib/SchedulerRamp.cpp
-  - ../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
+  - FunctionLib/FunctionLib.cpp
   
 includes:
   - includes
-  - ModularForMax
   - PeerObject
   - ProtocolLib
-  - RampLib
+  - FunctionLib
   - ../../../Core/Foundation/library/includes
-  - ../../../Core/DSP/library/includes
-  - ../../../Core/Shared/max  
-  - C74-INCLUDES
   - /usr/include/libxml2
 
 libraries:
   - FOUNDATION
-  - DSP
-  - C74
   - mac /usr/lib/libxml2.dylib
   - win ../../../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
   - win ../../../../Foundation/library/libxml2/win32/lib/libxml2.lib
+#  - portaudio/libportaudio-jamoma.a
 
 frameworks:
   - Carbon
+#  - CoreAudio
+#  - AudioUnit
+#  - AudioToolbox
+
+# This project is not available for most architectures
+
+arch: "i386"
