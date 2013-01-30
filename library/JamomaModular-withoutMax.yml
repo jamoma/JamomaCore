@@ -16,7 +16,6 @@ sources:
   - PeerObject/TTMapper.cpp
   - PeerObject/TTMapperManager.cpp
   - PeerObject/TTMirror.cpp
-  - PeerObject/TTOpmlHandler.cpp
   - PeerObject/TTOutput.cpp
   - PeerObject/TTPreset.cpp
   - PeerObject/TTPresetManager.cpp
@@ -28,13 +27,11 @@ sources:
   - PeerObject/TTViewer.cpp
   - PeerObject/TTXmlHandler.cpp
   - ProtocolLib/Protocol.cpp
-  - FunctionLib/FunctionLib.cpp
   
 includes:
   - includes
   - PeerObject
   - ProtocolLib
-  - FunctionLib
   - ../../../Core/Foundation/library/includes
   - /usr/include/libxml2
 
