@@ -6,7 +6,7 @@ tags: [parameter, control, osc, array]
 brief: Handling array of parameters in the Jamoma modules
 
 desc: >
- "jcom.parameter creates an array of parameters in a Jamoma model."
+ "jcom.parameterArray creates an array of parameters in a Jamoma model."
 
 inputs:
  - name: left
