@@ -208,8 +208,9 @@ TTErr TTCueManager::NamespaceClear(const TTValue& inputValue, TTValue& outputVal
 	TTAddressItemPtr    aNamespace;
 	TTAddress           address = kTTAdrsEmpty;
 	
-	if (inputValue[0].type() == kTypeSymbol)
-		address = inputValue[0];
+    if (inputValue.size())
+        if (inputValue[0].type() == kTypeSymbol)
+            address = inputValue[0];
 	
 	aNamespace = lookupNamespace(mNamespace);
 	if (!aNamespace) aNamespace = mDefaultNamespace;
