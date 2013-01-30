@@ -1328,7 +1328,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTValue			cacheElement, v;
-	TTObjectBasePtr		anObject;
+	TTObjectBasePtr	anObject;
 	TTContainerPtr	aContainer;
 	TTAddress       relativeAddress, relativeDataAddress;
 	TTValue			address;
@@ -1371,7 +1371,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 			aContainer->mReturnValueCallback->notify(v, kTTValNONE);
 			
 			// Notify activityOut observers (about value changes only)
-			v.prepend(TTValue(relativeAddress));
+			v.prepend(relativeAddress);
 			aContainer->setActivityOut(v);
 		}
 	}

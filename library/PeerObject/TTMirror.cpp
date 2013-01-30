@@ -19,7 +19,7 @@ mSetAttributeCallback(NULL),
 mSendMessageCallback(NULL),
 mListenAttributeCallback(NULL)
 {	
-	TTValue				attributeNames, messageNames;
+	TTValue				attributeNames, messageNames, args;
 	TTSymbol			name;
 	TTAttributePtr		anAttribute;
 	TTAttributeFlags	attributeFlags = kTTAttrPassObject;
@@ -45,7 +45,8 @@ mListenAttributeCallback(NULL)
 
 	// instantiate a temp object to copy visible attributes and messages
 	TTObjectBasePtr anObject = NULL;
-	TTObjectBaseInstantiate(mType,  &anObject, kTTValNONE);
+    args.resize(32);
+	TTObjectBaseInstantiate(mType,  &anObject, args);
 	
 	anObject->getAttributeNames(attributeNames);
 	for (TTUInt32 i = 0; i < attributeNames.size(); i++) {

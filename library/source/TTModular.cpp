@@ -25,7 +25,6 @@ void TTModularInit()
 
 #define TO_DEBUG
 #ifdef TO_DEBUG
-    
     /*
 	TTObjectBasePtr test = NULL;
 	TTValue v;
@@ -33,7 +32,6 @@ void TTModularInit()
 	TTObjectBaseInstantiate(TTSymbol("string.test"), &test, kTTValNONE);
 	test->test(v);
      */
-
 #endif // TO_DEBUG
 	
 	if (!TTModularHasInitialized) {

@@ -30,7 +30,7 @@ mExposedAttributes(NULL)
 	
 	mObject = arguments[0];
 	
-	arguments.get(1, mRelativeAddress);
+	mRelativeAddress = arguments[1];
 	
 	aContextList = TTListPtr((TTPtr)arguments[2]);
 	TT_ASSERT("ContextList passed to TTSubscriber is not NULL", aContextList);

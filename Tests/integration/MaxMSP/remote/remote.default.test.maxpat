@@ -266,8 +266,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 25.0, 404.4328, 77.0, 20.0 ],
-									"text" : "route enable"
+									"patching_rect" : [ 25.0, 404.4328, 73.0, 20.0 ],
+									"text" : "route active"
 								}
 
 							}
@@ -365,8 +365,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 25.0, 429.896912, 236.0, 33.0 ],
-									"text" : "jcom.test.assert.equal enable-test @input enable @compareTo 1"
+									"patching_rect" : [ 25.0, 429.896912, 194.0, 33.0 ],
+									"text" : "jcom.test.assert.equal enable-test @input active @compareTo 1"
 								}
 
 							}

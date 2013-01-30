@@ -202,7 +202,7 @@ void nmspc_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 	TTSymbol	output;
-	TTAddress address;
+	TTAddress   address;
 	SymbolPtr	s;
 	TTInt32     i;
 	Atom		a[1], c[2], j[3];

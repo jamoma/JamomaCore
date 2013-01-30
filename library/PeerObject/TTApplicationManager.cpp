@@ -365,7 +365,7 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	
 	whereToDiscover = inputValue[0];
 	
-	*returnedType = TTSymbol((TTPtr)outputValue[0]);
+	returnedType = (TTSymbol*)((TTPtr)outputValue[0]);
 	returnedChildren = TTValuePtr((TTPtr)outputValue[1]);
 	returnedAttributes = TTValuePtr((TTPtr)outputValue[2]);
 	

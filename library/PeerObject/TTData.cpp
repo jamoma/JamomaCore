@@ -311,10 +311,12 @@ TTErr TTData::Command(const TTValue& commandValue, TTValue& outputValue)
 	// 0. Get the command TTDictionnary 
 	// or parse any incoming value into a TTDictionnary
 	///////////////////////////////////////////////////
-	if (commandValue[0].type() == kTypePointer)
-		command = TTDictionaryPtr((TTPtr)commandValue[0]);
-	else 
-		command = TTDataParseCommand(commandValue);
+    if (commandValue.size())
+        if (commandValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)commandValue[0]);
+    
+    if (!command)
+        command = TTDataParseCommand(commandValue);
 	
 	if (!command)
 		return kTTErrGeneric;
@@ -827,6 +829,9 @@ TTBoolean TTData::checkType(const TTValue& value)
 {
 	if (mType == kTTSym_generic || mType == kTTSym_array) return true;
 	
+    if (value.size() == 0)
+        return mType == kTTSym_none;
+    
 	switch (value[0].type()) 
 	{
 		case kTypeNone :		return mType == kTTSym_none;

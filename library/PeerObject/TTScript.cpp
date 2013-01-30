@@ -138,7 +138,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 	TTErr			err;
 	
 	// get the parent address
-	if (inputValue[0].type() == kTypeSymbol)
+	if (inputValue[0].type() == kTypeAddress)
 		inputValue.get(0, parentAddress);
     
     // eventually get a container to go faster
@@ -305,7 +305,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 		return kTTErrGeneric;
 	
 	// It is possible to output the command address relatively to a container address 
-	if (inputValue[0].type() == kTypeSymbol)
+	if (inputValue[0].type() == kTypeAddress)
 		parentAddress = inputValue[0];
 	
 	// output each line of the script

@@ -913,7 +913,7 @@ void jamoma_ttvalue_to_typed_Atom(const TTValue& v, SymbolPtr *msg, AtomCount *a
 				atom_setfloat((*argv)+i, f);
 				*msg = _sym_float;
 			}
-			else if(v[i].type() == kTypeSymbol){
+			else if(v[i].type() == kTypeSymbol || v[i].type() == kTypeAddress){
 				s = v[i];
 				if (s == kTTSymEmpty || s == kTTAdrsEmpty)
 					atom_setsym((*argv)+i, _sym_bang);
@@ -971,7 +971,7 @@ void jamoma_ttvalue_to_Atom(const TTValue& v, AtomCount *argc, AtomPtr *argv)
 			f = v[i];
 			atom_setfloat((*argv)+i, f);
 		}
-		else if (v[i].type() == kTypeSymbol) {
+		else if (v[i].type() == kTypeSymbol || v[i].type() == kTypeAddress) {
 			s = v[i];
             if (s == kTTSymEmpty)
                 atom_setsym((*argv)+i, _sym_bang); // because empty symbol can't be filtered in Max
@@ -991,7 +991,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 	AtomCount	i, start;
 	
 	if ((msg == _sym_bang || msg == _sym_nothing) && argc == 0)
-		v = kTTValNONE;
+		v.clear();
 	else {
 		
 		// add msg to the value
