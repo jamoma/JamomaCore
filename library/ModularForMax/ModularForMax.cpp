@@ -414,7 +414,7 @@ TTErr jamoma_input_create(ObjectPtr x, TTObjectBasePtr *returnedInput)
 TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectBasePtr *returnedInput)
 {
 	TTValue				args;
-	TTObjectBasePtr			signalOutCallback = NULL;
+	TTObjectBasePtr		signalOutCallback = NULL;
 	TTValuePtr			signalOutBaton;
 	TTAudioSignalPtr	audioIn = NULL;
 	TTAudioSignalPtr	audioOut = NULL;
@@ -467,7 +467,7 @@ TTErr jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomP
 TTErr jamoma_output_create(ObjectPtr x, TTObjectBasePtr *returnedOutput)
 {	
 	TTValue			args;
-	TTObjectBasePtr		signalOutCallback = NULL;
+	TTObjectBasePtr	signalOutCallback = NULL;
 	TTValuePtr		signalOutBaton;
 	
 	// prepare arguments
@@ -490,18 +490,18 @@ TTErr jamoma_output_create(ObjectPtr x, TTObjectBasePtr *returnedOutput)
 TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectBasePtr *returnedOutput)
 {
 	TTValue				args;
-	TTObjectBasePtr			signalOutCallback = NULL;
+	TTObjectBasePtr		signalOutCallback = NULL;
 	TTValuePtr			signalOutBaton;
-	TTObjectBasePtr			inputLinkCallback = NULL;
-	TTValuePtr			inputLinkBaton;
+	TTObjectBasePtr     inputLinkCallback = NULL;
+	TTValuePtr          inputLinkBaton;
 	TTAudioSignalPtr	audioIn = NULL;
 	TTAudioSignalPtr	audioOut = NULL;
 	TTAudioSignalPtr	audioTemp = NULL;
 	TTAudioSignalPtr	audioZero = NULL;
-	TTObjectBasePtr			mixUnit = NULL;
-	TTObjectBasePtr			gainUnit = NULL;
-	TTObjectBasePtr			rampMixUnit = NULL;
-	TTObjectBasePtr			rampGainUnit = NULL;
+	TTObjectBasePtr		mixUnit = NULL;
+	TTObjectBasePtr		gainUnit = NULL;
+	TTObjectBasePtr		rampMixUnit = NULL;
+	TTObjectBasePtr		rampGainUnit = NULL;
 	
 	// prepare arguments
 	args.append(TTSymbol("audio"));
@@ -574,7 +574,7 @@ TTErr jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, At
 TTErr jamoma_mapper_create(ObjectPtr x, TTObjectBasePtr *returnedMapper)
 {
 	TTValue			args;
-	TTObjectBasePtr		returnValueCallback;
+	TTObjectBasePtr	returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
