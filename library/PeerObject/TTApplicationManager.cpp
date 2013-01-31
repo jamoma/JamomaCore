@@ -842,7 +842,7 @@ TTNodeDirectoryPtr TTApplicationManagerGetApplicationDirectory(TTSymbol applicat
     
     if (anApplication) {
 		
-		anApplication->getAttributeValue(kTTSym_directory, v);
+		err = anApplication->getAttributeValue(kTTSym_directory, v);
 		
 		if (!err)
 			return TTNodeDirectoryPtr((TTPtr)v[0]);
