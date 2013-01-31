@@ -47,7 +47,3 @@ frameworks:
 #  - CoreAudio
 #  - AudioUnit
 #  - AudioToolbox
-
-# This project is not available for most architectures
-
-arch: "i386"
