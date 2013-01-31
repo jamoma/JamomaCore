@@ -109,10 +109,10 @@ mApplicationObserversMutex(NULL)
 				args = TTValue(aProtocolObject);
 				mProtocols->append(protocolName, args);
 				
-				TTLogDebug("%s protocol loaded", protocolName.c_str());
+				TTLogMessage("%s protocol loaded\n", protocolName.c_str());
 			}
 			else
-				TTLogDebug("%s protocol can't be loaded ", protocolName.c_str());
+				TTLogMessage("%s protocol can't be loaded\n", protocolName.c_str());
 				
 		}
 	}
@@ -832,6 +832,25 @@ TTApplicationPtr TTApplicationManagerGetApplication(TTSymbol applicationName)
 	return NULL;
 }
 
+TTNodeDirectoryPtr TTApplicationManagerGetApplicationDirectory(TTSymbol applicationName)
+{
+    TTValue				v;
+    TTApplicationPtr	anApplication = NULL;
+    TTErr				err;
+    
+    anApplication = TTApplicationManagerGetApplication(applicationName);
+    
+    if (anApplication) {
+		
+		anApplication->getAttributeValue(kTTSym_directory, v);
+		
+		if (!err)
+			return TTNodeDirectoryPtr((TTPtr)v[0]);
+	}
+	
+	return NULL;
+}
+
 TTApplicationPtr TTApplicationManagerGetApplicationFrom(TTAddress anAddress)
 {
 	TTSymbol			applicationName;
@@ -852,7 +871,7 @@ TTApplicationPtr TTApplicationManagerGetApplicationFrom(TTAddress anAddress)
 	return NULL;
 }
 
-TTObjectBasePtr TTApplicationManagerGetProtocol(TTSymbol protocolName)
+ProtocolPtr TTApplicationManagerGetProtocol(TTSymbol protocolName)
 {
 	TTValue		v;
 	ProtocolPtr	aProtocol;
@@ -864,7 +883,7 @@ TTObjectBasePtr TTApplicationManagerGetProtocol(TTSymbol protocolName)
 		
 		if (!err) {
 			aProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
-			return (TTObjectBasePtr)aProtocol;
+			return aProtocol;
 		}
 	}
 	

@@ -28,6 +28,9 @@ typedef Protocol* ProtocolPtr;
 // Macro to retreive any application from an address
 #define getApplicationFrom(anAddress) TTApplicationManagerGetApplicationFrom(anAddress)
 
+// Macro to get an application directory
+#define getApplicationDirectory(applicationName) TTApplicationManagerGetApplicationDirectory(applicationName)
+
 // Macro to get local application name
 #define getLocalApplicationName TTApplicationManagerGetLocalApplicationName()
 
@@ -124,7 +127,7 @@ private:
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbol applicationName);
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTAddress anAddress);
 	
-	friend TTObjectBasePtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
+	friend ProtocolPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
 	friend TTValue TTMODULAR_EXPORT TTApplicationManagerGetApplicationProtocols(TTSymbol applicationName);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
@@ -152,6 +155,12 @@ TTBoolean TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationDebug();
  @return							a TTApplicationPtr */
 TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbol applicationName);
 
+/**	To get an application directory with an application name
+ note : it uses the extern TTModularApplications variable
+ @param	applicationName				..
+ @return							a TTNodeDirectoryPtr */
+TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationDirectory(TTSymbol applicationName);
+
 /**	To get an application from an address
  note : it uses the extern TTModularApplications variable
  @param	anAddress					..
@@ -162,7 +171,7 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTAddre
  note : it uses the extern TTModularApplications variable
  @param	protocolName				..
  @return							a ProtocolPtr */
-TTObjectBasePtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
+ProtocolPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
 
 /**	To get all protocols of an application
  note : it uses the extern TTModularApplications variable

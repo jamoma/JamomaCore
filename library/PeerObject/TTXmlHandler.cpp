@@ -145,7 +145,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	TTUInt8				xType;
 	const xmlChar		*xName = 0;
 	const xmlChar		*xValue = 0;
-	TTObjectBasePtr			aTTObject;
+	TTObjectBasePtr		aTTObject;
 	TTSymbol			lastNodeName;
 	TTValue				v;
 	int					ret;
@@ -240,7 +240,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								// Get the node value
 								xValue = xmlTextReaderValue((xmlTextReaderPtr)mReader);
 								fromXmlChar(xValue, mXmlNodeValue, YES);
-								if (xValue)	xmlFree((void*)xValue);
+								// if (xValue)	xmlFree((void*)xValue);         // to - this create a malloc error during parsing
 								break;
 								
 							default:
