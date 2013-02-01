@@ -8,7 +8,8 @@
   <command address="out/mix">100.000000</command>
   <command address="in/amplitude/active">0</command>
   <command address="in/bypass">0</command>
-  <command address="in/mute">0</command>
+  <command address="in/mute">0</command>    
+  <command address="bands">5</command>   
   <command address="filter.1/frequency">75</command>
   <command address="filter.1/gain">0.</command>
   <command address="filter.1/q">1.3</command>   
