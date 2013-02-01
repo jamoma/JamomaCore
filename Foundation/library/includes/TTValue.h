@@ -24,7 +24,7 @@
 #include "TTSymbolTable.h"
 
 // Regex requires Boost libraries, not available for iOS for the time-being
-#ifndef TT_PLATFORM_IOS
+#ifndef DISABLE_NODELIB
 #include "TTAddress.h"
 #include "TTAddressTable.h"
 #endif

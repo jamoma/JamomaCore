@@ -6,7 +6,29 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23AD3D169D00D0004793F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23AD13169CFF89004793F5 /* Foundation.framework */; };
+		2A23AD4D169D011A004793F5 /* TTFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A776C21515AFEB54003F5555 /* TTFunctionLib.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2A23AD3A169D00D0004793F5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2A23AD13169CFF89004793F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2A23AD17169CFF89004793F5 /* FunctionLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FunctionLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AD18169CFF89004793F5 /* FunctionLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionLibIOS.h; sourceTree = "<group>"; };
+		2A23AD1A169CFF89004793F5 /* FunctionLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunctionLibIOS.m; sourceTree = "<group>"; };
+		2A23AD3C169D00D0004793F5 /* libFunctionLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFunctionLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A776C21015AFE617003F5555 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
 		A776C21215AFE621003F5555 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
 		A776C21315AFE62A003F5555 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
@@ -14,7 +36,52 @@
 		A776C21615AFF051003F5555 /* FunctionLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = FunctionLib.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		2A23AD39169D00D0004793F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AD3D169D00D0004793F5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		2A23AD11169CFF89004793F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD3C169D00D0004793F5 /* libFunctionLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A23AD12169CFF89004793F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD13169CFF89004793F5 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A23AD15169CFF89004793F5 /* FunctionLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD18169CFF89004793F5 /* FunctionLibIOS.h */,
+				2A23AD1A169CFF89004793F5 /* FunctionLibIOS.m */,
+				2A23AD16169CFF89004793F5 /* Supporting Files */,
+			);
+			path = FunctionLibIOS;
+			sourceTree = "<group>";
+		};
+		2A23AD16169CFF89004793F5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD17169CFF89004793F5 /* FunctionLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A776C20015AFE5D7003F5555 = {
 			isa = PBXGroup;
 			children = (
@@ -23,6 +90,9 @@
 				A776C21015AFE617003F5555 /* includes */,
 				A776C21215AFE621003F5555 /* source */,
 				A776C21315AFE62A003F5555 /* tests */,
+				2A23AD15169CFF89004793F5 /* FunctionLibIOS */,
+				2A23AD12169CFF89004793F5 /* Frameworks */,
+				2A23AD11169CFF89004793F5 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -44,6 +114,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2A23AD3B169D00D0004793F5 /* FunctionLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A23AD47169D00D0004793F5 /* Build configuration list for PBXNativeTarget "FunctionLibIOS" */;
+			buildPhases = (
+				2A23AD38169D00D0004793F5 /* Sources */,
+				2A23AD39169D00D0004793F5 /* Frameworks */,
+				2A23AD3A169D00D0004793F5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FunctionLibIOS;
+			productName = FunctionLibIOS;
+			productReference = 2A23AD3C169D00D0004793F5 /* libFunctionLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		A776C20215AFE5D7003F5555 /* Project object */ = {
 			isa = PBXProject;
@@ -59,15 +149,83 @@
 				en,
 			);
 			mainGroup = A776C20015AFE5D7003F5555;
+			productRefGroup = 2A23AD11169CFF89004793F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				A776C20715AFE5D8003F5555 /* FunctionLib */,
+				2A23AD3B169D00D0004793F5 /* FunctionLibIOS */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXSourcesBuildPhase section */
+		2A23AD38169D00D0004793F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AD4D169D011A004793F5 /* TTFunctionLib.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
 /* Begin XCBuildConfiguration section */
+		2A23AD45169D00D0004793F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FunctionLibIOS/FunctionLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/jamoma/includes,
+					"\"$(SRCROOT)/includes\"",
+				);
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2A23AD46169D00D0004793F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FunctionLibIOS/FunctionLibIOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/jamoma/includes,
+					"\"$(SRCROOT)/includes\"",
+				);
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		A776C20815AFE5D8003F5555 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -137,6 +295,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2A23AD47169D00D0004793F5 /* Build configuration list for PBXNativeTarget "FunctionLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A23AD45169D00D0004793F5 /* Debug */,
+				2A23AD46169D00D0004793F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A776C20515AFE5D7003F5555 /* Build configuration list for PBXProject "FunctionLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

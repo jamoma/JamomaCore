@@ -1,10 +1,19 @@
-/*
-	Jamoma DSP Audio Buffer Object 
-	Copyright © 2012, Timothy Place & Nathan Wolek
-	
-	License: This code is licensed under the terms of the "New BSD License"
-	http://creativecommons.org/licenses/BSD/
-*/
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Audio buffer that manages multiple SampleMatrices.
+ * 
+ * @details TODO: put more info here 
+ * 
+ * @see TTSampleMatrix, TTMatrix, TTAudioSignal
+ *  
+ * @authors Timothy Place & Nathan Wolek
+ *
+ * @copyright Copyright © 2012, Timothy Place & Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
 
 #ifndef __TT_BUFFER_H__
 #define __TT_BUFFER_H__
@@ -14,7 +23,6 @@
 
 
 extern TTHashPtr gTTBufferNameMap;	// maps names to TTSampleMatrix instances for TTBuffer
-
 
 /**	TTBuffer is a container object that holds some audio in a chunk of memory.
 	Other objects can then access this buffer to record into it, play back from it,
@@ -30,96 +38,131 @@ class TTDSP_EXPORT TTBuffer : public TTAudioObject {
 	
 protected:
 	
-	TTSymbol				mName;				// The name of the TTSampleMatrix with which this buffer is currently associated
-	TTSampleMatrixPtr		mMatrix;			// The actual TTSampleMatrix
+	TTSymbol				mName;					// The name associated with this buffer
+	TTSampleMatrixPtr		mActiveMatrix;			// The active TTSampleMatrix
+	TTSampleMatrixPtr		mBecomingActiveMatrix;		// TODO: would something like this help direct changes to right place?
+	
+	// next line is causing build problems due to init issues
+	//TTSampleMatrix			mBufferPool[3];		// temporarily an array until I get more used to vectors
+	
+	// internal method used for initializing the TTBuffer and mActiveMatrix for use
+	TTErr init(TTUInt16	channelCount, TTSymbol name);
+
+	// internal method used for disposing of a no-longer used matrix
+	TTErr chuckMatrix(TTSampleMatrixPtr oldMatrix);
+	
+	// internal methods used for prepping mBecomingActiveMatrix, then swapping it out with mActiveMatrix
+	TTErr prepareBecomingActiveMatrix();
+	TTErr promoteBecomingActiveMatrix();
 	
 public:
+	
+	// public method to check out the mActiveMatrix
+	TTErr checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix);
+	
+	// public method to check in TTSampleMatrix. if it is no longer mActiveMatrix, action is taken.
+	TTErr checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix);
 	
 	TTErr getNames(const TTValueRef unusedInput, TTValueRef returnedNames)
 	{
 		return gTTBufferNameMap->getKeys(returnedNames);
 	}
 	
-	
-	// internal method used for disposing of a no-longer used matrix
-	void chuckMatrix(TTSampleMatrixPtr oldMatrix, TTSymbol& oldMatrixName)
-	{
-		if (oldMatrix->getReferenceCount() == 1) // only one of these, it is about to go away, so we'll pop it from the map
-			gTTBufferNameMap->remove(oldMatrixName);
 		
-		TTObjectRelease(TTObjectHandle(&oldMatrix));
-	}
-	
-	
 	TTErr setName(const TTValueRef newName)
 	{
 		TTSymbol			name = kTTSymEmpty;
-		TTSampleMatrixPtr	oldMatrix = mMatrix;
 		TTSymbol			oldName = mName;
-		TTSampleMatrixPtr	newMatrix = NULL;
 		TTValue				returnedValue;
 		TTErr				err = kTTErrNone;
 		
 		newName.get(0, name);
 		
+		// if the name is the same, then do nothing
 		if (name == mName)
 			return kTTErrNone;
+		
+		// if the name was left off, then generate a random value
 		if (name == kTTSymEmpty)
 			name = TTSymbol::random();
 		
+		// see if the name is already in the global buffer name map
 		err = gTTBufferNameMap->lookup(name, returnedValue);
-		if (!err)
-			newMatrix = TTSampleMatrixPtr(TTPtr(returnedValue));
 		
-		if (!newMatrix) {
-			TTObjectInstantiate("samplematrix", (TTObjectPtr*)&newMatrix, kTTValNONE);
-			
-			// TODO: set attributes to match our matrix attrs?
-			
-			gTTBufferNameMap->append(name, TTPtr(newMatrix));
+		// if it is already in use by another TTBuffer
+		if (err == kTTErrNone)
+		{
+			return kTTErrInvalidValue;
+		} else { // if it is not, then we can add it 
+			gTTBufferNameMap->append(name, TTPtr(this));
+			mName = name;
+			return kTTErrNone;
 		}
-		
-		mMatrix = (TTSampleMatrixPtr)TTObjectReference(TTObjectPtr(newMatrix));
-		mName = name;
-		
-		// TODO: Not threadsafe !!!
-		// TODO: double-buffering scheme, e.g. to preserve the integrity of grains in granular synthesis	
-		chuckMatrix(oldMatrix, oldName);
-		
-		return kTTErrNone;
 	}
 	
+	
+	/****************************************************************************************************/
+	// TODO: Some will need to be rewritten as BufferPool implementation is fleshed out
+	
+	/*
+	Set methods could follow this pattern
+		1) TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE)
+		2) mBecomingActiveMatrix.adaptTo(mActiveMatrix)
+		3) mBecomingActiveMatrix->setTheWhatever(TTValue arg1)
+		4) if no error...
+			mBecomingIdle = mActiveMatrix
+			mActiveMatrix = mBecomingActiveMatrix
+		5) if mBecomingIdle->getUserCount() = 0 then delete
+			else mBecomingIdle->setBufferPoolStage(kSM_BecomingIdle)
+	*/
 	
 	// Macros to wrap TTSampleMatrix methods as our own
 	
 	#define TTBUFFER_WRAP_1ARG(methodname) \
-			TTErr methodname (TTValue& arg1) { return mMatrix -> methodname (arg1); }
+			TTErr methodname (TTValue& arg1) { return mActiveMatrix -> methodname (arg1); }
 	#define TTBUFFER_WRAP_k1ARG(methodname) \
-			TTErr methodname (const TTValue& arg1) { return mMatrix -> methodname (arg1); }
+			TTErr methodname (const TTValue& arg1) { return mActiveMatrix -> methodname (arg1); }
+	#define TTBUFFER_WRAP_WITHSPAWN_k1ARG(methodname) \
+			TTErr methodname (const TTValue& arg1) \
+				{ \
+					TTErr err = prepareBecomingActiveMatrix(); \
+					if (!err) \
+						err = mBecomingActiveMatrix -> methodname (arg1); \
+					if (!err) \
+						err = promoteBecomingActiveMatrix(); \
+					return err; \
+				}
 
 	// Methods of the hosted TTSampleMatrix object
 
-	TTBUFFER_WRAP_k1ARG( setNumChannels )
-	TTBUFFER_WRAP_1ARG(  getNumChannels )
+	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setNumChannels )
+	TTBUFFER_WRAP_1ARG( getNumChannels )
 	
-	TTBUFFER_WRAP_k1ARG( setLength )
+	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLength )
 	TTBUFFER_WRAP_1ARG(  getLength )
 	
-	TTBUFFER_WRAP_k1ARG( setLengthInSamples )
+	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLengthInSamples )
 	TTBUFFER_WRAP_1ARG(  getLengthInSamples )
-	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)								{ return mMatrix->lengthInSamples(returnedLengthInSamples); }
+	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)								
+		{ return mActiveMatrix->lengthInSamples(returnedLengthInSamples); }
 
-	TTErr getContents(TTSampleValuePtr& beggining)											{ return mMatrix->getContents(beggining); }
-
-	TTErr	getValueAtIndex(const TTValue& index, TTValue &output)							{ return mMatrix->getValueAtIndex(index, output); }
-	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)		{ return mMatrix->peek(index, channel, value); }
+	/** NOTE: We do not wrap getValueAtIndex, peek, setValueAtIndex, poke and simliar methods.  
+	Objects should work directly with the TTSampleMatrixPtr that they check out for these types of operations.
+	*/
 	
-	TTErr	setValueAtIndex(const TTValue& index, TTValue& unusedOutput)					{ return mMatrix->setValueAtIndex(index, unusedOutput); }
-	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value)	{ return mMatrix->poke(index, channel, value); }
-	
-	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								{ return mMatrix->fill(value, unusedOutput); }
+	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								
+	{ 
+		TTErr err = prepareBecomingActiveMatrix();
+		if (!err)
+			err = mBecomingActiveMatrix -> fill (value,unusedOutput);
+		if (!err)
+			err = promoteBecomingActiveMatrix();
+		return err;
+	}
 
 	TTBUFFER_WRAP_k1ARG( normalize )
+	
+	/****************************************************************************************************/
 
 	
 	/**	Unit testing */
@@ -127,5 +170,6 @@ public:
 
 };
 
+typedef TTBuffer* TTBufferPtr;
 
 #endif // __TT_BUFFER_H__

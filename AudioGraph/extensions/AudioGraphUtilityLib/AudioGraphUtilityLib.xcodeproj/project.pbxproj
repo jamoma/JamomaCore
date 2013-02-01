@@ -6,7 +6,36 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23AE94169D0DA5004793F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23AE93169D0DA5004793F5 /* Foundation.framework */; };
+		2A23AE99169D0DA5004793F5 /* AudioGraphUtilityLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2A23AE98169D0DA5004793F5 /* AudioGraphUtilityLibIOS.h */; };
+		2A23AE9B169D0DA5004793F5 /* AudioGraphUtilityLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AE9A169D0DA5004793F5 /* AudioGraphUtilityLibIOS.m */; };
+		2A23AEA0169D0DE9004793F5 /* TTAudioGraphJoin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E1F5E7164A8FBC0072ECE7 /* TTAudioGraphJoin.cpp */; };
+		2A23AEA1169D0DE9004793F5 /* TTAudioGraphOffset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E1F5E8164A8FBC0072ECE7 /* TTAudioGraphOffset.cpp */; };
+		2A23AEA2169D0DE9004793F5 /* TTAudioGraphPick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E1F5E9164A8FBC0072ECE7 /* TTAudioGraphPick.cpp */; };
+		2A23AEA3169D0DE9004793F5 /* TTAudioGraphSig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E1F5EA164A8FBC0072ECE7 /* TTAudioGraphSig.cpp */; };
+		2A23AEA4169D0DE9004793F5 /* TTAudioGraphSplit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E1F5EB164A8FBC0072ECE7 /* TTAudioGraphSplit.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2A23AE8E169D0DA5004793F5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2A23AE99169D0DA5004793F5 /* AudioGraphUtilityLibIOS.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2A23AE90169D0DA5004793F5 /* libAudioGraphUtilityLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAudioGraphUtilityLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A23AE93169D0DA5004793F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2A23AE97169D0DA5004793F5 /* AudioGraphUtilityLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudioGraphUtilityLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AE98169D0DA5004793F5 /* AudioGraphUtilityLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioGraphUtilityLibIOS.h; sourceTree = "<group>"; };
+		2A23AE9A169D0DA5004793F5 /* AudioGraphUtilityLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioGraphUtilityLibIOS.m; sourceTree = "<group>"; };
 		A7E1F5E2164A8FA70072ECE7 /* TTAudioGraphJoin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphJoin.h; path = includes/TTAudioGraphJoin.h; sourceTree = "<group>"; };
 		A7E1F5E3164A8FA70072ECE7 /* TTAudioGraphOffset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOffset.h; path = includes/TTAudioGraphOffset.h; sourceTree = "<group>"; };
 		A7E1F5E4164A8FA70072ECE7 /* TTAudioGraphPick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphPick.h; path = includes/TTAudioGraphPick.h; sourceTree = "<group>"; };
@@ -19,6 +48,17 @@
 		A7E1F5EB164A8FBC0072ECE7 /* TTAudioGraphSplit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphSplit.cpp; path = source/TTAudioGraphSplit.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		2A23AE8D169D0DA5004793F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AE94169D0DA5004793F5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		2219FD02148594880086DD17 = {
 			isa = PBXGroup;
@@ -26,7 +66,44 @@
 				A7E1F5DE164A8F4F0072ECE7 /* include */,
 				A7E1F5E0164A8F5F0072ECE7 /* source */,
 				A7E1F5E1164A8F680072ECE7 /* tests */,
+				2A23AE95169D0DA5004793F5 /* AudioGraphUtilityLibIOS */,
+				2A23AE92169D0DA5004793F5 /* Frameworks */,
+				2A23AE91169D0DA5004793F5 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		2A23AE91169D0DA5004793F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE90169D0DA5004793F5 /* libAudioGraphUtilityLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A23AE92169D0DA5004793F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE93169D0DA5004793F5 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A23AE95169D0DA5004793F5 /* AudioGraphUtilityLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE98169D0DA5004793F5 /* AudioGraphUtilityLibIOS.h */,
+				2A23AE9A169D0DA5004793F5 /* AudioGraphUtilityLibIOS.m */,
+				2A23AE96169D0DA5004793F5 /* Supporting Files */,
+			);
+			path = AudioGraphUtilityLibIOS;
+			sourceTree = "<group>";
+		};
+		2A23AE96169D0DA5004793F5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AE97169D0DA5004793F5 /* AudioGraphUtilityLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A7E1F5DE164A8F4F0072ECE7 /* include */ = {
@@ -79,6 +156,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2A23AE8F169D0DA5004793F5 /* AudioGraphUtilityLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A23AE9E169D0DA5004793F5 /* Build configuration list for PBXNativeTarget "AudioGraphUtilityLibIOS" */;
+			buildPhases = (
+				2A23AE8C169D0DA5004793F5 /* Sources */,
+				2A23AE8D169D0DA5004793F5 /* Frameworks */,
+				2A23AE8E169D0DA5004793F5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudioGraphUtilityLibIOS;
+			productName = AudioGraphUtilityLibIOS;
+			productReference = 2A23AE90169D0DA5004793F5 /* libAudioGraphUtilityLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		2219FD04148594880086DD17 /* Project object */ = {
 			isa = PBXProject;
@@ -93,13 +190,31 @@
 				en,
 			);
 			mainGroup = 2219FD02148594880086DD17;
+			productRefGroup = 2A23AE91169D0DA5004793F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				2219FD09148594880086DD17 /* AudioGraphUtilityLib */,
+				2A23AE8F169D0DA5004793F5 /* AudioGraphUtilityLibIOS */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2A23AE8C169D0DA5004793F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AE9B169D0DA5004793F5 /* AudioGraphUtilityLibIOS.m in Sources */,
+				2A23AEA0169D0DE9004793F5 /* TTAudioGraphJoin.cpp in Sources */,
+				2A23AEA1169D0DE9004793F5 /* TTAudioGraphOffset.cpp in Sources */,
+				2A23AEA2169D0DE9004793F5 /* TTAudioGraphPick.cpp in Sources */,
+				2A23AEA3169D0DE9004793F5 /* TTAudioGraphSig.cpp in Sources */,
+				2A23AEA4169D0DE9004793F5 /* TTAudioGraphSplit.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		2219FD0A148594880086DD17 /* Debug */ = {
@@ -170,6 +285,57 @@
 			};
 			name = Release;
 		};
+		2A23AE9C169D0DA5004793F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AudioGraphUtilityLibIOS/AudioGraphUtilityLibIOS-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2A23AE9D169D0DA5004793F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AudioGraphUtilityLibIOS/AudioGraphUtilityLibIOS-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -187,6 +353,15 @@
 			buildConfigurations = (
 				2219FD0D148594880086DD17 /* Debug */,
 				2219FD0E148594880086DD17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2A23AE9E169D0DA5004793F5 /* Build configuration list for PBXNativeTarget "AudioGraphUtilityLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A23AE9C169D0DA5004793F5 /* Debug */,
+				2A23AE9D169D0DA5004793F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
