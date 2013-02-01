@@ -58,7 +58,7 @@ end
 forcedCompiler = nil
 if(ARGV.length > 2)
   if(ARGV[2] != "0" && ARGV[2] != "false" && ARGV[2] != false)
-    forcedCompiler = ARGV[2]    
+    forcedCompiler = ARGV[2]
   end
 end
 
@@ -160,6 +160,7 @@ puts "  "
 @svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
 @svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
 @svn_root = "#{libdir}/../../../JamomaUserLibraries/#{@projectName}" if @projectName == "TapTools"
+@svn_root = "#{libdir}/../../Implementations/#{@projectName}" if @projectName == "Max"
 @fail_array = Array.new
 @zerolink = false
 
@@ -210,10 +211,10 @@ if @projectName == "Modular"
     f.close
   end
 
-  #jcom.js_systeminfo   
+  #jcom.js_systeminfo
   file_path = "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.js"
   `cp "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.template.js" "#{file_path}"`
-  
+
   if FileTest.exist?(file_path)
     f = File.open("#{file_path}", "r+")
     str = f.read
@@ -270,7 +271,7 @@ if File.directory? "#{@svn_root}/library"
     end
   end
   ex_total, ex_count = get_count
-  puts ""  
+  puts ""
 end
 
 if File.directory? "#{@svn_root}/extensions"
@@ -298,10 +299,17 @@ if (@distropath == nil && !linux?) # if a custom distropath is defined, don't bu
   puts "Building Max Externals"
   puts
 
+	# The old way
   zero_count
   build_dir("implementations/MaxMSP", configuration, clean, forcedCompiler, nil)
   ex_total, ex_count = get_count
-  puts ""
+
+	# The new way
+  zero_count
+  build_dir("source", configuration, clean, forcedCompiler, nil)
+  ex_total, ex_count = get_count
+
+  puts
 
   ###################################################################
   # HELP FILES

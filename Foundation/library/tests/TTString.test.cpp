@@ -286,6 +286,36 @@ void TTStringTestStream(int& errorCount, int&testAssertionCount)
 	std::cout << "	Passing TTString to stdout: " << hi << " (hooray)" << std::endl;
 }
 
+void TTStringTestParsing(int& errorCount, int&testAssertionCount)
+{
+    TTString    testString1 = "/test";
+    TTString    testString2 = "Test?try";
+    TTString    partA, partB;
+    TTInt32     pos;
+    
+    TTTestAssertion("check a char using [] string operator",
+                    testString1[0] == '/' &&
+                    testString2[0] != '/',
+					testAssertionCount,
+					errorCount);
+
+    pos = testString2.find_first_of('?');
+
+    TTTestAssertion("look for a char using find_first_of method",
+					pos >= 0,
+					testAssertionCount,
+					errorCount);
+	
+    partA = testString2.substr(0, pos);
+    partB = testString2.substr(pos+1, testString2.size() - pos);
+    
+    TTTestAssertion("split a string using substring method",
+                    partA == "Test" &&
+                    partB == "try",
+					testAssertionCount,
+					errorCount);
+}
+
 
 // TODO: Benchmarking
 
@@ -298,6 +328,7 @@ TTErr TTStringTest::test(TTValue& returnedTestInfo)
 	TTStringTestBasic(errorCount, testAssertionCount);
 	TTStringTestNumeric(errorCount, testAssertionCount);
 	TTStringTestStream(errorCount, testAssertionCount);
+    TTStringTestParsing(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

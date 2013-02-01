@@ -104,7 +104,7 @@ public:
 	/** Given an address with alias, return an address with no alias if exists
 	 @param	anAddress				The address with an alias inside to replace.
 	 @return						An error code if there is no alias. */
-	TTErr			replaceAlias(TTAddress anAddress);
+	TTErr			replaceAlias(TTAddress& anAddress);
 	
 	/**	Find TTNodes by address
 	 @param	anAddress				The address you wish to find, possibly including wildcards and instance names/numbers.

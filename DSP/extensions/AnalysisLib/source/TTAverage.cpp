@@ -1,10 +1,18 @@
-/*
- * TTAverage - measuring of aveaged and RMS signal energy 
- * Copyright © 2011, Tim Place, Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspAnalysisLib
+ *
+ * @brief TTAverage - measuring of averaged and RMS signal energy
+ *
+ * @details
+ *
+ * @authors Nils Peters, Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2011, Nils Peters, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAverage.h"
 
@@ -62,7 +70,7 @@ return kTTErrNone;
 }
 
 
-TTErr TTAverage::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
+TTErr TTAverage::updateMaxNumChannels(const TTValue& aNotUsed1, TTValue& aNotUsed2)
 {
 	mAccumulator.resize(maxNumChannels);
 	mBins.resize(maxNumChannels);
@@ -85,12 +93,12 @@ TTErr TTAverage::clear()
 }
 
 
-TTErr TTAverage::setMode(const TTValue& newValue)
+TTErr TTAverage::setMode(const TTValue& aNewMode)
 {
-	if (mMode != newValue){
+	if (mMode != aNewMode){
 		clear();
 		reset();
-		mMode = newValue;
+		mMode = aNewMode;
 	}
 	
 	if (mMode == TT("bipolar"))
@@ -105,26 +113,26 @@ TTErr TTAverage::setMode(const TTValue& newValue)
 	}
 }
 
-TTErr TTAverage::setInterval(const TTValue& newValue)
+TTErr TTAverage::setInterval(const TTValue& aNewInterval)
 {
-	mInterval = newValue; 
+	mInterval = aNewInterval;
 	mIntervalReciprocal = 1.0/mInterval;
 	reset();
 	clear();
 	return kTTErrNone;
 }
 
-TTErr TTAverage::setMaxInterval(const TTValue& newValue)
+TTErr TTAverage::setMaxInterval(const TTValue& aNewMaxInterval)
 {
-	mMaxInterval = newValue; 
+	mMaxInterval = aNewMaxInterval; 
 	
 	return init(mMaxInterval);
 }
 
 
-TTErr TTAverage::updateSampleRate(const TTValue&, TTValue&)
+TTErr TTAverage::updateSampleRate(const TTValue& aNotUsed1, TTValue& aNotUsed2)
 {
-	//TODO: when window length is set with time, we have to recompute the length in samples and resize mBins
+	//TODO: See header file for details
 	return kTTErrNone; 
 }
 
@@ -134,9 +142,10 @@ TTErr TTAverage::updateSampleRate(const TTValue&, TTValue&)
 #endif
 
 
+// Macro that is used to wrap the various processing methods for one channel as methods processing all channels.
 #define TTAVERAGE_WRAP_CALCULATE_METHOD(methodName) \
-TTAudioSignal&		in = inputs->getSignal(0); \
-TTAudioSignal&		out = outputs->getSignal(0); \
+TTAudioSignal&		in = anInputs->getSignal(0); \
+TTAudioSignal&		out = anOutputs->getSignal(0); \
 TTUInt16			vs; \
 TTSampleValue*		inSample; \
 TTSampleValue*		outSample; \
@@ -159,85 +168,85 @@ inSample++; \
 return kTTErrNone;
 
 
-TTErr TTAverage::calculateAbsoluteValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+TTErr TTAverage::calculateAbsoluteValue(const TTFloat64& anInput, TTFloat64& anOutput, TTPtrSizedInt aChannel)
 {
-	TTDelayBufferPtr buffer = &mBins[channel];
-	return calculateAbsoluteValue(x, y, buffer, channel);
+	TTDelayBufferPtr buffer = &mBins[aChannel];
+	return calculateAbsoluteValue(anInput, anOutput, buffer, aChannel);
 }
 
 
-TTErr TTAverage::processAbsoluteAverage(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAverage::processAbsoluteAverage(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs)
 {
 	TTAVERAGE_WRAP_CALCULATE_METHOD(calculateAbsoluteValue);
 
 }
 
-inline TTErr TTAverage::calculateAbsoluteValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer, TTPtrSizedInt channel)
+inline TTErr TTAverage::calculateAbsoluteValue(const TTFloat64& anInput, TTFloat64& anOutput, TTDelayBufferPtr aDelayBuffer, TTPtrSizedInt aChannel)
 {
-	mAccumulator[channel] -= *buffer->mReadPointer++; 
-	mAccumulator[channel] += *buffer->mWritePointer++ = fabs(x); 
-	y = mAccumulator[channel] * mIntervalReciprocal;
+	mAccumulator[aChannel] -= *aDelayBuffer->mReadPointer++;
+	mAccumulator[aChannel] += *aDelayBuffer->mWritePointer++ = fabs(anInput);
+	anOutput = mAccumulator[aChannel] * mIntervalReciprocal;
 	
 	// wrap the pointers in the buffer, if needed
-	if (buffer->mWritePointer > buffer->tail())
-		buffer->mWritePointer = buffer->head();
-	if (buffer->mReadPointer > buffer->tail())
-		buffer->mReadPointer = buffer->head();
+	if (aDelayBuffer->mWritePointer > aDelayBuffer->tail())
+		aDelayBuffer->mWritePointer = aDelayBuffer->head();
+	if (aDelayBuffer->mReadPointer > aDelayBuffer->tail())
+		aDelayBuffer->mReadPointer = aDelayBuffer->head();
 	
 	
 	return kTTErrNone;
 }
 
-TTErr TTAverage::calculateBipolarValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+TTErr TTAverage::calculateBipolarValue(const TTFloat64& anInput, TTFloat64& anOutput, TTPtrSizedInt aChannel)
 {
-	TTDelayBufferPtr buffer = &mBins[channel];
-	return calculateBipolarValue(x, y, buffer, channel);
+	TTDelayBufferPtr buffer = &mBins[aChannel];
+	return calculateBipolarValue(anInput, anOutput, buffer, aChannel);
 }
 
-TTErr TTAverage::processBipolarAverage(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAverage::processBipolarAverage(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs)
 {
 	TTAVERAGE_WRAP_CALCULATE_METHOD(calculateBipolarValue);
 }
 
-inline TTErr TTAverage::calculateBipolarValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer, TTPtrSizedInt channel)
+inline TTErr TTAverage::calculateBipolarValue(const TTFloat64& anInput, TTFloat64& anOutput, TTDelayBufferPtr aDelayBuffer, TTPtrSizedInt aChannel)
 {
-	mAccumulator[channel] -= *buffer->mReadPointer++; 
-	mAccumulator[channel] += *buffer->mWritePointer++ = x;	
-	y = mAccumulator[channel] * mIntervalReciprocal;
+	mAccumulator[aChannel] -= *aDelayBuffer->mReadPointer++;
+	mAccumulator[aChannel] += *aDelayBuffer->mWritePointer++ = anInput;
+	anOutput = mAccumulator[aChannel] * mIntervalReciprocal;
 	
 	// wrap the pointers in the buffer, if needed
-	if (buffer->mWritePointer > buffer->tail())
-		buffer->mWritePointer = buffer->head();
-	if (buffer->mReadPointer > buffer->tail())
-		buffer->mReadPointer = buffer->head();
+	if (aDelayBuffer->mWritePointer > aDelayBuffer->tail())
+		aDelayBuffer->mWritePointer = aDelayBuffer->head();
+	if (aDelayBuffer->mReadPointer > aDelayBuffer->tail())
+		aDelayBuffer->mReadPointer = aDelayBuffer->head();
 	
 	return kTTErrNone;
 }
 
 
-TTErr TTAverage::calculateRmsValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
+TTErr TTAverage::calculateRmsValue(const TTFloat64& anInput, TTFloat64& anOutput, TTPtrSizedInt aChannel)
 {
-	TTDelayBufferPtr buffer = &mBins[channel];
-	return calculateRmsValue(x, y, buffer, channel);
+	TTDelayBufferPtr buffer = &mBins[aChannel];
+	return calculateRmsValue(anInput, anOutput, buffer, aChannel);
 }
 
-TTErr TTAverage::processRmsAverage(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTAverage::processRmsAverage(TTAudioSignalArrayPtr anInputs, TTAudioSignalArrayPtr anOutputs)
 {
 	TTAVERAGE_WRAP_CALCULATE_METHOD(calculateRmsValue);
 
 }
 
-inline TTErr TTAverage::calculateRmsValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer, TTPtrSizedInt channel)
+inline TTErr TTAverage::calculateRmsValue(const TTFloat64& anInput, TTFloat64& anOutput, TTDelayBufferPtr aDelayBuffer, TTPtrSizedInt aChannel)
 {
-	mAccumulator[channel] -= *buffer->mReadPointer++; 
-	mAccumulator[channel] += *buffer->mWritePointer++ = x*x;
-	y = sqrt(mAccumulator[channel] * mIntervalReciprocal);
+	mAccumulator[aChannel] -= *aDelayBuffer->mReadPointer++;
+	mAccumulator[aChannel] += *aDelayBuffer->mWritePointer++ = anInput*anInput;
+	anOutput = sqrt(mAccumulator[aChannel] * mIntervalReciprocal);
 	
 	// wrap the pointers in the buffer, if needed
-	if (buffer->mWritePointer > buffer->tail())
-		buffer->mWritePointer = buffer->head();
-	if (buffer->mReadPointer > buffer->tail())
-		buffer->mReadPointer = buffer->head();
+	if (aDelayBuffer->mWritePointer > aDelayBuffer->tail())
+		aDelayBuffer->mWritePointer = aDelayBuffer->head();
+	if (aDelayBuffer->mReadPointer > aDelayBuffer->tail())
+		aDelayBuffer->mReadPointer = aDelayBuffer->head();
 		
 	return kTTErrNone;
 }

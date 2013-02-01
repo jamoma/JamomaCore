@@ -50,7 +50,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 29.877563, 302.5, 434.0, 29.0 ],
-					"text" : ";\rmax launchbrowser https://github.com/Nilson/ViMiC-and-friends/zipball/v0.5.6b6" 
+					"text" : ";\rmax launchbrowser https://github.com/Nilson/ViMiC-and-friends/archive/v0.5.7.RC2.zip" 
 				}
 
 			}

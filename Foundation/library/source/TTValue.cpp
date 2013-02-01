@@ -1,10 +1,18 @@
-/* 
- * TTBlue Class for representing Values
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationLibrary
+ *
+ * @brief Jamoma Foundation class for representing values
+ *
+ * @details
+ *
+ * @authors Tim Place, Théo de la Hogue, Nathan Wolek, Julien Rabin, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTValue.h"
 #include "TTSymbolTable.h"

@@ -125,7 +125,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "audio.connect", "" ],
 									"patching_rect" : [ 42.0, 115.0, 216.0, 31.0 ],
-									"text" : "jcom.wavetable≈ @waveform sine @interpolation linear @frequency 5000."
+									"text" : "--jcom.wavetable≈ @waveform sine @interpolation linear @frequency 5000."
 								}
 
 							}
@@ -822,7 +822,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "audio.connect", "" ],
 					"patching_rect" : [ 149.0, 132.0, 216.0, 31.0 ],
-					"text" : "jcom.wavetable≈ @waveform sine @interpolation linear @frequency 5000."
+					"text" : "--jcom.wavetable≈ @waveform sine @interpolation linear @frequency 5000."
 				}
 
 			}

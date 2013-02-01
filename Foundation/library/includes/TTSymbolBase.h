@@ -73,6 +73,11 @@ public:
 		return mSymbolId;
 	}
 	
+    /**	Return this symboltable's unique id. */
+	/*const*/ TTUInt32 getSymbolTableId() const
+	{
+		return mSymbolTableId;
+	}
 	
 	/** Compare two symbols for equality. */
 	inline friend bool operator == (const TTSymbolBase& symbol1, const TTSymbolBase& symbol2)
