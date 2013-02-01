@@ -6,6 +6,28 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2A23AD02169CFF23004793F5 /* TTAverage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F19FF614673F8A002CF320 /* TTAverage.cpp */; };
+		2A23AD03169CFF23004793F5 /* TTZerocross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F19FF714673F8A002CF320 /* TTZerocross.cpp */; };
+		2A23AD04169CFF23004793F5 /* TTAverage.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F19FF914673F8A002CF320 /* TTAverage.test.cpp */; };
+		2AD78826169CF87300604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD78825169CF87300604D7C /* Foundation.framework */; };
+		2AD7882B169CF87300604D7C /* AnalysisLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AD7882A169CF87300604D7C /* AnalysisLibIOS.h */; };
+		2AD7882D169CF87300604D7C /* AnalysisLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7882C169CF87300604D7C /* AnalysisLibIOS.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2AD78820169CF87300604D7C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2AD7882B169CF87300604D7C /* AnalysisLibIOS.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		22F19FF114673F8A002CF320 /* AnalysisLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AnalysisLib.cpp; sourceTree = "<group>"; };
 		22F19FF314673F8A002CF320 /* TTAverage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAverage.h; sourceTree = "<group>"; };
@@ -13,16 +35,39 @@
 		22F19FF614673F8A002CF320 /* TTAverage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTAverage.cpp; sourceTree = "<group>"; };
 		22F19FF714673F8A002CF320 /* TTZerocross.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTZerocross.cpp; sourceTree = "<group>"; };
 		22F19FF914673F8A002CF320 /* TTAverage.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTAverage.test.cpp; sourceTree = "<group>"; };
+		2AD78818169CF7FE00604D7C /* AnalysisLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AnalysisLibIOS.h; path = AnalysisLibIOS/AnalysisLibIOS.h; sourceTree = "<group>"; };
+		2AD78819169CF7FE00604D7C /* AnalysisLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AnalysisLibIOS.m; path = AnalysisLibIOS/AnalysisLibIOS.m; sourceTree = "<group>"; };
+		2AD7881B169CF80C00604D7C /* AnalysisLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AnalysisLibIOS-Prefix.pch"; path = "AnalysisLibIOS/AnalysisLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2AD78822169CF87300604D7C /* libAnalysisLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAnalysisLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD78825169CF87300604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2AD78829169CF87300604D7C /* AnalysisLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnalysisLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2AD7882A169CF87300604D7C /* AnalysisLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalysisLibIOS.h; sourceTree = "<group>"; };
+		2AD7882C169CF87300604D7C /* AnalysisLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalysisLibIOS.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2AD7881F169CF87300604D7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD78826169CF87300604D7C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		22F19FDD14673EEA002CF320 = {
 			isa = PBXGroup;
 			children = (
+				2AD7881D169CF85A00604D7C /* AnalysisLibIOS */,
 				22F19FF114673F8A002CF320 /* AnalysisLib.cpp */,
 				22F19FF214673F8A002CF320 /* includes */,
 				22F19FF514673F8A002CF320 /* source */,
 				22F19FF814673F8A002CF320 /* tests */,
+				2AD78827169CF87300604D7C /* AnalysisLibIOS */,
+				2AD78824169CF87300604D7C /* Frameworks */,
+				2AD78823169CF87300604D7C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -52,6 +97,50 @@
 			path = tests;
 			sourceTree = "<group>";
 		};
+		2AD7881D169CF85A00604D7C /* AnalysisLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78818169CF7FE00604D7C /* AnalysisLibIOS.h */,
+				2AD78819169CF7FE00604D7C /* AnalysisLibIOS.m */,
+				2AD7881B169CF80C00604D7C /* AnalysisLibIOS-Prefix.pch */,
+			);
+			name = AnalysisLibIOS;
+			sourceTree = "<group>";
+		};
+		2AD78823169CF87300604D7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78822169CF87300604D7C /* libAnalysisLibIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD78824169CF87300604D7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78825169CF87300604D7C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2AD78827169CF87300604D7C /* AnalysisLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7882A169CF87300604D7C /* AnalysisLibIOS.h */,
+				2AD7882C169CF87300604D7C /* AnalysisLibIOS.m */,
+				2AD78828169CF87300604D7C /* Supporting Files */,
+			);
+			path = AnalysisLibIOS;
+			sourceTree = "<group>";
+		};
+		2AD78828169CF87300604D7C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78829169CF87300604D7C /* AnalysisLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
@@ -71,6 +160,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2AD78821169CF87300604D7C /* AnalysisLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD7882E169CF87300604D7C /* Build configuration list for PBXNativeTarget "AnalysisLibIOS" */;
+			buildPhases = (
+				2AD7881E169CF87300604D7C /* Sources */,
+				2AD7881F169CF87300604D7C /* Frameworks */,
+				2AD78820169CF87300604D7C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AnalysisLibIOS;
+			productName = AnalysisLibIOS;
+			productReference = 2AD78822169CF87300604D7C /* libAnalysisLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		22F19FDF14673EEA002CF320 /* Project object */ = {
 			isa = PBXProject;
@@ -85,13 +194,29 @@
 				en,
 			);
 			mainGroup = 22F19FDD14673EEA002CF320;
+			productRefGroup = 2AD78823169CF87300604D7C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				22F19FE414673EEA002CF320 /* AnalysisLib */,
+				2AD78821169CF87300604D7C /* AnalysisLibIOS */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AD7881E169CF87300604D7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD7882D169CF87300604D7C /* AnalysisLibIOS.m in Sources */,
+				2A23AD02169CFF23004793F5 /* TTAverage.cpp in Sources */,
+				2A23AD03169CFF23004793F5 /* TTZerocross.cpp in Sources */,
+				2A23AD04169CFF23004793F5 /* TTAverage.test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		22F19FE514673EEA002CF320 /* Debug */ = {
@@ -118,6 +243,70 @@
 			};
 			name = Release;
 		};
+		2AD7882F169CF87300604D7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AnalysisLibIOS/AnalysisLibIOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2AD78830169CF87300604D7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AnalysisLibIOS/AnalysisLibIOS-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -135,6 +324,15 @@
 			buildConfigurations = (
 				22F19FE814673EEA002CF320 /* Debug */,
 				22F19FE914673EEA002CF320 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2AD7882E169CF87300604D7C /* Build configuration list for PBXNativeTarget "AnalysisLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD7882F169CF87300604D7C /* Debug */,
+				2AD78830169CF87300604D7C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

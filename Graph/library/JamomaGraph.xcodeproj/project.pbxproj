@@ -6,6 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2AD7884B169CFB3700604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD7884A169CFB3700604D7C /* Foundation.framework */; };
+		2AD78859169CFB6900604D7C /* GraphIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD78858169CFB6800604D7C /* GraphIOS.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2AD78845169CFB3700604D7C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		229B5864149E3A5E0093389A /* TTGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTGraph.cpp; path = source/TTGraph.cpp; sourceTree = "<group>"; };
 		229B5865149E3A5E0093389A /* TTGraphDescription.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTGraphDescription.cpp; path = source/TTGraphDescription.cpp; sourceTree = "<group>"; };
@@ -26,7 +43,23 @@
 		229B5875149E3A680093389A /* TTGraphOutlet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTGraphOutlet.h; path = includes/TTGraphOutlet.h; sourceTree = "<group>"; };
 		229B5876149E3A680093389A /* TTGraphOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTGraphOutput.h; path = includes/TTGraphOutput.h; sourceTree = "<group>"; };
 		229B5877149E3A680093389A /* TTGraphSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTGraphSource.h; path = includes/TTGraphSource.h; sourceTree = "<group>"; };
+		2AD78847169CFB3700604D7C /* libGraphIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGraphIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD7884A169CFB3700604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2AD78857169CFB6800604D7C /* GraphIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphIOS.h; path = GraphiOS/GraphIOS.h; sourceTree = SOURCE_ROOT; };
+		2AD78858169CFB6800604D7C /* GraphIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphIOS.m; path = GraphiOS/GraphIOS.m; sourceTree = SOURCE_ROOT; };
+		2AD7885A169CFB7300604D7C /* GraphIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GraphIOS-Prefix.pch"; path = "GraphiOS/GraphIOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2AD78844169CFB3700604D7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD7884B169CFB3700604D7C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		229B5854149E39C10093389A = {
@@ -51,7 +84,44 @@
 				229B586A149E3A5E0093389A /* TTGraphOutlet.cpp */,
 				229B586B149E3A5E0093389A /* TTGraphOutput.cpp */,
 				229B586C149E3A5E0093389A /* TTGraphSource.cpp */,
+				2AD7884C169CFB3700604D7C /* GraphIOS */,
+				2AD78849169CFB3700604D7C /* Frameworks */,
+				2AD78848169CFB3700604D7C /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		2AD78848169CFB3700604D7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78847169CFB3700604D7C /* libGraphIOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD78849169CFB3700604D7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7884A169CFB3700604D7C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2AD7884C169CFB3700604D7C /* GraphIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2AD78857169CFB6800604D7C /* GraphIOS.h */,
+				2AD78858169CFB6800604D7C /* GraphIOS.m */,
+				2AD7884D169CFB3700604D7C /* Supporting Files */,
+			);
+			path = GraphIOS;
+			sourceTree = "<group>";
+		};
+		2AD7884D169CFB3700604D7C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7885A169CFB7300604D7C /* GraphIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -73,6 +143,26 @@
 		};
 /* End PBXLegacyTarget section */
 
+/* Begin PBXNativeTarget section */
+		2AD78846169CFB3700604D7C /* GraphIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AD78855169CFB3700604D7C /* Build configuration list for PBXNativeTarget "GraphIOS" */;
+			buildPhases = (
+				2AD78843169CFB3700604D7C /* Sources */,
+				2AD78844169CFB3700604D7C /* Frameworks */,
+				2AD78845169CFB3700604D7C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GraphIOS;
+			productName = GraphIOS;
+			productReference = 2AD78847169CFB3700604D7C /* libGraphIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		229B5856149E39C10093389A /* Project object */ = {
 			isa = PBXProject;
@@ -87,13 +177,26 @@
 				en,
 			);
 			mainGroup = 229B5854149E39C10093389A;
+			productRefGroup = 2AD78848169CFB3700604D7C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				229B585B149E39C10093389A /* JamomaGraph */,
+				2AD78846169CFB3700604D7C /* GraphIOS */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AD78843169CFB3700604D7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD78859169CFB6900604D7C /* GraphIOS.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		229B585C149E39C10093389A /* Debug */ = {
@@ -162,6 +265,55 @@
 			};
 			name = Release;
 		};
+		2AD78853169CFB3700604D7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GraphIOS/GraphIOS-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		2AD78854169CFB3700604D7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GraphIOS/GraphIOS-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -179,6 +331,15 @@
 			buildConfigurations = (
 				229B585F149E39C10093389A /* Debug */,
 				229B5860149E39C10093389A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2AD78855169CFB3700604D7C /* Build configuration list for PBXNativeTarget "GraphIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AD78853169CFB3700604D7C /* Debug */,
+				2AD78854169CFB3700604D7C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

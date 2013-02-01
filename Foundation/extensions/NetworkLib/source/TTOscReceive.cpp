@@ -51,6 +51,6 @@ TTErr TTOscReceive::setPort(const TTValue& newValue)
 
 TTErr TTOscReceive::oscSocketReceive(const TTValue& message, TTValue& unusedOutput)
 {
-	this->sendNotification(TT("receivedMessage"), message);
+	this->sendNotification(TTSymbol("receivedMessage"), message);
 	return kTTErrNone;
 }

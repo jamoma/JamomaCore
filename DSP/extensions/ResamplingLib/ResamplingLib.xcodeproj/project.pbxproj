@@ -14,8 +14,27 @@
 		220DC940122588CE00272071 /* TTStaircase.h in Headers */ = {isa = PBXBuildFile; fileRef = 220DC93C122588CE00272071 /* TTStaircase.h */; };
 		22FA622E11E21BE20097F43B /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA622D11E21BE20097F43B /* JamomaDSP.dylib */; };
 		22FA623311E21BE60097F43B /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA623211E21BE60097F43B /* JamomaFoundation.dylib */; };
+		2A23AD98169D0276004793F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23AD97169D0276004793F5 /* Foundation.framework */; };
+		2A23AD9D169D0276004793F5 /* ResamplingLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2A23AD9C169D0276004793F5 /* ResamplingLibIOS.h */; };
+		2A23AD9F169D0276004793F5 /* ResamplingLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AD9E169D0276004793F5 /* ResamplingLibIOS.m */; };
+		2A23ADA4169D02B5004793F5 /* ResamplingLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220DC93A122588CE00272071 /* ResamplingLib.cpp */; };
+		2A23ADA5169D02B5004793F5 /* TTResample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220DC8931225618000272071 /* TTResample.cpp */; };
+		2A23ADA6169D02B5004793F5 /* TTStaircase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220DC93B122588CE00272071 /* TTStaircase.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2A23AD93169D0276004793F5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2A23AD9D169D0276004793F5 /* ResamplingLibIOS.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -27,10 +46,23 @@
 		22FA622D11E21BE20097F43B /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../library/build/UninstalledProducts/JamomaDSP.dylib; sourceTree = SOURCE_ROOT; };
 		22FA623211E21BE60097F43B /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib; sourceTree = SOURCE_ROOT; };
 		22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSPExtensions.xcconfig; path = ../JamomaDSPExtensions.xcconfig; sourceTree = SOURCE_ROOT; };
-		D2AAC09D05546B4700DB518D /* ResamplingLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = ResamplingLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A23AD95169D0276004793F5 /* libResamplingLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libResamplingLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A23AD97169D0276004793F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2A23AD9B169D0276004793F5 /* ResamplingLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ResamplingLibIOS-Prefix.pch"; sourceTree = "<group>"; };
+		2A23AD9C169D0276004793F5 /* ResamplingLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResamplingLibIOS.h; sourceTree = "<group>"; };
+		2A23AD9E169D0276004793F5 /* ResamplingLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResamplingLibIOS.m; sourceTree = "<group>"; };
+		D2AAC09D05546B4700DB518D /* .dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = .dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2A23AD92169D0276004793F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AD98169D0276004793F5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC09B05546B4700DB518D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -47,7 +79,8 @@
 		034768DDFF38A45A11DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* ResamplingLib.ttdylib */,
+				D2AAC09D05546B4700DB518D /* .dylib */,
+				2A23AD95169D0276004793F5 /* libResamplingLibIOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,6 +91,8 @@
 				22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */,
 				08FB77ACFE841707C02AAC07 /* Source */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				2A23AD99169D0276004793F5 /* ResamplingLibIOS */,
+				2A23AD96169D0276004793F5 /* Frameworks */,
 				034768DDFF38A45A11DB9C8B /* Products */,
 			);
 			name = TTFunctionLib;
@@ -85,6 +120,32 @@
 			name = Source;
 			sourceTree = "<group>";
 		};
+		2A23AD96169D0276004793F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD97169D0276004793F5 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A23AD99169D0276004793F5 /* ResamplingLibIOS */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD9C169D0276004793F5 /* ResamplingLibIOS.h */,
+				2A23AD9E169D0276004793F5 /* ResamplingLibIOS.m */,
+				2A23AD9A169D0276004793F5 /* Supporting Files */,
+			);
+			path = ResamplingLibIOS;
+			sourceTree = "<group>";
+		};
+		2A23AD9A169D0276004793F5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A23AD9B169D0276004793F5 /* ResamplingLibIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -100,6 +161,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		2A23AD94169D0276004793F5 /* ResamplingLibIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A23ADA2169D0276004793F5 /* Build configuration list for PBXNativeTarget "ResamplingLibIOS" */;
+			buildPhases = (
+				2A23AD91169D0276004793F5 /* Sources */,
+				2A23AD92169D0276004793F5 /* Frameworks */,
+				2A23AD93169D0276004793F5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ResamplingLibIOS;
+			productName = ResamplingLibIOS;
+			productReference = 2A23AD95169D0276004793F5 /* libResamplingLibIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		D2AAC09C05546B4700DB518D /* JamomaExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "JamomaExtension" */;
@@ -115,7 +193,7 @@
 			);
 			name = JamomaExtension;
 			productName = TTFunctionLib;
-			productReference = D2AAC09D05546B4700DB518D /* ResamplingLib.ttdylib */;
+			productReference = D2AAC09D05546B4700DB518D /* .dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -139,6 +217,7 @@
 			projectRoot = "";
 			targets = (
 				D2AAC09C05546B4700DB518D /* JamomaExtension */,
+				2A23AD94169D0276004793F5 /* ResamplingLibIOS */,
 			);
 		};
 /* End PBXProject section */
@@ -160,6 +239,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2A23AD91169D0276004793F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A23AD9F169D0276004793F5 /* ResamplingLibIOS.m in Sources */,
+				2A23ADA4169D02B5004793F5 /* ResamplingLib.cpp in Sources */,
+				2A23ADA5169D02B5004793F5 /* TTResample.cpp in Sources */,
+				2A23ADA6169D02B5004793F5 /* TTStaircase.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D2AAC09A05546B4700DB518D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,6 +328,78 @@
 			};
 			name = Deployment;
 		};
+		2A23ADA0169D0276004793F5 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ResamplingLibIOS/ResamplingLibIOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Development;
+		};
+		2A23ADA1169D0276004793F5 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ResamplingLibIOS/ResamplingLibIOS-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
+				INSTALL_PATH = /usr/local/jamoma/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Deployment;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -255,6 +417,15 @@
 			buildConfigurations = (
 				1DEB916508733D950010E9CD /* Development */,
 				1DEB916608733D950010E9CD /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Deployment;
+		};
+		2A23ADA2169D0276004793F5 /* Build configuration list for PBXNativeTarget "ResamplingLibIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A23ADA0169D0276004793F5 /* Development */,
+				2A23ADA1169D0276004793F5 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
