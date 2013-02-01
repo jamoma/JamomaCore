@@ -36,11 +36,11 @@
 			isa = PBXGroup;
 			children = (
 				A726F33416BC586900590514 /* TTSpatBase.h */,
-				A726F33516BC586900590514 /* TTSpatBaseRenderer.h */,
-				A726F33916BC586900590514 /* TTSpatEntity.h */,
 				A726F33E16BC588200590514 /* TTSpatBase.cpp */,
-				A726F33F16BC588200590514 /* TTSpatBaseRenderer.cpp */,
+				A726F33916BC586900590514 /* TTSpatEntity.h */,
 				A726F34316BC588200590514 /* TTSpatEntity.cpp */,
+				A726F33516BC586900590514 /* TTSpatBaseRenderer.h */,
+				A726F33F16BC588200590514 /* TTSpatBaseRenderer.cpp */,
 			);
 			name = "Base Classes";
 			sourceTree = "<group>";
@@ -49,11 +49,12 @@
 			isa = PBXGroup;
 			children = (
 				A726F33616BC586900590514 /* TTSpatDBAP.h */,
-				A726F33716BC586900590514 /* TTSpatDBAPRenderer.h */,
-				A726F33816BC586900590514 /* TTSpatDBAPSource.h */,
 				A726F34016BC588200590514 /* TTSpatDBAP.cpp */,
-				A726F34116BC588200590514 /* TTSpatDBAPRenderer.cpp */,
+				A726F33816BC586900590514 /* TTSpatDBAPSource.h */,
 				A726F34216BC588200590514 /* TTSpatDBAPSource.cpp */,
+				A726F33716BC586900590514 /* TTSpatDBAPRenderer.h */,
+				A726F34116BC588200590514 /* TTSpatDBAPRenderer.cpp */,
+				A726F34716BC589D00590514 /* TTSpatDBAP.test.cpp */,
 			);
 			name = "DBAP Unit";
 			sourceTree = "<group>";
@@ -62,9 +63,10 @@
 			isa = PBXGroup;
 			children = (
 				A726F33A16BC586900590514 /* TTSpatSnap.h */,
-				A726F33B16BC586900590514 /* TTSpatSnapRenderer.h */,
 				A726F34416BC588200590514 /* TTSpatSnap.cpp */,
+				A726F33B16BC586900590514 /* TTSpatSnapRenderer.h */,
 				A726F34516BC588200590514 /* TTSpatSnapRenderer.cpp */,
+				A726F34816BC589D00590514 /* TTSpatSnap.test.cpp */,
 			);
 			name = "Snap Unit";
 			sourceTree = "<group>";
@@ -84,20 +86,10 @@
 				A726F34E16BC58D100590514 /* SpatLib.yml */,
 				A726F35116BC58E100590514 /* TTSpatLib.cpp */,
 				22E6FD1316BC5A4E007C1694 /* Base Classes */,
+				22E6FD1616BC5ABD007C1694 /* Wrapper Class */,
 				22E6FD1516BC5A76007C1694 /* Snap Unit */,
 				22E6FD1416BC5A6D007C1694 /* DBAP Unit */,
-				22E6FD1616BC5ABD007C1694 /* Wrapper Class */,
-				A726F34916BC58A300590514 /* tests */,
 			);
-			sourceTree = "<group>";
-		};
-		A726F34916BC58A300590514 /* tests */ = {
-			isa = PBXGroup;
-			children = (
-				A726F34716BC589D00590514 /* TTSpatDBAP.test.cpp */,
-				A726F34816BC589D00590514 /* TTSpatSnap.test.cpp */,
-			);
-			name = tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
