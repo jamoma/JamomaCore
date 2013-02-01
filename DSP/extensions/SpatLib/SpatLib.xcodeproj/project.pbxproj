@@ -25,9 +25,6 @@
 		A726F34516BC588200590514 /* TTSpatSnapRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatSnapRenderer.cpp; path = source/TTSpatSnapRenderer.cpp; sourceTree = "<group>"; };
 		A726F34716BC589D00590514 /* TTSpatDBAP.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatDBAP.test.cpp; path = tests/TTSpatDBAP.test.cpp; sourceTree = "<group>"; };
 		A726F34816BC589D00590514 /* TTSpatSnap.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatSnap.test.cpp; path = tests/TTSpatSnap.test.cpp; sourceTree = "<group>"; };
-		A726F34A16BC58B700590514 /* SpatLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SpatLibIOS.h; path = SpatLibIOS/SpatLibIOS.h; sourceTree = "<group>"; };
-		A726F34B16BC58B700590514 /* SpatLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SpatLibIOS-Prefix.pch"; path = "SpatLibIOS/SpatLibIOS-Prefix.pch"; sourceTree = "<group>"; };
-		A726F34C16BC58B700590514 /* SpatLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SpatLibIOS.m; path = SpatLibIOS/SpatLibIOS.m; sourceTree = "<group>"; };
 		A726F34E16BC58D100590514 /* SpatLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = SpatLib.yml; sourceTree = "<group>"; };
 		A726F34F16BC58E100590514 /* TTSpat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSpat.h; sourceTree = "<group>"; };
 		A726F35016BC58E100590514 /* TTSpat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTSpat.cpp; sourceTree = "<group>"; };
@@ -35,48 +32,63 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		A726F32416BC584C00590514 = {
-			isa = PBXGroup;
-			children = (
-				A726F34E16BC58D100590514 /* SpatLib.yml */,
-				A726F34F16BC58E100590514 /* TTSpat.h */,
-				A726F35016BC58E100590514 /* TTSpat.cpp */,
-				A726F35116BC58E100590514 /* TTSpatLib.cpp */,
-				A726F33D16BC586D00590514 /* includes */,
-				A726F34616BC588700590514 /* source */,
-				A726F34916BC58A300590514 /* tests */,
-				A726F34D16BC58BB00590514 /* iOS */,
-			);
-			sourceTree = "<group>";
-		};
-		A726F33D16BC586D00590514 /* includes */ = {
+		22E6FD1316BC5A4E007C1694 /* Base Classes */ = {
 			isa = PBXGroup;
 			children = (
 				A726F33416BC586900590514 /* TTSpatBase.h */,
 				A726F33516BC586900590514 /* TTSpatBaseRenderer.h */,
+				A726F33916BC586900590514 /* TTSpatEntity.h */,
+				A726F33E16BC588200590514 /* TTSpatBase.cpp */,
+				A726F33F16BC588200590514 /* TTSpatBaseRenderer.cpp */,
+				A726F34316BC588200590514 /* TTSpatEntity.cpp */,
+			);
+			name = "Base Classes";
+			sourceTree = "<group>";
+		};
+		22E6FD1416BC5A6D007C1694 /* DBAP Unit */ = {
+			isa = PBXGroup;
+			children = (
 				A726F33616BC586900590514 /* TTSpatDBAP.h */,
 				A726F33716BC586900590514 /* TTSpatDBAPRenderer.h */,
 				A726F33816BC586900590514 /* TTSpatDBAPSource.h */,
-				A726F33916BC586900590514 /* TTSpatEntity.h */,
-				A726F33A16BC586900590514 /* TTSpatSnap.h */,
-				A726F33B16BC586900590514 /* TTSpatSnapRenderer.h */,
-			);
-			name = includes;
-			sourceTree = "<group>";
-		};
-		A726F34616BC588700590514 /* source */ = {
-			isa = PBXGroup;
-			children = (
-				A726F33E16BC588200590514 /* TTSpatBase.cpp */,
-				A726F33F16BC588200590514 /* TTSpatBaseRenderer.cpp */,
 				A726F34016BC588200590514 /* TTSpatDBAP.cpp */,
 				A726F34116BC588200590514 /* TTSpatDBAPRenderer.cpp */,
 				A726F34216BC588200590514 /* TTSpatDBAPSource.cpp */,
-				A726F34316BC588200590514 /* TTSpatEntity.cpp */,
+			);
+			name = "DBAP Unit";
+			sourceTree = "<group>";
+		};
+		22E6FD1516BC5A76007C1694 /* Snap Unit */ = {
+			isa = PBXGroup;
+			children = (
+				A726F33A16BC586900590514 /* TTSpatSnap.h */,
+				A726F33B16BC586900590514 /* TTSpatSnapRenderer.h */,
 				A726F34416BC588200590514 /* TTSpatSnap.cpp */,
 				A726F34516BC588200590514 /* TTSpatSnapRenderer.cpp */,
 			);
-			name = source;
+			name = "Snap Unit";
+			sourceTree = "<group>";
+		};
+		22E6FD1616BC5ABD007C1694 /* Wrapper Class */ = {
+			isa = PBXGroup;
+			children = (
+				A726F34F16BC58E100590514 /* TTSpat.h */,
+				A726F35016BC58E100590514 /* TTSpat.cpp */,
+			);
+			name = "Wrapper Class";
+			sourceTree = "<group>";
+		};
+		A726F32416BC584C00590514 = {
+			isa = PBXGroup;
+			children = (
+				A726F34E16BC58D100590514 /* SpatLib.yml */,
+				A726F35116BC58E100590514 /* TTSpatLib.cpp */,
+				22E6FD1316BC5A4E007C1694 /* Base Classes */,
+				22E6FD1516BC5A76007C1694 /* Snap Unit */,
+				22E6FD1416BC5A6D007C1694 /* DBAP Unit */,
+				22E6FD1616BC5ABD007C1694 /* Wrapper Class */,
+				A726F34916BC58A300590514 /* tests */,
+			);
 			sourceTree = "<group>";
 		};
 		A726F34916BC58A300590514 /* tests */ = {
@@ -86,16 +98,6 @@
 				A726F34816BC589D00590514 /* TTSpatSnap.test.cpp */,
 			);
 			name = tests;
-			sourceTree = "<group>";
-		};
-		A726F34D16BC58BB00590514 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				A726F34A16BC58B700590514 /* SpatLibIOS.h */,
-				A726F34B16BC58B700590514 /* SpatLibIOS-Prefix.pch */,
-				A726F34C16BC58B700590514 /* SpatLibIOS.m */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
