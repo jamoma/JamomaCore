@@ -360,11 +360,14 @@ void		hub_receive_callback(void *x, t_symbol *msg, long argc, t_atom *argv);
 void		hub_autodoc(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 void		hub_doautodocHtml(t_hub *x, t_symbol *userpath);
 void		hub_doautodocTex(t_hub *x, t_symbol *userpath);
+void		hub_doautodocTextile(t_hub *x, t_symbol *userpath);
 void		hub_autodoc_nodeHtml(t_filehandle *file_handle, long *myEof, t_subscriber* t, int nodeType);
 void		hub_autodoc_nodeTex(t_filehandle *file_handle, long *myEof, t_subscriber* t, int nodeType);
+void		hub_autodoc_nodeTextile(t_filehandle *file_handle, long *myEof, t_subscriber* t, int nodeType);
 void		hub_autodoc_css(t_filehandle *file_handle, long *myEof);
 void 		table_headingHtml(t_filehandle *file_handle, long *myEof, int nodeType);
 void 		table_headingTex(t_filehandle *file_handle, long *myEof, int nodeType);
+void 		table_headingTextile(t_filehandle *file_handle, long *myEof, int nodeType);
 
 // These are in jcom.hub.internals.cpp
 /** Create parameters, messages, and other internal subscribers to the hub.

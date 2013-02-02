@@ -68,7 +68,7 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_init, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("init"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	x->container,	"generic",	"none",	"Generate a html documentation page for this module and save it to disk. The argument 'tex' creates a Latex document.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	x->container,	"generic",	"none",	"Generate a html documentation page for this module and save it to disk. The argument 'tex' creates a Latex document. The argument 'textile' creates a Textile document.", 1);
 	anObject->setAction((method)hub_autodoc, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("documentation/generate"), (t_object*)anObject);
 
