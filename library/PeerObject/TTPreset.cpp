@@ -69,7 +69,7 @@ TTErr TTPreset::Store()
 	TTNodePtr		aNode;
 	TTObjectPtr		anObject;
 	TTList			aNodeList, allObjectNodes;
-	TTAddress aRelativeAddress;
+	TTAddress       aRelativeAddress;
 	TTValue			v, parsedLine;					
 	
 	Clear();
@@ -136,6 +136,7 @@ TTErr TTPreset::Recall()
 {
     TTNodePtr   aNode = NULL;
     TTObjectPtr anObject = NULL;
+    TTBoolean   flattened;
     TTValue     v;
     TTErr       err;
     
@@ -158,6 +159,13 @@ TTErr TTPreset::Recall()
             }
         }
     }
+    
+    // is the cue already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (!flattened)
+        mScript->sendMessage(kTTSym_Flatten, mAddress, kTTValNONE);
     
     // prepare argument to run the script
     v = mAddress;
@@ -309,9 +317,23 @@ TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2)
 
 TTErr TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position)
 {
-	preset1->mScript->sendMessage(TTSymbol("Bind"), preset1->mAddress, kTTValNONE);
-	preset2->mScript->sendMessage(TTSymbol("Bind"), preset2->mAddress, kTTValNONE);
-	
+    TTBoolean   flattened1, flattened2;
+    TTValue     v;
+    
+    // is the preset1 already flattened ?
+    preset1->mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened1 = v[0];
+    
+    if (!flattened1)
+        preset1->mScript->sendMessage(kTTSym_Flatten, preset1->mAddress, kTTValNONE);
+    
+    // is the preset2 already flattened ?
+    preset2->mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened2 = v[0];
+    
+    if (!flattened2)
+        preset2->mScript->sendMessage(kTTSym_Flatten, preset2->mAddress, kTTValNONE);
+    
 	return TTScriptInterpolate(preset1->mScript, preset2->mScript, position);
 }
 
@@ -319,12 +341,21 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
 {
 	TTPresetPtr aPreset;
 	TTValue		scripts;
+    TTBoolean   flattened;
+    TTValue     v;
 	TTUInt32	i;
 	
 	for (i = 0; i < presets.size(); i++) {
-		aPreset = TTPresetPtr((TTObjectPtr)presets[i]);
-		aPreset->mScript->sendMessage(TTSymbol("Bind"), aPreset->mAddress, kTTValNONE);
-		
+        
+		aPreset = TTPresetPtr((TTPtr)presets[i]);
+        
+        // is the preset1 already flattened ?
+        aPreset->mScript->getAttributeValue(kTTSym_flattened, v);
+        flattened = v[0];
+        
+        if (!flattened)
+            aPreset->mScript->sendMessage(kTTSym_Flatten, aPreset->mAddress, kTTValNONE);
+        
 		scripts.append(aPreset->mScript);
 	}
 	

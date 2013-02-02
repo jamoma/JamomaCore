@@ -226,11 +226,17 @@ TTErr TTCue::searchRamp(TTObjectPtr aScript, TTUInt32& ramp)
 
 TTErr TTCue::setRamp(const TTValue& value)
 {
+    TTValue     v;
+    TTBoolean   flattened;
+    
 	mRamp = value;
 	
-	// ask the script to bind each line on his TTObject 
-	// to make test on the rampDrive attribute
-	mScript->sendMessage(TTSymbol("Bind"), kTTAdrsRoot, kTTValNONE);
+    // is the cue already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (!flattened)
+        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
 	
 	// TODO : don't change line with a ramp value different from the mRamp
 	return processRamp(mScript, mRamp);
@@ -239,54 +245,53 @@ TTErr TTCue::setRamp(const TTValue& value)
 TTErr TTCue::processRamp(TTObjectPtr aScript, TTUInt32 ramp)
 {
 	TTListPtr		lines;
-	TTScriptPtr		aSubScript;
 	TTDictionaryPtr	aLine;
+    TTAddress       anAddress;
+    TTNodePtr       aNode;
 	TTObjectPtr		anObject;
 	TTSymbol		rampDrive;
 	TTValue			v, r;
+    TTErr           err;
 	
 	r = TTValue((int)ramp);
 	
-	aScript->getAttributeValue(TTSymbol("lines"), v);
+	aScript->getAttributeValue(TTSymbol("flattenedLines"), v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
 	for (lines->begin(); lines->end(); lines->next()) {
 		
 		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
-		
-		if (aLine->getSchema() == kTTSym_command) {
-			
-			// if it is a Data object with a ramp drive
-			if (!aLine->lookup(kTTSym_object, v)) {
-				
-				anObject = v[0];
-				
-				if (anObject->getName() == kTTSym_Data) {
-					
-					anObject->getAttributeValue(kTTSym_rampDrive, v);
-					rampDrive = v[0];
-					
-					if (rampDrive != kTTSym_none) {
-						
-						// set the ramp
-						if (ramp)
-							aLine->append(kTTSym_ramp, r);
-						else
-							aLine->remove(kTTSym_ramp);
-					}
-				}
-			}
-		}
-		else if (aLine->getSchema() == kTTSym_script) {
-			
-			// get the script
-			aLine->getValue(v);
-			aSubScript = TTScriptPtr((TTObjectPtr)v[0]);
-			
-			if (aSubScript)
-				processRamp(aSubScript, ramp);
-		}
+        
+        // if it is a Data object with a ramp drive
+        if (!aLine->lookup(kTTSym_target, v)) {
+            
+            anAddress = v[0];
+            err = getDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
+            
+            if (!err) {
+            
+                anObject = aNode->getObject();
+                
+                if (anObject) {
+                    
+                    if (anObject->getName() == kTTSym_Data) {
+                        
+                        anObject->getAttributeValue(kTTSym_rampDrive, v);
+                        rampDrive = v[0];
+                        
+                        if (rampDrive != kTTSym_none) {
+                            
+                            // set the ramp
+                            if (ramp)
+                                aLine->append(kTTSym_ramp, r);
+                            else
+                                aLine->remove(kTTSym_ramp);
+                        }
+                    }
+                }
+            }
+        }
 	}
 	
 	return kTTErrNone;
@@ -484,10 +489,19 @@ TTErr TTCue::Clear()
 
 TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTAddress anAddress = kTTAdrsRoot;
+    TTAddress   anAddress = kTTAdrsRoot;
+    TTBoolean   flattened;
+    TTValue     v;
     
     if (inputValue[0].type() == kTypeSymbol)
         anAddress = inputValue[0];
+    
+    // is the cue already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (!flattened)
+        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
     
     // if an address is passed, run the line at address
     if (anAddress != kTTAdrsRoot)
@@ -500,10 +514,19 @@ TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTAddress anAddress = kTTAdrsRoot;
+    TTAddress   anAddress = kTTAdrsRoot;
+    TTBoolean   flattened;
+    TTValue     v;
     
     if (inputValue[0].type() == kTypeSymbol)
         anAddress = inputValue[0];
+    
+    // is the cue already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (!flattened)
+        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
     
     // if an address is passed, dump the line at address
     if (anAddress != kTTAdrsRoot)
@@ -720,9 +743,23 @@ TTBoolean TTCueCompareNodePriority(TTValue& v1, TTValue& v2)
 
 TTErr TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position)
 {
-	cue1->mScript->sendMessage(TTSymbol("Bind"), kTTAdrsRoot, kTTValNONE);
-	cue2->mScript->sendMessage(TTSymbol("Bind"), kTTAdrsRoot, kTTValNONE);
-	
+    TTBoolean   flattened1, flattened2;
+    TTValue     v;
+    
+    // is the cue1 already flattened ?
+    cue1->mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened1 = v[0];
+    
+    if (!flattened1)
+        cue1->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+    
+    // is the cue2 already flattened ?
+    cue2->mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened2 = v[0];
+    
+    if (!flattened2)
+        cue2->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+    
 	return TTScriptInterpolate(cue1->mScript, cue2->mScript, position);
 }
 
@@ -730,12 +767,21 @@ TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
 {
 	TTCuePtr	aCue;
 	TTValue		scripts;
+    TTBoolean   flattened;
+    TTValue     v;
 	TTUInt32	i;
 	
 	for (i = 0; i < cues.size(); i++) {
+        
 		aCue = TTCuePtr((TTObjectPtr)cues[i]);
-		aCue->mScript->sendMessage(TTSymbol("Bind"), kTTAdrsRoot, kTTValNONE);
-		
+        
+        // is the cue already flattened ?
+        aCue->mScript->getAttributeValue(kTTSym_flattened, v);
+        flattened = v[0];
+        
+        if (!flattened)
+            aCue->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+        
 		scripts.append(aCue->mScript);
 	}
 	
