@@ -152,11 +152,11 @@ TTErr			TTMODULAR_EXPORT TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScrip
 /* Copy a script */
 TTErr			TTMODULAR_EXPORT TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy);
 
-/* a TTFunctionMatch to find a line in the script depending on the node it binds */
-void			TTMODULAR_EXPORT TTScriptFindNode(const TTValue& lineValue, TTPtr nodePtrToMatch, TTBoolean& found);
-
 /* a TTFunctionMatch to find a line in the script depending on the address */
 void			TTMODULAR_EXPORT TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found);
+
+/* a TTFunctionMatch to find a line in the script depending on the target address (in mFlattenedLines only) */
+void            TTMODULAR_EXPORT TTScriptFindTarget(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found);
 
 /* Copy a line */
 TTDictionaryPtr	TTMODULAR_EXPORT TTScriptCopyLine(TTDictionaryPtr lineTocopy);

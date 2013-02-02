@@ -1327,7 +1327,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
         // adrs1 and adrs2 have to be the same
         if (adrs1 != adrs2) {
             
-            script2->mFlattenedLines->find(&TTScriptFindNode, (TTPtr)&adrs1, found);
+            script2->mFlattenedLines->find(&TTScriptFindTarget, (TTPtr)&adrs1, found);
             
             // couldn't find the same address in script2 : skip the command
             if (found == kTTValNONE) {
@@ -1454,7 +1454,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
                         if (!aLine) {
                             
                             // try to find the same line
-                            aScript->mFlattenedLines->find(&TTScriptFindNode, (TTPtr)aNode, found);
+                            aScript->mFlattenedLines->find(&TTScriptFindTarget, (TTPtr)&firstAdrs, found);
                             
                             // couldn't find the same node in the script :
                             // look into to next script for this command
@@ -1805,20 +1805,6 @@ TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 	return kTTErrNone;
 }
 
-void TTScriptFindNode(const TTValue& lineValue, TTPtr nodePtrToMatch, TTBoolean& found)
-{
-	TTDictionaryPtr aLine;
-	TTNodePtr		node = NULL;
-	TTValue			v;
-	
-	lineValue.get(0, (TTPtr*)&aLine);
-	
-	if (!aLine->lookup(kTTSym_node, v))
-		v.get(0, (TTPtr*)&node);
-	
-	found = node == ((TTNodePtr)nodePtrToMatch);
-}
-
 void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found)
 {
 	TTDictionaryPtr		aLine;
@@ -1833,20 +1819,55 @@ void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBo
 	found = address == *((TTAddress*)addressPtrToMatch);
 }
 
+void TTScriptFindTarget(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found)
+{
+	TTDictionaryPtr		aLine;
+	TTAddress			address;
+	TTValue				v;
+	
+	lineValue.get(0, (TTPtr*)&aLine);
+	
+	if (!aLine->lookup(kTTSym_target, v))
+		v.get(0, address);
+	
+	found = address == *((TTAddress*)addressPtrToMatch);
+}
+
 TTDictionaryPtr TTScriptCopyLine(TTDictionaryPtr lineTocopy)
 {
-	TTValue		keys, v;
-	TTSymbol	key;
-	TTUInt32	i;
+    TTValue     v;
+	//TTValue	keys, v;
+	//TTSymbol	key;
+	//TTUInt32	i;
 	
 	TTDictionaryPtr newLine = new TTDictionary();
 	
+    /* TTDictionary::getKeys is broken
 	lineTocopy->getKeys(keys);
 	for (i = 0; i < keys.getSize(); i++) {
 		keys.get(i, key);
 		lineTocopy->lookup(key, v);
 		newLine->append(key, v);
 	}
+    */
+    
+    if (!lineTocopy->lookup(kTTSym_schema, v))
+        newLine->append(kTTSym_schema, v);
+    
+    if (!lineTocopy->lookup(kTTSym_value, v))
+        newLine->append(kTTSym_value, v);
+    
+    if (!lineTocopy->lookup(kTTSym_name, v))
+        newLine->append(kTTSym_name, v);
+    
+    if (!lineTocopy->lookup(kTTSym_address, v))
+        newLine->append(kTTSym_address, v);
+    
+    if (!lineTocopy->lookup(kTTSym_unit, v))
+        newLine->append(kTTSym_unit, v);
+    
+    if (!lineTocopy->lookup(kTTSym_ramp, v))
+        newLine->append(kTTSym_address, v);
 	
 	return newLine;
 }
