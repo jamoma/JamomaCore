@@ -22,6 +22,7 @@
 /**	Provide unit tests for #TTInterpolate */
 class TTInterpolateTest : public TTDataObject {
 	TTCLASS_SETUP(TTInterpolateTest)
+
 	
 	/** Unit test.
 	 @param returnedTestInfo	The outcome from the performed unit test.

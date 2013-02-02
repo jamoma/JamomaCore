@@ -67,10 +67,11 @@ TTErr TTMatrix::resize()
 {
 	mComponentCount = mRowCount * mColumnCount;
 	mDataCount = mComponentCount * mElementCount;
-	mDataSize = mDataCount * mTypeSizeInBytes;
 	mComponentStride = mTypeSizeInBytes * mElementCount;
     
-	if (mDataIsLocallyOwned) {
+	if (mDataIsLocallyOwned && mDataSize != mDataCount * mTypeSizeInBytes) {
+		mDataSize = mDataCount * mTypeSizeInBytes;
+
 		// TODO: currently, we are not preserving memory when resizing. Should we try to preserve the previous memory contents?
 		// TODO: thread protection
 		delete[] mData;
