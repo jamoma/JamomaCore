@@ -43,7 +43,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	c = class_new("jcom.cuemanager", (method)cuemng_new, (method)cuemng_free, (long)sizeof(t_cuemng), 0L, A_GIMME, 0);
 	
 	// add methods
-	class_addmethod(c, (method)cuemng_notify,			"notify",		A_CANT, 0);
 	class_addmethod(c, (method)cuemng_assist,			"assist",		A_CANT, 0);
 
 	// in TRIGGER mode, this method trigger out the current cue
@@ -256,12 +255,6 @@ void cuemng_free(t_cuemng *x)
 #pragma mark -
 #pragma mark Methods
 #endif 0
-
-t_max_err cuemng_notify(t_cuemng *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-	object_post((t_object *)x, "notification : s = %s, msg = %s", s->s_name, msg->s_name);
-	return MAX_ERR_NONE;
-}
 
 void cuemng_assist(t_cuemng *x, void *b, long msg, long arg, char *dst)
 {

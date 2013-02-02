@@ -156,7 +156,6 @@ typedef struct _cuemng
 // max object interface
 void *cuemng_new(t_symbol *s, long argc, t_atom *argv);
 void cuemng_free(t_cuemng *x);
-t_max_err cuemng_notify(t_cuemng *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void cuemng_assist(t_cuemng *x, void *b, long m, long a, char *s);
 void cuemng_edclose(t_cuemng *x, char **ht, long size);
 
