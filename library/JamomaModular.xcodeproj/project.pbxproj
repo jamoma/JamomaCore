@@ -10,6 +10,7 @@
 		22AD15D016596377002FD7E3 /* JamomaModular.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaModular.yml; sourceTree = "<group>"; };
 		4625988D1684A5660076E93F /* ExternalRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ExternalRamp.cpp; sourceTree = "<group>"; };
 		4625988E1684A5660076E93F /* ExternalRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExternalRamp.h; sourceTree = "<group>"; };
+		4698F0E316BC49E800E8F574 /* TTDataTypedMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataTypedMethods.cpp; sourceTree = "<group>"; };
 		D220FB4614A21628005607C3 /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
 		D220FB4714A21628005607C3 /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 		D246012914A0A95D004CC4FD /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
@@ -134,6 +135,7 @@
 				D246013414A0A96C004CC4FD /* TTCueManager.cpp */,
 				D246013714A0A96C004CC4FD /* TTData.h */,
 				D246013614A0A96C004CC4FD /* TTData.cpp */,
+				4698F0E316BC49E800E8F574 /* TTDataTypedMethods.cpp */,
 				D246013914A0A96C004CC4FD /* TTExplorer.h */,
 				D246013814A0A96C004CC4FD /* TTExplorer.cpp */,
 				D246013B14A0A96C004CC4FD /* TTInput.h */,
