@@ -17,6 +17,7 @@
 
 #include "TTDictionary.h"
 #include "TTSymbolTable.h"
+#include "TTSymbolCache.h"
 
 
 //void TTDictionaryFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found);
@@ -48,7 +49,7 @@ TTDictionary::~TTDictionary()
 
 TTErr TTDictionary::setSchema(const TTSymbol& schemaName)
 {
-	return append(TTSymbol("schema"), schemaName);
+	return append(kTTSym_schema, schemaName);
 }
 
 
@@ -56,20 +57,20 @@ const TTSymbol TTDictionary::getSchema() const
 {
 	TTValue v;
 	
-	lookup(TTSymbol("schema"), v);
+	lookup(kTTSym_schema, v);
 	return v;
 }
 
 
 TTErr TTDictionary::setValue(const TTValue& newValue)
 {
-	return append(TTSymbol("value"), newValue);
+	return append(kTTSym_value, newValue);
 }
 
 
 TTErr TTDictionary::getValue(TTValue& returnedValue) const
 {
-	return lookup(TTSymbol("value"), returnedValue);
+	return lookup(kTTSym_value, returnedValue);
 }
 
 

@@ -59,6 +59,7 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_updateSampleRate			(("updateSampleRate"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_value					(("value"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_vectorSize				(("vectorSize"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_sampleRate				(("sampleRate"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_schema                   (("schema"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_tcp						(("tcp"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_udp						(("udp"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_sine						(("sine"));
