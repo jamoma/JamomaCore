@@ -62,6 +62,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_updateSampleRate;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_value;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_vectorSize;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_sampleRate;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_schema;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_tcp;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_udp;

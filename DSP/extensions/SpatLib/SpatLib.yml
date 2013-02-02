@@ -1,14 +1,18 @@
 
 sources:
-  - SpatLib.cpp
+  - TTSpatLib.cpp
   - TTSpat.cpp
-  - source/SpatDBAP.cpp
-  - source/SpatMatrix.cpp
-  - source/SpatThru.cpp
-  - tests/SpatDBAP.test.cpp
-  - tests/SpatMatrix.test.cpp
-  - tests/SpatThru.test.cpp
-  
+  - source/TTSpatBase.cpp
+  - source/TTSpatBaseRenderer.cpp
+  - source/TTSpatEntity.cpp
+  - source/TTSpatDBAP.cpp
+  - source/TTSpatDBAPRenderer.cpp
+  - source/TTSpatDBAPSource.cpp
+  - source/TTSpatSnap.cpp
+  - source/TTSpatSnapRenderer.cpp
+  - tests/TTSpatDBAP.test.cpp
+  - tests/TTSpatSnap.test.cpp
+ 
 includes:
   - "."
   - "includes"

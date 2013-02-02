@@ -27,6 +27,7 @@ TT_OBJECT_CONSTRUCTOR
 {;}
 
 
+
 /** Destructor
  */
 TTInterpolateTest::~TTInterpolateTest()
@@ -54,6 +55,7 @@ TTFloat64 InterpolateAndTestLinear(const TTFloat64 x0, const TTFloat64 x1, const
 		TTTestLog("BAD INTERPOLATION @ delta=%.5f  ( value=%.10f   expected=%.10f )", aDelta, interpolatedValue, anExpectedValue);
 	return result;
 }
+
 
 
 /** Test for correct linear interpolations performance.
@@ -217,6 +219,7 @@ void TestCubic(int& anErrorCount, int& aTestAssertionCount)
 #pragma mark -
 #pragma mark The main function
 #pragma mark -
+
 
 // The main test method
 TTErr TTInterpolateTest::test(TTValue& returnedTestInfo)

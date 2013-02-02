@@ -2,7 +2,7 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief Unit tests for the SpatMatrix SpatLib spatialisation renderer.
+ * @brief Unit tests for the #TTSpatDBAP SpatLib spatialisation renderer.
  *
  * @details
  *
@@ -15,15 +15,18 @@
 
 
 #include "TTDSP.h"
-#include "SpatMatrix.h"
+#include "TTSpatDBAP.h"
 
 
-
-TTErr SpatMatrix::test(TTValue& returnedTestInfo)
+TTErr TTSpatDBAP::test(TTValue& aReturnedTestInfo)
 {
+	// preliminary setup
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	
+	
+	// TODO: implement unit tests for DBAP
+
 	// Wrap up the test results to pass back to whoever called this test
-	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
+	return TTTestFinish(testAssertionCount, errorCount, aReturnedTestInfo);
 }
