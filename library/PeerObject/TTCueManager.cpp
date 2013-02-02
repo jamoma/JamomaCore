@@ -57,6 +57,7 @@ mReturnLineCallback(NULL)
 	addMessage(Clear);
 	
 	addMessageWithArguments(Store);
+    addMessageWithArguments(Prepare);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Output);
 	addMessageWithArguments(Interpolate);
@@ -385,6 +386,47 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	return mCurrentCue->sendMessage(TTSymbol("Store"), v, kTTValNONE);
 }
 
+TTErr TTCueManager::Prepare(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTValue		v;
+    TTSymbol    anAddress = kTTAdrsRoot;
+	
+	// get cue name
+	if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, mCurrent);
+		
+		TTSymbol name;
+		for (TTInt32 i = 0; i < mOrder.getSize(); i++) {
+			mOrder.get(i, name);
+			if (name == mCurrent) {
+				mCurrentPosition = i+1;
+				break;
+			}
+		}
+	}
+	
+	// get cue at position
+	if (inputValue.getType(0) == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, mCurrent);
+	}
+    
+    // get address from where recall starts (default : kAdrsRoot)
+	if (inputValue.getType(1) == kTypeSymbol)
+		inputValue.get(1, anAddress);
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentCue);
+		
+		if (mCurrentCue)
+			return mCurrentCue->sendMessage(TTSymbol("Prepare"), anAddress, kTTValNONE);
+	}
+	
+	return kTTErrGeneric;
+}
+
 TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v;
@@ -420,7 +462,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		v.get(0, (TTPtr*)&mCurrentCue);
 		
 		if (mCurrentCue)
-			return mCurrentCue->sendMessage(TTSymbol("Recall"), anAddress, kTTValNONE);
+			return mCurrentCue->sendMessage(kTTSym_Recall, anAddress, kTTValNONE);
 	}
 	
 	return kTTErrGeneric;

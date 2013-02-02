@@ -42,6 +42,7 @@ mCurrentPreset(NULL)
 	addMessage(Clear);
 	
 	addMessageWithArguments(Store);
+    addMessageWithArguments(Prepare);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Mix);
@@ -185,6 +186,42 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
+TTErr TTPresetManager::Prepare(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTValue		v;
+	
+	// get preset name
+	if (inputValue.getType() == kTypeSymbol) {
+		inputValue.get(0, mCurrent);
+		
+		TTSymbol name;
+		for (TTInt32 i = 0; i < mOrder.getSize(); i++) {
+			mOrder.get(i, name);
+			if (name == mCurrent) {
+				mCurrentPosition = i+1;
+				break;
+			}
+		}
+	}
+	
+	// get preset at position
+	if (inputValue.getType(0) == kTypeInt32) {
+		inputValue.get(0, mCurrentPosition);
+		mOrder.get(mCurrentPosition-1, mCurrent);
+	}
+	
+	// if preset exists
+	if (!mPresets->lookup(mCurrent, v)) {
+		
+		v.get(0, (TTPtr*)&mCurrentPreset);
+		
+		if (mCurrentPreset)
+			return mCurrentPreset->sendMessage(TTSymbol("Prepare"));
+	}
+	
+	return kTTErrGeneric;
+}
+
 TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v;
@@ -215,7 +252,7 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		v.get(0, (TTPtr*)&mCurrentPreset);
 		
 		if (mCurrentPreset)
-			return mCurrentPreset->sendMessage(TTSymbol("Recall"));
+			return mCurrentPreset->sendMessage(kTTSym_Recall);
 	}
 	
 	return kTTErrGeneric;

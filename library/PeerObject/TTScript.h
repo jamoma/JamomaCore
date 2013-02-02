@@ -39,34 +39,44 @@ class TTMODULAR_EXPORT TTScript : public TTDataObject
 	
 private:
 	
+    TTBoolean           mFlattened;               ///< ATTRIBUTE : is the script ready for quick operation process or not ?
+    
 	TTListPtr			mLines;					///< a linked list containing all lines of the script
+    TTListPtr			mFlattenedLines;		///< a linked list containing all lines of the script and the subscripts flattened for quick access
 	
 	TTObjectPtr			mSubScript;				///< the current sub script to manage
 	TTObjectPtr			mParentScript;			///< the current parent script to manage (usefull for ReadFrom method)
 	
 	TTCallbackPtr		mReturnLineCallback;	///< a callback to return back lines to the owner of this script
 	
-	/** */
-	TTErr	getLines(TTValue& value);
-	
+    
+    // get the lines list
+    TTErr   getLines(TTValue& value);
+    TTErr   getFlattenedLines(TTValue& value);
+    
 	/**	Clear all lines of the script	*/
 	TTErr	Clear();
+    
+    /**	Process all command lines of the script and the subscripts to cache all lines into a Flattened quick access link list
+        Each line binds also to the node in the directory in order to increase the recall, interpolation, mix.
+        However this is dangerous because if the node dispeared, their will be a BAD_ACCESS.
+        This is usefull to increase the speed of any operation */
+	TTErr	Flatten(const TTValue& inputValue, TTValue& outputValue);
+    TTErr	Unflatten();
 	
-	/**	Run all command lines of the script (considering also wait flag lines) */
+	/**	Run all command lines of the script (or the Flattened lines if ready) */
 	TTErr	Run(const TTValue& inputValue, TTValue& outputValue);
+    TTErr   RunFlattened();
     
     /**	Run one line of the script */
 	TTErr	RunLine(const TTValue& inputValue, TTValue& outputValue);
 	
-	/**	Dump all lines of the script using mReturnLineCallback */
+	/**	Dump all lines of the script using mReturnLineCallback (or the Flattened lines if ready) */
 	TTErr	Dump(const TTValue& inputValue, TTValue& outputValue);
+    TTErr	DumpFlattened();
     
     /**	Dump one line of the script using mReturnLineCallback */
 	TTErr	DumpLine(const TTValue& inputValue, TTValue& outputValue);
-	
-	/**	Process all command lines of the script to bind on each TTNode.
-		This is usefull for client which have to manage lines depending on node's content */
-	TTErr	Bind(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Append any line to the script (a parsing will find which kind of line it is)	*/
 	TTErr	Append(const TTValue& newLine, TTValue& outputValue);
@@ -99,7 +109,6 @@ private:
 	friend	TTErr TTMODULAR_EXPORT TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript);
 	friend	TTErr TTMODULAR_EXPORT TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScriptPtr optimizedScript);
 	friend	TTErr TTMODULAR_EXPORT TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy);
-	
 };
 
 typedef TTScript* TTScriptPtr;
