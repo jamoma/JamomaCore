@@ -7,7 +7,7 @@
 			"revision" : 8
 		}
 ,
-		"rect" : [ 5.0, 44.0, 530.0, 759.0 ],
+		"rect" : [ 1.0, 44.0, 530.0, 759.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -37,12 +37,13 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 285.0, 320.0, 241.0, 154.0 ],
-					"text" : "Because many applications are not able to describe themself (using directory/build message), you have to load a namespace file (using namespace/read message) to declare the parameter|message|return of the application to control.\n\nFor the remoteApp used for this example, load the \"remoteApp - namespace.xml\" file in jamoma/documentation/examples folder before."
+					"text" : "Because many applications are not able to describe themself (using namespace/build message), you have to load a namespace file (using namespace/read message) to declare the parameter|message|return of the application to control.\n\nFor the remoteApp used for this example, load the \"remoteApp - namespace.xml\" file in jamoma/documentation/examples folder before."
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-39",
@@ -50,8 +51,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 180.5, 385.0, 101.0, 18.0 ],
-					"text" : "namespace/write"
+					"patching_rect" : [ 168.5, 385.0, 101.0, 18.0 ],
+					"text" : "namespace/write",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -64,7 +66,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 9.0, 221.0, 101.0, 18.0 ],
+					"patching_rect" : [ 9.0, 241.0, 101.0, 18.0 ],
 					"text" : "namespace/write"
 				}
 
@@ -198,6 +200,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-24",
@@ -205,8 +208,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 180.5, 365.0, 100.0, 18.0 ],
-					"text" : "namespace/read"
+					"patching_rect" : [ 168.5, 365.0, 100.0, 18.0 ],
+					"text" : "namespace/read",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -226,6 +230,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.7 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-28",
@@ -234,8 +239,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 10.0, 348.0, 159.0, 45.0 ],
-					"text" : "protocol/setup ip 127.0.0.1, protocol/setup port 7003, name, protocol/setup"
+					"patching_rect" : [ 10.0, 348.0, 157.0, 45.0 ],
+					"text" : "protocol/setup ip 127.0.0.1, protocol/setup port 7003, name, protocol/setup",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -304,7 +310,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 184.0, 165.0, 20.0 ],
+					"patching_rect" : [ 9.0, 197.0, 165.0, 20.0 ],
 					"text" : "print myApplication_dumpout"
 				}
 
@@ -367,6 +373,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.7 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-35",
@@ -375,12 +382,14 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 149.0, 133.0, 140.0, 18.0 ],
-					"text" : "protocol/setup port 8000"
+					"text" : "protocol/setup port 8000",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.7 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-37",
@@ -389,7 +398,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 9.0, 133.0, 123.0, 18.0 ],
-					"text" : "name, protocol/setup"
+					"text" : "name, protocol/setup",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -399,12 +409,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-33",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 9.0, 162.0, 241.0, 20.0 ],
-					"text" : "jcom.modular Minuit @name myApplication"
+					"patching_rect" : [ 9.0, 160.5, 239.0, 33.0 ],
+					"text" : "jcom.modular Minuit @name myApplication @author \"Jamoma Team\" @version v1"
 				}
 
 			}
@@ -1367,6 +1378,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.7 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-32",
@@ -1375,7 +1387,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 367.0, 133.0, 62.0, 18.0 ],
-					"text" : "activity $1"
+					"text" : "activity $1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -1394,6 +1407,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-42",
@@ -1401,13 +1415,15 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 180.5, 345.0, 103.0, 18.0 ],
-					"text" : "directory/observe"
+					"patching_rect" : [ 168.5, 345.0, 119.0, 18.0 ],
+					"text" : "namespace/observe",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-43",
@@ -1415,8 +1431,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 180.5, 325.0, 85.0, 18.0 ],
-					"text" : "directory/build"
+					"patching_rect" : [ 168.5, 325.0, 101.0, 18.0 ],
+					"text" : "namespace/build",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -1508,7 +1525,7 @@
 					"destination" : [ "obj-27", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 190.0, 406.5, 19.5, 406.5 ],
+					"midpoints" : [ 178.0, 406.5, 19.5, 406.5 ],
 					"source" : [ "obj-24", 0 ]
 				}
 
@@ -1582,7 +1599,7 @@
 					"destination" : [ "obj-33", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 18.5, 244.0, 3.5, 244.0, 3.5, 156.0, 18.5, 156.0 ],
+					"midpoints" : [ 18.5, 261.0, 3.5, 261.0, 3.5, 156.0, 18.5, 156.0 ],
 					"source" : [ "obj-34", 0 ]
 				}
 
@@ -1620,7 +1637,7 @@
 					"destination" : [ "obj-27", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 190.0, 406.0, 19.5, 406.0 ],
+					"midpoints" : [ 178.0, 406.0, 19.5, 406.0 ],
 					"source" : [ "obj-39", 0 ]
 				}
 
@@ -1630,7 +1647,7 @@
 					"destination" : [ "obj-27", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 190.0, 406.0, 19.5, 406.0 ],
+					"midpoints" : [ 178.0, 406.0, 19.5, 406.0 ],
 					"source" : [ "obj-42", 0 ]
 				}
 
@@ -1640,7 +1657,7 @@
 					"destination" : [ "obj-27", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 190.0, 406.5, 19.5, 406.5 ],
+					"midpoints" : [ 178.0, 406.5, 19.5, 406.5 ],
 					"source" : [ "obj-43", 0 ]
 				}
 

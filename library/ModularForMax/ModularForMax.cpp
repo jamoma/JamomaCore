@@ -1022,11 +1022,17 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
  or return NULL if the TTSymbol doesn't begin by an uppercase letter */
 SymbolPtr jamoma_TTName_To_MaxName(TTSymbol TTName)
 {
+    TTSymbol    AppName;
     TTAddress   anAddress;
     TTErr       err;
     
-    err = convertUpperCasedNameInAddress(TTName, anAddress);
-	
+    AppName = ToAppName(TTName);
+    
+    if (AppName == kTTSymEmpty)
+        err = convertUpperCasedNameInAddress(TTName, anAddress);
+    else
+        err = convertUpperCasedNameInAddress(AppName, anAddress);
+    
 	if (!err)
 		return gensym((char*)anAddress.c_str());
 	else
