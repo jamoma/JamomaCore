@@ -9,6 +9,13 @@ environment.set "benchmarking", 1
 cpu_total = 0.0;
 
 puts
+
+puts "  TESTING GAUSS WINDOW"
+o = TTObject.new "gauss"
+o.send "test"
+err, cpu = o.send "getProcessingBenchmark", 1
+cpu_total += cpu
+
 puts "  TESTING HAMMING WINDOW"
 o = TTObject.new "hamming"
 o.send "test"
@@ -21,18 +28,6 @@ o.send "test"
 err, cpu = o.send "getProcessingBenchmark", 1
 cpu_total += cpu
 
-puts "  TESTING TUKEY WINDOW"
-o = TTObject.new "tukey"
-o.send "test"
-err, cpu = o.send "getProcessingBenchmark", 1
-cpu_total += cpu
-
-puts "  TESTING GAUSS WINDOW"
-o = TTObject.new "gauss"
-o.send "test"
-err, cpu = o.send "getProcessingBenchmark", 1
-cpu_total += cpu
-
 puts "  TESTING RECTANGULAR WINDOW"
 o = TTObject.new "rectangular"
 o.send "test"
@@ -41,6 +36,12 @@ cpu_total += cpu
 
 puts "  TESTING ROSENBERG GLOTTAL PULSE WINDOW"
 o = TTObject.new "rosenbergGlottalPulse"
+o.send "test"
+err, cpu = o.send "getProcessingBenchmark", 1
+cpu_total += cpu
+
+puts "  TESTING TUKEY WINDOW"
+o = TTObject.new "tukey"
 o.send "test"
 err, cpu = o.send "getProcessingBenchmark", 1
 cpu_total += cpu
