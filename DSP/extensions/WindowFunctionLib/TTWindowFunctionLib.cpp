@@ -25,6 +25,7 @@
 #include "TTKaiserWindow.h"
 #include "TTNuttallWindow.h"
 #include "TTRectangularWindow.h"
+#include "TTRosenbergGlottalPulseWindow.h"
 #include "TTTrapezoidWindow.h"
 #include "TTTukeyWindow.h"
 #include "TTWelchWindow.h"
@@ -49,6 +50,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_WindowFunctionLib(voi
 	KaiserWindow::registerClass();
 	NuttallWindow::registerClass();
 	RectangularWindow::registerClass();
+	RosenbergGlottalPulseWindow::registerClass();
 	TrapezoidWindow::registerClass();
 	TukeyWindow::registerClass();
 	WelchWindow::registerClass();

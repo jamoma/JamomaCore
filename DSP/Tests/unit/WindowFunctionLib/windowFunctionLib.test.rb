@@ -39,6 +39,11 @@ o.send "test"
 err, cpu = o.send "getProcessingBenchmark", 1
 cpu_total += cpu
 
+puts "  TESTING ROSENBERG GLOTTAL PULSE WINDOW"
+o = TTObject.new "rosenbergGlottalPulse"
+o.send "test"
+err, cpu = o.send "getProcessingBenchmark", 1
+cpu_total += cpu
 
 puts
 puts "time spent calculating audio process method: #{cpu_total} µs"
