@@ -367,6 +367,7 @@ void wrappedModularClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomP
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	ModularSpec*				spec = (ModularSpec*)x->wrappedClassDefinition->specificities;
+    TTSymbol                    modelAddress = TTSymbol("/model/address");
 	TTErr						err;
 	
 	// for an array of wrapped object
@@ -389,17 +390,20 @@ void wrappedModularClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomP
 				while (i < keys.getSize() && !err) {
 					
 					keys.get(i, x->cursor);
-
-					// Is it a message of the wrapped object ?
-					err = wrappedModularClass_sendMessage(self, s, argc, argv);
-					
-					// Is it an attribute of the wrapped object ?
-					if (err)
-						err = wrappedModularClass_setAttribute(self, s, argc, argv);
-					
-					// if error : stop the while because this is an array and all objects are the same
-					if (err)
-						break;
+                    
+                    if (x->cursor != modelAddress) {                                    // to - this only for jcom.remoteArray because there is also a Receiver on model/address 
+                        
+                        // Is it a message of the wrapped object ?
+                        err = wrappedModularClass_sendMessage(self, s, argc, argv);
+                        
+                        // Is it an attribute of the wrapped object ?
+                        if (err)
+                            err = wrappedModularClass_setAttribute(self, s, argc, argv);
+                        
+                        // if error : stop the while because this is an array and all objects are the same
+                        if (err)
+                            break;
+                    }
 					
 					i++;
 				}
@@ -407,7 +411,7 @@ void wrappedModularClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomP
 			}
 			
 			// don't iterate the specific anything method on each object of the array
-			if (spec->_any && err)
+			if (err && spec->_any)
 				spec->_any(self, s, argc, argv);
 		}
 		
