@@ -316,7 +316,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                     err = getDirectoryFrom(address)->getTTNode(address, &aNode);
                 
                 // if there is a node
-                if (!err && aNode) {
+                if (!err) {
                     
                     anObject = aNode->getObject();
                     
@@ -353,7 +353,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
             
             // if there is a node
             aContainer = NULL;
-            if (!err && aNode) {
+            if (!err) {
                 
                 anObject = aNode->getObject();
                 
@@ -408,7 +408,7 @@ TTErr TTScript::RunFlattened()
         
         err = getDirectoryFrom(address)->getTTNode(address, &aNode);
 
-        if (aNode) {
+        if (!err) {
             
             anObject = aNode->getObject();
             
