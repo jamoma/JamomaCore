@@ -235,8 +235,10 @@ void send_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	Atom						a[1];
-	TTAddress			contextAddress = kTTAdrsEmpty;
-	TTAddress			absoluteAddress;
+	TTAddress                   contextAddress = kTTAdrsEmpty;
+	TTAddress                   absoluteAddress, returnedAddress;
+    TTNodePtr                   returnedNode = NULL;
+    TTNodePtr                   returnedContextNode = NULL;
 	TTObjectPtr					anObject;
 	
 	if (x->address == kTTAdrsEmpty)
@@ -259,7 +261,7 @@ void send_subscribe(TTPtr self)
 	// for relative address
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 	
-	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, TTAddress("model/address"), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, TTAddress("model/address"), &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get the context address to make
 		// a viewer on the contextAddress/model/address parameter

@@ -12,13 +12,16 @@
 void ui_data_create_all(t_ui* obj)
 {
 	TTObjectPtr		anObject;
+    TTAddress       returnedAddress;
+    TTNodePtr       returnedNode = NULL;
+    TTNodePtr       returnedContextNode = NULL;
 	TTString		uiStr, parentStr, dataStr;
 	TTValue			v;
 	
 	// create a ui node with our patcher as context
 	anObject = NULL;
 	TTObjectInstantiate(kTTSym_Container, &anObject, kTTValNONE);
-	if (!jamoma_subscriber_create((ObjectPtr)obj, anObject, TTAddress("ui"), &obj->uiSubscriber)) {
+	if (!jamoma_subscriber_create((ObjectPtr)obj, anObject, TTAddress("ui"), &obj->uiSubscriber, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get info relative to our patcher
 		jamoma_patcher_get_info((ObjectPtr)obj, &obj->patcherPtr, obj->patcherContext, obj->patcherClass, obj->patcherName);

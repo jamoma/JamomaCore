@@ -261,7 +261,9 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	SymbolPtr					instanceAddress;
 	TTAddress                   contextAddress = kTTAdrsEmpty;
-	TTAddress                   absoluteAddress;
+	TTAddress                   absoluteAddress, returnedAddress;
+    TTNodePtr                   returnedNode = NULL;
+    TTNodePtr                   returnedContextNode = NULL;
 	TTObjectPtr					toSubscribe, aReceiver;
 	TTBoolean					subscribe;
 	TTSubscriberPtr				aSubscriber;
@@ -319,7 +321,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 			toSubscribe = NULL;
 		
 		aSubscriber = NULL;
-		if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, TTAddress(instanceAddress->s_name), &aSubscriber)) {
+		if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, TTAddress(instanceAddress->s_name), &aSubscriber, returnedAddress, &returnedNode, &returnedContextNode)) {
 			
 			// get the context address to make
 			// a viewer on the contextAddress/model/address parameter

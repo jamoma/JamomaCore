@@ -132,14 +132,18 @@ void init_assist(t_init *x, void *b, long msg, long arg, char *dst)
 void init_subscribe(t_init *x)
 {
 	TTValue			v, args;
-	TTAddress contextAddress = kTTAdrsEmpty;
+	TTAddress       contextAddress = kTTAdrsEmpty;
+    TTAddress       returnedAddress;
+    TTNodePtr       returnedNode = NULL;
+    TTNodePtr       returnedContextNode = NULL;
 	TTObjectPtr		returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// for relative address
 	if (x->address.getType() == kAddressRelative) {
 
-		if (!jamoma_subscriber_create((ObjectPtr)x, NULL, x->address, &x->subscriberObject)) {
+		if (!jamoma_subscriber_create((ObjectPtr)x, NULL, x->address, &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
+            
 			// get the context address to make
 			// a receiver on the contextAddress/model/address parameter
 			x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);

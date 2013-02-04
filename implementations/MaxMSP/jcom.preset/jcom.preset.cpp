@@ -153,10 +153,11 @@ void WrappedPresetManageClass_free(TTPtr self)
 void preset_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, n, args;
+	TTValue						v, a, args;
 	TTString					presetLevelAddress;
-	TTAddress			absoluteAddress;
-	TTNodePtr					node = NULL;
+	TTAddress                   absoluteAddress, returnedAddress;
+	TTNodePtr					returnedNode = NULL;
+    TTNodePtr					returnedContextNode = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
 	TTTextHandlerPtr			aTextHandler;
@@ -170,20 +171,17 @@ void preset_subscribe(TTPtr self)
 		presetLevelAddress = "preset";
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress(presetLevelAddress), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress(presetLevelAddress), &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get all info relative to our patcher
 		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 		
-		// get the Node (.../preset) and his parent
-		x->subscriberObject->getAttributeValue(TTSymbol("node"), n);
-		n.get(0, (TTPtr*)&node);
-		
 		// set the Address attribute of the PresetManager if it is empty
 		x->wrappedObject->getAttributeValue(kTTSym_address, v);
 		v.get(0, absoluteAddress);
+        
 		if (absoluteAddress == kTTAdrsEmpty) {
-			node->getParent()->getAddress(absoluteAddress);
+			returnedNode->getParent()->getAddress(absoluteAddress);
 			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		}
 

@@ -49,31 +49,35 @@ TTErr jamoma_directory_dump_observers(void)
 // Method to deal with TTSubscriber
 ///////////////////////////////////////////////////////////////////////
 
-TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber)
+TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber, TTSymbol& returnedAddress, TTNodePtr *returnedNode, TTNodePtr *returnedContextNode)
 {
 	TTValue			v, args;
-	TTNodePtr		aNode;
 	TTList			aContextList;
-	TTAddress		newRelativeAddress, absoluteAddress;
+	TTAddress		newRelativeAddress;
 	TTBoolean		newInstance;
+    TTErr           err;
 		
 	// prepare arguments
 	args.append(TTPtr(aTTObject));
 	args.append(relativeAddress);
 	
-	// Get all Context above the object and their name 
-	jamoma_subscriber_get_patcher_list(x, aContextList);
-	args.append((TTPtr)&aContextList);
-	
 	*returnedSubscriber = NULL;
 	TTObjectInstantiate(kTTSym_Subscriber, TTObjectHandle(returnedSubscriber), args);
-	
+    
+    // Get all Context above the object and their name
+	jamoma_subscriber_get_patcher_list(x, aContextList);
+    args = TTValue((TTPtr)&aContextList);
+    
+    *returnedNode = NULL;
+    err = (*returnedSubscriber)->sendMessage(kTTSym_Subscribe, args, v);
+	v.get(0, (TTPtr*)returnedNode);
+    v.get(1, (TTPtr*)returnedContextNode);
+    
 	// Check if the subscription is ok (or the binding in case of NULL object)
-	(*returnedSubscriber)->getAttributeValue(TTSymbol("node"), v);
-	v.get(0, (TTPtr*)&aNode);
-	if (aNode) {
+	if (!err && *returnedNode) {
 		
 		if (aTTObject) {
+            
 			// Is a new instance have been created ?
 			(*returnedSubscriber)->getAttributeValue(TTSymbol("newInstanceCreated"), v);
 			v.get(0, newInstance);
@@ -83,12 +87,11 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress rel
 				v.get(0, newRelativeAddress);
 				object_warn(x, "Jamoma cannot registers multiple object with the same OSC identifier (%s).  Using %s instead.", relativeAddress.c_str(), newRelativeAddress.c_str());
 			}
+            
+            (*returnedSubscriber)->getAttributeValue(kTTSym_nodeAddress, v);
+            v.get(0, returnedAddress);
 			
-			JamomaDebug {
-				(*returnedSubscriber)->getAttributeValue(TTSymbol("nodeAddress"), v);
-				v.get(0, absoluteAddress);
-				object_post(x, "registers at %s", absoluteAddress.c_str());
-			}
+			JamomaDebug object_post(x, "registers at %s", returnedAddress.c_str());
 		}
 
 		return kTTErrNone;

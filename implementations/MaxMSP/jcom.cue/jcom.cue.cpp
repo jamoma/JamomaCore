@@ -140,28 +140,22 @@ void cue_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
-	TTAddress                   absoluteAddress;
-	TTNodePtr					node = NULL;
+	TTAddress                   returnedAddress;
+	TTNodePtr					returnedNode = NULL;
+    TTNodePtr                   returnedContextNode = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
 	TTTextHandlerPtr			aTextHandler;
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress("cue"), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress("cue"), &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get patcher
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
 		
-		// get the Node address
-		x->subscriberObject->getAttributeValue(TTSymbol("node"), n);
-		n.get(0, (TTPtr*)&node);
-		node->getAddress(absoluteAddress);
-		
 		// expose messages of TTCue as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Store"), &aData);
-// TODO: There was a merge conflict -- which of the following two lines is correct?  [tap]
-		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
-//		aData->setAttributeValue(kTTSym_type, kTTSym_array);
+        aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Store a cue giving his name"));
 		
@@ -206,13 +200,13 @@ void cue_subscribe(TTPtr self)
 		x->internals->append(kTTSym_TextHandler, v);
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Read"), &aData);
-		makeInternals_data(self, absoluteAddress, TTSymbol("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, returnedAddress, TTSymbol("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Read a xml cue file"));
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Write"), &aData);
-		makeInternals_data(self, absoluteAddress, TTSymbol("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, returnedAddress, TTSymbol("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write a xml cue file"));
