@@ -587,12 +587,13 @@ void remote_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
 		
 		// send to each view
 		if (x->arrayIndex == 0) {
-			TTValue keys;
+			TTValue     keys;
+            
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
 				for (int i=0; i<keys.getSize(); i++) {
 					keys.get(i, x->cursor);
-					jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
+                    jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
 				}
 			}
 			x->cursor = kTTSymEmpty;
@@ -616,12 +617,12 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 		
 		// send to each view
 		if (x->arrayIndex == 0) {
-			TTValue keys;
+			TTValue     keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
 				for (int i=0; i<keys.getSize(); i++) {
 					keys.get(i, x->cursor);
-					jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
+                    jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
 				}
 				x->cursor = kTTSymEmpty;
 			}
@@ -651,7 +652,7 @@ void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
                 x->internals->getKeysSorted(keys);
                 
                 // in a model or a view patcher, the first internal object is
-                // always the model container so we an offset to avoid it
+                // always the model container so we add an offset to avoid it
                 offset = x->patcherContext != NULL;
                 for (i = 0; i < keys.getSize()-offset; i++) {
                     
@@ -776,11 +777,8 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	TTAddress           address;
 	TTSymbol			service;
 	TTList				returnedNodes;
-	TTNodePtr			firstNode;
-	TTObjectPtr			anObject;
 	TTUInt8				i;
 	TTValue				v;
-	TTErr				err;
 	
 	if (argc && argv) {
 		
