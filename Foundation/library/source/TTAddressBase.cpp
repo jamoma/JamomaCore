@@ -100,10 +100,7 @@ TTAddressBase* TTAddressBase::normalize()
 	if (!parsed)
 		parse();
 	
-	if (directory != NO_DIRECTORY || attribute != NO_ATTRIBUTE)
-		return edit(NO_DIRECTORY, this->parent, this->name, this->instance, NO_ATTRIBUTE);
-	else
-		return this;
+    return this->normalized;
 }
 
 TTAddressBase* TTAddressBase::removeAttribute()
@@ -213,6 +210,7 @@ TTErr TTAddressBase::parse()
 		this->attribute = NO_ATTRIBUTE;
 		this->type = kAddressRelative;
 		this->parsed = YES;
+        this->normalized = this;
 		return kTTErrNone;
 	}
 	
@@ -225,6 +223,7 @@ TTErr TTAddressBase::parse()
 		this->attribute = NO_ATTRIBUTE;
 		this->type = kAddressAbsolute;
 		this->parsed = YES;
+        this->normalized = this;
 		return kTTErrNone;
 	}
 	
@@ -322,6 +321,9 @@ TTErr TTAddressBase::parse()
 	else
 		this->type = (TTAddressType)(this->directory != NO_DIRECTORY || this->name == S_SEPARATOR);
 	
+    // edit the normalized version of the address
+    this->normalized = edit(NO_DIRECTORY, this->parent, this->name, this->instance, NO_ATTRIBUTE);
+    
 	this->parsed = YES;
 	return kTTErrNone;
 }
