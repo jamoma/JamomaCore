@@ -198,7 +198,7 @@ TTErr TTData::setNoneValue(const TTValue& value)
         // we have had our value set at least once
         if (mService == kTTSym_parameter && !mInitialized) {
             mInitialized = YES;
-            this->notifyObservers(kTTSym_initialized, YES);
+            initializedAttribute->sendNotification(kTTSym_notify, YES);
         }
        
         // return the internal value
@@ -219,7 +219,7 @@ TTErr TTData::NoneReset()
     mInitialized = NO;
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -296,7 +296,7 @@ TTErr TTData::GenericReset()
     mInitialized = !(mValue == TTValue(0.));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -463,7 +463,7 @@ TTErr TTData::BooleanReset()
     mInitialized = !(mValue == TTValue(NO));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -657,7 +657,7 @@ TTErr TTData::IntegerReset()
     mInitialized = !(mValue == TTValue(0));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -846,7 +846,7 @@ TTErr TTData::DecimalReset()
     mInitialized = !(mValue == TTValue(0.));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -1029,7 +1029,7 @@ TTErr TTData::ArrayReset()
     mInitialized = !(mValue == TTValue(0.));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -1134,7 +1134,7 @@ TTErr TTData::StringReset()
     mInitialized = !(mValue == TTValue(kTTSymEmpty));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
