@@ -20,12 +20,16 @@ mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
 mAlias(kTTAdrsEmpty),
+#ifdef USE_ACTIVITY
 mActivityIn(kTTValNONE),
 mActivityOut(kTTValNONE),
+#endif
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObjectsObserversCache(NULL),
-mObserver(NULL)
+mObserver(NULL),
+activityInAttribute(NULL),
+activityOutAttribute(NULL)
 {
 	if(arguments.getSize() == 2) {
 		arguments.get(0, (TTPtr*)&mReturnAddressCallback);
@@ -45,13 +49,13 @@ mObserver(NULL)
 	addAttributeProperty(Address, hidden, YES);
 	
 	addAttributeWithSetter(Alias, kTypeSymbol);
-	
-	addAttributeWithSetter(ActivityIn, kTypeLocalValue);
+#ifdef USE_ACTIVITY	
+	addAttribute(ActivityIn, kTypeLocalValue);              // TODO : have a way to add notification (instead of a readonly attribute)
 	addAttributeProperty(ActivityIn, readOnly, YES);
-	
-	addAttributeWithSetter(ActivityOut, kTypeLocalValue);
+    
+	addAttribute(ActivityOut, kTypeLocalValue);             // TODO : have a way to add notification (instead of a readonly attribute)
 	addAttributeProperty(ActivityOut, readOnly, YES);
-	
+#endif
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
@@ -65,6 +69,10 @@ mObserver(NULL)
 	mIsSending = false;	
 	
 	mObjectsObserversCache = new TTHash();
+    
+    // cache some attribute for observer notification
+    this->findAttribute(kTTSym_activityIn, &activityInAttribute);
+    this->findAttribute(kTTSym_activityOut, &activityOutAttribute);
 }
 
 TTContainer::~TTContainer()
@@ -392,34 +400,6 @@ TTErr TTContainer::setAlias(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTContainer::setActivityIn(const TTValue& value)
-{	
-	TTAttributePtr	anAttribute;
-	TTErr			err = kTTErrNone;
-	
-	mActivityIn = value;
-	
-	err = this->findAttribute(kTTSym_activityIn, &anAttribute);
-	if (!err)
-		anAttribute->sendNotification(kTTSym_notify, mActivityIn);	// we use kTTSym_notify because we know that observers are TTCallback
-	
-	return kTTErrNone;
-}
-
-TTErr TTContainer::setActivityOut(const TTValue& value)
-{	
-	TTAttributePtr	anAttribute;
-	TTErr			err = kTTErrNone;
-	
-	mActivityOut = value;
-	
-	err = this->findAttribute(kTTSym_activityOut, &anAttribute);
-	if (!err)
-		anAttribute->sendNotification(kTTSym_notify, mActivityOut);	// we use kTTSym_notify because we know that observers are TTCallback
-	
-	return kTTErrNone;
-}
-
 TTErr TTContainer::setTag(const TTValue& value)
 {
 	TTAttributePtr	anAttribute;
@@ -495,11 +475,13 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	TTValue			cacheElement, v;
 	TTAddress       aRelativeAddress;
 	TTSymbol		service;
-	TTObjectPtr		anObject, valueObserver, commandObserver, returnedValueObserver, activityInObserver, activityOutObserver;
+    TTObjectPtr		anObject;
+#ifdef USE_ACTIVITY    
+	TTObjectPtr		valueObserver, commandObserver, returnedValueObserver, activityInObserver, activityOutObserver;
 	TTAttributePtr	anAttribute = NULL;
 	TTMessagePtr	aMessage;
 	TTValuePtr		valueBaton, commandBaton, returnedValueBaton, activityInBaton, activityOutBaton;
-	
+#endif
 	// process the relative address
 	aNode->getAddress(aRelativeAddress, mAddress);
 	
@@ -511,6 +493,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	// 0 : cache Object
 	cacheElement.append((TTPtr)anObject);
 	
+#ifdef USE_ACTIVITY
 	// Special case for Data : observe his value
 	if (anObject->getName() == kTTSym_Data) {
 		
@@ -637,11 +620,14 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	}
 	
 	else {
+#endif
 		// 1 : cache NULL
 		cacheElement.append(NULL);
 		// 2 : cache NULL
 		cacheElement.append(NULL);
+#ifdef USE_ACTIVITY        
 	}
+#endif
 	
 	// 3 : cache the node too (used during alias creation/destruction)
 	cacheElement.append((TTPtr)aNode);
@@ -656,10 +642,12 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 {
 	TTAddress       aRelativeAddress;
 	TTValue			v, cacheElement;
-	TTObjectPtr		anObject, anObserver;
 	TTSymbol		service;
+#ifdef USE_ACTIVITY
+    TTObjectPtr		anObject, anObserver;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
+#endif
 	TTErr			err;
 	
 	// process the relative address
@@ -669,7 +657,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
 	
 	if (!err) {
-		
+#ifdef USE_ACTIVITY		
 		// get the object using the node instead of the stored one
 		anObject = aNode->getObject();
 		
@@ -766,6 +754,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				}
 			}
 		}
+#endif
 	}
 	
 	// remove cacheData
@@ -776,9 +765,12 @@ TTErr TTContainer::unbind()
 {
 	TTValue			hk, v;
 	TTValue			cacheElement;
-	TTObjectPtr		anObject, aValueObserver, aCommandObserver;//, anInitObserver;
+    TTObjectPtr		anObject;
+#ifdef USE_ACTIVITY    
+	TTObjectPtr		aValueObserver, aCommandObserver;//, anInitObserver;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
+#endif
 	TTSymbol		key;
 	TTUInt8			i;
 	TTErr			err;
@@ -793,7 +785,7 @@ TTErr TTContainer::unbind()
 			hk.get(i, key);
 			mObjectsObserversCache->lookup(key, cacheElement);
 			cacheElement.get(0, (TTPtr*)&anObject);
-			
+#ifdef USE_ACTIVITY			
 			if (anObject) {
 				// is it a Data ?
 				if (anObject->getName() == kTTSym_Data) {
@@ -825,6 +817,7 @@ TTErr TTContainer::unbind()
 					}
 				}
 			}
+#endif
 		}
 		
 		delete mObjectsObserversCache;
@@ -1373,7 +1366,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 			
 			// Notify activityOut observers (about value changes only)
 			v.prepend(TTValue(relativeAddress));
-			aContainer->setActivityOut(v);
+			aContainer->activityOutAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
 		}
 	}
 	else
@@ -1381,12 +1374,12 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 	
 	return kTTErrNone;
 }
-
+#ifdef USE_ACTIVITY 
 TTErr TTContainerCommandMessageCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTContainerPtr	aContainer;
-	TTAddress relativeAddress;
+	TTAddress       relativeAddress;
 	TTValue			address;
 	
 	// unpack baton
@@ -1396,11 +1389,11 @@ TTErr TTContainerCommandMessageCallback(TTPtr baton, TTValue& data)
 	
 	// Notify activityIn observers
 	data.prepend(TTValue(relativeAddress));
-	aContainer->setActivityIn(data);
+	aContainer->activityInAttribute->sendNotification(kTTSym_notify, data);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }
-
+#endif
 TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 {
 	TTValue		v;
