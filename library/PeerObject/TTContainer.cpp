@@ -476,7 +476,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	TTSymbol		service;
     TTObjectBasePtr	anObject;
 #ifdef USE_ACTIVITY    
-	TTObjectPtr		valueObserver, commandObserver, returnedValueObserver, activityInObserver, activityOutObserver;
+	TTObjectBasePtr	valueObserver, commandObserver, returnedValueObserver, activityInObserver, activityOutObserver;
 	TTAttributePtr	anAttribute = NULL;
 	TTMessagePtr	aMessage;
 	TTValuePtr		valueBaton, commandBaton, returnedValueBaton, activityInBaton, activityOutBaton;
@@ -643,7 +643,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	TTValue			v, cacheElement;
 	TTSymbol		service;
 #ifdef USE_ACTIVITY
-    TTObjectPtr		anObject, anObserver;
+    TTObjectBasePtr	anObject, anObserver;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 #endif
