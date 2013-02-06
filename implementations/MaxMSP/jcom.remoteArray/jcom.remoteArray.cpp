@@ -21,6 +21,7 @@ typedef struct extra {
 	TTValuePtr			*arrayValue;		// store each value in an array to output them together
 	TTBoolean			changingAddress;	// a flag to protect from succession of address changes
 	TTPtr				ui_qelem;			// to output "qlim'd" data for ui object
+    TTListPtr           ui_qelem_list;      // a list of defered value to output
 	TTUInt8				countSubscription;	// to count how many time we try to subscribe
 
 } t_extra;
@@ -121,6 +122,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	EXTRA->arrayValue = NULL;
 	EXTRA->changingAddress = NO;
 	EXTRA->ui_qelem = qelem_new(x, (method)remote_ui_queuefn);
+    EXTRA->ui_qelem_list = new TTList();
 	EXTRA->countSubscription = 0;
 	
 	// handle args
@@ -156,6 +158,8 @@ void WrappedViewerClass_free(TTPtr self)
         }
         
         qelem_free(EXTRA->ui_qelem);
+        
+        delete EXTRA->ui_qelem_list;
         
         free(EXTRA);
     }
@@ -215,6 +219,10 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 				
 				// Ends iteration on internals
 				x->iterateInternals = NO;
+                
+                // clear the list used by qelem
+                qelem_unset(EXTRA->ui_qelem);
+                EXTRA->ui_qelem_list->clear();
 				
 				// handle args
 				jamoma_ttvalue_to_Atom(x->arrayArgs, &argc, &argv);
@@ -737,12 +745,21 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 				// TODO : a real append method for value !
 				//array.append((TTValuePtr)m);
 			}
-		
+        
+		// output array value
 		jamoma_ttvalue_to_typed_Atom(array, &msg, &argc, &argv, shifted);
+        
+        // append to the list used by qelem
+        EXTRA->ui_qelem_list->append(array);
 	}
-	else
+	else {
+        
 		// output single value
 		jamoma_ttvalue_to_typed_Atom(v, &msg, &argc, &argv, shifted);
+        
+        // append to the list used by qelem
+        EXTRA->ui_qelem_list->append(v);
+    }
 	
 	// avoid blank before data
 	if (msg == _sym_nothing)
@@ -750,10 +767,8 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 	else
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
-	// Copy msg and atom in order to avoid losing data
-	copy_msg_argc_argv((TTPtr)x, msg, argc, argv);
-	
-	qelem_set(EXTRA->ui_qelem);	
+    // call the queue function
+    qelem_set(EXTRA->ui_qelem);
 	
 	if (shifted)
 		argv--;
@@ -763,11 +778,27 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 void remote_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	long						argc;
+	AtomPtr						argv;
+    TTValue                     v;
+    
+    for (EXTRA->ui_qelem_list->begin();
+         EXTRA->ui_qelem_list->end();
+         EXTRA->ui_qelem_list->next()) {
+    
+        argc = 0;
+        argv = NULL;
+        jamoma_ttvalue_to_Atom(EXTRA->ui_qelem_list->current(), &argc, &argv);
 	
-    if (x->arrayAttrFormat == gensym("array"))
-        outlet_anything(x->outlets[set_out], gensym("setlist"), x->argc, x->argv);
-    else
-        outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
+        if (x->arrayAttrFormat == gensym("array"))
+            outlet_anything(x->outlets[set_out], gensym("setlist"), argc, argv);
+        else
+            outlet_anything(x->outlets[set_out], _sym_set, argc, argv);
+    
+        sysmem_freeptr(argv);
+    }
+    
+    EXTRA->ui_qelem_list->clear();
 }
 
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

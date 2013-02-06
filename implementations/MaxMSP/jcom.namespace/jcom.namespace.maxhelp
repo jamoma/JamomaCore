@@ -3368,8 +3368,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 438.0, 602.0, 74.0, 20.0 ],
-					"text" : "prepend set"
+					"patching_rect" : [ 438.0, 602.0, 101.0, 20.0 ],
+					"text" : "prepend address"
 				}
 
 			}
@@ -3949,14 +3949,14 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-47",
-					"items" : "<empty>",
+					"items" : [ "bitdepth", ",", "in", ",", "model", ",", "out", ",", "preset", ",", "samplerateRatio" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 760.0, 330.0, 168.0, 20.0 ],
-					"prefix" : "Macintosh HD:/",
+					"prefix" : "/degrade~.1/",
 					"presentation" : 1,
 					"presentation_rect" : [ 345.0, 210.0, 168.0, 20.0 ]
 				}
@@ -4019,7 +4019,7 @@
 					"patching_rect" : [ 149.0, 712.0, 254.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 435.0, 568.0, 20.0 ],
-					"text" : "/:"
+					"text" : "/degrade~.1:"
 				}
 
 			}
@@ -4104,14 +4104,14 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-26",
-					"items" : "<empty>",
+					"items" : [ "activity/in", ",", "activity/out", ",", "alias", ",", "bypass", ",", "description", ",", "priority", ",", "tag", ",", "type" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 388.0, 553.0, 119.0, 20.0 ],
-					"prefix" : "/:",
+					"prefix" : "/degrade~.1:",
 					"presentation" : 1,
 					"presentation_rect" : [ 45.0, 405.0, 139.0, 20.0 ]
 				}
@@ -4125,7 +4125,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-20",
-					"items" : "<empty>",
+					"items" : [ "model/address", ",", "in.1/amplitude", ",", "in.2/amplitude", ",", "model/class", ",", "out.1/amplitude", ",", "out.2/amplitude", ",", "preset/order" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -4146,7 +4146,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-19",
-					"items" : "<empty>",
+					"items" : [ "model/documentation/generate", ",", "model/edit", ",", "model/help", ",", "model/open", ",", "model/reference", ",", "preset/interpolate", ",", "preset/mix", ",", "preset/read", ",", "preset/read/again", ",", "preset/recall", ",", "preset/remove", ",", "preset/store", ",", "preset/write", ",", "preset/write/again" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -4167,7 +4167,7 @@
 					"fontsize" : 12.0,
 					"framecolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"id" : "obj-18",
-					"items" : "<empty>",
+					"items" : [ "samplerateRatio", ",", "bitdepth", ",", "in.1/amplitude/active", ",", "in.1/bypass", ",", "in.1/mute", ",", "in.2/amplitude/active", ",", "in.2/bypass", ",", "in.2/mute", ",", "out.1/amplitude/active", ",", "out.1/gain", ",", "out.1/mix", ",", "out.1/mute", ",", "out.2/amplitude/active", ",", "out.2/gain", ",", "out.2/mix", ",", "out.2/mute" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
