@@ -45,7 +45,7 @@ mAddressObserver(NULL)
 	
 	addAttribute(Mute, kTypeBoolean);
     
-    removeAttribute(TTSymbol("bypass"));        // because there is already a Bypass attribute registered for all TTDataObject instances
+    removeAttribute(kTTSym_bypass);        // because there is already a Bypass attribute registered for all TTDataObject instances
 	addAttribute(Bypass, kTypeBoolean);
 	
 	addMessageWithArguments(Send);

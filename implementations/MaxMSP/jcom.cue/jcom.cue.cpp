@@ -139,28 +139,22 @@ void cue_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, n, args;
-	TTAddress                   absoluteAddress;
-	TTNodePtr					node = NULL;
+	TTAddress                   returnedAddress;
+	TTNodePtr					returnedNode = NULL;
+    TTNodePtr                   returnedContextNode = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
 	TTTextHandlerPtr			aTextHandler;
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress("cue"), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress("cue"), &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get patcher
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
 		
-		// get the Node address
-		x->subscriberObject->getAttributeValue(TTSymbol("node"), n);
-		node = TTNodePtr((TTPtr)n[0]);
-		node->getAddress(absoluteAddress);
-		
 		// expose messages of TTCue as TTData in the tree structure
 		x->subscriberObject->exposeMessage(x->wrappedObject, TTSymbol("Store"), &aData);
-// TODO: There was a merge conflict -- which of the following two lines is correct?  [tap]
-		aData->setAttributeValue(kTTSym_type, kTTSym_generic);
-//		aData->setAttributeValue(kTTSym_type, kTTSym_array);
+        aData->setAttributeValue(kTTSym_type, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Store a cue giving his name"));
 		
@@ -205,13 +199,13 @@ void cue_subscribe(TTPtr self)
 		x->internals->append(kTTSym_TextHandler, v);
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Read"), &aData);
-		makeInternals_data(self, absoluteAddress, TTSymbol("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, returnedAddress, TTSymbol("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Read a xml cue file"));
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Write"), &aData);
-		makeInternals_data(self, absoluteAddress, TTSymbol("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, returnedAddress, TTSymbol("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write a xml cue file"));
@@ -437,6 +431,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTHashPtr			allCues;
 	TTValue				v, o, args;
 	TTSymbol			name = kTTSymEmpty;
+    Atom                a;
 	TTErr				tterr;
 	
 	// choose object to edit : default the cuelist
@@ -511,6 +506,10 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		snprintf(title, MAX_FILENAME_CHARS, "cuelist editor");
 		object_attr_setsym(EXTRA->textEditor, _sym_title, gensym(title));
+        
+        // output a flag
+        atom_setsym(&a, gensym("opened"));
+        object_obex_dumpout(self, gensym("editor"), 1, &a);
 		
 		buffer->clear();
 		delete buffer;
@@ -533,6 +532,7 @@ void cue_doedit(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTTextHandlerPtr	aTextHandler = NULL;
 	TTValue				o, args;
+    Atom                a;
 	TTErr				tterr;
 	
 	// get the buffer handler
@@ -547,9 +547,9 @@ void cue_doedit(TTPtr self)
 		tterr = aTextHandler->sendMessage(kTTSym_Read, args, kTTValNONE);
 		critical_exit(0);
 		
-		// recall the current
-		if (EXTRA->cueName != kTTSymEmpty)
-			x->wrappedObject->sendMessage(kTTSym_Recall, EXTRA->cueName, kTTValNONE);
+		// output a flag
+        atom_setsym(&a, gensym("closed"));
+        object_obex_dumpout(self, gensym("editor"), 1, &a);
 		
 		if (!tterr)
 			object_obex_dumpout(self, _sym_read, 0, NULL);

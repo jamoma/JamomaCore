@@ -153,10 +153,11 @@ void WrappedPresetManageClass_free(TTPtr self)
 void preset_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTValue						v, n, args;
+	TTValue						v, a, args;
 	TTString					presetLevelAddress;
-	TTAddress			absoluteAddress;
-	TTNodePtr					node = NULL;
+	TTAddress                   absoluteAddress, returnedAddress;
+	TTNodePtr					returnedNode = NULL;
+    TTNodePtr					returnedContextNode = NULL;
 	TTDataPtr					aData;
 	TTXmlHandlerPtr				aXmlHandler;
 	TTTextHandlerPtr			aTextHandler;
@@ -170,20 +171,16 @@ void preset_subscribe(TTPtr self)
 		presetLevelAddress = "preset";
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress(presetLevelAddress), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress(presetLevelAddress), &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get all info relative to our patcher
 		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
-		
-		// get the Node (.../preset) and his parent
-		x->subscriberObject->getAttributeValue(TTSymbol("node"), n);
-		node = TTNodePtr((TTPtr)n[0]);
 		
 		// set the Address attribute of the PresetManager if it is empty
 		x->wrappedObject->getAttributeValue(kTTSym_address, v);
 		absoluteAddress = v[0];
 		if (absoluteAddress == kTTAdrsEmpty) {
-			node->getParent()->getAddress(absoluteAddress);
+			returnedNode->getParent()->getAddress(absoluteAddress);
 			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		}
 
@@ -517,6 +514,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTHashPtr			allPresets;
 	TTValue				v, o, args;
 	TTSymbol			name;
+    Atom                a;
 	TTErr				tterr;
 	
 	// choose object to edit : default the cuelist
@@ -592,6 +590,10 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		snprintf(title, MAX_FILENAME_CHARS, "%s preset editor", x->patcherClass.c_str());
 		object_attr_setsym(EXTRA->textEditor, _sym_title, gensym(title));
+        
+        // output a flag
+        atom_setsym(&a, gensym("opened"));
+        object_obex_dumpout(self, gensym("editor"), 1, &a);
 		
 		buffer->clear();
 		delete buffer;
@@ -614,6 +616,7 @@ void preset_doedit(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTTextHandlerPtr	aTextHandler = NULL;
 	TTValue				o, args;
+    Atom                a;
 	TTErr				tterr;
 	
 	// get the buffer handler
@@ -628,9 +631,9 @@ void preset_doedit(TTPtr self)
 		tterr = aTextHandler->sendMessage(kTTSym_Read, args, kTTValNONE);
 		critical_exit(0);
 		
-		// recall the current
-		if (EXTRA->presetName != kTTSymEmpty)
-			x->wrappedObject->sendMessage(kTTSym_Recall, EXTRA->presetName, kTTValNONE);
+        // output a flag
+        atom_setsym(&a, gensym("closed"));
+        object_obex_dumpout(self, gensym("editor"), 1, &a);
 		
 		if (!tterr)
 			object_obex_dumpout(self, _sym_read, 0, NULL);

@@ -186,8 +186,7 @@ TTErr TTScript::Flatten(const TTValue& inputValue, TTValue& outputValue)
         schema = aLine->getSchema();
 		if (schema == kTTSym_command) {
             
-            // clear former node and target field
-            aLine->remove(kTTSym_node);
+            // clear target field
             aLine->remove(kTTSym_target);
             
             // edit the absolute address and bind to the node
@@ -315,13 +314,8 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                 else
                     err = getDirectoryFrom(address)->getTTNode(address, &aNode);
                 
-                if (!err) {
-                    v = TTValue((TTPtr)aNode);
-                    aLine->append(kTTSym_node, v);
-                }
-                
                 // if there is a node
-                if (aNode) {
+                if (!err) {
                     
                     anObject = aNode->getObject();
                     
@@ -356,14 +350,9 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
             else
                 err = getDirectoryFrom(address)->getTTNode(address, &aNode);
             
-            if (!err) {
-                v = TTValue((TTPtr)aNode);
-                aLine->append(kTTSym_node, v);
-            }
-            
             // if there is a node
             aContainer = NULL;
-            if (aNode) {
+            if (!err) {
                 
                 anObject = aNode->getObject();
                 
@@ -418,7 +407,7 @@ TTErr TTScript::RunFlattened()
         
         err = getDirectoryFrom(address)->getTTNode(address, &aNode);
 
-        if (aNode) {
+        if (!err) {
             
             anObject = aNode->getObject();
             

@@ -183,8 +183,9 @@ TTErr TTData::NoneCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     // 0. Notify Command observer for value changes only
     ///////////////////////////////////////////////////
+#ifdef USE_ACTIVITY     
     commandMessage->sendNotification(kTTSym_notify, kTTValNONE);     // we use kTTSym_notify because we know that observers are TTCallback
-    
+#endif
     return this->setNoneValue(kTTValNONE);
 }
 
@@ -198,7 +199,7 @@ TTErr TTData::setNoneValue(const TTValue& value)
         // we have had our value set at least once
         if (mService == kTTSym_parameter && !mInitialized) {
             mInitialized = YES;
-            this->notifyObservers(kTTSym_initialized, YES);
+            initializedAttribute->sendNotification(kTTSym_notify, YES);
         }
        
         // return the internal value
@@ -219,7 +220,7 @@ TTErr TTData::NoneReset()
     mInitialized = NO;
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -239,11 +240,11 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (!command)
         return kTTErrGeneric;
-    
+#ifdef USE_ACTIVITY     
     // 1. Notify Command observer for value changes only
     ///////////////////////////////////////////////////
     commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-    
+#endif
     // 2. Get the value
     command->getValue(aValue);
     
@@ -296,7 +297,7 @@ TTErr TTData::GenericReset()
     mInitialized = !(mValue == TTValue(0.));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -320,11 +321,11 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (!command)
         return kTTErrGeneric;
-    
+#ifdef USE_ACTIVITY     
     // 1. Notify Command observer for value changes only
     ///////////////////////////////////////////////////
     commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-    
+#endif
     // 2. Get the value
     command->getValue(aValue);
     
@@ -463,7 +464,7 @@ TTErr TTData::BooleanReset()
     mInitialized = !(mValue == TTValue(NO));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -487,11 +488,11 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (!command)
         return kTTErrGeneric;
-    
+#ifdef USE_ACTIVITY     
     // 1. Notify Command observer for value changes only
     ///////////////////////////////////////////////////
     commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-    
+#endif
     // 2. Get the value
     command->getValue(aValue);
     
@@ -657,7 +658,7 @@ TTErr TTData::IntegerReset()
     mInitialized = !(mValue == TTValue(0));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -681,11 +682,11 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (!command)
         return kTTErrGeneric;
-    
+#ifdef USE_ACTIVITY     
     // 1. Notify Command observer for value changes only
     ///////////////////////////////////////////////////
     commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-    
+#endif
     // 2. Get the value
     command->getValue(aValue);
     
@@ -846,7 +847,7 @@ TTErr TTData::DecimalReset()
     mInitialized = !(mValue == TTValue(0.));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -870,11 +871,11 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (!command)
         return kTTErrGeneric;
-    
+#ifdef USE_ACTIVITY
     // 1. Notify Command observer for value changes only
     ///////////////////////////////////////////////////
     commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-    
+#endif
     // 2. Get the value
     command->getValue(aValue);
     
@@ -1029,7 +1030,7 @@ TTErr TTData::ArrayReset()
     mInitialized = !(mValue == TTValue(0.));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
@@ -1049,11 +1050,11 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (!command)
         return kTTErrGeneric;
-    
+#ifdef USE_ACTIVITY     
     // 1. Notify Command observer for value changes only
     ///////////////////////////////////////////////////
    commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-    
+#endif
     // 2. Get the value
     command->getValue(aValue);
     
@@ -1134,7 +1135,7 @@ TTErr TTData::StringReset()
     mInitialized = !(mValue == TTValue(kTTSymEmpty));
     
     // notify observers about the initialization state
-	this->notifyObservers(kTTSym_initialized, mInitialized);
+	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }

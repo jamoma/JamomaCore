@@ -186,7 +186,9 @@ void remote_subscribe(TTPtr self)
 	TTValue						v;
 	Atom						a[1];
 	TTAddress                   contextAddress = kTTAdrsEmpty;
-	TTAddress                   absoluteAddress;
+	TTAddress                   absoluteAddress, returnedAddress;
+    TTNodePtr                   returnedNode = NULL;
+    TTNodePtr                   returnedContextNode = NULL;
 	TTObjectPtr					toSubscribe, anObject;
 	
 	// for absolute address
@@ -233,7 +235,7 @@ void remote_subscribe(TTPtr self)
             return;
         
         // if the subscription is succesfull
-        if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, x->address, &x->subscriberObject)) {
+        if (!jamoma_subscriber_create((ObjectPtr)x, toSubscribe, x->address, &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
             
             // get the context address to make
             // a viewer on the contextAddress/model/address parameter

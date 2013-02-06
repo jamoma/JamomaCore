@@ -75,12 +75,12 @@ void		receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr ar
 void		receive_bang(TTPtr self);
 #endif
 
-/** set message handler for jcom.receive. To change the address to bind.
+/** address message handler for jcom.receive. To change the address to bind.
  @param self		Pointer to this object.
  @param address		The address to bind
  @see				receive_subscribe
  */
-void		receive_set(TTPtr self, SymbolPtr address);
+void		receive_address(TTPtr self, SymbolPtr address);
 
 #pragma mark -
 #pragma mark main
@@ -117,7 +117,7 @@ void WrapTTReceiverClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)receive_bang,					"bang",					0);
 #endif
 	
-	class_addmethod(c->maxClass, (method)receive_set,					"set",					A_SYM, 0);
+	class_addmethod(c->maxClass, (method)receive_address,				"address",				A_SYM, 0);
 }
 
 #pragma mark -
@@ -186,7 +186,9 @@ void receive_subscribe(TTPtr self)
 	TTValue						v;
 	Atom						a[1];
 	TTAddress                   contextAddress = kTTAdrsEmpty;
-	TTAddress                   absoluteAddress;
+	TTAddress                   absoluteAddress, returnedAddress;
+    TTNodePtr                   returnedNode = NULL;
+    TTNodePtr                   returnedContextNode = NULL;
 	TTObjectPtr					anObject;
 	
 	if (x->address == kTTAdrsEmpty)
@@ -211,7 +213,7 @@ void receive_subscribe(TTPtr self)
 	// for relative address
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 	
-	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, TTAddress("model/address"), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, TTAddress("model/address"), &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get the context address to make
 		// a viewer on the contextAddress/model/address parameter
@@ -355,7 +357,7 @@ void receive_bang(TTPtr self)
 
 #endif
 
-void receive_set(TTPtr self, SymbolPtr address)
+void receive_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	x->address =  TTAddress(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);

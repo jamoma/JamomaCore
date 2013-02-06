@@ -39,18 +39,18 @@ public:
 	TTCLASS_SETUP(TTSubscriber)
 
 private:
+    
+    TTObjectPtr					mObject;					///< the object to subscribe
 	
 	TTAddress					mRelativeAddress;			///< the address of this subscriber relative to the Context node
 	
-	TTObjectPtr					mObject;					///< the object to subscribe
-	
-	TTNodePtr					mNode;						///< cache the TTNode relative to this subscriber
 	TTAddress					mNodeAddress;				///< cache the address of this subscriber in the tree structure
 	
-	TTNodePtr					mContextNode;				///< cache the TTNode relative to the Context
 	TTAddress					mContextAddress;			///< cache the address of the Context node in the tree structure
 	
 	TTBoolean					mNewInstanceCreated;		///< a flag to know if a new instance has been automatically generated
+    
+    TTBoolean					mSubscribed;                ///< a flag to know if a subcription is made
 	
 	TTHashPtr					mExposedMessages;
 	TTHashPtr					mExposedAttributes;
@@ -61,10 +61,13 @@ private:
 		Important Note : 
 			- the top level context have to be the first element of the list.
 			- each element have to be TTValue with < context name, context pointer */
-	TTErr	subscribe(TTListPtr aContextList);
+	TTErr Subscribe(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** */
+    TTErr Unsubscribe();
 	
-	/** Register each given Context of the list as TTNode if they don't exist yet */
-	TTErr registerContextList(TTListPtr aContextList);
+	/** Register each given Context of the list as TTNode if they don't exist yet and return the Context node */
+	TTNodePtr registerContextList(TTListPtr aContextList);
 	
 	friend TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);

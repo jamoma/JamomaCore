@@ -54,7 +54,7 @@ extern "C" {
 	
 	/**	Create a subscriber object and register a TTObject into the tree 
 		or, if aTTObject is NULL, retrieve all context info to bind on an object */
-	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber);
+	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber, TTSymbol& returnedAddress, TTNodePtr *returnedNode, TTNodePtr *returnedContextNode);
 	
 	/** Get the <patcher name, patcher pointer> list above an external
 		To understand what this method have to provide see in TTSubscriber.h and .cpp */

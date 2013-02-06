@@ -7,7 +7,7 @@
 			"revision" : 8
 		}
 ,
-		"rect" : [ 5.0, 44.0, 527.0, 682.0 ],
+		"rect" : [ 1.0, 44.0, 530.0, 759.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -30,13 +30,30 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"frgb" : 0.0,
+					"id" : "obj-40",
+					"linecount" : 11,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 285.0, 320.0, 241.0, 154.0 ],
+					"text" : "Because many applications are not able to describe themself (using namespace/build message), you have to load a namespace file (using namespace/read message) to declare the parameter|message|return of the application to control.\n\nFor the remoteApp used for this example, load the \"remoteApp - namespace.xml\" file in jamoma/documentation/examples folder before."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-39",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 231.0, 324.5, 101.0, 18.0 ],
-					"text" : "namespace/write"
+					"patching_rect" : [ 168.5, 385.0, 101.0, 18.0 ],
+					"text" : "namespace/write",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -49,7 +66,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 20.0, 221.0, 101.0, 18.0 ],
+					"patching_rect" : [ 9.0, 241.0, 101.0, 18.0 ],
 					"text" : "namespace/write"
 				}
 
@@ -117,7 +134,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 341.0, 441.0, 185.0, 33.0 ],
+					"patching_rect" : [ 312.0, 512.0, 185.0, 33.0 ],
 					"text" : "jcom.map @input /myFloat @output remoteApp:/movie/rate"
 				}
 
@@ -132,7 +149,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 341.0, 380.0, 50.0, 20.0 ]
+					"patching_rect" : [ 175.5, 490.0, 50.0, 20.0 ]
 				}
 
 			}
@@ -146,7 +163,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 341.0, 402.0, 133.0, 33.0 ],
+					"patching_rect" : [ 175.5, 512.0, 133.0, 33.0 ],
 					"text" : "jcom.send remoteApp:/movie/rate"
 				}
 
@@ -162,7 +179,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 341.0, 354.0, 133.0, 20.0 ]
+					"patching_rect" : [ 10.0, 549.0, 133.0, 20.0 ]
 				}
 
 			}
@@ -176,13 +193,14 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 341.0, 317.0, 164.0, 33.0 ],
+					"patching_rect" : [ 10.0, 512.0, 164.0, 33.0 ],
 					"text" : "jcom.namespace @address remoteApp:/ @format umenu"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-24",
@@ -190,8 +208,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 231.0, 297.0, 100.0, 18.0 ],
-					"text" : "namespace/read"
+					"patching_rect" : [ 168.5, 365.0, 100.0, 18.0 ],
+					"text" : "namespace/read",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -204,13 +223,14 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 651.0, 491.0, 20.0 ],
+					"patching_rect" : [ 7.0, 734.0, 491.0, 20.0 ],
 					"text" : "Note : for instant only the Minuit protocol has been developed."
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.7 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-28",
@@ -219,8 +239,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 21.0, 317.0, 159.0, 45.0 ],
-					"text" : "protocol/setup ip 127.0.0.1, protocol/setup port 7003, name, protocol/setup"
+					"patching_rect" : [ 10.0, 348.0, 157.0, 45.0 ],
+					"text" : "protocol/setup ip 127.0.0.1, protocol/setup port 7003, name, protocol/setup",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -232,7 +253,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 21.0, 404.0, 149.0, 20.0 ],
+					"patching_rect" : [ 10.0, 435.0, 149.0, 20.0 ],
 					"text" : "print remoteApp_dumpout"
 				}
 
@@ -246,7 +267,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 21.0, 294.0, 60.0, 20.0 ],
+					"patching_rect" : [ 10.0, 325.0, 60.0, 20.0 ],
 					"text" : "loadbang"
 				}
 
@@ -261,7 +282,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 21.0, 382.0, 180.0, 20.0 ],
+					"patching_rect" : [ 10.0, 413.0, 180.0, 20.0 ],
 					"text" : "jcom.modular remoteApp Minuit"
 				}
 
@@ -276,7 +297,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 6.0, 269.0, 502.0, 20.0 ],
+					"patching_rect" : [ 6.0, 300.0, 502.0, 20.0 ],
 					"text" : "With 2 arguments, jcom.modular enable a protocol to deal with a remote application :"
 				}
 
@@ -289,7 +310,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 184.0, 165.0, 20.0 ],
+					"patching_rect" : [ 9.0, 197.0, 165.0, 20.0 ],
 					"text" : "print myApplication_dumpout"
 				}
 
@@ -332,7 +353,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 20.0, 112.0, 60.0, 20.0 ],
+					"patching_rect" : [ 9.0, 112.0, 60.0, 20.0 ],
 					"text" : "loadbang"
 				}
 
@@ -352,6 +373,7 @@
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.7 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-35",
@@ -360,12 +382,14 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 149.0, 133.0, 140.0, 18.0 ],
-					"text" : "protocol/setup port 8000"
+					"text" : "protocol/setup port 8000",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.7 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-37",
@@ -373,8 +397,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 20.0, 133.0, 123.0, 18.0 ],
-					"text" : "name, protocol/setup"
+					"patching_rect" : [ 9.0, 133.0, 123.0, 18.0 ],
+					"text" : "name, protocol/setup",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -384,12 +409,13 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-33",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 20.0, 162.0, 241.0, 20.0 ],
-					"text" : "jcom.modular Minuit @name myApplication"
+					"patching_rect" : [ 9.0, 160.5, 239.0, 33.0 ],
+					"text" : "jcom.modular Minuit @name myApplication @author \"Jamoma Team\" @version v1"
 				}
 
 			}
@@ -417,7 +443,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 22.0, 518.0, 74.0, 20.0 ],
+					"patching_rect" : [ 22.0, 623.0, 74.0, 20.0 ],
 					"text" : "prepend set"
 				}
 
@@ -440,7 +466,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 533.0, 44.0, 680.0, 682.0 ],
+						"rect" : [ 533.0, 44.0, 689.0, 759.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -459,7 +485,6 @@
 						"description" : "",
 						"digest" : "",
 						"tags" : "",
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
@@ -498,7 +523,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 508.0, 514.0, 150.0, 20.0 ],
+									"patching_rect" : [ 508.0, 594.0, 150.0, 20.0 ],
 									"text" : "Observe value changes"
 								}
 
@@ -513,7 +538,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 453.0, 442.0, 205.0, 33.0 ],
+									"patching_rect" : [ 453.0, 522.0, 205.0, 33.0 ],
 									"text" : "Observe creation and destruction into the namespace of myApplication"
 								}
 
@@ -527,7 +552,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 56.0, 437.0, 150.0, 20.0 ],
+									"patching_rect" : [ 56.0, 517.0, 150.0, 20.0 ],
 									"text" : "Listen myApplication"
 								}
 
@@ -541,7 +566,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 56.0, 340.0, 150.0, 20.0 ],
+									"patching_rect" : [ 56.0, 402.0, 150.0, 20.0 ],
 									"text" : "Explore myApplication"
 								}
 
@@ -555,7 +580,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 56.0, 236.0, 150.0, 20.0 ],
+									"patching_rect" : [ 56.0, 286.0, 150.0, 20.0 ],
 									"text" : "Ask to myApplication"
 								}
 
@@ -615,7 +640,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 401.0, 89.5, 276.0, 20.0 ],
-									"text" : "/movie/rate 12.00",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 
@@ -628,7 +652,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 211.0, 627.0, 53.0, 20.0 ],
+									"patching_rect" : [ 211.0, 707.0, 53.0, 20.0 ],
 									"text" : "s to.udp"
 								}
 
@@ -642,7 +666,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 279.0, 591.0, 208.0, 18.0 ],
+									"patching_rect" : [ 279.0, 671.0, 208.0, 18.0 ],
 									"text" : "remoteApp?listen /mySymbol disable"
 								}
 
@@ -655,7 +679,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 211.0, 394.0, 53.0, 20.0 ],
+									"patching_rect" : [ 211.0, 456.0, 53.0, 20.0 ],
 									"text" : "s to.udp"
 								}
 
@@ -668,7 +692,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 211.0, 295.0, 53.0, 20.0 ],
+									"patching_rect" : [ 211.0, 345.0, 53.0, 20.0 ],
 									"text" : "s to.udp"
 								}
 
@@ -682,7 +706,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 359.0, 368.0, 201.0, 18.0 ],
+									"patching_rect" : [ 359.0, 430.0, 201.0, 18.0 ],
 									"text" : "remoteApp?namespace /mySymbol"
 								}
 
@@ -696,7 +720,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 279.0, 459.0, 171.0, 18.0 ],
+									"patching_rect" : [ 279.0, 539.0, 171.0, 18.0 ],
 									"text" : "remoteApp?listen /:life disable"
 								}
 
@@ -710,7 +734,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 279.0, 528.0, 195.0, 18.0 ],
+									"patching_rect" : [ 279.0, 608.0, 195.0, 18.0 ],
 									"text" : "remoteApp?listen /myFloat disable"
 								}
 
@@ -724,7 +748,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 279.0, 572.0, 206.0, 18.0 ],
+									"patching_rect" : [ 279.0, 652.0, 206.0, 18.0 ],
 									"text" : "remoteApp?listen /mySymbol enable"
 								}
 
@@ -738,7 +762,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 279.0, 508.0, 193.0, 18.0 ],
+									"patching_rect" : [ 279.0, 588.0, 193.0, 18.0 ],
 									"text" : "remoteApp?listen /myFloat enable"
 								}
 
@@ -752,7 +776,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 279.0, 439.0, 169.0, 18.0 ],
+									"patching_rect" : [ 279.0, 519.0, 169.0, 18.0 ],
 									"text" : "remoteApp?listen /:life enable"
 								}
 
@@ -766,7 +790,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 359.0, 341.0, 187.0, 18.0 ],
+									"patching_rect" : [ 359.0, 403.0, 187.0, 18.0 ],
 									"text" : "remoteApp?namespace /myFloat"
 								}
 
@@ -780,7 +804,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 211.0, 341.0, 145.0, 18.0 ],
+									"patching_rect" : [ 211.0, 403.0, 145.0, 18.0 ],
 									"text" : "remoteApp?namespace /"
 								}
 
@@ -794,7 +818,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 407.0, 264.0, 243.0, 18.0 ],
+									"patching_rect" : [ 407.0, 314.0, 243.0, 18.0 ],
 									"text" : "remoteApp?get /mySymbol:repetitionsAllow"
 								}
 
@@ -808,7 +832,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 359.0, 237.0, 155.0, 18.0 ],
+									"patching_rect" : [ 359.0, 287.0, 155.0, 18.0 ],
 									"text" : "remoteApp?get /mySymbol"
 								}
 
@@ -822,7 +846,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 211.0, 237.0, 142.0, 18.0 ],
+									"patching_rect" : [ 211.0, 287.0, 142.0, 18.0 ],
 									"text" : "remoteApp?get /myFloat"
 								}
 
@@ -1033,7 +1057,7 @@
 									"destination" : [ "obj-39", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 220.5, 274.5, 220.5, 274.5 ],
+									"midpoints" : [ 220.5, 324.5, 220.5, 324.5 ],
 									"source" : [ "obj-18", 0 ]
 								}
 
@@ -1053,7 +1077,7 @@
 									"destination" : [ "obj-39", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 368.5, 288.5, 220.5, 288.5 ],
+									"midpoints" : [ 368.5, 338.5, 220.5, 338.5 ],
 									"source" : [ "obj-20", 0 ]
 								}
 
@@ -1063,7 +1087,7 @@
 									"destination" : [ "obj-39", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 416.5, 288.0, 220.5, 288.0 ],
+									"midpoints" : [ 416.5, 338.0, 220.5, 338.0 ],
 									"source" : [ "obj-22", 0 ]
 								}
 
@@ -1073,7 +1097,7 @@
 									"destination" : [ "obj-42", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 220.5, 375.0, 220.5, 375.0 ],
+									"midpoints" : [ 220.5, 437.0, 220.5, 437.0 ],
 									"source" : [ "obj-24", 0 ]
 								}
 
@@ -1083,7 +1107,7 @@
 									"destination" : [ "obj-42", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 368.5, 363.0, 220.5, 363.0 ],
+									"midpoints" : [ 368.5, 425.0, 220.5, 425.0 ],
 									"source" : [ "obj-26", 0 ]
 								}
 
@@ -1093,7 +1117,7 @@
 									"destination" : [ "obj-47", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 288.5, 483.0, 220.5, 483.0 ],
+									"midpoints" : [ 288.5, 563.0, 220.5, 563.0 ],
 									"source" : [ "obj-28", 0 ]
 								}
 
@@ -1103,7 +1127,7 @@
 									"destination" : [ "obj-47", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 288.5, 552.5, 220.5, 552.5 ],
+									"midpoints" : [ 288.5, 632.5, 220.5, 632.5 ],
 									"source" : [ "obj-30", 0 ]
 								}
 
@@ -1113,7 +1137,7 @@
 									"destination" : [ "obj-47", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 288.5, 616.5, 220.5, 616.5 ],
+									"midpoints" : [ 288.5, 696.5, 220.5, 696.5 ],
 									"source" : [ "obj-32", 0 ]
 								}
 
@@ -1123,7 +1147,7 @@
 									"destination" : [ "obj-47", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 288.5, 552.5, 220.5, 552.5 ],
+									"midpoints" : [ 288.5, 632.5, 220.5, 632.5 ],
 									"source" : [ "obj-34", 0 ]
 								}
 
@@ -1133,7 +1157,7 @@
 									"destination" : [ "obj-47", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 288.5, 483.0, 220.5, 483.0 ],
+									"midpoints" : [ 288.5, 563.0, 220.5, 563.0 ],
 									"source" : [ "obj-36", 0 ]
 								}
 
@@ -1143,7 +1167,7 @@
 									"destination" : [ "obj-42", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 368.5, 388.5, 220.5, 388.5 ],
+									"midpoints" : [ 368.5, 450.5, 220.5, 450.5 ],
 									"source" : [ "obj-38", 0 ]
 								}
 
@@ -1153,7 +1177,7 @@
 									"destination" : [ "obj-47", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 288.5, 616.5, 220.5, 616.5 ],
+									"midpoints" : [ 288.5, 696.5, 220.5, 696.5 ],
 									"source" : [ "obj-46", 0 ]
 								}
 
@@ -1201,7 +1225,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 363.0, 542.0, 154.0, 34.0 ],
+					"patching_rect" : [ 363.0, 647.0, 154.0, 34.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -1229,7 +1253,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 479.0, 490.0, 20.0 ],
+					"patching_rect" : [ 7.0, 584.0, 490.0, 20.0 ],
 					"text" : "Here is two parameters of myApplication to test remote control by a remoteApp :"
 				}
 
@@ -1242,7 +1266,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 527.0, 70.0 ]
+					"patching_rect" : [ 0.0, 0.0, 530.0, 70.0 ]
 				}
 
 			}
@@ -1255,7 +1279,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 187.0, 516.0, 74.0, 20.0 ],
+					"patching_rect" : [ 187.0, 621.0, 74.0, 20.0 ],
 					"text" : "prepend set"
 				}
 
@@ -1269,7 +1293,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 187.0, 557.0, 61.0, 20.0 ],
+					"patching_rect" : [ 187.0, 662.0, 61.0, 20.0 ],
 					"text" : "route text"
 				}
 
@@ -1287,7 +1311,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "int", "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 187.0, 537.0, 135.0, 19.0 ],
+					"patching_rect" : [ 187.0, 642.0, 135.0, 19.0 ],
 					"text" : "takes it easy"
 				}
 
@@ -1302,7 +1326,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 187.0, 579.0, 156.0, 33.0 ],
+					"patching_rect" : [ 187.0, 684.0, 156.0, 33.0 ],
 					"text" : "jcom.parameter mySymbol @type string",
 					"varname" : "mySymbol"
 				}
@@ -1318,7 +1342,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 22.0, 540.0, 50.0, 20.0 ]
+					"patching_rect" : [ 22.0, 645.0, 50.0, 20.0 ]
 				}
 
 			}
@@ -1332,7 +1356,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 22.0, 562.0, 141.0, 47.0 ],
+					"patching_rect" : [ 22.0, 667.0, 141.0, 47.0 ],
 					"text" : "jcom.parameter myFloat @type decimal @ramp/drive scheduler",
 					"varname" : "myFloat"
 				}
@@ -1347,13 +1371,14 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 341.0, 297.0, 50.0, 18.0 ],
+					"patching_rect" : [ 10.0, 492.0, 50.0, 18.0 ],
 					"text" : "explore"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.7 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-32",
@@ -1362,7 +1387,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 367.0, 133.0, 62.0, 18.0 ],
-					"text" : "activity $1"
+					"text" : "activity $1",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -1375,7 +1401,39 @@
 					"maxclass" : "panel",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 499.0, 351.0, 127.0 ]
+					"patching_rect" : [ 7.0, 604.0, 351.0, 127.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-42",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 168.5, 345.0, 119.0, 18.0 ],
+					"text" : "namespace/observe",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-43",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 168.5, 325.0, 101.0, 18.0 ],
+					"text" : "namespace/build",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -1394,7 +1452,7 @@
 					"destination" : [ "obj-10", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 196.5, 615.0, 181.5, 615.0, 181.5, 514.0, 196.5, 514.0 ],
+					"midpoints" : [ 196.5, 720.0, 181.5, 720.0, 181.5, 619.0, 196.5, 619.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -1467,7 +1525,7 @@
 					"destination" : [ "obj-27", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 240.5, 370.5, 30.5, 370.5 ],
+					"midpoints" : [ 178.0, 406.5, 19.5, 406.5 ],
 					"source" : [ "obj-24", 0 ]
 				}
 
@@ -1522,7 +1580,7 @@
 					"destination" : [ "obj-33", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 376.5, 156.0, 29.5, 156.0 ],
+					"midpoints" : [ 376.5, 156.0, 18.5, 156.0 ],
 					"source" : [ "obj-32", 0 ]
 				}
 
@@ -1541,7 +1599,7 @@
 					"destination" : [ "obj-33", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 29.5, 244.0, 11.5, 244.0, 11.5, 156.0, 29.5, 156.0 ],
+					"midpoints" : [ 18.5, 261.0, 3.5, 261.0, 3.5, 156.0, 18.5, 156.0 ],
 					"source" : [ "obj-34", 0 ]
 				}
 
@@ -1551,7 +1609,7 @@
 					"destination" : [ "obj-33", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 158.5, 156.0, 29.5, 156.0 ],
+					"midpoints" : [ 158.5, 156.0, 18.5, 156.0 ],
 					"source" : [ "obj-35", 0 ]
 				}
 
@@ -1579,8 +1637,28 @@
 					"destination" : [ "obj-27", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 240.5, 370.0, 30.5, 370.0 ],
+					"midpoints" : [ 178.0, 406.0, 19.5, 406.0 ],
 					"source" : [ "obj-39", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 178.0, 406.0, 19.5, 406.0 ],
+					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 178.0, 406.5, 19.5, 406.5 ],
+					"source" : [ "obj-43", 0 ]
 				}
 
 			}
@@ -1589,7 +1667,7 @@
 					"destination" : [ "obj-22", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 31.5, 612.0, 16.5, 612.0, 16.5, 515.0, 31.5, 515.0 ],
+					"midpoints" : [ 31.5, 717.0, 16.5, 717.0, 16.5, 620.0, 31.5, 620.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
