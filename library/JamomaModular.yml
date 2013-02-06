@@ -1,4 +1,6 @@
-
+defines:
+  - USE_ACTIVITY
+      
 sources:
   - source/TTModular.cpp
   - source/TTModularSymbolCache.cpp
