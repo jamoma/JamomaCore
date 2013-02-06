@@ -173,11 +173,14 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, Ato
 void data_subscribe(TTPtr self, SymbolPtr relativeAddress, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+    TTAddress   returnedAddress;
+    TTNodePtr   returnedNode = NULL;
+    TTNodePtr   returnedContextNode = NULL;
 
 	// for relative address
 	if (TTAddress(relativeAddress->s_name).getType() == kAddressRelative) {
         
-		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name), &x->subscriberObject);
+		jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, TTAddress(jamoma_parse_dieze((ObjectPtr)x, relativeAddress)->s_name), &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode);
 		
 	}
 	else

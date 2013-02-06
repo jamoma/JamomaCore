@@ -39,7 +39,7 @@ private :
 	
 	/** */
 	TTErr	Store();
-
+    
 	/** */
 	TTErr	Recall();
 	

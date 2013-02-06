@@ -16,7 +16,9 @@
 #define thisTTClassTags		"script"
 
 TT_MODULAR_CONSTRUCTOR,
+mFlattened(NO),
 mLines(NULL),
+mFlattenedLines(NULL),
 mSubScript(NULL),
 mParentScript(NULL),
 mReturnLineCallback(NULL)
@@ -27,11 +29,15 @@ mReturnLineCallback(NULL)
 		mReturnLineCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
 	
 	TT_ASSERT("Return Line Callback passed to TTScript is not NULL", mReturnLineCallback);
-	
-	mLines = new TTList();
+
+    addAttribute(Flattened, kTypeBoolean);
+    addAttributeProperty(Flattened, readOnly, YES);
     
 	addAttribute(Lines, kTypePointer);
 	addAttributeProperty(Lines, readOnly, YES);
+    
+    addAttribute(FlattenedLines, kTypePointer);
+	addAttributeProperty(FlattenedLines, readOnly, YES);
 	
 	addAttribute(SubScript, kTypeObject);
 	addAttributeProperty(SubScript, hidden, YES);
@@ -45,9 +51,12 @@ mReturnLineCallback(NULL)
     
 	addMessageWithArguments(Dump);
     addMessageWithArguments(DumpLine);
-	
-	addMessageWithArguments(Bind);
-	addMessageProperty(Bind, hidden, YES);
+    
+    addMessageWithArguments(Flatten);
+	addMessageProperty(Flatten, hidden, YES);
+    
+    addMessageWithArguments(Unflatten);
+	addMessageProperty(Unflatten, hidden, YES);
 	
 	addMessageWithArguments(Append);
 	addMessageWithArguments(AppendCommand);
@@ -66,6 +75,9 @@ mReturnLineCallback(NULL)
 	addMessageProperty(WriteAsText, hidden, YES);
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
+    
+	mLines = new TTList();
+    mFlattenedLines = new TTList();
 }
 
 TTScript::~TTScript()
@@ -92,9 +104,15 @@ TTScript::~TTScript()
 			aLine = NULL;
 		}
 	}
+    
+    // don't delete the lines into the mFlattenedLines because
+    // it stores only pointers to the lines stored into the mLines
 	
 	delete mLines;
 	mLines = NULL;
+    
+    delete mFlattenedLines;
+	mFlattenedLines = NULL;
 }
 
 TTErr TTScript::Clear()
@@ -121,16 +139,118 @@ TTErr TTScript::Clear()
 			aLine = NULL;
 		}
 	}
+    
+    // don't delete the lines into the mFlattenedLines because
+    // it stores only pointers to the lines stored into the mLines
 	
 	delete mLines;
 	mLines = new TTList();
+    
+	delete mFlattenedLines;
+	mFlattenedLines = new TTList();
+    
+     mFlattened = NO;
+    
 	return kTTErrNone;
+}
+
+TTErr TTScript::Flatten(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTScriptPtr     aScriptToFlatten;
+    TTDictionaryPtr	aLine;
+	TTSymbol		schema;
+	TTAddress       address, parentAddress = kTTAdrsRoot;
+	TTValue			v;
+	
+	// It is possible to flatten the script from a parent address
+	if (inputValue[0].type() == kTypeSymbol)
+		parentAddress = inputValue[0];
+    
+    // It is possible to flatten another script and store into the mFlattenedLines of this script
+	if (inputValue[1].type() == kTypePointer) {
+		aScriptToFlatten = TTScriptPtr((TTObjectBasePtr)inputValue[1]);
+    }
+    // else start to flatten this script
+    else {
+        
+        Unflatten();
+        aScriptToFlatten = this;
+        mFlattened = YES;
+    }
+	
+	// flatten each command line of the script
+	for (aScriptToFlatten->mLines->begin(); aScriptToFlatten->mLines->end(); aScriptToFlatten->mLines->next()) {
+		
+		aLine = TTDictionaryPtr((TTPtr)aScriptToFlatten->mLines->current()[0]);
+		
+        schema = aLine->getSchema();
+		if (schema == kTTSym_command) {
+            
+            // clear target field
+            aLine->remove(kTTSym_target);
+            
+            // edit the absolute address and bind to the node
+			aLine->lookup(kTTSym_address, v);
+			address = v[0];
+            
+			// use parentAddress for relative address
+			if (address.getType() == kAddressRelative)
+				address = parentAddress.appendAddress(address);
+
+            // keep the absolute address in mind under a target field
+            aLine->append(kTTSym_target, address);
+            
+            // append the command line to the Flattened lines list
+            this->mFlattenedLines->append((TTPtr)aLine);
+            
+		}
+        else if (schema == kTTSym_script) {
+            
+            // get the script
+            aLine->getValue(v);
+            mSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
+            
+            // get the address
+			aLine->lookup(kTTSym_address, v);
+			address = v[0];
+            
+			// use parentAddress for relative address
+			if (address.getType() == kAddressRelative)
+				address = parentAddress.appendAddress(address);
+            
+            v = TTValue(address);
+            v.append(mSubScript);
+            
+            // flatten the sub script into this script
+            this->sendMessage(kTTSym_Flatten, v, kTTValNONE);
+        }
+	}
+	
+	return kTTErrNone;
+}
+
+TTErr TTScript::Unflatten()
+{
+    // don't delete the lines into the mFlattenedLines because
+    // it stores only pointers to the lines stored into the mLines
+	
+	delete mFlattenedLines;
+	mFlattenedLines = new TTList();
+    
+    mFlattened = NO;
+    
+    return kTTErrNone;
 }
 
 TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTDictionaryPtr	aLine;
-	TTSymbol		name;
+    // use the Flattened lines if they are ready
+    if (mFlattened)
+        return RunFlattened();
+    
+    // else use the none Flattened lines
+    TTDictionaryPtr	aLine;
+	TTSymbol		schema, name;
 	TTNodePtr		aNode;
 	TTAddress       address, parentAddress = kTTAdrsRoot;
 	TTObjectBasePtr		anObject, aContainer, aParentContainer = NULL;
@@ -138,8 +258,8 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 	TTErr			err;
 	
 	// get the parent address
-	if (inputValue[0].type() == kTypeAddress)
-		inputValue.get(0, parentAddress);
+	if (inputValue[0].type() == kTypeSymbol)
+		parentAddress = inputValue[0];
     
     // eventually get a container to go faster
 	if (inputValue[1].type() == kTypeSymbol)
@@ -151,7 +271,8 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
 		
 		// run script line depending on his schema
-		if (aLine->getSchema() == kTTSym_flag) {
+        schema = aLine->getSchema();
+		if (schema == kTTSym_flag) {
 			
 			// get flag name
 			aLine->lookup(kTTSym_name, v);
@@ -159,12 +280,12 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			
 			// TODO : output current flag to display it
 		}
-		else if (aLine->getSchema() == kTTSym_comment) {
+		else if (schema == kTTSym_comment) {
 			
 			// TODO : output current comment to display it
 			continue;
 		}
-		else if (aLine->getSchema() == kTTSym_command) {
+		else if (schema == kTTSym_command) {
 			
 			// get the address
 			aLine->lookup(kTTSym_address, v);
@@ -186,27 +307,15 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 			// or retreive the node
 			else {
                 
-                // if the line already binds a node : get it
-                aNode = NULL;
-                if (!aLine->lookup(kTTSym_node, v))
-                    aNode = TTNodePtr((TTPtr)v[0]);
-                
-                // or bind to the node
-                else {
-                    
-                    if (address.getType() == kAddressRelative)
-                        err = getDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
-                    else
-                        err = getDirectoryFrom(address)->getTTNode(address, &aNode);
-                    
-                    if (!err) {
-                        v = TTValue((TTPtr)aNode);
-                        aLine->append(kTTSym_node, v);
-                    }
-                }
+                // bind to the node
+                // (each time ! this is why using flattened list could be usefull but dangerous)
+                if (address.getType() == kAddressRelative)
+                    err = getDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
+                else
+                    err = getDirectoryFrom(address)->getTTNode(address, &aNode);
                 
                 // if there is a node
-                if (aNode) {
+                if (!err) {
                     
                     anObject = aNode->getObject();
                     
@@ -224,7 +333,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                 }
             }
         }
-        else if (aLine->getSchema() == kTTSym_script) {
+        else if (schema == kTTSym_script) {
             
             // get the script
             aLine->getValue(v);
@@ -234,28 +343,16 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
             aLine->lookup(kTTSym_address, v);
             address = v[0];
             
-            // if the line already binds a node : get it
-            aNode = NULL;
-            if (!aLine->lookup(kTTSym_node, v))
-                aNode = TTNodePtr((TTPtr)v[0]);
-            
-            // or bind to the node
-            else {
-                
-                if (address.getType() == kAddressRelative)
-                    err = getDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
-                else
-                    err = getDirectoryFrom(address)->getTTNode(address, &aNode);
-                
-                if (!err) {
-                    v = TTValue((TTPtr)aNode);
-                    aLine->append(kTTSym_node, v);
-                }
-            }
+            // bind to the node
+            // (each time ! this why using flattened list could be usefull but dangerous)
+            if (address.getType() == kAddressRelative)
+                err = getDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
+            else
+                err = getDirectoryFrom(address)->getTTNode(address, &aNode);
             
             // if there is a node
             aContainer = NULL;
-            if (aNode) {
+            if (!err) {
                 
                 anObject = aNode->getObject();
                 
@@ -288,6 +385,49 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
+TTErr TTScript::RunFlattened()
+{
+    TTDictionaryPtr	aLine;
+	TTNodePtr		aNode;
+	TTAddress       address;
+	TTObjectBasePtr	anObject;
+	TTValue			v;
+	TTErr			err;
+    
+    // run each line of the script
+    for (mFlattenedLines->begin(); mFlattenedLines->end(); mFlattenedLines->next()) {
+        
+        aLine = TTDictionaryPtr((TTPtr)mFlattenedLines->current()[0]);
+        
+        // note : Flattened lines are only command with absolute address
+          
+        // get the target address
+        aLine->lookup(kTTSym_target, v);
+       address = v[0];
+        
+        err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+
+        if (!err) {
+            
+            anObject = aNode->getObject();
+            
+            // check object type
+            if (anObject) {
+                
+                // for data object
+                if (anObject->getName() == kTTSym_Data) {
+                    
+                    // send the line using the command message
+                    v = TTValue((TTPtr)aLine);
+                    anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                }
+            }
+        }
+    }
+    
+    return kTTErrNone;
+}
+
 TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
 {
 	return kTTErrGeneric;
@@ -295,11 +435,15 @@ TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTDictionaryPtr		aLine;
-	TTSymbol			name, unit;
-	TTAddress			address, parentAddress = kTTAdrsRoot;
-	TTValue				v, valueToDump;
-	TTUInt32			ramp;
+    // use the Flattened lines if they are ready
+    if (mFlattened)
+        return DumpFlattened();
+    
+	TTDictionaryPtr	aLine;
+	TTSymbol		schema, name, unit;
+	TTAddress		address, parentAddress = kTTAdrsRoot;
+	TTValue			v, valueToDump;
+	TTUInt32		ramp;
 	
 	if (!mReturnLineCallback)
 		return kTTErrGeneric;
@@ -315,7 +459,8 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
 		
 		// output script line depending on his schema
-		if (aLine->getSchema() == kTTSym_flag) {
+        schema = aLine->getSchema();
+		if (schema == kTTSym_flag) {
 			
 			// get flag value
 			aLine->getValue(valueToDump);
@@ -331,7 +476,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			// output line value
 			mReturnLineCallback->notify(valueToDump, kTTValNONE);
 		}	
-		else if (aLine->getSchema() == kTTSym_comment) {
+		else if (schema == kTTSym_comment) {
 			
 			// get comment value
 			aLine->getValue(valueToDump);
@@ -342,7 +487,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			// output line value
 			mReturnLineCallback->notify(valueToDump, kTTValNONE);
 		}
-		else if (aLine->getSchema() == kTTSym_command) {
+		else if (schema == kTTSym_command) {
 			
 			// get command value
 			aLine->getValue(valueToDump);
@@ -374,7 +519,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			// output line value
 			mReturnLineCallback->notify(valueToDump, kTTValNONE);
 		}
-		else if (aLine->getSchema() == kTTSym_script) {
+		else if (schema == kTTSym_script) {
 			
 			// get the script
 			aLine->getValue(v);
@@ -398,65 +543,54 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
+TTErr TTScript::DumpFlattened()
+{
+    TTDictionaryPtr	aLine;
+	TTAddress       address;
+    TTSymbol        unit;
+	TTValue			v, valueToDump;
+    TTUInt32		ramp;
+    
+    // run each line of the script
+    for (mFlattenedLines->begin(); mFlattenedLines->end(); mFlattenedLines->next()) {
+        
+        aLine = TTDictionaryPtr((TTPtr)mFlattenedLines->current()[0]);
+        
+        // note : Flattened lines are only command with absolute address
+        
+        // get command value
+        aLine->getValue(valueToDump);
+        
+        // get the unit
+        if (!aLine->lookup(kTTSym_unit, v)) {
+            unit = v[0];
+            valueToDump.append(unit);
+        }
+        
+        // get the ramp
+        if (!aLine->lookup(kTTSym_ramp, v)) {
+            ramp = v[0];
+            valueToDump.append(kTTSym_ramp);
+            valueToDump.append(ramp);
+        }
+        
+        // get the target address
+        aLine->lookup(kTTSym_target, v);
+        address = v[0];
+                
+        // append the address
+        valueToDump.prepend(address);
+        
+        // output line value
+        mReturnLineCallback->notify(valueToDump, kTTValNONE);
+    }
+    
+    return kTTErrNone;
+}
+
 TTErr TTScript::DumpLine(const TTValue& inputValue, TTValue& outputValue)
 {
 	return kTTErrGeneric;
-}
-
-TTErr TTScript::Bind(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTDictionaryPtr	aLine;
-	TTSymbol		name;
-	TTNodePtr		aNode;
-	TTAddress       address, containerAddress = kTTAdrsRoot;
-	TTValue			v, c;
-	TTErr			err;
-	
-	// It is possible to make the script bind from a container address
-	if (inputValue[0].type() == kTypeSymbol)
-		containerAddress = inputValue[0];
-	
-	// make each command line of the script to bind on their TTNode
-	for (mLines->begin(); mLines->end(); mLines->next()) {
-		
-		aLine = TTDictionaryPtr((TTPtr)mLines->current()[0]);
-		
-		// lookfor command line only
-		if (aLine->getSchema() == kTTSym_command || aLine->getSchema() == kTTSym_script) {
-			
-			// clear any node key
-			aLine->remove(kTTSym_node);
-			
-			// get the address
-			aLine->lookup(kTTSym_address, v);
-			address = v[0];
-			
-			// use container for relative address
-			if (address.getType() == kAddressRelative)
-				address = containerAddress.appendAddress(address);
-				
-			// retreive the node
-			err = getDirectoryFrom(address)->getTTNode(address, &aNode);
-			if (!err && aNode) {
-				
-                v = TTValue((TTPtr)aNode);
-                aLine->append(kTTSym_node, v);
-			}
-			
-			// make sub script binds
-			if (aLine->getSchema() == kTTSym_script) {
-				
-				// get the script
-				aLine->getValue(v);
-				mSubScript = v[0];
-				
-				// prepare the sub script
-				mSubScript->sendMessage(TTSymbol("Bind"), address, kTTValNONE);
-			}
-		}
-	}
-	
-	return kTTErrNone;
 }
 
 TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
@@ -839,7 +973,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr	aTextHandler;
 	TTString			*buffer;
 	TTDictionaryPtr		aLine;
-	TTAddress	address;
+	TTAddress           address;
 	TTSymbol			name;
 	TTString			aString;
 	TTBoolean			addQuote;
@@ -1156,113 +1290,92 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position)
 {
 	TTDictionaryPtr line1, line2;
-	TTSymbol		type1;
-    TTNodePtr       node1, node2;
-	TTScriptPtr		sub1, sub2;
-	TTValue			v, v1, v2, newValue;
+    TTAddress       adrs1, adrs2;
+    TTValue			v1, v2, v, newValue;
+	TTSymbol		type;
+    TTNodePtr       aNode;
+    TTObjectBasePtr anObject;
 	TTValue			found;
 	TTUInt32		i, s;
-	
-	for (script1->mLines->begin(), script2->mLines->begin(); 
-		 script1->mLines->end() && script2->mLines->end(); 
-		 script1->mLines->next(), script2->mLines->next()) {
+    
+	for (script1->mFlattenedLines->begin(), script2->mFlattenedLines->begin();
+		 script1->mFlattenedLines->end() && script2->mFlattenedLines->end(); 
+		 script1->mFlattenedLines->next(), script2->mFlattenedLines->next()) {
 		
-        line1 = TTDictionaryPtr((TTPtr)script1->mLines->current()[0]);
-        line2 = TTDictionaryPtr((TTPtr)script2->mLines->current()[0]);
+        line1 = TTDictionaryPtr((TTPtr)script1->mFlattenedLines->current()[0]);
+        line2 = TTDictionaryPtr((TTPtr)script2->mFlattenedLines->current()[0]);
 		
-		// get nodes
-		node1 = NULL;
-		if (!line1->lookup(kTTSym_node, v))
-			node1 = TTNodePtr((TTPtr)v[0]);
-		
-		node2 = NULL;
-		if (!line2->lookup(kTTSym_node, v))
-			node2 = TTNodePtr((TTPtr)v[0]);
-		
-		if (node1 && node2) {
-			
-			// node1 and node2 have to be the same node
-			if (node1 != node2) {
-				script2->mLines->find(&TTScriptFindNode, (TTPtr)node1, found);
-				
-				// couldn't find the same object in script2 : skip the command
-				if (found == kTTValNONE) {
-					script2->mLines->begin();
-					continue;
-				}
-				else {
-                    line2 = TTDictionaryPtr((TTPtr)found[0]);
-					
-					node2 = NULL;
-					if (!line2->lookup(kTTSym_node, v))
-						node2 = TTNodePtr((TTPtr)v[0]);
-					else
-						continue;
-				}
-			}
-			
-			if (line1->getSchema() == kTTSym_command && line2->getSchema() == kTTSym_command) {
-				
-                if (node1->getObject()) {
+        // get the target address
+        line1->lookup(kTTSym_target, v);
+        adrs1 = v[0];
+        
+        line2->lookup(kTTSym_target, v);
+        adrs2 = v[0];
+        
+        // adrs1 and adrs2 have to be the same
+        if (adrs1 != adrs2) {
+            
+            script2->mFlattenedLines->find(&TTScriptFindTarget, (TTPtr)&adrs1, found);
+            
+            // couldn't find the same address in script2 : skip the command
+            if (found == kTTValNONE) {
+                script2->mFlattenedLines->begin();
+                continue;
+            }
+            else
+                line2 = TTDictionaryPtr((TTPtr)found[0]);
+        }
+        
+        // bind to the node
+		if (!getDirectoryFrom(adrs1)->getTTNode(adrs1, &aNode)) {
+            
+            anObject = aNode->getObject();
+            if (anObject) {
+                
+                if (!anObject->getAttributeValue(kTTSym_type, v)) {
+                    type = v[0];
                     
-                    if (!node1->getObject()->getAttributeValue(kTTSym_type, v)) {
-                        type1 = v[0];
+                    // get line values
+                    line1->getValue(v1);
+                    line2->getValue(v2);
+                    
+                    if (type == kTTSym_integer) {
+                        newValue = TTValue(TTInt32(v1[0]) * (1. - position) + TTInt32(v2[0]) * position);
                         
-                        // get line values
-                        line1->getValue(v1);
-                        line2->getValue(v2);
+                    } else if (type == kTTSym_decimal) {
+                        newValue = TTValue(TTFloat64(v1[0]) * (1. - position) + TTFloat64(v2[0]) * position);
                         
-                        if (type1 == kTTSym_integer) {
-                            newValue = TTValue(TTInt32(v1[0]) * (1. - position) + TTInt32(v2[0]) * position);
+                    } else if (type == kTTSym_array) {
+                        s = v1.size();
+                        if (s == v2.size()) {
                             
-                        } else if (type1 == kTTSym_decimal) {
-                            newValue = TTValue(TTFloat64(v1[0]) * (1. - position) + TTFloat64(v2[0]) * position);
-                            
-                        } else if (type1 == kTTSym_array) {
-                            s = v1.size();
-                            if (s == v2.size()) {
-                                
-                                newValue.resize(s);
-                                for (i = 0; i < s; i++)
-                                    newValue[i] = TTFloat64(v1[i]) * (1. - position) + TTFloat64(v2[i]) * position;
-                            }
-                            
-                        } else
-                            newValue = position <= 0.5 ? v1 : v2;
+                            newValue.resize(s);
+                            for (i = 0; i < s; i++)
+                                newValue[i] = TTFloat64(v1[i]) * (1. - position) + TTFloat64(v2[i]) * position;
+                        }
                         
-                        // set the interpolated value
-                        node1->getObject()->setAttributeValue(kTTSym_value, newValue);
-                    }
+                    } else
+                        newValue = position <= 0.5 ? v1 : v2;
+                    
+                    // set the interpolated value
+                    anObject->setAttributeValue(kTTSym_value, newValue);
                 }
-			}
-			else if (line1->getSchema() == kTTSym_script && line2->getSchema() == kTTSym_script) {
-				
-				// get the sub scripts
-				sub1 = NULL;
-				if (!line1->getValue(v))
-					sub1 = TTScriptPtr((TTObjectBasePtr)v[0]);
-				
-				sub2 = NULL;
-				if (!line2->getValue(v))
-					sub2 = TTScriptPtr((TTObjectBasePtr)v[0]);
-				
-				// interpolate the script
-				if (sub1 && sub2)
-					TTScriptInterpolate(sub1, sub2, position);
-			}
-		}
-	}
+            }
+        }
+    }
 	
 	return kTTErrNone;
 }
 
 TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 {
-	TTScriptPtr		firstScript, aScript, aSubScript;
+	TTScriptPtr		firstScript, aScript;
 	TTDictionaryPtr firstScriptLine, aLine;
-    TTValue			v, valueToMix, mixedValue, found, subScripts;
+    TTAddress       firstAdrs, adrs;
+    TTValue			v, valueToMix, mixedValue, found;
+    TTSymbol		type;
     TTNodePtr       aNode;
-	TTSymbol		schema, dataType;
+    TTObjectBasePtr anObject;
     TTFloat64		sumFactors;
     TTUInt32		i, mixSize;
 	
@@ -1273,143 +1386,111 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 	
 	// initialized lines list iterator
 	firstScript = TTScriptPtr((TTObjectBasePtr)scripts[0]);
-	firstScript->mLines->begin();
+	firstScript->mFlattenedLines->begin();
 	
     for (i = 1; i < mixSize; i++) {
+        
 		aScript = TTScriptPtr((TTObjectBasePtr)scripts[i]);
-		aScript->mLines->begin();
+		aScript->mFlattenedLines->begin();
     }
 	
-	// iterate over all command lines of first given script
-    for (; firstScript->mLines->end(); firstScript->mLines->next()) {
+	// iterate over all flattened lines of first given script
+    for (; firstScript->mFlattenedLines->end(); firstScript->mFlattenedLines->next()) {
 		
-		firstScriptLine = TTDictionaryPtr((TTPtr)firstScript->mLines->current()[0]);
+		firstScriptLine = TTDictionaryPtr((TTPtr)firstScript->mFlattenedLines->current()[0]);
         
-        // get schema
-        schema = firstScriptLine->getSchema();
-		
-		// get node
-		aNode = NULL;
-		if (!firstScriptLine->lookup(kTTSym_node, v))
-			aNode = TTNodePtr((TTPtr)v[0]);
+		// get the target address
+        firstScriptLine->lookup(kTTSym_target, v);
+        firstAdrs = v[0];
         
-        // else each script go to the next line
-        else {
-			for (i = 1; i < mixSize; i++) {
-				aScript = TTScriptPtr((TTObjectBasePtr)scripts[i]);
-				aScript->mLines->next();
-			}
-			continue;
-		}
-		
-		if (schema == kTTSym_command) {
-			
-            if (!aNode->getObject())
-                continue;
+        // bind to the node
+		if (!getDirectoryFrom(firstAdrs)->getTTNode(firstAdrs, &aNode)) {
             
-			if (!aNode->getObject()->getAttributeValue(kTTSym_type, v))
-				dataType = v[0];
-			else continue;
-			
-			// initialize the mix with the command of the first script
-			sumFactors = TTScriptMixLine(firstScriptLine, dataType, mixSize, TTFloat64(factors[0]), mixedValue, YES);
-			
-			for (i = 1; i < mixSize; i++) {
-				
-				aScript = TTScriptPtr((TTObjectBasePtr)scripts[i]);
-				
-				if (aScript->mLines->end()) {
-					
-					// try to find the same node
-					aScript->mLines->find(&TTScriptFindNode, (TTPtr)aNode, found);
-					
-					// couldn't find the same node in the script : 
-					// look into to next script for this command
-					if (found == kTTValNONE) {
-						aScript->mLines->begin();
-						continue;
-					}
-					else {
-						aLine = TTDictionaryPtr((TTPtr)found[0]);
-						
-						// mix the command of this script
-						// TODO : introduce a mixWeight information into command lines
-						sumFactors += TTScriptMixLine(aLine, dataType, mixSize, TTFloat64(factors[i]), mixedValue, NO);
-						
-						aScript->mLines->next();
-					}
-				}
-			}
-			
-			if (sumFactors > 0) {
-				
-				// if numeric : normalise by sum of mixWeight
-				if (dataType == kTTSym_integer)
-					mixedValue[0] = (TTInt32(mixedValue[0]) / sumFactors) + 1; // +1 because the value is truncate in TTData::setValue
-				
-				else if (dataType == kTTSym_decimal)
-					mixedValue[0] = TTFloat64(mixedValue[0]) / sumFactors;
-				
-				else if (dataType == kTTSym_array)
-					for (int i = 0; i < mixedValue.size(); i++) 
-						mixedValue[i] = TTFloat64(mixedValue[i]) / sumFactors;
-				// for any other type : remove the coef at the end of the value
-				else
-					mixedValue.resize(mixedValue.size()-1);
-				
-				// set the mixed value
-				aNode->getObject()->setAttributeValue(kTTSym_value, mixedValue);
-			}
-		}
-		else if (schema == kTTSym_script) {
-			
-			subScripts.clear();
-			
-			// get the first sub script
-			aSubScript = NULL;
-			if (!firstScriptLine->getValue(v))
-				aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
-			
-			subScripts.append((TTPtr*)aSubScript);
-			
-			// get all other sub scripts
-			for (i = 1; i < mixSize; i++) {
-				
-				aScript = TTScriptPtr((TTObjectBasePtr)scripts[i]);
-				
-				if (aScript->mLines->end()) {
-					
-					// try to find the same node
-					aScript->mLines->find(&TTScriptFindNode, (TTPtr)aNode, found);
-					
-					// couldn't find the same node in the script : 
-					// look into to next script for this subscript
-					if (found == kTTValNONE) {
-						aScript->mLines->begin();
-						continue;
-					}
-					else {
-						aLine = TTDictionaryPtr((TTPtr)found[0]);
-						
-						// get the sub script
-						aSubScript = NULL;
-						if (!aLine->getValue(v))
-							aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
-						
-						subScripts.append((TTPtr*)aSubScript);
-						
-						aScript->mLines->next();
-					}
-				}
-			}
-			
-			// mix the sub scripts
-			if (subScripts.size() == mixSize)
-				TTScriptMix(subScripts, factors);
-		}
+            anObject = aNode->getObject();
+            
+            if (anObject) {
+                
+                if (!anObject->getAttributeValue(kTTSym_type, v)) {
+                    
+                    type = v[0];
+                    
+                    // initialize the mix with the command of the first script
+                    sumFactors = TTScriptMixLine(firstScriptLine, type, mixSize, TTFloat64(factors[0]), mixedValue, YES);
+                    
+                    // then look for same line into the other script
+                    for (i = 1; i < mixSize; i++) {
+                        
+                        aScript = TTScriptPtr((TTObjectBasePtr)scripts[i]);
+                        
+                        aLine = NULL;
+                        if (!aScript->mFlattenedLines->end()) {
+                            
+                            // go to the next line
+                            aScript->mFlattenedLines->next();
+                            aLine = TTDictionaryPtr((TTPtr)aScript->mFlattenedLines->current()[0]);
+                            
+                            // get the target address
+                            aLine->lookup(kTTSym_target, v);
+                            adrs = v[0];
+                            
+                            // is the address equal ?
+                            if (adrs != firstAdrs)
+                                aLine = NULL;
+                        }
+                        
+                        // if the next line is not the good line
+                        if (!aLine) {
+                            
+                            // try to find the same line
+                            aScript->mFlattenedLines->find(&TTScriptFindTarget, (TTPtr)&firstAdrs, found);
+                            
+                            // couldn't find the same node in the script :
+                            // look into to next script for this command
+                            if (found == kTTValNONE) {
+                                aScript->mFlattenedLines->begin();
+                                continue;
+                            }
+                            else
+                                aLine = TTDictionaryPtr((TTPtr)found[0]);
+                        }
+                        
+                        // if a line have been found
+                        if (aLine) {
+                            
+                            // mix the command of this script
+                            // TODO : introduce a mixWeight information into command lines
+                            sumFactors += TTScriptMixLine(aLine, type, mixSize, TTFloat64(factors[i]), mixedValue, NO);
+                            
+                            aScript->mFlattenedLines->next();
+                        }
+                    }
+                    
+                    // prepare and send the mixed value
+                    if (sumFactors > 0) {
+                        
+                        // if numeric : normalise by sum of mixWeight
+                        if (type == kTTSym_integer)
+                            mixedValue[0] = TTInt32(mixedValue[0]) / sumFactors + 1; // +1 because the value is truncate in TTData::setValue
+                        
+                        else if (type == kTTSym_decimal)
+                            mixedValue[0] = TTFloat64(mixedValue[0]) / sumFactors;
+                        
+                        else if (type == kTTSym_array)
+                            for (int i = 0; i < mixedValue.size(); i++)
+                                mixedValue[i] = TTFloat64(mixedValue[i]) / sumFactors;
+                        // for any other type : remove the coef at the end of the value
+                        else
+                            mixedValue.resize(mixedValue.size()-1);
+                        
+                        // set the mixed value
+                        anObject->setAttributeValue(kTTSym_value, mixedValue);
+                    }
+                }
+            }
+        }
     }
-	
-	return kTTErrNone;
+
+    return kTTErrNone;
 }
 
 TTFloat64 TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbol dataType, TTUInt32 mixSize, TTFloat64 factor, TTValue& mixedValue, TTBoolean init)
@@ -1712,20 +1793,6 @@ TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 	return kTTErrNone;
 }
 
-void TTScriptFindNode(const TTValue& lineValue, TTPtr nodePtrToMatch, TTBoolean& found)
-{
-	TTDictionaryPtr aLine;
-	TTNodePtr		node = NULL;
-	TTValue			v;
-	
-	aLine = TTDictionaryPtr((TTPtr)lineValue[0]);
-	
-	if (!aLine->lookup(kTTSym_node, v))
-		node = TTNodePtr((TTPtr)v[0]);
-	
-	found = node == ((TTNodePtr)nodePtrToMatch);
-}
-
 void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found)
 {
 	TTDictionaryPtr		aLine;
@@ -1740,20 +1807,55 @@ void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBo
 	found = address == *((TTAddress*)addressPtrToMatch);
 }
 
+void TTScriptFindTarget(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found)
+{
+	TTDictionaryPtr		aLine;
+	TTAddress			address;
+	TTValue				v;
+	
+	aLine = TTDictionaryPtr((TTPtr)lineValue[0]);
+	
+	if (!aLine->lookup(kTTSym_target, v))
+		address = v[0];
+	
+	found = address == *((TTAddress*)addressPtrToMatch);
+}
+
 TTDictionaryPtr TTScriptCopyLine(TTDictionaryPtr lineTocopy)
 {
-	TTValue		keys, v;
-	TTSymbol	key;
-	TTUInt32	i;
+    TTValue     v;
+	//TTValue	keys, v;
+	//TTSymbol	key;
+	//TTUInt32	i;
 	
 	TTDictionaryPtr newLine = new TTDictionary();
 	
+    /* TTDictionary::getKeys is broken
 	lineTocopy->getKeys(keys);
 	for (i = 0; i < keys.size(); i++) {
 		key = keys[i];
 		lineTocopy->lookup(key, v);
 		newLine->append(key, v);
 	}
+    */
+    
+    if (!lineTocopy->lookup(kTTSym_schema, v))
+        newLine->append(kTTSym_schema, v);
+    
+    if (!lineTocopy->lookup(kTTSym_value, v))
+        newLine->append(kTTSym_value, v);
+    
+    if (!lineTocopy->lookup(kTTSym_name, v))
+        newLine->append(kTTSym_name, v);
+    
+    if (!lineTocopy->lookup(kTTSym_address, v))
+        newLine->append(kTTSym_address, v);
+    
+    if (!lineTocopy->lookup(kTTSym_unit, v))
+        newLine->append(kTTSym_unit, v);
+    
+    if (!lineTocopy->lookup(kTTSym_ramp, v))
+        newLine->append(kTTSym_address, v);
 	
 	return newLine;
 }

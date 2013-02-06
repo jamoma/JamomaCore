@@ -71,17 +71,22 @@ private:
 	TTErr	Clear();
 	
 	/** Store a cue : 
-		name + absolute address list : create a new cue.
-		absolute address list : store into the current cue using the given absolute address list */
+		name/id : create a new cue.
+		nothing : store into the current cue */
 	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Prepare a cue to increase any operation (recall, interpolation, mix) :
+     name/id : prepare the cue.
+     nothing : prepare the current cue */
+    TTErr   Prepare(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Recall a cue : 
-		name : recall the cue.
+		name/id : recall the cue.
 		nothing : recall the current cue */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Output a cue using the mReturnLineCallback : 
-	 name : output the cue.
+	 name/id : output the cue.
 	 nothing : output the current cue */
 	TTErr	Output(const TTValue& inputValue, TTValue& outputValue);
 	

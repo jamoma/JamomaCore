@@ -11,7 +11,7 @@ desc: >
 inlets:
   - id: 0
     type: float/int/list
-    desc: x	
+    desc: input to be mapped according a defined function	
 
 outlets:
  - id: 0
@@ -32,26 +32,38 @@ outputs:
 args:
 
 attributes:
+ - name: active
+   type: boolean
+   desc: enable or disable the mapping function
+   default: 1
  - name: function
    type: string
    desc: type of the mapping function
    default: linear
- - name: inputMin
+ - name: input/min
    type: float
    desc: minimum input value
    default: 0.0
- - name: inputMax
+ - name: input/max
    type: float
    desc: maximum input value
    default: 1.0   
- - name: outputMin
+ - name: output/min
    type: float
    desc: minimum input value
    default: 0.0
- - name: outputMax
+ - name: output/max
    type: float
    desc: maximum output value
    default: 1.0
+ - name: inverse
+   type: boolean
+   desc: inverse mapping function
+   default: 0
+ - name: ramp
+   type: int
+   desc: ramp time when mapping one parameter value to another
+   default: 0
 
 messages:
  - name: getfunction
@@ -66,9 +78,7 @@ messages:
  - name: parameter
    type: string float
    desc: ADD_TEXT
- - name: parameter.get
-   type: string 
-   desc: returns the current state of the requested parameter
+
 
 seealso:
  - jmod.mapperContinuous

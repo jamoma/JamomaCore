@@ -195,6 +195,9 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	TTUInt32					number;
 	TTUInt8						i, j;
 	TTAddress					newAddress = relativeAddress->s_name;
+    TTAddress                   returnedAddress;
+    TTNodePtr                   returnedNode = NULL;
+    TTNodePtr                   returnedContextNode = NULL;
 	SymbolPtr					instanceAddress;
 	TTObjectBasePtr					anObject;
 	TTSubscriberPtr				aSubscriber;
@@ -250,7 +253,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 #endif
 #endif
 						aSubscriber = NULL;
-						if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTAddress(instanceAddress->s_name),  &aSubscriber)) {
+						if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTAddress(instanceAddress->s_name),  &aSubscriber, returnedAddress, &returnedNode, &returnedContextNode)) {
 							
 							if (aSubscriber) {
 								// append the data to the internals table

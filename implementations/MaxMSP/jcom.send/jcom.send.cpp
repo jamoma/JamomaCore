@@ -124,12 +124,12 @@ void		send_input(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 #endif
 
-/** set message handler for jcom.send. To change the address to bind.
+/** address message handler for jcom.send. To change the address to bind.
  @param self		Pointer to this object.
  @param address		The address to bind
  @see				send_subscribe
  */
-void		send_set(TTPtr self, SymbolPtr address);
+void		send_address(TTPtr self, SymbolPtr address);
 
 #pragma mark -
 #pragma mark main
@@ -170,7 +170,7 @@ void WrapTTSenderClass(WrappedClassPtr c)
 	class_addmethod(c->maxClass, (method)WrappedSenderClass_anything,	"symbol",					A_SYM, 0L);
 #endif
 	
-	class_addmethod(c->maxClass, (method)send_set,						"set",						A_SYM, 0L);
+	class_addmethod(c->maxClass, (method)send_address,						"address",					A_SYM, 0L);
 	
     // no class_dspinit : it is done in wrapTTModularClassAsMaxClass for AUDIO_EXTERNAL
 }
@@ -236,7 +236,9 @@ void send_subscribe(TTPtr self)
 	TTValue						v;
 	Atom						a[1];
 	TTAddress                   contextAddress = kTTAdrsEmpty;
-	TTAddress                   absoluteAddress;
+	TTAddress                   absoluteAddress, returnedAddress;
+    TTNodePtr                   returnedNode = NULL;
+    TTNodePtr                   returnedContextNode = NULL;
 	TTObjectBasePtr				anObject;
 	
 	if (x->address == kTTAdrsEmpty)
@@ -259,7 +261,7 @@ void send_subscribe(TTPtr self)
 	// for relative address
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 	
-	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, TTAddress("model/address"), &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, TTAddress("model/address"), &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get the context address to make
 		// a viewer on the contextAddress/model/address parameter
@@ -407,7 +409,7 @@ void WrappedSenderClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 
 #endif
 
-void send_set(TTPtr self, SymbolPtr address)
+void send_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	x->address =  TTAddress(jamoma_parse_dieze((ObjectPtr)x, address)->s_name);

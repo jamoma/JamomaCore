@@ -56,7 +56,7 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 	
 	/** Edit selection on a namespace using namespace pointer or name */
 	TTErr	Select(const TTValue& inputValue, TTValue& outputValue);
-	
+    
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromXml(const TTValue& inputValue, TTValue& outputValue);

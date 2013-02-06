@@ -268,8 +268,9 @@ void in_subscribe(TTPtr self)
 	TTAddress   inputAddress;
 	TTAddress   outputAddress;
 	TTValue		v, args;
-	TTNodePtr	node = NULL;
-	TTAddress   nodeAddress, parentAddress;
+	TTNodePtr	returnedNode = NULL;
+    TTNodePtr   returnedContextNode = NULL;
+	TTAddress   returnedAddress, parentAddress;
 	TTDataPtr	aData;
 	TTString	formatDescription, sInstance;
 	SymbolPtr	inDescription;
@@ -277,24 +278,16 @@ void in_subscribe(TTPtr self)
 	inputAddress = TTAddress("in").appendInstance(EXTRA->instance);
 	
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, inputAddress, &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, inputAddress, &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get patcher
 		x->patcherPtr = jamoma_patcher_get((ObjectPtr)x);
 		
-		// get the Node
-		x->subscriberObject->getAttributeValue(TTSymbol("node"), v);
-		node = TTNodePtr((TTPtr)v[0]);
-		
-		// get the Node address
-		x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
-		nodeAddress = v[0];
-		
 		// update instance symbol in case of duplicate instance
-		EXTRA->instance = nodeAddress.getInstance();
+		EXTRA->instance = returnedAddress.getInstance();
 		
 		// observe /parent/out address in order to link/unlink with an Input object below
-		node->getParent()->getAddress(parentAddress);
+		returnedNode->getParent()->getAddress(parentAddress);
 		outputAddress = parentAddress.appendAddress(TTAddress("out")).appendInstance(EXTRA->instance);
 		x->wrappedObject->setAttributeValue(TTSymbol("outputAddress"), outputAddress);
 		
@@ -307,7 +300,7 @@ void in_subscribe(TTPtr self)
 		sInstance = EXTRA->instance.c_str();
 		jamoma_edit_string_instance(formatDescription, &inDescription, sInstance);
 			
-		makeInternals_data(x, nodeAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectBasePtr*)&aData);
+		makeInternals_data(x, returnedAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
@@ -316,7 +309,7 @@ void in_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_dataspaceUnit, TTSymbol("linear"));
 		
 		// make internal data to parameter in/amplitude/active
-		makeInternals_data(x, nodeAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectBasePtr*)&aData);
+		makeInternals_data(x, returnedAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue((int)EXTRA->pollInterval);

@@ -130,7 +130,7 @@ void map_subscribe(TTPtr self)
 	 if (x->address == kTTAdrsEmpty)
 	 x->address = TADRS("mapper");
 	 // if the subscription is successful
-	 if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject)) {
+	 if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, x->address, &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 	 // expose attributes of TTMapper as TTData in the tree structure
 	 x->subscriberObject->exposeAttribute(x->wrappedObject, TTSymbol("input"), kTTSym_parameter, &aData);
 	 aData->setAttributeValue(kTTSym_type, kTTSym_string);

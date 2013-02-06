@@ -13,90 +13,187 @@
 #define thisTTClassTags		"node, subscriber"
 
 TT_MODULAR_CONSTRUCTOR,
-mRelativeAddress(kTTAdrsEmpty),
 mObject(NULL),
-mNode(NULL),
+mRelativeAddress(kTTAdrsEmpty),
 mNodeAddress(kTTAdrsEmpty),
-mContextNode(NULL),
 mContextAddress(kTTAdrsEmpty),
-mNewInstanceCreated(false),
+mNewInstanceCreated(NO),
+mSubscribed(NO),
 mExposedMessages(NULL),
 mExposedAttributes(NULL)
-{
-	TTErr		err;
-	TTListPtr	aContextList;
-	
-	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.size() == 3);
+{	
+	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 2);
 	
 	mObject = arguments[0];
-	
 	mRelativeAddress = arguments[1];
 	
-	aContextList = TTListPtr((TTPtr)arguments[2]);
-	TT_ASSERT("ContextList passed to TTSubscriber is not NULL", aContextList);
-	
 	addAttribute(RelativeAddress, kTypeSymbol);
-	addAttribute(Node, kTypePointer);
 	addAttribute(NodeAddress, kTypeSymbol);
-	addAttribute(ContextNode, kTypePointer);
 	addAttribute(ContextAddress, kTypeSymbol);
 	addAttribute(NewInstanceCreated, kTypeBoolean);
+    addAttribute(Subscribed, kTypeBoolean);
 	
 	addAttributeProperty(RelativeAddress, readOnly, YES);
-	addAttributeProperty(Node, readOnly, YES);
 	addAttributeProperty(NodeAddress, readOnly, YES);
-	addAttributeProperty(ContextNode, readOnly, YES);
 	addAttributeProperty(ContextAddress, readOnly, YES);
 	addAttributeProperty(NewInstanceCreated, readOnly, YES);
+    addAttributeProperty(Subscribed, readOnly, YES);
+    
+    addMessageWithArguments(Subscribe);
+    addMessage(Unsubscribe);
 	
 	mExposedMessages = new TTHash();
 	mExposedAttributes = new TTHash();
-	
-	// if local directory exists, 
-	// the address is relative and 
-	// the contextListCallback is not NULL
-	if	(getLocalDirectory && mRelativeAddress.getType() == kAddressRelative && aContextList) {
-		err = this->subscribe(aContextList);
-		TT_ASSERT("Subscription done", !err);
-	}
 }
 
 TTSubscriber::~TTSubscriber()
-{	
-	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+{
+    if (mSubscribed)
+        Unsubscribe();
+}
+
+TTErr TTSubscriber::Subscribe(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTListPtr           aContextList = NULL;
+	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribe into local directory
+	TTAddress			contextAddress, absoluteAddress;
+	TTValue				aTempValue, args;
+	TTPtr				ourContext, hisContext;
+	TTList				aNodeList;
+	TTNodePtr			aNode, aContextNode;
+	TTObjectBasePtr		hisObject;
+	TTErr				err;
+    
+    aContextList = TTListPtr((TTPtr)inputValue[0]);
+	TT_ASSERT("ContextList passed to TTSubscriber::Subscribe is not NULL", aContextList);
+    
+    if (aContextList) {
+        
+        // if there is no subcription, the local directory exists and the address is relative
+        if (!mSubscribed && aDirectory && mRelativeAddress.getType() == kAddressRelative) {
+            
+            // register each Context of the list as TTNode in the tree structure (if they don't exist yet)
+            aContextNode = this->registerContextList(aContextList);
+            
+            // Build the node at /contextAddress/parent/node
+            if (aContextNode) {
+                
+                // Get our Context
+                ourContext = aContextNode->getContext();
+                
+                // Make absolute address
+                aContextNode->getAddress(contextAddress);
+                absoluteAddress = contextAddress.appendAddress(this->mRelativeAddress);
+                
+                // Check if the node exists
+                err = aDirectory->Lookup(absoluteAddress, aNodeList, &aNode);
+                
+                // if the node doesn't exist, create it
+                if (err) {
+                    if (mObject)
+                        aDirectory->TTNodeCreate(absoluteAddress, mObject, ourContext,  &aNode, &this->mNewInstanceCreated);
+                    else
+                        return kTTErrGeneric;
+                }
+                // else the node already exists
+                else if (mObject) {
+                    
+                    // Get his refered object
+                    hisObject = aNode->getObject();
+                    
+                    // if there is no refered object
+                    if (!hisObject) {
+                        
+                        // set our object instead
+                        aNode->setObject(mObject);
+                        
+                        // get his context
+                        hisContext = aNode->getContext();
+                        
+                        // if there is no context
+                        if (!hisContext) {
+                            
+                            // set our context instead
+                            aTempValue.clear();
+                            aTempValue.append((TTPtr)ourContext);
+                            aNode->setContext(ourContext);
+                        }
+                        
+                        // notify for the creation of the address when replacing the Object and Context
+                        // !!! Maybe this could introduce confusion for namespace observer !!!
+                        // introduce a new flag (kAddressObjectChanged) ?
+                        aDirectory->notifyObservers(absoluteAddress, aNode, kAddressCreated);
+                    }
+                    // else there is already an object
+                    else {
+                        
+                        // if it is the ContextNode, do nothing (our object can't be refered)
+                        // else create another instance to refer our object
+                        if (aNode != aContextNode)
+                            aDirectory->TTNodeCreate(absoluteAddress, mObject, ourContext,  &aNode, &this->mNewInstanceCreated);
+                    }
+                }
+                
+                aNode->getAddress(this->mNodeAddress);
+                aContextNode->getAddress(this->mContextAddress);
+                aNode->getAddress(this->mRelativeAddress, this->mContextAddress);
+                
+                mSubscribed = YES;
+                
+                // return the node and the context node to work on them
+                outputValue = TTValue((TTPtr)aNode);
+                outputValue.append((TTPtr)aContextNode);
+                
+                return kTTErrNone;
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTSubscriber::Unsubscribe()
+{
+    TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+    TTNodePtr           aNode = NULL;
 	TTList				childrenList;
 	TTValue				aTempValue;
 	TTValue				keys;
 	TTValue				storedObject;
 	TTAddress			objectAddress, nameToAddress;
 	TTSymbol			k;
-	TTObjectBasePtr			anObject;
+	TTObjectBasePtr		anObject = NULL;
 	TTUInt8				i;
 	TTErr				err;
-	
-	if (mObject && mNode) {
-		
-		// If node have no more child : destroy the node (except for root)
-		mNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
-		if (childrenList.isEmpty() && mNode != aDirectory->getRoot())
-			aDirectory->TTNodeRemove(mNodeAddress);
-		
-		// else notify for the unregistration of the object
-		// !!! Maybe this could introduce confusion for namespace observer !!!
-		// introduce a new flag (kAddressObjectUnregistered) ?
-		else {
-			
-			// remove alias for TTContainer object before
-			if (mObject->getName() == kTTSym_Container)
-				mObject->sendMessage(TTSymbol("AliasRemove"));
-			
-			// notify
-			aDirectory->notifyObservers(mNodeAddress, mNode, kAddressDestroyed);
-			
-			// set NULL object
-			this->mNode->setObject(NULL);
-		}
-	}
+    
+    aDirectory->getTTNode(mNodeAddress, &aNode);
+    if (aNode) {
+        
+        anObject = aNode->getObject();
+        if (anObject) {
+            
+            // If node have no more child : destroy the node (except for root)
+            aNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
+            if (childrenList.isEmpty() && aNode != aDirectory->getRoot())
+                aDirectory->TTNodeRemove(mNodeAddress);
+            
+            // else notify for the unregistration of the object
+            // !!! Maybe this could introduce confusion for namespace observer !!!
+            // introduce a new flag (kAddressObjectUnregistered) ?
+            else {
+                
+                // remove alias for TTContainer object before
+                if (anObject->getName() == kTTSym_Container)
+                    anObject->sendMessage(TTSymbol("AliasRemove"));
+                
+                // notify
+                aDirectory->notifyObservers(mNodeAddress, aNode, kAddressDestroyed);
+                
+                // set NULL object
+                aNode->setObject(NULL);
+            }
+        }
+    }
 	
 	// Clear exposed Messages
 	err = mExposedMessages->getKeys(keys);
@@ -139,95 +236,11 @@ TTSubscriber::~TTSubscriber()
 			mExposedAttributes->remove(k);
 		}
 	}
+    
+    return kTTErrNone;
 }
 
-TTErr TTSubscriber::subscribe(TTListPtr	aContextList)
-{
-	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribe into local directory
-	TTAddress			contextAddress, absoluteAddress;
-	TTValue				aTempValue, args;
-	TTPtr				ourContext, hisContext;
-	TTList				aNodeList;
-	TTNodePtr			aNode;
-	TTObjectBasePtr			hisObject;
-	TTErr				err;
-	
-	// register each Context of the list as 
-	// TTNode in the tree structure (if they don't exist yet)
-	if (this->registerContextList(aContextList))
-		return kTTErrGeneric;
-	
-	// Build the node at /contextAddress/parent/node
-	if (this->mContextNode) {
-		
-		// Get our Context
-		ourContext = this->mContextNode->getContext();
-		
-		// Make absolute address 
-		this->mContextNode->getAddress(contextAddress);
-		absoluteAddress = contextAddress.appendAddress(this->mRelativeAddress);
-		
-		// Check if the node exists
-		err = aDirectory->Lookup(absoluteAddress, aNodeList, &aNode);
-		
-		// if the node doesn't exist, create it
-		if (err)
-			if (mObject)
-				aDirectory->TTNodeCreate(absoluteAddress, mObject, ourContext,  &aNode, &this->mNewInstanceCreated);
-			else
-				return kTTErrGeneric;
-		
-		// else the node already exists
-		else if (mObject) {
-			
-			// Get his refered object
-			hisObject = aNode->getObject();
-			
-			// if there is no refered object
-			if (!hisObject) {
-				
-				// set our object instead
-				aNode->setObject(mObject);
-				
-				// get his context
-				hisContext = aNode->getContext();
-				
-				// if there is no context
-				if (!hisContext) {
-					
-					// set our context instead
-					aTempValue.clear();
-					aTempValue.append((TTPtr)ourContext);
-					aNode->setContext(ourContext);
-				}
-				
-				// notify for the creation of the address when replacing the Object and Context
-				// !!! Maybe this could introduce confusion for namespace observer !!!
-				// introduce a new flag (kAddressObjectChanged) ?
-				aDirectory->notifyObservers(absoluteAddress, aNode, kAddressCreated);
-			}
-			// else there is already an object
-			else {
-				
-				// if it is the ContextNode, do nothing (our object can't be refered)
-				// else create another instance to refer our object
-				if (aNode != this->mContextNode)
-					aDirectory->TTNodeCreate(absoluteAddress, mObject, ourContext,  &aNode, &this->mNewInstanceCreated);
-			}
-		}
-
-		this->mNode = aNode;
-		this->mNode->getAddress(this->mNodeAddress);
-		this->mContextNode->getAddress(this->mContextAddress);
-		this->mNode->getAddress(this->mRelativeAddress, this->mContextAddress);
-	}
-	else
-		return kTTErrGeneric;
-	
-	return kTTErrNone;
-}
-
-TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
+TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
 {
 	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTValue				args;
@@ -259,7 +272,7 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 			
 			// if one is missing stop the registration
 			if (relativeContextAddress == kTTAdrsEmpty || !aContext)
-				return kTTErrGeneric;
+				return NULL;
 			
 			// 1. Look for relativeContextName.* in order to find a child with the same context
 			contextNode->getChildren(relativeContextAddress.getName(), S_WILDCARD, contextNodeList);
@@ -327,124 +340,132 @@ TTErr TTSubscriber::registerContextList(TTListPtr aContextList)
 			else
 				contextNode = lowerContextNode;
 		} // end for
-		
-		this->mContextNode = contextNode;
-	}
+	} // end if
 	
-	return kTTErrNone;
+	return contextNode;
 }
 
 TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName, TTDataPtr *returnedData)
 {
-	TTValue			args, v;
-	TTDataPtr		aData;
-	TTCallbackPtr	returnValueCallback;
-	TTValuePtr		returnValueBaton;
-	TTAddress       nameToAddress, dataAddress;
-	TTNodePtr		aNode;
-	TTBoolean		nodeCreated;
-	TTPtr			aContext;
-	
-	// prepare arguments
-	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
-	returnValueBaton = new TTValue(this);
-	returnValueBaton->append(messageName);
-	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
-	args.append(returnValueCallback);
-	
-	args.append(kTTSym_message);
-	
-	aData = NULL;
-	TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(&aData), args);
-	
-	// register TTData into the local tree
-	convertUpperCasedNameInAddress(messageName, nameToAddress);
-	dataAddress = mNodeAddress.appendAddress(nameToAddress);
-	aContext = mNode->getContext();
-	getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
-	
-	// store TTData and given object
-	v = TTValue(aData);
-	v.append(anObject);
-	mExposedMessages->append(messageName, v);
-	
-	*returnedData = aData;
-	
-	return kTTErrNone;
+    TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+	TTValue             args, v;
+	TTDataPtr           aData;
+	TTCallbackPtr       returnValueCallback;
+	TTValuePtr          returnValueBaton;
+	TTAddress           nameToAddress, dataAddress;
+	TTNodePtr           aNode;
+	TTBoolean           nodeCreated;
+	TTPtr               aContext;
+    
+    aDirectory->getTTNode(mNodeAddress, &aNode);
+    if (aNode) {
+        
+        // prepare arguments
+        returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+        TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
+        returnValueBaton = new TTValue(TTPtr(this));
+        returnValueBaton->append(messageName);
+        returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+        returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
+        args.append(returnValueCallback);
+        
+        args.append(kTTSym_message);
+        
+        aData = NULL;
+        TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(&aData), args);
+        
+        // register TTData into the local tree
+        convertUpperCasedNameInAddress(messageName, nameToAddress);
+        dataAddress = mNodeAddress.appendAddress(nameToAddress);
+        aContext = aNode->getContext();
+        getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+        
+        // store TTData and given object
+        v = TTValue((TTObjectBasePtr)aData);
+        v.append(anObject);
+        mExposedMessages->append(messageName, v);
+        
+        *returnedData = aData;
+        
+        return kTTErrNone;
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData)
 {
-	TTValue			args, v;
-	TTDataPtr		aData;
-	TTCallbackPtr	returnValueCallback;			// to set the object attribute when data changed
-	TTValuePtr		returnValueBaton;
-	TTCallbackPtr	observeValueCallback;			// to set the data when an object attribute changed
-	TTValuePtr		observeValueBaton;
-	TTAttributePtr	anAttribute = NULL;
-	TTAddress       nameToAddress, dataAddress;
-	TTNodePtr		aNode;
-	TTBoolean		nodeCreated;
-	TTPtr			aContext;
-	TTErr			err;
+    TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+	TTValue             args, v;
+	TTDataPtr           aData;
+	TTCallbackPtr       returnValueCallback;                // to set the object attribute when data changed
+	TTValuePtr          returnValueBaton;
+	TTCallbackPtr       observeValueCallback;               // to set the data when an object attribute changed
+	TTValuePtr          observeValueBaton;
+	TTAttributePtr      anAttribute = NULL;
+	TTAddress           nameToAddress, dataAddress;
+	TTNodePtr           aNode;
+	TTBoolean           nodeCreated;
+	TTPtr               aContext;
+	TTErr               err;
 	
-	if (service == kTTSym_parameter || service == kTTSym_return) {
-		
-		// prepare arguments
-		returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
-		returnValueBaton = new TTValue(this);
-		returnValueBaton->append(attributeName);
-		returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
-		args.append(returnValueCallback);
-		args.append(service);
-		
-		aData = NULL;
-		TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(&aData), args);
-		
-		// register TTData into the local tree
-		convertUpperCasedNameInAddress(attributeName, nameToAddress);
-		dataAddress = mNodeAddress.appendAddress(nameToAddress);
-		aContext = mNode->getContext();
-		getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
-		
-		// observe the attribute of the object
-		err = anObject->findAttribute(attributeName, &anAttribute);
-		if (!err) {
-			
-			observeValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&observeValueCallback), kTTValNONE);
-			observeValueBaton = new TTValue(this);
-			observeValueBaton->append(attributeName);
-			observeValueCallback->setAttributeValue(kTTSym_baton, TTPtr(observeValueBaton));
-			observeValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
-			
-			anAttribute->registerObserverForNotifications(*observeValueCallback);
-		}
-		
-		// store TTData and given object
-		v = TTValue(aData);
-		v.append(anObject);
-		mExposedAttributes->append(attributeName, v);
-		
-		*returnedData = aData;
-		
-	}
-	else
-		return kTTErrGeneric;
-	
-	return kTTErrNone;
+    aDirectory->getTTNode(mNodeAddress, &aNode);
+    if (aNode) {
+        
+        if (service == kTTSym_parameter || service == kTTSym_return) {
+            
+            // prepare arguments
+            returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+            TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
+            returnValueBaton = new TTValue(TTPtr(this));
+            returnValueBaton->append(attributeName);
+            returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+            returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
+            args.append(returnValueCallback);
+            args.append(service);
+            
+            aData = NULL;
+            TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(&aData), args);
+            
+            // register TTData into the local tree
+            convertUpperCasedNameInAddress(attributeName, nameToAddress);
+            dataAddress = mNodeAddress.appendAddress(nameToAddress);
+            aContext = aNode->getContext();
+            getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+            
+            // observe the attribute of the object
+            err = anObject->findAttribute(attributeName, &anAttribute);
+            if (!err) {
+                
+                observeValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+                TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&observeValueCallback), kTTValNONE);
+                observeValueBaton = new TTValue(TTPtr(this));
+                observeValueBaton->append(attributeName);
+                observeValueCallback->setAttributeValue(kTTSym_baton, TTPtr(observeValueBaton));
+                observeValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
+                
+                anAttribute->registerObserverForNotifications(*observeValueCallback);
+            }
+            
+            // store TTData and given object
+            v = TTValue((TTObjectBasePtr)aData);
+            v.append(anObject);
+            mExposedAttributes->append(attributeName, v);
+            
+            *returnedData = aData;
+            
+            return kTTErrNone;
+        }
+    }
+    return kTTErrGeneric;
 }
 
 TTErr TTSubscriber::unexposeMessage(TTSymbol messageName)
 {
 	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTValue				storedObject;
-	TTAddress	objectAddress, nameToAddress;
-	TTObjectBasePtr			anObject;
+	TTAddress           objectAddress, nameToAddress;
+	TTObjectBasePtr		anObject;
 	
 	if (!mExposedMessages->lookup(messageName, storedObject)) {
 		anObject = storedObject[0];
@@ -469,8 +490,8 @@ TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 {
 	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTValue				storedObject;
-	TTAddress	objectAddress, nameToAddress;
-	TTObjectBasePtr			anObject;
+	TTAddress           objectAddress, nameToAddress;
+	TTObjectBasePtr		anObject;
 	
 	if (!mExposedAttributes->lookup(attributeName, storedObject)) {
 		anObject = storedObject[0];

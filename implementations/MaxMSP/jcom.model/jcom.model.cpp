@@ -149,7 +149,9 @@ void model_subscribe(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v, args;
-	TTAddress                   nodeAdrs, argAdrs;
+	TTAddress                   returnedAddress, argAdrs;
+    TTNodePtr                   returnedNode = NULL;
+    TTNodePtr                   returnedContextNode = NULL;
 	TTSymbol					classAdrs, helpAdrs, refAdrs, openAdrs, documentationAdrs, editAdrs, muteAdrs;
 	TTObjectBasePtr				aData;
 	TTTextHandlerPtr			aTextHandler;
@@ -164,16 +166,13 @@ void model_subscribe(TTPtr self)
 	ObjectPtr					aPatcher = jamoma_patcher_get((ObjectPtr)x);
 
 	// if the subscription is successful
-	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, kTTAdrsEmpty, &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, x->wrappedObject, kTTAdrsEmpty, &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
 		// get all info relative to our patcher
 		jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 		
-		// get absolute address in the namespace 
-		// and set the address attribute of the Container 
-		x->subscriberObject->getAttributeValue(TTSymbol("nodeAddress"), v);
-		nodeAdrs = v[0];
-		x->wrappedObject->setAttributeValue(kTTSym_address, v);
+		// set the address attribute of the Container 
+		x->wrappedObject->setAttributeValue(kTTSym_address, returnedAddress);
 		
 		// if the jcom.model is well subscribed
 		if (aPatcher == x->patcherPtr && x->patcherContext != NULL) {
@@ -200,26 +199,26 @@ void model_subscribe(TTPtr self)
 				}
 				
 				// Add a /class data
-				makeInternals_data(x, nodeAdrs, classAdrs, gensym("model_class"), context, kTTSym_return, &aData);
+				makeInternals_data(x, returnedAddress, classAdrs, gensym("model_class"), context, kTTSym_return, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_string);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_description, TTSymbol("The patcher class"));
 				aData->setAttributeValue(kTTSym_value, x->patcherClass);
 				
 				// Add a /help data
-				makeInternals_data(x, nodeAdrs, helpAdrs, gensym("model_help"), context, kTTSym_message, &aData);
+				makeInternals_data(x, returnedAddress, helpAdrs, gensym("model_help"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the maxhelp patch"));
 				
 				// Add a /reference data
-				makeInternals_data(x, nodeAdrs, refAdrs, gensym("model_reference"), context, kTTSym_message, &aData);
+				makeInternals_data(x, returnedAddress, refAdrs, gensym("model_reference"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the reference page"));
 				
 				// Add a /open data
-				makeInternals_data(x, nodeAdrs, openAdrs, gensym("model_open"), context, kTTSym_message, &aData);
+				makeInternals_data(x, returnedAddress, openAdrs, gensym("model_open"), context, kTTSym_message, &aData);
 				aData->setAttributeValue(kTTSym_type, kTTSym_none);
 				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 				aData->setAttributeValue(kTTSym_description, TTSymbol("Open the patcher"));
@@ -236,7 +235,7 @@ void model_subscribe(TTPtr self)
                 if (x->patcherContext == kTTSym_model) {
                     
                     // Add a /documentation/generate data
-                    makeInternals_data(x, nodeAdrs, documentationAdrs, gensym("doc_generate"), context, kTTSym_message, &aData);
+                    makeInternals_data(x, returnedAddress, documentationAdrs, gensym("doc_generate"), context, kTTSym_message, &aData);
                     aData->setAttributeValue(kTTSym_type, kTTSym_none);
                     aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
                     aData->setAttributeValue(kTTSym_description, TTSymbol("Make a html page description"));
@@ -254,7 +253,7 @@ void model_subscribe(TTPtr self)
                 if (x->patcherContext == kTTSym_model) {
                     
                     // Add a /model/edit data
-                    makeInternals_data(x, nodeAdrs, editAdrs, gensym("model_edit"), context, kTTSym_message, &aData);
+                    makeInternals_data(x, returnedAddress, editAdrs, gensym("model_edit"), context, kTTSym_message, &aData);
                     aData->setAttributeValue(kTTSym_type, kTTSym_none);
                     aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
                     aData->setAttributeValue(kTTSym_description, TTSymbol("Edit the state of the model"));
@@ -264,7 +263,7 @@ void model_subscribe(TTPtr self)
                     TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&aPreset), args);
                     v = TTValue(aPreset);
                     x->internals->append(kTTSym_Preset, v);
-                    v = TTValue(nodeAdrs);
+                    v = TTValue(returnedAddress);
                     aPreset->setAttributeValue(kTTSym_address, v);
                     v = TTValue(TTSymbol("state"));
                     aPreset->setAttributeValue(kTTSym_name, v);
@@ -273,10 +272,10 @@ void model_subscribe(TTPtr self)
 			
 			// In model *and* view patcher : Add /model/address data
 			if (x->patcherContext == kTTSym_model) // as return
-				makeInternals_data(x, nodeAdrs,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_return, &aData);
+				makeInternals_data(x, returnedAddress,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_return, &aData);
 			
 			if (x->patcherContext == kTTSym_view) // as parameter
-				makeInternals_data(x, nodeAdrs,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_parameter, &aData);
+				makeInternals_data(x, returnedAddress,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_parameter, &aData);
 			
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
@@ -304,7 +303,7 @@ void model_subscribe(TTPtr self)
 			
 			// In model patcher : set /model/address with his address
 			if (x->patcherContext == kTTSym_model) {
-				aData->setAttributeValue(kTTSym_value, nodeAdrs);
+				aData->setAttributeValue(kTTSym_value, returnedAddress);
 				
 				// use aPatcher args to setup the model attributes (like @priority)
 				if (ac && av)
@@ -352,8 +351,8 @@ void model_subscribe(TTPtr self)
 			// output ContextNode address
 			Atom a;
 			x->subscriberObject->getAttributeValue(TTSymbol("contextNodeAddress"), v);
-			nodeAdrs = v[0];
-			atom_setsym(&a, gensym((char*)nodeAdrs.c_str()));
+			returnedAddress = v[0];
+			atom_setsym(&a, gensym((char*)returnedAddress.c_str()));
 			object_obex_dumpout(self, gensym("address"), 1, &a);
 			
 			// init the model (but not subModel)

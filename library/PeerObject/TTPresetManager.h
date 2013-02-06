@@ -47,6 +47,9 @@ private:
 	
 	/** */
 	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** */
+	TTErr	Prepare(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);

@@ -36,10 +36,8 @@ mTempAddress(kTTAdrsEmpty)
 	addAttributeWithSetter(Name, kTypeSymbol);
 	
 	addAttribute(Version, kTypeSymbol);
-	addAttributeProperty(Version, readOnly, YES);
 	
 	addAttribute(Author, kTypeSymbol);
-	addAttributeProperty(Author, readOnly, YES);
 	
 	addAttribute(Debug, kTypeBoolean);
 	

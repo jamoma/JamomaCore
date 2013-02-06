@@ -2,15 +2,13 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 5,
-			"minor" : 1,
-			"revision" : 9
+			"major" : 6,
+			"minor" : 0,
+			"revision" : 8
 		}
 ,
-		"rect" : [ 84.0, 284.0, 462.0, 296.0 ],
+		"rect" : [ 100.0, 100.0, 465.0, 339.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 84.0, 284.0, 462.0, 296.0 ],
-		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
 		"default_fontface" : 0,
@@ -18,13 +16,47 @@
 		"gridonopen" : 0,
 		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
+		"statusbarvisible" : 2,
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
 		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : 0.0,
+					"id" : "obj-11",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 79.0, 86.0, 172.0, 19.0 ],
+					"text" : "change destination dynamically"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.619608, 0.0, 0.360784, 0.7 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-8",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 79.0, 104.0, 123.0, 17.0 ],
+					"text" : "address other/address",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -33,7 +65,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 17.0, 181.0, 50.0, 19.0 ]
+					"parameter_enable" : 0,
+					"patching_rect" : [ 17.0, 197.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -47,7 +80,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 17.0, 207.0, 125.0, 19.0 ],
+					"patching_rect" : [ 17.0, 223.0, 125.0, 19.0 ],
 					"text" : "jcom.send in.mySignal"
 				}
 
@@ -61,7 +94,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 216.0, 234.0, 50.0, 19.0 ]
+					"parameter_enable" : 0,
+					"patching_rect" : [ 216.0, 250.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -74,7 +108,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 216.0, 207.0, 98.0, 19.0 ],
+					"patching_rect" : [ 216.0, 223.0, 98.0, 19.0 ],
 					"text" : "jcom.in mySignal"
 				}
 
@@ -88,7 +122,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 17.0, 88.0, 50.0, 19.0 ]
+					"parameter_enable" : 0,
+					"patching_rect" : [ 17.0, 104.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -101,7 +136,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 213.0, 142.0, 50.0, 19.0 ]
+					"parameter_enable" : 0,
+					"patching_rect" : [ 213.0, 158.0, 50.0, 19.0 ]
 				}
 
 			}
@@ -114,7 +150,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 213.0, 115.0, 162.0, 19.0 ],
+					"patching_rect" : [ 213.0, 131.0, 162.0, 19.0 ],
 					"text" : "jcom.parameter myParameter"
 				}
 
@@ -129,7 +165,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 17.0, 115.0, 133.0, 19.0 ],
+					"patching_rect" : [ 17.0, 131.0, 133.0, 19.0 ],
 					"text" : "jcom.send myParameter"
 				}
 
@@ -143,7 +179,7 @@
 					"name" : "jcom.maxhelpui.maxpat",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 0.0, 0.0, 462.0, 70.0 ],
+					"patching_rect" : [ 0.0, 0.0, 465.0, 70.0 ],
 					"varname" : "maxhelpui"
 				}
 
@@ -152,8 +188,8 @@
 		"lines" : [ 			{
 				"patchline" : 				{
 					"destination" : [ "obj-12", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-16", 0 ]
 				}
 
@@ -161,8 +197,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-3", 0 ]
 				}
 
@@ -170,8 +206,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-6", 0 ]
 				}
 
@@ -179,11 +215,70 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [  ],
 					"source" : [ "obj-7", 0 ]
 				}
 
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 88.5, 126.5, 26.5, 126.5 ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+ ],
+		"dependency_cache" : [ 			{
+				"name" : "jcom.maxhelpui.maxpat",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.maxhelpuiButton.png",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
+				"type" : "PNG ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.maxhelpuiResize.js",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
+				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.jamomaPath.maxpat",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
+				"patcherrelativepath" : "../../../Max/library/components/jamomaPath",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.route.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.receive.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.send.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.parameter.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jcom.in.mxo",
+				"type" : "iLaX"
 			}
  ]
 	}

@@ -70,10 +70,13 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_directory                        (("direc
 TTMODULAR_EXPORT TTSymbol       kTTSym_Dump                             (("Dump"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_end                              (("end"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_external                         (("external"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_Fill                             (("Fill"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_filter                           (("filter"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_flag                             (("flag"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Flatten                          (("Flatten"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_flattened                        (("flattened"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_freeze                           (("freeze"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_generic                          (("generic"));
@@ -84,6 +87,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_highlight                        (("highl
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_Init                             (("Init"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_initialized                      (("initialized"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_inputUnit                        (("inputUnit"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_instances                        (("instances"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_integer                          (("integer"));
 
@@ -97,7 +101,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_model                            (("model
 TTMODULAR_EXPORT TTSymbol       kTTSym_mute                             (("mute"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_namespace                        (("namespace"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_node                             (("node"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_nodeAddress                      (("nodeAddress"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_object                           (("object"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_objectCache                      (("objectCache"));
@@ -119,6 +123,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_Recall                           (("Recal
 TTMODULAR_EXPORT TTSymbol       kTTSym_receiver                         (("receiver"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Refresh                          (("Refresh"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_repetitionsAllow					(("repetitionsAllow"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Reset                            (("Reset"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_return                           (("return"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_returnedValue					(("returnedValue"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Run                              (("Run"));
@@ -130,9 +135,10 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_sharp                            (("#"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_signal                           (("signal"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_start                            (("start"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_stop                             (("stop"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_string                           (("string"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Subscribe                        (("Subscribe"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_tag                              (("tag"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_target                           (("target"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_unit                             (("unit"));
 

@@ -143,12 +143,15 @@ void nmspc_subscribe(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue						v;
 	TTAddress                   contextAddress = kTTAdrsEmpty;
-	TTAddress                   absoluteAddress;
-	TTObjectBasePtr					anObject;
+	TTAddress                   absoluteAddress, returnedAddress;
+    TTNodePtr                   returnedNode;
+    TTNodePtr                   returnedContextNode;
+	TTObjectBasePtr				anObject;
 	
 	jamoma_patcher_get_info((ObjectPtr)x, &x->patcherPtr, x->patcherContext, x->patcherClass, x->patcherName);
 	
-	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, kTTAdrsEmpty, &x->subscriberObject)) {
+	if (!jamoma_subscriber_create((ObjectPtr)x, NULL, kTTAdrsEmpty, &x->subscriberObject, returnedAddress, &returnedNode, &returnedContextNode)) {
+        
 		// get the context address to make
 		// a receiver on the contextAddress/model/address parameter
 		x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);

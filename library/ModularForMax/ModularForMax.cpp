@@ -49,31 +49,35 @@ TTErr jamoma_directory_dump_observers(void)
 // Method to deal with TTSubscriber
 ///////////////////////////////////////////////////////////////////////
 
-TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectBasePtr aTTObjectBase, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber)
+TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectBasePtr aTTObjectBase, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber, TTSymbol& returnedAddress, TTNodePtr *returnedNode, TTNodePtr *returnedContextNode)
 {
 	TTValue			v, args;
-	TTNodePtr		aNode;
 	TTList			aContextList;
-	TTAddress		newRelativeAddress, absoluteAddress;
+	TTAddress		newRelativeAddress;
 	TTBoolean		newInstance;
+    TTErr           err;
 		
 	// prepare arguments
 	args.append(aTTObjectBase);
 	args.append(relativeAddress);
 	
-	// Get all Context above the object and their name 
-	jamoma_subscriber_get_patcher_list(x, aContextList);
-	args.append((TTPtr)&aContextList);
-	
 	*returnedSubscriber = NULL;
 	TTObjectBaseInstantiate(kTTSym_Subscriber, TTObjectBaseHandle(returnedSubscriber), args);
-	
+    
+    // Get all Context above the object and their name
+	jamoma_subscriber_get_patcher_list(x, aContextList);
+    args = TTValue((TTPtr)&aContextList);
+    
+    *returnedNode = NULL;
+    err = (*returnedSubscriber)->sendMessage(kTTSym_Subscribe, args, v);
+	*returnedNode = TTNodePtr((TTPtr)v[0]);
+    *returnedContextNode = TTNodePtr((TTPtr)v[1]);
+    
 	// Check if the subscription is ok (or the binding in case of NULL object)
-	(*returnedSubscriber)->getAttributeValue(TTSymbol("node"), v);
-	aNode = TTNodePtr((TTPtr)v[0]);
-	if (aNode) {
+	if (!err && *returnedNode) {
 		
 		if (aTTObjectBase) {
+            
 			// Is a new instance have been created ?
 			(*returnedSubscriber)->getAttributeValue(TTSymbol("newInstanceCreated"), v);
 			newInstance = v[0];
@@ -83,12 +87,11 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectBasePtr aTTObjectBase, TTAdd
 				newRelativeAddress = v[0];
 				object_warn(x, "Jamoma cannot registers multiple object with the same OSC identifier (%s).  Using %s instead.", relativeAddress.c_str(), newRelativeAddress.c_str());
 			}
+            
+            (*returnedSubscriber)->getAttributeValue(kTTSym_nodeAddress, v);
+            returnedAddress = v[0];
 			
-			JamomaDebug {
-				(*returnedSubscriber)->getAttributeValue(TTSymbol("nodeAddress"), v);
-				absoluteAddress = v[0];
-				object_post(x, "registers at %s", absoluteAddress.c_str());
-			}
+			JamomaDebug object_post(x, "registers at %s", returnedAddress.c_str());
 		}
 
 		return kTTErrNone;
@@ -1022,11 +1025,17 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
  or return NULL if the TTSymbol doesn't begin by an uppercase letter */
 SymbolPtr jamoma_TTName_To_MaxName(TTSymbol TTName)
 {
+    TTSymbol    AppName;
     TTAddress   anAddress;
     TTErr       err;
     
-    err = convertUpperCasedNameInAddress(TTName, anAddress);
-	
+    AppName = ToAppName(TTName);
+    
+    if (AppName == kTTSymEmpty)
+        err = convertUpperCasedNameInAddress(TTName, anAddress);
+    else
+        err = convertUpperCasedNameInAddress(AppName, anAddress);
+    
 	if (!err)
 		return gensym((char*)anAddress.c_str());
 	else

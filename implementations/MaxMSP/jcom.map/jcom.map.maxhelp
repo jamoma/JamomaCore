@@ -7,7 +7,7 @@
 			"revision" : 8
 		}
 ,
-		"rect" : [ 0.0, 44.0, 1328.0, 697.0 ],
+		"rect" : [ 4.0, 44.0, 1328.0, 697.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -569,7 +569,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 412.333313, 4.0, 187.0, 33.0 ],
-									"text" : "click to use the freehand function with the function external"
+									"text" : "click to use the freehand function with the multislider external"
 								}
 
 							}
@@ -2442,7 +2442,7 @@
 					"id" : "obj-2",
 					"maxclass" : "bpatcher",
 					"name" : "jcom.maxhelpui.maxpat",
-					"numinlets" : 1,
+					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 0.0, 0.0, 1328.0, 70.0 ],
 					"varname" : "maxhelpui"
@@ -5650,47 +5650,7 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "jcom.maxhelpui.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.maxhelpuiButton.png",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.maxhelpuiResize.js",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/maxhelpui",
-				"patcherrelativepath" : "../../../Max/library/components/maxhelpui",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "jcom.jamomaPath.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Max/library/components/jamomaPath",
-				"patcherrelativepath" : "../../../Max/library/components/jamomaPath",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "jcom.map.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.route.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.receive.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jcom.send.mxo",
 				"type" : "iLaX"
 			}
 , 			{
