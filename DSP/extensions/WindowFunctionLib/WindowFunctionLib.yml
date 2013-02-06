@@ -1,25 +1,28 @@
 
 sources:
-  - TTWindowFunctionLib.cpp  
-  - source/TTBartlettWindow.cpp		
+  - TTWindowFunctionLib.cpp
+  - source/TTBartlettWindow.cpp
+  - source/TTBlackmanHarrisWindow.cpp
+  - source/TTBlackmanWindow.cpp
+  - source/TTExpodecWindow.cpp
+  - source/TTGaussWindow.cpp
+  - source/TTHammingWindow.cpp
+  - source/TTHanningWindow.cpp
   - source/TTKaiserWindow.cpp
-  - source/TTBlackmanHarrisWindow.cpp	
   - source/TTNuttallWindow.cpp
-  - source/TTBlackmanWindow.cpp		
   - source/TTRectangularWindow.cpp
-  - source/TTExpodecWindow.cpp		
+  - source/TTRosenbergGlottalPulseWindow.cpp
   - source/TTTrapezoidWindow.cpp
-  - source/TTGaussWindow.cpp		
   - source/TTTukeyWindow.cpp
-  - source/TTHammingWindow.cpp		
   - source/TTWelchWindow.cpp
-  - source/TTHanningWindow.cpp		
   - source/TTWindowFunction.cpp
-  - tests/TTGaussWindow.test.cpp		
+  - tests/TTGaussWindow.test.cpp
+  - tests/TTHammingWindow.test.cpp
   - tests/TTKaiserWindow.test.cpp
-  - tests/TTHammingWindow.test.cpp	
-  - tests/TTRectangularWindow.test.cpp	
+  - tests/TTRectangularWindow.test.cpp
+  - tests/TTRosenbergGlottalPulseWindow.test.cpp
   - tests/TTTukeyWindow.test.cpp
+
 
 includes:
   - "includes"
