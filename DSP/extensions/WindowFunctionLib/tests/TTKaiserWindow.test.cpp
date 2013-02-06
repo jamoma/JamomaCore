@@ -65,7 +65,7 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 	windowObject->setAttributeValue(TT("function"), TT("kaiser"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	
-	v.setSize(2);
+	v.resize(2);
 	v.set(0, TT("beta"));
 	v.set(1, 6.0);
 	windowObject->sendMessage(TT("setParameter"), v, kTTValNONE);
@@ -76,7 +76,7 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 					errorCount);
 	
 	// change the alpha parameter and test Bessel function again
-	v.setSize(2);
+	v.resize(2);
 	v.set(0, TT("alpha"));
 	v.set(1, 2.0);
 	windowObject->sendMessage(TT("setParameter"), v, kTTValNONE);
@@ -87,7 +87,7 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 					errorCount);  // added 4/26 by Wolek
 	
 	// change the beta parameter and try applying the window
-	v.setSize(2);
+	v.resize(2);
 	v.set(0, TT("beta"));
 	v.set(1, 3.0 * kTTPi);
 	windowObject->sendMessage(TT("setParameter"), v, kTTValNONE);

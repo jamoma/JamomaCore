@@ -79,10 +79,10 @@ T TTInterpolateCosine(const T& x, const T& y, const double& a)
  
 so that the function fulfill the following four conditions:
  
- -# f(0)  = x @n
- -# f(1)  = y @n
- -# f'(0) = (y-w)/2 @n
- -# f'(1) = (z-x)/2
+ -# f(0)  = x1 @n
+ -# f(1)  = x2 @n
+ -# f'(0) = (x2-x0)/2 @n
+ -# f'(1) = (x3-x1)/2
  
  The two last conditions use a symetric estimate of the difference at the end points
  of the region to interpolate over: 0 ≤ aDelta ≤ 1

@@ -1,0 +1,139 @@
+/** @file
+ *
+ * @ingroup dspWindowFunctionLib
+ *
+ * @brief Unit tests for the Rosenberg Glottal Pulse Window Function Unit
+ *
+ * @details 
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2013 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
+
+#include "TTWindowFunction.h"
+#include "TTRosenbergGlottalPulseWindow.h"
+
+
+/*	The first 61 samples of the below is calculated in Octave as:
+ 
+ x = linspace(0, 1., 61);
+ y = 0.5 * ( 1.0 - cos(pi*x) );
+ printf("%.16e,\n", y);
+
+ 
+ Next 41 samples are calculated in Octave as:
+ 
+ x = linspace(0, 1., 41);
+ y = cos(0.5*pi*x);
+ printf("%.16e,\n", y);
+ 
+ The first of these samples is ignored, and the remaining 40 samples are appended to the previous vector of 61 sample values.
+ 
+ */
+static TTFloat64 expectedResult1[101] = {
+	0.0000000000000000e+00, 6.8523262271308338e-04, 2.7390523158633551e-03, 6.1558297024311148e-03, 1.0926199633097156e-02, 1.7037086855465844e-02, 2.4471741852423234e-02, 3.3209786751399129e-02, 4.3227271178699567e-02, 5.4496737905816106e-02, 6.6987298107780702e-02, 8.0664716027287975e-02, 9.5491502812526274e-02, 1.1142701927151460e-01, 1.2842758726130293e-01, 1.4644660940672621e-01, 1.6543469682057088e-01, 1.8533980447508130e-01, 2.0610737385376343e-01, 2.2768048249248640e-01, 2.5000000000000000e-01, 2.7300475013022663e-01, 2.9663167846209992e-01, 3.2081602522734992e-01, 3.4549150281252627e-01, 3.7059047744873963e-01, 3.9604415459112041e-01, 4.2178276747988463e-01, 4.4773576836617340e-01, 4.7383202187852802e-01, 4.9999999999999994e-01, 5.2616797812147187e-01, 5.5226423163382676e-01, 5.7821723252011548e-01, 6.0395584540887981e-01, 6.2940952255126037e-01, 6.5450849718747373e-01, 6.7918397477265025e-01, 7.0336832153790008e-01, 7.2699524986977337e-01, 7.5000000000000000e-01, 7.7231951750751349e-01, 7.9389262614623646e-01, 8.1466019552491864e-01, 8.3456530317942912e-01, 8.5355339059327373e-01, 8.7157241273869723e-01, 8.8857298072848545e-01, 9.0450849718747373e-01, 9.1933528397271203e-01, 9.3301270189221941e-01, 9.4550326209418389e-01, 9.5677272882130049e-01, 9.6679021324860082e-01, 9.7552825814757682e-01, 9.8296291314453410e-01, 9.8907380036690284e-01, 9.9384417029756889e-01, 9.9726094768413664e-01, 9.9931476737728686e-01, 1.0000000000000000e+00, 9.9922903624072290e-01, 9.9691733373312796e-01, 9.9306845695492629e-01, 9.8768834059513777e-01, 9.8078528040323043e-01, 9.7236992039767656e-01, 9.6245523645364728e-01, 9.5105651629515353e-01, 9.3819133592248416e-01, 9.2387953251128674e-01, 9.0814317382508125e-01, 8.9100652418836779e-01, 8.7249600707279718e-01, 8.5264016435409229e-01, 8.3146961230254524e-01, 8.0901699437494745e-01, 7.8531693088074483e-01, 7.6040596560003104e-01, 7.3432250943568556e-01, 7.0710678118654757e-01, 6.7880074553294178e-01, 6.4944804833018366e-01, 6.1909394930983397e-01, 5.8778525229247314e-01, 5.5557023301960229e-01, 5.2249856471594891e-01, 4.8862124149695502e-01, 4.5399049973954680e-01, 4.1865973753742791e-01, 3.8268343236508984e-01, 3.4611705707749302e-01, 3.0901699437494745e-01, 2.7144044986507432e-01, 2.3344536385590525e-01, 1.9509032201612830e-01, 1.5643446504023092e-01, 1.1753739745783770e-01, 7.8459095727844999e-02, 3.9259815759068450e-02, 6.1232339957367660e-17
+};
+
+
+/*	Likewise the first 81 samples of the below is calculated in Octave as:
+ 
+ x = linspace(0, 1., 81);
+ y = 0.5 * ( 1.0 - cos(pi*x) );
+ printf("%.16e,\n", y);
+ 
+ The next 21 samples are calculated in Octave as:
+ 
+ x = linspace(0, 1., 21);
+ y = cos(0.5*pi*x);
+ printf("%.16e,\n", y);
+ 
+ The first of these samples is ignored, and the remaining 20 samples are appended to the previous vector of 81 sample values.
+ 
+ */
+static TTFloat64 expectedResult2[101] = {
+	0.0000000000000000e+00, 3.8548187963854952e-04, 1.5413331334360181e-03, 3.4657715225368535e-03, 6.1558297024311148e-03, 9.6073597983847847e-03, 1.3815039801161721e-02, 1.8772381773176361e-02, 2.4471741852423234e-02, 3.0904332038757920e-02, 3.8060233744356631e-02, 4.5928413087459374e-02, 5.4496737905816106e-02, 6.3751996463601412e-02, 7.3679917822953855e-02, 8.4265193848727382e-02, 9.5491502812526274e-02, 1.0734153455962758e-01, 1.1979701719998448e-01, 1.3283874528215722e-01, 1.4644660940672621e-01, 1.6059962723352911e-01, 1.7527597583490817e-01, 1.9045302534508302e-01, 2.0610737385376343e-01, 2.2221488349019886e-01, 2.3875071764202555e-01, 2.5568937925152246e-01, 2.7300475013022663e-01, 2.9067013123128604e-01, 3.0865828381745508e-01, 3.2694147146125352e-01, 3.4549150281252627e-01, 3.6427977506746284e-01, 3.8327731807204735e-01, 4.0245483899193585e-01, 4.2178276747988452e-01, 4.4123130127108112e-01, 4.6077045213607748e-01, 4.8037009212046577e-01, 4.9999999999999994e-01, 5.1962990787953434e-01, 5.3922954786392241e-01, 5.5876869872891877e-01, 5.7821723252011548e-01, 5.9754516100806410e-01, 6.1672268192795276e-01, 6.3572022493253710e-01, 6.5450849718747373e-01, 6.7305852853874659e-01, 6.9134171618254481e-01, 7.0932986876871418e-01, 7.2699524986977337e-01, 7.4431062074847754e-01, 7.6124928235797440e-01, 7.7778511650980098e-01, 7.9389262614623646e-01, 8.0954697465491710e-01, 8.2472402416509194e-01, 8.3940037276647095e-01, 8.5355339059327373e-01, 8.6716125471784278e-01, 8.8020298280001552e-01, 8.9265846544037253e-01, 9.0450849718747373e-01, 9.1573480615127267e-01, 9.2632008217704609e-01, 9.3624800353639859e-01, 9.4550326209418400e-01, 9.5407158691254068e-01, 9.6193976625564337e-01, 9.6909566796124214e-01, 9.7552825814757682e-01, 9.8122761822682358e-01, 9.8618496019883828e-01, 9.9039264020161522e-01, 9.9384417029756889e-01, 9.9653422847746320e-01, 9.9845866686656404e-01, 9.9961451812036151e-01, 1.0000000000000000e+00, 9.9691733373312796e-01, 9.8768834059513777e-01, 9.7236992039767656e-01, 9.5105651629515353e-01, 9.2387953251128674e-01, 8.9100652418836779e-01, 8.5264016435409229e-01, 8.0901699437494745e-01, 7.6040596560003104e-01, 7.0710678118654757e-01, 6.4944804833018366e-01, 5.8778525229247314e-01, 5.2249856471594891e-01, 4.5399049973954680e-01, 3.8268343236508984e-01, 3.0901699437494745e-01, 2.3344536385590525e-01, 1.5643446504023092e-01, 7.8459095727844999e-02, 6.1232339957367660e-17
+};
+
+
+TTErr RosenbergGlottalPulseWindow::test(TTValue& returnedTestInfo)
+{
+	int					errorCount = 0;
+	int					testAssertionCount = 0;
+	
+	TTAudioObjectBasePtr	windowObject = NULL;
+	
+	TTAudioSignalPtr	input = NULL;
+	TTAudioSignalPtr	output = NULL;
+	
+	int					N = 101;
+	TTValue				v;
+	
+	// create the object, keep the default ratio parameter
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	windowObject->setAttributeValue(TT("function"), TT("rosenbergGlottalPulse"));
+	windowObject->setAttributeValue(TT("mode"), TT("apply"));
+	
+	// create 1 channel audio signal objects
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 1);
+	input->allocWithVectorSize(N);
+	output->allocWithVectorSize(N);
+	
+	// create a signal to be transformed, and then process it
+	input->fill(1.0);
+	windowObject->process(input, output);
+		
+	// now test the output
+	int	badSampleCount = 0;
+	for (int n=0; n<N; n++) {
+		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][n], expectedResult1[n]);
+		badSampleCount += result;
+		if (result)
+			TTTestLog("BAD SAMPLE @ n=%i  ( value=%.10f   expected=%.10f )", n, output->mSampleVectors[0][n], expectedResult1[n]);
+	}
+
+	TTTestAssertion("Produces correct window shape for with default ratio attribute", 
+					badSampleCount == 0, 
+					testAssertionCount, 
+					errorCount);
+	if (badSampleCount)
+		TTTestLog("badSampleCount is %i", badSampleCount);
+	
+	v.resize(2);
+	v.set(0, TT("ratio"));
+	v.set(1, 0.8);
+	windowObject->sendMessage(TT("setParameter"), v, kTTValNONE);
+	
+	// Again create a signal to be transformed, and then process it
+	input->fill(1.0);
+	windowObject->process(input, output);
+	
+	// now test the output
+	badSampleCount = 0;
+	for (int n=0; n<N; n++) {
+		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][n], expectedResult2[n]);
+		badSampleCount += result;
+		if (result)
+			TTTestLog("BAD SAMPLE @ n=%i  ( value=%.10f   expected=%.10f )", n, output->mSampleVectors[0][n], expectedResult2[n]);
+	}
+	
+	TTTestAssertion("Produces correct window shape for with ratio set to 0.8",
+					badSampleCount == 0,
+					testAssertionCount,
+					errorCount);
+	if (badSampleCount)
+		TTTestLog("badSampleCount is %i", badSampleCount);
+	
+	
+	TTObjectBaseRelease(&input);
+	TTObjectBaseRelease(&output);
+	TTObjectBaseRelease(&windowObject);
+	
+	// Wrap up the test results to pass back to whoever called this test
+	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
+}
+

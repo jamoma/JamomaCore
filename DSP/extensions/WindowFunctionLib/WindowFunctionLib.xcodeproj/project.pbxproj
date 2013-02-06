@@ -29,6 +29,8 @@
 		2A23AE58169D0610004793F5 /* TTKaiserWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8B164C4D4000C3D0E9 /* TTKaiserWindow.test.cpp */; };
 		2A23AE59169D0610004793F5 /* TTRectangularWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8C164C4D4000C3D0E9 /* TTRectangularWindow.test.cpp */; };
 		2A23AE5A169D0610004793F5 /* TTTukeyWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8D164C4D4000C3D0E9 /* TTTukeyWindow.test.cpp */; };
+		A7FA96FC16BD80A900E615DC /* TTRosenbergGlottalPulseWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FA96FB16BD80A900E615DC /* TTRosenbergGlottalPulseWindow.cpp */; };
+		A7FA970016BD80C100E615DC /* TTRosenbergGlottalPulseWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FA96FF16BD80C100E615DC /* TTRosenbergGlottalPulseWindow.test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,6 +87,9 @@
 		A7ECFA8D164C4D4000C3D0E9 /* TTTukeyWindow.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTukeyWindow.test.cpp; path = tests/TTTukeyWindow.test.cpp; sourceTree = "<group>"; };
 		A7ECFA8E164C4D5500C3D0E9 /* TTWindowFunctionLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTWindowFunctionLib.cpp; sourceTree = "<group>"; };
 		A7ECFA8F164C4D6000C3D0E9 /* WindowFunctionLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = WindowFunctionLib.yml; sourceTree = "<group>"; };
+		A7FA96FB16BD80A900E615DC /* TTRosenbergGlottalPulseWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRosenbergGlottalPulseWindow.cpp; path = source/TTRosenbergGlottalPulseWindow.cpp; sourceTree = "<group>"; };
+		A7FA96FE16BD80B500E615DC /* TTRosenbergGlottalPulseWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTRosenbergGlottalPulseWindow.h; path = includes/TTRosenbergGlottalPulseWindow.h; sourceTree = "<group>"; };
+		A7FA96FF16BD80C100E615DC /* TTRosenbergGlottalPulseWindow.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRosenbergGlottalPulseWindow.test.cpp; path = tests/TTRosenbergGlottalPulseWindow.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +165,7 @@
 				A7ECFA74164C4D1E00C3D0E9 /* TTKaiserWindow.h */,
 				A7ECFA75164C4D1E00C3D0E9 /* TTNuttallWindow.h */,
 				A7ECFA76164C4D1E00C3D0E9 /* TTRectangularWindow.h */,
+				A7FA96FE16BD80B500E615DC /* TTRosenbergGlottalPulseWindow.h */,
 				A7ECFA77164C4D1E00C3D0E9 /* TTTrapezoidWindow.h */,
 				A7ECFA78164C4D1E00C3D0E9 /* TTTukeyWindow.h */,
 				A7ECFA79164C4D1E00C3D0E9 /* TTWelchWindow.h */,
@@ -181,6 +187,7 @@
 				A7ECFA82164C4D2B00C3D0E9 /* TTKaiserWindow.cpp */,
 				A7ECFA83164C4D2B00C3D0E9 /* TTNuttallWindow.cpp */,
 				A7ECFA84164C4D2B00C3D0E9 /* TTRectangularWindow.cpp */,
+				A7FA96FB16BD80A900E615DC /* TTRosenbergGlottalPulseWindow.cpp */,
 				A7ECFA85164C4D2B00C3D0E9 /* TTTrapezoidWindow.cpp */,
 				A7ECFA86164C4D2B00C3D0E9 /* TTTukeyWindow.cpp */,
 				A7ECFA87164C4D2B00C3D0E9 /* TTWelchWindow.cpp */,
@@ -196,6 +203,7 @@
 				A7ECFA8A164C4D4000C3D0E9 /* TTHammingWindow.test.cpp */,
 				A7ECFA8B164C4D4000C3D0E9 /* TTKaiserWindow.test.cpp */,
 				A7ECFA8C164C4D4000C3D0E9 /* TTRectangularWindow.test.cpp */,
+				A7FA96FF16BD80C100E615DC /* TTRosenbergGlottalPulseWindow.test.cpp */,
 				A7ECFA8D164C4D4000C3D0E9 /* TTTukeyWindow.test.cpp */,
 			);
 			name = tests;
@@ -289,6 +297,8 @@
 				2A23AE58169D0610004793F5 /* TTKaiserWindow.test.cpp in Sources */,
 				2A23AE59169D0610004793F5 /* TTRectangularWindow.test.cpp in Sources */,
 				2A23AE5A169D0610004793F5 /* TTTukeyWindow.test.cpp in Sources */,
+				A7FA96FC16BD80A900E615DC /* TTRosenbergGlottalPulseWindow.cpp in Sources */,
+				A7FA970016BD80C100E615DC /* TTRosenbergGlottalPulseWindow.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
