@@ -916,8 +916,10 @@ t_symbol *hub_modulename_get(t_hub *x)
 		if (x->osc_alias != _sym_nothing) {
 			atom_setsym(&a[0], jps_slash_module_name);	
 			atom_setsym(&a[1], x->osc_alias);	
-			hub_outlet_return(x, jps_slash_module_name, 1, &a[1]);			
-			object_method_typed(x->in_object, gensym("algorithm_message"), 2, a, NULL);	// send "/module_name ... " also to jcom.in
+			hub_outlet_return(x, jps_slash_module_name, 1, &a[1]);
+            
+            if (x->in_object)
+                object_method_typed(x->in_object, gensym("algorithm_message"), 2, a, NULL);	// send "/module_name ... " also to jcom.in
 		}
 	}
 	return x->attr_name;
