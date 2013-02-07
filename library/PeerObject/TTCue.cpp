@@ -141,7 +141,8 @@ TTErr TTCue::getDescription(TTValue& value)
 		}
 	}
 	
-	mDescription = value;	// remind the description in case the cue is cleared
+    if (value.size())
+        mDescription = value[0];	// remind the description in case the cue is cleared
 	
 	return kTTErrNone;
 }

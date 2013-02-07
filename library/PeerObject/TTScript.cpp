@@ -156,7 +156,7 @@ TTErr TTScript::Clear()
 
 TTErr TTScript::Flatten(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTScriptPtr     aScriptToFlatten;
+    TTScriptPtr     aScriptToFlatten = NULL;
     TTDictionaryPtr	aLine;
 	TTSymbol		schema;
 	TTAddress       address, parentAddress = kTTAdrsRoot;
@@ -170,16 +170,16 @@ TTErr TTScript::Flatten(const TTValue& inputValue, TTValue& outputValue)
     // It is possible to flatten another script and store into the mFlattenedLines of this script
     if (inputValue.size() == 2) {
         
-        if (inputValue[1].type() == kTypePointer) {
+        if (inputValue[1].type() == kTypeObject) {
             aScriptToFlatten = TTScriptPtr((TTObjectBasePtr)inputValue[1]);
         }
-        // else start to flatten this script
-        else {
-            
-            Unflatten();
-            aScriptToFlatten = this;
-            mFlattened = YES;
-        }
+    }
+    
+    // else start to flatten this script
+    if (!aScriptToFlatten) {
+        Unflatten();
+        aScriptToFlatten = this;
+        mFlattened = YES;
     }
 	
 	// flatten each command line of the script
@@ -456,7 +456,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 	
 	// It is possible to output the command address relatively to a container address
     if (inputValue.size() == 1)
-        if (inputValue[0].type() == kTypeAddress)
+        if (inputValue[0].type() == kTypeSymbol)
             parentAddress = inputValue[0];
 	
 	// output each line of the script

@@ -403,9 +403,11 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 			if (anItem) {
 				
 				// set selection state
-				if (inputValue[1].type() == kTypeInt32)
-					state = inputValue[1];
-				
+                if (inputValue.size() == 2) {
+                    
+                    if (inputValue[1].type() == kTypeInt32)
+                        state = inputValue[1];
+				}
 				// or switch it
 				else
 					state = !anItem->getSelection();
@@ -530,7 +532,7 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 	TTValue			v, filterValue;
 	TTErr			err;
     
-    if (inputValue.size() == 1) {
+    if (inputValue.size() >= 1) {
 	
         if (inputValue[0].type() == kTypeSymbol) {
             
