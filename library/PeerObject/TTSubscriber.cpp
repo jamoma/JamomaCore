@@ -363,7 +363,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName
         // prepare arguments
         returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
         TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
-        returnValueBaton = new TTValue(TTPtr(this));
+        returnValueBaton = new TTValue(TTObjectBasePtr(this));
         returnValueBaton->append(messageName);
         returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
         returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
@@ -417,7 +417,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
             // prepare arguments
             returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
             TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
-            returnValueBaton = new TTValue(TTPtr(this));
+            returnValueBaton = new TTValue(TTObjectBasePtr(this));
             returnValueBaton->append(attributeName);
             returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
             returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
@@ -439,7 +439,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
                 
                 observeValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
                 TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&observeValueCallback), kTTValNONE);
-                observeValueBaton = new TTValue(TTPtr(this));
+                observeValueBaton = new TTValue(TTObjectBasePtr(this));
                 observeValueBaton->append(attributeName);
                 observeValueCallback->setAttributeValue(kTTSym_baton, TTPtr(observeValueBaton));
                 observeValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
@@ -552,7 +552,7 @@ TTErr TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data)
 TTErr TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data)
 {
 	TTSubscriberPtr aSubscriber;
-	TTObjectBasePtr		anObject;
+	TTObjectBasePtr	anObject;
 	TTSymbol		attributeName;
 	TTValuePtr		b;
 	TTValue			v;
