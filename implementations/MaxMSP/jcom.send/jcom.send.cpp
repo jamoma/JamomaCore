@@ -239,7 +239,7 @@ void send_subscribe(TTPtr self)
 	TTAddress                   absoluteAddress, returnedAddress;
     TTNodePtr                   returnedNode = NULL;
     TTNodePtr                   returnedContextNode = NULL;
-	TTObjectPtr					anObject;
+	TTObjectBasePtr				anObject;
 	
 	if (x->address == kTTAdrsEmpty)
 		return;
@@ -266,7 +266,7 @@ void send_subscribe(TTPtr self)
 		// get the context address to make
 		// a viewer on the contextAddress/model/address parameter
 		x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-		v.get(0, contextAddress);
+		contextAddress = v[0];
 		
 		if (x->patcherContext) {
 			makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
@@ -293,7 +293,7 @@ void send_subscribe(TTPtr self)
 	// jamoma_subscriber_create with NULL object to bind)
 		
 	// release the subscriber
-	TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+	TTObjectBaseRelease(TTObjectBaseHandle(&x->subscriberObject));
 	x->subscriberObject = NULL;
 	
 	x->argc++; // the index member is usefull to count how many time the external tries to bind
@@ -428,7 +428,7 @@ t_int *send_perform(t_int *w)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)(w[1]);
 	TTSenderPtr					aSender = (TTSenderPtr)x->wrappedObject;
 	TTListPtr					objectCache = NULL;
-	TTObjectPtr					anObject;
+	TTObjectBasePtr				anObject;
 	TTUInt16					vectorSize = 0;
     TTUInt16					n;
 	t_float*					envelope;
@@ -443,7 +443,7 @@ t_int *send_perform(t_int *w)
 		// get the object cache of the Sender object
 		if (!aSender->getAttributeValue(kTTSym_objectCache, v)) {
 			
-			v.get(0, (TTPtr*)&objectCache);
+			objectCache = TTListPtr((TTPtr)v[0]);
 			
 			if (objectCache) {
 				
@@ -466,13 +466,13 @@ t_int *send_perform(t_int *w)
 				// send signal or mean to each object
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
-					objectCache->current().get(0, (TTPtr*)&anObject);
+					anObject = objectCache->current()[0];
 					
 					if (anObject) {
 						
 						// INPUT case : cache the signal into the input
 						if (anObject->getName() == kTTSym_Input)
-							TTInputPtr(anObject)->mSignalCache->appendUnique((TTPtr)aSender->mSignal);
+							TTInputPtr(anObject)->mSignalCache->appendUnique(aSender->mSignal);
 						
 						// DATA case : send the mean value of the sample
 						else if (anObject->getName() == kTTSym_Data)
@@ -494,7 +494,7 @@ void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doub
     WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTSenderPtr					aSender = (TTSenderPtr)x->wrappedObject;
 	TTListPtr					objectCache = NULL;
-	TTObjectPtr					anObject;
+	TTObjectBasePtr				anObject;
 	TTUInt16					vectorSize = 0;
     TTUInt16					n;
 	TTSampleValue*              envelope;
@@ -509,7 +509,7 @@ void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doub
 		// get the object cache of the Sender object
 		if (!aSender->getAttributeValue(kTTSym_objectCache, v)) {
 			
-			v.get(0, (TTPtr*)&objectCache);
+			objectCache = TTListPtr((TTPtr)v[0]);
 			
 			if (objectCache) {
 				
@@ -532,13 +532,13 @@ void send_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doub
 				// send signal or mean to each object
 				for (objectCache->begin(); objectCache->end(); objectCache->next()) {
 					
-					objectCache->current().get(0, (TTPtr*)&anObject);
+					anObject = objectCache->current()[0];
 					
 					if (anObject) {
 						
 						// INPUT case : cache the signal into the input
 						if (anObject->getName() == kTTSym_Input)
-							TTInputPtr(anObject)->mSignalCache->appendUnique((TTPtr)aSender->mSignal);
+							TTInputPtr(anObject)->mSignalCache->appendUnique(aSender->mSignal);
 						
 						// DATA case : send the mean value of the sample
 						else if (anObject->getName() == kTTSym_Data)

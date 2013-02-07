@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle any signal input
+ * TTObjectBase to handle any signal input
  *
  * Copyright © 2010, Théo de la Hogue
  * 
@@ -20,7 +20,7 @@
 class TTOutput;
 typedef TTOutput* TTOutputPtr;
 
-class TTMODULAR_EXPORT TTInput : public TTDataObject
+class TTMODULAR_EXPORT TTInput : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTInput)
 	
@@ -32,11 +32,11 @@ public:	// use public for quick acces during signal processing
 	TTBoolean			mMute;						///< ATTRIBUTE : to mute signal
 	TTBoolean			mBypass;					///< ATTRIBUTE : to pass signal directly to a TTOutput object
 	
-	TTObjectPtr			mSignalIn;					///< any data structure to receive complex signal
+	TTObjectBasePtr			mSignalIn;					///< any data structure to receive complex signal
 	TTListPtr			mSignalCache;				///< a list of any data structure to deal with others complex signals (like mixing, dubbing, ...)
-	TTObjectPtr			mSignalOut;					///< any data structure to send complex signal
+	TTObjectBasePtr			mSignalOut;					///< any data structure to send complex signal
 	
-	TTObjectPtr			mSignalZero;				///< a zero signal
+	TTObjectBasePtr			mSignalZero;				///< a zero signal
 	
 	TTOutputPtr			mOutputObject;				///< TTOutput object to pass signal through
 	

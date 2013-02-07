@@ -61,7 +61,6 @@
 #include "TTMapper.h"
 #include "TTMapperManager.h"
 #include "TTMirror.h"
-#include "TTOpmlHandler.h"
 #include "TTOutput.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
@@ -76,11 +75,11 @@
 // Macros
 
 #define TT_MODULAR_CONSTRUCTOR \
-TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObject(arguments)
+thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObjectBase(arguments)
 
 
 

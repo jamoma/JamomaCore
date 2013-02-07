@@ -17,7 +17,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTExplorer : public TTDataObject
+class TTMODULAR_EXPORT TTExplorer : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTExplorer)
 	

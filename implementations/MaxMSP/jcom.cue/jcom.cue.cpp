@@ -12,7 +12,7 @@
 
 // This is used to store extra data
 typedef struct extra {
-	TTObjectPtr	toEdit;				// the object to edit (a cue or all the cuelist)
+	TTObjectBasePtr	toEdit;				// the object to edit (a cue or all the cuelist)
 	TTSymbol	cueName;			// the name of the edited cue
 	TTString	*text;				// the text of the editor to read after edclose
 	ObjectPtr	textEditor;			// the text editor window
@@ -87,7 +87,6 @@ void WrapTTCueManagerClass(WrappedClassPtr c)
 void WrappedCueManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	SymbolPtr					relativeAddress;
 	SymbolPtr					name;
  	long						attrstart = attr_args_offset(argc, argv);			// support normal arguments
 	
@@ -187,26 +186,26 @@ void cue_subscribe(TTPtr self)
 		
 		// create internal TTXmlHandler and internal messages for Read and Write
 		aXmlHandler = NULL;
-		TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&aXmlHandler), args);
-		v = TTValue(TTPtr(aXmlHandler));
+		TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&aXmlHandler), args);
+		v = TTValue(aXmlHandler);
 		x->internals->append(kTTSym_XmlHandler, v);
-		v = TTValue(TTPtr(x->wrappedObject));
+		v = TTValue(x->wrappedObject);
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
 		// create internal TTTextHandler
 		aTextHandler = NULL;
-		TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
-		v = TTValue(TTPtr(aTextHandler));
+		TTObjectBaseInstantiate(kTTSym_TextHandler, TTObjectBaseHandle(&aTextHandler), args);
+		v = TTValue(aTextHandler);
 		x->internals->append(kTTSym_TextHandler, v);
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Read"), &aData);
-		makeInternals_data(self, returnedAddress, TTSymbol("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, returnedAddress, TTSymbol("read"), gensym("cue_read"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Read a xml cue file"));
 		
 		//x->subscriberObject->exposeMessage(aXmlHandler, TTSymbol("Write"), &aData);
-		makeInternals_data(self, returnedAddress, TTSymbol("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, returnedAddress, TTSymbol("write"), gensym("cue_write"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write a xml cue file"));
@@ -269,7 +268,7 @@ void cue_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aXmlHandler);
+			aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
@@ -301,7 +300,7 @@ void cue_doread_again(TTPtr self)
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aXmlHandler);
+			aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_ReadAgain, v, kTTValNONE);
@@ -340,7 +339,7 @@ void cue_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 		
 		if (!tterr) {
-			o.get(0, (TTPtr*)&aXmlHandler);
+			aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);
@@ -372,7 +371,7 @@ void cue_dowrite_again(TTPtr self)
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aXmlHandler);
+			aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_WriteAgain, v, kTTValNONE);
@@ -391,7 +390,7 @@ void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue		v;
 	TTNodePtr	contextNode;
-	TTObjectPtr	o;
+	TTObjectBasePtr	o;
 	TTBoolean	initialized;
 	
 	if (argc && argv) {
@@ -404,18 +403,21 @@ void cue_dorecall(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		if (x->subscriberObject) {
 			
 			x->subscriberObject->getAttributeValue(TTSymbol("contextNode"), v);
-			v.get(0, (TTPtr*)&contextNode);
+			contextNode = TTNodePtr((TTPtr)v[0]);
 			
 			// If it is a none initialized Container : initialize it
-			if (o = contextNode->getObject())
+            o = contextNode->getObject();
+			if (o) {
+                
 				if (o->getName() == kTTSym_Container) {
 					
 					o->getAttributeValue(kTTSym_initialized, v);
-					v.get(0, initialized);
+					initialized = v[0];
 					
 					if (!initialized)
 						o->sendMessage(kTTSym_Init);
 				}
+            }
 		}
 	}
 }
@@ -443,7 +445,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			// get cues order
 			x->wrappedObject->getAttributeValue(TTSymbol("order"), v);
 			
-			if (atom_getlong(argv) <= v.getSize())
+			if (atom_getlong(argv) <= v.size())
 				v.get(atom_getlong(argv)-1, name);
 			else {
 				object_error((ObjectPtr)x, "%d does'nt exist", atom_getlong(argv));
@@ -457,7 +459,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			// get cue object table
 			x->wrappedObject->getAttributeValue(TTSymbol("cues"), v);
-			v.get(0, (TTPtr*)&allCues);
+			allCues = TTHashPtr((TTPtr)v[0]);
 			
 			if (allCues) {
 				
@@ -465,7 +467,7 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				if (!allCues->lookup(name, v)) {
 					
 					// edit a cue
-					v.get(0, (TTPtr*)&EXTRA->toEdit);
+					EXTRA->toEdit = v[0];
 					EXTRA->cueName = name;
 				}
 				else {
@@ -488,10 +490,10 @@ void cue_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aTextHandler);
+			aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
-			o = TTValue(TTPtr(EXTRA->toEdit));
+			o = TTValue(EXTRA->toEdit);
 			aTextHandler->setAttributeValue(kTTSym_object, o);
 			args = TTValue((TTPtr)buffer);
 			tterr = aTextHandler->sendMessage(kTTSym_Write, args, kTTValNONE);
@@ -538,7 +540,7 @@ void cue_doedit(TTPtr self)
 	
 	if (!tterr) {
 		
-		o.get(0, (TTPtr*)&aTextHandler);
+		aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)o[0]);
 		
 		critical_enter(0);
 		args = TTValue((TTPtr)EXTRA->text);

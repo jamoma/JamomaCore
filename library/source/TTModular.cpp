@@ -23,16 +23,14 @@ void TTModularInit()
 	// Initialized Foundation framework
 	TTFoundationInit();
 
-#define TO_DEBUG
+//#define TO_DEBUG
 #ifdef TO_DEBUG
-    
-    /*
-	TTObjectPtr test = NULL;
+
+	TTObjectBasePtr test = NULL;
 	TTValue v;
 	
-	TTObjectInstantiate(TTSymbol("string.test"), &test, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
 	test->test(v);
-     */
 
 #endif // TO_DEBUG
 	
@@ -52,7 +50,6 @@ void TTModularInit()
 		TTMapper::registerClass();
 		TTMapperManager::registerClass();
 		TTMirror::registerClass();
-		TTOpmlHandler::registerClass();
 		TTOutput::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
@@ -81,7 +78,7 @@ void TTModularInit()
 		v.fromString();
 		
 		// Create the Modular application manager with no application inside
-		TTObjectInstantiate(kTTSym_ApplicationManager, TTObjectHandle(&TTModularApplications), kTTValNONE);
+		TTObjectBaseInstantiate(kTTSym_ApplicationManager, TTObjectBaseHandle(&TTModularApplications), kTTValNONE);
 		
 		// Create a hash table to manage namespace selections
 		TTModularNamespaces = new TTHash();
@@ -106,16 +103,16 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 		if (!getLocalApplication) {
 			
 			// create the application
-			args = TTValue(TTSymbol(applicationStr.data()));
-			TTObjectInstantiate(kTTSym_Application, TTObjectHandle(&anApplication), args);
+			args = TTValue(TTSymbol(applicationStr));
+			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&anApplication), args);
 			
 			// set it as local application
-			args = TTValue((TTPtr)anApplication);
+			args = TTValue(anApplication);
 			TTModularApplications->setAttributeValue(TTSymbol("localApplication"), args);
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
-			TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&anXmlHandler), kTTValNONE);
+			TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&anXmlHandler), kTTValNONE);
 			
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			
@@ -135,7 +132,7 @@ TTAddressItemPtr	TTModularNamespacesLookup(TTSymbol namespaceName)
 	if (namespaceName != kTTSymEmpty && namespaceName != kTTSym_none) {
 		
 		if (!TTModularNamespaces->lookup(namespaceName, v))
-			v.get(0, (TTPtr*)&aNamespace);
+			aNamespace = TTAddressItemPtr((TTPtr)v[0]);
 		
 		else {
 			aNamespace = new TTAddressItem();

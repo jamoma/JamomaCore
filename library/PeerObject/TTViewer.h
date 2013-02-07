@@ -25,7 +25,7 @@ typedef TTSender* TTSenderPtr;
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-class TTMODULAR_EXPORT TTViewer : public TTDataObject
+class TTMODULAR_EXPORT TTViewer : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTViewer)
 	
@@ -40,7 +40,7 @@ private:
 	
 	TTSymbol					mDataspace;					///< ATTRIBUTE : The dataspace that this view uses (default is 'none')
 	TTSymbol					mDataspaceUnit;				///< ATTRIBUTE : The unit within the dataspace.
-	TTObjectPtr					mDataspaceConverter;		///< Performs conversions from data unit to the view unit
+	TTObjectBasePtr				mDataspaceConverter;		///< Performs conversions from data unit to the view unit
 	TTReceiverPtr				mDataspaceObserver;			///< the receiver which observe the data's dataspace attribute
 	TTReceiverPtr				mDataspaceUnitObserver;		///< the receiver which observe the data's unit attribute
 	

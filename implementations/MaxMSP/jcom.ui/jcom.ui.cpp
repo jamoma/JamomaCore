@@ -251,19 +251,19 @@ void ui_free(t_ui *x)
 	object_free(x->refmenu_items);
 	
 	if (x->nmspcExplorer)
-		TTObjectRelease(&x->nmspcExplorer);
+		TTObjectBaseRelease(&x->nmspcExplorer);
 	
 	if (x->modelExplorer)
-		TTObjectRelease(&x->modelExplorer);
+		TTObjectBaseRelease(&x->modelExplorer);
 	
-	TTObjectRelease(TTObjectHandle(&x->uiSubscriber));
+	TTObjectBaseRelease(TTObjectBaseHandle(&x->uiSubscriber));
 	
 	if (x->previewSignal && x->modelOutput) {
 		if (x->modelOutput->valid) {
 			TTAttributePtr	anAttribute = NULL;
 			x->modelOutput->findAttribute(TTSymbol("signal"), &anAttribute);
 			anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
-			TTObjectRelease(TTObjectHandle(&x->previewSignal));
+			TTObjectBaseRelease(TTObjectBaseHandle(&x->previewSignal));
 		}
 	}
 	
@@ -310,7 +310,7 @@ void ui_subscribe(t_ui *x, SymbolPtr address)
 	TTAddress adrs = TTAddress(address->s_name);
 	TTValue			v;
 	TTAttributePtr	anAttribute;
-	TTObjectPtr		aReceiver;
+	TTObjectBasePtr		aReceiver;
 	TTErr			err;
 
 	if ((x->modelAddress == kTTAdrsEmpty && adrs != kTTAdrsEmpty) || adrs != x->modelAddress) {
@@ -336,7 +336,7 @@ void ui_subscribe(t_ui *x, SymbolPtr address)
 				err = x->modelOutput->findAttribute(kTTSym_signal, &anAttribute);
 				if (!err) {
 					anAttribute->unregisterObserverForNotifications(*(x->previewSignal));
-					TTObjectRelease(TTObjectHandle(&x->previewSignal));
+					TTObjectBaseRelease(TTObjectBaseHandle(&x->previewSignal));
 					x->previewSignal = NULL;
 				}
 			}
@@ -1351,9 +1351,9 @@ void ui_refmenu_build(t_ui *x)
 	x->modelRetExplorer->setAttributeValue(kTTSym_address, x->modelAddress);
 	x->modelRetExplorer->sendMessage(TTSymbol("Explore"));
 	
-	TTObjectRelease(TTObjectHandle(&x->modelParamExplorer));
-	TTObjectRelease(TTObjectHandle(&x->modelMessExplorer));
-	TTObjectRelease(TTObjectHandle(&x->modelRetExplorer));
+	TTObjectBaseRelease(TTObjectBaseHandle(&x->modelParamExplorer));
+	TTObjectBaseRelease(TTObjectBaseHandle(&x->modelMessExplorer));
+	TTObjectBaseRelease(TTObjectBaseHandle(&x->modelRetExplorer));
 }
 
 void* ui_oksize(t_ui *x, t_rect *rect)

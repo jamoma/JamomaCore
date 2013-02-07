@@ -213,7 +213,7 @@ void WrappedOutputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, attrstart, argv);
 		
 		v.toString();
-		v.get(0, sInstance);
+		sInstance = TTString(v[0]);
 		EXTRA->instance = TTSymbol(sInstance.data());
 	}
 	else
@@ -310,7 +310,7 @@ void out_subscribe(TTPtr self)
 		sInstance = EXTRA->instance.c_str();
 		jamoma_edit_string_instance(formatDescription, &outDescription, sInstance);
 		
-		makeInternals_data(x, returnedAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
+		makeInternals_data(x, returnedAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
@@ -319,7 +319,7 @@ void out_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_dataspaceUnit, TTSymbol("linear"));
 		
 		// make internal data to parameter out/amplitude/active
-		makeInternals_data(x, returnedAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
+		makeInternals_data(x, returnedAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue((int)EXTRA->pollInterval);
@@ -479,15 +479,15 @@ t_int *out_perform(t_int *w)
 			
 			// otherwise mix input and output signals (in Temp)
 			else 
-				TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));	
+				TTAudioObjectBasePtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));	
 
 			// then perform gain control (from Temp)
-			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
+			TTAudioObjectBasePtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
 			
 		}
 		// otherwise just perform gain control
 		else
-			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
+			TTAudioObjectBasePtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
 		
 		// Send signal on to the outlets 
 		TTAudioSignalPtr(anOutput->mSignalOut)->getVector(0, vectorSize, (TTFloat32*)w[3]);
@@ -555,14 +555,14 @@ void out_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, doubl
 			
 			// otherwise mix input and output signals (in Temp)
 			else
-				TTAudioObjectPtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));
+				TTAudioObjectBasePtr(anOutput->mMixUnit)->process(TTAudioSignalPtr(anInput->mSignalOut), TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalTemp));
             
 			// then perform gain control (from Temp)
-			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
+			TTAudioObjectBasePtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalTemp), TTAudioSignalPtr(anOutput->mSignalOut));
 		}
 		// otherwise just perform gain control
 		else 
-			TTAudioObjectPtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
+			TTAudioObjectBasePtr(anOutput->mGainUnit)->process(TTAudioSignalPtr(anOutput->mSignalIn), TTAudioSignalPtr(anOutput->mSignalOut));
         
         // Send the input on to the outlets for the algorithm
         TTAudioSignalPtr(anOutput->mSignalOut)->getVectorCopy(0, vectorSize, outs[0]);
@@ -698,7 +698,7 @@ void out_update_amplitude(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTOutputPtr		anOutput = (TTOutputPtr)x->wrappedObject;
 	TTValue			v, storedObject;
-	TTObjectPtr		anObject;
+	TTObjectBasePtr		anObject;
 	TTErr			err;
 	
 	if (anOutput) {
@@ -711,7 +711,7 @@ void out_update_amplitude(TTPtr self)
 				
 				if (!err) {
 					
-					storedObject.get(0, (TTPtr*)&anObject);
+					anObject = storedObject[0];
 					
 					// set current meter value
 					anObject->setAttributeValue(kTTSym_value, EXTRA->meter);

@@ -47,7 +47,7 @@ TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress addres
 	err = mDiscoverAnswers->lookup(TTSymbol(key), v);
     
     if (!err) {
-        v.get(0, (TTPtr*)&anAnswer);
+        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
         
 		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
 			anAnswer->setAnswer(value);
@@ -75,7 +75,7 @@ int MinuitAnswerManager::CheckDiscoverAnswer(TTSymbol from, TTAddress address, T
 	err = mDiscoverAnswers->lookup(TTSymbol(key), v);
     
     if (!err) {
-        v.get(0, (TTPtr*)&anAnswer);
+        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
 		state = anAnswer->getState();
 		
 		// if an answer is received
@@ -99,12 +99,12 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& 
 	TTBoolean	endFlagFound;
 	
     // pars the type
-    answer.get(0, returnedType);
+    returnedType = answer[0];
     
 	// parse something like : nodes={ all nodes below } attributes={ all current node's attributes }
-	for (TTUInt32 i=1; i<answer.getSize(); i++) {
+	for (TTUInt32 i = 1; i < answer.size(); i++) {
 		
-		answer.get(i, toParse);
+		toParse = answer[i];
 		
 		// parse nodes
 		if (toParse == TTSymbol(MINUIT_START_NODES)) {
@@ -113,8 +113,8 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& 
 			do {
 				i++;
 				parsed = kTTSymEmpty;
-				if (answer.getType() == kTypeSymbol)
-					answer.get(i, parsed);
+				if (answer[0].type() == kTypeSymbol)
+					parsed = answer[i];
 				
 				// don't store the end flag
 				if (parsed != TTSymbol(MINUIT_END_NODES)) {
@@ -137,8 +137,8 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& 
 			do {
 				i++;
 				parsed = kTTSymEmpty;
-				if (answer.getType() == kTypeSymbol)
-					answer.get(i, parsed);
+				if (answer[0].type() == kTypeSymbol)
+					parsed = answer[i];
 				
 				// don't store the end flag
 				if (parsed != TTSymbol(MINUIT_END_ATTRIBUTES)) {
@@ -186,7 +186,7 @@ TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, co
 	err = mGetAnswers->lookup(TTSymbol(key), v);
     
     if (!err) {
-        v.get(0, (TTPtr*)&anAnswer);
+        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
 	
 		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
 			anAnswer->setAnswer(value);
@@ -214,7 +214,7 @@ int MinuitAnswerManager::CheckGetAnswer(TTSymbol from, TTAddress address, TTValu
 	err = mGetAnswers->lookup(TTSymbol(key), v);
     
     if (!err) {
-        v.get(0, (TTPtr*)&anAnswer);
+        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
 		state = anAnswer->getState();
 		
 		// if an answer is received

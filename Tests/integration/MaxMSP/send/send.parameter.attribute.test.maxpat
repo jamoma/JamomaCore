@@ -69,7 +69,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 340.0, 44.0, 929.0, 892.0 ],
+						"rect" : [ 303.0, 44.0, 929.0, 892.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -569,8 +569,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 723.0, 688.0, 154.0, 18.0 ],
-									"text" : "/test:enable 1, /test:value 3"
+									"patching_rect" : [ 723.0, 688.0, 149.0, 18.0 ],
+									"text" : "/test:active 1, /test:value 3"
 								}
 
 							}
@@ -1411,7 +1411,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 11.0, 635.001892, 183.0, 33.0 ],
+									"patching_rect" : [ 11.0, 635.001892, 187.0, 33.0 ],
 									"text" : "jcom.test.assert.equal active-test @input active @compareTo 0"
 								}
 

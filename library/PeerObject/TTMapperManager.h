@@ -22,7 +22,7 @@ typedef TTMapper* TTMapperPtr;
 class TTXmlHandler;
 typedef TTXmlHandler* TTXmlHandlerPtr;
 
-class TTMODULAR_EXPORT TTMapperManager : public TTDataObject
+class TTMODULAR_EXPORT TTMapperManager : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTMapperManager)
 	

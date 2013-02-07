@@ -36,7 +36,7 @@ void		WrappedDataClass_free(TTPtr self);
 void		data_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		data_new_address(TTPtr self, SymbolPtr msg);
-void		data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, TTUInt8 index);
+void		data_array_create(TTPtr self, TTObjectBasePtr *returnedData, TTSymbol service, TTUInt8 index);
 void		data_address(TTPtr self, SymbolPtr name);
 
 #ifndef JMOD_RETURN
@@ -199,7 +199,7 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
     TTNodePtr                   returnedNode = NULL;
     TTNodePtr                   returnedContextNode = NULL;
 	SymbolPtr					instanceAddress;
-	TTObjectPtr					anObject;
+	TTObjectBasePtr					anObject;
 	TTSubscriberPtr				aSubscriber;
 	TTValue						v;
 	
@@ -257,9 +257,9 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 							
 							if (aSubscriber) {
 								// append the data to the internals table
-								v = TTValue(TTPtr(anObject));
+								v = TTValue(anObject);
 								v.append(TTSymbol(instanceAddress->s_name));
-								v.append(TTPtr(aSubscriber));
+								v.append(aSubscriber);
 								x->internals->append(TTSymbol(instanceAddress->s_name), v);
 							}
 						}
@@ -294,16 +294,16 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
 	EXTRA->firstArray = NO;
 }
 
-void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, TTUInt8 index)
+void data_array_create(TTPtr self, TTObjectBasePtr *returnedData, TTSymbol service, TTUInt8 index)
 {
 	TTValue			args;
-	TTObjectPtr		returnValueCallback;
+	TTObjectBasePtr		returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
 	
-	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 #ifndef JMOD_RETURN
 	returnValueBaton = new TTValue(self);
 	returnValueBaton->append(index);
@@ -316,7 +316,7 @@ void data_array_create(TTPtr self, TTObjectPtr *returnedData, TTSymbol service, 
 	args.append(service);
 	
 	*returnedData = NULL;
-	TTObjectInstantiate(kTTSym_Data, TTObjectHandle(returnedData), args);
+	TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(returnedData), args);
 }
 
 void data_address(TTPtr self, SymbolPtr address)
@@ -434,8 +434,8 @@ void data_list(TTPtr self, SymbolPtr msg, long argc, t_atom *argv)
 			TTValue keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
-				for (TTUInt32 i = 0; i < keys.getSize(); i++) {
-					keys.get(i, x->cursor);
+				for (TTUInt32 i = 0; i < keys.size(); i++) {
+					x->cursor = keys[i];
 					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
 				}
 			}
@@ -463,8 +463,8 @@ void WrappedDataClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPt
 			TTValue keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
-				for (TTUInt32 i=0; i<keys.getSize(); i++) {
-					keys.get(i, x->cursor);
+				for (TTUInt32 i=0; i<keys.size(); i++) {
+					x->cursor = keys[i];
 					jamoma_data_command((TTDataPtr)selectedObject, msg, argc, argv);
 				}
 				x->cursor = kTTSymEmpty;
@@ -494,8 +494,8 @@ void data_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
                 
                 x->internals->getKeysSorted(keys);
 
-                for (i = 0; i < keys.getSize(); i++) {
-                    keys.get(i, x->cursor);
+                for (i = 0; i < keys.size(); i++) {
+                    x->cursor = keys[i];
                     jamoma_data_command((TTDataPtr)selectedObject, _sym_nothing, d, argv+(i*d));
                 }
             }
@@ -547,8 +547,8 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
-	b->get(1, i);
+	x = WrappedModularInstancePtr((TTPtr)(*b)[0]);
+	i = (*b)[1];
 	
 	// output index
 	if (x->arrayIndex == 0) {
@@ -587,7 +587,7 @@ void data_array_return_value(TTPtr baton, TTValue& v)
 					selectedObject->getAttributeValue(kTTSym_valueDefault, g);
 					selectedObject->getAttributeValue(kTTSym_type, t);
 					
-					t.get(0, type);
+					type = t[0];
 					
 					// if there is no default value
 					if (g == kTTValNONE) {

@@ -185,7 +185,7 @@ void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 
 void ramp_free(t_ramp *x)
 {
-	TTObjectRelease((TTObjectPtr*)&x->rampUnit);
+	TTObjectBaseRelease((TTObjectBasePtr*)&x->rampUnit);
 	delete x->parameterNames;
 }
 

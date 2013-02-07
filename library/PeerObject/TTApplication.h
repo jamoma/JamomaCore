@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle application data structure
+ * TTObjectBase to handle application data structure
  * like a TTNodeDirectory and a hash tables of names
  *
  * Copyright © 2010, Théo de la Hogue
@@ -58,7 +58,7 @@ typedef TTXmlHandler* TTXmlHandlerPtr;
 		TTApplicationConvertAppNameToTTName(appName) \
 		
 
-class TTMODULAR_EXPORT TTApplication : public TTDataObject
+class TTMODULAR_EXPORT TTApplication : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTApplication)
 	

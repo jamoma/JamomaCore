@@ -17,7 +17,7 @@
 typedef struct extra {
 	TTBoolean	attr_load_default;
 	TTPtr		filewatcher;		// a preset filewather
-	TTObjectPtr	toEdit;				// the object to edit (a preset or all the preset list)
+	TTObjectBasePtr	toEdit;				// the object to edit (a preset or all the preset list)
 	TTSymbol	presetName;			// the name of the edited cue
 	TTString	*text;				// the text of the editor to read after edclose
 	ObjectPtr	textEditor;			// the text editor window
@@ -178,8 +178,7 @@ void preset_subscribe(TTPtr self)
 		
 		// set the Address attribute of the PresetManager if it is empty
 		x->wrappedObject->getAttributeValue(kTTSym_address, v);
-		v.get(0, absoluteAddress);
-        
+		absoluteAddress = v[0];
 		if (absoluteAddress == kTTAdrsEmpty) {
 			returnedNode->getParent()->getAddress(absoluteAddress);
 			x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
@@ -219,35 +218,35 @@ void preset_subscribe(TTPtr self)
 		
 		// create internal TTXmlHandler
 		aXmlHandler = NULL;
-		TTObjectInstantiate(kTTSym_XmlHandler, TTObjectHandle(&aXmlHandler), args);
-		v = TTValue(TTPtr(aXmlHandler));
+		TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&aXmlHandler), args);
+		v = TTValue(aXmlHandler);
 		x->internals->append(kTTSym_XmlHandler, v);
-		v = TTValue(TTPtr(x->wrappedObject));
+		v = TTValue(x->wrappedObject);
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		
 		// create internal TTTextHandler
 		aTextHandler = NULL;
-		TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
-		v = TTValue(TTPtr(aTextHandler));
+		TTObjectBaseInstantiate(kTTSym_TextHandler, TTObjectBaseHandle(&aTextHandler), args);
+		v = TTValue(aTextHandler);
 		x->internals->append(kTTSym_TextHandler, v);
 		
 		// Create internal messages for Read and Write
-		makeInternals_data(self, absoluteAddress, TTSymbol("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("preset/read"), gensym("preset_read"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Read a xml preset file"));
 
-		makeInternals_data(self, absoluteAddress, TTSymbol("preset/write"), gensym("preset_write"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("preset/write"), gensym("preset_write"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_string);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write a xml preset file"));
 		
-		makeInternals_data(self, absoluteAddress, TTSymbol("preset/read/again"), gensym("preset_read_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("preset/read/again"), gensym("preset_read_again"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Read from the last xml preset file"));
 
-		makeInternals_data(self, absoluteAddress, TTSymbol("preset/write/again"), gensym("preset_write_again"), x->patcherPtr, kTTSym_message, (TTObjectPtr*)&aData);
+		makeInternals_data(self, absoluteAddress, TTSymbol("preset/write/again"), gensym("preset_write_again"), x->patcherPtr, kTTSym_message, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_none);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Write into the last xml preset file"));
@@ -303,7 +302,7 @@ void preset_doread(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aXmlHandler);
+			aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_Read, v, kTTValNONE);
@@ -333,7 +332,7 @@ void preset_doread_again(TTPtr self)
 	
 	if (!tterr) {
 		
-		o.get(0, (TTPtr*)&aXmlHandler);
+		aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 		
 		critical_enter(0);
 		tterr = aXmlHandler->sendMessage(kTTSym_ReadAgain);
@@ -374,7 +373,7 @@ void preset_dowrite(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		tterr = x->internals->lookup(kTTSym_XmlHandler, o);
 		
 		if (!tterr) {
-			o.get(0, (TTPtr*)&aXmlHandler);
+			aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
 			tterr = aXmlHandler->sendMessage(kTTSym_Write, v, kTTValNONE);
@@ -408,7 +407,7 @@ void preset_dowrite_again(TTPtr self)
 	
 	if (!tterr) {
 		
-		o.get(0, (TTPtr*)&aXmlHandler);
+		aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)o[0]);
 		
 		critical_enter(0);
 		tterr = aXmlHandler->sendMessage(kTTSym_WriteAgain);
@@ -488,7 +487,7 @@ void preset_filechanged(TTPtr self, char *filename, short path)
 	defer_low(self, (method)preset_doread, gensym("read"), 1, &a);
 	
 	// try to recall last current preset
-	v.get(0, current);
+	current = v[0];
 	atom_setsym(&a, gensym((char*)current.c_str()));
 	defer_low((ObjectPtr)x, (method)preset_dorecall, NULL, 1, &a);
 }
@@ -529,8 +528,8 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			// get presets order
 			x->wrappedObject->getAttributeValue(TTSymbol("order"), v);
 			
-			if (atom_getlong(argv) <= v.getSize())
-				v.get(atom_getlong(argv)-1, name);
+			if (atom_getlong(argv) <= v.size())
+				name = v[atom_getlong(argv)-1];
 			
 			else {
 				object_error((ObjectPtr)x, "%d does'nt exist", atom_getlong(argv));
@@ -544,7 +543,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			
 			// get preset object table
 			x->wrappedObject->getAttributeValue(TTSymbol("presets"), v);
-			v.get(0, (TTPtr*)&allPresets);
+			allPresets = TTHashPtr((TTPtr)v[0]);
 			
 			if (allPresets) {
 				
@@ -552,7 +551,7 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 				if (!allPresets->lookup(name, v)) {
 					
 					// edit a preset
-					v.get(0, (TTPtr*)&EXTRA->toEdit);
+					EXTRA->toEdit = v[0];
 					EXTRA->presetName = name;
 				}
 				else {
@@ -575,10 +574,10 @@ void preset_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr) {
 			
-			o.get(0, (TTPtr*)&aTextHandler);
+			aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
-			o = TTValue(TTPtr(EXTRA->toEdit));
+			o = TTValue(EXTRA->toEdit);
 			aTextHandler->setAttributeValue(kTTSym_object, o);
 			args = TTValue((TTPtr)buffer);
 			tterr = aTextHandler->sendMessage(kTTSym_Write, args, kTTValNONE);
@@ -625,7 +624,7 @@ void preset_doedit(TTPtr self)
 	
 	if (!tterr) {
 		
-		o.get(0, (TTPtr*)&aTextHandler);
+		aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)o[0]);
 		
 		critical_enter(0);
 		args = TTValue((TTPtr)EXTRA->text);

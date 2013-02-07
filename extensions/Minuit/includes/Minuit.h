@@ -68,7 +68,7 @@ private:
 	TTSymbol				mIp;						///< ATTRIBUTE : IP of the local application (to share with clients)		(default : loacalhost, readonly)
 	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception (to share with clients)	(default : MINUIT_RECEPTION_PORT)
 	
-	TTObjectPtr				mOscReceive;
+	TTObjectBasePtr			mOscReceive;
     TTThreadPtr             mAnswerThread;              // a thread used to wait an answer after sending a request
 	
 	MinuitAnswerManagerPtr	mAnswerManager;

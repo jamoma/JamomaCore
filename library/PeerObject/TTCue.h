@@ -19,7 +19,7 @@ typedef TTScript* TTScriptPtr;
  
  */
 
-class TTMODULAR_EXPORT TTCue : public TTDataObject
+class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTCue)
 	
@@ -66,16 +66,16 @@ class TTMODULAR_EXPORT TTCue : public TTDataObject
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** a recursive method to store a namespace into a script object */
-	TTErr	processStore(TTObjectPtr aScript, TTAddress scriptAddress, const TTAddressItemPtr aNamespace);
+	TTErr	processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, const TTAddressItemPtr aNamespace);
 	
 	/** a recursive method to process a namespace selection from a script object (and optionnaly fill it) */
-	TTErr	processSelect(TTObjectPtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill=NO);
+	TTErr	processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill=NO);
 	
 	/** a recursive method to change each ramping value into a script */
-	TTErr	processRamp(TTObjectPtr aScript, TTUInt32 ramp);
+	TTErr	processRamp(TTObjectBasePtr aScript, TTUInt32 ramp);
 	
 	/** a recursive method to read the ramp value from a script */
-	TTErr	searchRamp(TTObjectPtr aScript, TTUInt32& ramp);
+	TTErr	searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp);
 	
 	friend TTErr TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 	friend TTErr TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);

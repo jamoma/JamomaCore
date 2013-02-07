@@ -1,5 +1,5 @@
 /*
- * TTObject to handle application data structure
+ * TTObjectBase to handle application data structure
  * like a TTNodeDirectory and a hash tables of names
  *
  * Copyright © 2010, Théo de la Hogue
@@ -31,7 +31,7 @@ mAppToTT(NULL),
 mTTToApp(NULL),
 mTempAddress(kTTAdrsEmpty)
 {
-	arguments.get(0, mName);
+	mName = arguments[0];
 	
 	addAttributeWithSetter(Name, kTypeSymbol);
 	
@@ -99,7 +99,7 @@ mTempAddress(kTTAdrsEmpty)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mDirectory = new TTNodeDirectory(mName);
-	mDirectory->getRoot()->setObject(this);
+	mDirectory->getRoot()->setObject(TTObjectBasePtr(this));
 	TT_ASSERT("NodeDirectory created successfully", mDirectory != NULL);
 	
 	mAppToTT = new TTHash();
@@ -109,7 +109,7 @@ mTempAddress(kTTAdrsEmpty)
 	mAttributeListenersCache = new TTHash();
 	
 	// add itself to the application manager
-	TTValue args = TTValue((TTPtr)this);
+	TTValue args = TTValue(TTObjectBasePtr(this));
 	TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
 }
 
@@ -138,20 +138,20 @@ TTErr TTApplication::setName(const TTValue& value)
 	mDirectory->setName(mName);
 	
 	// add itself to the application manager
-	args = TTValue((TTPtr)this);
+	args = TTValue(TTObjectBasePtr(this));
 	return TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
 }
 
 TTErr TTApplication::setActivity(const TTValue& value)
 {
 	TTValue		protocols = getApplicationProtocols(mName);
-	TTSymbol protocolName;
+	TTSymbol    protocolName;
 	
 	mActivity = value;
 	
-	for (TTUInt32 i=0; i<protocols.getSize(); i++) {
+	for (TTUInt32 i = 0; i < protocols.size(); i++) {
 		
-		protocols.get(i, protocolName);
+		protocolName = protocols[i];
 		getProtocol(protocolName)->setAttributeValue(kTTSym_activity, mActivity);
 	}
 	
@@ -227,9 +227,9 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
         if (anAddress != kTTAdrsRoot)
             aMirror = appendMirror(aProtocol, anAddress, returnedType);
         
-        for (TTUInt32 i = 0; i < returnedChildren.getSize(); i++) {
+        for (TTUInt32 i = 0; i < returnedChildren.size(); i++) {
             
-            returnedChildren.get(i, childAddress);
+            childAddress = returnedChildren[i];
             nextAddress = anAddress.appendAddress(childAddress);
             
             buildNode(aProtocol, nextAddress);
@@ -273,8 +273,8 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	TTValue			cacheElement;
 	TTErr			err;
 	
-	inputValue.get(1, appToNotify);
-	inputValue.get(2, whereToListen);
+	appToNotify = inputValue[1];
+	whereToListen = inputValue[2];
 	
 	editKey = appToNotify.c_str();
 	editKey += "<>";
@@ -285,8 +285,8 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	if (mAttributeListenersCache->lookup(key, cacheElement)) {
 		
 		// prepare a callback based on ProtocolDirectoryCallback
-		returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&returnValueCallback), kTTValNONE);
+		returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
 		
 		returnValueBaton = new TTValue();
 		*returnValueBaton = inputValue;
@@ -299,7 +299,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 		if (!err) {
 			
 			// cache the observer in the directoryListenersCache
-			cacheElement.append((TTPtr)returnValueCallback);
+			cacheElement.append(returnValueCallback);
 			return mDirectoryListenersCache->append(key, cacheElement);
 		}
 		else
@@ -317,8 +317,8 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 	TTCallbackPtr		returnValueCallback;
 	TTValue				cacheElement;
 	
-	inputValue.get(0, appToNotify);
-	inputValue.get(1, whereToListen);
+	appToNotify = inputValue[0];
+	whereToListen = inputValue[1];
 	
 	editKey = appToNotify.c_str();
 	editKey += "<>";
@@ -328,9 +328,9 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 	// if this listener exists
 	if (!mDirectoryListenersCache->lookup(key, cacheElement)) {
         
-		cacheElement.get(0, (TTPtr*)&returnValueCallback);
+		returnValueCallback = TTCallbackPtr((TTObjectBasePtr)cacheElement[0]);
 		mDirectory->removeObserverForNotifications(whereToListen, returnValueCallback);
-		TTObjectRelease(TTObjectHandle(&returnValueCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&returnValueCallback));
 		return mDirectoryListenersCache->remove(key);
 	}
 	
@@ -344,14 +344,14 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
-	TTObjectPtr			anObject, returnValueCallback;
+	TTObjectBasePtr		anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
 	TTValuePtr			returnValueBaton;
 	TTValue				cacheElement;
 	TTErr				err;
 	
-	inputValue.get(1, appToNotify);
-	inputValue.get(2, whereToListen);
+	appToNotify = inputValue[1];
+	whereToListen = inputValue[2];
 	
 	editKey = appToNotify.c_str();
 	editKey += "<>";
@@ -368,7 +368,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 			{
 				// get a node from the selection
-				aNodeList.current().get(0,(TTPtr*)&nodeToListen);
+				nodeToListen = TTNodePtr((TTPtr)aNodeList.current()[0]);
 				
 				anObject = nodeToListen->getObject();
 				if (anObject) {
@@ -379,8 +379,8 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 					
 					if (!err) {
 						// prepare a callback based on ProtocolAttributeCallback
-						returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+						returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+						TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 						
 						returnValueBaton = new TTValue();
 						*returnValueBaton = inputValue;
@@ -391,7 +391,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 						anAttribute->registerObserverForNotifications(*returnValueCallback);
 						
 						// cache the listener in the attributeListenersCache
-						cacheElement.append((TTPtr)returnValueCallback);
+						cacheElement.append(returnValueCallback);
 					}
 				}
 			}
@@ -412,14 +412,14 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
-	TTObjectPtr			anObject, returnValueCallback;
+	TTObjectBasePtr		anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
 	TTValue				cacheElement;
 	TTUInt32			i;
 	TTErr				err;
 	
-	inputValue.get(0, appToNotify);
-	inputValue.get(1, whereToListen);
+	appToNotify = inputValue[0];
+	whereToListen = inputValue[1];
 	
 	editKey = appToNotify.c_str();
 	editKey += "<>";
@@ -437,7 +437,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 			{
 				// get a node from the selection
-				aNodeList.current().get(0,(TTPtr*)&nodeToListen);
+				nodeToListen = TTNodePtr((TTPtr)aNodeList.current()[0]);
 				
 				anObject = nodeToListen->getObject();
 				if (anObject) {
@@ -448,9 +448,9 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 					
 					if (!err) {
 						
-						cacheElement.get(i, (TTPtr*)&returnValueCallback);
+                        returnValueCallback = TTCallbackPtr((TTObjectBasePtr)cacheElement[i]);
 						anAttribute->unregisterObserverForNotifications(*returnValueCallback);
-						TTObjectRelease(TTObjectHandle(&returnValueCallback));
+						TTObjectBaseRelease(TTObjectBaseHandle(&returnValueCallback));
 						i++;
 					}
 				}
@@ -471,12 +471,12 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	TTSymbol	type, protocolName;;
     TTList      aNodeList;
     TTNodePtr   aNode;
-    TTObjectPtr aMirror;
+    TTObjectBasePtr aMirror;
     ProtocolPtr aProtocol;
     TTErr       err;
 	
-	inputValue.get(0, whereComesFrom);
-	inputValue.get(1, (TTPtr*)&newValue);
+	whereComesFrom = inputValue[0];
+	newValue = TTValuePtr((TTPtr)inputValue[1]);
 	
 	newValue->get(0, type);
     
@@ -501,7 +501,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
         aMirror = aNode->getObject();
         
         if (aMirror)
-            TTObjectRelease(TTObjectHandle(&aMirror));
+            TTObjectBaseRelease(TTObjectBaseHandle(&aMirror));
         
         mDirectory->TTNodeRemove(whereComesFrom);
     }
@@ -517,8 +517,8 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	TTMirrorPtr			aMirror;
 	TTErr				err;
 	
-	inputValue.get(0, whereComesFrom);
-	inputValue.get(1, (TTPtr*)&newValue);
+	whereComesFrom = inputValue[0];
+	newValue = TTValuePtr((TTPtr)inputValue[1]);
 	
 	err = mDirectory->getTTNode(whereComesFrom, &nodeToUpdate);
 	
@@ -562,21 +562,23 @@ TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& output
 	
 	// if there is only 1 symbol : replace value directly by the found one.
 	// because it's possible to have conversion containing several appNames for 1 ttname
-	if (inputValue.getSize() == 1)
-		if (inputValue.getType(0) == kTypeSymbol){
+	if (inputValue.size() == 1) {
+        
+		if (inputValue[0].type() == kTypeSymbol){
 			
-			inputValue.get(0, ttName);
+			ttName = inputValue[0];
 			return this->mTTToApp->lookup(ttName, outputValue);
 		}
+    }
 	
 	// else convert each symbol of the value.
 	// !!! in this case 1 to many conversion is not handled
-	for (TTUInt8 i=0; i<inputValue.getSize(); i++)
-		if (inputValue.getType(i) == kTypeSymbol) {
-			inputValue.get(i, ttName);
+	for (TTUInt8 i = 0; i < inputValue.size(); i++)
+		if (inputValue[i].type() == kTypeSymbol) {
+			ttName = inputValue[i];
 			if (!this->mTTToApp->lookup(ttName, c)) {
-				c.get(0, appName);
-				outputValue.set(i, appName);
+				appName = c[0];
+				outputValue[i] = appName;
 			}
 		}
 	
@@ -591,21 +593,23 @@ TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputV
 	
 	// if there is only 1 symbol : replace value directly by the founded one.
 	// because it's possible to have conversion containing several ttNames for 1 appName
-	if (inputValue.getSize() == 1)
-		if (inputValue.getType(0) == kTypeSymbol){
+	if (inputValue.size() == 1) {
+        
+		if (inputValue[0].type() == kTypeSymbol){
 			
-			inputValue.get(0, appName);
+			appName = inputValue[0];
 			return this->mAppToTT->lookup(appName, outputValue);
 		}
+    }
 	
 	// else convert each symbol of the value.
 	// !!! in this case 1 to many conversion is not handled
-	for (TTUInt8 i=0; i<inputValue.getSize(); i++)
-		if (inputValue.getType(i) == kTypeSymbol) {
-			inputValue.get(i, appName);
+	for (TTUInt8 i = 0; i < inputValue.size(); i++)
+		if (inputValue[i].type() == kTypeSymbol) {
+			appName = inputValue[i];
 			if (!this->mAppToTT->lookup(appName, c)) {
-				c.get(0, ttName);
-				outputValue.set(i, ttName);
+				ttName = c[0];
+				outputValue[i] = ttName;
 			}
 		}
 	
@@ -616,7 +620,7 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr aXmlHandler;
 	
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	
     // Write all the namespace starting from the root of the directory
 	if (mDirectory)
@@ -629,7 +633,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
 {
 	TTAddress    nameInstance;
 	TTSymbol     objectName, attributeName;
-	TTObjectPtr  anObject;
+	TTObjectBasePtr  anObject;
 	TTValue      attributeNameList, v, c;
 	TTList       nodeList;
 	TTNodePtr    aChild;
@@ -653,9 +657,9 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                 // Write attributes
                 anObject->getAttributeNames(attributeNameList);
                 
-                for(TTUInt8 i = 0; i < attributeNameList.getSize(); i++)
+                for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
                 {
-                    attributeNameList.get(i, attributeName);
+                    attributeName = attributeNameList[i];
                     
                     // Filter attribute names
                     if (attributeName != kTTSym_debug &&
@@ -667,7 +671,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                         anObject->getAttributeValue(attributeName, v);
                         
                         v.toString();
-                        v.get(0, aString);
+                        aString = TTString(v[0]);
                         
                         xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
                     }
@@ -680,7 +684,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                 // Write description attribute as an xml comment
                 anObject->getAttributeValue(kTTSym_description, v);
                 v.toString();
-                v.get(0, aString);
+                aString = TTString(v[0]);
                 xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
                 
                 // Start node
@@ -697,9 +701,9 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                 // Write attributes
                 anObject->getAttributeNames(attributeNameList);
                 
-                for(TTUInt8 i = 0; i < attributeNameList.getSize(); i++)
+                for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
                 {
-                    attributeNameList.get(i, attributeName);
+                    attributeName = attributeNameList[i];
                     
                     // Filter attribute names
                     if (attributeName != kTTSym_description &&
@@ -716,14 +720,14 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                          ToAppNames(v, c);
                          
                          c.toString();
-                         c.get(0, aString);
+                         c[0] aString);
                          */
                         
                         if (v == kTTValNONE)
                             continue;
                         
                         v.toString();
-                        v.get(0, aString);
+                        aString = TTString(v[0]);
                         
                         if (aString.empty())
                             continue;
@@ -741,7 +745,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
             
             for (nodeList.begin(); nodeList.end(); nodeList.next())
             {
-                nodeList.current().get(0, (TTPtr*)&aChild);
+                aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
                 writeNodeAsXml(aXmlHandler, aChild);
             }
             
@@ -758,7 +762,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	TTString		anAppKey, aTTKey;
 	TTValue			appValue, ttValue, v, nameValue, parameterValue;
 	
-	inputValue.get(0, (TTPtr*)&aXmlHandler);
+	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	if (!aXmlHandler)
 		return kTTErrGeneric;
 	
@@ -793,7 +797,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), appValue);
 			v = appValue;
 			v.toString();
-			v.get(0, anAppKey);
+			anAppKey = TTString(v[0]);
 		}
 		
 		// get TT Value
@@ -801,7 +805,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), ttValue);
 			v = ttValue;
 			v.toString();
-			v.get(0, aTTKey);
+			aTTKey = TTString(v[0]);
 		}
 		
 		mAppToTT->append(TTSymbol(anAppKey), ttValue);		// here we register the entire value to handle 1 to many conversion
@@ -844,42 +848,45 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
             
             aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
             
-            if (v.getType() == kTypeSymbol) {
-                v.get(0, objectName);
+            if (v.size() == 1) {
                 
-                // a distant application should have one protocol
-                protocolNames = getApplicationProtocols(mName);
-                protocolNames.get(0, protocolName);
-                
-                aProtocol = (ProtocolPtr)getProtocol(protocolName);
-                if (aProtocol) {
+                if (v[0].type() == kTypeSymbol) {
+                    objectName = v[0];
                     
-                    // instantiate Mirror object for distant application
-                    aMirror = appendMirror(aProtocol, mTempAddress, objectName);
+                    // a distant application should have one protocol
+                    protocolNames = getApplicationProtocols(mName);
+                    protocolName = protocolNames[0];
                     
-                    if (aMirror) {
-                        // ?? to -- is it usefull to set attribute value ?
-                        // yes : in modul8 case for example...
-                        // so it depends of the protocol features : isGetRequestAllowed ?
+                    aProtocol = (ProtocolPtr)getProtocol(protocolName);
+                    if (aProtocol) {
                         
-                        /*
-                         // get all object attributes and their value
-                         while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
-                         
-                         // get attribute name
-                         aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
-                         
-                         if (v.getType() == kTypeSymbol) {
-                         v.get(0, &attributeName);
-                         
-                         // get attribute value
-                         aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-                         
-                         
-                         aMirror->setAttributeValue(attributeName, v);
-                         }
-                         }
-                         */
+                        // instantiate Mirror object for distant application
+                        aMirror = appendMirror(aProtocol, mTempAddress, objectName);
+                        
+                        if (aMirror) {
+                            // ?? to -- is it usefull to set attribute value ?
+                            // yes : in modul8 case for example...
+                            // so it depends of the protocol features : isGetRequestAllowed ?
+                            
+                            /*
+                             // get all object attributes and their value
+                             while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+                             
+                             // get attribute name
+                             aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+                             
+                             if (v.getType() == kTypeSymbol) {
+                             v.get(0, &attributeName);
+                             
+                             // get attribute value
+                             aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+                             
+                             
+                             aMirror->setAttributeValue(attributeName, v);
+                             }
+                             }
+                             */
+                        }
                     }
                 }
             }
@@ -900,14 +907,14 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     TTMirrorPtr     aMirror = NULL;
     TTNodePtr		aNode;
 	TTBoolean		newInstanceCreated;
-	TTObjectPtr		getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
+	TTObjectBasePtr		getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
 	TTValuePtr		getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
     
     TTValue         args = objectName;
     
     getAttributeCallback = NULL;
-    TTObjectInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
-    getAttributeBaton = new TTValue(TTPtr(aProtocol));
+    TTObjectBaseInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
+    getAttributeBaton = new TTValue(aProtocol);
     getAttributeBaton->append(mName);
     getAttributeBaton->append(anAddress);
     getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
@@ -915,8 +922,8 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     args.append(getAttributeCallback);
     
     setAttributeCallback = NULL;
-    TTObjectInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
-    setAttributeBaton = new TTValue(TTPtr(aProtocol));
+    TTObjectBaseInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
+    setAttributeBaton = new TTValue(aProtocol);
     setAttributeBaton->append(mName);
     setAttributeBaton->append(anAddress);
     setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
@@ -924,8 +931,8 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     args.append(setAttributeCallback);
     
     sendMessageCallback = NULL;
-    TTObjectInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
-    sendMessageBaton = new TTValue(TTPtr(aProtocol));
+    TTObjectBaseInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
+    sendMessageBaton = new TTValue(aProtocol);
     sendMessageBaton->append(mName);
     sendMessageBaton->append(anAddress);
     sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
@@ -933,8 +940,8 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     args.append(sendMessageCallback);
     
     listenAttributeCallback = NULL;
-    TTObjectInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
-    listenAttributeBaton = new TTValue(TTPtr(aProtocol));
+    TTObjectBaseInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
+    listenAttributeBaton = new TTValue(aProtocol);
     listenAttributeBaton->append(mName);
     listenAttributeBaton->append(anAddress);
     listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
@@ -942,10 +949,10 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     args.append(listenAttributeCallback);
     
     aMirror = NULL;
-    TTObjectInstantiate(kTTSym_Mirror, TTObjectHandle(&aMirror), args);
+    TTObjectBaseInstantiate(kTTSym_Mirror, TTObjectBaseHandle(&aMirror), args);
     
     // register object into the directory
-    this->mDirectory->TTNodeCreate(anAddress, (TTObjectPtr)aMirror, NULL, &aNode, &newInstanceCreated);
+    this->mDirectory->TTNodeCreate(anAddress, (TTObjectBasePtr)aMirror, NULL, &aNode, &newInstanceCreated);
     
     return aMirror;
 }
@@ -987,7 +994,7 @@ TTSymbol TTApplicationConvertAppNameToTTName(TTSymbol anAppName)
 		err = getLocalApplication->mAppToTT->lookup(anAppName, c);
 		
 		if (!err)
-			c.get(0, converted);
+			converted = c[0];
 		
 	}
 	
@@ -1005,7 +1012,7 @@ TTSymbol TTApplicationConvertTTNameToAppName(TTSymbol aTTName)
 		err = getLocalApplication->mTTToApp->lookup(aTTName, c);
 		
 		if (!err)
-			c.get(0, converted);
+			converted = c[0];
 		
 	}
 	

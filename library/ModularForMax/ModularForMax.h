@@ -54,7 +54,7 @@ extern "C" {
 	
 	/**	Create a subscriber object and register a TTObject into the tree 
 		or, if aTTObject is NULL, retrieve all context info to bind on an object */
-	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectPtr aTTObject, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber, TTSymbol& returnedAddress, TTNodePtr *returnedNode, TTNodePtr *returnedContextNode);
+	TTErr			jamoma_subscriber_create(ObjectPtr x, TTObjectBasePtr aTTObjectBase, TTAddress relativeAddress, TTSubscriberPtr *returnedSubscriber, TTSymbol& returnedAddress, TTNodePtr *returnedNode, TTNodePtr *returnedContextNode);
 	
 	/** Get the <patcher name, patcher pointer> list above an external
 		To understand what this method have to provide see in TTSubscriber.h and .cpp */
@@ -64,7 +64,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a container object */
-	TTErr			jamoma_container_create(ObjectPtr x, TTObjectPtr *returnedContainer);
+	TTErr			jamoma_container_create(ObjectPtr x, TTObjectBasePtr *returnedContainer);
 	
 	/**	Send Max data using a container object */
 	TTErr			jamoma_container_send(TTContainerPtr aContainer, SymbolPtr relativeAddressAndAttribute, AtomCount argc, AtomPtr argv);
@@ -74,7 +74,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a data object */
-	TTErr			jamoma_data_create(ObjectPtr x, TTObjectPtr *returnedData, TTSymbol service);
+	TTErr			jamoma_data_create(ObjectPtr x, TTObjectBasePtr *returnedData, TTSymbol service);
 	
 	/**	Send Max data command */
 	TTErr			jamoma_data_command(TTDataPtr aData, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -84,10 +84,10 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a sender object */
-	TTErr			jamoma_sender_create(ObjectPtr x, TTObjectPtr *returnedSender);
+	TTErr			jamoma_sender_create(ObjectPtr x, TTObjectBasePtr *returnedSender);
 	
 	/**	Create a sender object for audio signal */
-	TTErr			jamoma_sender_create_audio(ObjectPtr x, TTObjectPtr *returnedSender);
+	TTErr			jamoma_sender_create_audio(ObjectPtr x, TTObjectBasePtr *returnedSender);
 	
 	/**	Send Max data using a sender object */
 	TTErr			jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -97,29 +97,29 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a receiver object */
-	TTErr			jamoma_receiver_create(ObjectPtr x, TTObjectPtr *returnedReceiver);
+	TTErr			jamoma_receiver_create(ObjectPtr x, TTObjectBasePtr *returnedReceiver);
 	
 	/**	Create a receiver object for audio signal */
-	TTErr			jamoma_receiver_create_audio(ObjectPtr x, TTObjectPtr *returnedReceiver);
+	TTErr			jamoma_receiver_create_audio(ObjectPtr x, TTObjectBasePtr *returnedReceiver);
 	
 	// Method to deal with TTPresetManager and TTCueManager
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a preset manager object */
-	TTErr			jamoma_presetManager_create(ObjectPtr x, TTObjectPtr *returnedPresetManager);
+	TTErr			jamoma_presetManager_create(ObjectPtr x, TTObjectBasePtr *returnedPresetManager);
 	
 	/**	Create a cue manager object */
-	TTErr			jamoma_cueManager_create(ObjectPtr x, TTObjectPtr *returnedCueManager);
+	TTErr			jamoma_cueManager_create(ObjectPtr x, TTObjectBasePtr *returnedCueManager);
 	
 	
 	// Method to deal with TTInput
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create an input object for signal */
-	TTErr			jamoma_input_create(ObjectPtr x, TTObjectPtr *returnedInput);
+	TTErr			jamoma_input_create(ObjectPtr x, TTObjectBasePtr *returnedInput);
 	
 	/**	Create an input object for audio signal */
-	TTErr			jamoma_input_create_audio(ObjectPtr x, TTObjectPtr *returnedInput);
+	TTErr			jamoma_input_create_audio(ObjectPtr x, TTObjectBasePtr *returnedInput);
 	
 	/**	Send any signal to an input object */
 	TTErr			jamoma_input_send(TTInputPtr anInput, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -129,10 +129,10 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create an output object for signal */
-	TTErr			jamoma_output_create(ObjectPtr x, TTObjectPtr *returnedOutput);
+	TTErr			jamoma_output_create(ObjectPtr x, TTObjectBasePtr *returnedOutput);
 	
 	/**	Create an output object for audio signal */
-	TTErr			jamoma_output_create_audio(ObjectPtr x, TTObjectPtr *returnedOutput);
+	TTErr			jamoma_output_create_audio(ObjectPtr x, TTObjectBasePtr *returnedOutput);
 	
 	/**	Send any signal to an output object */
 	TTErr			jamoma_output_send(TTOutputPtr anOutput, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -142,14 +142,14 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a mapper object */
-	TTErr			jamoma_mapper_create(ObjectPtr x, TTObjectPtr *returnedMapper);
+	TTErr			jamoma_mapper_create(ObjectPtr x, TTObjectBasePtr *returnedMapper);
 	
 	
 	// Method to deal with TTViewer
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create a viewer object */
-	TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectPtr *returnedViewer);
+	TTErr			jamoma_viewer_create(ObjectPtr x, TTObjectBasePtr *returnedViewer);
 	
 	/**	Send Max data using a viewer object */
 	TTErr			jamoma_viewer_send(TTViewerPtr aViewer, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -159,7 +159,7 @@ extern "C" {
 	///////////////////////////////////////////////////////////////////////
 	
 	/**	Create an explorer object */
-	TTErr			jamoma_explorer_create(ObjectPtr x, TTObjectPtr *returnedExplorer);
+	TTErr			jamoma_explorer_create(ObjectPtr x, TTObjectBasePtr *returnedExplorer);
 
 	
 	TTHashPtr		jamoma_explorer_default_filter_bank(void);

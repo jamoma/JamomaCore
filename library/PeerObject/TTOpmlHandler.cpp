@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle opml file reading and writing
+ * TTObjectBase to handle opml file reading and writing
  * to be able to store / recall state of an object 
  * into/from opml files.
  *
@@ -28,9 +28,9 @@ mReader(NULL),
 mIsWriting(false),
 mIsReading(false)
 {
-	TT_ASSERT("Correct number of args to create TTOpmlHandler", arguments.getSize() == 0);
+	TT_ASSERT("Correct number of args to create TTOpmlHandler", arguments.size() == 0);
 	
-	addAttribute(Object, kTypePointer);
+	addAttribute(Object, kTypeObject);
 
 	addAttribute(HeaderNodeName, kTypeSymbol);
 	addAttribute(Version, kTypeSymbol);
@@ -50,7 +50,7 @@ TTOpmlHandler::~TTOpmlHandler()
 TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 {
     TTValue				v;
-	TTObjectPtr			aTTObject;
+	TTObjectBasePtr			aTTObject;
 	int					ret;
 	
 	// an object have to be selected
@@ -62,10 +62,11 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
-	if (args.getSize() == 1) {
-		if (args.getType(0) == kTypeSymbol) {
+	if (args.size() == 1) {
+        
+		if (args[0].type() == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			mFilePath = args[0];
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -122,9 +123,9 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			// Start opml body
 			xmlTextWriterStartElement((xmlTextWriterPtr)mWriter, BAD_CAST "body");
 			
-			// Write data of the given TTObject (which have to implement a WriteAsOpml message)
+			// Write data of the given TTObjectBase (which have to implement a WriteAsOpml message)
 			v.clear();
-			v.append((TTPtr)this);
+			v.append(TTObjectBasePtr(this));
 			aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 			
 			// Close opml body
@@ -151,7 +152,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
+	v.append(TTObjectBasePtr(this));
 	return aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
 }
 
@@ -166,7 +167,7 @@ TTErr TTOpmlHandler::WriteAgain()
 TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 {
 	const xmlChar		*xName = 0;
-	TTObjectPtr			aTTObject;
+	TTObjectBasePtr			aTTObject;
 	TTValue				v;
 	int					ret;
 	
@@ -179,10 +180,11 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
-	if (args.getSize() == 1) {
-		if (args.getType(0) == kTypeSymbol) {
+	if (args.size() == 1) {
+        
+		if (args[0].type() == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			mFilePath = args[0];
 			
 			// Init the opml library
 			LIBXML_TEST_VERSION
@@ -216,7 +218,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						}
 					}
 					
-					v.append((TTPtr)this);
+					v.append(TTObjectBasePtr(this));
 					aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 					
 					// next node
@@ -240,7 +242,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
+	v.append(TTObjectBasePtr(this));
 	return aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
 }
 

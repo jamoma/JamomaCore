@@ -29,17 +29,17 @@ mTempNode(NULL),
 mResult(NULL),
 mLastResult(kTTValNONE)
 {
-	if(arguments.getSize() >= 1)
-		arguments.get(0, (TTPtr*)&mReturnValueCallback);
+	if(arguments.size() >= 1)
+		mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
 	
 	// It is possible to pass a default filter bank
-	if(arguments.getSize() >= 2)
-		arguments.get(1, (TTPtr*)&mFilterBank);
+	if(arguments.size() >= 2)
+		mFilterBank = TTHashPtr((TTPtr)arguments[1]);
 	else 
 		mFilterBank = new TTHash();
 	
-	if(arguments.getSize() >= 3)
-		arguments.get(2, (TTPtr*)&mReturnSelectionCallback);
+	if(arguments.size() >= 3)
+		mReturnSelectionCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
 	
 	addAttributeWithSetter(Namespace, kTypeSymbol);
 	
@@ -73,7 +73,7 @@ TTExplorer::~TTExplorer()
 	
 	if (mReturnValueCallback) {
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
-		TTObjectRelease(TTObjectHandle(&mReturnValueCallback));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	}
 	
 	delete mFilterBank;
@@ -131,7 +131,7 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	unbindApplication();
 	
 	// change the address
-	value.get(0, mAddress);
+	mAddress = value[0];
 	
 	mDirectory = getDirectoryFrom(mAddress);
 	if (mDirectory)
@@ -193,10 +193,10 @@ TTErr TTExplorer::bindAddress()
 		if (mUpdate && mAddress != kTTAdrsEmpty) {
 			
 			// observe any creation or destruction below the address
-			mAddressObserver = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mAddressObserver), kTTValNONE);
+			mAddressObserver = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 			
-			newBaton = new TTValue(TTPtr(this));
+			newBaton = new TTValue(TTObjectBasePtr(this));
 			
 			mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 			mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
@@ -221,7 +221,7 @@ TTErr TTExplorer::unbindAddress()
 	if (mDirectory && mAddressObserver && mAddress != kTTSymEmpty) {
 		
 		mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
-		TTObjectRelease(TTObjectHandle(&mAddressObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
 		mAddressObserver = NULL;
 		
 		return kTTErrNone;
@@ -236,10 +236,10 @@ TTErr TTExplorer::bindApplication()
 	
 	if (!mApplicationObserver) {
 		
-		mApplicationObserver = NULL; // without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&mApplicationObserver), kTTValNONE);
+		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
 		
-		newBaton = new TTValue(TTPtr(this));
+		newBaton = new TTValue(TTObjectBasePtr(this));
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
@@ -261,7 +261,7 @@ TTErr TTExplorer::unbindApplication()
 		err = TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 		
 		delete (TTValuePtr)mApplicationObserver->getBaton();
-		TTObjectRelease(TTObjectHandle(&mApplicationObserver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
 	}
 	
 	mDirectory = NULL;
@@ -275,7 +275,7 @@ TTErr TTExplorer::Explore()
 	TTSymbol	attributeName;
 	TTList		aNodeList, internalFilterList, allObjectNodes;
 	TTNodePtr	aNode;
-	TTObjectPtr	o;
+	TTObjectBasePtr	o;
 	TTValue		v, args;
 	TTErr		err;
 	
@@ -303,8 +303,8 @@ TTErr TTExplorer::Explore()
 				o->getAttributeNames(v);
 				
 				// memorized the result in a hash table
-				for (TTUInt32 i=0; i<v.getSize(); i++) {
-					v.get(i, attributeName);
+				for (TTUInt32 i = 0; i < v.size(); i++) {
+					attributeName = v[i];
 					mResult->append(attributeName, kTTValNONE);
 				}
 			}
@@ -323,7 +323,7 @@ TTErr TTExplorer::Explore()
 			// memorized the result in a hash table (the node is stored in order to sort the result)
 			for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 				
-				allObjectNodes.current().get(0, (TTPtr*)&aNode);
+				aNode = TTNodePtr((TTPtr)allObjectNodes.current()[0]);
 				
 				// children case :
 				if (mOutput == kTTSym_children){
@@ -379,12 +379,12 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 	TTInt32				i, number;
 	TTBoolean			state;
 	
-	if (aNamespace) {
+	if (aNamespace && inputValue.size()) {
 		
 		// set one item selection state
-		if (inputValue.getType() == kTypeSymbol) {
+		if (inputValue[0].type() == kTypeSymbol) {
 			
-			inputValue.get(0, itemSymbol);
+			itemSymbol = inputValue[0];
 			
 			// get the item
 			if (mOutput == kTTSym_children) {
@@ -403,9 +403,11 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 			if (anItem) {
 				
 				// set selection state
-				if (inputValue.getType(1) == kTypeInt32)
-					inputValue.get(1, state);
-				
+                if (inputValue.size() == 2) {
+                    
+                    if (inputValue[1].type() == kTypeInt32)
+                        state = inputValue[1];
+				}
 				// or switch it
 				else
 					state = !anItem->getSelection();
@@ -419,13 +421,13 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 		}
 		
 		// set all items selection state
-		else if (inputValue.getType() == kTypeInt32 && inputValue.getSize() == mLastResult.getSize()) {
+		else if (inputValue[0].type() == kTypeInt32 && inputValue.size() == mLastResult.size()) {
 			
 			// set all selection state
-			for (i = 0; i < mLastResult.getSize(); i++) {
+			for (i = 0; i < mLastResult.size(); i++) {
 				
-				mLastResult.get(i, itemSymbol);
-				inputValue.get(i, number);
+				itemSymbol = mLastResult[i];
+				number = inputValue[i];
 				
 				state = number == 1;
 				
@@ -454,16 +456,16 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTExplorer::SelectAll()
 {
-	TTAddressItemPtr aNamespace = lookupNamespace(mNamespace);
-	TTAddressItemPtr anItem;
-	TTAddress	itemSymbol;	
+	TTAddressItemPtr    aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr    anItem;
+	TTAddress           itemSymbol;	
 	TTInt32				i;
 	
 	if (aNamespace) {
 		// set all selection state
-		for (i = 0; i < mLastResult.getSize(); i++) {
+		for (i = 0; i < mLastResult.size(); i++) {
 			
-			mLastResult.get(i, itemSymbol);
+			itemSymbol = mLastResult[i];
 			
 			// move to mAddress + itemSymbol namespace
 			if (mOutput == kTTSym_children) {
@@ -488,16 +490,16 @@ TTErr TTExplorer::SelectAll()
 /** Set all selection state to NO */
 TTErr TTExplorer::SelectNone()
 {
-	TTAddressItemPtr aNamespace = lookupNamespace(mNamespace);
-	TTAddressItemPtr anItem;
-	TTAddress	itemSymbol;	
+	TTAddressItemPtr    aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr    anItem;
+	TTAddress           itemSymbol;	
 	TTInt32				i;
 	
 	if (aNamespace) {
 		// set all selection state
-		for (i = 0; i < mLastResult.getSize(); i++) {
+		for (i = 0; i < mLastResult.size(); i++) {
 			
-			mLastResult.get(i, itemSymbol);
+			itemSymbol = mLastResult[i];
 			
 			// move to mAddress + itemSymbol namespace
 			if (mOutput == kTTSym_children) {
@@ -529,49 +531,49 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol		filterName, filterKey;
 	TTValue			v, filterValue;
 	TTErr			err;
+    
+    if (inputValue.size() >= 1) {
 	
-	if (inputValue.getType() == kTypeSymbol) {
-	
-		inputValue.get(0, filterName);
-		
-		err = mFilterBank->lookup(filterName, v);
-		
-		// if the filter doesn't exist : create a new one
-		if (err) {
-			afilter = new TTDictionary();
-			afilter->setSchema(kTTSym_filter);
-			mFilterBank->append(filterName, (TTPtr)afilter);
-		}
-		// else get the existing filter and his schema
-		else
-			v.get(0, (TTPtr*)&afilter);
-		
-		// set the keys of the filter
-		for (TTUInt32 i=1; i<inputValue.getSize(); i=i+2) {
-			
-			inputValue.get(i, filterKey);
-			filterValue.copyRange(inputValue, i+1, i+2);
-			
-			// convert Int32 into symbol for instance parsing
-			if (filterValue.getType() == kTypeInt32) {
-				filterValue.toString();
-				TTString instanceString;
-				filterValue.get(0, instanceString);
-				filterValue.set(0, TTSymbol(instanceString));
-			}
-			
-			afilter->append(filterKey, filterValue);
-		}
-	}
-	// the first element have to be a symbol
-	else
-		return kTTErrGeneric;
-	
-	// append the new filter to the filter list
-	if (afilter) {
-		mFilterList->appendUnique(filterName);
-		return kTTErrNone;
-	}
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            filterName = inputValue[0];
+            
+            err = mFilterBank->lookup(filterName, v);
+            
+            // if the filter doesn't exist : create a new one
+            if (err) {
+                afilter = new TTDictionary();
+                afilter->setSchema(kTTSym_filter);
+                mFilterBank->append(filterName, (TTPtr)afilter);
+            }
+            // else get the existing filter and his schema
+            else
+                afilter = TTDictionaryPtr((TTPtr)v[0]);
+            
+            // set the keys of the filter
+            for (TTUInt32 i = 1; i < inputValue.size(); i =i+2) {
+                
+                filterKey = inputValue[i];
+                filterValue.copyRange(inputValue, i+1, i+2);
+                
+                // convert Int32 into symbol for instance parsing
+                if (filterValue[0].type() == kTypeInt32) {
+                    filterValue.toString();
+                    TTString instanceString;
+                    instanceString = TTString(filterValue[0]);
+                    filterValue[0] = TTSymbol(instanceString);
+                }
+                
+                afilter->append(filterKey, filterValue);
+            }
+        }
+        
+        // append the new filter to the filter list
+        if (afilter) {
+            mFilterList->appendUnique(filterName);
+            return kTTErrNone;
+        }
+    }
 	
 	return kTTErrGeneric;
 }
@@ -582,31 +584,35 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol		filterName;
 	TTValue			v, filterValue;
 	TTErr			err;
-	
-	if (inputValue.getType() == kTypeSymbol) {
-		
-		inputValue.get(0, filterName);
-		
-		err = mFilterBank->lookup(filterName, v);
-		
-		// if the filter exists
-		if (!err) {
-			
-			// remove the filter from the global table
-			mFilterBank->remove(filterName);
-			
-			// delete the filter
-			v.get(0, (TTPtr*)&afilter);
-			delete afilter;
-		}
-		
-		// remove the filter from the filter list
-		mFilterList->remove(filterName);
-		
-		return kTTErrNone;
-	}
+    
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            filterName = inputValue[0];
+            
+            err = mFilterBank->lookup(filterName, v);
+            
+            // if the filter exists
+            if (!err) {
+                
+                // remove the filter from the global table
+                mFilterBank->remove(filterName);
+                
+                // delete the filter
+                afilter = TTDictionaryPtr((TTPtr)v[0]);
+                delete afilter;
+            }
+            
+            // remove the filter from the filter list
+            mFilterList->remove(filterName);
+            
+            return kTTErrNone;
+        }
+    }
 	// remove all
 	else {
+        
 		delete mFilterList;
 		mFilterList = new TTList();
 	}
@@ -621,37 +627,40 @@ TTErr TTExplorer::FilterInfo(const TTValue& inputValue, TTValue& outputValue)
 	TTValue			v, filterKeys, filterValue;
 	TTErr			err;
 	
-	if (inputValue.getType() == kTypeSymbol) {
-		
-		inputValue.get(0, filterName);
-		
-		err = mFilterBank->lookup(filterName, v);
-		
-		// if the filter exists
-		if (!err) {
-			
-			outputValue.append(filterName);
-						
-			// get the filter
-			v.get(0, (TTPtr*)&aFilter);
-			
-			// get all keys
-			aFilter->getKeys(filterKeys);
-			
-			// for all key, get the value
-			for (TTUInt8 i=0; i<filterKeys.getSize(); i++) {
-				
-				filterKeys.get(i, key);
-				aFilter->lookup(key, filterValue);
-				
-				outputValue.append(key);
-				outputValue.append(filterValue);
-			}
-		}
-		
-		return err;
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            filterName = inputValue[0];
+            
+            err = mFilterBank->lookup(filterName, v);
+            
+            // if the filter exists
+            if (!err) {
+                
+                outputValue.append(filterName);
+                
+                // get the filter
+                aFilter = TTDictionaryPtr((TTPtr)v[0]);
+                
+                // get all keys
+                aFilter->getKeys(filterKeys);
+                
+                // for all key, get the value
+                for (TTUInt8 i = 0; i < filterKeys.size(); i++) {
+                    
+                    key = filterKeys[i];
+                    aFilter->lookup(key, filterValue);
+                    
+                    outputValue.append(key);
+                    outputValue.append(filterValue);
+                }
+            }
+            
+            return err;
+        }
 	}
-	
+    
 	return kTTErrGeneric;
 }
 
@@ -662,7 +671,7 @@ TTErr TTExplorer::getFilterList(TTValue& value)
 	
 	for (mFilterList->begin(); mFilterList->end(); mFilterList->next())
 	{
-		mFilterList->current().get(0, filterName);
+		filterName = mFilterList->current()[0];
 		value.append(filterName);
 	}
 	
@@ -671,7 +680,7 @@ TTErr TTExplorer::getFilterList(TTValue& value)
 
 TTErr TTExplorer::setFilterList(const TTValue& value)
 {
-	TTSymbol filterName;
+	TTSymbol    filterName;
 	TTUInt32	i;
 	TTValue		v;
 	TTBoolean	anError = NO;
@@ -679,9 +688,9 @@ TTErr TTExplorer::setFilterList(const TTValue& value)
 	
 	mFilterList->clear();
 	
-	for (i=0; i<value.getSize(); i++)
+	for (i = 0; i < value.size(); i++)
 	{
-		value.get(i, filterName);
+		filterName = value[i];
 		
 		err = mFilterBank->lookup(filterName, v);
 		
@@ -717,15 +726,15 @@ TTErr TTExplorer::returnResultBack()
 		// children case : keep only the name part and filter repetitions
 		if (mOutput == kTTSym_children) {
 			
-			for (i=0; i<keys.getSize(); i++) {
+			for (i = 0; i < keys.size(); i++) {
 				
-				keys.get(i, relativeAddress);
+				relativeAddress = keys[i];
 				newName = relativeAddress.getName();
 				
 				// filter repetitions
 				found = false;
-				for (j=0; j<result.getSize(); j++) {
-					result.get(j, lastName);
+				for (j = 0; j < result.size(); j++) {
+					lastName = result[j];
 					if (newName == lastName) {
 						found = true;
 						break;
@@ -742,9 +751,9 @@ TTErr TTExplorer::returnResultBack()
 		// brothers case : keep only instance part
 		else if (mOutput == kTTSym_brothers) {
 			
-			for (i=0; i<keys.getSize(); i++) {
+			for (i = 0; i < keys.size(); i++) {
 				
-				keys.get(i, relativeAddress);
+				relativeAddress = keys[i];
 				result.append(relativeAddress.getInstance());
 			}
 		}
@@ -769,9 +778,9 @@ TTErr TTExplorer::returnResultBack()
 					aNamespace = aNamespace->getParent();
 				
 				// append the result to the namespace
-				for (i=0; i<result.getSize(); i++) {
+				for (i = 0; i < result.size(); i++) {
 					
-					result.get(i, relativeAddress);
+					relativeAddress = result[i];
 					aNamespace->append(relativeAddress, &anItem);
 				}
 			}
@@ -797,9 +806,9 @@ TTErr TTExplorer::returnSelectionBack()
 	if (aNamespace) {
 		
 		// return all selection state
-		for (i = 0; i < mLastResult.getSize(); i++) {
+		for (i = 0; i < mLastResult.size(); i++) {
 			
-			mLastResult.get(i, itemSymbol);
+			itemSymbol = mLastResult[i];
 			
 			// get the item
 			if (mOutput == kTTSym_children) {
@@ -841,17 +850,17 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTCallbackPtr	anObserver;
-	TTObjectPtr		o;
+	TTObjectBasePtr		o;
 		
 	// Unpack baton
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&anExplorer);
+    anExplorer = TTExplorerPtr((TTObjectBasePtr)(*b)[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
-	data.get(0, anAddress);
-	data.get(1, (TTPtr*)&aNode);
-	data.get(2, flag);
-	data.get(3, (TTPtr*)&anObserver);
+	anAddress = data[0];
+	aNode = TTNodePtr((TTPtr)data[1]);
+	flag = data[2];
+	anObserver = TTCallbackPtr((TTObjectBasePtr)data[3]);
 	
 	// get attributes names
 	if (anExplorer->mOutput == kTTSym_attributes) {
@@ -911,8 +920,8 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressCreated :
 		{
-			for (TTUInt32 i=0; i<keys.getSize(); i++) {
-				keys.get(i, key);
+			for (TTUInt32 i = 0; i < keys.size(); i++) {
+				key = keys[i];
 				anExplorer->mResult->append(key, v);
 			}
 			break;
@@ -920,8 +929,8 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			
 		case kAddressDestroyed :
 		{
-			for (TTUInt32 i=0; i<keys.getSize(); i++) {
-				keys.get(i, key);
+			for (TTUInt32 i = 0; i < keys.size(); i++) {
+				key = keys[i];
 				anExplorer->mResult->remove(key);
 			}
 			break;
@@ -945,12 +954,12 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 	
 	// unpack baton (a TTExplorerPtr)
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&anExplorer);
+	anExplorer = TTExplorerPtr((TTObjectBasePtr)(*b)[0]);
 	
 	// Unpack data (applicationName, application, flag, observer)
-	data.get(0, anApplicationName);
-	data.get(1, (TTPtr*)&anApplication);
-	data.get(2, flag);
+	anApplicationName = data[0];
+    anApplication = TTApplicationPtr((TTObjectBasePtr)data[1]);
+	flag = data[2];
 	
 	switch (flag) {
 			
@@ -988,29 +997,29 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2) 
 {
 	TTNodePtr	n1, n2;
-	TTObjectPtr o1, o2;
+	TTObjectBasePtr o1, o2;
 	TTValue		v;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;
 	
 	// get priority of v1
-	v1.get(1, (TTPtr*)&n1);
+	n1 = TTNodePtr((TTPtr)v1[1]);
 	if (n1) {
 		o1 = n1->getObject();
 		
 		if (o1)
 			if (!o1->getAttributeValue(kTTSym_priority, v))
-				v.get(0, p1);
+				p1 = v[0];
 	}
 	
 	// get priority of v2
-	v2.get(1, (TTPtr*)&n2);
+	n2 = TTNodePtr((TTPtr)v2[1]);
 	if (n2) {
 		o2 = n2->getObject();
 		
 		if (o2)
 			if (!o2->getAttributeValue(kTTSym_priority, v))
-				v.get(0, p2);
+				p2 = v[0];
 	}
 	
 	if (p1 == 0 && p2 == 0) return v1 < v2;

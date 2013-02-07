@@ -26,11 +26,11 @@ public:
 	
     // check if the parameter are still the same and change the parameter if not
     // if the sender doesn't exist it adds a sender
-    TTObjectPtr     lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
+    TTObjectBasePtr     lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
     
 private:
     // add a new sender for an application
-	TTObjectPtr     add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
+	TTObjectBasePtr     add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
 };
 typedef MinuitSenderManager* MinuitSenderManagerPtr;
 

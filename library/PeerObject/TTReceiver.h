@@ -16,13 +16,13 @@
  
  */
 
-class TTMODULAR_EXPORT TTReceiver : public TTDataObject
+class TTMODULAR_EXPORT TTReceiver : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTReceiver)
 	
 public:	// use public for quick acces during signal processing
 	
-	TTObjectPtr					mSignal;					///< any data structure to receive complex signal
+	TTObjectBasePtr					mSignal;					///< any data structure to receive complex signal
 	
 private:
 	

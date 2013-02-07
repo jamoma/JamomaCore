@@ -21,6 +21,7 @@ typedef struct extra {
 	TTValuePtr			*arrayValue;		// store each value in an array to output them together
 	TTBoolean			changingAddress;	// a flag to protect from succession of address changes
 	TTPtr				ui_qelem;			// to output "qlim'd" data for ui object
+    TTListPtr           ui_qelem_list;      // a list of defered value to output
 	TTUInt8				countSubscription;	// to count how many time we try to subscribe
 
 } t_extra;
@@ -34,7 +35,7 @@ void		WrappedViewerClass_free(TTPtr self);
 void		remote_assist(TTPtr self, TTPtr b, long msg, AtomCount arg, char *dst);
 
 void		remote_new_address(TTPtr self, SymbolPtr address);
-void		remote_array_create(TTPtr self, TTObjectPtr *returnedViewer, TTUInt8 index);
+void		remote_array_create(TTPtr self, TTObjectBasePtr *returnedViewer, TTUInt8 index);
 void		remote_array_subscribe(TTPtr self, SymbolPtr address);
 void		remote_array_select(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		remote_address(TTPtr self, SymbolPtr name);
@@ -121,6 +122,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	EXTRA->arrayValue = NULL;
 	EXTRA->changingAddress = NO;
 	EXTRA->ui_qelem = qelem_new(x, (method)remote_ui_queuefn);
+    EXTRA->ui_qelem_list = new TTList();
 	EXTRA->countSubscription = 0;
 	
 	// handle args
@@ -157,6 +159,8 @@ void WrappedViewerClass_free(TTPtr self)
         
         qelem_free(EXTRA->ui_qelem);
         
+        delete EXTRA->ui_qelem_list;
+        
         free(EXTRA);
     }
 }
@@ -170,7 +174,7 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 	TTUInt8						i, j;
 	TTAddress                   newAddress = TTAddress(address->s_name);
 	SymbolPtr					instanceAddress;
-	TTObjectPtr					anObject;
+	TTObjectBasePtr				anObject;
 	TTValue						v;
 	
 	if (!x->iterateInternals) {
@@ -206,7 +210,7 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 					remote_array_create(x, &anObject, i);
 					
 					// append the viewer to the internals table
-					v = TTValue(TTPtr(anObject));
+					v = TTValue(anObject);
 					v.append(TTSymbol(instanceAddress->s_name));
 					v.append((TTPtr)NULL);
 					
@@ -215,6 +219,10 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 				
 				// Ends iteration on internals
 				x->iterateInternals = NO;
+                
+                // clear the list used by qelem
+                qelem_unset(EXTRA->ui_qelem);
+                EXTRA->ui_qelem_list->clear();
 				
 				// handle args
 				jamoma_ttvalue_to_Atom(x->arrayArgs, &argc, &argv);
@@ -235,15 +243,15 @@ void remote_new_address(TTPtr self, SymbolPtr address)
 	EXTRA->changingAddress = NO;
 }
 
-void remote_array_create(TTPtr self, TTObjectPtr *returnedViewer, TTUInt8 index)
+void remote_array_create(TTPtr self, TTObjectBasePtr *returnedViewer, TTUInt8 index)
 {
 	TTValue			args;
-	TTObjectPtr		returnValueCallback;
+	TTObjectBasePtr	returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 
 	returnValueBaton = new TTValue(self);
 	returnValueBaton->append(index);
@@ -253,7 +261,7 @@ void remote_array_create(TTPtr self, TTObjectPtr *returnedViewer, TTUInt8 index)
 	args.append(returnValueCallback);
 	
 	*returnedViewer = NULL;
-	TTObjectInstantiate(kTTSym_Viewer, TTObjectHandle(returnedViewer), args);
+	TTObjectBaseInstantiate(kTTSym_Viewer, TTObjectBaseHandle(returnedViewer), args);
 }
 
 void remote_array_subscribe(TTPtr self, SymbolPtr address)
@@ -264,7 +272,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 	TTAddress                   absoluteAddress, returnedAddress;
     TTNodePtr                   returnedNode = NULL;
     TTNodePtr                   returnedContextNode = NULL;
-	TTObjectPtr					toSubscribe, aReceiver;
+	TTObjectBasePtr				toSubscribe, aReceiver;
 	TTBoolean					subscribe;
 	TTSubscriberPtr				aSubscriber;
 	TTUInt8						i;
@@ -326,14 +334,14 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 			// get the context address to make
 			// a viewer on the contextAddress/model/address parameter
 			aSubscriber->getAttributeValue(TTSymbol("contextAddress"), v);
-			v.get(0, contextAddress);
+			contextAddress = v[0];
 			
 			// append the subscriber to the internal
 			if (aSubscriber) {
 				
-				v = TTValue(TTPtr(selectedObject));
+				v = TTValue(selectedObject);
 				v.append(x->cursor);
-				v.append(TTPtr(aSubscriber));
+				v.append(aSubscriber);
 				
 				// replace the internal
 				x->internals->remove(x->cursor);
@@ -409,11 +417,11 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 		if (!x->internals->lookup(x->cursor, v)) {
 			
 			aSubscriber = NULL;
-			v.get(2, (TTPtr*)&aSubscriber);
+			aSubscriber = TTSubscriberPtr((TTObjectBasePtr)v[2]);
 			
 			// release the subscriber
 			if (aSubscriber) {
-				TTObjectRelease(TTObjectHandle(&aSubscriber));
+				TTObjectBaseRelease(TTObjectBaseHandle(&aSubscriber));
 				aSubscriber = NULL;
 			}
 			
@@ -445,7 +453,7 @@ void remote_array_subscribe(TTPtr self, SymbolPtr address)
 void remote_address(TTPtr self, SymbolPtr address)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	TTObjectPtr		anObject, aSubscriber;
+	TTObjectBasePtr	anObject, aSubscriber;
 	SymbolPtr		instanceAddress;
 	TTValue			v;
 	TTUInt8			i;
@@ -470,14 +478,14 @@ void remote_address(TTPtr self, SymbolPtr address)
 				anObject = NULL;
 				aSubscriber = NULL;
 				
-				v.get(0, (TTPtr*)&anObject);
-				v.get(2, (TTPtr*)&aSubscriber);
+                anObject = v[0];
+				aSubscriber = TTSubscriberPtr((TTObjectBasePtr)v[2]);
 
 				if (aSubscriber)
-					TTObjectRelease(&aSubscriber);
+					TTObjectBaseRelease(&aSubscriber);
 				
 				if (anObject)
-					TTObjectRelease(&anObject);
+					TTObjectBaseRelease(&anObject);
 				
 				x->internals->remove(x->cursor);
 			}
@@ -591,9 +599,9 @@ void remote_list(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
             
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
-				for (int i=0; i<keys.getSize(); i++) {
-					keys.get(i, x->cursor);
-                    jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
+				for (int i = 0; i < keys.size(); i++) {
+					x->cursor = keys[i];
+					jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
 				}
 			}
 			x->cursor = kTTSymEmpty;
@@ -617,12 +625,12 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 		
 		// send to each view
 		if (x->arrayIndex == 0) {
-			TTValue     keys;
+			TTValue keys;
 			if (!x->internals->isEmpty()) {
 				x->internals->getKeys(keys);
-				for (int i=0; i<keys.getSize(); i++) {
-					keys.get(i, x->cursor);
-                    jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
+				for (int i = 0; i < keys.size(); i++) {
+					x->cursor = keys[i];
+					jamoma_viewer_send((TTViewerPtr)selectedObject, msg, argc, argv);
 				}
 				x->cursor = kTTSymEmpty;
 			}
@@ -654,9 +662,9 @@ void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
                 // in a model or a view patcher, the first internal object is
                 // always the model container so we add an offset to avoid it
                 offset = x->patcherContext != NULL;
-                for (i = 0; i < keys.getSize()-offset; i++) {
+                for (i = 0; i < keys.size()-offset; i++) {
                     
-                    keys.get(i+offset, x->cursor);
+                    x->cursor = keys[i+offset];
                     jamoma_viewer_send((TTViewerPtr)selectedObject, _sym_nothing, d, argv+(i*d));
                 }
             }
@@ -685,8 +693,8 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
-	b->get(1, i);
+	x = WrappedModularInstancePtr((TTPtr)(*b)[0]);
+	i = (*b)[1];
 	
 	// output index
 	if (x->arrayIndex == 0) {
@@ -737,12 +745,21 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 				// TODO : a real append method for value !
 				//array.append((TTValuePtr)m);
 			}
-		
+        
+		// output array value
 		jamoma_ttvalue_to_typed_Atom(array, &msg, &argc, &argv, shifted);
+        
+        // append to the list used by qelem
+        EXTRA->ui_qelem_list->append(array);
 	}
-	else
+	else {
+        
 		// output single value
 		jamoma_ttvalue_to_typed_Atom(v, &msg, &argc, &argv, shifted);
+        
+        // append to the list used by qelem
+        EXTRA->ui_qelem_list->append(v);
+    }
 	
 	// avoid blank before data
 	if (msg == _sym_nothing)
@@ -750,10 +767,8 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 	else
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
-	// Copy msg and atom in order to avoid losing data
-	copy_msg_argc_argv((TTPtr)x, msg, argc, argv);
-	
-	qelem_set(EXTRA->ui_qelem);	
+    // call the queue function
+    qelem_set(EXTRA->ui_qelem);
 	
 	if (shifted)
 		argv--;
@@ -763,11 +778,27 @@ void remote_array_return_value(TTPtr baton, TTValue& v)
 void remote_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	long						argc;
+	AtomPtr						argv;
+    TTValue                     v;
+    
+    for (EXTRA->ui_qelem_list->begin();
+         EXTRA->ui_qelem_list->end();
+         EXTRA->ui_qelem_list->next()) {
+    
+        argc = 0;
+        argv = NULL;
+        jamoma_ttvalue_to_Atom(EXTRA->ui_qelem_list->current(), &argc, &argv);
 	
-    if (x->arrayAttrFormat == gensym("array"))
-        outlet_anything(x->outlets[set_out], gensym("setlist"), x->argc, x->argv);
-    else
-        outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
+        if (x->arrayAttrFormat == gensym("array"))
+            outlet_anything(x->outlets[set_out], gensym("setlist"), argc, argv);
+        else
+            outlet_anything(x->outlets[set_out], _sym_set, argc, argv);
+    
+        sysmem_freeptr(argv);
+    }
+    
+    EXTRA->ui_qelem_list->clear();
 }
 
 void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

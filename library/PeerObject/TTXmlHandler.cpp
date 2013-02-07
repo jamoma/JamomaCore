@@ -32,9 +32,9 @@ mXmlNodeValue(kTTValNONE),
 mIsWriting(false),
 mIsReading(false)
 {
-	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.getSize() == 0);
+	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.size() == 0);
 	
-	addAttribute(Object, kTypePointer);
+	addAttribute(Object, kTypeObject);
 
 	addAttribute(HeaderNodeName, kTypeSymbol);
 	addAttribute(Version, kTypeSymbol);
@@ -54,9 +54,9 @@ TTXmlHandler::~TTXmlHandler()
 
 TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 {
-    TTValue				v;
-	TTObjectPtr			aTTObject;
-	int					ret;
+    TTValue			v;
+	TTObjectBasePtr	aTTObject;
+	int				ret;
 	
 	// an object have to be selected
 	if (mObject == NULL)
@@ -67,10 +67,11 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
-	if (args.getSize() == 1) {
-		if (args.getType(0) == kTypeSymbol) {
+	if (args.size() == 1) {
+        
+		if (args[0].type() == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			mFilePath = args[0];
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -104,7 +105,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			// Write data of the given TTObject (which have to implement a WriteAsXml message)
 			v.clear();
-			v.append((TTPtr)this);
+			v.append(TTObjectBasePtr(this));
 			aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 			
 			// End Header information
@@ -128,7 +129,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
+	v.append(TTObjectBasePtr(this));
 	return aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 }
 
@@ -145,7 +146,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	TTUInt8				xType;
 	const xmlChar		*xName = 0;
 	const xmlChar		*xValue = 0;
-	TTObjectPtr			aTTObject;
+	TTObjectBasePtr		aTTObject;
 	TTSymbol			lastNodeName;
 	TTValue				v;
 	int					ret;
@@ -159,10 +160,11 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
-	if (args.getSize() == 1) {
-		if (args.getType(0) == kTypeSymbol) {
+	if (args.size() == 1) {
+        
+		if (args[0].type() == kTypeSymbol) {
 			
-			args.get(0, mFilePath);
+			mFilePath = args[0];
 			
 			// Init the xml library
 			LIBXML_TEST_VERSION
@@ -240,7 +242,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								// Get the node value
 								xValue = xmlTextReaderValue((xmlTextReaderPtr)mReader);
 								fromXmlChar(xValue, mXmlNodeValue, YES);
-								if (xValue)	xmlFree((void*)xValue);
+								// if (xValue)	xmlFree((void*)xValue);         // to - this create a malloc error during parsing
 								break;
 								
 							default:
@@ -248,7 +250,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						}	
 						
 						// process the mObject parsing on this node
-						v.append((TTPtr)this);
+						v.append(TTObjectBasePtr(this));
 						aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 					}
 						
@@ -274,7 +276,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append((TTPtr)this);
+	v.append(TTObjectBasePtr(this));
 	return aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 }
 
@@ -336,11 +338,14 @@ TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue&
 		
 		fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)mReader), v);
 		
-		if (v.getType() == kTypeSymbol) {
-			
-			v.get(0, returnedAttributeName);
-			return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
-		}
+        if (v.size() == 1) {
+            
+            if (v[0].type() == kTypeSymbol) {
+                
+                returnedAttributeName = v[0];
+                return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
+            }
+        }
 	}
 	
 	return kTTErrGeneric;

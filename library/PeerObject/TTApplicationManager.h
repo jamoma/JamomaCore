@@ -28,6 +28,9 @@ typedef Protocol* ProtocolPtr;
 // Macro to retreive any application from an address
 #define getApplicationFrom(anAddress) TTApplicationManagerGetApplicationFrom(anAddress)
 
+// Macro to get an application directory
+#define getApplicationDirectory(applicationName) TTApplicationManagerGetApplicationDirectory(applicationName)
+
 // Macro to get local application name
 #define getLocalApplicationName TTApplicationManagerGetLocalApplicationName()
 
@@ -51,7 +54,7 @@ enum TTApplicationNotificationFlag {
 	kApplicationProtocolStopped = 3			///< this flag means that application's protocol will be stopped
 };
 
-class TTMODULAR_EXPORT TTApplicationManager : public TTDataObject
+class TTMODULAR_EXPORT TTApplicationManager : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTApplicationManager)
 	
@@ -68,9 +71,6 @@ private:
 	
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);
-	
-	/** Set local application */
-	TTErr setLocalApplication(TTValue& value);
 	
 	/** Get all protocol names */
 	TTErr getProtocolNames(TTValue& value);
@@ -96,13 +96,13 @@ private:
 	
 	/** Listen for value changes from an attribute of an object at an address in an application
 		or for creation/destruction under an address.
-		inputValue : <TTObjectPtr appToNotify, TTSymbol whereToListen, TTSymbol attribute, TTBoolean enable> */
+		inputValue : <TTObjectBasePtr appToNotify, TTSymbol whereToListen, TTSymbol attribute, TTBoolean enable> */
 	TTErr ApplicationListen(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Update value changes of an attribute of an object at an address in an application
 		or for creation/destruction under an address.
 		note : this is usually the answer of distant namespace or Mirror attribute listening
-		inputValue : <TTObjectPtr appAnswering, TTSymbol whereComesFrom, TTSymbol attribute, TTValuePtr newValue> */
+		inputValue : <TTObjectBasePtr appAnswering, TTSymbol whereComesFrom, TTSymbol attribute, TTValuePtr newValue> */
 	TTErr ApplicationListenAnswer(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Scan a protocol network in order to add distant application automatically <TTSymbol protocolName> */
@@ -127,11 +127,11 @@ private:
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbol applicationName);
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTAddress anAddress);
 	
-	friend TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
+	friend ProtocolPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
 	friend TTValue TTMODULAR_EXPORT TTApplicationManagerGetApplicationProtocols(TTSymbol applicationName);
 	
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObject& anObserver);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObject& anObserver);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data);
@@ -155,6 +155,12 @@ TTBoolean TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationDebug();
  @return							a TTApplicationPtr */
 TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbol applicationName);
 
+/**	To get an application directory with an application name
+ note : it uses the extern TTModularApplications variable
+ @param	applicationName				..
+ @return							a TTNodeDirectoryPtr */
+TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationDirectory(TTSymbol applicationName);
+
 /**	To get an application from an address
  note : it uses the extern TTModularApplications variable
  @param	anAddress					..
@@ -165,7 +171,7 @@ TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTAddre
  note : it uses the extern TTModularApplications variable
  @param	protocolName				..
  @return							a ProtocolPtr */
-TTObjectPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
+ProtocolPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
 
 /**	To get all protocols of an application
  note : it uses the extern TTModularApplications variable
@@ -178,14 +184,14 @@ TTValue TTMODULAR_EXPORT TTApplicationManagerGetApplicationProtocols(TTSymbol ap
  @param anApplicationName		an application to observe
  @param observer				a TTCallbackPtr to add
  @return						an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObject& anObserver);
+TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
 
 /** Remove a TTCallback as observer of application creation/destruction
  note : it uses the extern TTModularApplications variable
  @param anApplicationName		an application
  @param observer				a TTCallbackPtr to remove
  @return						a kTTErrGeneric if there isn't observer */
-TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObject& anObserver);
+TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
 
 /** To get back raw incoming messages from any protocol
  @param	baton						..

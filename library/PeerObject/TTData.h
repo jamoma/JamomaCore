@@ -21,7 +21,7 @@ TODO LIST :
  
  -> setDataspace					have one unit only
  -> clip :							make a clipwrap and a clipfold method into TTValue...		(see in TTData::clipValue method)
- -> handleProperty :				used TTObject message mecanism...							(see in TTData::Command method)
+ -> handleProperty :				used TTObjectBase message mecanism...							(see in TTData::Command method)
  -> rampDataNames :					relative to handleProperty									(see in TTData::setRampFunction)
  -> dump :							TODO
  */				
@@ -31,7 +31,7 @@ class RampUnit;
 typedef RampUnit*	RampUnitPtr;
 #endif
 
-class TTMODULAR_EXPORT TTData : public TTDataObject
+class TTMODULAR_EXPORT TTData : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTData)
 	
@@ -64,7 +64,7 @@ private:
 	
 	TTSymbol		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none')
 	TTSymbol		mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
-	TTObjectPtr		mDataspaceConverter;		///< Performs conversions from input unit to the data unit
+	TTObjectBasePtr		mDataspaceConverter;		///< Performs conversions from input unit to the data unit
 	
 	TTSymbol		mService;					///< how the data flows into our environnement :
 												///<	as parameter : the data is in full access mode

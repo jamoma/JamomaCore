@@ -105,10 +105,10 @@ void *init_new(SymbolPtr s, AtomCount argc, AtomPtr argv)
 void init_free(t_init *x)
 {	
 	if (x->initReceiver)
-		TTObjectRelease(TTObjectHandle(&x->initReceiver));
+		TTObjectBaseRelease(TTObjectBaseHandle(&x->initReceiver));
 	
 	if (x->subscriberObject)
-		TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+		TTObjectBaseRelease(TTObjectBaseHandle(&x->subscriberObject));
 }
 
 
@@ -136,7 +136,7 @@ void init_subscribe(t_init *x)
     TTAddress       returnedAddress;
     TTNodePtr       returnedNode = NULL;
     TTNodePtr       returnedContextNode = NULL;
-	TTObjectPtr		returnAddressCallback, returnValueCallback;
+	TTObjectBasePtr	returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// for relative address
@@ -147,29 +147,29 @@ void init_subscribe(t_init *x)
 			// get the context address to make
 			// a receiver on the contextAddress/model/address parameter
 			x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
-			v.get(0, contextAddress);
+			contextAddress = v[0];
 		}
 		
 		// bind on the /model/address parameter (view patch) or return (model patch)
 		if (contextAddress != kTTAdrsEmpty) {
 			
 			// Make a TTReceiver object
-			returnAddressCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
+			returnAddressCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectBaseInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
 			returnAddressBaton = new TTValue(TTPtr(x));
 			returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
 			returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_address));
 			args.append(returnAddressCallback);
 			
-			returnValueCallback = NULL;				// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+			returnValueCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+			TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
 			returnValueBaton = new TTValue(TTPtr(x));
 			returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 			returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 			args.append(returnValueCallback);
 			
 			x->initReceiver = NULL;
-			TTObjectInstantiate(kTTSym_Receiver, TTObjectHandle(&x->initReceiver), args);
+			TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&x->initReceiver), args);
 			
 			x->initReceiver->setAttributeValue(kTTSym_address, contextAddress.appendAttribute(kTTSym_initialized));
 		}
@@ -182,7 +182,7 @@ void init_subscribe(t_init *x)
 		else {
 			
 			// release the subscriber
-			TTObjectRelease(TTObjectHandle(&x->subscriberObject));
+			TTObjectBaseRelease(TTObjectBaseHandle(&x->subscriberObject));
 			x->subscriberObject = NULL;
 			
 			// The following must be deferred because we have to interrogate our box,

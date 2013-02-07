@@ -153,7 +153,7 @@ void model_subscribe(TTPtr self)
     TTNodePtr                   returnedNode = NULL;
     TTNodePtr                   returnedContextNode = NULL;
 	TTSymbol					classAdrs, helpAdrs, refAdrs, openAdrs, documentationAdrs, editAdrs, muteAdrs;
-	TTObjectPtr					aData;
+	TTObjectBasePtr				aData;
 	TTTextHandlerPtr			aTextHandler;
     TTPresetPtr                 aPreset;
 	TTPtr						context;
@@ -242,10 +242,10 @@ void model_subscribe(TTPtr self)
                     
                     // create internal TTTextHandler
                     aTextHandler = NULL;
-                    TTObjectInstantiate(kTTSym_TextHandler, TTObjectHandle(&aTextHandler), args);
-                    v = TTValue(TTPtr(aTextHandler));
+                    TTObjectBaseInstantiate(kTTSym_TextHandler, TTObjectBaseHandle(&aTextHandler), args);
+                    v = TTValue(aTextHandler);
                     x->internals->append(kTTSym_TextHandler, v);
-                    v = TTValue(TTPtr(x->wrappedObject));
+                    v = TTValue(x->wrappedObject);
                     aTextHandler->setAttributeValue(kTTSym_object, v);
                 }
                 
@@ -260,8 +260,8 @@ void model_subscribe(TTPtr self)
                     
                     // create internal TTPreset
                     aPreset = NULL;
-                    TTObjectInstantiate(kTTSym_Preset, TTObjectHandle(&aPreset), args);
-                    v = TTValue(TTPtr(aPreset));
+                    TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&aPreset), args);
+                    v = TTValue(aPreset);
                     x->internals->append(kTTSym_Preset, v);
                     v = TTValue(returnedAddress);
                     aPreset->setAttributeValue(kTTSym_address, v);
@@ -351,9 +351,12 @@ void model_subscribe(TTPtr self)
 			// output ContextNode address
 			Atom a;
 			x->subscriberObject->getAttributeValue(TTSymbol("contextNodeAddress"), v);
-			v.get(0, returnedAddress);
-			atom_setsym(&a, gensym((char*)returnedAddress.c_str()));
-			object_obex_dumpout(self, gensym("address"), 1, &a);
+            
+            if (v.size() == 1) {
+                returnedAddress = v[0];
+                atom_setsym(&a, gensym((char*)returnedAddress.c_str()));
+                object_obex_dumpout(self, gensym("address"), 1, &a);
+            }
 			
 			// init the model (but not subModel)
 			if (!isSubModel)
@@ -370,7 +373,7 @@ void model_init(TTPtr self)
 	
 	// Check if the model has not been initialized by a upper model
 	x->wrappedObject->getAttributeValue(kTTSym_initialized, v);
-	v.get(0, initialized);
+	initialized = v[0];
 	if (!initialized)
 		x->wrappedObject->sendMessage(kTTSym_Init);
 }
@@ -419,7 +422,7 @@ void model_share_patcher_node(TTPtr self, TTNodePtr *patcherNode)
 	
 	if (x->subscriberObject) {
 		x->subscriberObject->getAttributeValue(TTSymbol("contextNode"), v);
-		v.get(0, (TTPtr*)patcherNode);
+		*patcherNode = TTNodePtr((TTPtr)v[0]);
 	}
 }
 
@@ -510,7 +513,7 @@ void model_doautodoc(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		tterr = x->internals->lookup(TTSymbol("TextHandler"), o);
 		
 		if (!tterr) {
-			o.get(0, (TTPtr*)&aTextHandler);
+			aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)o[0]);
 			
 			critical_enter(0);
 			aTextHandler->sendMessage(TTSymbol("Write"), v, kTTValNONE);
@@ -579,8 +582,8 @@ void model_edit(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		if (!tterr1 && !tterr2) {
 			
-			o1.get(0, (TTPtr*)&aTextHandler);
-            o2.get(0, (TTPtr*)&aPreset);
+			aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)o1[0]);
+            aPreset = TTPresetPtr((TTObjectBasePtr)o2[0]);
             
             // Store the preset
             aPreset->sendMessage(TTSymbol("Store"), kTTValNONE, kTTValNONE);
@@ -632,8 +635,8 @@ void model_doedit(TTPtr self)
 	
 	if (!tterr1 && !tterr2) {
 		
-		o1.get(0, (TTPtr*)&aTextHandler);
-        o2.get(0, (TTPtr*)&aPreset);
+		aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)o1[0]);
+        aPreset = TTPresetPtr((TTObjectBasePtr)o2[0]);
 		
 		critical_enter(0);
         args = TTValue(TTPtr(aPreset));

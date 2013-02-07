@@ -1,5 +1,5 @@
 /* 
- * TTObject to handle any signal output
+ * TTObjectBase to handle any signal output
  *
  * Copyright © 2010, Théo de la Hogue
  * 
@@ -22,7 +22,7 @@
 class TTInput;
 typedef TTInput* TTInputPtr;
 
-class TTMODULAR_EXPORT TTOutput : public TTDataObject
+class TTMODULAR_EXPORT TTOutput : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTOutput)
 	
@@ -37,17 +37,17 @@ public:	// use public for quick acces during signal processing
 	TTBoolean					mFreeze;					///< ATTRIBUTE : to freeze signal output (ex : for video signal)
 	TTBoolean					mPreview;					///< ??? : this attribute should not be here (it is relative to view part)
 	
-	TTObjectPtr					mSignalIn;					///< any data structure to receive complex signal
-	TTObjectPtr					mSignalOut;					///< any data structure to send complex signal
+	TTObjectBasePtr					mSignalIn;					///< any data structure to receive complex signal
+	TTObjectBasePtr					mSignalOut;					///< any data structure to send complex signal
 	
-	TTObjectPtr					mSignalTemp;				///< a temporary signal
-	TTObjectPtr					mSignalZero;				///< a zero signal
+	TTObjectBasePtr					mSignalTemp;				///< a temporary signal
+	TTObjectBasePtr					mSignalZero;				///< a zero signal
 	
-	TTObjectPtr					mMixUnit;					///< the unit used to mix the signal
-	TTObjectPtr					mGainUnit;					///< the unit used to apply the gain value on the signal
+	TTObjectBasePtr					mMixUnit;					///< the unit used to mix the signal
+	TTObjectBasePtr					mGainUnit;					///< the unit used to apply the gain value on the signal
 	
-	TTObjectPtr					mRampMixUnit;				///< the unit used to ramp the mix value
-	TTObjectPtr					mRampGainUnit;				///< the unit used to ramp the gain value
+	TTObjectBasePtr					mRampMixUnit;				///< the unit used to ramp the mix value
+	TTObjectBasePtr					mRampGainUnit;				///< the unit used to ramp the gain value
 	
 	TTInputPtr					mInputObject;				///< TTInput object to get a signal passing through
 	

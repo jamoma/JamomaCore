@@ -203,7 +203,7 @@ void WrappedInputClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		jamoma_ttvalue_from_Atom(v, _sym_nothing, attrstart, argv);
 		
 		v.toString();
-		v.get(0, sInstance);
+		sInstance = TTString(v[0]);
 		EXTRA->instance = TTSymbol(sInstance.data());
 	}
 	else
@@ -300,7 +300,7 @@ void in_subscribe(TTPtr self)
 		sInstance = EXTRA->instance.c_str();
 		jamoma_edit_string_instance(formatDescription, &inDescription, sInstance);
 			
-		makeInternals_data(x, returnedAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectPtr*)&aData);
+		makeInternals_data(x, returnedAddress, TTSymbol("amplitude"), NULL, x->patcherPtr, kTTSym_return, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_decimal);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		aData->setAttributeValue(kTTSym_rangeBounds, v);
@@ -309,7 +309,7 @@ void in_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_dataspaceUnit, TTSymbol("linear"));
 		
 		// make internal data to parameter in/amplitude/active
-		makeInternals_data(x, returnedAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectPtr*)&aData);
+		makeInternals_data(x, returnedAddress, TTSymbol("amplitude/active"), gensym("return_amplitude_active"), x->patcherPtr, kTTSym_parameter, (TTObjectBasePtr*)&aData);
 		aData->setAttributeValue(kTTSym_type, kTTSym_integer);
 		aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		v = TTValue((int)EXTRA->pollInterval);
@@ -448,7 +448,7 @@ t_int *in_perform(t_int *w)
 			
 			for (anInput->mSignalCache->begin(); anInput->mSignalCache->end(); anInput->mSignalCache->next()) {
 				
-				anInput->mSignalCache->current().get(0, (TTPtr*)&sentSignal);
+				sentSignal = TTAudioSignalPtr((TTObjectBasePtr)anInput->mSignalCache->current()[0]);
 				
 				if (sentSignal)
 					*TTAudioSignalPtr(anInput->mSignalOut) += *sentSignal;
@@ -523,7 +523,7 @@ void in_perform64(TTPtr self, t_object *dsp64, double **ins, long numins, double
                 
                 for (anInput->mSignalCache->begin(); anInput->mSignalCache->end(); anInput->mSignalCache->next()) {
                     
-                    anInput->mSignalCache->current().get(0, (TTPtr*)&sentSignal);
+                    sentSignal = TTAudioSignalPtr((TTObjectBasePtr)anInput->mSignalCache->current()[0]);
                     
                     if (sentSignal)
                         *TTAudioSignalPtr(anInput->mSignalOut) += *sentSignal;
@@ -649,7 +649,7 @@ void in_update_amplitude(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTInputPtr		anInput = (TTInputPtr)x->wrappedObject;
 	TTValue			storedObject;
-	TTObjectPtr		anObject;
+	TTObjectBasePtr		anObject;
 	TTErr			err;
 	
 	if (anInput) {
@@ -662,7 +662,7 @@ void in_update_amplitude(TTPtr self)
 				
 				if (!err) {
 					
-					storedObject.get(0, (TTPtr*)&anObject);
+					anObject = storedObject[0];
 					
 					// set current meter value
 					anObject->setAttributeValue(kTTSym_value, EXTRA->meter);

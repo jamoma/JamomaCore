@@ -777,7 +777,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 319.0, 254.001862, 266.0, 47.0 ],
-									"text" : "jcom.test.assert.equal ramp/function/parameters-test @input bang @compareTo symmetry powerValue"
+									"text" : "jcom.test.assert.equal ramp/function/parameters-test @input bang @compareTo powerValue symmetry"
 								}
 
 							}

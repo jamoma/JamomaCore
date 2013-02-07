@@ -207,7 +207,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 150.25, 218.037781, 105.0, 20.0 ],
+									"patching_rect" : [ 30.25, 218.037781, 105.0, 20.0 ],
 									"text" : "r namespace-size"
 								}
 
@@ -222,8 +222,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 15.25, 300.001862, 273.0, 33.0 ],
-									"text" : "jcom.test.assert.equal poly.deferlow-test @input / @compareTo tester.1 tester.2 tester.3 3"
+									"patching_rect" : [ 15.25, 300.001862, 272.0, 33.0 ],
+									"text" : "jcom.test.assert.equal poly.deferlow-test @input / @compareTo 3 tester.1 tester.2 tester.3"
 								}
 
 							}
@@ -236,7 +236,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 30.25, 218.037781, 113.0, 20.0 ],
+									"patching_rect" : [ 150.25, 218.037781, 113.0, 20.0 ],
 									"text" : "r namespace-result"
 								}
 
@@ -444,7 +444,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-25", 1 ],
+									"destination" : [ "obj-25", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-26", 0 ]
@@ -462,7 +462,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-25", 0 ],
+									"destination" : [ "obj-25", 1 ],
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-28", 0 ]
