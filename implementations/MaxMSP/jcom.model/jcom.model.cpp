@@ -351,9 +351,12 @@ void model_subscribe(TTPtr self)
 			// output ContextNode address
 			Atom a;
 			x->subscriberObject->getAttributeValue(TTSymbol("contextNodeAddress"), v);
-			returnedAddress = v[0];
-			atom_setsym(&a, gensym((char*)returnedAddress.c_str()));
-			object_obex_dumpout(self, gensym("address"), 1, &a);
+            
+            if (v.size() == 1) {
+                returnedAddress = v[0];
+                atom_setsym(&a, gensym((char*)returnedAddress.c_str()));
+                object_obex_dumpout(self, gensym("address"), 1, &a);
+            }
 			
 			// init the model (but not subModel)
 			if (!isSubModel)

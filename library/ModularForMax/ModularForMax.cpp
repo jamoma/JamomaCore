@@ -70,8 +70,11 @@ TTErr jamoma_subscriber_create(ObjectPtr x, TTObjectBasePtr aTTObjectBase, TTAdd
     
     *returnedNode = NULL;
     err = (*returnedSubscriber)->sendMessage(kTTSym_Subscribe, args, v);
-	*returnedNode = TTNodePtr((TTPtr)v[0]);
-    *returnedContextNode = TTNodePtr((TTPtr)v[1]);
+    
+    if (v.size() == 2) {
+        *returnedNode = TTNodePtr((TTPtr)v[0]);
+        *returnedContextNode = TTNodePtr((TTPtr)v[1]);
+    }
     
 	// Check if the subscription is ok (or the binding in case of NULL object)
 	if (!err && *returnedNode) {
