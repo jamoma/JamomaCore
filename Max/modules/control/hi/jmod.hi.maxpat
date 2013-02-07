@@ -198,8 +198,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 17.0, 149.0, 326.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"Use human interface devices (gamepads and joysticks).\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Use human interface devices (gamepads and joysticks).\"",
+					"varname" : "jcom.model"
 				}
 
 			}

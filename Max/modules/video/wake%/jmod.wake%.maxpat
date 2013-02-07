@@ -865,8 +865,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 18.0, 156.0, 302.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Video feedback with convolution for trippy effects\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Video feedback with convolution for trippy effects\"",
+					"varname" : "jcom.model"
 				}
 
 			}

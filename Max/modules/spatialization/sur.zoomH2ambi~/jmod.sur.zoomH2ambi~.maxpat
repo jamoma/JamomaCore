@@ -102,7 +102,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 75.0, 288.0, 336.0, 34.0 ],
-					"text" : "jcom.hub @description \"Convert a Zoom-H2 four channel recording into a horizontal-only B-format 2nd order\""
+					"text" : "jcom.model @description \"Convert a Zoom-H2 four channel recording into a horizontal-only B-format 2nd order\""
 				}
 
 			}

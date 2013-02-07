@@ -243,8 +243,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 9.0, 161.0, 273.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"Use polhemus.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Use polhemus.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

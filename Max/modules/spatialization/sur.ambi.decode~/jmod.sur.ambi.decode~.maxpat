@@ -1445,8 +1445,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 0.0, 151.0, 408.0, 31.0 ],
-					"text" : "jcom.hub @description \"Decoding ambisonic signal to multispeaker setup. NOTE: The positions of the speakers are not maintained by this module.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Decoding ambisonic signal to multispeaker setup. NOTE: The positions of the speakers are not maintained by this module.\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -1934,7 +1934,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

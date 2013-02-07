@@ -19,11 +19,13 @@ project.xcworkspace
 
 *.layout
 *.depends
-*.map
+#*.map
 *.ncb
 *.suo
 *.user
 *.tm_build_errors
+*.a
+*.lib
 
 # Files generated from templates by the build script
 JamomaModular.xcconfig

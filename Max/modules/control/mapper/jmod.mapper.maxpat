@@ -750,8 +750,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 8.0, 185.0, 382.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"Create and manage mappings of parameters\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Create and manage mappings of parameters\"",
+					"varname" : "jcom.model"
 				}
 
 			}

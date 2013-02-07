@@ -2504,8 +2504,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 16.0, 166.0, 300.0, 19.0 ],
-					"text" : "jcom.hub @description \"Utility for setting 1 to 12 colors.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Utility for setting 1 to 12 colors.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

@@ -567,8 +567,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 5.0, 175.0, 397.0, 19.0 ],
-					"text" : "jcom.hub @description \"Apply edgblending to incomming matrix or texture.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Apply edgblending to incomming matrix or texture.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

@@ -1052,8 +1052,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 195.0, 339.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"cheesy embossing effect\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"cheesy embossing effect\"",
+					"varname" : "jcom.model"
 				}
 
 			}

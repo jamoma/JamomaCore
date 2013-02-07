@@ -258,7 +258,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 50.0, 225.0, 219.0, 43.0 ],
-					"text" : "jcom.hub @description \"Perform Fast Fourier transform on incoming 1 plane image.\""
+					"text" : "jcom.model @description \"Perform Fast Fourier transform on incoming 1 plane image.\""
 				}
 
 			}

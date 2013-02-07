@@ -167,8 +167,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 16.0, 134.0, 345.0, 43.0 ],
-					"text" : "jcom.hub @description \"Send and receive Open Sound Control (OSC) over a network port.  You may receive directly or join up to 2 multicast addresses in addition to receiving directly.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Send and receive Open Sound Control (OSC) over a network port.  You may receive directly or join up to 2 multicast addresses in addition to receiving directly.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

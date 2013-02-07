@@ -826,8 +826,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 1.0, 190.0, 289.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"neon glow effect\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"neon glow effect\"",
+					"varname" : "jcom.model"
 				}
 
 			}

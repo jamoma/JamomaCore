@@ -416,8 +416,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 150.0, 271.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"Multicast bonjour device\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Multicast bonjour device\"",
+					"varname" : "jcom.model"
 				}
 
 			}

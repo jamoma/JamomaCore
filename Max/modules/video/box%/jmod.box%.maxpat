@@ -1645,8 +1645,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 154.0, 342.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Display of various types of bounding boxes based on filtered image or motion image.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Display of various types of bounding boxes based on filtered image or motion image.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

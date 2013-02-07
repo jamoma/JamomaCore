@@ -1,0 +1,18 @@
+#defines:
+#  - TT_PROTOCOL_DEBUG
+
+sources:
+  - ../../library/ProtocolLib/Protocol.cpp		
+  - source/Minuit.cpp
+  - source/MinuitAnswer.cpp
+  - source/MinuitAnswerManager.cpp
+  - source/MinuitSenderManager.cpp
+    
+includes:
+  - "."
+  - "includes"
+  - "../../library/ProtocolLib"
+  - "../../../../Core/Foundation/library/includes"
+
+libraries:
+  - FOUNDATION

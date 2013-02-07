@@ -502,8 +502,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 6.0, 153.0, 310.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Glowing Edges Effect\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Glowing Edges Effect\"",
+					"varname" : "jcom.model"
 				}
 
 			}

@@ -8,7 +8,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "Jamoma.h"
 #include "NoneRamp.h"
 
 #define thisTTClass			NoneRamp
@@ -33,15 +32,18 @@ void NoneRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time)
 	TTUInt32 i;
 	
 	setNumValues(inNumValues);
-	for (i=0; i<numValues; i++)
+	for (i = 0; i < numValues; i++)
 		targetValue[i] = inValues[i];
+	
+	mIsRunning = YES;
+	
 	tick();		// no ramping, just call tick() directly
 }
 
 
 void NoneRamp::stop()
 {
-	;
+	mIsRunning = NO;
 }
 
 
@@ -49,7 +51,7 @@ void NoneRamp::tick()
 {
 	TTUInt32 i;
 
-	for (i=0; i < numValues; i++)
+	for (i = 0; i < numValues; i++)
 		currentValue[i] = targetValue[i];			// set the current value
 	(callback)(baton, numValues, currentValue);		// send the value to the host
 }

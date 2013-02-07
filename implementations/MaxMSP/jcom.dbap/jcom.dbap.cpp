@@ -41,8 +41,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 
 	// Define our class
-	c = class_new("jcom.dbap",(method)dbap_new, (method)0L, sizeof(t_dbap), 
-		(method)0L, A_GIMME, 0);		
+	c = class_new("jcom.dbap",(method)dbap_new, (method)dbap_free, sizeof(t_dbap), (method)0L, A_GIMME, 0);	
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)dbap_blur,				"blur",			A_GIMME,	0);
@@ -116,9 +115,6 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 		atom_setsym(&x->last_view[0],gensym("all"));
 		atom_setlong(&x->last_view[1],1);
 
-		x->attr_view_size[0] = 80;						// x size of the view matrix
-		x->attr_view_size[1] = 60;						// y size of the view matrix
-
 		x->attr_view_start.x = 0.;						// default value
 		x->attr_view_start.y = 0.;						// default value
 		x->attr_view_start.z = 0.;						// default value
@@ -126,11 +122,16 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 		x->attr_view_end.y = 15.;						// according to the dbap maxhelp space
 		x->attr_view_end.z = 0.;						// according to the dbap maxhelp space
 
-		for (i=0; i<MAX_SIZE_VIEW_X; i++) {
-			for (j=0; j<MAX_SIZE_VIEW_Y; j++) {
-				x->view_matrix[i][j] = 0;
-			}
-		}
+		// prepare a jit_matrix_info, an unique name and an empty jit_matrix
+		jit_matrix_info_default(&x->view_info);
+		x->view_info.type = _jit_sym_char;
+		x->view_info.planecount = 1;
+		x->view_info.dimcount = 2;
+		x->view_info.dim[0] = 80;						// x size of the view matrix
+		x->view_info.dim[1] = 60;						// y size of the view matrix
+		x->view_matrix = jit_object_new(_jit_sym_jit_matrix, &x->view_info);
+		x->view_name = jit_symbol_unique();
+		x->view_matrix = jit_object_register(x->view_matrix, x->view_name);
 		
 		for (i=0; i<MAX_NUM_SOURCES; i++) {
 			x->src_position[i].x = 0.;
@@ -167,7 +168,14 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 	return (x);											// return the pointer
 }
 
-
+void dbap_free(t_dbap *x)
+{
+	// forget the matrix
+	jit_object_unregister(x->view_matrix);
+	
+	// free the matrix
+	jit_object_free(x->view_matrix);
+}
 
 /********************************************************************************************/
 // Methods bound to input/inlets
@@ -408,7 +416,10 @@ void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv)
 {
 	long dst, src,i ,j;
 	t_symbol *all;
-
+	
+	// clear the view matrix
+	jit_object_method(x->view_matrix, _sym_clear);
+	
 	if ((argc==2) && argv) {
 		if ((atom_gettype(argv) == A_LONG) && (atom_gettype(argv+1) == A_LONG)) {
 			dst = atom_getlong(argv)-1;					// we start counting from 1 for destinations
@@ -435,14 +446,8 @@ void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv)
 				}
 			}
 		}
+		
 		dbap_output_view(x);
-
-		// then we reset the matrix
-		for (i=0; i<MAX_SIZE_VIEW_X; i++) {
-			for (j=0; j<MAX_SIZE_VIEW_Y; j++) {
-				x->view_matrix[i][j] = 0;
-			}
-		}
 		
 		// and we store the view for a later update process
 		x->last_view[0] = argv[0];
@@ -452,18 +457,25 @@ void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv)
 		error("Invalid argument(s) for view");
 }
 
-/** Turn on/off the auto wiev updating */
+/** Turn on/off the auto view updating */
 void dbap_view_update(t_dbap *x, long io)
 {
 	x->attr_view_update = io > 0;
+	
+	dbap_update_view(x);
 }
 
 /** Set the size of hitmap view window */
 void dbap_view_size(t_dbap *x, long sizeX, long sizeY) {
 	
 	if ((sizeX > 0)&&(sizeY > 0)&&(sizeX <= MAX_SIZE_VIEW_X)&&(sizeY <= MAX_SIZE_VIEW_Y)) {
-		x->attr_view_size[0] = sizeX;
-		x->attr_view_size[1] = sizeY;
+		
+		x->view_info.dim[0] = sizeX;
+		x->view_info.dim[1] = sizeY;
+		
+		// prepare the jit_matrix with the new jit_matrix_info
+		jit_object_method(x->view_matrix, _jit_sym_setinfo, &x->view_info);
+		
 		dbap_update_view(x);
 	}
 	else					
@@ -592,7 +604,7 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display a
 				strcpy(dst, "(list) distance from convex hull");
 				break;
 			case 2: 
-				strcpy(dst, "(list) visualization data");
+				strcpy(dst, "(jit_matrix) visualization");
 				break;
 			case 3: 
 				strcpy(dst, "dumpout");
@@ -618,6 +630,7 @@ t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv
 		if (n>3) n = 3;
 		x->attr_dimensions = n;
 	}
+
 	return MAX_ERR_NONE;
 }
 
@@ -690,10 +703,12 @@ t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv)
 void dbap_calculate(t_dbap *x, long n)
 {
 	// Update all matrix values
-	if (x->attr_dimensions==1)
+	if (x->attr_dimensions == 1)
 		dbap_calculate1D(x, n);
-	else if (x->attr_dimensions==2)
+	
+	else if (x->attr_dimensions == 2)
 		dbap_calculate2D(x, n);
+	
 	else
 		dbap_calculate3D(x, n);
 }
@@ -911,13 +926,13 @@ void dbap_calculate_variance(t_dbap *x)
 
 	dbap_calculate_mean_dst_position(x);
 
-	if (x->attr_dimensions==1) {
+	if (x->attr_dimensions == 1) {
 		for (i=0; i<x->attr_num_destinations; i++) {
 			dx = x->dst_position[i].x - x->mean_dst_position.x;
 			d2 += dx*dx;
 		}		
 	}
-	else if (x->attr_dimensions==2) {
+	else if (x->attr_dimensions == 2) {
 		for (i=0; i<x->attr_num_destinations; i++) {
 			dx = x->dst_position[i].x - x->mean_dst_position.x;
 			dy = x->dst_position[i].y - x->mean_dst_position.y;
@@ -943,10 +958,12 @@ void dbap_calculate_variance(t_dbap *x)
 void dbap_calculate_hull(t_dbap *x, long n)
 {
 	// Update all matrix values
-	if (x->attr_dimensions==1)
+	if (x->attr_dimensions == 1)
 		dbap_calculate_hull1D(x, n);
-	else if (x->attr_dimensions==2)
+	
+	else if (x->attr_dimensions == 2)
 		dbap_calculate_hull2D(x, n);
+	
 	else
 		dbap_calculate_hull3D(x, n);
 }
@@ -1111,17 +1128,21 @@ void dbap_calculate_hull3D(t_dbap *x, long n)
 
 void dbap_calculate_view(t_dbap *x, long dst, long src)
 {
+
 	// Update all matrix values
-	if (x->attr_dimensions==1)
+	if (x->attr_dimensions == 1)
 		dbap_calculate_view1D(x, dst, src);
-	else if (x->attr_dimensions==2)
+	
+	else if (x->attr_dimensions == 2)
 		dbap_calculate_view2D(x, dst, src);
+	
 	else
 		dbap_calculate_view3D(x, dst, src);
 }
 
 /** If the attr_view_update is true : calculate the last view */
 void dbap_update_view(t_dbap *x) {
+	
 	if (x->attr_view_update)
 		defer_low(x,(method) dbap_view, gensym("view"), 2, x->last_view);
 }
@@ -1140,15 +1161,23 @@ void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 	float dia[MAX_NUM_DESTINATIONS];								// Distance to ith speaker to the power of x->a.
 	float div_x, div_y;	
 	float pix;
-	long i,j,m_j,d;
+	long i,j,d;
+	unsigned char val;
 	t_xyz temp_src;
-
-	div_x = (x->attr_view_end.x - x->attr_view_start.x)/x->attr_view_size[0];
-	div_y = (x->attr_view_end.y - x->attr_view_start.y)/x->attr_view_size[1];
+	char *bp, *p;
+	
+	// get the data of the view matrix
+	jit_object_method(x->view_matrix,_jit_sym_getdata, &bp);
+	if (!bp)
+		return;
+	
+	div_x = (x->attr_view_end.x - x->attr_view_start.x)/x->view_info.dim[0];
+	div_y = (x->attr_view_end.y - x->attr_view_start.y)/x->view_info.dim[1];
 
 	// For each pixel of the view window
-	for (i=0; i<x->attr_view_size[0]; i++) {
-		for (j=0 ; j<x->attr_view_size[1]; j++) {
+	for (i=0; i<x->view_info.dim[0]; i++) {
+		
+		for (j=0 ; j<x->view_info.dim[1]; j++) {
 
 			temp_src.x = x->attr_view_start.x + i * div_x;
 			temp_src.y = x->attr_view_start.y + j * div_y;
@@ -1171,11 +1200,14 @@ void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 			// squared response [0::1]
 			pix =  k*x->src_weight[src][dst]/ dia[dst];
 			pix *= pix;
+			val = (unsigned char)(pix*255.);
+			
+			// get cell at (i,j)
+			p = bp + i + (x->view_info.dim[1] - j-1)*x->view_info.dim[0];
 
 			// keep the max
-			m_j = x->attr_view_size[1]-j-1;   // jit.matrix style
-			if (x->view_matrix[i][m_j] < (unsigned char)(pix * 255.))
-				x->view_matrix[i][m_j] = (unsigned char)(pix * 255.);
+			if (*((unsigned char *)p) < val)
+				*((unsigned char *)p) = val;
 		}
 	}
 }
@@ -1187,21 +1219,7 @@ void dbap_calculate_view3D(t_dbap *x, long dst, long src)
 
 void dbap_output_view(t_dbap *x)
 {
-	t_atom a[3]; // Output array of atoms
-	t_atom e[1]; // Output bang after
-	long i,j;
-
-	// For each pixel of the view window
-	for (i=0; i<x->attr_view_size[0]; i++) {
-		for (j=0; j<x->attr_view_size[1]; j++) {
-			atom_setlong(&a[0], i);
-			atom_setlong(&a[1], j);
-			atom_setlong(&a[2], x->view_matrix[i][j]);
-			//object_obex_dumpout(x, gensym("view"), 3, a);	// on info outlet (?)
-			outlet_anything(x->outlet[2], gensym("view"), 3, a);
-		}
-	}
-	atom_setsym(&e[0],gensym("bang"));
-	//object_obex_dumpout(x, gensym("view"), 1, e);	// on info outlet (?)
-	outlet_anything(x->outlet[2], gensym("view"), 1, e);
+	t_atom m[1]; // Output matrix name
+	atom_setsym(&m[0], x->view_name);
+	outlet_anything(x->outlet[2], _sym_jit_matrix, 1, m);
 }

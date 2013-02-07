@@ -7610,8 +7610,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 187.0, 212.0, 55.0 ],
-					"text" : "jcom.hub @description \"ICST Ambisonics module, complete decoding and encoding  for multiple sources for multiple speakers in one module.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"ICST Ambisonics module, complete decoding and encoding  for multiple sources for multiple speakers in one module.\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -8429,7 +8429,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

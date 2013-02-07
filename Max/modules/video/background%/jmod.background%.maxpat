@@ -327,7 +327,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 8.0, 138.0, 359.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Two different types of video background subtraction\"",
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Two different types of video background subtraction\"",
 					"varname" : "jmod.hub"
 				}
 

@@ -1089,8 +1089,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 114.0, 342.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"A module receving input from the Haken Continuum Fingerboard.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"A module receving input from the Haken Continuum Fingerboard.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

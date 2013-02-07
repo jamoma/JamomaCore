@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A7CC31241518930500992C6E /* jcom.parameter.clip.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.parameter.clip.cpp; path = ../jcom.parameter/jcom.parameter.clip.cpp; sourceTree = "<group>"; };
 		A7CC31251518930500992C6E /* jcom.parameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.parameter.cpp; path = ../jcom.parameter/jcom.parameter.cpp; sourceTree = "<group>"; };
-		A7CC31261518930500992C6E /* jcom.parameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = jcom.parameter.h; path = ../jcom.parameter/jcom.parameter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -23,9 +21,7 @@
 		A7CC3123151892DF00992C6E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A7CC31241518930500992C6E /* jcom.parameter.clip.cpp */,
 				A7CC31251518930500992C6E /* jcom.parameter.cpp */,
-				A7CC31261518930500992C6E /* jcom.parameter.h */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -53,7 +49,7 @@
 		A72D873415188DFD001DA7C1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
 			buildConfigurationList = A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.message" */;
@@ -123,6 +119,7 @@
 		A72D873D15188DFF001DA7C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -135,6 +132,7 @@
 		A72D873E15188DFF001DA7C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = jcom.message;

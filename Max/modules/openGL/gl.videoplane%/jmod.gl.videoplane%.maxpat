@@ -823,8 +823,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 230.0, 258.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Apply incoming video matrix as texture to OpenGL videoplane.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Apply incoming video matrix as texture to OpenGL videoplane.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

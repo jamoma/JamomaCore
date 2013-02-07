@@ -226,8 +226,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.hub",
-					"text" : "jcom.hub @module_type audio @description \"Play sine tones - square - triangle waves etc.\"",
+					"varname" : "jcom.model",
+					"text" : "jcom.model @type audio @description \"Play sine tones - square - triangle waves etc.\"",
 					"linecount" : 2,
 					"id" : "obj-13",
 					"fontname" : "Verdana",

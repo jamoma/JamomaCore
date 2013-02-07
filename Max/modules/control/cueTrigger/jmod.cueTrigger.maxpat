@@ -2155,8 +2155,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 25.0, 260.0, 320.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"graphical interface for triggering cues in conjunction with jmod.cuelist.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"graphical interface for triggering cues in conjunction with jmod.cuelist.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

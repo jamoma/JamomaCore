@@ -9,17 +9,21 @@
 #ifndef __RAMPLIB_H__
 #define __RAMPLIB_H__
 
-#include "JamomaTypes.h"
 #include "TTDSP.h"
-#include "FunctionLib.h"
+#include "TTModular.h"
 
-typedef void (*RampUnitCallback)(void *, long, double *);
+#include "ext.h"					// Max Header
+#include "ext_proto.h"
+#include "ext_obex.h"
+
+
+typedef void (*RampUnitCallback)(void *, TTUInt32, TTFloat64 *);
 
 
 #define TT_RAMPUNIT_CONSTRUCTOR \
-TTObjectPtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 \
-extern "C" void thisTTClass :: registerClass () {TTClassRegister( TT(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
+extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
 thisTTClass :: thisTTClass (TTValue& arguments) : RampUnit(arguments)
 
@@ -29,14 +33,19 @@ thisTTClass :: thisTTClass (TTValue& arguments) : RampUnit(arguments)
 
 
 // Specification of our base class
-class JAMOMA_EXPORT RampUnit : public TTObject {
+class TTMODULAR_EXPORT RampUnit : public TTDataObjectBase {
 	private:
 		TTSymbol			mFunction;			///< The name of the functionUnit
 
 		/** Attribute setter. */
 		TTErr setFunction(const TTValue& functionName);
+	
+	public:
+		TTAudioObjectBase	*functionUnit;		///< The actual functionUnit object defined by attrFunction
+												///< it is public in order to be able to extend his parameter to as attribute of another object
 
 	protected:
+		TTBoolean			mIsRunning;			///< Is the ramp is running right now ?
 		RampUnitCallback	callback;			///< usually a function in a Max external
 		void				*baton;				///< usually a pointer to the Max external's instance
 		TTFloat64			*startValue;
@@ -44,7 +53,6 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 		TTFloat64			*currentValue;
 		TTFloat64			normalizedValue;	///< normalized current progress in the ramp
 		TTUInt32			numValues;
-		TTAudioObject		*functionUnit;		///< The actual functionUnit object defined by attrFunction
 
 		/** memory allocation -- sends a message "numValuesChanged" to subclasses after this has run */
 		void setNumValues(TTUInt32 newNumValues);
@@ -57,9 +65,11 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 		virtual ~RampUnit();
 		
 	public:
+		TTBoolean isRunning();
+	
 		TTErr getFunctionParameterNames(TTValue& names);
-		TTErr setFunctionParameterValue(const TTSymbol& parameterName, TTValue& newValue);
-		TTErr getFunctionParameterValue(const TTSymbol& parameterName, TTValue& value);
+		TTErr setFunctionParameterValue(TTSymbol ParameterName, TTValue& newValue);
+		TTErr getFunctionParameterValue(TTSymbol ParameterName, TTValue& value);
 		
 		/** start a ramp over time in milliseconds */
 		virtual void go(TTUInt32 numValues, TTFloat64 *values, TTFloat64 time) = 0;
@@ -72,13 +82,14 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 
 		/** called every time a new ramp value should be sent */
 		virtual void tick() = 0;
+
 };
 
 
-class JAMOMA_EXPORT RampLib {
+class TTMODULAR_EXPORT RampLib {
 public:
 	/** Instantiate a function by name */
-	static JamomaError createUnit(const TTSymbol& unitName, RampUnit **unit, RampUnitCallback callback, void* baton);
+	static TTErr createUnit(const TTSymbol unitName, RampUnit **unit, RampUnitCallback callback, void* baton);
 
 	/**	Return a list of all available functions. */
 	static void getUnitNames(TTValue& unitNames);

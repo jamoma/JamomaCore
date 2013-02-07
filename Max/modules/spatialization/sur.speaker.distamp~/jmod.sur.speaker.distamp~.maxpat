@@ -230,8 +230,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 150.0, 295.0, 31.0 ],
-					"text" : "jcom.hub @description \"Amplitude of speakers adjusted in proportion to distance from sweet spot\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Amplitude of speakers adjusted in proportion to distance from sweet spot\"",
+					"varname" : "jcom.model"
 				}
 
 			}

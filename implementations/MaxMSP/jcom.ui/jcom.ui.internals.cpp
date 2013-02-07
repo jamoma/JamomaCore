@@ -9,650 +9,1021 @@
 
 #include "jcom.ui.h"
 
-// TODO: This file, lamely, duplicates a lot of what is in jcom.hub.internals.cpp.
-//			Should create a more DRY way of doing this.
-
-
-
-
-void ui_color_contentBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
-void ui_color_toolbarBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
-void ui_color_toolbarText(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
-void ui_color_border(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
-void ui_color_highlight(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
-
-
-
-void ui_internals_createColors(t_ui* obj)
+void ui_data_create_all(t_ui* obj)
 {
-	uiInternalObject	*anObject;
-	t_atom				a[2];
-	float				range[2];
-	range[0] = 0.0;
-	range[1] = 1.0;
+	TTObjectBasePtr	anObject;
+    TTAddress       returnedAddress;
+    TTNodePtr       returnedNode = NULL;
+    TTNodePtr       returnedContextNode = NULL;
+	TTString		uiStr, parentStr, dataStr;
+	TTValue			v;
 	
-	anObject = new uiInternalObject("jcom.message", "view/color/contentBackground", obj->box.b_patcher, "decimalArray", "none", "The background color of the module in the format RGBA where values range.", "both", range, NULL, NULL, NULL);
-	anObject->setAction((method)ui_color_contentBackground, (t_object*)obj);
-	hashtab_store(obj->hash_internals, gensym("view/color/contentBackground"), (t_object*)anObject);
-	
-	anObject = new uiInternalObject("jcom.message", "view/color/toolbarBackground", obj->box.b_patcher, "decimalArray", "none", "The background color of the module's toolbar in the format RGBA where values range.", "both", range, NULL, NULL, NULL);
-	anObject->setAction((method)ui_color_toolbarBackground, (t_object*)obj);
-	hashtab_store(obj->hash_internals, gensym("view/color/toolbarBackground"), (t_object*)anObject);
-	
-	anObject = new uiInternalObject("jcom.message", "view/color/toolbarText", obj->box.b_patcher, "decimalArray", "none", "The color of the module's toolbar text in the format RGBA where values range.", "both", range, NULL, NULL, NULL);
-	anObject->setAction((method)ui_color_toolbarText, (t_object*)obj);
-	hashtab_store(obj->hash_internals, gensym("view/color/toolbarText"), (t_object*)anObject);
-	
-	anObject = new uiInternalObject("jcom.message", "view/color/border", obj->box.b_patcher, "decimalArray", "none", "The border color of the module in the format RGBA where values range.", "both", range, NULL, NULL, NULL);
-	anObject->setAction((method)ui_color_border, (t_object*)obj);
-	hashtab_store(obj->hash_internals, gensym("view/color/border"), (t_object*)anObject);
-	
-	anObject = new uiInternalObject("jcom.parameter", "view/highlight", obj->box.b_patcher, "string", "none", "Highlight the module with a color tint such as red, green, or similar.", NULL, NULL, NULL, NULL, "none");
-	anObject->setAction((method)ui_color_highlight, (t_object*)obj);
-	hashtab_store(obj->hash_internals, gensym("view/highlight"), (t_object*)anObject);	
-	
-	anObject = new uiInternalObject("jcom.message", "view/size", obj->box.b_patcher, "generic", "none", "The size of the module's UI: [Width Height]", NULL, NULL, NULL, NULL, NULL);
-	//anObject->setAction((method)ui_color_border, (t_object*)obj);
-	anObject->setReadonly(true);
-	atom_setlong(a+0, obj->box.b_patching_rect.width);
-	atom_setlong(a+1, obj->box.b_patching_rect.height);
-	anObject->setValue(2, a);
-	hashtab_store(obj->hash_internals, gensym("view/size"), (t_object*)anObject);
-}
-
-
-void ui_internals_destroy(t_ui *obj)
-{
-	long				i;
-	long				numKeys = 0;
-	t_symbol			**keys = NULL;
-	uiInternalObject	*anObject;
-	t_max_err			err;
-	
-	hashtab_getkeys(obj->hash_internals, &numKeys, &keys);
-	for (i=0; i<numKeys; i++) {
-		err = hashtab_lookup(obj->hash_internals, keys[i], (t_object**)&anObject);
-		if (!err)
-			delete anObject;
-	}
-	
-	if (keys)
-		sysmem_freeptr(keys);
+	// create a ui node with our patcher as context
+	anObject = NULL;
+	TTObjectBaseInstantiate(kTTSym_Container, &anObject, kTTValNONE);
+	if (!jamoma_subscriber_create((ObjectPtr)obj, anObject, TTAddress("ui"), &obj->uiSubscriber, returnedAddress, &returnedNode, &returnedContextNode)) {
 		
-	hashtab_chuck(obj->hash_internals);
+		// get info relative to our patcher
+		jamoma_patcher_get_info((ObjectPtr)obj, &obj->patcherPtr, obj->patcherContext, obj->patcherClass, obj->patcherName);
+		
+		// get the view address
+		obj->uiSubscriber->getAttributeValue(TTSymbol("contextAddress"), v);
+		v.get(0, obj->viewAddress);
+		
+		// make a receiver on contextAddress/model/address data
+		ui_receiver_create(obj, &anObject, gensym("return_model_address"), TTSymbol("model/address"), obj->viewAddress);
+		
+		// Then create all internal datas concerning the jcom.ui
+		// ui/color/contentBackground
+		ui_data_create(obj, &anObject, gensym("return_color_contentBackground"), kTTSym_message, TTSymbol("color/contentBackground"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TTSymbol("The background color of the module in the format RGBA where values range [0.0, 1.0]."));
+		
+		// ui/color/toolbarBackground
+		ui_data_create(obj, &anObject, gensym("return_color_toolbarBackground"), kTTSym_message, TTSymbol("color/toolbarBackground"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TTSymbol("The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]."));
+		
+		// ui/color/toolbarText
+		ui_data_create(obj, &anObject, gensym("return_color_toolbarText"), kTTSym_message, TTSymbol("color/toolbarText"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TTSymbol("The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]."));
+		
+		// ui/color/border
+		ui_data_create(obj, &anObject, gensym("return_color_border"), kTTSym_message, TTSymbol("color/border"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TTSymbol("The border color of the module in the format RGBA where values range [0.0, 1.0]."));
+		
+		obj->memo_bordercolor = obj->bordercolor;
+		
+		// ui/size
+		ui_data_create(obj, &anObject, gensym("return_ui_size"), kTTSym_parameter, TTSymbol("size"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_array);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TTSymbol("The size of the view's UI."));
+		
+		v = TTValue(obj->box.b_presentation_rect.width);
+		v.append(obj->box.b_presentation_rect.height);
+		anObject->setAttributeValue(kTTSym_value, v);
+		
+		// ui/freeze
+		ui_data_create(obj, &anObject, gensym("return_ui_freeze"), kTTSym_parameter, TTSymbol("freeze"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_boolean);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TTSymbol("Freeze each jcom.remote in the patch"));
+		
+		// ui/refresh
+		ui_data_create(obj, &anObject, gensym("return_ui_refresh"), kTTSym_message, TTSymbol("refresh"));
+		anObject->setAttributeValue(kTTSym_type, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
+		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+		anObject->setAttributeValue(kTTSym_description, TTSymbol("Refresh each jcom.remote in the patch"));
+	}
 }
 
+void ui_data_destroy_all(t_ui *obj)
+{
+	TTValue			hk, v;
+	TTSymbol		key;
+	TTUInt8			i;
+	
+	// delete all datas
+	if (obj->hash_datas) {
+		
+		if (!obj->hash_datas->isEmpty()) {
+			
+			obj->hash_datas->getKeys(hk);
+			for (i=0; i<obj->hash_datas->getSize(); i++) {
+				
+				hk.get(i, key);
+				ui_data_destroy(obj, key);
+			}
+		}
+		delete obj->hash_datas;
+	}
+}
 
+void ui_data_create(t_ui *obj, TTObjectBasePtr *returnedData, SymbolPtr aCallbackMethod, TTSymbol service, TTSymbol name)
+{
+	TTValue			args, v;
+	TTObjectBasePtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	TTAddress       uiAddress, dataAddress;
+	TTNodePtr		aNode;
+	TTBoolean		nodeCreated;
+	
+	// Prepare arguments to create a TTData object
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(obj));
+	returnValueBaton->append(TTPtr(aCallbackMethod));
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	args.append(service);
+	
+	*returnedData = NULL;
+	TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(returnedData), args);
+	
+	// Register data
+	obj->uiSubscriber->getAttributeValue(TTSymbol("nodeAddress"), v);
+	v.get(0, uiAddress);
+	dataAddress = uiAddress.appendAddress(TTAddress(name.c_str()));
+	JamomaDirectory->TTNodeCreate(dataAddress, *returnedData, obj->patcherPtr, &aNode, &nodeCreated);
+	
+	// Store data
+	args = TTValue(*returnedData);
+	args.append(dataAddress);
+	obj->hash_datas->append(name, args);
+	
+	JamomaDebug object_post((ObjectPtr)obj, "Make internal ui/%s object at : %s", name.c_str(), dataAddress.c_str());
+}								   
+
+void ui_data_destroy(t_ui *obj, TTSymbol name)
+{
+	TTValue			storedObject;
+	TTObjectBasePtr	aData;
+	TTAddress       dataAddress;
+	
+	if (obj->hash_datas)
+		if (!obj->hash_datas->lookup(name, storedObject)) {
+			
+			// Unregister data
+			storedObject.get(1, dataAddress);
+			JamomaDirectory->TTNodeRemove(dataAddress);
+			
+			// Delete data
+			aData = storedObject[0];
+			if (aData)
+				if (aData->valid)	// to -- should be better to understand why the data is not valid
+					TTObjectBaseRelease(&aData);
+			
+			// don't remove from the hash_table here !
+		}
+}
+
+void ui_data_send(t_ui *obj, TTSymbol name, TTValue v)
+{
+	TTValue			storedObject;
+	TTObjectBasePtr		anObject;
+	
+	obj->hash_datas->lookup(name, storedObject);
+    anObject = storedObject[0];
+	
+	anObject->setAttributeValue(kTTSym_value, v);
+}
+
+void ui_data_interface(t_ui *x, TTSymbol name)
+{
+	char			filename[MAX_FILENAME_CHARS];
+	short			path;
+	long			type;
+	long			filetype = 'JSON';
+	t_dictionary*	d;
+	ObjectPtr		p;
+	TTAddress address;
+	Atom			a;
+	
+	strncpy_zero(filename, "jcom.reference_interface.maxpat", MAX_FILENAME_CHARS);
+	locatefile_extended(filename, &path, &type, &filetype, 1);
+	dictionary_read(filename, path, &d);
+	
+	atom_setobj(&a, d);
+	p = (t_object*)object_new_typed(_sym_nobox, _sym_jpatcher, 1, &a);
+	object_attr_setlong(p, _sym_locked, 1);										// start out locked
+	object_attr_setchar(p, _sym_enablehscroll, 0);								// turn off scroll bars
+	object_attr_setchar(p, _sym_enablevscroll, 0);
+	object_attr_setchar(p, _sym_openinpresentation, 1);	
+	object_attr_setchar(p, _sym_toolbarvisible, 0);	
+	object_attr_setsym(p, _sym_title, gensym("reference_interface"));		
+	object_method_parse(p, _sym_window, "constrain 5 320 200 500", NULL);
+	object_attach_byptr_register(x, p, _sym_nobox);
+	
+	object_method(p, _sym_vis);													// "vis" happens immediately, "front" is defer_lowed
+	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
+	
+	address = x->modelAddress.appendAddress(TTAddress(name.c_str()));
+	
+	OBJ_ATTR_SYM(p, "arguments", 0, gensym((char*)address.c_str()));		// the patch needs a [jcom.interfaceArguments.js]
+	
+	object_method(p, _sym_loadbang);
+}
+
+void ui_receiver_create(t_ui *obj, TTObjectBasePtr *returnedReceiver, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address)
+{
+	TTValue			v, args;
+	TTObjectBasePtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	TTAddress adrs;
+	
+	// prepare arguments
+	args.append(NULL);
+	
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(obj));
+	returnValueBaton->append(TTPtr(aCallbackMethod));
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	*returnedReceiver = NULL;
+	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(returnedReceiver), args);
+	
+	// Set address to bind
+	adrs = address.appendAddress(TTAddress(name.c_str()));
+	(*returnedReceiver)->setAttributeValue(kTTSym_address, adrs);
+	
+	// refresh receiver
+	(*returnedReceiver)->sendMessage(kTTSym_Get);
+	
+	// Store receiver
+	args = TTValue(*returnedReceiver);
+	obj->hash_receivers->append(name, args);
+}
+
+void ui_receiver_destroy(t_ui *obj, TTSymbol name)
+{
+	TTValue			storedObject;
+	TTObjectBasePtr		aReceiver;
+	
+	if (obj->hash_receivers)
+		if (!obj->hash_receivers->lookup(name, storedObject)) {
+			
+			// delete
+            aReceiver = storedObject[0];
+			if (aReceiver)
+				if (aReceiver->valid)	// to -- should be better to understand why the receiver is not valid
+					TTObjectBaseRelease(&aReceiver);
+			
+			// don't remove from the hash_table here !
+		}
+}
+
+void ui_receiver_destroy_all(t_ui *obj)
+{
+	TTValue			hk, v;
+	TTSymbol		key;
+	TTUInt8			i;
+	
+	// delete all viewers
+	if (obj->hash_receivers) {
+		
+		if (!obj->hash_receivers->isEmpty()) {
+			
+			obj->hash_receivers->getKeys(hk);
+			
+			for (i=0; i<obj->hash_receivers->getSize(); i++) {
+				
+				hk.get(i, key);
+				ui_receiver_destroy(obj, key);
+			}
+		}
+		delete obj->hash_receivers;
+	}
+}
+
+void ui_viewer_create(t_ui *obj, TTObjectBasePtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address, TTBoolean subscribe)
+{
+	TTValue			v, args;
+	TTObjectBasePtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
+	TTAddress uiAddress, viewerAddress, adrs;
+	TTNodePtr		aNode;
+	TTBoolean		nodeCreated;
+	
+	// prepare arguments
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(obj));
+	returnValueBaton->append(TTPtr(aCallbackMethod));
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	*returnedViewer = NULL;
+	TTObjectBaseInstantiate(kTTSym_Viewer, TTObjectBaseHandle(returnedViewer), args);
+	
+	if (subscribe) {
+		// Register viewer
+		obj->uiSubscriber->getAttributeValue(TTSymbol("nodeAddress"), v);
+		v.get(0, uiAddress);
+		
+		viewerAddress = uiAddress.appendAddress(TTAddress(name.c_str()));
+		
+		JamomaDirectory->TTNodeCreate(viewerAddress, *returnedViewer, obj->patcherPtr, &aNode, &nodeCreated);
+	}
+	else
+		viewerAddress = kTTAdrsEmpty;
+	
+	// Set address to bind
+	adrs = address.appendAddress(TTAddress(name.c_str()));
+	(*returnedViewer)->setAttributeValue(kTTSym_address, adrs);
+	
+	// refresh viewer
+	(*returnedViewer)->sendMessage(kTTSym_Refresh);
+	
+	// Store viewer
+	args = TTValue(*returnedViewer);
+	args.append(viewerAddress);
+	obj->hash_viewers->append(name, args);
+}
+
+void ui_viewer_destroy(t_ui *obj, TTSymbol name)
+{
+	TTValue			storedObject;
+	TTObjectBasePtr		aViewer;
+	TTAddress viewerAddress;
+	
+	if (obj->hash_viewers)
+		if (!obj->hash_viewers->lookup(name, storedObject)) {
+			
+			// Unregister data
+			storedObject.get(1, viewerAddress);
+			if (viewerAddress != kTTAdrsEmpty)
+				JamomaDirectory->TTNodeRemove(viewerAddress);
+			
+			// delete
+			aViewer = storedObject[0];
+			if (aViewer)
+				if (aViewer->valid)	// to -- should be better to understand why the viewer is not valid
+					TTObjectBaseRelease(&aViewer);
+			
+			// don't remove from the hash_table here !
+		}
+}
+
+void ui_viewer_destroy_all(t_ui *obj)
+{
+	TTValue			hk, v;
+	TTSymbol		key;
+	TTUInt8			i;
+	
+	// delete all viewers
+	if (obj->hash_viewers) {
+		
+		if (!obj->hash_viewers->isEmpty()) {
+			
+			obj->hash_viewers->getKeys(hk);
+			
+			for (i=0; i<obj->hash_viewers->getSize(); i++) {
+				
+				hk.get(i, key);
+				ui_viewer_destroy(obj, key);
+			}
+		}
+		delete obj->hash_viewers;
+	}
+}
+
+void ui_viewer_send(t_ui *obj, TTSymbol name, TTValue v)
+{
+	TTValue			storedObject;
+	TTObjectBasePtr		anObject;
+	TTErr			err;
+	if (obj->hash_viewers) {
+		err = obj->hash_viewers->lookup(name, storedObject);
+		
+		if (!err) {
+			anObject = storedObject[0];
+			if (anObject)
+				anObject->sendMessage(kTTSym_Send, v, kTTValNONE);
+		}
+	}
+}
+
+void ui_viewer_highlight(t_ui *obj, TTSymbol name, TTBoolean s)
+{
+	TTValue			storedObject;
+	TTObjectBasePtr		anObject;
+	TTErr			err;
+	if (obj->hash_viewers) {
+		err = obj->hash_viewers->lookup(name, storedObject);
+		
+		if (!err) {
+			anObject = storedObject[0];
+			if (anObject)
+				anObject->setAttributeValue(kTTSym_highlight, s);
+		}
+	}
+}
+
+void ui_viewer_freeze(t_ui *obj, TTSymbol name, TTBoolean f)
+{
+	TTValue			storedObject;
+	TTObjectBasePtr		anObject;
+	TTErr			err;
+	if (obj->hash_viewers) {
+		err = obj->hash_viewers->lookup(name, storedObject);
+		
+		if (!err) {
+			anObject = storedObject[0];
+			if (anObject)
+				anObject->setAttributeValue(kTTSym_freeze, f);
+		}
+	}
+}
+
+void ui_viewer_refresh(t_ui *obj, TTSymbol name)
+{
+	TTValue			storedObject;
+	TTObjectBasePtr		anObject;
+	TTErr			err;
+	if (obj->hash_viewers) {
+		err = obj->hash_viewers->lookup(name, storedObject);
+		
+		if (!err) {
+			anObject = storedObject[0];
+			if (anObject)
+				anObject->sendMessage(kTTSym_Refresh);
+		}
+	}
+}
 
 #if 0
 #pragma mark -
 #pragma mark message handlers
 #endif
 
-// Callback methods - called by internal jcom.parameter or jcom.message objects after updates
-
-void ui_mix(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_explorer_create(ObjectPtr x, TTObjectBasePtr *returnedExplorer, SymbolPtr method)
 {
-	obj->attr_mix = atom_getlong(argv);
-	jbox_redraw(&obj->box);
-}
-
-
-void ui_gain(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
-{
-	obj->attr_gain = atom_getlong(argv);
-	jbox_redraw(&obj->box);
-}
-
-
-void setGainDataspaceUnit(t_ui* obj, t_symbol* unit)
-{
-	uiInternalObject	*anObject = NULL;
-	t_max_err			err = MAX_ERR_NONE;
+	TTValue			args;
+	TTObjectBasePtr		returnValueCallback;
+	TTValuePtr		returnValueBaton;
 	
-	err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-	if (!err)
-		object_attr_setsym(anObject->theObject, gensym("dataspace/unit"), unit);
+	// prepare arguments
+	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	returnValueBaton = new TTValue(TTPtr(x));
+	returnValueBaton->append(TTPtr(method));
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+	args.append(returnValueCallback);
+	
+	args.append((TTPtr)jamoma_explorer_default_filter_bank());
+	
+	*returnedExplorer = NULL;
+	TTObjectBaseInstantiate(kTTSym_Explorer, TTObjectBaseHandle(returnedExplorer), args);
 }
 
-
-void ui_mute(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	object_attr_setvalueof(obj, gensym("is_muted"), argc, argv);
+	t_ui* obj = (t_ui*)self;
+	TTObjectBasePtr anObject;
+	TTBoolean	gain = false;
+	TTBoolean	mix = false;
+	TTBoolean	bypass = false;
+	TTBoolean	freeze = false;
+	TTBoolean	preview = false;
+	TTBoolean	meters = false;
+    TTBoolean	mute = false;
+	TTBoolean	preset = false;			// is there a /preset node in the model ?
+	TTBoolean	model = false;			// is there a /model node in the model ?
+	TTBoolean	change = false;
+	TTAddress   relativeAddress;
+	TTInt8		d;
+	
+	// model namespace observation
+	if (obj->modelAddress != kTTAdrsEmpty) {
+		
+		// look the namelist to know which data exist
+		for (long i=0; i<argc; i++) {
+			
+			relativeAddress = TTAddress(atom_getsym(argv+i)->s_name);
+			
+			if (relativeAddress.compare(TTAddress("out.*/gain"), d) == kAddressEqual)
+				gain = true;
+			else if (relativeAddress.compare(TTAddress("out.*/mix"), d) == kAddressEqual)
+				mix = true;
+			else if (relativeAddress.compare(TTAddress("in.*/bypass"), d) == kAddressEqual)
+				bypass = true;
+			else if (relativeAddress.compare(TTAddress("out.*/freeze"), d) == kAddressEqual)
+				freeze = true;
+			else if (relativeAddress.compare(TTAddress("out.*/preview"), d) == kAddressEqual)
+				preview = true;
+			else if (relativeAddress.compare(TTAddress("out.*/mute"), d) == kAddressEqual)
+				mute = true;
+			else if (relativeAddress.compare(TTAddress("audio/meters/freeze"), d) == kAddressEqual)
+				meters = true;
+			else if (relativeAddress.compare(TTAddress("preset/store"), d) == kAddressEqual)		// the internal TTExplorer looks for Datas (not for node like /preset)
+				preset = true;
+            else if (relativeAddress.compare(TTAddress("model/edit"), d) == kAddressEqual)          // the internal TTExplorer looks for Datas (not for node like /model)
+				model = true;
+		}
+		
+		// if a data appears or disappears : create or remove the viewer
+		
+		// gain
+		if (gain != obj->has_gain) {
+			obj->has_gain = gain;
+			if (gain) 
+				ui_viewer_create(obj, &anObject, gensym("return_gain"), TTSymbol("out.*/gain"), obj->modelAddress, YES);
+			else {
+				ui_viewer_destroy(obj, TTSymbol("out.*/gain"));
+				obj->hash_viewers->remove(TTSymbol("out.*/gain"));
+			}
+		}
+		
+		// mix
+		if (mix != obj->has_mix) {
+			obj->has_mix = mix;
+			if (mix) 
+				ui_viewer_create(obj, &anObject, gensym("return_mix"), TTSymbol("out.*/mix"), obj->modelAddress, YES);
+			else {
+				ui_viewer_destroy(obj, TTSymbol("out.*/mix"));
+				obj->hash_viewers->remove(TTSymbol("out.*/mix"));
+			}
+			
+			change = true;
+		}
+		
+		// bypass
+		if (bypass != obj->has_bypass) {
+			obj->has_bypass = bypass;
+			if (bypass) 
+				ui_viewer_create(obj, &anObject, gensym("return_bypass"), TTSymbol("in.*/bypass"), obj->modelAddress, YES);
+			else {
+				ui_viewer_destroy(obj, TTSymbol("in.*/bypass"));
+				obj->hash_viewers->remove(TTSymbol("in.*/bypass"));
+			}
+			
+			change = true;
+		}
+		
+		// freeze
+		if (freeze != obj->has_freeze) {
+			obj->has_freeze = freeze;
+			if (freeze) 
+				ui_viewer_create(obj, &anObject, gensym("return_freeze"), TTSymbol("out.*/freeze"), obj->modelAddress, YES);
+			else {
+				ui_viewer_destroy(obj, TTSymbol("out.*/freeze"));
+				obj->hash_viewers->remove(TTSymbol("out.*/freeze"));
+			}
+			
+			change = true;
+		}
+		
+		// preview
+		if (preview != obj->has_preview) {
+			obj->has_preview = preview;
+			if (preview)
+				ui_viewer_create(obj, &anObject, gensym("return_preview"), TTSymbol("out.*/preview"), obj->modelAddress, YES);
+			else {
+				ui_viewer_destroy(obj, TTSymbol("out.*/preview"));
+				obj->hash_viewers->remove(TTSymbol("out.*/preview"));
+			}
+			
+			change = true;
+		}
+		
+		// mute
+		if (mute != obj->has_mute) {
+			obj->has_mute = mute;
+			if (mute) 
+				ui_viewer_create(obj, &anObject, gensym("return_mute"), TTSymbol("out.*/mute"), obj->modelAddress, YES);
+			else {
+				ui_viewer_destroy(obj, TTSymbol("out.*/mute"));
+				obj->hash_viewers->remove(TTSymbol("out.*/mute"));
+			}
+			
+			change = true;
+		}
+		
+		// preset
+		if (preset != obj->has_preset) {
+			obj->has_preset = preset;
+			if (preset) {
+				ui_viewer_create(obj, &anObject, NULL, TTSymbol("preset/write"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, NULL, TTSymbol("preset/read"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, NULL, TTSymbol("preset/recall"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, NULL, TTSymbol("preset/store"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, gensym("return_preset_order"), TTSymbol("preset/order"), obj->modelAddress, NO);
+			}
+			else {
+				ui_viewer_destroy(obj, TTSymbol("write"));
+				obj->hash_viewers->remove(TTSymbol("write"));
+				ui_viewer_destroy(obj, TTSymbol("read"));
+				obj->hash_viewers->remove(TTSymbol("read"));
+				ui_viewer_destroy(obj, TTSymbol("recall"));
+				obj->hash_viewers->remove(TTSymbol("recall"));
+				ui_viewer_destroy(obj, TTSymbol("store"));
+				obj->hash_viewers->remove(TTSymbol("store"));
+				ui_viewer_destroy(obj, TTSymbol("order"));
+				obj->hash_viewers->remove(TTSymbol("order"));
+			}
+			
+			change = true;
+		}
+		
+		// model
+		if (model != obj->has_model) {
+			obj->has_model = model;
+			if (model) {
+                ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/open"), obj->modelAddress, NO);
+				ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/help"), obj->modelAddress, NO);
+                ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/reference"), obj->modelAddress, NO);
+                ui_viewer_create(obj, &anObject, NULL, TTSymbol("model/edit"), obj->modelAddress, NO);
+            }
+			else {
+                ui_viewer_destroy(obj, TTSymbol("model/open"));
+				obj->hash_viewers->remove(TTSymbol("model/open"));
+				ui_viewer_destroy(obj, TTSymbol("model/help"));
+				obj->hash_viewers->remove(TTSymbol("model/help"));
+                ui_viewer_destroy(obj, TTSymbol("model/reference"));
+				obj->hash_viewers->remove(TTSymbol("model/reference"));
+                ui_viewer_destroy(obj, TTSymbol("model/edit"));
+				obj->hash_viewers->remove(TTSymbol("model/edit"));
+			}
+			
+			change = true;
+		}
+		
+		if (change)
+			jbox_redraw(&obj->box);
+		
+	}
 }
 
-
-void ui_bypass(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	obj->attr_isbypassed = atom_getlong(argv);
+	t_ui* obj = (t_ui*)self;
+	t_symobject	*item = NULL;
+	
+	// model's message namespace observation
+	if (obj->modelAddress != kTTAdrsEmpty) {
+		
+		// fill item list
+		for (long i=0; i<argc; i++) {
+			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
+			linklist_append(obj->refmenu_items, item);
+		}
+	}
+}
+
+void ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	t_symobject	*item = NULL;
+	
+	// model's message namespace observation
+	if (obj->modelAddress != kTTAdrsEmpty) {
+		
+		// fill item list
+		for (long i=0; i<argc; i++) {
+			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
+			linklist_append(obj->refmenu_items, item);
+		}
+	}
+}
+
+void ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	t_symobject	*item = NULL;
+	
+	// model's message namespace observation
+	if (obj->modelAddress != kTTAdrsEmpty) {
+		
+		// fill item list
+		for (long i=0; i<argc; i++) {
+			item = (t_symobject *)symobject_new(atom_getsym(argv+i));
+			linklist_append(obj->refmenu_items, item);
+		}
+	}
+}
+
+void ui_view_panel_attach(TTPtr self, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_ui* obj = (t_ui*)self;
+	ObjectPtr	box;
+	t_outlet*	myoutlet = NULL;
+	t_dll*		connecteds = NULL;
+	ObjectPtr	o;
+	SymbolPtr	name;
+	TTObjectBasePtr aData;
+	TTValue		v;
+	
+	// search through all connected objects for a patcher object
+	object_obex_lookup(obj, _sym_pound_B, &box);
+	myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 1);
+	if (myoutlet)
+		connecteds = (t_dll*)myoutlet->o_dll;
+	
+	while (connecteds) {
+		o = (t_object*)connecteds->d_x1;
+		name = object_classname(o);
+		if (name == _sym_inlet) {
+			o = ((t_inlet *)connecteds->d_x1)->i_owner;
+			name = object_classname(o);
+			if (name == _sym_jpatcher) {
+				
+				obj->patcher_panel = o;
+				obj->has_panel = true;
+				
+				// view/panel
+				ui_data_create(obj, &aData, gensym("return_view_panel"), kTTSym_message, TTSymbol("panel"));
+				
+				// Set attribute of the data
+				aData->setAttributeValue(kTTSym_type, kTTSym_none);
+				aData->setAttributeValue(kTTSym_tag, kTTSym_generic);
+				aData->setAttributeValue(kTTSym_description, TTSymbol("Open a control panel if one is present."));
+				aData->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
+				
+				jbox_redraw(&obj->box);
+				return;
+			}
+		}
+		o = NULL;
+		name = NULL;
+		connecteds = connecteds->d_next;
+	}
+}
+
+void ui_view_panel_return(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	Atom		a;
+	
+	// open view panel and set title
+	atom_setsym(&a, gensym((char*)obj->viewAddress.c_str()));
+	object_attr_setvalueof(obj->patcher_panel, _sym_title, 1, &a);
+	object_method(obj->patcher_panel, _sym_vis);
+}
+
+void ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	
+	obj->is_metersdefeated = atom_getlong(argv);
 	jbox_redraw(&obj->box);
 }
 
-
-void ui_freeze(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_return_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	obj->attr_isfrozen = atom_getlong(argv);
+	t_ui* obj = (t_ui*)self;
+	
+	obj->is_muted = atom_getlong(argv);
 	jbox_redraw(&obj->box);
 }
 
-
-void ui_preview(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_return_bypass(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	obj->attr_ispreviewing = atom_getlong(argv);
+	t_ui* obj = (t_ui*)self;
+	
+	obj->is_bypassed = atom_getlong(argv);
 	jbox_redraw(&obj->box);
 }
 
-
-void ui_color_contentBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_return_mix(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
+	t_ui* obj = (t_ui*)self;
+	
+	obj->mix = atom_getlong(argv);
+	jbox_redraw(&obj->box);
+}
+
+void ui_return_gain(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	
+	obj->gain = atom_getlong(argv);
+	jbox_redraw(&obj->box);
+}
+
+void ui_return_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	
+	obj->is_frozen = atom_getlong(argv);
+	jbox_redraw(&obj->box);
+}
+
+void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui*			obj = (t_ui*)self;
+	TTAddress outAdrs;
+	TTValue			v;
+	TTNodePtr		aNode;
+	TTValuePtr		newBaton;
+	TTAttributePtr	anAttribute = NULL;
+	TTErr			err;
+	
+	obj->is_previewing = atom_getlong(argv);
+	
+	// get the TTOutput object
+	if (!obj->modelOutput) {
+		outAdrs = obj->modelAddress.appendAddress(TTAddress("out"));
+		
+		JamomaDirectory->getTTNode(outAdrs, &aNode);
+		obj->modelOutput = (TTOutputPtr)aNode->getObject();
+	}
+	
+	if (obj->modelOutput->valid) {
+		
+		err = obj->modelOutput->findAttribute(TTSymbol("signal"), &anAttribute);
+		if (!err) {
+			
+			if (obj->is_previewing) {
+				
+				// reset preview signal
+				if (obj->previewSignal) {
+					anAttribute->unregisterObserverForNotifications(*(obj->previewSignal));
+					TTObjectBaseRelease(TTObjectBaseHandle(&obj->previewSignal));
+					obj->previewSignal = NULL;
+				}
+				
+				TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&obj->previewSignal), kTTValNONE);
+				
+				newBaton = new TTValue(TTPtr(self));
+				obj->previewSignal->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+				obj->previewSignal->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_signal));
+				obj->previewSignal->setAttributeValue(TTSymbol("owner"), TTSymbol("jcom.ui"));					// this is usefull only to debug
+				
+				anAttribute->registerObserverForNotifications(*(obj->previewSignal));
+			}
+			else {
+				
+				if (obj->previewSignal) {
+					anAttribute->unregisterObserverForNotifications(*(obj->previewSignal));
+					TTObjectBaseRelease(TTObjectBaseHandle(&obj->previewSignal));
+					obj->previewSignal = NULL;
+				}
+			}
+		}
+	}
+	
+	jbox_redraw(&obj->box);
+}
+
+void ui_return_ui_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	t_rect* rect;
+	
+	rect = (t_rect*)malloc(sizeof(t_rect));
+	rect->x = 0;
+	rect->y = 0;
+	rect->width = atom_getlong(argv);
+	rect->height = atom_getlong(argv+1);
+
+	object_attr_set_rect((t_object*)obj, _sym_presentation_rect, rect);
+	
+	jbox_redraw(&obj->box);
+	free(rect);
+}
+
+void ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	
+	// TODO : refresh all jcom.remote of the view patch
+	// 1. Get the TTContainer object of the view patch
+	// 2. use his send message : /*.*:refresh
+	
+	// refresh all widgets
+	// gain
+	if (obj->has_gain)
+		ui_viewer_refresh(obj, TTSymbol("gain"));
+	
+	// mix
+	if (obj->has_mix)
+		ui_viewer_refresh(obj, TTSymbol("mix"));
+	
+	// bypass
+	if (obj->has_bypass)
+		ui_viewer_refresh(obj, TTSymbol("bypass"));
+	
+	// freeze
+	if (obj->has_freeze)
+		ui_viewer_refresh(obj, TTSymbol("freeze"));
+	
+	// preview
+	if (obj->has_preview)
+		ui_viewer_refresh(obj, TTSymbol("preview"));
+	
+	// mute
+	if (obj->has_mute) 
+		ui_viewer_refresh(obj, TTSymbol("mute"));
+}
+
+void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	
+	if (argc == 1)
+		object_attr_setvalueof(obj, gensym("ui_is_frozen"), argc, argv);
+	
+	// TODO : Freeze all jcom.remote of the view patch
+	// 1. Get the TTContainer object of the view patch
+	// 2. use his send message : /*.*:freeze 0/1
+	
+	// freeze all widgets
+	// gain
+	if (obj->has_gain)
+		ui_viewer_freeze(obj, TTSymbol("gain"), obj->ui_freeze);
+	
+	// mix
+	if (obj->has_mix)
+		ui_viewer_freeze(obj, TTSymbol("mix"), obj->ui_freeze);
+	
+	// bypass
+	if (obj->has_bypass)
+		ui_viewer_freeze(obj, TTSymbol("bypass"), obj->ui_freeze);
+	
+	// freeze
+	if (obj->has_freeze)
+		ui_viewer_freeze(obj, TTSymbol("freeze"), obj->ui_freeze);
+	
+	// preview
+	if (obj->has_preview)
+		ui_viewer_freeze(obj, TTSymbol("preview"), obj->ui_freeze);
+	
+	// mute
+	if (obj->has_mute) 
+		ui_viewer_freeze(obj, TTSymbol("mute"), obj->ui_freeze);
+	
+	// if freeze is disabled : refresh
+	if (!obj->ui_freeze)
+		ui_return_ui_refresh(self, _sym_nothing, argc, argv);
+}
+
+void ui_return_color_contentBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	
 	// Colors default to "0". If default value is passed, we avoid setting the color, in order to stick to object defaults.
 	if (argc>1)
 		object_attr_setvalueof(obj, _sym_bgcolor, argc, argv);
 }
 
-
-void ui_color_toolbarBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_return_color_toolbarBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
+	t_ui* obj = (t_ui*)self;
+	
 	if (argc>1)
 		object_attr_setvalueof(obj, gensym("headercolor"), argc, argv);
 }
 
-
-void ui_color_toolbarText(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_return_color_toolbarText(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
+	t_ui* obj = (t_ui*)self;
+	
 	if (argc>1)
 		object_attr_setvalueof(obj, _sym_textcolor, argc, argv);
 }
 
-
-void ui_color_border(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	if (argc>1)
+	t_ui* obj = (t_ui*)self;
+	
+	if (argc>1) {
 		object_attr_setvalueof(obj, gensym("bordercolor"), argc, argv);
+		obj->memo_bordercolor = obj->bordercolor;
+	}
 }
 
-
-void ui_color_highlight(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+void ui_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	if (argc && argv)
-		object_attr_setvalueof(obj, gensym("highlightcolor"), argc, argv);
+	t_ui* obj = (t_ui*)self; 
+	
+	object_attr_setvalueof(obj, gensym("address"), argc, argv);
 }
 
-
-
-
-#if 0
-#pragma mark -
-#pragma mark attr accessors
-#endif
-
-
-t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
+void ui_return_model_init(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-	char				name[256];
+	t_ui* obj = (t_ui*)self;
+	long		init = atom_getlong(argv);
+	TTValue		v;
 	
-	if (argc && argv)
-		obj->attrPrefix = atom_getsym(argv);
-	else
-		obj->attrPrefix = _sym_nothing;
-	
-	err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
-	if (!err) {
-		name[0] = 0;
-		if (obj->attrPrefix!=gensym(""))
-		{
-			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
-				strncpy_zero(name, obj->attrPrefix->s_name, 256);
-			strncat_zero(name, "/mute", 256);
-		}
-		else
-			strncat_zero(name, "mute", 256);		
-		anObject->setName(name);
-	}
-	
-	err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
-	if (!err) {
-		name[0] = 0;
-		if (obj->attrPrefix!=gensym("")) 
-		{
-			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
-				strncpy_zero(name, obj->attrPrefix->s_name, 256);
-			strncat_zero(name, "/bypass", 256);
-		}
-		else
-			strncat_zero(name, "bypass", 256);
-		anObject->setName(name);
-	}
-	
-	err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
-	if (!err) {
-		name[0] = 0;
-		if (obj->attrPrefix!=gensym(""))
-		{
-			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
-				strncpy_zero(name, obj->attrPrefix->s_name, 256);
-			strncat_zero(name, "/mix", 256);
-		}
-		else
-			strncat_zero(name, "mix", 256);
-		anObject->setName(name);
-	}
-	
-	err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-	if (!err) {
-		name[0] = 0;
-		if (obj->attrPrefix!=gensym(""))
-		{
-			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
-				strncpy_zero(name, obj->attrPrefix->s_name, 256);
-			strncat_zero(name, "/gain", 256);
-		}
-		else
-			strncat_zero(name, "gain", 256);
-		anObject->setName(name);
-	}
-	
-	err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
-	if (!err) {
-		name[0] = 0;
-		if (obj->attrPrefix!=gensym(""))
-		{
-			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
-				strncpy_zero(name, obj->attrPrefix->s_name, 256);
-			strncat_zero(name, "/freeze", 256);
-		}
-		else
-			strncat_zero(name, "freeze", 256);
-		anObject->setName(name);
-	}
-	
-	err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
-	if (!err) {
-		name[0] = 0;
-		if (obj->attrPrefix!=gensym(""))
-		{
-			if (obj->attrPrefix && obj->attrPrefix->s_name[0])
-				strncpy_zero(name, obj->attrPrefix->s_name, 256);
-			strncat_zero(name, "/preview", 256);
-		}
-		else
-			strncat_zero(name, "preview", 256);
-		anObject->setName(name);
-	}
-	
-	return MAX_ERR_NONE;
-}
-
-
-t_max_err attr_set_highlightcolor(t_ui *x, void *attr, long ac, t_atom *av)
-{
-	uiInternalObject	*anObject	= NULL;
-	t_max_err			err			= MAX_ERR_NONE;
-	
-	if (ac && av) {
+	if (init) {
 		
-		t_symbol *color = atom_getsym(av);
+		// observe the namespace of the model
+		// by this way, the creation of any widgets depends on the existence of the data	
+		obj->modelExplorer->setAttributeValue(kTTSym_address, obj->modelAddress);
+		obj->modelExplorer->sendMessage(TTSymbol("Explore"));
+	}
+}
+
+void ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	t_ui* obj = (t_ui*)self;
+	
+	if (argc && argv) {
 		
-		if (x->highlightcolor != color) // This test prevents a feedback loop as we try to keep object attribute and jcom.parameter synced
-		{
-			if (color == gensym("none")) {
-				x->highlightcolor = color;
-				TTLogMessage("none\n");
-			}
-			else if (color == gensym("red")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 1., 0., 0., 1.);
-				TTLogMessage("red\n");
-			}
-			else if (color == gensym("orange")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 1., 0.5, 0., 1.);
-				TTLogMessage("orange\n");
-			}
-			else if (color == gensym("yellow")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 1., 1., 0., 1.);
-				TTLogMessage("yellow\n");
-			}
-			else if (color == gensym("chartreuseGreen")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 0.5, 1., 0., 1.);
-				TTLogMessage("chartreuseGreen\n");
-			}
-			else if (color == gensym("green")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 0., 1., 0., 1.);
-				TTLogMessage("green\n");
-			}
-			else if (color == gensym("springGreen")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 0., 1., 0.5, 1.);
-				TTLogMessage("springGreen\n");
-			}
-			else if (color == gensym("cyan")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 0., 1., 1., 1.);
-				TTLogMessage("cyan\n");
-			}
-			else if (color == gensym("azure")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 0., 0.5, 1., 1.);
-				TTLogMessage("azure\n");
-			}
-			else if (color == gensym("blue")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 0., 0., 1., 1.);
-				TTLogMessage("blue\n");
-			}
-			else if (color == gensym("violet")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 0.5, 0., 1., 1.);
-				TTLogMessage("violet\n");
-			}
-			else if (color == gensym("magenta")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 1., 0., 1., 1.);
-				TTLogMessage("magenta\n");
-			}
-			else if (color == gensym("rose")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 1., 0., 0.5, 1.);
-				TTLogMessage("rose\n");
-			}
-			else if (color == gensym("black")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 0., 0., 0., 1.);
-				TTLogMessage("black\n");
-			}
-			else if (color == gensym("white")) {
-				x->highlightcolor = color;
-				jrgba_set(&x->highlightcolorRGB, 1., 1., 1., 1.);
-				TTLogMessage("white\n");
-			}
-			else {
-				TTLogWarning("jcom.ui - unknown color used for module highlighting.\n");
-				return err;
-			}
-			
-			// If highlight color was set using the inspector or a message to jcom.ui, we need to update the jcom.parameter
-			err = hashtab_lookup(x->hash_internals, gensym("view/highlight"), (t_object**)&anObject);
-			if (!err)
-				object_method_typed(anObject->theObject, x->highlightcolor, NULL, NULL, NULL);
-		}
+		if (msg == _sym_nothing)
+			outlet_atoms(obj->outlets[preview_out], argc, argv);
+		else
+			outlet_anything(obj->outlets[preview_out], msg, argc, argv);
 	}
-	else
-		TTLogWarning("jcom.ui - Missing argument when attempting to set highlight color.");
-	
-	return err;
-}
-
-
-t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-	float				range[2];
-	
-	obj->attr_hasgain = atom_getlong(argv);
-	
-	if (obj->attr_hasgain) {
-		range[0] = 0.0;
-		range[1] = 127.0;
-		anObject = new uiInternalObject("jcom.parameter", "gain", obj->box.b_patcher, "decimal", "scheduler", "Set gain (as MIDI value by default).", NULL, range, "gain", "midi", NULL);
-		anObject->setAction((method)ui_gain, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("gain"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("gain"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_gain(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	float				value = atom_getfloat(argv);
-	t_max_err			err = MAX_ERR_NONE;
-	
-	if (obj->attr_gain != value) {
-		obj->attr_gain = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_float, obj->attr_gain);
-	}
-	return err;
-}
-
-
-t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-	float				range[2];
-	
-	obj->attr_hasmix = atom_getlong(argv);
-	
-	if (obj->attr_hasmix) {
-		range[0] = 0.0;
-		range[1] = 100.0;
-		anObject = new uiInternalObject("jcom.parameter", "mix", obj->box.b_patcher, "decimal", "scheduler", "Controls the wet/dry mix of the module's processing routine in percent.", NULL, range, NULL, NULL, NULL);
-		anObject->setAction((method)ui_mix, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("mix"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("mix"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_mix(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	float				value = atom_getfloat(argv);
-	t_max_err			err = MAX_ERR_NONE;
-	
-	if (obj->attr_mix != value) {
-		obj->attr_mix = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_float, obj->attr_mix);
-	}
-	return err;
-}
-
-
-t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-
-	obj->attr_hasmute = atom_getlong(argv);
-	
-	if (obj->attr_hasmute) {
-		anObject = new uiInternalObject("jcom.parameter", "mute", obj->box.b_patcher, "boolean", "none", "When active, this attribute turns off the module's processing algorithm to save CPU", NULL, NULL, NULL, NULL, NULL);
-		anObject->setAction((method)ui_mute, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("mute"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("mute"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_mute(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	long				value = atom_getlong(argv);
-	t_max_err			err = MAX_ERR_NONE;
-	
-	if (obj->attr_ismuted != value) {
-		obj->attr_ismuted = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_int, obj->attr_ismuted);
-	}
-	return err;
-}
-
-
-t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-
-	obj->attr_hasbypass = atom_getlong(argv);
-	
-	if (obj->attr_hasbypass) {
-		anObject = new uiInternalObject("jcom.parameter", "bypass", obj->box.b_patcher, "boolean", "none", "When active, this attribute bypasses the module's processing algorithm, letting audio or video pass through unaffected", NULL, NULL, NULL, NULL, NULL);
-		anObject->setAction((method)ui_bypass, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("bypass"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("bypass"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_bypass(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	long				value = atom_getlong(argv);
-	t_max_err			err = MAX_ERR_NONE;
-	
-	if (obj->attr_isbypassed != value) {
-		obj->attr_isbypassed = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_int, obj->attr_isbypassed);
-	}
-	return err;
-}
-
-
-t_max_err attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-
-	obj->attr_hasfreeze = atom_getlong(argv);
-	
-	if (obj->attr_hasfreeze) {
-		anObject = new uiInternalObject("jcom.parameter", "freeze", obj->box.b_patcher, "boolean", "none", "Freezes the last frame of output from the module's processing algorithm.", NULL, NULL, NULL, NULL, NULL);
-		anObject->setAction((method)ui_freeze, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("freeze"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("freeze"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_freeze(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	long				value = atom_getlong(argv);
-	t_max_err			err = MAX_ERR_NONE;
-	
-	if (obj->attr_isfrozen != value) {
-		obj->attr_isfrozen = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_int, obj->attr_isfrozen);
-	}
-	return err;
-}
-
-
-t_max_err attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-
-	obj->attr_haspreview = atom_getlong(argv);
-	
-	if (obj->attr_haspreview) {
-		anObject = new uiInternalObject("jcom.parameter", "preview", obj->box.b_patcher, "boolean", "none", "Turns on/off the video display in the module's preview window.", NULL, NULL, NULL, NULL, NULL);
-		anObject->setAction((method)ui_preview, (t_object*)obj);
-		hashtab_store(obj->hash_internals, gensym("preview"), (t_object*)anObject);
-		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("preview"));
-			delete anObject;
-		}
-	}
-	return err;
-}
-
-
-t_max_err attr_set_preview(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject = NULL;
-	long				value = atom_getlong(argv);
-	t_max_err			err = MAX_ERR_NONE;
-	
-	if (obj->attr_ispreviewing != value) {
-		obj->attr_ispreviewing = value;
-		err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
-		if (!err)
-			object_method(anObject->theObject, _sym_int, obj->attr_ispreviewing);
-	}
-	return err;
-}
-
-
-t_max_err attr_set_hasinspector(t_ui *obj, void *attr, long argc, t_atom *argv)
-{
-	uiInternalObject	*anObject;
-	t_max_err			err = MAX_ERR_NONE;
-	
-	obj->attr_hasinspector = atom_getlong(argv);
-	
-	
-	if (obj->attr_hasinspector) {
-		anObject = new uiInternalObject("jcom.message", 	"view/panel",	obj->box.b_patcher,	"none",		"none",	"Open an a module's control panel (inspector) if one is present.", NULL, NULL, NULL, NULL, NULL);
-		hashtab_store(obj->hash_internals, gensym("panel/open"), (t_object*)anObject);	
-	}
-	else {
-		err = hashtab_lookup(obj->hash_internals, gensym("panel/open"), (t_object**)&anObject);
-		if (!err) {
-			hashtab_chuckkey(obj->hash_internals, gensym("panel/open"));
-			delete anObject;
-		}
-	}
-	return err;
 }

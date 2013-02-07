@@ -319,7 +319,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 0.0, 140.0, 261.0, 19.0 ],
-					"text" : "jcom.hub @description \"a module for jcom.info≈\"",
+					"text" : "jcom.model @description \"a module for jcom.info≈\"",
 					"varname" : "jalg.hub"
 				}
 

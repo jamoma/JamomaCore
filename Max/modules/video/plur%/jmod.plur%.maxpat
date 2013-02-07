@@ -807,8 +807,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 18.0, 172.0, 240.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"peace - love - unity - rave\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"peace - love - unity - rave\"",
+					"varname" : "jcom.model"
 				}
 
 			}

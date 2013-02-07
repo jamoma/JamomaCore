@@ -308,8 +308,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 0.0, 128.0, 288.0, 43.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Blur the image using the jit.fastblur algorithm.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Blur the image using the jit.fastblur algorithm.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

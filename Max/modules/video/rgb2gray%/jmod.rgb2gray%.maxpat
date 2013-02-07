@@ -181,7 +181,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 95.0, 220.0, 174.0, 31.0 ],
-					"text" : "jcom.hub @description \"Change rgb to grayscale image.\""
+					"text" : "jcom.model @description \"Change rgb to grayscale image.\""
 				}
 
 			}

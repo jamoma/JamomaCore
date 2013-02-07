@@ -616,7 +616,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 220.0, 332.0, 19.0 ],
-					"text" : "jcom.hub @description \"Slab-based rotation and repositioning.\"",
+					"text" : "jcom.model @description \"Slab-based rotation and repositioning.\"",
 					"varname" : "jmod.hub"
 				}
 

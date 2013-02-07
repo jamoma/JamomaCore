@@ -9,7 +9,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "Jamoma.h"
 #include "AsyncRamp.h"
 
 #define thisTTClass			AsyncRamp
@@ -17,8 +16,7 @@
 #define thisTTClassTags		"modular, max, rampunit"
 
 
-TT_RAMPUNIT_CONSTRUCTOR,
-	active(0)
+TT_RAMPUNIT_CONSTRUCTOR
 {
 	;
 }
@@ -39,18 +37,18 @@ void AsyncRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time)
 	targetTime	= startTime + time;
 
 	setNumValues(inNumValues);
-	for (i=0; i<numValues; i++) {
+	for (i = 0; i < numValues; i++) {
 		targetValue[i] = inValues[i];
 		startValue[i] = currentValue[i];
 	}
 	normalizedValue = 0.0;	// set the ramp to the beginning
-	active = 1;		
+	mIsRunning = YES;		
 }
 
 
 void AsyncRamp::stop()
 {
-	active = 0;
+	mIsRunning = NO;
 }
 
 
@@ -64,18 +62,18 @@ void AsyncRamp::tick()
 	double			*start = startValue;
 	float			ratio;
 	
-	if (active && functionUnit) {
+	if (mIsRunning && functionUnit) {
 		
 		// This approach at the end of the ramp caters for regular functions as well as windows
 		if (currentTime > targetTime) {
-			active = 0;
+			mIsRunning = NO;
 			ratio = 1.;
 		}
 		else
 			ratio = (currentTime - startTime) / (float)ramptime;
 		
 		functionUnit->calculate(ratio, mapped);
-		for (i=0; i < numValues; i++)
+		for (i = 0; i < numValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		(callback)(baton, numValues, currentValue);		// send the value to the host
 	}

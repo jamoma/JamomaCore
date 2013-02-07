@@ -362,8 +362,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 0.0, 140.0, 436.0, 19.0 ],
-					"text" : "jcom.hub @description \"Free-field amplitude roll-of with distance.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Free-field amplitude roll-of with distance.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

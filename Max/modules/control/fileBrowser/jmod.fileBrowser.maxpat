@@ -1034,8 +1034,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 18.0, 131.0, 249.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"Browsing and selecting files\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Browsing and selecting files\"",
+					"varname" : "jcom.model"
 				}
 
 			}

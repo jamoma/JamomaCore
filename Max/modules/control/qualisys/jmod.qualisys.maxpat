@@ -1056,7 +1056,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 11.0, 117.0, 258.0, 48.0 ],
-					"text" : "jcom.hub @module_type control @description \"Module for receiving OSC data from the Qualisys motion capture system\""
+					"text" : "jcom.model @type control @description \"Module for receiving OSC data from the Qualisys motion capture system\""
 				}
 
 			}

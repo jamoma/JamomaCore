@@ -260,8 +260,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 14.0, 211.0, 234.0, 19.0 ],
-					"text" : "jcom.hub @description \"Slit scanning effect\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Slit scanning effect\"",
+					"varname" : "jcom.model"
 				}
 
 			}

@@ -681,8 +681,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ -2.0, 196.0, 320.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Read QT movie film.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Read QT movie film.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

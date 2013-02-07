@@ -284,7 +284,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 25.0, 165.0, 233.0, 19.0 ],
-					"text" : "jcom.hub @description \"Ambiphonics RACE\"",
+					"text" : "jcom.model @description \"Ambiphonics RACE\"",
 					"varname" : "jmod.hub"
 				}
 
@@ -734,7 +734,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

@@ -1122,8 +1122,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 116.0, 295.0, 18.0 ],
-					"text" : "jcom.hub @description \"Output information from mouse\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Output information from mouse\"",
+					"varname" : "jcom.model"
 				}
 
 			}

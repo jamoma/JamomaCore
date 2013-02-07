@@ -1366,8 +1366,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 14.0, 210.0, 421.0, 19.0 ],
-					"text" : "jcom.hub @module_type audio @description \"This module doesn't do much yet\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"This module doesn't do much yet\"",
+					"varname" : "jcom.model"
 				}
 
 			}

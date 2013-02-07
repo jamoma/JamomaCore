@@ -317,8 +317,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 1.0, 149.0, 173.0, 54.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Output to an OpenGL window\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Output to an OpenGL window\"",
+					"varname" : "jcom.model"
 				}
 
 			}

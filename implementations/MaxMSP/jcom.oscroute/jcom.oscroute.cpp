@@ -231,12 +231,15 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 	// Otherwise match the stored string(s) and output...
 	strcpy(input, msg->s_name);
 
+	/*	to -- the introduction of relative address feature
+		in modular0.6 make this test useless
+	 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
-	
 	if (input[0] != '/') {
 		outlet_anything(x->outlet_overflow, msg, argc , argv);
 		return;
 	}
+	 */
 	
 	char *wc, *c;
 	bool overFlow = true;
@@ -247,7 +250,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 			if (strlen(msg->s_name) > x->arglen[pos]) {
 				// ...it is only a match if it continues with a slash
 				if (input[x->arglen[pos]] == '/') {
-					output = gensym(msg->s_name + x->arglen[pos]);
+					output = gensym(msg->s_name + x->arglen[pos] +1);		// 0.6 changes : +1 to remove don't have a leading slash and output a relative adddress 
 					outlet_anything(x->outlets[pos], output, argc , argv);
 					overFlow = false;
 					break;
@@ -281,6 +284,10 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 						outlet_anything(x->outlets[pos],argv->a_w.w_sym,0,0);
 						break;
 					}				
+					else { // something completely different: copy to output as list
+						outlet_anything(x->outlets[pos], _sym_list, 1, argv);
+						break;
+					}
 				}		
 				// There are two or more arguments: check if first is A_SYM	
 				else {

@@ -19481,8 +19481,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 17.0, 139.0, 235.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"One-to-one Mapper\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"One-to-one Mapper\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -20506,7 +20506,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

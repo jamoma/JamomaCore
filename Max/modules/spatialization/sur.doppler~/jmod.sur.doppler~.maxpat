@@ -323,8 +323,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 30.0, 160.0, 361.0, 19.0 ],
-					"text" : "jcom.hub @description \"Add doppler shift for up to 32 mono signals.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Add doppler shift for up to 32 mono signals.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

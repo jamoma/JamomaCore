@@ -8,7 +8,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "Jamoma.h"
 #include "QueueRamp.h"
 
 #define thisTTClass			QueueRamp
@@ -23,8 +22,7 @@ void queueramp_qfn(QueueRamp *x)
 }
 
 
-TT_RAMPUNIT_CONSTRUCTOR,
-	active(0)
+TT_RAMPUNIT_CONSTRUCTOR
 {
 	qelem = qelem_new(this, (method)queueramp_qfn);	// install the queue element
 }
@@ -46,19 +44,19 @@ void QueueRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time)
 	targetTime	= startTime + time;
 
 	setNumValues(inNumValues);
-	for (i=0; i<numValues; i++) {
+	for (i = 0; i < numValues; i++) {
 		targetValue[i] = inValues[i];
 		startValue[i] = currentValue[i];
 	}
 	normalizedValue = 0.0;	// set the ramp to the beginning
-	active = 1;
+	mIsRunning = YES;
 	qelem_set(qelem);		// Start the ramp!
 }
 
 
 void QueueRamp::stop()
 {
-	active = 0;
+	mIsRunning = NO;
 	qelem_unset(qelem);
 }
 
@@ -73,11 +71,11 @@ void QueueRamp::tick()
 	double			*start = startValue;
 	float			ratio;
 	
-	if (active && functionUnit) {
+	if (mIsRunning && functionUnit) {
 		
 		// Ensure that we get right value at end of ramp. This approach caters for regular functions as well as window functions.
 		if (currentTime > targetTime) {
-			active = 0;
+			mIsRunning = NO;
 			ratio = 1.;
 		}
 		else {
@@ -86,7 +84,7 @@ void QueueRamp::tick()
 		}
 		functionUnit->calculate(ratio, mapped);
 		
-		for (i=0; i < numValues; i++)
+		for (i = 0; i < numValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 		
 		(callback)(baton, numValues, currentValue);		// send the value to the host

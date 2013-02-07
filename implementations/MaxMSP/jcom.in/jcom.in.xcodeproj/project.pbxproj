@@ -8,24 +8,18 @@
 
 /* Begin PBXFileReference section */
 		A72D874415188F5D001DA7C1 /* jcom.in.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.in.cpp; sourceTree = "<group>"; };
-		A72D874515188F5D001DA7C1 /* jcom.in.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.in.h; sourceTree = "<group>"; };
+		D240435B15ADE0F500D5CCD5 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
+		D240435C15ADE0F500D5CCD5 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		A72D873215188DFD001DA7C1 = {
 			isa = PBXGroup;
 			children = (
-				A72D874315188F49001DA7C1 /* Sources */,
-			);
-			sourceTree = "<group>";
-		};
-		A72D874315188F49001DA7C1 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
 				A72D874415188F5D001DA7C1 /* jcom.in.cpp */,
-				A72D874515188F5D001DA7C1 /* jcom.in.h */,
+				D240435C15ADE0F500D5CCD5 /* TTModularClassWrapperMax.h */,
+				D240435B15ADE0F500D5CCD5 /* TTModularClassWrapperMax.cpp */,
 			);
-			name = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -51,7 +45,7 @@
 		A72D873415188DFD001DA7C1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
 			buildConfigurationList = A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.in" */;
@@ -120,6 +114,7 @@
 		A72D873D15188DFF001DA7C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -132,6 +127,7 @@
 		A72D873E15188DFF001DA7C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = jcom.in;

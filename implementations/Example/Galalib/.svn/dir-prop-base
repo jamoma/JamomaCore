@@ -1,0 +1,12 @@
+K 10
+svn:ignore
+V 77
+.
+Debug
+build
+*.suo
+*.ncb
+*.vcproj.MOBIPC28-TOUCH.Laurent Garnier.user
+*.dll
+
+END

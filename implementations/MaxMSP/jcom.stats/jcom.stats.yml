@@ -6,19 +6,20 @@ sources:
 includes:
   - ../../../../../Core/Foundation/library/includes
   - ../../../../Modular/library/includes
+  - ../../../../Modular/library/PeerObject
+  - ../../../../Modular/library/ModularForMax
   - ../../../../Modular/library/FunctionLib
   - ../../../../Modular/library/RampLib
+  - ../../../../Modular/library/ProtocolLib
   - ../../../../../Core/DSP/library/includes
   - ../../../../../Core/Shared/max  
-  - ../../../../Support/objectivemax/MaxObject
+  - ../../../../../Core/Shared/objectivemax/MaxObject
   - "../../../../../Core/Shared/max/c74support/max-includes"
   - "../../../../../Core/Shared/max/c74support/msp-includes"
 
 libraries:
   - FOUNDATION
   - MODULAR  
-  - C74-MAX
-  - C74-JITTER
+  - C74
   
 prefix: ../../../../../Core/Shared/max/c74support/max-includes/macho-prefix.pch
-arch: "i386"

@@ -2031,8 +2031,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 10.0, 140.0, 583.0, 31.0 ],
-					"text" : "jcom.hub @description \"Adjust delay of the loudspeakers to adjust for varying distances. Delay can either be provided as a time delay or will be calculated from loudspeaker positions automatically.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Adjust delay of the loudspeakers to adjust for varying distances. Delay can either be provided as a time delay or will be calculated from loudspeaker positions automatically.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

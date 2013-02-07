@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 0,
-			"revision" : 5
+			"revision" : 8
 		}
 ,
 		"rect" : [ 0.0, 44.0, 1067.0, 689.0 ],
@@ -45,10 +45,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-14",
+					"linecount" : 2,
 					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 195.0, 325.0, 329.0, 19.0 ],
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 195.0, 325.0, 222.0, 31.0 ],
 					"text" : "jcom.test.assert.equal.old \"TEST Modular allExternalsLoadingProperly\" 1"
 				}
 
@@ -188,6 +190,7 @@
 					"outlettype" : [ "", "", "", "", "" ],
 					"patching_rect" : [ 245.0, 215.0, 104.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"filename" : "patchdescribe.js",
 						"parameter_enable" : 0
 					}
 ,
@@ -213,10 +216,10 @@
 					"id" : "obj-45",
 					"maxclass" : "jcom.ui",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 730.0, 380.0, 300.0, 70.0 ],
-					"text" : "/Jamoma"
+					"text" : "waiting for a model/address"
 				}
 
 			}
@@ -252,7 +255,7 @@
 					"fontsize" : 10.0,
 					"id" : "obj-42",
 					"maxclass" : "newobj",
-					"numinlets" : 2,
+					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 730.0, 305.0, 100.0, 19.0 ],
@@ -309,10 +312,10 @@
 					"id" : "obj-38",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 730.0, 205.0, 100.0, 19.0 ],
-					"text" : "jcom.return"
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 730.0, 205.0, 125.0, 19.0 ],
+					"text" : "jcom.return returnThis"
 				}
 
 			}
@@ -323,10 +326,10 @@
 					"id" : "obj-37",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 730.0, 180.0, 100.0, 19.0 ],
-					"text" : "jcom.remote"
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 730.0, 180.0, 151.0, 19.0 ],
+					"text" : "jcom.remote parameterThis"
 				}
 
 			}
@@ -338,7 +341,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
-					"outlettype" : [ "signal", "signal", "" ],
+					"outlettype" : [ "signal", "", "" ],
 					"patching_rect" : [ 730.0, 155.0, 100.0, 19.0 ],
 					"text" : "jcom.receive~"
 				}
@@ -351,8 +354,8 @@
 					"id" : "obj-35",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 730.0, 130.0, 100.0, 19.0 ],
 					"text" : "jcom.receive"
 				}
@@ -389,7 +392,7 @@
 , 			{
 				"box" : 				{
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"description" : "\"This parameter should do something.\"",
+					"description" : "\"\\\"\\\\\\\"This parameter should do something.\\\\\\\"\\\"\"",
 					"id" : "obj-31",
 					"maxclass" : "jcom.paramui",
 					"numinlets" : 1,
@@ -398,7 +401,8 @@
 					"patching_rect" : [ 530.0, 550.0, 144.0, 15.0 ],
 					"ramp/function" : "none",
 					"text" : "my/parameter",
-					"textcolor" : [ 0.65, 0.65, 0.65, 1.0 ]
+					"textcolor" : [ 0.65, 0.65, 0.65, 1.0 ],
+					"value/default" : [ -1 ]
 				}
 
 			}
@@ -409,10 +413,10 @@
 					"id" : "obj-30",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 530.0, 525.0, 100.0, 19.0 ],
-					"text" : "jcom.parameter"
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 530.0, 525.0, 167.0, 19.0 ],
+					"text" : "jcom.parameter parameterThis"
 				}
 
 			}
@@ -425,8 +429,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 530.0, 500.0, 100.0, 19.0 ],
-					"text" : "jcom.out~"
+					"patching_rect" : [ 530.0, 500.0, 73.0, 19.0 ],
+					"text" : "jcom.out~ 2"
 				}
 
 			}
@@ -439,8 +443,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 530.0, 475.0, 100.0, 19.0 ],
-					"text" : "jcom.out"
+					"patching_rect" : [ 530.0, 475.0, 65.0, 19.0 ],
+					"text" : "jcom.out 1"
 				}
 
 			}
@@ -490,10 +494,10 @@
 					"id" : "obj-22",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 530.0, 380.0, 100.0, 19.0 ],
-					"text" : "jcom.message"
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 530.0, 380.0, 150.0, 19.0 ],
+					"text" : "jcom.message messageThis"
 				}
 
 			}
@@ -532,9 +536,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 530.0, 280.0, 100.0, 19.0 ],
-					"text" : "jcom.in~"
+					"outlettype" : [ "signal", "" ],
+					"patching_rect" : [ 530.0, 280.0, 66.0, 19.0 ],
+					"text" : "jcom.in~ 2"
 				}
 
 			}
@@ -561,8 +565,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 530.0, 255.0, 100.0, 19.0 ],
-					"text" : "jcom.in"
+					"patching_rect" : [ 530.0, 255.0, 58.0, 19.0 ],
+					"text" : "jcom.in 1"
 				}
 
 			}
@@ -659,8 +663,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 530.0, 80.0, 107.0, 19.0 ],
-					"text" : "jcom.cuemanager"
+					"patching_rect" : [ 530.0, 80.0, 56.0, 19.0 ],
+					"text" : "jcom.cue"
 				}
 
 			}
@@ -791,8 +795,22 @@
 		"dependency_cache" : [ 			{
 				"name" : "patchdescribe.js",
 				"bootpath" : "/Applications/Max6/examples/javascript/patcher-scripting",
-				"patcherrelativepath" : "../../../../../../../../Applications/Max6/examples/javascript/patcher-scripting",
+				"patcherrelativepath" : "../../../../../../../../../Applications/Max6/examples/javascript/patcher-scripting",
 				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.finished.maxpat",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.finished",
+				"patcherrelativepath" : "../../../../Test/components/test.finished",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jcom.test.assert.equal.old.maxpat",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.assert.equal.old",
+				"patcherrelativepath" : "../../../../Test/components/test.assert.equal.old",
+				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
@@ -800,7 +818,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.cuemanager.mxo",
+				"name" : "jcom.cue.mxo",
 				"type" : "iLaX"
 			}
 , 			{
@@ -888,11 +906,11 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.loader.mxo",
+				"name" : "jcom.receive.mxo",
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.loader.mxo",
+				"name" : "jcom.receive~.mxo",
 				"type" : "iLaX"
 			}
 , 			{
@@ -912,11 +930,11 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.loader.mxo",
+				"name" : "jcom.send.mxo",
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.loader.mxo",
+				"name" : "jcom.send~.mxo",
 				"type" : "iLaX"
 			}
 , 			{

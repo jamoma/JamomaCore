@@ -654,7 +654,8 @@
 								}
 
 							}
- ]
+ ],
+						"dependency_cache" : [  ]
 					}
 ,
 					"patching_rect" : [ 497.818176, 323.272736, 111.0, 19.0 ],
@@ -952,7 +953,8 @@
 								}
 
 							}
- ]
+ ],
+						"dependency_cache" : [  ]
 					}
 ,
 					"patching_rect" : [ 473.545441, 443.545441, 136.0, 19.0 ],
@@ -1119,8 +1121,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 19.0, 600.0, 308.0, 19.0 ],
-					"text" : "jcom.hub @description \"Stereo echo module.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Stereo echo module.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

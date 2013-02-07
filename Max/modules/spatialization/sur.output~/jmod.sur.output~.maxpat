@@ -3936,8 +3936,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 150.0, 323.0, 31.0 ],
-					"text" : "jcom.hub @description \"Send multicable signal to multiple dac~ channels. Includes  limiter and recording device\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Send multicable signal to multiple dac~ channels. Includes  limiter and recording device\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -4399,7 +4399,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

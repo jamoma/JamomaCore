@@ -222,7 +222,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 20.0, 165.0, 251.0, 31.0 ],
-					"text" : "jcom.hub @description \"Display waveform of real-time multi-channel signal as jitter matrix.\""
+					"text" : "jcom.model @description \"Display waveform of real-time multi-channel signal as jitter matrix.\""
 				}
 
 			}

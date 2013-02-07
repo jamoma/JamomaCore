@@ -425,8 +425,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 20.0, 150.0, 426.0, 19.0 ],
-					"text" : "jcom.hub @description \"Describe position of instances as sets of xyz coordinates.\"",
-					"varname" : "jcom.hub[1]"
+					"text" : "jcom.model @description \"Describe position of instances as sets of xyz coordinates.\"",
+					"varname" : "jcom.model[1]"
 				}
 
 			}
@@ -3069,7 +3069,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

@@ -7,155 +7,219 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A734367914A9295400C41E3F /* FunctionLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
-		A734367A14A9295400C41E3F /* FunctionLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionLib.h; sourceTree = "<group>"; };
-		A734367C14A9295400C41E3F /* Jamoma.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Jamoma.h; sourceTree = "<group>"; };
-		A734367D14A9295400C41E3F /* JamomaObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JamomaObject.h; sourceTree = "<group>"; };
-		A734367E14A9295400C41E3F /* JamomaSymbols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JamomaSymbols.h; sourceTree = "<group>"; };
-		A734367F14A9295400C41E3F /* JamomaThreading.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JamomaThreading.h; sourceTree = "<group>"; };
-		A734368014A9295400C41E3F /* JamomaTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JamomaTypes.h; sourceTree = "<group>"; };
-		A734368114A9295400C41E3F /* jcom.core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.core.h; sourceTree = "<group>"; };
-		A734368214A9295400C41E3F /* jcom.io.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.io.h; sourceTree = "<group>"; };
-		A734368314A9295400C41E3F /* jcom.list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.list.h; sourceTree = "<group>"; };
-		A734368414A9295400C41E3F /* jcom.sendreceive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcom.sendreceive.h; sourceTree = "<group>"; };
-		A734368514A9295400C41E3F /* TTModularVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
-		A734368614A9295400C41E3F /* TTModularVersion.template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.template.h; sourceTree = "<group>"; };
-		A734368814A9295400C41E3F /* jcom.receive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receive.cpp; sourceTree = "<group>"; };
-		A734368914A9295400C41E3F /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
-		A734368A14A9295400C41E3F /* jcom.receive~.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
-		A734368B14A9295400C41E3F /* jcom.send.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.send.cpp; sourceTree = "<group>"; };
-		A734368C14A9295400C41E3F /* jcom.send~.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.send~.cpp"; sourceTree = "<group>"; };
-		A734368E14A9295400C41E3F /* AsyncRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncRamp.cpp; sourceTree = "<group>"; };
-		A734368F14A9295400C41E3F /* AsyncRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsyncRamp.h; sourceTree = "<group>"; };
-		A734369014A9295400C41E3F /* NoneRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NoneRamp.cpp; sourceTree = "<group>"; };
-		A734369114A9295400C41E3F /* NoneRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoneRamp.h; sourceTree = "<group>"; };
-		A734369214A9295400C41E3F /* QueueRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QueueRamp.cpp; sourceTree = "<group>"; };
-		A734369314A9295400C41E3F /* QueueRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueRamp.h; sourceTree = "<group>"; };
-		A734369414A9295400C41E3F /* RampLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RampLib.cpp; sourceTree = "<group>"; };
-		A734369514A9295400C41E3F /* RampLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RampLib.h; sourceTree = "<group>"; };
-		A734369614A9295400C41E3F /* SchedulerRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SchedulerRamp.cpp; sourceTree = "<group>"; };
-		A734369714A9295400C41E3F /* SchedulerRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SchedulerRamp.h; sourceTree = "<group>"; };
-		A734369914A9295400C41E3F /* Jamoma.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Jamoma.cpp; sourceTree = "<group>"; };
-		A734369A14A9295400C41E3F /* JamomaObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaObject.cpp; sourceTree = "<group>"; };
-		A734369B14A9295400C41E3F /* JamomaSymbols.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaSymbols.cpp; sourceTree = "<group>"; };
-		A734369C14A9295400C41E3F /* jcom.core.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.core.cpp; sourceTree = "<group>"; };
-		A734369D14A9295400C41E3F /* TTModularVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
-		A7AC5B8514B0535D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../../Core/Foundation/library/includes; sourceTree = "<group>"; };
-		A7AC5B8614B0537D004FCA8F /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../../Core/DSP/library/includes; sourceTree = "<group>"; };
+		22AD15D016596377002FD7E3 /* JamomaModular.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaModular.yml; sourceTree = "<group>"; };
+		4625988D1684A5660076E93F /* ExternalRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ExternalRamp.cpp; sourceTree = "<group>"; };
+		4625988E1684A5660076E93F /* ExternalRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExternalRamp.h; sourceTree = "<group>"; };
+		4698F0E316BC49E800E8F574 /* TTDataTypedMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataTypedMethods.cpp; sourceTree = "<group>"; };
+		D220FB4614A21628005607C3 /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
+		D220FB4714A21628005607C3 /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
+		D246012914A0A95D004CC4FD /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
+		D246012A14A0A95D004CC4FD /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModularForMax.h; sourceTree = "<group>"; };
+		D246012C14A0A96C004CC4FD /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
+		D246012D14A0A96C004CC4FD /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
+		D246012E14A0A96C004CC4FD /* TTApplicationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplicationManager.cpp; sourceTree = "<group>"; };
+		D246012F14A0A96C004CC4FD /* TTApplicationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplicationManager.h; sourceTree = "<group>"; };
+		D246013014A0A96C004CC4FD /* TTContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTContainer.cpp; sourceTree = "<group>"; };
+		D246013114A0A96C004CC4FD /* TTContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTContainer.h; sourceTree = "<group>"; };
+		D246013214A0A96C004CC4FD /* TTCue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCue.cpp; sourceTree = "<group>"; };
+		D246013314A0A96C004CC4FD /* TTCue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCue.h; sourceTree = "<group>"; };
+		D246013414A0A96C004CC4FD /* TTCueManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCueManager.cpp; sourceTree = "<group>"; };
+		D246013514A0A96C004CC4FD /* TTCueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCueManager.h; sourceTree = "<group>"; };
+		D246013614A0A96C004CC4FD /* TTData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTData.cpp; sourceTree = "<group>"; };
+		D246013714A0A96C004CC4FD /* TTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTData.h; sourceTree = "<group>"; };
+		D246013814A0A96C004CC4FD /* TTExplorer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTExplorer.cpp; sourceTree = "<group>"; };
+		D246013914A0A96C004CC4FD /* TTExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTExplorer.h; sourceTree = "<group>"; };
+		D246013A14A0A96C004CC4FD /* TTInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTInput.cpp; sourceTree = "<group>"; };
+		D246013B14A0A96C004CC4FD /* TTInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTInput.h; sourceTree = "<group>"; };
+		D246013C14A0A96C004CC4FD /* TTMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapper.cpp; sourceTree = "<group>"; };
+		D246013D14A0A96C004CC4FD /* TTMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapper.h; sourceTree = "<group>"; };
+		D246013E14A0A96C004CC4FD /* TTMapperManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapperManager.cpp; sourceTree = "<group>"; };
+		D246013F14A0A96C004CC4FD /* TTMapperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapperManager.h; sourceTree = "<group>"; };
+		D246014014A0A96C004CC4FD /* TTMirror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirror.cpp; sourceTree = "<group>"; };
+		D246014114A0A96C004CC4FD /* TTMirror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMirror.h; sourceTree = "<group>"; };
+		D246014214A0A96C004CC4FD /* TTOpmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOpmlHandler.cpp; sourceTree = "<group>"; };
+		D246014314A0A96C004CC4FD /* TTOpmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpmlHandler.h; sourceTree = "<group>"; };
+		D246014414A0A96C004CC4FD /* TTOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutput.cpp; sourceTree = "<group>"; };
+		D246014514A0A96C004CC4FD /* TTOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOutput.h; sourceTree = "<group>"; };
+		D246014614A0A96C004CC4FD /* TTPreset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPreset.cpp; sourceTree = "<group>"; };
+		D246014714A0A96C004CC4FD /* TTPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreset.h; sourceTree = "<group>"; };
+		D246014814A0A96C004CC4FD /* TTPresetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPresetManager.cpp; sourceTree = "<group>"; };
+		D246014914A0A96C004CC4FD /* TTPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPresetManager.h; sourceTree = "<group>"; };
+		D246014A14A0A96C004CC4FD /* TTReceiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTReceiver.cpp; sourceTree = "<group>"; };
+		D246014B14A0A96C004CC4FD /* TTReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTReceiver.h; sourceTree = "<group>"; };
+		D246014C14A0A96C004CC4FD /* TTSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSender.cpp; sourceTree = "<group>"; };
+		D246014D14A0A96C004CC4FD /* TTSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSender.h; sourceTree = "<group>"; };
+		D246014E14A0A96C004CC4FD /* TTSubscriber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSubscriber.cpp; sourceTree = "<group>"; };
+		D246014F14A0A96C004CC4FD /* TTSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSubscriber.h; sourceTree = "<group>"; };
+		D246015014A0A96C004CC4FD /* TTTextHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTTextHandler.cpp; sourceTree = "<group>"; };
+		D246015114A0A96C004CC4FD /* TTTextHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTextHandler.h; sourceTree = "<group>"; };
+		D246015214A0A96C004CC4FD /* TTViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTViewer.cpp; sourceTree = "<group>"; };
+		D246015314A0A96C004CC4FD /* TTViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTViewer.h; sourceTree = "<group>"; };
+		D246015414A0A96C004CC4FD /* TTXmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTXmlHandler.cpp; sourceTree = "<group>"; };
+		D246015514A0A96C004CC4FD /* TTXmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
+		D246015714A0A97B004CC4FD /* Jamoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jamoma.h; sourceTree = "<group>"; };
+		D246015814A0A97B004CC4FD /* JamomaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaObject.h; sourceTree = "<group>"; };
+		D246015914A0A97B004CC4FD /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaSymbols.h; sourceTree = "<group>"; };
+		D246015A14A0A97B004CC4FD /* JamomaThreading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaThreading.h; sourceTree = "<group>"; };
+		D246015B14A0A97B004CC4FD /* JamomaTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaTypes.h; sourceTree = "<group>"; };
+		D246015C14A0A97B004CC4FD /* jcom.core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.core.h; sourceTree = "<group>"; };
+		D246015D14A0A97B004CC4FD /* jcom.list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.list.h; sourceTree = "<group>"; };
+		D246015E14A0A97B004CC4FD /* TTModular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModular.h; sourceTree = "<group>"; };
+		D246015F14A0A97B004CC4FD /* TTModularSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularSymbolCache.h; sourceTree = "<group>"; };
+		D246016014A0A97B004CC4FD /* TTModularVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
+		D246016114A0A97B004CC4FD /* TTModularVersion.template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.template.h; sourceTree = "<group>"; };
+		D246016314A0A98A004CC4FD /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Jamoma.cpp; sourceTree = "<group>"; };
+		D246016414A0A98A004CC4FD /* JamomaObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaObject.cpp; sourceTree = "<group>"; };
+		D246016514A0A98A004CC4FD /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaSymbols.cpp; sourceTree = "<group>"; };
+		D246016614A0A98A004CC4FD /* jcom.core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.core.cpp; sourceTree = "<group>"; };
+		D246016714A0A98A004CC4FD /* TTModular.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModular.cpp; sourceTree = "<group>"; };
+		D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModularSymbolCache.cpp; sourceTree = "<group>"; };
+		D246017114A0A9BF004CC4FD /* AsyncRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncRamp.cpp; sourceTree = "<group>"; };
+		D246017214A0A9BF004CC4FD /* AsyncRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncRamp.h; sourceTree = "<group>"; };
+		D246017314A0A9BF004CC4FD /* NoneRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoneRamp.cpp; sourceTree = "<group>"; };
+		D246017414A0A9BF004CC4FD /* NoneRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoneRamp.h; sourceTree = "<group>"; };
+		D246017514A0A9BF004CC4FD /* QueueRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QueueRamp.cpp; sourceTree = "<group>"; };
+		D246017614A0A9BF004CC4FD /* QueueRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueueRamp.h; sourceTree = "<group>"; };
+		D246017714A0A9BF004CC4FD /* RampLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RampLib.cpp; sourceTree = "<group>"; };
+		D246017814A0A9BF004CC4FD /* RampLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RampLib.h; sourceTree = "<group>"; };
+		D246017914A0A9BF004CC4FD /* SchedulerRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SchedulerRamp.cpp; sourceTree = "<group>"; };
+		D246017A14A0A9BF004CC4FD /* SchedulerRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchedulerRamp.h; sourceTree = "<group>"; };
+		D2B8F99C1546CE6200B93C6C /* TTScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTScript.cpp; sourceTree = "<group>"; };
+		D2B8F99D1546CE6200B93C6C /* TTScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScript.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		229B5844149C0B0C0093389A = {
 			isa = PBXGroup;
 			children = (
-				A7AC5B8014B05245004FCA8F /* Source */,
-				A7AC5B8214B0529E004FCA8F /* External Frameworks and Libraries */,
+				22AD15D016596377002FD7E3 /* JamomaModular.yml */,
+				D246015614A0A97B004CC4FD /* includes */,
+				D246016214A0A98A004CC4FD /* source */,
+				D246012814A0A95D004CC4FD /* ModularForMax */,
+				D246012B14A0A96C004CC4FD /* PeerObject */,
+				D220FB4514A21628005607C3 /* ProtocolLib */,
+				D246017014A0A9BF004CC4FD /* RampLib */,
 			);
 			sourceTree = "<group>";
 		};
-		A734367814A9295400C41E3F /* FunctionLib */ = {
+		D220FB4514A21628005607C3 /* ProtocolLib */ = {
 			isa = PBXGroup;
 			children = (
-				A734367914A9295400C41E3F /* FunctionLib.cpp */,
-				A734367A14A9295400C41E3F /* FunctionLib.h */,
+				D220FB4714A21628005607C3 /* Protocol.h */,
+				D220FB4614A21628005607C3 /* Protocol.cpp */,
 			);
-			path = FunctionLib;
+			path = ProtocolLib;
 			sourceTree = "<group>";
 		};
-		A734367B14A9295400C41E3F /* includes */ = {
+		D246012814A0A95D004CC4FD /* ModularForMax */ = {
 			isa = PBXGroup;
 			children = (
-				A734367C14A9295400C41E3F /* Jamoma.h */,
-				A734367D14A9295400C41E3F /* JamomaObject.h */,
-				A734367E14A9295400C41E3F /* JamomaSymbols.h */,
-				A734367F14A9295400C41E3F /* JamomaThreading.h */,
-				A734368014A9295400C41E3F /* JamomaTypes.h */,
-				A734368114A9295400C41E3F /* jcom.core.h */,
-				A734368214A9295400C41E3F /* jcom.io.h */,
-				A734368314A9295400C41E3F /* jcom.list.h */,
-				A734368414A9295400C41E3F /* jcom.sendreceive.h */,
-				A734368514A9295400C41E3F /* TTModularVersion.h */,
-				A734368614A9295400C41E3F /* TTModularVersion.template.h */,
+				D246012A14A0A95D004CC4FD /* ModularForMax.h */,
+				D246012914A0A95D004CC4FD /* ModularForMax.cpp */,
+			);
+			path = ModularForMax;
+			sourceTree = "<group>";
+		};
+		D246012B14A0A96C004CC4FD /* PeerObject */ = {
+			isa = PBXGroup;
+			children = (
+				D246012D14A0A96C004CC4FD /* TTApplication.h */,
+				D246012C14A0A96C004CC4FD /* TTApplication.cpp */,
+				D246012F14A0A96C004CC4FD /* TTApplicationManager.h */,
+				D246012E14A0A96C004CC4FD /* TTApplicationManager.cpp */,
+				D246013114A0A96C004CC4FD /* TTContainer.h */,
+				D246013014A0A96C004CC4FD /* TTContainer.cpp */,
+				D246013314A0A96C004CC4FD /* TTCue.h */,
+				D246013214A0A96C004CC4FD /* TTCue.cpp */,
+				D246013514A0A96C004CC4FD /* TTCueManager.h */,
+				D246013414A0A96C004CC4FD /* TTCueManager.cpp */,
+				D246013714A0A96C004CC4FD /* TTData.h */,
+				D246013614A0A96C004CC4FD /* TTData.cpp */,
+				4698F0E316BC49E800E8F574 /* TTDataTypedMethods.cpp */,
+				D246013914A0A96C004CC4FD /* TTExplorer.h */,
+				D246013814A0A96C004CC4FD /* TTExplorer.cpp */,
+				D246013B14A0A96C004CC4FD /* TTInput.h */,
+				D246013A14A0A96C004CC4FD /* TTInput.cpp */,
+				D246013D14A0A96C004CC4FD /* TTMapper.h */,
+				D246013C14A0A96C004CC4FD /* TTMapper.cpp */,
+				D246013F14A0A96C004CC4FD /* TTMapperManager.h */,
+				D246013E14A0A96C004CC4FD /* TTMapperManager.cpp */,
+				D246014114A0A96C004CC4FD /* TTMirror.h */,
+				D246014014A0A96C004CC4FD /* TTMirror.cpp */,
+				D246014314A0A96C004CC4FD /* TTOpmlHandler.h */,
+				D246014214A0A96C004CC4FD /* TTOpmlHandler.cpp */,
+				D246014514A0A96C004CC4FD /* TTOutput.h */,
+				D246014414A0A96C004CC4FD /* TTOutput.cpp */,
+				D246014714A0A96C004CC4FD /* TTPreset.h */,
+				D246014614A0A96C004CC4FD /* TTPreset.cpp */,
+				D246014914A0A96C004CC4FD /* TTPresetManager.h */,
+				D246014814A0A96C004CC4FD /* TTPresetManager.cpp */,
+				D246014B14A0A96C004CC4FD /* TTReceiver.h */,
+				D246014A14A0A96C004CC4FD /* TTReceiver.cpp */,
+				D246014D14A0A96C004CC4FD /* TTSender.h */,
+				D246014C14A0A96C004CC4FD /* TTSender.cpp */,
+				D2B8F99D1546CE6200B93C6C /* TTScript.h */,
+				D2B8F99C1546CE6200B93C6C /* TTScript.cpp */,
+				D246014F14A0A96C004CC4FD /* TTSubscriber.h */,
+				D246014E14A0A96C004CC4FD /* TTSubscriber.cpp */,
+				D246015114A0A96C004CC4FD /* TTTextHandler.h */,
+				D246015014A0A96C004CC4FD /* TTTextHandler.cpp */,
+				D246015314A0A96C004CC4FD /* TTViewer.h */,
+				D246015214A0A96C004CC4FD /* TTViewer.cpp */,
+				D246015514A0A96C004CC4FD /* TTXmlHandler.h */,
+				D246015414A0A96C004CC4FD /* TTXmlHandler.cpp */,
+			);
+			path = PeerObject;
+			sourceTree = "<group>";
+		};
+		D246015614A0A97B004CC4FD /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				D246015E14A0A97B004CC4FD /* TTModular.h */,
+				D246015F14A0A97B004CC4FD /* TTModularSymbolCache.h */,
+				D246016014A0A97B004CC4FD /* TTModularVersion.h */,
+				D246016114A0A97B004CC4FD /* TTModularVersion.template.h */,
+				D246015714A0A97B004CC4FD /* Jamoma.h */,
+				D246015814A0A97B004CC4FD /* JamomaObject.h */,
+				D246015914A0A97B004CC4FD /* JamomaSymbols.h */,
+				D246015A14A0A97B004CC4FD /* JamomaThreading.h */,
+				D246015B14A0A97B004CC4FD /* JamomaTypes.h */,
+				D246015C14A0A97B004CC4FD /* jcom.core.h */,
+				D246015D14A0A97B004CC4FD /* jcom.list.h */,
 			);
 			path = includes;
 			sourceTree = "<group>";
 		};
-		A734368714A9295400C41E3F /* Internals */ = {
+		D246016214A0A98A004CC4FD /* source */ = {
 			isa = PBXGroup;
 			children = (
-				A734368814A9295400C41E3F /* jcom.receive.cpp */,
-				A734368914A9295400C41E3F /* jcom.receivemaster.cpp */,
-				A734368A14A9295400C41E3F /* jcom.receive~.cpp */,
-				A734368B14A9295400C41E3F /* jcom.send.cpp */,
-				A734368C14A9295400C41E3F /* jcom.send~.cpp */,
-			);
-			path = Internals;
-			sourceTree = "<group>";
-		};
-		A734368D14A9295400C41E3F /* RampLib */ = {
-			isa = PBXGroup;
-			children = (
-				A734368E14A9295400C41E3F /* AsyncRamp.cpp */,
-				A734368F14A9295400C41E3F /* AsyncRamp.h */,
-				A734369014A9295400C41E3F /* NoneRamp.cpp */,
-				A734369114A9295400C41E3F /* NoneRamp.h */,
-				A734369214A9295400C41E3F /* QueueRamp.cpp */,
-				A734369314A9295400C41E3F /* QueueRamp.h */,
-				A734369414A9295400C41E3F /* RampLib.cpp */,
-				A734369514A9295400C41E3F /* RampLib.h */,
-				A734369614A9295400C41E3F /* SchedulerRamp.cpp */,
-				A734369714A9295400C41E3F /* SchedulerRamp.h */,
-			);
-			path = RampLib;
-			sourceTree = "<group>";
-		};
-		A734369814A9295400C41E3F /* source */ = {
-			isa = PBXGroup;
-			children = (
-				A734369914A9295400C41E3F /* Jamoma.cpp */,
-				A734369A14A9295400C41E3F /* JamomaObject.cpp */,
-				A734369B14A9295400C41E3F /* JamomaSymbols.cpp */,
-				A734369C14A9295400C41E3F /* jcom.core.cpp */,
-				A734369D14A9295400C41E3F /* TTModularVersion.h */,
+				D246016714A0A98A004CC4FD /* TTModular.cpp */,
+				D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */,
+				D246016314A0A98A004CC4FD /* Jamoma.cpp */,
+				D246016414A0A98A004CC4FD /* JamomaObject.cpp */,
+				D246016514A0A98A004CC4FD /* JamomaSymbols.cpp */,
+				D246016614A0A98A004CC4FD /* jcom.core.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";
 		};
-		A7AC5B8014B05245004FCA8F /* Source */ = {
+		D246017014A0A9BF004CC4FD /* RampLib */ = {
 			isa = PBXGroup;
 			children = (
-				A734367B14A9295400C41E3F /* includes */,
-				A734369814A9295400C41E3F /* source */,
-				A734368714A9295400C41E3F /* Internals */,
-				A734367814A9295400C41E3F /* FunctionLib */,
-				A734368D14A9295400C41E3F /* RampLib */,
+				D246017814A0A9BF004CC4FD /* RampLib.h */,
+				D246017714A0A9BF004CC4FD /* RampLib.cpp */,
+				D246017214A0A9BF004CC4FD /* AsyncRamp.h */,
+				D246017114A0A9BF004CC4FD /* AsyncRamp.cpp */,
+				4625988E1684A5660076E93F /* ExternalRamp.h */,
+				4625988D1684A5660076E93F /* ExternalRamp.cpp */,
+				D246017414A0A9BF004CC4FD /* NoneRamp.h */,
+				D246017314A0A9BF004CC4FD /* NoneRamp.cpp */,
+				D246017614A0A9BF004CC4FD /* QueueRamp.h */,
+				D246017514A0A9BF004CC4FD /* QueueRamp.cpp */,
+				D246017A14A0A9BF004CC4FD /* SchedulerRamp.h */,
+				D246017914A0A9BF004CC4FD /* SchedulerRamp.cpp */,
 			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		A7AC5B8214B0529E004FCA8F /* External Frameworks and Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				A7AC5B8414B05344004FCA8F /* DSP */,
-				A7AC5B8314B05336004FCA8F /* Foundation */,
-			);
-			name = "External Frameworks and Libraries";
-			sourceTree = "<group>";
-		};
-		A7AC5B8314B05336004FCA8F /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				A7AC5B8514B0535D004FCA8F /* includes */,
-			);
-			name = Foundation;
-			sourceTree = "<group>";
-		};
-		A7AC5B8414B05344004FCA8F /* DSP */ = {
-			isa = PBXGroup;
-			children = (
-				A7AC5B8614B0537D004FCA8F /* includes */,
-			);
-			name = DSP;
+			path = RampLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,7 +227,7 @@
 /* Begin PBXLegacyTarget section */
 		229B584B149C0B0C0093389A /* JamomaModular */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildArgumentsString = "-j 4 $(Configuration) $(ACTION)";
 			buildConfigurationList = 229B584E149C0B0C0093389A /* Build configuration list for PBXLegacyTarget "JamomaModular" */;
 			buildPhases = (
 			);
@@ -181,7 +245,7 @@
 		229B5846149C0B0C0093389A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = 229B5849149C0B0C0093389A /* Build configuration list for PBXProject "JamomaModular" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -204,7 +268,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -230,7 +293,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -248,6 +310,7 @@
 		229B584F149C0B0C0093389A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -260,6 +323,7 @@
 		229B5850149C0B0C0093389A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

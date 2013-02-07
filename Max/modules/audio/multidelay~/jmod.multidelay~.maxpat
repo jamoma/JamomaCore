@@ -831,8 +831,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 25.0, 580.0, 239.0, 43.0 ],
-					"text" : "jcom.hub @module_type audio @description \"Sample-accurate stereo multidelay with feedback options.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"Sample-accurate stereo multidelay with feedback options.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

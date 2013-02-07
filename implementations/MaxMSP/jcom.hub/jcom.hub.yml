@@ -1,35 +1,28 @@
-
 sources:
   - jcom.hub.cpp
-  - jcom.hub.autodoc.cpp
-  - jcom.hub.internals.cpp	
-  - jcom.hub.presets.cpp	
+  - ../../../../../Core/Shared/max/TTModularClassWrapperMax.cpp
   - ../../../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
     
 includes:
   - . 
   - ../../../../../Core/Foundation/library/includes
   - ../../../../Modular/library/includes
+  - ../../../../Modular/library/PeerObject
+  - ../../../../Modular/library/ModularForMax
   - ../../../../Modular/library/FunctionLib
   - ../../../../Modular/library/RampLib
+  - ../../../../Modular/library/ProtocolLib
   - ../../../../../Core/DSP/library/includes
+  - ../../../../Graphics/library/includes
   - ../../../../../Core/Shared/max  
-  - ../../../../Support/objectivemax/MaxObject
+  - ../../../../../Core/Shared/objectivemax/MaxObject
   - "../../../../../Core/Shared/max/c74support/max-includes"
-  - "../../../../../Core/Shared/max/c74support/msp-includes" 
-  - win "../../../../../Core/Foundation/library/libxml2/win32/include"
-  - mac /usr/include/libxml2
+  - "../../../../../Core/Shared/max/c74support/msp-includes"
 
 libraries:
   - FOUNDATION
   - MODULAR  
   - DSP
-  - C74-MAX
-  - C74-MSP
-  - mac /usr/lib/libxml2.dylib
-  - win ../../../../../Core/Foundation/library/libxml2/win32/lib/libxml2_a.lib
-  - win ../../../../../Core/Foundation/library/libxml2/win32/lib/libxml2.lib
-  - C74-JITTER
+  - C74
 
 prefix: ../../../../../Core/Shared/max/c74support/max-includes/macho-prefix.pch
-arch: "i386"

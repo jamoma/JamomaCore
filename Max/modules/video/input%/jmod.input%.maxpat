@@ -321,8 +321,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 185.0, 419.0, 31.0 ],
-					"text" : "jcom.hub @module_type video @algorithm_type jitter @description \"Input from either a camera - video file - noise synthesis - or a real time screen capture.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type video @algorithm_type jitter @description \"Input from either a camera - video file - noise synthesis - or a real time screen capture.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

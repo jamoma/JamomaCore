@@ -13,142 +13,152 @@
 #include "ext_common.h"
 #include "jpatcher_api.h"			// jpatcher_api.h must come before z_dsp.h (in Jamoma.h)
 #include "jgraphics.h"
-#include "Jamoma.h"
+#include "TTModular.h"				// Jamoma Modular API
+#include "ModularForMax.h"			// Jamoma Modular for Max
+#include "MaxObjectTypes.h"
 #include "ext_symobject.h"
-#include "TTBase.h"
 
-/*
-t_symbol	*ps_color_none,
-			*ps_color_black,
-			*ps_color_white,
-			*ps_color_red,
-			*ps_color_orange,
-			*ps_color_yellow,
-			*ps_color_chartreuseGreen,
-			*ps_color_green,
-			*ps_color_springGreen,
-			*ps_color_cyan,
-			*ps_color_azure,
-			*ps_color_blue,
-			*ps_color_violet,
-			*ps_color_magenta,
-			*ps_color_rose;
-*/
+#define NO_MODEL_STRING "waiting for a model/address"
+
+#define preview_out 0
+#define panel_out 1
+
+// those stuffes are needed for handling patchers without using the pcontrol object
+#include "jpatcher_api.h"
+typedef struct dll {
+	t_object d_ob;
+	struct dll *d_next;
+	struct dll *d_prev;
+	void *d_x1;
+} t_dll;
+
+typedef struct outlet {
+	struct tinyobject o_ob;
+	struct dll *o_dll;
+} t_outlet;
+
+typedef struct inlet {
+	struct tinyobject i_ob;
+	void *i_who;
+	struct object *i_owner;
+} t_inlet;
 
 // members
 typedef struct _ui{
 	t_jbox				box;
-	void				*outlet;				///< outlet -- used for sending preview to jit.pwindow
-	t_hashtab			*hash_internals;		///< hash table of internal jcom.parameter and jcom.message instances
-	t_object			*obj_remote;			///< the internal jcom.remote instance that communicates with the hub
-
-	t_jrgba				bgcolor;				///< The background color of the main part of the widget.
-	t_jrgba				bordercolor;			///< The color of widget borders etc. 
-	t_jrgba				headercolor;			///< Background color of the toolbar at the top of the widget.
-	t_jrgba				textcolor;				///< Color of text used to display various information in the widget.
-	t_symbol			*highlightcolor;		///< Highlight the module by giving it a color tint (e.g. red or green).
-	t_jrgba				highlightcolorRGB;		///< Highlight color as RGB.
+	TTHandle			outlets;
+	TTHashPtr			hash_datas;				///< hash table of TTData
+	TTHashPtr			hash_viewers;			///< hash table of TTViewer
+	TTHashPtr			hash_receivers;			///< hash table of TTReceiver
+	TTObjectBasePtr			nmspcExplorer;			///< internal TTExplorer object to observe the entire namespace
+	TTObjectBasePtr			modelExplorer;			///< internal TTExplorer object to observe the model namespace
+	TTObjectBasePtr			modelMessExplorer;		///< internal TTExplorer object to observe messages
+	TTObjectBasePtr			modelParamExplorer;		///< internal TTExplorer object to observe parameters
+	TTObjectBasePtr			modelRetExplorer;		///< internal TTExplorer object to observe returns
+	TTSubscriberPtr		uiSubscriber;			///< internal TTSubscriber object to create a /ui node
+	TTCallbackPtr		previewSignal;			///< internal TTCallback to get back preview signal
+	TTOutputPtr			modelOutput;			///< a pointer to TTOutput object of the binded model
 	
-	t_jpopupmenu		*menu;					///< Pointer to the module menu
+	TTAddress	viewAddress;
+	TTAddress	modelAddress;
+	ObjectPtr			patcherPtr;				///< the patcher in which the external is (ignoring subpatcher)
+	TTSymbol			patcherContext;			///< the patcher context in which the external is (model, view)
+	TTSymbol			patcherClass;			///< the patcher class in which the external is
+	TTSymbol			patcherName;
+	
+	TTBoolean			hover;					// is the mouse hover the jcom.ui panel ?
+	TTBoolean			selection;				// is the user selecting things ?
+	TTBoolean			selectAll;				// to select/unselect all jcom.remote
+	t_jrgba				memo_bordercolor;		// to keep the choosen border color during selection
+
+	t_jrgba				bgcolor;
+	t_jrgba				bordercolor;
+	t_jrgba				headercolor;
+	t_jrgba				textcolor;
+	t_jrgba				selectcolor;
+	
+	long				ui_freeze;				// freeze all viewers of the view (TODO)
+	
+	t_jpopupmenu		*menu;					// model menu
 	void				*menu_qelem;			// ...
 	long				menu_selection;			// ...
 	t_linklist			*menu_items;			// ...
+	AtomPtr				preset_order;
+	AtomCount			preset_num;
 
-	t_jpopupmenu		*refmenu;				///< Pointer to the reference menu
+	t_jpopupmenu		*refmenu;				// reference menu
 	void				*refmenu_qelem;			// ...
 	long				refmenu_selection;		// ...
 	t_linklist			*refmenu_items;			// ...
+
+	long				has_preset;				// is the binded model have preset features ?
+	long				has_model;				// is the binded model have model features ?
 	
-//	t_linklist			*presets;				// list of presets as symobjects (flags=index, name=name)
+	long				has_panel;				// is the binded model have a panel ?
+	t_rect				rect_panel;
+	ObjectPtr			patcher_panel;
+
+	long				has_meters;				// is the binded model have meters ? (set number of meters, not just a toggle)
+	long				is_metersdefeated;
+	t_rect				rect_meters;
+
+	long				has_mute;				// is the binded model have a mute ?
+	long				is_muted;
+	long				sel_mute;				// selection state of mute
+	t_rect				rect_mute;
+
+	long				has_bypass;				// is the binded model have a bypass ?
+	long				is_bypassed;
+	long				sel_bypass;				// selection state of bypass
+	t_rect				rect_bypass;
+
+	long				has_freeze;				// is the binded model have a freeze ?
+	long				is_frozen;
+	long				sel_freeze;				// selection state of freeze
+	t_rect				rect_freeze;
+
+	long				has_preview;			// is the binded model have a preview ?
+	long				is_previewing;
+	long				sel_preview;			// selection state of preview
+	t_rect				rect_preview;
+
+	long				has_gain;				// is the binded model have a gain ?
+	float				gain;
+	long				sel_gain;				// selection state of gain
+	t_rect				rect_gain;
+	bool				gainDragging;
 	
-	long				attr_hasinspector;		///< Flag for adding a panel button to the toolbar of the widget.
-	t_rect				rect_inspector;			///< The rectangle of the Panel button.
-
-/*	long				attr_hasmeters;			///< has_meters is different in that it is the number of meters, not just a toggle
-	long				attr_metersdefeated;	///< Flag indicating if meters are currently defeated, or in other words not updating displayed values.
-	t_rect				rect_meters;*/
-
-	long				attr_hasmute;			///< Flag for adding a mute toggle to the toolbar of the widget.
-	long				attr_ismuted;			///< Flag indicating if processing is currently set to be muted.
-	t_rect				rect_mute;				///< The rectangle of the mute toggle.
-
-	long				attr_hasbypass;			///< Flag for adding a bypass toggle to the toolbar of the widget.
-	long				attr_isbypassed;		///< Flag indicating if processing is currently set to be bypassed.
-	t_rect				rect_bypass;			///< The rectangle of the bypass toggle.
-
-	long				attr_hasfreeze;			///< Flag for adding a freeze toggle to the toolbar of the widget.
-	long				attr_isfrozen;
-	t_rect				rect_freeze;			///< The rectangle of the freeze toggle.
-
-	long				attr_haspreview;		///< Flag for adding a preview toggle to the toolbar of the widget.
-	long				attr_ispreviewing;		///< Flag indicating if previewing is currently enabled.
-	t_rect				rect_preview;			///< The rectangle of the preview toggle.
-
-	long				attr_hasgain;			///< Flag for adding a gain dial to the toolbar of the widget.
-	float				attr_gain;				///< The gain attribute. This will be linked to a jcom.parameter object internal to the jcom.out~ object of the module.
-	t_rect				rect_gain;				///< The rectangle of the gain dial.
-	bool				gainDragging;			///< Flag indicating of the gain dial is currently being dragged.
-	
-	long				attr_hasmix;			///< Flag for adding a mix dial to the toolbar of the widget.
-	float				attr_mix;				///< The mix attribute. This will be linked to a jcom.parameter object internal to the jcom.out~ object of the module.
-	t_rect				rect_mix;				///< The rectangle of the mix dial.
-	bool				mixDragging;			///< Flag indicating of the mix dial is currently being dragged.
-
-	t_symbol			*attr_modulename;
-	t_symbol			*attrModuleClass;
-	
-	t_symbol			*attrPrefix;
-	long				attr_ui_freeze;
+	long				has_mix;				// is the binded model have a mix ?
+	float				mix;
+	long				sel_mix;				// selection state of mix
+	t_rect				rect_mix;
+	bool				mixDragging;
 	
 	t_pt				anchor;				// used for dragging the dials
 	float				anchorValue;		//	...
 } t_ui;
 
 
-
 // prototypes: general
-
-/**
- Object creation.
- */
 t_ui*		ui_new(t_symbol *s, long argc, t_atom *argv);
-
-/** 
- Destructor - called when the object is freed.
- */
 void 		ui_free(t_ui *x);
-
-
 t_max_err	ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
-void		ui_subscribe(t_ui *x);
-void		ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv);
-
-
+t_max_err	ui_address_set(t_ui *x, t_object *attr, long argc, t_atom *argv);
+t_max_err	ui_address_get(t_ui *x, t_object *attr, long *argc, t_atom **argv);
+void		ui_subscribe(t_ui *x, SymbolPtr address);
+void		ui_build(t_ui *x);
 void 		ui_bang(t_ui *x);
 
 // prototypes: drawing/ui
-
-/**
- Redraw the widget.
- */
 void 		ui_paint(t_ui *x, t_object *view);
-
-/**
- This method is called in case of mousedown over the widget.
- */
 void 		ui_mousedown(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
-
-/**
- This method is called when the mouse is dragged.
- */
 void		ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
-
-/**
- This method is called at mouseup.
- */
 void		ui_mouseup(t_ui *x, t_object *patcherview);
-
+void 		ui_mousemove(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
+void 		ui_mouseleave(t_ui *x, t_object *patcherview, t_pt pt, long modifiers);
 void*		ui_oksize(t_ui *x, t_rect *rect);
+void		ui_preset_interface(t_ui *x);
+
 // prototypes: menus
 void		ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers);
 void 		ui_menu_qfn(t_ui *x);
@@ -157,172 +167,58 @@ void		ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers);
 void 		ui_refmenu_qfn(t_ui *x);
 void 		ui_refmenu_build(t_ui *x);
 
+// prototypes: internal TTData and TTViewer
+void		ui_data_create(t_ui *obj, TTObjectBasePtr *returnedData, SymbolPtr aCallbackMethod, TTSymbol service, TTSymbol name);
+void		ui_data_create_all(t_ui* obj);
+void		ui_data_destroy(t_ui *obj, TTSymbol name);
+void		ui_data_destroy_all(t_ui* obj);
+void		ui_data_send(t_ui *obj, TTSymbol name, TTValue v);
+void		ui_data_interface(t_ui *x, TTSymbol name);
 
-// prototypes: internal parameters
+void		ui_receiver_create(t_ui *obj, TTObjectBasePtr *returnedReceiver, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address);
+void		ui_receiver_destroy(t_ui *obj, TTSymbol name);
+void		ui_receiver_destroy_all(t_ui *obj);
 
-/**
- Create internal jcom.parameter and jcom.message objects addressing the colors of jcom.ui. 
- */
-void		ui_internals_createColors(t_ui* obj);
+void		ui_viewer_create(t_ui *obj, TTObjectBasePtr *returnedViewer, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address, TTBoolean subscribe);
+void		ui_viewer_destroy(t_ui *obj, TTSymbol name);
+void		ui_viewer_destroy_all(t_ui *obj);
+void		ui_viewer_send(t_ui *obj, TTSymbol name, TTValue v);
+void		ui_viewer_highlight(t_ui *obj, TTSymbol name, TTBoolean s);
+void		ui_viewer_freeze(t_ui *obj, TTSymbol name, TTBoolean f);
+void		ui_viewer_refresh(t_ui *obj, TTSymbol name);
 
-/** Free up internal objects when the object is destroyed.
- */
-void		ui_internals_destroy(t_ui *x);
+void		ui_explorer_create(ObjectPtr x, TTObjectBasePtr *returnedExplorer, SymbolPtr method);
+void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_modelMessExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_modelParamExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_modelRetExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
+void		ui_view_panel_attach(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
+void		ui_view_panel_return(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-/**
- Set the highlightcolor attribute.
- */
-t_max_err	attr_set_highlightcolor(t_ui *x, void *attr, long ac, t_atom *av);
+void		ui_return_color_contentBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_color_toolbarBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_color_toolbarText(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_ui_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-/**
- Set the mute attribute.
- */
-t_max_err	attr_set_mute(t_ui *obj, void *attr, long argc, t_atom *argv);
+void		ui_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_model_init(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-/** set the bypass attribute.
- */
-t_max_err	attr_set_bypass(t_ui *obj, void *attr, long argc, t_atom *argv);
+void		ui_return_metersdefeated(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_mute(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_bypass(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_mix(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_gain(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
+void		ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-/**
- Set the mix attribute.
- */
-t_max_err	attr_set_mix(t_ui *obj, void *attr, long argc, t_atom *argv);
+void		ui_return_signal(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-/**
- Set the gain attribute.
- */
-t_max_err	attr_set_gain(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-/** 
- Set the dataspace unit to use for the gain attribute.
- */
-void setGainDataspaceUnit(t_ui* obj, t_symbol* unit);
-
-/**
- Set the freeze attribute.
- */
-t_max_err	attr_set_freeze(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-/**
- Set the preview attribute.
- */
-t_max_err	attr_set_preview(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-/**
- Set the has_mute attribute. This controls whether a mute toggle will show up in the jcom.ui widget.
- */
-t_max_err	attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-/**
- Set the has_inspector attribute. This controls whether a panel button will show up in the jcom.ui widget.
- */
-t_max_err	attr_set_hasinspector(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-/**
- Set the has_bypass attribute. This controls whether a bypass toggle will show up in the jcom.ui widget.
- */
-t_max_err	attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-
-/**
- Set the has_mix attribute. This controls whether a mix dial will show up in the jcom.ui widget.
- */
-t_max_err	attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-
-/**
- Set the has_gain attribute. This controls whether a gain dial will show up in the jcom.ui widget.
- */
-t_max_err	attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-/**
- Set the has_freeze attribute. This controls whether a freeze toggle will show up in the jcom.ui widget.
- */
-t_max_err	attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-/**
- Set the has_preview attribute. This controls whether a preview toggle will show up in the jcom.ui widget.
- */
-t_max_err	attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-/**
- This is a general setter method for all attributes that can have an OSC address prefix. This will add a prefix to the OSC address of various parameters including gain, mix, bypass, etc. E.g. an "audio" prefix will result in OSC addresses such as /audio/gain, /audio/mix, /audio/mute, etc.
- */
-t_max_err	attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv);
-
-
-
-class uiInternalObject {
-public:
-	t_object	*theObject;
-	//method		action;
-	
-	uiInternalObject(char *classname, char *subscribername, ObjectPtr patcher, char *subscribertype, char *ramptype, char *description, char *rangeclipmode, float *rangebounds, char *dataspace, char *activeUnit, char *defaultValue)
-	{
-		t_atom	a[20];
-		int		i=0;
-		
-		theObject = NULL;
-		atom_setsym(a+(i++), gensym(subscribername));
-		atom_setobj(a+(i++), patcher);
-		atom_setsym(a+(i++), gensym("@type"));
-		atom_setsym(a+(i++), gensym(subscribertype));
-		atom_setsym(a+(i++), gensym("@ramp/drive"));
-		atom_setsym(a+(i++), gensym(ramptype));
-		atom_setsym(a+(i++), gensym("@description"));
-		atom_setsym(a+(i++), gensym(description));
-		if (rangeclipmode) {
-			atom_setsym(a+(i++), gensym("@range/clipmode"));
-			atom_setsym(a+(i++), gensym(rangeclipmode));				
-		}
-		if (rangebounds) {
-			atom_setsym(a+(i++), gensym("@range/bounds"));
-			atom_setfloat(a+(i++), rangebounds[0]);	
-			atom_setfloat(a+(i++), rangebounds[1]);	
-		}	
-		if (dataspace && activeUnit) {
-			atom_setsym(a+(i++), gensym("@dataspace"));
-			atom_setsym(a+(i++), gensym(dataspace));
-			atom_setsym(a+(i++), gensym("@dataspace/unit"));
-			atom_setsym(a+(i++), gensym(activeUnit));
-		}
-		if (defaultValue) {
-			atom_setsym(a+(i++), gensym("@value/default"));
-			atom_setsym(a+(i++), gensym(defaultValue));
-		}
-		
-		jcom_core_loadextern(gensym(classname), i, a, &theObject);
-	}
-	
-	~uiInternalObject()
-	{
-		if (theObject)
-			object_free(theObject);
-	}
-	
-	void setAction(method aCallback, t_object *aCallbackArg)
-	{
-		if (theObject)
-			object_method(theObject, jps_setcallback, aCallback, aCallbackArg);
-	}
-	
-	void setName(char* newName)
-	{
-		if (theObject)
-			object_attr_setsym(theObject, _sym_name, gensym(newName));
-	}
-	
-	void setReadonly(bool value)
-	{
-		if (theObject)
-			object_attr_setlong(theObject, _sym_readonly, value);
-	}
-
-	void setValue(AtomCount ac, AtomPtr av)
-	{
-		if (theObject)
-			object_attr_setvalueof(theObject, _sym_value, ac, av);
-	}
-};
-
+// prototype: ui handling for preset features
+void		ui_preset_store_next(t_ui *x);
+void		ui_preset_doread(t_ui *x);
+void		ui_preset_dowrite(t_ui *x);
+void		ui_return_preset_order(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

@@ -1133,8 +1133,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 35.0, 695.0, 287.0, 31.0 ],
-					"text" : "jcom.hub @module_type audio @description \"Stereo 2nd order IIR filter based on biquad~\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type audio @description \"Stereo 2nd order IIR filter based on biquad~\"",
+					"varname" : "jcom.model"
 				}
 
 			}

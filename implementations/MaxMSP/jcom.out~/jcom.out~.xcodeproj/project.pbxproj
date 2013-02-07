@@ -7,25 +7,21 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A7CC3145151894C200992C6E /* jcom.out.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.out.cpp; path = ../jcom.out/jcom.out.cpp; sourceTree = "<group>"; };
-		A7CC3146151894C200992C6E /* jcom.out.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = jcom.out.h; path = ../jcom.out/jcom.out.h; sourceTree = "<group>"; };
+		46ABF92A16842D9900B0DCB9 /* jcom.out~.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = "jcom.out~.yml"; sourceTree = "<group>"; };
+		D22F0B89155E673E0090ED01 /* jcom.out.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.out.cpp; path = ../jcom.out/jcom.out.cpp; sourceTree = SOURCE_ROOT; };
+		D24042F315ADC48400D5CCD5 /* TTModularClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTModularClassWrapperMax.h; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
+		D24042F415ADC48400D5CCD5 /* TTModularClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTModularClassWrapperMax.cpp; path = ../../../../../Core/Shared/max/TTModularClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		A72D873215188DFD001DA7C1 = {
 			isa = PBXGroup;
 			children = (
-				A7CC3144151894B200992C6E /* Sources */,
+				46ABF92A16842D9900B0DCB9 /* jcom.out~.yml */,
+				D22F0B89155E673E0090ED01 /* jcom.out.cpp */,
+				D24042F315ADC48400D5CCD5 /* TTModularClassWrapperMax.h */,
+				D24042F415ADC48400D5CCD5 /* TTModularClassWrapperMax.cpp */,
 			);
-			sourceTree = "<group>";
-		};
-		A7CC3144151894B200992C6E /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A7CC3145151894C200992C6E /* jcom.out.cpp */,
-				A7CC3146151894C200992C6E /* jcom.out.h */,
-			);
-			name = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -51,7 +47,7 @@
 		A72D873415188DFD001DA7C1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
 			buildConfigurationList = A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.out~" */;
@@ -121,6 +117,11 @@
 		A72D873D15188DFF001DA7C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					"$(ARCHS_STANDARD_64_BIT)",
+				);
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -133,6 +134,11 @@
 		A72D873E15188DFF001DA7C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					"$(ARCHS_STANDARD_64_BIT)",
+				);
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "jcom.out~";

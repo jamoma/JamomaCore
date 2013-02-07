@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/37/Galalib/trunk/Galalib
+END
+Network.h
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/7/Galalib/trunk/Galalib/Network.h
+END
+GalalibTarget.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/46/Galalib/trunk/Galalib/GalalibTarget.xcconfig
+END
+Namespace.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/46/Galalib/trunk/Galalib/Namespace.h
+END
+xmlParser.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/4/Galalib/trunk/Galalib/xmlParser.h
+END
+GalalibProj.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/7/Galalib/trunk/Galalib/GalalibProj.xcconfig
+END
+Galalib.sln
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/4/Galalib/trunk/Galalib/Galalib.sln
+END
+Network.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/10/Galalib/trunk/Galalib/Network.cpp
+END
+Galalib.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/37/Galalib/trunk/Galalib/Galalib.vcproj
+END
+NSPIncludes.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/46/Galalib/trunk/Galalib/NSPIncludes.h
+END
+Namespace.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/46/Galalib/trunk/Galalib/Namespace.cpp
+END
+xmlParser.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/4/Galalib/trunk/Galalib/xmlParser.cpp
+END

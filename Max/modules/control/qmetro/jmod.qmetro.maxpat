@@ -287,8 +287,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 150.0, 246.0, 19.0 ],
-					"text" : "jcom.hub @description \"A queue based metro\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"A queue based metro\"",
+					"varname" : "jcom.model"
 				}
 
 			}

@@ -7,119 +7,69 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A7CC31681518979E00992C6E /* jcom.ramp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.ramp.cpp; sourceTree = "<group>"; };
+		D29B7EA2152C88320029EDE8 /* jcom.ramp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.ramp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		A72D873215188DFD001DA7C1 = {
+		08FB7794FE84155DC02AAC07 /* jcom.ramp */ = {
 			isa = PBXGroup;
 			children = (
-				A7CC31671518978B00992C6E /* Sources */,
+				D29B7EA2152C88320029EDE8 /* jcom.ramp.cpp */,
 			);
-			sourceTree = "<group>";
-		};
-		A7CC31671518978B00992C6E /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A7CC31681518979E00992C6E /* jcom.ramp.cpp */,
-			);
-			name = Sources;
+			name = jcom.ramp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		A72D873915188DFF001DA7C1 /* jcom.ramp */ = {
+		D28A88AD04BDD90700651E21 /* jcom.ramp */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
-			buildConfigurationList = A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom.ramp" */;
+			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.ramp" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = jcom.ramp;
 			passBuildSettingsInEnvironment = 1;
-			productName = jcom;
+			productName = jcom.ramp;
 		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		A72D873415188DFD001DA7C1 /* Project object */ = {
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
+				LastUpgradeCheck = 0450;
 			};
-			buildConfigurationList = A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.ramp" */;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.ramp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
-			hasScannedForEncodings = 0;
+			hasScannedForEncodings = 1;
 			knownRegions = (
-				en,
+				English,
+				Japanese,
+				French,
+				German,
 			);
-			mainGroup = A72D873215188DFD001DA7C1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* jcom.ramp */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A72D873915188DFF001DA7C1 /* jcom.ramp */,
+				D28A88AD04BDD90700651E21 /* jcom.ramp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		A72D873A15188DFF001DA7C1 /* Debug */ = {
+		1DEB919008733D9F0010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		A72D873B15188DFF001DA7C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		A72D873D15188DFF001DA7C1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
 				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				OTHER_CFLAGS = "";
@@ -128,37 +78,60 @@
 			};
 			name = Debug;
 		};
-		A72D873E15188DFF001DA7C1 /* Release */ = {
+		1DEB919108733D9F0010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = jcom.ramp;
 			};
 			name = Release;
 		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A72D873715188DFD001DA7C1 /* Build configuration list for PBXProject "jcom.ramp" */ = {
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "jcom.ramp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A72D873A15188DFF001DA7C1 /* Debug */,
-				A72D873B15188DFF001DA7C1 /* Release */,
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A72D873C15188DFF001DA7C1 /* Build configuration list for PBXLegacyTarget "jcom.ramp" */ = {
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "jcom.ramp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A72D873D15188DFF001DA7C1 /* Debug */,
-				A72D873E15188DFF001DA7C1 /* Release */,
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A72D873415188DFD001DA7C1 /* Project object */;
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
 }

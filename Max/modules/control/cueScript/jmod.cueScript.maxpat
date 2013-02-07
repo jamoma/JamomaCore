@@ -816,8 +816,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 15.0, 157.0, 291.0, 19.0 ],
-					"text" : "jcom.hub @description \"Manage cue list in text format\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @description \"Manage cue list in text format\"",
+					"varname" : "jcom.model"
 				}
 
 			}
@@ -1167,7 +1167,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "jcom.hub.mxo",
+				"name" : "jcom.model.mxo",
 				"type" : "iLaX"
 			}
 , 			{

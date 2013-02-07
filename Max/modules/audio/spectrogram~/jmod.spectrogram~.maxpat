@@ -1052,7 +1052,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 9.0, 216.0, 428.0, 19.0 ],
-					"text" : "jcom.hub @module_type audio @description \"Spectrogram display of input audio.\""
+					"text" : "jcom.model @type audio @description \"Spectrogram display of input audio.\""
 				}
 
 			}

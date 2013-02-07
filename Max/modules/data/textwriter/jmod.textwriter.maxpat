@@ -441,8 +441,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 20.0, 130.0, 339.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"Write data to a text file with a timestamp for each value.\"",
-					"varname" : "jcom.hub"
+					"text" : "jcom.model @type control @description \"Write data to a text file with a timestamp for each value.\"",
+					"varname" : "jcom.model"
 				}
 
 			}

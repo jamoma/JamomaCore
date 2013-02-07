@@ -227,7 +227,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 35.0, 210.0, 364.0, 19.0 ],
-					"text" : "jcom.hub @description \"One-sided ring modulator using Hilbert filter.\""
+					"text" : "jcom.model @description \"One-sided ring modulator using Hilbert filter.\""
 				}
 
 			}

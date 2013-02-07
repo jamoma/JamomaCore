@@ -8,7 +8,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "Jamoma.h"
 #include "SchedulerRamp.h"
 
 #define thisTTClass			SchedulerRamp
@@ -24,16 +23,15 @@ void schedulerramp_clockfn(SchedulerRamp *x)
 
 
 TT_RAMPUNIT_CONSTRUCTOR,
-	stepsize(0.0), 
-	isRunning(false)
+	stepsize(0.0)
 {
 	clock = clock_new(this, (method)&schedulerramp_clockfn);	// install the max timer
 
-	registerAttribute(TT("granularity"), kTypeFloat32, &attrGranularity);	
-	registerAttribute(TT("clock"), kTypeSymbol, &attrClock, (TTSetterMethod)&SchedulerRamp::setClock);	
+	registerAttribute(TTSymbol("granularity"), kTypeFloat32, &attrGranularity);	
+	registerAttribute(TTSymbol("clock"), kTypeSymbol, &attrClock, (TTSetterMethod)&SchedulerRamp::setClock);	
 
-	setAttributeValue(TT("granularity"), 20.0);
-	setAttributeValue(TT("clock"), TT(""));
+	setAttributeValue(TTSymbol("granularity"), 20.0);
+	setAttributeValue(TTSymbol("clock"), TTSymbol(""));
 }
 
 
@@ -61,20 +59,20 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 	
 	// Test: Do we need to ramp at all?
 	if (ramptime<=0.) {
-		for (i=0; i<numValues; i++)
+		for (i = 0; i < numValues; i++)
 			currentValue[i] = inValues[i];
-		isRunning = false;
+		mIsRunning = NO;
 		(callback)(baton, numValues, currentValue);		// output end values
 	}
 	else {
 		numgrains = ramptime / attrGranularity;
 		stepsize = 1.0 / numgrains;		
-		for (i=0; i<numValues; i++) {
+		for (i = 0; i < numValues; i++) {
 			targetValue[i] = inValues[i];
 			startValue[i] = currentValue[i];
 		}
 		normalizedValue = 0.0;							// set the ramp to the beginning
-		isRunning = true;
+		mIsRunning = YES;
 		(callback)(baton, numValues, currentValue);		// output start values
 		setclock_fdelay(NULL, clock, attrGranularity);	// and schedule first tick
 	}
@@ -84,7 +82,7 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 void SchedulerRamp::stop()
 {
 	clock_unset(clock);
-	isRunning = false;
+	mIsRunning = NO;
 }
 
 
@@ -96,7 +94,7 @@ void SchedulerRamp::tick()
 	double			*target = targetValue;
 	double			*start = startValue;
 
-	if (functionUnit && isRunning) {
+	if (functionUnit && mIsRunning) {
 		// 1. go to the the next step in our ramp
 		numgrains--;
 		
@@ -107,8 +105,12 @@ void SchedulerRamp::tick()
 			normalizedValue += stepsize;
 		
 		functionUnit->calculate(normalizedValue, mapped);
-		for (i=0; i < numValues; i++)
+		for (i = 0; i <  numValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
+		
+		// is the ramp still active ?
+		if (numgrains <= 0.)
+			mIsRunning = NO;
 		
 		// 2. send the value to the host
 		(callback)(baton, numValues, currentValue);
@@ -116,8 +118,6 @@ void SchedulerRamp::tick()
 		// 3. set the clock to fire again
 		if (numgrains > 0.)
 			setclock_fdelay(NULL, clock, attrGranularity);
-		else
-			isRunning = false;
 	}
 }
 
