@@ -118,7 +118,7 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 	for (TTUInt32 i = 0; i < arguments.getSize(); ++i) {
 		valueType = arguments.getType(i);
 		
-		if (valueType == kTypeSymbol|| arguments.getType(i) == kTypeAddress) {
+		if (valueType == kTypeSymbol) {
 			arguments.get(i, symValue);
 			oscStream << symValue.c_str();
 		}
@@ -170,7 +170,7 @@ TTUInt32 TTOscSocket::computeMessageSize(TTSymbol& message, const TTValue& argum
 	 
 	 for (TTUInt32 i = 0; i < arguments.getSize(); ++i) {
 		 
-		 if (arguments.getType(i) == kTypeSymbol || arguments.getType(i) == kTypeAddress) {
+		 if (arguments.getType(i) == kTypeSymbol) {
 			 
 			 TTSymbol symValue;
 			 arguments.get(i, symValue);
