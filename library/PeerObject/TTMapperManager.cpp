@@ -142,8 +142,10 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 		// get mute state
 		if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, BAD_CAST "mute") == 1) {
 			aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-			if (v[0].type() == kTypeSymbol)
-				mute = v[0];
+            
+            if (v.size() == 1)
+                if (v[0].type() == kTypeSymbol)
+                    mute = v[0];
 		}
 		
 		if (mute == TTSymbol("false")) {
@@ -157,16 +159,19 @@ TTErr TTMapperManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 
 				// Get attribute name
 				aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
-				if (v[0].type() == kTypeSymbol) {
-					attributeName = v[0];
-					v.clear();
-
-					// Get attribute value
-					aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-					
-					// fill the current mapper
-					newMapper->setAttributeValue(attributeName, v);
-				}
+                
+                if (v.size() == 1) {
+                    if (v[0].type() == kTypeSymbol) {
+                        attributeName = v[0];
+                        v.clear();
+                        
+                        // Get attribute value
+                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                        
+                        // fill the current mapper
+                        newMapper->setAttributeValue(attributeName, v);
+                    }
+                }
 			}
 
 			// Add Mapper in the list

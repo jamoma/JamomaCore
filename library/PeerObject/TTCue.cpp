@@ -302,14 +302,17 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	TTAddressItemPtr    aNamespace = NULL;
 	TTSymbol			name;
 	TTValue				v, parsedLine;
-	
-	if (inputValue[0].type() == kTypePointer)
-		aNamespace = TTAddressItemPtr((TTPtr)inputValue[0]);
-	
-	else if (inputValue[0].type() == kTypeSymbol) {
-		name = inputValue[0];
-		aNamespace = lookupNamespace(name);
-	}
+    
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypePointer)
+            aNamespace = TTAddressItemPtr((TTPtr)inputValue[0]);
+        
+        else if (inputValue[0].type() == kTypeSymbol) {
+            name = inputValue[0];
+            aNamespace = lookupNamespace(name);
+        }
+    }
 	
 	if (aNamespace) {
 		
@@ -493,8 +496,9 @@ TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
     TTBoolean   flattened;
     TTValue     v;
     
-    if (inputValue[0].type() == kTypeSymbol)
-        anAddress = inputValue[0];
+    if (inputValue.size() == 1)
+        if (inputValue[0].type() == kTypeSymbol)
+            anAddress = inputValue[0];
     
     // is the cue already flattened ?
     mScript->getAttributeValue(kTTSym_flattened, v);
@@ -518,8 +522,9 @@ TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
     TTBoolean   flattened;
     TTValue     v;
     
-    if (inputValue[0].type() == kTypeSymbol)
-        anAddress = inputValue[0];
+    if (inputValue.size() == 1)
+        if (inputValue[0].type() == kTypeSymbol)
+            anAddress = inputValue[0];
     
     // is the cue already flattened ?
     mScript->getAttributeValue(kTTSym_flattened, v);
@@ -541,14 +546,17 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddressItemPtr    aNamespace = NULL;
 	TTSymbol			name;
-	
-	if (inputValue[0].type() == kTypePointer)
-		aNamespace = TTAddressItemPtr((TTPtr)inputValue[0]);
-	
-	else if (inputValue[0].type() == kTypeSymbol) {
-		name = inputValue[0];
-		aNamespace = lookupNamespace(name);
-	}
+    
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypePointer)
+            aNamespace = TTAddressItemPtr((TTPtr)inputValue[0]);
+        
+        else if (inputValue[0].type() == kTypeSymbol) {
+            name = inputValue[0];
+            aNamespace = lookupNamespace(name);
+        }
+    }
 	
 	if (aNamespace) {
 		

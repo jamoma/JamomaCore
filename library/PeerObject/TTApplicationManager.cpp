@@ -156,23 +156,26 @@ TTErr TTApplicationManager::ApplicationAdd(const TTValue& inputValue, TTValue& o
 	TTValue				v;
 	TTSymbol			applicationName;
 	TTApplicationPtr	anApplication;
-	
-	// get the given application and his name
-	if (inputValue[0].type() == kTypeObject) {
-		
-		anApplication = TTApplicationPtr((TTObjectBasePtr)inputValue[0]);
-		
-		anApplication->getAttributeValue(kTTSym_name, v);
-		applicationName = v[0];
-		
-		// add application to the manager
-		mApplications->append(applicationName, anApplication);
-		
-		// notify applications observer that an application has been added
-		notifyApplicationObservers(applicationName, anApplication, kApplicationAdded);
-		
-		return kTTErrNone;
-	}
+    
+    if (inputValue.size() == 1) {
+        
+        // get the given application and his name
+        if (inputValue[0].type() == kTypeObject) {
+            
+            anApplication = TTApplicationPtr((TTObjectBasePtr)inputValue[0]);
+            
+            anApplication->getAttributeValue(kTTSym_name, v);
+            applicationName = v[0];
+            
+            // add application to the manager
+            mApplications->append(applicationName, anApplication);
+            
+            // notify applications observer that an application has been added
+            notifyApplicationObservers(applicationName, anApplication, kApplicationAdded);
+            
+            return kTTErrNone;
+        }
+    }
 	
 	return kTTErrGeneric;
 }
@@ -683,9 +686,11 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		// get the application name 
 		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("name"));
 		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-		if (v[0].type() == kTypeSymbol) {
-			applicationName = v[0];
-		}
+        
+        if (v.size() == 1)
+            if (v[0].type() == kTypeSymbol)
+                applicationName = v[0];
+
 		
 		// if it is the end of a "application" xml node
 		if (aXmlHandler->mXmlNodeStart && mCurrentApplication) {
@@ -701,9 +706,10 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		// get the application version 
 		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("version"));
 		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-		if (v[0].type() == kTypeSymbol) {
-			version = v[0];
-		}
+        
+        if (inputValue.size() == 1)
+            if (v[0].type() == kTypeSymbol)
+                version = v[0];
 		
 		// if the application exists : get it
 		if (!mApplications->lookup(applicationName, v))

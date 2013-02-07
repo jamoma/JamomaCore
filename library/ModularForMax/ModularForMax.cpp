@@ -994,7 +994,7 @@ void jamoma_ttvalue_from_Atom(TTValue& v, SymbolPtr msg, AtomCount argc, AtomPtr
 	AtomCount	i, start;
 	
 	if ((msg == _sym_bang || msg == _sym_nothing) && argc == 0)
-		v.clear();
+		v = kTTValNONE;
 	else {
 		
 		// add msg to the value

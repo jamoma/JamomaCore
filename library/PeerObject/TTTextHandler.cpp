@@ -130,7 +130,6 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	// memorize this object because it could change if the handler is used recursively
 	aTTObject = mObject;
 	
-	
 	if (args.size() == 1) {
 		
 		mIsReading = true;

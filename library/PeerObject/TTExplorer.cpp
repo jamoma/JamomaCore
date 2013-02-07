@@ -379,7 +379,7 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 	TTInt32				i, number;
 	TTBoolean			state;
 	
-	if (aNamespace) {
+	if (aNamespace && inputValue.size()) {
 		
 		// set one item selection state
 		if (inputValue[0].type() == kTypeSymbol) {
@@ -529,49 +529,49 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol		filterName, filterKey;
 	TTValue			v, filterValue;
 	TTErr			err;
+    
+    if (inputValue.size() == 1) {
 	
-	if (inputValue[0].type() == kTypeSymbol) {
-	
-		filterName = inputValue[0];
-		
-		err = mFilterBank->lookup(filterName, v);
-		
-		// if the filter doesn't exist : create a new one
-		if (err) {
-			afilter = new TTDictionary();
-			afilter->setSchema(kTTSym_filter);
-			mFilterBank->append(filterName, (TTPtr)afilter);
-		}
-		// else get the existing filter and his schema
-		else
-			afilter = TTDictionaryPtr((TTPtr)v[0]);
-		
-		// set the keys of the filter
-		for (TTUInt32 i = 1; i < inputValue.size(); i =i+2) {
-			
-			filterKey = inputValue[i];
-			filterValue.copyRange(inputValue, i+1, i+2);
-			
-			// convert Int32 into symbol for instance parsing
-			if (filterValue[0].type() == kTypeInt32) {
-				filterValue.toString();
-				TTString instanceString;
-				instanceString = TTString(filterValue[0]);
-				filterValue[0] = TTSymbol(instanceString);
-			}
-			
-			afilter->append(filterKey, filterValue);
-		}
-	}
-	// the first element have to be a symbol
-	else
-		return kTTErrGeneric;
-	
-	// append the new filter to the filter list
-	if (afilter) {
-		mFilterList->appendUnique(filterName);
-		return kTTErrNone;
-	}
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            filterName = inputValue[0];
+            
+            err = mFilterBank->lookup(filterName, v);
+            
+            // if the filter doesn't exist : create a new one
+            if (err) {
+                afilter = new TTDictionary();
+                afilter->setSchema(kTTSym_filter);
+                mFilterBank->append(filterName, (TTPtr)afilter);
+            }
+            // else get the existing filter and his schema
+            else
+                afilter = TTDictionaryPtr((TTPtr)v[0]);
+            
+            // set the keys of the filter
+            for (TTUInt32 i = 1; i < inputValue.size(); i =i+2) {
+                
+                filterKey = inputValue[i];
+                filterValue.copyRange(inputValue, i+1, i+2);
+                
+                // convert Int32 into symbol for instance parsing
+                if (filterValue[0].type() == kTypeInt32) {
+                    filterValue.toString();
+                    TTString instanceString;
+                    instanceString = TTString(filterValue[0]);
+                    filterValue[0] = TTSymbol(instanceString);
+                }
+                
+                afilter->append(filterKey, filterValue);
+            }
+        }
+        
+        // append the new filter to the filter list
+        if (afilter) {
+            mFilterList->appendUnique(filterName);
+            return kTTErrNone;
+        }
+    }
 	
 	return kTTErrGeneric;
 }
@@ -582,31 +582,35 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol		filterName;
 	TTValue			v, filterValue;
 	TTErr			err;
-	
-	if (inputValue[0].type() == kTypeSymbol) {
-		
-		filterName = inputValue[0];
-		
-		err = mFilterBank->lookup(filterName, v);
-		
-		// if the filter exists
-		if (!err) {
-			
-			// remove the filter from the global table
-			mFilterBank->remove(filterName);
-			
-			// delete the filter
-			afilter = TTDictionaryPtr((TTPtr)v[0]);
-			delete afilter;
-		}
-		
-		// remove the filter from the filter list
-		mFilterList->remove(filterName);
-		
-		return kTTErrNone;
-	}
+    
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            filterName = inputValue[0];
+            
+            err = mFilterBank->lookup(filterName, v);
+            
+            // if the filter exists
+            if (!err) {
+                
+                // remove the filter from the global table
+                mFilterBank->remove(filterName);
+                
+                // delete the filter
+                afilter = TTDictionaryPtr((TTPtr)v[0]);
+                delete afilter;
+            }
+            
+            // remove the filter from the filter list
+            mFilterList->remove(filterName);
+            
+            return kTTErrNone;
+        }
+    }
 	// remove all
 	else {
+        
 		delete mFilterList;
 		mFilterList = new TTList();
 	}
@@ -621,37 +625,40 @@ TTErr TTExplorer::FilterInfo(const TTValue& inputValue, TTValue& outputValue)
 	TTValue			v, filterKeys, filterValue;
 	TTErr			err;
 	
-	if (inputValue[0].type() == kTypeSymbol) {
-		
-		filterName = inputValue[0];
-		
-		err = mFilterBank->lookup(filterName, v);
-		
-		// if the filter exists
-		if (!err) {
-			
-			outputValue.append(filterName);
-						
-			// get the filter
-			aFilter = TTDictionaryPtr((TTPtr)v[0]);
-			
-			// get all keys
-			aFilter->getKeys(filterKeys);
-			
-			// for all key, get the value
-			for (TTUInt8 i = 0; i < filterKeys.size(); i++) {
-				
-				key = filterKeys[i];
-				aFilter->lookup(key, filterValue);
-				
-				outputValue.append(key);
-				outputValue.append(filterValue);
-			}
-		}
-		
-		return err;
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            filterName = inputValue[0];
+            
+            err = mFilterBank->lookup(filterName, v);
+            
+            // if the filter exists
+            if (!err) {
+                
+                outputValue.append(filterName);
+                
+                // get the filter
+                aFilter = TTDictionaryPtr((TTPtr)v[0]);
+                
+                // get all keys
+                aFilter->getKeys(filterKeys);
+                
+                // for all key, get the value
+                for (TTUInt8 i = 0; i < filterKeys.size(); i++) {
+                    
+                    key = filterKeys[i];
+                    aFilter->lookup(key, filterValue);
+                    
+                    outputValue.append(key);
+                    outputValue.append(filterValue);
+                }
+            }
+            
+            return err;
+        }
 	}
-	
+    
 	return kTTErrGeneric;
 }
 

@@ -182,31 +182,35 @@ TTErr Protocol::getApplicationParameters(TTValue& value)
 	TTValue		parametersNames, parameterValue;
 	TTSymbol	parameterName;
 	TTHashPtr	parametersTable = new TTHash();
-	
-	if (value[0].type() == kTypeSymbol) {
-		
-		applicationName = value[0];
-		
-		// for local application
-		if (applicationName == protocolGetLocalApplicationName) {
-			
-			this->getParameterNames(parametersNames);
-			
-			for (TTUInt8 i = 0; i < parametersNames.size(); i++) {
-				parameterName = parametersNames[i];
-				
-				this->getAttributeValue(parameterName, parameterValue);
-				parametersTable->append(parameterName, parameterValue);
-			}
-			
-			value[0] = (TTPtr)parametersTable;
-			
-			return kTTErrNone;
-			
-			//for distant application
-		} else
-			return mDistantApplicationParameters->lookup(applicationName, value);
-	}
+    
+    if (value.size() == 1) {
+        
+        if (value[0].type() == kTypeSymbol) {
+            
+            applicationName = value[0];
+            
+            // for local application
+            if (applicationName == protocolGetLocalApplicationName) {
+                
+                this->getParameterNames(parametersNames);
+                
+                for (TTUInt8 i = 0; i < parametersNames.size(); i++) {
+                    parameterName = parametersNames[i];
+                    
+                    this->getAttributeValue(parameterName, parameterValue);
+                    parametersTable->append(parameterName, parameterValue);
+                }
+                
+                value[0] = (TTPtr)parametersTable;
+                
+                return kTTErrNone;
+                
+                //for distant application
+            }
+            else
+                return mDistantApplicationParameters->lookup(applicationName, value);
+        }
+    }
 	
 	return kTTErrGeneric;
 }
@@ -218,45 +222,48 @@ TTErr Protocol::setApplicationParameters(TTValue& value)
 	TTSymbol	parameterName;
 	TTHashPtr	parametersTable = NULL;
 	TTErr		err;
-	
-	if (value.size() == 2 && value[0].type() == kTypeSymbol && value[1].type() == kTypePointer) {
-		
-		applicationName = value[0];
-		parametersTable = TTHashPtr((TTPtr)value[1]);
-		
-		// for local application
-		if (applicationName == protocolGetLocalApplicationName) {
-			
-			if (parametersTable) {
-				
-				parametersTable->getKeys(parametersNames);
-				
-				for (TTUInt8 i = 0; i < parametersNames.size(); i++) {
-					
-					parameterName = parametersNames[i];
-					parametersTable->lookup(parameterName, parameterValue);
-					this->setAttributeValue(parameterName, parameterValue);
-				}
-				
-				return kTTErrNone;
-			}
-		}
-		//for distant application
-		else {
-			
-			// Check the application is registered
-			err = mDistantApplicationParameters->lookup(applicationName, v);
-			
-			if (!err) {
-				
-				if (parametersTable) {
-					v = TTValue((TTPtr)parametersTable);
-					mDistantApplicationParameters->remove(applicationName);
-					return mDistantApplicationParameters->append(applicationName, v);
-				}
-			}
-		}
-	}
+    
+    if (value.size() == 2) {
+        
+        if (value[0].type() == kTypeSymbol && value[1].type() == kTypePointer) {
+            
+            applicationName = value[0];
+            parametersTable = TTHashPtr((TTPtr)value[1]);
+            
+            // for local application
+            if (applicationName == protocolGetLocalApplicationName) {
+                
+                if (parametersTable) {
+                    
+                    parametersTable->getKeys(parametersNames);
+                    
+                    for (TTUInt8 i = 0; i < parametersNames.size(); i++) {
+                        
+                        parameterName = parametersNames[i];
+                        parametersTable->lookup(parameterName, parameterValue);
+                        this->setAttributeValue(parameterName, parameterValue);
+                    }
+                    
+                    return kTTErrNone;
+                }
+            }
+            //for distant application
+            else {
+                
+                // Check the application is registered
+                err = mDistantApplicationParameters->lookup(applicationName, v);
+                
+                if (!err) {
+                    
+                    if (parametersTable) {
+                        v = TTValue((TTPtr)parametersTable);
+                        mDistantApplicationParameters->remove(applicationName);
+                        return mDistantApplicationParameters->append(applicationName, v);
+                    }
+                }
+            }
+        }
+    }
 	
 	return kTTErrGeneric;
 }

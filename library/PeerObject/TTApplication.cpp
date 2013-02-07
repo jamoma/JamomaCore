@@ -562,12 +562,14 @@ TTErr TTApplication::ConvertToAppName(const TTValue& inputValue, TTValue& output
 	
 	// if there is only 1 symbol : replace value directly by the found one.
 	// because it's possible to have conversion containing several appNames for 1 ttname
-	if (inputValue.size() == 1)
+	if (inputValue.size() == 1) {
+        
 		if (inputValue[0].type() == kTypeSymbol){
 			
 			ttName = inputValue[0];
 			return this->mTTToApp->lookup(ttName, outputValue);
 		}
+    }
 	
 	// else convert each symbol of the value.
 	// !!! in this case 1 to many conversion is not handled
@@ -591,12 +593,14 @@ TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputV
 	
 	// if there is only 1 symbol : replace value directly by the founded one.
 	// because it's possible to have conversion containing several ttNames for 1 appName
-	if (inputValue.size() == 1)
+	if (inputValue.size() == 1) {
+        
 		if (inputValue[0].type() == kTypeSymbol){
 			
 			appName = inputValue[0];
 			return this->mAppToTT->lookup(appName, outputValue);
 		}
+    }
 	
 	// else convert each symbol of the value.
 	// !!! in this case 1 to many conversion is not handled
@@ -844,42 +848,45 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
             
             aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
             
-            if (v[0].type() == kTypeSymbol) {
-                objectName = v[0];
+            if (v.size() == 1) {
                 
-                // a distant application should have one protocol
-                protocolNames = getApplicationProtocols(mName);
-                protocolName = protocolNames[0];
-                
-                aProtocol = (ProtocolPtr)getProtocol(protocolName);
-                if (aProtocol) {
+                if (v[0].type() == kTypeSymbol) {
+                    objectName = v[0];
                     
-                    // instantiate Mirror object for distant application
-                    aMirror = appendMirror(aProtocol, mTempAddress, objectName);
+                    // a distant application should have one protocol
+                    protocolNames = getApplicationProtocols(mName);
+                    protocolName = protocolNames[0];
                     
-                    if (aMirror) {
-                        // ?? to -- is it usefull to set attribute value ?
-                        // yes : in modul8 case for example...
-                        // so it depends of the protocol features : isGetRequestAllowed ?
+                    aProtocol = (ProtocolPtr)getProtocol(protocolName);
+                    if (aProtocol) {
                         
-                        /*
-                         // get all object attributes and their value
-                         while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
-                         
-                         // get attribute name
-                         aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
-                         
-                         if (v.getType() == kTypeSymbol) {
-                         v.get(0, &attributeName);
-                         
-                         // get attribute value
-                         aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
-                         
-                         
-                         aMirror->setAttributeValue(attributeName, v);
-                         }
-                         }
-                         */
+                        // instantiate Mirror object for distant application
+                        aMirror = appendMirror(aProtocol, mTempAddress, objectName);
+                        
+                        if (aMirror) {
+                            // ?? to -- is it usefull to set attribute value ?
+                            // yes : in modul8 case for example...
+                            // so it depends of the protocol features : isGetRequestAllowed ?
+                            
+                            /*
+                             // get all object attributes and their value
+                             while (xmlTextReaderMoveToNextAttribute(aXmlHandler->mReader) == 1) {
+                             
+                             // get attribute name
+                             aXmlHandler->fromXmlChar(xmlTextReaderName(aXmlHandler->mReader), v);
+                             
+                             if (v.getType() == kTypeSymbol) {
+                             v.get(0, &attributeName);
+                             
+                             // get attribute value
+                             aXmlHandler->fromXmlChar(xmlTextReaderValue(aXmlHandler->mReader), v);
+                             
+                             
+                             aMirror->setAttributeValue(attributeName, v);
+                             }
+                             }
+                             */
+                        }
                     }
                 }
             }

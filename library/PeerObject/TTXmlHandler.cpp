@@ -54,9 +54,9 @@ TTXmlHandler::~TTXmlHandler()
 
 TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 {
-    TTValue				v;
-	TTObjectBasePtr			aTTObject;
-	int					ret;
+    TTValue			v;
+	TTObjectBasePtr	aTTObject;
+	int				ret;
 	
 	// an object have to be selected
 	if (mObject == NULL)
@@ -68,6 +68,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
 	if (args.size() == 1) {
+        
 		if (args[0].type() == kTypeSymbol) {
 			
 			mFilePath = args[0];
@@ -160,6 +161,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
 	if (args.size() == 1) {
+        
 		if (args[0].type() == kTypeSymbol) {
 			
 			mFilePath = args[0];
@@ -336,11 +338,14 @@ TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue&
 		
 		fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)mReader), v);
 		
-		if (v[0].type() == kTypeSymbol) {
-			
-			returnedAttributeName = v[0];
-			return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
-		}
+        if (v.size() == 1) {
+            
+            if (v[0].type() == kTypeSymbol) {
+                
+                returnedAttributeName = v[0];
+                return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
+            }
+        }
 	}
 	
 	return kTTErrGeneric;

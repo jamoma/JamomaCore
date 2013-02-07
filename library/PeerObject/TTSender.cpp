@@ -72,7 +72,7 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 
 TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 {
-	TTObjectBasePtr		anObject;
+	TTObjectBasePtr	anObject;
 	TTValue			aCacheElement, v, c;
 	TTAttributePtr	anAttribute;
 	TTSymbol		ttAttributeName;
@@ -110,18 +110,22 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 					// CONTAINER CASE for value attribute
 					else if (anObject->getName() == kTTSym_Container && ttAttributeName == kTTSym_value) {
 						
-						if (valueToSend[0].type() == kTypeSymbol) {
-							relativeAddress = valueToSend[0];
-							c.copyFrom(valueToSend, 1);
-						
-							v = TTValue(relativeAddress);
-							v.append((TTPtr*)&c);
-						
-							// send the value
-							anObject->sendMessage(kTTSym_Send, v, kTTValNONE);
-						}
-						else
-							err = kTTErrGeneric;
+                        if (valueToSend.size() >= 1 ) {
+                            if (valueToSend[0].type() == kTypeSymbol) {
+                                relativeAddress = valueToSend[0];
+                                c.copyFrom(valueToSend, 1);
+                                
+                                v = TTValue(relativeAddress);
+                                v.append((TTPtr*)&c);
+                                
+                                // send the value
+                                anObject->sendMessage(kTTSym_Send, v, kTTValNONE);
+                            }
+                            else
+                                err = kTTErrGeneric;
+                        }
+                        else
+                            err = kTTErrGeneric;
 						
 					}
 					else if (anObject->getName() == kTTSym_Input && ttAttributeName == kTTSym_signal) {

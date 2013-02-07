@@ -63,6 +63,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
 	if (args.size() == 1) {
+        
 		if (args[0].type() == kTypeSymbol) {
 			
 			mFilePath = args[0];
@@ -180,6 +181,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an opml file reading from the given file
 	if (args.size() == 1) {
+        
 		if (args[0].type() == kTypeSymbol) {
 			
 			mFilePath = args[0];

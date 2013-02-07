@@ -230,29 +230,33 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
     TTDictionaryPtr command = NULL;
     TTValue			c, aValue;
 
-    // 0. Get the command TTDictionnary
-    // or parse any incoming value into a TTDictionnary
-    ///////////////////////////////////////////////////
-    if (inputValue[0].type() == kTypePointer)
-        command = TTDictionaryPtr((TTPtr)inputValue[0]);
-    else
-        command = TTDataParseCommand(inputValue);
-    
-    if (!command)
-        return kTTErrGeneric;
-#ifdef USE_ACTIVITY     
-    // 1. Notify Command observer for value changes only
-    ///////////////////////////////////////////////////
-    commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
+    if (inputValue.size()) {
+        
+        // 0. Get the command TTDictionnary
+        // or parse any incoming value into a TTDictionnary
+        ///////////////////////////////////////////////////
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
+            command = TTDataParseCommand(inputValue);
+        
+        if (!command)
+            return kTTErrGeneric;
+#ifdef USE_ACTIVITY
+        // 1. Notify Command observer for value changes only
+        ///////////////////////////////////////////////////
+        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
 #endif
-    // 2. Get the value
-    command->getValue(aValue);
-    
-    // 3. Filter repetitions
-    //////////////////////////////////
-    if (!mRepetitionsAllow && mInitialized)
-        if (mValue == aValue)
-            return kTTErrNone;	// nothing to do
+        // 2. Get the value
+        command->getValue(aValue);
+        
+        // 3. Filter repetitions
+        //////////////////////////////////
+        if (!mRepetitionsAllow && mInitialized)
+            if (mValue == aValue)
+                return kTTErrNone;	// nothing to do
+        
+    }
 
     // 4. Set the value directly
     return this->setGenericValue(aValue);
@@ -310,86 +314,90 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
     double			time;
 #endif
     TTValue			c, v, aValue;
-    
-    // 0. Get the command TTDictionnary
-    // or parse any incoming value into a TTDictionnary
-    ///////////////////////////////////////////////////
-    if (inputValue[0].type() == kTypePointer)
-        command = TTDictionaryPtr((TTPtr)inputValue[0]);
-    else
-        command = TTDataParseCommand(inputValue);
-    
-    if (!command)
-        return kTTErrGeneric;
-#ifdef USE_ACTIVITY     
-    // 1. Notify Command observer for value changes only
-    ///////////////////////////////////////////////////
-    commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
+ 
+    if (inputValue.size()) {
+        
+        // 0. Get the command TTDictionnary
+        // or parse any incoming value into a TTDictionnary
+        ///////////////////////////////////////////////////
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
+            command = TTDataParseCommand(inputValue);
+        
+        if (!command)
+            return kTTErrGeneric;
+#ifdef USE_ACTIVITY
+        // 1. Notify Command observer for value changes only
+        ///////////////////////////////////////////////////
+        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
 #endif
-    // 2. Get the value
-    command->getValue(aValue);
-    
-    // 3. Filter repetitions
-    //////////////////////////////////
-    if (!mRepetitionsAllow && mInitialized) {
-    
-        aValue.booleanize();
+        // 2. Get the value
+        command->getValue(aValue);
         
-        if (mValue == aValue)
-            return kTTErrNone;	// nothing to do
-    }
-    
+        // 3. Filter repetitions
+        //////////////////////////////////
+        if (!mRepetitionsAllow && mInitialized) {
+            
+            aValue.booleanize();
+            
+            if (mValue == aValue)
+                return kTTErrNone;	// nothing to do
+        }
+        
 #ifndef TTDATA_NO_RAMPLIB
-    // 4. Ramp the convertedValue
-    /////////////////////////////////
-    if (mRamper) {
-        
-        if (!command->lookup(kTTSym_ramp, v)) {
+        // 4. Ramp the convertedValue
+        /////////////////////////////////
+        if (mRamper) {
             
-            v.get(0, time);
-            
-            if (time > 0) {
+            if (!command->lookup(kTTSym_ramp, v)) {
                 
-                TTFloat64*	startArray = new TTFloat64[1];		// start to mValue
-                TTFloat64*	targetArray = new TTFloat64[1];		// go to convertedValue
+                v.get(0, time);
                 
-                // This is a temporary solution to have audio rate ramping outside the TTData
-                mExternalRampTime = time;
-                
-                startArray[0] = TTFloat64(mValue[0]);
-                targetArray[0] = TTFloat64(aValue[0]);
-                
-                mRamper->set(1, startArray);
-                mRamper->go(1, targetArray, time);
-                
-                // update the ramp status attribute
-                if (mRampStatus != mRamper->isRunning()) {
-                    mRampStatus = mRamper->isRunning();
-                    notifyObservers(kTTSym_rampStatus, mRampStatus);
+                if (time > 0) {
+                    
+                    TTFloat64*	startArray = new TTFloat64[1];		// start to mValue
+                    TTFloat64*	targetArray = new TTFloat64[1];		// go to convertedValue
+                    
+                    // This is a temporary solution to have audio rate ramping outside the TTData
+                    mExternalRampTime = time;
+                    
+                    startArray[0] = TTFloat64(mValue[0]);
+                    targetArray[0] = TTFloat64(aValue[0]);
+                    
+                    mRamper->set(1, startArray);
+                    mRamper->go(1, targetArray, time);
+                    
+                    // update the ramp status attribute
+                    if (mRampStatus != mRamper->isRunning()) {
+                        mRampStatus = mRamper->isRunning();
+                        notifyObservers(kTTSym_rampStatus, mRampStatus);
+                    }
+                    
+                    delete [] startArray;
+                    delete [] targetArray;
+                    
+                    return kTTErrNone;
                 }
-                
-                delete [] startArray;
-                delete [] targetArray;
-                
-                return kTTErrNone;
+            }
+            
+            // in any other cases :
+            // stop ramping before to set a value
+            
+            // This is a temporary solution to have audio rate ramping outside the TTData
+            mExternalRampTime = 0;
+            
+            mRamper->stop();
+            
+            // update the ramp status attribute
+            if (mRampStatus != mRamper->isRunning()) {
+                mRampStatus = mRamper->isRunning();
+                notifyObservers(kTTSym_rampStatus, mRampStatus);
             }
         }
-        
-        // in any other cases :
-        // stop ramping before to set a value
-        
-        // This is a temporary solution to have audio rate ramping outside the TTData
-        mExternalRampTime = 0;
-        
-        mRamper->stop();
-        
-        // update the ramp status attribute
-        if (mRampStatus != mRamper->isRunning()) {
-            mRampStatus = mRamper->isRunning();
-            notifyObservers(kTTSym_rampStatus, mRampStatus);
-        }
-    }
 #endif
+        
+    }
     
     // 6. Set the value directly
     return this->setBooleanValue(aValue);
@@ -402,10 +410,10 @@ TTErr TTData::setBooleanValue(const TTValue& value)
         // lock
 		mIsSending = YES;
         
-		if (checkBooleanType(value)) {
-			
+        if (checkBooleanType(value)) {
+            
             // don't update the internal value with empty value
-            if (value.size()) {
+            if (value.size() == 1) {
                 
                 // set internal value
                 mValue = value;
@@ -421,14 +429,14 @@ TTErr TTData::setBooleanValue(const TTValue& value)
             mIsSending = NO;
             
             return kTTErrNone;
-		}
+        }
         else {
-			
-			// unlock
-			mIsSending = NO;
             
-			return kTTErrInvalidValue;
-		}
+            // unlock
+            mIsSending = NO;
+            
+            return kTTErrInvalidValue;
+        }
 	}
     
 	return kTTErrGeneric;
@@ -436,6 +444,9 @@ TTErr TTData::setBooleanValue(const TTValue& value)
 
 TTBoolean TTData::checkBooleanType(const TTValue& value)
 {
+    if (value.size() == 0)
+        return YES;
+    
     TTDataType type = value[0].type();
     
     return  type == kTypeNone       ||
@@ -478,105 +489,109 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
 #endif
     TTValue			c, v, aValue;
     
-    // 0. Get the command TTDictionnary
-    // or parse any incoming value into a TTDictionnary
-    ///////////////////////////////////////////////////
-    if (inputValue[0].type() == kTypePointer)
-        command = TTDictionaryPtr((TTPtr)inputValue[0]);
-    else
-        command = TTDataParseCommand(inputValue);
-    
-    if (!command)
-        return kTTErrGeneric;
-#ifdef USE_ACTIVITY     
-    // 1. Notify Command observer for value changes only
-    ///////////////////////////////////////////////////
-    commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
+    if (inputValue.size()) {
+        
+        // 0. Get the command TTDictionnary
+        // or parse any incoming value into a TTDictionnary
+        ///////////////////////////////////////////////////
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
+            command = TTDataParseCommand(inputValue);
+        
+        if (!command)
+            return kTTErrGeneric;
+#ifdef USE_ACTIVITY
+        // 1. Notify Command observer for value changes only
+        ///////////////////////////////////////////////////
+        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
 #endif
-    // 2. Get the value
-    command->getValue(aValue);
-    
-    // 3. Set Dataspace input unit and convert the value
-    // Note : The current implementation does not override the active unit temporarily or anything fancy.
-    // It just sets the input unit and then runs with it...
-    // For this initial implementation we are converting the values prior to ramping, as it is easier.
-    // Ultimately though, we actually want to convert the units after the ramping,
-    // for example to perform a sweep that is linear vs logarithmic
-    ////////////////////////////////////////////////////////////////
-    if (mDataspaceConverter) {
+        // 2. Get the value
+        command->getValue(aValue);
         
-        if (!command->lookup(kTTSym_unit, v)) {
+        // 3. Set Dataspace input unit and convert the value
+        // Note : The current implementation does not override the active unit temporarily or anything fancy.
+        // It just sets the input unit and then runs with it...
+        // For this initial implementation we are converting the values prior to ramping, as it is easier.
+        // Ultimately though, we actually want to convert the units after the ramping,
+        // for example to perform a sweep that is linear vs logarithmic
+        ////////////////////////////////////////////////////////////////
+        if (mDataspaceConverter) {
             
-            TTValue convertedValue;
-            
-            v.get(0, unit);
-            mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
-            convertUnit(aValue, convertedValue);
-            aValue = convertedValue;
-        }
-    }
-    
-    // 4. Filter repetitions
-    //////////////////////////////////
-    if (!mRepetitionsAllow && mInitialized) {
-
-        aValue.truncate();
-        
-        if (mValue == aValue)
-            return kTTErrNone;	// nothing to do
-    }
-    
-#ifndef TTDATA_NO_RAMPLIB
-    // 5. Ramp the convertedValue
-    /////////////////////////////////
-    if (mRamper) {
-        
-        if (!command->lookup(kTTSym_ramp, v)) {
-            
-            v.get(0, time);
-            
-            if (time > 0) {
+            if (!command->lookup(kTTSym_unit, v)) {
                 
-                TTFloat64*	startArray = new TTFloat64[1];		// start to mValue
-                TTFloat64*	targetArray = new TTFloat64[1];		// go to convertedValue
+                TTValue convertedValue;
                 
-                // This is a temporary solution to have audio rate ramping outside the TTData
-                mExternalRampTime = time;
-                
-                startArray[0] = TTFloat64(mValue[0]);
-                targetArray[0] = TTFloat64(aValue[0]);
-                
-                mRamper->set(1, startArray);
-                mRamper->go(1, targetArray, time);
-                
-                // update the ramp status attribute
-                if (mRampStatus != mRamper->isRunning()) {
-                    mRampStatus = mRamper->isRunning();
-                    notifyObservers(kTTSym_rampStatus, mRampStatus);
-                }
-                
-                delete [] startArray;
-                delete [] targetArray;
-                
-                return kTTErrNone;
+                v.get(0, unit);
+                mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
+                convertUnit(aValue, convertedValue);
+                aValue = convertedValue;
             }
         }
         
-        // in any other cases :
-        // stop ramping before to set a value
-        
-        // This is a temporary solution to have audio rate ramping outside the TTData
-        mExternalRampTime = 0;
-        
-        mRamper->stop();
-        
-        // update the ramp status attribute
-        if (mRampStatus != mRamper->isRunning()) {
-            mRampStatus = mRamper->isRunning();
-            notifyObservers(kTTSym_rampStatus, mRampStatus);
+        // 4. Filter repetitions
+        //////////////////////////////////
+        if (!mRepetitionsAllow && mInitialized) {
+            
+            aValue.truncate();
+            
+            if (mValue == aValue)
+                return kTTErrNone;	// nothing to do
         }
-    }
+        
+#ifndef TTDATA_NO_RAMPLIB
+        // 5. Ramp the convertedValue
+        /////////////////////////////////
+        if (mRamper) {
+            
+            if (!command->lookup(kTTSym_ramp, v)) {
+                
+                v.get(0, time);
+                
+                if (time > 0) {
+                    
+                    TTFloat64*	startArray = new TTFloat64[1];		// start to mValue
+                    TTFloat64*	targetArray = new TTFloat64[1];		// go to convertedValue
+                    
+                    // This is a temporary solution to have audio rate ramping outside the TTData
+                    mExternalRampTime = time;
+                    
+                    startArray[0] = TTFloat64(mValue[0]);
+                    targetArray[0] = TTFloat64(aValue[0]);
+                    
+                    mRamper->set(1, startArray);
+                    mRamper->go(1, targetArray, time);
+                    
+                    // update the ramp status attribute
+                    if (mRampStatus != mRamper->isRunning()) {
+                        mRampStatus = mRamper->isRunning();
+                        notifyObservers(kTTSym_rampStatus, mRampStatus);
+                    }
+                    
+                    delete [] startArray;
+                    delete [] targetArray;
+                    
+                    return kTTErrNone;
+                }
+            }
+            
+            // in any other cases :
+            // stop ramping before to set a value
+            
+            // This is a temporary solution to have audio rate ramping outside the TTData
+            mExternalRampTime = 0;
+            
+            mRamper->stop();
+            
+            // update the ramp status attribute
+            if (mRampStatus != mRamper->isRunning()) {
+                mRampStatus = mRamper->isRunning();
+                notifyObservers(kTTSym_rampStatus, mRampStatus);
+            }
+        }
 #endif
+        
+    }
     
     // 6. Set the value directly
     return this->setIntegerValue(aValue);
@@ -592,7 +607,7 @@ TTErr TTData::setIntegerValue(const TTValue& value)
 		if (checkIntegerType(value)) {
 			
             // don't update the internal value with empty value
-            if (value.size()) {
+            if (value.size() == 1) {
                 
                 // set internal value
                 mValue = value;
@@ -631,6 +646,9 @@ TTErr TTData::setIntegerValue(const TTValue& value)
 
 TTBoolean TTData::checkIntegerType(const TTValue& value)
 {
+    if (value.size() == 0)
+        return YES;
+    
     TTDataType type = value[0].type();
     
     return  type == kTypeNone       ||
@@ -672,103 +690,107 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 #endif
     TTValue			c, v, aValue;
     
-    // 0. Get the command TTDictionnary
-    // or parse any incoming value into a TTDictionnary
-    ///////////////////////////////////////////////////
-    if (inputValue[0].type() == kTypePointer)
-        command = TTDictionaryPtr((TTPtr)inputValue[0]);
-    else
-        command = TTDataParseCommand(inputValue);
-    
-    if (!command)
-        return kTTErrGeneric;
-#ifdef USE_ACTIVITY     
-    // 1. Notify Command observer for value changes only
-    ///////////////////////////////////////////////////
-    commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
+    if (inputValue.size()) {
+        
+        // 0. Get the command TTDictionnary
+        // or parse any incoming value into a TTDictionnary
+        ///////////////////////////////////////////////////
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
+            command = TTDataParseCommand(inputValue);
+        
+        if (!command)
+            return kTTErrGeneric;
+#ifdef USE_ACTIVITY
+        // 1. Notify Command observer for value changes only
+        ///////////////////////////////////////////////////
+        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
 #endif
-    // 2. Get the value
-    command->getValue(aValue);
-    
-    // 3. Set Dataspace input unit and convert the value
-    // Note : The current implementation does not override the active unit temporarily or anything fancy.
-    // It just sets the input unit and then runs with it...
-    // For this initial implementation we are converting the values prior to ramping, as it is easier.
-    // Ultimately though, we actually want to convert the units after the ramping,
-    // for example to perform a sweep that is linear vs logarithmic
-    ////////////////////////////////////////////////////////////////
-    if (mDataspaceConverter) {
+        // 2. Get the value
+        command->getValue(aValue);
         
-        if (!command->lookup(kTTSym_unit, v)) {
+        // 3. Set Dataspace input unit and convert the value
+        // Note : The current implementation does not override the active unit temporarily or anything fancy.
+        // It just sets the input unit and then runs with it...
+        // For this initial implementation we are converting the values prior to ramping, as it is easier.
+        // Ultimately though, we actually want to convert the units after the ramping,
+        // for example to perform a sweep that is linear vs logarithmic
+        ////////////////////////////////////////////////////////////////
+        if (mDataspaceConverter) {
             
-            TTValue convertedValue;
-            
-            v.get(0, unit);
-            mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
-            convertUnit(aValue, convertedValue);
-            aValue = convertedValue;
-        }
-    }
-    
-    // 4. Filter repetitions
-    //////////////////////////////////
-    if (!mRepetitionsAllow && mInitialized) {
-        
-        if (mValue == aValue)
-            return kTTErrNone;	// nothing to do
-    }
-    
-#ifndef TTDATA_NO_RAMPLIB
-    // 5. Ramp the convertedValue
-    /////////////////////////////////
-    if (mRamper) {
-        
-        if (!command->lookup(kTTSym_ramp, v)) {
-            
-            v.get(0, time);
-            
-            if (time > 0) {
+            if (!command->lookup(kTTSym_unit, v)) {
                 
-                TTFloat64*	startArray = new TTFloat64[1];		// start to mValue
-                TTFloat64*	targetArray = new TTFloat64[1];		// go to convertedValue
+                TTValue convertedValue;
                 
-                // This is a temporary solution to have audio rate ramping outside the TTData
-                mExternalRampTime = time;
-                
-                startArray[0] = TTFloat64(mValue[0]);
-                targetArray[0] = TTFloat64(aValue[0]);
-                
-                mRamper->set(1, startArray);
-                mRamper->go(1, targetArray, time);
-                
-                // update the ramp status attribute
-                if (mRampStatus != mRamper->isRunning()) {
-                    mRampStatus = mRamper->isRunning();
-                    notifyObservers(kTTSym_rampStatus, mRampStatus);
-                }
-                
-                delete [] startArray;
-                delete [] targetArray;
-                
-                return kTTErrNone;
+                v.get(0, unit);
+                mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
+                convertUnit(aValue, convertedValue);
+                aValue = convertedValue;
             }
         }
         
-        // in any other cases :
-        // stop ramping before to set a value
-        
-        // This is a temporary solution to have audio rate ramping outside the TTData
-        mExternalRampTime = 0;
-        
-        mRamper->stop();
-        
-        // update the ramp status attribute
-        if (mRampStatus != mRamper->isRunning()) {
-            mRampStatus = mRamper->isRunning();
-            notifyObservers(kTTSym_rampStatus, mRampStatus);
+        // 4. Filter repetitions
+        //////////////////////////////////
+        if (!mRepetitionsAllow && mInitialized) {
+            
+            if (mValue == aValue)
+                return kTTErrNone;	// nothing to do
         }
-    }
+        
+#ifndef TTDATA_NO_RAMPLIB
+        // 5. Ramp the convertedValue
+        /////////////////////////////////
+        if (mRamper) {
+            
+            if (!command->lookup(kTTSym_ramp, v)) {
+                
+                v.get(0, time);
+                
+                if (time > 0) {
+                    
+                    TTFloat64*	startArray = new TTFloat64[1];		// start to mValue
+                    TTFloat64*	targetArray = new TTFloat64[1];		// go to convertedValue
+                    
+                    // This is a temporary solution to have audio rate ramping outside the TTData
+                    mExternalRampTime = time;
+                    
+                    startArray[0] = TTFloat64(mValue[0]);
+                    targetArray[0] = TTFloat64(aValue[0]);
+                    
+                    mRamper->set(1, startArray);
+                    mRamper->go(1, targetArray, time);
+                    
+                    // update the ramp status attribute
+                    if (mRampStatus != mRamper->isRunning()) {
+                        mRampStatus = mRamper->isRunning();
+                        notifyObservers(kTTSym_rampStatus, mRampStatus);
+                    }
+                    
+                    delete [] startArray;
+                    delete [] targetArray;
+                    
+                    return kTTErrNone;
+                }
+            }
+            
+            // in any other cases :
+            // stop ramping before to set a value
+            
+            // This is a temporary solution to have audio rate ramping outside the TTData
+            mExternalRampTime = 0;
+            
+            mRamper->stop();
+            
+            // update the ramp status attribute
+            if (mRampStatus != mRamper->isRunning()) {
+                mRampStatus = mRamper->isRunning();
+                notifyObservers(kTTSym_rampStatus, mRampStatus);
+            }
+        }
 #endif
+        
+    }
     
     // 6. Set the value directly
     return this->setDecimalValue(aValue);
@@ -784,7 +806,7 @@ TTErr TTData::setDecimalValue(const TTValue& value)
 		if (checkDecimalType(value)) {
 			
             // don't update the internal value with empty value
-            if (value.size()) {
+            if (value.size() == 1) {
                 
                 // set internal value
                 mValue = value;
@@ -820,6 +842,9 @@ TTErr TTData::setDecimalValue(const TTValue& value)
 
 TTBoolean TTData::checkDecimalType(const TTValue& value)
 {
+    if (value.size() == 0)
+        return YES;
+    
     TTDataType type = value[0].type();
     
     return  type == kTypeNone       ||
@@ -861,109 +886,113 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 #endif
     TTValue			c, v, aValue;
     
-    // 0. Get the command TTDictionnary
-    // or parse any incoming value into a TTDictionnary
-    ///////////////////////////////////////////////////
-    if (inputValue[0].type() == kTypePointer)
-        command = TTDictionaryPtr((TTPtr)inputValue[0]);
-    else
-        command = TTDataParseCommand(inputValue);
-    
-    if (!command)
-        return kTTErrGeneric;
+    if (inputValue.size()) {
+        
+        // 0. Get the command TTDictionnary
+        // or parse any incoming value into a TTDictionnary
+        ///////////////////////////////////////////////////
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
+            command = TTDataParseCommand(inputValue);
+        
+        if (!command)
+            return kTTErrGeneric;
 #ifdef USE_ACTIVITY
-    // 1. Notify Command observer for value changes only
-    ///////////////////////////////////////////////////
-    commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
+        // 1. Notify Command observer for value changes only
+        ///////////////////////////////////////////////////
+        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
 #endif
-    // 2. Get the value
-    command->getValue(aValue);
-    
-    // 3. Set Dataspace input unit and convert the value
-    // Note : The current implementation does not override the active unit temporarily or anything fancy.
-    // It just sets the input unit and then runs with it...
-    // For this initial implementation we are converting the values prior to ramping, as it is easier.
-    // Ultimately though, we actually want to convert the units after the ramping,
-    // for example to perform a sweep that is linear vs logarithmic
-    ////////////////////////////////////////////////////////////////
-    if (mDataspaceConverter) {
+        // 2. Get the value
+        command->getValue(aValue);
         
-        if (!command->lookup(kTTSym_unit, v)) {
+        // 3. Set Dataspace input unit and convert the value
+        // Note : The current implementation does not override the active unit temporarily or anything fancy.
+        // It just sets the input unit and then runs with it...
+        // For this initial implementation we are converting the values prior to ramping, as it is easier.
+        // Ultimately though, we actually want to convert the units after the ramping,
+        // for example to perform a sweep that is linear vs logarithmic
+        ////////////////////////////////////////////////////////////////
+        if (mDataspaceConverter) {
             
-            TTValue convertedValue;
-            
-            v.get(0, unit);
-            mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
-            convertUnit(aValue, convertedValue);
-            aValue = convertedValue;
-        }
-    }
-    
-    // 4. Filter repetitions
-    //////////////////////////////////
-    if (!mRepetitionsAllow && mInitialized) {
-        
-        if (mValue == aValue)
-            return kTTErrNone;	// nothing to do
-    }
-    
-#ifndef TTDATA_NO_RAMPLIB
-    // 5. Ramp the convertedValue
-    /////////////////////////////////
-    if (mRamper) {
-        
-        if (!command->lookup(kTTSym_ramp, v)) {
-            
-            v.get(0, time);
-            
-            if (time > 0) {
+            if (!command->lookup(kTTSym_unit, v)) {
                 
-                TTUInt16	i, s = aValue.size();
-                TTFloat64*	startArray = new TTFloat64[s];		// start to mValue
-                TTFloat64*	targetArray = new TTFloat64[s];		// go to convertedValue
+                TTValue convertedValue;
                 
-                // This is a temporary solution to have audio rate ramping outside the TTData
-                mExternalRampTime = time;
-                
-                if(mValue.size() != s)
-                    mValue.resize(s);
-                
-                for (i=0; i<s; i++) {
-                    startArray[i] = TTFloat64(mValue[i]);
-                    targetArray[i] = TTFloat64(aValue[i]);
-                }
-                
-                mRamper->set(s, startArray);
-                mRamper->go(s, targetArray, time);
-                
-                // update the ramp status attribute
-                if (mRampStatus != mRamper->isRunning()) {
-                    mRampStatus = mRamper->isRunning();
-                    notifyObservers(kTTSym_rampStatus, mRampStatus);
-                }
-                
-                delete [] startArray;
-                delete [] targetArray;
-                
-                return kTTErrNone;
+                v.get(0, unit);
+                mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
+                convertUnit(aValue, convertedValue);
+                aValue = convertedValue;
             }
         }
         
-        // in any other cases :
-        // stop ramping before to set a value
-        
-        // This is a temporary solution to have audio rate ramping outside the TTData
-        mExternalRampTime = 0;
-        
-        mRamper->stop();
-        
-        // update the ramp status attribute
-        if (mRampStatus != mRamper->isRunning()) {
-            mRampStatus = mRamper->isRunning();
-            notifyObservers(kTTSym_rampStatus, mRampStatus);
+        // 4. Filter repetitions
+        //////////////////////////////////
+        if (!mRepetitionsAllow && mInitialized) {
+            
+            if (mValue == aValue)
+                return kTTErrNone;	// nothing to do
         }
-    }
+        
+#ifndef TTDATA_NO_RAMPLIB
+        // 5. Ramp the convertedValue
+        /////////////////////////////////
+        if (mRamper) {
+            
+            if (!command->lookup(kTTSym_ramp, v)) {
+                
+                v.get(0, time);
+                
+                if (time > 0) {
+                    
+                    TTUInt16	i, s = aValue.size();
+                    TTFloat64*	startArray = new TTFloat64[s];		// start to mValue
+                    TTFloat64*	targetArray = new TTFloat64[s];		// go to convertedValue
+                    
+                    // This is a temporary solution to have audio rate ramping outside the TTData
+                    mExternalRampTime = time;
+                    
+                    if(mValue.size() != s)
+                        mValue.resize(s);
+                    
+                    for (i=0; i<s; i++) {
+                        startArray[i] = TTFloat64(mValue[i]);
+                        targetArray[i] = TTFloat64(aValue[i]);
+                    }
+                    
+                    mRamper->set(s, startArray);
+                    mRamper->go(s, targetArray, time);
+                    
+                    // update the ramp status attribute
+                    if (mRampStatus != mRamper->isRunning()) {
+                        mRampStatus = mRamper->isRunning();
+                        notifyObservers(kTTSym_rampStatus, mRampStatus);
+                    }
+                    
+                    delete [] startArray;
+                    delete [] targetArray;
+                    
+                    return kTTErrNone;
+                }
+            }
+            
+            // in any other cases :
+            // stop ramping before to set a value
+            
+            // This is a temporary solution to have audio rate ramping outside the TTData
+            mExternalRampTime = 0;
+            
+            mRamper->stop();
+            
+            // update the ramp status attribute
+            if (mRampStatus != mRamper->isRunning()) {
+                mRampStatus = mRamper->isRunning();
+                notifyObservers(kTTSym_rampStatus, mRampStatus);
+            }
+        }
 #endif
+        
+    }
     
     // 6. Set the value directly
     return this->setArrayValue(aValue);
@@ -1040,32 +1069,35 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
     TTDictionaryPtr command = NULL;
     TTValue			c, aValue;
     
-    // 0. Get the command TTDictionnary
-    // or parse any incoming value into a TTDictionnary
-    ///////////////////////////////////////////////////
-    if (inputValue[0].type() == kTypePointer)
-        command = TTDictionaryPtr((TTPtr)inputValue[0]);
-    else
-        command = TTDataParseCommand(inputValue);
-    
-    if (!command)
-        return kTTErrGeneric;
-#ifdef USE_ACTIVITY     
-    // 1. Notify Command observer for value changes only
-    ///////////////////////////////////////////////////
-   commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
+    if (inputValue.size()) {
+        
+        // 0. Get the command TTDictionnary
+        // or parse any incoming value into a TTDictionnary
+        ///////////////////////////////////////////////////
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
+            command = TTDataParseCommand(inputValue);
+        
+        if (!command)
+            return kTTErrGeneric;
+#ifdef USE_ACTIVITY
+        // 1. Notify Command observer for value changes only
+        ///////////////////////////////////////////////////
+        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
 #endif
-    // 2. Get the value
-    command->getValue(aValue);
-    
-    // 3. Filter repetitions
-    //////////////////////////////////
-    if (!mRepetitionsAllow && mInitialized) {
-
-        if (mValue == aValue)
-            return kTTErrNone;	// nothing to do
+        // 2. Get the value
+        command->getValue(aValue);
+        
+        // 3. Filter repetitions
+        //////////////////////////////////
+        if (!mRepetitionsAllow && mInitialized) {
+            
+            if (mValue == aValue)
+                return kTTErrNone;	// nothing to do
+        }
     }
-      
+    
     // 4. Set the value directly
     return this->setStringValue(aValue);
 }
