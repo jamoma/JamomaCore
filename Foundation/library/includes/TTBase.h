@@ -250,7 +250,6 @@ enum TTDataType {
 	kTypeUInt64,
 	kTypeBoolean,
 	kTypeSymbol,
-	kTypeAddress,
 	kTypeObject,
 	kTypePointer,
 	kTypeString,

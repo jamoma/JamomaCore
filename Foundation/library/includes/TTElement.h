@@ -135,9 +135,8 @@ class TTFOUNDATION_EXPORT TTElement {
 		TTUInt64		uint64;
 		TTBoolean		boolean;
 		TTSymbolBase*	sym;		///< can't be a TTSymbolRef because it is in a union and this generates a compiler error
-		TTAddressBase*	address;
 		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
-		TTObjectBase*		object;
+		TTObjectBase*	object;
 		TTMatrix*		matrix;
 		TTPtr			ptr;
 	};
@@ -305,18 +304,14 @@ public:
 	{
 		if (mType == kTypeSymbol)
 			return TTSymbol(mValue.sym);
-        else if (mType == kTypeAddress)
-            return TTSymbol(mValue.address);
 		else
 			return kTTSymEmpty;
 	}
 
 	operator TTAddress() const
 	{
-		if (mType == kTypeAddress)
-			return TTAddress(mValue.address);
-		else if (mType == kTypeSymbol)
-            return TTAddress(mValue.sym);
+		if (mType == kTypeSymbol)
+			return TTAddress(mValue.sym);
         else
 			return kTTAdrsEmpty;
 	}
@@ -486,8 +481,8 @@ public:
 
 	TTElement& operator = (const TTAddress value)
 	{
-		mType = kTypeAddress;
-		mValue.address = (TTAddressBase*)value.rawpointer();
+		mType = kTypeSymbol;
+		mValue.sym = (TTAddressBase*)value.rawpointer();
 		return *this;
 	}
 
@@ -600,7 +595,6 @@ public:
 					aString.append("0");
 				break;
 			case kTypeSymbol:
-			case kTypeAddress:
 				addQuotes = strchr(mValue.sym->getCString(), ' ') != 0;
 				if (addQuotes)
 					aString.append("\"");
