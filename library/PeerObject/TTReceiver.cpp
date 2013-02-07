@@ -196,7 +196,7 @@ TTErr TTReceiver::bindAddress()
 	TTAddress       anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
-	TTObjectBasePtr		newObserver, o;
+	TTObjectBasePtr	newObserver, o;
 	TTList			aNodeList;
 	TTNodePtr		aNode;
 	TTValue			v, data, newElement;
@@ -238,7 +238,7 @@ TTErr TTReceiver::bindAddress()
 						newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 						TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&newObserver), kTTValNONE);
 						
-						newBaton = new TTValue(this);
+						newBaton = new TTValue(TTObjectBasePtr(this));
 						aNode->getAddress(anAddress);
 						newBaton->append(anAddress.appendAttribute(mAddress.getAttribute()));
 						
@@ -277,7 +277,7 @@ TTErr TTReceiver::bindAddress()
 	mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 	
-	newBaton = new TTValue(this);
+	newBaton = new TTValue(TTObjectBasePtr(this));
 	
 	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
@@ -291,12 +291,12 @@ TTErr TTReceiver::bindAddress()
 
 TTErr TTReceiver::unbindAddress()
 {
-	TTValue				oldElement, v;
-	TTNodePtr			aNode;
-	TTObjectBasePtr			oldObserver, o;
-	TTSymbol			ttAttributeName;
-	TTAttributePtr		anAttribute;
-	TTErr				err = kTTErrNone;
+	TTValue			oldElement, v;
+	TTNodePtr		aNode;
+	TTObjectBasePtr	oldObserver, o;
+	TTSymbol		ttAttributeName;
+	TTAttributePtr	anAttribute;
+	TTErr			err = kTTErrNone;
 	
 	if (mAddress != kTTAdrsEmpty) {
 		
@@ -372,7 +372,7 @@ TTErr TTReceiver::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
 		
-		newBaton = new TTValue(this);
+		newBaton = new TTValue(TTObjectBasePtr(this));
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverApplicationManagerCallback));
@@ -404,10 +404,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
-	TTAddress anAddress;
+	TTAddress       anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
-	TTObjectBasePtr		newObserver, oldObserver, o = NULL;
+	TTObjectBasePtr	newObserver, oldObserver, o = NULL;
 	TTNodePtr		aNode, p_node;
 	TTValue			c, v;
 	TTUInt8			flag;

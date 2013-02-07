@@ -99,7 +99,7 @@ mTempAddress(kTTAdrsEmpty)
 	addMessageProperty(ReadFromXml, hidden, YES);
 	
 	mDirectory = new TTNodeDirectory(mName);
-	mDirectory->getRoot()->setObject(this);
+	mDirectory->getRoot()->setObject(TTObjectBasePtr(this));
 	TT_ASSERT("NodeDirectory created successfully", mDirectory != NULL);
 	
 	mAppToTT = new TTHash();
@@ -109,7 +109,7 @@ mTempAddress(kTTAdrsEmpty)
 	mAttributeListenersCache = new TTHash();
 	
 	// add itself to the application manager
-	TTValue args = TTValue(this);
+	TTValue args = TTValue(TTObjectBasePtr(this));
 	TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
 }
 
@@ -138,7 +138,7 @@ TTErr TTApplication::setName(const TTValue& value)
 	mDirectory->setName(mName);
 	
 	// add itself to the application manager
-	args = TTValue(this);
+	args = TTValue(TTObjectBasePtr(this));
 	return TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
 }
 
@@ -344,7 +344,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
-	TTObjectBasePtr			anObject, returnValueCallback;
+	TTObjectBasePtr		anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
 	TTValuePtr			returnValueBaton;
 	TTValue				cacheElement;
@@ -412,7 +412,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
-	TTObjectBasePtr			anObject, returnValueCallback;
+	TTObjectBasePtr		anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
 	TTValue				cacheElement;
 	TTUInt32			i;

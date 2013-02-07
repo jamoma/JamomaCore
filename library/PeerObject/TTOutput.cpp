@@ -215,7 +215,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 		
-		newBaton = new TTValue(this);
+		newBaton = new TTValue(TTObjectBasePtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
 		mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTOutput"));		// this is usefull only to debug

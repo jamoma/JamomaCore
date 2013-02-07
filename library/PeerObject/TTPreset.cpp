@@ -67,7 +67,7 @@ TTErr TTPreset::setAddress(const TTValue& value)
 TTErr TTPreset::Store()
 {
 	TTNodePtr		aNode;
-	TTObjectBasePtr		anObject;
+	TTObjectBasePtr	anObject;
 	TTList			aNodeList, allObjectNodes;
 	TTAddress       aRelativeAddress;
 	TTValue			v, parsedLine;					

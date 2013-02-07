@@ -378,7 +378,7 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	TTNodePtr			firstNode, aNode;
 	TTAddress			nodeAddress;
 	TTSymbol			objectType;
-	TTObjectBasePtr			anObject;
+	TTObjectBasePtr		anObject;
 	TTErr				err;
 	
 	directory = getDirectoryFrom(whereToDiscover);
@@ -435,7 +435,7 @@ TTErr TTApplicationManager::ApplicationGet(const TTValue& inputValue, TTValue& o
 	TTLogDebug("TTApplicationManager::Get");
 	
 	TTNodePtr			nodeToGet;
-	TTObjectBasePtr			anObject;
+	TTObjectBasePtr		anObject;
 	TTErr				err;
 	
 	directory = getDirectoryFrom(whereToGet);
@@ -469,7 +469,7 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 	TTList				aNodeList;
 	TTNodePtr			nodeToSet;
 	TTSymbol			objectType;
-	TTObjectBasePtr			anObject;
+	TTObjectBasePtr		anObject;
 	TTErr				err;
 	
 	directory = getDirectoryFrom(whereToSet);
@@ -775,9 +775,9 @@ TTErr TTApplicationManager::notifyApplicationObservers(TTSymbol anApplicationNam
 						anObserver = TTCallbackPtr((TTObjectBasePtr)lk_o->current()[0]);
 						TT_ASSERT("TTApplication observer list member is not NULL", anObserver);
 						data.append(anApplicationName);
-						data.append((TTPtr*)anApplication);
+						data.append(TTObjectBasePtr(anApplication));
 						data.append((TTInt8)flag);
-						data.append((TTPtr*)anObserver);
+						data.append(TTObjectBasePtr(anObserver));
 						anObserver->notify(data, kTTValNONE);
 					}
 					

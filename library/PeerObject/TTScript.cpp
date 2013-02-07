@@ -257,7 +257,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol		schema, name;
 	TTNodePtr		aNode;
 	TTAddress       address, parentAddress = kTTAdrsRoot;
-	TTObjectBasePtr		anObject, aContainer, aParentContainer = NULL;
+	TTObjectBasePtr	anObject, aContainer, aParentContainer = NULL;
 	TTValue			v, c;
 	TTErr			err;
 	
@@ -382,7 +382,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
             
             // use container to go faster
             if (aContainer)
-                v.append((TTPtr)aContainer);
+                v.append(TTObjectBasePtr(aContainer));
                 
             mSubScript->sendMessage(kTTSym_Run, v, kTTValNONE);
         }
@@ -725,7 +725,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol		name, unit;
 	TTAddress       address;
 //	TTNodePtr		aNode;
-//	TTObjectBasePtr		anObject;
+//	TTObjectBasePtr	anObject;
 	TTValue			v;
 	TTString		aString;
 	
@@ -975,7 +975,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
                     this->AppendScript(v, parsedLine);
                     
                     // set this as parent script of the subscript
-                    v = TTValue(this);
+                    v = TTValue(TTObjectBasePtr(this));
                     mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
                 }
             }
@@ -1105,7 +1105,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			mSubScript = v[0];
 			
 			// set this as parent script of the subscript
-			v = TTValue(this);
+			v = TTValue(TTObjectBasePtr(this));
 			mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
 			
 			// increment the tab count to indent lines
@@ -1166,7 +1166,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 		aTextHandler->mTabCount--;
 		
 		// set this as parent script of the subscript
-		v = TTValue(this);
+		v = TTValue(TTObjectBasePtr(this));
 		mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
 		
 		// use ReadFromText of the sub script

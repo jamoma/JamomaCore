@@ -105,7 +105,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			// Write data of the given TTObject (which have to implement a WriteAsXml message)
 			v.clear();
-			v.append(this);
+			v.append(TTObjectBasePtr(this));
 			aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 			
 			// End Header information
@@ -129,7 +129,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append(this);
+	v.append(TTObjectBasePtr(this));
 	return aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
 }
 
@@ -250,7 +250,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						}	
 						
 						// process the mObject parsing on this node
-						v.append(this);
+						v.append(TTObjectBasePtr(this));
 						aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 					}
 						
@@ -276,7 +276,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append(this);
+	v.append(TTObjectBasePtr(this));
 	return aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
 }
 

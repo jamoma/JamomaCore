@@ -520,7 +520,7 @@ TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 TTErr TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data)
 {
 	TTSubscriberPtr aSubscriber;
-	TTObjectBasePtr		anObject;
+	TTObjectBasePtr	anObject;
 	TTSymbol		messageName;
 	TTValuePtr		b;
 	TTValue			v;

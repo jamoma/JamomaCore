@@ -28,7 +28,7 @@ registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMe
 
 
 // Macro to update and get the local application name (to use only inside the protocol class)
-#define protocolGetLocalApplicationName ProtocolGetLocalApplicationName(this)
+#define protocolGetLocalApplicationName ProtocolGetLocalApplicationName(TTObjectBasePtr(this))
 
 /****************************************************************************************************/
 // Class Specification

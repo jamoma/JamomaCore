@@ -348,7 +348,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, cons
 	TTString		nameInstance;
 	TTNodePtr		aNode;
 	TTDictionaryPtr	aLine;
-	TTObjectBasePtr		anObject, aSubScript;
+	TTObjectBasePtr	anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
 	TTAddress		address, childAddress;
 	TTSymbol		service;

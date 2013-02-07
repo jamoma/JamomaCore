@@ -98,7 +98,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 				aCacheElement = mObjectCache->current();
 								
 				// then his object
-				anObject = TTObjectBasePtr(aCacheElement[0]);
+				anObject = aCacheElement[0];
 				
 				if (anObject) {
 					// DATA CASE for value attribute
@@ -170,7 +170,7 @@ TTErr TTSender::bindAddress()
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
 		aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
 		anObject = aNode->getObject();
-		aCacheElement = anObject;
+		aCacheElement = TTValue(anObject);
 		mObjectCache->append(aCacheElement);
 	}
 	
@@ -178,7 +178,7 @@ TTErr TTSender::bindAddress()
 	mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 	
-	newBaton = new TTValue(this);
+	newBaton = new TTValue(TTObjectBasePtr(this));
 	
 	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
@@ -224,7 +224,7 @@ TTErr TTSender::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
 		
-		newBaton = new TTValue(this);
+		newBaton = new TTValue(TTObjectBasePtr(this));
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderApplicationManagerCallback));
@@ -259,7 +259,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 	TTValue			aCacheElement;
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
-	TTObjectBasePtr		anObject, aCacheObject;
+	TTObjectBasePtr	anObject, aCacheObject;
 	TTAddress		anAddress;
 	TTValue			v;
 	TTUInt8			flag;

@@ -196,7 +196,7 @@ TTErr TTExplorer::bindAddress()
 			mAddressObserver = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 			TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
 			
-			newBaton = new TTValue(this);
+			newBaton = new TTValue(TTObjectBasePtr(this));
 			
 			mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 			mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
@@ -239,7 +239,7 @@ TTErr TTExplorer::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
 		
-		newBaton = new TTValue(this);
+		newBaton = new TTValue(TTObjectBasePtr(this));
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));

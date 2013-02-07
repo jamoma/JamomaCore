@@ -100,7 +100,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 {
 	TTValue			hk, cacheElement, v;
 	TTValuePtr		valueToSend;
-	TTObjectBasePtr		anObject;
+	TTObjectBasePtr	anObject;
 	TTAddress       aRelativeAddress, topAddress, belowAddress, keyAddress;
 	TTSymbol		attrOrMess, service;
 	TTAttributePtr	anAttribute;
@@ -165,7 +165,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 				if (anObject->getName() == kTTSym_Data && attrOrMess == kTTSym_value) {
 					
 					// what kind of service the data is used for ?
-					anObject->getAttributeValue(TTSymbol("service"), v);
+					anObject->getAttributeValue(kTTSym_service, v);
 					service = v[0];
 					
 					if (service == kTTSym_return)
@@ -240,7 +240,7 @@ TTErr TTContainer::Init()
 {
 	TTValue			hk, v;
 	TTValue			cacheElement;
-	TTObjectBasePtr		anObject;
+	TTObjectBasePtr	anObject;
 	TTAttributePtr	anAttribute;
 	TTSymbol		key, service;
 	TTUInt32		i;
@@ -270,7 +270,7 @@ TTErr TTContainer::Init()
 					anObject->getAttributeValue(kTTSym_service, v);
 					service = v[0];
 					if (service == kTTSym_parameter)
-						anObject->sendMessage(TTSymbol("Reset"));
+						anObject->sendMessage(kTTSym_Reset);
 				}
 		}
 		
@@ -317,7 +317,7 @@ TTErr TTContainer::setAlias(const TTValue& value)
 	TTNodeDirectoryPtr localDirectory = getLocalDirectory;
 	TTAddress		oldAlias = mAlias;
 	TTNodePtr		aNode;
-	TTObjectBasePtr		anObject;
+	TTObjectBasePtr	anObject;
 	TTValue			hk, cacheElement;
 	TTSymbol		key;
 	TTUInt32		i;
@@ -456,7 +456,7 @@ TTErr TTContainer::bind()
 	mObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mObserver), kTTValNONE);
 	
-	newBaton = new TTValue(this);
+	newBaton = new TTValue(TTObjectBasePtr(this));
 	newBaton->append(aContext);
 	
 	mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
@@ -509,7 +509,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 			valueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 			TTObjectBaseInstantiate(TTSymbol("callback"), &valueObserver, kTTValNONE);
 			
-			valueBaton = new TTValue(this);
+			valueBaton = new TTValue(TTObjectBasePtr(this));
 			valueBaton->append(aRelativeAddress);
 			
 			valueObserver->setAttributeValue(kTTSym_baton, TTPtr(valueBaton));
@@ -534,7 +534,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 			commandObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 			TTObjectBaseInstantiate(TTSymbol("callback"), &commandObserver, kTTValNONE);
 			
-			commandBaton = new TTValue(this);
+			commandBaton = new TTValue(TTObjectBasePtr(this));
 			commandBaton->append(aRelativeAddress);
 			
 			commandObserver->setAttributeValue(kTTSym_baton, TTPtr(commandBaton));
@@ -561,7 +561,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		returnedValueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), &returnedValueObserver, kTTValNONE);
 		
-		returnedValueBaton = new TTValue(this);
+		returnedValueBaton = new TTValue(TTObjectBasePtr(this));
 		returnedValueBaton->append(aRelativeAddress);
 		
 		returnedValueObserver->setAttributeValue(kTTSym_baton, TTPtr(returnedValueBaton));
@@ -586,7 +586,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		activityInObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), &activityInObserver, kTTValNONE);
 		
-		activityInBaton = new TTValue(this);
+		activityInBaton = new TTValue(TTObjectBasePtr(this));
 		activityInBaton->append(aRelativeAddress);
 		
 		activityInObserver->setAttributeValue(kTTSym_baton, TTPtr(activityInBaton));
@@ -605,7 +605,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		activityOutObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), &activityOutObserver, kTTValNONE);
 		
-		activityOutBaton = new TTValue(this);
+		activityOutBaton = new TTValue(TTObjectBasePtr(this));
 		activityOutBaton->append(aRelativeAddress);
 		
 		activityOutObserver->setAttributeValue(kTTSym_baton, TTPtr(activityOutBaton));
@@ -843,7 +843,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt16		i;
 	TTValue			keys, cacheElement, s, arg;
 	TTSymbol		name, service;
-	TTObjectBasePtr		anObject;
+	TTObjectBasePtr	anObject;
 	
 	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	buffer = aTextHandler->mWriter;

@@ -119,14 +119,14 @@ TTErr TTViewer::bind()
 	
 	returnAddressCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnAddressCallback, kTTValNONE);
-	returnAddressBaton = new TTValue(this);
+	returnAddressBaton = new TTValue(TTObjectBasePtr(this));
 	returnAddressCallback->setAttributeValue(kTTSym_baton, TTPtr(returnAddressBaton));
 	returnAddressCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveAddressCallback));
 	args.append(returnAddressCallback);
 	
 	returnValueCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
-	returnValueBaton = new TTValue(this);
+	returnValueBaton = new TTValue(TTObjectBasePtr(this));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerReceiveValueCallback));
 	args.append(returnValueCallback);
@@ -155,7 +155,7 @@ TTErr TTViewer::observeDataspace()
 	
 	returnDataspaceCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnDataspaceCallback, kTTValNONE);
-	returnDataspaceBaton = new TTValue(this);
+	returnDataspaceBaton = new TTValue(TTObjectBasePtr(this));
 	returnDataspaceCallback->setAttributeValue(kTTSym_baton, TTPtr(returnDataspaceBaton));
 	returnDataspaceCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerDataspaceCallback));
 	args.append(returnDataspaceCallback);
@@ -184,7 +184,7 @@ TTErr TTViewer::observeDataspaceUnit()
 	
 	returnDataspaceUnitCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnDataspaceUnitCallback, kTTValNONE);
-	returnDataspaceUnitBaton = new TTValue(this);
+	returnDataspaceUnitBaton = new TTValue(TTObjectBasePtr(this));
 	returnDataspaceUnitCallback->setAttributeValue(kTTSym_baton, TTPtr(returnDataspaceUnitBaton));
 	returnDataspaceUnitCallback->setAttributeValue(kTTSym_function, TTPtr(&TTViewerDataspaceUnitCallback));
 	args.append(returnDataspaceUnitCallback);
