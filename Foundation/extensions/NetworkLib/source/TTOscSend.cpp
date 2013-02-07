@@ -64,18 +64,22 @@ TTErr TTOscSend::setPort(const TTValue& newValue)
 
 TTErr TTOscSend::send(const TTValue& value, TTValue& unusedOutput)
 {
-	TTSymbol message;
+	TTSymbol    message;
 	TTValuePtr	arguments;
 	
 	if (mSocket) {
 		
 		// set all application parameters using a TTHash
-		if (value.getSize() == 2 && value.getType(0) == kTypeSymbol && value.getType(1) == kTypePointer) {
-			value.get(0, message);
-			value.get(1, (TTPtr*)&arguments);
-			
-			return mSocket->SendMessage(message, *arguments);
-		}
+        if (value.size() == 2 ) {
+            
+            if (value[0].type() == kTypeSymbol && value[1].type() == kTypePointer) {
+                
+                message = value[0];
+                arguments = TTValuePtr((TTPtr)value[1]);
+                
+                return mSocket->SendMessage(message, *arguments);
+            }
+        }
 	}
 	
 	return kTTErrGeneric;

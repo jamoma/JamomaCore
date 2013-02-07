@@ -115,23 +115,23 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 	TTBoolean		booleanValue;
 	TTDataType		valueType;
 	
-	for (TTUInt32 i = 0; i < arguments.getSize(); ++i) {
-		valueType = arguments.getType(i);
+	for (TTUInt32 i = 0; i < arguments.size(); ++i) {
+		valueType = arguments[i].type();
 		
 		if (valueType == kTypeSymbol) {
-			arguments.get(i, symValue);
+			symValue = arguments[i];
 			oscStream << symValue.c_str();
 		}
 		else if (valueType == kTypeBoolean) {
-			arguments.get(i, booleanValue);
+			booleanValue = arguments[i];
 			oscStream << booleanValue;
 		}
 		else if (valueType == kTypeUInt8 || valueType == kTypeUInt16 || valueType == kTypeUInt32 || valueType == kTypeUInt64) {
-			arguments.get(i, intValue);
+			intValue = arguments[i];
 			oscStream << intValue;
 		}
 		else if (valueType == kTypeInt8 || valueType == kTypeInt16 || valueType == kTypeInt32 || valueType == kTypeInt64) {
-			arguments.get(i, intValue);
+			intValue = arguments[i];
 			oscStream << intValue;
 		}
 		else if (valueType == kTypeFloat32 || valueType == kTypeFloat64) {
@@ -163,34 +163,34 @@ TTUInt32 TTOscSocket::computeMessageSize(TTSymbol& message, const TTValue& argum
 	 
 	 result += ((messageSize/4) + 1) * 4;
 	 
-	 TTUInt32 argumentSize = arguments.getSize();
+	 TTUInt32 argumentSize = arguments.size();
 	 argumentSize += 1;													// , for indicating this is an argument string information
 	 
 	 result += ((argumentSize/4) + 1) * 4;								// ArgumentTag Size
 	 
-	 for (TTUInt32 i = 0; i < arguments.getSize(); ++i) {
+	 for (TTUInt32 i = 0; i < arguments.size(); ++i) {
 		 
-		 if (arguments.getType(i) == kTypeSymbol) {
+		 if (arguments[i].type() == kTypeSymbol) {
 			 
 			 TTSymbol symValue;
-			 arguments.get(i, symValue);
+			 symValue = arguments[i];
 			 TTUInt32 stringSize = symValue.string().size();
 			 stringSize += 1;											// /0 for end of string
 			 result += ((stringSize/4) + 1) * 4;						// String Size
 		 }
-		 else if (arguments.getType(i) == kTypeBoolean) {
+		 else if (arguments[i].type() == kTypeBoolean) {
 			 result += 1;												// Boolean size
 		 }
-		 else if (arguments.getType(i) == kTypeUInt8 || arguments.getType(i) == kTypeInt8) {
+		 else if (arguments[i].type() == kTypeUInt8 || arguments[i].type() == kTypeInt8) {
 			 result += 2;												// Int8 size
 		 }
-		 else if (arguments.getType(i) == kTypeUInt16 || arguments.getType(i) == kTypeInt16) {
+		 else if (arguments[i].type() == kTypeUInt16 || arguments[i].type() == kTypeInt16) {
 			 result += 4;												// Int16 size
 		 }
-		 else if (arguments.getType(i) == kTypeUInt32 || arguments.getType(i) == kTypeInt32 || arguments.getType(i) == kTypeFloat32) {
+		 else if (arguments[i].type() == kTypeUInt32 || arguments[i].type() == kTypeInt32 || arguments[i].type() == kTypeFloat32) {
 			 result += 4;												// Float32/Int32 size
 		 }
-		 else if (arguments.getType(i) == kTypeUInt64 || arguments.getType(i) == kTypeInt64 || arguments.getType(i) == kTypeFloat64) {
+		 else if (arguments[i].type() == kTypeUInt64 || arguments[i].type() == kTypeInt64 || arguments[i].type() == kTypeFloat64) {
 			 result += 8;												// Float64/Int64 size
 		 }
 		 else
