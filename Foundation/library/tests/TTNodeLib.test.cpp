@@ -417,11 +417,11 @@ void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 		aSelection = f->getSelection();
 		empty = f->isEmpty();
 	}
-	
+    
 	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"instance\" or have no parent or is not empty",
 					empty &&
 					aSymbol == TTSymbol("instance") &&
-					aParent == n &&
+					aParent == n->getParent() &&
 					aSelection == NO,
 					testAssertionCount,
 					errorCount);
@@ -429,10 +429,10 @@ void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 	f = NULL;
 	aNamespace->append(TTAddress("/parent/name.other"), &f);
 	
-	size = f->getParent()->getSize();
+	size = f->getParent()->getSize();       // have to be 3 because there are the empty, "instance" and "other" instances
 	
-	TTTestAssertion("TTAddressItem: Test fails if size is not equal to 2",
-					size == 2,
+	TTTestAssertion("TTAddressItem: Test fails if size is not equal to 3",
+					size == 3,
 					testAssertionCount,
 					errorCount);
 }
