@@ -23,15 +23,15 @@ void TTModularInit()
 	// Initialized Foundation framework
 	TTFoundationInit();
 
-#define TO_DEBUG
+//#define TO_DEBUG
 #ifdef TO_DEBUG
-    /*
+
 	TTObjectBasePtr test = NULL;
 	TTValue v;
 	
-	TTObjectBaseInstantiate(TTSymbol("string.test"), &test, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
 	test->test(v);
-     */
+
 #endif // TO_DEBUG
 	
 	if (!TTModularHasInitialized) {
