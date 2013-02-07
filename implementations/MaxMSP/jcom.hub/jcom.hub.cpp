@@ -920,6 +920,8 @@ t_symbol *hub_modulename_get(t_hub *x)
             
             if (x->in_object)
                 object_method_typed(x->in_object, gensym("algorithm_message"), 2, a, NULL);	// send "/module_name ... " also to jcom.in
+            else
+                object_warn((t_object*)x, "a jcom.in is missing in %s module", x->osc_alias->s_name);
 		}
 	}
 	return x->attr_name;
