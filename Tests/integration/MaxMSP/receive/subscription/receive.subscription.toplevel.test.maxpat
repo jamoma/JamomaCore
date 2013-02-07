@@ -269,20 +269,6 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"id" : "obj-8",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 110.0, 151.0, 84.0, 20.0 ],
-					"text" : "route address"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -343,7 +329,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 8.0, 129.0, 121.0, 20.0 ],
+					"patching_rect" : [ 8.0, 129.0, 223.0, 20.0 ],
 					"text" : "jcom.receive test"
 				}
 
@@ -437,7 +423,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 28.0, 292.001862, 245.0, 33.0 ],
-									"text" : "jcom.test.assert.equal toplevel.deferlow-test @input address @compareTo /test:value"
+									"text" : "jcom.test.assert.equal toplevel.deferlow-test @input bang @compareTo /test:value"
 								}
 
 							}
@@ -463,8 +449,8 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 41.5, 402.106842, 89.0, 20.0 ],
-									"text" : "s receive-input"
+									"patching_rect" : [ 41.5, 402.106842, 105.0, 20.0 ],
+									"text" : "s parameter-input"
 								}
 
 							}
@@ -520,8 +506,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 111.001862, 215.0, 33.0 ],
-									"text" : "jcom.test.assert.equal toplevel-test @input address @compareTo nothing"
+									"patching_rect" : [ 28.0, 111.001862, 201.0, 33.0 ],
+									"text" : "jcom.test.assert.equal toplevel-test @input bang @compareTo nothing"
 								}
 
 							}
@@ -547,8 +533,8 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 55.0, 184.106842, 89.0, 20.0 ],
-									"text" : "s receive-input"
+									"patching_rect" : [ 55.0, 184.106842, 105.0, 20.0 ],
+									"text" : "s parameter-input"
 								}
 
 							}
@@ -785,10 +771,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
+					"destination" : [ "obj-4", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-3", 2 ]
+					"source" : [ "obj-3", 1 ]
 				}
 
 			}
@@ -816,15 +802,6 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-8", 0 ]
 				}
 
 			}
