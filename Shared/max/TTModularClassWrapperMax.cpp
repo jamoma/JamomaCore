@@ -922,7 +922,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	aNode->getAddress(dataName, address);
 
 	// absolute registration case : set the address in second position (see in unregister method)
-	storedObject = TTValue(TTPtr(*returnedData));
+	storedObject = TTValue(TTObjectBasePtr(*returnedData));
 	storedObject.append(dataAddress);
 	x->internals->append(TTSymbol(dataName.c_str()), storedObject);
 	
@@ -953,7 +953,7 @@ TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod
 	TTObjectBaseInstantiate(kTTSym_Explorer, TTObjectBaseHandle(returnedExplorer), args);
 	
 	// default registration case : store object only (see in unregister method)
-	storedObject = TTValue(TTPtr(*returnedExplorer));
+	storedObject = TTValue(TTObjectBasePtr(*returnedExplorer));
 	x->internals->append(name, storedObject);
     
     JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" explorer", name.c_str());
@@ -987,7 +987,7 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	(*returnedViewer)->setAttributeValue(kTTSym_address, adrs);
 	
 	// default registration case : store object only (see in unregister method)
-	storedObject = TTValue(TTPtr(*returnedViewer));
+	storedObject = TTValue(TTObjectBasePtr(*returnedViewer));
 	x->internals->append(name, storedObject);
     
     JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" viewer to bind on : %s", name.c_str(), adrs.c_str());
@@ -1025,7 +1025,7 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	(*returnedReceiver)->setAttributeValue(kTTSym_address, adrs);
 	
 	// default registration case : store object only (see in unregister method)
-	storedObject = TTValue(TTPtr(*returnedReceiver));
+	storedObject = TTValue(TTObjectBasePtr(*returnedReceiver));
 	x->internals->append(name, storedObject);
     
      JamomaDebug object_post((ObjectPtr)x, "makes internal \"%s\" receiver to bind on : %s", name.c_str(), adrs.c_str());
