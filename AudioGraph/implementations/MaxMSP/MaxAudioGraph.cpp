@@ -103,7 +103,7 @@ ObjectPtr MaxAudioGraphWrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr 
 
 				
 		self->wrappedClassDefinition = wrappedMaxClass;
-		v.setSize(3);
+		v.resize(3);
 		v.set(0, wrappedMaxClass->ttClassName);
 		v.set(1, self->numInputs);
 		v.set(2, self->numOutputs);
@@ -124,7 +124,7 @@ void MaxAudioGraphWrappedClass_free(WrappedInstancePtr self)
         #ifdef DEBUG_NOTIFICATIONS
         object_post((t_object*)self, "%s will now be freed\n",  ((t_symbol*)object_classname(self))->s_name);
         #endif // DEBUG_NOTIFICATIONS
-        TTObjectBaseRelease((TTObjectPtr*)&self->audioGraphObject);
+        TTObjectBaseRelease((TTObjectBasePtr*)&self->audioGraphObject);
     }
 
 	for (int i=0; i<MAX_NUM_INLETS; i++) {
@@ -208,17 +208,17 @@ t_max_err MaxAudioGraphWrappedClass_attrGet(WrappedInstancePtr self, ObjectPtr a
 
 	self->audioGraphObject->getUnitGenerator()->getAttributeValue(ttAttrName, v);
 
-	*argc = v.getSize();
+	*argc = v.size();
 	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * v.getSize());
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * v.size());
 
-	for (i=0; i<v.getSize(); i++) {
-		if(v.getType(i) == kTypeFloat32 || v.getType(i) == kTypeFloat64){
+	for (i=0; i<v.size(); i++) {
+		if(v[i].type() == kTypeFloat32 || v[i].type() == kTypeFloat64){
 			TTFloat64	value;
 			v.get(i, value);
 			atom_setfloat(*argv+i, value);
 		}
-		else if(v.getType(i) == kTypeSymbol){
+		else if(v[i].type() == kTypeSymbol){
 			TTSymbol	value;
 			v.get(i, value);
 			atom_setsym(*argv+i, gensym((char*)value.c_str()));
@@ -243,7 +243,7 @@ t_max_err MaxAudioGraphWrappedClass_attrSet(WrappedInstancePtr self, ObjectPtr a
 		
 		TTSymbol	ttAttrName(attrName->s_name);
 		
-		v.setSize(argc);
+		v.resize(argc);
 		for (i=0; i<argc; i++) {
 			if(atom_gettype(argv+i) == A_LONG)
 				v.set(i, AtomGetInt(argv+i));
@@ -290,7 +290,7 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 	TTSymbol	ttName(s->s_name);
 	
 	if (argc && argv) {
-		v_in.setSize(argc);
+		v_in.resize(argc);
 		
 		// Typechecking - we only want ints, floats and symbols
 		for (AtomCount i=0; i<argc; i++) {
@@ -309,18 +309,18 @@ void MaxAudioGraphWrappedClass_anything(WrappedInstancePtr self, SymbolPtr s, At
 		
 		// process the returned value for the dumpout outlet
 		{
-			AtomCount	ac = v_out.getSize();
+			AtomCount	ac = v_out.size();
 
 			if (ac) {
 				AtomPtr		av = (AtomPtr)malloc(sizeof(Atom) * ac);
 				
 				for (AtomCount i=0; i<ac; i++) {
-					if (v_out.getType(i) == kTypeSymbol){
+					if (v_out[i].type() == kTypeSymbol){
 						TTSymbol ttSym;
 						v_out.get(i, ttSym);
 						atom_setsym(av+i, gensym((char*)ttSym.c_str()));
 					}
-					else if (v_out.getType(i) == kTypeFloat32 || v_out.getType(i) == kTypeFloat64) {
+					else if (v_out[i].type() == kTypeFloat32 || v_out[i].type() == kTypeFloat64) {
 						TTFloat64 f = 0.0;
 						v_out.get(i, f);
 						atom_setfloat(av+i, f);
@@ -404,7 +404,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGrap
 	TTObjectBaseInstantiate(ttClassName, &o, numChannels);
 
 	o->getMessageNames(v);
-	for (TTUInt16 i=0; i<v.getSize(); i++) {
+	for (TTUInt16 i=0; i<v.size(); i++) {
 		v.get(i, name);
 		nameSize = strlen(name.c_str());
 		nameCString = new char[nameSize+1];
@@ -418,7 +418,7 @@ TTErr wrapAsMaxAudioGraph(TTSymbol ttClassName, char* maxClassName, MaxAudioGrap
 	}
 	
 	o->getAttributeNames(v);
-	for (TTUInt16 i=0; i<v.getSize(); i++) {
+	for (TTUInt16 i=0; i<v.size(); i++) {
 		TTAttributePtr	attr = NULL;
 		SymbolPtr		maxType = _sym_long;
 		TTValue			isGenerator = kTTBoolNo;
