@@ -305,7 +305,7 @@ TTErr jamoma_sender_send(TTSenderPtr aSender, SymbolPtr msg, AtomCount argc, Ato
 TTErr jamoma_receiver_create(ObjectPtr x, TTObjectBasePtr *returnedReceiver)
 {
 	TTValue			args;
-	TTObjectBasePtr		returnAddressCallback, returnValueCallback;
+	TTObjectBasePtr	returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	returnAddressCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -331,10 +331,10 @@ TTErr jamoma_receiver_create(ObjectPtr x, TTObjectBasePtr *returnedReceiver)
 /**	Create a receiver object for audio signal */
 TTErr jamoma_receiver_create_audio(ObjectPtr x, TTObjectBasePtr *returnedReceiver)
 {
-	TTValue			args;
-	TTObjectBasePtr		returnAddressCallback;
-	TTValuePtr		returnAddressBaton;
-	TTAudioSignalPtr	audio = NULL;
+	TTValue             args;
+	TTObjectBasePtr     returnAddressCallback;
+	TTValuePtr          returnAddressBaton;
+	TTAudioSignalPtr    audio = NULL;
 	
 	// prepare arguments
 	returnAddressCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
@@ -361,7 +361,7 @@ TTErr jamoma_receiver_create_audio(ObjectPtr x, TTObjectBasePtr *returnedReceive
 /**	Create a preset manager object */
 TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectBasePtr *returnedPresetManager)
 {
-	TTValue			args;
+	TTValue	args;
 	
 	*returnedPresetManager = NULL;
 	TTObjectBaseInstantiate(kTTSym_PresetManager, TTObjectBaseHandle(returnedPresetManager), args);
@@ -373,7 +373,7 @@ TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectBasePtr *returnedPresetMa
 TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectBasePtr *returnedCueManager)
 {
 	TTValue			args;
-	TTObjectBasePtr		returnLineCallback;
+	TTObjectBasePtr	returnLineCallback;
 	TTValuePtr		returnLineBaton;
 	
 	// prepare arguments
@@ -397,7 +397,7 @@ TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectBasePtr *returnedCueManager)
 TTErr jamoma_input_create(ObjectPtr x, TTObjectBasePtr *returnedInput)
 {	
 	TTValue			args;
-	TTObjectBasePtr		signalOutCallback = NULL;
+	TTObjectBasePtr	signalOutCallback = NULL;
 	TTValuePtr		signalOutBaton;
 	
 	// prepare arguments
