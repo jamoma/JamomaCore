@@ -114,7 +114,7 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 	TTSymbol		name;
 	TTAddress		objectAddress;
 	TTObjectBasePtr	anObject;
-	TTSubscriberPtr aSubscriber;
+	TTObjectBasePtr aSubscriber;
 	TTErr			err;
 
 #ifndef ARRAY_EXTERNAL
@@ -156,15 +156,15 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 						// relative registration case : get an handler on a subscriber and delete it
 						if (storedObject.size() == 3) {
 							aSubscriber = NULL;
-							aSubscriber = TTSubscriberPtr((TTPtr)storedObject[2]);
+							aSubscriber = storedObject[2];
 							
 							if (aSubscriber)
 								if (aSubscriber->valid)		// to -- should be better to understand why the subscriber is not valid
-									TTObjectBaseRelease(TTObjectBaseHandle(&aSubscriber));
+									TTObjectBaseRelease(&aSubscriber);
 						}
 						
 						if (anObject)
-							if (anObject->valid)	// to -- should be better to understand why the object is not valid
+							if (anObject->valid)            // to -- should be better to understand why the object is not valid
 								TTObjectBaseRelease(&anObject);
 					}
 				}
