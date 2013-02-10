@@ -12,7 +12,6 @@
 		2A23B0E1169D5445004793F5 /* TTDelay.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7F15EC21D100B755FA /* TTDelay.test.cpp */; };
 		2A23B0E2169D5445004793F5 /* TTSampleMatrix.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C8015EC21D100B755FA /* TTSampleMatrix.test.cpp */; };
 		2A42393C169CF22B002D05D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A42393B169CF22B002D05D9 /* Foundation.framework */; };
-		2A423949169CF24F002D05D9 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7615EC21C600B755FA /* TTAudioObject.cpp */; };
 		2A42394A169CF24F002D05D9 /* TTAudioObjectArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7715EC21C600B755FA /* TTAudioObjectArray.cpp */; };
 		2A42394B169CF24F002D05D9 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7815EC21C600B755FA /* TTAudioSignal.cpp */; };
 		2A42394C169CF24F002D05D9 /* TTAudioSignalArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7915EC21C600B755FA /* TTAudioSignalArray.cpp */; };
@@ -36,7 +35,6 @@
 
 /* Begin PBXFileReference section */
 		22C57C6815EC21B200B755FA /* TTAudioEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioEngine.h; path = includes/TTAudioEngine.h; sourceTree = "<group>"; };
-		22C57C6915EC21B200B755FA /* TTAudioObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = includes/TTAudioObject.h; sourceTree = "<group>"; };
 		22C57C6A15EC21B200B755FA /* TTAudioObjectArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioObjectArray.h; path = includes/TTAudioObjectArray.h; sourceTree = "<group>"; };
 		22C57C6B15EC21B200B755FA /* TTAudioSignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = includes/TTAudioSignal.h; sourceTree = "<group>"; };
 		22C57C6D15EC21B200B755FA /* TTAudioSignalArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioSignalArray.h; path = includes/TTAudioSignalArray.h; sourceTree = "<group>"; };
@@ -46,7 +44,6 @@
 		22C57C7215EC21B200B755FA /* TTDSP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDSP.h; path = includes/TTDSP.h; sourceTree = "<group>"; };
 		22C57C7315EC21B200B755FA /* TTSampleMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSampleMatrix.h; path = includes/TTSampleMatrix.h; sourceTree = "<group>"; };
 		22C57C7515EC21C600B755FA /* TTAudioEngine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioEngine.cpp; path = source/TTAudioEngine.cpp; sourceTree = "<group>"; };
-		22C57C7615EC21C600B755FA /* TTAudioObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObject.cpp; path = source/TTAudioObject.cpp; sourceTree = "<group>"; };
 		22C57C7715EC21C600B755FA /* TTAudioObjectArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObjectArray.cpp; path = source/TTAudioObjectArray.cpp; sourceTree = "<group>"; };
 		22C57C7815EC21C600B755FA /* TTAudioSignal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioSignal.cpp; path = source/TTAudioSignal.cpp; sourceTree = "<group>"; };
 		22C57C7915EC21C600B755FA /* TTAudioSignalArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioSignalArray.cpp; path = source/TTAudioSignalArray.cpp; sourceTree = "<group>"; };
@@ -235,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				22C57C6815EC21B200B755FA /* TTAudioEngine.h */,
-				22C57C6915EC21B200B755FA /* TTAudioObject.h */,
 				22C57C6A15EC21B200B755FA /* TTAudioObjectArray.h */,
 				22C57C6B15EC21B200B755FA /* TTAudioSignal.h */,
 				22C57C6D15EC21B200B755FA /* TTAudioSignalArray.h */,
@@ -252,7 +248,6 @@
 			isa = PBXGroup;
 			children = (
 				22C57C7515EC21C600B755FA /* TTAudioEngine.cpp */,
-				22C57C7615EC21C600B755FA /* TTAudioObject.cpp */,
 				22C57C7715EC21C600B755FA /* TTAudioObjectArray.cpp */,
 				22C57C7815EC21C600B755FA /* TTAudioSignal.cpp */,
 				22C57C7915EC21C600B755FA /* TTAudioSignalArray.cpp */,
@@ -344,7 +339,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A423949169CF24F002D05D9 /* TTAudioObject.cpp in Sources */,
 				2A42394A169CF24F002D05D9 /* TTAudioObjectArray.cpp in Sources */,
 				2A42394B169CF24F002D05D9 /* TTAudioSignal.cpp in Sources */,
 				2A42394C169CF24F002D05D9 /* TTAudioSignalArray.cpp in Sources */,
