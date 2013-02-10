@@ -199,105 +199,112 @@ void data_new_address(TTPtr self, SymbolPtr relativeAddress)
     TTNodePtr                   returnedNode = NULL;
     TTNodePtr                   returnedContextNode = NULL;
 	SymbolPtr					instanceAddress;
-	TTObjectBasePtr					anObject;
+	TTObjectBasePtr				anObject;
 	TTSubscriberPtr				aSubscriber;
 	TTValue						v;
-	
-	if (!x->iterateInternals) {
-		
-		x->useInternals = YES;
-		x->internals = new TTHash();
-		x->internals->setThreadProtection(YES);
-		x->cursor = kTTSymEmpty;
-		
-		// filter repetitions
-		if (!(x->arrayAddress == newAddress)) {
-			
-			x->arrayAddress = newAddress;
-			
-			if (x->arrayAddress.getType() == kAddressRelative) {
-				
-				number = jamoma_parse_bracket(relativeAddress, x->arrayFormatInteger, x->arrayFormatString);
-				
-				// don't resize to 0
-				if (number && number <= 255) {
-					
-					// Starts iteration on internals
-					x->iterateInternals = YES;
-					
-					x->arraySize = number;
-					
+    
+    if (!EXTRA->changingAddress) {
+        
+        EXTRA->changingAddress = YES;
+        
+        if (!x->iterateInternals) {
+            
+            x->useInternals = YES;
+            x->internals = new TTHash();
+            x->internals->setThreadProtection(YES);
+            x->cursor = kTTSymEmpty;
+            
+            // filter repetitions
+            if (!(x->arrayAddress == newAddress)) {
+                
+                x->arrayAddress = newAddress;
+                
+                if (x->arrayAddress.getType() == kAddressRelative) {
+                    
+                    number = jamoma_parse_bracket(relativeAddress, x->arrayFormatInteger, x->arrayFormatString);
+                    
+                    // don't resize to 0
+                    if (number && number <= 255) {
+                        
+                        // Starts iteration on internals
+                        x->iterateInternals = YES;
+                        
+                        x->arraySize = number;
+                        
 #ifndef JMOD_RETURN
-					// prepare arrayValue
-					EXTRA->arrayValue = (TTValuePtr*)malloc(sizeof(TTValuePtr)*number);
-					for (j = 0 ; j < x->arraySize; j++)
-						EXTRA->arrayValue[j] = NULL;
+                        // prepare arrayValue
+                        EXTRA->arrayValue = (TTValuePtr*)malloc(sizeof(TTValuePtr)*number);
+                        for (j = 0 ; j < x->arraySize; j++)
+                            EXTRA->arrayValue[j] = NULL;
 #endif
-					
-					for (i = 1; i <= x->arraySize; i++) {
-						
-						jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
-						
-						// create a data
+                        
+                        for (i = 1; i <= x->arraySize; i++) {
+                            
+                            jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+                            
+                            // create a data
 #ifdef JMOD_MESSAGE
-						data_array_create(self, &anObject, kTTSym_message, i);
+                            data_array_create(self, &anObject, kTTSym_message, i);
 #endif
-						
+                            
 #if JMOD_RETURN
-						data_array_create(self, &anObject, kTTSym_return, i);
+                            data_array_create(self, &anObject, kTTSym_return, i);
 #endif
-						
+                            
 #ifndef JMOD_MESSAGE
 #ifndef JMOD_RETURN
-						data_array_create(self, &anObject, kTTSym_parameter, i);
+                            data_array_create(self, &anObject, kTTSym_parameter, i);
 #endif
 #endif
-						aSubscriber = NULL;
-						if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTAddress(instanceAddress->s_name),  &aSubscriber, returnedAddress, &returnedNode, &returnedContextNode)) {
-							
-							if (aSubscriber) {
-								// append the data to the internals table
-								v = TTValue(anObject);
-								v.append(TTSymbol(instanceAddress->s_name));
-								v.append(aSubscriber);
-								x->internals->append(TTSymbol(instanceAddress->s_name), v);
-							}
-						}
-					}
-					
-					// Ends iteration on internals
-					x->iterateInternals = NO;
-					
-					// handle args
-					jamoma_ttvalue_to_Atom(x->arrayArgs, &argc, &argv);
-					if (argc && argv)
-						attr_args_process(x, argc, argv);
-					
-					// select all datas
-					wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
-
+                            aSubscriber = NULL;
+                            if (!jamoma_subscriber_create((ObjectPtr)x, anObject, TTAddress(instanceAddress->s_name),  &aSubscriber, returnedAddress, &returnedNode, &returnedContextNode)) {
+                                
+                                if (aSubscriber) {
+                                    // append the data to the internals table
+                                    v = TTValue(anObject);
+                                    v.append(TTSymbol(instanceAddress->s_name));
+                                    v.append(TTObjectBasePtr(aSubscriber));
+                                    x->internals->append(TTSymbol(instanceAddress->s_name), v);
+                                }
+                            }
+                        }
+                        
+                        // Ends iteration on internals
+                        x->iterateInternals = NO;
+                        
+                        // handle args
+                        jamoma_ttvalue_to_Atom(x->arrayArgs, &argc, &argv);
+                        if (argc && argv)
+                            attr_args_process(x, argc, argv);
+                        
+                        // select all datas
+                        wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
+                        
 #ifndef JMOD_MESSAGE
-					// reset all datas created dynamically
-					if (!EXTRA->firstArray)
-						defer((ObjectPtr)x, (method)wrappedModularClass_anything, _sym_reset, 0, NULL);
+                        // reset all datas created dynamically
+                        if (!EXTRA->firstArray)
+                            defer((ObjectPtr)x, (method)wrappedModularClass_anything, _sym_reset, 0, NULL);
 #endif
-				}
-			}
-			else
-				object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
-		}
-	}
-	else 
-		object_error((ObjectPtr)x, "can't change to %s address. Please defer low", relativeAddress->s_name);
-	
-	EXTRA->changingAddress = NO;
-	EXTRA->firstArray = NO;
+                    }
+                }
+                else
+                    object_error((ObjectPtr)x, "can't register because %s is not a relative address", relativeAddress->s_name);
+            }
+        }
+        else 
+            object_error((ObjectPtr)x, "can't change to %s address. Please defer low", relativeAddress->s_name);
+        
+        EXTRA->firstArray = NO;
+        EXTRA->changingAddress = NO;
+    }
+    else
+        object_error((ObjectPtr)x, "can't change to %s address. Please defer low", relativeAddress->s_name);
 }
 
 void data_array_create(TTPtr self, TTObjectBasePtr *returnedData, TTSymbol service, TTUInt8 index)
 {
 	TTValue			args;
-	TTObjectBasePtr		returnValueCallback;
+	TTObjectBasePtr	returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
@@ -344,7 +351,6 @@ void data_address(TTPtr self, SymbolPtr address)
 #endif
 		
 		// rebuild internals
-		EXTRA->changingAddress = YES;
 		defer(self,(method)data_new_address, address, 0, NULL);
 	}
 	else 
