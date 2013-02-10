@@ -23,8 +23,8 @@ mObject(NULL),
 mFilePath(kTTSymEmpty),
 mHeaderNodeName(TTSymbol("jamoma")),
 mVersion(TTSymbol("0.6")),
-mXmlSchemaInstance(TTSymbol("'http://www.w3.org/2001/XMLSchema-instance'")),
-mXmlSchemaLocation(TTSymbol("'http://jamoma.org/ file:jamoma.xsd'")),
+mXmlSchemaInstance(TTSymbol("http://www.w3.org/2001/XMLSchema-instance")),
+mXmlSchemaLocation(TTSymbol("http://jamoma.org/ file:jamoma.xsd")),
 mWriter(NULL),
 mReader(NULL),
 mXmlNodeName(kTTSymEmpty),
@@ -210,7 +210,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								// Get the node value
 								xValue = xmlTextReaderReadString((xmlTextReaderPtr)mReader);
 								fromXmlChar(xValue, mXmlNodeValue);
-								if (xValue)	xmlFree((void*)xValue);
+								//if (xValue)	xmlFree((void*)xValue);         // to - commented out because of "pointer being freed was not allocated" error
 								
 								break;
 								
@@ -242,7 +242,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								// Get the node value
 								xValue = xmlTextReaderValue((xmlTextReaderPtr)mReader);
 								fromXmlChar(xValue, mXmlNodeValue, YES);
-								// if (xValue)	xmlFree((void*)xValue);         // to - this create a malloc error during parsing
+								// if (xValue)	xmlFree((void*)xValue);         // to - commented out because of "pointer being freed was not allocated" error
 								break;
 								
 							default:

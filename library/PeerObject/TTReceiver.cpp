@@ -158,6 +158,7 @@ TTErr TTReceiver::Get()
 				
 				// get the value of the attribute
 				anObject = aNode->getObject();
+                
 				if (anObject) {
 					
 					err = anObject->getAttributeValue(ttAttributeName, data); 
@@ -576,7 +577,7 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
-	TTAddress anAddress;
+	TTAddress       anAddress;
 	TTValue			v;
 	
 	// unpack baton

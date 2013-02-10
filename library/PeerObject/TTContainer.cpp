@@ -481,6 +481,8 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	TTMessagePtr	aMessage;
 	TTValuePtr		valueBaton, commandBaton, returnedValueBaton, activityInBaton, activityOutBaton;
 #endif
+    TTErr           err;
+    
 	// process the relative address
 	aNode->getAddress(aRelativeAddress, mAddress);
 	
@@ -488,6 +490,17 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	anObject = aNode->getObject();
 	if (!anObject)
 		return kTTErrGeneric;
+    
+    // DEBUG : check if the cache element do not exist already
+	err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
+    if (!err) {
+        
+        // DEBUG : this means there is a bad tree managment : we need to trace this
+        std::cout << "TTContainer::makeCacheElement -- object at " << (const char*)aRelativeAddress.c_str() << " already exists" << std::endl;
+        
+        // DEBUG : remove the former element : this way is bad because we don't free the observer
+        mObjectsObserversCache->remove(aRelativeAddress);
+    }
 	
 	// 0 : cache Object
 	cacheElement.append(anObject);
@@ -659,7 +672,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 #ifdef USE_ACTIVITY		
 		// get the object using the node instead of the stored one
 		anObject = aNode->getObject();
-		
+        
 		// Filter NULL object
 		if (anObject) {
 			
@@ -1340,6 +1353,16 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 		if (!err) {
 			
 			anObject = cacheElement[0];
+                
+            // DEBUG : check if the cached object is still valid
+            if (!anObject->valid) {
+                
+                // DEBUG : this means there is a bad tree managment : we need to trace this
+                std::cout << "TTContainerValueAttributeCallback -- object at " << (const char*)relativeAddress.c_str() << " is not valid" << std::endl;
+                
+                // DEBUG : we have to exit because it's going to crash
+                return kTTErrGeneric;
+            }
 			
 			// none CONTAINER CASE
 			if (anObject->getName() != kTTSym_Container) {
