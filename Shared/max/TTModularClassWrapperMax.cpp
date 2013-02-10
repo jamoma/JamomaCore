@@ -367,7 +367,6 @@ void wrappedModularClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomP
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	ModularSpec*				spec = (ModularSpec*)x->wrappedClassDefinition->specificities;
-    TTSymbol                    modelAddress = TTSymbol("/model/address");
 	TTErr						err;
 	
 	// for an array of wrapped object
@@ -391,19 +390,16 @@ void wrappedModularClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomP
 					
 					x->cursor = keys[i];
                     
-                    if (x->cursor != modelAddress) {                                    // to - this only for jcom.remoteArray because there is also a Receiver on model/address 
-                        
-                        // Is it a message of the wrapped object ?
-                        err = wrappedModularClass_sendMessage(self, s, argc, argv);
-                        
-                        // Is it an attribute of the wrapped object ?
-                        if (err)
-                            err = wrappedModularClass_setAttribute(self, s, argc, argv);
-                        
-                        // if error : stop the while because this is an array and all objects are the same
-                        if (err)
-                            break;
-                    }
+                    // Is it a message of the wrapped object ?
+                    err = wrappedModularClass_sendMessage(self, s, argc, argv);
+                    
+                    // Is it an attribute of the wrapped object ?
+                    if (err)
+                        err = wrappedModularClass_setAttribute(self, s, argc, argv);
+                    
+                    // if error : stop the while because this is an array and all objects are the same
+                    if (err)
+                        break;
 					
 					i++;
 				}
