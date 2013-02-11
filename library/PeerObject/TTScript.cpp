@@ -446,7 +446,69 @@ TTErr TTScript::RunFlattened()
 
 TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
 {
-	return kTTErrGeneric;
+	TTDictionaryPtr	aLine;
+	TTNodePtr		aNode;
+	TTAddress       address, addressToRun;
+	TTObjectBasePtr	anObject;
+	TTValue			v;
+    TTErr           err;
+    TTInt8         depthDifference;
+    TTAddressComparisonFlag	comp;
+    
+    if (inputValue.size() == 1) {
+        
+        addressToRun = inputValue[0];
+        
+        // compare each line of the script
+        for (mFlattenedLines->begin(); mFlattenedLines->end(); mFlattenedLines->next()) {
+            
+            aLine = TTDictionaryPtr((TTPtr)mFlattenedLines->current()[0]);
+            
+            // note : Flattened lines are only command with absolute address
+            
+            // get the target address
+            aLine->lookup(kTTSym_target, v);
+            address = v[0];
+            
+            // compare the address
+            comp = addressToRun.compare(address, depthDifference);
+            if (comp == kAddressEqual || comp == kAddressUpper) {
+                
+                err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+                
+                if (!err) {
+                    
+                    anObject = aNode->getObject();
+                    
+                    // DEBUG : check if the object is still valid
+                    if (!anObject->valid) {
+                        
+                        // DEBUG : this means there is a bad tree managment : we need to trace this
+                        std::cout << "TTScript::RunLine -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
+                        
+                        // DEBUG : we have to exit because it's going to crash
+                        return kTTErrGeneric;
+                    }
+                    
+                    // check object type
+                    if (anObject) {
+                        
+                        // for data object
+                        if (anObject->getName() == kTTSym_Data) {
+                            
+                            // send the line using the command message
+                            v = TTValue((TTPtr)aLine);
+                            anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return kTTErrNone;
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
@@ -607,7 +669,61 @@ TTErr TTScript::DumpFlattened()
 
 TTErr TTScript::DumpLine(const TTValue& inputValue, TTValue& outputValue)
 {
-	return kTTErrGeneric;
+    TTDictionaryPtr	aLine;
+    TTAddress       address, addressToDump;;
+    TTSymbol        unit;
+    TTValue			v, valueToDump;
+    TTUInt32		ramp;
+    TTInt8          depthDifference;
+    TTAddressComparisonFlag	comp;
+    
+    if (inputValue.size() == 1) {
+        
+        addressToDump = inputValue[0];
+        
+        // run each line of the script
+        for (mFlattenedLines->begin(); mFlattenedLines->end(); mFlattenedLines->next()) {
+            
+            aLine = TTDictionaryPtr((TTPtr)mFlattenedLines->current()[0]);
+            
+            // note : Flattened lines are only command with absolute address
+            
+            // get the target address
+            aLine->lookup(kTTSym_target, v);
+            address = v[0];
+            
+            // compare the address
+            comp = addressToDump.compare(address, depthDifference);
+            if (comp == kAddressEqual || comp == kAddressUpper) {
+                
+                // get command value
+                aLine->getValue(valueToDump);
+                
+                // get the unit
+                if (!aLine->lookup(kTTSym_unit, v)) {
+                    unit = v[0];
+                    valueToDump.append(unit);
+                }
+                
+                // get the ramp
+                if (!aLine->lookup(kTTSym_ramp, v)) {
+                    ramp = v[0];
+                    valueToDump.append(kTTSym_ramp);
+                    valueToDump.append(ramp);
+                }
+                
+                // append the address
+                valueToDump.prepend(address);
+                
+                // output line value
+                mReturnLineCallback->notify(valueToDump, kTTValNONE);
+            }
+        }
+        
+        return kTTErrNone;
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
