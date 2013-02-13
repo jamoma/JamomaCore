@@ -121,7 +121,6 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_ReadAgain;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_readonly;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Recall;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_receiver;
-extern TTMODULAR_EXPORT TTSymbol	kTTSym_Refresh;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_repetitionsAllow;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Reset;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_return;

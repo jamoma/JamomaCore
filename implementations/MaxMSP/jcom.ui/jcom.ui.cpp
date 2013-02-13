@@ -77,7 +77,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)ui_return_color_border,				"return_color_border",				A_CANT, 0);
 	class_addmethod(c, (method)ui_return_ui_size,					"return_ui_size",					A_CANT, 0);
 	class_addmethod(c, (method)ui_return_ui_freeze,					"return_ui_freeze",					A_CANT, 0);
-	class_addmethod(c, (method)ui_return_ui_refresh,				"return_ui_refresh",				A_CANT, 0);
 	
 	class_addmethod(c, (method)ui_return_model_address,				"return_model_address",				A_CANT, 0);
 	
@@ -409,10 +408,6 @@ void ui_build(t_ui *x)
 	// Set the textfield to display the address
 	textfield = jbox_get_textfield((t_object*) x);
 	if (textfield)
-		
-		// if there is no address try to get model/address value
-		if (x->modelAddress == kTTAdrsEmpty)
-			ui_viewer_refresh(x, TTSymbol("model/address"));
 			
 		// if there is still no address
 		if (x->modelAddress == kTTAdrsEmpty)
@@ -1076,8 +1071,6 @@ void ui_menu_qfn(t_ui *x)
 		else
 			ui_data_send(x, TTSymbol("freeze"), YES);
 	}
-	else if (item->sym == gensym("Refresh UI"))
-		ui_data_send(x, TTSymbol("refresh"), kTTValNONE);
 	
 	else if (item->sym == gensym("Load Settings..."))
 		defer(x, (method)ui_preset_doread, NULL, 0, 0L);
@@ -1124,8 +1117,6 @@ void ui_menu_build(t_ui *x)
 	linklist_clear(x->menu_items);
 	item = (t_symobject *)symobject_new(gensym("Disable UI Updates"));
 	linklist_append(x->menu_items, item);	
-	item = (t_symobject *)symobject_new(gensym("Refresh UI"));
-	linklist_append(x->menu_items, item);
 	item = (t_symobject *)symobject_new(gensym("-"));
 	linklist_append(x->menu_items, item);
 	

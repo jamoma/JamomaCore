@@ -185,7 +185,6 @@ void		ui_viewer_destroy_all(t_ui *obj);
 void		ui_viewer_send(t_ui *obj, TTSymbol name, TTValue v);
 void		ui_viewer_highlight(t_ui *obj, TTSymbol name, TTBoolean s);
 void		ui_viewer_freeze(t_ui *obj, TTSymbol name, TTBoolean f);
-void		ui_viewer_refresh(t_ui *obj, TTSymbol name);
 
 void		ui_explorer_create(ObjectPtr x, TTObjectBasePtr *returnedExplorer, SymbolPtr method);
 void		ui_modelExplorer_callback(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
@@ -202,7 +201,6 @@ void		ui_return_color_toolbarText(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 void		ui_return_color_border(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_ui_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
-void		ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 void		ui_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		ui_return_model_init(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);

@@ -13,7 +13,6 @@
 #define thisTTClassTags		"node, receiver"
 
 TT_MODULAR_CONSTRUCTOR,
-
 mSignal(NULL),
 mAddress(kTTAdrsEmpty),
 mActive(YES),

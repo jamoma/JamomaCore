@@ -50,8 +50,6 @@ mReturnValueCallback(NULL)
 	addAttributeProperty(ReturnedValue, readOnly, YES);
 	addAttributeProperty(ReturnedValue, hidden, YES);
 	
-	addMessage(Refresh);
-	
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
@@ -86,6 +84,8 @@ TTErr TTViewer::setAddress(const TTValue& value)
 	mAddress = value[0];
 	
 	bind();
+    
+    refresh();
 	
 	return kTTErrNone;
 }
@@ -93,7 +93,7 @@ TTErr TTViewer::setAddress(const TTValue& value)
 TTErr TTViewer::bind()
 {
 	TTValue			args, v;
-	TTObjectBasePtr		returnAddressCallback, returnValueCallback;
+	TTObjectBasePtr	returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// Prepare arguments
@@ -140,6 +140,14 @@ TTErr TTViewer::bind()
 	observeDataspaceUnit();
 	
 	return kTTErrNone;
+}
+
+TTErr TTViewer::refresh()
+{
+	if (mReceiver)
+		return mReceiver->sendMessage(kTTSym_Get);
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTViewer::observeDataspace()
@@ -205,6 +213,9 @@ TTErr TTViewer::setActive(const TTValue& value)
 	
 	if (mReceiver)
 		mReceiver->setAttributeValue(kTTSym_active, mActive);
+    
+    if (mActive)
+        refresh();
 	
 	return kTTErrNone;
 }
@@ -212,6 +223,10 @@ TTErr TTViewer::setActive(const TTValue& value)
 TTErr TTViewer::setFreeze(const TTValue& value)
 {
 	mFreeze = value;
+    
+    // update the value if the Viewer is unfreezed
+    if (!mFreeze)
+        refresh();
 	
 	return kTTErrNone;
 }
@@ -229,14 +244,6 @@ TTErr TTViewer::setReturnedValue(const TTValue& value)
 		anAttribute->sendNotification(kTTSym_notify, mReturnedValue);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
-}
-
-TTErr TTViewer::Refresh()
-{
-	if (mReceiver)
-		return mReceiver->sendMessage(kTTSym_Get);
-	
-	return kTTErrGeneric;
 }
 
 TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)

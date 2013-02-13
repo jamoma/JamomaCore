@@ -1,4 +1,4 @@
-/* 
+/*
  *	jcom.receive
  *	External object
  *	Copyright © 2010 by Théo de la Hogue
@@ -68,15 +68,15 @@ void		receive_dsp64(TTPtr self, t_object *dsp64, short *count, double samplerate
 void		receive_return_address(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		receive_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
-/** bang handler for jcom.receive 
- @param self		Pointer to this object.
+/** bang handler for jcom.receive
+ @param self		Pointer to this object
  @see				receive_int, receive_float, receive_list, WrappedOutputClass_anything
  */
 void		receive_bang(TTPtr self);
 #endif
 
 /** address message handler for jcom.receive. To change the address to bind.
- @param self		Pointer to this object.
+ @param self		Pointer to this object
  @param address		The address to bind
  @see				receive_subscribe
  */
@@ -113,8 +113,8 @@ void WrapTTReceiverClass(WrappedClassPtr c)
 #else
 	class_addmethod(c->maxClass, (method)receive_return_address,		"return_address",		A_CANT, 0);
 	class_addmethod(c->maxClass, (method)receive_return_value,			"return_value",			A_CANT, 0);
-	
-	class_addmethod(c->maxClass, (method)receive_bang,					"bang",					0);
+
+	class_addmethod(c->maxClass, (method)receive_bang,                  "bang",                 0);
 #endif
 	
 	class_addmethod(c->maxClass, (method)receive_address,				"address",				A_SYM, 0);
@@ -207,6 +207,8 @@ void receive_subscribe(TTPtr self)
         
         JamomaDebug object_post((ObjectPtr)x, "binds on %s", x->address.c_str());
         
+        x->wrappedObject->sendMessage(kTTSym_Get);
+        
 		return;
 	}
 	
@@ -244,12 +246,16 @@ void receive_subscribe(TTPtr self)
 	
 	// else, if no context, set address directly
 	else if (x->patcherContext == kTTSymEmpty) {
+        
 		contextAddress = kTTAdrsRoot;
 		absoluteAddress = contextAddress.appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
 		
 		atom_setsym(a, gensym((char*)absoluteAddress.c_str()));
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
+        
+        x->wrappedObject->sendMessage(kTTSym_Get);
+        
 		return;
 	}
 	
@@ -293,8 +299,8 @@ void receive_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Ato
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 		
 		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress.c_str());
-		
-		// in view patcher, get the value to refresh it
+        
+        // in view patcher, get the value to refresh it
 		if (x->patcherContext == kTTSym_view)
 			x->wrappedObject->sendMessage(kTTSym_Get);
 	}

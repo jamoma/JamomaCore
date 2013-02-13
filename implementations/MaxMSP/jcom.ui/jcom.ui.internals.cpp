@@ -81,13 +81,6 @@ void ui_data_create_all(t_ui* obj)
 		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
 		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
 		anObject->setAttributeValue(kTTSym_description, TTSymbol("Freeze each jcom.remote in the patch"));
-		
-		// ui/refresh
-		ui_data_create(obj, &anObject, gensym("return_ui_refresh"), kTTSym_message, TTSymbol("refresh"));
-		anObject->setAttributeValue(kTTSym_type, kTTSym_none);
-		anObject->setAttributeValue(kTTSym_tag, kTTSym_generic);
-		anObject->setAttributeValue(kTTSym_rampDrive, kTTSym_none);
-		anObject->setAttributeValue(kTTSym_description, TTSymbol("Refresh each jcom.remote in the patch"));
 	}
 }
 
@@ -223,7 +216,7 @@ void ui_data_interface(t_ui *x, TTSymbol name)
 void ui_receiver_create(t_ui *obj, TTObjectBasePtr *returnedReceiver, SymbolPtr aCallbackMethod, TTSymbol name, TTAddress address)
 {
 	TTValue			v, args;
-	TTObjectBasePtr		returnValueCallback;
+	TTObjectBasePtr	returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	TTAddress adrs;
 	
@@ -244,8 +237,8 @@ void ui_receiver_create(t_ui *obj, TTObjectBasePtr *returnedReceiver, SymbolPtr 
 	// Set address to bind
 	adrs = address.appendAddress(TTAddress(name.c_str()));
 	(*returnedReceiver)->setAttributeValue(kTTSym_address, adrs);
-	
-	// refresh receiver
+    
+    // refresh receiver
 	(*returnedReceiver)->sendMessage(kTTSym_Get);
 	
 	// Store receiver
@@ -330,9 +323,6 @@ void ui_viewer_create(t_ui *obj, TTObjectBasePtr *returnedViewer, SymbolPtr aCal
 	// Set address to bind
 	adrs = address.appendAddress(TTAddress(name.c_str()));
 	(*returnedViewer)->setAttributeValue(kTTSym_address, adrs);
-	
-	// refresh viewer
-	(*returnedViewer)->sendMessage(kTTSym_Refresh);
 	
 	// Store viewer
 	args = TTValue(*returnedViewer);
@@ -431,22 +421,6 @@ void ui_viewer_freeze(t_ui *obj, TTSymbol name, TTBoolean f)
 			anObject = storedObject[0];
 			if (anObject)
 				anObject->setAttributeValue(kTTSym_freeze, f);
-		}
-	}
-}
-
-void ui_viewer_refresh(t_ui *obj, TTSymbol name)
-{
-	TTValue			storedObject;
-	TTObjectBasePtr		anObject;
-	TTErr			err;
-	if (obj->hash_viewers) {
-		err = obj->hash_viewers->lookup(name, storedObject);
-		
-		if (!err) {
-			anObject = storedObject[0];
-			if (anObject)
-				anObject->sendMessage(kTTSym_Refresh);
 		}
 	}
 }
@@ -883,40 +857,6 @@ void ui_return_ui_size(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	free(rect);
 }
 
-void ui_return_ui_refresh(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
-{
-	t_ui* obj = (t_ui*)self;
-	
-	// TODO : refresh all jcom.remote of the view patch
-	// 1. Get the TTContainer object of the view patch
-	// 2. use his send message : /*.*:refresh
-	
-	// refresh all widgets
-	// gain
-	if (obj->has_gain)
-		ui_viewer_refresh(obj, TTSymbol("gain"));
-	
-	// mix
-	if (obj->has_mix)
-		ui_viewer_refresh(obj, TTSymbol("mix"));
-	
-	// bypass
-	if (obj->has_bypass)
-		ui_viewer_refresh(obj, TTSymbol("bypass"));
-	
-	// freeze
-	if (obj->has_freeze)
-		ui_viewer_refresh(obj, TTSymbol("freeze"));
-	
-	// preview
-	if (obj->has_preview)
-		ui_viewer_refresh(obj, TTSymbol("preview"));
-	
-	// mute
-	if (obj->has_mute) 
-		ui_viewer_refresh(obj, TTSymbol("mute"));
-}
-
 void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	t_ui* obj = (t_ui*)self;
@@ -952,10 +892,6 @@ void ui_return_ui_freeze(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 	// mute
 	if (obj->has_mute) 
 		ui_viewer_freeze(obj, TTSymbol("mute"), obj->ui_freeze);
-	
-	// if freeze is disabled : refresh
-	if (!obj->ui_freeze)
-		ui_return_ui_refresh(self, _sym_nothing, argc, argv);
 }
 
 void ui_return_color_contentBackground(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

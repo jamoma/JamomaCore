@@ -367,29 +367,6 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 		object_obex_dumpout((ObjectPtr)x, gensym("address"), 1, a);
 		
 		JamomaDebug object_post((ObjectPtr)x, "binds on %s", absoluteAddress.c_str());
-		
-		// for Data object, if service is parameter or return : refresh !
-		// note : this would only work if the address already exists
-		err = getDirectoryFrom(absoluteAddress)->Lookup(absoluteAddress, returnedNodes, &firstNode);
-		
-		if (!err) {
-            
-            anObject = firstNode->getObject();
-			if (anObject) {
-				if (anObject->getName() == kTTSym_Data) {
-					anObject->getAttributeValue(kTTSym_service, v);
-					service = v[0];
-					
-					if (service == kTTSym_parameter || service == kTTSym_return)
-						defer_low((ObjectPtr)x, (method)wrappedModularClass_sendMessage, gensym("refresh"), 0, 0);
-				}
-				else
-					defer_low((ObjectPtr)x, (method)wrappedModularClass_sendMessage, gensym("refresh"), 0, 0);
-			}
-		}
-		
-		// why not use this way to refresh ?
-		// defer((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
 	}
 }
 

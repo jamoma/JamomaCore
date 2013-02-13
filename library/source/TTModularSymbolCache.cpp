@@ -121,7 +121,6 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_ReadAgain                        (("ReadA
 TTMODULAR_EXPORT TTSymbol       kTTSym_readonly                         (("readonly"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Recall                           (("Recall"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_receiver                         (("receiver"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_Refresh                          (("Refresh"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_repetitionsAllow					(("repetitionsAllow"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Reset                            (("Reset"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_return                           (("return"));

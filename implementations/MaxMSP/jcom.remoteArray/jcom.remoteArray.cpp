@@ -848,12 +848,6 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 			
 			// Ends iteration on internals
 			x->iterateInternals = NO;
-			
-			// select all viewers
-			wrappedModularClass_ArraySelect(self, gensym("*"), 0, NULL);
-			
-			// why not use this way to refresh ?
-			defer_low((ObjectPtr)x, (method)wrappedModularClass_anything, gensym("refresh"), 0, NULL);
 
 			EXTRA->countSubscription = 0;
 		}

@@ -52,9 +52,6 @@ private:
 	
 	TTCallbackPtr				mReturnValueCallback;		///< a way to return back value to the owner of this viewer
 	
-	/** */
-	TTErr Refresh();
-	
 	/** set the address */
 	TTErr setAddress(const TTValue& value);
 	
@@ -78,6 +75,7 @@ private:
 	
 	/** */
 	TTErr bind();
+	TTErr refresh();
 	TTErr convertUnit(const TTValue& inputValue, TTValue& outputValue);
 	TTErr observeDataspace();
 	TTErr observeDataspaceUnit();
