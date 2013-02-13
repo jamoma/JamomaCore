@@ -489,7 +489,13 @@ TTErr TTData::rampSetup()
 	// For some types ramping doesn't make sense, so they will be set to none
 	if (mType == kTTSym_none || mType == kTTSym_string || mType == kTTSym_generic)
 		mRampDrive = kTTSym_none;
+    
 	else {
+        
+        // TODO : move this very Max specific thing else where
+        // (but it is not a problem if the Max plugin is not available)
+        if (mRampDrive == kTTSym_none)
+            mRampDrive = TTSymbol("Max");
         
         args.append((TTPtr)&TTDataRampCallback);
         args.append((TTPtr)this); // we have to store this as a pointer

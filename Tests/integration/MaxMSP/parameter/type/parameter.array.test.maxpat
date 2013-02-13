@@ -2833,8 +2833,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 758.964111, 236.0, 33.0 ],
-									"text" : "jcom.test.assert.equal ramp/drive-test @input ramp/drive @compareTo none"
+									"patching_rect" : [ 50.0, 758.964111, 220.0, 33.0 ],
+									"text" : "jcom.test.assert.equal ramp/drive-test @input ramp/drive @compareTo Max"
 								}
 
 							}
