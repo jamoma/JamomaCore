@@ -7,7 +7,7 @@
 			"revision" : 8
 		}
 ,
-		"rect" : [ 325.0, 44.0, 959.0, 920.0 ],
+		"rect" : [ 284.0, 78.0, 959.0, 920.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -211,7 +211,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 480.0, 453.0, 184.0, 83.0 ],
+									"patching_rect" : [ 480.0, 453.0, 185.0, 83.0 ],
 									"text" : "You can address any instance by sending the instance number in jcom.parameterArray right inlet"
 								}
 
@@ -791,8 +791,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 157.0, 448.0, 274.0, 19.0 ],
-									"text" : "jcom.parameterArray some/stuff.[5] @format single",
+									"patching_rect" : [ 157.0, 448.0, 259.0, 19.0 ],
+									"text" : "jcom.parameterArray indexed.[5] @format single",
 									"varname" : "my_float[1]"
 								}
 
@@ -916,7 +916,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 0.0, 26.0, 959.0, 894.0 ],
+						"rect" : [ 284.0, 104.0, 959.0, 894.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1119,8 +1119,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
-									"patching_rect" : [ 66.0, 357.0, 339.0, 19.0 ],
-									"text" : "jcom.parameterArray some/stuff.[5] @type array @format single",
+									"patching_rect" : [ 66.0, 357.0, 338.0, 19.0 ],
+									"text" : "jcom.parameterArray split/items.[5] @type array @format single",
 									"varname" : "my_float[1]"
 								}
 
@@ -1292,7 +1292,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 340.0, 218.0, 155.0, 141.0 ],
+									"patching_rect" : [ 340.0, 218.0, 151.0, 141.0 ],
 									"text" : "In 'single' mode (default), jcom.parameterArray will output the instance whose value has been changed out of the middle outlet then the value out of the left outlet"
 								}
 
@@ -1806,7 +1806,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 325.0, 70.0, 959.0, 894.0 ],
+						"rect" : [ 0.0, 26.0, 959.0, 894.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1836,8 +1836,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 388.0, 255.0, 50.0, 20.0 ],
-									"presentation_rect" : [ 388.0, 255.0, 0.0, 0.0 ]
+									"patching_rect" : [ 388.0, 255.0, 50.0, 20.0 ]
 								}
 
 							}
@@ -1851,8 +1850,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 338.0, 255.0, 50.0, 20.0 ],
-									"presentation_rect" : [ 340.0, 252.0, 0.0, 0.0 ]
+									"patching_rect" : [ 338.0, 255.0, 50.0, 20.0 ]
 								}
 
 							}
@@ -1866,8 +1864,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 288.0, 255.0, 50.0, 20.0 ],
-									"presentation_rect" : [ 288.0, 254.0, 0.0, 0.0 ]
+									"patching_rect" : [ 288.0, 255.0, 50.0, 20.0 ]
 								}
 
 							}
@@ -1881,8 +1878,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 238.0, 255.0, 50.0, 20.0 ],
-									"presentation_rect" : [ 243.0, 255.0, 0.0, 0.0 ]
+									"patching_rect" : [ 238.0, 255.0, 50.0, 20.0 ]
 								}
 
 							}
@@ -2322,14 +2318,14 @@
 		"dependency_cache" : [ 			{
 				"name" : "helpname.js",
 				"bootpath" : "/Applications/Max6/Cycling '74/help-resources",
-				"patcherrelativepath" : "../../../../../../Applications/Max6/Cycling '74/help-resources",
+				"patcherrelativepath" : "../../../../../../../../../Applications/Max6/Cycling '74/help-resources",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "helpdetails.js",
 				"bootpath" : "/Applications/Max6/Cycling '74/help-resources",
-				"patcherrelativepath" : "../../../../../../Applications/Max6/Cycling '74/help-resources",
+				"patcherrelativepath" : "../../../../../../../../../Applications/Max6/Cycling '74/help-resources",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
