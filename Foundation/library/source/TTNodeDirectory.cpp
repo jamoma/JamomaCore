@@ -255,7 +255,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTAddress anAddress, TTObjectBasePtr newObje
     
     // 3. Add the effective address (with the generated instance) to the global hashtab
     newTTNode->getAddress(effectiveAddress);
-    directory->append(effectiveAddress, TTValue(newTTNode));
+    directory->append(effectiveAddress, newTTNode);
     
     // 4. Notify observers that a node have been created AFTER the creation
     this->notifyObservers(effectiveAddress, newTTNode, kAddressCreated);
@@ -423,7 +423,7 @@ TTErr TTNodeDirectory::Lookup(TTAddress anAddress, TTList& returnedTTNodes, TTNo
 
 		// if the node exists
 		if (err == kTTErrNone) {
-			returnedTTNodes.append(TTValue((TTPtr)n_r));
+			returnedTTNodes.append(n_r);
 			*firstReturnedTTNode = n_r;
 		}
 
@@ -468,7 +468,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 
 					// test the child and fill the returnedTTNodes
 					if (testFunction(n_child, argument)) {
-						returnedTTNodes.append(TTValue((TTPtr)n_child));
+						returnedTTNodes.append(n_child);
 
 						if (!n_first)
 							n_first = n_child;
@@ -572,7 +572,7 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTCallba
 		lk_o = new TTList();
 		lk_o->appendUnique(o);
 
-		this->observers->append(adrs, TTValue(lk_o));
+		this->observers->append(adrs, lk_o);
 	}
 	// add it to the existing list
 	else{
@@ -690,7 +690,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 						}
 						
 						data.append(anAddress);
-						data.append((TTPtr)aNode);
+						data.append(aNode);
 						data.append((TTInt8)flag);
 						data.append((TTObjectBasePtr)anObserver);
 						anObserver->notify(data,data);
@@ -766,7 +766,7 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 					// I don't think you want to be freeing it though, because it was not malloc'd, so it should be okay, right?
 					//free(buf);
 
-					vk->append(TT(ownerptStr.data()));
+					vk->append(TTSymbol(ownerptStr.data()));
 				}
 			else
 				vk->append(TTSymbol("<empty>"));
