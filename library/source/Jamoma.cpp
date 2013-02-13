@@ -10,13 +10,6 @@
 #include "Jamoma.h"
 #include "JamomaObject.h"
 
-#include "AsyncRamp.h"
-#include "ExternalRamp.h"
-#include "NoneRamp.h"
-#include "QueueRamp.h"
-#include "SchedulerRamp.h"
-
-
 // constants
 /* those constants are now defined in TTElement.h 
 const double k_pi = 3.1415926535897932;		// pi 
@@ -91,14 +84,6 @@ void jamoma_init(void)
 		// DEBUG
 		//jamoma_application_dump_configuration();
 
-		//TTDSPInit();
-		
-		AsyncRamp::registerClass();
-        ExternalRamp::registerClass();
-		NoneRamp::registerClass();
-		QueueRamp::registerClass();
-		SchedulerRamp::registerClass();
-		
 		// Initialize common symbols
 		common_symbols_init();
 		jamomaSymbolsInit();

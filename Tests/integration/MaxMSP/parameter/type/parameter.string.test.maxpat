@@ -42,7 +42,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 327.0, 44.0, 1235.0, 872.0 ],
+						"rect" : [ 327.0, 44.0, 426.0, 355.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -70,8 +70,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 80.0, 160.0, 78.0, 18.0 ],
-									"text" : "10 ramp 100"
+									"patching_rect" : [ 80.0, 160.0, 167.0, 18.0 ],
+									"text" : "ramp/drive Max, 10 ramp 100"
 								}
 
 							}

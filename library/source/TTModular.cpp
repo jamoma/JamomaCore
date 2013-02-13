@@ -53,6 +53,7 @@ void TTModularInit()
 		TTOutput::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
+        TTRamp::registerClass();
 		TTReceiver::registerClass();
 		TTSender::registerClass();
 		TTScript::registerClass();

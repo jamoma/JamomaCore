@@ -70,8 +70,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 80.0, 160.0, 78.0, 18.0 ],
-									"text" : "10 ramp 100"
+									"patching_rect" : [ 80.0, 160.0, 167.0, 18.0 ],
+									"text" : "ramp/drive Max, 10 ramp 100"
 								}
 
 							}

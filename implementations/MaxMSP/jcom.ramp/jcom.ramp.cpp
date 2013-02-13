@@ -24,7 +24,7 @@ typedef struct _ramp {
 	void		*outlets[num_outlets];	///< Outlet array
 	t_symbol	*attr_rampunit;			///< Attribute: Name of the current rampunit
 	t_symbol	*attr_function;			///< Attribute: Name of the current function
-	RampUnit	*rampUnit;				///< Instance of the current rampunit
+	TTObjectBasePtr rampUnit;				///< Instance of the current rampunit
 	TTHashPtr	parameterNames;			// cache of parameter names, mapped from lowercase (Max) to uppercase (TT)
 } t_ramp;
 
@@ -341,15 +341,16 @@ void ramp_getDrives(t_ramp *x)
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(x, gensym("drives"), 1, a);
 	
-	RampLib::getUnitNames(rampUnitNames);
-	numRampUnits = rampUnitNames.getSize();
+	SchedulerLib::getSchedulerNames(rampUnitNames);
+	numRampUnits = rampUnitNames.size();
 	
 	atom_setsym(a+0, gensym("append"));
 	for (i=0; i<numRampUnits; i++) {
 		rampUnitNames.get(i, aName);
 		atom_setsym(a+1, gensym((char*)aName.c_str()));
 		object_obex_dumpout(x, gensym("drives"), 2, a);
-	}}
+	}
+}
 
 
 void ramp_getFunctions(t_ramp *x)
@@ -364,7 +365,7 @@ void ramp_getFunctions(t_ramp *x)
 	object_obex_dumpout(x, gensym("functions"), 1, a);
 	
     TTGetRegisteredClassNamesForTags(functionNames, kTTSym_function);
-	numFunctions = functionNames.getSize();
+	numFunctions = functionNames.size();
 	
 	atom_setsym(a+0, gensym("append"));
 	for (i=0; i<numFunctions; i++) {
@@ -392,7 +393,7 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 // We should eliminate the multiple firing since it is not very efficient at load time.
 t_max_err ramp_rampSetup(t_ramp *x)
 {
-	RampLib::createUnit(TTSymbol(x->attr_rampunit->s_name), &x->rampUnit, ramp_callback, (void *)x);
+	SchedulerLib::createScheduler(TTSymbol(x->attr_rampunit->s_name), &x->rampUnit, ramp_callback, (void *)x);
 	return MAX_ERR_NONE;
 }	
 

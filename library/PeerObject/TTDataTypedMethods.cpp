@@ -112,9 +112,7 @@ TTErr TTData::setType(const TTValue& value)
 			return kTTErrGeneric;
 		}
         
-#ifndef TTDATA_NO_RAMPLIB
 		rampSetup();
-#endif
 		
 		this->notifyObservers(kTTSym_type, n);
 	}
@@ -152,13 +150,19 @@ TTErr TTData::returnValue()
     // used a new value to protect the internal value
     TTValue v = mValue;
     
-#ifndef TTDATA_NO_RAMPLIB
     // This is a temporary solution to have audio rate ramping outside the TTData
-    if (mRamper)
-        if (mRampDrive == kTTSym_external)
-            if (mExternalRampTime > 0)
-                v.append(mExternalRampTime);
-#endif
+    if (mRamper) {
+        
+        if (mRampDrive == kTTSym_external) {
+            
+            TTFloat64 externalRampTime;
+            
+            mRamper->getAttributeValue(TTSymbol("rampTime"), externalRampTime);
+            
+            if (externalRampTime > 0)
+                v.append(externalRampTime);
+        }
+    }
     
     // return the value to his owner
     if (!(mService == kTTSym_return))
@@ -310,9 +314,8 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryPtr command = NULL;
     TTSymbol		unit;
-#ifndef TTDATA_NO_RAMPLIB
-    double			time;
-#endif
+    TTFloat64		time;
+    TTBoolean       isRunning;
     TTValue			c, v, aValue;
  
     if (inputValue.size()) {
@@ -345,7 +348,6 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                 return kTTErrNone;	// nothing to do
         }
         
-#ifndef TTDATA_NO_RAMPLIB
         // 4. Ramp the convertedValue
         /////////////////////////////////
         if (mRamper) {
@@ -356,26 +358,16 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    TTFloat64*	startArray = new TTFloat64[1];		// start to mValue
-                    TTFloat64*	targetArray = new TTFloat64[1];		// go to convertedValue
-                    
-                    // This is a temporary solution to have audio rate ramping outside the TTData
-                    mExternalRampTime = time;
-                    
-                    startArray[0] = TTFloat64(mValue[0]);
-                    targetArray[0] = TTFloat64(aValue[0]);
-                    
-                    mRamper->set(1, startArray);
-                    mRamper->go(1, targetArray, time);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
+                    mRamper->setAttributeValue(TTSymbol("rampTime"), time);
+                    mRamper->sendMessage(TTSymbol("Go"), aValue, kTTValNONE);
                     
                     // update the ramp status attribute
-                    if (mRampStatus != mRamper->isRunning()) {
-                        mRampStatus = mRamper->isRunning();
+                    mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+                    if (mRampStatus != isRunning) {
+                        mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
                     }
-                    
-                    delete [] startArray;
-                    delete [] targetArray;
                     
                     return kTTErrNone;
                 }
@@ -383,20 +375,15 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            
-            // This is a temporary solution to have audio rate ramping outside the TTData
-            mExternalRampTime = 0;
-            
-            mRamper->stop();
+            mRamper->sendMessage(TTSymbol("Stop"));
             
             // update the ramp status attribute
-            if (mRampStatus != mRamper->isRunning()) {
-                mRampStatus = mRamper->isRunning();
+            mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+            if (mRampStatus != isRunning) {
+                mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
             }
-        }
-#endif
-        
+        } 
     }
     
     // 6. Set the value directly
@@ -484,9 +471,8 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryPtr command = NULL;
     TTSymbol		unit;
-#ifndef TTDATA_NO_RAMPLIB
-    double			time;
-#endif
+    TTFloat64		time;
+    TTBoolean       isRunning;
     TTValue			c, v, aValue;
     
     if (inputValue.size()) {
@@ -539,7 +525,6 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                 return kTTErrNone;	// nothing to do
         }
         
-#ifndef TTDATA_NO_RAMPLIB
         // 5. Ramp the convertedValue
         /////////////////////////////////
         if (mRamper) {
@@ -550,26 +535,16 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    TTFloat64*	startArray = new TTFloat64[1];		// start to mValue
-                    TTFloat64*	targetArray = new TTFloat64[1];		// go to convertedValue
-                    
-                    // This is a temporary solution to have audio rate ramping outside the TTData
-                    mExternalRampTime = time;
-                    
-                    startArray[0] = TTFloat64(mValue[0]);
-                    targetArray[0] = TTFloat64(aValue[0]);
-                    
-                    mRamper->set(1, startArray);
-                    mRamper->go(1, targetArray, time);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
+                    mRamper->setAttributeValue(TTSymbol("rampTime"), time);
+                    mRamper->sendMessage(TTSymbol("Go"), aValue, kTTValNONE);
                     
                     // update the ramp status attribute
-                    if (mRampStatus != mRamper->isRunning()) {
-                        mRampStatus = mRamper->isRunning();
+                    mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+                    if (mRampStatus != isRunning) {
+                        mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
                     }
-                    
-                    delete [] startArray;
-                    delete [] targetArray;
                     
                     return kTTErrNone;
                 }
@@ -577,20 +552,15 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            
-            // This is a temporary solution to have audio rate ramping outside the TTData
-            mExternalRampTime = 0;
-            
-            mRamper->stop();
+            mRamper->sendMessage(TTSymbol("Stop"));
             
             // update the ramp status attribute
-            if (mRampStatus != mRamper->isRunning()) {
-                mRampStatus = mRamper->isRunning();
+            mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+            if (mRampStatus != isRunning) {
+                mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
             }
         }
-#endif
-        
     }
     
     // 6. Set the value directly
@@ -615,13 +585,9 @@ TTErr TTData::setIntegerValue(const TTValue& value)
                 // truncate internal value
                 mValue.truncate();
                 
-#ifndef TTDATA_NO_RAMPLIB
                 if (mRamper)
                     if (clipValue())
-                        mRamper->stop();
-#else
-                clipValue();
-#endif
+                        mRamper->sendMessage(TTSymbol("Stop"));
             }
             
             // return the internal value
@@ -685,9 +651,8 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryPtr command = NULL;
     TTSymbol		unit;
-#ifndef TTDATA_NO_RAMPLIB
-    double			time;
-#endif
+    TTFloat64		time;
+    TTBoolean       isRunning;
     TTValue			c, v, aValue;
     
     if (inputValue.size()) {
@@ -738,7 +703,6 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                 return kTTErrNone;	// nothing to do
         }
         
-#ifndef TTDATA_NO_RAMPLIB
         // 5. Ramp the convertedValue
         /////////////////////////////////
         if (mRamper) {
@@ -748,27 +712,17 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                 v.get(0, time);
                 
                 if (time > 0) {
-                    
-                    TTFloat64*	startArray = new TTFloat64[1];		// start to mValue
-                    TTFloat64*	targetArray = new TTFloat64[1];		// go to convertedValue
-                    
-                    // This is a temporary solution to have audio rate ramping outside the TTData
-                    mExternalRampTime = time;
-                    
-                    startArray[0] = TTFloat64(mValue[0]);
-                    targetArray[0] = TTFloat64(aValue[0]);
-                    
-                    mRamper->set(1, startArray);
-                    mRamper->go(1, targetArray, time);
+                
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
+                    mRamper->setAttributeValue(TTSymbol("rampTime"), time);
+                    mRamper->sendMessage(TTSymbol("Go"), aValue, kTTValNONE);
                     
                     // update the ramp status attribute
-                    if (mRampStatus != mRamper->isRunning()) {
-                        mRampStatus = mRamper->isRunning();
+                    mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+                    if (mRampStatus != isRunning) {
+                        mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
                     }
-                    
-                    delete [] startArray;
-                    delete [] targetArray;
                     
                     return kTTErrNone;
                 }
@@ -776,20 +730,15 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            
-            // This is a temporary solution to have audio rate ramping outside the TTData
-            mExternalRampTime = 0;
-            
-            mRamper->stop();
+            mRamper->sendMessage(TTSymbol("Stop"));
             
             // update the ramp status attribute
-            if (mRampStatus != mRamper->isRunning()) {
-                mRampStatus = mRamper->isRunning();
+            mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+            if (mRampStatus != isRunning) {
+                mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
             }
         }
-#endif
-        
     }
     
     // 6. Set the value directly
@@ -811,13 +760,10 @@ TTErr TTData::setDecimalValue(const TTValue& value)
                 // set internal value
                 mValue = value;
                 
-#ifndef TTDATA_NO_RAMPLIB
                 if (mRamper)
                     if (clipValue())
-                        mRamper->stop();
-#else
-                clipValue();
-#endif
+                        mRamper->sendMessage(TTSymbol("Stop"));
+
             }
             
             // return the internal value
@@ -881,9 +827,8 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryPtr command = NULL;
     TTSymbol		unit;
-#ifndef TTDATA_NO_RAMPLIB
-    double			time;
-#endif
+    TTFloat64		time;
+    TTBoolean       isRunning;
     TTValue			c, v, aValue;
     
     if (inputValue.size()) {
@@ -934,7 +879,6 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
                 return kTTErrNone;	// nothing to do
         }
         
-#ifndef TTDATA_NO_RAMPLIB
         // 5. Ramp the convertedValue
         /////////////////////////////////
         if (mRamper) {
@@ -945,32 +889,19 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    TTUInt16	i, s = aValue.size();
-                    TTFloat64*	startArray = new TTFloat64[s];		// start to mValue
-                    TTFloat64*	targetArray = new TTFloat64[s];		// go to convertedValue
+                    if(mValue.size() != aValue.size())
+                        mValue.resize(aValue.size());
                     
-                    // This is a temporary solution to have audio rate ramping outside the TTData
-                    mExternalRampTime = time;
-                    
-                    if(mValue.size() != s)
-                        mValue.resize(s);
-                    
-                    for (i=0; i<s; i++) {
-                        startArray[i] = TTFloat64(mValue[i]);
-                        targetArray[i] = TTFloat64(aValue[i]);
-                    }
-                    
-                    mRamper->set(s, startArray);
-                    mRamper->go(s, targetArray, time);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
+                    mRamper->setAttributeValue(TTSymbol("rampTime"), time);
+                    mRamper->sendMessage(TTSymbol("Go"), aValue, kTTValNONE);
                     
                     // update the ramp status attribute
-                    if (mRampStatus != mRamper->isRunning()) {
-                        mRampStatus = mRamper->isRunning();
+                    mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+                    if (mRampStatus != isRunning) {
+                        mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
                     }
-                    
-                    delete [] startArray;
-                    delete [] targetArray;
                     
                     return kTTErrNone;
                 }
@@ -978,20 +909,15 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            
-            // This is a temporary solution to have audio rate ramping outside the TTData
-            mExternalRampTime = 0;
-            
-            mRamper->stop();
+            mRamper->sendMessage(TTSymbol("Stop"));
             
             // update the ramp status attribute
-            if (mRampStatus != mRamper->isRunning()) {
-                mRampStatus = mRamper->isRunning();
+            mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+            if (mRampStatus != isRunning) {
+                mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
             }
         }
-#endif
-        
     }
     
     // 6. Set the value directly
@@ -1013,13 +939,10 @@ TTErr TTData::setArrayValue(const TTValue& value)
                 // set internal value
                 mValue = value;
                 
-#ifndef TTDATA_NO_RAMPLIB
                 if (mRamper)
                     if (clipValue())
-                        mRamper->stop();
-#else
-                clipValue();
-#endif
+                        mRamper->sendMessage(TTSymbol("Stop"));
+                
             }
             
             // return the internal value

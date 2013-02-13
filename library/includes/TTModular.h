@@ -49,6 +49,7 @@
 #include "TTRegex.h"
 
 #include "Protocol.h"
+#include "Scheduler.h"
 
 #include "TTApplication.h"
 #include "TTApplicationManager.h"
@@ -64,6 +65,7 @@
 #include "TTOutput.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
+#include "TTRamp.h"
 #include "TTReceiver.h"
 #include "TTSender.h"
 #include "TTScript.h"
