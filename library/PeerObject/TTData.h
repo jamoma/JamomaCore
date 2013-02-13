@@ -11,26 +11,9 @@
 
 #include "TTModular.h"
 
-#ifndef TTDATA_NO_RAMPLIB
-#include "RampLib.h"			// Excluding RampLib because it use MaxAPI...
-#endif
-
 /**	TTData ... TODO : an explanation
  
-TODO LIST : 
- 
- -> setDataspace					have one unit only
- -> clip :							make a clipwrap and a clipfold method into TTValue...		(see in TTData::clipValue method)
- -> handleProperty :				used TTObjectBase message mecanism...							(see in TTData::Command method)
- -> rampDataNames :					relative to handleProperty									(see in TTData::setRampFunction)
- -> dump :							TODO
- */				
-
-#ifndef TTDATA_NO_RAMPLIB
-class RampUnit;
-typedef RampUnit*	RampUnitPtr;
-#endif
-
+ */
 class TTMODULAR_EXPORT TTData : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTData)
@@ -55,16 +38,14 @@ private:
 	TTBoolean		mDynamicInstances;			///< ATTRIBUTE: is the data can be dynamically instanciated
 	TTValue			mInstanceBounds;			///< ATTRIBUTE: two TTValues for a range of dynamic instances (-1 = infini)
 
-#ifndef TTDATA_NO_RAMPLIB
 	TTSymbol		mRampDrive;					///< ATTRIBUTE: ramp mode 
 	TTSymbol		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
 	TTValue			mRampFunctionParameters;	///< ATTRIBUTE: names of parameter's function
 	TTBoolean		mRampStatus;				///< ATTRIBUTE: is the ramp running ?
-#endif
 	
 	TTSymbol		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none')
 	TTSymbol		mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
-	TTObjectBasePtr		mDataspaceConverter;		///< Performs conversions from input unit to the data unit
+	TTObjectBasePtr	mDataspaceConverter;		///< Performs conversions from input unit to the data unit
 	
 	TTSymbol		mService;					///< how the data flows into our environnement :
 												///<	as parameter : the data is in full access mode
@@ -76,10 +57,8 @@ private:
 	
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 
-#ifndef TTDATA_NO_RAMPLIB
-	RampUnitPtr		mRamper;					///< Rampunit object to perform ramping of input values
-    TTUInt32        mExternalRampTime;          ///< This is a temporary solution to have audio rate ramping outside the TTData
-#endif
+    TTObjectBasePtr mRamper;                    ///< Ramp object to ramp value
+
     
     TTMessagePtr    commandMessage;             ///< cache command message for observer notification
     TTAttributePtr  valueAttribute;             ///< cache value attribute for observer notification
@@ -178,13 +157,11 @@ private:
 	/**	Setter for mInstanceBounds attribute. */
 	TTErr       setInstanceBounds(const TTValue& value);
 
-#ifndef TTDATA_NO_RAMPLIB
 	/**	Setter for mRampDrive attribute. */
 	TTErr       setRampDrive(const TTValue& value);
 	
 	/**	Setter for mRampFunction attribute. */
 	TTErr       setRampFunction(const TTValue& value);
-#endif
 	
 	/**	Setter for mDataspace attribute. */
 	TTErr       setDataspace(const TTValue& value);
@@ -203,14 +180,10 @@ private:
     
 	TTErr		convertUnit(const TTValue& inputValue, TTValue& outputValue);
 	TTErr		notifyObservers(TTSymbol attrName, const TTValue& value);
-	
-#ifndef TTDATA_NO_RAMPLIB
-	TTErr		rampSetup();
-	friend void TTMODULAR_EXPORT TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
-#endif
-
+    
+    TTErr		rampSetup();
+	friend void TTMODULAR_EXPORT TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *v);
 };
-
 typedef TTData* TTDataPtr;
 
 /** Parse command like < value (unit) (ramp ramptime) >
@@ -221,12 +194,10 @@ typedef TTData* TTDataPtr;
 	X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime */
 TTDictionaryPtr	TTMODULAR_EXPORT TTDataParseCommand(const TTValue& command);
 
-#ifndef TTDATA_NO_RAMPLIB
-/**	
+/**
  @param	baton						..
  @param	data						..
  @return							an error code */
-void TTMODULAR_EXPORT TTDataRampUnitCallback(void *o, TTUInt32 n, TTFloat64 *v);
-#endif
+void TTMODULAR_EXPORT TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *v);
 
 #endif // __TT_DATA_H__

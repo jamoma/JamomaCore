@@ -40,7 +40,6 @@
 #include "JamomaTypes.h"
 #include "JamomaSymbols.h"
 
-#include "RampLib.h"
 #include "ModularForMax.h"
 
 #define JAMOMA "Jamoma"
