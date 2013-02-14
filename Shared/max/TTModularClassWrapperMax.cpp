@@ -869,6 +869,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 #ifdef ARRAY_EXTERNAL
 	
 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedModularClass_ArraySelect,				"array/select",			A_GIMME,0);
+    class_addmethod(wrappedMaxClass->maxClass, (method)wrappedModularClass_ArrayResize,				"array/resize",			A_LONG,0);
 	
 	CLASS_ATTR_SYM(wrappedMaxClass->maxClass,			"format",	0,		WrappedModularInstance,	arrayAttrFormat);
 	CLASS_ATTR_ACCESSORS(wrappedMaxClass->maxClass,		"format",			wrappedModularClass_FormatGet,	wrappedModularClass_FormatSet);
@@ -1195,6 +1196,31 @@ void wrappedModularClass_ArraySelect(TTPtr self, SymbolPtr msg, AtomCount ac, At
 	}
 	else
 		object_error((ObjectPtr)x, "array/select : the array is empty");
+}
+
+void wrappedModularClass_ArrayResize(TTPtr self, long newSize)
+{
+    WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+    SymbolPtr	instanceAddress;
+    TTString    s_bracket;
+    TTValue     v;
+    
+    if (newSize >= 0) {
+        
+        v = TTInt64(newSize);
+        v.toString();
+
+        s_bracket = "[";
+        s_bracket += TTString(v[0]);
+        s_bracket += "]";
+        
+        jamoma_edit_string_instance(x->arrayFormatString, &instanceAddress, s_bracket.c_str());
+        
+        object_method((ObjectPtr)x, gensym("address"), instanceAddress, 0, NULL);
+        JamomaDebug object_post((ObjectPtr)x, "array/resize : to %s address", instanceAddress->s_name);
+    }
+    else
+        object_error((ObjectPtr)x, "array/resize : %d is not a valid size", newSize);
 }
 #endif
 

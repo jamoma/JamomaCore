@@ -78,7 +78,7 @@ typedef struct _wrappedModularInstance {
 	WrappedClassPtr							wrappedClassDefinition;		///< A pointer to the class definition
 
 #ifndef ARRAY_EXTERNAL
-	TTObjectBasePtr								wrappedObject;				///< The instance of the TTBlue object we are wrapping
+	TTObjectBasePtr							wrappedObject;				///< The instance of the TTBlue object we are wrapping
 	TTSubscriberPtr							subscriberObject;			///< The instance of a TTSubscriber object used to 
 																		///< register the wrapped object in the tree structure
 #endif
@@ -174,6 +174,7 @@ int			convertModifiersFromMaxToTTGraphics(int maxModifiers);
 t_max_err	wrappedModularClass_FormatGet(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
 t_max_err	wrappedModularClass_FormatSet(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
 void		wrappedModularClass_ArraySelect(TTPtr self, SymbolPtr msg, AtomCount ac, AtomPtr av);
+void		wrappedModularClass_ArrayResize(TTPtr self, long newSize);
 #endif
 
 #endif // __TT_MODULAR_CLASS_WRAPPER_MAX_H__
