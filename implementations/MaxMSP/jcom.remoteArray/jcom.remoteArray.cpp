@@ -798,8 +798,11 @@ void remote_create_model_address_receiver(TTPtr self)
 	
 	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+    
 	returnValueBaton = new TTValue(TTPtr(x));
     returnValueBaton->append(TTPtr(gensym("return_model_address")));
+    returnValueBaton->append(YES);    // YES : we want to deferlow this method
+    
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value_typed));
 	args.append(returnValueCallback);

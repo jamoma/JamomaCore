@@ -789,26 +789,46 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
-	SymbolPtr	method;
+	SymbolPtr	s_method;
+    TTBoolean   deferlow = NO;
 	long		argc = 0;
 	AtomPtr		argv = NULL;
+    method      p_method = NULL;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
+    
+    // get object
 	x = ObjectPtr((TTPtr)b[0]);
 	
-	if (b->size() == 2) {
-		method = SymbolPtr((TTPtr)(*b)[1]);
-		if (method == NULL || method == _sym_nothing)
+    // get method
+	if (b->size() >= 2) {
+        
+		s_method = SymbolPtr((TTPtr)(*b)[1]);
+        
+		if (s_method == NULL || s_method == _sym_nothing)
 			return;
-		}
+        
+        // do we need to deferlow it ?
+        if (b->size() == 3)
+            deferlow = (*b)[2];
+    }
 	else
-		method = jps_return_value;
-
+		s_method = jps_return_value;
+    
 	jamoma_ttvalue_to_Atom(v, &argc, &argv);
 	
 	// send data to an external
-	object_method(x, method, _sym_nothing, argc, argv);
+    if (!deferlow)
+        object_method(x, s_method, _sym_nothing, argc, argv);
+    
+    else {
+        
+        p_method = object_getmethod(x, s_method);
+        
+        if (p_method)
+            defer_low(x, (method)p_method, _sym_nothing, argc, argv);
+    }
 	
 	sysmem_freeptr(argv);
 }
@@ -818,28 +838,48 @@ void jamoma_callback_return_value_typed(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	ObjectPtr	x;
-	SymbolPtr	msg, method;
+	SymbolPtr	msg, s_method;
+    TTBoolean   deferlow = NO;
 	long		argc = 0;
 	AtomPtr		argv = NULL;
+    method      p_method = NULL;
 	TTBoolean	shifted = false;
 	
 	// unpack baton (a t_object* and the name of the method to call (default : jps_return_value))
 	b = (TTValuePtr)baton;
+    
+    // get object
 	x = ObjectPtr((TTPtr)b[0]);
 	
-	if (b->size() == 2) {
-		method = SymbolPtr((TTPtr)(*b)[1]);
-		if (method == NULL || method == _sym_nothing)
+    // get method
+	if (b->size() >= 2) {
+        
+		s_method = SymbolPtr((TTPtr)(*b)[1]);
+        
+		if (s_method == NULL || s_method == _sym_nothing)
 			return;
-	}
+        
+        // do we need to deferlow it ?
+        if (b->size() == 3)
+            deferlow = (*b)[2];
+    }
 	else
-		method = jps_return_value;
+		s_method = jps_return_value;
 	
 	// convert TTValue into a typed atom array
 	jamoma_ttvalue_to_typed_Atom(v, &msg, &argc, &argv, shifted);
 	
-	// send data to an external using the return_value method
-	object_method(x, method, msg, argc, argv);
+	// send data to an external
+    if (!deferlow)
+        object_method(x, s_method, msg, argc, argv);
+    
+    else {
+        
+        p_method = object_getmethod(x, s_method);
+        
+        if (p_method)
+            defer_low(x, (method)p_method, msg, argc, argv);
+    }
 	
 	if (shifted)
 		argv--;

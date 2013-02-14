@@ -164,7 +164,7 @@ void nmspc_subscribe(TTPtr self)
 		absoluteAddress = contextAddress.appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, x->address);
 		
-		makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
+		makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject, YES); // YES : we want to deferlow this method
 		anObject->sendMessage(kTTSym_Get);
 	}
 	

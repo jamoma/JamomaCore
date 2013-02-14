@@ -269,7 +269,7 @@ void send_subscribe(TTPtr self)
 		contextAddress = v[0];
 		
 		if (x->patcherContext) {
-			makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
+			makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject, YES);  // YES : we want to deferlow this method
 			anObject->sendMessage(kTTSym_Get);
 			return;
 		}

@@ -22,6 +22,7 @@
 #endif // WIN_VERSION
 
 #include "MaxObjectTypes.h"
+
 #include "ext_common.h"
 #include "ext_strings.h" // String Functions
 #include "ext_critical.h"

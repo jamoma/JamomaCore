@@ -242,7 +242,7 @@ void remote_subscribe(TTPtr self)
             x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
             contextAddress = v[0];
             
-            makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject);
+            makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject, YES);  // YES : we want to deferlow this method
             anObject->sendMessage(kTTSym_Get);
                 
             // attach the jcom.remote to connected ui object
@@ -350,14 +350,10 @@ void remote_return_model_address(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 	TTAddress           absoluteAddress;
 	Atom				a[1];
 	TTSymbol			service;
-	TTList				returnedNodes;
-	TTNodePtr			firstNode;
-	TTObjectBasePtr		anObject;
 	TTValue				v;
-	TTErr				err;
 	
 	if (argc && argv && x->wrappedObject) {
-		
+        
 		// set address attribute of the wrapped Viewer object
 		absoluteAddress = TTAddress(atom_getsym(argv)->s_name).appendAddress(x->address);
 		x->wrappedObject->setAttributeValue(kTTSym_address, absoluteAddress);
