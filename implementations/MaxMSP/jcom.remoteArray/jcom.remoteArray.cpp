@@ -628,8 +628,8 @@ void WrappedViewerClass_anything(TTPtr self, SymbolPtr msg, AtomCount argc, Atom
 void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
     WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-    TTInt32     d, i, offset;
-    TTValue     keys;
+    TTInt32     d, i;
+    SymbolPtr	instanceAddress;
     TTSymbol	memoCursor;
     
 	if (x->internals) {
@@ -642,15 +642,12 @@ void remote_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
             
             if (!x->internals->isEmpty()) {
                 
-                x->internals->getKeysSorted(keys);
-                
-                // in a model or a view patcher, the first internal object is
-                // always the model container so we add an offset to avoid it
-                offset = x->patcherContext != NULL;
-                for (i = 0; i < keys.size()-offset; i++) {
+                for (i = 1; i <= x->arraySize; i++) {
                     
-                    x->cursor = keys[i+offset];
-                    jamoma_viewer_send((TTViewerPtr)selectedObject, _sym_nothing, d, argv+(i*d));
+                    jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+					x->cursor = TTSymbol(instanceAddress->s_name);
+                    
+                    jamoma_viewer_send((TTViewerPtr)selectedObject, _sym_nothing, d, argv+((i-1)*d));
                 }
             }
             

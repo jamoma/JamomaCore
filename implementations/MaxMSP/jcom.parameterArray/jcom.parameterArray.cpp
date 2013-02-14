@@ -477,7 +477,7 @@ void data_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
     WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
     TTInt32     d, i;
-    TTValue     keys;
+    SymbolPtr	instanceAddress;
     TTSymbol    memoCursor;
     
 	if (x->internals) {
@@ -490,11 +490,12 @@ void data_array(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
             
             if (!x->internals->isEmpty()) {
                 
-                x->internals->getKeysSorted(keys);
+                for (i = 1; i <= x->arraySize; i++) {
+                    
+                    jamoma_edit_numeric_instance(x->arrayFormatInteger, &instanceAddress, i);
+					x->cursor = TTSymbol(instanceAddress->s_name);
 
-                for (i = 0; i < keys.size(); i++) {
-                    x->cursor = keys[i];
-                    jamoma_data_command((TTDataPtr)selectedObject, _sym_nothing, d, argv+(i*d));
+                    jamoma_data_command((TTDataPtr)selectedObject, _sym_nothing, d, argv+((i-1)*d));
                 }
             }
             
