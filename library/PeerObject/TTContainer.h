@@ -29,18 +29,14 @@ private:
 	TTBoolean			mInitialized;					///< ATTRIBUTE : is it initialized ?
 	TTAddress           mAddress;						///< ATTRIBUTE : the address of the container in the directory
 	TTAddress           mAlias;							///< ATTRIBUTE : an alias address to retrieve the container using another address
-#ifdef USE_ACTIVITY
-	TTValue				mActivityIn;					///< ATTRIBUTE : a local value to allow observation of incoming data
-	TTValue				mActivityOut;					///< ATTRIBUTE : a local value to allow observation of outputing data
-#endif
+	TTValue				mActivity;                      ///< ATTRIBUTE : a local value to allow observation of outputing data
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
 	TTHashPtr			mObjectsObserversCache;			///< a hash table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access
 	TTCallbackPtr		mObserver;						///< a life cycle observer
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop
     
-    TTAttributePtr      activityInAttribute;            ///< cache activityIn attribute for observer notification
-    TTAttributePtr      activityOutAttribute;           ///< cache activityOut attribute for observer notification
+    TTAttributePtr      activityAttribute;              ///< cache activity attribute for observer notification
 	
 	/** */
 	TTErr Send(TTValue& AddressAndValue, TTValue& outputValue);
@@ -86,9 +82,6 @@ private:
 	
 	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& data);
-#ifdef USE_ACTIVITY     
-	friend TTErr TTMODULAR_EXPORT TTContainerCommandMessageCallback(TTPtr baton, TTValue& data);
-#endif
 };
 
 typedef TTContainer* TTContainerPtr;
@@ -110,13 +103,7 @@ TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& d
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTContainerInitializedAttributeCallback(TTPtr baton, TTValue& data);
-#ifdef USE_ACTIVITY 
-/**	
- @param	baton						..
- @param	data						..
- @return							an error code */
-TTErr TTMODULAR_EXPORT TTContainerCommandMessageCallback(TTPtr baton, TTValue& data);
-#endif
+
 /**	
  @param	baton						..
  @param	data						..

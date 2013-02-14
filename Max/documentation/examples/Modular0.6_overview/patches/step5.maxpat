@@ -81,43 +81,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"id" : "obj-80",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 921.0, 192.0, 187.0, 18.0 ],
-					"text" : "out/mute 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"color" : [ 0.619608, 0.0, 0.360784, 0.701961 ],
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-81",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 921.0, 166.0, 188.0, 20.0 ],
-					"text" : "jcom.receive /player.B:activity/out"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
 					"frgb" : 0.0,
 					"id" : "obj-74",
-					"linecount" : 3,
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 921.0, 69.0, 156.0, 47.0 ],
-					"text" : "Use jcom.receive to listen the incoming and outputing activity of a model"
+					"patching_rect" : [ 921.0, 73.0, 156.0, 33.0 ],
+					"text" : "Use jcom.receive to listen the activity of a model"
 				}
 
 			}
@@ -131,7 +102,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 921.0, 144.0, 180.0, 18.0 ],
-					"text" : "out/mute -1"
+					"text" : "fps 33.294228"
 				}
 
 			}
@@ -145,8 +116,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 921.0, 116.0, 181.0, 20.0 ],
-					"text" : "jcom.receive /player.B:activity/in"
+					"patching_rect" : [ 921.0, 116.0, 168.0, 20.0 ],
+					"text" : "jcom.receive /player.B:activity"
 				}
 
 			}
@@ -567,7 +538,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 479.0, 585.0, 153.0, 18.0 ],
-					"text" : "ui/out.*/mute 0"
+					"text" : "fps 22.664623"
 				}
 
 			}
@@ -652,7 +623,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 597.0, 143.0, 96.0, 18.0 ],
-					"text" : "out/mute 0"
+					"text" : "fps 33.294228"
 				}
 
 			}
@@ -1308,7 +1279,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 302.0, 143.0, 96.0, 18.0 ],
-					"text" : "out/mute 0"
+					"text" : "fps 22.664623"
 				}
 
 			}
@@ -1875,16 +1846,6 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-8", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-80", 1 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"midpoints" : [ 930.5, 188.5, 1098.5, 188.5 ],
-					"source" : [ "obj-81", 0 ]
 				}
 
 			}

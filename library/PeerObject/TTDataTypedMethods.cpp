@@ -185,11 +185,6 @@ TTErr TTData::returnValue()
 
 TTErr TTData::NoneCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    // 0. Notify Command observer for value changes only
-    ///////////////////////////////////////////////////
-#ifdef USE_ACTIVITY     
-    commandMessage->sendNotification(kTTSym_notify, kTTValNONE);     // we use kTTSym_notify because we know that observers are TTCallback
-#endif
     return this->setNoneValue(kTTValNONE);
 }
 
@@ -236,7 +231,7 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
 
     if (inputValue.size()) {
         
-        // 0. Get the command TTDictionnary
+        // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
@@ -246,11 +241,7 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
         
         if (!command)
             return kTTErrGeneric;
-#ifdef USE_ACTIVITY
-        // 1. Notify Command observer for value changes only
-        ///////////////////////////////////////////////////
-        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-#endif
+
         // 2. Get the value
         command->getValue(aValue);
         
@@ -320,7 +311,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
  
     if (inputValue.size()) {
         
-        // 0. Get the command TTDictionnary
+        // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
@@ -330,11 +321,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
         
         if (!command)
             return kTTErrGeneric;
-#ifdef USE_ACTIVITY
-        // 1. Notify Command observer for value changes only
-        ///////////////////////////////////////////////////
-        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-#endif
+
         // 2. Get the value
         command->getValue(aValue);
         
@@ -477,7 +464,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size()) {
         
-        // 0. Get the command TTDictionnary
+        // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
@@ -487,11 +474,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
         
         if (!command)
             return kTTErrGeneric;
-#ifdef USE_ACTIVITY
-        // 1. Notify Command observer for value changes only
-        ///////////////////////////////////////////////////
-        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-#endif
+
         // 2. Get the value
         command->getValue(aValue);
         
@@ -657,7 +640,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size()) {
         
-        // 0. Get the command TTDictionnary
+        // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
@@ -667,11 +650,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
         
         if (!command)
             return kTTErrGeneric;
-#ifdef USE_ACTIVITY
-        // 1. Notify Command observer for value changes only
-        ///////////////////////////////////////////////////
-        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-#endif
+
         // 2. Get the value
         command->getValue(aValue);
         
@@ -833,7 +812,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size()) {
         
-        // 0. Get the command TTDictionnary
+        // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
@@ -843,11 +822,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
         
         if (!command)
             return kTTErrGeneric;
-#ifdef USE_ACTIVITY
-        // 1. Notify Command observer for value changes only
-        ///////////////////////////////////////////////////
-        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-#endif
+
         // 2. Get the value
         command->getValue(aValue);
         
@@ -994,7 +969,7 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size()) {
         
-        // 0. Get the command TTDictionnary
+        // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
@@ -1004,11 +979,7 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
         
         if (!command)
             return kTTErrGeneric;
-#ifdef USE_ACTIVITY
-        // 1. Notify Command observer for value changes only
-        ///////////////////////////////////////////////////
-        commandMessage->sendNotification(kTTSym_notify, inputValue);     // we use kTTSym_notify because we know that observers are TTCallback
-#endif
+
         // 2. Get the value
         command->getValue(aValue);
         

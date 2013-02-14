@@ -55,7 +55,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 368.0, 125.0, 79.0, 18.0 ],
-					"text" : "alias/remove"
+					"text" : "alias/remove",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -72,7 +73,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 266.0, 125.0, 97.0, 18.0 ],
-					"text" : "alias /madMovie"
+					"text" : "alias /madMovie",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -184,7 +186,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 371.0, 345.0, 254.0, 61.0 ],
+					"patching_rect" : [ 371.0, 345.0, 254.0, 60.0 ],
 					"text" : "The jcom.out handles signal outputing.\n\nNotice a /out level is automatically created when a jcom.out is in added to a model"
 				}
 
@@ -282,8 +284,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 1005.0, 198.0, 225.0, 60.0 ],
-					"text" : "jcom.parameter rate @type decimal @range/bounds -2. 2. @value/default 1. @description \"movie playback rate\" @ramp/drive scheduler"
+					"patching_rect" : [ 1005.0, 198.0, 227.0, 60.0 ],
+					"text" : "jcom.parameter rate @type decimal @range/bounds -2. 2. @value/default 1. @description \"movie playback rate\" @ramp/drive Max"
 				}
 
 			}
@@ -621,7 +623,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 139.0, 410.0, 79.0, 18.0 ],
-					"text" : "recall/current"
+					"text" : "recall/current",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -638,7 +641,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 102.0, 410.0, 35.0, 18.0 ],
-					"text" : "read"
+					"text" : "read",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -655,7 +659,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 64.0, 410.0, 36.0, 18.0 ],
-					"text" : "write"
+					"text" : "write",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -713,8 +718,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 89.0, 459.0, 77.0, 20.0 ],
-					"text" : "route names"
+					"patching_rect" : [ 89.0, 459.0, 69.0, 20.0 ],
+					"text" : "route order"
 				}
 
 			}
@@ -726,8 +731,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 89.0, 481.0, 113.0, 20.0 ],
-					"text" : "print preset_names"
+					"patching_rect" : [ 89.0, 481.0, 105.0, 20.0 ],
+					"text" : "print preset_order"
 				}
 
 			}
@@ -801,7 +806,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 42.0, 125.0, 179.0, 18.0 ],
-					"text" : "/model/documentation/generate"
+					"text" : "/model/documentation/generate",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -817,8 +823,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 15.0, 410.0, 47.0, 18.0 ],
-					"text" : "names"
+					"patching_rect" : [ 15.0, 410.0, 39.0, 18.0 ],
+					"text" : "order",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}
@@ -835,7 +842,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 139.0, 388.0, 77.0, 18.0 ],
-					"text" : "store/current"
+					"text" : "store/current",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
 			}

@@ -310,7 +310,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 8.0, 129.0, 223.0, 20.0 ],
-					"text" : "jcom.receive tester:activity/out"
+					"text" : "jcom.receive tester:activity"
 				}
 
 			}
@@ -402,8 +402,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 283.001862, 241.0, 33.0 ],
-									"text" : "jcom.test.assert.equal model.deferlow-test @input test @compareTo /tester:activity/out"
+									"patching_rect" : [ 28.0, 283.001862, 238.0, 33.0 ],
+									"text" : "jcom.test.assert.equal model.deferlow-test @input test @compareTo /tester:activity"
 								}
 
 							}

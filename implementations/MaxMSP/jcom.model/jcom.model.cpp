@@ -272,10 +272,10 @@ void model_subscribe(TTPtr self)
 			
 			// In model *and* view patcher : Add /model/address data
 			if (x->patcherContext == kTTSym_model) // as return
-				makeInternals_data(x, returnedAddress,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_return, &aData, YES);  // YES : we want to deferlow this method
+				makeInternals_data(x, returnedAddress,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_return, &aData);
 			
 			if (x->patcherContext == kTTSym_view) // as parameter
-				makeInternals_data(x, returnedAddress,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_parameter, &aData, YES);  // YES : we want to deferlow this method
+				makeInternals_data(x, returnedAddress,  TTSymbol("model/address"), gensym("model_address"), context, kTTSym_parameter, &aData);
 			
 			aData->setAttributeValue(kTTSym_type, kTTSym_string);
 			aData->setAttributeValue(kTTSym_tag, kTTSym_generic);

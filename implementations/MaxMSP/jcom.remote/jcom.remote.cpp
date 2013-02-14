@@ -242,7 +242,8 @@ void remote_subscribe(TTPtr self)
             x->subscriberObject->getAttributeValue(TTSymbol("contextAddress"), v);
             contextAddress = v[0];
             
-            makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject, YES);  // YES : we want to deferlow this method
+            // observe model/address data (in view patcher : deferlow return_model_address)
+            makeInternals_receiver(x, contextAddress, TTSymbol("/model/address"), gensym("return_model_address"), &anObject, x->patcherContext == kTTSym_view);
             anObject->sendMessage(kTTSym_Get);
                 
             // attach the jcom.remote to connected ui object

@@ -20,16 +20,12 @@ mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
 mAlias(kTTAdrsEmpty),
-#ifdef USE_ACTIVITY
-mActivityIn(kTTValNONE),
-mActivityOut(kTTValNONE),
-#endif
+mActivity(kTTValNONE),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObjectsObserversCache(NULL),
 mObserver(NULL),
-activityInAttribute(NULL),
-activityOutAttribute(NULL)
+activityAttribute(NULL)
 {
 	if(arguments.size() == 2) {
 		mReturnAddressCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
@@ -49,13 +45,10 @@ activityOutAttribute(NULL)
 	addAttributeProperty(Address, hidden, YES);
 	
 	addAttributeWithSetter(Alias, kTypeSymbol);
-#ifdef USE_ACTIVITY	
-	addAttribute(ActivityIn, kTypeLocalValue);              // TODO : have a way to add notification (instead of a readonly attribute)
-	addAttributeProperty(ActivityIn, readOnly, YES);
+
+	addAttribute(Activity, kTypeLocalValue);             // TODO : have a way to add notification (instead of a readonly attribute)
+	addAttributeProperty(Activity, readOnly, YES);
     
-	addAttribute(ActivityOut, kTypeLocalValue);             // TODO : have a way to add notification (instead of a readonly attribute)
-	addAttributeProperty(ActivityOut, readOnly, YES);
-#endif
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
@@ -71,8 +64,7 @@ activityOutAttribute(NULL)
 	mObjectsObserversCache = new TTHash();
     
     // cache some attribute for observer notification
-    this->findAttribute(kTTSym_activityIn, &activityInAttribute);
-    this->findAttribute(kTTSym_activityOut, &activityOutAttribute);
+    this->findAttribute(kTTSym_activity, &activityAttribute);
 }
 
 TTContainer::~TTContainer()
@@ -346,7 +338,7 @@ TTErr TTContainer::setAlias(const TTValue& value)
 					
 					// get the node at this address
 					mObjectsObserversCache->lookup(key, cacheElement);
-					aNode = TTNodePtr((TTPtr)cacheElement[3]);
+					aNode = TTNodePtr((TTPtr)cacheElement[2]);
 					
 					localDirectory->notifyObservers(TTAddress(aliasKey), aNode, kAddressDestroyed);
 					
@@ -378,7 +370,7 @@ TTErr TTContainer::setAlias(const TTValue& value)
 					
 					// get the node at this address
 					mObjectsObserversCache->lookup(key, cacheElement);
-					aNode = TTNodePtr((TTPtr)cacheElement[3]);
+					aNode = TTNodePtr((TTPtr)cacheElement[2]);
 					
 					localDirectory->notifyObservers(TTAddress(aliasKey), aNode, kAddressCreated);
 					
@@ -474,13 +466,10 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	TTValue			cacheElement, v;
 	TTAddress       aRelativeAddress;
 	TTSymbol		service;
-    TTObjectBasePtr	anObject;
-#ifdef USE_ACTIVITY    
-	TTObjectBasePtr	valueObserver, commandObserver, returnedValueObserver, activityInObserver, activityOutObserver;
+    TTObjectBasePtr	anObject;  
+	TTObjectBasePtr	valueObserver, returnedValueObserver, activityObserver;
 	TTAttributePtr	anAttribute = NULL;
-	TTMessagePtr	aMessage;
-	TTValuePtr		valueBaton, commandBaton, returnedValueBaton, activityInBaton, activityOutBaton;
-#endif
+	TTValuePtr		valueBaton, returnedValueBaton, activityBaton;
     TTErr           err;
     
 	// process the relative address
@@ -505,64 +494,26 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	// 0 : cache Object
 	cacheElement.append(anObject);
 	
-#ifdef USE_ACTIVITY
-	// Special case for Data : observe his value
+	// Special case for Data : observe the Value attribute
 	if (anObject->getName() == kTTSym_Data) {
 		
-		// What kind of service the data is used for ?
-		anObject->getAttributeValue(kTTSym_service, v);
-		service = v[0];
-		
-		// observe the Value attribute of parameter and return
-		if (service == kTTSym_parameter || service == kTTSym_return) {
-			
-			// create a Value Attribute observer on it
-			anObject->findAttribute(kTTSym_value, &anAttribute);
-			
-			valueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectBaseInstantiate(TTSymbol("callback"), &valueObserver, kTTValNONE);
-			
-			valueBaton = new TTValue(TTObjectBasePtr(this));
-			valueBaton->append(aRelativeAddress);
-			
-			valueObserver->setAttributeValue(kTTSym_baton, TTPtr(valueBaton));
-			valueObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
-			valueObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
-			
-			anAttribute->registerObserverForNotifications(*valueObserver);
-			
-			// 1 : cache observer
-			cacheElement.append(valueObserver);
-		}
-		// 1 : cache NULL
-		else
-			cacheElement.append(NULL);
-		
-		// observe the Command message of parameter and message to get activity
-		if (service == kTTSym_parameter || service == kTTSym_message) {
-			
-			// create a Command message observer on it
-			anObject->findMessage(kTTSym_Command, &aMessage);
-			
-			commandObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectBaseInstantiate(TTSymbol("callback"), &commandObserver, kTTValNONE);
-			
-			commandBaton = new TTValue(TTObjectBasePtr(this));
-			commandBaton->append(aRelativeAddress);
-			
-			commandObserver->setAttributeValue(kTTSym_baton, TTPtr(commandBaton));
-			commandObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerCommandMessageCallback));
-			commandObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
-			
-			aMessage->registerObserverForNotifications(*commandObserver);
-			
-			// 2 : cache observer
-			cacheElement.append(commandObserver);
-			
-		}
-		// 2 : cache NULL
-		else
-			cacheElement.append(NULL);
+        // create a Value Attribute observer on it
+        anObject->findAttribute(kTTSym_value, &anAttribute);
+        
+        valueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+        TTObjectBaseInstantiate(TTSymbol("callback"), &valueObserver, kTTValNONE);
+        
+        valueBaton = new TTValue(TTObjectBasePtr(this));
+        valueBaton->append(aRelativeAddress);
+        
+        valueObserver->setAttributeValue(kTTSym_baton, TTPtr(valueBaton));
+        valueObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
+        valueObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
+        
+        anAttribute->registerObserverForNotifications(*valueObserver);
+        
+        // 1 : cache observer
+        cacheElement.append(valueObserver);
 	}
 	
 	// Special case for Viewer : observe what it returns
@@ -585,63 +536,35 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		
 		// 1 : cache observer
 		cacheElement.append(returnedValueObserver);
-		
-		// 2 : cache NULL
-		cacheElement.append(NULL);
 	}
 	
 	// Special case for Container : observe his activity
 	else if (anObject->getName() == kTTSym_Container) {
 		
-		// create a activityIn Attribute observer on it
-		anObject->findAttribute(kTTSym_activityIn, &anAttribute);
+		// create a activity Attribute observer on it
+		anObject->findAttribute(kTTSym_activity, &anAttribute);
 		
-		activityInObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), &activityInObserver, kTTValNONE);
+		activityObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+		TTObjectBaseInstantiate(TTSymbol("callback"), &activityObserver, kTTValNONE);
 		
-		activityInBaton = new TTValue(TTObjectBasePtr(this));
-		activityInBaton->append(aRelativeAddress);
+		activityBaton = new TTValue(TTObjectBasePtr(this));
+		activityBaton->append(aRelativeAddress);
 		
-		activityInObserver->setAttributeValue(kTTSym_baton, TTPtr(activityInBaton));
-		activityInObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerCommandMessageCallback));
-		activityInObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
+		activityObserver->setAttributeValue(kTTSym_baton, TTPtr(activityBaton));
+		activityObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
+		activityObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 		
-		anAttribute->registerObserverForNotifications(*activityInObserver);
+		anAttribute->registerObserverForNotifications(*activityObserver);
 		
 		// 1 : cache observer
-		cacheElement.append(activityInObserver);
-		
-		// create a activityIn Attribute observer on it
-		anAttribute = NULL;
-		anObject->findAttribute(kTTSym_activityOut, &anAttribute);
-		
-		activityOutObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), &activityOutObserver, kTTValNONE);
-		
-		activityOutBaton = new TTValue(TTObjectBasePtr(this));
-		activityOutBaton->append(aRelativeAddress);
-		
-		activityOutObserver->setAttributeValue(kTTSym_baton, TTPtr(activityOutBaton));
-		activityOutObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
-		activityOutObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
-		
-		anAttribute->registerObserverForNotifications(*activityOutObserver);
-		
-		// 2 : cache observer
-		cacheElement.append(activityOutObserver);
+		cacheElement.append(activityObserver);
 	}
 	
-	else {
-#endif
+	else
 		// 1 : cache NULL
 		cacheElement.append(NULL);
-		// 2 : cache NULL
-		cacheElement.append(NULL);
-#ifdef USE_ACTIVITY        
-	}
-#endif
-	
-	// 3 : cache the node too (used during alias creation/destruction)
+
+	// 2 : cache the node too (used during alias creation/destruction)
 	cacheElement.append((TTPtr)aNode);
 	
 	// append the cacheElement to the cache hash table
@@ -655,11 +578,8 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	TTAddress       aRelativeAddress;
 	TTValue			v, cacheElement;
 	TTSymbol		service;
-#ifdef USE_ACTIVITY
     TTObjectBasePtr	anObject, anObserver;
 	TTAttributePtr	anAttribute;
-	TTMessagePtr	aMessage;
-#endif
 	TTErr			err;
 	
 	// process the relative address
@@ -669,7 +589,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	err = mObjectsObserversCache->lookup(aRelativeAddress, cacheElement);
 	
 	if (!err) {
-#ifdef USE_ACTIVITY		
+	
 		// get the object using the node instead of the stored one
 		anObject = aNode->getObject();
         
@@ -679,41 +599,19 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 			// it is a Data
 			if (anObject->getName() == kTTSym_Data) {
 				
-				// What kind of service the data is used for ?
-				anObject->getAttributeValue(kTTSym_service, v);
-				service = v[0];
-				
 				// delete Value observer for parameter and return
-				if (service == kTTSym_parameter || service == kTTSym_return) {
-					anObserver = NULL;
-					anObserver = cacheElement[1];
-					anAttribute = NULL;
-					err = anObject->findAttribute(kTTSym_value, &anAttribute);
-					
-					if(!err){
-						
-						err = anAttribute->unregisterObserverForNotifications(*anObserver);
-						
-						if(!err)
-							TTObjectBaseRelease(&anObserver);
-					}
-				}
-				
-				// delete Command observer for parameter and message
-				if (service == kTTSym_parameter || service == kTTSym_message) {
-					anObserver = NULL;
-					anObserver = cacheElement[2];
-					aMessage = NULL;
-					err = anObject->findMessage(kTTSym_Command, &aMessage);
-					
-					if(!err){
-						
-						err = aMessage->unregisterObserverForNotifications(*anObserver);
-						
-						if(!err)
-							TTObjectBaseRelease(&anObserver);
-					}
-				}
+                anObserver = NULL;
+                anObserver = cacheElement[1];
+                anAttribute = NULL;
+                err = anObject->findAttribute(kTTSym_value, &anAttribute);
+                
+                if(!err){
+                    
+                    err = anAttribute->unregisterObserverForNotifications(*anObserver);
+                    
+                    if(!err)
+                        TTObjectBaseRelease(&anObserver);
+                }
 			}
 			
 			// it is a Viewer
@@ -737,25 +635,11 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 			// it is a Container
 			if (anObject->getName() == kTTSym_Container) {
 				
-				// delete activityIn observer
+				// delete activity observer
 				anObserver = NULL;
 				anObserver = cacheElement[1];
 				anAttribute = NULL;
-				err = anObject->findAttribute(kTTSym_activityIn, &anAttribute);
-				
-				if(!err){
-					
-					err = anAttribute->unregisterObserverForNotifications(*anObserver);
-					
-					if(!err)
-						TTObjectBaseRelease(&anObserver);
-				}
-				
-				// delete activityOut observer
-				anObserver = NULL;
-				anObserver = cacheElement[2];
-				anAttribute = NULL;
-				err = anObject->findAttribute(kTTSym_activityOut, &anAttribute);
+				err = anObject->findAttribute(kTTSym_activity, &anAttribute);
 				
 				if(!err){
 					
@@ -766,7 +650,6 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				}
 			}
 		}
-#endif
 	}
 	
 	// remove cacheData
@@ -1386,9 +1269,9 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 			// return the value
 			aContainer->mReturnValueCallback->notify(v, kTTValNONE);
 			
-			// Notify activityOut observers (about value changes only)
+			// Notify activity observers (about value changes only)
 			v.prepend(TTValue(relativeAddress));
-			aContainer->activityOutAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
+			aContainer->activityAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
 		}
 	}
 	else
@@ -1396,26 +1279,7 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 	
 	return kTTErrNone;
 }
-#ifdef USE_ACTIVITY 
-TTErr TTContainerCommandMessageCallback(TTPtr baton, TTValue& data)
-{
-	TTValuePtr		b;
-	TTContainerPtr	aContainer;
-	TTAddress       relativeAddress;
-	TTValue			address;
-	
-	// unpack baton
-	b = (TTValuePtr)baton;
-	aContainer = TTContainerPtr((TTObjectBasePtr)(*b)[0]);
-	relativeAddress = (*b)[1];
-	
-	// Notify activityIn observers
-	data.prepend(TTValue(relativeAddress));
-	aContainer->activityInAttribute->sendNotification(kTTSym_notify, data);	// we use kTTSym_notify because we know that observers are TTCallback
-	
-	return kTTErrNone;
-}
-#endif
+
 TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 {
 	TTValue		v;
