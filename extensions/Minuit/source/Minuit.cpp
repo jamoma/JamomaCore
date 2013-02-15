@@ -54,7 +54,10 @@
 
 #define thisProtocolVersion		"0.3"
 #define thisProtocolAuthor		"Raphael Marczak/Laurent Garnier/Theo de la Hogue"
-#define thisProtocolExploration	YES
+#define thisProtocolGet         YES
+#define thisProtocolSet         YES
+#define thisProtocolListen      YES
+#define thisProtocolDiscover	YES
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 {

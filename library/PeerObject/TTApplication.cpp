@@ -906,47 +906,71 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
 {
     TTMirrorPtr     aMirror = NULL;
     TTNodePtr		aNode;
-	TTBoolean		newInstanceCreated;
-	TTObjectBasePtr		getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
+	TTBoolean		newInstanceCreated, allowGetRequest, allowSetRequest, allowListenRequest;
+	TTObjectBasePtr	getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
 	TTValuePtr		getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
     
     TTValue         args = objectName;
     
-    getAttributeCallback = NULL;
-    TTObjectBaseInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
-    getAttributeBaton = new TTValue(aProtocol);
-    getAttributeBaton->append(mName);
-    getAttributeBaton->append(anAddress);
-    getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
-    getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
-    args.append(getAttributeCallback);
+    aProtocol->getAttributeValue(TTSymbol("get"), allowGetRequest);
     
-    setAttributeCallback = NULL;
-    TTObjectBaseInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
-    setAttributeBaton = new TTValue(aProtocol);
-    setAttributeBaton->append(mName);
-    setAttributeBaton->append(anAddress);
-    setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
-    setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
-    args.append(setAttributeCallback);
+    if (allowGetRequest) {
+        
+        getAttributeCallback = NULL;
+        TTObjectBaseInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
+        getAttributeBaton = new TTValue(aProtocol);
+        getAttributeBaton->append(mName);
+        getAttributeBaton->append(anAddress);
+        getAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(getAttributeBaton));
+        getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
+        args.append(getAttributeCallback);
+    }
+    else
+        args.append(NULL);
     
-    sendMessageCallback = NULL;
-    TTObjectBaseInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
-    sendMessageBaton = new TTValue(aProtocol);
-    sendMessageBaton->append(mName);
-    sendMessageBaton->append(anAddress);
-    sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
-    sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
-    args.append(sendMessageCallback);
+    aProtocol->getAttributeValue(TTSymbol("set"), allowSetRequest);
     
-    listenAttributeCallback = NULL;
-    TTObjectBaseInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
-    listenAttributeBaton = new TTValue(aProtocol);
-    listenAttributeBaton->append(mName);
-    listenAttributeBaton->append(anAddress);
-    listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
-    listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
-    args.append(listenAttributeCallback);
+    if (allowSetRequest) {
+        
+        setAttributeCallback = NULL;
+        TTObjectBaseInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
+        setAttributeBaton = new TTValue(aProtocol);
+        setAttributeBaton->append(mName);
+        setAttributeBaton->append(anAddress);
+        setAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(setAttributeBaton));
+        setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
+        args.append(setAttributeCallback);
+        
+        sendMessageCallback = NULL;
+        TTObjectBaseInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
+        sendMessageBaton = new TTValue(aProtocol);
+        sendMessageBaton->append(mName);
+        sendMessageBaton->append(anAddress);
+        sendMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(sendMessageBaton));
+        sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
+        args.append(sendMessageCallback);
+    }
+    else {
+        
+        args.append(NULL);
+        args.append(NULL);
+    }
+    
+    aProtocol->getAttributeValue(TTSymbol("listen"), allowListenRequest);
+    
+    if (allowListenRequest) {
+        
+        listenAttributeCallback = NULL;
+        TTObjectBaseInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
+        listenAttributeBaton = new TTValue(aProtocol);
+        listenAttributeBaton->append(mName);
+        listenAttributeBaton->append(anAddress);
+        listenAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(listenAttributeBaton));
+        listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
+        args.append(listenAttributeCallback);
+    }
+    else
+        args.append(NULL);
     
     aMirror = NULL;
     TTObjectBaseInstantiate(kTTSym_Mirror, TTObjectBaseHandle(&aMirror), args);

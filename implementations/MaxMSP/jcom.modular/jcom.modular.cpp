@@ -101,16 +101,18 @@ void WrappedApplicationClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 		
 		// check if the protocol has been loaded
 		if (!getProtocol(protocolName)) {
+            
 			object_error((ObjectPtr)x, "the %s protocol is not available", protocolName.c_str());
-			return;
 		}
-		
-		// register the application to the protocol
-		v = TTValue(applicationName);
-		getProtocol(protocolName)->sendMessage(TTSymbol("registerApplication"), v, kTTValNONE);
-		
-		// run this protocol
-		TTModularApplications->sendMessage(TTSymbol("ProtocolRun"), protocolName, kTTValNONE);
+        else {
+            
+            // register the application to the protocol
+            v = TTValue(applicationName);
+            getProtocol(protocolName)->sendMessage(TTSymbol("registerApplication"), v, kTTValNONE);
+            
+            // run this protocol
+            TTModularApplications->sendMessage(TTSymbol("ProtocolRun"), protocolName, kTTValNONE);
+        }
 	}
 	
 	// Prepare extra data

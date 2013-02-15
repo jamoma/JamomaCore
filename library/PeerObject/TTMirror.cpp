@@ -17,7 +17,8 @@ mType(kTTSymEmpty),
 mGetAttributeCallback(NULL),
 mSetAttributeCallback(NULL),
 mSendMessageCallback(NULL),
-mListenAttributeCallback(NULL)
+mListenAttributeCallback(NULL),
+mAttributeValueCache(NULL)
 {	
 	TTValue				attributeNames, messageNames, args;
 	TTSymbol			name;
@@ -55,7 +56,20 @@ mListenAttributeCallback(NULL)
 		name = attributeNames[i];
 		anObject->getAttribute(name, &anAttribute);
 		
-		addMirrorAttribute(name, anAttribute->type);
+        if (mGetAttributeCallback)
+            addMirrorAttribute(name, anAttribute->type);
+        
+        // else cache the attribute value
+        else {
+            
+            addMirrorCachedAttribute(name, anAttribute->type);
+            
+            if (!mAttributeValueCache)
+                mAttributeValueCache = new TTHash();
+            
+            mAttributeValueCache->append(name, kTTValNONE);
+        }
+            
 		setAttributeGetterFlags(name, attributeFlags);
 		setAttributeSetterFlags(name, attributeFlags);
 		
@@ -82,7 +96,7 @@ TTMirror::~TTMirror() // TODO : delete things...
 	;
 }
 
-TTErr TTMirror::getMirrorAttribute(const TTAttribute& anAttribute, TTValue& value)
+TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 {
 	TTValue data;
 	
@@ -97,7 +111,7 @@ TTErr TTMirror::getMirrorAttribute(const TTAttribute& anAttribute, TTValue& valu
 	return kTTErrGeneric;
 }
 
-TTErr TTMirror::setMirrorAttribute(const TTAttribute& anAttribute, const TTValue& value)
+TTErr TTMirror::setMirrorAttribute(TTAttribute& anAttribute, const TTValue& value)
 {
 	TTValue data;
 	TTErr	err = kTTErrNone;
@@ -108,24 +122,71 @@ TTErr TTMirror::setMirrorAttribute(const TTAttribute& anAttribute, const TTValue
 		data.append((TTPtr)&value);
 		
 		err = mSetAttributeCallback->notify(data, kTTValNONE);
+        
+        // if the mirror cannot listen value : notify observers ourself
+        if (!mListenAttributeCallback)
+            anAttribute.sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	}
 	 
+	return err;
+}
+
+TTErr TTMirror::getMirrorCachedAttribute(TTAttribute& anAttribute, TTValue& value)
+{
+	TTValue data;
+
+    data.append(anAttribute.name);
+    
+    // get the value from the cache
+    if (!mAttributeValueCache->lookup(anAttribute.name, value)) {
+        
+        data.append((TTPtr)&value);
+		return kTTErrNone;
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTMirror::setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue& value)
+{
+	TTValue data, cached;
+	TTErr	err = kTTErrNone;
+	
+	if (mSetAttributeCallback) {
+		
+		data.append(anAttribute.name);
+		data.append((TTPtr)&value);
+        
+        // update the cache with the value
+        if (!mAttributeValueCache->lookup(anAttribute.name, cached)) {
+            mAttributeValueCache->remove(anAttribute.name);
+            mAttributeValueCache->append(anAttribute.name, value);
+        }
+		
+		err = mSetAttributeCallback->notify(data, kTTValNONE);
+        
+        // if the mirror cannot listen value : notify observers ourself
+        if (!mListenAttributeCallback)
+            anAttribute.sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
+	}
+    
 	return err;
 }
 
 TTErr TTMirror::sendMirrorMessage(const TTSymbol* messageName, const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue data;
+    TTErr   err = kTTErrNone;
 	
 	if (mSendMessageCallback) {
 		
 		data.append(messageName);
 		data.append((TTPtr)&inputValue);
 		
-		return mSetAttributeCallback->notify(data, kTTValNONE);
+		err = mSetAttributeCallback->notify(data, kTTValNONE);
 	}
 	
-	return kTTErrGeneric;
+	return err;
 }
 
 TTErr TTMirror::updateAttributeValue(const TTSymbol attributeName, TTValue& value)
@@ -134,26 +195,39 @@ TTErr TTMirror::updateAttributeValue(const TTSymbol attributeName, TTValue& valu
 	TTErr			err;
 	
 	err = this->findAttribute(attributeName, &anAttribute);
+    
+    // if attributes are cached
+    if (!mGetAttributeCallback) {
+        
+        TTValue cached;
+        
+        // update the cache with the value
+        if (!mAttributeValueCache->lookup(attributeName, cached)) {
+            mAttributeValueCache->remove(attributeName);
+            mAttributeValueCache->append(attributeName, value);
+        }
+    }
 	
 	if (!err)
 		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
-	
-	return kTTErrNone;
+    
+	return err;
 }
 
 TTErr TTMirror::enableListening(const TTAttribute& anAttribute, TTBoolean enable)
 {	
 	TTValue data;
+    TTErr   err = kTTErrNone;
 	
 	if (mListenAttributeCallback) {
 		
 		data.append(anAttribute.name);
 		data.append(enable);
 		
-		return mListenAttributeCallback->notify(data, kTTValNONE);
+		err = mListenAttributeCallback->notify(data, kTTValNONE);
 	}
 	
-	return kTTErrGeneric;
+	return err;
 }
 
 #if 0

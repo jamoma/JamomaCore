@@ -24,6 +24,13 @@
  */
 #define addMirrorAttribute(name, type)		TTObjectBase::registerAttribute(name, type, NULL, (TTGetterMethod)& TTMirror::getMirrorAttribute, (TTSetterMethod)& TTMirror::setMirrorAttribute )
 
+/**	A convenience macro to be used for registering mirror cached attribute.
+ Note that we don't lower the attribute name because we use the name of an existing attribute.
+ @param	name	The TTSymbol name of the attribute.
+ @param	type	The type of the value.
+ */
+#define addMirrorCachedAttribute(name, type)		TTObjectBase::registerAttribute(name, type, NULL, (TTGetterMethod)& TTMirror::getMirrorCachedAttribute, (TTSetterMethod)& TTMirror::setMirrorCachedAttribute )
+
 /** TODO : how to have TTGetterMethod and TTSetterMethod for Mirror attribute Property ?
  
 	A convenience macro to be used for registering properties of mirror attributes.
@@ -65,11 +72,16 @@ private:
 	TTCallbackPtr				mSetAttributeCallback;			///< a way to set the attribute value
 	TTCallbackPtr				mSendMessageCallback;			///< a way to send a message
 	TTCallbackPtr				mListenAttributeCallback;		///< a way to listen the attribute value
+    
+    TTHashPtr                   mAttributeValueCache;           ///< a hash table to cache attribute value (if no mGetAttributeCallback)
 	
-	TTErr						getMirrorAttribute(const TTAttribute& anAttribute, TTValue& value);
-	TTErr						setMirrorAttribute(const TTAttribute& anAttribute, const TTValue& value);
+	TTErr						getMirrorAttribute(TTAttribute& anAttribute, TTValue& value);
+	TTErr						setMirrorAttribute(TTAttribute& anAttribute, const TTValue& value);
+    
+    TTErr						getMirrorCachedAttribute(TTAttribute& anAttribute, TTValue& value);
+	TTErr						setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue& value);
+    
 	TTErr						sendMirrorMessage(const TTSymbol* messageName, const TTValue& inputValue, TTValue& outputValue);
-	
 	
 public:
 	TTErr						updateAttributeValue(const TTSymbol attributeName, TTValue& value);

@@ -21,7 +21,7 @@ mDistantApplicationParameters(NULL)
 {
     mApplicationManager = arguments[0];
     mActivityInCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
-    mActivityInCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+    mActivityOutCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
 	
 	registerAttribute(TTSymbol("applicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Protocol::getApplicationParameters, (TTSetterMethod)& Protocol::setApplicationParameters);
 
@@ -35,9 +35,18 @@ mDistantApplicationParameters(NULL)
 
 	addAttribute(Author, kTypeSymbol);
 	addAttributeProperty(Author, readOnly, YES);
+    
+    addAttribute(Get, kTypeBoolean);
+	addAttributeProperty(Get, readOnly, YES);
+    
+    addAttribute(Set, kTypeBoolean);
+	addAttributeProperty(Set, readOnly, YES);
+    
+    addAttribute(Listen, kTypeBoolean);
+	addAttributeProperty(Listen, readOnly, YES);
 
-	addAttribute(Exploration, kTypeBoolean);
-	addAttributeProperty(Exploration, readOnly, YES);
+	addAttribute(Discover, kTypeBoolean);
+	addAttributeProperty(Discover, readOnly, YES);
 	
 	addAttribute(Activity, kTypeBoolean);
 
@@ -105,7 +114,10 @@ TTErr Protocol::getParameterNames(TTValue& value)
 		if (attributeName == TTSymbol("name")		||
 			attributeName == TTSymbol("version")	||
 			attributeName == TTSymbol("author")     ||
-			attributeName == TTSymbol("exploration"))
+            attributeName == TTSymbol("get")        ||
+            attributeName == TTSymbol("set")        ||
+            attributeName == TTSymbol("listen")      ||
+			attributeName == TTSymbol("discover"))
 			continue;
 		
 		value.append(attributeName);
@@ -113,7 +125,6 @@ TTErr Protocol::getParameterNames(TTValue& value)
 	
 	return kTTErrNone;
 }
-
 
 TTErr Protocol::registerApplication(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -595,6 +606,8 @@ TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)
 TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *returnedProtocol, TTObjectBasePtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback)
 {
 	TTValue args;
+    
+    *returnedProtocol = NULL;        // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	
 	args.append(manager);
 	args.append(activityInCallback);
@@ -603,9 +616,9 @@ TTErr ProtocolLib::createProtocol(const TTSymbol protocolName, ProtocolPtr *retu
 	// These should be alphabetized
 	if (protocolName == TTSymbol("Minuit"))
 		return TTObjectBaseInstantiate(TTSymbol("Minuit"), (TTObjectBasePtr*)returnedProtocol, args);
-	/*
 	else if (protocolName == TTSymbol("OSC"))
 		return TTObjectBaseInstantiate(TTSymbol("OSC"), (TTObjectBasePtr*)returnedProtocol, args);
+    /*
 	else if (protocolName == TTSymbol("MIDI"))
 		return TTObjectBaseInstantiate(TTSymbol("MIDI"), (TTObjectBasePtr*)returnedProtocol, args);
 	else if (protocolName == TTSymbol("CopperLan"))
@@ -622,8 +635,8 @@ void ProtocolLib::getProtocolNames(TTValue& protocolNames)
 {
 	protocolNames.clear();
 	protocolNames.append(TTSymbol("Minuit"));
-	/*
 	protocolNames.append(TTSymbol("OSC"));
+    /*
 	protocolNames.append(TTSymbol("MIDI"));
 	protocolNames.append(TTSymbol("CopperLan"));
 	protocolNames.append(TTSymbol("Serial"));

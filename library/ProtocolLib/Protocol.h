@@ -22,7 +22,10 @@ thisTTClass :: thisTTClass (TTValue& arguments) : Protocol(arguments)
 mName = TTSymbol(thisTTClassName); \
 mVersion = TTSymbol(thisProtocolVersion); \
 mAuthor = TTSymbol(thisProtocolAuthor); \
-mExploration = TTSymbol(thisProtocolExploration); \
+mGet = TTBoolean(thisProtocolGet); \
+mSet = TTBoolean(thisProtocolSet); \
+mListen = TTBoolean(thisProtocolListen); \
+mDiscover = TTBoolean(thisProtocolDiscover); \
 registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 /*addAttributeProperty(ParameterNames, readOnly, YES); \ */
 
@@ -51,8 +54,11 @@ protected:
 public:																															
 	TTSymbol					mName;								///< ATTRIBUTE : the name of the protocol to use							
 	TTSymbol					mVersion;							///< ATTRIBUTE : the version of the protocol								
-	TTSymbol					mAuthor;							///< ATTRIBUTE : the author of the protocol								
-	TTBoolean					mExploration;						///< ATTRIBUTE : is the Protocol provide namespace exploration features ?
+	TTSymbol					mAuthor;							///< ATTRIBUTE : the author of the protocol
+    TTBoolean					mGet;                               ///< ATTRIBUTE : is the Protocol allows to send get request ?
+    TTBoolean					mSet;                               ///< ATTRIBUTE : is the Protocol allows to send set request ?
+	TTBoolean					mListen;                            ///< ATTRIBUTE : is the Protocol allows to send listen request ?
+	TTBoolean					mDiscover;                          ///< ATTRIBUTE : is the Protocol allows to send discover request ?
 	TTBoolean					mRunning;							///< ATTRIBUTE : is the Protocol reception thread enable ?
 	TTBoolean					mActivity;							///< ATTRIBUTE : is the Protocol activity thread enable ?
 
