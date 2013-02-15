@@ -1,0 +1,16 @@
+#defines:
+#  - TT_PROTOCOL_DEBUG
+
+sources:
+  - ../../library/ProtocolLib/Protocol.cpp		
+  - source/OSC.cpp
+  - source/OSCSenderManager.cpp
+    
+includes:
+  - "."
+  - "includes"
+  - "../../library/ProtocolLib"
+  - "../../../../Core/Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
