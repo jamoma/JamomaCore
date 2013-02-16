@@ -163,21 +163,27 @@ TTErr TTReceiver::Get()
 					err = anObject->getAttributeValue(ttAttributeName, data); 
 					
 					if (!err) {
-						
-						// output the address of the node (in case we use * inside the binded address)
-						aNode->getAddress(anAddress);
-						anAddress = anAddress.appendAttribute(mAddress.getAttribute());
-						
-						// return the address
-						v.clear();
-						v.append(anAddress);
-						
-						if (mReturnAddressCallback)
-							mReturnAddressCallback->notify(v, kTTValNONE);
-						
-						// return the value
-						if (mReturnValueCallback)
-							mReturnValueCallback->notify(data, kTTValNONE);
+                        
+                        // don't return empty value
+                        if (data.size()) {
+                            
+                            // output the address of the node (in case we use * inside the binded address)
+                            aNode->getAddress(anAddress);
+                            anAddress = anAddress.appendAttribute(mAddress.getAttribute());
+                            
+                            // return the address
+                            v.clear();
+                            v.append(anAddress);
+                            
+                            if (mReturnAddressCallback)
+                                mReturnAddressCallback->notify(v, kTTValNONE);
+                            
+                            // return the value
+                            if (mReturnValueCallback)
+                                mReturnValueCallback->notify(data, kTTValNONE);
+                        }
+                        else
+                            return kTTErrGeneric;
 					}
 					else
 						return kTTErrGeneric;

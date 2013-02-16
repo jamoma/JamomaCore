@@ -113,7 +113,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& 
 			do {
 				i++;
 				parsed = kTTSymEmpty;
-				if (answer[0].type() == kTypeSymbol)
+				if (answer[i].type() == kTypeSymbol)
 					parsed = answer[i];
 				
 				// don't store the end flag
@@ -137,7 +137,7 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& 
 			do {
 				i++;
 				parsed = kTTSymEmpty;
-				if (answer[0].type() == kTypeSymbol)
+				if (answer[i].type() == kTypeSymbol)
 					parsed = answer[i];
 				
 				// don't store the end flag

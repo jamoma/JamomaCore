@@ -27,68 +27,71 @@ mAttributeValueCache(NULL)
 	TTMessagePtr		aMessage;
 	
 	TT_ASSERT("Correct number of args to create TTMirror", arguments.size() == 5);
-
+    
 	if (arguments.size() >= 1)
 		mType = arguments[0];
-
-	if (arguments.size() >= 2)
-		mGetAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
-	
-	if (arguments.size() >= 3)
-		mSetAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
-	
-	if (arguments.size() >= 4)
-		mSendMessageCallback = TTCallbackPtr((TTObjectBasePtr)arguments[3]);
-	
-	if (arguments.size() >= 5)
-		mListenAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[4]);
-	
-
-	// instantiate a temp object to copy visible attributes and messages
-	TTObjectBasePtr anObject = NULL;
-    args.resize(32);
-	TTObjectBaseInstantiate(mType,  &anObject, args);
-	
-	anObject->getAttributeNames(attributeNames);
-	for (TTUInt32 i = 0; i < attributeNames.size(); i++) {
-		
-		anAttribute = NULL;
-		name = attributeNames[i];
-		anObject->getAttribute(name, &anAttribute);
-		
-        if (mGetAttributeCallback)
-            addMirrorAttribute(name, anAttribute->type);
+    
+    if (mType != kTTSymEmpty) {
         
-        // else cache the attribute value
-        else {
+        if (arguments.size() >= 2)
+            mGetAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+        
+        if (arguments.size() >= 3)
+            mSetAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+        
+        if (arguments.size() >= 4)
+            mSendMessageCallback = TTCallbackPtr((TTObjectBasePtr)arguments[3]);
+        
+        if (arguments.size() >= 5)
+            mListenAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[4]);
+        
+        
+        // instantiate a temp object to copy visible attributes and messages
+        TTObjectBasePtr anObject = NULL;
+        args.resize(32);
+        TTObjectBaseInstantiate(mType,  &anObject, args);
+        
+        anObject->getAttributeNames(attributeNames);
+        for (TTUInt32 i = 0; i < attributeNames.size(); i++) {
             
-            addMirrorCachedAttribute(name, anAttribute->type);
+            anAttribute = NULL;
+            name = attributeNames[i];
+            anObject->getAttribute(name, &anAttribute);
             
-            if (!mAttributeValueCache)
-                mAttributeValueCache = new TTHash();
+            if (mGetAttributeCallback)
+                addMirrorAttribute(name, anAttribute->type);
             
-            mAttributeValueCache->append(name, kTTValNONE);
+            // else cache the attribute value
+            else {
+                
+                addMirrorCachedAttribute(name, anAttribute->type);
+                
+                if (!mAttributeValueCache)
+                    mAttributeValueCache = new TTHash();
+                
+                mAttributeValueCache->append(name, kTTValNONE);
+            }
+            
+            setAttributeGetterFlags(name, attributeFlags);
+            setAttributeSetterFlags(name, attributeFlags);
+            
+            // TODO : addMirrorAttributeProperty
+            //addMirrorAttributeProperty(name, readOnly, anAttribute->readOnly);
         }
+        
+        anObject->getMessageNames(messageNames);
+        for (TTUInt32 i = 0; i < messageNames.size(); i++) {
             
-		setAttributeGetterFlags(name, attributeFlags);
-		setAttributeSetterFlags(name, attributeFlags);
-		
-		// TODO : addMirrorAttributeProperty
-		//addMirrorAttributeProperty(name, readOnly, anAttribute->readOnly);
-	}
-	
-	anObject->getMessageNames(messageNames);
-	for (TTUInt32 i = 0; i < messageNames.size(); i++) {
-		
-		name = messageNames[i];
-		anObject->getMessage(name, &aMessage);
-		
-		addMirrorMessage(name, aMessage->flags);
-		
-		// TODO : addMirrorMessageProperty
-	}
-	
-	TTObjectBaseRelease(&anObject);
+            name = messageNames[i];
+            anObject->getMessage(name, &aMessage);
+            
+            addMirrorMessage(name, aMessage->flags);
+            
+            // TODO : addMirrorMessageProperty
+        }
+        
+        TTObjectBaseRelease(&anObject);
+    }
 }
 
 TTMirror::~TTMirror() // TODO : delete things...
