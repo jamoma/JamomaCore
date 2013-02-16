@@ -114,7 +114,7 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 	TTSymbol		name;
 	TTAddress		objectAddress;
 	TTObjectBasePtr	anObject;
-	TTSubscriberPtr aSubscriber;
+	TTObjectBasePtr aSubscriber;
 	TTErr			err;
 
 #ifndef ARRAY_EXTERNAL
@@ -156,15 +156,15 @@ void wrappedModularClass_unregister(WrappedModularInstancePtr x)
 						// relative registration case : get an handler on a subscriber and delete it
 						if (storedObject.size() == 3) {
 							aSubscriber = NULL;
-							aSubscriber = TTSubscriberPtr((TTPtr)storedObject[2]);
+							aSubscriber = storedObject[2];
 							
 							if (aSubscriber)
 								if (aSubscriber->valid)		// to -- should be better to understand why the subscriber is not valid
-									TTObjectBaseRelease(TTObjectBaseHandle(&aSubscriber));
+									TTObjectBaseRelease(&aSubscriber);
 						}
 						
 						if (anObject)
-							if (anObject->valid)	// to -- should be better to understand why the object is not valid
+							if (anObject->valid)            // to -- should be better to understand why the object is not valid
 								TTObjectBaseRelease(&anObject);
 					}
 				}
@@ -367,7 +367,6 @@ void wrappedModularClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomP
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	ModularSpec*				spec = (ModularSpec*)x->wrappedClassDefinition->specificities;
-    TTSymbol                    modelAddress = TTSymbol("/model/address");
 	TTErr						err;
 	
 	// for an array of wrapped object
@@ -391,19 +390,16 @@ void wrappedModularClass_anything(TTPtr self, SymbolPtr s, AtomCount argc, AtomP
 					
 					x->cursor = keys[i];
                     
-                    if (x->cursor != modelAddress) {                                    // to - this only for jcom.remoteArray because there is also a Receiver on model/address 
-                        
-                        // Is it a message of the wrapped object ?
-                        err = wrappedModularClass_sendMessage(self, s, argc, argv);
-                        
-                        // Is it an attribute of the wrapped object ?
-                        if (err)
-                            err = wrappedModularClass_setAttribute(self, s, argc, argv);
-                        
-                        // if error : stop the while because this is an array and all objects are the same
-                        if (err)
-                            break;
-                    }
+                    // Is it a message of the wrapped object ?
+                    err = wrappedModularClass_sendMessage(self, s, argc, argv);
+                    
+                    // Is it an attribute of the wrapped object ?
+                    if (err)
+                        err = wrappedModularClass_setAttribute(self, s, argc, argv);
+                    
+                    // if error : stop the while because this is an array and all objects are the same
+                    if (err)
+                        break;
 					
 					i++;
 				}
@@ -873,6 +869,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 #ifdef ARRAY_EXTERNAL
 	
 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedModularClass_ArraySelect,				"array/select",			A_GIMME,0);
+    class_addmethod(wrappedMaxClass->maxClass, (method)wrappedModularClass_ArrayResize,				"array/resize",			A_LONG,0);
 	
 	CLASS_ATTR_SYM(wrappedMaxClass->maxClass,			"format",	0,		WrappedModularInstance,	arrayAttrFormat);
 	CLASS_ATTR_ACCESSORS(wrappedMaxClass->maxClass,		"format",			wrappedModularClass_FormatGet,	wrappedModularClass_FormatSet);
@@ -887,7 +884,7 @@ TTErr wrapTTModularClassAsMaxClass(TTSymbol& ttblueClassName, const char* maxCla
 	return kTTErrNone;
 }
 
-TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectBasePtr *returnedData)
+TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectBasePtr *returnedData, TTBoolean deferlow)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args;
@@ -904,6 +901,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
+    returnValueBaton->append(deferlow);
 	
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
@@ -931,7 +929,7 @@ TTErr makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr
 	return kTTErrNone;
 }
 
-TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedExplorer)
+TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedExplorer, TTBoolean deferlow)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
@@ -941,8 +939,11 @@ TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+    
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
+    returnValueBaton->append(deferlow);
+    
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
@@ -961,7 +962,7 @@ TTErr makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod
 	return kTTErrNone;
 }
 
-TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedViewer)
+TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedViewer, TTBoolean deferlow)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
@@ -972,8 +973,11 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	// prepare arguments
 	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+    
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
+    returnValueBaton->append(deferlow);
+    
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
@@ -995,7 +999,7 @@ TTErr makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolP
 	return kTTErrNone;
 }
 
-TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedReceiver)
+TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedReceiver, TTBoolean deferlow)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	TTValue			args, storedObject;
@@ -1010,8 +1014,11 @@ TTErr makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, Symbo
 	
 	returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+    
 	returnValueBaton = new TTValue(TTPtr(x));
 	returnValueBaton->append(TTPtr(callbackMethod));
+    returnValueBaton->append(deferlow);
+    
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(returnValueCallback);
@@ -1189,6 +1196,31 @@ void wrappedModularClass_ArraySelect(TTPtr self, SymbolPtr msg, AtomCount ac, At
 	}
 	else
 		object_error((ObjectPtr)x, "array/select : the array is empty");
+}
+
+void wrappedModularClass_ArrayResize(TTPtr self, long newSize)
+{
+    WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+    SymbolPtr	instanceAddress;
+    TTString    s_bracket;
+    TTValue     v;
+    
+    if (newSize >= 0) {
+        
+        v = TTInt64(newSize);
+        v.toString();
+
+        s_bracket = "[";
+        s_bracket += TTString(v[0]);
+        s_bracket += "]";
+        
+        jamoma_edit_string_instance(x->arrayFormatString, &instanceAddress, s_bracket.c_str());
+        
+        object_method((ObjectPtr)x, gensym("address"), instanceAddress, 0, NULL);
+        JamomaDebug object_post((ObjectPtr)x, "array/resize : to %s address", instanceAddress->s_name);
+    }
+    else
+        object_error((ObjectPtr)x, "array/resize : %d is not a valid size", newSize);
 }
 #endif
 

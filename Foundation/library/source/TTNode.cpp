@@ -172,7 +172,7 @@ TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstan
 					this->directory->getDirectory()->remove(old_key);
 
 					// append the new key
-					this->directory->getDirectory()->append(TT(temp),TTValue(n_c));
+					this->directory->getDirectory()->append(TTSymbol(temp), n_c);
 				}
 			}
 		}
@@ -246,7 +246,7 @@ TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *
 					this->directory->getDirectory()->remove(old_key);
 
 					// append the new key
-					this->directory->getDirectory()->append(TT(temp),TTValue(n_c));
+					this->directory->getDirectory()->append(TTSymbol(temp), n_c);
 				}
 			}
 		}
@@ -391,7 +391,7 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 							ht_i->lookup(key_i, c_i);
 							n_c = TTNodePtr((TTPtr)c_i[0]);
 
-							returnedChildren.append((TTPtr)n_c);
+							returnedChildren.append(n_c);
 						}
 					}
 					// there is an instance
@@ -399,7 +399,7 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 						err = ht_i->lookup(anInstance, c_i);
 						if (err == kTTErrNone) {
 							n_c = TTNodePtr((TTPtr)c_i[0]);
-							returnedChildren.append((TTPtr)n_c);
+							returnedChildren.append(n_c);
 						}
 						// don't stop because there are maybe other names
 					}
@@ -424,7 +424,7 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 							ht_i->lookup(key_i, c_i);
 							n_c = TTNodePtr((TTPtr)c_i[0]);
 
-							returnedChildren.append((TTPtr)n_c);
+							returnedChildren.append(n_c);
 						}
 					}
 					// there is an instance
@@ -432,7 +432,7 @@ TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedC
 						err = ht_i->lookup(anInstance, c_i);
 						if (err == kTTErrNone) {
 							n_c = TTNodePtr((TTPtr)c_i[0]);
-							returnedChildren.append((TTPtr)n_c);
+							returnedChildren.append(n_c);
 						}
 						else
 							return err;
@@ -505,7 +505,7 @@ TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstan
 				for(j=0; j<ht_i->getSize(); j++){
 
 					key_i = hk_i[j];
-					returnedChildrenInstance.append(TTValue(key_i));
+					returnedChildrenInstance.append(key_i);
 				}
 			}
 			else

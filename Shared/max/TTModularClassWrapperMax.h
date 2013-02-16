@@ -78,7 +78,7 @@ typedef struct _wrappedModularInstance {
 	WrappedClassPtr							wrappedClassDefinition;		///< A pointer to the class definition
 
 #ifndef ARRAY_EXTERNAL
-	TTObjectBasePtr								wrappedObject;				///< The instance of the TTBlue object we are wrapping
+	TTObjectBasePtr							wrappedObject;				///< The instance of the TTBlue object we are wrapping
 	TTSubscriberPtr							subscriberObject;			///< The instance of a TTSubscriber object used to 
 																		///< register the wrapped object in the tree structure
 #endif
@@ -122,10 +122,10 @@ typedef WrappedModularInstance* WrappedModularInstancePtr;	///< Pointer to a wra
 void		copy_msg_argc_argv(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 
 // Use internals to store several objects :
-TTErr		makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectBasePtr *returnedData);
-TTErr		makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedExplorer);
-TTErr		makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedViewer);
-TTErr		makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedReceiver);
+TTErr		makeInternals_data(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTPtr context, TTSymbol service, TTObjectBasePtr *returnedData, TTBoolean deferlow = NO);
+TTErr		makeInternals_explorer(TTPtr self, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedExplorer, TTBoolean deferlow = NO);
+TTErr		makeInternals_viewer(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedViewer, TTBoolean deferlow = NO);
+TTErr		makeInternals_receiver(TTPtr self, TTAddress address, TTSymbol name, SymbolPtr callbackMethod, TTObjectBasePtr *returnedReceiver, TTBoolean deferlow = NO);
 TTErr		removeInternals_data(TTPtr self, TTAddress address, TTSymbol name);
 
 
@@ -174,6 +174,7 @@ int			convertModifiersFromMaxToTTGraphics(int maxModifiers);
 t_max_err	wrappedModularClass_FormatGet(TTPtr self, TTPtr attr, AtomCount *ac, AtomPtr *av);
 t_max_err	wrappedModularClass_FormatSet(TTPtr self, TTPtr attr, AtomCount ac, AtomPtr av);
 void		wrappedModularClass_ArraySelect(TTPtr self, SymbolPtr msg, AtomCount ac, AtomPtr av);
+void		wrappedModularClass_ArrayResize(TTPtr self, long newSize);
 #endif
 
 #endif // __TT_MODULAR_CLASS_WRAPPER_MAX_H__
