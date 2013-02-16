@@ -11,26 +11,23 @@ require 'rexml/formatters/pretty'
 include REXML
 
 
-if defined? win32?
+if defined? win?
 else
 
   require 'open3'
   require 'fileutils'
   require 'pathname'
-  if defined? $main_repository
-    require "#{Dir.pwd}/../Core/Shared/platform"
-  else
-    require "#{Dir.pwd}/platform"
-  end
-  require 'rexml/document'
-  include REXML
 
-  def win32?
-    (Platform::OS == :unix && Platform::IMPL == :cygwin) || Platform::OS == :win32
+  def mac?
+    (Object::RUBY_PLATFORM =~ /darwin/i) ? true : false
   end
 
   def linux?
-    (Platform::IMPL == :linux)
+     (Object::RUBY_PLATFORM =~ /linux/i) ? true : false
+  end
+
+  def win?
+    !mac? && !linux?
   end
 
   if linux?
@@ -44,35 +41,19 @@ else
     end
   end
 
-if win32?
-  if defined? $main_repository
-    if Platform::IMPL == :cygwin
-      require "#{Dir.pwd}/../Core/Shared/wininit"
-    else
-      require "#{Dir.pwd}/../Core/Shared/wininit.rb"
-    end
-  else
-    if Platform::IMPL == :cygwin
-      require "#{Dir.pwd}/wininit"
-    else
-      require "#{Dir.pwd}/wininit.rb"
-    end
-  end
-end
+  if win?
+    begin
+      require 'win32/registry'
 
-if win32?
-  def mac?
-    false
+      Win32::Registry::HKEY_LOCAL_MACHINE.open('Software\\Microsoft\\VisualStudio\\11.0') do |reg|
+        # $vs2012 = true
+      end
+    rescue
+      puts "Couldn't find VisualStudio 2012 in the registry. VS2012 is required for building Jamoma."
+      exit
+    end
   end
-elsif linux?
-  def mac?
-    false
-  end
-else
-  def mac?
-    true
-  end
-end
+
 
   #######
   ## SUB ROUTINES
@@ -88,15 +69,22 @@ end
     end
   end
 
+  def date
+    result = `date`  if mac? || linux?
+    result = "" if win?
+  end
+
   def create_logs(str)
     # set up log files and ensure that the build_root is there
-    `mkdir -p #{@log_root}` if !FileTest.exist?(@log_root)
+    puts `mkdir #{'-p' if !win?} #{@log_root}` if !FileTest.exist?(@log_root)
     @build_log = File.new("#{@log_root}/build.log", "w")
-    @build_log.write("#{str.upcase} BUILD LOG: #{`date`}\n\n")
+    @build_log.write("#{str.upcase} BUILD LOG: #{`date`}\n\n") if mac? || linux?
+    @build_log.write("#{str.upcase} BUILD LOG:          \n\n") if win?
     @build_log.flush
     @error_log = File.new("#{@log_root}/error.log", "w")
     @error_log.write("#{str.upcase} BUILD ERROR LOG:\n")
-    @error_log.write("           STARTED:   #{`date`}")
+    @error_log.write("           STARTED:   #{`date`}") if mac? || linux?
+    @error_log.write("           STARTED:            ") if win?
     @error_log.flush
     trap("SIGINT") { die }
   end
@@ -105,10 +93,12 @@ end
     # set up log files and ensure that the build_root is there
     `mkdir -p #{@log_root}` if !FileTest.exist?(@log_root)
     @testPass_log = File.new("#{@log_root}/pass.log", "w")
-    @testPass_log.write("JAMOMA TEST PASS LOG: #{`date`}\n\n")
+    @testPass_log.write("JAMOMA TEST PASS LOG: #{`date`}\n\n") if mac? || linux?
+    @testPass_log.write("JAMOMA TEST PASS LOG:          \n\n") if win?
     @testFail_log = File.new("#{@log_root}/fail.log", "w")
     @testFail_log.write("JAMOMA TEST FAIL LOG:\n")
-    @testFail_log.write("           STARTED:   #{`date`}")
+    @testFail_log.write("           STARTED:   #{`date`}") if mac? || linux?
+    @testFail_log.write("           STARTED:            ") if win?
     @testFail_log.flush
     trap("SIGINT") {
       puts "Crash!"
@@ -122,18 +112,18 @@ end
   end
 
   def close_logs
-    @error_log.write("           COMPLETED: #{`date`}")
+    @error_log.write("           COMPLETED: #{date}")
     #@error_log.write("="*45)
     @error_log.close
-    @build_log.write("           COMPLETED: #{`date`}")
+    @build_log.write("           COMPLETED: #{date}")
     @build_log.close
 
   end
 
   def close_test_logs
-    @testPass_log.write("COMPLETED: #{`date`}")
+    @testPass_log.write("COMPLETED: #{date}")
     @testPass_log.close
-    @testFail_log.write("           COMPLETED: #{`date`}")
+    @testFail_log.write("           COMPLETED: #{date}")
     @testFail_log.close
   end
 
@@ -215,14 +205,15 @@ end
 
 
   def copyfile_adapt_name_to_win(filename, sourcepath, dstpath)
-	out = ""
+    out = ""
     err = ""
 
-	filename_adapted = filename.gsub("≈","=")
+    filename_adapted = filename.gsub("≈","=")
 	  inputstr = "#{sourcepath}/#{filename}".ljust(80)
     puts "copy -r  #{inputstr} --> #{dstpath}/#{filename_adapted}"
 
-    Open3.popen3("cp -R #{sourcepath}/#{filename} #{dstpath}/#{filename_adapted}") do |stdin, stdout, stderr|
+#    Open3.popen3("cp -R #{sourcepath}/#{filename} #{dstpath}/#{filename_adapted}") do |stdin, stdout, stderr|
+    Open3.popen3("copy #{sourcepath}/#{filename} #{dstpath}/#{filename_adapted}") do |stdin, stdout, stderr|
       out = stdout.read
       err = stderr.read
     end
@@ -267,6 +258,7 @@ end
     return 0
   end
 
+
   def build_make_project(projectdir, makefilename, configuration, clean)
     out = ""
     projectname = projectdir.split("/").last
@@ -296,11 +288,14 @@ end
 
   end
 
+
   def build_vs_project(projectdir, projectname, configuration, clean)
     out = ""
     err = ""
 
-    Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
+ #`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
+#    Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
+    Open3.popen3("msbuild.exe #{"/target:rebuild" if clean == true} /p:Platform=Win32 \"#{projectname}\"") do |stdin, stdout, stderr|
       out = stdout.read
       err = stderr.read
     end
@@ -330,7 +325,7 @@ end
 
       if use_make
       	@cur_count += build_make_project(projectdir, projectname, configuration, clean)
-      elsif win32?
+      elsif win?
         @cur_count += build_vs_project(projectdir, projectname, configuration, clean)
       elsif linux?
 	      @cur_count += build_make_project(projectdir, projectname, configuration, clean)
@@ -348,7 +343,7 @@ end
   def copy_helpfile(filename, filedir, dstdir)
     if FileTest.exist?("#{filedir}/#{filename}")
       @cur_total+=1
-      if win32?
+      if win?
         @cur_count += copyfile_adapt_name_to_win(filename, filedir, dstdir)
       else
         @cur_count += copyfile(filename , filedir, dstdir)
@@ -356,38 +351,6 @@ end
     else
       puts"File Does not exist: #{filedir}/#{filename}"
     end
-  end
-
-
-  # CREATE COPIES OF THE STANDARD C/C++ LIBRARIES THAT WE CAN USE FOR LINKING AND REDISTRIBUTION
-  # distropath is the same as in other places in this script: it defines where the mac expects to see the lib at runtime
-  # if the file is not found, then it will be searched for in /usr/local/lib
-  # distropath should look something like "@executable_path/../Jamoma"
-
-  # NOTE -- THIS IS CURRENTLY UNUSED BUT LEFT-IN FOR REFERENCE
-
-  $already_configured_gcc47 = false
-
-  def configure_gcc47(path_to_moduleroot, distropath)
-    return if ($already_configured_gcc47)
-
-    puts "Configuring Redistributable Libs for GCC 4.7"
-
-    # First, look and see if we have already copied these in the past
-    if (File.exists?("/usr/local/jamoma/lib/libgcc_s.1.dylib") && File.exists?("/usr/local/jamoma/lib/libstdc++.6.dylib"))
-      # do nothing
-    else
-      `cp "#{path_to_moduleroot}/Shared/gcc47/libgcc_s.1.dylib"  "/usr/local/jamoma/lib/libgcc_s.1.dylib" `
-      `cp "#{path_to_moduleroot}/Shared/gcc47/libstdc++.6.dylib" "/usr/local/jamoma/lib/libstdc++.6.dylib"`
-      `sudo ln -s /usr/local/jamoma/lib/libgcc_s.1.dylib  /usr/local/lib/libgcc_s.1.dylib `
-      `sudo ln -s /usr/local/jamoma/lib/libstdc++.6.dylib /usr/local/lib/libstdc++.6.dylib`
-    end
-
-    # Now that we have the libs to which we want to link, we need to write their install location into them
-    `install_name_tool -id "#{distropath}/lib/libgcc_s.1.dylib"  "/usr/local/jamoma/lib/libgcc_s.1.dylib" `
-    `install_name_tool -id "#{distropath}/lib/libstdc++.6.dylib" "/usr/local/jamoma/lib/libstdc++.6.dylib"`
-
-    $already_configured_gcc47 = true
   end
 
 
@@ -437,64 +400,30 @@ end
 
       skipIcc = false
       skipGcc47 = false
-      skipGcc46 = false
       skipClang = false
       icc   = false
       gcc47 = false
-      gcc46 = false
       clang = false
-      gcc42 = false
       if compiler == "icc"
         skipIcc = false
-        skipGcc46 = true
         skipGcc47 = true
         skipClang = true
       elsif compiler == "gcc47"
         skipIcc = true
-        skipGcc46 = true
         skipGcc47 = false
-        skipClang = true
-      elsif compiler == "gcc46"
-        skipIcc = true
-        skipGcc46 = false
-        skipGcc47 = true
         skipClang = true
       elsif compiler == "gcc"
         skipIcc = true
-        skipGcc46 = true
         skipGcc47 = true
         skipClang = true
       elsif compiler == "clang"
         skipIcc = true
-        skipGcc46 = true
         skipGcc47 = true
         skipClang = false
       end
 
-      # Sort out the libraries and jamoma libraries
-      #      libraries.each do |lib|
-      #        if lib == "FOUNDATION"
-      #          zombies.push lib
-      #          if mac?
-      #            jamomalibs.push "$(SRCROOT)/../../../Foundation/library/build/UninstalledProducts/JamomaFoundation.dylib"
-      #          else
-      #            jamomalibs.push "JamomaFoundation"
-      #          end
-      #        elsif lib == "DSP"
-      #          zombies.push lib
-      #          if mac?
-      #            jamomalibs.push "$(SRCROOT)/../../../DSP/library/build/UninstalledProducts/JamomaDSP.dylib"
-      #          else
-      #            jamomalibs.push "JamomaDSP"
-      #          end
-      #        end
-      #      end
-      #      zombies.each do |lib|
-      #        libraries.delete lib
-      #      end
-
       # TODO: we also will want a STATIC option for e.g. iOS builds
-      if win32?
+      if win?
         vcproj_root = Element.new "VisualStudioProject"
         vcproj_root.attributes["ProjectType"]             = "Visual C++"
       	vcproj_root.attributes["Version"]                 = "9.00"
@@ -583,7 +512,7 @@ end
            	source = source.to_s
   	       	next if source =~ /win /
           	source.gsub!(/mac /, '')
-          elsif win32?
+          elsif win?
           	# This code is never executed!
            	source = source.to_s
   	       	next if source =~ /mac /
@@ -621,7 +550,7 @@ end
         makefile.write("\n\n")
       end
 
-      if win32?
+      if win?
         vcproj_files = Element.new "Files"
         sources.each do |source|
           source = source.to_s
@@ -641,7 +570,7 @@ end
           if mac?
             next if include_file =~ /win /
             include_file.gsub!(/mac /, '')
-          elsif win32?
+          elsif win?
             next if include_file =~ /mac /
             include_file.gsub!(/win /, '')
           end
@@ -665,20 +594,20 @@ end
         makefile.write("\n\n")
       end
 
-      if win32?
+      if win?
         concatenated_includes = ""
         includes.each do |include_file|
           concatenated_includes += "\"$(ProjectDir)#{include_file}\";"
         end
         concatenated_includes.gsub!(/(\/)/,'\\')
 
-		concatenated_defines = ""
-		if defines
-		  defines.each do |define|
-			concatenated_defines += ";" if concatenated_defines != ""
-			concatenated_defines += "#{define}"
-		  end
-		end
+        concatenated_defines = ""
+        if defines
+          defines.each do |define|
+            concatenated_defines += ";" if concatenated_defines != ""
+            concatenated_defines += "#{define}"
+          end
+        end
 
        	vcproj_tool = Element.new "Tool"
        	vcproj_tool.attributes["Name"] = "VCCLCompilerTool"
@@ -719,9 +648,9 @@ end
         else
           libraries.each do |lib|
             if mac?
-           	lib = lib.to_s
-  	       	next if lib =~ /win /
-          	lib.gsub!(/mac /, '')
+           	  lib = lib.to_s
+  	         	next if lib =~ /win /
+              lib.gsub!(/mac /, '')
               if (i==0)
                 makefile.write("LIBS = ")
               else
@@ -756,10 +685,10 @@ end
               end
 
             elsif linux?
-           	lib = lib.to_s
-  	       	next if lib =~ /mac /
-  	       	next if lib =~ /win /
-          	lib.gsub!(/linux /, '')
+              lib = lib.to_s
+              next if lib =~ /mac /
+              next if lib =~ /win /
+              lib.gsub!(/linux /, '')
 
               if (lib == "FOUNDATION")
                 if (i == 0)
@@ -801,7 +730,7 @@ end
                   makefile.write("LIBS += -lJamomaAudioGraph\n")
                   makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
                 end
-             else
+              else
                 lib_dir = lib.split "/"
                 if (i == 0)
                   makefile.write("LIBS = -l#{lib}\n")
@@ -832,13 +761,16 @@ end
         makefile.write("\n\n")
       end
 
-      if win32?
+      if win?
 
         concatenated_libs_debug = ""
         concatenated_lib_dirs_debug = ""
         concatenated_libs_release = ""
         concatenated_lib_dirs_release = ""
 
+        if !libraries
+          # nothing to do!
+        else
         libraries.each do |lib|
         	lib = lib.to_s
          	next if lib =~ /mac /
@@ -927,6 +859,7 @@ end
             concatenated_lib_dirs_release += "\"#{lib_dir}\";"
           end
         end
+        end
 
        	vcproj_tool = Element.new "Tool"
        	vcproj_tool.attributes["Name"] = "VCLinkerTool"
@@ -1007,7 +940,7 @@ end
         makefile.write("\n")
         makefile.write("DEFINES = -DTT_PLATFORM_MAC\n") if mac?
         makefile.write("DEFINES = -DTT_PLATFORM_LINUX\n") if linux?
-        makefile.write("DEFINES = -DTT_PLATFORM_WIN -DWIN32 -D_WINDOWS -D_USRDLL -D_CRT_SECURE_NO_WARNINGS -D_CRT_NOFORCE_MANIFEST -D_STL_NOFORCE_MANIFEST\n") if win32?
+        makefile.write("DEFINES = -DTT_PLATFORM_WIN -DWIN32 -D_WINDOWS -D_USRDLL -D_CRT_SECURE_NO_WARNINGS -D_CRT_NOFORCE_MANIFEST -D_STL_NOFORCE_MANIFEST\n") if win?
         makefile.write("DEFINES += -DTT_PLATFORM_ARM\n") if beagle?
 
         if defines
@@ -1043,10 +976,10 @@ end
         if project_type == "library"
           extension_suffix = ".dylib" if mac?
           extension_suffix = ".so" if linux?
-          extension_suffix = ".dll" if win32?
+          extension_suffix = ".dll" if win?
         elsif project_type == "implementation"
           extension_suffix = "" if mac? # note that the bundle is a special deal...
-          extension_suffix = ".mxe" if win32?
+          extension_suffix = ".mxe" if win?
 
           #TODO: binary suffix should depend on the type of implementation we are building!
 
@@ -1054,7 +987,7 @@ end
         else
           extension_suffix = ".ttdylib" if mac?
           extension_suffix = ".ttso" if linux?
-          extension_suffix = ".ttdll" if win32?
+          extension_suffix = ".ttdll" if win?
         end
 
         ######################################################################################################################
@@ -1068,7 +1001,7 @@ end
             extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
             extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/" if max
           end
-          extension_dest = "#{path_to_moduleroot_win}\\..\\..\\Builds\\MaxMSP" if win32?
+          extension_dest = "#{path_to_moduleroot_win}\\..\\..\\Builds\\MaxMSP" if win?
 
           #TODO: binary destination should depend on the type of implementation we are building!
 
@@ -1083,7 +1016,7 @@ end
           extension_dest = "/usr/local/lib/jamoma/lib" if linux?
         elsif project_type == "implementation"
           if mac?
-	          if max
+            if max
   	          extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
   	          touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
             else
@@ -1091,7 +1024,7 @@ end
   	          touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
             end
           end
-          extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win32?
+          extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win?
           extension_dest = "/usr/local/jamoma/implementations" if linux?
         else # extension
           extension_dest = "/usr/local/jamoma/extensions" if mac?
@@ -1254,7 +1187,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
         		end
           elsif project_type == "implementation"
             if mac?
-	            if max
+              if max
               	extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
               	touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
 							else
@@ -1269,7 +1202,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
               end
               makefile.write("\ttouch #{touch_dest}\n")
             end
-            extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win32?
+            extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win?
 
             #TODO: binary destination should depend on the type of implementation we are building!
 
@@ -1349,7 +1282,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
 
       end # big new if mac? statement
 
-      if win32?
+      if win?
   	    vcproj_toolfiles = Element.new("ToolFiles")
   	    vcproj_root.add_element(vcproj_toolfiles)
 
@@ -1387,10 +1320,10 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
 
         winpath = "#{Dir.pwd}/#{projectdir}/#{projectname}.vcproj"
   	    #puts "cygwin path: #{winpath}"
-  	    winpath = `cygpath -w #{winpath}`
+  	    #winpath = `cygpath -w #{winpath}`
   	    winpath.gsub!(/(\n)/,'')
   	    #puts "winpath: #{winpath}"
-        `vcbuild /upgrade "#{winpath}"`
+        #`vcbuild /upgrade "#{winpath}"`
       else
         makefile.flush
         makefile.close
@@ -1424,7 +1357,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
       clean = true
     end
 
-    if win32?
+    if win?
       rgx = /.vcproj$/
     elsif linux?
       rgx = /Makefile/
