@@ -442,7 +442,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			{
 				// return the address
 				if (aReceiver->mReturnAddressCallback) {
-                    v.append(anAddress);
+                    v.append(aReceiver->mAddress.removeAttribute());
 					aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
                 }
 			}
@@ -515,7 +515,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 				// return the address
 				if (aReceiver->mReturnAddressCallback) {
                     
-                    v.append(anAddress);
+                    v.append(aReceiver->mAddress.removeAttribute());
 					aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
                 }
 			}

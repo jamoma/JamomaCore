@@ -837,7 +837,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 3.0, 106.5, 404.0, 20.0 ],
-									"text" : "/player/gain:rangeBounds -90.00 0.00",
+									"text" : "/player/gain -21.15",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 								}
 

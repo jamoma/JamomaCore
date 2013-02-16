@@ -200,7 +200,8 @@ TTErr TTMapper::setInput(const TTValue& value)
 		if (!err) {
 			
 			anObject = aNode->getObject();
-			if (anObject)
+			if (anObject) {
+                
 				if (anObject->getName() == kTTSym_Data) {
 					
 					anObject->getAttributeValue(kTTSym_rangeBounds, v);
@@ -211,12 +212,12 @@ TTErr TTMapper::setInput(const TTValue& value)
 					
 					observeInputRange();
 				}
+            }
+            return kTTErrNone;
 		}
-		else
-			observeInput();
 	}
-	
-	return kTTErrNone;
+    
+    return observeInput();
 }
 
 TTErr TTMapper::observeInput()
@@ -302,7 +303,8 @@ TTErr TTMapper::setOutput(const TTValue& value)
 		if (!err) {
 			
 			anObject = aNode->getObject();
-			if (anObject)
+			if (anObject) {
+                
 				if (anObject->getName() == kTTSym_Data) {
 					
 					anObject->getAttributeValue(kTTSym_rangeBounds, v);
@@ -314,18 +316,18 @@ TTErr TTMapper::setOutput(const TTValue& value)
 					
 					observeOutputRange();
 				}
+            }
+            return kTTErrNone;
 		}
-		else
-			observeOutput();
 	}
-	
-	return kTTErrNone;
+    
+    return observeOutput();
 }
 
 TTErr TTMapper::observeOutput()
 {
 	TTValue			args;
-	TTObjectBasePtr		returnOutputCreationCallback;
+	TTObjectBasePtr	returnOutputCreationCallback;
 	TTValuePtr		returnOutputCreationBaton;
 	
 	if (mOutputObserver)
@@ -603,21 +605,25 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 		
 		anObject = aNode->getObject();
 		if (anObject) {
-			if (anObject->getName() == kTTSym_Data) {
+            
+			if (anObject->getName() == kTTSym_Data || anObject->getName() == kTTSym_Mirror) {
 				
 				anObject->getAttributeValue(kTTSym_rangeBounds, v);
 				
-				// if inputMin isn't a specific value or observation is active
-				if (aMapper->mInputMin == 0. || aMapper->mObserveInputRange)
-					aMapper->mInputMin = TTFloat64(v[0]);
-				
-				// if inputMax isn't a specific value or observation is active
-				if (aMapper->mInputMax == 1. || aMapper->mObserveInputRange)
-					aMapper->mInputMax = TTFloat64(v[1]);
-				
-				aMapper->scaleInput();
-					
-				aMapper->observeInputRange();
+                if (v.size() == 2) {
+                    
+                    // if inputMin isn't a specific value or observation is active
+                    if (aMapper->mInputMin == 0. || aMapper->mObserveInputRange)
+                        aMapper->mInputMin = TTFloat64(v[0]);
+                    
+                    // if inputMax isn't a specific value or observation is active
+                    if (aMapper->mInputMax == 1. || aMapper->mObserveInputRange)
+                        aMapper->mInputMax = TTFloat64(v[1]);
+                    
+                    aMapper->scaleInput();
+                }
+                
+                aMapper->observeInputRange();
 			}
 		}
 	}
@@ -649,21 +655,25 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 		
 		anObject = aNode->getObject();
 		if (anObject) {
-			if (anObject->getName() == kTTSym_Data) {
+            
+			if (anObject->getName() == kTTSym_Data || anObject->getName() == kTTSym_Mirror) {
 				
 				anObject->getAttributeValue(kTTSym_rangeBounds, v);
-				
-				// if outputMin isn't a specific value or observation is active
-				if (aMapper->mOutputMin == 0. || aMapper->mObserveOutputRange)
-					aMapper->mOutputMin = TTFloat64(v[0]);
-				
-				// if outputMax isn't a specific value or observation is active
-				if (aMapper->mOutputMax == 1. || aMapper->mObserveOutputRange)
-					aMapper->mOutputMax = TTFloat64(v[1]);
-				
-				aMapper->scaleOutput();
-					
-				aMapper->observeOutputRange();
+                
+                if (v.size() == 2) {
+                    
+                    // if outputMin isn't a specific value or observation is active
+                    if (aMapper->mOutputMin == 0. || aMapper->mObserveOutputRange)
+                        aMapper->mOutputMin = TTFloat64(v[0]);
+                    
+                    // if outputMax isn't a specific value or observation is active
+                    if (aMapper->mOutputMax == 1. || aMapper->mObserveOutputRange)
+                        aMapper->mOutputMax = TTFloat64(v[1]);
+                    
+                    aMapper->scaleOutput();
+                }
+                
+                aMapper->observeOutputRange();
 			}
 		}
 	}
