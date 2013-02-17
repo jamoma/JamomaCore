@@ -213,7 +213,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 450.0, 210.0, 494.0, 43.0 ],
-					"text" : "jcom.parameter modulatingFrequency @type decimal @range/bounds -200. 1000. @range/clipmode none @ramp/function linear @ramp/drive scheduler @description \"Modulator frequency (Hz). \" @dataspace time @dataspace/unit Hz"
+					"text" : "jcom.parameter modulatingFrequency @type decimal @range/bounds -200. 1000. @range/clipmode none @ramp/function linear @ramp/drive Max @description \"Modulator frequency (Hz). \" @dataspace time @dataspace/unit Hz"
 				}
 
 			}

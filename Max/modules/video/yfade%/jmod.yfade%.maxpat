@@ -137,7 +137,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 276.0, 296.0, 425.0, 31.0 ],
-					"text" : "jcom.parameter yfade @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Crossfade switch\"",
+					"text" : "jcom.parameter yfade @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Crossfade switch\"",
 					"varname" : "yfade"
 				}
 

@@ -530,7 +530,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 516.0, 375.0, 478.0, 30.0 ],
-					"text" : "jcom.parameter saturation @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 4. @range/clipmode none @description \"Saturation of image - 1 is default\"",
+					"text" : "jcom.parameter saturation @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds 0. 4. @range/clipmode none @description \"Saturation of image - 1 is default\"",
 					"varname" : "saturation[1]"
 				}
 
@@ -661,7 +661,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 516.0, 293.0, 468.0, 30.0 ],
-					"text" : "jcom.parameter contrast @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 4. @range/clipmode none @description \"Contrast of image - 1 is default\"",
+					"text" : "jcom.parameter contrast @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds 0. 4. @range/clipmode none @description \"Contrast of image - 1 is default\"",
 					"varname" : "contrast[1]"
 				}
 
@@ -677,7 +677,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 516.0, 216.0, 478.0, 30.0 ],
-					"text" : "jcom.parameter brightness @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 4. @range/clipmode none @description \"Brightness of image - 1 is default\"",
+					"text" : "jcom.parameter brightness @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds 0. 4. @range/clipmode none @description \"Brightness of image - 1 is default\"",
 					"varname" : "brightness[1]"
 				}
 

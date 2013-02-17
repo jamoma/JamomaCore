@@ -174,7 +174,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 750.0, 185.0, 551.0, 31.0 ],
-					"text" : "jcom.parameter range @range/bounds 0 100 @range/clipmode low @repetitions/allow 0 @type decimal @ramp/drive scheduler @description \"range of values above and below the zero line to display.\"",
+					"text" : "jcom.parameter range @range/bounds 0 100 @range/clipmode low @repetitions/allow 0 @type decimal @ramp/drive Max @description \"range of values above and below the zero line to display.\"",
 					"varname" : "jcom.parameter.mxb"
 				}
 

@@ -250,7 +250,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 541.0, 295.5, 358.0, 31.0 ],
-					"text" : "jcom.message myFloat @range/clipmode none @type decimal @ramp/drive scheduler @description \"My float\"",
+					"text" : "jcom.message myFloat @range/clipmode none @type decimal @ramp/drive Max @description \"My float\"",
 					"varname" : "my_float"
 				}
 

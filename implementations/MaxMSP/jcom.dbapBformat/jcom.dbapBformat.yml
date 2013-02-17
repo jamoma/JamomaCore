@@ -9,7 +9,6 @@ includes:
   - ../../../../Modular/library/includes
   - ../../../../Modular/library/PeerObject
   - ../../../../Modular/library/ModularForMax
-  - ../../../../Modular/library/FunctionLib
   - ../../../../Modular/library/SchedulerLib
   - ../../../../Modular/library/ProtocolLib
   - ../../../../../Core/DSP/library/includes

@@ -346,7 +346,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 525.0, 146.0, 406.0, 31.0 ],
-					"text" : "jcom.parameter thresh @type decimal @ramp/drive scheduler @description \"Edge detection threshold - pixels below the threshold are set to black.\"",
+					"text" : "jcom.parameter thresh @type decimal @ramp/drive Max @description \"Edge detection threshold - pixels below the threshold are set to black.\"",
 					"varname" : "thresh"
 				}
 

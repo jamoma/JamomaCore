@@ -1499,7 +1499,7 @@
 													"numoutlets" : 3,
 													"outlettype" : [ "", "", "" ],
 													"patching_rect" : [ 46.0, 127.0, 355.0, 43.0 ],
-													"text" : "jcom.parameter foot/control @type integer @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 2 @description \"Foot Pedal: Continuous Controller.\"",
+													"text" : "jcom.parameter foot/control @type integer @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive Max @priority 2 @description \"Foot Pedal: Continuous Controller.\"",
 													"varname" : "foot/control"
 												}
 

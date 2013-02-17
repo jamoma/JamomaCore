@@ -432,7 +432,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 335.0, 70.0, 472.0, 31.0 ],
-					"text" : "jcom.parameter in/direct @repetitions/allow 1 @ramp/drive scheduler @type generic @description \"use this parameter to alternatively provide a source for mapping\""
+					"text" : "jcom.parameter in/direct @repetitions/allow 1 @ramp/drive Max @type generic @description \"use this parameter to alternatively provide a source for mapping\""
 				}
 
 			}

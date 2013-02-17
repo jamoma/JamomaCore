@@ -199,7 +199,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 550.0, 270.0, 603.0, 31.0 ],
-					"text" : "jcom.parameter response/decay @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @ramp/function linear @description \"Sets the threshold below which a bin of the spectrum is attenuated..\""
+					"text" : "jcom.parameter response/decay @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive Max @ramp/function linear @description \"Sets the threshold below which a bin of the spectrum is attenuated..\""
 				}
 
 			}
@@ -214,7 +214,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 550.0, 175.0, 605.0, 31.0 ],
-					"text" : "jcom.parameter response/attack @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @ramp/function linear @description \"Sets the threshold below which a bin of the spectrum is attenuated..\""
+					"text" : "jcom.parameter response/attack @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive Max @ramp/function linear @description \"Sets the threshold below which a bin of the spectrum is attenuated..\""
 				}
 
 			}
@@ -229,7 +229,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 550.0, 90.0, 591.0, 31.0 ],
-					"text" : "jcom.parameter threshold @type decimal @range/bounds -48. 18. @range/clipmode none @ramp/drive scheduler @ramp/function linear @description \"Sets the threshold below which a bin of the spectrum is attenuated..\""
+					"text" : "jcom.parameter threshold @type decimal @range/bounds -48. 18. @range/clipmode none @ramp/drive Max @ramp/function linear @description \"Sets the threshold below which a bin of the spectrum is attenuated..\""
 				}
 
 			}

@@ -13,6 +13,8 @@
 #define thisTTClassTags		"cue"
 
 TT_MODULAR_CONSTRUCTOR,
+mName(kTTSymEmpty),
+mDescription(kTTSymEmpty),
 mRamp(0),
 mScript(NULL)
 {
@@ -40,13 +42,15 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	TTObjectBaseInstantiate(kTTSym_Script, TTObjectBaseHandle(&mScript), arguments); // use arguments to pass the returnLineCallback
+    TTObjectBaseInstantiate(kTTSym_Script, TTObjectBaseHandle(&mScript), arguments); // use arguments to pass the returnLineCallback
 }
 
 TTCue::~TTCue()
 {
-	TTObjectBaseRelease(TTObjectBaseHandle(&mScript));
-	mScript = NULL;
+    if (mScript) {
+        TTObjectBaseRelease(TTObjectBaseHandle(&mScript));
+        mScript = NULL;
+    }
 }
 
 

@@ -223,7 +223,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 389.0, 13.0, 152.0, 128.0 ],
-					"text" : "jcom.message delay @type integer @ramp/drive scheduler @repetitions/allow 1 @range/bounds 0 1000000 @dataspace time @dataspace/unit sample @description \"Delay time in samples to be applied to both channels.\"",
+					"text" : "jcom.message delay @type integer @ramp/drive Max @repetitions/allow 1 @range/bounds 0 1000000 @dataspace time @dataspace/unit sample @description \"Delay time in samples to be applied to both channels.\"",
 					"varname" : "jcom.parameter.mxb[9]"
 				}
 
@@ -307,7 +307,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 415.0, 152.0, 128.0 ],
-					"text" : "jcom.parameter delay/right @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @dataspace time @dataspace/unit sample @description \"Delay time in samples for right channel.\"",
+					"text" : "jcom.parameter delay/right @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @dataspace time @dataspace/unit sample @description \"Delay time in samples for right channel.\"",
 					"varname" : "delay/right"
 				}
 
@@ -401,7 +401,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 229.0, 152.0, 128.0 ],
-					"text" : "jcom.parameter delay/left @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @dataspace time @dataspace/unit sample @description \"Delay time in samples for left channel.\"",
+					"text" : "jcom.parameter delay/left @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @dataspace time @dataspace/unit sample @description \"Delay time in samples for left channel.\"",
 					"varname" : "delay/left"
 				}
 

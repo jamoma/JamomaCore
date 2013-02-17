@@ -1133,7 +1133,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 602.0, 528.0, 296.0, 43.0 ],
-					"text" : "jcom.parameter orderWeights @type decimalArray @description \"manually set weights for given number of orders.\" @repetitions/allow 0 @ramp/drive scheduler"
+					"text" : "jcom.parameter orderWeights @type decimalArray @description \"manually set weights for given number of orders.\" @repetitions/allow 0 @ramp/drive Max"
 				}
 
 			}

@@ -73,7 +73,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 824.0, 534.0, 596.0, 43.0 ],
-					"text" : "jcom.parameter soundfile/transpose @type decimal @range/bounds -12. 12. @range/clipmode none @dataspace time @dataspace/unit midi @ramp/drive scheduler @ramp/function linear @description \"Control soundfile playback speed/transposition as MIDI transposition.\""
+					"text" : "jcom.parameter soundfile/transpose @type decimal @range/bounds -12. 12. @range/clipmode none @dataspace time @dataspace/unit midi @ramp/drive Max @ramp/function linear @description \"Control soundfile playback speed/transposition as MIDI transposition.\""
 				}
 
 			}
@@ -283,7 +283,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 819.0, 119.0, 552.0, 43.0 ],
-					"text" : "jcom.parameter testtone/frequency @type integer @ramp/drive scheduler @description \"The Frequency of the test tone. in [Hz] by default.\" @range/bounds 0.2 16000. @range/clipmode both @dataspace time @dataspace/unit Hz",
+					"text" : "jcom.parameter testtone/frequency @type integer @ramp/drive Max @description \"The Frequency of the test tone. in [Hz] by default.\" @range/bounds 0.2 16000. @range/clipmode both @dataspace time @dataspace/unit Hz",
 					"varname" : "ch_1[2]"
 				}
 
@@ -1036,7 +1036,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 819.0, 73.0, 540.0, 43.0 ],
-					"text" : "jcom.parameter clicktrain/rate @type decimal @ramp/drive scheduler @description \"How often a click is generated. in [Hz] by default.\" @range/bounds 0.01 100. @range/clipmode both @dataspace time @dataspace/unit Hz",
+					"text" : "jcom.parameter clicktrain/rate @type decimal @ramp/drive Max @description \"How often a click is generated. in [Hz] by default.\" @range/bounds 0.01 100. @range/clipmode both @dataspace time @dataspace/unit Hz",
 					"varname" : "ch_1[1]"
 				}
 
@@ -1412,7 +1412,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 335.0, 200.0, 423.0, 31.0 ],
-					"text" : "jcom.parameter balance @type decimal @range/bounds -1 1 @range/clipmode both @ramp/drive scheduler @description \"Pan-pot for the stereo signal\""
+					"text" : "jcom.parameter balance @type decimal @range/bounds -1 1 @range/clipmode both @ramp/drive Max @description \"Pan-pot for the stereo signal\""
 				}
 
 			}
@@ -1484,7 +1484,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 334.0, 81.0, 328.0, 55.0 ],
-					"text" : "jcom.parameter audio/gain @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive scheduler @dataspace gain @dataspace/unit midi @description \"master gain\"",
+					"text" : "jcom.parameter audio/gain @type decimal @range/bounds 0 127 @range/clipmode both @ramp/drive Max @dataspace gain @dataspace/unit midi @description \"master gain\"",
 					"varname" : "jcom.parameter.gain"
 				}
 

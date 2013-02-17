@@ -204,7 +204,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 309.0, 482.0, 432.0, 43.0 ],
-					"text" : "jcom.message source.1/attenuationFactor @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive scheduler @ramp/function linear @description \"Sets the distance unit for the inverse proportional decrease distance model.\""
+					"text" : "jcom.message source.1/attenuationFactor @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive Max @ramp/function linear @description \"Sets the distance unit for the inverse proportional decrease distance model.\""
 				}
 
 			}
@@ -252,7 +252,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 308.0, 410.0, 584.0, 43.0 ],
-					"text" : "jcom.message source.1/distance/dBUnit @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive scheduler @ramp/function linear @description \"Sets the distance unit for the exponential distance model.\" @dataspace gain @dataspace/unit dB"
+					"text" : "jcom.message source.1/distance/dBUnit @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive Max @ramp/function linear @description \"Sets the distance unit for the exponential distance model.\" @dataspace gain @dataspace/unit dB"
 				}
 
 			}
@@ -380,7 +380,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 346.0, 263.0, 545.0, 43.0 ],
-					"text" : "jcom.message source.1/gain @type decimal @ramp/drive scheduler @ramp/function linear @range/bounds 0. 127. @range/clipmode low @dataspace gain @dataspace/unit midi @description \"Input gain for the nth source.\""
+					"text" : "jcom.message source.1/gain @type decimal @ramp/drive Max @ramp/function linear @range/bounds 0. 127. @range/clipmode low @dataspace gain @dataspace/unit midi @description \"Input gain for the nth source.\""
 				}
 
 			}
@@ -395,7 +395,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 370.0, 188.0, 560.0, 31.0 ],
-					"text" : "jcom.parameter source.1/order @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive scheduler @ramp/function linear @description \"Sets the ambisonics order of the nth source.\""
+					"text" : "jcom.parameter source.1/order @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive Max @ramp/function linear @description \"Sets the ambisonics order of the nth source.\""
 				}
 
 			}

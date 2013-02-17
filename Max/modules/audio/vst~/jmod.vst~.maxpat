@@ -2807,7 +2807,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 535.0, 280.0, 381.0, 55.0 ],
-																	"text" : "sprintf script newdefault parameter/%s %ld %ld jcom.parameter parameter/%s @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @priority 3 @description \"Nth parameter of the VST plugin.\""
+																	"text" : "sprintf script newdefault parameter/%s %ld %ld jcom.parameter parameter/%s @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive Max @priority 3 @description \"Nth parameter of the VST plugin.\""
 																}
 
 															}
@@ -3972,7 +3972,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 575.0, 600.0, 376.0, 43.0 ],
-					"text" : "jcom.parameter \"parameter/<parameter name>\" @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @priority 3 @description \"Address specific parameter of the VST plugin.\"",
+					"text" : "jcom.parameter \"parameter/<parameter name>\" @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive Max @priority 3 @description \"Address specific parameter of the VST plugin.\"",
 					"varname" : "parameter/<parameter name>"
 				}
 

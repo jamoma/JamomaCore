@@ -57,7 +57,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 435.0, 155.0, 589.0, 43.0 ],
-					"text" : "jcom.parameter randomness @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 5000 @range/clipmode low @description \"Defines a range of randomness in milliseconds to be applied to the metro interval\" @dataspace time @dataspace/unit ms",
+					"text" : "jcom.parameter randomness @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds 0 5000 @range/clipmode low @description \"Defines a range of randomness in milliseconds to be applied to the metro interval\" @dataspace time @dataspace/unit ms",
 					"varname" : "randomness"
 				}
 
@@ -227,7 +227,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 435.0, 90.0, 484.0, 43.0 ],
-					"text" : "jcom.parameter time @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 5000 @range/clipmode low @dataspace time @dataspace/unit ms @description \"Metro interval (ms)\"",
+					"text" : "jcom.parameter time @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds 1 5000 @range/clipmode low @dataspace time @dataspace/unit ms @description \"Metro interval (ms)\"",
 					"varname" : "time"
 				}
 

@@ -29,7 +29,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 229.159088, 553.0, 31.0 ],
-					"text" : "jcom.parameter zoomY @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom image in Y-direction.\"",
+					"text" : "jcom.parameter zoomY @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom image in Y-direction.\"",
 					"varname" : "zoom[4]"
 				}
 
@@ -966,7 +966,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 612.0, 446.0, 31.0 ],
-					"text" : "jcom.parameter angle @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 90 @range/clipmode none @description \"Rotate image - in degrees\"",
+					"text" : "jcom.parameter angle @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds 0 90 @range/clipmode none @description \"Rotate image - in degrees\"",
 					"varname" : "angle[1]"
 				}
 
@@ -982,7 +982,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 366.0, 552.0, 31.0 ],
-					"text" : "jcom.parameter offsetY @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode none @description \"Offset image in Y-direction\"",
+					"text" : "jcom.parameter offsetY @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode none @description \"Offset image in Y-direction\"",
 					"varname" : "offset_y"
 				}
 
@@ -1101,7 +1101,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 301.0, 553.0, 31.0 ],
-					"text" : "jcom.parameter offsetX @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode none @description \"Offset image in X-direction\"",
+					"text" : "jcom.parameter offsetX @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds -1. 1. @range/clipmode none @description \"Offset image in X-direction\"",
 					"varname" : "offset_x"
 				}
 
@@ -1212,7 +1212,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 165.0, 554.0, 31.0 ],
-					"text" : "jcom.parameter zoomX @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom image in X-direction.\"",
+					"text" : "jcom.parameter zoomX @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom image in X-direction.\"",
 					"varname" : "zoom[1]"
 				}
 

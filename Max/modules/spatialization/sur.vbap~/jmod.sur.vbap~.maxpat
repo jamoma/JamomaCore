@@ -67,7 +67,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 426.0, 302.0, 583.0, 31.0 ],
-					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit linear @description \"Input gain for the nth source.\" @ramp/drive scheduler @ramp/function linear"
+					"text" : "jcom.message.array 32 source gain @type decimal @dataspace gain @dataspace/unit linear @description \"Input gain for the nth source.\" @ramp/drive Max @ramp/function linear"
 				}
 
 			}

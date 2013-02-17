@@ -791,7 +791,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 700.0, 341.0, 347.0, 31.0 ],
-					"text" : "jcom.parameter mask/blue @type decimal @ramp/drive scheduler @description \"Sets the masking for the blue component.\"",
+					"text" : "jcom.parameter mask/blue @type decimal @ramp/drive Max @description \"Sets the masking for the blue component.\"",
 					"varname" : "mask/blue"
 				}
 
@@ -840,7 +840,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 700.0, 385.0, 338.0, 31.0 ],
-					"text" : "jcom.parameter tint/blue @type decimal @ramp/drive scheduler @description \"Sets the tinting of the blue component.\"",
+					"text" : "jcom.parameter tint/blue @type decimal @ramp/drive Max @description \"Sets the tinting of the blue component.\"",
 					"varname" : "tint/blue"
 				}
 
@@ -922,7 +922,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 700.0, 152.0, 343.0, 31.0 ],
-					"text" : "jcom.parameter mask/red @type decimal @ramp/drive scheduler @description \"Sets the masking for the red component.\"",
+					"text" : "jcom.parameter mask/red @type decimal @ramp/drive Max @description \"Sets the masking for the red component.\"",
 					"varname" : "mask/red"
 				}
 
@@ -938,7 +938,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 700.0, 241.0, 355.0, 31.0 ],
-					"text" : "jcom.parameter mask/green @type decimal @ramp/drive scheduler @description \"Sets the masking for the green component.\"",
+					"text" : "jcom.parameter mask/green @type decimal @ramp/drive Max @description \"Sets the masking for the green component.\"",
 					"varname" : "mask/green"
 				}
 
@@ -1020,7 +1020,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 700.0, 194.0, 333.0, 31.0 ],
-					"text" : "jcom.parameter tint/red @type decimal @ramp/drive scheduler @description \"Sets the tinting of the red component.\"",
+					"text" : "jcom.parameter tint/red @type decimal @ramp/drive Max @description \"Sets the tinting of the red component.\"",
 					"varname" : "tint/red"
 				}
 
@@ -1036,7 +1036,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 700.0, 287.0, 345.0, 31.0 ],
-					"text" : "jcom.parameter tint/green @type decimal @ramp/drive scheduler @description \"Sets the tinting of the green component.\"",
+					"text" : "jcom.parameter tint/green @type decimal @ramp/drive Max @description \"Sets the tinting of the green component.\"",
 					"varname" : "tint/green"
 				}
 

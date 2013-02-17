@@ -731,7 +731,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 434.0, 253.0, 757.0, 19.0 ],
-					"text" : "jcom.parameter speed/ratio @type decimal @range/bounds -4. 4. @ramp/drive scheduler @range/clipmode none @description \"playback speed\"",
+					"text" : "jcom.parameter speed/ratio @type decimal @range/bounds -4. 4. @ramp/drive Max @range/clipmode none @description \"playback speed\"",
 					"varname" : "speed/ratio"
 				}
 
@@ -1964,7 +1964,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 759.0, 320.0, 557.0, 27.0 ],
-									"text" : "jcom.message sample/displaystart @type decimal @range/bounds 0. 1000000. @range/clipmode low @description @repetitions/allow 0 @ramp/drive scheduler \"display start  time in ms\"",
+									"text" : "jcom.message sample/displaystart @type decimal @range/bounds 0. 1000000. @range/clipmode low @description @repetitions/allow 0 @ramp/drive Max \"display start  time in ms\"",
 									"varname" : "sample/displaystart"
 								}
 
@@ -1981,7 +1981,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 763.0, 220.0, 564.0, 27.0 ],
-									"text" : "jcom.message sample/displaylength @type decimal @range/bounds 0. 1000000. @range/clipmode low @description @repetitions/allow 0 @ramp/drive scheduler @description \"display length in ms\"",
+									"text" : "jcom.message sample/displaylength @type decimal @range/bounds 0. 1000000. @range/clipmode low @description @repetitions/allow 0 @ramp/drive Max @description \"display length in ms\"",
 									"varname" : "sample/displaylength"
 								}
 
@@ -2455,7 +2455,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 761.0, 157.0, 385.0, 27.0 ],
-									"text" : "jcom.parameter sample/stop @type decimal @range/bounds 0. 1000000. @range/clipmode low @description \"stoptime time in ms\" @repetitions/allow 0 @ramp/drive scheduler",
+									"text" : "jcom.parameter sample/stop @type decimal @range/bounds 0. 1000000. @range/clipmode low @description \"stoptime time in ms\" @repetitions/allow 0 @ramp/drive Max",
 									"varname" : "sample/stop"
 								}
 
@@ -2516,7 +2516,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 760.0, 97.0, 385.0, 27.0 ],
-									"text" : "jcom.parameter sample/start @type decimal @range/bounds 0. 1000000. @range/clipmode low @description \"start time in ms\" @repetitions/allow 0 @ramp/drive scheduler",
+									"text" : "jcom.parameter sample/start @type decimal @range/bounds 0. 1000000. @range/clipmode low @description \"start time in ms\" @repetitions/allow 0 @ramp/drive Max",
 									"varname" : "sample/start"
 								}
 

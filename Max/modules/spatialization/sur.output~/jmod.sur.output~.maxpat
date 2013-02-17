@@ -1478,7 +1478,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 370.0, 320.0, 712.0, 31.0 ],
-									"text" : "jcom.parameter limiter/release @ramp/drive scheduler @type decimal @range/bounds 0 3000 @range/clipmode low @dataspace time @dataspace/unit ms @description \"Limiter: Set release time as ms.\"",
+									"text" : "jcom.parameter limiter/release @ramp/drive Max @type decimal @range/bounds 0 3000 @range/clipmode low @dataspace time @dataspace/unit ms @description \"Limiter: Set release time as ms.\"",
 									"varname" : "limiter/release"
 								}
 
@@ -1494,7 +1494,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 370.0, 275.0, 722.0, 31.0 ],
-									"text" : "jcom.parameter limiter/preamp @ramp/drive scheduler @range/bounds 0 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Preamp as dB.\"",
+									"text" : "jcom.parameter limiter/preamp @ramp/drive Max @range/bounds 0 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Preamp as dB.\"",
 									"varname" : "limiter/preamp"
 								}
 
@@ -1736,7 +1736,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 370.0, 55.0, 781.0, 31.0 ],
-									"text" : "jcom.parameter limiter/threshold @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Set threshold as dB.\"",
+									"text" : "jcom.parameter limiter/threshold @ramp/drive Max @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Set threshold as dB.\"",
 									"varname" : "limiter/threshold"
 								}
 
@@ -1752,7 +1752,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 370.0, 190.0, 513.0, 31.0 ],
-									"text" : "jcom.parameter limiter/lookahead @ramp/drive scheduler @range/bounds 0 256 @range/clipmode both @type integer @description \"Limiter: The number of samples to look ahead.\"",
+									"text" : "jcom.parameter limiter/lookahead @ramp/drive Max @range/bounds 0 256 @range/clipmode both @type integer @description \"Limiter: The number of samples to look ahead.\"",
 									"varname" : "limiter/lookahead"
 								}
 
@@ -1768,7 +1768,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 370.0, 145.0, 727.0, 31.0 ],
-									"text" : "jcom.parameter limiter/postamp @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Postamp as dB.\"",
+									"text" : "jcom.parameter limiter/postamp @ramp/drive Max @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Postamp as dB.\"",
 									"varname" : "limiter/postamp"
 								}
 

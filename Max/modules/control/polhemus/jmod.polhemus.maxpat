@@ -145,7 +145,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 312.0, 178.0, 569.0, 31.0 ],
-					"text" : "jcom.parameter updaterate @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 240 @range/clipmode low @description \"Sample rate in [Hz] by default\"",
+					"text" : "jcom.parameter updaterate @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds 0 240 @range/clipmode low @description \"Sample rate in [Hz] by default\"",
 					"varname" : "sample_rate[1]"
 				}
 

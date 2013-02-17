@@ -170,7 +170,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 610.0, 317.0, 558.0, 43.0 ],
-					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds -60 6 @range/clipmode both @description \"Feedback gain leven (dB).\" @dataspace gain @dataspace/unit dB",
+					"text" : "jcom.parameter feedback/gain @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds -60 6 @range/clipmode both @description \"Feedback gain leven (dB).\" @dataspace gain @dataspace/unit dB",
 					"varname" : "feedback"
 				}
 
@@ -186,7 +186,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 610.0, 250.0, 591.0, 31.0 ],
-					"text" : "jcom.parameter feedback/time @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 200 @range/clipmode both @description \"Feedback delay time in milliseconds.\" @dataspace time @dataspace/unit ms",
+					"text" : "jcom.parameter feedback/time @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds 0 200 @range/clipmode both @description \"Feedback delay time in milliseconds.\" @dataspace time @dataspace/unit ms",
 					"varname" : "right"
 				}
 
@@ -520,7 +520,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 325.0, 230.0, 710.0, 31.0 ],
-									"text" : "jcom.parameter limiter/release @ramp/drive scheduler @type decimal @range/bounds 0 3000 @range/clipmode low @description \"Limiter: Set release time as ms.\" @dataspace time @dataspace/unit ms",
+									"text" : "jcom.parameter limiter/release @ramp/drive Max @type decimal @range/bounds 0 3000 @range/clipmode low @description \"Limiter: Set release time as ms.\" @dataspace time @dataspace/unit ms",
 									"varname" : "limiter/release"
 								}
 
@@ -536,7 +536,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 325.0, 60.0, 693.0, 31.0 ],
-									"text" : "jcom.parameter limiter/preamp @ramp/drive scheduler @range/bounds 0 48 @range/clipmode none @type decimal @description \"Limiter: Preamp as dB.\" @dataspace gain @dataspace/unit dB",
+									"text" : "jcom.parameter limiter/preamp @ramp/drive Max @range/bounds 0 48 @range/clipmode none @type decimal @description \"Limiter: Preamp as dB.\" @dataspace gain @dataspace/unit dB",
 									"varname" : "limiter/preamp"
 								}
 
@@ -771,7 +771,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 325.0, 140.0, 530.0, 43.0 ],
-									"text" : "jcom.parameter limiter/threshold @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Set threshold as dB.\"",
+									"text" : "jcom.parameter limiter/threshold @ramp/drive Max @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Set threshold as dB.\"",
 									"varname" : "limiter/threshold"
 								}
 
@@ -787,7 +787,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 325.0, 190.0, 539.0, 31.0 ],
-									"text" : "jcom.parameter limiter/lookahead @ramp/drive scheduler @range/bounds 0 256 @range/clipmode both @type integer @description \"Limiter: The number of samples to look ahead.\"",
+									"text" : "jcom.parameter limiter/lookahead @ramp/drive Max @range/bounds 0 256 @range/clipmode both @type integer @description \"Limiter: The number of samples to look ahead.\"",
 									"varname" : "limiter/lookahead"
 								}
 
@@ -803,7 +803,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 325.0, 100.0, 704.0, 31.0 ],
-									"text" : "jcom.parameter limiter/postamp @ramp/drive scheduler @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Postamp as dB.\"",
+									"text" : "jcom.parameter limiter/postamp @ramp/drive Max @range/bounds -24 48 @range/clipmode none @type decimal @dataspace gain @dataspace/unit dB @description \"Limiter: Postamp as dB.\"",
 									"varname" : "limiter/postamp"
 								}
 

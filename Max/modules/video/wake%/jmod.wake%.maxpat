@@ -710,7 +710,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 396.0, 176.0, 329.0, 31.0 ],
-					"text" : "jcom.parameter bleed @type decimal @ramp/drive scheduler @description \"Sets convolution kernel value for all colors\"",
+					"text" : "jcom.parameter bleed @type decimal @ramp/drive Max @description \"Sets convolution kernel value for all colors\"",
 					"varname" : "bleed"
 				}
 
@@ -726,7 +726,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 416.0, 101.0, 273.0, 31.0 ],
-					"text" : "jcom.parameter gain @type decimal @ramp/drive scheduler @description \"The gain level for all colors\"",
+					"text" : "jcom.parameter gain @type decimal @ramp/drive Max @description \"The gain level for all colors\"",
 					"varname" : "gain"
 				}
 
@@ -808,7 +808,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 377.0, 245.0, 301.0, 31.0 ],
-					"text" : "jcom.parameter feedback @type decimal @ramp/drive scheduler @description \"The feedback value for all colors\"",
+					"text" : "jcom.parameter feedback @type decimal @ramp/drive Max @description \"The feedback value for all colors\"",
 					"varname" : "feedback"
 				}
 
@@ -904,7 +904,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 357.0, 311.0, 316.0, 31.0 ],
-					"text" : "jcom.parameter feedforward @type decimal @ramp/drive scheduler @description \"The feedforward value for all colors\"",
+					"text" : "jcom.parameter feedforward @type decimal @ramp/drive Max @description \"The feedforward value for all colors\"",
 					"varname" : "feedforward"
 				}
 

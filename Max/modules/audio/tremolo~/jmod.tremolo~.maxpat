@@ -26,7 +26,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 456.0, 391.0, 594.0, 31.0 ],
-					"text" : "jcom.parameter lfo/depth @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"LFO depth (0-100%).\"",
+					"text" : "jcom.parameter lfo/depth @type decimal @range/bounds 0. 100. @range/clipmode both @ramp/drive Max @repetitions/allow 0 @description \"LFO depth (0-100%).\"",
 					"varname" : "#1/lfo/depth"
 				}
 
@@ -42,7 +42,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 456.0, 319.0, 558.0, 43.0 ],
-					"text" : "jcom.parameter lfo/frequency @type decimal @range/bounds 0. 100. @range/clipmode low @ramp/drive scheduler @repetitions/allow 0 @dataspace time @dataspace/unit Hz @description \"LFO frequency (Hz).\"",
+					"text" : "jcom.parameter lfo/frequency @type decimal @range/bounds 0. 100. @range/clipmode low @ramp/drive Max @repetitions/allow 0 @dataspace time @dataspace/unit Hz @description \"LFO frequency (Hz).\"",
 					"varname" : "#1/lfo/frequency"
 				}
 
@@ -128,7 +128,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 470.0, 140.0, 585.0, 31.0 ],
-					"text" : "jcom.parameter lfo/phase @type decimal @range/bounds 0. 1. @range/clipmode wrap @ramp/drive scheduler @description \"LFO phase offset between left and right channels (0-1).\"",
+					"text" : "jcom.parameter lfo/phase @type decimal @range/bounds 0. 1. @range/clipmode wrap @ramp/drive Max @description \"LFO phase offset between left and right channels (0-1).\"",
 					"varname" : "tremolo/phase_offset"
 				}
 

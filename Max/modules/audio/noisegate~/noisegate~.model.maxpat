@@ -94,7 +94,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 491.0, 140.5, 569.0, 43.0 ],
-					"text" : "jcom.parameter threshold @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds -90 24 @range/clipmode both @description \"The threshold sets the level at which the Noise Gate opens and closes..\" @dataspace gain @dataspace/unit dB",
+					"text" : "jcom.parameter threshold @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds -90 24 @range/clipmode both @description \"The threshold sets the level at which the Noise Gate opens and closes..\" @dataspace gain @dataspace/unit dB",
 					"varname" : "threshold"
 				}
 
@@ -110,7 +110,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 361.0, 91.5, 593.0, 43.0 ],
-					"text" : "jcom.parameter release @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode both @description \"When the gate closes, this parameter sets how many milliseconds it will take to fade out.\" @dataspace time @dataspace/unit ms",
+					"text" : "jcom.parameter release @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode both @description \"When the gate closes, this parameter sets how many milliseconds it will take to fade out.\" @dataspace time @dataspace/unit ms",
 					"varname" : "release"
 				}
 
@@ -126,7 +126,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 281.0, 34.0, 600.0, 43.0 ],
-					"text" : "jcom.parameter attack @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode low @description \"When the gate opens, this parameter sets how many milliseconds it will take to fade in.\" @dataspace time @dataspace/unit ms",
+					"text" : "jcom.parameter attack @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode low @description \"When the gate opens, this parameter sets how many milliseconds it will take to fade in.\" @dataspace time @dataspace/unit ms",
 					"varname" : "attack"
 				}
 
@@ -142,7 +142,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 845.0, 200.0, 412.0, 43.0 ],
-					"text" : "jcom.parameter lookahead @type integer @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 100 @range/clipmode low @description \"How many samples to look ahead while monitoring incoming signal.\"",
+					"text" : "jcom.parameter lookahead @type integer @ramp/drive Max @repetitions/allow 0 @range/bounds 0 100 @range/clipmode low @description \"How many samples to look ahead while monitoring incoming signal.\"",
 					"varname" : "lookahead"
 				}
 

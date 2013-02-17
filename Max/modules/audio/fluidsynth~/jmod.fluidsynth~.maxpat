@@ -471,7 +471,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 295.0, 562.0, 31.0 ],
-									"text" : "jcom.parameter chorus/units @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"number of units?? \" @ramp/drive scheduler",
+									"text" : "jcom.parameter chorus/units @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"number of units?? \" @ramp/drive Max",
 									"varname" : "chorus[5]"
 								}
 
@@ -487,7 +487,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 253.0, 568.0, 31.0 ],
-									"text" : "jcom.parameter chorus/type @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode none @description \"type-parameter of the fluidsynth~: 0 - sine 1 - triangle.\" @ramp/drive scheduler",
+									"text" : "jcom.parameter chorus/type @type integer @repetitions/allow 0 @range/bounds 0 1 @range/clipmode none @description \"type-parameter of the fluidsynth~: 0 - sine 1 - triangle.\" @ramp/drive Max",
 									"varname" : "chorus[4]"
 								}
 
@@ -503,7 +503,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 184.0, 501.0, 55.0 ],
-									"text" : "jcom.parameter chorus/depth @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"depth-parameter of the fluidsynth~.\" @ramp/drive scheduler @range/clipmode low @description \"level of the chorus.\" @dataspace time @dataspace/unit ms",
+									"text" : "jcom.parameter chorus/depth @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"depth-parameter of the fluidsynth~.\" @ramp/drive Max @range/clipmode low @description \"level of the chorus.\" @dataspace time @dataspace/unit ms",
 									"varname" : "chorus[3]"
 								}
 
@@ -519,7 +519,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 110.0, 501.0, 55.0 ],
-									"text" : "jcom.parameter chorus/speed @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"speed-parameter of the fluidsynth~.\" @ramp/drive scheduler @range/clipmode low @description \"level of the chorus.\" @dataspace time @dataspace/unit Hz",
+									"text" : "jcom.parameter chorus/speed @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"speed-parameter of the fluidsynth~.\" @ramp/drive Max @range/clipmode low @description \"level of the chorus.\" @dataspace time @dataspace/unit Hz",
 									"varname" : "chorus[2]"
 								}
 
@@ -535,7 +535,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 59.0, 531.0, 43.0 ],
-									"text" : "jcom.parameter chorus/level @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"level of the chorus.\" @dataspace gain @dataspace/unit linear @ramp/drive scheduler",
+									"text" : "jcom.parameter chorus/level @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"level of the chorus.\" @dataspace gain @dataspace/unit linear @ramp/drive Max",
 									"varname" : "chorus[1]"
 								}
 
@@ -551,7 +551,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 474.0, 574.0, 31.0 ],
-									"text" : "jcom.parameter reverb/width @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"width parameter of fluidsynth~.\" @ramp/drive scheduler",
+									"text" : "jcom.parameter reverb/width @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"width parameter of fluidsynth~.\" @ramp/drive Max",
 									"varname" : "reverb[5]"
 								}
 
@@ -567,7 +567,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 428.0, 590.0, 31.0 ],
-									"text" : "jcom.parameter reverb/damping @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"damping parameter of fluidsynth~.\" @ramp/drive scheduler",
+									"text" : "jcom.parameter reverb/damping @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"damping parameter of fluidsynth~.\" @ramp/drive Max",
 									"varname" : "reverb[4]"
 								}
 
@@ -583,7 +583,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 416.0, 393.0, 592.0, 31.0 ],
-									"text" : "jcom.parameter reverb/roomsize @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"room size parameter of fluidsynth~.\" @ramp/drive scheduler",
+									"text" : "jcom.parameter reverb/roomsize @type decimal @repetitions/allow 0 @range/bounds 0 1 @range/clipmode low @description \"room size parameter of fluidsynth~.\" @ramp/drive Max",
 									"varname" : "reverb[1]"
 								}
 

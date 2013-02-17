@@ -131,7 +131,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 440.0, 57.0, 303.0, 31.0 ],
-					"text" : "jcom.parameter y @type integer @ramp/drive scheduler @description \"Specify the x-axis offset in pixels.\"",
+					"text" : "jcom.parameter y @type integer @ramp/drive Max @description \"Specify the x-axis offset in pixels.\"",
 					"varname" : "y"
 				}
 
@@ -215,7 +215,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 436.0, 20.0, 303.0, 31.0 ],
-					"text" : "jcom.parameter x @type integer @ramp/drive scheduler @description \"Specify the x-axis offset in pixels.\"",
+					"text" : "jcom.parameter x @type integer @ramp/drive Max @description \"Specify the x-axis offset in pixels.\"",
 					"varname" : "x"
 				}
 

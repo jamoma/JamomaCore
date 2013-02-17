@@ -1925,7 +1925,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 24.0, 80.0, 318.0, 33.0 ],
-									"text" : "jcom.parameter p.2 @type decimal @range/bounds -5. 5. @ramp/drive scheduler"
+									"text" : "jcom.parameter p.2 @type decimal @range/bounds -5. 5. @ramp/drive Max"
 								}
 
 							}

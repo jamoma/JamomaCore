@@ -394,7 +394,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 790.0, 695.0, 495.0, 31.0 ],
-					"text" : "jcom.parameter shadow/color/alpha @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"Object alpha transparency (0.-1.).\"",
+					"text" : "jcom.parameter shadow/color/alpha @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive Max @description \"Object alpha transparency (0.-1.).\"",
 					"varname" : "shadow/color/alpha"
 				}
 

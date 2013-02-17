@@ -37,7 +37,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 111.0, 239.0, 382.0, 62.0 ],
-					"text" : "jcom.parameterArray harmonic.[10]/gain @format single @type decimal @ramp/drive scheduler @ramp/function linear @dataspace gain @dataspace/unit @description \"Gain values (dB) for the 1st partial\""
+					"text" : "jcom.parameterArray harmonic.[10]/gain @format single @type decimal @ramp/drive Max @ramp/function linear @dataspace gain @dataspace/unit @description \"Gain values (dB) for the 1st partial\""
 				}
 
 			}
@@ -67,7 +67,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 766.5, 229.0, 331.0, 62.0 ],
-					"text" : "jcom.parameter frequency @type decimal @range/bounds 20 20000 @range/clipmode none @ramp/drive scheduler @ramp/function linear @dataspace time @dataspace/unit Hz @description \"Fundamental frequency of the signal.\"",
+					"text" : "jcom.parameter frequency @type decimal @range/bounds 20 20000 @range/clipmode none @ramp/drive Max @ramp/function linear @dataspace time @dataspace/unit Hz @description \"Fundamental frequency of the signal.\"",
 					"varname" : "frequency"
 				}
 

@@ -155,7 +155,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 391.0, 172.0, 315.0, 19.0 ],
-					"text" : "jcom.parameter testing @type decimalArray @ramp/drive scheduler",
+					"text" : "jcom.parameter testing @type decimalArray @ramp/drive Max",
 					"varname" : "testing"
 				}
 

@@ -1168,7 +1168,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 443.0, 19.0, 536.0, 34.0 ],
-					"text" : "jcom.parameter gain/W @type decimal @description \"gain of the B-format's W-channel\" @range/bounds -60. 12. @range/clipmode none @ramp/drive scheduler @ramp/function linear"
+					"text" : "jcom.parameter gain/W @type decimal @description \"gain of the B-format's W-channel\" @range/bounds -60. 12. @range/clipmode none @ramp/drive Max @ramp/function linear"
 				}
 
 			}

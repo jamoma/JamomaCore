@@ -43,7 +43,7 @@ attributes:
    default: none
  - name: ramp/drive
    type: symbol
-   desc: "Determines the mechanism used to drive ramping to new parameter values. Options are: none, scheduler, async, queue"
+   desc: "Determines the mechanism used to drive ramping to new parameter values. Options are: none, Max"
    unit:
    default: none
  - name: ramp/function
