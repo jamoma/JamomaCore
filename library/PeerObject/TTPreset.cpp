@@ -44,8 +44,10 @@ mScript(NULL)
 
 TTPreset::~TTPreset()
 {
-	TTObjectBaseRelease(TTObjectBaseHandle(&mScript));
-	mScript = NULL;
+    if (mScript) {
+        TTObjectBaseRelease(TTObjectBaseHandle(&mScript));
+        mScript = NULL;
+    }
 }
 
 TTErr TTPreset::setAddress(const TTValue& value)
