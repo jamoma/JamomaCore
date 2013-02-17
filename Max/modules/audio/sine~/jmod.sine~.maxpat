@@ -172,7 +172,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 395.0, 205.0, 637.0, 31.0 ],
-					"text" : "jcom.parameter frequency @type decimal @range/bounds 0. 20000. @ramp/drive scheduler @description \"Frequency used.\" @dataspace time @dataspace/unit Hz",
+					"text" : "jcom.parameter frequency @type decimal @range/bounds 0. 20000. @ramp/drive Max @description \"Frequency used.\" @dataspace time @dataspace/unit Hz",
 					"varname" : "frequency"
 				}
 

@@ -88,7 +88,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 479.0, 186.0, 596.0, 31.0 ],
-					"text" : "jcom.parameter mode @repetitions/allow 0 @type integer @range/bounds 0 2 @range/clipmode both @description \"modes: 0 - vertical, 1 - horizontal, 2 - map\" @ramp/drive scheduler",
+					"text" : "jcom.parameter mode @repetitions/allow 0 @type integer @range/bounds 0 2 @range/clipmode both @description \"modes: 0 - vertical, 1 - horizontal, 2 - map\" @ramp/drive Max",
 					"varname" : "hue_angle[2]"
 				}
 
@@ -167,7 +167,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 478.0, 136.0, 563.0, 31.0 ],
-					"text" : "jcom.parameter framedelay @repetitions/allow 0 @type integer @range/bounds 0 200 @range/clipmode low @description \"what is the maximum delay in frames\" @ramp/drive scheduler",
+					"text" : "jcom.parameter framedelay @repetitions/allow 0 @type integer @range/bounds 0 200 @range/clipmode low @description \"what is the maximum delay in frames\" @ramp/drive Max",
 					"varname" : "hue_angle[1]"
 				}
 

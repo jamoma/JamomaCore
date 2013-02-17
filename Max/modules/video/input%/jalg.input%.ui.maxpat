@@ -618,7 +618,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 101.0, 1836.0, 597.0, 31.0 ],
-					"text" : "jcom.parameter desktop/offset/x @type integer @repetitions/allow 0 @ramp/drive scheduler @range/bounds 0 640 @range/clipmode low @description \"x value of the upper right corner of the desktop crop\"",
+					"text" : "jcom.parameter desktop/offset/x @type integer @repetitions/allow 0 @ramp/drive Max @range/bounds 0 640 @range/clipmode low @description \"x value of the upper right corner of the desktop crop\"",
 					"varname" : "synth/noise/size/x[2]"
 				}
 
@@ -654,7 +654,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 101.0, 1788.0, 597.0, 31.0 ],
-					"text" : "jcom.parameter desktop/offset/y @type integer @repetitions/allow 0 @ramp/drive scheduler @range/bounds 0 480 @range/clipmode low @description \" y value of the upper right corner of the desktop crop\"",
+					"text" : "jcom.parameter desktop/offset/y @type integer @repetitions/allow 0 @ramp/drive Max @range/bounds 0 480 @range/clipmode low @description \" y value of the upper right corner of the desktop crop\"",
 					"varname" : "synth/noise/size/y[2]"
 				}
 
@@ -690,7 +690,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 101.0, 1747.0, 588.0, 31.0 ],
-					"text" : "jcom.parameter desktop/size/x @type integer @repetitions/allow 0 @ramp/drive scheduler @range/bounds 1 640 @range/clipmode low @description \"y size of desktop crop\"",
+					"text" : "jcom.parameter desktop/size/x @type integer @repetitions/allow 0 @ramp/drive Max @range/bounds 1 640 @range/clipmode low @description \"y size of desktop crop\"",
 					"varname" : "synth/noise/size/x[1]"
 				}
 
@@ -727,7 +727,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 101.0, 1702.0, 588.0, 31.0 ],
-					"text" : "jcom.parameter desktop/size/y @type integer @repetitions/allow 0 @ramp/drive scheduler @range/bounds 1 480 @range/clipmode low @description \"x size of desktop crop\"",
+					"text" : "jcom.parameter desktop/size/y @type integer @repetitions/allow 0 @ramp/drive Max @range/bounds 1 480 @range/clipmode low @description \"x size of desktop crop\"",
 					"varname" : "synth/noise/size/y[1]"
 				}
 
@@ -1662,7 +1662,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 105.0, 1583.0, 585.0, 31.0 ],
-					"text" : "jcom.parameter synth/noise/size/y @type integer @repetitions/allow 0 @ramp/drive scheduler @range/bounds 1 480 @range/clipmode low @description \"y size of noise matrix\"",
+					"text" : "jcom.parameter synth/noise/size/y @type integer @repetitions/allow 0 @ramp/drive Max @range/bounds 1 480 @range/clipmode low @description \"y size of noise matrix\"",
 					"varname" : "synth/noise/size/y"
 				}
 
@@ -1678,7 +1678,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 105.0, 1387.0, 330.0, 43.0 ],
-					"text" : "jcom.parameter synth/noise/size/x @type integer @repetitions/allow 0 @ramp/drive scheduler @range/bounds 1 640 @range/clipmode low @description \"x size of noise matrix\"",
+					"text" : "jcom.parameter synth/noise/size/x @type integer @repetitions/allow 0 @ramp/drive Max @range/bounds 1 640 @range/clipmode low @description \"x size of noise matrix\"",
 					"varname" : "synth/noise/size/x"
 				}
 
@@ -1862,7 +1862,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 128.0, 1270.0, 452.0, 31.0 ],
-					"text" : "jcom.parameter file/rate @type decimal @repetitions/allow 0 @ramp/drive scheduler @range/bounds -2. 2. @range/clipmode none @description \"Playback rate of video file\"",
+					"text" : "jcom.parameter file/rate @type decimal @repetitions/allow 0 @ramp/drive Max @range/bounds -2. 2. @range/clipmode none @description \"Playback rate of video file\"",
 					"varname" : "file/rate"
 				}
 

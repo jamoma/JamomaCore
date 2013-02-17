@@ -794,7 +794,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 438.0, 75.0, 355.0, 31.0 ],
-					"text" : "jcom.parameter luminance @type decimal @ramp/drive scheduler @range/bounds 0. 1. @description \"Sets the luminance.\"",
+					"text" : "jcom.parameter luminance @type decimal @ramp/drive Max @range/bounds 0. 1. @description \"Sets the luminance.\"",
 					"varname" : "lum"
 				}
 
@@ -810,7 +810,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 438.0, 122.0, 350.0, 31.0 ],
-					"text" : "jcom.parameter tolerance @type decimal @ramp/drive scheduler @range/bounds 0. 1. @description \"Sets the tolerance.\"",
+					"text" : "jcom.parameter tolerance @type decimal @ramp/drive Max @range/bounds 0. 1. @description \"Sets the tolerance.\"",
 					"varname" : "tol"
 				}
 

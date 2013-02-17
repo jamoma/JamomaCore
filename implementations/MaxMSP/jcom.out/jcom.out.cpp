@@ -356,7 +356,7 @@ void out_subscribe(TTPtr self)
 		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_both);
 		v = TTValue(100.);
 		aData->setAttributeValue(kTTSym_valueDefault, v);
-		aData->setAttributeValue(kTTSym_rampDrive, TTSymbol("scheduler"));
+		aData->setAttributeValue(kTTSym_rampDrive, TTSymbol("Max"));
 		aData->setAttributeValue(kTTSym_rampFunction, TTSymbol("linear"));
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Set gain of model's outputs (as MIDI value by default)."));
 #endif
@@ -741,7 +741,7 @@ void out_return_link(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		aData->setAttributeValue(kTTSym_rangeClipmode, kTTSym_both);
 		v = TTValue(100.);
 		aData->setAttributeValue(kTTSym_valueDefault, v);							// Assume 100%, so that processed signal is passed through
-		aData->setAttributeValue(kTTSym_rampDrive, TTSymbol("scheduler"));
+		aData->setAttributeValue(kTTSym_rampDrive, TTSymbol("Max"));
 		aData->setAttributeValue(kTTSym_rampFunction, TTSymbol("linear"));
 		aData->setAttributeValue(kTTSym_description, TTSymbol("Controls the wet/dry mix in percent."));
 	}

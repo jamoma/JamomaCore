@@ -1539,7 +1539,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-34",
-					"items" : [ "async", ",", "none", ",", "queue", ",", "scheduler" ],
+					"items" : [ "none", ",", "Max" ],
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
@@ -1632,7 +1632,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 71.0, 319.0, 155.0, 19.0 ],
-					"text" : "jcom.ramp @drive scheduler"
+					"text" : "jcom.ramp @drive Max"
 				}
 
 			}

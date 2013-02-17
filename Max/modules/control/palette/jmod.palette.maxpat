@@ -180,7 +180,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 310.0, 597.0, 43.0 ],
-					"text" : "jcom.parameter random/stepSize @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Set how much next color can deviate from the current when random mode is walk.\"",
+					"text" : "jcom.parameter random/stepSize @type decimal @ramp/drive Max @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Set how much next color can deviate from the current when random mode is walk.\"",
 					"varname" : "random/step_size"
 				}
 
@@ -226,7 +226,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 405.0, 475.0, 584.0, 31.0 ],
-					"text" : "jcom.parameter interpolate/stepSize @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Step size when interpolating.\"",
+					"text" : "jcom.parameter interpolate/stepSize @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive Max @repetitions/allow 1 @description \"Step size when interpolating.\"",
 					"varname" : "interpolate/step_size"
 				}
 

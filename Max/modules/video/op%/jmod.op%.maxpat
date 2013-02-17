@@ -117,7 +117,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 378.0, 208.0, 348.0, 43.0 ],
-					"text" : "jcom.parameter opValue @type decimal @ramp/drive scheduler @repetitions/allow 0 @description \"Number to associate with operation.\"",
+					"text" : "jcom.parameter opValue @type decimal @ramp/drive Max @repetitions/allow 0 @description \"Number to associate with operation.\"",
 					"varname" : "op_value"
 				}
 

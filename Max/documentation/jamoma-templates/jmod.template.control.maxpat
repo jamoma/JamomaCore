@@ -1173,7 +1173,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 503.0, 204.0, 577.0, 31.0 ],
-					"text" : "jcom.parameter this_parameter @type decimal @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @ramp/drive scheduler @description \"Document what this parameter does...\"",
+					"text" : "jcom.parameter this_parameter @type decimal @range/bounds 0. 1. @range/clipmode none @repetitions/allow 0 @ramp/drive Max @description \"Document what this parameter does...\"",
 					"varname" : "hue_angle"
 				}
 

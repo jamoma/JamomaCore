@@ -1144,7 +1144,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 81.0, 386.0, 336.0, 43.0 ],
-					"text" : "jcom.parameter frequency @type decimal @description \"the frequency value of my patch\" @dataspace pitch @dataspace/unit hz @ramp/drive scheduler @value/default 440.",
+					"text" : "jcom.parameter frequency @type decimal @description \"the frequency value of my patch\" @dataspace pitch @dataspace/unit hz @ramp/drive Max @value/default 440.",
 					"varname" : "my_float[1]"
 				}
 
@@ -1961,7 +1961,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 215.0, 241.0, 258.0, 19.0 ],
-									"text" : "none (default), queue, scheduler, async"
+									"text" : "none (default), Max"
 								}
 
 							}

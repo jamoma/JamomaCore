@@ -478,7 +478,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 882.0, 384.0, 418.0, 31.0 ],
-					"text" : "jcom.parameter material/shininess @type decimal @range/bounds 0. 255. @range/clipmode both @ramp/drive scheduler @description \"Material shininess.\"",
+					"text" : "jcom.parameter material/shininess @type decimal @range/bounds 0. 255. @range/clipmode both @ramp/drive Max @description \"Material shininess.\"",
 					"varname" : "material/shininess"
 				}
 
@@ -702,7 +702,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 872.0, 441.0, 31.0 ],
-					"text" : "jcom.parameter material/light/specular @type decimalArray @ramp/drive scheduler @description \"The specular light material property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/specular @type decimalArray @ramp/drive Max @description \"The specular light material property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/specular"
 				}
 
@@ -732,7 +732,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 802.0, 418.0, 31.0 ],
-					"text" : "jcom.parameter material/light/emission @type decimalArray @ramp/drive scheduler @description \"The material emission property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/emission @type decimalArray @ramp/drive Max @description \"The material emission property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/emission"
 				}
 
@@ -762,7 +762,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 736.0, 433.0, 31.0 ],
-					"text" : "jcom.parameter material/light/diffuse @type decimalArray @ramp/drive scheduler @description \"The diffuse light material property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/diffuse @type decimalArray @ramp/drive Max @description \"The diffuse light material property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/diffuse"
 				}
 
@@ -792,7 +792,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 668.0, 440.0, 31.0 ],
-					"text" : "jcom.parameter material/light/ambient @type decimalArray @ramp/drive scheduler @description \"The ambient light material property as red, green, blue, alpha (0.-1.).\"",
+					"text" : "jcom.parameter material/light/ambient @type decimalArray @ramp/drive Max @description \"The ambient light material property as red, green, blue, alpha (0.-1.).\"",
 					"varname" : "material/light/ambient"
 				}
 
@@ -822,7 +822,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 566.0, 340.0, 31.0 ],
-					"text" : "jcom.parameter fog/params @type decimalArray @ramp/drive scheduler @description \"Fog color (RGBA), density,start and end.\"",
+					"text" : "jcom.parameter fog/params @type decimalArray @ramp/drive Max @description \"Fog color (RGBA), density,start and end.\"",
 					"varname" : "fog/params"
 				}
 
@@ -852,7 +852,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 322.0, 407.0, 352.0, 43.0 ],
-					"text" : "jcom.parameter color/alpha @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @description \"Object alpha transparency (0.-1.).\"",
+					"text" : "jcom.parameter color/alpha @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive Max @description \"Object alpha transparency (0.-1.).\"",
 					"varname" : "color/alpha"
 				}
 
@@ -868,7 +868,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 305.0, 457.0, 334.0, 31.0 ],
-					"text" : "jcom.parameter color/rgb @type decimalArray @ramp/drive scheduler @description \"Object color as red, green, blue (0.-1.).\"",
+					"text" : "jcom.parameter color/rgb @type decimalArray @ramp/drive Max @description \"Object color as red, green, blue (0.-1.).\"",
 					"varname" : "color/rgb"
 				}
 
@@ -898,7 +898,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 293.0, 313.0, 31.0 ],
-					"text" : "jcom.parameter 3D/scale @ramp/drive scheduler @type decimalArray @description \"3D scaling factor as xyz coordinates.\"",
+					"text" : "jcom.parameter 3D/scale @ramp/drive Max @type decimalArray @description \"3D scaling factor as xyz coordinates.\"",
 					"varname" : "3D/scale"
 				}
 
@@ -928,7 +928,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 230.0, 363.0, 31.0 ],
-					"text" : "jcom.parameter 3D/rotate @type decimalArray @ramp/drive scheduler @description \"3D rotation as angle and xyz rotation axis coordinates.\"",
+					"text" : "jcom.parameter 3D/rotate @type decimalArray @ramp/drive Max @description \"3D rotation as angle and xyz rotation axis coordinates.\"",
 					"varname" : "3D/rotate"
 				}
 
@@ -958,7 +958,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 266.0, 158.0, 301.0, 31.0 ],
-					"text" : "jcom.parameter 3D/position @type decimalArray @ramp/drive scheduler @description \"3D origin as xyz coordinates.\"",
+					"text" : "jcom.parameter 3D/position @type decimalArray @ramp/drive Max @description \"3D origin as xyz coordinates.\"",
 					"varname" : "3D/position"
 				}
 

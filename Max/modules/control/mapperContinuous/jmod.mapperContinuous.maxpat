@@ -489,7 +489,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 619.0, 201.0, 323.0, 43.0 ],
-					"text" : "jcom.parameter in/direct @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"use this parameter to alternatively provide a source for mapping\""
+					"text" : "jcom.parameter in/direct @repetitions/allow 1 @ramp/drive Max @type decimal @description \"use this parameter to alternatively provide a source for mapping\""
 				}
 
 			}
@@ -1344,7 +1344,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 520.0, 160.0, 425.0, 31.0 ],
-					"text" : "jcom.parameter slide/down @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Smoothing coef when value decreases\"",
+					"text" : "jcom.parameter slide/down @repetitions/allow 1 @ramp/drive Max @type decimal @description \"Smoothing coef when value decreases\"",
 					"varname" : "slide_down[1]"
 				}
 
@@ -1360,7 +1360,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 572.0, 119.0, 366.0, 31.0 ],
-					"text" : "jcom.parameter slide/up @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Smoothing coef when value raises\"",
+					"text" : "jcom.parameter slide/up @repetitions/allow 1 @ramp/drive Max @type decimal @description \"Smoothing coef when value raises\"",
 					"varname" : "slide_up[1]"
 				}
 
@@ -1557,7 +1557,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 490.0, 489.0, 237.0, 43.0 ],
-					"text" : "jcom.parameter out/max @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Maximum output value\"",
+					"text" : "jcom.parameter out/max @repetitions/allow 1 @ramp/drive Max @type decimal @description \"Maximum output value\"",
 					"varname" : "out_max[1]"
 				}
 
@@ -1573,7 +1573,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 250.0, 380.0, 340.0, 31.0 ],
-					"text" : "jcom.parameter out/min @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Minimum output value\"",
+					"text" : "jcom.parameter out/min @repetitions/allow 1 @ramp/drive Max @type decimal @description \"Minimum output value\"",
 					"varname" : "out_min[1]"
 				}
 
@@ -1589,7 +1589,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 845.0, 452.0, 147.0, 79.0 ],
-					"text" : "jcom.parameter in/max @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Maximum input value\"",
+					"text" : "jcom.parameter in/max @repetitions/allow 1 @ramp/drive Max @type decimal @description \"Maximum input value\"",
 					"varname" : "in_max[1]"
 				}
 
@@ -1605,7 +1605,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 846.0, 324.0, 131.0, 79.0 ],
-					"text" : "jcom.parameter in/min @repetitions/allow 1 @ramp/drive scheduler @type decimal @description \"Minimum input value\"",
+					"text" : "jcom.parameter in/min @repetitions/allow 1 @ramp/drive Max @type decimal @description \"Minimum input value\"",
 					"varname" : "in_min[1]"
 				}
 
@@ -20706,7 +20706,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 995.0, 40.0, 320.0, 31.0 ],
-					"text" : "jcom.parameter ramp @repetitions/allow 1 @ramp/drive scheduler @type integer @description \"Ramp time\"",
+					"text" : "jcom.parameter ramp @repetitions/allow 1 @ramp/drive Max @type integer @description \"Ramp time\"",
 					"varname" : "ramp[1]"
 				}
 

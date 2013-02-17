@@ -68,7 +68,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 206.0, 6.0, 601.0, 31.0 ],
-					"text" : "jcom.parameter position @type decimal @range/bounds -1 1. @ramp/drive scheduler @description \"set the position of the panpot.  -1 == fully left, 0 == center, 1== fully right\" @value/default 0. @range/clipmode both",
+					"text" : "jcom.parameter position @type decimal @range/bounds -1 1. @ramp/drive Max @description \"set the position of the panpot.  -1 == fully left, 0 == center, 1== fully right\" @value/default 0. @range/clipmode both",
 					"varname" : "position"
 				}
 

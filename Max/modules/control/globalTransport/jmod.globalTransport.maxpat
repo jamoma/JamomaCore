@@ -1304,7 +1304,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 972.0, 451.0, 276.0, 43.0 ],
-					"text" : "jcom.parameter beats @type integer @range/clipmode low @ramp/drive scheduler @priority 3 @description \"Number of beats per bar\"",
+					"text" : "jcom.parameter beats @type integer @range/clipmode low @ramp/drive Max @priority 3 @description \"Number of beats per bar\"",
 					"varname" : "Beats"
 				}
 
@@ -1368,7 +1368,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 787.0, 266.0, 155.0, 79.0 ],
-					"text" : "jcom.message tempo/value @type decimal @description \"tempo of the global transport\" @range/clipmode 0. 200. @ramp/drive scheduler",
+					"text" : "jcom.message tempo/value @type decimal @description \"tempo of the global transport\" @range/clipmode 0. 200. @ramp/drive Max",
 					"varname" : "tempo/value"
 				}
 

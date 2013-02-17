@@ -3757,7 +3757,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 476.0, 294.0, 335.0, 41.0 ],
-																	"text" : "script newdefault $1 $2 $3 jcom.parameter $1 @type decimal @range/bounds $4 $5 @range/clipmode both @ramp/drive scheduler @priority 3 @value/default $6 @value/stepsize $7"
+																	"text" : "script newdefault $1 $2 $3 jcom.parameter $1 @type decimal @range/bounds $4 $5 @range/clipmode both @ramp/drive Max @priority 3 @value/default $6 @value/stepsize $7"
 																}
 
 															}

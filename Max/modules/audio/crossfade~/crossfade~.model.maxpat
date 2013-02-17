@@ -301,7 +301,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 316.0, 169.0, 376.0, 55.0 ],
-					"text" : "jcom.parameter position @type decimal @range/bounds 1. 2. @ramp/drive scheduler @description \"Set the position of the crossfade.  1 is entirely source 1 - 2 is entirely source 2 - positions in the middle are a location between source one and two.\"",
+					"text" : "jcom.parameter position @type decimal @range/bounds 1. 2. @ramp/drive Max @description \"Set the position of the crossfade.  1 is entirely source 1 - 2 is entirely source 2 - positions in the middle are a location between source one and two.\"",
 					"varname" : "position"
 				}
 
