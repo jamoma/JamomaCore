@@ -30,7 +30,7 @@ revision = nil
 
 load "build.rb"
 
-if win32?
+if win?
 else
   
   puts "Making sure that twin projects build on Mac"
@@ -47,7 +47,7 @@ end
 puts "post-build..."
 Dir.chdir "#{glibdir}"
 
-if  win32?
+if  win?
 else
   
   # Copy into Max 5 - comment this out if you don't want it
