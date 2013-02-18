@@ -26,6 +26,7 @@ typedef struct outlet {
 // This is used to store extra data
 typedef struct extra {
 	TTPtr		ui_qelem;		///< to output "qlim'd" data for ui object
+    TTBoolean   ui_sending;     ///< to protect data
 	ObjectPtr	connected;		// our ui object
 	long		x;				// our ui object x presentation
 	long		y;				// our ui object y presentation
@@ -140,6 +141,7 @@ void WrappedViewerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Make qelem object
 	EXTRA->ui_qelem = qelem_new(x, (method)remote_ui_queuefn);
+    EXTRA->ui_sending = NO;
 	
 	// handle attribute args
 	attr_args_process(x, argc, argv);
@@ -296,17 +298,23 @@ void remote_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv
 	else
 		outlet_anything(x->outlets[data_out], msg, argc, argv);
 	
-	// Copy msg and atom in order to avoid losing data
-	copy_msg_argc_argv(self, msg, argc, argv);
+	// Check if data is currently sent by remote_ui_queuefn
+    if (!EXTRA->ui_sending) {
+        
+        // Copy msg and atom in order to avoid losing data
+        copy_msg_argc_argv(self, msg, argc, argv);
 	
-	qelem_set(EXTRA->ui_qelem);
+        qelem_set(EXTRA->ui_qelem);
+    }
 }
 
 void remote_ui_queuefn(TTPtr self)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
+    EXTRA->ui_sending = YES;
 	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
+    EXTRA->ui_sending = NO;
 }
 
 void remote_bang(TTPtr self)
