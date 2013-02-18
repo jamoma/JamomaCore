@@ -61,6 +61,12 @@ ObjectPtr wrappedModularClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		x->arrayFormatInteger = TTString();
 		x->arrayFormatString = TTString();
 #endif
+        
+        x->patcherPtr = NULL;
+        x->patcherContext = kTTSymEmpty;
+        x->patcherClass = kTTSymEmpty;
+        x->patcherName = kTTSymEmpty;
+        x->patcherAddress = kTTAdrsEmpty;
 		
 		// dumpout
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
