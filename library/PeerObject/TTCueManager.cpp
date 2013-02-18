@@ -57,7 +57,6 @@ mReturnLineCallback(NULL)
 	addMessage(Clear);
 	
 	addMessageWithArguments(Store);
-    addMessageWithArguments(Prepare);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Output);
 	addMessageWithArguments(Interpolate);
@@ -285,8 +284,13 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
         
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
+            
             mCurrentPosition = inputValue[0];
-            mCurrent = mOrder[mCurrentPosition-1];
+            
+            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+                mCurrent = mOrder[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
         }
     }
 	
@@ -391,50 +395,6 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	return mCurrentCue->sendMessage(TTSymbol("Store"), v, kTTValNONE);
 }
 
-TTErr TTCueManager::Prepare(const TTValue& inputValue, TTValue& outputValue)
-{
-	TTValue		v;
-    TTSymbol    anAddress = kTTAdrsRoot;
-	
-    if (inputValue.size() >= 1) {
-        
-        // get cue name
-        if (inputValue[0].type() == kTypeSymbol) {
-            mCurrent = inputValue[0];
-            
-            TTSymbol name;
-            for (TTInt32 i = 0; i < mOrder.size(); i++) {
-                mOrder.get(i, name);
-                if (name == mCurrent) {
-                    mCurrentPosition = i+1;
-                    break;
-                }
-            }
-        }
-        
-        // get cue at position
-        if (inputValue[0].type() == kTypeInt32) {
-            inputValue.get(0, mCurrentPosition);
-            mCurrent = mOrder[mCurrentPosition-1];
-        }
-    }
-    
-    // get address from where recall starts (default : kAdrsRoot)
-    if (inputValue.size() == 2)
-        if (inputValue[1].type() == kTypeSymbol)
-            anAddress = inputValue[1];
-	
-	// if cue exists
-	if (!mCues->lookup(mCurrent, v)) {
-		
-		mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
-		
-		if (mCurrentCue)
-			return mCurrentCue->sendMessage(TTSymbol("Prepare"), anAddress, kTTValNONE);
-	}
-	
-	return kTTErrGeneric;
-}
 
 TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -459,8 +419,13 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
         
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
+            
             mCurrentPosition = inputValue[0];
-            mCurrent = mOrder[mCurrentPosition-1];
+            
+            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+                mCurrent = mOrder[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
         }
     }
     
@@ -504,8 +469,13 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
         
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
+            
             mCurrentPosition = inputValue[0];
-            mCurrent = mOrder[mCurrentPosition-1];
+            
+            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+                mCurrent = mOrder[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
         }
     }
     
@@ -548,10 +518,16 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
         else if (inputValue[0].type() == kTypeInt32 && inputValue[1].type() == kTypeInt32 && inputValue[2].type() == kTypeFloat64) {
             
             i1 = inputValue[0] ;
-            name1 = mOrder[i1-1] ;
+            if (i1 >= 0 && i1 < mOrder.size())
+                name1 = mOrder[i1-1];
+            else
+                return kTTErrGeneric;
             
-            inputValue.get(1, i2);
-            name2 = mOrder[i2-1] ;
+            i2 = inputValue[1];
+            if (i2 >= 0 && i2 < mOrder.size())
+                name2 = mOrder[i2-1];
+            else
+                return kTTErrGeneric;
             
             position = inputValue[2] ;
         }
@@ -572,7 +548,7 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTUInt32	i, id, mixSize;
+	TTInt32     i, id, mixSize;
 	TTSymbol    name;
 	TTCuePtr	cue;
 	TTValue		v, cues, factors;
@@ -590,7 +566,10 @@ TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
         else if (inputValue[i].type() == kTypeInt32 && inputValue[i+1].type() == kTypeFloat64) {
             
             id = inputValue[i] ;
-            name = mOrder[id-1] ;
+            if (id >= 0 && id < mOrder.size())
+                name = mOrder[id-1];
+            else
+                return kTTErrGeneric;
         }
         
         // if cue exist
@@ -623,8 +602,13 @@ TTErr TTCueManager::Move(const TTValue& inputValue, TTValue& outputValue)
         
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
+            
             mCurrentPosition = inputValue[0];
-            mCurrent = mOrder[mCurrentPosition-1];
+            
+            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+                mCurrent = mOrder[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
         }
     }
 	
@@ -687,8 +671,13 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
         
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
+            
             mCurrentPosition = inputValue[0];
-            mCurrent = mOrder[mCurrentPosition-1];
+            
+            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+                mCurrent = mOrder[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
         }
     }
 	
@@ -735,8 +724,13 @@ TTErr TTCueManager::Rename(const TTValue& inputValue, TTValue& outputValue)
         
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
+            
             mCurrentPosition = inputValue[0];
-            mCurrent = mOrder[mCurrentPosition-1];
+            
+            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+                mCurrent = mOrder[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
         }
     }
 	
@@ -798,13 +792,12 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            // the following checks for whether we are using the new TTValue or the old one
-#ifdef __TT_ELEMENT_H__
             mCurrentPosition = inputValue[0];
-#else
-            mCurrentPosition = inputValue[0];
-#endif
-            mCurrent = mOrder[mCurrentPosition-1];
+
+            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+                mCurrent = mOrder[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
         }
     }
 	
@@ -853,11 +846,8 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
             if (inputValue[2].type() == kTypeInt32) {
                 
                 positionCopy = inputValue[2] ;
-#ifdef __TT_ELEMENT_H__
+
                 v = (int)mCurrentPosition;
-#else
-                v = mCurrentPosition;
-#endif
                 v.append((int)positionCopy);
                 return Move(v, kTTValNONE);
             }
@@ -980,16 +970,19 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	// Ends file reading : bind on first cue
 	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
 		
-		mCurrent = mOrder[0];
-		if (!mCues->lookup(mCurrent, v)) {
-			
-			mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
-			
-			// send the end file to the cue to process the namespace
-			v = TTValue(mCurrentCue);
-			aXmlHandler->setAttributeValue(kTTSym_object, v);
-			aXmlHandler->sendMessage(TTSymbol("Read"));
-		}
+        if (mOrder.size()) {
+            
+            mCurrent = mOrder[0];
+            if (!mCues->lookup(mCurrent, v)) {
+                
+                mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
+                
+                // send the end file to the cue to process the namespace
+                v = TTValue(mCurrentCue);
+                aXmlHandler->setAttributeValue(kTTSym_object, v);
+                aXmlHandler->sendMessage(TTSymbol("Read"));
+            }
+        }
 		
 		notifyOrderObservers();
 		
@@ -1102,40 +1095,45 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 					
 					mCurrent = v[0];
 					
-					// Create a new cue
-					mCurrentCue = NULL;
-					TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), kTTValNONE);
-					
-					mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
-					
-					v = TTValue(mCurrentCue);
-					mCues->append(mCurrent, v);
-					mOrder.append(mCurrent);
+                    if (mCurrent != kTTSymEmpty) {
+                        
+                        // Create a new cue
+                        mCurrentCue = NULL;
+                        TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), kTTValNONE);
+                        
+                        mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
+                        
+                        v = TTValue(mCurrentCue);
+                        mCues->append(mCurrent, v);
+                        mOrder.append(mCurrent);
+                    }
 				}
 			}
 		}
-	}
-	
-	// edit the current cue with the line
-	if (mCurrentCue) {
-		
-		v = TTValue(mCurrentCue);
-		aTextHandler->setAttributeValue(kTTSym_object, v);
-		aTextHandler->sendMessage(TTSymbol("Read"));
-	}
-	
-	// if it is the last line : bind on the first cue
-	if (aTextHandler->mLastLine) {
-		
-		mCurrent = mOrder[0];
-		if (!mCues->lookup(mCurrent, v)) {
-			mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
-			
-			notifyOrderObservers();
-		}
-		
-		return kTTErrNone;
-	}
+        
+        // edit the current cue with the line
+        if (mCurrentCue) {
+            
+            v = TTValue(mCurrentCue);
+            aTextHandler->setAttributeValue(kTTSym_object, v);
+            aTextHandler->sendMessage(TTSymbol("Read"));
+        }
+        
+        // if it is the last line : bind on the first cue
+        if (aTextHandler->mLastLine) {
+            
+            if (mOrder.size()) {
+                
+                mCurrent = mOrder[0];
+                if (!mCues->lookup(mCurrent, v))
+                    mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
+            }
+            
+            notifyOrderObservers();
+        }
+        
+        return kTTErrNone;
+    }
 	
 	return kTTErrGeneric;
 }
