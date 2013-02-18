@@ -74,11 +74,6 @@ private:
 		name/id : create a new cue.
 		nothing : store into the current cue */
 	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
-    
-    /** Prepare a cue to increase any operation (recall, interpolation, mix) :
-     name/id : prepare the cue.
-     nothing : prepare the current cue */
-    TTErr   Prepare(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Recall a cue : 
 		name/id : recall the cue.
