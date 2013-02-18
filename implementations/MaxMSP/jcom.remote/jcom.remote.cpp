@@ -313,7 +313,12 @@ void remote_ui_queuefn(TTPtr self)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
     EXTRA->ui_sending = YES;
+    
 	outlet_anything(x->outlets[set_out], _sym_set, x->argc, x->argv);
+    
+    x->argc = 0;
+    free(x->argv);
+    
     EXTRA->ui_sending = NO;
 }
 
