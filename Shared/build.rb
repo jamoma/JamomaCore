@@ -30,7 +30,7 @@ else
   configuration = "Development"
 end
 
-if win32? || linux?
+if win? || linux?
  	 if(configuration == "Development" || configuration == "Debug" )
     		configuration = "Debug"
   	else
@@ -75,7 +75,7 @@ end
 # Get Revision Info
 ###################################################################
 
-git_desc = `cd ..; git describe --tags --abbrev=5 --long`.split('-')
+git_desc = `git describe --tags --abbrev=5 --long`.split('-')
 git_tag = git_desc[0]
 git_dirty_commits = git_desc[git_desc.size()-2]
 git_rev = git_desc[git_desc.size()-1]
@@ -155,7 +155,7 @@ puts "  rev:           #{revision} #{'   DIRTY REVISION' if git_dirty_commits !=
 puts "  "
 
 
-@log_root = "./logs-#{@projectName}"
+@log_root = "logs-#{@projectName}"
 @svn_root = "../#{@projectName}"
 @svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
 @svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
@@ -256,7 +256,7 @@ if File.directory? "#{@svn_root}/library"
 
   use_make = generate_makefile("#{@svn_root}/library", "Jamoma#{@projectName}", forcedCompiler, "..", @distropath)
 
-  if win32?
+  if win?
   	build_project("#{@svn_root}/library", "Jamoma#{@projectName}.vcproj", configuration, clean, @distropath)
   elsif linux?
   	build_project("#{@svn_root}/library", "Makefile", configuration, clean, "#{@distropath}/core")
@@ -320,23 +320,23 @@ if (@distropath == nil && !linux?) # if a custom distropath is defined, don't bu
   ex_total, ex_count = get_count
   puts ""
 
-  if @projectName == "AudioGraph" && win32?
+  if @projectName == "AudioGraph" && win?
 	puts "Creating jamoma-objectmappings.txt for AudioGraph externals..."
 	create_audiograph_objectmappings("#{libdir}/../../../Builds/MaxMSP")
   end
 
   extension = ".mxo"
-  if win32?
+  if win?
   	extension = ".mxe"
   end
 
   src_folder = "Build_Mac"
-  if win32?
+  if win?
   	src_folder = "MaxMSP/builds"
   end
 
   dst_folder = "mac"
-  if win32?
+  if win?
   	dst_folder = "windows"
   end
 
