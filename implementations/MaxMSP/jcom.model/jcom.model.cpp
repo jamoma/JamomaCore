@@ -175,7 +175,7 @@ void model_subscribe(TTPtr self)
 		x->wrappedObject->setAttributeValue(kTTSym_address, returnedAddress);
 		
 		// if the jcom.model is well subscribed
-		if (aPatcher == x->patcherPtr && x->patcherContext != NULL) {
+		if (aPatcher == x->patcherPtr && x->patcherContext != kTTSymEmpty) {
 			
 			// no internal parameter for component
 			if (!EXTRA->component) {
@@ -407,7 +407,7 @@ void model_share_patcher_info(TTPtr self, TTValuePtr patcherInfo)
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	patcherInfo->clear();
 	
-	if (x->patcherPtr && x->patcherContext && x->patcherClass && x->patcherName) {
+	if (x->patcherPtr && x->patcherContext != kTTSymEmpty && x->patcherClass != kTTSymEmpty && x->patcherName != kTTSymEmpty) {
 		patcherInfo->append((TTPtr)x->patcherPtr);
 		patcherInfo->append(x->patcherContext);
 		patcherInfo->append(x->patcherClass);
@@ -472,7 +472,7 @@ void model_reference(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
 	
-	if (x->patcherContext && x->patcherClass) {
+	if (x->patcherContext != kTTSymEmpty && x->patcherClass != kTTSymEmpty) {
 		
 		SymbolPtr refpagefileName;
 		jamoma_edit_filename(*RefpageFormat, x->patcherClass, &refpagefileName);
