@@ -32,6 +32,62 @@ TTFreeHandFunction::~TTFreeHandFunction()
 
 TTErr TTFreeHandFunction::getCurveList(TTValue& value)
 {
+    TTAudioObjectBasePtr aFunction;
+    TTValue     v, attributeNames;
+    TTSymbol    aName;
+    TTUInt8     i;
+    TTBoolean   firstFunction = YES;
+    
+    mFunctions.begin();
+    
+    // for each point
+    for (mPoints.begin(); mPoints.end(); mPoints.next()) {
+        
+        // append the point coordinate
+        value.append(mPoints.current());
+        
+        // the first function is always an exponential base 1. function
+        if (firstFunction) {
+            
+            value.append(TTSymbol("exponential"));
+            value.append(TTSymbol("base"));
+            value.append(1.);
+            
+            firstFunction = NO;
+            continue;
+        }
+        
+        // append function info
+        if (mFunctions.end()) {
+            
+            aFunction = NULL;
+            aFunction = TTAudioObjectBasePtr((TTPtr)mFunctions.current()[0]);
+            
+            if (aFunction) {
+                
+                // append function name
+                value.append(aFunction->getName());
+                
+                // for all attributes
+                aFunction->getAttributeNames(attributeNames);
+                
+                for (i = 0; i < attributeNames.size(); i++) {
+                    
+                    aName = attributeNames[i];
+                    if (aName == kTTSym_bypass || aName == TTSymbol("mute") || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
+                        continue;										// don't publish these datas
+                    
+                    // append attribute name and value
+                    aFunction->getAttributeValue(aName, v);
+                    value.append(attributeNames[i]);
+                    value.append(v);
+                }
+            }
+            
+            mFunctions.next();
+        }
+    }
+    
     return kTTErrNone;
 }
 
@@ -41,7 +97,7 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
     TTUInt32            i, next, size;
     TTFloat64           x, y;
     TTSymbol            function, parameterName;
-    TTAudioObjectBasePtr    aFunction;
+    TTAudioObjectBasePtr aFunction;
     TTValue             v;
     TTErr               err = kTTErrNone;
     
@@ -57,7 +113,7 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
         for (mFunctions.begin(); mFunctions.end(); mFunctions.next()) {
             
             aFunction = NULL;
-            mFunctions.current().get(0, (TTPtr*)&aFunction);
+            aFunction = TTAudioObjectBasePtr((TTPtr)mFunctions.current()[0]);
             
             if (aFunction)
                 TTObjectBaseRelease(TTObjectBaseHandle(&aFunction));
@@ -67,19 +123,19 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
     }
     
     // set all points and curves
-    size = value.getSize();
+    size = value.size();
     curveId = 0;
-    for (i=0; i<size; i = i + next) {
+    for (i = 0; i < size; i = i + next) {
         
         // check size
         if (i+1 >= size)
             err = kTTErrGeneric;
         
         // append a point : x y
-        if (value.getType(i) == kTypeFloat64 && value.getType(i+1) == kTypeFloat64) {
+        if (value[i].type() == kTypeFloat64 && value[i+1].type() == kTypeFloat64) {
             
-            value.get(i, x);
-            value.get(i+1, y);
+            x = value[i];
+            y = value[i+1];
             
             v = TTValue(x);
             v.append(y);
@@ -98,9 +154,9 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
             TTObjectBaseInstantiate(TTSymbol("linear"), (TTObjectBase**)&aFunction, 1);      // 1 is the numChannel
             
             // set function type
-        } else if (value.getType(i+2) == kTypeSymbol) {
+        } else if (value[i+2].type() == kTypeSymbol) {
             
-            value.get(i+2, function);
+            function = value[i+2];
             TTObjectBaseInstantiate(function, (TTObjectBase**)&aFunction, 1);      // 1 is the numChannel
             
             next = 3;
@@ -110,9 +166,9 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
                 ;
             
             // set function parameter
-            else if (value.getType(i+3) == kTypeSymbol) {
+            else if (value[i+3].type() == kTypeSymbol) {
                 
-                value.get(i+3, parameterName);
+                parameterName = value[i+3];
                 
                 v.copyRange(value, i+4, i+5);
                 aFunction->setAttributeValue(parameterName, v);
@@ -162,7 +218,7 @@ TTErr TTFreeHandFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr
     TTFloat64           lastX, lastY;
     TTFloat64           currentX, currentY;
     TTFloat64           scaledX, scaledY;
-    TTAudioObjectBasePtr    aFunction;
+    TTAudioObjectBasePtr aFunction;
     TTErr               err;
     
     if (locked)
@@ -172,8 +228,8 @@ TTErr TTFreeHandFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr
         return kTTErrNone;
     
     mPoints.begin();
-    mPoints.current().get(0, lastX);
-    mPoints.current().get(1, lastY);
+    lastX = mPoints.current()[0];
+    lastY = mPoints.current()[1];
     
     if (x < lastX) {
         y = lastY;
@@ -185,12 +241,12 @@ TTErr TTFreeHandFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtr
     // select the function to use
     for (mFunctions.begin(); mFunctions.end(); mFunctions.next()) {
         
-        mPoints.current().get(0, currentX);
-        mPoints.current().get(1, currentY);
+        currentX = mPoints.current()[0];
+        currentY = mPoints.current()[1];
         
         if (x < currentX) {
             
-            mFunctions.current().get(0, (TTPtr*)&aFunction);
+            aFunction = TTAudioObjectBasePtr((TTPtr)mFunctions.current()[0]);
             
             // scale x
             scaledX = (x - lastX) / (currentX - lastX);
