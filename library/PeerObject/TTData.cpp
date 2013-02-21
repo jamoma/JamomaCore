@@ -91,6 +91,15 @@ mReturnValueCallback(NULL)
     
     registerMessage(kTTSym_Command, (TTMethod)&TTData::GenericCommand);
 	addMessageProperty(Command, hidden, YES);
+    
+    addMessageWithArguments(RampSet);
+    addMessageProperty(RampSet, hidden, YES);
+    addMessageWithArguments(RampTarget);
+    addMessageProperty(RampTarget, hidden, YES);
+    addMessageWithArguments(RampGo);
+    addMessageProperty(RampGo, hidden, YES);
+    addMessageWithArguments(RampSlide);
+    addMessageProperty(RampSlide, hidden, YES);
 	
 	// needed to be handled by a TTTextHandler
 	addMessageWithArguments(WriteAsText);
@@ -474,6 +483,38 @@ TTErr TTData::setPriority(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTData::RampSet(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (mRamper)
+        return mRamper->sendMessage(TTSymbol("Set"), inputValue, outputValue);
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTData::RampTarget(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (mRamper)
+        return mRamper->sendMessage(TTSymbol("Target"), inputValue, outputValue);
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTData::RampGo(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (mRamper)
+        return mRamper->sendMessage(TTSymbol("Go"), inputValue, outputValue);
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTData::RampSlide(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (mRamper)
+        return mRamper->sendMessage(TTSymbol("Slide"), inputValue, outputValue);
+    
+    return kTTErrGeneric;
+}
+
 TTErr TTData::rampSetup()
 {
     TTValue args;
@@ -716,16 +757,17 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 		aValue = commandValue;
 	
 	// 4. Edit command
-	command->setValue(aValue);
-	
 	if (hasUnit)
 		command->append(kTTSym_unit, unit);
 	
 	if (hasRamp) {
-		time = commandValue[commandSize - 1];
-		command->append(kTTSym_ramp, (int)time);
+        
+        // any other case it is a ramp time
+        time = commandValue[commandSize - 1];
+        command->append(kTTSym_ramp, (int)time);
 	}
 	
+    command->setValue(aValue);
 	command->setSchema(kTTSym_command);
 	
 	return command;

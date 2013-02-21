@@ -634,7 +634,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryPtr command = NULL;
     TTSymbol		unit;
-    TTFloat64		time;
+    TTUInt32        time;
     TTBoolean       isRunning;
     TTValue			c, v, aValue;
     
@@ -667,7 +667,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 TTValue convertedValue;
                 
-                v.get(0, unit);
+                unit = v[0];
                 mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
                 convertUnit(aValue, convertedValue);
                 aValue = convertedValue;
@@ -688,13 +688,13 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
             
             if (!command->lookup(kTTSym_ramp, v)) {
                 
-                v.get(0, time);
+                time = v[0];
                 
                 if (time > 0) {
-                
+                    
                     mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->setAttributeValue(TTSymbol("rampTime"), time);
-                    mRamper->sendMessage(TTSymbol("Go"), aValue, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Go"), (int)time, kTTValNONE);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);

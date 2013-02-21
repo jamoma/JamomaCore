@@ -35,7 +35,9 @@ currentValue(NULL)
     registerAttribute(TTSymbol("running"), kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getRunning);
     
     addMessageWithArguments(Set);
+    addMessageWithArguments(Target);
     addMessageWithArguments(Go);
+    addMessageWithArguments(Slide);
 	addMessage(Stop);
     
 	setAttributeValue(kTTSym_function, TTSymbol("linear"));
@@ -122,16 +124,35 @@ TTErr TTRamp::Set(const TTValue& inputValue, TTValue& outputValue)
 {
     TTUInt32 i;
 	
-    if (mSchedulerUnit) {
-        
+    if (mSchedulerUnit)
         mSchedulerUnit->sendMessage(TTSymbol("Stop"));
     
-        mNumValues = inputValue.size();
+    mNumValues = inputValue.size();
     
-        startValue = new TTFloat64[mNumValues];
+    startValue = new TTFloat64[mNumValues];
+    
+    for (i = 0; i < mNumValues; i++)
+        startValue[i] = TTFloat64(inputValue[i]);
+    
+    return kTTErrNone;
+}
 
-        for (i = 0; i < mNumValues; i++)
-            startValue[i] = TTFloat64(inputValue[i]);
+TTErr TTRamp::Target(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTUInt32 i;
+	
+    if (mSchedulerUnit)
+        mSchedulerUnit->sendMessage(TTSymbol("Stop"));
+    
+    if (mNumValues == inputValue.size()) {
+        
+        currentValue = new TTFloat64[mNumValues];
+        targetValue = new TTFloat64[mNumValues];
+        
+        for (i = 0; i < mNumValues; i++) {
+            currentValue[i] = startValue[i];
+            targetValue[i] = TTFloat64(inputValue[i]);
+        }
         
         return kTTErrNone;
     }
@@ -141,24 +162,30 @@ TTErr TTRamp::Set(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTRamp::Go(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTUInt32 i;
-	
     if (mSchedulerUnit) {
         
-        if (mNumValues == inputValue.size()) {
-            
-            currentValue = new TTFloat64[mNumValues];
-            targetValue = new TTFloat64[mNumValues];
-            
-            for (i = 0; i < mNumValues; i++) {
-                currentValue[i] = startValue[i];
-                targetValue[i] = TTFloat64(inputValue[i]);
-            }
-            
+        if (inputValue.size() == 1) {
+        
+            mRampTime = inputValue[0];
+                    
             return mSchedulerUnit->sendMessage(TTSymbol("Go"), mRampTime, kTTValNONE);
         }
     }
     
+    return kTTErrGeneric;
+}
+
+TTErr TTRamp::Slide(const TTValue& inputValue, TTValue& outputValue)
+{    
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeFloat64) {
+            
+            TTRampSchedulerCallback(TTPtr(this), inputValue[0]);
+            return kTTErrNone;
+        }
+    }
+
     return kTTErrGeneric;
 }
 
@@ -191,8 +218,6 @@ TTErr TTRamp::getFunctionParameterValue(TTSymbol ParameterName, TTValue& value)
 	mFunctionUnit->getAttributeValue(ParameterName, value);
 	return kTTErrNone;
 }
-
-
 
 void TTRampSchedulerCallback(TTPtr object, TTFloat64 progression)
 {

@@ -54,7 +54,11 @@ private:
     /** Message */
     TTErr   Set(const TTValue& inputValue, TTValue& outputValue);
     
+    TTErr   Target(const TTValue& inputValue, TTValue& outputValue);
+    
     TTErr   Go(const TTValue& inputValue, TTValue& outputValue);
+    
+    TTErr   Slide(const TTValue& inputValue, TTValue& outputValue);
     
     TTErr   Stop();
 

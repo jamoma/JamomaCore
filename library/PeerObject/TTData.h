@@ -112,6 +112,12 @@ private:
     TTErr       ArrayReset();
     TTErr       StringReset();
     
+    /** Ramper messages */
+    TTErr       RampSet(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       RampTarget(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       RampGo(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       RampSlide(const TTValue& inputValue, TTValue& outputValue);
+    
     /**	Increment mValue attribute (and ramp this incrementation)
      It depends on the command size :
      1		: 1 incrementation step

@@ -1452,9 +1452,9 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 	TTDictionaryPtr line1, line2;
     TTAddress       adrs1, adrs2;
     TTValue			v1, v2, v, newValue;
-	TTSymbol		type;
+	TTSymbol		type, function;
     TTNodePtr       aNode;
-    TTObjectBasePtr anObject;
+    TTObjectBasePtr aData;
 	TTValue			found;
 	TTUInt32		i, s;
     
@@ -1489,36 +1489,60 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
         // bind to the node
 		if (!getDirectoryFrom(adrs1)->getTTNode(adrs1, &aNode)) {
             
-            anObject = aNode->getObject();
-            if (anObject) {
+            aData = aNode->getObject();
+            if (aData) {
                 
-                if (!anObject->getAttributeValue(kTTSym_type, v)) {
+                // check type
+                if (!aData->getAttributeValue(kTTSym_type, v)) {
+                    
                     type = v[0];
                     
                     // get line values
                     line1->getValue(v1);
                     line2->getValue(v2);
                     
-                    if (type == kTTSym_integer) {
-                        newValue = TTValue(TTInt32(v1[0]) * (1. - position) + TTInt32(v2[0]) * position);
+                    // check function
+                    if (!aData->getAttributeValue(kTTSym_rampFunction, v)) {
                         
-                    } else if (type == kTTSym_decimal) {
-                        newValue = TTValue(TTFloat64(v1[0]) * (1. - position) + TTFloat64(v2[0]) * position);
+                        function = v[0];
                         
-                    } else if (type == kTTSym_array) {
-                        s = v1.size();
-                        if (s == v2.size()) {
+                        if (function != kTTSym_none) {
+                    
+                            // set the starting value
+                            aData->sendMessage(kTTSym_RampSet, v1, kTTValNONE);
                             
-                            newValue.resize(s);
-                            for (i = 0; i < s; i++)
-                                newValue[i] = TTFloat64(v1[i]) * (1. - position) + TTFloat64(v2[i]) * position;
+                            // set the target value
+                            aData->sendMessage(kTTSym_RampTarget, v2, kTTValNONE);
+                            
+                            // set interpolate using the ramp function
+                            aData->sendMessage(kTTSym_RampSlide, position, kTTValNONE);
                         }
                         
-                    } else
-                        newValue = position <= 0.5 ? v1 : v2;
-                    
-                    // set the interpolated value
-                    anObject->setAttributeValue(kTTSym_value, newValue);
+                        // process the interpolation our self
+                        else {
+                            
+                            if (type == kTTSym_integer) {
+                                newValue = TTValue(TTInt32(v1[0]) * (1. - position) + TTInt32(v2[0]) * position);
+                                
+                            } else if (type == kTTSym_decimal) {
+                                newValue = TTValue(TTFloat64(v1[0]) * (1. - position) + TTFloat64(v2[0]) * position);
+                                
+                            } else if (type == kTTSym_array) {
+                                s = v1.size();
+                                if (s == v2.size()) {
+                                    
+                                    newValue.resize(s);
+                                    for (i = 0; i < s; i++)
+                                        newValue[i] = TTFloat64(v1[i]) * (1. - position) + TTFloat64(v2[i]) * position;
+                                }
+                                
+                            } else
+                                newValue = position <= 0.5 ? v1 : v2;
+                            
+                            // set the interpolated value
+                            aData->setAttributeValue(kTTSym_value, newValue);
+                        }
+                    }
                 }
             }
         }
