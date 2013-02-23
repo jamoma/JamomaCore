@@ -34,9 +34,13 @@
 	#endif
 // win64 must come before win32
 #elif defined ( _WIN64 )
+#ifndef TT_PLATFORM_WIN
 	#define TT_PLATFORM_WIN
+#endif
 #elif _WIN32
+#ifndef TT_PLATFORM_WIN
 	#define TT_PLATFORM_WIN
+#endif
 #elif __linux
 	#define TT_PLATFORM_LINUX
 #endif
