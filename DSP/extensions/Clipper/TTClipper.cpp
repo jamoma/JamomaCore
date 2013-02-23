@@ -42,8 +42,8 @@ TT_AUDIO_CONSTRUCTOR_EXPORT(Clipper)
 	addAttribute(		LowBound,	kTypeFloat64);
 	addMessageProperty(	LowBound,	description,	TT("Sets the minimum amplitude."));
 	
-	addAttribute(HighBound,	kTypeFloat64);
-	addMessageProperty(LowBound,	description,	TT("Sets the maximum amplitude."));
+	addAttribute(		HighBound,	kTypeFloat64);
+	addMessageProperty(	HighBound,	description,	TT("Sets the maximum amplitude."));
 	
 	setAttributeValue(TT("lowBound"), -1.0);	
 	setAttributeValue(TT("highBound"), 1.0);
