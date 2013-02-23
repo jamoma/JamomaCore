@@ -54,7 +54,7 @@ TTAudioObjectBaseArray::~TTAudioObjectBaseArray()
 
 TTErr TTAudioObjectBaseArray::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	return setAttributeValue("size", maxNumChannels);
+	return setAttributeValue("size", mMaxNumChannels);
 }
 
 

@@ -22,7 +22,7 @@
 
 TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) : 
 	TTObjectBase(arguments), 
-	maxNumChannels(0),
+	mMaxNumChannels(0),
 	attrMute(0), 
 	inputArray(NULL),
 	outputArray(NULL),
@@ -62,10 +62,10 @@ TTAudioObjectBase::~TTAudioObjectBase()
 
 TTErr TTAudioObjectBase::setMaxNumChannels(const TTValue& newValue)
 {
-	if (TTUInt16(newValue) != maxNumChannels) {
-		TTValue	oldMaxNumChannels = maxNumChannels;
+	if (TTUInt16(newValue) != mMaxNumChannels) {
+		TTValue	oldMaxNumChannels = mMaxNumChannels;
 		
-		maxNumChannels = newValue;
+		mMaxNumChannels = newValue;
 		sendMessage("updateMaxNumChannels", oldMaxNumChannels, kTTValNONE);
 	}
 	return kTTErrNone;

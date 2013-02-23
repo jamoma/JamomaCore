@@ -97,7 +97,7 @@ protected:
 	TTUInt32				sr;							///< Current sample rate being used by this object
 	TTFloat64				srInv;						///< 1.0 over the current sample rate (inverse)
 	TTFloat64				srMill;						///< 1/1000 of the current sample rate (samples per millisecond)
-	TTUInt16				maxNumChannels;				///< This is the maximum number of channels that can be guaranteed to work
+	TTUInt16				mMaxNumChannels;			///< This is the maximum number of channels that can be guaranteed to work
 	TTBoolean				unused;						///< Old var that is not used anymore, but we want to keep the struct size the same
 	TTBoolean				attrBypass;					///< Are we bypassing the processMethod?
 	TTBoolean				attrMute;					///< Mute the processMethod.
@@ -161,7 +161,7 @@ public:
 	 */
 	TTErr adaptMaxNumChannels(const TTUInt16 newMaxNumChannels)
 	{
-		if (newMaxNumChannels > maxNumChannels)
+		if (newMaxNumChannels > mMaxNumChannels)
 			return setAttributeValue(kTTSym_maxNumChannels, newMaxNumChannels);
 		else
 			return kTTErrNone;
