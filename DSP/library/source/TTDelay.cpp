@@ -77,7 +77,7 @@ TTErr TTDelay::init(TTUInt64 newDelayMaxInSamples)
 
 TTErr TTDelay::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mBuffers.resize(maxNumChannels);
+	mBuffers.resize(mMaxNumChannels);
 	return init(mDelayMaxInSamples);
 }
 

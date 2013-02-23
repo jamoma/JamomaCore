@@ -130,7 +130,7 @@ TTErr TTAudioSignal::setVector64(const TTValue& v, TTValue&)
 	TTUInt16		newVectorSize;
 	TTPtr			newVector;
 	
-	if (v.getSize() == 3) {
+	if (v.size() == 3) {
 		v.get(0, channel);
 		v.get(1, newVectorSize);
 		v.get(2, &newVector);
@@ -189,7 +189,7 @@ TTErr TTAudioSignal::setVector32(const TTValue& v, TTValue&)
 	TTUInt16		newVectorSize;
 	TTPtr			newVector;
 	
-	if (v.getSize() == 3) {
+	if (v.size() == 3) {
 		v.get(0, channel);
 		v.get(1, newVectorSize);
 		v.get(2, &newVector);
@@ -220,7 +220,7 @@ TTErr TTAudioSignal::getVector64(TTValue&, TTValue& v)
 	TTUInt16		theVectorSize;
 	TTPtr			returnedVector;
 	
-	if (v.getSize() == 3) {
+	if (v.size() == 3) {
 		v.get(0, channel);
 		v.get(1, theVectorSize);
 		v.get(2, &returnedVector);

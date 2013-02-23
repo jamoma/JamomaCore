@@ -289,7 +289,8 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName)
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
 		TTObjectBasePtr obj = NULL;
 		
-		(iter)->get(0, &obj);
+		//(iter)->get(0, &obj);
+		obj = iter->at(0);
 		if (obj && obj->valid)
 			obj->sendMessage(messageName);
 	}
@@ -304,7 +305,8 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName, TTValue&
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
 		TTObjectBasePtr obj = NULL;
 		
-		(iter)->get(0, &obj);
+		//(iter)->get(0, &obj);
+		obj = iter->at(0);
 		if (obj && obj->valid)
 			obj->sendMessage(messageName, aValue, kTTValNONE);
 	}

@@ -244,7 +244,7 @@ TTErr TTAudioObjectBase::calculate(const TTValue& x, TTValue& y)
 		// TODO: there needs to be a way to request a calculation of a list on the object if it defines such a method
 
 		y.clear();
-		size = x.getSize();
+		size = x.size();
 		for (TTUInt32 i=0; i<size; i++) {
 			x.get(i, in);
 			err = (this->*currentCalculateMethod)(in, out, NULL);
