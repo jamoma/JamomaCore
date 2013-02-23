@@ -393,7 +393,7 @@ std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, trait
 	
 /** Provide overload of std::hash so that TTString can be used the same as std::string for std::map et al. */
 
-#ifdef __clang__
+#if defined( __clang__ ) || defined( TT_PLATFORM_WIN )
 
 // GCC and Clang provide different (cryptic) ways of adding custom types to the c++ hashing classes
 // The GCC version is based on code from StackOverflow
@@ -408,7 +408,7 @@ namespace std
 	struct hash<TTString> //: public __hash_node<size_t, TTString>
 	{
 		public:
-#ifdef TT_PLATFORM_LINUX
+#if defined( TT_PLATFORM_LINUX ) || defined ( TT_PLATFORM_WIN )
 		size_t operator()(const TTString& __val) const
 {
 TTLogError("uh oh -- this functions doesn't work compiled with clang on ubuntu!");
