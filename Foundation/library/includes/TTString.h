@@ -31,7 +31,7 @@
 
 	@seealso TTSymbol
 */
-class TTFOUNDATION_EXPORT TTString : public std::vector<char> {	
+class TTString : public std::vector<char> {	
 	
 public:
 	
@@ -342,8 +342,11 @@ public:
 	}
 	
 	
+	// NOTE: we do not export TTString because it is defined in a header as a subclass of a stl template
+	// but we do want to export this method, which is not defined inline so that we don't pick up a direct
+	// dependency on Mersenne Twister
 	/** Replace contents with a pseudo-random string. */
-	void random();
+	void TTFOUNDATION_EXPORT random();
 	
 	
 	
