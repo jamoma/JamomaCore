@@ -364,7 +364,7 @@ public:
 	{
 		char * pEnd;
 		
-		convertedFloat = strtof(c_str(), &pEnd);
+		convertedFloat = strtod(c_str(), &pEnd);
 		return *pEnd == 0;
 	}
 
