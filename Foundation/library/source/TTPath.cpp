@@ -24,7 +24,7 @@ TTPath::TTPath()
 
 TTPath::TTPath(const TTString& aFolderPath)
 {
-    mPathObject = (TTPtr) new path(aFolderPath);
+    mPathObject = (TTPtr) new path(aFolderPath.c_str());
 }
 
 TTPath::TTPath(TTPtr aBoostPathObject)
