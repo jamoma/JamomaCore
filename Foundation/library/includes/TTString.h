@@ -393,7 +393,7 @@ std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, trait
 	
 /** Provide overload of std::hash so that TTString can be used the same as std::string for std::map et al. */
 
-#if defined( __clang__ ) || defined( TT_PLATFORM_WIN )
+#if defined( __clang__ )
 
 // GCC and Clang provide different (cryptic) ways of adding custom types to the c++ hashing classes
 // The GCC version is based on code from StackOverflow
@@ -408,7 +408,7 @@ namespace std
 	struct hash<TTString> //: public __hash_node<size_t, TTString>
 	{
 		public:
-#if defined( TT_PLATFORM_LINUX ) || defined ( TT_PLATFORM_WIN )
+#if defined( TT_PLATFORM_LINUX )
 		size_t operator()(const TTString& __val) const
 {
 TTLogError("uh oh -- this functions doesn't work compiled with clang on ubuntu!");
@@ -420,6 +420,25 @@ TTLogError("uh oh -- this functions doesn't work compiled with clang on ubuntu!"
 		}
 #endif
 	};
+}
+
+#elif defined( TT_PLATFORM_WIN )
+namespace std 
+{
+//    namespace tr1 
+//    { 
+        template <> 
+        struct hash<TTString> : public unary_function<TTString, size_t>
+        { 
+			public:
+				size_t operator()(const TTString& self) const
+				{
+					size_t hashkey = _Hash_seq((const unsigned char*)self.data(), self.size()); //std::hash(self.data(), self.size());
+					//cout << "HASH: " << self.data() << " with size: " << self.size() << " = " << hashkey << endl;
+					return hashkey;
+				}
+			};
+//    } 
 }
 
 #else // gcc 4.7

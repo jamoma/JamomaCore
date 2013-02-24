@@ -18,6 +18,7 @@
 #define __TT_VALUE_H__
 
 #include "TTElement.h"
+#include <functional>
 
 
 /**	The TTValue class represents a composite value that can be passed around to methods in Jamoma.
