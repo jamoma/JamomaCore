@@ -292,28 +292,56 @@ else
   def build_vs_project(projectdir, projectname, configuration, clean)
     out = ""
     err = ""
-
+    success = 0
+    
  #`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
 #    Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
-    Open3.popen3("msbuild.exe #{"/target:rebuild" if clean == true} /p:Platform=Win32 \"#{projectname}\"") do |stdin, stdout, stderr|
+    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Platform=Win32 \"#{projectname}\""
+    #puts "#{buildstr}"
+
+    Open3.popen3(buildstr) do |stdin, stdout, stderr|
       out = stdout.read
       err = stderr.read
     end
 
-    if /(0 error|up\-to\-date|0 erreur)/.match(out)
+    if /(0 error|up\-to\-date|0 erreur)|Build succeeded\./.match(out)
       @cur_count+=1
       projectname = "#{projectname}".ljust(27)
-      puts "#{projectname} BUILD SUCCEEDED"
+      puts "#{projectname} BUILD SUCCEEDED (Win32)"
       log_build(out)
-      return 1
+      success = 1
     else
       @fail_array.push("#{projectdir}/#{projectname}")
       projectname = "#{projectname} ".ljust(27, '*')
-      puts "#{projectname} BUILD FAILED **************************************"
+      puts "#{projectname} BUILD FAILED (Win32) **************************************"
       log_error(out)
       log_error(err)
     end
-    return 0
+    
+    
+    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Platform=x64 \"#{projectname}\""
+    #puts "#{buildstr}"
+    Open3.popen3(buildstr) do |stdin, stdout, stderr|
+      out = stdout.read
+      err = stderr.read
+    end
+
+    if /(0 error|up\-to\-date|0 erreur)|Build succeeded\./.match(out)
+      @cur_count+=1
+      projectname = "#{projectname}".ljust(27)
+      puts "#{projectname} BUILD SUCCEEDED (x64)"
+      log_build(out)
+      success = 1
+    else
+      @fail_array.push("#{projectdir}/#{projectname}")
+      projectname = "#{projectname} ".ljust(27, '*')
+      puts "#{projectname} BUILD FAILED (x64) **************************************"
+      log_error(out)
+      log_error(err)
+    end
+    
+    
+    return success
   end
 
 
@@ -352,6 +380,127 @@ else
       puts"File Does not exist: #{filedir}/#{filename}"
     end
   end
+
+
+
+
+
+  def generate_vcxproj_template
+    
+    vcxproj = Document.new '<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D7D2B050-0FAC-4326-89AD-C82254541416}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|Win32\'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|Win32\'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|x64\'" Label="Configuration">
+     <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|x64\'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+
+  <ImportGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|Win32\'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(\'$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props\')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|Win32\'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(\'$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props\')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+   </ImportGroup>
+  <ImportGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|x64\'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(\'$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props\')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|x64\'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(\'$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props\')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+
+  <PropertyGroup Label="UserMacros" />
+  
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.51106.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|Win32\'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|x64\'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetExt>.x64.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|Win32\'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|x64\'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.x64.dll</TargetExt>
+  </PropertyGroup>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
+'
+    vcxproj
+  end
+
+
 
 
   # CREATE A MAKEFILE FROM A YAML PROJECT DEFINITION
@@ -424,54 +573,24 @@ else
 
       # TODO: we also will want a STATIC option for e.g. iOS builds
       if win?
-        vcproj_root = Element.new "VisualStudioProject"
-        vcproj_root.attributes["ProjectType"]             = "Visual C++"
-      	vcproj_root.attributes["Version"]                 = "9.00"
-      	vcproj_root.attributes["Name"]                    = "#{projectname}"
-      	vcproj_root.attributes["ProjectGUID"]             ="{C73B580F-BC81-490A-A54C-C851BF03BE3C}"
-      	vcproj_root.attributes["RootNamespace"]           ="JamomaExtension"
-      	vcproj_root.attributes["Keyword"]                 = "Win32Proj"
-      	vcproj_root.attributes["TargetFrameworkVersion"]  = "131072"
-
-        vcproj = Document.new
-        vcproj.add_element(vcproj_root)
-
-        vcproj_platwin32 = Element.new "Platform"
-        vcproj_platwin32.attributes["Name"] = "Win32"
-        vcproj_platforms = Element.new "Platforms"
-        vcproj_platforms.add_element(vcproj_platwin32)
-        vcproj_root.add_element(vcproj_platforms)
-
-        vcproj_debug = Element.new "Configuration"
-      	vcproj_debug.attributes["Name"]                   = "Debug|Win32"
-      	vcproj_debug.attributes["OutputDirectory"]        = "..\\builds\\"
-      	vcproj_debug.attributes["IntermediateDirectory"]  = "Debug"
-      	vcproj_debug.attributes["ConfigurationType"]      = "2"
-
-        vcproj_release = Element.new "Configuration"
-      	vcproj_release.attributes["Name"]                   = "Release|Win32"
-      	vcproj_release.attributes["OutputDirectory"]        = "..\\builds\\"
-      	vcproj_release.attributes["IntermediateDirectory"]  = "Release"
-      	vcproj_release.attributes["ConfigurationType"]      = "2"
-
-      	# Run the Script:
-      	# IF NOT EXIST "$(CommonProgramFiles)\Jamoma\Extensions" mkdir "$(CommonProgramFiles)\Jamoma\Extensions"
-  		  # copy $(OutDir)\$(TargetFileName) "$(CommonProgramFiles)\Jamoma\Extensions"
-  		  # copy $(OutDir)\$(TargetFileName) "$(ProjectDir)..\..\..\..\Builds"
-
-      	vcproj_tool = Element.new "Tool"
-      	vcproj_tool.attributes["Name"] = "VCCustomBuildTool"
-      	vcproj_tool.attributes["CommandLine"] = "IF NOT EXIST \"$(CommonProgramFiles)\\Jamoma\\Extensions\" mkdir \"$(CommonProgramFiles)\\Jamoma\\Extensions\"\r\ncopy $(OutDir)\\$(TargetFileName) \"$(CommonProgramFiles)\\Jamoma\\Extensions\"\r\ncopy $(OutDir)\\$(TargetFileName) \"$(ProjectDir)..\\..\\..\\..\\Builds\"\r\n"
-      	vcproj_tool.attributes["Outputs"] = "foo"
-     	  vcproj_debug.add_element(vcproj_tool)
-
-     	  # Even though the Tool definition is identical, it seems like adding it as an element to the debug element "eats" the element
-     	  # So we need to make a new copy from scratch...
-      	vcproj_tool = Element.new "Tool"
-      	vcproj_tool.attributes["Name"] = "VCCustomBuildTool"
-      	vcproj_tool.attributes["CommandLine"] = "IF NOT EXIST \"$(CommonProgramFiles)\\Jamoma\\Extensions\" mkdir \"$(CommonProgramFiles)\\Jamoma\\Extensions\"\r\ncopy $(OutDir)\\$(TargetFileName) \"$(CommonProgramFiles)\\Jamoma\\Extensions\"\r\ncopy $(OutDir)\\$(TargetFileName) \"$(ProjectDir)..\\..\\..\\..\\Builds\"\r\n"
-      	vcproj_tool.attributes["Outputs"] = "foo"
-  		  vcproj_release.add_element(vcproj_tool)
+        vcproj = generate_vcxproj_template
+        vcproj_root = vcproj.root
+        
+        vcproj_debug32 = Element.new "ItemDefinitionGroup"
+        vcproj_debug32.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Debug|Win32'"
+        vcproj_root.add_element(vcproj_debug32)
+        
+        vcproj_release32 = Element.new "ItemDefinitionGroup"
+        vcproj_release32.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Release|Win32'"
+        vcproj_root.add_element(vcproj_release32)
+        
+        vcproj_debug64 = Element.new "ItemDefinitionGroup"
+        vcproj_debug64.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Debug|x64'"
+        vcproj_root.add_element(vcproj_debug64)
+        
+        vcproj_release64 = Element.new "ItemDefinitionGroup"
+        vcproj_release64.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Release|x64'"
+        vcproj_root.add_element(vcproj_release64)
       else
         makefile = File.new("#{projectdir}/Makefile", "w")
         makefile.write("# Jamoma Makefile, generated by the Jamoma build system for the platform on which the build was run.\n")
@@ -551,7 +670,7 @@ else
       end
 
       if win?
-        vcproj_files = Element.new "Files"
+        vcproj_files = Element.new "ItemGroup"
         sources.each do |source|
           source = source.to_s
   	      next if source =~ /mac /
@@ -559,8 +678,8 @@ else
 
           source_formatted_for_windows = source
           source_formatted_for_windows.gsub!(/(\/)/,'\\')
-          vcproj_file = Element.new "File"
-          vcproj_file.attributes["RelativePath"] = "#{source_formatted_for_windows}"
+          vcproj_file = Element.new "ClCompile"
+          vcproj_file.attributes["Include"] = "#{source_formatted_for_windows}"
           vcproj_files.add_element(vcproj_file)
         end
       else
@@ -576,10 +695,10 @@ else
           end
 
           if (include_file == "C74-INCLUDES")
-						if max
-	            include_file = "#{path_to_moduleroot}/../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/jit-includes"
-						else
-	            include_file = "#{path_to_moduleroot}/../../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes"
+            if max
+              include_file = "#{path_to_moduleroot}/../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/jit-includes"
+            else
+              include_file = "#{path_to_moduleroot}/../../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes"
             end
           end
 
@@ -609,35 +728,220 @@ else
           end
         end
 
-       	vcproj_tool = Element.new "Tool"
-       	vcproj_tool.attributes["Name"] = "VCCLCompilerTool"
-       	vcproj_tool.attributes["Optimization"] = "0"
-        vcproj_tool.attributes["AdditionalIncludeDirectories"] = "#{concatenated_includes}"
-       	vcproj_tool.attributes["PreprocessorDefinitions"] = "WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
-       	vcproj_tool.attributes["MinimalRebuild"] = "true"
-       	vcproj_tool.attributes["BasicRuntimeChecks"] = "3"
-       	vcproj_tool.attributes["RuntimeLibrary"] = "1"
-       	vcproj_tool.attributes["StructMemberAlignment"] = "2"
-       	vcproj_tool.attributes["UsePrecompiledHeader"] = "0"
-       	vcproj_tool.attributes["WarningLevel"] = "3"
-       	vcproj_tool.attributes["Detect64BitPortabilityProblems"] = "false"
-       	vcproj_tool.attributes["DebugInformationFormat"] = "4"
-      	vcproj_debug.add_element(vcproj_tool)
+        vcproj_debug32_compiler = Element.new "ClCompile"
+        vcproj_debug32_compiler.add_element Element.new "Optimization"
+        vcproj_debug32_compiler.elements["Optimization"].text = "Disabled"
+        vcproj_debug32_compiler.add_element Element.new "MinimalRebuild"
+        vcproj_debug32_compiler.elements["MinimalRebuild"].text = "true"
+        vcproj_debug32_compiler.add_element Element.new "ExceptionHandling"
+        vcproj_debug32_compiler.elements["ExceptionHandling"].text = "Sync"
+        vcproj_debug32_compiler.add_element Element.new "BasicRuntimeChecks"
+        vcproj_debug32_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+        vcproj_debug32_compiler.add_element Element.new "RuntimeLibrary"
+        vcproj_debug32_compiler.elements["RuntimeLibrary"].text = "MultiThreadedDebug"
+        vcproj_debug32_compiler.add_element Element.new "BufferSecurityCheck"
+        vcproj_debug32_compiler.elements["BufferSecurityCheck"].text = "true"
+        vcproj_debug32_compiler.add_element Element.new "FunctionLevelLinking"
+        vcproj_debug32_compiler.elements["FunctionLevelLinking"].text = "true"
+        vcproj_debug32_compiler.add_element Element.new "PrecompiledHeader"
+        vcproj_debug32_compiler.add_element Element.new "PrecompiledHeaderFile"
+        vcproj_debug32_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
+        vcproj_debug32_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
+        vcproj_debug32_compiler.add_element Element.new "AssemblerListingLocation"
+        vcproj_debug32_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
+        vcproj_debug32_compiler.add_element Element.new "ObjectFileName"
+        vcproj_debug32_compiler.elements["ObjectFileName"].text = "$(IntDir)"
+        vcproj_debug32_compiler.add_element Element.new "ProgramDataBaseFileName"
+        vcproj_debug32_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
+        vcproj_debug32_compiler.add_element Element.new "WarningLevel"
+        vcproj_debug32_compiler.elements["WarningLevel"].text = "Level3"
+        vcproj_debug32_compiler.add_element Element.new "SuppressStartupBanner"
+        vcproj_debug32_compiler.elements["SuppressStartupBanner"].text = "true"
+        vcproj_debug32_compiler.add_element Element.new "DebugInformationFormat"
+        vcproj_debug32_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
+        vcproj_debug32_compiler.add_element Element.new "CompileAs"
+        vcproj_debug32_compiler.elements["CompileAs"].text = "Default"
+        vcproj_debug32_compiler.add_element Element.new "DisableSpecificWarnings"
+        vcproj_debug32_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
 
-       	vcproj_tool = Element.new "Tool"
-       	vcproj_tool.attributes["Name"] = "VCCLCompilerTool"
-       	vcproj_tool.attributes["Optimization"] = "3"
-        vcproj_tool.attributes["AdditionalIncludeDirectories"] = "#{concatenated_includes}"
-      	vcproj_tool.attributes["PreprocessorDefinitions"] = "WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
-      	vcproj_tool.attributes["MinimalRebuild"] = "true"
-      	vcproj_tool.attributes["BasicRuntimeChecks"] = "3"
-      	vcproj_tool.attributes["RuntimeLibrary"] = "1"
-      	vcproj_tool.attributes["StructMemberAlignment"] = "2"
-      	vcproj_tool.attributes["UsePrecompiledHeader"] = "0"
-      	vcproj_tool.attributes["WarningLevel"] = "3"
-      	vcproj_tool.attributes["Detect64BitPortabilityProblems"] = "false"
-      	vcproj_tool.attributes["DebugInformationFormat"] = "4"
-    	  vcproj_release.add_element(vcproj_tool)
+        vcproj_debug32_compiler.add_element Element.new "PreprocessorDefinitions"
+        vcproj_debug32_compiler.elements["PreprocessorDefinitions"].text = "WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
+
+        vcproj_debug32_compiler.add_element Element.new "AdditionalIncludeDirectories"
+        vcproj_debug32_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
+
+        vcproj_debug32.add_element vcproj_debug32_compiler
+
+
+
+        vcproj_release32_compiler = Element.new "ClCompile"
+        vcproj_release32_compiler.add_element Element.new "Optimization"
+        vcproj_release32_compiler.elements["Optimization"].text = "MaxSpeed"
+        
+        vcproj_release32_compiler.add_element Element.new "InlineFunctionExpansion"
+        vcproj_release32_compiler.elements["InlineFunctionExpansion"].text = "AnySuitable"
+        vcproj_release32_compiler.add_element Element.new "IntrinsicFunctions"
+        vcproj_release32_compiler.elements["IntrinsicFunctions"].text = "true"
+        vcproj_release32_compiler.add_element Element.new "FavorSizeOrSpeed"
+        vcproj_release32_compiler.elements["FavorSizeOrSpeed"].text = "Speed"
+        vcproj_release32_compiler.add_element Element.new "OmitFramePointers"
+        vcproj_release32_compiler.elements["OmitFramePointers"].text = "true"
+        vcproj_release32_compiler.add_element Element.new "WholeProgramOptimization"
+        vcproj_release32_compiler.elements["WholeProgramOptimization"].text = "true"
+        vcproj_release32_compiler.add_element Element.new "StringPooling"
+        vcproj_release32_compiler.elements["StringPooling"].text = "true"       
+        vcproj_release32_compiler.add_element Element.new "EnableEnhancedInstructionSet"
+        vcproj_release32_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
+        
+        vcproj_release32_compiler.add_element Element.new "MinimalRebuild"
+        vcproj_release32_compiler.elements["MinimalRebuild"].text = "true"
+        vcproj_release32_compiler.add_element Element.new "ExceptionHandling"
+        vcproj_release32_compiler.elements["ExceptionHandling"].text = "Sync"
+        vcproj_release32_compiler.add_element Element.new "BasicRuntimeChecks"
+        vcproj_release32_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+        vcproj_release32_compiler.add_element Element.new "RuntimeLibrary"
+        vcproj_release32_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
+        vcproj_release32_compiler.add_element Element.new "BufferSecurityCheck"
+        vcproj_release32_compiler.elements["BufferSecurityCheck"].text = "false"
+        vcproj_release32_compiler.add_element Element.new "FunctionLevelLinking"
+        vcproj_release32_compiler.elements["FunctionLevelLinking"].text = "true"
+        vcproj_release32_compiler.add_element Element.new "PrecompiledHeader"
+        vcproj_release32_compiler.add_element Element.new "PrecompiledHeaderFile"
+        vcproj_release32_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
+        vcproj_release32_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
+        vcproj_release32_compiler.add_element Element.new "AssemblerListingLocation"
+        vcproj_release32_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
+        vcproj_release32_compiler.add_element Element.new "ObjectFileName"
+        vcproj_release32_compiler.elements["ObjectFileName"].text = "$(IntDir)"
+        vcproj_release32_compiler.add_element Element.new "ProgramDataBaseFileName"
+        vcproj_release32_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
+        vcproj_release32_compiler.add_element Element.new "WarningLevel"
+        vcproj_release32_compiler.elements["WarningLevel"].text = "Level3"
+        vcproj_release32_compiler.add_element Element.new "SuppressStartupBanner"
+        vcproj_release32_compiler.elements["SuppressStartupBanner"].text = "true"
+        vcproj_release32_compiler.add_element Element.new "DebugInformationFormat"
+        vcproj_release32_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
+        vcproj_release32_compiler.add_element Element.new "CompileAs"
+        vcproj_release32_compiler.elements["CompileAs"].text = "Default"
+        vcproj_release32_compiler.add_element Element.new "DisableSpecificWarnings"
+        vcproj_release32_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
+
+        vcproj_release32_compiler.add_element Element.new "PreprocessorDefinitions"
+        vcproj_release32_compiler.elements["PreprocessorDefinitions"].text = "WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
+
+        vcproj_release32_compiler.add_element Element.new "AdditionalIncludeDirectories"
+        vcproj_release32_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
+
+        vcproj_release32.add_element vcproj_release32_compiler
+
+
+
+        vcproj_debug64_compiler = Element.new "ClCompile"
+        vcproj_debug64_compiler.add_element Element.new "Optimization"
+        vcproj_debug64_compiler.elements["Optimization"].text = "Disabled"
+        vcproj_debug64_compiler.add_element Element.new "MinimalRebuild"
+        vcproj_debug64_compiler.elements["MinimalRebuild"].text = "true"
+        vcproj_debug64_compiler.add_element Element.new "ExceptionHandling"
+        vcproj_debug64_compiler.elements["ExceptionHandling"].text = "Sync"
+        vcproj_debug64_compiler.add_element Element.new "BasicRuntimeChecks"
+        vcproj_debug64_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+        vcproj_debug64_compiler.add_element Element.new "RuntimeLibrary"
+        vcproj_debug64_compiler.elements["RuntimeLibrary"].text = "MultiThreadedDebug"
+        vcproj_debug64_compiler.add_element Element.new "BufferSecurityCheck"
+        vcproj_debug64_compiler.elements["BufferSecurityCheck"].text = "true"
+        vcproj_debug64_compiler.add_element Element.new "FunctionLevelLinking"
+        vcproj_debug64_compiler.elements["FunctionLevelLinking"].text = "true"
+        vcproj_debug64_compiler.add_element Element.new "PrecompiledHeader"
+        vcproj_debug64_compiler.add_element Element.new "PrecompiledHeaderFile"
+        vcproj_debug64_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
+        vcproj_debug64_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
+        vcproj_debug64_compiler.add_element Element.new "AssemblerListingLocation"
+        vcproj_debug64_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
+        vcproj_debug64_compiler.add_element Element.new "ObjectFileName"
+        vcproj_debug64_compiler.elements["ObjectFileName"].text = "$(IntDir)"
+        vcproj_debug64_compiler.add_element Element.new "ProgramDataBaseFileName"
+        vcproj_debug64_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
+        vcproj_debug64_compiler.add_element Element.new "WarningLevel"
+        vcproj_debug64_compiler.elements["WarningLevel"].text = "Level3"
+        vcproj_debug64_compiler.add_element Element.new "SuppressStartupBanner"
+        vcproj_debug64_compiler.elements["SuppressStartupBanner"].text = "true"
+        vcproj_debug64_compiler.add_element Element.new "DebugInformationFormat"
+        vcproj_debug64_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
+        vcproj_debug64_compiler.add_element Element.new "CompileAs"
+        vcproj_debug64_compiler.elements["CompileAs"].text = "Default"
+        vcproj_debug64_compiler.add_element Element.new "DisableSpecificWarnings"
+        vcproj_debug64_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
+
+        vcproj_debug64_compiler.add_element Element.new "PreprocessorDefinitions"
+        vcproj_debug64_compiler.elements["PreprocessorDefinitions"].text = "WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
+
+        vcproj_debug64_compiler.add_element Element.new "AdditionalIncludeDirectories"
+        vcproj_debug64_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
+
+        vcproj_debug64.add_element vcproj_debug64_compiler
+
+
+
+        vcproj_release64_compiler = Element.new "ClCompile"
+        vcproj_release64_compiler.add_element Element.new "Optimization"
+        vcproj_release64_compiler.elements["Optimization"].text = "MaxSpeed"
+        
+        vcproj_release64_compiler.add_element Element.new "InlineFunctionExpansion"
+        vcproj_release64_compiler.elements["InlineFunctionExpansion"].text = "AnySuitable"
+        vcproj_release64_compiler.add_element Element.new "IntrinsicFunctions"
+        vcproj_release64_compiler.elements["IntrinsicFunctions"].text = "true"
+        vcproj_release64_compiler.add_element Element.new "FavorSizeOrSpeed"
+        vcproj_release64_compiler.elements["FavorSizeOrSpeed"].text = "Speed"
+        vcproj_release64_compiler.add_element Element.new "OmitFramePointers"
+        vcproj_release64_compiler.elements["OmitFramePointers"].text = "true"
+        vcproj_release64_compiler.add_element Element.new "WholeProgramOptimization"
+        vcproj_release64_compiler.elements["WholeProgramOptimization"].text = "true"
+        vcproj_release32_compiler.add_element Element.new "EnableEnhancedInstructionSet"
+        vcproj_release32_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
+        
+        vcproj_release64_compiler.add_element Element.new "MinimalRebuild"
+        vcproj_release64_compiler.elements["MinimalRebuild"].text = "true"
+        vcproj_release64_compiler.add_element Element.new "ExceptionHandling"
+        vcproj_release64_compiler.elements["ExceptionHandling"].text = "Sync"
+        vcproj_release64_compiler.add_element Element.new "BasicRuntimeChecks"
+        vcproj_release64_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+        vcproj_release64_compiler.add_element Element.new "RuntimeLibrary"
+        vcproj_release64_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
+        vcproj_release64_compiler.add_element Element.new "BufferSecurityCheck"
+        vcproj_release64_compiler.elements["BufferSecurityCheck"].text = "false"
+        vcproj_release64_compiler.add_element Element.new "FunctionLevelLinking"
+        vcproj_release64_compiler.elements["FunctionLevelLinking"].text = "true"
+        vcproj_release64_compiler.add_element Element.new "PrecompiledHeader"
+        vcproj_release64_compiler.add_element Element.new "PrecompiledHeaderFile"
+        vcproj_release64_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
+        vcproj_release64_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
+        vcproj_release64_compiler.add_element Element.new "AssemblerListingLocation"
+        vcproj_release64_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
+        vcproj_release64_compiler.add_element Element.new "ObjectFileName"
+        vcproj_release64_compiler.elements["ObjectFileName"].text = "$(IntDir)"
+        vcproj_release64_compiler.add_element Element.new "ProgramDataBaseFileName"
+        vcproj_release64_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
+        vcproj_release64_compiler.add_element Element.new "WarningLevel"
+        vcproj_release64_compiler.elements["WarningLevel"].text = "Level3"
+        vcproj_release64_compiler.add_element Element.new "SuppressStartupBanner"
+        vcproj_release64_compiler.elements["SuppressStartupBanner"].text = "true"
+        vcproj_release64_compiler.add_element Element.new "DebugInformationFormat"
+        vcproj_release64_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
+        vcproj_release64_compiler.add_element Element.new "CompileAs"
+        vcproj_release64_compiler.elements["CompileAs"].text = "Default"
+        vcproj_release64_compiler.add_element Element.new "DisableSpecificWarnings"
+        vcproj_release64_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
+
+        vcproj_release64_compiler.add_element Element.new "PreprocessorDefinitions"
+        vcproj_release64_compiler.elements["PreprocessorDefinitions"].text = "WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
+
+        vcproj_release64_compiler.add_element Element.new "AdditionalIncludeDirectories"
+        vcproj_release64_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
+
+        vcproj_release64.add_element vcproj_release64_compiler
+
+
+
       else
 
         makefile.write("#########################################\n\n")
@@ -861,41 +1165,161 @@ else
         end
         end
 
-       	vcproj_tool = Element.new "Tool"
-       	vcproj_tool.attributes["Name"] = "VCLinkerTool"
-       	vcproj_tool.attributes["AdditionalDependencies"] = "#{concatenated_libs_debug}"
-        if project_type == "library"
-          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).dll"
-        else
-          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).ttdll"
-        end
-       	vcproj_tool.attributes["LinkIncremental"] = "2"
-       	vcproj_tool.attributes["AdditionalLibraryDirectories"] = "#{concatenated_lib_dirs_debug}"
-       	vcproj_tool.attributes["GenerateManifest"] = "false"
-       	vcproj_tool.attributes["ModuleDefinitionFile"] = ""
-       	vcproj_tool.attributes["GenerateDebugInformation"] = "true"
-       	vcproj_tool.attributes["SubSystem"] = "2"
-       	vcproj_tool.attributes["TargetMachine"] = "1"
-      	vcproj_debug.add_element(vcproj_tool)
-
-       	vcproj_tool = Element.new "Tool"
-       	vcproj_tool.attributes["Name"] = "VCLinkerTool"
-       	vcproj_tool.attributes["AdditionalDependencies"] = "#{concatenated_libs_release}"
-        if project_type == "library"
-          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).dll"
-        else
-          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).ttdll"
-        end
-       	vcproj_tool.attributes["LinkIncremental"] = "1"
-       	vcproj_tool.attributes["AdditionalLibraryDirectories"] = "#{concatenated_lib_dirs_release}"
-       	vcproj_tool.attributes["GenerateManifest"] = "false"
-       	vcproj_tool.attributes["ModuleDefinitionFile"] = ""
-       	vcproj_tool.attributes["GenerateDebugInformation"] = "true"
-       	vcproj_tool.attributes["SubSystem"] = "2"
-       	vcproj_tool.attributes["TargetMachine"] = "1"
-  			vcproj_tool.attributes["OptimizeReferences"] = "2"
-  			vcproj_tool.attributes["EnableCOMDATFolding"] = "2"
-      	vcproj_release.add_element(vcproj_tool)
+        vcproj_debug32_linker = Element.new "Link"
+        vcproj_debug32_linker.add_element Element.new "OutputFile"
+        vcproj_debug32_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName).dll"
+        vcproj_debug32_linker.add_element Element.new "SuppressStartupBanner"
+        vcproj_debug32_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_debug32_linker.add_element Element.new "IgnoreAllDefaultLibraries"
+        vcproj_debug32_linker.elements["IgnoreAllDefaultLibraries"].text = "false"
+        vcproj_debug32_linker.add_element Element.new "IgnoreSpecificDefaultLibraries"
+        vcproj_debug32_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-sgd-1_51.lib;libboost_system-vc110-mt-sgd-1_51.lib;libboost_regex-vc110-mt-sgd-1_51.lib"
+        vcproj_debug32_linker.add_element Element.new "ModuleDefinitionFile"
+        vcproj_debug32_linker.add_element Element.new "GenerateDebugInformation"
+        vcproj_debug32_linker.elements["GenerateDebugInformation"].text = "true"
+        vcproj_debug32_linker.add_element Element.new "ProgramDatabaseFile"
+        vcproj_debug32_linker.elements["ProgramDatabaseFile"].text = "$(IntDir)$(ProjectName).pdb"
+        vcproj_debug32_linker.add_element Element.new "MapFileName"
+        vcproj_debug32_linker.elements["MapFileName"].text = "$(ProjectName).map"
+        vcproj_debug32_linker.add_element Element.new "SubSystem"
+        vcproj_debug32_linker.elements["SubSystem"].text = "Windows"
+        vcproj_debug32_linker.add_element Element.new "RandomizedBaseAddress"
+        vcproj_debug32_linker.elements["RandomizedBaseAddress"].text = "false"
+        vcproj_debug32_linker.add_element Element.new "DataExecutionPrevention"
+        vcproj_debug32_linker.add_element Element.new "ImportLibrary"
+        vcproj_debug32_linker.elements["ImportLibrary"].text = "$(IntDir)$(ProjectName).lib"
+        vcproj_debug32_linker.add_element Element.new "TargetMachine"
+        vcproj_debug32_linker.elements["TargetMachine"].text = "MachineX86"
+        vcproj_debug32_linker.add_element Element.new "SuppressStartupBanner"
+        vcproj_debug32_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_debug32.add_element vcproj_debug32_linker
+  
+        vcproj_release32_linker = Element.new "Link"
+        vcproj_release32_linker.add_element Element.new "OutputFile"
+        vcproj_release32_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName).dll"
+        vcproj_release32_linker.add_element Element.new "SuppressStartupBanner"
+        vcproj_release32_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_release32_linker.add_element Element.new "IgnoreAllDefaultLibraries"
+        vcproj_release32_linker.elements["IgnoreAllDefaultLibraries"].text = "false"
+        vcproj_release32_linker.add_element Element.new "IgnoreSpecificDefaultLibraries"
+        vcproj_release32_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-sgd-1_51.lib;libboost_system-vc110-mt-sgd-1_51.lib;libboost_regex-vc110-mt-sgd-1_51.lib"
+        vcproj_release32_linker.add_element Element.new "ModuleDefinitionFile"
+        vcproj_release32_linker.add_element Element.new "GenerateDebugInformation"
+        vcproj_release32_linker.elements["GenerateDebugInformation"].text = "true"
+        vcproj_release32_linker.add_element Element.new "ProgramDatabaseFile"
+        vcproj_release32_linker.elements["ProgramDatabaseFile"].text = "$(IntDir)$(ProjectName).pdb"
+        vcproj_release32_linker.add_element Element.new "MapFileName"
+        vcproj_release32_linker.elements["MapFileName"].text = "$(ProjectName).map"
+        vcproj_release32_linker.add_element Element.new "SubSystem"
+        vcproj_release32_linker.elements["SubSystem"].text = "Windows"
+        vcproj_release32_linker.add_element Element.new "RandomizedBaseAddress"
+        vcproj_release32_linker.elements["RandomizedBaseAddress"].text = "false"
+        vcproj_release32_linker.add_element Element.new "DataExecutionPrevention"
+        vcproj_release32_linker.add_element Element.new "ImportLibrary"
+        vcproj_release32_linker.elements["ImportLibrary"].text = "$(IntDir)$(ProjectName).lib"
+        vcproj_release32_linker.add_element Element.new "TargetMachine"
+        vcproj_release32_linker.elements["TargetMachine"].text = "MachineX86"
+        vcproj_release32_linker.add_element Element.new "SuppressStartupBanner"
+        vcproj_release32_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_release32_linker.add_element Element.new "OptimizeReferences"
+        vcproj_release32_linker.elements["OptimizeReferences"].text = "true"
+        vcproj_release32.add_element vcproj_release32_linker
+  
+        vcproj_debug64_linker = Element.new "Link"
+        vcproj_debug64_linker.add_element Element.new "OutputFile"
+        vcproj_debug64_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName).dll"
+        vcproj_debug64_linker.add_element Element.new "SuppressStartupBanner"
+        vcproj_debug64_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_debug64_linker.add_element Element.new "IgnoreAllDefaultLibraries"
+        vcproj_debug64_linker.elements["IgnoreAllDefaultLibraries"].text = "false"
+        vcproj_debug64_linker.add_element Element.new "IgnoreSpecificDefaultLibraries"
+        vcproj_debug64_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-sgd-1_51.lib;libboost_system-vc110-mt-sgd-1_51.lib;libboost_regex-vc110-mt-sgd-1_51.lib"
+        vcproj_debug64_linker.add_element Element.new "ModuleDefinitionFile"
+        vcproj_debug64_linker.add_element Element.new "GenerateDebugInformation"
+        vcproj_debug64_linker.elements["GenerateDebugInformation"].text = "true"
+        vcproj_debug64_linker.add_element Element.new "ProgramDatabaseFile"
+        vcproj_debug64_linker.elements["ProgramDatabaseFile"].text = "$(IntDir)$(ProjectName).pdb"
+        vcproj_debug64_linker.add_element Element.new "MapFileName"
+        vcproj_debug64_linker.elements["MapFileName"].text = "$(ProjectName).map"
+        vcproj_debug64_linker.add_element Element.new "SubSystem"
+        vcproj_debug64_linker.elements["SubSystem"].text = "Windows"
+        vcproj_debug64_linker.add_element Element.new "RandomizedBaseAddress"
+        vcproj_debug64_linker.elements["RandomizedBaseAddress"].text = "false"
+        vcproj_debug64_linker.add_element Element.new "DataExecutionPrevention"
+        vcproj_debug64_linker.add_element Element.new "ImportLibrary"
+        vcproj_debug64_linker.elements["ImportLibrary"].text = "$(IntDir)$(ProjectName).lib"
+        vcproj_debug64_linker.add_element Element.new "TargetMachine"
+        vcproj_debug64_linker.elements["TargetMachine"].text = "MachineX64"
+        vcproj_debug64_linker.add_element Element.new "SuppressStartupBanner"
+        vcproj_debug64_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_debug64.add_element vcproj_debug64_linker
+  
+        vcproj_release64_linker = Element.new "Link"
+        vcproj_release64_linker.add_element Element.new "OutputFile"
+        vcproj_release64_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName).dll"
+        vcproj_release64_linker.add_element Element.new "SuppressStartupBanner"
+        vcproj_release64_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_release64_linker.add_element Element.new "IgnoreAllDefaultLibraries"
+        vcproj_release64_linker.elements["IgnoreAllDefaultLibraries"].text = "false"
+        vcproj_release64_linker.add_element Element.new "IgnoreSpecificDefaultLibraries"
+        vcproj_release64_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-sgd-1_51.lib;libboost_system-vc110-mt-sgd-1_51.lib;libboost_regex-vc110-mt-sgd-1_51.lib"
+        vcproj_release64_linker.add_element Element.new "ModuleDefinitionFile"
+        vcproj_release64_linker.add_element Element.new "GenerateDebugInformation"
+        vcproj_release64_linker.elements["GenerateDebugInformation"].text = "true"
+        vcproj_release64_linker.add_element Element.new "ProgramDatabaseFile"
+        vcproj_release64_linker.elements["ProgramDatabaseFile"].text = "$(IntDir)$(ProjectName).pdb"
+        vcproj_release64_linker.add_element Element.new "MapFileName"
+        vcproj_release64_linker.elements["MapFileName"].text = "$(ProjectName).map"
+        vcproj_release64_linker.add_element Element.new "SubSystem"
+        vcproj_release64_linker.elements["SubSystem"].text = "Windows"
+        vcproj_release64_linker.add_element Element.new "RandomizedBaseAddress"
+        vcproj_release64_linker.elements["RandomizedBaseAddress"].text = "false"
+        vcproj_release64_linker.add_element Element.new "DataExecutionPrevention"
+        vcproj_release64_linker.add_element Element.new "ImportLibrary"
+        vcproj_release64_linker.elements["ImportLibrary"].text = "$(IntDir)$(ProjectName).lib"
+        vcproj_release64_linker.add_element Element.new "TargetMachine"
+        vcproj_release64_linker.elements["TargetMachine"].text = "MachineX64"
+        vcproj_release64_linker.add_element Element.new "SuppressStartupBanner"
+        vcproj_release64_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_release64_linker.add_element Element.new "OptimizeReferences"
+        vcproj_release64_linker.elements["OptimizeReferences"].text = "true"
+        vcproj_release64.add_element vcproj_release64_linker
+  
+#       	vcproj_tool = Element.new "Tool"
+#       	vcproj_tool.attributes["Name"] = "VCLinkerTool"
+#       	vcproj_tool.attributes["AdditionalDependencies"] = "#{concatenated_libs_debug}"
+#        if project_type == "library"
+#          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).dll"
+#        else
+#          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).ttdll"
+#        end
+#       	vcproj_tool.attributes["LinkIncremental"] = "2"
+#       	vcproj_tool.attributes["AdditionalLibraryDirectories"] = "#{concatenated_lib_dirs_debug}"
+#       	vcproj_tool.attributes["GenerateManifest"] = "false"
+#       	vcproj_tool.attributes["ModuleDefinitionFile"] = ""
+#       	vcproj_tool.attributes["GenerateDebugInformation"] = "true"
+#       	vcproj_tool.attributes["SubSystem"] = "2"
+#       	vcproj_tool.attributes["TargetMachine"] = "1"
+#      	vcproj_debug.add_element(vcproj_tool)
+#
+#       	vcproj_tool = Element.new "Tool"
+#       	vcproj_tool.attributes["Name"] = "VCLinkerTool"
+#       	vcproj_tool.attributes["AdditionalDependencies"] = "#{concatenated_libs_release}"
+#        if project_type == "library"
+#          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).dll"
+#        else
+#          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).ttdll"
+#        end
+#       	vcproj_tool.attributes["LinkIncremental"] = "1"
+#       	vcproj_tool.attributes["AdditionalLibraryDirectories"] = "#{concatenated_lib_dirs_release}"
+#       	vcproj_tool.attributes["GenerateManifest"] = "false"
+#       	vcproj_tool.attributes["ModuleDefinitionFile"] = ""
+#       	vcproj_tool.attributes["GenerateDebugInformation"] = "true"
+#       	vcproj_tool.attributes["SubSystem"] = "2"
+#       	vcproj_tool.attributes["TargetMachine"] = "1"
+#  			vcproj_tool.attributes["OptimizeReferences"] = "2"
+#  			vcproj_tool.attributes["EnableCOMDATFolding"] = "2"
+#      	vcproj_release.add_element(vcproj_tool)
 
       else
 
@@ -1190,10 +1614,10 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
               if max
               	extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
               	touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
-							else
+              else
               	extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
               	touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
-							end
+              end
               makefile.write("\tmkdir -p #{extension_dest}\n")
               if ($alternate_pkgInfo)
                 makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n")
@@ -1283,27 +1707,13 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
       end # big new if mac? statement
 
       if win?
-  	    vcproj_toolfiles = Element.new("ToolFiles")
-  	    vcproj_root.add_element(vcproj_toolfiles)
-
-        vcproj_configurations = Element.new("Configurations")
-        vcproj_configurations.add_element(vcproj_release)
-        vcproj_configurations.add_element(vcproj_debug)
-        vcproj_root.add_element(vcproj_configurations)
-
-        vcproj_refs = Element.new("References")
-    	  vcproj_root.add_element(vcproj_refs)
-
   	    vcproj_root.add_element(vcproj_files)
-
-        vcproj_globs = Element.new("Globals")
-    	  vcproj_root.add_element(vcproj_globs)
-
 
         # WRITE THE VCPROJ FILE ########################
         #f = File.new(filepath, "w")
-        f = File.new("#{projectdir}/#{projectname}.vcproj", "w")
+        f = File.new("#{projectdir}/#{projectname}.vcxproj", "w")
         formatter = REXML::Formatters::Pretty.new
+        formatter.compact = true # compact is REQUIRED -- the vcxproj is extremely sensitive to having whitespace in values
         s = ""
 
         vcproj << XMLDecl.new("1.0", "UTF-8")
@@ -1318,7 +1728,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
         f.close
         # WRITE THE VCPROJ FILE ########################
 
-        winpath = "#{Dir.pwd}/#{projectdir}/#{projectname}.vcproj"
+        winpath = "#{Dir.pwd}/#{projectdir}/#{projectname}.vcxproj"
   	    #puts "cygwin path: #{winpath}"
   	    #winpath = `cygpath -w #{winpath}`
   	    winpath.gsub!(/(\n)/,'')
@@ -1333,7 +1743,6 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
 
     return makefile_generated
   end
-
 
   def find_and_build_project(projectdir, configuration, clean, forcedCompiler, distropath)
     foldername = projectdir.split("/").last
@@ -1358,7 +1767,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
     end
 
     if win?
-      rgx = /.vcproj$/
+      rgx = /.vcxproj$/
     elsif linux?
       rgx = /Makefile/
     else
