@@ -812,7 +812,7 @@ void ui_return_preview(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		obj->modelOutput = (TTOutputPtr)aNode->getObject();
 	}
 	
-	if (obj->modelOutput->valid) {
+	if (obj->modelOutput) {
 		
 		err = obj->modelOutput->findAttribute(TTSymbol("signal"), &anAttribute);
 		if (!err) {
