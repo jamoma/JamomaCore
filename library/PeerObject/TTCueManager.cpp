@@ -287,7 +287,7 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -422,7 +422,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -472,7 +472,7 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -605,7 +605,7 @@ TTErr TTCueManager::Move(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -674,7 +674,7 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -727,7 +727,7 @@ TTErr TTCueManager::Rename(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -794,7 +794,7 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
 
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;

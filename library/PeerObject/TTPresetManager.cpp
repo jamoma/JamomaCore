@@ -222,7 +222,7 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -272,7 +272,7 @@ TTErr TTPresetManager::Output(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -405,7 +405,7 @@ TTErr TTPresetManager::Move(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -474,7 +474,7 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -527,7 +527,7 @@ TTErr TTPresetManager::Rename(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
@@ -594,7 +594,7 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
             
             mCurrentPosition = inputValue[0];
             
-            if (mCurrentPosition >= 0 && mCurrentPosition < mOrder.size())
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
                 mCurrent = mOrder[mCurrentPosition-1];
             else
                 return kTTErrGeneric;
