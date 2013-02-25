@@ -154,7 +154,7 @@ TTErr TTAverage::test(TTValue& returnedTestInfo)
 	this->process(input, output);
 	
 	
-	TTFloat64 expectedImpulseResponseAbsolute[64] {
+	TTFloat64 expectedImpulseResponseAbsolute[64] = {
 		0.0000000000000000e+00,	// N =  0
 		0.0000000000000000e+00,
 		0.0000000000000000e+00,

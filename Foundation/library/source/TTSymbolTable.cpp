@@ -20,7 +20,7 @@
 
 
 
-#ifdef TT_PLATFORM_WIN
+#if defined( TT_PLATFORM_WIN ) && OLD
     #include <hash_map>
     using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
 
@@ -97,7 +97,7 @@ TTSymbolBase* TTSymbolTable::createEntry(const TTString& aString, TTInt32 newSym
 
 TTSymbolBase* TTSymbolTable::lookup(const char* aString)
 {
-#ifdef TT_PLATFORM_WIN
+#if defined( TT_PLATFORM_WIN ) && OLD
 	TTSymbolTableIter	iter;
 
 	sMutex->lock();
@@ -130,7 +130,7 @@ TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
 //
 //	TTSymbolTable *self = gTTSymbolTable; // can't rely on 'this' in the case where we just created the table!
 //TTSymbolTable *self = &gTTSymbolTable;
-#ifdef TT_PLATFORM_WIN
+#if defined( TT_PLATFORM_WIN ) && OLD
 	return self->lookup(aString.c_str());
 #else
 	TTSymbolTableIter	iter;
@@ -157,7 +157,7 @@ TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
 
 TTSymbolBase* TTSymbolTable::lookup(const int& aNumberToBeConvertedToAString)
 {
-#ifdef TT_PLATFORM_WIN
+#if defined( TT_PLATFORM_WIN ) && OLD
 	char	cString[16];
 
 	snprintf(cString, 16, "%d", aNumberToBeConvertedToAString);

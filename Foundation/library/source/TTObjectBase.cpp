@@ -177,9 +177,12 @@ TTErr TTObjectBase::getAttributeValue(const TTSymbol& name, TTValue& value)
 TTErr TTObjectBase::setAttributeValue(const TTSymbol& name, TTValue& value)
 {
 	TTAttributePtr	attribute = NULL;
-	TTErr			err;
-
-	err = findAttribute(name, &attribute);
+	TTErr			err = findAttribute(name, &attribute);
+	
+	if (value.empty()) {
+		return setAttributeValue(name, attribute->mDefaultValue);
+	}
+	
 	if (!err) {
 		if (attribute->readOnly)
 			err = kTTErrReadOnly;

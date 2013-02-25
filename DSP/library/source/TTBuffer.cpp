@@ -47,9 +47,9 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	TTUInt16	channelCount = 1;
 	TTSymbol	name = TTSymbol::random();
 	
-	if (arguments.getSize() > 0) {
+	if (arguments.size() > 0) {
 		arguments.get(0, channelCount);	// TODO: should we limit range? what should zero mean?
-		if (arguments.getSize() > 1)
+		if (arguments.size() > 1)
 			arguments.get(1, name);
 	}
 	

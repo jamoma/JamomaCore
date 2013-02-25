@@ -352,7 +352,7 @@ TTAddressComparisonFlag TTAddressBase::compare(TTAddressBase* toCompare, TTInt8&
 	}
 	else if (adrs1 == kTTAdrsRoot) {
 	
-		depthDifference = -(adrs2->countSeparator());								// the depth difference is < 0
+		depthDifference = -(TTInt8(adrs2->countSeparator()));								// the depth difference is < 0
 		if (adrs2->getType() == kAddressRelative) 
 			depthDifference--;
 		
@@ -397,7 +397,7 @@ TTAddressComparisonFlag TTAddressBase::compare(TTAddressBase* toCompare, TTInt8&
 			
 			// look at returned error to know if there is a rest
 			if (err1 && !err2) {															// address1 is shorter than address2
-				depthDifference = -(rest2->countSeparator()+1);								// the depth difference is < 0
+				depthDifference = -(TTInt8(rest2->countSeparator())+1);								// the depth difference is < 0
 				return kAddressUpper;
 			}
 			else if (!err1 && err2)	{														// address2 is shorter than address1

@@ -141,7 +141,7 @@ TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 	TTErr			err;
 
 	index.get(i++, sampleIndex);
-	if (index.getSize() > 2)		// TODO: sure would be nice to change the name of this method to "size" or something...
+	if (index.size() > 2)		// TODO: sure would be nice to change the name of this method to "size" or something...
 		index.get(i++, sampleChannel);
 
 	err = peek(sampleIndex, sampleChannel, sampleValue);
@@ -213,7 +213,7 @@ TTErr TTSampleMatrix::setValueAtIndex(const TTValue& index, TTValue& unusedOutpu
 	TTUInt8			i = 0;
 
 	index.get(i++, sampleIndex);
-	if (index.getSize() > 2)
+	if (index.size() > 2)
 		index.get(i++, sampleChannel);
 	index.get(i++, sampleValue);
 
@@ -330,7 +330,7 @@ TTErr TTSampleMatrix::normalize(const TTValue& aValue)
 	TTFloat64			peakValue = 0.0;
 	TTFloat64			scalar;
 	
-	if (aValue.getSize() && TTFloat64(aValue) > 0.0)
+	if (aValue.size() && TTFloat64(aValue) > 0.0)
 		normalizeTo = aValue;
 	
 	for (int k=0; k<m*n; k++) {

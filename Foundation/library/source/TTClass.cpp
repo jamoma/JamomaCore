@@ -42,6 +42,7 @@ TTErr TTClass::createInstance(TTObjectBase** anObject, TTValue& anArgument)
 		*anObject = instantiationMethod(name, anArgument);
 	}
 	catch (...) {
+		TTLogError("Exception thrown trying to create TTClass %s", name.c_str());
 		err = kTTErrAllocFailed;
 	}
 

@@ -51,7 +51,7 @@ TTAllpass1::~TTAllpass1()
 
 // This is called every time that:
 // 1. sr changes
-// 2. maxNumChannels changes
+// 2. mMaxNumChannels changes
 // 3. maxNumSamples change
 TTErr TTAllpass1::init(TTUInt64 newDelayMaxInSamples)
 {
@@ -84,8 +84,8 @@ void TTAllpass1::reset()
 
 TTErr TTAllpass1::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mFeedforward.resize(maxNumChannels);
-	mFeedback.resize(maxNumChannels);
+	mFeedforward.resize(mMaxNumChannels);
+	mFeedback.resize(mMaxNumChannels);
 	return init(mDelayMaxInSamples);
 }
 
@@ -126,7 +126,7 @@ TTErr TTAllpass1::setDelay(const TTValue& newValue)
 	/*
 	delay = TTClip<TTFloat64>(newValue, 0.0, delayMax);
 	delayInSamples = long(delay * (sr / 1000.0));
-	for (TTUInt16 channel=0; channel<maxNumChannels; channel++) {
+	for (TTUInt16 channel=0; channel<mMaxNumChannels; channel++) {
 		ffEndPtr[channel] = feedforward[channel] + delayInSamples;
 		fbEndPtr[channel] = feedback[channel] + delayInSamples;	
 	}

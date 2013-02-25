@@ -158,8 +158,11 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 // FLT_MAX is not defined for the iOS
 #ifndef TT_PLATFORM_IOS
 	TTTestAssertion("TTFloat32: FLT_MAX != inf",
-//					TTTestFloatEquivalence(FLT_MAX, inf, false),
+#ifdef TT_PLATFORM_WIN
+					TTTestFloatEquivalence(FLT_MAX, inf, false),
+#else
 					TTTestFloatEquivalence(std::numeric_limits<float>::max(), inf, false),
+#endif
 					testAssertionCount,
 					errorCount);
 #endif
@@ -358,8 +361,11 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 // DBL_MAX is not defined for the iOS
 #ifndef TT_PLATFORM_IOS
 	TTTestAssertion("TTFloat64: DBL_MAX != inf",
-//					TTTestFloatEquivalence(DBL_MAX, inf, false),
+#ifdef TT_PLATFORM_WIN
+					TTTestFloatEquivalence(DBL_MAX, inf, false),
+#else
 					TTTestFloatEquivalence(std::numeric_limits<double>::max(), inf, false),
+#endif
 					testAssertionCount,
 					errorCount);
 #endif	
@@ -494,11 +500,8 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					v1[1].type() == kTypeSymbol,
 					testAssertionCount,
 					errorCount);
-	
-	// TODO: want to implement this:
-	// TTSymbolRef s = v1[1];
-	TTSymbol s(kTTSymEmpty);
-	v1.get(1, s);
+
+	TTSymbol s = v1[1];
 	TTTestAssertion("second item has correct value, retreiving with get() method",
 					s == "foo",
 					testAssertionCount,
@@ -517,7 +520,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	v1.get(0, s);
+	s = v1[0];
 	TTTestAssertion("first item should be \"value\" symbol", 
 					s == kTTSym_value,
 					testAssertionCount,
@@ -620,7 +623,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	aString = TTString("value");
 	v = aString;
 	v.fromString();
-	v.get(0, aSymbol);
+	aSymbol = v[0];
 	
 	TTTestAssertion("\"value\" string is converted into a TTSymbolPtr kTTSym_value",
 					v[0].type() == kTypeSymbol &&
@@ -1044,49 +1047,47 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	// And a final test on an array
 	TTValue v2;
 	v2.resize(6);
-	v2.set(0, 2.5);
-	v2.set(1, 2);
-	v2.set(2, 3.14);
-	v2.set(3, 4);
-	v2.set(4, 6.28);
-	v2.set(5, 6);
+	v2[0] = 2.5;
+	v2[1] = 2;
+	v2[2] = 3.14;
+	v2[3] = 4;
+	v2[4] = 6.28;
+	v2[5] = 6;
 	
 	v2.clip(3.0, 5.0);
 	
-	TTFloat64 aFloat;
-	TTInt32 anInt;
+	TTFloat64 aFloat = v2[0];
+	TTInt32 anInt = v2[1];
 
-	v2.get(0, aFloat);
 	TTTestAssertion("array double clipped (out of lower bound)",
 					TTTestFloatEquivalence(aFloat, 3.0),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(1, anInt);
 	TTTestAssertion("array integer clipped (out of lower bound)",
 					anInt == 3,
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(2, aFloat);
+	aFloat = v2[2];
 	TTTestAssertion("array double not clipped (within range)",
 					TTTestFloatEquivalence(aFloat, 3.14),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(3, anInt);
+	anInt = v2[3];
 	TTTestAssertion("array integer not clipped (within range)",
 					anInt == 4,
 					testAssertionCount,
 					errorCount);
 
-	v2.get(4, aFloat);
+	aFloat = v2[4];
 	TTTestAssertion("array double clipped (out of upper bound)",
 					TTTestFloatEquivalence(aFloat, 5.0),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(5, anInt);
+	anInt = v2[5];
 	TTTestAssertion("array integer clipped (out of upper bound)",
 					anInt == 5,
 					testAssertionCount,
@@ -1370,32 +1371,32 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// And a final test on an array
 	v2.resize(4);
-	v2.set(0, 2.5);
-	v2.set(1, 2);
-	v2.set(2, 3.14);
-	v2.set(3, 4);
+	v2[0] = 2.5;
+	v2[1] = 2;
+	v2[2] = 3.14;
+	v2[3] = 4;
 	
 	v2.cliplow(3.0);
 	
-	v2.get(0, aFloat);
+	aFloat = v2[0];
 	TTTestAssertion("array double clipped at lower limit (out of lower bound)",
 					TTTestFloatEquivalence(aFloat, 3.0),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(1, anInt);
+	anInt = v2[1];
 	TTTestAssertion("array integer clipped at lower limit (out of lower bound)",
 					anInt == 3,
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(2, aFloat);
+	aFloat = v2[2];
 	TTTestAssertion("array double not clipped at lower limit (within range)",
 					TTTestFloatEquivalence(aFloat, 3.14),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(3, anInt);
+	anInt = v2[3];
 	TTTestAssertion("array integer not clipped at lower limit (within range)",
 					anInt == 4,
 					testAssertionCount,
@@ -1674,32 +1675,32 @@ void TTValueTestNumericTransformations(int& errorCount, int&testAssertionCount)
 	
 	// And a final test on an array
 	v2.resize(4);
-	v2.set(0, 3.14);
-	v2.set(1, 4);
-	v2.set(2, 6.28);
-	v2.set(3, 6);
+	v2[0] = 3.14;
+	v2[1] = 4;
+	v2[2] = 6.28;
+	v2[3] = 6;
 	
 	v2.cliphigh(5.0);
 	
-	v2.get(0, aFloat);
+	aFloat = v2[0];
 	TTTestAssertion("array double not clipped at higher limit (within range)",
 					TTTestFloatEquivalence(aFloat, 3.14),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(1, anInt);
+	anInt = v2[1];
 	TTTestAssertion("array integer not clipped at higher limit (within range)",
 					anInt == 4,
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(2, aFloat);
+	aFloat = v2[2];
 	TTTestAssertion("array double clipped at higher limit (out of upper bound)",
 					TTTestFloatEquivalence(aFloat, 5.0),
 					testAssertionCount,
 					errorCount);
 	
-	v2.get(3, anInt);
+	anInt = v2[3];
 	TTTestAssertion("array integer clipped at higher limit (out of upper bound)",
 					anInt == 5,
 					testAssertionCount,

@@ -59,7 +59,7 @@ TTLimiter::~TTLimiter()
 {
 	short i;
 	
-	for (i=0; i<maxNumChannels; i++)
+	for (i=0; i<mMaxNumChannels; i++)
 		delete [] lookaheadBuffer[i];
 	delete [] lookaheadBuffer;
 	delete [] gain;
@@ -82,14 +82,14 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&
 	delete gain;
 
 	gain = new TTSampleValue[maxBufferSize];
-	lookaheadBuffer = new TTSampleValuePtr[maxNumChannels];
-	for (channel=0; channel<maxNumChannels; channel++)
+	lookaheadBuffer = new TTSampleValuePtr[mMaxNumChannels];
+	for (channel=0; channel<mMaxNumChannels; channel++)
 		lookaheadBuffer[channel] = new TTSampleValue[maxBufferSize];
 
 	clear();
 	
-	dcBlocker->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	preamp->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	dcBlocker->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	preamp->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 	
 	return kTTErrNone;
 }
@@ -180,7 +180,7 @@ TTErr TTLimiter::clear()
 	TTUInt32	channel;
 	
 	for (i=0; i<maxBufferSize; i++) {
-		for (channel=0; channel < maxNumChannels; channel++)
+		for (channel=0; channel < mMaxNumChannels; channel++)
     		lookaheadBuffer[channel][i] = 0.0;
     	gain[i] = 1.0;		// gain is shared across channels
     }

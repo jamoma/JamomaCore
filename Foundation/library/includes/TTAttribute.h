@@ -97,6 +97,7 @@ public:
 	TTSymbol			rangeChecking;	///< If the rangeChecking property is defined, the value should be checked for range and modified accordingly.
 	TTBoolean			hidden;			///< Property: this attribute is private/invisible to the outside world
 	TTSymbol			description;	///< Property: description of this attribute
+	TTValue				mDefaultValue;		///< Property: the default value for this attribute
 	
 	/** Object constructor.
 	 */
@@ -234,6 +235,9 @@ public:
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr getdescription(TTValue& returnedDescription);
+	
+	TTErr setdefaultValue(const TTValue& aDefaultValue);
+	TTErr getdefaultValue(TTValue& aReturnedDefaultValue);
 	
 };
 

@@ -44,7 +44,7 @@ TTErr TTAllpass::setFilter(const TTValue& filter)
 	TTErr err;
 	
 	mFilter = filter;
-	err = TTObjectBaseInstantiate(mFilter, &mFilterObject, maxNumChannels);
+	err = TTObjectBaseInstantiate(mFilter, &mFilterObject, mMaxNumChannels);
 	return err;
 }
 
@@ -52,7 +52,7 @@ TTErr TTAllpass::setFilter(const TTValue& filter)
 TTErr TTAllpass::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	if (mFilterObject)
-		return mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+		return mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 	else
 		return kTTErrNone;
 }
@@ -63,7 +63,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 	TTErr err = kTTErrGeneric;
 	
 	if (mFilter == TT("allpass.1a") || mFilter == TT("allpass.1b") || mFilter == TT("allpass.1c")) {
-		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);		
+		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);		
 		if (coefficients.getSize() >= 1) {
 			TTFloat64 alpha;
 			
@@ -72,7 +72,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		}
 	}
 	else if (mFilter == TT("allpass.2a") || mFilter == TT("allpass.2b")) {
-		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 		if (coefficients.getSize() >= 2) {
 			TTFloat64 c1, c2;
 			
@@ -83,7 +83,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		}
 	}
 	else if (mFilter == TT("allpass.2c")) {
-		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 		if (coefficients.getSize() >= 2) {
 			TTFloat64 e1, e2;
 			
@@ -94,7 +94,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		}
 	}
 	else if (mFilter == TT("allpass.4a")) {
-		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 		if (coefficients.getSize() >= 4) {
 			TTFloat64 d1, d2, d3, d4;
 			

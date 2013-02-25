@@ -41,14 +41,14 @@ TTAllpass2b::~TTAllpass2b()
 
 TTErr TTAllpass2b::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mX1.resize(maxNumChannels);
-	mX2.resize(maxNumChannels);
-	mX3.resize(maxNumChannels);
-	mX4.resize(maxNumChannels);
-	mY1.resize(maxNumChannels);
-	mY2.resize(maxNumChannels);
-	mY3.resize(maxNumChannels);
-	mY4.resize(maxNumChannels);
+	mX1.resize(mMaxNumChannels);
+	mX2.resize(mMaxNumChannels);
+	mX3.resize(mMaxNumChannels);
+	mX4.resize(mMaxNumChannels);
+	mY1.resize(mMaxNumChannels);
+	mY2.resize(mMaxNumChannels);
+	mY3.resize(mMaxNumChannels);
+	mY4.resize(mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -56,14 +56,14 @@ TTErr TTAllpass2b::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValu
 
 TTErr TTAllpass2b::clear()
 {
-	mX1.assign(maxNumChannels, 0.0);
-	mX2.assign(maxNumChannels, 0.0);
-	mX3.assign(maxNumChannels, 0.0);
-	mX4.assign(maxNumChannels, 0.0);
-	mY1.assign(maxNumChannels, 0.0);
-	mY2.assign(maxNumChannels, 0.0);
-	mY3.assign(maxNumChannels, 0.0);
-	mY4.assign(maxNumChannels, 0.0);
+	mX1.assign(mMaxNumChannels, 0.0);
+	mX2.assign(mMaxNumChannels, 0.0);
+	mX3.assign(mMaxNumChannels, 0.0);
+	mX4.assign(mMaxNumChannels, 0.0);
+	mY1.assign(mMaxNumChannels, 0.0);
+	mY2.assign(mMaxNumChannels, 0.0);
+	mY3.assign(mMaxNumChannels, 0.0);
+	mY4.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;
 }
 

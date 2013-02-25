@@ -31,8 +31,10 @@ implementations/MaxMSP/builds/
 extensions/builds/
 builds
 *.vcproj
+*.vcxproj
 *.sln
 *.old
+*.sdf
 
 # Backup files from various Linux text editors
 *~

@@ -63,9 +63,9 @@ TTHighMidLowShelf::~TTHighMidLowShelf()
 TTErr TTHighMidLowShelf::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 
-	mX1.resize(maxNumChannels);
-	mX2.resize(maxNumChannels);
-	mX0.resize(maxNumChannels);
+	mX1.resize(mMaxNumChannels);
+	mX2.resize(mMaxNumChannels);
+	mX0.resize(mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -79,9 +79,9 @@ TTErr TTHighMidLowShelf::updateSampleRate(const TTValue& oldSampleRate, TTValue&
 
 TTErr TTHighMidLowShelf::clear()
 {
-	mX1.assign(maxNumChannels, 0.0);
-	mX2.assign(maxNumChannels, 0.0);
-	mX0.assign(maxNumChannels, 0.0);	
+	mX1.assign(mMaxNumChannels, 0.0);
+	mX2.assign(mMaxNumChannels, 0.0);
+	mX0.assign(mMaxNumChannels, 0.0);	
 	return kTTErrNone;
 }
 

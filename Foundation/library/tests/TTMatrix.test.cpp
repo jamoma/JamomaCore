@@ -134,26 +134,26 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTValue v(0, 1);// specify the index and real, but forgot the imaginary
 		err = matrix->sendMessage("set", v, kTTValNONE);
 		TTTestAssertion("set message -- error returned when not enough data provided to completely set value", 
-						err, 
+						err != 0, 
 						testAssertionCount,
 						errorCount);
 		
 		// the following use of set() does not work because it will interpret first two values as coordinates
 		// that is the source of FAIL that the test produces
 		v.resize(4);
-		v.set(0, 15);	// index x
-		v.set(1, 0);	// index y
-		v.set(2, 3.14);	// real (no imaginary)
-		v.set(3, -2);	// real (no imaginary)
+		v[0] = 15;	// index x
+		v[1] = 0;	// index y
+		v[2] = 3.14;	// real (no imaginary)
+		v[3] = -2;	// real (no imaginary)
 		err = matrix->sendMessage("set", v, kTTValNONE);
 		TTTestAssertion("set message -- enough data provided to completely set value", 
 						err == kTTErrNone, 
 						testAssertionCount,
 						errorCount);
 		//TTTestLog("Expected a value of %i, but returned value was %i", kTTErrNone, err);
-		v.set(0, 10);	// index y
-		v.set(2, 4);	// real
-		v.set(3, 1.2);	// imaginary
+		v[0] = 10;	// index y
+		v[2] = 4;	// real
+		v[3] = 1.2;	// imaginary
 		err = matrix->sendMessage("set", v, kTTValNONE);
 		TTTestAssertion("set message -- enough data provided to completely set value", 
 						err == kTTErrNone, 
@@ -309,12 +309,12 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&B, kTTValNONE);
 		
 		dims.resize(2);
-		dims.set(0, 3);	// 3 rows
-		dims.set(1, 4);	// 4 columns
+		dims[0] = 3;	// 3 rows
+		dims[1] = 4;	// 4 columns
 		
 		dims_mismatch.resize(2);
-		dims_mismatch.set(0, 4);	// 4 rows
-		dims_mismatch.set(1, 3);	// 3 columns
+		dims_mismatch[0] = 4;	// 4 rows
+		dims_mismatch[1] = 3;	// 3 columns
 		
 		A->setAttributeValue("dimensions", dims);
 		A->setAttributeValue("type", "int32");

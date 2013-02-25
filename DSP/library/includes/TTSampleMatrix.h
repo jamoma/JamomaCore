@@ -106,7 +106,7 @@ public:
 	*/
 	TTBoolean isBufferPoolStage(TTBufferPoolStageEnum testValue)
 	{
-		return { testValue == this->mBufferPoolStage };
+		return testValue == this->mBufferPoolStage;
 	}
 	
 	/** Set the current bufferPoolStage to a new value. 

@@ -63,11 +63,11 @@ TTHilbert9::~TTHilbert9()
 
 TTErr TTHilbert9::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mF1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mF2->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mF3->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mDelay->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF1->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF2->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF3->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mDelay->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 	
 	clear();
 	return kTTErrNone;

@@ -44,10 +44,10 @@ TTHighpassLinkwitzRiley2::~TTHighpassLinkwitzRiley2()
 
 TTErr TTHighpassLinkwitzRiley2::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mX1.resize(maxNumChannels);
-	mX2.resize(maxNumChannels);
-	mY1.resize(maxNumChannels);
-	mY2.resize(maxNumChannels);
+	mX1.resize(mMaxNumChannels);
+	mX2.resize(mMaxNumChannels);
+	mY1.resize(mMaxNumChannels);
+	mY2.resize(mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -62,10 +62,10 @@ TTErr TTHighpassLinkwitzRiley2::updateSampleRate(const TTValue& oldSampleRate, T
 
 TTErr TTHighpassLinkwitzRiley2::clear()
 {
-	mX1.assign(maxNumChannels, 0.0);
-	mX2.assign(maxNumChannels, 0.0);
-	mY1.assign(maxNumChannels, 0.0);
-	mY2.assign(maxNumChannels, 0.0);
+	mX1.assign(mMaxNumChannels, 0.0);
+	mX2.assign(mMaxNumChannels, 0.0);
+	mY1.assign(mMaxNumChannels, 0.0);
+	mY2.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;
 }
 

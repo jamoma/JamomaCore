@@ -39,6 +39,7 @@ sources:
   - boost/libs/filesystem/src/portability.cpp
   - boost/libs/filesystem/src/unique_path.cpp
   - boost/libs/filesystem/src/utf8_codecvt_facet.cpp
+  - win boost/libs/filesystem/src/windows_file_codecvt.cpp
   - boost/libs/system/src/error_code.cpp
   - boost/libs/regex/src/c_regex_traits.cpp
   - boost/libs/regex/src/cpp_regex_traits.cpp

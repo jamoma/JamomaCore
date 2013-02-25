@@ -54,7 +54,7 @@ TTAudioObjectBaseArray::~TTAudioObjectBaseArray()
 
 TTErr TTAudioObjectBaseArray::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	return setAttributeValue("size", maxNumChannels);
+	return setAttributeValue("size", mMaxNumChannels);
 }
 
 
@@ -111,12 +111,12 @@ TTErr TTAudioObjectBaseArray::set(TTValue& arguments, TTValue&)
 	TTValue		attrValue;
 	int			err = kTTErrNone;
 
-	if (ttDataTypeInfo[arguments.getType(0)]->isNumerical)
+	if (ttDataTypeInfo[arguments[0].type()]->isNumerical)
 		target = arguments;
 
 	if (target >= 0) {
 		if (target < mSize){
-		if (arguments.getSize() < 3)
+		if (arguments.size() < 3)
 			return kTTErrWrongNumValues;
 		else
 			arguments.get(1, attrName);
@@ -131,7 +131,7 @@ TTErr TTAudioObjectBaseArray::set(TTValue& arguments, TTValue&)
 
 	} 
 	else {
-		if (arguments.getSize() < 2)
+		if (arguments.size() < 2)
 			return kTTErrWrongNumValues;
 		else
 			arguments.get(0, attrName);

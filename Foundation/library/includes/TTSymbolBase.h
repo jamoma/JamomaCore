@@ -26,14 +26,13 @@
 	Also, if you don't need the fast lookup capabilities of the symbol table (such as for message or attribute lookup)
 	then consider passing a #TTString instead.
 */
-class TTFOUNDATION_EXPORT TTSymbolBase {
-protected:
-
-
+class TTSymbolBase {
+private:
 	TTPtrSizedInt	mSymbolTableId;		///< a unique identifier for the symbol table that owns this symbol
 	TTUInt32		mSymbolId;			///< a unique identifier for the given string
 	TTString		mString;			///< the actual string represented by this symbol
 
+protected:
 
 	/** used by the constructors to create the new symbol */
 	//void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newId);

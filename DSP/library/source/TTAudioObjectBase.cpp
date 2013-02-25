@@ -19,10 +19,11 @@
 #include "TTEnvironment.h"
 #include "TTUnitTest.h"
 
+#define thisTTClass TTAudioObjectBase
 
 TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) : 
 	TTObjectBase(arguments), 
-	maxNumChannels(0),
+	mMaxNumChannels(0),
 	attrMute(0), 
 	inputArray(NULL),
 	outputArray(NULL),
@@ -31,7 +32,10 @@ TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) :
 	accumulatedProcessingCalls(0.0)
 {
 	// Convention: 'Public' attribute names begin with a capital letter, 'Private' attribute names begin with a lower case letter
-	registerAttribute("maxNumChannels",		kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObjectBase::setMaxNumChannels);
+//	registerAttribute("maxNumChannels",		kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObjectBase::setMaxNumChannels);
+	addAttributeWithSetter(MaxNumChannels,	kTypeUInt16);
+	addAttributeProperty(MaxNumChannels,	defaultValue,	1);
+	
 	registerAttribute(kTTSym_sampleRate,	kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObjectBase::setSr);
 	registerAttribute("bypass",				kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObjectBase::setBypass);
 	registerAttribute("mute",				kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObjectBase::setMute);
@@ -52,6 +56,8 @@ TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) :
 	setAttributeValue("bypass",			kTTBoolNo);	
 }
 
+#undef thisTTClass
+
 
 TTAudioObjectBase::~TTAudioObjectBase()
 {
@@ -62,10 +68,10 @@ TTAudioObjectBase::~TTAudioObjectBase()
 
 TTErr TTAudioObjectBase::setMaxNumChannels(const TTValue& newValue)
 {
-	if (TTUInt16(newValue) != maxNumChannels) {
-		TTValue	oldMaxNumChannels = maxNumChannels;
+	if (TTUInt16(newValue) != mMaxNumChannels) {
+		TTValue	oldMaxNumChannels = mMaxNumChannels;
 		
-		maxNumChannels = newValue;
+		mMaxNumChannels = newValue;
 		sendMessage("updateMaxNumChannels", oldMaxNumChannels, kTTValNONE);
 	}
 	return kTTErrNone;
@@ -244,7 +250,7 @@ TTErr TTAudioObjectBase::calculate(const TTValue& x, TTValue& y)
 		// TODO: there needs to be a way to request a calculation of a list on the object if it defines such a method
 
 		y.clear();
-		size = x.getSize();
+		size = x.size();
 		for (TTUInt32 i=0; i<size; i++) {
 			x.get(i, in);
 			err = (this->*currentCalculateMethod)(in, out, NULL);

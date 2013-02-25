@@ -18,13 +18,14 @@
 #define __TT_VALUE_H__
 
 #include "TTElement.h"
+#include <functional>
 
 
 /**	The TTValue class represents a composite value that can be passed around to methods in Jamoma.
 	It may be composed of a single element or many elements.  
 	The types of the elements are defined in the TTDataType enumeration.
 */
-class TTFOUNDATION_EXPORT TTValue : public TTElementVector {
+class TTValue : public TTElementVector {
 private:
 	TTBoolean	stringsPresent;	///< are there any values which are strings?  if so they need special handling when it is time to free them.
 
@@ -120,7 +121,7 @@ public:
 		stringsPresent = obj.stringsPresent;
 #else
 		resize(endIndex - startIndex);
-		for (int i=0; i<size(); i++)
+		for (size_t i=0; i<size(); i++)
 			at(i) = obj[startIndex+i];
 //		stringsPresent = obj.stringsPresent;
 #endif
@@ -275,10 +276,10 @@ public:
 	 */
 	TT_DEPRECATED( void getArray(TTUInt8* arrayToFill, TTUInt16 maxSize) const )
 	{
-		for (int i=0; i<size(); i++) {
+		for (size_t i=0; i<size(); i++) {
 			if (i == maxSize)
 				break;
-			*(arrayToFill+i) = getUInt8(i);
+			*(arrayToFill+i) = TTUInt8(at(i));
 		}
 	}
 	
@@ -289,10 +290,10 @@ public:
 	 */
 	TT_DEPRECATED( void getArray(TTInt32* arrayToFill, TTUInt16 maxSize) const )
 	{
-		for (int i=0; i<size(); i++) {
+		for (size_t i=0; i<size(); i++) {
 			if (i == maxSize)
 				break;
-			*(arrayToFill+i) = getInt32(i);
+			*(arrayToFill+i) = TTInt32(at(i));
 		}
 	}
 	
@@ -303,10 +304,10 @@ public:
 	 */
 	TT_DEPRECATED( void getArray(TTFloat32* arrayToFill, TTUInt16 maxSize) const )
 	{
-		for (int i=0; i<size(); i++) {
+		for (size_t i=0; i<size(); i++) {
 			if (i == maxSize)
 				break;
-			*(arrayToFill+i) = getFloat32(i);
+			*(arrayToFill+i) = TTFloat32(at(i));
 		}
 	}
 	
@@ -317,10 +318,10 @@ public:
 	 */
 	TT_DEPRECATED( void getArray(TTFloat64* arrayToFill, TTUInt16 maxSize) const )
 	{
-		for (int i=0; i<size(); i++) {
+		for (size_t i=0; i<size(); i++) {
 			if (i == maxSize)
 				break;
-			*(arrayToFill+i) = getFloat64(i);
+			*(arrayToFill+i) = TTFloat64(at(i));
 		}
 	}
 	
@@ -368,7 +369,7 @@ public:
 	{
 		TTString	temp;
 	
-		for (int i=0; i<size(); i++) {
+		for (size_t i=0; i<size(); i++) {
 			at(i).string(temp);		// get a string for each item
 			if (i < (size()-1))		// add a space between each item, but no space at the end
 				temp.append(" ");

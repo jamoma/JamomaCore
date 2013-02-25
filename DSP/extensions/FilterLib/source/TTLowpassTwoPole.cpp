@@ -47,8 +47,8 @@ TTLowpassTwoPole::~TTLowpassTwoPole()
 
 TTErr TTLowpassTwoPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mFeedback1.resize(maxNumChannels);
-	mFeedback2.resize(maxNumChannels);
+	mFeedback1.resize(mMaxNumChannels);
+	mFeedback2.resize(mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -63,8 +63,8 @@ TTErr TTLowpassTwoPole::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 
 TTErr TTLowpassTwoPole::clear()
 {   
-	mFeedback1.assign(maxNumChannels, 0.0);
-	mFeedback2.assign(maxNumChannels, 0.0);
+	mFeedback1.assign(mMaxNumChannels, 0.0);
+	mFeedback2.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;
 }
 

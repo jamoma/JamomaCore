@@ -201,8 +201,10 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 	TTUInt8	size = someNewDimensions.size();
 	
 	// needed to support old calls with 1 or 2 dimensions
-	if (size > 0) { someNewDimensions.get(0, aNewRowCount); }
-	if (size > 1) { someNewDimensions.get(1, aNewColumnCount); }
+	if (size > 0)
+		aNewRowCount = someNewDimensions[0];
+	if (size > 1)
+		aNewColumnCount = someNewDimensions[1];
 	
 	if (this->setRowCountWithoutResize(aNewRowCount) &&
 		this->setColumnCountWithoutResize(aNewColumnCount))
@@ -225,8 +227,8 @@ TTErr TTMatrix::getType(TTValue& returnedType) const
 TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 {
 	returnedDimensions.resize(2);
-	returnedDimensions.set(0, TTUInt32(mRowCount)); // compile fails if we don't cast mRowCount here
-	returnedDimensions.set(1, TTUInt32(mColumnCount)); // compile fails if we don't cast mColumnCount here
+	returnedDimensions[0] = TTUInt32(mRowCount); // compile fails if we don't cast mRowCount here
+	returnedDimensions[1] = TTUInt32(mColumnCount); // compile fails if we don't cast mColumnCount here
 	
 	return kTTErrNone;
 }
@@ -280,8 +282,8 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 		return kTTErrWrongNumValues;
 
 	TTInt32 i, j;
-	anInputValue.get(0, i);
-	anInputValue.get(1, j);
+	i = anInputValue[0];
+	j = anInputValue[1];
 	
 	TTBoolean weAreNotInBounds = makeInBounds(i,j);
 	if (weAreNotInBounds)
@@ -328,8 +330,8 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	theValue.copyFrom(anInputValue, dimensionCount);
 
 	TTInt32 i, j;
-	anInputValue.get(0, i);
-	anInputValue.get(1, j);
+	i = anInputValue[0];
+	j = anInputValue[1];
 	
 	TTBoolean weAreNotInBounds = makeInBounds(i,j);
 	if (weAreNotInBounds)
@@ -340,19 +342,19 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	
 	if (mType == kTypeUInt8) { 
 		for (int e=0; e<mElementCount; e++)
-			anInputValue.get(e+dimensionCount, *(TTUInt8*)(mData+(index+e*mTypeSizeInBytes)));
+			*(TTUInt8*)(mData+(index+e*mTypeSizeInBytes)) = anInputValue[e+dimensionCount];
 	}
 	else if (mType == kTypeInt32) { 
 		for (int e=0; e<mElementCount; e++)
-			anInputValue.get(e+dimensionCount, *(TTInt32*)(mData+(index+e*mTypeSizeInBytes)));
+			*(TTInt32*)(mData+(index+e*mTypeSizeInBytes)) = anInputValue[e+dimensionCount];
 	}
 	else if (mType == kTypeFloat32) { 
 		for (int e=0; e<mElementCount; e++)
-			anInputValue.get(e+dimensionCount, *(TTFloat32*)(mData+(index+e*mTypeSizeInBytes)));
+			*(TTFloat32*)(mData+(index+e*mTypeSizeInBytes)) = anInputValue[e+dimensionCount];
 	}
 	else if (mType == kTypeFloat64) { 
 		for (int e=0; e<mElementCount; e++)
-			anInputValue.get(e+dimensionCount, *(TTFloat64*)(mData+(index+e*mTypeSizeInBytes)));
+			*(TTFloat64*)(mData+(index+e*mTypeSizeInBytes)) = anInputValue[e+dimensionCount];
 	}
 
 	return kTTErrNone;

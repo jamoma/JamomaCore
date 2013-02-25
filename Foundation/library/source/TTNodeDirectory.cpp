@@ -114,7 +114,6 @@ TTErr TTNodeDirectory::getTTNode(TTAddress anAddress, TTNodePtr* returnedTTNode)
 
 TTErr TTNodeDirectory::getAlias(TTAddress anAddress, TTAddress& returnedAlias)
 {
-	TTUInt32 i;
 	TTValue	 v, ak;
 	TTAddress				alias;
 	TTAddress				aliasAddress;
@@ -125,7 +124,7 @@ TTErr TTNodeDirectory::getAlias(TTAddress anAddress, TTAddress& returnedAlias)
 	
 	// Retrieve the alias binding on this address
 	aliases->getKeys(ak);
-	for (i=0; i<aliases->getKeys(ak); i++) {
+	for (int i=0; i < aliases->getKeys(ak); i++) {
 		
 		alias = ak[i];
 		aliases->lookup(*alias, v);

@@ -51,8 +51,8 @@ TTErr TTAudioGraphGenerator::setVectorSize(const TTValue& newVectorSize)
 
 TTErr TTAudioGraphGenerator::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mBuffer->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
-	mBuffer->setAttributeValue(TT("numChannels"), maxNumChannels);
+	mBuffer->setAttributeValue(TT("maxNumChannels"), mMaxNumChannels);
+	mBuffer->setAttributeValue(TT("numChannels"), mMaxNumChannels);
 	return mBuffer->sendMessage(TT("alloc"));
 }
 

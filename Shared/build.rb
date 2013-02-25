@@ -257,7 +257,7 @@ if File.directory? "#{@svn_root}/library"
   use_make = generate_makefile("#{@svn_root}/library", "Jamoma#{@projectName}", forcedCompiler, "..", @distropath)
 
   if win?
-  	build_project("#{@svn_root}/library", "Jamoma#{@projectName}.vcproj", configuration, clean, @distropath)
+  	build_project("#{@svn_root}/library", "Jamoma#{@projectName}.vcxproj", configuration, clean, @distropath)
   elsif linux?
   	build_project("#{@svn_root}/library", "Makefile", configuration, clean, "#{@distropath}/core")
   	puts `sudo cp #{@svn_root}/library/build/*.so /usr/lib`

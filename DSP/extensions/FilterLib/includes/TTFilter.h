@@ -48,7 +48,7 @@ public:
 			return kTTErrNone;
 		
 		mType = newType;
-		err = TTObjectBaseInstantiate(mType, &mActualFilterObject, maxNumChannels);			
+		err = TTObjectBaseInstantiate(mType, &mActualFilterObject, mMaxNumChannels);			
 		if (!err) {
 			// Now that we have our new filter, update it with the current state of the wrapper:
 			mActualFilterObject->setAttributeValue(TT("frequency"), mFrequency);
@@ -86,7 +86,7 @@ public:
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 	{
 		if (mActualFilterObject)
-			return mActualFilterObject->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+			return mActualFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 		else
 			return kTTErrNone;
 	}

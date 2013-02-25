@@ -147,10 +147,16 @@ class TTFOUNDATION_EXPORT TTElement {
 public:
 	
 	TTElement() :
+#ifdef TT_PLATFORM_WIN
+	// windows doesn't permit using an initializer for a union?
+#else
 	mValue{NULL},
+#endif
 	mType(kTypeNone)
 	{
-		;
+#ifdef TT_PLATFORM_WIN
+		mValue.ptr = NULL;
+#endif
 	}
 	
 	
@@ -294,9 +300,10 @@ public:
 		if (mType == kTypeBoolean)
 			return mValue.boolean;
 		else {
-			TTBoolean value;
+			// setting as int and then casting after the macro (with the extra logic) is done to silence warnings on MSVC
+			int value;
 			TTELEMENT_CONVERT;
-			return value;
+			return (TTBoolean)(value != 0);
 		}
 	}
 		
@@ -330,7 +337,7 @@ public:
 	// OBJECT
 	operator TTObjectBase&() const
 	{
-		TT_ASSERT(ttvalue_cast_to_object_ref, (*type == kTypeObject));
+		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeObject));
 		
 		if (mType == kTypeObject)
 			return *mValue.object;
@@ -342,7 +349,7 @@ public:
 	
 	operator TTObjectBase*() const
 	{
-		TT_ASSERT(ttvalue_cast_to_object_ptr, (*type == kTypeObject));
+		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeObject));
 		
 		if (mType == kTypeObject)
 			return mValue.object;
@@ -352,7 +359,7 @@ public:
 	
 	operator TTMatrix&() const
 	{
-		TT_ASSERT(ttvalue_cast_to_object_ref, (*type == kTypeObject));
+		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeObject));
 		
 		if (mType == kTypeMatrix)
 			return *mValue.matrix;
@@ -364,7 +371,7 @@ public:
 	
 	operator TTMatrix*() const
 	{
-		TT_ASSERT(ttvalue_cast_to_object_ptr, (*type == kTypeObject));
+		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeObject));
 		
 		if (mType == kTypeMatrix)
 			return mValue.matrix;

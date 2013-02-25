@@ -31,7 +31,7 @@
 
 	@seealso TTSymbol
 */
-class TTFOUNDATION_EXPORT TTString : public std::vector<char> {	
+class TTString : public std::vector<char> {	
 	
 public:
 	
@@ -342,8 +342,11 @@ public:
 	}
 	
 	
+	// NOTE: we do not export TTString because it is defined in a header as a subclass of a stl template
+	// but we do want to export this method, which is not defined inline so that we don't pick up a direct
+	// dependency on Mersenne Twister
 	/** Replace contents with a pseudo-random string. */
-	void random();
+	void TTFOUNDATION_EXPORT random();
 	
 	
 	
@@ -364,7 +367,7 @@ public:
 	{
 		char * pEnd;
 		
-		convertedFloat = strtof(c_str(), &pEnd);
+		convertedFloat = strtod(c_str(), &pEnd);
 		return *pEnd == 0;
 	}
 
@@ -390,7 +393,7 @@ std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, trait
 	
 /** Provide overload of std::hash so that TTString can be used the same as std::string for std::map et al. */
 
-#ifdef __clang__
+#if defined( __clang__ )
 
 // GCC and Clang provide different (cryptic) ways of adding custom types to the c++ hashing classes
 // The GCC version is based on code from StackOverflow
@@ -405,7 +408,7 @@ namespace std
 	struct hash<TTString> //: public __hash_node<size_t, TTString>
 	{
 		public:
-#ifdef TT_PLATFORM_LINUX
+#if defined( TT_PLATFORM_LINUX )
 		size_t operator()(const TTString& __val) const
 {
 TTLogError("uh oh -- this functions doesn't work compiled with clang on ubuntu!");
@@ -417,6 +420,25 @@ TTLogError("uh oh -- this functions doesn't work compiled with clang on ubuntu!"
 		}
 #endif
 	};
+}
+
+#elif defined( TT_PLATFORM_WIN )
+namespace std 
+{
+//    namespace tr1 
+//    { 
+        template <> 
+        struct hash<TTString> : public unary_function<TTString, size_t>
+        { 
+			public:
+				size_t operator()(const TTString& self) const
+				{
+					size_t hashkey = _Hash_seq((const unsigned char*)self.data(), self.size()); //std::hash(self.data(), self.size());
+					//cout << "HASH: " << self.data() << " with size: " << self.size() << " = " << hashkey << endl;
+					return hashkey;
+				}
+			};
+//    } 
 }
 
 #else // gcc 4.7

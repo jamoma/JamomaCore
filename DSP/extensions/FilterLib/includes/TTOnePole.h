@@ -29,7 +29,7 @@ protected:
 
 
 	/**	Receives notifications when there are changes to the inherited 
-		maxNumChannels attribute.			*/
+		mMaxNumChannels attribute.			*/
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 

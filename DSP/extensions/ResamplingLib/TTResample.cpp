@@ -63,13 +63,13 @@ TTErr TTResample::setMode(const TTValue& newMode)
 	
 	mMode = newMode;
 	if (mMode == TT("third"))
-		err = TTObjectBaseInstantiate(TT("halfband.3"), (TTObjectBasePtr*)&mResamplingFilter, maxNumChannels);
+		err = TTObjectBaseInstantiate(TT("halfband.3"), (TTObjectBasePtr*)&mResamplingFilter, mMaxNumChannels);
 	else if (mMode == TT("fifth"))
-		err = TTObjectBaseInstantiate(TT("halfband.5"), (TTObjectBasePtr*)&mResamplingFilter, maxNumChannels);
+		err = TTObjectBaseInstantiate(TT("halfband.5"), (TTObjectBasePtr*)&mResamplingFilter, mMaxNumChannels);
 	else if (mMode == TT("ninth"))
-		err = TTObjectBaseInstantiate(TT("halfband.9"), (TTObjectBasePtr*)&mResamplingFilter, maxNumChannels);
+		err = TTObjectBaseInstantiate(TT("halfband.9"), (TTObjectBasePtr*)&mResamplingFilter, mMaxNumChannels);
 	else // mMode == TT("staircase")
-		err = TTObjectBaseInstantiate(TT("staircase"), (TTObjectBasePtr*)&mResamplingFilter, maxNumChannels);
+		err = TTObjectBaseInstantiate(TT("staircase"), (TTObjectBasePtr*)&mResamplingFilter, mMaxNumChannels);
 	
 	setAttributeValue(TT("direction"), mDirection);
 	
@@ -79,7 +79,7 @@ TTErr TTResample::setMode(const TTValue& newMode)
 
 TTErr TTResample::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	return mResamplingFilter->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	return mResamplingFilter->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 }
 
 
