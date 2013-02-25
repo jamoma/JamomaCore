@@ -1084,28 +1084,28 @@ else
 	       	lib.gsub!(/DEBUG /, '')
 
           if (lib == "FOUNDATION")
-            concatenated_libs_debug += "JamomaFoundation.lib "
+            concatenated_libs_debug += "JamomaFoundation.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Foundation\\library\\$(ConfigurationName)\";"
           elsif (lib == "DSP")
-            concatenated_libs_debug += "JamomaDSP.lib "
+            concatenated_libs_debug += "JamomaDSP.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\DSP\\library\\$(ConfigurationName)\";"
           elsif (lib == "MODULAR")
-            concatenated_libs_debug += "JamomaModular.lib "
+            concatenated_libs_debug += "JamomaModular.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Modules\\Modular\\library\\$(ConfigurationName)\";"
           elsif (lib == "GRAPH")
-            concatenated_libs_debug += "JamomaGraph.lib "
+            concatenated_libs_debug += "JamomaGraph.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graph\\library\\$(ConfigurationName)\";"
           elsif (lib == "AUDIOGRAPH")
-            concatenated_libs_debug += "JamomaAudioGraph.lib "
+            concatenated_libs_debug += "JamomaAudioGraph.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\AudioGraph\\library\\$(ConfigurationName)\";"
           elsif (lib == "C74-MAX")
-            concatenated_libs_debug += "MaxAPI.lib "
+            concatenated_libs_debug += "MaxAPI.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\max-includes\";"
           elsif (lib == "C74-MSP")
-            concatenated_libs_debug += "MaxAudio.lib "
+            concatenated_libs_debug += "MaxAudio.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\msp-includes\";"
           elsif (lib == "C74-JITTER")
-            concatenated_libs_debug += "jitlib.lib "
+            concatenated_libs_debug += "jitlib.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\jit-includes\";"
           else
             lib_dir = lib.split "/"
@@ -1113,7 +1113,7 @@ else
             lib_dir = lib_dir.join "/"
 
             lib_dir.gsub!(/(\/)/,'\\')
-            concatenated_libs_debug += "#{lib} "
+            concatenated_libs_debug += "#{lib};"
             concatenated_lib_dirs_debug += "\"#{lib_dir}\";"
           end
         end
@@ -1127,31 +1127,31 @@ else
         	lib.gsub!(/RELEASE /, '')
 
           if (lib == "FOUNDATION")
-            concatenated_libs_release += "JamomaFoundation.lib "
+            concatenated_libs_release += "JamomaFoundation.lib;"
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Foundation\\library\\$(ConfigurationName)\";"
           elsif (lib == "DSP")
-            concatenated_libs_release += "JamomaDSP.lib "
+            concatenated_libs_release += "JamomaDSP.lib;"
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\DSP\\library\\$(ConfigurationName)\";"
           elsif (lib == "MODULAR")
-            concatenated_libs_release += "JamomaModular.lib "
+            concatenated_libs_release += "JamomaModular.lib;"
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Modules\\Modular\\library\\$(ConfigurationName)\";"
           elsif (lib == "GRAPH")
-            concatenated_libs_release += "JamomaGraph.lib "
+            concatenated_libs_release += "JamomaGraph.lib;"
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graph\\library\\$(ConfigurationName)\";"
           elsif (lib == "AUDIOGRAPH")
-            concatenated_libs_release += "JamomaAudioGraph.lib "
+            concatenated_libs_release += "JamomaAudioGraph.lib;"
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\AudioGraph\\library\\$(ConfigurationName)\";"
           elsif (lib == "GRAPHICS")
-            concatenated_libs_release += "JamomaGraphics.lib "
+            concatenated_libs_release += "JamomaGraphics.lib;"
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graphics\\library\\$(ConfigurationName)\";"
           elsif (lib == "C74-MAX")
-            concatenated_libs_debug += "MaxAPI.lib "
+            concatenated_libs_debug += "MaxAPI.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\max-includes\";"
           elsif (lib == "C74-MSP")
-            concatenated_libs_debug += "MaxAudio.lib "
+            concatenated_libs_debug += "MaxAudio.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\msp-includes\";"
           elsif (lib == "C74-JITTER")
-            concatenated_libs_debug += "jitlib.lib "
+            concatenated_libs_debug += "jitlib.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\jit-includes\";"
           else
             lib_dir = lib.split "/"
@@ -1159,7 +1159,7 @@ else
             lib_dir = lib_dir.join "/"
 
             lib_dir.gsub!(/(\/)/,'\\')
-            concatenated_libs_release += "#{lib} "
+            concatenated_libs_release += "#{lib};"
             concatenated_lib_dirs_release += "\"#{lib_dir}\";"
           end
         end

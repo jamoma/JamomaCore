@@ -13,15 +13,19 @@ sources:
   - tests/TTBuffer.test.cpp
   - tests/TTDelay.test.cpp
   - tests/TTSampleMatrix.test.cpp
-  
+
 includes:
   - "includes"
   - "portaudio/include"
   - "../../Foundation/library/includes"
 
+defines:
+  - TTDSP_EXPORTS
+
 libraries:
   - FOUNDATION
-  - portaudio/libportaudio-jamoma.a
+  - mac portaudio/libportaudio-jamoma.a
+  - win portaudio/Debug/PortAudio.lib
 
 frameworks:
   - Carbon
