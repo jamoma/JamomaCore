@@ -79,10 +79,10 @@ TTErr TTPulseSub::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 
 TTErr TTPulseSub::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	phasor->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	offset->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	env_gen->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	scaler->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	phasor->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	offset->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	env_gen->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	scaler->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 	return kTTErrNone;
 }
 

@@ -40,14 +40,14 @@ TTBalance::~TTBalance()
 
 TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	xm1A.resize(maxNumChannels);
-	xm2A.resize(maxNumChannels);
-	ym1A.resize(maxNumChannels);
-	ym2A.resize(maxNumChannels);
-	xm1B.resize(maxNumChannels);
-	xm2B.resize(maxNumChannels);
-	ym1B.resize(maxNumChannels);
-	ym2B.resize(maxNumChannels);	
+	xm1A.resize(mMaxNumChannels);
+	xm2A.resize(mMaxNumChannels);
+	ym1A.resize(mMaxNumChannels);
+	ym2A.resize(mMaxNumChannels);
+	xm1B.resize(mMaxNumChannels);
+	xm2B.resize(mMaxNumChannels);
+	ym1B.resize(mMaxNumChannels);
+	ym2B.resize(mMaxNumChannels);
 	return clear();
 }
 
@@ -61,14 +61,14 @@ TTErr TTBalance::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 
 TTErr TTBalance::clear()
 {
-	xm1A.assign(maxNumChannels, 0.0);
-	xm2A.assign(maxNumChannels, 0.0);
-	ym1A.assign(maxNumChannels, 0.0);
-	ym2A.assign(maxNumChannels, 0.0);
-	xm1B.assign(maxNumChannels, 0.0);
-	xm2B.assign(maxNumChannels, 0.0);
-	ym1B.assign(maxNumChannels, 0.0);
-	ym2B.assign(maxNumChannels, 0.0);
+	xm1A.assign(mMaxNumChannels, 0.0);
+	xm2A.assign(mMaxNumChannels, 0.0);
+	ym1A.assign(mMaxNumChannels, 0.0);
+	ym2A.assign(mMaxNumChannels, 0.0);
+	xm1B.assign(mMaxNumChannels, 0.0);
+	xm2B.assign(mMaxNumChannels, 0.0);
+	ym1B.assign(mMaxNumChannels, 0.0);
+	ym2B.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;
 }
 

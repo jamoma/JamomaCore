@@ -51,7 +51,7 @@ TTOverdrive::~TTOverdrive()
 
 TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {	
-	return dcBlockerUnit->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	return dcBlockerUnit->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 }
 
 

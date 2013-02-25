@@ -100,10 +100,10 @@ public:
 		
 		// inputBufferList = (AudioBufferList*)malloc(offsetof(AudioBufferList, mBuffers[maxNumChannels]));
 		// outputBufferList = (AudioBufferList*)malloc(offsetof(AudioBufferList, mBuffers[maxNumChannels]));
-		mInputBufferList = (AudioBufferList*)malloc(offsetof(AudioBufferList, mBuffers) + (maxNumChannels * sizeof(AudioBuffer)));
-		mOutputBufferList = (AudioBufferList*)malloc(offsetof(AudioBufferList, mBuffers) + (maxNumChannels * sizeof(AudioBuffer)));
+		mInputBufferList = (AudioBufferList*)malloc(offsetof(AudioBufferList, mBuffers) + (mMaxNumChannels * sizeof(AudioBuffer)));
+		mOutputBufferList = (AudioBufferList*)malloc(offsetof(AudioBufferList, mBuffers) + (mMaxNumChannels * sizeof(AudioBuffer)));
 
-		for (TTUInt16 channel=0; channel<maxNumChannels; channel++) {
+		for (TTUInt16 channel=0; channel<mMaxNumChannels; channel++) {
 			mInputBufferList->mBuffers[channel].mNumberChannels = 1; 
 			mInputBufferList->mBuffers[channel].mData = NULL;			// We will set this pointer in the process method
 			mInputBufferList->mBuffers[channel].mDataByteSize = 0;

@@ -56,12 +56,12 @@ TTHalfband3::~TTHalfband3()
 TTErr TTHalfband3::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	// update internal filters
-	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mR0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 	
 	// update ourselves
-	mX1.resize(maxNumChannels);
-	mX1.assign(maxNumChannels, 0.0);
+	mX1.resize(mMaxNumChannels);
+	mX1.assign(mMaxNumChannels, 0.0);
 
 	return kTTErrNone;
 }

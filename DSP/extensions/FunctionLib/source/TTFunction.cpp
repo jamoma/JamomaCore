@@ -41,7 +41,7 @@ TTErr TTFunction::setFunction(const TTValue& function)
 	TTErr err;
 	
 	mFunction = function;
-	err = TTObjectBaseInstantiate(mFunction, &mFunctionObject, maxNumChannels);
+	err = TTObjectBaseInstantiate(mFunction, &mFunctionObject, mMaxNumChannels);
 	if (!err)
 		err = fill();
 	return err;

@@ -39,14 +39,14 @@ TTLowpassFunction::~TTLowpassFunction()
 TTErr TTLowpassFunction::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	delete[] mFeedback;
-	mFeedback = new TTFloat64[maxNumChannels];
+	mFeedback = new TTFloat64[mMaxNumChannels];
 	return clear();
 }
 
 
 TTErr TTLowpassFunction::clear()
 {
-	for (TTUInt16 channel=0; channel<maxNumChannels; channel++)
+	for (TTUInt16 channel=0; channel<mMaxNumChannels; channel++)
 		mFeedback[channel] = 0.0;
 	return kTTErrNone;
 }

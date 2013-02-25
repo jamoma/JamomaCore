@@ -50,7 +50,7 @@ TTOnePole::~TTOnePole()
 
 TTErr TTOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mFeedback.resize(maxNumChannels);
+	mFeedback.resize(mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -65,7 +65,7 @@ TTErr TTOnePole::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 
 TTErr TTOnePole::clear()
 {
-	mFeedback.assign(maxNumChannels, 0.0);
+	mFeedback.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;
 }
 

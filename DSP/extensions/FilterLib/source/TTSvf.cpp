@@ -47,11 +47,11 @@ TTSvf::~TTSvf()
 
 TTErr TTSvf::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mLowpass_output.resize(maxNumChannels);
-	mHighpass_output.resize(maxNumChannels);
-	mBandpass_output.resize(maxNumChannels);
-	mNotch_output.resize(maxNumChannels);
-	mPeak_output.resize(maxNumChannels);
+	mLowpass_output.resize(mMaxNumChannels);
+	mHighpass_output.resize(mMaxNumChannels);
+	mBandpass_output.resize(mMaxNumChannels);
+	mNotch_output.resize(mMaxNumChannels);
+	mPeak_output.resize(mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -66,11 +66,11 @@ TTErr TTSvf::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 
 TTErr TTSvf::clear()
 {
-	mLowpass_output.assign(maxNumChannels, 0.0);
-	mHighpass_output.assign(maxNumChannels, 0.0);
-	mBandpass_output.assign(maxNumChannels, 0.0);
-	mNotch_output.assign(maxNumChannels, 0.0);
-	mPeak_output.assign(maxNumChannels, 0.0);
+	mLowpass_output.assign(mMaxNumChannels, 0.0);
+	mHighpass_output.assign(mMaxNumChannels, 0.0);
+	mBandpass_output.assign(mMaxNumChannels, 0.0);
+	mNotch_output.assign(mMaxNumChannels, 0.0);
+	mPeak_output.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;
 }
 

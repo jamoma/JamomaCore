@@ -42,8 +42,8 @@ TTHighpassButterworth1::~TTHighpassButterworth1()
 
 TTErr TTHighpassButterworth1::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mX1.resize(maxNumChannels);
-	mY1.resize(maxNumChannels);	
+	mX1.resize(mMaxNumChannels);
+	mY1.resize(mMaxNumChannels);	
 	clear();
 	return kTTErrNone;
 }
@@ -58,8 +58,8 @@ TTErr TTHighpassButterworth1::updateSampleRate(const TTValue& oldSampleRate, TTV
 
 TTErr TTHighpassButterworth1::clear()
 {
-	mX1.assign(maxNumChannels, 0.0);
-	mY1.assign(maxNumChannels, 0.0);
+	mX1.assign(mMaxNumChannels, 0.0);
+	mY1.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;
 }
 

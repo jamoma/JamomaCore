@@ -37,8 +37,8 @@ TTDCBlock::~TTDCBlock()
 
 TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mLastInput.resize(maxNumChannels);
-	mLastOutput.resize(maxNumChannels);
+	mLastInput.resize(mMaxNumChannels);
+	mLastOutput.resize(mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -46,8 +46,8 @@ TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&
 
 TTErr TTDCBlock::clear()
 {   
-	mLastInput.assign(maxNumChannels, 0.0);
-	mLastOutput.assign(maxNumChannels, 0.0);
+	mLastInput.assign(mMaxNumChannels, 0.0);
+	mLastOutput.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;
 }
 

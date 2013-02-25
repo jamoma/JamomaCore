@@ -81,7 +81,7 @@ protected:
 	TTSampleVector		mLastInput;		///< Feedback values used for the audio filter			
 	TTSampleVector		mLastOutput;	///< Feedback values used for the audio filter
 
-	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
+	/**	This method gets called when the inherited mMaxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 
 	/**	Standard single value calculate method as used by DSP objects. */

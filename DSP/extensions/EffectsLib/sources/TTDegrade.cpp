@@ -41,11 +41,11 @@ TTDegrade::~TTDegrade()
 
 TTErr TTDegrade::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mAccumulator.resize(maxNumChannels);
-	mAccumulator.assign(maxNumChannels, 0.0);
+	mAccumulator.resize(mMaxNumChannels);
+	mAccumulator.assign(mMaxNumChannels, 0.0);
 
-	mOutput.resize(maxNumChannels);
-	mOutput.assign(maxNumChannels, 0.0);
+	mOutput.resize(mMaxNumChannels);
+	mOutput.assign(mMaxNumChannels, 0.0);
 
 	return kTTErrNone;
 }

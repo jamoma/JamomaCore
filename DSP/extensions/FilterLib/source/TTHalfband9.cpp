@@ -86,23 +86,23 @@ TTHalfband9::~TTHalfband9()
 TTErr TTHalfband9::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	// update internal filters
-	mF0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mF1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mF2->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mF3->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mR0->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mR1->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mR2->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mR3->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
-	mDelay->setAttributeValue(kTTSym_maxNumChannels, maxNumChannels);
+	mF0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF1->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF2->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF3->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR1->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR2->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR3->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mDelay->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 	
-	mRSwitch.resize(maxNumChannels);
-	mRSwitch.assign(maxNumChannels, 0.0);
+	mRSwitch.resize(mMaxNumChannels);
+	mRSwitch.assign(mMaxNumChannels, 0.0);
 	
-	mY0.resize(maxNumChannels);
-	mY0.assign(maxNumChannels, 0.0);
-	mY1.resize(maxNumChannels);
-	mY1.assign(maxNumChannels, 0.0);
+	mY0.resize(mMaxNumChannels);
+	mY0.assign(mMaxNumChannels, 0.0);
+	mY1.resize(mMaxNumChannels);
+	mY1.assign(mMaxNumChannels, 0.0);
 	
 	clear();
 	return kTTErrNone;

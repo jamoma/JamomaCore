@@ -29,7 +29,7 @@ protected:
 	TTSampleVector		mY2;						///< Output sample n-2
 	
 	/**	Receives notifications when there are changes to the inherited 
-	 maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
+	 mMaxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
 	 so that each channel's previous values are remembered.		*/
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&);
