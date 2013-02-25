@@ -72,8 +72,8 @@ return kTTErrNone;
 
 TTErr TTAverage::updateMaxNumChannels(const TTValue& aNotUsed1, TTValue& aNotUsed2)
 {
-	mAccumulator.resize(maxNumChannels);
-	mBins.resize(maxNumChannels);
+	mAccumulator.resize(mMaxNumChannels);
+	mBins.resize(mMaxNumChannels);
 	return init(mMaxInterval);
 }
 
@@ -88,7 +88,7 @@ void TTAverage::reset()
 TTErr TTAverage::clear()
 {   
 	for_each(mBins.begin(), mBins.end(), std::mem_fun_ref(&TTDelayBuffer::clear));
-	mAccumulator.assign(maxNumChannels, 0.0);
+	mAccumulator.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;
 }
 
