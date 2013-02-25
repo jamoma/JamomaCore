@@ -315,7 +315,6 @@ TTErr TTContainer::setAlias(const TTValue& value)
 	TTSymbol		key;
 	TTUInt32		i;
 	TTString		aliasKey;
-    TTErr			err;
 	
 	mAlias = value[0];
 	
@@ -387,9 +386,8 @@ TTErr TTContainer::setAlias(const TTValue& value)
 			}
 		}
         
-        err = this->findAttribute(kTTSym_alias, &anAttribute);
-        if (!err)
-            anAttribute->sendNotification(kTTSym_notify, mAlias);	// we use kTTSym_notify because we know that observers are TTCallback
+        this->findAttribute(kTTSym_alias, &anAttribute);
+        anAttribute->sendNotification(kTTSym_notify, mAlias);	// we use kTTSym_notify because we know that observers are TTCallback
 
 		return kTTErrNone;
 	}
