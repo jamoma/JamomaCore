@@ -354,8 +354,9 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, cons
 	TTDictionaryPtr	aLine;
 	TTObjectBasePtr	anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
+    TTListPtr       instanceOptions;
 	TTAddress		address, childAddress;
-	TTSymbol		service;
+	TTSymbol		service, option;
 	TTValue			v, parsedLine;
 	TTBoolean		empty = YES;
 	TTErr			err;
@@ -409,20 +410,36 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, cons
 							continue;
 						}
 						
-						v.clear();
-						anObject->getAttributeValue(kTTSym_value, v);
-						
-						if (v == kTTValNONE)
-							continue;
-						
-						// append a command line
-						v.prepend(TTSymbol(nameInstance));
-						aScript->sendMessage(TTSymbol("AppendCommand"), v, parsedLine);
-						
-						// the script is not empty
-						empty = NO;
-						
-						continue;
+                        // create a line for each option of the item
+                        instanceOptions = instanceItem->getOptions();
+                        
+                        for (instanceOptions->begin(); instanceOptions->end(); instanceOptions->next()) {
+                            
+                            option = instanceOptions->current()[0];
+                            
+                            if (option == kTTSymEmpty)
+                                option = kTTSym_value;
+                                
+                            v.clear();
+                            anObject->getAttributeValue(option, v);
+                            
+                            if (v == kTTValNONE)
+                                continue;
+                            
+                            if (option == kTTSym_value)
+                                address = TTAddress(nameInstance);
+                            else
+                                address = TTAddress(nameInstance).appendAttribute(option);
+                            
+                            // append a command line
+                            v.prepend(address);
+                            aScript->sendMessage(TTSymbol("AppendCommand"), v, parsedLine);
+                            
+                            // the script is not empty
+                            empty = NO;
+                        }
+                        
+                        continue;
 					}
 				}
 				

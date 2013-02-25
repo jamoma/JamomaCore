@@ -10,7 +10,7 @@
 #include "TTModularClassWrapperMax.h"
 #include "jpatcher_api.h"
 
-#define data_out 0
+#define line_out 0
 #define dump_out 1
 
 // This is used to store extra data
@@ -31,6 +31,7 @@ void		WrappedPresetManageClass_free(TTPtr self);
 
 void		preset_assist(TTPtr self, void *b, long msg, long arg, char *dst);
 
+void		preset_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		preset_return_order(TTPtr self, t_symbol *msg, long argc, t_atom *argv);
 void		preset_filechanged(TTPtr self, char *filename, short path);
 
@@ -69,6 +70,8 @@ int TTCLASSWRAPPERMAX_EXPORT main(void)
 void WrapTTPresetManagerClass(WrappedClassPtr c)
 {
 	class_addmethod(c->maxClass, (method)preset_assist,					"assist",				A_CANT, 0L);
+    
+    class_addmethod(c->maxClass, (method)preset_return_value,			"return_value",			A_CANT, 0);
 	
 	class_addmethod(c->maxClass, (method)preset_return_order,			"return_order",			A_CANT, 0);
 	class_addmethod(c->maxClass, (method)preset_filechanged,			"filechanged",			A_CANT, 0);
@@ -126,7 +129,7 @@ void WrappedPresetManagerClass_new(TTPtr self, AtomCount argc, AtomPtr argv)
 	
 	// Make two outlets
 	x->outlets = (TTHandle)sysmem_newptr(sizeof(TTPtr) * 1);
-	x->outlets[data_out] = outlet_new(x, NULL);						// anything outlet to output data
+	x->outlets[line_out] = outlet_new(x, NULL);						// anything outlet to output data
 	
 	// Prepare Internals hash to store XmlHanler and TextHandler object
 	x->internals = new TTHash();
@@ -264,7 +267,7 @@ void preset_assist(TTPtr self, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "");		
 	else {							// Outlets
 		switch(arg) {
-			case data_out:
+			case line_out:
 				strcpy(dst, "preset output");
 				break;
 			case dump_out:
@@ -274,10 +277,21 @@ void preset_assist(TTPtr self, void *b, long msg, long arg, char *dst)
  	}
 }
 
+void preset_return_value(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
+{
+	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
+	
+	// avoid blank before line
+	if (msg == _sym_nothing)
+		outlet_atoms(x->outlets[line_out], argc, argv);
+	else
+		outlet_anything(x->outlets[line_out], msg, argc, argv);
+}
+
 void preset_return_order(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
 	WrappedModularInstancePtr	x = (WrappedModularInstancePtr)self;
-	outlet_anything(x->outlets[data_out], gensym("order"), argc, argv);
+	outlet_anything(x->outlets[dump_out], gensym("order"), argc, argv);
 }
 
 void preset_read(TTPtr self, SymbolPtr msg, AtomCount argc, AtomPtr argv)

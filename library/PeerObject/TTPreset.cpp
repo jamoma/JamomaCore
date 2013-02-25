@@ -18,14 +18,15 @@ mAddress(kTTAdrsEmpty),
 mDirectory(NULL),
 mScript(NULL)
 {
-	TTValue args;
+	TT_ASSERT("Correct number of args to create TTPreset", arguments.size() == 0 || arguments.size() == 1);
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
 	addMessage(Clear);
 	addMessage(Store);
-	addMessage(Recall);
+	addMessageWithArguments(Recall);
+    addMessageWithArguments(Output);
 	
 	// needed to be handled by a TTXmlHandler
 	addMessageWithArguments(WriteAsXml);
@@ -39,7 +40,7 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	TTObjectBaseInstantiate(kTTSym_Script, TTObjectBaseHandle(&mScript), args);
+	TTObjectBaseInstantiate(kTTSym_Script, TTObjectBaseHandle(&mScript), arguments);
 }
 
 TTPreset::~TTPreset()
@@ -134,33 +135,15 @@ TTErr TTPreset::Clear()
 	return mScript->sendMessage(TTSymbol("Clear"));
 }
 
-TTErr TTPreset::Recall()
+TTErr TTPreset::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTNodePtr       aNode = NULL;
-    TTObjectBasePtr anObject = NULL;
+    TTAddress       anAddress = kTTAdrsRoot;
     TTBoolean       flattened;
     TTValue         v;
-    TTErr           err;
     
-    // get the container object to make the recall faster
-    err = getDirectoryFrom(mAddress)->getTTNode(mAddress, &aNode);
-    
-    if (!err) {
-        
-        // if there is a node
-        if (aNode) {
-            
-            anObject = aNode->getObject();
-            
-            // check object type
-            if (anObject) {
-                
-                // for container object
-                if (anObject->getName() != kTTSym_Container)
-                    anObject = NULL;
-            }
-        }
-    }
+    if (inputValue.size() == 1)
+        if (inputValue[0].type() == kTypeSymbol)
+            anAddress = inputValue[0];
     
     // is the cue already flattened ?
     mScript->getAttributeValue(kTTSym_flattened, v);
@@ -168,16 +151,40 @@ TTErr TTPreset::Recall()
     
     if (!flattened)
         mScript->sendMessage(kTTSym_Flatten, mAddress, kTTValNONE);
-    
-    // prepare argument to run the script
-    v = mAddress;
-    
-    // use container to go faster
-    if (anObject)
-        v.append(anObject);
 
-    // run the script
-	return mScript->sendMessage(kTTSym_Run, v, kTTValNONE);
+    // if an address is passed, run the line at address
+    if (anAddress != kTTAdrsRoot)
+        return mScript->sendMessage(TTSymbol("RunLine"), inputValue, kTTValNONE);
+        
+    // else run all the script
+    else
+        return mScript->sendMessage(kTTSym_Run, mAddress, kTTValNONE);
+}
+
+TTErr TTPreset::Output(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTAddress   anAddress = kTTAdrsRoot;
+    TTBoolean   flattened;
+    TTValue     v;
+    
+    if (inputValue.size() == 1)
+        if (inputValue[0].type() == kTypeSymbol)
+            anAddress = inputValue[0];
+    
+    // is the preset already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (!flattened)
+        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+    
+    // if an address is passed, dump the line at address
+    if (anAddress != kTTAdrsRoot)
+        return mScript->sendMessage(TTSymbol("DumpLine"), inputValue, kTTValNONE);
+    
+    // else dump all the script
+    else
+        return mScript->sendMessage(kTTSym_Dump, inputValue, kTTValNONE);
 }
 
 TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)

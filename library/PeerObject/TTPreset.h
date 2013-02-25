@@ -41,7 +41,10 @@ private :
 	TTErr	Store();
     
 	/** */
-	TTErr	Recall();
+	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Output the preset from an address (default : kAdrsRoot to output all the preset) */
+	TTErr	Output(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);

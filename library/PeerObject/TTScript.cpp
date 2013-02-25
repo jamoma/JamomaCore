@@ -268,7 +268,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
     
     // eventually get a container to go faster
     if (inputValue.size() == 2)
-        if (inputValue[1].type() == kTypeSymbol)
+        if (inputValue[1].type() == kTypeObject)
             aParentContainer = inputValue[1];
 	
 	// run each line of the script
@@ -332,8 +332,17 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                         if (anObject->getName() == kTTSym_Data) {
                             
                             // send the line using the command message
-                            v = TTValue((TTPtr)aLine);
-                            anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                            if (address.getAttribute() == kTTSymEmpty) {
+                            
+                                v = TTValue((TTPtr)aLine);
+                                anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                            }
+                            // or set attribute
+                            else {
+                                
+                                aLine->getValue(v);
+                                anObject->setAttributeValue(address.getAttribute(), v);
+                            }
                         }
                     }
                 }
@@ -434,8 +443,17 @@ TTErr TTScript::RunFlattened()
                 if (anObject->getName() == kTTSym_Data) {
                     
                     // send the line using the command message
-                    v = TTValue((TTPtr)aLine);
-                    anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                    if (address.getAttribute() == kTTSymEmpty) {
+                        
+                        v = TTValue((TTPtr)aLine);
+                        anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                    }
+                    // or set attribute
+                    else {
+                        
+                        aLine->getValue(v);
+                        anObject->setAttributeValue(address.getAttribute(), v);
+                    }
                 }
             }
         }
@@ -497,8 +515,17 @@ TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
                         if (anObject->getName() == kTTSym_Data) {
                             
                             // send the line using the command message
-                            v = TTValue((TTPtr)aLine);
-                            anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                            if (address.getAttribute() == kTTSymEmpty) {
+                                
+                                v = TTValue((TTPtr)aLine);
+                                anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                            }
+                            // or set attribute
+                            else {
+                                
+                                aLine->getValue(v);
+                                anObject->setAttributeValue(address.getAttribute(), v);
+                            }
                         }
                     }
                 }
@@ -1452,7 +1479,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 	TTDictionaryPtr line1, line2;
     TTAddress       adrs1, adrs2;
     TTValue			v1, v2, v, newValue;
-	TTSymbol		type, function;
+	TTSymbol		attribute, type, function;
     TTNodePtr       aNode;
     TTObjectBasePtr aData;
 	TTValue			found;
@@ -1501,6 +1528,11 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
                     line1->getValue(v1);
                     line2->getValue(v2);
                     
+                    // don't interpolate attribute
+                    attribute = adrs1.getAttribute();
+                    if (attribute != kTTSymEmpty && attribute != kTTSym_value)
+                        continue;
+                    
                     // check function
                     if (!aData->getAttributeValue(kTTSym_rampFunction, v)) {
                         
@@ -1540,7 +1572,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
                                 newValue = position <= 0.5 ? v1 : v2;
                             
                             // set the interpolated value
-                            aData->setAttributeValue(kTTSym_value, newValue);
+                            aData->setAttributeValue(adrs1.getAttribute(), newValue);
                         }
                     }
                 }
