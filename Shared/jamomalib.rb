@@ -1192,6 +1192,10 @@ else
         vcproj_debug32_linker.elements["TargetMachine"].text = "MachineX86"
         vcproj_debug32_linker.add_element Element.new "SuppressStartupBanner"
         vcproj_debug32_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_debug32_linker.add_element Element.new "AdditionalLibraryDirectories"
+        vcproj_debug32_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_debug}"
+        vcproj_debug32_linker.add_element Element.new "AdditionalDependencies"
+        vcproj_debug32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug};%(AdditionalDependencies)"           
         vcproj_debug32.add_element vcproj_debug32_linker
   
         vcproj_release32_linker = Element.new "Link"
@@ -1223,6 +1227,10 @@ else
         vcproj_release32_linker.elements["SuppressStartupBanner"].text = "true"
         vcproj_release32_linker.add_element Element.new "OptimizeReferences"
         vcproj_release32_linker.elements["OptimizeReferences"].text = "true"
+        vcproj_release32_linker.add_element Element.new "AdditionalLibraryDirectories"
+        vcproj_release32_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_release}"
+        vcproj_release32_linker.add_element Element.new "AdditionalDependencies"
+        vcproj_release32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release};%(AdditionalDependencies)"           
         vcproj_release32.add_element vcproj_release32_linker
   
         vcproj_debug64_linker = Element.new "Link"
@@ -1252,6 +1260,10 @@ else
         vcproj_debug64_linker.elements["TargetMachine"].text = "MachineX64"
         vcproj_debug64_linker.add_element Element.new "SuppressStartupBanner"
         vcproj_debug64_linker.elements["SuppressStartupBanner"].text = "true"
+        vcproj_debug64_linker.add_element Element.new "AdditionalLibraryDirectories"
+        vcproj_debug64_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_debug}"
+        vcproj_debug64_linker.add_element Element.new "AdditionalDependencies"
+        vcproj_debug64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug};%(AdditionalDependencies)"           
         vcproj_debug64.add_element vcproj_debug64_linker
   
         vcproj_release64_linker = Element.new "Link"
@@ -1282,45 +1294,13 @@ else
         vcproj_release64_linker.add_element Element.new "SuppressStartupBanner"
         vcproj_release64_linker.elements["SuppressStartupBanner"].text = "true"
         vcproj_release64_linker.add_element Element.new "OptimizeReferences"
-        vcproj_release64_linker.elements["OptimizeReferences"].text = "true"
+        vcproj_release64_linker.elements["OptimizeReferences"].text = "true"             
+        vcproj_release64_linker.add_element Element.new "AdditionalLibraryDirectories"
+        vcproj_release64_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_release}"
+        vcproj_release64_linker.add_element Element.new "AdditionalDependencies"
+        vcproj_release64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release};%(AdditionalDependencies)"           
         vcproj_release64.add_element vcproj_release64_linker
-  
-#       	vcproj_tool = Element.new "Tool"
-#       	vcproj_tool.attributes["Name"] = "VCLinkerTool"
-#       	vcproj_tool.attributes["AdditionalDependencies"] = "#{concatenated_libs_debug}"
-#        if project_type == "library"
-#          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).dll"
-#        else
-#          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).ttdll"
-#        end
-#       	vcproj_tool.attributes["LinkIncremental"] = "2"
-#       	vcproj_tool.attributes["AdditionalLibraryDirectories"] = "#{concatenated_lib_dirs_debug}"
-#       	vcproj_tool.attributes["GenerateManifest"] = "false"
-#       	vcproj_tool.attributes["ModuleDefinitionFile"] = ""
-#       	vcproj_tool.attributes["GenerateDebugInformation"] = "true"
-#       	vcproj_tool.attributes["SubSystem"] = "2"
-#       	vcproj_tool.attributes["TargetMachine"] = "1"
-#      	vcproj_debug.add_element(vcproj_tool)
-#
-#       	vcproj_tool = Element.new "Tool"
-#       	vcproj_tool.attributes["Name"] = "VCLinkerTool"
-#       	vcproj_tool.attributes["AdditionalDependencies"] = "#{concatenated_libs_release}"
-#        if project_type == "library"
-#          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).dll"
-#        else
-#          vcproj_tool.attributes["OutputFile"] = "$(OutDir)\$(ProjectName).ttdll"
-#        end
-#       	vcproj_tool.attributes["LinkIncremental"] = "1"
-#       	vcproj_tool.attributes["AdditionalLibraryDirectories"] = "#{concatenated_lib_dirs_release}"
-#       	vcproj_tool.attributes["GenerateManifest"] = "false"
-#       	vcproj_tool.attributes["ModuleDefinitionFile"] = ""
-#       	vcproj_tool.attributes["GenerateDebugInformation"] = "true"
-#       	vcproj_tool.attributes["SubSystem"] = "2"
-#       	vcproj_tool.attributes["TargetMachine"] = "1"
-#  			vcproj_tool.attributes["OptimizeReferences"] = "2"
-#  			vcproj_tool.attributes["EnableCOMDATFolding"] = "2"
-#      	vcproj_release.add_element(vcproj_tool)
-
+        
       else
 
         makefile.write("#########################################\n\n")
