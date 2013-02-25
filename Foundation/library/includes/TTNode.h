@@ -57,7 +57,7 @@ private:
 	TTHashPtr			children;				///< a hashtab of hashtabs:
 												///< hashed on children names which containing hashtabs hashed on instances
 
-	TTObjectBasePtr			object;					///< an object linked to the TTNode
+	TTObjectBasePtr		object;					///< an object linked to the TTNode
 	TTPtr				context;				///< an element that contains the object in the environnement
 
 	TTNodeDirectoryPtr	directory;				///< a pointer to a directory

@@ -417,7 +417,7 @@ public:
 			}
 			else if (currentString.toTTFloat32(convertedFloat) && !numberAsSymbol) {
                 
-				at(n) = TTFloat32(convertedFloat);
+				at(n) = TTFloat64(convertedFloat);  // cast float32 into float64
 				n++;
 			}
 			else {

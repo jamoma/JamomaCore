@@ -33,6 +33,7 @@ private:
 	
 	TTSymbol				symbol;					// any symbol
 	TTAddressItemPtr		parent;					// the parent item
+    TTListPtr               options;				// any optionnal symbols (like attribute, message)
 	TTBoolean				selection;				// selection state of the item
 	TTList					handlers;				// list of all TTObjectBase handling the item
 	
@@ -59,6 +60,9 @@ public:
 	
 	/** Get the parent of the item */
 	TTAddressItemPtr			getParent();
+    
+    /** Get the options of the item */
+	TTListPtr                   getOptions();
 	
 	/** Get the selection state of the item */
 	TTBoolean					getSelection();
