@@ -14,6 +14,7 @@
 TTAddressItem::TTAddressItem(TTSymbol aSymbol, TTAddressItemPtr aParent, TTBoolean aSelection):
 	symbol(kTTSymEmpty),
 	parent(NULL),
+    options(NULL),
 	selection(NO)
 {
 	if (aSymbol)
@@ -22,12 +23,14 @@ TTAddressItem::TTAddressItem(TTSymbol aSymbol, TTAddressItemPtr aParent, TTBoole
 		this->symbol = kTTSymEmpty;
 	
 	this->parent = aParent;
+    this->options = new TTList();
 	this->selection = aSelection;
 }
 
 TTAddressItem::~TTAddressItem()
 {
 	this->clear();
+    delete this->options;
 }
 
 void TTAddressItem::setSelection(const TTBoolean newSelectionState, TTBoolean recursively)
@@ -36,7 +39,7 @@ void TTAddressItem::setSelection(const TTBoolean newSelectionState, TTBoolean re
 	if (newSelectionState != this->selection)
 		this->selection = newSelectionState;
 	
-	// propagate below if needed
+	// propagate below if needed (not to option)
 	if (recursively)
 		for (this->begin(); this->end(); this->next())
 			this->current()->setSelection(newSelectionState, recursively);
@@ -59,6 +62,11 @@ TTSymbol TTAddressItem::getSymbol()
 TTAddressItemPtr TTAddressItem::getParent()
 {
 	return this->parent;
+}
+
+TTListPtr TTAddressItem::getOptions()
+{
+	return this->options;
 }
 
 TTBoolean TTAddressItem::getSelection()
@@ -86,6 +94,8 @@ void TTAddressItem::clear()
 		delete this->current();
 	
 	((TTListPtr)this)->clear();
+    
+    this->options->clear();
 }
 
 TTErr TTAddressItem::append(TTAddress addressToAppend, TTAddressItemPtr *returnedItem)
@@ -109,6 +119,8 @@ TTErr TTAddressItem::append(TTAddress addressToAppend, TTAddressItemPtr *returne
 		
 		anItem = nextItem;
 	}
+    
+    anItem->options->appendUnique(addressToAppend.getAttribute());
 	
 	*returnedItem = anItem;
 	return kTTErrNone;
@@ -122,15 +134,22 @@ TTErr TTAddressItem::remove(TTAddress addressToRemove)
 	// if the item exist
 	if (!this->find(addressToRemove, &anItem)) {
 		
-		do {
-			parentItem = anItem->getParent();
-			((TTListPtr)parentItem)->remove((TTPtr)anItem);
-			delete anItem;
-			
-			if (!parentItem) 
-				break;
-			
-		} while (parentItem->isEmpty());
+        // remove option
+        anItem->options->remove(addressToRemove.getAttribute());
+        
+        // if there no more options
+        if (anItem->options->isEmpty()) {
+            
+            do {
+                parentItem = anItem->getParent();
+                ((TTListPtr)parentItem)->remove((TTPtr)anItem);
+                delete anItem;
+                
+                if (!parentItem)
+                    break;
+                
+            } while (parentItem->isEmpty());
+        }
 			
 		return kTTErrNone;
 	}
@@ -144,6 +163,7 @@ TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedIte
 	TTAddressItemPtr	nextItem;
 	TTList				nameInstanceList;
 	TTSymbol			nameInstance(kTTSymEmpty);
+    TTValue             v;
 	
 	addressToFind.listNameInstance(nameInstanceList);
     
@@ -160,8 +180,12 @@ TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedIte
 	}
 	
 	if (anItem != this) {
-		*returnedItem = anItem;
-		return kTTErrNone;
+        
+        if (!anItem->options->findEquals(addressToFind.getAttribute(), v)) {
+            
+            *returnedItem = anItem;
+            return kTTErrNone;
+        }
 	}
 	
 	return kTTErrValueNotFound;
@@ -190,6 +214,7 @@ TTErr TTAddressItem::merge(const TTAddressItemPtr anItemToMerge)
 		anItemToMerge->copy(&anItem);
 		((TTListPtr)this)->append((TTPtr)anItem);
 		anItem->setParent(this);
+        anItem->options->merge(*this->options);
 	}
 	else 
 		for (anItemToMerge->begin(); anItemToMerge->end(); anItemToMerge->next())
