@@ -389,7 +389,7 @@ TTErr TTContainer::setAlias(const TTValue& value)
         
         err = this->findAttribute(kTTSym_alias, &anAttribute);
         if (!err)
-            anAttribute->sendNotification(kTTSym_notify, mPriority);	// we use kTTSym_notify because we know that observers are TTCallback
+            anAttribute->sendNotification(kTTSym_notify, mAlias);	// we use kTTSym_notify because we know that observers are TTCallback
 
 		return kTTErrNone;
 	}
