@@ -38,8 +38,10 @@ private:
 	TTBoolean		mDynamicInstances;			///< ATTRIBUTE: is the data can be dynamically instanciated
 	TTValue			mInstanceBounds;			///< ATTRIBUTE: two TTValues for a range of dynamic instances (-1 = infini)
 
-	TTSymbol		mRampDrive;					///< ATTRIBUTE: ramp mode 
+	TTSymbol		mRampDrive;					///< ATTRIBUTE: ramp mode
+#ifndef TT_NO_DSP    
 	TTSymbol		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
+#endif
 	TTValue			mRampFunctionParameters;	///< ATTRIBUTE: names of parameter's function
 	TTBoolean		mRampStatus;				///< ATTRIBUTE: is the ramp running ?
 	
@@ -165,10 +167,10 @@ private:
 
 	/**	Setter for mRampDrive attribute. */
 	TTErr       setRampDrive(const TTValue& value);
-	
+#ifndef TT_NO_DSP	
 	/**	Setter for mRampFunction attribute. */
 	TTErr       setRampFunction(const TTValue& value);
-	
+#endif
 	/**	Setter for mDataspace attribute. */
 	TTErr       setDataspace(const TTValue& value);
 	

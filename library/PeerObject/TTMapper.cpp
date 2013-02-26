@@ -21,10 +21,12 @@ mOutputMin(0.),
 mOutputMax(1.),
 mActive(YES),
 mInverse(NO),
+#ifndef TT_NO_DSP
 mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
 mFunctionParameters(kTTValNONE),
 mFunctionSamples(kTTValNONE),
+#endif
 mRamp(0),
 mReceiver(NULL),
 mSender(NULL),
@@ -55,7 +57,7 @@ mValid(NO)
 	addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttribute(Inverse, kTypeBoolean);
-	
+#ifndef TT_NO_DSP	
 	addAttributeWithGetter(FunctionLibrary, kTypeLocalValue);
 	addAttributeProperty(FunctionLibrary, readOnly, YES);
 	
@@ -66,7 +68,7 @@ mValid(NO)
 	
 	addAttributeWithGetter(FunctionSamples, kTypeLocalValue);
 	addAttributeProperty(FunctionSamples, readOnly, YES);
-    
+#endif
     addAttribute(Ramp, kTypeUInt32);
 	
 	addMessageWithArguments(Map);
@@ -78,9 +80,10 @@ mValid(NO)
 
 TTMapper::~TTMapper() // TODO : delete things...
 {
-	long		n;
 	TTSymbol	aName;
-#ifndef TT_NO_DSP	
+#ifndef TT_NO_DSP
+	long		n;
+    
 	if (mFunctionUnit) {
 		
 		// Remove former datas
@@ -137,7 +140,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 	
 	return kTTErrNone;
 }
-
+#ifndef TT_NO_DSP
 TTErr TTMapper::getFunctionLibrary(TTValue& value)
 {
     TTGetRegisteredClassNamesForTags(mFunctionLibrary, kTTSym_function);
@@ -160,7 +163,7 @@ TTErr TTMapper::getFunctionSamples(TTValue& value)
 	
 	return kTTErrNone;
 }
-
+#endif
 TTErr TTMapper::setInput(const TTValue& value)
 {
 	TTValue			args, v, min, max;
@@ -377,13 +380,13 @@ TTErr TTMapper::observeOutputRange()
 	
 	return kTTErrNone;
 }
-
+#ifndef TT_NO_DSP
 TTErr TTMapper::setFunction(const TTValue& value)
 {
 	long		n;
 	TTValue		names;
 	TTSymbol	aName;
-#ifndef TT_NO_DSP	
+	
 	if (mFunctionUnit) {
 
 		// Remove former datas
@@ -433,9 +436,10 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		notifyObservers(TTSymbol("functionParameters"), mFunctionParameters);
 		return kTTErrNone;
 	}
-#endif	
+
 	return kTTErrGeneric;
 }
+#endif
 
 TTErr TTMapper::setInputMin(const TTValue& value)
 {

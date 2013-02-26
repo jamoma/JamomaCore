@@ -28,7 +28,9 @@ mRangeClipmode(kTTSym_none),
 mDynamicInstances(NO),
 mInstanceBounds(0, -1),
 mRampDrive(kTTSym_none),
+#ifndef TT_NO_DSP
 mRampFunction(kTTSym_none),
+#endif
 mRampFunctionParameters(kTTValNONE),
 mRampStatus(NO),
 mDataspace(kTTSym_none),
@@ -71,7 +73,9 @@ mReturnValueCallback(NULL)
 	addAttributeProperty(InstanceBounds, hidden, YES);
 	
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
+#ifndef TT_NO_DSP    
 	addAttributeWithSetter(RampFunction, kTypeSymbol);
+#endif
 	
 	addAttribute(RampFunctionParameters, kTypeLocalValue);
 	addAttributeProperty(RampFunctionParameters, readOnly, YES);
@@ -377,7 +381,7 @@ TTErr TTData::setRampDrive(const TTValue& value)
 	this->notifyObservers(kTTSym_rampDrive, n);
 	return kTTErrNone;
 }
-
+#ifndef TT_NO_DSP
 TTErr TTData::setRampFunction(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -426,7 +430,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 	this->notifyObservers(kTTSym_rampFunction, n);
 	return kTTErrNone;
 }
-
+#endif
 TTErr TTData::setDataspace(const TTValue& value)
 {
 	TTErr	err;
@@ -551,10 +555,10 @@ TTErr TTData::rampSetup()
 	
 	if (mRamper == NULL)
 		return kTTErrGeneric;
-	
+#ifndef TT_NO_DSP	
 	// 3. reset the ramp function
 	setRampFunction(mRampFunction);
-	
+#endif
 	return kTTErrNone;	
 }
 
@@ -616,12 +620,12 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += "\t\t\t<td class =\"instructionRampDrive\">";
 	*buffer += this->mRampDrive.c_str();
 	*buffer += "</td>";
-	
+#ifndef TT_NO_DSP	
 	// ramp/function
 	*buffer += "\t\t\t<td class =\"instructionRampFunction\">";
 	*buffer += this->mRampFunction.c_str();
 	*buffer += "</td>";
-	
+#endif
 	// dataspace
 	*buffer += "\t\t\t<td class =\"instructionDataspace\">";
 	*buffer += this->mDataspace.c_str();
