@@ -1008,16 +1008,43 @@ TTErr TTData::setStringValue(const TTValue& value)
             // don't update the internal value with empty value
             if (value.size()) {
                 
-                mValue = value;
-                
-                if (mValue[0].type() != kTypeSymbol) {
+                // make other value type into symbol
+                if (value[0].type() != kTypeSymbol) {
                     
+                    TTValue  parsed;
                     TTString s;
                     
-                    mValue.toString();
-                    s = TTString(mValue[0]);
-                    mValue = TTValue(TTSymbol(s));
+                    parsed = value;
+                    parsed.toString();
+                    s = TTString(parsed[0]);
+                    parsed = TTValue(TTSymbol(s));
+                    
+                    // unlock
+                    mIsSending = NO;
+                    
+                    // set again with the parsed value
+                    return setStringValue(parsed);
                 }
+                
+                TTBoolean found = YES;
+                
+                // check if the string is precised into rangeBounds
+                if (mRangeBounds.size()) {
+                    
+                    found = NO;
+                    
+                    for (TTUInt32 i = 0; i < mRangeBounds.size(); i++) {
+                    
+                        found = value[0] == mRangeBounds[i];
+                        
+                        if (found == YES)
+                            break;
+                    }
+                }
+                
+                // set internal value
+                if (found)
+                    mValue = value;
             }
             
             // return the internal value
