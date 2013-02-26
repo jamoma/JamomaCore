@@ -567,14 +567,14 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTCallba
 	err = this->observers->lookup(adrs, lk);
 
 	// create a new observers list for this address
-	if(err == kTTErrValueNotFound){
+	if (err == kTTErrValueNotFound){
 		lk_o = new TTList();
 		lk_o->appendUnique(o);
 
 		this->observers->append(adrs, lk_o);
 	}
 	// add it to the existing list
-	else{
+	else {
 		lk_o = TTListPtr((TTPtr)lk[0]);
 		lk_o->appendUnique(o);
 	}
@@ -601,19 +601,24 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTCal
 	// is the key exists ?
 	err = this->observers->lookup(adrs, lk);
 
-	if(err != kTTErrValueNotFound){
+	if (err != kTTErrValueNotFound){
+        
 		// get the observers list
 		lk_o = TTListPtr((TTPtr)lk[0]);
 
 		// is observer exists ?
 		err = lk_o->find(&findObserver, anObserver, v);
-		if(!err)
+		if (!err)
 			lk_o->remove(v);
 
 		// was it the last observer ?
-		if(lk_o->getSize() == 0) {
+		if (lk_o->isEmpty()) {
+            
 			// remove the key
 			this->observers->remove(adrs);
+
+            // delete the list
+            delete lk_o;
 		}
 	}
 
@@ -647,6 +652,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 		
 		// for each key of mObserver tab
 		for (i = 0; i < hk.size(); i++) {
+            
 			key = hk[i];
 			
 			// compare the key
@@ -669,34 +675,38 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 			if ((comp == kAddressEqual) || (comp == kAddressLower)) {
 				
 				// get the Observers list
-				this->observers->lookup(key, lk);
-				lk_o = TTListPtr((TTPtr)lk[0]);
-				
-				if (!lk_o->isEmpty()) {
-					for (lk_o->begin(); lk_o->end(); lk_o->next())
-					{
-						anObserver = NULL;
-						anObserver = TTCallbackPtr((TTObjectBasePtr)lk_o->current()[0]);
-						TT_ASSERT("TTNode observer list member is not NULL", anObserver);
-						
-						// filter on the depth difference if specified
-						if (lk_o->current().size() > 1) {
-							maxDepthDifference = lk_o->current()[1];
-							
-							// we can cast the depth difference because it is always positive in the lower case
-							if (depthDifference > maxDepthDifference)
-								continue;
-						}
-						
-						data.append(anAddress);
-						data.append(aNode);
-						data.append((TTInt8)flag);
-						data.append((TTObjectBasePtr)anObserver);
-						anObserver->notify(data,data);
-					}
-					
-					foundObsv = true;
-				}
+				if (!this->observers->lookup(key, lk)) {
+                    
+                    lk_o = NULL;
+                    lk_o = TTListPtr((TTPtr)lk[0]);
+                    
+                    if (!lk_o->isEmpty()) {
+                        
+                        for (lk_o->begin(); lk_o->end(); lk_o->next()) {
+                            
+                            anObserver = NULL;
+                            anObserver = TTCallbackPtr((TTObjectBasePtr)lk_o->current()[0]);
+                            TT_ASSERT("TTNode observer list member is not NULL", anObserver);
+                            
+                            // filter on the depth difference if specified
+                            if (lk_o->current().size() > 1) {
+                                maxDepthDifference = lk_o->current()[1];
+                                
+                                // we can cast the depth difference because it is always positive in the lower case
+                                if (depthDifference > maxDepthDifference)
+                                    continue;
+                            }
+                            
+                            data.append(anAddress);
+                            data.append(aNode);
+                            data.append((TTInt8)flag);
+                            data.append((TTObjectBasePtr)anObserver);
+                            anObserver->notify(data,data);
+                        }
+                        
+                        foundObsv = true;
+                    }
+                }
 			}
 		}
 		
