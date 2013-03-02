@@ -128,33 +128,33 @@ TTErr TTAddressItem::append(TTAddress addressToAppend, TTAddressItemPtr *returne
 
 TTErr TTAddressItem::remove(TTAddress addressToRemove)
 {
-	TTAddressItemPtr	anItem;
-	TTAddressItemPtr	parentItem;
+	TTAddressItemPtr anItem, parentItem;
 	
 	// if the item exist
 	if (!this->find(addressToRemove, &anItem)) {
 		
-        // remove option
+        // remove option (even empty option)
         anItem->options->remove(addressToRemove.getAttribute());
         
         // if there no more options
         if (anItem->options->isEmpty()) {
             
+            // destroy upper parents if there are empty after removing the item
             do {
+               
                 parentItem = anItem->getParent();
                 ((TTListPtr)parentItem)->remove((TTPtr)anItem);
-                delete anItem;
+                destroy(anItem);
                 
-                if (!parentItem)
-                    break;
+                anItem = parentItem;
                 
-            } while (parentItem->isEmpty());
+            } while (anItem->isEmpty()) ;
         }
 			
 		return kTTErrNone;
 	}
 	
-	return kTTErrGeneric;
+	return kTTErrValueNotFound;
 }
 
 TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedItem)
@@ -203,11 +203,11 @@ TTAddressItemPtr TTAddressItem::current()
 TTErr TTAddressItem::merge(const TTAddressItemPtr anItemToMerge)
 {
 	TTAddressItemPtr	anItem;
-	//TTErr					err;
 	
 	if (!anItemToMerge)
 		return kTTErrGeneric;
 	
+    // check if the item exists
 	anItem = this->getItem(anItemToMerge->symbol);
 	
 	if (!anItem) {
@@ -225,25 +225,28 @@ TTErr TTAddressItem::merge(const TTAddressItemPtr anItemToMerge)
 
 TTErr TTAddressItem::destroy(const TTAddressItemPtr anItemToRemove)
 {
-	TTAddressItemPtr	anItem;
-	
+    TTAddressItemPtr	anItem;
+    
 	if (!anItemToRemove)
 		return kTTErrGeneric;
-	
-	anItem = this->getItem(anItemToRemove->symbol);
+    
+    // check if the item exists
+    anItem = this->getItem(anItemToRemove->symbol);
 	
 	if (anItem) {
-		
-		for (anItemToRemove->begin(); anItemToRemove->end(); anItemToRemove->next())
-			anItem->destroy(anItemToRemove->current());
-		
-		if (anItem->isEmpty()) {
-			((TTListPtr)this)->remove((TTPtr)anItem);
-			delete anItem;
-		}
-	}
 	
-	return kTTErrNone;
+        for (anItem->begin(); anItem->end(); anItem->next())
+            anItem->destroy(anItem->current());
+    
+        if (anItem->isEmpty()) {
+            ((TTListPtr)this)->remove((TTPtr)anItem);
+            delete anItem;
+        }
+	
+        return kTTErrNone;
+    }
+    
+    return kTTErrValueNotFound;
 }
 
 TTBoolean TTAddressItem::exist(TTAddressItemPtr anItemToCheck, TTAddressItemPtr *returnedItem)
