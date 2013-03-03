@@ -1572,7 +1572,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
                                 newValue = position <= 0.5 ? v1 : v2;
                             
                             // set the interpolated value
-                            aData->setAttributeValue(adrs1.getAttribute(), newValue);
+                            aData->setAttributeValue(kTTSym_value, newValue);
                         }
                     }
                 }

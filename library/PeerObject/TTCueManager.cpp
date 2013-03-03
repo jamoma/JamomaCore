@@ -565,8 +565,8 @@ TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
         }
         else if (inputValue[i].type() == kTypeInt32 && inputValue[i+1].type() == kTypeFloat64) {
             
-            id = inputValue[i] ;
-            if (id >= 0 && id < mOrder.size())
+            id = inputValue[i];            
+            if (id > 0 && id <= mOrder.size())
                 name = mOrder[id-1];
             else
                 return kTTErrGeneric;
