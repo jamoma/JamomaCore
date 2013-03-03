@@ -834,7 +834,7 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 					
 					// Create a new preset
 					mCurrentPreset = NULL;
-					TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&mCurrentPreset), kTTValNONE);
+					TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&mCurrentPreset), args);
 					
 					mCurrentPreset->setAttributeValue(kTTSym_address, mAddress);
 					mCurrentPreset->setAttributeValue(kTTSym_name, mCurrent);
