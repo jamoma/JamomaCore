@@ -30,6 +30,20 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
+					"id" : "obj-17",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 74.0, 34.0, 56.0, 20.0 ],
+					"text" : "deferlow"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
@@ -97,7 +111,7 @@
 							"revision" : 8
 						}
 ,
-						"rect" : [ 327.0, 44.0, 315.0, 448.0 ],
+						"rect" : [ 327.0, 44.0, 362.0, 446.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -169,7 +183,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 307.001862, 311.0, 33.0 ],
+									"patching_rect" : [ 28.0, 307.001862, 315.0, 33.0 ],
 									"text" : "jcom.test.assert.equal view.deferlow-test @input address @compareTo /noModelAddress/test"
 								}
 
@@ -464,7 +478,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 74.0, 35.0, 129.0, 20.0 ],
+					"patching_rect" : [ 74.0, 58.0, 129.0, 20.0 ],
 					"text" : "s start-jamoma-testing"
 				}
 
@@ -478,7 +492,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 59.0, 103.0, 20.0 ],
+					"patching_rect" : [ 8.0, 82.0, 103.0, 20.0 ],
 					"text" : "jcom.test.finished"
 				}
 
@@ -509,6 +523,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-3", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -527,7 +550,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-16", 0 ],
+					"destination" : [ "obj-17", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-6", 2 ]

@@ -501,8 +501,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 293.001862, 265.0, 33.0 ],
-									"text" : "jcom.test.assert.equal subpatcher.deferlow-test @input address @compareTo /test:value"
+									"patching_rect" : [ 28.0, 293.001862, 262.0, 33.0 ],
+									"text" : "jcom.test.assert.equal subpatcher.deferlow-test @input dump @compareTo /test:value"
 								}
 
 							}
@@ -585,8 +585,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 111.001862, 215.0, 33.0 ],
-									"text" : "jcom.test.assert.equal subpatcher-test @input address @compareTo nothing"
+									"patching_rect" : [ 28.0, 111.001862, 214.0, 33.0 ],
+									"text" : "jcom.test.assert.equal subpatcher-test @input dump @compareTo nothing"
 								}
 
 							}
@@ -897,21 +897,21 @@
 		"dependency_cache" : [ 			{
 				"name" : "jcom.test.start.maxpat",
 				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.start",
-				"patcherrelativepath" : "../../../../../Test/components/test.start",
+				"patcherrelativepath" : "../../../../../../Test/components/test.start",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.finished.maxpat",
 				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.finished",
-				"patcherrelativepath" : "../../../../../Test/components/test.finished",
+				"patcherrelativepath" : "../../../../../../Test/components/test.finished",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.assert.equal.maxpat",
 				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.assert.equal",
-				"patcherrelativepath" : "../../../../../Test/components/test.assert.equal",
+				"patcherrelativepath" : "../../../../../../Test/components/test.assert.equal",
 				"type" : "JSON",
 				"implicit" : 1
 			}

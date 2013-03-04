@@ -34,7 +34,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 204.0, 177.0, 113.0, 20.0 ],
+					"patching_rect" : [ 204.0, 175.0, 113.0, 20.0 ],
 					"text" : "s parameter-values"
 				}
 
@@ -48,7 +48,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 212.0, 129.0, 105.0, 20.0 ],
+					"patching_rect" : [ 212.0, 127.0, 105.0, 20.0 ],
 					"text" : "testpatcher.model"
 				}
 
@@ -268,7 +268,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 129.0, 160.0, 20.0 ],
+					"patching_rect" : [ 8.0, 127.0, 160.0, 20.0 ],
 					"text" : "jcom.send testpatcher(view)"
 				}
 
@@ -296,7 +296,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 8.0, 153.0, 84.0, 20.0 ],
+					"patching_rect" : [ 8.0, 151.0, 84.0, 20.0 ],
 					"text" : "route address"
 				}
 
@@ -309,7 +309,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 8.0, 177.0, 104.0, 20.0 ],
+					"patching_rect" : [ 8.0, 175.0, 104.0, 20.0 ],
 					"text" : "s send-address"
 				}
 
@@ -323,7 +323,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 104.0, 85.0, 20.0 ],
+					"patching_rect" : [ 8.0, 102.0, 85.0, 20.0 ],
 					"text" : "r send-input"
 				}
 
@@ -417,7 +417,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 28.0, 307.001862, 269.0, 33.0 ],
-									"text" : "jcom.test.assert.equal view.deferlow-test @input address @compareTo /testpatcher(view):value"
+									"text" : "jcom.test.assert.equal view.deferlow-test @input dump @compareTo /testpatcher(view):value"
 								}
 
 							}
@@ -500,8 +500,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 28.0, 111.001862, 212.0, 33.0 ],
-									"text" : "jcom.test.assert.equal view-test @input address @compareTo nothing"
+									"patching_rect" : [ 28.0, 111.001862, 200.0, 33.0 ],
+									"text" : "jcom.test.assert.equal view-test @input dump @compareTo nothing"
 								}
 
 							}
@@ -711,7 +711,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 74.0, 35.0, 129.0, 20.0 ],
+					"patching_rect" : [ 74.0, 34.0, 129.0, 20.0 ],
 					"text" : "s start-jamoma-testing"
 				}
 
@@ -725,7 +725,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 59.0, 103.0, 20.0 ],
+					"patching_rect" : [ 8.0, 58.0, 103.0, 20.0 ],
 					"text" : "jcom.test.finished"
 				}
 
@@ -795,7 +795,7 @@
 					"destination" : [ "obj-10", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 307.5, 162.5, 213.5, 162.5 ],
+					"midpoints" : [ 307.5, 160.5, 213.5, 160.5 ],
 					"source" : [ "obj-9", 1 ]
 				}
 
