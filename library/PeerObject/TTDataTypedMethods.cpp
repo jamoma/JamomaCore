@@ -346,8 +346,8 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                 if (time > 0) {
                     
                     mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->setAttributeValue(TTSymbol("rampTime"), time);
-                    mRamper->sendMessage(TTSymbol("Go"), aValue, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Go"), (int)time, kTTValNONE);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -519,8 +519,8 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                 if (time > 0) {
                     
                     mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->setAttributeValue(TTSymbol("rampTime"), time);
-                    mRamper->sendMessage(TTSymbol("Go"), aValue, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Go"), (int)time, kTTValNONE);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -868,8 +868,8 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
                         mValue.resize(aValue.size());
                     
                     mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->setAttributeValue(TTSymbol("rampTime"), time);
-                    mRamper->sendMessage(TTSymbol("Go"), aValue, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Go"), (int)time, kTTValNONE);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
