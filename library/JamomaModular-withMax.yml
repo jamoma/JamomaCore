@@ -1,4 +1,5 @@
-
+defines:
+      
 sources:
   - source/TTModular.cpp
   - source/TTModularSymbolCache.cpp
@@ -13,6 +14,7 @@ sources:
   - PeerObject/TTCue.cpp
   - PeerObject/TTCueManager.cpp
   - PeerObject/TTData.cpp
+  - PeerObject/TTDataTypedMethods.cpp
   - PeerObject/TTExplorer.cpp
   - PeerObject/TTInput.cpp
   - PeerObject/TTMapper.cpp
@@ -21,6 +23,7 @@ sources:
   - PeerObject/TTOutput.cpp
   - PeerObject/TTPreset.cpp
   - PeerObject/TTPresetManager.cpp
+  - PeerObject/TTRamp.cpp
   - PeerObject/TTReceiver.cpp
   - PeerObject/TTSender.cpp
   - PeerObject/TTScript.cpp
@@ -29,12 +32,7 @@ sources:
   - PeerObject/TTViewer.cpp
   - PeerObject/TTXmlHandler.cpp
   - ProtocolLib/Protocol.cpp
-  - RampLib/RampLib.cpp
-  - RampLib/AsyncRamp.cpp
-  - RampLib/ExternalRamp.cpp
-  - RampLib/NoneRamp.cpp
-  - RampLib/QueueRamp.cpp
-  - RampLib/SchedulerRamp.cpp
+  - SchedulerLib/Scheduler.cpp
   - ../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
   
 includes:
@@ -42,7 +40,7 @@ includes:
   - ModularForMax
   - PeerObject
   - ProtocolLib
-  - RampLib
+  - SchedulerLib
   - ../../../Core/Foundation/library/includes
   - ../../../Core/DSP/library/includes
   - ../../../Core/Shared/max  
