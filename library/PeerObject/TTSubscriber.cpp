@@ -170,7 +170,7 @@ TTErr TTSubscriber::Unsubscribe()
     if (aNode) {
         
         anObject = aNode->getObject();
-        if (anObject) {
+        if (mObject == anObject) {
             
             // If node have no more child : destroy the node (except for root)
             aNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
