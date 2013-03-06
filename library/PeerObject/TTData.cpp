@@ -28,7 +28,9 @@ mRangeClipmode(kTTSym_none),
 mDynamicInstances(NO),
 mInstanceBounds(0, -1),
 mRampDrive(kTTSym_none),
+#ifndef TT_NO_DSP
 mRampFunction(kTTSym_none),
+#endif
 mRampFunctionParameters(kTTValNONE),
 mRampStatus(NO),
 mDataspace(kTTSym_none),
@@ -71,7 +73,9 @@ mReturnValueCallback(NULL)
 	addAttributeProperty(InstanceBounds, hidden, YES);
 	
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
+#ifndef TT_NO_DSP    
 	addAttributeWithSetter(RampFunction, kTypeSymbol);
+#endif
 	
 	addAttribute(RampFunctionParameters, kTypeLocalValue);
 	addAttributeProperty(RampFunctionParameters, readOnly, YES);
@@ -91,6 +95,15 @@ mReturnValueCallback(NULL)
     
     registerMessage(kTTSym_Command, (TTMethod)&TTData::GenericCommand);
 	addMessageProperty(Command, hidden, YES);
+    
+    addMessageWithArguments(RampSet);
+    addMessageProperty(RampSet, hidden, YES);
+    addMessageWithArguments(RampTarget);
+    addMessageProperty(RampTarget, hidden, YES);
+    addMessageWithArguments(RampGo);
+    addMessageProperty(RampGo, hidden, YES);
+    addMessageWithArguments(RampSlide);
+    addMessageProperty(RampSlide, hidden, YES);
 	
 	// needed to be handled by a TTTextHandler
 	addMessageWithArguments(WriteAsText);
@@ -368,7 +381,7 @@ TTErr TTData::setRampDrive(const TTValue& value)
 	this->notifyObservers(kTTSym_rampDrive, n);
 	return kTTErrNone;
 }
-
+#ifndef TT_NO_DSP
 TTErr TTData::setRampFunction(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -417,7 +430,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 	this->notifyObservers(kTTSym_rampFunction, n);
 	return kTTErrNone;
 }
-
+#endif
 TTErr TTData::setDataspace(const TTValue& value)
 {
 	TTErr	err;
@@ -474,6 +487,38 @@ TTErr TTData::setPriority(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTData::RampSet(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (mRamper)
+        return mRamper->sendMessage(TTSymbol("Set"), inputValue, outputValue);
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTData::RampTarget(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (mRamper)
+        return mRamper->sendMessage(TTSymbol("Target"), inputValue, outputValue);
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTData::RampGo(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (mRamper)
+        return mRamper->sendMessage(TTSymbol("Go"), inputValue, outputValue);
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTData::RampSlide(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (mRamper)
+        return mRamper->sendMessage(TTSymbol("Slide"), inputValue, outputValue);
+    
+    return kTTErrGeneric;
+}
+
 TTErr TTData::rampSetup()
 {
     TTValue args;
@@ -510,10 +555,10 @@ TTErr TTData::rampSetup()
 	
 	if (mRamper == NULL)
 		return kTTErrGeneric;
-	
+#ifndef TT_NO_DSP	
 	// 3. reset the ramp function
 	setRampFunction(mRampFunction);
-	
+#endif
 	return kTTErrNone;	
 }
 
@@ -575,12 +620,12 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += "\t\t\t<td class =\"instructionRampDrive\">";
 	*buffer += this->mRampDrive.c_str();
 	*buffer += "</td>";
-	
+#ifndef TT_NO_DSP	
 	// ramp/function
 	*buffer += "\t\t\t<td class =\"instructionRampFunction\">";
 	*buffer += this->mRampFunction.c_str();
 	*buffer += "</td>";
-	
+#endif
 	// dataspace
 	*buffer += "\t\t\t<td class =\"instructionDataspace\">";
 	*buffer += this->mDataspace.c_str();
@@ -716,16 +761,17 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 		aValue = commandValue;
 	
 	// 4. Edit command
-	command->setValue(aValue);
-	
 	if (hasUnit)
 		command->append(kTTSym_unit, unit);
 	
 	if (hasRamp) {
-		time = commandValue[commandSize - 1];
-		command->append(kTTSym_ramp, (int)time);
+        
+        // any other case it is a ramp time
+        time = commandValue[commandSize - 1];
+        command->append(kTTSym_ramp, (int)time);
 	}
 	
+    command->setValue(aValue);
 	command->setSchema(kTTSym_command);
 	
 	return command;

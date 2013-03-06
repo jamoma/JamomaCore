@@ -28,13 +28,15 @@ class TTMODULAR_EXPORT TTPresetManager : public TTDataObjectBase
 	
 private:
 	
-	TTAddress	mAddress;						///< ATTRIBUTE : the container address to manage
+	TTAddress           mAddress;						///< ATTRIBUTE : the container address to manage
 	TTValue				mOrder;							///< ATTRIBUTE : presets are ordered by name
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current preset name
 	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 
 	TTHashPtr			mPresets;						///< a hash table containing <name, TTPresetPtr>
 	TTPresetPtr			mCurrentPreset;					///< the current preset
+    
+    TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this presetmanager
 	
 	/** */
 	TTErr	setAddress(const TTValue& value);
@@ -50,6 +52,11 @@ private:
 	
 	/** */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
+    
+	/** Output a preset using the mReturnLineCallback :
+	 name/id : output the preset.
+	 nothing : output the current preset */
+	TTErr	Output(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr	Interpolate(const TTValue& inputValue, TTValue& outputValue);

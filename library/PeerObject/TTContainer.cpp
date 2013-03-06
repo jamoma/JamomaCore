@@ -307,6 +307,7 @@ TTErr TTContainer::setAddress(const TTValue& value)
 TTErr TTContainer::setAlias(const TTValue& value)
 {
 	TTNodeDirectoryPtr localDirectory = getLocalDirectory;
+    TTAttributePtr	anAttribute;
 	TTAddress		oldAlias = mAlias;
 	TTNodePtr		aNode;
 	TTObjectBasePtr	anObject;
@@ -384,7 +385,10 @@ TTErr TTContainer::setAlias(const TTValue& value)
 				}
 			}
 		}
-		
+        
+        this->findAttribute(kTTSym_alias, &anAttribute);
+        anAttribute->sendNotification(kTTSym_notify, mAlias);	// we use kTTSym_notify because we know that observers are TTCallback
+
 		return kTTErrNone;
 	}
 	

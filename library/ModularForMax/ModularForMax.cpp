@@ -361,7 +361,18 @@ TTErr jamoma_receiver_create_audio(ObjectPtr x, TTObjectBasePtr *returnedReceive
 /**	Create a preset manager object */
 TTErr jamoma_presetManager_create(ObjectPtr x, TTObjectBasePtr *returnedPresetManager)
 {
-	TTValue	args;
+	TTValue         args;
+    TTObjectBasePtr	returnLineCallback;
+	TTValuePtr		returnLineBaton;
+	
+	// prepare arguments
+	returnLineCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnLineCallback, kTTValNONE);
+	returnLineBaton = new TTValue(TTPtr(x));
+    
+	returnLineCallback->setAttributeValue(kTTSym_baton, TTPtr(returnLineBaton));
+	returnLineCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
+	args.append(returnLineCallback);
 	
 	*returnedPresetManager = NULL;
 	TTObjectBaseInstantiate(kTTSym_PresetManager, TTObjectBaseHandle(returnedPresetManager), args);
@@ -380,6 +391,7 @@ TTErr jamoma_cueManager_create(ObjectPtr x, TTObjectBasePtr *returnedCueManager)
 	returnLineCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnLineCallback, kTTValNONE);
 	returnLineBaton = new TTValue(TTPtr(x));
+    
 	returnLineCallback->setAttributeValue(kTTSym_baton, TTPtr(returnLineBaton));
 	returnLineCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(returnLineCallback);

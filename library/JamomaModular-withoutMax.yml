@@ -1,6 +1,5 @@
 defines:
   - TT_NO_DSP
-  - TTDATA_NO_RAMPLIB
   
 sources:
   - source/TTModular.cpp
@@ -11,6 +10,7 @@ sources:
   - PeerObject/TTCue.cpp
   - PeerObject/TTCueManager.cpp
   - PeerObject/TTData.cpp
+  - PeerObject/TTDataTypedMethods.cpp
   - PeerObject/TTExplorer.cpp
   - PeerObject/TTInput.cpp
   - PeerObject/TTMapper.cpp
@@ -19,6 +19,7 @@ sources:
   - PeerObject/TTOutput.cpp
   - PeerObject/TTPreset.cpp
   - PeerObject/TTPresetManager.cpp
+  - PeerObject/TTRamp.cpp
   - PeerObject/TTReceiver.cpp
   - PeerObject/TTSender.cpp
   - PeerObject/TTScript.cpp
@@ -27,11 +28,13 @@ sources:
   - PeerObject/TTViewer.cpp
   - PeerObject/TTXmlHandler.cpp
   - ProtocolLib/Protocol.cpp
+  - SchedulerLib/Scheduler.cpp
   
 includes:
   - includes
   - PeerObject
   - ProtocolLib
+  - SchedulerLib
   - ../../../Core/Foundation/library/includes
   - /usr/include/libxml2
 

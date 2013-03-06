@@ -39,12 +39,12 @@ private:
 	TTBoolean			mActive;					///< ATTRIBUTE : does it observe Input value ?
 	
 	TTBoolean			mInverse;					///< ATTRIBUTE : to make the output equal to mOutputMax - result
-	
+#ifndef TT_NO_DSP	
 	TTValue				mFunctionLibrary;			///< ATTRIBUTE : names of all available function from FunctionLib
 	TTSymbol			mFunction;					///< ATTRIBUTE : name of the map function
 	TTValue				mFunctionParameters;		///< ATTRIBUTE : names of parameter's function
 	TTValue				mFunctionSamples;			///< ATTRIBUTE : an overview of the mapping (each value between [map(InputMin) :: map(InputMax)])
-    
+#endif
     TTUInt32            mRamp;                      ///< ATTRIBUTE : a ramp time to pass to the output data
 	
 	TTReceiverPtr		mReceiver;					///< the receiver which binds on In data(s)
@@ -66,19 +66,19 @@ private:
 	
 	TTFloat64			mA, mB, mC, mD;				//< Coefficients used for normalizing input(A, B) and output (C, D)
 #ifndef TT_NO_DSP
-	TTAudioObjectBasePtr	mFunctionUnit;
+	TTAudioObjectBasePtr mFunctionUnit;
 	TTBoolean			mValid;						//< true if the functionUnit can be used
 #endif
 	
 	/** process mapping */
 	TTErr Map(TTValue& inputValue, TTValue& outputValue);
-	
+#ifndef TT_NO_DSP	
 	/** */
 	TTErr getFunctionLibrary(TTValue& value);
 	
 	/** */
 	TTErr getFunctionSamples(TTValue& value);
-	
+#endif
 	/** set the input address and set InputMin and InputMax using RangeBounds attributes */
 	TTErr setInput(const TTValue& value);
 	TTErr observeInput();
@@ -103,10 +103,10 @@ private:
 	
 	/** */
 	TTErr setActive(const TTValue& value);
-	
+#ifndef TT_NO_DSP	
 	/** set the function unit and set datas name extending attributes of the unit */
 	TTErr setFunction(const TTValue& value);
-	
+#endif
 	/** process mapping */
 	TTErr processMapping(TTValue& inputValue, TTValue& outputValue);
 	

@@ -26,13 +26,16 @@ class TTMODULAR_EXPORT TTRamp : public TTDataObjectBase {
 public: ///< It is public in order to be able to extend scheduler or function unit parameters as attributes of another object
     
     TTObjectBasePtr         mSchedulerUnit;     ///< The actual scheduler unit object defined by mScheduler
+#ifndef TT_NO_DSP
     TTAudioObjectBasePtr    mFunctionUnit;		///< The actual function unit object defined by mFunction
+#endif
     
 private:
     
     TTSymbol                mScheduler;			///< ATTRIBUTE : The name of the scheduler to drive the ramp
+#ifndef TT_NO_DSP
     TTSymbol                mFunction;			///< ATTRIBUTE : The name of the function unit
-    
+#endif
     TTFloat64               mRampTime;          ///< ATTRIBUTE : The time of ramp in millisecond
     TTUInt32                mNumValues;
     
@@ -48,22 +51,28 @@ private:
     
     /** Attribute setter */
     TTErr   setScheduler(const TTValue& schedulerName);
+#ifndef TT_NO_DSP    
     TTErr   setFunction(const TTValue& functionName);
+#endif
     TTErr   setNumValues(const TTValue& inputValue);
 
     /** Message */
     TTErr   Set(const TTValue& inputValue, TTValue& outputValue);
     
+    TTErr   Target(const TTValue& inputValue, TTValue& outputValue);
+    
     TTErr   Go(const TTValue& inputValue, TTValue& outputValue);
+    
+    TTErr   Slide(const TTValue& inputValue, TTValue& outputValue);
     
     TTErr   Stop();
 
 public: ///< It is public in order to be able to extend scheduler or function unit parameters as attributes of another object
-
+#ifndef TT_NO_DSP
     TTErr   getFunctionParameterNames(TTValue& names);
     TTErr   setFunctionParameterValue(TTSymbol ParameterName, TTValue& newValue);
     TTErr   getFunctionParameterValue(TTSymbol ParameterName, TTValue& value);
-    
+#endif
     friend void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 progression);
 };
 typedef TTRamp* TTRampPtr;

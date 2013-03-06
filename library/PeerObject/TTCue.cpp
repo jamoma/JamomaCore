@@ -335,7 +335,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		
 		// 3. Process namespace storage
         // TODO : deal with other Application directory
-		processStore(mScript, kTTAdrsRoot, aNamespace);
+		processStore(mScript, getDirectoryFrom(kTTAdrsRoot)->getRoot(), aNamespace);
 		
 		// 5. Process ramp
 		if (mRamp) setRamp(mRamp);
@@ -346,7 +346,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, const TTAddressItemPtr aNamespace)
+TTErr TTCue::processStore(TTObjectBasePtr aScript, TTNodePtr scriptNode, const TTAddressItemPtr aNamespace)
 {
 	TTAddressItemPtr nameItem, instanceItem, anItem;
 	TTString		nameInstance;
@@ -354,11 +354,38 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, cons
 	TTDictionaryPtr	aLine;
 	TTObjectBasePtr	anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
-	TTAddress		address, childAddress;
-	TTSymbol		service;
+    TTListPtr       instanceOptions;
+	TTAddress		scriptAddress, childAddress, address;
+	TTSymbol		service, option;
 	TTValue			v, parsedLine;
 	TTBoolean		empty = YES;
 	TTErr			err;
+    
+    scriptNode->getAddress(scriptAddress);
+    
+    // if the namespace is empty : fill it with all children below
+    if (aNamespace->isEmpty()) {
+        
+        // get all children of the node
+        scriptNode->getChildren(S_WILDCARD, S_WILDCARD, childrenNodes);
+        
+        // sort the NodeList using object priority order
+        childrenNodes.sort(&TTCueCompareNodePriority);
+        
+        // append each name.instance to the sub namespace
+        for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
+            
+            aNode = TTNodePtr((TTPtr)childrenNodes.current()[0]);
+            
+            // get name.instance
+            aNode->getAddress(childAddress, scriptAddress);
+            
+            // append to the namespace
+            aNamespace->append(childAddress, &anItem);
+            
+            anItem->setSelection(YES);
+        }
+    }
 
 	// each script line is a name.instance (which means 2 levels of the namespace)
 	
@@ -375,20 +402,19 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, cons
 			if (!instanceItem->getSelection())
 				continue;
 			
-			// edit absolute address to retreive the node
-			nameInstance = nameItem->getSymbol().c_str();
-			if (instanceItem->getSymbol() != kTTSymEmpty) {
-				nameInstance += C_INSTANCE;
-				nameInstance += instanceItem->getSymbol().c_str();
-			}
-			
-			address = scriptAddress.appendAddress(TTAddress(nameInstance));
-			
-			aNodeList.clear();
-			err = getDirectoryFrom(address)->Lookup(address, aNodeList, &aNode);
-			
-			if (!err) {
-				
+            scriptNode->getChildren(nameItem->getSymbol(), instanceItem->getSymbol(), childrenNodes);
+
+            for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
+                
+				aNode = TTNodePtr((TTPtr)childrenNodes.current()[0]);
+                
+                // edit name.instance using effective node's name and instance
+                nameInstance = aNode->getName().c_str();
+                if (aNode->getInstance() != kTTSymEmpty) {
+                    nameInstance += C_INSTANCE;
+                    nameInstance += aNode->getInstance().c_str();
+                }
+                
 				// get object
 				anObject = aNode->getObject();
 				
@@ -409,20 +435,36 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, cons
 							continue;
 						}
 						
-						v.clear();
-						anObject->getAttributeValue(kTTSym_value, v);
-						
-						if (v == kTTValNONE)
-							continue;
-						
-						// append a command line
-						v.prepend(TTSymbol(nameInstance));
-						aScript->sendMessage(TTSymbol("AppendCommand"), v, parsedLine);
-						
-						// the script is not empty
-						empty = NO;
-						
-						continue;
+                        // create a line for each option of the item
+                        instanceOptions = instanceItem->getOptions();
+                        
+                        for (instanceOptions->begin(); instanceOptions->end(); instanceOptions->next()) {
+                            
+                            option = instanceOptions->current()[0];
+                            
+                            if (option == kTTSymEmpty)
+                                option = kTTSym_value;
+                                
+                            v.clear();
+                            anObject->getAttributeValue(option, v);
+                            
+                            if (v == kTTValNONE)
+                                continue;
+                            
+                            if (option == kTTSym_value)
+                                address = TTAddress(nameInstance);
+                            else
+                                address = TTAddress(nameInstance).appendAttribute(option);
+                            
+                            // append a command line
+                            v.prepend(address);
+                            aScript->sendMessage(TTSymbol("AppendCommand"), v, parsedLine);
+                            
+                            // the script is not empty
+                            empty = NO;
+                        }
+                        
+                        continue;
 					}
 				}
 				
@@ -436,32 +478,8 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, cons
 				aLine->getValue(v);
 				aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
 				
-				// if the namespace is empty : fill it with all children below
-				if (instanceItem->isEmpty()) {
-					
-					// get all children of the node
-					aNode->getChildren(S_WILDCARD, S_WILDCARD, childrenNodes);
-					
-					// sort the NodeList using object priority order
-					childrenNodes.sort(&TTCueCompareNodePriority);
-					
-					// append each name.instance to the sub namespace
-					for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
-						
-						aNode = TTNodePtr((TTPtr)childrenNodes.current()[0]);
-						
-						// get name.instance
-						aNode->getAddress(childAddress, address);
-						
-						// append to the namespace
-						instanceItem->append(childAddress, &anItem);
-						
-						anItem->setSelection(YES);
-					}
-				}
-				
 				// process namespace item on sub script
-				err = processStore(aSubScript, address, instanceItem);
+				err = processStore(aSubScript, aNode, instanceItem);
 				
 				// if the sub script is not empty
 				if (!err) {
@@ -480,7 +498,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTAddress scriptAddress, cons
 					// the script is not empty
 					empty = NO;
 				}
-			}
+            }
 		}
 	}
 	
