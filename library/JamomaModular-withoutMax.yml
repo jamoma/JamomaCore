@@ -1,5 +1,4 @@
 defines:
-  - TT_NO_DSP
   
 sources:
   - source/TTModular.cpp
@@ -36,17 +35,15 @@ includes:
   - ProtocolLib
   - SchedulerLib
   - ../../../Core/Foundation/library/includes
+  - ../../../Core/DSP/library/includes
   - /usr/include/libxml2
 
 libraries:
   - FOUNDATION
+  - DSP
   - mac /usr/lib/libxml2.dylib
   - win ../../../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
   - win ../../../../Foundation/library/libxml2/win32/lib/libxml2.lib
-#  - portaudio/libportaudio-jamoma.a
 
 frameworks:
   - Carbon
-#  - CoreAudio
-#  - AudioUnit
-#  - AudioToolbox

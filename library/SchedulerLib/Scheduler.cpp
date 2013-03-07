@@ -1,6 +1,6 @@
 /*
  * A Scheduler interface
- * Copyright © 2011, Laurent Garnier, Théo de la Hogue
+ * Copyright © 2013, Théo de la Hogue
  *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/

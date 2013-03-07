@@ -86,16 +86,16 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 
 typedef TTCue* TTCuePtr;
 
-TTBoolean TTMODULAR_EXPORT TTCueCompareNodePriority(TTValue& v1, TTValue& v2);
+TTBoolean   TTMODULAR_EXPORT TTCueCompareNodePriority(TTValue& v1, TTValue& v2);
 
-TTErr			TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
+TTErr       TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 
-TTErr			TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);
+TTErr		TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);
 
-TTErr			TTMODULAR_EXPORT TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue);
+TTErr		TTMODULAR_EXPORT TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue);
 
-TTErr			TTMODULAR_EXPORT TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue);
+TTErr		TTMODULAR_EXPORT TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue);
 
-TTErr			TTMODULAR_EXPORT TTCueCopy(TTCue* aCueToCopy, TTCue* aCueCopy);
+TTErr		TTMODULAR_EXPORT TTCueCopy(TTCue* aCueToCopy, TTCue* aCueCopy);
 
 #endif // __TT_CUE_H__
