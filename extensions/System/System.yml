@@ -1,0 +1,15 @@
+#defines:
+#  - SHEDULER_DEBUG
+
+sources:
+  - ../../library/SchedulerLib/Scheduler.cpp
+  - source/System.cpp
+    
+includes:
+  - "."
+  - "includes"
+  - "../../library/SchedulerLib"
+  - "../../../../Core/Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
