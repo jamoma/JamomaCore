@@ -1220,68 +1220,75 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
-	TTValue			cacheElement, v;
+	TTValue			cacheElement, v, address;
 	TTObjectBasePtr	anObject;
 	TTContainerPtr	aContainer;
 	TTAddress       relativeAddress, relativeDataAddress;
-	TTValue			address;
 	TTErr			err;
 	
-	// unpack baton
+	// chheck baton
 	b = (TTValuePtr)baton;
-	aContainer = TTContainerPtr((TTObjectBasePtr)(*b)[0]);
-	relativeAddress = (*b)[1];
-	
-	if (aContainer->mReturnAddressCallback && aContainer->mReturnValueCallback) {
-		
-		// Check what type of object is notifyng the container
-		err = aContainer->mObjectsObserversCache->lookup(relativeAddress, cacheElement);
-		
-		if (!err) {
-			
-			anObject = cacheElement[0];
+    
+    if ((*b).size() == 2) {
+        
+        if ((*b)[0].type() == kTypeObject && (*b)[1].type() == kTypeSymbol) {
+            
+            // unpack baton
+            aContainer = TTContainerPtr((TTObjectBasePtr)(*b)[0]);
+            relativeAddress = (*b)[1];
+            
+            if (aContainer->mReturnAddressCallback && aContainer->mReturnValueCallback) {
                 
-            // DEBUG : check if the cached object is still valid
-            if (!anObject->valid) {
+                // Check what type of object is notifyng the container
+                err = aContainer->mObjectsObserversCache->lookup(relativeAddress, cacheElement);
                 
-                // DEBUG : this means there is a bad tree managment : we need to trace this
-                std::cout << "TTContainerValueAttributeCallback -- object at " << (const char*)relativeAddress.c_str() << " is not valid" << std::endl;
-                
-                // DEBUG : we have to exit because it's going to crash
-                return kTTErrGeneric;
+                if (!err) {
+                    
+                    anObject = cacheElement[0];
+                    
+                    // DEBUG : check if the cached object is still valid
+                    if (!anObject->valid) {
+                        
+                        // DEBUG : this means there is a bad tree managment : we need to trace this
+                        std::cout << "TTContainerValueAttributeCallback -- object at " << (const char*)relativeAddress.c_str() << " is not valid" << std::endl;
+                        
+                        // DEBUG : we have to exit because it's going to crash
+                        return kTTErrGeneric;
+                    }
+                    
+                    // none CONTAINER CASE
+                    if (anObject->getName() != kTTSym_Container) {
+                        
+                        v = data; // protect the data
+                    }
+                    // CONTAINER CASE : activity out observation
+                    // the data is <relativeDataAddress, value, ...>
+                    else {
+                        
+                        relativeDataAddress = data[0];
+                        relativeAddress = relativeAddress.appendAddress(relativeDataAddress);
+                        
+                        v.copyFrom(data, 1); // protect the data
+                    }
+                    
+                    // return the address
+                    address.append(relativeAddress);
+                    aContainer->mReturnAddressCallback->notify(address, kTTValNONE);
+                    
+                    // return the value
+                    aContainer->mReturnValueCallback->notify(v, kTTValNONE);
+                    
+                    // Notify activity observers (about value changes only)
+                    v.prepend(TTValue(relativeAddress));
+                    aContainer->activityAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
+                    
+                    return kTTErrNone;
+                }
             }
-			
-			// none CONTAINER CASE
-			if (anObject->getName() != kTTSym_Container) {
-				
-				v = data; // protect the data
-			}
-			// CONTAINER CASE : activity out observation
-			// the data is <relativeDataAddress, value, ...>
-			else {
-				
-				relativeDataAddress = data[0];
-				relativeAddress = relativeAddress.appendAddress(relativeDataAddress);
-				
-				v.copyFrom(data, 1); // protect the data
-			}
-			
-			// return the address
-			address.append(relativeAddress);
-			aContainer->mReturnAddressCallback->notify(address, kTTValNONE);
-			
-			// return the value
-			aContainer->mReturnValueCallback->notify(v, kTTValNONE);
-			
-			// Notify activity observers (about value changes only)
-			v.prepend(TTValue(relativeAddress));
-			aContainer->activityAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
-		}
-	}
-	else
-		return kTTErrGeneric;
-	
-	return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
