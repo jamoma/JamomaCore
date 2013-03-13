@@ -18,7 +18,7 @@ mDuration(0.),
 mSpeed(1.),
 mRunning(NO),
 mProgression(0.),
-mElapsedTime(0.),
+mRealTime(0.),
 mCallback(NULL),
 mBaton(NULL)
 {
@@ -47,11 +47,13 @@ mBaton(NULL)
     addAttribute(Progression, kTypeFloat64);
     addAttributeProperty(Progression, readOnly, YES);
     
-    addAttribute(ElapsedTime, kTypeFloat64);
-    addAttributeProperty(ElapsedTime, readOnly, YES);
+    addAttribute(RealTime, kTypeFloat64);
+    addAttributeProperty(RealTime, readOnly, YES);
 
 	addMessage(Go);
 	addMessage(Stop);
+    addMessage(Pause);
+    addMessage(Resume);
 	addMessage(Tick);
     
     // Cache some attributes for high speed notification feedbacks
@@ -60,7 +62,7 @@ mBaton(NULL)
     
     this->findAttribute(TTSymbol("running"), &runningAttribute);
     this->findAttribute(TTSymbol("progression"), &progressionAttribute);
-    this->findAttribute(TTSymbol("elapsedTime"), &elapsedTimeAttribute);
+    this->findAttribute(TTSymbol("realTime"), &realTimeAttribute);
 }
 
 Scheduler::~Scheduler()
@@ -86,7 +88,9 @@ TTErr Scheduler::getParameterNames(TTValue& value)
 			attributeName == TTSymbol("stretchable")    ||
             attributeName == TTSymbol("duration")       ||
             attributeName == TTSymbol("speed")          ||
-            attributeName == TTSymbol("running"))
+            attributeName == TTSymbol("running")        ||
+            attributeName == TTSymbol("progression")    ||
+            attributeName == TTSymbol("realTime"))
 			continue;
 		
 		value.append(attributeName);
@@ -148,7 +152,9 @@ TTErr SchedulerLib::createScheduler(const TTSymbol SchedulerName, SchedulerPtr *
 	// These should be alphabetized
 	if (SchedulerName == TTSymbol("Max"))
 		return TTObjectBaseInstantiate(TTSymbol("Max"), (TTObjectBasePtr*)returnedScheduler, args);
-
+    else if (SchedulerName == TTSymbol("System"))
+		return TTObjectBaseInstantiate(TTSymbol("System"), (TTObjectBasePtr*)returnedScheduler, args);
+    
 	TTLogError("Jamoma SchedulerLib : Invalid Scheduler ( %s ) specified", SchedulerName.c_str());
 	return kTTErrValueNotFound;
 }
@@ -157,8 +163,6 @@ void SchedulerLib::getSchedulerNames(TTValue& SchedulerNames)
 {
 	SchedulerNames.clear();
 	SchedulerNames.append(TTSymbol("Max"));
-	/*
-	SchedulerNames.append(TTSymbol("Score"));
-	 */
+	SchedulerNames.append(TTSymbol("System"));
 }
 

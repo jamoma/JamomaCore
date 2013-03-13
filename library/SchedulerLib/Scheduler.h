@@ -50,7 +50,7 @@ protected:
     
     TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler is running right now ?
     TTFloat64                       mProgression;           ///< ATTRIBUTE : the progression of the scheduler [0. :: 1.]
-    TTFloat64                       mElapsedTime;           ///< ATTRIBUTE : how many time the scheduler is running ?
+    TTFloat64                       mRealTime;              ///< ATTRIBUTE : how many time the scheduler is running (without no speed factor consideration) ?
     
     SchedulerProgressionCallback    mCallback;              ///< the callback to use for each step
     TTPtr                           mBaton;                 ///< the baton to use for each step
@@ -60,7 +60,7 @@ protected:
     
     TTAttributePtr                  runningAttribute;       ///< cache running attribute for observer notification
     TTAttributePtr                  progressionAttribute;   ///< cache progression attribute for observer notification
-    TTAttributePtr                  elapsedTimeAttribute;   ///< cache elapsed time attribute for observer notification
+    TTAttributePtr                  realTimeAttribute;      ///< cache real time attribute for observer notification
 	
 public:
     
@@ -70,17 +70,29 @@ public:
 	/** Destructor. */
 	virtual ~Scheduler();
 	
-	/** Get parameters names needed by this scheduler */
+	/** Get specific parameters names needed by this scheduler 
+     @return        an error code if the scheduler fails to give his specific parameters */
 	virtual TTErr getParameterNames(TTValue& value) = 0;
 	
-	/** Start the scheduler */
+	/** Start the scheduler 
+     @return        an error code if the scheduler fails to start */
     virtual TTErr Go() = 0;
     
-    /** Halt the sheduler */
-    virtual void Stop() = 0;
+    /** Halt the sheduler 
+     @return        an error code if the scheduler fails to stop */
+    virtual TTErr Stop() = 0;
     
-    /** Called every time a new step should be processed */
-    virtual void Tick() = 0;
+    /** Pause the sheduler progression 
+     @return        an error code if the scheduler fails to pause */
+    virtual TTErr Pause() = 0;
+    
+    /** Resume the sheduler progression 
+     @return        an error code if the scheduler fails to resume */
+    virtual TTErr Resume() = 0;
+    
+    /** Called every time a new step should be processed 
+     @return        an error code if the scheduler step fails  */
+    virtual TTErr Tick() = 0;
     
     /** set the duration attribute
      @value             new duration
