@@ -32,26 +32,38 @@ class Max : public Scheduler {
     
 private:
     
-    TTFloat64           mGranularity;        ///< ATTRIBUTE : The granularity or time intervals between successive values in ms
+    TTFloat64           mGranularity;           ///< ATTRIBUTE : The granularity or time intervals between successive values in ms
     
-    TTFloat64			numGrains;			///< The number of steps left to take.
-                                            ///< We use float value to cope with time shorter than the duration of mGranularity
+    TTFloat64			numGrains;              ///< The number of steps left to take.
+                                                ///< We use float value to cope with time shorter than the duration of mGranularity
     
-    TTFloat64           stepSize;           ///< The size of the steps we need to take in the normalized range
+    TTFloat64           stepSize;               ///< The size of the steps we need to take in the normalized range
     
-    TTPtr               clock;				///< Pointer to a Max clock instance
+    TTPtr               clock;                  ///< Pointer to a Max clock instance
     
-	/** Get parameters names needed by this scheduler */
+	/** Get specific parameters names needed by this scheduler
+     @return        an error code if the scheduler fails to give his specific parameters */
 	TTErr getParameterNames(TTValue& value);
-    
-    /** Start the scheduler */
+	
+	/** Start the scheduler
+     @return        an error code if the scheduler fails to start */
     TTErr Go();
     
-    /** Halt the sheduler */
-    void Stop();
+    /** Halt the sheduler
+     @return        an error code if the scheduler fails to stop */
+    TTErr Stop();
     
-    /** Called every time a new step should be processed */
-    void Tick();
+    /** Pause the sheduler progression
+     @return        an error code if the scheduler fails to pause */
+    TTErr Pause();
+    
+    /** Resume the sheduler progression
+     @return        an error code if the scheduler fails to resume */
+    TTErr Resume();
+    
+    /** Called every time a new step should be processed
+     @return        an error code if the scheduler step fails  */
+    TTErr Tick();
     
     friend void TT_EXTENSION_EXPORT MaxClockCallback(Max* aMaxScheduler);
     

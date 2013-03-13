@@ -93,16 +93,28 @@ TTErr Max::Go()
     return kTTErrNone;
 }
 
-void Max::Stop()
+TTErr Max::Stop()
 {
 	clock_unset(clock);
 	mRunning = NO;
     
     // notify each running attribute observers
     runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
+    
+    return kTTErrNone;
 }
 
-void Max::Tick()
+TTErr Max::Pause()
+{
+    return kTTErrGeneric;
+}
+
+TTErr Max::Resume()
+{
+    return kTTErrGeneric;
+}
+
+TTErr Max::Tick()
 {
 	if (mRunning) {
         
@@ -118,7 +130,7 @@ void Max::Tick()
             
             mRunning = NO;
 			mProgression = 1.0;
-            mElapsedTime = mDuration;
+            mRealTime = mDuration;
             
             (mCallback)(mBaton, mProgression);
             
@@ -129,12 +141,12 @@ void Max::Tick()
             progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
             
             // notify each elapsed time attribute observers
-            elapsedTimeAttribute->sendNotification(kTTSym_notify, mElapsedTime);  // we use kTTSym_notify because we know that observers are TTCallback
+            realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);        // we use kTTSym_notify because we know that observers are TTCallback
         }
 		else {
             
 			mProgression += stepSize;
-            mElapsedTime = mDuration * mProgression;
+            mRealTime = mDuration * mProgression;
             
             (mCallback)(mBaton, mProgression);
             
@@ -142,12 +154,14 @@ void Max::Tick()
             progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
             
             // notify each elapsed time attribute observers
-            elapsedTimeAttribute->sendNotification(kTTSym_notify, mElapsedTime);  // we use kTTSym_notify because we know that observers are TTCallback
+            realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);        // we use kTTSym_notify because we know that observers are TTCallback
             
             // Set the clock to fire again
             setclock_fdelay(NULL, clock, mGranularity);
         }
 	}
+    
+    return kTTErrNone;
 }
 
 void MaxClockCallback(Max* aMaxScheduler)
