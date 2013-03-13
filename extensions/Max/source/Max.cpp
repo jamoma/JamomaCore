@@ -22,7 +22,7 @@
 
 #define thisSchedulerVersion		"0.1"
 #define thisSchedulerAuthor         "Theo de la Hogue"
-#define thisSchedulerStretchable	YES
+#define thisSchedulerStretchable	NO
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Max(void)
 {
@@ -55,59 +55,58 @@ TTErr Max::getParameterNames(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr Max::getProgression(TTValue& value)
+TTErr Max::Go()
 {
-    value = mProgression;
-    
-    return kTTErrNone;
-}
-
-TTErr Max::Go(const TTValue& inputValue, TTValue& outputValue)
-{
-    TTFloat64 time;
-    
-    if (inputValue.size() == 1) {
+    // do we need to ramp at all ?
+    if (mDuration <= 0.) {
         
-        time = inputValue[0];
+        mRunning = NO;
+        mProgression = 0.;
+        (mCallback)(mBaton, mProgression);
         
-        // do we need to ramp at all ?
-        if (time <= 0.) {
-            
-            mRunning = NO;
-            mProgression = 0.;
-            (mCallback)(mBaton, mProgression);
-        }
-        else {
-            
-            // how many grains this time means ?
-            numGrains = time / mGranularity;
-            stepSize = 1.0 / numGrains;
-            
-            mRunning = YES;
-            mProgression = 0.;
-            (mCallback)(mBaton, mProgression);
-            
-            // schedule first tick
-            setclock_fdelay(NULL, clock, mGranularity);
-        }
+        // notify each running attribute observers
+        runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
         
-        return kTTErrNone;
+        // notify each progression attribute observers
+        progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
+    }
+    else {
+        
+        // how many grains this time means ?
+        numGrains = mDuration / mGranularity;
+        stepSize = 1.0 / numGrains;
+        
+        mRunning = YES;
+        mProgression = 0.;
+        (mCallback)(mBaton, mProgression);
+        
+        // notify each running attribute observers
+        runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
+        
+        // notify each progression attribute observers
+        progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
+        
+        // schedule first tick
+        setclock_fdelay(NULL, clock, mGranularity);
     }
     
-    return kTTErrGeneric;
+    return kTTErrNone;
 }
 
 void Max::Stop()
 {
 	clock_unset(clock);
 	mRunning = NO;
+    
+    // notify each running attribute observers
+    runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
 }
 
 void Max::Tick()
 {
 	if (mRunning) {
         
-#ifdef TT_SHEDULER_DEBUG
+#ifdef SHEDULER_DEBUG
         cout << "Max::Tick -- numGrain = " << numGrains << endl;
 #endif
         
@@ -119,12 +118,31 @@ void Max::Tick()
             
             mRunning = NO;
 			mProgression = 1.0;
+            mElapsedTime = mDuration;
+            
             (mCallback)(mBaton, mProgression);
+            
+            // notify each running attribute observers
+            runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
+            
+            // notify each progression attribute observers
+            progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
+            
+            // notify each elapsed time attribute observers
+            elapsedTimeAttribute->sendNotification(kTTSym_notify, mElapsedTime);  // we use kTTSym_notify because we know that observers are TTCallback
         }
 		else {
             
 			mProgression += stepSize;
+            mElapsedTime = mDuration * mProgression;
+            
             (mCallback)(mBaton, mProgression);
+            
+            // notify each progression attribute observers
+            progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
+            
+            // notify each elapsed time attribute observers
+            elapsedTimeAttribute->sendNotification(kTTSym_notify, mElapsedTime);  // we use kTTSym_notify because we know that observers are TTCallback
             
             // Set the clock to fire again
             setclock_fdelay(NULL, clock, mGranularity);

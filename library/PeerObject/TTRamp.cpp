@@ -173,8 +173,10 @@ TTErr TTRamp::Go(const TTValue& inputValue, TTValue& outputValue)
         if (inputValue.size() == 1) {
         
             mRampTime = inputValue[0];
-                    
-            return mSchedulerUnit->sendMessage(TTSymbol("Go"), mRampTime, kTTValNONE);
+            
+            mSchedulerUnit->setAttributeValue(TTSymbol("duration"), mRampTime);
+            
+            return mSchedulerUnit->sendMessage(TTSymbol("Go"));
         }
     }
     

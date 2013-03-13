@@ -43,12 +43,9 @@ private:
     
 	/** Get parameters names needed by this scheduler */
 	TTErr getParameterNames(TTValue& value);
-	
-    /** Get the progression [0. :: 1.] */
-    TTErr getProgression(TTValue& value);
     
     /** Start the scheduler */
-    TTErr Go(const TTValue& inputValue, TTValue& outputValue);
+    TTErr Go();
     
     /** Halt the sheduler */
     void Stop();
