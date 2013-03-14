@@ -14,8 +14,11 @@
 
 Scheduler::Scheduler(TTValue& arguments) :
 TTObjectBase(arguments),
+mDuration(0.),
+mSpeed(1.),
 mRunning(NO),
 mProgression(0.),
+mRealTime(0.),
 mCallback(NULL),
 mBaton(NULL)
 {
@@ -30,6 +33,10 @@ mBaton(NULL)
 
 	addAttribute(Author, kTypeSymbol);
 	addAttributeProperty(Author, readOnly, YES);
+    
+    addAttributeWithSetter(Duration, kTypeFloat64);
+    
+    addAttributeWithSetter(Speed, kTypeFloat64);
 
 	addAttribute(Stretchable, kTypeBoolean);
 	addAttributeProperty(Stretchable, readOnly, YES);
@@ -37,18 +44,30 @@ mBaton(NULL)
 	addAttribute(Running, kTypeBoolean);
     addAttributeProperty(Running, readOnly, YES);
     
-    addAttributeWithGetter(Progression, kTypeFloat64);
+    addAttribute(Progression, kTypeFloat64);
     addAttributeProperty(Progression, readOnly, YES);
+    
+    addAttribute(RealTime, kTypeFloat64);
+    addAttributeProperty(RealTime, readOnly, YES);
 
-	addMessageWithArguments(Go);
+	addMessage(Go);
 	addMessage(Stop);
+    addMessage(Pause);
+    addMessage(Resume);
 	addMessage(Tick);
+    
+    // Cache some attributes for high speed notification feedbacks
+    this->findAttribute(TTSymbol("duration"), &durationAttribute);
+    this->findAttribute(TTSymbol("speed"), &speedAttribute);
+    
+    this->findAttribute(TTSymbol("running"), &runningAttribute);
+    this->findAttribute(TTSymbol("progression"), &progressionAttribute);
+    this->findAttribute(TTSymbol("realTime"), &realTimeAttribute);
 }
 
 Scheduler::~Scheduler()
 {
-	// delete callback and baton
-	
+    ;
 }
 
 TTErr Scheduler::getParameterNames(TTValue& value)
@@ -67,7 +86,11 @@ TTErr Scheduler::getParameterNames(TTValue& value)
 			attributeName == TTSymbol("version")        ||
 			attributeName == TTSymbol("author")         ||
 			attributeName == TTSymbol("stretchable")    ||
-            attributeName == TTSymbol("running")) 
+            attributeName == TTSymbol("duration")       ||
+            attributeName == TTSymbol("speed")          ||
+            attributeName == TTSymbol("running")        ||
+            attributeName == TTSymbol("progression")    ||
+            attributeName == TTSymbol("realTime"))
 			continue;
 		
 		value.append(attributeName);
@@ -76,6 +99,41 @@ TTErr Scheduler::getParameterNames(TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr Scheduler::setDuration(const TTValue& value)
+{
+    if (value.size() == 1) {
+        
+        if (value[0].type() == kTypeFloat64) {
+            
+            Stop();
+            
+            mDuration = value[0];
+            
+            speedAttribute->sendNotification(kTTSym_notify, mDuration);             // we use kTTSym_notify because we know that observers are TTCallback
+            
+            return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr Scheduler::setSpeed(const TTValue& value)
+{
+    if (value.size() == 1) {
+        
+        if (value[0].type() == kTypeFloat64) {
+            
+            mSpeed = value[0];
+            
+            speedAttribute->sendNotification(kTTSym_notify, mSpeed);             // we use kTTSym_notify because we know that observers are TTCallback
+            
+            return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
+}
 
 /***************************************************************************
  
@@ -94,7 +152,9 @@ TTErr SchedulerLib::createScheduler(const TTSymbol SchedulerName, SchedulerPtr *
 	// These should be alphabetized
 	if (SchedulerName == TTSymbol("Max"))
 		return TTObjectBaseInstantiate(TTSymbol("Max"), (TTObjectBasePtr*)returnedScheduler, args);
-
+    else if (SchedulerName == TTSymbol("System"))
+		return TTObjectBaseInstantiate(TTSymbol("System"), (TTObjectBasePtr*)returnedScheduler, args);
+    
 	TTLogError("Jamoma SchedulerLib : Invalid Scheduler ( %s ) specified", SchedulerName.c_str());
 	return kTTErrValueNotFound;
 }
@@ -103,8 +163,6 @@ void SchedulerLib::getSchedulerNames(TTValue& SchedulerNames)
 {
 	SchedulerNames.clear();
 	SchedulerNames.append(TTSymbol("Max"));
-	/*
-	SchedulerNames.append(TTSymbol("Score"));
-	 */
+	SchedulerNames.append(TTSymbol("System"));
 }
 

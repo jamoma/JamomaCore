@@ -1,5 +1,5 @@
 /*
- * Max Scheduler
+ * System Scheduler
  * Copyright © 2013, Théo de la Hogue
  *
  * License: This code is licensed under the terms of the "New BSD License"
@@ -7,39 +7,27 @@
  */
 
 /*!
- * \class Max
+ * \class System
  *
- *  Max scheduler class
+ *  System scheduler class is based on the time of the system
  * 
  */
 
-#ifndef __MAX_H__
-#define __MAX_H__
+#ifndef __SYSTEM_H__
+#define __SYSTEM_H__
 
 #include "Scheduler.h"
+#include <sys/time.h>   // is it multi plateform ?
 
-#include "ext.h"					// Max Header
-#include "ext_proto.h"
-#include "ext_obex.h"
-
-#include "ext_common.h"
-#include "z_dsp.h"
-#include "commonsyms.h" // Common symbols used by the Max 4.5 API
-
-class Max : public Scheduler {
+class System : public Scheduler {
 	
-	TTCLASS_SETUP(Max)
+	TTCLASS_SETUP(System)
     
 private:
     
-    TTFloat64           mGranularity;           ///< ATTRIBUTE : The granularity or time intervals between successive values in ms
-    
-    TTFloat64			numGrains;              ///< The number of steps left to take.
-                                                ///< We use float value to cope with time shorter than the duration of mGranularity
-    
-    TTFloat64           stepSize;               ///< The size of the steps we need to take in the normalized range
-    
-    TTPtr               clock;                  ///< Pointer to a Max clock instance
+    TTFloat64                  mGranularity;           ///< ATTRIBUTE : the minimun time between each tick (in ms)
+    TTThreadPtr                mThread;                ///< ATTRIBUTE : a thread to launch the scheduler execution
+    TTUInt64                   mLastTime;              ///< a time reference used to compute delta time between each tick (in µs)
     
 	/** Get specific parameters names needed by this scheduler
      @return        an error code if the scheduler fails to give his specific parameters */
@@ -65,15 +53,18 @@ private:
      @return        an error code if the scheduler step fails  */
     TTErr Tick();
     
-    friend void TT_EXTENSION_EXPORT MaxClockCallback(Max* aMaxScheduler);
+    /** Internal method to compute the amount of time spent since the last call */
+    TTFloat64 computeDeltaTime();
+    
+    friend void TT_EXTENSION_EXPORT SystemThreadCallback(void* anSystemScheduler);
     
 };
-typedef Max* MaxPtr;
+typedef System* SystemPtr;
 
-/** Called by the Max queue, and provided to the qelem -- needs to have a C interface
+/** Called by the System queue
  @param	baton						..
  @param	data						..
  @return							an error code */
-void TT_EXTENSION_EXPORT MaxClockCallback(Max* aMaxScheduler);
+void TT_EXTENSION_EXPORT SystemThreadCallback(void* aSystemScheduler);
 
-#endif // __MAX_H__
+#endif // __SYSTEM_H__

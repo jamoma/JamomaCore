@@ -166,31 +166,35 @@ TTErr TTSubscriber::Unsubscribe()
 	TTUInt8				i;
 	TTErr				err;
     
-    aDirectory->getTTNode(mNodeAddress, &aNode);
-    if (aNode) {
+    if (mObject) {
         
-        anObject = aNode->getObject();
-        if (mObject == anObject) {
+        err = aDirectory->getTTNode(mNodeAddress, &aNode);
+        if (!err && aNode) {
             
-            // If node have no more child : destroy the node (except for root)
-            aNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
-            if (childrenList.isEmpty() && aNode != aDirectory->getRoot())
-                aDirectory->TTNodeRemove(mNodeAddress);
+            anObject = aNode->getObject();
             
-            // else notify for the unregistration of the object
-            // !!! Maybe this could introduce confusion for namespace observer !!!
-            // introduce a new flag (kAddressObjectUnregistered) ?
-            else {
+            if (anObject == mObject) {
                 
-                // remove alias for TTContainer object before
-                if (anObject->getName() == kTTSym_Container)
-                    anObject->sendMessage(TTSymbol("AliasRemove"));
+                // If node have no more child : destroy the node (except for root)
+                aNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
+                if (childrenList.isEmpty() && aNode != aDirectory->getRoot())
+                    aDirectory->TTNodeRemove(mNodeAddress);
                 
-                // notify
-                aDirectory->notifyObservers(mNodeAddress, aNode, kAddressDestroyed);
-                
-                // set NULL object
-                aNode->setObject(NULL);
+                // else notify for the unregistration of the object
+                // !!! Maybe this could introduce confusion for namespace observer !!!
+                // introduce a new flag (kAddressObjectUnregistered) ?
+                else {
+                    
+                    // remove alias for TTContainer object before
+                    if (anObject->getName() == kTTSym_Container)
+                        anObject->sendMessage(TTSymbol("AliasRemove"));
+                    
+                    // notify
+                    aDirectory->notifyObservers(mNodeAddress, aNode, kAddressDestroyed);
+                    
+                    // set NULL object
+                    aNode->setObject(NULL);
+                }
             }
         }
     }

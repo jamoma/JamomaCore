@@ -788,12 +788,18 @@ void jamoma_callback_return_address(TTPtr baton, TTValue& v)
 	// unpack baton (a t_object* and the name of the method to call)
 	b = (TTValuePtr)baton;
 	x = ObjectPtr((TTPtr)b[0]);
-	
-	// unpack data (address)
-	address = v[0];
-	
-	// send data to a data using the return_value method
-	object_method(x, jps_return_address, SymbolGen(address.c_str()), 0, 0);
+    
+    if (v.size() == 1) {
+        
+        if (v[0].type() == kTypeSymbol) {
+            
+            // unpack data (address)
+            address = v[0];
+            
+            // send data to a data using the return_value method
+            object_method(x, jps_return_address, SymbolGen(address.c_str()), 0, 0);
+        }
+    }
 }
 
 /** Return the value to a jcom. external as _sym_nothing, argc, argv */

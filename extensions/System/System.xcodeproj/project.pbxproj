@@ -7,43 +7,43 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		46A6E85216CA83FB002E6A40 /* Max.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Max.h; sourceTree = "<group>"; };
-		46A6E85516CA8401002E6A40 /* Max.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Max.cpp; sourceTree = "<group>"; };
-		46A6E86416CABFEB002E6A40 /* Scheduler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
-		46A6E86516CABFEB002E6A40 /* Scheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
+		46F4622116F127DF0092840F /* System.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = System.cpp; sourceTree = "<group>"; };
+		46F4622316F127E90092840F /* System.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
+		46F4622516F128510092840F /* Scheduler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
+		46F4622616F128510092840F /* Scheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		46A6E84116CA83C6002E6A40 = {
+		46F4621316F127C10092840F = {
 			isa = PBXGroup;
 			children = (
-				46A6E85616CA840D002E6A40 /* SchedulerLib */,
-				46A6E85116CA83FB002E6A40 /* includes */,
-				46A6E85416CA8401002E6A40 /* source */,
+				46F4622416F128510092840F /* SchedulerLib */,
+				46F4622216F127E90092840F /* includes */,
+				46F4621E16F127DF0092840F /* source */,
 			);
 			sourceTree = "<group>";
 		};
-		46A6E85116CA83FB002E6A40 /* includes */ = {
+		46F4621E16F127DF0092840F /* source */ = {
 			isa = PBXGroup;
 			children = (
-				46A6E85216CA83FB002E6A40 /* Max.h */,
-			);
-			path = includes;
-			sourceTree = "<group>";
-		};
-		46A6E85416CA8401002E6A40 /* source */ = {
-			isa = PBXGroup;
-			children = (
-				46A6E85516CA8401002E6A40 /* Max.cpp */,
+				46F4622116F127DF0092840F /* System.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";
 		};
-		46A6E85616CA840D002E6A40 /* SchedulerLib */ = {
+		46F4622216F127E90092840F /* includes */ = {
 			isa = PBXGroup;
 			children = (
-				46A6E86516CABFEB002E6A40 /* Scheduler.h */,
-				46A6E86416CABFEB002E6A40 /* Scheduler.cpp */,
+				46F4622316F127E90092840F /* System.h */,
+			);
+			path = includes;
+			sourceTree = "<group>";
+		};
+		46F4622416F128510092840F /* SchedulerLib */ = {
+			isa = PBXGroup;
+			children = (
+				46F4622616F128510092840F /* Scheduler.h */,
+				46F4622516F128510092840F /* Scheduler.cpp */,
 			);
 			name = SchedulerLib;
 			path = ../../library/SchedulerLib;
@@ -52,54 +52,57 @@
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		46A6E84816CA83C6002E6A40 /* Max */ = {
+		46F4621816F127C10092840F /* System */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(ACTION) $(Configuration)";
-			buildConfigurationList = 46A6E84B16CA83C6002E6A40 /* Build configuration list for PBXLegacyTarget "Max" */;
+			buildConfigurationList = 46F4621B16F127C10092840F /* Build configuration list for PBXLegacyTarget "System" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
 			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = Max;
+			name = System;
 			passBuildSettingsInEnvironment = 1;
-			productName = Max;
+			productName = System;
 		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		46A6E84316CA83C6002E6A40 /* Project object */ = {
+		46F4621416F127C10092840F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = Jamoma;
+				ORGANIZATIONNAME = OSSIA;
 			};
-			buildConfigurationList = 46A6E84616CA83C6002E6A40 /* Build configuration list for PBXProject "Max" */;
+			buildConfigurationList = 46F4621716F127C10092840F /* Build configuration list for PBXProject "System" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 46A6E84116CA83C6002E6A40;
+			mainGroup = 46F4621316F127C10092840F;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				46A6E84816CA83C6002E6A40 /* Max */,
+				46F4621816F127C10092840F /* System */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		46A6E84916CA83C6002E6A40 /* Debug */ = {
+		46F4621916F127C10092840F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -121,14 +124,17 @@
 			};
 			name = Debug;
 		};
-		46A6E84A16CA83C6002E6A40 /* Release */ = {
+		46F4621A16F127C10092840F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -143,14 +149,9 @@
 			};
 			name = Release;
 		};
-		46A6E84C16CA83C6002E6A40 /* Debug */ = {
+		46F4621C16F127C10092840F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					"$(ARCHS_STANDARD_64_BIT)",
-				);
-				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -160,14 +161,9 @@
 			};
 			name = Debug;
 		};
-		46A6E84D16CA83C6002E6A40 /* Release */ = {
+		46F4621D16F127C10092840F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					"$(ARCHS_STANDARD_64_BIT)",
-				);
-				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -177,25 +173,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		46A6E84616CA83C6002E6A40 /* Build configuration list for PBXProject "Max" */ = {
+		46F4621716F127C10092840F /* Build configuration list for PBXProject "System" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46A6E84916CA83C6002E6A40 /* Debug */,
-				46A6E84A16CA83C6002E6A40 /* Release */,
+				46F4621916F127C10092840F /* Debug */,
+				46F4621A16F127C10092840F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46A6E84B16CA83C6002E6A40 /* Build configuration list for PBXLegacyTarget "Max" */ = {
+		46F4621B16F127C10092840F /* Build configuration list for PBXLegacyTarget "System" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46A6E84C16CA83C6002E6A40 /* Debug */,
-				46A6E84D16CA83C6002E6A40 /* Release */,
+				46F4621C16F127C10092840F /* Debug */,
+				46F4621D16F127C10092840F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 46A6E84316CA83C6002E6A40 /* Project object */;
+	rootObject = 46F4621416F127C10092840F /* Project object */;
 }

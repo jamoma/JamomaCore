@@ -36,7 +36,8 @@ typedef void (*SchedulerProgressionCallback)(TTPtr, TTFloat64);
  */
 class Scheduler : public TTObjectBase {
 
-public:																															
+public:
+    
 	TTSymbol                        mName;					///< ATTRIBUTE : the name of the scheduler							
 	TTSymbol                        mVersion;				///< ATTRIBUTE : the version of the scheduler								
 	TTSymbol                        mAuthor;				///< ATTRIBUTE : the author of the scheduler								
@@ -44,33 +45,64 @@ public:
 
 protected:
     
+    TTFloat64                       mDuration;              ///< ATTRIBUTE : the time (in ms) the scheduler will run at normal speed factor
+    TTFloat64                       mSpeed;                 ///< ATTRIBUTE : the speed factor of the scheduler
+    
     TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler is running right now ?
     TTFloat64                       mProgression;           ///< ATTRIBUTE : the progression of the scheduler [0. :: 1.]
+    TTFloat64                       mRealTime;              ///< ATTRIBUTE : how many time the scheduler is running (without no speed factor consideration) ?
     
     SchedulerProgressionCallback    mCallback;              ///< the callback to use for each step
     TTPtr                           mBaton;                 ///< the baton to use for each step
+    
+    TTAttributePtr                  durationAttribute;      ///< cache duration attribute for observer notification
+    TTAttributePtr                  speedAttribute;         ///< cache speed attribute for observer notification
+    
+    TTAttributePtr                  runningAttribute;       ///< cache running attribute for observer notification
+    TTAttributePtr                  progressionAttribute;   ///< cache progression attribute for observer notification
+    TTAttributePtr                  realTimeAttribute;      ///< cache real time attribute for observer notification
 	
 public:
+    
 	//** Constructor.	*/
 	Scheduler(TTValue& arguments);
 	
 	/** Destructor. */
 	virtual ~Scheduler();
 	
-	/** Get parameters names needed by this scheduler */
+	/** Get specific parameters names needed by this scheduler 
+     @return        an error code if the scheduler fails to give his specific parameters */
 	virtual TTErr getParameterNames(TTValue& value) = 0;
-    
-    /** Get the progression [0. :: 1.] */
-	virtual TTErr getProgression(TTValue& value) = 0;
 	
-	/** Start the scheduler */
-    virtual TTErr Go(const TTValue& inputValue, TTValue& outputValue) = 0;
+	/** Start the scheduler 
+     @return        an error code if the scheduler fails to start */
+    virtual TTErr Go() = 0;
     
-    /** Halt the sheduler */
-    virtual void Stop() = 0;
+    /** Halt the sheduler 
+     @return        an error code if the scheduler fails to stop */
+    virtual TTErr Stop() = 0;
     
-    /** Called every time a new step should be processed */
-    virtual void Tick() = 0;
+    /** Pause the sheduler progression 
+     @return        an error code if the scheduler fails to pause */
+    virtual TTErr Pause() = 0;
+    
+    /** Resume the sheduler progression 
+     @return        an error code if the scheduler fails to resume */
+    virtual TTErr Resume() = 0;
+    
+    /** Called every time a new step should be processed 
+     @return        an error code if the scheduler step fails  */
+    virtual TTErr Tick() = 0;
+    
+    /** set the duration attribute
+     @value             new duration
+     @return            kTTErrGeneric if the value is not a single TTFloat64 >= 0. */
+    TTErr setDuration(const TTValue& value);
+    
+    /** set the speed factor attribute 
+     @value             new speed factor
+     @return            kTTErrGeneric if the value is not a single TTFloat64 */
+    TTErr setSpeed(const TTValue& value);
 
 };
 typedef Scheduler* SchedulerPtr;
