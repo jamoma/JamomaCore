@@ -33,14 +33,11 @@
 		2297CFCD14901CBA00CC6D7E /* TTValueCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CF8A14901CB900CC6D7E /* TTValueCache.cpp */; };
 		2297CFCE14901CBA00CC6D7E /* TTAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CF8B14901CB900CC6D7E /* TTAttribute.h */; };
 		2297CFCF14901CBA00CC6D7E /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CF8C14901CB900CC6D7E /* TTAttribute.cpp */; };
-		2297CFD014901CBA00CC6D7E /* TTDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CF8D14901CB900CC6D7E /* TTDataObject.h */; };
-		2297CFD114901CBA00CC6D7E /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CF8E14901CB900CC6D7E /* TTDataObject.cpp */; };
 		2297CFD214901CBA00CC6D7E /* TTBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CF8F14901CB900CC6D7E /* TTBase.h */; };
 		2297CFD314901CBA00CC6D7E /* TTBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CF9014901CB900CC6D7E /* TTBase.cpp */; };
 		2297CFD414901CBA00CC6D7E /* TTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CF9114901CB900CC6D7E /* TTMessage.h */; };
 		2297CFD514901CBA00CC6D7E /* TTMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CF9214901CB900CC6D7E /* TTMessage.cpp */; };
 		2297CFD614901CBA00CC6D7E /* TTObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CF9314901CB900CC6D7E /* TTObject.h */; };
-		2297CFD714901CBA00CC6D7E /* TTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CF9414901CB900CC6D7E /* TTObject.cpp */; };
 		2297CFD814901CBA00CC6D7E /* TTDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CF9514901CB900CC6D7E /* TTDictionary.h */; };
 		2297CFD914901CBA00CC6D7E /* TTDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2297CF9614901CB900CC6D7E /* TTDictionary.cpp */; };
 		2297CFDA14901CBA00CC6D7E /* TTHash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2297CF9714901CB900CC6D7E /* TTHash.h */; };
@@ -124,14 +121,11 @@
 		2297CF8A14901CB900CC6D7E /* TTValueCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = ../source/TTValueCache.cpp; sourceTree = "<group>"; };
 		2297CF8B14901CB900CC6D7E /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAttribute.h; path = ../includes/TTAttribute.h; sourceTree = "<group>"; };
 		2297CF8C14901CB900CC6D7E /* TTAttribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAttribute.cpp; path = ../source/TTAttribute.cpp; sourceTree = "<group>"; };
-		2297CF8D14901CB900CC6D7E /* TTDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDataObject.h; path = ../includes/TTDataObject.h; sourceTree = "<group>"; };
-		2297CF8E14901CB900CC6D7E /* TTDataObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataObject.cpp; path = ../source/TTDataObject.cpp; sourceTree = "<group>"; };
 		2297CF8F14901CB900CC6D7E /* TTBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBase.h; path = ../includes/TTBase.h; sourceTree = "<group>"; };
 		2297CF9014901CB900CC6D7E /* TTBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBase.cpp; path = ../source/TTBase.cpp; sourceTree = "<group>"; };
 		2297CF9114901CB900CC6D7E /* TTMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMessage.h; path = ../includes/TTMessage.h; sourceTree = "<group>"; };
 		2297CF9214901CB900CC6D7E /* TTMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMessage.cpp; path = ../source/TTMessage.cpp; sourceTree = "<group>"; };
 		2297CF9314901CB900CC6D7E /* TTObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTObject.h; path = ../includes/TTObject.h; sourceTree = "<group>"; };
-		2297CF9414901CB900CC6D7E /* TTObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTObject.cpp; path = ../source/TTObject.cpp; sourceTree = "<group>"; };
 		2297CF9514901CB900CC6D7E /* TTDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDictionary.h; path = ../includes/TTDictionary.h; sourceTree = "<group>"; };
 		2297CF9614901CB900CC6D7E /* TTDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDictionary.cpp; path = ../source/TTDictionary.cpp; sourceTree = "<group>"; };
 		2297CF9714901CB900CC6D7E /* TTHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHash.h; path = ../includes/TTHash.h; sourceTree = "<group>"; };
@@ -286,7 +280,6 @@
 				2297CF8F14901CB900CC6D7E /* TTBase.h */,
 				2297CF7814901CB900CC6D7E /* TTCallback.h */,
 				2297CF7A14901CB900CC6D7E /* TTClass.h */,
-				2297CF8D14901CB900CC6D7E /* TTDataObject.h */,
 				2297CF9514901CB900CC6D7E /* TTDictionary.h */,
 				2297CF7C14901CB900CC6D7E /* TTEnvironment.h */,
 				A79E8F08165467FD0004C9A1 /* TTFifo.h */,
@@ -316,7 +309,6 @@
 				2297CF9014901CB900CC6D7E /* TTBase.cpp */,
 				2297CF7914901CB900CC6D7E /* TTCallback.cpp */,
 				2297CF7B14901CB900CC6D7E /* TTClass.cpp */,
-				2297CF8E14901CB900CC6D7E /* TTDataObject.cpp */,
 				2297CF9614901CB900CC6D7E /* TTDictionary.cpp */,
 				2297CF7D14901CB900CC6D7E /* TTEnvironment.cpp */,
 				2297CF7714901CB900CC6D7E /* TTFoundation.cpp */,
@@ -327,7 +319,6 @@
 				2297CF9D14901CB900CC6D7E /* TTMatrixMath.cpp */,
 				2297CF9214901CB900CC6D7E /* TTMessage.cpp */,
 				2297CF8014901CB900CC6D7E /* TTMutex.cpp */,
-				2297CF9414901CB900CC6D7E /* TTObject.cpp */,
 				2297CF8214901CB900CC6D7E /* TTPath.cpp */,
 				2297CF8414901CB900CC6D7E /* TTQueue.cpp */,
 				A79E8F06165467B90004C9A1 /* TTRegex.cpp */,
@@ -390,7 +381,6 @@
 				2297CFCA14901CBA00CC6D7E /* TTUnitTest.h in Headers */,
 				2297CFCC14901CBA00CC6D7E /* TTValueCache.h in Headers */,
 				2297CFCE14901CBA00CC6D7E /* TTAttribute.h in Headers */,
-				2297CFD014901CBA00CC6D7E /* TTDataObject.h in Headers */,
 				2297CFD214901CBA00CC6D7E /* TTBase.h in Headers */,
 				2297CFD414901CBA00CC6D7E /* TTMessage.h in Headers */,
 				2297CFD614901CBA00CC6D7E /* TTObject.h in Headers */,
@@ -449,7 +439,7 @@
 		2297CF5A14901C7900CC6D7E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 2297CF5D14901C7900CC6D7E /* Build configuration list for PBXProject "JamomaFoundationIOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -485,10 +475,8 @@
 				2297CFCB14901CBA00CC6D7E /* TTUnitTest.cpp in Sources */,
 				2297CFCD14901CBA00CC6D7E /* TTValueCache.cpp in Sources */,
 				2297CFCF14901CBA00CC6D7E /* TTAttribute.cpp in Sources */,
-				2297CFD114901CBA00CC6D7E /* TTDataObject.cpp in Sources */,
 				2297CFD314901CBA00CC6D7E /* TTBase.cpp in Sources */,
 				2297CFD514901CBA00CC6D7E /* TTMessage.cpp in Sources */,
-				2297CFD714901CBA00CC6D7E /* TTObject.cpp in Sources */,
 				2297CFD914901CBA00CC6D7E /* TTDictionary.cpp in Sources */,
 				2297CFDB14901CBA00CC6D7E /* TTHash.cpp in Sources */,
 				2297CFDD14901CBA00CC6D7E /* TTList.cpp in Sources */,
@@ -528,7 +516,11 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_CXX0X_EXTENSIONS = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -541,6 +533,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
@@ -554,12 +547,17 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_CXX0X_EXTENSIONS = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = DISABLE_NODELIB;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;

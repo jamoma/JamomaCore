@@ -315,6 +315,7 @@ public:
 			return kTTSymEmpty;
 	}
 
+#ifndef DISABLE_NODELIB
 	operator TTAddress() const
 	{
 		if (mType == kTypeSymbol)
@@ -322,6 +323,7 @@ public:
         else
 			return kTTAdrsEmpty;
 	}
+#endif
 	
 	operator TTString() const
 	{
@@ -486,13 +488,15 @@ public:
 		return *this;
 	}
 
+#ifndef DISABLE_NODELIB
 	TTElement& operator = (const TTAddress value)
 	{
 		mType = kTypeSymbol;
 		mValue.sym = (TTAddressBase*)value.rawpointer();
 		return *this;
 	}
-
+#endif
+	
 	TTElement& operator = (const TTString value)
 	{
 		//		if (!stringsPresent && *type != kTypeString)
