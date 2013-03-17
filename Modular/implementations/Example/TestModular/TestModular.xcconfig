@@ -1,0 +1,13 @@
+	PRODUCT_NAME = 	TestModular;
+
+	GCC_PRECOMPILE_PREFIX_HEADER = NO;
+	GCC_ENABLE_CPP_EXCEPTIONS = YES;
+	GCC_ENABLE_CPP_RTTI = YES;
+	
+	FOUNDATION = $(SRCROOT)/../../../../Foundation
+	DSP = $(SRCROOT)/../../../../DSP
+	MODULAR = $(SRCROOT)/../../..
+	
+	HEADER_SEARCH_PATHS = $(FOUNDATION)/library/includes $(MODULAR)/library/source $(MODULAR)/library/PeerObject $(MODULAR)/library/DataspaceLib $(MODULAR)/library/DeviceManagerLib $(MODULAR)/library/FunctionLib
+//	OTHER_LDFLAGS = $(FOUNDATION)/library/build/UninstalledProducts/JamomaFoundation.dylib $(MODULAR)/library/build/UninstalledProducts/TTModular.dylib
+	OTHER_LDFLAGS = "/Library/Application Support/Jamoma/Libraries/JamomaFoundation.dylib" "/Library/Application Support/Jamoma/Libraries/TTModular.dylib"

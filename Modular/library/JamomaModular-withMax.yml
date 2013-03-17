@@ -1,0 +1,59 @@
+defines:
+      
+sources:
+  - source/TTModular.cpp
+  - source/TTModularSymbolCache.cpp
+  - source/Jamoma.cpp
+  - source/JamomaObject.cpp
+  - source/JamomaSymbols.cpp
+  - source/jcom.core.cpp
+  - ModularForMax/ModularForMax.cpp
+  - PeerObject/TTApplication.cpp
+  - PeerObject/TTApplicationManager.cpp
+  - PeerObject/TTContainer.cpp
+  - PeerObject/TTCue.cpp
+  - PeerObject/TTCueManager.cpp
+  - PeerObject/TTData.cpp
+  - PeerObject/TTDataTypedMethods.cpp
+  - PeerObject/TTExplorer.cpp
+  - PeerObject/TTInput.cpp
+  - PeerObject/TTMapper.cpp
+  - PeerObject/TTMapperManager.cpp
+  - PeerObject/TTMirror.cpp
+  - PeerObject/TTOutput.cpp
+  - PeerObject/TTPreset.cpp
+  - PeerObject/TTPresetManager.cpp
+  - PeerObject/TTRamp.cpp
+  - PeerObject/TTReceiver.cpp
+  - PeerObject/TTSender.cpp
+  - PeerObject/TTScript.cpp
+  - PeerObject/TTSubscriber.cpp
+  - PeerObject/TTTextHandler.cpp
+  - PeerObject/TTViewer.cpp
+  - PeerObject/TTXmlHandler.cpp
+  - ProtocolLib/Protocol.cpp
+  - SchedulerLib/Scheduler.cpp
+  - ../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
+  
+includes:
+  - includes
+  - ModularForMax
+  - PeerObject
+  - ProtocolLib
+  - SchedulerLib
+  - ../../../Core/Foundation/library/includes
+  - ../../../Core/DSP/library/includes
+  - ../../../Core/Shared/max  
+  - C74-INCLUDES
+  - /usr/include/libxml2
+
+libraries:
+  - FOUNDATION
+  - DSP
+  - C74
+  - mac /usr/lib/libxml2.dylib
+  - win ../../../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
+  - win ../../../../Foundation/library/libxml2/win32/lib/libxml2.lib
+
+frameworks:
+  - Carbon

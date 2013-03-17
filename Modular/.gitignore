@@ -1,0 +1,38 @@
+#Ignore DS_Store files
+.DS_Store
+
+Jamoma/library/externals/mac/
+Jamoma/library/externals/windows/
+logs
+build
+html
+Debug
+Release
+Makefile
+
+# XCode files to be ignored
+xcuserdata
+*.mode1v3
+*.pbxuser
+*.perspectivev3
+project.xcworkspace
+
+*.layout
+*.depends
+#*.map
+*.ncb
+*.suo
+*.user
+*.tm_build_errors
+*.a
+*.lib
+
+# Files generated from templates by the build script
+JamomaModular.xcconfig
+TTModularVersion.h
+Max/library/javascript/jcom.js_systeminfo.js
+
+# Git conflict files
+*.orig
+
+*.o

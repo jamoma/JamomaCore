@@ -1,0 +1,18 @@
+#defines:
+#  - TT_SHEDULER_DEBUG
+
+sources:
+  - ../../library/SchedulerLib/Scheduler.cpp		
+  - source/Max.cpp
+  - ../../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
+    
+includes:
+  - "."
+  - "includes"
+  - "../../library/SchedulerLib"
+  - "../../../../Core/Foundation/library/includes"
+  - C74-INCLUDES
+
+libraries:
+  - FOUNDATION
+  - C74

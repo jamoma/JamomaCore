@@ -1,0 +1,96 @@
+/* 
+ * A PresetManager Object
+ * Copyright © 2010, Théo de la Hogue
+ * 
+ * License: This code is licensed under the terms of the "New BSD License"
+ * http://creativecommons.org/licenses/BSD/
+ */
+
+#ifndef __TT_PRESET_MANAGER_H__
+#define __TT_PRESET_MANAGER_H__
+
+#include "TTModular.h"
+
+/**	TTPresetManager ... TODO : an explanation
+ 
+ 
+ */
+
+class TTPreset;
+typedef TTPreset* TTPresetPtr;
+
+class TTXmlHandler;
+typedef TTXmlHandler* TTXmlHandlerPtr;
+
+class TTMODULAR_EXPORT TTPresetManager : public TTDataObjectBase
+{
+	TTCLASS_SETUP(TTPresetManager)
+	
+private:
+	
+	TTAddress           mAddress;						///< ATTRIBUTE : the container address to manage
+	TTValue				mOrder;							///< ATTRIBUTE : presets are ordered by name
+	TTSymbol			mCurrent;						///< ATTRIBUTE : the current preset name
+	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
+
+	TTHashPtr			mPresets;						///< a hash table containing <name, TTPresetPtr>
+	TTPresetPtr			mCurrentPreset;					///< the current preset
+    
+    TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this presetmanager
+	
+	/** */
+	TTErr	setAddress(const TTValue& value);
+	
+	/** */
+	TTErr	setOrder(const TTValue& value);
+
+	/** */
+	TTErr	Clear();
+	
+	/** */
+	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** */
+	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
+    
+	/** Output a preset using the mReturnLineCallback :
+	 name/id : output the preset.
+	 nothing : output the current preset */
+	TTErr	Output(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** */
+	TTErr	Interpolate(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** */
+	TTErr	Mix(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Move a preset : 
+	 name + position : move the preset to the given position. */
+	TTErr	Move(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** */
+	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Rename a preset : 
+	 name + newName: rename the preset with the newName */
+	TTErr	Rename(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Copy a preset : 
+	 name : copy the preset (and optionally give a new name + a position) */
+	TTErr	Copy(const TTValue& inputValue, TTValue& outputValue);	
+	
+	/**  needed to be handled by a TTXmlHandler */
+	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
+	
+	/**  needed to be handled by a TTTextHandler */
+	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** */
+	TTErr	notifyOrderObservers();
+};
+
+typedef TTPresetManager* TTPresetManagerPtr;
+
+#endif // __TT_PRESET_MANAGER_H__
