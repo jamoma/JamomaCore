@@ -695,11 +695,12 @@ else
           end
 
           if (include_file == "C74-INCLUDES")
-            if max
-              include_file = "#{path_to_moduleroot}/../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/jit-includes"
-            else
-              include_file = "#{path_to_moduleroot}/../../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes"
-            end
+#            if max
+#              include_file = "#{path_to_moduleroot}/../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/jit-includes"
+              include_file = "#{path_to_moduleroot}/../../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/jit-includes"
+#            else
+#              include_file = "#{path_to_moduleroot}/../../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes"
+ #           end
           end
 
           if (i==0)
