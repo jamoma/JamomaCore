@@ -157,8 +157,8 @@ puts "  "
 
 @log_root = "logs-#{@projectName}"
 @svn_root = "../#{@projectName}"
-@svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
-@svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
+#@svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
+#@svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
 @svn_root = "#{libdir}/../../../JamomaUserLibraries/#{@projectName}" if @projectName == "TapTools"
 @svn_root = "#{libdir}/../../Implementations/#{@projectName}" if @projectName == "Max"
 @fail_array = Array.new
