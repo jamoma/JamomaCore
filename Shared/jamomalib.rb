@@ -1779,6 +1779,11 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
     dir = "#{@svn_root}/#{dir}"
     return if !FileTest.exist?(dir) || !FileTest.directory?(dir)
 
+    if (dir == "source")
+      puts "Building Max Externals"
+      puts
+    end
+
     Dir.foreach(dir) do |subf|
       next if /^\./.match(subf)
       next if /common/.match(subf)

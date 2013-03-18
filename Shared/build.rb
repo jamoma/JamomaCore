@@ -296,49 +296,12 @@ if (@distropath == nil && !linux?) # if a custom distropath is defined, don't bu
   ###################################################################
   # EXTERNALS
   ###################################################################
-  puts "Building Max Externals"
-  puts
-
-	# The old way
-  zero_count
-  build_dir("implementations/MaxMSP", configuration, clean, forcedCompiler, nil)
-  ex_total, ex_count = get_count
-
 	# The new way
   zero_count
   build_dir("source", configuration, clean, forcedCompiler, nil)
   ex_total, ex_count = get_count
 
   puts
-
-  ###################################################################
-  # HELP FILES
-  ###################################################################
-  puts "Copying Maxhelp files"
-  zero_count
-  maxhelp_dir("implementations/MaxMSP", "../../Builds/MaxMSP")
-  ex_total, ex_count = get_count
-  puts ""
-
-  if @projectName == "AudioGraph" && win?
-	puts "Creating jamoma-objectmappings.txt for AudioGraph externals..."
-	create_audiograph_objectmappings("#{libdir}/../../../Builds/MaxMSP")
-  end
-
-  extension = ".mxo"
-  if win?
-  	extension = ".mxe"
-  end
-
-  src_folder = "Build_Mac"
-  if win?
-  	src_folder = "MaxMSP/builds"
-  end
-
-  dst_folder = "mac"
-  if win?
-  	dst_folder = "windows"
-  end
 
 end
 
