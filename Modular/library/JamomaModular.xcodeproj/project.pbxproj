@@ -229,7 +229,7 @@
 		229B5846149C0B0C0093389A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 229B5849149C0B0C0093389A /* Build configuration list for PBXProject "JamomaModular" */;
 			compatibilityVersion = "Xcode 3.2";

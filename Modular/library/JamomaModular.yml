@@ -33,7 +33,7 @@ sources:
   - PeerObject/TTXmlHandler.cpp
   - ProtocolLib/Protocol.cpp
   - SchedulerLib/Scheduler.cpp
-  - ../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
+  - ../../../Implementations/Max/source/c74support/max-includes/common/commonsyms.cpp
   
 includes:
   - includes
@@ -43,7 +43,7 @@ includes:
   - SchedulerLib
   - ../../../Core/Foundation/library/includes
   - ../../../Core/DSP/library/includes
-  - ../../../Core/Shared/max  
+  - ../../../Implementations/Max/source/classwrapper
   - C74-INCLUDES
   - /usr/include/libxml2
 

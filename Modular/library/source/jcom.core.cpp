@@ -74,9 +74,9 @@ bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 
 void jcom_core_file_writeline(t_filehandle *fh, long *the_eof, const char *the_text)
 {
-	char 	tempstring[4096];
-	short	err = 0;
-	long	len = 0;
+	char		tempstring[4096];
+	short		err = 0;
+	t_ptr_size	len = 0;
 	
 	strcpy(tempstring, the_text);
 	strcat(tempstring, "\n");

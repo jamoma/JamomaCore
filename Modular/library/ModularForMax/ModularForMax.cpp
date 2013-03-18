@@ -1797,7 +1797,7 @@ TTSymbol jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* defa
 	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
 	short 			err, path;						// pathID#, error number
 	t_filehandle	file_handle;					// a reference to our file (for opening it, closing it, etc.)
-	long			filetype = 'TEXT', outtype;		// the file type that is actually true
+	t_fourcc		filetype = 'TEXT', outtype;		// the file type that is actually true
 	SymbolPtr		userpath;
 	TTSymbol		result = kTTSymEmpty;
 	
@@ -1842,12 +1842,12 @@ TTSymbol jamoma_file_write(ObjectPtr x, AtomCount argc, AtomPtr argv, char* defa
 }
 
 /** Get BOOT style filepath grom args or, if no args open a dialog to read a file */
-TTSymbol jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, long filetype)
+TTSymbol jamoma_file_read(ObjectPtr x, AtomCount argc, AtomPtr argv, t_fourcc filetype)
 {
 	char 			filepath[MAX_FILENAME_CHARS];	// for storing the name of the file locally
 	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	short 			path;							// pathID#
-	long			outtype;
+	t_fourcc		outtype;
 	SymbolPtr		userpath;
 	TTSymbol		result = kTTSymEmpty;
 	
