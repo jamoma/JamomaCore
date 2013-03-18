@@ -16,3 +16,6 @@ load "build.rb"
 
 Dir.chdir "#{@mydir}/AudioGraph"
 load "build.rb"
+
+Dir.chdir "#{@mydir}/Modular"
+load "build.rb"
