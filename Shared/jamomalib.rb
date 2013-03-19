@@ -509,16 +509,25 @@ else
     makefile_generated = false
     max = false
 
-    distropath = "@executable_path/../Jamoma" if !distropath
     foldername = projectdir.split("/").last
     project_type = "extension"
     project_type = "library" if foldername == "library"
-    project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "implementations"
+#    project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "implementations"
     project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max"
 		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max"
     define_c74_linker_syms = false
     path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.."
     path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
+
+    if !distropath
+
+      # By default, assume all libs and extensions are in the same folder as the binary and as each other
+      distropath = "@loader_path"
+
+      # Max externals are bundles, and they expect the libs to be in different location
+      distropath = "@loader_path/../../../../support" if max
+      
+    end
 
     if ($g_use_yaml_project_files && File.exists?("#{projectdir}/#{projectname}.yml"))
       yaml = YAML.load_file( "#{projectdir}/#{projectname}.yml")
