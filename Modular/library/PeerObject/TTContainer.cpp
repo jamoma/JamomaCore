@@ -1220,13 +1220,13 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 {
 	TTValuePtr		b;
-	TTValue			cacheElement, v, address;
+	TTValue			cacheElement, v;
 	TTObjectBasePtr	anObject;
 	TTContainerPtr	aContainer;
 	TTAddress       relativeAddress, relativeDataAddress;
 	TTErr			err;
 	
-	// chheck baton
+	// check baton
 	b = (TTValuePtr)baton;
     
     if ((*b).size() == 2) {
@@ -1272,14 +1272,13 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
                     }
                     
                     // return the address
-                    address.append(relativeAddress);
-                    aContainer->mReturnAddressCallback->notify(address, kTTValNONE);
+                    aContainer->mReturnAddressCallback->notify(relativeAddress, kTTValNONE);
                     
                     // return the value
                     aContainer->mReturnValueCallback->notify(v, kTTValNONE);
                     
                     // Notify activity observers (about value changes only)
-                    v.prepend(TTValue(relativeAddress));
+                    v.prepend(relativeAddress);
                     aContainer->activityAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
                     
                     return kTTErrNone;
