@@ -95,7 +95,7 @@ TTErr TTRamp::setScheduler(const TTValue& inputValue)
     
 	if (err) {
         mSchedulerUnit = NULL;
-		logError("TTRamp failed to load the requested Scheduler");
+		logError("TTRamp failed to load the requested Scheduler\n");
     }
     
 	return err;
