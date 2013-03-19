@@ -1102,13 +1102,13 @@ else
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\AudioGraph\\library\\$(ConfigurationName)\";"
           elsif (lib == "C74-MAX")
             concatenated_libs_debug += "MaxAPI.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\max-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
           elsif (lib == "C74-MSP")
             concatenated_libs_debug += "MaxAudio.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\msp-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
           elsif (lib == "C74-JITTER")
             concatenated_libs_debug += "jitlib.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\jit-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
@@ -1475,7 +1475,7 @@ else
 						if ($alternate_pkgInfo)
 							makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
 						else
-							makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+							makefile.write("\tcp #{path_to_moduleroot}/../../Implementations/Max/source/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
 						end
           end
           makefile.write("\n")
@@ -1604,7 +1604,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
               if ($alternate_pkgInfo)
                 makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n")
               else
-                makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n")
+                makefile.write("\tcp #{path_to_moduleroot}/../../Implementations/Max/source/PkgInfo #{extension_dest}/../PkgInfo\n")
               end
               makefile.write("\ttouch #{touch_dest}\n")
             end
@@ -1636,7 +1636,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
             if ($alternate_pkgInfo)
               makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
             else
-              makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+              makefile.write("\tcp #{path_to_moduleroot}/../../Implementations/Max/source/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
             end
 
             if (arch == 'i386')
