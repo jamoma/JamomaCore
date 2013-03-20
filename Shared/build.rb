@@ -8,7 +8,7 @@
 @projectName = ENV['JAMOMAPROJECT']
 
 $alternate_pkgInfo = nil
-$alternate_pkgInfo = "../../../../../Jamoma/Core/Shared/max/PkgInfo" if @projectName == "TapTools"
+$alternate_pkgInfo = "../../../../../Jamoma/Implementations/Max/source/PkgInfo" if @projectName == "TapTools"
 
 # First include the functions in the jamoma lib
 libdir = "."
@@ -48,13 +48,6 @@ if(ARGV.length > 1)
   end
 end
 
-#@debug = false;
-#if(ARGV.length > 2)
-#  if(ARGV[2] != "0" && ARGV[2] != "false" && ARGV[2] != false)
-#    @debug = true;
-#  end
-#end
-
 forcedCompiler = nil
 if(ARGV.length > 2)
   if(ARGV[2] != "0" && ARGV[2] != "false" && ARGV[2] != false)
@@ -91,19 +84,6 @@ version_mod = version_digits[3] if version_digits.size() > 3
 version_sub = version_digits[2] if version_digits.size() > 2
 version_min = version_digits[1] if version_digits.size() > 1
 version_maj = version_digits[0] if version_digits.size() > 0
-
-#puts ""
-#puts "  Building Jamoma #{git_tag} (rev. #{git_rev})"
-#puts ""
-#if git_dirty_commits != '0'
-#	puts "  !!! WARNING !!!"
-#	puts "	THIS BUILD IS COMING FROM A DIRTY REVISION   "
-#	puts "	THIS BUILD IS FOR PERSONAL USE ONLY  "
-#	puts "	DO NOT DISTRIBUTE THIS BUILD TO OTHERS       "
-#	puts ""
-#end
-#puts ""
-
 
 if(ARGV.length > 3 && ARGV[3] == 0)
   version = ARGV[3]
@@ -165,23 +145,7 @@ puts "  "
 @zerolink = false
 
 
-
-
 if @projectName == "Modular"
-
-#  if(ARGV.length > 3)
-#    version = ARGV[3]
-#    version_digits = version.split(/\./)
-#
-#    version_mod = version_digits[3] if version_digits.size() > 3
-#    version_sub = version_digits[2] if version_digits.size() > 2
-#    version_min = version_digits[1] if version_digits.size() > 1
-#    version_maj = version_digits[0] if version_digits.size() > 0
-#  end
-#  if(ARGV.length > 4)
-#    revision = ARGV[4]
-#  end
-
 
   ###################################################################
   # REV NUMBERS
@@ -231,11 +195,7 @@ if @projectName == "Modular"
     f.truncate(f.pos)
     f.close
   end
-
-
-
 end
-
 
 
 ###################################################################
@@ -291,16 +251,14 @@ if File.directory? "#{@svn_root}/extensions"
   puts ""
 end
 
-if (@distropath == nil && !linux?) # if a custom distropath is defined, don't build the Max externs (they probably aren't wanted so just build the frameworks and extensions)
 
-  ###################################################################
-  # EXTERNALS
-  ###################################################################
-	# The new way
+###################################################################
+# EXTERNALS
+###################################################################
+if (@distropath == nil && !linux?) # if a custom distropath is defined, don't build the Max externs (they probably aren't wanted so just build the frameworks and extensions)
   zero_count
   build_dir("source", configuration, clean, forcedCompiler, nil)
   ex_total, ex_count = get_count
-
   puts
 
 end
@@ -309,12 +267,12 @@ end
 ###################################################################
 # FINISH UP
 ###################################################################
-
 puts "=================DONE===================="
 puts "\nFailed projects:" if @fail_array.length > 0
 @fail_array.each do |loser|
   puts loser
 end
+
 
 ###################################################################
 # CLOSE LOG FILES

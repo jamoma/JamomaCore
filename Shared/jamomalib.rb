@@ -509,16 +509,25 @@ else
     makefile_generated = false
     max = false
 
-    distropath = "@executable_path/../Jamoma" if !distropath
     foldername = projectdir.split("/").last
     project_type = "extension"
     project_type = "library" if foldername == "library"
-    project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "implementations"
+#    project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "implementations"
     project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max"
 		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max"
     define_c74_linker_syms = false
     path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.."
     path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
+
+    if !distropath
+
+      # By default, assume all libs and extensions are in the same folder as the binary and as each other
+      distropath = "@loader_path"
+
+      # Max externals are bundles, and they expect the libs to be in different location
+      distropath = "@loader_path/../../../../support" if max
+      
+    end
 
     if ($g_use_yaml_project_files && File.exists?("#{projectdir}/#{projectname}.yml"))
       yaml = YAML.load_file( "#{projectdir}/#{projectname}.yml")
@@ -1102,13 +1111,13 @@ else
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\AudioGraph\\library\\$(ConfigurationName)\";"
           elsif (lib == "C74-MAX")
             concatenated_libs_debug += "MaxAPI.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\max-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
           elsif (lib == "C74-MSP")
             concatenated_libs_debug += "MaxAudio.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\msp-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
           elsif (lib == "C74-JITTER")
             concatenated_libs_debug += "jitlib.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Shared\\max\\c74support\\jit-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
@@ -1475,7 +1484,7 @@ else
 						if ($alternate_pkgInfo)
 							makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
 						else
-							makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+							makefile.write("\tcp #{path_to_moduleroot}/../../Implementations/Max/source/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
 						end
           end
           makefile.write("\n")
@@ -1604,7 +1613,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
               if ($alternate_pkgInfo)
                 makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n")
               else
-                makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n")
+                makefile.write("\tcp #{path_to_moduleroot}/../../Implementations/Max/source/PkgInfo #{extension_dest}/../PkgInfo\n")
               end
               makefile.write("\ttouch #{touch_dest}\n")
             end
@@ -1636,7 +1645,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
             if ($alternate_pkgInfo)
               makefile.write("\tcp #{$alternate_pkgInfo} #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
             else
-              makefile.write("\tcp #{path_to_moduleroot}/../../Core/Shared/max/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
+              makefile.write("\tcp #{path_to_moduleroot}/../../Implementations/Max/source/PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
             end
 
             if (arch == 'i386')
