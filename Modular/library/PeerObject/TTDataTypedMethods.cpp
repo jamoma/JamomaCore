@@ -145,6 +145,26 @@ TTBoolean TTData::clipValue()
 	return false;
 }
 
+TTDictionaryPtr	TTData::parseCommand(const TTValue& inputValue)
+{
+    if (inputValue[0].type() == kTypePointer)
+        return TTDictionaryPtr((TTPtr)inputValue[0]);
+    
+    // local parsing : we need to free the former parsed command
+    else {
+        
+        // if a former command has been parsed locally : delete it
+        if (this->parsedCommand)
+            delete this->parsedCommand;
+        
+        // then store the local parsed command
+        parsedCommand = TTDataParseCommand(inputValue);
+        
+        // before to return it
+        return parsedCommand;
+    }
+}
+
 TTErr TTData::returnValue()
 {
     // used a new value to protect the internal value
@@ -234,10 +254,7 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
-        else
-            command = TTDataParseCommand(inputValue);
+        command = parseCommand(inputValue);
         
         if (!command)
             return kTTErrGeneric;
@@ -314,10 +331,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
-        else
-            command = TTDataParseCommand(inputValue);
+        command = parseCommand(inputValue);
         
         if (!command)
             return kTTErrGeneric;
@@ -467,10 +481,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
-        else
-            command = TTDataParseCommand(inputValue);
+        command = parseCommand(inputValue);
         
         if (!command)
             return kTTErrGeneric;
@@ -643,10 +654,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
-        else
-            command = TTDataParseCommand(inputValue);
+        command = parseCommand(inputValue);
         
         if (!command)
             return kTTErrGeneric;
@@ -815,10 +823,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
-        else
-            command = TTDataParseCommand(inputValue);
+        command = parseCommand(inputValue);
         
         if (!command)
             return kTTErrGeneric;
@@ -972,10 +977,7 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
-        else
-            command = TTDataParseCommand(inputValue);
+        command = parseCommand(inputValue);
         
         if (!command)
             return kTTErrGeneric;

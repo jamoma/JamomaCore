@@ -113,6 +113,8 @@ mReturnValueCallback(NULL)
 	
 	mRamper = NULL;
     
+    parsedCommand = NULL;
+    
     // cache some message and attribute for observer notification
     this->findMessage(kTTSym_Command, &commandMessage);
     this->findAttribute(kTTSym_value, &valueAttribute);
@@ -131,6 +133,10 @@ TTData::~TTData()
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	}
+    
+    // if a former command has been parsed locally : delete it
+    if (this->parsedCommand)
+        delete this->parsedCommand;
 }
 
 TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
