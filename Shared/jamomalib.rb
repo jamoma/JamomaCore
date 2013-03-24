@@ -502,6 +502,28 @@ else
 
 
 
+  def makefile_fix_install_names(makefile, project_type, libraries)
+    if (libraries && (project_type == "library" || project_type == "extension"))
+      libraries.each do |lib|
+        lib = lib.to_s
+        reallibname = nil
+        if (lib == "FOUNDATION")
+          reallibname = "JamomaFoundation"
+        elsif (lib == "DSP")
+          reallibname = "JamomaDSP"
+        elsif (lib == "MODULAR")
+          reallibname = "JamomaModular"
+        elsif (lib == "GRAPH")
+          reallibname = "JamomaGraph"
+        elsif (lib == "AUDIOGRAPH")
+          reallibname = "JamomaAudioGraph"
+        end
+        makefile.write("\tinstall_name_tool -change @loader_path/../../../../support/#{reallibname}.dylib @loader_path/#{reallibname}.dylib build/$(NAME).$(SUFFIX)\n") if reallibname
+      end
+    end
+  end
+
+
 
   # CREATE A MAKEFILE FROM A YAML PROJECT DEFINITION
 
@@ -521,11 +543,79 @@ else
 
     if !distropath
 
+      # We are not in control the binary application that calls us.
+      # That means we cannot use @rpath on the Mac and are limited to @executable_path and @loader_path (or a global location)
+      # We cannot determine @executable_path adequately for all executable binaries.  Ruby is very different than Ableton Live.
+      # So we can only provide a single install_name and it must be @loader_path.
+      #
+      # For this example, we have a Max external as the client.  
+      # It must link from the external's binary (deep inside a Mac bundle) to the Jamoma libs.
+      # Thus, the install_name must be
+      #   "@loader_path/../../../../support"
+      #
+      # However, the extensions too must link to these libraries.  
+      # If we wish to not re-compile the libraries with a different install_path,
+      # then we must either modify the paths in the extension binary after the build, 
+      # or put the extensions in a location with the same relative location to the libraries.
+      # e.g.
+      #   support
+      #     JamomaFoundation.dylib
+      #     JamomaDSP.dylib
+      #     extensions
+      #       mac
+      #         Foundation
+      #           DataspaceLib.ttdylib
+      #         DSP
+      #           Clipper.ttdylib
+      #
+      # To avoid the somewhat arbitrary folder structure we will initially try modifying the references as a post-build phase for extensions.
+      #
+      # The install_name for extensions and for Max externals doesn't really matter, because we never link against these binaries.
+      #
+      # What does this mean exactly?
+      # In the Terminal, run "otool -L AnalysisLib.ttdylib" to get the current paths it uses:
+      #
+      #   AnalysisLib.ttdylib:
+      #   	build/AnalysisLib-x86_64.ttdylib (compatibility version 0.0.0, current version 0.0.0)
+      #   	@loader_path/../../../../support/JamomaFoundation.dylib (compatibility version 0.0.0, current version 0.0.0)
+      #   	@loader_path/../../../../support/JamomaDSP.dylib (compatibility version 0.0.0, current version 0.0.0)
+      #   	/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 65.1.0)
+      #   	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 169.3.0)
+      #
+      # To change the paths for Foundation and DSP, we do this:
+      #   
+      #   $ install_name_tool -change @loader_path/../../../../support/JamomaFoundation.dylib @loader_path/JamomaFoundation.dylib AnalysisLib.ttdylib
+      #   $ install_name_tool -change @loader_path/../../../../support/JamomaDSP.dylib @loader_path/JamomaDSP.dylib AnalysisLib.ttdylib
+      #
+      # To confirm, run "otool -L AnalysisLib.ttdylib" again:
+      #
+      #   AnalysisLib.ttdylib:
+      #   	build/AnalysisLib-x86_64.ttdylib (compatibility version 0.0.0, current version 0.0.0)
+      #   	@loader_path/JamomaFoundation.dylib (compatibility version 0.0.0, current version 0.0.0)
+      #   	@loader_path/JamomaDSP.dylib (compatibility version 0.0.0, current version 0.0.0)
+      #   	/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 65.1.0)
+      #   	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 169.3.0)
+      #
+      #
+      # But, there's another problem: 
+      # It's not just the extensions that need to have the referenced install_names rewritten -- it's the libs too.
+      # For example, AnalysisLib reference JamomaDSP and JamomaFoundation.  We've already rewritten those references, so we're good.
+      # Except that JamomaDSP *also* JamomaFoundation.  So JamomaDSP needs to have its reference rewritten as well.
+      # Etc.
+      #
+      #
+      # So the rule is expressed by this metacode:
+      # if mac?
+      #   if project_type == "library" || project_type == "extension"
+      #     for each library macro (e.g. FOUNDATION, DSP, AUDIOGRAPH, ... )
+      #       add an install_name_tool invocation in the "lipo" phase
+      
+
       # By default, assume all libs and extensions are in the same folder as the binary and as each other
       distropath = "@loader_path"
 
       # Max externals are bundles, and they expect the libs to be in different location
-      distropath = "@loader_path/../../../../support" if max
+      distropath = "@loader_path/../../../../support" if project_type == "library"
       
     end
 
@@ -605,7 +695,12 @@ else
         makefile.write("# Jamoma Makefile, generated by the Jamoma build system for the platform on which the build was run.\n")
         makefile.write("# Edits to this file are NOT under version control and will be lost when the build system is run again.\n")
         makefile.write("\n")
-        makefile.write("NAME = #{projectname}\n\n")
+        makefile.write("NAME = #{projectname}\n")
+        makefile.write("SUFFIX = so\n") if linux?
+        makefile.write("SUFFIX = dylib\n") if mac? && project_type == "library"
+        makefile.write("SUFFIX = ttdylib\n") if mac? && project_type == "extension"
+        makefile.write("SUFFIX = mxo\n") if mac? && project_type == "implementation"
+        makefile.write("\n")
         if mac?
           if ((File.exists? "/usr/bin/icc") && (skipIcc == false))
             makefile.write("CC_32 = icc -arch i386\n") if (arch == 'i386' || arch == 'default')
@@ -1374,7 +1469,7 @@ else
         if mac?
           makefile.write("CFLAGS += -include#{prefix}\n") if prefix
           makefile.write("LDFLAGS = $(OPTIONS) $(DEFINES) $(LIBS) $(WARNINGS)\n")
-          makefile.write("LDFLAGS += -install_name \"#{distropath}/lib/$(NAME).dylib\" \n") if project_type == "library"
+          makefile.write("LDFLAGS += -install_name \"#{distropath}/$(NAME).dylib\" \n") if project_type == "library"
           if gcc47
             makefile.write("LDFLAGS += -static-libgcc\n")
           end
@@ -1410,7 +1505,7 @@ else
         build_temp = "build"
 
         if project_type == "library"
-          extension_dest = "/usr/local/jamoma/lib" if mac?
+          extension_dest = "/usr/local/lib" if mac?
         elsif project_type == "implementation"
           if mac?
             extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
@@ -1422,12 +1517,12 @@ else
 
           extension_dest = "/usr/local/jamoma/implementations" if linux?
         else # extension
-          extension_dest = "/usr/local/jamoma/extensions" if mac?
+          extension_dest = "/usr/local/lib" if mac?
           extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
         end
 
         if project_type == "library"
-          extension_dest = "/usr/local/jamoma/lib" if mac?
+          extension_dest = "/usr/local/lib" if mac?
           extension_dest = "/usr/local/lib/jamoma/lib" if linux?
         elsif project_type == "implementation"
           if mac?
@@ -1442,7 +1537,7 @@ else
           extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win?
           extension_dest = "/usr/local/jamoma/implementations" if linux?
         else # extension
-          extension_dest = "/usr/local/jamoma/extensions" if mac?
+          extension_dest = "/usr/local/lib" if mac?
           extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
         end
 
@@ -1476,8 +1571,8 @@ else
 
           makefile.write("createdirs:\n")
           makefile.write("\tmkdir -p #{build_temp}\n")
-          makefile.write("\tmkdir -p #{extension_dest}\n")
-          makefile.write("\ttouch #{touch_dest}\n")
+          makefile.write("\tmkdir -p #{extension_dest}\n") if project_type == "implementation"
+          makefile.write("\ttouch #{touch_dest}\n") if project_type == "implementation"
           if max
 							makefile.write("\tcp #{projectdir}/../PkgInfo #{extension_dest}/../PkgInfo\n") if project_type == "implementation"
           else
@@ -1537,16 +1632,17 @@ else
           makefile.write("lipo: | link\n")
 
           if linux?
-makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")
-          else
-          # not a universal binary, just copy it
-          if (arch == 'i386')
+            makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")
+          else # mac?
+            # not a universal binary, just copy it
+            if (arch == 'i386')
               makefile.write("\tcp #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")
-          elsif (arch == 'x86_64')
+            elsif (arch == 'x86_64')
               makefile.write("\tlipo #{build_temp}/$(NAME)-x86_64#{extension_suffix} -create -output #{build_temp}/$(NAME)#{extension_suffix}\n")
-          else
+            else
               makefile.write("\tlipo #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)-x86_64#{extension_suffix} -create -output #{build_temp}/$(NAME)#{extension_suffix}\n")
-          end
+            end
+            makefile_fix_install_names(makefile, project_type, libraries)
           end
           makefile.write("\n")
 
@@ -1577,8 +1673,8 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
           makefile.write("\tmkdir -p build\n")
 
           if mac?
-            makefile.write("\tmkdir -p #{extension_dest}\n")
-            makefile.write("\ttouch #{extension_dest}\n")
+#            makefile.write("\tmkdir -p #{extension_dest}\n")
+#            makefile.write("\ttouch #{extension_dest}\n")
             if (arch == 'i386')
               makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)-i386#{extension_suffix}\n")
               makefile.write("\tcp build/$(NAME)-i386#{extension_suffix} build/$(NAME)#{extension_suffix}\n")
@@ -1590,12 +1686,13 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
                 makefile.write("\t$(CC_64) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)-x86_64#{extension_suffix}\n")
                 makefile.write("\tlipo build/$(NAME)-i386#{extension_suffix} build/$(NAME)-x86_64#{extension_suffix} -create -output build/$(NAME)#{extension_suffix}\n")
             end
+            makefile_fix_install_names(makefile, project_type, libraries)
           else
             makefile.write("\t$(CC) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)#{extension_suffix}\n")
           end
 
           if project_type == "library"
-            extension_dest = "/usr/local/jamoma/lib" if mac?
+            extension_dest = "/usr/local/lib" if mac?
         		if linux?
               extension_dest = "/usr/local/lib/jamoma/lib"
         		  makefile.write("\tsudo mkdir -p #{extension_dest}\n")
@@ -1623,7 +1720,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
 
             extension_dest = "/usr/local/jamoma/implementations" if linux?
           else # extension
-            extension_dest = "/usr/local/jamoma/extensions" if mac?
+            extension_dest = "/usr/local/lib" if mac?
             extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
           end
 
@@ -1659,6 +1756,7 @@ makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NA
               makefile.write("\t$(CC_64) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_RELEASE) -o build/$(NAME)-x86_64#{extension_suffix}\n")
               makefile.write("\tlipo build/$(NAME)-i386#{extension_suffix} build/$(NAME)-x86_64#{extension_suffix} -create -output build/$(NAME)#{extension_suffix}\n")
             end
+            makefile_fix_install_names(makefile, project_type, libraries)
 
             if project_type == "implementation"
               makefile.write("\ttouch #{touch_dest}\n")

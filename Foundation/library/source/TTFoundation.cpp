@@ -49,7 +49,7 @@
 static bool		TTFoundationHasInitialized = false;
 static TTString	TTFoundationBinaryPath = "";
 
-void		TTFoundationLoadExternalClasses();
+void		TTFoundationLoadExternalClasses(void);
 TTErr		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
 TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol& className, TTValue& arguments);
 
@@ -118,7 +118,7 @@ void TTFoundationShutdown()
 
 /****************************************************************************************************/
 
-void TTFoundationLoadExternalClasses()
+void TTFoundationLoadExternalClasses(void)
 {
 #ifdef TT_PLATFORM_MAC
 	if (!TTFoundationBinaryPath.empty()) {
@@ -130,7 +130,22 @@ void TTFoundationLoadExternalClasses()
 	else {
 		OSErr		err = noErr;
 		TTString	fullpath;
+
+#define LOOK_FOR_EXTENSIONS_IN_SAME_FOLDER_AS_LIB
+#ifdef LOOK_FOR_EXTENSIONS_IN_SAME_FOLDER_AS_LIB
+		Dl_info		info;
+		char		mainBundleStr[4096];
 		
+		if (dladdr((const void*)TTFoundationLoadExternalClasses, &info)) {
+			char *c = 0;
+			
+			printf("Loaded from path = %s\n", info.dli_fname);
+			strncpy(mainBundleStr, info.dli_fname, 4096);
+			c = strrchr(mainBundleStr, '/');
+			if (c)
+				*c = 0; // chop the "/JamomaFoundation.dylib off of the path
+		}
+#else // THE OLD WAY
 		// Look in the folder of the host application
 		CFBundleRef mainBundle = CFBundleGetMainBundle();
 		CFURLRef	mainBundleURL = CFBundleCopyBundleURL(mainBundle);
@@ -142,6 +157,8 @@ void TTFoundationLoadExternalClasses()
 		mainBundleStr[4095] = 0;
 		
 		CFRelease(mainBundlePath);
+#endif
+		
 		
 		err = TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
 		if (!err)
