@@ -643,6 +643,7 @@ else
 
       prefix = yaml["prefix"]
       postbuilds = yaml["postbuilds"]
+#builddir may be unused?
       builddir = yaml["builddir"]
       builddir = "../Builds" if !builddir
 
@@ -800,11 +801,9 @@ else
 
           if (include_file == "C74-INCLUDES")
             if max
-#              include_file = "#{path_to_moduleroot}/../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../Core/Shared/max/c74support/jit-includes"
               include_file = "#{path_to_moduleroot}/../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/jit-includes"
             else
               include_file = "#{path_to_moduleroot}/../../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/jit-includes"
-#              include_file = "#{path_to_moduleroot}/../../Core/Shared/max/c74support/max-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/msp-includes -I#{path_to_moduleroot}/../../Core/Shared/max/c74support/jit-includes"
             end
           end
 
@@ -1508,10 +1507,10 @@ else
           extension_dest = "/usr/local/lib" if mac?
         elsif project_type == "implementation"
           if mac?
-            extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
-            extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/" if max
+            extension_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/Contents/MacOS/"
+            extension_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/Contents/MacOS/" if max
           end
-          extension_dest = "#{path_to_moduleroot_win}\\..\\..\\Builds\\MaxMSP" if win?
+          extension_dest = "#{projectdir}\\..\\..\\Jamoma\\externals" if win?
 
           #TODO: binary destination should depend on the type of implementation we are building!
 
@@ -1527,14 +1526,11 @@ else
         elsif project_type == "implementation"
           if mac?
             if max
-  	          extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
-  	          touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
-            else
-							extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
-  	          touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
+  	          extension_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/Contents/MacOS/"
+  	          touch_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/"
             end
           end
-          extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win?
+          extension_dest = "#{projectdir}\\..\\..\\Jamoma\\externals" if win?
           extension_dest = "/usr/local/jamoma/implementations" if linux?
         else # extension
           extension_dest = "/usr/local/lib" if mac?
@@ -1700,11 +1696,8 @@ else
           elsif project_type == "implementation"
             if mac?
               if max
-              	extension_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/Contents/MacOS/"
-              	touch_dest = "#{projectdir}/../../max/externals/$(NAME).mxo/"
-              else
-              	extension_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/Contents/MacOS/"
-              	touch_dest = "#{path_to_moduleroot}/../#{builddir}/MaxMSP/$(NAME).mxo/"
+              	extension_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/Contents/MacOS/"
+              	touch_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/"
               end
               makefile.write("\tmkdir -p #{extension_dest}\n")
               if ($alternate_pkgInfo)
@@ -1714,7 +1707,7 @@ else
               end
               makefile.write("\ttouch #{touch_dest}\n")
             end
-            extension_dest = "#{path_to_moduleroot_win}\\..\\Builds\\MaxMSP" if win?
+            extension_dest = "#{projectdir}\\..\\..\\Jamoma\\externals" if win?
 
             #TODO: binary destination should depend on the type of implementation we are building!
 
