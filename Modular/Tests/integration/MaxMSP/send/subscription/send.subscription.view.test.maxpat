@@ -34,7 +34,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 204.0, 175.0, 113.0, 20.0 ],
+					"patching_rect" : [ 204.0, 180.0, 113.0, 20.0 ],
 					"text" : "s parameter-values"
 				}
 
@@ -48,7 +48,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 212.0, 127.0, 105.0, 20.0 ],
+					"patching_rect" : [ 212.0, 132.0, 105.0, 20.0 ],
 					"text" : "testpatcher.model"
 				}
 
@@ -92,6 +92,31 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 12.0,
+									"id" : "obj-1",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 19.0, 134.0, 56.0, 20.0 ],
+									"text" : "deferlow"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-2",
+									"maxclass" : "button",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 300.0, 48.0, 20.0, 20.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 12.0,
 									"id" : "obj-20",
 									"maxclass" : "newobj",
 									"numinlets" : 2,
@@ -111,7 +136,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "int", "", "int" ],
-									"patching_rect" : [ 19.0, 143.0, 46.0, 20.0 ],
+									"patching_rect" : [ 19.0, 161.0, 46.0, 20.0 ],
 									"text" : "t 0 l 1"
 								}
 
@@ -153,7 +178,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 32.5, 183.106842, 76.0, 20.0 ],
+									"patching_rect" : [ 32.5, 201.106842, 76.0, 20.0 ],
 									"text" : "s send-input"
 								}
 
@@ -167,7 +192,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 19.0, 115.0, 56.0, 20.0 ],
+									"patching_rect" : [ 19.0, 111.0, 56.0, 20.0 ],
 									"text" : "deferlow"
 								}
 
@@ -178,7 +203,25 @@
 									"destination" : [ "obj-21", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-17", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-27", 1 ],
+									"disabled" : 0,
+									"hidden" : 0,
+									"source" : [ "obj-2", 0 ]
 								}
 
 							}
@@ -196,7 +239,7 @@
 									"destination" : [ "obj-20", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 55.5, 172.0, 13.0, 172.0, 13.0, 42.0, 28.5, 42.0 ],
+									"midpoints" : [ 55.5, 194.0, 13.0, 194.0, 13.0, 42.0, 28.5, 42.0 ],
 									"source" : [ "obj-21", 2 ]
 								}
 
@@ -206,7 +249,7 @@
 									"destination" : [ "obj-20", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"midpoints" : [ 28.5, 172.0, 13.5, 172.0, 13.5, 42.0, 28.5, 42.0 ],
+									"midpoints" : [ 28.5, 194.0, 13.5, 194.0, 13.5, 42.0, 28.5, 42.0 ],
 									"source" : [ "obj-21", 0 ]
 								}
 
@@ -268,7 +311,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 127.0, 160.0, 20.0 ],
+					"patching_rect" : [ 8.0, 132.0, 160.0, 20.0 ],
 					"text" : "jcom.send testpatcher(view)"
 				}
 
@@ -296,7 +339,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 8.0, 151.0, 84.0, 20.0 ],
+					"patching_rect" : [ 8.0, 156.0, 84.0, 20.0 ],
 					"text" : "route address"
 				}
 
@@ -309,7 +352,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 8.0, 175.0, 104.0, 20.0 ],
+					"patching_rect" : [ 8.0, 180.0, 104.0, 20.0 ],
 					"text" : "s send-address"
 				}
 
@@ -323,7 +366,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 102.0, 85.0, 20.0 ],
+					"patching_rect" : [ 8.0, 107.0, 85.0, 20.0 ],
 					"text" : "r send-input"
 				}
 
@@ -711,7 +754,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 74.0, 34.0, 129.0, 20.0 ],
+					"patching_rect" : [ 74.0, 35.0, 129.0, 20.0 ],
 					"text" : "s start-jamoma-testing"
 				}
 
@@ -725,7 +768,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 58.0, 103.0, 20.0 ],
+					"patching_rect" : [ 8.0, 59.0, 103.0, 20.0 ],
 					"text" : "jcom.test.finished"
 				}
 
@@ -795,7 +838,7 @@
 					"destination" : [ "obj-10", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 307.5, 160.5, 213.5, 160.5 ],
+					"midpoints" : [ 307.5, 165.5, 213.5, 165.5 ],
 					"source" : [ "obj-9", 1 ]
 				}
 
@@ -812,35 +855,35 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.test.start.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.start",
-				"patcherrelativepath" : "../../../../../../Test/components/test.start",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Implementations/MaxTest/components/test.start",
+				"patcherrelativepath" : "../../../../../../../Implementations/MaxTest/components/test.start",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.finished.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.finished",
-				"patcherrelativepath" : "../../../../../../Test/components/test.finished",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Implementations/MaxTest/components/test.finished",
+				"patcherrelativepath" : "../../../../../../../Implementations/MaxTest/components/test.finished",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.assert.equal.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.assert.equal",
-				"patcherrelativepath" : "../../../../../../Test/components/test.assert.equal",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Implementations/MaxTest/components/test.assert.equal",
+				"patcherrelativepath" : "../../../../../../../Implementations/MaxTest/components/test.assert.equal",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "testpatcher.view.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Tests/integration/MaxMSP/send/subscription",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Core/Modular/Tests/integration/MaxMSP/send/subscription",
 				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "testpatcher.model.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Modular/Tests/integration/MaxMSP/send/subscription",
+				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Core/Modular/Tests/integration/MaxMSP/send/subscription",
 				"patcherrelativepath" : "",
 				"type" : "JSON",
 				"implicit" : 1

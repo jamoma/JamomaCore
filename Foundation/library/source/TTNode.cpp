@@ -540,8 +540,8 @@ TTErr TTNode::getAddress(TTAddress& returnedAddress, TTAddress from)
 	TTAddress		fromNorm;
 	TTAddress		returnedPart1;
 	TTAddress		returnedPart2;
-	TTNodePtr		ptr;
-	TTNodePtr		*ancestor;
+	TTNodePtr       ptr;
+	TTValue         ancestor;
 	TTString		anAddressString;
 
 	// First, count the number of ancestor
@@ -568,9 +568,9 @@ TTErr TTNode::getAddress(TTAddress& returnedAddress, TTAddress from)
 			len += (strlen(ptr->instance.c_str()) + 1);	// +1 for .
 	}
 
-	// Then, create an array to register all the ancestor and a string
+	// Then, prepare a value to store all the ancestor and a string
 	if (nb_ancestor)
-		ancestor = (TTNodePtr *)malloc(sizeof(TTNodePtr)*nb_ancestor);
+		ancestor.resize(nb_ancestor);
 
 	// this is the root
 	else {
@@ -584,20 +584,20 @@ TTErr TTNode::getAddress(TTAddress& returnedAddress, TTAddress from)
 	while (ptr->parent) {
 		i--;
 		ptr = ptr->parent;
-		ancestor[i] = ptr;
+		ancestor[i] = (TTPtr)ptr;
 	}
 
 	// Finaly, copy the name of each ancestor
 	// copy the root before
-	anAddressString = ancestor[0]->name.c_str();
+	anAddressString = TTNodePtr((TTPtr)ancestor[0])->name.c_str();
 	for (i=1; i<nb_ancestor; i++) {
 
-		if (ancestor[i]->name != NO_NAME)
-			anAddressString += ancestor[i]->name.c_str();
+		if (TTNodePtr((TTPtr)ancestor[i])->name != NO_NAME)
+			anAddressString += TTNodePtr((TTPtr)ancestor[i])->name.c_str();
 
-		if (ancestor[i]->instance != NO_INSTANCE) {
+		if (TTNodePtr((TTPtr)ancestor[i])->instance != NO_INSTANCE) {
 			anAddressString += S_INSTANCE.c_str();
-			anAddressString += ancestor[i]->instance.c_str();
+			anAddressString += TTNodePtr((TTPtr)ancestor[i])->instance.c_str();
 		}
 
 		anAddressString += S_SEPARATOR.c_str();
