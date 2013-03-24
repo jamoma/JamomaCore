@@ -1649,7 +1649,16 @@ else
           makefile.write("\n")
 
           makefile.write("install: | lipo\n")
-          makefile.write("\t#{"sudo " if linux?}cp #{build_temp}/$(NAME)#{extension_suffix} #{extension_dest}\n")
+          if project_type != "implementation"
+            if linux?
+              makefile.write("\tsudo cp #{build_temp}/$(NAME)#{extension_suffix} #{extension_dest}\n")
+            elsif mac?
+              makefile.write("\t#{path_to_moduleroot}/../Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/../../Implementations/Max/Jamoma/support\n")
+            else
+              #TODO: windows support for this...  need to write a DOS script
+            end
+          end
+
           if postbuilds
             postbuilds.each do |postbuild|
               postbuild = postbuild.to_s
