@@ -1643,6 +1643,9 @@ else
           makefile.write("\n")
 
           makefile.write("install: | lipo\n")
+          if max && mac?
+            makefile.write("\tcp build/$(NAME) #{path_to_moduleroot}/../Implementations/Max/Jamoma/externals/$(NAME).mxo/Contents/MacOS/\n")
+          end
           if project_type != "implementation"
             if linux?
               makefile.write("\tsudo cp #{build_temp}/$(NAME)#{extension_suffix} #{extension_dest}\n")
