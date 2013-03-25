@@ -136,7 +136,8 @@ puts "  "
 
 
 @log_root = "logs-#{@projectName}"
-@svn_root = "../#{@projectName}"
+@svn_root = "#{libdir}/../#{@projectName}"
+@svn_root.gsub!(/\//, "\\") if win?
 #@svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
 #@svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
 @svn_root = "#{libdir}/../../../JamomaUserLibraries/#{@projectName}" if @projectName == "TapTools"
@@ -156,7 +157,9 @@ if @projectName == "Modular"
 
   #Header
   file_path = "#{@svn_root}/library/includes/TTModularVersion.h"
-  `cp "#{@svn_root}/library/includes/TTModularVersion.template.h" "#{file_path}"`
+  `cp "#{@svn_root}/library/includes/TTModularVersion.template.h" "#{file_path}"` if mac?
+  `copy #{@svn_root}\\library\\includes\\TTModularVersion.template.h #{@svn_root}\\library\\includes\\TTModularVersion.h /Y` if win?
+
 
   if FileTest.exist?(file_path)
     f = File.open("#{file_path}", "r+")
@@ -177,7 +180,9 @@ if @projectName == "Modular"
 
   #jcom.js_systeminfo
   file_path = "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.js"
-  `cp "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.template.js" "#{file_path}"`
+  `cp "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.template.js" "#{file_path}"` if mac?
+  `copy "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.template.js" "#{file_path}"` if win?
+
 
   if FileTest.exist?(file_path)
     f = File.open("#{file_path}", "r+")
