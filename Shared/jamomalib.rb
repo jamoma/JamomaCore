@@ -534,12 +534,13 @@ else
     foldername = projectdir.split("/").last
     project_type = "extension"
     project_type = "library" if foldername == "library"
-#    project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "implementations"
-    project_type = "implementation" if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max"
-		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max"
+		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max" || (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
+    project_type = "implementation" if max
     define_c74_linker_syms = false
     path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.."
     path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
+    master_name = "Jamoma"
+    master_name = (projectdir.split("/")[projectdir.split("/").size-3]) if (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
 
     if !distropath
 
@@ -643,9 +644,52 @@ else
 
       prefix = yaml["prefix"]
       postbuilds = yaml["postbuilds"]
-#builddir may be unused?
+
       builddir = yaml["builddir"]
-      builddir = "../Builds" if !builddir
+      touch_dest = nil;
+      build_temp = "build"
+
+      if project_type == "library"
+        extension_dest = "/usr/local/lib" if mac?
+      elsif project_type == "implementation"
+        if mac?
+          extension_dest = "#{projectdir}/../../#{master_name}/externals/$(NAME).mxo/Contents/MacOS/"
+          extension_dest = "#{projectdir}/../../#{master_name}/externals/$(NAME).mxo/Contents/MacOS/" if max
+        end
+        extension_dest = "#{projectdir}\\..\\..\\#{master_name}\\externals" if win?
+
+        #TODO: binary destination should depend on the type of implementation we are building!
+
+        extension_dest = "/usr/local/jamoma/implementations" if linux?
+      else # extension
+        extension_dest = "/usr/local/lib" if mac?
+        extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
+      end
+
+      if project_type == "library"
+        extension_dest = "/usr/local/lib" if mac?
+        extension_dest = "/usr/local/lib/jamoma/lib" if linux?
+      elsif project_type == "implementation"
+        if mac?
+          if max
+	          extension_dest = "#{projectdir}/../../#{master_name}/externals/$(NAME).mxo/Contents/MacOS/"
+	          touch_dest = "#{projectdir}/../../#{master_name}/externals/$(NAME).mxo/"
+          end
+        end
+        extension_dest = "#{projectdir}\\..\\..\\#{master_name}\\externals" if win?
+        extension_dest = "/usr/local/jamoma/implementations" if linux?
+      else # extension
+        extension_dest = "/usr/local/lib" if mac?
+        extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
+      end
+
+      if (!touch_dest)
+        touch_dest = extension_dest
+      end
+
+#      builddir = "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/externals/$(NAME).mxo/Contents/MacOS/" if !builddir && max
+#      builddir = "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support" if !builddir
+      builddir = extension_dest if !builddir
 
       skipIcc = false
       skipGcc47 = false
@@ -669,6 +713,23 @@ else
         skipIcc = true
         skipGcc47 = true
         skipClang = false
+      end
+
+      if project_type == "library"
+        extension_suffix = ".dylib" if mac?
+        extension_suffix = ".so" if linux?
+        extension_suffix = ".dll" if win?
+      elsif project_type == "implementation"
+        extension_suffix = "" if mac? # note that the bundle is a special deal...
+        extension_suffix = ".mxe" if win?
+
+        #TODO: binary suffix should depend on the type of implementation we are building!
+
+        extension_suffix = "" if linux?
+      else
+        extension_suffix = ".ttdylib" if mac?
+        extension_suffix = ".ttso" if linux?
+        extension_suffix = ".ttdll" if win?
       end
 
       # TODO: we also will want a STATIC option for e.g. iOS builds
@@ -1476,64 +1537,8 @@ else
           end
         end
 
-        if project_type == "library"
-          extension_suffix = ".dylib" if mac?
-          extension_suffix = ".so" if linux?
-          extension_suffix = ".dll" if win?
-        elsif project_type == "implementation"
-          extension_suffix = "" if mac? # note that the bundle is a special deal...
-          extension_suffix = ".mxe" if win?
-
-          #TODO: binary suffix should depend on the type of implementation we are building!
-
-          extension_suffix = "" if linux?
-        else
-          extension_suffix = ".ttdylib" if mac?
-          extension_suffix = ".ttso" if linux?
-          extension_suffix = ".ttdll" if win?
-        end
 
         ######################################################################################################################
-        touch_dest = nil;
-        build_temp = "build"
-
-        if project_type == "library"
-          extension_dest = "/usr/local/lib" if mac?
-        elsif project_type == "implementation"
-          if mac?
-            extension_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/Contents/MacOS/"
-            extension_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/Contents/MacOS/" if max
-          end
-          extension_dest = "#{projectdir}\\..\\..\\Jamoma\\externals" if win?
-
-          #TODO: binary destination should depend on the type of implementation we are building!
-
-          extension_dest = "/usr/local/jamoma/implementations" if linux?
-        else # extension
-          extension_dest = "/usr/local/lib" if mac?
-          extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
-        end
-
-        if project_type == "library"
-          extension_dest = "/usr/local/lib" if mac?
-          extension_dest = "/usr/local/lib/jamoma/lib" if linux?
-        elsif project_type == "implementation"
-          if mac?
-            if max
-  	          extension_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/Contents/MacOS/"
-  	          touch_dest = "#{projectdir}/../../Jamoma/externals/$(NAME).mxo/"
-            end
-          end
-          extension_dest = "#{projectdir}\\..\\..\\Jamoma\\externals" if win?
-          extension_dest = "/usr/local/jamoma/implementations" if linux?
-        else # extension
-          extension_dest = "/usr/local/lib" if mac?
-          extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
-        end
-
-        if (!touch_dest)
-          touch_dest = extension_dest
-        end
 
         # begin by setting dumb environment variables required for carbon header work correctly on OS 10.8 with Xcode 4.4
         # and GCC
@@ -1644,7 +1649,7 @@ else
 
           makefile.write("install: | lipo\n")
           if max && mac?
-            makefile.write("\tcp build/$(NAME) #{path_to_moduleroot}/../Implementations/Max/Jamoma/externals/$(NAME).mxo/Contents/MacOS/\n")
+            makefile.write("\tcp build/$(NAME) #{builddir}\n")
           end
           if project_type != "implementation"
             if linux?
