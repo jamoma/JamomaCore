@@ -1480,7 +1480,7 @@ else
 
             #makefile.write("OPTIONS = -dynamiclib -msse3 -mfpmath=sse -gdwarf-2\n")
           else
-            makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -gdwarf-2\n")
+            makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -gdwarf-2 -fvisibility=hidden\n")
           end
         else
           if beagle?
