@@ -81,7 +81,7 @@ extern TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance;		///< The global regex t
  
  */
 
-class TTAddressBase : public TTSymbolBase
+class TTFOUNDATION_EXPORT TTAddressBase : public TTSymbolBase
 {
 private:
 	
