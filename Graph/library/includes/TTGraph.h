@@ -24,7 +24,7 @@
 	#include <algorithm>
 	using namespace std;
 #else // TT_PLATFORM_MAC
-	#ifdef _DLL_EXPORT
+	#ifdef TTGRAPH_EXPORTS
 		#define TTGRAPH_EXPORT __attribute__((visibility("default")))
 	#else
 		#define TTGRAPH_EXPORT  
