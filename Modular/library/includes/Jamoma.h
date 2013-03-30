@@ -54,7 +54,7 @@
 
 extern "C" {
 	
-	void jamoma_init(void);
+	void TTMODULAR_EXPORT jamoma_init(void);
 	
 }
 
