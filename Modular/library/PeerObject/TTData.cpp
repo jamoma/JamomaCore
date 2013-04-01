@@ -93,7 +93,7 @@ mReturnValueCallback(NULL)
 	addMessageWithArguments(Inc);
 	addMessageWithArguments(Dec);
     
-    registerMessage(kTTSym_Command, (TTMethod)&TTData::GenericCommand);
+    addMessageWithArguments(Command);
 	addMessageProperty(Command, hidden, YES);
     
     addMessageWithArguments(RampSet);
@@ -113,10 +113,9 @@ mReturnValueCallback(NULL)
 	
 	mRamper = NULL;
     
-    parsedCommand = NULL;
+    commandMethod = (TTMethodValue)&TTData::GenericCommand;
     
     // cache some message and attribute for observer notification
-    this->findMessage(kTTSym_Command, &commandMessage);
     this->findAttribute(kTTSym_value, &valueAttribute);
     this->findAttribute(kTTSym_initialized, &initializedAttribute);
 }
@@ -133,10 +132,6 @@ TTData::~TTData()
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	}
-    
-    // if a former command has been parsed locally : delete it
-    if (this->parsedCommand)
-        delete this->parsedCommand;
 }
 
 TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)

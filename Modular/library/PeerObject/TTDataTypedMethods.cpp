@@ -29,7 +29,7 @@ TTErr TTData::setType(const TTValue& value)
 		
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
-            commandMessage->method = (TTMethod)&TTData::IntegerCommand;
+            commandMethod = (TTMethodValue)&TTData::IntegerCommand;
             resetMessage->method = (TTMethod)&TTData::IntegerReset;
 			valueAttribute->type = kTypeInt32;
             valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerValue;
@@ -41,7 +41,7 @@ TTErr TTData::setType(const TTValue& value)
 			mRangeBounds.set(1, TTUInt16(1));
 		}
 		else if (mType == kTTSym_decimal) {
-            commandMessage->method = (TTMethod)&TTData::DecimalCommand;
+            commandMethod = (TTMethodValue)&TTData::DecimalCommand;
             resetMessage->method = (TTMethod)&TTData::DecimalReset;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setDecimalValue;
@@ -53,7 +53,7 @@ TTErr TTData::setType(const TTValue& value)
 			mRangeBounds.set(1, 1.);
 		}
 		else if (mType == kTTSym_string) {
-            commandMessage->method = (TTMethod)&TTData::StringCommand;
+            commandMethod = (TTMethodValue)&TTData::StringCommand;
             resetMessage->method = (TTMethod)&TTData::StringReset;
 			valueAttribute->type = kTypeSymbol;
             valueAttribute->setter = (TTSetterMethod)&TTData::setStringValue;
@@ -64,7 +64,7 @@ TTErr TTData::setType(const TTValue& value)
 			mRangeBounds = kTTValNONE;
 		}
 		else if (mType == kTTSym_boolean) {
-            commandMessage->method = (TTMethod)&TTData::BooleanCommand;
+            commandMethod = (TTMethodValue)&TTData::BooleanCommand;
             resetMessage->method = (TTMethod)&TTData::BooleanReset;
 			valueAttribute->type = kTypeBoolean;
             valueAttribute->setter = (TTSetterMethod)&TTData::setBooleanValue;
@@ -75,8 +75,8 @@ TTErr TTData::setType(const TTValue& value)
 			mRangeBounds.set(0, NO);
 			mRangeBounds.set(1, YES);
 		}
-		else if (mType == kTTSym_array) {				// Is this case means something now we have TTValue ?
-            commandMessage->method = (TTMethod)&TTData::ArrayCommand;
+		else if (mType == kTTSym_array) {
+            commandMethod = (TTMethodValue)&TTData::ArrayCommand;
             resetMessage->method = (TTMethod)&TTData::ArrayReset;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setArrayValue;
@@ -88,7 +88,7 @@ TTErr TTData::setType(const TTValue& value)
 			mRangeBounds.set(1, 1.);
 		}
 		else if (mType == kTTSym_none) {
-            commandMessage->method = (TTMethod)&TTData::NoneCommand;
+            commandMethod = (TTMethodValue)&TTData::NoneCommand;
             resetMessage->method = (TTMethod)&TTData::NoneReset;
 			valueAttribute->type = kTypeNone;
             valueAttribute->setter = (TTSetterMethod)&TTData::setNoneValue;
@@ -99,13 +99,13 @@ TTErr TTData::setType(const TTValue& value)
 			mRangeBounds = kTTValNONE;
 		}
 		else {
-            commandMessage->method = (TTMethod)&TTData::DecimalCommand;
-            resetMessage->method = (TTMethod)&TTData::DecimalReset;
+            commandMethod = (TTMethodValue)&TTData::GenericCommand;
+            resetMessage->method = (TTMethod)&TTData::GenericReset;
 			valueAttribute->type = kTypeFloat64;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setDecimalValue;
+            valueAttribute->setter = (TTSetterMethod)&TTData::setGenericValue;
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
-			mType = kTTSym_generic;						// Is this case means something now we have TTValue ?
+			mType = kTTSym_generic;
 			mValue = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds = TTValue(0., 1.);
@@ -117,6 +117,37 @@ TTErr TTData::setType(const TTValue& value)
 		this->notifyObservers(kTTSym_type, n);
 	}
 	return kTTErrNone;
+}
+
+TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
+{
+    // external parsing : the command is already parsed
+    if (inputValue.size()) {
+        
+        if (inputValue[0].type() == kTypePointer)
+            
+            // call the specific command method depending on mType
+            return (this->*commandMethod)(inputValue, outputValue);
+    }
+    
+    
+    // local parsing : we need to free the parsed command afterwards
+    TTDictionaryPtr command = NULL;
+    TTErr           err;
+    
+    // parse command locally
+    command = TTDataParseCommand(inputValue);
+    
+    if (!command)
+        return kTTErrGeneric;
+    
+    // call the specific command method depending on mType
+    err = (this->*commandMethod)((TTPtr)command, outputValue);
+    
+    // free the command
+    delete command;
+    
+    return err;
 }
 
 TTBoolean TTData::clipValue()
@@ -143,26 +174,6 @@ TTBoolean TTData::clipValue()
 	}
 	
 	return false;
-}
-
-TTDictionaryPtr	TTData::parseCommand(const TTValue& inputValue)
-{
-    if (inputValue[0].type() == kTypePointer)
-        return TTDictionaryPtr((TTPtr)inputValue[0]);
-    
-    // local parsing : we need to free the former parsed command
-    else {
-        
-        // if a former command has been parsed locally : delete it
-        if (this->parsedCommand)
-            delete this->parsedCommand;
-        
-        // then store the local parsed command
-        parsedCommand = TTDataParseCommand(inputValue);
-        
-        // before to return it
-        return parsedCommand;
-    }
 }
 
 TTErr TTData::returnValue()
@@ -252,11 +263,10 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
-        // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        command = parseCommand(inputValue);
-        
-        if (!command)
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
             return kTTErrGeneric;
 
         // 2. Get the value
@@ -329,11 +339,10 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
-        // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        command = parseCommand(inputValue);
-        
-        if (!command)
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
             return kTTErrGeneric;
 
         // 2. Get the value
@@ -479,11 +488,10 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
-        // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        command = parseCommand(inputValue);
-        
-        if (!command)
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
             return kTTErrGeneric;
 
         // 2. Get the value
@@ -652,11 +660,10 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
-        // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        command = parseCommand(inputValue);
-        
-        if (!command)
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
             return kTTErrGeneric;
 
         // 2. Get the value
@@ -821,11 +828,10 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
-        // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        command = parseCommand(inputValue);
-        
-        if (!command)
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
             return kTTErrGeneric;
 
         // 2. Get the value
@@ -975,11 +981,10 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
-        // or parse any incoming value into a TTDictionnary
         ///////////////////////////////////////////////////
-        command = parseCommand(inputValue);
-        
-        if (!command)
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+        else
             return kTTErrGeneric;
 
         // 2. Get the value

@@ -61,8 +61,9 @@ private:
 
     TTObjectBasePtr mRamper;                    ///< Ramp object to ramp value
 
-    TTDictionaryPtr parsedCommand;              ///< a command pointer used when we need to parse the value locally (!! it have to be deleted before to point to a new command !!)
-    TTMessagePtr    commandMessage;             ///< cache command message for observer notification
+    TTMethodValue	commandMethod;              ///< a specific method depending on mType.
+                                                ///< we need to wrap the call on specific command methods because a command can be parsed locally (so it have to be deleted after to not create memory leaks)
+    
     TTAttributePtr  valueAttribute;             ///< cache value attribute for observer notification
     TTAttributePtr  initializedAttribute;       ///< cache value message for observer notification
 	
@@ -73,6 +74,8 @@ private:
 			3		: 3 values || 2 values + unit || 1 value + ramp ramptime
 			X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
 	 */
+    TTErr       Command(const TTValue& inputValue, TTValue& outputValue);
+    
 	TTErr       NoneCommand(const TTValue& inputValue, TTValue& outputValue);
     TTErr       GenericCommand(const TTValue& inputValue, TTValue& outputValue);
     TTErr       BooleanCommand(const TTValue& inputValue, TTValue& outputValue);
@@ -185,9 +188,6 @@ private:
 	
 	/**  needed to be handled by a TTTextHandler */
 	TTErr       WriteAsText(const TTValue& inputValue, TTValue& outputValue);
-    
-    /** this internal method take care to free former parsedCommand member in case of local parsing */
-    TTDictionaryPtr	parseCommand(const TTValue& inputValue);
     
 	TTErr		convertUnit(const TTValue& inputValue, TTValue& outputValue);
 	TTErr		notifyObservers(TTSymbol attrName, const TTValue& value);
