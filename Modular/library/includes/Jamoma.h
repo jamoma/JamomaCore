@@ -52,11 +52,11 @@
 #define JAMOMA_DEFAULT_FONTSIZE 9.0
 #define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
 
-extern "C" {
+//extern "C" {
 	
-	void TTMODULAR_EXPORT jamoma_init(void);
+ __attribute__((visibility("default")))	void /*TTMODULAR_EXPORT*/ jamoma_init(void);
 	
-}
+//}
 
 
 #endif //__JAMOMA_H__

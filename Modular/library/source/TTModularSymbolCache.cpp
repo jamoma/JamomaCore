@@ -6,9 +6,9 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#include "TTModular.h"
 #include "TTValueCache.h"
 #include "TTSymbolTable.h"
-#include "TTModular.h"
 #include "TTModularSymbolCache.h"
 
 // object classe name
