@@ -1536,7 +1536,7 @@ else
             makefile.write("LDFLAGS += $(C74SYMS)\n")
             # This next line makes sure that we don't re-export symbols from static library dependencies
             # It may not strip out symbols beginning with 'm' because we need to still keep the main() function
-            makefile.write("LDFLAGS += -Wl,-unexported_symbol,_[ABCDEFGHIJKLNOPQRSTUVWXYZabcdefghijklnopqrstuvwxyz_]*")
+            makefile.write("LDFLAGS += -Wl,-unexported_symbol,_[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklnopqrstuvwxyz_]*") if project_type == "implementation"
           end
         end
 
