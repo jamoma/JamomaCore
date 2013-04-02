@@ -43,7 +43,7 @@
 #ifdef TT_PLATFORM_WIN
 #define TT_EXTENSION_EXPORT __declspec(dllexport)
 #else
-#define TT_EXTENSION_EXPORT
+#define TT_EXTENSION_EXPORT __attribute__((visibility("default")))
 #endif
 
 
