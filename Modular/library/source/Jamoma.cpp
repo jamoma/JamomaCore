@@ -26,7 +26,7 @@ bool                        max6 = false;					///< Is Jamoma currently running i
 
 TTSymbol					kTTSym_Jamoma;
 TTApplicationPtr			JamomaApplication = NULL;
-TTNodeDirectoryPtr			JamomaDirectory = NULL;
+TTMODULAR_EXPORT TTNodeDirectoryPtr			JamomaDirectory = NULL;
 
 TTRegex*					ttRegexForJmod = NULL;
 TTRegex*					ttRegexForJcom = NULL;
@@ -54,7 +54,7 @@ void jamoma_init(void)
 		ObjectPtr	max = SymbolGen("max")->s_thing;
 		//SymbolPtr	meth = SymbolGen("objectfile");
         TTString    JamomaConfigurationFilePath;
-		Atom		a[4];
+		t_atom		a[4];
 		TTValue		v;
  
 		if (maxversion() >= 0x0519) {

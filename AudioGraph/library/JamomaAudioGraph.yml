@@ -16,6 +16,9 @@ includes:
   - "../../DSP/library/includes"
   - "../../Graph/library/includes"
 
+defines:
+  - TTAUDIOGRAPH_EXPORTS
+
 libraries:
   - FOUNDATION
   - DSP

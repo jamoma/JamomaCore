@@ -10,27 +10,27 @@
 #define BOOST_SYSTEM_NO_DEPRECATED 1
 #include "boost/filesystem.hpp"
 #undef BOOST_SYSTEM_NO_DEPRECATED
-using namespace boost::filesystem;
+//using namespace boost::filesystem;
 
 typedef std::vector<boost::filesystem::path> path_vec;
 
-#define PATHOBJ ((path*)mPathObject)
+#define PATHOBJ ((boost::filesystem::path*)mPathObject)
 
 
 TTPath::TTPath()
 {
-    mPathObject = (TTPtr) new path;
+    mPathObject = (TTPtr) new boost::filesystem::path;
 }
 
 TTPath::TTPath(const TTString& aFolderPath)
 {
-    mPathObject = (TTPtr) new path(aFolderPath.c_str());
+    mPathObject = (TTPtr) new boost::filesystem::path(aFolderPath.c_str());
 }
 
 TTPath::TTPath(TTPtr aBoostPathObject)
 {
-    mPathObject = (TTPtr) new path;
-    *PATHOBJ = *((path*)(aBoostPathObject));
+    mPathObject = (TTPtr) new boost::filesystem::path;
+    *PATHOBJ = *((boost::filesystem::path*)(aBoostPathObject));
 }
 
 TTPath::~TTPath()
@@ -42,8 +42,8 @@ TTPath::~TTPath()
 // copy constructor
 TTPath::TTPath(const TTPath& that)
 {
-    this->mPathObject = (TTPtr) new path;
-    *PATHOBJ = *((path*)that.mPathObject);
+    mPathObject = (TTPtr) new boost::filesystem::path;
+    *PATHOBJ = *((boost::filesystem::path*)that.mPathObject);
 }
 
 
@@ -71,11 +71,11 @@ TTErr TTPath::getDirectoryListing(TTPathVector& returnedPaths)
         if (isDirectory()) {
             path_vec v;
 
-            copy(directory_iterator(*PATHOBJ), directory_iterator(), back_inserter(v));
+            copy(boost::filesystem::directory_iterator(*PATHOBJ), boost::filesystem::directory_iterator(), back_inserter(v));
             sort(v.begin(), v.end());
             for (path_vec::const_iterator i = v.begin(); i != v.end(); ++i) {
-                path    p = (*i);
-                TTPath  pobj(&p);
+                boost::filesystem::path		p = (*i);
+                TTPath						pobj(&p);
 
                 returnedPaths.push_back(pobj);
             }
@@ -85,7 +85,7 @@ TTErr TTPath::getDirectoryListing(TTPathVector& returnedPaths)
         else
             return kTTErrInvalidType;
     }
-    catch (const filesystem_error& ex) {
+    catch (const boost::filesystem::filesystem_error& ex) {
         TTLogError("TTPath::getDirectoryListing() failed %s", ex.what());
         return kTTErrGeneric;
     }

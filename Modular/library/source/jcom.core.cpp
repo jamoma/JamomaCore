@@ -9,8 +9,8 @@
 
 //#include "ext.h"		// Max externals header
 //#include "ext_obex.h"	// Obex header
-#include "jcom.core.h"
 #include "Jamoma.h"
+#include "jcom.core.h"
 
 #pragma mark -
 #pragma mark Atom Utilities

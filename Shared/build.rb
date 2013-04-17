@@ -96,34 +96,34 @@ else
   revision = "#{git_rev}"
 end
 
-if mac?
-  unless File.exist?("/usr/local/jamoma/lib")
-    puts
-    puts "Need Password to create directories for Jamoma in /usr/local/jamoma and usr/local/lib"
-    puts "==================================================="
-    puts
-    `sudo mkdir -p /usr/local/jamoma/lib`
-    `sudo chgrp admin /usr/local/jamoma/lib`
-    `sudo chmod g+w /usr/local/jamoma/lib`
-  end
-  unless File.exist?("/usr/local/jamoma/extensions")
-    `sudo mkdir -p /usr/local/jamoma/extensions`
-    `sudo chgrp admin /usr/local/jamoma/extensions`
-    `sudo chmod g+w /usr/local/jamoma/extensions`
-    puts
-  end
-  unless File.exist?("/usr/local/jamoma/includes")
-    `sudo mkdir -p /usr/local/jamoma/includes`
-    `sudo chgrp admin /usr/local/jamoma/includes`
-    `sudo chmod g+w /usr/local/jamoma/includes`
-    puts
-  end
-  unless File.exist?("/usr/local/lib")
-    `sudo mkdir -p /usr/local/lib`
-    # `sudo chgrp admin /usr/local/lib`
-    # `sudo chmod g+w /usr/local/lib`
-  end
-end
+#if mac?
+#  unless File.exist?("/usr/local/jamoma/lib")
+#    puts
+#    puts "Need Password to create directories for Jamoma in /usr/local/jamoma and usr/local/lib"
+#    puts "==================================================="
+#    puts
+#    `sudo mkdir -p /usr/local/jamoma/lib`
+#    `sudo chgrp admin /usr/local/jamoma/lib`
+#    `sudo chmod g+w /usr/local/jamoma/lib`
+#  end
+#  unless File.exist?("/usr/local/jamoma/extensions")
+#    `sudo mkdir -p /usr/local/jamoma/extensions`
+#    `sudo chgrp admin /usr/local/jamoma/extensions`
+#    `sudo chmod g+w /usr/local/jamoma/extensions`
+#    puts
+#  end
+#  unless File.exist?("/usr/local/jamoma/includes")
+#    `sudo mkdir -p /usr/local/jamoma/includes`
+#    `sudo chgrp admin /usr/local/jamoma/includes`
+#    `sudo chmod g+w /usr/local/jamoma/includes`
+#    puts
+#  end
+#  unless File.exist?("/usr/local/lib")
+#    `sudo mkdir -p /usr/local/lib`
+#    # `sudo chgrp admin /usr/local/lib`
+#    # `sudo chmod g+w /usr/local/lib`
+#  end
+#end
 
 puts "Building Jamoma #{@projectName}"
 puts "==================================================="
@@ -136,7 +136,8 @@ puts "  "
 
 
 @log_root = "logs-#{@projectName}"
-@svn_root = "../#{@projectName}"
+@svn_root = "#{libdir}/../#{@projectName}"
+@svn_root.gsub!(/\//, "\\") if win?
 #@svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
 #@svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
 @svn_root = "#{libdir}/../../../JamomaUserLibraries/#{@projectName}" if @projectName == "TapTools"
@@ -156,7 +157,9 @@ if @projectName == "Modular"
 
   #Header
   file_path = "#{@svn_root}/library/includes/TTModularVersion.h"
-  `cp "#{@svn_root}/library/includes/TTModularVersion.template.h" "#{file_path}"`
+  `cp "#{@svn_root}/library/includes/TTModularVersion.template.h" "#{file_path}"` if mac?
+  `copy #{@svn_root}\\library\\includes\\TTModularVersion.template.h #{@svn_root}\\library\\includes\\TTModularVersion.h /Y` if win?
+
 
   if FileTest.exist?(file_path)
     f = File.open("#{file_path}", "r+")
@@ -177,7 +180,9 @@ if @projectName == "Modular"
 
   #jcom.js_systeminfo
   file_path = "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.js"
-  `cp "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.template.js" "#{file_path}"`
+  `cp "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.template.js" "#{file_path}"` if mac?
+  `copy "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.template.js" "#{file_path}"` if win?
+
 
   if FileTest.exist?(file_path)
     f = File.open("#{file_path}", "r+")
@@ -226,8 +231,8 @@ if File.directory? "#{@svn_root}/library"
   	  build_project("#{@svn_root}/library", "Jamoma#{@projectName}.xcodeproj", configuration, clean, "#{@distropath}/lib", use_make)
   	else
   	  build_project("#{@svn_root}/library", "Jamoma#{@projectName}.xcodeproj", configuration, clean, nil, use_make)
-  	  `sudo ln -s /usr/local/jamoma/lib/Jamoma#{@projectName}.dylib /usr/local/lib/Jamoma#{@projectName}.dylib` unless File.exist?("/usr/local/lib/Jamoma#{@projectName}.dylib")
-  	  `cp "#{@svn_root}"/library/includes/* /usr/local/jamoma/includes`
+  	  #`sudo ln -s /usr/local/jamoma/lib/Jamoma#{@projectName}.dylib /usr/local/lib/Jamoma#{@projectName}.dylib` unless File.exist?("/usr/local/lib/Jamoma#{@projectName}.dylib")
+  	  #`cp "#{@svn_root}"/library/includes/* /usr/local/jamoma/includes`
     end
   end
   ex_total, ex_count = get_count

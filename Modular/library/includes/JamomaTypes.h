@@ -24,7 +24,7 @@ enum JamomaError{
 	#else
 	 #define JAMOMA_PLATFORM_MAC
 	 #define JAMOMA_EXPORT
-	 #define JAMOMA_EXPORT_MAXOBJ
+	 #define JAMOMA_EXPORT_MAXOBJ __attribute__((visibility("default")))
 	#endif
 #endif
 

@@ -33,6 +33,8 @@
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
+#include <sys/types.h>
+#include <dirent.h>
 #elif TT_PLATFORM_LINUX
 #include <dlfcn.h>
 #elif TT_PLATFORM_WIN
@@ -49,7 +51,7 @@
 static bool		TTFoundationHasInitialized = false;
 static TTString	TTFoundationBinaryPath = "";
 
-void		TTFoundationLoadExternalClasses();
+void		TTFoundationLoadExternalClasses(void);
 TTErr		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
 TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol& className, TTValue& arguments);
 
@@ -118,7 +120,7 @@ void TTFoundationShutdown()
 
 /****************************************************************************************************/
 
-void TTFoundationLoadExternalClasses()
+void TTFoundationLoadExternalClasses(void)
 {
 #ifdef TT_PLATFORM_MAC
 	if (!TTFoundationBinaryPath.empty()) {
@@ -130,7 +132,22 @@ void TTFoundationLoadExternalClasses()
 	else {
 		OSErr		err = noErr;
 		TTString	fullpath;
+
+#define LOOK_FOR_EXTENSIONS_IN_SAME_FOLDER_AS_LIB
+#ifdef LOOK_FOR_EXTENSIONS_IN_SAME_FOLDER_AS_LIB
+		Dl_info		info;
+		char		mainBundleStr[4096];
 		
+		if (dladdr((const void*)TTFoundationLoadExternalClasses, &info)) {
+			char *c = 0;
+			
+			printf("Loaded from path = %s\n", info.dli_fname);
+			strncpy(mainBundleStr, info.dli_fname, 4096);
+			c = strrchr(mainBundleStr, '/');
+			if (c)
+				*c = 0; // chop the "/JamomaFoundation.dylib off of the path
+		}
+#else // THE OLD WAY
 		// Look in the folder of the host application
 		CFBundleRef mainBundle = CFBundleGetMainBundle();
 		CFURLRef	mainBundleURL = CFBundleCopyBundleURL(mainBundle);
@@ -142,6 +159,8 @@ void TTFoundationLoadExternalClasses()
 		mainBundleStr[4095] = 0;
 		
 		CFRelease(mainBundlePath);
+#endif
+		
 		
 		err = TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
 		if (!err)
@@ -217,11 +236,65 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
  	TTExtensionInitializationMethod	initializer;
 	TTString						initializerFunctionName;
 	TTErr							err;
-	TTPath							path(fullpath);
-	TTString						extensionFilename;
-	TTString						extensionFileExtension;
+//	TTPath							path(fullpath);
+//	TTString						extensionFilename;
+//	TTString						extensionFileExtension;
     TTPathVector					paths;
     TTPathIter						i;
+
+	
+//	len = strlen(name);
+	DIR* dirp = opendir(fullpath.c_str());
+	dirent* dp;
+	while (dp = readdir(dirp)) {
+		TTString	fileName(dp->d_name);
+		TTString	fileSuffix(strrchr(fileName.c_str(), '.'));
+		TTString	fileBaseName = fileName.substr(0, fileName.size() - 8);
+		TTString	fileFullpath(fullpath);
+		void*		handle = NULL;
+		
+		fileFullpath += "/";
+		fileFullpath += fileName;
+		std::cout << "EXTENSION: " << fileFullpath << std::endl;
+		
+		// make sure the files have the correct extension before trying to load them
+//		aPath.getExtension(extensionFileExtension);
+#ifdef TT_PLATFORM_LINUX
+		if (fileSuffix != ".ttso")
+#elif defined(TT_PLATFORM_MAC)
+		if (fileSuffix != ".ttdylib")
+#elif defined(TT_PLATFORM_WIN)
+		if (fileSuffix != ".ttdll")
+#endif
+			continue;
+		
+#ifdef TT_PLATFORM_WIN
+		handle = LoadLibrary(fileFullpath.c_str());
+#else
+		handle = dlopen(fileFullpath.c_str(), RTLD_LAZY);
+#endif
+		std::cout << "HANDLE: " << handle << std::endl;
+		if (!handle)
+			continue;
+		
+		// TODO: assert -- or at least do a log post -- if handle is NULL
+//		aPath.getStem(fileBaseName);
+		initializerFunctionName = "TTLoadJamomaExtension_";
+		initializerFunctionName += fileBaseName;
+#ifdef TT_PLATFORM_WIN
+		initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)handle, initializerFunctionName.c_str());
+#else
+		initializer = (TTExtensionInitializationMethod)dlsym(handle, initializerFunctionName.c_str());
+#endif
+		if (initializer)
+			err = initializer();
+
+		std::cout<< "Initializer: " << initializer << std::endl;
+		
+	}
+	closedir(dirp);
+//	return NOT_FOUND;
+#if BROKEN
 
 	err = path.getDirectoryListing(paths);
     if (!err) {
@@ -231,7 +304,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
             void*							handle = NULL;
  
             aPath.getString(aPathString);
-//            cout << "EXTENSION: " << aPathString << endl;
+			std::cout << "EXTENSION: " << aPathString << std::endl;
 
 			// make sure the files have the correct extension before trying to load them
 			aPath.getExtension(extensionFileExtension);
@@ -249,7 +322,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #else
             handle = dlopen(aPathString.c_str(), RTLD_LAZY);
 #endif
-//            cout << "HANDLE: " << handle << endl;
+			std::cout << "HANDLE: " << handle << std::endl;
             if (!handle)
                 continue;
 
@@ -269,6 +342,9 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	else
 		return err;
 #endif
+	
+#endif // BROKEN
+	
 // No dynamic loading on iOS
 	return kTTErrNone;
 }

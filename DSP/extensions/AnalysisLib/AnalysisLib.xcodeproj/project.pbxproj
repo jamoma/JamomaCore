@@ -29,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2256185D170B2FC4007FB294 /* AnalysisLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = AnalysisLib.yml; sourceTree = "<group>"; };
+		2256185E170B2FC4007FB294 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		22F19FF114673F8A002CF320 /* AnalysisLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AnalysisLib.cpp; sourceTree = "<group>"; };
 		22F19FF314673F8A002CF320 /* TTAverage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAverage.h; sourceTree = "<group>"; };
 		22F19FF414673F8A002CF320 /* TTZerocross.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTZerocross.h; sourceTree = "<group>"; };
@@ -60,6 +62,8 @@
 		22F19FDD14673EEA002CF320 = {
 			isa = PBXGroup;
 			children = (
+				2256185D170B2FC4007FB294 /* AnalysisLib.yml */,
+				2256185E170B2FC4007FB294 /* Makefile */,
 				2AD7881D169CF85A00604D7C /* AnalysisLibIOS */,
 				22F19FF114673F8A002CF320 /* AnalysisLib.cpp */,
 				22F19FF214673F8A002CF320 /* includes */,

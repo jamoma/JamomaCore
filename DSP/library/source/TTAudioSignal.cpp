@@ -131,9 +131,12 @@ TTErr TTAudioSignal::setVector64(const TTValue& v, TTValue&)
 	TTPtr			newVector;
 	
 	if (v.size() == 3) {
-		v.get(0, channel);
-		v.get(1, newVectorSize);
-		v.get(2, &newVector);
+		channel = v[0];
+		newVectorSize = v[1];
+		newVector = v[2];
+//		v.get(0, channel);
+//		v.get(1, newVectorSize);
+//		v.get(2, &newVector);
 		return setVector(channel, newVectorSize, (TTSampleValue*)(newVector));
 	}
 	return kTTErrWrongNumValues;
