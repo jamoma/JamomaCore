@@ -252,8 +252,8 @@ TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)
 		
 		TTValue valueToSend = inputValue;
 		
-		// append view unit
-		if (mDataspaceUnit != kTTSym_none)
+		// append view unit except for empty value
+		if (valueToSend.size() > 0 && mDataspaceUnit != kTTSym_none)
 			valueToSend.append(mDataspaceUnit);
 		
 		return mSender->sendMessage(kTTSym_Send, valueToSend, kTTValNONE);
