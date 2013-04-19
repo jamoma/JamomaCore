@@ -1,5 +1,6 @@
 defines:
-      
+  - TTMODULAR_EXPORTS
+
 sources:
   - source/TTModular.cpp
   - source/TTModularSymbolCache.cpp
@@ -33,8 +34,8 @@ sources:
   - PeerObject/TTXmlHandler.cpp
   - ProtocolLib/Protocol.cpp
   - SchedulerLib/Scheduler.cpp
-  - ../../../Core/Shared/max/c74support/max-includes/common/commonsyms.cpp
-  
+  - ../../../Implementations/Max/source/c74support/max-includes/common/commonsyms.cpp
+
 includes:
   - includes
   - ModularForMax
@@ -43,17 +44,24 @@ includes:
   - SchedulerLib
   - ../../../Core/Foundation/library/includes
   - ../../../Core/DSP/library/includes
-  - ../../../Core/Shared/max  
-  - C74-INCLUDES
+  - ../../../Implementations/Max/source/classwrapper
+  - ../../../Implementations/Max/source/c74support/max-includes
+  - ../../../Implementations/Max/source/c74support/msp-includes
+  - ../../../Implementations/Max/source/c74support/jit-includes
   - /usr/include/libxml2
+  - ../../Foundation/library/libxml2/win32/include
+  - ../../Foundation/library/libiconv/include
+
+# The above libxml includes are for Mac/Linux and for Windows.
+# We should add 'mac' and 'win' filters for includes like we have for libraries below...
 
 libraries:
   - FOUNDATION
   - DSP
   - C74
   - mac /usr/lib/libxml2.dylib
-  - win ../../../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
-  - win ../../../../Foundation/library/libxml2/win32/lib/libxml2.lib
+  - win ../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
+  - win ../../Foundation/library/libxml2/win32/lib/libxml2.lib
 
 frameworks:
   - Carbon
