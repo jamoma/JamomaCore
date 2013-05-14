@@ -236,14 +236,61 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
  	TTExtensionInitializationMethod	initializer;
 	TTString						initializerFunctionName;
 	TTErr							err;
-//	TTPath							path(fullpath);
-//	TTString						extensionFilename;
-//	TTString						extensionFileExtension;
     TTPathVector					paths;
     TTPathIter						i;
 
+#ifdef TT_PLATFORM_WIN
+	TTString		windowsPathSpec = fullpath;
+					windowsPathSpec += "/*.ttdll";
+	WIN32_FIND_DATA	FindFileData;
+	HANDLE			hFind = FindFirstFile(windowsPathSpec.c_str(), &FindFileData);
+
+	if (hFind == INVALID_HANDLE_VALUE)
+		return kTTErrGeneric;
+
+    do {
+    	printf("%s\n", FindFileData.cFileName);
+
+		TTString	fileName(FindFileData.cFileName);
+		TTString	fileSuffix(strrchr(fileName.c_str(), '.'));
+		TTString	fileBaseName = fileName.substr(0, fileName.size() - 8);
+		TTString	fileFullpath(fullpath);
+		void*		handle = NULL;
+		
+		fileFullpath += "/";
+		fileFullpath += fileName;
+		std::cout << "EXTENSION: " << fileFullpath << std::endl;
+		
+//		handle = LoadLibrary(fileFullpath.c_str());
+		handle = LoadLibrary(FindFileData.cFileName);
+		std::cout << "HANDLE: " << handle << std::endl;
+		if (!handle)
+			continue;
+		
+		// TODO: assert -- or at least do a log post -- if handle is NULL
+		initializerFunctionName = "TTLoadJamomaExtension_";
+		initializerFunctionName += fileBaseName;
+		initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)handle, initializerFunctionName.c_str());
+		if (initializer)
+			err = initializer();
+		std::cout<< "Initializer: " << initializer << std::endl;
+
+
+
+
+
+
+
+
+
+
+
+    } while (FindNextFile(hFind, &FindFileData));
+
+    FindClose(hFind);
+
+#else // good platforms
 	
-//	len = strlen(name);
 	DIR* dirp = opendir(fullpath.c_str());
 	dirent* dp;
 	while (dp = readdir(dirp)) {
@@ -258,7 +305,6 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		std::cout << "EXTENSION: " << fileFullpath << std::endl;
 		
 		// make sure the files have the correct extension before trying to load them
-//		aPath.getExtension(extensionFileExtension);
 #ifdef TT_PLATFORM_LINUX
 		if (fileSuffix != ".ttso")
 #elif defined(TT_PLATFORM_MAC)
@@ -278,7 +324,6 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 			continue;
 		
 		// TODO: assert -- or at least do a log post -- if handle is NULL
-//		aPath.getStem(fileBaseName);
 		initializerFunctionName = "TTLoadJamomaExtension_";
 		initializerFunctionName += fileBaseName;
 #ifdef TT_PLATFORM_WIN
@@ -293,59 +338,9 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		
 	}
 	closedir(dirp);
-//	return NOT_FOUND;
-#if BROKEN
 
-	err = path.getDirectoryListing(paths);
-    if (!err) {
-        for (i = paths.begin(); i != paths.end(); ++i) {
-            TTPath							aPath = *i;
-            TTString						aPathString;
-            void*							handle = NULL;
- 
-            aPath.getString(aPathString);
-			std::cout << "EXTENSION: " << aPathString << std::endl;
-
-			// make sure the files have the correct extension before trying to load them
-			aPath.getExtension(extensionFileExtension);
-#ifdef TT_PLATFORM_LINUX
-			if (extensionFileExtension != ".ttso")
-#elif defined(TT_PLATFORM_MAC)
-			if (extensionFileExtension != ".ttdylib")
-#elif defined(TT_PLATFORM_WIN)
-			if (extensionFileExtension != ".ttdll")
-#endif
-				continue;
-
-#ifdef TT_PLATFORM_WIN
-			handle = LoadLibrary(aPathString.c_str());
-#else
-            handle = dlopen(aPathString.c_str(), RTLD_LAZY);
-#endif
-			std::cout << "HANDLE: " << handle << std::endl;
-            if (!handle)
-                continue;
-
-            // TODO: assert -- or at least do a log post -- if handle is NULL
-			aPath.getStem(extensionFilename);
-			initializerFunctionName = "TTLoadJamomaExtension_";
-			initializerFunctionName += extensionFilename;
-#ifdef TT_PLATFORM_WIN
-			initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)handle, initializerFunctionName.c_str());
-#else
-            initializer = (TTExtensionInitializationMethod)dlsym(handle, initializerFunctionName.c_str());
-#endif
-            if (initializer)
-                err = initializer();
-        }
-    }
-	else
-		return err;
-#endif
-	
-#endif // BROKEN
-	
-// No dynamic loading on iOS
+#endif // not windows
+#endif // No dynamic loading on iOS
 	return kTTErrNone;
 }
 
