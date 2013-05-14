@@ -86,6 +86,9 @@ private:
 public:
 	TTErr						updateAttributeValue(const TTSymbol attributeName, TTValue& value);
 	TTErr						enableListening(const TTAttribute& anAttribute, TTBoolean enable);
+    
+    // over writting of the TTObjectBase::getName() method
+    TTSymbol                    getName();
 	
 };
 

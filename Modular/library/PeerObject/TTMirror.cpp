@@ -99,6 +99,11 @@ TTMirror::~TTMirror() // TODO : delete things...
 	;
 }
 
+TTSymbol TTMirror::getName()
+{
+    return mType;
+}
+
 TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 {
 	TTValue data;
