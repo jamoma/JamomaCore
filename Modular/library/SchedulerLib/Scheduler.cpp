@@ -109,7 +109,7 @@ TTErr Scheduler::setDuration(const TTValue& value)
             
             mDuration = value[0];
             
-            speedAttribute->sendNotification(kTTSym_notify, mDuration);             // we use kTTSym_notify because we know that observers are TTCallback
+            durationAttribute->sendNotification(kTTSym_notify, mDuration);             // we use kTTSym_notify because we know that observers are TTCallback
             
             return kTTErrNone;
         }

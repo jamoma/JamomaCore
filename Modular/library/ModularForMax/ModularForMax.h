@@ -162,6 +162,12 @@ extern TTMODULAR_EXPORT	TTString*			DocumentationFormat;
 
 	
 	TTHashPtr TTMODULAR_EXPORT jamoma_explorer_default_filter_bank(void);
+
+    // Method to deal with TTRamp
+    ///////////////////////////////////////////////////////////////////////
+    TTErr TTMODULAR_EXPORT jamoma_ramp_create(ObjectPtr x, TTObjectBasePtr *returnedRamp);
+
+    void TTMODULAR_EXPORT jamoma_callback_return_ramped_value(void *o, TTUInt32 n, TTFloat64 *v);
 	
 	// Method to return data
 	///////////////////////////////////////////////////////////////////////

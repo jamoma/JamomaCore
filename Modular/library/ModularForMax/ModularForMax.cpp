@@ -617,7 +617,7 @@ TTErr jamoma_mapper_create(ObjectPtr x, TTObjectBasePtr *returnedMapper)
 TTErr jamoma_viewer_create(ObjectPtr x, TTObjectBasePtr *returnedViewer)
 {
 	TTValue			args;
-	TTObjectBasePtr		returnValueCallback;
+	TTObjectBasePtr	returnValueCallback;
 	TTValuePtr		returnValueBaton;
 	
 	// prepare arguments
@@ -657,7 +657,7 @@ TTErr jamoma_viewer_send(TTViewerPtr aViewer, SymbolPtr msg, AtomCount argc, Ato
 TTErr jamoma_explorer_create(ObjectPtr x, TTObjectBasePtr *returnedExplorer)
 {
 	TTValue			args;
-	TTObjectBasePtr		returnValueCallback, returnSelectionCallback;
+	TTObjectBasePtr	returnValueCallback, returnSelectionCallback;
 	TTValuePtr		returnValueBaton, returnSelectionBaton;
 	
 	// prepare arguments
@@ -774,6 +774,45 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	defaultFilterBank->append(TTSymbol("genericTag"), (TTPtr)aFilter);
 	
 	return defaultFilterBank;
+}
+
+
+// Method to deal with TTRamp
+///////////////////////////////////////////////////////////////////////
+TTErr jamoma_ramp_create(ObjectPtr x, TTObjectBasePtr *returnedRamp)
+{
+    TTValue			args;
+    
+    // prepare arguments
+    args.append((TTPtr)&jamoma_callback_return_ramped_value);
+    args.append((TTPtr)x);
+    
+    *returnedRamp = NULL;
+    return TTObjectBaseInstantiate(kTTSym_Ramp, TTObjectBaseHandle(returnedRamp), args);
+}
+
+void TTMODULAR_EXPORT jamoma_callback_return_ramped_value(void *o, TTUInt32 n, TTFloat64 *v)
+{
+    ObjectPtr	x = (ObjectPtr)o;
+    long		i, argc = n;
+	AtomPtr		argv = NULL;
+    
+    if (!argc)
+        return;
+    
+    // copy the array of ramped float value into an atom
+    argv = (AtomPtr)sysmem_newptr(sizeof(t_atom) * argc);
+	
+	for (i = 0; i < argc; i++)
+			atom_setfloat(argv+i, v[i]);
+
+    // send the atom to the object using return_value method
+    if (argc == 1)
+        object_method(x, jps_return_value, _sym_float, argc, argv);
+    else
+        object_method(x, jps_return_value, _sym_list, argc, argv);
+
+    sysmem_freeptr(argv);
 }
 
 // Method to return data
