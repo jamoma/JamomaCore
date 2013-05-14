@@ -138,15 +138,24 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 			arguments.get(i, floatValue);
 			oscStream << (float)floatValue;
 		}
-		else
+		else {
+            
+#ifdef TT_PLATFORM_WIN
+            free(buffer);
+#endif
 			return kTTErrGeneric;
+        }
 	}
 	
 	oscStream << osc::EndMessage;
 	
 	mSocketTransmitter->Send(oscStream.Data(), oscStream.Size());
 	oscStream.Clear();
-	
+    
+#ifdef TT_PLATFORM_WIN
+    free(buffer);
+#endif
+    
 	return kTTErrNone;
 }
 
