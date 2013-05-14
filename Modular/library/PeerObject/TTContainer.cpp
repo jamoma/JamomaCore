@@ -15,7 +15,6 @@
 TT_MODULAR_CONSTRUCTOR,
 mPriority(0), 
 mDescription(kTTSym_none),
-mType(kTTSym_none),
 mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
@@ -34,7 +33,6 @@ activityAttribute(NULL)
 	
 	addAttributeWithSetter(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeSymbol);
-	addAttribute(Type, kTypeSymbol);
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	
 	addAttribute(Initialized, kTypeBoolean);
@@ -741,7 +739,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr aTextHandler;
 	TTString		*buffer;
 	TTUInt16		i;
-	TTValue			keys, cacheElement, s, arg;
+	TTValue			keys, cacheElement, s, arg, tags;
 	TTSymbol		name, service;
 	TTObjectBasePtr	anObject;
 	
@@ -783,21 +781,23 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	/* 
 	 Configuration
 	 */
+    tags = mTag;
+    tags.toString();
 	*buffer += "\t<h3> Configuration </h3>";
-	*buffer += "\t<p> Model Type: <code>";
-	*buffer += this->mType.c_str();
+	*buffer += "\t<p> Tags : <code>";
+	*buffer += TTString(tags[0]);
 	*buffer += "</code> <br>";
 	
 	/* 
 	 Inlets and outlets Objects 
 	 */
 	
-	// TODO : Make TTIn and TTOut and store them
+	// TODO : Find TTInput and TTOuput
 	*buffer += "\t<p>Number of signal inlets: <code> 0 </code> <br/>";
 	*buffer += "\t<p>Number of signal outlets: <code> 0 </code> <br/>";
 	
 	
-	mObjectsObserversCache->getKeys(keys);
+	mObjectsObserversCache->getKeysSorted(keys);
 	/* 
 	 Data @service parameter
 	 */
@@ -935,12 +935,12 @@ void TTContainer::dataHeading(TTString *buffer)
 	*buffer += "\t\t\t<td> /type </td>";
 	*buffer += "\t\t\t<td> /range/bounds </td>";
 	*buffer += "\t\t\t<td> /range/clipmode </td>";
-#ifdef TTDATA_RAMPLIB
 	*buffer += "\t\t\t<td> /ramp/drive </td>";
+#ifndef TT_NO_DSP    
 	*buffer += "\t\t\t<td> /ramp/function </td>";
 #endif
 	*buffer += "\t\t\t<td> /dataspace </td>"; 
-	*buffer += "\t\t\t<td> /dataspace/unit/native </td>"; 
+	*buffer += "\t\t\t<td> /dataspace/unit </td>"; 
 	*buffer += "\t\t\t<td> /repetitions/allow </td>";	
 	*buffer += "\t\t\t<td> /description </td>";
 	*buffer += "\t\t<tr>";
@@ -1094,7 +1094,7 @@ void TTContainer::cssDefinition(TTString *buffer)
 	vertical-align: top;\
 	}\
 	\
-	.instructionDataspaceUnitNative {\
+	.instructionDataspaceUnit {\
 	font-family: 'Times New Roman', Times, serif;\
 	background-color: #eee;\
 	vertical-align: top;\

@@ -10,6 +10,7 @@
  */
 
 #include "TTTextHandler.h"
+#include <fstream>
 
 #define thisTTClass			TTTextHandler
 #define thisTTClassName		"TextHandler"
@@ -45,7 +46,7 @@ TTTextHandler::~TTTextHandler()
 TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 {
     TTValue				v;
-	TTObjectBasePtr			aTTObject;
+	TTObjectBasePtr		aTTObject;
 	
 	// an object have to be selected
 	if (mObject == NULL)
@@ -63,8 +64,8 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			mFilePath = args[0];
 			
-			/* Create a new text file
-			std::ofstream file(mFilePath->getCString());
+			// Create a new text file
+			std::ofstream file(mFilePath.string(), std::ofstream::out);
 			
 			// Create a new string text
 			this->mWriter = new TTString();
@@ -78,15 +79,14 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			v = TTValue(TTObjectBasePtr(this));
 			aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
 			
-			// TODO : Write the writer string into the file
-			;
+			// Write the writer string into the file
+            file << this->mWriter->data();
 			
 			// Close the text file
 			file.close();
 			
 			// Clear the text
 			delete this->mWriter;
-			 */
 		}
 		
 		// if the first argument is kTypePointer : get the text where to write

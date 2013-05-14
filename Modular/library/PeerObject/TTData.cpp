@@ -616,7 +616,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += "\t\t\t<td class =\"instructionRangeClipmode\">";
 	*buffer += this->mRangeClipmode.c_str();
 	*buffer += "</td>";
-
+    
 	// ramp/drive
 	*buffer += "\t\t\t<td class =\"instructionRampDrive\">";
 	*buffer += this->mRampDrive.c_str();
@@ -632,7 +632,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += this->mDataspace.c_str();
 	*buffer += "</td>";
 	
-	// dataspace/unit/native
+	// dataspace/unit
 	*buffer += "\t\t\t<td class =\"instructionDataspaceUnit\">";
 	*buffer += this->mDataspaceUnit.c_str();
 	*buffer += "</td>";

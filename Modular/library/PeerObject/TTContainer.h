@@ -24,7 +24,6 @@ private:
 
 	TTUInt8				mPriority;						///< ATTRIBUTE : does this container have a priority over other containers ?
 	TTSymbol			mDescription;					///< ATTRIBUTE : a text label to describe the role of this container
-	TTSymbol			mType;							///< ATTRIBUTE : a flag to precise if this part of our environnement is dedicated to 'audio', 'video' or 'control' processing
 	TTValue				mTag;							///< ATTRIBUTE : tag list for this container (to -- why keep the type attribute in this case ?)
 	TTBoolean			mInitialized;					///< ATTRIBUTE : is it initialized ?
 	TTAddress           mAddress;						///< ATTRIBUTE : the address of the container in the directory
