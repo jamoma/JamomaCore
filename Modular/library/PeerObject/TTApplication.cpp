@@ -514,7 +514,7 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	TTNodePtr			nodeToUpdate;
 	TTAddress			whereComesFrom;
 	TTValuePtr			newValue;
-	TTMirrorPtr			aMirror;
+	TTObjectBasePtr		aMirror;
 	TTErr				err;
 	
 	whereComesFrom = inputValue[0];
@@ -524,10 +524,10 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	
 	if (!err) {
 		
-		aMirror = (TTMirrorPtr)nodeToUpdate->getObject();
+		aMirror = (TTObjectBasePtr)nodeToUpdate->getObject();
 		if (aMirror)
 			if (aMirror->getName() == kTTSym_Mirror)
-				return aMirror->updateAttributeValue(whereComesFrom.getAttribute(), *newValue);
+				return TTMirrorPtr(aMirror)->updateAttributeValue(whereComesFrom.getAttribute(), *newValue);
 	}
 	
 	return kTTErrGeneric;
