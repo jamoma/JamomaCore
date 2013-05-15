@@ -662,12 +662,10 @@ TTErr TTContainer::unbind()
 {
 	TTValue			hk, v;
 	TTValue			cacheElement;
-    TTObjectBasePtr	anObject;
-#ifdef USE_ACTIVITY    
-	TTObjectBasePtr	aValueObserver, aCommandObserver;//, anInitObserver;
+    TTObjectBasePtr	anObject;   
+	TTObjectBasePtr	aValueObserver, aCommandObserver;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
-#endif
 	TTSymbol		key;
 	TTUInt8			i;
 	TTErr			err;
@@ -682,7 +680,7 @@ TTErr TTContainer::unbind()
 			key = hk[i];
 			mObjectsObserversCache->lookup(key, cacheElement);
 			anObject = cacheElement[0];
-#ifdef USE_ACTIVITY			
+		
 			if (anObject) {
 				// is it a Data ?
 				if (anObject->getName() == kTTSym_Data) {
@@ -714,7 +712,6 @@ TTErr TTContainer::unbind()
 					}
 				}
 			}
-#endif
 		}
 		
 		delete mObjectsObserversCache;
