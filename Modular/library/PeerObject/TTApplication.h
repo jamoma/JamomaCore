@@ -69,6 +69,7 @@ private:
 	TTNodeDirectoryPtr			mDirectory;			///< ATTRIBUTE : the namespace directory of the application
 
 	TTSymbol					mName;				///< ATTRIBUTE : the name of the application
+    TTSymbol					mType;				///< ATTRIBUTE : the type of the application : local (default), mirror or proxy
 	TTSymbol					mVersion;			///< ATTRIBUTE : the version of the application
 	TTSymbol					mAuthor;			///< ATTRIBUTE : the author of the application
 	
@@ -148,11 +149,13 @@ private:
 		read a directory description */
 	TTErr ReadFromOpml(const TTValue& inputValue, TTValue& outputValue);
     
-    TTMirrorPtr appendMirror(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName);
+    TTObjectBasePtr     appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName);
+    TTObjectBasePtr       appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service);
 	
 	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTAddress anAddress);
 	friend TTSymbol TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbol anAppName);
 	friend TTSymbol TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbol aTTName);
+    friend TTErr TTMODULAR_EXPORT TTApplicationProxyDataValueCallback(TTPtr baton, TTValue& data);
 };
 
 
@@ -172,6 +175,14 @@ TTSymbol TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbol anAppName
  @param						a TTsymbol
  @return					a TTsymbol */
 TTSymbol TTMODULAR_EXPORT TTApplicationConvertTTNameToAppName(TTSymbol aTTName);
+
+/** A callback used by proxy data (see in appendData method)
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TTMODULAR_EXPORT TTApplicationProxyDataValueCallback(TTPtr baton, TTValue& data);
+
+
 
 #endif // __TT_APPLICATION_H__
 

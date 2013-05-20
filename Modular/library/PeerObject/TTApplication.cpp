@@ -22,6 +22,7 @@ TT_MODULAR_CONSTRUCTOR,
 mDebug(NO),
 mDirectory(NULL),
 mName(kTTSymEmpty),
+mType(TTSymbol("local")),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mActivity(NO),
@@ -34,6 +35,8 @@ mTempAddress(kTTAdrsEmpty)
 	mName = arguments[0];
 	
 	addAttributeWithSetter(Name, kTypeSymbol);
+    
+    addAttribute(Type, kTypeSymbol);
 	
 	addAttribute(Version, kTypeSymbol);
 	
@@ -225,7 +228,7 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
     if (!err) {
         
         if (anAddress != kTTAdrsRoot)
-            aMirror = appendMirror(aProtocol, anAddress, returnedType);
+            aMirror = (TTMirrorPtr)appendMirrorObject(aProtocol, anAddress, returnedType);
         
         for (TTUInt32 i = 0; i < returnedChildren.size(); i++) {
             
@@ -492,7 +495,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
         aProtocol = (ProtocolPtr)getProtocol(protocolName);
         if (aProtocol)
             // instantiate Mirror object for distant application
-            appendMirror(aProtocol, whereComesFrom, type);
+            appendMirrorObject(aProtocol, whereComesFrom, type);
 	}
     
     // if the node exists
@@ -716,13 +719,6 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                         
                         anObject->getAttributeValue(attributeName, v);
                         
-                        /* Replace TTName by AppName (because object name can be customized in order to have a specific application's namespace)
-                         ToAppNames(v, c);
-                         
-                         c.toString();
-                         c[0] aString);
-                         */
-                        
                         if (v == kTTValNONE)
                             continue;
                         
@@ -731,6 +727,9 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                         
                         if (aString.empty())
                             continue;
+                        
+                        // replace TTName by AppName
+                        attributeName = ToAppName(attributeName);
                         
                         xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
                     }
@@ -833,10 +832,11 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 
 void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 {
-	TTSymbol		objectName, protocolName, attributeName;
+	TTSymbol		objectName, protocolName, attributeName, attributeToFilterName;
     ProtocolPtr     aProtocol;
-    TTMirrorPtr     aMirror;
+    TTObjectBasePtr anObject = NULL;
 	TTValue			v, protocolNames;
+    TTList          attributesToFilter;
     
     // when a node starts : append address to the current temp address
     if (aXmlHandler->mXmlNodeStart) {
@@ -859,11 +859,67 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     
                     aProtocol = (ProtocolPtr)getProtocol(protocolName);
                     if (aProtocol) {
-                        
-                        // instantiate Mirror object for distant application
-                        aMirror = appendMirror(aProtocol, mTempAddress, objectName);
-                        
-                        if (aMirror) {
+                    
+                        // for mirror application
+                        if (mType == TTSymbol("mirror")) {
+                      
+                            // instantiate a mirror object
+                            anObject = appendMirrorObject(aProtocol, mTempAddress, objectName);
+                    
+                        }
+                        // for proxy appplication
+                        else if (mType == TTSymbol("proxy")) {
+                            
+                            // instantiate the real object
+                            
+                            // DATA case
+                            if (objectName == kTTSym_Data) {
+                                
+                                // get the data service
+                                if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("service")) == 1) {
+                                    
+                                    aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                                    
+                                    if (v.size() == 1) {
+                                        
+                                        if (v[0].type() == kTypeSymbol) {
+                                            
+                                            // instantiate a proxy data
+                                            anObject = appendProxyData(aProtocol, mTempAddress, v[0]);
+                                            
+                                            // filter service attribute for the parsing of all attributes
+                                            attributesToFilter.append(kTTSym_service);
+                                            
+                                            // get the data type
+                                            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type")) == 1) {
+                                            
+                                                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                                                
+                                                if (v.size() == 1) {
+                                                    
+                                                    if (v[0].type() == kTypeSymbol) {
+                                                        
+                                                        // set data type
+                                                        anObject->setAttributeValue(kTTSym_type, v);
+                                                        
+                                                        // filter type attribute for the parsing of all attributes
+                                                        attributesToFilter.append(kTTSym_type);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            // OTHER case ? Container, Input, Output ?
+                            
+                        }
+
+                        if (anObject) {
+                            
+                            // return to the first attribute
+                            xmlTextReaderMoveToFirstAttribute((xmlTextReaderPtr)aXmlHandler->mReader);
                             
                             // get all object attributes and their value
                             while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
@@ -875,12 +931,21 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                     
                                     if (v[0].type() == kTypeSymbol) {
                                         
-                                        attributeName = v[0];
+                                        attributeName = ToTTName(v[0]);
+                                        
+                                        // filter attributes
+                                        for (attributesToFilter.begin(); attributesToFilter.end(); attributesToFilter.next()) {
+                                            
+                                            attributeToFilterName = attributesToFilter.current()[0];
+                                            
+                                            if (attributeToFilterName == attributeName)
+                                                continue;
+                                        }
                                         
                                         // get attribute value
                                         aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
                                         
-                                        aMirror->setAttributeValue(attributeName, v);
+                                        anObject->setAttributeValue(attributeName, v);
                                     }
                                 }
                             }
@@ -900,7 +965,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
         mTempAddress = mTempAddress.getParent();
 }
 
-TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName)
+TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName)
 {
     TTMirrorPtr     aMirror = NULL;
     TTNodePtr		aNode;
@@ -910,7 +975,7 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
     
     if (objectName != kTTSymEmpty) {
         
-        TTValue         args = objectName;
+        TTValue     args = objectName;
         
         aProtocol->getAttributeValue(TTSymbol("get"), allowGetRequest);
         
@@ -973,12 +1038,40 @@ TTMirrorPtr TTApplication::appendMirror(ProtocolPtr aProtocol, TTAddress anAddre
             args.append(NULL);
         
         TTObjectBaseInstantiate(kTTSym_Mirror, TTObjectBaseHandle(&aMirror), args);
+        
+        // register object into the directory
+        this->mDirectory->TTNodeCreate(mTempAddress, (TTObjectBasePtr)aMirror, NULL, &aNode, &newInstanceCreated);
     }
     
-    // register object into the directory
-    this->mDirectory->TTNodeCreate(anAddress, (TTObjectBasePtr)aMirror, NULL, &aNode, &newInstanceCreated);
+    return (TTObjectBasePtr)aMirror;
+}
+
+TTObjectBasePtr TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service)
+{
+    TTDataPtr       aData = NULL;
+    TTNodePtr		aNode;
+	TTBoolean		newInstanceCreated;
+	TTObjectBasePtr	valueAttributeCallback;
+	TTValuePtr		valueAttributeBaton;
+    TTValue         args;
     
-    return aMirror;
+    valueAttributeCallback = NULL;
+    TTObjectBaseInstantiate(TTSymbol("callback"), &valueAttributeCallback, kTTValNONE);
+    valueAttributeBaton = new TTValue(aProtocol);
+    valueAttributeBaton->append(mName);
+    valueAttributeBaton->append(anAddress);
+    valueAttributeCallback->setAttributeValue(kTTSym_baton, TTPtr(valueAttributeBaton));
+    valueAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationProxyDataValueCallback));
+    args.append(valueAttributeCallback);
+    
+    args.append(service);
+    
+    TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(&aData), args);
+    
+    // register object into the directory
+    this->mDirectory->TTNodeCreate(mTempAddress, (TTObjectBasePtr)aData, NULL, &aNode, &newInstanceCreated);
+    
+    return (TTObjectBasePtr)aData;
 }
 
 #if 0
@@ -1041,4 +1134,12 @@ TTSymbol TTApplicationConvertTTNameToAppName(TTSymbol aTTName)
 	}
 	
 	return converted;
+}
+
+TTErr TTApplicationProxyDataValueCallback(TTPtr baton, TTValue& data)
+{
+    TTValue v = kTTSym_value;
+    v.append((TTPtr)&data);
+    
+    return ProtocolSetAttributeCallback(baton, v);
 }
