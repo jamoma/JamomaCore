@@ -129,8 +129,13 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 		
 		err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mOscReceive, kTTValNONE);
 		if (!err) {
-				mOscReceive->setAttributeValue(TTSymbol("port"), mPort);
-				mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
+            
+            mOscReceive->setAttributeValue(TTSymbol("port"), mPort);
+            
+            mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
+            
+            // wait to avoid strange crash when run and stop are called to quickly
+            mAnswerThread->sleep(1);
 			
 			mRunning = YES;
 		}
@@ -157,6 +162,9 @@ TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
         delete mSenderManager;
         
 		TTObjectBaseRelease(&mOscReceive);
+        
+        // wait to avoid strange crash when run and stop are called to quickly
+        mAnswerThread->sleep(1);
         
 		mRunning = NO;
 		

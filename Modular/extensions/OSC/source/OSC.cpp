@@ -38,7 +38,8 @@ PROTOCOL_CONSTRUCTOR,
 mIp(TTSymbol("localhost")),
 mPort(OSC_RECEPTION_PORT),
 mLocalApplicationOscReceiver(NULL),
-mSenderManager(NULL)
+mSenderManager(NULL),
+mWaitThread(NULL)
 {	
 	PROTOCOL_INITIALIZE
 	
@@ -47,6 +48,8 @@ mSenderManager(NULL)
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
+    
+    mWaitThread = new TTThread(NULL, NULL);
 }
 
 OSC::~OSC()
@@ -65,6 +68,8 @@ OSC::~OSC()
     
     // Stop local application
     Stop(kTTValNONE, kTTValNONE);
+    
+    delete mWaitThread;
 }
 
 TTErr OSC::getParameterNames(TTValue& value)
@@ -106,6 +111,9 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                 
                 // register for notification using our 'receivedMessage' method
                 mLocalApplicationOscReceiver->registerObserverForNotifications(*this);
+                
+                // wait to avoid strange crash when run and stop are called to quickly
+                mWaitThread->sleep(1);
                 
                 mRunning = YES;
             }
@@ -171,6 +179,9 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                         // append the osc.receive to the table
                         v = TTValue(TTObjectBasePtr(anOscReceiver));
                         mDistantApplicationOscReceivers.append(distantApplicationName, v);
+                        
+                        // wait to avoid strange crash when run and stop are called to quickly
+                        mWaitThread->sleep(1);
                     }
                 }
             }
@@ -196,6 +207,9 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
             // delete osc.receive dedicated to local application
             TTObjectBaseRelease(&mLocalApplicationOscReceiver);
             
+            // wait to avoid strange crash when run and stop are called to quickly
+            mWaitThread->sleep(1);
+            
             mRunning = NO;
             
             return kTTErrNone;
@@ -218,6 +232,9 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
             
             // delete osc.receive dedicated to distant applications
             TTObjectBaseRelease(&anOscReceiver);
+            
+            // wait to avoid strange crash when run and stop are called to quickly
+            mWaitThread->sleep(1);
             
             return kTTErrNone;
         }
