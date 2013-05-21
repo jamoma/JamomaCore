@@ -112,7 +112,6 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 	TTSymbol		symValue;
 	TTInt32			intValue;
 	TTFloat64		floatValue;
-	TTBoolean		booleanValue;
 	TTDataType		valueType;
 	
 	for (TTUInt32 i = 0; i < arguments.size(); ++i) {
@@ -123,8 +122,8 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 			oscStream << symValue.c_str();
 		}
 		else if (valueType == kTypeBoolean) {
-			booleanValue = arguments[i];
-			oscStream << booleanValue;
+			intValue = arguments[i];
+			oscStream << intValue;
 		}
 		else if (valueType == kTypeUInt8 || valueType == kTypeUInt16 || valueType == kTypeUInt32 || valueType == kTypeUInt64) {
 			intValue = arguments[i];
