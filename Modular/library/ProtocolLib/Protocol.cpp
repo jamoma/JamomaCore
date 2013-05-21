@@ -55,8 +55,8 @@ mDistantApplicationParameters(NULL)
 	
 	addMessageWithArguments(isRegistered);
 	
-	addMessage(Run);
-	addMessage(Stop);
+	addMessageWithArguments(Run);
+	addMessageWithArguments(Stop);
 	addMessage(Scan);
 	
 	mDistantApplicationParameters = new TTHash();

@@ -103,13 +103,21 @@ public:
 	/** Scan to find remote applications and add them to the application manager */
 	virtual TTErr Scan()=0;
 	
-	/** Run reception thread mechanism 
-		return a kTTErrGeneric if the protocol fails to start or if it was running already */
-	virtual TTErr Run()=0;
+	/*! 
+     * Run reception thread mechanism for each application
+     * \param inputValue			: the application to run (default the local application)
+	 * \param outputValue			: kTTValNONE
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start for the application or if it was running already
+     */
+	virtual TTErr Run(const TTValue& inputValue, TTValue& outputValue)=0;
 	
-	/** Stop the reception thread mechanism of the protocol
-		return a kTTErrGeneric if the protocol fails to stop or if it was stopped already */
-	virtual TTErr Stop()=0;
+	/*!
+     * Stop the reception thread mechanism for each application
+     * \param inputValue			: the application to stop (default the local application)
+	 * \param outputValue			: kTTValNONE
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop for the application or if it was already stopped
+     */
+	virtual TTErr Stop(const TTValue& inputValue, TTValue& outputValue)=0;
 	
 	/**************************************************************************************************************************
 	 *

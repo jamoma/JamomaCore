@@ -15,8 +15,12 @@
 
 TT_OBJECT_CONSTRUCTOR,
 mPort(0),
-mSocket(NULL)
+mSocket(NULL),
+mCallback(NULL)
 {
+    if (arguments.size() == 1)
+        mCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
+    
 	addAttributeWithSetter(Port, kTypeUInt16);
 
 	// callback from mSocket
@@ -27,6 +31,11 @@ mSocket(NULL)
 TTOscReceive::~TTOscReceive()
 {
 	delete mSocket;
+    
+    if (mCallback) {
+		delete (TTValuePtr)mCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mCallback));
+	}
 }
 
 void TTOscReceive::bind()
@@ -51,6 +60,10 @@ TTErr TTOscReceive::setPort(const TTValue& newValue)
 
 TTErr TTOscReceive::oscSocketReceive(const TTValue& message, TTValue& unusedOutput)
 {
-	this->sendNotification(TTSymbol("receivedMessage"), message);
+    if (mCallback)
+        this->mCallback->notify(message, unusedOutput);
+	else
+        this->sendNotification(TTSymbol("receivedMessage"), message);
+    
 	return kTTErrNone;
 }

@@ -21,6 +21,7 @@ class TTOscReceive : public TTDataObjectBase {
 public:
 	TTUInt16				mPort;		///< port number
 	TTOscSocketPtr			mSocket;
+    TTCallbackPtr           mCallback;  ///< an optionnal callback to get message and baton data back
 	
 	// internal method
 	void bind();

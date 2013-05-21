@@ -111,13 +111,16 @@ TTErr Minuit::Scan()
 }
 
 /*!
- * Run the arguments reception thread 
- * Prepare the receive callback method to be passed to the ApplicationManager to intercept the arguments
+ * Run the reception thread 
  *
  */
-TTErr Minuit::Run()
+TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTErr	err;
+    
+    // Minuit doesn't need a thread per application
+    if (inputValue.size())
+        return kTTErrGeneric;
 	
 	if (!mRunning) {
 		
@@ -139,11 +142,15 @@ TTErr Minuit::Run()
 }
 
 /*!
- * Stop the arguments reception thread 
+ * Stop the reception thread 
  *
  */
-TTErr Minuit::Stop()
+TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
 {
+    // Minuit doesn't need a thread per application
+    if (inputValue.size())
+        return kTTErrGeneric;
+    
 	if (mRunning) {
 		
 		delete mAnswerManager;
