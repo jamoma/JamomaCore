@@ -66,6 +66,8 @@ private:
     
     TTAttributePtr  valueAttribute;             ///< cache value attribute for observer notification
     TTAttributePtr  initializedAttribute;       ///< cache value message for observer notification
+    
+    TTFloat64       externalRampTime;           ///< only usefull for external ramp drive
 	
 	/** Control the data using a command like < value (unit) (ramp ramptime) >
 		It depends on the command size :

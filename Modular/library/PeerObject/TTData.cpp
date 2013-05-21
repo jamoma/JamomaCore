@@ -118,6 +118,9 @@ mReturnValueCallback(NULL)
     // cache some message and attribute for observer notification
     this->findAttribute(kTTSym_value, &valueAttribute);
     this->findAttribute(kTTSym_initialized, &initializedAttribute);
+    
+    // set no time for external ramp drive
+    externalRampTime = 0;
 }
 
 TTData::~TTData()
@@ -529,6 +532,7 @@ TTErr TTData::rampSetup()
 	if (mRamper != NULL) {
 		TTObjectBaseRelease(TTObjectBaseHandle(&mRamper));
 		mRamper = NULL;
+        externalRampTime = 0;
 	}
 	
 	// 2. create the new ramp object
@@ -537,6 +541,10 @@ TTErr TTData::rampSetup()
 		mRampDrive = kTTSym_none;
     
 	else {
+        
+        // don't create ramper for external ramp drive
+        if (mRampDrive == kTTSym_external)
+            return kTTErrNone;
         
         // TODO : move this very Max specific thing else where
         // (but it is not a problem if the Max plugin is not available)

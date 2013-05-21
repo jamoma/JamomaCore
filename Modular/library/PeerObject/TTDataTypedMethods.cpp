@@ -121,7 +121,9 @@ TTErr TTData::setType(const TTValue& value)
 
 TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
 {
-    // external parsing : the command is already parsed
+    externalRampTime = 0;
+    
+    // is the command already parsed ?
     if (inputValue.size()) {
         
         if (inputValue[0].type() == kTypePointer)
@@ -130,8 +132,7 @@ TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
             return (this->*commandMethod)(inputValue, outputValue);
     }
     
-    
-    // local parsing : we need to free the parsed command afterwards
+    // else we need to free the parsed command afterwards
     TTDictionaryPtr command = NULL;
     TTErr           err;
     
@@ -182,17 +183,10 @@ TTErr TTData::returnValue()
     TTValue v = mValue;
     
     // This is a temporary solution to have audio rate ramping outside the TTData
-    if (mRamper) {
+    if (mRampDrive == kTTSym_external) {
         
-        if (mRampDrive == kTTSym_external) {
-            
-            TTFloat64 externalRampTime;
-            
-            mRamper->getAttributeValue(TTSymbol("rampTime"), externalRampTime);
-            
-            if (externalRampTime > 0)
-                v.append(externalRampTime);
-        }
+        if (externalRampTime > 0)
+            v.append(externalRampTime);
     }
     
     // return the value to his owner
@@ -563,6 +557,14 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
             }
         }
+        
+        // external ramp drive case
+        else if (mRampDrive == kTTSym_external) {
+            
+            if (!command->lookup(kTTSym_ramp, v))
+                v.get(0, externalRampTime);
+            
+        }
     }
     
     // 6. Set the value directly
@@ -732,6 +734,14 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
             }
+        }
+        
+        // external ramp drive case
+        else if (mRampDrive == kTTSym_external) {
+            
+            if (!command->lookup(kTTSym_ramp, v))
+                v.get(0, externalRampTime);
+            
         }
     }
     
@@ -903,6 +913,14 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
             }
+        }
+        
+        // external ramp drive case
+        else if (mRampDrive == kTTSym_external) {
+            
+            if (!command->lookup(kTTSym_ramp, v))
+                v.get(0, externalRampTime);
+            
         }
     }
     
