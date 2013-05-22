@@ -862,6 +862,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 {
 	TTSymbol		objectName, protocolName, attributeName, attributeToFilterName;
     TTAddress       address;
+    TTInt32         instance;
     ProtocolPtr     aProtocol;
     TTObjectBasePtr anObject = NULL;
 	TTValue			v, protocolNames;
@@ -870,7 +871,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
     // when a node starts : append address to the current temp address
     if (aXmlHandler->mXmlNodeStart) {
         
-        // the address attribute can store name which are problematic with xml (like number)
+        // optionnal : the address attribute can store names which are problematic with xml (like number)
         if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("address")) == 1) {
             
             aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v, YES, YES);
@@ -889,109 +890,131 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
         else
             mTempAddress = mTempAddress.appendAddress(TTAddress(aXmlHandler->mXmlNodeName));
         
-        // get the object name
-        if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("object")) == 1) {
+        // optionnal : the instance attribute allow to easily duplicate a namespace part
+        instance = 1;
+        if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("instance")) == 1) {
             
             aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
             
             if (v.size() == 1) {
                 
-                if (v[0].type() == kTypeSymbol) {
-                    objectName = v[0];
+                if (v[0].type() == kTypeInt32) {
                     
-                    // a distant application should have one protocol
-                    protocolNames = getApplicationProtocols(mName);
-                    protocolName = protocolNames[0];
+                    instance = v[0];
                     
-                    aProtocol = (ProtocolPtr)getProtocol(protocolName);
-                    if (aProtocol) {
+                    // start instance numbering from 1
+                    mTempAddress = mTempAddress.appendInstance(TTSymbol("1"));
+                }
+            }
+        }
+        
+        // read the file several times if instance > 1
+        for (TTUInt32 i = 0; i < instance; i++) {
+            
+            // get the object name
+            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("object")) == 1) {
+                
+                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                
+                if (v.size() == 1) {
                     
-                        // for mirror application
-                        if (mType == TTSymbol("mirror")) {
-                      
-                            // instantiate a mirror object
-                            anObject = appendMirrorObject(aProtocol, mTempAddress, objectName);
-                    
-                        }
-                        // for proxy appplication
-                        else if (mType == TTSymbol("proxy")) {
+                    if (v[0].type() == kTypeSymbol) {
+                        objectName = v[0];
+                        
+                        // a distant application should have one protocol
+                        protocolNames = getApplicationProtocols(mName);
+                        protocolName = protocolNames[0];
+                        
+                        aProtocol = (ProtocolPtr)getProtocol(protocolName);
+                        if (aProtocol) {
                             
-                            // instantiate the real object
-                            
-                            // DATA case
-                            if (objectName == kTTSym_Data) {
+                            // for mirror application
+                            if (mType == TTSymbol("mirror")) {
                                 
-                                // get the data service
-                                if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("service")) == 1) {
+                                // instantiate a mirror object
+                                anObject = appendMirrorObject(aProtocol, mTempAddress, objectName);
+                                
+                            }
+                            // for proxy appplication
+                            else if (mType == TTSymbol("proxy")) {
+                                
+                                // instantiate the real object
+                                
+                                // DATA case
+                                if (objectName == kTTSym_Data) {
                                     
-                                    aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-                                    
-                                    if (v.size() == 1) {
+                                    // get the data service
+                                    if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("service")) == 1) {
                                         
-                                        if (v[0].type() == kTypeSymbol) {
+                                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                                        
+                                        if (v.size() == 1) {
                                             
-                                            // instantiate a proxy data
-                                            anObject = appendProxyData(aProtocol, mTempAddress, v[0]);
-                                            
-                                            // filter service attribute for the parsing of all attributes
-                                            attributesToFilter.append(kTTSym_service);
-                                            
-                                            // get the data type
-                                            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type")) == 1) {
-                                            
-                                                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                                            if (v[0].type() == kTypeSymbol) {
                                                 
-                                                if (v.size() == 1) {
+                                                // instantiate a proxy data
+                                                anObject = appendProxyData(aProtocol, mTempAddress, v[0]);
+                                                
+                                                // filter service attribute for the parsing of all attributes
+                                                attributesToFilter.append(kTTSym_service);
+                                                
+                                                // get the data type
+                                                if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type")) == 1) {
                                                     
-                                                    if (v[0].type() == kTypeSymbol) {
+                                                    aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                                                    
+                                                    if (v.size() == 1) {
                                                         
-                                                        // set data type
-                                                        anObject->setAttributeValue(kTTSym_type, v);
-                                                        
-                                                        // filter type attribute for the parsing of all attributes
-                                                        attributesToFilter.append(kTTSym_type);
+                                                        if (v[0].type() == kTypeSymbol) {
+                                                            
+                                                            // set data type
+                                                            anObject->setAttributeValue(kTTSym_type, v);
+                                                            
+                                                            // filter type attribute for the parsing of all attributes
+                                                            attributesToFilter.append(kTTSym_type);
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                 }
+                                
+                                // OTHER case ? Container, Input, Output ?
+                                
                             }
                             
-                            // OTHER case ? Container, Input, Output ?
-                            
-                        }
-
-                        if (anObject) {
-                            
-                            // return to the first attribute
-                            xmlTextReaderMoveToFirstAttribute((xmlTextReaderPtr)aXmlHandler->mReader);
-                            
-                            // get all object attributes and their value
-                            while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
+                            if (anObject) {
                                 
-                                // get attribute name
-                                aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                                // return to the first attribute
+                                xmlTextReaderMoveToFirstAttribute((xmlTextReaderPtr)aXmlHandler->mReader);
                                 
-                                if (v.size() == 1) {
+                                // get all object attributes and their value
+                                while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
                                     
-                                    if (v[0].type() == kTypeSymbol) {
+                                    // get attribute name
+                                    aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                                    
+                                    if (v.size() == 1) {
                                         
-                                        attributeName = ToTTName(v[0]);
-                                        
-                                        // filter attributes
-                                        for (attributesToFilter.begin(); attributesToFilter.end(); attributesToFilter.next()) {
+                                        if (v[0].type() == kTypeSymbol) {
                                             
-                                            attributeToFilterName = attributesToFilter.current()[0];
+                                            attributeName = ToTTName(v[0]);
                                             
-                                            if (attributeToFilterName == attributeName)
-                                                continue;
+                                            // filter attributes
+                                            for (attributesToFilter.begin(); attributesToFilter.end(); attributesToFilter.next()) {
+                                                
+                                                attributeToFilterName = attributesToFilter.current()[0];
+                                                
+                                                if (attributeToFilterName == attributeName)
+                                                    continue;
+                                            }
+                                            
+                                            // get attribute value
+                                            aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                                            
+                                            anObject->setAttributeValue(attributeName, v);
                                         }
-                                        
-                                        // get attribute value
-                                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-                                        
-                                        anObject->setAttributeValue(attributeName, v);
                                     }
                                 }
                             }
