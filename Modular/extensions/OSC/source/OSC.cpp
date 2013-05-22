@@ -139,7 +139,7 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
             return kTTErrGeneric;
         
         // get application parameters
-        err = mDistantApplicationParameters->lookup(distantApplicationName, v);
+        err = mDistantApplicationParameters.lookup(distantApplicationName, v);
         
         if (!err) {
             
@@ -380,7 +380,7 @@ TTErr OSC::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue
 	TTErr		err, errIp, errPort;
 	
 	// Check the application registration
-	err = mDistantApplicationParameters->lookup(distantApplicationName, v);
+	err = mDistantApplicationParameters.lookup(distantApplicationName, v);
 	
 	if (!err) {
 		parameters = TTHashPtr((TTPtr)v[0]);

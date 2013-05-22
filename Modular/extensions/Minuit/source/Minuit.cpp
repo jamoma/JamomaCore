@@ -491,7 +491,7 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 	TTErr		err, errIp, errPort;
 	
 	// Check the application registration
-	err = mDistantApplicationParameters->lookup(distantApplicationName, v);
+	err = mDistantApplicationParameters.lookup(distantApplicationName, v);
 	
 	if (!err) {
 		parameters = TTHashPtr((TTPtr)v[0]);
@@ -590,7 +590,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 			sender = TTSymbol(headerString.substr(0, operationStart));				// get sender application
 			
 			// Check the sender application registration
-			err = mDistantApplicationParameters->lookup(sender, v);
+			err = mDistantApplicationParameters.lookup(sender, v);
 			if (!err) {
 				
 				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));			// get request
@@ -637,7 +637,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 			sender = TTSymbol(headerString.substr(0, operationStart));				// get sender application
 			
 			// Check the sender application registration
-			err = mDistantApplicationParameters->lookup(sender, v);
+			err = mDistantApplicationParameters.lookup(sender, v);
 			if (!err) {
 				
 				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));				// get request
