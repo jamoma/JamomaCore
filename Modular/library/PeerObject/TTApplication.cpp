@@ -216,19 +216,43 @@ TTErr TTApplication::DirectoryBuild()
 
 TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
 {
-    TTAddress   nextAddress, childAddress;
-    TTSymbol    returnedType;
-    TTValue     returnedChildren;
-    TTValue     returnedAttributes;
-    TTMirrorPtr aMirror;
-    TTErr       err;
+    TTAddress       nextAddress, childAddress;
+    TTSymbol        returnedType, service;
+    TTValue         returnedChildren;
+    TTValue         returnedAttributes;
+    TTValue         returnedValue;
+    TTObjectBasePtr anObject;
+    TTErr           err;
     
     err = aProtocol->SendDiscoverRequest(mName, anAddress, returnedType, returnedChildren, returnedAttributes); // to - the returnedAttributes field is useless !
     
     if (!err) {
         
-        if (anAddress != kTTAdrsRoot)
-            aMirror = (TTMirrorPtr)appendMirrorObject(aProtocol, anAddress, returnedType);
+        if (anAddress != kTTAdrsRoot) {
+            
+            if (mType == TTSymbol("mirror"))
+                anObject = appendMirrorObject(aProtocol, anAddress, returnedType);
+            
+            else if (mType == TTSymbol("proxy")) {
+                
+                // DATA case
+                if (returnedType == kTTSym_Data) {
+                    
+                    // get the service attribute
+                    err = aProtocol->SendGetRequest(mName, anAddress.appendAttribute(kTTSym_service), returnedValue);
+                    
+                    if (!err) {
+                        
+                        service = returnedValue[0];
+                        
+                        anObject = appendProxyData(aProtocol, anAddress, service);
+                    }
+                }
+                
+                // other case ?
+            }
+        }
+            
         
         for (TTUInt32 i = 0; i < returnedChildren.size(); i++) {
             
