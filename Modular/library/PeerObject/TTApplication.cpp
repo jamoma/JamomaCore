@@ -1044,7 +1044,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         TTObjectBaseInstantiate(kTTSym_Mirror, TTObjectBaseHandle(&aMirror), args);
         
         // register object into the directory
-        this->mDirectory->TTNodeCreate(mTempAddress, (TTObjectBasePtr)aMirror, NULL, &aNode, &newInstanceCreated);
+        this->mDirectory->TTNodeCreate(anAddress, (TTObjectBasePtr)aMirror, NULL, &aNode, &newInstanceCreated);
     }
     
     return (TTObjectBasePtr)aMirror;
@@ -1073,7 +1073,7 @@ TTObjectBasePtr TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress 
     TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(&aData), args);
     
     // register object into the directory
-    this->mDirectory->TTNodeCreate(mTempAddress, (TTObjectBasePtr)aData, NULL, &aNode, &newInstanceCreated);
+    this->mDirectory->TTNodeCreate(anAddress, (TTObjectBasePtr)aData, NULL, &aNode, &newInstanceCreated);
     
     return (TTObjectBasePtr)aData;
 }
