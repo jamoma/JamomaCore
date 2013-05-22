@@ -861,6 +861,7 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 {
 	TTSymbol		objectName, protocolName, attributeName, attributeToFilterName;
+    TTAddress       address;
     ProtocolPtr     aProtocol;
     TTObjectBasePtr anObject = NULL;
 	TTValue			v, protocolNames;
@@ -869,7 +870,24 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
     // when a node starts : append address to the current temp address
     if (aXmlHandler->mXmlNodeStart) {
         
-        mTempAddress = mTempAddress.appendAddress(TTAddress(aXmlHandler->mXmlNodeName));
+        // the address attribute can store name which are problematic with xml (like number)
+        if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("address")) == 1) {
+            
+            aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v, YES, YES);
+            
+            if (v.size() == 1) {
+                
+                if (v[0].type() == kTypeSymbol) {
+                    
+                    address = v[0];
+                    mTempAddress = mTempAddress.appendAddress(address);
+                }
+            }
+        }
+        
+        // use the node name to build the address
+        else
+            mTempAddress = mTempAddress.appendAddress(TTAddress(aXmlHandler->mXmlNodeName));
         
         // get the object name
         if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("object")) == 1) {
