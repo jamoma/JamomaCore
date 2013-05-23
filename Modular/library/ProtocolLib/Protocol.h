@@ -48,7 +48,8 @@ protected:
 	TTCallbackPtr				mActivityInCallback;				///< a callback to trace raw incoming messages.
 	TTCallbackPtr				mActivityOutCallback;				///< a callback to trace raw outputing messages.
 
-	TTHashPtr					mDistantApplicationParameters;		///< ATTRIBUTE : hash table containing hash table of parameters 
+    TTHash                      mLocalApplicationParameter;         ///< ATTRIBUTE : hash table of parameters
+	TTHash                      mDistantApplicationParameters;		///< ATTRIBUTE : hash table containing hash table of parameters
 																	///< for each application registered for communication with this protocol
 																	///< <TTSymbol applicationName, <TTSymbol parameterName, TTValue value>>
 public:																															
@@ -77,15 +78,16 @@ public:
 	virtual TTErr getParameterNames(TTValue& value)=0;
 	
 	
-	/** Register an application as a client of the protocol */
+	/** Register an application as a client of the protocol 
+        This method allocate a TTHashPtr to store parameters */
 	TTErr registerApplication(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Unregister an application as a client of the protocol */
+	/** Unregister an application as a client of the protocol 
+        This method deallocate a TTHashPtr used to store parameters */
 	TTErr unregisterApplication(const TTValue& inputValue, TTValue& outputValue);
 	
-	
-	/** Get all parameters of an application via a TTHash 
-		!!! this method allocate a hashtable !!! */
+    
+	/** Get all parameters of an application via a TTHash */
 	TTErr getApplicationParameters(TTValue& value);
 	
 	/** Set all parameters of an application using a TTHash */

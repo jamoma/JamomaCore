@@ -476,9 +476,21 @@ TTErr TTAddressBase::listNameInstance(TTList& nameInstanceList)
 	if (*this != kTTAdrsEmpty && *this != kTTAdrsRoot) {
 		
 		this->parent->listNameInstance(nameInstanceList);
-
-		nameInstanceList.append(this->getName());
-		nameInstanceList.append(this->getInstance());
+        
+        // append directory:/name
+        if (directory != NO_DIRECTORY) {
+            
+            TTString s = directory.string();
+            s += S_DIRECTORY.string();
+            s += name;
+            
+            nameInstanceList.append(TTSymbol(s));
+        }
+        // or append name
+        else
+            nameInstanceList.append(name);
+        
+		nameInstanceList.append(instance);
 	}
     
 	return kTTErrNone;

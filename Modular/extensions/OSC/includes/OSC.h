@@ -37,6 +37,8 @@ private:
     TTHash                  mDistantApplicationOscReceivers;
 	
     OSCSenderManagerPtr     mSenderManager;
+    
+    TTThreadPtr             mWaitThread;                // a thread used to wait after critical part
 	
 	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
     TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
