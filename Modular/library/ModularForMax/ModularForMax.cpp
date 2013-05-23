@@ -160,7 +160,7 @@ void jamoma_subscriber_get_patcher_list(ObjectPtr x, TTList& aContextListToFill)
 TTErr jamoma_container_create(ObjectPtr x, TTObjectBasePtr *returnedContainer)
 {
 	TTValue			args;
-	TTObjectBasePtr		returnAddressCallback, returnValueCallback;
+	TTObjectBasePtr	returnAddressCallback, returnValueCallback;
 	TTValuePtr		returnAddressBaton, returnValueBaton;
 	
 	// prepare arguments

@@ -305,6 +305,7 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddressItemPtr    aNamespace = NULL;
+    TTAddressItemPtr    topItem;
 	TTSymbol			name;
 	TTValue				v, parsedLine;
     
@@ -333,9 +334,9 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		v.append(mDescription);
 		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
 		
-		// 3. Process namespace storage
-        // TODO : deal with other Application directory
-		processStore(mScript, getDirectoryFrom(kTTAdrsRoot)->getRoot(), aNamespace);
+		// 3. Process namespace storage from the root
+        // (but others directories are handled too. see in processStore)
+        processStore(mScript, aNamespace, getDirectoryFrom(kTTAdrsRoot)->getRoot());
 		
 		// 5. Process ramp
 		if (mRamp) setRamp(mRamp);
@@ -346,11 +347,11 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTCue::processStore(TTObjectBasePtr aScript, TTNodePtr scriptNode, const TTAddressItemPtr aNamespace)
+TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNamespace, TTNodePtr nodeToProcess)
 {
 	TTAddressItemPtr nameItem, instanceItem, anItem;
 	TTString		nameInstance;
-	TTNodePtr		aNode;
+	TTNodePtr		scriptNode, aNode;
 	TTDictionaryPtr	aLine;
 	TTObjectBasePtr	anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
@@ -359,11 +360,15 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTNodePtr scriptNode, const T
 	TTSymbol		service, option;
 	TTValue			v, parsedLine;
 	TTBoolean		empty = YES;
+    TTBoolean       otherDirectory = NO;
 	TTErr			err;
     
+    scriptNode = nodeToProcess;
+    
+    // get the scriptNode address
     scriptNode->getAddress(scriptAddress);
     
-    // if the namespace is empty : fill it with all children below
+    // if the namespace is empty : fill it with all children below the scriptNode
     if (aNamespace->isEmpty()) {
         
         // get all children of the node
@@ -388,11 +393,20 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTNodePtr scriptNode, const T
     }
 
 	// each script line is a name.instance (which means 2 levels of the namespace)
+    // but the first level name can be directory:/name sometimes to include other directory
 	
 	// for all names
 	for (aNamespace->begin(); aNamespace->end(); aNamespace->next()) {
 		
 		nameItem = aNamespace->current();
+        
+        // at root : check if the item is not part of another directory
+        if (scriptAddress == kTTAdrsRoot) {
+            
+            scriptNode = getDirectoryFrom(TTAddress(nameItem->getSymbol()))->getRoot();
+            
+            otherDirectory = scriptNode != nodeToProcess;
+        }
 		
 		// for all instances of a name
 		for (nameItem->begin(); nameItem->end(); nameItem->next()) {
@@ -402,14 +416,27 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTNodePtr scriptNode, const T
 			if (!instanceItem->getSelection())
 				continue;
 			
-            scriptNode->getChildren(nameItem->getSymbol(), instanceItem->getSymbol(), childrenNodes);
+            // at root : remove the directory part if exist in the nameItem symbol
+            if (otherDirectory)
+                scriptNode->getChildren(TTAddress(nameItem->getSymbol()).getName(), instanceItem->getSymbol(), childrenNodes);
+            else
+                scriptNode->getChildren(nameItem->getSymbol(), instanceItem->getSymbol(), childrenNodes);
 
             for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
                 
 				aNode = TTNodePtr((TTPtr)childrenNodes.current()[0]);
                 
                 // edit name.instance using effective node's name and instance
-                nameInstance = aNode->getName().c_str();
+                // or directory:/name.instance if 
+                if (otherDirectory) {
+                    
+                    nameInstance = TTAddress(nameItem->getSymbol()).getDirectory().string();
+                    nameInstance += S_DIRECTORY.string();
+                    nameInstance += aNode->getName().c_str();
+                }
+                else
+                    nameInstance = aNode->getName().c_str();
+                
                 if (aNode->getInstance() != kTTSymEmpty) {
                     nameInstance += C_INSTANCE;
                     nameInstance += aNode->getInstance().c_str();
@@ -479,7 +506,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, TTNodePtr scriptNode, const T
 				aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
 				
 				// process namespace item on sub script
-				err = processStore(aSubScript, aNode, instanceItem);
+				err = processStore(aSubScript, instanceItem, aNode);
 				
 				// if the sub script is not empty
 				if (!err) {

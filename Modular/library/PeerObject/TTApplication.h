@@ -150,7 +150,8 @@ private:
 	TTErr ReadFromOpml(const TTValue& inputValue, TTValue& outputValue);
     
     TTObjectBasePtr     appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName);
-    TTObjectBasePtr       appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service);
+    TTObjectBasePtr     appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service);
+    TTObjectBasePtr     appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress);
 	
 	friend TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationGetDirectory(TTAddress anAddress);
 	friend TTSymbol TTMODULAR_EXPORT TTApplicationConvertAppNameToTTName(TTSymbol anAppName);

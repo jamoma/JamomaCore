@@ -66,7 +66,7 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** a recursive method to store a namespace into a script object */
-	TTErr	processStore(TTObjectBasePtr aScript, TTNodePtr scriptNode, const TTAddressItemPtr aNamespace);
+	TTErr	processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNamespace, TTNodePtr nodeToProcess);
 	
 	/** a recursive method to process a namespace selection from a script object (and optionnaly fill it) */
 	TTErr	processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill=NO);

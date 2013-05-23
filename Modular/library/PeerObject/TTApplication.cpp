@@ -979,8 +979,14 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                         }
                                     }
                                 }
+                                else if (objectName == kTTSym_Container) {
+                                    
+                                    // instantiate a proxy container
+                                    anObject = appendProxyContainer(aProtocol, mTempAddress);
+                                    
+                                }
                                 
-                                // OTHER case ? Container, Input, Output ?
+                                // OTHER case ? Input, Output ?
                                 
                             }
                             
@@ -1141,6 +1147,23 @@ TTObjectBasePtr TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress 
     this->mDirectory->TTNodeCreate(anAddress, (TTObjectBasePtr)aData, NULL, &aNode, &newInstanceCreated);
     
     return (TTObjectBasePtr)aData;
+}
+
+TTObjectBasePtr TTApplication::appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress)
+{
+    TTContainerPtr  aContainer = NULL;
+    TTNodePtr		aNode;
+	TTBoolean		newInstanceCreated;
+    TTValue         args;
+    
+    // TODO : pass callbacks ? 
+    
+    TTObjectBaseInstantiate(kTTSym_Container, TTObjectBaseHandle(&aContainer), args);
+    
+    // register object into the directory
+    this->mDirectory->TTNodeCreate(anAddress, (TTObjectBasePtr)aContainer, NULL, &aNode, &newInstanceCreated);
+    
+    return (TTObjectBasePtr)aContainer;
 }
 
 #if 0
