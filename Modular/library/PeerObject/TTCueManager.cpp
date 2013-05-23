@@ -57,6 +57,7 @@ mReturnLineCallback(NULL)
 	addMessage(Clear);
 	
 	addMessageWithArguments(Store);
+    addMessageWithArguments(Append);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Output);
 	addMessageWithArguments(Interpolate);
@@ -395,6 +396,90 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	return mCurrentCue->sendMessage(TTSymbol("Store"), v, kTTValNONE);
 }
 
+TTErr TTCueManager::Append(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTValue	v, args, lineValue, parsedLine;
+	
+    if (inputValue.size() >= 1) {
+        
+        // get cue name
+        if (inputValue[0].type() == kTypeSymbol) {
+            mCurrent = inputValue[0];
+            
+            TTSymbol name;
+            for (TTInt32 i = 0; i < mOrder.size(); i++) {
+                name = mOrder[i];
+                if (name == mCurrent) {
+                    mCurrentPosition = i+1;
+                    break;
+                }
+            }
+        }
+        
+        // get cue at position
+        if (inputValue[0].type() == kTypeInt32) {
+            
+            mCurrentPosition = inputValue[0];
+            
+            if (mCurrentPosition > 0 && mCurrentPosition <= mOrder.size())
+                mCurrent = mOrder[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
+        }
+    }
+    
+    // edit lineValue to append
+    lineValue.copyFrom(inputValue, 1);
+    
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
+		
+		if (mCurrentCue)
+			return mCurrentCue->sendMessage(TTSymbol("Append"), lineValue, parsedLine);
+	}
+    // else create a new cue and call Append method again
+    else {
+        
+        // prepare arguments
+		args.append(mReturnLineCallback);
+		
+		// Create a new cue
+		mCurrentCue = NULL;
+		TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), args);
+		
+		mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
+		
+		// Append the new cue
+		v = TTValue(mCurrentCue);
+		mCues->append(mCurrent, v);
+		mOrder.append(mCurrent);
+		mCurrentPosition = mOrder.size();
+		
+		notifyOrderObservers();
+        
+        // Append - cue cueName
+        v = kTTSym_dash;
+        v.append(TTSymbol("cue"));
+        v.append(mCurrent);
+        mCurrentCue->sendMessage(TTSymbol("Append"), v, parsedLine);
+
+        // Append - description
+        v = kTTSym_dash;
+        v.append(TTSymbol("description"));
+        mCurrentCue->sendMessage(TTSymbol("Append"), v, parsedLine);
+        
+        // Append an comment line
+        v = kTTSym_sharp;
+         mCurrentCue->sendMessage(TTSymbol("Append"), v, parsedLine);
+
+        // Append given lineValue
+        return mCurrentCue->sendMessage(TTSymbol("Append"), lineValue, parsedLine);
+    }
+	
+	return kTTErrGeneric;
+}
 
 TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {

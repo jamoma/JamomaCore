@@ -47,6 +47,9 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 	
 	/** Fill the cue on a namespace using namespace pointer or name */
 	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Fill the cue line by line */
+	TTErr	Append(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Run the cue from an address (default : kAdrsRoot to recall all the cue) */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);

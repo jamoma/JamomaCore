@@ -26,6 +26,7 @@ mScript(NULL)
 	
 	addMessage(Clear);
 	addMessageWithArguments(Store);
+    addMessageWithArguments(Append);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Output);
 	addMessageWithArguments(Select);
@@ -533,6 +534,11 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
 		return kTTErrGeneric;
 	else
 		return kTTErrNone;
+}
+
+TTErr TTCue::Append(const TTValue& inputValue, TTValue& outputValue)
+{
+    return mScript->sendMessage(TTSymbol("Append"), inputValue, outputValue);
 }
 
 TTErr TTCue::Clear()
