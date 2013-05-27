@@ -298,6 +298,10 @@ TTErr OSC::SendSetRequest(TTSymbol to, TTAddress address,
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "OSC : applicationSendSetRequest " << std::endl;
 #endif
+    
+    // avoid loop (see in OSCReceiveMessageCallback)
+    if (address == mReceivedAddress)
+        return kTTErrGeneric;
 
 	if (address.getAttribute() == kTTSym_value)
 		return sendMessage(to, address.removeAttribute(), value);
@@ -452,16 +456,19 @@ TTErr OSC::receivedMessage(const TTValue& message, TTValue& outputValue)
 TTErr OSCReceiveMessageCallback(TTPtr baton, TTValue& message)
 {
     TTValuePtr	b;
-	ProtocolPtr anOscPlugin;
+	OSCPtr      anOscPlugin;
 	TTSymbol	from, aSymbol;
 	TTString	headerString;
 	TTValue		arguments;
-	TTAddress   whereTo = kTTAdrsEmpty;
+    TTErr       err;
     
 	// unpack baton
 	b = (TTValuePtr)baton;
-	anOscPlugin = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
+	anOscPlugin = OSCPtr((TTObjectBasePtr)(*b)[0]);
 	from = (*b)[1];
+    
+    // clear mReceivedAddress
+    anOscPlugin->mReceivedAddress = kTTAdrsEmpty;
 	
 	/*
 	 if message starts with '/'
@@ -479,14 +486,19 @@ TTErr OSCReceiveMessageCallback(TTPtr baton, TTValue& message)
 	// if message starts with '/'
 	if (headerString[0] == '/')
 	{
-		whereTo = TTAddress(aSymbol.c_str());
+		anOscPlugin->mReceivedAddress = TTAddress(aSymbol.c_str());
 		arguments.copyFrom(message, 1);
 		
 #ifdef TT_PROTOCOL_DEBUG
-		cout << "Receive set request from " << from.c_str() << "at " << whereTo.c_str() << endl;
+		cout << "Receive set request from " << from.c_str() << "at " << mReceivedAddress.c_str() << endl;
 #endif
 		
-		return anOscPlugin->ReceiveListenAnswer(from, whereTo, arguments);
+		err = anOscPlugin->ReceiveListenAnswer(from, anOscPlugin->mReceivedAddress, arguments);
+        
+        // clear mReceivedAddress
+        anOscPlugin->mReceivedAddress = kTTAdrsEmpty;
+        
+        return err;
 	} 
 		
 	return kTTErrGeneric;

@@ -39,6 +39,8 @@ private:
     OSCSenderManagerPtr     mSenderManager;
     
     TTThreadPtr             mWaitThread;                // a thread used to wait after critical part
+    
+    TTAddress               mReceivedAddress;           // to avoid loop when receiving an address and resending the same
 	
 	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
     TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
