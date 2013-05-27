@@ -1023,6 +1023,12 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                         }
                                     }
                                 }
+                                
+                                // DATA case : reset
+                                // TODO : a real Init method for TTApplication
+                                if (objectName == kTTSym_Data)
+                                    anObject->sendMessage(kTTSym_Reset);
+            
                             }
                         }
                     }
