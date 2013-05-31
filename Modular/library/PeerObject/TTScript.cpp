@@ -254,7 +254,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
     
     // else use the none Flattened lines
     TTDictionaryPtr	aLine;
-	TTSymbol		schema, name;
+	TTSymbol		schema, name, attribute;
 	TTNodePtr		aNode;
 	TTAddress       address, parentAddress = kTTAdrsRoot;
 	TTObjectBasePtr	anObject, aContainer, aParentContainer = NULL;
@@ -328,22 +328,27 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                     // check object type
                     if (anObject) {
                         
+                        // default attribute is value attribute
+                        if (address.getAttribute() == kTTSymEmpty)
+                            attribute = kTTSym_value;
+                        else
+                            attribute = address.getAttribute();
+                        
                         // for data object
                         if (anObject->getName() == kTTSym_Data) {
                             
                             // send the line using the command message
-                            if (address.getAttribute() == kTTSymEmpty) {
-                            
+                            if (attribute == kTTSym_value) {
+                                
                                 v = TTValue((TTPtr)aLine);
                                 anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
-                            }
-                            // or set attribute
-                            else {
-                                
-                                aLine->getValue(v);
-                                anObject->setAttributeValue(address.getAttribute(), v);
+                                continue;
                             }
                         }
+                        
+                        // any other case : set attribute
+                        aLine->getValue(v);
+                        anObject->setAttributeValue(attribute, v);
                     }
                 }
             }
@@ -405,6 +410,7 @@ TTErr TTScript::RunFlattened()
     TTDictionaryPtr	aLine;
 	TTNodePtr		aNode;
 	TTAddress       address;
+    TTSymbol        attribute;
 	TTObjectBasePtr	anObject;
 	TTValue			v;
 	TTErr			err;
@@ -439,22 +445,27 @@ TTErr TTScript::RunFlattened()
             // check object type
             if (anObject) {
                 
+                // default attribute is value attribute
+                if (address.getAttribute() == kTTSymEmpty)
+                    attribute = kTTSym_value;
+                else
+                    attribute = address.getAttribute();
+                
                 // for data object
                 if (anObject->getName() == kTTSym_Data) {
                     
                     // send the line using the command message
-                    if (address.getAttribute() == kTTSymEmpty) {
+                    if (attribute == kTTSym_value) {
                         
                         v = TTValue((TTPtr)aLine);
                         anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
-                    }
-                    // or set attribute
-                    else {
-                        
-                        aLine->getValue(v);
-                        anObject->setAttributeValue(address.getAttribute(), v);
+                        continue;
                     }
                 }
+                
+                // any other case : set attribute
+                aLine->getValue(v);
+                anObject->setAttributeValue(attribute, v);
             }
         }
     }
@@ -467,6 +478,7 @@ TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
 	TTDictionaryPtr	aLine;
 	TTNodePtr		aNode;
 	TTAddress       address, addressToRun;
+    TTSymbol        attribute;
 	TTObjectBasePtr	anObject;
 	TTValue			v;
     TTErr           err;
@@ -511,22 +523,27 @@ TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
                     // check object type
                     if (anObject) {
                         
+                        // default attribute is value attribute
+                        if (address.getAttribute() == kTTSymEmpty)
+                            attribute = kTTSym_value;
+                        else
+                            attribute = address.getAttribute();
+                        
                         // for data object
                         if (anObject->getName() == kTTSym_Data) {
                             
                             // send the line using the command message
-                            if (address.getAttribute() == kTTSymEmpty) {
+                            if (attribute == kTTSym_value) {
                                 
                                 v = TTValue((TTPtr)aLine);
                                 anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
-                            }
-                            // or set attribute
-                            else {
-                                
-                                aLine->getValue(v);
-                                anObject->setAttributeValue(address.getAttribute(), v);
+                                continue;
                             }
                         }
+                        
+                        // any other case : set attribute
+                        aLine->getValue(v);
+                        anObject->setAttributeValue(attribute, v);
                     }
                 }
             }

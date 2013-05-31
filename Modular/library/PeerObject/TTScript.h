@@ -44,8 +44,8 @@ private:
 	TTListPtr			mLines;					///< a linked list containing all lines of the script
     TTListPtr			mFlattenedLines;		///< a linked list containing all lines of the script and the subscripts flattened for quick access
 	
-	TTObjectBasePtr			mSubScript;				///< the current sub script to manage
-	TTObjectBasePtr			mParentScript;			///< the current parent script to manage (usefull for ReadFrom method)
+	TTObjectBasePtr		mSubScript;				///< the current sub script to manage
+	TTObjectBasePtr		mParentScript;			///< the current parent script to manage (usefull for ReadFrom method)
 	
 	TTCallbackPtr		mReturnLineCallback;	///< a callback to return back lines to the owner of this script
 	
