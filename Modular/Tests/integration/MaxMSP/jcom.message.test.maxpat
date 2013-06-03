@@ -3,8 +3,9 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 6,
-			"minor" : 0,
-			"revision" : 7
+			"minor" : 1,
+			"revision" : 3,
+			"architecture" : "x86"
 		}
 ,
 		"rect" : [ 413.0, 52.0, 562.0, 521.0 ],
@@ -38,8 +39,9 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 7
+							"minor" : 1,
+							"revision" : 3,
+							"architecture" : "x86"
 						}
 ,
 						"rect" : [ 3.0, 44.0, 1343.0, 806.0 ],
@@ -99,8 +101,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 85.0, 566.0, 221.0, 47.0 ],
 									"text" : "jcom.message arrayFold1 @type integerArray @range/clipmode fold @range/bounds 0 10"
 								}
@@ -114,8 +116,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 492.0, 566.0, 221.0, 47.0 ],
 									"text" : "jcom.message arrayFold2 @type integerArray @range/clipmode fold @range/bounds -10 10"
 								}
@@ -129,8 +131,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 566.0, 221.0, 47.0 ],
 									"text" : "jcom.message arrayFold3 @type integerArray @range/clipmode fold @range/bounds -20 -10"
 								}
@@ -235,8 +237,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 85.0, 727.0, 221.0, 47.0 ],
 									"text" : "jcom.message genericFold1 @type generic @range/clipmode fold @range/bounds 0 10"
 								}
@@ -250,8 +252,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 492.0, 727.0, 221.0, 47.0 ],
 									"text" : "jcom.message genericFold2 @type generic @range/clipmode fold @range/bounds -10 10"
 								}
@@ -265,8 +267,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 727.0, 221.0, 47.0 ],
 									"text" : "jcom.message genericFold3 @type generic @range/clipmode fold @range/bounds -20 -10"
 								}
@@ -324,8 +326,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 85.0, 410.0, 221.0, 47.0 ],
 									"text" : "jcom.message arrayFold1 @type decimalArray @range/clipmode fold @range/bounds 0 10"
 								}
@@ -339,8 +341,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 492.0, 410.0, 221.0, 47.0 ],
 									"text" : "jcom.message arrayFold2 @type decimalArray @range/clipmode fold @range/bounds -10 10"
 								}
@@ -354,8 +356,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 410.0, 221.0, 47.0 ],
 									"text" : "jcom.message arrayFold3 @type decimalArray @range/clipmode fold @range/bounds -20 -10"
 								}
@@ -426,8 +428,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 297.0, 221.0, 47.0 ],
 									"text" : "jcom.message decimalFold6 @type decimal @range/clipmode fold @range/bounds -20 -10"
 								}
@@ -484,8 +486,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 236.0, 221.0, 47.0 ],
 									"text" : "jcom.message decimalFold3 @type decimal @range/clipmode fold @range/bounds -20 -10"
 								}
@@ -514,8 +516,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 492.0, 297.0, 221.0, 47.0 ],
 									"text" : "jcom.message decimalFold5 @type decimal @range/clipmode fold @range/bounds -10 10"
 								}
@@ -544,8 +546,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 85.0, 297.0, 221.0, 47.0 ],
 									"text" : "jcom.message decimalFold4 @type decimal @range/clipmode fold @range/bounds 0 10"
 								}
@@ -574,8 +576,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 492.0, 236.0, 221.0, 47.0 ],
 									"text" : "jcom.message decimalFold2 @type decimal @range/clipmode fold @range/bounds -10 10"
 								}
@@ -604,8 +606,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 85.0, 236.0, 221.0, 47.0 ],
 									"text" : "jcom.message decimalFold1 @type decimal @range/clipmode fold @range/bounds 0 10"
 								}
@@ -634,8 +636,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 150.0, 213.0, 47.0 ],
 									"text" : "jcom.message intFold6 @type integer @range/clipmode fold @range/bounds -20 -10"
 								}
@@ -734,8 +736,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 88.0, 213.0, 47.0 ],
 									"text" : "jcom.message intFold3 @type integer @range/clipmode fold @range/bounds -20 -10"
 								}
@@ -764,8 +766,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 492.0, 150.0, 213.0, 47.0 ],
 									"text" : "jcom.message intFold5 @type integer @range/clipmode fold @range/bounds -10 10"
 								}
@@ -794,8 +796,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 85.0, 150.0, 213.0, 47.0 ],
 									"text" : "jcom.message intFold4 @type integer @range/clipmode fold @range/bounds 0 10"
 								}
@@ -824,8 +826,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 492.0, 88.0, 213.0, 47.0 ],
 									"text" : "jcom.message intFold2 @type integer @range/clipmode fold @range/bounds -10 10"
 								}
@@ -854,8 +856,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 85.0, 88.0, 213.0, 47.0 ],
 									"text" : "jcom.message intFold1 @type integer @range/clipmode fold @range/bounds 0 10"
 								}
@@ -1288,8 +1290,9 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 7
+							"minor" : 1,
+							"revision" : 3,
+							"architecture" : "x86"
 						}
 ,
 						"rect" : [ 5.0, 44.0, 1435.0, 806.0 ],
@@ -1319,8 +1322,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 494.0, 583.0, 204.0, 47.0 ],
 									"text" : "jcom.message arrayWrap2 @type integerArray @range/clipmode wrap @range/bounds -10 10"
 								}
@@ -1334,8 +1337,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 123.0, 583.0, 204.0, 47.0 ],
 									"text" : "jcom.message arrayWrap1 @type integerArray @range/clipmode wrap @range/bounds 0 10"
 								}
@@ -1393,8 +1396,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 583.0, 204.0, 47.0 ],
 									"text" : "jcom.message arrayWrap3 @type integerArray @range/clipmode wrap @range/bounds -20 -10"
 								}
@@ -1470,8 +1473,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 691.0, 201.0, 47.0 ],
 									"text" : "jcom.message genericWrap3 @type generic @range/clipmode wrap @range/bounds -20 -10"
 								}
@@ -1500,8 +1503,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 494.0, 691.0, 201.0, 47.0 ],
 									"text" : "jcom.message genericWrap2 @type generic @range/clipmode wrap @range/bounds -10 10"
 								}
@@ -1515,8 +1518,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 123.0, 691.0, 201.0, 47.0 ],
 									"text" : "jcom.message genericWrap1 @type generic @range/clipmode wrap @range/bounds 0 10"
 								}
@@ -1574,8 +1577,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 446.0, 201.0, 47.0 ],
 									"text" : "jcom.message arrayWrap3 @type decimalArray @range/clipmode wrap @range/bounds -20 -10"
 								}
@@ -1604,8 +1607,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 494.0, 446.0, 201.0, 47.0 ],
 									"text" : "jcom.message arrayWrap2 @type decimalArray @range/clipmode wrap @range/bounds -10 10"
 								}
@@ -1619,8 +1622,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 123.0, 446.0, 201.0, 47.0 ],
 									"text" : "jcom.message arrayWrap1 @type decimalArray @range/clipmode wrap @range/bounds 0 10"
 								}
@@ -1676,8 +1679,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 337.0, 201.0, 47.0 ],
 									"text" : "jcom.message decimalWrap6 @type decimal @range/clipmode wrap @range/bounds -20 -10"
 								}
@@ -1734,8 +1737,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 251.0, 201.0, 47.0 ],
 									"text" : "jcom.message decimalWrap3 @type decimal @range/clipmode wrap @range/bounds -20 -10"
 								}
@@ -1764,8 +1767,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 494.0, 337.0, 201.0, 47.0 ],
 									"text" : "jcom.message decimalWrap5 @type decimal @range/clipmode wrap @range/bounds -10 10"
 								}
@@ -1794,8 +1797,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 123.0, 337.0, 201.0, 47.0 ],
 									"text" : "jcom.message floatWrap4 @type decimal @range/clipmode wrap @range/bounds 0 10"
 								}
@@ -1824,8 +1827,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 494.0, 251.0, 201.0, 47.0 ],
 									"text" : "jcom.message decimalWrap2 @type decimal @range/clipmode wrap @range/bounds -10 10"
 								}
@@ -1854,8 +1857,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 123.0, 251.0, 201.0, 47.0 ],
 									"text" : "jcom.message floatWrap1 @type decimal @range/clipmode wrap @range/bounds 0 10"
 								}
@@ -1884,8 +1887,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 148.0, 201.0, 47.0 ],
 									"text" : "jcom.message intWrap6 @type integer @range/clipmode wrap @range/bounds -20 -10"
 								}
@@ -1984,8 +1987,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 894.5, 81.0, 201.0, 47.0 ],
 									"text" : "jcom.message intWrap3 @type integer @range/clipmode wrap @range/bounds -20 -10"
 								}
@@ -2014,8 +2017,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 494.0, 148.0, 201.0, 47.0 ],
 									"text" : "jcom.message intWrap5 @type integer @range/clipmode wrap @range/bounds -10 10"
 								}
@@ -2044,8 +2047,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 123.0, 148.0, 201.0, 47.0 ],
 									"text" : "jcom.message intWrap4 @type integer @range/clipmode wrap @range/bounds 0 10"
 								}
@@ -2074,8 +2077,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 494.0, 81.0, 201.0, 47.0 ],
 									"text" : "jcom.message intWrap2 @type integer @range/clipmode wrap @range/bounds -10 10"
 								}
@@ -2104,8 +2107,8 @@
 									"linecount" : 3,
 									"maxclass" : "newobj",
 									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "", "", "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 123.0, 81.0, 201.0, 47.0 ],
 									"text" : "jcom.message intWrap1 @type integer @range/clipmode wrap @range/bounds 0 10"
 								}
@@ -2150,7 +2153,7 @@
 									"destination" : [ "obj-12", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-11", 1 ]
+									"source" : [ "obj-11", 0 ]
 								}
 
 							}
@@ -2168,7 +2171,7 @@
 									"destination" : [ "obj-14", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-13", 1 ]
+									"source" : [ "obj-13", 0 ]
 								}
 
 							}
@@ -2186,7 +2189,7 @@
 									"destination" : [ "obj-16", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-15", 1 ]
+									"source" : [ "obj-15", 0 ]
 								}
 
 							}
@@ -2204,7 +2207,7 @@
 									"destination" : [ "obj-18", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-17", 1 ]
+									"source" : [ "obj-17", 0 ]
 								}
 
 							}
@@ -2222,7 +2225,7 @@
 									"destination" : [ "obj-23", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-19", 1 ]
+									"source" : [ "obj-19", 0 ]
 								}
 
 							}
@@ -2231,7 +2234,7 @@
 									"destination" : [ "obj-1", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-2", 1 ]
+									"source" : [ "obj-2", 0 ]
 								}
 
 							}
@@ -2249,7 +2252,7 @@
 									"destination" : [ "obj-27", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-26", 1 ]
+									"source" : [ "obj-26", 0 ]
 								}
 
 							}
@@ -2267,7 +2270,7 @@
 									"destination" : [ "obj-29", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-28", 1 ]
+									"source" : [ "obj-28", 0 ]
 								}
 
 							}
@@ -2285,7 +2288,7 @@
 									"destination" : [ "obj-4", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-3", 1 ]
+									"source" : [ "obj-3", 0 ]
 								}
 
 							}
@@ -2294,7 +2297,7 @@
 									"destination" : [ "obj-31", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-30", 1 ]
+									"source" : [ "obj-30", 0 ]
 								}
 
 							}
@@ -2312,7 +2315,7 @@
 									"destination" : [ "obj-36", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-35", 1 ]
+									"source" : [ "obj-35", 0 ]
 								}
 
 							}
@@ -2339,7 +2342,7 @@
 									"destination" : [ "obj-37", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-38", 1 ]
+									"source" : [ "obj-38", 0 ]
 								}
 
 							}
@@ -2393,7 +2396,7 @@
 									"destination" : [ "obj-45", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-44", 1 ]
+									"source" : [ "obj-44", 0 ]
 								}
 
 							}
@@ -2411,7 +2414,7 @@
 									"destination" : [ "obj-42", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-46", 1 ]
+									"source" : [ "obj-46", 0 ]
 								}
 
 							}
@@ -2420,7 +2423,7 @@
 									"destination" : [ "obj-41", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-47", 1 ]
+									"source" : [ "obj-47", 0 ]
 								}
 
 							}
@@ -2429,7 +2432,7 @@
 									"destination" : [ "obj-39", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-48", 1 ]
+									"source" : [ "obj-48", 0 ]
 								}
 
 							}
@@ -2447,7 +2450,7 @@
 									"destination" : [ "obj-53", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-52", 1 ]
+									"source" : [ "obj-52", 0 ]
 								}
 
 							}
@@ -2465,7 +2468,7 @@
 									"destination" : [ "obj-49", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-54", 1 ]
+									"source" : [ "obj-54", 0 ]
 								}
 
 							}
@@ -2474,7 +2477,7 @@
 									"destination" : [ "obj-40", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-55", 1 ]
+									"source" : [ "obj-55", 0 ]
 								}
 
 							}
@@ -2483,7 +2486,7 @@
 									"destination" : [ "obj-8", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-7", 1 ]
+									"source" : [ "obj-7", 0 ]
 								}
 
 							}
@@ -2501,7 +2504,7 @@
 									"destination" : [ "obj-10", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
-									"source" : [ "obj-9", 1 ]
+									"source" : [ "obj-9", 0 ]
 								}
 
 							}
@@ -2597,8 +2600,9 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 7
+							"minor" : 1,
+							"revision" : 3,
+							"architecture" : "x86"
 						}
 ,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -2703,8 +2707,9 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 7
+							"minor" : 1,
+							"revision" : 3,
+							"architecture" : "x86"
 						}
 ,
 						"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -2838,8 +2843,9 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 7
+							"minor" : 1,
+							"revision" : 3,
+							"architecture" : "x86"
 						}
 ,
 						"rect" : [ 507.0, 86.0, 366.0, 383.0 ],
@@ -2874,8 +2880,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 3.0, 65.0, 512.0, 337.0 ],
@@ -2909,8 +2916,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 1310.0, 480.0 ],
@@ -3009,8 +3017,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 217.0, 126.0, 43.0 ],
 																	"text" : "jcom.message test @type integerArray @repetitions/allow 1"
 																}
@@ -3124,8 +3132,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 665.458313, 217.0, 128.0, 43.0 ],
 																	"text" : "jcom.message test6 @type integerArray @repetitions/allow 1"
 																}
@@ -3181,8 +3189,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 355.958313, 217.0, 133.0, 43.0 ],
 																	"text" : "jcom.message test5 @type integerArray @repetitions/allow 1"
 																}
@@ -3460,8 +3468,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -3521,8 +3530,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 130.0, 128.0, 43.0 ],
 																	"text" : "jcom.message test4 @type integerArray @repetitions/allow 1"
 																}
@@ -3615,8 +3624,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -3661,8 +3671,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 100.0, 126.0, 43.0 ],
 																	"text" : "jcom.message test3 @type integerArray @repetitions/allow 1"
 																}
@@ -3732,8 +3742,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -3806,8 +3817,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 100.0, 121.0, 43.0 ],
 																	"text" : "jcom.message test2 @type integerArray @repetitions/allow 1"
 																}
@@ -4029,8 +4040,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 3.0, 65.0, 512.0, 337.0 ],
@@ -4064,8 +4076,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 1310.0, 480.0 ],
@@ -4178,8 +4191,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 217.0, 126.0, 43.0 ],
 																	"text" : "jcom.message test @type decimalArray @repetitions/allow 1"
 																}
@@ -4293,8 +4306,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 665.458313, 217.0, 128.0, 43.0 ],
 																	"text" : "jcom.message test6 @type decimalArray @repetitions/allow 1"
 																}
@@ -4350,8 +4363,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 355.958313, 217.0, 133.0, 43.0 ],
 																	"text" : "jcom.message test5 @type decimalArray @repetitions/allow 1"
 																}
@@ -4638,8 +4651,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -4699,8 +4713,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 130.0, 128.0, 43.0 ],
 																	"text" : "jcom.message test4 @type decimalArray @repetitions/allow 1"
 																}
@@ -4793,8 +4807,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -4839,8 +4854,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 100.0, 126.0, 43.0 ],
 																	"text" : "jcom.message test3 @type decimalArray @repetitions/allow 1"
 																}
@@ -4910,8 +4925,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -4984,8 +5000,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 100.0, 121.0, 43.0 ],
 																	"text" : "jcom.message test2 @type decimalArray @repetitions/allow 1"
 																}
@@ -5207,8 +5223,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 3.0, 65.0, 512.0, 337.0 ],
@@ -5242,8 +5259,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 1310.0, 480.0 ],
@@ -5328,8 +5346,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 217.0, 126.0, 43.0 ],
 																	"text" : "jcom.message test @type generic @repetitions/allow 1"
 																}
@@ -5443,8 +5461,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 665.458313, 217.0, 128.0, 43.0 ],
 																	"text" : "jcom.message test6 @type generic @repetitions/allow 1"
 																}
@@ -5500,8 +5518,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 355.958313, 217.0, 133.0, 43.0 ],
 																	"text" : "jcom.message test5 @type generic @repetitions/allow 1"
 																}
@@ -5770,8 +5788,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -5816,8 +5835,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 130.0, 128.0, 43.0 ],
 																	"text" : "jcom.message test4 @type generic @repetitions/allow 1"
 																}
@@ -5910,8 +5929,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -5956,8 +5976,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 100.0, 126.0, 43.0 ],
 																	"text" : "jcom.message test3 @type generic @repetitions/allow 1"
 																}
@@ -6027,8 +6047,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -6101,8 +6122,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 100.0, 121.0, 43.0 ],
 																	"text" : "jcom.message test2 @type generic @repetitions/allow 1"
 																}
@@ -6324,8 +6345,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 10.0, 44.0, 1417.0, 535.0 ],
@@ -6415,8 +6437,8 @@
 													"linecount" : 3,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 945.75, 260.0, 122.0, 43.0 ],
 													"text" : "jcom.message test6 @type none @repetitions/allow 1"
 												}
@@ -6473,8 +6495,8 @@
 													"linecount" : 3,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 775.458313, 260.0, 133.0, 43.0 ],
 													"text" : "jcom.message test5 @type none @repetitions/allow 1"
 												}
@@ -6516,8 +6538,8 @@
 													"linecount" : 3,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 592.166687, 260.0, 128.0, 43.0 ],
 													"text" : "jcom.message test4 @type none @repetitions/allow 1"
 												}
@@ -6545,8 +6567,8 @@
 													"linecount" : 3,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 421.875, 260.0, 126.0, 43.0 ],
 													"text" : "jcom.message test3 @type none @repetitions/allow 1"
 												}
@@ -6560,8 +6582,8 @@
 													"linecount" : 3,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 251.583344, 260.0, 121.0, 43.0 ],
 													"text" : "jcom.message test2 @type none @repetitions/allow 1"
 												}
@@ -6629,8 +6651,8 @@
 													"linecount" : 3,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 81.291656, 260.0, 126.0, 43.0 ],
 													"text" : "jcom.message test @type none @repetitions/allow 1"
 												}
@@ -6907,8 +6929,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 25.0, 68.0, 525.0, 285.0 ],
@@ -6942,8 +6965,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 720.0, 432.0 ],
@@ -7059,8 +7083,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 425.0, 181.0, 114.0, 43.0 ],
 																	"text" : "jcom.message test1 @type string @repetitions/allow 1"
 																}
@@ -7159,8 +7183,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 96.0, 181.0, 114.0, 43.0 ],
 																	"text" : "jcom.message test1 @type string @repetitions/allow 1"
 																}
@@ -7248,7 +7272,7 @@
 																	"destination" : [ "obj-10", 1 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 482.0, 233.0, 559.5, 233.0 ],
+																	"midpoints" : [ 529.5, 233.0, 559.5, 233.0 ],
 																	"source" : [ "obj-13", 1 ]
 																}
 
@@ -7332,7 +7356,7 @@
 																	"destination" : [ "obj-24", 1 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 153.0, 233.0, 230.5, 233.0 ],
+																	"midpoints" : [ 200.5, 233.0, 230.5, 233.0 ],
 																	"source" : [ "obj-6", 1 ]
 																}
 
@@ -7380,8 +7404,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 376.0, 67.0, 961.0, 656.0 ],
@@ -7568,7 +7593,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 506.0, 419.0, 50.0, 17.0 ],
-																	"text" : "jamoma"
+																	"text" : "huh?"
 																}
 
 															}
@@ -7595,8 +7620,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 381.0, 204.0, 131.0, 43.0 ],
 																	"text" : "jcom.message test4 @type string @repetitions/allow 1"
 																}
@@ -7640,8 +7665,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 50.0, 204.0, 131.0, 43.0 ],
 																	"text" : "jcom.message test1 @type string @repetitions/allow 1"
 																}
@@ -7746,7 +7771,7 @@
 																	"destination" : [ "obj-29", 1 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 446.5, 252.0, 526.5, 252.0 ],
+																	"midpoints" : [ 502.5, 252.0, 526.5, 252.0 ],
 																	"source" : [ "obj-35", 1 ]
 																}
 
@@ -7756,7 +7781,7 @@
 																	"destination" : [ "obj-39", 1 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 446.5, 255.0, 510.5, 255.0 ],
+																	"midpoints" : [ 502.5, 255.0, 510.5, 255.0 ],
 																	"source" : [ "obj-35", 1 ]
 																}
 
@@ -7840,8 +7865,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 50.0, 120.0, 663.0, 516.0 ],
@@ -7970,8 +7996,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 80.0, 165.0, 127.0, 43.0 ],
 																	"text" : "jcom.message test2 @type string @repetitions/allow 1"
 																}
@@ -8059,7 +8085,7 @@
 																	"destination" : [ "obj-24", 1 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 143.5, 217.0, 214.5, 217.0 ],
+																	"midpoints" : [ 197.5, 217.0, 214.5, 217.0 ],
 																	"source" : [ "obj-6", 1 ]
 																}
 
@@ -8107,8 +8133,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
@@ -8237,8 +8264,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 75.0, 165.0, 134.0, 43.0 ],
 																	"text" : "jcom.message test3 @type string @repetitions/allow 1"
 																}
@@ -8271,7 +8298,7 @@
 																	"destination" : [ "obj-28", 1 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 142.0, 218.0, 221.5, 218.0 ],
+																	"midpoints" : [ 199.5, 218.0, 221.5, 218.0 ],
 																	"source" : [ "obj-19", 1 ]
 																}
 
@@ -8530,8 +8557,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 64.0, 130.0, 628.0, 262.0 ],
@@ -8565,8 +8593,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 26.0, 44.0, 1334.0, 781.0 ],
@@ -8639,8 +8668,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 92.0, 574.0, 171.0, 43.0 ],
 																	"text" : "jcom.message testNoRepetition @type decimal @repetitions/allow 1"
 																}
@@ -8711,8 +8740,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 471.0, 574.0, 164.0, 43.0 ],
 																	"text" : "jcom.message testRepetition @type decimal @repetitions/allow 0"
 																}
@@ -8841,8 +8870,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 834.0, 574.0, 121.0, 43.0 ],
 																	"text" : "jcom.message test @type decimal @repetitions/allow 1"
 																}
@@ -8913,8 +8942,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 92.0, 206.0, 171.0, 43.0 ],
 																	"text" : "jcom.message testNoRepetition @type decimal @repetitions/allow 1"
 																}
@@ -8985,8 +9014,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 471.0, 206.0, 164.0, 43.0 ],
 																	"text" : "jcom.message testRepetition @type decimal @repetitions/allow 0"
 																}
@@ -9126,8 +9155,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 834.0, 206.0, 121.0, 43.0 ],
 																	"text" : "jcom.message test @type decimal @repetitions/allow 1"
 																}
@@ -9636,8 +9665,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 972.0, 337.0 ],
@@ -9696,8 +9726,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 81.0, 181.0, 172.0, 43.0 ],
 																	"text" : "jcom.message testNoRepetition @type decimal @repetitions/allow 1"
 																}
@@ -9754,8 +9784,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 410.5, 181.0, 158.0, 43.0 ],
 																	"text" : "jcom.message testRepetition @type decimal @repetitions/allow 0"
 																}
@@ -9837,8 +9867,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 690.0, 181.0, 121.0, 43.0 ],
 																	"text" : "jcom.message test @type decimal @repetitions/allow 1"
 																}
@@ -10045,8 +10075,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 1222.0, 393.0 ],
@@ -10119,8 +10150,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 99.0, 191.0, 172.0, 43.0 ],
 																	"text" : "jcom.message testNoRepetition @type decimal @repetitions/allow 1"
 																}
@@ -10191,8 +10222,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 393.0, 191.0, 163.0, 43.0 ],
 																	"text" : "jcom.message testRepetition @type decimal @repetitions/allow 0"
 																}
@@ -10247,7 +10278,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 1020.0, 137.0, 50.0, 17.0 ],
-																	"text" : "26"
+																	"text" : "20"
 																}
 
 															}
@@ -10302,8 +10333,8 @@
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 753.5, 191.0, 112.0, 31.0 ],
 																	"text" : "jcom.message test @type decimal"
 																}
@@ -10566,8 +10597,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 1158.0, 430.0 ],
@@ -10640,8 +10672,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 96.666664, 236.0, 172.0, 43.0 ],
 																	"text" : "jcom.message testNoRepetition @type decimal @repetitions/allow 1"
 																}
@@ -10712,8 +10744,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 448.0, 236.0, 163.0, 43.0 ],
 																	"text" : "jcom.message testRepetition @type decimal @repetitions/allow 0"
 																}
@@ -10773,7 +10805,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 962.0, 151.0, 50.0, 17.0 ],
-																	"text" : "0.18"
+																	"text" : "0.08"
 																}
 
 															}
@@ -10856,8 +10888,8 @@
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 729.0, 236.0, 119.0, 31.0 ],
 																	"text" : "jcom.message test @type decimal"
 																}
@@ -11272,8 +11304,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 58.0, 116.0, 537.0, 264.0 ],
@@ -11307,8 +11340,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 1070.0, 461.0 ],
@@ -11395,8 +11429,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 131.5, 250.0, 164.0, 43.0 ],
 																	"text" : "jcom.message test1repetition @type integer @repetitions/allow 1"
 																}
@@ -11467,8 +11501,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 489.5, 250.0, 163.0, 43.0 ],
 																	"text" : "jcom.message test1repetition @type integer @repetitions/allow 0"
 																}
@@ -11525,8 +11559,8 @@
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 770.0, 250.0, 115.0, 31.0 ],
 																	"text" : "jcom.message test1 @type integer"
 																}
@@ -11770,8 +11804,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 18.0, 86.0, 1137.0, 481.0 ],
@@ -11858,8 +11893,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 98.5, 263.0, 162.5, 43.0 ],
 																	"text" : "jcom.message test2repetition @type integer @repetitions/allow 1"
 																}
@@ -11930,8 +11965,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 508.5, 263.0, 164.5, 43.0 ],
 																	"text" : "jcom.message test2repetition @type integer @repetitions/allow 0"
 																}
@@ -12002,8 +12037,8 @@
 																	"linecount" : 2,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 807.0, 263.0, 120.0, 31.0 ],
 																	"text" : "jcom.message test2 @type integer"
 																}
@@ -12256,8 +12291,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 1121.0, 421.0 ],
@@ -12344,8 +12380,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 92.25, 218.0, 164.75, 43.0 ],
 																	"text" : "jcom.message test3repetition @type integer @repetitions/allow 1"
 																}
@@ -12416,8 +12452,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 477.25, 218.0, 163.75, 43.0 ],
 																	"text" : "jcom.message test3repetition @type integer @repetitions/allow 0"
 																}
@@ -12474,8 +12510,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 819.0, 218.0, 125.0, 43.0 ],
 																	"text" : "jcom.message test3 @type integer @repetitions/allow 1"
 																}
@@ -12691,8 +12727,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 33.0, 89.0, 1339.0, 800.0 ],
@@ -12803,8 +12840,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 142.5, 578.0, 163.75, 43.0 ],
 																	"text" : "jcom.message test4repetition @type integer @repetitions/allow 1"
 																}
@@ -12874,8 +12911,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 513.25, 578.0, 161.0, 43.0 ],
 																	"text" : "jcom.message test4repetition @type integer @repetitions/allow 0"
 																}
@@ -12931,8 +12968,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 832.0, 578.0, 129.0, 43.0 ],
 																	"text" : "jcom.message test4 @type integer @repetitions/allow 1"
 																}
@@ -12961,8 +12998,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 142.5, 343.0, 50.0, 17.0 ],
-																	"text" : "5 5"
+																	"patching_rect" : [ 142.5, 343.0, 50.0, 17.0 ]
 																}
 
 															}
@@ -13017,8 +13053,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 142.5, 248.0, 163.75, 43.0 ],
 																	"text" : "jcom.message test4repetition @type integer @repetitions/allow 1"
 																}
@@ -13033,8 +13069,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 513.25, 343.0, 50.0, 17.0 ],
-																	"text" : "5 5"
+																	"patching_rect" : [ 513.25, 343.0, 50.0, 17.0 ]
 																}
 
 															}
@@ -13089,8 +13124,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 513.25, 248.0, 161.0, 43.0 ],
 																	"text" : "jcom.message test4repetition @type integer @repetitions/allow 0"
 																}
@@ -13105,8 +13140,7 @@
 																	"numinlets" : 2,
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 911.0, 343.0, 50.0, 17.0 ],
-																	"text" : "5"
+																	"patching_rect" : [ 911.0, 343.0, 50.0, 17.0 ]
 																}
 
 															}
@@ -13147,8 +13181,8 @@
 																	"linecount" : 3,
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 832.0, 248.0, 129.0, 43.0 ],
 																	"text" : "jcom.message test4 @type integer @repetitions/allow 1"
 																}
@@ -13941,8 +13975,9 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 7
+							"minor" : 1,
+							"revision" : 3,
+							"architecture" : "x86"
 						}
 ,
 						"rect" : [ 633.0, 79.0, 655.0, 693.0 ],
@@ -13977,8 +14012,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -14453,8 +14489,8 @@
 													"id" : "obj-1",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 150.0, 150.0, 560.0, 19.0 ],
 													"text" : "jcom.message test @type decimalArray @ramp/drive scheduler @ramp/function linear @repetitions/allow 1"
 												}
@@ -14511,7 +14547,7 @@
 													"destination" : [ "obj-13", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 430.0, 194.5, 159.5, 194.5 ],
+													"midpoints" : [ 700.5, 194.5, 159.5, 194.5 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -14521,7 +14557,7 @@
 													"destination" : [ "obj-24", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 430.0, 189.0, 488.5, 189.0 ],
+													"midpoints" : [ 700.5, 189.0, 488.5, 189.0 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -14895,8 +14931,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -14941,8 +14978,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -15041,8 +15079,8 @@
 																	"id" : "obj-12",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 85.0, 160.0, 528.0, 19.0 ],
 																	"text" : "jcom.message testDefault @type decimal @ramp/drive scheduler @ramp/function smoothPolynomial"
 																}
@@ -15066,8 +15104,8 @@
 																	"destination" : [ "obj-9", 0 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 603.5, 185.5, 94.5, 185.5 ],
-																	"source" : [ "obj-12", 2 ]
+																	"midpoints" : [ 603.5, 184.0, 94.5, 184.0 ],
+																	"source" : [ "obj-12", 1 ]
 																}
 
 															}
@@ -15170,8 +15208,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -15270,8 +15309,8 @@
 																	"id" : "obj-12",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 85.0, 160.0, 468.0, 19.0 ],
 																	"text" : "jcom.message testDefault @type decimal @ramp/drive scheduler @ramp/function cosine"
 																}
@@ -15295,8 +15334,8 @@
 																	"destination" : [ "obj-9", 0 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 543.5, 185.5, 94.5, 185.5 ],
-																	"source" : [ "obj-12", 2 ]
+																	"midpoints" : [ 543.5, 184.0, 94.5, 184.0 ],
+																	"source" : [ "obj-12", 1 ]
 																}
 
 															}
@@ -15399,8 +15438,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -15499,8 +15539,8 @@
 																	"id" : "obj-12",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 85.0, 160.0, 464.0, 19.0 ],
 																	"text" : "jcom.message testDefault @type decimal @ramp/drive scheduler @ramp/function linear"
 																}
@@ -15524,8 +15564,8 @@
 																	"destination" : [ "obj-9", 0 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 539.5, 185.5, 94.5, 185.5 ],
-																	"source" : [ "obj-12", 2 ]
+																	"midpoints" : [ 539.5, 184.0, 94.5, 184.0 ],
+																	"source" : [ "obj-12", 1 ]
 																}
 
 															}
@@ -15628,8 +15668,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -15728,8 +15769,8 @@
 																	"id" : "obj-12",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 85.0, 160.0, 461.0, 19.0 ],
 																	"text" : "jcom.message testDefault @type decimal @ramp/drive scheduler @ramp/function none"
 																}
@@ -15753,8 +15794,8 @@
 																	"destination" : [ "obj-9", 0 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 536.5, 185.5, 94.5, 185.5 ],
-																	"source" : [ "obj-12", 2 ]
+																	"midpoints" : [ 536.5, 184.0, 94.5, 184.0 ],
+																	"source" : [ "obj-12", 1 ]
 																}
 
 															}
@@ -15868,8 +15909,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -15968,8 +16010,8 @@
 																	"id" : "obj-12",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 85.0, 160.0, 227.0, 19.0 ],
 																	"text" : "jcom.message testDefault @type decimal"
 																}
@@ -15993,8 +16035,8 @@
 																	"destination" : [ "obj-9", 0 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 302.5, 185.5, 94.5, 185.5 ],
-																	"source" : [ "obj-12", 2 ]
+																	"midpoints" : [ 302.5, 184.0, 94.5, 184.0 ],
+																	"source" : [ "obj-12", 1 ]
 																}
 
 															}
@@ -16097,8 +16139,9 @@
 														"fileversion" : 1,
 														"appversion" : 														{
 															"major" : 6,
-															"minor" : 0,
-															"revision" : 7
+															"minor" : 1,
+															"revision" : 3,
+															"architecture" : "x86"
 														}
 ,
 														"rect" : [ 25.0, 69.0, 640.0, 480.0 ],
@@ -16197,8 +16240,8 @@
 																	"id" : "obj-12",
 																	"maxclass" : "newobj",
 																	"numinlets" : 1,
-																	"numoutlets" : 3,
-																	"outlettype" : [ "", "", "" ],
+																	"numoutlets" : 2,
+																	"outlettype" : [ "", "" ],
 																	"patching_rect" : [ 85.0, 160.0, 348.0, 19.0 ],
 																	"text" : "jcom.message testDefault @type decimal @ramp/drive scheduler"
 																}
@@ -16222,8 +16265,8 @@
 																	"destination" : [ "obj-9", 0 ],
 																	"disabled" : 0,
 																	"hidden" : 0,
-																	"midpoints" : [ 423.5, 185.5, 94.5, 185.5 ],
-																	"source" : [ "obj-12", 2 ]
+																	"midpoints" : [ 423.5, 184.0, 94.5, 184.0 ],
+																	"source" : [ "obj-12", 1 ]
 																}
 
 															}
@@ -16549,8 +16592,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 210.0, 64.0, 1073.0, 743.0 ],
@@ -16996,8 +17040,8 @@
 													"linecount" : 2,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 180.0, 175.0, 284.0, 31.0 ],
 													"text" : "jcom.message test @type decimalArray @ramp/drive scheduler @ramp/function linear @repetitions/allow 1"
 												}
@@ -17054,7 +17098,7 @@
 													"destination" : [ "obj-13", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 322.0, 228.5, 189.5, 228.5 ],
+													"midpoints" : [ 454.5, 228.5, 189.5, 228.5 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -17064,7 +17108,7 @@
 													"destination" : [ "obj-24", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 322.0, 219.0, 494.5, 219.0 ],
+													"midpoints" : [ 454.5, 219.0, 494.5, 219.0 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -17395,8 +17439,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 180.0, 44.0, 1073.0, 743.0 ],
@@ -17842,8 +17887,8 @@
 													"id" : "obj-1",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 180.0, 170.0, 552.0, 19.0 ],
 													"text" : "jcom.message test @type decimalArray @ramp/drive scheduler @ramp/function linear @repetitions/allow 1"
 												}
@@ -17899,7 +17944,7 @@
 													"destination" : [ "obj-13", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 456.0, 240.5, 189.5, 240.5 ],
+													"midpoints" : [ 722.5, 240.5, 189.5, 240.5 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -17909,7 +17954,7 @@
 													"destination" : [ "obj-24", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 456.0, 227.0, 534.5, 227.0 ],
+													"midpoints" : [ 722.5, 227.0, 534.5, 227.0 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -18274,8 +18319,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -18736,8 +18782,8 @@
 													"id" : "obj-1",
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 150.0, 150.0, 533.0, 19.0 ],
 													"text" : "jcom.message test @type integer @ramp/drive scheduler @ramp/function linear @repetitions/allow 1"
 												}
@@ -18794,7 +18840,7 @@
 													"destination" : [ "obj-13", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 416.5, 194.5, 159.5, 194.5 ],
+													"midpoints" : [ 673.5, 194.5, 159.5, 194.5 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -18804,7 +18850,7 @@
 													"destination" : [ "obj-24", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 416.5, 189.0, 479.5, 189.0 ],
+													"midpoints" : [ 673.5, 189.0, 479.5, 189.0 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -19145,8 +19191,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 24.0, 45.0, 1073.0, 743.0 ],
@@ -19591,8 +19638,8 @@
 													"linecount" : 2,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 180.0, 170.0, 286.0, 31.0 ],
 													"text" : "jcom.message test @type decimal @ramp/drive scheduler @ramp/function linear @repetitions/allow 1"
 												}
@@ -19634,7 +19681,7 @@
 													"destination" : [ "obj-13", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 323.0, 240.5, 189.5, 240.5 ],
+													"midpoints" : [ 456.5, 240.5, 189.5, 240.5 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -19644,7 +19691,7 @@
 													"destination" : [ "obj-24", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 323.0, 227.0, 534.5, 227.0 ],
+													"midpoints" : [ 456.5, 227.0, 534.5, 227.0 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -19985,8 +20032,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 210.0, 64.0, 1073.0, 743.0 ],
@@ -20402,8 +20450,8 @@
 													"linecount" : 2,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 180.0, 175.0, 286.0, 31.0 ],
 													"text" : "jcom.message test @type decimal @ramp/drive scheduler @ramp/function linear @repetitions/allow 1"
 												}
@@ -20460,7 +20508,7 @@
 													"destination" : [ "obj-13", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 323.0, 228.5, 189.5, 228.5 ],
+													"midpoints" : [ 456.5, 228.5, 189.5, 228.5 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -20470,7 +20518,7 @@
 													"destination" : [ "obj-24", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 323.0, 219.0, 494.5, 219.0 ],
+													"midpoints" : [ 456.5, 219.0, 494.5, 219.0 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -20807,8 +20855,9 @@
 										"fileversion" : 1,
 										"appversion" : 										{
 											"major" : 6,
-											"minor" : 0,
-											"revision" : 7
+											"minor" : 1,
+											"revision" : 3,
+											"architecture" : "x86"
 										}
 ,
 										"rect" : [ 523.0, 44.0, 909.0, 701.0 ],
@@ -21229,8 +21278,8 @@
 													"linecount" : 2,
 													"maxclass" : "newobj",
 													"numinlets" : 1,
-													"numoutlets" : 3,
-													"outlettype" : [ "", "", "" ],
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 150.0, 150.0, 291.0, 31.0 ],
 													"text" : "jcom.message test @type decimal @ramp/drive scheduler @ramp/function linear @repetitions/allow 1"
 												}
@@ -21287,7 +21336,7 @@
 													"destination" : [ "obj-13", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 295.5, 194.5, 159.5, 194.5 ],
+													"midpoints" : [ 431.5, 194.5, 159.5, 194.5 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -21297,7 +21346,7 @@
 													"destination" : [ "obj-24", 0 ],
 													"disabled" : 0,
 													"hidden" : 0,
-													"midpoints" : [ 295.5, 189.0, 479.5, 189.0 ],
+													"midpoints" : [ 431.5, 189.0, 479.5, 189.0 ],
 													"source" : [ "obj-1", 1 ]
 												}
 
@@ -21902,22 +21951,22 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.test.finished.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.finished",
-				"patcherrelativepath" : "../../../../Test/components/test.finished",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Implementations/MaxTest/JamomaTest/patchers/components",
+				"patcherrelativepath" : "../../../../../Implementations/MaxTest/JamomaTest/patchers/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.assert.equal.old.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.assert.equal.old",
-				"patcherrelativepath" : "../../../../Test/components/test.assert.equal.old",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Implementations/MaxTest/JamomaTest/patchers/components",
+				"patcherrelativepath" : "../../../../../Implementations/MaxTest/JamomaTest/patchers/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.assert.equal.maxpat",
-				"bootpath" : "/Users/lossius/dev/Jamoma/Modules/Test/components/test.assert.equal",
-				"patcherrelativepath" : "../../../../Test/components/test.assert.equal",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Implementations/MaxTest/JamomaTest/patchers/components",
+				"patcherrelativepath" : "../../../../../Implementations/MaxTest/JamomaTest/patchers/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
