@@ -796,6 +796,8 @@ else
           if mac?
            	source = source.to_s
   	       	next if source =~ /win /
+  	       	next if source =~ /win32 /
+  	       	next if source =~ /win64 /
           	source.gsub!(/mac /, '')
           elsif win?
           	# This code is never executed!
@@ -1120,6 +1122,8 @@ else
             if mac?
            	  lib = lib.to_s
   	         	next if lib =~ /win /
+    	       	next if lib =~ /win32 /
+    	       	next if lib =~ /win64 /
               lib.gsub!(/mac /, '')
               if (i==0)
                 makefile.write("LIBS = ")
@@ -1152,6 +1156,8 @@ else
               lib = lib.to_s
               next if lib =~ /mac /
               next if lib =~ /win /
+              next if lib =~ /win32 /
+              next if lib =~ /win64 /
               lib.gsub!(/linux /, '')
 
               if (lib == "FOUNDATION")
