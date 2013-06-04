@@ -1238,26 +1238,30 @@ else
         libraries.each do |lib|
         	lib = lib.to_s
          	next if lib =~ /mac /
+          win64 = lib.match /win64 /
+          win64dir = "x64\\" if win64
         	lib.gsub!(/win /, '')
+          lib.gsub!(/win32 /, '')
+          lib.gsub!(/win64 /, '')
 
         	next if lib =~/RELEASE /
 	       	lib.gsub!(/DEBUG /, '')
 
           if (lib == "FOUNDATION")
             concatenated_libs_debug += "JamomaFoundation.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Foundation\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Foundation\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "DSP")
             concatenated_libs_debug += "JamomaDSP.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\DSP\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\DSP\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "MODULAR")
             concatenated_libs_debug += "JamomaModular.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Modular\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Modular\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "GRAPH")
             concatenated_libs_debug += "JamomaGraph.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graph\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graph\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "AUDIOGRAPH")
             concatenated_libs_debug += "JamomaAudioGraph.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\AudioGraph\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\AudioGraph\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "C74")
             concatenated_libs_debug += "MaxAPI.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
@@ -1268,6 +1272,7 @@ else
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
+            lib += "_x64" if win64
             lib_dir = lib_dir.join "/"
 
             lib_dir.gsub!(/(\/)/,'\\')
@@ -1281,29 +1286,33 @@ else
         libraries.each do |lib|
         	lib = lib.to_s
          	next if lib =~ /mac /
+          win64 = lib.match /win64 /
+          win64dir = "x64\\" if win64
         	lib.gsub!(/win /, '')
+          lib.gsub!(/win32 /, '')
+          lib.gsub!(/win64 /, '')
 
         	next if lib =~/DEBUG /
         	lib.gsub!(/RELEASE /, '')
 
           if (lib == "FOUNDATION")
             concatenated_libs_release += "JamomaFoundation.lib;"
-            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Foundation\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Foundation\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "DSP")
             concatenated_libs_release += "JamomaDSP.lib;"
-            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\DSP\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\DSP\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "MODULAR")
             concatenated_libs_release += "JamomaModular.lib;"
-            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Modular\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Modular\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "GRAPH")
             concatenated_libs_release += "JamomaGraph.lib;"
-            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graph\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graph\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "AUDIOGRAPH")
             concatenated_libs_release += "JamomaAudioGraph.lib;"
-            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\AudioGraph\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\AudioGraph\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "GRAPHICS")
             concatenated_libs_release += "JamomaGraphics.lib;"
-            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graphics\\library\\$(ConfigurationName)\";"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graphics\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "C74")
             concatenated_libs_debug += "MaxAPI.lib;"
             concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
@@ -1314,6 +1323,7 @@ else
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
+            lib += "_x64" if win64
             lib_dir = lib_dir.join "/"
 
             lib_dir.gsub!(/(\/)/,'\\')
