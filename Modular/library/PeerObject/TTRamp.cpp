@@ -29,8 +29,11 @@ startValue(NULL),
 targetValue(NULL),
 currentValue(NULL)
 {
-	mCallback = TTRampCallback((TTPtr)arguments[0]);
-	mBaton = (TTPtr)arguments[1];
+    if (arguments.size() == 2) {
+        
+        mCallback = TTRampCallback((TTPtr)arguments[0]);
+        mBaton = (TTPtr)arguments[1];
+    }
 	
     addAttributeWithSetter(Scheduler, kTypeSymbol);
 #ifndef TT_NO_DSP    

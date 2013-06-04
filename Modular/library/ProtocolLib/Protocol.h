@@ -48,7 +48,8 @@ protected:
 	TTCallbackPtr				mActivityInCallback;				///< a callback to trace raw incoming messages.
 	TTCallbackPtr				mActivityOutCallback;				///< a callback to trace raw outputing messages.
 
-	TTHashPtr					mDistantApplicationParameters;		///< ATTRIBUTE : hash table containing hash table of parameters 
+    TTHash                      mLocalApplicationParameter;         ///< ATTRIBUTE : hash table of parameters
+	TTHash                      mDistantApplicationParameters;		///< ATTRIBUTE : hash table containing hash table of parameters
 																	///< for each application registered for communication with this protocol
 																	///< <TTSymbol applicationName, <TTSymbol parameterName, TTValue value>>
 public:																															
@@ -77,15 +78,16 @@ public:
 	virtual TTErr getParameterNames(TTValue& value)=0;
 	
 	
-	/** Register an application as a client of the protocol */
+	/** Register an application as a client of the protocol 
+        This method allocate a TTHashPtr to store parameters */
 	TTErr registerApplication(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Unregister an application as a client of the protocol */
+	/** Unregister an application as a client of the protocol 
+        This method deallocate a TTHashPtr used to store parameters */
 	TTErr unregisterApplication(const TTValue& inputValue, TTValue& outputValue);
 	
-	
-	/** Get all parameters of an application via a TTHash 
-		!!! this method allocate a hashtable !!! */
+    
+	/** Get all parameters of an application via a TTHash */
 	TTErr getApplicationParameters(TTValue& value);
 	
 	/** Set all parameters of an application using a TTHash */
@@ -103,13 +105,21 @@ public:
 	/** Scan to find remote applications and add them to the application manager */
 	virtual TTErr Scan()=0;
 	
-	/** Run reception thread mechanism 
-		return a kTTErrGeneric if the protocol fails to start or if it was running already */
-	virtual TTErr Run()=0;
+	/*! 
+     * Run reception thread mechanism for each application
+     * \param inputValue			: the application to run (default the local application)
+	 * \param outputValue			: kTTValNONE
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start for the application or if it was running already
+     */
+	virtual TTErr Run(const TTValue& inputValue, TTValue& outputValue)=0;
 	
-	/** Stop the reception thread mechanism of the protocol
-		return a kTTErrGeneric if the protocol fails to stop or if it was stopped already */
-	virtual TTErr Stop()=0;
+	/*!
+     * Stop the reception thread mechanism for each application
+     * \param inputValue			: the application to stop (default the local application)
+	 * \param outputValue			: kTTValNONE
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop for the application or if it was already stopped
+     */
+	virtual TTErr Stop(const TTValue& inputValue, TTValue& outputValue)=0;
 	
 	/**************************************************************************************************************************
 	 *

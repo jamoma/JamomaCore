@@ -83,11 +83,21 @@ private:
 	/** Scan to find remote applications and add them to the application manager */
 	TTErr Scan();
 	
-	/** Run reception thread mechanism */
-	TTErr Run();
+	/*!
+     * Run reception thread mechanism for the local application only
+     * \param inputValue			: kTTValNONE
+	 * \param outputValue			: kTTValNONE
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
+     */
+	TTErr Run(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Stop the reception thread mechanism of the protocol */
-	TTErr Stop();
+    /*!
+     * Stop the reception thread mechanism for the local application only
+     * \param inputValue			: kTTValNONE
+	 * \param outputValue			: kTTValNONE
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
+     */
+	TTErr Stop(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**************************************************************************************************************************
 	 *

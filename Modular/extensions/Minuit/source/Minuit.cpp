@@ -111,13 +111,16 @@ TTErr Minuit::Scan()
 }
 
 /*!
- * Run the arguments reception thread 
- * Prepare the receive callback method to be passed to the ApplicationManager to intercept the arguments
+ * Run the reception thread 
  *
  */
-TTErr Minuit::Run()
+TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTErr	err;
+    
+    // Minuit doesn't need a thread per application
+    if (inputValue.size())
+        return kTTErrGeneric;
 	
 	if (!mRunning) {
 		
@@ -126,8 +129,13 @@ TTErr Minuit::Run()
 		
 		err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mOscReceive, kTTValNONE);
 		if (!err) {
-				mOscReceive->setAttributeValue(TTSymbol("port"), mPort);
-				mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
+            
+            mOscReceive->setAttributeValue(TTSymbol("port"), mPort);
+            
+            mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
+            
+            // wait to avoid strange crash when run and stop are called to quickly
+            mAnswerThread->sleep(1);
 			
 			mRunning = YES;
 		}
@@ -139,17 +147,24 @@ TTErr Minuit::Run()
 }
 
 /*!
- * Stop the arguments reception thread 
+ * Stop the reception thread 
  *
  */
-TTErr Minuit::Stop()
+TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
 {
+    // Minuit doesn't need a thread per application
+    if (inputValue.size())
+        return kTTErrGeneric;
+    
 	if (mRunning) {
 		
 		delete mAnswerManager;
         delete mSenderManager;
         
 		TTObjectBaseRelease(&mOscReceive);
+        
+        // wait to avoid strange crash when run and stop are called to quickly
+        mAnswerThread->sleep(1);
         
 		mRunning = NO;
 		
@@ -476,7 +491,7 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 	TTErr		err, errIp, errPort;
 	
 	// Check the application registration
-	err = mDistantApplicationParameters->lookup(distantApplicationName, v);
+	err = mDistantApplicationParameters.lookup(distantApplicationName, v);
 	
 	if (!err) {
 		parameters = TTHashPtr((TTPtr)v[0]);
@@ -575,7 +590,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 			sender = TTSymbol(headerString.substr(0, operationStart));				// get sender application
 			
 			// Check the sender application registration
-			err = mDistantApplicationParameters->lookup(sender, v);
+			err = mDistantApplicationParameters.lookup(sender, v);
 			if (!err) {
 				
 				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));			// get request
@@ -622,7 +637,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 			sender = TTSymbol(headerString.substr(0, operationStart));				// get sender application
 			
 			// Check the sender application registration
-			err = mDistantApplicationParameters->lookup(sender, v);
+			err = mDistantApplicationParameters.lookup(sender, v);
 			if (!err) {
 				
 				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));				// get request

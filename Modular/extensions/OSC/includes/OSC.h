@@ -29,15 +29,21 @@ class OSC : public Protocol {
 	
 private:
 	
-	TTSymbol				mIp;						///< ATTRIBUTE : IP of the local application (to share with clients)		(default : loacalhost, readonly)
-	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception (to share with clients)	(default : OSC_RECEPTION_PORT)
+	TTSymbol				mIp;						///< ATTRIBUTE : IP of the local application                                (default : localhost, readonly)
+	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception for local application     (default : OSC_RECEPTION_PORT)
 	
-	TTObjectBasePtr			mOscReceive;
+	TTObjectBasePtr			mLocalApplicationOscReceiver;
+    
+    TTHash                  mDistantApplicationOscReceivers;
 	
     OSCSenderManagerPtr     mSenderManager;
+    
+    TTThreadPtr             mWaitThread;                // a thread used to wait after critical part
+    
+    TTAddress               mReceivedAddress;           // to avoid loop when receiving an address and resending the same
 	
 	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
-	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
+    TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
 	/** Get parameters names needed by this protocol */
 	TTErr getParameterNames(TTValue& value);
@@ -45,11 +51,21 @@ private:
 	/** Scan to find remote applications and add them to the application manager */
 	TTErr Scan();
 	
-	/** Run reception thread mechanism */
-	TTErr Run();
+    /*!
+     * Run reception thread mechanism for each application
+     * \param inputValue			: the application to run (default the local application)
+	 * \param outputValue			: kTTValNONE
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start for the application or if it was running already
+     */
+	TTErr Run(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Stop the reception thread mechanism of the protocol */
-	TTErr Stop();
+	/*!
+     * Stop the reception thread mechanism for each application
+     * \param inputValue			: the application to stop (default the local application)
+	 * \param outputValue			: kTTValNONE
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop for the application or if it was already stopped
+     */
+	TTErr Stop(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**************************************************************************************************************************
 	 *
@@ -151,8 +167,18 @@ private:
 	TTErr SendListenAnswer(TTSymbol to, TTAddress address, 
 						   TTValue& returnedValue,
 						   TTErr err=kTTErrNone);
+    
+    
+    
+    friend TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(TTPtr baton, TTValue& data);
 	
 };
 typedef OSC* OSCPtr;
+
+/**
+ @param	baton						..
+ @param	data						..
+ @return							an error code */
+TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(TTPtr baton, TTValue& message);
 
 #endif // __OSC_H__

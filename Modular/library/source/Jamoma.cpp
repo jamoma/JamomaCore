@@ -49,37 +49,43 @@ TTString*					DocumentationFormat = NULL;
 
 void jamoma_init(void)
 {
+    short		outvol = 0;
+    t_fourcc	outtype, filetype = 'TEXT';
+    char        name[MAX_PATH_CHARS];
+    char 		fullpath[MAX_PATH_CHARS];
+    
 	if (!initialized) {
         
 		ObjectPtr	max = SymbolGen("max")->s_thing;
-		//SymbolPtr	meth = SymbolGen("objectfile");
+        TTString    JamomaModularPath;
         TTString    JamomaConfigurationFilePath;
 		t_atom		a[4];
 		TTValue		v;
  
-		if (maxversion() >= 0x0519) {
+		if (maxversion() >= 0x0519)
 			max5 = true;
-            JamomaConfigurationFilePath = "/Applications/Max5/Cycling \'74/init/JamomaConfiguration.xml";
-        }
         
-		if (maxversion() >= 0x0600) {
+		if (maxversion() >= 0x0600)
 			max6 = true;
-            JamomaConfigurationFilePath = "/Applications/Max6/Cycling \'74/init/JamomaConfiguration.xml";
-		}
         
 		// Init the Modular library
-		TTModularInit();
-		
+        JamomaModularPath = TTModularInit();
+        
+        // Edit the path to the JamomaConfiguration.xml file
+        strncpy_zero(name, JamomaModularPath.data(), JamomaModularPath.size()-6);
+        JamomaConfigurationFilePath = name;
+        JamomaConfigurationFilePath += "misc/JamomaConfiguration.xml";
+        
+        // check if the JamomaConfiguration.xml file exists
+        strncpy_zero(name, JamomaConfigurationFilePath.data(), MAX_PATH_CHARS);
+        if (locatefile_extended(name, &outvol, &outtype, &filetype, 1))
+            return error("Jamoma not loaded : can't find %s", JamomaConfigurationFilePath.data());
+        
 		// Create a local application named Jamoma and get it
 		TTModularCreateLocalApplication(JAMOMA, JamomaConfigurationFilePath);
 		JamomaApplication = getLocalApplication;
 		JamomaDirectory = getLocalDirectory;
 		kTTSym_Jamoma = TTSymbol(JAMOMA);
-		
-		// Check if the configuration file have been loaded correctly
-		JamomaApplication->getAttributeValue(TTSymbol("allAppNames"), v);
-		if (!v.size())
-			error("JamomaConfiguration.xml can't be loaded. It is expected in Max5/Cycling' \74/init/ folder.");
 		
 		// DEBUG
 		//jamoma_application_dump_configuration();

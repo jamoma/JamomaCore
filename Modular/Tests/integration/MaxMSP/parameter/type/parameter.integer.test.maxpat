@@ -3,11 +3,12 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 6,
-			"minor" : 0,
-			"revision" : 8
+			"minor" : 1,
+			"revision" : 3,
+			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 0.0, 44.0, 326.0, 355.0 ],
+		"rect" : [ 0.0, 44.0, 551.0, 680.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -29,7 +30,90 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"fontname" : "Arial",
-					"fontsize" : 16.0,
+					"fontsize" : 12.0,
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 91.5, 177.0, 73.0, 20.0 ],
+					"text" : "loadmess 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-10",
+					"maxclass" : "gswitch2",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 49.0, 210.0, 39.0, 32.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-18",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 69.0, 250.0, 70.0, 20.0 ],
+					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
+					"text" : "thispatcher"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 14.0,
+					"frgb" : 0.0,
+					"id" : "obj-17",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 69.0, 503.0, 276.0, 22.0 ],
+					"text" : "The actual tests"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 14.0,
+					"frgb" : 0.0,
+					"id" : "obj-15",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 69.0, 347.0, 276.0, 22.0 ],
+					"text" : "The jcom.message object used for all tests"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 14.0,
+					"frgb" : 0.0,
+					"id" : "obj-11",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 69.0, 31.0, 173.0, 22.0 ],
+					"text" : "Test administration"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
 					"id" : "obj-4",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -38,8 +122,9 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 8
+							"minor" : 1,
+							"revision" : 3,
+							"architecture" : "x86"
 						}
 ,
 						"rect" : [ 327.0, 44.0, 446.0, 355.0 ],
@@ -256,7 +341,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 8.0, 280.962219, 309.0, 24.0 ],
+					"patching_rect" : [ 65.5, 594.962219, 201.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -270,14 +355,14 @@
 						"tags" : ""
 					}
 ,
-					"text" : "p commande_test"
+					"text" : "p testAllCommandsThatCanBeSent"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"fontname" : "Arial",
-					"fontsize" : 16.0,
+					"fontsize" : 12.0,
 					"id" : "obj-3",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -286,8 +371,9 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 8
+							"minor" : 1,
+							"revision" : 3,
+							"architecture" : "x86"
 						}
 ,
 						"rect" : [ 327.0, 44.0, 1133.0, 872.0 ],
@@ -1646,7 +1732,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 8.0, 247.962219, 309.0, 24.0 ],
+					"patching_rect" : [ 69.0, 564.962219, 194.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -1660,14 +1746,14 @@
 						"tags" : ""
 					}
 ,
-					"text" : "p message_test"
+					"text" : "p testAllMessagesThatCanBeSent"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"fontname" : "Arial",
-					"fontsize" : 16.0,
+					"fontsize" : 12.0,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -1676,11 +1762,12 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 6,
-							"minor" : 0,
-							"revision" : 8
+							"minor" : 1,
+							"revision" : 3,
+							"architecture" : "x86"
 						}
 ,
-						"rect" : [ 0.0, 44.0, 1680.0, 872.0 ],
+						"rect" : [ 0.0, 70.0, 1410.0, 895.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1708,7 +1795,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 734.0, 117.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 760.037781, 117.0, 20.0 ],
 									"text" : "route value/stepsize"
 								}
 
@@ -1722,7 +1809,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 1090.650879, 708.0, 122.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 734.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -1737,7 +1824,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 758.964111, 238.0, 33.0 ],
+									"patching_rect" : [ 1090.650879, 785.964111, 238.0, 33.0 ],
 									"text" : "jcom.test.assert.equal value/stepsize-test @input value/stepsize @compareTo 1"
 								}
 
@@ -1750,7 +1837,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1090.650879, 798.569092, 105.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 824.569092, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -1764,7 +1851,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 613.0, 109.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 612.037781, 109.0, 20.0 ],
 									"text" : "route value/default"
 								}
 
@@ -1778,7 +1865,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 1090.650879, 587.0, 122.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 586.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -1806,7 +1893,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1090.650879, 677.569092, 105.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 676.569092, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -1820,7 +1907,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 371.983459, 64.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 332.605011, 64.0, 20.0 ],
 									"text" : "route type"
 								}
 
@@ -1834,7 +1921,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 495.537781, 70.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 473.037781, 70.0, 20.0 ],
 									"text" : "route value"
 								}
 
@@ -1848,7 +1935,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 256.642731, 58.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 200.642761, 58.0, 20.0 ],
 									"text" : "route tag"
 								}
 
@@ -1862,7 +1949,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 126.0, 79.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 54.037781, 79.0, 20.0 ],
 									"text" : "route service"
 								}
 
@@ -1876,7 +1963,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 1090.650879, 469.537781, 122.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 447.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -1890,7 +1977,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 1090.650879, 345.483459, 122.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 308.105011, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -1904,7 +1991,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 1090.650879, 230.642731, 122.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 174.642761, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -1918,7 +2005,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 1090.650879, 100.0, 122.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 28.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -1933,7 +2020,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 520.501892, 225.0, 33.0 ],
+									"patching_rect" : [ 1090.650879, 498.501892, 225.0, 33.0 ],
 									"text" : "jcom.test.assert.equal value-test @input value @compareTo bang"
 								}
 
@@ -1946,7 +2033,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1090.650879, 560.106873, 105.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 537.106873, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -1961,7 +2048,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 396.947571, 223.0, 33.0 ],
+									"patching_rect" : [ 1090.650879, 359.947571, 223.0, 33.0 ],
 									"text" : "jcom.test.assert.equal type-test @input type @compareTo integer"
 								}
 
@@ -1974,7 +2061,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1090.650879, 436.552551, 105.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 398.174072, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -1989,7 +2076,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 282.106842, 223.0, 33.0 ],
+									"patching_rect" : [ 1090.650879, 226.106842, 223.0, 33.0 ],
 									"text" : "jcom.test.assert.equal tag-test @input tag @compareTo none"
 								}
 
@@ -2002,7 +2089,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1090.650879, 321.711823, 105.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 264.711823, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2017,7 +2104,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 1090.650879, 151.464111, 223.0, 33.0 ],
+									"patching_rect" : [ 1090.650879, 80.001862, 223.0, 33.0 ],
 									"text" : "jcom.test.assert.equal service-test @input service @compareTo parameter"
 								}
 
@@ -2030,7 +2117,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1090.650879, 191.069092, 105.0, 20.0 ],
+									"patching_rect" : [ 1090.650879, 118.106842, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2044,7 +2131,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 550.0, 613.0, 123.0, 20.0 ],
+									"patching_rect" : [ 550.0, 612.037781, 123.0, 20.0 ],
 									"text" : "route range/clipmode"
 								}
 
@@ -2058,7 +2145,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 550.0, 734.0, 127.0, 20.0 ],
+									"patching_rect" : [ 550.0, 760.037781, 127.0, 20.0 ],
 									"text" : "route repetitions/allow"
 								}
 
@@ -2072,7 +2159,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 552.0, 495.037781, 115.0, 20.0 ],
+									"patching_rect" : [ 552.0, 473.037781, 115.0, 20.0 ],
 									"text" : "route range/bounds"
 								}
 
@@ -2086,7 +2173,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 552.0, 371.483459, 104.0, 20.0 ],
+									"patching_rect" : [ 552.0, 332.605011, 104.0, 20.0 ],
 									"text" : "route ramp/status"
 								}
 
@@ -2100,7 +2187,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 550.0, 708.0, 122.0, 20.0 ],
+									"patching_rect" : [ 550.0, 734.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2114,7 +2201,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 550.0, 586.5, 122.0, 20.0 ],
+									"patching_rect" : [ 550.0, 586.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2128,7 +2215,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 552.0, 469.037781, 122.0, 20.0 ],
+									"patching_rect" : [ 552.0, 447.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2142,7 +2229,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 552.0, 345.483459, 122.0, 20.0 ],
+									"patching_rect" : [ 552.0, 308.105011, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2156,7 +2243,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 552.0, 136.575531, 114.0, 20.0 ],
+									"patching_rect" : [ 552.0, 54.037781, 114.0, 20.0 ],
 									"text" : "route ramp/function"
 								}
 
@@ -2170,7 +2257,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 552.0, 256.680511, 178.0, 20.0 ],
+									"patching_rect" : [ 552.0, 200.642761, 178.0, 20.0 ],
 									"text" : "route ramp/function/parameters"
 								}
 
@@ -2184,7 +2271,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 733.037781, 98.0, 20.0 ],
+									"patching_rect" : [ 50.0, 760.037781, 98.0, 20.0 ],
 									"text" : "route ramp/drive"
 								}
 
@@ -2212,7 +2299,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 552.0, 230.680511, 122.0, 20.0 ],
+									"patching_rect" : [ 552.0, 174.642761, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2226,7 +2313,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 552.0, 110.075531, 122.0, 20.0 ],
+									"patching_rect" : [ 552.0, 28.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2240,7 +2327,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 707.037781, 122.0, 20.0 ],
+									"patching_rect" : [ 50.0, 734.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2268,7 +2355,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 373.605011, 99.0, 20.0 ],
+									"patching_rect" : [ 50.0, 332.605011, 99.0, 20.0 ],
 									"text" : "route description"
 								}
 
@@ -2282,7 +2369,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 495.037781, 73.0, 20.0 ],
+									"patching_rect" : [ 50.0, 473.037781, 73.0, 20.0 ],
 									"text" : "route active"
 								}
 
@@ -2296,7 +2383,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 256.642761, 119.0, 20.0 ],
+									"patching_rect" : [ 50.0, 200.642761, 119.0, 20.0 ],
 									"text" : "route dataspace/unit"
 								}
 
@@ -2310,7 +2397,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 136.037781, 97.0, 20.0 ],
+									"patching_rect" : [ 50.0, 54.037781, 97.0, 20.0 ],
 									"text" : "route dataspace"
 								}
 
@@ -2325,7 +2412,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 550.0, 758.964111, 241.0, 33.0 ],
+									"patching_rect" : [ 550.0, 785.964111, 241.0, 33.0 ],
 									"text" : "jcom.test.assert.equal repetitions/allow-test @input repetitions/allow @compareTo 1"
 								}
 
@@ -2338,7 +2425,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 550.0, 798.569092, 105.0, 20.0 ],
+									"patching_rect" : [ 550.0, 824.569092, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2366,7 +2453,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 550.0, 677.569092, 105.0, 20.0 ],
+									"patching_rect" : [ 550.0, 676.569092, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2381,7 +2468,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 552.0, 520.501892, 238.0, 33.0 ],
+									"patching_rect" : [ 552.0, 498.501892, 238.0, 33.0 ],
 									"text" : "jcom.test.assert.equal range/bounds-test @input range/bounds @compareTo 0 1"
 								}
 
@@ -2394,7 +2481,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 552.0, 560.106873, 105.0, 20.0 ],
+									"patching_rect" : [ 552.0, 537.106873, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2409,7 +2496,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 552.0, 396.947571, 220.0, 33.0 ],
+									"patching_rect" : [ 552.0, 359.947571, 220.0, 33.0 ],
 									"text" : "jcom.test.assert.equal ramp/status-test @input ramp/status @compareTo 0"
 								}
 
@@ -2422,7 +2509,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 552.0, 436.552551, 105.0, 20.0 ],
+									"patching_rect" : [ 552.0, 398.174072, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2437,7 +2524,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 552.0, 282.106842, 296.0, 33.0 ],
+									"patching_rect" : [ 552.0, 226.106842, 296.0, 33.0 ],
 									"text" : "jcom.test.assert.equal ramp/function/parameters-test @input ramp/function/parameters @compareTo bang"
 								}
 
@@ -2450,7 +2537,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 552.0, 320.711823, 105.0, 20.0 ],
+									"patching_rect" : [ 552.0, 264.711823, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2465,7 +2552,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 552.0, 162.001862, 236.0, 33.0 ],
+									"patching_rect" : [ 552.0, 80.001862, 236.0, 33.0 ],
 									"text" : "jcom.test.assert.equal ramp/function-test @input ramp/function @compareTo none"
 								}
 
@@ -2478,7 +2565,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 552.0, 200.606842, 105.0, 20.0 ],
+									"patching_rect" : [ 552.0, 118.106842, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2493,7 +2580,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 758.964111, 220.0, 33.0 ],
+									"patching_rect" : [ 50.0, 785.964111, 220.0, 33.0 ],
 									"text" : "jcom.test.assert.equal ramp/drive-test @input ramp/drive @compareTo Max"
 								}
 
@@ -2506,7 +2593,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 50.0, 797.569092, 105.0, 20.0 ],
+									"patching_rect" : [ 50.0, 824.569092, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2549,7 +2636,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 520.501892, 195.0, 33.0 ],
+									"patching_rect" : [ 50.0, 498.501892, 195.0, 33.0 ],
 									"text" : "jcom.test.assert.equal active-test @input active @compareTo 1"
 								}
 
@@ -2563,7 +2650,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 469.037781, 122.0, 20.0 ],
+									"patching_rect" : [ 50.0, 447.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2576,7 +2663,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 50.0, 559.106873, 105.0, 20.0 ],
+									"patching_rect" : [ 50.0, 537.106873, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2591,7 +2678,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 396.947571, 236.0, 33.0 ],
+									"patching_rect" : [ 50.0, 359.947571, 236.0, 33.0 ],
 									"text" : "jcom.test.assert.equal description-test @input description @compareTo none"
 								}
 
@@ -2605,7 +2692,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 352.105011, 122.0, 20.0 ],
+									"patching_rect" : [ 50.0, 308.105011, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2618,7 +2705,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 50.0, 442.174072, 105.0, 20.0 ],
+									"patching_rect" : [ 50.0, 398.174072, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2633,7 +2720,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 282.106842, 236.0, 33.0 ],
+									"patching_rect" : [ 50.0, 226.106842, 236.0, 33.0 ],
 									"text" : "jcom.test.assert.equal dataspace/unit-test @input dataspace/unit @compareTo none"
 								}
 
@@ -2647,7 +2734,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 230.642761, 122.0, 20.0 ],
+									"patching_rect" : [ 50.0, 174.642761, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2660,7 +2747,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 50.0, 320.711823, 105.0, 20.0 ],
+									"patching_rect" : [ 50.0, 264.711823, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -2675,7 +2762,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 50.0, 162.001862, 220.0, 33.0 ],
+									"patching_rect" : [ 50.0, 80.001862, 220.0, 33.0 ],
 									"text" : "jcom.test.assert.equal dataspace-test @input dataspace @compareTo none"
 								}
 
@@ -2689,7 +2776,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 110.037781, 122.0, 20.0 ],
+									"patching_rect" : [ 50.0, 28.037781, 122.0, 20.0 ],
 									"text" : "r parameter-dumpout"
 								}
 
@@ -2702,7 +2789,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 50.0, 200.106842, 105.0, 20.0 ],
+									"patching_rect" : [ 50.0, 118.106842, 105.0, 20.0 ],
 									"text" : "s parameter-input"
 								}
 
@@ -3197,7 +3284,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 8.0, 214.962219, 309.0, 24.0 ],
+					"patching_rect" : [ 69.0, 535.962219, 180.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
 						"default_fontname" : "Arial",
@@ -3211,35 +3298,7 @@
 						"tags" : ""
 					}
 ,
-					"text" : "p default_attribute_value_test"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"color" : [ 1.0, 0.0, 0.0, 1.0 ],
-					"fontname" : "Verdana",
-					"fontsize" : 10.0,
-					"id" : "obj-97",
-					"maxclass" : "newobj",
-					"numinlets" : 0,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 250.0, 12.0, 69.0, 19.0 ],
-					"text" : "r TestResult"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-96",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 250.0, 59.0, 67.0, 20.0 ],
-					"text" : "print result"
+					"text" : "p testTheDefaultAttributeValues"
 				}
 
 			}
@@ -3251,7 +3310,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 74.0, 35.0, 129.0, 20.0 ],
+					"patching_rect" : [ 135.0, 98.0, 129.0, 20.0 ],
 					"text" : "s start-jamoma-testing"
 				}
 
@@ -3264,7 +3323,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 8.0, 160.0, 113.0, 20.0 ],
+					"patching_rect" : [ 69.0, 437.0, 113.0, 20.0 ],
 					"text" : "s parameter-values"
 				}
 
@@ -3277,7 +3336,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 184.0, 160.0, 125.0, 20.0 ],
+					"patching_rect" : [ 245.0, 437.0, 125.0, 20.0 ],
 					"text" : "s parameter-dumpout"
 				}
 
@@ -3291,7 +3350,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 113.0, 103.0, 20.0 ],
+					"patching_rect" : [ 69.0, 382.0, 103.0, 20.0 ],
 					"text" : "r parameter-input"
 				}
 
@@ -3305,7 +3364,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 8.0, 59.0, 103.0, 20.0 ],
+					"patching_rect" : [ 69.0, 122.0, 103.0, 20.0 ],
 					"text" : "jcom.test.finished"
 				}
 
@@ -3319,13 +3378,14 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "bang", "bang" ],
-					"patching_rect" : [ 8.0, 11.0, 85.0, 20.0 ],
+					"patching_rect" : [ 69.0, 74.0, 85.0, 20.0 ],
 					"text" : "jcom.test.start"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"color" : [ 0.698039, 0.0, 0.698039, 1.0 ],
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-1",
@@ -3333,8 +3393,41 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 8.0, 136.0, 195.0, 20.0 ],
+					"patching_rect" : [ 69.0, 409.0, 195.0, 20.0 ],
 					"text" : "jcom.parameter test @type integer"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"background" : 1,
+					"id" : "obj-5",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 26.0, 333.0, 404.0, 144.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"background" : 1,
+					"id" : "obj-8",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 26.0, 493.0, 404.0, 144.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"background" : 1,
+					"id" : "obj-9",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 26.0, 19.0, 404.0, 144.0 ]
 				}
 
 			}
@@ -3359,10 +3452,29 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-10", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 101.0, 204.0, 58.5, 204.0 ],
+					"source" : [ "obj-21", 0 ]
 				}
 
 			}
@@ -3386,32 +3498,32 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-96", 0 ],
+					"destination" : [ "obj-10", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-97", 0 ]
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jcom.test.start.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.start",
-				"patcherrelativepath" : "../../../../../../Test/components/test.start",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Implementations/MaxTest/JamomaTest/patchers/components",
+				"patcherrelativepath" : "../../../../../../../Implementations/MaxTest/JamomaTest/patchers/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.finished.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.finished",
-				"patcherrelativepath" : "../../../../../../Test/components/test.finished",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Implementations/MaxTest/JamomaTest/patchers/components",
+				"patcherrelativepath" : "../../../../../../../Implementations/MaxTest/JamomaTest/patchers/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jcom.test.assert.equal.maxpat",
-				"bootpath" : "/Users/WALL-E/Documents/Jamoma/Modules/Test/components/test.assert.equal",
-				"patcherrelativepath" : "../../../../../../Test/components/test.assert.equal",
+				"bootpath" : "/Users/lossius/dev/Jamoma/Implementations/MaxTest/JamomaTest/patchers/components",
+				"patcherrelativepath" : "../../../../../../../Implementations/MaxTest/JamomaTest/patchers/components",
 				"type" : "JSON",
 				"implicit" : 1
 			}

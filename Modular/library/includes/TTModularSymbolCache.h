@@ -27,6 +27,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_OpmlHandler;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Output;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Preset;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_PresetManager;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_Ramp;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Receiver;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Sender;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Script;

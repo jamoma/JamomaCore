@@ -73,7 +73,7 @@ private:
 	TTCallbackPtr				mSendMessageCallback;			///< a way to send a message
 	TTCallbackPtr				mListenAttributeCallback;		///< a way to listen the attribute value
     
-    TTHashPtr                   mAttributeValueCache;           ///< a hash table to cache attribute value (if no mGetAttributeCallback)
+    TTHash                      mAttributeValueCache;           ///< a hash table to cache attribute value (if no mGetAttributeCallback)
 	
 	TTErr						getMirrorAttribute(TTAttribute& anAttribute, TTValue& value);
 	TTErr						setMirrorAttribute(TTAttribute& anAttribute, const TTValue& value);
@@ -86,6 +86,9 @@ private:
 public:
 	TTErr						updateAttributeValue(const TTSymbol attributeName, TTValue& value);
 	TTErr						enableListening(const TTAttribute& anAttribute, TTBoolean enable);
+    
+    // over writting of the TTObjectBase::getName() method
+    TTSymbol                    getName();
 	
 };
 

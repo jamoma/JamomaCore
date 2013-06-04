@@ -17,8 +17,7 @@ mType(kTTSymEmpty),
 mGetAttributeCallback(NULL),
 mSetAttributeCallback(NULL),
 mSendMessageCallback(NULL),
-mListenAttributeCallback(NULL),
-mAttributeValueCache(NULL)
+mListenAttributeCallback(NULL)
 {	
 	TTValue				attributeNames, messageNames, args;
 	TTSymbol			name;
@@ -66,10 +65,7 @@ mAttributeValueCache(NULL)
                 
                 addMirrorCachedAttribute(name, anAttribute->type);
                 
-                if (!mAttributeValueCache)
-                    mAttributeValueCache = new TTHash();
-                
-                mAttributeValueCache->append(name, kTTValNONE);
+                mAttributeValueCache.append(name, kTTValNONE);
             }
             
             setAttributeGetterFlags(name, attributeFlags);
@@ -94,9 +90,14 @@ mAttributeValueCache(NULL)
     }
 }
 
-TTMirror::~TTMirror() // TODO : delete things...
+TTMirror::~TTMirror()
 {
 	;
+}
+
+TTSymbol TTMirror::getName()
+{
+    return mType;
 }
 
 TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
@@ -141,7 +142,7 @@ TTErr TTMirror::getMirrorCachedAttribute(TTAttribute& anAttribute, TTValue& valu
     data.append(anAttribute.name);
     
     // get the value from the cache
-    if (!mAttributeValueCache->lookup(anAttribute.name, value)) {
+    if (!mAttributeValueCache.lookup(anAttribute.name, value)) {
         
         data.append((TTPtr)&value);
 		return kTTErrNone;
@@ -161,9 +162,9 @@ TTErr TTMirror::setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue
 		data.append((TTPtr)&value);
         
         // update the cache with the value
-        if (!mAttributeValueCache->lookup(anAttribute.name, cached)) {
-            mAttributeValueCache->remove(anAttribute.name);
-            mAttributeValueCache->append(anAttribute.name, value);
+        if (!mAttributeValueCache.lookup(anAttribute.name, cached)) {
+            mAttributeValueCache.remove(anAttribute.name);
+            mAttributeValueCache.append(anAttribute.name, value);
         }
 		
 		err = mSetAttributeCallback->notify(data, kTTValNONE);
@@ -205,9 +206,9 @@ TTErr TTMirror::updateAttributeValue(const TTSymbol attributeName, TTValue& valu
         TTValue cached;
         
         // update the cache with the value
-        if (!mAttributeValueCache->lookup(attributeName, cached)) {
-            mAttributeValueCache->remove(attributeName);
-            mAttributeValueCache->append(attributeName, value);
+        if (!mAttributeValueCache.lookup(attributeName, cached)) {
+            mAttributeValueCache.remove(attributeName);
+            mAttributeValueCache.append(attributeName, value);
         }
     }
 	
