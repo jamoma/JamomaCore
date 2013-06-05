@@ -12,7 +12,7 @@
 #include "TTModular.h"
 
 /** TTContainer ... TODO : an explanation
- 
+	In Max jcom.view and jcom.model are based on this class.
  
  */
 

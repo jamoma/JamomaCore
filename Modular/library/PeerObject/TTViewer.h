@@ -12,7 +12,7 @@
 #include "TTModular.h"
 
 /**	TTViewer ... TODO : an explanation
- 
+	jcom.remote
  
  */
 

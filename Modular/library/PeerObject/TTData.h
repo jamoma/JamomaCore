@@ -12,7 +12,7 @@
 #include "TTModular.h"
 
 /**	TTData ... TODO : an explanation
- 
+	E.g. in Max, this is what jcom.message/return/parameter are based upon.
  */
 class TTMODULAR_EXPORT TTData : public TTDataObjectBase
 {
