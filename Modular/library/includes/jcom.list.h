@@ -1,11 +1,18 @@
-/** 
- * \file jcom.list.h
- * Class for handling linked lists.
- * By Dave Watson, Copyright 2007
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief Class for handling linked lists.
+ *
+ * @details
+ *
+ * @authors Dave Watson
+ *
+ * @copyright Copyright © 2007, Dave Watson @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __JCOM_LIST_H_
 #define __JCOM_LIST_H__

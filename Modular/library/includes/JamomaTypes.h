@@ -1,10 +1,15 @@
-/* 
- * \file JamomaTypes.h
- * Type Definitions.
- 
- * Copyright © 2007
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief Type Definitions.
+ *
+ * @details
+ *
+ * @authors Tim Place, Théo de la Hogue
+ *
+ * @copyright Copyright © 2006, Tim Place, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
