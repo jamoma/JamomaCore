@@ -1,0 +1,8 @@
+<doxygenlayout version="1.0">
+  <navindex>
+    <tab type="user" url="index.html" title="Home"/>
+	<tab type="user" url="modules.html" title="Modules"/>
+	<tab type="user" url="annotated.html" title="Classes"/>
+	<tab type="user" url="files.html" title="Files"/>
+  </navindex>
+</doxygenlayout>
