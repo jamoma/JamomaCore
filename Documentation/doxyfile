@@ -720,11 +720,9 @@ EXCLUDE                = ../DSP/extensions/SoundfileLib/libsndfile \
                          ../Foundation/library/Mersenne-1.1/* \
                          ../Graph/extensions/MidiLib/portmidi \
                          ../Graph/extensions/MidiLib/portmidi/* \
-                         ../Plugtastic/implementations/AudioUnits/AUSDK \
                          ../DSP/implementations/AudioUnits/AUSDK \
                          ../DSP/implementations/PureData/m_pd.h \
-                         ../DSP/extensions/SoundfileLib/libsndfile \
-                         ../AudioGraph/implementations/PureData/m_pd.h
+                         ../DSP/extensions/SoundfileLib/libsndfile
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or 
 # directories that are symbolic links (a Unix file system feature) are excluded 
