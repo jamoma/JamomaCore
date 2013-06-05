@@ -4,7 +4,7 @@
  *
  * @brief A Data Object
  *
- * @details
+ * @details Establishes a control point, which is to say a TTNode that is dramaticly expanded, for a model to get/set its state.
  *
  * @authors Théo de la Hogue
  *
