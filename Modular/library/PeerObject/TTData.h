@@ -4,7 +4,7 @@
  *
  * @brief A Data Object
  *
- * @details
+ * @details Establishes a control point, which is to say a TTNode that is dramaticly expanded, for a model to get/set its state.
  *
  * @authors Théo de la Hogue
  *
@@ -20,7 +20,7 @@
 #include "TTModular.h"
 
 /**	TTData ... TODO : an explanation
- 
+	E.g. in Max, this is what jcom.message/return/parameter are based upon.
  */
 class TTMODULAR_EXPORT TTData : public TTDataObjectBase
 {

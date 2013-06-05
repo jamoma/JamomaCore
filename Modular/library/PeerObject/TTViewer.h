@@ -2,9 +2,9 @@
  *
  * @ingroup modularLibrary
  *
- * @brief A Viewer Object.
+ * @brief An MVC viewer object.
  *
- * @details 
+ * @details In the Max implementation this is a jcom.remote object.
  *
  * @authors Théo de la Hogue
  *

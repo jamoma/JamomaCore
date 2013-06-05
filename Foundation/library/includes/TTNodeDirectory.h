@@ -61,6 +61,7 @@ private:
 	TTHashPtr		aliases;				///< a pointer to a global hashtab which reference all aliases of the tree
 	TTHashPtr		observers;				///< a pointer to a hashtab which register all life cycle observers below that node
 											///< (address/relative/to/this/node, TTList of all observers below that address)
+											///< e.g. so that you can receive notifications of changes to the tree of TTNodes
 	TTMutexPtr		mutex;					///< a Mutex to protect the mObservers hash table.
 	
 public:

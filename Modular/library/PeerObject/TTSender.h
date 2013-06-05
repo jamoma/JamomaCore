@@ -20,7 +20,7 @@
 #include "TTModular.h"
 
 /**	TTSender ... TODO : an explanation
- 
+	control a TTData
  
  */
 
