@@ -1,6 +1,6 @@
 /** @file
  *
- * @ingroup modularMax
+ * @ingroup modularLibrary
  *
  * @brief A Scheduler interface
  *
