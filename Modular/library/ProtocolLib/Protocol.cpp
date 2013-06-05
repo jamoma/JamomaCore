@@ -1,6 +1,6 @@
 /** @file
  *
- * @ingroup modularMinuit
+ * @ingroup modularOSC
  *
  * @brief A Protocol interface
  *

@@ -1,3 +1,18 @@
+/** @file
+ *
+ * @ingroup modularOSC
+ *
+ * @brief The OSC Protocol
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2013, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
 #ifndef TIME2_HPP_
 #define TIME2_HPP_
 
