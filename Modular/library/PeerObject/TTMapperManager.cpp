@@ -1,10 +1,18 @@
-/* 
- * A Mapper Manager Object
- * Copyright � 2010, Laurent Garnier
- * 
- * License: This code is licensed under the terms of the "New BSD License"
- * http://creativecommons.org/licenses/BSD
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief A MapperManager Object
+ *
+ * @details
+ *
+ * @authors Laurent Garnier
+ *
+ * @copyright © 2010, Laurent Garnier @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTMapperManager.h"
 #include <libxml/encoding.h>

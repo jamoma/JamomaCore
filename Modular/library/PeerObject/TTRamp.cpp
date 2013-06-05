@@ -1,10 +1,18 @@
-/*
- * Ramp Class
- * Copyright © 2008, Tim Place, Théo de la Hogue
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularLibrary
+ *
+ * @brief Ramp Class
+ *
+ * @details
+ *
+ * @authors Tim Place, Théo de la Hogue
+ *
+ * @copyright © 2008, Tim Place, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTRamp.h"
 
