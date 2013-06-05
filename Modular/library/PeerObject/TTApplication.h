@@ -1,12 +1,18 @@
-/* 
- * TTObjectBase to handle application data structure
- * like a TTNodeDirectory and a hash tables of names
+/** @file
  *
- * Copyright © 2010, Théo de la Hogue
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularLibrary
+ *
+ * @brief TTObjectBase to handle application data structure like a TTNodeDirectory and a hash tables of names
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_APPLICATION_H__
 #define __TT_APPLICATION_H__

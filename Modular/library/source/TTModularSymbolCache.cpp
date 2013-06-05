@@ -1,11 +1,17 @@
-/* 
- * TTBlue Class for caching common symbols for speed
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief TTBlue Class for caching common symbols for speed
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright Copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
-
 #include "TTModular.h"
 #include "TTValueCache.h"
 #include "TTSymbolTable.h"

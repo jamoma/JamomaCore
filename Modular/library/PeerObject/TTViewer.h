@@ -1,20 +1,24 @@
-/* 
- * A Viewer Object
- * Copyright © 2010, Théo de la Hogue
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief An MVC viewer object.
+ *
+ * @details In the Max implementation this is a jcom.remote object.
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_VIEWER_H__
 #define __TT_VIEWER_H__
 
 #include "TTModular.h"
 
-/**	TTViewer ... TODO : an explanation
-	jcom.remote
- 
- */
 
 class TTReceiver;
 typedef TTReceiver* TTReceiverPtr;

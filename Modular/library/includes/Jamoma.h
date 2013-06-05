@@ -1,13 +1,17 @@
-/** 
- * \file jamoma.h
- * Jamoma Shared Library - Functions and resources used by Jamoma objects.
+/** @file
  *
- * By Tim Place, Copyright © 2007
+ * @ingroup modularLibrary
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @brief Jamoma Modular Shared Library
+ *
+ * @details Functions and resources used by Jamoma Modular objects.
+ *
+ * @authors Tim Place, Théo de la Hogue
+ *
+ * @copyright Copyright © 2007, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
-
 
 #ifndef __JAMOMA_H__
 #define __JAMOMA_H__

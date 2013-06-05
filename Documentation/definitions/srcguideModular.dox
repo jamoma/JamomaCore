@@ -29,10 +29,31 @@
 */
 
 /**
+ * @defgroup modularMax Jamoma Modular Max
+ * @ingroup modularExtensions
+ * 
+ * An extension providing access to Max-specific functionalities such as the Max scheduler
+*/
+
+/**
  * @defgroup modularMinuit Jamoma Modular Minuit
  * @ingroup modularExtensions
  * 
- * The Minuit extension is in developed for Jamoma 0.6.
+ * Minuit is used for auto-discovery of OSC namespaces
+*/
+
+/**
+ * @defgroup modularOSC Jamoma Modular OSC
+ * @ingroup modularExtensions
+ * 
+ * An extension for OSC (OpenSoundControl) communication
+*/
+
+/**
+ * @defgroup modularSystem Jamoma Modular System
+ * @ingroup modularExtensions
+ * 
+ * An extension impmlementing a scheduler based on the clock of the operation system
 */
 
 // Modular Implementations

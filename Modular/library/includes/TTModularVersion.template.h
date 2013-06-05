@@ -1,12 +1,17 @@
-/* 
- * Jamoma Modular Shared Library
- * Functions and resources used by Jamoma Modular objects.
- * By Tim Place, Copyright © 2009
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief Jamoma Modular Shared Library
+ *
+ * @details Functions and resources used by Jamoma Modular objects.
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2009, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
-
 
 #ifndef __TT_MODULAR_VERSION_H__
 #define __TT_MODULAR_VERSION_H__

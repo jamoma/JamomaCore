@@ -41,3 +41,8 @@
  *
  * Various typedefs used in %Jamoma.
  */
+
+/** @defgroup macros Macros
+ *
+ * Various macros used in %Jamoma.
+ */

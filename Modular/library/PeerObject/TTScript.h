@@ -1,20 +1,24 @@
-/* 
- * A Script Object
- * Copyright © 2010, Théo de la Hogue
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief A Script Object
+ *
+ * @details TODO: Add more info
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_SCRIPT_H__
 #define __TT_SCRIPT_H__
 
 #include "TTModular.h"
 
-/**	TTScript ... TODO : an explanation
- 
- 
- */
 
 /** About line schemas :
  

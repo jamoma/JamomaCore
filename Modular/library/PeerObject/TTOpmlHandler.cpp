@@ -1,13 +1,18 @@
-/* 
- * TTObjectBase to handle opml file reading and writing
- * to be able to store / recall state of an object 
- * into/from opml files.
+/** @file
  *
- * Copyright © 2010, Théo de la Hogue
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularLibrary
+ *
+ * @brief TTObjectBase to handle opml file reading and writing to be able to store / recall state of an object into/from opml files.
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTOpmlHandler.h"
 #include <libxml/encoding.h>
