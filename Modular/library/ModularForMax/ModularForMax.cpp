@@ -1,10 +1,18 @@
-/* 
- * Modular For Max
- * Copyright © 2010, Théo de la Hogue
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief Jamoma Tree
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue, Tim Place
+ *
+ * @copyright © 2008, Théo de la Hogue & Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "ModularForMax.h"
 

@@ -1,12 +1,17 @@
-/* 
- * Jamoma Shared Library: the global jamoma object
- * Functions and resources used by Jamoma objects.
- * By Tim Place, Copyright © 2007
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief The global jamoma object.
+ *
+ * @details Functions and resources used by Jamoma Modular objects.
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2007, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
-
 #include "JamomaObject.h"
 
 

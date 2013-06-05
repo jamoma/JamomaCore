@@ -1,11 +1,18 @@
-/** 
- * \file JamomaSymbols.h
- * Jamoma symbols cached to avoid repeated calls to the expensive SymbolGen() function.
- * By Tim Place, Copyright © 2006
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief Jamoma symbols cached to avoid repeated calls to the expensive SymbolGen() function.
+ *
+ * @details
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2006, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __JAMOMA_SYMBOLS_H__
 #define __JAMOMA_SYMBOLS_H__

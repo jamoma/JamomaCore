@@ -1,10 +1,18 @@
-/* 
- * A contextual subscriber to register TTObjectBase as TTNode in a TTNodeDirectory
- * Copyright © 2010, Théo de la Hogue
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief A contextual subscriber to register TTObjectBase as TTNode in a TTNodeDirectory
+ *
+ * @details TODO: Add more info
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTSubscriber.h"
 
