@@ -35,16 +35,19 @@ typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 	
 	They can potentially be used to override functions that take the numbers in either order. For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order. However, video processing objects will likely access elements in TTColumnID, TTRowID order.
 	
+	@ingroup typedefs
  */
 typedef TTInt32 TTRowID;
 /**	@typedef TTColumnID
 	@brief Datatype for any number used to indicate a column index within the matrix.
 	@see TTRowID
+	@ingroup typedefs
  */
 typedef TTInt32 TTColumnID;
 /**	@typedef TTElementID
 	@brief Datatype for any number used to indicate an element index within the matrix.
 	@see TTRowID
+	@ingroup typedefs
  */
 typedef TTInt16 TTElementID;
 // TODO: should there be a similar typedef for results of math operations that combine these values, i.e. TTIndexMathType?
@@ -257,6 +260,8 @@ public:
 
 		@param	i			row in matrix
 		@param	j			column in matrix
+		
+		@ingroup macros
 	*/
 	#define INDEX_OF_COMPONENT_FIRSTBYTE(i, j)			\
 	{													\
@@ -270,6 +275,8 @@ public:
 		@param	i			row in matrix
 		@param	j			column in matrix
 		@param	e			element within component
+		
+		@ingroup macros
 	*/
 	#define INDEX_OF_ELEMENT_FIRSTBYTE(i, j, e)								\
 	{																		\
