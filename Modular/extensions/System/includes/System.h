@@ -1,17 +1,18 @@
-/*
- * System Scheduler
- * Copyright © 2013, Théo de la Hogue
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularSystem
+ *
+ * @brief System scheduler class is based on the time of the system
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2013, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
-/*!
- * \class System
- *
- *  System scheduler class is based on the time of the system
- * 
- */
 
 #ifndef __SYSTEM_H__
 #define __SYSTEM_H__

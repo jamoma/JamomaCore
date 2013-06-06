@@ -1,10 +1,18 @@
-/* 
- * A Data Object
- * Copyright © 2010, Théo de la Hogue
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief A Data Object
+ *
+ * @details Establishes a control point, which is to say a TTNode that is dramaticly expanded, for a model to get/set its state.
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_DATA_H__
 #define __TT_DATA_H__
@@ -12,7 +20,7 @@
 #include "TTModular.h"
 
 /**	TTData ... TODO : an explanation
- 
+	E.g. in Max, this is what jcom.message/return/parameter are based upon.
  */
 class TTMODULAR_EXPORT TTData : public TTDataObjectBase
 {

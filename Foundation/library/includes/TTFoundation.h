@@ -29,6 +29,9 @@
 	cannot be manipulated directly.
  */
 
+	/** This MACRO needs some more Doxygen comments		
+		@ingroup macros
+	*/
 #define TT_OBJECT_CONSTRUCTOR \
 	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 	\
@@ -36,7 +39,9 @@
 	\
 	thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObjectBase(arguments)
 
-
+	/** This MACRO needs some more Doxygen comments		
+		@ingroup macros
+	*/
 #define TT_BASE_OBJECT_CONSTRUCTOR \
 	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
 	\
@@ -44,7 +49,9 @@
 	\
 	thisTTClass :: thisTTClass (TTValue& arguments) : TTObjectBase(arguments)
 
-
+	/** This MACRO needs some more Doxygen comments		
+		@ingroup macros
+	*/
 #define TTCLASS_SETUP(className)												\
 		friend class TTEnvironment;												\
 	public:																		\
@@ -58,7 +65,6 @@
 
 // ON WINDOWS THERE CAN BE NO SPACE BETWEEN ~ and CLASSNAME like
 //		virtual ~ className ();
-
 
 
 void TTFOUNDATION_EXPORT TTFoundationInit(const char* pathToTheJamomaFolder = NULL);

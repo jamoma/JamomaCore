@@ -1,11 +1,18 @@
-/* 
- * Jamoma Symbols
- * Symbols cached to avoid repeated calls to the expensive SymbolGen() function
- * By Tim Place, Copyright © 2006
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief Jamoma symbols cached to avoid repeated calls to the expensive SymbolGen() function.
+ *
+ * @details
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2006, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifdef WIN_VERSION
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'

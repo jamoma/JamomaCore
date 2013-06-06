@@ -1,3 +1,19 @@
+/** @file
+ *
+ * @ingroup modularMinuit
+ *
+ * @brief Minuit Answer
+ *
+ * @details
+ *
+ * @authors Laurent Garnier, Théo de la Hogue
+ *
+ * @copyright © 2011, Laurent Garnier, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
+
 #ifndef MINUITANSWER_HPP_
 #define MINUITANSWER_HPP_
 

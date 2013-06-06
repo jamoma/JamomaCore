@@ -1,17 +1,18 @@
-/*
- * The OSC Protocol
- * Copyright © 2013, Théo de la Hogue
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularOSC
+ *
+ * @brief The OSC Protocol
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2013, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
-/*!
- * \class OSC
- *
- * It's the OSC protocol which use the Open Sound Control protocol 
- * 
- */
 
 #include "Protocol.h"
 #include "OSC.h"

@@ -1,10 +1,18 @@
-/*
- * An OSC send object manager
- * Copyright © 2013, Théo de la Hogue
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularOSC
+ *
+ * @brief An OSC send object manager
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2013, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef OSC_SENDER_MANAGER
 #define OSC_SENDER_MANAGER

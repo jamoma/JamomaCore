@@ -1,10 +1,18 @@
-/* 
- * A Sender Object
- * Copyright © 2010, Théo de la Hogue
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief A Sender Object
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_SENDER_H__
 #define __TT_SENDER_H__
@@ -12,7 +20,7 @@
 #include "TTModular.h"
 
 /**	TTSender ... TODO : an explanation
- 
+	control a TTData
  
  */
 

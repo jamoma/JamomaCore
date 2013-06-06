@@ -26,13 +26,13 @@ DOXYFILE_ENCODING      = UTF-8
 # identify the project. Note that if you do not use Doxywizard you need 
 # to put quotes around the project name if it contains spaces.
 
-PROJECT_NAME           = "The Jamoma Platform"
+PROJECT_NAME           = "Jamoma Core"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. 
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = 0.6.0.a11
+PROJECT_NUMBER         = 0.6.0.a19
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description 
 # for a project that appears at the top of each page and should give viewer 
@@ -672,9 +672,7 @@ INPUT                  = chapters \
                          ../AudioGraph \
                          ../Graphics \
                          ../Graph \
-                         ../../Modules/Modular \
-                         ../Ruby \
-                         ../../Plugtastic
+                         ../Modular
 
 # This tag can be used to specify the character encoding of the source files 
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is 
@@ -722,11 +720,9 @@ EXCLUDE                = ../DSP/extensions/SoundfileLib/libsndfile \
                          ../Foundation/library/Mersenne-1.1/* \
                          ../Graph/extensions/MidiLib/portmidi \
                          ../Graph/extensions/MidiLib/portmidi/* \
-                         ../Plugtastic/implementations/AudioUnits/AUSDK \
                          ../DSP/implementations/AudioUnits/AUSDK \
                          ../DSP/implementations/PureData/m_pd.h \
-                         ../DSP/extensions/SoundfileLib/libsndfile \
-                         ../AudioGraph/implementations/PureData/m_pd.h
+                         ../DSP/extensions/SoundfileLib/libsndfile
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or 
 # directories that are symbolic links (a Unix file system feature) are excluded 

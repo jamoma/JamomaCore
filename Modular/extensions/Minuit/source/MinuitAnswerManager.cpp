@@ -1,11 +1,18 @@
-/*
- *  MinuitAnswerManager.cpp
+/** @file
  *
+ * @ingroup modularMinuit
  *
- *  Created by Laurent Garnier on 04/06/09.
- *  Copyright 2009 __MyCompanyName__. All rights reserved.
+ * @brief A Protocol interface
  *
+ * @details
+ *
+ * @authors Laurent Garnier, Théo de la Hogue
+ *
+ * @copyright © 2011, Laurent Garnier, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "MinuitAnswerManager.h"
 

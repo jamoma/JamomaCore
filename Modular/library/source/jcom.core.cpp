@@ -1,11 +1,18 @@
-/* 
- * jcom.core
- * shared code used by the jamoma core externals
- * By Tim Place, Copyright � 2006
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief Shared code used by the jamoma core externals
+ *
+ * @details
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2006, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 //#include "ext.h"		// Max externals header
 //#include "ext_obex.h"	// Obex header

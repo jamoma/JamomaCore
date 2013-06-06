@@ -1,10 +1,18 @@
-/*
- * A OSC send object manager
- * Copyright © 2013, Théo de la Hogue
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularMinuit
+ *
+ * @brief A OSC send object manager
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright Copyright © 2013, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "MinuitSenderManager.h"
 

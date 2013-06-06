@@ -1,8 +1,15 @@
-/* 
- * TTModular Library
- * Copyright © 2010, Théo de la Hogue
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup modularLibrary
+ *
+ * @brief TTModular Library
+ *
+ * @details
+ *
+ * @authors Théo de la Hogue
+ *
+ * @copyright Copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

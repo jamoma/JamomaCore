@@ -1,10 +1,18 @@
-/*
- * A Protocol interface
- * Copyright © 2011, Laurent Garnier, Théo de la Hogue
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularLibrary
+ *
+ * @brief A Protocol interface
+ *
+ * @details
+ *
+ * @authors Laurent Garnier, Théo de la Hogue
+ *
+ * @copyright © 2011, Laurent Garnier, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "Protocol.h"
 

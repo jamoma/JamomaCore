@@ -1,11 +1,18 @@
-/*
- * \file jcom.core.h
- * shared code used by the jamoma core externals
- * By Tim Place, Copyright � 2006
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup modularLibrary
+ *
+ * @brief Shared code used by the jamoma core externals
+ *
+ * @details
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2006, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __JMOD_CORE_H__
 #define __JMOD_CORE_H__

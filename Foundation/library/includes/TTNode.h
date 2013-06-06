@@ -58,7 +58,7 @@ private:
 												///< hashed on children names which containing hashtabs hashed on instances
 
 	TTObjectBasePtr		object;					///< an object linked to the TTNode
-	TTPtr				context;				///< an element that contains the object in the environnement
+	TTPtr				context;				///< an element that contains the object in the environnement (e.g. The owning t_object* in Max)
 
 	TTNodeDirectoryPtr	directory;				///< a pointer to a directory
 	
