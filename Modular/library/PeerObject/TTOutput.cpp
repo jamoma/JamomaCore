@@ -46,14 +46,13 @@ mSignalAttr(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTOutput", arguments.size() >= 2);
 	
-	mType = arguments[0];
-	mReturnSignalCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
-	TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
-	
-	if (arguments.size() > 2) {
-		mReturnLinkCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
-		TT_ASSERT("Return Link Callback passed to TTOutput is not NULL", mReturnLinkCallback);
-	}
+    if (arguments.size() >= 1)
+        mType = arguments[0];
+    
+    if (arguments.size() >= 2) {
+        mReturnSignalCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+        TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
+    }
 	
 	if (arguments.size() > 3) {
 		mSignalIn = arguments[3];
@@ -138,8 +137,10 @@ TTOutput::~TTOutput()
 		TTObjectBaseRelease(&mGainUnit);
 	
 	if (mAddressObserver) {
+        
 		if (mInputAddress != kTTSymEmpty)
 			getLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
+        
 		delete (TTValuePtr)mAddressObserver->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
 	}
@@ -148,6 +149,9 @@ TTOutput::~TTOutput()
 TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTErr err;
+    
+    if (!mReturnSignalCallback)
+        return kTTErrGeneric;
 	
 	if (mMute)
 		err = kTTErrNone;

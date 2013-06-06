@@ -35,9 +35,13 @@ mAddressObserver(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTInput", arguments.size() >= 2);
 	
-	mType = arguments[0];
-	mReturnSignalCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
-	TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
+    if (arguments.size() >= 1)
+        mType = arguments[0];
+    
+    if (arguments.size() >= 2) {
+        mReturnSignalCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+        TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
+    }
 	
 	if (arguments.size() > 2) {
 		mSignalIn = arguments[2];
@@ -97,11 +101,16 @@ TTInput::~TTInput()
 }
 
 TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
-{	
+{
+    if (!mReturnSignalCallback)
+        return kTTErrGeneric;
+    
 	if (mMute)
 		return kTTErrNone;
+    
 	else if (mBypass && mOutputObject)
 		return mOutputObject->sendMessage(TTSymbol("SendBypassed"), inputValue, kTTValNONE);
+    
 	else
 		return mReturnSignalCallback->notify(inputValue, kTTValNONE);
 }

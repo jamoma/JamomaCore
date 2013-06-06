@@ -39,11 +39,11 @@ public:	// use public for quick acces during signal processing
 	TTBoolean			mMute;						///< ATTRIBUTE : to mute signal
 	TTBoolean			mBypass;					///< ATTRIBUTE : to pass signal directly to a TTOutput object
 	
-	TTObjectBasePtr			mSignalIn;					///< any data structure to receive complex signal
+	TTObjectBasePtr		mSignalIn;					///< any data structure to receive complex signal
 	TTListPtr			mSignalCache;				///< a list of any data structure to deal with others complex signals (like mixing, dubbing, ...)
-	TTObjectBasePtr			mSignalOut;					///< any data structure to send complex signal
+	TTObjectBasePtr		mSignalOut;					///< any data structure to send complex signal
 	
-	TTObjectBasePtr			mSignalZero;				///< a zero signal
+	TTObjectBasePtr		mSignalZero;				///< a zero signal
 	
 	TTOutputPtr			mOutputObject;				///< TTOutput object to pass signal through
 	
