@@ -22,7 +22,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
-mDescription(kTTSymEmpty),
+mDescription(kTTSym_none),
 mRamp(0),
 mScript(NULL)
 {
