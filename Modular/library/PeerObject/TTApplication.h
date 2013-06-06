@@ -1,10 +1,20 @@
-/* 
- * TTObjectBase to handle application data structure
- * like a TTNodeDirectory and a hash tables of names
+/** @file
  *
- * Copyright © 2010, Théo de la Hogue
+ * @ingroup modularLibrary
+ *
+ * @brief Handles application data structure like a #TTNodeDirectory and a hash tables of names
+ *
+ * @details some details about the class.
+ 
+ * other details. @n@n
+ 
+ * another details. @n@n
+ 
+ *
+ * @see TTApplicationManager, Protocol
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @copyright Copyright © 2010, Théo de la Hogue @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -16,10 +26,6 @@
 #include "TTMirror.h"
 
 
-/** TTApplication ... TODO : an explanation
- 
- 
- */
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
 
@@ -58,6 +64,14 @@ typedef TTXmlHandler* TTXmlHandlerPtr;
 		TTApplicationConvertAppNameToTTName(appName) \
 		
 
+/** Handles application data structure like a #TTNodeDirectory and a hash tables of names
+ *
+ * some details about the class.
+ * other details.
+ * another details.
+ *
+ * @see TTApplicationManager, Protocol
+ */
 class TTMODULAR_EXPORT TTApplication : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTApplication)
@@ -87,7 +101,11 @@ private:
 	
 	TTAddress					mTempAddress;		///< a temporary address to parse opml file
 	
-	/** Set name of the application (and his directory) */
+	/** Attribute accesor: set the name of the application
+        @details set also the name of his #TTNodeDirectory
+        @param  newName     the new name
+        @return	#TTErr      always returns #kTTErrNone
+     */
 	TTErr setName(const TTValue& value);
 	
 	/** */

@@ -114,14 +114,6 @@ void jamoma_init(void)
 		// Create Required Global Instances
 		hash_modules = (t_hashtab*)hashtab_new(0);
 		// TODO: Use quittask_install() to set up a destructor for this to free it before Max exits
-		
-		// This tells Max 5.0.6 and higher that we want the patcher files to be saved such that they are sorted.
-		// Having the saved this way makes our SVN diffs much more meaningful.
-		object_method_long(max, SymbolGen("sortpatcherdictonsave"), 1, NULL);
-	
-		// This tells Max 4.5.7 and higher to take any posts to the Max window and also make the
-		// post to the system console, which greatly aids in debugging problems and crashes
-		object_method_long(max, SymbolGen("setmirrortoconsole"), 1, NULL);
 
 		// Add Jamoma Key Commands:
 		
