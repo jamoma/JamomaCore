@@ -1,10 +1,18 @@
-/*
-	 Jamoma Class for representing parameters for modules, plug-ins, etc.
-	 Copyright © 2010 by Timothy Place
-	 
-	 License: This code is licensed under the terms of the "New BSD License"
-	 http://creativecommons.org/licenses/BSD/
-*/
+/** @file
+ *
+ * @ingroup graphLibrary
+ *
+ * @brief Jamoma Class for representing parameters for modules, plug-ins, etc.
+ *
+ * @details 
+ *
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
 
 #ifndef __TT_PARAMETER_H__
 #define __TT_PARAMETER_H__
