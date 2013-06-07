@@ -1,10 +1,17 @@
-//
-//  AudioGraphUtilityLibIOS.m
-//  AudioGraphUtilityLibIOS
-//
-//  Created by CASEY BASICHIS on 1/8/13.
-//
-//
+/** @file
+ *
+ * @ingroup audioGraphUtilityLib
+ *
+ * @brief Test implementation of AudioGraph for iOS
+ *
+ * @details
+ *
+ * @authors Casey Basichis
+ *
+ * @copyright Copyright © 2013 by Casey Basichis @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
 
 #import "AudioGraphUtilityLibIOS.h"
 

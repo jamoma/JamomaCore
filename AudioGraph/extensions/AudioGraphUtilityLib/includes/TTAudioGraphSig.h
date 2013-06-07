@@ -1,10 +1,18 @@
-/* 
- * TTAudioGraphSig Object
- * Copyright © 2010, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphUtilityLib
+ *
+ * @brief sig≈: generate multichannel signal based on one input value
+ *
+ * @details
+ *
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_SIG_H__
 #define __TT_SIG_H__
