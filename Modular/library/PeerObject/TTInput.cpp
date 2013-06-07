@@ -33,12 +33,12 @@ mOutputObject(NULL),
 mReturnSignalCallback(NULL),
 mAddressObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTInput", arguments.size() >= 2);
+	TT_ASSERT("Correct number of args to create TTInput", arguments.size() > 0);
 	
-    if (arguments.size() >= 1)
+    if (arguments.size() > 0)
         mType = arguments[0];
     
-    if (arguments.size() >= 2) {
+    if (arguments.size() > 1) {
         mReturnSignalCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
         TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
     }
@@ -181,7 +181,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	TTSymbol		anAddress;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
-	TTObjectBasePtr		o;
+	TTObjectBasePtr	o;
 	
 	// unpack baton (an InputPtr)
 	b = (TTValuePtr)baton;
