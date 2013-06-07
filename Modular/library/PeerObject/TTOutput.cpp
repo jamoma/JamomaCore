@@ -44,14 +44,19 @@ mAddressObserver(NULL),
 mSignal(kTTValNONE),
 mSignalAttr(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTOutput", arguments.size() >= 2);
+	TT_ASSERT("Correct number of args to create TTOutput", arguments.size() > 0);
 	
-    if (arguments.size() >= 1)
+    if (arguments.size() > 0)
         mType = arguments[0];
     
-    if (arguments.size() >= 2) {
+    if (arguments.size() > 1) {
         mReturnSignalCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
         TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
+    }
+    
+    if (arguments.size() > 2) {
+        mReturnLinkCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+        TT_ASSERT("Return Link Callback passed to TTOutput is not NULL", mReturnLinkCallback);
     }
 	
 	if (arguments.size() > 3) {
