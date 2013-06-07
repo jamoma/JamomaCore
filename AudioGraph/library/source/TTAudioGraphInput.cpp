@@ -2,9 +2,9 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief TTAudioGraphInput is an audio object functioning as a source at the top of the #TTAudioGraph graph, providing sound signals from an external audio input device to the graph for further downstream processing.
+ * @brief Defines input interface at the top of an AudioGraph
  *
- * @details In Jamoma AudioGraph audio processing is driven from a from a ‘terminal object’ or ‘sink’ at the bottom of the chain.
+ * @details TTAudioGraphInput is an audio object functioning as a source at the top of the #TTAudioGraph graph, providing sound signals from an external audio input device to the graph for further downstream processing. In Jamoma AudioGraph audio processing is driven from a from a ‘terminal object’ or ‘sink’ at the bottom of the chain.
  * Hence TTAudioGraphInput objects are not driving the audio graph processing, they simply provides audio signals for further downstream processing
  * For example sources may provide audio input tio the graph from the hosting environment, read sound frok disk or be used for sound synthesis.
  * Sources may have other #TTAudioGraphObjects connected downstream, but can not be connected to further upstream TTAudioGraphObjects.

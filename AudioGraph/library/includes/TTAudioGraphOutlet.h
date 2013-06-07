@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief This object represents a single 'outlet' from a TTAudioGraphObject.
+ * @brief Defines a single 'outlet' from an individual AudioGraph object
  *
  * @details TTAudioGraphObject maintains a vector of these outlets.
  *
