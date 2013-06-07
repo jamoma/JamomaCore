@@ -2,37 +2,30 @@
  *
  * @ingroup modularLibrary
  *
- * @brief TTObjectBase to handle any signal input
+ * @brief An audio input component for Jamoma models.
  *
  * @details
  *
- * @authors Théo de la Hogue
+ * @authors Timothy Place
  *
- * @copyright © 2010, Théo de la Hogue @n
+ * @copyright © 2013, Timothy Place @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
+#ifndef __TT_INPUT_AUDIO_H__
+#define __TT_INPUT_AUDIO_H__
 
-#ifndef __TT_INPUT_H__
-#define __TT_INPUT_H__
+#include "TTInput.h"
 
-#include "TTOutput.h"
-
-/** TTInput ... TODO : an explanation
- 
- 
+/** An audio input component for Jamoma models.
  */
-
-//class TTOutput;
-//typedef TTOutput* TTOutputPtr;
-
-class TTMODULAR_EXPORT TTInput : public TTDataObjectBase
+class TTMODULAR_EXPORT TTInputAudio : public TTInput
 {
-	TTCLASS_SETUP(TTInput)
-	
+	TTCLASS_SETUP(TTInputAudio)
+
 public:	// use public for quick acces during signal processing
-	
+/*
 	TTSymbol			mType;						///< ATTRIBUTE : the type of the input signal (like audio, video, ...)
 	TTAddress           mOutputAddress;				///< ATTRIBUTE : address of the output to bind
 	
@@ -44,37 +37,29 @@ public:	// use public for quick acces during signal processing
 	TTObjectBasePtr		mSignalOut;					///< any data structure to send complex signal
 	
 	TTObjectBasePtr		mSignalZero;				///< a zero signal
-	
+		
 	TTOutputPtr			mOutputObject;				///< TTOutput object to pass signal through
-	
+*/	
 private:
 
-	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this input
-	TTCallbackPtr		mAddressObserver;			///< to observe mOutputAddress creation/destruction
+//	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this input
+//	TTCallbackPtr		mAddressObserver;			///< to observe mOutputAddress creation/destruction
 	
 	/** Send signal. The mIndex have to be choosen before */
-	TTErr Send(const TTValue& inputValue, TTValue& outputValue);
+//	TTErr Send(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Set outputObject */
-	TTErr Link(const TTValue& inputValue, TTValue& outputValue);
+//	TTErr Link(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Remove outputObject */
-	TTErr Unlink();
+//	TTErr Unlink();
 	
 	/** Set the outputAddress attribute */
-	TTErr setOutputAddress(const TTValue& value);
-	
-	friend TTErr TTMODULAR_EXPORT TTInputDirectoryCallback(TTPtr baton, TTValue& data);
+//	TTErr setOutputAddress(const TTValue& value);
 
 };
 
-typedef TTInput* TTInputPtr;
-
-/**	
- @param	baton						..
- @param	data						..
- @return							an error code */
-TTErr TTMODULAR_EXPORT TTInputDirectoryCallback(TTPtr baton, TTValue& data);
+typedef TTInputAudio* TTInputAudioPtr;
 
 
-#endif // __TT_INPUT_H__
+#endif // __TT_INPUT_AUDIO_H__
