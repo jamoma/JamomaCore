@@ -15,6 +15,7 @@
 
 
 #include "TTOutput.h"
+#include "TTModular.h"
 
 #define thisTTClass			TTOutput
 #define thisTTClassName		"Output"

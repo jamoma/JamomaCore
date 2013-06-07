@@ -314,7 +314,7 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddressItemPtr    aNamespace = NULL;
-    TTAddressItemPtr    topItem;
+    //TTAddressItemPtr    topItem;
 	TTSymbol			name;
 	TTValue				v, parsedLine;
     

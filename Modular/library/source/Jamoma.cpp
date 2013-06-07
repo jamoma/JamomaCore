@@ -57,7 +57,7 @@ void jamoma_init(void)
     short		outvol = 0;
     t_fourcc	outtype, filetype = 'TEXT';
     char        name[MAX_PATH_CHARS];
-    char 		fullpath[MAX_PATH_CHARS];
+    //char 		fullpath[MAX_PATH_CHARS];
     
 	if (!initialized) {
         

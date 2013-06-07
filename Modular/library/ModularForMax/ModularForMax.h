@@ -19,6 +19,8 @@
 #include "TTNodeDirectory.h"
 #include "TTRegex.h"
 #include "TTSubscriber.h"
+#include "TTInput.h"
+#include "TTOutput.h"
 
 extern TTMODULAR_EXPORT	TTSymbol			kTTSym_Jamoma;
 extern TTMODULAR_EXPORT	TTApplicationPtr	JamomaApplication;
