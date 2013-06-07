@@ -1,11 +1,18 @@
-/* 
- * Plugtastic
- * Extension Class for JamomaAudioGraph
- * Copyright © 2010, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphUtilityLib
+ *
+ * @brief Registers classes for Plugtastic 
+ *
+ * @details
+ *
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAudioGraphAPI.h"
 #include "PlugtasticInput.h"
