@@ -1,11 +1,18 @@
-/* 
- * TTAudioGraphOffset Object
- * Copyright © 2011, Nils Peters, 
- * United Airways SAN -> SFO
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphUtilityLib
+ *
+ * @brief offset≈: dynamically shift channels in multichannel signal
+ *
+ * @details United Airways SAN -> SFO
+ *
+ * @authors Nils Peters
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAudioGraphOffset.h"
 

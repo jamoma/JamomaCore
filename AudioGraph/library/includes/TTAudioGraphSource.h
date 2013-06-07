@@ -2,9 +2,9 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief TTAudioGraphSource represents one link or connection between two AudioGraph objects.
+ * @brief Represents one connection between two AudioGraph objects
  *
- * @details TTAudioGraphSource is an upstream connection from a #TTAudioGraphInlet of a #TTAudioGraphObject to a "TTAudioGraphOutlet of an upstream #TTAudioGraphObject.
+ * @details TTAudioGraphSource represents one link or connection between two AudioGraph objects. TTAudioGraphSource is an upstream connection from a #TTAudioGraphInlet of a #TTAudioGraphObject to a "TTAudioGraphOutlet of an upstream #TTAudioGraphObject.
  * The relationship of a source to other parts of the audio graph hierarchy is as follows:
  *
  * - A graph may have many objects.

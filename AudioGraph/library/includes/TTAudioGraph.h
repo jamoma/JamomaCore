@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief AudioGraph Audio Graph Layer for Jamoma DSP
+ * @brief Registers classes for the primary AudioGraph library
  *
  * @details Creates a wrapper for TTAudioObjectBases that can be used to build an audio processing graph.
  *

@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief A single 'inlet' to a TTAudioGraphObject.
+ * @brief Defines a single 'inlet' from an individual AudioGraph object
  *
  * @details TTAudioGraphObject maintains a vector of these inlets.
  * The relationship of an inlet to other parts of the audio graph hierarchy is as follows:

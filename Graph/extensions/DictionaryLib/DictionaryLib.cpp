@@ -1,9 +1,15 @@
-/* 
- * DictionaryLib
- * Extension Class for Jamoma Graph
- * Copyright © 2010, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup graphDictionaryLib
+ *
+ * @brief Extension Class for Jamoma Graph
+ *
+ * @details
+ *
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
