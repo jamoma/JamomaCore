@@ -1,10 +1,18 @@
-/* 
- * TTAudioGraphJoin Object
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup audioGraphUtilityLib
+ *
+ * @brief join≈: merge multichannel signals
+ *
+ * @details
+ *
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2008 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_JOIN_H__
 #define __TT_JOIN_H__

@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief Creates a wrapper for TTAudioObjectBases that can be used to build an audio processing graph.
+ * @brief Generates the AudioGraph structure
  *
  * @details
  *

@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief Describe a node in an audio processing graph
+ * @brief Describes a node in an audio processing graph
  *
  * @details
  *
