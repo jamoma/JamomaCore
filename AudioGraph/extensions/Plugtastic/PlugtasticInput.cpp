@@ -1,6 +1,6 @@
 /** @file
  *
- * @ingroup audioGraphUtilityLib
+ * @ingroup audioGraphPlugtastic
  *
  * @brief Manage input signals into Plugtastic 
  *
