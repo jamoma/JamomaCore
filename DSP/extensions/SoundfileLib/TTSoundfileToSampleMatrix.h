@@ -73,7 +73,29 @@ TTErr TTSoundfileToSampleMatrix::setFilePath(const TTValue& newValue)
 		// copy the metadata to our local variable
 		memcpy(&mSoundFileInfo, soundfileInfo, sizeof(SF_INFO));
 		
-		//// continue working here
+		// copy the new filepath to the our local variable
+		mFilePath = potentialFilePath;
+		// there is some playback specific stuff here in original
+		// should be abstracted out if we want a shared setFilePath()
+		
+		// copy specific metadata pieces to separate TTSymbols
+		// in transfer from player, made this little pattern into a macro
+		#define SF_STRING_TO_TTSYMBOL(sf_info_piece, local_ttsymbol) \
+			textInfo = sf_get_string(soundfile, sf_info_piece); \
+			if (textInfo) local_ttsymbol = TT(textInfo); \
+			else local_ttsymbol = kTTSymEmpty;
+		
+		// title
+		SF_STRING_TO_TTSYMBOL(SF_STR_TITLE, mTitle);
+		// artist
+		SF_STRING_TO_TTSYMBOL(SF_STR_ARTIST, mArtist);
+		// comment
+		SF_STRING_TO_TTSYMBOL(SF_STR_COMMENT, mAnnotation);
+		// date
+		SF_STRING_TO_TTSYMBOL(SF_STR_DATE, mDate);
+		
+		// duration
+		mDuration = mSoundFileInfo.frames / mSoundFileInfo.samplerate;
 		
 		return kTTErrNone;
 	} else { // if the filepath was invalid
