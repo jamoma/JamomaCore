@@ -44,7 +44,7 @@ mNumChannels(0)
 	TTErr setFilePath(const TTValue& value);
 }
 
-TTSoundfile::TTSoundfile()
+TTSoundfile::~TTSoundfile()
 {
 	// copied from TTSoundfilePlayer, confirm that it is needed
 	if (mSoundFile)
@@ -60,7 +60,8 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
 #ifdef TT_PLATFORM_WIN
 	// There is a bug in libsndfile on Windows where upon return from this function a runtime check fails
 	// because the stack is corrupted around soundfileInfo when sf_open() is called.
-	// We work around this by allocating some extra memory to absorb the overrun. [tap]
+	// We work around this by allocating some extra memory to absorb the overrun.
+    // [tap - old comment from soundfileplayer]
 	SF_INFO		soundfileInfo[2];
 #else
 	SF_INFO		soundfileInfo[1];
@@ -83,10 +84,21 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
 		// copy the metadata to our local variable
 		memcpy(&mSoundFileInfo, soundfileInfo, sizeof(SF_INFO));
 		
-		// copy the new filepath to the our local variable
+		/* copy additional data to local variables */
+        // filepath
 		mFilePath = potentialFilePath;
-		// there is some playback specific stuff here in original
-		// should be abstracted out if we want a shared setFilePath()
+        
+        // number of channels
+        mNumChannels = mSoundFileInfo.channels;
+        
+        // sample rate
+        mSampleRate = mSoundFileInfo.samplerate;
+        
+        // duration in samples
+		mDurationInSamples = mSoundFileInfo.frames;
+        
+        // duration in seconds
+		mDurationInSeconds = mDurationInSamples / mSampleRate;
 		
 		// copy specific metadata pieces to separate TTSymbols
 		// in transfer from player, made this little pattern into a macro
@@ -99,20 +111,19 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
 		SF_STRING_TO_TTSYMBOL(SF_STR_TITLE, mTitle);
 		// artist
 		SF_STRING_TO_TTSYMBOL(SF_STR_ARTIST, mArtist);
-		// comment
-		SF_STRING_TO_TTSYMBOL(SF_STR_COMMENT, mAnnotation);
 		// date
 		SF_STRING_TO_TTSYMBOL(SF_STR_DATE, mDate);
-		
-		// duration
-		mDuration = mSoundFileInfo.frames / mSoundFileInfo.samplerate;
+        // comment
+		SF_STRING_TO_TTSYMBOL(SF_STR_COMMENT, mAnnotation);
+        
 		
 		return kTTErrNone;
+        
 	} else { // if the filepath was invalid
 		char errstr[256];
 		sf_error_str(soundfile, errstr, 256);
 		TTLogMessage("cannot open soundfile %s: %s", potentialFilePath.c_str(), errstr);
-		return kTTErrGeneric;
+		return kTTErrInvalidValue;
 	}
 	
 }

@@ -34,17 +34,18 @@ class TTSoundfile : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTSoundfile)
 	
 protected:
-	TTSymbol		mFilePath;		///< full POSIX path to the file, including file name
-    TTInt16         mNumChannels;   ///< channels in the file
-    TTFloat64		mSampleRate;    ///< samples per second
-    TTFloat64       mDuration;      ///< length in seconds
-    TTSymbol		mTitle;         ///< title if metadata is present in the file
-    TTSymbol		mAnnotation;    ///< comments if metadata is present in the file
-    TTSymbol		mArtist;        ///< artist if metadata is present in the file
-    TTSymbol		mDate;          ///< date if metadata is present in the file
+	TTSymbol		mFilePath;              ///< full POSIX path to the file, including file name
+    TTInt16         mNumChannels;           ///< channels in the file
+    TTFloat64       mSampleRate;            ///< samples per second
+    TTInt64         mDurationInSamples;     ///< length in samples
+    TTFloat64       mDurationInSeconds;     ///< length in seconds
+    TTSymbol		mTitle;                 ///< title if metadata is present in the file
+    TTSymbol		mArtist;                ///< artist if metadata is present in the file
+    TTSymbol		mDate;                  ///< date if metadata is present in the file
+    TTSymbol		mAnnotation;            ///< comments if metadata is present in the file
     
-	SNDFILE*		mSoundFile; 	///< libsndfile handle for the actual file open
-	SF_INFO			mSoundFileInfo;	///< libsndfile metadata for the file we open
+	SNDFILE*		mSoundFile;             ///< libsndfile handle for the actual file we open
+	SF_INFO			mSoundFileInfo;         ///< libsndfile metadata for the file we open
 	
 };
 
