@@ -44,7 +44,31 @@ protected:
 //** Send a file path to the object and attempt to load the file *//
 TTErr TTSoundfileToSampleMatrix::setFilePath(const TTValue& newValue)
 {
+	TTSymbol	potentialFilePath = newValue;
+	SNDFILE*	soundfile;
+	const char*	textInfo;
+#ifdef TT_PLATFORM_WIN
+	// There is a bug in libsndfile on Windows where upon return from this function a runtime check fails
+	// because the stack is corrupted around soundfileInfo when sf_open() is called.
+	// We work around this by allocating some extra memory to absorb the overrun. [tap]
+	SF_INFO		soundfileInfo[2];
+#else
+	SF_INFO		soundfileInfo[1];
+#endif
+
+	memset(&soundfileInfo, 0, sixeof(SF_INFO));
+	//soundfileInfo.format = 0;
+	soundfile = sf_open(potentialFilePath.c_str(), SFM_READ, soundfileInfo);
 	
+	if (soundfile) { // if the filepath was valid
+		
+		return kTTErrNone;
+	} else { // if the filepath was invalid
+		char errstr[256];
+		sf_error_str(soundfile, errstr, 256);
+		TTLogMessage("cannot open soundfile %s: %s", potentialFilePath.c_str(), errstr);
+		return kTTErrGeneric;
+	}
 	
 }
 
