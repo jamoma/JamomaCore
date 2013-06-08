@@ -48,14 +48,14 @@ private:
 	SNDFILE*		mSoundFile;             ///< libsndfile handle for the actual file we open
 	SF_INFO			mSoundFileInfo;         ///< libsndfile metadata for the file we open
 	
+    /** Atribute accessor. Send a filepath to the object and attempt to interface with the file.
+     @param	newValue        full POSIX path to the file, including file name
+     @return	TTErr			returns kTTErrNone until futher notice
+     */
+    TTErr setFilePath(const TTValue& newValue);
+
 };
 
-
-
-/** Atribute accessor. Send a filepath to the object and attempt to interface with the file.
-    @param	newValue        full POSIX path to the file, including file name
-    @return	TTErr			returns kTTErrNone until futher notice
-    */
-TTErr TTSoundfile::setFilePath(const TTValue& newValue);
+typedef TTSoundfile* TTSoundfilePtr;
 
 #endif

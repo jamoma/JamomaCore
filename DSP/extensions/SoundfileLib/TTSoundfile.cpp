@@ -17,17 +17,6 @@
 
 #include "TTSoundfile.h"
 
-TTObjectBasePtr TTSoundfile::instantiate(TTSymbol& name, TTValue& arguments)
-{
-	return new TTSoundfile(arguments);
-}
-
-
-extern "C" void TTSoundfile::registerClass()
-{
-	TTClassRegister(thisTTClassName, thisTTClassTags, TTSoundfile::instantiate);
-}
-
 TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
 mNumChannels(0),
@@ -38,8 +27,7 @@ mTitle(kTTSymEmpty),
 mArtist(kTTSymEmpty),
 mDate(kTTSymEmpty),
 mAnnotation(kTTSymEmpty),
-mSoundFile(NULL),
-mSoundFileInfo(NULL)
+mSoundFile(NULL)
 {
 	// add the attributes and messages here
     addAttributeWithSetter(FilePath, kTypeSymbol);
@@ -48,7 +36,7 @@ mSoundFileInfo(NULL)
     // need to add the rest of these here...
     addAttribute(SampleRate, kTypeFloat64);
         addAttributeProperty(SampleRate, readOnly, kTTBoolYes);
-    addAttribute(DurationInSamples, TTInt64);
+    addAttribute(DurationInSamples, kTypeInt64);
         addAttributeProperty(DurationInSamples, readOnly, kTTBoolYes);
     addAttribute(DurationInSeconds, kTypeFloat64);
         addAttributeProperty(DurationInSeconds, readOnly, kTTBoolYes);
