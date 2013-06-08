@@ -26,10 +26,28 @@
 #endif
 #include "libsndfile/sndfile.h"
 
+#define thisTTClass			TTSoundfile
+#define thisTTClassName		"soundfile"
+#define thisTTClassTags		"soundfile"
+
+//** Creates an interface to data in a soundfile from disk */
+class TTSoundfile : public TTAudioObjectBase {
+	TTCLASS_SETUP(TTSoundfile)
+	
+protected:
+	TTSymbol		mFilePath;		///< full POSIX path to the file, including file name
+	TTSymbol		mTitle, mAnnotation, mArtist, mDate; ///< soundfile metadata
+	SNDFILE*		mSoundFile; 	///< libsndfile handle for the actual file open
+	SF_INFO			mSoundFileInfo;	///< libsndfile metadata for the file we open
+	
+};
 
 
 
-//** Send a file path to the object and attempt to load the file *//
-TTErr TTSoundfileToSampleMatrix::setFilePath(const TTValue& newValue);
+/** Atribute accessor. Send a filepath to the object and attempt to interface with the file.
+    @param	newValue        full POSIX path to the file, including file name
+    @return	TTErr			returns kTTErrNone until futher notice
+    */
+TTErr TTSoundfile::setFilePath(const TTValue& newValue);
 
 #endif
