@@ -31,6 +31,9 @@ mDuration(0.0),
 mNumChannels(0)
 {
 	// add the attributes and messages here
+	
+	//* Send a file path to the object and attempt to load the file *//
+	TTErr setFilePath(const TTValue& value);
 }
 
 TTSoundfileToSampleMatrix::~TTSoundfileToSampleMatrix()

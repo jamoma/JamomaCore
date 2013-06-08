@@ -39,6 +39,13 @@ protected:
 	TTSampleMatrixPtr		mTargetMatrix;		///< local pointer to where we will load the soundfile
 };
 
-// This object needs to work with the TTSampleMatrix. It can be wrapped in the TTSampleMatrix object like fill() to allow for library function. But it needs to be built here within the sndfilelib to limit our exposure to a 3rd party library.
+// TODO: this object needs to work with the TTSampleMatrix. It can be wrapped in the TTSampleMatrix object like fill() to allow for library function. But it needs to be built here within the sndfilelib to limit our exposure to a 3rd party library.
+
+//** Send a file path to the object and attempt to load the file *//
+TTErr TTSoundfileToSampleMatrix::setFilePath(const TTValue& newValue)
+{
+	
+	
+}
 
 #endif // __TT_SOUNDFILETOSAMPLEMATRIX_H__
