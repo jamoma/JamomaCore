@@ -46,9 +46,20 @@ mSoundFileInfo(NULL)
     addAttribute(NumChannels, kTypeInt16);
         addAttributeProperty(NumChannels, readOnly, kTTBoolYes);
     // need to add the rest of these here...
-    
+    addAttribute(SampleRate, kTypeFloat64);
+        addAttributeProperty(SampleRate, readOnly, kTTBoolYes);
+    addAttribute(DurationInSamples, TTInt64);
+        addAttributeProperty(DurationInSamples, readOnly, kTTBoolYes);
     addAttribute(DurationInSeconds, kTypeFloat64);
         addAttributeProperty(DurationInSeconds, readOnly, kTTBoolYes);
+    addAttribute(Title, kTypeSymbol);
+        addAttributeProperty(Title, readOnly, kTTBoolYes);
+    addAttribute(Artist, kTypeSymbol);
+        addAttributeProperty(Artist, readOnly, kTTBoolYes);
+    addAttribute(Date, kTypeSymbol);
+        addAttributeProperty(Date, readOnly, kTTBoolYes);
+    addAttribute(Annotation, kTypeSymbol);
+        addAttributeProperty(Annotation, readOnly, kTTBoolYes);
 	
 	//* Send a file path to the object and attempt to load the file *//
 	TTErr setFilePath(const TTValue& value);

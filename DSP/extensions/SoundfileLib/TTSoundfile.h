@@ -43,7 +43,8 @@ protected:
     TTSymbol		mArtist;                ///< artist if metadata is present in the file
     TTSymbol		mDate;                  ///< date if metadata is present in the file
     TTSymbol		mAnnotation;            ///< comments if metadata is present in the file
-    
+
+private:
 	SNDFILE*		mSoundFile;             ///< libsndfile handle for the actual file we open
 	SF_INFO			mSoundFileInfo;         ///< libsndfile metadata for the file we open
 	
