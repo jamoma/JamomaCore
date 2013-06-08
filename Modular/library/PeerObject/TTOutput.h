@@ -58,7 +58,7 @@ public:	// use public for quick acces during signal processing
 	
 	TTInputPtr					mInputObject;				///< TTInput object to get a signal passing through
 	
-private:
+protected:
 	
 	TTCallbackPtr				mReturnSignalCallback;		///< a way to return back signal to the owner of this output
 	TTCallbackPtr				mReturnLinkCallback;		///< a way to return back the input link status to the owner of this output

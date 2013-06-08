@@ -24,39 +24,28 @@ class TTMODULAR_EXPORT TTInputAudio : public TTInput
 {
 	TTCLASS_SETUP(TTInputAudio)
 
-public:	// use public for quick acces during signal processing
-/*
-	TTSymbol			mType;						///< ATTRIBUTE : the type of the input signal (like audio, video, ...)
-	TTAddress           mOutputAddress;				///< ATTRIBUTE : address of the output to bind
+public:
+	void process(TTSampleValue* anInputSampleVector, TTSampleValue* anOutputSampleVector, TTUInt16 aVectorSize);
+
+	TTSampleValue* getVector()
+	{
+		return TTAudioSignalPtr(mSignalOut)->mSampleVectors[0];
+	}
 	
-	TTBoolean			mMute;						///< ATTRIBUTE : to mute signal
-	TTBoolean			mBypass;					///< ATTRIBUTE : to pass signal directly to a TTOutput object
-	
-	TTObjectBasePtr		mSignalIn;					///< any data structure to receive complex signal
-	TTListPtr			mSignalCache;				///< a list of any data structure to deal with others complex signals (like mixing, dubbing, ...)
-	TTObjectBasePtr		mSignalOut;					///< any data structure to send complex signal
-	
-	TTObjectBasePtr		mSignalZero;				///< a zero signal
+	void setupAudioSignals(TTUInt16 aVectorSize)
+	{
+		mSignalIn->setAttributeValue(kTTSym_numChannels, 1);
+		mSignalOut->setAttributeValue(kTTSym_numChannels, 1);
+        mSignalZero->setAttributeValue(kTTSym_numChannels, 1);
+        
+		mSignalIn->setAttributeValue(kTTSym_vectorSize, aVectorSize);
+		mSignalOut->setAttributeValue(kTTSym_vectorSize, aVectorSize);
+        mSignalZero->setAttributeValue(kTTSym_vectorSize, aVectorSize);
 		
-	TTOutputPtr			mOutputObject;				///< TTOutput object to pass signal through
-*/	
-private:
-
-//	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this input
-//	TTCallbackPtr		mAddressObserver;			///< to observe mOutputAddress creation/destruction
-	
-	/** Send signal. The mIndex have to be choosen before */
-//	TTErr Send(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** Set outputObject */
-//	TTErr Link(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** Remove outputObject */
-//	TTErr Unlink();
-	
-	/** Set the outputAddress attribute */
-//	TTErr setOutputAddress(const TTValue& value);
-
+		mSignalOut->sendMessage(kTTSym_alloc);
+        mSignalZero->sendMessage(kTTSym_alloc);
+        mSignalZero->sendMessage(kTTSym_clear);
+	}
 };
 
 typedef TTInputAudio* TTInputAudioPtr;
