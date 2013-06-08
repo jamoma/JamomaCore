@@ -2,7 +2,7 @@
  *
  * @ingroup dspSoundFileLib
  *
- * @brief Loads a soundfile into a #TTBuffer
+ * @brief Loads a soundfile into a #TTSampleMatrix
  *
  * @details
  *
@@ -13,10 +13,10 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTSoundfileToBuffer.h"
+#include "TTSoundfileToSampleMatrix.h"
 
-#define thisTTClass			TTSoundfileToBuffer
-#define thisTTClassName		"soundfile.tobuffer"
+#define thisTTClass			TTSoundfileToSampleMatrix
+#define thisTTClassName		"soundfile.tosamplematrix"
 #define thisTTClassTags		"audio, soundfile, buffer"
 
 
@@ -33,7 +33,7 @@ mNumChannels(0)
 	// add the attributes and messages here
 }
 
-TTSoundfilePlayer::~TTSoundfilePlayer()
+TTSoundfileToSampleMatrix::~TTSoundfileToSampleMatrix()
 {
 	// copied from TTSoundfilePlayer, confirm that it is needed
 	if (mSoundFile)

@@ -2,11 +2,11 @@
  *
  * @ingroup dspSoundFileLib
  *
- * @brief Loads a soundfile into a #TTBuffer
+ * @brief Loads a soundfile into a #TTSampleMatrix
  *
  * @details
  * 
- * @see TTBuffer, TTSampleMatrix
+ * @see TTSampleMatrix, TTSampleMatrix
  *
  * @authors Nathan Wolek
  *
@@ -15,8 +15,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_SOUNDFILETOBUFFER_H__
-#define __TT_SOUNDFILETOBUFFER_H__
+#ifndef __TT_SOUNDFILETOSAMPLEMATRIX_H__
+#define __TT_SOUNDFILETOSAMPLEMATRIX_H__
 
 #include "TTDSP.h"
 #include "TTSampleMatrix.h"
@@ -26,9 +26,9 @@
 #endif
 #include "libsndfile/sndfile.h"
 
-//** Enables user to load a soundfile from disk into a TTBuffer */
-class TTSoundfileToBuffer : public TTAudioObjectBase {
-	TTCLASS_SETUP(TTSoundfileToBuffer)
+//** Enables user to load a soundfile from disk into a TTSampleMatrix */
+class TTSoundfileToSampleMatrix : public TTAudioObjectBase {
+	TTCLASS_SETUP(TTSoundfileToSampleMatrix)
 	
 protected:
 	TTSymbol		mFilePath;		///< full POSIX path to the file, including file name
@@ -39,6 +39,6 @@ protected:
 	TTSampleMatrixPtr		mTargetMatrix;		///< local pointer to where we will load the soundfile
 };
 
-// This object needs to work with the TTSampleMatrix. It can be wrapped in the TTBuffer object like fill() to allow for library function. But it needs to be built here within the sndfilelib to limit our exposure to a 3rd party library.
+// This object needs to work with the TTSampleMatrix. It can be wrapped in the TTSampleMatrix object like fill() to allow for library function. But it needs to be built here within the sndfilelib to limit our exposure to a 3rd party library.
 
-#endif // __TT_SOUNDFILETOBUFFER_H__
+#endif // __TT_SOUNDFILETOSAMPLEMATRIX_H__
