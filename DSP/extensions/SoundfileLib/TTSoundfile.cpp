@@ -30,15 +30,25 @@ extern "C" void TTSoundfile::registerClass()
 
 TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
+mNumChannels(0),
+mSampleRate(0.0),
+mDurationInSamples(0),
+mDurationInSeconds(0.0),
 mTitle(kTTSymEmpty),
-mAnnotation(kTTSymEmpty),
 mArtist(kTTSymEmpty),
 mDate(kTTSymEmpty),
+mAnnotation(kTTSymEmpty),
 mSoundFile(NULL),
-mDuration(0.0),
-mNumChannels(0)
+mSoundFileInfo(NULL)
 {
 	// add the attributes and messages here
+    addAttributeWithSetter(FilePath, kTypeSymbol);
+    addAttribute(NumChannels, kTypeInt16);
+        addAttributeProperty(NumChannels, readOnly, kTTBoolYes);
+    // need to add the rest of these here...
+    
+    addAttribute(DurationInSeconds, kTypeFloat64);
+        addAttributeProperty(DurationInSeconds, readOnly, kTTBoolYes);
 	
 	//* Send a file path to the object and attempt to load the file *//
 	TTErr setFilePath(const TTValue& value);
@@ -123,7 +133,9 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
 		char errstr[256];
 		sf_error_str(soundfile, errstr, 256);
 		TTLogMessage("cannot open soundfile %s: %s", potentialFilePath.c_str(), errstr);
+        
 		return kTTErrInvalidValue;
+        
 	}
 	
 }
