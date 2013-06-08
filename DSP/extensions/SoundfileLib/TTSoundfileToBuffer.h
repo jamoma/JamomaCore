@@ -19,7 +19,6 @@
 #define __TT_SOUNDFILETOBUFFER_H__
 
 #include "TTDSP.h"
-#include "TTBuffer.h"
 #include "TTSampleMatrix.h"
 
 #ifdef uint
@@ -32,8 +31,14 @@ class TTSoundfileToBuffer : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTSoundfileToBuffer)
 	
 protected:
-	TTSymbol			mFilePath;		///< full POSIX path to the file, including file name
+	TTSymbol		mFilePath;		///< full POSIX path to the file, including file name
+	TTSymbol		mTitle, mAnnotation, mArtist, mDate; ///< soundfile metadata
+	SNDFILE*		mSoundFile; 	///< libsndfile handle for the actual file open
+	SF_INFO			mSoundFileInfo;	///< libsndfile metadata for the file we open
 	
+	TTSampleMatrixPtr		mTargetMatrix;		///< local pointer to where we will load the soundfile
 };
+
+// This object needs to work with the TTSampleMatrix. It can be wrapped in the TTBuffer object like fill() to allow for library function. But it needs to be built here within the sndfilelib to limit our exposure to a 3rd party library.
 
 #endif // __TT_SOUNDFILETOBUFFER_H__
