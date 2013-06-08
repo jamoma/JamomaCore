@@ -5,6 +5,8 @@
  * @brief Loads a soundfile into a #TTBuffer
  *
  * @details
+ * 
+ * @see TTBuffer, TTSampleMatrix
  *
  * @authors Nathan Wolek
  *
@@ -17,6 +19,8 @@
 #define __TT_SOUNDFILETOBUFFER_H__
 
 #include "TTDSP.h"
+#include "TTBuffer.h"
+#include "TTSampleMatrix.h"
 
 #ifdef uint
 #undef uint
