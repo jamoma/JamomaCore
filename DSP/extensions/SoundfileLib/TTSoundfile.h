@@ -5,9 +5,8 @@
  * @brief Provides a common interface to soundfile data
  *
  * @details This object provides a common set of attributes and methods for working with soundfiles at a specific filepath.
- * This allows us to access metadata and copy values in a common way without duplicating code. As with the rest of the 
- * SoundfileLib, the third-party <a href="http://www.mega-nerd.com/libsndfile/">libsndfile library</a> is used for actual
- * access.
+ * This allows us to access metadata and copy values in a common way without duplicating code. As with the rest of the
+ * SoundfileLib, it relies on the third-party <a href="http://www.mega-nerd.com/libsndfile/">libsndfile library</a>.
  *
  * @authors Nathan Wolek
  *
@@ -36,7 +35,14 @@ class TTSoundfile : public TTAudioObjectBase {
 	
 protected:
 	TTSymbol		mFilePath;		///< full POSIX path to the file, including file name
-	TTSymbol		mTitle, mAnnotation, mArtist, mDate; ///< soundfile metadata
+    TTInt16         mNumChannels;   ///< channels in the file
+    TTFloat64		mSampleRate;    ///< samples per second
+    TTFloat64       mDuration;      ///< length in seconds
+    TTSymbol		mTitle;         ///< title if metadata is present in the file
+    TTSymbol		mAnnotation;    ///< comments if metadata is present in the file
+    TTSymbol		mArtist;        ///< artist if metadata is present in the file
+    TTSymbol		mDate;          ///< date if metadata is present in the file
+    
 	SNDFILE*		mSoundFile; 	///< libsndfile handle for the actual file open
 	SF_INFO			mSoundFileInfo;	///< libsndfile metadata for the file we open
 	

@@ -6,8 +6,7 @@
  *
  * @details This object provides a common set of attributes and methods for working with soundfiles at a specific filepath.
  * This allows us to access metadata and copy values in a common way without duplicating code. As with the rest of the
- * SoundfileLib, the third-party <a href="http://www.mega-nerd.com/libsndfile/">libsndfile library</a> is used for actual
- * access.
+ * SoundfileLib, it relies on the third-party <a href="http://www.mega-nerd.com/libsndfile/">libsndfile library</a>.
  *
  * @authors Nathan Wolek
  *
@@ -27,6 +26,29 @@ TTObjectBasePtr TTSoundfile::instantiate(TTSymbol& name, TTValue& arguments)
 extern "C" void TTSoundfile::registerClass()
 {
 	TTClassRegister(thisTTClassName, thisTTClassTags, TTSoundfile::instantiate);
+}
+
+TT_AUDIO_CONSTRUCTOR,
+mFilePath(kTTSymEmpty),
+mTitle(kTTSymEmpty),
+mAnnotation(kTTSymEmpty),
+mArtist(kTTSymEmpty),
+mDate(kTTSymEmpty),
+mSoundFile(NULL),
+mDuration(0.0),
+mNumChannels(0)
+{
+	// add the attributes and messages here
+	
+	//* Send a file path to the object and attempt to load the file *//
+	TTErr setFilePath(const TTValue& value);
+}
+
+TTSoundfile::TTSoundfile()
+{
+	// copied from TTSoundfilePlayer, confirm that it is needed
+	if (mSoundFile)
+		sf_close(mSoundFile);
 }
 
 
