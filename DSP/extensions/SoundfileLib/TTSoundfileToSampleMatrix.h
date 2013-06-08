@@ -56,11 +56,24 @@ TTErr TTSoundfileToSampleMatrix::setFilePath(const TTValue& newValue)
 	SF_INFO		soundfileInfo[1];
 #endif
 
-	memset(&soundfileInfo, 0, sixeof(SF_INFO));
+	memset(&soundfileInfo, 0, sizeof(SF_INFO));
 	//soundfileInfo.format = 0;
 	soundfile = sf_open(potentialFilePath.c_str(), SFM_READ, soundfileInfo);
 	
 	if (soundfile) { // if the filepath was valid
+		
+		// swap out the old for the new, but hold onto the old for a moment
+		SNDFILE* oldSoundFile = mSoundFile;
+		mSoundFile = soundfile;
+		
+		// if there was an old file, we can now close it
+		if (oldSoundFile)
+			sf_close(oldSoundFile);
+		
+		// copy the metadata to our local variable
+		memcpy(&mSoundFileInfo, soundfileInfo, sizeof(SF_INFO));
+		
+		//// continue working here
 		
 		return kTTErrNone;
 	} else { // if the filepath was invalid
