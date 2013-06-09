@@ -127,6 +127,41 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
             TTTestLog("Expected a value of %f, but returned value was %f", TESTDURATIONINSECONDS, return5);
         }
         
+        TTTestLog("\n");
+		TTTestLog("Testing TTSoundfile Metadata...");
+        
+        // TEST 6: reports correct title from metadata
+        TTSymbol return6 = soundfile->getTitle();
+        
+        TTTestLog("Expected metadata title:");
+        TTTestLog(TESTTITLE);
+        TTTestLog("Returned metadata title:");
+        TTTestLog(return6);
+        
+        // TEST 7: reports correct artist from metadata
+        TTSymbol return7 = soundfile->getArtist();
+        
+        TTTestLog("Expected metadata artist:");
+        TTTestLog(TESTARTIST);
+        TTTestLog("Returned metadata artist:");
+        TTTestLog(return7);
+        
+        // TEST 8: reports correct title from metadata
+        TTSymbol return8 = soundfile->getDate();
+        
+        TTTestLog("Expected metadata date:");
+        TTTestLog(TESTDATE);
+        TTTestLog("Returned metadata date:");
+        TTTestLog(return8);
+        
+        // TEST 9: reports correct artist from metadata
+        TTSymbol return9 = soundfile->getAnnotation();
+        
+        TTTestLog("Expected metadata comment:");
+        TTTestLog(TESTANNOTATION);
+        TTTestLog("Returned metadata comment:");
+        TTTestLog(return9);
+        
     }
     
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);

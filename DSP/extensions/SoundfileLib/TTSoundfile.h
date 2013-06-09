@@ -67,6 +67,22 @@ private:
      @return	TTFloat64		duration in second of mSoundFile at mFilePath */
     TTFloat64 getDurationInSeconds();
     
+    /**	Simple data accessor.
+     @return	TTSymbol		title pulled from the mSoundFile's metadata */
+    TTSymbol getTitle();
+    
+    /**	Simple data accessor.
+     @return	TTSymbol		artist pulled from the mSoundFile's metadata */
+    TTSymbol getArtist();
+    
+    /**	Simple data accessor.
+     @return	TTSymbol		date pulled from the mSoundFile's metadata */
+    TTSymbol getDate();
+    
+    /**	Simple data accessor.
+     @return	TTSymbol		comments pulled from the mSoundFile's metadata */
+    TTSymbol getAnnotation();
+    
     /** Unit test for this object.
 	 @param[out] returnedTestInfo	The outcome from the performed unit test.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.

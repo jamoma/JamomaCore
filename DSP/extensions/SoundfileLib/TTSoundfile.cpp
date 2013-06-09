@@ -163,3 +163,23 @@ TTFloat64 TTSoundfile::getDurationInSeconds()
 {
     return this->mDurationInSeconds;
 }
+
+TTSymbol TTSoundfile::getTitle()
+{
+    return this->mTitle;
+}
+
+TTSymbol TTSoundfile::getArtist()
+{
+    return this->mArtist;
+}
+
+TTSymbol TTSoundfile::getDate()
+{
+    return this->mDate;
+}
+
+TTSymbol TTSoundfile::getAnnotation()
+{
+    return this->mAnnotation;
+}
