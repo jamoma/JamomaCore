@@ -142,3 +142,13 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
 	}
 	
 }
+
+TTInt16 TTSoundfile::getNumChannels()
+{
+    return this->mNumChannels;
+}
+
+TTInt64 TTSoundfile::getDurationInSamples()
+{
+    return this->mDurationInSamples;
+}

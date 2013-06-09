@@ -50,6 +50,14 @@ private:
      */
     TTErr setFilePath(const TTValue& newValue);
     
+    /**	Simple data accessor.
+     @return	TTInt16		the number of channels in mSoundFile at mFilePath */
+    TTInt16 getNumChannels();
+    
+    /**	Simple data accessor.
+     @return	TTInt64		the number of frames in mSoundFile at mFilePath */
+    TTInt16 getDurationInSamples();
+    
     /** Unit test for this object.
 	 @param[out] returnedTestInfo	The outcome from the performed unit test.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.

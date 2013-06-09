@@ -17,7 +17,7 @@
 #include "TTSoundfile.h"
 #include "TTUnitTest.h"
 
-#define TESTFILE /Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff
+#define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
 
 TTErr TTSoundfile::test(TTValue& returnedTestInfo)
 {
@@ -33,11 +33,37 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
 		TTSoundfilePtr soundfile = NULL;
 		TTErr err;
 		
-		err = TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&soundfile, kTTValNONE);
+        // TEST 0: instantiate the object to a pointer
+        TTBoolean result0 = { TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&soundfile, kTTValNONE) == kTTErrNone};
+        
 		TTTestAssertion("instantiates successfully",
-						err == kTTErrNone,
+						result0,
 						testAssertionCount,
 						errorCount);
+        
+        // TEST 1: set the filepath
+        TTBoolean result1 = { soundfile->setFilePath(TT(TESTFILE)) == kTTErrNone };
+        
+        TTTestAssertion("setFilePath operates successfully",
+                        result1,
+                        testAssertionCount,
+                        errorCount);
+        
+        // TEST 2: reports correct number of channels
+        TTBoolean result2 = { soundfile->getNumChannels() == 1 };
+        
+        TTTestAssertion("reports the correct number of channels",
+                        result2,
+                        testAssertionCount,
+                        errorCount);
+        
+        // TEST 4: reports correct number of channels
+        TTBoolean result4 = { soundfile->getDurationInSamples() == 39493 };
+        
+        TTTestAssertion("reports the correct number of samples",
+                        result4,
+                        testAssertionCount,
+                        errorCount);
         
     }
     
