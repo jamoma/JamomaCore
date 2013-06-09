@@ -17,6 +17,10 @@
 
 #include "TTSoundfile.h"
 
+#define thisTTClass			TTSoundfile
+#define thisTTClassName		"soundfile"
+#define thisTTClassTags		"soundfile"
+
 TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
 mNumChannels(0),
