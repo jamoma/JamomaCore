@@ -4,10 +4,6 @@
  *
  * @brief Create and destroy Jamoma object instances.
  *
- * @details Base class for all first-class Jamoma objects.
- * Internal objects may inherit directly from #TTObjectBase,
- * but most objects will inherit from #TTDataObjectBase or #TTAudioObjectBase.
- *
  * @authors Timothy Place
  *
  * @copyright Copyright © 2012, Timothy Place @n
@@ -15,43 +11,40 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifdef NOT_READY_YET
 #ifndef __TT_OBJECT_H__
 #define __TT_OBJECT_H__
 
 #include "TTObjectBase.h"
 #include "TTEnvironment.h"
+#include "TTValueCache.h"
 
 /****************************************************************************************************/
 // Class Specifications
 
 /**
-	Base class for all first-class Jamoma objects.
-	Internal objects may inherit directly from #TTObjectBase,
-	but most objects will inherit from #TTDataObjectBase or #TTAudioObjectBase.
+	Create and destroy Jamoma object instances.
 */
-
-// TODO: what the heck is TTBase, and why do we need it?
-
-class TTFOUNDATION_EXPORT TTObject : TTBase {
-private:
+class TTFOUNDATION_EXPORT TTObject {
+protected:
 	friend class TTEnvironment;
 
 	TTObjectBasePtr		mObjectInstance;
 
-
 public:
 	
-	
 	/** Constructor.
-	 @param arguments						Arguments to the constructor.
+		 @param aClassName		The symbolic name of the class to create/wrap.
+		 @param arguments		Arguments to the constructor.
 	 */
-	TTObject(const TTSymbol& aClassName, const TTValue& arguments = kTTVal_NONE) :
+	TTObject(const TTSymbol& aClassName, const TTValue& arguments = kTTValNONE) :
 	mObjectInstance(NULL)
 	{
-		TTObjectBaseInstantiate()
+		TTErr err = TTObjectBaseInstantiate(aClassName, &mObjectInstance, arguments);
 		
-		; // TODO: implement
+		if (err) {
+			TTLogError("TTObject -- error %i instantiating %s", err, aClassName.c_str());
+			throw TTException("object instantiation failed");
+		}
 	}
 	
 	/** Destructor.
@@ -61,16 +54,19 @@ public:
 		TTObjectBaseRelease(&mObjectInstance);
 	}
 	
-	// TODO -- how do we do TTObjectReference?
+	// TODO -- how do we do TTObjectReference?  Copy constructor?
 	
 	
 	// TODO -- static methods for querying the registry
 	
 	
 	
-	
-	// TODO: do the following, but do it as a cast operator
-//	TTObjectBase* getBaseInstance()
+	/** Return a direct pointer to the internal instance.
+		Not recommended in most cases. */
+	TTObjectBase* instance()
+	{
+		return mObjectInstance;
+	}
 	
 	
 	/**	Set an attribute value for an object
@@ -80,8 +76,8 @@ public:
 								Hence, it is not declared const.
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	template <Class T>
-	TTErr setAttributeValue(const TTSymbol& aName, const T& aValue)
+	template <class T>
+	TTErr setAttributeValue(const TTSymbol aName, const T& aValue)
 	{
 		return mObjectInstance->setAttributeValue(aName, aValue);
 	}
@@ -91,10 +87,10 @@ public:
 	 @param	value				The returned value of the attribute.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.	 
 	 */
-	template <Class T>
-	TTErr getAttributeValue(const TTSymbol& aName, T& aReturnedValue)
+	template <class T>
+	TTErr getAttributeValue(const TTSymbol aName, T& aReturnedValue)
 	{
-		return mObjectInstance->getAttributeValue(aName, aValue);
+		return mObjectInstance->getAttributeValue(aName, aReturnedValue);
 	}
 	
 	
@@ -207,4 +203,3 @@ public:
 
 
 #endif // __TT_OBJECT_H__
-#endif // NOT_READY_YET
