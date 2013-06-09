@@ -25,5 +25,5 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
     int testAssertionCount = 0;
     
     
-    return TTTestFinish(testAssertion, errorCount, returnedTestInfo);
+    return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

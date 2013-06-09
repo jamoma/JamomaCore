@@ -53,6 +53,12 @@ private:
      @return	TTErr			returns kTTErrNone until futher notice
      */
     TTErr setFilePath(const TTValue& newValue);
+    
+    /** Unit test for this object.
+	 @param[out] returnedTestInfo	The outcome from the performed unit test.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo);
 
 };
 

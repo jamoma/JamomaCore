@@ -2,6 +2,7 @@
 sources:
   - SoundfileLib.cpp
   - TTSoundfile.cpp
+  - TTSoundfile.test.cpp
   - TTSoundfilePlayer.cpp
   - TTSoundfileRecorder.cpp
   
