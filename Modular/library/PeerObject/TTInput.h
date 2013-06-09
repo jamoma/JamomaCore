@@ -17,15 +17,15 @@
 #ifndef __TT_INPUT_H__
 #define __TT_INPUT_H__
 
-#include "TTModular.h"
+#include "TTOutput.h"
 
 /** TTInput ... TODO : an explanation
  
  
  */
 
-class TTOutput;
-typedef TTOutput* TTOutputPtr;
+//class TTOutput;
+//typedef TTOutput* TTOutputPtr;
 
 class TTMODULAR_EXPORT TTInput : public TTDataObjectBase
 {

@@ -15,6 +15,7 @@
 
 
 #include "TTInput.h"
+#include "TTModular.h"
 
 #define thisTTClass			TTInput
 #define thisTTClassName		"Input"
@@ -33,7 +34,8 @@ mOutputObject(NULL),
 mReturnSignalCallback(NULL),
 mAddressObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTInput", arguments.size() > 0);
+	// There will be no args passed if this is created as a super-class for TTInputAudio [tap]
+	// TT_ASSERT("Correct number of args to create TTInput", arguments.size() > 0);
 	
     if (arguments.size() > 0)
         mType = arguments[0];

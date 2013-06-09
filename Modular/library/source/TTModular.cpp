@@ -15,6 +15,10 @@
 
 
 #include "TTModular.h"
+#include "TTInput.h"
+#include "TTInputAudio.h"
+#include "TTOutput.h"
+#include "TTOutputAudio.h"
 
 // file system needed to retreive the path of JamomaModular.dylib
 #ifdef TT_PLATFORM_MAC
@@ -67,10 +71,12 @@ TTString TTModularInit()
 		TTData::registerClass();
 		TTExplorer::registerClass();
 		TTInput::registerClass();
+		TTInputAudio::registerClass();
 		TTMapper::registerClass();
 		TTMapperManager::registerClass();
 		TTMirror::registerClass();
 		TTOutput::registerClass();
+		TTOutputAudio::registerClass();
 		TTPreset::registerClass();
 		TTPresetManager::registerClass();
         TTRamp::registerClass();

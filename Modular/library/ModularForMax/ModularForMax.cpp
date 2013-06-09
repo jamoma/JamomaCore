@@ -439,26 +439,8 @@ TTErr jamoma_input_create(ObjectPtr x, TTObjectBasePtr *returnedInput)
 /**	Create an input object for audio signal */
 TTErr jamoma_input_create_audio(ObjectPtr x, TTObjectBasePtr *returnedInput)
 {
-	TTValue				args;
-	TTAudioSignalPtr	audioIn = NULL;
-	TTAudioSignalPtr	audioOut = NULL;
-	TTAudioSignalPtr	audioZero = NULL;
-	
-	// prepare arguments
-	args.append(TTSymbol("audio"));
-	args.append(NULL);  // audio input doesn't using callback mechanism
-	
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioIn, 1);
-	args.append(audioIn);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioOut, 1);
-	args.append(audioOut);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioZero, 1);
-	args.append(audioZero);
-	
 	*returnedInput = NULL;
-	TTObjectBaseInstantiate(kTTSym_Input, TTObjectBaseHandle(returnedInput), args);
-	
-	return kTTErrNone;
+	return TTObjectBaseInstantiate("Input.audio", TTObjectBaseHandle(returnedInput), kTTValNONE);
 }
 
 /**	Send any signal to an input object */
@@ -510,19 +492,7 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectBasePtr *returnedOutput)
 	TTValue				args;
 	TTObjectBasePtr     inputLinkCallback = NULL;
 	TTValuePtr          inputLinkBaton;
-	TTAudioSignalPtr	audioIn = NULL;
-	TTAudioSignalPtr	audioOut = NULL;
-	TTAudioSignalPtr	audioTemp = NULL;
-	TTAudioSignalPtr	audioZero = NULL;
-	TTObjectBasePtr		mixUnit = NULL;
-	TTObjectBasePtr		gainUnit = NULL;
-	TTObjectBasePtr		rampMixUnit = NULL;
-	TTObjectBasePtr		rampGainUnit = NULL;
-	
-	// prepare arguments
-	args.append(TTSymbol("audio"));
-	args.append(NULL);  // audio output doesn't use callback mechanism
-	
+		
 	TTObjectBaseInstantiate(TTSymbol("callback"), &inputLinkCallback, kTTValNONE);
 	inputLinkBaton = new TTValue(TTPtr(x));
 	inputLinkBaton->append(TTPtr(gensym("return_link")));
@@ -530,36 +500,8 @@ TTErr jamoma_output_create_audio(ObjectPtr x, TTObjectBasePtr *returnedOutput)
 	inputLinkCallback->setAttributeValue(kTTSym_function, TTPtr(&jamoma_callback_return_value));
 	args.append(inputLinkCallback);
 	
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioIn, 1);
-	args.append(audioIn);
-    
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioOut, 1);
-	args.append(audioOut);
-    
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioTemp, 1);
-	args.append(audioTemp);
-    
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &audioZero, 1);
-	args.append(audioZero);
-	
-	TTObjectBaseInstantiate(TTSymbol("crossfade"), &mixUnit, 1);
-	mixUnit->setAttributeValue(TTSymbol("position"), 1.0);
-	args.append(mixUnit);
-	
-	TTObjectBaseInstantiate(TTSymbol("gain"), &gainUnit, 1);
-	gainUnit->setAttributeValue(TTSymbol("linearGain"), 1.0);
-	args.append(gainUnit);
-	
-	TTObjectBaseInstantiate(TTSymbol("ramp"), &rampMixUnit, 1);
-	args.append(rampMixUnit);
-    
-	TTObjectBaseInstantiate(TTSymbol("ramp"), &rampGainUnit, 1);
-	args.append(rampGainUnit);
-	
 	*returnedOutput = NULL;
-	TTObjectBaseInstantiate(kTTSym_Output, TTObjectBaseHandle(returnedOutput), args);
-	
-	return kTTErrNone;
+	return TTObjectBaseInstantiate("Output.audio", TTObjectBaseHandle(returnedOutput), args);
 }
 
 /**	Send any signal to an output object */
