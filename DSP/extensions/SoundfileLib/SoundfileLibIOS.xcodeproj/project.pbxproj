@@ -13,6 +13,7 @@
 		2A23AF4C169D1D7A004793F5 /* TTSoundfileRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF47169D1D7A004793F5 /* TTSoundfileRecorder.cpp */; };
 		2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD78887169CFD1C00604D7C /* Foundation.framework */; };
 		8EDE4FCC17636CAC00996C15 /* TTSoundfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EDE4FCB17636CAC00996C15 /* TTSoundfile.cpp */; };
+		8EDE518D176497CB00996C15 /* TTSoundfile.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EDE518B176497CB00996C15 /* TTSoundfile.test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -476,6 +477,7 @@
 		8EDE518217636EFC00996C15 /* sndfileIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sndfileIOS-Prefix.pch"; sourceTree = "<group>"; };
 		8EDE518317636EFC00996C15 /* sndfileIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sndfileIOS.h; sourceTree = "<group>"; };
 		8EDE518417636EFC00996C15 /* sndfileIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sndfileIOS.m; sourceTree = "<group>"; };
+		8EDE518B176497CB00996C15 /* TTSoundfile.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfile.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1125,6 +1127,7 @@
 				8EDE4FC917635AF100996C15 /* TTSoundfileToSampleMatrix.h */,
 				8EDE4FCA17636C8900996C15 /* TTSoundfile.h */,
 				8EDE4FCB17636CAC00996C15 /* TTSoundfile.cpp */,
+				8EDE518B176497CB00996C15 /* TTSoundfile.test.cpp */,
 				2A23AF40169D1D7A004793F5 /* SoundfileLib.cpp */,
 				2A23AF41169D1D7A004793F5 /* SoundfileLibIOS */,
 				2A23AF45169D1D7A004793F5 /* TTSoundfilePlayer.cpp */,
@@ -1215,6 +1218,7 @@
 				2A23AF4B169D1D7A004793F5 /* TTSoundfilePlayer.cpp in Sources */,
 				2A23AF4C169D1D7A004793F5 /* TTSoundfileRecorder.cpp in Sources */,
 				8EDE4FCC17636CAC00996C15 /* TTSoundfile.cpp in Sources */,
+				8EDE518D176497CB00996C15 /* TTSoundfile.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
