@@ -31,9 +31,9 @@ class TTSoundfile : public TTAudioObjectBase {
 	
 protected:
 	TTSymbol		mFilePath;              ///< full POSIX path to the file, including file name
-    TTInt16         mNumChannels;           ///< channels in the file
+    TTRowID         mNumChannels;           ///< channels in the file
     TTFloat64       mSampleRate;            ///< samples per second
-    TTInt64         mDurationInSamples;     ///< length in samples
+    TTColumnID      mDurationInSamples;     ///< length in samples
     TTFloat64       mDurationInSeconds;     ///< length in seconds
     TTSymbol		mTitle;                 ///< title if metadata is present in the file
     TTSymbol		mArtist;                ///< artist if metadata is present in the file
@@ -51,12 +51,20 @@ private:
     TTErr setFilePath(const TTValue& newValue);
     
     /**	Simple data accessor.
-     @return	TTInt16		the number of channels in mSoundFile at mFilePath */
-    TTInt16 getNumChannels();
+     @return	TTRowID		the number of channels in mSoundFile at mFilePath */
+    TTRowID getNumChannels();
     
     /**	Simple data accessor.
-     @return	TTInt64		the number of frames in mSoundFile at mFilePath */
-    TTInt16 getDurationInSamples();
+     @return	TTFloat64		samples per second of mSoundFile at mFilePath */
+    TTFloat64 getSampleRate();
+    
+    /**	Simple data accessor.
+     @return	TTColumnID		the number of frames in mSoundFile at mFilePath */
+    TTColumnID getDurationInSamples();
+    
+    /**	Simple data accessor.
+     @return	TTFloat64		duration in second of mSoundFile at mFilePath */
+    TTFloat64 getDurationInSeconds();
     
     /** Unit test for this object.
 	 @param[out] returnedTestInfo	The outcome from the performed unit test.
