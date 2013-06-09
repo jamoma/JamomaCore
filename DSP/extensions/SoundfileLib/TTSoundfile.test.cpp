@@ -72,7 +72,8 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
                         errorCount);
         
         // TEST 2: reports correct number of channels
-        TTBoolean result2 = { soundfile->getNumChannels() == TESTNUMCHANNELS };
+        TTRowID return2 = soundfile->getNumChannels();
+        TTBoolean result2 = { return2 == TESTNUMCHANNELS };
         
         TTTestAssertion("reports the correct number of channels",
                         result2,
@@ -81,11 +82,12 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         
         if(!result2)
         {
-            TTTestLog("Expected a value of %i, but returned value was %i", TESTNUMCHANNELS, soundfile->getNumChannels());
+            TTTestLog("Expected a value of %i, but returned value was %i", TESTNUMCHANNELS, return2);
         }
         
         // TEST 3: reports correct sample rate
-        TTBoolean result3 = TTTestFloatEquivalence(soundfile->getSampleRate(), TESTSAMPLERATE);
+        TTFloat64 return3 = soundfile->getSampleRate();
+        TTBoolean result3 = TTTestFloatEquivalence(return3, TESTSAMPLERATE);
         
         TTTestAssertion("reports the correct sample rate",
                         result3,
@@ -94,11 +96,12 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         
         if(!result3)
         {
-            TTTestLog("Expected a value of %f, but returned value was %f", TESTSAMPLERATE, soundfile->getSampleRate());
+            TTTestLog("Expected a value of %f, but returned value was %f", TESTSAMPLERATE, return3);
         }
         
         // TEST 4: reports correct duration in samples
-        TTBoolean result4 = { soundfile->getDurationInSamples() == TESTDURATIONINSAMPLES };
+        TTColumnID return4 = soundfile->getDurationInSamples();
+        TTBoolean result4 = { return4 == TESTDURATIONINSAMPLES };
         
         TTTestAssertion("reports the correct duration in samples",
                         result4,
@@ -107,7 +110,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         
         if(!result4)
         {
-            TTTestLog("Expected a value of %i, but returned value was %i", TESTDURATIONINSAMPLES, soundfile->getDurationInSamples());
+            TTTestLog("Expected a value of %i, but returned value was %i", TESTDURATIONINSAMPLES, return4);
         }
         
         // TEST 5: reports correct duration in seconds
