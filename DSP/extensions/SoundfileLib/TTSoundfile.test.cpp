@@ -24,6 +24,22 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
     int errorCount = 0;
     int testAssertionCount = 0;
     
+    {
+        
+        
+		TTTestLog("\n");
+		TTTestLog("Testing TTSoundfile Basics...");
+		
+		TTSoundfilePtr soundfile = NULL;
+		TTErr err;
+		
+		err = TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&soundfile, kTTValNONE);
+		TTTestAssertion("instantiates successfully",
+						err == kTTErrNone,
+						testAssertionCount,
+						errorCount);
+        
+    }
     
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
