@@ -6,7 +6,8 @@
  *
  * @details This object provides a common set of attributes and methods for working with soundfiles at a specific filepath.
  * This allows us to access metadata and copy values in a common way without duplicating code. As with the rest of the
- * SoundfileLib, it relies on the third-party <a href="http://www.mega-nerd.com/libsndfile/">libsndfile library</a>.
+ * SoundfileLib, it relies on the third-party <a href="http://www.mega-nerd.com/libsndfile/">libsndfile library</a>.@n
+ * Be aware that attributes and metadata are cached when the setFilePath method is called in order to provide efficiency, but this may lead to problems if the file somehow changes after the method call.
  *
  * @authors Nathan Wolek
  *
