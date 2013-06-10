@@ -148,5 +148,14 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
 
 TTErr	TTSoundfile::peek(const TTColumnID frame, const TTRowID channel, TTSampleValue& value)
 {
-        return kTTErrNone;
+    double temp_value;
+    sf_count_t seekInFrames;
+    sf_count_t numSamplesRead;
+    
+    seekInFrames = frame + channel;
+    
+    sf_seek(mSoundFile, seekInFrames, SEEK_SET);
+    numSamplesRead = sf_readf_double(mSoundFile, &temp_value, 1);
+    
+    return kTTErrNone;
 }

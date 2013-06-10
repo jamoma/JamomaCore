@@ -27,6 +27,7 @@
  #define TESTARTIST "Nathan Wolek"
  #define TESTDATE "2006"
  #define TESTANNOTATION "Yo Mama"
+ #define TENTHSAMPLE -0.03125
 /* */
 
 /* 
@@ -161,6 +162,16 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         TTTestLog(TESTANNOTATION);
         TTTestLog("Returned metadata comment:");
         TTTestLog(return9);
+        
+        TTTestLog("\n");
+		TTTestLog("Testing peek method...");
+        
+        TTSampleValue return10;
+        TTErr error10 = soundfile->peek(10,0,return10);
+        
+        TTBoolean result10 = TTTestFloatEquivalence(return10, TENTHSAMPLE);
+        
+        TTTestLog("I went looking at the 10th sample and found the number %f, but it should have been %f", return10, TENTHSAMPLE);
         
     }
     
