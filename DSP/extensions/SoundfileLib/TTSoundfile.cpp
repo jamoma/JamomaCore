@@ -145,3 +145,8 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
 	}
 	
 }
+
+TTErr	TTSoundfile::peek(const TTColumnID frame, const TTRowID channel, TTSampleValue& value)
+{
+        return kTTErrNone;
+}

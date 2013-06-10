@@ -47,7 +47,7 @@ private:
 	
     /** Atribute accessor. Send a filepath to the object and attempt to interface with the file.
      @param	newValue        full POSIX path to the file, including file name
-     @return	TTErr			returns kTTErrNone until futher notice
+     @return	TTErr		kTTErrInvalidValue is the filepath is invalid, otherwise kTTErrNone 
      */
     TTErr setFilePath(const TTValue& newValue);
     
@@ -106,6 +106,14 @@ private:
     {
         return mAnnotation;
     };
+    
+    /** Get the value stored at a specified index and channel. Modelled after the method found in #TTSampleMatrix.
+     @param[in]     frame       index of sample as count from the beginning of file. first sample = 0.
+     @param[in]     channel     channel within multichannel file. 
+     @param[out]    value       used to return the value pulled from sound file.
+     @return        TTErr       returns kTTErrNone until futher notice
+     */
+    TTErr	peek(const TTColumnID frame, const TTRowID channel, TTSampleValue& value);
     
     /** Unit test for this object.
 	 @param[out] returnedTestInfo	The outcome from the performed unit test.
