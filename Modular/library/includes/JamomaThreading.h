@@ -8,19 +8,19 @@
 	critical region.
 	
 	At the moment there are serious concerns about deadock because so much subscriber-related code 
-	is calling outlet functions from within critical regions.  For example, jcom.init, etc.
+	is calling outlet functions from within critical regions.  For example, j.init, etc.
 	Also, critical regions is slow.  So the question is: can we reduce or eliminate them?
 	
 	What we know:
 	* Subscribers are created and deleted only in the main thread.
-	* jcom.init (need to check this) should always be deferred and thus called in the main thread.
-	* jcom.message and jcom.parameter can be called from other threads (and thus need some protection)
-	* not sure about jcom.remote
+	* j.init (need to check this) should always be deferred and thus called in the main thread.
+	* j.message and j.parameter can be called from other threads (and thus need some protection)
+	* not sure about j.remote
 	
 	What we need to protect against, some scenarios:
-	* deadlock: jcom.init sends a message to jcom.parameter
-	* deadlock: jcom.message sends a message out of a module into another module and it bangs a jcom.init
-	* corruption: jcom.hub is in the middle of traversing the list of parameters to dispatch a message in the scheduler thread
+	* deadlock: j.init sends a message to j.parameter
+	* deadlock: j.message sends a message out of a module into another module and it bangs a j.init
+	* corruption: j.hub is in the middle of traversing the list of parameters to dispatch a message in the scheduler thread
 					in the middle of doing this a parameter is deleted or added in the main thread
 					
 	Big question: does this whole problem just go away if we switch to using Max's hashtab to manage parameters?

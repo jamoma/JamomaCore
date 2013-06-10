@@ -7,7 +7,7 @@ sources:
   - source/Jamoma.cpp
   - source/JamomaObject.cpp
   - source/JamomaSymbols.cpp
-  - source/jcom.core.cpp
+  - source/j.core.cpp
   - ModularForMax/ModularForMax.cpp
   - PeerObject/TTApplication.cpp
   - PeerObject/TTApplicationManager.cpp

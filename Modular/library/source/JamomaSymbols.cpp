@@ -44,7 +44,7 @@ t_symbol	*jps_done,
 			*jps_boolean, 
             //*jps_list_int,
             //*jps_list_float,
-			*jps_none,				// this type only used by jcom.message
+			*jps_none,				// this type only used by j.message
 			*jps_jcom_hub, 
 			*jps_feedback,
 			*jps_alias,
@@ -218,7 +218,7 @@ t_symbol	*jps_done,
 			*jps_sendlastvalue,
 			*jps_sendbypassedvalue,
 			*jps_star,
-			*jps_add,							// used for calling methods on jcom.receivemaster
+			*jps_add,							// used for calling methods on j.receivemaster
 			*jps_remove,
 			*jps_dispatch,
 			*jps_subpatcher,
@@ -255,8 +255,8 @@ void jamomaSymbolsInit()
 	jps_boolean						= SymbolGen("boolean");
     //jps_list_int                    = SymbolGen("list_int");
     //jps_list_float                  = SymbolGen("list_float");
-	jps_none						= SymbolGen("none");			// this type only used by jcom.message
-	jps_jcom_hub					= SymbolGen("jcom.hub"); 
+	jps_none						= SymbolGen("none");			// this type only used by j.message
+	jps_jcom_hub					= SymbolGen("j.hub"); 
     jps_feedback					= SymbolGen("__feedback__");		// used for parameter feedback to the hub
 	// common OSC messages according to the JIG
 	jps_alias						= SymbolGen("alias");
@@ -334,18 +334,18 @@ void jamomaSymbolsInit()
 	jps_1U							= SymbolGen("1U");
 	jps_1U_half						= SymbolGen("1U-half");
 	jps_algorithm_message			= SymbolGen("algorithm_message");
-	jps_private						= SymbolGen("private");		// method called in the hub by jcom.remote
-	jps__gui__						= SymbolGen("__GUI__");		// name of jcom.remote in the gui
-	jps__jcom_in__					= SymbolGen("__jcom_in__");	// name of the module's jcom.in object
-	jps__jcom_out__					= SymbolGen("__jcom_out__");	// name of the module's jcom.out object
+	jps_private						= SymbolGen("private");		// method called in the hub by j.remote
+	jps__gui__						= SymbolGen("__GUI__");		// name of j.remote in the gui
+	jps__jcom_in__					= SymbolGen("__jcom_in__");	// name of the module's j.in object
+	jps__jcom_out__					= SymbolGen("__jcom_out__");	// name of the module's j.out object
 	jps___preview__					= SymbolGen("__preview__");	// name of the remote for jitter preview matrices
-	jps_return						= SymbolGen("return");			// method called in the hub by jcom.return
+	jps_return						= SymbolGen("return");			// method called in the hub by j.return
 	jps_return_address				= SymbolGen("return_address");
 	jps_return_extended				= SymbolGen("return_extended");
 	jps_return_signal				= SymbolGen("return_signal");
 	jps_return_value				= SymbolGen("return_value");
-	jps_go							= SymbolGen("go");				// method in jcom.init called by the hub
-	jps_init						= SymbolGen("/init");			// method in the hub called from jcom.init
+	jps_go							= SymbolGen("go");				// method in j.init called by the hub
+	jps_init						= SymbolGen("/init");			// method in the hub called from j.init
 	//jps_ATTRIBUTES					= SymbolGen("ATTRIBUTES");
 	//jps_BUILD						= SymbolGen("BUILD");
 	//jps_MODULE_NAME					= SymbolGen("MODULE_NAME");	// name of this module class
@@ -356,12 +356,12 @@ void jamomaSymbolsInit()
 	//jps_MENU_REBUILD				= SymbolGen("MENU_REBUILD");
 	jps_size						= SymbolGen("size");
 	//jps_skin						= SymbolGen("skin");
-	jps_jcom_send					= SymbolGen("jcom.send");	
-	jps_jcom_receive				= SymbolGen("jcom.receive");
-	jps_jcom_remote_fromModule 		= SymbolGen("jcom.remote.module.from");	// different than in jamoma 0.3.x to avoid conflicts...
-	jps_jcom_remote_toModule 		= SymbolGen("jcom.remote.module.to");
-	jps_jcom_broadcast_fromHub		= SymbolGen("jcom.broadcast.hub.from");	// used to tell subscribers in a module to subscribe (hub has changed)
-	jps_from_in_object				= SymbolGen("from_in_object");	// messages to the jcom.out object
+	jps_jcom_send					= SymbolGen("j.send");	
+	jps_jcom_receive				= SymbolGen("j.receive");
+	jps_jcom_remote_fromModule 		= SymbolGen("j.remote.module.from");	// different than in jamoma 0.3.x to avoid conflicts...
+	jps_jcom_remote_toModule 		= SymbolGen("j.remote.module.to");
+	jps_jcom_broadcast_fromHub		= SymbolGen("j.broadcast.hub.from");	// used to tell subscribers in a module to subscribe (hub has changed)
+	jps_from_in_object				= SymbolGen("from_in_object");	// messages to the j.out object
 	jps_box							= SymbolGen("box");
 	jps_setcallback					= SymbolGen("setcallback");
 	jps_link_in						= SymbolGen("link_in");
@@ -438,7 +438,7 @@ void jamomaSymbolsInit()
 	jps_sendlastvalue				= SymbolGen("sendlastvalue");
 	jps_sendbypassedvalue			= SymbolGen("sendbypassedvalue");
 	jps_star						= SymbolGen("*");	
-	jps_add							= SymbolGen("add");					// used for calling methods on jcom.receivemaster
+	jps_add							= SymbolGen("add");					// used for calling methods on j.receivemaster
 	jps_remove						= SymbolGen("remove");
 	jps_dispatch					= SymbolGen("dispatch");
 	jps_bpatcher					= SymbolGen("bpatcher");

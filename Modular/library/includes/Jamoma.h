@@ -41,7 +41,7 @@
 
 #include "TTModular.h"
 
-#include "jcom.core.h"
+#include "j.core.h"
 #include "JamomaTypes.h"
 #include "JamomaSymbols.h"
 

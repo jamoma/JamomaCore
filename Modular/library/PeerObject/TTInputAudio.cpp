@@ -64,7 +64,7 @@ void TTInputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* an
 	else {
 		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalIn), *TTAudioSignalPtr(mSignalOut));
 		
-		// sum signal from jcom.send~ objects
+		// sum signal from j.send~ objects
 		if (mSignalCache) {
 			
 			for (mSignalCache->begin(); mSignalCache->end(); mSignalCache->next()) {
