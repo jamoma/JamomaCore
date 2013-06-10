@@ -66,7 +66,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "With the parameters and messages defined as a part of the model, we could hook the second outlet of jcom.parameter and jcom.message directly to the number boxes etc. in the algorithm.",
+					"text" : "With the parameters and messages defined as a part of the model, we could hook the second outlet of j.parameter and j.message directly to the number boxes etc. in the algorithm.",
 					"linecount" : 6,
 					"patching_rect" : [ 265.0, 295.0, 217.0, 79.0 ],
 					"id" : "obj-4",
@@ -301,7 +301,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.oscroute /filtertype /cf /filtergain /q",
+									"text" : "j.oscroute /filtertype /cf /filtergain /q",
 									"patching_rect" : [ 607.0, 293.0, 216.0, 19.0 ],
 									"id" : "obj-14",
 									"fontname" : "Verdana",
@@ -329,7 +329,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.oscroute /left /right /maxdelay /feedback",
+									"text" : "j.oscroute /left /right /maxdelay /feedback",
 									"patching_rect" : [ 46.0, 117.0, 245.0, 19.0 ],
 									"id" : "obj-16",
 									"fontname" : "Verdana",
@@ -760,7 +760,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.oscroute /maxdelay",
+					"text" : "j.oscroute /maxdelay",
 					"patching_rect" : [ 530.0, 310.0, 138.0, 19.0 ],
 					"id" : "obj-16",
 					"fontname" : "Verdana",
@@ -788,7 +788,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.algorithm_control~",
+					"text" : "j.algorithm_control~",
 					"patching_rect" : [ 125.0, 350.0, 136.0, 19.0 ],
 					"id" : "obj-75",
 					"fontname" : "Verdana",
@@ -802,7 +802,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.out~ 2",
+					"text" : "j.out~ 2",
 					"patching_rect" : [ 70.0, 450.0, 77.0, 19.0 ],
 					"id" : "obj-73",
 					"fontname" : "Verdana",
@@ -816,7 +816,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.in~ 2",
+					"text" : "j.in~ 2",
 					"patching_rect" : [ 70.0, 315.0, 102.0, 19.0 ],
 					"id" : "obj-72",
 					"fontname" : "Verdana",
@@ -873,7 +873,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "right",
-					"text" : "jcom.parameter right @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\"",
+					"text" : "j.parameter right @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 80.0, 567.0, 31.0 ],
 					"id" : "obj-32",
@@ -889,7 +889,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "filtertype",
-					"text" : "jcom.parameter filtertype @type string @repetitions/allow 0 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
+					"text" : "j.parameter filtertype @type string @repetitions/allow 0 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 115.0, 567.0, 31.0 ],
 					"id" : "obj-42",
@@ -905,7 +905,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "filtergain",
-					"text" : "jcom.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
+					"text" : "j.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 185.0, 567.0, 31.0 ],
 					"id" : "obj-43",
@@ -921,7 +921,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "q",
-					"text" : "jcom.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
+					"text" : "j.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 220.0, 567.0, 31.0 ],
 					"id" : "obj-44",
@@ -937,7 +937,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "cf",
-					"text" : "jcom.parameter cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
+					"text" : "j.parameter cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 150.0, 567.0, 31.0 ],
 					"id" : "obj-45",
@@ -952,8 +952,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.hub",
-					"text" : "jcom.hub @description \"Stereo echo module.\"",
+					"varname" : "j.hub",
+					"text" : "j.hub @description \"Stereo echo module.\"",
 					"patching_rect" : [ 35.0, 600.0, 309.0, 19.0 ],
 					"id" : "obj-52",
 					"fontname" : "Verdana",
@@ -982,7 +982,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "left",
-					"text" : "jcom.parameter left @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
+					"text" : "j.parameter left @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 45.0, 567.0, 31.0 ],
 					"id" : "obj-58",

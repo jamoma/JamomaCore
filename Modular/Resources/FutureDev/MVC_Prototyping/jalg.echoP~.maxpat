@@ -44,7 +44,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 290.0, 380.0, 149.0, 43.0 ],
-					"text" : "jcom.return amp @type decimal @description \"Just for the example.\"",
+					"text" : "j.return amp @type decimal @description \"Just for the example.\"",
 					"varname" : "left[3]"
 				}
 
@@ -60,7 +60,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 15.0, 175.0, 136.0, 55.0 ],
-					"text" : "jcom.message clear @type none @description \"Just for the example.\"",
+					"text" : "j.message clear @type none @description \"Just for the example.\"",
 					"varname" : "left[2]"
 				}
 
@@ -129,7 +129,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 820.0, 405.0, 320.0, 19.0 ],
-					"text" : "this object gathers information for the hub in the jcom.model"
+					"text" : "this object gathers information for the hub in the j.model"
 				}
 
 			}
@@ -142,7 +142,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 0,
 					"patching_rect" : [ 815.0, 430.0, 304.0, 19.0 ],
-					"text" : "jcom.hubinfo @description \"An echo module\" @type audio"
+					"text" : "j.hubinfo @description \"An echo module\" @type audio"
 				}
 
 			}
@@ -643,7 +643,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 265.0, 160.0, 340.0, 43.0 ],
-					"text" : "jcom.parameter~ feedback @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Delay feedback\"",
+					"text" : "j.parameter~ feedback @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Delay feedback\"",
 					"varname" : "cf[1]"
 				}
 
@@ -659,7 +659,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 110.0, 105.0, 470.0, 43.0 ],
-					"text" : "jcom.parameter maxdelay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 100000 @range/clipmode both @description \"Maximum Delay time in milliseconds for left channel.\"",
+					"text" : "j.parameter maxdelay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 100000 @range/clipmode both @description \"Maximum Delay time in milliseconds for left channel.\"",
 					"varname" : "left[1]"
 				}
 
@@ -675,7 +675,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 680.0, 70.0, 436.0, 43.0 ],
-					"text" : "jcom.parameter filtertype @type string @repetitions/allow 0 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
+					"text" : "j.parameter filtertype @type string @repetitions/allow 0 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
 					"varname" : "filtertype"
 				}
 
@@ -691,7 +691,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 780.0, 225.0, 426.0, 43.0 ],
-					"text" : "jcom.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
+					"text" : "j.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
 					"varname" : "filtergain"
 				}
 
@@ -707,7 +707,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 760.0, 180.0, 436.0, 31.0 ],
-					"text" : "jcom.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
+					"text" : "j.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
 					"varname" : "q"
 				}
 
@@ -723,7 +723,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 705.0, 125.0, 436.0, 43.0 ],
-					"text" : "jcom.parameter cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
+					"text" : "j.parameter cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
 					"varname" : "cf"
 				}
 
@@ -739,7 +739,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 255.0, 280.0, 372.0, 43.0 ],
-					"text" : "jcom.parameter delay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
+					"text" : "j.parameter delay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
 					"varname" : "left"
 				}
 
@@ -754,7 +754,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 113.0, 400.0, 72.0, 19.0 ],
-					"text" : "jcom.thru~"
+					"text" : "j.thru~"
 				}
 
 			}

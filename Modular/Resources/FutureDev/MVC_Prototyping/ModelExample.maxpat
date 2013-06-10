@@ -326,7 +326,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 55.0, 85.0, 349.0, 20.0 ],
-					"text" : "jcom.model could be a wrapper around the algorithm (or model)"
+					"text" : "j.model could be a wrapper around the algorithm (or model)"
 				}
 
 			}
@@ -340,7 +340,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 50.0, 130.0, 198.0, 20.0 ],
-					"text" : "jcom.model /echo~.3 jalg.echoP~ 5"
+					"text" : "j.model /echo~.3 jalg.echoP~ 5"
 				}
 
 			}

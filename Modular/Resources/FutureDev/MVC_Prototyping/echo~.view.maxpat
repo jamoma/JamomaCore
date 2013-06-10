@@ -144,7 +144,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 489.0, 295.0, 162.0, 19.0 ],
-					"text" : "jcom.nodehub echo",
+					"text" : "j.nodehub echo",
 					"varname" : "feedback[1]"
 				}
 
@@ -159,7 +159,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 380.0, 95.0, 302.0, 19.0 ],
-					"text" : "jcom.nodeview has to know the name of the module (#1)"
+					"text" : "j.nodeview has to know the name of the module (#1)"
 				}
 
 			}
@@ -193,7 +193,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 180.0, 155.0, 133.0, 19.0 ],
-					"text" : "jcom.nodeview amp",
+					"text" : "j.nodeview amp",
 					"varname" : "left[2]"
 				}
 
@@ -219,7 +219,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 175.0, 115.0, 133.0, 19.0 ],
-					"text" : "jcom.nodeview clear",
+					"text" : "j.nodeview clear",
 					"varname" : "left[1]"
 				}
 
@@ -292,7 +292,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 510.0, 20.0, 181.0, 19.0 ],
-					"text" : "jcom.nodeview audio/amplitude.2"
+					"text" : "j.nodeview audio/amplitude.2"
 				}
 
 			}
@@ -306,14 +306,14 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 320.0, 20.0, 181.0, 19.0 ],
-					"text" : "jcom.nodeview audio/amplitude.1"
+					"text" : "j.nodeview audio/amplitude.1"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"id" : "obj-50",
-					"maxclass" : "jcom.meter~",
+					"maxclass" : "j.meter~",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -326,7 +326,7 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-49",
-					"maxclass" : "jcom.meter~",
+					"maxclass" : "j.meter~",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -406,7 +406,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 20.0, 250.0, 162.0, 19.0 ],
-					"text" : "jcom.nodeview feedback",
+					"text" : "j.nodeview feedback",
 					"varname" : "feedback"
 				}
 
@@ -421,7 +421,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 20.0, 185.0, 141.0, 19.0 ],
-					"text" : "jcom.nodeview right",
+					"text" : "j.nodeview right",
 					"varname" : "right"
 				}
 
@@ -1077,7 +1077,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 358.0, 170.0, 162.0, 19.0 ],
-					"text" : "jcom.nodeview filtertype",
+					"text" : "j.nodeview filtertype",
 					"varname" : "filtertype"
 				}
 
@@ -1092,7 +1092,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 468.0, 420.0, 162.0, 19.0 ],
-					"text" : "jcom.nodeview filtergain",
+					"text" : "j.nodeview filtergain",
 					"varname" : "filtergain"
 				}
 
@@ -1107,7 +1107,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 466.545471, 381.545441, 123.0, 19.0 ],
-					"text" : "jcom.nodeview q",
+					"text" : "j.nodeview q",
 					"varname" : "q"
 				}
 
@@ -1122,7 +1122,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 468.0, 455.0, 126.0, 19.0 ],
-					"text" : "jcom.nodeview cf",
+					"text" : "j.nodeview cf",
 					"varname" : "cf"
 				}
 
@@ -1193,7 +1193,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 20.0, 115.0, 133.0, 19.0 ],
-					"text" : "jcom.nodeview left",
+					"text" : "j.nodeview left",
 					"varname" : "left"
 				}
 
@@ -1221,7 +1221,7 @@
 					"has_mix" : 1,
 					"has_mute" : 1,
 					"id" : "obj-48",
-					"maxclass" : "jcom.ui",
+					"maxclass" : "j.ui",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

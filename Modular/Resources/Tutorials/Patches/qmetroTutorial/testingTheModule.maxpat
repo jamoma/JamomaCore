@@ -90,7 +90,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 23.0, 162.0, 179.0, 20.0 ],
-					"text" : "jcom.oscroute /trigger"
+					"text" : "j.oscroute /trigger"
 				}
 
 			}

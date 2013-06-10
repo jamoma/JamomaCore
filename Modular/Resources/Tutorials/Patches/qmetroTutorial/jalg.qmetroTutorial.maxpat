@@ -50,7 +50,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 20.0, 56.0, 183.0, 20.0 ],
-					"text" : "jcom.oscroute /toggle /time"
+					"text" : "j.oscroute /toggle /time"
 				}
 
 			}

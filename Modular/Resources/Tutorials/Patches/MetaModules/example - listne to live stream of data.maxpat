@@ -78,7 +78,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 130.0, 186.0, 172.0, 17.0 ],
-					"text" : "name jcom.remote.module.from"
+					"text" : "name j.remote.module.from"
 				}
 
 			}
@@ -106,7 +106,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 130.0, 250.0, 231.0, 19.0 ],
-					"text" : "jcom.receive \"that deaf dumb and blind kid\""
+					"text" : "j.receive \"that deaf dumb and blind kid\""
 				}
 
 			}
