@@ -87,7 +87,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         
         // TEST 3: reports correct sample rate
         TTFloat64 return3 = soundfile->getSampleRate();
-        TTBoolean result3 = TTTestFloatEquivalence(return3, TESTSAMPLERATE);
+        TTBoolean result3 = TTTestFloatEquivalence(return3, TESTSAMPLERATE, true, 0.0000001);
         
         TTTestAssertion("reports the correct sample rate",
                         result3,
@@ -115,7 +115,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         
         // TEST 5: reports correct duration in seconds
         TTFloat64 return5 = soundfile->getDurationInSeconds();
-        TTBoolean result5 = TTTestFloatEquivalence(return5, TESTDURATIONINSECONDS);
+        TTBoolean result5 = TTTestFloatEquivalence(return5, TESTDURATIONINSECONDS, true, 0.0000001);
         
         TTTestAssertion("reports the correct duration in seconds",
                         result5,
