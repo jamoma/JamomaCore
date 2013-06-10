@@ -118,7 +118,9 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
 		// in transfer from player, made this little pattern into a macro
             #define SF_STRING_TO_TTSYMBOL(sf_info_piece, local_ttsymbol) \
                 textInfo = sf_get_string(soundfile, sf_info_piece); \
-                if (textInfo) local_ttsymbol = TT(textInfo); \
+                if (textInfo) { \
+                    local_ttsymbol = TT(textInfo); \
+                } \
                 else local_ttsymbol = kTTSymEmpty;
 		
 		// title
@@ -142,44 +144,4 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
         
 	}
 	
-}
-
-TTRowID TTSoundfile::getNumChannels()
-{
-    return this->mNumChannels;
-}
-
-TTFloat64 TTSoundfile::getSampleRate()
-{
-    return this->mSampleRate;
-}
-
-TTColumnID TTSoundfile::getDurationInSamples()
-{
-    return this->mDurationInSamples;
-}
-
-TTFloat64 TTSoundfile::getDurationInSeconds()
-{
-    return this->mDurationInSeconds;
-}
-
-TTSymbol TTSoundfile::getTitle()
-{
-    return this->mTitle;
-}
-
-TTSymbol TTSoundfile::getArtist()
-{
-    return this->mArtist;
-}
-
-TTSymbol TTSoundfile::getDate()
-{
-    return this->mDate;
-}
-
-TTSymbol TTSoundfile::getAnnotation()
-{
-    return this->mAnnotation;
 }
