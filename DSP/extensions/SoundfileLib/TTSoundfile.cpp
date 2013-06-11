@@ -160,7 +160,7 @@ TTErr	TTSoundfile::peek(const TTColumnID frame, const TTRowID channel, TTSampleV
     
     numSamplesRead = sf_readf_double(mSoundFile, &temp_value[0], 1);
     
-    if (seekInFrames < 1) {
+    if (numSamplesRead != 1) {
         return kTTErrGeneric;
     }
     
