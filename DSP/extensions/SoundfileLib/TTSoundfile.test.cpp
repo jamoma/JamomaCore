@@ -174,9 +174,9 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
             error10 = soundfile->peek(n,0,return10);
             if (error10 == kTTErrNone)
             {
-                TTTestLog("peek executed without error and returned the value %f", return10);
+                TTTestLog("peek sample %i returned the value %f", n, return10);
             } else {
-                TTTestLog("peek returned an error");
+                TTTestLog("peek returned an error for sample %i", n);
             }
         }
         
