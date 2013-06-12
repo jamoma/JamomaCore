@@ -155,7 +155,7 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 	TTRowID p_index = index;
 	TTColumnID p_channel = channel;
 	
-	TTBoolean weAreNotInBounds = makeInBounds(p_index, p_channel); // out of range values are clipped
+	TTBoolean weAreNotInBounds = makeInBounds(p_index, p_channel); // out of range values are wrapped
 	get2d(p_index, p_channel, value);
 	
 	if (weAreNotInBounds)
@@ -176,7 +176,7 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 	TTFloat64 indexFractionalPart = modf(index, &indexIntegralPart); // before makeInBounds to get the right value!
 	TTRowID indexThisInteger = TTRowID(indexIntegralPart);
 	
-	TTBoolean weAreNotInBounds = makeInBounds(indexThisInteger, p_channel);  // out of range values are clipped
+	TTBoolean weAreNotInBounds = makeInBounds(indexThisInteger, p_channel);  // out of range values are wrapped
 	
 	if (weAreNotInBounds)
 	{
@@ -225,7 +225,7 @@ TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const T
 	TTRowID p_index = index;
 	TTColumnID p_channel = channel;
 	
-	TTBoolean weAreNotInBounds = makeInBounds(p_index,p_channel);
+	TTBoolean weAreNotInBounds = makeInBounds(p_index,p_channel); // out of range values are wrapped
 	
 	if (weAreNotInBounds)
 	{
