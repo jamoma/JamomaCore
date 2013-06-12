@@ -107,7 +107,7 @@ private:
         return mAnnotation;
     };
     
-    /** Get the value stored at a specified index and channel. Modelled after the method found in #TTSampleMatrix.
+    /** Get the value stored at a specified index and channel. Modelled after the method found in #TTSampleMatrix. Note that both channels and samples use zero indexing. There is currently no boundary checking implemented.
      @param[in]     frame       index of sample as count from the beginning of file. first sample = 0.
      @param[in]     channel     channel within multichannel file. 
      @param[out]    value       used to return the value pulled from sound file.

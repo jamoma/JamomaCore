@@ -17,20 +17,31 @@
 #include "TTSoundfile.h"
 #include "TTUnitTest.h"
 
-/* */
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
- #define TESTNUMCHANNELS 1
+/* 
+ #define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
+ #define TESTNUMCHANNELS 2
  #define TESTSAMPLERATE 44100
- #define TESTDURATIONINSAMPLES 39493
- #define TESTDURATIONINSECONDS 0.89553288
+ #define TESTDURATIONINSAMPLES 88202
+ #define TESTDURATIONINSECONDS 2.00004535
  #define TESTTITLE ""
- #define TESTARTIST "Nathan Wolek"
- #define TESTDATE "2006"
- #define TESTANNOTATION "Yo Mama"
- #define TENTHSAMPLE -0.03125
+ #define TESTARTIST ""
+ #define TESTDATE ""
+ #define TESTANNOTATION ""
+ */
+
+/* */
+#define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
+#define TESTNUMCHANNELS 1
+#define TESTSAMPLERATE 44100
+#define TESTDURATIONINSAMPLES 39493
+#define TESTDURATIONINSECONDS 0.89553288
+#define TESTTITLE ""
+#define TESTARTIST ""
+#define TESTDATE ""
+#define TESTANNOTATION ""
 /* */
 
-/* 
+/*
  #define TESTFILE "/Volumes/Storage/Audio/200604femf15/ambience/street.aiff"
  #define TESTNUMCHANNELS 1
  #define TESTSAMPLERATE 44100
@@ -164,22 +175,25 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         TTTestLog(return9);
         
         TTTestLog("\n");
-		TTTestLog("Testing peek method...");
+		TTTestLog("Testing peek method on first 10 sample values...");
         
         TTSampleValue return10;
         TTErr error10;
         
-        for (int n=0;n<10;n++)
+        for (int channel=0;channel<return2;channel++)
         {
-            error10 = soundfile->peek(n,0,return10);
-            if (error10 == kTTErrNone)
+            TTTestLog("Channel %i", channel);
+            for (int sample=0;sample<10;sample++)
             {
-                TTTestLog("peek sample %i returned the value %f", n, return10);
-            } else {
-                TTTestLog("peek returned an error for sample %i", n);
+                error10 = soundfile->peek(sample,channel,return10);
+                if (error10 == kTTErrNone)
+                {
+                    TTTestLog("peek sample %i returned the value %f", sample, return10);
+                } else {
+                    TTTestLog("peek returned an error for sample %i", sample);
+                }
             }
         }
-        
         
         
     }
