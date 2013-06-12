@@ -205,7 +205,7 @@
 		A738FF50163739D100BD5C89 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = org.jamoma;
 			};
 			buildConfigurationList = A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "EffectsLib" */;
@@ -342,6 +342,7 @@
 		A738FF59163739D100BD5C89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -354,6 +355,7 @@
 		A738FF5A163739D100BD5C89 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

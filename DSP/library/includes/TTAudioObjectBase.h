@@ -14,8 +14,8 @@
  */
 
 
-#ifndef __TT_AUDIO_OBJECT_H__
-#define __TT_AUDIO_OBJECT_H__
+#ifndef __TT_AUDIO_OBJECT_BASE_H__
+#define __TT_AUDIO_OBJECT_BASE_H__
 
 #include "TTObjectBase.h"
 #include "TTSymbol.h"
@@ -472,4 +472,4 @@ inline TTFloat64 TTDeviate(TTFloat64 value, TTFloat64 aSampleRate = 1.0)
 }
 
 
-#endif // __TT_AUDIO_OBJECT_H__
+#endif // __TT_AUDIO_OBJECT_BASE_H__
