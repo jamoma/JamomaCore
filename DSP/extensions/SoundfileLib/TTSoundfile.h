@@ -34,8 +34,8 @@ protected:
 	TTSymbol		mFilePath;              ///< full POSIX path to the file, including file name
     TTRowID         mNumChannels;           ///< channels in the file
     TTFloat64       mSampleRate;            ///< samples per second
-    TTColumnID      mDurationInSamples;     ///< length in samples
-    TTFloat64       mDurationInSeconds;     ///< length in seconds
+    TTColumnID      mLengthInSamples;     ///< length in samples
+    TTFloat64       mLengthInSeconds;     ///< length in seconds
     TTSymbol		mTitle;                 ///< title if metadata is present in the file
     TTSymbol		mArtist;                ///< artist if metadata is present in the file
     TTSymbol		mDate;                  ///< date if metadata is present in the file
@@ -67,16 +67,16 @@ private:
     
     /**	Simple data accessor.
      @return	TTColumnID		the number of frames in mSoundFile at mFilePath */
-    TTColumnID getDurationInSamples()
+    TTColumnID getLengthInSamples()
     {
-        return this->mDurationInSamples;
+        return this->mLengthInSamples;
     };
     
     /**	Simple data accessor.
      @return	TTFloat64		duration in second of mSoundFile at mFilePath */
-    TTFloat64 getDurationInSeconds()
+    TTFloat64 getLengthInSeconds()
     {
-        return mDurationInSeconds;
+        return mLengthInSeconds;
     };
     
     /**	Simple data accessor.

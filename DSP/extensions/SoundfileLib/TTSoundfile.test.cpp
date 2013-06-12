@@ -17,7 +17,7 @@
 #include "TTSoundfile.h"
 #include "TTUnitTest.h"
 
-/* 
+/* */
  #define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
  #define TESTNUMCHANNELS 2
  #define TESTSAMPLERATE 44100
@@ -27,10 +27,10 @@
  #define TESTARTIST ""
  #define TESTDATE ""
  #define TESTANNOTATION ""
- */
-
 /* */
-#define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
+
+/* 
+ #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
 #define TESTNUMCHANNELS 1
 #define TESTSAMPLERATE 44100
 #define TESTDURATIONINSAMPLES 39493
@@ -39,7 +39,7 @@
 #define TESTARTIST ""
 #define TESTDATE ""
 #define TESTANNOTATION ""
-/* */
+ */
 
 /*
  #define TESTFILE "/Volumes/Storage/Audio/200604femf15/ambience/street.aiff"
@@ -112,7 +112,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         }
         
         // TEST 4: reports correct duration in samples
-        TTColumnID return4 = soundfile->getDurationInSamples();
+        TTColumnID return4 = soundfile->getLengthInSamples();
         TTBoolean result4 = { return4 == TESTDURATIONINSAMPLES };
         
         TTTestAssertion("reports the correct duration in samples",
@@ -126,7 +126,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         }
         
         // TEST 5: reports correct duration in seconds
-        TTFloat64 return5 = soundfile->getDurationInSeconds();
+        TTFloat64 return5 = soundfile->getLengthInSeconds();
         TTBoolean result5 = TTTestFloatEquivalence(return5, TESTDURATIONINSECONDS, true, 0.0000001);
         
         TTTestAssertion("reports the correct duration in seconds",

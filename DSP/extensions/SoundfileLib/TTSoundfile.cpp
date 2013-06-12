@@ -26,8 +26,8 @@ TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
 mNumChannels(0),
 mSampleRate(0.0),
-mDurationInSamples(0),
-mDurationInSeconds(0.0),
+mLengthInSamples(0),
+mLengthInSeconds(0.0),
 mTitle(kTTSymEmpty),
 mArtist(kTTSymEmpty),
 mDate(kTTSymEmpty),
@@ -41,10 +41,10 @@ mSoundFile(NULL)
     // need to add the rest of these here...
     addAttribute(SampleRate, kTypeFloat64);
         addAttributeProperty(SampleRate, readOnly, kTTBoolYes);
-    addAttribute(DurationInSamples, kTypeInt64);
-        addAttributeProperty(DurationInSamples, readOnly, kTTBoolYes);
-    addAttribute(DurationInSeconds, kTypeFloat64);
-        addAttributeProperty(DurationInSeconds, readOnly, kTTBoolYes);
+    addAttribute(LengthInSamples, kTypeInt64);
+        addAttributeProperty(LengthInSamples, readOnly, kTTBoolYes);
+    addAttribute(LengthInSeconds, kTypeFloat64);
+        addAttributeProperty(LengthInSeconds, readOnly, kTTBoolYes);
     addAttribute(Title, kTypeSymbol);
         addAttributeProperty(Title, readOnly, kTTBoolYes);
     addAttribute(Artist, kTypeSymbol);
@@ -109,10 +109,10 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
         mSampleRate = mSoundFileInfo.samplerate;
         
         // duration in samples
-		mDurationInSamples = mSoundFileInfo.frames;
+		mLengthInSamples = mSoundFileInfo.frames;
         
         // duration in seconds
-		mDurationInSeconds = mDurationInSamples / mSampleRate;
+		mLengthInSeconds = mLengthInSamples / mSampleRate;
 		
 		// copy specific metadata pieces to separate TTSymbols
 		// in transfer from player, made this little pattern into a macro
