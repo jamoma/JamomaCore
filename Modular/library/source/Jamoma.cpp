@@ -23,7 +23,7 @@ const double k_anti_denormal_value = 1e-18;
 */
 // statics and globals
 static long                 initialized = false;			///< Global variabel indicating whether Jamoma has been initiated or not.
-static t_hashtab            *hash_modules = NULL;			///< A hashtab of all modules (jcom.hubs) currently instantiated
+static t_hashtab            *hash_modules = NULL;			///< A hashtab of all modules (j.hubs) currently instantiated
 //t_object                  *obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
 //t_object                  *obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
 bool                        max5 = false;					///< Is Jamoma currently running in Max 5 or newer?
@@ -101,7 +101,7 @@ void jamoma_init(void)
 		
 		// Initialize common regex
 		ttRegexForJmod = new TTRegex("(jmod.)");
-		ttRegexForJcom = new TTRegex("(jcom.)");
+		ttRegexForJcom = new TTRegex("(j.)");
 		ttRegexForModel = new TTRegex("(.model)");
 		ttRegexForModule = new TTRegex("(.module)");
 		ttRegexForView = new TTRegex("(.view)");
@@ -122,11 +122,11 @@ void jamoma_init(void)
 
 		// Add Jamoma Key Commands:
 		
-		// J -- Jamoma: a new object box with "jcom." in it
+		// J -- Jamoma: a new object box with "j." in it
 		atom_setsym(a+0, SymbolGen("J"));
 		atom_setsym(a+1, SymbolGen("patcher"));
 		atom_setsym(a+2, SymbolGen("inserttextobj"));
-		atom_setsym(a+3, SymbolGen("jcom."));
+		atom_setsym(a+3, SymbolGen("j."));
 		object_method_typed(max, SymbolGen("definecommand"), 4, a, NULL);
 				
 		// M -- Module: a new object box with "jmod." in it
@@ -156,10 +156,10 @@ void jamoma_init(void)
 		
 		//definecommandinstructions, are unspooirted in max5 and gives anoying error messages 
 		if (max6){
-			// J -- Jamoma: a new object box with "jcom." in it
+			// J -- Jamoma: a new object box with "j." in it
 			atom_setsym(a+0, SymbolGen("patcher"));
 			atom_setsym(a+1, SymbolGen("J"));
-			atom_setsym(a+2, SymbolGen("jcom. object"));
+			atom_setsym(a+2, SymbolGen("j. object"));
 			object_method_typed(max, SymbolGen("definecommandinstructions"), 3, a, NULL);
 			// M -- Module: a new object box with "jmod." in it
 			atom_setsym(a+0, SymbolGen("patcher"));

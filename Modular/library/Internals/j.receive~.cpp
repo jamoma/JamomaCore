@@ -1,5 +1,5 @@
 /** 
- * \file jcom.receive~.cpp
+ * \file j.receive~.cpp
  * External for Jamoma: Remote audio signal communication
  * By Tim Place, Copyright © 2007
  * 
@@ -18,7 +18,7 @@ typedef struct _audioreceive{
 
 	t_symbol		*attr_target;					///< name of the module we are sending to
 	t_object		*obj_target;					///< the hub of the module we are sending to
-	t_object		*obj_direct_target;				///< the jcom.in~ object in the module we are sending to
+	t_object		*obj_direct_target;				///< the j.in~ object in the module we are sending to
 	
 	long			num_outputs;					///< spec'd as an argument
 	float			*audio_out[MAX_NUM_CHANNELS];	///< pointers to the audio vectors
@@ -91,7 +91,7 @@ void receive_tilde_initclass(void)
 	t_object *attr;
 
 	// Define our class
-	c = class_new("jcom.receive~", (method)audioreceive_new, (method)audioreceive_free, 
+	c = class_new("j.receive~", (method)audioreceive_new, (method)audioreceive_free, 
 		sizeof(t_audioreceive), (method)NULL, A_GIMME, 0);
 
 	// Make methods accessible for our class:

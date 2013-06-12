@@ -68,8 +68,6 @@
 		D246015914A0A97B004CC4FD /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaSymbols.h; sourceTree = "<group>"; };
 		D246015A14A0A97B004CC4FD /* JamomaThreading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaThreading.h; sourceTree = "<group>"; };
 		D246015B14A0A97B004CC4FD /* JamomaTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaTypes.h; sourceTree = "<group>"; };
-		D246015C14A0A97B004CC4FD /* jcom.core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.core.h; sourceTree = "<group>"; };
-		D246015D14A0A97B004CC4FD /* jcom.list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.list.h; sourceTree = "<group>"; };
 		D246015E14A0A97B004CC4FD /* TTModular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModular.h; sourceTree = "<group>"; };
 		D246015F14A0A97B004CC4FD /* TTModularSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularSymbolCache.h; sourceTree = "<group>"; };
 		D246016014A0A97B004CC4FD /* TTModularVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 		D246016314A0A98A004CC4FD /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Jamoma.cpp; sourceTree = "<group>"; };
 		D246016414A0A98A004CC4FD /* JamomaObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaObject.cpp; sourceTree = "<group>"; };
 		D246016514A0A98A004CC4FD /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JamomaSymbols.cpp; sourceTree = "<group>"; };
-		D246016614A0A98A004CC4FD /* jcom.core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.core.cpp; sourceTree = "<group>"; };
 		D246016714A0A98A004CC4FD /* TTModular.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModular.cpp; sourceTree = "<group>"; };
 		D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModularSymbolCache.cpp; sourceTree = "<group>"; };
 		D2B8F99C1546CE6200B93C6C /* TTScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTScript.cpp; sourceTree = "<group>"; };
@@ -195,8 +192,6 @@
 				D246015914A0A97B004CC4FD /* JamomaSymbols.h */,
 				D246015A14A0A97B004CC4FD /* JamomaThreading.h */,
 				D246015B14A0A97B004CC4FD /* JamomaTypes.h */,
-				D246015C14A0A97B004CC4FD /* jcom.core.h */,
-				D246015D14A0A97B004CC4FD /* jcom.list.h */,
 			);
 			path = includes;
 			sourceTree = "<group>";
@@ -209,7 +204,6 @@
 				D246016314A0A98A004CC4FD /* Jamoma.cpp */,
 				D246016414A0A98A004CC4FD /* JamomaObject.cpp */,
 				D246016514A0A98A004CC4FD /* JamomaSymbols.cpp */,
-				D246016614A0A98A004CC4FD /* jcom.core.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";

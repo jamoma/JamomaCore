@@ -1,5 +1,5 @@
 /** 
- * \file jcom.send.cpp
+ * \file j.send.cpp
  * External for Jamoma: send messages from remote
  * By Trond Lossius & Tim Place, Copyright � 2006
  * 
@@ -88,7 +88,7 @@ void send_initclass()
 	t_object *attr;
 	
 	// Define our class
-	c = class_new("jcom.send", 
+	c = class_new("j.send", 
 				  (method)send_new, 
 				  (method)send_free, 
 				  sizeof(t_send), 
@@ -156,7 +156,7 @@ void send_free(t_send *x)
 void send_assist(t_send *x, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1) 			// Inlets
-		strcpy(dst, "input to dispatch to jcom.receive objects");
+		strcpy(dst, "input to dispatch to j.receive objects");
 	else if(msg==2)		// Outlets
 		strcpy(dst, "dumpout");
 }

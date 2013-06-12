@@ -70,7 +70,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 100.0, 320.0, 141.0, 19.0 ],
-					"text" : "jcom.getParameterNames"
+					"text" : "j.getParameterNames"
 				}
 
 			}
@@ -167,7 +167,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 100.0, 140.0, 125.0, 19.0 ],
-					"text" : "jcom.getModuleNames"
+					"text" : "j.getModuleNames"
 				}
 
 			}

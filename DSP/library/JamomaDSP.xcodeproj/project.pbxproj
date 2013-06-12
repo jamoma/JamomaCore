@@ -70,6 +70,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2202FDCC1763791E002EC750 /* TTAudioObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = includes/TTAudioObject.h; sourceTree = "<group>"; };
 		22961B4616D9108000C0C657 /* TTAudioObjectBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioObjectBase.h; path = includes/TTAudioObjectBase.h; sourceTree = "<group>"; };
 		22961B4716D9108F00C0C657 /* TTAudioObjectBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObjectBase.cpp; path = source/TTAudioObjectBase.cpp; sourceTree = "<group>"; };
 		22C57C6815EC21B200B755FA /* TTAudioEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioEngine.h; path = includes/TTAudioEngine.h; sourceTree = "<group>"; };
@@ -204,6 +205,7 @@
 		22C57C8515EC29FF00B755FA /* DSP */ = {
 			isa = PBXGroup;
 			children = (
+				2202FDCC1763791E002EC750 /* TTAudioObject.h */,
 				22961B4616D9108000C0C657 /* TTAudioObjectBase.h */,
 				22961B4716D9108F00C0C657 /* TTAudioObjectBase.cpp */,
 				A752BBE016373BA1007CE627 /* includes */,

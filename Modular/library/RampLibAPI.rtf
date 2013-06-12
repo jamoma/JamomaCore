@@ -18,11 +18,11 @@ _______________________________________________\
 The Jamoma RampLib API provides a means by which to create and use "Ramp Units" in Jamoma.  A Ramp Unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time.  Ramp Units may use a variety of different timing mechanisms, functions for defining the shape of the ramp, etc.\
 \
 The Jamoma project uses these Ramp Units inside of Max externals such as 
-\f1\b jcom.parameter
+\f1\b j.parameter
 \f0\b0 , 
-\f1\b jcom.message
+\f1\b j.message
 \f0\b0 , and 
-\f1\b jcom.ramp
+\f1\b j.ramp
 \f0\b0 .  However, the API is designed to be agnostic with terms of the hosting environment and thus can be used to provide ramping functionality in other hosts such as a Pd or SuperCollider.\
 \
 This document discusses both the creation of a new Ramp Unit, as well as the use of a Ramp Unit from within a Max external.  The best documentation of this, however, is the source code for the aforementioned Max externals in the Jamoma project.\

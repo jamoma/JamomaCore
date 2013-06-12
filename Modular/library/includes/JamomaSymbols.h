@@ -61,7 +61,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_boolean,
                 //*jps_list_int,
                 //*jps_list_float,
-				*jps_none,						// this type only used by jcom.message
+				*jps_none,						// this type only used by j.message
 				*jps_jcom_hub, 
 				*jps_feedback,
 				*jps_alias,
@@ -84,7 +84,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_parameter_values_start,
 				*jps_parameter_values_end,
 				*jps_parameter_value,
-				*jps_subscribe,						// used for calling the 'bind' method on jcom.hub
+				*jps_subscribe,						// used for calling the 'bind' method on j.hub
 				*jps_unsubscribe,
 				*jps_release,						// method in the hub for unsubscribing
 				*jps_subscribe_in,					// when binding to the hub, these specify what type of object this is...
@@ -235,7 +235,7 @@ extern "C" JAMOMA_EXPORT t_symbol *jps_done,
 				*jps_sendlastvalue,
 				*jps_sendbypassedvalue,
 				*jps_star,
-				*jps_add,							// used for calling methods on jcom.receivemaster
+				*jps_add,							// used for calling methods on j.receivemaster
 				*jps_remove,
 				*jps_dispatch,
 	  			*jps_subpatcher,
