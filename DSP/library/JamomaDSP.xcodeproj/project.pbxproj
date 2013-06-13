@@ -432,7 +432,7 @@
 					includes,
 					"../../Foundation/library/**",
 				);
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -457,7 +457,7 @@
 					includes,
 					"../../Foundation/library/**",
 				);
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;
