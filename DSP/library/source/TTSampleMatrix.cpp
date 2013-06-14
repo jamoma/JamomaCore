@@ -152,8 +152,8 @@ TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 
 TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)
 {
-	TTRowID p_index = index;
-	TTColumnID p_channel = channel;
+	TTSampleID p_index = index;
+	TTChannelID p_channel = channel;
 	
 	TTBoolean weAreNotInBounds = makeInBounds(p_index, p_channel); // out of range values are wrapped
 	get2d(p_index, p_channel, value);
@@ -171,10 +171,10 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value)
 {
 	// variables needed
-    TTColumnID p_channel = channel;
+    TTChannelID p_channel = channel;
 	TTFloat64 indexIntegralPart = 0;
 	TTFloat64 indexFractionalPart = modf(index, &indexIntegralPart); // before makeInBounds to get the right value!
-	TTRowID indexThisInteger = TTRowID(indexIntegralPart);
+	TTSampleID indexThisInteger = TTSampleID(indexIntegralPart);
 	
 	TTBoolean weAreNotInBounds = makeInBounds(indexThisInteger, p_channel);  // out of range values are wrapped
 	
@@ -184,7 +184,7 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 		get2d(indexThisInteger, p_channel, value);
 		return kTTErrOutOfBounds; // and report an error (is that what we want?)
 	} else {
-		TTRowID indexNextInteger = indexThisInteger + 1;
+		TTSampleID indexNextInteger = indexThisInteger + 1;
 		makeRowIDInBounds(indexNextInteger); //does not allow interpolation between first and last sample
 			//  (is that what we want? if not, insert outOfBoundsWrap)
 
@@ -222,8 +222,8 @@ TTErr TTSampleMatrix::setValueAtIndex(const TTValue& index, TTValue& unusedOutpu
 
 TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value)
 {
-	TTRowID p_index = index;
-	TTColumnID p_channel = channel;
+	TTSampleID p_index = index;
+	TTChannelID p_channel = channel;
 	
 	TTBoolean weAreNotInBounds = makeInBounds(p_index,p_channel); // out of range values are wrapped
 	
@@ -324,8 +324,8 @@ TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 TTErr TTSampleMatrix::normalize(const TTValue& aValue)
 {
 	TTFloat64			normalizeTo = 1.0;
-	TTRowID				m = mLengthInSamples; // mFrameLength
-	TTColumnID			n = mNumChannels; // mNumChannels
+	TTSampleID			m = mLengthInSamples; // mFrameLength
+	TTChannelID			n = mNumChannels; // mNumChannels
 	TTSampleValuePtr	samples = (TTSampleValuePtr)getLockedPointer();
 	TTFloat64			peakValue = 0.0;
 	TTFloat64			scalar;
