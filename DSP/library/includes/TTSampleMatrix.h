@@ -144,7 +144,7 @@ public:
 		The final value will be used as the sample value that will be copied to the designated index.
 	*/
 	TTErr	setValueAtIndex(const TTValue& index, TTValue& unusedOutput);
-	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value);
+	TTErr	poke(const TTSampleID index, const TTChannelID channel, const TTSampleValue value);
 	
 	/** Set the contents of the buffer using a specified algorithm and, if appropriate, coefficients for that algorithm. */
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput);

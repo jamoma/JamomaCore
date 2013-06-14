@@ -220,7 +220,7 @@ TTErr TTSampleMatrix::setValueAtIndex(const TTValue& index, TTValue& unusedOutpu
 	return poke(sampleIndex, sampleChannel, sampleValue);
 }
 
-TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value)
+TTErr TTSampleMatrix::poke(const TTSampleID index, const TTChannelID channel, const TTSampleValue value)
 {
 	TTSampleID p_index = index;
 	TTChannelID p_channel = channel;
