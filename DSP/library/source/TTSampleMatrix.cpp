@@ -320,6 +320,13 @@ TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 	return kTTErrNone;
 }
 
+TTErr   load(const TTValue& filePath, TTSampleID startAtIndex = 0)
+{
+    TTLogMessage("I didn't do it.");
+    return kTTErrNone;
+}
+
+
 
 TTErr TTSampleMatrix::normalize(const TTValue& aValue)
 {

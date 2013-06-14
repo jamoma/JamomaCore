@@ -148,6 +148,10 @@ public:
 	
 	/** Set the contents of the buffer using a specified algorithm and, if appropriate, coefficients for that algorithm. */
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput);
+    
+    /** Load sample values from a soundfile into the TTSampleMatrix.
+     */
+    TTErr   load(const TTValue& filePath, TTSampleID startAtIndex = 0);
 
 	/**	Normalize the contents of a buffer.
 		If no arg is passed, then the buffer is normalized to 1.0.
