@@ -24,7 +24,7 @@
 
 // the following definitions allow our code the use audio related terms
 // while still maintaining connection to the definitions set in #TTMatrix.
-// hopefully this will reduce confusion (NW -- 13 June 2013)
+// hopefully this will reduce confusion [NW]
 #define mLengthInSamples mRowCount
 #define TTSampleID TTRowID
 #define mNumChannels mColumnCount
