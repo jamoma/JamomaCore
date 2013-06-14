@@ -22,8 +22,13 @@
 
 #include "TTDSP.h"
 
+// the following definitions allow our code the use audio related terms
+// while still maintaining connection to the definitions set in #TTMatrix.
+// hopefully this will reduce confusion (NW -- 13 June 2013)
 #define mLengthInSamples mRowCount
+#define TTSampleID TTRowID
 #define mNumChannels mColumnCount
+#define TTChannelID TTColumnID
 
 /** @enum bufferPoolStages
 	@brief Defines the stages used when TTSampleMartix is part of a pool available in TTBuffer
