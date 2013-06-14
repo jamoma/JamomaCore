@@ -207,8 +207,8 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 */
 TTErr TTSampleMatrix::setValueAtIndex(const TTValue& index, TTValue& unusedOutput)
 {
-	TTUInt32		sampleIndex;
-	TTUInt16		sampleChannel = 0;
+	TTSampleID		sampleIndex;
+	TTChannelID		sampleChannel = 0;
 	TTSampleValue	sampleValue;
 	TTUInt8			i = 0;
 
