@@ -134,14 +134,14 @@ TTErr TTSampleMatrix::decrementUserCount()
 
 TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 {
-	TTUInt32		sampleIndex;
-	TTUInt16		sampleChannel = 0;
+	TTSampleID		sampleIndex;
+	TTChannelID		sampleChannel = 0;
 	TTSampleValue	sampleValue;
 	TTUInt8			i = 0;
 	TTErr			err;
 
 	index.get(i++, sampleIndex);
-	if (index.size() > 2)		// TODO: sure would be nice to change the name of this method to "size" or something...
+	if (index.size() > 2)
 		index.get(i++, sampleChannel);
 
 	err = peek(sampleIndex, sampleChannel, sampleValue);
