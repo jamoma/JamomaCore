@@ -150,7 +150,7 @@ TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 	return err;
 }
 
-TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)
+TTErr TTSampleMatrix::peek(const TTSampleID index, const TTChannelID channel, TTSampleValue& value)
 {
 	TTSampleID p_index = index;
 	TTChannelID p_channel = channel;
@@ -168,7 +168,7 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 
 // a first attempt at interpolation for the SampleMatrix. should be viewed as temporary.
 // needs to be fleshed out with different options...
-TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value)
+TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTChannelID channel, TTSampleValue& value)
 {
 	// variables needed
     TTChannelID p_channel = channel;
