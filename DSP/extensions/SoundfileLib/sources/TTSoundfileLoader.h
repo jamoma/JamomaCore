@@ -19,6 +19,7 @@
 #define __TT_SOUNDFILELOADER_H__
 
 #include "TTDSP.h"
+#include "TTSoundfile.h"
 
 #ifdef uint
 #undef uint
@@ -31,6 +32,11 @@ class TTSoundfileLoader : public TTAudioObjectBase {
 	
 protected:
     TTSoundfilePtr mSoundfileInterface;
+    
+    
+    // internal method used for initializing the TTSoundfileLoader and mSoundfileInterface for use
+	TTErr init();
+    
 };
 
 typedef TTSoundfileLoader* TTSoundfileLoaderPtr;

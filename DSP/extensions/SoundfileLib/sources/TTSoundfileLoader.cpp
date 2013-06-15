@@ -24,14 +24,25 @@
 
 TT_AUDIO_CONSTRUCTOR,
 mSoundfileInterface(NULL)
-{
-    //TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&mSoundfileInterface, kTTValNONE);
-    
+{    
     // add the attributes and messages here
+    
+    // initialize
+    //init();
 }
 
 TTSoundfileLoader::~TTSoundfileLoader()
 {
-	if (mSoundfileInterface)
-		TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad); // release the interface
+	/*
+    if (mSoundfileInterface)
+        TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad); // release the interface
+    */
+}
+
+// internal method used for initializing the TTSoundfileLoader and mSoundfileInterface for use
+TTErr TTSoundfileLoader::init()
+{
+    TTErr err = TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&mSoundfileInterface, kTTValNONE);
+    
+    return err;
 }
