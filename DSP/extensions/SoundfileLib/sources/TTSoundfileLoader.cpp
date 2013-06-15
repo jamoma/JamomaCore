@@ -28,15 +28,13 @@ mSoundfileInterface(NULL)
     // add the attributes and messages here
     
     // initialize
-    //init();
+    init();
 }
 
 TTSoundfileLoader::~TTSoundfileLoader()
 {
-	/*
-    if (mSoundfileInterface)
-        TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad); // release the interface
-    */
+	if (mSoundfileInterface)
+        TTObjectBaseRelease(TTObjectBaseHandle(&mSoundfileInterface)); // release the interface
 }
 
 // internal method used for initializing the TTSoundfileLoader and mSoundfileInterface for use

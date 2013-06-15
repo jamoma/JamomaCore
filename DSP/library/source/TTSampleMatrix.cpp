@@ -341,18 +341,18 @@ TTErr   load(const TTValue& filePath, TTSampleID startAtIndex = 0)
     
     if (!thisStepWorked)
     {
-        //TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad);
+        //TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad));
         return kTTErrGeneric;
     }
     
     if (thisStepWorked)
     {
         TTLogMessage("I did it.");
-        //TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad);
+        //TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad));
         return kTTErrNone;
     } else {
         TTLogMessage("I didn't do it.");
-        //TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad);
+        //TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad));
         return kTTErrGeneric;
     }
 
