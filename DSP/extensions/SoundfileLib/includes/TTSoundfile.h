@@ -44,7 +44,8 @@ protected:
 private:
 	SNDFILE*		mSoundFile;             ///< libsndfile handle for the actual file we open
 	SF_INFO			mSoundFileInfo;         ///< libsndfile metadata for the file we open
-	
+
+public:
     /** Atribute accessor. Send a filepath to the object and attempt to interface with the file.
      @param	newValue        full POSIX path to the file, including file name
      @return	TTErr		kTTErrInvalidValue is the filepath is invalid, otherwise kTTErrNone 
