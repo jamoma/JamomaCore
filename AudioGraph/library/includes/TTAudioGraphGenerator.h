@@ -70,7 +70,7 @@ public:
 	 @param returnedTestInfo				The outcome from the performed unit test.
 	 @return								#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	virtual TTErr test(TTValue& returnedTestInfo);
+	//virtual TTErr test(TTValue& returnedTestInfo);
 	
 };
 
