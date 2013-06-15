@@ -15,6 +15,7 @@
 
 #include "TTSampleMatrix.h"
 #include "TTInterpolate.h"
+#include "TTSoundfile.h"
 
 #define thisTTClass			TTSampleMatrix
 #define thisTTClassName		"samplematrix"
@@ -325,7 +326,9 @@ TTErr   load(const TTValue& filePath, TTSampleID startAtIndex = 0)
     TTBoolean thisStepWorked = false;
     TTSymbol filePathAsSymbol = filePath;
     //TTSampleID  m = mLengthInSamples;
+    TTSoundfilePtr fileToLoad = NULL;
     
+    thisStepWorked = { TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&fileToLoad, kTTValNONE) == kTTErrNone};
     
     if (thisStepWorked)
     {
