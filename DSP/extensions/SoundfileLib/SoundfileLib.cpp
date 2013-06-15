@@ -18,6 +18,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_SoundfileLib(void)
 	TTDSPInit();
 	
     TTSoundfile::registerClass();
+	//TTSoundfileLoader::registerClass();
 	TTSoundfilePlayer::registerClass();
 	TTSoundfileRecorder::registerClass();
 	
