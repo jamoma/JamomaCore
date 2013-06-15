@@ -328,16 +328,34 @@ TTErr   load(const TTValue& filePath, TTSampleID startAtIndex = 0)
     //TTSampleID  m = mLengthInSamples;
     TTSoundfilePtr fileToLoad = NULL;
     
+    // first instantiate the Soundfile object
     thisStepWorked = { TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&fileToLoad, kTTValNONE) == kTTErrNone};
+    
+    if (!thisStepWorked)
+    {
+        return kTTErrGeneric;
+    }
+    
+    // then try to set the filePath
+    thisStepWorked = { fileToLoad->setAttributeValue("filePath", filePathAsSymbol) == kTTErrNone };
+    
+    if (!thisStepWorked)
+    {
+        //TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad);
+        return kTTErrGeneric;
+    }
     
     if (thisStepWorked)
     {
         TTLogMessage("I did it.");
+        //TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad);
         return kTTErrNone;
     } else {
         TTLogMessage("I didn't do it.");
+        //TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad);
         return kTTErrGeneric;
     }
+
 }
 
 
