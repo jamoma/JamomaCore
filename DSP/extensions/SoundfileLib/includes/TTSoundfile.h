@@ -24,7 +24,7 @@
 #ifdef uint
 #undef uint
 #endif
-#include "libsndfile/sndfile.h"
+#include "../libsndfile/sndfile.h"
 
 //** Creates an interface to data in a soundfile from disk */
 class TTSoundfile : public TTAudioObjectBase {

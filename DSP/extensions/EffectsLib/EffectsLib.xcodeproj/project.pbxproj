@@ -168,11 +168,12 @@
 /* Begin PBXLegacyTarget section */
 		A738FF55163739D100BD5C89 /* EffectsLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
+			buildArgumentsString = "$(CONFIGURATION) $(ACTION)";
 			buildConfigurationList = A738FF58163739D100BD5C89 /* Build configuration list for PBXLegacyTarget "EffectsLib" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = EffectsLib;
