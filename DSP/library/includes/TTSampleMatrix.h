@@ -149,7 +149,9 @@ public:
 	/** Set the contents of the buffer using a specified algorithm and, if appropriate, coefficients for that algorithm. */
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput);
     
-    /** Load sample values from a soundfile into the TTSampleMatrix.
+    /** Load sample values from a soundfile into the TTSampleMatrix. This method is dependant on the SoundfileLib extension which handles operations on sound files using third-party libraries.
+        @param[in]      filePath
+        @param[in]      startAtIndex is set to a default 
      */
     TTErr   load(const TTValue& filePath, TTSampleID startAtIndex = 0);
 
