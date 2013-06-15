@@ -322,8 +322,19 @@ TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 
 TTErr   load(const TTValue& filePath, TTSampleID startAtIndex = 0)
 {
-    TTLogMessage("I didn't do it.");
-    return kTTErrNone;
+    TTBoolean thisStepWorked = false;
+    TTSymbol filePathAsSymbol = filePath;
+    //TTSampleID  m = mLengthInSamples;
+    
+    
+    if (thisStepWorked)
+    {
+        TTLogMessage("I did it.");
+        return kTTErrNone;
+    } else {
+        TTLogMessage("I didn't do it.");
+        return kTTErrGeneric;
+    }
 }
 
 
