@@ -23,7 +23,8 @@
 #define thisTTClassTags		"soundfile.loader"
 
 TT_AUDIO_CONSTRUCTOR,
-mSoundfileInterface(NULL)
+mSoundfileInterface(NULL),
+mTargetMatrix(NULL)
 {    
     // add the attributes and messages here
     

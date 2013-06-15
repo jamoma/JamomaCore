@@ -20,6 +20,7 @@
 
 #include "TTDSP.h"
 #include "TTSoundfile.h"
+#include "TTSampleMatrix.h"
 
 #ifdef uint
 #undef uint
@@ -31,7 +32,8 @@ class TTSoundfileLoader : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTSoundfileLoader)
 	
 protected:
-    TTSoundfilePtr mSoundfileInterface;
+    TTSoundfilePtr      mSoundfileInterface;
+    TTSampleMatrixPtr   mTargetMatrix;
     
     
     // internal method used for initializing the TTSoundfileLoader and mSoundfileInterface for use
