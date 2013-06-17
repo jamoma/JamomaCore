@@ -2,9 +2,9 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief TTAudioGraphOutput is an audio object that serves as the destination and master (terminal obejct or sink) for a #TTAudioGraph graph.
+ * @brief Defines output interface at the bottom of an AudioGraph
  *
- * @details In Jamoma AudioGraph audio processing is driven from a from a ‘terminal object’ or ‘sink’ at the bottom of the chain.
+ * @details TTAudioGraphOutput is an audio object that serves as the destination and master (terminal obejct or sink) for a #TTAudioGraph graph. In Jamoma AudioGraph audio processing is driven from a from a ‘terminal object’ or ‘sink’ at the bottom of the chain.
  * This strategy for processing an audio graph is known as the ‘pull’ method.
  * Typically sinks may be used for audio output, recording to disk, or for monitoring purposes.
  * Sinks may have other #TTAudioGraphObjects connected upstream, but can not be connected to further downstream TTAudioGraphObjects.

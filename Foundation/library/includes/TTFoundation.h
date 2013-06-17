@@ -29,7 +29,7 @@
 	cannot be manipulated directly.
  */
 
-	/** This MACRO needs some more Doxygen comments		
+	/** TODO Doxygen: need more comments here	
 		@ingroup macros
 	*/
 #define TT_OBJECT_CONSTRUCTOR \
@@ -39,7 +39,7 @@
 	\
 	thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObjectBase(arguments)
 
-	/** This MACRO needs some more Doxygen comments		
+	/** TODO Doxygen: need more comments here	
 		@ingroup macros
 	*/
 #define TT_BASE_OBJECT_CONSTRUCTOR \
@@ -49,7 +49,7 @@
 	\
 	thisTTClass :: thisTTClass (TTValue& arguments) : TTObjectBase(arguments)
 
-	/** This MACRO needs some more Doxygen comments		
+	/** TODO Doxygen: need more comments here	
 		@ingroup macros
 	*/
 #define TTCLASS_SETUP(className)												\

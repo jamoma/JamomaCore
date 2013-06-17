@@ -15,6 +15,7 @@
 
 
 #include "TTInput.h"
+#include "TTModular.h"
 
 #define thisTTClass			TTInput
 #define thisTTClassName		"Input"

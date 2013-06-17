@@ -2,7 +2,7 @@
  *
  * @ingroup audioGraphLibrary
  *
- * @brief This object provides a description of a TTAudioGraphObject and its sources.
+ * @brief Describes a node in an audio processing graph
  *
  * @details
  *

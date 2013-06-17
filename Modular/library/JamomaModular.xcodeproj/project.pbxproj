@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		2202FDC61762320C002EC750 /* TTInputAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTInputAudio.cpp; sourceTree = "<group>"; };
+		2202FDC71762320D002EC750 /* TTInputAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTInputAudio.h; sourceTree = "<group>"; };
+		2202FDC817623264002EC750 /* TTOutputAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutputAudio.cpp; sourceTree = "<group>"; };
+		2202FDC917623264002EC750 /* TTOutputAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOutputAudio.h; sourceTree = "<group>"; };
 		22AD15D016596377002FD7E3 /* JamomaModular.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaModular.yml; sourceTree = "<group>"; };
 		4698F0E316BC49E800E8F574 /* TTDataTypedMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataTypedMethods.cpp; sourceTree = "<group>"; };
 		46A6E86016CAAB14002E6A40 /* TTRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTRamp.cpp; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 				D246013814A0A96C004CC4FD /* TTExplorer.cpp */,
 				D246013B14A0A96C004CC4FD /* TTInput.h */,
 				D246013A14A0A96C004CC4FD /* TTInput.cpp */,
+				2202FDC71762320D002EC750 /* TTInputAudio.h */,
+				2202FDC61762320C002EC750 /* TTInputAudio.cpp */,
 				D246013D14A0A96C004CC4FD /* TTMapper.h */,
 				D246013C14A0A96C004CC4FD /* TTMapper.cpp */,
 				D246013F14A0A96C004CC4FD /* TTMapperManager.h */,
@@ -151,6 +157,8 @@
 				D246014214A0A96C004CC4FD /* TTOpmlHandler.cpp */,
 				D246014514A0A96C004CC4FD /* TTOutput.h */,
 				D246014414A0A96C004CC4FD /* TTOutput.cpp */,
+				2202FDC917623264002EC750 /* TTOutputAudio.h */,
+				2202FDC817623264002EC750 /* TTOutputAudio.cpp */,
 				D246014714A0A96C004CC4FD /* TTPreset.h */,
 				D246014614A0A96C004CC4FD /* TTPreset.cpp */,
 				D246014914A0A96C004CC4FD /* TTPresetManager.h */,

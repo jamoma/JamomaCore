@@ -1,11 +1,18 @@
-/* 
- *	Plugtastic 
- *	
- *	Copyright © 2010 by Timothy Place
+/** @file
  *
- *	License: This code is licensed under the terms of the "New BSD License"
- *	http://creativecommons.org/licenses/BSD/
+ * @ingroup audioGraphPlugtastic
+ *
+ * @brief Manage input signals into Plugtastic 
+ *
+ * @details
+ *
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "PlugtasticInput.h"
 

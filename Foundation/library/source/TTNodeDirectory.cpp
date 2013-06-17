@@ -194,7 +194,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 		return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::TTNodeCreate(TTAddress anAddress, TTObjectBasePtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
+TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObjectBasePtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
 	TTAddress	normalizedAddress, effectiveAddress;
 	TTSymbol	newInstance;
@@ -265,7 +265,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTAddress anAddress, TTObjectBasePtr newObje
     return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::TTNodeRemove(TTAddress anAddress)
+TTErr TTNodeDirectory::TTNodeRemove(TTAddress& anAddress)
 {
 	TTErr			err;
 	TTNodePtr		oldNode, parentNode;
