@@ -21,7 +21,7 @@
 
 #define thisTTClass			TTSoundfileLoader
 #define thisTTClassName		"soundfile.loader"
-#define thisTTClassTags		"soundfile.loader"
+#define thisTTClassTags		"audio, soundfile, buffer"
 
 TT_AUDIO_CONSTRUCTOR,
 mSoundfileInterface(NULL),
