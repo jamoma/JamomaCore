@@ -12,7 +12,7 @@
 #include "TTDSP.h"
 
 
-/**	TTRamp is an audio processor that provides a soft saturation or overdrive effect to "warm" a sound up. */ 
+/**	Generates a audio sawtooth signal */ 
 class TTPhasor : TTAudioObjectBase {
 	TTCLASS_SETUP(TTPhasor)
 
