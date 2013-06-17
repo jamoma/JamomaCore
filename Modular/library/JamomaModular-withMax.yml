@@ -18,10 +18,12 @@ sources:
   - PeerObject/TTDataTypedMethods.cpp
   - PeerObject/TTExplorer.cpp
   - PeerObject/TTInput.cpp
+  - PeerObject/TTInputAudio.cpp
   - PeerObject/TTMapper.cpp
   - PeerObject/TTMapperManager.cpp
   - PeerObject/TTMirror.cpp
   - PeerObject/TTOutput.cpp
+  - PeerObject/TTOutputAudio.cpp
   - PeerObject/TTPreset.cpp
   - PeerObject/TTPresetManager.cpp
   - PeerObject/TTRamp.cpp
