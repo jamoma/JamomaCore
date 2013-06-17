@@ -17,6 +17,7 @@
 
 #include "TTSoundfile.h"
 #include "TTSoundfileLoader.h"
+#include "TTSampleMatrix.h"
 
 #define thisTTClass			TTSoundfileLoader
 #define thisTTClassName		"soundfile.loader"
@@ -28,8 +29,7 @@ mTargetMatrix(NULL)
 {    
     // add the attributes and messages here
     
-    // initialize
-    init();
+    // initialize, but that may need to be separate call
 }
 
 TTSoundfileLoader::~TTSoundfileLoader()
@@ -39,9 +39,26 @@ TTSoundfileLoader::~TTSoundfileLoader()
 }
 
 // internal method used for initializing the TTSoundfileLoader and mSoundfileInterface for use
-TTErr TTSoundfileLoader::init()
+TTErr TTSoundfileLoader::init(const TTSymbol& filePathAsSymbol, const TTSampleMatrixPtr newTargetMatrix)
 {
+    
+    // instantiate the soundfile interface class
     TTErr err = TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&mSoundfileInterface, kTTValNONE);
     
+    if (err)
+    {
+        return err;
+    } else { // attempt to set the filepath
+        err = mSoundfileInterface->setFilePath(filePathAsSymbol);
+    }
+    
+    if (err)
+    {
+        return err;
+    } else { // set the target matrix for loading samples
+        mTargetMatrix = newTargetMatrix;
+    }
+    
     return err;
+    
 }
