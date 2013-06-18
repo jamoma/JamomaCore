@@ -56,7 +56,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	obj0->mKernel->setAttributeValue(TT("maxNumChannels"), 0);
 	obj0->mKernel->setAttributeValue(TT("mute"), 0);
 	obj0->mKernel->setAttributeValue(TT("bypass"), 0);
-	obj0->mKernel->setAttributeValue(TT("sampleRate"), 44100u);
+	obj0->mKernel->setAttributeValue(TT("sampleRate"), 44100);
 
 	audioObjectArguments.set(0, TT("audio.join"));
 	audioObjectArguments.set(1, 2);
@@ -65,7 +65,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	obj1->mKernel->setAttributeValue(TT("maxNumChannels"), 1);
 	obj1->mKernel->setAttributeValue(TT("mute"), 0);
 	obj1->mKernel->setAttributeValue(TT("bypass"), 0);
-	obj1->mKernel->setAttributeValue(TT("sampleRate"), 44100u);
+	obj1->mKernel->setAttributeValue(TT("sampleRate"), 44100);
 
 	audioObjectArguments.set(0, TT("gain"));
 	audioObjectArguments.set(1, 1);
@@ -79,7 +79,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	//obj2->mKernel->setAttributeValue(TT("gain"), -6.000000);
 	//obj2->mKernel->setAttributeValue(TT("linearGain"), 0.501187);
 	obj2->mKernel->setAttributeValue(TT("linearGain"), 0.25);
-	obj2->mKernel->setAttributeValue(TT("sampleRate"), 44100u);
+	obj2->mKernel->setAttributeValue(TT("sampleRate"), 44100);
 
 	audioObjectArguments.set(0, TT("audio.split"));
 	audioObjectArguments.set(1, 1);
@@ -90,7 +90,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	obj3->mKernel->setAttributeValue(TT("groups"), v);
 	obj3->mKernel->setAttributeValue(TT("mute"), 0);
 	obj3->mKernel->setAttributeValue(TT("bypass"), 0);
-	obj3->mKernel->setAttributeValue(TT("sampleRate"), 44100u);
+	obj3->mKernel->setAttributeValue(TT("sampleRate"), 44100);
 
 	audioObjectArguments.set(0, TT("audio.generator"));
 	audioObjectArguments.set(1, 0);
@@ -100,7 +100,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	obj4->mKernel->setAttributeValue(TT("mute"), 0);
 	obj4->mKernel->setAttributeValue(TT("bypass"), 0);
 	obj4->mKernel->setAttributeValue(TT("vectorSize"), 64);
-	obj4->mKernel->setAttributeValue(TT("sampleRate"), 44100u);
+	obj4->mKernel->setAttributeValue(TT("sampleRate"), 44100);
 	obj4->addAudioFlag(kTTAudioGraphGenerator);
 	obj4->setOutputNumChannels(0, 2);
 	
@@ -131,7 +131,7 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 //	obj9->mKernel->setAttributeValue(TT("gain"), -6.000000);
 //	obj9->mKernel->setAttributeValue(TT("linearGain"), 0.501187);
 	obj9->mKernel->setAttributeValue(TT("linearGain"), 0.25);
-	obj9->mKernel->setAttributeValue(TT("sampleRate"), 44100u);
+	obj9->mKernel->setAttributeValue(TT("sampleRate"), 44100);
 
 	obj9->connectAudio(obj3, 1, 0);
 
