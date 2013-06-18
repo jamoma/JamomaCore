@@ -78,9 +78,6 @@
 		2A23AEFE169D1AA1004793F5 /* shrtdctt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shrtdctt.c; sourceTree = "<group>"; };
 		2A23AEFF169D1AA1004793F5 /* shrtdct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shrtdct.cpp; sourceTree = "<group>"; };
 		2A23AF00169D1AA1004793F5 /* FFTLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTLib.cpp; sourceTree = "<group>"; };
-		2A23AF02169D1AA1004793F5 /* EffectsLibIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EffectsLibIOS-Prefix.pch"; sourceTree = "<group>"; };
-		2A23AF03169D1AA1004793F5 /* EffectsLibIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsLibIOS.h; sourceTree = "<group>"; };
-		2A23AF04169D1AA1004793F5 /* EffectsLibIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectsLibIOS.m; sourceTree = "<group>"; };
 		2A23AF06169D1AA1004793F5 /* TTFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTFFT.h; sourceTree = "<group>"; };
 		2A23AF08169D1AA1004793F5 /* mayer_fft.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mayer_fft.cpp; sourceTree = "<group>"; };
 		2A23AF09169D1AA1004793F5 /* mayer_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mayer_fft.h; sourceTree = "<group>"; };
@@ -90,15 +87,6 @@
 		2A23AF29169D1B49004793F5 /* FFTLibIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FFTLibIOS-Prefix.pch"; path = "FFTLibIOS/FFTLibIOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		2AD78884169CFD1C00604D7C /* libFFTLibIOSIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFFTLibIOSIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD78887169CFD1C00604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		A752BBC516373A14007CE627 /* TTBalance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBalance.h; path = includes/TTBalance.h; sourceTree = "<group>"; };
-		A752BBC616373A14007CE627 /* TTDegrade.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDegrade.h; path = includes/TTDegrade.h; sourceTree = "<group>"; };
-		A752BBC716373A14007CE627 /* TTGain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTGain.h; path = includes/TTGain.h; sourceTree = "<group>"; };
-		A752BBC816373A14007CE627 /* TTLimiter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTLimiter.h; path = includes/TTLimiter.h; sourceTree = "<group>"; };
-		A752BBC916373A14007CE627 /* TTOverdrive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTOverdrive.h; path = includes/TTOverdrive.h; sourceTree = "<group>"; };
-		A752BBCA16373A14007CE627 /* TTPanorama.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTPanorama.h; path = includes/TTPanorama.h; sourceTree = "<group>"; };
-		A752BBCB16373A14007CE627 /* TTPulseSub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTPulseSub.h; path = includes/TTPulseSub.h; sourceTree = "<group>"; };
-		A752BBCC16373A14007CE627 /* TTThru.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTThru.h; path = includes/TTThru.h; sourceTree = "<group>"; };
-		A752BBCD16373A14007CE627 /* TTWaveshaper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTWaveshaper.h; path = includes/TTWaveshaper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,9 +170,6 @@
 		2A23AF01169D1AA1004793F5 /* FFTLibIOS */ = {
 			isa = PBXGroup;
 			children = (
-				2A23AF02169D1AA1004793F5 /* EffectsLibIOS-Prefix.pch */,
-				2A23AF03169D1AA1004793F5 /* EffectsLibIOS.h */,
-				2A23AF04169D1AA1004793F5 /* EffectsLibIOS.m */,
 			);
 			path = FFTLibIOS;
 			sourceTree = "<group>";
@@ -268,15 +253,6 @@
 		A752BBCF16373A19007CE627 /* includes */ = {
 			isa = PBXGroup;
 			children = (
-				A752BBC516373A14007CE627 /* TTBalance.h */,
-				A752BBC616373A14007CE627 /* TTDegrade.h */,
-				A752BBC716373A14007CE627 /* TTGain.h */,
-				A752BBC816373A14007CE627 /* TTLimiter.h */,
-				A752BBC916373A14007CE627 /* TTOverdrive.h */,
-				A752BBCA16373A14007CE627 /* TTPanorama.h */,
-				A752BBCB16373A14007CE627 /* TTPulseSub.h */,
-				A752BBCC16373A14007CE627 /* TTThru.h */,
-				A752BBCD16373A14007CE627 /* TTWaveshaper.h */,
 			);
 			name = includes;
 			sourceTree = "<group>";

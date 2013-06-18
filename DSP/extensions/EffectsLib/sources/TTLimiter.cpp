@@ -13,9 +13,16 @@
 #define thisTTClassTags		"audio, processor, dynamics, limiter"
 
 
-TT_AUDIO_CONSTRUCTOR
-, recover(0.0), lookaheadBufferIndex(0), lookaheadBuffer(NULL), gain(NULL), last(0.0)
-, dcBlocker(NULL), preamp(NULL), maxBufferSize(512), attrMode(TT("exponential"))
+TT_AUDIO_CONSTRUCTOR,
+	recover(0.0),
+	lookaheadBufferIndex(0),
+	lookaheadBuffer(NULL),
+	gain(NULL),
+	last(0.0),
+	dcBlocker(kTTSym_dcblock),
+	preamp(kTTSym_gain),
+	maxBufferSize(512),
+	attrMode(TT("exponential"))
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
@@ -35,9 +42,6 @@ TT_AUDIO_CONSTRUCTOR
 
 	// clear the history
 	addMessage(clear);
-
-	TTObjectBaseInstantiate(kTTSym_dcblock, &dcBlocker, initialMaxNumChannels);
-	TTObjectBaseInstantiate(kTTSym_gain, &preamp, initialMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
@@ -63,8 +67,6 @@ TTLimiter::~TTLimiter()
 		delete [] lookaheadBuffer[i];
 	delete [] lookaheadBuffer;
 	delete [] gain;
-	TTObjectBaseRelease(&dcBlocker);
-	TTObjectBaseRelease(&preamp);
 }
 
 
@@ -88,8 +90,8 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&
 
 	clear();
 	
-	dcBlocker->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	preamp->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	dcBlocker.setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	preamp.setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 	
 	return kTTErrNone;
 }
@@ -102,14 +104,15 @@ TTErr TTLimiter::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 }
 
 
-TTErr TTLimiter::setPreamp(const TTValue& newValue)
+TTErr TTLimiter::setPreamp(TTValue& newValue)
 {
-	return preamp->setAttributeValue(TT("gain"), const_cast<TTValue&>(newValue));
+//	return preamp.setAttributeValue(TT("gain"), const_cast<TTValue&>(newValue));
+	return preamp.setAttributeValue(TT("gain"), newValue);
 }
 
 TTErr TTLimiter::getPreamp(TTValue& value)
 {
-	return preamp->getAttributeValue(TT("gain"), value);
+	return preamp.getAttributeValue(TT("gain"), value);
 }
 
 
@@ -170,7 +173,9 @@ TTErr TTLimiter::setMode(TTValue& newValue)
 TTErr TTLimiter::setDCBlocker(TTValue& newValue)
 {
 	attrDCBlocker = newValue;
-	return dcBlocker->setAttributeValue(TT("bypass"), !attrDCBlocker);
+	TTBoolean bypassDCBlocker = !attrDCBlocker;
+	
+	return dcBlocker.setAttributeValue(TT("bypass"), bypassDCBlocker);
 }
 
 
@@ -189,7 +194,7 @@ TTErr TTLimiter::clear()
 	last = 1.0;
 	setRecover();
 
-	dcBlocker->sendMessage(TT("clear"));
+	dcBlocker.sendMessage(TT("clear"));
 	return kTTErrNone;
 }
 
@@ -226,8 +231,8 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	TTUInt16		channel;
 
 	// Pre-Process the input
-	dcBlocker->process(in, out);	// filter out DC-Offsets (unless it is bypassed)
-	preamp->process(out, in);		// copy output back to input for the rest of this process
+	dcBlocker.process(in, out);	// filter out DC-Offsets (unless it is bypassed)
+	preamp.process(out, in);		// copy output back to input for the rest of this process
 
 	for (i=0; i<vs; i++) {
 		hotSample = 0.0;

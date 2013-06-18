@@ -77,10 +77,19 @@ public:
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	template <class T>
-	TTErr setAttributeValue(const TTSymbol aName, const T& aValue)
+	TTErr setAttributeValue(const TTSymbol aName, T aValue)
 	{
 		return mObjectInstance->setAttributeValue(aName, aValue);
 	}
+	
+	template <class T>
+	TTErr setAttributeValue(const TTSymbol aName, int aValue)
+	{
+		TTValue v(aValue);
+		return mObjectInstance->setAttributeValue(aName, v);
+	}
+
+	
 	
 	/**	Get an attribute value for an object
 	 @param	name				The name of the attribute to get.

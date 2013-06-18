@@ -86,7 +86,7 @@ public:
 	TTErr getTypes(const TTValue&, TTValue& listOfTrajectoryTypesToReturn)
 	{
 		TTValue v;
-		v.setSize(2);
+		v.resize(2);
 		v.set(0, TT("trajectory"));
 		v.set(1, TT("audio")); 
 		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
@@ -116,7 +116,7 @@ public:
 		
 		listOfCurrentAttributesToReturn.clear();
 		mActualTrajectoryObject->getAttributeNames(names);
-		n = names.getSize();
+		n = names.size();
 		for (int i=0; i<n; i++) {
 			names.get(i, aName);
 
@@ -124,7 +124,7 @@ public:
 				continue;	
 			listOfCurrentAttributesToReturn.append(aName);
 		}
-		if (listOfCurrentAttributesToReturn.getSize()==0)
+		if (listOfCurrentAttributesToReturn.size()==0)
 			listOfCurrentAttributesToReturn.append(TT("NULL")); // in case there is no attribute, send a NULL value out
 												   
 		return kTTErrNone;
@@ -152,12 +152,12 @@ public:
 		TTErr		err = kTTErrNone;
 		
 		if (mMode == TT("ramp")){
-			if (ttDataTypeInfo[arguments.getType(0)]->isNumerical and ttDataTypeInfo[arguments.getType(1)]->isNumerical) {
-				n = arguments.getSize();
+			if (ttDataTypeInfo[arguments[0].type()]->isNumerical and ttDataTypeInfo[arguments[1].type()]->isNumerical) {
+				n = arguments.size();
 				switch(n)
 				{
 					case 4:
-						if (ttDataTypeInfo[arguments.getType(2)]->isNumerical and ttDataTypeInfo[arguments.getType(3)]->isNumerical == false){
+						if (ttDataTypeInfo[arguments[2].type()]->isNumerical and ttDataTypeInfo[arguments[3].type()]->isNumerical == false){
 							arguments.get(3, attrType);
 							setType(attrType);
 							arguments.get(0, x); x = x * 2.0;  // scaling						
@@ -169,7 +169,7 @@ public:
 						}	
 						break;
 					case 3:
-						if (ttDataTypeInfo[arguments.getType(2)]->isNumerical)
+						if (ttDataTypeInfo[arguments[2].type()]->isNumerical)
 							{// start stop time
 							arguments.get(0, x); x = x * 2.0;  // scaling						
 							mRamps[0]->setAttributeValue(TT("startValue"), x);
@@ -285,10 +285,10 @@ public:
 	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 	{
 		//for (int i=0; i<3; i++) {
-		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
-		mRamps[0]->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr); 
+		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, sr);
+		mRamps[0]->setAttributeValue(kTTSym_sampleRate, sr); 
 		//}
-		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
+		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, sr);
 	}
 
  	/**	Set mode to "ramp" or "phasor" 

@@ -14,7 +14,7 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-{   addAttribute(closed,			kTypeBoolean); // whether the trajectory is open or closed
+{   addAttribute(Closed,			kTypeBoolean); // whether the trajectory is open or closed
 	//addAttribute(A,				kTypeFloat64);
 	//addAttribute(Degree,		kTypeUInt8);
 	addAttribute(Steps,			kTypeUInt16);

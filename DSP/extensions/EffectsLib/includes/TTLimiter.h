@@ -38,8 +38,8 @@ protected:
 	TTSampleValue		last;
 	TTBoolean			isLinear;				///< is attrMode set to linear?
 
-	TTAudioObjectBasePtr	dcBlocker;				///< TTDCBlock object
-	TTAudioObjectBasePtr	preamp;					///< TTGain object to apply preamp
+	TTAudioObject		dcBlocker;				///< TTDCBlock object
+	TTAudioObject		preamp;					///< TTGain object to apply preamp
 
 	TTUInt32			maxBufferSize;			///< TODO: make this settable
 	TTBoolean			attrDCBlocker;			///< If toggled to NO, the internal DC Blocker will be turned off.
@@ -63,7 +63,7 @@ protected:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	/**	Setter for the threshold attribute. */
-	TTErr setPreamp(const TTValue& value);
+	TTErr setPreamp(TTValue& value);
 	/**	Getter for the threshold attribute. */
 	TTErr getPreamp(TTValue& value);
 	

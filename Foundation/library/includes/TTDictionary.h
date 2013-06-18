@@ -48,10 +48,8 @@ typedef TTDictionaryMap::const_iterator				TTDictionaryMapIterK;
 
 
 /**
- The dictionary is a data structure that combines the fast lookup of a hashtable,
-but may be sorted like a linked-list.
- 
-The linked list contains the key-value pairs of the hash a linked-list of TTKeyValues.
+	The dictionary is a data structure that combines the fast lookup of a hashtable, but may be sorted like a linked-list.
+	The linked list contains the key-value pairs of the hash a linked-list of TTKeyValues.
 */
 class TTFOUNDATION_EXPORT TTDictionary {
 private:

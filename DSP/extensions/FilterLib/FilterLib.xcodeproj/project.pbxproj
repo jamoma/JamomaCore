@@ -479,7 +479,7 @@
 		A7FF3FDC165D7A6100130C98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = org.jamoma;
 			};
 			buildConfigurationList = A7FF3FDF165D7A6100130C98 /* Build configuration list for PBXProject "FilterLib" */;
@@ -686,6 +686,7 @@
 		A7FF3FE5165D7A6100130C98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUGGING_SYMBOLS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -698,6 +699,7 @@
 		A7FF3FE6165D7A6100130C98 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

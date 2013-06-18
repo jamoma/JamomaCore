@@ -42,7 +42,7 @@ protected:
 						nb,
 						z,
 						scale;
-	TTAudioObject*		dcBlockerUnit;	///< A TTDCBlock object
+	TTAudioObject		dcBlockerUnit;	///< A TTDCBlock object
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
