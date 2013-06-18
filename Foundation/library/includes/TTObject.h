@@ -2,7 +2,7 @@
  *
  * @ingroup foundationLibrary
  *
- * @brief Create and destroy Jamoma object instances.
+ * @brief Create Jamoma object instances.
  *
  * @authors Timothy Place
  *
@@ -22,7 +22,7 @@
 // Class Specifications
 
 /**
-	Create and destroy Jamoma object instances.
+	Create Jamoma object instances.
 */
 class TTFOUNDATION_EXPORT TTObject {
 protected:
@@ -63,7 +63,7 @@ public:
 	
 	/** Return a direct pointer to the internal instance.
 		Not recommended in most cases. */
-	TTObjectBase* instance()
+	TTObjectBase* instance() const
 	{
 		return mObjectInstance;
 	}
@@ -77,136 +77,106 @@ public:
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	template <class T>
-	TTErr setAttributeValue(const TTSymbol aName, T aValue)
+	TTErr set(const TTSymbol aName, T aValue)
 	{
 		return mObjectInstance->setAttributeValue(aName, aValue);
 	}
 	
-	template <class T>
-	TTErr setAttributeValue(const TTSymbol aName, int aValue)
-	{
-		TTValue v(aValue);
-		return mObjectInstance->setAttributeValue(aName, v);
-	}
-
-	
 	
 	/**	Get an attribute value for an object
-	 @param	name				The name of the attribute to get.
-	 @param	value				The returned value of the attribute.
-	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.	 
+		@param	name				The name of the attribute to get.
+		@param	value				The returned value of the attribute.
+		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.	 
 	 */
 	template <class T>
-	TTErr getAttributeValue(const TTSymbol aName, T& aReturnedValue)
+	TTErr get(const TTSymbol aName, T& aReturnedValue)
 	{
 		return mObjectInstance->getAttributeValue(aName, aReturnedValue);
 	}
 	
 	
 	/** Return a list of names of the available attributes.
-	 @param attributeNameList		Pointer to a list of all attributes registered with this TTObjectBase.
+		@param attributeNameList		Pointer to a list of all attributes registered with this TTObjectBase.
 	 */
-	void getAttributeNames(TTValue& returnedAttributeNames)
+	void attributes(TTValue& returnedAttributeNames)
 	{
 		mObjectInstance->getAttributeNames(returnedAttributeNames);
 	}
 	
 	
 	/** Return a list of names of the available messages.
-	 @param messageNameList		Pointer to a list of all messages registered with this TTObjectBase.
+		@param messageNameList		Pointer to a list of all messages registered with this TTObjectBase.
 	 */
-	void getMessageNames(TTValue& returnedMessageNames)
+	void messages(TTValue& returnedMessageNames)
 	{
 		mObjectInstance->getMessageNames(returnedMessageNames);
 	}
 	
 	
 	/** Return the name of this class.
-	 @return					The name of this object.
+		@return					The name of this object.
 	 */
-	TTSymbol getName() const
+	TTSymbol name() const
 	{
 		return mObjectInstance->getName();
 	}
 
 	
-	/** TODO: Document this function
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	/** Send a message to this object with no arguments.
+		@param aName	The name of the message to send.
+		@return			#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr sendMessage(const TTSymbol& aName)
+	TTErr send(const TTSymbol& aName)
 	{
 		return mObjectInstance->sendMessage(aName);
 	}
 
 
-	TTErr sendMessage(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue)
+	/** Send a message to this object with arguments.
+		All arguments for input must be packed into a #TTValue container.
+		Any return values from the message will be packed into a second #TTValue container, which you must provide.
+		@param	aName			The name of the message to send.
+		@param	anInputValue	Any additional arguments to the message.
+		@param	anOutputValue	Will be filled-in with data upon return if the message returns data.
+		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr send(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue)
 	{
 		return mObjectInstance->sendMessage(aName, anInputValue, anOutputValue);
 	}
 
-#ifdef UNSURE_HOW_TO_HANDLE_THESE_RIGHT_NOW
-	/** Register an observer for a message.
-	 The observer will be monitoring if this message is sent to the object.
-	 @param observingObject			Pointer to the observing object.
-	 @param messageName				The name of the message to monitor.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr registerObserverForMessage(const TTObjectBase& observingObject, const TTSymbol& messageName);
-	
-	
-	/** Register an observer for an attribute.
-	 The observer will be monitoring if this attribute is changes.
-	 @param observingObject			Pointer to the observing object.
-	 @param attributeName			The name of the attribute to monitor.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr registerObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol& attributeName);
-	
 	
 	/** Register an observer.
-	 The observer will be monitoring this object.
-	 TODO: Exactly what do this imply? What is being observed?
-	 @param observingObject			Pointer to the observing object.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+		The observer will be monitoring this object.
+
+		@param anObservingObject	Reference to the observing object.
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr registerObserverForNotifications(const TTObjectBase& observingObject);
-	
-	
-	/** Unregister an observer for a message.
-	 The observer will stop monitoring if this message is sent to the object.
-	 @param observingObject			Pointer to the observing object.
-	 @param messageName				The name of the message that no longer will be monitored.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr unregisterObserverForMessage(const TTObjectBase& observingObject, const TTSymbol& messageName);
-	
-	
-	/** Unregister an observer for an attribute.
-	 The observer will stop monitoring changes to this attribute.
-	 @param observingObject			Pointer to the observing object.
-	 @param attributeName			The name of the attribute that no longer will be monitored.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr unregisterObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol& attributeName);
-	
-	
-	/** Unregister an observer for notifications.
-	 The observer wiln no longer be monitoring.
-	 TODO: Exactly what do this imply?
-	 @param observingObject			Pointer to the observing object.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr unregisterObserverForNotifications(const TTObjectBase& observingObject);
-#endif // UNSURE_HOW_TO_HANDLE_THESE_RIGHT_NOW
-			
-	/** Default (empty) template for unit tests.
-	 @param returnedTestInfo		Returned information on the outcome of the unit test(s)
-	 @return						#kTTErrNone if tests exists and they all pass, else #TTErr error codes depending on the outcome of the test.
-	 */
-	virtual TTErr test(TTValue& returnedTestInfo)
+	TTErr registerObserverForNotifications(const TTObjectBase& anObservingObject)
 	{
-		return mObjectInstance->test(returnedTestInfo);
+		return mObjectInstance->registerObserverForNotifications(anObservingObject);
 	}
+	TTErr registerObserverForNotifications(const TTObject& anObservingObject)
+	{
+		return mObjectInstance->registerObserverForNotifications(*anObservingObject.instance());
+	}
+	
+		
+	/** Unregister an observer for notifications.
+		The observer wiln no longer be monitoring.
+
+		@param anObservingObject	Reference to the observing object.
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr unregisterObserverForNotifications(const TTObjectBase& anObservingObject)
+	{
+		return mObjectInstance->unregisterObserverForNotifications(anObservingObject);
+	}
+	TTErr unregisterObserverForNotifications(const TTObject& anObservingObject)
+	{
+		return mObjectInstance->unregisterObserverForNotifications(*anObservingObject.instance());
+	}
+		
 	
 };
 

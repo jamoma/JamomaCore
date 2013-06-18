@@ -27,6 +27,8 @@ TTObjectBase::TTObjectBase(TTValue& arguments)
 	attributes = new TTHash;
 	observers = new TTList;
 	// 'valid' will be set true by the Environment class which is the factory for all objects
+	
+	registerMessage("test",						TTMethod(&TTObjectBase::test));
 }
 
 

@@ -362,7 +362,7 @@ public:
 #endif
 
 	
-static void TTAtomicIncrement(TTAtomicInt& value)
+inline void TTAtomicIncrement(TTAtomicInt& value)
 {
 #ifdef TT_PLATFORM_MAC
 	OSAtomicIncrement32(&value);

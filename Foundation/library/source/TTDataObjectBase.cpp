@@ -36,7 +36,6 @@ TTDataObjectBase::TTDataObjectBase(TTValue& arguments) :
 	registerAttribute("bypass",	kTypeBoolean,	&mBypass,	(TTSetterMethod)&TTDataObjectBase::setBypass);
 
 //	registerMessage(calculate",					(TTMethod)&TTAudioObject::calculateMessage);
-	registerMessage("test",						TTMethod(&TTObjectBase::test));
 	registerMessage("resetBenchmarking",		(TTMethod)&TTDataObjectBase::resetBenchmarking, kTTMessagePassNone);
 	registerMessage("getProcessingBenchmark",	(TTMethod)&TTDataObjectBase::getProcessingBenchmark);
 

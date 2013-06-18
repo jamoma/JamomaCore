@@ -45,14 +45,14 @@ TT_AUDIO_CONSTRUCTOR,
 
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
-	setAttributeValue(TT("threshold"),		0.0);
-	setAttributeValue(TT("preamp"),			0.0);
-	setAttributeValue(TT("postamp"),		0.0);
-	setAttributeValue(TT("lookahead"),		100);
-	setAttributeValue(TT("mode"),			TT("exponential"));
-	setAttributeValue(TT("release"),		1000.0);
-	setAttributeValue(TT("dcBlocker"),		kTTBoolYes);
-	setAttributeValue(TT("bypass"),			kTTBoolNo);
+	setAttributeValue("threshold",				0.0);
+	setAttributeValue("preamp",					0.0);
+	setAttributeValue("postamp",				0.0);
+	setAttributeValue("lookahead",				100);
+	setAttributeValue("mode",					"exponential");
+	setAttributeValue("release",				1000.0);
+	setAttributeValue("dcBlocker",				kTTBoolYes);
+	setAttributeValue("bypass",					kTTBoolNo);
 
 	clear();
 	setProcessMethod(processAudio);
@@ -90,8 +90,8 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&
 
 	clear();
 	
-	dcBlocker.setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	preamp.setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	dcBlocker.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	preamp.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	
 	return kTTErrNone;
 }
@@ -106,13 +106,12 @@ TTErr TTLimiter::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 
 TTErr TTLimiter::setPreamp(TTValue& newValue)
 {
-//	return preamp.setAttributeValue(TT("gain"), const_cast<TTValue&>(newValue));
-	return preamp.setAttributeValue(TT("gain"), newValue);
+	return preamp.set("gain", newValue);
 }
 
 TTErr TTLimiter::getPreamp(TTValue& value)
 {
-	return preamp.getAttributeValue(TT("gain"), value);
+	return preamp.get("gain", value);
 }
 
 
@@ -161,7 +160,7 @@ TTErr TTLimiter::setRelease(TTValue& newValue)
 TTErr TTLimiter::setMode(TTValue& newValue)
 {
 	attrMode = newValue;
-	if (attrMode == TT("linear"))
+	if (attrMode == "linear")
 		isLinear = true;
 	else
 		isLinear = false;
@@ -173,9 +172,7 @@ TTErr TTLimiter::setMode(TTValue& newValue)
 TTErr TTLimiter::setDCBlocker(TTValue& newValue)
 {
 	attrDCBlocker = newValue;
-	TTBoolean bypassDCBlocker = !attrDCBlocker;
-	
-	return dcBlocker.setAttributeValue(TT("bypass"), bypassDCBlocker);
+	return dcBlocker.set("bypass", !attrDCBlocker);
 }
 
 
@@ -194,7 +191,7 @@ TTErr TTLimiter::clear()
 	last = 1.0;
 	setRecover();
 
-	dcBlocker.sendMessage(TT("clear"));
+	dcBlocker.send("clear");
 	return kTTErrNone;
 }
 
@@ -204,7 +201,7 @@ TTErr TTLimiter::clear()
 void TTLimiter::setRecover()
 {
 	recover = 1000.0 / (attrRelease * sr);		
-	if (attrMode == TT("linear"))
+	if (attrMode == "linear")
 		recover = recover * 0.5;
 	else 
 		recover = recover * 0.707;
