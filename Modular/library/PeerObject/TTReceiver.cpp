@@ -54,7 +54,10 @@ mObjectCache(NULL)
 	addMessageProperty(Get, hidden, YES);
 	
 	mNodesObserversCache = new TTList();
+    mNodesObserversCache->setThreadProtection(true);
+    
 	mObjectCache = new TTList();
+    mObjectCache->setThreadProtection(true);
 }
 
 TTReceiver::~TTReceiver()
@@ -221,7 +224,10 @@ TTErr TTReceiver::bindAddress()
 		return kTTErrGeneric;
 	
 	mNodesObserversCache = new TTList();
+    mNodesObserversCache->setThreadProtection(true);
+    
 	mObjectCache = new TTList();
+    mObjectCache->setThreadProtection(true);
 	
 	// for any Attribute observation except created, destroyed
 	ttAttributeName = ToTTName(mAddress.getAttribute());

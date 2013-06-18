@@ -173,7 +173,8 @@ TTErr TTSender::bindAddress()
 	mDirectory->Lookup(mAddress, aNodeList, &aNode);
 	
 	// 2. make a cache containing each object
-	mObjectCache  = new TTList();
+	mObjectCache = new TTList();
+    mObjectCache->setThreadProtection(true);
 	
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
 		aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
