@@ -54,12 +54,26 @@ public:
 		TTObjectBaseRelease(&mObjectInstance);
 	}
 	
-	// TODO -- how do we do TTObjectReference?  Copy constructor?
+	// TODO -- how do we do TTObjectReference?  Copy constructor and assignment operator, yes?
+	// Look at the Doxygen tutorial for a use case!
 	
+	// class methods for querying the registry
+	static TTErr GetRegisteredClassNames(TTValue& classNames)
+	{
+		return TTGetRegisteredClassNames(classNames);
+	}
 	
-	// TODO -- static methods for querying the registry
+	static TTErr GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags)
+	{
+		return TTGetRegisteredClassNamesForTags(classNames, searchTags);
+	}
 	
-	
+	static TTErr GetRegisteredTags(TTValue& tags)
+	{
+		// TODO: Needs to be implemented!
+		return kTTErrMethodNotFound;
+	}
+
 	
 	/** Return a direct pointer to the internal instance.
 		Not recommended in most cases. */
