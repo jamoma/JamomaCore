@@ -50,7 +50,7 @@ TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) :
 
 	// Set Defaults...
 		
-	setAttributeValue(kTTSym_sampleRate,	(unsigned int)ttEnvironment->mSampleRate);
+	setAttributeValue(kTTSym_sampleRate, ttEnvironment->mSampleRate);
 	setProcess(&TTAudioObjectBase::bypassProcess);
     setCalculate(&TTAudioObjectBase::defaultCalculateMethod);
 	setAttributeValue("bypass",			kTTBoolNo);	

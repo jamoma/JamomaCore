@@ -180,7 +180,7 @@ public:
 	TTErr setSampleRate(const TTUInt32& newSampleRate)
 	{
 		if (newSampleRate && newSampleRate != sr)
-			return setAttributeValue(kTTSym_sampleRate, (unsigned int)newSampleRate);
+			return setAttributeValue(kTTSym_sampleRate, newSampleRate);
 		else
 			return kTTErrNone;
 	}
