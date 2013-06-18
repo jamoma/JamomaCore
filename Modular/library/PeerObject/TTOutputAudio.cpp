@@ -48,10 +48,15 @@ TTOutput(arguments)
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalOut, 1);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalTemp, 1);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalZero, 1);
+    
 	TTObjectBaseInstantiate(TTSymbol("crossfade"), &mMixUnit, 1);
-	mMixUnit->setAttributeValue(TTSymbol("position"), 1.0);
-	TTObjectBaseInstantiate(TTSymbol("gain"), &mGainUnit, 1);
-	mGainUnit->setAttributeValue(TTSymbol("linearGain"), 1.0);
+	if (mMixUnit)
+        mMixUnit->setAttributeValue(TTSymbol("position"), 1.0);
+	
+    TTObjectBaseInstantiate(TTSymbol("gain"), &mGainUnit, 1);
+    if (mGainUnit)
+        mGainUnit->setAttributeValue(TTSymbol("linearGain"), 1.0);
+    
 	TTObjectBaseInstantiate(TTSymbol("ramp"), &mRampMixUnit, 1);
 	TTObjectBaseInstantiate(TTSymbol("ramp"), &mRampGainUnit, 1);
 }
