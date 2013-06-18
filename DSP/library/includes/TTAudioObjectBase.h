@@ -26,6 +26,7 @@
 
 // Forward declaration of TTAudioObjectBase for the typedef that follows...
 class TTAudioObjectBase;
+class TTAudio;
 
 
 /** A type that can be used to store a pointer to a process method (which calculates a vector of samples).
@@ -292,6 +293,8 @@ public:
 	TTErr process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	
+	TTErr process(TTAudio& inputs, TTAudio& outputs);
+	
 	/**	The default audio processing method, which simply copies a signal through with no modifications.
 	 @param inputs
 	 @param outputs
@@ -367,6 +370,17 @@ public:
 	 */
 	TTFloat64 feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay);
 
+	
+	
+	/** Default (empty) template for unit tests.
+	 @param returnedTestInfo		Returned information on the outcome of the unit test(s)
+	 @return						#kTTErrNone if tests exists and they all pass, else #TTErr error codes depending on the outcome of the test.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo)
+	{
+		logMessage("No Tests have been written for this class -- please supply a test method.\n");
+		return kTTErrGeneric;
+	}
 
 };
 

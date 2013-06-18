@@ -28,7 +28,8 @@ TTObjectBase::TTObjectBase(TTValue& arguments)
 	observers = new TTList;
 	// 'valid' will be set true by the Environment class which is the factory for all objects
 	
-	registerMessage("test",						TTMethod(&TTObjectBase::test));
+	// Cannot add any messages or attributes here because messages and attributes are themselves objects
+	// and we will infinitely recurse
 }
 
 
