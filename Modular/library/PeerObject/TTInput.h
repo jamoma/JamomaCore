@@ -51,6 +51,9 @@ private:
 
 	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this input
 	TTCallbackPtr		mAddressObserver;			///< to observe mOutputAddress creation/destruction
+    
+    TTValue				mSignal;					///< ATTRIBUTE : a hidden attribute to observe signal preview
+	TTAttributePtr		mSignalAttr;				///< a direct access to the signal preview attribute to notify observers
 	
 	/** Send signal. The mIndex have to be choosen before */
 	TTErr Send(const TTValue& inputValue, TTValue& outputValue);
@@ -63,6 +66,9 @@ private:
 	
 	/** Set the outputAddress attribute */
 	TTErr setOutputAddress(const TTValue& value);
+    
+    /** Notify signal observer */
+	TTErr notifySignalObserver(const TTValue& value);
 	
 	friend TTErr TTMODULAR_EXPORT TTInputDirectoryCallback(TTPtr baton, TTValue& data);
 

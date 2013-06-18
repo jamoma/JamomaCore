@@ -32,7 +32,9 @@ mSignalOut(NULL),
 mSignalZero(NULL),
 mOutputObject(NULL),
 mReturnSignalCallback(NULL),
-mAddressObserver(NULL)
+mAddressObserver(NULL),
+mSignal(kTTValNONE),
+mSignalAttr(NULL)
 {
 	// There will be no args passed if this is created as a super-class for TTInputAudio [tap]
 	// TT_ASSERT("Correct number of args to create TTInput", arguments.size() > 0);
@@ -60,6 +62,10 @@ mAddressObserver(NULL)
     
     removeAttribute(kTTSym_bypass);        // because there is already a Bypass attribute registered for all TTDataObject instances
 	addAttribute(Bypass, kTypeBoolean);
+    
+    addAttribute(Signal, kTypeLocalValue);
+	addAttributeProperty(Signal, hidden, YES);
+	addAttributeProperty(Signal, readOnly, YES);
 	
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
@@ -71,6 +77,8 @@ mAddressObserver(NULL)
 	addMessageProperty(Unlink, hidden, YES);
 	
 	mSignalCache = new TTList();
+    
+    this->findAttribute(TTSymbol("signal"), &mSignalAttr);
 }
 
 TTInput::~TTInput()
@@ -104,6 +112,8 @@ TTInput::~TTInput()
 
 TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 {
+    TTErr err;
+    
     if (!mReturnSignalCallback)
         return kTTErrGeneric;
     
@@ -111,10 +121,14 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 		return kTTErrNone;
     
 	else if (mBypass && mOutputObject)
-		return mOutputObject->sendMessage(TTSymbol("SendBypassed"), inputValue, kTTValNONE);
+		err = mOutputObject->sendMessage(TTSymbol("SendBypassed"), inputValue, kTTValNONE);
     
 	else
-		return mReturnSignalCallback->notify(inputValue, kTTValNONE);
+		err = mReturnSignalCallback->notify(inputValue, kTTValNONE);
+    
+    notifySignalObserver(inputValue);
+    
+    return err;
 }
 
 TTErr TTInput::Link(const TTValue& inputValue, TTValue& outputValue)
@@ -168,6 +182,15 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	
 	mOutputAddress = newAddress;
 	
+	return kTTErrNone;
+}
+
+TTErr TTInput::notifySignalObserver(const TTValue& value)
+{
+	mSignal = value;
+	
+	mSignalAttr->sendNotification(kTTSym_notify, mSignal);	// we use kTTSym_notify because we know that observers are TTCallback
+    
 	return kTTErrNone;
 }
 
