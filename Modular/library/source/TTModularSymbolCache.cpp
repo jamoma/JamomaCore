@@ -26,11 +26,13 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_CueManager                       (("CueMa
 TTMODULAR_EXPORT TTSymbol       kTTSym_Data                             (("Data"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Explorer                         (("Explorer"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Input                            (("Input"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_InputAudio                       (("Input.audio"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Mapper                           (("Mapper"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_MapperManager					(("MapperManager"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Mirror                           (("Mirror"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_OpmlHandler                      (("OpmlHandler"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Output                           (("Output"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_OutputAudio                      (("Output.audio"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Preset                           (("Preset"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_PresetManager					(("PresetManager"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Ramp                             (("Ramp"));
