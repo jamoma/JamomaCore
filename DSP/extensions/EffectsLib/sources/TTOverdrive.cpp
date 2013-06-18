@@ -15,7 +15,7 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-, dcBlockerUnit(NULL)
+, dcBlockerUnit(kTTSym_dcblock)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
@@ -31,9 +31,6 @@ TT_AUDIO_CONSTRUCTOR
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 	
-	// Additional Initialization
-	dcBlockerUnit = new TTAudioObject(kTTSym_dcblock, initialMaxNumChannels);
-
 	// Set Defaults
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), 1);
@@ -45,13 +42,13 @@ TT_AUDIO_CONSTRUCTOR
 
 TTOverdrive::~TTOverdrive()
 {
-	delete dcBlockerUnit;
+	;
 }
 
 
 TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {	
-	return dcBlockerUnit->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	return dcBlockerUnit.setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 }
 
 
@@ -82,7 +79,9 @@ TTErr TTOverdrive::setDrive(const TTValue& newValue)
 TTErr TTOverdrive::setDcBlocker(const TTValue& newValue)
 {
 	mDcBlocker = newValue;
-	return dcBlockerUnit->setAttributeValue(TT("bypass"), !mDcBlocker);
+	TTBoolean bypass = !mDcBlocker;
+	
+	return dcBlockerUnit.setAttributeValue(TT("bypass"), bypass);
 }
 
 
@@ -112,7 +111,7 @@ TTErr TTOverdrive::setPreamp(const TTValue& newValue)
 
 TTErr TTOverdrive::clear()
 {
-	return dcBlockerUnit->sendMessage(TT("clear"));
+	return dcBlockerUnit.sendMessage(TT("clear"));
 }
 
 
@@ -128,7 +127,7 @@ TTErr TTOverdrive::processMode0(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTSampleValue	temp,
 					sign;
 
-	dcBlockerUnit->process(in, out);
+	dcBlockerUnit.process(in, out);
 
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
@@ -171,7 +170,7 @@ TTErr TTOverdrive::processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTSampleValue	sign;
 #endif
 	
-	dcBlockerUnit->process(in, out);
+	dcBlockerUnit.process(in, out);
 
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
