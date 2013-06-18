@@ -14,15 +14,15 @@
 #define thisTTClassTags		"audio, processor, distortion"
 
 
-TT_AUDIO_CONSTRUCTOR
-, dcBlockerUnit(kTTSym_dcblock)
+TT_AUDIO_CONSTRUCTOR,
+	dcBlockerUnit(kTTSym_dcblock)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
 	// Register Attributes
 	addAttributeWithSetter(Drive,				kTypeFloat64);
-		addAttributeProperty(Drive,			range,			TTValue(1.0, 10.0));
-		addAttributeProperty(Drive,			rangeChecking,	TT("clip")); // options are "clip" "cliphigh" "cliplow"
+		addAttributeProperty(Drive,				range,			TTValue(1.0, 10.0));
+		addAttributeProperty(Drive,				rangeChecking,	TT("clip")); // options are "clip" "cliphigh" "cliplow"
 	addAttributeWithSetter(DcBlocker,			kTypeBoolean);
 	addAttributeWithSetter(Mode,				kTypeBoolean);// IMPORTANT: if we have more modes, the datatype need to change here
 	addAttributeWithGetterAndSetter(Preamp,		kTypeFloat64);
@@ -33,10 +33,10 @@ TT_AUDIO_CONSTRUCTOR
 	
 	// Set Defaults
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
-	setAttributeValue(TT("mode"), 1);
-	setAttributeValue(TT("preamp"), 0.0);
-	setAttributeValue(TT("drive"), 3.0);
-	setAttributeValue(TT("dcBlocker"), kTTBoolYes);
+	setAttributeValue("mode",		1);
+	setAttributeValue("preamp",		0.0);
+	setAttributeValue("drive",		3.0);
+	setAttributeValue("dcBlocker",	kTTBoolYes);
 }
 
 
@@ -48,7 +48,7 @@ TTOverdrive::~TTOverdrive()
 
 TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {	
-	return dcBlockerUnit.setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	return dcBlockerUnit.set(kTTSym_maxNumChannels, mMaxNumChannels);
 }
 
 
@@ -81,7 +81,7 @@ TTErr TTOverdrive::setDcBlocker(const TTValue& newValue)
 	mDcBlocker = newValue;
 	TTBoolean bypass = !mDcBlocker;
 	
-	return dcBlockerUnit.setAttributeValue(TT("bypass"), bypass);
+	return dcBlockerUnit.set("bypass", bypass);
 }
 
 
@@ -111,7 +111,7 @@ TTErr TTOverdrive::setPreamp(const TTValue& newValue)
 
 TTErr TTOverdrive::clear()
 {
-	return dcBlockerUnit.sendMessage(TT("clear"));
+	return dcBlockerUnit.send("clear");
 }
 
 
