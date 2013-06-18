@@ -113,42 +113,36 @@ TTErr System::Stop()
 
 TTErr System::Tick()
 {
-	if (mRunning) {
+    TTFloat64 delta = computeDeltaTime();
+    
+    mProgression += (delta * mSpeed) / mDuration;
+    mRealTime += delta;
+    
+    if (mProgression < 1.) {
         
-        TTFloat64 delta = computeDeltaTime();
+        (mCallback)(mBaton, mProgression);
         
-        mProgression += (delta * mSpeed) / mDuration;
-        mRealTime += delta;
+        // notify each progression attribute observers
+        progressionAttribute->sendNotification(kTTSym_notify, mProgression);    // we use kTTSym_notify because we know that observers are TTCallback
         
-        if (mProgression < 1.) {
-            
-            (mCallback)(mBaton, mProgression);
-            
-            // notify each progression attribute observers
-            progressionAttribute->sendNotification(kTTSym_notify, mProgression);    // we use kTTSym_notify because we know that observers are TTCallback
+        // notify each elapsed time attribute observers
+        realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);          // we use kTTSym_notify because we know that observers are TTCallback
+    }
+    else {
         
-            // notify each elapsed time attribute observers
-            realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);          // we use kTTSym_notify because we know that observers are TTCallback
-            
-            // launch the next tick
-            Tick();
-        }
-        else {
-            
-            mRunning = NO;
-            
-            (mCallback)(mBaton, mProgression);
-            
-            // notify each progression attribute observers
-            progressionAttribute->sendNotification(kTTSym_notify, mProgression);    // we use kTTSym_notify because we know that observers are TTCallback
-            
-            // notify each elapsed time attribute observers
-            realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);          // we use kTTSym_notify because we know that observers are TTCallback
-            
-            // notify each running attribute observers
-            runningAttribute->sendNotification(kTTSym_notify, mRunning);            // we use kTTSym_notify because we know that observers are TTCallback
-        }
-	}
+        mRunning = NO;
+        
+        (mCallback)(mBaton, mProgression);
+        
+        // notify each progression attribute observers
+        progressionAttribute->sendNotification(kTTSym_notify, mProgression);    // we use kTTSym_notify because we know that observers are TTCallback
+        
+        // notify each elapsed time attribute observers
+        realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);          // we use kTTSym_notify because we know that observers are TTCallback
+        
+        // notify each running attribute observers
+        runningAttribute->sendNotification(kTTSym_notify, mRunning);            // we use kTTSym_notify because we know that observers are TTCallback
+    }
     
     return kTTErrNone;
 }
@@ -208,7 +202,8 @@ void SystemThreadCallback(void* anSystemScheduler)
     // notify each running attribute observers
     aScheduler->runningAttribute->sendNotification(kTTSym_notify, aScheduler->mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
     
-    // launch the first tick if the duration is valid
+    // launch the tick if the duration is valid and while it have to run
     if (aScheduler->mDuration > 0.)
-        aScheduler->Tick();
+        while(aScheduler->mRunning)
+            aScheduler->Tick();
 }
