@@ -499,6 +499,9 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
     TTObjectBasePtr anOscSender;
 	TTValue		v, vIp, vPort, message;
 	TTErr		err, errIp, errPort;
+    
+    if (!mSenderManager)
+        return kTTErrGeneric;
 	
 	// Check the application registration
 	err = mDistantApplicationParameters.lookup(distantApplicationName, v);
