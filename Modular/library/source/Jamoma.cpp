@@ -31,7 +31,7 @@ bool                        max6 = false;					///< Is Jamoma currently running i
 
 TTSymbol					kTTSym_Jamoma;
 TTApplicationPtr			JamomaApplication = NULL;
-TTMODULAR_EXPORT TTNodeDirectoryPtr			JamomaDirectory = NULL;
+TTMODULAR_EXPORT            TTNodeDirectoryPtr			JamomaDirectory = NULL;
 
 TTRegex*					ttRegexForJmod = NULL;
 TTRegex*					ttRegexForJcom = NULL;
@@ -112,7 +112,7 @@ void jamoma_init(void)
 		ModelPatcherFormat = new TTString("%s.model.maxpat");
 		ModelPresetFormat = new TTString("%s.model.xml");
 		ViewPresetFormat = new TTString("%s.view.xml");
-		HelpPatcherFormat = new TTString("%s.module");
+		HelpPatcherFormat = new TTString("%s.model");
 		RefpageFormat = new TTString("%s.model");
 		DocumentationFormat = new TTString("%s.model.html");
 		

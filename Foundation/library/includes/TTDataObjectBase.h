@@ -25,7 +25,7 @@ class TTDataObjectBase;
 class TTMatrixArray;
 
 /**	A type that can be used to store a pointer to a calculate method (which calculates an array of matrices).
- @ingroup typedefs
+	@ingroup typedefs
  */
 typedef TTErr (TTDataObjectBase::*TTMatrixCalculateMethod)(const TTMatrixArray* inputMatrices, TTMatrixArray* outputMatrices);
 
@@ -53,7 +53,7 @@ protected:
 
 protected:
 	/** Object constructor.
-	@param arguments			Arguments to the constructor method.
+		@param arguments			Arguments to the constructor method.
 	*/
 	TTDataObjectBase(TTValue& arguments);
 
@@ -63,52 +63,52 @@ protected:
 
 	
 	/** Set the sample calculate routine to point to a method that is defined as an arg to this function.
-	 @param newMatrixCalculateMethod	The new matrix calculation method to use.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+		@param newMatrixCalculateMethod	The new matrix calculation method to use.
+		@return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setMatrixCalculate(TTMatrixCalculateMethod newMatrixCalculateMethod);
 	
 	
 	/** Bypass the audio processing routine and copy all input samples to the output unchanged.
-	 @param value				Set bypass property for the object, controling whether matrix calculation will be bypassed.
-	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+		@param value				Set bypass property for the object, controling whether matrix calculation will be bypassed.
+		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setBypass(const TTValue& value);
 
 	
 	/** Built-in method to be used when calculation is to bypassed. It simply copied input to output.
-	 @param input					Input the calculation routine.
-	 @param output					Output from the calculation routine.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+		@param input					Input the calculation routine.
+		@param output					Output from the calculation routine.
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	*/
 	TTErr bypassMatrixCalculate(const TTMatrixArray* inputs, TTMatrixArray* outputs);
 	
 	
 	/** The default calculation method to use.
-	 @param input					Input the calculation routine.
-	 @param output					Output from the calculation routine.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+		@param input					Input the calculation routine.
+		@param output					Output from the calculation routine.
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr defaultMatrixCalculateMethod(const TTMatrixArray* inputs, TTMatrixArray* outputs);
 
 	
 	/** Reset internal values used when benchmarking performance.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr resetBenchmarking();
 	
 	
 	/** Do performance benchmarking.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr getProcessingBenchmark(TTValueRef v);
 	
 	
 public:
 	/**
-	 @param input					Input the calculation routine.
-	 @param output					Output from the calculation routine.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+		@param input					Input the calculation routine.
+		@param output					Output from the calculation routine.
+		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr calculate(const TTMatrixArray* inputs, TTMatrixArray* outputs);
 	TTErr calculate(const TTMatrix& x, TTMatrix& y);
@@ -117,10 +117,20 @@ public:
 		return calculate(*x, *y);
 	}
 
+	/** Default (empty) template for unit tests.
+	 @param returnedTestInfo		Returned information on the outcome of the unit test(s)
+	 @return						#kTTErrNone if tests exists and they all pass, else #TTErr error codes depending on the outcome of the test.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo)
+	{
+		logMessage("No Tests have been written for this class -- please supply a test method.\n");
+		return kTTErrGeneric;
+	}
+
 };
 
 /** Pointer to a #TTDataObjectBase.
- @ingroup typedefs
+	@ingroup typedefs
  */
 typedef TTDataObjectBase* TTDataObjectBasePtr;
 

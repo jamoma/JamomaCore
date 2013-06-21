@@ -293,7 +293,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	
 	DIR* dirp = opendir(fullpath.c_str());
 	dirent* dp;
-	while (dp = readdir(dirp)) {
+	while ((dp = readdir(dirp))) {
 		TTString	fileName(dp->d_name);
 		TTString	fileSuffix(strrchr(fileName.c_str(), '.'));
 		TTString	fileBaseName = fileName.substr(0, fileName.size() - 8);

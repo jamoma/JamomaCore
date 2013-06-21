@@ -14,15 +14,15 @@
 #define thisTTClassTags		"audio, processor, distortion"
 
 
-TT_AUDIO_CONSTRUCTOR
-, dcBlockerUnit(NULL)
+TT_AUDIO_CONSTRUCTOR,
+	dcBlockerUnit(kTTSym_dcblock)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
 	// Register Attributes
 	addAttributeWithSetter(Drive,				kTypeFloat64);
-		addAttributeProperty(Drive,			range,			TTValue(1.0, 10.0));
-		addAttributeProperty(Drive,			rangeChecking,	TT("clip")); // options are "clip" "cliphigh" "cliplow"
+		addAttributeProperty(Drive,				range,			TTValue(1.0, 10.0));
+		addAttributeProperty(Drive,				rangeChecking,	TT("clip")); // options are "clip" "cliphigh" "cliplow"
 	addAttributeWithSetter(DcBlocker,			kTypeBoolean);
 	addAttributeWithSetter(Mode,				kTypeBoolean);// IMPORTANT: if we have more modes, the datatype need to change here
 	addAttributeWithGetterAndSetter(Preamp,		kTypeFloat64);
@@ -31,27 +31,24 @@ TT_AUDIO_CONSTRUCTOR
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 	
-	// Additional Initialization
-	dcBlockerUnit = new TTAudioObject(kTTSym_dcblock, initialMaxNumChannels);
-
 	// Set Defaults
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
-	setAttributeValue(TT("mode"), 1);
-	setAttributeValue(TT("preamp"), 0.0);
-	setAttributeValue(TT("drive"), 3.0);
-	setAttributeValue(TT("dcBlocker"), kTTBoolYes);
+	setAttributeValue("mode",		1);
+	setAttributeValue("preamp",		0.0);
+	setAttributeValue("drive",		3.0);
+	setAttributeValue("dcBlocker",	kTTBoolYes);
 }
 
 
 TTOverdrive::~TTOverdrive()
 {
-	delete dcBlockerUnit;
+	;
 }
 
 
 TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {	
-	return dcBlockerUnit->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	return dcBlockerUnit.set(kTTSym_maxNumChannels, mMaxNumChannels);
 }
 
 
@@ -82,7 +79,9 @@ TTErr TTOverdrive::setDrive(const TTValue& newValue)
 TTErr TTOverdrive::setDcBlocker(const TTValue& newValue)
 {
 	mDcBlocker = newValue;
-	return dcBlockerUnit->setAttributeValue(TT("bypass"), !mDcBlocker);
+	TTBoolean bypass = !mDcBlocker;
+	
+	return dcBlockerUnit.set("bypass", bypass);
 }
 
 
@@ -112,7 +111,7 @@ TTErr TTOverdrive::setPreamp(const TTValue& newValue)
 
 TTErr TTOverdrive::clear()
 {
-	return dcBlockerUnit->sendMessage(TT("clear"));
+	return dcBlockerUnit.send("clear");
 }
 
 
@@ -128,7 +127,7 @@ TTErr TTOverdrive::processMode0(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTSampleValue	temp,
 					sign;
 
-	dcBlockerUnit->process(in, out);
+	dcBlockerUnit.process(in, out);
 
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
@@ -171,7 +170,7 @@ TTErr TTOverdrive::processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTSampleValue	sign;
 #endif
 	
-	dcBlockerUnit->process(in, out);
+	dcBlockerUnit.process(in, out);
 
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];

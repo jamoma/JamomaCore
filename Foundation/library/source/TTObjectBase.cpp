@@ -27,6 +27,9 @@ TTObjectBase::TTObjectBase(TTValue& arguments)
 	attributes = new TTHash;
 	observers = new TTList;
 	// 'valid' will be set true by the Environment class which is the factory for all objects
+	
+	// Cannot add any messages or attributes here because messages and attributes are themselves objects
+	// and we will infinitely recurse
 }
 
 
@@ -69,7 +72,7 @@ TTObjectBase::~TTObjectBase()
 #pragma mark Object Attributes
 #endif
 
-TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType type, void* address)
+TTErr TTObjectBase::registerAttribute(const TTSymbol name, const TTDataType type, void* address)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address);
 
@@ -79,7 +82,7 @@ TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType typ
 	return kTTErrNone;
 }
 
-TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter)
+TTErr TTObjectBase::registerAttribute(const TTSymbol name, const TTDataType type, void* address, TTGetterMethod getter)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter);
 
@@ -88,7 +91,7 @@ TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType typ
 	return kTTErrNone;
 }
 
-TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTSetterMethod setter)
+TTErr TTObjectBase::registerAttribute(const TTSymbol name, const TTDataType type, void* address, TTSetterMethod setter)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, setter);
 
@@ -97,7 +100,7 @@ TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType typ
 	return kTTErrNone;
 }
 
-TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObjectBase::registerAttribute(const TTSymbol name, const TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter, setter);
 
@@ -105,7 +108,7 @@ TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTDataType typ
 	return kTTErrNone;
 }
 
-TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTObjectBasePtr newGetterObject, const TTObjectBasePtr newSetterObject)
+TTErr TTObjectBase::registerAttribute(const TTSymbol name, const TTObjectBasePtr newGetterObject, const TTObjectBasePtr newSetterObject)
 {
 	TTAttribute* newAttribute = new TTAttribute(name, newGetterObject, newSetterObject);
 
@@ -113,7 +116,7 @@ TTErr TTObjectBase::registerAttribute(const TTSymbol& name, const TTObjectBasePt
 	return kTTErrNone;
 }
 
-TTErr TTObjectBase::extendAttribute(const TTSymbol& name, const TTObjectBasePtr extendedObject, const TTSymbol& extendedName)
+TTErr TTObjectBase::extendAttribute(const TTSymbol name, const TTObjectBasePtr extendedObject, const TTSymbol extendedName)
 {
 	TTAttributePtr	extendedAttribute = NULL;
 	TTAttributePtr	newAttribute;
@@ -128,7 +131,7 @@ TTErr TTObjectBase::extendAttribute(const TTSymbol& name, const TTObjectBasePtr 
 		return err;
 }
 
-TTErr TTObjectBase::removeAttribute(const TTSymbol& name)
+TTErr TTObjectBase::removeAttribute(const TTSymbol name)
 {
 	TTAttribute*	attribute = NULL;
 	TTErr			err = findAttribute(name, &attribute);
@@ -141,7 +144,7 @@ TTErr TTObjectBase::removeAttribute(const TTSymbol& name)
 }
 
 
-TTErr TTObjectBase::findAttribute(const TTSymbol& name, TTAttribute** attr)
+TTErr TTObjectBase::findAttribute(const TTSymbol name, TTAttribute** attr)
 {
 	TTValue v;
 	TTErr	err = kTTErrNone;
@@ -156,7 +159,7 @@ TTErr TTObjectBase::findAttribute(const TTSymbol& name, TTAttribute** attr)
 }
 
 
-TTErr TTObjectBase::getAttributeValue(const TTSymbol& name, TTValue& value)
+TTErr TTObjectBase::getAttributeValue(const TTSymbol name, TTValue& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -174,7 +177,7 @@ TTErr TTObjectBase::getAttributeValue(const TTSymbol& name, TTValue& value)
 	return err;
 }
 
-TTErr TTObjectBase::setAttributeValue(const TTSymbol& name, TTValue& value)
+TTErr TTObjectBase::setAttributeValue(const TTSymbol name, TTValue& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err = findAttribute(name, &attribute);
@@ -205,7 +208,7 @@ TTErr TTObjectBase::setAttributeValue(const TTSymbol& name, TTValue& value)
 	return err;
 }
 
-TTErr TTObjectBase::getAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+TTErr TTObjectBase::getAttributeGetterFlags(const TTSymbol name, TTAttributeFlags& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -217,7 +220,7 @@ TTErr TTObjectBase::getAttributeGetterFlags(const TTSymbol& name, TTAttributeFla
 	return err;
 }
 
-TTErr TTObjectBase::setAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+TTErr TTObjectBase::setAttributeGetterFlags(const TTSymbol name, TTAttributeFlags& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -230,7 +233,7 @@ TTErr TTObjectBase::setAttributeGetterFlags(const TTSymbol& name, TTAttributeFla
 }
 
 
-TTErr TTObjectBase::getAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+TTErr TTObjectBase::getAttributeSetterFlags(const TTSymbol name, TTAttributeFlags& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -242,7 +245,7 @@ TTErr TTObjectBase::getAttributeSetterFlags(const TTSymbol& name, TTAttributeFla
 	return err;
 }
 
-TTErr TTObjectBase::setAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+TTErr TTObjectBase::setAttributeSetterFlags(const TTSymbol name, TTAttributeFlags& value)
 {
 	TTAttributePtr	attribute = NULL;
 	TTErr			err;
@@ -279,7 +282,7 @@ void TTObjectBase::getAttributeNames(TTValue& attributeNameList)
 }
 
 
-TTErr TTObjectBase::registerAttributeProperty(const TTSymbol& attributeName, const TTSymbol& propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObjectBase::registerAttributeProperty(const TTSymbol attributeName, const TTSymbol propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
 {
 	TTAttributePtr	theAttr = NULL;
 	TTValue			v;
@@ -295,7 +298,7 @@ TTErr TTObjectBase::registerAttributeProperty(const TTSymbol& attributeName, con
 }
 
 
-TTErr TTObjectBase::registerMessageProperty(const TTSymbol& messageName, const TTSymbol& propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObjectBase::registerMessageProperty(const TTSymbol messageName, const TTSymbol propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
 {
 	TTMessagePtr	theMessage = NULL;
 	TTValue			v;
@@ -345,7 +348,7 @@ TTSymbol TTObjectBase::getName() const
 #pragma mark Object Messages
 #endif
 
-TTErr TTObjectBase::registerMessage(const TTSymbol& name, TTMethod method)
+TTErr TTObjectBase::registerMessage(const TTSymbol name, TTMethod method)
 {
 	TTMessagePtr newMessage = new TTMessage(name, method, kTTMessageDefaultFlags);
 
@@ -357,7 +360,7 @@ TTErr TTObjectBase::registerMessage(const TTSymbol& name, TTMethod method)
 }
 
 
-TTErr TTObjectBase::registerMessage(const TTSymbol& name, TTMethod method, TTMessageFlags flags)
+TTErr TTObjectBase::registerMessage(const TTSymbol name, TTMethod method, TTMessageFlags flags)
 {
 	TTMessagePtr newMessage = new TTMessage(name, method, flags);
 
@@ -369,7 +372,7 @@ TTErr TTObjectBase::registerMessage(const TTSymbol& name, TTMethod method, TTMes
 }
 
 
-TTErr TTObjectBase::findMessage(const TTSymbol& name, TTMessage** message)
+TTErr TTObjectBase::findMessage(const TTSymbol name, TTMessage** message)
 {
 	TTValue v;
 	TTErr	err = kTTErrNone;
@@ -384,7 +387,7 @@ TTErr TTObjectBase::findMessage(const TTSymbol& name, TTMessage** message)
 }
 
 
-TTErr TTObjectBase::sendMessage(const TTSymbol& name)
+TTErr TTObjectBase::sendMessage(const TTSymbol name)
 {
 	return sendMessage(name, kTTValNONE, kTTValNONE);
 }
@@ -406,7 +409,7 @@ TTErr TTObjectBase::sendMessage(const TTSymbolRef name, const TTValue& anInputVa
 #endif
 
 
-TTErr TTObjectBase::sendMessage(const TTSymbol& name, const TTValue& anInputValue, TTValue& anOutputValue)
+TTErr TTObjectBase::sendMessage(const TTSymbol name, const TTValue& anInputValue, TTValue& anOutputValue)
 {
 	TTMessagePtr	message = NULL;
 	TTErr			err;
@@ -435,12 +438,12 @@ TTErr TTObjectBase::sendMessage(const TTSymbol& name, const TTValue& anInputValu
 #pragma mark Observing
 #endif
 
-TTErr TTObjectBase::registerObserverForMessage(const TTObjectBase& observingObject, const TTSymbol& messageName)
+TTErr TTObjectBase::registerObserverForMessage(const TTObjectBase& observingObject, const TTSymbol messageName)
 {
 	return kTTErrGeneric;
 }
 
-TTErr TTObjectBase::registerObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol& attributeName)
+TTErr TTObjectBase::registerObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol attributeName)
 {
 	return kTTErrGeneric;
 }
@@ -453,12 +456,12 @@ TTErr TTObjectBase::registerObserverForNotifications(const TTObjectBase& observi
 }
 
 
-TTErr TTObjectBase::unregisterObserverForMessage(const TTObjectBase& observingObject, const TTSymbol& messageName)
+TTErr TTObjectBase::unregisterObserverForMessage(const TTObjectBase& observingObject, const TTSymbol messageName)
 {
 	return kTTErrGeneric;
 }
 
-TTErr TTObjectBase::unregisterObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol& attributeName)
+TTErr TTObjectBase::unregisterObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol attributeName)
 {
 	return kTTErrGeneric;
 }
@@ -476,7 +479,7 @@ TTErr TTObjectBase::unregisterObserverForNotifications(const TTObjectBase& obser
 }
 
 
-TTErr TTObjectBase::sendNotification(const TTSymbol& name, const TTValue& arguments)
+TTErr TTObjectBase::sendNotification(const TTSymbol name, const TTValue& arguments)
 {
 	return observers->iterateObjectsSendingMessage(name, TTValueRef(arguments));
 }

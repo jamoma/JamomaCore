@@ -48,6 +48,11 @@ public:
 		instance()->alloc();
 	}
 	
+	TTErr allocWithVectorSize(const TTUInt16 aNewVectorSize)
+	{
+		return instance()->allocWithVectorSize(aNewVectorSize);
+	}
+	
 	void setNumChannels(int aChannelCount)
 	{
 		instance()->setNumChannels(aChannelCount);
@@ -66,7 +71,18 @@ public:
 	}
 	
 	
+	TTSampleValue** rawSamples()
+	{
+		return instance()->mSampleVectors;
+	}
+	
 };
+
+
+inline TTErr TTAudioObjectBase::process(TTAudio& inputs, TTAudio& outputs)
+{
+	return process(inputs.instance(), outputs.instance());
+}
 
 
 /** Wrap audio objects for convenience. */
@@ -90,6 +106,7 @@ public:
 	}
 	
 };
+
 
 
 #endif // __TT_AUDIO_OBJECT_H__
