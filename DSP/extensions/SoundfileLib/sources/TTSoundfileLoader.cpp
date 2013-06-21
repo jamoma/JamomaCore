@@ -32,8 +32,9 @@ mTargetMatrix(NULL)
 
 TTSoundfileLoader::~TTSoundfileLoader()
 {
-	if (mSoundfileInterface)
-        TTObjectBaseRelease(TTObjectBaseHandle(&mSoundfileInterface)); // release the interface
+	// opened issue #128 to ask if the next 2 lines are necessary
+    //delete mSoundfileInterface; // release the interface
+    //delete mTargetMatrix; // release the SampleMatrixPtr
 }
 
 // internal method used for initializing the TTSoundfileLoader and mSoundfileInterface for use
@@ -41,7 +42,7 @@ TTErr TTSoundfileLoader::init(const TTSymbol& filePathAsSymbol, const TTSampleMa
 {
     
     // attempt to set the filepath
-    TTErr err = mSoundfileInterface->setFilePath(filePathAsSymbol);
+    TTErr err = mSoundfileInterface.set("filePath", filePathAsSymbol);
     
     if (err)
     {
