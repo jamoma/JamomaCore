@@ -15,9 +15,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTSoundfile.h"
 #include "TTSoundfileLoader.h"
-#include "TTSampleMatrix.h"
 
 #define thisTTClass			TTSoundfileLoader
 #define thisTTClassName		"soundfile.loader"

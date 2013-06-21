@@ -54,8 +54,6 @@ mSoundFile(NULL)
     addAttribute(Annotation, kTypeSymbol);
         addAttributeProperty(Annotation, readOnly, kTTBoolYes);
 	
-	//* Send a file path to the object and attempt to load the file *//
-	TTErr setFilePath(const TTValue& value);
 }
 
 TTSoundfile::~TTSoundfile()
