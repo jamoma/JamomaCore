@@ -24,7 +24,7 @@
 #define thisTTClassTags		"audio, soundfile, buffer"
 
 TT_AUDIO_CONSTRUCTOR,
-mSoundfileInterface(NULL),
+mSoundfileInterface("soundfile"),
 mTargetMatrix(NULL)
 {    
     // add the attributes and messages here
@@ -42,15 +42,8 @@ TTSoundfileLoader::~TTSoundfileLoader()
 TTErr TTSoundfileLoader::init(const TTSymbol& filePathAsSymbol, const TTSampleMatrixPtr newTargetMatrix)
 {
     
-    // instantiate the soundfile interface class
-    TTErr err = TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&mSoundfileInterface, kTTValNONE);
-    
-    if (err)
-    {
-        return err;
-    } else { // attempt to set the filepath
-        err = mSoundfileInterface->setFilePath(filePathAsSymbol);
-    }
+    // attempt to set the filepath
+    TTErr err = mSoundfileInterface->setFilePath(filePathAsSymbol);
     
     if (err)
     {

@@ -32,7 +32,7 @@ class TTSoundfileLoader : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTSoundfileLoader)
 	
 protected:
-    TTSoundfilePtr      mSoundfileInterface;
+    TTAudioObject       mSoundfileInterface;
     TTSampleMatrixPtr   mTargetMatrix;
     
     
