@@ -4,7 +4,7 @@
  *
  * @brief Loads soundfile data into a sample matrix
  *
- * @details This object collaborates with #TTSampleMatrix to load values from a sound file into the sample matrix.
+ * @details This object collaborates with #TTSampleMatrix to load values from a sound file into the sample matrix. An extension of the #TTSoundfile object.
  *
  * @see TTSampleMatrix
  *
@@ -22,17 +22,11 @@
 #include "TTSoundfile.h"
 #include "TTSampleMatrix.h"
 
-#ifdef uint
-#undef uint
-#endif
-#include "../libsndfile/sndfile.h"
-
 //** Creates an interface to data in a soundfile from disk */
-class TTSoundfileLoader : public TTAudioObjectBase {
+class TTSoundfileLoader : public TTSoundfile {
 	TTCLASS_SETUP(TTSoundfileLoader)
 	
 protected:
-    TTAudioObject       mSoundfileInterface;
     TTSampleMatrixPtr   mTargetMatrix;
     
     

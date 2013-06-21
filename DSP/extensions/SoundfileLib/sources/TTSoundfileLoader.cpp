@@ -21,8 +21,20 @@
 #define thisTTClassName		"soundfile.loader"
 #define thisTTClassTags		"audio, soundfile, buffer"
 
-TT_AUDIO_CONSTRUCTOR,
-mSoundfileInterface("soundfile"),
+TTObjectBasePtr TTSoundfileLoader::instantiate(TTSymbol& name, TTValue& arguments)
+{
+	return new TTSoundfileLoader(arguments);
+}
+
+
+extern "C" void TTSoundfileLoader::registerClass()
+{
+	TTClassRegister(thisTTClassName, thisTTClassTags, TTSoundfileLoader::instantiate);
+}
+
+
+TTSoundfileLoader::TTSoundfileLoader(TTValue& arguments) :
+TTSoundfile(arguments),
 mTargetMatrix(NULL)
 {    
     // add the attributes and messages here
@@ -35,6 +47,7 @@ TTSoundfileLoader::~TTSoundfileLoader()
 	// opened issue #128 to ask if the next 2 lines are necessary
     //delete mSoundfileInterface; // release the interface
     //delete mTargetMatrix; // release the SampleMatrixPtr
+    ;
 }
 
 // internal method used for initializing the TTSoundfileLoader and mSoundfileInterface for use
@@ -42,7 +55,7 @@ TTErr TTSoundfileLoader::init(const TTSymbol& filePathAsSymbol, const TTSampleMa
 {
     
     // attempt to set the filepath
-    TTErr err = mSoundfileInterface.set("filePath", filePathAsSymbol);
+    TTErr err = setFilePath(filePathAsSymbol);
     
     if (err)
     {
