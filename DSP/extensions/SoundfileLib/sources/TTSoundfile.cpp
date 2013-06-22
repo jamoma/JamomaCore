@@ -138,7 +138,7 @@ TTErr TTSoundfile::setFilePath(const TTValue& newValue)
 		sf_error_str(soundfile, errstr, 256);
 		TTLogMessage("cannot open soundfile %s: %s", potentialFilePath.c_str(), errstr);
         
-		return kTTErrInvalidValue;
+		return kTTErrInvalidFilepath;
         
 	}
 	
