@@ -38,7 +38,7 @@ TTSoundfile(arguments),
 mTargetMatrix(NULL)
 {    
     // add the attributes and messages here
-    addMessageWithArguments(load);
+    //addMessageWithArguments(load);
     
     // initialize happens as part of the load
 }
