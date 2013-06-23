@@ -40,32 +40,22 @@ mTargetMatrix(NULL)
     // add the attributes and messages here
     addMessageWithArguments(load);
     
-    // initialize, but that may need to be separate call
+    // initialize happens as part of the load
 }
 
 TTSoundfileLoader::~TTSoundfileLoader()
 {
-	// opened issue #128 to ask if the next 2 lines are necessary
-    //delete mSoundfileInterface; // release the interface
-    //delete mTargetMatrix; // release the SampleMatrixPtr
-    ;
+	mTargetMatrix = NULL; // reset to NULL for reference counting
 }
 
-// internal method used for initializing the TTSoundfileLoader and mSoundfileInterface for use
-TTErr TTSoundfileLoader::init(const TTSymbol& filePathAsSymbol, const TTSampleMatrixPtr newTargetMatrix)
+// internal method used for initializing the mTargetMatrix
+TTErr TTSoundfileLoader::setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix)
 {
     
-    // attempt to set the filepath
-    TTErr err = setFilePath(filePathAsSymbol);
+    // Q: is there a way to query and make sure it is a TTSampleMatrix
+    mTargetMatrix = newTargetMatrix;
     
-    if (err)
-    {
-        return err;
-    } else { // set the target matrix for loading samples
-        mTargetMatrix = newTargetMatrix;
-    }
-    
-    return err;
+    return kTTErrNone;
     
 }
 

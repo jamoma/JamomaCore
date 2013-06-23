@@ -30,10 +30,11 @@ protected:
     TTSampleMatrixPtr   mTargetMatrix;
     
     
-    // internal method used for initializing the TTSoundfileLoader and mSoundfileInterface for use. You need to pass in a filepath and pointer the the targetted TTSampleMartix
-	TTErr init(const TTSymbol& filePathAsSymbol, const TTSampleMatrixPtr newTargetMatrix);
+    // internal method targets a new TTSampleMartix
+	TTErr setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix);
     
 public:
+    // external method used to load sound file to a SampleMatrix
     TTErr load(const TTValueRef input, TTValueRef unusedOutput);
     
 };
