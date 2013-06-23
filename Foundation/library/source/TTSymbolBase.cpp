@@ -1,5 +1,5 @@
 /* 
- * TTBlue Class for representing Symbols
+ * Jamoma Class for representing Symbols
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -12,7 +12,6 @@
 
 /****************************************************************************************************/
 
-//TTSymbolBase::TTSymbolBase() {;}
 
 TTSymbolBase::TTSymbolBase(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
@@ -41,11 +40,4 @@ void TTSymbolBase::init(const TTString& newString, TTPtrSizedInt newSymbolTableI
 	mSymbolTableId = newSymbolTableId;
 	mString = newString;
 }
-
-
-/*const*//* TTUInt32 TTSymbolBase::getId()
-{
-	return id;
-}
-*/
 

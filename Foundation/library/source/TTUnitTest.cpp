@@ -175,11 +175,11 @@ void TTTestAssertion(const char* aTestName, TTBoolean aTestResult, int& testAsse
 
 TTErr TTTestFinish(int testAssertionCount, int errorCount, TTValue& returnedTestInfo)
 {
-	TTDictionaryPtr d = new TTDictionary;
+	TTDictionary d;
 
-	d->setSchema("TestInfo");
-	d->append("testAssertionCount", testAssertionCount);
-	d->append("errorCount", errorCount);
+	d.setSchema("TestInfo");
+	d.append("testAssertionCount", testAssertionCount);
+	d.append("errorCount", errorCount);
 	returnedTestInfo = d;
 	
 	TTTestLog("\n");

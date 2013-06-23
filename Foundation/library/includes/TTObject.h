@@ -39,7 +39,7 @@ public:
 	TTObject(const TTSymbol& aClassName, const TTValue& arguments = kTTValNONE) :
 	mObjectInstance(NULL)
 	{
-		TTErr err = TTObjectBaseInstantiate(aClassName, &mObjectInstance, arguments);
+		TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, arguments);
 		
 		if (err) {
 			TTLogError("TTObject -- error %i instantiating %s", err, aClassName.c_str());
@@ -51,7 +51,7 @@ public:
 	 */
 	virtual ~TTObject()
 	{
-		TTObjectBaseRelease(&mObjectInstance);
+		ttEnvironment->releaseInstance(&mObjectInstance);
 	}
 	
 	// TODO -- how do we do TTObjectReference?  Copy constructor and assignment operator, yes?
@@ -60,12 +60,13 @@ public:
 	// class methods for querying the registry
 	static TTErr GetRegisteredClassNames(TTValue& classNames)
 	{
-		return TTGetRegisteredClassNames(classNames);
+		TTValue unused;
+		return ttEnvironment->getAllClassNames(unused, classNames);
 	}
 	
 	static TTErr GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags)
 	{
-		return TTGetRegisteredClassNamesForTags(classNames, searchTags);
+		return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
 	}
 	
 	static TTErr GetRegisteredTags(TTValue& tags)

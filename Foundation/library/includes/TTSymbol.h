@@ -87,7 +87,7 @@ public:
 	
 	
 	/**	Return this symbol's unique id. */
-	/*const*/ TTUInt32 getSymbolId() const
+	TTUInt32 getSymbolId() const
 	{
 		return mSymbolPointer->getSymbolId();
 	}

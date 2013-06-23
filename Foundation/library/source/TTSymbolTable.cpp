@@ -15,36 +15,8 @@
 #include<iostream>
 #include<unordered_map>
 
-//std::unordered_map<TTString, TTSymbolBase*> gTTSymbolTable;
 
-
-
-
-#if defined( TT_PLATFORM_WIN ) && OLD
-    #include <hash_map>
-    using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
-
-    /** A simple helper class used by TTSymbolTable for comparing hash_map keys.  */
-    class TTStringCompare : public stdext::hash_compare<const TTCString> {
-    public:
-        bool operator()(const TTCString s1, const TTCString s2) const
-        {
-            return !strcmp(s1, s2);
-        }
-
-        std::size_t operator()(const TTCString s)
-        {
-            return stdext::hash_value(s);
-        }
-    };
-
-    typedef hash_map<TTString, TTSymbolRef>     TTSymbolTableHash;
-
-#else
-	#include <unordered_map>
 typedef std::unordered_map<TTString, TTSymbolBase*>		TTSymbolTableHash;
-#endif
-
 
 
 /** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
@@ -57,7 +29,6 @@ typedef TTSymbolTableHash::const_iterator			TTSymbolTableIter;
 
 
 static TTMutex*				sMutex = NULL;
-//TTFOUNDATION_EXPORT TTSymbolTable*		gTTSymbolTable = NULL;
 
 
 #define mSYMBOLTABLE ((TTSymbolTableHash*)(mSymbolTable))

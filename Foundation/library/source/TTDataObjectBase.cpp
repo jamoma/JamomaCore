@@ -40,8 +40,8 @@ TTDataObjectBase::TTDataObjectBase(TTValue& arguments) :
 	registerMessage("resetBenchmarking",		(TTMethod)&TTDataObjectBase::resetBenchmarking, kTTMessagePassNone);
 	registerMessage("getProcessingBenchmark",	(TTMethod)&TTDataObjectBase::getProcessingBenchmark);
 
-	TTObjectBaseInstantiate(kTTSym_matrixarray, (TTObjectBasePtr*)&mInputArray, 2);
-	TTObjectBaseInstantiate(kTTSym_matrixarray, (TTObjectBasePtr*)&mOutputArray, 2);
+	ttEnvironment->createInstance(kTTSym_matrixarray, (TTObjectBasePtr*)&mInputArray, 2);
+	ttEnvironment->createInstance(kTTSym_matrixarray, (TTObjectBasePtr*)&mOutputArray, 2);
 	
 	// Set Defaults...	
     setMatrixCalculate(&TTDataObjectBase::defaultMatrixCalculateMethod);
@@ -51,8 +51,8 @@ TTDataObjectBase::TTDataObjectBase(TTValue& arguments) :
 
 TTDataObjectBase::~TTDataObjectBase()
 {
-	TTObjectBaseRelease((TTObjectBasePtr*)&mInputArray);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mOutputArray);
+	ttEnvironment->releaseInstance((TTObjectBasePtr*)&mInputArray);
+	ttEnvironment->releaseInstance((TTObjectBasePtr*)&mOutputArray);
 }
 
 
