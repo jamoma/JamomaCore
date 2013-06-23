@@ -38,6 +38,7 @@ TTSoundfile(arguments),
 mTargetMatrix(NULL)
 {    
     // add the attributes and messages here
+    addMessageWithArguments(load);
     
     // initialize, but that may need to be separate call
 }
@@ -66,4 +67,27 @@ TTErr TTSoundfileLoader::init(const TTSymbol& filePathAsSymbol, const TTSampleMa
     
     return err;
     
+}
+
+TTErr load(const TTValueRef input, TTValueRef unusedOutput)
+{
+    
+    // set the mFilePath
+    
+    // set the mTargetMatrix
+    
+    // set the start and end points in source file
+    
+    // set the start and end points in mTargetMatrix
+    
+    // copy the samples (one at a time initially, to be optimized later)
+    
+    // QUESTIONS to consider
+    // how will we handle multi channels?
+    // should the sample rate get copied across?
+    // if the size is different, what is the desired behavior?
+    
+    // reset? should mFilePath & mTargetMatrix be reset at the conclusion?
+    
+    return kTTErrNone;
 }
