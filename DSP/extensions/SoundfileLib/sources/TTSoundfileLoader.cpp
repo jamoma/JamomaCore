@@ -51,11 +51,15 @@ TTSoundfileLoader::~TTSoundfileLoader()
 // internal method used for initializing the mTargetMatrix
 TTErr TTSoundfileLoader::setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix)
 {
-    
-    // Q: is there a way to query and make sure it is a TTSampleMatrix
-    mTargetMatrix = newTargetMatrix;
-    
-    return kTTErrNone;
+    // we will need a test here since this value will get passed via TTValue.
+    // this is a first attempt.
+    if (newTargetMatrix->getName() == "samplematrix")
+    {
+        mTargetMatrix = newTargetMatrix;
+        return kTTErrNone;
+    } else {
+        return kTTErrInvalidValue;
+    }
     
 }
 
