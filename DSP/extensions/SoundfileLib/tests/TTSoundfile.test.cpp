@@ -17,7 +17,7 @@
 #include "TTSoundfile.h"
 #include "TTUnitTest.h"
 
-/* */
+/* 
  #define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
  #define TESTNUMCHANNELS 2
  #define TESTSAMPLERATE 44100
@@ -27,9 +27,9 @@
  #define TESTARTIST ""
  #define TESTDATE ""
  #define TESTANNOTATION ""
-/* */
+ */
 
-/* 
+/* */
  #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
 #define TESTNUMCHANNELS 1
 #define TESTSAMPLERATE 44100
@@ -39,7 +39,7 @@
 #define TESTARTIST ""
 #define TESTDATE ""
 #define TESTANNOTATION ""
- */
+/* */
 
 /*
  #define TESTFILE "/Volumes/Storage/Audio/200604femf15/ambience/street.aiff"
@@ -148,7 +148,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         TTTestLog("Expected metadata title:");
         TTTestLog(TESTTITLE);
         TTTestLog("Returned metadata title:");
-        TTTestLog(return6);
+        TTTestLog(return6.c_str());
         
         // TEST 7: reports correct artist from metadata
         TTSymbol return7 = soundfile->getArtist();
@@ -156,7 +156,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         TTTestLog("Expected metadata artist:");
         TTTestLog(TESTARTIST);
         TTTestLog("Returned metadata artist:");
-        TTTestLog(return7);
+        TTTestLog(return7.c_str());
         
         // TEST 8: reports correct title from metadata
         TTSymbol return8 = soundfile->getDate();
@@ -164,7 +164,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         TTTestLog("Expected metadata date:");
         TTTestLog(TESTDATE);
         TTTestLog("Returned metadata date:");
-        TTTestLog(return8);
+        TTTestLog(return8.c_str());
         
         // TEST 9: reports correct artist from metadata
         TTSymbol return9 = soundfile->getAnnotation();
@@ -172,7 +172,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         TTTestLog("Expected metadata comment:");
         TTTestLog(TESTANNOTATION);
         TTTestLog("Returned metadata comment:");
-        TTTestLog(return9);
+        TTTestLog(return9.c_str());
         
         TTTestLog("\n");
 		TTTestLog("Testing peek method on first 10 sample values...");
