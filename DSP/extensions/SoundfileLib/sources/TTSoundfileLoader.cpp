@@ -63,8 +63,16 @@ TTErr TTSoundfileLoader::setTargetMatrix(const TTMatrixPtr newTargetMatrix)
     }
 }
 
-TTErr load(const TTValueRef input, TTValueRef unusedOutput)
+/**	Public method used to trigger the load process. Copies samples from a sound file on the hard drive into a TTSampleMatrix. 
+ @param[in]     input           requires 2 items: TTSymbol containing the file path, TTMatrixPtr to the target matrix.
+ @param[out]    unusedOutput    not used 
+ @return        TTErr           kTTErrNone load was successful. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
+ */
+TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
 {
+    // sort out the two input values
+    TTValue newFilePath = input[0];
+    TTMatrixPtr newTargetMatrix = input[1];
     
     // set the mFilePath
     
