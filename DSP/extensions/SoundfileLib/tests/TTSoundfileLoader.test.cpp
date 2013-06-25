@@ -76,12 +76,20 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
+        // TEST 1: set the filepath
+        TTBoolean result1 = { testSoundfileLoader->setFilePath(TT(TESTFILE)) == kTTErrNone };
+        
+        TTTestAssertion("setFilePath operates successfully",
+                        result1,
+                        testAssertionCount,
+                        errorCount);
+        
         // TEST 2: instantiate a TTSampleMatrix and set is as the target
         TTBoolean result2 = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix, kTTValNONE) == kTTErrNone};
         
         TTBoolean result2b = { testSoundfileLoader->setTargetMatrix(testTargetMatrix) == kTTErrNone };
         
-        TTTestAssertion("sets target matrix successfully",
+        TTTestAssertion("setTargetMatrix operates successfully",
 						result0,
 						testAssertionCount,
 						errorCount);
