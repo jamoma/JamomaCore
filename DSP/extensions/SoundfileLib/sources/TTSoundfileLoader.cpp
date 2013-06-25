@@ -48,19 +48,19 @@ TTSoundfileLoader::~TTSoundfileLoader()
 	mTargetMatrix = NULL; // reset to NULL for reference counting
 }
 
-// internal method used for initializing the mTargetMatrix
-TTErr TTSoundfileLoader::setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix)
+/**	Internal method that sets the class's pointer to the target sample matrix for loading sound file data. Because only TTMatrixPtr is allowed to be passed using TTValue, we perform a test to ensure that it is indeed a TTSampleMatrix before setting the new pointer.
+ @param     newTargetMatrix     pointer to the new matrix
+ @return    TTErr               kTTErrNone if the pointer was updated. kTTErrInvalidValue is the pointer was not to a TTSampleMatrix.
+ */
+TTErr TTSoundfileLoader::setTargetMatrix(const TTMatrixPtr newTargetMatrix)
 {
-    // we will need a test here since this value will get passed via TTValue.
-    // this is a first attempt.
-    if (newTargetMatrix->getName() == "samplematrix")
+    if (newTargetMatrix->getName() != "samplematrix")
     {
-        mTargetMatrix = newTargetMatrix;
-        return kTTErrNone;
-    } else {
         return kTTErrInvalidValue;
+    } else {
+        mTargetMatrix = (TTSampleMatrixPtr)&newTargetMatrix;
+        return kTTErrNone;
     }
-    
 }
 
 TTErr load(const TTValueRef input, TTValueRef unusedOutput)
