@@ -73,10 +73,14 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
     // sort out the two input values
     TTValue newFilePath = input[0];
     TTMatrixPtr newTargetMatrix = input[1];
+    TTErr err = kTTErrNone;
     
     // set the mFilePath
+    err = setFilePath(newFilePath);
     
     // set the mTargetMatrix
+    if (!err)
+        err = setTargetMatrix(newTargetMatrix);
     
     // set the start and end points in source file
     
@@ -91,5 +95,5 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
     
     // reset? should mFilePath & mTargetMatrix be reset at the conclusion?
     
-    return kTTErrNone;
+    return err;
 }
