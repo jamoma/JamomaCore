@@ -65,7 +65,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 		TTTestLog("Testing TTSoundfileLoader Basics...");
 		
 		TTSoundfileLoaderPtr testSoundfileLoader = NULL;
-        TTMatrixPtr testTargetMatrix = NULL;
+        TTSampleMatrixPtr testTargetMatrix = NULL;
         TTErr err;
 		
         // TEST 0: instantiate the object to a pointer
@@ -87,14 +87,22 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         // TEST 2: instantiate a TTSampleMatrix and set is as the target
         TTBoolean result2 = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix, kTTValNONE) == kTTErrNone};
         
-        TTBoolean result2b = { testSoundfileLoader->setTargetMatrix(testTargetMatrix) == kTTErrNone };
+        TTBoolean result2b = { testSoundfileLoader->setTargetMatrix((TTMatrixPtr)&testTargetMatrix) == kTTErrNone };
         
         TTTestAssertion("setTargetMatrix operates successfully",
 						result0,
 						testAssertionCount,
 						errorCount);
         
-               
+        // TEST 3 prep
+        testTargetMatrix->setLengthInSamples(44100);
+        testTargetMatrix->setNumChannels(1);
+        
+        TTValue loadInput;
+        loadInput.append(TT(TESTFILE));
+        loadInput.append(testTargetMatrix);
+        
+        
         
     }
     
