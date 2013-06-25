@@ -31,11 +31,17 @@ protected:
     
     
     // internal method targets a new TTSampleMartix
-	TTErr setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix);
+	TTErr setTargetMatrix(const TTMatrixPtr newTargetMatrix);
     
 public:
     // external method used to load sound file to a SampleMatrix
     TTErr load(const TTValueRef input, TTValueRef unusedOutput);
+    
+    /** Unit test for this object.
+	 @param[out] returnedTestInfo	The outcome from the performed unit test.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	virtual TTErr test(TTValue& returnedTestInfo);
     
 };
 
