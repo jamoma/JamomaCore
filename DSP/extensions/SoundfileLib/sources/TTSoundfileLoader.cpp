@@ -63,6 +63,34 @@ TTErr TTSoundfileLoader::setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix
     }
 }
 
+/**	Internal method that copies values from the sound file to the targetted TTSampleMatrix. Beware that the setFilePath() and setTargetMatrix() must be successfully executed before this method is called.
+ @return    TTErr               kTTErrNone if copy is successful. kTTErrGeneric if the source soundfile was too short to fill samplematrix.
+ */
+TTErr TTSoundfileLoader::copyUntilFull()
+{
+    // NOTE: we will temporarily assume that numChannels and sampleRate match
+    TTUInt32 targetMatrixLength = mTargetMatrix->getComponentCount();
+    
+    if (this->getLengthInSamples() < targetMatrixLength)
+    {
+        // if the soundfile is shorter than the samplemartix...
+        // we will throw an error because we are only interested in completely filling the SampleMartix, for now
+        return kTTErrGeneric;
+    } else {
+        // if the soundfile is longer than the samplemartix...
+        TTSampleValue valueToMove;
+        
+        for (int sample=0;sample<targetMatrixLength;sample++)
+        {
+            // TTSoundfile:peek() -> TTSampleMatrix:poke()
+            this->peek(sample,0,valueToMove);
+            mTargetMatrix->poke(sample,0,valueToMove);
+        }
+        
+        return kTTErrNone;
+    }
+}
+
 /**	Public method used to trigger the load process. Copies samples from a sound file on the hard drive into a TTSampleMatrix. 
  @param[in]     input           requires 2 items: TTSymbol containing the file path, TTMatrixPtr to the target matrix.
  @param[out]    unusedOutput    not used 
@@ -72,38 +100,22 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
 {
     // sort out the two input values
     TTValue newFilePath = input[0];
-    //TTSampleMatrixPtr newTargetMatrix = input[1];
+    TTSampleMatrixPtr newTargetMatrix = NULL; //input[1];
     TTErr err = kTTErrNone;
     
     // set the mFilePath
     err = setFilePath(newFilePath);
     
     // set the mTargetMatrix
-    //if (!err)
-    //    err = setTargetMatrix(newTargetMatrix);
+    if (!err)
+        err = setTargetMatrix(newTargetMatrix);
     
     // set the start and end points in source file
     
     // set the start and end points in mTargetMatrix
     
     // copy the samples (one at a time initially, to be optimized later)
-    // NOTE: we will temporarily assume that channel counts match
-    TTUInt32 targetMatrixLength = mTargetMatrix->getComponentCount();
-    
-    if (this->getLengthInSamples() < targetMatrixLength)
-    {
-        // we will throw an error because we are only interested in completely filling the SampleMartix, for now
-        err = kTTErrGeneric;
-    } else {
-        TTSampleValue valueToMove;
-        
-        for (int sample=0;sample<targetMatrixLength;sample++)
-        {
-            // TTSoundfile:peek() -> TTSampleMatrix:poke()
-            this->peek(sample,0,valueToMove);
-            mTargetMatrix->poke(sample,0,valueToMove);
-        }
-    }
+
     
     // QUESTIONS to consider
     // how will we handle multi channels?

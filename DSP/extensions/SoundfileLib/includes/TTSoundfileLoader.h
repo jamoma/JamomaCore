@@ -30,11 +30,14 @@ protected:
     TTSampleMatrixPtr   mTargetMatrix;
     
     
-    // internal method targets a new TTSampleMartix
+    // target a new TTSampleMartix.
 	TTErr setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix);
     
+    // copy values from sound file until TTSampleMartix is completely full.
+    TTErr copyUntilFull();
+    
 public:
-    // external method used to load sound file to a SampleMatrix
+    // load new sound file into a SampleMatrix
     TTErr load(const TTValueRef input, TTValueRef unusedOutput);
     
     /** Unit test for this object.
