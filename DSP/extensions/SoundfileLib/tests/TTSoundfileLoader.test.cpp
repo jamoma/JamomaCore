@@ -87,6 +87,10 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         // TEST 2: instantiate a TTSampleMatrix and set is as the target
         TTBoolean result2 = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix, kTTValNONE) == kTTErrNone};
         
+        // set up the samplematrix
+        testTargetMatrix->setAttributeValue("numChannels", 1);
+        testTargetMatrix->setAttributeValue("length", 1000);
+        
         TTBoolean result2b = { testSoundfileLoader->setTargetMatrix(testTargetMatrix) == kTTErrNone };
         
         TTTestAssertion("setTargetMatrix operates successfully",
@@ -94,11 +98,15 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
-        // TEST 3: copy one second of samplevalues
-        testTargetMatrix->setLengthInSamples(44100);
-        testTargetMatrix->setNumChannels(1);
+        // pre-test
+        TTSampleValue test13expect = TTRandom64();
+        testTargetMatrix->poke(0,0,test13expect);
+        TTTestLog("poking from here worked");
         
-        TTBoolean result3 = false;//{ testSoundfileLoader->copyUntilFull() == kTTErrNone };
+        
+        // TEST 3: copy one second of samplevalues
+        
+        TTBoolean result3 = { testSoundfileLoader->copyUntilFull() == kTTErrNone };//false;//
         
         TTTestAssertion("copyUntilFull operates successfully",
 						result3,

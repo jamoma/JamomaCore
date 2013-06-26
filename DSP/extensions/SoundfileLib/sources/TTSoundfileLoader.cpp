@@ -70,6 +70,7 @@ TTErr TTSoundfileLoader::copyUntilFull()
 {
     // NOTE: we will temporarily assume that numChannels and sampleRate match
     TTUInt32 targetMatrixLength = mTargetMatrix->getComponentCount();
+    TTSampleMatrixPtr targetMatrixPtr = mTargetMatrix;
     
     if (this->getLengthInSamples() < targetMatrixLength)
     {
@@ -80,11 +81,12 @@ TTErr TTSoundfileLoader::copyUntilFull()
         // if the soundfile is longer than the samplemartix...
         TTSampleValue valueToMove;
         
-        for (int sample=0;sample<targetMatrixLength;sample++)
+        for (TTSampleID sample=0;sample<10;sample++)
         {
             // TTSoundfile:peek() -> TTSampleMatrix:poke()
             this->peek(sample,0,valueToMove);
-            mTargetMatrix->poke(sample,0,valueToMove);
+            TTTestLog("peek sample %i returned the value %f", sample, valueToMove); // temp
+            targetMatrixPtr->poke(sample,0,1.0); // this line causing segmentation faults
         }
         
         return kTTErrNone;
