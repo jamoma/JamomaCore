@@ -52,9 +52,9 @@ TTSoundfileLoader::~TTSoundfileLoader()
  @param     newTargetMatrix     pointer to the new matrix
  @return    TTErr               kTTErrNone if the pointer was updated. kTTErrInvalidValue is the pointer was not to a TTSampleMatrix.
  */
-TTErr TTSoundfileLoader::setTargetMatrix(const TTMatrixPtr newTargetMatrix)
+TTErr TTSoundfileLoader::setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix)
 {
-    if (newTargetMatrix->getName() != "samplematrix")
+    if (newTargetMatrix->getName() != TT("samplematrix"))
     {
         return kTTErrInvalidValue;
     } else {
@@ -72,15 +72,15 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
 {
     // sort out the two input values
     TTValue newFilePath = input[0];
-    TTMatrixPtr newTargetMatrix = input[1];
+    //TTSampleMatrixPtr newTargetMatrix = input[1];
     TTErr err = kTTErrNone;
     
     // set the mFilePath
     err = setFilePath(newFilePath);
     
     // set the mTargetMatrix
-    if (!err)
-        err = setTargetMatrix(newTargetMatrix);
+    //if (!err)
+    //    err = setTargetMatrix(newTargetMatrix);
     
     // set the start and end points in source file
     

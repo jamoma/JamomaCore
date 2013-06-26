@@ -31,7 +31,7 @@ protected:
     
     
     // internal method targets a new TTSampleMartix
-	TTErr setTargetMatrix(const TTMatrixPtr newTargetMatrix);
+	TTErr setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix);
     
 public:
     // external method used to load sound file to a SampleMatrix

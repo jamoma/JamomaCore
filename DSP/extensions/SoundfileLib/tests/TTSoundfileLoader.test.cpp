@@ -87,12 +87,16 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         // TEST 2: instantiate a TTSampleMatrix and set is as the target
         TTBoolean result2 = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix, kTTValNONE) == kTTErrNone};
         
-        TTBoolean result2b = { testSoundfileLoader->setTargetMatrix((TTMatrixPtr)&testTargetMatrix) == kTTErrNone };
+        TTBoolean result2b = { testSoundfileLoader->setTargetMatrix(testTargetMatrix) == kTTErrNone };
         
         TTTestAssertion("setTargetMatrix operates successfully",
 						result2b,
 						testAssertionCount,
 						errorCount);
+        
+        // TEST 2 followup
+        TTSymbol targetClassName = testTargetMatrix->getName();
+        TTTestLog("the name is %s", targetClassName.c_str());
         
         // TEST 3 prep
         testTargetMatrix->setLengthInSamples(44100);
