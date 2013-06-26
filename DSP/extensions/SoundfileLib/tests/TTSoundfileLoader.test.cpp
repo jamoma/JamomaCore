@@ -90,7 +90,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         TTBoolean result2b = { testSoundfileLoader->setTargetMatrix((TTMatrixPtr)&testTargetMatrix) == kTTErrNone };
         
         TTTestAssertion("setTargetMatrix operates successfully",
-						result0,
+						result2b,
 						testAssertionCount,
 						errorCount);
         
@@ -98,12 +98,18 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         testTargetMatrix->setLengthInSamples(44100);
         testTargetMatrix->setNumChannels(1);
         
-        TTValue loadInput;
+        TTValue loadInput, loadOuput;
         loadInput.append(TT(TESTFILE));
         loadInput.append(testTargetMatrix);
         
+        /* // the final test, not working yet
+        TTBoolean result3 = { load(loadInput, loadOuput) == kTTErrNone };
         
-        
+        TTTestAssertion("load operates successfully",
+						result3,
+						testAssertionCount,
+						errorCount);
+        */
     }
     
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
