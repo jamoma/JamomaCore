@@ -94,23 +94,31 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
-        // TEST 2 followup
-        TTSymbol targetClassName = testTargetMatrix->getName();
-        TTTestLog("the name is %s", targetClassName.c_str());
-        
-        // TEST 3 prep
+        // TEST 3: copy one second of samplevalues
         testTargetMatrix->setLengthInSamples(44100);
         testTargetMatrix->setNumChannels(1);
         
+        TTBoolean result3 = false;//{ testSoundfileLoader->copyUntilFull() == kTTErrNone };
+        
+        TTTestAssertion("copyUntilFull operates successfully",
+						result3,
+						testAssertionCount,
+						errorCount);
+        
+        
+        
+        
+        // TEST X prep
         TTValue loadInput, loadOuput;
         loadInput.append(TT(TESTFILE));
         loadInput.append(testTargetMatrix);
         
-        /* // the final test, not working yet
-        TTBoolean result3 = { load(loadInput, loadOuput) == kTTErrNone };
+        /* // TEST X: use the public method to perform loading action
+         // the final test, not working yet
+        TTBoolean resultX = { load(loadInput, loadOuput) == kTTErrNone };
         
         TTTestAssertion("load operates successfully",
-						result3,
+						resultX,
 						testAssertionCount,
 						errorCount);
         */
