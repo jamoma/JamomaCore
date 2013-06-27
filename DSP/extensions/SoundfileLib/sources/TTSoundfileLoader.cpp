@@ -58,7 +58,7 @@ TTErr TTSoundfileLoader::setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix
     {
         return kTTErrInvalidValue;
     } else {
-        mTargetMatrix = (TTSampleMatrixPtr)&newTargetMatrix;
+        mTargetMatrix = newTargetMatrix;
         return kTTErrNone;
     }
 }
