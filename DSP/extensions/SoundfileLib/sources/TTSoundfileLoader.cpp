@@ -81,12 +81,12 @@ TTErr TTSoundfileLoader::copyUntilFull()
         // if the soundfile is longer than the samplemartix...
         TTSampleValue valueToMove;
         
-        for (TTSampleID sample=0;sample<10;sample++)
+        for (TTSampleID sample=0;sample<targetMatrixLength;sample++)
         {
             // TTSoundfile:peek() -> TTSampleMatrix:poke()
             this->peek(sample,0,valueToMove);
-            TTTestLog("peek sample %i returned the value %f", sample, valueToMove); // temp
-            targetMatrixPtr->poke(sample,0,1.0); // this line causing segmentation faults
+            //TTTestLog("peek sample %i returned the value %f", sample, valueToMove); // temp
+            targetMatrixPtr->poke(sample,0,valueToMove); // this line causing segmentation faults
         }
         
         return kTTErrNone;

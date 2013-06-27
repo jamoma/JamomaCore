@@ -89,7 +89,14 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // set up the samplematrix
         testTargetMatrix->setAttributeValue("numChannels", 1);
-        testTargetMatrix->setAttributeValue("length", 1000);
+        testTargetMatrix->setAttributeValue("lengthInSamples", 500);
+        
+        TTInt32 lengthReturn, channelsReturn;
+        
+        testTargetMatrix->getAttributeValue("numChannels", channelsReturn);
+        testTargetMatrix->getAttributeValue("lengthInSamples", lengthReturn);
+        
+        TTTestLog("samplematrix now has %i samples and %i channels", lengthReturn, channelsReturn);
         
         TTBoolean result2b = { testSoundfileLoader->setTargetMatrix(testTargetMatrix) == kTTErrNone };
         
