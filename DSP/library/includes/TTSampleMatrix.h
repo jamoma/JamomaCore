@@ -74,11 +74,6 @@ public:
 		@return Returns a TTErr error code.	*/
 	TTErr setLengthInSamples(const TTValue& newLengthInSamples);
  	TTErr getLengthInSamples(TTValue& returnedLengthInSamples);	
-  	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)
-	{
-		returnedLengthInSamples = mLengthInSamples;
-		return kTTErrNone;
-	}
 	
 	/** Increase the user count by one. 
 		The userCount member is used to track usage of an individual TTSampleMatrix.  When another object makes use of a specific matrix, the code should use this method to increase the user counter prior to the start of use.

@@ -143,8 +143,6 @@ public:
 	
 	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLengthInSamples )
 	TTBUFFER_WRAP_1ARG(  getLengthInSamples )
-	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)								
-		{ return mActiveMatrix->lengthInSamples(returnedLengthInSamples); }
 
 	/** NOTE: We do not wrap getValueAtIndex, peek, setValueAtIndex, poke and simliar methods.  
 	Objects should work directly with the TTSampleMatrixPtr that they check out for these types of operations.
