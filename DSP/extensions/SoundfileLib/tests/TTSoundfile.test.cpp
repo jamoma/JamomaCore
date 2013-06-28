@@ -84,7 +84,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
                         errorCount);
         
         // TEST 2: reports correct number of channels
-        TTRowID return2 = soundfile->getNumChannels();
+        TTColumnID return2 = soundfile->getNumChannels();
         TTBoolean result2 = { return2 == TESTNUMCHANNELS };
         
         TTTestAssertion("reports the correct number of channels",
@@ -112,7 +112,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         }
         
         // TEST 4: reports correct duration in samples
-        TTColumnID return4 = soundfile->getLengthInSamples();
+        TTRowID return4 = soundfile->getLengthInSamples();
         TTBoolean result4 = { return4 == TESTDURATIONINSAMPLES };
         
         TTTestAssertion("reports the correct duration in samples",

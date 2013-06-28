@@ -26,9 +26,10 @@
 // while still maintaining connection to the definitions set in #TTMatrix.
 // hopefully this will reduce confusion [NW]
 #define mLengthInSamples mRowCount
-#define TTSampleID TTRowID
 #define mNumChannels mColumnCount
-#define TTChannelID TTColumnID
+
+// any sample/frame index should use type definition TTRowID
+// any channel index should use type definition TTColumnID
 
 /** @enum bufferPoolStages
 	@brief Defines the stages used when TTSampleMartix is part of a pool available in TTBuffer
@@ -135,8 +136,8 @@ public:
 	}
 
 	TTErr	getValueAtIndex(const TTValue& index, TTValue &output);
-	TTErr	peek(const TTSampleID index, const TTChannelID channel, TTSampleValue& value);
-	TTErr	peeki(const TTFloat64 index, const TTChannelID channel, TTSampleValue& value);
+	TTErr	peek(const TTRowID index, const TTColumnID channel, TTSampleValue& value);
+	TTErr	peeki(const TTFloat64 index, const TTColumnID channel, TTSampleValue& value);
 	
 	/**	Set the sample value for a given index.
 		The first number passed in the index parameter will be interpreted as the sample index.
@@ -144,7 +145,7 @@ public:
 		The final value will be used as the sample value that will be copied to the designated index.
 	*/
 	TTErr	setValueAtIndex(const TTValue& index, TTValue& unusedOutput);
-	TTErr	poke(const TTSampleID index, const TTChannelID channel, const TTSampleValue value);
+	TTErr	poke(const TTRowID index, const TTColumnID channel, const TTSampleValue value);
 	
 	/** Set the contents of the buffer using a specified algorithm and, if appropriate, coefficients for that algorithm. */
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput);
@@ -153,7 +154,7 @@ public:
         @param[in]      filePath
         @param[in]      startAtIndex is set to a default 
      */
-    TTErr   load(const TTValue& filePath, TTSampleID startAtIndex = 0);
+    TTErr   load(const TTValue& filePath, TTRowID startAtIndex = 0);
 
 	/**	Normalize the contents of a buffer.
 		If no arg is passed, then the buffer is normalized to 1.0.

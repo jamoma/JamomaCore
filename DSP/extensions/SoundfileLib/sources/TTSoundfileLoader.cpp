@@ -81,7 +81,7 @@ TTErr TTSoundfileLoader::copyUntilFull()
         // if the soundfile is longer than the samplemartix...
         TTSampleValue valueToMove;
         
-        for (TTSampleID sample=0;sample<targetMatrixLength;sample++)
+        for (TTRowID sample=0;sample<targetMatrixLength;sample++)
         {
             // TTSoundfile:peek() -> TTSampleMatrix:poke()
             this->peek(sample,0,valueToMove);
