@@ -32,10 +32,10 @@ class TTSoundfile : public TTAudioObjectBase {
 	
 protected:
 	TTSymbol		mFilePath;              ///< full POSIX path to the file, including file name
-    TTRowID         mNumChannels;           ///< channels in the file
+    TTColumnID      mNumChannels;           ///< channels in the file
     TTFloat64       mSampleRate;            ///< samples per second
-    TTColumnID      mLengthInSamples;     ///< length in samples
-    TTFloat64       mLengthInSeconds;     ///< length in seconds
+    TTRowID         mLengthInSamples;       ///< length in samples
+    TTFloat64       mLengthInSeconds;       ///< length in seconds
     TTSymbol		mTitle;                 ///< title if metadata is present in the file
     TTSymbol		mArtist;                ///< artist if metadata is present in the file
     TTSymbol		mDate;                  ///< date if metadata is present in the file
@@ -53,8 +53,8 @@ public:
     TTErr setFilePath(const TTValue& newValue);
     
     /**	Simple data accessor.
-     @return	TTRowID		the number of channels in mSoundFile at mFilePath */
-    TTRowID getNumChannels()
+     @return	TTColumnID		the number of channels in mSoundFile at mFilePath */
+    TTColumnID getNumChannels()
     {
         return mNumChannels;
     };
@@ -67,10 +67,10 @@ public:
     };
     
     /**	Simple data accessor.
-     @return	TTColumnID		the number of frames in mSoundFile at mFilePath */
-    TTColumnID getLengthInSamples()
+     @return	TTRowID		the number of frames in mSoundFile at mFilePath */
+    TTRowID getLengthInSamples()
     {
-        return this->mLengthInSamples;
+        return mLengthInSamples;
     };
     
     /**	Simple data accessor.
@@ -114,7 +114,7 @@ public:
      @param[out]    value       used to return the value pulled from sound file.
      @return        TTErr       returns kTTErrNone until futher notice
      */
-    TTErr	peek(const TTColumnID frame, const TTRowID channel, TTSampleValue& value);
+    TTErr	peek(const TTRowID frame, const TTColumnID channel, TTSampleValue& value);
     
     /** Unit test for this object.
 	 @param[out] returnedTestInfo	The outcome from the performed unit test.
