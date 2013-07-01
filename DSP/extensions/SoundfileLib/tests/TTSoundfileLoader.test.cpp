@@ -89,7 +89,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // set up the samplematrix
         testTargetMatrix->setAttributeValue("numChannels", 1);
-        testTargetMatrix->setAttributeValue("lengthInSamples", 500);
+        testTargetMatrix->setAttributeValue("lengthInSeconds", 1.0);
         
         TTInt32 lengthReturn, channelsReturn;
         
