@@ -36,6 +36,10 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
 	
+	// if it failed then we need to abort further testing to avoid a crash dereferencing a bogus pointer
+	if (!myFirstCheckOut)
+		return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
+	
 	// TEST 2: how many channels does this matrix have?
 	TTInt32 test2expect = 1;
 	
@@ -268,7 +272,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	//TTObjectRelease(&myFirstCheckOut);
 	//TTObjectRelease(&mySecondCheckOut);
 	//TTObjectRelease(&myThirdCheckOut);
-	
+
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 	
