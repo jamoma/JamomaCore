@@ -65,10 +65,10 @@ public:
 	TTErr setNumChannels(const TTValue& newNumChannels);
 	TTErr getNumChannels(TTValue& returnedNumChannels);
 
-	/**	Attribute accessor: set the buffer length specified in milliseconds.
+	/**	Attribute accessor: set the buffer length specified in seconds.
 		@return Returns a TTErr error code.	*/
-	TTErr setLength(const TTValue& newLength);
- 	TTErr getLength(TTValue& returnedLength);
+	TTErr setLengthInSeconds(const TTValue& newLength);
+ 	TTErr getLengthInSeconds(TTValue& returnedLength);
          
 	/**	Attribute accessor: set the buffer length specified as a number of samples.
 		@return Returns a TTErr error code.	*/

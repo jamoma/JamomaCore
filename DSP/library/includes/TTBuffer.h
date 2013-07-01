@@ -138,8 +138,8 @@ public:
 	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setNumChannels )
 	TTBUFFER_WRAP_1ARG( getNumChannels )
 	
-	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLength )
-	TTBUFFER_WRAP_1ARG(  getLength )
+	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLengthInSeconds )
+	TTBUFFER_WRAP_1ARG(  getLengthInSeconds )
 	
 	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLengthInSamples )
 	TTBUFFER_WRAP_1ARG(  getLengthInSamples )

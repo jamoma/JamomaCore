@@ -44,7 +44,7 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	this->mBufferPoolStage = kSM_Idle;
 
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeInt32);
-	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);
+	addAttributeWithGetterAndSetter(LengthInSeconds,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
 	addAttribute(SampleRate,							kTypeFloat64);
 	addAttribute(				UserCount,				kTypeUInt16); 
@@ -86,16 +86,16 @@ TTErr TTSampleMatrix::getNumChannels(TTValue& returnedChannelCount)
 }
 
 
-TTErr TTSampleMatrix::setLength(const TTValue& newLength)
+TTErr TTSampleMatrix::setLengthInSeconds(const TTValue& newLength)
 {
-	TTValue newLengthInSamples = TTFloat64(newLength) * mSampleRate * 0.001;
+	TTValue newLengthInSamples = TTFloat64(newLength) * mSampleRate;
 	return setRowCount(newLengthInSamples);
 }
 
 
-TTErr TTSampleMatrix::getLength(TTValue& returnedLength)
+TTErr TTSampleMatrix::getLengthInSeconds(TTValue& returnedLength)
 {
-	returnedLength = (mLengthInSamples / mSampleRate) * 1000.0;
+	returnedLength = (mLengthInSamples / mSampleRate);
 	return kTTErrNone;
 }
 

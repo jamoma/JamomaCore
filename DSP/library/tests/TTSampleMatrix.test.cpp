@@ -63,14 +63,14 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	}
 	
 	
-	// TEST 3: is the length in ms computed properly after setting length in samples?
-	TTFloat32 computedDuration3 = (numSamples / this->mSampleRate) * 1000.;	
+	// TEST 3: is the length in sec computed properly after setting length in samples?
+	TTFloat32 computedDuration3 = (numSamples / this->mSampleRate);	
 	
-	this->getAttributeValue("length", test3Return);				
+	this->getAttributeValue("lengthInSeconds", test3Return);				
 					
 	TTBoolean result3 = TTTestFloatEquivalence(computedDuration3, test3Return);
 				
-	TTTestAssertion("after lengthInSamples is set, length (in ms) is correct", 
+	TTTestAssertion("after lengthInSamples is set, lengthInSeconds is correct",
 								result3,
 								testAssertionCount, 
 								errorCount);
@@ -111,14 +111,14 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	}
 	
 									
-	// TEST 6: can we set the length in milliseconds?
-	this->setAttributeValue("length", duration);
+	// TEST 6: can we set the length in seconds?
+	this->setAttributeValue("lengthInSeconds", duration);
 	
-	this->getAttributeValue("length", test6Return);
+	this->getAttributeValue("lengthInSeconds", test6Return);
 
 	TTBoolean result6 = TTTestFloatEquivalence(duration, test6Return);
 
-	TTTestAssertion("length (in ms) is set properly", 
+	TTTestAssertion("lengthInSeconds is set properly",
 								result6,
 								testAssertionCount, 
 								errorCount);
@@ -130,13 +130,13 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 
 				
 	// TEST 7: is the length in samples computed properly after setting length in ms?
-	TTUInt32 computedSamples7 = TTUInt32(duration * this->mSampleRate * 0.001);	
+	TTUInt32 computedSamples7 = TTUInt32(duration * this->mSampleRate);	
 					
 	this->getAttributeValue("lengthInSamples", test7Return);				
 	
 	TTBoolean result7 = { computedSamples7 == test7Return };
 				
-	TTTestAssertion("after length (in ms) is set, lengthInSamples is correct", 
+	TTTestAssertion("after lengthInSeconds is set, lengthInSamples is correct",
 								result7,
 								testAssertionCount, 
 								errorCount);
