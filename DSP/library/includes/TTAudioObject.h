@@ -76,6 +76,11 @@ public:
 		return instance()->mSampleVectors;
 	}
 	
+	void clear()
+	{
+		instance()->clear();
+	}
+	
 };
 
 

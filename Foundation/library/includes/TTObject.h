@@ -47,6 +47,13 @@ public:
 		}
 	}
 	
+	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
+	TTObject() :
+		mObjectInstance(NULL)
+	{
+		
+	}
+	
 	/** Destructor.
 	 */
 	virtual ~TTObject()
@@ -191,6 +198,14 @@ public:
 	{
 		return mObjectInstance->unregisterObserverForNotifications(*anObservingObject.instance());
 	}
+	
+	
+	/** Compare two objects for equality. */
+	inline friend bool operator == (const TTObject& anObject, const TTObject& anotherObject)
+	{
+		return (anObject.instance() == anotherObject.instance());
+	}
+
 		
 	
 };

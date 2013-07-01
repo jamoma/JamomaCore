@@ -25,8 +25,8 @@ TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) :
 	TTObjectBase(arguments), 
 	mMaxNumChannels(0),
 	attrMute(0), 
-	inputArray(NULL),
-	outputArray(NULL),
+	inputArray(kTTSym_audiosignalarray,2),
+	outputArray(kTTSym_audiosignalarray,2),
 	startProcessingTime(0.0),
 	accumulatedProcessingTime(0.0),
 	accumulatedProcessingCalls(0.0)
@@ -45,9 +45,6 @@ TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) :
 	registerMessage("resetBenchmarking",		(TTMethod)&TTAudioObjectBase::resetBenchmarking, kTTMessagePassNone);
 	registerMessage("getProcessingBenchmark",	(TTMethod)&TTAudioObjectBase::getProcessingBenchmark);
 	
-	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&inputArray, 2);
-	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&outputArray, 2);
-
 	// Set Defaults...
 		
 	setAttributeValue(kTTSym_sampleRate, ttEnvironment->mSampleRate);
@@ -61,8 +58,7 @@ TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) :
 
 TTAudioObjectBase::~TTAudioObjectBase()
 {
-	TTObjectBaseRelease((TTObjectBasePtr*)&inputArray);
-	TTObjectBaseRelease((TTObjectBasePtr*)&outputArray);
+	;
 }
 
 
@@ -211,7 +207,7 @@ TTErr TTAudioObjectBase::setMute(const TTValue& value)
 TTErr TTAudioObjectBase::calculateMessage(TTValueConstRef input, TTValue& output)
 {
 	TTFloat64	x = input;
-	TTFloat64	y;
+	TTFloat64	y = 0.0;
 	TTErr		err;
 	
 	err = calculate(x, y);
@@ -296,16 +292,16 @@ TTErr TTAudioObjectBase::process(TTAudioSignal& in, TTAudioSignal& out)
 	
 	if (valid) {
 		lock();
-		inputArray->numAudioSignals = 1;
-		inputArray->setSignal(0, &in);
-		outputArray->numAudioSignals = 1;
-		outputArray->setSignal(0, &out);
+		TTAudioSignalArrayPtr(inputArray.instance())->numAudioSignals = 1;
+		TTAudioSignalArrayPtr(inputArray.instance())->setSignal(0, &in);
+		TTAudioSignalArrayPtr(outputArray.instance())->numAudioSignals = 1;
+		TTAudioSignalArrayPtr(outputArray.instance())->setSignal(0, &out);
 		out.setSampleRate(sr);
 		if (!ttEnvironment->mBenchmarking)
-			err = (this->*currentProcessMethod)(inputArray, outputArray);
+			err = (this->*currentProcessMethod)(TTAudioSignalArrayPtr(inputArray.instance()), TTAudioSignalArrayPtr(outputArray.instance()));
 		else {
 			startProcessingTime = TTGetTimeInMicroseconds();
-			err = (this->*currentProcessMethod)(inputArray, outputArray);
+			err = (this->*currentProcessMethod)(TTAudioSignalArrayPtr(inputArray.instance()), TTAudioSignalArrayPtr(outputArray.instance()));
 			accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
 			accumulatedProcessingCalls++;
 			}
@@ -321,15 +317,15 @@ TTErr TTAudioObjectBase::process(TTAudioSignal& out)
 	
 	if (valid) {
 		lock();
-		inputArray->numAudioSignals = 0;
-		outputArray->numAudioSignals = 1;
-		outputArray->setSignal(0, &out);
+		TTAudioSignalArrayPtr(inputArray.instance())->numAudioSignals = 0;
+		TTAudioSignalArrayPtr(outputArray.instance())->numAudioSignals = 1;
+		TTAudioSignalArrayPtr(outputArray.instance())->setSignal(0, &out);
 		out.setSampleRate(sr);
 		if (!ttEnvironment->mBenchmarking)
-			err = (this->*currentProcessMethod)(inputArray, outputArray);
+			err = (this->*currentProcessMethod)(TTAudioSignalArrayPtr(inputArray.instance()), TTAudioSignalArrayPtr(outputArray.instance()));
 		else{
 			startProcessingTime = TTGetTimeInMicroseconds();
-			err = (this->*currentProcessMethod)(inputArray, outputArray);
+			err = (this->*currentProcessMethod)(TTAudioSignalArrayPtr(inputArray.instance()), TTAudioSignalArrayPtr(outputArray.instance()));
 			accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
 			accumulatedProcessingCalls++;
 		}
@@ -345,19 +341,19 @@ TTErr TTAudioObjectBase::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudio
 	
 	if (valid) {
 		lock();
-		inputArray->numAudioSignals = 2;
-		inputArray->setSignal(0, &in1);
-		inputArray->setSignal(1, &in2);
-		outputArray->numAudioSignals = 2;
-		outputArray->setSignal(0, &out1);
-		outputArray->setSignal(1, &out2);
+		TTAudioSignalArrayPtr(inputArray.instance())->numAudioSignals = 2;
+		TTAudioSignalArrayPtr(inputArray.instance())->setSignal(0, &in1);
+		TTAudioSignalArrayPtr(inputArray.instance())->setSignal(1, &in2);
+		TTAudioSignalArrayPtr(outputArray.instance())->numAudioSignals = 2;
+		TTAudioSignalArrayPtr(outputArray.instance())->setSignal(0, &out1);
+		TTAudioSignalArrayPtr(outputArray.instance())->setSignal(1, &out2);
 		out1.setSampleRate(sr);
 		out2.setSampleRate(sr);
 		if (!ttEnvironment->mBenchmarking)
-			err = (this->*currentProcessMethod)(inputArray, outputArray);
+			err = (this->*currentProcessMethod)(TTAudioSignalArrayPtr(inputArray.instance()), TTAudioSignalArrayPtr(outputArray.instance()));
 		else{
 			startProcessingTime = TTGetTimeInMicroseconds();
-			err = (this->*currentProcessMethod)(inputArray, outputArray);
+			err = (this->*currentProcessMethod)(TTAudioSignalArrayPtr(inputArray.instance()), TTAudioSignalArrayPtr(outputArray.instance()));
 			accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
 			accumulatedProcessingCalls++;
 		}
@@ -373,17 +369,17 @@ TTErr TTAudioObjectBase::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudio
 	
 	if (valid) {
 		lock();
-		inputArray->numAudioSignals = 2;
-		inputArray->setSignal(0, &in1);
-		inputArray->setSignal(1, &in2);
-		outputArray->numAudioSignals = 1;
-		outputArray->setSignal(0, &out);
+		TTAudioSignalArrayPtr(inputArray.instance())->numAudioSignals = 2;
+		TTAudioSignalArrayPtr(inputArray.instance())->setSignal(0, &in1);
+		TTAudioSignalArrayPtr(inputArray.instance())->setSignal(1, &in2);
+		TTAudioSignalArrayPtr(outputArray.instance())->numAudioSignals = 1;
+		TTAudioSignalArrayPtr(outputArray.instance())->setSignal(0, &out);
 		out.setSampleRate(sr);
 		if (!ttEnvironment->mBenchmarking)
-			err = (this->*currentProcessMethod)(inputArray, outputArray);
+			err = (this->*currentProcessMethod)(TTAudioSignalArrayPtr(inputArray.instance()), TTAudioSignalArrayPtr(outputArray.instance()));
 		else{
 			startProcessingTime = TTGetTimeInMicroseconds();
-			err = (this->*currentProcessMethod)(inputArray, outputArray);
+			err = (this->*currentProcessMethod)(TTAudioSignalArrayPtr(inputArray.instance()), TTAudioSignalArrayPtr(outputArray.instance()));
 			accumulatedProcessingTime += (TTGetTimeInMicroseconds() - startProcessingTime);
 			accumulatedProcessingCalls++;
 		}
