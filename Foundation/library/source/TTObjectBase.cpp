@@ -150,12 +150,11 @@ TTErr TTObjectBase::findAttribute(const TTSymbol name, TTAttribute** attr)
 	TTErr	err = kTTErrNone;
 
 	err = attributes->lookup(name, v);
-	if (!err) {
+	if (err == kTTErrNone)
 		*attr = TTAttributePtr(TTPtr(v));
-		return kTTErrNone;
-	}
 	else
-		return kTTErrInvalidAttribute;
+		err = kTTErrInvalidAttribute;
+	return err;
 }
 
 
@@ -305,7 +304,7 @@ TTErr TTObjectBase::registerMessageProperty(const TTSymbol messageName, const TT
 	TTErr			err;
 
 	err = messages->lookup(messageName, v);
-	if (!err) {
+	if (err == kTTErrNone) {
 		theMessage = TTMessagePtr(TTPtr(v));
 		err = theMessage->registerAttribute(propertyName, kTypeLocalValue, NULL, getter, setter);
 		theMessage->setAttributeValue(propertyName, (TTValue&)initialValue);
