@@ -14,18 +14,18 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
 	int					badSampleCount = 0;
-	TTAudioSignalPtr	input = NULL;
-	TTAudioSignalPtr	output = NULL;
+//	TTAudioSignalPtr	input = NULL;
+//	TTAudioSignalPtr	output = NULL;
+	TTAudio				input(1);
+	TTAudio				output(1);
 	
 	// create 1 channel audio signal objects
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 1);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 1);
-	input->allocWithVectorSize(64);
-	output->allocWithVectorSize(64);
+	input.allocWithVectorSize(64);
+	output.allocWithVectorSize(64);
 	
 	// create an impulse
-	input->clear();						// set all samples to zero
-	input->mSampleVectors[0][0] = 1.0;	// set the first sample to 1
+	input.clear();						// set all samples to zero
+	input.rawSamples()[0][0] = 1.0;	// set the first sample to 1
 	
 	// test 1: one sample delay, no interpolation
 	this->setAttributeValue("delayMaxInSamples", 64);
@@ -103,10 +103,10 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	
 	badSampleCount = 0; // reset
 	for (int i=0; i<64; i++) {
-		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse[i]);
+		TTBoolean result = TTTestFloatEquivalence(output.rawSamples()[0][i], expectedImpulseResponse[i]);
 		badSampleCount += !result;
 		if (!result)
-			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse[i]);
+			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output.rawSamples()[0][i], expectedImpulseResponse[i]);
 	}
 
 	TTTestAssertion("Produces correct impulse response: 1 sample, no interp", 
@@ -336,10 +336,10 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	
 	badSampleCount = 0; // reset
 	for (int i=0; i<64; i++) {
-		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse12[i]);
+		TTBoolean result = TTTestFloatEquivalence(output.rawSamples()[0][i], expectedImpulseResponse12[i]);
 		badSampleCount += !result;
 		if (!result)
-			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse12[i]);
+			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output.rawSamples()[0][i], expectedImpulseResponse12[i]);
 	}
 
 	TTTestAssertion("Produces correct impulse response: 1.4 samples, linear interp", 
@@ -426,10 +426,10 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	
 	badSampleCount = 0; // reset
 	for (int i=0; i<64; i++) {
-		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse13[i]);
+		TTBoolean result = TTTestFloatEquivalence(output.rawSamples()[0][i], expectedImpulseResponse13[i]);
 		badSampleCount += !result;
 		if (!result)
-			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse13[i]);
+			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output.rawSamples()[0][i], expectedImpulseResponse13[i]);
 	}
 
 	TTTestAssertion("Produces correct impulse response: 1.1 samples, cosine interp", 
@@ -515,10 +515,10 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 	
 	badSampleCount = 0; // reset
 	for (int i=0; i<64; i++) {
-		TTBoolean result = TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse14[i]);
+		TTBoolean result = TTTestFloatEquivalence(output.rawSamples()[0][i], expectedImpulseResponse14[i]);
 		badSampleCount += !result;
 		if (!result)
-			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse14[i]);
+			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output.rawSamples()[0][i], expectedImpulseResponse14[i]);
 	}
 
 	TTTestAssertion("Produces correct impulse response: 1.8 samples, cubic interp\n****THIS TEST FAILS ONLY BECAUSE I DON'T KNOW WHAT TO EXPECT****", 
@@ -527,10 +527,6 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 					errorCount);
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
-	
-	
-	TTObjectBaseRelease(&input);
-	TTObjectBaseRelease(&output);
 	
 	
 	// Wrap up the test results to pass back to whoever called this test
