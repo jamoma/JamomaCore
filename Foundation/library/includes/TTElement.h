@@ -120,6 +120,7 @@ break;\
 
 
 class TTFOUNDATION_EXPORT TTElement {
+	friend class TTDictionary;
 	
 	/** The data value of TTValue is stored using a union. */
 	union TTDataValue {
@@ -166,6 +167,8 @@ public:
 //	{
 //		*this = anInitialValue;
 //	}
+	
+	virtual ~TTElement();
 
 	
 	/**	query an element for its type */
