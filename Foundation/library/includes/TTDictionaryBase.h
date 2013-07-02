@@ -63,6 +63,7 @@ private:
 //	TTListPtr	mList;
 	TTDictionaryBaseMap	mMap;
 	TTPtrSizedInt		mReferenceCount;
+	TTList*				mObservers;			///< List of all objects watching this object for life-cycle and other changes.
 	
 public:
 	TTDictionaryBase();
@@ -155,6 +156,14 @@ public:
 	 @return					TRUE if the hash has nothing stored in it.
 	 */
 	TTBoolean isEmpty();
+	
+	
+	
+	
+	TTErr registerObserverForNotifications(const TTObjectBase& observingObject);
+	TTErr unregisterObserverForNotifications(const TTObjectBase& observingObject);
+	TTErr sendNotification(const TTSymbol name, const TTValue& arguments);
+
 };
 
 /** Pointer to a #TTDictionary.

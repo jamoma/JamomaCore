@@ -18,7 +18,8 @@
 #include "TTDictionaryBase.h"
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"
-
+#include "TTList.h"
+#include "TTValueCache.h"
 
 //void TTDictionaryBaseFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found);
 //void TTDictionaryBaseFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found)
@@ -82,11 +83,12 @@ TTErr TTDictionaryBase::append(const TTSymbol& key, const TTValue& value)
 	remove(key);
 	mMap.insert(TTDictionaryBasePair(key.getSymbolId(), value));
 //	unlock();
+	sendNotification("change", kTTValNONE);
 	return kTTErrNone;
 
 //	mList->append(v);
 //	return mMap->append(key, value);
-	return kTTErrNone;
+//	return kTTErrNone;
 }
 
 
@@ -126,6 +128,7 @@ TTErr TTDictionaryBase::remove(const TTSymbol& key)
 //		mList->remove(v);
 //	return mHashTable->remove(key);
 	mMap.erase(key.getSymbolId());
+	sendNotification("change", kTTValNONE);
 	return kTTErrNone;
 }
 
@@ -134,6 +137,7 @@ TTErr TTDictionaryBase::clear()
 {
 //	mList->clear();
 	mMap.clear();
+	sendNotification("change", kTTValNONE);
 	return kTTErrNone;
 }
 
@@ -164,5 +168,32 @@ TTUInt32 TTDictionaryBase::getSize()
 TTBoolean TTDictionaryBase::isEmpty()
 {
 	return mMap.empty();
+}
+
+
+TTErr TTDictionaryBase::registerObserverForNotifications(const TTObjectBase& observingObject)
+{
+	TTValue v = observingObject;
+	mObservers->appendUnique(v);
+	return kTTErrNone;
+}
+
+
+TTErr TTDictionaryBase::unregisterObserverForNotifications(const TTObjectBase& observingObject)
+{
+	TTValue	c(observingObject);
+	TTValue	v;
+	TTErr	err;
+	
+	err = mObservers->findEquals(c, v);
+	if (!err)
+		mObservers->remove(v);
+	return err;
+}
+
+
+TTErr TTDictionaryBase::sendNotification(const TTSymbol name, const TTValue& arguments)
+{
+	return mObservers->iterateObjectsSendingMessage(name, TTValueRef(arguments));
 }
 

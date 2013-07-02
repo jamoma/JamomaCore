@@ -20,6 +20,7 @@
 
 #include "TTDictionaryBase.h"
 
+class TTObject;
 
 
 /****************************************************************************************************/
@@ -57,7 +58,7 @@ public:
 		@param aDictionaryWasCreated	Upon return this will be true if a new dictionary was created 
 										rather than an existing dictionary being referenced.
 	 */
-	TTDictionary(TTSymbol& aDictionaryName, TTBoolean& aDictionaryWasCreated)
+	TTDictionary(TTSymbol aDictionaryName, TTBoolean& aDictionaryWasCreated)
 	{
 		if (aDictionaryName == "")
 			aDictionaryName = TTSymbol::random();
@@ -83,6 +84,7 @@ public:
 		mDictionaryInstance->mReferenceCount++;
 	}
 	
+	
 	/** Destructor.
 	 */
 	virtual ~TTDictionary()
@@ -97,6 +99,35 @@ public:
 	
 	// TODO: CPPY CONSTRUCTOR!
 
+	
+	/** Return the name associated with the dictionary. */
+	TTSymbol name() const
+	{
+		return mName;
+	}
+	
+	
+	
+	
+	/** Register an observer.
+	 The observer will be monitoring this object.
+	 
+	 @param anObservingObject	Reference to the observing object.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr registerObserverForNotifications(const TTObjectBase& anObservingObject);
+	TTErr registerObserverForNotifications(const TTObject& anObservingObject);
+	
+	
+	/** Unregister an observer for notifications.
+	 The observer wiln no longer be monitoring.
+	 
+	 @param anObservingObject	Reference to the observing object.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr unregisterObserverForNotifications(const TTObjectBase& anObservingObject);
+	TTErr unregisterObserverForNotifications(const TTObject& anObservingObject);
+	
 	
 	// The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...
 	// This operator is used when pushing to an append# object, however...
