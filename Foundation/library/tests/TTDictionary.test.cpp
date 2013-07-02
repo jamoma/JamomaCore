@@ -28,7 +28,7 @@ TTDictionaryTest::~TTDictionaryTest()
 {;}
 
 
-void TTDictionaryTest______(int& errorCount, int&testAssertionCount)
+void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
 {
 	TTTestLog("\n");
 	TTTestLog("Testing something");
@@ -45,7 +45,7 @@ TTErr TTDictionaryTest::test(TTValue& returnedTestInfo)
 	int	errorCount = 0;
 	int testAssertionCount = 0;
 	
-	TTDictionaryTest______(errorCount, testAssertionCount);
+	TTDictionaryTestBasic(errorCount, testAssertionCount);
 		
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

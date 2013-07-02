@@ -52,9 +52,9 @@ TTString TTModularInit()
 
 	TTObjectBasePtr test = NULL;
 	TTValue v;
-	
-	TTObjectBaseInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
-	test->test(v);
+    
+	TTObjectBaseInstantiate(TTSymbol("dictionary.test"), TTObjectBaseHandle(&test), kTTValNONE);
+	test->sendMessage("test", v, kTTValNONE);
 
 #endif // TO_DEBUG
 	
