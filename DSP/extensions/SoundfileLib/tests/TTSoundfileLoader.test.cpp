@@ -89,7 +89,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // set up the samplematrix
         testTargetMatrix->setAttributeValue("numChannels", 1);
-        testTargetMatrix->setAttributeValue("lengthInSeconds", 1.0);
+        testTargetMatrix->setAttributeValue("lengthInSeconds", 0.5);
         
         TTInt32 lengthReturn, channelsReturn;
         
@@ -102,6 +102,16 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         TTTestAssertion("setTargetMatrix operates successfully",
 						result2b,
+						testAssertionCount,
+						errorCount);
+        
+        // TEST 2C: set the target via an objectBasePtr
+        TTObjectBase* objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix)); // is there a better syntax for this?
+        
+        TTBoolean result2c = { testSoundfileLoader->setTargetMatrix(objectBasePtrToSampleMatrix) == kTTErrNone };
+        
+        TTTestAssertion("setTargetMatrix via ObjectBasePtr operates successfully",
+						result2c,
 						testAssertionCount,
 						errorCount);
         

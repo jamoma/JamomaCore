@@ -32,6 +32,7 @@ protected:
     
     // target a new TTSampleMartix.
 	TTErr setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix);
+    TTErr setTargetMatrix(const TTObjectBase* newTargetObjectPtr);
     
     // copy values from sound file until TTSampleMartix is completely full.
     TTErr copyUntilFull();
