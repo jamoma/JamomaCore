@@ -115,11 +115,17 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
-        // pre-test
-        TTSampleValue test13expect = TTRandom64();
-        testTargetMatrix->poke(0,0,test13expect);
-        TTTestLog("poking from here worked");
+        // TEST 2D: set the target to a non-SampleMatrix, should FAIL
+        TTObjectBase* ptrToNonSampleMatrix;
         
+        TTObjectBaseInstantiate("delay", (TTObjectBasePtr*)&ptrToNonSampleMatrix, kTTValNONE);
+        
+        TTBoolean result2d = { testSoundfileLoader->setTargetMatrix(ptrToNonSampleMatrix) == kTTErrInvalidValue };
+        
+        TTTestAssertion("setTargetMatrix returns error when not a SampleMatrix",
+						result2d,
+						testAssertionCount,
+						errorCount);
         
         // TEST 3: copy one second of samplevalues
         
@@ -147,6 +153,13 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         */
+        
+        // releasing objects, TODO: is this sufficient?
+        testSoundfileLoader = NULL;
+        testTargetMatrix = NULL;
+        objectBasePtrToSampleMatrix = NULL;
+        ptrToNonSampleMatrix = NULL;
+        
     }
     
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
