@@ -142,17 +142,17 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         // TEST X prep
         TTValue loadInput, loadOuput;
         loadInput.append(TT(TESTFILE));
-        loadInput.append(testTargetMatrix);
+        loadInput.append(objectBasePtrToSampleMatrix);
         
-        /* // TEST X: use the public method to perform loading action
-         // the final test, not working yet
+        // TEST X: use the public method to perform loading action
+        // the final test, not working yet
         TTBoolean resultX = { load(loadInput, loadOuput) == kTTErrNone };
         
         TTTestAssertion("load operates successfully",
 						resultX,
 						testAssertionCount,
 						errorCount);
-        */
+        
         
         // releasing objects, TODO: is this sufficient?
         testSoundfileLoader = NULL;
