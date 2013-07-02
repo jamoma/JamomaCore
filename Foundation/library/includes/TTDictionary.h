@@ -20,6 +20,7 @@
 
 #include "TTDictionaryBase.h"
 
+class TTObject;
 
 
 /****************************************************************************************************/
@@ -104,6 +105,28 @@ public:
 	{
 		return mName;
 	}
+	
+	
+	
+	
+	/** Register an observer.
+	 The observer will be monitoring this object.
+	 
+	 @param anObservingObject	Reference to the observing object.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr registerObserverForNotifications(const TTObjectBase& anObservingObject);
+	TTErr registerObserverForNotifications(const TTObject& anObservingObject);
+	
+	
+	/** Unregister an observer for notifications.
+	 The observer wiln no longer be monitoring.
+	 
+	 @param anObservingObject	Reference to the observing object.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr unregisterObserverForNotifications(const TTObjectBase& anObservingObject);
+	TTErr unregisterObserverForNotifications(const TTObject& anObservingObject);
 	
 	
 	// The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...

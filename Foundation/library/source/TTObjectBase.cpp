@@ -437,15 +437,6 @@ TTErr TTObjectBase::sendMessage(const TTSymbol name, const TTValue& anInputValue
 #pragma mark Observing
 #endif
 
-TTErr TTObjectBase::registerObserverForMessage(const TTObjectBase& observingObject, const TTSymbol messageName)
-{
-	return kTTErrGeneric;
-}
-
-TTErr TTObjectBase::registerObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol attributeName)
-{
-	return kTTErrGeneric;
-}
 
 TTErr TTObjectBase::registerObserverForNotifications(const TTObjectBase& observingObject)
 {
@@ -454,16 +445,6 @@ TTErr TTObjectBase::registerObserverForNotifications(const TTObjectBase& observi
 	return kTTErrNone;
 }
 
-
-TTErr TTObjectBase::unregisterObserverForMessage(const TTObjectBase& observingObject, const TTSymbol messageName)
-{
-	return kTTErrGeneric;
-}
-
-TTErr TTObjectBase::unregisterObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol attributeName)
-{
-	return kTTErrGeneric;
-}
 
 TTErr TTObjectBase::unregisterObserverForNotifications(const TTObjectBase& observingObject)
 {
