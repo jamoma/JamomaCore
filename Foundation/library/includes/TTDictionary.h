@@ -30,7 +30,7 @@ class TTObject;
 typedef std::unordered_map<TTPtr, TTDictionaryBase*>	TTDictionaryTable;
 //typedef std::unordered_map<TTPtrSizedInt, void*>	TTDictionaryTable;
 
-extern TTDictionaryTable gTTDictionaryTable;
+extern TTFOUNDATION_EXPORT TTDictionaryTable gTTDictionaryTable;
 
 /** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
 //typedef std::pair<TTString, TTSymbolBase*>				TTSymbolTablePair;
