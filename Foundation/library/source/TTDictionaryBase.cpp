@@ -18,7 +18,6 @@
 #include "TTDictionaryBase.h"
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"
-#include "TTList.h"
 #include "TTValueCache.h"
 
 //void TTDictionaryBaseFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found);
@@ -174,7 +173,7 @@ TTBoolean TTDictionaryBase::isEmpty()
 TTErr TTDictionaryBase::registerObserverForNotifications(const TTObjectBase& observingObject)
 {
 	TTValue v = observingObject;
-	mObservers->appendUnique(v);
+	mObservers.appendUnique(v);
 	return kTTErrNone;
 }
 
@@ -185,15 +184,15 @@ TTErr TTDictionaryBase::unregisterObserverForNotifications(const TTObjectBase& o
 	TTValue	v;
 	TTErr	err;
 	
-	err = mObservers->findEquals(c, v);
+	err = mObservers.findEquals(c, v);
 	if (!err)
-		mObservers->remove(v);
+		mObservers.remove(v);
 	return err;
 }
 
 
 TTErr TTDictionaryBase::sendNotification(const TTSymbol name, const TTValue& arguments)
 {
-	return mObservers->iterateObjectsSendingMessage(name, TTValueRef(arguments));
+	return mObservers.iterateObjectsSendingMessage(name, TTValueRef(arguments));
 }
 

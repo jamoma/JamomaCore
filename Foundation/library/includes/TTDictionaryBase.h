@@ -20,9 +20,7 @@
 #define __TT_DICTIONARY_BASEH__
 
 #include "TTValue.h"
-//#include "TTBase.h"
-//#include "TTHash.h"
-//#include "TTList.h"
+#include "TTList.h"
 
 
 /****************************************************************************************************/
@@ -63,7 +61,7 @@ private:
 //	TTListPtr	mList;
 	TTDictionaryBaseMap	mMap;
 	TTPtrSizedInt		mReferenceCount;
-	TTList*				mObservers;			///< List of all objects watching this object for life-cycle and other changes.
+	TTList				mObservers;			///< List of all objects watching this object for life-cycle and other changes.
 	
 public:
 	TTDictionaryBase();
