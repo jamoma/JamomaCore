@@ -85,6 +85,15 @@ public:
 	}
 	
 	
+	/** Copy Constructor */
+	TTDictionary(const TTDictionary& aSourceDictionary)
+	{
+		mName = aSourceDictionary.mName;
+		mDictionaryInstance = aSourceDictionary.mDictionaryInstance;
+		mDictionaryInstance->mReferenceCount++;
+	}
+
+	
 	/** Destructor.
 	 */
 	virtual ~TTDictionary()
@@ -93,12 +102,10 @@ public:
 		if (mDictionaryInstance->mReferenceCount == 0) {
 			gTTDictionaryTable.erase(mName.rawpointer());
 			delete mDictionaryInstance;
+			mDictionaryInstance = NULL;
 		}
 	}
 	
-	
-	// TODO: CPPY CONSTRUCTOR!
-
 	
 	/** Return the name associated with the dictionary. */
 	TTSymbol name() const

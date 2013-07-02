@@ -59,6 +59,8 @@ TTElement::operator TTDictionary() const
 }
 
 
+// The equals operator should assign an existing dictionary, not copy it.
+
 TTElement& TTElement::operator = (const TTDictionary value)
 {
 	TTBoolean unused;
@@ -68,10 +70,11 @@ TTElement& TTElement::operator = (const TTDictionary value)
 		mValue.dictionary = (TTSymbolBase*)newDictionary->name().rawpointer();
 		mType = kTypeDictionary;
 	}
-
-	TTDictionary thisDictionary(TT(mValue.dictionary), unused);
-
-	thisDictionary = value;
+	else {
+		TTDictionary thisDictionary(TT(mValue.dictionary), unused);
+		thisDictionary = value;
+	}
+	
 	return *this;
 }
 
