@@ -57,7 +57,7 @@ public:
 		@param aDictionaryWasCreated	Upon return this will be true if a new dictionary was created 
 										rather than an existing dictionary being referenced.
 	 */
-	TTDictionary(TTSymbol& aDictionaryName, TTBoolean& aDictionaryWasCreated)
+	TTDictionary(TTSymbol aDictionaryName, TTBoolean& aDictionaryWasCreated)
 	{
 		if (aDictionaryName == "")
 			aDictionaryName = TTSymbol::random();
@@ -83,6 +83,7 @@ public:
 		mDictionaryInstance->mReferenceCount++;
 	}
 	
+	
 	/** Destructor.
 	 */
 	virtual ~TTDictionary()
@@ -97,6 +98,13 @@ public:
 	
 	// TODO: CPPY CONSTRUCTOR!
 
+	
+	/** Return the name associated with the dictionary. */
+	TTSymbol name() const
+	{
+		return mName;
+	}
+	
 	
 	// The copy assignment constructor doesn't appear to be involved, at least with resizes, on the Mac...
 	// This operator is used when pushing to an append# object, however...

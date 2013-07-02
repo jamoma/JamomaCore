@@ -18,7 +18,7 @@
 #include "TTSymbolTable.h"
 #include "TTObject.h"
 #include "TTMatrix.h"
-
+#include "TTDictionary.h"
 
 
 /****************************************************************************************************/
@@ -44,3 +44,34 @@ void TTValue::clear()
 	numValues = 0;		// Important: We want TTValue to contain zero values so we can build an array dynamically with the append() method [TAP]
 }
 #endif
+
+
+TTElement::operator TTDictionary() const
+{
+	if (mType == kTypeDictionary) {
+		TTBoolean unused;
+		return TTDictionary(TT(mValue.dictionary), unused);
+	}
+	else
+		return TTDictionary();
+	// TODO: should this throw an exception?
+	// otherwise how does the caller know that the empty dictionary is an error?
+}
+
+
+TTElement& TTElement::operator = (const TTDictionary value)
+{
+	TTBoolean unused;
+
+	if (mType != kTypeDictionary) {
+		TTDictionary *newDictionary = new TTDictionary(value.name(), unused);
+		mValue.dictionary = (TTSymbolBase*)newDictionary->name().rawpointer();
+		mType = kTypeDictionary;
+	}
+
+	TTDictionary thisDictionary(TT(mValue.dictionary), unused);
+
+	thisDictionary = value;
+	return *this;
+}
+
