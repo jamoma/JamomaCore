@@ -86,6 +86,7 @@ private:
 		if (!mDictionaryInstance) {
 			mDictionaryInstance = new TTDictionaryBase;
 			gTTDictionaryTable[aDictionaryName.rawpointer()] = mDictionaryInstance;
+			setSchema(aSchemaName);
 			aDictionaryWasCreated = true;
 		}
 		else

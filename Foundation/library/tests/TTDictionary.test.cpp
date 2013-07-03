@@ -52,8 +52,8 @@ void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
     TTTestLog("\n");
 	TTTestLog("Testing dictionary schema");
     
-    TTTestAssertion("TTDictionary schema : Test fails if the dictionary schema is not empty",
-					d1.getSchema() == kTTSymEmpty,
+    TTTestAssertion("TTDictionary schema : dictionary schema should default to 'none' ",
+					d1.getSchema() == "none",
 					testAssertionCount,
 					errorCount);
     
