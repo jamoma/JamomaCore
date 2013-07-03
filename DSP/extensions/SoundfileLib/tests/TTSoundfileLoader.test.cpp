@@ -64,8 +64,14 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 		TTTestLog("\n");
 		TTTestLog("Testing TTSoundfileLoader Basics...");
 		
+        // establish our pointers
+        // TODO: update this to new syntax style eventually
 		TTSoundfileLoaderPtr testSoundfileLoader = NULL;
         TTSampleMatrixPtr testTargetMatrix = NULL;
+        TTObjectBase* objectBasePtrToSampleMatrix = NULL;
+        TTObjectBase* ptrToNonSampleMatrix = NULL;
+        TTSampleMatrixPtr testTargetMatrix2 = NULL;
+        
         TTErr err;
 		
         // TEST 0: instantiate the object to a pointer
@@ -85,9 +91,16 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         errorCount);
         
         // TEST 2: instantiate a TTSampleMatrix and set is as the target
-        TTBoolean result2 = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix, kTTValNONE) == kTTErrNone};
+                
+        // set up the samplematrix first
+        TTBoolean result2a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix, kTTValNONE) == kTTErrNone};
         
-        // set up the samplematrix
+        if (!result2a)
+        {
+            TTTestLog("samplematrix was not created -- ending test");
+            return kTTErrGeneric;
+        }
+        
         testTargetMatrix->setAttributeValue("numChannels", 1);
         testTargetMatrix->setAttributeValue("lengthInSeconds", 0.5);
         
@@ -96,8 +109,9 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         testTargetMatrix->getAttributeValue("numChannels", channelsReturn);
         testTargetMatrix->getAttributeValue("lengthInSamples", lengthReturn);
         
-        TTTestLog("samplematrix now has %i samples and %i channels", lengthReturn, channelsReturn);
+        TTTestLog("new samplematrix has %i samples and %i channels", lengthReturn, channelsReturn);
         
+        // now for the actual test
         TTBoolean result2b = { testSoundfileLoader->setTargetMatrix(testTargetMatrix) == kTTErrNone };
         
         TTTestAssertion("setTargetMatrix operates successfully",
@@ -105,51 +119,72 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
-        // TEST 2C: set the target via an objectBasePtr
-        TTObjectBase* objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix)); // is there a better syntax for this?
+        // TEST 3: set the target via an objectBasePtr
+        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix)); // is there a better syntax for this?
         
-        TTBoolean result2c = { testSoundfileLoader->setTargetMatrix(objectBasePtrToSampleMatrix) == kTTErrNone };
+        TTBoolean result3 = { testSoundfileLoader->setTargetMatrix(objectBasePtrToSampleMatrix) == kTTErrNone };
         
         TTTestAssertion("setTargetMatrix via ObjectBasePtr operates successfully",
-						result2c,
-						testAssertionCount,
-						errorCount);
-        
-        // TEST 2D: set the target to a non-SampleMatrix, should FAIL
-        TTObjectBase* ptrToNonSampleMatrix;
-        
-        TTObjectBaseInstantiate("delay", (TTObjectBasePtr*)&ptrToNonSampleMatrix, kTTValNONE);
-        
-        TTBoolean result2d = { testSoundfileLoader->setTargetMatrix(ptrToNonSampleMatrix) == kTTErrInvalidValue };
-        
-        TTTestAssertion("setTargetMatrix returns error when not a SampleMatrix",
-						result2d,
-						testAssertionCount,
-						errorCount);
-        
-        // TEST 3: copy one second of samplevalues
-        
-        TTBoolean result3 = { testSoundfileLoader->copyUntilFull() == kTTErrNone };//false;//
-        
-        TTTestAssertion("copyUntilFull operates successfully",
 						result3,
 						testAssertionCount,
 						errorCount);
         
+        // TEST 4: set the target to a non-SampleMatrix, should FAIL
+        TTObjectBaseInstantiate("delay", (TTObjectBasePtr*)&ptrToNonSampleMatrix, kTTValNONE);
+        
+        TTBoolean result4 = { testSoundfileLoader->setTargetMatrix(ptrToNonSampleMatrix) == kTTErrInvalidValue };
+        
+        TTTestAssertion("setTargetMatrix returns error when not a SampleMatrix",
+						result4,
+						testAssertionCount,
+						errorCount);
+        
+        // TEST 5: copy samplevalues until samplematrix is filled
+        
+        TTBoolean result5 = { testSoundfileLoader->copyUntilFull() == kTTErrNone };
+        
+        TTTestAssertion("copyUntilFull operates successfully",
+						result5,
+						testAssertionCount,
+						errorCount);
+        
+        // TEST 6: compare 5 random values for equivalence
+        // COMING SOON
         
         
+        // TEST 7: use the public method to perform loading action
+        // essentially packages tests 1, 3 & 5 above
         
-        // TEST X prep
+        // set up another samplematrix first
+        TTBoolean result7a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix2, kTTValNONE) == kTTErrNone};
+        
+        if (!result7a)
+        {
+            TTTestLog("samplematrix was not created -- ending test");
+            return kTTErrGeneric;
+        }
+        
+        testTargetMatrix2->setAttributeValue("numChannels", 1);
+        testTargetMatrix2->setAttributeValue("lengthInSeconds", 0.7);
+        
+        // we will re-use lengthReturn & channelsReturn here
+        
+        testTargetMatrix2->getAttributeValue("numChannels", channelsReturn);
+        testTargetMatrix2->getAttributeValue("lengthInSamples", lengthReturn);
+        
+        TTTestLog("new samplematrix has %i samples and %i channels", lengthReturn, channelsReturn);
+        
+        // set up TTValues passed to the public method
         TTValue loadInput, loadOuput;
         loadInput.append(TT(TESTFILE));
+        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix2)); // is there a better syntax for this?
         loadInput.append(objectBasePtrToSampleMatrix);
         
-        // TEST X: use the public method to perform loading action
-        // the final test, not working yet
-        TTBoolean resultX = { load(loadInput, loadOuput) == kTTErrNone };
+        
+        TTBoolean result7b = { load(loadInput, loadOuput) == kTTErrNone };
         
         TTTestAssertion("load operates successfully",
-						resultX,
+						result7b,
 						testAssertionCount,
 						errorCount);
         
