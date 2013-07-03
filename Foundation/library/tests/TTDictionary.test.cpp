@@ -42,10 +42,10 @@ void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
 					errorCount);
     
     // creation using a specific string name
-    //TTDictionary   d2("dictionary2");         // theo - is this should be possible ?
+    TTDictionary   d2("dictionary2");
     
     // creation using a specific symbol name
-    //TTDictionary   d3(kTTSym_symbol);         // theo - is this should be possible ?
+    TTDictionary   d3(kTTSym_symbol);
     
     
     

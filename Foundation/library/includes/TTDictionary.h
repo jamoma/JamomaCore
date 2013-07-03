@@ -19,6 +19,7 @@
 #define __TT_DICTIONARY_H__
 
 #include "TTDictionaryBase.h"
+#include "TTSymbolCache.h"
 
 class TTObject;
 
@@ -60,9 +61,27 @@ public:
 	 */
 	TTDictionary(TTSymbol aDictionaryName, TTBoolean& aDictionaryWasCreated)
 	{
+		create(aDictionaryName, kTTSym_none, aDictionaryWasCreated);
+	}
+	
+	TTDictionary(TTSymbol aDictionaryName)
+	{
+		TTBoolean dictionaryCreated;
+		create(aDictionaryName, kTTSym_none, dictionaryCreated);
+	}
+	
+	TTDictionary()
+	{
+		TTBoolean dictionaryCreated;
+		create(TTSymbol::random(), kTTSym_none, dictionaryCreated);
+	}
+	
+private:
+	void create(TTSymbol aDictionaryName, TTSymbol aSchemaName, TTBoolean& aDictionaryWasCreated)
+	{
 		if (aDictionaryName == "")
 			aDictionaryName = TTSymbol::random();
-			
+		
 		mDictionaryInstance = gTTDictionaryTable[aDictionaryName.rawpointer()];
 		if (!mDictionaryInstance) {
 			mDictionaryInstance = new TTDictionaryBase;
@@ -71,20 +90,12 @@ public:
 		}
 		else
 			aDictionaryWasCreated = false;
-
+		
 		mName = aDictionaryName;
 		mDictionaryInstance->mReferenceCount++;
 	}
 	
-	TTDictionary()
-	{
-		mName = TTSymbol::random();
-		mDictionaryInstance = new TTDictionaryBase;
-		gTTDictionaryTable[mName.rawpointer()] = mDictionaryInstance;
-		mDictionaryInstance->mReferenceCount++;
-	}
-	
-	
+public:
 	TTDictionary(TTElement* do_not_use_this_unless_your_name_is_ttelement_and_you_are_a_destructor)
 	{
 		mName = TTSymbol(do_not_use_this_unless_your_name_is_ttelement_and_you_are_a_destructor->mValue.dictionary);
