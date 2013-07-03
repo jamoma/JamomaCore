@@ -46,6 +46,15 @@ void TTValue::clear()
 #endif
 
 
+TTElement::~TTElement()
+{
+	if (mType == kTypeDictionary) {
+		TTDictionary d(this); // when d goes out of scope the refcount will decrease and the dictionary will be potentially freed.
+	}
+	// TODO: need special handling for strings also?
+}
+
+
 TTElement::operator TTDictionary() const
 {
 	if (mType == kTypeDictionary) {
@@ -59,6 +68,8 @@ TTElement::operator TTDictionary() const
 }
 
 
+// The equals operator should assign an existing dictionary, not copy it.
+
 TTElement& TTElement::operator = (const TTDictionary value)
 {
 	TTBoolean unused;
@@ -68,10 +79,11 @@ TTElement& TTElement::operator = (const TTDictionary value)
 		mValue.dictionary = (TTSymbolBase*)newDictionary->name().rawpointer();
 		mType = kTypeDictionary;
 	}
-
-	TTDictionary thisDictionary(TT(mValue.dictionary), unused);
-
-	thisDictionary = value;
+	else {
+		TTDictionary thisDictionary(TT(mValue.dictionary), unused);
+		thisDictionary = value;
+	}
+	
 	return *this;
 }
 

@@ -85,6 +85,23 @@ public:
 	}
 	
 	
+	TTDictionary(TTElement* do_not_use_this_unless_your_name_is_ttelement_and_you_are_a_destructor)
+	{
+		mName = TTSymbol(do_not_use_this_unless_your_name_is_ttelement_and_you_are_a_destructor->mValue.dictionary);
+		mDictionaryInstance = gTTDictionaryTable[mName.rawpointer()];
+		// DO NOT INCREASE THE REFERENCE COUNT -- THIS IS A SPECIAL CONSTRUCTOR USED FOR TTELEMENT'S DESTRUCTOR
+	}
+	
+	
+	/** Copy Constructor */
+	TTDictionary(const TTDictionary& aSourceDictionary)
+	{
+		mName = aSourceDictionary.mName;
+		mDictionaryInstance = aSourceDictionary.mDictionaryInstance;
+		mDictionaryInstance->mReferenceCount++;
+	}
+
+	
 	/** Destructor.
 	 */
 	virtual ~TTDictionary()
@@ -93,12 +110,10 @@ public:
 		if (mDictionaryInstance->mReferenceCount == 0) {
 			gTTDictionaryTable.erase(mName.rawpointer());
 			delete mDictionaryInstance;
+			mDictionaryInstance = NULL;
 		}
 	}
 	
-	
-	// TODO: CPPY CONSTRUCTOR!
-
 	
 	/** Return the name associated with the dictionary. */
 	TTSymbol name() const
