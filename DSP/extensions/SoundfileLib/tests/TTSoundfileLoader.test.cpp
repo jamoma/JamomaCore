@@ -141,9 +141,9 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // TEST 5: copy samplevalues until samplematrix is filled
         
-        TTBoolean result5 = { testSoundfileLoader->copyUntilFull() == kTTErrNone };
+        TTBoolean result5 = { testSoundfileLoader->copyUntilFilled() == kTTErrNone };
         
-        TTTestAssertion("copyUntilFull operates successfully",
+        TTTestAssertion("copyUntilFilled operates successfully",
 						result5,
 						testAssertionCount,
 						errorCount);
@@ -173,7 +173,8 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						errorCount);
         
         // TEST 7: use the public method to perform loading action
-        // the method essentially packages tests 1, 3 & 5 above
+        // the method essentially packages tests 1, 3 & 5 above.
+        // because it uses the same TargetMatrix, we are also copying values twice.
         
         // set up another samplematrix first
         TTBoolean result7a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix2, kTTValNONE) == kTTErrNone};
@@ -216,11 +217,11 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         for (int i = 0; i<5; i++)
         {
             randomIndex = lengthReturn * TTRandom64();
-            TTTestLog("let's look at index %i", randomIndex);
+            //TTTestLog("let's look at index %i", randomIndex);
             
             testSoundfileLoader->peek(randomIndex,0,randomValueSoundFile);
             testTargetMatrix2->peek(randomIndex,0,randomValueSampleMatrix);
-            TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
+            //TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
             
             if (result8) // allows test to keep variable false once it is false
                 result8 = TTTestFloatEquivalence(randomValueSoundFile, randomValueSampleMatrix, true, 0.0000001);

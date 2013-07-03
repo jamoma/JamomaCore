@@ -79,7 +79,7 @@ TTErr TTSoundfileLoader::setTargetMatrix(const TTObjectBase* newTargetObjectPtr)
 /**	Internal method that copies values from the sound file to the targetted TTSampleMatrix. Beware that the setFilePath() and setTargetMatrix() must be successfully executed before this method is called.
  @return    TTErr               kTTErrNone if copy is successful. kTTErrGeneric if the source soundfile was too short to fill samplematrix.
  */
-TTErr TTSoundfileLoader::copyUntilFull()
+TTErr TTSoundfileLoader::copyUntilFilled()
 {
     // NOTE: we will temporarily assume that numChannels and sampleRate match
     TTUInt32 targetMatrixLength = mTargetMatrix->getComponentCount();
@@ -133,7 +133,8 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
     // set the start and end points in mTargetMatrix
     
     // copy the samples (one at a time initially, to be optimized later)
-
+    if (!err)
+        err = copyUntilFilled();
     
     // QUESTIONS to consider
     // how will we handle multi channels?
