@@ -148,12 +148,32 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
-        // TEST 6: compare 5 random values for equivalence
-        // COMING SOON
+        // TEST 6: compare 5 random sample values for equivalence
         
+        TTUInt32 randomIndex;
+        TTSampleValue randomValueSoundFile, randomValueSampleMatrix;
+        TTBoolean result6 = true;
+        
+        for (int i = 0; i<5; i++)
+        {
+            randomIndex = lengthReturn * TTRandom64();
+            //TTTestLog("let's look at index %i", randomIndex);
+            
+            testSoundfileLoader->peek(randomIndex,0,randomValueSoundFile);
+            testTargetMatrix->peek(randomIndex,0,randomValueSampleMatrix);
+            //TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
+            
+            if (result6) // allows test to keep variable false once it is false
+                result6 = TTTestFloatEquivalence(randomValueSoundFile, randomValueSampleMatrix, true, 0.0000001);
+        }
+        
+        TTTestAssertion("comparing 5 random values for equivalence",
+						result6,
+						testAssertionCount,
+						errorCount);
         
         // TEST 7: use the public method to perform loading action
-        // essentially packages tests 1, 3 & 5 above
+        // the method essentially packages tests 1, 3 & 5 above
         
         // set up another samplematrix first
         TTBoolean result7a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix2, kTTValNONE) == kTTErrNone};
@@ -167,7 +187,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         testTargetMatrix2->setAttributeValue("numChannels", 1);
         testTargetMatrix2->setAttributeValue("lengthInSeconds", 0.7);
         
-        // we will re-use lengthReturn & channelsReturn here
+        // we will re-use lengthReturn & channelsReturn here`
         
         testTargetMatrix2->getAttributeValue("numChannels", channelsReturn);
         testTargetMatrix2->getAttributeValue("lengthInSamples", lengthReturn);
@@ -185,6 +205,29 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         TTTestAssertion("load operates successfully",
 						result7b,
+						testAssertionCount,
+						errorCount);
+        
+        // TEST 8: compare 5 random values for equivalence
+        
+        // we will re-use randomIndex, randomValueSoundFile, & randomValueSampleMatrix here
+        TTBoolean result8 = true;
+        
+        for (int i = 0; i<5; i++)
+        {
+            randomIndex = lengthReturn * TTRandom64();
+            TTTestLog("let's look at index %i", randomIndex);
+            
+            testSoundfileLoader->peek(randomIndex,0,randomValueSoundFile);
+            testTargetMatrix2->peek(randomIndex,0,randomValueSampleMatrix);
+            TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
+            
+            if (result8) // allows test to keep variable false once it is false
+                result8 = TTTestFloatEquivalence(randomValueSoundFile, randomValueSampleMatrix, true, 0.0000001);
+        }
+        
+        TTTestAssertion("comparing 5 random values for equivalence",
+						result8,
 						testAssertionCount,
 						errorCount);
         
