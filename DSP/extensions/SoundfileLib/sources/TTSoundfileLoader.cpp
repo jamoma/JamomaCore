@@ -34,9 +34,13 @@ extern "C" void TTSoundfileLoader::registerClass()
 
 
 TTSoundfileLoader::TTSoundfileLoader(TTValue& arguments) :
-TTSoundfile(arguments),
-mTargetMatrix(NULL)
+    TTSoundfile(arguments),
+    mTargetMatrix(NULL)
 {    
+    this->mStartCopyAtSampleIndex = 0;
+    this->mEndCopyAtSampleIndex = 0;
+    this->mCopyFromChannelIndex = 0;
+    
     // add the attributes and messages here
     //addMessageWithArguments(load);
     
@@ -106,7 +110,17 @@ TTErr TTSoundfileLoader::copyUntilFilled()
     }
 }
 
-/**	Public method used to trigger the load process. Copies samples from a sound file on the hard drive into a TTSampleMatrix. 
+
+TTErr TTSoundfile::setFilePath(const TTValue& newValue)
+{
+    TTErr err = TTSoundfile::setFilePath(newValue);
+    this->mStartCopyAtSampleIndex = 0;
+    this->mEndCopyAtSampleIndex = this->getLengthInSamples();
+    this->mCopyFromChannelIndex = 0;
+    return err;
+}
+
+/**	Public method used to trigger the load process. Copies samples from a sound file on the hard drive into a TTSampleMatrix.
  @param[in]     input           requires 2 items: TTSymbol containing the file path, TTPtr to the target matrix.
  @param[out]    unusedOutput    not used 
  @return        TTErr           kTTErrNone load was successful. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.

@@ -28,7 +28,9 @@ class TTSoundfileLoader : public TTSoundfile {
 	
 protected:
     TTSampleMatrixPtr   mTargetMatrix;
-    
+    TTRowID             mStartCopyAtSampleIndex;
+    TTRowID             mEndCopyAtSampleIndex;
+    TTColumnID          mCopyFromChannelIndex;
     
     // target a new TTSampleMartix.
 	TTErr setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix);
@@ -38,6 +40,12 @@ protected:
     TTErr copyUntilFilled();
     
 public:
+    /** Atribute accessor. Send a filepath to the object and attempt to interface with the file. Overriding so that additional variable will be set when setting the filepath.
+     @param	newValue        full POSIX path to the file, including file name
+     @return	TTErr		kTTErrInvalidValue is the filepath is invalid, otherwise kTTErrNone
+     */
+    TTErr setFilePath(const TTValue& newValue);
+    
     // load new sound file into a SampleMatrix
     TTErr load(const TTValueRef input, TTValueRef unusedOutput);
     
