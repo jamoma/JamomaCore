@@ -28,6 +28,8 @@ class TTSoundfileLoader : public TTSoundfile {
 	
 protected:
     TTSampleMatrixPtr   mTargetMatrix;
+    TTRowID             mTargetMatrixLengthInSamples;
+    TTColumnID          mTargetMatrixNumChannels;
     TTRowID             mStartCopyAtSampleIndex;
     TTRowID             mEndCopyAtSampleIndex;
     TTColumnID          mCopyFromChannelIndex;

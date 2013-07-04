@@ -37,6 +37,8 @@ TTSoundfileLoader::TTSoundfileLoader(TTValue& arguments) :
     TTSoundfile(arguments),
     mTargetMatrix(NULL)
 {    
+    this->mTargetMatrixLengthInSamples = 0;
+    this->mTargetMatrixNumChannels = 0;
     this->mStartCopyAtSampleIndex = 0;
     this->mEndCopyAtSampleIndex = 0;
     this->mCopyFromChannelIndex = 0;
@@ -55,8 +57,13 @@ TTSoundfileLoader::~TTSoundfileLoader()
 // target a new TTSampleMatrix
 TTErr TTSoundfileLoader::setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix)
 {
+    TTErr err = kTTErrNone;
+    
     mTargetMatrix = newTargetMatrix;
-    return kTTErrNone;
+    mTargetMatrixLengthInSamples = mTargetMatrix->getRowCount();
+    mTargetMatrixNumChannels = mTargetMatrix->getColumnCount();
+    
+    return err;
 }
 
 // target a new TTObjectBase if it proves to be a TTSampleMatrix
@@ -77,11 +84,10 @@ TTErr TTSoundfileLoader::setTargetMatrix(const TTObjectBase* newTargetObjectPtr)
 // copy values from sound file until TTSampleMartix is completely full.
 TTErr TTSoundfileLoader::copyUntilFilled()
 {
-    // NOTE: we will temporarily assume that numChannels and sampleRate match
-    TTUInt32 targetMatrixLength = mTargetMatrix->getComponentCount();
-    TTSampleMatrixPtr targetMatrixPtr = mTargetMatrix;
+    // NOTE: we will temporarily assume that sampleRate matches.
+    // we are using class variables in the code here.
     
-    if ((this->getLengthInSamples() - mStartCopyAtSampleIndex) < targetMatrixLength)
+    if ((mEndCopyAtSampleIndex - mStartCopyAtSampleIndex) < mTargetMatrixLengthInSamples)
     {
         // if the soundfile is shorter than the samplemartix...
         // we will throw an error because we are only interested in completely filling the SampleMartix, for now
@@ -90,12 +96,12 @@ TTErr TTSoundfileLoader::copyUntilFilled()
         // if the soundfile is longer than the samplemartix...
         TTSampleValue valueToMove;
         
-        for (TTRowID sample=0;sample<targetMatrixLength;sample++)
+        for (TTRowID sample=0;sample<mTargetMatrixLengthInSamples;sample++)
         {
             // TTSoundfile:peek() -> TTSampleMatrix:poke()
             this->peek((sample+mStartCopyAtSampleIndex),mCopyFromChannelIndex,valueToMove);
             //TTTestLog("peek sample %i returned the value %f", sample, valueToMove); // temp
-            targetMatrixPtr->poke(sample,mCopyFromChannelIndex,valueToMove);
+            mTargetMatrix->poke(sample,mCopyFromChannelIndex,valueToMove);
         }
         
         return kTTErrNone;
@@ -105,15 +111,18 @@ TTErr TTSoundfileLoader::copyUntilFilled()
 // override this method from superclass to set additional parameters 
 TTErr TTSoundfileLoader::setFilePath(const TTValue& newValue)
 {
-    TTErr err = TTSoundfile::setFilePath(newValue);
+    TTErr err = kTTErrNone;
+    
+    err = TTSoundfile::setFilePath(newValue);
     this->mStartCopyAtSampleIndex = 0;
-    if (err != kTTErrNone)
+    if (!err)
     {
         this->mEndCopyAtSampleIndex = this->getLengthInSamples();
     } else {
         this->mEndCopyAtSampleIndex = 0;
     }
     this->mCopyFromChannelIndex = 0;
+    
     return err;
 }
 

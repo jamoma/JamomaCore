@@ -217,11 +217,11 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         for (int i = 0; i<5; i++)
         {
             randomIndex = lengthReturn * TTRandom64();
-            //TTTestLog("let's look at index %i", randomIndex);
+            TTTestLog("let's look at index %i", randomIndex);
             
             testSoundfileLoader->peek(randomIndex,0,randomValueSoundFile);
             testTargetMatrix2->peek(randomIndex,0,randomValueSampleMatrix);
-            //TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
+            TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
             
             if (result8) // allows test to keep variable false once it is false
                 result8 = TTTestFloatEquivalence(randomValueSoundFile, randomValueSampleMatrix, true, 0.0000001);
