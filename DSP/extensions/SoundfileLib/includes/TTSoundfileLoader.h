@@ -32,11 +32,21 @@ protected:
     TTRowID             mEndCopyAtSampleIndex;
     TTColumnID          mCopyFromChannelIndex;
     
-    // target a new TTSampleMartix.
+    /**	Internal method that sets the class's pointer to the target sample matrix for loading sound file data.
+     @param     newTargetMatrix     pointer to the new matrix
+     @return    TTErr               kTTErrNone if the pointer was updated.
+     */
 	TTErr setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix);
+    
+    /**	Internal method that sets the class's pointer to the target sample matrix for loading sound file data. This version is a function overload so that setTargetMatrix() can accept a TTObjectBase* as an input parameter and test whether it points to an actual instance of TTSampleMatrix.
+     @param     newTargetMatrix     pointer to the new matrix
+     @return    TTErr               kTTErrNone if the pointer was updated. kTTErrInvalidValue if the pointer was not to a TTSampleMatrix.
+     */
     TTErr setTargetMatrix(const TTObjectBase* newTargetObjectPtr);
     
-    // copy values from sound file until TTSampleMartix is completely full.
+    /**	Internal method that copies values from the sound file to the targetted TTSampleMatrix. Beware that the setFilePath() and setTargetMatrix() must be successfully executed before this method is called.
+     @return    TTErr               kTTErrNone if copy is successful. kTTErrGeneric if the source soundfile was too short to fill samplematrix.
+     */
     TTErr copyUntilFilled();
     
 public:
@@ -46,7 +56,11 @@ public:
      */
     TTErr setFilePath(const TTValue& newValue);
     
-    // load new sound file into a SampleMatrix
+    /**	Public method used to trigger the load process. Copies samples from a sound file on the hard drive into a TTSampleMatrix.
+     @param[in]     input           requires 2 items: TTSymbol containing the file path, TTPtr to the target matrix.
+     @param[out]    unusedOutput    not used
+     @return        TTErr           kTTErrNone load was successful. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
+     */
     TTErr load(const TTValueRef input, TTValueRef unusedOutput);
     
     /** Unit test for this object.
