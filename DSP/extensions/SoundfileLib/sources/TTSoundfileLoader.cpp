@@ -111,11 +111,16 @@ TTErr TTSoundfileLoader::copyUntilFilled()
 }
 
 
-TTErr TTSoundfile::setFilePath(const TTValue& newValue)
+TTErr TTSoundfileLoader::setFilePath(const TTValue& newValue)
 {
     TTErr err = TTSoundfile::setFilePath(newValue);
     this->mStartCopyAtSampleIndex = 0;
-    this->mEndCopyAtSampleIndex = this->getLengthInSamples();
+    if (err != kTTErrNone)
+    {
+        this->mEndCopyAtSampleIndex = this->getLengthInSamples();
+    } else {
+        this->mEndCopyAtSampleIndex = 0;
+    }
     this->mCopyFromChannelIndex = 0;
     return err;
 }
