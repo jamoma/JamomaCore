@@ -26,7 +26,7 @@
 #endif
 #include "../libsndfile/sndfile.h"
 
-//** Creates an interface to data in a soundfile from disk */
+/** Creates an interface to data in a soundfile from disk */
 class TTSoundfile : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTSoundfile)
 	

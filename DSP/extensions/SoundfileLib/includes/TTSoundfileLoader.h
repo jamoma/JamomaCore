@@ -22,7 +22,7 @@
 #include "TTSoundfile.h"
 #include "TTSampleMatrix.h"
 
-//** Creates an interface to data in a soundfile from disk */
+/** Creates an interface to data in a soundfile from disk */
 class TTSoundfileLoader : public TTSoundfile {
 	TTCLASS_SETUP(TTSoundfileLoader)
 	
@@ -59,7 +59,12 @@ public:
     TTErr setFilePath(const TTValue& newValue);
     
     /**	Public method used to trigger the load process. Copies samples from a sound file on the hard drive into a TTSampleMatrix.
-     @param[in]     input           requires 2 items: TTSymbol containing the file path, TTPtr to the target matrix.
+     @param[in]     input           Multi-item TTValue used to set the copy parameters:
+                                    -# TTSymbol containing the filepath
+                                    -# TTPtr to the target matrix 
+                                    -# (optional) channel to copy from source, default is 0
+                                    -# (optional) frame to start copy from source, default is 0 
+                                    -# (optional) frame to stop copy from source, default is last
      @param[out]    unusedOutput    not used
      @return        TTErr           kTTErrNone load was successful. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
      */
