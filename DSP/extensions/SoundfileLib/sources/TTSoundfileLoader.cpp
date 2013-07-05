@@ -131,15 +131,21 @@ TTErr TTSoundfileLoader::setFilePath(const TTValue& newValue)
 TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
 {
     // sort out the two input values
-    TTSymbol newFilePath = kTTSymEmpty; //input[0]
-    TTObjectBasePtr newTargetMatrix = NULL; //input[1]
+    TTSymbol newFilePath = input[0];
+    TTObjectBasePtr newTargetMatrix = input[1];
     TTErr err = kTTErrNone;
     
-    input.get(0,newFilePath);
-    input.get(1,newTargetMatrix);
-    
-    // set the mFilePath
+    // set the mFilePath, which also sets default values for
+    // mStartCopyAtSampleIndex, mEndCopyAtSampleIndex & mCopyFromChannelIndex
     err = setFilePath(newFilePath);
+    
+    // set optional input parameters
+    if (!err)
+    {
+        if (input.size() > 2) mCopyFromChannelIndex = input[2];
+        if (input.size() > 3) mStartCopyAtSampleIndex = input[3];
+        if (input.size() > 4) mEndCopyAtSampleIndex = input[4];
+    }
     
     // set the mTargetMatrix
     if (!err)

@@ -232,12 +232,71 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
+        // TEST 9: use optional load parameters to copy values 5 to 15
+        
+        // set up another samplematrix by re-using the first one
+        testTargetMatrix = NULL;
+        objectBasePtrToSampleMatrix = NULL;
+        
+        TTBoolean result9a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix, kTTValNONE) == kTTErrNone};
+        
+        if (!result9a)
+        {
+            TTTestLog("samplematrix was not created -- ending test");
+            return kTTErrGeneric;
+        }
+        
+        testTargetMatrix->setAttributeValue("numChannels", 1);
+        testTargetMatrix->setAttributeValue("lengthInSamples", 10);
+        
+        // set up TTValues passed to the public method
+        // we'll re-use loadInput, loadOuput here
+        loadInput.clear();
+        loadOuput.clear();
+        loadInput.append(TT(TESTFILE));
+        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix)); // is there a better syntax for this?
+        loadInput.append(objectBasePtrToSampleMatrix);
+        
+        TTColumnID copyChannel = 0;
+        TTRowID startIndex = 5;
+        TTRowID endIndex = 15;
+        loadInput.append(TTUInt32(copyChannel));
+        loadInput.append(TTUInt32(startIndex));
+        loadInput.append(TTUInt32(endIndex));
+        
+        TTBoolean result9b = { load(loadInput, loadOuput) == kTTErrNone };
+        
+        TTTestAssertion("load operates with optional parameters",
+						result9b,
+						testAssertionCount,
+						errorCount);
+        
+        // TEST 10: compare 10 copied values for equivalence
+        
+        // we will re-use randomIndex, randomValueSoundFile, & randomValueSampleMatrix here
+        TTBoolean result10 = true;
+        
+        for (int i = 0; i<(endIndex-startIndex); i++)
+        {
+            testSoundfileLoader->peek(i+startIndex,0,randomValueSoundFile);
+            testTargetMatrix->peek(i,0,randomValueSampleMatrix);
+            //TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
+            
+            if (result10) // allows test to keep variable false once it is false
+                result10 = TTTestFloatEquivalence(randomValueSoundFile, randomValueSampleMatrix, true, 0.0000001);
+        }
+        
+        TTTestAssertion("comparing copied values for equivalence",
+						result10,
+						testAssertionCount,
+						errorCount);
         
         // releasing objects, TODO: is this sufficient?
         testSoundfileLoader = NULL;
         testTargetMatrix = NULL;
         objectBasePtrToSampleMatrix = NULL;
         ptrToNonSampleMatrix = NULL;
+        testTargetMatrix2 = NULL;
         
     }
     
