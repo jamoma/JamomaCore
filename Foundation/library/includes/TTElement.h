@@ -156,7 +156,8 @@ public:
 	
 	
 	template<class T>
-	TTElement(const T& anInitialValue)
+	TTElement(const T& anInitialValue) :
+	mType(kTypeNone)
 	{
 		*this = anInitialValue;
 	}
