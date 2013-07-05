@@ -1667,8 +1667,17 @@ else
           makefile.write("\trm -f $(SRC32) $(SRC64)\n")
           makefile.write("\trm -rf #{build_temp}\n")
           makefile.write("\n")
+          
+          makefile.write("build_and_test: | lipo \n")
+          makefile.write("\techo Testing 32-bit \n")
+          makefile.write("\t$(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a -o build/test \n")
+          makefile.write("\tbuild/test \n")
+          makefile.write("\techo Testing 64-bit \n")
+          makefile.write("\t$(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a -o build/test \n")
+          makefile.write("\tbuild/test \n")
+          makefile.write("\n")
 
-          makefile.write("install: | lipo\n")
+          makefile.write("install: | build_and_test\n")
           if max && mac?
             makefile.write("\tcp build/$(NAME) #{builddir}\n")
           end
