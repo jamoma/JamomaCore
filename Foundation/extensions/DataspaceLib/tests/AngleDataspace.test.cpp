@@ -15,10 +15,9 @@ TTErr AngleDataspace::test(TTValue& returnedTestInfo)
 	int					testAssertionCount = 0;
     
     // Create dataspace object and set to angle
-    TTObjectBasePtr         myDataspace = NULL;
-    TTErr err;
-    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, kTTValNONE);
-	myDataspace->setAttributeValue(TT("dataspace"), TT("angle"));
+    TTObject         myDataspace("dataspace");
+	
+	myDataspace.set(TT("dataspace"), TT("angle"));
     
     TTValue v;
     TTValue expected;
@@ -33,13 +32,13 @@ TTErr AngleDataspace::test(TTValue& returnedTestInfo)
     
     // Radian => Radian
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("radian"));
-    myDataspace->setAttributeValue(TT("outputUnit"), TT("radian"));    
+    myDataspace.set(TT("inputUnit"), TT("radian"));
+    myDataspace.set(TT("outputUnit"), TT("radian"));
     
     v = TTValue(kTTPi);
     expected = TTValue(kTTPi);
     
-    myDataspace->sendMessage(TT("convert"), v, v);
+    myDataspace.send(TT("convert"), v, v);
     
     TTTestAssertion("Radian to Radian", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -50,13 +49,13 @@ TTErr AngleDataspace::test(TTValue& returnedTestInfo)
     
     // Degree => Radian
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("degree"));
-    myDataspace->setAttributeValue(TT("outputUnit"), TT("radian"));
+    myDataspace.set(TT("inputUnit"), TT("degree"));
+    myDataspace.set(TT("outputUnit"), TT("radian"));
     
     v = TTValue(180.);
     expected = TTValue(kTTPi);
     
-    myDataspace->sendMessage(TT("convert"), v, v);
+    myDataspace.send(TT("convert"), v, v);
     
     TTTestAssertion("Degree to Radian", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -73,13 +72,13 @@ TTErr AngleDataspace::test(TTValue& returnedTestInfo)
     // Radian => Degree
     // Expected value according to Google search: "0 Celsius to Kelvin"
     
-    myDataspace->setAttributeValue(TT("inputUnit"), TT("radian"));
-    myDataspace->setAttributeValue(TT("outputUnit"), TT("degree"));
+    myDataspace.set(TT("inputUnit"), TT("radian"));
+    myDataspace.set(TT("outputUnit"), TT("degree"));
     
     v = TTValue(kTTPi);
     expected = TTValue(180.0);
     
-    myDataspace->sendMessage(TT("convert"), v, v);
+    myDataspace.send(TT("convert"), v, v);
     
     TTTestAssertion("Radian to Degree", 
 					TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
