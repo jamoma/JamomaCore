@@ -195,6 +195,30 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
             }
         }
         
+        TTTestLog("\n");
+		TTTestLog("Testing peeki between samples 2 & 3...");
+        
+        TTSampleValue return11;
+        TTErr error11;
+        TTFloat64 floatIndex;
+        
+        for (int channel=0;channel<return2;channel++)
+        {
+            TTTestLog("Channel %i", channel);
+            for (int sample=0;sample<11;sample++)
+            {
+                floatIndex = 2 + sample*0.1;
+                
+                error11 = soundfile->peeki(floatIndex,channel,return11);
+                if (error11 == kTTErrNone)
+                {
+                    TTTestLog("peek sample %f returned the value %f", floatIndex, return11);
+                } else {
+                    TTTestLog("peek returned an error for sample %f", floatIndex);
+                }
+            }
+        }
+        
         
     }
     
