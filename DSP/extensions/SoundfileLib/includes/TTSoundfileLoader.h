@@ -30,6 +30,7 @@ protected:
     TTSampleMatrixPtr   mTargetMatrix;
     TTRowID             mTargetMatrixLengthInSamples;
     TTColumnID          mTargetMatrixNumChannels;
+    TTFloat64           mTargetMatrixSampleRate;
     TTRowID             mStartCopyAtSampleIndex;
     TTRowID             mEndCopyAtSampleIndex;
     TTColumnID          mCopyFromChannelIndex;

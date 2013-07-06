@@ -30,7 +30,8 @@
  */
 
 /* */
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
+// #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
+#define TESTFILE "/Volumes/Storage/Audio/200609brooklyn/edits_48k/p_perc/can11_ds_2s.aiff"
 #define TESTNUMCHANNELS 1
 #define TESTSAMPLERATE 44100
 #define TESTDURATIONINSAMPLES 39493

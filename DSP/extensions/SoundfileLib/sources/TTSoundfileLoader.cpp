@@ -39,6 +39,7 @@ TTSoundfileLoader::TTSoundfileLoader(TTValue& arguments) :
 {    
     this->mTargetMatrixLengthInSamples = 0;
     this->mTargetMatrixNumChannels = 0;
+    this->mTargetMatrixSampleRate = 0.;
     this->mStartCopyAtSampleIndex = 0;
     this->mEndCopyAtSampleIndex = 0;
     this->mCopyFromChannelIndex = 0;
@@ -62,6 +63,7 @@ TTErr TTSoundfileLoader::setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix
     mTargetMatrix = newTargetMatrix;
     mTargetMatrixLengthInSamples = mTargetMatrix->getRowCount();
     mTargetMatrixNumChannels = mTargetMatrix->getColumnCount();
+    mTargetMatrix->getAttributeValue("sampleRate",mTargetMatrixSampleRate);
     
     return err;
 }
@@ -151,13 +153,20 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
     if (!err)
         err = setTargetMatrix(newTargetMatrix);
     
-    // set the start and end points in source file
-    
-    // set the start and end points in mTargetMatrix
-    
-    // copy the samples (one at a time initially, to be optimized later)
     if (!err)
-        err = copyUntilFilled();
+    {
+        // compare sample rates
+        TTBoolean sameSampleRate = TTTestFloatEquivalence(mTargetMatrixSampleRate, this->mSampleRate, true, 0.0000001);
+        
+        if (sameSampleRate)
+        {
+            // copy the samples (one at a time initially, could be optimized later)
+            err = copyUntilFilled();
+        } else {
+            TTTestLog("WARNING: SampleRates don't match");
+        }
+    }
+        
     
     // QUESTIONS to consider
     // how will we handle multi channels?
