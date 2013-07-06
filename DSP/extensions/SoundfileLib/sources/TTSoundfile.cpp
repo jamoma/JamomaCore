@@ -17,6 +17,7 @@
  */
 
 #include "TTSoundfile.h"
+#include "TTInterpolate.h"
 
 #define thisTTClass			TTSoundfile
 #define thisTTClassName		"soundfile"
@@ -166,5 +167,27 @@ TTErr	TTSoundfile::peek(const TTRowID frame, const TTColumnID channel, TTSampleV
     
     value = temp_value[channel];
     return kTTErrNone;
+    
+}
+
+TTErr	TTSoundfile::peeki(const TTFloat64 frame, const TTColumnID channel, TTSampleValue& value)
+{
+    // variables needed
+    TTColumnID p_channel = channel;
+	TTFloat64 indexIntegralPart = TTInt32(frame);
+	TTFloat64 indexFractionalPart = frame - indexIntegralPart; // before makeInBounds to get the right value!
+	TTRowID indexThisInteger = TTRowID(indexIntegralPart);
+    TTRowID indexNextInteger = indexThisInteger + 1;
+    
+    TTSampleValue valueThisInteger, valueNextInteger;
+	
+    peek(indexThisInteger, p_channel, valueThisInteger);
+    peek(indexNextInteger, p_channel, valueNextInteger);
+	
+    // simple linear interpolation adapted from TTDelay
+    value = TTInterpolateLinear(valueThisInteger, valueNextInteger, indexFractionalPart);
+	
+    return kTTErrNone;
+    
     
 }

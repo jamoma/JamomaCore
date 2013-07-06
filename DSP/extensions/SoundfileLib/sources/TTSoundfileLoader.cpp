@@ -86,7 +86,7 @@ TTErr TTSoundfileLoader::setTargetMatrix(const TTObjectBase* newTargetObjectPtr)
 // copy values from sound file until TTSampleMartix is completely full.
 TTErr TTSoundfileLoader::copyUntilFilled()
 {
-    // NOTE: we will temporarily assume that sampleRate matches.
+    // NOTE: this method assumes that sampleRates match.
     // we are using class variables in the code here.
     
     if ((mEndCopyAtSampleIndex - mStartCopyAtSampleIndex) < mTargetMatrixLengthInSamples)

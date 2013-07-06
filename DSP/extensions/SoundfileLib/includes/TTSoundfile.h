@@ -108,13 +108,21 @@ public:
         return mAnnotation;
     };
     
-    /** Get the value stored at a specified index and channel. Modelled after the method found in #TTSampleMatrix. Note that both channels and samples use zero indexing. There is currently no boundary checking implemented.
+    /** Get the value stored at a specified frame and channel. Modelled after the method found in #TTSampleMatrix. Note that both channels and samples use zero indexing. There is currently no boundary checking implemented.
      @param[in]     frame       index of sample as count from the beginning of file. first sample = 0.
      @param[in]     channel     channel within multichannel file. 
      @param[out]    value       used to return the value pulled from sound file.
      @return        TTErr       returns kTTErrNone until futher notice
      */
     TTErr	peek(const TTRowID frame, const TTColumnID channel, TTSampleValue& value);
+    
+    /** Interpolate a value using a floating-point frame and integer channel. Modelled after the method found in #TTSampleMatrix. Note that both channels and samples use zero indexing. There is currently no boundary checking implemented.
+     @param[in]     frame       index of sample as count from the beginning of file. first sample = 0.
+     @param[in]     channel     channel within multichannel file.
+     @param[out]    value       used to return the value pulled from sound file.
+     @return        TTErr       returns kTTErrNone until futher notice
+     */
+    TTErr	peeki(const TTFloat64 frame, const TTColumnID channel, TTSampleValue& value);
     
     /** Unit test for this object.
 	 @param[out] returnedTestInfo	The outcome from the performed unit test.
