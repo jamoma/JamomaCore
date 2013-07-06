@@ -42,7 +42,7 @@ public:
 		TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, arguments);
 		
 		if (err) {
-			TTLogError("TTObject -- error %i instantiating %s", err, aClassName.c_str());
+			TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName.c_str());
 			throw TTException("object instantiation failed");
 		}
 	}
