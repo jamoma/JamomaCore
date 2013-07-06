@@ -110,6 +110,43 @@ TTErr TTSoundfileLoader::copyUntilFilled()
     }
 }
 
+// copy values from sound file into TTSampleMartix with a different sampleRate until it is completely full.
+TTErr TTSoundfileLoader::copyUntilFilledWithResampling()
+{
+    // NOTE: this method does not assumes that sampleRates match.
+    // we are using class variables in the code here.
+    
+    TTFloat64 targetToSourceFactor = this->mSampleRate/mTargetMatrixSampleRate;
+    TTFloat64 sourceToTargetFactor = mTargetMatrixSampleRate/this->mSampleRate;
+    
+    if (((mEndCopyAtSampleIndex - mStartCopyAtSampleIndex) * sourceToTargetFactor) < mTargetMatrixLengthInSamples)
+    {
+        // if the soundfile is shorter than the samplemartix...
+        // we will throw an error because we are only interested in completely filling the SampleMartix, for now
+        return kTTErrGeneric;
+    } else {
+        // if the soundfile is longer than the samplemartix...
+        TTSampleValue valueToMove;
+        TTFloat64 sourceFloatIndex;
+        
+        for (   TTRowID targetIndex=0;
+                targetIndex<mTargetMatrixLengthInSamples;
+                targetIndex++    )
+        {
+            // TTSoundfile:peeki() -> TTSampleMatrix:poke()
+            
+            sourceFloatIndex =  mStartCopyAtSampleIndex +
+                                (targetIndex * targetToSourceFactor);
+            
+            this->peeki(sourceFloatIndex,mCopyFromChannelIndex,valueToMove);
+            //TTTestLog("peek sample %i returned the value %f", sample, valueToMove); // temp
+            mTargetMatrix->poke(targetIndex,mCopyFromChannelIndex,valueToMove);
+        }
+        
+        return kTTErrNone;
+    }
+}
+
 // override this method from superclass to set additional parameters 
 TTErr TTSoundfileLoader::setFilePath(const TTValue& newValue)
 {
@@ -163,7 +200,8 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
             // copy the samples (one at a time initially, could be optimized later)
             err = copyUntilFilled();
         } else {
-            TTTestLog("WARNING: SampleRates don't match");
+            err = copyUntilFilledWithResampling();
+            TTTestLog("HEY: I just resampled this for you!!!");
         }
     }
         

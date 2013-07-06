@@ -52,6 +52,8 @@ protected:
      */
     TTErr copyUntilFilled();
     
+    TTErr copyUntilFilledWithResampling();
+    
 public:
     /** Atribute accessor. Send a filepath to the object and attempt to interface with the file. Overriding so that additional variable will be set when setting the filepath.
      @param	newValue        full POSIX path to the file, including file name
