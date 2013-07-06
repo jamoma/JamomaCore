@@ -69,8 +69,8 @@ public:
 	}
 
 	
-	virtual ~TTSymbol()
-	{;}
+	//virtual ~TTSymbol()
+	//{;}
 	
 	
 	/**	Return a pointer to the internal string as a C-string. */

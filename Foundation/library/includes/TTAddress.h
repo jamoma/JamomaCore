@@ -85,8 +85,8 @@ public:
 	}
 	
 	
-	virtual ~TTAddress()
-	{;}
+	//virtual ~TTAddress()
+	//{;}
 	
 	
 	TTAddressBase* getBasePointer() const
