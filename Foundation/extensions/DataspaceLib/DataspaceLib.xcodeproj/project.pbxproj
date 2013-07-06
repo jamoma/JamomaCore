@@ -125,7 +125,7 @@
 /* Begin PBXLegacyTarget section */
 		22149CCE14858A4400B873B0 /* DataspaceLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildArgumentsString = "$(CONFIGURATION) $(ACTION)";
 			buildConfigurationList = 22149CD114858A4400B873B0 /* Build configuration list for PBXLegacyTarget "DataspaceLib" */;
 			buildPhases = (
 			);
