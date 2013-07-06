@@ -201,7 +201,6 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
             err = copyUntilFilled();
         } else {
             err = copyUntilFilledWithResampling();
-            TTTestLog("HEY: I just resampled this for you!!!");
         }
     }
         

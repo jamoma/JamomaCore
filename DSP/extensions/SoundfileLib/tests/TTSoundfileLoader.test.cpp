@@ -30,8 +30,7 @@
  */
 
 /* */
-// #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
-#define TESTFILE "/Volumes/Storage/Audio/200609brooklyn/edits_48k/p_perc/can11_ds_2s.aiff"
+ #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
 #define TESTNUMCHANNELS 1
 #define TESTSAMPLERATE 44100
 #define TESTDURATIONINSAMPLES 39493
@@ -298,6 +297,85 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         objectBasePtrToSampleMatrix = NULL;
         ptrToNonSampleMatrix = NULL;
         testTargetMatrix2 = NULL;
+        
+        // TEST 11: load samplemartrix with different sample rate
+        
+        // set up another samplematrix by re-using the first one
+        testTargetMatrix2 = NULL;
+        objectBasePtrToSampleMatrix = NULL;
+        
+        TTBoolean result11a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix2, kTTValNONE) == kTTErrNone};
+        
+        if (!result11a)
+        {
+            TTTestLog("samplematrix was not created -- ending test");
+            return kTTErrGeneric;
+        }
+        
+        testTargetMatrix2->setAttributeValue("numChannels", 1);
+        testTargetMatrix2->setAttributeValue("sampleRate", 22500.);
+        testTargetMatrix2->setAttributeValue("lengthInSeconds", 0.25);
+        
+        // set up TTValues passed to the public method
+        // we'll re-use loadInput, loadOuput here
+        loadInput.clear();
+        loadOuput.clear();
+        loadInput.append(TT(TESTFILE));
+        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix2)); // is there a better syntax for this?
+        loadInput.append(objectBasePtrToSampleMatrix);
+        
+        TTBoolean result11b = { load(loadInput, loadOuput) == kTTErrNone };
+        
+        TTTestAssertion("load operates when SampleRates do not match",
+						result11b,
+						testAssertionCount,
+						errorCount);
+        
+        TTTestLog("\n");
+        TTTestLog("The source soundfile had a sample rate of %f --", this->mSampleRate);
+		TTTestLog("Let's look at the first 10 values...");
+        
+        TTSampleValue return12;
+        TTErr error12;
+        TTUInt32 sourceNumChannels;
+        this->getAttributeValue("numChannels",sourceNumChannels);
+        
+        for (int channel=0;channel<sourceNumChannels;channel++)
+        {
+            TTTestLog("Channel %i", channel);
+            for (int sample=0;sample<10;sample++)
+            {
+                error12 = this->peek(sample,channel,return12);
+                if (error12 == kTTErrNone)
+                {
+                    TTTestLog("peek sample %i returned the value %f", sample, return12);
+                } else {
+                    TTTestLog("peek returned an error for sample %i", sample);
+                }
+            }
+        }
+        
+        TTTestLog("\n");
+        TTTestLog("The target samplematrix had a sample rate of %f --", this->mTargetMatrixSampleRate);
+		TTTestLog("Let's look at the first 10 values...");
+        
+        TTSampleValue return13;
+        TTErr error13;
+        
+        for (int channel=0;channel<this->mTargetMatrixNumChannels;channel++)
+        {
+            TTTestLog("Channel %i", channel);
+            for (int sample=0;sample<10;sample++)
+            {
+                error13 = testTargetMatrix2->peek(sample,channel,return13);
+                if (error13 == kTTErrNone)
+                {
+                    TTTestLog("peek sample %i returned the value %f", sample, return13);
+                } else {
+                    TTTestLog("peek returned an error for sample %i", sample);
+                }
+            }
+        }
         
     }
     
