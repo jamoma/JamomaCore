@@ -47,11 +47,14 @@ protected:
      */
     TTErr setTargetMatrix(const TTObjectBase* newTargetObjectPtr);
     
-    /**	Internal method that copies values from the sound file to the targetted TTSampleMatrix. Beware that the setFilePath() and setTargetMatrix() must be successfully executed before this method is called.
+    /**	Internal method that copies values from the source TTSoundfile to the targetted TTSampleMatrix. Beware that the setFilePath() and setTargetMatrix() must be successfully executed before this method is called.
      @return    TTErr               kTTErrNone if copy is successful. kTTErrGeneric if the source soundfile was too short to fill samplematrix.
      */
     TTErr copyUntilFilled();
     
+    /**	Internal method that copies values from the source TTSoundfile to the targetted TTSampleMatrix with the necessary interpolation to acheive the target's sample rate. Beware that the setFilePath() and setTargetMatrix() must be successfully executed before this method is called.
+     @return    TTErr               kTTErrNone if copy is successful. kTTErrGeneric if the source soundfile was too short to fill samplematrix.
+     */
     TTErr copyUntilFilledWithResampling();
     
 public:

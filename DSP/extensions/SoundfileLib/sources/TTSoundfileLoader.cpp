@@ -200,16 +200,11 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
             // copy the samples (one at a time initially, could be optimized later)
             err = copyUntilFilled();
         } else {
+            // copy the samples with resampling (one at a time initially, could be optimized later)
             err = copyUntilFilledWithResampling();
         }
     }
         
-    
-    // QUESTIONS to consider
-    // how will we handle multi channels?
-    // should the sample rate get copied across?
-    // if the size is different, what is the desired behavior?
-    
     // reset? should mFilePath & mTargetMatrix be reset at the conclusion?
     
     return err;
