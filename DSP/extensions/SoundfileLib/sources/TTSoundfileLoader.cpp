@@ -98,12 +98,25 @@ TTErr TTSoundfileLoader::copyUntilFilled()
         // if the soundfile is longer than the samplemartix...
         TTSampleValue valueToMove;
         
+        // to deal with multi-channel differences, we copy the minimum
+        // number of channels present in either the source or target
+        TTColumnID numChannelsToCopy = std::min(mTargetMatrixNumChannels, this->getNumChannels());
+        //TTTestLog("we will copy %i channels", numChannelsToCopy);
+        
         for (TTRowID sample=0;sample<mTargetMatrixLengthInSamples;sample++)
         {
-            // TTSoundfile:peek() -> TTSampleMatrix:poke()
-            this->peek((sample+mStartCopyAtSampleIndex),mCopyFromChannelIndex,valueToMove);
-            //TTTestLog("peek sample %i returned the value %f", sample, valueToMove); // temp
-            mTargetMatrix->poke(sample,mCopyFromChannelIndex,valueToMove);
+            for (TTColumnID channel=0; channel<numChannelsToCopy; channel++)
+            {
+                
+                this->peek( (sample + mStartCopyAtSampleIndex),
+                            (channel + mCopyFromChannelIndex),
+                            valueToMove);
+                //TTTestLog("peek sample %i returned the value %f", sample, valueToMove); 
+                
+                mTargetMatrix->poke(    sample,
+                                        mCopyFromChannelIndex,
+                                        valueToMove);
+            }
         }
         
         return kTTErrNone;
@@ -129,18 +142,31 @@ TTErr TTSoundfileLoader::copyUntilFilledWithResampling()
         TTSampleValue valueToMove;
         TTFloat64 sourceFloatIndex;
         
+        // to deal with multi-channel differences, we copy the minimum
+        // number of channels present in either the source or target
+        TTColumnID numChannelsToCopy = std::min(mTargetMatrixNumChannels, this->getNumChannels());
+        TTTestLog("we will copy %i channels", numChannelsToCopy);
+        
         for (   TTRowID targetIndex=0;
                 targetIndex<mTargetMatrixLengthInSamples;
                 targetIndex++    )
         {
-            // TTSoundfile:peeki() -> TTSampleMatrix:poke()
             
             sourceFloatIndex =  mStartCopyAtSampleIndex +
                                 (targetIndex * targetToSourceFactor);
             
-            this->peeki(sourceFloatIndex,mCopyFromChannelIndex,valueToMove);
-            //TTTestLog("peek sample %i returned the value %f", sample, valueToMove); // temp
-            mTargetMatrix->poke(targetIndex,mCopyFromChannelIndex,valueToMove);
+            for (TTColumnID channel=0; channel<numChannelsToCopy; channel++)
+            {
+            
+                this->peeki(    sourceFloatIndex,
+                                (channel + mCopyFromChannelIndex),
+                                valueToMove);
+                //TTTestLog("peek sample %i returned the value %f", sample, valueToMove); // temp
+                
+                mTargetMatrix->poke(    targetIndex,
+                                        channel,
+                                        valueToMove);
+            }
         }
         
         return kTTErrNone;

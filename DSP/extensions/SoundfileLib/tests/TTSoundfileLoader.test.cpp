@@ -17,7 +17,7 @@
 #include "TTSoundfileLoader.h"
 #include "TTUnitTest.h"
 
-/* 
+/* */
  #define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
  #define TESTNUMCHANNELS 2
  #define TESTSAMPLERATE 44100
@@ -27,9 +27,9 @@
  #define TESTARTIST ""
  #define TESTDATE ""
  #define TESTANNOTATION ""
- */
-
 /* */
+
+/* 
  #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
 #define TESTNUMCHANNELS 1
 #define TESTSAMPLERATE 44100
@@ -39,7 +39,7 @@
 #define TESTARTIST ""
 #define TESTDATE ""
 #define TESTANNOTATION ""
-/* */
+ */
 
 /*
  #define TESTFILE "/Volumes/Storage/Audio/200604femf15/ambience/street.aiff"
@@ -312,7 +312,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             return kTTErrGeneric;
         }
         
-        testTargetMatrix2->setAttributeValue("numChannels", 1);
+        testTargetMatrix2->setAttributeValue("numChannels", 2);
         testTargetMatrix2->setAttributeValue("sampleRate", 22050.);
         testTargetMatrix2->setAttributeValue("lengthInSeconds", 0.25);
         
