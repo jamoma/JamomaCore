@@ -1672,12 +1672,15 @@ else
           makefile.write("\trm -rf #{build_temp}\n")
           makefile.write("\n")
           
+          test_dependency_foundation = ""
+          test_dependency_foundation = "../../../Foundation/library/build/libJamomaFoundation.a" if project_type == "extension"
+        
           makefile.write("build_and_test: | lipo \n")
           makefile.write("\techo Testing 32-bit \n")
-          makefile.write("\tif [ -f test.cpp ];   then $(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a -o build/test ; fi \n")
+          makefile.write("\tif [ -f test.cpp ];   then $(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} -o build/test ; fi \n")
           makefile.write("\tif [ -f build/test ]; then build/test ; fi \n")
           makefile.write("\techo Testing 64-bit \n")
-          makefile.write("\tif [ -f test.cpp ];   then $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a -o build/test ; fi \n")
+          makefile.write("\tif [ -f test.cpp ];   then $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} -o build/test ; fi \n")
           makefile.write("\tif [ -f build/test ]; then build/test ; fi \n")
           makefile.write("\n")
 
