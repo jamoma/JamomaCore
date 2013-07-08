@@ -1578,6 +1578,10 @@ else
           makefile.write("Debug: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
           makefile.write("Debug: createdirs install\n")
           makefile.write("\n")
+          
+          makefile.write("DebugWithoutTests: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
+          makefile.write("DebugWithoutTests: createdirs notest\n")
+          makefile.write("\n")
 
           makefile.write("Release: OPTIMIZATION_FLAGS = $(OPTIMIZATION_RELEASE)\n")
           makefile.write("Release: createdirs install\n")
@@ -1675,6 +1679,10 @@ else
           makefile.write("\techo Testing 64-bit \n")
           makefile.write("\tif [ -f test.cpp ];   then $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a -o build/test ; fi \n")
           makefile.write("\tif [ -f build/test ]; then build/test ; fi \n")
+          makefile.write("\n")
+
+          makefile.write("notest: | lipo \n")
+          makefile.write("\techo Skipping Tests \n")
           makefile.write("\n")
 
           makefile.write("install: | build_and_test\n")
