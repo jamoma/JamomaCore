@@ -312,8 +312,8 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             return kTTErrGeneric;
         }
         
-        testTargetMatrix2->setAttributeValue("numChannels", 2);
-        testTargetMatrix2->setAttributeValue("sampleRate", 22050.);
+        testTargetMatrix2->setAttributeValue("numChannels", 1);
+        testTargetMatrix2->setAttributeValue("sampleRate", 88200.);
         testTargetMatrix2->setAttributeValue("lengthInSeconds", 0.25);
         
         // set up TTValues passed to the public method
@@ -323,6 +323,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         loadInput.append(TT(TESTFILE));
         objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix2)); // is there a better syntax for this?
         loadInput.append(objectBasePtrToSampleMatrix);
+        //loadInput.append(1); // if you want to test channel offset
         
         TTBoolean result11b = { load(loadInput, loadOuput) == kTTErrNone };
         
@@ -337,10 +338,8 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         TTSampleValue return12;
         TTErr error12;
-        TTUInt32 sourceNumChannels;
-        this->getAttributeValue("numChannels",sourceNumChannels);
         
-        for (int channel=0;channel<sourceNumChannels;channel++)
+        for (int channel=0;channel<this->getNumChannels();channel++)
         {
             TTTestLog("Channel %i", channel);
             for (int sample=0;sample<10;sample++)
@@ -362,7 +361,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         TTSampleValue return13;
         TTErr error13;
         
-        for (int channel=0;channel<this->mTargetMatrixNumChannels;channel++)
+        for (int channel=0;channel<mTargetMatrixNumChannels;channel++)
         {
             TTTestLog("Channel %i", channel);
             for (int sample=0;sample<10;sample++)

@@ -101,6 +101,7 @@ TTErr TTSoundfileLoader::copyUntilFilled()
         // to deal with multi-channel differences, we copy the minimum
         // number of channels present in either the source or target
         TTColumnID numChannelsToCopy = std::min(mTargetMatrixNumChannels, this->getNumChannels());
+        numChannelsToCopy = std::min(numChannelsToCopy, (this->getNumChannels() - mCopyFromChannelIndex));
         //TTTestLog("we will copy %i channels", numChannelsToCopy);
         
         for (TTRowID sample=0;sample<mTargetMatrixLengthInSamples;sample++)
@@ -145,7 +146,8 @@ TTErr TTSoundfileLoader::copyUntilFilledWithResampling()
         // to deal with multi-channel differences, we copy the minimum
         // number of channels present in either the source or target
         TTColumnID numChannelsToCopy = std::min(mTargetMatrixNumChannels, this->getNumChannels());
-        TTTestLog("we will copy %i channels", numChannelsToCopy);
+        numChannelsToCopy = std::min(numChannelsToCopy, (this->getNumChannels() - mCopyFromChannelIndex));
+        //TTTestLog("we will copy %i channels", numChannelsToCopy);
         
         for (   TTRowID targetIndex=0;
                 targetIndex<mTargetMatrixLengthInSamples;
