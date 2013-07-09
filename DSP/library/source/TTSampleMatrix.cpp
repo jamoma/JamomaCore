@@ -15,7 +15,7 @@
 
 #include "TTSampleMatrix.h"
 #include "TTInterpolate.h"
-#include "TTSoundfile.h"
+#include "TTSoundfileLoader.h"
 
 #define thisTTClass			TTSampleMatrix
 #define thisTTClassName		"samplematrix"
@@ -328,46 +328,26 @@ TTErr   load(const TTValue& filePath, TTRowID startAtIndex = 0)
      It will eventually work with the TTSoundfileLoader class
      * * */
     
-    TTBoolean thisStepWorked = false;
-    TTSymbol filePathAsSymbol = filePath;
-    //TTRowID  m = mLengthInSamples;
-    TTSoundfilePtr fileToLoad = NULL;
-    TTSampleValue peekOutput; // temporary variable
+    // needs to be reformatted with input, output TTValues
     
-    // first instantiate the Soundfile object
-    thisStepWorked = {
-        TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&fileToLoad, kTTValNONE) == kTTErrNone
-    };
+    TTBoolean thisStepWorked = false; // not sure this will be needed
+    TTObjectBase* objectBasePtrToSampleMatrix = NULL;
     
-    if (!thisStepWorked)
-    {
-        return kTTErrGeneric; // a more specific error would be nice here
-    }
-    
-    // then try to set the filePath and otherwise initialize.
-    // the SampleMatrix would pass in a pointer to itself.
-    thisStepWorked = {
-        fileToLoad->setAttributeValue("filePath", filePathAsSymbol) == kTTErrNone
-    };
-    
-    if (!thisStepWorked)
-    {
-        TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad));
-        return kTTErrGeneric; // a more specific error would be nice here
-    }
-    
-    // here is were the method to actually load the SampleValues into the SampleMatrix would be called
-    
-    // we would then clean things up and go about out business
-    if (thisStepWorked)
-    {
-        TTLogMessage("I did it.");
-        TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad));
+    // first instantiate the SoundfileLoader object
+    try {
+        TTAudioObject fileToLoad("soundfile.loader");
+        thisStepWorked = true;
+        
+        // here is were the method to actually load the SampleValues into the SampleMatrix would be called
+        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(this));
+        // prepend on input
+        
+        
+        // fileToLoad -> send "load" with arguments
+        
         return kTTErrNone;
-    } else {
-        TTLogMessage("I didn't do it.");
-        TTObjectBaseRelease(TTObjectBaseHandle(&fileToLoad));
-        return kTTErrGeneric;
+    } catch (...) {
+        return kTTErrInstantiateFailed;
     }
 
 }
