@@ -542,6 +542,15 @@ else
     master_name = "Jamoma"
     master_name = (projectdir.split("/")[projectdir.split("/").size-3]) if (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
 
+     # This block looks at the relative location in the current directory structure to see if we are in the "Foundation", "DSP", etc.
+    wd = Dir.pwd
+    layer_path = "#{projectdir}/.."
+    layer_path="#{projectdir}/../.." if project_type == "extension"
+    Dir.chdir layer_path
+    layer_name = Dir.pwd()
+    layer_name = layer_name.split("/").last
+    Dir.chdir wd
+    
     if !distropath
 
       # We are not in control the binary application that calls us.
@@ -1674,13 +1683,15 @@ else
           
           test_dependency_foundation = ""
           test_dependency_foundation = "../../../Foundation/library/build/libJamomaFoundation.a" if project_type == "extension"
+          test_dependency_dsp = ""
+          test_dependency_dsp = "../../../DSP/library/build/libJamomaDSP.a" if layer_name == "DSP"
         
           makefile.write("build_and_test: | lipo \n")
           makefile.write("\techo Testing 32-bit \n")
-          makefile.write("\tif [ -f test.cpp ];   then $(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} -o build/test ; fi \n")
+          makefile.write("\tif [ -f test.cpp ];   then $(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_dsp} -o build/test ; fi \n")
           makefile.write("\tif [ -f build/test ]; then build/test ; fi \n")
           makefile.write("\techo Testing 64-bit \n")
-          makefile.write("\tif [ -f test.cpp ];   then $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} -o build/test ; fi \n")
+          makefile.write("\tif [ -f test.cpp ];   then $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_dsp} -o build/test ; fi \n")
           makefile.write("\tif [ -f build/test ]; then build/test ; fi \n")
           makefile.write("\n")
 
