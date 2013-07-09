@@ -152,7 +152,7 @@ public:
      -# (optional) frame to start copy from source, default is 0
      -# (optional) frame to stop copy from source, default is last
      @param[out]    unusedOutput    not used
-     @return        TTErr           kTTErrNone load was successful. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
+     @return        TTErr           kTTErrNone load was successful. kTTErrInstantiateFailed if the TTSoundfileLoader could not be instantiated. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
      */
     TTErr   load(const TTValueRef input, TTValueRef unusedOutput);
 
