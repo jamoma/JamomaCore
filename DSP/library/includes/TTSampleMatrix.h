@@ -154,7 +154,7 @@ public:
      @param[out]    unusedOutput    not used
      @return        TTErr           kTTErrNone load was successful. kTTErrInstantiateFailed if the TTSoundfileLoader could not be instantiated. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
      */
-    TTErr   load(const TTValueRef input, TTValueRef unusedOutput);
+    TTErr   load(const TTValue& input, TTValue& unusedOutput);
 
 	/**	Normalize the contents of a buffer.
 		If no arg is passed, then the buffer is normalized to 1.0.

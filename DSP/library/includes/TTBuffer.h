@@ -157,6 +157,16 @@ public:
 			err = promoteBecomingActiveMatrix();
 		return err;
 	}
+    
+    TTErr	load(const TTValue& value, TTValue& unusedOutput)
+	{
+		TTErr err = prepareBecomingActiveMatrix();
+		if (!err)
+			err = mBecomingActiveMatrix -> load (value,unusedOutput);
+		if (!err)
+			err = promoteBecomingActiveMatrix();
+		return err;
+	}
 
 	TTBUFFER_WRAP_k1ARG( normalize )
 	

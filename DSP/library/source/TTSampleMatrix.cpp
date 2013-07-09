@@ -321,7 +321,7 @@ TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 	return kTTErrNone;
 }
 
-TTErr   TTSampleMatrix::load(const TTValueRef input, TTValueRef unusedOutput)
+TTErr   TTSampleMatrix::load(const TTValue& input, TTValue& unusedOutput)
 {
     /* * * 
      Beware this method is still in progress
