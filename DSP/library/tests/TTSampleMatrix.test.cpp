@@ -8,6 +8,29 @@
 
 #include "TTSampleMatrix.h"
 
+/* */
+#define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
+#define TESTNUMCHANNELS 2
+#define TESTSAMPLERATE 44100
+#define TESTDURATIONINSAMPLES 88202
+#define TESTDURATIONINSECONDS 2.00004535
+#define TESTTITLE ""
+#define TESTARTIST ""
+#define TESTDATE ""
+#define TESTANNOTATION ""
+/* */
+
+/*
+ #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
+ #define TESTNUMCHANNELS 1
+ #define TESTSAMPLERATE 44100
+ #define TESTDURATIONINSAMPLES 39493
+ #define TESTDURATIONINSECONDS 0.89553288
+ #define TESTTITLE ""
+ #define TESTARTIST ""
+ #define TESTDATE ""
+ #define TESTANNOTATION ""
+ */
 
 TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 {
@@ -355,6 +378,28 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test19expect, test19return);
 	}
 	
+    /********/
+    
+    // TEST 20: load values from a sound file
+    
+    this->setAttributeValue("numChannels", 1);
+    this->setAttributeValue("lengthInSamples", 500);
+    
+    TTTestLog("The samplematrix currently has %i samples and %i channels", 1, 500);
+    
+    // set up TTValues passed to the public method
+    TTValue loadInput, loadOuput;
+    loadInput.append(TT(TESTFILE));
+    
+    
+    TTBoolean result20 = { load(loadInput, loadOuput) == kTTErrNone };
+    
+    TTTestAssertion("load operates successfully",
+                    result20,
+                    testAssertionCount,
+                    errorCount);
+    
+    
 	/*
 	
 	int					badSampleCount = 0;
