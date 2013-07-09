@@ -115,7 +115,7 @@ TTErr TTSoundfileLoader::copyUntilFilled()
                 //TTTestLog("peek sample %i returned the value %f", sample, valueToMove); 
                 
                 mTargetMatrix->poke(    sample,
-                                        mCopyFromChannelIndex,
+                                        channel,
                                         valueToMove);
             }
         }

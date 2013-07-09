@@ -312,7 +312,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             return kTTErrGeneric;
         }
         
-        testTargetMatrix2->setAttributeValue("numChannels", 1);
+        testTargetMatrix2->setAttributeValue("numChannels", 2);
         testTargetMatrix2->setAttributeValue("sampleRate", 88200.);
         testTargetMatrix2->setAttributeValue("lengthInSeconds", 0.25);
         
