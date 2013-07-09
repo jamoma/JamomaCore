@@ -1,38 +1,29 @@
-/** @file
- *
- * @ingroup dspLibrary
- *
- * @brief The #TTAudioEngine class is the Audio Engine of Jamoma DSP
- *
- * @details #TTAudioEngine is a class that is used to drive realtime audio and scheduling operations in the Jamoma DSP environment.
- * It is currently implemented as a wrapper around PortAudio.
- *
- * QUESTIONS
- *
- * - Should this be a singleton, like the environment object?
- * - How do we properly clean-up the environment from something like Max?  I guess we need a quittask?
- *
- * THOUGHTS
- *
- * - A #TTAudioOutput class will work by writing to the #TTAudioEngine's output buffer.
- * - Likewise a #TTAudioInput class will work by retrieving from the #TTAudioEngine's input buffer.
- * - The scheduler, and others like the Jamoma AudioGraph output class, will subscribe to this class for notifications on each call from PortAudio.
- *
- * @authors Tim Place, Nathan Wolek, Trond Lossius
- *
- * @copyright Copyright © 2008 by Timothy Place @n
- * This code is licensed under the terms of the "New BSD License" @n
- * http://creativecommons.org/licenses/BSD/
- */
-
 
 #include "TTAudioEngine.h"
 
-#define thisTTClass			TTAudioEngine
-#define thisTTClassName		"AudioEngine"
-#define thisTTClassTags		"audio, engine, singleton"
+#define thisTTClass				TTAudioEngine
+#define thisTTClassName			"AudioEngine"
+#define thisTTClassDescription	"Provide an interface to audio input and output services of the OS"
+#define thisTTClassTags			"audio, engine, singleton"
 
 TTObjectBasePtr	TTAudioEngine::sSingletonInstance = NULL;
+TTDictionaryPtr	TTAudioEngine::sDictionary = NULL;
+
+
+extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_AudioEngine(void)
+{
+	TTDSPInit();
+	thisTTClass :: registerClass();
+	
+	// create the global instance
+	
+	TTAudioEngine::sDictionary = new TTDictionary("j@m0m@_audioengine");
+	TTPtr engine = TTAudioEngine::create();
+	
+	TTAudioEngine::sDictionary->setValue(engine);
+	
+	return kTTErrNone;
+}
 
 
 TT_BASE_OBJECT_CONSTRUCTOR,
@@ -378,7 +369,7 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 	// notify any observers that we are about to process a vector
 	// for example, an audio graph will do all of its processing in response to this
 	// also, the scheduler will be serviced as a result of this
-	mCallbackObservers->iterateObjectsSendingMessage(kTTSym_audioEngineWillProcess);
+	mCallbackObservers->iterateObjectsSendingMessage("audioEngineWillProcess");
 
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples

@@ -1,0 +1,136 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		223AD229178C5BE8002F0D87 /* TTAudioEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAudioEngine.h; sourceTree = "<group>"; };
+		223AD22A178C5BF0002F0D87 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		223AD22B178C5BF7002F0D87 /* AudioEngine.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = AudioEngine.yml; sourceTree = "<group>"; };
+		22DE04181467008C004D5DF6 /* TTAudioEngine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTAudioEngine.cpp; sourceTree = "<group>"; };
+		2AD7886C169CFCA500604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		227B1E111466D6B8004BEDEA = {
+			isa = PBXGroup;
+			children = (
+				223AD22B178C5BF7002F0D87 /* AudioEngine.yml */,
+				223AD22A178C5BF0002F0D87 /* Makefile */,
+				223AD229178C5BE8002F0D87 /* TTAudioEngine.h */,
+				22DE04181467008C004D5DF6 /* TTAudioEngine.cpp */,
+				2AD7886B169CFCA500604D7C /* Frameworks */,
+				2AD7886A169CFCA500604D7C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2AD7886A169CFCA500604D7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AD7886B169CFCA500604D7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AD7886C169CFCA500604D7C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		227B1E1D1466D942004BEDEA /* extension */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildConfigurationList = 227B1E201466D942004BEDEA /* Build configuration list for PBXLegacyTarget "extension" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = extension;
+			passBuildSettingsInEnvironment = 1;
+			productName = extension;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		227B1E131466D6B8004BEDEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 227B1E161466D6B8004BEDEA /* Build configuration list for PBXProject "AudioEngine" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 227B1E111466D6B8004BEDEA;
+			productRefGroup = 2AD7886A169CFCA500604D7C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				227B1E1D1466D942004BEDEA /* extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		227B1E181466D6B8004BEDEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		227B1E191466D6B8004BEDEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		227B1E1E1466D942004BEDEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		227B1E1F1466D942004BEDEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		227B1E161466D6B8004BEDEA /* Build configuration list for PBXProject "AudioEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				227B1E181466D6B8004BEDEA /* Debug */,
+				227B1E191466D6B8004BEDEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		227B1E201466D942004BEDEA /* Build configuration list for PBXLegacyTarget "extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				227B1E1E1466D942004BEDEA /* Debug */,
+				227B1E1F1466D942004BEDEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 227B1E131466D6B8004BEDEA /* Project object */;
+}
