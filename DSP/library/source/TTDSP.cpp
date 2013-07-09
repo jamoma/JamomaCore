@@ -15,9 +15,6 @@
 
 
 #include "TTDSP.h"
-#ifndef TT_PLATFORM_IOS
-#include "TTAudioEngine.h"
-#endif
 
 static bool TTDSPHasInitialized = false;
 
@@ -43,42 +40,16 @@ void TTDSPInit(const char* pathToBinaries)
 #else
 		TTLogMessage("JamomaDSP -- Version %s\n", TTDSP_VERSION_STRING);
 #endif
-		
 		TTDSPRegisterInternalClasses();
-        
-#ifdef TT_PLATFORM_IOS
-        
-#else
-		
-		// create audio engine and
-		// store the audio engine singleton instance as an attribute of the environment
-		{
-			TTObjectBasePtr engine = TTAudioEngine::create();
-			TTValue		v(engine);
-			
-			ttEnvironment->registerAttribute("audioEngine", kTypeLocalValue, NULL);
-			ttEnvironment->setAttributeValue("audioEngine", v);
-		}
-#endif
-        
 	}
 }
 
 #ifdef TT_PLATFORM_LINUX
 int main(void)
 {
-	// TODO: should we call TTDSPInit() here?
 	return 0;
 }
 #endif
-
-// FIXME: this is never called right now!
-void TTDSPShutdown()
-{
-#ifndef	TT_PLATFORM_IOS
-	TTAudioEngine::destroy();
-#endif
-}
 
 
 /****************************************************************************************************/
@@ -98,9 +69,6 @@ void TTDSPRegisterInternalClasses()
 	TTBuffer::registerClass();
 	TTDelay::registerClass();
 	TTSampleMatrix::registerClass();
-#ifndef	TT_PLATFORM_IOS		
-	TTAudioEngine::registerClass();
-#endif
 }
 
 

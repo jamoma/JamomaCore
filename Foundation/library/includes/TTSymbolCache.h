@@ -27,7 +27,6 @@ extern TTFOUNDATION_EXPORT TTSymbol kTTSym_getVector64;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_alloc;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_attribute;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_audioEngineWillProcess;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_baton;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_both;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_bypass;
