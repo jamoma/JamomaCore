@@ -339,7 +339,7 @@ TTErr   load(const TTValue& filePath, TTRowID startAtIndex = 0)
         thisStepWorked = true;
         
         // here is were the method to actually load the SampleValues into the SampleMatrix would be called
-        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(this));
+        //objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(this));
         // prepend on input
         
         

@@ -66,8 +66,8 @@ public:
     
     /**	Public method used to trigger the load process. Copies samples from a sound file on the hard drive into a TTSampleMatrix.
      @param[in]     input           Multi-item TTValue used to set the copy parameters:
+                                    -# TTObjectBasePtr to the target matrix 
                                     -# TTSymbol containing the filepath
-                                    -# TTPtr to the target matrix 
                                     -# (optional) channel to copy from source, default is 0
                                     -# (optional) frame to start copy from source, default is 0 
                                     -# (optional) frame to stop copy from source, default is last

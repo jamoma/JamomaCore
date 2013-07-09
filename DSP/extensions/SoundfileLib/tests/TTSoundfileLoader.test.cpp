@@ -197,9 +197,9 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // set up TTValues passed to the public method
         TTValue loadInput, loadOuput;
-        loadInput.append(TT(TESTFILE));
         objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix2)); // is there a better syntax for this?
         loadInput.append(objectBasePtrToSampleMatrix);
+        loadInput.append(TT(TESTFILE));
         
         
         TTBoolean result7b = { load(loadInput, loadOuput) == kTTErrNone };
@@ -253,9 +253,9 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         // we'll re-use loadInput, loadOuput here
         loadInput.clear();
         loadOuput.clear();
-        loadInput.append(TT(TESTFILE));
         objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix)); // is there a better syntax for this?
         loadInput.append(objectBasePtrToSampleMatrix);
+        loadInput.append(TT(TESTFILE));
         
         TTColumnID copyChannel = 0;
         TTRowID startIndex = 5;
@@ -320,9 +320,9 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         // we'll re-use loadInput, loadOuput here
         loadInput.clear();
         loadOuput.clear();
-        loadInput.append(TT(TESTFILE));
         objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix2)); // is there a better syntax for this?
         loadInput.append(objectBasePtrToSampleMatrix);
+        loadInput.append(TT(TESTFILE));
         //loadInput.append(1); // if you want to test channel offset
         
         TTBoolean result11b = { load(loadInput, loadOuput) == kTTErrNone };
