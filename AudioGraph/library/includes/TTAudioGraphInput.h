@@ -32,7 +32,7 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphInput : public TTAudioObjectBase
 	TTCLASS_SETUP(TTAudioGraphInput)
 
 public:
-	TTObjectBasePtr				mAudioEngine;		///<
+	TTObjectBasePtr			mAudioEngine;		///< Instance of TTAudioEngine class
 	TTAudioSignalPtr		mBuffer;			///< An unused audio signal that we pass.
 	
 	

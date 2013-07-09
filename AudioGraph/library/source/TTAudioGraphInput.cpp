@@ -21,7 +21,7 @@
 #include "TTAudioGraphObject.h"
 #include "TTAudioGraphInlet.h"		// required for windows build
 #include "TTAudioGraphInput.h"
-#include "TTAudioEngine.h"
+//#include "TTAudioEngine.h"
 
 #define thisTTClass			TTAudioGraphInput
 #define thisTTClassName		"adc"
@@ -29,7 +29,12 @@
 
 TT_AUDIO_CONSTRUCTOR
 {
-	mAudioEngine = TTAudioEngine::create();
+	TTDictionary d("j@m0m@_audioengine");
+	TTPtr engine = NULL;
+	
+	d.getValue(engine);
+	
+	mAudioEngine = (TTAudioObjectBase*)engine;
 	mBuffer = (TTAudioEnginePtr(mAudioEngine))->TTAudioEngineGetInputSignalReference();
 	
 	addAttributeWithGetterAndSetter(SampleRate, kTypeUInt32);
