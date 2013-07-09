@@ -45,7 +45,7 @@ TTSoundfileLoader::TTSoundfileLoader(TTValue& arguments) :
     this->mCopyFromChannelIndex = 0;
     
     // add the attributes and messages here
-    //addMessageWithArguments(load);
+    addMessageWithArguments(load);
     
     // initialize happens as part of the load
 }
