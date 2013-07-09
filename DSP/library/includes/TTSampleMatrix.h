@@ -146,10 +146,15 @@ public:
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput);
     
     /** Load sample values from a soundfile into the TTSampleMatrix. This method is dependant on the SoundfileLib extension which handles operations on sound files using third-party libraries.
-        @param[in]      filePath
-        @param[in]      startAtIndex is set to a default 
+     @param[in]     input           Multi-item TTValue used to set the copy parameters:
+     -# TTSymbol containing the filepath
+     -# (optional) channel to copy from source, default is 0
+     -# (optional) frame to start copy from source, default is 0
+     -# (optional) frame to stop copy from source, default is last
+     @param[out]    unusedOutput    not used
+     @return        TTErr           kTTErrNone load was successful. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
      */
-    TTErr   load(const TTValue& filePath, TTRowID startAtIndex = 0);
+    TTErr   load(const TTValueRef input, TTValueRef unusedOutput);
 
 	/**	Normalize the contents of a buffer.
 		If no arg is passed, then the buffer is normalized to 1.0.
