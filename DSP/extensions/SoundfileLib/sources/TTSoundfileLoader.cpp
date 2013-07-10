@@ -195,7 +195,7 @@ TTErr TTSoundfileLoader::setFilePath(const TTValue& newValue)
 
 
 // load new sound file into a SampleMatrix
-TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
+TTErr TTSoundfileLoader::load(const TTValue& input, TTValue& unusedOutput)
 {
     // sort out the two input values
     TTObjectBasePtr newTargetMatrix = input[0];
@@ -233,6 +233,51 @@ TTErr TTSoundfileLoader::load(const TTValueRef input, TTValueRef unusedOutput)
         }
     }
         
+    // reset? should mFilePath & mTargetMatrix be reset at the conclusion?
+    
+    return err;
+}
+
+// load new sound file into a SampleMatrix, but resize target first
+TTErr TTSoundfileLoader::resizeThenLoad(const TTValue& input, TTValue& unusedOutput)
+{
+    // sort out the two input values
+    TTObjectBasePtr newTargetMatrix = input[0];
+    TTSymbol newFilePath = input[1];
+    TTErr err = kTTErrNone;
+    
+    // set the mTargetMatrix
+    err = setTargetMatrix(newTargetMatrix);
+    
+    // resize target to match source
+    if (!err)
+    {
+        TTUInt32 newNumChannels = this->getNumChannels(); // needed to avoid 'ambiguity' errors
+        mTargetMatrix->setAttributeValue("numChannels",newNumChannels);
+        mTargetMatrix->setAttributeValue("lengthInSeconds",this->getLengthInSeconds());
+        // we do NOT change the sample rate
+    }
+        
+    // set the mFilePath, which also sets default values for
+    // mStartCopyAtSampleIndex, mEndCopyAtSampleIndex & mCopyFromChannelIndex
+    if (!err)
+        err = setFilePath(newFilePath);
+    
+    if (!err)
+    {
+        // compare sample rates
+        TTBoolean sameSampleRate = TTTestFloatEquivalence(mTargetMatrixSampleRate, this->mSampleRate, true, 0.0000001);
+        
+        if (sameSampleRate)
+        {
+            // copy the samples (one at a time initially, could be optimized later)
+            err = copyUntilFilled();
+        } else {
+            // copy the samples with resampling (one at a time initially, could be optimized later)
+            err = copyUntilFilledWithResampling();
+        }
+    }
+
     // reset? should mFilePath & mTargetMatrix be reset at the conclusion?
     
     return err;

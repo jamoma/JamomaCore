@@ -74,7 +74,16 @@ public:
      @param[out]    unusedOutput    not used
      @return        TTErr           kTTErrNone load was successful. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
      */
-    TTErr load(const TTValueRef input, TTValueRef unusedOutput);
+    TTErr load(const TTValue& input, TTValue& unusedOutput);
+    
+    /**	Public method similar to load(), except that it will resize the target matrix to match the source soundfile before copying values. 
+     @param[in]     input           Multi-item TTValue used to set the copy parameters:
+                                     -# TTObjectBasePtr to the target matrix
+                                     -# TTSymbol containing the filepath
+     @param[out]    unusedOutput    not used
+     @return        TTErr           kTTErrNone load was successful. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
+     */
+    TTErr resizeThenLoad(const TTValue& input, TTValue& unusedOutput);
     
     /** Unit test for this object.
 	 @param[out] returnedTestInfo	The outcome from the performed unit test.
