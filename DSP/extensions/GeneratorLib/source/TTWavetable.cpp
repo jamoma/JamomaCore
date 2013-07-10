@@ -77,13 +77,18 @@ TTErr TTWavetable::setFrequency(const TTValue& newValue)
 
 TTErr TTWavetable::setMode(const TTValue& newValue)
 {
-	mMode = newValue;	// TODO: should be newValue[0]
+	mMode = newValue[0];	// TODO: should be newValue[0]
 
-	if (mMode != "externalBuffer")
+	if (mMode != "externalFile")
 		return mBuffer->fill(newValue, kTTValNONE);
 	else {
 		// TODO: implement the ability to use an externally defined buffer
-		return kTTErrInvalidValue;
+        TTValue loadInput;
+        loadInput.append(TT("/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"));
+        
+        return mBuffer->load(loadInput, kTTValNONE);
+        
+		//return kTTErrInvalidValue;
 	}
 }
 
