@@ -131,7 +131,7 @@ protected:
 	/** Constructor.
 		@param arguments					Arguments to the constructor.
 	 */
-	TTObjectBase(TTValue& arguments);
+	TTObjectBase(TTValue arguments);
 public:
 	/** Destructor.
 	 */

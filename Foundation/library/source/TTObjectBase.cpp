@@ -19,7 +19,7 @@
 #include "TTEnvironment.h"
 #include "TTClass.h"
 
-TTObjectBase::TTObjectBase(TTValue& arguments)
+TTObjectBase::TTObjectBase(TTValue arguments)
 	: classPtr(NULL), observers(NULL), messageObservers(NULL), attributeObservers(NULL),
 	  mLocked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
 {
