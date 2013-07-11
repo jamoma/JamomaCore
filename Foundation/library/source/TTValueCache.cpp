@@ -13,27 +13,13 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-
 #include "TTValueCache.h"
 #include "TTObject.h"
 
-TTFOUNDATION_EXPORT TTValue	kTTBoolNo;
-TTFOUNDATION_EXPORT TTValue	kTTBoolYes;
+TTFOUNDATION_EXPORT const TTValue	kTTBoolNo(NO);
+TTFOUNDATION_EXPORT const TTValue	kTTBoolYes(YES);
 
-TTFOUNDATION_EXPORT TTValue	kTTValNONE;
-TTFOUNDATION_EXPORT TTValue	kTTVal0;
-TTFOUNDATION_EXPORT TTValue	kTTVal1;
-TTFOUNDATION_EXPORT TTValue	kTTVal0_pt_0;
-
-
-void TTValueCacheInit()
-{
-	kTTBoolNo = TTBoolean(NO);
-	kTTBoolYes = TTBoolean(YES);
-
-	kTTValNONE.clear();
-	
-	kTTVal0 = 0;
-	kTTVal1 = 1;
-	kTTVal0_pt_0 = 0.0;
-}
+TTFOUNDATION_EXPORT const TTValue	kTTValNONE;
+TTFOUNDATION_EXPORT const TTValue	kTTVal0(0);
+TTFOUNDATION_EXPORT const TTValue	kTTVal1(1);
+TTFOUNDATION_EXPORT const TTValue	kTTVal0_pt_0(0.0);

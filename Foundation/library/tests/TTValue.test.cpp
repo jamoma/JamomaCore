@@ -454,7 +454,7 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 {	
 	TTTestLog("\n");
 	TTTestLog("Testing basic TTValue operation");
-    
+	std::cout << "FOOBBB" << std::endl;
     TTValue v0;
     TTTestAssertion("init with nothing",
 					v0 == kTTValNONE,

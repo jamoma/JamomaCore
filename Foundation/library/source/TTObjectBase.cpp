@@ -388,7 +388,8 @@ TTErr TTObjectBase::findMessage(const TTSymbol name, TTMessage** message)
 
 TTErr TTObjectBase::sendMessage(const TTSymbol name)
 {
-	return sendMessage(name, kTTValNONE, kTTValNONE);
+	TTValue v;
+	return sendMessage(name, kTTValNONE, v);
 }
 
 

@@ -132,7 +132,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						errorCount);
 
 		TTValue v(0, 1);// specify the index and real, but forgot the imaginary
-		err = matrix->sendMessage("set", v, kTTValNONE);
+		TTValue r;
+		err = matrix->sendMessage("set", v, r);
 		TTTestAssertion("set message -- error returned when not enough data provided to completely set value", 
 						err != 0, 
 						testAssertionCount,
@@ -145,7 +146,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		v[1] = 0;	// index y
 		v[2] = 3.14;	// real (no imaginary)
 		v[3] = -2;	// real (no imaginary)
-		err = matrix->sendMessage("set", v, kTTValNONE);
+		err = matrix->sendMessage("set", v, r);
 		TTTestAssertion("set message -- enough data provided to completely set value", 
 						err == kTTErrNone, 
 						testAssertionCount,
@@ -154,7 +155,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		v[0] = 10;	// index y
 		v[2] = 4;	// real
 		v[3] = 1.2;	// imaginary
-		err = matrix->sendMessage("set", v, kTTValNONE);
+		err = matrix->sendMessage("set", v, r);
 		TTTestAssertion("set message -- enough data provided to completely set value", 
 						err == kTTErrNone, 
 						testAssertionCount,
