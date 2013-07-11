@@ -130,13 +130,13 @@ public:
 	/** Get the reference pointer for the input signal.
 	 @return				The reference pointer for the input signal.
 	 */
-	TTAudioSignalPtr TTAudioEngineGetInputSignalReference();
+	TTErr getInputSignalReference(TTValue& anUnusedInput, TTValue& aReturnedAudioSignalPtr)
 	
-	
+
 	/** Get the reference pointer for the output signal.
 	 @return				The reference pointer for the output signal.
 	 */
-	TTAudioSignalPtr TTAudioEngineGetOutputSignalReference();
+	TTErr getOutputSignalReference(TTValue& anUnusedInput, TTValue& aReturnedAudioSignalPtr)
 
 	///// Attribute Accessors /////
 	

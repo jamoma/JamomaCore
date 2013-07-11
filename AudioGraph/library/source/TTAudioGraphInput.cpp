@@ -35,7 +35,11 @@ TT_AUDIO_CONSTRUCTOR
 	d.getValue(engine);
 	
 	mAudioEngine = (TTAudioObjectBase*)engine;
-	mBuffer = (TTAudioEnginePtr(mAudioEngine))->TTAudioEngineGetInputSignalReference();
+
+	TTValue dummy;
+	TTValue buffer;
+	mAudioEngine->sendMessage("getInputSignalReference", dummy, buffer);
+	mBuffer = (TTAudioSignalPtr)TTPtr(buffer);
 	
 	addAttributeWithGetterAndSetter(SampleRate, kTypeUInt32);
 	addAttributeWithGetterAndSetter(VectorSize, kTypeUInt16);
@@ -54,7 +58,7 @@ TT_AUDIO_CONSTRUCTOR
 
 TTAudioGraphInput::~TTAudioGraphInput()
 {
-	TTAudioEngine::destroy();
+	//TTAudioEngine::destroy();
 	TTObjectBaseRelease(&mBuffer);
 }
 

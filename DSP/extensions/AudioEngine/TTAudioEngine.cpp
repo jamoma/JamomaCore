@@ -69,6 +69,9 @@ TT_BASE_OBJECT_CONSTRUCTOR,
 	addMessageProperty(addCallbackObserver, hidden, YES);
 	addMessageWithArguments(removeCallbackObserver);
 	addMessageProperty(removeCallbackObserver, hidden, YES);
+	
+	addMessageWithArguments(getInputSignalReference);
+	addMessageWithArguments(getOutputSignalReference);
 
 	// Set defaults -- there are no devices actually named 'default', so we set the values directly
 	mInputDevice = "default";
@@ -381,15 +384,17 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 }
 
 
-TTAudioSignalPtr TTAudioEngine::TTAudioEngineGetInputSignalReference()
+TTErr TTAudioEngine::getInputSignalReference(TTValue& anUnusedInput, TTValue& aReturnedAudioSignalPtr)
 {
-	return (TTAudioSignalPtr)TTObjectBaseReference(mInputBuffer);
+	aReturnedAudioSignalPtr = (TTPtr)TTObjectBaseReference(mInputBuffer);
+	return kTTErrNone;
 }
 
 
-TTAudioSignalPtr TTAudioEngine::TTAudioEngineGetOutputSignalReference()
+TTErr TTAudioEngine::getOutputSignalReference(TTValue& anUnusedInput, TTValue& aReturnedAudioSignalPtr)
 {
-	return (TTAudioSignalPtr)TTObjectBaseReference(mOutputBuffer);
+	aReturnedAudioSignalPtr = (TTPtr)TTObjectBaseReference(mOutputBuffer);
+	return kTTErrNone;
 }
 
 
