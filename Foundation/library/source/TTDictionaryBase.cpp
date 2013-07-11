@@ -80,7 +80,8 @@ TTErr TTDictionaryBase::append(const TTSymbol& key, const TTValue& value)
 //	TTValue v = new TTKeyVal(TTPtrSizedInt(&key), value);
 //	lock();
 	remove(key);
-	mMap.insert(TTDictionaryBasePair(key.getSymbolId(), value));
+//	mMap.insert(TTDictionaryBasePair(key.getSymbolId(), value));
+	mMap.insert(TTDictionaryBasePair((TTPtrSizedInt)key.rawpointer(), value));
 //	unlock();
 	sendNotification("change", kTTValNONE);
 	return kTTErrNone;
@@ -97,7 +98,8 @@ TTErr TTDictionaryBase::lookup(const TTSymbol& key, TTValue& value) const
 //	return mHashTable->lookup(key, value);
 //	lock();
 //	TTHashMap* theMap = (TTHashMap*)mHashMap;
-	TTDictionaryBaseMapIterK iter = mMap.find(key.getSymbolId());
+//	TTDictionaryBaseMapIterK iter = mMap.find(key.getSymbolId());
+	TTDictionaryBaseMapIterK iter = mMap.find((TTPtrSizedInt)key.rawpointer());
 	
 	//	TTPtrSizedInt a = iter->first;
 	//	TTSymbol*     b = (TTSymbol*)a;
@@ -126,7 +128,8 @@ TTErr TTDictionaryBase::remove(const TTSymbol& key)
 //	if (!err)
 //		mList->remove(v);
 //	return mHashTable->remove(key);
-	mMap.erase(key.getSymbolId());
+//	mMap.erase(key.getSymbolId());
+	mMap.erase((TTPtrSizedInt)key.rawpointer());
 	sendNotification("change", kTTValNONE);
 	return kTTErrNone;
 }
