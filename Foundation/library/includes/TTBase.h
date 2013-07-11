@@ -333,19 +333,8 @@ enum TTErr {
 // Class Specifications
 
 
-class TTDeletePtr {
-public:
-	template<typename T>
-	void operator()(T ptr)
-	{
-		delete ptr;
-		ptr = NULL;
-	}
-};
-
-
 /**	A TTBlue exception is thown with this object. */
-class TTFOUNDATION_EXPORT TTException {
+class TTException {
 	TTImmutableCString	reason;
 public:
 	TTException(TTImmutableCString aReason)

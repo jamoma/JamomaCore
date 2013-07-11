@@ -152,24 +152,39 @@ void TTTestLog(const char *fmtstring, ...)
 	strncpy(fullstr, "		", 4095);
 	strncat(fullstr, str, 4095);
 	strncat(fullstr, "\n", 4095);
-	TTLogMessage(fullstr);
+//	TTLogMessage(fullstr);
 }
 
 
-void TTTestAssertion(const char* aTestName, TTBoolean aTestResult, int& testAssertionCount, int& errorCount)
+void TTTestLogResult(const char *name, TTBoolean aResult, const char* filename = "", int linenumber = 0)
+{
+	// Note: we don't post passing assertions because the log (at least in Xcode) starts suppressing the messages and failures won't be posted
+	if (aResult == false) {
+#ifdef TT_PLATFORM_WIN
+	std::cout << filename << "(" << linenumber << ") : error: " << "Test Assertion Failed -- " << name << std::endl;
+#else
+	std::cout << filename << ":" << linenumber << ": error: " << "Test Assertion Failed -- " << name << std::endl;
+#endif
+	}
+}
+
+
+//void TTTestAssertion(const char* aTestName, TTBoolean aTestResult, int& testAssertionCount, int& errorCount)
+void TTTestAssertionResult(const char* aTestName, TTBoolean aTestResult, int& testAssertionCount, int& errorCount, const char* filename, int linenumber)
 {
 	testAssertionCount++;
-	
-	if (aTestResult)
-		TTLogMessage("	PASS -- ");
-	else {
-		TTLogMessage("	FAIL -- ");
-		errorCount++;
-	}	
-	TTLogMessage(aTestName);
-	TTLogMessage("\n");
+	TTTestLogResult(aTestName, aTestResult, filename, linenumber);
+//	if (aTestResult)
+//		TTLogMessage("	PASS -- ");
+//	else {
+//		TTLogMessage("	FAIL -- ");
 	if (!aTestResult)
-		TTLogMessage("\n");
+		errorCount++;
+//	}
+//	TTLogMessage(aTestName);
+//	TTLogMessage("\n");
+//	if (!aTestResult)
+ //		TTLogMessage("\n");
 }
 
 

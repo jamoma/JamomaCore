@@ -76,6 +76,11 @@ public:
 		at(3) = aFourthElementInitialValue;
 	}
 
+	// force the destructor to be non-virtual
+	// we don't want subclasses of TTValue so it won't be a problem, and this solves linking snafus in some edge cases
+	~TTValue()
+	{;}
+	
 	
 private:
 	/** Internal method used by the constructors. */

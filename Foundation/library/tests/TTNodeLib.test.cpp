@@ -402,6 +402,7 @@ void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"\" or have no parent or is not empty",
 					empty &&
 					aSymbol == kTTSymEmpty &&
+					n != NULL &&
 					aParent == n->getItem(TTSymbol("name")) &&
 					aSelection == NO,
 					testAssertionCount,

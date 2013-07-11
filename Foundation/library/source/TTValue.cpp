@@ -49,7 +49,10 @@ void TTValue::clear()
 TTElement::~TTElement()
 {
 	if (mType == kTypeDictionary) {
-		TTDictionary d(this); // when d goes out of scope the refcount will decrease and the dictionary will be potentially freed.
+//		TTDictionary d(this); // when d goes out of scope the refcount will decrease and the dictionary will be potentially freed.
+// TODO: LEAKING MEMORY BY COMMENTING OUT THE ABOVE
+// For a currently undetermined reason, the above construction of a dictionary fails because the symbol table appears to be bogus when a program exits.
+// Not sure what TTValue objects are being destructed when the app quits -- it seems like values with dictionary content should be quite limited?
 	}
 	// TODO: need special handling for strings also?
 }

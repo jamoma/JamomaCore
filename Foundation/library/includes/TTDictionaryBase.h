@@ -110,6 +110,19 @@ public:
 	 */
 	TTErr getValue(TTValue& returnedValue) const;
 	
+	/**	Get a dictionary's primary value
+		@param	value		The returned value of the dictionary.
+		@return				#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	template <class T>
+	TTErr getValue(T& aReturnedValue) const
+	{
+		TTValue	v;
+		TTErr error = getValue(v);
+		aReturnedValue = v;
+		return error;
+	}
+	
 	
 	/** Insert an item into the hash table. 
 	 @param value	The value to instert.

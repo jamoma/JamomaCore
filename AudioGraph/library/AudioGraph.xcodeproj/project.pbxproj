@@ -149,7 +149,7 @@
 /* Begin PBXLegacyTarget section */
 		A79C81D91523142500119511 /* AudioGraph */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildArgumentsString = "$(CONFIGURATION) $(ACTION)";
 			buildConfigurationList = A79C81DC1523142500119511 /* Build configuration list for PBXLegacyTarget "AudioGraph" */;
 			buildPhases = (
 			);
