@@ -45,7 +45,7 @@ void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
     TTDictionary   d2("dictionary2");
     
     TTTestAssertion("TTDictionary string name : Test fails if the dictionary name is not \"dictionary2\"",
-					d2.name() != TTSymbol("dictionary2"),
+					d2.name() == TTSymbol("dictionary2"),
 					testAssertionCount,
 					errorCount);
     
@@ -53,7 +53,7 @@ void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
     TTDictionary   d3(kTTSym_symbol);
     
     TTTestAssertion("TTDictionary symbol name : Test fails if the dictionary name is not \"symbol\"",
-					d2.name() != kTTSym_symbol,
+					d2.name() == kTTSym_symbol,
 					testAssertionCount,
 					errorCount);
     
