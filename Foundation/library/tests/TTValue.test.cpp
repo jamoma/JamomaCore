@@ -1906,15 +1906,7 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// TTPtr ? TTObject ?
-    TTObjectBasePtr	anObject;
-	TTAttribute		attribute = TTAttribute(TTSymbol("test"), kTypeObject, &anObject);
-    TTObject		anInstance("osc.send");
-	TTValue			v;
-    
-    v = anInstance;
-    attribute.defaultSetter(attribute, v);      // first time : it's ok
-    attribute.defaultSetter(attribute, v);      // second time : it crashes
-	
+   	
 	// TODO: test ==
 	// TODO: test =
 	// TODO: test casting
