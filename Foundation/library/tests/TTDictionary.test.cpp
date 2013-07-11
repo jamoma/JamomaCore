@@ -30,6 +30,9 @@ TTDictionaryTest::~TTDictionaryTest()
 
 void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
 {
+    TTTestLog("\n");
+	TTTestLog("Testing dictionary basic operations");
+    
 	TTTestLog("\n");
 	TTTestLog("Testing dictionary creation");
     
@@ -143,6 +146,26 @@ void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
 					errorCount);
 }
 
+void TTDictionaryTestValue(int& errorCount, int& testAssertionCount)
+{
+	TTTestLog("\n");
+	TTTestLog("Testing dictionary inside value");
+    
+    TTDictionary d1("dictionary1");
+    TTValue v = d1;
+    
+    TTTestAssertion("TTDictionary value assignement : Test fails if the value type is not dictionary",
+                    v[0].type() == kTypeDictionary,
+					testAssertionCount,
+					errorCount);
+    
+    TTDictionary d2 = v[0];
+    
+    TTTestAssertion("TTDictionary value assignement : Test fails if two dictionaries haven't the same name",
+                    d2.name() == d1.name(),
+					testAssertionCount,
+					errorCount);
+}
 
 TTErr TTDictionaryTest::test(TTValue& returnedTestInfo)
 {
@@ -150,6 +173,8 @@ TTErr TTDictionaryTest::test(TTValue& returnedTestInfo)
 	int testAssertionCount = 0;
 	
 	TTDictionaryTestBasic(errorCount, testAssertionCount);
+    
+    TTDictionaryTestValue(errorCount, testAssertionCount);
 		
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
