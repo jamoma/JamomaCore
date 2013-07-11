@@ -169,7 +169,7 @@ public:
 	 @para schemaName			TODO: Add documentation
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSchema(const TTSymbol& aSchemaName)
+	TTErr setSchema(const TTSymbol aSchemaName)
 	{
 		return mDictionaryInstance->setSchema(aSchemaName);
 	}
@@ -188,18 +188,20 @@ public:
 	 @param newValue			TODO: Add documentation
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setValue(const TTValue& aNewValue) {
+	TTErr setValue(const TTValue aNewValue) {
 		return mDictionaryInstance->setValue(aNewValue);
 	}
 	
 	
-	/** TODO: Add documentation
-	 @param returnedValue		TODO: Add documentation
-	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	/**	Get the dictionary's primary value
+		 @param	name				The name of the attribute to get.
+		 @param	value				The returned value of the attribute.
+		 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getValue(TTValue& aReturnValue) const
+	template <class T>
+	TTErr getValue(T& aReturnedValue) const
 	{
-		return mDictionaryInstance->getValue(aReturnValue);
+		return mDictionaryInstance->getValue(aReturnedValue);
 	}
 	
 	
@@ -207,7 +209,7 @@ public:
 	 @param value	The value to instert.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr append(const TTSymbol& aKey, const TTValue& aValue)
+	TTErr append(const TTSymbol aKey, const TTValue aValue)
 	{
 		return mDictionaryInstance->append(aKey, aValue);
 	}
@@ -216,7 +218,7 @@ public:
 	/** Find the value for the given key.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr lookup(const TTSymbol& aKey, TTValue& aValue) const
+	TTErr lookup(const TTSymbol aKey, TTValue& aValue) const
 	{
 		return mDictionaryInstance->lookup(aKey, aValue);
 	}
@@ -226,7 +228,7 @@ public:
 	 @param key					The key of the item to remove.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr remove(const TTSymbol& aKey)
+	TTErr remove(const TTSymbol aKey)
 	{
 		return mDictionaryInstance->remove(aKey);
 	}

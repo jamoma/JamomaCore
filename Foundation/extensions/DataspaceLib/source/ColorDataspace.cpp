@@ -41,19 +41,19 @@ CMYUnit::~CMYUnit(){;}
 
 void CMYUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(3);
-	output.set(0, (255 - input.getFloat64(0)) * kTTInv255);
-	output.set(1, (255 - input.getFloat64(1)) * kTTInv255);
-	output.set(2, (255 - input.getFloat64(2)) * kTTInv255);	
+	output.resize(3);
+	output.set(0, (255 - (TTFloat64)input[0]) * kTTInv255);
+	output.set(1, (255 - (TTFloat64)input[1]) * kTTInv255);
+	output.set(2, (255 - (TTFloat64)input[2]) * kTTInv255);	
 }
 
 
 void CMYUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(3);	
-	output.set(0, 255 * (1 - input.getFloat64(0)));
-	output.set(1, 255 * (1 - input.getFloat64(1)));
-	output.set(2, 255 * (1 - input.getFloat64(2)));
+	output.resize(3);
+	output.set(0, 255 * (1 - (TTFloat64)input[0]));
+	output.set(1, 255 * (1 - (TTFloat64)input[1]));
+	output.set(2, 255 * (1 - (TTFloat64)input[2]));
 }
 
 
@@ -75,9 +75,9 @@ HSLUnit::~HSLUnit(){;}
 		
 void HSLUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	double	h = input.getFloat64(0);// input.getFloat64(0);
-	double	s = input.getFloat64(1);// input.getFloat64(1);
-	double	l = input.getFloat64(2);// input.getFloat64(2);
+	double	h = (TTFloat64)input[0];// (TTFloat64)input[0];
+	double	s = (TTFloat64)input[1];// (TTFloat64)input[1];
+	double	l = (TTFloat64)input[2];// (TTFloat64)input[2];
 	double	red, green, blue;
 	double	m1, m2, hue, lightness, saturation;
 
@@ -103,7 +103,7 @@ void HSLUnit::convertToNeutral(const TTValue& input, TTValue& output)
 		blue = hls_value(m1, m2, hue-120.0);
 	}
 	
-	output.setSize(3);
+	output.resize(3);
 	output.set(0, red);
 	output.set(1, green);
 	output.set(2, blue);	
@@ -112,9 +112,9 @@ void HSLUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void HSLUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	double	r = (input.getFloat64(0));
-	double	g = (input.getFloat64(1));
-	double	b = (input.getFloat64(2));
+	double	r = ((TTFloat64)input[0]);
+	double	g = ((TTFloat64)input[1]);
+	double	b = ((TTFloat64)input[2]);
 	double	hue, lightness, saturation;
 	double	max,min,delta;
 	double	H,L,S;
@@ -158,7 +158,7 @@ void HSLUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 	saturation = S * 100.0;
 	lightness = L * 100.0;
 
-	output.setSize(3);	
+	output.resize(3);	
 	output.set(0, hue);
 	output.set(1, saturation);
 	output.set(2, lightness);
@@ -197,9 +197,9 @@ HSVUnit::~HSVUnit(){;}
 
 void HSVUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	double	h = input.getFloat64(0)/360.;
-	double	s = input.getFloat64(1)/100.;
-	double	v = input.getFloat64(2)/100.;
+	double	h = (TTFloat64)input[0]/360.;
+	double	s = (TTFloat64)input[1]/100.;
+	double	v = (TTFloat64)input[2]/100.;
 	double	r, g, b;
 	//double	h1, a[7], q, f;                             
 
@@ -225,7 +225,7 @@ void HSVUnit::convertToNeutral(const TTValue& input, TTValue& output)
 		else                   { r = v     ; g = var_1 ; b = var_2; }
 	}
 				
-	output.setSize(3);
+	output.resize(3);
 	output.set(0, r);
 	output.set(1, g);
 	output.set(2, b);	
@@ -234,9 +234,9 @@ void HSVUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void HSVUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	double r = input.getFloat64(0);
-	double g = input.getFloat64(1);
-	double b = input.getFloat64(2);
+	double r = (TTFloat64)input[0];
+	double g = (TTFloat64)input[1];
+	double b = (TTFloat64)input[2];
 
 	double h,s,v;
 
@@ -280,7 +280,7 @@ void HSVUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 			h += 360.0;
 	}
 
-	output.setSize(3);	
+	output.resize(3);	
 	output.set(0, h);
 	output.set(1, s*100);
 	output.set(2, v*100);
@@ -333,19 +333,19 @@ RGB8Unit::~RGB8Unit(){;}
 
 void RGB8Unit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(3);
-	output.set(0, input.getFloat64(0)*kTTInv255);
-	output.set(1, input.getFloat64(1)*kTTInv255);
-	output.set(2, input.getFloat64(2)*kTTInv255);	
+	output.resize(3);
+	output.set(0, (TTFloat64)input[0]*kTTInv255);
+	output.set(1, (TTFloat64)input[1]*kTTInv255);
+	output.set(2, (TTFloat64)input[2]*kTTInv255);	
 }
 
 
 void RGB8Unit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output.setSize(3);
-	output.set(0, input.getFloat64(0)*255);
-	output.set(1, input.getFloat64(1)*255);
-	output.set(2, input.getFloat64(2)*255);
+	output.resize(3);
+	output.set(0, (TTFloat64)input[0]*255);
+	output.set(1, (TTFloat64)input[1]*255);
+	output.set(2, (TTFloat64)input[2]*255);
 }
 
 

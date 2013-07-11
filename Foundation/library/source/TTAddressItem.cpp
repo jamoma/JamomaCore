@@ -181,7 +181,7 @@ TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedIte
 	
 	if (anItem != this) {
         
-        if (!anItem->options->findEquals(addressToFind.getAttribute(), v)) {
+        if (addressToFind.getAttribute() == kTTSymEmpty || !anItem->options->findEquals(addressToFind.getAttribute(), v)) {
             
             *returnedItem = anItem;
             return kTTErrNone;

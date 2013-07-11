@@ -35,12 +35,12 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("rgb"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("rgb"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(124.2));
     v.set(1, TTFloat64(162.9));
     v.set(2, TTFloat64(13.163));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(124.2));
     expected.set(1, TTFloat64(162.9));
     expected.set(2, TTFloat64(13.163));
@@ -58,12 +58,12 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("cmy"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("rgb"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(255.));
     v.set(1, TTFloat64(127.5));
     v.set(2, TTFloat64(0.));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(0.));
     expected.set(1, TTFloat64(0.5));
     expected.set(2, TTFloat64(1.0));
@@ -81,12 +81,12 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("hsl"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("rgb"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(120.));
     v.set(1, TTFloat64(100.));
     v.set(2, TTFloat64(50.));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(0.));
     expected.set(1, TTFloat64(1.0));
     expected.set(2, TTFloat64(0.));
@@ -104,12 +104,12 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("rgb8"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("rgb"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(255.));
     v.set(1, TTFloat64(127.5));
     v.set(2, TTFloat64(0.));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(1.));
     expected.set(1, TTFloat64(0.5));
     expected.set(2, TTFloat64(0.0));
@@ -127,12 +127,12 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("hsv"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("rgb"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(120.));
     v.set(1, TTFloat64(100.));
     v.set(2, TTFloat64(100.));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(0.));
     expected.set(1, TTFloat64(1.0));
     expected.set(2, TTFloat64(0.));
@@ -158,12 +158,12 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("rgb"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("cmy"));    
 	
-    v.setSize(3);
+    v.resize(3);
     v.set(0, TTFloat64(0.));
     v.set(1, TTFloat64(0.5));
     v.set(2, TTFloat64(1.));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(255.));
     expected.set(1, TTFloat64(127.5));
     expected.set(2, TTFloat64(0.0));
@@ -181,12 +181,12 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("rgb"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("hsl"));    
 
-    v.setSize(3);
+    v.resize(3);
     v.set(0, TTFloat64(0.));
     v.set(1, TTFloat64(1.));
     v.set(2, TTFloat64(0.));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(120.));
     expected.set(1, TTFloat64(100.0));
     expected.set(2, TTFloat64(50.));
@@ -204,12 +204,12 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("rgb"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("rgb8"));    
 
-    v.setSize(3);
+    v.resize(3);
     v.set(0, TTFloat64(1.));
     v.set(1, TTFloat64(0.5));
     v.set(2, TTFloat64(0.));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(255.));
     expected.set(1, TTFloat64(127.5));
     expected.set(2, TTFloat64(0.0));
@@ -227,12 +227,12 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("rgb"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("hsv"));    
 	
-    v.setSize(3);
+    v.resize(3);
     v.set(0, TTFloat64(0.));
     v.set(1, TTFloat64(1.));
     v.set(2, TTFloat64(0.));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(120.));
     expected.set(1, TTFloat64(100.0));
     expected.set(2, TTFloat64(100.));

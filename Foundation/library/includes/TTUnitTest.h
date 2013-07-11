@@ -68,7 +68,20 @@ void TTFOUNDATION_EXPORT TTTestLog(const char *msg, ...);
 	@param testAssertionCount	The address of a variable you incrementing when making a test assertion.
 	@param errorCount			The address of a variable you incrementing when test assertions fail.
 	@return						Returns true if a == b, otherwise returns false.	*/
-void TTFOUNDATION_EXPORT TTTestAssertion(const char* aTestName, TTBoolean aTestResult, int& testAssertionCount, int& errorCount);
+
+/**	Declare a result to be expected.
+ A failed expectation will be flagged as an error in the IDE (Xcode or VS).
+ 
+ @ingroup			testing
+ @param	name		The name of the expectation for logging purposes.
+ @param	actual		The result received.
+ @param	expected	The result expected.
+ @return				Returns a 1 if the expection failed, 0 if it passes.
+ */
+#define TTTestAssertion(aTestName, aTestResult, testAssertionCount, errorCount) \
+		TTTestAssertionResult((aTestName),(aTestResult),(testAssertionCount), (errorCount), __FILE__, __LINE__)
+
+void TTFOUNDATION_EXPORT TTTestAssertionResult(const char* aTestName, TTBoolean aTestResult, int& testAssertionCount, int& errorCount, const char* filename = "", int linenumber = 0);
 
 
 /** Wrap up the test results to pass back to whoever called this test.

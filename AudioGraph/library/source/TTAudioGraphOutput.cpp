@@ -20,7 +20,7 @@
 #include "TTAudioGraphObject.h"
 #include "TTAudioGraphInlet.h"		// required for windows build
 #include "TTAudioGraphOutput.h"
-#include "TTAudioEngine.h"
+//#include "TTAudioEngine.h"
 
 #define thisTTClass			TTAudioGraphOutput
 #define thisTTClassName		"dac"
@@ -32,7 +32,11 @@ TT_AUDIO_CONSTRUCTOR,
 	mSampleStamp(0)
 {
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &placeHolder, 1);
-	audioEngine = TTAudioEngine::create();
+//	audioEngine = TTAudioEngine::create();
+	TTDictionary d("j@m0m@_audioengine");
+	TTPtr engine = NULL;
+	d.getValue(engine);
+	mAudioEngine = (TTAudioObjectBase*)engine;
 	
 	addAttributeWithGetterAndSetter(SampleRate, kTypeUInt32);
 	addAttributeWithGetterAndSetter(VectorSize, kTypeUInt16);
@@ -53,15 +57,15 @@ TT_AUDIO_CONSTRUCTOR,
 	
 	me = new TTValue;
 	(*me) = (TTObjectBasePtr)this;
-	audioEngine->sendMessage(TT("addCallbackObserver"), *me, kTTValNONE);
+	mAudioEngine->sendMessage(TT("addCallbackObserver"), *me, kTTValNONE);
 }
 
 
 TTAudioGraphOutput::~TTAudioGraphOutput()
 {
-	audioEngine->sendMessage(TT("removeCallbackObserver"), *me, kTTValNONE);
+	mAudioEngine->sendMessage(TT("removeCallbackObserver"), *me, kTTValNONE);
 	delete me;
-	TTAudioEngine::destroy();
+	//TTAudioEngine::destroy();
 	TTObjectBaseRelease(&placeHolder);
 }
 
@@ -73,14 +77,14 @@ TTErr TTAudioGraphOutput::start()
 	getVectorSize(v);
 	mInitData.vectorSize = v;
 	
-	audioEngine->sendMessage(TT("start"));
+	mAudioEngine->sendMessage(TT("start"));
 	return kTTErrNone;
 }
 
 
 TTErr TTAudioGraphOutput::stop()
 {
-	audioEngine->sendMessage(TT("stop"));
+	mAudioEngine->sendMessage(TT("stop"));
 	return kTTErrNone;
 }
 
@@ -107,46 +111,46 @@ TTErr TTAudioGraphOutput::setOwner(TTValue& newOwner, TTValue&)
 
 TTErr TTAudioGraphOutput::getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames)
 {
-	return audioEngine->sendMessage(TT("getAvailableOutputDeviceNames"), kTTValNONE, returnedDeviceNames);
+	return mAudioEngine->sendMessage(TT("getAvailableOutputDeviceNames"), kTTValNONE, returnedDeviceNames);
 }
 
 
 TTErr TTAudioGraphOutput::getCpuLoad(const TTValue&, TTValue& returnedValue)
 {
-	return audioEngine->sendMessage(TT("getCpuLoad"), kTTValNONE, returnedValue);
+	return mAudioEngine->sendMessage(TT("getCpuLoad"), kTTValNONE, returnedValue);
 }
 
 
 TTErr TTAudioGraphOutput::setSampleRate(const TTValue& newValue)
 {
-	return audioEngine->setAttributeValue(kTTSym_sampleRate, const_cast<TTValue&>(newValue));
+	return mAudioEngine->setAttributeValue(kTTSym_sampleRate, const_cast<TTValue&>(newValue));
 }
 
 TTErr TTAudioGraphOutput::getSampleRate(TTValue& returnedValue)
 {
-	return audioEngine->getAttributeValue(kTTSym_sampleRate, returnedValue);
+	return mAudioEngine->getAttributeValue(kTTSym_sampleRate, returnedValue);
 }
 
 
 TTErr TTAudioGraphOutput::setVectorSize(const TTValue& newValue)
 {
-	return audioEngine->setAttributeValue(kTTSym_vectorSize, const_cast<TTValue&>(newValue));
+	return mAudioEngine->setAttributeValue(kTTSym_vectorSize, const_cast<TTValue&>(newValue));
 }
 
 TTErr TTAudioGraphOutput::getVectorSize(TTValue& returnedValue)
 {
-	return audioEngine->getAttributeValue(kTTSym_vectorSize, returnedValue);
+	return mAudioEngine->getAttributeValue(kTTSym_vectorSize, returnedValue);
 }
 
 
 TTErr TTAudioGraphOutput::setDevice(const TTValue& newValue)
 {
-	return audioEngine->setAttributeValue(TT("outputDevice"), const_cast<TTValue&>(newValue));
+	return mAudioEngine->setAttributeValue(TT("outputDevice"), const_cast<TTValue&>(newValue));
 }
 
 TTErr TTAudioGraphOutput::getDevice(TTValue& returnedValue)
 {
-	return audioEngine->getAttributeValue(TT("outputDevice"), returnedValue);
+	return mAudioEngine->getAttributeValue(TT("outputDevice"), returnedValue);
 }
 
 
@@ -154,8 +158,16 @@ TTErr TTAudioGraphOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 {
 	if(inputs->numAudioSignals){
 		TTAudioSignal&	in = inputs->getSignal(0);
-
-		(*((TTAudioEnginePtr)audioEngine)->mOutputBuffer) += in;
+		TTAudioSignal*	out = NULL;
+		
+		TTValue dummy;
+		TTValue buffer;
+		mAudioEngine->sendMessage("getOutputSignalReference", dummy, buffer);
+		out = (TTAudioSignalPtr)TTPtr(buffer);
+		
+		//(*((TTAudioEnginePtr)mAudioEngine)->mOutputBuffer) += in;
+		(*out) += in;
+		
 		return kTTErrNone;
 	}
 	else
