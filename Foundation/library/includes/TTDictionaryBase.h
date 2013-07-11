@@ -115,7 +115,7 @@ public:
 		@return				#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	template <class T>
-	TTErr getValue(T& aReturnedValue)
+	TTErr getValue(T& aReturnedValue) const
 	{
 		TTValue	v;
 		TTErr error = getValue(v);
