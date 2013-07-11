@@ -1901,13 +1901,10 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// TTPtr ? TTObject ?
-    TTObjectBasePtr anObject;
-	TTAttribute attribute = TTAttribute(TTSymbol("test"), kTypeObject, &anObject);
-    
-    TTObjectBasePtr anInstance = NULL;
-    TTValue     v;
-    
-    TTObjectBaseInstantiate(TTSymbol("osc.send"), TTObjectBaseHandle(&anInstance), kTTValNONE);
+    TTObjectBasePtr	anObject;
+	TTAttribute		attribute = TTAttribute(TTSymbol("test"), kTypeObject, &anObject);
+    TTObject		anInstance("osc.send");
+	TTValue			v;
     
     v = anInstance;
     attribute.defaultSetter(attribute, v);      // first time : it's ok
