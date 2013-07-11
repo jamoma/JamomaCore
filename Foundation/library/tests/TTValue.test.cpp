@@ -454,7 +454,12 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 {	
 	TTTestLog("\n");
 	TTTestLog("Testing basic TTValue operation");
-
+    
+    TTValue v0;
+    TTTestAssertion("init with nothing",
+					v0 == kTTValNONE,
+					testAssertionCount,
+					errorCount);
 	
 	TTValue v1(3.14);
 
