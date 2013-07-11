@@ -41,6 +41,7 @@ public:
 	/** Constructor with a single initial element. */
 	template<class T>
 	TTValue(const T& anInitialValue)
+	: stringsPresent(NO)
 	{
 		resize(1);
 		at(0) = anInitialValue;
@@ -49,6 +50,7 @@ public:
 	/** Constructor with two initial elements. */
 	template <class T, class U>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue)
+	: stringsPresent(NO)
 	{
 		resize(2);
 		at(0) = aFirstElementInitialValue;
@@ -58,6 +60,7 @@ public:
 	/** Constructor with three initial elements. */
 	template <class T, class U, class V>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue, const V& aThirdElementInitialValue)
+	: stringsPresent(NO)
 	{
 		resize(3);
 		at(0) = aFirstElementInitialValue;
@@ -68,6 +71,7 @@ public:
 	/** Constructor with four initial elements. */
 	template <class T, class U, class V, class W>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue, const V& aThirdElementInitialValue, const W& aFourthElementInitialValue)
+	: stringsPresent(NO)
 	{
 		resize(4);
 		at(0) = aFirstElementInitialValue;
