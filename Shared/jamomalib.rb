@@ -1505,7 +1505,7 @@ else
 
             #makefile.write("OPTIONS = -dynamiclib -msse3 -mfpmath=sse -gdwarf-2\n")
           else
-            makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -gdwarf-2 -fvisibility=hidden\n")
+            makefile.write("OPTIONS = -msse3 -gdwarf-2 -fvisibility=hidden\n")
           end
         else
           if beagle?
@@ -1547,7 +1547,7 @@ else
         makefile.write("CFLAGS = $(OPTIONS) $(DEFINES) $(INCLUDES) $(WARNINGS)\n")
         if mac?
           makefile.write("CFLAGS += -include#{prefix}\n") if prefix
-          makefile.write("LDFLAGS = $(OPTIONS) $(DEFINES) $(LIBS) $(WARNINGS)\n")
+          makefile.write("LDFLAGS =  -shared -mfpmath=sse $(OPTIONS) $(DEFINES) $(LIBS) $(WARNINGS)\n")
           makefile.write("LDFLAGS += -install_name \"#{distropath}/$(NAME).dylib\" \n") if project_type == "library"
           if gcc47
             makefile.write("LDFLAGS += -static-libgcc\n")
