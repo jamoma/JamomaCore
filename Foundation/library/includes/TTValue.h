@@ -174,6 +174,20 @@ public:
 		return *this;
 	}
 	
+	
+	friend bool operator == (const TTValue& a, const TTValue& b)
+	{
+		if (a.size() == b.size()) {
+			for (int i=0; i<a.size(); i++) {
+				if (a.at(i) != b.at(i)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
 
 	/** Get a value from TTValue
 	 */
