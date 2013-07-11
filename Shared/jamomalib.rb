@@ -1688,10 +1688,10 @@ else
         
           makefile.write("build_and_test: | lipo \n")
           makefile.write("\techo Testing 32-bit \n")
-          makefile.write("\tif [ -f test.cpp ];   then $(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_dsp} -o build/test ; fi \n")
+          makefile.write("\tif [ -f test.cpp ];   then rm build/test; $(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_dsp} -o build/test ; fi \n")
           makefile.write("\tif [ -f build/test ]; then build/test ; fi \n")
           makefile.write("\techo Testing 64-bit \n")
-          makefile.write("\tif [ -f test.cpp ];   then $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_dsp} -o build/test ; fi \n")
+          makefile.write("\tif [ -f test.cpp ];   then rm build/test; $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_dsp} -o build/test ; fi \n")
           makefile.write("\tif [ -f build/test ]; then build/test ; fi \n")
           makefile.write("\n")
 
