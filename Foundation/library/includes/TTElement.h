@@ -713,6 +713,10 @@ public:
 		return true;
 	}
 
+	friend bool operator != (const TTElement& a1, const TTElement& a2)
+	{
+		return !(a1 == a2);
+	}
 	
 	friend bool operator == (const TTElement& a1, const int& i)
 	{
