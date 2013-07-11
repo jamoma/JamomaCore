@@ -20,15 +20,13 @@
 #include "TTValue.h"
 
 
-extern TTFOUNDATION_EXPORT TTValue	kTTBoolNo;
-extern TTFOUNDATION_EXPORT TTValue	kTTBoolYes;
+extern TTFOUNDATION_EXPORT const TTValue	kTTBoolNo;
+extern TTFOUNDATION_EXPORT const TTValue	kTTBoolYes;
 
-extern TTFOUNDATION_EXPORT TTValue	kTTValNONE;
-extern TTFOUNDATION_EXPORT TTValue	kTTVal0;
-extern TTFOUNDATION_EXPORT TTValue	kTTVal1;
-extern TTFOUNDATION_EXPORT TTValue	kTTVal0_pt_0;
-
-void TTValueCacheInit();
+extern TTFOUNDATION_EXPORT const TTValue	kTTValNONE;
+extern TTFOUNDATION_EXPORT const TTValue	kTTVal0;
+extern TTFOUNDATION_EXPORT const TTValue	kTTVal1;
+extern TTFOUNDATION_EXPORT const TTValue	kTTVal0_pt_0;
 
 #endif // __TT_VALUE_CACHE_H__
 
