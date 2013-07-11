@@ -194,13 +194,19 @@ public:
 	template<class T>
 	operator T() const
 	{
-		return T(at(0));
+		if (size())
+			return T(at(0));
+		else
+			return T(0);
 	}
 
 	// TTSymbol needs to be manually wrapped to avoid ambiguity as interpretted by the clang compiler
 	operator TTSymbol() const
 	{
-		return at(0);
+		if (size())
+			return at(0);
+		else
+			return kTTSymEmpty;
 	}
 	
 	
