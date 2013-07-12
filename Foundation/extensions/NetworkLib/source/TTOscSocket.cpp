@@ -67,6 +67,7 @@ TTOscSocket::~TTOscSocket()
 void TTOscSocket::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointName& remoteEndPoint)
 {
 	TTValue		receivedMessage = TTSymbol(m.AddressPattern());
+    TTValue     none;
 	
 	osc::ReceivedMessage::const_iterator arguments = m.ArgumentsBegin(); // get arguments
 	
@@ -88,7 +89,7 @@ void TTOscSocket::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 		arguments++;
 	}
 	
-	this->mOwner->sendMessage(TTSymbol("oscSocketReceive"), receivedMessage, kTTValNONE);
+	this->mOwner->sendMessage(TTSymbol("oscSocketReceive"), receivedMessage, none);
 }
 
 TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
