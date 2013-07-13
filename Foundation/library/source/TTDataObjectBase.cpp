@@ -20,7 +20,7 @@
 
 /****************************************************************************************************/
 
-TTDataObjectBase::TTDataObjectBase(TTValue& arguments) :
+TTDataObjectBase::TTDataObjectBase(const TTValue& arguments) :
 	TTObjectBase(arguments),
 	mMatrixCalculateMethod(NULL),
 	mCurrentMatrixCalculateMethod(NULL),
@@ -45,7 +45,7 @@ TTDataObjectBase::TTDataObjectBase(TTValue& arguments) :
 	
 	// Set Defaults...	
     setMatrixCalculate(&TTDataObjectBase::defaultMatrixCalculateMethod);
-	setAttributeValue("bypass",			kTTBoolNo);	
+	setAttributeValue("bypass", NO);
 }
 
 

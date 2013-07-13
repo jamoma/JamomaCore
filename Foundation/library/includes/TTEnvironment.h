@@ -26,7 +26,7 @@
 /**	A function pointer for an instance creation function required to be provided by all classes.
  @ingroup typedefs
  */
-typedef TTObjectBase* (*TTObjectBaseInstantiationMethod)(TTSymbol& className, TTValue& arguments);
+typedef TTObjectBase* (*TTObjectBaseInstantiationMethod)(TTSymbol& className, const TTValue& arguments);
 
 /**	A function pointer for an instance creation function required to be provided by all classes.
  @ingroup typedefs
@@ -142,7 +142,6 @@ public:
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, TTValue& anArgument);
 	TTErr createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument);
 	
 	

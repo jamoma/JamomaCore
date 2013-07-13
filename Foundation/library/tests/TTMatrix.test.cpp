@@ -28,7 +28,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTMatrixPtr matrix = NULL;
 		TTErr err;
 		
-		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&matrix, kTTValNONE);
+		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&matrix, TTValue());
 		TTTestAssertion("instantiates successfully", 
 						err == kTTErrNone, 
 						testAssertionCount,
@@ -306,8 +306,8 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTBoolean	match;
 		TTValue		dims, dims_mismatch;
 		
-		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&A, kTTValNONE);
-		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&B, kTTValNONE);
+		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&A, TTValue());
+		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&B, TTValue());
 		
 		dims.resize(2);
 		dims[0] = 3;	// 3 rows

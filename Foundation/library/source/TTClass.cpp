@@ -34,7 +34,7 @@ TTClass::~TTClass()
 }
 
 
-TTErr TTClass::createInstance(TTObjectBase** anObject, TTValue& anArgument)
+TTErr TTClass::createInstance(TTObjectBase** anObject, const TTValue& anArgument)
 {
 	TTErr err = kTTErrNone;
 

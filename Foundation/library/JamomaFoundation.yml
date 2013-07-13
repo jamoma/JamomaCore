@@ -10,7 +10,6 @@ sources:
   - source/TTQueue.cpp
   - source/TTThread.cpp
   - source/TTUnitTest.cpp
-  - source/TTValueCache.cpp
   - source/TTAttribute.cpp
   - source/TTDataObjectBase.cpp
   - source/TTBase.cpp

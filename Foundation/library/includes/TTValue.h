@@ -35,7 +35,7 @@ public:
 	TTValue()
 	: stringsPresent(NO)
 	{
-		;
+		reserve(1);
 	}
 	
 	/** Constructor with a single initial element. */
@@ -94,6 +94,12 @@ private:
 	inline void copy(const TTValue& obj);
 
 public:
+
+	void clear() {
+		std::cout << "hi" << std::endl;
+		TTElementVector::clear();
+	}
+	
 	/** Return the number of values of this instance. */
 	TT_DEPRECATED( TTUInt16 getSize() const )
 	{
@@ -187,7 +193,16 @@ public:
 		}
 		return false;
 	}
-	
+
+	template<class T>
+	friend bool operator == (const TTValue& a, const T b)
+	{
+		if (a.size() == 1 && a[0] == b)
+			return true;
+		else
+			return false;
+	}
+
 
 	/** Get a value from TTValue
 	 */

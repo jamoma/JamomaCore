@@ -30,7 +30,7 @@ TTEnvironment*	ttEnvironment = NULL;
 /****************************************************************************************************/
 
 TTEnvironment::TTEnvironment()
-	: TTObjectBase(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0), mBenchmarking(false)
+	: TTObjectBase(TTValue()), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0), mBenchmarking(false)
 {
 	classes = new TTHash();
 	tags = new TTHash();
@@ -210,11 +210,6 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 
 
 TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument)
-{
-	return createInstance(className, anObject, (TTValue&)anArgument); // throw away the const (I know, I know...), maybe the non-const constructor shouldn't exist at all?
-}
-
-TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, TTValue& anArgument)
 {
 	TTValue		v;
 	TTClassPtr	theClass;

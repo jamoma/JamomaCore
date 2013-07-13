@@ -18,7 +18,6 @@
 #include "TTDictionaryBase.h"
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"
-#include "TTValueCache.h"
 
 //void TTDictionaryBaseFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found);
 //void TTDictionaryBaseFindKeyInList(const TTValue& valueToCheck, TTPtr baton, TTBoolean& found)
@@ -83,7 +82,7 @@ TTErr TTDictionaryBase::append(const TTSymbol& key, const TTValue& value)
 //	mMap.insert(TTDictionaryBasePair(key.getSymbolId(), value));
 	mMap.insert(TTDictionaryBasePair((TTPtrSizedInt)key.rawpointer(), value));
 //	unlock();
-	sendNotification("change", kTTValNONE);
+	sendNotification("change", TTValue());
 	return kTTErrNone;
 
 //	mList->append(v);
@@ -130,7 +129,7 @@ TTErr TTDictionaryBase::remove(const TTSymbol& key)
 //	return mHashTable->remove(key);
 //	mMap.erase(key.getSymbolId());
 	mMap.erase((TTPtrSizedInt)key.rawpointer());
-	sendNotification("change", kTTValNONE);
+	sendNotification("change", TTValue());
 	return kTTErrNone;
 }
 
@@ -139,7 +138,7 @@ TTErr TTDictionaryBase::clear()
 {
 //	mList->clear();
 	mMap.clear();
-	sendNotification("change", kTTValNONE);
+	sendNotification("change", TTValue());
 	return kTTErrNone;
 }
 

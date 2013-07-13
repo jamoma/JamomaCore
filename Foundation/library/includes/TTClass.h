@@ -64,7 +64,7 @@ public:
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return				#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr createInstance(TTObjectBase** anObject, TTValue& anArgument);
+	TTErr createInstance(TTObjectBase** anObject, const TTValue& anArgument);
 	
 	
 	/**	Free an instance of a #TTObjectBase class.

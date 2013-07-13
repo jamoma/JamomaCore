@@ -151,7 +151,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 	TTAddress	aliasAddress;
 	TTAddress	p1;
 	TTAddress	p2;
-	TTValue		ak, found = kTTValNONE;
+	TTValue		ak, found;
     TTAddressComparisonFlag	comp;
 	
 	// if this address doesn't exist look into aliases
@@ -188,7 +188,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 		}
 	}
 	
-	if (found == kTTValNONE)
+	if (found.empty())
 		return kTTErrGeneric;
 	else
 		return kTTErrNone;
@@ -828,7 +828,7 @@ TTBoolean testNodeUsingCallback(TTNodePtr n, TTPtr args)
 
 	aCallback->notify(v,v);
 
-	return v == kTTVal1;
+	return v == 1;
 }
 
 TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)

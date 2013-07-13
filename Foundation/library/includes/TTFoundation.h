@@ -16,7 +16,6 @@
 #include "TTThread.h"
 #include "TTFifo.h"
 #include "TTSymbolCache.h"
-#include "TTValueCache.h"
 #include "TTNodeLib.h"
 
 
@@ -33,21 +32,21 @@
 		@ingroup macros
 	*/
 #define TT_OBJECT_CONSTRUCTOR \
-	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, const TTValue& arguments) {return new thisTTClass (arguments);} \
 	\
 	extern "C" void thisTTClass :: registerClass () {TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );} \
 	\
-	thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObjectBase(arguments)
+	thisTTClass :: thisTTClass (const TTValue& arguments) : TTDataObjectBase(arguments)
 
 	/** TODO Doxygen: need more comments here	
 		@ingroup macros
 	*/
 #define TT_BASE_OBJECT_CONSTRUCTOR \
-	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, const TTValue& arguments) {return new thisTTClass (arguments);} \
 	\
 	extern "C" void thisTTClass :: registerClass () {TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );} \
 	\
-	thisTTClass :: thisTTClass (TTValue& arguments) : TTObjectBase(arguments)
+	thisTTClass :: thisTTClass (const TTValue& arguments) : TTObjectBase(arguments)
 
 	/** TODO Doxygen: need more comments here	
 		@ingroup macros
@@ -57,9 +56,9 @@
 	public:																		\
 		static void registerClass();											\
 	protected:																	\
-		static TTObjectBasePtr instantiate (TTSymbol& name, TTValue& arguments);	\
+		static TTObjectBasePtr instantiate (TTSymbol& name, const TTValue& arguments);	\
 		/** Constructor */														\
-		className (TTValue& arguments);											\
+		className (const TTValue& arguments);											\
 		/** Destructor */														\
 		virtual ~className ();													\
 

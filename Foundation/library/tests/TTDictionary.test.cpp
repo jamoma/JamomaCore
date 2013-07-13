@@ -86,15 +86,15 @@ void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
     d1.getValue(v);
     
     TTTestAssertion("TTDictionary value : Test fails if the dictionary value is not empty",
-					v == kTTValNONE,
+					v == TTValue(),
 					testAssertionCount,
 					errorCount);
     
-    d1.setValue(kTTVal1);
+    d1.setValue(1);
     d1.getValue(v);
     
     TTTestAssertion("TTDictionary value : Test fails if the dictionary value is not kTTVal1",
-					v == kTTVal1,
+					v == 1,
 					testAssertionCount,
 					errorCount);
     
@@ -103,12 +103,12 @@ void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
     TTTestLog("\n");
 	TTTestLog("Testing dictionary keys");
     
-    d1.append(kTTSym_gain, kTTVal1);
+    d1.append(kTTSym_gain, 1);
     TTErr err = d1.lookup(kTTSym_gain, v);
     
     TTTestAssertion("TTDictionary append key : Test fails if the dictionary key \"gain\" doesn't exist or its value is not kTTVal1",
                     err == kTTErrNone &&
-					v == kTTVal1,
+					v == 1,
 					testAssertionCount,
 					errorCount);
     

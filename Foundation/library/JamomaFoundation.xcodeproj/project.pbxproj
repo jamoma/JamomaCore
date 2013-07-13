@@ -10,6 +10,7 @@
 		2236CD8116188D9D0008DF69 /* TTAddressBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTAddressBase.h; sourceTree = "<group>"; };
 		2236CD8316188DB00008DF69 /* TTAddressBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAddressBase.cpp; path = source/TTAddressBase.cpp; sourceTree = SOURCE_ROOT; };
 		2262733915B0604A00B13F9D /* TTFifo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTFifo.h; sourceTree = "<group>"; };
+		226B5BAA1790529400341B43 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		22976FF3169C9F35000C7453 /* TTDataObjectBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataObjectBase.cpp; path = source/TTDataObjectBase.cpp; sourceTree = "<group>"; };
 		22976FF4169C9F3E000C7453 /* TTObjectBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTObjectBase.cpp; path = source/TTObjectBase.cpp; sourceTree = "<group>"; };
 		22976FF5169C9F61000C7453 /* TTDataObjectBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDataObjectBase.h; path = includes/TTDataObjectBase.h; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		D2F0976814A0D70100EC0396 /* TTThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTThread.h; path = includes/TTThread.h; sourceTree = "<group>"; };
 		D2F0976914A0D70100EC0396 /* TTUnitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUnitTest.h; sourceTree = "<group>"; };
 		D2F0976A14A0D70100EC0396 /* TTValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValue.h; path = includes/TTValue.h; sourceTree = "<group>"; };
-		D2F0976B14A0D70100EC0396 /* TTValueCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValueCache.h; path = includes/TTValueCache.h; sourceTree = "<group>"; };
 		D2F0976D14A0D70F00EC0396 /* TTAttribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAttribute.cpp; path = source/TTAttribute.cpp; sourceTree = "<group>"; };
 		D2F0976E14A0D70F00EC0396 /* TTBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTBase.cpp; sourceTree = "<group>"; };
 		D2F0976F14A0D70F00EC0396 /* TTCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCallback.cpp; sourceTree = "<group>"; };
@@ -95,7 +95,6 @@
 		D2F0978A14A0D70F00EC0396 /* TTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTThread.cpp; path = source/TTThread.cpp; sourceTree = "<group>"; };
 		D2F0978B14A0D70F00EC0396 /* TTUnitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTUnitTest.cpp; sourceTree = "<group>"; };
 		D2F0978C14A0D70F00EC0396 /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = source/TTValue.cpp; sourceTree = "<group>"; };
-		D2F0978D14A0D70F00EC0396 /* TTValueCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = source/TTValueCache.cpp; sourceTree = "<group>"; };
 		D2F097EA14A0E03400EC0396 /* TTMatrix.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMatrix.test.cpp; sourceTree = "<group>"; };
 		D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeLib.test.cpp; sourceTree = "<group>"; };
 		D2F097EC14A0E03400EC0396 /* TTNodeLib.test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNodeLib.test.h; sourceTree = "<group>"; };
@@ -109,6 +108,7 @@
 			children = (
 				22FCC57816061C7E00D77C6D /* JamomaFoundation.yml */,
 				229E3DBB15ED1F6900BD1FC0 /* Makefile */,
+				226B5BAA1790529400341B43 /* test.cpp */,
 				22FCC58E1608A99800D77C6D /* Strings & Symbols */,
 				220633A316152F2E003C76E6 /* Values */,
 				22961B4916D9213800C0C657 /* Objects */,
@@ -129,8 +129,6 @@
 				22F4981316961C1400D2C427 /* TTElement.h */,
 				D2F0976A14A0D70100EC0396 /* TTValue.h */,
 				D2F0978C14A0D70F00EC0396 /* TTValue.cpp */,
-				D2F0976B14A0D70100EC0396 /* TTValueCache.h */,
-				D2F0978D14A0D70F00EC0396 /* TTValueCache.cpp */,
 				D2F0975014A0D70100EC0396 /* TTDictionary.h */,
 				D2F0977214A0D70F00EC0396 /* TTDictionary.cpp */,
 				22BBA1A817772EE3000941AC /* TTDictionaryBase.h */,

@@ -10,7 +10,6 @@
 #include "TTSymbolTable.h"
 #include "TTEnvironment.h"
 #include "TTSymbolCache.h"
-#include "TTValueCache.h"
 #include "TTCallback.h"
 
 // Nodelib currently requires Boost Regex, which we don't have on the iOS

@@ -16,7 +16,6 @@
 
 #include "TTObjectBase.h"
 #include "TTEnvironment.h"
-#include "TTValueCache.h"
 
 /****************************************************************************************************/
 // Class Specifications
@@ -36,7 +35,8 @@ public:
 		 @param aClassName		The symbolic name of the class to create/wrap.
 		 @param arguments		Arguments to the constructor.
 	 */
-	TTObject(const TTSymbol& aClassName, const TTValue& arguments = kTTValNONE) :
+	// NOTE: arguments *must* be copied -- otherwise a reference to kTTValNONE may overwrite its value and corrupt memory
+	TTObject(const TTSymbol& aClassName, const TTValue arguments = TTValue()) :
 	mObjectInstance(NULL)
 	{
 		TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, arguments);
