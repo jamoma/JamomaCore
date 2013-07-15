@@ -63,6 +63,7 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	
 	addMessage(normalize);
 	addMessageWithArguments(fill);
+	addMessageWithArguments(load);
 	
 	// initialize
 	init(channelCount, name);
