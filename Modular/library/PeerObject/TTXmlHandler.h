@@ -53,7 +53,7 @@ class TTMODULAR_EXPORT TTXmlHandler : public TTDataObjectBase
 	
 public:	// use public for recursive access
 	
-	TTObjectBasePtr			mObject;						///< the last handled object
+	TTObjectBasePtr		mObject;						///< the last handled object
 	TTSymbol			mFilePath;						///< the path to the last writen/read file
 
 	TTSymbol			mHeaderNodeName;				///< the name of the header node in the xml file
