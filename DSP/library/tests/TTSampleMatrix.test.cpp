@@ -8,6 +8,29 @@
 
 #include "TTSampleMatrix.h"
 
+/* */
+#define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
+#define TESTNUMCHANNELS 2
+#define TESTSAMPLERATE 44100
+#define TESTDURATIONINSAMPLES 88202
+#define TESTDURATIONINSECONDS 2.00004535
+#define TESTTITLE ""
+#define TESTARTIST ""
+#define TESTDATE ""
+#define TESTANNOTATION ""
+/* */
+
+/*
+ #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
+ #define TESTNUMCHANNELS 1
+ #define TESTSAMPLERATE 44100
+ #define TESTDURATIONINSAMPLES 39493
+ #define TESTDURATIONINSECONDS 0.89553288
+ #define TESTTITLE ""
+ #define TESTARTIST ""
+ #define TESTDATE ""
+ #define TESTANNOTATION ""
+ */
 
 TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 {
@@ -63,14 +86,14 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	}
 	
 	
-	// TEST 3: is the length in ms computed properly after setting length in samples?
-	TTFloat32 computedDuration3 = (numSamples / this->mSampleRate) * 1000.;	
+	// TEST 3: is the length in sec computed properly after setting length in samples?
+	TTFloat32 computedDuration3 = (numSamples / this->mSampleRate);	
 	
-	this->getAttributeValue("length", test3Return);				
+	this->getAttributeValue("lengthInSeconds", test3Return);				
 					
 	TTBoolean result3 = TTTestFloatEquivalence(computedDuration3, test3Return);
 				
-	TTTestAssertion("after lengthInSamples is set, length (in ms) is correct", 
+	TTTestAssertion("after lengthInSamples is set, lengthInSeconds is correct",
 								result3,
 								testAssertionCount, 
 								errorCount);
@@ -111,14 +134,14 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	}
 	
 									
-	// TEST 6: can we set the length in milliseconds?
-	this->setAttributeValue("length", duration);
+	// TEST 6: can we set the length in seconds?
+	this->setAttributeValue("lengthInSeconds", duration);
 	
-	this->getAttributeValue("length", test6Return);
+	this->getAttributeValue("lengthInSeconds", test6Return);
 
 	TTBoolean result6 = TTTestFloatEquivalence(duration, test6Return);
 
-	TTTestAssertion("length (in ms) is set properly", 
+	TTTestAssertion("lengthInSeconds is set properly",
 								result6,
 								testAssertionCount, 
 								errorCount);
@@ -130,13 +153,13 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 
 				
 	// TEST 7: is the length in samples computed properly after setting length in ms?
-	TTUInt32 computedSamples7 = TTUInt32(duration * this->mSampleRate * 0.001);	
+	TTUInt32 computedSamples7 = TTUInt32(duration * this->mSampleRate);	
 					
 	this->getAttributeValue("lengthInSamples", test7Return);				
 	
 	TTBoolean result7 = { computedSamples7 == test7Return };
 				
-	TTTestAssertion("after length (in ms) is set, lengthInSamples is correct", 
+	TTTestAssertion("after lengthInSeconds is set, lengthInSamples is correct",
 								result7,
 								testAssertionCount, 
 								errorCount);
@@ -355,6 +378,51 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test19expect, test19return);
 	}
 	
+    /********/
+    
+    // TEST 20: load values from a sound file
+    
+    TTInt16				numChannels20 = 2;
+	TTUInt32			numSamples20 = 500;  // TODO: xcode says this is ambiguous when signed?
+    
+    this->setAttributeValue("numChannels", numChannels20);
+    this->setAttributeValue("lengthInSamples", numSamples20);
+    
+    TTTestLog("\nThe samplematrix currently has %i samples and %i channels", numChannels20, numSamples20);
+    
+    // set up TTValues passed to the public method
+    TTValue loadInput, loadOuput;
+    loadInput.append(TT(TESTFILE));
+    
+    
+    TTBoolean result20 = { load(loadInput, loadOuput) == kTTErrNone };
+    
+    TTTestAssertion("load operates successfully",
+                    result20,
+                    testAssertionCount,
+                    errorCount);
+    
+    TTTestLog("Let's look at the first 10 values...");
+    
+    TTSampleValue return20b;
+    TTErr error20b;
+    
+    for (int channel=0;channel<numChannels20;channel++)
+    {
+        TTTestLog("Channel %i", channel);
+        for (int sample=0;sample<10;sample++)
+        {
+            error20b = this->peek(sample,channel,return20b);
+            if (error20b == kTTErrNone)
+            {
+                TTTestLog("peek sample %i returned the value %f", sample, return20b);
+            } else {
+                TTTestLog("peek returned an error for sample %i", sample);
+            }
+        }
+    }
+    
+    
 	/*
 	
 	int					badSampleCount = 0;

@@ -15,6 +15,7 @@
 
 #include "TTSampleMatrix.h"
 #include "TTInterpolate.h"
+#include "TTSoundfileLoader.h"
 
 #define thisTTClass			TTSampleMatrix
 #define thisTTClassName		"samplematrix"
@@ -43,7 +44,7 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	this->mBufferPoolStage = kSM_Idle;
 
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeInt32);
-	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);
+	addAttributeWithGetterAndSetter(LengthInSeconds,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
 	addAttribute(SampleRate,							kTypeFloat64);
 	addAttribute(				UserCount,				kTypeUInt16); 
@@ -85,16 +86,16 @@ TTErr TTSampleMatrix::getNumChannels(TTValue& returnedChannelCount)
 }
 
 
-TTErr TTSampleMatrix::setLength(const TTValue& newLength)
+TTErr TTSampleMatrix::setLengthInSeconds(const TTValue& newLength)
 {
-	TTValue newLengthInSamples = TTFloat64(newLength) * mSampleRate * 0.001;
+	TTValue newLengthInSamples = TTFloat64(newLength) * mSampleRate;
 	return setRowCount(newLengthInSamples);
 }
 
 
-TTErr TTSampleMatrix::getLength(TTValue& returnedLength)
+TTErr TTSampleMatrix::getLengthInSeconds(TTValue& returnedLength)
 {
-	returnedLength = (mLengthInSamples / mSampleRate) * 1000.0;
+	returnedLength = (mLengthInSamples / mSampleRate);
 	return kTTErrNone;
 }
 
@@ -134,14 +135,14 @@ TTErr TTSampleMatrix::decrementUserCount()
 
 TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 {
-	TTUInt32		sampleIndex;
-	TTUInt16		sampleChannel = 0;
+	TTRowID		sampleIndex;
+	TTColumnID		sampleChannel = 0;
 	TTSampleValue	sampleValue;
 	TTUInt8			i = 0;
 	TTErr			err;
 
 	index.get(i++, sampleIndex);
-	if (index.size() > 2)		// TODO: sure would be nice to change the name of this method to "size" or something...
+	if (index.size() > 2)
 		index.get(i++, sampleChannel);
 
 	err = peek(sampleIndex, sampleChannel, sampleValue);
@@ -150,12 +151,12 @@ TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 	return err;
 }
 
-TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value)
+TTErr TTSampleMatrix::peek(const TTRowID index, const TTColumnID channel, TTSampleValue& value)
 {
 	TTRowID p_index = index;
 	TTColumnID p_channel = channel;
 	
-	TTBoolean weAreNotInBounds = makeInBounds(p_index, p_channel); // out of range values are clipped
+	TTBoolean weAreNotInBounds = makeInBounds(p_index, p_channel); // out of range values are wrapped
 	get2d(p_index, p_channel, value);
 	
 	if (weAreNotInBounds)
@@ -168,7 +169,7 @@ TTErr TTSampleMatrix::peek(const TTUInt64 index, const TTUInt16 channel, TTSampl
 
 // a first attempt at interpolation for the SampleMatrix. should be viewed as temporary.
 // needs to be fleshed out with different options...
-TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value)
+TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTColumnID channel, TTSampleValue& value)
 {
 	// variables needed
     TTColumnID p_channel = channel;
@@ -176,7 +177,7 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 	TTFloat64 indexFractionalPart = modf(index, &indexIntegralPart); // before makeInBounds to get the right value!
 	TTRowID indexThisInteger = TTRowID(indexIntegralPart);
 	
-	TTBoolean weAreNotInBounds = makeInBounds(indexThisInteger, p_channel);  // out of range values are clipped
+	TTBoolean weAreNotInBounds = makeInBounds(indexThisInteger, p_channel);  // out of range values are wrapped
 	
 	if (weAreNotInBounds)
 	{
@@ -207,8 +208,8 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTUInt16 channel, TTSam
 */
 TTErr TTSampleMatrix::setValueAtIndex(const TTValue& index, TTValue& unusedOutput)
 {
-	TTUInt32		sampleIndex;
-	TTUInt16		sampleChannel = 0;
+	TTRowID		sampleIndex;
+	TTColumnID		sampleChannel = 0;
 	TTSampleValue	sampleValue;
 	TTUInt8			i = 0;
 
@@ -220,12 +221,12 @@ TTErr TTSampleMatrix::setValueAtIndex(const TTValue& index, TTValue& unusedOutpu
 	return poke(sampleIndex, sampleChannel, sampleValue);
 }
 
-TTErr TTSampleMatrix::poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value)
+TTErr TTSampleMatrix::poke(const TTRowID index, const TTColumnID channel, const TTSampleValue value)
 {
 	TTRowID p_index = index;
 	TTColumnID p_channel = channel;
 	
-	TTBoolean weAreNotInBounds = makeInBounds(p_index,p_channel);
+	TTBoolean weAreNotInBounds = makeInBounds(p_index,p_channel); // out of range values are wrapped
 	
 	if (weAreNotInBounds)
 	{
@@ -242,66 +243,66 @@ TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 {
 	TTSymbol		fillAlgorithm = value;
 	TTSampleValue	tempSample = 0.;
-	TTUInt32		tempIndex = 0;
+	TTRowID		tempIndex = 0;
 
 	if (fillAlgorithm == kTTSym_sine) {
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
+			for (TTRowID i=0; i<mLengthInSamples; i++)
 				set2d(i, channel, sin(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_sineMod) {							// (modulator version: ranges from 0.0 to 1.0, rather than -1.0 to 1.0)
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
+			for (TTRowID i=0; i<mLengthInSamples; i++)
 				set2d(i, channel, 0.5 + (0.5 * sin(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0)))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_cosine) {
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
+			for (TTRowID i=0; i<mLengthInSamples; i++)
 				set2d(i, channel, cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_cosineMod) {
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
+			for (TTRowID i=0; i<mLengthInSamples; i++)
 				set2d(i, channel, 0.5 + (0.5 * cos(kTTTwoPi * (i / (TTFloat64(mLengthInSamples) - 1.0)))));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_ramp) {
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
+			for (TTRowID i=0; i<mLengthInSamples; i++)
 				set2d(i, channel, -1.0 + (2.0 * (float(i) / mLengthInSamples)));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_rampMod) {
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
+			for (TTRowID i=0; i<mLengthInSamples; i++)
 				set2d(i, channel, float(i) / mLengthInSamples);
 		}
 	}
 	else if (fillAlgorithm == kTTSym_sawtooth) {
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
+			for (TTRowID i=0; i<mLengthInSamples; i++)
 				set2d(mLengthInSamples-i, channel, -1.0 + (2.0 * (float(i) / mLengthInSamples)));
 		}
 	}
 	else if (fillAlgorithm == kTTSym_sawtoothMod) {
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt64 i=0; i<mLengthInSamples; i++)
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
+			for (TTRowID i=0; i<mLengthInSamples; i++)
 				set2d(mLengthInSamples-i, channel, float(i) / mLengthInSamples);
 		}
 	}
 	else if (fillAlgorithm == kTTSym_triangle) {
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
 			tempIndex = 3*mLengthInSamples/4;
-			for (TTUInt32 i=0; i < mLengthInSamples/4; i++) {
+			for (TTRowID i=0; i < mLengthInSamples/4; i++) {
 				tempSample = -1.0 + (4.0 * (float(i) / mLengthInSamples));
 				set2d(i+tempIndex, channel, tempSample);
 				set2d(tempIndex-i, channel, tempSample);
 			}
 			tempIndex = mLengthInSamples/2;
-			for (TTUInt32 i=0; i < mLengthInSamples/4; i++) {
+			for (TTRowID i=0; i < mLengthInSamples/4; i++) {
 				tempSample = 4.0 * (float(i) / mLengthInSamples);
 				set2d(i, channel, tempSample);
 				set2d(tempIndex-i, channel, tempSample);
@@ -309,8 +310,8 @@ TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 		}
 	}
 	else if (fillAlgorithm == kTTSym_triangleMod) {
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
-			for (TTUInt32 i=0; i < mLengthInSamples/2; i++) {
+		for (TTColumnID channel=0; channel<mNumChannels; channel++) {
+			for (TTRowID i=0; i < mLengthInSamples/2; i++) {
 				set2d(i, channel, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
 				set2d(mLengthInSamples-i, channel, -1.0 + (4.0 * (float(i) / mLengthInSamples)));
 			}
@@ -320,11 +321,37 @@ TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 	return kTTErrNone;
 }
 
+TTErr   TTSampleMatrix::load(const TTValue& input, TTValue& unusedOutput)
+{
+    /* * * 
+     Beware this method is still in progress
+     It will eventually work with the TTSoundfileLoader class
+     * * */
+    
+    TTValue inputWithPointerPrepended = input;
+    TTObjectBase* objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(this));
+    inputWithPointerPrepended.prepend(objectBasePtrToSampleMatrix);
+    
+    try {
+        
+        // first instantiate the SoundfileLoader object
+        TTAudioObject fileToLoad("soundfile.loader");
+        
+        // then pass along the updated TTValue to its load() method
+        return fileToLoad.send("load", inputWithPointerPrepended, unusedOutput);
+        
+    } catch (...) {
+        return kTTErrInstantiateFailed;
+    }
+
+}
+
+
 
 TTErr TTSampleMatrix::normalize(const TTValue& aValue)
 {
 	TTFloat64			normalizeTo = 1.0;
-	TTRowID				m = mLengthInSamples; // mFrameLength
+	TTRowID			m = mLengthInSamples; // mFrameLength
 	TTColumnID			n = mNumChannels; // mNumChannels
 	TTSampleValuePtr	samples = (TTSampleValuePtr)getLockedPointer();
 	TTFloat64			peakValue = 0.0;

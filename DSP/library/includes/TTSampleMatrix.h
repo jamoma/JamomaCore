@@ -22,8 +22,14 @@
 
 #include "TTDSP.h"
 
+// the following definitions allow our code the use audio related terms
+// while still maintaining connection to the definitions set in #TTMatrix.
+// hopefully this will reduce confusion [NW]
 #define mLengthInSamples mRowCount
 #define mNumChannels mColumnCount
+
+// any sample/frame index should use type definition TTRowID
+// any channel index should use type definition TTColumnID
 
 /** @enum bufferPoolStages
 	@brief Defines the stages used when TTSampleMartix is part of a pool available in TTBuffer
@@ -59,20 +65,15 @@ public:
 	TTErr setNumChannels(const TTValue& newNumChannels);
 	TTErr getNumChannels(TTValue& returnedNumChannels);
 
-	/**	Attribute accessor: set the buffer length specified in milliseconds.
+	/**	Attribute accessor: set the buffer length specified in seconds.
 		@return Returns a TTErr error code.	*/
-	TTErr setLength(const TTValue& newLength);
- 	TTErr getLength(TTValue& returnedLength);
+	TTErr setLengthInSeconds(const TTValue& newLength);
+ 	TTErr getLengthInSeconds(TTValue& returnedLength);
          
 	/**	Attribute accessor: set the buffer length specified as a number of samples.
 		@return Returns a TTErr error code.	*/
 	TTErr setLengthInSamples(const TTValue& newLengthInSamples);
  	TTErr getLengthInSamples(TTValue& returnedLengthInSamples);	
-  	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)
-	{
-		returnedLengthInSamples = mLengthInSamples;
-		return kTTErrNone;
-	}
 	
 	/** Increase the user count by one. 
 		The userCount member is used to track usage of an individual TTSampleMatrix.  When another object makes use of a specific matrix, the code should use this method to increase the user counter prior to the start of use.
@@ -130,8 +131,8 @@ public:
 	}
 
 	TTErr	getValueAtIndex(const TTValue& index, TTValue &output);
-	TTErr	peek(const TTUInt64 index, const TTUInt16 channel, TTSampleValue& value);
-	TTErr	peeki(const TTFloat64 index, const TTUInt16 channel, TTSampleValue& value);
+	TTErr	peek(const TTRowID index, const TTColumnID channel, TTSampleValue& value);
+	TTErr	peeki(const TTFloat64 index, const TTColumnID channel, TTSampleValue& value);
 	
 	/**	Set the sample value for a given index.
 		The first number passed in the index parameter will be interpreted as the sample index.
@@ -139,10 +140,21 @@ public:
 		The final value will be used as the sample value that will be copied to the designated index.
 	*/
 	TTErr	setValueAtIndex(const TTValue& index, TTValue& unusedOutput);
-	TTErr	poke(const TTUInt64 index, const TTUInt16 channel, const TTSampleValue value);
+	TTErr	poke(const TTRowID index, const TTColumnID channel, const TTSampleValue value);
 	
 	/** Set the contents of the buffer using a specified algorithm and, if appropriate, coefficients for that algorithm. */
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput);
+    
+    /** Load sample values from a soundfile into the TTSampleMatrix. This method is dependant on the SoundfileLib extension which handles operations on sound files using third-party libraries.
+     @param[in]     input           Multi-item TTValue used to set the copy parameters:
+     -# TTSymbol containing the filepath
+     -# (optional) channel to copy from source, default is 0
+     -# (optional) frame to start copy from source, default is 0
+     -# (optional) frame to stop copy from source, default is last
+     @param[out]    unusedOutput    not used
+     @return        TTErr           kTTErrNone load was successful. kTTErrInstantiateFailed if the TTSoundfileLoader could not be instantiated. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
+     */
+    TTErr   load(const TTValue& input, TTValue& unusedOutput);
 
 	/**	Normalize the contents of a buffer.
 		If no arg is passed, then the buffer is normalized to 1.0.

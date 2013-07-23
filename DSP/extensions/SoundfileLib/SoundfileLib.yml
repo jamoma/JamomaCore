@@ -1,11 +1,15 @@
 
 sources:
   - SoundfileLib.cpp
-  - TTSoundfilePlayer.cpp
-  - TTSoundfileRecorder.cpp
+  - sources/TTSoundfile.cpp
+  - sources/TTSoundfileLoader.cpp
+  - sources/TTSoundfilePlayer.cpp
+  - sources/TTSoundfileRecorder.cpp
+  - tests/TTSoundfile.test.cpp
+  - tests/TTSoundfileLoader.test.cpp
   
 includes:
-  - "."
+  - "includes"
   - "libsndfile"
   - "../../library/includes"
   - "../../../Foundation/library/includes"
