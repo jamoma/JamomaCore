@@ -30,20 +30,11 @@ TTGain::~TTGain()
 {
 	;
 }
-/*
-TTErr TTGain::setInterpolated(const TTValue& newValue)
-{
-	mInterpolated = newValue;
-	if (mInterpolated)
-		setProcessMethod(processAudioInterpolated);
-	else 
-		setProcessMethod(processAudio);	
-	return kTTErrNone;
-}*/
+
+
 
 TTErr TTGain::setGain(const TTValue& newValue)
 {   
-	//oldGain = mGain;
 	mGain = TTDecibelsToLinearGain(newValue);
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
@@ -62,7 +53,6 @@ TTErr TTGain::getGain(TTValue& value)
 
 TTErr TTGain::setMidiGain(const TTValue& newValue)
 {
-	//oldGain = mGain;
 	mGain = TTMidiToLinearGain(newValue);
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
