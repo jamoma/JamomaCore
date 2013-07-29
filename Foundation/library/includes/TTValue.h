@@ -390,6 +390,7 @@ public:
 					
 		TTUInt32					n = 0;
 		TTInt32						convertedInt;
+        TTUInt32					convertedUInt;
 		TTFloat32					convertedFloat;
 		std::vector<std::string>	strList;
 		std::string					str(TTString(at(0)));
@@ -413,6 +414,11 @@ public:
 			if (currentString.toTTInt32(convertedInt) && !numberAsSymbol) {
                 
 				at(n) = int(convertedInt);
+				n++;
+			}
+            else if (currentString.toTTUInt32(convertedUInt) && !numberAsSymbol) {
+                
+				at(n) = TTUInt32(convertedUInt);
 				n++;
 			}
 			else if (currentString.toTTFloat32(convertedFloat) && !numberAsSymbol) {
