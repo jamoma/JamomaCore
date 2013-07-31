@@ -25,6 +25,9 @@ typedef TTApplication* TTApplicationPtr;
 class Protocol;
 typedef Protocol* ProtocolPtr;
 
+class TTXmlHandler;
+typedef TTXmlHandler* TTXmlHandlerPtr;
+
 /**	TTApplicationManager ... TODO : an explanation
  
  
@@ -125,6 +128,8 @@ private:
 	/**  needed to be handled by a TTXmlHandler 
 		 read/write local and distant applications setup */
 	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+    TTErr writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, ProtocolPtr aProtocol);
+    
 	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
