@@ -1,10 +1,16 @@
-/*
- * Jamoma Dataspace Library
- * Copyright © 2007
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief Specification for #TTDataspaceConverter, the base class of dataspace converters.
+ *
+ * @authors Tim Place, Trond Lossius, ...
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDataspaceConverter.h"
 

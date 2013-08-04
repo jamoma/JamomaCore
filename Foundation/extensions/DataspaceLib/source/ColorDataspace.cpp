@@ -1,10 +1,31 @@
-/* 
- * Jamoma DataspaceLib: ColorDataspace
- * Copyright © 2007, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #ColorDataspace converts between different measurement units describing colors.
+ *
+ * @details Possible units are CMY, HSL, HSV, RGB and RGB8. The neutral unit of the color dataspace is RGB where each of the color values is normalised to the [0, 1] range.@n
+ * @n
+ * @n
+ * Code for RGB <-> HSV convertion is in part based on source code provided by Marcelo Gattass:@n
+ * http://www.tecgraf.puc-rio.br/~mgattass/color/ColorIndex.html @n
+ * Last retrieved 2009-07-30 @n
+ * @n
+ * License: @n
+ * @n
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: @n
+ * @n
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. @n
+ * @n
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @authors Tim Place, Trond Lossius, Nils Peters, ...
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "ColorDataspace.h"
 

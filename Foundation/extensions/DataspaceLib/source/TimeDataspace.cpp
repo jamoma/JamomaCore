@@ -1,10 +1,18 @@
-/* 
- * Jamoma DataspaceLib: TimeDataspace
- * Copyright © 2007, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #TimeDataspace converts between different measurement untis describing time intervals and frequencies.
+ *
+ * @details The neutral unit of the time dataspace is _second (s)_.
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius, ...
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TimeDataspace.h"
 #include "TTFoundationAPI.h"

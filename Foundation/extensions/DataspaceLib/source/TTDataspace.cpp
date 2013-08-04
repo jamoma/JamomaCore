@@ -1,10 +1,16 @@
-/*
- * Jamoma Dataspace Library
- * Copyright © 2007
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief Specification for #TTDataspace, the base class of each dataspace.
+ *
+ * @authors Tim Place, Trond Lossius, ...
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDataspace.h"
 
