@@ -22,7 +22,7 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     // Create dataspace object and set to temperature
     TTObjectBasePtr         myDataspace = NULL;
     TTErr err;
-    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, kTTValNONE);
+    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, 0);
 	myDataspace->setAttributeValue(TT("dataspace"), TT("temperature"));
     
     TTValue v;

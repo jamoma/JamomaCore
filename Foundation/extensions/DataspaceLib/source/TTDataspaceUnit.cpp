@@ -17,7 +17,7 @@
 #include "TTDataspaceUnit.h"
 
 
-TTDataspaceUnit::TTDataspaceUnit(TTValue& arguments)
+TTDataspaceUnit::TTDataspaceUnit(TTValue arguments)
 {
 	arguments.get(0, name);
 }

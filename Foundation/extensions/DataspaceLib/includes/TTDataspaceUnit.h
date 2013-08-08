@@ -33,7 +33,7 @@ public:
 	/** Constructor. Must be passed the name of this DataspaceUnit as a TTSymbolPtr.
 	 @param arguments		Arguments passed to the class when created.
 	 */
-	TTDataspaceUnit(TTValue& arguments);
+	TTDataspaceUnit(TTValue arguments);
 	
 	/** Destructor.
 	 */

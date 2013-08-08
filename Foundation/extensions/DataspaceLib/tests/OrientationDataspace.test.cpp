@@ -23,7 +23,7 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     // Create dataspace object and set to angle
     TTObjectBasePtr         myDataspace = NULL;
     TTErr err;
-    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, kTTValNONE);
+    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, 0);
 	myDataspace->setAttributeValue(TT("dataspace"), TT("orientation"));
     
     TTValue v;
