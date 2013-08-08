@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22784E9D17B407D50053393C /* TTDCBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22784E9C17B407D50053393C /* TTDCBlock.cpp */; };
 		22961B4816D9108F00C0C657 /* TTAudioObjectBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22961B4716D9108F00C0C657 /* TTAudioObjectBase.cpp */; };
 		2A23B0DF169D5445004793F5 /* TTAudioObjectArray.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76CD1CB166479BD0002EC35 /* TTAudioObjectArray.test.cpp */; };
 		2A23B0E0169D5445004793F5 /* TTBuffer.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7E15EC21D100B755FA /* TTBuffer.test.cpp */; };
@@ -36,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		2202FDCC1763791E002EC750 /* TTAudioObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = includes/TTAudioObject.h; sourceTree = "<group>"; };
+		22784E9C17B407D50053393C /* TTDCBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDCBlock.cpp; path = source/TTDCBlock.cpp; sourceTree = "<group>"; };
+		22784E9F17B408080053393C /* TTDCBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDCBlock.h; path = includes/TTDCBlock.h; sourceTree = "<group>"; };
 		22961B4616D9108000C0C657 /* TTAudioObjectBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioObjectBase.h; path = includes/TTAudioObjectBase.h; sourceTree = "<group>"; };
 		22961B4716D9108F00C0C657 /* TTAudioObjectBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObjectBase.cpp; path = source/TTAudioObjectBase.cpp; sourceTree = "<group>"; };
 		22C57C6A15EC21B200B755FA /* TTAudioObjectArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioObjectArray.h; path = includes/TTAudioObjectArray.h; sourceTree = "<group>"; };
@@ -136,6 +139,10 @@
 				2202FDCC1763791E002EC750 /* TTAudioObject.h */,
 				22961B4616D9108000C0C657 /* TTAudioObjectBase.h */,
 				22961B4716D9108F00C0C657 /* TTAudioObjectBase.cpp */,
+				22784E9F17B408080053393C /* TTDCBlock.h */,
+				22784E9C17B407D50053393C /* TTDCBlock.cpp */,
+				22C57C7015EC21B200B755FA /* TTDelay.h */,
+				22C57C7B15EC21C600B755FA /* TTDelay.cpp */,
 				A752BBE016373BA1007CE627 /* includes */,
 				A752BBE216373BC5007CE627 /* sources */,
 				A752BBE316373BCC007CE627 /* tests */,
@@ -174,7 +181,6 @@
 				22C57C6B15EC21B200B755FA /* TTAudioSignal.h */,
 				22C57C6D15EC21B200B755FA /* TTAudioSignalArray.h */,
 				22C57C6E15EC21B200B755FA /* TTBuffer.h */,
-				22C57C7015EC21B200B755FA /* TTDelay.h */,
 				22C57C7115EC21B200B755FA /* TTDelayBuffer.h */,
 				22C57C7215EC21B200B755FA /* TTDSP.h */,
 				22C57C7315EC21B200B755FA /* TTSampleMatrix.h */,
@@ -189,7 +195,6 @@
 				22C57C7815EC21C600B755FA /* TTAudioSignal.cpp */,
 				22C57C7915EC21C600B755FA /* TTAudioSignalArray.cpp */,
 				22C57C7A15EC21C600B755FA /* TTBuffer.cpp */,
-				22C57C7B15EC21C600B755FA /* TTDelay.cpp */,
 				22C57C7C15EC21C600B755FA /* TTDSP.cpp */,
 				22C57C7D15EC21C600B755FA /* TTSampleMatrix.cpp */,
 			);
@@ -336,6 +341,7 @@
 				2A23B0E1169D5445004793F5 /* TTDelay.test.cpp in Sources */,
 				2A23B0E2169D5445004793F5 /* TTSampleMatrix.test.cpp in Sources */,
 				22961B4816D9108F00C0C657 /* TTAudioObjectBase.cpp in Sources */,
+				22784E9D17B407D50053393C /* TTDCBlock.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

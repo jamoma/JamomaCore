@@ -25,7 +25,6 @@ sources:
   - source/TTLowpassButterworth4.cpp
   - source/TTBandrejectButterworth2.cpp	
   - source/TTLowpassFourPole.cpp
-  - source/TTDCBlock.cpp			
   - source/TTLowpassLinkwitzRiley2.cpp
   - source/TTFilter.cpp			
   - source/TTLowpassLinkwitzRiley4.cpp
@@ -53,7 +52,6 @@ sources:
   - tests/TTAllpass4a.test.cpp
   - tests/TTBandpassButterworth2.test.cpp
   - tests/TTBandrejectButterworth2.test.cpp
-  - tests/TTDCBlock.test.cpp
   - tests/TTFilter.test.cpp
   - tests/TTHalfband3.test.cpp
   - tests/TTHalfband5.test.cpp

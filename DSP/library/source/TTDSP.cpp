@@ -58,6 +58,7 @@ int main(void)
 #include "TTAudioObjectArray.h"
 #include "TTAudioSignal.h"
 #include "TTBuffer.h"
+#include "TTDCBlock.h"
 #include "TTDelay.h"
 
 
@@ -67,6 +68,7 @@ void TTDSPRegisterInternalClasses()
 	TTAudioSignal::registerClass();
 	TTAudioSignalArray::registerClass();
 	TTBuffer::registerClass();
+	TTDCBlock::registerClass();
 	TTDelay::registerClass();
 	TTSampleMatrix::registerClass();
 }

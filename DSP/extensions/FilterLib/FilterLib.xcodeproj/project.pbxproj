@@ -20,7 +20,6 @@
 		2A23ACA0169CFDEB004793F5 /* TTAllpass4a.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF401D165D7AC900130C98 /* TTAllpass4a.cpp */; };
 		2A23ACA1169CFDEB004793F5 /* TTBandpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF401E165D7AC900130C98 /* TTBandpassButterworth2.cpp */; };
 		2A23ACA2169CFDEB004793F5 /* TTBandrejectButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF401F165D7AC900130C98 /* TTBandrejectButterworth2.cpp */; };
-		2A23ACA3169CFDEB004793F5 /* TTDCBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4020165D7AC900130C98 /* TTDCBlock.cpp */; };
 		2A23ACA4169CFDEB004793F5 /* TTFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4021165D7AC900130C98 /* TTFilter.cpp */; };
 		2A23ACA5169CFDEB004793F5 /* TTHalfband3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4022165D7AC900130C98 /* TTHalfband3.cpp */; };
 		2A23ACA6169CFDEB004793F5 /* TTHalfband5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FF4023165D7AC900130C98 /* TTHalfband5.cpp */; };
@@ -164,7 +163,6 @@
 		A7FF401D165D7AC900130C98 /* TTAllpass4a.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass4a.cpp; path = source/TTAllpass4a.cpp; sourceTree = "<group>"; };
 		A7FF401E165D7AC900130C98 /* TTBandpassButterworth2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandpassButterworth2.cpp; path = source/TTBandpassButterworth2.cpp; sourceTree = "<group>"; };
 		A7FF401F165D7AC900130C98 /* TTBandrejectButterworth2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandrejectButterworth2.cpp; path = source/TTBandrejectButterworth2.cpp; sourceTree = "<group>"; };
-		A7FF4020165D7AC900130C98 /* TTDCBlock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDCBlock.cpp; path = source/TTDCBlock.cpp; sourceTree = "<group>"; };
 		A7FF4021165D7AC900130C98 /* TTFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTFilter.cpp; path = source/TTFilter.cpp; sourceTree = "<group>"; };
 		A7FF4022165D7AC900130C98 /* TTHalfband3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfband3.cpp; path = source/TTHalfband3.cpp; sourceTree = "<group>"; };
 		A7FF4023165D7AC900130C98 /* TTHalfband5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTHalfband5.cpp; path = source/TTHalfband5.cpp; sourceTree = "<group>"; };
@@ -358,7 +356,6 @@
 				A7FF401D165D7AC900130C98 /* TTAllpass4a.cpp */,
 				A7FF401E165D7AC900130C98 /* TTBandpassButterworth2.cpp */,
 				A7FF401F165D7AC900130C98 /* TTBandrejectButterworth2.cpp */,
-				A7FF4020165D7AC900130C98 /* TTDCBlock.cpp */,
 				A7FF4021165D7AC900130C98 /* TTFilter.cpp */,
 				A7FF4022165D7AC900130C98 /* TTHalfband3.cpp */,
 				A7FF4023165D7AC900130C98 /* TTHalfband5.cpp */,
@@ -519,7 +516,6 @@
 				2A23ACA0169CFDEB004793F5 /* TTAllpass4a.cpp in Sources */,
 				2A23ACA1169CFDEB004793F5 /* TTBandpassButterworth2.cpp in Sources */,
 				2A23ACA2169CFDEB004793F5 /* TTBandrejectButterworth2.cpp in Sources */,
-				2A23ACA3169CFDEB004793F5 /* TTDCBlock.cpp in Sources */,
 				2A23ACA4169CFDEB004793F5 /* TTFilter.cpp in Sources */,
 				2A23ACA5169CFDEB004793F5 /* TTHalfband3.cpp in Sources */,
 				2A23ACA6169CFDEB004793F5 /* TTHalfband5.cpp in Sources */,

@@ -6,6 +6,7 @@ sources:
   - source/TTAudioSignalArray.cpp
   - source/TTBuffer.cpp
   - source/TTSampleMatrix.cpp
+  - source/TTDCBlock.cpp			
   - source/TTDelay.cpp
   - source/TTDSP.cpp
   - tests/TTAudioObjectArray.test.cpp
