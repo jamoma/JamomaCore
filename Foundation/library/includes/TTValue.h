@@ -96,7 +96,6 @@ private:
 public:
 
 	void clear() {
-		std::cout << "hi" << std::endl;
 		TTElementVector::clear();
 	}
 	
