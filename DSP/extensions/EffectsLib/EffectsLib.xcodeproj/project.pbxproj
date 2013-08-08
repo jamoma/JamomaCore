@@ -38,6 +38,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		22784E9A17B403380053393C /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		22784E9B17B403740053393C /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		2AD78884169CFD1C00604D7C /* libEffectsLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEffectsLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD78887169CFD1C00604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2AD7888B169CFD1C00604D7C /* EffectsLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EffectsLibIOS-Prefix.pch"; sourceTree = "<group>"; };
@@ -115,7 +117,9 @@
 		A738FF4E163739D100BD5C89 = {
 			isa = PBXGroup;
 			children = (
+				22784E9A17B403380053393C /* Makefile */,
 				A789657217A6C4FC0053FC83 /* EffectsLib.cpp */,
+				22784E9B17B403740053393C /* test.cpp */,
 				A752BBCF16373A19007CE627 /* includes */,
 				A752BBD916373A37007CE627 /* sources */,
 				A752BBDC16373A4B007CE627 /* tests */,

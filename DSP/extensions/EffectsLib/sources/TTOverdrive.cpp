@@ -36,7 +36,7 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue("mode",		1);
 	setAttributeValue("preamp",		0.0);
 	setAttributeValue("drive",		3.0);
-	setAttributeValue("dcBlocker",	kTTBoolYes);
+	setAttributeValue("dcBlocker",	YES);
 }
 
 
