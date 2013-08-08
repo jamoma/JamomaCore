@@ -113,9 +113,9 @@ void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
 					errorCount);
     
     d1.getKeys(v);
-    TTSymbol k1 = v[0];
+    TTSymbol k1 = v[2];
     TTSymbol k2 = v[1];
-    TTSymbol k3 = v[2];
+    TTSymbol k3 = v[0];
     
     TTTestAssertion("TTDictionary get keys : Test fails if the dictionary keys are not \"schema\", \"value\" and \"gain\" or the size is not 3",
                     k1 == kTTSym_schema &&
@@ -127,8 +127,8 @@ void TTDictionaryTestBasic(int& errorCount, int& testAssertionCount)
     
     d1.remove(kTTSym_gain);
     d1.getKeys(v);
-    k1 = v[0];
-    k2 = v[1];
+    k1 = v[1];
+    k2 = v[0];
     
     TTTestAssertion("TTDictionary remove key : Test fails if the dictionary keys are not \"schema\" and \"value\" or the size is not 2",
                     k1 == kTTSym_schema &&
