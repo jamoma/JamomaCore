@@ -1,12 +1,18 @@
-/* 
- * Jamoma DataspaceLib: GainDataspace
- * Copyright � 2007, Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
- * http://creativecommons.org/licenses/BSD/
+/** @file
  *
- * Neutral unit is linear amplitude
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #GainDataspace converts between different measurement untis describing audio gain.
+ *
+ * @details The neutral unit of the gain dataspace is _linear gain_.
+ *
+ * @authors Trond Lossius, Tim Place, Nils Peters, ...
+ *
+ * @copyright Copyright © 2007 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "GainDataspace.h"
 #include <math.h>

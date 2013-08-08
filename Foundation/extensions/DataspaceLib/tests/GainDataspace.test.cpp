@@ -1,10 +1,16 @@
-/* 
- * Jamoma DataspaceLib: GainDataspace unit tests
- * Copyright © 2011 Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief Unit tests for the #GainDataspace.
+ *
+ * @authors Trond Lossius, Tim Place, Nils Peters, ...
+ *
+ * @copyright Copyright © 2011 Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "GainDataspace.h"
 

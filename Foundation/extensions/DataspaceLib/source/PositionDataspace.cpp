@@ -1,15 +1,18 @@
-/* 
- * Jamoma DataspaceLib: PositionDataspace
- * Copyright � 2007, Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
- * http://creativecommons.org/licenses/BSD/
- 
- * Based on code by Trond Lossius, � 2007 and
- *					Jan Schacher / ICST Zurich � 2006 
+/** @file
  *
- * 
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #PositionDataspace converts between different untis describing position.
+ *
+ * @details The neutral unit of the position dataspace is 3-dimensional Cartesian coordinates.
+ *
+ * @authors Nils Peters, Trond Lossius, Jan Schacher, Tim Place, ...
+ *
+ * @copyright Copyright © 2007 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "PositionDataspace.h"
 

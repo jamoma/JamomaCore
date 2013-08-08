@@ -21,10 +21,10 @@
 #ifdef uint
 #undef uint
 #endif
-#include "libsndfile/sndfile.h"
+#include "../libsndfile/sndfile.h"
 
 
-/**	The simplest of lowpass filters: a single-pole, no-zero algorithm. */
+/**	Enables user to play a soundfile from disk */
 class TTSoundfilePlayer : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTSoundfilePlayer)
 

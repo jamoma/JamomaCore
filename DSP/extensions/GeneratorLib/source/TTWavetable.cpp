@@ -261,7 +261,7 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 
 		// table lookup (linear interpolation)
 		// CURRENTLY: this is hard coded to look only at the first channel, and all other channels in the buffer are ignored
-		mWavetable->peek(mIndex,0,tempSample);
+		mWavetable->peeki(mIndex,0,tempSample);
 		tempSample *= mLinearGain;
 		for (channel=0; channel<numChannels; channel++)
 			out.mSampleVectors[channel][i] = tempSample;
