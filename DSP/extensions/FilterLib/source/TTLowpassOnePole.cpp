@@ -19,13 +19,13 @@ extern "C" void TTLowpassOnePole::registerClass()
 }
 
 
-TTObjectBasePtr TTLowpassOnePole::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTLowpassOnePole::instantiate(TTSymbol name, TTValue arguments)
 {
 	return new TTLowpassOnePole(arguments);
 }
 
 
-TTLowpassOnePole::TTLowpassOnePole(TTValue& arguments):
+TTLowpassOnePole::TTLowpassOnePole(const TTValue& arguments):
 	TTOnePole(arguments)
 {
 	;
