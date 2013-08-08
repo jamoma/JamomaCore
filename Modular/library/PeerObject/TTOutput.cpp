@@ -164,13 +164,13 @@ TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 	
 	else if (mFreeze) {
 		
-		err = mReturnSignalCallback->notify(mLast, kTTValNONE);
+		err = mReturnSignalCallback->deliver(mLast);
 		
 		notifySignalObserver(mLast);
 	}
 	else {
 		
-		err = mReturnSignalCallback->notify(inputValue, kTTValNONE);
+		err = mReturnSignalCallback->deliver(inputValue);
 		
 		notifySignalObserver(inputValue);
 	}
@@ -184,7 +184,8 @@ TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 {
-	return Send(inputValue, kTTValNONE);
+	TTValue dummy;
+	return Send(inputValue, dummy);
 }
 
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
@@ -192,7 +193,7 @@ TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 	mInputObject = TTInputPtr((TTObjectBasePtr)inputValue[0]);
 	
 	if (mReturnLinkCallback)
-		return mReturnLinkCallback->notify(kTTVal1, kTTValNONE);
+		return mReturnLinkCallback->deliver(1);
 	else
 		return kTTErrNone;
 }
@@ -202,7 +203,7 @@ TTErr TTOutput::Unlink()
 	mInputObject = NULL;
 	
 	if (mReturnLinkCallback)
-		return mReturnLinkCallback->notify(kTTVal0, kTTValNONE);
+		return mReturnLinkCallback->deliver(0);
 	else
 		return kTTErrNone;
 }
@@ -215,7 +216,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	TTNodePtr		aNode;
 	TTObjectBasePtr		o;
 	TTValue			n = value;		// use new value to protect the attribute
-	
+	TTValue dummy;
 	newAddress = value[0];
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
@@ -223,7 +224,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		o = aNode->getObject();
 		if (o)
 			if (o->getName() == kTTSym_Input)
-				Link(o, kTTValNONE);
+				Link(o, dummy);
 	}
 
 	if (!mAddressObserver) {
@@ -325,7 +326,8 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 					
 				case kAddressCreated :
 				{
-					anOutput->Link(o, kTTValNONE);
+					TTValue unused;
+					anOutput->Link(o, unused);
 					break;
 				}
 					

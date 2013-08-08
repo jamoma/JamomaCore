@@ -20,7 +20,7 @@
 #define thisTTClassTags		"input"
 
 
-TTObjectBasePtr TTInputAudio::instantiate (TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTInputAudio::instantiate (TTSymbol name, TTValue arguments)
 {
 	return new TTInputAudio(arguments);
 }
@@ -32,7 +32,7 @@ extern "C" void TTInputAudio::registerClass()
 }
 
 
-TTInputAudio :: TTInputAudio (TTValue& arguments) :
+TTInputAudio :: TTInputAudio (const TTValue& arguments) :
 TTInput(arguments)
 {
 	mType = "audio";

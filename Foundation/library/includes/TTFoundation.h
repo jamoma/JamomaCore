@@ -32,7 +32,7 @@
 		@ingroup macros
 	*/
 #define TT_OBJECT_CONSTRUCTOR \
-	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, const TTValue& arguments) {return new thisTTClass (arguments);} \
+	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, const TTValue arguments) {return new thisTTClass (arguments);} \
 	\
 	extern "C" void thisTTClass :: registerClass () {TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );} \
 	\
@@ -42,7 +42,7 @@
 		@ingroup macros
 	*/
 #define TT_BASE_OBJECT_CONSTRUCTOR \
-	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, const TTValue& arguments) {return new thisTTClass (arguments);} \
+	TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, const TTValue arguments) {return new thisTTClass (arguments);} \
 	\
 	extern "C" void thisTTClass :: registerClass () {TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );} \
 	\
@@ -56,7 +56,7 @@
 	public:																		\
 		static void registerClass();											\
 	protected:																	\
-		static TTObjectBasePtr instantiate (TTSymbol& name, const TTValue& arguments);	\
+		static TTObjectBasePtr instantiate (TTSymbol name, const TTValue arguments);	\
 		/** Constructor */														\
 		className (const TTValue& arguments);											\
 		/** Destructor */														\

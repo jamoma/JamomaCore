@@ -771,7 +771,7 @@ TTErr TTExplorer::returnResultBack()
 			result = keys;
 		
 		// filter repetitions of a same result (but output empty result)
-		if (!(result == mLastResult) || result == kTTValNONE) {
+		if (!(result == mLastResult) || result.empty()) {
 			
 			// update namespace
 			aNamespace = lookupNamespace(mNamespace);
@@ -792,9 +792,11 @@ TTErr TTExplorer::returnResultBack()
 					aNamespace->append(relativeAddress, &anItem);
 				}
 			}
+			TTValue dummy;
 			
+
 			mLastResult = result;
-			mReturnValueCallback->notify(result, kTTValNONE);
+			mReturnValueCallback->notify(result, dummy);
 			
 			returnSelectionBack();
 		}
@@ -835,8 +837,10 @@ TTErr TTExplorer::returnSelectionBack()
 			if (anItem)
 				selection.append(anItem->getSelection());
 		}
+		TTValue dummy;
 		
-		return mReturnSelectionCallback->notify(selection, kTTValNONE);
+		
+		return mReturnSelectionCallback->notify(selection, dummy);
 	}
 	
 	return kTTErrGeneric;
@@ -919,7 +923,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 		}
 	}
 	
-	if (keys == kTTValNONE)
+	if (keys.empty())
 		return kTTErrGeneric;
 	
 	// Add or remove names depending on 

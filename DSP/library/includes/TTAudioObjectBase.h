@@ -193,7 +193,7 @@ protected:
 	 @details Requires that the maximum number of channels to be used with this instance is defined.
 	 @param arguments	Arguments to the constructor.
 	 */
-	TTAudioObjectBase(TTValue& arguments);
+	TTAudioObjectBase(const TTValue& arguments);
 	
 	
 public:

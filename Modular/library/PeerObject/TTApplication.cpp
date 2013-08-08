@@ -753,7 +753,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                         
                         anObject->getAttributeValue(attributeName, v);
                         
-                        if (v == kTTValNONE)
+                        if (v.empty())
                             continue;
                         
                         v.toString();

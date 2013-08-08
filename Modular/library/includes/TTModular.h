@@ -82,11 +82,11 @@
 // Macros
 
 #define TT_MODULAR_CONSTRUCTOR \
-TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObjectBase(arguments)
+thisTTClass :: thisTTClass (const TTValue& arguments) : TTDataObjectBase(arguments)
 
 
 

@@ -75,7 +75,7 @@ TTErr TTAudioObjectBaseArray::setSize(const TTValueRef newSize)
 	// 3. create the new instances (if the class has been defined)
 	if (mClass) {
 		for (TTAudioObjectBaseIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
-			TTObjectBaseInstantiate(mClass, &(*obj), kTTVal1);
+			TTObjectBaseInstantiate(mClass, &(*obj), 1);
 	}
 
 	return kTTErrNone;

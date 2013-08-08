@@ -561,7 +561,11 @@ public:
 typedef TTValue* TTValuePtr;
 typedef TTValue& TTValueRef;
 typedef const TTValue& TTValueConstRef;
-	
-	
+
+// dumb global which is an empty / uninitialized symbol -- you shouldn't use it.
+// it's only here for backwards compatibility reasons.
+typedef void* TTNoValue;
+#define kTTValNONE (TTNoValue(0))
+
 #endif // __TT_VALUE_H__
 

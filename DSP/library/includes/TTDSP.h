@@ -49,11 +49,11 @@
 // Macros
 
 #define TT_AUDIO_CONSTRUCTOR \
-TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : TTAudioObjectBase(arguments)
+thisTTClass :: thisTTClass (const TTValue& arguments) : TTAudioObjectBase(arguments)
 
 
 

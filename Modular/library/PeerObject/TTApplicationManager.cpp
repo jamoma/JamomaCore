@@ -270,9 +270,9 @@ TTErr TTApplicationManager::ProtocolRun(const TTValue& inputValue, TTValue& outp
 		// Run each protocol
 		mProtocols->getKeys(protocolNames);
 		for (TTUInt16 i = 0; i < protocolNames.size(); i++) {
-			
+			TTValue dummy;
 			protocolName = protocolNames[i];
-			this->ProtocolRun(protocolName, kTTValNONE);
+			this->ProtocolRun(protocolName, dummy);
 		}
 		
 		return kTTErrNone;
@@ -330,9 +330,10 @@ TTErr TTApplicationManager::ProtocolStop(const TTValue& inputValue, TTValue& out
 		// Stop each protocol
 		mProtocols->getKeys(protocolNames);
 		for (TTUInt16 i = 0; i < protocolNames.size(); i++) {
+			TTValue dummy;
 			
 			protocolName = protocolNames[i];
-			this->ProtocolStop(protocolName, kTTValNONE);
+			this->ProtocolStop(protocolName, dummy);
 		}
 		
 		return kTTErrNone;
@@ -652,11 +653,12 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	
 	// starts reading
 	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
-		
+		TTValue dummy;
+	
 		mCurrentApplication = NULL;
 		
 		// stop protocol reception threads
-		ProtocolStop(v, kTTValNONE);
+		ProtocolStop(v, dummy);
 		
 		// remove all applications except the local one
 		mApplications->getKeys(applicationNames);
@@ -677,9 +679,10 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	
 	// ends reading
 	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
-		
+		TTValue dummy;
+	
 		// start protocol reception threads
-		ProtocolRun(v, kTTValNONE);
+		ProtocolRun(v, dummy);
 		
 		return kTTErrNone;
 	}
@@ -779,6 +782,8 @@ TTErr TTApplicationManager::notifyApplicationObservers(TTSymbol anApplicationNam
 				if (!lk_o->isEmpty()) {
 					for (lk_o->begin(); lk_o->end(); lk_o->next())
 					{
+						TTValue dummy;
+						
 						anObserver = NULL;
 						anObserver = TTCallbackPtr((TTObjectBasePtr)lk_o->current()[0]);
 						TT_ASSERT("TTApplication observer list member is not NULL", anObserver);
@@ -786,7 +791,7 @@ TTErr TTApplicationManager::notifyApplicationObservers(TTSymbol anApplicationNam
 						data.append(TTObjectBasePtr(anApplication));
 						data.append((TTInt8)flag);
 						data.append(TTObjectBasePtr(anObserver));
-						anObserver->notify(data, kTTValNONE);
+						anObserver->notify(data, dummy);
 					}
 					
 					foundObsv = true;

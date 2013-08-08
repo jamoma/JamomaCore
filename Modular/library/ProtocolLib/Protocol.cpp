@@ -382,6 +382,7 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
 {
 	TTValue v;
 	TTErr	err;
+	TTValue dummy;
 	
 	// listen an object or the namespace
 	if (mApplicationManager != NULL) {
@@ -397,7 +398,7 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListen"), v, kTTValNONE);
 		
 		if (err)
-			return SendListenAnswer(from, address, kTTValNONE, err);
+			return SendListenAnswer(from, address, dummy, err);
 	}
 	
 	return kTTErrGeneric;
@@ -407,6 +408,7 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& n
 {
 	TTValue v;
 	TTErr	err;
+	TTValue dummy;
 	
 	if (mApplicationManager != NULL) {
 		
@@ -421,7 +423,7 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& n
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListenAnswer"), v, kTTValNONE);
 		
 		if (err)
-			return SendListenAnswer(from, address, kTTValNONE, err);
+			return SendListenAnswer(from, address, dummy, err);
 	}
 	
 	return kTTErrGeneric;
@@ -429,16 +431,18 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& n
 
 TTErr Protocol::ActivityInMessage(const TTValue& message)
 {
+	TTValue dummy;
 	if (mActivityInCallback != NULL)
-		return mActivityInCallback->notify(message, kTTValNONE);
+		return mActivityInCallback->notify(message, dummy);
 	
 	return kTTErrGeneric;
 }
 
 TTErr Protocol::ActivityOutMessage(const TTValue& message)
 {
+	TTValue dummy;
 	if (mActivityOutCallback != NULL)
-		return mActivityOutCallback->notify(message, kTTValNONE);
+		return mActivityOutCallback->notify(message, dummy);
 	
 	return kTTErrGeneric;
 }

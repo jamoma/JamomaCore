@@ -141,9 +141,10 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 TTErr TTXmlHandler::WriteAgain()
 {
 	TTValue args;
+	TTValue dummy;
 	
 	args.append(mFilePath);
-	return Write(args, kTTValNONE);
+	return Write(args, dummy);
 }
 
 TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
@@ -288,9 +289,10 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 TTErr TTXmlHandler::ReadAgain()
 {
 	TTValue args;
+	TTValue dummy;
 	
 	args.append(mFilePath);
-	return Read(args, kTTValNONE);
+	return Read(args, dummy);
 }
 
 TTErr TTXmlHandler::fromXmlChar(const void* axCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)

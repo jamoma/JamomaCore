@@ -30,7 +30,7 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttributeWithSetter(	NumChannels, kTypeUInt16);
 	addAttributeWithSetter(	MaxNumChannels, kTypeUInt16);
 	addAttribute(			Bitdepth, kTypeUInt8);
-	addAttributeProperty(	Bitdepth, readOnly, kTTVal1);
+	addAttributeProperty(	Bitdepth, readOnly, 1);
 	
 	addMessage(clear);
 	

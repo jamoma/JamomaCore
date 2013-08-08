@@ -66,7 +66,7 @@ TTErr TTEnvironment::getVersion(const TTValue& anInputValue, TTValue &anOutputVa
 }
 
 
-TTErr TTEnvironment::registerClass(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
+TTErr TTEnvironment::registerClass(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
 	TTValue		v((TTString&)tagString);	// The tags to be associated with the class we are registering.
 	TTValue		tagObjects;					// Contains a TTList of objects in the environment with the given tag.
@@ -315,12 +315,12 @@ TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject)
 }
 
 
-TTErr TTClassRegister(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
+TTErr TTClassRegister(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
 	return ttEnvironment->registerClass(className, tagString, anInstantiationMethod);
 }
 
-TTErr TTClassRegister(const TTSymbol& className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
+TTErr TTClassRegister(const TTSymbol className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
 	return ttEnvironment->registerClass(className, TTString(tagString), anInstantiationMethod);
 }

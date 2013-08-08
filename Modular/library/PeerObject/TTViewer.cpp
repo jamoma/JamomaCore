@@ -342,7 +342,7 @@ TTErr TTViewerReceiveValueCallback(TTPtr baton, TTValue& data)
 			
 		// return value
 		if (aViewer->mReturnValueCallback) {
-			aViewer->mReturnValueCallback->notify(converted, kTTValNONE);
+			aViewer->mReturnValueCallback->deliver(converted);
 			aViewer->setReturnedValue(converted);
 		}
 	}

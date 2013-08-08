@@ -30,7 +30,7 @@ TTMutexPtr TTAudioGraphObject::sSharedMutex = NULL;
 //	3. (optional) Number of outlets, default = 1
 
 
-TTObjectBasePtr TTAudioGraphObject::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTAudioGraphObject::instantiate(TTSymbol name, TTValue arguments)
 {
 	return new TTAudioGraphObject(arguments);
 }
@@ -41,7 +41,7 @@ extern "C" void TTAudioGraphObject::registerClass()
 }
 
 
-TTAudioGraphObject :: TTAudioGraphObject (TTValue& arguments) :
+TTAudioGraphObject :: TTAudioGraphObject (const TTValue& arguments) :
 	TTGraphObject(arguments),
 	mStatus(kTTAudioGraphProcessUnknown),
 	mAudioFlags(kTTAudioGraphProcessor), 

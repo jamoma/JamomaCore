@@ -15,13 +15,13 @@
 
 #include "TTSampleMatrix.h"
 #include "TTInterpolate.h"
-#include "TTSoundfileLoader.h"
+//#include "TTSoundfileLoader.h"
 
 #define thisTTClass			TTSampleMatrix
 #define thisTTClassName		"samplematrix"
 #define thisTTClassTags		"audio, buffer"
 
-TTObjectBasePtr TTSampleMatrix::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTSampleMatrix::instantiate(TTSymbol name, TTValue arguments)
 {
 	return new TTSampleMatrix(arguments);
 }
@@ -33,7 +33,7 @@ extern "C" void TTSampleMatrix::registerClass()
 }
 
 
-TTSampleMatrix::TTSampleMatrix(TTValue& arguments) : 
+TTSampleMatrix::TTSampleMatrix(const TTValue& arguments) :
 	TTMatrix(arguments),
 	mSampleRate(44100.0)
 {
@@ -48,7 +48,7 @@ TTSampleMatrix::TTSampleMatrix(TTValue& arguments) :
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
 	addAttribute(SampleRate,							kTypeFloat64);
 	addAttribute(				UserCount,				kTypeUInt16); 
-		addAttributeProperty(	UserCount, 				readOnly, kTTBoolYes);
+		addAttributeProperty(	UserCount, 				readOnly, YES);
 	
 	addMessage(normalize);
 	addMessageWithArguments(fill);

@@ -123,7 +123,7 @@ TTErr TTPreset::Store()
 					v.clear();
 					anObject->getAttributeValue(kTTSym_value, v);
 					
-					if (v == kTTValNONE)
+					if (v.empty())
 						continue;
 					
 					v.prepend(aRelativeAddress);

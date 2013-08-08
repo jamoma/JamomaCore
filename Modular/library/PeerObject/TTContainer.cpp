@@ -137,11 +137,12 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
                     keyAddress = hk[i];
                     
                     if (aRelativeAddress.compare(keyAddress, depth) == kAddressEqual) {
-                    
+  						TTValue dummy;
+                  
                         // replace relativeAddress by keyAddress
 						AddressAndValue[0] = keyAddress.appendAttribute(attrOrMess);
                         
-                        if (this->Send(AddressAndValue, kTTValNONE))
+                        if (this->Send(AddressAndValue, dummy))
                             err = kTTErrGeneric;
                     }
                 }
@@ -555,7 +556,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		anObject->findAttribute(kTTSym_activity, &anAttribute);
 		
 		activityObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), &activityObserver, kTTValNONE);
+		TTObjectBaseInstantiate(TTSymbol("callback"), &activityObserver, TTValue());
 		
 		activityBaton = new TTValue(TTObjectBasePtr(this));
 		activityBaton->append(aRelativeAddress);
@@ -1275,12 +1276,14 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
                         
                         v.copyFrom(data, 1); // protect the data
                     }
-                    
+ 
+					TTValue dummy;
+
                     // return the address
-                    aContainer->mReturnAddressCallback->notify(relativeAddress, kTTValNONE);
+                    aContainer->mReturnAddressCallback->notify(relativeAddress, dummy);
                     
                     // return the value
-                    aContainer->mReturnValueCallback->notify(v, kTTValNONE);
+                    aContainer->mReturnValueCallback->notify(v, dummy);
                     
                     // Notify activity observers (about value changes only)
                     v.prepend(relativeAddress);

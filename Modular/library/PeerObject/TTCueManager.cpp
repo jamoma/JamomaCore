@@ -190,7 +190,7 @@ TTErr TTCueManager::getCurrentRamp(TTValue& value)
 		}
 	}
 	
-	value = kTTVal0;
+	value = 0;
 	return kTTErrGeneric;
 }
 
@@ -937,12 +937,14 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
         if (inputValue.size() == 3) {
             
             if (inputValue[2].type() == kTypeInt32) {
-                
+				TTValue dummy;
+				
+            
                 positionCopy = inputValue[2] ;
 
                 v = (int)mCurrentPosition;
                 v.append((int)positionCopy);
-                return Move(v, kTTValNONE);
+                return Move(v, dummy);
             }
         }
         else
@@ -1078,9 +1080,12 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
         }
 		
 		notifyOrderObservers();
+
+		TTValue dummy;
 		
+
 		// use the namespace of the first cue
-		NamespaceSelect(kTTVal1, kTTValNONE);
+		NamespaceSelect(1, dummy);
 		
 		return kTTErrNone;
 	}

@@ -605,7 +605,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			valueToDump.prepend(kTTSym_dash);
 			
 			// output line value
-			mReturnLineCallback->notify(valueToDump, kTTValNONE);
+			mReturnLineCallback->deliver(valueToDump);
 		}	
 		else if (schema == kTTSym_comment) {
 			
@@ -616,7 +616,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			valueToDump.prepend(kTTSym_sharp);
 			
 			// output line value
-			mReturnLineCallback->notify(valueToDump, kTTValNONE);
+			mReturnLineCallback->deliver(valueToDump);
 		}
 		else if (schema == kTTSym_command) {
 			
@@ -648,7 +648,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			valueToDump.prepend(address);
 			
 			// output line value
-			mReturnLineCallback->notify(valueToDump, kTTValNONE);
+			mReturnLineCallback->deliver(valueToDump);
 		}
 		else if (schema == kTTSym_script) {
 			
@@ -713,7 +713,7 @@ TTErr TTScript::DumpFlattened()
         valueToDump.prepend(address);
         
         // output line value
-        mReturnLineCallback->notify(valueToDump, kTTValNONE);
+        mReturnLineCallback->deliver(valueToDump);
     }
     
     return kTTErrNone;
@@ -768,7 +768,7 @@ TTErr TTScript::DumpLine(const TTValue& inputValue, TTValue& outputValue)
                 valueToDump.prepend(address);
                 
                 // output line value
-                mReturnLineCallback->notify(valueToDump, kTTValNONE);
+                mReturnLineCallback->deliver(valueToDump);
             }
         }
         
@@ -1530,7 +1530,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
             script2->mFlattenedLines->find(&TTScriptFindTarget, (TTPtr)&adrs1, found);
             
             // couldn't find the same address in script2 : skip the command
-            if (found == kTTValNONE) {
+            if (found.empty()) {
                 script2->mFlattenedLines->begin();
                 continue;
             }
@@ -1620,7 +1620,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
     TTFloat64		sumFactors;
     TTUInt32		i, mixSize;
 	
-    if (scripts == kTTValNONE)
+    if (scripts.empty())
 		return kTTErrGeneric;
 	
 	mixSize = scripts.size();
@@ -1687,7 +1687,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
                             
                             // couldn't find the same node in the script :
                             // look into to next script for this command
-                            if (found == kTTValNONE) {
+                            if (found.empty()) {
                                 aScript->mFlattenedLines->begin();
                                 continue;
                             }
@@ -1807,7 +1807,7 @@ TTErr TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript)
 				
 				mergedScript->mLines->find(&TTScriptFindAddress, (TTPtr)&addressToMerged, found);
 				
-				if (!(found == kTTValNONE)) {
+				if (!(found.empty())) {
 					mergedLine = TTDictionaryPtr((TTPtr)found[0]);
 					merged = YES;
 				}
@@ -1912,7 +1912,7 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 				aScript->mLines->find(&TTScriptFindAddress, (TTPtr)&addressToOptimize, found);
 				
 				// couldn't find the same address in the script : skip the command
-				if (found == kTTValNONE) {
+				if (found.empty()) {
 					aScript->mLines->begin();
 					continue;
 				}

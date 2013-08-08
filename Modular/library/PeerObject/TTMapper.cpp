@@ -135,6 +135,8 @@ TTMapper::~TTMapper() // TODO : delete things...
 TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 {
 	if (mActive) {
+		TTValue dummy;
+		
 		
 		processMapping(inputValue, outputValue);
 		
@@ -143,7 +145,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 			mSender->sendMessage(kTTSym_Send, outputValue, kTTValNONE);
 		
 		if (mReturnValueCallback)
-			mReturnValueCallback->notify(outputValue, kTTValNONE);
+			mReturnValueCallback->notify(outputValue, dummy);
 	}
 	
 	return kTTErrNone;
@@ -738,6 +740,8 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
 	TTValue		mappedValue;
+	TTValue dummy;
+	
 	
 	// unpack baton (a TTMapper)
 	b = (TTValuePtr)baton;
@@ -763,7 +767,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 			aMapper->mSender->sendMessage(kTTSym_Send, mappedValue, kTTValNONE);
 		
 		if (aMapper->mReturnValueCallback)
-			aMapper->mReturnValueCallback->notify(mappedValue, kTTValNONE);
+			aMapper->mReturnValueCallback->notify(mappedValue, dummy);
 	}
 	
 	return kTTErrNone;

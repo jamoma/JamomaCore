@@ -649,7 +649,7 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
         if (inputValue.size() == 3) {
             
             if (inputValue[2].type() == kTypeInt32) {
-                
+                TTValue dummy;
                 positionCopy = inputValue[2] ;
                 
 #ifdef __TT_ELEMENT_H__
@@ -658,7 +658,7 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
                 v = mCurrentPosition;
 #endif
                 v.append((int)positionCopy);
-                return Move(v, kTTValNONE);
+                return Move(v, dummy);
             }
         }
         else

@@ -484,7 +484,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
                             v.clear();
                             anObject->getAttributeValue(option, v);
                             
-                            if (v == kTTValNONE)
+                            if (v.empty())
                                 continue;
                             
                             if (option == kTTSym_value)

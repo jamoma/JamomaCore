@@ -189,7 +189,9 @@ TTErr TTData::returnValue()
 {
     // used a new value to protect the internal value
     TTValue v = mValue;
-    
+	TTValue dummy;
+	
+  
     // This is a temporary solution to have audio rate ramping outside the TTData
     if (mRampDrive == kTTSym_external) {
         
@@ -199,7 +201,7 @@ TTErr TTData::returnValue()
     
     // return the value to his owner
     if (!(mService == kTTSym_return))
-        this->mReturnValueCallback->notify(v, kTTValNONE);
+        this->mReturnValueCallback->notify(v, dummy);
     
     // notify each observers
     valueAttribute->sendNotification(kTTSym_notify, v);             // we use kTTSym_notify because we know that observers are TTCallback
@@ -318,7 +320,7 @@ TTErr TTData::setGenericValue(const TTValue& value)
 TTErr TTData::GenericReset()
 {
     // if valueDefault type is right
-    if (!(mValueDefault == kTTValNONE))
+    if (!mValueDefault.empty())
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
     
     // the value is not initialized if the value equals to the start value
@@ -466,7 +468,7 @@ TTErr TTData::BooleanReset()
 {
     // if valueDefault type is right
 	if (checkBooleanType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
 	
@@ -646,7 +648,7 @@ TTErr TTData::IntegerReset()
 {
     // if valueDefault type is right
 	if (checkIntegerType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
     
@@ -822,7 +824,7 @@ TTErr TTData::DecimalReset()
 {
     // if valueDefault type is right
 	if (checkDecimalType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
 	
@@ -986,7 +988,7 @@ TTErr TTData::ArrayReset()
 {
     // if valueDefault type is right
 	if (checkArrayType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
 	
@@ -1113,7 +1115,7 @@ TTErr TTData::StringReset()
 {
     // if valueDefault type is right
 	if (checkStringType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
     

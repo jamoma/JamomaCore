@@ -21,7 +21,7 @@
 
 #define thisTTClass TTAudioObjectBase
 
-TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) : 
+TTAudioObjectBase::TTAudioObjectBase(const TTValue& arguments) :
 	TTObjectBase(arguments), 
 	mMaxNumChannels(0),
 	attrMute(0), 
@@ -50,7 +50,7 @@ TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) :
 	setAttributeValue(kTTSym_sampleRate, ttEnvironment->mSampleRate);
 	setProcess(&TTAudioObjectBase::bypassProcess);
     setCalculate(&TTAudioObjectBase::defaultCalculateMethod);
-	setAttributeValue("bypass",			kTTBoolNo);	
+	setAttributeValue("bypass",			NO);
 }
 
 #undef thisTTClass
@@ -127,8 +127,8 @@ TTErr TTAudioObjectBase::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y
 	TTAudioSignalPtr	out;
 	TTErr				err;
 	
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &in, kTTVal1);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &out, kTTVal1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &in, 1);
+	TTObjectBaseInstantiate(kTTSym_audiosignal, &out, 1);
 	
 	in->allocWithVectorSize(1);
 	out->allocWithVectorSize(1);

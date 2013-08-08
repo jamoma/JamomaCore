@@ -113,7 +113,9 @@ TTInput::~TTInput()
 TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 {
     TTErr err;
-    
+	TTValue dummy;
+	
+   
     if (!mReturnSignalCallback)
         return kTTErrGeneric;
     
@@ -124,7 +126,7 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 		err = mOutputObject->sendMessage(TTSymbol("SendBypassed"), inputValue, kTTValNONE);
     
 	else
-		err = mReturnSignalCallback->notify(inputValue, kTTValNONE);
+		err = mReturnSignalCallback->notify(inputValue, dummy);
     
     notifySignalObserver(inputValue);
     
@@ -151,7 +153,9 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	TTNodePtr		aNode;
 	TTList			aNodeList;
 	TTObjectBasePtr		o;
+	TTValue dummy;
 	
+
 	newAddress = value[0];
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
@@ -159,7 +163,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 		o = aNode->getObject();
 		if (o)
 			if (o->getName() == kTTSym_Output)
-				Link(o, kTTValNONE);
+				Link(o, dummy);
 	}
 	
 	if (!mAddressObserver) {
@@ -207,6 +211,8 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTObjectBasePtr	o;
+	TTValue dummy;
+	
 	
 	// unpack baton (an InputPtr)
 	b = (TTValuePtr)baton;
@@ -225,7 +231,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 					
 				case kAddressCreated :
 				{
-					anInput->Link(o, kTTValNONE);
+					anInput->Link(o, dummy);
 					break;
 				}
 					

@@ -117,7 +117,7 @@ TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
-		return mGetAttributeCallback->notify(data, kTTValNONE);
+		return mGetAttributeCallback->deliver(data);
 	}
 	
 	return kTTErrGeneric;
@@ -133,7 +133,7 @@ TTErr TTMirror::setMirrorAttribute(TTAttribute& anAttribute, const TTValue& valu
 		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
-		err = mSetAttributeCallback->notify(data, kTTValNONE);
+		err = mSetAttributeCallback->deliver(data);
         
         // if the mirror cannot listen value : notify observers ourself
         if (!mListenAttributeCallback)
@@ -175,7 +175,7 @@ TTErr TTMirror::setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue
             mAttributeValueCache.append(anAttribute.name, value);
         }
 		
-		err = mSetAttributeCallback->notify(data, kTTValNONE);
+		err = mSetAttributeCallback->deliver(data);
         
         // if the mirror cannot listen value : notify observers ourself
         if (!mListenAttributeCallback)
@@ -195,7 +195,7 @@ TTErr TTMirror::sendMirrorMessage(const TTSymbol* messageName, const TTValue& in
 		data.append(messageName);
 		data.append((TTPtr)&inputValue);
 		
-		err = mSetAttributeCallback->notify(data, kTTValNONE);
+		err = mSetAttributeCallback->deliver(data);
 	}
 	
 	return err;
@@ -236,7 +236,7 @@ TTErr TTMirror::enableListening(const TTAttribute& anAttribute, TTBoolean enable
 		data.append(anAttribute.name);
 		data.append(enable);
 		
-		err = mListenAttributeCallback->notify(data, kTTValNONE);
+		err = mListenAttributeCallback->deliver(data);
 	}
 	
 	return err;

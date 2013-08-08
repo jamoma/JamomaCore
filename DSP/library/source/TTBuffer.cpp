@@ -24,7 +24,7 @@
 TTHashPtr gTTBufferNameMap = NULL;
 // TODO: we likely need second hash table to track all SampleMatrices for status and destructor
 
-TTObjectBasePtr TTBuffer::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTBuffer::instantiate(TTSymbol name, const TTValue arguments)
 {
 	return new TTBuffer(arguments);
 }
@@ -36,7 +36,7 @@ extern "C" void TTBuffer::registerClass()
 }
 
 
-TTBuffer::TTBuffer(TTValue& arguments) : 
+TTBuffer::TTBuffer(const TTValue& arguments) :
 	TTAudioObjectBase(arguments),
 	mActiveMatrix(NULL),
 	mBecomingActiveMatrix(NULL)

@@ -187,11 +187,11 @@ TTErr TTReceiver::Get()
                             v.append(anAddress);
                             
                             if (mReturnAddressCallback)
-                                mReturnAddressCallback->notify(v, kTTValNONE);
+                                mReturnAddressCallback->deliver(v);
                             
                             // return the value
                             if (mReturnValueCallback)
-                                mReturnValueCallback->notify(data, kTTValNONE);
+                                mReturnValueCallback->deliver(data);
                         }
                         else
                             return kTTErrGeneric;
@@ -285,7 +285,7 @@ TTErr TTReceiver::bindAddress()
                         if (mReturnAddressCallback) {
                             
                             v = TTValue(anAddress);
-                            mReturnAddressCallback->notify(v, kTTValNONE);
+                            mReturnAddressCallback->deliver(v);
                         }
 					}
 				}
@@ -457,7 +457,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 				// return the address
 				if (aReceiver->mReturnAddressCallback) {
                     v.append(aReceiver->mAddress.removeAttribute());
-					aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
+					aReceiver->mReturnAddressCallback->deliver(v);
                 }
 			}
 			else if (ttAttributeName != kTTSym_destroyed)
@@ -530,7 +530,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 				if (aReceiver->mReturnAddressCallback) {
                     
                     v.append(aReceiver->mAddress.removeAttribute());
-					aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
+					aReceiver->mReturnAddressCallback->deliver(v);
                 }
 			}
 			else if (ttAttributeName != kTTSym_created)
@@ -611,11 +611,11 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 		
 		// return address
 		if (aReceiver->mReturnAddressCallback)
-			aReceiver->mReturnAddressCallback->notify(v, kTTValNONE);
+			aReceiver->mReturnAddressCallback->deliver(v);
 		
 		// return the value
 		if (aReceiver->mReturnValueCallback)
-			aReceiver->mReturnValueCallback->notify(data, kTTValNONE);
+			aReceiver->mReturnValueCallback->deliver(data);
 	}
 	
 	return kTTErrNone;
