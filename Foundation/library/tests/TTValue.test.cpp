@@ -597,7 +597,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v.fromString();
 	
 	TTTestAssertion("\"0.000000\" string is converted into a TTFloat32 0.000000 value",
-					v[0].type() == kTypeFloat32 &&
+					v[0].type() == kTypeFloat64 &&
 					v[0] == 0.f,
 					testAssertionCount,
 					errorCount);
@@ -619,7 +619,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v.fromString();
 	
 	TTTestAssertion("\"1.234567\" string is converted into a TTFloat32 1.234567 value",
-					v[0].type() == kTypeFloat32 &&
+					v[0].type() == kTypeFloat64 &&
 					TTTestFloatEquivalence(TTFloat32(v[0]), 1.234567f),
 					testAssertionCount,
 					errorCount);
@@ -647,7 +647,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	TTTestAssertion("\"sampleRate 1 1.234567\" string is converted into a 3 datas value",
 					v[0].type() == kTypeSymbol &&
 					v[1].type() == kTypeInt32 &&
-					v[2].type() == kTypeFloat32 &&
+					v[2].type() == kTypeFloat64 &&
 					aSymbol == kTTSym_sampleRate &&
 					i == 1 &&
 					TTTestFloatEquivalence(f, 1.234567f) &&
