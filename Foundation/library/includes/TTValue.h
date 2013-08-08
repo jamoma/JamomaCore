@@ -100,19 +100,28 @@ public:
 		TTElementVector::clear();
 	}
 	
-	/** Return the number of values of this instance. */
+	/** Return the number of values of this instance. 
+		DEPRECATED -- now just call size() instead.
+	 */
 	TT_DEPRECATED( TTUInt16 getSize() const )
 	{
 		return size();
 	}
 	
-	/** Set the number of values, and allocate any needed memory. */	
+	/** Set the number of values, and allocate any needed memory. 
+		DEPRECATED -- now just call resize() instead.
+	 */
 	TT_DEPRECATED( void setSize(const TTUInt16 arg) )
 	{
 		resize(arg);
 	}
 	
 	
+	/** Get the type of an element.
+		DEPRECATED -- now call type() on the element itself, e.g.
+		TTValue v(1,2,3);
+		TTDataType thetype = v[1].type();
+	 */
 	TT_DEPRECATED( TTDataType getType(const TTUInt16 index=0) const )
 	{
 		return at(index).type();
@@ -224,13 +233,30 @@ public:
 			return kTTSymEmpty;
 	}
 	
-	
+	/** DEPRECATED / OLD
+		To make an assignment you now use standard C array syntax.  For example, instead of:
+		TTValue v;
+		v.set(0, 3.14);
+		you now do:
+		TTValue v;
+		v[0] = 3.14;
+	 */
 	template<class T>
 	TT_DEPRECATED ( void set(const TTUInt16 index, const T& anElementValue) )
 	{
 		at(index) = anElementValue;
 	}
 
+	/** DEPRECATED / OLD
+	 To fetch the value of an element you now use standard C array syntax.  For example, instead of:
+	 TTValue	v(3.14);
+	 TTFloat64	mypi;
+	 v.get(0, mypi);
+	 you now do:
+	 TTValue v(3.14);
+	 TTFloat64	mypi;
+	 mypi = v[0];
+	 */
 	template<class T>
 	TT_DEPRECATED ( void get(const TTUInt16 index, T& returnedElementValue) const )
 	{
