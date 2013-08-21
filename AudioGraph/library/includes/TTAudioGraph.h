@@ -39,8 +39,6 @@
 	#endif
 #endif
 
-// CASEY COMMIT TEST -- I'll delete this in a moment
-
 /******************************************************************************************/
 
 /** \ingroup enums

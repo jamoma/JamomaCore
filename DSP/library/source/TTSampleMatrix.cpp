@@ -15,7 +15,7 @@
 
 #include "TTSampleMatrix.h"
 #include "TTInterpolate.h"
-#include "TTSoundfileLoader.h"
+//#include "TTSoundfileLoader.h"
 
 #define thisTTClass			TTSampleMatrix
 #define thisTTClassName		"samplematrix"
