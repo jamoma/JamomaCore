@@ -1,13 +1,20 @@
-/* 
- * Jamoma DataspaceLib: OrientationDataspace
- * Copyright � 2011, Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
- * http://creativecommons.org/licenses/BSD/
- * 
+/** @file
  *
- * The unit conventinos are based on SpinCalc for Matlab http://www.mathworks.com/matlabcentral/fileexchange/20696-function-to-convert-between-dcm-euler-angles-quaternions-and-euler-vectors
- */ 
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #OrientationDataspace converts between different untis describing orientation.
+ *
+ * @details The neutral unit of the orientation dataspace is _quarternian_. @n
+ * @n
+ * The unit conventinos are based on SpinCalc for Matlab: http://www.mathworks.com/matlabcentral/fileexchange/20696-function-to-convert-between-dcm-euler-orientation-quaternions-and-euler-vectors
+ *
+ * @authors Nils Peters, Trond Lossius, Tim Place, ...
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
 
 #include "OrientationDataspace.h"
 

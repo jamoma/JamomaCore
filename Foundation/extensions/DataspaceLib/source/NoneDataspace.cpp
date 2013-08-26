@@ -1,10 +1,18 @@
-/* 
- * Jamoma DataspaceLib: NoneDataspace
- * Copyright © 2007, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #NoneDataspace is a dataspace unit for situations where no dataspace conversions are desired or relevant. It contains only one unit, the #NoneUnit, and that unit does not perform any conversions.
+ *
+ * @details The neutral unit of the angle dataspace is none.
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius, ...
+ *
+ * @copyright Copyright © 2007 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "NoneDataspace.h"
 

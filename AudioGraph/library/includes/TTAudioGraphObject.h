@@ -115,7 +115,7 @@ public:
 	
 	
 	/** Set the number of channels for an outlet.
-	 @param forOutletNumber		The outlet that we want to retrieve information about.
+	 @param forOutletNumber		The outlet that we want to set information for.
 	 @param numChannels			The number of channels that the audio signal from this outlet is to have.
 	 */
 	void setOutputNumChannels(TTUInt16 forOutletNumber, TTUInt16 numChannels)

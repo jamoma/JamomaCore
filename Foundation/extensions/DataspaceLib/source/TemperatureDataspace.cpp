@@ -1,10 +1,18 @@
-/* 
- * Jamoma DataspaceLib: TemperatureDataspace
- * Copyright © 2007
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #TemperatureDataspace converts between different measurement untis describing temperature.
+ *
+ * @details The neutral unit of the temperature dataspace is _Kelvin (K)_.
+ *
+ * @authors Nils Peters, Trond Lossius, Tim Peters, ...
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TemperatureDataspace.h"
 

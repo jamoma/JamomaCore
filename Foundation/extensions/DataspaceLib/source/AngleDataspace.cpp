@@ -1,10 +1,18 @@
-/* 
- * Jamoma DataspaceLib: AngleDataspace.cpp
- * Copyright © 2007, Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #AngleDataspace converts between different measurement untis describing trigonometric angles.
+ *
+ * @details The neutral unit of the angle dataspace is _radian_.
+ *
+ * @authors Nils Peters, Trond Lossius, Tim Place, ...
+ *
+ * @copyright Copyright © 2007 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "AngleDataspace.h"
 

@@ -1,10 +1,18 @@
-/* 
- * Jamoma DataspaceLib: DistanceDataspace
- * Copyright © 2007, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #DistanceDataspace converts between different measurement untis describing distance.
+ *
+ * @details The neutral unit of the distance dataspace is _meter_.
+ *
+ * @authors Tim Place, Trond Lossius, Nils Peters, ...
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "DistanceDataspace.h"
 

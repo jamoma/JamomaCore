@@ -1,10 +1,18 @@
-/*
- * Jamoma DataspaceLib Base Class
- * Copyright © 2007
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief This library provides convertions between different measurement units for values relating to time, color, distance, gain. and more.
+ *
+ * @details The DataspaceLib enables other parts of the Jamoma project to address the values of parameters and attributes in different, interchangeable measurement units. For each type of data (e.g. trigonometrical angels), a _neutral_ unit is defined. Methods are then provided for converting between each alternative unit and the neutral unit. Wherever relevant the neutral unit is chosen in accordance with the international system of units of measurement.
+ *
+ * @authors Tim Place, Trond Lossius, Nils Peters, Pascal Baltazar, Alexander Refsum Jensenious, Theo de la Hogue, ...
+ *
+ * @copyright Copyright © 2007 by the Jamoma developers @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "AngleDataspace.h"
 #include "ColorDataspace.h"
