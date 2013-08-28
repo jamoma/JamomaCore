@@ -373,7 +373,7 @@
 					DISABLE_NODELIB,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INSTALL_PATH = "$(SRCROOT)/../build";
+				INSTALL_PATH = "$(SRCROOT)/../build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../library/includes";
@@ -395,7 +395,7 @@
 					DISABLE_NODELIB,
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INSTALL_PATH = "$(SRCROOT)/../build";
+				INSTALL_PATH = "$(SRCROOT)/../build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../library/includes";
