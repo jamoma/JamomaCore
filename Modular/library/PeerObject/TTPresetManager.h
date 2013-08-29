@@ -39,7 +39,7 @@ private:
 	TTAddress           mAddress;						///< ATTRIBUTE : the container address to manage
 	TTValue				mOrder;							///< ATTRIBUTE : presets are ordered by name
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current preset name
-	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
+	TTUInt32			mCurrentPosition;				///< ATTRIBUTE : the current cue position
 
 	TTHashPtr			mPresets;						///< a hash table containing <name, TTPresetPtr>
 	TTPresetPtr			mCurrentPreset;					///< the current preset
@@ -48,6 +48,12 @@ private:
 	
 	/** */
 	TTErr	setAddress(const TTValue& value);
+    
+    /** */
+    TTErr   getValue(TTValue& value);
+    
+    /** */
+    TTErr   setValue(const TTValue& value);
 	
 	/** */
 	TTErr	setOrder(const TTValue& value);
@@ -95,6 +101,9 @@ private:
 	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
+    /** */
+	TTErr	notifyValueObservers();
+    
 	/** */
 	TTErr	notifyOrderObservers();
 };

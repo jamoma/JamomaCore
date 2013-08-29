@@ -38,6 +38,8 @@ mReturnLineCallback(NULL)
 	
 	if (arguments.size() == 1)
 		mReturnLineCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
+    
+    registerAttribute(TTSymbol("value"), kTypeLocalValue, NULL, (TTGetterMethod)&TTPresetManager::getValue, (TTSetterMethod)&TTPresetManager::setValue);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -46,7 +48,7 @@ mReturnLineCallback(NULL)
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
 	
-	addAttribute(CurrentPosition, kTypeInt32);
+	addAttribute(CurrentPosition, kTypeUInt32);
 	addAttributeProperty(CurrentPosition, readOnly, YES);
 	
 	addAttribute(Presets, kTypePointer);
@@ -108,6 +110,21 @@ TTErr TTPresetManager::setAddress(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTPresetManager::getValue(TTValue& value)
+{
+    value = mCurrentPosition;
+    value.append(mCurrent);
+    
+    return kTTErrNone;
+}
+
+TTErr TTPresetManager::setValue(const TTValue& value)
+{
+    TTValue outputValue;
+    
+    return Recall(value, outputValue);
+}
+
 TTErr TTPresetManager::setOrder(const TTValue& value)
 {	
 	TTSymbol name;
@@ -127,6 +144,9 @@ TTErr TTPresetManager::setOrder(const TTValue& value)
 		return kTTErrGeneric;
 
 	mOrder = newOrder;
+    
+    notifyOrderObservers();
+    
 	return kTTErrNone;
 }
 
@@ -156,6 +176,7 @@ TTErr TTPresetManager::Clear()
 		mOrder = kTTValNONE;
 		
 		notifyOrderObservers();
+        notifyValueObservers();
 	}
 	
 	return kTTErrNone;
@@ -193,6 +214,7 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentPosition = mOrder.size();
 		
 		notifyOrderObservers();
+        notifyValueObservers();
 	}
 	else {
 		mCurrentPreset = TTPresetPtr((TTObjectBasePtr)v[0]);
@@ -207,7 +229,8 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v;
-    TTAddress    anAddress = kTTAdrsRoot;
+    TTAddress   anAddress = kTTAdrsRoot;
+    TTErr       err;
 	
     if (inputValue.size() == 1) {
         
@@ -247,8 +270,14 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentPreset = TTPresetPtr((TTObjectBasePtr)v[0]);
 		
-		if (mCurrentPreset)
-			return mCurrentPreset->sendMessage(kTTSym_Recall, mAddress.appendAddress(anAddress), kTTValNONE);
+		if (mCurrentPreset) {
+            
+			err = mCurrentPreset->sendMessage(kTTSym_Recall, mAddress.appendAddress(anAddress), kTTValNONE);
+            
+            notifyValueObservers();
+            
+            return err;
+        }
 	}
 	
 	return kTTErrGeneric;
@@ -258,6 +287,7 @@ TTErr TTPresetManager::Output(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v;
     TTAddress   anAddress = kTTAdrsRoot;
+    TTErr       err;
 	
     if (inputValue.size() >= 1) {
         
@@ -296,9 +326,15 @@ TTErr TTPresetManager::Output(const TTValue& inputValue, TTValue& outputValue)
 	if (!mPresets->lookup(mCurrent, v)) {
 		
 		mCurrentPreset = TTPresetPtr((TTObjectBasePtr)v[0]);
-		
-		if (mCurrentPreset)
-			return mCurrentPreset->sendMessage(TTSymbol("Output"), mAddress.appendAddress(anAddress), kTTValNONE);
+        
+		if (mCurrentPreset) {
+            
+			err = mCurrentPreset->sendMessage(TTSymbol("Output"), mAddress.appendAddress(anAddress), kTTValNONE);
+            
+            notifyValueObservers();
+            
+            return err;
+        }
 	}
 	
 	return kTTErrGeneric;
@@ -459,6 +495,7 @@ TTErr TTPresetManager::Move(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentPosition = newPosition;
 		
 		notifyOrderObservers();
+        notifyValueObservers();
 		
 		return kTTErrNone;
 	}
@@ -511,6 +548,7 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 		mOrder = newOrder;
 		
 		notifyOrderObservers();
+        notifyValueObservers();
 		
 		return kTTErrNone;
 	}
@@ -576,6 +614,7 @@ TTErr TTPresetManager::Rename(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentPosition = i+1;
 		
 		notifyOrderObservers();
+        notifyValueObservers();
 		
 		return kTTErrNone;
 	}
@@ -661,8 +700,13 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
                 return Move(v, kTTValNONE);
             }
         }
-        else
-            return notifyOrderObservers();
+        else {
+            
+            notifyOrderObservers();
+            notifyValueObservers();
+            
+            return kTTErrNone;
+        }
 	}
 	
 	return kTTErrGeneric;
@@ -725,6 +769,7 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
         }
         
 		notifyOrderObservers();
+        notifyValueObservers();
 		
 		return kTTErrNone;
 
@@ -873,12 +918,29 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
             }
 			
 			notifyOrderObservers();
+            notifyValueObservers();
 		}
 		
 		return kTTErrNone;
     }
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTPresetManager::notifyValueObservers()
+{
+	TTAttributePtr	anAttribute = NULL;
+    TTValue         v;
+	TTErr			err;
+	
+    err = this->findAttribute(kTTSym_value, &anAttribute);
+	
+	if (!err) {
+        getValue(v);
+		anAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
+    }
+	
+	return kTTErrNone;
 }
 
 TTErr TTPresetManager::notifyOrderObservers()
