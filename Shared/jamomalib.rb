@@ -1497,6 +1497,9 @@ else
         vcproj_release64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release};%(AdditionalDependencies)"           
         vcproj_release64.add_element vcproj_release64_linker
 		
+		# add post build commands to copy dll in Max support folder
+		# do this only for 32bits version
+		# todo : add a case if we finally want a 32 or 64 bits dll in support folder
 		if project_type != "implementation"
 			command = ""
 			command += "copy"
@@ -1504,25 +1507,33 @@ else
 			command += "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support"
 			command.gsub!(/(\/)/,'\\')
 			
+			# also create build folder (mac like) and copy generated dll into in order to Max build.rb work on build folder
+			# command32 = ""
+			# command32 += " \nmkdir build;"
+			# command32 += " \ncopy"
+			# command32 += " $(OutDir)$(ProjectName).dll"
+			# command32 += " build;"
+			#command32.gsub!(/(\/)/,'\\')
+			
 			vcproj_debug32_postbuild = Element.new "PostBuildEvent"
 			vcproj_debug32_postbuild.add_element Element.new "Command"
 			vcproj_debug32_postbuild.elements["Command"].text = "#{command}"
 			vcproj_debug32.add_element vcproj_debug32_postbuild
 			
-			vcproj_debug64_postbuild = Element.new "PostBuildEvent"
-			vcproj_debug64_postbuild.add_element Element.new "Command"
-			vcproj_debug64_postbuild.elements["Command"].text = "#{command}"
-			vcproj_debug64.add_element vcproj_debug64_postbuild
+			# vcproj_debug64_postbuild = Element.new "PostBuildEvent"
+			# vcproj_debug64_postbuild.add_element Element.new "Command"
+			# vcproj_debug64_postbuild.elements["Command"].text = "#{command}"
+			# vcproj_debug64.add_element vcproj_debug64_postbuild
 			
 			vcproj_release32_postbuild = Element.new "PostBuildEvent"
 			vcproj_release32_postbuild.add_element Element.new "Command"
 			vcproj_release32_postbuild.elements["Command"].text = "#{command}"
 			vcproj_release32.add_element vcproj_release32_postbuild
 			
-			vcproj_release64_postbuild = Element.new "PostBuildEvent"
-			vcproj_release64_postbuild.add_element Element.new "Command"
-			vcproj_release64_postbuild.elements["Command"].text = "#{command}"
-			vcproj_release64.add_element vcproj_release64_postbuild
+			# vcproj_release64_postbuild = Element.new "PostBuildEvent"
+			# vcproj_release64_postbuild.add_element Element.new "Command"
+			# vcproj_release64_postbuild.elements["Command"].text = "#{command}"
+			# vcproj_release64.add_element vcproj_release64_postbuild
         end
         
       else
