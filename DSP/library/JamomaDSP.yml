@@ -27,7 +27,7 @@ libraries:
   - FOUNDATION
   - mac portaudio/libportaudio-jamoma.a
   - win32 portaudio/Debug/PortAudio.lib
-  - win64 portaudio/Debug/PortAudio_x64.lib
+ # - win64 portaudio/Debug/PortAudio_x64.lib
 
 frameworks:
   - Carbon
