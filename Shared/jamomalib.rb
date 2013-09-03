@@ -636,7 +636,7 @@ else
 
     if ($g_use_yaml_project_files && File.exists?("#{projectdir}/#{projectname}.yml"))
       yaml = YAML.load_file( "#{projectdir}/#{projectname}.yml")
-      projectname.gsub!('#','\##')     # in case there is a # in the project name, which would be interpreted as a comment symbol
+      projectname.gsub!('#','\##') if mac?     # in case there is a # in the project name, which would be interpreted as a comment symbol
 
       sources = yaml["sources"]
       includes = yaml["includes"]
@@ -1534,7 +1534,12 @@ else
 			# vcproj_release64_postbuild.add_element Element.new "Command"
 			# vcproj_release64_postbuild.elements["Command"].text = "#{command}"
 			# vcproj_release64.add_element vcproj_release64_postbuild
+			
+		else
+		#cp les modules dans externals et les renommer en mxe
+			
         end
+		
         
       else
 
