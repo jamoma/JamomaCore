@@ -62,7 +62,7 @@ libraries:
   - DSP
   - C74
   - mac /usr/lib/libxml2.dylib
-  - win ../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
+#  - win ../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
   - win ../../Foundation/library/libxml2/win32/lib/libxml2.lib
 
 frameworks:
