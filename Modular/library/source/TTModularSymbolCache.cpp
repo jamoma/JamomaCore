@@ -109,12 +109,12 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_mix                              (("mix")
 TTMODULAR_EXPORT TTSymbol       kTTSym_model                            (("model"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_mute                             (("mute"));
 
+TTMODULAR_EXPORT TTSymbol       kTTSym_names                            (("names"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_namespace                        (("namespace"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_nodeAddress                      (("nodeAddress"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_object                           (("object"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_objectCache                      (("objectCache"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_order                            (("order"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_parameter                        (("parameter"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_preview                          (("preview"));

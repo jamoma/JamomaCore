@@ -39,7 +39,7 @@ class TTMODULAR_EXPORT TTCueManager : public TTDataObjectBase
 	
 private:
 	
-	TTValue				mOrder;							///< ATTRIBUTE : cues are ordered by name
+	TTValue				mNames;							///< ATTRIBUTE : cues are ordered by name
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current cue name
 	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
@@ -51,7 +51,7 @@ private:
 	TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
 	
 	/** */
-	TTErr	setOrder(const TTValue& value);
+	TTErr	setNames(const TTValue& value);
 	
 	/** */
 	TTErr	getCurrentDescription(TTValue& value);
@@ -137,7 +137,7 @@ private:
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr	notifyOrderObservers();
+	TTErr	notifyNamesObservers();
 };
 
 typedef TTCueManager* TTCueManagerPtr;

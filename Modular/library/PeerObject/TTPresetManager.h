@@ -37,7 +37,7 @@ class TTMODULAR_EXPORT TTPresetManager : public TTDataObjectBase
 private:
 	
 	TTAddress           mAddress;						///< ATTRIBUTE : the container address to manage
-	TTValue				mOrder;							///< ATTRIBUTE : presets are ordered by name
+	TTValue				mNames;							///< ATTRIBUTE : presets are ordered by name
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current preset name
 	TTUInt32			mCurrentPosition;				///< ATTRIBUTE : the current cue position
 
@@ -56,7 +56,7 @@ private:
     TTErr   setValue(const TTValue& value);
 	
 	/** */
-	TTErr	setOrder(const TTValue& value);
+	TTErr	setNames(const TTValue& value);
 
 	/** */
 	TTErr	Clear();
@@ -105,7 +105,7 @@ private:
 	TTErr	notifyValueObservers();
     
 	/** */
-	TTErr	notifyOrderObservers();
+	TTErr	notifyNamesObservers();
 };
 
 typedef TTPresetManager* TTPresetManagerPtr;
