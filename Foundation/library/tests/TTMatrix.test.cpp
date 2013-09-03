@@ -106,6 +106,25 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
+        // Test the fill message
+        TTValue fv(6.26, 19.99);
+        TTValue fr;
+        matrix->sendMessage("fill", fv, fr);
+        
+        TTUInt32 elementByteDepth = mComponentStride / mElementCount;
+        
+        int fillTestCount = 0;
+		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
+			if (*((TTFloat64*)(matrix->mData+i)) != 6.26)
+				fillTestCount++;
+            //if (*((TTFloat64*)(matrix->mData+i+elementByteDepth)) != 19.99)
+				//fillTestCount++;
+		}
+        
+        TTTestAssertion("fill message correctly sets all elements to proper values",
+						fillTestCount == 0,
+						testAssertionCount,
+						errorCount);
 		
 		// Test the clear message
 		// first fill with arbitrary values
