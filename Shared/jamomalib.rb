@@ -303,8 +303,15 @@ else
       out = stdout.read
       err = stderr.read
     end
+	
+	# added to avoid invalid UTF8 argument error when building
+    out.encoding
+    out.force_encoding('binary')
+    out.encoding
+    out = out.encode('utf-8', :invalid => :replace, :undef => :replace)
+	#
 
-    if /(0 error|up\-to\-date|0 erreur)|Build succeeded\./.match(out)
+    if /(0 error|up\-to\-date|0 erreur|0 Erreur)|Build succeeded\./.match(out)
       @cur_count+=1
       projectname = "#{projectname}".ljust(27)
       puts "#{projectname} BUILD SUCCEEDED (Win32)"
@@ -325,8 +332,15 @@ else
       out = stdout.read
       err = stderr.read
     end
+	
+	# added to avoid invalid UTF8 argument error when building
+    out.encoding
+    out.force_encoding('binary')
+    out.encoding
+    out = out.encode('utf-8', :invalid => :replace, :undef => :replace)
+	#
 
-    if /(0 error|up\-to\-date|0 erreur)|Build succeeded\./.match(out)
+    if /(0 error|up\-to\-date|0 erreur|0 Erreur)|Build succeeded\./.match(out)
       @cur_count+=1
       projectname = "#{projectname}".ljust(27)
       puts "#{projectname} BUILD SUCCEEDED (x64)"
@@ -537,7 +551,7 @@ else
 		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max" || (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
     project_type = "implementation" if max
     define_c74_linker_syms = false
-    path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.."
+    path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.." && mac? # too much ..\ on windows (one more)
     path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
     master_name = "Jamoma"
     master_name = (projectdir.split("/")[projectdir.split("/").size-3]) if (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
@@ -893,7 +907,13 @@ else
       if win?
         concatenated_includes = ""
         includes.each do |include_file|
-          concatenated_includes += "\"$(ProjectDir)#{include_file}\";"
+          if (include_file == "C74-INCLUDES")
+            concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
+            concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
+            concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
+		  else
+		    concatenated_includes += "\"$(ProjectDir)#{include_file}\";"
+		  end
         end
         concatenated_includes.gsub!(/(\/)/,'\\')
 
@@ -1330,11 +1350,11 @@ else
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graphics\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "C74")
             concatenated_libs_debug += "MaxAPI.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
             concatenated_libs_debug += "MaxAudio.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
             concatenated_libs_debug += "jitlib.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
+            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
@@ -1485,6 +1505,45 @@ else
         vcproj_release64_linker.add_element Element.new "AdditionalDependencies"
         vcproj_release64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release};%(AdditionalDependencies)"           
         vcproj_release64.add_element vcproj_release64_linker
+		
+		# add post build commands to copy dll in Max support folder
+		# do this only for 32bits version
+		# todo : add a case if we finally want a 32 or 64 bits dll in support folder
+		if project_type != "implementation"
+			command = ""
+			command += "copy"
+			command += " $(OutDir)$(ProjectName).dll "
+			command += "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support"
+			command.gsub!(/(\/)/,'\\')
+			
+			# also create build folder (mac like) and copy generated dll into in order to Max build.rb work on build folder
+			# command32 = ""
+			# command32 += " \nmkdir build;"
+			# command32 += " \ncopy"
+			# command32 += " $(OutDir)$(ProjectName).dll"
+			# command32 += " build;"
+			#command32.gsub!(/(\/)/,'\\')
+			
+			vcproj_debug32_postbuild = Element.new "PostBuildEvent"
+			vcproj_debug32_postbuild.add_element Element.new "Command"
+			vcproj_debug32_postbuild.elements["Command"].text = "#{command}"
+			vcproj_debug32.add_element vcproj_debug32_postbuild
+			
+			# vcproj_debug64_postbuild = Element.new "PostBuildEvent"
+			# vcproj_debug64_postbuild.add_element Element.new "Command"
+			# vcproj_debug64_postbuild.elements["Command"].text = "#{command}"
+			# vcproj_debug64.add_element vcproj_debug64_postbuild
+			
+			vcproj_release32_postbuild = Element.new "PostBuildEvent"
+			vcproj_release32_postbuild.add_element Element.new "Command"
+			vcproj_release32_postbuild.elements["Command"].text = "#{command}"
+			vcproj_release32.add_element vcproj_release32_postbuild
+			
+			# vcproj_release64_postbuild = Element.new "PostBuildEvent"
+			# vcproj_release64_postbuild.add_element Element.new "Command"
+			# vcproj_release64_postbuild.elements["Command"].text = "#{command}"
+			# vcproj_release64.add_element vcproj_release64_postbuild
+        end
         
       else
 

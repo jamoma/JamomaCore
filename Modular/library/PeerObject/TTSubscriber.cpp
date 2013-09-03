@@ -58,6 +58,9 @@ TTSubscriber::~TTSubscriber()
 {
     if (mSubscribed)
         Unsubscribe();
+    
+    delete mExposedMessages;
+    delete mExposedAttributes;
 }
 
 TTErr TTSubscriber::Subscribe(const TTValue& inputValue, TTValue& outputValue)

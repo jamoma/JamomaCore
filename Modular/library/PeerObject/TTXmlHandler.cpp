@@ -24,7 +24,7 @@
 #define thisTTClassTags		"xml, handler"
 
 TT_MODULAR_CONSTRUCTOR,
-mObject(NULL),
+mObject(kTTValNONE),
 mFilePath(kTTSymEmpty),
 mHeaderNodeName(TTSymbol("jamoma")),
 mVersion(TTSymbol("0.6")),
@@ -39,7 +39,7 @@ mIsReading(false)
 {
 	TT_ASSERT("Correct number of args to create TTXmlHandler", arguments.size() == 0);
 	
-	addAttribute(Object, kTypeObject);
+	addAttributeWithSetter(Object, kTypeLocalValue);
 
 	addAttribute(HeaderNodeName, kTypeSymbol);
 	addAttribute(Version, kTypeSymbol);
@@ -57,18 +57,33 @@ TTXmlHandler::~TTXmlHandler()
 	;
 }
 
+TTErr TTXmlHandler::setObject(const TTValue& value)
+{
+    mObject = value;
+    
+    return kTTErrNone;
+}
+
 TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 {
-    TTValue			v;
-	TTObjectBasePtr	aTTObject;
+    TTValue			v, objectValue, errValue;
+    TTObjectBasePtr anObject;
 	int				ret;
+    TTUInt32        i;
+    TTErr           err;
 	
-	// an object have to be selected
-	if (mObject == NULL)
+	// at least an object have to be selected
+	if (mObject.size() == 0)
 		return kTTErrGeneric;
 	
-	// memorize this object because it could change if the handler is used recursively
-	aTTObject = mObject;
+	// memorize object value because it could change if the handler is used recursively
+	objectValue = mObject;
+    
+    // prepare error value
+    errValue.resize(objectValue.size());
+    
+    for (i = 0; i < errValue.size(); i++)
+        errValue[i] = kTTErrNone;
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
@@ -104,14 +119,23 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			// Start Header information
 			xmlTextWriterStartElement((xmlTextWriterPtr)mWriter, BAD_CAST mHeaderNodeName.c_str());
-			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "version",			BAD_CAST mVersion.c_str());
-			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "xmlns:xsi",			BAD_CAST mXmlSchemaInstance.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "version", BAD_CAST mVersion.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "xmlns:xsi", BAD_CAST mXmlSchemaInstance.c_str());
 			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST mXmlSchemaLocation.c_str());
 			
-			// Write data of the given TTObject (which have to implement a WriteAsXml message)
-			v.clear();
-			v.append(TTObjectBasePtr(this));
-			aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+			// Write data for each given object (which have to implement a WriteAsXml message)
+            v = TTObjectBasePtr(this);
+            for (i = 0; i < objectValue.size(); i++) {
+                
+                if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
+                
+                    anObject = TTObjectBasePtr(objectValue[i]);
+                    errValue[i] = anObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+                    
+                    if (!(errValue[i] == kTTErrNone))
+                        err = kTTErrGeneric;
+                }
+            }
 			
 			// End Header information
 			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
@@ -126,16 +150,28 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			mIsWriting = false;
 			
-			// memorize the TTObject as the last handled object
-			mObject = aTTObject;
+			// memorize the objectValue as the last handled object
+			mObject = objectValue;
 			
-			return kTTErrNone;
+			return err;
 		}
 	}
 	
-	// else
-	v.append(TTObjectBasePtr(this));
-	return aTTObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+	// else write data for each given object (which have to implement a WriteAsXml message)
+    v = TTObjectBasePtr(this);
+    for (i = 0; i < objectValue.size(); i++) {
+        
+        if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
+            
+            anObject = TTObjectBasePtr(objectValue[i]);
+            errValue[i] = anObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+        }
+        
+        if (!(errValue[i] == kTTErrNone))
+            err = kTTErrGeneric;
+    }
+	
+	return err;
 }
 
 TTErr TTXmlHandler::WriteAgain()
@@ -152,17 +188,24 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	TTUInt8				xType;
 	const xmlChar		*xName = 0;
 	const xmlChar		*xValue = 0;
-	TTObjectBasePtr		aTTObject;
+	TTObjectBasePtr		anObject;
 	TTSymbol			lastNodeName;
-	TTValue				v;
+	TTValue				v, objectValue, errValue;
 	int					ret;
+    TTUInt32            i;
 	
-	// an object have to be selected
-	if (mObject == NULL)
+	// at least an object have to be selected
+	if (mObject.size() == 0)
 		return kTTErrGeneric;
 	
-	// memorize this object because it could change if the handler is used recursively
-	aTTObject = mObject;
+	// memorize object value because it could change if the handler is used recursively
+	objectValue = mObject;
+    
+    // prepare error value
+    errValue.resize(objectValue.size());
+    
+    for (i = 0; i < errValue.size(); i++)
+        errValue[i] = kTTErrNone;
 	
 	// if the first argument is kTypeSymbol : this is an *absolute* file path
 	// start an xml file reading from the given file
@@ -255,9 +298,16 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								break;
 						}	
 						
-						// process the mObject parsing on this node
-						v.append(TTObjectBasePtr(this));
-						aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+                        // Read data for each given object (which have to implement a ReadFromXml message)
+                        v = TTObjectBasePtr(this);
+                        for (i = 0; i < objectValue.size(); i++) {
+                            
+                            if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
+                                
+                                anObject = TTObjectBasePtr(objectValue[i]);
+                                errValue[i] = anObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+                            }
+                        }
 					}
 						
 					// next node
@@ -271,8 +321,8 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 				xmlFreeTextReader((xmlTextReaderPtr)mReader);
 				mIsReading = false;
 				
-				// memorize the TTObject as the last handled object
-				mObject = aTTObject;
+				// memorize the objectValue as the last handled object
+				mObject = objectValue;
 			}
 			else
 				return kTTErrGeneric;
@@ -281,9 +331,21 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 		}
 	}
 	
-	// else
-	v.append(TTObjectBasePtr(this));
-	return aTTObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+	// else read data for each given object (which have to implement a ReadFromXml message)
+    v = TTObjectBasePtr(this);
+    for (i = 0; i < objectValue.size(); i++) {
+        
+        if (objectValue[i].type() == kTypeObject) {
+            
+            if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
+                
+                anObject = TTObjectBasePtr(objectValue[i]);
+                errValue[i] = anObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+            }
+        }
+    }
+    
+    return kTTErrNone;
 }
 
 TTErr TTXmlHandler::ReadAgain()
@@ -326,8 +388,6 @@ TTErr TTXmlHandler::fromXmlChar(const void* axCh, TTValue& v, TTBoolean addQuote
 
 TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
-//	TTErr err;
-	
 	if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)mReader, BAD_CAST attributeName.c_str()) == 1) {
 		
 		return fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)mReader), returnedValue, addQuote, numberAsSymbol);
@@ -339,7 +399,6 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedVal
 TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
-//	TTErr	err;
 	
 	if (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)mReader) == 1) {
 		

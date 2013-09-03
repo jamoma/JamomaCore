@@ -680,15 +680,21 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
     anObject = aNode->getObject();
     if (anObject) {
         
+        objectName = anObject->getName();
+        
+        if (objectName == kTTSym_Mirror)
+            objectName = TTMirrorPtr(anObject)->getName();
+        
         // Filter object type
-        if (anObject->getName() == kTTSym_Application ||
-            anObject->getName() == kTTSym_Container ||
-            anObject->getName() == kTTSym_Data ||
-            anObject->getName() == kTTSym_Viewer) {
+        if (objectName == kTTSym_Application ||
+            objectName == kTTSym_Container ||
+            objectName == kTTSym_Data ||
+            objectName == kTTSym_Viewer) {
             
             // Application node case
-            if (anObject->getName() == kTTSym_Application) {
+            if (objectName == kTTSym_Application) {
                 
+                // Start "application" xml node
                 xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "application");
                 
                 // Write attributes
@@ -724,12 +730,11 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                 aString = TTString(v[0]);
                 xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
                 
-                // Start node
+                // Start object type xml node
                 nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
                 xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST nameInstance.c_str());
                 
                 // Write object name attribute
-                objectName = anObject->getName();
                 if (objectName != kTTSymEmpty)
                     xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName.c_str());
                 else
@@ -782,7 +787,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                 writeNodeAsXml(aXmlHandler, aChild);
             }
             
-            // Close node
+            // End xml node
             xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
             
         }
@@ -1226,7 +1231,7 @@ TTSymbol TTApplicationConvertTTNameToAppName(TTSymbol aTTName)
 {
 	TTErr		err;
 	TTValue		c;
-	TTSymbol	converted = kTTSymEmpty;
+	TTSymbol	converted = aTTName;
 	
 	if (TTModularApplications) {
 		

@@ -40,10 +40,8 @@ TTHashPtr TTModularNamespaces = NULL;
 
 /****************************************************************************************************/
 
-TTString TTModularInit()
+void TTModularInit()
 {
-    TTString    path;
-    
 	// Initialized Foundation framework
 	TTFoundationInit();
     
@@ -115,27 +113,7 @@ TTString TTModularInit()
 #else
 		TTLogMessage("Modular -- Version %s\n", TTMODULAR_VERSION_STRING);
 #endif
-        
-        
-        // Return where is the JamomaModular.dylib
-        // to : this could be return by the TTFoundationInit method (?)
-        Dl_info     info;
-        char		temp[4096];
-        char*       c = 0;
-        
-        if (dladdr((const void*)TTModularInit, &info)) {
-            
-            // chop the "/JamomaModular.dylib off of the path
-            strncpy(temp, info.dli_fname, 4096);
-            c = strrchr(temp, '/');
-            if (c)
-                *c = 0;
-            
-            path = temp;
-        }
 	}
-    
-    return path;
 }
 
 void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath)
