@@ -222,7 +222,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		
 		o = aNode->getObject();
 		if (o)
-			if (o->getName() == kTTSym_Input)
+			if (o->getName() == kTTSym_Input || o->getName() == kTTSym_InputAudio)
 				Link(o, kTTValNONE);
 	}
 
@@ -319,7 +319,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	o = aNode->getObject();
 	if (o) {
-		if (o->getName() == kTTSym_Input) {
+		if (o->getName() == kTTSym_Input || o->getName() == kTTSym_InputAudio) {
 			
 			switch (flag) {
 					

@@ -136,7 +136,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
                             err = kTTErrGeneric;
 						
 					}
-					else if (anObject->getName() == kTTSym_Input && ttAttributeName == kTTSym_signal) {
+					else if ((anObject->getName() == kTTSym_Input || anObject->getName() == kTTSym_InputAudio) && ttAttributeName == kTTSym_signal) {
 						
 						// send the value
 						anObject->sendMessage(kTTSym_Send, valueToSend, kTTValNONE);
