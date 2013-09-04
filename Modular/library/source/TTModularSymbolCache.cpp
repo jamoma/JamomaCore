@@ -63,6 +63,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_children                         (("child
 TTMODULAR_EXPORT TTSymbol       kTTSym_command                          (("command"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Command                          (("Command"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_comment                          (("comment"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_content                          (("content"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_ConvertToAppName					(("ConvertToAppName"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_ConvertToTTName                  (("ConvertToTTName"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_created                          (("created"));

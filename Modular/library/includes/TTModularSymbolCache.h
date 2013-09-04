@@ -64,6 +64,7 @@ extern TTMODULAR_EXPORT TTSymbol    kTTSym_children;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_command;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Command;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_comment;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_content;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_ConvertToAppName;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_ConvertToTTName;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_created;
