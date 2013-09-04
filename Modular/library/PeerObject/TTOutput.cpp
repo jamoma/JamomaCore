@@ -28,7 +28,6 @@ mMute(NO),
 mMix(100.),
 mGain(100.),
 mFreeze(NO),
-mPreview(NO),
 mSignalIn(NULL),
 mSignalOut(NULL),
 mSignalTemp(NULL),
@@ -83,7 +82,6 @@ mSignalAttr(NULL)
 	addAttributeWithSetter(Mix, kTypeFloat64);
 	addAttributeWithSetter(Gain, kTypeFloat64);
 	addAttribute(Freeze, kTypeBoolean);
-	addAttribute(Preview, kTypeBoolean);
 	
 	addAttribute(Signal, kTypeLocalValue);
 	addAttributeProperty(Signal, hidden, YES);
