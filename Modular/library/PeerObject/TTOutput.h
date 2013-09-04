@@ -89,6 +89,9 @@ protected:
 	
 	/** Set the gain attribute */
 	TTErr setGain(const TTValue& value);
+    
+    /** Set the mix attribute via a message (because, for Max, the configuration file tells to convert 'mix' into 'Mix') */
+	TTErr Mix(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Notify signal observer */
 	TTErr notifySignalObserver(const TTValue& value);

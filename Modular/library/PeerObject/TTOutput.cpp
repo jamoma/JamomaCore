@@ -98,6 +98,10 @@ mSignalAttr(NULL)
 	
 	addMessage(Unlink);
 	addMessageProperty(Unlink, hidden, YES);
+    
+    // only needed because, for Max, the configuration file tells to convert 'mix' into 'Mix')
+    addMessageWithArguments(Mix);
+	addMessageProperty(Mix, hidden, YES);
 	
 	mLast = kTTValNONE;
 	
@@ -271,6 +275,11 @@ TTErr TTOutput::setMix(const TTValue& value)
 		return mMixUnit->setAttributeValue(TTSymbol("position"), mMix * 0.01);
 	
 	return kTTErrNone;
+}
+
+TTErr TTOutput::Mix(const TTValue& inputValue, TTValue& outputValue)
+{
+    return setMix(inputValue);
 }
 
 TTErr TTOutput::setGain(const TTValue& value)
