@@ -26,13 +26,19 @@ mApplicationManager(NULL),
 mActivityInCallback(NULL),
 mActivityOutCallback(NULL)
 {
+    TTAttributePtr anAttribute;
+    
     mApplicationManager = arguments[0];
     mActivityInCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
     mActivityOutCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
 	
 	registerAttribute(TTSymbol("applicationParameters"), kTypePointer, NULL, (TTGetterMethod)& Protocol::getApplicationParameters, (TTSetterMethod)& Protocol::setApplicationParameters);
-
+    this->findAttribute(TTSymbol("applicationParameters"), &anAttribute);
+    anAttribute->sethidden(kTTBoolYes);
+    
 	registerAttribute(TTSymbol("distantApplicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& Protocol::getDistantApplicationNames);
+    this->findAttribute(TTSymbol("distantApplicationNames"), &anAttribute);
+    anAttribute->sethidden(kTTBoolYes);
 
 	addAttribute(Name, kTypeSymbol);
 	addAttributeProperty(Name, readOnly, YES);
@@ -58,9 +64,13 @@ mActivityOutCallback(NULL)
 	addAttribute(Activity, kTypeBoolean);
 
 	addMessageWithArguments(registerApplication);
+    addMessageProperty(registerApplication, hidden, YES);
+    
 	addMessageWithArguments(unregisterApplication);
+    addMessageProperty(unregisterApplication, hidden, YES);
 	
 	addMessageWithArguments(isRegistered);
+    addMessageProperty(isRegistered, hidden, YES);
 	
 	addMessageWithArguments(Run);
 	addMessageWithArguments(Stop);

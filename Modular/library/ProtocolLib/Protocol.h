@@ -35,7 +35,10 @@ mSet = TTBoolean(thisProtocolSet); \
 mListen = TTBoolean(thisProtocolListen); \
 mDiscover = TTBoolean(thisProtocolDiscover); \
 registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
-/*addAttributeProperty(ParameterNames, readOnly, YES); \ */
+TTAttributePtr anAttribute; \
+this->findAttribute(TTSymbol("ParameterNames"), &anAttribute); \
+anAttribute->setreadOnly(kTTBoolYes); \
+anAttribute->sethidden(kTTBoolYes); \
 
 
 // Macro to update and get the local application name (to use only inside the protocol class)
