@@ -138,13 +138,11 @@ public:
 	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setNumChannels )
 	TTBUFFER_WRAP_1ARG( getNumChannels )
 	
-	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLength )
-	TTBUFFER_WRAP_1ARG(  getLength )
+	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLengthInSeconds )
+	TTBUFFER_WRAP_1ARG(  getLengthInSeconds )
 	
 	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLengthInSamples )
 	TTBUFFER_WRAP_1ARG(  getLengthInSamples )
-	TTErr lengthInSamples(TTUInt32& returnedLengthInSamples)								
-		{ return mActiveMatrix->lengthInSamples(returnedLengthInSamples); }
 
 	/** NOTE: We do not wrap getValueAtIndex, peek, setValueAtIndex, poke and simliar methods.  
 	Objects should work directly with the TTSampleMatrixPtr that they check out for these types of operations.
@@ -155,6 +153,16 @@ public:
 		TTErr err = prepareBecomingActiveMatrix();
 		if (!err)
 			err = mBecomingActiveMatrix -> fill (value,unusedOutput);
+		if (!err)
+			err = promoteBecomingActiveMatrix();
+		return err;
+	}
+    
+    TTErr	load(const TTValue& value, TTValue& unusedOutput)
+	{
+		TTErr err = prepareBecomingActiveMatrix();
+		if (!err)
+			err = mBecomingActiveMatrix -> load (value,unusedOutput);
 		if (!err)
 			err = promoteBecomingActiveMatrix();
 		return err;

@@ -27,7 +27,7 @@ extern TTMODULAR_EXPORT	TTApplicationPtr	JamomaApplication;
 extern TTMODULAR_EXPORT	TTNodeDirectoryPtr	JamomaDirectory;
 
 extern TTMODULAR_EXPORT	TTRegex*			ttRegexForJmod;			///< A global regex to parse jmod. (usefull to detect a 0.5 module)
-extern TTMODULAR_EXPORT	TTRegex*			ttRegexForJcom;			///< A global regex to parse jcom.
+extern TTMODULAR_EXPORT	TTRegex*			ttRegexForJcom;			///< A global regex to parse j.
 extern TTMODULAR_EXPORT	TTRegex*			ttRegexForModel;		///< A global regex to parse .model
 extern TTMODULAR_EXPORT	TTRegex*			ttRegexForModule;		///< A global regex to parse .module
 extern TTMODULAR_EXPORT	TTRegex*			ttRegexForView;			///< A global regex to parse .view
@@ -182,13 +182,13 @@ extern TTMODULAR_EXPORT	TTString*			DocumentationFormat;
 	// Method to return data
 	///////////////////////////////////////////////////////////////////////
 	
-	/** Return an address to a jcom. external */
+	/** Return an address to a j. external */
 	void TTMODULAR_EXPORT jamoma_callback_return_address(TTPtr baton, TTValue& v);
 	
-	/** Return the value to a jcom. external as _sym_nothing, argc, argv */
+	/** Return the value to a j. external as _sym_nothing, argc, argv */
 	void TTMODULAR_EXPORT jamoma_callback_return_value(TTPtr baton, TTValue& v);
 	
-	/** Return the value to a jcom. external as msg, argc, argv */
+	/** Return the value to a j. external as msg, argc, argv */
 	void TTMODULAR_EXPORT jamoma_callback_return_value_typed(TTPtr baton, TTValue& v);
 	
 	/** Return any signal */

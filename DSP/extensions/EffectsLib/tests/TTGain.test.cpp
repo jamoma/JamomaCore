@@ -18,18 +18,17 @@ TTErr TTGain::test(TTValue& returnedTestInfo)
 	
 	TTTestLog("Testing Parameter value conversions");
 	
-	
 	// N test assertions
 	
 	// Test 1: trival value conversion
-	this->setAttributeValue(TT("midiGain"), 100);
+	this->set("midiGain", 100);
 	TTTestAssertion("midi gain of 100 == linear gain of 1.", 
 					TTTestFloatEquivalence(this->mGain, 1.0), 
 					testAssertionCount, 
 					errorCount);
 	
 	// Test 2: trival value conversion
-	this->setAttributeValue(TT("midiGain"), 99);
+	this->set("midiGain", 99);
 	TTTestAssertion("midi gain of 99 != linear gain of 1.", 
 					TTTestFloatEquivalence(this->mGain, 1.0, false), 
 					testAssertionCount, 
@@ -39,38 +38,31 @@ TTErr TTGain::test(TTValue& returnedTestInfo)
 	// set the input signals 1
 	// apply -6 dB gain
 	// check that the signals are properly scaled
+		
+	// create 1 channel audio signals
+	TTAudio input(1);
+	TTAudio output(1);
 	
-	TTAudioSignalPtr input = NULL;
-	TTAudioSignalPtr output = NULL;
-	
-	// create 1 channel audio signal objects
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 1);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 1);
-	
-	input->allocWithVectorSize(64);
-	output->allocWithVectorSize(64);
+	input.allocWithVectorSize(64);
+	output.allocWithVectorSize(64);
 	
 	for (int i=0; i<64; i++)
-		input->mSampleVectors[0][i] = 1.0;
+		input.rawSamples()[0][i] = 1.0;
 	
-	this->setAttributeValue(TT("gain"), -6.0);
+	this->set("gain", -6.0);
 	this->process(input, output);
 	
-	TTSampleValuePtr samples = output->mSampleVectors[0];
+	TTSampleValuePtr samples = output.rawSamples()[0];
 	int validSampleCount = 0;
 	
-	for (int i=0; i<64; i++) {
+	for (int i=0; i<64; i++)
 		validSampleCount += TTTestFloatEquivalence(0.5011872336272722, samples[i]);
-	}
+
 	TTTestAssertion("accumulated audio error at gain = -6 dB", 
 					validSampleCount == 64, 
 					testAssertionCount, 
 					errorCount);
-	TTTestLog("Numbe of bad samples: %i", 64-validSampleCount);
-	
-	TTObjectBaseRelease(&input);
-	TTObjectBaseRelease(&output);
-	
+	TTTestLog("Number of bad samples: %i", 64-validSampleCount);
 	
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);

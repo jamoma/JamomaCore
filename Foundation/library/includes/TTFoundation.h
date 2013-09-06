@@ -66,8 +66,8 @@
 // ON WINDOWS THERE CAN BE NO SPACE BETWEEN ~ and CLASSNAME like
 //		virtual ~ className ();
 
-
-void TTFOUNDATION_EXPORT TTFoundationInit(const char* pathToTheJamomaFolder = NULL);
+extern	TTFOUNDATION_EXPORT	TTString TTFoundationBinaryPath;
+void    TTFOUNDATION_EXPORT TTFoundationInit(const char* pathToTheJamomaFolder = NULL);
 
 
 #endif // __TT_FOUNDATION_H__

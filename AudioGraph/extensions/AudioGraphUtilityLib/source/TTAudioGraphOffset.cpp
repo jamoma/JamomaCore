@@ -4,7 +4,7 @@
  *
  * @brief offset≈: dynamically shift channels in multichannel signal
  *
- * @details United Airways SAN -> SFO
+ * @details
  *
  * @authors Nils Peters
  *

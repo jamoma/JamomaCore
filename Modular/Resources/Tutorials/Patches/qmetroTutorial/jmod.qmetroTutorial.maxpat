@@ -49,7 +49,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 57.0, 117.0, 131.0, 19.0 ],
-					"text" : "jcom.parameterCreate"
+					"text" : "j.parameterCreate"
 				}
 
 			}
@@ -135,7 +135,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 121.821503, 211.313141, 413.0, 31.0 ],
-									"text" : "jcom.parameter a_bang @type generic @repetitions/allow 1 @ramp/drive none @priority 1 @description \"a bang\"",
+									"text" : "j.parameter a_bang @type generic @repetitions/allow 1 @ramp/drive none @priority 1 @description \"a bang\"",
 									"varname" : "foot/switch"
 								}
 
@@ -245,7 +245,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 50.0, 50.0, 144.0, 19.0 ],
-													"text" : "jcom.oscroute /view/panel"
+													"text" : "j.oscroute /view/panel"
 												}
 
 											}
@@ -544,7 +544,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 294.0, 73.0, 245.0, 55.0 ],
-					"text" : "jcom.parameter time @type integer @range/bounds 0 5000 @range/clipmode low @repetitions/allow 0 @ramp/drive scheduler @description \"Metro interval (ms)\"",
+					"text" : "j.parameter time @type integer @range/bounds 0 5000 @range/clipmode low @repetitions/allow 0 @ramp/drive scheduler @description \"Metro interval (ms)\"",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -576,7 +576,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 294.0, 12.0, 242.0, 55.0 ],
-					"text" : "jcom.parameter toggle @type boolean @range/bounds 0. 1. @range/clipmode both @repetitions/allow 0 @ramp/drive none @description \"Toggle qmetro on/off\"",
+					"text" : "j.parameter toggle @type boolean @range/bounds 0. 1. @range/clipmode both @repetitions/allow 0 @ramp/drive none @description \"Toggle qmetro on/off\"",
 					"varname" : "hue_angle"
 				}
 
@@ -592,7 +592,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 85.0, 297.0, 260.0, 31.0 ],
-					"text" : "jcom.return trigger @type none @description \"Send every metronom tick\""
+					"text" : "j.return trigger @type none @description \"Send every metronom tick\""
 				}
 
 			}
@@ -606,7 +606,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 85.0, 216.0, 56.0, 19.0 ],
-					"text" : "jcom.in"
+					"text" : "j.in"
 				}
 
 			}
@@ -635,8 +635,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 21.0, 152.0, 216.0, 31.0 ],
-					"text" : "jcom.hub @module_type control @description \"A metronome module\"",
-					"varname" : "jcom.hub"
+					"text" : "j.hub @module_type control @description \"A metronome module\"",
+					"varname" : "j.hub"
 				}
 
 			}
@@ -681,7 +681,7 @@
 				"box" : 				{
 					"has_panel" : 1,
 					"id" : "obj-16",
-					"maxclass" : "jcom.ui",
+					"maxclass" : "j.ui",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

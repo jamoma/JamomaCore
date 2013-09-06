@@ -68,7 +68,7 @@ extern "C" {
 	
 	
 	/** Load obex externals for use within other externals
-	 * @param objectname the object name (i.e. SymbolGen("jcom.send"))
+	 * @param objectname the object name (i.e. SymbolGen("j.send"))
 	 * @param argc number of arguments to the external to be loaded
 	 * @param argv pointer to the first of an array of atom arguments to the external that is to be loaded
 	 * @param object if successful pointer to the object pointer

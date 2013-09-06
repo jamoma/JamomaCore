@@ -602,39 +602,104 @@ TTErr TTApplicationManager::ApplicationListenAnswer(const TTValue& inputValue, T
 TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler;
-	TTSymbol			applicationName, version;
+	TTSymbol			name;
 	TTApplicationPtr	anApplication;
+    ProtocolPtr         aProtocol;
     TTValue				keys, v;
+    TTUInt16            i;
 	
 	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	
-    xmlTextWriterWriteComment((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "TODO : a TTApplication Manager comment");
-	
-	// For each application
+	// Write each application
+    xmlTextWriterWriteComment((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "applications namespace");
+    
 	mApplications->getKeys(keys);
-	for (TTUInt16 i = 0; i < keys.size(); i++) {
+	for (i = 0; i < keys.size(); i++) {
 		
-		applicationName = keys[i];
-		mApplications->lookup(applicationName, v);
+		name = keys[i];
+		mApplications->lookup(name, v);
 		anApplication = TTApplicationPtr((TTObjectBasePtr)v[0]);
-		
-		// Start "application" xml node
-		xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "application");
-		xmlTextWriterWriteFormatAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", "%s", BAD_CAST applicationName.c_str());
-		
-		anApplication->getAttributeValue(TTSymbol("version"), v);
-		version = v[0];
-		xmlTextWriterWriteFormatAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "version", "%s", BAD_CAST version.c_str());
 		
 		v = TTValue(anApplication);
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		aXmlHandler->sendMessage(TTSymbol("Write"));
+	}
+    
+    // Write each protocol
+    xmlTextWriterWriteComment((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "protocols setup");
+    
+	mProtocols->getKeys(keys);
+	for (i = 0; i < keys.size(); i++) {
 		
-		// End "application" xml node
-		xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
+		name = keys[i];
+		mProtocols->lookup(name, v);
+		aProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
+        
+        writeProtocolAsXml(aXmlHandler, aProtocol);
 	}
 	
 	return kTTErrNone;
+}
+
+TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, ProtocolPtr aProtocol)
+{
+    TTSymbol        name;
+    TTValue         v, nameList, parametersNames;
+    TTString        aString;
+    TTUInt8         i, j;
+    TTHashPtr       parametersTable;
+    TTErr           err;
+    
+    // Start "protocol" xml node
+    xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "protocol");
+    
+    // Write protocol name
+    name = aProtocol->getName();
+    
+    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST name.c_str());
+    
+    // Start an xml node for each application registered to this protocol
+    mApplications->getKeys(nameList);
+    
+    for (i = 0; i < nameList.size(); i++)
+    {
+        name = nameList[i];
+        
+        v = name;
+        err = aProtocol->getAttributeValue(TTSymbol("applicationParameters"), v);
+        
+        // if the application is registered to this protocol
+        if (!err) {
+            
+            // Start an xml node for distant application parameters
+            xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST name.c_str());
+            
+            parametersTable = TTHashPtr((TTPtr)v[0]);
+            
+            parametersTable->getKeys(parametersNames);
+            
+            for (j = 0; j < parametersNames.size(); j++)
+            {
+                name = parametersNames[j];
+                
+                parametersTable->lookup(name, v);
+                
+                v.toString();
+                aString = TTString(v[0]);
+                
+                xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST name.c_str(), BAD_CAST aString.data());
+            }
+            
+            // End application parameters xml node
+            xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
+        }
+    }
+    
+    
+    // End "protocol" xml node
+    xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
+    
+    return kTTErrNone;
 }
 
 TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)

@@ -13,9 +13,16 @@
 #define thisTTClassTags		"audio, processor, dynamics, limiter"
 
 
-TT_AUDIO_CONSTRUCTOR
-, recover(0.0), lookaheadBufferIndex(0), lookaheadBuffer(NULL), gain(NULL), last(0.0)
-, dcBlocker(NULL), preamp(NULL), maxBufferSize(512), attrMode(TT("exponential"))
+TT_AUDIO_CONSTRUCTOR,
+	recover(0.0),
+	lookaheadBufferIndex(0),
+	lookaheadBuffer(NULL),
+	gain(NULL),
+	last(0.0),
+	dcBlocker(kTTSym_dcblock),
+	preamp(kTTSym_gain),
+	maxBufferSize(512),
+	attrMode(TT("exponential"))
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 	
@@ -36,19 +43,16 @@ TT_AUDIO_CONSTRUCTOR
 	// clear the history
 	addMessage(clear);
 
-	TTObjectBaseInstantiate(kTTSym_dcblock, &dcBlocker, initialMaxNumChannels);
-	TTObjectBaseInstantiate(kTTSym_gain, &preamp, initialMaxNumChannels);
-
 	// Set Defaults...
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
-	setAttributeValue(TT("threshold"),		0.0);
-	setAttributeValue(TT("preamp"),			0.0);
-	setAttributeValue(TT("postamp"),		0.0);
-	setAttributeValue(TT("lookahead"),		100);
-	setAttributeValue(TT("mode"),			TT("exponential"));
-	setAttributeValue(TT("release"),		1000.0);
-	setAttributeValue(TT("dcBlocker"),		kTTBoolYes);
-	setAttributeValue(TT("bypass"),			kTTBoolNo);
+	setAttributeValue("threshold",				0.0);
+	setAttributeValue("preamp",					0.0);
+	setAttributeValue("postamp",				0.0);
+	setAttributeValue("lookahead",				100);
+	setAttributeValue("mode",					"exponential");
+	setAttributeValue("release",				1000.0);
+	setAttributeValue("dcBlocker",				kTTBoolYes);
+	setAttributeValue("bypass",					kTTBoolNo);
 
 	clear();
 	setProcessMethod(processAudio);
@@ -63,8 +67,6 @@ TTLimiter::~TTLimiter()
 		delete [] lookaheadBuffer[i];
 	delete [] lookaheadBuffer;
 	delete [] gain;
-	TTObjectBaseRelease(&dcBlocker);
-	TTObjectBaseRelease(&preamp);
 }
 
 
@@ -88,8 +90,8 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&
 
 	clear();
 	
-	dcBlocker->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	preamp->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	dcBlocker.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	preamp.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	
 	return kTTErrNone;
 }
@@ -102,14 +104,14 @@ TTErr TTLimiter::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 }
 
 
-TTErr TTLimiter::setPreamp(const TTValue& newValue)
+TTErr TTLimiter::setPreamp(TTValue& newValue)
 {
-	return preamp->setAttributeValue(TT("gain"), const_cast<TTValue&>(newValue));
+	return preamp.set("gain", newValue);
 }
 
 TTErr TTLimiter::getPreamp(TTValue& value)
 {
-	return preamp->getAttributeValue(TT("gain"), value);
+	return preamp.get("gain", value);
 }
 
 
@@ -158,7 +160,7 @@ TTErr TTLimiter::setRelease(TTValue& newValue)
 TTErr TTLimiter::setMode(TTValue& newValue)
 {
 	attrMode = newValue;
-	if (attrMode == TT("linear"))
+	if (attrMode == "linear")
 		isLinear = true;
 	else
 		isLinear = false;
@@ -170,7 +172,7 @@ TTErr TTLimiter::setMode(TTValue& newValue)
 TTErr TTLimiter::setDCBlocker(TTValue& newValue)
 {
 	attrDCBlocker = newValue;
-	return dcBlocker->setAttributeValue(TT("bypass"), !attrDCBlocker);
+	return dcBlocker.set("bypass", !attrDCBlocker);
 }
 
 
@@ -189,7 +191,7 @@ TTErr TTLimiter::clear()
 	last = 1.0;
 	setRecover();
 
-	dcBlocker->sendMessage(TT("clear"));
+	dcBlocker.send("clear");
 	return kTTErrNone;
 }
 
@@ -199,7 +201,7 @@ TTErr TTLimiter::clear()
 void TTLimiter::setRecover()
 {
 	recover = 1000.0 / (attrRelease * sr);		
-	if (attrMode == TT("linear"))
+	if (attrMode == "linear")
 		recover = recover * 0.5;
 	else 
 		recover = recover * 0.707;
@@ -226,8 +228,8 @@ TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	TTUInt16		channel;
 
 	// Pre-Process the input
-	dcBlocker->process(in, out);	// filter out DC-Offsets (unless it is bypassed)
-	preamp->process(out, in);		// copy output back to input for the rest of this process
+	dcBlocker.process(in, out);	// filter out DC-Offsets (unless it is bypassed)
+	preamp.process(out, in);		// copy output back to input for the rest of this process
 
 	for (i=0; i<vs; i++) {
 		hotSample = 0.0;

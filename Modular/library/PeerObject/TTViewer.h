@@ -4,7 +4,7 @@
  *
  * @brief An MVC viewer object.
  *
- * @details In the Max implementation this is a jcom.remote object.
+ * @details In the Max implementation this is a j.remote object.
  *
  * @authors Théo de la Hogue
  *

@@ -44,7 +44,7 @@
 #include "TTAudioObjectBase.h"
 #include "TTAudioSignal.h"
 #include "TTAudioSignalArray.h"
-
+#include "TTAudioObject.h"
 
 // Macros
 

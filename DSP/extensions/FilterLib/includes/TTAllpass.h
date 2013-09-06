@@ -38,7 +38,7 @@ protected:
 		TTErr getFilters(const TTValue&, TTValue& listOfFiltersToReturn)
 	{
 		TTValue v;
-		v.setSize(2);
+		v.resize(2);
 		v.set(0, TT("allpass"));
 		v.set(1, TT("audio")); 
 		return TTGetRegisteredClassNamesForTags(listOfFiltersToReturn, v);

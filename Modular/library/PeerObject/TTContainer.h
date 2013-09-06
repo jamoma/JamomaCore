@@ -20,7 +20,7 @@
 #include "TTModular.h"
 
 /** TTContainer ... TODO : an explanation
-	In Max jcom.view and jcom.model are based on this class.
+	In Max j.view and j.model are based on this class.
  
  */
 
@@ -37,6 +37,7 @@ private:
 	TTAddress           mAddress;						///< ATTRIBUTE : the address of the container in the directory
 	TTAddress           mAlias;							///< ATTRIBUTE : an alias address to retrieve the container using another address
 	TTValue				mActivity;                      ///< ATTRIBUTE : a local value to allow observation of outputing data
+    TTValue             mContent;                       ///< ATTRIBUTE : a local value to allow observation of all address handled by the container
 	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
 	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
 	TTHashPtr			mObjectsObserversCache;			///< a hash table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access
@@ -44,6 +45,7 @@ private:
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop
     
     TTAttributePtr      activityAttribute;              ///< cache activity attribute for observer notification
+    TTAttributePtr      contentAttribute;               ///< cache content attribute for observer notification
 	
 	/** */
 	TTErr Send(TTValue& AddressAndValue, TTValue& outputValue);
@@ -79,6 +81,7 @@ private:
 		< object, observer1, observer2, node > */
 	TTErr makeCacheElement(TTNodePtr aNode);
 	TTErr deleteCacheElement(TTNodePtr aNode);
+    TTErr updateContent();
 	
 	/** Generates table heading for Datas */
 	void dataHeading(TTString *buffer);

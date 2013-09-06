@@ -5,12 +5,12 @@
  * 
  */
 
-#ifndef __CATMULL-ROM3D_H__
-#define __CATMULL-ROM3D_H__
+#ifndef __CATMULLROM3D_H__
+#define __CATMULLROM3D_H__
 
 #include "TTDSP.h"
 
-#define MAXPOINTS 1024 // 1024 points
+#define MAXSIZE 1024 // 1024 points
 
 
 class Catmullrom3D : TTAudioObjectBase {
@@ -38,4 +38,4 @@ protected:
 };
 
 
-#endif // __CATMULL-ROM3D_H__
+#endif // __CATMULLROM3D_H__

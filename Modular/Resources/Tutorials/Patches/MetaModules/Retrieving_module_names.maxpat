@@ -559,7 +559,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "int", "clear" ],
 					"patching_rect" : [ 40.0, 155.0, 126.0, 19.0 ],
-					"text" : "jcom.modulesDumper"
+					"text" : "j.modulesDumper"
 				}
 
 			}

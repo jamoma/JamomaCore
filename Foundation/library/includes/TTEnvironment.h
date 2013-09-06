@@ -170,20 +170,20 @@ public:
 extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 
 
-// Public Interface
+// Public Interface -- REPLACED BY TTOBJECT
 // Some of this looks a bit crazy due to duplication -- however the use of templates causes problems for linking on some Macs and PCs
 // (while not neccessarily on others)
-TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, TTValue& arguments);
-TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTValue& arguments);
-TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments);
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, TTValue& arguments) );
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTValue& arguments) );
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments) );
 
-TTFOUNDATION_EXPORT TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject);
-TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject);
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject) );
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject) );
 
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol& className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
-TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames);
-TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames) );
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags) );
 
 #endif // __TT_ENVIRONMENT_H__
 

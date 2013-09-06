@@ -28,7 +28,6 @@ mMute(NO),
 mMix(100.),
 mGain(100.),
 mFreeze(NO),
-mPreview(NO),
 mSignalIn(NULL),
 mSignalOut(NULL),
 mSignalTemp(NULL),
@@ -83,7 +82,6 @@ mSignalAttr(NULL)
 	addAttributeWithSetter(Mix, kTypeFloat64);
 	addAttributeWithSetter(Gain, kTypeFloat64);
 	addAttribute(Freeze, kTypeBoolean);
-	addAttribute(Preview, kTypeBoolean);
 	
 	addAttribute(Signal, kTypeLocalValue);
 	addAttributeProperty(Signal, hidden, YES);
@@ -100,6 +98,10 @@ mSignalAttr(NULL)
 	
 	addMessage(Unlink);
 	addMessageProperty(Unlink, hidden, YES);
+    
+    // only needed because, for Max, the configuration file tells to convert 'mix' into 'Mix')
+    addMessageWithArguments(Mix);
+	addMessageProperty(Mix, hidden, YES);
 	
 	mLast = kTTValNONE;
 	
@@ -222,7 +224,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		
 		o = aNode->getObject();
 		if (o)
-			if (o->getName() == kTTSym_Input)
+			if (o->getName() == kTTSym_Input || o->getName() == kTTSym_InputAudio)
 				Link(o, kTTValNONE);
 	}
 
@@ -275,6 +277,11 @@ TTErr TTOutput::setMix(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTOutput::Mix(const TTValue& inputValue, TTValue& outputValue)
+{
+    return setMix(inputValue);
+}
+
 TTErr TTOutput::setGain(const TTValue& value)
 {
 	mGain = value;
@@ -319,7 +326,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	o = aNode->getObject();
 	if (o) {
-		if (o->getName() == kTTSym_Input) {
+		if (o->getName() == kTTSym_Input || o->getName() == kTTSym_InputAudio) {
 			
 			switch (flag) {
 					

@@ -1,8 +1,15 @@
-/* 
- * Jamoma DSP Soundfile Recorder
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspSoundFileLib
+ *
+ * @brief Jamoma DSP Soundfile Recorder
+ *
+ * @details
+ *
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -14,10 +21,10 @@
 #ifdef uint
 #undef uint
 #endif
-#include "libsndfile/sndfile.h"
+#include "../libsndfile/sndfile.h"
 
 
-/**	The simplest of lowpass filters: a single-pole, no-zero algorithm. */
+/**	Enables user to record a soundfile to disk */
 class TTSoundfileRecorder : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTSoundfileRecorder)
 

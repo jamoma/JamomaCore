@@ -47,12 +47,12 @@
 #include <CoreFoundation/CFBundle.h> 
 #endif
 
+TTString        TTFoundationBinaryPath = "";
 
 static bool		TTFoundationHasInitialized = false;
-static TTString	TTFoundationBinaryPath = "";
 
-void		TTFoundationLoadExternalClasses(void);
-TTErr		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
+void            TTFoundationLoadExternalClasses(void);
+TTErr           TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
 TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol& className, TTValue& arguments);
 
 
@@ -146,6 +146,9 @@ void TTFoundationLoadExternalClasses(void)
 			c = strrchr(mainBundleStr, '/');
 			if (c)
 				*c = 0; // chop the "/JamomaFoundation.dylib off of the path
+            
+            // store binary path
+            TTFoundationBinaryPath = mainBundleStr;
 		}
 #else // THE OLD WAY
 		// Look in the folder of the host application
@@ -293,7 +296,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	
 	DIR* dirp = opendir(fullpath.c_str());
 	dirent* dp;
-	while (dp = readdir(dirp)) {
+	while ((dp = readdir(dirp))) {
 		TTString	fileName(dp->d_name);
 		TTString	fileSuffix(strrchr(fileName.c_str(), '.'));
 		TTString	fileBaseName = fileName.substr(0, fileName.size() - 8);

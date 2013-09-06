@@ -1,8 +1,15 @@
-/* 
- * Jamoma DSP Soundfile Recorder
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspSoundFileLib
+ *
+ * @brief Jamoma DSP Soundfile Recorder
+ *
+ * @details
+ *
+ * @authors Timothy Place
+ *
+ * @copyright Copyright © 2010 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

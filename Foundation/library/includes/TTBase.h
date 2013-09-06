@@ -324,7 +324,9 @@ enum TTErr {
 	kTTErrValueNotFound,	///< A value was not found when doing a look up for it (in a TTHash, TTList, or other class).
 	kTTErrBadChannelConfig,	///< An invalid number of audio channels for a given context was encountered.
 	kTTErrReadOnly,			///< Attempted a write to a read-only entity.
-	kTTErrOutOfBounds		///< Attempted to access memory outside a matrix or array (in a TTMatrix & TTSampleMatrix).
+	kTTErrOutOfBounds,		///< Attempted to access memory outside a matrix or array (in a TTMatrix & TTSampleMatrix).
+	kTTErrInstantiateFailed,///< Couldn't instantiate the Jamoma object requested.
+	kTTErrInvalidFilepath 	///< Couldn't resolve the filepath as submitted.
 };
 
 
@@ -362,7 +364,7 @@ public:
 #endif
 
 	
-static void TTAtomicIncrement(TTAtomicInt& value)
+inline void TTAtomicIncrement(TTAtomicInt& value)
 {
 #ifdef TT_PLATFORM_MAC
 	OSAtomicIncrement32(&value);

@@ -541,12 +541,12 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
 	TTSymbol		attribute	= testAddress.getAttribute();
 	TTAddressType	type		= testAddress.getType();
     
-    TTBoolean t1 = directory == TTSymbol("directory");
-    TTBoolean t2 = parent == TTAddress("/gran/parent");
-    TTBoolean t3 = name == TTSymbol("name");
-    TTBoolean t4 = instance == TTSymbol("instance");
-    TTBoolean t5 = attribute == TTSymbol("attribute");
-    TTBoolean t6 = type == kAddressAbsolute;
+    //TTBoolean t1 = directory == TTSymbol("directory");
+    //TTBoolean t2 = parent == TTAddress("/gran/parent");
+    //TTBoolean t3 = name == TTSymbol("name");
+    //TTBoolean t4 = instance == TTSymbol("instance");
+    //TTBoolean t5 = attribute == TTSymbol("attribute");
+    //TTBoolean t6 = type == kAddressAbsolute;
 
     TTTestAssertion("TTValue::get : Test2 fails if a TTSymbol contained into a value is not casted into a TTAddress during a get method",
 					directory == TTSymbol("directory") &&

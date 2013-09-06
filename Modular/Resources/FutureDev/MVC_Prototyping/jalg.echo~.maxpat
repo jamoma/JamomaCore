@@ -194,7 +194,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.oscroute /filtertype /cf /filtergain /q",
+					"text" : "j.oscroute /filtertype /cf /filtergain /q",
 					"numoutlets" : 5,
 					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "", "", "" ],
@@ -222,7 +222,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.oscroute /left /right /maxdelay /feedback",
+					"text" : "j.oscroute /left /right /maxdelay /feedback",
 					"numoutlets" : 5,
 					"fontname" : "Verdana",
 					"outlettype" : [ "", "", "", "", "" ],

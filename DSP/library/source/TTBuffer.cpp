@@ -57,7 +57,7 @@ TTBuffer::TTBuffer(TTValue& arguments) :
 	addAttributeWithSetter(Name, kTypeSymbol);
 	
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeUInt16);
-	addAttributeWithGetterAndSetter(Length,				kTypeFloat64);
+	addAttributeWithGetterAndSetter(LengthInSeconds,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeUInt64);
 //	addAttribute(SampleRate,							kTypeFloat64);
 	

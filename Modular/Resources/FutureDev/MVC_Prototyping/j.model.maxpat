@@ -19,7 +19,7 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "the information for the hub could be placed inside of the model ??? -> jcom.hubinfo",
+					"text" : "the information for the hub could be placed inside of the model ??? -> j.hubinfo",
 					"presentation_rect" : [ 67.0, 481.0, 0.0, 0.0 ],
 					"fontname" : "Verdana",
 					"id" : "obj-2",
@@ -91,8 +91,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.hub",
-					"text" : "jcom.hub @description \"report data from model\"",
+					"varname" : "j.hub",
+					"text" : "j.hub @description \"report data from model\"",
 					"fontname" : "Verdana",
 					"id" : "obj-52",
 					"numinlets" : 1,
@@ -130,7 +130,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "all this could be included in jcom.in(~) ?",
+					"text" : "all this could be included in j.in(~) ?",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"id" : "obj-15",
@@ -239,7 +239,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.algorithm_control~",
+					"text" : "j.algorithm_control~",
 					"fontname" : "Verdana",
 					"id" : "obj-75",
 					"numinlets" : 1,
@@ -253,7 +253,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.out~ #3",
+					"text" : "j.out~ #3",
 					"fontname" : "Verdana",
 					"id" : "obj-73",
 					"numinlets" : 5,
@@ -267,7 +267,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.in~ #3",
+					"text" : "j.in~ #3",
 					"fontname" : "Verdana",
 					"id" : "obj-72",
 					"numinlets" : 5,

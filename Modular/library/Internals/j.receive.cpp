@@ -1,5 +1,5 @@
 /** 
- * \file jcom.receive.cpp
+ * \file j.receive.cpp
  * External for Jamoma: receive messages from remote
  * By Trond Lossius & Tim Place, Copyright � 2006
  * 
@@ -66,7 +66,7 @@ void		receive_get(t_receive *x);
 void		receive_symbol(t_receive *x, t_symbol *mess, long argc, t_atom *argv);
 
 // Globals
-static t_class		*s_receive_class;					// Required: Global pointer the jcom.receive class
+static t_class		*s_receive_class;					// Required: Global pointer the j.receive class
 
 
 /************************************************************************************/
@@ -77,7 +77,7 @@ void receive_initclass()
 	t_object *attr;
 	
 	// Define our class
-	c = class_new(	"jcom.receive", 
+	c = class_new(	"j.receive", 
 					(method)receive_new, 
 					(method)receive_free, 
 					sizeof(t_receive), 

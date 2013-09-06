@@ -64,7 +64,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 	
 	if (mFilter == TT("allpass.1a") || mFilter == TT("allpass.1b") || mFilter == TT("allpass.1c")) {
 		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);		
-		if (coefficients.getSize() >= 1) {
+		if (coefficients.size() >= 1) {
 			TTFloat64 alpha;
 			
 			coefficients.get(0, alpha);
@@ -73,7 +73,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 	}
 	else if (mFilter == TT("allpass.2a") || mFilter == TT("allpass.2b")) {
 		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-		if (coefficients.getSize() >= 2) {
+		if (coefficients.size() >= 2) {
 			TTFloat64 c1, c2;
 			
 			coefficients.get(0, c1);
@@ -84,7 +84,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 	}
 	else if (mFilter == TT("allpass.2c")) {
 		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-		if (coefficients.getSize() >= 2) {
+		if (coefficients.size() >= 2) {
 			TTFloat64 e1, e2;
 			
 			coefficients.get(0, e1);
@@ -95,7 +95,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 	}
 	else if (mFilter == TT("allpass.4a")) {
 		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-		if (coefficients.getSize() >= 4) {
+		if (coefficients.size() >= 4) {
 			TTFloat64 d1, d2, d3, d4;
 			
 			coefficients.get(0, d1);
@@ -115,7 +115,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 
 TTErr TTAllpass::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
-	return mFilterObject->setAttributeValue(kTTSym_sampleRate, (unsigned int)sr);
+	return mFilterObject->setAttributeValue(kTTSym_sampleRate, sr);
 }
 
 

@@ -634,7 +634,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("data"), (TTPtr)aFilter);
 	
-	// to look for jcom.parameter
+	// to look for j.parameter
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Data);
@@ -643,7 +643,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("parameter"), (TTPtr)aFilter);
 	
-	// to look for jcom.message
+	// to look for j.message
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Data);
@@ -652,7 +652,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("message"), (TTPtr)aFilter);
 	
-	// to look for jcom.return
+	// to look for j.return
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Data);
@@ -661,7 +661,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("return"), (TTPtr)aFilter);
 	
-	// to look for jcom.model
+	// to look for j.model
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Container);
@@ -670,7 +670,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("model"), (TTPtr)aFilter);
 	
-	// to look for jcom.view
+	// to look for j.view
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Container);
@@ -686,7 +686,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("none"), (TTPtr)aFilter);
 	
-	// to look for jcom.remote
+	// to look for j.remote
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Viewer);
@@ -777,7 +777,7 @@ void jamoma_callback_return_address(TTPtr baton, TTValue& v)
     }
 }
 
-/** Return the value to a jcom. external as _sym_nothing, argc, argv */
+/** Return the value to a j. external as _sym_nothing, argc, argv */
 void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
@@ -826,7 +826,7 @@ void jamoma_callback_return_value(TTPtr baton, TTValue& v)
 	sysmem_freeptr(argv);
 }
 
-/** Return the value to a jcom. external as msg, argc, argv */
+/** Return the value to a j. external as msg, argc, argv */
 void jamoma_callback_return_value_typed(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
@@ -1201,8 +1201,8 @@ void jamoma_patcher_get_context(ObjectPtr *patcher, TTSymbol& returnedContext)
 	obj = object_attr_getobj(*patcher, _sym_firstobject);
 	
 	// TODO : cache those t_symbol else where ...
-	_sym_jcommodel = gensym("jcom.model");
-	_sym_jcomview = gensym("jcom.view");
+	_sym_jcommodel = gensym("j.model");
+	_sym_jcomview = gensym("j.view");
 	
 	while (obj) {
 		
@@ -1297,7 +1297,7 @@ void jamoma_patcher_get_class(ObjectPtr patcher, TTSymbol context, TTSymbol& ret
 			begin = s_toParse.begin();
 			end = s_toParse.end();
 		} 
-		// parse jcom.
+		// parse j.
 		else if (!ttRegexForJcom->parse(begin, end)) {
 			
 			s_toParse = TTString(ttRegexForJcom->end(), end);
@@ -1387,7 +1387,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol& retu
 	if (ac && av) {
         
         // notice we have to test view case before model case 
-        // because a jcom.view can be in subpatcher too
+        // because a j.view can be in subpatcher too
         
         // for view : the second argument is the name
 		// (the first is reserved for the /model/address)
@@ -1429,8 +1429,8 @@ void jamoma_patcher_share_info(ObjectPtr patcher, ObjectPtr *returnedPatcher, TT
 	obj = object_attr_getobj(patcher, _sym_firstobject);
 	
 	// TODO : cache those t_symbol else where ...
-	_sym_jcommodel = gensym("jcom.model");
-	_sym_jcomview = gensym("jcom.view");
+	_sym_jcommodel = gensym("j.model");
+	_sym_jcomview = gensym("j.view");
 	_sym_share = gensym("share_patcher_info");
 	while (obj) {
 		_sym_jcomcontext = object_attr_getsym(obj, _sym_maxclass);
@@ -1492,8 +1492,8 @@ void jamoma_patcher_share_node(ObjectPtr patcher, TTNodePtr *patcherNode)
 	obj = object_attr_getobj(patcher, _sym_firstobject);
 	
 	// TODO : cache those t_symbol else where ...
-	_sym_jcommodel = gensym("jcom.model");
-	_sym_jcomview = gensym("jcom.view");
+	_sym_jcommodel = gensym("j.model");
+	_sym_jcomview = gensym("j.view");
 	_sym_share = gensym("share_patcher_node");
 	while (obj) {
 		_sym_jcomcontext = object_attr_getsym(obj, _sym_maxclass);
@@ -1524,7 +1524,7 @@ TTErr jamoma_patcher_get_info(ObjectPtr obj, ObjectPtr *returnedPatcher, TTSymbo
 	*returnedPatcher = jamoma_patcher_get(obj);
 
 	_sym_jcomcontext = object_classname(obj);
-	canShare = _sym_jcomcontext == gensym("jcom.model") || _sym_jcomcontext == gensym("jcom.view");
+	canShare = _sym_jcomcontext == gensym("j.model") || _sym_jcomcontext == gensym("j.view");
 	
 	patcher = *returnedPatcher;
 

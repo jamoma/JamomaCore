@@ -1,6 +1,6 @@
 /** 
- * \file jcom.receivemaster.cpp
- * Manage jcom.receive instances.
+ * \file j.receivemaster.cpp
+ * Manage j.receive instances.
  * By Tim Place, Copyright � 2007
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -43,7 +43,7 @@ void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *m
 /** Add an object to a linked list of receiving objects associated with a certain name.
  @param x			This object
  @param name		The symbol that the receiving object is to be associated with.
-					Example: For a "jcom.send foo" object the name would be "foo".
+					Example: For a "j.send foo" object the name would be "foo".
  @param obj			Pointer to the receiving object that is to be added.
  */
 void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj);
@@ -52,15 +52,15 @@ void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj);
 /** Remove an object from the linked list of receiving objects associated with a certain name.
  @param x			This Object.
  @param name		The symbol that the receiving object is currently associated with.
- Example: For a "jcom.send foo" object the name would be "foo".
+ Example: For a "j.send foo" object the name would be "foo".
  @param obj			Pointer to the receiving object that is to be removed.
  */
 void receivemaster_remove(t_jcom_receivemaster *x, t_symbol *name, t_object *obj);
 
 
 // Globals
-static t_class		*s_receivemaster_class = NULL;	///< Required: Global pointer the jcom.receivemaster class
-static t_hashtab	*s_receive_lists = NULL;		///< hash full of linked lists, keyed on the name of the jcom.receive instances
+static t_class		*s_receivemaster_class = NULL;	///< Required: Global pointer the j.receivemaster class
+static t_hashtab	*s_receive_lists = NULL;		///< hash full of linked lists, keyed on the name of the j.receive instances
 
 
 /************************************************************************************/
@@ -68,7 +68,7 @@ static t_hashtab	*s_receive_lists = NULL;		///< hash full of linked lists, keyed
 void receivemaster_initclass()
 {
 	// Define our class
-	s_receivemaster_class = class_new(	"jcom.receivemaster", 
+	s_receivemaster_class = class_new(	"j.receivemaster", 
 										(method)receivemaster_new, 
 										(method)receivemaster_free, 
 										sizeof(t_jcom_receivemaster), 

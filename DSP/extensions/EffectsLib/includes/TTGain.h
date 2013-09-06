@@ -1,8 +1,13 @@
-/* 
- * TTBlue Gain Control Object
- * Copyright © 2008, Timothy Place
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief Adjust adio gain
  * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * License: This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -12,34 +17,77 @@
 #include "TTDSP.h"
 
 
-/**	TTGain is an exceptionally simple audio processor scales an input audio signal */
+/**	TTGain is an simple audio processor that adjusts the gain of an input audio signal.
+ */
 class TTGain : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTGain)
 
+private:
+	
+	TTFloat64		oldGain;		///< Temporarily stored old gain value, required for linear interpolation.
+	
 protected:
 
-	TTFloat64		mGain, oldGain;	///< linear gain to be applied to the input signal
-	TTBoolean		mInterpolated;
-	/**	A standard audio processing method as used by TTBlue objects.*/
+	TTFloat64		mGain;			///< Linear gain to be applied to the input signal.
+	
+	TTBoolean		mInterpolated;	///< Flag indicating whether interpolation will be applied when gain is changed.
+	
+	
+	/**	A standard audio processing method as used by TTBlue objects.
+	 @param	inputs				Pointer to array of input audio signals.
+	 @param outputs				Pointer to array of processaed audio signals.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	
+	/** Alternative audio processing method that might be used temporarily when gain value has been changed in order to interpolate linearly to the new gain value over one signal vector.
+	 @param	inputs				Pointer to array of input audio signals.
+	 @param outputs				Pointer to array of processaed audio signals.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
-	/** setter for the gain processing mode */
+	
+	/** Set boolean attribute determining whether linear interpolation is applied or not.
+	 @param newValue			The new value that the interpolate attribute is to have.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setInterpolated(const TTValue& newValue);
 	
-	/** setter for converting gain input from db to linear. */
+	
+	/** Set the gain using dB units.
+	 @param newValue			The new gain value, expressed in dB units.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setGain(const TTValue& newValue);
 	
-	/** getter for converting gain input from linear to db. */
+	
+	/** Get current gain in dB units.
+	 @param value				Used to return the current gain value, expressed in dB units.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getGain(TTValue& value);
 	
-	/** set the gain using midi units. */
+	
+	/** Set the gain using MIDI units.
+	 @param newValue			The new gain value, expressed in MIDI units.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr setMidiGain(const TTValue& newValue);
 	
-	/** retreive the gain in midi units. */
+	
+	/** Retreive current gain in MIDI units.
+	 @param value				Used to return the current gain vallue, expressed in MIDI units.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr getMidiGain(TTValue& value);
 	
-
+	
+	/** Gain unit test.
+	 @param returnedTestInfo	The outcome from the performed unit test.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	virtual TTErr test(TTValue& returnedTestInfo);
 
 };

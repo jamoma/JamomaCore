@@ -14,10 +14,10 @@
 
 
 TT_AUDIO_CONSTRUCTOR,
-mShape(TT("equalPower")),
-mMode(TT("lookup")),
 mPosition(0.0),
-mScaledPosition(0.5)
+mScaledPosition(0.5),
+mShape(TT("equalPower")),
+mMode(TT("lookup"))
 {
 	addAttributeWithSetter(			Position,	kTypeFloat64);
 	addAttributeProperty(	Position,	range,			TTValue(-1.0, 1.0));

@@ -64,6 +64,7 @@ extern TTMODULAR_EXPORT TTSymbol    kTTSym_children;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_command;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Command;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_comment;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_content;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_ConvertToAppName;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_ConvertToTTName;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_created;
@@ -110,12 +111,12 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_mix;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_model;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_mute;
 
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_names;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_namespace;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_nodeAddress;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_object;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_objectCache;
-extern TTMODULAR_EXPORT TTSymbol	kTTSym_order;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_parameter;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_preview;

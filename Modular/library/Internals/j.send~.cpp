@@ -1,5 +1,5 @@
 /** 
- * \file jcom.send~.cpp
+ * \file j.send~.cpp
  * External for Jamoma: Remote audio signal communication
  * By Tim Place, Copyright © 2007
  * 
@@ -10,18 +10,18 @@
 #include "Jamoma.h"
 
 /*
-	The way this should work is that we have a jcom.send object with N inlets and one outlet (dumpout)
+	The way this should work is that we have a j.send object with N inlets and one outlet (dumpout)
 	When the object receives a 'gettargets' message then it fills a menu via dumpout with all of the targets.
 	The target is the OSC name of the target module.
 	
-	There is then an @target attribute, which is the jcom.in~ that this sends to.  
+	There is then an @target attribute, which is the j.in~ that this sends to.  
 	
 	The number of inlets are defined by an argument.  We need to check at the time that dsp is started to 
 	make sure the target actually has the number of audio signals we are sending though...
 	
 	QUESTION:
 	What about Jitter or other 'signals'?  Should they be implemented via a special mode or additions to 
-	the plain vanilla jcom.send?
+	the plain vanilla j.send?
 	
 	Argument in that case will need to be type-checked: int = number of inputs, symbol = OSCname
 */
@@ -32,7 +32,7 @@ typedef struct _audiosend{
 
 	t_symbol		*attr_target;					///< name of the module we are sending to
 	t_object		*obj_target;					///< the hub of the module we are sending to
-	t_object		*obj_direct_target;				///< the jcom.in~ object in the module we are sending to
+	t_object		*obj_direct_target;				///< the j.in~ object in the module we are sending to
 	
 	long			num_inputs;						///< spec'd as an argument
 	float			*audio_in[MAX_NUM_CHANNELS];	///< pointers to the audio vectors
@@ -107,7 +107,7 @@ void send_tilde_initclass(void)
 	t_object *attr;
 	
 	// Define our class
-	c = class_new("jcom.send~", (method)audiosend_new, (method)audiosend_free, 
+	c = class_new("j.send~", (method)audiosend_new, (method)audiosend_free, 
 		sizeof(t_audiosend), (method)NULL, A_GIMME, 0);
 
 	// Make methods accessible for our class:

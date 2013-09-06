@@ -68,3 +68,5 @@ TTErr TTAudioGraphGenerator::processAudio(TTAudioSignalArrayPtr inputs, TTAudioS
 	TTAudioSignal&	out = outputs->getSignal(0);
 	return TTAudioSignal::copy(*mBuffer, out);
 }
+
+

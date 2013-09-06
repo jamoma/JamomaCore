@@ -1205,7 +1205,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 20.0, 20.0, 300.0, 25.0 ],
-					"tabs" : [ "No background", "Panel", "jcom.ui" ]
+					"tabs" : [ "No background", "Panel", "j.ui" ]
 				}
 
 			}
@@ -1480,7 +1480,7 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-7",
-					"maxclass" : "jcom.textslider",
+					"maxclass" : "j.textslider",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
@@ -1518,7 +1518,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"id" : "obj-27",
-									"maxclass" : "jcom.meter~",
+									"maxclass" : "j.meter~",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -1536,7 +1536,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 65.0, 375.0, 77.0, 19.0 ],
-									"text" : "jcom.meter~"
+									"text" : "j.meter~"
 								}
 
 							}
@@ -2138,7 +2138,7 @@
 			}
 , 			{
 				"box" : 				{
-					"annotation" : "jcom.ui",
+					"annotation" : "j.ui",
 					"background" : 1,
 					"has_bypass" : 1,
 					"has_freeze" : 1,
@@ -2149,9 +2149,9 @@
 					"has_panel" : 1,
 					"has_preview" : 1,
 					"hidden" : 1,
-					"hint" : "jcom.ui",
+					"hint" : "j.ui",
 					"id" : "obj-28",
-					"maxclass" : "jcom.ui",
+					"maxclass" : "j.ui",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],

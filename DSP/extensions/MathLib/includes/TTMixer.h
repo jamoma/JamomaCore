@@ -46,7 +46,7 @@ protected:
 	TTErr setNumOutputs(const TTValue& newValue);
 	
 	
-	/** Chekc what the current mixer size is.
+	/** Check what the current mixer size is.
 	 @param x						The current number of audio input signals
 	 @param y						The current number of audio output signals
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.

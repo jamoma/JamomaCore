@@ -7,7 +7,7 @@ sources:
   - source/Jamoma.cpp
   - source/JamomaObject.cpp
   - source/JamomaSymbols.cpp
-  - source/jcom.core.cpp
+  - source/j.core.cpp
   - ModularForMax/ModularForMax.cpp
   - PeerObject/TTApplication.cpp
   - PeerObject/TTApplicationManager.cpp
@@ -18,10 +18,12 @@ sources:
   - PeerObject/TTDataTypedMethods.cpp
   - PeerObject/TTExplorer.cpp
   - PeerObject/TTInput.cpp
+  - PeerObject/TTInputAudio.cpp
   - PeerObject/TTMapper.cpp
   - PeerObject/TTMapperManager.cpp
   - PeerObject/TTMirror.cpp
   - PeerObject/TTOutput.cpp
+  - PeerObject/TTOutputAudio.cpp
   - PeerObject/TTPreset.cpp
   - PeerObject/TTPresetManager.cpp
   - PeerObject/TTRamp.cpp

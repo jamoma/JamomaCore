@@ -6,7 +6,7 @@
   </head>
   <body>
     <outline text="Jamoma core" _status="indeterminate" DiscussinAlbi="0">
-      <outline text="check jcom.ui properly" _status="checked" Priority="Short-term" Who="Trond" DiscussinAlbi="0"/>
+      <outline text="check j.ui properly" _status="checked" Priority="Short-term" Who="Trond" DiscussinAlbi="0"/>
       <outline text="is ramp fully implemented using proper syntax?" _status="checked" Priority="Short-term" Who="All" DiscussinAlbi="2"/>
       <outline text="implement additional functions and drives" Who="Trond" DiscussinAlbi="0"/>
       <outline text="is unit lib properly implemented using correct syntax?" Priority="Short-term" Who="All" DiscussinAlbi="2">
@@ -14,7 +14,7 @@
         <outline text="spatdif" Who="Trond, Nils, Tim" DiscussinAlbi="2"/>
       </outline>
       <outline text="Check that the NIME Namespace is correctly implemented" Priority="Short-term" Who="All" DiscussinAlbi="0">
-        <outline text="especially the :/dump part in jcom.hub.cpp" Priority="Short-term" Who="Pascal, Tim" DiscussinAlbi="0">
+        <outline text="especially the :/dump part in j.hub.cpp" Priority="Short-term" Who="Pascal, Tim" DiscussinAlbi="0">
           <outline text="e.g how do we discriminate between parameters/messages/returns for the :/namespace query" DiscussinAlbi="0"/>
           <outline text="query returns using JSON structures? e.g. {name:cf, type:parameter}" DiscussinAlbi="0">
             <outline text="research how other apps (e.g. ROR) are returning query results" DiscussinAlbi="0"/>
@@ -31,7 +31,7 @@
         <outline text="discuss some other subnodes of /repetitions attribute, e.g. /filters (could be behaving like Max's qlim or speedlim)" DiscussinAlbi="0"/>
       </outline>
       <outline text="making sure ramping happens in active unit" Priority="Kind of short term" DiscussinAlbi="0"/>
-      <outline text="fully develop and test jcom.paramui" Priority="Short-term" Who="Tim, Trond" DiscussinAlbi="0">
+      <outline text="fully develop and test j.paramui" Priority="Short-term" Who="Tim, Trond" DiscussinAlbi="0">
         <outline text="review if we should have some &quot;default&quot; user interface objects, and what they should be" Priority="Mid-term" Who="All" DiscussinAlbi="0"/>
       </outline>
       <outline text="ability to retrieve :" Priority="Short-term" Who="Tim, Pascal" DiscussinAlbi="0">
@@ -43,9 +43,9 @@
       <outline text="Contribute to post-OSC protocol and comply to it" Priority="Mid-term" Who="All" DiscussinAlbi="0"/>
     </outline>
     <outline text="Max5 port" _status="indeterminate" DiscussinAlbi="0">
-      <outline text="is audio working - jcom.in~ and jcom.out~? /aduio - mute, bypass, mix, gain, etc.? Metering?" _status="checked" Priority="Short-term" Who="Tim, Trond" DiscussinAlbi="2"/>
+      <outline text="is audio working - j.in~ and j.out~? /aduio - mute, bypass, mix, gain, etc.? Metering?" _status="checked" Priority="Short-term" Who="Tim, Trond" DiscussinAlbi="2"/>
       <outline text="converting existing components, algorithms and modules" _status="checked" Priority="Mid-term" Who="All" DiscussinAlbi="0"/>
-      <outline text="jcom.meter~ in vertical mode" Priority="Mid-term" DiscussinAlbi="0"/>
+      <outline text="j.meter~ in vertical mode" Priority="Mid-term" DiscussinAlbi="0"/>
       <outline text="textslider and numberslider turned into externals" Priority="Mid to long" DiscussinAlbi="0"/>
     </outline>
     <outline text="TTblue" _status="indeterminate" DiscussinAlbi="0">

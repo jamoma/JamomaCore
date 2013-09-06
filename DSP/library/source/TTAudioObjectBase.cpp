@@ -40,8 +40,8 @@ TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) :
 	registerAttribute("bypass",				kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObjectBase::setBypass);
 	registerAttribute("mute",				kTypeBoolean,	&attrMute,			(TTSetterMethod)&TTAudioObjectBase::setMute);
 	
+	registerMessage("test",						(TTMethod)&TTAudioObjectBase::test);
 	registerMessage("calculate",				(TTMethod)&TTAudioObjectBase::calculateMessage);
-	registerMessage("test",						TTMethod(&TTObjectBase::test));
 	registerMessage("resetBenchmarking",		(TTMethod)&TTAudioObjectBase::resetBenchmarking, kTTMessagePassNone);
 	registerMessage("getProcessingBenchmark",	(TTMethod)&TTAudioObjectBase::getProcessingBenchmark);
 	
@@ -50,7 +50,7 @@ TTAudioObjectBase::TTAudioObjectBase(TTValue& arguments) :
 
 	// Set Defaults...
 		
-	setAttributeValue(kTTSym_sampleRate,	(unsigned int)ttEnvironment->mSampleRate);
+	setAttributeValue(kTTSym_sampleRate, ttEnvironment->mSampleRate);
 	setProcess(&TTAudioObjectBase::bypassProcess);
     setCalculate(&TTAudioObjectBase::defaultCalculateMethod);
 	setAttributeValue("bypass",			kTTBoolNo);	

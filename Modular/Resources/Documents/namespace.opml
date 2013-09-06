@@ -65,7 +65,7 @@
       <outline text=":/view/freeze" Type="Property" Implemented="Yes" Getimplemented="Yes"/>
       <outline text=":/view/refresh" Type="Method" Implemented="Yes" Getimplemented="Yes"/>
     </outline>
-    <outline text="Implemented in jcom.return:">
+    <outline text="Implemented in j.return:">
       <outline text=":/enable" Type="Property" Description="Enable or disable the return" Implemented="Yes" Getimplemented="Yes"/>
     </outline>
   </body>

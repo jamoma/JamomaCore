@@ -111,7 +111,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 715.0, 640.0, 149.0, 19.0 ],
-					"text" : "jcom.getOneAttribute value"
+					"text" : "j.getOneAttribute value"
 				}
 
 			}
@@ -364,7 +364,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 55.0, 490.0, 173.0, 19.0 ],
-					"text" : "jcom.getAllAttributes"
+					"text" : "j.getAllAttributes"
 				}
 
 			}
@@ -421,7 +421,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 55.0, 320.0, 141.0, 19.0 ],
-					"text" : "jcom.getParameterNames"
+					"text" : "j.getParameterNames"
 				}
 
 			}
@@ -517,7 +517,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 55.0, 140.0, 125.0, 19.0 ],
-					"text" : "jcom.getModuleNames"
+					"text" : "j.getModuleNames"
 				}
 
 			}
