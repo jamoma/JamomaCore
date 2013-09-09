@@ -53,7 +53,7 @@ class TTMODULAR_EXPORT TTXmlHandler : public TTDataObjectBase
 	
 public:	// use public for recursive access
 	
-	TTObjectBasePtr			mObject;						///< the last handled object
+	TTValue             mObject;						///< the last handled object (it is possible to have an array of objects)
 	TTSymbol			mFilePath;						///< the path to the last writen/read file
 
 	TTSymbol			mHeaderNodeName;				///< the name of the header node in the xml file
@@ -69,6 +69,8 @@ public:	// use public for recursive access
 	TTSymbol			mXmlNodeName;					///< the Node name being read by the Reader
 	TTValue				mXmlNodeValue;					///< the Node value being read by the Reader
 	
+    /**	Setter for mObject attribute. */
+	TTErr setObject(const TTValue& value);
 
 	/** TTXmlWriter could takes absolute file path or nothing.
 		In the path case, TTXmlWriter starts xml file writting and then calls the WriteAsXml 
@@ -76,7 +78,6 @@ public:	// use public for recursive access
 		In the second case, it directly calls the WriteAsXml method */
 	TTErr Write(const TTValue& args, TTValue& outputValue);
 	TTErr WriteAgain();
-	
 	
 	/** TTXmlReader could takes absolute file path or nothing.
 		In the path case, TTXmlReader starts xml file reading and then calls the ReadFromXml 

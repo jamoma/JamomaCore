@@ -28,6 +28,7 @@ mInitialized(NO),
 mAddress(kTTAdrsEmpty),
 mAlias(kTTAdrsEmpty),
 mActivity(kTTValNONE),
+mContent(kTTValNONE),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObjectsObserversCache(NULL),
@@ -55,6 +56,9 @@ activityAttribute(NULL)
 	addAttribute(Activity, kTypeLocalValue);             // TODO : have a way to add notification (instead of a readonly attribute)
 	addAttributeProperty(Activity, readOnly, YES);
     
+    addAttribute(Content, kTypeLocalValue);             // TODO : have a way to add notification (instead of a readonly attribute)
+	addAttributeProperty(Content, readOnly, YES);
+    
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
 	
@@ -71,6 +75,7 @@ activityAttribute(NULL)
     
     // cache some attribute for observer notification
     this->findAttribute(kTTSym_activity, &activityAttribute);
+    this->findAttribute(kTTSym_content, &contentAttribute);
 }
 
 TTContainer::~TTContainer()
@@ -570,6 +575,13 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		// 1 : cache observer
 		cacheElement.append(activityObserver);
 	}
+    
+    // Special case for PresetManager : do nothing ?
+	else if (anObject->getName() == kTTSym_PresetManager) {
+		
+		// 1 : cache NULL
+		cacheElement.append(NULL);
+	}
 	
 	else
 		// 1 : cache NULL
@@ -580,6 +592,8 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	
 	// append the cacheElement to the cache hash table
 	mObjectsObserversCache->append(aRelativeAddress, cacheElement);
+    
+    updateContent();
 	
 	return kTTErrNone;
 }
@@ -664,7 +678,24 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	}
 	
 	// remove cacheData
-	return mObjectsObserversCache->remove(aRelativeAddress);
+	err =  mObjectsObserversCache->remove(aRelativeAddress);
+    
+    updateContent();
+    
+    return err;
+}
+
+TTErr TTContainer::updateContent()
+{
+	TTErr			err;
+
+    // update content with all relative address sorted alphabetically
+    err = mObjectsObserversCache->getKeysSorted(mContent);
+    
+    // notify content observers
+    contentAttribute->sendNotification(kTTSym_notify, mContent);	// we use kTTSym_notify because we know that observers are TTCallback
+
+	return err;
 }
 
 TTErr TTContainer::unbind()

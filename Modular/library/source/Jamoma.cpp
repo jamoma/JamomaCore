@@ -62,7 +62,6 @@ void jamoma_init(void)
 	if (!initialized) {
         
 		ObjectPtr	max = SymbolGen("max")->s_thing;
-        TTString    JamomaModularPath;
         TTString    JamomaConfigurationFilePath;
 		t_atom		a[4];
 		TTValue		v;
@@ -74,10 +73,10 @@ void jamoma_init(void)
 			max6 = true;
         
 		// Init the Modular library
-        JamomaModularPath = TTModularInit();
+        TTModularInit();
         
         // Edit the path to the JamomaConfiguration.xml file
-        strncpy_zero(name, JamomaModularPath.data(), JamomaModularPath.size()-6);
+        strncpy_zero(name, TTFoundationBinaryPath.data(), TTFoundationBinaryPath.size()-6);
         JamomaConfigurationFilePath = name;
         JamomaConfigurationFilePath += "misc/JamomaConfiguration.xml";
         

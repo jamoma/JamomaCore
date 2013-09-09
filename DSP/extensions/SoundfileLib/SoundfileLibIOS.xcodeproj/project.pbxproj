@@ -9,11 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A23AF49169D1D7A004793F5 /* SoundfileLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF40169D1D7A004793F5 /* SoundfileLib.cpp */; };
 		2A23AF4A169D1D7A004793F5 /* SoundfileLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF44169D1D7A004793F5 /* SoundfileLibIOS.m */; };
-		2A23AF4B169D1D7A004793F5 /* TTSoundfilePlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF45169D1D7A004793F5 /* TTSoundfilePlayer.cpp */; };
-		2A23AF4C169D1D7A004793F5 /* TTSoundfileRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A23AF47169D1D7A004793F5 /* TTSoundfileRecorder.cpp */; };
 		2AD78888169CFD1C00604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD78887169CFD1C00604D7C /* Foundation.framework */; };
-		8EDE4FCC17636CAC00996C15 /* TTSoundfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EDE4FCB17636CAC00996C15 /* TTSoundfile.cpp */; };
-		8EDE518D176497CB00996C15 /* TTSoundfile.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EDE518B176497CB00996C15 /* TTSoundfile.test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,17 +46,13 @@
 		2A23AF42169D1D7A004793F5 /* SoundfileLibIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SoundfileLibIOS-Prefix.pch"; sourceTree = "<group>"; };
 		2A23AF43169D1D7A004793F5 /* SoundfileLibIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundfileLibIOS.h; sourceTree = "<group>"; };
 		2A23AF44169D1D7A004793F5 /* SoundfileLibIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundfileLibIOS.m; sourceTree = "<group>"; };
-		2A23AF45169D1D7A004793F5 /* TTSoundfilePlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfilePlayer.cpp; sourceTree = "<group>"; };
-		2A23AF46169D1D7A004793F5 /* TTSoundfilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfilePlayer.h; sourceTree = "<group>"; };
-		2A23AF47169D1D7A004793F5 /* TTSoundfileRecorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfileRecorder.cpp; sourceTree = "<group>"; };
-		2A23AF48169D1D7A004793F5 /* TTSoundfileRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfileRecorder.h; sourceTree = "<group>"; };
+		2A75F7F517C4898400B68307 /* TTSoundfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfile.h; sourceTree = "<group>"; };
+		2A75F7F617C4898400B68307 /* TTSoundfileLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfileLoader.h; sourceTree = "<group>"; };
+		2A75F7F717C4898400B68307 /* TTSoundfilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfilePlayer.h; sourceTree = "<group>"; };
+		2A75F7F817C4898400B68307 /* TTSoundfileRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSoundfileRecorder.h; sourceTree = "<group>"; };
 		2AD78884169CFD1C00604D7C /* libSoundfileLibIOSIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSoundfileLibIOSIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD78887169CFD1C00604D7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8EDE4FC717635AE200996C15 /* SoundfileLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = SoundfileLib.yml; sourceTree = "<group>"; };
-		8EDE4FC817635AF100996C15 /* TTSoundfileToSampleMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfileToSampleMatrix.cpp; sourceTree = "<group>"; };
-		8EDE4FC917635AF100996C15 /* TTSoundfileToSampleMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSoundfileToSampleMatrix.h; sourceTree = "<group>"; };
-		8EDE4FCA17636C8900996C15 /* TTSoundfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSoundfile.h; sourceTree = "<group>"; };
-		8EDE4FCB17636CAC00996C15 /* TTSoundfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfile.cpp; sourceTree = "<group>"; };
 		8EDE4FD017636EFB00996C15 /* all.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = all.h; sourceTree = "<group>"; };
 		8EDE4FD117636EFB00996C15 /* assert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
 		8EDE4FD217636EFB00996C15 /* callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = callback.h; sourceTree = "<group>"; };
@@ -477,7 +469,6 @@
 		8EDE518217636EFC00996C15 /* sndfileIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sndfileIOS-Prefix.pch"; sourceTree = "<group>"; };
 		8EDE518317636EFC00996C15 /* sndfileIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sndfileIOS.h; sourceTree = "<group>"; };
 		8EDE518417636EFC00996C15 /* sndfileIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sndfileIOS.m; sourceTree = "<group>"; };
-		8EDE518B176497CB00996C15 /* TTSoundfile.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSoundfile.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -500,6 +491,17 @@
 				2A23AF44169D1D7A004793F5 /* SoundfileLibIOS.m */,
 			);
 			path = SoundfileLibIOS;
+			sourceTree = "<group>";
+		};
+		2A75F7F417C4898400B68307 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				2A75F7F517C4898400B68307 /* TTSoundfile.h */,
+				2A75F7F617C4898400B68307 /* TTSoundfileLoader.h */,
+				2A75F7F717C4898400B68307 /* TTSoundfilePlayer.h */,
+				2A75F7F817C4898400B68307 /* TTSoundfileRecorder.h */,
+			);
+			path = includes;
 			sourceTree = "<group>";
 		};
 		2AD78885169CFD1C00604D7C /* Products */ = {
@@ -1123,17 +1125,9 @@
 			children = (
 				8EDE4FCD17636EFB00996C15 /* libsndfile */,
 				8EDE4FC717635AE200996C15 /* SoundfileLib.yml */,
-				8EDE4FC817635AF100996C15 /* TTSoundfileToSampleMatrix.cpp */,
-				8EDE4FC917635AF100996C15 /* TTSoundfileToSampleMatrix.h */,
-				8EDE4FCA17636C8900996C15 /* TTSoundfile.h */,
-				8EDE4FCB17636CAC00996C15 /* TTSoundfile.cpp */,
-				8EDE518B176497CB00996C15 /* TTSoundfile.test.cpp */,
+				2A75F7F417C4898400B68307 /* includes */,
 				2A23AF40169D1D7A004793F5 /* SoundfileLib.cpp */,
 				2A23AF41169D1D7A004793F5 /* SoundfileLibIOS */,
-				2A23AF45169D1D7A004793F5 /* TTSoundfilePlayer.cpp */,
-				2A23AF46169D1D7A004793F5 /* TTSoundfilePlayer.h */,
-				2A23AF47169D1D7A004793F5 /* TTSoundfileRecorder.cpp */,
-				2A23AF48169D1D7A004793F5 /* TTSoundfileRecorder.h */,
 				2AD78886169CFD1C00604D7C /* Frameworks */,
 				2AD78885169CFD1C00604D7C /* Products */,
 			);
@@ -1215,10 +1209,6 @@
 			files = (
 				2A23AF49169D1D7A004793F5 /* SoundfileLib.cpp in Sources */,
 				2A23AF4A169D1D7A004793F5 /* SoundfileLibIOS.m in Sources */,
-				2A23AF4B169D1D7A004793F5 /* TTSoundfilePlayer.cpp in Sources */,
-				2A23AF4C169D1D7A004793F5 /* TTSoundfileRecorder.cpp in Sources */,
-				8EDE4FCC17636CAC00996C15 /* TTSoundfile.cpp in Sources */,
-				8EDE518D176497CB00996C15 /* TTSoundfile.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1234,7 +1224,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SoundfileLibIOS/SoundfileLibIOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1253,7 +1243,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SoundfileLibIOS/SoundfileLibIOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";

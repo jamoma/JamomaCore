@@ -162,6 +162,9 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 		
 		o = aNode->getObject();
 		if (o)
+// THERE WAS A MERGE CONFLICT HERE -- IT IS NOT ENTIRELY CLEAR WHICH PART OF THE TWO OPTIONS BELOW IS CORRECT -- TAP
+//			if (o->getName() == kTTSym_Output || o->getName() == kTTSym_OutputAudio)
+//				Link(o, kTTValNONE);
 			if (o->getName() == kTTSym_Output)
 				Link(o, dummy);
 	}
@@ -225,7 +228,7 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	o = aNode->getObject();
 	if (o) {
-		if (o->getName() == kTTSym_Output) {
+		if (o->getName() == kTTSym_Output || o->getName() == kTTSym_OutputAudio) {
 			
 			switch (flag) {
 					

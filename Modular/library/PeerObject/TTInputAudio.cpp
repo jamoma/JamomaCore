@@ -55,26 +55,25 @@ void TTInputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* an
 {
 	// Store the input from the inlets
 	TTAudioSignalPtr(mSignalIn)->setVector64Copy(0, aVectorSize, anInputSampleVector);
+    
+    // Sum signal from j.send~ objects
+    if (mSignalCache) {
+        
+        for (mSignalCache->begin(); mSignalCache->end(); mSignalCache->next()) {
+            TTAudioSignalPtr sentSignal = TTAudioSignalPtr((TTObjectBasePtr)mSignalCache->current()[0]);
+            
+            if (sentSignal)
+                *TTAudioSignalPtr(mSignalIn) += *sentSignal;
+        }
+    }
 	
 	// if signal is bypassed or muted, send a zero signal to the algorithm
 	if (mBypass || mMute)
 		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalZero), *TTAudioSignalPtr(mSignalOut));
 	
-	// else copy in to out and add remote signal
-	else {
+	// else copy in to out
+	else
 		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalIn), *TTAudioSignalPtr(mSignalOut));
-		
-		// sum signal from j.send~ objects
-		if (mSignalCache) {
-			
-			for (mSignalCache->begin(); mSignalCache->end(); mSignalCache->next()) {
-				TTAudioSignalPtr sentSignal = TTAudioSignalPtr((TTObjectBasePtr)mSignalCache->current()[0]);
-				
-				if (sentSignal)
-					*TTAudioSignalPtr(mSignalOut) += *sentSignal;
-			}
-		}
-	}
 	
 	// clear the signal cache
 	mSignalCache->clear();

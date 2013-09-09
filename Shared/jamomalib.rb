@@ -2,6 +2,7 @@
 # Library of Ruby stuff for Jamoma
 ###################################################################
 
+
 require 'yaml'
 $g_use_yaml_project_files = true
 @debug = false
@@ -296,15 +297,23 @@ else
     
  #`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
 #    Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
-    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Platform=Win32 \"#{projectname}\""
-    #puts "#{buildstr}"
+    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Configuration=#{configuration} /p:Platform=Win32 \"#{projectname}\""
+    # puts "#{buildstr}"
 
     Open3.popen3(buildstr) do |stdin, stdout, stderr|
       out = stdout.read
       err = stderr.read
     end
-
-    if /(0 error|up\-to\-date|0 erreur)|Build succeeded\./.match(out)
+	
+	# added to avoid invalid UTF8 argument error when building
+    out.encoding
+    out.force_encoding('binary')
+    out.encoding
+    out = out.encode('utf-8', :invalid => :replace, :undef => :replace)
+	#
+	
+	# let a space before "0 Erreur(s)" to avoid "Build succeeded" with "10 Erreur(s)"
+    if /( 0 error|up\-to\-date| 0 erreur| 0 Erreur)|Build succeeded\./.match(out)
       @cur_count+=1
       projectname = "#{projectname}".ljust(27)
       puts "#{projectname} BUILD SUCCEEDED (Win32)"
@@ -319,14 +328,21 @@ else
     end
     
     
-    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Platform=x64 \"#{projectname}\""
+    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Configuration=#{configuration} /p:Platform=x64 \"#{projectname}\""
     #puts "#{buildstr}"
     Open3.popen3(buildstr) do |stdin, stdout, stderr|
       out = stdout.read
       err = stderr.read
     end
+	
+	# added to avoid invalid UTF8 argument error when building
+    out.encoding
+    out.force_encoding('binary')
+    out.encoding
+    out = out.encode('utf-8', :invalid => :replace, :undef => :replace)
+	#
 
-    if /(0 error|up\-to\-date|0 erreur)|Build succeeded\./.match(out)
+    if /( 0 error|up\-to\-date| 0 erreur| 0 Erreur)|Build succeeded\./.match(out)
       @cur_count+=1
       projectname = "#{projectname}".ljust(27)
       puts "#{projectname} BUILD SUCCEEDED (x64)"
@@ -532,13 +548,15 @@ else
     max = false
 
     foldername = projectdir.split("/").last
+	
     project_type = "extension"
     project_type = "library" if foldername == "library"
 		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max" || (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
     project_type = "implementation" if max
     define_c74_linker_syms = false
-    path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.."
+    path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.." && mac? # too much ..\ on windows (one more)
     path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
+	
     master_name = "Jamoma"
     master_name = (projectdir.split("/")[projectdir.split("/").size-3]) if (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
 
@@ -631,7 +649,7 @@ else
 
     if ($g_use_yaml_project_files && File.exists?("#{projectdir}/#{projectname}.yml"))
       yaml = YAML.load_file( "#{projectdir}/#{projectname}.yml")
-      projectname.gsub!('#','\##')     # in case there is a # in the project name, which would be interpreted as a comment symbol
+      projectname.gsub!('#','\##') if mac?     # in case there is a # in the project name, which would be interpreted as a comment symbol
 
       sources = yaml["sources"]
       includes = yaml["includes"]
@@ -893,7 +911,13 @@ else
       if win?
         concatenated_includes = ""
         includes.each do |include_file|
-          concatenated_includes += "\"$(ProjectDir)#{include_file}\";"
+          if (include_file == "C74-INCLUDES")
+            concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
+            concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
+            concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
+		  else
+		    concatenated_includes += "\"$(ProjectDir)#{include_file}\";"
+		  end
         end
         concatenated_includes.gsub!(/(\/)/,'\\')
 
@@ -975,7 +999,7 @@ else
         vcproj_release32_compiler.add_element Element.new "ExceptionHandling"
         vcproj_release32_compiler.elements["ExceptionHandling"].text = "Sync"
         vcproj_release32_compiler.add_element Element.new "BasicRuntimeChecks"
-        vcproj_release32_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+        vcproj_release32_compiler.elements["BasicRuntimeChecks"].text = "Default"
         vcproj_release32_compiler.add_element Element.new "RuntimeLibrary"
         vcproj_release32_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
         vcproj_release32_compiler.add_element Element.new "BufferSecurityCheck"
@@ -1073,15 +1097,15 @@ else
         vcproj_release64_compiler.elements["OmitFramePointers"].text = "true"
         vcproj_release64_compiler.add_element Element.new "WholeProgramOptimization"
         vcproj_release64_compiler.elements["WholeProgramOptimization"].text = "true"
-        vcproj_release32_compiler.add_element Element.new "EnableEnhancedInstructionSet"
-        vcproj_release32_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
+        vcproj_release64_compiler.add_element Element.new "EnableEnhancedInstructionSet"
+        vcproj_release64_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
         
         vcproj_release64_compiler.add_element Element.new "MinimalRebuild"
         vcproj_release64_compiler.elements["MinimalRebuild"].text = "true"
         vcproj_release64_compiler.add_element Element.new "ExceptionHandling"
         vcproj_release64_compiler.elements["ExceptionHandling"].text = "Sync"
         vcproj_release64_compiler.add_element Element.new "BasicRuntimeChecks"
-        vcproj_release64_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+        vcproj_release64_compiler.elements["BasicRuntimeChecks"].text = "Default"
         vcproj_release64_compiler.add_element Element.new "RuntimeLibrary"
         vcproj_release64_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
         vcproj_release64_compiler.add_element Element.new "BufferSecurityCheck"
@@ -1329,12 +1353,12 @@ else
             concatenated_libs_release += "JamomaGraphics.lib;"
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graphics\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "C74")
-            concatenated_libs_debug += "MaxAPI.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
-            concatenated_libs_debug += "MaxAudio.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
-            concatenated_libs_debug += "jitlib.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
+            concatenated_libs_release += "MaxAPI.lib;"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
+            concatenated_libs_release += "MaxAudio.lib;"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
+            concatenated_libs_release += "jitlib.lib;"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
@@ -1391,7 +1415,7 @@ else
         vcproj_release32_linker.add_element Element.new "IgnoreAllDefaultLibraries"
         vcproj_release32_linker.elements["IgnoreAllDefaultLibraries"].text = "false"
         vcproj_release32_linker.add_element Element.new "IgnoreSpecificDefaultLibraries"
-        vcproj_release32_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-sgd-1_51.lib;libboost_system-vc110-mt-sgd-1_51.lib;libboost_regex-vc110-mt-sgd-1_51.lib"
+        vcproj_release32_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-s-1_51.lib;libboost_system-vc110-mt-s-1_51.lib;libboost_regex-vc110-mt-s-1_51.lib;maxcrt.lib"
         vcproj_release32_linker.add_element Element.new "ModuleDefinitionFile"
         vcproj_release32_linker.add_element Element.new "GenerateDebugInformation"
         vcproj_release32_linker.elements["GenerateDebugInformation"].text = "true"
@@ -1459,7 +1483,7 @@ else
         vcproj_release64_linker.add_element Element.new "IgnoreAllDefaultLibraries"
         vcproj_release64_linker.elements["IgnoreAllDefaultLibraries"].text = "false"
         vcproj_release64_linker.add_element Element.new "IgnoreSpecificDefaultLibraries"
-        vcproj_release64_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-sgd-1_51.lib;libboost_system-vc110-mt-sgd-1_51.lib;libboost_regex-vc110-mt-sgd-1_51.lib"
+        vcproj_release64_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-s-1_51.lib;libboost_system-vc110-mt-s-1_51.lib;libboost_regex-vc110-mt-s-1_51.lib;maxcrt.lib"
         vcproj_release64_linker.add_element Element.new "ModuleDefinitionFile"
         vcproj_release64_linker.add_element Element.new "GenerateDebugInformation"
         vcproj_release64_linker.elements["GenerateDebugInformation"].text = "true"
@@ -1485,6 +1509,50 @@ else
         vcproj_release64_linker.add_element Element.new "AdditionalDependencies"
         vcproj_release64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release};%(AdditionalDependencies)"           
         vcproj_release64.add_element vcproj_release64_linker
+		
+		# add post build commands to copy dll in Max support folder
+		# do this only for 32bits version
+		# todo : add a case if we finally want a 32 or 64 bits dll in support folder
+		if project_type != "implementation"
+			command = ""
+			command += "copy"
+			command += " $(OutDir)$(ProjectName).dll "
+			command += "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support"
+			command.gsub!(/(\/)/,'\\')
+			
+			# also create build folder (mac like) and copy generated dll into in order to Max build.rb work on build folder
+			# command32 = ""
+			# command32 += " \nmkdir build;"
+			# command32 += " \ncopy"
+			# command32 += " $(OutDir)$(ProjectName).dll"
+			# command32 += " build;"
+			#command32.gsub!(/(\/)/,'\\')
+			
+			vcproj_debug32_postbuild = Element.new "PostBuildEvent"
+			vcproj_debug32_postbuild.add_element Element.new "Command"
+			vcproj_debug32_postbuild.elements["Command"].text = "#{command}"
+			vcproj_debug32.add_element vcproj_debug32_postbuild
+			
+			# vcproj_debug64_postbuild = Element.new "PostBuildEvent"
+			# vcproj_debug64_postbuild.add_element Element.new "Command"
+			# vcproj_debug64_postbuild.elements["Command"].text = "#{command}"
+			# vcproj_debug64.add_element vcproj_debug64_postbuild
+			
+			vcproj_release32_postbuild = Element.new "PostBuildEvent"
+			vcproj_release32_postbuild.add_element Element.new "Command"
+			vcproj_release32_postbuild.elements["Command"].text = "#{command}"
+			vcproj_release32.add_element vcproj_release32_postbuild
+			
+			# vcproj_release64_postbuild = Element.new "PostBuildEvent"
+			# vcproj_release64_postbuild.add_element Element.new "Command"
+			# vcproj_release64_postbuild.elements["Command"].text = "#{command}"
+			# vcproj_release64.add_element vcproj_release64_postbuild
+			
+		else
+		#cp les modules dans externals et les renommer en mxe
+			
+        end
+		
         
       else
 
@@ -1892,7 +1960,9 @@ else
   end
 
   def find_and_build_project(projectdir, configuration, clean, forcedCompiler, distropath)
+
     foldername = projectdir.split("/").last
+	
     use_make = generate_makefile(projectdir, foldername, forcedCompiler)
 
     # First look for a YAML project config file
