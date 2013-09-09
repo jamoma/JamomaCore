@@ -483,6 +483,7 @@ else
   <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|Win32\'">
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.dll</TargetExt>
+	<OutDir>build</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|x64\'">
     <LinkIncremental>true</LinkIncremental>
@@ -491,6 +492,7 @@ else
   <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|Win32\'">
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.dll</TargetExt>
+	<OutDir>build</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|x64\'">
     <LinkIncremental>false</LinkIncremental>
