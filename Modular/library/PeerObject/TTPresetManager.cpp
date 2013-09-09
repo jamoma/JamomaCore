@@ -184,12 +184,18 @@ TTErr TTPresetManager::Clear()
 
 TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue v, args;
+	TTValue     v, args, out;
+    TTErr       err;
     
 	// get preset name
     if (inputValue.size() == 1)
         if (inputValue[0].type() == kTypeSymbol)
             mCurrent = inputValue[0];
+    
+    // get preset position and name
+    if (inputValue.size() == 2)
+        if (inputValue[1].type() == kTypeSymbol)
+            mCurrent = inputValue[1];
 	
 	if (mCurrent == kTTSymEmpty)
 		return kTTErrGeneric;
@@ -221,9 +227,18 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentPreset->sendMessage(TTSymbol("Clear"));
 	}
 	
-	mCurrentPreset->sendMessage(TTSymbol("Store"));
+	err = mCurrentPreset->sendMessage(TTSymbol("Store"));
+    
+    // Move the preset at position
+    if (inputValue.size() == 2) {
+        
+        v = mCurrent;
+        v.append(inputValue[0]);
+        
+        err = Move(v, out);
+    }
 	
-	return kTTErrNone;
+	return err;
 }
 
 TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
@@ -344,7 +359,7 @@ TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputVal
 {
 	TTValue		v1, v2;
     TTInt32     i1, i2;
-	TTSymbol name1, name2;
+	TTSymbol    name1, name2;
 	TTPresetPtr preset1, preset2;
 	TTFloat32	position;
 	
@@ -434,7 +449,7 @@ TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPresetManager::Move(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTList		temp;
-	TTSymbol name;
+	TTSymbol    name;
 	TTUInt32	i, newPosition;
 	TTValue		v;
 	

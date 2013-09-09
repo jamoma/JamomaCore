@@ -2,6 +2,7 @@
 # Library of Ruby stuff for Jamoma
 ###################################################################
 
+
 require 'yaml'
 $g_use_yaml_project_files = true
 @debug = false
@@ -296,8 +297,8 @@ else
     
  #`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
 #    Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
-    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Platform=Win32 \"#{projectname}\""
-    #puts "#{buildstr}"
+    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Configuration=#{configuration} /p:Platform=Win32 \"#{projectname}\""
+    # puts "#{buildstr}"
 
     Open3.popen3(buildstr) do |stdin, stdout, stderr|
       out = stdout.read
@@ -310,8 +311,9 @@ else
     out.encoding
     out = out.encode('utf-8', :invalid => :replace, :undef => :replace)
 	#
-
-    if /(0 error|up\-to\-date|0 erreur|0 Erreur)|Build succeeded\./.match(out)
+	
+	# let a space before "0 Erreur(s)" to avoid "Build succeeded" with "10 Erreur(s)"
+    if /( 0 error|up\-to\-date| 0 erreur| 0 Erreur)|Build succeeded\./.match(out)
       @cur_count+=1
       projectname = "#{projectname}".ljust(27)
       puts "#{projectname} BUILD SUCCEEDED (Win32)"
@@ -326,7 +328,7 @@ else
     end
     
     
-    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Platform=x64 \"#{projectname}\""
+    buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Configuration=#{configuration} /p:Platform=x64 \"#{projectname}\""
     #puts "#{buildstr}"
     Open3.popen3(buildstr) do |stdin, stdout, stderr|
       out = stdout.read
@@ -340,7 +342,7 @@ else
     out = out.encode('utf-8', :invalid => :replace, :undef => :replace)
 	#
 
-    if /(0 error|up\-to\-date|0 erreur|0 Erreur)|Build succeeded\./.match(out)
+    if /( 0 error|up\-to\-date| 0 erreur| 0 Erreur)|Build succeeded\./.match(out)
       @cur_count+=1
       projectname = "#{projectname}".ljust(27)
       puts "#{projectname} BUILD SUCCEEDED (x64)"
@@ -986,7 +988,7 @@ else
         vcproj_release32_compiler.add_element Element.new "ExceptionHandling"
         vcproj_release32_compiler.elements["ExceptionHandling"].text = "Sync"
         vcproj_release32_compiler.add_element Element.new "BasicRuntimeChecks"
-        vcproj_release32_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+        vcproj_release32_compiler.elements["BasicRuntimeChecks"].text = "Default"
         vcproj_release32_compiler.add_element Element.new "RuntimeLibrary"
         vcproj_release32_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
         vcproj_release32_compiler.add_element Element.new "BufferSecurityCheck"
@@ -1084,15 +1086,15 @@ else
         vcproj_release64_compiler.elements["OmitFramePointers"].text = "true"
         vcproj_release64_compiler.add_element Element.new "WholeProgramOptimization"
         vcproj_release64_compiler.elements["WholeProgramOptimization"].text = "true"
-        vcproj_release32_compiler.add_element Element.new "EnableEnhancedInstructionSet"
-        vcproj_release32_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
+        vcproj_release64_compiler.add_element Element.new "EnableEnhancedInstructionSet"
+        vcproj_release64_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
         
         vcproj_release64_compiler.add_element Element.new "MinimalRebuild"
         vcproj_release64_compiler.elements["MinimalRebuild"].text = "true"
         vcproj_release64_compiler.add_element Element.new "ExceptionHandling"
         vcproj_release64_compiler.elements["ExceptionHandling"].text = "Sync"
         vcproj_release64_compiler.add_element Element.new "BasicRuntimeChecks"
-        vcproj_release64_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+        vcproj_release64_compiler.elements["BasicRuntimeChecks"].text = "Default"
         vcproj_release64_compiler.add_element Element.new "RuntimeLibrary"
         vcproj_release64_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
         vcproj_release64_compiler.add_element Element.new "BufferSecurityCheck"
