@@ -13,12 +13,12 @@ using namespace std;
 
 #define CONFIG_PATH		"/Users/TO/Documents/Jamoma/Modules/Modular/implementations/Example/DemoApp/ApplicationConfiguration-DemoApp.xml"
 
-static TTApplicationPtr	mDemoApp = NULL;
-static TTSymbolPtr		kTTSym_DemoApp;
-
-void	init();
-TTErr	instantiate_Data(TTDataPtr *returnedData);
-void	myData_return_value_callback(TTPtr baton, TTValue& v);
+//static TTApplicationPtr	mDemoApp = NULL;
+//static TTSymbolPtr		kTTSym_DemoApp;
+//
+//void	init();
+//TTErr	instantiate_Data(TTDataPtr *returnedData);
+//void	myData_return_value_callback(TTPtr baton, TTValue& v);
 
 int 
 main(int argc, char **argv) 
@@ -29,7 +29,9 @@ main(int argc, char **argv)
 	/////////////////////////////////////////////////////////
 	TTLogMessage("\n*** Starting my DemoApp application *** \n");
 	
-	init();
+	//init();
+	// Init the Modular library
+	TTModularInit();
 	
 	/*
 	// TEST TTDictionary
@@ -111,61 +113,61 @@ main(int argc, char **argv)
 
 
 
-void init()
-{
-	TTValue v, args;
-	TTXmlHandlerPtr aXmlHandler;
+//void init()
+//{
+	//TTValue v, args;
+	//TTXmlHandlerPtr aXmlHandler;
 	
-	// Init the Modular library
-	TTModularInit(PLUGINS_PATH);
+	//// Init the Modular library
+	//TTModularInit(PLUGINS_PATH);
 	
-	// Create a local application named DemoApp and get it
-	TTModularCreateLocalApplication(APP_NAME, "");
-	mDemoApp = getLocalApplication;
-	kTTSym_DemoApp = TT(APP_NAME);
-	
-	// read the ApplicationManager Configuration file
-	aXmlHandler = NULL;
-	TTObjectInstantiate(TTSymbol("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
-	v = TTValue(TTPtr(TTModularApplications));
-	aXmlHandler->setAttributeValue(kTTSym_object, v);
-	
-	v = TTValue(TT(CONFIG_PATH));
-	aXmlHandler->sendMessage(TTSymbol("Read"), v);
-	
-	// launch reception thread mechanism fo each plugin (or not ?)
-	TTModularApplications->sendMessage(TTSymbol("PluginRun"), v);
-}
+	//// Create a local application named DemoApp and get it
+	//TTModularCreateLocalApplication(APP_NAME, "");
+	//mDemoApp = getLocalApplication;
+	//kTTSym_DemoApp = TT(APP_NAME);
+	//
+	//// read the ApplicationManager Configuration file
+	//aXmlHandler = NULL;
+	//TTObjectInstantiate(TTSymbol("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
+	//v = TTValue(TTPtr(TTModularApplications));
+	//aXmlHandler->setAttributeValue(kTTSym_object, v);
+	//
+	//v = TTValue(TT(CONFIG_PATH));
+	//aXmlHandler->sendMessage(TTSymbol("Read"), v);
+	//
+	//// launch reception thread mechanism fo each plugin (or not ?)
+	//TTModularApplications->sendMessage(TTSymbol("PluginRun"), v);
+//}
 
-TTErr instantiate_Data(TTDataPtr *returnedData)
-{
-	TTValue			args;
-	TTCallbackPtr	p_returnValueCallback = NULL;
-	TTValuePtr		p_returnValueBaton;
-	
-	// prepare arguments : see TTData.h to know which args are needed
-	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
-	p_returnValueBaton = new TTValue(NULL);
-	p_returnValueCallback->setAttributeValue(TTSymbol("baton"), TTPtr(p_returnValueBaton));
-	p_returnValueCallback->setAttributeValue(TTSymbol("function"), TTPtr(myData_return_value_callback));
-	args.append(p_returnValueCallback);
-	
-	// create an instance of a TTData object
-	return TTObjectInstantiate(TTSymbol("Data"), TTObjectHandle(returnedData), args);
-}
-
-void myData_return_value_callback(TTPtr baton, TTValue& v)
-{
-	TTValuePtr	b;
-	TTPtr		x;
-	TTString	s;	
-
-	// unpack baton
-	b = (TTValuePtr)baton;
-	b->get(0, (TTPtr*)&x);
-
-	// print the returned value
-	v.toString();
-	v.get(0, s);
-	TTLogMessage("myData has been updated to %s \n", s.data());
-}
+//TTErr instantiate_Data(TTDataPtr *returnedData)
+//{
+//	TTValue			args;
+//	TTCallbackPtr	p_returnValueCallback = NULL;
+//	TTValuePtr		p_returnValueBaton;
+//	
+//	// prepare arguments : see TTData.h to know which args are needed
+//	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
+//	p_returnValueBaton = new TTValue(NULL);
+//	p_returnValueCallback->setAttributeValue(TTSymbol("baton"), TTPtr(p_returnValueBaton));
+//	p_returnValueCallback->setAttributeValue(TTSymbol("function"), TTPtr(myData_return_value_callback));
+//	args.append(p_returnValueCallback);
+//	
+//	// create an instance of a TTData object
+//	return TTObjectInstantiate(TTSymbol("Data"), TTObjectHandle(returnedData), args);
+//}
+//
+//void myData_return_value_callback(TTPtr baton, TTValue& v)
+//{
+//	TTValuePtr	b;
+//	TTPtr		x;
+//	TTString	s;	
+//
+//	// unpack baton
+//	b = (TTValuePtr)baton;
+//	b->get(0, (TTPtr*)&x);
+//
+//	// print the returned value
+//	v.toString();
+//	v.get(0, s);
+//	TTLogMessage("myData has been updated to %s \n", s.data());
+//}
