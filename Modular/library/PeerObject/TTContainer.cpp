@@ -686,11 +686,15 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 
 TTErr TTContainer::updateContent()
 {
+	TTErr			err;
+
     // update content with all relative address sorted alphabetically
-    mObjectsObserversCache->getKeysSorted(mContent);
+    err = mObjectsObserversCache->getKeysSorted(mContent);
     
     // notify content observers
     contentAttribute->sendNotification(kTTSym_notify, mContent);	// we use kTTSym_notify because we know that observers are TTCallback
+
+	return err;
 }
 
 TTErr TTContainer::unbind()
