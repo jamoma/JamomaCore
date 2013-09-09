@@ -548,6 +548,7 @@ else
     max = false
 
     foldername = projectdir.split("/").last
+	
     project_type = "extension"
     project_type = "library" if foldername == "library"
 		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max" || (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
@@ -555,6 +556,7 @@ else
     define_c74_linker_syms = false
     path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.." && mac? # too much ..\ on windows (one more)
     path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
+	
     master_name = "Jamoma"
     master_name = (projectdir.split("/")[projectdir.split("/").size-3]) if (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
 
@@ -1342,12 +1344,12 @@ else
             concatenated_libs_release += "JamomaGraphics.lib;"
             concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graphics\\library\\#{win64dir}$(ConfigurationName)\";"
           elsif (lib == "C74")
-            concatenated_libs_debug += "MaxAPI.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
-            concatenated_libs_debug += "MaxAudio.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
-            concatenated_libs_debug += "jitlib.lib;"
-            concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
+            concatenated_libs_release += "MaxAPI.lib;"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
+            concatenated_libs_release += "MaxAudio.lib;"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
+            concatenated_libs_release += "jitlib.lib;"
+            concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
           else
             lib_dir = lib.split "/"
             lib = lib_dir.pop
@@ -1404,7 +1406,7 @@ else
         vcproj_release32_linker.add_element Element.new "IgnoreAllDefaultLibraries"
         vcproj_release32_linker.elements["IgnoreAllDefaultLibraries"].text = "false"
         vcproj_release32_linker.add_element Element.new "IgnoreSpecificDefaultLibraries"
-        vcproj_release32_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-s-1_51.lib;libboost_system-vc110-mt-s-1_51.lib;libboost_regex-vc110-mt-s-1_51.lib"
+        vcproj_release32_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-s-1_51.lib;libboost_system-vc110-mt-s-1_51.lib;libboost_regex-vc110-mt-s-1_51.lib;maxcrt.lib"
         vcproj_release32_linker.add_element Element.new "ModuleDefinitionFile"
         vcproj_release32_linker.add_element Element.new "GenerateDebugInformation"
         vcproj_release32_linker.elements["GenerateDebugInformation"].text = "true"
@@ -1472,7 +1474,7 @@ else
         vcproj_release64_linker.add_element Element.new "IgnoreAllDefaultLibraries"
         vcproj_release64_linker.elements["IgnoreAllDefaultLibraries"].text = "false"
         vcproj_release64_linker.add_element Element.new "IgnoreSpecificDefaultLibraries"
-        vcproj_release64_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-s-1_51.lib;libboost_system-vc110-mt-s-1_51.lib;libboost_regex-vc110-mt-s-1_51.lib"
+        vcproj_release64_linker.elements["IgnoreSpecificDefaultLibraries"].text = "libboost_filesystem-vc110-mt-s-1_51.lib;libboost_system-vc110-mt-s-1_51.lib;libboost_regex-vc110-mt-s-1_51.lib;maxcrt.lib"
         vcproj_release64_linker.add_element Element.new "ModuleDefinitionFile"
         vcproj_release64_linker.add_element Element.new "GenerateDebugInformation"
         vcproj_release64_linker.elements["GenerateDebugInformation"].text = "true"
@@ -1925,7 +1927,9 @@ else
   end
 
   def find_and_build_project(projectdir, configuration, clean, forcedCompiler, distropath)
+
     foldername = projectdir.split("/").last
+	
     use_make = generate_makefile(projectdir, foldername, forcedCompiler)
 
     # First look for a YAML project config file
