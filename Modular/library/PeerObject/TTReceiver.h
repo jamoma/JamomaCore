@@ -30,7 +30,7 @@ class TTMODULAR_EXPORT TTReceiver : public TTDataObjectBase
 	
 public:	// use public for quick acces during signal processing
 	
-	TTObjectBasePtr					mSignal;					///< any data structure to receive complex signal
+	TTObjectBasePtr				mSignal;					///< any data structure to receive complex signal
 	
 private:
 	
