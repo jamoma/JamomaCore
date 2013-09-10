@@ -1369,7 +1369,7 @@ else
 
         vcproj_debug32_linker = Element.new "Link"
         vcproj_debug32_linker.add_element Element.new "OutputFile"
-        vcproj_debug32_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName).dll"
+        vcproj_debug32_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName)#{extension_suffix}"
         vcproj_debug32_linker.add_element Element.new "SuppressStartupBanner"
         vcproj_debug32_linker.elements["SuppressStartupBanner"].text = "true"
         vcproj_debug32_linker.add_element Element.new "IgnoreAllDefaultLibraries"
@@ -1402,7 +1402,7 @@ else
   
         vcproj_release32_linker = Element.new "Link"
         vcproj_release32_linker.add_element Element.new "OutputFile"
-        vcproj_release32_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName).dll"
+        vcproj_release32_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName)#{extension_suffix}"
         vcproj_release32_linker.add_element Element.new "SuppressStartupBanner"
         vcproj_release32_linker.elements["SuppressStartupBanner"].text = "true"
         vcproj_release32_linker.add_element Element.new "IgnoreAllDefaultLibraries"
@@ -1437,7 +1437,7 @@ else
   
         vcproj_debug64_linker = Element.new "Link"
         vcproj_debug64_linker.add_element Element.new "OutputFile"
-        vcproj_debug64_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName).dll"
+        vcproj_debug64_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName)#{extension_suffix}"
         vcproj_debug64_linker.add_element Element.new "SuppressStartupBanner"
         vcproj_debug64_linker.elements["SuppressStartupBanner"].text = "true"
         vcproj_debug64_linker.add_element Element.new "IgnoreAllDefaultLibraries"
@@ -1470,7 +1470,7 @@ else
   
         vcproj_release64_linker = Element.new "Link"
         vcproj_release64_linker.add_element Element.new "OutputFile"
-        vcproj_release64_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName).dll"
+        vcproj_release64_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName)#{extension_suffix}"
         vcproj_release64_linker.add_element Element.new "SuppressStartupBanner"
         vcproj_release64_linker.elements["SuppressStartupBanner"].text = "true"
         vcproj_release64_linker.add_element Element.new "IgnoreAllDefaultLibraries"
