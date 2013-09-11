@@ -45,7 +45,6 @@ activityAttribute(NULL)
 	addAttribute(Description, kTypeSymbol);
     
     addAttribute(Service, kTypeSymbol);
-    addAttributeProperty(Service, hidden, YES);
     
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	
