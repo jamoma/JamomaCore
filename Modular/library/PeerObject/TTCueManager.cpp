@@ -362,13 +362,19 @@ TTErr TTCueManager::Clear()
 TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddressItemPtr    aNamespace;
-	TTValue             v, args;
+	TTValue             v, args, out;
+    TTErr               err;
         
     // get cue name
     if (inputValue.size() == 1)
         if (inputValue[0].type() == kTypeSymbol)
             mCurrent = inputValue[0];
-        
+    
+    // get cue position and name
+    if (inputValue.size() == 2)
+        if (inputValue[1].type() == kTypeSymbol)
+            mCurrent = inputValue[1];
+    
     if (mCurrent == kTTSymEmpty)
         return kTTErrGeneric;
 
@@ -401,7 +407,18 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	if (!aNamespace) aNamespace = mDefaultNamespace;
 	
 	v = TTValue((TTPtr)aNamespace);
-	return mCurrentCue->sendMessage(TTSymbol("Store"), v, kTTValNONE);
+	err = mCurrentCue->sendMessage(TTSymbol("Store"), v, out);
+    
+    // Move the cue at position
+    if (inputValue.size() == 2) {
+        
+        v = mCurrent;
+        v.append(inputValue[0]);
+        
+        err = Move(v, out);
+    }
+    
+    return err;
 }
 
 TTErr TTCueManager::Append(const TTValue& inputValue, TTValue& outputValue)
@@ -1079,15 +1096,12 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
             }
         }
 		
-<<<<<<< HEAD
+		// THERE WAS A MERGE CONFLICT HERE -- IT IS UNCLEAR WHICH OF THE FOLLOWING TWO LINES IS REALLY CORRECT -- TAP
+		// notifyNamesObservers();
 		notifyOrderObservers();
 
 		TTValue dummy;
-=======
-		notifyNamesObservers();
->>>>>>> dev
 		
-
 		// use the namespace of the first cue
 		NamespaceSelect(1, dummy);
 		

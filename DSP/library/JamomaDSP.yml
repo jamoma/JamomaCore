@@ -24,15 +24,3 @@ defines:
 
 libraries:
   - FOUNDATION
-<<<<<<< HEAD
-=======
-  - mac portaudio/libportaudio-jamoma.a
-  - win32 portaudio/Debug/PortAudio.lib
- # - win64 portaudio/Debug/PortAudio_x64.lib
-
-frameworks:
-  - Carbon
-  - CoreAudio
-  - AudioUnit
-  - AudioToolbox
->>>>>>> dev
