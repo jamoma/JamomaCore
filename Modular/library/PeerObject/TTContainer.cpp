@@ -23,6 +23,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mPriority(0), 
 mDescription(kTTSym_none),
+mService(kTTSym_none),
 mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
@@ -42,6 +43,10 @@ activityAttribute(NULL)
 	
 	addAttributeWithSetter(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeSymbol);
+    
+    addAttribute(Service, kTypeSymbol);
+    addAttributeProperty(Service, hidden, YES);
+    
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	
 	addAttribute(Initialized, kTypeBoolean);
