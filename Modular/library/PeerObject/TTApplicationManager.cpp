@@ -400,6 +400,8 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 		
 		firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
 		
+        *returnedType = kTTSym_none;
+        
         // check if there is an object
 		anObject = firstNode->getObject();
 		if (anObject) {
@@ -409,12 +411,10 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
             
             if (objectType != kTTSymEmpty)
                 *returnedType = objectType;
-            else
-                *returnedType = kTTSym_none;
             
             // fill returned attributes
 			anObject->getAttributeNames(*returnedAttributes);
-        }
+        }            
 		
 		// fill returned children names
 		for (childList.begin(); childList.end(); childList.next()) {
