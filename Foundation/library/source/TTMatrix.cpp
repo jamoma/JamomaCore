@@ -246,7 +246,6 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 	TTBytePtr fillValue = new TTByte[mComponentStride];
 	TTUInt32 inputElementCount = anInputValue.size();
 	TTUInt32 fillIterationCount = (inputElementCount < mElementCount) ? inputElementCount : mElementCount; // which ever is smaller 
-	TTUInt32 elementByteDepth = (TTUInt32)mTypeAsDataInfo->bitdepth / 8; // how many bytes do we need to copy?
 	
 	// first we need to copy the TTValues in our array of TTBytes
 	TTBytePtr tempCopyValuePtr;
@@ -314,9 +313,9 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 				break;
 		}
 		
-		memcpy(	fillValue+(f*elementByteDepth), // pointer to where to start copying
+		memcpy(	fillValue+(f*mTypeSizeInBytes), // pointer to where to start copying
 				tempCopyValuePtr, // the TTBytePtr from the switch above
-				elementByteDepth); // number of bytes to copy
+				mTypeSizeInBytes); // number of bytes to copy
 				
 	}
 
