@@ -244,16 +244,80 @@ TTErr TTMatrix::clear()
 TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	TTBytePtr fillValue = new TTByte[mComponentStride];
-
-	// TODO: here we have this ugly switch again...
-	if (mType == kTypeUInt8) 
-		anInputValue.getArray((TTUInt8*)fillValue, mElementCount);
-	else if (mType == kTypeInt32) 
-		anInputValue.getArray((TTInt32*)fillValue, mElementCount);
-	else if (mType == kTypeFloat32) 
-		anInputValue.getArray((TTFloat32*)fillValue, mElementCount);
-	else if (mType == kTypeFloat64) 
-		anInputValue.getArray((TTFloat64*)fillValue, mElementCount);
+	TTUInt32 inputElementCount = anInputValue.size();
+	TTUInt32 fillIterationCount = (inputElementCount < mElementCount) ? inputElementCount : mElementCount; // which ever is smaller 
+	
+	// first we need to copy the TTValues in our array of TTBytes
+	TTBytePtr tempCopyValuePtr;
+    union TTNumericalDataValue {
+		TTFloat32		float32;
+		TTFloat64		float64;
+		TTInt8			int8;
+		TTUInt8			uint8;
+		TTInt16			int16;
+		TTUInt16		uint16;
+		TTInt32			int32;
+		TTUInt32		uint32;
+		TTInt64			int64;
+		TTUInt64		uint64;
+	} tempCopyValue;
+    
+    
+	for (TTUInt32 f=0; f<fillIterationCount; f++) // step through the elements
+	{
+		
+		// NW: an even uglier switch than before, but I see no way around it...
+		switch (mType) {
+			case kTypeFloat32:
+				tempCopyValue.float32 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.float32);
+				break;
+			case kTypeFloat64:
+				tempCopyValue.float64 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.float64);
+				break;
+			case kTypeInt8:
+				tempCopyValue.int8 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.int8);
+				break;
+			case kTypeUInt8:
+				tempCopyValue.uint8 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.uint8);
+				break;
+			case kTypeInt16:
+				tempCopyValue.int16 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.int16);
+				break;
+			case kTypeUInt16:
+				tempCopyValue.uint16 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.uint16);
+				break;
+			case kTypeInt32:
+				tempCopyValue.int32 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.int32);
+				break;
+			case kTypeUInt32:
+				tempCopyValue.uint32 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.uint32);
+				break;
+			case kTypeInt64:
+				tempCopyValue.int64 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.int64);
+				break;
+			case kTypeUInt64:
+				tempCopyValue.uint64 = anInputValue[f];
+				tempCopyValuePtr = (TTBytePtr)&(tempCopyValue.uint64);
+				break;
+			default:
+				return kTTErrInvalidType; // type is not numerical or undefined
+				break;
+		}
+		
+		memcpy(	fillValue+(f*mTypeSizeInBytes), // pointer to where to start copying
+				tempCopyValuePtr, // the TTBytePtr from the switch above
+				mTypeSizeInBytes); // number of bytes to copy
+				
+	}
 
 	for (TTUInt32 i=0; i<mDataSize; i += mComponentStride)
 		memcpy(mData+i, fillValue, mComponentStride);
