@@ -278,6 +278,9 @@ typedef xmlXPathFunction (*xmlXPathFuncLookupFunc) (void *ctxt,
  *    - the set of namespace declarations in scope for the expression 
  * Following the switch to hash tables, this need to be trimmed up at
  * the next binary incompatible release.
+ * The node may be modified when the context is passed to libxml2
+ * for an XPath evaluation so you may need to initialize it again
+ * before the next call.
  */
 
 struct _xmlXPathContext {
@@ -310,7 +313,7 @@ struct _xmlXPathContext {
     int proximityPosition;		/* the proximity position */
 
     /* extra stuff for XPointer */
-    int xptr;				/* it this an XPointer context */
+    int xptr;				/* is this an XPointer context? */
     xmlNodePtr here;			/* for here() */
     xmlNodePtr origin;			/* for origin() */
 
@@ -332,7 +335,7 @@ struct _xmlXPathContext {
 
     /* temporary namespace lists kept for walking the namespace axis */
     xmlNsPtr *tmpNsList;		/* Array of namespaces */
-    int tmpNsNr;			/* number of namespace in scope */
+    int tmpNsNr;			/* number of namespaces in scope */
 
     /* error reporting mechanism */
     void *userData;                     /* user specific data block */
@@ -340,8 +343,8 @@ struct _xmlXPathContext {
     xmlError lastError;			/* the last error */
     xmlNodePtr debugNode;		/* the source node XSLT */
 
-    /* dictionnary */
-    xmlDictPtr dict;			/* dictionnary if any */
+    /* dictionary */
+    xmlDictPtr dict;			/* dictionary if any */
 
     int flags;				/* flags to control compilation */
 
