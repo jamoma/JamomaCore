@@ -20,7 +20,7 @@
 
 /****************************************************************************************************/
 
-Protocol::Protocol(TTValue& arguments) :
+Protocol::Protocol(const TTValue& arguments) :
 TTObjectBase(arguments),
 mApplicationManager(NULL),
 mActivityInCallback(NULL),

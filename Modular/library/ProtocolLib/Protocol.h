@@ -20,11 +20,11 @@
 #include "TTFoundationAPI.h"
 
 #define PROTOCOL_CONSTRUCTOR \
-TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : Protocol(arguments)
+thisTTClass :: thisTTClass (const TTValue& arguments) : Protocol(arguments)
 
 #define PROTOCOL_INITIALIZE \
 mName = TTSymbol(thisTTClassName); \
@@ -74,7 +74,7 @@ public:
 	
 public:
 	//** Constructor.	*/
-	Protocol(TTValue& arguments);
+	Protocol(const TTValue& arguments);
 	
 	/** Destructor. */
 	virtual ~Protocol();
