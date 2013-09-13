@@ -401,6 +401,8 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 		
 		firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
 		
+        *returnedType = kTTSym_none;
+        
         // check if there is an object
 		anObject = firstNode->getObject();
 		if (anObject) {
@@ -410,12 +412,13 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
             
             if (objectType != kTTSymEmpty)
                 *returnedType = objectType;
-            else
-                *returnedType = kTTSym_none;
             
             // fill returned attributes
 			anObject->getAttributeNames(*returnedAttributes);
         }
+        
+        // sort children by priority
+        childList.sort(&TTApplicationManagerCompareNodePriority);
 		
 		// fill returned children names
 		for (childList.begin(); childList.end(); childList.next()) {
@@ -1106,4 +1109,40 @@ TTErr TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data
 	TTModularApplications->mLocalApplication->setAttributeValue(kTTSym_activityOut, v);
 	
 	return kTTErrNone;
+}
+
+TTBoolean TTApplicationManagerCompareNodePriority(TTValue& v1, TTValue& v2)
+{
+	TTNodePtr	n1, n2;
+	TTObjectBasePtr o1, o2;
+	TTValue		v;
+	TTInt32		p1 = 0;
+	TTInt32		p2 = 0;
+	
+	// get priority of v1
+	n1 = TTNodePtr((TTPtr)v1[0]);
+	if (n1) {
+		o1 = n1->getObject();
+		
+		if (o1)
+			if (!o1->getAttributeValue(kTTSym_priority, v))
+				p1 = v[0];
+	}
+	
+	// get priority of v2
+	n2 = TTNodePtr((TTPtr)v2[0]);
+	if (n2) {
+		o2 = n2->getObject();
+		
+		if (o2)
+			if (!o2->getAttributeValue(kTTSym_priority, v))
+				p2 = v[0];
+	}
+	
+	if (p1 == 0 && p2 == 0) return v1 < v2;
+	
+	if (p1 == 0) return NO;
+	if (p2 == 0) return YES;
+	
+	return p1 < p2;
 }

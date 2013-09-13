@@ -203,29 +203,48 @@ void TTFoundationLoadExternalClasses(void)
 	HINSTANCE	hInstance = GetModuleHandle(NULL);
 
 	// Look in C:\Program Files\Common Files\TTBlue\Extensions
-	hr = SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES_COMMON, NULL, SHGFP_TYPE_CURRENT, (LPSTR)temppath);
-	if (!FAILED(hr)) {
-		fullpath = temppath;
-		fullpath += "\\Jamoma\\Extensions\\";
-		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
-		TTFoundationLoadExternalClassesFromFolder(fullpath);
-	}
+	//hr = SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES_COMMON, NULL, SHGFP_TYPE_CURRENT, (LPSTR)temppath);
 
-	// TODO: Look in some user-level directory like we do on the Mac?
+	//if (!FAILED(hr)) {
+	//	fullpath = temppath;
+	//	fullpath += "\\Jamoma\\Extensions\\";
+	//	lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
+	//	TTFoundationLoadExternalClassesFromFolder(fullpath);
+	//}
 
-	// Look in the support folder of the host application
-	if (hInstance) {
-		GetModuleFileName(hInstance, (LPSTR)temppath, 4096);
+	//// TODO: Look in some user-level directory like we do on the Mac?
+	//
+	//// Look in the support folder of the host application
+	//if (hInstance) {
+	//	GetModuleFileName(hInstance, (LPSTR)temppath, 4096);
+	//	if (temppath[0]) {
+	//		char *s = strrchr(temppath, '\\');
+	//		if (s)
+	//			*s = 0;
+	//		fullpath = temppath;
+	//		fullpath += "\\Jamoma\\Extensions\\";
+	//		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
+	//		TTFoundationLoadExternalClassesFromFolder(fullpath);
+	//	}
+	//}
+
+	// get the handle on JamomaFoundation.dll
+	LPCSTR moduleName = "JamomaFoundation.dll";
+	HMODULE	hmodule = GetModuleHandle(moduleName);
+	// get the path
+	GetModuleFileName(hmodule, (LPSTR)temppath, 4096);
+
+	if (!FAILED(hmodule)) {
 		if (temppath[0]) {
-			char *s = strrchr(temppath, '\\');
-			if (s)
-				*s = 0;
 			fullpath = temppath;
-			fullpath += "\\Jamoma\\Extensions\\";
+			// get support folder path
+			fullpath = fullpath.substr(0, fullpath.length() - (strlen(moduleName) + 1));
+			TTFoundationBinaryPath = fullpath;
 			lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
 			TTFoundationLoadExternalClassesFromFolder(fullpath);
 		}
 	}
+
 #else // Some other platform, like Linux
     TTFoundationLoadExternalClassesFromFolder("/usr/local/lib/jamoma/extensions");
 #endif

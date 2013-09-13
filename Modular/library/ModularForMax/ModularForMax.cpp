@@ -665,7 +665,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Container);
-	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_model);
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("model"), (TTPtr)aFilter);
@@ -674,7 +674,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Container);
-	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_view);
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("view"), (TTPtr)aFilter);
