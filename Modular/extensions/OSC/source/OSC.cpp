@@ -55,7 +55,7 @@ mWaitThread(NULL)
 
 OSC::~OSC()
 {
-    TTValue     keys;
+    TTValue     keys, out;
     TTSymbol    distantApplicationName;
     TTUInt16    i;
     
@@ -64,11 +64,11 @@ OSC::~OSC()
     for (i = 0; i < keys.size(); i++) {
         
         distantApplicationName = keys[i];
-        Stop(distantApplicationName, kTTValNONE);
+        Stop(distantApplicationName, out);
     }
     
     // Stop local application
-    Stop(kTTValNONE, kTTValNONE);
+    Stop(kTTValNONE, out);
     
     delete mWaitThread;
 }
