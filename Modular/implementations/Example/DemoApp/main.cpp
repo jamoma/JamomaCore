@@ -5,14 +5,6 @@ using namespace std;
 
 #define APP_NAME		"DemoApp"
 
-#ifdef TT_PLATFORM_WIN
-#define PLUGINS_PATH	"C:\Program Files\Common Files\TTBlue\Extensions"
-#else
-#define PLUGINS_PATH	"/Library/Application Support/Jamoma/Extensions"
-#endif
-
-#define CONFIG_PATH		"C:\\Users\\laugre\\Travail\\09-ossia\\Jamoma\\Core\\Modular\\implementations\\Example\\DemoApp\\ApplicationConfiguration-DemoApp.xml"
-
 static TTApplicationPtr	mDemoApp = NULL;
 static TTSymbol			kTTSym_DemoApp;
 
@@ -42,28 +34,22 @@ main(int argc, char **argv)
 
 void init()
 {
-	TTValue v, args;
-	TTXmlHandlerPtr aXmlHandler;
+    TTString JamomaConfigurationFilePath;
+    TTValue  v, args;
+    char     name[4096];
 	
 	// Init the Modular library
 	TTModularInit();
-	
-	// Create a local application named DemoApp and get it
-	TTModularCreateLocalApplication(APP_NAME, CONFIG_PATH);
-	mDemoApp = getLocalApplication;
-	kTTSym_DemoApp = TT(APP_NAME);
-	
-	//// read the ApplicationManager Configuration file
-	//aXmlHandler = NULL;
-	//TTObjectInstantiate(TTSymbol("XmlHandler"), TTObjectHandle(&aXmlHandler), args);
-	//v = TTValue(TTPtr(TTModularApplications));
-	//aXmlHandler->setAttributeValue(kTTSym_object, v);
-	//
-	//v = TTValue(TT(CONFIG_PATH));
-	//aXmlHandler->sendMessage(TTSymbol("Read"), v);
-	
-	//// launch reception thread mechanism fo each plugin (or not ?)
-	//TTModularApplications->sendMessage(TTSymbol("PluginRun"), v);
+    
+    // Edit the path to the JamomaConfiguration.xml file
+    strncpy_zero(name, TTFoundationBinaryPath.data(), TTFoundationBinaryPath.size()-6);
+    JamomaConfigurationFilePath = name;
+    JamomaConfigurationFilePath += "misc/JamomaConfiguration.xml";
+    
+    // Create a local application named DemoApp and get it
+    TTModularCreateLocalApplication(APP_NAME, JamomaConfigurationFilePath);
+    mDemoApp = getLocalApplication;
+	kTTSym_DemoApp = TTSymbol(APP_NAME);
 }
 
 //void test()
