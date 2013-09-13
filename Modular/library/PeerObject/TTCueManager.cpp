@@ -1096,9 +1096,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
             }
         }
 		
-		// THERE WAS A MERGE CONFLICT HERE -- IT IS UNCLEAR WHICH OF THE FOLLOWING TWO LINES IS REALLY CORRECT -- TAP
-		// notifyNamesObservers();
-		notifyOrderObservers();
+		notifyNamesObservers();
 
 		TTValue dummy;
 		
