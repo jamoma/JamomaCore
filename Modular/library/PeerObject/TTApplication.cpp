@@ -265,7 +265,9 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
             childAddress = returnedChildren[i];
             nextAddress = anAddress.appendAddress(childAddress);
             
-            buildNode(aProtocol, nextAddress);
+            // build child nodes (and report any error)
+            if (buildNode(aProtocol, nextAddress))
+                err = kTTErrGeneric;
         }
     }
     
