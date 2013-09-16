@@ -24,7 +24,8 @@ Protocol::Protocol(TTValue& arguments) :
 TTObjectBase(arguments),
 mApplicationManager(NULL),
 mActivityInCallback(NULL),
-mActivityOutCallback(NULL)
+mActivityOutCallback(NULL),
+mRunning(NO)
 {
     mApplicationManager = arguments[0];
     mActivityInCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
