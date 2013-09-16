@@ -41,7 +41,7 @@ void MinuitAnswerManager::AddDiscoverAnswer(TTSymbol from, TTAddress address, in
     mDiscoverAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
 }
 
-TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value)
+TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
 {
     TTValue         v;
 	TTString        key;
@@ -57,7 +57,7 @@ TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress addres
         anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
         
 		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
-			anAnswer->setAnswer(value);
+			anAnswer->setAnswer(value, error);
 			return kTTErrNone;
 		}
 	}
@@ -180,7 +180,7 @@ void MinuitAnswerManager::AddGetAnswer(TTSymbol from, TTAddress address, int tim
     mGetAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
 }
 
-TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value)
+TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
 {
     TTValue         v;
 	TTString        key;
@@ -196,7 +196,7 @@ TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, co
         anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
 	
 		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
-			anAnswer->setAnswer(value);
+			anAnswer->setAnswer(value, error);
 			return kTTErrNone;
 		}
 	}

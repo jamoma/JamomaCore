@@ -600,15 +600,18 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 		operationStart = headerString.find_first_of('?');
 		if (operationStart >= 0)
 		{
-			sender = TTSymbol(headerString.substr(0, operationStart));				// get sender application
+            // parse sender application
+			sender = TTSymbol(headerString.substr(0, operationStart));
 			
 			// Check the sender application registration
 			err = mDistantApplicationParameters.lookup(sender, v);
 			if (!err) {
 				
-				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));			// get request
+                // parse request
+				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));
 				
-				if (message[1].type() == kTypeSymbol) {							// parse /whereTo
+                // parse /whereTo
+				if (message[1].type() == kTypeSymbol) {
 					aSymbol = message[1];
 					whereTo = TTAddress(aSymbol.c_str());
 				}
@@ -626,7 +629,8 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 				
 				else if (operation == TTSymbol(MINUIT_REQUEST_LISTEN)) {
 					
-					if (message[2].type() == kTypeSymbol) {						// parse enable/disable
+                    // parse enable/disable
+					if (message[2].type() == kTypeSymbol) {						
 						message.get(2, aSymbol);
 						
 						if (aSymbol == TTSymbol(MINUIT_REQUEST_LISTEN_ENABLE))
@@ -647,15 +651,18 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 		operationStart = headerString.find_first_of(':');
 		if (operationStart >= 0)
 		{
-			sender = TTSymbol(headerString.substr(0, operationStart));				// get sender application
+            // parse sender application
+			sender = TTSymbol(headerString.substr(0, operationStart));
 			
 			// Check the sender application registration
 			err = mDistantApplicationParameters.lookup(sender, v);
 			if (!err) {
 				
-				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));				// get request
+                // parse request
+				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));
 				
-				if (message[1].type() == kTypeSymbol) {							// parse /whereTo
+                // parse /whereTo
+				if (message[1].type() == kTypeSymbol) {
 					aSymbol = message[1];
 					whereTo = TTAddress(aSymbol.c_str());
 				}
@@ -677,6 +684,43 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 					return ReceiveListenAnswer(sender, whereTo, arguments);
 				
 			}	
+		} // end if starts by ':'
+        
+        // Is it an error :
+		operationStart = headerString.find_first_of('!');
+		if (operationStart >= 0)
+		{
+            // parse sender application
+			sender = TTSymbol(headerString.substr(0, operationStart));				
+			
+			// Check the sender application registration
+			err = mDistantApplicationParameters.lookup(sender, v);
+			if (!err) {
+                
+                // parse operation
+				operation = TTSymbol(headerString.substr(operationStart, headerString.size() - operationStart));
+				
+                // parse /whereTo
+				if (message[1].type() == kTypeSymbol) {							
+					aSymbol = message[1];
+					whereTo = TTAddress(aSymbol.c_str());
+				}
+				
+#ifdef TT_PROTOCOL_DEBUG
+				cout << "Receive " << operation.c_str() << " error from "<< sender.c_str() << " at " << whereTo.c_str() << endl;
+#endif
+				if (message.size() > 2)
+                    arguments.copyFrom(message, 2);
+				
+				// switch on answer
+				if (operation == TTSymbol(MINUIT_ERROR_DISCOVER))
+					return mAnswerManager->ReceiveDiscoverAnswer(sender, whereTo, arguments, kTTErrGeneric);
+				
+				else if (operation == TTSymbol(MINUIT_ERROR_GET))
+					return mAnswerManager->ReceiveGetAnswer(sender, whereTo, arguments, kTTErrGeneric);
+				
+                // théo - is there error for listen request ?
+			}
 		} // end if starts by ':'
 		
 	} // end else

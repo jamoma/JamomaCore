@@ -51,5 +51,6 @@ static const unsigned int MINUIT_RECEPTION_PORT = 8002;
 #define TIMEOUT_EXCEEDED -1
 #define NO_ANSWER 0
 #define ANSWER_RECEIVED 1
+#define ANSWER_ERROR 2
 
 #endif /*MINUITINCLUDE_H_*/
