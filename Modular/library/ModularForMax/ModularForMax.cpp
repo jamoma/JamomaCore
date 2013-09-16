@@ -1390,7 +1390,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol& retu
         // because a j.view can be in subpatcher too
         
         // for view : the second argument is the name
-		// (the first is reserved for the /model/address)
+		// (the first is reserved for the model:address)
         if (context == kTTSym_view) {
             if (ac > 1)
                 argName = atom_getsym(av+1);
