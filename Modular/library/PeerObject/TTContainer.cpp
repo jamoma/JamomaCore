@@ -23,6 +23,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mPriority(0), 
 mDescription(kTTSym_none),
+mService(kTTSym_none),
 mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
@@ -42,6 +43,9 @@ activityAttribute(NULL)
 	
 	addAttributeWithSetter(Priority, kTypeUInt8);
 	addAttribute(Description, kTypeSymbol);
+    
+    addAttribute(Service, kTypeSymbol);
+    
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	
 	addAttribute(Initialized, kTypeBoolean);
@@ -686,11 +690,15 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 
 TTErr TTContainer::updateContent()
 {
+	TTErr			err;
+
     // update content with all relative address sorted alphabetically
-    mObjectsObserversCache->getKeysSorted(mContent);
+    err = mObjectsObserversCache->getKeysSorted(mContent);
     
     // notify content observers
     contentAttribute->sendNotification(kTTSym_notify, mContent);	// we use kTTSym_notify because we know that observers are TTCallback
+
+	return err;
 }
 
 TTErr TTContainer::unbind()

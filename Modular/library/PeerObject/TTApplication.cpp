@@ -1065,7 +1065,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
 	TTObjectBasePtr	getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
 	TTValuePtr		getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
     
-    if (objectName != kTTSymEmpty) {
+    if (objectName != kTTSymEmpty && objectName != kTTSym_none) {
         
         TTValue     args = objectName;
         

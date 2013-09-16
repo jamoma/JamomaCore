@@ -715,8 +715,8 @@ TTErr TTExplorer::setFilterList(const TTValue& value)
 TTErr TTExplorer::returnResultBack()
 {
 	TTValue				keys, result;
-	TTAddressItemPtr aNamespace, anItem;
-	TTAddress	relativeAddress;
+	TTAddressItemPtr    aNamespace, anItem;
+	TTAddress           relativeAddress;
 	TTSymbol			newName, lastName = kTTSymEmpty;
 	TTUInt32			i, j;
 	TTBoolean			found;
