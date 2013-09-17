@@ -44,7 +44,7 @@ static const unsigned int MINUIT_RECEPTION_PORT = 8002;
 #define ACCESS_SETTER "setter"
 #define ACCESS_GETSETTER "getsetter"
 
-#define DEFAULT_TIMEOUT 1000
+#define DEFAULT_TIMEOUT 50
 #define MAX_TRY 2
 #define NO_TIMEOUT -1
 
