@@ -240,7 +240,7 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 			return mAnswerManager->ParseDiscoverAnswer(answer, returnedType, returnedChildren, returnedAttributes);
         
         else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
-            SendDiscoverRequest(to, address, returnedType, returnedChildren, returnedAttributes, tryCount++);
+            return SendDiscoverRequest(to, address, returnedType, returnedChildren, returnedAttributes, tryCount++);
 	}
 	
 	return kTTErrGeneric;
@@ -292,7 +292,7 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
             return kTTErrNone;
         
         else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
-            SendGetRequest(to, address, returnedValue, tryCount++);
+            return SendGetRequest(to, address, returnedValue, tryCount++);
     }
 	
 	return kTTErrGeneric;

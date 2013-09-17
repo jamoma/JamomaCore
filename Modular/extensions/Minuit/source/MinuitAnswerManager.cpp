@@ -86,7 +86,7 @@ int MinuitAnswerManager::CheckDiscoverAnswer(TTSymbol from, TTAddress address, T
 		state = anAnswer->getState();
 		
 		// if an answer is received
-		if(state == ANSWER_RECEIVED)
+		if(state != NO_ANSWER)
 		{
 			// get the answer
 			anAnswer->getAnswer(value);
@@ -225,7 +225,7 @@ int MinuitAnswerManager::CheckGetAnswer(TTSymbol from, TTAddress address, TTValu
 		state = anAnswer->getState();
 		
 		// if an answer is received
-		if(state == ANSWER_RECEIVED)
+		if(state != NO_ANSWER)
 		{
 			// get the answer
 			anAnswer->getAnswer(value);
