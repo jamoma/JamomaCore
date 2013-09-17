@@ -62,7 +62,7 @@ TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress addres
 		}
 	}
 	else
-		cout << "MinuitAnswerManager::ReceiveGetAnswer can't find a request at " << key << endl;
+		cout << "MinuitAnswerManager::ReceiveDiscoverAnswer can't find a request at " << key << endl;
 	
 	return kTTErrGeneric;
 }
@@ -201,7 +201,7 @@ TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, co
 		}
 	}
 	else
-		cout << "MinuitAnswerManager::ReceiveDiscoverAnswer can't find a request at " << key << endl;
+		cout << "MinuitAnswerManager::ReceiveGetAnswer can't find a request at " << key << endl;
 	
 	return kTTErrGeneric;
 }

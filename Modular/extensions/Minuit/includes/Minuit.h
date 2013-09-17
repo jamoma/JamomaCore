@@ -82,7 +82,7 @@ private:
 	
 	MinuitAnswerManagerPtr	mAnswerManager;
     MinuitSenderManagerPtr	mSenderManager;
-	
+    
 	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
 	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
@@ -122,13 +122,15 @@ private:
      * \param returnedType          : the type of the node at the address (default is none which means no type)
 	 * \param returnedChildren      : all names of nodes below the address
 	 * \param returnedAttributes	: all attributes the node at the address
+     * \param tryCount              : number of try for this request
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	TTErr SendDiscoverRequest(TTSymbol to, TTAddress address,
                               TTSymbol& returnedType,
 							  TTValue& returnedChildren,
-							  TTValue& returnedAttributes);
+							  TTValue& returnedAttributes,
+                              TTUInt8 tryCount=0);
 	
 	/*!
 	 * Send a get request to an application to get a value at the given address
@@ -136,11 +138,13 @@ private:
  	 * \param to					: the application where to get
 	 * \param address				: the address to get
 	 * \param returnedValue			: the value which is going to be filled
+     * \param tryCount              : number of try for this request
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	TTErr SendGetRequest(TTSymbol to, TTAddress address, 
-						 TTValue& returnedValue);
+						 TTValue& returnedValue,
+                         TTUInt8 tryCount=0);
 	
 	/*!
 	 * Send a set request to set a value of a specific application
@@ -148,10 +152,12 @@ private:
 	 * \param to					: the application where to set
 	 * \param address				: the address to set
 	 * \param value					: anything to send
+     * \param tryCount              : number of try for this request
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
 	TTErr SendSetRequest(TTSymbol to, TTAddress address, 
-						 TTValue& value);
+						 TTValue& value,
+                         TTUInt8 tryCount=0);
 	
 	/*!
 	 * Send a listen request to a specific application
@@ -160,10 +166,12 @@ private:
 	 * \param address				: the address to listen
 	 * \param attribute				: the attribute to listen
 	 * \param enable				: enable/disable the listening
+     * \param tryCount              : number of try for this request
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
 	TTErr SendListenRequest(TTSymbol to, TTAddress address, 
-							TTBoolean enable);
+							TTBoolean enable,
+                            TTUInt8 tryCount=0);
 	
 	
 	/**************************************************************************************************************************

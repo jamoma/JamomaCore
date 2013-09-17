@@ -202,9 +202,10 @@ TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
  else it returns kTTErrGeneric if no answer or timeout
  */
 TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
-                          TTSymbol& returnedType,
-                          TTValue& returnedChildren,
-                          TTValue& returnedAttributes)
+                                  TTSymbol& returnedType,
+                                  TTValue& returnedChildren,
+                                  TTValue& returnedAttributes,
+                                  TTUInt8 tryCount)
 {
 	TTValue		arguments, answer;
 	TTString	header;
@@ -237,6 +238,9 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 		
 		if (state == ANSWER_RECEIVED)
 			return mAnswerManager->ParseDiscoverAnswer(answer, returnedType, returnedChildren, returnedAttributes);
+        
+        else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
+            SendDiscoverRequest(to, address, returnedType, returnedChildren, returnedAttributes, tryCount++);
 	}
 	
 	return kTTErrGeneric;
@@ -252,42 +256,44 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
  else it returns kTTErrGeneric if no answer or timeout
  */
 TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address, 
-							 TTValue& returnedValue)
-{	
+							 TTValue& returnedValue,
+                             TTUInt8 tryCount)
+{
 	TTValue		v, arguments;
 	TTString	header;
 	TTInt32		state;
-	
+    
 	// edit header "localAppName?get"
 	header = protocolGetLocalApplicationName.c_str();
 	header += MINUIT_REQUEST_GET;
 	
 	// edit arguments <header address>
 	arguments = TTValue(address);
-	
-	if (!sendMessage(to, TTSymbol(header), arguments)) {
-		
+    
+    if (!sendMessage(to, TTSymbol(header), arguments)) {
+        
 #ifdef TT_PROTOCOL_DEBUG
-		std::cout << "Minuit : applicationSendGetRequest " << std::endl;
+        std::cout << "Minuit : applicationSendGetRequest " << std::endl;
 #endif
-		
-		// Wait for an answer
-		mAnswerManager->AddGetAnswer(to, address);
-		
-		state = ANSWER_RECEIVED;
-		do
-		{
+        
+        // Wait for an answer
+        mAnswerManager->AddGetAnswer(to, address);
+        
+        state = ANSWER_RECEIVED;
+        do
+        {
             mAnswerThread->sleep(1);
             
-			state = mAnswerManager->CheckGetAnswer(to, address, returnedValue);
-		}
-		while(state == NO_ANSWER);
-		
-		if (state == ANSWER_RECEIVED)
-			return kTTErrNone;
-		else
-			return kTTErrGeneric;
-	}
+            state = mAnswerManager->CheckGetAnswer(to, address, returnedValue);
+        }
+        while(state == NO_ANSWER);
+        
+        if (state == ANSWER_RECEIVED)
+            return kTTErrNone;
+        
+        else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
+            SendGetRequest(to, address, returnedValue, tryCount++);
+    }
 	
 	return kTTErrGeneric;
 }
@@ -301,7 +307,8 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  */
 TTErr Minuit::SendSetRequest(TTSymbol to, TTAddress address, 
-							 TTValue& value)
+							 TTValue& value,
+                             TTUInt8 tryCount)
 {
 		
 #ifdef TT_PROTOCOL_DEBUG
@@ -323,7 +330,8 @@ TTErr Minuit::SendSetRequest(TTSymbol to, TTAddress address,
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  */
 TTErr Minuit::SendListenRequest(TTSymbol to, TTAddress address, 
-								TTBoolean enable)
+								TTBoolean enable,
+                                TTUInt8 tryCount)
 {
 	TTValue		v, arguments;
 	TTString	header;
