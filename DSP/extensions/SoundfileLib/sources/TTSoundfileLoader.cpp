@@ -21,7 +21,7 @@
 #define thisTTClassName		"soundfile.loader"
 #define thisTTClassTags		"audio, soundfile, buffer"
 
-TTObjectBasePtr TTSoundfileLoader::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTSoundfileLoader::instantiate(TTSymbol name, TTValue arguments)
 {
 	return new TTSoundfileLoader(arguments);
 }
@@ -33,7 +33,7 @@ extern "C" void TTSoundfileLoader::registerClass()
 }
 
 
-TTSoundfileLoader::TTSoundfileLoader(TTValue& arguments) :
+TTSoundfileLoader::TTSoundfileLoader(const TTValue& arguments) :
     TTSoundfile(arguments),
     mTargetMatrix(NULL)
 {    
