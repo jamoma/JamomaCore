@@ -36,7 +36,7 @@ mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
 mTTToApp(NULL),
-mTempAddress(kTTAdrsEmpty)
+mTempAddress(kTTAdrsRoot)
 {
 	mName = arguments[0];
 	
