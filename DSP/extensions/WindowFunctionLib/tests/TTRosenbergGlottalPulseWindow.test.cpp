@@ -73,7 +73,7 @@ TTErr RosenbergGlottalPulseWindow::test(TTValue& returnedTestInfo)
 	TTValue				v;
 	
 	// create the object, keep the default ratio parameter
-	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, TTValue(1));
 	windowObject->setAttributeValue(TT("function"), TT("rosenbergGlottalPulse"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	

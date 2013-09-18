@@ -61,7 +61,7 @@ TTErr KaiserWindow::test(TTValue& returnedTestInfo)
 	TTValue				v;
 	
 	// create the object and set the beta parameter
-	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, TTValue(1));
 	windowObject->setAttributeValue(TT("function"), TT("kaiser"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	
