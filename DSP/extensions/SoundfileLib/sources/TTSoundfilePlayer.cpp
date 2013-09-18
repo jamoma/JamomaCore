@@ -63,7 +63,7 @@ mNumBufferFrames(0)
 
 TTSoundfilePlayer::~TTSoundfilePlayer()
 {
-	setAttributeValue(TT("play"), kTTBoolNo);
+	setAttributeValue(TT("play"), NO);
 	if (mSoundFile)
 		sf_close(mSoundFile);
 }
