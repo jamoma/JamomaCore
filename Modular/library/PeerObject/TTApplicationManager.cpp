@@ -927,7 +927,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
         return aXmlHandler->sendMessage(TTSymbol("Read"));
     }
     
-    return kTTErrGeneric;
+    return kTTErrNone;
 }
 
 TTErr TTApplicationManager::notifyApplicationObservers(TTSymbol anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag)
