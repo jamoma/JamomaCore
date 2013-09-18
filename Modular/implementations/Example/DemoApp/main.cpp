@@ -3,8 +3,6 @@
 #include <iostream>
 using namespace std;
 
-#define APP_NAME		"DemoApp"
-
 static TTApplicationPtr	mDemoApp = NULL;
 static TTSymbol			kTTSym_DemoApp;
 
@@ -19,7 +17,7 @@ main(int argc, char **argv)
 	
 	// Initialize Jamoma environment
 	/////////////////////////////////////////////////////////
-	TTLogMessage("\n*** Starting my DemoApp application *** \n");
+	TTLogMessage("/n*** Starting my DemoApp application *** /n");
 	
 	init();
 
@@ -27,7 +25,7 @@ main(int argc, char **argv)
 
 	//createData();
 
-	TTLogMessage("\n*** Ending my DemoApp application *** \n");
+	TTLogMessage("/n*** Ending my DemoApp application *** /n");
 
 	return EXIT_SUCCESS;
 }
@@ -36,20 +34,18 @@ void init()
 {
     TTString JamomaConfigurationFilePath;
     TTValue  v, args;
-    char     name[4096];
 	
 	// Init the Modular library
 	TTModularInit();
     
     // Edit the path to the JamomaConfiguration.xml file
-    strncpy_zero(name, TTFoundationBinaryPath.data(), TTFoundationBinaryPath.size()-6);
-    JamomaConfigurationFilePath = name;
-    JamomaConfigurationFilePath += "misc/JamomaConfiguration.xml";
+	const char *name = "DemoApp";
+	const char *config = "JamomaConfiguration.xml";
     
     // Create a local application named DemoApp and get it
-    TTModularCreateLocalApplication(APP_NAME, JamomaConfigurationFilePath);
-    mDemoApp = getLocalApplication;
-	kTTSym_DemoApp = TTSymbol(APP_NAME);
+    TTModularCreateLocalApplication(name, config);
+    //mDemoApp = getLocalApplication;
+	//kTTSym_DemoApp = TTSymbol(APP_NAME);
 }
 
 //void test()
@@ -74,7 +70,7 @@ void init()
 //{
 //	// Create a TTData object an use it
 //	/////////////////////////////////////////////////////////
-//	TTLogMessage("\n*** Instantiate myData as a TTData object ***\n");
+//	TTLogMessage("/n*** Instantiate myData as a TTData object ***/n");
 //	
 //	TTDataPtr myData = NULL;
 //	
@@ -88,7 +84,7 @@ void init()
 //	
 //	// Register a TTObject into the DemoApp directory
 //	/////////////////////////////////////////////////////////
-//	TTLogMessage("\n*** Register myData into the DemoApp directory ***\n");
+//	TTLogMessage("/n*** Register myData into the DemoApp directory ***/n");
 //	TTNodePtr		returnedNode;
 //	TTBoolean		newInstanceCreated;
 //
@@ -152,5 +148,5 @@ void init()
 //	// print the returned value
 //	v.toString();
 //	v.get(0, s);
-//	TTLogMessage("myData has been updated to %s \n", s.data());
+//	TTLogMessage("myData has been updated to %s /n", s.data());
 //}
