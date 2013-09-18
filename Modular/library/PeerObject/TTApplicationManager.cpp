@@ -29,7 +29,8 @@ mApplications(NULL),
 mLocalApplication(NULL),
 mCurrentApplication(NULL),
 mApplicationObservers(NULL),
-mApplicationObserversMutex(NULL)
+mApplicationObserversMutex(NULL),
+mCurrentProtocol(NULL)
 {		
 	addAttribute(Applications, kTypePointer);
 	addAttributeProperty(Applications, readOnly, YES);
@@ -612,6 +613,19 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outpu
     TTUInt16            i;
 	
 	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
+    
+    // Write each protocol
+    xmlTextWriterWriteComment((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "protocols setup");
+    
+	mProtocols->getKeys(keys);
+	for (i = 0; i < keys.size(); i++) {
+		
+		name = keys[i];
+		mProtocols->lookup(name, v);
+		aProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
+        
+        writeProtocolAsXml(aXmlHandler, aProtocol);
+	}
 	
 	// Write each application
     xmlTextWriterWriteComment((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "applications namespace");
@@ -626,19 +640,6 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outpu
 		v = TTValue(anApplication);
 		aXmlHandler->setAttributeValue(kTTSym_object, v);
 		aXmlHandler->sendMessage(TTSymbol("Write"));
-	}
-    
-    // Write each protocol
-    xmlTextWriterWriteComment((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "protocols setup");
-    
-	mProtocols->getKeys(keys);
-	for (i = 0; i < keys.size(); i++) {
-		
-		name = keys[i];
-		mProtocols->lookup(name, v);
-		aProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
-        
-        writeProtocolAsXml(aXmlHandler, aProtocol);
 	}
 	
 	return kTTErrNone;
@@ -708,9 +709,12 @@ TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, Prot
 TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;	
-	TTSymbol			applicationName, currentApplicationName, version;
-	TTApplicationPtr	anApplication;
-	TTValue				v, args, applicationNames;
+	TTSymbol			applicationName, currentApplicationName, version, type;
+    TTSymbol			protocolName, currentProtocolName, parameterName;
+    TTHashPtr           hashParameters;
+	TTValue				v, args, applicationNames, protocolNames, parameterValue;
+    TTUInt16            i, j;
+    TTErr               err;
 	
 	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	if (!aXmlHandler)
@@ -721,24 +725,39 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	// starts reading
 	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
 		
-		mCurrentApplication = NULL;
-		
 		// stop protocol reception threads
 		ProtocolStop(v, kTTValNONE);
+        
+        // unregister all applications from all protocols
+        mProtocols->getKeys(protocolNames);
+		for (i = 0; i < protocolNames.size(); i++) {
+			
+			protocolName = protocolNames[i];
+			mProtocols->lookup(protocolName, v);
+			mCurrentProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
+			
+			mApplications->getKeys(applicationNames);
+            for (j = 0; j < applicationNames.size(); j++)
+                mCurrentProtocol->sendMessage(TTSymbol("unregisterApplication"), applicationNames[j], kTTValNONE);
+            
+		}
 		
 		// remove all applications except the local one
 		mApplications->getKeys(applicationNames);
-		for (TTUInt16 i = 0; i < applicationNames.size(); i++) {
+		for (i = 0; i < applicationNames.size(); i++) {
 			
 			applicationName = applicationNames[i];
 			mApplications->lookup(applicationName, v);
-			anApplication = TTApplicationPtr((TTObjectBasePtr)v[0]);
+			mCurrentApplication = TTApplicationPtr((TTObjectBasePtr)v[0]);
 			
-			if (anApplication != mLocalApplication) {
-				TTObjectBaseRelease(TTObjectBaseHandle(&anApplication));
+			if (mCurrentApplication != mLocalApplication) {
+				TTObjectBaseRelease(TTObjectBaseHandle(&mCurrentApplication));
 				mApplications->remove(applicationName);
 			}
 		}
+        
+        mCurrentApplication = NULL;
+        mCurrentProtocol = NULL;
 		
 		return kTTErrNone;
 	}
@@ -753,9 +772,91 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	}
 	
 	// comment node
-	if (aXmlHandler->mXmlNodeName == TTSymbol("#comment"))
+	if (aXmlHandler->mXmlNodeName == TTSymbol("comment"))
 		return kTTErrNone;
-	
+    
+    // protocol node
+    if (aXmlHandler->mXmlNodeName == TTSymbol("protocol")) {
+        
+        // get the protocol name
+        xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("name"));
+        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+        
+        if (v.size() == 1)
+            if (v[0].type() == kTypeSymbol)
+                protocolName = v[0];
+        
+        // if it is the end of a "protocol" xml node
+        if (!aXmlHandler->mXmlNodeStart && mCurrentProtocol) {
+            
+            mCurrentProtocol->getAttributeValue(kTTSym_name, v);
+            currentProtocolName = v[0];
+            
+            if (protocolName == currentProtocolName) {
+                mCurrentProtocol = NULL;
+                return kTTErrNone;
+            }
+        }
+        
+        // if the protocol exists and if the node is not empty : get it and use it
+		if (!mProtocols->lookup(protocolName, v) && !aXmlHandler->mXmlNodeIsEmpty)
+			mCurrentProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
+        
+        return kTTErrNone;
+    }
+    
+    if (mCurrentProtocol) {
+        
+        // the node name is the name of an application
+        
+        // register the application to the current protocol
+        v = TTValue(aXmlHandler->mXmlNodeName);
+        mCurrentProtocol->sendMessage(TTSymbol("registerApplication"), v, kTTValNONE);
+        
+        // get parameters table
+        err = mCurrentProtocol->getAttributeValue(TTSymbol("applicationParameters"), v);
+        
+        if (!err) {
+            
+            hashParameters = TTHashPtr((TTPtr)v[0]);
+            
+            // get all protocol attributes and their value for this application
+            while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
+                
+                // get parameter's name
+                aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                
+                if (v.size() == 1) {
+                    
+                    if (v[0].type() == kTypeSymbol) {
+                        
+                        parameterName = v[0];
+                        
+                        // get parameter's value
+                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue);
+                        
+                        // check if parameter exists
+                        err = hashParameters->lookup(parameterName, v);
+                        
+                        if (!err) {
+                            
+                            // set parameter value
+                            hashParameters->remove(parameterName);
+                            hashParameters->append(parameterName, parameterValue);
+                        }
+                    }
+                }
+            }
+            
+            // set parameters
+            v = TTValue(aXmlHandler->mXmlNodeName);
+            v.append(TTPtr(hashParameters));
+            mCurrentProtocol->setAttributeValue(TTSymbol("applicationParameters"), v);
+        }
+        
+        return kTTErrNone;
+    }
+
 	// application node
 	if (aXmlHandler->mXmlNodeName == TTSymbol("application")) {
 		
@@ -767,9 +868,8 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
             if (v[0].type() == kTypeSymbol)
                 applicationName = v[0];
 
-		
 		// if it is the end of a "application" xml node
-		if (aXmlHandler->mXmlNodeStart && mCurrentApplication) {
+		if (!aXmlHandler->mXmlNodeStart && mCurrentApplication) {
 			mCurrentApplication->getAttributeValue(kTTSym_name, v);
 			currentApplicationName = v[0];
 			
@@ -786,33 +886,48 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
         if (inputValue.size() == 1)
             if (v[0].type() == kTypeSymbol)
                 version = v[0];
+        
+        // get the application type
+		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type"));
+		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+        
+        if (inputValue.size() == 1)
+            if (v[0].type() == kTypeSymbol)
+                type = v[0];
 		
 		// if the application exists : get it
 		if (!mApplications->lookup(applicationName, v))
-			anApplication = TTApplicationPtr((TTObjectBasePtr)v[0]);
+			mCurrentApplication = TTApplicationPtr((TTObjectBasePtr)v[0]);
 		
 		// else create one
 		else {
-			anApplication = NULL;
+			mCurrentApplication = NULL;
 			args = TTValue(applicationName);
-			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&anApplication), args);
+			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&mCurrentApplication), args);
 			
 			args = TTValue(version);
-			anApplication->setAttributeValue(TTSymbol("version"), args);
+			mCurrentApplication->setAttributeValue(TTSymbol("version"), args);
+            
+            args = TTValue(type);
+			mCurrentApplication->setAttributeValue(TTSymbol("type"), args);
 		}
 		
-		mCurrentApplication = anApplication;
+        // if the node is empty : don't use it
+        if (aXmlHandler->mXmlNodeIsEmpty)
+            mCurrentApplication = NULL;
 		
 		return kTTErrNone;
 	}
 	
-	if (!mCurrentApplication) 
-		return kTTErrNone;
-	
-	// pass the current application to the XmlHandler to fill protocol parameters
-	v = TTValue(mCurrentApplication);
-	aXmlHandler->setAttributeValue(kTTSym_object, v);
-	return aXmlHandler->sendMessage(TTSymbol("Read"));
+	if (mCurrentApplication) {
+        
+        // pass the current application to the XmlHandler to build its directory
+        v = TTValue(mCurrentApplication);
+        aXmlHandler->setAttributeValue(kTTSym_object, v);
+        return aXmlHandler->sendMessage(TTSymbol("Read"));
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTApplicationManager::notifyApplicationObservers(TTSymbol anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag)
