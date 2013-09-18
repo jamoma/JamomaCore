@@ -1179,7 +1179,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 	TTTextHandlerPtr aTextHandler;
 	TTDictionaryPtr	line;
 	TTSymbol		flagName;
-	TTValue			v;
+	TTValue			v, aReturnWeDontCareAbout;
 	
 	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	
@@ -1213,7 +1213,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
                         
                         // Create a new cue
                         mCurrentCue = NULL;
-                        TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), kTTValNONE);
+                        TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), aReturnWeDontCareAbout);
                         
                         mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
                         

@@ -731,9 +731,6 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		
 		// stop protocol reception threads
 		ProtocolStop(v, dummy);
-		
-		// stop protocol reception threads
-		ProtocolStop(v, kTTValNONE);
         
         // unregister all applications from all protocols
         mProtocols->getKeys(protocolNames);

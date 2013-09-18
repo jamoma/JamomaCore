@@ -400,10 +400,11 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
 		
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListen"), v, kTTValNONE);
 		
+        // NW: wondering why this happens twice?
 		if (err)
 			return SendListenAnswer(from, address, dummy, err);
-		if (err && mRunning)
-			return SendListenAnswer(from, address, kTTValNONE, err);
+		if (err && mRunning) 
+			return SendListenAnswer(from, address, dummy, err);
 	}
 	
 	return kTTErrGeneric;
@@ -427,10 +428,11 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& n
 		// TODO
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListenAnswer"), v, kTTValNONE);
 		
+        // NW: wondering why this happens twice?
 		if (err)
 			return SendListenAnswer(from, address, dummy, err);
 		if (err && mRunning)
-			return SendListenAnswer(from, address, kTTValNONE, err);
+			return SendListenAnswer(from, address, dummy, err);
 	}
 	
 	return kTTErrGeneric;

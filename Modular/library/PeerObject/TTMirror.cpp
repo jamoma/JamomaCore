@@ -114,7 +114,7 @@ TTSymbol TTMirror::getName()
 
 TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 {
-	TTValue data;
+	TTValue data, aReturnWeDontCareAbout;
 	
 	if (mGetAttributeCallback) {
 		
@@ -122,7 +122,7 @@ TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 		data.append((TTPtr)&value);
 		
 		return mGetAttributeCallback->deliver(data);
-		mGetAttributeCallback->notify(data, kTTValNONE);
+		mGetAttributeCallback->notify(data, aReturnWeDontCareAbout);
         
         if (value.size() > 0)
             return kTTErrNone;
