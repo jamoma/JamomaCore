@@ -56,15 +56,18 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("\n");
 		TTTestLog("Testing TTMatrix Basics...");
 		
-		TTMatrixPtr matrix = NULL;
 		TTErr err;
 		
-		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&matrix, TTValue());
-		TTTestAssertion("instantiates successfully", 
-						err == kTTErrNone, 
-						testAssertionCount,
-						errorCount);
-		
+        // instantiate a matrix for testing
+        TTMatrixPtr matrix = NULL;
+		try {
+            matrix = new TTMatrix(kTTSymEmpty);
+            TTTestLog("TTMatrix matrix instantiates successfully");
+            
+        } catch (...) {
+            TTTestLog("TTMatrix matrix did NOT instantiate");
+            return kTTErrInstantiateFailed;
+        }
 		
 		// a clear series of tests to ensure type switching via TTDataInfo::matchSymbolToDataType() method works
 		TTTestAssertion("default datatype is uint8", 
@@ -332,11 +335,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		err = TTObjectBaseRelease((TTObjectBasePtr*)&matrix);
-		TTTestAssertion("frees successfully", 
-						err == kTTErrNone, 
-						testAssertionCount,
-						errorCount);
+        delete matrix;
 		
 	}	
 	
