@@ -78,9 +78,10 @@ TTErr TTWavetable::setFrequency(const TTValue& newValue)
 TTErr TTWavetable::setMode(const TTValue& newValue)
 {
 	mMode = newValue;	// TODO: should be newValue[0]
+    TTValue aReturnWeDontCareAbout;
 
 	if (mMode != "externalBuffer")
-		return mBuffer->fill(newValue, kTTValNONE);
+		return mBuffer->fill(newValue, aReturnWeDontCareAbout);
 	else {
 		// TODO: implement the ability to use an externally defined buffer
 		return kTTErrInvalidValue;
