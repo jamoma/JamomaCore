@@ -25,8 +25,8 @@ int main(int argc, const char * argv[])
 		TTSymbol name = classNames[i];
 		
 		try {
-			TTObject obj(name);
-			obj.send("test");
+			//TTObject obj(name);
+			//obj.send("test");
 		}
 		catch (...) {
 			TTLogMessage("UnitTest Failure to instantiate object of class %s! \n", name.c_str());
