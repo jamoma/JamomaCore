@@ -18,6 +18,37 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 	
 
 	
+    {
+        // an attempt to re-write without using TTObjectBaseInstantiate
+        TTTestLog("\n");
+		TTTestLog("Testing new TTMatrix Instantiation...");
+        
+        TTMatrixPtr testingNewInstantiation = NULL;
+        
+        try {
+            
+            // first instantiate the matrix as a TTObject
+            testingNewInstantiation = new TTMatrix(kTTSymEmpty);
+            // second point the TTMatrixPtr at it
+            //testingNewInstantiation = (TTMatrixPtr)(TTPtr(willThisWork));
+            
+            TTTestLog("matrix instantiates successfully");
+            
+            TTTestLog("Setting to a 1D, float64, matrix with a length of 16 for complex numbers (2 elements per value)");
+            testingNewInstantiation->setAttributeValue("dimensions", 16);
+            testingNewInstantiation->setAttributeValue("type", "float64");
+            testingNewInstantiation->setAttributeValue("elementCount", 2);
+            TTTestLog("If you see this message, it probably worked.");
+            
+        } catch (...) {
+            TTTestLog("matrix did NOT instantiate");
+            return kTTErrInstantiateFailed;
+        }
+        
+        
+        
+    }
+    
 	
 	{
 
