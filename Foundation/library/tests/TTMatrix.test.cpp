@@ -350,12 +350,20 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTMatrixPtr	A = NULL;
 		TTMatrixPtr	B = NULL;
 		TTMatrixPtr	C = NULL;
-		TTErr		err;
+        
+        try {
+            A = new TTMatrix(kTTSymEmpty);
+            B = new TTMatrix(kTTSymEmpty);
+            TTTestLog("TTMatrix matrix instantiates successfully");
+            
+        } catch (...) {
+            TTTestLog("TTMatrix matrix did NOT instantiate");
+            return kTTErrInstantiateFailed;
+        }
+        
+		//TTErr		err;    // unused with new instantiation syntax
 		TTBoolean	match;
 		TTValue		dims, dims_mismatch;
-		
-		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&A, TTValue());
-		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&B, TTValue());
 		
 		dims.resize(2);
 		dims[0] = 3;	// 3 rows
@@ -422,7 +430,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		TTObjectBaseRelease((TTObjectBasePtr*)&C);
+		delete C;
 		
 		
 		C = (*A)-(*B);
@@ -447,12 +455,10 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		TTObjectBaseRelease((TTObjectBasePtr*)&C);
-		
-		
-		
-		TTObjectBaseRelease((TTObjectBasePtr*)&A);
-		TTObjectBaseRelease((TTObjectBasePtr*)&B);
+		delete C;
+        
+        delete A;
+        delete B;
 		
 	}
 
