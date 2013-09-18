@@ -253,7 +253,8 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								lastNodeName = mXmlNodeName;
 								
 								// replace header node name by start
-								if (mXmlNodeName == mHeaderNodeName) mXmlNodeName = kTTSym_start;
+								if (mXmlNodeName == mHeaderNodeName)
+                                    mXmlNodeName = kTTSym_start;
 								
 								// Get the node value
 								xValue = xmlTextReaderReadString((xmlTextReaderPtr)mReader);
@@ -275,7 +276,8 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								mXmlNodeStart = NO;
 								
 								// replace header node name by stop
-								if (mXmlNodeName == mHeaderNodeName) mXmlNodeName = kTTSym_stop;
+								if (mXmlNodeName == mHeaderNodeName)
+                                    mXmlNodeName = kTTSym_stop;
 								
 								// Set the node value
 								mXmlNodeValue = kTTValNONE;
