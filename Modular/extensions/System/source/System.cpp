@@ -132,6 +132,9 @@ TTErr System::Tick()
         
         mRunning = NO;
         
+        // forcing progression to 1. to allow filtering
+        mProgression = 1.;
+        
         (mCallback)(mBaton, mProgression);
         
         // notify each progression attribute observers
