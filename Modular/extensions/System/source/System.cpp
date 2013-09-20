@@ -162,14 +162,20 @@ TTErr System::Resume()
 
 TTFloat64 System::computeDeltaTime()
 {
-	struct timeval tv;
-	struct timezone tz;
-    
 	TTUInt64 deltaInUs = 0;
     TTUInt64 granularityInUs = mGranularity * 1000;
 
-    // get the current time (in µs)
-    gettimeofday(&tv, &tz);
+	struct timeval tv;
+
+	// get the current time (in µs)
+	#ifdef TT_PLATFORM_WIN
+		Time2 time2;
+		time2.gettimeofday(&tv, NULL);
+	#else
+		struct timezone tz;
+		gettimeofday(&tv, &tz);
+	#endif
+
 	TTUInt64 currentTime = tv.tv_sec * 1000000L + tv.tv_usec;
     
 	if (mLastTime != 0) {
@@ -178,7 +184,11 @@ TTFloat64 System::computeDeltaTime()
         
 		if (deltaInUs < granularityInUs) {
             
-			usleep(granularityInUs - deltaInUs);
+			#ifdef TT_PLATFORM_WIN
+				Sleep((granularityInUs - deltaInUs) / 1000);
+			#else
+				usleep(granularityInUs - deltaInUs);
+			#endif
             
 			deltaInUs = granularityInUs;
 		}
