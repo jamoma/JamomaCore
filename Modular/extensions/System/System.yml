@@ -13,3 +13,4 @@ includes:
 
 libraries:
   - FOUNDATION
+  - win winmm.lib

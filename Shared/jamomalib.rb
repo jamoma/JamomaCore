@@ -1308,8 +1308,8 @@ else
 				lib_dir = lib_dir.join "/"
 
 				lib_dir.gsub!(/(\/)/,'\\')
+				concatenated_libs_debug += "#{lib};"
 				if (lib_dir != "")
-					concatenated_libs_debug += "#{lib};"
 					concatenated_lib_dirs_debug += "\"#{lib_dir}\";"
 				end
 			end
@@ -1359,8 +1359,8 @@ else
 			lib_dir = lib_dir.join "/"
 
 			lib_dir.gsub!(/(\/)/,'\\')
+			concatenated_libs_release += "#{lib};"
 			if (lib_dir != "")
-			  concatenated_libs_release += "#{lib};"
 			  concatenated_lib_dirs_release += "\"#{lib_dir}\";"
 			end
 		  end
@@ -1397,7 +1397,7 @@ else
 		vcproj_debug32_linker.add_element Element.new "AdditionalLibraryDirectories"
 		vcproj_debug32_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_debug}"
 		vcproj_debug32_linker.add_element Element.new "AdditionalDependencies"
-		vcproj_debug32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug};%(AdditionalDependencies)"           
+		vcproj_debug32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug}%(AdditionalDependencies)"           
 		vcproj_debug32.add_element vcproj_debug32_linker
   
 		vcproj_release32_linker = Element.new "Link"
@@ -1432,7 +1432,7 @@ else
 		vcproj_release32_linker.add_element Element.new "AdditionalLibraryDirectories"
 		vcproj_release32_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_release}"
 		vcproj_release32_linker.add_element Element.new "AdditionalDependencies"
-		vcproj_release32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release};%(AdditionalDependencies)"           
+		vcproj_release32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release}%(AdditionalDependencies)"           
 		vcproj_release32.add_element vcproj_release32_linker
   
 		vcproj_debug64_linker = Element.new "Link"
@@ -1465,7 +1465,7 @@ else
 		vcproj_debug64_linker.add_element Element.new "AdditionalLibraryDirectories"
 		vcproj_debug64_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_debug}"
 		vcproj_debug64_linker.add_element Element.new "AdditionalDependencies"
-		vcproj_debug64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug};%(AdditionalDependencies)"           
+		vcproj_debug64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug}%(AdditionalDependencies)"           
 		vcproj_debug64.add_element vcproj_debug64_linker
   
 		vcproj_release64_linker = Element.new "Link"
@@ -1500,7 +1500,7 @@ else
 		vcproj_release64_linker.add_element Element.new "AdditionalLibraryDirectories"
 		vcproj_release64_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_release}"
 		vcproj_release64_linker.add_element Element.new "AdditionalDependencies"
-		vcproj_release64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release};%(AdditionalDependencies)"           
+		vcproj_release64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release}%(AdditionalDependencies)"           
 		vcproj_release64.add_element vcproj_release64_linker
 		
 		# add post build commands to copy dll in Max support folder
