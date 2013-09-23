@@ -1112,7 +1112,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
                     aLine->setValue(aXmlHandler->mXmlNodeValue);
                     
                     // get all other command line attribute (unit, ramp, ...)
-                    while (!aXmlHandler->getXmlNextAttribute(&attributeName, v)) {
+                    while (!aXmlHandler->getXmlNextAttribute(attributeName, v)) {
                         
                         // append attribute to the command line
                         aLine->append(attributeName, v);
