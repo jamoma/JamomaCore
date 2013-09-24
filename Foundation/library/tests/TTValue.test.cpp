@@ -591,8 +591,8 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v = aString;
 	v.fromString();
 	
-	TTTestAssertion("\"0.000000\" string is converted into a TTFloat32 0.000000 value",
-					v[0].type() == kTypeFloat32 &&
+	TTTestAssertion("\"0.000000\" string is converted into a TTFloat64 0.000000 value",
+					v[0].type() == kTypeFloat64 &&
 					v[0] == 0.f,
 					testAssertionCount,
 					errorCount);
@@ -605,6 +605,28 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	TTTestAssertion("\"1\" string is converted into a TTInt32 1 value",
 					v[0].type() == kTypeInt32 &&
 					v[0] == 1,
+					testAssertionCount,
+					errorCount);
+    
+    v.clear();
+	aString = TTString("1234u");
+	v = aString;
+	v.fromString();
+    
+    TTTestAssertion("\"1234u\" string is converted into a TTUInt32 1234 value",
+					v[0].type() == kTypeUInt32 &&
+					v[0] == 1234,
+					testAssertionCount,
+					errorCount);
+    
+    v.clear();
+	aString = TTString("uzi");
+	v = aString;
+	v.fromString();
+    
+    TTTestAssertion("\"uzi\" string is not converted into a TTUInt32 0 value",
+					v[0].type() != kTypeUInt32 &&
+                    v[0].type() == kTypeSymbol,
 					testAssertionCount,
 					errorCount);
 	
