@@ -51,8 +51,8 @@ void TTModularInit()
 	TTObjectBasePtr test = NULL;
 	TTValue v;
 	
-	TTObjectBaseInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
-	test->test(v);
+	TTObjectBaseInstantiate(TTSymbol("value.test"), &test, kTTValNONE);
+	TTDataObjectBasePtr(test)->test(v);
 
 #endif // TO_DEBUG
 	
