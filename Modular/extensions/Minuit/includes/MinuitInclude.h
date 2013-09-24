@@ -44,12 +44,14 @@ static const unsigned int MINUIT_RECEPTION_PORT = 8002;
 #define ACCESS_SETTER "setter"
 #define ACCESS_GETSETTER "getsetter"
 
-#define DEFAULT_TIMEOUT 1000
+#define DEFAULT_TIMEOUT 50
+#define MAX_TRY 2
 #define NO_TIMEOUT -1
 
 #define REQUEST_NOT_SENT -2
 #define TIMEOUT_EXCEEDED -1
 #define NO_ANSWER 0
 #define ANSWER_RECEIVED 1
+#define ANSWER_ERROR 2
 
 #endif /*MINUITINCLUDE_H_*/

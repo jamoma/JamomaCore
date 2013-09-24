@@ -79,6 +79,8 @@ private:
 	
 	TTHashPtr			mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
 	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
+    
+    ProtocolPtr         mCurrentProtocol;                   ///< a pointer used for ReadFromXml mechanism
 	
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);

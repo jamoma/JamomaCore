@@ -42,12 +42,12 @@ public:
 	virtual ~MinuitAnswerManager();
 	
 	void	AddDiscoverAnswer(TTSymbol from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
-	TTErr	ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value);
+	TTErr	ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error = kTTErrNone);
 	int		CheckDiscoverAnswer(TTSymbol from, TTAddress address, TTValue& value);
 	TTErr	ParseDiscoverAnswer(const TTValue& answer, TTSymbol& returnedType, TTValue& returnedChildren, TTValue& returnedAttributes);
 								
 	void	AddGetAnswer(TTSymbol from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
-	TTErr	ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value);
+	TTErr	ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error = kTTErrNone);
 	int		CheckGetAnswer(TTSymbol from, TTAddress address, TTValue& value);
 };
 typedef MinuitAnswerManager* MinuitAnswerManagerPtr;

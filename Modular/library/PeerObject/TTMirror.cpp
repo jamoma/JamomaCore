@@ -121,7 +121,10 @@ TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
-		return mGetAttributeCallback->notify(data, kTTValNONE);
+		mGetAttributeCallback->notify(data, kTTValNONE);
+        
+        if (value.size() > 0)
+            return kTTErrNone;
 	}
 	
 	return kTTErrGeneric;
@@ -157,7 +160,9 @@ TTErr TTMirror::getMirrorCachedAttribute(TTAttribute& anAttribute, TTValue& valu
     if (!mAttributeValueCache.lookup(anAttribute.name, value)) {
         
         data.append((TTPtr)&value);
-		return kTTErrNone;
+		
+        if (value.size() > 0)
+            return kTTErrNone;
 	}
 	
 	return kTTErrGeneric;
