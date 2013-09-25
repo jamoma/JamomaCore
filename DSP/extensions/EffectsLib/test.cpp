@@ -26,6 +26,7 @@ int main(int argc, const char * argv[])
 		
 		try {
 			TTObject obj(name);
+			std::cout << "TESTING " << name.string() << std::endl;
 			obj.send("test");
 		}
 		catch (...) {
