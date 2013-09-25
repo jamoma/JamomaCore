@@ -665,7 +665,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Container);
-	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_model);
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("model"), (TTPtr)aFilter);
@@ -674,7 +674,7 @@ TTHashPtr jamoma_explorer_default_filter_bank(void)
 	aFilter = new TTDictionary;
 	aFilter->setSchema(kTTSym_filter);
 	aFilter->append(kTTSym_object, kTTSym_Container);
-	aFilter->append(kTTSym_attribute, kTTSym_tag);
+	aFilter->append(kTTSym_attribute, kTTSym_service);
 	aFilter->append(kTTSym_value, kTTSym_view);
 	aFilter->append(kTTSym_mode, kTTSym_include);
 	defaultFilterBank->append(TTSymbol("view"), (TTPtr)aFilter);
@@ -1390,7 +1390,7 @@ void jamoma_patcher_get_name(ObjectPtr patcher, TTSymbol context, TTSymbol& retu
         // because a j.view can be in subpatcher too
         
         // for view : the second argument is the name
-		// (the first is reserved for the /model/address)
+		// (the first is reserved for the model:address)
         if (context == kTTSym_view) {
             if (ac > 1)
                 argName = atom_getsym(av+1);

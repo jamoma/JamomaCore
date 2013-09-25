@@ -70,10 +70,10 @@ TTErr RosenbergGlottalPulseWindow::test(TTValue& returnedTestInfo)
 	TTAudioSignalPtr	output = NULL;
 	
 	int					N = 101;
-	TTValue				v;
+	TTValue				v, aReturnWeDontCareAbout;
 	
 	// create the object, keep the default ratio parameter
-	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, TTValue(1));
 	windowObject->setAttributeValue(TT("function"), TT("rosenbergGlottalPulse"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	
@@ -106,7 +106,7 @@ TTErr RosenbergGlottalPulseWindow::test(TTValue& returnedTestInfo)
 	v.resize(2);
 	v.set(0, TT("ratio"));
 	v.set(1, 0.8);
-	windowObject->sendMessage(TT("setParameter"), v, kTTValNONE);
+	windowObject->sendMessage(TT("setParameter"), v, aReturnWeDontCareAbout);
 	
 	// Again create a signal to be transformed, and then process it
 	input->fill(1.0);

@@ -17,7 +17,6 @@ sources:
 includes:
   - "includes"
   - "../../Foundation/library/includes"
-  - "../extensions/SoundfileLib/includes"
 
 defines:
   - TTDSP_EXPORTS

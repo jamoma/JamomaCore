@@ -34,7 +34,7 @@ public:
 	MinuitAnswer();
 	virtual ~MinuitAnswer();
 
-	void		setAnswer(const TTValue& value);
+	void		setAnswer(const TTValue& value, TTErr error = kTTErrNone);
 	void		getAnswer(TTValue& value);
 	
 	void		setTimeOut(int timeout);

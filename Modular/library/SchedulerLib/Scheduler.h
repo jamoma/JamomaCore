@@ -20,11 +20,11 @@
 #include "TTFoundationAPI.h"
 
 #define SCHEDULER_CONSTRUCTOR \
-TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : Scheduler(arguments)
+thisTTClass :: thisTTClass (const TTValue& arguments) : Scheduler(arguments)
 
 #define SCHEDULER_INITIALIZE \
 mName = TTSymbol(thisTTClassName); \
@@ -73,7 +73,7 @@ protected:
 public:
     
 	//** Constructor.	*/
-	Scheduler(TTValue& arguments);
+	Scheduler(const TTValue& arguments);
 	
 	/** Destructor. */
 	virtual ~Scheduler();

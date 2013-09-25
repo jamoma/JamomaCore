@@ -44,7 +44,7 @@ TTErr RectangularWindow::test(TTValue& returnedTestInfo)
 	TTValue				v;
 	
 	// setup windowObject
-	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, TTValue(1));
 	windowObject->setAttributeValue(TT("function"), TT("rectangular"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	

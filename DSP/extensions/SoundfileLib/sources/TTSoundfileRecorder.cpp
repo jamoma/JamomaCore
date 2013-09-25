@@ -35,7 +35,7 @@ mCycles(0)
 	addAttribute(			Format,			kTypeSymbol);
 	addAttributeWithSetter(	Record,			kTypeBoolean);
 	addAttribute(			NumChannels,	kTypeUInt16);
-		addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
+		addAttributeProperty(	NumChannels,	readOnly, TTValue(YES));
 	addAttributeWithSetter(	Length,			kTypeFloat64);
 		addAttributeProperty(Length,			range,			TTValue(0, 60000));
 		addAttributeProperty(Length,			rangeChecking,	TT("clip"));
@@ -45,7 +45,7 @@ mCycles(0)
 
 TTSoundfileRecorder::~TTSoundfileRecorder()
 {
-	setAttributeValue(TT("record"), kTTBoolNo);
+	setAttributeValue(TT("record"), NO);
 	if (mSoundFile)
 		sf_close(mSoundFile);
 }

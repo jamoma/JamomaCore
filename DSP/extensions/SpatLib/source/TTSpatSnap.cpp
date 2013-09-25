@@ -20,7 +20,7 @@
 #define thisTTClassTags		"audio, spatialization, processing"
 
 
-TTObjectBasePtr TTSpatSnap::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTSpatSnap::instantiate(TTSymbol name, TTValue arguments)
 {
 	return (TTObjectBasePtr) new thisTTClass(arguments);
 }
@@ -32,7 +32,7 @@ extern "C" void thisTTClass :: registerClass ()
 }
 
 
-TTSpatSnap::TTSpatSnap(TTValue& arguments) : TTSpatBase(arguments)
+TTSpatSnap::TTSpatSnap(const TTValue& arguments) : TTSpatBase(arguments)
 {
 	mRenderer = new TTSpatSnapRenderer;
 }

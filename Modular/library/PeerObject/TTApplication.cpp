@@ -36,7 +36,7 @@ mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
 mTTToApp(NULL),
-mTempAddress(kTTAdrsEmpty)
+mTempAddress(kTTAdrsRoot)
 {
 	mName = arguments[0];
 	
@@ -265,7 +265,9 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
             childAddress = returnedChildren[i];
             nextAddress = anAddress.appendAddress(childAddress);
             
-            buildNode(aProtocol, nextAddress);
+            // build child nodes (and report any error)
+            if (buildNode(aProtocol, nextAddress))
+                err = kTTErrGeneric;
         }
     }
     
@@ -1065,7 +1067,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
 	TTObjectBasePtr	getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
 	TTValuePtr		getAttributeBaton, setAttributeBaton, sendMessageBaton, listenAttributeBaton;
     
-    if (objectName != kTTSymEmpty) {
+    if (objectName != kTTSymEmpty && objectName != kTTSym_none) {
         
         TTValue     args = objectName;
         

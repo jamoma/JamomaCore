@@ -79,6 +79,8 @@ private:
 	
 	TTHashPtr			mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
 	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
+    
+    ProtocolPtr         mCurrentProtocol;                   ///< a pointer used for ReadFromXml mechanism
 	
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);
@@ -217,5 +219,11 @@ TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(TTPtr bato
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data);
+
+/** compare priority attribute of object's node
+ @param	v1							a pointer to a value containing a pointer to a TTNode >
+ @param	v2							a pointer to a value containing a pointer to a TTNode >
+ @return							is the priority of v1 is smaller than v2 (except if equal 0) ? */
+TTBoolean TTMODULAR_EXPORT TTApplicationManagerCompareNodePriority(TTValue& v1, TTValue& v2);
 
 #endif // __TT_APPLICATION_MANAGER_H__

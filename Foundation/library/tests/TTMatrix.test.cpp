@@ -18,6 +18,37 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 	
 
 	
+    {
+        // an attempt to re-write without using TTObjectBaseInstantiate
+        TTTestLog("\n");
+		TTTestLog("Testing new TTMatrix Instantiation...");
+        
+        TTMatrixPtr testingNewInstantiation = NULL;
+        
+        try {
+            
+            // first instantiate the matrix as a TTObject
+            testingNewInstantiation = new TTMatrix(kTTSymEmpty);
+            // second point the TTMatrixPtr at it
+            //testingNewInstantiation = (TTMatrixPtr)(TTPtr(willThisWork));
+            
+            TTTestLog("matrix instantiates successfully");
+            
+            TTTestLog("Setting to a 1D, float64, matrix with a length of 16 for complex numbers (2 elements per value)");
+            testingNewInstantiation->setAttributeValue("dimensions", 16);
+            testingNewInstantiation->setAttributeValue("type", "float64");
+            testingNewInstantiation->setAttributeValue("elementCount", 2);
+            TTTestLog("If you see this message, it probably worked.");
+            
+        } catch (...) {
+            TTTestLog("matrix did NOT instantiate");
+            return kTTErrInstantiateFailed;
+        }
+        
+        
+        
+    }
+    
 	
 	{
 
@@ -25,15 +56,18 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("\n");
 		TTTestLog("Testing TTMatrix Basics...");
 		
-		TTMatrixPtr matrix = NULL;
 		TTErr err;
 		
-		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&matrix, TTValue());
-		TTTestAssertion("instantiates successfully", 
-						err == kTTErrNone, 
-						testAssertionCount,
-						errorCount);
-		
+        // instantiate a matrix for testing
+        TTMatrixPtr matrix = NULL;
+		try {
+            matrix = new TTMatrix(kTTSymEmpty);
+            TTTestLog("TTMatrix matrix instantiates successfully");
+            
+        } catch (...) {
+            TTTestLog("TTMatrix matrix did NOT instantiate");
+            return kTTErrInstantiateFailed;
+        }
 		
 		// a clear series of tests to ensure type switching via TTDataInfo::matchSymbolToDataType() method works
 		TTTestAssertion("default datatype is uint8", 
@@ -106,6 +140,24 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
+        // Test the fill message with 2-item sized TTValue
+        TTValue fv = 6.26;
+        fv.append(19.99);
+        TTValue fr;
+        matrix->sendMessage("fill", fv, fr);
+        
+        int fillTestCount = 0;
+		for (unsigned int i=0; i < matrix->mDataSize; i += matrix->mComponentStride) {
+			if (*((TTFloat64*)(matrix->mData+i)) != 6.26)
+				fillTestCount++;
+            if (*((TTFloat64*)(matrix->mData+i+matrix->mTypeSizeInBytes)) != 19.99)
+				fillTestCount++;
+		}
+        
+        TTTestAssertion("fill message correctly sets all elements to proper values",
+						fillTestCount == 0,
+						testAssertionCount,
+						errorCount);
 		
 		// Test the clear message
 		// first fill with arbitrary values
@@ -283,11 +335,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		err = TTObjectBaseRelease((TTObjectBasePtr*)&matrix);
-		TTTestAssertion("frees successfully", 
-						err == kTTErrNone, 
-						testAssertionCount,
-						errorCount);
+        delete matrix;
 		
 	}	
 	
@@ -302,12 +350,20 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		TTMatrixPtr	A = NULL;
 		TTMatrixPtr	B = NULL;
 		TTMatrixPtr	C = NULL;
-		TTErr		err;
+        
+        try {
+            A = new TTMatrix(kTTSymEmpty);
+            B = new TTMatrix(kTTSymEmpty);
+            TTTestLog("TTMatrix matrix instantiates successfully");
+            
+        } catch (...) {
+            TTTestLog("TTMatrix matrix did NOT instantiate");
+            return kTTErrInstantiateFailed;
+        }
+        
+		//TTErr		err;    // unused with new instantiation syntax
 		TTBoolean	match;
 		TTValue		dims, dims_mismatch;
-		
-		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&A, TTValue());
-		err = TTObjectBaseInstantiate("matrix", (TTObjectBasePtr*)&B, TTValue());
 		
 		dims.resize(2);
 		dims[0] = 3;	// 3 rows
@@ -374,7 +430,7 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		TTObjectBaseRelease((TTObjectBasePtr*)&C);
+		delete C;
 		
 		
 		C = (*A)-(*B);
@@ -399,12 +455,10 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
 		
-		TTObjectBaseRelease((TTObjectBasePtr*)&C);
-		
-		
-		
-		TTObjectBaseRelease((TTObjectBasePtr*)&A);
-		TTObjectBaseRelease((TTObjectBasePtr*)&B);
+		delete C;
+        
+        delete A;
+        delete B;
 		
 	}
 

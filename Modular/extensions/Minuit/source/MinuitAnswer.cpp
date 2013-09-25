@@ -42,10 +42,14 @@ MinuitAnswer::~MinuitAnswer()
 	;
 }
 
-void MinuitAnswer::setAnswer(const TTValue& value)
+void MinuitAnswer::setAnswer(const TTValue& value, TTErr error)
 {
-	mAnswer = value;	
-	mState = ANSWER_RECEIVED;
+	mAnswer = value;
+	
+    if (!error)
+        mState = ANSWER_RECEIVED;
+    else
+        mState = ANSWER_ERROR;
 }
 
 void MinuitAnswer::getAnswer(TTValue& value)

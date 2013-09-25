@@ -20,11 +20,12 @@
 
 /****************************************************************************************************/
 
-Protocol::Protocol(TTValue& arguments) :
+Protocol::Protocol(const TTValue& arguments) :
 TTObjectBase(arguments),
 mApplicationManager(NULL),
 mActivityInCallback(NULL),
-mActivityOutCallback(NULL)
+mActivityOutCallback(NULL),
+mRunning(NO)
 {
     mApplicationManager = arguments[0];
     mActivityInCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
@@ -331,7 +332,8 @@ TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address)
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationDiscover"), inputValue, outputValue);
 		
 		// send result
-		return SendDiscoverAnswer(from, address, returnedType, returnedChildren, returnedAttributes, err);
+        if (mRunning)
+            return SendDiscoverAnswer(from, address, returnedType, returnedChildren, returnedAttributes, err);
 	}
 	
 	return kTTErrGeneric;
@@ -350,7 +352,8 @@ TTErr Protocol::ReceiveGetRequest(TTSymbol from, TTAddress address)
 
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationGet"), address, returnedValue);
 		
-		return SendGetAnswer(from, address, returnedValue, err);
+        if (mRunning)
+            return SendGetAnswer(from, address, returnedValue, err);
 	}		
 	
 	return kTTErrGeneric;
@@ -397,7 +400,10 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
 		
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListen"), v, kTTValNONE);
 		
+        // NW: wondering why this happens twice?
 		if (err)
+			return SendListenAnswer(from, address, dummy, err);
+		if (err && mRunning) 
 			return SendListenAnswer(from, address, dummy, err);
 	}
 	
@@ -422,7 +428,10 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& n
 		// TODO
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListenAnswer"), v, kTTValNONE);
 		
+        // NW: wondering why this happens twice?
 		if (err)
+			return SendListenAnswer(from, address, dummy, err);
+		if (err && mRunning)
 			return SendListenAnswer(from, address, dummy, err);
 	}
 	
@@ -487,8 +496,11 @@ TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
         
         v.append(TTSymbol("delete"));
     }
-
-	return aProtocol->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TTSymbol("life")), v);
+    
+    if (aProtocol->mRunning)
+        return aProtocol->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TTSymbol("life")), v);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
@@ -504,7 +516,10 @@ TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
 	anApplicationName = (*b)[1];
 	anAddress = (*b)[2];
 	
-	return aProtocol->SendListenAnswer(anApplicationName, anAddress, data);
+    if (aProtocol->mRunning)
+        return aProtocol->SendListenAnswer(anApplicationName, anAddress, data);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolGetAttributeCallback(TTPtr baton, TTValue& data)
@@ -526,7 +541,10 @@ TTErr ProtocolGetAttributeCallback(TTPtr baton, TTValue& data)
 	value = TTValuePtr((TTPtr)data[1]);
 	
 	// send a get request
-	return aProtocol->SendGetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    if (aProtocol->mRunning)
+        return aProtocol->SendGetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolSetAttributeCallback(TTPtr baton, TTValue& data)
@@ -548,7 +566,10 @@ TTErr ProtocolSetAttributeCallback(TTPtr baton, TTValue& data)
 	value = TTValuePtr((TTPtr)data[1]);
 	
 	// send a set request
-	return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    if (aProtocol->mRunning)
+        return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolSendMessageCallback(TTPtr baton, TTValue& data)
@@ -570,7 +591,10 @@ TTErr ProtocolSendMessageCallback(TTPtr baton, TTValue& data)
 	value = TTValuePtr((TTPtr)data[1]);
 	
 	// send a set request
-	return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(message), *value);
+    if (aProtocol->mRunning)
+        return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(message), *value);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
@@ -593,7 +617,10 @@ TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
     enable = data[1];
 	
 	// send a listen request
-	return aProtocol->SendListenRequest(anApplicationName, anAddress.appendAttribute(attribute), enable);
+    if (aProtocol->mRunning)
+        return aProtocol->SendListenRequest(anApplicationName, anAddress.appendAttribute(attribute), enable);
+    else
+        return kTTErrGeneric;
 }
 
 TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)

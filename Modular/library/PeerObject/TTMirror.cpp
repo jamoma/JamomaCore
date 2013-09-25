@@ -32,6 +32,7 @@ mListenAttributeCallback(NULL)
 	TTAttributePtr		anAttribute;
 	TTAttributeFlags	attributeFlags = kTTAttrPassObject;
 	TTMessagePtr		aMessage;
+    TTErr               err;
 	
 	TT_ASSERT("Correct number of args to create TTMirror", arguments.size() == 5);
     
@@ -56,45 +57,48 @@ mListenAttributeCallback(NULL)
         // instantiate a temp object to copy visible attributes and messages
         TTObjectBasePtr anObject = NULL;
         args.resize(32);
-        TTObjectBaseInstantiate(mType,  &anObject, args);
+        err = TTObjectBaseInstantiate(mType,  &anObject, args);
         
-        anObject->getAttributeNames(attributeNames);
-        for (TTUInt32 i = 0; i < attributeNames.size(); i++) {
+        if (!err) {
             
-            anAttribute = NULL;
-            name = attributeNames[i];
-            anObject->getAttribute(name, &anAttribute);
-            
-            if (mGetAttributeCallback)
-                addMirrorAttribute(name, anAttribute->type);
-            
-            // else cache the attribute value
-            else {
+            anObject->getAttributeNames(attributeNames);
+            for (TTUInt32 i = 0; i < attributeNames.size(); i++) {
                 
-                addMirrorCachedAttribute(name, anAttribute->type);
+                anAttribute = NULL;
+                name = attributeNames[i];
+                anObject->getAttribute(name, &anAttribute);
                 
-                mAttributeValueCache.append(name, kTTValNONE);
+                if (mGetAttributeCallback)
+                    addMirrorAttribute(name, anAttribute->type);
+                
+                // else cache the attribute value
+                else {
+                    
+                    addMirrorCachedAttribute(name, anAttribute->type);
+                    
+                    mAttributeValueCache.append(name, kTTValNONE);
+                }
+                
+                setAttributeGetterFlags(name, attributeFlags);
+                setAttributeSetterFlags(name, attributeFlags);
+                
+                // TODO : addMirrorAttributeProperty
+                //addMirrorAttributeProperty(name, readOnly, anAttribute->readOnly);
             }
             
-            setAttributeGetterFlags(name, attributeFlags);
-            setAttributeSetterFlags(name, attributeFlags);
+            anObject->getMessageNames(messageNames);
+            for (TTUInt32 i = 0; i < messageNames.size(); i++) {
+                
+                name = messageNames[i];
+                anObject->getMessage(name, &aMessage);
+                
+                addMirrorMessage(name, aMessage->flags);
+                
+                // TODO : addMirrorMessageProperty
+            }
             
-            // TODO : addMirrorAttributeProperty
-            //addMirrorAttributeProperty(name, readOnly, anAttribute->readOnly);
+            TTObjectBaseRelease(&anObject);
         }
-        
-        anObject->getMessageNames(messageNames);
-        for (TTUInt32 i = 0; i < messageNames.size(); i++) {
-            
-            name = messageNames[i];
-            anObject->getMessage(name, &aMessage);
-            
-            addMirrorMessage(name, aMessage->flags);
-            
-            // TODO : addMirrorMessageProperty
-        }
-        
-        TTObjectBaseRelease(&anObject);
     }
 }
 
@@ -110,7 +114,7 @@ TTSymbol TTMirror::getName()
 
 TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 {
-	TTValue data;
+	TTValue data, aReturnWeDontCareAbout;
 	
 	if (mGetAttributeCallback) {
 		
@@ -118,6 +122,10 @@ TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 		data.append((TTPtr)&value);
 		
 		return mGetAttributeCallback->deliver(data);
+		mGetAttributeCallback->notify(data, aReturnWeDontCareAbout);
+        
+        if (value.size() > 0)
+            return kTTErrNone;
 	}
 	
 	return kTTErrGeneric;
@@ -153,7 +161,9 @@ TTErr TTMirror::getMirrorCachedAttribute(TTAttribute& anAttribute, TTValue& valu
     if (!mAttributeValueCache.lookup(anAttribute.name, value)) {
         
         data.append((TTPtr)&value);
-		return kTTErrNone;
+		
+        if (value.size() > 0)
+            return kTTErrNone;
 	}
 	
 	return kTTErrGeneric;

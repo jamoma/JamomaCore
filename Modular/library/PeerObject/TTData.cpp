@@ -749,12 +749,11 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 						hasUnit = true;
 						unit = commandValue[commandSize - 3];
 					}
-					else
-						if (commandValue[commandSize - 1].type() == kTypeSymbol) {
-							hasUnit = true;
-							unit = commandValue[commandSize - 1];
-						}
 				}
+                else if (commandValue[commandSize - 1].type() == kTypeSymbol) {
+                    hasUnit = true;
+                    unit = commandValue[commandSize - 1];
+                }
 			}
 			
 			break;	

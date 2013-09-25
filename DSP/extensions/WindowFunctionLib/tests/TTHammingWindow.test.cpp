@@ -52,7 +52,7 @@ TTErr HammingWindow::test(TTValue& returnedTestInfo)
 	int					N = 128;
 	TTValue				v;
 	
-	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, TTValue(1));
 	windowObject->setAttributeValue(TT("function"), TT("hamming"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	

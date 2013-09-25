@@ -20,7 +20,7 @@
 
 /****************************************************************************************************/
 
-Scheduler::Scheduler(TTValue& arguments) :
+Scheduler::Scheduler(const TTValue& arguments) :
 TTObjectBase(arguments),
 mDuration(0.),
 mSpeed(1.),

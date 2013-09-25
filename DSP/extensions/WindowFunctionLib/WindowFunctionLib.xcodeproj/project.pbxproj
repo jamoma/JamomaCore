@@ -214,11 +214,12 @@
 /* Begin PBXLegacyTarget section */
 		A702D0C615DCFBDB00CA71C6 /* WindowFunctionLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
+			buildArgumentsString = "$(Configuration) $(ACTION)";
 			buildConfigurationList = A702D0C915DCFBDB00CA71C6 /* Build configuration list for PBXLegacyTarget "WindowFunctionLib" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = WindowFunctionLib;

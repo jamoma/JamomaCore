@@ -26,9 +26,9 @@ TT_AUDIO_CONSTRUCTOR,
 	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&tempGainMatrix, 0);
 
 	addAttribute(NumInputs, kTypeUInt16);	
-	addAttributeProperty(NumInputs,	readOnly, kTTBoolYes);
+	addAttributeProperty(NumInputs,	readOnly, TTValue(YES));
 	addAttribute(NumOutputs, kTypeUInt16);	
-	addAttributeProperty(NumOutputs, readOnly, kTTBoolYes);
+	addAttributeProperty(NumOutputs, readOnly, TTValue(YES));
 	
 	addMessageWithArguments(setGain);
 	addMessageWithArguments(setLinearGain);
