@@ -142,7 +142,7 @@ TTErr TTRamp::Set(const TTValue& inputValue, TTValue& outputValue)
     TTUInt32 i;
 	
     if (mSchedulerUnit)
-        mSchedulerUnit->sendMessage(TTSymbol("Stop"));
+        mSchedulerUnit->sendMessage(kTTSym_Stop);
     
     mNumValues = inputValue.size();
     
@@ -159,7 +159,7 @@ TTErr TTRamp::Target(const TTValue& inputValue, TTValue& outputValue)
     TTUInt32 i;
 	
     if (mSchedulerUnit)
-        mSchedulerUnit->sendMessage(TTSymbol("Stop"));
+        mSchedulerUnit->sendMessage(kTTSym_Stop);
     
     if (mNumValues == inputValue.size()) {
         
@@ -187,7 +187,7 @@ TTErr TTRamp::Go(const TTValue& inputValue, TTValue& outputValue)
             
             mSchedulerUnit->setAttributeValue(TTSymbol("duration"), mRampTime);
             
-            return mSchedulerUnit->sendMessage(TTSymbol("Go"));
+            return mSchedulerUnit->sendMessage(kTTSym_Go);
         }
     }
     
@@ -214,7 +214,7 @@ TTErr TTRamp::Stop()
         
         mRampTime = 0.;
         
-        return mSchedulerUnit->sendMessage(TTSymbol("Stop"));
+        return mSchedulerUnit->sendMessage(kTTSym_Stop);
     }
     
     return kTTErrGeneric;

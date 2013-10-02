@@ -93,6 +93,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_freeze;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_generic;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Get;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_global;
+extern TTMODULAR_EXPORT TTSymbol    kTTSym_Go;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_highlight;
 
@@ -103,6 +104,7 @@ extern TTMODULAR_EXPORT TTSymbol    kTTSym_instances;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_integer;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_life;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_lines;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_lookfor;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Map;
@@ -149,6 +151,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_sharp;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_signal;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_start;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_stop;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_Stop;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Subscribe;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_tag;

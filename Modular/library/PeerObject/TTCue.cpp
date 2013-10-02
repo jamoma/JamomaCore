@@ -70,7 +70,7 @@ TTErr TTCue::getName(TTValue& value)
 	TTSymbol		name;
 	TTValue			v;
 	
-	mScript->getAttributeValue(TTSymbol("lines"), v);
+	mScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -102,7 +102,7 @@ TTErr TTCue::setName(const TTValue& value)
 	TTSymbol			name;
 	TTValue				v;
 	
-	mScript->getAttributeValue(TTSymbol("lines"), v);
+	mScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -134,7 +134,7 @@ TTErr TTCue::getDescription(TTValue& value)
 	TTSymbol		name;
 	TTValue			v;
 	
-	mScript->getAttributeValue(TTSymbol("lines"), v);
+	mScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -167,7 +167,7 @@ TTErr TTCue::setDescription(const TTValue& value)
 	TTSymbol		name;
 	TTValue			v;
 	
-	mScript->getAttributeValue(TTSymbol("lines"), v);
+	mScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -207,7 +207,7 @@ TTErr TTCue::searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp)
 	TTDictionaryPtr	aLine;
 	TTValue			v, r;
 	
-	aScript->getAttributeValue(TTSymbol("lines"), v);
+	aScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -644,7 +644,7 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace,
 	TTValue				v;
 	TTErr				err;
 	
-	aScript->getAttributeValue(TTSymbol("lines"), v);
+	aScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// select all items which are in the script

@@ -323,7 +323,7 @@ TTErr TTApplicationManager::ProtocolStop(const TTValue& inputValue, TTValue& out
 		
 		if (!mProtocols->lookup(protocolName, v)) {
 			aProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
-			stop = aProtocol->sendMessage(TTSymbol("Stop"));
+			stop = aProtocol->sendMessage(kTTSym_Stop);
 		}
 	}
 	else {

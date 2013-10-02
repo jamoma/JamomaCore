@@ -518,7 +518,7 @@ TTErr TTData::RampTarget(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTData::RampGo(const TTValue& inputValue, TTValue& outputValue)
 {
     if (mRamper)
-        return mRamper->sendMessage(TTSymbol("Go"), inputValue, outputValue);
+        return mRamper->sendMessage(kTTSym_Go, inputValue, outputValue);
     
     return kTTErrGeneric;
 }
@@ -822,7 +822,7 @@ void TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
         
 		// stop the ramp
 		if (!aData->mRampStatus)
-			aData->mRamper->sendMessage(TTSymbol("Stop"));
+			aData->mRamper->sendMessage(kTTSym_Stop);
         
 		aData->notifyObservers(kTTSym_rampStatus, aData->mRampStatus);
 	}
