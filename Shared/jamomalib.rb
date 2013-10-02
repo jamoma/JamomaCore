@@ -1747,7 +1747,7 @@ else
           test_dependency_foundation = ""
           test_dependency_foundation = "../../../Foundation/library/build/libJamomaFoundation.a" if project_type == "extension"
           test_dependency_dsp = ""
-          test_dependency_dsp = "../../../DSP/library/build/libJamomaDSP.a" if layer_name == "DSP"
+          # test_dependency_dsp = "../../../DSP/library/build/libJamomaDSP.a" if layer_name == "DSP"
         
           makefile.write("build_and_test: | lipo \n")
           makefile.write("\techo Testing 32-bit \n")
