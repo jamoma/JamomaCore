@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTWaveshaper
 #define thisTTClassName		"waveshaper"
-#define thisTTClassTags		"audio, processor, distortion"
+#define thisTTClassTags		"dspEffectsLib, audio, processor, distortion"
 
 
 TT_AUDIO_CONSTRUCTOR,

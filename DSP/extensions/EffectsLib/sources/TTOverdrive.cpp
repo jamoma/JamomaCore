@@ -11,7 +11,7 @@
 
 #define thisTTClass			TTOverdrive
 #define thisTTClassName		"overdrive"
-#define thisTTClassTags		"audio, processor, distortion"
+#define thisTTClassTags		"dspEffectsLib, audio, processor, distortion"
 
 
 TT_AUDIO_CONSTRUCTOR,

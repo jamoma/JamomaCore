@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTLimiter
 #define thisTTClassName		"limiter"
-#define thisTTClassTags		"audio, processor, dynamics, limiter"
+#define thisTTClassTags		"dspEffectsLib, audio, processor, dynamics, limiter"
 
 
 TT_AUDIO_CONSTRUCTOR,

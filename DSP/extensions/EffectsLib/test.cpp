@@ -14,12 +14,14 @@ extern "C" TTErr TTLoadJamomaExtension_EffectsLib(void);
 int main(int argc, const char * argv[])
 {
 	//	TTFoundationInit();
-	std::cout << "Hi, World!\n";
-	TTLoadJamomaExtension_EffectsLib();
+	
+    TTLoadJamomaExtension_EffectsLib();
 	
 	TTValue classNames;
 	
-	TTObject::GetRegisteredClassNames(classNames);
+	// if the follow group tag is present within the thisTTClassTags definition, the class will be tested
+    TTValue testClassesWithTheseTags(TT("dspEffectsLib"));
+	TTObject::GetRegisteredClassNamesForTags(classNames, testClassesWithTheseTags);
 	
 	for (int i=0; i<classNames.size(); i++) {
 		TTSymbol name = classNames[i];

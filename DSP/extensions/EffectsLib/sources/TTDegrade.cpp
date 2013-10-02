@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTDegrade
 #define thisTTClassName		"degrade"
-#define thisTTClassTags		"audio, processor, distortion"
+#define thisTTClassTags		"dspEffectsLib, audio, processor, distortion"
 
 #define BIG_INT	0x00800000
 #define ONE_OVER_BIG_INT 1.1920928955E-7
