@@ -21,6 +21,7 @@
 		2A42394E169CF24F002D05D9 /* TTDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7B15EC21C600B755FA /* TTDelay.cpp */; };
 		2A42394F169CF24F002D05D9 /* TTDSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7C15EC21C600B755FA /* TTDSP.cpp */; };
 		2A423950169CF24F002D05D9 /* TTSampleMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7D15EC21C600B755FA /* TTSampleMatrix.cpp */; };
+		8E47111217FC6092001D947B /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E47111117FC6092001D947B /* test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +62,7 @@
 		22C57C8015EC21D100B755FA /* TTSampleMatrix.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSampleMatrix.test.cpp; path = tests/TTSampleMatrix.test.cpp; sourceTree = "<group>"; };
 		2A423938169CF22B002D05D9 /* libDSPiOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDSPiOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A42393B169CF22B002D05D9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8E47111117FC6092001D947B /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		A76CD1CB166479BD0002EC35 /* TTAudioObjectArray.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObjectArray.test.cpp; path = tests/TTAudioObjectArray.test.cpp; sourceTree = "<group>"; };
 		A76CD1CD166479F20002EC35 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		A79EEBE11653E09100E9B742 /* JamomaDSP.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaDSP.yml; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				A79EEBE11653E09100E9B742 /* JamomaDSP.yml */,
 				A76CD1CD166479F20002EC35 /* Makefile */,
 				A79EEBE21653E0AA00E9B742 /* TTBluePrefix.pch */,
+				8E47111117FC6092001D947B /* test.cpp */,
 				22C57C8615EC2A1100B755FA /* Foundation */,
 				22C57C8515EC29FF00B755FA /* DSP */,
 				2A42393A169CF22B002D05D9 /* Frameworks */,
@@ -342,6 +345,7 @@
 				2A23B0E2169D5445004793F5 /* TTSampleMatrix.test.cpp in Sources */,
 				22961B4816D9108F00C0C657 /* TTAudioObjectBase.cpp in Sources */,
 				22784E9D17B407D50053393C /* TTDCBlock.cpp in Sources */,
+				8E47111217FC6092001D947B /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
