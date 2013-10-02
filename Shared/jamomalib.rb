@@ -1744,10 +1744,18 @@ else
           makefile.write("\trm -rf #{build_temp}\n")
           makefile.write("\n")
           
+          ##########
+          # BEGIN test.cpp handling
+          #
+          # The following section is used initiate testing during building whenever a "test.cpp" file is present within a project.
+          # This testing procedure was developed as an alternative to testing within the Ruby implementation.
+          # 
+          ##########
+          
           test_dependency_foundation = ""
           test_dependency_foundation = "../../../Foundation/library/build/libJamomaFoundation.a" if project_type == "extension"
           test_dependency_dsp = ""
-          # test_dependency_dsp = "../../../DSP/library/build/libJamomaDSP.a" if layer_name == "DSP"
+          # test_dependency_dsp = "build/libJamomaDSP.a" if layer_name == "DSP"
         
           makefile.write("build_and_test: | lipo \n")
           makefile.write("\techo Testing 32-bit \n")
@@ -1763,6 +1771,10 @@ else
         	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a   -o build/test64 ; fi \n")
           makefile.write("\techo Skipping Tests \n")
           makefile.write("\n")
+          
+          ##########
+          # END test.cpp handling
+          ##########
 
           makefile.write("install: | build_and_test\n")
           if max && mac?
