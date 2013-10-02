@@ -390,6 +390,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
     /********/
     
+    // NW: this test is dependent on the SoundfileLib extension and should therefore be moved to that project
+    /*
     // TEST 20: load values from a sound file
     
     TTInt16				numChannels20 = 2;
@@ -431,6 +433,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
             }
         }
     }
+    // end of test that needs to be moved
+    */
     
     
 	/*
