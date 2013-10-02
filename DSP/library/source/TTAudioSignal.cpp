@@ -1,8 +1,15 @@
-/* 
- * TTBlue Audio Signal Class
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Represents M channels containing N vectors of audio samples.
+ *
+ * @details TODO: put more info here
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2008 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

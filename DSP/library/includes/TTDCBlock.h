@@ -1,10 +1,18 @@
-/* 
- * DC Offset Filter/Blocker 
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief DC Offset Filter and Blocker
+ *
+ * @details TODO: put more info here
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2008 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_DCBLOCK_H__
 #define __TT_DCBLOCK_H__

@@ -1,10 +1,20 @@
-/* 
- * Unit tests for the TTBuffer Object for Jamoma DSP
- * Copyright © 2012, Nathan Wolek
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Unit tests for the #TTBuffer class
+ *
+ * @details
+ *
+ * @see TTBuffer
+ *
+ * @authors Nathan Wolek
+ *
+ * @copyright Copyright © 2012 by Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTBuffer.h"
 

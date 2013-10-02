@@ -1,10 +1,20 @@
-/* 
- * Unit tests for the TTDelay Object for Jamoma DSP
- * Copyright © 2011-2012, Nils Peters, Tim Place, Nathan Wolek
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Unit tests for the #TTDelay class
+ *
+ * @details
+ *
+ * @see TTDelay
+ *
+ * @authors Nils Peters, Tim Place, Nathan Wolek
+ *
+ * @copyright Copyright © 2011-2012 by Nils Peters, Tim Place, Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDelay.h"
 
