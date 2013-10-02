@@ -15,7 +15,7 @@
 
 #define thisTTClass			TTDelay
 #define thisTTClassName		"delay"
-#define thisTTClassTags		"audio, processor, delay"
+#define thisTTClassTags		"dspLibrary, audio, processor, delay"
 
 #ifndef TT_PLATFORM_MAC
 #include <algorithm>

@@ -20,7 +20,7 @@
 
 #define thisTTClass			TTAudioObjectBaseArray
 #define thisTTClassName		"array"
-#define thisTTClassTags		"audio, array"
+#define thisTTClassTags		"dspLibrary, audio, array"
 
 
 TT_AUDIO_CONSTRUCTOR,

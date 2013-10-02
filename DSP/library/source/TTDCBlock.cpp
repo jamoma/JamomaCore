@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTDCBlock
 #define thisTTClassName		"dcblock"
-#define thisTTClassTags		"audio, processor, filter"
+#define thisTTClassTags		"dspLibrary, audio, processor, filter"
 
 
 TT_AUDIO_CONSTRUCTOR

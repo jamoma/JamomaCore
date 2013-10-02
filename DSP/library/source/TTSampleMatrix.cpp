@@ -19,7 +19,7 @@
 
 #define thisTTClass			TTSampleMatrix
 #define thisTTClassName		"samplematrix"
-#define thisTTClassTags		"audio, buffer"
+#define thisTTClassTags		"dspLibrary, audio, buffer"
 
 TTObjectBasePtr TTSampleMatrix::instantiate(TTSymbol name, TTValue arguments)
 {

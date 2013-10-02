@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTAudioSignalArray
 #define thisTTClassName		"audiosignalarray"
-#define thisTTClassTags		"audio, processor, dynamics, envelope"
+#define thisTTClassTags		"dspLibrary, audio, processor, dynamics, envelope"
 
 
 /****************************************************************************************************/

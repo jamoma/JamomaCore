@@ -18,7 +18,7 @@
 
 #define thisTTClass			TTBuffer
 #define thisTTClassName		"buffer"
-#define thisTTClassTags		"audio, buffer"
+#define thisTTClassTags		"dspLibrary, audio, buffer"
 
 
 TTHashPtr gTTBufferNameMap = NULL;
