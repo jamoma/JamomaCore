@@ -289,6 +289,12 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
     
+    /********/
+    
+    // NW: this test is dependent on the SoundfileLib extension and should therefore be moved to that project
+    /*
+     // TEST 17: load values from a sound file
+    
     TTTestLog("\nTesting load process for soundfiles...");
     
     TTInt16				numChannels17 = 1;
@@ -334,6 +340,9 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
     }
     
     this->checkInMatrix(loadedMatrix);
+     
+    // end of test that needs to be moved
+    */
 
 	// The following is effectively taken care of through check in...
 	//TTObjectRelease(&myFirstCheckOut);
