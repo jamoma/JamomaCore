@@ -24,7 +24,7 @@ int main(int argc, const char * argv[])
 		TTSymbol name = classNames[i];
 		TTObject obj(name);
 		
-		obj.send("test");
+	//	obj.send("test");
 	}
 	
 	// insert code here...
