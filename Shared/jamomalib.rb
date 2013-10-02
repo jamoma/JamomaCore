@@ -1747,30 +1747,38 @@ else
           ##########
           # BEGIN test.cpp handling
           #
-          # The following section is used initiate testing during building whenever a "test.cpp" file is present within a project.
+          # The following section is used initiate testing during building whenever a "test.cpp" file is present within a Core project.
           # This testing procedure was developed as an alternative to testing within the Ruby implementation.
           # 
           ##########
           
-          test_dependency_foundation = ""
-          test_dependency_foundation = "../../../Foundation/library/build/libJamomaFoundation.a" if project_type == "extension"
-          test_dependency_dsp = ""
-          # test_dependency_dsp = "build/libJamomaDSP.a" if layer_name == "DSP"
+          if project_type != "implementation"
+          
+            # testing within projects other than JamomaFoundation will be dependant on that build
+            # the path will be slightly different depending on whether the project is a library or extension
+            test_dependency_foundation = ""
+            if project_type == "extension"
+              test_dependency_foundation = "../../../Foundation/library/build/libJamomaFoundation.a"
+            elsif project_type == "library" && projectname != "JamomaFoundation"
+              test_dependency_foundation = "../../Foundation/library/build/libJamomaFoundation.a"
+            end
         
-          makefile.write("build_and_test: | lipo \n")
-          makefile.write("\techo Testing 32-bit \n")
-          makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_dsp} -o build/test32 ; fi \n")
-          makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
-          makefile.write("\techo Testing 64-bit \n")
-          makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_dsp} -o build/test64 ; fi \n")
-          makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
-          makefile.write("\n")
+            makefile.write("build_and_test: | lipo \n")
+            makefile.write("\techo Testing 32-bit \n")
+            makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} -o build/test32 ; fi \n")
+            makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
+            makefile.write("\techo Testing 64-bit \n")
+            makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} -o build/test64 ; fi \n")
+            makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
+            makefile.write("\n")
 
-          makefile.write("notest: | lipo \n")
-        	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a   -o build/test32 ; fi \n")
-        	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a   -o build/test64 ; fi \n")
-          makefile.write("\techo Skipping Tests \n")
-          makefile.write("\n")
+            makefile.write("notest: | lipo \n")
+          	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a   -o build/test32 ; fi \n")
+          	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a   -o build/test64 ; fi \n")
+            makefile.write("\techo Skipping Tests \n")
+            makefile.write("\n")
+            
+          end
           
           ##########
           # END test.cpp handling
