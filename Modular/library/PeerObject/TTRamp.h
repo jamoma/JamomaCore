@@ -81,7 +81,7 @@ public: ///< It is public in order to be able to extend scheduler or function un
     TTErr   setFunctionParameterValue(TTSymbol ParameterName, TTValue& newValue);
     TTErr   getFunctionParameterValue(TTSymbol ParameterName, TTValue& value);
 #endif
-    friend void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 progression);
+    friend void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 realTime);
 };
 typedef TTRamp* TTRampPtr;
 
@@ -89,6 +89,6 @@ typedef TTRamp* TTRampPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 progression);
+void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 realTime);
 
 #endif // __TT_RAMP_H__

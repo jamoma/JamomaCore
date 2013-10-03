@@ -63,13 +63,18 @@ TTErr Max::Go()
         
         mRunning = NO;
         mProgression = 0.;
-        (mCallback)(mBaton, mProgression);
+        mRealTime = 0.;
+        (mCallback)(mBaton, mProgression, mRealTime);
         
         // notify each running attribute observers
         runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
         
         // notify each progression attribute observers
         progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
+        
+        // notify each elapsed time attribute observers
+        realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);        // we use kTTSym_notify because we know that observers are TTCallback
+
     }
     else {
         
@@ -79,13 +84,17 @@ TTErr Max::Go()
         
         mRunning = YES;
         mProgression = 0.;
-        (mCallback)(mBaton, mProgression);
+        mRealTime = 0.;
+        (mCallback)(mBaton, mProgression, mRealTime);
         
         // notify each running attribute observers
         runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
         
         // notify each progression attribute observers
         progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
+        
+        // notify each elapsed time attribute observers
+        realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);        // we use kTTSym_notify because we know that observers are TTCallback
         
         // schedule first tick
         setclock_fdelay(NULL, clock, mGranularity);
@@ -133,7 +142,7 @@ TTErr Max::Tick()
 			mProgression = 1.0;
             mRealTime = mDuration;
             
-            (mCallback)(mBaton, mProgression);
+            (mCallback)(mBaton, mProgression, mRealTime);
             
             // notify each running attribute observers
             runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
@@ -149,7 +158,7 @@ TTErr Max::Tick()
 			mProgression += stepSize;
             mRealTime = mDuration * mProgression;
             
-            (mCallback)(mBaton, mProgression);
+            (mCallback)(mBaton, mProgression, mRealTime);
             
             // notify each progression attribute observers
             progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback

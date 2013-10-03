@@ -70,7 +70,7 @@ TTErr System::Go()
         mProgression = 0.;
         mRealTime = 0.;
         
-        (mCallback)(mBaton, mProgression);
+        (mCallback)(mBaton, mProgression, mRealTime);
         
         // notify each running attribute observers
         runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
@@ -120,7 +120,7 @@ TTErr System::Tick()
     
     if (mProgression < 1.) {
         
-        (mCallback)(mBaton, mProgression);
+        (mCallback)(mBaton, mProgression, mRealTime);
         
         // notify each progression attribute observers
         progressionAttribute->sendNotification(kTTSym_notify, mProgression);    // we use kTTSym_notify because we know that observers are TTCallback
@@ -135,7 +135,7 @@ TTErr System::Tick()
         // forcing progression to 1. to allow filtering
         mProgression = 1.;
         
-        (mCallback)(mBaton, mProgression);
+        (mCallback)(mBaton, mProgression, mRealTime);
         
         // notify each progression attribute observers
         progressionAttribute->sendNotification(kTTSym_notify, mProgression);    // we use kTTSym_notify because we know that observers are TTCallback

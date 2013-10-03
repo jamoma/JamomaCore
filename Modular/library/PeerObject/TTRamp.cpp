@@ -200,7 +200,7 @@ TTErr TTRamp::Slide(const TTValue& inputValue, TTValue& outputValue)
         
         if (inputValue[0].type() == kTypeFloat64) {
             
-            TTRampSchedulerCallback(TTPtr(this), inputValue[0]);
+            TTRampSchedulerCallback(TTPtr(this), inputValue[0], 0.);
             return kTTErrNone;
         }
     }
@@ -238,7 +238,7 @@ TTErr TTRamp::getFunctionParameterValue(TTSymbol ParameterName, TTValue& value)
 	return kTTErrNone;
 }
 #endif
-void TTRampSchedulerCallback(TTPtr object, TTFloat64 progression)
+void TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 realTime)
 {
 	TTRampPtr	aRamp = (TTRampPtr)object;
     TTUInt32	i;

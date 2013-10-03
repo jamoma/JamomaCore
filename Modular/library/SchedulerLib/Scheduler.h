@@ -34,7 +34,7 @@ mStretchable = TTSymbol(thisSchedulerStretchable); \
 registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 /*addAttributeProperty(ParameterNames, readOnly, YES); \ */
 
-typedef void (*SchedulerProgressionCallback)(TTPtr, TTFloat64);
+typedef void (*SchedulerProgressionCallback)(TTPtr, TTFloat64, TTFloat64);
 
 /****************************************************************************************************/
 // Class Specification
