@@ -67,6 +67,7 @@ TTErr System::Go()
     if (mDuration <= 0.) {
         
         mRunning = NO;
+        mPaused = NO;
         mProgression = 0.;
         mRealTime = 0.;
         
@@ -95,6 +96,7 @@ TTErr System::Go()
 TTErr System::Stop()
 {
 	mRunning = NO;
+    mPaused = NO;
     
     // if a thread is running
     if (mThread) {
@@ -115,6 +117,9 @@ TTErr System::Tick()
 {
     TTFloat64 delta = computeDeltaTime();
     
+    if (mPaused)
+        return kTTErrNone;
+    
     mProgression += (delta * mSpeed) / mDuration;
     mRealTime += delta;
     
@@ -131,6 +136,7 @@ TTErr System::Tick()
     else {
         
         mRunning = NO;
+        mPaused = NO;
         
         // forcing progression to 1. to allow filtering
         mProgression = 1.;
@@ -152,12 +158,16 @@ TTErr System::Tick()
 
 TTErr System::Pause()
 {
-    return kTTErrGeneric;
+    mPaused = YES;
+    
+    return kTTErrNone;
 }
 
 TTErr System::Resume()
 {
-    return kTTErrGeneric;
+    mPaused = NO;
+    
+    return kTTErrNone;
 }
 
 TTFloat64 System::computeDeltaTime()
@@ -208,6 +218,7 @@ void SystemThreadCallback(void* anSystemScheduler)
     
     // reset timing informations
     aScheduler->mRunning = YES;
+    aScheduler->mPaused = NO;
     aScheduler->mProgression = 0.;
     aScheduler->mRealTime = 0.;
     aScheduler->mLastTime = 0;

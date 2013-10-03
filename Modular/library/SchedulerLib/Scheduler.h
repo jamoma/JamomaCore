@@ -56,7 +56,8 @@ protected:
     TTFloat64                       mDuration;              ///< ATTRIBUTE : the time (in ms) the scheduler will run at normal speed factor
     TTFloat64                       mSpeed;                 ///< ATTRIBUTE : the speed factor of the scheduler
     
-    TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler is running right now ?
+    TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler running right now ?
+    TTBoolean                       mPaused;                ///< ATTRIBUTE : is the scheduler paused right now ?
     TTFloat64                       mProgression;           ///< ATTRIBUTE : the progression of the scheduler [0. :: 1.]
     TTFloat64                       mRealTime;              ///< ATTRIBUTE : how many time the scheduler is running (without no speed factor consideration) ?
     

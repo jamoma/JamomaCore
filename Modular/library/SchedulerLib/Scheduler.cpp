@@ -25,6 +25,7 @@ TTObjectBase(arguments),
 mDuration(0.),
 mSpeed(1.),
 mRunning(NO),
+mPaused(NO),
 mProgression(0.),
 mRealTime(0.),
 mCallback(NULL),
@@ -51,6 +52,9 @@ mBaton(NULL)
 	
 	addAttribute(Running, kTypeBoolean);
     addAttributeProperty(Running, readOnly, YES);
+    
+    addAttribute(Paused, kTypeBoolean);
+    addAttributeProperty(Paused, readOnly, YES);
     
     addAttribute(Progression, kTypeFloat64);
     addAttributeProperty(Progression, readOnly, YES);

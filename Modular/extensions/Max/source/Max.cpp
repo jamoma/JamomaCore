@@ -62,6 +62,7 @@ TTErr Max::Go()
     if (mDuration <= 0.) {
         
         mRunning = NO;
+        mPaused = NO;
         mProgression = 0.;
         mRealTime = 0.;
         (mCallback)(mBaton, mProgression, mRealTime);
@@ -83,6 +84,7 @@ TTErr Max::Go()
         stepSize = 1.0 / numGrains;
         
         mRunning = YES;
+        mPaused = NO;
         mProgression = 0.;
         mRealTime = 0.;
         (mCallback)(mBaton, mProgression, mRealTime);
@@ -107,6 +109,7 @@ TTErr Max::Stop()
 {
 	clock_unset(clock);
 	mRunning = NO;
+    mPaused = NO;
     
     // notify each running attribute observers
     runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
@@ -116,17 +119,21 @@ TTErr Max::Stop()
 
 TTErr Max::Pause()
 {
-    return kTTErrGeneric;
+    mPaused = YES;
+    
+    return kTTErrNone;
 }
 
 TTErr Max::Resume()
 {
-    return kTTErrGeneric;
+    mPaused = NO;
+    
+    return kTTErrNone;
 }
 
 TTErr Max::Tick()
 {
-	if (mRunning) {
+	if (mRunning || !mPaused) {
         
 #ifdef SHEDULER_DEBUG
         cout << "Max::Tick -- numGrain = " << numGrains << endl;
@@ -139,6 +146,7 @@ TTErr Max::Tick()
 		if (numGrains <= 0.) {
             
             mRunning = NO;
+            mPaused = NO;
 			mProgression = 1.0;
             mRealTime = mDuration;
             
