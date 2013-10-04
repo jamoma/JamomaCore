@@ -679,6 +679,8 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
 	TTString     aString;
     
     // Write node's object attributes
+    
+    objectName = kTTSym_none;
     anObject = aNode->getObject();
     if (anObject) {
         
@@ -687,113 +689,126 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         if (objectName == kTTSym_Mirror)
             objectName = TTMirrorPtr(anObject)->getName();
         
-        // Filter object type
-        if (objectName == kTTSym_Application ||
-            objectName == kTTSym_Container ||
-            objectName == kTTSym_Data ||
-            objectName == kTTSym_Viewer) {
+    }
+    
+    // Application node case
+    if (objectName == kTTSym_Application) {
+        
+        // Start "application" xml node
+        xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "application");
+        
+        // Write attributes
+        anObject->getAttributeNames(attributeNameList);
+        
+        for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
+        {
+            attributeName = attributeNameList[i];
             
-            // Application node case
-            if (objectName == kTTSym_Application) {
+            // Filter attribute names
+            if (attributeName != kTTSym_debug &&
+                attributeName != kTTSym_bypass &&
+                attributeName != kTTSym_activity &&
+                attributeName != kTTSym_activityIn &&
+                attributeName != kTTSym_activityOut) {
                 
-                // Start "application" xml node
-                xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "application");
+                anObject->getAttributeValue(attributeName, v);
                 
-                // Write attributes
-                anObject->getAttributeNames(attributeNameList);
-                
-                for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
-                {
-                    attributeName = attributeNameList[i];
-                    
-                    // Filter attribute names
-                    if (attributeName != kTTSym_debug &&
-                        attributeName != kTTSym_bypass &&
-                        attributeName != kTTSym_activity &&
-                        attributeName != kTTSym_activityIn &&
-                        attributeName != kTTSym_activityOut) {
-                        
-                        anObject->getAttributeValue(attributeName, v);
-                        
-                        v.toString();
-                        aString = TTString(v[0]);
-                        
-                        xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
-                    }
-                }
-            }
-            
-            // Other node case
-            else {
-                
-                // Write description attribute as an xml comment
-                anObject->getAttributeValue(kTTSym_description, v);
                 v.toString();
                 aString = TTString(v[0]);
-                xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
                 
-                // Start object type xml node
-                nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
-                xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST nameInstance.c_str());
-                
-                // Write object name attribute
-                if (objectName != kTTSymEmpty)
-                    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName.c_str());
-                else
-                    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
-                
-                // Write attributes
-                anObject->getAttributeNames(attributeNameList);
-                
-                for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
-                {
-                    attributeName = attributeNameList[i];
-                    
-                    // Filter attribute names
-                    if (attributeName != kTTSym_description &&
-                        attributeName != kTTSym_value &&
-                        attributeName != kTTSym_address &&
-                        attributeName != kTTSym_bypass &&
-                        attributeName != kTTSym_activityIn &&
-                        attributeName != kTTSym_activityOut &&
-                        attributeName != kTTSym_rampStatus) {
-                        
-                        anObject->getAttributeValue(attributeName, v);
-                        
-                        if (v == kTTValNONE)
-                            continue;
-                        
-                        v.toString();
-                        aString = TTString(v[0]);
-                        
-                        if (aString.empty())
-                            continue;
-                        
-                        // replace TTName by AppName
-                        attributeName = ToAppName(attributeName);
-                        
-                        xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
-                    }
-                }
-                
-                // TODO : Write messages ?
-                
+                xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
             }
-            
-            // Write nodes below
-            aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
-            
-            for (nodeList.begin(); nodeList.end(); nodeList.next())
-            {
-                aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
-                writeNodeAsXml(aXmlHandler, aChild);
-            }
-            
-            // End xml node
-            xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
-            
         }
     }
+    
+    // Other object type node
+    else {
+        
+        // Write description attribute as an xml comment
+        if (anObject) {
+            
+            anObject->getAttributeValue(kTTSym_description, v);
+            v.toString();
+            aString = TTString(v[0]);
+            xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
+        }
+        
+        // Start object type xml node
+        nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
+        
+        // Check bad characters for XML element (like ~, (, ) or numbers)
+        if (strchr(nameInstance.c_str(), '~') != 0 ||
+            strchr(nameInstance.c_str(), '(') != 0 ||
+            strchr(nameInstance.c_str(), ')') != 0 ) {
+            
+            // don't use the name for the XML element
+            xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "node");
+            
+            // store the address as an attribute
+            xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST nameInstance.c_str());
+            
+        }
+        // Write the name instance as XML element name
+        else
+            xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST nameInstance.c_str());
+        
+        // Write object name attribute
+        if (objectName != kTTSymEmpty)
+            xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName.c_str());
+        else
+            xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
+        
+        // Write attributes
+        if (anObject) {
+            
+            anObject->getAttributeNames(attributeNameList);
+            
+            for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
+            {
+                attributeName = attributeNameList[i];
+                
+                // Filter attribute names
+                if (attributeName != kTTSym_description &&
+                    attributeName != kTTSym_value &&
+                    attributeName != kTTSym_address &&
+                    attributeName != kTTSym_bypass &&
+                    attributeName != kTTSym_activityIn &&
+                    attributeName != kTTSym_activityOut &&
+                    attributeName != kTTSym_rampStatus) {
+                    
+                    anObject->getAttributeValue(attributeName, v);
+                    
+                    if (v == kTTValNONE)
+                        continue;
+                    
+                    v.toString();
+                    aString = TTString(v[0]);
+                    
+                    if (aString.empty())
+                        continue;
+                    
+                    // replace TTName by AppName
+                    attributeName = ToAppName(attributeName);
+                    
+                    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
+                }
+            }
+            
+            // TODO : Write messages ?
+        }
+    }
+    
+    // Write nodes below
+    aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+    
+    for (nodeList.begin(); nodeList.end(); nodeList.next())
+    {
+        aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        writeNodeAsXml(aXmlHandler, aChild);
+    }
+    
+    // End xml node
+    xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 }
 
 TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
