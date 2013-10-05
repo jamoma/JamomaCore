@@ -118,6 +118,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_nodeAddress                      (("nodeA
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_object                           (("object"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_objectCache                      (("objectCache"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_offset                           (("offset"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_parameter                        (("parameter"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_preview                          (("preview"));

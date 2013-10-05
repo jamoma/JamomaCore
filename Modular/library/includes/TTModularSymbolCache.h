@@ -119,6 +119,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_nodeAddress;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_object;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_objectCache;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_offset;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_parameter;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_preview;
