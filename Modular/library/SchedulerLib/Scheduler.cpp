@@ -23,6 +23,7 @@
 Scheduler::Scheduler(TTValue& arguments) :
 TTObjectBase(arguments),
 mDuration(0.),
+mOffset(0.),
 mSpeed(1.),
 mRunning(NO),
 mPaused(NO),
@@ -44,7 +45,7 @@ mBaton(NULL)
 	addAttributeProperty(Author, readOnly, YES);
     
     addAttributeWithSetter(Duration, kTypeFloat64);
-    
+    addAttributeWithSetter(Offset, kTypeFloat64);
     addAttributeWithSetter(Speed, kTypeFloat64);
 
 	addAttribute(Stretchable, kTypeBoolean);
@@ -70,6 +71,7 @@ mBaton(NULL)
     
     // Cache some attributes for high speed notification feedbacks
     this->findAttribute(TTSymbol("duration"), &durationAttribute);
+    this->findAttribute(TTSymbol("offset"), &offsetAttribute);
     this->findAttribute(TTSymbol("speed"), &speedAttribute);
     
     this->findAttribute(TTSymbol("running"), &runningAttribute);
@@ -99,6 +101,7 @@ TTErr Scheduler::getParameterNames(TTValue& value)
 			attributeName == TTSymbol("author")         ||
 			attributeName == TTSymbol("stretchable")    ||
             attributeName == TTSymbol("duration")       ||
+            attributeName == TTSymbol("offset")         ||
             attributeName == TTSymbol("speed")          ||
             attributeName == TTSymbol("running")        ||
             attributeName == TTSymbol("progression")    ||
@@ -121,7 +124,24 @@ TTErr Scheduler::setDuration(const TTValue& value)
             
             mDuration = value[0];
             
-            durationAttribute->sendNotification(kTTSym_notify, mDuration);             // we use kTTSym_notify because we know that observers are TTCallback
+            durationAttribute->sendNotification(kTTSym_notify, mDuration);           // we use kTTSym_notify because we know that observers are TTCallback
+            
+            return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr Scheduler::setOffset(const TTValue& value)
+{
+    if (value.size() == 1) {
+        
+        if (value[0].type() == kTypeFloat64) {
+            
+            mOffset = value[0];
+            
+            offsetAttribute->sendNotification(kTTSym_notify, mOffset);             // we use kTTSym_notify because we know that observers are TTCallback
             
             return kTTErrNone;
         }

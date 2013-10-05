@@ -38,7 +38,7 @@ mThread(NULL)
 {	
 	SCHEDULER_INITIALIZE
     
-    addAttribute(Granularity, kTypeUInt32);
+    addAttribute(Granularity, kTypeFloat64);
 }
 
 System::~System()
@@ -64,7 +64,7 @@ TTErr System::getParameterNames(TTValue& value)
 TTErr System::Go()
 {
     // do we need to ramp at all ?
-    if (mDuration <= 0.) {
+    if (mDuration <= mOffset) {
         
         mRunning = NO;
         mPaused = NO;
@@ -219,9 +219,9 @@ void SystemThreadCallback(void* anSystemScheduler)
     // reset timing informations
     aScheduler->mRunning = YES;
     aScheduler->mPaused = NO;
-    aScheduler->mProgression = 0.;
-    aScheduler->mRealTime = 0.;
-    aScheduler->mLastTime = 0;
+    aScheduler->mProgression = aScheduler->mOffset / aScheduler->mDuration;
+    aScheduler->mRealTime = aScheduler->mOffset;
+    aScheduler->mLastTime = 0.;
     
     // notify each running attribute observers
     aScheduler->runningAttribute->sendNotification(kTTSym_notify, aScheduler->mRunning);          // we use kTTSym_notify because we know that observers are TTCallback

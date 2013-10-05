@@ -54,6 +54,7 @@ public:
 protected:
     
     TTFloat64                       mDuration;              ///< ATTRIBUTE : the time (in ms) the scheduler will run at normal speed factor
+    TTFloat64                       mOffset;                ///< ATTRIBUTE : the date (in ms) the sheduler will run from
     TTFloat64                       mSpeed;                 ///< ATTRIBUTE : the speed factor of the scheduler
     
     TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler running right now ?
@@ -65,6 +66,7 @@ protected:
     TTPtr                           mBaton;                 ///< the baton to use for each step
     
     TTAttributePtr                  durationAttribute;      ///< cache duration attribute for observer notification
+    TTAttributePtr                  offsetAttribute;        ///< cache offset attribute for observer notification
     TTAttributePtr                  speedAttribute;         ///< cache speed attribute for observer notification
     
     TTAttributePtr                  runningAttribute;       ///< cache running attribute for observer notification
@@ -107,6 +109,11 @@ public:
      @value             new duration
      @return            kTTErrGeneric if the value is not a single TTFloat64 >= 0. */
     TTErr setDuration(const TTValue& value);
+    
+    /** set the offset attribute
+     @value             new offset
+     @return            kTTErrGeneric if the value is not a single TTFloat64 */
+    TTErr setOffset(const TTValue& value);
     
     /** set the speed factor attribute 
      @value             new speed factor
