@@ -78,7 +78,7 @@ private:
 	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception (to share with clients)	(default : MINUIT_RECEPTION_PORT)
 	
 	TTObjectBasePtr			mOscReceive;
-    TTThreadPtr             mAnswerThread;              // a thread used to wait an answer after sending a request
+    TTThreadPtr             mWaitThread;                // a thread used to wait in some case
 	
 	MinuitAnswerManagerPtr	mAnswerManager;
     MinuitSenderManagerPtr	mSenderManager;

@@ -80,7 +80,7 @@ PROTOCOL_CONSTRUCTOR,
 mIp(TTSymbol("localhost")),
 mPort(MINUIT_RECEPTION_PORT),
 mOscReceive(NULL),
-mAnswerThread(NULL),
+mWaitThread(NULL),
 mAnswerManager(NULL),
 mSenderManager(NULL)
 {	
@@ -92,17 +92,17 @@ mSenderManager(NULL)
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
     
-    mAnswerThread = new TTThread(NULL, NULL);
+    mWaitThread = new TTThread(NULL, NULL);
 }
 
 Minuit::~Minuit()
 {
 	delete mAnswerManager;
     
-    if (mAnswerThread)
-		mAnswerThread->wait();
+    if (mWaitThread)
+		mWaitThread->wait();
     
-	delete mAnswerThread;
+	delete mWaitThread;
 }
 
 TTErr Minuit::getParameterNames(TTValue& value)
@@ -145,7 +145,7 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
             mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
             
             // wait to avoid strange crash when run and stop are called to quickly
-            mAnswerThread->sleep(1);
+            mWaitThread->sleep(1);
 			
 			mRunning = YES;
 		}
@@ -174,7 +174,7 @@ TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
 		TTObjectBaseRelease(&mOscReceive);
         
         // wait to avoid strange crash when run and stop are called to quickly
-        mAnswerThread->sleep(1);
+        mWaitThread->sleep(1);
         
 		mRunning = NO;
 		
@@ -230,8 +230,6 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 		state = NO_ANSWER;
 		do
 		{
-            mAnswerThread->sleep(1);
-            
 			state = mAnswerManager->CheckDiscoverAnswer(to, address, answer);
 		}
 		while (state == NO_ANSWER);
@@ -282,8 +280,6 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
         state = ANSWER_RECEIVED;
         do
         {
-            mAnswerThread->sleep(1);
-            
             state = mAnswerManager->CheckGetAnswer(to, address, returnedValue);
         }
         while(state == NO_ANSWER);
@@ -293,6 +289,7 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
         
         else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
             return SendGetRequest(to, address, returnedValue, tryCount+1);
+        
     }
 	
 	return kTTErrGeneric;
