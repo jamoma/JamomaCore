@@ -115,12 +115,12 @@ TTErr System::Stop()
 
 TTErr System::Tick()
 {
-    TTFloat64 delta = computeDeltaTime();
+    TTFloat64 delta = computeDeltaTime() * mSpeed;
     
     if (mPaused)
         return kTTErrNone;
     
-    mProgression += (delta * mSpeed) / mDuration;
+    mProgression += delta / mDuration;
     mRealTime += delta;
     
     if (mProgression < 1.) {
