@@ -751,8 +751,16 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 					}
 				}
                 else if (commandValue[commandSize - 1].type() == kTypeSymbol) {
-                    hasUnit = true;
-                    unit = commandValue[commandSize - 1];
+                    
+                    // only if all values before are numerical
+                    TTBoolean numerical = YES;
+                    for (TTUInt32 i = 0; i < commandSize - 1; i++)
+                        numerical &= commandValue[i].type() != kTypeSymbol;
+                    
+                    if (numerical) {
+                        hasUnit = true;
+                        unit = commandValue[commandSize - 1];
+                    }
                 }
 			}
 			
