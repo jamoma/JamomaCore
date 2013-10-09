@@ -35,7 +35,7 @@ mApplicationObserver(NULL)
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
-	addAttribute(ObjectCache, kTypePointer);
+	addAttributeWithGetter(ObjectCache, kTypePointer);
 	addAttributeProperty(ObjectCache, hidden, YES);
 	addAttributeProperty(ObjectCache, readOnly, YES);
 	
@@ -72,6 +72,13 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 		return bindAddress();
 	else 
 		return bindApplication();
+}
+
+TTErr TTSender::getObjectCache(TTValue& value)
+{
+    value = TTPtr(&mObjectCache);
+    
+    return kTTErrNone;
 }
 
 #if 0
