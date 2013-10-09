@@ -161,7 +161,7 @@ TTErr TTViewer::refresh()
 TTErr TTViewer::observeDataspace()
 {
 	TTValue			args;
-	TTObjectBasePtr		returnDataspaceCallback;
+	TTObjectBasePtr	returnDataspaceCallback;
 	TTValuePtr		returnDataspaceBaton;
 	
 	if (mDataspaceObserver)
