@@ -28,9 +28,7 @@ mDirectory(NULL),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mAddressObserver(NULL),
-mApplicationObserver(NULL),
-mNodesObserversCache(NULL),
-mObjectCache(NULL)
+mApplicationObserver(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTReceiver", arguments.size() == 2 || arguments.size() == 3);
 	
@@ -46,18 +44,16 @@ mObjectCache(NULL)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Active, kTypeBoolean);
 	
-	addAttribute(ObjectCache, kTypePointer);
+	addAttributeWithGetter(ObjectCache, kTypePointer);
 	addAttributeProperty(ObjectCache, hidden, YES);
 	addAttributeProperty(ObjectCache, readOnly, YES);
 	
 	addMessage(Get);
 	addMessageProperty(Get, hidden, YES);
 	
-	mNodesObserversCache = new TTList();
-    mNodesObserversCache->setThreadProtection(true);
-    
-	mObjectCache = new TTList();
-    mObjectCache->setThreadProtection(true);
+
+    mNodesObserversCache.setThreadProtection(true);
+    mObjectCache.setThreadProtection(true);
 }
 
 TTReceiver::~TTReceiver()
@@ -109,35 +105,37 @@ TTErr TTReceiver::setActive(const TTValue& newValue)
 	mActive = newValue;
 	
 	// enable/disable listening (for Mirror object only)
-	if (mNodesObserversCache) {
-		
-		if (!mNodesObserversCache->isEmpty()) {
-			
-			ttAttributeName = ToTTName(mAddress.getAttribute());
-			
-			// for each node of the selection
-			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()) {
-				
-				// get a node from the selection
-				aNode = TTNodePtr((TTPtr)mNodesObserversCache->current()[0]);
-				
-				// get the type and the attribute of the object
-				anObject = aNode->getObject();
-				if (anObject) {
-					
-					err = anObject->findAttribute(ttAttributeName, &anAttribute); 
-					
-					if (!err) {
-						
-						if (anObject->getName() == kTTSym_Mirror)
-							TTMirrorPtr(anObject)->enableListening(*anAttribute, mActive);
-					}
-				}
-			}
-		}
-	}
+    if (!mNodesObserversCache.isEmpty()) {
+        
+        ttAttributeName = ToTTName(mAddress.getAttribute());
+        
+        // for each node of the selection
+        for (mNodesObserversCache.begin(); mNodesObserversCache.end(); mNodesObserversCache.next()) {
+            
+            // get a node from the selection
+            aNode = TTNodePtr((TTPtr)mNodesObserversCache.current()[0]);
+            
+            // get the type and the attribute of the object
+            anObject = aNode->getObject();
+            if (anObject) {
+                
+                err = anObject->findAttribute(ttAttributeName, &anAttribute);
+                
+                if (!err) {
+                    
+                    if (anObject->getName() == kTTSym_Mirror)
+                        TTMirrorPtr(anObject)->enableListening(*anAttribute, mActive);
+                }
+            }
+        }
+    }
 	
 	return kTTErrNone;
+}
+
+TTErr TTReceiver::getObjectCache(TTValue& value)
+{
+    value = TTPtr(&mObjectCache);
 }
 
 #if 0
@@ -154,56 +152,53 @@ TTErr TTReceiver::Get()
 	TTValue		data, v;
 	TTErr		err;
 	
-	if (mNodesObserversCache) {
-		
-		if (!mNodesObserversCache->isEmpty()) {
-			
-			ttAttributeName = ToTTName(mAddress.getAttribute());
-			
-			// for each node of the selection
-			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()) {
-				
-				// get a node from the selection
-				aNode = TTNodePtr((TTPtr)mNodesObserversCache->current()[0]);
-				
-				// get the value of the attribute
-				anObject = aNode->getObject();
+    if (!mNodesObserversCache.isEmpty()) {
+        
+        ttAttributeName = ToTTName(mAddress.getAttribute());
+        
+        // for each node of the selection
+        for (mNodesObserversCache.begin(); mNodesObserversCache.end(); mNodesObserversCache.next()) {
+            
+            // get a node from the selection
+            aNode = TTNodePtr((TTPtr)mNodesObserversCache.current()[0]);
+            
+            // get the value of the attribute
+            anObject = aNode->getObject();
+            
+            if (anObject) {
                 
-				if (anObject) {
-					
-					err = anObject->getAttributeValue(ttAttributeName, data); 
-					
-					if (!err) {
+                err = anObject->getAttributeValue(ttAttributeName, data);
+                
+                if (!err) {
+                    
+                    // don't return empty value
+                    if (data.size()) {
                         
-                        // don't return empty value
-                        if (data.size()) {
-                            
-                            // output the address of the node (in case we use * inside the binded address)
-                            aNode->getAddress(anAddress);
-                            anAddress = anAddress.appendAttribute(mAddress.getAttribute());
-                            
-                            // return the address
-                            v.clear();
-                            v.append(anAddress);
-                            
-                            if (mReturnAddressCallback)
-                                mReturnAddressCallback->notify(v, kTTValNONE);
-                            
-                            // return the value
-                            if (mReturnValueCallback)
-                                mReturnValueCallback->notify(data, kTTValNONE);
-                        }
-                        else
-                            return kTTErrGeneric;
-					}
-					else
-						return kTTErrGeneric;
-				}
-			}
-			
-			return kTTErrNone;
-		}
-	}
+                        // output the address of the node (in case we use * inside the binded address)
+                        aNode->getAddress(anAddress);
+                        anAddress = anAddress.appendAttribute(mAddress.getAttribute());
+                        
+                        // return the address
+                        v.clear();
+                        v.append(anAddress);
+                        
+                        if (mReturnAddressCallback)
+                            mReturnAddressCallback->notify(v, kTTValNONE);
+                        
+                        // return the value
+                        if (mReturnValueCallback)
+                            mReturnValueCallback->notify(data, kTTValNONE);
+                    }
+                    else
+                        return kTTErrGeneric;
+                }
+                else
+                    return kTTErrGeneric;
+            }
+        }
+        
+        return kTTErrNone;
+    }
 	
 	return kTTErrGeneric;
 }
@@ -222,12 +217,6 @@ TTErr TTReceiver::bindAddress()
 	
 	if (!mDirectory)
 		return kTTErrGeneric;
-	
-	mNodesObserversCache = new TTList();
-    mNodesObserversCache->setThreadProtection(true);
-    
-	mObjectCache = new TTList();
-    mObjectCache->setThreadProtection(true);
 	
 	// for any Attribute observation except created, destroyed
 	ttAttributeName = ToTTName(mAddress.getAttribute());
@@ -276,10 +265,10 @@ TTErr TTReceiver::bindAddress()
 						// memorize the node and his attribute observer
 						newElement = (TTPtr)aNode;
 						newElement.append(newObserver);
-						mNodesObserversCache->appendUnique(newElement);
+						mNodesObserversCache.appendUnique(newElement);
 						
 						// cache the object for quick access
-						mObjectCache->appendUnique(o);
+						mObjectCache.appendUnique(o);
                         
                         // notify that the address exists
                         if (mReturnAddressCallback) {
@@ -322,20 +311,18 @@ TTErr TTReceiver::unbindAddress()
 		
 		// stop attribute obeservation
 		// for each node of the selection
-		if (mNodesObserversCache) {
-			
 			ttAttributeName = ToTTName(mAddress.getAttribute());
 			
-			for (mNodesObserversCache->begin(); mNodesObserversCache->end(); mNodesObserversCache->next()){
+			for (mNodesObserversCache.begin(); mNodesObserversCache.end(); mNodesObserversCache.next()){
 				
 				// get a cache element
-				oldElement = mNodesObserversCache->current();
+				oldElement = mNodesObserversCache.current();
 				
 				// get the node
 				aNode = TTNodePtr((TTPtr)oldElement[0]);
 				
 				// get the observer
-				oldObserver = TTCallbackPtr((TTObjectBasePtr)oldElement[1]);
+				oldObserver = oldElement[1];
 				
 				// stop attribute observation of the node
 				// if the attribute exist
@@ -349,24 +336,23 @@ TTErr TTReceiver::unbindAddress()
 						
 						err = anAttribute->unregisterObserverForNotifications(*oldObserver);
 						
-						if(!err)
+						if(!err) {
+                            delete (TTValuePtr)TTCallbackPtr(oldObserver)->getBaton();
 							TTObjectBaseRelease(&oldObserver);
+                        }
                         
                         // for Mirror object : disable listening
                         if (o->getName() == kTTSym_Mirror)
 							TTMirrorPtr(o)->enableListening(*anAttribute, NO);
 					}
 				}
-			}
 			
-			delete mNodesObserversCache;
-			mNodesObserversCache = NULL;
+            // clear observer cache
+			mNodesObserversCache.clear();
 		}
 		
-		if (mObjectCache) {
-			delete mObjectCache;
-			mObjectCache = NULL;
-		}
+        // clear object cache
+        mObjectCache.clear();
 		
 		// stop life cycle observation
 		if (mAddressObserver && mDirectory) {
@@ -464,19 +450,17 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			{
 				// is the observer already exist ?
 				found = false;
-				if (aReceiver->mNodesObserversCache){
-					
-					// for each node of the selection
-					for(aReceiver->mNodesObserversCache->begin(); aReceiver->mNodesObserversCache->end(); aReceiver->mNodesObserversCache->next()) {
-						
-						// get the node of the couple
-						p_node = TTNodePtr((TTPtr)aReceiver->mNodesObserversCache->current()[0]);
-						
-						// compare it to the receive node
-						if(p_node == aNode)
-							found = true;
-					}
-				}
+                
+                // for each node of the selection
+                for(aReceiver->mNodesObserversCache.begin(); aReceiver->mNodesObserversCache.end(); aReceiver->mNodesObserversCache.next()) {
+                    
+                    // get the node of the couple
+                    p_node = TTNodePtr((TTPtr)aReceiver->mNodesObserversCache.current()[0]);
+                    
+                    // compare it to the receive node
+                    if(p_node == aNode)
+                        found = true;
+                }
 				
 				if (!found)
 				{
@@ -510,10 +494,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							// memorize the node and his attribute observer
 							newCouple = (TTPtr)aNode;
 							newCouple.append(newObserver);
-							aReceiver->mNodesObserversCache->appendUnique(newCouple);
+							aReceiver->mNodesObserversCache.appendUnique(newCouple);
 							
 							// cache the object for quick access
-							aReceiver->mObjectCache->appendUnique(o);
+							aReceiver->mObjectCache.appendUnique(o);
 						}
 					}
 				}
@@ -539,10 +523,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 				
 				// for each node of the selection
 				found = false;
-				for(aReceiver->mNodesObserversCache->begin(); aReceiver->mNodesObserversCache->end(); aReceiver->mNodesObserversCache->next()){
+				for(aReceiver->mNodesObserversCache.begin(); aReceiver->mNodesObserversCache.end(); aReceiver->mNodesObserversCache.next()){
 					
 					// get a couple
-					c = aReceiver->mNodesObserversCache->current();
+					c = aReceiver->mNodesObserversCache.current();
 					
 					// get the node of the couple
 					p_node = TTNodePtr((TTPtr)c[0]);
@@ -557,9 +541,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 				if (found) {
 					
 					// get the observer of the couple
-					oldObserver = TTCallbackPtr((TTObjectBasePtr)c[1]);
+					oldObserver = c[1];
 					
 					// destroy the observer (don't need to unregister because the object is destroyed...)
+                    delete (TTValuePtr)TTCallbackPtr(oldObserver)->getBaton();
 					TTObjectBaseRelease(&oldObserver);
 
                     // for Mirror object : disable listening
@@ -576,10 +561,10 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
                     }
 					
 					// forget this couple
-					aReceiver->mNodesObserversCache->remove(c);
+					aReceiver->mNodesObserversCache.remove(c);
 					
 					// forget the object
-					aReceiver->mObjectCache->remove(o);
+					aReceiver->mObjectCache.remove(o);
 				}
 			}
 			break;

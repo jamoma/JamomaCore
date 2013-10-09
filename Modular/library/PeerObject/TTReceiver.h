@@ -42,14 +42,17 @@ private:
 	TTCallbackPtr				mReturnValueCallback;		///< a way to return received value to the owner of this receiver
 	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
 	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
-	TTListPtr					mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
-	TTListPtr					mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
+	TTList                      mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
+	TTList                      mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
 	
 	/**	Setter for mActive attribute. */
 	TTErr setActive(const TTValue& value);
+    
+    /**	Getter for mObjectCache attribute. */
+	TTErr getObjectCache(TTValue& value);
 	
 	/** Ask the value directly */
 	TTErr Get();
