@@ -28,7 +28,7 @@ TT_MODULAR_CONSTRUCTOR,
 mDebug(NO),
 mDirectory(NULL),
 mName(kTTSymEmpty),
-mType(TTSymbol("local")),
+mType(kTTSym_local),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mActivity(NO),
@@ -236,10 +236,10 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
         
         if (anAddress != kTTAdrsRoot) {
             
-            if (mType == TTSymbol("mirror"))
+            if (mType == kTTSym_mirror)
                 anObject = appendMirrorObject(aProtocol, anAddress, returnedType);
             
-            else if (mType == TTSymbol("proxy")) {
+            else if (mType == kTTSym_proxy) {
                 
                 // DATA case
                 if (returnedType == kTTSym_Data) {
@@ -724,13 +724,16 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
     // Other object type node
     else {
         
-        // Write description attribute as an xml comment
-        if (anObject) {
+        // Write description attribute as an xml comment for local or proxy application
+        if (mType != kTTSym_mirror) {
+        
+            if (anObject) {
             
-            anObject->getAttributeValue(kTTSym_description, v);
-            v.toString();
-            aString = TTString(v[0]);
-            xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
+                anObject->getAttributeValue(kTTSym_description, v);
+                v.toString();
+                aString = TTString(v[0]);
+                xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
+            }
         }
         
         // Start object type xml node
@@ -758,43 +761,46 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         else
             xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
         
-        // Write attributes
-        if (anObject) {
+        // Write attributes for local or proxy application
+        if (mType != kTTSym_mirror) {
             
-            anObject->getAttributeNames(attributeNameList);
-            
-            for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
-            {
-                attributeName = attributeNameList[i];
+            if (anObject) {
                 
-                // Filter attribute names
-                if (attributeName != kTTSym_description &&
-                    attributeName != kTTSym_value &&
-                    attributeName != kTTSym_address &&
-                    attributeName != kTTSym_bypass &&
-                    attributeName != kTTSym_activityIn &&
-                    attributeName != kTTSym_activityOut &&
-                    attributeName != kTTSym_rampStatus) {
+                anObject->getAttributeNames(attributeNameList);
+                
+                for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
+                {
+                    attributeName = attributeNameList[i];
                     
-                    anObject->getAttributeValue(attributeName, v);
-                    
-                    if (v == kTTValNONE)
-                        continue;
-                    
-                    v.toString();
-                    aString = TTString(v[0]);
-                    
-                    if (aString.empty())
-                        continue;
-                    
-                    // replace TTName by AppName
-                    attributeName = ToAppName(attributeName);
-                    
-                    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
+                    // Filter attribute names
+                    if (attributeName != kTTSym_description &&
+                        attributeName != kTTSym_value &&
+                        attributeName != kTTSym_address &&
+                        attributeName != kTTSym_bypass &&
+                        attributeName != kTTSym_activityIn &&
+                        attributeName != kTTSym_activityOut &&
+                        attributeName != kTTSym_rampStatus) {
+                        
+                        anObject->getAttributeValue(attributeName, v);
+                        
+                        if (v == kTTValNONE)
+                            continue;
+                        
+                        v.toString();
+                        aString = TTString(v[0]);
+                        
+                        if (aString.empty())
+                            continue;
+                        
+                        // replace TTName by AppName
+                        attributeName = ToAppName(attributeName);
+                        
+                        xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
+                    }
                 }
+                
+                // TODO : Write messages ?
             }
-            
-            // TODO : Write messages ?
         }
     }
     
@@ -957,14 +963,14 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                         if (aProtocol) {
                             
                             // for mirror application
-                            if (mType == TTSymbol("mirror")) {
+                            if (mType == kTTSym_mirror) {
                                 
                                 // instantiate a mirror object
                                 anObject = appendMirrorObject(aProtocol, mTempAddress, objectName);
                                 
                             }
                             // for proxy appplication
-                            else if (mType == TTSymbol("proxy")) {
+                            else if (mType == kTTSym_proxy) {
                                 
                                 // instantiate the real object
                                 
