@@ -136,6 +136,8 @@ TTErr TTReceiver::setActive(const TTValue& newValue)
 TTErr TTReceiver::getObjectCache(TTValue& value)
 {
     value = TTPtr(&mObjectCache);
+    
+    return kTTErrNone;
 }
 
 #if 0
