@@ -135,9 +135,6 @@ TTErr System::Tick()
     }
     else {
         
-        mRunning = NO;
-        mPaused = NO;
-        
         // forcing progression to 1. to allow filtering
         mProgression = 1.;
         
@@ -149,8 +146,10 @@ TTErr System::Tick()
         // notify each elapsed time attribute observers
         realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);          // we use kTTSym_notify because we know that observers are TTCallback
         
-        // notify each running attribute observers
-        runningAttribute->sendNotification(kTTSym_notify, mRunning);            // we use kTTSym_notify because we know that observers are TTCallback
+        // if the scheduler is still running : stop it
+        // note : because it  is possible another thread stop the scheduler before
+        if (mRunning)
+            Stop();
     }
     
     return kTTErrNone;
