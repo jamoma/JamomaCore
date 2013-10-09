@@ -105,11 +105,13 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_integer;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_life;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_lines;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_local;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_lookfor;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Map;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_message;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_mix;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_mirror;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_model;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_mute;
 
@@ -124,6 +126,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_offset;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_parameter;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_preview;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_priority;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_proxy;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_rangeBounds;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_rangeClipmode;
