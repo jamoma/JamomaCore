@@ -315,43 +315,43 @@ TTErr TTReceiver::unbindAddress()
 		// for each node of the selection
 			ttAttributeName = ToTTName(mAddress.getAttribute());
 			
-			for (mNodesObserversCache.begin(); mNodesObserversCache.end(); mNodesObserversCache.next()){
-				
-				// get a cache element
-				oldElement = mNodesObserversCache.current();
-				
-				// get the node
-				aNode = TTNodePtr((TTPtr)oldElement[0]);
-				
-				// get the observer
-				oldObserver = oldElement[1];
-				
-				// stop attribute observation of the node
-				// if the attribute exist
-				o = aNode->getObject();
-				if (o) {
-					
-					anAttribute = NULL;
-					err = o->findAttribute(ttAttributeName, &anAttribute);
-					
-					if(!err){
-						
-						err = anAttribute->unregisterObserverForNotifications(*oldObserver);
-						
-						if(!err) {
-                            delete (TTValuePtr)TTCallbackPtr(oldObserver)->getBaton();
-							TTObjectBaseRelease(&oldObserver);
-                        }
-                        
-                        // for Mirror object : disable listening
-                        if (o->getName() == kTTSym_Mirror)
-							TTMirrorPtr(o)->enableListening(*anAttribute, NO);
-					}
-				}
-			
-            // clear observer cache
-			mNodesObserversCache.clear();
+        for (mNodesObserversCache.begin(); mNodesObserversCache.end(); mNodesObserversCache.next()){
+            
+            // get a cache element
+            oldElement = mNodesObserversCache.current();
+            
+            // get the node
+            aNode = TTNodePtr((TTPtr)oldElement[0]);
+            
+            // get the observer
+            oldObserver = oldElement[1];
+            
+            // stop attribute observation of the node
+            // if the attribute exist
+            o = aNode->getObject();
+            if (o) {
+                
+                anAttribute = NULL;
+                err = o->findAttribute(ttAttributeName, &anAttribute);
+                
+                if(!err){
+                    
+                    err = anAttribute->unregisterObserverForNotifications(*oldObserver);
+                    
+                    if(!err) {
+                        delete (TTValuePtr)TTCallbackPtr(oldObserver)->getBaton();
+                        TTObjectBaseRelease(&oldObserver);
+                    }
+                    
+                    // for Mirror object : disable listening
+                    if (o->getName() == kTTSym_Mirror)
+                        TTMirrorPtr(o)->enableListening(*anAttribute, NO);
+                }
+            }
 		}
+        
+        // clear observer cache
+        mNodesObserversCache.clear();
 		
         // clear object cache
         mObjectCache.clear();
