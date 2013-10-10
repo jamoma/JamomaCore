@@ -170,3 +170,8 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_view                             (("view"
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_Write                            (("Write"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_WriteAgain                       (("WriteAgain"));
+
+TTMODULAR_EXPORT TTSymbol       kTTSym_xmlHandlerReadingComment         (("xmlHandlerReadingComment"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_xmlHandlerReadingEnds            (("xmlHandlerReadingEnds"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_xmlHandlerReadingStarts          (("xmlHandlerReadingStarts"));
+

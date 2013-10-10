@@ -254,7 +254,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								
 								// replace header node name by start
 								if (mXmlNodeName == mHeaderNodeName)
-                                    mXmlNodeName = kTTSym_start;
+                                    mXmlNodeName = kTTSym_xmlHandlerReadingStarts;
 								
 								// Get the node value
 								xValue = xmlTextReaderReadString((xmlTextReaderPtr)mReader);
@@ -277,7 +277,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								
 								// replace header node name by stop
 								if (mXmlNodeName == mHeaderNodeName)
-                                    mXmlNodeName = kTTSym_stop;
+                                    mXmlNodeName = kTTSym_xmlHandlerReadingEnds;
 								
 								// Set the node value
 								mXmlNodeValue = kTTValNONE;
@@ -287,7 +287,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 							case 8: // For comment node
 								
 								// Set the node name
-								mXmlNodeName = kTTSym_comment;
+								mXmlNodeName = kTTSym_xmlHandlerReadingComment;
 								
 								// Get the node value
 								xValue = xmlTextReaderValue((xmlTextReaderPtr)mReader);

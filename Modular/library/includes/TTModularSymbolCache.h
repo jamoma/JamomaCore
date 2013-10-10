@@ -172,5 +172,10 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_view;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Write;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_WriteAgain;
 
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_xmlHandlerReadingComment;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_xmlHandlerReadingEnds;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_xmlHandlerReadingStarts;
+
+
 #endif // __TT_MODULAR_SYMBOL_CACHE_H__
 

@@ -1072,13 +1072,13 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	// Switch on the name of the XML node
 	
 	// Starts file reading : clear the cue list
-	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingStarts) {
 		Clear();
 		return kTTErrNone;
 	}
 	
 	// Ends file reading : bind on first cue
-	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingEnds) {
 		
         if (mNames.size()) {
             

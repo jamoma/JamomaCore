@@ -1036,17 +1036,17 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	// Switch on the name of the XML node
 	
 	// Starts file reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingStarts) {
 		Clear();
 		return kTTErrNone;
 	}
 	
 	// Ends file reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_stop)
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingEnds)
 		return kTTErrNone;
 	
 	// Comment node : edit comment line
-	if (aXmlHandler->mXmlNodeName == kTTSym_comment) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingComment) {
 		
 		// edit comment line
 		aLine = new TTDictionary();

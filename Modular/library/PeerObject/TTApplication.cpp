@@ -830,15 +830,15 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	// Switch on the name of the XML node
 	
 	// Starts reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_start)
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingStarts)
         return kTTErrNone;
 	
 	// Ends reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_stop)
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingEnds)
 		return kTTErrNone;
 	
 	// Comment Node
-	if (aXmlHandler->mXmlNodeName == kTTSym_comment)
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingComment)
 		return kTTErrNone;
     
     // Conversion Table node
