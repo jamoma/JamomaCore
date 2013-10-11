@@ -110,6 +110,11 @@ TTErr System::Stop()
         runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
     }
     
+    // reset all time info
+    mOffset = 0.;
+    mProgression = 0.;
+    mRealTime = 0.;
+    
     return kTTErrNone;
 }
 
