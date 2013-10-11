@@ -120,8 +120,6 @@ TTErr Scheduler::setDuration(const TTValue& value)
         
         if (value[0].type() == kTypeFloat64) {
             
-            Stop();
-            
             mDuration = value[0];
             
             durationAttribute->sendNotification(kTTSym_notify, mDuration);           // we use kTTSym_notify because we know that observers are TTCallback
