@@ -202,8 +202,7 @@ TTErr TTApplication::DirectoryClear()
     if (mName == getLocalApplicationName)
         return kTTErrGeneric;
     
-    delete mDirectory;
-    mDirectory = new TTNodeDirectory(mName);
+    mDirectory->init();
 	mDirectory->getRoot()->setObject(TTObjectBasePtr(this));
     
     return kTTErrNone;
