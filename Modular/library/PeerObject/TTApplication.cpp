@@ -62,6 +62,7 @@ mTempAddress(kTTAdrsRoot)
 	addAttributeProperty(Directory, hidden, YES);
 	addAttributeProperty(Directory, readOnly, YES);
     
+    addMessage(DirectoryClear);
     addMessage(DirectoryBuild);
     addMessageWithArguments(DirectoryObserve);
 	
@@ -193,6 +194,19 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 		anAttribute->sendNotification(kTTSym_notify, mActivityOut);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
+}
+
+TTErr TTApplication::DirectoryClear()
+{
+    // only for distant application
+    if (mName == getLocalApplicationName)
+        return kTTErrGeneric;
+    
+    delete mDirectory;
+    mDirectory = new TTNodeDirectory(mName);
+	mDirectory->getRoot()->setObject(TTObjectBasePtr(this));
+    
+    return kTTErrNone;
 }
 
 TTErr TTApplication::DirectoryBuild()
