@@ -236,6 +236,8 @@ TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputVa
 {
 	TTAddressItemPtr    aNamespace, anItem;
 	TTAddress           address;
+    TTList              childrenNodes;
+    TTNodePtr           aNode;
 	TTUInt32			i;
 	TTErr				err;
 	
@@ -250,8 +252,38 @@ TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputVa
 			
 			err = aNamespace->append(address, &anItem);
 			
-			if (!err)
+			if (!err) {
+                
 				anItem->setSelection(YES);
+                
+                // if the item is empty
+                if (anItem->isEmpty()) {
+                    
+                    // fill the item with all children below the node
+                    err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+                    
+                    if (!err) {
+                        
+                        // get all children of the node
+                        aNode->getChildren(S_WILDCARD, S_WILDCARD, childrenNodes);
+                        
+                        // sort the NodeList using object priority order
+                        childrenNodes.sort(&TTCueCompareNodePriority);
+                        
+                        // append each name.instance to the sub namespace
+                        for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
+                            
+                            aNode = TTNodePtr((TTPtr)childrenNodes.current()[0]);
+                            
+                            // get absolute address
+                            aNode->getAddress(address);
+                            
+                            // append to the namespace
+                            NamespaceAppend(address, outputValue);
+                        }
+                    }
+                }
+            }
 		}
 	}
 	
