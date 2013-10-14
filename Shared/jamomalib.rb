@@ -884,7 +884,7 @@ else
 
 		  if (include_file == "C74-INCLUDES")
 			if max
-			  include_file = "#{path_to_moduleroot}/../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/jit-includes"
+			  include_file = "#{path_to_moduleroot}/../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/jit-includes -I#{path_to_moduleroot}/../Implementations/Max/library/includes"
 			else
 			  include_file = "#{path_to_moduleroot}/../../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/jit-includes"
 			end
@@ -908,6 +908,7 @@ else
 			concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
 			concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
 			concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
+              concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\library\\includes\";"
 		  else
 			concatenated_includes += "\"$(ProjectDir)#{include_file}\";"
 		  end
@@ -1174,6 +1175,8 @@ else
 				makefile.write("#{path_to_moduleroot}/#{up}../Core/Graphics/library/build/JamomaGraphics.dylib")
 			  elsif (lib == "C74")
 				define_c74_linker_syms = true
+              elsif (lib == "JAMOMA_FOR_MAX")
+                makefile.write("#{path_to_moduleroot}/Max/library/build/JamomaMax.dylib")
 			  else
 				makefile.write(lib)
 			  end
@@ -1739,7 +1742,11 @@ else
 			if linux?
 			  makefile.write("\tsudo cp #{build_temp}/$(NAME)#{extension_suffix} #{extension_dest}\n")
 			elsif mac?
-			  makefile.write("\t#{path_to_moduleroot}/../Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/../../Implementations/Max/Jamoma/support\n")
+                if projectname == "JamomaMax"
+                    makefile.write("\t#{path_to_moduleroot}/../../Core/Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/Jamoma/support\n")
+                else
+                    makefile.write("\t#{path_to_moduleroot}/../Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/../../Implementations/Max/Jamoma/support\n")
+                end
 			else
 			  #TODO: windows support for this...  need to write a DOS script
 			end
