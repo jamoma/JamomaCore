@@ -1516,7 +1516,10 @@ else
 			command = ""
 			command += "copy"
 			command += " $(OutDir)$(ProjectName)#{extension_suffix} "
-			command += "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support"
+            if projectname == "JamomaMax"
+                command += "#{path_to_moduleroot}/Jamoma/support"
+            else
+                command += "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support"
 			command.gsub!(/(\/)/,'\\')
 			
 			vcproj_debug32_postbuild = Element.new "PostBuildEvent"
