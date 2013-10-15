@@ -83,11 +83,15 @@ private:
 		nothing : store into the current cue */
 	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
     
+    /** Update a cue :
+     name/id : update an existing cue.
+     nothing : update the current cue */
+	TTErr	Update(const TTValue& inputValue, TTValue& outputValue);
+    
     /** Append a line to a cue :
         name/id line : append line to the cue */
     TTErr   Append(const TTValue& inputValue, TTValue& outputValue);
 
-	
 	/** Recall a cue : 
 		name/id : recall the cue.
 		nothing : recall the current cue */

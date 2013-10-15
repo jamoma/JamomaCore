@@ -34,6 +34,7 @@ mScript(NULL)
 	
 	addMessage(Clear);
 	addMessageWithArguments(Store);
+    addMessageWithArguments(Update);
     addMessageWithArguments(Append);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Output);
@@ -542,6 +543,82 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
 		return kTTErrGeneric;
 	else
 		return kTTErrNone;
+}
+
+TTErr TTCue::Update(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTValue     v;
+    TTBoolean   flattened;
+    
+    // TODO : update from an address
+    
+    // is the cue already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (!flattened)
+    mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+	
+	return processUpdate(mScript);
+}
+
+TTErr TTCue::processUpdate(TTObjectBasePtr aScript)
+{
+	TTListPtr		lines;
+	TTDictionaryPtr	aLine;
+    TTAddress       anAddress;
+    TTNodePtr       aNode;
+	TTObjectBasePtr	anObject;
+    TTSymbol        service;
+	TTValue			v;
+    TTErr           err;
+	
+	aScript->getAttributeValue(TTSymbol("flattenedLines"), v);
+	lines = TTListPtr((TTPtr)v[0]);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+        
+        // if it is a Data object
+        if (!aLine->lookup(kTTSym_target, v)) {
+            
+            anAddress = v[0];
+            err = getDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
+            
+            if (!err) {
+                
+                anObject = aNode->getObject();
+                
+                if (anObject) {
+                    
+                    if (anObject->getName() == kTTSym_Data) {
+                        
+                        // get his service attribute value
+                        anObject->getAttributeValue(kTTSym_service, v);
+                        service = v[0];
+                        
+                        // update only parameters
+                        if (service == kTTSym_parameter) {
+                            
+                            // get his current value
+                            err = anObject->getAttributeValue(kTTSym_value, v);
+                            
+                            if (!err) {
+                                
+                                // replace the former value
+                                aLine->remove(kTTSym_value);
+                                aLine->append(kTTSym_value, v);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+	}
+	
+	return kTTErrNone;
 }
 
 TTErr TTCue::Append(const TTValue& inputValue, TTValue& outputValue)

@@ -65,6 +65,7 @@ mReturnLineCallback(NULL)
 	addMessage(Clear);
 	
 	addMessageWithArguments(Store);
+    addMessageWithArguments(Update);
     addMessageWithArguments(Append);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Output);
@@ -451,6 +452,56 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
     }
     
     return err;
+}
+
+TTErr TTCueManager::Update(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTValue		v;
+    TTSymbol    anAddress = kTTAdrsRoot;
+	
+    if (inputValue.size() >= 1) {
+        
+        // get cue name
+        if (inputValue[0].type() == kTypeSymbol) {
+            mCurrent = inputValue[0];
+            
+            TTSymbol name;
+            for (TTInt32 i = 0; i < mNames.size(); i++) {
+                name = mNames[i];
+                if (name == mCurrent) {
+                    mCurrentPosition = i+1;
+                    break;
+                }
+            }
+        }
+        
+        // get cue at position
+        if (inputValue[0].type() == kTypeInt32) {
+            
+            mCurrentPosition = inputValue[0];
+            
+            if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
+                mCurrent = mNames[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
+        }
+    }
+    
+    // get address from where update starts (default : kAdrsRoot)
+    if (inputValue.size() == 2)
+        if (inputValue[1].type() == kTypeSymbol)
+            anAddress = inputValue[1];
+	
+	// if cue exists
+	if (!mCues->lookup(mCurrent, v)) {
+		
+		mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
+		
+		if (mCurrentCue)
+            return mCurrentCue->sendMessage(kTTSym_Update, anAddress, kTTValNONE);
+	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTCueManager::Append(const TTValue& inputValue, TTValue& outputValue)
