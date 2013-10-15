@@ -162,6 +162,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_tag;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_target;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_unit;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_Update;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_value;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_valueDefault;
