@@ -908,7 +908,9 @@ else
 			concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
 			concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
 			concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
+            if max
               concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\library\\includes\";"
+            end
 		  else
 			concatenated_includes += "\"$(ProjectDir)#{include_file}\";"
 		  end
