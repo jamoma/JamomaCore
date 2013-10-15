@@ -158,8 +158,7 @@ if @projectName == "Max"
   #Header
   file_path = "#{@svn_root}/library/includes/JamomaMaxVersion.h"
   `cp "#{@svn_root}/library/includes/JamomaMaxVersion.template.h" "#{file_path}"` if mac?
-  `copy #{@svn_root}\\library\\includes\\JamomaMaxVersion.template.h #{@svn_root}\\library\\includes\\JamomaMaxVersion.h /Y` if win?
-
+  `copy "#{@svn_root}\\library\\includes\\JamomaMaxVersion.template.h" "#{file_path}"` if win?
 
   if FileTest.exist?(file_path)
     f = File.open("#{file_path}", "r+")
