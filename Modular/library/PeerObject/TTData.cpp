@@ -28,7 +28,7 @@ mType(kTTSym_generic),
 mTag(TTValue(kTTSym_none)),
 mPriority(0),
 mDescription(kTTSym_none),
-mRepetitionsAllow(YES),
+mRepetitionsFilter(NO),
 mActive(YES),
 mInitialized(NO),
 mRangeBounds(0.0, 1.0),
@@ -63,7 +63,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	addAttributeWithSetter(Priority, kTypeInt32);
 	addAttributeWithSetter(Description, kTypeSymbol);
-	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
+	addAttributeWithSetter(RepetitionsFilter, kTypeBoolean);
 	
 	addAttributeWithSetter(Active, kTypeBoolean);
 	
@@ -333,11 +333,11 @@ TTErr TTData::setTag(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTData::setRepetitionsAllow(const TTValue& value)
+TTErr TTData::setRepetitionsFilter(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mRepetitionsAllow = value;
-	this->notifyObservers(kTTSym_repetitionsAllow, n);
+	mRepetitionsFilter = value;
+	this->notifyObservers(kTTSym_repetitionsFilter, n);
 	return kTTErrNone;
 }
 
@@ -653,11 +653,11 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += this->mDataspaceUnit.c_str();
 	*buffer += "</td>";
 	
-	// repetitions/allow
-	toString = this->mRepetitionsAllow;
+	// repetitions/filter
+	toString = this->mRepetitionsFilter;
 	toString.toString();
 	line = TTString(toString[0]);
-	*buffer += "\t\t\t<td class =\"instructionRepetitionsAllow\">";
+	*buffer += "\t\t\t<td class =\"instructionRepetitionsFilter\">";
 	*buffer += line.data();
 	*buffer += "</td>";
 	
@@ -815,7 +815,7 @@ void TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	if (aData->mType == kTTSym_integer)
 		rampedValue.truncate();
     
-	if (!aData->mRepetitionsAllow)
+	if (aData->mRepetitionsFilter)
 		if (aData->mValue == rampedValue)
 			return;
     

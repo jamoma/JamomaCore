@@ -981,7 +981,7 @@ void TTContainer::dataHeading(TTString *buffer)
 #endif
 	*buffer += "\t\t\t<td> /dataspace </td>"; 
 	*buffer += "\t\t\t<td> /dataspace/unit </td>"; 
-	*buffer += "\t\t\t<td> /repetitions/allow </td>";	
+	*buffer += "\t\t\t<td> /repetitions/filter </td>";	
 	*buffer += "\t\t\t<td> /description </td>";
 	*buffer += "\t\t<tr>";
 }
@@ -1160,7 +1160,7 @@ void TTContainer::cssDefinition(TTString *buffer)
 	background-color: #eee;\
 	vertical-align: top;\
 	}\
-	.instructionRepetitionsAllow {\
+	.instructionRepetitionsFilter {\
 	font-family: 'Times New Roman', Times, serif;\
 	background-color: #eed;\
 	vertical-align: top;\

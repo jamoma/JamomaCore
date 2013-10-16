@@ -408,7 +408,7 @@ void snapshot(XMLNode xmlNode, TTNodePtr ttNode)
 				addAttributeToXml(param, childNode, TTSymbol("instanceBounds"));
 				addAttributeToXml(param, childNode, kTTSym_priority);
 				addAttributeToXml(param, childNode, kTTSym_description);
-				addAttributeToXml(param, childNode, kTTSym_repetitionsAllow);
+				addAttributeToXml(param, childNode, kTTSym_repetitionsFilter);
 				addAttributeToXml(param, childNode, kTTSym_readonly);
 			}
 		}

@@ -36,7 +36,7 @@ private:
 	TTValue			mTag;						///< ATTRIBUTE: tag list for this data
 	TTInt32			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
 	TTSymbol		mDescription;				///< ATTRIBUTE: text to describe the role of this data
-	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
+	TTBoolean		mRepetitionsFilter;			///< ATTRIBUTE: is repetitions are filtered out ?
 	TTBoolean		mActive;					///< ATTRIBUTE: this used by return only to stop sending values
 	TTBoolean		mInitialized;				///< ATTRIBUTE: is the Value attribute has been initialized ?
 	
@@ -163,8 +163,8 @@ private:
 	/**	Setter for mTag attribute. */
 	TTErr       setTag(const TTValue& value);
 	
-	/**	Setter for mRepetitionsAllow attribute. */
-	TTErr       setRepetitionsAllow(const TTValue& value);
+	/**	Setter for mRepetitionsFilter attribute. */
+	TTErr       setRepetitionsFilter(const TTValue& value);
 	
 	/**	Setter for mActive attribute. */
 	TTErr       setActive(const TTValue& value);

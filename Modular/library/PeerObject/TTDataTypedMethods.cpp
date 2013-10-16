@@ -276,7 +276,7 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 3. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized)
+        if (mRepetitionsFilter && mInitialized)
             if (mValue == aValue)
                 return kTTErrNone;	// nothing to do
         
@@ -352,7 +352,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 3. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             aValue.booleanize();
             
@@ -521,7 +521,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 4. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             aValue.truncate();
             
@@ -701,7 +701,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 4. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             if (mValue == aValue)
                 return kTTErrNone;	// nothing to do
@@ -877,7 +877,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 4. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             if (mValue == aValue)
                 return kTTErrNone;	// nothing to do
@@ -1018,7 +1018,7 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 3. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             if (mValue == aValue)
                 return kTTErrNone;	// nothing to do

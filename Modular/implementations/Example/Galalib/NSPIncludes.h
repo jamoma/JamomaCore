@@ -20,7 +20,7 @@
 #define NSPAttr_STEP			kTTSym_valueStepsize
 #define NSPAttr_PRIORITY		kTTSym_priority
 #define NSPAttr_DESCRIPTION		kTTSym_description
-#define NSPAttr_REPETITION		kTTSym_repetitionsAllow
+#define NSPAttr_REPETITION		kTTSym_repetitionsFilter
 #define NSPAttr_READONLY		kTTSym_readonly
 #define NSPAttr_DYNAMIC			TTSymbol("dynamicInstances")
 #define NSPAttr_INSTANCEBOUNDS  TTSymbol("instanceBounds")
