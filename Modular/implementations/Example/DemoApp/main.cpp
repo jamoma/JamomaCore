@@ -1,11 +1,11 @@
 #include "TTModular.h"
-
-#include <iostream>
-using namespace std;
-
-static TTApplicationPtr	mDemoApp = NULL;
-static TTSymbol			kTTSym_DemoApp;
-
+//
+//#include <iostream>
+//using namespace std;
+//
+//static TTApplicationPtr	mDemoApp = NULL;
+//static TTSymbol			kTTSym_DemoApp;
+//
 void	init();
 //TTErr	instantiate_Data(TTDataPtr *returnedData);
 //void	myData_return_value_callback(TTPtr baton, TTValue& v);
@@ -21,13 +21,13 @@ main(int argc, char **argv)
 	
 	init();
 
-	//test();
+//	test();
 
-	//createData();
+//	createData();
 
 	TTLogMessage("/n*** Ending my DemoApp application *** /n");
 
-	return EXIT_SUCCESS;
+	return 0;
 }
 
 void init()
@@ -38,14 +38,14 @@ void init()
 	// Init the Modular library
 	TTModularInit();
     
-    // Edit the path to the JamomaConfiguration.xml file
-	const char *name = "DemoApp";
-	const char *config = "JamomaConfiguration.xml";
-    
-    // Create a local application named DemoApp and get it
-    TTModularCreateLocalApplication(name, config);
-    //mDemoApp = getLocalApplication;
-	//kTTSym_DemoApp = TTSymbol(APP_NAME);
+//    // Edit the path to the JamomaConfiguration.xml file
+//	const char *name = "DemoApp";
+//	const char *config = "JamomaConfiguration.xml";
+//    
+//    // Create a local application named DemoApp and get it
+//    TTModularCreateLocalApplication(name, config);
+//    mDemoApp = getLocalApplication;
+//	  kTTSym_DemoApp = TTSymbol(APP_NAME);
 }
 
 //void test()
