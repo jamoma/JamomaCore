@@ -1751,6 +1751,7 @@ else
           # This testing procedure was developed as an alternative to testing within the Ruby implementation.
           # 
           ##########
+          # restored after bad merge
           
           if project_type != "implementation"
           
