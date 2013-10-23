@@ -25,7 +25,7 @@ int main(int argc, const char * argv[])
 	
 	for (int i=0; i<classNames.size(); i++) {
 		TTSymbol name = classNames[i];
-		
+		/*
 		try {
 			TTObject obj(name);
 			std::cout << "TESTING " << name.string() << std::endl;
@@ -35,6 +35,7 @@ int main(int argc, const char * argv[])
 			TTLogMessage("UnitTest Failure to instantiate object of class %s! \n", name.c_str());
 			continue;
 		}
+        */
 	}
 	
 	// insert code here...
