@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B58B2A6F181AC4580055FD97 /* libjson.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B58B2A6E181AC4580055FD97 /* libjson.dylib */; };
 		B5B16FB11816B41300F939C5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5B16FB01816B41300F939C5 /* main.cpp */; };
-		B5B16FB91816B68300F939C5 /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B16FB61816B68300F939C5 /* JamomaDSP.dylib */; };
-		B5B16FBA1816B68300F939C5 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B16FB71816B68300F939C5 /* JamomaFoundation.dylib */; };
-		B5B16FBB1816B68300F939C5 /* JamomaModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B16FB81816B68300F939C5 /* JamomaModular.dylib */; };
+		B5C063781817D9020032A501 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C063761817D9020032A501 /* JamomaFoundation.dylib */; };
+		B5C063791817D9020032A501 /* JamomaModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C063771817D9020032A501 /* JamomaModular.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,11 +26,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B58B2A6E181AC4580055FD97 /* libjson.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjson.dylib; path = Debug/libjson.dylib; sourceTree = "<group>"; };
 		B5B16FA41816B30800F939C5 /* DemoApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DemoApp; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B16FB01816B41300F939C5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
-		B5B16FB61816B68300F939C5 /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = Debug/JamomaDSP.dylib; sourceTree = "<group>"; };
-		B5B16FB71816B68300F939C5 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = Debug/JamomaFoundation.dylib; sourceTree = "<group>"; };
-		B5B16FB81816B68300F939C5 /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = Debug/JamomaModular.dylib; sourceTree = "<group>"; };
+		B5C063761817D9020032A501 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../Implementations/Max/Jamoma/support/JamomaFoundation.dylib; sourceTree = "<group>"; };
+		B5C063771817D9020032A501 /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = ../../../../../Implementations/Max/Jamoma/support/JamomaModular.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,9 +38,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5B16FBA1816B68300F939C5 /* JamomaFoundation.dylib in Frameworks */,
-				B5B16FB91816B68300F939C5 /* JamomaDSP.dylib in Frameworks */,
-				B5B16FBB1816B68300F939C5 /* JamomaModular.dylib in Frameworks */,
+				B58B2A6F181AC4580055FD97 /* libjson.dylib in Frameworks */,
+				B5C063791817D9020032A501 /* JamomaModular.dylib in Frameworks */,
+				B5C063781817D9020032A501 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,9 +50,9 @@
 		B5B16F9B1816B30800F939C5 = {
 			isa = PBXGroup;
 			children = (
-				B5B16FB61816B68300F939C5 /* JamomaDSP.dylib */,
-				B5B16FB71816B68300F939C5 /* JamomaFoundation.dylib */,
-				B5B16FB81816B68300F939C5 /* JamomaModular.dylib */,
+				B58B2A6E181AC4580055FD97 /* libjson.dylib */,
+				B5C063761817D9020032A501 /* JamomaFoundation.dylib */,
+				B5C063771817D9020032A501 /* JamomaModular.dylib */,
 				B5B16FA61816B30800F939C5 /* DemoApp */,
 				B5B16FA51816B30800F939C5 /* Products */,
 			);
@@ -204,10 +204,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = Debug;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TT_PLATFORM_MAC,
-					TT_DEBUG,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_MAC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -220,6 +217,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"/Users/ProLauGre/Travail/09-ossia/Jamoma/Implementations/Max/Jamoma/support",
 					"/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/Debug",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -243,6 +241,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"/Users/ProLauGre/Travail/09-ossia/Jamoma/Implementations/Max/Jamoma/support",
 					"/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/Debug",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
