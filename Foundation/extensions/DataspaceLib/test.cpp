@@ -13,8 +13,7 @@ extern "C" TTErr TTLoadJamomaExtension_DataspaceLib(void);
 
 int main(int argc, const char * argv[])
 {
-	//	TTFoundationInit();
-	std::cout << "Hi, World!\n";
+	std::cout << "BEGIN testing for DataspaceLib...\n";
 	TTLoadJamomaExtension_DataspaceLib();
 	
 	TTValue classNames;
@@ -38,6 +37,6 @@ int main(int argc, const char * argv[])
 	}
 	
 	// insert code here...
-	std::cout << "Goodbye, World!\n";
+	std::cout << "END testing of DataspaceLib!\n";
     return 0;
 }
