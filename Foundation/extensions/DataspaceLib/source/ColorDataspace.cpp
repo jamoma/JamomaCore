@@ -52,7 +52,7 @@ double hls_value(double n1, double n2, double hue)
 
 #define thisTTClass			CMYUnit
 #define thisTTClassName		"unit.cmy"
-#define thisTTClassTags		"dataspace.unit, color"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, color"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

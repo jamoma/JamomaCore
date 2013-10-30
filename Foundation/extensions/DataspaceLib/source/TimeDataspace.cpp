@@ -36,7 +36,7 @@ template <typename T> T asinh(T value)
 
 #define thisTTClass			BarkUnit
 #define thisTTClassName		"unit.bark"
-#define thisTTClassTags		"dataspace.unit, time, pitch, frequency"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, time, pitch, frequency"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

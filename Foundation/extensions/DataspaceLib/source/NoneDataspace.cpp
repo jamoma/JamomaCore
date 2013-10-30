@@ -19,7 +19,7 @@
 
 #define thisTTClass			NoneUnit
 #define thisTTClassName		"unit.none"
-#define thisTTClassTags		"dataspace.unit, none"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, none"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

@@ -19,7 +19,7 @@
 
 #define thisTTClass			CelsiusUnit
 #define thisTTClassName		"unit.celsius"
-#define thisTTClassTags		"dataspace.unit, temperature"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, temperature"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

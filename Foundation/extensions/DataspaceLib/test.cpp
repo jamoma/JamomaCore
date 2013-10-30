@@ -19,13 +19,16 @@ int main(int argc, const char * argv[])
 	
 	TTValue classNames;
 	
-	TTObject::GetRegisteredClassNames(classNames);
+	// if the follow group tag is present within the thisTTClassTags definition, the class will be tested
+    TTValue testClassesWithTheseTags(TT("foundationDataspaceLib"));
+	TTObject::GetRegisteredClassNamesForTags(classNames, testClassesWithTheseTags);
 	
 	for (int i=0; i<classNames.size(); i++) {
 		TTSymbol name = classNames[i];
 		
 		try {
 			TTObject obj(name);
+            std::cout << "TESTING " << name.string() << std::endl;
 			obj.send("test");
 		}
 		catch (...) {

@@ -19,7 +19,7 @@
 
 #define thisTTClass			MilesPerHourUnit
 #define thisTTClassName		"unit.milesPerHour"
-#define thisTTClassTags		"dataspace.unit, speed"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, speed"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

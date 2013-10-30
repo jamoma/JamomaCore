@@ -19,7 +19,7 @@
 
 #define thisTTClass			CentimeterUnit
 #define thisTTClassName		"unit.centimeter"
-#define thisTTClassTags		"dataspace.unit, distance"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, distance"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

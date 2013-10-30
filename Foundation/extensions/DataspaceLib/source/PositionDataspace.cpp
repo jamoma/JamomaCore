@@ -19,7 +19,7 @@
 
 #define thisTTClass			Cartesian3DUnit
 #define thisTTClassName		"unit.cart3d"
-#define thisTTClassTags		"dataspace.unit, position"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, position"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

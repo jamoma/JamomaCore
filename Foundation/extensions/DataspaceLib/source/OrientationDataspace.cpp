@@ -21,7 +21,7 @@
 
 #define thisTTClass			QuaternionUnit
 #define thisTTClassName		"unit.quaternion"
-#define thisTTClassTags		"dataspace.unit, orientation"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, orientation"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)

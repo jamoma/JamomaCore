@@ -20,7 +20,7 @@
 
 #define thisTTClass			LinearAmplitudeUnit
 #define thisTTClassName		"unit.linear"
-#define thisTTClassTags		"dataspace.unit, gain"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, gain"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
