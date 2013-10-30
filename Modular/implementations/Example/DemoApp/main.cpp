@@ -6,10 +6,28 @@ using namespace std;
 static TTApplicationPtr	mDemoApp = NULL;
 static TTSymbol			kTTSym_DemoApp;
 
+TTObjectBasePtr         mDemoData = NULL;
+
 void	init();
 void    runProtocol();
-TTErr	instantiate_Data(TTDataPtr *returnedData);
-void	myData_return_value_callback(TTPtr baton, TTValue& v);
+
+// TODO : this should move into a TTModularAPI file
+/** Create a TTData object
+ @param	service			a symbol to tell if the data have to be a "parameter", a "message" or a "return"
+ @param	TTValuePtr      a value pointer to return back
+ @param valueCallback   a pointer to a void function(TTPtr baton, TTValue& value) to return the value back
+ @param returnedData    a new data object
+ @return                an error code if the creation fails */
+TTErr TTModularCreateData(TTSymbol service, TTValuePtr baton, TTFunctionWithBatonAndValue valueCallback, TTObjectBasePtr *returnedData);
+
+// TODO : this should move into a TTModularAPI file
+/** Register a TTObject
+ @param	address			the absolute address where to register the object
+ @param	object          the object to register
+ @return                an error code if the registration fails */
+TTErr TTModularRegisterObject(TTAddress address, TTObjectBasePtr object);
+
+void    DemoDataReturnValueCallback(TTPtr baton, TTValue& v);
 
 int 
 main(int argc, char **argv) 
@@ -27,9 +45,16 @@ main(int argc, char **argv)
     
     getchar();  // Wait until user hits "enter"
 
-//	test();
-
-//	createData();
+    TTValuePtr batonDemoData = new TTValue(TTPtr(this));
+    batonDemoData->append(TTSymbol("Speed"));
+    TTModularCreateData(kTTSym_message, batonDemoData, &DemoDataReturnValueCallback, &mDemoData);
+    
+    mDemoData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+    v = TTValue(-1., 1.);
+    mDemoData->setAttributeValue(kTTSym_rangeBounds, v);
+    mDemoData->setAttributeValue(kTTSym_description, TTSymbol("change DemoData value"));
+    
+    TTModularRegisterObject(TTAddress("/Demo/Data"), mDemoData);
 
 	TTLogMessage("/n*** Ending my DemoApp application *** /n");
 
@@ -60,95 +85,40 @@ void runProtocol()
     getProtocol("WebSocket")->Run(v1, v2);
 }
 
-
-//void test()
-//{
-//	// TEST TTDictionary
-//	TTDictionaryPtr aDictionary = new TTDictionary;
-//	
-//	aDictionary->setSchema(TTSymbol("aSchema"));
-//	aDictionary->append(TTSymbol("name"), TTSymbol("toto"));
-//	aDictionary->append(TTSymbol("type"), TTSymbol("gars"));
-//	aDictionary->append(TTSymbol("tag"), TTSymbol("blague"));
-//	 
-//	// RUN TEST
-//	TTObjectPtr testNodeLib = NULL;
-//	TTValue	args;
-//	TTObjectInstantiate(TTSymbol("nodelib.test"), &testNodeLib, args);
-//	
-//	testNodeLib->sendMessage(TTSymbol("test"), args);
-//}
-
-void createData()
+// TODO : this should move into a TTModularAPI file
+TTErr TTModularCreateData(TTSymbol service, TTValuePtr baton, TTFunctionWithBatonAndValue valueCallback, TTObjectBasePtr *returnedData)
 {
-	// Create a TTData object an use it
-	/////////////////////////////////////////////////////////
-	TTLogMessage("/n*** Instantiate myData as a TTData object ***/n");
+    TTValue			args;
+	TTObjectBasePtr	returnValueCallback;
 	
-	TTDataPtr myData = NULL;
+	// prepare arguments
+	returnValueCallback = NULL;
+	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
+    
+	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(baton));
+	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(valueCallback));
+    
+	args.append(returnValueCallback);
 	
-	instantiate_Data(&myData);
-
-	// set TTData object attributes
-	myData->setAttributeValue(kTTSym_type, kTTSym_decimal);
-	myData->setAttributeValue(kTTSym_valueDefault, 0);
-	myData->setAttributeValue(kTTSym_description, TTSymbol("a data for the demo"));
-
+	args.append(service);
 	
-	// Register a TTObject into the DemoApp directory
-	/////////////////////////////////////////////////////////
-	TTLogMessage("/n*** Register myData into the DemoApp directory ***/n");
-	TTNodePtr		returnedNode;
-	TTBoolean		newInstanceCreated;
-
-	getDirectoryFrom(kTTAdrsRoot)->TTNodeCreate(TTADRS("/mydata"), myData, NULL, &returnedNode, &newInstanceCreated);
-
-	// 
-	// Use a TTData object
-	/////////////////////////////////////////////////////////
-
+    // create data
+	*returnedData = NULL;
+	TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(returnedData), args);
 	
-	// set the value
-	do {
-		TTString s;
-		
-		cout << "Set /myData value : ";
-		cin >> s;
-		
-		if (s == "exit")
-			break;
-		
-		v.clear();
-		v = s;
-		v.fromString();
-		myData->sendMessage(kTTSym_Command, v);
-	} while (true);
-
-
-	// Delete every TTObject and TTValuePtr
-	//////////////////////////////////////////////////////////////////
-	TTObjectRelease(TTObjectHandle(&myData));
-
+	return kTTErrNone;
 }
 
-TTErr instantiate_Data(TTDataPtr *returnedData)
+// TODO : this should move into a TTModularAPI file
+TTErr TTModularRegisterObject(TTAddress address, TTObjectBasePtr object)
 {
-	TTValue			args;
-	TTCallbackPtr	p_returnValueCallback = NULL;
-	TTValuePtr		p_returnValueBaton;
-	
-	// prepare arguments : see TTData.h to know which args are needed
-	TTObjectInstantiate(TTSymbol("callback"), TTObjectHandle(&p_returnValueCallback), kTTValNONE);
-	p_returnValueBaton = new TTValue(NULL);
-	p_returnValueCallback->setAttributeValue(TTSymbol("baton"), TTPtr(p_returnValueBaton));
-	p_returnValueCallback->setAttributeValue(TTSymbol("function"), TTPtr(myData_return_value_callback));
-	args.append(p_returnValueCallback);
-	
-	// create an instance of a TTData object
-	return TTObjectInstantiate(TTSymbol("Data"), TTObjectHandle(returnedData), args);
+    TTNodePtr returnedTTNode;
+    TTBoolean nodeCreated;
+    
+    return getLocalDirectory->TTNodeCreate(address, object, NULL, &returnedTTNode, &nodeCreated);
 }
 
-void myData_return_value_callback(TTPtr baton, TTValue& v)
+void DemoDataReturnValueCallback(TTPtr baton, TTValue& v)
 {
 	TTValuePtr	b;
 	TTPtr		x;
@@ -161,5 +131,5 @@ void myData_return_value_callback(TTPtr baton, TTValue& v)
 	// print the returned value
 	v.toString();
 	v.get(0, s);
-	TTLogMessage("myData has been updated to %s /n", s.data());
+	TTLogMessage("DemoData has been updated to %s /n", s.data());
 }
