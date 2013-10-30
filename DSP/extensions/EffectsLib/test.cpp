@@ -15,6 +15,7 @@ int main(int argc, const char * argv[])
 {
 	//	TTFoundationInit();
 	
+    std::cout << "BEGIN testing for EffectsLib...\n";
     TTLoadJamomaExtension_EffectsLib();
 	
 	TTValue classNames;
@@ -39,6 +40,6 @@ int main(int argc, const char * argv[])
 	}
 	
 	// insert code here...
-	std::cout << "Goodbye, World!\n";
+	std::cout << "END testing of EffectsLib!\n";
     return 0;
 }
