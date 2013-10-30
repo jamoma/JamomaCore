@@ -19,7 +19,7 @@
 
 #define thisTTClass			CentimeterUnit
 #define thisTTClassName		"unit.centimeter"
-#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, distance"
+#define thisTTClassTags		"dataspace.unit, distance"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -143,7 +143,7 @@ void MeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			DistanceDataspace
 #define thisTTClassName		"dataspace.distance"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace, distance"
 
 TT_OBJECT_CONSTRUCTOR
 {

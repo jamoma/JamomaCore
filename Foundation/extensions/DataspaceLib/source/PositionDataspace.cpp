@@ -19,7 +19,7 @@
 
 #define thisTTClass			Cartesian3DUnit
 #define thisTTClassName		"unit.cart3d"
-#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, position"
+#define thisTTClassTags		"dataspace.unit, position"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -295,7 +295,7 @@ void CylindricalUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			PositionDataspace
 #define thisTTClassName		"dataspace.position"
-#define thisTTClassTags		"dataspace, position"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace, position"
 
 TT_OBJECT_CONSTRUCTOR
 {

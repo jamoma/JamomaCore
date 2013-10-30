@@ -16,7 +16,7 @@
 
 #define thisTTClass			TTDataspaceConverter
 #define thisTTClassName		"dataspace"
-#define thisTTClassTags		"foundationDataspaceLib, dataspace.converter"
+#define thisTTClassTags		"dataspace.converter"
 
 
 TT_OBJECT_CONSTRUCTOR,

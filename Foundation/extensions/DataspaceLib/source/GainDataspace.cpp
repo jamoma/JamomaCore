@@ -20,7 +20,7 @@
 
 #define thisTTClass			LinearAmplitudeUnit
 #define thisTTClassName		"unit.linear"
-#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, gain"
+#define thisTTClassTags		"dataspace.unit, gain"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -105,7 +105,7 @@ void DecibelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			GainDataspace
 #define thisTTClassName		"dataspace.gain"
-#define thisTTClassTags		"dataspace, gain"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace, gain"
 
 TT_OBJECT_CONSTRUCTOR
 {

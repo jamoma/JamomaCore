@@ -52,7 +52,7 @@ double hls_value(double n1, double n2, double hue)
 
 #define thisTTClass			CMYUnit
 #define thisTTClassName		"unit.cmy"
-#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, color"
+#define thisTTClassTags		"dataspace.unit, color"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -378,7 +378,7 @@ void RGB8Unit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			ColorDataspace
 #define thisTTClassName		"dataspace.color"
-#define thisTTClassTags		"dataspace, color"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace, color"
 
 TT_OBJECT_CONSTRUCTOR
 {

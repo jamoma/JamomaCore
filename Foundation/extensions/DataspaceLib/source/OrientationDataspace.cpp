@@ -21,7 +21,7 @@
 
 #define thisTTClass			QuaternionUnit
 #define thisTTClassName		"unit.quaternion"
-#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, orientation"
+#define thisTTClassTags		"dataspace.unit, orientation"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -186,7 +186,7 @@ void AxisUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			OrientationDataspace
 #define thisTTClassName		"dataspace.orientation"
-#define thisTTClassTags		"dataspace, orientation"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace, orientation"
 
 TT_OBJECT_CONSTRUCTOR
 {

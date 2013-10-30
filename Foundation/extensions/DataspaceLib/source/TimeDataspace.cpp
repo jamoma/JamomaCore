@@ -36,7 +36,7 @@ template <typename T> T asinh(T value)
 
 #define thisTTClass			BarkUnit
 #define thisTTClassName		"unit.bark"
-#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, time, pitch, frequency"
+#define thisTTClassTags		"dataspace.unit, time, pitch, frequency"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -391,7 +391,7 @@ void SpeedUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			TimeDataspace
 #define thisTTClassName		"dataspace.time"
-#define thisTTClassTags		"dataspace, time"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace, time"
 
 
 TT_OBJECT_CONSTRUCTOR

@@ -19,7 +19,7 @@
 
 #define thisTTClass			CelsiusUnit
 #define thisTTClassName		"unit.celsius"
-#define thisTTClassTags		"foundationDataspaceLib, dataspace.unit, temperature"
+#define thisTTClassTags		"dataspace.unit, temperature"
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -111,7 +111,7 @@ void KelvinUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			TemperatureDataspace
 #define thisTTClassName		"dataspace.temperature"
-#define thisTTClassTags		"dataspace, temperature"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace, temperature"
 
 TT_OBJECT_CONSTRUCTOR
 {
