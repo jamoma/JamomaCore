@@ -97,7 +97,7 @@ mReturnValueCallback(NULL)
 	addAttribute(Service, kTypeSymbol);
 	addAttributeProperty(Service, readOnly, YES);
 	
-    registerMessage(kTTSym_Reset, (TTMethod)&TTData::GenericReset, kTTMessagePassNone);
+    registerMessage(kTTSym_Init, (TTMethod)&TTData::GenericInit, kTTMessagePassNone);
 	addMessageWithArguments(Inc);
 	addMessageWithArguments(Dec);
     

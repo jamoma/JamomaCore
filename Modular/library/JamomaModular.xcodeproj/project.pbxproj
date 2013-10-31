@@ -19,8 +19,6 @@
 		46A6E86316CABFD3002E6A40 /* Scheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
 		D220FB4614A21628005607C3 /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
 		D220FB4714A21628005607C3 /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
-		D246012914A0A95D004CC4FD /* ModularForMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModularForMax.cpp; sourceTree = "<group>"; };
-		D246012A14A0A95D004CC4FD /* ModularForMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModularForMax.h; sourceTree = "<group>"; };
 		D246012C14A0A96C004CC4FD /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
 		D246012D14A0A96C004CC4FD /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		D246012E14A0A96C004CC4FD /* TTApplicationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplicationManager.cpp; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 				22AD15D016596377002FD7E3 /* JamomaModular.yml */,
 				D246015614A0A97B004CC4FD /* includes */,
 				D246016214A0A98A004CC4FD /* source */,
-				D246012814A0A95D004CC4FD /* ModularForMax */,
 				D246012B14A0A96C004CC4FD /* PeerObject */,
 				D220FB4514A21628005607C3 /* ProtocolLib */,
 				46A6E85C16CA9352002E6A40 /* SchedulerLib */,
@@ -103,15 +100,6 @@
 				D220FB4614A21628005607C3 /* Protocol.cpp */,
 			);
 			path = ProtocolLib;
-			sourceTree = "<group>";
-		};
-		D246012814A0A95D004CC4FD /* ModularForMax */ = {
-			isa = PBXGroup;
-			children = (
-				D246012A14A0A95D004CC4FD /* ModularForMax.h */,
-				D246012914A0A95D004CC4FD /* ModularForMax.cpp */,
-			);
-			path = ModularForMax;
 			sourceTree = "<group>";
 		};
 		D246012B14A0A96C004CC4FD /* PeerObject */ = {

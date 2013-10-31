@@ -265,7 +265,7 @@ TTErr TTContainer::Init()
 		// send it according their priority order
 		mObjectsObserversCache->getKeysSorted(hk, &TTContainerCompareObjectPriority);
 		
-		// Send Reset message to all Data service parameter
+		// Send an Init message to all Data service parameter
 		for (i = 0; i < mObjectsObserversCache->getSize(); i++) {
 			
 			key = hk[i];
@@ -277,7 +277,7 @@ TTErr TTContainer::Init()
 					anObject->getAttributeValue(kTTSym_service, v);
 					service = v[0];
 					if (service == kTTSym_parameter)
-						anObject->sendMessage(kTTSym_Reset);
+						anObject->sendMessage(kTTSym_Init);
 				}
 		}
 		
@@ -291,7 +291,7 @@ TTErr TTContainer::Init()
 			
 			if (anObject)
 				if (anObject->getName() == kTTSym_Container)
-					anObject->sendMessage(TTSymbol("Init"));
+					anObject->sendMessage(kTTSym_Init);
 		}
 	}
 	

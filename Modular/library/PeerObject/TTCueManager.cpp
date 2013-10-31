@@ -229,6 +229,9 @@ TTErr TTCueManager::NamespaceClear(const TTValue& inputValue, TTValue& outputVal
 		aNamespace->find(address, &aNamespace);
 	
 	aNamespace->clear();
+    
+    // refresh all namespace handlers (TTExplorer only)
+    aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
 	
 	return kTTErrNone;
 }
@@ -287,6 +290,9 @@ TTErr TTCueManager::NamespaceAppend(const TTValue& inputValue, TTValue& outputVa
             }
 		}
 	}
+    
+    // refresh all namespace handlers (TTExplorer only)
+    aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
 	
 	return kTTErrNone;
 }
@@ -309,6 +315,9 @@ TTErr TTCueManager::NamespaceRemove(const TTValue& inputValue, TTValue& outputVa
 			aNamespace->remove(address);
 		}
 	}
+    
+    // refresh all namespace handlers (TTExplorer only)
+    aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
 	
 	return kTTErrNone;
 }
@@ -1323,6 +1332,9 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
             }
             
             notifyNamesObservers();
+            
+            // use the namespace of the first cue
+            NamespaceSelect(kTTVal1, kTTValNONE);
         }
         
         return kTTErrNone;

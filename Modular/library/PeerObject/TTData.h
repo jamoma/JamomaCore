@@ -118,14 +118,14 @@ private:
     /* */
     TTErr       returnValue();
     
-    /** Reset value to default value */
-	TTErr       NoneReset();
-    TTErr       GenericReset();
-    TTErr       BooleanReset();
-    TTErr       IntegerReset();
-    TTErr       DecimalReset();
-    TTErr       ArrayReset();
-    TTErr       StringReset();
+    /** Initialize the value with default value */
+	TTErr       NoneInit();
+    TTErr       GenericInit();
+    TTErr       BooleanInit();
+    TTErr       IntegerInit();
+    TTErr       DecimalInit();
+    TTErr       ArrayInit();
+    TTErr       StringInit();
     
     /** Ramper messages */
     TTErr       RampSet(const TTValue& inputValue, TTValue& outputValue);
