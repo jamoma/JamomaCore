@@ -105,6 +105,12 @@ public:
 	 @param	anAddress				The address with an alias inside to replace.
 	 @return						An error code if there is no alias. */
 	TTErr			replaceAlias(TTAddress& anAddress);
+    
+    /** fill an address item using the TTNodeDirectory from an address
+     @param anAddressItem           an address item
+     @param startAddress            an address where to start from
+     @return                        An error code if the address item cannont be filled */
+	TTErr           fillAddressItem(TTAddressItemPtr anAddressItem, TTAddress startAddress = kTTAdrsRoot);
 	
 	/**	Find TTNodes by address
 	 @param	anAddress				The address you wish to find, possibly including wildcards and instance names/numbers.
@@ -221,6 +227,12 @@ TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
  @return							true if the node have to be include in the result */
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingFilter(TTNodePtr n, TTPtr args);
 
+/**	An comparison tool : compare the priority attribute of to object's node
+ This method could be used as comparison function to sort a node list.
+ @param	v1						first node
+ @param v2						second node
+ @return						true if priority of first node is lower than the second node (but a priority of 0 is always higher than any other value)*/
+TTBoolean TTFOUNDATION_EXPORT compareNodePriority(TTValue& v1, TTValue& v2);
 
 /**	An method used to find an observer in the observers table */
 void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found);

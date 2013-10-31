@@ -53,6 +53,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_numChannels;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_object;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_parent;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_part;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_priority;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_processInPlace;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_range;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_resonance;
