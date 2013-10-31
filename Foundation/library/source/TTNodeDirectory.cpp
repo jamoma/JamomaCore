@@ -218,11 +218,15 @@ TTErr TTNodeDirectory::fillAddressItem(TTAddressItemPtr anAddressItem, TTAddress
             // get name.instance
             aNode->getAddress(anAddress, startAddress);
             
-            // append to the namespace
-            anAddressItem->append(anAddress, &anItem);
+            // if the item doesn't exist yet
+            if (anAddressItem->find(anAddress, &anItem) == kTTErrValueNotFound) {
+                
+                // append it to the namespace
+                anAddressItem->append(anAddress, &anItem);
             
-            // select the item
-            anItem->setSelection(YES);
+                // select the item
+                anItem->setSelection(YES);
+            }
             
             // fill this item
             fillAddressItem(anItem, startAddress.appendAddress(anAddress));

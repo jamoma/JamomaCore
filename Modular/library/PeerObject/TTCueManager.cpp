@@ -223,9 +223,8 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 	aNamespace = lookupNamespace(mNamespace);
 	if (!aNamespace) {
         
-        // if empty fill the namespace
-        if (mDefaultNamespace->isEmpty())
-            getLocalDirectory->fillAddressItem(mDefaultNamespace);
+        // fill the namespace
+        getLocalDirectory->fillAddressItem(mDefaultNamespace);
         
         aNamespace = mDefaultNamespace;
     }
@@ -261,9 +260,8 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
 	aNamespace = lookupNamespace(mNamespace);
 	if (!aNamespace) {
         
-        // if empty fill the namespace
-        if (mDefaultNamespace->isEmpty())
-            getLocalDirectory->fillAddressItem(mDefaultNamespace);
+        // fill the namespace
+        getLocalDirectory->fillAddressItem(mDefaultNamespace);
         
         aNamespace = mDefaultNamespace;
     }
@@ -322,9 +320,8 @@ TTErr TTCueManager::NamespaceUpdate(const TTValue& inputValue, TTValue& outputVa
 			aNamespace = lookupNamespace(mNamespace);
 			if (!aNamespace) {
                 
-                // if empty fill the namespace
-                if (mDefaultNamespace->isEmpty())
-                    getLocalDirectory->fillAddressItem(mDefaultNamespace);
+                // fill the namespace
+                getLocalDirectory->fillAddressItem(mDefaultNamespace);
                 
                 aNamespace = mDefaultNamespace;
             }
@@ -423,9 +420,8 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	aNamespace = lookupNamespace(mNamespace);
 	if (!aNamespace) {
         
-        // if empty fill the namespace
-        if (mDefaultNamespace->isEmpty())
-            getLocalDirectory->fillAddressItem(mDefaultNamespace);
+        // fill the namespace
+        getLocalDirectory->fillAddressItem(mDefaultNamespace);
         
         aNamespace = mDefaultNamespace;
     }
