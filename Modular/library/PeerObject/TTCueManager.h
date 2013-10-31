@@ -61,19 +61,23 @@ private:
 	TTErr	getCurrentRamp(TTValue& value);
 	TTErr	setCurrentRamp(const TTValue& value);
 	
-	/** */
-	TTErr	NamespaceClear(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr	NamespaceAppend(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr	NamespaceRemove(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** Select all items of the namespace which are in a cue.
-	 name : use the given cue.
-	 nothing : use the current cue */
+	/** Select a set of absolute addresses
+	 @param inputValue      a set of absolute addresses
+	 @param outputValue     nothing
+     @return                kTTErrNone */
 	TTErr	NamespaceSelect(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Unselect a set of absolute addresses
+	 @param inputValue      a set of absolute addresses
+	 @param outputValue     nothing
+     @return                kTTErrNone */
+	TTErr	NamespaceUnselect(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Select only the addresses which are in a cue
+	 @param inputValue      name of a cue or nothing (use the current cue)
+	 @param outputValue     nothing
+     @return                kTTErrNone */
+	TTErr	NamespaceUpdate(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr	Clear();

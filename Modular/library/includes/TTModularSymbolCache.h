@@ -125,7 +125,6 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_offset;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_parameter;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_preview;
-extern TTMODULAR_EXPORT TTSymbol	kTTSym_priority;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_proxy;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_rangeBounds;

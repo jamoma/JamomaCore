@@ -85,8 +85,8 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
     /** a method to update each Data value */
     TTErr   processUpdate(TTObjectBasePtr aScript);
 	
-	/** a recursive method to process a namespace selection from a script object (and optionnaly fill it) */
-	TTErr	processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill=NO);
+	/** a recursive method to process a namespace selection from a script object */
+	TTErr	processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace);
 	
 	/** a method to change each ramping value into a script */
 	TTErr	processRamp(TTObjectBasePtr aScript, TTUInt32 ramp);
@@ -102,8 +102,6 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 };
 
 typedef TTCue* TTCuePtr;
-
-TTBoolean   TTMODULAR_EXPORT TTCueCompareNodePriority(TTValue& v1, TTValue& v2);
 
 TTErr       TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 

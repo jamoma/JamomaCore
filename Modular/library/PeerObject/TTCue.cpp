@@ -359,7 +359,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNamespace, TTNodePtr nodeToProcess)
 {
-	TTAddressItemPtr nameItem, instanceItem, anItem;
+	TTAddressItemPtr nameItem, instanceItem;
 	TTString		nameInstance;
 	TTNodePtr		scriptNode, aNode;
 	TTDictionaryPtr	aLine;
@@ -378,30 +378,6 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
     // get the scriptNode address
     scriptNode->getAddress(scriptAddress);
     
-    // if the namespace is empty : fill it with all children below the scriptNode
-    if (aNamespace->isEmpty()) {
-        
-        // get all children of the node
-        scriptNode->getChildren(S_WILDCARD, S_WILDCARD, childrenNodes);
-        
-        // sort the NodeList using object priority order
-        childrenNodes.sort(&TTCueCompareNodePriority);
-        
-        // append each name.instance to the sub namespace
-        for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
-            
-            aNode = TTNodePtr((TTPtr)childrenNodes.current()[0]);
-            
-            // get name.instance
-            aNode->getAddress(childAddress, scriptAddress);
-            
-            // append to the namespace
-            aNamespace->append(childAddress, &anItem);
-            
-            anItem->setSelection(YES);
-        }
-    }
-
 	// each script line is a name.instance (which means 2 levels of the namespace)
     // but the first level name can be directory:/name sometimes to include other directory
 	
@@ -704,14 +680,14 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 		// unselect all the namespace
 		aNamespace->setSelection(NO, YES);
 		
-		// edit selection (and fill it if the namespace is empty)
-		return processSelect(mScript, aNamespace, aNamespace->isEmpty());
+		// edit selection
+		return processSelect(mScript, aNamespace);
 	}
     
     return kTTErrNone;
 }
 
-TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill)
+TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace)
 {
 	TTListPtr			lines;
 	TTAddressItemPtr    anItem;
@@ -738,9 +714,6 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace,
 			// find item into the namespace
 			err = aNamespace->find(address, &anItem);
 			
-			if (err && fill)
-				err = aNamespace->append(address, &anItem);
-			
 			if (!err) {
 				
 				// select it
@@ -754,7 +727,7 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace,
 					aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
 					
 					if (aSubScript)
-						processSelect(aSubScript, anItem, fill);
+						processSelect(aSubScript, anItem);
 				}
 			}
 		}
@@ -855,40 +828,6 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark -
 #pragma mark Some Methods
 #endif
-
-TTBoolean TTCueCompareNodePriority(TTValue& v1, TTValue& v2) 
-{
-	TTNodePtr	n1, n2;
-	TTObjectBasePtr o1, o2;
-	TTValue		v;
-	TTInt32		p1 = 0;
-	TTInt32		p2 = 0;
-	
-	// get priority of v1
-	n1 = TTNodePtr((TTPtr)v1[0]);
-	if (n1) {
-		o1 = n1->getObject();
-		if (o1) 
-			if (!o1->getAttributeValue(kTTSym_priority, v))
-				p1 = v[0];
-	}
-	
-	// get priority of v2
-	n2 = TTNodePtr((TTPtr)v2[0]);
-	if (n2) {
-		o2 = n2->getObject();
-		if (o2) 
-			if (!o2->getAttributeValue(kTTSym_priority, v))
-				p2 = v[0];
-	}
-	
-	if (p1 == 0 && p2 == 0) return v1 < v2;
-	
-	if (p1 == 0) return NO;
-	if (p2 == 0) return YES;
-	
-	return p1 < p2;
-}
 
 TTErr TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position)
 {
