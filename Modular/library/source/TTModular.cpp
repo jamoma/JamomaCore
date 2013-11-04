@@ -40,10 +40,10 @@ TTHashPtr TTModularNamespaces = NULL;
 
 /****************************************************************************************************/
 
-void TTModularInit()
+void TTModularInit(const char* pathToTheJamomaFolder)
 {
 	// Initialized Foundation framework
-	TTFoundationInit();
+	TTFoundationInit(pathToTheJamomaFolder);
     
 //#define TO_DEBUG
 #ifdef TO_DEBUG
