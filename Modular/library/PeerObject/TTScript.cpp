@@ -1173,7 +1173,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTAddress           address;
 	TTSymbol			name;
 	TTString			aString;
-	TTBoolean			addQuote;
+    TTBoolean           addQuote;
 	TTUInt8				i;
 	TTValue				v;
 	
@@ -1201,8 +1201,11 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			name = v[0];
 			
 			// get flag arguments value if exists
-			addQuote = NO;
 			if (!aLine->getValue(v)) {
+                
+                // if the value is an unique symbol : add quote
+                addQuote = v.size() == 1 && v[0].type() == kTypeSymbol;
+                    
 				v.toString();
 				aString = TTString(v[0]);
 			}
@@ -1212,7 +1215,9 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			*buffer += "- ";
 			*buffer += name.c_str();
 			*buffer += " ";
+            if (addQuote) *buffer += "\"";
 			*buffer += aString.data();
+            if (addQuote) *buffer += "\"";
 			*buffer += "\n";
 		}	
 		if (aLine->getSchema() == kTTSym_comment) {
