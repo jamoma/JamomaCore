@@ -80,7 +80,7 @@ void TTOscSocket::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 			receivedMessage.append((TTInt64)i);
 			
 		} else if (arguments->IsFloat())
-			receivedMessage.append(arguments->AsFloat());
+			receivedMessage.append((TTFloat64)arguments->AsFloat());
 		
 		else if (arguments->IsString())
 			receivedMessage.append(TTSymbol(arguments->AsString()));
