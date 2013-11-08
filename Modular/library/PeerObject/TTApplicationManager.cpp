@@ -46,6 +46,9 @@ mCurrentProtocol(NULL)
 	
 	addMessageWithArguments(ApplicationDiscover);
 	addMessageProperty(ApplicationDiscover, hidden, YES);
+    
+    addMessageWithArguments(ApplicationDiscoverAll);
+	addMessageProperty(ApplicationDiscoverAll, hidden, YES);
 	
 	addMessageWithArguments(ApplicationGet);
 	addMessageProperty(ApplicationGet, hidden, YES);
@@ -435,6 +438,31 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTApplicationManager::ApplicationDiscoverAll(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTNodeDirectoryPtr	directory;
+	TTAddress           whereToDiscover;
+	
+	whereToDiscover = inputValue[0];
+
+	TTLogDebug("TTApplicationManager::DiscoverAll");
+	
+	TTNodePtr			aNode;
+	TTErr				err;
+	
+	directory = getDirectoryFrom(whereToDiscover);
+	if (!directory)
+		return kTTErrGeneric;
+	
+	err = directory->getTTNode(whereToDiscover, &aNode);
+	
+    // if the address to discover exist : fill the answer
+	if (!err)
+        outputValue = TTPtr(aNode);
+    
+    return err;
 }
 
 TTErr TTApplicationManager::ApplicationGet(const TTValue& inputValue, TTValue& outputValue)

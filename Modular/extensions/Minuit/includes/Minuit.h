@@ -131,6 +131,20 @@ private:
 							  TTValue& returnedChildren,
 							  TTValue& returnedAttributes,
                               TTUInt8 tryCount=0);
+    
+    /*!
+	 * Send a discover all request to an application to fill all the directory under this address
+	 *
+ 	 * \param to					: the application where to discover
+	 * \param address				: the address to discover
+     * \param node                  : the node for this address
+     * \param tryCount              : number of try for this request
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+	 else it returns kTTErrGeneric if no answer or timeout
+	 */
+	TTErr SendDiscoverAllRequest(TTSymbol to, TTAddress address,
+                                 TTNodePtr node,
+                                 TTUInt8 tryCount=0);
 	
 	/*!
 	 * Send a get request to an application to get a value at the given address
@@ -195,6 +209,17 @@ private:
 							 TTValue& returnedAttributes,
 							 TTErr err=kTTErrNone);
 	
+    /*!
+	 * Send a discover answer to a application which ask for.
+	 *
+	 * \param to					: the application where to send answer
+	 * \param address				: the address where comes from the description
+     * \param node                  : the node for this address
+	 */
+	TTErr SendDiscoverAllAnswer(TTSymbol to, TTAddress address,
+                                TTNodePtr node,
+                                TTErr err=kTTErrNone);
+    
 	/*!
 	 * Send a get answer to a application which ask for.
 	 *

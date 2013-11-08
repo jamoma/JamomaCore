@@ -68,6 +68,7 @@
 #define thisProtocolSet         YES
 #define thisProtocolListen      YES
 #define thisProtocolDiscover	YES
+#define thisProtocolDiscoverAll	NO
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 {
@@ -242,6 +243,21 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 	}
 	
 	return kTTErrGeneric;
+}
+
+/*!
+ * Send a discover all request to an application to fill all the directory under this address
+ *
+ * \param to					: the application where to discover
+ * \param address				: the address to discover
+ * \param node                  : the node for this address
+ * \param tryCount              : number of try for this request
+ * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+ else it returns kTTErrGeneric if no answer or timeout
+ */
+TTErr Minuit::SendDiscoverAllRequest(TTSymbol to, TTAddress address, TTNodePtr node, TTUInt8 tryCount)
+{
+    return kTTErrGeneric;
 }
 
 /*!
@@ -424,6 +440,18 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address,
 #endif
 	
 		return sendMessage(to, TTSymbol(header), arguments);
+}
+
+/*!
+ * Send a disover answer to a application which ask for.
+ *
+ * \param to					: the application where to send answer
+ * \param address				: the address where comes from the description
+ * \param node                  : the node for this address
+ */
+TTErr Minuit::SendDiscoverAllAnswer(TTSymbol to, TTAddress address, TTNodePtr node, TTErr err)
+{
+    return kTTErrGeneric;
 }
 
 /*!

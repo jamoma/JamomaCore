@@ -34,6 +34,7 @@ mGet = TTBoolean(thisProtocolGet); \
 mSet = TTBoolean(thisProtocolSet); \
 mListen = TTBoolean(thisProtocolListen); \
 mDiscover = TTBoolean(thisProtocolDiscover); \
+mDiscoverAll = TTBoolean(thisProtocolDiscoverAll); \
 registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 /*addAttributeProperty(ParameterNames, readOnly, YES); \ */
 
@@ -68,6 +69,7 @@ public:
     TTBoolean					mSet;                               ///< ATTRIBUTE : is the Protocol allows to send set request ?
 	TTBoolean					mListen;                            ///< ATTRIBUTE : is the Protocol allows to send listen request ?
 	TTBoolean					mDiscover;                          ///< ATTRIBUTE : is the Protocol allows to send discover request ?
+    TTBoolean					mDiscoverAll;                       ///< ATTRIBUTE : is the Protocol allows to send discover all request ?
 	TTBoolean					mRunning;							///< ATTRIBUTE : is the Protocol reception thread enable ?
 	TTBoolean					mActivity;							///< ATTRIBUTE : is the Protocol activity thread enable ?
 
@@ -152,6 +154,20 @@ public:
 									  TTValue& returnedChildren,
 									  TTValue& returnedAttributes,
                                       TTUInt8 tryCount=0)=0;
+    
+    /*!
+	 * Send a discover all request to an application to fill all the directory under this address
+	 *
+ 	 * \param to					: the application where to discover
+	 * \param address				: the address to discover
+     * \param node                  : the node for this address
+     * \param tryCount              : number of try for this request
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+	 else it returns kTTErrGeneric if no answer or timeout
+	 */
+	virtual TTErr SendDiscoverAllRequest(TTSymbol to, TTAddress address,
+                                         TTNodePtr node,
+                                         TTUInt8 tryCount=0)=0;
 	
 	/*!
 	 * Send a get request to an application to get a value at the given address
@@ -215,6 +231,17 @@ public:
 									 TTValue& returnedChildren,
 									 TTValue& returnedAttributes,
 									 TTErr err=kTTErrNone)=0;
+    
+    /*!
+	 * Send a discover answer to a application which ask for.
+	 *
+	 * \param to					: the application where to send answer
+	 * \param address				: the address where comes from the description
+     * \param node                  : the node for this address
+	 */
+	virtual TTErr SendDiscoverAllAnswer(TTSymbol to, TTAddress address,
+                                        TTNodePtr node,
+                                        TTErr err=kTTErrNone)=0;
 	
 	/*!
 	 * Send a get answer to a application which ask for.
@@ -253,6 +280,16 @@ public:
 	 * \param address				: the address the application wants to discover
 	 */
 	TTErr ReceiveDiscoverRequest(TTSymbol from, TTAddress address);
+    
+    /*!
+	 * Notify the protocol that an application ask for a namespace description
+	 *
+	 * !!! This a built-in protocol method which sends automatically the answer (or a notification if error)
+	 *
+	 * \param from					: the application where comes from the request
+	 * \param address				: the address the application wants to discover
+	 */
+	TTErr ReceiveDiscoverAllRequest(TTSymbol from, TTAddress address);
 	
 	/*!
 	 * Notify the protocol that an application ask for value
