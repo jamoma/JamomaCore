@@ -1044,15 +1044,18 @@ TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt32	i;
 	TTSymbol    nameToMerge, nameToOptimize;
 	TTCuePtr	aCueToMerge, aCueToOptimize, stateCue, optimizedCue;
-	TTValue		v;
+	TTValue		v, args;
 	TTErr		err;
     
     if (!inputValue.size())
         return kTTErrGeneric;
+    
+    // prepare arguments
+    args.append(mReturnLineCallback);
 	
 	// create an empty cue to merge the current state into
 	stateCue = NULL;
-	TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&stateCue), kTTValNONE);
+	TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&stateCue), args);
 	
 	// merge and optimize each cues except the first
 	for (i = 1; i < inputValue.size(); i++) {
@@ -1075,10 +1078,13 @@ TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
 				
 				// merge the cue before into the current state
 				TTCueMerge(aCueToMerge, stateCue);
+                
+                // prepare arguments
+                args.append(mReturnLineCallback);
 				
 				// create an empty cue to store the result of optimization
 				optimizedCue = NULL;
-				TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&optimizedCue), kTTValNONE);
+				TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&optimizedCue), args);
 				optimizedCue->setAttributeValue(kTTSym_name, nameToOptimize);
 				
 				// optimize the cue considering the current state
@@ -1133,7 +1139,7 @@ TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr	aXmlHandler = NULL;	
-	TTValue			v;
+	TTValue			v, args;
 	
 	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	if (!aXmlHandler)
@@ -1186,9 +1192,12 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
                     
                     mCurrent = v[0];
                     
+                    // prepare arguments
+                    args.append(mReturnLineCallback);
+                    
                     // Create a new cue
                     mCurrentCue = NULL;
-                    TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), kTTValNONE);
+                    TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), args);
                     
                     mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
                     
@@ -1245,7 +1254,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 	TTTextHandlerPtr aTextHandler;
 	TTDictionaryPtr	line;
 	TTSymbol		flagName;
-	TTValue			v;
+	TTValue			v, args;
 	
 	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	
@@ -1279,9 +1288,12 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 					
                     if (mCurrent != kTTSymEmpty) {
                         
+                        // prepare arguments
+                        args.append(mReturnLineCallback);
+                        
                         // Create a new cue
                         mCurrentCue = NULL;
-                        TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), kTTValNONE);
+                        TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), args);
                         
                         mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
                         
