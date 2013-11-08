@@ -41,20 +41,20 @@ main(int argc, char **argv)
 
 	init();
     
-    runProtocol();
-    
-    getchar();  // Wait until user hits "enter"
+    //runProtocol();
+    //
+    //getchar();  // Wait until user hits "enter"
 
-    TTValuePtr batonDemoData = new TTValue(TTPtr(this));
-    batonDemoData->append(TTSymbol("Speed"));
-    TTModularCreateData(kTTSym_message, batonDemoData, &DemoDataReturnValueCallback, &mDemoData);
-    
-    mDemoData->setAttributeValue(kTTSym_type, kTTSym_decimal);
-    v = TTValue(-1., 1.);
-    mDemoData->setAttributeValue(kTTSym_rangeBounds, v);
-    mDemoData->setAttributeValue(kTTSym_description, TTSymbol("change DemoData value"));
-    
-    TTModularRegisterObject(TTAddress("/Demo/Data"), mDemoData);
+    //TTValuePtr batonDemoData = new TTValue(TTPtr(this));
+    //batonDemoData->append(TTSymbol("Speed"));
+    //TTModularCreateData(kTTSym_message, batonDemoData, &DemoDataReturnValueCallback, &mDemoData);
+    //
+    //mDemoData->setAttributeValue(kTTSym_type, kTTSym_decimal);
+    //v = TTValue(-1., 1.);
+    //mDemoData->setAttributeValue(kTTSym_rangeBounds, v);
+    //mDemoData->setAttributeValue(kTTSym_description, TTSymbol("change DemoData value"));
+    //
+    //TTModularRegisterObject(TTAddress("/Demo/Data"), mDemoData);
 
 	TTLogMessage("/n*** Ending my DemoApp application *** /n");
 
