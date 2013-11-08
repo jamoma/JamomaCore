@@ -1172,9 +1172,6 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		
 		notifyNamesObservers();
 		
-		// use the namespace of the first cue
-		NamespaceUpdate(kTTVal1, kTTValNONE);
-		
 		return kTTErrNone;
 	}
 	
@@ -1324,9 +1321,6 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
             }
             
             notifyNamesObservers();
-            
-            // use the namespace of the first cue
-            NamespaceUpdate(kTTVal1, kTTValNONE);
         }
         
         return kTTErrNone;
