@@ -54,9 +54,6 @@ private:
     
     /** */
     TTErr   setValue(const TTValue& value);
-	
-	/** */
-	TTErr	setNames(const TTValue& value);
 
 	/** */
 	TTErr	Clear();
@@ -84,6 +81,9 @@ private:
 	
 	/** */
 	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Reorder the preset list*/
+	TTErr	Order(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Rename a preset : 
 	 name + newName: rename the preset with the newName */

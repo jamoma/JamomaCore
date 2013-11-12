@@ -40,7 +40,8 @@ mReturnLineCallback(NULL)
 	
 	TT_ASSERT("Return Line Callback passed to TTCueManager is not NULL", mReturnLineCallback);
 	
-	addAttributeWithSetter(Names, kTypeLocalValue);
+	addAttribute(Names, kTypeLocalValue);
+    addAttributeProperty(Names, readOnly, YES);
 	
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
@@ -59,7 +60,7 @@ mReturnLineCallback(NULL)
 	
 	addMessageWithArguments(NamespaceSelect);
 	addMessageWithArguments(NamespaceUnselect);
-	addMessageWithArguments(NamespaceUpdate);
+	addMessageWithArguments(NamespaceGrab);
 	
 	addMessage(Clear);
 	
@@ -72,9 +73,10 @@ mReturnLineCallback(NULL)
 	addMessageWithArguments(Mix);
 	addMessageWithArguments(Move);
 	addMessageWithArguments(Remove);
+    addMessageWithArguments(Order);
 	addMessageWithArguments(Rename);
 	addMessageWithArguments(Copy);
-	addMessageWithArguments(Sequence);
+	addMessageWithArguments(Optimize);
 	
 	// needed to be handled by a TTXmlHandler
 	addMessageWithArguments(WriteAsXml);
@@ -117,28 +119,6 @@ TTCueManager::~TTCueManager()
 		delete (TTValuePtr)mReturnLineCallback->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnLineCallback));
 	}
-}
-
-TTErr TTCueManager::setNames(const TTValue& value)
-{	
-	TTSymbol    name;
-	TTValue		v, newNames;
-	
-	// check if each name is part of the list
-	for (TTUInt32 i = 0; i < value.size(); i++) {
-		
-		name = value[i];
-		
-		if (!mCues->lookup(name, v))
-			newNames.append(name);
-	}
-	
-	// if the newNames size is not equal to the current name list 
-	if (newNames.size() != mNames.size())
-		return kTTErrGeneric;
-	
-	mNames = newNames;
-	return kTTErrNone;
 }
 
 TTErr TTCueManager::getCurrentDescription(TTValue& value)
@@ -286,7 +266,7 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::NamespaceUpdate(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddressItemPtr    aNamespace;
 	TTValue             v;
@@ -890,6 +870,33 @@ TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
+TTErr TTCueManager::Order(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTSymbol    name;
+	TTValue		v, newNames;
+	
+	// check if each name is part of the list
+	for (TTUInt32 i = 0; i < inputValue.size(); i++) {
+		
+		name = inputValue[i];
+		
+		if (!mCues->lookup(name, v))
+			newNames.append(name);
+        
+        // update current position
+        if (name == mCurrent)
+            mCurrentPosition = i;
+	}
+	
+	// if the newNames size is not equal to the current name list
+	if (newNames.size() != mNames.size())
+		return kTTErrGeneric;
+	
+	mNames = newNames;
+    
+	return kTTErrNone;
+}
+
 TTErr TTCueManager::Rename(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbol    name, newName;
@@ -1039,7 +1046,7 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTCueManager::Sequence(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTCueManager::Optimize(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt32	i;
 	TTSymbol    nameToMerge, nameToOptimize;

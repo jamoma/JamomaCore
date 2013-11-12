@@ -51,9 +51,6 @@ private:
 	TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
 	
 	/** */
-	TTErr	setNames(const TTValue& value);
-	
-	/** */
 	TTErr	getCurrentDescription(TTValue& value);
 	TTErr	setCurrentDescription(const TTValue& value);
 	
@@ -77,7 +74,7 @@ private:
 	 @param inputValue      name of a cue or nothing (use the current cue)
 	 @param outputValue     nothing
      @return                kTTErrNone */
-	TTErr	NamespaceUpdate(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	NamespaceGrab(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr	Clear();
@@ -123,6 +120,9 @@ private:
 		name : remove the cue.
 		nothing : remove the current cue */
 	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Reorder the list */
+	TTErr	Order(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Rename a cue : 
 	 name + newName: rename the cue with the newName */
@@ -132,9 +132,9 @@ private:
 	 name : copy the cue (and optionally give a new name + a position)  */
 	TTErr	Copy(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Sequence a sub set of cues clearing redundant command lines :
+	/** Optimize a sub set of cues clearing redundant command lines :
 		name1, name2, name3, ... : make the optimization between all given cues. */
-	TTErr	Sequence(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	Optimize(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
