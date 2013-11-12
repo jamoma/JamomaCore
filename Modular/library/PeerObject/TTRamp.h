@@ -59,8 +59,17 @@ private:
     
     /** Attribute setter */
     TTErr   setScheduler(const TTValue& schedulerName);
+    TTErr   getSchedulerLibrary(TTValue& value);
+    TTErr   getSchedulerParameters(TTValue& value);
+    TTErr   getSchedulerParameterValue(TTValue& value);
+    TTErr   setSchedulerParameterValue(const TTValue& value);
+    
 #ifndef TT_NO_DSP    
     TTErr   setFunction(const TTValue& functionName);
+    TTErr   getFunctionLibrary(TTValue& value);
+    TTErr   getFunctionParameters(TTValue& value);
+    TTErr   getFunctionParameterValue(TTValue& value);
+    TTErr   setFunctionParameterValue(const TTValue& value);
 #endif
     TTErr   setNumValues(const TTValue& inputValue);
 
@@ -76,10 +85,11 @@ private:
     TTErr   Stop();
 
 public: ///< It is public in order to be able to extend scheduler or function unit parameters as attributes of another object
+    
+
+    
 #ifndef TT_NO_DSP
-    TTErr   getFunctionParameterNames(TTValue& names);
-    TTErr   setFunctionParameterValue(TTSymbol ParameterName, TTValue& newValue);
-    TTErr   getFunctionParameterValue(TTSymbol ParameterName, TTValue& value);
+
 #endif
     friend void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 realTime);
 };

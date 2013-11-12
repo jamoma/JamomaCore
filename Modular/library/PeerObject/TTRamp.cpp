@@ -37,6 +37,8 @@ startValue(NULL),
 targetValue(NULL),
 currentValue(NULL)
 {
+    TTAttributePtr anAttribute;
+    
     if (arguments.size() == 2) {
         
         mCallback = TTRampCallback((TTPtr)arguments[0]);
@@ -44,9 +46,23 @@ currentValue(NULL)
     }
 	
     addAttributeWithSetter(Scheduler, kTypeSymbol);
+    registerAttribute(TTSymbol("schedulerLibrary"), kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getSchedulerLibrary, NULL);
+    registerAttribute(TTSymbol("schedulerParameters"), kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getSchedulerParameters, NULL);
+    registerAttribute(TTSymbol("schedulerParameterValue"), kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getSchedulerParameterValue, (TTSetterMethod)& TTRamp::setSchedulerParameterValue);
+    
+    this->findAttribute(TTSymbol("schedulerParameterValue"), &anAttribute);
+    anAttribute->sethidden(YES);
+    
 #ifndef TT_NO_DSP    
 	addAttributeWithSetter(Function, kTypeSymbol);
+    registerAttribute(TTSymbol("functionLibrary"), kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getFunctionLibrary, NULL);
+    registerAttribute(TTSymbol("functionParameters"), kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getFunctionParameters, NULL);
+    registerAttribute(TTSymbol("functionParameterValue"), kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getFunctionParameterValue, (TTSetterMethod)& TTRamp::setFunctionParameterValue);
+    
+    this->findAttribute(TTSymbol("functionParameterValue"), &anAttribute);
+    anAttribute->sethidden(YES);
 #endif
+    
     addAttribute(RampTime, kTypeFloat64);
     
     registerAttribute(TTSymbol("running"), kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getRunning);
@@ -111,6 +127,46 @@ TTErr TTRamp::setScheduler(const TTValue& inputValue)
     
 	return err;
 }
+
+TTErr TTRamp::getSchedulerLibrary(TTValue& value)
+{
+    TTGetRegisteredClassNamesForTags(value, TTSymbol("scheduler"));
+	return kTTErrNone;
+}
+
+TTErr TTRamp::getSchedulerParameters(TTValue& value)
+{
+    mSchedulerUnit->getAttributeNames(value);
+	return kTTErrNone;
+}
+
+TTErr TTRamp::getSchedulerParameterValue(TTValue& value)
+{
+    TTSymbol parameterName;
+    
+    if (value.size() == 1) {
+        
+        if (value[0].type() == kTypeSymbol) {
+            
+            parameterName = value[0];
+    
+            return mSchedulerUnit->getAttributeValue(parameterName, value);
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTRamp::setSchedulerParameterValue(const TTValue& value)
+{
+    TTSymbol    parameterName;
+    TTValue     newValue;
+    
+    parameterName = value[0];
+    newValue.copyFrom(1, value);
+    
+	return mSchedulerUnit->setAttributeValue(parameterName, newValue);
+}
 #ifndef TT_NO_DSP
 TTErr TTRamp::setFunction(const TTValue& inputValue)
 {
@@ -135,6 +191,46 @@ TTErr TTRamp::setFunction(const TTValue& inputValue)
 		logError("TTRamp failed to load the requested Function");
     
 	return err;
+}
+
+TTErr TTRamp::getFunctionLibrary(TTValue& value)
+{
+    TTGetRegisteredClassNamesForTags(value, kTTSym_function);
+	return kTTErrNone;
+}
+
+TTErr TTRamp::getFunctionParameters(TTValue& value)
+{
+	mFunctionUnit->getAttributeNames(value);
+	return kTTErrNone;
+}
+
+TTErr TTRamp::getFunctionParameterValue(TTValue& value)
+{
+    TTSymbol parameterName;
+    
+    if (value.size() == 1) {
+        
+        if (value[0].type() == kTypeSymbol) {
+            
+            parameterName = value[0];
+            
+            return mFunctionUnit->getAttributeValue(parameterName, value);
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTRamp::setFunctionParameterValue(const TTValue& value)
+{
+    TTSymbol    parameterName;
+    TTValue     newValue;
+    
+    parameterName = value[0];
+    newValue.copyFrom(1, value);
+    
+	return mFunctionUnit->setAttributeValue(parameterName, newValue);
 }
 #endif
 TTErr TTRamp::Set(const TTValue& inputValue, TTValue& outputValue)
@@ -219,25 +315,7 @@ TTErr TTRamp::Stop()
     
     return kTTErrGeneric;
 }
-#ifndef TT_NO_DSP
-TTErr TTRamp::getFunctionParameterNames(TTValue& names)
-{
-	mFunctionUnit->getAttributeNames(names);
-	return kTTErrNone;
-}
 
-TTErr TTRamp::setFunctionParameterValue(TTSymbol ParameterName, TTValue& newValue)
-{
-	mFunctionUnit->setAttributeValue(ParameterName, newValue);
-	return kTTErrNone;
-}
-
-TTErr TTRamp::getFunctionParameterValue(TTSymbol ParameterName, TTValue& value)
-{
-	mFunctionUnit->getAttributeValue(ParameterName, value);
-	return kTTErrNone;
-}
-#endif
 void TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 realTime)
 {
 	TTRampPtr	aRamp = (TTRampPtr)object;
