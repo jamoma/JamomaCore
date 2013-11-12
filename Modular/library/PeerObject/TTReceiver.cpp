@@ -50,6 +50,9 @@ mApplicationObserver(NULL)
 	
 	addMessage(Get);
 	addMessageProperty(Get, hidden, YES);
+    
+    addMessageWithArguments(Grab);
+	addMessageProperty(Grab, hidden, YES);
 	
 
     mNodesObserversCache.setThreadProtection(true);
@@ -200,6 +203,31 @@ TTErr TTReceiver::Get()
         }
         
         return kTTErrNone;
+    }
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTReceiver::Grab(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTNodePtr	aNode;
+	TTObjectBasePtr anObject;
+	TTSymbol	ttAttributeName;
+	TTValue		v;
+	
+    if (!mNodesObserversCache.isEmpty()) {
+        
+        ttAttributeName = ToTTName(mAddress.getAttribute());
+        
+        // grab the value for the first node only
+        mNodesObserversCache.begin();
+        aNode = TTNodePtr((TTPtr)mNodesObserversCache.current()[0]);
+            
+        // get the value of the attribute
+        anObject = aNode->getObject();
+            
+        if (anObject)
+            return anObject->getAttributeValue(ttAttributeName, outputValue);
     }
 	
 	return kTTErrGeneric;
