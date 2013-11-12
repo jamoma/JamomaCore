@@ -702,29 +702,29 @@ else
 	#			builddir = "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support" if !builddir
 				builddir = extension_dest if !builddir
 
-				skipIcc = false
-				skipGcc47 = false
-				skipClang = false
-				icc	 = false
-				gcc47 = false
-				clang = false
-				if compiler == "icc"
-					skipIcc = false
-					skipGcc47 = true
-					skipClang = true
-				elsif compiler == "gcc47"
-					skipIcc = true
-					skipGcc47 = false
-					skipClang = true
-				elsif compiler == "gcc"
-					skipIcc = true
-					skipGcc47 = true
-					skipClang = true
-				elsif compiler == "clang"
-					skipIcc = true
-					skipGcc47 = true
-					skipClang = false
-				end
+	#			skipIcc = false
+	#			skipGcc47 = false
+	#			skipClang = false
+	#			icc	 = false
+	#			gcc47 = false
+	#			clang = false
+	#			if compiler == "icc"
+	#				skipIcc = false
+	#				skipGcc47 = true
+	#				skipClang = true
+	#			elsif compiler == "gcc47"
+	#				skipIcc = true
+	#				skipGcc47 = false
+	#				skipClang = true
+	#			elsif compiler == "gcc"
+	#				skipIcc = true
+	#				skipGcc47 = true
+	#				skipClang = true
+	#			elsif compiler == "clang"
+	#				skipIcc = true
+	#				skipGcc47 = true
+	#				skipClang = false
+	#			end
 
 				if project_type == "library"
 					extension_suffix = ".dylib" if mac?
@@ -775,22 +775,22 @@ else
 					makefile.write("SUFFIX = mxo\n") if mac? && project_type == "implementation"
 					makefile.write("\n")
 					if mac?
-						if ((File.exists? "/usr/bin/icc") && (skipIcc == false))
-							makefile.write("CC_32 = icc -arch i386\n") if (arch == 'i386' || arch == 'default')
-							makefile.write("CC_64 = icc -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
-							icc = true
-						elsif ((File.exists? "/usr/bin/clang++") && (skipClang == false))
+						#if ((File.exists? "/usr/bin/icc") && (skipIcc == false))
+						#	makefile.write("CC_32 = icc -arch i386\n") if (arch == 'i386' || arch == 'default')
+						#	makefile.write("CC_64 = icc -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
+						#	icc = true
+						#elsif ((File.exists? "/usr/bin/clang++") && (skipClang == false))
 							makefile.write("CC_32 = /usr/bin/clang++ -arch i386\n") if (arch == 'i386' || arch == 'default')
 							makefile.write("CC_64 = /usr/bin/clang++ -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
 							clang = true
-						elsif ((File.exists? "/opt/local/bin/g++-mp-4.7") && (skipGcc47 == false))
-							makefile.write("CC_32 = /opt/local/bin/g++-mp-4.7 -arch i386\n") if (arch == 'i386' || arch == 'default')
-							makefile.write("CC_64 = /opt/local/bin/g++-mp-4.7 -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
-							gcc47 = true
-						else
-							puts "you don't have a support compiler.	it probably isn't going to work out for the two of us..."
-							clang = true
-						end
+					#	elsif ((File.exists? "/opt/local/bin/g++-mp-4.7") && (skipGcc47 == false))
+					#		makefile.write("CC_32 = /opt/local/bin/g++-mp-4.7 -arch i386\n") if (arch == 'i386' || arch == 'default')
+					#		makefile.write("CC_64 = /opt/local/bin/g++-mp-4.7 -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
+					#		gcc47 = true
+					#	else
+					#		puts "you don't have a support compiler.	it probably isn't going to work out for the two of us..."
+					#		clang = true
+					#	end
 						# makefile.write("CC_32 = llvm-g++-4.2 -arch i386\n") if (arch == 'i386' || arch == 'default')
 						# makefile.write("CC_64 = llvm-g++-4.2 -arch x86_64\n\n") if (arch == 'x86_64' || arch != 'i386' || arch == 'default')
 					else
@@ -1552,8 +1552,8 @@ else
 				makefile.write("OPTIMIZATION_RELEASE = -O3\n")
 				makefile.write("\n")
 				if mac?
-					if icc
-						makefile.write("OPTIONS = -dynamiclib -ip -msse3 -ftz -fno-alias -fp-model fast=2\n")
+					#if icc
+					#	makefile.write("OPTIONS = -dynamiclib -ip -msse3 -ftz -fno-alias -fp-model fast=2\n")
 						# ftz:						 Flushes denormal results to zero.
 						# ip :						 Interprocedural Optimizations such as function inlining, dead code elimination, etc.
 						# fp-model fast=2: use more aggressive optimizations	when	implementing	float-ing-point calculations.
@@ -1563,9 +1563,9 @@ else
 						#									available on the compilation host processor.
 
 						#makefile.write("OPTIONS = -dynamiclib -msse3 -mfpmath=sse -gdwarf-2\n")
-					else
+            #else
 						makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -gdwarf-2 -fvisibility=hidden\n")
-					end
+            #end
 				else
 					if beagle?
 						makefile.write("OPTIONS = -shared -g\n")
@@ -1573,11 +1573,11 @@ else
 						makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -g\n")
 					end
 				end
-				if icc
-					makefile.write("OPTIONS += -std=c++0x \n")
-				else
+				#if icc
+				#	makefile.write("OPTIONS += -std=c++0x \n")
+				#else
 					makefile.write("OPTIONS += -std=c++11 \n")
-				end
+          #end
 				makefile.write("OPTIONS += -stdlib=libc++ # -U__STRICT_ANSI__ -D__STDC_FORMAT_MACROS") if clang
 				makefile.write("\n")
 				if mac?
@@ -1608,9 +1608,9 @@ else
 					makefile.write("CFLAGS += -include#{prefix}\n") if prefix
 					makefile.write("LDFLAGS = $(OPTIONS) $(DEFINES) $(LIBS) $(WARNINGS)\n")
 					makefile.write("LDFLAGS += -install_name \"#{distropath}/$(NAME).dylib\" \n") if project_type == "library"
-					if gcc47
-						makefile.write("LDFLAGS += -static-libgcc\n")
-					end
+					#if gcc47
+					#	makefile.write("LDFLAGS += -static-libgcc\n")
+					#end
 				end
 				makefile.write("LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g\n") if linux?
 				makefile.write("LDFLAGS += -fPIC\n") if beagle?
