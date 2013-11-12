@@ -781,6 +781,7 @@ TTErr TTScript::DumpLine(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
 {
 	TTDictionaryPtr line = NULL;
+    TTAddress       address;
 	TTValue			v;
 	
 	// if the line is already parsed into a TTDictionnary
@@ -802,6 +803,20 @@ TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
 		// append the line
 		v = TTValue((TTPtr)line);
 		mLines->append(v);
+        
+        // append the line to the flatenned line if possible
+        if (mFlattened && (line->getSchema() == kTTSym_command || line->getSchema() == kTTSym_script)) {
+            
+            line->lookup(kTTSym_address, v);
+            address = v[0];
+            
+            if (address.getType() == kAddressAbsolute) {
+                line->append(kTTSym_target, address);
+                
+                v = TTValue((TTPtr)line);
+                mFlattenedLines->append(v);
+            }
+        }
 		
 		outputValue = v;
 		return kTTErrNone;
@@ -823,6 +838,21 @@ TTErr TTScript::AppendCommand(const TTValue& newCommand, TTValue& outputValue)
 		// append the line
 		v = TTValue((TTPtr)line);
 		mLines->append(v);
+        
+        // append the line to the flatenned line if possible
+        if (mFlattened) {
+            
+            line->lookup(kTTSym_address, v);
+            address = v[0];
+            
+            if (address.getType() == kAddressAbsolute) {
+                line->append(kTTSym_target, address);
+                
+                v = TTValue((TTPtr)line);
+                mFlattenedLines->append(v);
+            }
+        }
+        
 		outputValue = v;
 		
 		return kTTErrNone;
@@ -868,6 +898,7 @@ TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 		// append the line
 		v = TTValue((TTPtr)line);
 		mLines->append(v);
+        mFlattenedLines->append(v);
 		outputValue = v;
 		
 		return kTTErrNone;
