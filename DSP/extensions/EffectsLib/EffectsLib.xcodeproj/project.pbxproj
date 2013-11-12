@@ -213,7 +213,7 @@
 		A738FF50163739D100BD5C89 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = org.jamoma;
 			};
 			buildConfigurationList = A738FF53163739D100BD5C89 /* Build configuration list for PBXProject "EffectsLib" */;
