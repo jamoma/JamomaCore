@@ -1807,7 +1807,11 @@ else
             if linux?
               makefile.write("\tsudo cp #{build_temp}/$(NAME)#{extension_suffix} #{extension_dest}\n")
             elsif mac?
-              makefile.write("\t#{path_to_moduleroot}/../Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/../../Implementations/Max/Jamoma/support\n")
+                if projectname == "JamomaMax"
+                    makefile.write("\t#{path_to_moduleroot}/../../Core/Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/Jamoma/support\n")
+                else
+                    makefile.write("\t#{path_to_moduleroot}/../Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/../../Implementations/Max/Jamoma/support\n")
+                end
             else
               #TODO: windows support for this...  need to write a DOS script
             end
