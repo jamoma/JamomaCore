@@ -19,6 +19,7 @@
 #include "TTCount.h"
 #include "TTNoise.h"
 #include "TTPhasor.h"
+#include "TTPulseSub.h"
 #include "TTRamp.h"
 #include "TTWavetable.h"
 
@@ -34,6 +35,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_GeneratorLib(void)
 	TTCount::registerClass();
 	TTNoise::registerClass();
 	TTPhasor::registerClass();
+	TTPulseSub::registerClass();	
 	TTRamp::registerClass();
 	TTWavetable::registerClass();
 	
