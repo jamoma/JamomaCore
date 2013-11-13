@@ -84,36 +84,6 @@ Scheduler::~Scheduler()
     ;
 }
 
-TTErr Scheduler::getParameterNames(TTValue& value)
-{
-	TTValue		attributeNames;
-	TTSymbol	attributeName;
-	
-	// filter all default attributes (Name, Version, Author, Stretchable, Running, ...)
-	this->getAttributeNames(attributeNames);
-	
-	value.clear();
-	for (TTUInt8 i = 0; i < attributeNames.size(); i++) {
-		attributeName = attributeNames[0];
-		
-		if (attributeName == TTSymbol("name")           ||
-			attributeName == TTSymbol("version")        ||
-			attributeName == TTSymbol("author")         ||
-			attributeName == TTSymbol("stretchable")    ||
-            attributeName == TTSymbol("duration")       ||
-            attributeName == TTSymbol("offset")         ||
-            attributeName == TTSymbol("speed")          ||
-            attributeName == TTSymbol("running")        ||
-            attributeName == TTSymbol("progression")    ||
-            attributeName == TTSymbol("realTime"))
-			continue;
-		
-		value.append(attributeName);
-	}
-	
-	return kTTErrNone;
-}
-
 TTErr Scheduler::setDuration(const TTValue& value)
 {
     if (value.size() == 1) {

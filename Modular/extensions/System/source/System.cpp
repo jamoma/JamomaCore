@@ -56,7 +56,9 @@ System::~System()
 TTErr System::getParameterNames(TTValue& value)
 {
 	value.clear();
-	//value.append(TTSymbol("aParameter"));
+	value.append(TTSymbol("granularity"));
+    value.append(TTSymbol("offset"));
+    value.append(TTSymbol("speed"));
 	
 	return kTTErrNone;
 }

@@ -136,7 +136,7 @@ TTErr TTRamp::getSchedulerLibrary(TTValue& value)
 
 TTErr TTRamp::getSchedulerParameters(TTValue& value)
 {
-    mSchedulerUnit->getAttributeNames(value);
+    mSchedulerUnit->getAttributeValue(TTSymbol("parameterNames"), value);
 	return kTTErrNone;
 }
 
@@ -162,10 +162,18 @@ TTErr TTRamp::setSchedulerParameterValue(const TTValue& value)
     TTSymbol    parameterName;
     TTValue     newValue;
     
-    parameterName = value[0];
-    newValue.copyFrom(1, value);
+    if (value.size() > 1) {
+        
+        if (value[0].type() == kTypeSymbol) {
+            
+            parameterName = value[0];
+            newValue.copyFrom(value, 1);
     
-	return mSchedulerUnit->setAttributeValue(parameterName, newValue);
+            return mSchedulerUnit->setAttributeValue(parameterName, newValue);
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 #ifndef TT_NO_DSP
 TTErr TTRamp::setFunction(const TTValue& inputValue)
@@ -201,7 +209,22 @@ TTErr TTRamp::getFunctionLibrary(TTValue& value)
 
 TTErr TTRamp::getFunctionParameters(TTValue& value)
 {
-	mFunctionUnit->getAttributeNames(value);
+    TTValue     names;
+    TTSymbol    aName;
+    
+	mFunctionUnit->getAttributeNames(names);
+    
+    value.clear();
+    for (TTUInt32 i = 0; i < names.size(); i++) {
+        
+        aName = names[i];
+        
+        if (aName == kTTSym_bypass || aName == kTTSym_mute || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
+            continue;										// don't publish these parameters
+        
+        value.append(aName);
+    }
+    
 	return kTTErrNone;
 }
 
@@ -227,10 +250,18 @@ TTErr TTRamp::setFunctionParameterValue(const TTValue& value)
     TTSymbol    parameterName;
     TTValue     newValue;
     
-    parameterName = value[0];
-    newValue.copyFrom(1, value);
+    if (value.size() > 1) {
+        
+        if (value[0].type() == kTypeSymbol) {
+            
+            parameterName = value[0];
+            newValue.copyFrom(value, 1);
+            
+            return mFunctionUnit->setAttributeValue(parameterName, newValue);
+        }
+    }
     
-	return mFunctionUnit->setAttributeValue(parameterName, newValue);
+    return kTTErrGeneric;
 }
 #endif
 TTErr TTRamp::Set(const TTValue& inputValue, TTValue& outputValue)
