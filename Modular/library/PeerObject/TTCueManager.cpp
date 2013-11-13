@@ -1163,20 +1163,27 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	// Ends file reading : bind on first cue
 	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingEnds) {
 		
-        if (mNames.size()) {
+        // try to set the former current as current
+        mCurrent = mLastCurrent;
+        if (!mCues->lookup(mCurrent, v))
+            mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
+        
+        // else bind on the first cue
+        else if (mNames.size()) {
             
             mCurrent = mNames[0];
-            if (!mCues->lookup(mCurrent, v)) {
-                
+            if (!mCues->lookup(mCurrent, v))
                 mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
-                
-                // send the end file to the cue to process the namespace
-                v = TTValue(mCurrentCue);
-                aXmlHandler->setAttributeValue(kTTSym_object, v);
-                aXmlHandler->sendMessage(TTSymbol("Read"));
-            }
         }
-		
+        
+        if (mCurrentCue) {
+            
+            // send the end file to the cue to process the namespace
+            v = TTValue(mCurrentCue);
+            aXmlHandler->setAttributeValue(kTTSym_object, v);
+            aXmlHandler->sendMessage(TTSymbol("Read"));
+        }
+        
 		notifyNamesObservers();
 		
 		return kTTErrNone;
@@ -1263,8 +1270,11 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	
 	// if it is the first line :
-	if (aTextHandler->mFirstLine)
+	if (aTextHandler->mFirstLine) {
+        
+        mLastCurrent = mCurrent;
 		Clear();
+    }
 	
 	// parse the buffer line into TTDictionary
 	line = TTScriptParseLine(*(aTextHandler->mLine));
@@ -1320,7 +1330,13 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
         // if it is the last line : bind on the first cue
         if (aTextHandler->mLastLine) {
             
-            if (mNames.size()) {
+            // try to set the former current as current
+            mCurrent = mLastCurrent;
+            if (!mCues->lookup(mCurrent, v))
+                mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
+            
+            // else bind on the first cue
+            else if (mNames.size()) {
                 
                 mCurrent = mNames[0];
                 if (!mCues->lookup(mCurrent, v))

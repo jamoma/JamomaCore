@@ -49,6 +49,8 @@ private:
 	TTAddressItemPtr    mDefaultNamespace;				///< an internal default namespace
 	
 	TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
+    
+    TTSymbol			mLastCurrent;                   ///< ATTRIBUTE : remember the current cue when parsing a file
 	
 	/** */
 	TTErr	getCurrentDescription(TTValue& value);
