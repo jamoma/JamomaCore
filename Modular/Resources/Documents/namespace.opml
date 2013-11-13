@@ -59,7 +59,7 @@
       <outline text=":/priority" Type="Property" Implemented="Yes" Getimplemented="Yes"/>
     </outline>
     <outline text="Repetitions">
-      <outline text=":/repetitions/allow" Type="Property" Description="1/0" Implemented="Yes" Getimplemented="Yes"/>
+      <outline text=":/repetitions/filter" Type="Property" Description="0/1" Implemented="Yes" Getimplemented="Yes"/>
     </outline>
     <outline text="User Interface">
       <outline text=":/view/freeze" Type="Property" Implemented="Yes" Getimplemented="Yes"/>

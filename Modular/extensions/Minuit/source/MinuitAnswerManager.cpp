@@ -83,6 +83,10 @@ int MinuitAnswerManager::CheckDiscoverAnswer(TTSymbol from, TTAddress address, T
     
     if (!err) {
         anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        
+        // wait
+        anAnswer->wait();
+        
 		state = anAnswer->getState();
 		
 		// if an answer is received
@@ -222,6 +226,10 @@ int MinuitAnswerManager::CheckGetAnswer(TTSymbol from, TTAddress address, TTValu
     
     if (!err) {
         anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        
+        // wait
+        anAnswer->wait();
+        
 		state = anAnswer->getState();
 		
 		// if an answer is received

@@ -781,6 +781,7 @@ TTErr TTScript::DumpLine(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
 {
 	TTDictionaryPtr line = NULL;
+    TTAddress       address;
 	TTValue			v;
 	
 	// if the line is already parsed into a TTDictionnary
@@ -802,6 +803,20 @@ TTErr TTScript::Append(const TTValue& newLine, TTValue& outputValue)
 		// append the line
 		v = TTValue((TTPtr)line);
 		mLines->append(v);
+        
+        // append the line to the flatenned line if possible
+        if (mFlattened && (line->getSchema() == kTTSym_command || line->getSchema() == kTTSym_script)) {
+            
+            line->lookup(kTTSym_address, v);
+            address = v[0];
+            
+            if (address.getType() == kAddressAbsolute) {
+                line->append(kTTSym_target, address);
+                
+                v = TTValue((TTPtr)line);
+                mFlattenedLines->append(v);
+            }
+        }
 		
 		outputValue = v;
 		return kTTErrNone;
@@ -823,6 +838,21 @@ TTErr TTScript::AppendCommand(const TTValue& newCommand, TTValue& outputValue)
 		// append the line
 		v = TTValue((TTPtr)line);
 		mLines->append(v);
+        
+        // append the line to the flatenned line if possible
+        if (mFlattened) {
+            
+            line->lookup(kTTSym_address, v);
+            address = v[0];
+            
+            if (address.getType() == kAddressAbsolute) {
+                line->append(kTTSym_target, address);
+                
+                v = TTValue((TTPtr)line);
+                mFlattenedLines->append(v);
+            }
+        }
+        
 		outputValue = v;
 		
 		return kTTErrNone;
@@ -868,6 +898,7 @@ TTErr TTScript::AppendScript(const TTValue& newScript, TTValue& outputValue)
 		// append the line
 		v = TTValue((TTPtr)line);
 		mLines->append(v);
+        mFlattenedLines->append(v);
 		outputValue = v;
 		
 		return kTTErrNone;
@@ -1036,17 +1067,17 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 	// Switch on the name of the XML node
 	
 	// Starts file reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingStarts) {
 		Clear();
 		return kTTErrNone;
 	}
 	
 	// Ends file reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_stop)
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingEnds)
 		return kTTErrNone;
 	
 	// Comment node : edit comment line
-	if (aXmlHandler->mXmlNodeName == kTTSym_comment) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingComment) {
 		
 		// edit comment line
 		aLine = new TTDictionary();
@@ -1112,7 +1143,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
                     aLine->setValue(aXmlHandler->mXmlNodeValue);
                     
                     // get all other command line attribute (unit, ramp, ...)
-                    while (!aXmlHandler->getXmlNextAttribute(&attributeName, v)) {
+                    while (!aXmlHandler->getXmlNextAttribute(attributeName, v)) {
                         
                         // append attribute to the command line
                         aLine->append(attributeName, v);
@@ -1173,7 +1204,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTAddress           address;
 	TTSymbol			name;
 	TTString			aString;
-	TTBoolean			addQuote;
+    TTBoolean           addQuote;
 	TTUInt8				i;
 	TTValue				v;
 	
@@ -1201,8 +1232,11 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			name = v[0];
 			
 			// get flag arguments value if exists
-			addQuote = NO;
 			if (!aLine->getValue(v)) {
+                
+                // if the value is an unique symbol : add quote
+                addQuote = v.size() == 1 && v[0].type() == kTypeSymbol;
+                    
 				v.toString();
 				aString = TTString(v[0]);
 			}
@@ -1212,7 +1246,9 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			*buffer += "- ";
 			*buffer += name.c_str();
 			*buffer += " ";
+            if (addQuote) *buffer += "\"";
 			*buffer += aString.data();
+            if (addQuote) *buffer += "\"";
 			*buffer += "\n";
 		}	
 		if (aLine->getSchema() == kTTSym_comment) {

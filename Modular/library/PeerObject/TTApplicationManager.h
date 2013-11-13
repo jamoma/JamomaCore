@@ -98,6 +98,11 @@ private:
 		inputValue : <TTSymbol whereToDiscover> 
         outputValue : <TTSymbol *returnedType, TTValuePtr returnedChildren,  TTValuePtr returnedAttributes> */
 	TTErr ApplicationDiscover(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Discover all the namespace of an application under an address
+     inputValue : <TTSymbol whereToDiscover>
+     outputValue : <TTNodePtr> */
+	TTErr ApplicationDiscoverAll(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get a value from an attribute of an object at an address in an application
 		inputValue : <TTSymbol whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */

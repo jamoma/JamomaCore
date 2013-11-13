@@ -121,7 +121,7 @@ extern	TTMODULAR_EXPORT	TTHashPtr				TTModularNamespaces;
 
 /** Init the Modular library, and the Foundation if needed
 	It creates the application manager with no application inside */
-void	TTMODULAR_EXPORT	TTModularInit();
+void	TTMODULAR_EXPORT	TTModularInit(const char* pathToTheJamomaFolder = NULL);
 
 /** Create the local application and use a configuration file */
 void	TTMODULAR_EXPORT	TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);

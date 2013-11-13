@@ -56,6 +56,9 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 	/** Fill the cue on a namespace using namespace pointer or name */
 	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
     
+    /** Update the cue from an address (default : kAdrsRoot to update all the cue) */
+    TTErr   Update(const TTValue& inputValue, TTValue& outputValue);
+    
     /** Fill the cue line by line */
 	TTErr	Append(const TTValue& inputValue, TTValue& outputValue);
 	
@@ -78,11 +81,14 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 	
 	/** a recursive method to store a namespace into a script object */
 	TTErr	processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNamespace, TTNodePtr nodeToProcess);
+    
+    /** a method to update each Data value */
+    TTErr   processUpdate(TTObjectBasePtr aScript);
 	
-	/** a recursive method to process a namespace selection from a script object (and optionnaly fill it) */
-	TTErr	processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill=NO);
+	/** a recursive method to process a namespace selection from a script object */
+	TTErr	processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace);
 	
-	/** a recursive method to change each ramping value into a script */
+	/** a method to change each ramping value into a script */
 	TTErr	processRamp(TTObjectBasePtr aScript, TTUInt32 ramp);
 	
 	/** a recursive method to read the ramp value from a script */
@@ -96,8 +102,6 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 };
 
 typedef TTCue* TTCuePtr;
-
-TTBoolean   TTMODULAR_EXPORT TTCueCompareNodePriority(TTValue& v1, TTValue& v2);
 
 TTErr       TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
 

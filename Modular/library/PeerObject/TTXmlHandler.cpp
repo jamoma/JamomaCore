@@ -255,7 +255,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								
 								// replace header node name by start
 								if (mXmlNodeName == mHeaderNodeName)
-                                    mXmlNodeName = kTTSym_start;
+                                    mXmlNodeName = kTTSym_xmlHandlerReadingStarts;
 								
 								// Get the node value
 								xValue = xmlTextReaderReadString((xmlTextReaderPtr)mReader);
@@ -278,7 +278,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								
 								// replace header node name by stop
 								if (mXmlNodeName == mHeaderNodeName)
-                                    mXmlNodeName = kTTSym_stop;
+                                    mXmlNodeName = kTTSym_xmlHandlerReadingEnds;
 								
 								// Set the node value
 								mXmlNodeValue = kTTValNONE;
@@ -288,7 +288,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 							case 8: // For comment node
 								
 								// Set the node name
-								mXmlNodeName = kTTSym_comment;
+								mXmlNodeName = kTTSym_xmlHandlerReadingComment;
 								
 								// Get the node value
 								xValue = xmlTextReaderValue((xmlTextReaderPtr)mReader);
@@ -388,7 +388,7 @@ TTErr TTXmlHandler::fromXmlChar(const void* axCh, TTValue& v, TTBoolean addQuote
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlAttribute(TTSymbol& attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)mReader, BAD_CAST attributeName.c_str()) == 1) {
 		
@@ -398,7 +398,7 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedVal
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol& returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
 	

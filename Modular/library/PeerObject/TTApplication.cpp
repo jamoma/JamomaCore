@@ -28,7 +28,7 @@ TT_MODULAR_CONSTRUCTOR,
 mDebug(NO),
 mDirectory(NULL),
 mName(kTTSymEmpty),
-mType(TTSymbol("local")),
+mType(kTTSym_local),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mActivity(NO),
@@ -62,6 +62,7 @@ mTempAddress(kTTAdrsRoot)
 	addAttributeProperty(Directory, hidden, YES);
 	addAttributeProperty(Directory, readOnly, YES);
     
+    addMessage(DirectoryClear);
     addMessage(DirectoryBuild);
     addMessageWithArguments(DirectoryObserve);
 	
@@ -195,6 +196,18 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTApplication::DirectoryClear()
+{
+    // only for distant application
+    if (mName == getLocalApplicationName)
+        return kTTErrGeneric;
+    
+    mDirectory->init();
+	mDirectory->getRoot()->setObject(TTObjectBasePtr(this));
+    
+    return kTTErrNone;
+}
+
 TTErr TTApplication::DirectoryBuild()
 {
     TTSymbol		protocolName;
@@ -236,10 +249,10 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
         
         if (anAddress != kTTAdrsRoot) {
             
-            if (mType == TTSymbol("mirror"))
+            if (mType == kTTSym_mirror)
                 anObject = appendMirrorObject(aProtocol, anAddress, returnedType);
             
-            else if (mType == TTSymbol("proxy")) {
+            else if (mType == kTTSym_proxy) {
                 
                 // DATA case
                 if (returnedType == kTTSym_Data) {
@@ -679,6 +692,8 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
 	TTString     aString;
     
     // Write node's object attributes
+    
+    objectName = kTTSym_none;
     anObject = aNode->getObject();
     if (anObject) {
         
@@ -687,62 +702,83 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         if (objectName == kTTSym_Mirror)
             objectName = TTMirrorPtr(anObject)->getName();
         
-        // Filter object type
-        if (objectName == kTTSym_Application ||
-            objectName == kTTSym_Container ||
-            objectName == kTTSym_Data ||
-            objectName == kTTSym_Viewer) {
+    }
+    
+    // Application node case
+    if (objectName == kTTSym_Application) {
+        
+        // Start "application" xml node
+        xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "application");
+        
+        // Write attributes
+        anObject->getAttributeNames(attributeNameList);
+        
+        for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
+        {
+            attributeName = attributeNameList[i];
             
-            // Application node case
-            if (objectName == kTTSym_Application) {
+            // Filter attribute names
+            if (attributeName != kTTSym_debug &&
+                attributeName != kTTSym_bypass &&
+                attributeName != kTTSym_activity &&
+                attributeName != kTTSym_activityIn &&
+                attributeName != kTTSym_activityOut) {
                 
-                // Start "application" xml node
-                xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "application");
+                anObject->getAttributeValue(attributeName, v);
                 
-                // Write attributes
-                anObject->getAttributeNames(attributeNameList);
+                v.toString();
+                aString = TTString(v[0]);
                 
-                for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
-                {
-                    attributeName = attributeNameList[i];
-                    
-                    // Filter attribute names
-                    if (attributeName != kTTSym_debug &&
-                        attributeName != kTTSym_bypass &&
-                        attributeName != kTTSym_activity &&
-                        attributeName != kTTSym_activityIn &&
-                        attributeName != kTTSym_activityOut) {
-                        
-                        anObject->getAttributeValue(attributeName, v);
-                        
-                        v.toString();
-                        aString = TTString(v[0]);
-                        
-                        xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
-                    }
-                }
+                xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
             }
+        }
+    }
+    
+    // Other object type node
+    else {
+        
+        // Write description attribute as an xml comment for local or proxy application
+        if (mType != kTTSym_mirror) {
+        
+            if (anObject) {
             
-            // Other node case
-            else {
-                
-                // Write description attribute as an xml comment
                 anObject->getAttributeValue(kTTSym_description, v);
                 v.toString();
                 aString = TTString(v[0]);
                 xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
+            }
+        }
+        
+        // Start object type xml node
+        nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
+        
+        // Check bad characters for XML element (like ~, (, ) or numbers)
+        if (strchr(nameInstance.c_str(), '~') != 0 ||
+            strchr(nameInstance.c_str(), '(') != 0 ||
+            strchr(nameInstance.c_str(), ')') != 0 ) {
+            
+            // don't use the name for the XML element
+            xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "node");
+            
+            // store the address as an attribute
+            xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST nameInstance.c_str());
+            
+        }
+        // Write the name instance as XML element name
+        else
+            xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST nameInstance.c_str());
+        
+        // Write object name attribute
+        if (objectName != kTTSymEmpty)
+            xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName.c_str());
+        else
+            xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
+        
+        // Write attributes for local or proxy application
+        if (mType != kTTSym_mirror) {
+            
+            if (anObject) {
                 
-                // Start object type xml node
-                nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
-                xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST nameInstance.c_str());
-                
-                // Write object name attribute
-                if (objectName != kTTSymEmpty)
-                    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST objectName.c_str());
-                else
-                    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
-                
-                // Write attributes
                 anObject->getAttributeNames(attributeNameList);
                 
                 for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
@@ -777,23 +813,21 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                 }
                 
                 // TODO : Write messages ?
-                
             }
-            
-            // Write nodes below
-            aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
-            
-            for (nodeList.begin(); nodeList.end(); nodeList.next())
-            {
-                aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
-                writeNodeAsXml(aXmlHandler, aChild);
-            }
-            
-            // End xml node
-            xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
-            
         }
     }
+    
+    // Write nodes below
+    aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+    
+    for (nodeList.begin(); nodeList.end(); nodeList.next())
+    {
+        aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        writeNodeAsXml(aXmlHandler, aChild);
+    }
+    
+    // End xml node
+    xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 }
 
 TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
@@ -809,15 +843,15 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	// Switch on the name of the XML node
 	
 	// Starts reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_start)
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingStarts)
         return kTTErrNone;
 	
 	// Ends reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_stop)
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingEnds)
 		return kTTErrNone;
 	
 	// Comment Node
-	if (aXmlHandler->mXmlNodeName == kTTSym_comment)
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingComment)
 		return kTTErrNone;
     
     // Conversion Table node
@@ -942,14 +976,14 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                         if (aProtocol) {
                             
                             // for mirror application
-                            if (mType == TTSymbol("mirror")) {
+                            if (mType == kTTSym_mirror) {
                                 
                                 // instantiate a mirror object
                                 anObject = appendMirrorObject(aProtocol, mTempAddress, objectName);
                                 
                             }
                             // for proxy appplication
-                            else if (mType == TTSymbol("proxy")) {
+                            else if (mType == kTTSym_proxy) {
                                 
                                 // instantiate the real object
                                 
@@ -1037,10 +1071,10 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                     }
                                 }
                                 
-                                // DATA case : reset
+                                // DATA case : initialize
                                 // TODO : a real Init method for TTApplication
                                 if (objectName == kTTSym_Data)
-                                    anObject->sendMessage(kTTSym_Reset);
+                                    anObject->sendMessage(kTTSym_Init);
             
                             }
                         }
