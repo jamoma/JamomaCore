@@ -1778,16 +1778,16 @@ else
         
             makefile.write("build_and_test: | lipo \n")
             makefile.write("\techo Testing 32-bit \n")
-            makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
+            makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
             makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
             makefile.write("\techo Testing 64-bit \n")
-            makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
+            makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
             makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
             makefile.write("\n")
 
             makefile.write("notest: | lipo \n")
-          	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a   -o build/test32 ; fi \n")
-          	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a   -o build/test64 ; fi \n")
+          	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
+          	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
             makefile.write("\techo Skipping Tests \n")
             makefile.write("\n")
             
