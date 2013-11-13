@@ -30,19 +30,22 @@ class TTMODULAR_EXPORT TTSender : public TTDataObjectBase
 
 public:	// use public for quick acces during signal processing
 	
-	TTObjectBasePtr					mSignal;					///< any data structure to send complex signal
+	TTObjectBasePtr				mSignal;					///< any data structure to send complex signal
 	
 private:
 	
-	TTAddress			mAddress;					///< ATTRIBUTE: the address to bind
+	TTAddress                   mAddress;					///< ATTRIBUTE: the address to bind
 	TTNodeDirectoryPtr			mDirectory;					///< a sender depends on a directory
 	TTBoolean					mIsSending;					///< a flag to lock the object in case of infinite loop
-	TTListPtr					mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
+	TTList                      mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
 	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
 	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
+    
+    /**	Getter for mObjectCache attribute. */
+	TTErr getObjectCache(TTValue& value);
 	
 	/** */
 	TTErr Send(TTValue& valueToSend, TTValue& outputValue);				// to -- lower case in order to hide the message during the Class wrapping process

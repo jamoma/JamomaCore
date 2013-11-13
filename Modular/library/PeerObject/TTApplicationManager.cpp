@@ -46,6 +46,9 @@ mCurrentProtocol(NULL)
 	
 	addMessageWithArguments(ApplicationDiscover);
 	addMessageProperty(ApplicationDiscover, hidden, YES);
+    
+    addMessageWithArguments(ApplicationDiscoverAll);
+	addMessageProperty(ApplicationDiscoverAll, hidden, YES);
 	
 	addMessageWithArguments(ApplicationGet);
 	addMessageProperty(ApplicationGet, hidden, YES);
@@ -323,7 +326,7 @@ TTErr TTApplicationManager::ProtocolStop(const TTValue& inputValue, TTValue& out
 		
 		if (!mProtocols->lookup(protocolName, v)) {
 			aProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
-			stop = aProtocol->sendMessage(TTSymbol("Stop"));
+			stop = aProtocol->sendMessage(kTTSym_Stop);
 		}
 	}
 	else {
@@ -436,6 +439,31 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTApplicationManager::ApplicationDiscoverAll(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTNodeDirectoryPtr	directory;
+	TTAddress           whereToDiscover;
+	
+	whereToDiscover = inputValue[0];
+
+	TTLogDebug("TTApplicationManager::DiscoverAll");
+	
+	TTNodePtr			aNode;
+	TTErr				err;
+	
+	directory = getDirectoryFrom(whereToDiscover);
+	if (!directory)
+		return kTTErrGeneric;
+	
+	err = directory->getTTNode(whereToDiscover, &aNode);
+	
+    // if the address to discover exist : fill the answer
+	if (!err)
+        outputValue = TTPtr(aNode);
+    
+    return err;
 }
 
 TTErr TTApplicationManager::ApplicationGet(const TTValue& inputValue, TTValue& outputValue)
@@ -713,7 +741,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	TTSymbol			applicationName, currentApplicationName, version, type;
     TTSymbol			protocolName, currentProtocolName, parameterName;
     TTHashPtr           hashParameters;
-	TTValue				v, args, applicationNames, protocolNames, parameterValue;
+	TTValue				v, args, applicationNames, protocolNames, parameterValue, out;
     TTUInt16            i, j;
     TTErr               err;
 	
@@ -724,13 +752,10 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	// switch on the name of the XML node
 	
 	// starts reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
-		TTValue dummy;
-	
-		mCurrentApplication = NULL;
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingStarts) {
 		
 		// stop protocol reception threads
-		ProtocolStop(v, dummy);
+		ProtocolStop(v, out);
         
         // unregister all applications from all protocols
         mProtocols->getKeys(protocolNames);
@@ -767,11 +792,10 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	}
 	
 	// ends reading
-	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
-		TTValue dummy;
-	
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingEnds) {
+		
 		// start protocol reception threads
-		ProtocolRun(v, dummy);
+		ProtocolRun(v, out);
 		
 		return kTTErrNone;
 	}

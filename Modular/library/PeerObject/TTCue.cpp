@@ -34,6 +34,7 @@ mScript(NULL)
 	
 	addMessage(Clear);
 	addMessageWithArguments(Store);
+    addMessageWithArguments(Update);
     addMessageWithArguments(Append);
 	addMessageWithArguments(Recall);
 	addMessageWithArguments(Output);
@@ -70,7 +71,7 @@ TTErr TTCue::getName(TTValue& value)
 	TTSymbol		name;
 	TTValue			v;
 	
-	mScript->getAttributeValue(TTSymbol("lines"), v);
+	mScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -102,7 +103,7 @@ TTErr TTCue::setName(const TTValue& value)
 	TTSymbol			name;
 	TTValue				v;
 	
-	mScript->getAttributeValue(TTSymbol("lines"), v);
+	mScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -134,7 +135,7 @@ TTErr TTCue::getDescription(TTValue& value)
 	TTSymbol		name;
 	TTValue			v;
 	
-	mScript->getAttributeValue(TTSymbol("lines"), v);
+	mScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -167,7 +168,7 @@ TTErr TTCue::setDescription(const TTValue& value)
 	TTSymbol		name;
 	TTValue			v;
 	
-	mScript->getAttributeValue(TTSymbol("lines"), v);
+	mScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -207,7 +208,7 @@ TTErr TTCue::searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp)
 	TTDictionaryPtr	aLine;
 	TTValue			v, r;
 	
-	aScript->getAttributeValue(TTSymbol("lines"), v);
+	aScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -358,7 +359,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNamespace, TTNodePtr nodeToProcess)
 {
-	TTAddressItemPtr nameItem, instanceItem, anItem;
+	TTAddressItemPtr nameItem, instanceItem;
 	TTString		nameInstance;
 	TTNodePtr		scriptNode, aNode;
 	TTDictionaryPtr	aLine;
@@ -377,30 +378,6 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
     // get the scriptNode address
     scriptNode->getAddress(scriptAddress);
     
-    // if the namespace is empty : fill it with all children below the scriptNode
-    if (aNamespace->isEmpty()) {
-        
-        // get all children of the node
-        scriptNode->getChildren(S_WILDCARD, S_WILDCARD, childrenNodes);
-        
-        // sort the NodeList using object priority order
-        childrenNodes.sort(&TTCueCompareNodePriority);
-        
-        // append each name.instance to the sub namespace
-        for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
-            
-            aNode = TTNodePtr((TTPtr)childrenNodes.current()[0]);
-            
-            // get name.instance
-            aNode->getAddress(childAddress, scriptAddress);
-            
-            // append to the namespace
-            aNamespace->append(childAddress, &anItem);
-            
-            anItem->setSelection(YES);
-        }
-    }
-
 	// each script line is a name.instance (which means 2 levels of the namespace)
     // but the first level name can be directory:/name sometimes to include other directory
 	
@@ -544,6 +521,82 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
 		return kTTErrNone;
 }
 
+TTErr TTCue::Update(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTValue     v;
+    TTBoolean   flattened;
+    
+    // TODO : update from an address
+    
+    // is the cue already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (!flattened)
+    mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+	
+	return processUpdate(mScript);
+}
+
+TTErr TTCue::processUpdate(TTObjectBasePtr aScript)
+{
+	TTListPtr		lines;
+	TTDictionaryPtr	aLine;
+    TTAddress       anAddress;
+    TTNodePtr       aNode;
+	TTObjectBasePtr	anObject;
+    TTSymbol        service;
+	TTValue			v;
+    TTErr           err;
+	
+	aScript->getAttributeValue(TTSymbol("flattenedLines"), v);
+	lines = TTListPtr((TTPtr)v[0]);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+        
+        // if it is a Data object
+        if (!aLine->lookup(kTTSym_target, v)) {
+            
+            anAddress = v[0];
+            err = getDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
+            
+            if (!err) {
+                
+                anObject = aNode->getObject();
+                
+                if (anObject) {
+                    
+                    if (anObject->getName() == kTTSym_Data) {
+                        
+                        // get his service attribute value
+                        anObject->getAttributeValue(kTTSym_service, v);
+                        service = v[0];
+                        
+                        // update only parameters
+                        if (service == kTTSym_parameter) {
+                            
+                            // get his current value
+                            err = anObject->getAttributeValue(kTTSym_value, v);
+                            
+                            if (!err) {
+                                
+                                // replace the former value
+                                aLine->remove(kTTSym_value);
+                                aLine->append(kTTSym_value, v);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+	}
+	
+	return kTTErrNone;
+}
+
 TTErr TTCue::Append(const TTValue& inputValue, TTValue& outputValue)
 {
     return mScript->sendMessage(TTSymbol("Append"), inputValue, outputValue);
@@ -627,14 +680,14 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 		// unselect all the namespace
 		aNamespace->setSelection(NO, YES);
 		
-		// edit selection (and fill it if the namespace is empty)
-		return processSelect(mScript, aNamespace, aNamespace->isEmpty());
+		// edit selection
+		return processSelect(mScript, aNamespace);
 	}
     
     return kTTErrNone;
 }
 
-TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace, TTBoolean fill)
+TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace)
 {
 	TTListPtr			lines;
 	TTAddressItemPtr    anItem;
@@ -644,7 +697,7 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace,
 	TTValue				v;
 	TTErr				err;
 	
-	aScript->getAttributeValue(TTSymbol("lines"), v);
+	aScript->getAttributeValue(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// select all items which are in the script
@@ -661,9 +714,6 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace,
 			// find item into the namespace
 			err = aNamespace->find(address, &anItem);
 			
-			if (err && fill)
-				err = aNamespace->append(address, &anItem);
-			
 			if (!err) {
 				
 				// select it
@@ -677,7 +727,7 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace,
 					aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
 					
 					if (aSubScript)
-						processSelect(aSubScript, anItem, fill);
+						processSelect(aSubScript, anItem);
 				}
 			}
 		}
@@ -778,40 +828,6 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark -
 #pragma mark Some Methods
 #endif
-
-TTBoolean TTCueCompareNodePriority(TTValue& v1, TTValue& v2) 
-{
-	TTNodePtr	n1, n2;
-	TTObjectBasePtr o1, o2;
-	TTValue		v;
-	TTInt32		p1 = 0;
-	TTInt32		p2 = 0;
-	
-	// get priority of v1
-	n1 = TTNodePtr((TTPtr)v1[0]);
-	if (n1) {
-		o1 = n1->getObject();
-		if (o1) 
-			if (!o1->getAttributeValue(kTTSym_priority, v))
-				p1 = v[0];
-	}
-	
-	// get priority of v2
-	n2 = TTNodePtr((TTPtr)v2[0]);
-	if (n2) {
-		o2 = n2->getObject();
-		if (o2) 
-			if (!o2->getAttributeValue(kTTSym_priority, v))
-				p2 = v[0];
-	}
-	
-	if (p1 == 0 && p2 == 0) return v1 < v2;
-	
-	if (p1 == 0) return NO;
-	if (p2 == 0) return YES;
-	
-	return p1 < p2;
-}
 
 TTErr TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position)
 {

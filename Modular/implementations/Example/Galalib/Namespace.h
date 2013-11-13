@@ -60,7 +60,7 @@
 //#define NSPAttr_STEP				//< valueStepsize	(a value that represents incrementation step)
 //#define NSPAttr_PRIORITY			//< priority		(an integer)
 //#define NSPAttr_DESCRIPTION		//< description		(a string)
-//#define NSPAttr_REPETITION		//< repetitionsAllow("true" or "false")
+//#define NSPAttr_REPETITION		//< repetitionsFilter("true" or "false")
 //#define NSPAttr_READONLY			//< readonly		("true" or "false")
 //#define NSPAttr_DYNAMIC			//< dynamicInstances("true" or "false")
 //#define NSPAttr_INSTANCEBOUNDS    //< instanceBounds	(list of two int values, instance bounds that can be dynamically created)

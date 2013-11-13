@@ -43,7 +43,8 @@ mReturnLineCallback(NULL)
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
-	addAttributeWithSetter(Names, kTypeLocalValue);
+	addAttribute(Names, kTypeLocalValue);
+    addAttributeProperty(Names, readOnly, YES);
 	
 	addAttribute(Current, kTypeSymbol);
 	addAttributeProperty(Current, readOnly, YES);
@@ -64,6 +65,7 @@ mReturnLineCallback(NULL)
 	addMessageWithArguments(Mix);
 	addMessageWithArguments(Move);
 	addMessageWithArguments(Remove);
+    addMessageWithArguments(Order);
 	addMessageWithArguments(Rename);
 	addMessageWithArguments(Copy);
 
@@ -123,31 +125,6 @@ TTErr TTPresetManager::setValue(const TTValue& value)
     TTValue outputValue;
     
     return Recall(value, outputValue);
-}
-
-TTErr TTPresetManager::setNames(const TTValue& value)
-{	
-	TTSymbol name;
-	TTValue		v, newNames;
-	
-	// check if each name is part of the list
-	for (TTUInt32 i = 0; i < value.size(); i++) {
-		
-		name = value[i];
-		
-		if (!mPresets->lookup(name, v))
-			newNames.append(name);
-	}
-	
-	// if the newNames size is not equal to the current name list 
-	if (newNames.size() != mNames.size())
-		return kTTErrGeneric;
-
-	mNames = newNames;
-    
-    notifyNamesObservers();
-    
-	return kTTErrNone;
 }
 
 TTErr TTPresetManager::Clear()
@@ -571,6 +548,36 @@ TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
+
+TTErr TTPresetManager::Order(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTSymbol    name;
+	TTValue     v, newNames;
+	
+	// check if each name is part of the list
+	for (TTUInt32 i = 0; i < inputValue.size(); i++) {
+		
+		name = inputValue[i];
+		
+		if (!mPresets->lookup(name, v))
+			newNames.append(name);
+        
+        // update current position
+        if (name == mCurrent)
+            mCurrentPosition = i;
+	}
+	
+	// if the newNames size is not equal to the current name list
+	if (newNames.size() != mNames.size())
+		return kTTErrGeneric;
+    
+	mNames = newNames;
+    
+    notifyNamesObservers();
+    
+	return kTTErrNone;
+}
+
 TTErr TTPresetManager::Rename(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbol name, newName;
@@ -768,13 +775,13 @@ TTErr TTPresetManager::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
 	// Switch on the name of the XML node
 	
 	// Starts file reading : clear the preset list
-	if (aXmlHandler->mXmlNodeName == kTTSym_start) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingStarts) {
 		Clear();
 		return kTTErrNone;
 	}
 	
 	// Ends file reading : bind on first preset
-	if (aXmlHandler->mXmlNodeName == kTTSym_stop) {
+	if (aXmlHandler->mXmlNodeName == kTTSym_xmlHandlerReadingEnds) {
 		
         if (mNames.size()) {
             

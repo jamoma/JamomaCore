@@ -266,7 +266,7 @@ TTErr TTContainer::Init()
 		// send it according their priority order
 		mObjectsObserversCache->getKeysSorted(hk, &TTContainerCompareObjectPriority);
 		
-		// Send Reset message to all Data service parameter
+		// Send an Init message to all Data service parameter
 		for (i = 0; i < mObjectsObserversCache->getSize(); i++) {
 			
 			key = hk[i];
@@ -278,7 +278,7 @@ TTErr TTContainer::Init()
 					anObject->getAttributeValue(kTTSym_service, v);
 					service = v[0];
 					if (service == kTTSym_parameter)
-						anObject->sendMessage(kTTSym_Reset);
+						anObject->sendMessage(kTTSym_Init);
 				}
 		}
 		
@@ -292,7 +292,7 @@ TTErr TTContainer::Init()
 			
 			if (anObject)
 				if (anObject->getName() == kTTSym_Container)
-					anObject->sendMessage(TTSymbol("Init"));
+					anObject->sendMessage(kTTSym_Init);
 		}
 	}
 	
@@ -982,7 +982,7 @@ void TTContainer::dataHeading(TTString *buffer)
 #endif
 	*buffer += "\t\t\t<td> /dataspace </td>"; 
 	*buffer += "\t\t\t<td> /dataspace/unit </td>"; 
-	*buffer += "\t\t\t<td> /repetitions/allow </td>";	
+	*buffer += "\t\t\t<td> /repetitions/filter </td>";	
 	*buffer += "\t\t\t<td> /description </td>";
 	*buffer += "\t\t<tr>";
 }
@@ -1161,7 +1161,7 @@ void TTContainer::cssDefinition(TTString *buffer)
 	background-color: #eee;\
 	vertical-align: top;\
 	}\
-	.instructionRepetitionsAllow {\
+	.instructionRepetitionsFilter {\
 	font-family: 'Times New Roman', Times, serif;\
 	background-color: #eed;\
 	vertical-align: top;\

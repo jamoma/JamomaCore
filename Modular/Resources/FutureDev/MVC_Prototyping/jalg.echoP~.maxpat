@@ -643,7 +643,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 265.0, 160.0, 340.0, 43.0 ],
-					"text" : "j.parameter~ feedback @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Delay feedback\"",
+					"text" : "j.parameter~ feedback @type decimal @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/filter 1 @description \"Delay feedback\"",
 					"varname" : "cf[1]"
 				}
 
@@ -659,7 +659,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 110.0, 105.0, 470.0, 43.0 ],
-					"text" : "j.parameter maxdelay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 100000 @range/clipmode both @description \"Maximum Delay time in milliseconds for left channel.\"",
+					"text" : "j.parameter maxdelay @type decimal @ramp/drive scheduler @repetitions/filter 1 @range/bounds 0 100000 @range/clipmode both @description \"Maximum Delay time in milliseconds for left channel.\"",
 					"varname" : "left[1]"
 				}
 
@@ -675,7 +675,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 680.0, 70.0, 436.0, 43.0 ],
-					"text" : "j.parameter filtertype @type string @repetitions/allow 0 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
+					"text" : "j.parameter filtertype @type string @repetitions/filter 1 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
 					"varname" : "filtertype"
 				}
 
@@ -691,7 +691,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 780.0, 225.0, 426.0, 43.0 ],
-					"text" : "j.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
+					"text" : "j.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/filter 1 @description \"Gain (dB)\"",
 					"varname" : "filtergain"
 				}
 
@@ -707,7 +707,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 760.0, 180.0, 436.0, 31.0 ],
-					"text" : "j.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
+					"text" : "j.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/filter 1 @description \"Resonance (Q)\"",
 					"varname" : "q"
 				}
 
@@ -723,7 +723,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 705.0, 125.0, 436.0, 43.0 ],
-					"text" : "j.parameter cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
+					"text" : "j.parameter cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/filter 1 @description \"Center frequency (Hz)\"",
 					"varname" : "cf"
 				}
 
@@ -739,7 +739,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 255.0, 280.0, 372.0, 43.0 ],
-					"text" : "j.parameter delay @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
+					"text" : "j.parameter delay @type decimal @ramp/drive scheduler @repetitions/filter 1 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
 					"varname" : "left"
 				}
 
