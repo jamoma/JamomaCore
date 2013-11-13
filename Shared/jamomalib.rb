@@ -1802,7 +1802,7 @@ else
           if project_type != "implementation"
             makefile.write("install: | build_and_test\n") # if wrote a build_and_test above, install depends on it
           else
-            makefile.write("install:\n")                  # if not (such as in Max externals), then it is not dependant
+            makefile.write("install: | lipo\n")           # if not (such as in Max externals), then it is dependant on lipo
           end
           
           if max && mac?
