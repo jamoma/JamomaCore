@@ -1799,7 +1799,12 @@ else
           # END test.cpp handling
           ##########
 
-          makefile.write("install: | build_and_test\n")
+          if project_type != "implementation"
+            makefile.write("install: | build_and_test\n") # if wrote a build_and_test above, install depends on it
+          else
+            makefile.write("install:\n")                  # if not (such as in Max externals), then it is not dependant
+          end
+          
           if max && mac?
             makefile.write("\tcp build/$(NAME) #{builddir}\n")
           end
