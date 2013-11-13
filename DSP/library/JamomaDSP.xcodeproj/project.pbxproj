@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		22784E9D17B407D50053393C /* TTDCBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22784E9C17B407D50053393C /* TTDCBlock.cpp */; };
 		22961B4816D9108F00C0C657 /* TTAudioObjectBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22961B4716D9108F00C0C657 /* TTAudioObjectBase.cpp */; };
+		22DACAD2183303C600956E9B /* TTMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DACACF183303C600956E9B /* TTMixer.cpp */; };
+		22DACAD3183303C600956E9B /* TTMultiMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DACAD0183303C600956E9B /* TTMultiMixer.cpp */; };
+		22DACAD4183303C600956E9B /* TTOperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DACAD1183303C600956E9B /* TTOperator.cpp */; };
 		2A23B0DF169D5445004793F5 /* TTAudioObjectArray.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A76CD1CB166479BD0002EC35 /* TTAudioObjectArray.test.cpp */; };
 		2A23B0E0169D5445004793F5 /* TTBuffer.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7E15EC21D100B755FA /* TTBuffer.test.cpp */; };
 		2A23B0E1169D5445004793F5 /* TTDelay.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C57C7F15EC21D100B755FA /* TTDelay.test.cpp */; };
@@ -60,6 +63,12 @@
 		22C57C7E15EC21D100B755FA /* TTBuffer.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTBuffer.test.cpp; path = tests/TTBuffer.test.cpp; sourceTree = "<group>"; };
 		22C57C7F15EC21D100B755FA /* TTDelay.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDelay.test.cpp; path = tests/TTDelay.test.cpp; sourceTree = "<group>"; };
 		22C57C8015EC21D100B755FA /* TTSampleMatrix.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSampleMatrix.test.cpp; path = tests/TTSampleMatrix.test.cpp; sourceTree = "<group>"; };
+		22DACACC183303B700956E9B /* TTMixer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTMixer.h; path = includes/TTMixer.h; sourceTree = "<group>"; };
+		22DACACD183303B700956E9B /* TTMultiMixer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTMultiMixer.h; path = includes/TTMultiMixer.h; sourceTree = "<group>"; };
+		22DACACE183303B700956E9B /* TTOperator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTOperator.h; path = includes/TTOperator.h; sourceTree = "<group>"; };
+		22DACACF183303C600956E9B /* TTMixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMixer.cpp; path = source/TTMixer.cpp; sourceTree = "<group>"; };
+		22DACAD0183303C600956E9B /* TTMultiMixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMultiMixer.cpp; path = source/TTMultiMixer.cpp; sourceTree = "<group>"; };
+		22DACAD1183303C600956E9B /* TTOperator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOperator.cpp; path = source/TTOperator.cpp; sourceTree = "<group>"; };
 		2A423938169CF22B002D05D9 /* libDSPiOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDSPiOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A42393B169CF22B002D05D9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E47111117FC6092001D947B /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
@@ -187,6 +196,9 @@
 				22C57C7115EC21B200B755FA /* TTDelayBuffer.h */,
 				22C57C7215EC21B200B755FA /* TTDSP.h */,
 				22C57C7315EC21B200B755FA /* TTSampleMatrix.h */,
+				22DACACC183303B700956E9B /* TTMixer.h */,
+				22DACACD183303B700956E9B /* TTMultiMixer.h */,
+				22DACACE183303B700956E9B /* TTOperator.h */,
 			);
 			name = includes;
 			sourceTree = "<group>";
@@ -200,6 +212,9 @@
 				22C57C7A15EC21C600B755FA /* TTBuffer.cpp */,
 				22C57C7C15EC21C600B755FA /* TTDSP.cpp */,
 				22C57C7D15EC21C600B755FA /* TTSampleMatrix.cpp */,
+				22DACACF183303C600956E9B /* TTMixer.cpp */,
+				22DACAD0183303C600956E9B /* TTMultiMixer.cpp */,
+				22DACAD1183303C600956E9B /* TTOperator.cpp */,
 			);
 			name = sources;
 			sourceTree = "<group>";
@@ -340,9 +355,12 @@
 				2A42394F169CF24F002D05D9 /* TTDSP.cpp in Sources */,
 				2A423950169CF24F002D05D9 /* TTSampleMatrix.cpp in Sources */,
 				2A23B0DF169D5445004793F5 /* TTAudioObjectArray.test.cpp in Sources */,
+				22DACAD2183303C600956E9B /* TTMixer.cpp in Sources */,
+				22DACAD3183303C600956E9B /* TTMultiMixer.cpp in Sources */,
 				2A23B0E0169D5445004793F5 /* TTBuffer.test.cpp in Sources */,
 				2A23B0E1169D5445004793F5 /* TTDelay.test.cpp in Sources */,
 				2A23B0E2169D5445004793F5 /* TTSampleMatrix.test.cpp in Sources */,
+				22DACAD4183303C600956E9B /* TTOperator.cpp in Sources */,
 				22961B4816D9108F00C0C657 /* TTAudioObjectBase.cpp in Sources */,
 				22784E9D17B407D50053393C /* TTDCBlock.cpp in Sources */,
 				8E47111217FC6092001D947B /* test.cpp in Sources */,

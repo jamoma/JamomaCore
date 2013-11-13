@@ -60,6 +60,9 @@ int main(void)
 #include "TTBuffer.h"
 #include "TTDCBlock.h"
 #include "TTDelay.h"
+#include "TTOperator.h"
+#include "TTMixer.h"
+#include "TTMultiMixer.h"
 
 
 void TTDSPRegisterInternalClasses()
@@ -70,6 +73,9 @@ void TTDSPRegisterInternalClasses()
 	TTBuffer::registerClass();
 	TTDCBlock::registerClass();
 	TTDelay::registerClass();
+	TTOperator::registerClass();
+	TTMixer::registerClass();
+	TTMultiMixer::registerClass();
 	TTSampleMatrix::registerClass();
 }
 

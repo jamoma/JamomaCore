@@ -8,6 +8,9 @@ sources:
   - source/TTSampleMatrix.cpp
   - source/TTDCBlock.cpp			
   - source/TTDelay.cpp
+  - source/TTMixer.cpp
+  - source/TTMultiMixer.cpp
+  - source/TTOperator.cpp
   - source/TTDSP.cpp
   - tests/TTAudioObjectArray.test.cpp
   - tests/TTBuffer.test.cpp
