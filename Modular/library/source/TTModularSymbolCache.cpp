@@ -156,6 +156,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_Subscribe                        (("Subsc
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_tag                              (("tag"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_target                           (("target"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Tick                             (("Tick"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_unit                             (("unit"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Update                           (("Update"));

@@ -82,6 +82,8 @@ private:
     
     TTErr   Slide(const TTValue& inputValue, TTValue& outputValue);
     
+    TTErr   Tick();
+    
     TTErr   Stop();
 
 public: ///< It is public in order to be able to extend scheduler or function unit parameters as attributes of another object

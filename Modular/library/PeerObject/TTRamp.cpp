@@ -71,6 +71,7 @@ currentValue(NULL)
     addMessageWithArguments(Target);
     addMessageWithArguments(Go);
     addMessageWithArguments(Slide);
+    addMessage(Tick);
 	addMessage(Stop);
     
 	setAttributeValue(kTTSym_function, TTSymbol("linear"));
@@ -78,9 +79,11 @@ currentValue(NULL)
 
 TTRamp::~TTRamp()
 {
-    if (mSchedulerUnit)
+    if (mSchedulerUnit) {
+        mSchedulerUnit->sendMessage(kTTSym_Stop);
         TTObjectBaseRelease(&mSchedulerUnit);
-#ifndef TT_NO_DSP    
+    }
+#ifndef TT_NO_DSP
     if (mFunctionUnit)
         TTObjectBaseRelease(&mFunctionUnit);
 #endif
@@ -332,6 +335,14 @@ TTErr TTRamp::Slide(const TTValue& inputValue, TTValue& outputValue)
         }
     }
 
+    return kTTErrGeneric;
+}
+
+TTErr TTRamp::Tick()
+{
+    if (mSchedulerUnit)
+        return mSchedulerUnit->sendMessage(kTTSym_Tick);
+    
     return kTTErrGeneric;
 }
 
