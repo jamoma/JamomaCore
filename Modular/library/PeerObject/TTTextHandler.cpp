@@ -48,7 +48,7 @@ TTTextHandler::~TTTextHandler()
 
 TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 {
-    TTValue				v;
+    TTValue				v, none;
 	TTObjectBasePtr		aTTObject;
 	
 	// an object have to be selected
@@ -80,7 +80,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			// Call the WriteAsText method of the handled object
 			v = TTValue(TTObjectBasePtr(this));
-			aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
+			aTTObject->sendMessage(TTSymbol("WriteAsText"), v, none);
 			
 			// Write the writer string into the file
             file << this->mWriter->data();
@@ -99,7 +99,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			
 			// Call the WriteAsText method of the handled object
 			v = TTValue(TTObjectBasePtr(this));
-			aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
+			aTTObject->sendMessage(TTSymbol("WriteAsText"), v, none);
 			
 		}
 		else
@@ -115,7 +115,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append(TTObjectBasePtr(this));
-	return aTTObject->sendMessage(TTSymbol("WriteAsText"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("WriteAsText"), v, none);
 }
 
 TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
@@ -124,7 +124,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	size_t		found, last, size;
 	TTUInt8		i;
 	TTString	line;
-	TTValue		v;
+	TTValue		v, none;
 	
 	// an object have to be selected
 	if (mObject == NULL)
@@ -164,7 +164,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 				
 				if (file.eof()) mLastLine = YES;
 				
-				aTTObject->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
+				aTTObject->sendMessage(TTSymbol("ReadFromText"), v, none);
 				
 				if (mFirstLine) mFirstLine = NO;
 			}
@@ -221,7 +221,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 					// send the line
 					if (mLine) {
 						
-						aTTObject->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
+						aTTObject->sendMessage(TTSymbol("ReadFromText"), v, none);
 						
 						// set first line flag off
 						mFirstLine = NO;
@@ -242,5 +242,5 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append(TTObjectBasePtr(this));
-	return aTTObject->sendMessage(TTSymbol("ReadFromText"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("ReadFromText"), v, none);
 }

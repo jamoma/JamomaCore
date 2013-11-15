@@ -168,7 +168,7 @@ TTErr TTScript::Flatten(const TTValue& inputValue, TTValue& outputValue)
     TTDictionaryPtr	aLine;
 	TTSymbol		schema;
 	TTAddress       address, parentAddress = kTTAdrsRoot;
-	TTValue			v;
+	TTValue			v, none;
 	
 	// It is possible to flatten the script from a parent address
     if (inputValue.size() >= 1)
@@ -234,7 +234,7 @@ TTErr TTScript::Flatten(const TTValue& inputValue, TTValue& outputValue)
             v.append(mSubScript);
             
             // flatten the sub script into this script
-            this->sendMessage(kTTSym_Flatten, v, kTTValNONE);
+            this->sendMessage(kTTSym_Flatten, v, none);
         }
 	}
 	
@@ -266,7 +266,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 	TTNodePtr		aNode;
 	TTAddress       address, parentAddress = kTTAdrsRoot;
 	TTObjectBasePtr	anObject, aContainer, aParentContainer = NULL;
-	TTValue			v, c;
+	TTValue			v, c, none;
 	TTErr			err;
 	
 	// get the parent address
@@ -315,7 +315,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                     c = TTValue((TTPtr)aLine);
                     v.append((TTPtr)&c);
                     
-                    aParentContainer->sendMessage(kTTSym_Send, v, kTTValNONE);
+                    aParentContainer->sendMessage(kTTSym_Send, v, none);
                 }
 			}
 			// or retreive the node
@@ -349,7 +349,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                             if (attribute == kTTSym_value) {
                                 
                                 v = TTValue((TTPtr)aLine);
-                                anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                                anObject->sendMessage(kTTSym_Command, v, none);
                                 continue;
                             }
                         }
@@ -406,7 +406,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
             if (aContainer)
                 v.append(TTObjectBasePtr(aContainer));
                 
-            mSubScript->sendMessage(kTTSym_Run, v, kTTValNONE);
+            mSubScript->sendMessage(kTTSym_Run, v, none);
         }
 	}
 
@@ -420,7 +420,7 @@ TTErr TTScript::RunFlattened()
 	TTAddress       address;
     TTSymbol        attribute;
 	TTObjectBasePtr	anObject;
-	TTValue			v;
+	TTValue			v, none;
 	TTErr			err;
     
     // run each line of the script
@@ -466,7 +466,7 @@ TTErr TTScript::RunFlattened()
                     if (attribute == kTTSym_value) {
                         
                         v = TTValue((TTPtr)aLine);
-                        anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                        anObject->sendMessage(kTTSym_Command, v, none);
                         continue;
                     }
                 }
@@ -488,7 +488,7 @@ TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
 	TTAddress       address, addressToRun;
     TTSymbol        attribute;
 	TTObjectBasePtr	anObject;
-	TTValue			v;
+	TTValue			v, none;
     TTErr           err;
     TTInt8         depthDifference;
     TTAddressComparisonFlag	comp;
@@ -544,7 +544,7 @@ TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
                             if (attribute == kTTSym_value) {
                                 
                                 v = TTValue((TTPtr)aLine);
-                                anObject->sendMessage(kTTSym_Command, v, kTTValNONE);
+                                anObject->sendMessage(kTTSym_Command, v, none);
                                 continue;
                             }
                         }
@@ -572,7 +572,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 	TTDictionaryPtr	aLine;
 	TTSymbol		schema, name, unit;
 	TTAddress		address, parentAddress = kTTAdrsRoot;
-	TTValue			v, valueToDump;
+	TTValue			v, valueToDump, none;
 	TTUInt32		ramp;
 	
 	if (!mReturnLineCallback)
@@ -667,7 +667,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 				address = parentAddress.appendAddress(address);
 			
 			// dump the subscript
-			mSubScript->sendMessage(kTTSym_Dump, address, kTTValNONE);
+			mSubScript->sendMessage(kTTSym_Dump, address, none);
 		}
 	}
 	
@@ -1508,7 +1508,7 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
 	TTDictionaryPtr line = NULL;
 	TTSymbol		firstSymbol;
 	TTObjectBasePtr	script = NULL;
-	TTValue			v;
+	TTValue			v, none;
 	
 	// parse script address
     if (newScript.size() >= 1 ) {
@@ -1524,7 +1524,7 @@ TTDictionaryPtr TTScriptParseScript(const TTValue& newScript)
                 line->setSchema(kTTSym_script);
                 line->append(kTTSym_address, firstSymbol);
                 
-                TTObjectBaseInstantiate(kTTSym_Script, &script, kTTValNONE);
+                TTObjectBaseInstantiate(kTTSym_Script, &script, none);
                 
                 v = TTValue(script);
                 line->setValue(v);
@@ -1543,7 +1543,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 	TTSymbol		attribute, type, function;
     TTNodePtr       aNode;
     TTObjectBasePtr aData;
-	TTValue			found;
+	TTValue			found, none;
 	TTUInt32		i, s;
     
 	for (script1->mFlattenedLines->begin(), script2->mFlattenedLines->begin();
@@ -1602,13 +1602,13 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
                         if (function != kTTSym_none) {
                     
                             // set the starting value
-                            aData->sendMessage(kTTSym_RampSet, v1, kTTValNONE);
+                            aData->sendMessage(kTTSym_RampSet, v1, none);
                             
                             // set the target value
-                            aData->sendMessage(kTTSym_RampTarget, v2, kTTValNONE);
+                            aData->sendMessage(kTTSym_RampTarget, v2, none);
                             
                             // set interpolate using the ramp function
-                            aData->sendMessage(kTTSym_RampSlide, position, kTTValNONE);
+                            aData->sendMessage(kTTSym_RampSlide, position, none);
                         }
                         
                         // process the interpolation our self

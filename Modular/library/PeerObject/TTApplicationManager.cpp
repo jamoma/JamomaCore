@@ -91,7 +91,7 @@ mCurrentProtocol(NULL)
 		ProtocolPtr	aProtocolObject = NULL;
 		TTObjectBasePtr	activityInCallback, activityOutCallback;
 		TTValuePtr	activityInBaton, activityOutBaton;
-		TTValue		args;
+		TTValue		args, none;
 		TTErr		err;
 		
 		// for each protocol name
@@ -101,13 +101,13 @@ mCurrentProtocol(NULL)
 			
 			// create 2 callbacks to get raw protocol messages back
 			activityInCallback = NULL;
-			TTObjectBaseInstantiate(TTSymbol("callback"), &activityInCallback, kTTValNONE);
+			TTObjectBaseInstantiate(TTSymbol("callback"), &activityInCallback, none);
 			activityInBaton = new TTValue(protocolName);
 			activityInCallback->setAttributeValue(kTTSym_baton, TTPtr(activityInBaton));
 			activityInCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityInCallback));
 			
 			activityOutCallback = NULL;
-			TTObjectBaseInstantiate(TTSymbol("callback"), &activityOutCallback, kTTValNONE);
+			TTObjectBaseInstantiate(TTSymbol("callback"), &activityOutCallback, none);
 			activityOutBaton = new TTValue(protocolName);
 			activityOutCallback->setAttributeValue(kTTSym_baton, TTPtr(activityOutBaton));
 			activityOutCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityOutCallback));
@@ -511,6 +511,7 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 	TTNodePtr			nodeToSet;
 	TTSymbol			objectType;
 	TTObjectBasePtr		anObject;
+    TTValue             none;
 	TTErr				err;
 	
 	directory = getDirectoryFrom(whereToSet);
@@ -534,7 +535,7 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 			if (objectType == kTTSym_Data) {
 				
 				if (whereToSet.getAttribute() == kTTSym_value)
-					anObject->sendMessage(kTTSym_Command, *newValue, kTTValNONE);
+					anObject->sendMessage(kTTSym_Command, *newValue, none);
 				else
 					return anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
 			}
@@ -561,7 +562,7 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
 	
 	TTApplicationPtr	appWhereToListen;
 	ProtocolPtr			aProtocol;
-	TTValue				v, args;
+	TTValue				v, args, none;
 	TTErr				err;
 	
 	appWhereToListen = getApplicationFrom(whereToListen);
@@ -580,11 +581,11 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
 			
 			// start directory listening
 			if (whereToListen.getAttribute() == TTSymbol("life")) // TODO : find a better name
-				return appWhereToListen->sendMessage(TTSymbol("AddDirectoryListener"), args, kTTValNONE);
+				return appWhereToListen->sendMessage(TTSymbol("AddDirectoryListener"), args, none);
 	
 			// start attribute listening
 			else 
-				return appWhereToListen->sendMessage(TTSymbol("AddAttributeListener"), args, kTTValNONE);
+				return appWhereToListen->sendMessage(TTSymbol("AddAttributeListener"), args, none);
 		}
 		// remove listener
 		else {
@@ -594,11 +595,11 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
 			
 			// stop directory listening
 			if (whereToListen.getAttribute() == TTSymbol("life")) // TODO : find a better name
-				return appWhereToListen->sendMessage(TTSymbol("RemoveDirectoryListener"), args, kTTValNONE);
+				return appWhereToListen->sendMessage(TTSymbol("RemoveDirectoryListener"), args, none);
 
 			// stop attribute listening
 			else
-				return appWhereToListen->sendMessage(TTSymbol("RemoveAttributeListener"), args, kTTValNONE);
+				return appWhereToListen->sendMessage(TTSymbol("RemoveAttributeListener"), args, none);
 		}
 	}
 
@@ -610,7 +611,7 @@ TTErr TTApplicationManager::ApplicationListenAnswer(const TTValue& inputValue, T
 	TTSymbol	appAnswering;
 	TTAddress	whereComesFrom;
 	TTValuePtr	newValue;
-	TTValue		args;
+	TTValue		args, none;
 	
 	appAnswering = inputValue[0];
 	whereComesFrom = inputValue[1];
@@ -623,11 +624,11 @@ TTErr TTApplicationManager::ApplicationListenAnswer(const TTValue& inputValue, T
 	
 	// notify directory updates
 	if (whereComesFrom.getAttribute() == TTSymbol("life")) // TODO : find a better name
-		return getApplication(appAnswering)->sendMessage(TTSymbol("UpdateDirectory"), args, kTTValNONE);
+		return getApplication(appAnswering)->sendMessage(TTSymbol("UpdateDirectory"), args, none);
 	
 	// notify attribute updates
 	else 
-		return getApplication(appAnswering)->sendMessage(TTSymbol("UpdateAttribute"), args, kTTValNONE);
+		return getApplication(appAnswering)->sendMessage(TTSymbol("UpdateAttribute"), args, none);
 	
 	return kTTErrGeneric;	
 }
@@ -741,7 +742,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 	TTSymbol			applicationName, currentApplicationName, version, type;
     TTSymbol			protocolName, currentProtocolName, parameterName;
     TTHashPtr           hashParameters;
-	TTValue				v, args, applicationNames, protocolNames, parameterValue, out;
+	TTValue				v, args, applicationNames, protocolNames, parameterValue, out, none;
     TTUInt16            i, j;
     TTErr               err;
 	
@@ -767,7 +768,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 			
 			mApplications->getKeys(applicationNames);
             for (j = 0; j < applicationNames.size(); j++)
-                mCurrentProtocol->sendMessage(TTSymbol("unregisterApplication"), applicationNames[j], kTTValNONE);
+                mCurrentProtocol->sendMessage(TTSymbol("unregisterApplication"), applicationNames[j], none);
             
 		}
 		
@@ -840,7 +841,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
         
         // register the application to the current protocol
         v = TTValue(aXmlHandler->mXmlNodeName);
-        mCurrentProtocol->sendMessage(TTSymbol("registerApplication"), v, kTTValNONE);
+        mCurrentProtocol->sendMessage(TTSymbol("registerApplication"), v, none);
         
         // get parameters table
         err = mCurrentProtocol->getAttributeValue(TTSymbol("applicationParameters"), v);

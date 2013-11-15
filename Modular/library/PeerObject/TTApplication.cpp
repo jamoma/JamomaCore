@@ -119,8 +119,8 @@ mTempAddress(kTTAdrsRoot)
 	mAttributeListenersCache = new TTHash();
 	
 	// add itself to the application manager
-	TTValue args = TTValue(TTObjectBasePtr(this));
-	TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
+	TTValue none, args = TTValue(TTObjectBasePtr(this));
+	TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, none);
 }
 
 TTApplication::~TTApplication()
@@ -128,8 +128,8 @@ TTApplication::~TTApplication()
 	TTValue hk, v;
 	
 	// remove itself to the application manager
-	TTValue args = TTValue(mName);
-	TTModularApplications->sendMessage(TTSymbol("ApplicationRemove"), args, kTTValNONE);
+	TTValue none, args = TTValue(mName);
+	TTModularApplications->sendMessage(TTSymbol("ApplicationRemove"), args, none);
 	
 	// TODO : delete observers
 	
@@ -141,15 +141,15 @@ TTApplication::~TTApplication()
 TTErr TTApplication::setName(const TTValue& value)
 {
 	// remove itself to the application manager
-	TTValue args = TTValue(mName);
-	TTModularApplications->sendMessage(TTSymbol("ApplicationRemove"), args, kTTValNONE);
+	TTValue none, args = TTValue(mName);
+	TTModularApplications->sendMessage(TTSymbol("ApplicationRemove"), args, none);
 	
 	mName = value;
 	mDirectory->setName(mName);
 	
 	// add itself to the application manager
 	args = TTValue(TTObjectBasePtr(this));
-	return TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, kTTValNONE);
+	return TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, none);
 }
 
 TTErr TTApplication::setActivity(const TTValue& value)
@@ -318,7 +318,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	TTAddress		whereToListen;
 	TTCallbackPtr	returnValueCallback;
 	TTValuePtr		returnValueBaton;
-	TTValue			cacheElement;
+	TTValue			cacheElement, none;
 	TTErr			err;
 	
 	appToNotify = inputValue[1];
@@ -334,7 +334,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 		
 		// prepare a callback based on ProtocolDirectoryCallback
 		returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), kTTValNONE);
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), none);
 		
 		returnValueBaton = new TTValue();
 		*returnValueBaton = inputValue;
@@ -395,7 +395,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 	TTObjectBasePtr		anObject, returnValueCallback;
 	TTAttributePtr		anAttribute;
 	TTValuePtr			returnValueBaton;
-	TTValue				cacheElement;
+	TTValue				cacheElement, none;
 	TTErr				err;
 	
 	appToNotify = inputValue[1];
@@ -428,7 +428,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 					if (!err) {
 						// prepare a callback based on ProtocolAttributeCallback
 						returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+						TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, none);
 						
 						returnValueBaton = new TTValue();
 						*returnValueBaton = inputValue;
@@ -1103,14 +1103,14 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
     
     if (objectName != kTTSymEmpty && objectName != kTTSym_none) {
         
-        TTValue     args = objectName;
+        TTValue none, args = objectName;
         
         aProtocol->getAttributeValue(TTSymbol("get"), allowGetRequest);
         
         if (allowGetRequest) {
             
             getAttributeCallback = NULL;
-            TTObjectBaseInstantiate(TTSymbol("callback"), &getAttributeCallback, kTTValNONE);
+            TTObjectBaseInstantiate(TTSymbol("callback"), &getAttributeCallback, none);
             getAttributeBaton = new TTValue(aProtocol);
             getAttributeBaton->append(mName);
             getAttributeBaton->append(anAddress);
@@ -1126,7 +1126,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         if (allowSetRequest) {
             
             setAttributeCallback = NULL;
-            TTObjectBaseInstantiate(TTSymbol("callback"), &setAttributeCallback, kTTValNONE);
+            TTObjectBaseInstantiate(TTSymbol("callback"), &setAttributeCallback, none);
             setAttributeBaton = new TTValue(aProtocol);
             setAttributeBaton->append(mName);
             setAttributeBaton->append(anAddress);
@@ -1135,7 +1135,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
             args.append(setAttributeCallback);
             
             sendMessageCallback = NULL;
-            TTObjectBaseInstantiate(TTSymbol("callback"), &sendMessageCallback, kTTValNONE);
+            TTObjectBaseInstantiate(TTSymbol("callback"), &sendMessageCallback, none);
             sendMessageBaton = new TTValue(aProtocol);
             sendMessageBaton->append(mName);
             sendMessageBaton->append(anAddress);
@@ -1154,7 +1154,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         if (allowListenRequest) {
             
             listenAttributeCallback = NULL;
-            TTObjectBaseInstantiate(TTSymbol("callback"), &listenAttributeCallback, kTTValNONE);
+            TTObjectBaseInstantiate(TTSymbol("callback"), &listenAttributeCallback, none);
             listenAttributeBaton = new TTValue(aProtocol);
             listenAttributeBaton->append(mName);
             listenAttributeBaton->append(anAddress);
@@ -1181,10 +1181,10 @@ TTObjectBasePtr TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress 
 	TTBoolean		newInstanceCreated;
 	TTObjectBasePtr	valueAttributeCallback;
 	TTValuePtr		valueAttributeBaton;
-    TTValue         args;
+    TTValue         args, none;
     
     valueAttributeCallback = NULL;
-    TTObjectBaseInstantiate(TTSymbol("callback"), &valueAttributeCallback, kTTValNONE);
+    TTObjectBaseInstantiate(TTSymbol("callback"), &valueAttributeCallback, none);
     valueAttributeBaton = new TTValue(aProtocol);
     valueAttributeBaton->append(mName);
     valueAttributeBaton->append(anAddress);

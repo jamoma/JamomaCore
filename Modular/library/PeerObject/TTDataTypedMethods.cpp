@@ -68,8 +68,8 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeSymbol;
 			valueStepSizeAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
-			mValueStepsize = kTTValNONE;
-			mRangeBounds = kTTValNONE;
+			mValueStepsize.clear();
+			mRangeBounds.clear();
 		}
 		else if (mType == kTTSym_boolean) {
             commandMethod = (TTMethodValue)&TTData::BooleanCommand;
@@ -102,9 +102,9 @@ TTErr TTData::setType(const TTValue& value)
             valueAttribute->setter = (TTSetterMethod)&TTData::setNoneValue;
 			valueDefaultAttribute->type = kTypeNone;
 			valueStepSizeAttribute->type = kTypeNone;
-			mValue = kTTValNONE;
-			mValueStepsize = kTTValNONE;
-			mRangeBounds = kTTValNONE;
+			mValue.clear();
+			mValueStepsize.clear();
+			mRangeBounds.clear();
 		}
 		else {
             commandMethod = (TTMethodValue)&TTData::GenericCommand;
@@ -220,7 +220,8 @@ TTErr TTData::returnValue()
 
 TTErr TTData::NoneCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    return this->setNoneValue(kTTValNONE);
+    TTValue none;
+    return this->setNoneValue(none);
 }
 
 TTErr TTData::setNoneValue(const TTValue& value)
@@ -338,7 +339,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
-    TTValue			c, v, aValue;
+    TTValue			c, v, aValue, none;
  
     if (inputValue.size()) {
         
@@ -372,9 +373,9 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
-                    mRamper->sendMessage(kTTSym_Go, (int)time, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -487,7 +488,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
-    TTValue			c, v, aValue;
+    TTValue			c, v, aValue, none;
     
     if (inputValue.size()) {
         
@@ -541,9 +542,9 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
-                    mRamper->sendMessage(kTTSym_Go, (int)time, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -667,7 +668,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
     TTSymbol		unit;
     TTUInt32        time;
     TTBoolean       isRunning;
-    TTValue			c, v, aValue;
+    TTValue			c, v, aValue, none;
     
     if (inputValue.size()) {
         
@@ -719,9 +720,9 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
-                    mRamper->sendMessage(kTTSym_Go, (int)time, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -843,7 +844,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
-    TTValue			c, v, aValue;
+    TTValue			c, v, aValue, none;
     
     if (inputValue.size()) {
         
@@ -898,9 +899,9 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
                     if(mValue.size() != aValue.size())
                         mValue.resize(aValue.size());
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
-                    mRamper->sendMessage(kTTSym_Go, (int)time, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);

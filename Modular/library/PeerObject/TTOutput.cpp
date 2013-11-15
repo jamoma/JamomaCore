@@ -103,7 +103,7 @@ mSignalAttr(NULL)
     addMessageWithArguments(Mix);
 	addMessageProperty(Mix, hidden, YES);
 	
-	mLast = kTTValNONE;
+	mLast.clear();
 	
 	this->findAttribute(TTSymbol("signal"), &mSignalAttr);
 }
@@ -214,29 +214,26 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 {
 	TTValue			args;
 	TTValuePtr		newBaton;
-	TTAddress newAddress;
+	TTAddress       newAddress;
 	TTNodePtr		aNode;
-	TTObjectBasePtr		o;
-	TTValue			n = value;		// use new value to protect the attribute
-	TTValue dummy;
+	TTObjectBasePtr	o;
+	TTValue			none, n = value;		// use new value to protect the attribute
+    
 	newAddress = value[0];
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
 		o = aNode->getObject();
 		if (o)
-// MERGE CONFLICT BELOW -- NOT CLEAR WHICH CHOICE IS CORRECT -- TAP
-//			if (o->getName() == kTTSym_Input || o->getName() == kTTSym_InputAudio)
-//				Link(o, kTTValNONE);
-			if (o->getName() == kTTSym_Input)
-				Link(o, dummy);
+			if (o->getName() == kTTSym_Input|| o->getName() == kTTSym_InputAudio)
+				Link(o, none);
 	}
 
 	if (!mAddressObserver) {
 		
 		// prepare arguments
 		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 		
 		newBaton = new TTValue(TTObjectBasePtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));

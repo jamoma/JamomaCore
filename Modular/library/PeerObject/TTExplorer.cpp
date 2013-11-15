@@ -34,8 +34,7 @@ mReturnValueCallback(NULL),
 mReturnSelectionCallback(NULL),
 mFilterList(NULL),
 mTempNode(NULL),
-mResult(NULL),
-mLastResult(kTTValNONE)
+mResult(NULL)
 {
 	if(arguments.size() >= 1)
 		mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
@@ -193,6 +192,7 @@ TTErr TTExplorer::setDepth(const TTValue& value)
 TTErr TTExplorer::bindAddress() 
 {
 	TTValuePtr	newBaton;
+    TTValue     none;
 	
 	// it works only for absolute address
 	if (mAddress.getType() == kAddressAbsolute) {
@@ -202,7 +202,7 @@ TTErr TTExplorer::bindAddress()
 			
 			// observe any creation or destruction below the address
 			mAddressObserver = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
+			TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 			
 			newBaton = new TTValue(TTObjectBasePtr(this));
 			
@@ -241,11 +241,12 @@ TTErr TTExplorer::unbindAddress()
 TTErr TTExplorer::bindApplication()
 {
 	TTValuePtr	newBaton;
+    TTValue     none;
 	
 	if (!mApplicationObserver) {
 		
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), none);
 		
 		newBaton = new TTValue(TTObjectBasePtr(this));
 		
@@ -284,11 +285,11 @@ TTErr TTExplorer::Explore()
 	TTList		aNodeList, internalFilterList, allObjectNodes;
 	TTNodePtr	aNode;
 	TTObjectBasePtr	o;
-	TTValue		v, args;
+	TTValue		v, args, none;
 	TTErr		err;
 	
 	mResult->clear();
-	mLastResult = kTTValNONE;
+	mLastResult.clear();
 	mTempNode = NULL;
 	
 	if (!mDirectory)
@@ -313,7 +314,7 @@ TTErr TTExplorer::Explore()
 				// memorized the result in a hash table
 				for (TTUInt32 i = 0; i < v.size(); i++) {
 					attributeName = v[i];
-					mResult->append(attributeName, kTTValNONE);
+					mResult->append(attributeName, none);
 				}
 			}
 		}
@@ -877,16 +878,16 @@ TTErr TTExplorer::returnSelectionBack()
 
 TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 {
-	TTValue			keys = kTTValNONE;
-	TTValue			t, v = kTTValNONE;
+	TTValue			keys;
+	TTValue			t, v;
 	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
-	TTAddress anAddress, relativeAddress;
+	TTAddress       anAddress, relativeAddress;
 	TTSymbol		key;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTCallbackPtr	anObserver;
-	TTObjectBasePtr		o;
+	TTObjectBasePtr	o;
 		
 	// Unpack baton
 	b = (TTValuePtr)baton;

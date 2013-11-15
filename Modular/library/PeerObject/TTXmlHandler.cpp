@@ -66,7 +66,7 @@ TTErr TTXmlHandler::setObject(const TTValue& value)
 
 TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 {
-    TTValue			v, objectValue, errValue;
+    TTValue			v, objectValue, errValue, none;
     TTObjectBasePtr anObject;
 	int				ret;
     TTUInt32        i;
@@ -130,7 +130,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
                 if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
                 
                     anObject = TTObjectBasePtr(objectValue[i]);
-                    errValue[i] = anObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+                    errValue[i] = anObject->sendMessage(TTSymbol("WriteAsXml"), v, none);
                     
                     if (!(errValue[i] == kTTErrNone))
                         err = kTTErrGeneric;
@@ -164,7 +164,7 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
         if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
             
             anObject = TTObjectBasePtr(objectValue[i]);
-            errValue[i] = anObject->sendMessage(TTSymbol("WriteAsXml"), v, kTTValNONE);
+            errValue[i] = anObject->sendMessage(TTSymbol("WriteAsXml"), v, none);
         }
         
         if (!(errValue[i] == kTTErrNone))
@@ -190,7 +190,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	const xmlChar		*xValue = 0;
 	TTObjectBasePtr		anObject;
 	TTSymbol			lastNodeName;
-	TTValue				v, objectValue, errValue;
+	TTValue				v, objectValue, errValue, none;
 	int					ret;
     TTUInt32            i;
 	
@@ -281,7 +281,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
                                     mXmlNodeName = kTTSym_xmlHandlerReadingEnds;
 								
 								// Set the node value
-								mXmlNodeValue = kTTValNONE;
+								mXmlNodeValue.clear();
 								
 								break;
 								
@@ -307,7 +307,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
                             if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
                                 
                                 anObject = TTObjectBasePtr(objectValue[i]);
-                                errValue[i] = anObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+                                errValue[i] = anObject->sendMessage(TTSymbol("ReadFromXml"), v, none);
                             }
                         }
 					}
@@ -342,7 +342,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
             if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
                 
                 anObject = TTObjectBasePtr(objectValue[i]);
-                errValue[i] = anObject->sendMessage(TTSymbol("ReadFromXml"), v, kTTValNONE);
+                errValue[i] = anObject->sendMessage(TTSymbol("ReadFromXml"), v, none);
             }
         }
     }

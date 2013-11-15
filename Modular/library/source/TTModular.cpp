@@ -42,6 +42,8 @@ TTHashPtr TTModularNamespaces = NULL;
 
 void TTModularInit(const char* pathToTheJamomaFolder)
 {
+    TTValue v, none;
+    
 	// Initialized Foundation framework
 	TTFoundationInit(pathToTheJamomaFolder);
     
@@ -49,9 +51,7 @@ void TTModularInit(const char* pathToTheJamomaFolder)
 #ifdef TO_DEBUG
 
 	TTObjectBasePtr test = NULL;
-	TTValue v;
-	
-	TTObjectBaseInstantiate(TTSymbol("value.test"), &test, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("value.test"), &test, none);
 	TTDataObjectBasePtr(test)->test(v);
 
 #endif // TO_DEBUG
@@ -91,7 +91,6 @@ void TTModularInit(const char* pathToTheJamomaFolder)
 		// to - this a very strange bug : the two first toString() parsing on number failed !?!
 		// so here are two parsing to avoid this strange bug for instant ...
 		TTString s;
-		TTValue v;
 		
 		s = "0.001";
 		v = s;
@@ -103,7 +102,7 @@ void TTModularInit(const char* pathToTheJamomaFolder)
 		v.fromString();
 		
 		// Create the Modular application manager with no application inside
-		TTObjectBaseInstantiate(kTTSym_ApplicationManager, TTObjectBaseHandle(&TTModularApplications), kTTValNONE);
+		TTObjectBaseInstantiate(kTTSym_ApplicationManager, TTObjectBaseHandle(&TTModularApplications), none);
 		
 		// Create a hash table to manage namespace selections
 		TTModularNamespaces = new TTHash();
@@ -118,7 +117,7 @@ void TTModularInit(const char* pathToTheJamomaFolder)
 
 void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath)
 {
-	TTValue				args;
+	TTValue				args, none;
 	TTApplicationPtr	anApplication = NULL;
 	
 	if (TTModularApplications) {
@@ -136,12 +135,12 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
-			TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&anXmlHandler), kTTValNONE);
+			TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&anXmlHandler), none);
 			
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			
 			args = TTValue(TTSymbol(xmlConfigFilePath));
-			anXmlHandler->sendMessage(kTTSym_Read, args, kTTValNONE);
+			anXmlHandler->sendMessage(kTTSym_Read, args, none);
 		}
 		else
 			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName.c_str());

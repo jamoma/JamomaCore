@@ -241,7 +241,7 @@ TTErr TTCue::searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp)
 
 TTErr TTCue::setRamp(const TTValue& value)
 {
-    TTValue     v;
+    TTValue     v, none;
     TTBoolean   flattened;
     
 	mRamp = value;
@@ -251,7 +251,7 @@ TTErr TTCue::setRamp(const TTValue& value)
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
 	
 	// TODO : don't change line with a ramp value different from the mRamp
 	return processRamp(mScript, mRamp);
@@ -368,7 +368,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
     TTListPtr       instanceOptions;
 	TTAddress		scriptAddress, childAddress, address;
 	TTSymbol		service, option;
-	TTValue			v, parsedLine;
+	TTValue			v, parsedLine, none;
 	TTBoolean		empty = YES;
     TTBoolean       otherDirectory = NO;
 	TTErr			err;
@@ -501,7 +501,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
 						
 						// CONTAINER case : append a comment line to the script before the sub script line
 						if (anObject->getName() == kTTSym_Container)
-							aScript->sendMessage(TTSymbol("AppendComment"), kTTValNONE, parsedLine);
+							aScript->sendMessage(TTSymbol("AppendComment"), none, parsedLine);
 					}
 					
 					// append the sub script line
@@ -523,7 +523,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
 
 TTErr TTCue::Update(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTValue     v;
+    TTValue     v, none;
     TTBoolean   flattened;
     
     // TODO : update from an address
@@ -533,7 +533,7 @@ TTErr TTCue::Update(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-    mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+    mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
 	
 	return processUpdate(mScript);
 }
@@ -611,7 +611,7 @@ TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
     TTAddress   anAddress = kTTAdrsRoot;
     TTBoolean   flattened;
-    TTValue     v;
+    TTValue     v, none;
     
     if (inputValue.size() == 1)
         if (inputValue[0].type() == kTypeSymbol)
@@ -622,22 +622,22 @@ TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
     
     // if an address is passed, run the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("RunLine"), inputValue, kTTValNONE);
+        return mScript->sendMessage(TTSymbol("RunLine"), inputValue, none);
     
     // else run all the script
     else
-        return mScript->sendMessage(kTTSym_Run, inputValue, kTTValNONE);
+        return mScript->sendMessage(kTTSym_Run, inputValue, none);
 }
 
 TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
 {
     TTAddress   anAddress = kTTAdrsRoot;
     TTBoolean   flattened;
-    TTValue     v;
+    TTValue     v, none;
     
     if (inputValue.size() == 1)
         if (inputValue[0].type() == kTypeSymbol)
@@ -648,15 +648,15 @@ TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
     
     // if an address is passed, dump the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("DumpLine"), inputValue, kTTValNONE);
+        return mScript->sendMessage(TTSymbol("DumpLine"), inputValue, none);
     
     // else dump all the script
     else
-        return mScript->sendMessage(kTTSym_Dump, inputValue, kTTValNONE);
+        return mScript->sendMessage(kTTSym_Dump, inputValue, none);
 }
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
@@ -832,21 +832,21 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position)
 {
     TTBoolean   flattened1, flattened2;
-    TTValue     v;
+    TTValue     v, none;
     
     // is the cue1 already flattened ?
     cue1->mScript->getAttributeValue(kTTSym_flattened, v);
     flattened1 = v[0];
     
     if (!flattened1)
-        cue1->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+        cue1->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
     
     // is the cue2 already flattened ?
     cue2->mScript->getAttributeValue(kTTSym_flattened, v);
     flattened2 = v[0];
     
     if (!flattened2)
-        cue2->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+        cue2->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
     
 	return TTScriptInterpolate(cue1->mScript, cue2->mScript, position);
 }
@@ -856,7 +856,7 @@ TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
 	TTCuePtr	aCue;
 	TTValue		scripts;
     TTBoolean   flattened;
-    TTValue     v;
+    TTValue     v, none;
 	TTUInt32	i;
 	
 	for (i = 0; i < cues.size(); i++) {
@@ -868,7 +868,7 @@ TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
         flattened = v[0];
         
         if (!flattened)
-            aCue->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+            aCue->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
         
 		scripts.append(aCue->mScript);
 	}

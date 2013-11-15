@@ -27,7 +27,7 @@ mSetAttributeCallback(NULL),
 mSendMessageCallback(NULL),
 mListenAttributeCallback(NULL)
 {	
-	TTValue				attributeNames, messageNames, args;
+	TTValue				attributeNames, messageNames, args, none;
 	TTSymbol			name;
 	TTAttributePtr		anAttribute;
 	TTAttributeFlags	attributeFlags = kTTAttrPassObject;
@@ -76,7 +76,7 @@ mListenAttributeCallback(NULL)
                     
                     addMirrorCachedAttribute(name, anAttribute->type);
                     
-                    mAttributeValueCache.append(name, kTTValNONE);
+                    mAttributeValueCache.append(name, none);
                 }
                 
                 setAttributeGetterFlags(name, attributeFlags);

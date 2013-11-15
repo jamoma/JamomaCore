@@ -245,7 +245,7 @@ TTErr TTReceiver::bindAddress()
 	TTObjectBasePtr	newObserver, o;
 	TTList			aNodeList;
 	TTNodePtr		aNode;
-	TTValue			v, data, newElement;
+	TTValue			v, data, newElement, none;
 	TTValuePtr		newBaton;
 	TTErr			err;
 	
@@ -279,7 +279,7 @@ TTErr TTReceiver::bindAddress()
 					if (!err) {
 						
 						newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&newObserver), kTTValNONE);
+						TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&newObserver), none);
 						
 						newBaton = new TTValue(TTObjectBasePtr(this));
 						aNode->getAddress(anAddress);
@@ -318,7 +318,7 @@ TTErr TTReceiver::bindAddress()
 	
 	// observe any creation or destruction below the attr_name address
 	mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 	
 	newBaton = new TTValue(TTObjectBasePtr(this));
 	
@@ -406,11 +406,12 @@ TTErr TTReceiver::unbindAddress()
 TTErr TTReceiver::bindApplication() 
 {
 	TTValuePtr	newBaton;
+    TTValue     none;
 	
 	if (!mApplicationObserver) {
 		
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), kTTValNONE);
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), none);
 		
 		newBaton = new TTValue(TTObjectBasePtr(this));
 		
@@ -453,7 +454,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	TTUInt8			flag;
 	TTBoolean		found;
 	TTValuePtr		newBaton;
-	TTValue			newCouple;
+	TTValue			newCouple, none;
 	TTErr			err;
 	
 	// unpack baton
@@ -509,7 +510,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 						if (!err) {
 							
 							newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-							TTObjectBaseInstantiate(TTSymbol("callback"), &newObserver, kTTValNONE);
+							TTObjectBaseInstantiate(TTSymbol("callback"), &newObserver, none);
 							
 							newBaton = new TTValue(aReceiver);
 							newBaton->append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));

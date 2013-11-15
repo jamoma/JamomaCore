@@ -28,8 +28,6 @@ mTag(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
 mAlias(kTTAdrsEmpty),
-mActivity(kTTValNONE),
-mContent(kTTValNONE),
 mReturnAddressCallback(NULL),
 mReturnValueCallback(NULL),
 mObjectsObserversCache(NULL),
@@ -105,7 +103,7 @@ TTContainer::~TTContainer()
 
 TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 {
-	TTValue			hk, cacheElement, v;
+	TTValue			hk, cacheElement, v, none;
 	TTValuePtr		valueToSend;
 	TTObjectBasePtr	anObject;
 	TTAddress       aRelativeAddress, topAddress, belowAddress, keyAddress;
@@ -146,12 +144,11 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
                     keyAddress = hk[i];
                     
                     if (aRelativeAddress.compare(keyAddress, depth) == kAddressEqual) {
-  						TTValue dummy;
-                  
+
                         // replace relativeAddress by keyAddress
 						AddressAndValue[0] = keyAddress.appendAttribute(attrOrMess);
                         
-                        if (this->Send(AddressAndValue, dummy))
+                        if (this->Send(AddressAndValue, none))
                             err = kTTErrGeneric;
                     }
                 }
@@ -180,7 +177,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 						return kTTErrNone;
 					
 					// set the value attribute using a command
-					anObject->sendMessage(kTTSym_Command, *valueToSend, kTTValNONE);
+					anObject->sendMessage(kTTSym_Command, *valueToSend, none);
 					
 					// unlock
 					mIsSending = false;	
@@ -191,7 +188,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 				if (anObject->getName() == kTTSym_Viewer && attrOrMess == kTTSym_value) {
 					
 					// send the value
-					anObject->sendMessage(kTTSym_Send, *valueToSend, kTTValNONE);
+					anObject->sendMessage(kTTSym_Send, *valueToSend, none);
 					
 					// unlock
 					mIsSending = false;	
@@ -205,7 +202,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 				
 				// Or look for message and send it
 				else if (!anObject->findMessage(attrOrMess, &aMessage))
-					anObject->sendMessage(attrOrMess, *valueToSend, kTTValNONE);
+					anObject->sendMessage(attrOrMess, *valueToSend, none);
 			}
 			// maybe the relative address is for Container below ourself
 			else {
@@ -228,7 +225,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 						AddressAndValue[0] = belowAddress;
 						
 						// send the value
-						anObject->sendMessage(kTTSym_Send, AddressAndValue, kTTValNONE);
+						anObject->sendMessage(kTTSym_Send, AddressAndValue, none);
 						
 						// unlock
 						mIsSending = false;	
@@ -445,7 +442,7 @@ TTErr TTContainer::bind()
 	TTValuePtr	newBaton;
 	TTPtr		aContext;
 	TTList		aNodeList, allObjectsNodes;
-	TTValue		v;
+	TTValue		v, none;
 	TTErr		err;
 	
 	mObjectsObserversCache  = new TTHash();
@@ -466,7 +463,7 @@ TTErr TTContainer::bind()
 	
 	// 3. Observe any creation or destruction below the address
 	mObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mObserver), kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mObserver), none);
 	
 	newBaton = new TTValue(TTObjectBasePtr(this));
 	newBaton->append(aContext);
@@ -483,7 +480,7 @@ TTErr TTContainer::bind()
 
 TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 {
-	TTValue			cacheElement, v;
+	TTValue			cacheElement, v, none;
 	TTAddress       aRelativeAddress;
 	TTSymbol		service;
     TTObjectBasePtr	anObject;  
@@ -521,7 +518,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
         anObject->findAttribute(kTTSym_value, &anAttribute);
         
         valueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-        TTObjectBaseInstantiate(TTSymbol("callback"), &valueObserver, kTTValNONE);
+        TTObjectBaseInstantiate(TTSymbol("callback"), &valueObserver, none);
         
         valueBaton = new TTValue(TTObjectBasePtr(this));
         valueBaton->append(aRelativeAddress);
@@ -543,7 +540,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		anObject->findAttribute(kTTSym_returnedValue, &anAttribute);
 		
 		returnedValueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), &returnedValueObserver, kTTValNONE);
+		TTObjectBaseInstantiate(TTSymbol("callback"), &returnedValueObserver, none);
 		
 		returnedValueBaton = new TTValue(TTObjectBasePtr(this));
 		returnedValueBaton->append(aRelativeAddress);
@@ -780,7 +777,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr aTextHandler;
 	TTString		*buffer;
 	TTUInt16		i;
-	TTValue			keys, cacheElement, s, arg, tags;
+	TTValue			keys, cacheElement, s, arg, tags, none;
 	TTSymbol		name, service;
 	TTObjectBasePtr	anObject;
 	
@@ -865,7 +862,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(aTextHandler);
-				anObject->sendMessage(TTSymbol("WriteAsText"), arg, kTTValNONE);
+				anObject->sendMessage(TTSymbol("WriteAsText"), arg, none);
 				*buffer += "\t\t<tr>";
 			}
 		}
@@ -903,7 +900,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(aTextHandler);
-				anObject->sendMessage(TTSymbol("WriteAsText"), arg, kTTValNONE);
+				anObject->sendMessage(TTSymbol("WriteAsText"), arg, none);
 				*buffer += "\t\t<tr>";
 			}
 		}
@@ -942,7 +939,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
 				arg = TTValue(aTextHandler);
-				anObject->sendMessage(TTSymbol("WriteAsText"), arg, kTTValNONE);
+				anObject->sendMessage(TTSymbol("WriteAsText"), arg, none);
 				*buffer += "\t\t<tr>";
 			}
 		}

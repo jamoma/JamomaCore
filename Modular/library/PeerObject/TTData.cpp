@@ -22,7 +22,6 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
-mValueDefault(kTTValNONE),
 mValueStepsize(TTValue(0.1)),
 mType(kTTSym_generic),
 mTag(TTValue(kTTSym_none)),
@@ -39,7 +38,6 @@ mRampDrive(kTTSym_none),
 #ifndef TT_NO_DSP
 mRampFunction(kTTSym_none),
 #endif
-mRampFunctionParameters(kTTValNONE),
 mRampStatus(NO),
 mDataspace(kTTSym_none),
 mDataspaceUnit(kTTSym_none),
@@ -150,7 +148,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt32	i;
 	TTFloat64	inc, ramptime, v, vStepsize;
 	TTSymbol	ramp;
-	TTValue		command;
+	TTValue		command, none;
 	
     if (mType == kTTSym_string)
         return kTTErrGeneric;
@@ -210,7 +208,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 		}
 	}
 	
-	this->sendMessage(kTTSym_Command, command, kTTValNONE);
+	this->sendMessage(kTTSym_Command, command, none);
 	
 	return kTTErrNone;
 }
@@ -220,7 +218,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt32	i;
 	TTFloat64	dec, ramptime, v, vStepsize;
 	TTSymbol	ramp;
-	TTValue		command;
+	TTValue		command, none;
     
     if (mType == kTTSym_string)
         return kTTErrGeneric;
@@ -280,7 +278,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 		}
 	}
 	
-	this->sendMessage(kTTSym_Command, command, kTTValNONE);
+	this->sendMessage(kTTSym_Command, command, none);
 	
 	return kTTErrNone;
 }
@@ -446,11 +444,11 @@ TTErr TTData::setRampFunction(const TTValue& value)
 TTErr TTData::setDataspace(const TTValue& value)
 {
 	TTErr	err;
-	TTValue v;
+	TTValue v, none;
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspace = value;
 	
-	TTObjectBaseInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, none);
 	mDataspaceConverter->setAttributeValue(TTSymbol("dataspace"), mDataspace);
 	
 	// If there is already a unit defined, then we try to use that

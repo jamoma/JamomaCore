@@ -137,7 +137,7 @@ TTErr Protocol::registerApplication(const TTValue& inputValue, TTValue& outputVa
 {
 	TTSymbol	applicationName, parameterName;
 	TTHashPtr	applicationParameters;
-	TTValue		v, parameterNames;
+	TTValue		v, parameterNames, none;
 	TTErr		err;
 	
 	applicationName = inputValue[0];
@@ -157,7 +157,7 @@ TTErr Protocol::registerApplication(const TTValue& inputValue, TTValue& outputVa
 		this->getParameterNames(parameterNames);
 		for (TTUInt32 i = 0; i < parameterNames.size(); i++) {
 			parameterName = parameterNames[i];
-			applicationParameters->append(parameterName, kTTValNONE);
+			applicationParameters->append(parameterName, none);
 		}
 		
 		// add the parameters table into mDistantApplicationParameters
@@ -387,7 +387,7 @@ TTErr Protocol::ReceiveGetRequest(TTSymbol from, TTAddress address)
 
 TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& newValue) 
 {
-	TTValue v;
+	TTValue v, none;
 	TTErr	err;
 	
 	// set the an object in the namespace
@@ -398,7 +398,7 @@ TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& new
 		
 		v.append(address);
 		v.append((TTPtr)&newValue);
-		err = mApplicationManager->sendMessage(TTSymbol("ApplicationSet"), v, kTTValNONE);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationSet"), v, none);
 		
 		// TODO : test error and send notification if error
 		return err;
@@ -409,9 +409,8 @@ TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& new
 
 TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean enable) 
 {
-	TTValue v;
+	TTValue v, none;
 	TTErr	err;
-	TTValue dummy;
 	
 	// listen an object or the namespace
 	if (mApplicationManager != NULL) {
@@ -424,13 +423,13 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
 		v.append(address);
 		v.append(enable);
 		
-		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListen"), v, kTTValNONE);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListen"), v, none);
 		
         // NW: wondering why this happens twice?
 		if (err)
-			return SendListenAnswer(from, address, dummy, err);
+			return SendListenAnswer(from, address, none, err);
 		if (err && mRunning) 
-			return SendListenAnswer(from, address, dummy, err);
+			return SendListenAnswer(from, address, none, err);
 	}
 	
 	return kTTErrGeneric;
@@ -438,7 +437,7 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
 
 TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& newValue)
 {
-	TTValue v;
+	TTValue v, none;
 	TTErr	err;
 	TTValue dummy;
 	
@@ -452,7 +451,7 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& n
 		v.append((TTPtr)&newValue);
 		
 		// TODO
-		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListenAnswer"), v, kTTValNONE);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListenAnswer"), v, none);
 		
         // NW: wondering why this happens twice?
 		if (err)

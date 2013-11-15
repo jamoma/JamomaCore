@@ -24,7 +24,6 @@
 #define thisTTClassTags		"cue, manager"
 
 TT_MODULAR_CONSTRUCTOR,
-mNames(kTTValNONE),
 mCurrent(kTTSymEmpty),
 mCurrentPosition(0),
 mNamespace(kTTSym_none),
@@ -269,7 +268,7 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
 TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddressItemPtr    aNamespace;
-	TTValue             v;
+	TTValue             v, none;
 	
     if (inputValue.size() == 1) {
     
@@ -307,7 +306,7 @@ TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValu
             }
 			
 			v = TTValue((TTPtr)aNamespace);
-			mCurrentCue->sendMessage(TTSymbol("Select"), v, kTTValNONE);
+			mCurrentCue->sendMessage(TTSymbol("Select"), v, none);
 			
 			// refresh all namespace handlers (TTExplorer only)
 			aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
@@ -344,7 +343,7 @@ TTErr TTCueManager::Clear()
 		mCurrentCue = NULL;
 		mCurrent = kTTSymEmpty;
 		mCurrentPosition = 0;
-		mNames = kTTValNONE;
+		mNames.clear();
 		
 		notifyNamesObservers();
 	}
@@ -423,7 +422,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCueManager::Update(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTValue		v;
+    TTValue		v, none;
     TTSymbol    anAddress = kTTAdrsRoot;
 	
     if (inputValue.size() >= 1) {
@@ -465,7 +464,7 @@ TTErr TTCueManager::Update(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
 		
 		if (mCurrentCue)
-            return mCurrentCue->sendMessage(kTTSym_Update, anAddress, kTTValNONE);
+            return mCurrentCue->sendMessage(kTTSym_Update, anAddress, none);
 	}
 	
 	return kTTErrGeneric;
@@ -558,7 +557,7 @@ TTErr TTCueManager::Append(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue		v;
+	TTValue		v, none;
     TTSymbol    anAddress = kTTAdrsRoot;
 	
     if (inputValue.size() >= 1) {
@@ -600,7 +599,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
 		
 		if (mCurrentCue)
-			return mCurrentCue->sendMessage(kTTSym_Recall, anAddress, kTTValNONE);
+			return mCurrentCue->sendMessage(kTTSym_Recall, anAddress, none);
 	}
 	
 	return kTTErrGeneric;
@@ -608,7 +607,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue		v;
+	TTValue		v, none;
     TTSymbol    anAddress = kTTAdrsRoot;
 	
     if (inputValue.size() >= 1) {
@@ -650,7 +649,7 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 		mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
 		
 		if (mCurrentCue)
-			return mCurrentCue->sendMessage(TTSymbol("Output"), anAddress, kTTValNONE);
+			return mCurrentCue->sendMessage(TTSymbol("Output"), anAddress, none);
 	}
 	
 	return kTTErrGeneric;

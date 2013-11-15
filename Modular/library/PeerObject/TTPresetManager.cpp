@@ -150,7 +150,7 @@ TTErr TTPresetManager::Clear()
 		mCurrentPreset = NULL;
 		mCurrent = kTTSymEmpty;
 		mCurrentPosition = 0;
-		mNames = kTTValNONE;
+		mNames.clear();
 		
 		notifyNamesObservers();
         notifyValueObservers();
@@ -220,7 +220,7 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue		v;
+	TTValue		v, none;
     TTAddress   anAddress = kTTAdrsRoot;
     TTErr       err;
 	
@@ -264,7 +264,7 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		
 		if (mCurrentPreset) {
             
-			err = mCurrentPreset->sendMessage(kTTSym_Recall, mAddress.appendAddress(anAddress), kTTValNONE);
+			err = mCurrentPreset->sendMessage(kTTSym_Recall, mAddress.appendAddress(anAddress), none);
             
             notifyValueObservers();
             
@@ -277,7 +277,7 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTPresetManager::Output(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue		v;
+	TTValue		v, none;
     TTAddress   anAddress = kTTAdrsRoot;
     TTErr       err;
 	
@@ -321,7 +321,7 @@ TTErr TTPresetManager::Output(const TTValue& inputValue, TTValue& outputValue)
         
 		if (mCurrentPreset) {
             
-			err = mCurrentPreset->sendMessage(TTSymbol("Output"), mAddress.appendAddress(anAddress), kTTValNONE);
+			err = mCurrentPreset->sendMessage(TTSymbol("Output"), mAddress.appendAddress(anAddress), none);
             
             notifyValueObservers();
             
@@ -650,7 +650,7 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 	TTSymbol    nameCopy;
 	TTString	s;
     TTInt32     positionCopy;
-	TTValue		v, args;
+	TTValue		v, args, none;
     
     if (inputValue.size() >= 1) {
         
@@ -677,7 +677,7 @@ TTErr TTPresetManager::Copy(const TTValue& inputValue, TTValue& outputValue)
 		
 		// create a new preset
 		aPresetCopy = NULL;
-		TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&aPresetCopy), kTTValNONE);
+		TTObjectBaseInstantiate(kTTSym_Preset, TTObjectBaseHandle(&aPresetCopy), none);
 		
 		// copy the current preset into
 		TTPresetCopy(mCurrentPreset, aPresetCopy);
