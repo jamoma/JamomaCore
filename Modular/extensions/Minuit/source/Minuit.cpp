@@ -68,6 +68,7 @@
 #define thisProtocolSet         YES
 #define thisProtocolListen      YES
 #define thisProtocolDiscover	YES
+#define thisProtocolDiscoverAll	NO
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 {
@@ -80,7 +81,7 @@ PROTOCOL_CONSTRUCTOR,
 mIp(TTSymbol("localhost")),
 mPort(MINUIT_RECEPTION_PORT),
 mOscReceive(NULL),
-mAnswerThread(NULL),
+mWaitThread(NULL),
 mAnswerManager(NULL),
 mSenderManager(NULL)
 {	
@@ -92,17 +93,17 @@ mSenderManager(NULL)
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
     
-    mAnswerThread = new TTThread(NULL, NULL);
+    mWaitThread = new TTThread(NULL, NULL);
 }
 
 Minuit::~Minuit()
 {
 	delete mAnswerManager;
     
-    if (mAnswerThread)
-		mAnswerThread->wait();
+    if (mWaitThread)
+		mWaitThread->wait();
     
-	delete mAnswerThread;
+	delete mWaitThread;
 }
 
 TTErr Minuit::getParameterNames(TTValue& value)
@@ -145,7 +146,7 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
             mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
             
             // wait to avoid strange crash when run and stop are called to quickly
-            mAnswerThread->sleep(1);
+            mWaitThread->sleep(1);
 			
 			mRunning = YES;
 		}
@@ -174,7 +175,7 @@ TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
 		TTObjectBaseRelease(&mOscReceive);
         
         // wait to avoid strange crash when run and stop are called to quickly
-        mAnswerThread->sleep(1);
+        mWaitThread->sleep(1);
         
 		mRunning = NO;
 		
@@ -230,8 +231,6 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 		state = NO_ANSWER;
 		do
 		{
-            mAnswerThread->sleep(1);
-            
 			state = mAnswerManager->CheckDiscoverAnswer(to, address, answer);
 		}
 		while (state == NO_ANSWER);
@@ -240,10 +239,25 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 			return mAnswerManager->ParseDiscoverAnswer(answer, returnedType, returnedChildren, returnedAttributes);
         
         else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
-            return SendDiscoverRequest(to, address, returnedType, returnedChildren, returnedAttributes, tryCount++);
+            return SendDiscoverRequest(to, address, returnedType, returnedChildren, returnedAttributes, tryCount+1);
 	}
 	
 	return kTTErrGeneric;
+}
+
+/*!
+ * Send a discover all request to an application to fill all the directory under this address
+ *
+ * \param to					: the application where to discover
+ * \param address				: the address to discover
+ * \param node                  : the node for this address
+ * \param tryCount              : number of try for this request
+ * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+ else it returns kTTErrGeneric if no answer or timeout
+ */
+TTErr Minuit::SendDiscoverAllRequest(TTSymbol to, TTAddress address, TTNodePtr node, TTUInt8 tryCount)
+{
+    return kTTErrGeneric;
 }
 
 /*!
@@ -282,8 +296,6 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
         state = ANSWER_RECEIVED;
         do
         {
-            mAnswerThread->sleep(1);
-            
             state = mAnswerManager->CheckGetAnswer(to, address, returnedValue);
         }
         while(state == NO_ANSWER);
@@ -292,7 +304,8 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
             return kTTErrNone;
         
         else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
-            return SendGetRequest(to, address, returnedValue, tryCount++);
+            return SendGetRequest(to, address, returnedValue, tryCount+1);
+        
     }
 	
 	return kTTErrGeneric;
@@ -427,6 +440,18 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address,
 #endif
 	
 		return sendMessage(to, TTSymbol(header), arguments);
+}
+
+/*!
+ * Send a disover answer to a application which ask for.
+ *
+ * \param to					: the application where to send answer
+ * \param address				: the address where comes from the description
+ * \param node                  : the node for this address
+ */
+TTErr Minuit::SendDiscoverAllAnswer(TTSymbol to, TTAddress address, TTNodePtr node, TTErr err)
+{
+    return kTTErrGeneric;
 }
 
 /*!

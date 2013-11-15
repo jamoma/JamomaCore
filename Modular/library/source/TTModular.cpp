@@ -40,19 +40,19 @@ TTHashPtr TTModularNamespaces = NULL;
 
 /****************************************************************************************************/
 
-void TTModularInit()
+void TTModularInit(const char* pathToTheJamomaFolder)
 {
 	// Initialized Foundation framework
-	TTFoundationInit();
+	TTFoundationInit(pathToTheJamomaFolder);
     
 //#define TO_DEBUG
 #ifdef TO_DEBUG
 
 	TTObjectBasePtr test = NULL;
 	TTValue v;
-    
-	TTObjectBaseInstantiate(TTSymbol("dictionary.test"), TTObjectBaseHandle(&test), kTTValNONE);
-	test->sendMessage("test", v, kTTValNONE);
+	
+	TTObjectBaseInstantiate(TTSymbol("value.test"), &test, kTTValNONE);
+	TTDataObjectBasePtr(test)->test(v);
 
 #endif // TO_DEBUG
 	

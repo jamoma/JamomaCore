@@ -55,6 +55,9 @@ mRunning(NO)
 
 	addAttribute(Discover, kTypeBoolean);
 	addAttributeProperty(Discover, readOnly, YES);
+    
+    addAttribute(DiscoverAll, kTypeBoolean);
+	addAttributeProperty(DiscoverAll, readOnly, YES);
 	
 	addAttribute(Activity, kTypeBoolean);
 
@@ -312,7 +315,7 @@ TTErr Protocol::isRegistered(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
-TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address) 
+TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address)
 {
 	TTValue     inputValue, outputValue;
 	TTErr       err;
@@ -334,6 +337,29 @@ TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address)
 		// send result
         if (mRunning)
             return SendDiscoverAnswer(from, address, returnedType, returnedChildren, returnedAttributes, err);
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr Protocol::ReceiveDiscoverAllRequest(TTSymbol from, TTAddress address)
+{
+    TTValue     inputValue, outputValue;
+    TTNodePtr   aNode;
+	TTErr       err;
+	
+	// discover all the local namespace
+	if (mApplicationManager != NULL) {
+        
+        inputValue = address;
+        
+        err = mApplicationManager->sendMessage(TTSymbol("ApplicationDiscoverAll"), inputValue, outputValue);
+        
+        aNode = TTNodePtr(TTPtr(outputValue[0]));
+
+		// send result
+        if (mRunning)
+            return SendDiscoverAllAnswer(from, address, aNode, err);
 	}
 	
 	return kTTErrGeneric;

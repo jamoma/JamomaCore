@@ -873,7 +873,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "right",
-					"text" : "j.parameter right @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\"",
+					"text" : "j.parameter right @type decimal @ramp/drive scheduler @repetitions/filter 1 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 80.0, 567.0, 31.0 ],
 					"id" : "obj-32",
@@ -889,7 +889,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "filtertype",
-					"text" : "j.parameter filtertype @type string @repetitions/allow 0 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
+					"text" : "j.parameter filtertype @type string @repetitions/filter 1 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 115.0, 567.0, 31.0 ],
 					"id" : "obj-42",
@@ -905,7 +905,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "filtergain",
-					"text" : "j.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
+					"text" : "j.parameter filtergain @type decimal @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/filter 1 @description \"Gain (dB)\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 185.0, 567.0, 31.0 ],
 					"id" : "obj-43",
@@ -921,7 +921,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "q",
-					"text" : "j.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
+					"text" : "j.parameter q @type decimal @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/filter 1 @description \"Resonance (Q)\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 220.0, 567.0, 31.0 ],
 					"id" : "obj-44",
@@ -937,7 +937,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "cf",
-					"text" : "j.parameter cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
+					"text" : "j.parameter cf @type decimal @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/filter 1 @description \"Center frequency (Hz)\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 150.0, 567.0, 31.0 ],
 					"id" : "obj-45",
@@ -982,7 +982,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "left",
-					"text" : "j.parameter left @type decimal @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
+					"text" : "j.parameter left @type decimal @ramp/drive scheduler @repetitions/filter 1 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
 					"linecount" : 2,
 					"patching_rect" : [ 135.0, 45.0, 567.0, 31.0 ],
 					"id" : "obj-58",

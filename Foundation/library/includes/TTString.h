@@ -363,9 +363,11 @@ public:
 	TTBoolean toTTUInt32(TTUInt32& convertedUInt) const
 	{
 		char * pEnd;
-		
+        
 		convertedUInt = strtoul(c_str(), &pEnd, 10);
-		return *pEnd == 'u';
+        
+        // is the last letter is a 'u' ?
+		return *pEnd == 'u' && pEnd == (c_str() + length() - 1);
 	}
 	
 	/*	note : isTTFloat32 works only because the TTInt32 case is matched before

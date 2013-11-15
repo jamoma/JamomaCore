@@ -421,10 +421,12 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 					state = !anItem->getSelection();
 				
 				// set selection state
-				anItem->setSelection(state);
+				anItem->setSelection(state, YES);
 				
-				// return selection to the owner of the explorer
-				return returnSelectionBack();
+				// refresh all namespace handlers (TTExplorer only)
+                aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+                
+                return kTTErrNone;
 			}
 		}
 		
@@ -451,11 +453,13 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 					aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
 				
 				if (anItem)
-					anItem->setSelection(state);
+					anItem->setSelection(state, YES);
 			}
 			
-			// return selection to the owner of the explorer
-			return returnSelectionBack();
+			// refresh all namespace handlers (TTExplorer only)
+            aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+            
+            return kTTErrNone;
 		}
 	}
 	
@@ -487,8 +491,13 @@ TTErr TTExplorer::SelectAll()
 				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
 			
 			if (anItem)
-				anItem->setSelection(YES);
+				anItem->setSelection(YES, YES);
 		}
+        
+        // refresh all namespace handlers (TTExplorer only)
+        aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+        
+        return kTTErrNone;
 	}
 	
 	// return selection to the owner of the explorer
@@ -504,6 +513,7 @@ TTErr TTExplorer::SelectNone()
 	TTInt32				i;
 	
 	if (aNamespace) {
+        
 		// set all selection state
 		for (i = 0; i < mLastResult.size(); i++) {
 			
@@ -520,12 +530,16 @@ TTErr TTExplorer::SelectNone()
 				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
 			
 			if (anItem)
-				anItem->setSelection(NO);
+				anItem->setSelection(NO, YES);
 		}
+        
+        // refresh all namespace handlers (TTExplorer only)
+        aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+        
+        return kTTErrNone;
 	}
-	
-	// return selection to the owner of the explorer
-	return returnSelectionBack();
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTExplorer::SelectionRefresh()
@@ -779,7 +793,11 @@ TTErr TTExplorer::returnResultBack()
 				
 				// append mAddress to the namespace 
 				// and go to mAddress namespace item
-				aNamespace->append(mAddress, &aNamespace);
+                if (aNamespace->find(mAddress, &aNamespace) == kTTErrValueNotFound) {
+                    
+                    aNamespace->append(mAddress, &aNamespace);
+                    aNamespace->setSelection(YES, YES);
+                }
 				
 				// in brother case : go to the parent namespace item
 				if (mOutput == kTTSym_brothers)
@@ -789,7 +807,13 @@ TTErr TTExplorer::returnResultBack()
 				for (i = 0; i < result.size(); i++) {
 					
 					relativeAddress = result[i];
-					aNamespace->append(relativeAddress, &anItem);
+                    
+                    // append relativeAddress to the namespace
+                    if (aNamespace->find(relativeAddress, &anItem) == kTTErrValueNotFound) {
+                        
+                        aNamespace->append(relativeAddress, &anItem);
+                        anItem->setSelection(YES, YES);
+                    }
 				}
 			}
 			TTValue dummy;
@@ -807,9 +831,9 @@ TTErr TTExplorer::returnResultBack()
 
 TTErr TTExplorer::returnSelectionBack()
 {
-	TTAddressItemPtr aNamespace = lookupNamespace(mNamespace);
-	TTAddressItemPtr anItem;
-	TTAddress	itemSymbol;
+	TTAddressItemPtr    aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr    anItem;
+	TTAddress           itemSymbol;
 	TTValue				selection;
 	TTInt32				i;
 	

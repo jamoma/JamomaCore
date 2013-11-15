@@ -23,8 +23,10 @@
 Scheduler::Scheduler(const TTValue& arguments) :
 TTObjectBase(arguments),
 mDuration(0.),
+mOffset(0.),
 mSpeed(1.),
 mRunning(NO),
+mPaused(NO),
 mProgression(0.),
 mRealTime(0.),
 mCallback(NULL),
@@ -43,7 +45,7 @@ mBaton(NULL)
 	addAttributeProperty(Author, readOnly, YES);
     
     addAttributeWithSetter(Duration, kTypeFloat64);
-    
+    addAttributeWithSetter(Offset, kTypeFloat64);
     addAttributeWithSetter(Speed, kTypeFloat64);
 
 	addAttribute(Stretchable, kTypeBoolean);
@@ -51,6 +53,9 @@ mBaton(NULL)
 	
 	addAttribute(Running, kTypeBoolean);
     addAttributeProperty(Running, readOnly, YES);
+    
+    addAttribute(Paused, kTypeBoolean);
+    addAttributeProperty(Paused, readOnly, YES);
     
     addAttribute(Progression, kTypeFloat64);
     addAttributeProperty(Progression, readOnly, YES);
@@ -66,6 +71,7 @@ mBaton(NULL)
     
     // Cache some attributes for high speed notification feedbacks
     this->findAttribute(TTSymbol("duration"), &durationAttribute);
+    this->findAttribute(TTSymbol("offset"), &offsetAttribute);
     this->findAttribute(TTSymbol("speed"), &speedAttribute);
     
     this->findAttribute(TTSymbol("running"), &runningAttribute);
@@ -78,46 +84,32 @@ Scheduler::~Scheduler()
     ;
 }
 
-TTErr Scheduler::getParameterNames(TTValue& value)
-{
-	TTValue		attributeNames;
-	TTSymbol	attributeName;
-	
-	// filter all default attributes (Name, Version, Author, Stretchable, Running, ...)
-	this->getAttributeNames(attributeNames);
-	
-	value.clear();
-	for (TTUInt8 i = 0; i < attributeNames.size(); i++) {
-		attributeName = attributeNames[0];
-		
-		if (attributeName == TTSymbol("name")           ||
-			attributeName == TTSymbol("version")        ||
-			attributeName == TTSymbol("author")         ||
-			attributeName == TTSymbol("stretchable")    ||
-            attributeName == TTSymbol("duration")       ||
-            attributeName == TTSymbol("speed")          ||
-            attributeName == TTSymbol("running")        ||
-            attributeName == TTSymbol("progression")    ||
-            attributeName == TTSymbol("realTime"))
-			continue;
-		
-		value.append(attributeName);
-	}
-	
-	return kTTErrNone;
-}
-
 TTErr Scheduler::setDuration(const TTValue& value)
 {
     if (value.size() == 1) {
         
         if (value[0].type() == kTypeFloat64) {
             
-            Stop();
-            
             mDuration = value[0];
             
-            durationAttribute->sendNotification(kTTSym_notify, mDuration);             // we use kTTSym_notify because we know that observers are TTCallback
+            durationAttribute->sendNotification(kTTSym_notify, mDuration);           // we use kTTSym_notify because we know that observers are TTCallback
+            
+            return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr Scheduler::setOffset(const TTValue& value)
+{
+    if (value.size() == 1) {
+        
+        if (value[0].type() == kTypeFloat64) {
+            
+            mOffset = value[0];
+            
+            offsetAttribute->sendNotification(kTTSym_notify, mOffset);             // we use kTTSym_notify because we know that observers are TTCallback
             
             return kTTErrNone;
         }

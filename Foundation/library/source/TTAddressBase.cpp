@@ -287,7 +287,7 @@ TTErr TTAddressBase::parse()
 		else
 			s_parent = TTString(ttRegexForParent->begin(), ttRegexForParent->end());
 		
-		s_toParse = TTString(ttRegexForParent->end()+1, end);               // +1 to remove "/"
+		s_toParse = TTString(ttRegexForParent->end()+1, end-1);               // +1 to remove "/", -1 to remove a useless \0
 		
 		begin = s_toParse.begin();
 		end = s_toParse.end();
