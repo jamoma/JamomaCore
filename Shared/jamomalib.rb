@@ -296,8 +296,8 @@ else
 		err = ""
 		success = 0
 		
-	 #`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
-	#		Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
+	 	#`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
+		#		Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
 		buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Configuration=#{configuration} /p:Platform=Win32 \"#{projectname}\""
 		# puts "#{buildstr}"
 
