@@ -296,8 +296,8 @@ else
 		err = ""
 		success = 0
 		
-	 #`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
-	#		Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
+	 	#`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
+		#		Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
 		buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Configuration=#{configuration} /p:Platform=Win32 \"#{projectname}\""
 		# puts "#{buildstr}"
 
@@ -544,7 +544,7 @@ else
 		
 		project_type = "extension"
 		project_type = "library" if foldername == "library"
-			max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max" || (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
+		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max" || (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
 		project_type = "implementation" if max
 		define_c74_linker_syms = false
 		path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.." && mac? # too much ..\ on windows (one more)
@@ -553,16 +553,16 @@ else
 		master_name = "Jamoma"
 		master_name = (projectdir.split("/")[projectdir.split("/").size-3]) if (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
 
-     # This block looks at the relative location in the current directory structure to see if we are in the "Foundation", "DSP", etc.
-    wd = Dir.pwd
-    layer_path = "#{projectdir}/.."
-    layer_path="#{projectdir}/../.." if project_type == "extension"
-    Dir.chdir layer_path
-    layer_name = Dir.pwd()
-    layer_name = layer_name.split("/").last
-    Dir.chdir wd
-    
-    if !distropath
+		 # This block looks at the relative location in the current directory structure to see if we are in the "Foundation", "DSP", etc.
+		wd = Dir.pwd
+		layer_path = "#{projectdir}/.."
+		layer_path="#{projectdir}/../.." if project_type == "extension"
+		Dir.chdir layer_path
+		layer_name = Dir.pwd()
+		layer_name = layer_name.split("/").last
+		Dir.chdir wd
+		
+		if !distropath
 
 			# We are not in control the binary application that calls us.
 			# That means we cannot use @rpath on the Mac and are limited to @executable_path and @loader_path (or a global location)
@@ -703,95 +703,70 @@ else
 				extension_dest = "/usr/local/lib/jamoma/extensions" if linux?
 			end
 
-				if (!touch_dest)
-					touch_dest = extension_dest
-				end
+			if (!touch_dest)
+				touch_dest = extension_dest
+			end
 
-	#			builddir = "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/externals/$(NAME).mxo/Contents/MacOS/" if !builddir && max
-	#			builddir = "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support" if !builddir
-				builddir = extension_dest if !builddir
+			builddir = extension_dest if !builddir
 
-	#			skipIcc = false
-	#			skipGcc47 = false
-	#			skipClang = false
-	#			icc	 = false
-	#			gcc47 = false
-	#			clang = false
-	#			if compiler == "icc"
-	#				skipIcc = false
-	#				skipGcc47 = true
-	#				skipClang = true
-	#			elsif compiler == "gcc47"
-	#				skipIcc = true
-	#				skipGcc47 = false
-	#				skipClang = true
-	#			elsif compiler == "gcc"
-	#				skipIcc = true
-	#				skipGcc47 = true
-	#				skipClang = true
-	#			elsif compiler == "clang"
-	#				skipIcc = true
-	#				skipGcc47 = true
-	#				skipClang = false
-	#			end
 
-				if project_type == "library"
-					extension_suffix = ".dylib" if mac?
-					extension_suffix = ".so" if linux?
-					extension_suffix = ".dll" if win?
-				elsif project_type == "implementation"
-					extension_suffix = "" if mac? # note that the bundle is a special deal...
-					extension_suffix = ".mxe" if win?
+			if project_type == "library"
+				extension_suffix = ".dylib" if mac?
+				extension_suffix = ".so" if linux?
+				extension_suffix = ".dll" if win?
+			elsif project_type == "implementation"
+				extension_suffix = "" if mac? # note that the bundle is a special deal...
+				extension_suffix = ".mxe" if win?
 
-					#TODO: binary suffix should depend on the type of implementation we are building!
+				#TODO: binary suffix should depend on the type of implementation we are building!
 
-					extension_suffix = "" if linux?
-				else
-					extension_suffix = ".ttdylib" if mac?
-					extension_suffix = ".ttso" if linux?
-					extension_suffix = ".ttdll" if win?
-				end
+				extension_suffix = "" if linux?
+			else
+				extension_suffix = ".ttdylib" if mac?
+				extension_suffix = ".ttso" if linux?
+				extension_suffix = ".ttdll" if win?
+			end
 
-				# TODO: we also will want a STATIC option for e.g. iOS builds
-				if win?
-					vcproj = generate_vcxproj_template
-					vcproj_root = vcproj.root
-					
-					vcproj_debug32 = Element.new "ItemDefinitionGroup"
-					vcproj_debug32.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Debug|Win32'"
-					vcproj_root.add_element(vcproj_debug32)
-					
-					vcproj_release32 = Element.new "ItemDefinitionGroup"
-					vcproj_release32.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Release|Win32'"
-					vcproj_root.add_element(vcproj_release32)
-					
-					vcproj_debug64 = Element.new "ItemDefinitionGroup"
-					vcproj_debug64.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Debug|x64'"
-					vcproj_root.add_element(vcproj_debug64)
-					
-					vcproj_release64 = Element.new "ItemDefinitionGroup"
-					vcproj_release64.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Release|x64'"
-					vcproj_root.add_element(vcproj_release64)
-				else
-					makefile = File.new("#{projectdir}/Makefile", "w")
-					makefile.write("# Jamoma Makefile, generated by the Jamoma build system for the platform on which the build was run.\n")
-					makefile.write("# Edits to this file are NOT under version control and will be lost when the build system is run again.\n")
-					makefile.write("\n")
-					makefile.write("NAME = #{projectname}\n")
-					makefile.write("SUFFIX = so\n") if linux?
-					makefile.write("SUFFIX = dylib\n") if mac? && project_type == "library"
-					makefile.write("SUFFIX = ttdylib\n") if mac? && project_type == "extension"
-					makefile.write("SUFFIX = mxo\n") if mac? && project_type == "implementation"
-					makefile.write("\n")
-					if mac?
-						#if ((File.exists? "/usr/bin/icc") && (skipIcc == false))
-						#	makefile.write("CC_32 = icc -arch i386\n") if (arch == 'i386' || arch == 'default')
-						#	makefile.write("CC_64 = icc -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
-						#	icc = true
-						#elsif ((File.exists? "/usr/bin/clang++") && (skipClang == false))
-							makefile.write("CC_32 = /usr/bin/clang++ -arch i386\n") if (arch == 'i386' || arch == 'default')
-							makefile.write("CC_64 = /usr/bin/clang++ -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
-							clang = true
+			# TODO: we also will want a STATIC option for e.g. iOS builds
+			if win?
+				vcproj = generate_vcxproj_template
+				vcproj_root = vcproj.root
+				
+				vcproj_debug32 = Element.new "ItemDefinitionGroup"
+				vcproj_debug32.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Debug|Win32'"
+				vcproj_root.add_element(vcproj_debug32)
+				
+				vcproj_release32 = Element.new "ItemDefinitionGroup"
+				vcproj_release32.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Release|Win32'"
+				vcproj_root.add_element(vcproj_release32)
+				
+				vcproj_debug64 = Element.new "ItemDefinitionGroup"
+				vcproj_debug64.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Debug|x64'"
+				vcproj_root.add_element(vcproj_debug64)
+				
+				vcproj_release64 = Element.new "ItemDefinitionGroup"
+				vcproj_release64.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Release|x64'"
+				vcproj_root.add_element(vcproj_release64)
+			else
+				makefile = File.new("#{projectdir}/Makefile", "w")
+				makefile.write("# Jamoma Makefile, generated by the Jamoma build system for the platform on which the build was run.\n")
+				makefile.write("# Edits to this file are NOT under version control and will be lost when the build system is run again.\n")
+				makefile.write("\n")
+				makefile.write("NAME = #{projectname}\n")
+				makefile.write("SUFFIX = so\n") if linux?
+				makefile.write("SUFFIX = dylib\n") if mac? && project_type == "library"
+				makefile.write("SUFFIX = ttdylib\n") if mac? && project_type == "extension"
+				makefile.write("SUFFIX = mxo\n") if mac? && project_type == "implementation"
+				makefile.write("\n")
+				if mac?
+					#if ((File.exists? "/usr/bin/icc") && (skipIcc == false))
+					#	makefile.write("CC_32 = icc -arch i386\n") if (arch == 'i386' || arch == 'default')
+					#	makefile.write("CC_64 = icc -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
+					#	icc = true
+					#elsif ((File.exists? "/usr/bin/clang++") && (skipClang == false))
+					makefile.write("CC_32 = /usr/bin/clang++ -arch i386\n") if (arch == 'i386' || arch == 'default')
+					makefile.write("CC_64 = /usr/bin/clang++ -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
+					clang = true
 					#	elsif ((File.exists? "/opt/local/bin/g++-mp-4.7") && (skipGcc47 == false))
 					#		makefile.write("CC_32 = /opt/local/bin/g++-mp-4.7 -arch i386\n") if (arch == 'i386' || arch == 'default')
 					#		makefile.write("CC_64 = /opt/local/bin/g++-mp-4.7 -arch x86_64\n\n") if (arch == 'x86_64' || arch == 'default')
@@ -800,454 +775,454 @@ else
 					#		puts "you don't have a support compiler.	it probably isn't going to work out for the two of us..."
 					#		clang = true
 					#	end
-						# makefile.write("CC_32 = llvm-g++-4.2 -arch i386\n") if (arch == 'i386' || arch == 'default')
-						# makefile.write("CC_64 = llvm-g++-4.2 -arch x86_64\n\n") if (arch == 'x86_64' || arch != 'i386' || arch == 'default')
+					# makefile.write("CC_32 = llvm-g++-4.2 -arch i386\n") if (arch == 'i386' || arch == 'default')
+					# makefile.write("CC_64 = llvm-g++-4.2 -arch x86_64\n\n") if (arch == 'x86_64' || arch != 'i386' || arch == 'default')
+				else
+					if linux?
+						makefile.write("CC = clang++\n\n")
 					else
-						if linux?
-							makefile.write("CC = clang++\n\n")
-						else
-							makefile.write("CC = g++\n\n")
-						end
+						makefile.write("CC = g++\n\n")
 					end
-
-					makefile.write("#########################################\n\n")
-					i=0
-					sources.each do |source|
-						if mac?
-							source = source.to_s
-							next if source =~ /win /
-							next if source =~ /win32 /
-							next if source =~ /win64 /
-							source.gsub!(/mac /, '')
-						elsif win?
-							# This code is never executed!
-							source = source.to_s
-							next if source =~ /mac /
-							source.gsub!(/win /, '')
-						else # linux?
-							source = source.to_s
-							next if source =~ /mac /
-							next if source =~ /win /
-						end
-
-						source32 = nil
-						source64 = nil
-						if mac?
-							if (source.match(/\.mm/))		 # objective-c code
-								source32 = source.gsub(/\.mm/, ".i386.mm.o ") if (arch == 'i386' || arch == 'default')
-								source64 = source.gsub(/\.mm/, ".x64.mm.o ") if (arch == 'x86_64' || arch == 'default')
-							else													# c++ code
-								source32 = source.gsub(/\.cpp/, ".i386.o ") if (arch == 'i386' || arch == 'default')
-								source64 = source.gsub(/\.cpp/, ".x64.o") if (arch == 'x86_64' || arch == 'default')
-							end
-						else
-							source.gsub!(/\.cpp/, ".o")
-						end
-						if (i==0)
-							makefile.write("SRC32 = #{source32}\n") if source32
-							makefile.write("SRC64 = #{source64}\n") if source64
-							makefile.write("SRC	 = #{source}\n") if !source32 && !source64
-						else
-							makefile.write("SRC32 += #{source32}\n") if source32
-							makefile.write("SRC64 += #{source64}\n") if source64
-							makefile.write("SRC	 += #{source}\n") if !source32 && !source64
-						end
-						i+=1
-					end
-					makefile.write("\n\n")
 				end
 
-				if win?
-					vcproj_files = Element.new "ItemGroup"
-					sources.each do |source|
+				makefile.write("#########################################\n\n")
+				i=0
+				sources.each do |source|
+					if mac?
+						source = source.to_s
+						next if source =~ /win /
+						next if source =~ /win32 /
+						next if source =~ /win64 /
+						source.gsub!(/mac /, '')
+					elsif win?
+						# This code is never executed!
 						source = source.to_s
 						next if source =~ /mac /
 						source.gsub!(/win /, '')
-
-						source_formatted_for_windows = source
-						source_formatted_for_windows.gsub!(/(\/)/,'\\')
-						vcproj_file = Element.new "ClCompile"
-						vcproj_file.attributes["Include"] = "#{source_formatted_for_windows}"
-						vcproj_files.add_element(vcproj_file)
+					else # linux?
+						source = source.to_s
+						next if source =~ /mac /
+						next if source =~ /win /
 					end
-				else
-					makefile.write("#########################################\n\n")
-					i=0
-					includes.each do |include_file|
-						if mac?
-							next if include_file =~ /win /
-							include_file.gsub!(/mac /, '')
-						elsif win?
-							next if include_file =~ /mac /
-							include_file.gsub!(/win /, '')
-						end
 
-						if (include_file == "C74-INCLUDES")
-							if max
-								include_file = "#{path_to_moduleroot}/../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/jit-includes -I#{path_to_moduleroot}/../Implementations/Max/library/includes"
+					source32 = nil
+					source64 = nil
+					if mac?
+						if (source.match(/\.mm/))		 # objective-c code
+							source32 = source.gsub(/\.mm/, ".i386.mm.o ") if (arch == 'i386' || arch == 'default')
+							source64 = source.gsub(/\.mm/, ".x64.mm.o ") if (arch == 'x86_64' || arch == 'default')
+						else													# c++ code
+							source32 = source.gsub(/\.cpp/, ".i386.o ") if (arch == 'i386' || arch == 'default')
+							source64 = source.gsub(/\.cpp/, ".x64.o") if (arch == 'x86_64' || arch == 'default')
+						end
+					else
+						source.gsub!(/\.cpp/, ".o")
+					end
+					if (i==0)
+						makefile.write("SRC32 = #{source32}\n") if source32
+						makefile.write("SRC64 = #{source64}\n") if source64
+						makefile.write("SRC	 = #{source}\n") if !source32 && !source64
+					else
+						makefile.write("SRC32 += #{source32}\n") if source32
+						makefile.write("SRC64 += #{source64}\n") if source64
+						makefile.write("SRC	 += #{source}\n") if !source32 && !source64
+					end
+					i+=1
+				end
+				makefile.write("\n\n")
+			end
+
+			if win?
+				vcproj_files = Element.new "ItemGroup"
+				sources.each do |source|
+					source = source.to_s
+					next if source =~ /mac /
+					source.gsub!(/win /, '')
+
+					source_formatted_for_windows = source
+					source_formatted_for_windows.gsub!(/(\/)/,'\\')
+					vcproj_file = Element.new "ClCompile"
+					vcproj_file.attributes["Include"] = "#{source_formatted_for_windows}"
+					vcproj_files.add_element(vcproj_file)
+				end
+			else
+				makefile.write("#########################################\n\n")
+				i=0
+				includes.each do |include_file|
+					if mac?
+						next if include_file =~ /win /
+						include_file.gsub!(/mac /, '')
+					elsif win?
+						next if include_file =~ /mac /
+						include_file.gsub!(/win /, '')
+					end
+
+					if (include_file == "C74-INCLUDES")
+						if max
+							include_file = "#{path_to_moduleroot}/../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/jit-includes -I#{path_to_moduleroot}/../Implementations/Max/library/includes"
+						else
+							include_file = "#{path_to_moduleroot}/../../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/jit-includes"
+						end
+					end
+
+					if (i==0)
+						makefile.write("INCLUDES = -I#{include_file}\n")
+					else
+						makefile.write("INCLUDES += -I#{include_file}\n")
+					end
+					i+=1
+				end
+				makefile.write("INCLUDE_FILES := $(wildcard INCLUDES/*.h)")
+				makefile.write("\n\n")
+			end
+
+			if win?
+				concatenated_includes = ""
+				includes.each do |include_file|
+					if (include_file == "C74-INCLUDES")
+						concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
+						concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
+						concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
+						if max
+							concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\library\\includes\";"
+						end
+					else
+						concatenated_includes += "\"$(ProjectDir)#{include_file}\";"
+					end
+				end
+				concatenated_includes.gsub!(/(\/)/,'\\')
+
+				concatenated_defines = ""
+				if defines
+					defines.each do |define|
+						concatenated_defines += ";" if concatenated_defines != ""
+						concatenated_defines += "#{define}"
+					end
+				end
+
+				vcproj_debug32_compiler = Element.new "ClCompile"
+				vcproj_debug32_compiler.add_element Element.new "Optimization"
+				vcproj_debug32_compiler.elements["Optimization"].text = "Disabled"
+				vcproj_debug32_compiler.add_element Element.new "MinimalRebuild"
+				vcproj_debug32_compiler.elements["MinimalRebuild"].text = "true"
+				vcproj_debug32_compiler.add_element Element.new "ExceptionHandling"
+				vcproj_debug32_compiler.elements["ExceptionHandling"].text = "Sync"
+				vcproj_debug32_compiler.add_element Element.new "BasicRuntimeChecks"
+				vcproj_debug32_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+				vcproj_debug32_compiler.add_element Element.new "RuntimeLibrary"
+				vcproj_debug32_compiler.elements["RuntimeLibrary"].text = "MultiThreadedDebug"
+				vcproj_debug32_compiler.add_element Element.new "BufferSecurityCheck"
+				vcproj_debug32_compiler.elements["BufferSecurityCheck"].text = "true"
+				vcproj_debug32_compiler.add_element Element.new "FunctionLevelLinking"
+				vcproj_debug32_compiler.elements["FunctionLevelLinking"].text = "true"
+				vcproj_debug32_compiler.add_element Element.new "PrecompiledHeader"
+				vcproj_debug32_compiler.add_element Element.new "PrecompiledHeaderFile"
+				vcproj_debug32_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
+				vcproj_debug32_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
+				vcproj_debug32_compiler.add_element Element.new "AssemblerListingLocation"
+				vcproj_debug32_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
+				vcproj_debug32_compiler.add_element Element.new "ObjectFileName"
+				vcproj_debug32_compiler.elements["ObjectFileName"].text = "$(IntDir)"
+				vcproj_debug32_compiler.add_element Element.new "ProgramDataBaseFileName"
+				vcproj_debug32_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
+				vcproj_debug32_compiler.add_element Element.new "WarningLevel"
+				vcproj_debug32_compiler.elements["WarningLevel"].text = "Level3"
+				vcproj_debug32_compiler.add_element Element.new "SuppressStartupBanner"
+				vcproj_debug32_compiler.elements["SuppressStartupBanner"].text = "true"
+				vcproj_debug32_compiler.add_element Element.new "DebugInformationFormat"
+				vcproj_debug32_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
+				vcproj_debug32_compiler.add_element Element.new "CompileAs"
+				vcproj_debug32_compiler.elements["CompileAs"].text = "Default"
+				vcproj_debug32_compiler.add_element Element.new "DisableSpecificWarnings"
+				vcproj_debug32_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
+
+				vcproj_debug32_compiler.add_element Element.new "PreprocessorDefinitions"
+				vcproj_debug32_compiler.elements["PreprocessorDefinitions"].text = "WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
+
+				vcproj_debug32_compiler.add_element Element.new "AdditionalIncludeDirectories"
+				vcproj_debug32_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
+
+				vcproj_debug32.add_element vcproj_debug32_compiler
+
+
+
+				vcproj_release32_compiler = Element.new "ClCompile"
+				vcproj_release32_compiler.add_element Element.new "Optimization"
+				vcproj_release32_compiler.elements["Optimization"].text = "MaxSpeed"
+				
+				vcproj_release32_compiler.add_element Element.new "InlineFunctionExpansion"
+				vcproj_release32_compiler.elements["InlineFunctionExpansion"].text = "AnySuitable"
+				vcproj_release32_compiler.add_element Element.new "IntrinsicFunctions"
+				vcproj_release32_compiler.elements["IntrinsicFunctions"].text = "true"
+				vcproj_release32_compiler.add_element Element.new "FavorSizeOrSpeed"
+				vcproj_release32_compiler.elements["FavorSizeOrSpeed"].text = "Speed"
+				vcproj_release32_compiler.add_element Element.new "OmitFramePointers"
+				vcproj_release32_compiler.elements["OmitFramePointers"].text = "true"
+				vcproj_release32_compiler.add_element Element.new "WholeProgramOptimization"
+				vcproj_release32_compiler.elements["WholeProgramOptimization"].text = "true"
+				vcproj_release32_compiler.add_element Element.new "StringPooling"
+				vcproj_release32_compiler.elements["StringPooling"].text = "true"			 
+				vcproj_release32_compiler.add_element Element.new "EnableEnhancedInstructionSet"
+				vcproj_release32_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
+				
+				vcproj_release32_compiler.add_element Element.new "MinimalRebuild"
+				vcproj_release32_compiler.elements["MinimalRebuild"].text = "true"
+				vcproj_release32_compiler.add_element Element.new "ExceptionHandling"
+				vcproj_release32_compiler.elements["ExceptionHandling"].text = "Sync"
+				vcproj_release32_compiler.add_element Element.new "BasicRuntimeChecks"
+				vcproj_release32_compiler.elements["BasicRuntimeChecks"].text = "Default"
+				vcproj_release32_compiler.add_element Element.new "RuntimeLibrary"
+				vcproj_release32_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
+				vcproj_release32_compiler.add_element Element.new "BufferSecurityCheck"
+				vcproj_release32_compiler.elements["BufferSecurityCheck"].text = "false"
+				vcproj_release32_compiler.add_element Element.new "FunctionLevelLinking"
+				vcproj_release32_compiler.elements["FunctionLevelLinking"].text = "true"
+				vcproj_release32_compiler.add_element Element.new "PrecompiledHeader"
+				vcproj_release32_compiler.add_element Element.new "PrecompiledHeaderFile"
+				vcproj_release32_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
+				vcproj_release32_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
+				vcproj_release32_compiler.add_element Element.new "AssemblerListingLocation"
+				vcproj_release32_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
+				vcproj_release32_compiler.add_element Element.new "ObjectFileName"
+				vcproj_release32_compiler.elements["ObjectFileName"].text = "$(IntDir)"
+				vcproj_release32_compiler.add_element Element.new "ProgramDataBaseFileName"
+				vcproj_release32_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
+				vcproj_release32_compiler.add_element Element.new "WarningLevel"
+				vcproj_release32_compiler.elements["WarningLevel"].text = "Level3"
+				vcproj_release32_compiler.add_element Element.new "SuppressStartupBanner"
+				vcproj_release32_compiler.elements["SuppressStartupBanner"].text = "true"
+				vcproj_release32_compiler.add_element Element.new "DebugInformationFormat"
+				vcproj_release32_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
+				vcproj_release32_compiler.add_element Element.new "CompileAs"
+				vcproj_release32_compiler.elements["CompileAs"].text = "Default"
+				vcproj_release32_compiler.add_element Element.new "DisableSpecificWarnings"
+				vcproj_release32_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
+
+				vcproj_release32_compiler.add_element Element.new "PreprocessorDefinitions"
+				vcproj_release32_compiler.elements["PreprocessorDefinitions"].text = "WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
+
+				vcproj_release32_compiler.add_element Element.new "AdditionalIncludeDirectories"
+				vcproj_release32_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
+
+				vcproj_release32.add_element vcproj_release32_compiler
+
+
+
+				vcproj_debug64_compiler = Element.new "ClCompile"
+				vcproj_debug64_compiler.add_element Element.new "Optimization"
+				vcproj_debug64_compiler.elements["Optimization"].text = "Disabled"
+				vcproj_debug64_compiler.add_element Element.new "MinimalRebuild"
+				vcproj_debug64_compiler.elements["MinimalRebuild"].text = "true"
+				vcproj_debug64_compiler.add_element Element.new "ExceptionHandling"
+				vcproj_debug64_compiler.elements["ExceptionHandling"].text = "Sync"
+				vcproj_debug64_compiler.add_element Element.new "BasicRuntimeChecks"
+				vcproj_debug64_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
+				vcproj_debug64_compiler.add_element Element.new "RuntimeLibrary"
+				vcproj_debug64_compiler.elements["RuntimeLibrary"].text = "MultiThreadedDebug"
+				vcproj_debug64_compiler.add_element Element.new "BufferSecurityCheck"
+				vcproj_debug64_compiler.elements["BufferSecurityCheck"].text = "true"
+				vcproj_debug64_compiler.add_element Element.new "FunctionLevelLinking"
+				vcproj_debug64_compiler.elements["FunctionLevelLinking"].text = "true"
+				vcproj_debug64_compiler.add_element Element.new "PrecompiledHeader"
+				vcproj_debug64_compiler.add_element Element.new "PrecompiledHeaderFile"
+				vcproj_debug64_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
+				vcproj_debug64_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
+				vcproj_debug64_compiler.add_element Element.new "AssemblerListingLocation"
+				vcproj_debug64_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
+				vcproj_debug64_compiler.add_element Element.new "ObjectFileName"
+				vcproj_debug64_compiler.elements["ObjectFileName"].text = "$(IntDir)"
+				vcproj_debug64_compiler.add_element Element.new "ProgramDataBaseFileName"
+				vcproj_debug64_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
+				vcproj_debug64_compiler.add_element Element.new "WarningLevel"
+				vcproj_debug64_compiler.elements["WarningLevel"].text = "Level3"
+				vcproj_debug64_compiler.add_element Element.new "SuppressStartupBanner"
+				vcproj_debug64_compiler.elements["SuppressStartupBanner"].text = "true"
+				vcproj_debug64_compiler.add_element Element.new "DebugInformationFormat"
+				vcproj_debug64_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
+				vcproj_debug64_compiler.add_element Element.new "CompileAs"
+				vcproj_debug64_compiler.elements["CompileAs"].text = "Default"
+				vcproj_debug64_compiler.add_element Element.new "DisableSpecificWarnings"
+				vcproj_debug64_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
+
+				vcproj_debug64_compiler.add_element Element.new "PreprocessorDefinitions"
+				vcproj_debug64_compiler.elements["PreprocessorDefinitions"].text = "WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
+
+				vcproj_debug64_compiler.add_element Element.new "AdditionalIncludeDirectories"
+				vcproj_debug64_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
+
+				vcproj_debug64.add_element vcproj_debug64_compiler
+
+
+
+				vcproj_release64_compiler = Element.new "ClCompile"
+				vcproj_release64_compiler.add_element Element.new "Optimization"
+				vcproj_release64_compiler.elements["Optimization"].text = "MaxSpeed"
+				
+				vcproj_release64_compiler.add_element Element.new "InlineFunctionExpansion"
+				vcproj_release64_compiler.elements["InlineFunctionExpansion"].text = "AnySuitable"
+				vcproj_release64_compiler.add_element Element.new "IntrinsicFunctions"
+				vcproj_release64_compiler.elements["IntrinsicFunctions"].text = "true"
+				vcproj_release64_compiler.add_element Element.new "FavorSizeOrSpeed"
+				vcproj_release64_compiler.elements["FavorSizeOrSpeed"].text = "Speed"
+				vcproj_release64_compiler.add_element Element.new "OmitFramePointers"
+				vcproj_release64_compiler.elements["OmitFramePointers"].text = "true"
+				vcproj_release64_compiler.add_element Element.new "WholeProgramOptimization"
+				vcproj_release64_compiler.elements["WholeProgramOptimization"].text = "true"
+				vcproj_release64_compiler.add_element Element.new "EnableEnhancedInstructionSet"
+				vcproj_release64_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
+				
+				vcproj_release64_compiler.add_element Element.new "MinimalRebuild"
+				vcproj_release64_compiler.elements["MinimalRebuild"].text = "true"
+				vcproj_release64_compiler.add_element Element.new "ExceptionHandling"
+				vcproj_release64_compiler.elements["ExceptionHandling"].text = "Sync"
+				vcproj_release64_compiler.add_element Element.new "BasicRuntimeChecks"
+				vcproj_release64_compiler.elements["BasicRuntimeChecks"].text = "Default"
+				vcproj_release64_compiler.add_element Element.new "RuntimeLibrary"
+				vcproj_release64_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
+				vcproj_release64_compiler.add_element Element.new "BufferSecurityCheck"
+				vcproj_release64_compiler.elements["BufferSecurityCheck"].text = "false"
+				vcproj_release64_compiler.add_element Element.new "FunctionLevelLinking"
+				vcproj_release64_compiler.elements["FunctionLevelLinking"].text = "true"
+				vcproj_release64_compiler.add_element Element.new "PrecompiledHeader"
+				vcproj_release64_compiler.add_element Element.new "PrecompiledHeaderFile"
+				vcproj_release64_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
+				vcproj_release64_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
+				vcproj_release64_compiler.add_element Element.new "AssemblerListingLocation"
+				vcproj_release64_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
+				vcproj_release64_compiler.add_element Element.new "ObjectFileName"
+				vcproj_release64_compiler.elements["ObjectFileName"].text = "$(IntDir)"
+				vcproj_release64_compiler.add_element Element.new "ProgramDataBaseFileName"
+				vcproj_release64_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
+				vcproj_release64_compiler.add_element Element.new "WarningLevel"
+				vcproj_release64_compiler.elements["WarningLevel"].text = "Level3"
+				vcproj_release64_compiler.add_element Element.new "SuppressStartupBanner"
+				vcproj_release64_compiler.elements["SuppressStartupBanner"].text = "true"
+				vcproj_release64_compiler.add_element Element.new "DebugInformationFormat"
+				vcproj_release64_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
+				vcproj_release64_compiler.add_element Element.new "CompileAs"
+				vcproj_release64_compiler.elements["CompileAs"].text = "Default"
+				vcproj_release64_compiler.add_element Element.new "DisableSpecificWarnings"
+				vcproj_release64_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
+
+				vcproj_release64_compiler.add_element Element.new "PreprocessorDefinitions"
+				vcproj_release64_compiler.elements["PreprocessorDefinitions"].text = "WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
+
+				vcproj_release64_compiler.add_element Element.new "AdditionalIncludeDirectories"
+				vcproj_release64_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
+
+				vcproj_release64.add_element vcproj_release64_compiler
+
+
+			else
+
+				makefile.write("#########################################\n\n")
+				i=0
+
+				if !libraries
+					# makefile.write("LIBS = ''")
+				else
+					libraries.each do |lib|
+						if mac?
+							lib = lib.to_s
+							next if lib =~ /win /
+							next if lib =~ /win32 /
+							next if lib =~ /win64 /
+							lib.gsub!(/mac /, '')
+							if (i==0)
+								makefile.write("LIBS = ")
 							else
-								include_file = "#{path_to_moduleroot}/../../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../../Implementations/Max/source/c74support/jit-includes"
+								makefile.write("LIBS += ")
+							end
+
+							up = "../"
+							up = "" if max
+
+							if (lib == "FOUNDATION")
+								makefile.write("#{path_to_moduleroot}/#{up}../Core/Foundation/library/build/JamomaFoundation.dylib")
+							elsif (lib == "DSP")
+								makefile.write("#{path_to_moduleroot}/#{up}../Core/DSP/library/build/JamomaDSP.dylib")
+							elsif (lib == "MODULAR")
+								makefile.write("#{path_to_moduleroot}/#{up}../Core/Modular/library/build/JamomaModular.dylib")
+							elsif (lib == "GRAPH")
+								makefile.write("#{path_to_moduleroot}/#{up}../Core/Graph/library/build/JamomaGraph.dylib")
+							elsif (lib == "AUDIOGRAPH")
+								makefile.write("#{path_to_moduleroot}/#{up}../Core/AudioGraph/library/build/JamomaAudioGraph.dylib")
+							elsif (lib == "GRAPHICS")
+								makefile.write("#{path_to_moduleroot}/#{up}../Core/Graphics/library/build/JamomaGraphics.dylib")
+							elsif (lib == "C74")
+								define_c74_linker_syms = true
+							elsif (lib == "JAMOMA_FOR_MAX")
+								makefile.write("#{path_to_moduleroot}/Max/library/build/JamomaMax.dylib")
+							else
+								makefile.write(lib)
+							end
+
+						elsif linux?
+							lib = lib.to_s
+							next if lib =~ /mac /
+							next if lib =~ /win /
+							next if lib =~ /win32 /
+							next if lib =~ /win64 /
+							lib.gsub!(/linux /, '')
+
+							if (lib == "FOUNDATION")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaFoundation\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Foundation/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaFoundation\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Foundation/library/build\n")
+								end
+							elsif (lib == "DSP")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaDSP\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/DSP/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaDSP\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/DSP/library/build\n")
+								end
+							elsif (lib == "MODULAR")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaModular\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Modular/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaModular\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Modular/library/build\n")
+								end
+							elsif (lib == "GRAPH")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaGraph\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Graph/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaGraph\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Graph/library/build\n")
+								end
+							elsif (lib == "AUDIOGRAPH")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaAudioGraph\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaAudioGraph\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
+								end
+							else
+								lib_dir = lib.split "/"
+								if (i == 0)
+									makefile.write("LIBS = -l#{lib}\n")
+									makefile.write("LIB_INCLUDES = -L#{lib_dir}\n")
+								else
+									makefile.write("LIBS += -l#{lib}\n")
+									makefile.write("LIB_INCLUDES += -L#{lib_dir}\n")
+								end
 							end
 						end
 
-						if (i==0)
-							makefile.write("INCLUDES = -I#{include_file}\n")
-						else
-							makefile.write("INCLUDES += -I#{include_file}\n")
-						end
+						makefile.write("\n")
 						i+=1
 					end
-					makefile.write("INCLUDE_FILES := $(wildcard INCLUDES/*.h)")
-					makefile.write("\n\n")
 				end
-
-				if win?
-					concatenated_includes = ""
-					includes.each do |include_file|
-						if (include_file == "C74-INCLUDES")
-							concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
-							concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\msp-includes\";"
-							concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\jit-includes\";"
-							if max
-								concatenated_includes += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\library\\includes\";"
-							end
-						else
-							concatenated_includes += "\"$(ProjectDir)#{include_file}\";"
-						end
-					end
-					concatenated_includes.gsub!(/(\/)/,'\\')
-
-					concatenated_defines = ""
-					if defines
-						defines.each do |define|
-							concatenated_defines += ";" if concatenated_defines != ""
-							concatenated_defines += "#{define}"
-						end
-					end
-
-					vcproj_debug32_compiler = Element.new "ClCompile"
-					vcproj_debug32_compiler.add_element Element.new "Optimization"
-					vcproj_debug32_compiler.elements["Optimization"].text = "Disabled"
-					vcproj_debug32_compiler.add_element Element.new "MinimalRebuild"
-					vcproj_debug32_compiler.elements["MinimalRebuild"].text = "true"
-					vcproj_debug32_compiler.add_element Element.new "ExceptionHandling"
-					vcproj_debug32_compiler.elements["ExceptionHandling"].text = "Sync"
-					vcproj_debug32_compiler.add_element Element.new "BasicRuntimeChecks"
-					vcproj_debug32_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
-					vcproj_debug32_compiler.add_element Element.new "RuntimeLibrary"
-					vcproj_debug32_compiler.elements["RuntimeLibrary"].text = "MultiThreadedDebug"
-					vcproj_debug32_compiler.add_element Element.new "BufferSecurityCheck"
-					vcproj_debug32_compiler.elements["BufferSecurityCheck"].text = "true"
-					vcproj_debug32_compiler.add_element Element.new "FunctionLevelLinking"
-					vcproj_debug32_compiler.elements["FunctionLevelLinking"].text = "true"
-					vcproj_debug32_compiler.add_element Element.new "PrecompiledHeader"
-					vcproj_debug32_compiler.add_element Element.new "PrecompiledHeaderFile"
-					vcproj_debug32_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
-					vcproj_debug32_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
-					vcproj_debug32_compiler.add_element Element.new "AssemblerListingLocation"
-					vcproj_debug32_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
-					vcproj_debug32_compiler.add_element Element.new "ObjectFileName"
-					vcproj_debug32_compiler.elements["ObjectFileName"].text = "$(IntDir)"
-					vcproj_debug32_compiler.add_element Element.new "ProgramDataBaseFileName"
-					vcproj_debug32_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
-					vcproj_debug32_compiler.add_element Element.new "WarningLevel"
-					vcproj_debug32_compiler.elements["WarningLevel"].text = "Level3"
-					vcproj_debug32_compiler.add_element Element.new "SuppressStartupBanner"
-					vcproj_debug32_compiler.elements["SuppressStartupBanner"].text = "true"
-					vcproj_debug32_compiler.add_element Element.new "DebugInformationFormat"
-					vcproj_debug32_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
-					vcproj_debug32_compiler.add_element Element.new "CompileAs"
-					vcproj_debug32_compiler.elements["CompileAs"].text = "Default"
-					vcproj_debug32_compiler.add_element Element.new "DisableSpecificWarnings"
-					vcproj_debug32_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
-
-					vcproj_debug32_compiler.add_element Element.new "PreprocessorDefinitions"
-					vcproj_debug32_compiler.elements["PreprocessorDefinitions"].text = "WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
-
-					vcproj_debug32_compiler.add_element Element.new "AdditionalIncludeDirectories"
-					vcproj_debug32_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
-
-					vcproj_debug32.add_element vcproj_debug32_compiler
-
-
-
-					vcproj_release32_compiler = Element.new "ClCompile"
-					vcproj_release32_compiler.add_element Element.new "Optimization"
-					vcproj_release32_compiler.elements["Optimization"].text = "MaxSpeed"
-					
-					vcproj_release32_compiler.add_element Element.new "InlineFunctionExpansion"
-					vcproj_release32_compiler.elements["InlineFunctionExpansion"].text = "AnySuitable"
-					vcproj_release32_compiler.add_element Element.new "IntrinsicFunctions"
-					vcproj_release32_compiler.elements["IntrinsicFunctions"].text = "true"
-					vcproj_release32_compiler.add_element Element.new "FavorSizeOrSpeed"
-					vcproj_release32_compiler.elements["FavorSizeOrSpeed"].text = "Speed"
-					vcproj_release32_compiler.add_element Element.new "OmitFramePointers"
-					vcproj_release32_compiler.elements["OmitFramePointers"].text = "true"
-					vcproj_release32_compiler.add_element Element.new "WholeProgramOptimization"
-					vcproj_release32_compiler.elements["WholeProgramOptimization"].text = "true"
-					vcproj_release32_compiler.add_element Element.new "StringPooling"
-					vcproj_release32_compiler.elements["StringPooling"].text = "true"			 
-					vcproj_release32_compiler.add_element Element.new "EnableEnhancedInstructionSet"
-					vcproj_release32_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
-					
-					vcproj_release32_compiler.add_element Element.new "MinimalRebuild"
-					vcproj_release32_compiler.elements["MinimalRebuild"].text = "true"
-					vcproj_release32_compiler.add_element Element.new "ExceptionHandling"
-					vcproj_release32_compiler.elements["ExceptionHandling"].text = "Sync"
-					vcproj_release32_compiler.add_element Element.new "BasicRuntimeChecks"
-					vcproj_release32_compiler.elements["BasicRuntimeChecks"].text = "Default"
-					vcproj_release32_compiler.add_element Element.new "RuntimeLibrary"
-					vcproj_release32_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
-					vcproj_release32_compiler.add_element Element.new "BufferSecurityCheck"
-					vcproj_release32_compiler.elements["BufferSecurityCheck"].text = "false"
-					vcproj_release32_compiler.add_element Element.new "FunctionLevelLinking"
-					vcproj_release32_compiler.elements["FunctionLevelLinking"].text = "true"
-					vcproj_release32_compiler.add_element Element.new "PrecompiledHeader"
-					vcproj_release32_compiler.add_element Element.new "PrecompiledHeaderFile"
-					vcproj_release32_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
-					vcproj_release32_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
-					vcproj_release32_compiler.add_element Element.new "AssemblerListingLocation"
-					vcproj_release32_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
-					vcproj_release32_compiler.add_element Element.new "ObjectFileName"
-					vcproj_release32_compiler.elements["ObjectFileName"].text = "$(IntDir)"
-					vcproj_release32_compiler.add_element Element.new "ProgramDataBaseFileName"
-					vcproj_release32_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
-					vcproj_release32_compiler.add_element Element.new "WarningLevel"
-					vcproj_release32_compiler.elements["WarningLevel"].text = "Level3"
-					vcproj_release32_compiler.add_element Element.new "SuppressStartupBanner"
-					vcproj_release32_compiler.elements["SuppressStartupBanner"].text = "true"
-					vcproj_release32_compiler.add_element Element.new "DebugInformationFormat"
-					vcproj_release32_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
-					vcproj_release32_compiler.add_element Element.new "CompileAs"
-					vcproj_release32_compiler.elements["CompileAs"].text = "Default"
-					vcproj_release32_compiler.add_element Element.new "DisableSpecificWarnings"
-					vcproj_release32_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
-
-					vcproj_release32_compiler.add_element Element.new "PreprocessorDefinitions"
-					vcproj_release32_compiler.elements["PreprocessorDefinitions"].text = "WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
-
-					vcproj_release32_compiler.add_element Element.new "AdditionalIncludeDirectories"
-					vcproj_release32_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
-
-					vcproj_release32.add_element vcproj_release32_compiler
-
-
-
-					vcproj_debug64_compiler = Element.new "ClCompile"
-					vcproj_debug64_compiler.add_element Element.new "Optimization"
-					vcproj_debug64_compiler.elements["Optimization"].text = "Disabled"
-					vcproj_debug64_compiler.add_element Element.new "MinimalRebuild"
-					vcproj_debug64_compiler.elements["MinimalRebuild"].text = "true"
-					vcproj_debug64_compiler.add_element Element.new "ExceptionHandling"
-					vcproj_debug64_compiler.elements["ExceptionHandling"].text = "Sync"
-					vcproj_debug64_compiler.add_element Element.new "BasicRuntimeChecks"
-					vcproj_debug64_compiler.elements["BasicRuntimeChecks"].text = "EnableFastChecks"
-					vcproj_debug64_compiler.add_element Element.new "RuntimeLibrary"
-					vcproj_debug64_compiler.elements["RuntimeLibrary"].text = "MultiThreadedDebug"
-					vcproj_debug64_compiler.add_element Element.new "BufferSecurityCheck"
-					vcproj_debug64_compiler.elements["BufferSecurityCheck"].text = "true"
-					vcproj_debug64_compiler.add_element Element.new "FunctionLevelLinking"
-					vcproj_debug64_compiler.elements["FunctionLevelLinking"].text = "true"
-					vcproj_debug64_compiler.add_element Element.new "PrecompiledHeader"
-					vcproj_debug64_compiler.add_element Element.new "PrecompiledHeaderFile"
-					vcproj_debug64_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
-					vcproj_debug64_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
-					vcproj_debug64_compiler.add_element Element.new "AssemblerListingLocation"
-					vcproj_debug64_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
-					vcproj_debug64_compiler.add_element Element.new "ObjectFileName"
-					vcproj_debug64_compiler.elements["ObjectFileName"].text = "$(IntDir)"
-					vcproj_debug64_compiler.add_element Element.new "ProgramDataBaseFileName"
-					vcproj_debug64_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
-					vcproj_debug64_compiler.add_element Element.new "WarningLevel"
-					vcproj_debug64_compiler.elements["WarningLevel"].text = "Level3"
-					vcproj_debug64_compiler.add_element Element.new "SuppressStartupBanner"
-					vcproj_debug64_compiler.elements["SuppressStartupBanner"].text = "true"
-					vcproj_debug64_compiler.add_element Element.new "DebugInformationFormat"
-					vcproj_debug64_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
-					vcproj_debug64_compiler.add_element Element.new "CompileAs"
-					vcproj_debug64_compiler.elements["CompileAs"].text = "Default"
-					vcproj_debug64_compiler.add_element Element.new "DisableSpecificWarnings"
-					vcproj_debug64_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
-
-					vcproj_debug64_compiler.add_element Element.new "PreprocessorDefinitions"
-					vcproj_debug64_compiler.elements["PreprocessorDefinitions"].text = "WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
-
-					vcproj_debug64_compiler.add_element Element.new "AdditionalIncludeDirectories"
-					vcproj_debug64_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
-
-					vcproj_debug64.add_element vcproj_debug64_compiler
-
-
-
-					vcproj_release64_compiler = Element.new "ClCompile"
-					vcproj_release64_compiler.add_element Element.new "Optimization"
-					vcproj_release64_compiler.elements["Optimization"].text = "MaxSpeed"
-					
-					vcproj_release64_compiler.add_element Element.new "InlineFunctionExpansion"
-					vcproj_release64_compiler.elements["InlineFunctionExpansion"].text = "AnySuitable"
-					vcproj_release64_compiler.add_element Element.new "IntrinsicFunctions"
-					vcproj_release64_compiler.elements["IntrinsicFunctions"].text = "true"
-					vcproj_release64_compiler.add_element Element.new "FavorSizeOrSpeed"
-					vcproj_release64_compiler.elements["FavorSizeOrSpeed"].text = "Speed"
-					vcproj_release64_compiler.add_element Element.new "OmitFramePointers"
-					vcproj_release64_compiler.elements["OmitFramePointers"].text = "true"
-					vcproj_release64_compiler.add_element Element.new "WholeProgramOptimization"
-					vcproj_release64_compiler.elements["WholeProgramOptimization"].text = "true"
-					vcproj_release64_compiler.add_element Element.new "EnableEnhancedInstructionSet"
-					vcproj_release64_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
-					
-					vcproj_release64_compiler.add_element Element.new "MinimalRebuild"
-					vcproj_release64_compiler.elements["MinimalRebuild"].text = "true"
-					vcproj_release64_compiler.add_element Element.new "ExceptionHandling"
-					vcproj_release64_compiler.elements["ExceptionHandling"].text = "Sync"
-					vcproj_release64_compiler.add_element Element.new "BasicRuntimeChecks"
-					vcproj_release64_compiler.elements["BasicRuntimeChecks"].text = "Default"
-					vcproj_release64_compiler.add_element Element.new "RuntimeLibrary"
-					vcproj_release64_compiler.elements["RuntimeLibrary"].text = "MultiThreaded"
-					vcproj_release64_compiler.add_element Element.new "BufferSecurityCheck"
-					vcproj_release64_compiler.elements["BufferSecurityCheck"].text = "false"
-					vcproj_release64_compiler.add_element Element.new "FunctionLevelLinking"
-					vcproj_release64_compiler.elements["FunctionLevelLinking"].text = "true"
-					vcproj_release64_compiler.add_element Element.new "PrecompiledHeader"
-					vcproj_release64_compiler.add_element Element.new "PrecompiledHeaderFile"
-					vcproj_release64_compiler.add_element Element.new "PrecompiledHeaderOutputFile"
-					vcproj_release64_compiler.elements["PrecompiledHeaderOutputFile"].text = "$(IntDir)$(ProjectName).pch"
-					vcproj_release64_compiler.add_element Element.new "AssemblerListingLocation"
-					vcproj_release64_compiler.elements["AssemblerListingLocation"].text = "$(IntDir)$(TargetName).asm"
-					vcproj_release64_compiler.add_element Element.new "ObjectFileName"
-					vcproj_release64_compiler.elements["ObjectFileName"].text = "$(IntDir)"
-					vcproj_release64_compiler.add_element Element.new "ProgramDataBaseFileName"
-					vcproj_release64_compiler.elements["ProgramDataBaseFileName"].text = "$(IntDir)$(ProjectName).pdb"
-					vcproj_release64_compiler.add_element Element.new "WarningLevel"
-					vcproj_release64_compiler.elements["WarningLevel"].text = "Level3"
-					vcproj_release64_compiler.add_element Element.new "SuppressStartupBanner"
-					vcproj_release64_compiler.elements["SuppressStartupBanner"].text = "true"
-					vcproj_release64_compiler.add_element Element.new "DebugInformationFormat"
-					vcproj_release64_compiler.elements["DebugInformationFormat"].text = "ProgramDatabase"
-					vcproj_release64_compiler.add_element Element.new "CompileAs"
-					vcproj_release64_compiler.elements["CompileAs"].text = "Default"
-					vcproj_release64_compiler.add_element Element.new "DisableSpecificWarnings"
-					vcproj_release64_compiler.elements["DisableSpecificWarnings"].text = "4068;4550"
-
-					vcproj_release64_compiler.add_element Element.new "PreprocessorDefinitions"
-					vcproj_release64_compiler.elements["PreprocessorDefinitions"].text = "WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;TT_PLATFORM_WIN;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST" + ";#{concatenated_defines}"
-
-					vcproj_release64_compiler.add_element Element.new "AdditionalIncludeDirectories"
-					vcproj_release64_compiler.elements["AdditionalIncludeDirectories"].text = "#{concatenated_includes}"
-
-					vcproj_release64.add_element vcproj_release64_compiler
-
-
-				else
-
-					makefile.write("#########################################\n\n")
-					i=0
-
-					if !libraries
-						# makefile.write("LIBS = ''")
-					else
-						libraries.each do |lib|
-							if mac?
-								lib = lib.to_s
-								next if lib =~ /win /
-								next if lib =~ /win32 /
-								next if lib =~ /win64 /
-								lib.gsub!(/mac /, '')
-								if (i==0)
-									makefile.write("LIBS = ")
-								else
-									makefile.write("LIBS += ")
-								end
-
-								up = "../"
-								up = "" if max
-
-								if (lib == "FOUNDATION")
-									makefile.write("#{path_to_moduleroot}/#{up}../Core/Foundation/library/build/JamomaFoundation.dylib")
-								elsif (lib == "DSP")
-									makefile.write("#{path_to_moduleroot}/#{up}../Core/DSP/library/build/JamomaDSP.dylib")
-								elsif (lib == "MODULAR")
-									makefile.write("#{path_to_moduleroot}/#{up}../Core/Modular/library/build/JamomaModular.dylib")
-								elsif (lib == "GRAPH")
-									makefile.write("#{path_to_moduleroot}/#{up}../Core/Graph/library/build/JamomaGraph.dylib")
-								elsif (lib == "AUDIOGRAPH")
-									makefile.write("#{path_to_moduleroot}/#{up}../Core/AudioGraph/library/build/JamomaAudioGraph.dylib")
-								elsif (lib == "GRAPHICS")
-									makefile.write("#{path_to_moduleroot}/#{up}../Core/Graphics/library/build/JamomaGraphics.dylib")
-								elsif (lib == "C74")
-									define_c74_linker_syms = true
-								elsif (lib == "JAMOMA_FOR_MAX")
-									makefile.write("#{path_to_moduleroot}/Max/library/build/JamomaMax.dylib")
-								else
-									makefile.write(lib)
-								end
-
-							elsif linux?
-								lib = lib.to_s
-								next if lib =~ /mac /
-								next if lib =~ /win /
-								next if lib =~ /win32 /
-								next if lib =~ /win64 /
-								lib.gsub!(/linux /, '')
-
-								if (lib == "FOUNDATION")
-									if (i == 0)
-										makefile.write("LIBS = -lJamomaFoundation\n")
-										makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Foundation/library/build\n")
-									else
-										makefile.write("LIBS += -lJamomaFoundation\n")
-										makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Foundation/library/build\n")
-									end
-								elsif (lib == "DSP")
-									if (i == 0)
-										makefile.write("LIBS = -lJamomaDSP\n")
-										makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/DSP/library/build\n")
-									else
-										makefile.write("LIBS += -lJamomaDSP\n")
-										makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/DSP/library/build\n")
-									end
-								elsif (lib == "MODULAR")
-									if (i == 0)
-										makefile.write("LIBS = -lJamomaModular\n")
-										makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Modular/library/build\n")
-									else
-										makefile.write("LIBS += -lJamomaModular\n")
-										makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Modular/library/build\n")
-									end
-								elsif (lib == "GRAPH")
-									if (i == 0)
-										makefile.write("LIBS = -lJamomaGraph\n")
-										makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Graph/library/build\n")
-									else
-										makefile.write("LIBS += -lJamomaGraph\n")
-										makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Graph/library/build\n")
-									end
-								elsif (lib == "AUDIOGRAPH")
-									if (i == 0)
-										makefile.write("LIBS = -lJamomaAudioGraph\n")
-										makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
-									else
-										makefile.write("LIBS += -lJamomaAudioGraph\n")
-										makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
-									end
-								else
-									lib_dir = lib.split "/"
-									if (i == 0)
-										makefile.write("LIBS = -l#{lib}\n")
-										makefile.write("LIB_INCLUDES = -L#{lib_dir}\n")
-									else
-										makefile.write("LIBS += -l#{lib}\n")
-										makefile.write("LIB_INCLUDES += -L#{lib_dir}\n")
-									end
-								end
-							end
-
-							makefile.write("\n")
-							i+=1
-						end
-					end
-					makefile.write("\n\n")
-				end
+				makefile.write("\n\n")
+			end
 
 			if frameworks
 				frameworks.each do |framework|
@@ -1561,20 +1536,7 @@ else
 				makefile.write("OPTIMIZATION_RELEASE = -O3\n")
 				makefile.write("\n")
 				if mac?
-					#if icc
-					#	makefile.write("OPTIONS = -dynamiclib -ip -msse3 -ftz -fno-alias -fp-model fast=2\n")
-						# ftz:						 Flushes denormal results to zero.
-						# ip :						 Interprocedural Optimizations such as function inlining, dead code elimination, etc.
-						# fp-model fast=2: use more aggressive optimizations	when	implementing	float-ing-point calculations.
-						#									These	optimizations	increase	speed, but may alter the accuracy of floating-point
-						#									computations.
-						# xHost:					 Tells the compiler to generate instructions for the highest instruction set
-						#									available on the compilation host processor.
-
-						#makefile.write("OPTIONS = -dynamiclib -msse3 -mfpmath=sse -gdwarf-2\n")
-            #else
-						makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -gdwarf-2 -fvisibility=hidden\n")
-            #end
+					makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -gdwarf-2 -fvisibility=hidden\n")
 				else
 					if beagle?
 						makefile.write("OPTIONS = -shared -g\n")
@@ -1582,11 +1544,8 @@ else
 						makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -g\n")
 					end
 				end
-				#if icc
-				#	makefile.write("OPTIONS += -std=c++0x \n")
-				#else
-					makefile.write("OPTIONS += -std=c++11 \n")
-          #end
+
+				makefile.write("OPTIONS += -std=c++11 \n")
 				makefile.write("OPTIONS += -stdlib=libc++ # -U__STRICT_ANSI__ -D__STDC_FORMAT_MACROS") if clang
 				makefile.write("\n")
 				if mac?
@@ -1610,25 +1569,25 @@ else
 					makefile.write("\n\n")
 				end
 
-        makefile.write("\n")
-        makefile.write("#########################################\n\n")
-        makefile.write("CFLAGS = $(OPTIONS) $(DEFINES) $(INCLUDES) $(WARNINGS)\n")
-        if mac?
-          makefile.write("CFLAGS += -include#{prefix}\n") if prefix
-          makefile.write("LDFLAGS =  -shared -mfpmath=sse $(OPTIONS) $(DEFINES) $(LIBS) $(WARNINGS)\n")
-          makefile.write("LDFLAGS += -install_name \"#{distropath}/$(NAME).dylib\" \n") if project_type == "library"
-        end
-        makefile.write("LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g\n") if linux?
-        makefile.write("LDFLAGS += -fPIC\n") if beagle?
-        if define_c74_linker_syms
-          if mac?
-            makefile.write("C74SYMS = -Wl,-U,_sysmem_newptr,-U,_sysmem_freeptr,-U,_sysmem_resizeptr,-U,_strncpy_zero,-U,_stdinletinfo,-U,_outlet_new,-U,_outlet_anything,-U,_object_getmethod,-U,_object_post,-U,_object_obex_store,-U,_object_obex_dumpout,-U,_object_method,-U,_object_error,-U,_object_alloc,-U,_hashtab_store,-U,_hashtab_new,-U,_hashtab_lookup,-U,_gensym,-U,_error,-U,_common_symbols_gettable,-U,_class_register,-U,_class_new,-U,_class_attr_addattr_parse,-U,_class_addmethod,-U,_class_addattr,-U,_attr_offset_new,-U,_attr_args_process,-U,_attr_args_offset,-U,_atom_setsym,-U,_atom_setlong,-U,_atom_setfloat,-U,_atom_gettype,-U,_atom_getsym,-U,_atom_getlong,-U,_atom_getfloat,-U,_z_dsp_setup,-U,_z_dsp_free,-U,_sys_getsr,-U,_dsp_addv,-U,_class_dspinit,-U,_jit_object_method,-U,_outlet_int,-U,_outlet_list,-U,_class_attr_get,-U,_dsp_add,-U,_fileusage_addfile,-U,_locatefile_extended,-U,_nameinpath,-U,_path_closefolder,-U,_path_foldernextfile,-U,_path_openfolder,-U,_defer_low,-U,_globalsymbol_reference,-U,_globalsymbol_dereference,-U,_bangout,-U,_freeobject,-U,_outlet_bang,-U,_outlet_float,-U,_proxy_getinlet,-U,_proxy_new,-U,_atom_arg_getlong,-U,_atom_arg_getsym,-U,_floatout,-U,_intout,-U,_post,-U,_sys_getblksize,-U,_sysmem_newptrclear,-U,_object_attr_setfloat,-U,_object_attr_setlong,-U,_atom_arg_getfloat,-U,_atom_getfloatarg,-U,_listout,-U,_attr_addfilter_clip,-U,_attr_dictionary_process,-U,_class_attr_addattr_format,-U,_jbox_free,-U,_jbox_get_rect_for_view,-U,_jbox_initclass,-U,_jbox_new,-U,_jbox_ready,-U,_jbox_redraw,-U,_jgraphics_fill,-U,_jgraphics_rectangle_rounded,-U,_jgraphics_set_source_jrgba,-U,_object_attach_byptr,-U,_object_attr_get_rect,-U,_object_attr_set_rect,-U,_object_detach_byptr,-U,_object_dictionaryarg,-U,_object_register,-U,_object_unregister,-U,_patcherview_get_jgraphics,-U,_symbol_unique,-U,_attr_offset_array_new,-U,_defer,-U,_object_free,-U,_object_method_typed,-U,_object_new_typed,-U,_path_copyfile,-U,_path_copyfolder,-U,_path_createfolder,-U,_path_frompathname,-U,_path_nameconform,-U,_clock_delay,-U,_clock_new,-U,_clock_unset,-U,_intin,-U,_addmess,-U,_newobject,-U,_setup,-U,_z_add_signalmethod,-U,_object_attr_setsym,-U,_open_dialog,-U,_path_addnamed,-U,_path_createsysfile,-U,_path_getfilemoddate,-U,_path_opensysfile,-U,_path_topotentialname,-U,_sysfile_close,-U,_sysfile_geteof,-U,_sysfile_read,-U,_sysfile_seteof,-U,_sysfile_write,-U,_systime_secondstodate,-U,_qelem_new,-U,_qelem_free,-U,_qelem_set,-U,_jit_class_addadornment,-U,_jit_class_addattr,-U,_jit_class_addmethod,-U,_jit_class_findbyname,-U,_jit_class_new,-U,_jit_class_register,-U,_jit_error_code,-U,_jit_object_alloc,-U,_jit_object_free,-U,_jit_object_new,-U,_jit_object_new_imp,-U,_max_addmethod_usurp_low,-U,_max_jit_attr_args,-U,_max_jit_classex_mop_wrap,-U,_max_jit_classex_setup,-U,_max_jit_classex_standard_wrap,-U,_max_jit_mop_assist,-U,_max_jit_mop_free,-U,_max_jit_mop_getoutputmode,-U,_max_jit_mop_outputmatrix,-U,_max_jit_mop_setup_simple,-U,_max_jit_obex_adornment_get,-U,_max_jit_obex_free,-U,_max_jit_obex_jitob_get,-U,_max_jit_obex_new,-U,_jbox_get_nextobject,-U,_jbox_get_object,-U,_jbox_get_varname,-U,_jpatcher_get_firstobject,-U,_object_attr_getnames,-U,_object_attr_getvalueof,-U,_object_new_imp,-U,_object_obex_lookup,-U,_jit_atom_setfloat,-U,_jit_error_sym,-U,_jit_matrix_info_default,-U,_jit_object_findregistered,-U,_jit_symbol_unique,-U,_max_jit_obex_dumpout,-U,_jit_object_detach,-U,_jit_object_attach,-U,_atom_setobj,-U,_gettime,-U,_critical_enter,-U,_critical_exit,-U,_object_attr_setchar,-U,_object_new,-U,_object_warn,-U,_outlet_atoms,-U,_atom_setparse,-U,_class_findbyname,-U,_maxversion,-U,_newinstance,-U,_object_attr_getobj,-U,_object_attr_getsym,-U,_object_classname,-U,_object_method_long,-U,_object_method_parse,-U,_path_topathname,-U,_qelem_unset,-U,_saveas_promptset,-U,_saveasdialog_extended,-U,_setclock_fdelay,-U,_sysmem_copyptr,-U,_systime_ms,-U,_zgetfn,-U,__jit_sym_char,-U,__jit_sym_getdata,-U,__jit_sym_jit_matrix,-U,__jit_sym_setinfo,-U,_jit_object_register,-U,_jit_object_unregister,-U,_class_dspinitjbox,-U,_jbox_notify,-U,_jgraphics_attr_setrgba,-U,_jgraphics_image_surface_create,-U,_jgraphics_image_surface_draw,-U,_jgraphics_image_surface_set_pixel,-U,_jgraphics_line_to,-U,_jgraphics_move_to,-U,_jgraphics_rectangle_fill_fast,-U,_jgraphics_set_line_width,-U,_jgraphics_stroke,-U,_jgraphics_surface_destroy,-U,_notify_free,-U,_sys_getdspstate,-U,_z_jbox_dsp_free,-U,_z_jbox_dsp_setup,-U,_classname_openhelp,-U,_classname_openrefpage,-U,_jbox_getoutlet,-U,_newobject_sprintf,-U,_object_attr_setvalueof,-U,_object_method_sym,-U,_filewatcher_new,-U,_filewatcher_start,-U,_filewatcher_stop,-U,_atom_alloc,-U,_attribute_new_parse,-U,_class_sticky,-U,_class_sticky_clear,-U,_dictionary_read,-U,_jbox_get_textfield,-U,_jbox_set_mousedragdelta,-U,_jdialog_showtext,-U,_jfont_create,-U,_jfont_destroy,-U,_jgraphics_arc,-U,_jgraphics_close_path,-U,_jgraphics_select_font_face,-U,_jgraphics_set_font_size,-U,_jgraphics_show_text,-U,_jpatcher_get_firstview,-U,_jpopupmenu_additem,-U,_jpopupmenu_addseperator,-U,_jpopupmenu_create,-U,_jpopupmenu_destroy,-U,_jpopupmenu_popup,-U,_jpopupmenu_setfont,-U,_linklist_append,-U,_linklist_clear,-U,_linklist_getindex,-U,_linklist_getsize,-U,_linklist_new,-U,_object_addattr_format,-U,_object_attach_byptr_register,-U,_object_attr_setcolor,-U,_object_attr_setobj,-U,_symobject_new,-U,_textfield_get_textmargins,-U,_textfield_set_editonclick,-U,_textfield_set_noactivate,-U,_textfield_set_readonly,-U,_textfield_set_textcolor,-U,_textfield_set_textmargins,-U,_textfield_set_useellipsis,-U,_textfield_set_wordwrap,-U,_jgraphics_line_draw_fast,-U,_jgraphics_rectangle,-U,_jmouse_setposition_view,-U,_atom_gettext,-U,_jgraphics_oval,-U,_jgraphics_set_source_rgb,-U,_jgraphics_set_source_rgba,-U,_jrgba_set,-U,_jpopupmenu_popup_nearbox,-U,_jtextlayout_create,-U,_jtextlayout_destroy,-U,_jtextlayout_draw,-U,_jtextlayout_set,-U,_jtextlayout_settextcolor,-U,__jit_sym_float32,-U,__jit_sym_getindex,-U,__jit_sym_jit_attr_offset,-U,__jit_sym_jit_mop,-U,__jit_sym_lock,-U,_jit_object_error,-U,__jit_sym_jit_attr_offset_array,-U,__jit_sym_long,-U,__jit_sym_symbol,-U,_table_get,-U,_jbox_get_maxclass,-U,_jpatchline_get_box1,-U,_jpatchline_get_box2,-U,_jpatchline_get_inletnum,-U,_jpatchline_get_outletnum,-U,_cpost,-U,_object_error_obtrusive,-U,_gensym_tr,-U,_str_tr,-U,_jit_object_method_imp,-U,_object_method_imp,-U,_buffer_getchannelcount,-U,_buffer_getframecount,-U,_buffer_locksamples,-U,_buffer_ref_getobject,-U,_buffer_ref_new,-U,_buffer_ref_notify,-U,_buffer_ref_set,-U,_buffer_setdirty,-U,_buffer_unlocksamples,-U,_buffer_view\n")
-            makefile.write("LDFLAGS += $(C74SYMS)\n")
-            # This next line makes sure that we don't re-export symbols from static library dependencies
-            # It may not strip out symbols beginning with 'm' because we need to still keep the main() function
-            makefile.write("LDFLAGS += -Wl,-unexported_symbol,_[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklnopqrstuvwxyz_]*") if project_type == "implementation"
-          end
-        end
+				makefile.write("\n")
+				makefile.write("#########################################\n\n")
+				makefile.write("CFLAGS = $(OPTIONS) $(DEFINES) $(INCLUDES) $(WARNINGS)\n")
+				if mac?
+					makefile.write("CFLAGS += -include#{prefix}\n") if prefix
+					makefile.write("LDFLAGS =  -shared -mfpmath=sse $(OPTIONS) $(DEFINES) $(LIBS) $(WARNINGS)\n")
+					makefile.write("LDFLAGS += -install_name \"#{distropath}/$(NAME).dylib\" \n") if project_type == "library"
+				end
+				makefile.write("LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g\n") if linux?
+				makefile.write("LDFLAGS += -fPIC\n") if beagle?
+				if define_c74_linker_syms
+					if mac?
+						makefile.write("C74SYMS = -Wl,-U,_sysmem_newptr,-U,_sysmem_freeptr,-U,_sysmem_resizeptr,-U,_strncpy_zero,-U,_stdinletinfo,-U,_outlet_new,-U,_outlet_anything,-U,_object_getmethod,-U,_object_post,-U,_object_obex_store,-U,_object_obex_dumpout,-U,_object_method,-U,_object_error,-U,_object_alloc,-U,_hashtab_store,-U,_hashtab_new,-U,_hashtab_lookup,-U,_gensym,-U,_error,-U,_common_symbols_gettable,-U,_class_register,-U,_class_new,-U,_class_attr_addattr_parse,-U,_class_addmethod,-U,_class_addattr,-U,_attr_offset_new,-U,_attr_args_process,-U,_attr_args_offset,-U,_atom_setsym,-U,_atom_setlong,-U,_atom_setfloat,-U,_atom_gettype,-U,_atom_getsym,-U,_atom_getlong,-U,_atom_getfloat,-U,_z_dsp_setup,-U,_z_dsp_free,-U,_sys_getsr,-U,_dsp_addv,-U,_class_dspinit,-U,_jit_object_method,-U,_outlet_int,-U,_outlet_list,-U,_class_attr_get,-U,_dsp_add,-U,_fileusage_addfile,-U,_locatefile_extended,-U,_nameinpath,-U,_path_closefolder,-U,_path_foldernextfile,-U,_path_openfolder,-U,_defer_low,-U,_globalsymbol_reference,-U,_globalsymbol_dereference,-U,_bangout,-U,_freeobject,-U,_outlet_bang,-U,_outlet_float,-U,_proxy_getinlet,-U,_proxy_new,-U,_atom_arg_getlong,-U,_atom_arg_getsym,-U,_floatout,-U,_intout,-U,_post,-U,_sys_getblksize,-U,_sysmem_newptrclear,-U,_object_attr_setfloat,-U,_object_attr_setlong,-U,_atom_arg_getfloat,-U,_atom_getfloatarg,-U,_listout,-U,_attr_addfilter_clip,-U,_attr_dictionary_process,-U,_class_attr_addattr_format,-U,_jbox_free,-U,_jbox_get_rect_for_view,-U,_jbox_initclass,-U,_jbox_new,-U,_jbox_ready,-U,_jbox_redraw,-U,_jgraphics_fill,-U,_jgraphics_rectangle_rounded,-U,_jgraphics_set_source_jrgba,-U,_object_attach_byptr,-U,_object_attr_get_rect,-U,_object_attr_set_rect,-U,_object_detach_byptr,-U,_object_dictionaryarg,-U,_object_register,-U,_object_unregister,-U,_patcherview_get_jgraphics,-U,_symbol_unique,-U,_attr_offset_array_new,-U,_defer,-U,_object_free,-U,_object_method_typed,-U,_object_new_typed,-U,_path_copyfile,-U,_path_copyfolder,-U,_path_createfolder,-U,_path_frompathname,-U,_path_nameconform,-U,_clock_delay,-U,_clock_new,-U,_clock_unset,-U,_intin,-U,_addmess,-U,_newobject,-U,_setup,-U,_z_add_signalmethod,-U,_object_attr_setsym,-U,_open_dialog,-U,_path_addnamed,-U,_path_createsysfile,-U,_path_getfilemoddate,-U,_path_opensysfile,-U,_path_topotentialname,-U,_sysfile_close,-U,_sysfile_geteof,-U,_sysfile_read,-U,_sysfile_seteof,-U,_sysfile_write,-U,_systime_secondstodate,-U,_qelem_new,-U,_qelem_free,-U,_qelem_set,-U,_jit_class_addadornment,-U,_jit_class_addattr,-U,_jit_class_addmethod,-U,_jit_class_findbyname,-U,_jit_class_new,-U,_jit_class_register,-U,_jit_error_code,-U,_jit_object_alloc,-U,_jit_object_free,-U,_jit_object_new,-U,_jit_object_new_imp,-U,_max_addmethod_usurp_low,-U,_max_jit_attr_args,-U,_max_jit_classex_mop_wrap,-U,_max_jit_classex_setup,-U,_max_jit_classex_standard_wrap,-U,_max_jit_mop_assist,-U,_max_jit_mop_free,-U,_max_jit_mop_getoutputmode,-U,_max_jit_mop_outputmatrix,-U,_max_jit_mop_setup_simple,-U,_max_jit_obex_adornment_get,-U,_max_jit_obex_free,-U,_max_jit_obex_jitob_get,-U,_max_jit_obex_new,-U,_jbox_get_nextobject,-U,_jbox_get_object,-U,_jbox_get_varname,-U,_jpatcher_get_firstobject,-U,_object_attr_getnames,-U,_object_attr_getvalueof,-U,_object_new_imp,-U,_object_obex_lookup,-U,_jit_atom_setfloat,-U,_jit_error_sym,-U,_jit_matrix_info_default,-U,_jit_object_findregistered,-U,_jit_symbol_unique,-U,_max_jit_obex_dumpout,-U,_jit_object_detach,-U,_jit_object_attach,-U,_atom_setobj,-U,_gettime,-U,_critical_enter,-U,_critical_exit,-U,_object_attr_setchar,-U,_object_new,-U,_object_warn,-U,_outlet_atoms,-U,_atom_setparse,-U,_class_findbyname,-U,_maxversion,-U,_newinstance,-U,_object_attr_getobj,-U,_object_attr_getsym,-U,_object_classname,-U,_object_method_long,-U,_object_method_parse,-U,_path_topathname,-U,_qelem_unset,-U,_saveas_promptset,-U,_saveasdialog_extended,-U,_setclock_fdelay,-U,_sysmem_copyptr,-U,_systime_ms,-U,_zgetfn,-U,__jit_sym_char,-U,__jit_sym_getdata,-U,__jit_sym_jit_matrix,-U,__jit_sym_setinfo,-U,_jit_object_register,-U,_jit_object_unregister,-U,_class_dspinitjbox,-U,_jbox_notify,-U,_jgraphics_attr_setrgba,-U,_jgraphics_image_surface_create,-U,_jgraphics_image_surface_draw,-U,_jgraphics_image_surface_set_pixel,-U,_jgraphics_line_to,-U,_jgraphics_move_to,-U,_jgraphics_rectangle_fill_fast,-U,_jgraphics_set_line_width,-U,_jgraphics_stroke,-U,_jgraphics_surface_destroy,-U,_notify_free,-U,_sys_getdspstate,-U,_z_jbox_dsp_free,-U,_z_jbox_dsp_setup,-U,_classname_openhelp,-U,_classname_openrefpage,-U,_jbox_getoutlet,-U,_newobject_sprintf,-U,_object_attr_setvalueof,-U,_object_method_sym,-U,_filewatcher_new,-U,_filewatcher_start,-U,_filewatcher_stop,-U,_atom_alloc,-U,_attribute_new_parse,-U,_class_sticky,-U,_class_sticky_clear,-U,_dictionary_read,-U,_jbox_get_textfield,-U,_jbox_set_mousedragdelta,-U,_jdialog_showtext,-U,_jfont_create,-U,_jfont_destroy,-U,_jgraphics_arc,-U,_jgraphics_close_path,-U,_jgraphics_select_font_face,-U,_jgraphics_set_font_size,-U,_jgraphics_show_text,-U,_jpatcher_get_firstview,-U,_jpopupmenu_additem,-U,_jpopupmenu_addseperator,-U,_jpopupmenu_create,-U,_jpopupmenu_destroy,-U,_jpopupmenu_popup,-U,_jpopupmenu_setfont,-U,_linklist_append,-U,_linklist_clear,-U,_linklist_getindex,-U,_linklist_getsize,-U,_linklist_new,-U,_object_addattr_format,-U,_object_attach_byptr_register,-U,_object_attr_setcolor,-U,_object_attr_setobj,-U,_symobject_new,-U,_textfield_get_textmargins,-U,_textfield_set_editonclick,-U,_textfield_set_noactivate,-U,_textfield_set_readonly,-U,_textfield_set_textcolor,-U,_textfield_set_textmargins,-U,_textfield_set_useellipsis,-U,_textfield_set_wordwrap,-U,_jgraphics_line_draw_fast,-U,_jgraphics_rectangle,-U,_jmouse_setposition_view,-U,_atom_gettext,-U,_jgraphics_oval,-U,_jgraphics_set_source_rgb,-U,_jgraphics_set_source_rgba,-U,_jrgba_set,-U,_jpopupmenu_popup_nearbox,-U,_jtextlayout_create,-U,_jtextlayout_destroy,-U,_jtextlayout_draw,-U,_jtextlayout_set,-U,_jtextlayout_settextcolor,-U,__jit_sym_float32,-U,__jit_sym_getindex,-U,__jit_sym_jit_attr_offset,-U,__jit_sym_jit_mop,-U,__jit_sym_lock,-U,_jit_object_error,-U,__jit_sym_jit_attr_offset_array,-U,__jit_sym_long,-U,__jit_sym_symbol,-U,_table_get,-U,_jbox_get_maxclass,-U,_jpatchline_get_box1,-U,_jpatchline_get_box2,-U,_jpatchline_get_inletnum,-U,_jpatchline_get_outletnum,-U,_cpost,-U,_object_error_obtrusive,-U,_gensym_tr,-U,_str_tr,-U,_jit_object_method_imp,-U,_object_method_imp,-U,_buffer_getchannelcount,-U,_buffer_getframecount,-U,_buffer_locksamples,-U,_buffer_ref_getobject,-U,_buffer_ref_new,-U,_buffer_ref_notify,-U,_buffer_ref_set,-U,_buffer_setdirty,-U,_buffer_unlocksamples,-U,_buffer_view\n")
+						makefile.write("LDFLAGS += $(C74SYMS)\n")
+						# This next line makes sure that we don't re-export symbols from static library dependencies
+						# It may not strip out symbols beginning with 'm' because we need to still keep the main() function
+						makefile.write("LDFLAGS += -Wl,-unexported_symbol,_[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklnopqrstuvwxyz_]*") if project_type == "implementation"
+					end
+				end
 
 
 				######################################################################################################################
@@ -1646,16 +1605,16 @@ else
 				end
 				# {'environment' if (mac? && out.match(/Xcode 4/))}
 
-        if mac? || linux?
-          makefile.write("\n")
-          makefile.write("#########################################\n\n")
-          makefile.write("Debug: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
-          makefile.write("Debug: createdirs install\n")
-          makefile.write("\n")
-          
-          makefile.write("DebugWithoutTests: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
-          makefile.write("DebugWithoutTests: createdirs notest\n")
-          makefile.write("\n")
+				if mac? || linux?
+					makefile.write("\n")
+					makefile.write("#########################################\n\n")
+					makefile.write("Debug: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
+					makefile.write("Debug: createdirs install\n")
+					makefile.write("\n")
+				  
+					makefile.write("DebugWithoutTests: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
+					makefile.write("DebugWithoutTests: createdirs notest\n")
+					makefile.write("\n")
 
 					makefile.write("Release: OPTIMIZATION_FLAGS = $(OPTIMIZATION_RELEASE)\n")
 					makefile.write("Release: createdirs install\n")
@@ -1740,98 +1699,98 @@ else
 					end
 					makefile.write("\n")
 
-          makefile.write("clean:\n")
-          # this is going be a bit brute-force, but someone else can do some sort of fancy recursive thing to make this better ;-)
-          makefile.write("\trm -f $(SRC32) $(SRC64)\n")
-          makefile.write("\trm -rf #{build_temp}\n")
-          makefile.write("\n")
-          
-          ##########
-          # BEGIN test.cpp handling
-          #
-          # The following section is used initiate testing during building whenever a "test.cpp" file is present within a Core project.
-          # This testing procedure was developed as an alternative to testing within the Ruby implementation.
-          # 
-          ##########
-          # restored after bad merge
-          
-          if project_type != "implementation"
-          
-            # testing within projects other than JamomaFoundation will be dependant on that build
-            # the path will be slightly different depending on whether the project is a library or extension
-            test_dependency_foundation = ""
-            if project_type == "extension"
-              test_dependency_foundation = "../../../Foundation/library/build/libJamomaFoundation.a"
-            elsif project_type == "library" && projectname != "JamomaFoundation"
-              test_dependency_foundation = "../../Foundation/library/build/libJamomaFoundation.a"
-            end
-            
-            # testing within projects that are extensions to a given layer will be dependant on that build
-            # the path will be specific to a given layer and will therefore necessitate additions here for future layers
-            # extensions to the Foundation layer are handled by the above test and can be excluded here
-            test_dependency_layer = ""
-            if project_type == "extension" && layer_name != "Foundation"
-              test_dependency_layer = "../../library/build/libJamomaAudioGraph.a" if layer_name == "AudioGraph"
-              test_dependency_layer = "../../library/build/libJamomaDSP.a" if layer_name == "DSP"
-              test_dependency_layer = "../../library/build/libJamomaGraph.a" if layer_name == "Graph"
-              test_dependency_layer = "../../library/build/libJamomaModular.a" if layer_name == "Modular"
-            end
-            
-        
-            makefile.write("build_and_test: | lipo \n")
-            makefile.write("\techo Testing 32-bit \n")
-            makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
-            makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
-            makefile.write("\techo Testing 64-bit \n")
-            makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
-            makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
-            makefile.write("\n")
+					makefile.write("clean:\n")
+					# this is going be a bit brute-force, but someone else can do some sort of fancy recursive thing to make this better ;-)
+					makefile.write("\trm -f $(SRC32) $(SRC64)\n")
+					makefile.write("\trm -rf #{build_temp}\n")
+					makefile.write("\n")
+					  
+					##########
+					# BEGIN test.cpp handling
+					#
+					# The following section is used initiate testing during building whenever a "test.cpp" file is present within a Core project.
+					# This testing procedure was developed as an alternative to testing within the Ruby implementation.
+					# 
+					##########
+			  
+					if project_type != "implementation"
+					  
+						# testing within projects other than JamomaFoundation will be dependant on that build
+						# the path will be slightly different depending on whether the project is a library or extension
+						test_dependency_foundation = ""
+						if project_type == "extension"
+							test_dependency_foundation = "../../../Foundation/library/build/libJamomaFoundation.a"
+						elsif project_type == "library" && projectname != "JamomaFoundation"
+							test_dependency_foundation = "../../Foundation/library/build/libJamomaFoundation.a"
+						end
+						
+						# testing within projects that are extensions to a given layer will be dependant on that build
+						# the path will be specific to a given layer and will therefore necessitate additions here for future layers
+						# extensions to the Foundation layer are handled by the above test and can be excluded here
+						test_dependency_layer = ""
+						if project_type == "extension" && layer_name != "Foundation"
+							test_dependency_layer = "../../library/build/libJamomaAudioGraph.a" if layer_name == "AudioGraph"
+							test_dependency_layer = "../../library/build/libJamomaDSP.a" if layer_name == "DSP"
+							test_dependency_layer = "../../library/build/libJamomaGraph.a" if layer_name == "Graph"
+							test_dependency_layer = "../../library/build/libJamomaModular.a" if layer_name == "Modular"
+						end
+						
+					
+						makefile.write("build_and_test: | lipo \n")
+						makefile.write("\techo Testing 32-bit \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
+						makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
+						makefile.write("\techo Testing 64-bit \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
+						makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
+						makefile.write("\n")
 
-            makefile.write("notest: | lipo \n")
-          	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
-          	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
-            makefile.write("\techo Skipping Tests \n")
-            makefile.write("\n")
-            
-          end
-          
-          ##########
-          # END test.cpp handling
-          ##########
+						makefile.write("notest: | lipo \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
+						makefile.write("\techo Skipping Tests \n")
+						makefile.write("\n")
+						
+					end
+			  
+					##########
+					# END test.cpp handling
+					##########
 
-          if project_type != "implementation"
-            makefile.write("install: | build_and_test\n") # if wrote a build_and_test above, install depends on it
-          else
-            makefile.write("install: | lipo\n")           # if not (such as in Max externals), then it is dependant on lipo
-          end
-          
-          if max && mac?
-            makefile.write("\tcp build/$(NAME) #{builddir}\n")
-          end
-          if project_type != "implementation"
-            if linux?
-              makefile.write("\tsudo cp #{build_temp}/$(NAME)#{extension_suffix} #{extension_dest}\n")
-            elsif mac?
-                if projectname == "JamomaMax"
-                    makefile.write("\t#{path_to_moduleroot}/../../Core/Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/Jamoma/support\n")
-                else
-                    makefile.write("\t#{path_to_moduleroot}/../Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/../../Implementations/Max/Jamoma/support\n")
-                end
-            else
-              #TODO: windows support for this...  need to write a DOS script
-            end
-          end
+					if project_type != "implementation"
+					makefile.write("install: | build_and_test\n") # if wrote a build_and_test above, install depends on it
+					else
+					makefile.write("install: | lipo\n")		   # if not (such as in Max externals), then it is dependant on lipo
+					end
 
-		  if postbuilds
-			postbuilds.each do |postbuild|
-			  postbuild = postbuild.to_s
-			  makefile.write("\t#{postbuild}\n")
-			end
-		  end
-		  makefile.write("\n")
+					if max && mac?
+					makefile.write("\tcp build/$(NAME) #{builddir}\n")
+					end
+
+					if project_type != "implementation"
+						if linux?
+						  makefile.write("\tsudo cp #{build_temp}/$(NAME)#{extension_suffix} #{extension_dest}\n")
+						elsif mac?
+							if projectname == "JamomaMax"
+								makefile.write("\t#{path_to_moduleroot}/../../Core/Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/Jamoma/support\n")
+							else
+								makefile.write("\t#{path_to_moduleroot}/../Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/../../Implementations/Max/Jamoma/support\n")
+							end
+						else
+						  #TODO: windows support for this...  need to write a DOS script
+						end
+					end
+
+					if postbuilds
+					postbuilds.each do |postbuild|
+					  postbuild = postbuild.to_s
+					  makefile.write("\t#{postbuild}\n")
+					end
+					end
+					makefile.write("\n")
 
 				else
-		#TODO: Is this code called at all???	Above is Mac and Linux, and Windows isn't using Makefiles?
+					#TODO: Is this code called at all???	Above is Mac and Linux, and Windows isn't using Makefiles?
 					#################				#################				#################				#################				#################				#################
 					#			 Debug:
 					#################				#################				#################				#################				#################				#################
@@ -1841,8 +1800,8 @@ else
 					makefile.write("\tmkdir -p build\n")
 
 					if mac?
-		#						makefile.write("\tmkdir -p #{extension_dest}\n")
-		#						makefile.write("\ttouch #{extension_dest}\n")
+						# makefile.write("\tmkdir -p #{extension_dest}\n")
+						# makefile.write("\ttouch #{extension_dest}\n")
 						if (arch == 'i386')
 							makefile.write("\t$(CC_32) $(SRC) $(LDFLAGS) $(CFLAGS) $(OPTIMIZATION_DEBUG) -o build/$(NAME)-i386#{extension_suffix}\n")
 							makefile.write("\tcp build/$(NAME)-i386#{extension_suffix} build/$(NAME)#{extension_suffix}\n")
