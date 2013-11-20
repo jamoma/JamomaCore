@@ -19,7 +19,7 @@
 
 #define thisTTClass			TTSoundfileLoader
 #define thisTTClassName		"soundfile.loader"
-#define thisTTClassTags		"audio, soundfile, buffer"
+#define thisTTClassTags		"dspSoundFileLib, audio, soundfile, buffer"
 
 TTObjectBasePtr TTSoundfileLoader::instantiate(TTSymbol name, TTValue arguments)
 {

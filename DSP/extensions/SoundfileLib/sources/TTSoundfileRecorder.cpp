@@ -17,7 +17,7 @@
 
 #define thisTTClass			TTSoundfileRecorder
 #define thisTTClassName		"soundfile.recorder"
-#define thisTTClassTags		"audio, soundfile, record"
+#define thisTTClassTags		"dspSoundFileLib, audio, soundfile, record"
 
 
 TT_AUDIO_CONSTRUCTOR,

@@ -21,7 +21,7 @@
 
 #define thisTTClass			TTSoundfile
 #define thisTTClassName		"soundfile"
-#define thisTTClassTags		"soundfile"
+#define thisTTClassTags		"dspSoundFileLib, soundfile"
 
 TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),

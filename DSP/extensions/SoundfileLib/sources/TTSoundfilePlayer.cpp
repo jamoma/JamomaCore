@@ -18,7 +18,7 @@
 
 #define thisTTClass			TTSoundfilePlayer
 #define thisTTClassName		"soundfile.player"
-#define thisTTClassTags		"audio, soundfile, playback"
+#define thisTTClassTags		"dspSoundFileLib, audio, soundfile, playback"
 
 
 TT_AUDIO_CONSTRUCTOR,
