@@ -22,7 +22,7 @@
 
 #define thisTTClass			RosenbergGlottalPulseWindow
 #define thisTTClassName		"rosenbergGlottalPulse"
-#define thisTTClassTags		"audio, processor, function, window, voice, speech"
+#define thisTTClassTags		"dspWindowFunctionLib, audio, processor, function, window, voice, speech"
 
 
 TT_AUDIO_CONSTRUCTOR
