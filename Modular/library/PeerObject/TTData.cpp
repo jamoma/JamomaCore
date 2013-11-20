@@ -671,9 +671,9 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark Some Methods
 #endif
 
-TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
+TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue)
 {
-	TTDictionaryPtr		command = new TTDictionary();
+	TTDictionaryBasePtr		command = new TTDictionaryBase();
 	TTUInt32			time;
 	TTUInt32			commandSize;
 	TTSymbol			unit, ramp;

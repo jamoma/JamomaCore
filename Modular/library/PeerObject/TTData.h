@@ -213,7 +213,7 @@ typedef TTData* TTDataPtr;
 	2		: 2 values || 1 value + unit
 	3		: 3 values || 2 values + unit || 1 value + ramp ramptime
 	X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime */
-TTDictionaryPtr	TTMODULAR_EXPORT TTDataParseCommand(const TTValue& command);
+TTDictionaryBasePtr	TTMODULAR_EXPORT TTDataParseCommand(const TTValue& command);
 
 /**
  @param	baton						..

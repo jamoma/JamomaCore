@@ -882,7 +882,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTListPtr		filterList;
 	TTSymbol		aFilterName;
 	TTSymbol		filterMode;
-	TTDictionaryPtr aFilter;
+	TTDictionaryBasePtr aFilter;
 	TTObjectBasePtr		anObject;
 	TTAddress		anAddress;
 	TTValue			v;
@@ -930,7 +930,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				TTStringIter begin, end;
 				
 				// get filter
-				aFilter = TTDictionaryPtr((TTPtr)v[0]);
+				aFilter = TTDictionaryBasePtr((TTPtr)v[0]);
 				
 				// get filter mode :
 				//		- in default exclusion mode, if one field of a filter matches a node, this node is excluded.

@@ -1264,7 +1264,7 @@ TTErr TTCueManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	TTDictionaryPtr	line;
+	TTDictionaryBasePtr	line;
 	TTSymbol		flagName;
 	TTValue			v, args;
 	

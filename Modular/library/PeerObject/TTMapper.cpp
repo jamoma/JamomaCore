@@ -751,7 +751,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
         
         // if there is a ramp value, edit the command here
         if (aMapper->mRamp > 0) {
-            TTDictionaryPtr	command = new TTDictionary();
+            TTDictionaryBasePtr	command = new TTDictionaryBase();
             command->setSchema(kTTSym_command);
             command->setValue(mappedValue);
             command->append(kTTSym_ramp, aMapper->mRamp);

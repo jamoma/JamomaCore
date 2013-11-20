@@ -141,7 +141,7 @@ TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
     }
     
     // else we need to free the parsed command afterwards
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTErr           err;
     
     // parse command locally
@@ -262,7 +262,7 @@ TTErr TTData::NoneInit()
 
 TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTValue			c, aValue;
 
     if (inputValue.size()) {
@@ -270,7 +270,7 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -335,7 +335,7 @@ TTErr TTData::GenericInit()
 
 TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
@@ -346,7 +346,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -484,7 +484,7 @@ TTErr TTData::BooleanInit()
 
 TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
@@ -495,7 +495,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -664,7 +664,7 @@ TTErr TTData::IntegerInit()
 
 TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
     TTUInt32        time;
     TTBoolean       isRunning;
@@ -675,7 +675,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -840,7 +840,7 @@ TTErr TTData::DecimalInit()
 
 TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
@@ -851,7 +851,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -1004,7 +1004,7 @@ TTErr TTData::ArrayInit()
 
 TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTValue			c, aValue;
     
     if (inputValue.size()) {
@@ -1012,7 +1012,7 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 

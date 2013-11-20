@@ -873,7 +873,7 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	TTDictionaryPtr	line;
+	TTDictionaryBasePtr	line;
 	TTSymbol		flagName;
 	TTValue			v, args;
 	

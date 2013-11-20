@@ -67,7 +67,7 @@ TTCue::~TTCue()
 TTErr TTCue::getName(TTValue& value)
 {
 	TTListPtr		lines;
-	TTDictionaryPtr	aLine;
+	TTDictionaryBasePtr	aLine;
 	TTSymbol		name;
 	TTValue			v;
 	
@@ -77,7 +77,7 @@ TTErr TTCue::getName(TTValue& value)
 	// lookat each line of the script
 	for (lines->begin(); lines->end(); lines->next()) {
 		
-		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
 		
 		if (aLine->getSchema() == kTTSym_flag) {
 			
@@ -99,7 +99,7 @@ TTErr TTCue::getName(TTValue& value)
 TTErr TTCue::setName(const TTValue& value)
 {
 	TTListPtr			lines;
-	TTDictionaryPtr		aLine;
+	TTDictionaryBasePtr		aLine;
 	TTSymbol			name;
 	TTValue				v;
 	
@@ -109,7 +109,7 @@ TTErr TTCue::setName(const TTValue& value)
 	// lookat each line of the script
 	for (lines->begin(); lines->end(); lines->next()) {
 		
-		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
 		
 		if (aLine->getSchema() == kTTSym_flag) {
 			
@@ -131,7 +131,7 @@ TTErr TTCue::setName(const TTValue& value)
 TTErr TTCue::getDescription(TTValue& value)
 {
 	TTListPtr		lines;
-	TTDictionaryPtr	aLine;
+	TTDictionaryBasePtr	aLine;
 	TTSymbol		name;
 	TTValue			v;
 	
@@ -141,7 +141,7 @@ TTErr TTCue::getDescription(TTValue& value)
 	// lookat each line of the script
 	for (lines->begin(); lines->end(); lines->next()) {
 		
-		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
 		
 		if (aLine->getSchema() == kTTSym_flag) {
 			
@@ -164,7 +164,7 @@ TTErr TTCue::getDescription(TTValue& value)
 TTErr TTCue::setDescription(const TTValue& value)
 {
 	TTListPtr		lines;
-	TTDictionaryPtr	aLine;
+	TTDictionaryBasePtr	aLine;
 	TTSymbol		name;
 	TTValue			v;
 	
@@ -174,7 +174,7 @@ TTErr TTCue::setDescription(const TTValue& value)
 	// lookat each line of the script
 	for (lines->begin(); lines->end(); lines->next()) {
 		
-		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
 		
 		if (aLine->getSchema() == kTTSym_flag) {
 		
@@ -205,7 +205,7 @@ TTErr TTCue::searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp)
 {
 	TTListPtr		lines;
 	TTScriptPtr		aSubScript;
-	TTDictionaryPtr	aLine;
+	TTDictionaryBasePtr	aLine;
 	TTValue			v, r;
 	
 	aScript->getAttributeValue(kTTSym_lines, v);
@@ -214,7 +214,7 @@ TTErr TTCue::searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp)
 	// lookat each line of the script
 	for (lines->begin(); lines->end(); lines->next()) {
 		
-		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
 		
 		if (aLine->getSchema() == kTTSym_command) {
 			
@@ -260,7 +260,7 @@ TTErr TTCue::setRamp(const TTValue& value)
 TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 {
 	TTListPtr		lines;
-	TTDictionaryPtr	aLine;
+	TTDictionaryBasePtr	aLine;
     TTAddress       anAddress;
     TTNodePtr       aNode;
 	TTObjectBasePtr	anObject;
@@ -276,7 +276,7 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 	// lookat each line of the script
 	for (lines->begin(); lines->end(); lines->next()) {
 		
-		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
         
         // if it is a Data object with a ramp drive
         if (!aLine->lookup(kTTSym_target, v)) {
@@ -362,7 +362,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
 	TTAddressItemPtr nameItem, instanceItem;
 	TTString		nameInstance;
 	TTNodePtr		scriptNode, aNode;
-	TTDictionaryPtr	aLine;
+	TTDictionaryBasePtr	aLine;
 	TTObjectBasePtr	anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
     TTListPtr       instanceOptions;
@@ -541,7 +541,7 @@ TTErr TTCue::Update(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCue::processUpdate(TTObjectBasePtr aScript)
 {
 	TTListPtr		lines;
-	TTDictionaryPtr	aLine;
+	TTDictionaryBasePtr	aLine;
     TTAddress       anAddress;
     TTNodePtr       aNode;
 	TTObjectBasePtr	anObject;
@@ -555,7 +555,7 @@ TTErr TTCue::processUpdate(TTObjectBasePtr aScript)
 	// lookat each line of the script
 	for (lines->begin(); lines->end(); lines->next()) {
 		
-		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
         
         // if it is a Data object
         if (!aLine->lookup(kTTSym_target, v)) {
@@ -692,7 +692,7 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace)
 	TTListPtr			lines;
 	TTAddressItemPtr    anItem;
 	TTScriptPtr			aSubScript;
-	TTDictionaryPtr		aLine;
+	TTDictionaryBasePtr		aLine;
 	TTAddress           address;
 	TTValue				v;
 	TTErr				err;
@@ -703,7 +703,7 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace)
 	// select all items which are in the script
 	for (lines->begin(); lines->end(); lines->next()) {
 		
-		aLine = TTDictionaryPtr((TTPtr)lines->current()[0]);
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
 		
 		if (aLine->getSchema() == kTTSym_command || aLine->getSchema() == kTTSym_script) {
 			

@@ -550,7 +550,7 @@ TTErr TTExplorer::SelectionRefresh()
 
 TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTDictionaryPtr afilter = NULL;
+	TTDictionaryBasePtr afilter = NULL;
 	TTSymbol		filterName, filterKey;
 	TTValue			v, filterValue;
 	TTErr			err;
@@ -565,13 +565,13 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
             
             // if the filter doesn't exist : create a new one
             if (err) {
-                afilter = new TTDictionary();
+                afilter = new TTDictionaryBase();
                 afilter->setSchema(kTTSym_filter);
                 mFilterBank->append(filterName, (TTPtr)afilter);
             }
             // else get the existing filter and his schema
             else
-                afilter = TTDictionaryPtr((TTPtr)v[0]);
+                afilter = TTDictionaryBasePtr((TTPtr)v[0]);
             
             // set the keys of the filter
             for (TTUInt32 i = 1; i < inputValue.size(); i =i+2) {
@@ -603,7 +603,7 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTDictionaryPtr afilter;
+	TTDictionaryBasePtr afilter;
 	TTSymbol		filterName;
 	TTValue			v, filterValue;
 	TTErr			err;
@@ -623,7 +623,7 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
                 mFilterBank->remove(filterName);
                 
                 // delete the filter
-                afilter = TTDictionaryPtr((TTPtr)v[0]);
+                afilter = TTDictionaryBasePtr((TTPtr)v[0]);
                 delete afilter;
             }
             
@@ -645,7 +645,7 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTExplorer::FilterInfo(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTDictionaryPtr aFilter;
+	TTDictionaryBasePtr aFilter;
 	TTSymbol		filterName, key;
 	TTValue			v, filterKeys, filterValue;
 	TTErr			err;
@@ -664,7 +664,7 @@ TTErr TTExplorer::FilterInfo(const TTValue& inputValue, TTValue& outputValue)
                 outputValue.append(filterName);
                 
                 // get the filter
-                aFilter = TTDictionaryPtr((TTPtr)v[0]);
+                aFilter = TTDictionaryBasePtr((TTPtr)v[0]);
                 
                 // get all keys
                 aFilter->getKeys(filterKeys);
