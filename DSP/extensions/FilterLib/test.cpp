@@ -12,17 +12,17 @@
 #include <iostream>
 #include "TTFoundationAPI.h"
 
-extern "C" TTErr TTLoadJamomaExtension_AnalysisLib(void);               // CUSTOMIZE
+extern "C" TTErr TTLoadJamomaExtension_FilterLib(void);               // CUSTOMIZE
 
 int main(int argc, const char * argv[])
 {
-	std::cout << "BEGIN testing for AnalysisLib...\n";                  // CUSTOMIZE
-    TTLoadJamomaExtension_AnalysisLib();                                // CUSTOMIZE
+	std::cout << "BEGIN testing for FilterLib...\n";                  // CUSTOMIZE
+    TTLoadJamomaExtension_FilterLib();                                // CUSTOMIZE
 	
 	TTValue classNames;
 	
 	// if the follow group tag is present within the thisTTClassTags definition, the class will be tested
-    TTValue testClassesWithTheseTags(TT("dspAnalysisLib"));             // CUSTOMIZE
+    TTValue testClassesWithTheseTags(TT("dspFilterLib"));             // CUSTOMIZE
 	TTObject::GetRegisteredClassNamesForTags(classNames, testClassesWithTheseTags);
 	
 	for (int i=0; i<classNames.size(); i++) {
@@ -39,6 +39,6 @@ int main(int argc, const char * argv[])
 		}
 	}
 	
-	std::cout << "END testing of AnalysisLib!\n";                       // CUSTOMIZE
+	std::cout << "END testing of FilterLib!\n";                       // CUSTOMIZE
     return 0;
 }

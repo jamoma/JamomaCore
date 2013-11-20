@@ -89,6 +89,7 @@
 		2AD788A3169CFD7000604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD788A2169CFD7000604D7C /* Foundation.framework */; };
 		2AD788A8169CFD7000604D7C /* FilterLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AD788A7169CFD7000604D7C /* FilterLibIOS.h */; };
 		2AD788AA169CFD7000604D7C /* FilterLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD788A9169CFD7000604D7C /* FilterLibIOS.m */; };
+		8ED7ADC4183D2D7A00170BBA /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ED7ADC3183D2D7900170BBA /* test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -110,6 +111,7 @@
 		2AD788A6169CFD7000604D7C /* FilterLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FilterLibIOS-Prefix.pch"; sourceTree = "<group>"; };
 		2AD788A7169CFD7000604D7C /* FilterLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterLibIOS.h; sourceTree = "<group>"; };
 		2AD788A9169CFD7000604D7C /* FilterLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterLibIOS.m; sourceTree = "<group>"; };
+		8ED7ADC3183D2D7900170BBA /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		A7FF3FEA165D7A9500130C98 /* TTAllpass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass.h; path = includes/TTAllpass.h; sourceTree = "<group>"; };
 		A7FF3FEB165D7A9500130C98 /* TTAllpass1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass1.h; path = includes/TTAllpass1.h; sourceTree = "<group>"; };
 		A7FF3FEC165D7A9500130C98 /* TTAllpass1a.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAllpass1a.h; path = includes/TTAllpass1a.h; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 			children = (
 				A7FF4043165D7DBF00130C98 /* FilterLib.yml */,
 				A7FF403F165D7B1C00130C98 /* FilterLib.cpp */,
+				8ED7ADC3183D2D7900170BBA /* test.cpp */,
 				A7FF4013165D7A9A00130C98 /* includes */,
 				A7FF403C165D7AD000130C98 /* source */,
 				A7FF403E165D7AEE00130C98 /* tests */,
@@ -577,6 +580,7 @@
 				2A23ACE4169CFDF2004793F5 /* TTMirrorBandpass10.test.cpp in Sources */,
 				2A23ACE5169CFDF2004793F5 /* TTOnePole.test.cpp in Sources */,
 				2A23ACE6169CFDF2004793F5 /* TTSvf.test.cpp in Sources */,
+				8ED7ADC4183D2D7A00170BBA /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
