@@ -11,7 +11,7 @@
 
 #define thisTTClass			TTLinearFunction
 #define thisTTClassName		"linear"
-#define thisTTClassTags		"audio, processor, function"
+#define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 
 TT_AUDIO_CONSTRUCTOR

@@ -12,7 +12,7 @@
 
 #define thisTTClass			TTTanhFunction
 #define thisTTClassName		"tanh"
-#define thisTTClassTags		"audio, processor, function"
+#define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 
 TT_AUDIO_CONSTRUCTOR

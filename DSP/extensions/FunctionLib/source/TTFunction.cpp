@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTFunction
 #define thisTTClassName		"function"
-#define thisTTClassTags		"audio, processor"
+#define thisTTClassTags		"dspFunctionLib, audio, processor"
 
 
 TT_AUDIO_CONSTRUCTOR,

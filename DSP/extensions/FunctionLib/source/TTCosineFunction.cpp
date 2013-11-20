@@ -12,7 +12,7 @@
 
 #define thisTTClass			TTCosineFunction
 #define thisTTClassName		"cosine"
-#define thisTTClassTags		"audio, processor, function"
+#define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 
 TT_AUDIO_CONSTRUCTOR
