@@ -24,7 +24,7 @@
 
 #define thisTTClass			TTAudioGraphOutput
 #define thisTTClassName		"dac"
-#define thisTTClassTags		"audio, graph, output"
+#define thisTTClassTags		"audioGraphLibrary, audio, graph, output"
 
 TT_AUDIO_CONSTRUCTOR,
 	placeHolder(NULL),
