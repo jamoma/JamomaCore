@@ -13,9 +13,7 @@ extern "C" TTErr TTLoadJamomaExtension_EffectsLib(void);
 
 int main(int argc, const char * argv[])
 {
-	TTFoundationInit();
-	
-    std::cout << "BEGIN testing for EffectsLib...\n";
+	std::cout << "BEGIN testing for EffectsLib...\n";
     TTLoadJamomaExtension_EffectsLib();
 	
 	TTValue classNames;
@@ -38,7 +36,6 @@ int main(int argc, const char * argv[])
 		}
 	}
 	
-	// insert code here...
 	std::cout << "END testing of EffectsLib!\n";
     return 0;
 }
