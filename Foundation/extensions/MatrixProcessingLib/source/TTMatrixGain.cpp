@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTMatrixGain
 #define thisTTClassName		"matrix.gain"
-#define thisTTClassTags		"matrix"
+#define thisTTClassTags		"foundationMatrixProcessingLib, matrix"
 
 
 TT_OBJECT_CONSTRUCTOR,

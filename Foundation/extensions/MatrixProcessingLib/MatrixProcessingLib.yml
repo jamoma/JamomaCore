@@ -1,13 +1,14 @@
 
 sources:
   - TTMatrixProcessingLib.cpp
-  - TTMatrixStencil.cpp
-  - TTMatrixGain.cpp  
+  - source/TTMatrixStencil.cpp
+  - source/TTMatrixGain.cpp
   - tests/TTMatrixGain.test.cpp
   - tests/TTMatrixStencil.test.cpp
   
 includes:
   - "."
+  - "includes"
   - "../../../Foundation/library/includes"
 
 libraries:

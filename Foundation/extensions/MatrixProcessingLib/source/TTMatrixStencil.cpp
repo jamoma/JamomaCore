@@ -12,7 +12,7 @@
 
 #define thisTTClass			TTMatrixStencil
 #define thisTTClassName		"matrix.stencil"
-#define thisTTClassTags		"matrix"
+#define thisTTClassTags		"foundationMatrixProcessingLib, matrix"
 
 
 TT_OBJECT_CONSTRUCTOR,
