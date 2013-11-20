@@ -12,7 +12,8 @@
 
 int main(int argc, const char * argv[])
 {
-	TTDSPInit();
+	std::cout << "BEGIN testing for Jamoma DSP...\n";
+    TTDSPInit();
 	
 	TTValue classNames;
     
@@ -24,11 +25,18 @@ int main(int argc, const char * argv[])
 		TTSymbol name = classNames[i];
 		TTObject obj(name);
 		
-	//	obj.send("test");
+        try {
+			TTObject obj(name);
+			std::cout << "TESTING " << name.string() << std::endl;
+			obj.send("test");
+		}
+		catch (...) {
+			TTLogMessage("UnitTest Failure to instantiate object of class %s! \n", name.c_str());
+			continue;
+		}
 	}
 	
-	// insert code here...
-	std::cout << "Hello, World!\n";
+	std::cout << "END testing of Jamoma DSP!\n";
     return 0;
 }
 
