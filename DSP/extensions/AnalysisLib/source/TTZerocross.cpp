@@ -18,7 +18,7 @@
 
 #define thisTTClass			TTZerocross
 #define thisTTClassName		"zerocross"
-#define thisTTClassTags		"audio, analysis, frequency"
+#define thisTTClassTags		"dspAnalysisLib, audio, analysis, frequency"
 
 
 TT_AUDIO_CONSTRUCTOR
