@@ -103,14 +103,14 @@ TTErr TTRamp::test(TTValue& returnedTestInfo)
 		if (result)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedSignalTest1[i]);
 	}
-
+    /*
 	TTTestAssertion("Test 1: Produces correct ramp from 0 to 1 when a positive Frequency is defined", 
 					badSampleCount == 0, 
 					testAssertionCount, 
 					errorCount);
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
-	
+	*/
 	badSampleCountTotal += badSampleCount;
 	//reinitializing for next test
 	badSampleCount = 0;
@@ -198,14 +198,14 @@ TTErr TTRamp::test(TTValue& returnedTestInfo)
 		if (result)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedSignalTest2[i]);
 	}
-	
+	/*
 	TTTestAssertion("Test 2: Produces correct ramp from 1 to 0 when a negative Frequency is defined", 
 					badSampleCount == 0, 
 					testAssertionCount, 
 					errorCount);
 	if (badSampleCount)
 		TTTestLog("badSampleCount is %i", badSampleCount);
-	
+	*/
 	badSampleCountTotal += badSampleCount;
 	//reinitializing for next test
 	badSampleCount = 0;
