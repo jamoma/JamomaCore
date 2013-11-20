@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTBandrejectButterworth2
 #define thisTTClassName		"bandreject.butterworth.2"
-#define thisTTClassTags		"audio, processor, filter, notch, butterworth"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, notch, butterworth"
 
 
 TT_AUDIO_CONSTRUCTOR

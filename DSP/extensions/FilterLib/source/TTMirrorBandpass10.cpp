@@ -12,7 +12,7 @@
 
 #define thisTTClass			TTMirrorBandpass10
 #define thisTTClassName		"mirror.bandpass.10"
-#define thisTTClassTags		"audio, processor, filter, bandpass, notch"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, bandpass, notch"
 
 #ifdef TT_PLATFORM_WIN
 #include <Algorithm>

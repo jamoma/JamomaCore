@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTLowpassOnePole
 #define thisTTClassName		"lowpass.1"
-#define thisTTClassTags		"audio, processor, filter, lowpass"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass"
 
 
 extern "C" void TTLowpassOnePole::registerClass()

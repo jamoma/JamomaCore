@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTHalfband9
 #define thisTTClassName		"halfband.9"
-#define thisTTClassTags		"audio, processor, filter, lowpass, highpass"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, highpass"
 
 #ifdef TT_PLATFORM_WIN
 #include <Algorithm>

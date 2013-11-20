@@ -11,7 +11,7 @@
 
 #define thisTTClass			TTHilbertLinear33
 #define thisTTClassName		"hilbert.linear.33"
-#define thisTTClassTags		"audio, processor, hilbert"
+#define thisTTClassTags		"dspFilterLib, audio, processor, hilbert"
 // no "filter" tag because this is a special case that produces two outputs for one input and doesn't fit the general filter schema
 
 #ifdef TT_PLATFORM_WIN

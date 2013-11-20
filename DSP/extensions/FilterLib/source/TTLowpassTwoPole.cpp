@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTLowpassTwoPole
 #define thisTTClassName		"lowpass.2"
-#define thisTTClassTags		"audio, processor, filter, lowpass"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass"
 
 
 TT_AUDIO_CONSTRUCTOR

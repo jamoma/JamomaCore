@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTHighpassLinkwitzRiley4
 #define thisTTClassName		"highpass.linkwitzriley.4"
-#define thisTTClassTags		"audio, processor, filter, highpass, crossover"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, highpass, crossover"
 
 
 TT_AUDIO_CONSTRUCTOR

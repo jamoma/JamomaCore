@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTOnePole
 #define thisTTClassName		"onepole"
-#define thisTTClassTags		"audio, processor, filter, lowpass, highpass"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, highpass"
 
 
 TT_AUDIO_CONSTRUCTOR

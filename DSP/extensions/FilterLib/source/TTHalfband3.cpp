@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTHalfband3
 #define thisTTClassName		"halfband.3"
-#define thisTTClassTags		"audio, processor, filter, lowpass, highpass, resampling"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, highpass, resampling"
 
 #ifdef TT_PLATFORM_WIN
 #include <Algorithm>

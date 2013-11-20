@@ -8,7 +8,7 @@
 
 #define thisTTClass			TTHighMidLowShelf 
 #define thisTTClassName		"highmidlowshelf"
-#define thisTTClassTags		"audio, processor, threebandfilter"
+#define thisTTClassTags		"dspFilterLib, audio, processor, threebandfilter"
 
 
 TT_AUDIO_CONSTRUCTOR
