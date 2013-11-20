@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTPulseSub
 #define thisTTClassName		"pulsesub"
-#define thisTTClassTags		"dspEffectsLib, audio, processor, dynamics, envelope"
+#define thisTTClassTags		"dspGeneratorLib, audio, processor, dynamics, envelope"
 
 
 TT_AUDIO_CONSTRUCTOR, 

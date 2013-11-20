@@ -10,7 +10,7 @@
 
 #define thisTTClass TTRamp
 #define thisTTClassName		"ramp"
-#define thisTTClassTags		"audio, generator"
+#define thisTTClassTags		"dspGeneratorLib, audio, generator"
 
 
 TT_AUDIO_CONSTRUCTOR

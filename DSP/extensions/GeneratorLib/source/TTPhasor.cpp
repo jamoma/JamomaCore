@@ -10,7 +10,7 @@
 
 #define thisTTClass TTPhasor
 #define thisTTClassName		"phasor"
-#define thisTTClassTags		"audio, generator, oscillator"
+#define thisTTClassTags		"dspGeneratorLib, audio, generator, oscillator"
 
 
 TT_AUDIO_CONSTRUCTOR

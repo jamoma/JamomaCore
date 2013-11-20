@@ -18,7 +18,7 @@
 
 #define thisTTClass TTAdsr
 #define thisTTClassName		"adsr"
-#define thisTTClassTags		"audio, generator, envelope"
+#define thisTTClassTags		"dspGeneratorLib, audio, generator, envelope"
 
 
 TT_AUDIO_CONSTRUCTOR

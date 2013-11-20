@@ -19,7 +19,7 @@
 
 #define thisTTClass			TTWavetable
 #define thisTTClassName		"wavetable"
-#define thisTTClassTags		"audio, generator, oscillator, buffer"
+#define thisTTClassTags		"dspGeneratorLib, audio, generator, oscillator, buffer"
 
 
 TT_AUDIO_CONSTRUCTOR,
