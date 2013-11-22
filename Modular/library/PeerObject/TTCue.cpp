@@ -626,7 +626,7 @@ TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
     
     // if an address is passed, run the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("RunLine"), inputValue, none);
+        return mScript->sendMessage(TTSymbol("RunCommand"), inputValue, none);
     
     // else run all the script
     else

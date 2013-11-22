@@ -55,7 +55,8 @@ mReturnLineCallback(NULL)
 	
 	addMessage(Clear);
 	addMessageWithArguments(Run);
-    addMessageWithArguments(RunLine);
+    addMessageWithArguments(RunCommand);
+    addMessageWithArguments(RemoveCommand);
     
 	addMessageWithArguments(Dump);
     addMessageWithArguments(DumpLine);
@@ -481,7 +482,7 @@ TTErr TTScript::RunFlattened()
     return kTTErrNone;
 }
 
-TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTScript::RunCommand(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTDictionaryBasePtr	aLine;
 	TTNodePtr		aNode;
@@ -490,7 +491,7 @@ TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
 	TTObjectBasePtr	anObject;
 	TTValue			v, none;
     TTErr           err;
-    TTInt8         depthDifference;
+    TTInt8          depthDifference;
     TTAddressComparisonFlag	comp;
     
     if (inputValue.size() == 1) {
@@ -522,7 +523,7 @@ TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
                     if (!anObject->valid) {
                         
                         // DEBUG : this means there is a bad tree managment : we need to trace this
-                        std::cout << "TTScript::RunLine -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
+                        std::cout << "TTScript::RunCommand -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
                         
                         // DEBUG : we have to exit because it's going to crash
                         return kTTErrGeneric;
@@ -556,6 +557,48 @@ TTErr TTScript::RunLine(const TTValue& inputValue, TTValue& outputValue)
                 }
             }
         }
+        
+        return kTTErrNone;
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTScript::RemoveCommand(const TTValue& inputValue, TTValue& outputValue)
+{
+	TTDictionaryBasePtr	aLine;
+	TTAddress       address, addressToRemove;
+	TTValue			v;
+    TTInt8          depthDifference;
+    TTList          linesToRemove;
+    TTAddressComparisonFlag	comp;
+    
+    if (inputValue.size() == 1) {
+        
+        addressToRemove = inputValue[0];
+        
+        // compare each line of the script
+        for (mFlattenedLines->begin(); mFlattenedLines->end(); mFlattenedLines->next()) {
+            
+            aLine = TTDictionaryBasePtr((TTPtr)mFlattenedLines->current()[0]);
+            
+            // note : Flattened lines are only command with absolute address
+            
+            // get the target address
+            aLine->lookup(kTTSym_target, v);
+            address = v[0];
+            
+            // compare the address
+            comp = addressToRemove.compare(address, depthDifference);
+            if (comp == kAddressEqual || comp == kAddressUpper)
+                
+                // append to the list of lines to remove
+                linesToRemove.append(mFlattenedLines->current());
+        }
+        
+        // remove each lines from the flattened line list
+        for (linesToRemove.begin(); linesToRemove.end(); linesToRemove.next())
+            mFlattenedLines->remove(linesToRemove.current());
         
         return kTTErrNone;
     }

@@ -72,8 +72,11 @@ private:
 	TTErr	Run(const TTValue& inputValue, TTValue& outputValue);
     TTErr   RunFlattened();
     
-    /**	Run one line of the script */
-	TTErr	RunLine(const TTValue& inputValue, TTValue& outputValue);
+    /**	Run one command of the script */
+	TTErr	RunCommand(const TTValue& inputValue, TTValue& outputValue);
+    
+    /**	Remove one command of the script */
+	TTErr	RemoveCommand(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Dump all lines of the script using mReturnLineCallback (or the Flattened lines if ready) */
 	TTErr	Dump(const TTValue& inputValue, TTValue& outputValue);
