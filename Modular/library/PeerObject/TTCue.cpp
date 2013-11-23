@@ -476,8 +476,6 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
                             // the script is not empty
                             empty = NO;
                         }
-                        
-                        continue;
 					}
 				}
 				
