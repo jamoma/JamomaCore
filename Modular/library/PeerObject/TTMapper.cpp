@@ -27,6 +27,10 @@ mInputMin(0.),
 mInputMax(1.),
 mOutputMin(0.),
 mOutputMax(1.),
+mThresholdDown(0.),
+mThresholdUp(1.),
+mGoingDown(NO),
+mGoingUp(NO),
 mActive(YES),
 mInverse(NO),
 #ifndef TT_NO_DSP
@@ -41,15 +45,23 @@ mInputRangeObserver(NULL),
 mOutputRangeObserver(NULL),
 mObserveInputRange(true),
 mObserveOutputRange(true),
-mReturnValueCallback(NULL)
+mReturnValueCallback(NULL),
+mReturnGoingDownCallback(NULL),
+mReturnGoingUpCallback(NULL)
 #ifndef TT_NO_DSP
 ,
 mFunctionUnit(NULL),
 mValid(NO)
 #endif
 {	
-	if(arguments.size() == 1)
+	if(arguments.size() >= 1)
 		mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
+    
+    if(arguments.size() >= 2)
+		mReturnGoingDownCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+    
+    if(arguments.size() >= 3)
+		mReturnGoingUpCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
 	
 	addAttributeWithSetter(Input, kTypeSymbol);
 	addAttributeWithSetter(Output, kTypeSymbol);
@@ -58,6 +70,13 @@ mValid(NO)
 	addAttributeWithSetter(InputMax, kTypeFloat64);
 	addAttributeWithSetter(OutputMin, kTypeFloat64);
 	addAttributeWithSetter(OutputMax, kTypeFloat64);
+    
+    addAttribute(ThresholdDown, kTypeFloat64);
+	addAttribute(ThresholdUp, kTypeFloat64);
+    addAttribute(GoingDown, kTypeBoolean);
+    addAttributeProperty(GoingDown, readOnly, YES);
+	addAttribute(GoingUp, kTypeBoolean);
+    addAttributeProperty(GoingUp, readOnly, YES);
 	
 	addAttributeWithSetter(Active, kTypeBoolean);
 	
@@ -109,6 +128,16 @@ TTMapper::~TTMapper() // TODO : delete things...
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	}
+    
+    if (mReturnGoingDownCallback) {
+		delete (TTValuePtr)mReturnGoingDownCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnGoingDownCallback));
+	}
+    
+    if (mReturnGoingUpCallback) {
+		delete (TTValuePtr)mReturnGoingUpCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnGoingUpCallback));
+	}
 	
 	if (mSender)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mSender));
@@ -143,6 +172,24 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 		
 		if (mReturnValueCallback)
 			mReturnValueCallback->notify(outputValue, none);
+        
+        // notify if going down
+        TTBoolean newGoingDown = outputValue <= TTValue(mThresholdDown);
+        if (newGoingDown != mGoingDown) {
+            
+            mGoingDown = newGoingDown;
+            notifyObservers(TTSymbol("goingDown"), mGoingDown);
+            mReturnGoingDownCallback->notify(mGoingDown, none);
+        }
+        
+        // notify if going up
+        TTBoolean newGoingUp = outputValue >= TTValue(mThresholdUp);
+        if (newGoingUp != mGoingUp) {
+            
+            mGoingUp = newGoingUp;
+            notifyObservers(TTSymbol("goingUp"), mGoingUp);
+            mReturnGoingUpCallback->notify(mGoingUp, none);
+        }
 	}
 	
 	return kTTErrNone;
@@ -736,9 +783,9 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 {
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
+    TTDictionaryBasePtr	command;
 	TTValue		mappedValue;
 	TTValue     none;
-	
 	
 	// unpack baton (a TTMapper)
 	b = (TTValuePtr)baton;
@@ -751,7 +798,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
         
         // if there is a ramp value, edit the command here
         if (aMapper->mRamp > 0) {
-            TTDictionaryBasePtr	command = new TTDictionaryBase();
+            command = new TTDictionaryBase();
             command->setSchema(kTTSym_command);
             command->setValue(mappedValue);
             command->append(kTTSym_ramp, aMapper->mRamp);
@@ -765,6 +812,28 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 		
 		if (aMapper->mReturnValueCallback)
 			aMapper->mReturnValueCallback->notify(mappedValue, none);
+        
+        // notify if going down
+        TTBoolean newGoingDown = mappedValue <= TTValue(aMapper->mThresholdDown);
+        if (newGoingDown != aMapper->mGoingDown) {
+            
+            aMapper->mGoingDown = newGoingDown;
+            aMapper->notifyObservers(TTSymbol("goingDown"), aMapper->mGoingDown);
+            aMapper->mReturnGoingDownCallback->notify(aMapper->mGoingDown, none);
+        }
+        
+        // notify if going up
+        TTBoolean newGoingUp = mappedValue >= TTValue(aMapper->mThresholdUp);
+        if (newGoingUp != aMapper->mGoingUp) {
+            
+            aMapper->mGoingUp = newGoingUp;
+            aMapper->notifyObservers(TTSymbol("goingUp"), aMapper->mGoingUp);
+            aMapper->mReturnGoingUpCallback->notify(aMapper->mGoingUp, none);
+        }
+        
+        // release the command if needed
+        if (aMapper->mRamp > 0)
+            delete command;
 	}
 	
 	return kTTErrNone;

@@ -42,7 +42,12 @@ private:
 	TTFloat64			mInputMin;					///< ATTRIBUTE : 
 	TTFloat64			mInputMax;					///< ATTRIBUTE : 
 	TTFloat64			mOutputMin;					///< ATTRIBUTE : 
-	TTFloat64			mOutputMax;					///< ATTRIBUTE : 
+	TTFloat64			mOutputMax;					///< ATTRIBUTE :
+    
+    TTFloat64			mThresholdDown;             ///< ATTRIBUTE :
+	TTFloat64			mThresholdUp;				///< ATTRIBUTE :
+    TTBoolean			mGoingDown;                 ///< ATTRIBUTE :
+	TTBoolean			mGoingUp;                   ///< ATTRIBUTE :
 	
 	TTBoolean			mActive;					///< ATTRIBUTE : does it observe Input value ?
 	
@@ -71,6 +76,8 @@ private:
 													///< Set to false if there are a setting of Output Min/Max value
 	
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return back value to the owner of this mapper
+    TTCallbackPtr		mReturnGoingDownCallback;   ///< a way to return back if the output value is lower than or equal to the down threshold
+    TTCallbackPtr		mReturnGoingUpCallback;     ///< a way to return back if the output value is greater than or equal to the up threshold
 	
 	TTFloat64			mA, mB, mC, mD;				//< Coefficients used for normalizing input(A, B) and output (C, D)
 #ifndef TT_NO_DSP
