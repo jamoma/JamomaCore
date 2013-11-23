@@ -1443,7 +1443,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 TTDictionaryBasePtr TTScriptParseLine(const TTValue& newLine)
 {
 	TTSymbol	firstSymbol;
-	TTValue		v, rest;
+	TTValue		v, rest, none;
     TTUInt32    size = newLine.size();
 	
     if (size >= 1) {
@@ -1474,7 +1474,7 @@ TTDictionaryBasePtr TTScriptParseLine(const TTValue& newLine)
                     }
                 }
                 else
-                    return TTScriptParseComment(kTTValNONE);
+                    return TTScriptParseComment(none);
             }
         }
     }
@@ -1491,7 +1491,6 @@ TTDictionaryBasePtr TTScriptParseLine(const TTValue& newLine)
 TTDictionaryBasePtr TTScriptParseComment(const TTValue& newComment)
 {
 	TTDictionaryBasePtr line = new TTDictionaryBase();
-	TTValue			v;
 	
 	line->setSchema(kTTSym_comment);
 	line->setValue(newComment);
