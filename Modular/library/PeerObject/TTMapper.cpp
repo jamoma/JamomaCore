@@ -22,15 +22,19 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mInput(kTTAdrsEmpty),
-mOutput(kTTAdrsEmpty),
 mInputMin(0.),
 mInputMax(1.),
+mInputThresholdDown(0.),
+mInputThresholdUp(1.),
+mInputGoingDown(NO),
+mInputGoingUp(NO),
+mOutput(kTTAdrsEmpty),
 mOutputMin(0.),
 mOutputMax(1.),
-mThresholdDown(0.),
-mThresholdUp(1.),
-mGoingDown(NO),
-mGoingUp(NO),
+mOutputThresholdDown(0.),
+mOutputThresholdUp(1.),
+mOutputGoingDown(NO),
+mOutputGoingUp(NO),
 mActive(YES),
 mInverse(NO),
 #ifndef TT_NO_DSP
@@ -46,8 +50,10 @@ mOutputRangeObserver(NULL),
 mObserveInputRange(true),
 mObserveOutputRange(true),
 mReturnValueCallback(NULL),
-mReturnGoingDownCallback(NULL),
-mReturnGoingUpCallback(NULL)
+mReturnInputGoingDownCallback(NULL),
+mReturnInputGoingUpCallback(NULL),
+mReturnOutputGoingDownCallback(NULL),
+mReturnOutputGoingUpCallback(NULL)
 #ifndef TT_NO_DSP
 ,
 mFunctionUnit(NULL),
@@ -58,26 +64,33 @@ mValid(NO)
 		mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
     
     if(arguments.size() >= 2)
-		mReturnGoingDownCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+		mReturnInputGoingDownCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
     
     if(arguments.size() >= 3)
-		mReturnGoingUpCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+		mReturnInputGoingUpCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+    
+    if(arguments.size() >= 4)
+		mReturnOutputGoingDownCallback = TTCallbackPtr((TTObjectBasePtr)arguments[3]);
+    
+    if(arguments.size() >= 5)
+		mReturnOutputGoingUpCallback = TTCallbackPtr((TTObjectBasePtr)arguments[4]);
 	
 	addAttributeWithSetter(Input, kTypeSymbol);
-	addAttributeWithSetter(Output, kTypeSymbol);
-	
+    
 	addAttributeWithSetter(InputMin, kTypeFloat64);
 	addAttributeWithSetter(InputMax, kTypeFloat64);
+    
+    addAttribute(InputThresholdDown, kTypeFloat64);
+	addAttribute(InputThresholdUp, kTypeFloat64);
+    
+    addAttributeWithSetter(Output, kTypeSymbol);
+    
 	addAttributeWithSetter(OutputMin, kTypeFloat64);
 	addAttributeWithSetter(OutputMax, kTypeFloat64);
     
-    addAttribute(ThresholdDown, kTypeFloat64);
-	addAttribute(ThresholdUp, kTypeFloat64);
-    addAttribute(GoingDown, kTypeBoolean);
-    addAttributeProperty(GoingDown, readOnly, YES);
-	addAttribute(GoingUp, kTypeBoolean);
-    addAttributeProperty(GoingUp, readOnly, YES);
-	
+    addAttribute(OutputThresholdDown, kTypeFloat64);
+	addAttribute(OutputThresholdUp, kTypeFloat64);
+    
 	addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttribute(Inverse, kTypeBoolean);
@@ -129,14 +142,24 @@ TTMapper::~TTMapper() // TODO : delete things...
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	}
     
-    if (mReturnGoingDownCallback) {
-		delete (TTValuePtr)mReturnGoingDownCallback->getBaton();
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnGoingDownCallback));
+    if (mReturnInputGoingDownCallback) {
+		delete (TTValuePtr)mReturnInputGoingDownCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnInputGoingDownCallback));
 	}
     
-    if (mReturnGoingUpCallback) {
-		delete (TTValuePtr)mReturnGoingUpCallback->getBaton();
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnGoingUpCallback));
+    if (mReturnInputGoingUpCallback) {
+		delete (TTValuePtr)mReturnInputGoingUpCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnInputGoingUpCallback));
+	}
+    
+    if (mReturnOutputGoingDownCallback) {
+		delete (TTValuePtr)mReturnOutputGoingDownCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnOutputGoingDownCallback));
+	}
+    
+    if (mReturnOutputGoingUpCallback) {
+		delete (TTValuePtr)mReturnOutputGoingUpCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnOutputGoingUpCallback));
 	}
 	
 	if (mSender)
@@ -171,24 +194,38 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 			mSender->sendMessage(kTTSym_Send, outputValue, none);
 		
 		if (mReturnValueCallback)
-			mReturnValueCallback->notify(outputValue, none);
+			mReturnValueCallback->deliver(outputValue);
         
-        // notify if going down
-        TTBoolean newGoingDown = outputValue <= TTValue(mThresholdDown);
-        if (newGoingDown != mGoingDown) {
+        // notify if input going down
+        TTBoolean newInputGoingDown = inputValue <= TTValue(mInputThresholdDown);
+        if (newInputGoingDown != mInputGoingDown) {
             
-            mGoingDown = newGoingDown;
-            notifyObservers(TTSymbol("goingDown"), mGoingDown);
-            mReturnGoingDownCallback->notify(mGoingDown, none);
+            mInputGoingDown = newInputGoingDown;
+            mReturnInputGoingDownCallback->deliver(mInputGoingDown);
         }
         
-        // notify if going up
-        TTBoolean newGoingUp = outputValue >= TTValue(mThresholdUp);
-        if (newGoingUp != mGoingUp) {
+        // notify if input going up
+        TTBoolean newInputGoingUp = inputValue >= TTValue(mInputThresholdUp);
+        if (newInputGoingUp != mInputGoingUp) {
             
-            mGoingUp = newGoingUp;
-            notifyObservers(TTSymbol("goingUp"), mGoingUp);
-            mReturnGoingUpCallback->notify(mGoingUp, none);
+            mInputGoingUp = newInputGoingUp;
+            mReturnInputGoingUpCallback->deliver(mInputGoingUp);
+        }
+        
+        // notify if output going down
+        TTBoolean newOutputGoingDown = outputValue <= TTValue(mOutputThresholdDown);
+        if (newOutputGoingDown != mOutputGoingDown) {
+            
+            mOutputGoingDown = newOutputGoingDown;
+            mReturnOutputGoingDownCallback->deliver(mOutputGoingDown);
+        }
+        
+        // notify if output going up
+        TTBoolean newOutputGoingUp = outputValue >= TTValue(mOutputThresholdUp);
+        if (newOutputGoingUp != mOutputGoingUp) {
+            
+            mOutputGoingUp = newOutputGoingUp;
+            mReturnOutputGoingUpCallback->deliver(mOutputGoingUp);
         }
 	}
 	
@@ -265,6 +302,9 @@ TTErr TTMapper::setInput(const TTValue& value)
 					
 					mInputMin = TTFloat64(v[0]);
 					mInputMax = TTFloat64(v[1]);
+                    mInputThresholdDown = TTFloat64(v[0]);
+                    mInputThresholdUp = TTFloat64(v[1]);
+                    
 					scaleInput();
 					
 					observeInputRange();
@@ -368,6 +408,8 @@ TTErr TTMapper::setOutput(const TTValue& value)
 					
                     mOutputMin = TTFloat64(v[0]);
                     mOutputMax = TTFloat64(v[1]);
+                    mOutputThresholdDown = TTFloat64(v[0]);
+                    mOutputThresholdUp = TTFloat64(v[1]);
 
 					scaleOutput();
 					
@@ -752,6 +794,8 @@ TTErr TTMapperInputRangeCallback(TTPtr baton, TTValue& data)
 		// unpack data (min, max)
 		aMapper->mInputMin = data[0];
 		aMapper->mInputMax = data[1];
+        aMapper->mInputThresholdDown = data[0];
+		aMapper->mInputThresholdUp = data[1];
 		
 		aMapper->scaleInput();
 	}
@@ -772,6 +816,8 @@ TTErr TTMapperOutputRangeCallback(TTPtr baton, TTValue& data)
 		// unpack data (min, max)
 		aMapper->mOutputMin = data[0];
 		aMapper->mOutputMax = data[1];
+        aMapper->mOutputThresholdDown = data[0];
+		aMapper->mOutputThresholdUp = data[1];
 	
 		aMapper->scaleOutput();
 	}
@@ -779,12 +825,12 @@ TTErr TTMapperOutputRangeCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
+TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
 {
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
     TTDictionaryBasePtr	command;
-	TTValue		mappedValue;
+	TTValue		outputValue;
 	TTValue     none;
 	
 	// unpack baton (a TTMapper)
@@ -794,41 +840,55 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	if (aMapper->mActive) {
 		
 		// process the mapping
-		aMapper->processMapping(data, mappedValue);
+		aMapper->processMapping(inputValue, outputValue);
         
         // if there is a ramp value, edit the command here
         if (aMapper->mRamp > 0) {
             command = new TTDictionaryBase();
             command->setSchema(kTTSym_command);
-            command->setValue(mappedValue);
+            command->setValue(outputValue);
             command->append(kTTSym_ramp, aMapper->mRamp);
             
-            mappedValue = TTValue((TTPtr)command);
+            outputValue = TTValue((TTPtr)command);
         }
 		
 		// return value
 		if (aMapper->mSender)
-			aMapper->mSender->sendMessage(kTTSym_Send, mappedValue, none);
+			aMapper->mSender->sendMessage(kTTSym_Send, outputValue, none);
 		
 		if (aMapper->mReturnValueCallback)
-			aMapper->mReturnValueCallback->notify(mappedValue, none);
+			aMapper->mReturnValueCallback->deliver(outputValue);
         
-        // notify if going down
-        TTBoolean newGoingDown = mappedValue <= TTValue(aMapper->mThresholdDown);
-        if (newGoingDown != aMapper->mGoingDown) {
+        // notify if input going down
+        TTBoolean newInputGoingDown = inputValue <= TTValue(aMapper->mInputThresholdDown);
+        if (newInputGoingDown != aMapper->mInputGoingDown) {
             
-            aMapper->mGoingDown = newGoingDown;
-            aMapper->notifyObservers(TTSymbol("goingDown"), aMapper->mGoingDown);
-            aMapper->mReturnGoingDownCallback->notify(aMapper->mGoingDown, none);
+            aMapper->mInputGoingDown = newInputGoingDown;
+            aMapper->mReturnInputGoingDownCallback->deliver(aMapper->mInputGoingDown);
         }
         
-        // notify if going up
-        TTBoolean newGoingUp = mappedValue >= TTValue(aMapper->mThresholdUp);
-        if (newGoingUp != aMapper->mGoingUp) {
+        // notify if input going up
+        TTBoolean newInputGoingUp = inputValue >= TTValue(aMapper->mInputThresholdUp);
+        if (newInputGoingUp != aMapper->mInputGoingUp) {
             
-            aMapper->mGoingUp = newGoingUp;
-            aMapper->notifyObservers(TTSymbol("goingUp"), aMapper->mGoingUp);
-            aMapper->mReturnGoingUpCallback->notify(aMapper->mGoingUp, none);
+            aMapper->mInputGoingUp = newInputGoingUp;
+            aMapper->mReturnInputGoingUpCallback->deliver(aMapper->mInputGoingUp);
+        }
+        
+        // notify if output going down
+        TTBoolean newOutputGoingDown = outputValue <= TTValue(aMapper->mOutputThresholdDown);
+        if (newOutputGoingDown != aMapper->mOutputGoingDown) {
+            
+            aMapper->mOutputGoingDown = newOutputGoingDown;
+            aMapper->mReturnOutputGoingDownCallback->deliver(aMapper->mOutputGoingDown);
+        }
+        
+        // notify if output going up
+        TTBoolean newOutputGoingUp = outputValue >= TTValue(aMapper->mOutputThresholdUp);
+        if (newOutputGoingUp != aMapper->mOutputGoingUp) {
+            
+            aMapper->mOutputGoingUp = newOutputGoingUp;
+            aMapper->mReturnOutputGoingUpCallback->deliver(aMapper->mOutputGoingUp);
         }
         
         // release the command if needed
