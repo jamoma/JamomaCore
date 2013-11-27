@@ -450,8 +450,6 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 		TTTestLog("badSampleCount is %i", badSampleCount);
 		
 	// test 14: 1.8 sample delay, cubic interpolation
-    // NW: until we know what output to expect, I am disabling this test
-    
     
 	this->clear();
 	this->setAttributeValue("delayInSamples", 1.8);
@@ -534,7 +532,7 @@ TTErr TTDelay::test(TTValue& returnedTestInfo)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output.rawSamples()[0][i], expectedImpulseResponse14[i]);
 	}
 
-	TTTestAssertion("Produces correct impulse response: 1.8 samples, cubic interp\n****THIS TEST FAILS ONLY BECAUSE I DON'T KNOW WHAT TO EXPECT****", 
+	TTTestAssertion("Produces correct impulse response: 1.8 samples, cubic interp", 
 					badSampleCount == 0, 
 					testAssertionCount, 
 					errorCount);
