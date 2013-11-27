@@ -99,7 +99,7 @@ typedef TTAudioGraphOutletVector::iterator	TTAudioGraphOutletIter;
 
 /******************************************************************************************/
 
-TTAUDIOGRAPH_EXPORT void TTAudioGraphInit(void);
+extern "C" TTAUDIOGRAPH_EXPORT void TTAudioGraphInit(void);
 
 
 #endif // __TTAUDIOGRAPH_H__
