@@ -327,6 +327,9 @@ TTErr TTDelay::processAudioCosineInterpolation(TTAudioSignalArrayPtr inputs, TTA
 
 // Four-point interpolation as described @ http://crca.ucsd.edu/~msp/techniques/latest/book-html/node114.html
 // and http://crca.ucsd.edu/~msp/techniques/latest/book-html/node31.html#tab02.1
+// Additional reading on cubic interpolation can be found
+// here: http://www.paulinternet.nl/?page=bicubic
+// and here: http://paulbourke.net/miscellaneous/interpolation/
 // similar to what is implemented in Pd's vd~ object
 // note that in initial tests there appears to be slight signal boost
 inline TTErr TTDelay::calculateCubicInterpolation(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr buffer)
