@@ -1715,6 +1715,29 @@ else
 			  
 					if project_type != "implementation"
 					  
+					  test_dependencies = ""
+					  if !libraries
+    					# nothing to do!
+    				else
+    					libraries.each do |lib|
+    					  lib = lib.to_s
+    			      if (lib == "FOUNDATION")
+                	test_dependencies += "../../../Foundation/library/build/libJamomaFoundation.a " if project_type == "extension"
+                	test_dependencies += "../../Foundation/library/build/libJamomaFoundation.a " if project_type == "library"
+                elsif (lib == "DSP")
+                	test_dependencies += "../../library/build/libJamomaDSP.a "
+                elsif (lib == "MODULAR")
+                	test_dependencies += "../../library/build/libJamomaModular.a "
+                elsif (lib == "GRAPH")
+                	test_dependencies += "../../library/build/libJamomaGraph.a "
+                elsif (lib == "AUDIOGRAPH")
+                	test_dependencies += "../../library/build/libJamomaAudioGraph.a "
+                else
+                	test_dependencies += lib + " "
+                end
+              end
+    				end
+					  
 						# testing within projects other than JamomaFoundation will be dependant on that build
 						# the path will be slightly different depending on whether the project is a library or extension
 						test_dependency_foundation = ""
@@ -1738,16 +1761,16 @@ else
 					
 						makefile.write("build_and_test: | lipo \n")
 						makefile.write("\techo Testing 32-bit \n")
-						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
 						makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
 						makefile.write("\techo Testing 64-bit \n")
-						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
 						makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
 						makefile.write("\n")
 
 						makefile.write("notest: | lipo \n")
-					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
-					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
 						makefile.write("\techo Skipping Tests \n")
 						makefile.write("\n")
 						
