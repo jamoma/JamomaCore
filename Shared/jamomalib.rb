@@ -1721,23 +1721,26 @@ else
 					  # macros are defined here for FOUNDATION, DSP, MODULAR, GRAPH, & AUDIOGRAPH.
 					  # third party libraries should be listed in the YAML file by their path relative to the current project.
 					  test_dependencies = ""
+					  
+					  # we need a slightly different paths depending on if the project is an extension or library
+					  extra_level = ""
+						extra_level = "../" if project_type == "extension"
+					  
 					  if !libraries
     					# nothing to do!
     				else
     					libraries.each do |lib|
     					  lib = lib.to_s
     			      if (lib == "FOUNDATION")
-    			        # we need a slightly different path for FOUNDATION depending on if the project is an extension or library
-                	test_dependencies += "../../../Foundation/library/build/libJamomaFoundation.a " if project_type == "extension"
-                	test_dependencies += "../../Foundation/library/build/libJamomaFoundation.a " if project_type == "library"
+                	test_dependencies += extra_level + "../../Foundation/library/build/libJamomaFoundation.a "
                 elsif (lib == "DSP")
-                	test_dependencies += "../../library/build/libJamomaDSP.a "
+                	test_dependencies += extra_level + "../../DSP/library/build/libJamomaDSP.a "
                 elsif (lib == "MODULAR")
-                	test_dependencies += "../../library/build/libJamomaModular.a "
+                	test_dependencies += extra_level + "../../Modular/library/build/libJamomaModular.a "
                 elsif (lib == "GRAPH")
-                	test_dependencies += "../../library/build/libJamomaGraph.a "
+                	test_dependencies += extra_level + "../../Graph/library/build/libJamomaGraph.a "
                 elsif (lib == "AUDIOGRAPH")
-                	test_dependencies += "../../library/build/libJamomaAudioGraph.a "
+                	test_dependencies += extra_level + "../../AudioGraph/library/build/libJamomaAudioGraph.a "
                 else
                 	test_dependencies += lib + " "
                 end
