@@ -11,7 +11,7 @@
 
 #define thisTTClass			TTOverdrive
 #define thisTTClassName		"overdrive"
-#define thisTTClassTags		"audio, processor, distortion"
+#define thisTTClassTags		"dspEffectsLib, audio, processor, distortion"
 
 
 TT_AUDIO_CONSTRUCTOR,
@@ -36,7 +36,7 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue("mode",		1);
 	setAttributeValue("preamp",		0.0);
 	setAttributeValue("drive",		3.0);
-	setAttributeValue("dcBlocker",	kTTBoolYes);
+	setAttributeValue("dcBlocker",	YES);
 }
 
 

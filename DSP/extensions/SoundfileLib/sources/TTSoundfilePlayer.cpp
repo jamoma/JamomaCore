@@ -18,7 +18,7 @@
 
 #define thisTTClass			TTSoundfilePlayer
 #define thisTTClassName		"soundfile.player"
-#define thisTTClassTags		"audio, soundfile, playback"
+#define thisTTClassTags		"dspSoundFileLib, audio, soundfile, playback"
 
 
 TT_AUDIO_CONSTRUCTOR,
@@ -42,17 +42,17 @@ mNumBufferFrames(0)
 	addAttributeWithSetter(		Seek,			kTypeFloat64);
 	addAttribute(				Loop,			kTypeBoolean);
 	addAttribute(				Duration,		kTypeFloat64);
-		addAttributeProperty(	Duration,		readOnly, kTTBoolYes);
+		addAttributeProperty(	Duration,		readOnly, TTValue(YES));
 	addAttribute(				NumChannels,	kTypeUInt16);
-		addAttributeProperty(	NumChannels,	readOnly, kTTBoolYes);
+		addAttributeProperty(	NumChannels,	readOnly, TTValue(YES));
 	addAttribute(				Title,			kTypeSymbol);
-		addAttributeProperty(	Title,			readOnly, kTTBoolYes);
+		addAttributeProperty(	Title,			readOnly, TTValue(YES));
 	addAttribute(				Artist,			kTypeSymbol);
-		addAttributeProperty(	Artist,			readOnly, kTTBoolYes);
+		addAttributeProperty(	Artist,			readOnly, TTValue(YES));
 	addAttribute(				Annotation,		kTypeSymbol);
-		addAttributeProperty(	Annotation,		readOnly, kTTBoolYes);
+		addAttributeProperty(	Annotation,		readOnly, TTValue(YES));
 	addAttribute(				Date,			kTypeSymbol);
-		addAttributeProperty(	Date,			readOnly, kTTBoolYes);
+		addAttributeProperty(	Date,			readOnly, TTValue(YES));
 	
 	addMessage(pause);
 	addMessage(resume);
@@ -63,7 +63,7 @@ mNumBufferFrames(0)
 
 TTSoundfilePlayer::~TTSoundfilePlayer()
 {
-	setAttributeValue(TT("play"), kTTBoolNo);
+	setAttributeValue(TT("play"), NO);
 	if (mSoundFile)
 		sf_close(mSoundFile);
 }

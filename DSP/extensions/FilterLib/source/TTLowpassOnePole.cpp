@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTLowpassOnePole
 #define thisTTClassName		"lowpass.1"
-#define thisTTClassTags		"audio, processor, filter, lowpass"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass"
 
 
 extern "C" void TTLowpassOnePole::registerClass()
@@ -19,13 +19,13 @@ extern "C" void TTLowpassOnePole::registerClass()
 }
 
 
-TTObjectBasePtr TTLowpassOnePole::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTLowpassOnePole::instantiate(TTSymbol name, TTValue arguments)
 {
 	return new TTLowpassOnePole(arguments);
 }
 
 
-TTLowpassOnePole::TTLowpassOnePole(TTValue& arguments):
+TTLowpassOnePole::TTLowpassOnePole(const TTValue& arguments):
 	TTOnePole(arguments)
 {
 	;

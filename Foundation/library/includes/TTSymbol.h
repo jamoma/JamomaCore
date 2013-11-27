@@ -69,8 +69,8 @@ public:
 	}
 
 	
-	virtual ~TTSymbol()
-	{;}
+	//virtual ~TTSymbol()
+	//{;}
 	
 	
 	/**	Return a pointer to the internal string as a C-string. */
@@ -87,7 +87,7 @@ public:
 	
 	
 	/**	Return this symbol's unique id. */
-	/*const*/ TTUInt32 getSymbolId() const
+	TTUInt32 getSymbolId() const
 	{
 		return mSymbolPointer->getSymbolId();
 	}

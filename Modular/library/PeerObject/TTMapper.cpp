@@ -22,18 +22,23 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mInput(kTTAdrsEmpty),
-mOutput(kTTAdrsEmpty),
 mInputMin(0.),
 mInputMax(1.),
+mInputThresholdDown(0.),
+mInputThresholdUp(1.),
+mInputGoingDown(NO),
+mInputGoingUp(NO),
+mOutput(kTTAdrsEmpty),
 mOutputMin(0.),
 mOutputMax(1.),
+mOutputThresholdDown(0.),
+mOutputThresholdUp(1.),
+mOutputGoingDown(NO),
+mOutputGoingUp(NO),
 mActive(YES),
 mInverse(NO),
 #ifndef TT_NO_DSP
-mFunctionLibrary(kTTValNONE),
 mFunction(kTTSymEmpty),
-mFunctionParameters(kTTValNONE),
-mFunctionSamples(kTTValNONE),
 #endif
 mRamp(0),
 mReceiver(NULL),
@@ -44,24 +49,48 @@ mInputRangeObserver(NULL),
 mOutputRangeObserver(NULL),
 mObserveInputRange(true),
 mObserveOutputRange(true),
-mReturnValueCallback(NULL)
+mReturnValueCallback(NULL),
+mReturnInputGoingDownCallback(NULL),
+mReturnInputGoingUpCallback(NULL),
+mReturnOutputGoingDownCallback(NULL),
+mReturnOutputGoingUpCallback(NULL)
 #ifndef TT_NO_DSP
 ,
 mFunctionUnit(NULL),
 mValid(NO)
 #endif
 {	
-	if(arguments.size() == 1)
+	if(arguments.size() >= 1)
 		mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
+    
+    if(arguments.size() >= 2)
+		mReturnInputGoingDownCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+    
+    if(arguments.size() >= 3)
+		mReturnInputGoingUpCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+    
+    if(arguments.size() >= 4)
+		mReturnOutputGoingDownCallback = TTCallbackPtr((TTObjectBasePtr)arguments[3]);
+    
+    if(arguments.size() >= 5)
+		mReturnOutputGoingUpCallback = TTCallbackPtr((TTObjectBasePtr)arguments[4]);
 	
 	addAttributeWithSetter(Input, kTypeSymbol);
-	addAttributeWithSetter(Output, kTypeSymbol);
-	
+    
 	addAttributeWithSetter(InputMin, kTypeFloat64);
 	addAttributeWithSetter(InputMax, kTypeFloat64);
+    
+    addAttribute(InputThresholdDown, kTypeFloat64);
+	addAttribute(InputThresholdUp, kTypeFloat64);
+    
+    addAttributeWithSetter(Output, kTypeSymbol);
+    
 	addAttributeWithSetter(OutputMin, kTypeFloat64);
 	addAttributeWithSetter(OutputMax, kTypeFloat64);
-	
+    
+    addAttribute(OutputThresholdDown, kTypeFloat64);
+	addAttribute(OutputThresholdUp, kTypeFloat64);
+    
 	addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttribute(Inverse, kTypeBoolean);
@@ -112,6 +141,26 @@ TTMapper::~TTMapper() // TODO : delete things...
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	}
+    
+    if (mReturnInputGoingDownCallback) {
+		delete (TTValuePtr)mReturnInputGoingDownCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnInputGoingDownCallback));
+	}
+    
+    if (mReturnInputGoingUpCallback) {
+		delete (TTValuePtr)mReturnInputGoingUpCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnInputGoingUpCallback));
+	}
+    
+    if (mReturnOutputGoingDownCallback) {
+		delete (TTValuePtr)mReturnOutputGoingDownCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnOutputGoingDownCallback));
+	}
+    
+    if (mReturnOutputGoingUpCallback) {
+		delete (TTValuePtr)mReturnOutputGoingUpCallback->getBaton();
+		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnOutputGoingUpCallback));
+	}
 	
 	if (mSender)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mSender));
@@ -135,15 +184,49 @@ TTMapper::~TTMapper() // TODO : delete things...
 TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 {
 	if (mActive) {
+        
+		TTValue none;
 		
 		processMapping(inputValue, outputValue);
 		
 		// return value
 		if (mSender)
-			mSender->sendMessage(kTTSym_Send, outputValue, kTTValNONE);
+			mSender->sendMessage(kTTSym_Send, outputValue, none);
 		
 		if (mReturnValueCallback)
-			mReturnValueCallback->notify(outputValue, kTTValNONE);
+			mReturnValueCallback->deliver(outputValue);
+        
+        // notify if input going down
+        TTBoolean newInputGoingDown = inputValue <= TTValue(mInputThresholdDown);
+        if (newInputGoingDown != mInputGoingDown) {
+            
+            mInputGoingDown = newInputGoingDown;
+            mReturnInputGoingDownCallback->deliver(mInputGoingDown);
+        }
+        
+        // notify if input going up
+        TTBoolean newInputGoingUp = inputValue >= TTValue(mInputThresholdUp);
+        if (newInputGoingUp != mInputGoingUp) {
+            
+            mInputGoingUp = newInputGoingUp;
+            mReturnInputGoingUpCallback->deliver(mInputGoingUp);
+        }
+        
+        // notify if output going down
+        TTBoolean newOutputGoingDown = outputValue <= TTValue(mOutputThresholdDown);
+        if (newOutputGoingDown != mOutputGoingDown) {
+            
+            mOutputGoingDown = newOutputGoingDown;
+            mReturnOutputGoingDownCallback->deliver(mOutputGoingDown);
+        }
+        
+        // notify if output going up
+        TTBoolean newOutputGoingUp = outputValue >= TTValue(mOutputThresholdUp);
+        if (newOutputGoingUp != mOutputGoingUp) {
+            
+            mOutputGoingUp = newOutputGoingUp;
+            mReturnOutputGoingUpCallback->deliver(mOutputGoingUp);
+        }
 	}
 	
 	return kTTErrNone;
@@ -174,7 +257,7 @@ TTErr TTMapper::getFunctionSamples(TTValue& value)
 #endif
 TTErr TTMapper::setInput(const TTValue& value)
 {
-	TTValue			args, v, min, max;
+	TTValue			args, v, min, max, none;
 	TTNodePtr		aNode;
 	TTObjectBasePtr	returnValueCallback, anObject;
 	TTValuePtr		returnValueBaton;
@@ -191,7 +274,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	args.append(NULL);
 	
 	returnValueCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, none);
 	returnValueBaton = new TTValue(TTObjectBasePtr(this));
 	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
 	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
@@ -219,6 +302,9 @@ TTErr TTMapper::setInput(const TTValue& value)
 					
 					mInputMin = TTFloat64(v[0]);
 					mInputMax = TTFloat64(v[1]);
+                    mInputThresholdDown = TTFloat64(v[0]);
+                    mInputThresholdUp = TTFloat64(v[1]);
+                    
 					scaleInput();
 					
 					observeInputRange();
@@ -233,8 +319,8 @@ TTErr TTMapper::setInput(const TTValue& value)
 
 TTErr TTMapper::observeInput()
 {
-	TTValue			args;
-	TTObjectBasePtr		returnInputCreationCallback;
+	TTValue			args, none;
+	TTObjectBasePtr	returnInputCreationCallback;
 	TTValuePtr		returnInputCreationBaton;
 	
 	if (mInputObserver)
@@ -242,7 +328,7 @@ TTErr TTMapper::observeInput()
 	
 	// Make a TTReceiver object
 	returnInputCreationCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnInputCreationCallback, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnInputCreationCallback, none);
 	returnInputCreationBaton = new TTValue(TTObjectBasePtr(this));
 	returnInputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputCreationBaton));
 	returnInputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
@@ -260,8 +346,8 @@ TTErr TTMapper::observeInput()
 
 TTErr TTMapper::observeInputRange()
 {
-	TTValue			args;
-	TTObjectBasePtr		returnInputRangeCallback;
+	TTValue			args, none;
+	TTObjectBasePtr returnInputRangeCallback;
 	TTValuePtr		returnInputRangeBaton;
 	
 	if (mInputRangeObserver)
@@ -271,7 +357,7 @@ TTErr TTMapper::observeInputRange()
 	args.append(NULL);
 	
 	returnInputRangeCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnInputRangeCallback, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnInputRangeCallback, none);
 	returnInputRangeBaton = new TTValue(TTObjectBasePtr(this));
 	returnInputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputRangeBaton));
 	returnInputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputRangeCallback));
@@ -287,7 +373,7 @@ TTErr TTMapper::observeInputRange()
 
 TTErr TTMapper::setOutput(const TTValue& value)
 {
-	TTValue			args, v, min, max;
+	TTValue			args, v, min, max, none;
 	TTNodePtr		aNode;
 	TTObjectBasePtr	anObject;
 	TTErr			err;
@@ -301,7 +387,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 		
 	// Make a TTSender object
 	mSender = NULL;
-	TTObjectBaseInstantiate(kTTSym_Sender, TTObjectBaseHandle(&mSender), kTTValNONE);
+	TTObjectBaseInstantiate(kTTSym_Sender, TTObjectBaseHandle(&mSender), none);
 	
 	mSender->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_value));
 	
@@ -322,6 +408,8 @@ TTErr TTMapper::setOutput(const TTValue& value)
 					
                     mOutputMin = TTFloat64(v[0]);
                     mOutputMax = TTFloat64(v[1]);
+                    mOutputThresholdDown = TTFloat64(v[0]);
+                    mOutputThresholdUp = TTFloat64(v[1]);
 
 					scaleOutput();
 					
@@ -337,7 +425,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 
 TTErr TTMapper::observeOutput()
 {
-	TTValue			args;
+	TTValue			args, none;
 	TTObjectBasePtr	returnOutputCreationCallback;
 	TTValuePtr		returnOutputCreationBaton;
 	
@@ -346,7 +434,7 @@ TTErr TTMapper::observeOutput()
 	
 	// Make a TTReceiver object
 	returnOutputCreationCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnOutputCreationCallback, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnOutputCreationCallback, none);
 	returnOutputCreationBaton = new TTValue(TTObjectBasePtr(this));
 	returnOutputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputCreationBaton));
 	returnOutputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
@@ -364,8 +452,8 @@ TTErr TTMapper::observeOutput()
 
 TTErr TTMapper::observeOutputRange()
 {
-	TTValue			args;
-	TTObjectBasePtr		returnOutputRangeCallback;
+	TTValue			args, none;
+	TTObjectBasePtr returnOutputRangeCallback;
 	TTValuePtr		returnOutputRangeBaton;
 	
 	if (mOutputRangeObserver)
@@ -375,7 +463,7 @@ TTErr TTMapper::observeOutputRange()
 	args.append(NULL);
 	
 	returnOutputRangeCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnOutputRangeCallback, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("callback"), &returnOutputRangeCallback, none);
 	returnOutputRangeBaton = new TTValue(TTObjectBasePtr(this));
 	returnOutputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputRangeBaton));
 	returnOutputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputRangeCallback));
@@ -706,6 +794,8 @@ TTErr TTMapperInputRangeCallback(TTPtr baton, TTValue& data)
 		// unpack data (min, max)
 		aMapper->mInputMin = data[0];
 		aMapper->mInputMax = data[1];
+        aMapper->mInputThresholdDown = data[0];
+		aMapper->mInputThresholdUp = data[1];
 		
 		aMapper->scaleInput();
 	}
@@ -726,6 +816,8 @@ TTErr TTMapperOutputRangeCallback(TTPtr baton, TTValue& data)
 		// unpack data (min, max)
 		aMapper->mOutputMin = data[0];
 		aMapper->mOutputMax = data[1];
+        aMapper->mOutputThresholdDown = data[0];
+		aMapper->mOutputThresholdUp = data[1];
 	
 		aMapper->scaleOutput();
 	}
@@ -733,11 +825,13 @@ TTErr TTMapperOutputRangeCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
+TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
 {
 	TTMapperPtr aMapper;
 	TTValuePtr	b;
-	TTValue		mappedValue;
+    TTDictionaryBasePtr	command;
+	TTValue		outputValue;
+	TTValue     none;
 	
 	// unpack baton (a TTMapper)
 	b = (TTValuePtr)baton;
@@ -746,24 +840,60 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& data)
 	if (aMapper->mActive) {
 		
 		// process the mapping
-		aMapper->processMapping(data, mappedValue);
+		aMapper->processMapping(inputValue, outputValue);
         
         // if there is a ramp value, edit the command here
         if (aMapper->mRamp > 0) {
-            TTDictionaryPtr	command = new TTDictionary();
+            command = new TTDictionaryBase();
             command->setSchema(kTTSym_command);
-            command->setValue(mappedValue);
+            command->setValue(outputValue);
             command->append(kTTSym_ramp, aMapper->mRamp);
             
-            mappedValue = TTValue((TTPtr)command);
+            outputValue = TTValue((TTPtr)command);
         }
 		
 		// return value
 		if (aMapper->mSender)
-			aMapper->mSender->sendMessage(kTTSym_Send, mappedValue, kTTValNONE);
+			aMapper->mSender->sendMessage(kTTSym_Send, outputValue, none);
 		
 		if (aMapper->mReturnValueCallback)
-			aMapper->mReturnValueCallback->notify(mappedValue, kTTValNONE);
+			aMapper->mReturnValueCallback->deliver(outputValue);
+        
+        // notify if input going down
+        TTBoolean newInputGoingDown = inputValue <= TTValue(aMapper->mInputThresholdDown);
+        if (newInputGoingDown != aMapper->mInputGoingDown) {
+            
+            aMapper->mInputGoingDown = newInputGoingDown;
+            aMapper->mReturnInputGoingDownCallback->deliver(aMapper->mInputGoingDown);
+        }
+        
+        // notify if input going up
+        TTBoolean newInputGoingUp = inputValue >= TTValue(aMapper->mInputThresholdUp);
+        if (newInputGoingUp != aMapper->mInputGoingUp) {
+            
+            aMapper->mInputGoingUp = newInputGoingUp;
+            aMapper->mReturnInputGoingUpCallback->deliver(aMapper->mInputGoingUp);
+        }
+        
+        // notify if output going down
+        TTBoolean newOutputGoingDown = outputValue <= TTValue(aMapper->mOutputThresholdDown);
+        if (newOutputGoingDown != aMapper->mOutputGoingDown) {
+            
+            aMapper->mOutputGoingDown = newOutputGoingDown;
+            aMapper->mReturnOutputGoingDownCallback->deliver(aMapper->mOutputGoingDown);
+        }
+        
+        // notify if output going up
+        TTBoolean newOutputGoingUp = outputValue >= TTValue(aMapper->mOutputThresholdUp);
+        if (newOutputGoingUp != aMapper->mOutputGoingUp) {
+            
+            aMapper->mOutputGoingUp = newOutputGoingUp;
+            aMapper->mReturnOutputGoingUpCallback->deliver(aMapper->mOutputGoingUp);
+        }
+        
+        // release the command if needed
+        if (aMapper->mRamp > 0)
+            delete command;
 	}
 	
 	return kTTErrNone;

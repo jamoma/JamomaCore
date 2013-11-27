@@ -20,11 +20,12 @@
 
 /****************************************************************************************************/
 
-Protocol::Protocol(TTValue& arguments) :
+Protocol::Protocol(const TTValue& arguments) :
 TTObjectBase(arguments),
 mApplicationManager(NULL),
 mActivityInCallback(NULL),
-mActivityOutCallback(NULL)
+mActivityOutCallback(NULL),
+mRunning(NO)
 {
     mApplicationManager = arguments[0];
     mActivityInCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
@@ -54,6 +55,9 @@ mActivityOutCallback(NULL)
 
 	addAttribute(Discover, kTypeBoolean);
 	addAttributeProperty(Discover, readOnly, YES);
+    
+    addAttribute(DiscoverAll, kTypeBoolean);
+	addAttributeProperty(DiscoverAll, readOnly, YES);
 	
 	addAttribute(Activity, kTypeBoolean);
 
@@ -133,7 +137,7 @@ TTErr Protocol::registerApplication(const TTValue& inputValue, TTValue& outputVa
 {
 	TTSymbol	applicationName, parameterName;
 	TTHashPtr	applicationParameters;
-	TTValue		v, parameterNames;
+	TTValue		v, parameterNames, none;
 	TTErr		err;
 	
 	applicationName = inputValue[0];
@@ -153,7 +157,7 @@ TTErr Protocol::registerApplication(const TTValue& inputValue, TTValue& outputVa
 		this->getParameterNames(parameterNames);
 		for (TTUInt32 i = 0; i < parameterNames.size(); i++) {
 			parameterName = parameterNames[i];
-			applicationParameters->append(parameterName, kTTValNONE);
+			applicationParameters->append(parameterName, none);
 		}
 		
 		// add the parameters table into mDistantApplicationParameters
@@ -311,7 +315,7 @@ TTErr Protocol::isRegistered(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
-TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address) 
+TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address)
 {
 	TTValue     inputValue, outputValue;
 	TTErr       err;
@@ -331,7 +335,31 @@ TTErr Protocol::ReceiveDiscoverRequest(TTSymbol from, TTAddress address)
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationDiscover"), inputValue, outputValue);
 		
 		// send result
-		return SendDiscoverAnswer(from, address, returnedType, returnedChildren, returnedAttributes, err);
+        if (mRunning)
+            return SendDiscoverAnswer(from, address, returnedType, returnedChildren, returnedAttributes, err);
+	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr Protocol::ReceiveDiscoverAllRequest(TTSymbol from, TTAddress address)
+{
+    TTValue     inputValue, outputValue;
+    TTNodePtr   aNode;
+	TTErr       err;
+	
+	// discover all the local namespace
+	if (mApplicationManager != NULL) {
+        
+        inputValue = address;
+        
+        err = mApplicationManager->sendMessage(TTSymbol("ApplicationDiscoverAll"), inputValue, outputValue);
+        
+        aNode = TTNodePtr(TTPtr(outputValue[0]));
+
+		// send result
+        if (mRunning)
+            return SendDiscoverAllAnswer(from, address, aNode, err);
 	}
 	
 	return kTTErrGeneric;
@@ -350,7 +378,8 @@ TTErr Protocol::ReceiveGetRequest(TTSymbol from, TTAddress address)
 
 		err = mApplicationManager->sendMessage(TTSymbol("ApplicationGet"), address, returnedValue);
 		
-		return SendGetAnswer(from, address, returnedValue, err);
+        if (mRunning)
+            return SendGetAnswer(from, address, returnedValue, err);
 	}		
 	
 	return kTTErrGeneric;
@@ -358,7 +387,7 @@ TTErr Protocol::ReceiveGetRequest(TTSymbol from, TTAddress address)
 
 TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& newValue) 
 {
-	TTValue v;
+	TTValue v, none;
 	TTErr	err;
 	
 	// set the an object in the namespace
@@ -369,7 +398,7 @@ TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& new
 		
 		v.append(address);
 		v.append((TTPtr)&newValue);
-		err = mApplicationManager->sendMessage(TTSymbol("ApplicationSet"), v, kTTValNONE);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationSet"), v, none);
 		
 		// TODO : test error and send notification if error
 		return err;
@@ -380,7 +409,7 @@ TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& new
 
 TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean enable) 
 {
-	TTValue v;
+	TTValue v, none;
 	TTErr	err;
 	
 	// listen an object or the namespace
@@ -394,10 +423,13 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
 		v.append(address);
 		v.append(enable);
 		
-		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListen"), v, kTTValNONE);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListen"), v, none);
 		
+        // NW: wondering why this happens twice?
 		if (err)
-			return SendListenAnswer(from, address, kTTValNONE, err);
+			return SendListenAnswer(from, address, none, err);
+		if (err && mRunning) 
+			return SendListenAnswer(from, address, none, err);
 	}
 	
 	return kTTErrGeneric;
@@ -405,8 +437,9 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
 
 TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& newValue)
 {
-	TTValue v;
+	TTValue v, none;
 	TTErr	err;
+	TTValue dummy;
 	
 	if (mApplicationManager != NULL) {
 		
@@ -418,10 +451,13 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& n
 		v.append((TTPtr)&newValue);
 		
 		// TODO
-		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListenAnswer"), v, kTTValNONE);
+		err = mApplicationManager->sendMessage(TTSymbol("ApplicationListenAnswer"), v, none);
 		
+        // NW: wondering why this happens twice?
 		if (err)
-			return SendListenAnswer(from, address, kTTValNONE, err);
+			return SendListenAnswer(from, address, dummy, err);
+		if (err && mRunning)
+			return SendListenAnswer(from, address, dummy, err);
 	}
 	
 	return kTTErrGeneric;
@@ -429,16 +465,18 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& n
 
 TTErr Protocol::ActivityInMessage(const TTValue& message)
 {
+	TTValue dummy;
 	if (mActivityInCallback != NULL)
-		return mActivityInCallback->notify(message, kTTValNONE);
+		return mActivityInCallback->notify(message, dummy);
 	
 	return kTTErrGeneric;
 }
 
 TTErr Protocol::ActivityOutMessage(const TTValue& message)
 {
+	TTValue dummy;
 	if (mActivityOutCallback != NULL)
-		return mActivityOutCallback->notify(message, kTTValNONE);
+		return mActivityOutCallback->notify(message, dummy);
 	
 	return kTTErrGeneric;
 }
@@ -483,8 +521,11 @@ TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
         
         v.append(TTSymbol("delete"));
     }
-
-	return aProtocol->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TTSymbol("life")), v);
+    
+    if (aProtocol->mRunning)
+        return aProtocol->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TTSymbol("life")), v);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
@@ -500,7 +541,10 @@ TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
 	anApplicationName = (*b)[1];
 	anAddress = (*b)[2];
 	
-	return aProtocol->SendListenAnswer(anApplicationName, anAddress, data);
+    if (aProtocol->mRunning)
+        return aProtocol->SendListenAnswer(anApplicationName, anAddress, data);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolGetAttributeCallback(TTPtr baton, TTValue& data)
@@ -522,7 +566,10 @@ TTErr ProtocolGetAttributeCallback(TTPtr baton, TTValue& data)
 	value = TTValuePtr((TTPtr)data[1]);
 	
 	// send a get request
-	return aProtocol->SendGetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    if (aProtocol->mRunning)
+        return aProtocol->SendGetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolSetAttributeCallback(TTPtr baton, TTValue& data)
@@ -544,7 +591,10 @@ TTErr ProtocolSetAttributeCallback(TTPtr baton, TTValue& data)
 	value = TTValuePtr((TTPtr)data[1]);
 	
 	// send a set request
-	return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    if (aProtocol->mRunning)
+        return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolSendMessageCallback(TTPtr baton, TTValue& data)
@@ -566,7 +616,10 @@ TTErr ProtocolSendMessageCallback(TTPtr baton, TTValue& data)
 	value = TTValuePtr((TTPtr)data[1]);
 	
 	// send a set request
-	return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(message), *value);
+    if (aProtocol->mRunning)
+        return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(message), *value);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
@@ -589,7 +642,10 @@ TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
     enable = data[1];
 	
 	// send a listen request
-	return aProtocol->SendListenRequest(anApplicationName, anAddress.appendAttribute(attribute), enable);
+    if (aProtocol->mRunning)
+        return aProtocol->SendListenRequest(anApplicationName, anAddress.appendAttribute(attribute), enable);
+    else
+        return kTTErrGeneric;
 }
 
 TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)

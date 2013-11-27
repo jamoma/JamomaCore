@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTLowpassButterworth3
 #define thisTTClassName		"lowpass.butterworth.3"
-#define thisTTClassTags		"audio, processor, filter, lowpass, butterworth"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, butterworth"
 
 
 TT_AUDIO_CONSTRUCTOR

@@ -27,7 +27,6 @@ extern TTFOUNDATION_EXPORT TTSymbol kTTSym_getVector64;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_alloc;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_attribute;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_audioEngineWillProcess;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_baton;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_both;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_bypass;
@@ -53,6 +52,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_numChannels;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_object;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_parent;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_part;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_priority;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_processInPlace;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_range;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_resonance;

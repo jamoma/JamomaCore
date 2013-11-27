@@ -25,7 +25,7 @@
 #define thisTTClassTags		"audio, spatialization, processing, dbap"
 
 
-TTObjectBasePtr TTSpatDBAP::instantiate(TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTSpatDBAP::instantiate(TTSymbol name, TTValue arguments)
 {
 	return (TTObjectBasePtr) new thisTTClass(arguments);
 }
@@ -37,7 +37,7 @@ extern "C" void thisTTClass :: registerClass ()
 }
 
 
-TTSpatDBAP::TTSpatDBAP(TTValue& arguments) : TTSpatBase(arguments)
+TTSpatDBAP::TTSpatDBAP(const TTValue& arguments) : TTSpatBase(arguments)
 {
 	mRenderer = new TTSpatDBAPRenderer;
 		

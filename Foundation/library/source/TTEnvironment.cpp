@@ -30,7 +30,7 @@ TTEnvironment*	ttEnvironment = NULL;
 /****************************************************************************************************/
 
 TTEnvironment::TTEnvironment()
-	: TTObjectBase(kTTValNONE), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0), mBenchmarking(false)
+	: TTObjectBase(TTValue()), mDebugBasic(false), mDebugMessaging(false), mSampleRate(0), mBenchmarking(false)
 {
 	classes = new TTHash();
 	tags = new TTHash();
@@ -66,7 +66,7 @@ TTErr TTEnvironment::getVersion(const TTValue& anInputValue, TTValue &anOutputVa
 }
 
 
-TTErr TTEnvironment::registerClass(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
+TTErr TTEnvironment::registerClass(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
 	TTValue		v((TTString&)tagString);	// The tags to be associated with the class we are registering.
 	TTValue		tagObjects;					// Contains a TTList of objects in the environment with the given tag.
@@ -211,11 +211,6 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 
 TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument)
 {
-	return createInstance(className, anObject, (TTValue&)anArgument); // throw away the const (I know, I know...), maybe the non-const constructor shouldn't exist at all?
-}
-
-TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, TTValue& anArgument)
-{
 	TTValue		v;
 	TTClassPtr	theClass;
 	TTErr		err;
@@ -320,12 +315,12 @@ TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject)
 }
 
 
-TTErr TTClassRegister(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
+TTErr TTClassRegister(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
 	return ttEnvironment->registerClass(className, tagString, anInstantiationMethod);
 }
 
-TTErr TTClassRegister(const TTSymbol& className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
+TTErr TTClassRegister(const TTSymbol className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
 	return ttEnvironment->registerClass(className, TTString(tagString), anInstantiationMethod);
 }

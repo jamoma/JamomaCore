@@ -19,6 +19,7 @@ TTErr TTMatrixGain::test(TTValue& returnedTestInfo)
 	TTErr		err = kTTErrNone;
 	TTValue		v(16, 16);
 	TTValue		aColor;
+    TTValue     aReturnWeDontCareAbout;
 	
 	err = TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&x, kTTValNONE);
 	err = TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&y, kTTValNONE);
@@ -31,7 +32,7 @@ TTErr TTMatrixGain::test(TTValue& returnedTestInfo)
 	aColor.set(1, 196);
 	aColor.set(2, 24);
 	aColor.set(3, 240);
-	x->fill(aColor, kTTValNONE);
+	x->fill(aColor, aReturnWeDontCareAbout);
 	
 	this->setAttributeValue(kTTSym_gain, 0.125);
 	err = this->calculate(x, y);

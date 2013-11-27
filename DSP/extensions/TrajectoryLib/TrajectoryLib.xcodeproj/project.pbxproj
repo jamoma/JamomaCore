@@ -1,0 +1,276 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		8E6C69DF17EA3F81002BEB95 /* Bean2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bean2D.h; sourceTree = "<group>"; };
+		8E6C69E017EA3F81002BEB95 /* Bspline2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bspline2D.h; sourceTree = "<group>"; };
+		8E6C69E117EA3F81002BEB95 /* Butterfly2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Butterfly2D.h; sourceTree = "<group>"; };
+		8E6C69E217EA3F81002BEB95 /* Catmullrom3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Catmullrom3D.h; sourceTree = "<group>"; };
+		8E6C69E317EA3F81002BEB95 /* Circular2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circular2D.h; sourceTree = "<group>"; };
+		8E6C69E417EA3F81002BEB95 /* CircularHelix3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularHelix3D.h; sourceTree = "<group>"; };
+		8E6C69E517EA3F81002BEB95 /* Epitrochoid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Epitrochoid2D.h; sourceTree = "<group>"; };
+		8E6C69E617EA3F81002BEB95 /* Gear2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gear2D.h; sourceTree = "<group>"; };
+		8E6C69E717EA3F81002BEB95 /* Hypocycloid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hypocycloid2D.h; sourceTree = "<group>"; };
+		8E6C69E817EA3F81002BEB95 /* Limacon2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Limacon2D.h; sourceTree = "<group>"; };
+		8E6C69E917EA3F81002BEB95 /* Linear2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Linear2D.h; sourceTree = "<group>"; };
+		8E6C69EA17EA3F81002BEB95 /* Linear3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Linear3D.h; sourceTree = "<group>"; };
+		8E6C69EB17EA3F81002BEB95 /* Lissajous2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lissajous2D.h; sourceTree = "<group>"; };
+		8E6C69EC17EA3F81002BEB95 /* Lissajous3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lissajous3D.h; sourceTree = "<group>"; };
+		8E6C69ED17EA3F81002BEB95 /* LogSpiral2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogSpiral2D.h; sourceTree = "<group>"; };
+		8E6C69EE17EA3F81002BEB95 /* Rose2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rose2D.h; sourceTree = "<group>"; };
+		8E6C69EF17EA3F81002BEB95 /* Rose3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rose3D.h; sourceTree = "<group>"; };
+		8E6C69F017EA3F81002BEB95 /* Scarabaeus2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scarabaeus2D.h; sourceTree = "<group>"; };
+		8E6C69F117EA3F81002BEB95 /* Slinky3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slinky3D.h; sourceTree = "<group>"; };
+		8E6C69F217EA3F81002BEB95 /* Spiral3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spiral3D.h; sourceTree = "<group>"; };
+		8E6C69F317EA3F81002BEB95 /* Torus3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Torus3D.h; sourceTree = "<group>"; };
+		8E6C69F417EA3F81002BEB95 /* Viviani3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viviani3D.h; sourceTree = "<group>"; };
+		8E6C69F617EA3F81002BEB95 /* Bean2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bean2D.cpp; sourceTree = "<group>"; };
+		8E6C69F717EA3F81002BEB95 /* Bean2D.i386.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = Bean2D.i386.o; sourceTree = "<group>"; };
+		8E6C69F817EA3F81002BEB95 /* Bspline2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bspline2D.cpp; sourceTree = "<group>"; };
+		8E6C69F917EA3F81002BEB95 /* Butterfly2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Butterfly2D.cpp; sourceTree = "<group>"; };
+		8E6C69FA17EA3F81002BEB95 /* Catmullrom3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Catmullrom3D.cpp; sourceTree = "<group>"; };
+		8E6C69FB17EA3F81002BEB95 /* Circular2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Circular2D.cpp; sourceTree = "<group>"; };
+		8E6C69FC17EA3F81002BEB95 /* CircularHelix3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircularHelix3D.cpp; sourceTree = "<group>"; };
+		8E6C69FD17EA3F81002BEB95 /* Epitrochoid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Epitrochoid2D.cpp; sourceTree = "<group>"; };
+		8E6C69FE17EA3F81002BEB95 /* Gear2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gear2D.cpp; sourceTree = "<group>"; };
+		8E6C69FF17EA3F81002BEB95 /* Hypocycloid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hypocycloid2D.cpp; sourceTree = "<group>"; };
+		8E6C6A0017EA3F81002BEB95 /* Hypocycloid2D.i386.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = Hypocycloid2D.i386.o; sourceTree = "<group>"; };
+		8E6C6A0117EA3F81002BEB95 /* Limacon2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Limacon2D.cpp; sourceTree = "<group>"; };
+		8E6C6A0217EA3F81002BEB95 /* Linear2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear2D.cpp; sourceTree = "<group>"; };
+		8E6C6A0317EA3F81002BEB95 /* Linear3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Linear3D.cpp; sourceTree = "<group>"; };
+		8E6C6A0417EA3F81002BEB95 /* Lissajous2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous2D.cpp; sourceTree = "<group>"; };
+		8E6C6A0517EA3F81002BEB95 /* Lissajous3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lissajous3D.cpp; sourceTree = "<group>"; };
+		8E6C6A0617EA3F81002BEB95 /* LogSpiral2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogSpiral2D.cpp; sourceTree = "<group>"; };
+		8E6C6A0717EA3F81002BEB95 /* Rose2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rose2D.cpp; sourceTree = "<group>"; };
+		8E6C6A0817EA3F81002BEB95 /* Rose3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rose3D.cpp; sourceTree = "<group>"; };
+		8E6C6A0917EA3F81002BEB95 /* Scarabaeus2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scarabaeus2D.cpp; sourceTree = "<group>"; };
+		8E6C6A0A17EA3F81002BEB95 /* Slinky3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slinky3D.cpp; sourceTree = "<group>"; };
+		8E6C6A0B17EA3F81002BEB95 /* Spiral3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spiral3D.cpp; sourceTree = "<group>"; };
+		8E6C6A0C17EA3F81002BEB95 /* Torus3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Torus3D.cpp; sourceTree = "<group>"; };
+		8E6C6A0D17EA3F81002BEB95 /* Viviani3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viviani3D.cpp; sourceTree = "<group>"; };
+		8E6C6A0E17EA3F81002BEB95 /* TrajectoryLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrajectoryLib.cpp; sourceTree = "<group>"; };
+		8E6C6A0F17EA3F81002BEB95 /* TrajectoryLib.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TrajectoryLib.yml; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		8E6C69A017EA3EE4002BEB95 = {
+			isa = PBXGroup;
+			children = (
+				8E6C6A0F17EA3F81002BEB95 /* TrajectoryLib.yml */,
+				8E6C6A0E17EA3F81002BEB95 /* TrajectoryLib.cpp */,
+				8E6C69DE17EA3F81002BEB95 /* includes */,
+				8E6C69F517EA3F81002BEB95 /* sources */,
+			);
+			sourceTree = "<group>";
+		};
+		8E6C69DE17EA3F81002BEB95 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				8E6C69DF17EA3F81002BEB95 /* Bean2D.h */,
+				8E6C69E017EA3F81002BEB95 /* Bspline2D.h */,
+				8E6C69E117EA3F81002BEB95 /* Butterfly2D.h */,
+				8E6C69E217EA3F81002BEB95 /* Catmullrom3D.h */,
+				8E6C69E317EA3F81002BEB95 /* Circular2D.h */,
+				8E6C69E417EA3F81002BEB95 /* CircularHelix3D.h */,
+				8E6C69E517EA3F81002BEB95 /* Epitrochoid2D.h */,
+				8E6C69E617EA3F81002BEB95 /* Gear2D.h */,
+				8E6C69E717EA3F81002BEB95 /* Hypocycloid2D.h */,
+				8E6C69E817EA3F81002BEB95 /* Limacon2D.h */,
+				8E6C69E917EA3F81002BEB95 /* Linear2D.h */,
+				8E6C69EA17EA3F81002BEB95 /* Linear3D.h */,
+				8E6C69EB17EA3F81002BEB95 /* Lissajous2D.h */,
+				8E6C69EC17EA3F81002BEB95 /* Lissajous3D.h */,
+				8E6C69ED17EA3F81002BEB95 /* LogSpiral2D.h */,
+				8E6C69EE17EA3F81002BEB95 /* Rose2D.h */,
+				8E6C69EF17EA3F81002BEB95 /* Rose3D.h */,
+				8E6C69F017EA3F81002BEB95 /* Scarabaeus2D.h */,
+				8E6C69F117EA3F81002BEB95 /* Slinky3D.h */,
+				8E6C69F217EA3F81002BEB95 /* Spiral3D.h */,
+				8E6C69F317EA3F81002BEB95 /* Torus3D.h */,
+				8E6C69F417EA3F81002BEB95 /* Viviani3D.h */,
+			);
+			path = includes;
+			sourceTree = "<group>";
+		};
+		8E6C69F517EA3F81002BEB95 /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				8E6C69F617EA3F81002BEB95 /* Bean2D.cpp */,
+				8E6C69F717EA3F81002BEB95 /* Bean2D.i386.o */,
+				8E6C69F817EA3F81002BEB95 /* Bspline2D.cpp */,
+				8E6C69F917EA3F81002BEB95 /* Butterfly2D.cpp */,
+				8E6C69FA17EA3F81002BEB95 /* Catmullrom3D.cpp */,
+				8E6C69FB17EA3F81002BEB95 /* Circular2D.cpp */,
+				8E6C69FC17EA3F81002BEB95 /* CircularHelix3D.cpp */,
+				8E6C69FD17EA3F81002BEB95 /* Epitrochoid2D.cpp */,
+				8E6C69FE17EA3F81002BEB95 /* Gear2D.cpp */,
+				8E6C69FF17EA3F81002BEB95 /* Hypocycloid2D.cpp */,
+				8E6C6A0017EA3F81002BEB95 /* Hypocycloid2D.i386.o */,
+				8E6C6A0117EA3F81002BEB95 /* Limacon2D.cpp */,
+				8E6C6A0217EA3F81002BEB95 /* Linear2D.cpp */,
+				8E6C6A0317EA3F81002BEB95 /* Linear3D.cpp */,
+				8E6C6A0417EA3F81002BEB95 /* Lissajous2D.cpp */,
+				8E6C6A0517EA3F81002BEB95 /* Lissajous3D.cpp */,
+				8E6C6A0617EA3F81002BEB95 /* LogSpiral2D.cpp */,
+				8E6C6A0717EA3F81002BEB95 /* Rose2D.cpp */,
+				8E6C6A0817EA3F81002BEB95 /* Rose3D.cpp */,
+				8E6C6A0917EA3F81002BEB95 /* Scarabaeus2D.cpp */,
+				8E6C6A0A17EA3F81002BEB95 /* Slinky3D.cpp */,
+				8E6C6A0B17EA3F81002BEB95 /* Spiral3D.cpp */,
+				8E6C6A0C17EA3F81002BEB95 /* Torus3D.cpp */,
+				8E6C6A0D17EA3F81002BEB95 /* Viviani3D.cpp */,
+			);
+			path = sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		8E6C69A517EA3EE4002BEB95 /* TrajectoryLib */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildConfigurationList = 8E6C69A817EA3EE4002BEB95 /* Build configuration list for PBXLegacyTarget "TrajectoryLib" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = TrajectoryLib;
+			passBuildSettingsInEnvironment = 1;
+			productName = TrajectoryLib;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		8E6C69A117EA3EE4002BEB95 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = org.jamoma;
+			};
+			buildConfigurationList = 8E6C69A417EA3EE4002BEB95 /* Build configuration list for PBXProject "TrajectoryLib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8E6C69A017EA3EE4002BEB95;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8E6C69A517EA3EE4002BEB95 /* TrajectoryLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		8E6C69A617EA3EE4002BEB95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8E6C69A717EA3EE4002BEB95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8E6C69A917EA3EE4002BEB95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8E6C69AA17EA3EE4002BEB95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8E6C69A417EA3EE4002BEB95 /* Build configuration list for PBXProject "TrajectoryLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E6C69A617EA3EE4002BEB95 /* Debug */,
+				8E6C69A717EA3EE4002BEB95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E6C69A817EA3EE4002BEB95 /* Build configuration list for PBXLegacyTarget "TrajectoryLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E6C69A917EA3EE4002BEB95 /* Debug */,
+				8E6C69AA17EA3EE4002BEB95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8E6C69A117EA3EE4002BEB95 /* Project object */;
+}

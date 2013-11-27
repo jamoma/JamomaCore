@@ -167,6 +167,9 @@ TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedIte
 	
 	addressToFind.listNameInstance(nameInstanceList);
     
+    if (nameInstanceList.isEmpty())
+        return kTTErrGeneric;
+    
 	for (nameInstanceList.begin(); nameInstanceList.end(); nameInstanceList.next()) {
 		
 		nameInstance = nameInstanceList.current()[0];
@@ -178,17 +181,19 @@ TTErr TTAddressItem::find(TTAddress addressToFind, TTAddressItemPtr *returnedIte
 		else
 			anItem = nextItem;
 	}
+    
+    if (anItem->options->isEmpty() && addressToFind.getAttribute() == NO_ATTRIBUTE) {
+        *returnedItem = anItem;
+        return kTTErrNone;
+    }
 	
-	if (anItem != this) {
+    if (!anItem->options->findEquals(addressToFind.getAttribute(), v)) {
         
-        if (!anItem->options->findEquals(addressToFind.getAttribute(), v)) {
-            
-            *returnedItem = anItem;
-            return kTTErrNone;
-        }
-	}
-	
-	return kTTErrValueNotFound;
+        *returnedItem = anItem;
+        return kTTErrNone;
+    }
+    
+    return kTTErrValueNotFound;
 }
 
 TTAddressItemPtr TTAddressItem::current()

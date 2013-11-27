@@ -33,7 +33,6 @@ mSignalZero(NULL),
 mOutputObject(NULL),
 mReturnSignalCallback(NULL),
 mAddressObserver(NULL),
-mSignal(kTTValNONE),
 mSignalAttr(NULL)
 {
 	// There will be no args passed if this is created as a super-class for TTInputAudio [tap]
@@ -112,8 +111,10 @@ TTInput::~TTInput()
 
 TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTErr err;
-    
+    TTErr   err;
+	TTValue none;
+	
+   
     if (!mReturnSignalCallback)
         return kTTErrGeneric;
     
@@ -121,10 +122,10 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 		return kTTErrNone;
     
 	else if (mBypass && mOutputObject)
-		err = mOutputObject->sendMessage(TTSymbol("SendBypassed"), inputValue, kTTValNONE);
+		err = mOutputObject->sendMessage(TTSymbol("SendBypassed"), inputValue, none);
     
 	else
-		err = mReturnSignalCallback->notify(inputValue, kTTValNONE);
+		err = mReturnSignalCallback->notify(inputValue, none);
     
     notifySignalObserver(inputValue);
     
@@ -145,27 +146,27 @@ TTErr TTInput::Unlink()
 
 TTErr TTInput::setOutputAddress(const TTValue& value)
 {
-	TTValue			args;
+	TTValue			args, none;
 	TTValuePtr		newBaton;
 	TTAddress		newAddress;
 	TTNodePtr		aNode;
 	TTList			aNodeList;
-	TTObjectBasePtr		o;
-	
+	TTObjectBasePtr	o;
+
 	newAddress = value[0];
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
 		o = aNode->getObject();
 		if (o)
-			if (o->getName() == kTTSym_Output)
-				Link(o, kTTValNONE);
+			if (o->getName() == kTTSym_Output|| o->getName() == kTTSym_OutputAudio)
+				Link(o, none);
 	}
 	
 	if (!mAddressObserver) {
 		// prepare arguments
 		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 		
 		newBaton = new TTValue(TTObjectBasePtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
@@ -207,6 +208,8 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 	TTObjectBasePtr	o;
+	TTValue         none;
+	
 	
 	// unpack baton (an InputPtr)
 	b = (TTValuePtr)baton;
@@ -219,13 +222,13 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	o = aNode->getObject();
 	if (o) {
-		if (o->getName() == kTTSym_Output) {
+		if (o->getName() == kTTSym_Output || o->getName() == kTTSym_OutputAudio) {
 			
 			switch (flag) {
 					
 				case kAddressCreated :
 				{
-					anInput->Link(o, kTTValNONE);
+					anInput->Link(o, none);
 					break;
 				}
 					

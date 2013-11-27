@@ -10,13 +10,14 @@ sources:
   - source/TTQueue.cpp
   - source/TTThread.cpp
   - source/TTUnitTest.cpp
-  - source/TTValueCache.cpp
   - source/TTAttribute.cpp
   - source/TTDataObjectBase.cpp
   - source/TTBase.cpp
   - source/TTMessage.cpp
   - source/TTObjectBase.cpp
   - source/TTDictionary.cpp
+  - source/TTDictionaryBase.cpp
+  - tests/TTDictionary.test.cpp
   - source/TTHash.cpp
   - source/TTList.cpp
   - source/TTMatrix.cpp

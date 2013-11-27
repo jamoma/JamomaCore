@@ -31,6 +31,7 @@ MinuitAnswer::MinuitAnswer()
 	gettimeofday(&tv, &tz);
 #endif
 	
+    mThread = new TTThread(NULL, NULL);
 	mAnswer = kTTValNONE;
 	mState = NO_ANSWER;
 	mLaunchTimeInMs = (tv.tv_sec * 1000000L + tv.tv_usec)/1000;
@@ -39,13 +40,20 @@ MinuitAnswer::MinuitAnswer()
 
 MinuitAnswer::~MinuitAnswer()
 {
-	;
+    if (mThread)
+		mThread->wait();
+    
+    delete mThread;
 }
 
-void MinuitAnswer::setAnswer(const TTValue& value)
+void MinuitAnswer::setAnswer(const TTValue& value, TTErr error)
 {
-	mAnswer = value;	
-	mState = ANSWER_RECEIVED;
+	mAnswer = value;
+	
+    if (!error)
+        mState = ANSWER_RECEIVED;
+    else
+        mState = ANSWER_ERROR;
 }
 
 void MinuitAnswer::getAnswer(TTValue& value)
@@ -55,6 +63,12 @@ void MinuitAnswer::getAnswer(TTValue& value)
 
 void MinuitAnswer::setTimeOut(int timeout) {
 	mTimeOutInMs = timeout;
+}
+
+void MinuitAnswer::wait()
+{
+    if (mState == NO_ANSWER)
+        mThread->sleep(1);
 }
 
 int MinuitAnswer::getState()

@@ -21,7 +21,7 @@
 
 #define thisTTClass			TTSoundfile
 #define thisTTClassName		"soundfile"
-#define thisTTClassTags		"soundfile"
+#define thisTTClassTags		"dspSoundFileLib, soundfile"
 
 TT_AUDIO_CONSTRUCTOR,
 mFilePath(kTTSymEmpty),
@@ -38,22 +38,22 @@ mSoundFile(NULL)
 	// add the attributes and messages here
     addAttributeWithSetter(FilePath, kTypeSymbol);
     addAttribute(NumChannels, kTypeInt16);
-        addAttributeProperty(NumChannels, readOnly, kTTBoolYes);
+        addAttributeProperty(NumChannels, readOnly, TTValue(YES));
     // need to add the rest of these here...
     addAttribute(SampleRate, kTypeFloat64);
-        addAttributeProperty(SampleRate, readOnly, kTTBoolYes);
+        addAttributeProperty(SampleRate, readOnly, TTValue(YES));
     addAttribute(LengthInSamples, kTypeInt64);
-        addAttributeProperty(LengthInSamples, readOnly, kTTBoolYes);
+        addAttributeProperty(LengthInSamples, readOnly, TTValue(YES));
     addAttribute(LengthInSeconds, kTypeFloat64);
-        addAttributeProperty(LengthInSeconds, readOnly, kTTBoolYes);
+        addAttributeProperty(LengthInSeconds, readOnly, TTValue(YES));
     addAttribute(Title, kTypeSymbol);
-        addAttributeProperty(Title, readOnly, kTTBoolYes);
+        addAttributeProperty(Title, readOnly, TTValue(YES));
     addAttribute(Artist, kTypeSymbol);
-        addAttributeProperty(Artist, readOnly, kTTBoolYes);
+        addAttributeProperty(Artist, readOnly, TTValue(YES));
     addAttribute(Date, kTypeSymbol);
-        addAttributeProperty(Date, readOnly, kTTBoolYes);
+        addAttributeProperty(Date, readOnly, TTValue(YES));
     addAttribute(Annotation, kTypeSymbol);
-        addAttributeProperty(Annotation, readOnly, kTTBoolYes);
+        addAttributeProperty(Annotation, readOnly, TTValue(YES));
 	
 }
 

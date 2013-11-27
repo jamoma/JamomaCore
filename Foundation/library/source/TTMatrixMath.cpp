@@ -53,8 +53,14 @@ TTMatrix* TTMatrix::operator + (const TTMatrix& other) const
 	const TTMatrix*	B = &other;
 	TTMatrix*		C = NULL;
 	
-	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&C, kTTValNONE);
-	TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mType, C, A, B, TTMatrixIteratorAdd); //TYPECHANGE
+	try {
+        C = new TTMatrix(kTTSymEmpty);
+        TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mType, C, A, B, TTMatrixIteratorAdd); //TYPECHANGE
+    } catch (...) {
+        // return kTTErrInstantiateFailed;
+        // NW: since method does not return a type TTErr, we will simply catch this expection and return a NULL TTMatrixPtr
+    }
+	
 	return C;
 }
 
@@ -65,8 +71,14 @@ TTMatrix* TTMatrix::operator - (const TTMatrix& other) const
 	const TTMatrix*	B = &other;
 	TTMatrix*		C = NULL;
 	
-	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&C, kTTValNONE);
-	TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mType, C, A, B, TTMatrixIteratorSubtract); //TYPECHANGE
+    try {
+        C = new TTMatrix(kTTSymEmpty);
+        TTMATRIX_CALL_ITERATOR_3ARGS_WITH_TEMPLATE(A->mType, C, A, B, TTMatrixIteratorSubtract); //TYPECHANGE
+    } catch (...) {
+        // return kTTErrInstantiateFailed;
+        // NW: since method does not return a type TTErr, we will simply catch this expection and return a NULL TTMatrixPtr
+    }
+	
 	return C;
 }
 

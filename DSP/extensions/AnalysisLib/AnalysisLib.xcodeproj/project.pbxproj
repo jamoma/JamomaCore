@@ -13,6 +13,7 @@
 		2AD78826169CF87300604D7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD78825169CF87300604D7C /* Foundation.framework */; };
 		2AD7882B169CF87300604D7C /* AnalysisLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AD7882A169CF87300604D7C /* AnalysisLibIOS.h */; };
 		2AD7882D169CF87300604D7C /* AnalysisLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7882C169CF87300604D7C /* AnalysisLibIOS.m */; };
+		8ED7ADC2183D106000170BBA /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ED7ADC1183D106000170BBA /* test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,7 @@
 		2AD78829169CF87300604D7C /* AnalysisLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnalysisLibIOS-Prefix.pch"; sourceTree = "<group>"; };
 		2AD7882A169CF87300604D7C /* AnalysisLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalysisLibIOS.h; sourceTree = "<group>"; };
 		2AD7882C169CF87300604D7C /* AnalysisLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalysisLibIOS.m; sourceTree = "<group>"; };
+		8ED7ADC1183D106000170BBA /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				2256185D170B2FC4007FB294 /* AnalysisLib.yml */,
 				2256185E170B2FC4007FB294 /* Makefile */,
+				8ED7ADC1183D106000170BBA /* test.cpp */,
 				2AD7881D169CF85A00604D7C /* AnalysisLibIOS */,
 				22F19FF114673F8A002CF320 /* AnalysisLib.cpp */,
 				22F19FF214673F8A002CF320 /* includes */,
@@ -217,6 +220,7 @@
 				2A23AD02169CFF23004793F5 /* TTAverage.cpp in Sources */,
 				2A23AD03169CFF23004793F5 /* TTZerocross.cpp in Sources */,
 				2A23AD04169CFF23004793F5 /* TTAverage.test.cpp in Sources */,
+				8ED7ADC2183D106000170BBA /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +276,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
@@ -300,7 +304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";

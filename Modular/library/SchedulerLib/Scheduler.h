@@ -20,21 +20,21 @@
 #include "TTFoundationAPI.h"
 
 #define SCHEDULER_CONSTRUCTOR \
-TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : Scheduler(arguments)
+thisTTClass :: thisTTClass (const TTValue& arguments) : Scheduler(arguments)
 
 #define SCHEDULER_INITIALIZE \
 mName = TTSymbol(thisTTClassName); \
 mVersion = TTSymbol(thisSchedulerVersion); \
 mAuthor = TTSymbol(thisSchedulerAuthor); \
 mStretchable = TTSymbol(thisSchedulerStretchable); \
-registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
+registerAttribute(TTSymbol("parameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 /*addAttributeProperty(ParameterNames, readOnly, YES); \ */
 
-typedef void (*SchedulerProgressionCallback)(TTPtr, TTFloat64);
+typedef void (*SchedulerProgressionCallback)(TTPtr, TTFloat64, TTFloat64);
 
 /****************************************************************************************************/
 // Class Specification
@@ -54,9 +54,11 @@ public:
 protected:
     
     TTFloat64                       mDuration;              ///< ATTRIBUTE : the time (in ms) the scheduler will run at normal speed factor
+    TTFloat64                       mOffset;                ///< ATTRIBUTE : the date (in ms) the sheduler will run from
     TTFloat64                       mSpeed;                 ///< ATTRIBUTE : the speed factor of the scheduler
     
-    TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler is running right now ?
+    TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler running right now ?
+    TTBoolean                       mPaused;                ///< ATTRIBUTE : is the scheduler paused right now ?
     TTFloat64                       mProgression;           ///< ATTRIBUTE : the progression of the scheduler [0. :: 1.]
     TTFloat64                       mRealTime;              ///< ATTRIBUTE : how many time the scheduler is running (without no speed factor consideration) ?
     
@@ -64,6 +66,7 @@ protected:
     TTPtr                           mBaton;                 ///< the baton to use for each step
     
     TTAttributePtr                  durationAttribute;      ///< cache duration attribute for observer notification
+    TTAttributePtr                  offsetAttribute;        ///< cache offset attribute for observer notification
     TTAttributePtr                  speedAttribute;         ///< cache speed attribute for observer notification
     
     TTAttributePtr                  runningAttribute;       ///< cache running attribute for observer notification
@@ -73,7 +76,7 @@ protected:
 public:
     
 	//** Constructor.	*/
-	Scheduler(TTValue& arguments);
+	Scheduler(const TTValue& arguments);
 	
 	/** Destructor. */
 	virtual ~Scheduler();
@@ -106,6 +109,11 @@ public:
      @value             new duration
      @return            kTTErrGeneric if the value is not a single TTFloat64 >= 0. */
     TTErr setDuration(const TTValue& value);
+    
+    /** set the offset attribute
+     @value             new offset
+     @return            kTTErrGeneric if the value is not a single TTFloat64 */
+    TTErr setOffset(const TTValue& value);
     
     /** set the speed factor attribute 
      @value             new speed factor

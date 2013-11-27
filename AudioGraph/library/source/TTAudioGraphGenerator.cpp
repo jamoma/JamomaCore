@@ -18,7 +18,7 @@
 
 #define thisTTClass			TTAudioGraphGenerator
 #define thisTTClassName		"audio.generator"
-#define thisTTClassTags		"audio, graph, generator"
+#define thisTTClassTags		"audioGraphLibrary, audio, graph, generator"
 
 TT_AUDIO_CONSTRUCTOR,
 	mBuffer(NULL)

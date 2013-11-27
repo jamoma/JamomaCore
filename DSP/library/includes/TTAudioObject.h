@@ -76,6 +76,11 @@ public:
 		return instance()->mSampleVectors;
 	}
 	
+	void clear()
+	{
+		instance()->clear();
+	}
+	
 };
 
 
@@ -87,8 +92,6 @@ inline TTErr TTAudioObjectBase::process(TTAudio& inputs, TTAudio& outputs)
 
 /** Wrap audio objects for convenience. */
 class TTAudioObject : public TTObject {
-protected:
-	TTAudioObjectBasePtr		mObjectInstance;
 	
 public:
 	TTAudioObject(const TTSymbol& aClassName, const TTValue& arguments = kTTValNONE):
@@ -97,12 +100,12 @@ public:
 	
 	TTErr process(TTAudioSignal& in, TTAudioSignal& out)
 	{
-		return mObjectInstance->process(in, out);
+		return TTAudioObjectBasePtr(mObjectInstance)->process(in, out);
 	}
 	
 	TTErr process(TTAudio* in, TTAudio* out)
 	{
-		return mObjectInstance->process(in->instance(), out->instance());
+		return TTAudioObjectBasePtr(mObjectInstance)->process(in->instance(), out->instance());
 	}
 	
 };

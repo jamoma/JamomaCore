@@ -16,7 +16,6 @@
 
 #include "TTObjectBase.h"
 #include "TTEnvironment.h"
-#include "TTValueCache.h"
 
 /****************************************************************************************************/
 // Class Specifications
@@ -36,22 +35,30 @@ public:
 		 @param aClassName		The symbolic name of the class to create/wrap.
 		 @param arguments		Arguments to the constructor.
 	 */
-	TTObject(const TTSymbol& aClassName, const TTValue& arguments = kTTValNONE) :
+	// NOTE: arguments *must* be copied -- otherwise a reference to kTTValNONE may overwrite its value and corrupt memory
+	TTObject(const TTSymbol& aClassName, const TTValue arguments = TTValue()) :
 	mObjectInstance(NULL)
 	{
-		TTErr err = TTObjectBaseInstantiate(aClassName, &mObjectInstance, arguments);
+		TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, arguments);
 		
 		if (err) {
-			TTLogError("TTObject -- error %i instantiating %s", err, aClassName.c_str());
+			TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName.c_str());
 			throw TTException("object instantiation failed");
 		}
+	}
+	
+	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
+	TTObject() :
+		mObjectInstance(NULL)
+	{
+		
 	}
 	
 	/** Destructor.
 	 */
 	virtual ~TTObject()
 	{
-		TTObjectBaseRelease(&mObjectInstance);
+		ttEnvironment->releaseInstance(&mObjectInstance);
 	}
 	
 	// TODO -- how do we do TTObjectReference?  Copy constructor and assignment operator, yes?
@@ -60,12 +67,13 @@ public:
 	// class methods for querying the registry
 	static TTErr GetRegisteredClassNames(TTValue& classNames)
 	{
-		return TTGetRegisteredClassNames(classNames);
+		TTValue unused;
+		return ttEnvironment->getAllClassNames(unused, classNames);
 	}
 	
 	static TTErr GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags)
 	{
-		return TTGetRegisteredClassNamesForTags(classNames, searchTags);
+		return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
 	}
 	
 	static TTErr GetRegisteredTags(TTValue& tags)
@@ -190,6 +198,14 @@ public:
 	{
 		return mObjectInstance->unregisterObserverForNotifications(*anObservingObject.instance());
 	}
+	
+	
+	/** Compare two objects for equality. */
+	inline friend bool operator == (const TTObject& anObject, const TTObject& anotherObject)
+	{
+		return (anObject.instance() == anotherObject.instance());
+	}
+
 		
 	
 };

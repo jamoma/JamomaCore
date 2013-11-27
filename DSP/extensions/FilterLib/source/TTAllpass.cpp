@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTAllpass
 #define thisTTClassName		"allpass"
-#define thisTTClassTags		"audio, processor"
+#define thisTTClassTags		"dspFilterLib, audio, processor"
 
 #ifdef TT_PLATFORM_WIN
 #include <Algorithm>

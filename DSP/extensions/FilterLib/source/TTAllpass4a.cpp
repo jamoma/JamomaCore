@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTAllpass4a
 #define thisTTClassName		"allpass.4a"
-#define thisTTClassTags		"audio, processor, filter, allpass"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
 #include <Algorithm>

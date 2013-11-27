@@ -30,7 +30,7 @@ class TTMODULAR_EXPORT TTReceiver : public TTDataObjectBase
 	
 public:	// use public for quick acces during signal processing
 	
-	TTObjectBasePtr					mSignal;					///< any data structure to receive complex signal
+	TTObjectBasePtr				mSignal;					///< any data structure to receive complex signal
 	
 private:
 	
@@ -42,17 +42,24 @@ private:
 	TTCallbackPtr				mReturnValueCallback;		///< a way to return received value to the owner of this receiver
 	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
 	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
-	TTListPtr					mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
-	TTListPtr					mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
+	TTList                      mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
+	TTList                      mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);
 	
 	/**	Setter for mActive attribute. */
 	TTErr setActive(const TTValue& value);
+    
+    /**	Getter for mObjectCache attribute. */
+	TTErr getObjectCache(TTValue& value);
 	
-	/** Ask the value directly */
+	/** Ask the value and use the callback to return it */
 	TTErr Get();
+    
+    /** Ask the value and use the outputValue to return it.
+        This method is not relevant with address containing wildcards */
+	TTErr Grab(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr bindAddress();

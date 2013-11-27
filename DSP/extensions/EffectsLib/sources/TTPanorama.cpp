@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTPanorama
 #define thisTTClassName		"panorama"
-#define thisTTClassTags		"audio, processor, mixing, panning"
+#define thisTTClassTags		"dspEffectsLib, audio, processor, mixing, panning"
 
 
 TT_AUDIO_CONSTRUCTOR,

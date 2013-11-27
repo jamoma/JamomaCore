@@ -17,7 +17,7 @@
 
 #define thisTTClass TTCount
 #define thisTTClassName		"count"
-#define thisTTClassTags		"audio, generator"
+#define thisTTClassTags		"dspGeneratorLib, audio, generator"
 
 
 TT_AUDIO_CONSTRUCTOR

@@ -39,7 +39,7 @@ class TTMODULAR_EXPORT TTCueManager : public TTDataObjectBase
 	
 private:
 	
-	TTValue				mOrder;							///< ATTRIBUTE : cues are ordered by name
+	TTValue				mNames;							///< ATTRIBUTE : cues are ordered by name
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current cue name
 	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
@@ -49,9 +49,8 @@ private:
 	TTAddressItemPtr    mDefaultNamespace;				///< an internal default namespace
 	
 	TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
-	
-	/** */
-	TTErr	setOrder(const TTValue& value);
+    
+    TTSymbol			mLastCurrent;                   ///< ATTRIBUTE : remember the current cue when parsing a file
 	
 	/** */
 	TTErr	getCurrentDescription(TTValue& value);
@@ -61,19 +60,23 @@ private:
 	TTErr	getCurrentRamp(TTValue& value);
 	TTErr	setCurrentRamp(const TTValue& value);
 	
-	/** */
-	TTErr	NamespaceClear(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr	NamespaceAppend(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr	NamespaceRemove(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** Select all items of the namespace which are in a cue.
-	 name : use the given cue.
-	 nothing : use the current cue */
+	/** Select a set of absolute addresses
+	 @param inputValue      a set of absolute addresses
+	 @param outputValue     nothing
+     @return                kTTErrNone */
 	TTErr	NamespaceSelect(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Unselect a set of absolute addresses
+	 @param inputValue      a set of absolute addresses
+	 @param outputValue     nothing
+     @return                kTTErrNone */
+	TTErr	NamespaceUnselect(const TTValue& inputValue, TTValue& outputValue);
+	
+	/** Select only the addresses which are in a cue
+	 @param inputValue      name of a cue or nothing (use the current cue)
+	 @param outputValue     nothing
+     @return                kTTErrNone */
+	TTErr	NamespaceGrab(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr	Clear();
@@ -83,11 +86,15 @@ private:
 		nothing : store into the current cue */
 	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
     
+    /** Update a cue :
+     name/id : update an existing cue.
+     nothing : update the current cue */
+	TTErr	Update(const TTValue& inputValue, TTValue& outputValue);
+    
     /** Append a line to a cue :
         name/id line : append line to the cue */
     TTErr   Append(const TTValue& inputValue, TTValue& outputValue);
 
-	
 	/** Recall a cue : 
 		name/id : recall the cue.
 		nothing : recall the current cue */
@@ -115,6 +122,9 @@ private:
 		name : remove the cue.
 		nothing : remove the current cue */
 	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Reorder the list */
+	TTErr	Order(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Rename a cue : 
 	 name + newName: rename the cue with the newName */
@@ -124,9 +134,9 @@ private:
 	 name : copy the cue (and optionally give a new name + a position)  */
 	TTErr	Copy(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Sequence a sub set of cues clearing redundant command lines :
+	/** Optimize a sub set of cues clearing redundant command lines :
 		name1, name2, name3, ... : make the optimization between all given cues. */
-	TTErr	Sequence(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	Optimize(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**  needed to be handled by a TTXmlHandler */
 	TTErr	WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
@@ -137,7 +147,7 @@ private:
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr	notifyOrderObservers();
+	TTErr	notifyNamesObservers();
 };
 
 typedef TTCueManager* TTCueManagerPtr;

@@ -72,7 +72,7 @@ TTErr GaussWindow::test(TTValue& returnedTestInfo)
 	TTFloat64			testSigma = 0.4;
 	
 	// setup windowObject
-	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, TTValue(1));
 	windowObject->setAttributeValue(TT("function"), TT("gauss"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	

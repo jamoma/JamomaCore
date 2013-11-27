@@ -146,7 +146,7 @@ puts "  "
 @zerolink = false
 
 
-if @projectName == "Modular"
+if @projectName == "Max"
 
   ###################################################################
   # REV NUMBERS
@@ -156,21 +156,20 @@ if @projectName == "Modular"
   zero_count
 
   #Header
-  file_path = "#{@svn_root}/library/includes/TTModularVersion.h"
-  `cp "#{@svn_root}/library/includes/TTModularVersion.template.h" "#{file_path}"` if mac?
-  `copy #{@svn_root}\\library\\includes\\TTModularVersion.template.h #{@svn_root}\\library\\includes\\TTModularVersion.h /Y` if win?
-
+  file_path = "#{@svn_root}/library/includes/JamomaMaxVersion.h"
+  `cp "#{@svn_root}/library/includes/JamomaMaxVersion.template.h" "#{file_path}"` if mac?
+  `copy "#{@svn_root}\\library\\includes\\JamomaMaxVersion.template.h" "#{file_path}"` if win?
 
   if FileTest.exist?(file_path)
     f = File.open("#{file_path}", "r+")
     str = f.read
 
     if (version_mod == '' || version_mod.match(/rc(.*)/))
-      str.sub!(/#define TT_MODULAR_VERSION "(.*)"/, "#define TT_MODULAR_VERSION \"#{version_maj}.#{version_min}.#{version_sub}\"")
+      str.sub!(/#define JAMOMA_MAX_VERSION "(.*)"/, "#define JAMOMA_MAX_VERSION \"#{version_maj}.#{version_min}.#{version_sub}\"")
     else
-      str.sub!(/#define TT_MODULAR_VERSION "(.*)"/, "#define TT_MODULAR_VERSION \"#{version_maj}.#{version_min}.#{version_sub} #{version_mod}\"")
+      str.sub!(/#define JAMOMA_MAX_VERSION "(.*)"/, "#define JAMOMA_MAX_VERSION \"#{version_maj}.#{version_min}.#{version_sub} #{version_mod}\"")
     end
-    str.sub!(/TT_MODULAR_REV "(.*)"/, "TT_MODULAR_REV \"#{revision}\"")
+    str.sub!(/JAMOMA_MAX_REV "(.*)"/, "JAMOMA_MAX_REV \"#{revision}\"")
 
     f.rewind
     f.write(str)
@@ -178,10 +177,10 @@ if @projectName == "Modular"
     f.close
   end
 
-  #jcom.js_systeminfo
-  file_path = "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.js"
-  `cp "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.template.js" "#{file_path}"` if mac?
-  `copy "#{@svn_root}/Max/library/javascript/jcom.js_systeminfo.template.js" "#{file_path}"` if win?
+  #j.js_systeminfo
+  file_path = "#{@svn_root}/Max/library/javascript/j.js_systeminfo.js"
+  `cp "#{@svn_root}/Max/library/javascript/j.js_systeminfo.template.js" "#{file_path}"` if mac?
+  `copy "#{@svn_root}/Max/library/javascript/j.js_systeminfo.template.js" "#{file_path}"` if win?
 
 
   if FileTest.exist?(file_path)
@@ -189,11 +188,11 @@ if @projectName == "Modular"
     str = f.read
 
     if (version_mod == '' || version_mod.match(/rc(.*)/))
-      str.sub!(/MODULAR_VERSION = "(.*)"/, "MODULAR_VERSION = \"#{version_maj}.#{version_min}.#{version_sub}\"")
+      str.sub!(/JAMOMA_MAX_VERSION = "(.*)"/, "JAMOMA_MAX_VERSION = \"#{version_maj}.#{version_min}.#{version_sub}\"")
     else
-      str.sub!(/MODULAR_VERSION = "(.*)"/, "MODULAR_VERSION = \"#{version_maj}.#{version_min}.#{version_sub} #{version_mod}\"")
+      str.sub!(/JAMOMA_MAX_VERSION = "(.*)"/, "JAMOMA_MAX_VERSION = \"#{version_maj}.#{version_min}.#{version_sub} #{version_mod}\"")
     end
-    str.sub!(/MODULAR_REV = "(.*)"/, "MODULAR_REV = \"#{revision}\"")
+    str.sub!(/JAMOMA_MAX_REV = "(.*)"/, "JAMOMA_MAX_REV = \"#{revision}\"")
 
     f.rewind
     f.write(str)

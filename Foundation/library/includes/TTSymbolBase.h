@@ -1,5 +1,5 @@
 /* 
- * TTBlue Class for representing Symbols
+ * Jamoma Class for representing Symbols
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"
@@ -17,7 +17,6 @@
 
 /**
 	The TTSymbolBase class is used to represent a string and efficiently pass and compare that string.
-	At the moment the implementation is somewhat crude and really slow and it should be improved in the future.
  
 	Note that generally speaking you should not directly create a TTSymbolBase!
 	Instead, TTSymbolBase objects should only by created by the TTSymbolBaseTable that you are using.  
@@ -35,7 +34,6 @@ private:
 protected:
 
 	/** used by the constructors to create the new symbol */
-	//void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newId);
 	void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
 
 
@@ -67,13 +65,13 @@ public:
 	
 	
 	/**	Return this symbol's unique id. */
-	/*const*/ TTUInt32 getSymbolId() const
+	TTUInt32 getSymbolId() const
 	{
 		return mSymbolId;
 	}
 	
     /**	Return this symboltable's unique id. */
-	/*const*/ TTUInt32 getSymbolTableId() const
+	TTUInt32 getSymbolTableId() const
 	{
 		return mSymbolTableId;
 	}

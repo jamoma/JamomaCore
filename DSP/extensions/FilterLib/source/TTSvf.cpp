@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTSvf
 #define thisTTClassName		"svf"
-#define thisTTClassTags		"audio, processor, filter, lowpass, highpass, bandpass, notch"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, highpass, bandpass, notch"
 
 
 TT_AUDIO_CONSTRUCTOR

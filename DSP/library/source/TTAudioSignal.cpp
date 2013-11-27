@@ -1,8 +1,15 @@
-/* 
- * TTBlue Audio Signal Class
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Represents M channels containing N vectors of audio samples.
+ *
+ * @details TODO: put more info here
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2008 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -10,7 +17,7 @@
 
 #define thisTTClass			TTAudioSignal
 #define thisTTClassName		"audiosignal"
-#define thisTTClassTags		"audio, processor, dynamics, envelope"
+#define thisTTClassTags		"dspLibrary, audio, processor, dynamics, envelope"
 
 
 /****************************************************************************************************/
@@ -30,23 +37,23 @@ TT_OBJECT_CONSTRUCTOR,
 	addAttributeWithSetter(	NumChannels, kTypeUInt16);
 	addAttributeWithSetter(	MaxNumChannels, kTypeUInt16);
 	addAttribute(			Bitdepth, kTypeUInt8);
-	addAttributeProperty(	Bitdepth, readOnly, kTTVal1);
+	addAttributeProperty(	Bitdepth, readOnly, 1);
 	
 	addMessage(clear);
 	
 	addMessage(alloc);
 	addMessageWithArguments(allocWithNewVectorSize);
-	addMessageWithArguments(setVector32);
-	addMessageWithArguments(getVector32);
-	addMessageWithArguments(setVector64);
-	addMessageWithArguments(getVector64);
+//	addMessageWithArguments(setVector32);
+//	addMessageWithArguments(getVector32);
+//	addMessageWithArguments(setVector64);
+//	addMessageWithArguments(getVector64);
 	
 	addMessageProperty(alloc,					hidden, YES);
 	addMessageProperty(allocWithNewVectorSize,	hidden, YES);
-	addMessageProperty(setVector32,				hidden, YES);
-	addMessageProperty(getVector32,				hidden, YES);
-	addMessageProperty(setVector64,				hidden, YES);
-	addMessageProperty(getVector64,				hidden, YES);
+//	addMessageProperty(setVector32,				hidden, YES);
+//	addMessageProperty(getVector32,				hidden, YES);
+//	addMessageProperty(setVector64,				hidden, YES);
+//	addMessageProperty(getVector64,				hidden, YES);
 	
 	setAttributeValue(kTTSym_maxNumChannels, initialMaxNumChannels);
 	setAttributeValue(kTTSym_numChannels, initialMaxNumChannels);
@@ -124,6 +131,7 @@ TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorS
 	return kTTErrNone;
 }
 
+/*
 TTErr TTAudioSignal::setVector64(const TTValue& v, TTValue&)
 {
 	TTUInt16		channel;
@@ -141,6 +149,7 @@ TTErr TTAudioSignal::setVector64(const TTValue& v, TTValue&)
 	}
 	return kTTErrWrongNumValues;
 }
+ */
 
 TTErr TTAudioSignal::setVector64Copy(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector)
 {   
@@ -186,26 +195,27 @@ TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorS
 	return kTTErrNone;
 }
 
+/* setVector32 is no longer used anywhere in our codebase
 TTErr TTAudioSignal::setVector32(const TTValue& v, TTValue&)
 {
-	TTUInt16		channel;
-	TTUInt16		newVectorSize;
-	TTPtr			newVector;
-	
 	if (v.size() == 3) {
-		v.get(0, channel);
-		v.get(1, newVectorSize);
-		v.get(2, &newVector);
+		TTUInt16	channel = v[0];
+		TTUInt16	newVectorSize = v[1];
+		TTPtr		newVector = v[2];
+		
 		return setVector(channel, newVectorSize, (TTFloat32*)newVector);
 	}
 	return kTTErrWrongNumValues;
 }
+*/
 
+/*
 TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 returnedVectorSize, TTSampleValue* returnedVector)
 {
-	returnedVector = mSampleVectors[channel];
+	*returnedVector = mSampleVectors[channel];
 	return kTTErrNone;
 }
+*/
 
 TTErr TTAudioSignal::getVectorCopy(const TTUInt16 channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector)
 {
@@ -216,7 +226,7 @@ TTErr TTAudioSignal::getVectorCopy(const TTUInt16 channel, const TTUInt16 theVec
 	return kTTErrNone;
 }
 
-
+/*
 TTErr TTAudioSignal::getVector64(TTValue&, TTValue& v)
 {
 	TTUInt16		channel;
@@ -224,13 +234,14 @@ TTErr TTAudioSignal::getVector64(TTValue&, TTValue& v)
 	TTPtr			returnedVector;
 	
 	if (v.size() == 3) {
-		v.get(0, channel);
-		v.get(1, theVectorSize);
-		v.get(2, &returnedVector);
+		channel = v[0];
+		theVectorSize = v[1];
+		returnedVector = v[2];
 		return getVector(channel, theVectorSize, (TTSampleValue*)(returnedVector));
 	}
 	return kTTErrWrongNumValues;
 }
+ */
 
 
 TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 theVectorSize, TTFloat32* returnedVector)
@@ -242,20 +253,22 @@ TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 theVectorS
 	return kTTErrNone;
 }
 
+/* getVector32 is no longer used anywhere in our codebase
 TTErr TTAudioSignal::getVector32(TTValue&, TTValue& v)
 {
 	TTUInt16		channel;
 	TTUInt16		theVectorSize;
-	TTPtr			returnedVector;
+	TTPtr			returnedVector = NULL;
 	
-	if (v.getSize() == 3) {
-		v.get(0, channel);
-		v.get(1, theVectorSize);
-		v.get(2, &returnedVector);
+	if (v.size() == 3) {
+		channel = v[0];
+		theVectorSize = v[1];
+		returnedVector = v[2];
 		return getVector(channel, theVectorSize, (TTFloat32*)returnedVector);
 	}
 	return kTTErrWrongNumValues;
 }
+ */
 
 
 TTErr TTAudioSignal::alloc()

@@ -18,7 +18,7 @@
 
 #define thisTTClass			TTAverage
 #define thisTTClassName		"average"
-#define thisTTClassTags		"audio, analysis, rms, energy, movingAverage"
+#define thisTTClassTags		"dspAnalysisLib, audio, analysis, rms, energy, movingAverage"
 
 
 #ifndef TT_PLATFORM_MAC

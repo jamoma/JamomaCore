@@ -27,6 +27,7 @@
 #define thisProtocolSet         YES
 #define thisProtocolListen      NO
 #define thisProtocolDiscover	NO
+#define thisProtocolDiscoverAll	NO
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_OSC(void)
 {
@@ -55,7 +56,7 @@ mWaitThread(NULL)
 
 OSC::~OSC()
 {
-    TTValue     keys;
+    TTValue     keys, out;
     TTSymbol    distantApplicationName;
     TTUInt16    i;
     
@@ -64,11 +65,11 @@ OSC::~OSC()
     for (i = 0; i < keys.size(); i++) {
         
         distantApplicationName = keys[i];
-        Stop(distantApplicationName, kTTValNONE);
+        Stop(distantApplicationName, out);
     }
     
     // Stop local application
-    Stop(kTTValNONE, kTTValNONE);
+    Stop(kTTValNONE, out);
     
     delete mWaitThread;
 }
@@ -258,13 +259,32 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
  * \param returnedType          : the type of the node at the address (default is none which means no type)
  * \param returnedChildren      : all names of nodes below the address
  * \param returnedAttributes	: all attributes the node at the address
+ * \param tryCount              : number of try for this request
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  else it returns kTTErrGeneric if no answer or timeout
  */
 TTErr OSC::SendDiscoverRequest(TTSymbol to, TTAddress address,
                                TTSymbol& returnedType,
                                TTValue& returnedChildren,
-                               TTValue& returnedAttributes)
+                               TTValue& returnedAttributes,
+                               TTUInt8 tryCount)
+{
+	return kTTErrGeneric;
+}
+
+/*!
+ * Send a discover all request to an application to fill all the directory under this address
+ *
+ * \param to					: the application where to discover
+ * \param address				: the address to discover
+ * \param node                  : the node for this address
+ * \param tryCount              : number of try for this request
+ * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+ else it returns kTTErrGeneric if no answer or timeout
+ */
+TTErr OSC::SendDiscoverAllRequest(TTSymbol to, TTAddress address,
+                             TTNodePtr node,
+                             TTUInt8 tryCount)
 {
 	return kTTErrGeneric;
 }
@@ -275,12 +295,14 @@ TTErr OSC::SendDiscoverRequest(TTSymbol to, TTAddress address,
  * \param to					: the application where to get
  * \param address				: the address to get
  * \param returnedValue			: the value which is going to be filled
+ * \param tryCount              : number of try for this request
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  else it returns kTTErrGeneric if no answer or timeout
  */
 TTErr OSC::SendGetRequest(TTSymbol to, TTAddress address, 
-                          TTValue& returnedValue)
-{	
+                          TTValue& returnedValue,
+                          TTUInt8 tryCount)
+{
 	return kTTErrGeneric;
 }
 
@@ -290,10 +312,12 @@ TTErr OSC::SendGetRequest(TTSymbol to, TTAddress address,
  * \param to					: the application where to set
  * \param address				: the address to set
  * \param value					: anything to send
+ * \param tryCount              : number of try for this request
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  */
 TTErr OSC::SendSetRequest(TTSymbol to, TTAddress address, 
-                          TTValue& value)
+                          TTValue& value,
+                          TTUInt8 tryCount)
 {
 		
 #ifdef TT_PROTOCOL_DEBUG
@@ -316,10 +340,12 @@ TTErr OSC::SendSetRequest(TTSymbol to, TTAddress address,
  * \param to					: the application where to listen
  * \param address				: the address to listen
  * \param enable				: enable/disable the listening
+ * \param tryCount              : number of try for this request
  * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
  */
 TTErr OSC::SendListenRequest(TTSymbol to, TTAddress address, 
-                             TTBoolean enable)
+                             TTBoolean enable,
+                             TTUInt8 tryCount)
 {
     return kTTErrGeneric;
 }
@@ -345,6 +371,20 @@ TTErr OSC::SendDiscoverAnswer(TTSymbol to, TTAddress address,
                          TTValue& returnedChildren,
                          TTValue& returnedAttributes,
                          TTErr err)
+{
+    return kTTErrGeneric;
+}
+
+/*!
+ * Send a discover answer to a application which ask for.
+ *
+ * \param to					: the application where to send answer
+ * \param address				: the address where comes from the description
+ * \param node                  : the node for this address
+ */
+TTErr OSC::SendDiscoverAllAnswer(TTSymbol to, TTAddress address,
+                            TTNodePtr node,
+                            TTErr err)
 {
     return kTTErrGeneric;
 }

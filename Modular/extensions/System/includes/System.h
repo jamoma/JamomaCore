@@ -18,7 +18,11 @@
 #define __SYSTEM_H__
 
 #include "Scheduler.h"
-#include <sys/time.h>   // is it multi plateform ?
+#ifdef TT_PLATFORM_WIN
+	#include "../Minuit/includes/Time2.hpp"
+#else
+	#include <sys/time.h>
+#endif
 
 class System : public Scheduler {
 	

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A23AD3D169D00D0004793F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23AD13169CFF89004793F5 /* Foundation.framework */; };
 		2A23AD4D169D011A004793F5 /* TTFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A776C21515AFEB54003F5555 /* TTFunctionLib.cpp */; };
+		8ED7ADC6183D3AC300170BBA /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ED7ADC5183D3AC300170BBA /* test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +30,7 @@
 		2A23AD18169CFF89004793F5 /* FunctionLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionLibIOS.h; sourceTree = "<group>"; };
 		2A23AD1A169CFF89004793F5 /* FunctionLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunctionLibIOS.m; sourceTree = "<group>"; };
 		2A23AD3C169D00D0004793F5 /* libFunctionLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFunctionLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ED7ADC5183D3AC300170BBA /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		A776C21015AFE617003F5555 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
 		A776C21215AFE621003F5555 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
 		A776C21315AFE62A003F5555 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				A776C21615AFF051003F5555 /* FunctionLib.yml */,
 				A776C21515AFEB54003F5555 /* TTFunctionLib.cpp */,
+				8ED7ADC5183D3AC300170BBA /* test.cpp */,
 				A776C21015AFE617003F5555 /* includes */,
 				A776C21215AFE621003F5555 /* source */,
 				A776C21315AFE62A003F5555 /* tests */,
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A23AD4D169D011A004793F5 /* TTFunctionLib.cpp in Sources */,
+				8ED7ADC6183D3AC300170BBA /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +191,7 @@
 					/usr/local/jamoma/includes,
 					"\"$(SRCROOT)/includes\"",
 				);
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -214,7 +218,7 @@
 					/usr/local/jamoma/includes,
 					"\"$(SRCROOT)/includes\"",
 				);
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;

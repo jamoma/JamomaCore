@@ -10,7 +10,6 @@
 #include "TTSymbolTable.h"
 #include "TTEnvironment.h"
 #include "TTSymbolCache.h"
-#include "TTValueCache.h"
 #include "TTCallback.h"
 
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
@@ -26,6 +25,7 @@
 #include "TTString.test.h"
 #include "TTSymbol.test.h"
 #include "TTValue.test.h"
+#include "TTDictionary.test.h"
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
 #ifndef DISABLE_NODELIB
 #include "TTNodeLib.test.h"
@@ -47,12 +47,12 @@
 #include <CoreFoundation/CFBundle.h> 
 #endif
 
+TTString        TTFoundationBinaryPath = "";
 
 static bool		TTFoundationHasInitialized = false;
-static TTString	TTFoundationBinaryPath = "";
 
-void		TTFoundationLoadExternalClasses(void);
-TTErr		TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
+void            TTFoundationLoadExternalClasses(void);
+TTErr           TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
 TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol& className, TTValue& arguments);
 
 
@@ -75,7 +75,6 @@ void TTFoundationInit(const char* pathToBinaries)
 
 		ttEnvironment = new TTEnvironment;
 
-		TTValueCacheInit();
 // Regex requires Boost libraries, not available for iOS for the time-being
 //#ifndef DISABLE_NODELIB
 //		TTAddressCacheInit();
@@ -100,6 +99,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTSymbolTest::registerClass();
 		TTValueTest::registerClass();
 		TTInterpolateTest::registerClass();
+        TTDictionaryTest::registerClass();
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB
 		TTNodeLibTest::registerClass();
@@ -146,6 +146,9 @@ void TTFoundationLoadExternalClasses(void)
 			c = strrchr(mainBundleStr, '/');
 			if (c)
 				*c = 0; // chop the "/JamomaFoundation.dylib off of the path
+            
+            // store binary path
+            TTFoundationBinaryPath = mainBundleStr;
 		}
 #else // THE OLD WAY
 		// Look in the folder of the host application
@@ -200,29 +203,48 @@ void TTFoundationLoadExternalClasses(void)
 	HINSTANCE	hInstance = GetModuleHandle(NULL);
 
 	// Look in C:\Program Files\Common Files\TTBlue\Extensions
-	hr = SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES_COMMON, NULL, SHGFP_TYPE_CURRENT, (LPSTR)temppath);
-	if (!FAILED(hr)) {
-		fullpath = temppath;
-		fullpath += "\\Jamoma\\Extensions\\";
-		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
-		TTFoundationLoadExternalClassesFromFolder(fullpath);
-	}
+	//hr = SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES_COMMON, NULL, SHGFP_TYPE_CURRENT, (LPSTR)temppath);
 
-	// TODO: Look in some user-level directory like we do on the Mac?
+	//if (!FAILED(hr)) {
+	//	fullpath = temppath;
+	//	fullpath += "\\Jamoma\\Extensions\\";
+	//	lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
+	//	TTFoundationLoadExternalClassesFromFolder(fullpath);
+	//}
 
-	// Look in the support folder of the host application
-	if (hInstance) {
-		GetModuleFileName(hInstance, (LPSTR)temppath, 4096);
+	//// TODO: Look in some user-level directory like we do on the Mac?
+	//
+	//// Look in the support folder of the host application
+	//if (hInstance) {
+	//	GetModuleFileName(hInstance, (LPSTR)temppath, 4096);
+	//	if (temppath[0]) {
+	//		char *s = strrchr(temppath, '\\');
+	//		if (s)
+	//			*s = 0;
+	//		fullpath = temppath;
+	//		fullpath += "\\Jamoma\\Extensions\\";
+	//		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
+	//		TTFoundationLoadExternalClassesFromFolder(fullpath);
+	//	}
+	//}
+
+	// get the handle on JamomaFoundation.dll
+	LPCSTR moduleName = "JamomaFoundation.dll";
+	HMODULE	hmodule = GetModuleHandle(moduleName);
+	// get the path
+	GetModuleFileName(hmodule, (LPSTR)temppath, 4096);
+
+	if (!FAILED(hmodule)) {
 		if (temppath[0]) {
-			char *s = strrchr(temppath, '\\');
-			if (s)
-				*s = 0;
 			fullpath = temppath;
-			fullpath += "\\Jamoma\\Extensions\\";
+			// get support folder path
+			fullpath = fullpath.substr(0, fullpath.length() - (strlen(moduleName) + 1));
+			TTFoundationBinaryPath = fullpath;
 			lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
 			TTFoundationLoadExternalClassesFromFolder(fullpath);
 		}
 	}
+
 #else // Some other platform, like Linux
     TTFoundationLoadExternalClassesFromFolder("/usr/local/lib/jamoma/extensions");
 #endif
@@ -295,7 +317,10 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	dirent* dp;
 	while ((dp = readdir(dirp))) {
 		TTString	fileName(dp->d_name);
-		TTString	fileSuffix(strrchr(fileName.c_str(), '.'));
+		char*		cFileSuffix = strrchr(fileName.c_str(), '.');
+		if (!cFileSuffix)
+			continue;
+		TTString	fileSuffix(cFileSuffix);
 		TTString	fileBaseName = fileName.substr(0, fileName.size() - 8);
 		TTString	fileFullpath(fullpath);
 		void*		handle = NULL;

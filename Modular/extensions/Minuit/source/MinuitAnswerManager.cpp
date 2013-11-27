@@ -41,7 +41,7 @@ void MinuitAnswerManager::AddDiscoverAnswer(TTSymbol from, TTAddress address, in
     mDiscoverAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
 }
 
-TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value)
+TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
 {
     TTValue         v;
 	TTString        key;
@@ -57,12 +57,12 @@ TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress addres
         anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
         
 		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
-			anAnswer->setAnswer(value);
+			anAnswer->setAnswer(value, error);
 			return kTTErrNone;
 		}
 	}
 	else
-		cout << "MinuitAnswerManager::ReceiveGetAnswer can't find a request at " << key << endl;
+		cout << "MinuitAnswerManager::ReceiveDiscoverAnswer can't find a request at " << key << endl;
 	
 	return kTTErrGeneric;
 }
@@ -83,10 +83,14 @@ int MinuitAnswerManager::CheckDiscoverAnswer(TTSymbol from, TTAddress address, T
     
     if (!err) {
         anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        
+        // wait
+        anAnswer->wait();
+        
 		state = anAnswer->getState();
 		
 		// if an answer is received
-		if(state == ANSWER_RECEIVED)
+		if(state != NO_ANSWER)
 		{
 			// get the answer
 			anAnswer->getAnswer(value);
@@ -180,7 +184,7 @@ void MinuitAnswerManager::AddGetAnswer(TTSymbol from, TTAddress address, int tim
     mGetAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
 }
 
-TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value)
+TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
 {
     TTValue         v;
 	TTString        key;
@@ -196,7 +200,7 @@ TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, co
         anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
 	
 		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
-			anAnswer->setAnswer(value);
+			anAnswer->setAnswer(value, error);
 			return kTTErrNone;
 		}
 	}
@@ -222,10 +226,14 @@ int MinuitAnswerManager::CheckGetAnswer(TTSymbol from, TTAddress address, TTValu
     
     if (!err) {
         anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        
+        // wait
+        anAnswer->wait();
+        
 		state = anAnswer->getState();
 		
 		// if an answer is received
-		if(state == ANSWER_RECEIVED)
+		if(state != NO_ANSWER)
 		{
 			// get the answer
 			anAnswer->getAnswer(value);

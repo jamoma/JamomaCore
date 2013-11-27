@@ -1,10 +1,20 @@
-/* 
- * Unit tests for the TTSampleMatrix Object for Jamoma DSP
- * Copyright © 2012, Tim Place & Nathan Wolek
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Unit tests for the #TTSampleMatrix class
+ *
+ * @details
+ *
+ * @see TTSampleMatrix
+ *
+ * @authors Tim Place, Nathan Wolek
+ *
+ * @copyright Copyright © 2012 by Tim Place, Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTSampleMatrix.h"
 
@@ -380,6 +390,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	
     /********/
     
+    // NW: this test is dependent on the SoundfileLib extension and should therefore be moved to that project
+    /*
     // TEST 20: load values from a sound file
     
     TTInt16				numChannels20 = 2;
@@ -421,6 +433,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
             }
         }
     }
+    // end of test that needs to be moved
+    */
     
     
 	/*

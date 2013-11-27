@@ -1,10 +1,16 @@
-/*
- * Jamoma Dataspace Library
- * Copyright © 2007
+/** @file
  *
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief Specification for #TTDataspaceConverter, the base class of dataspace converters.
+ *
+ * @authors Tim Place, Trond Lossius, ...
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDataspaceConverter.h"
 
@@ -47,14 +53,14 @@ TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 	
 	// TODO: validate the name provided before proceeding
 	objectName += name.c_str();
-	err = TTObjectBaseInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
+	err = TTObjectBaseInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, 0);
 	if (err) {
         // Rather than crashing:
             //throw TTException("Error trying to load dataspace with that name");
         // we set it to "none" and post an error message to the log
         TTLogError("Error trying to load %s, set to none\n", objectName.c_str());
         objectName = "dataspace.none";
-        TTObjectBaseInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, kTTValNONE);
+        TTObjectBaseInstantiate(TT(objectName.c_str()), &mDataspaceTTObject, 0);
     }
 	mDataspaceObject = dynamic_cast<TTDataspacePtr>(mDataspaceTTObject);
 	mDataspace = name;

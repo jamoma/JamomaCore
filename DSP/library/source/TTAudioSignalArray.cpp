@@ -1,8 +1,17 @@
-/* 
- * TTBlue Audio Signal Class
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Container for an array of #TTAudioSignal pointers.
+ *
+ * @details TODO: put more info here
+ *
+ * @see TTAudioSignal
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2008 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -10,7 +19,7 @@
 
 #define thisTTClass			TTAudioSignalArray
 #define thisTTClassName		"audiosignalarray"
-#define thisTTClassTags		"audio, processor, dynamics, envelope"
+#define thisTTClassTags		"dspLibrary, audio, processor, dynamics, envelope"
 
 
 /****************************************************************************************************/

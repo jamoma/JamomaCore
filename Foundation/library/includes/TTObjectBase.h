@@ -24,7 +24,6 @@
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"
 #include "TTValue.h"
-#include "TTValueCache.h"
 #include "TTSymbolCache.h"
 
 // forward declarations needed by the compiler
@@ -131,7 +130,7 @@ protected:
 	/** Constructor.
 		@param arguments					Arguments to the constructor.
 	 */
-	TTObjectBase(TTValue& arguments);
+	TTObjectBase(TTValue arguments);
 public:
 	/** Destructor.
 	 */
@@ -398,6 +397,12 @@ public:
 #endif
 	TTErr sendMessage(const TTSymbol name, const TTValue& anInputValue, TTValue& anOutputValue);
 
+	TTErr sendMessage(const TTSymbol name, const TTValue& anInputValue, TTNoValue ignore)
+	{
+		TTValue unusedReturnValue;
+		return sendMessage(name, anInputValue, unusedReturnValue);
+	}
+	
 // TODO: implement
 //	TTErr registerMessageProperty(const TTSymbolRef messageName, const TTSymbolRef propertyName, const TTValue& initialValue);
 	

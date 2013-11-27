@@ -19,7 +19,7 @@
 
 #define thisTTClass			NuttallWindow
 #define thisTTClassName		"nuttall"
-#define thisTTClassTags		"audio, processor, function, window"
+#define thisTTClassTags		"dspWindowFunctionLib, audio, processor, function, window"
 
 
 TT_AUDIO_CONSTRUCTOR

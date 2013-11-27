@@ -17,7 +17,7 @@
 
 #define thisTTClass			WindowFunction
 #define thisTTClassName		"WindowFunction"
-#define thisTTClassTags		"audio, processor"
+#define thisTTClassTags		"dspWindowFunctionLib, audio, processor"
 
 
 TT_AUDIO_CONSTRUCTOR,

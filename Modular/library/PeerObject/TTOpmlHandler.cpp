@@ -131,7 +131,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			// Write data of the given TTObjectBase (which have to implement a WriteAsOpml message)
 			v.clear();
 			v.append(TTObjectBasePtr(this));
-			aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
+			aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, none);
 			
 			// Close opml body
 			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
@@ -158,7 +158,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append(TTObjectBasePtr(this));
-	return aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, none);
 }
 
 TTErr TTOpmlHandler::WriteAgain()
@@ -166,7 +166,7 @@ TTErr TTOpmlHandler::WriteAgain()
 	TTValue args;
 	
 	args.append(mFilePath);
-	return Write(args, kTTValNONE);
+	return Write(args, none);
 }
 
 TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
@@ -224,7 +224,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 					}
 					
 					v.append(TTObjectBasePtr(this));
-					aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
+					aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, none);
 					
 					// next node
 					ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
@@ -248,7 +248,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	
 	// else
 	v.append(TTObjectBasePtr(this));
-	return aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, kTTValNONE);
+	return aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, none);
 }
 
 TTErr TTOpmlHandler::ReadAgain()
@@ -256,7 +256,7 @@ TTErr TTOpmlHandler::ReadAgain()
 	TTValue args;
 	
 	args.append(mFilePath);
-	return Read(args, kTTValNONE);
+	return Read(args, none);
 }
 
 TTErr TTOpmlHandler::fromXmlChar(const void* aXCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)

@@ -455,6 +455,11 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing basic TTValue operation");
 
+    TTValue v0;
+    TTTestAssertion("init with nothing",
+					v0.empty(),
+					testAssertionCount,
+					errorCount);
 	
 	TTValue v1(3.14);
 
@@ -591,8 +596,8 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v = aString;
 	v.fromString();
 	
-	TTTestAssertion("\"0.000000\" string is converted into a TTFloat32 0.000000 value",
-					v[0].type() == kTypeFloat32 &&
+	TTTestAssertion("\"0.000000\" string is converted into a TTFloat64 0.000000 value",
+					v[0].type() == kTypeFloat64 &&
 					v[0] == 0.f,
 					testAssertionCount,
 					errorCount);
@@ -607,6 +612,28 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 					v[0] == 1,
 					testAssertionCount,
 					errorCount);
+    
+    v.clear();
+	aString = TTString("1234u");
+	v = aString;
+	v.fromString();
+    
+    TTTestAssertion("\"1234u\" string is converted into a TTUInt32 1234 value",
+					v[0].type() == kTypeUInt32 &&
+					v[0] == 1234,
+					testAssertionCount,
+					errorCount);
+    
+    v.clear();
+	aString = TTString("uzi");
+	v = aString;
+	v.fromString();
+    
+    TTTestAssertion("\"uzi\" string is not converted into a TTUInt32 0 value",
+					v[0].type() != kTypeUInt32 &&
+                    v[0].type() == kTypeSymbol,
+					testAssertionCount,
+					errorCount);
 	
 	v.clear();
 	aString = TTString("1.234567");
@@ -614,7 +641,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	v.fromString();
 	
 	TTTestAssertion("\"1.234567\" string is converted into a TTFloat32 1.234567 value",
-					v[0].type() == kTypeFloat32 &&
+					v[0].type() == kTypeFloat64 &&
 					TTTestFloatEquivalence(TTFloat32(v[0]), 1.234567f),
 					testAssertionCount,
 					errorCount);
@@ -642,7 +669,7 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	TTTestAssertion("\"sampleRate 1 1.234567\" string is converted into a 3 datas value",
 					v[0].type() == kTypeSymbol &&
 					v[1].type() == kTypeInt32 &&
-					v[2].type() == kTypeFloat32 &&
+					v[2].type() == kTypeFloat64 &&
 					aSymbol == kTTSym_sampleRate &&
 					i == 1 &&
 					TTTestFloatEquivalence(f, 1.234567f) &&
@@ -1901,18 +1928,7 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	// TTPtr ? TTObject ?
-    TTObjectBasePtr anObject;
-	TTAttribute attribute = TTAttribute(TTSymbol("test"), kTypeObject, &anObject);
-    
-    TTObjectBasePtr anInstance = NULL;
-    TTValue     v;
-    
-    TTObjectBaseInstantiate(TTSymbol("osc.send"), TTObjectBaseHandle(&anInstance), kTTValNONE);
-    
-    v = anInstance;
-    attribute.defaultSetter(attribute, v);      // first time : it's ok
-    attribute.defaultSetter(attribute, v);      // second time : it crashes
-	
+   	
 	// TODO: test ==
 	// TODO: test =
 	// TODO: test casting

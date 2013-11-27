@@ -31,7 +31,7 @@
 
 class TTObjectBase;
 class TTMatrix;
-
+class TTDictionary;
 
 //#define USE_TTInt32				// to -- To easily change for TTInt32 instead of int in order to make test
 
@@ -120,6 +120,7 @@ break;\
 
 
 class TTFOUNDATION_EXPORT TTElement {
+	friend class TTDictionary;
 	
 	/** The data value of TTValue is stored using a union. */
 	union TTDataValue {
@@ -139,6 +140,7 @@ class TTFOUNDATION_EXPORT TTElement {
 		TTObjectBase*	object;
 		TTMatrix*		matrix;
 		TTPtr			ptr;
+		TTSymbolBase*	dictionary;	///< dictionaries are referenced by name
 	};
 	
 	TTDataValue		mValue;
@@ -147,31 +149,27 @@ class TTFOUNDATION_EXPORT TTElement {
 public:
 	
 	TTElement() :
-#ifdef TT_PLATFORM_WIN
-	// windows doesn't permit using an initializer for a union?
-#else
-	mValue{NULL},
-#endif
 	mType(kTypeNone)
 	{
-#ifdef TT_PLATFORM_WIN
-		mValue.ptr = NULL;
-#endif
+		mValue.ptr = NULL;	// windows doesn't permit using an initializer for a union?
 	}
 	
 	
 	template<class T>
-	TTElement(const T& anInitialValue)
+	TTElement(const T& anInitialValue) :
+	mType(kTypeNone)
 	{
 		*this = anInitialValue;
 	}
 	
 	
-	// copy constructor
+	// copy constructor -- need special handling for dictionaries?
 //	TTElement(const TTElement& anOtherElement)
 //	{
 //		*this = anInitialValue;
 //	}
+	
+	virtual ~TTElement();
 
 	
 	/**	query an element for its type */
@@ -388,8 +386,10 @@ public:
 		else
 			return NULL;
 	}
+	
+	operator TTDictionary() const;
 
-
+	
 #if 0
 #pragma mark -
 #pragma mark assignment
@@ -543,6 +543,10 @@ public:
 		mValue.ptr = value;
 		return *this;
 	}
+	
+	// TODO: an assignment to a different type (like the above) will leak the dictionary!
+	
+	TTElement& operator = (const TTDictionary value);
 
 	
 #if 0
@@ -709,6 +713,10 @@ public:
 		return true;
 	}
 
+	friend bool operator != (const TTElement& a1, const TTElement& a2)
+	{
+		return !(a1 == a2);
+	}
 	
 	friend bool operator == (const TTElement& a1, const int& i)
 	{

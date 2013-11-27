@@ -42,7 +42,6 @@ public:	// use public for quick acces during signal processing
 	TTFloat32					mMix;						///< ATTRIBUTE : to mix signal output and  a signal coming from TTInput object
 	TTFloat32					mGain;						///< ATTRIBUTE : apply again on signal output
 	TTBoolean					mFreeze;					///< ATTRIBUTE : to freeze signal output (ex : for video signal)
-	TTBoolean					mPreview;					///< ??? : this attribute should not be here (it is relative to view part)
 	
 	TTObjectBasePtr				mSignalIn;					///< any data structure to receive complex signal
 	TTObjectBasePtr				mSignalOut;					///< any data structure to send complex signal
@@ -90,6 +89,9 @@ protected:
 	
 	/** Set the gain attribute */
 	TTErr setGain(const TTValue& value);
+    
+    /** Set the mix attribute via a message (because, for Max, the configuration file tells to convert 'mix' into 'Mix') */
+	TTErr Mix(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Notify signal observer */
 	TTErr notifySignalObserver(const TTValue& value);

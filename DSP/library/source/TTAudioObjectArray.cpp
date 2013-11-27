@@ -2,9 +2,11 @@
  *
  * @ingroup dspLibrary
  *
- * @brief #TTAudioObjectBaseArray is a wrapper for an array of audio objects
+ * @brief Wrapper for an array of audio objects
  *
  * @details
+ *
+ * @see TTAudioObjectBase
  *
  * @authors Tim Place, Nils Peters, Trond Lossius
  *
@@ -20,7 +22,7 @@
 
 #define thisTTClass			TTAudioObjectBaseArray
 #define thisTTClassName		"array"
-#define thisTTClassTags		"audio, array"
+#define thisTTClassTags		"dspLibrary, audio, array"
 
 
 TT_AUDIO_CONSTRUCTOR,
@@ -75,7 +77,7 @@ TTErr TTAudioObjectBaseArray::setSize(const TTValueRef newSize)
 	// 3. create the new instances (if the class has been defined)
 	if (mClass) {
 		for (TTAudioObjectBaseIter obj = mInstances.begin(); obj != mInstances.end(); ++obj)
-			TTObjectBaseInstantiate(mClass, &(*obj), kTTVal1);
+			TTObjectBaseInstantiate(mClass, &(*obj), 1);
 	}
 
 	return kTTErrNone;

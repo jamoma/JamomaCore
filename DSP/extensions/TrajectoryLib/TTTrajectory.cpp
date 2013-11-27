@@ -29,8 +29,8 @@ TT_AUDIO_CONSTRUCTOR,
 	mPhasors[0] = NULL;	//mPhasors[1] = NULL;	mPhasors[2] = NULL;
 	mRamps[0] = NULL;	//mRamps[1] = NULL;	mRamps[2] = NULL;
 //	for (int i=0; i<3; i++){
-		TTObjectBaseInstantiate(TT("phasor"), &mPhasors[0], kTTVal1);	
-		TTObjectBaseInstantiate(TT("ramp")	, &mRamps[0],	kTTVal1);	
+		TTObjectBaseInstantiate(TT("phasor"), &mPhasors[0], TTValue(1));
+		TTObjectBaseInstantiate(TT("ramp")	, &mRamps[0],	TTValue(1));
 //	}
 	extendAttribute(TT("frequency"), mPhasors[0], TT("frequency"));
 	

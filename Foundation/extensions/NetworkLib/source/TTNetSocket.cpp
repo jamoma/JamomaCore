@@ -145,7 +145,7 @@ void TTNetSocketConnection::Receive()
 {
 #ifndef TT_PLATFORM_WIN
 	int		status;
-	TTValue	v;
+	TTValue	v, none;
 	
 	while (true) {
 		// TODO: should optimize this by having separate TCP and UDP receive routines
@@ -177,7 +177,7 @@ void TTNetSocketConnection::Receive()
             
             message.resize(status-1);
 			v.set(0, message);
-			mSocket->mOwner->sendMessage(TTSymbol("networkSocketReceive"), v, kTTValNONE);
+			mSocket->mOwner->sendMessage(TTSymbol("networkSocketReceive"), v, none);
 		}
 		TTThread::sleep(10); // TODO: is this appropriate?
 	}

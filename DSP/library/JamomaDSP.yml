@@ -1,13 +1,16 @@
 
 sources:
-  - source/TTAudioEngine.cpp
   - source/TTAudioObjectBase.cpp
   - source/TTAudioObjectArray.cpp
   - source/TTAudioSignal.cpp
   - source/TTAudioSignalArray.cpp
   - source/TTBuffer.cpp
   - source/TTSampleMatrix.cpp
+  - source/TTDCBlock.cpp			
   - source/TTDelay.cpp
+  - source/TTMixer.cpp
+  - source/TTMultiMixer.cpp
+  - source/TTOperator.cpp
   - source/TTDSP.cpp
   - tests/TTAudioObjectArray.test.cpp
   - tests/TTBuffer.test.cpp
@@ -16,21 +19,10 @@ sources:
 
 includes:
   - "includes"
-  - "portaudio/include"
   - "../../Foundation/library/includes"
-  - "../extensions/SoundfileLib/includes"
 
 defines:
   - TTDSP_EXPORTS
 
 libraries:
   - FOUNDATION
-  - mac portaudio/libportaudio-jamoma.a
-  - win32 portaudio/Debug/PortAudio.lib
-  - win64 portaudio/Debug/PortAudio_x64.lib
-
-frameworks:
-  - Carbon
-  - CoreAudio
-  - AudioUnit
-  - AudioToolbox

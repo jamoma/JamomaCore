@@ -90,7 +90,7 @@ TTErr TTHash::lookup(const TTPtr key, TTValue& value)
 	//	TTValue			v = iter->second;
 	//	TTValue v = (*theMap)[TTPtrSizedInt(&key)];
 	
-	if (iter == theMap->end()) {
+	if (theMap->end() == iter) {
 		unlock();
 		return kTTErrValueNotFound;
 	}

@@ -1,10 +1,20 @@
-/* 
- * Unit tests for the TTBuffer Object for Jamoma DSP
- * Copyright © 2012, Nathan Wolek
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Unit tests for the #TTBuffer class
+ *
+ * @details
+ *
+ * @see TTBuffer
+ *
+ * @authors Nathan Wolek
+ *
+ * @copyright Copyright © 2012 by Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTBuffer.h"
 
@@ -46,6 +56,10 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 					result1,
 					testAssertionCount, 
 					errorCount);
+	
+	// if it failed then we need to abort further testing to avoid a crash dereferencing a bogus pointer
+	if (!myFirstCheckOut)
+		return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 	
 	// TEST 2: how many channels does this matrix have?
 	TTInt32 test2expect = 1;
@@ -275,6 +289,12 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
     
+    /********/
+    
+    // NW: this test is dependent on the SoundfileLib extension and should therefore be moved to that project
+    /*
+     // TEST 17: load values from a sound file
+    
     TTTestLog("\nTesting load process for soundfiles...");
     
     TTInt16				numChannels17 = 1;
@@ -320,12 +340,15 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
     }
     
     this->checkInMatrix(loadedMatrix);
+     
+    // end of test that needs to be moved
+    */
 
 	// The following is effectively taken care of through check in...
 	//TTObjectRelease(&myFirstCheckOut);
 	//TTObjectRelease(&mySecondCheckOut);
 	//TTObjectRelease(&myThirdCheckOut);
-	
+
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 	

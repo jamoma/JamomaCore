@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTHighpassButterworth2
 #define thisTTClassName		"highpass.butterworth.2"
-#define thisTTClassTags		"audio, processor, filter, highpass, butterworth"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, highpass, butterworth"
 
 
 TT_AUDIO_CONSTRUCTOR

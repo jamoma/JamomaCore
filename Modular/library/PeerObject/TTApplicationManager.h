@@ -25,6 +25,9 @@ typedef TTApplication* TTApplicationPtr;
 class Protocol;
 typedef Protocol* ProtocolPtr;
 
+class TTXmlHandler;
+typedef TTXmlHandler* TTXmlHandlerPtr;
+
 /**	TTApplicationManager ... TODO : an explanation
  
  
@@ -76,6 +79,8 @@ private:
 	
 	TTHashPtr			mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
 	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
+    
+    ProtocolPtr         mCurrentProtocol;                   ///< a pointer used for ReadFromXml mechanism
 	
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);
@@ -93,6 +98,11 @@ private:
 		inputValue : <TTSymbol whereToDiscover> 
         outputValue : <TTSymbol *returnedType, TTValuePtr returnedChildren,  TTValuePtr returnedAttributes> */
 	TTErr ApplicationDiscover(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Discover all the namespace of an application under an address
+     inputValue : <TTSymbol whereToDiscover>
+     outputValue : <TTNodePtr> */
+	TTErr ApplicationDiscoverAll(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get a value from an attribute of an object at an address in an application
 		inputValue : <TTSymbol whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */
@@ -125,6 +135,8 @@ private:
 	/**  needed to be handled by a TTXmlHandler 
 		 read/write local and distant applications setup */
 	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+    TTErr writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, ProtocolPtr aProtocol);
+    
 	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
@@ -212,5 +224,11 @@ TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(TTPtr bato
  @param	data						..
  @return							an error code */
 TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data);
+
+/** compare priority attribute of object's node
+ @param	v1							a pointer to a value containing a pointer to a TTNode >
+ @param	v2							a pointer to a value containing a pointer to a TTNode >
+ @return							is the priority of v1 is smaller than v2 (except if equal 0) ? */
+TTBoolean TTMODULAR_EXPORT TTApplicationManagerCompareNodePriority(TTValue& v1, TTValue& v2);
 
 #endif // __TT_APPLICATION_MANAGER_H__

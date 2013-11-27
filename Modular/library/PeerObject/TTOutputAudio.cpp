@@ -19,7 +19,7 @@
 #define thisTTClassName		"Output.audio"
 #define thisTTClassTags		"output"
 
-TTObjectBasePtr TTOutputAudio::instantiate (TTSymbol& name, TTValue& arguments)
+TTObjectBasePtr TTOutputAudio::instantiate (TTSymbol name, TTValue arguments)
 {
 	return new TTOutputAudio(arguments);
 }
@@ -31,7 +31,7 @@ extern "C" void TTOutputAudio::registerClass()
 }
 
 
-TTOutputAudio::TTOutputAudio(TTValue& arguments) :
+TTOutputAudio::TTOutputAudio(const TTValue& arguments) :
 TTOutput(arguments)
 {
 	TTValue				args;

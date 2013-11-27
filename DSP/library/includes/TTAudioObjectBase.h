@@ -106,8 +106,8 @@ protected:
 	TTProcessMethod			currentProcessMethod;		///< This function pointer always points to the current processing routine.
 	TTCalculateMethod		calculateMethod;			///< This function pointer points to the active (non-bypass) calculate routine.
 	TTCalculateMethod		currentCalculateMethod;		///< This function pointer always points to the current calculate routine.
-	TTAudioSignalArray*		inputArray;					///< If the process method is passed a signal, rather than an array of signals, we wrap the signal in this array.
-	TTAudioSignalArray*		outputArray;				///< If the process method is passed a signal, rather than an array of signals, we wrap the signal in this array.
+	TTObject				inputArray;					///< If the process method is passed a signal, rather than an array of signals, we wrap the signal in this array.
+	TTObject				outputArray;				///< If the process method is passed a signal, rather than an array of signals, we wrap the signal in this array.
 	TTFloat64				startProcessingTime;		///< The time at which this object's process method was last invoked (for benchmarking)
 	TTFloat64				accumulatedProcessingTime;	///< The amount of time spent in this object's process method (for benchmarking)
 	TTFloat64				accumulatedProcessingCalls;	///< The number of times the process method has been called (for benchmarking)
@@ -193,7 +193,7 @@ protected:
 	 @details Requires that the maximum number of channels to be used with this instance is defined.
 	 @param arguments	Arguments to the constructor.
 	 */
-	TTAudioObjectBase(TTValue& arguments);
+	TTAudioObjectBase(const TTValue& arguments);
 	
 	
 public:

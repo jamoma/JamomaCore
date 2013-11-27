@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTMirror5
 #define thisTTClassName		"mirror.5"
-#define thisTTClassTags		"audio, processor, filter, lowpass, highpass"
+#define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, highpass"
 
 #ifdef TT_PLATFORM_WIN
 #include <Algorithm>

@@ -5,6 +5,7 @@ sources:
   - source/TTCount.cpp
   - source/TTNoise.cpp
   - source/TTPhasor.cpp
+  - source/TTPulseSub.cpp    
   - source/TTRamp.cpp
   - source/TTWavetable.cpp
   - tests/TTPhasor.test.cpp

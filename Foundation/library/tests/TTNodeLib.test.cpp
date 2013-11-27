@@ -87,6 +87,15 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance7	= testAddress7.getInstance();
 	TTSymbol		attribute7	= testAddress7.getAttribute();
 	TTAddressType	type7		= testAddress7.getType();
+    
+    TTAddress		testAddress8("/parent8/t");
+	
+	TTSymbol		directory8	= testAddress8.getDirectory();
+	TTAddress		parent8		= testAddress8.getParent();
+	TTSymbol		name8		= testAddress8.getName();
+	TTSymbol		instance8	= testAddress8.getInstance();
+	TTSymbol		attribute8	= testAddress8.getAttribute();
+	TTAddressType	type8		= testAddress8.getType();
 	
 	// The first set of tests checks parsing of addresses
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
@@ -156,6 +165,16 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 					instance7 == S_WILDCARD &&
 					attribute7 == NO_ATTRIBUTE &&
 					type7 == kAddressAbsolute,
+					testAssertionCount,
+					errorCount);
+    
+    TTTestAssertion("TTAddress: Test fails if parsing of testAddress8 is bad",
+					directory8 == NO_DIRECTORY &&
+					parent8 == TTAddress("/parent8") &&
+					name8 == TTSymbol("t") &&
+					instance8 == NO_INSTANCE &&
+					attribute8 == NO_ATTRIBUTE &&
+					type8 == kAddressAbsolute,
 					testAssertionCount,
 					errorCount);
 }
@@ -402,6 +421,7 @@ void TTNodeLibTestAddressItem(int& errorCount, int& testAssertionCount)
 	TTTestAssertion("TTAddressItem: Test fails if the namespace is not named \"\" or have no parent or is not empty",
 					empty &&
 					aSymbol == kTTSymEmpty &&
+					n != NULL &&
 					aParent == n->getItem(TTSymbol("name")) &&
 					aSelection == NO,
 					testAssertionCount,

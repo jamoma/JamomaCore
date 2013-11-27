@@ -6,7 +6,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTValueCache.h"
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"
 
@@ -50,6 +49,7 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_numChannels				(("numChannels"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_object					(("object"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_parent					(("parent"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_part						(("part"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_priority                 (("priority"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_processInPlace			(("processInPlace"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_range					(("range"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_resonance				(("resonance"));

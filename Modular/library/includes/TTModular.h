@@ -82,11 +82,11 @@
 // Macros
 
 #define TT_MODULAR_CONSTRUCTOR \
-TTObjectBasePtr thisTTClass :: instantiate (TTSymbol& name, TTValue& arguments) {return new thisTTClass (arguments);} \
+TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (TTValue& arguments) : TTDataObjectBase(arguments)
+thisTTClass :: thisTTClass (const TTValue& arguments) : TTDataObjectBase(arguments)
 
 
 
@@ -121,7 +121,7 @@ extern	TTMODULAR_EXPORT	TTHashPtr				TTModularNamespaces;
 
 /** Init the Modular library, and the Foundation if needed
 	It creates the application manager with no application inside */
-TTString	TTMODULAR_EXPORT	TTModularInit();
+void	TTMODULAR_EXPORT	TTModularInit(const char* pathToTheJamomaFolder = NULL);
 
 /** Create the local application and use a configuration file */
 void	TTMODULAR_EXPORT	TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);

@@ -11,7 +11,7 @@
 
 #define thisTTClass			TTLowpassFunction
 #define thisTTClassName		"lowpass"
-#define thisTTClassTags		"audio, processor, function"
+#define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 
 TT_AUDIO_CONSTRUCTOR, 

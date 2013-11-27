@@ -45,7 +45,6 @@
 #include "TTLowpassLinkwitzRiley2.h"
 #include "TTLowpassLinkwitzRiley4.h"
 
-#include "TTDCBlock.h"
 #include "TTHighMidLowShelf.h"
 #include "TTLowpassOnePole.h"
 #include "TTLowpassTwoPole.h"
@@ -83,7 +82,6 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_FilterLib(void)
 
 	TTBandpassButterworth2::registerClass();
 	TTBandrejectButterworth2::registerClass();
-	TTDCBlock::registerClass();
 	TTHighMidLowShelf::registerClass();
 	
 	TTHighpassButterworth1::registerClass();

@@ -72,8 +72,11 @@ private:
 	TTErr	Run(const TTValue& inputValue, TTValue& outputValue);
     TTErr   RunFlattened();
     
-    /**	Run one line of the script */
-	TTErr	RunLine(const TTValue& inputValue, TTValue& outputValue);
+    /**	Run one command of the script */
+	TTErr	RunCommand(const TTValue& inputValue, TTValue& outputValue);
+    
+    /**	Remove one command of the script */
+	TTErr	RemoveCommand(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**	Dump all lines of the script using mReturnLineCallback (or the Flattened lines if ready) */
 	TTErr	Dump(const TTValue& inputValue, TTValue& outputValue);
@@ -120,23 +123,23 @@ typedef TTScript* TTScriptPtr;
 
 /* Parse a value into a comment, a flag or a command line.
    Returns NULL in case of error */
-TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseLine(const TTValue& newLine);
+TTDictionaryBasePtr TTMODULAR_EXPORT TTScriptParseLine(const TTValue& newLine);
 
 /* Parse a value into a comment line 
    Returns NULL in case of error */
-TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseComment(const TTValue& newComment);
+TTDictionaryBasePtr TTMODULAR_EXPORT TTScriptParseComment(const TTValue& newComment);
 
 /* Parse a value into a flag line 
    Returns NULL in case of error */
-TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseFlag(const TTValue& newflagAndArguments);
+TTDictionaryBasePtr TTMODULAR_EXPORT TTScriptParseFlag(const TTValue& newflagAndArguments);
 
 /* Parse a value into a command line. 
    Returns NULL in case of error */
-TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseCommand(const TTValue& newCommand);
+TTDictionaryBasePtr TTMODULAR_EXPORT TTScriptParseCommand(const TTValue& newCommand);
 
 /* Parse a value into a sub script line and optionnaly pass a callback to output
    Returns NULL in case of error */
-TTDictionaryPtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScript);
+TTDictionaryBasePtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScript);
 
 /* Interpolate between two scripts
    note : we assume that the Bind method have been called before on the two scripts */
@@ -145,7 +148,7 @@ TTErr			TTMODULAR_EXPORT TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr sc
 /* Mix several scripts together
    note : we assume that the Bind method have been called before on each scripts */
 TTErr			TTMODULAR_EXPORT TTScriptMix(const TTValue& scripts, const TTValue& factors);
-TTFloat64		TTMODULAR_EXPORT TTScriptMixLine(TTDictionaryPtr lineToMix, TTSymbol dataType, TTUInt32 mixSize, TTFloat64 factor, TTValue& mixedValue, TTBoolean init=NO);
+TTFloat64		TTMODULAR_EXPORT TTScriptMixLine(TTDictionaryBasePtr lineToMix, TTSymbol dataType, TTUInt32 mixSize, TTFloat64 factor, TTValue& mixedValue, TTBoolean init=NO);
 
 /* Merge a script into another without redundant command lines */
 TTErr			TTMODULAR_EXPORT TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript);
@@ -163,7 +166,7 @@ void			TTMODULAR_EXPORT TTScriptFindAddress(const TTValue& lineValue, TTPtr addr
 void            TTMODULAR_EXPORT TTScriptFindTarget(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found);
 
 /* Copy a line */
-TTDictionaryPtr	TTMODULAR_EXPORT TTScriptCopyLine(TTDictionaryPtr lineTocopy);
+TTDictionaryBasePtr	TTMODULAR_EXPORT TTScriptCopyLine(TTDictionaryBasePtr lineTocopy);
 
 
 #endif // __TT_SCRIPT_H__

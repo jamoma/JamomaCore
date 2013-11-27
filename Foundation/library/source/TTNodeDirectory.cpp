@@ -151,7 +151,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 	TTAddress	aliasAddress;
 	TTAddress	p1;
 	TTAddress	p2;
-	TTValue		ak, found = kTTValNONE;
+	TTValue		ak, found;
     TTAddressComparisonFlag	comp;
 	
 	// if this address doesn't exist look into aliases
@@ -188,10 +188,54 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 		}
 	}
 	
-	if (found == kTTValNONE)
+	if (found.empty())
 		return kTTErrGeneric;
 	else
 		return kTTErrNone;
+}
+
+TTErr TTNodeDirectory::fillAddressItem(TTAddressItemPtr anAddressItem, TTAddress startAddress)
+{
+    TTAddressItemPtr    anItem;
+	TTNodePtr           aNode;
+    TTList              aNodeList;
+	TTAddress           anAddress;
+    
+    // get the node where to start from
+    if (!getTTNode(startAddress, &aNode)) {
+        
+        // get all children of the node
+        aNode->getChildren(S_WILDCARD, S_WILDCARD, aNodeList);
+        
+        // sort the NodeList using object priority order
+        aNodeList.sort(&compareNodePriority);
+        
+        // append each name.instance to the sub namespace
+        for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
+            
+            aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
+            
+            // get name.instance
+            aNode->getAddress(anAddress, startAddress);
+            
+            // if the item doesn't exist yet
+            if (anAddressItem->find(anAddress, &anItem) == kTTErrValueNotFound) {
+                
+                // append it to the namespace
+                anAddressItem->append(anAddress, &anItem);
+            
+                // select the item
+                anItem->setSelection(YES);
+            }
+            
+            // fill this item
+            fillAddressItem(anItem, startAddress.appendAddress(anAddress));
+        }
+        
+        return kTTErrNone;
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObjectBasePtr newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
@@ -828,7 +872,7 @@ TTBoolean testNodeUsingCallback(TTNodePtr n, TTPtr args)
 
 	aCallback->notify(v,v);
 
-	return v == kTTVal1;
+	return v == 1;
 }
 
 TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
@@ -838,7 +882,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTListPtr		filterList;
 	TTSymbol		aFilterName;
 	TTSymbol		filterMode;
-	TTDictionaryPtr aFilter;
+	TTDictionaryBasePtr aFilter;
 	TTObjectBasePtr		anObject;
 	TTAddress		anAddress;
 	TTValue			v;
@@ -886,7 +930,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				TTStringIter begin, end;
 				
 				// get filter
-				aFilter = TTDictionaryPtr((TTPtr)v[0]);
+				aFilter = TTDictionaryBasePtr((TTPtr)v[0]);
 				
 				// get filter mode :
 				//		- in default exclusion mode, if one field of a filter matches a node, this node is excluded.
@@ -1054,6 +1098,40 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 		result = YES;
 	
 	return result;
+}
+
+TTBoolean compareNodePriority(TTValue& v1, TTValue& v2)
+{
+	TTNodePtr	n1, n2;
+	TTObjectBasePtr o1, o2;
+	TTValue		v;
+	TTInt32		p1 = 0;
+	TTInt32		p2 = 0;
+	
+	// get priority of v1
+	n1 = TTNodePtr((TTPtr)v1[0]);
+	if (n1) {
+		o1 = n1->getObject();
+		if (o1)
+			if (!o1->getAttributeValue(kTTSym_priority, v))
+				p1 = v[0];
+	}
+	
+	// get priority of v2
+	n2 = TTNodePtr((TTPtr)v2[0]);
+	if (n2) {
+		o2 = n2->getObject();
+		if (o2)
+			if (!o2->getAttributeValue(kTTSym_priority, v))
+				p2 = v[0];
+	}
+	
+	if (p1 == 0 && p2 == 0) return v1 < v2;
+	
+	if (p1 == 0) return NO;
+	if (p2 == 0) return YES;
+	
+	return p1 < p2;
 }
 
 void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found)

@@ -348,7 +348,7 @@ public:
 	/** Replace contents with a pseudo-random string. */
 	void TTFOUNDATION_EXPORT random();
 	
-	
+    
 	
 //	TTBoolean toTTInt32( const TTString & str, TTInt32 & convertedInt )
 	TTBoolean toTTInt32(TTInt32& convertedInt) const
@@ -357,6 +357,17 @@ public:
 		
 		convertedInt = strtol(c_str(), &pEnd, 10);
 		return *pEnd == 0;
+	}
+    
+    //	TTBoolean toTTUInt32( const TTString & str, TTInt32 & convertedUInt )
+	TTBoolean toTTUInt32(TTUInt32& convertedUInt) const
+	{
+		char * pEnd;
+        
+		convertedUInt = strtoul(c_str(), &pEnd, 10);
+        
+        // is the last letter is a 'u' ?
+		return *pEnd == 'u' && pEnd == (c_str() + length() - 1);
 	}
 	
 	/*	note : isTTFloat32 works only because the TTInt32 case is matched before

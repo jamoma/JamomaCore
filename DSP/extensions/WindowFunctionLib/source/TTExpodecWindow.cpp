@@ -26,7 +26,7 @@
 
 #define thisTTClass ExpodecWindow
 #define thisTTClassName		"expodec"
-#define thisTTClassTags		"audio, processor, function, window"
+#define thisTTClassTags		"dspWindowFunctionLib, audio, processor, function, window"
 
 
 TT_AUDIO_CONSTRUCTOR

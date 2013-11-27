@@ -6,6 +6,8 @@
  *
  * @details
  *
+ * @see TTAudioObjectBaseArray, TTAudioObjectBase
+ *
  * @authors Tim Place, Trond Lossius
  *
  * @copyright Copyright © 2008 by Timothy Place @n

@@ -1,10 +1,16 @@
-/* 
- * Jamoma DataspaceLib: OrientationDataspace unit test
- * Copyright © 2011 Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief Unit tests for the #OrientationDataspace.
+ *
+ * @authors Trond Lossius, Tim Place, Nils Peters, ...
+ *
+ * @copyright Copyright © 2011 Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "OrientationDataspace.h"
 
@@ -17,7 +23,7 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     // Create dataspace object and set to angle
     TTObjectBasePtr         myDataspace = NULL;
     TTErr err;
-    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, kTTValNONE);
+    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, 0);
 	myDataspace->setAttributeValue(TT("dataspace"), TT("orientation"));
     
     TTValue v;
@@ -39,12 +45,12 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("euler"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("quaternion"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(90.0));
     v.set(1, TTFloat64(45.0));
     v.set(2, TTFloat64(-45.0));
     
-    expected.setSize(4);
+    expected.resize(4);
     expected.set(0, TTFloat64(0.0));
     expected.set(1, TTFloat64(-0.5));
 	expected.set(2, TTFloat64(-0.7071067811865475));
@@ -62,14 +68,14 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("xyza"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("quaternion"));    
 	
-	v.setSize(4); 
+	v.resize(4); 
     v.set(0, TTFloat64(0.0));
     v.set(1, TTFloat64(-0.5773502691896258));
 	v.set(2, TTFloat64(-0.8164965809277260));	
 	v.set(3, TTFloat64(120.0));
 
     
-    expected.setSize(4);
+    expected.resize(4);
 	expected.set(0, TTFloat64(0.0));
     expected.set(1, TTFloat64(-0.5));
     expected.set(2, TTFloat64(-0.7071067811865475));
@@ -94,13 +100,13 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("quat"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("euler"));    
 	
-	v.setSize(4);
+	v.resize(4);
 	v.set(0, TTFloat64(0.0));
     v.set(1, TTFloat64(-0.5));    
 	v.set(2, TTFloat64(-0.7071067811865475));
 	v.set(3, TTFloat64(0.5));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(90));
     expected.set(1, TTFloat64(45));
     expected.set(2, TTFloat64(-45));
@@ -117,13 +123,13 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("quat"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("axis"));    
 	
-	v.setSize(4);
+	v.resize(4);
 	v.set(0, TTFloat64(0.0));
     v.set(1, TTFloat64(-0.5));
 	v.set(2, TTFloat64(-0.7071067811865475));	
     v.set(3, TTFloat64(0.5));	
     
-    expected.setSize(4); 
+    expected.resize(4); 
     expected.set(0, TTFloat64(0.0));
     expected.set(1, TTFloat64(-0.5773502691896258));
     expected.set(2, TTFloat64(-0.8164965809277260));
@@ -145,12 +151,12 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("euler"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("axis"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(90.0));
     v.set(1, TTFloat64(45.0));
     v.set(2, TTFloat64(-45.0));
     
-    expected.setSize(4);
+    expected.resize(4);
 	expected.set(0, TTFloat64(0.0));
     expected.set(1, TTFloat64(-0.5773502691896258));
     expected.set(2, TTFloat64(-0.8164965809277260));
@@ -173,12 +179,12 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("outputUnit"), TT("axis"));    
 	
 	//yaw
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(45.0));
     v.set(1, TTFloat64(0.0));
     v.set(2, TTFloat64(0.0));
     
-    expected.setSize(4);
+    expected.resize(4);
 	expected.set(0, TTFloat64(0.0));
     expected.set(1, TTFloat64(0.0));
     expected.set(2, TTFloat64(-1.0));

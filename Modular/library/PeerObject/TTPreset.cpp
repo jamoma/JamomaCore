@@ -123,7 +123,7 @@ TTErr TTPreset::Store()
 					v.clear();
 					anObject->getAttributeValue(kTTSym_value, v);
 					
-					if (v == kTTValNONE)
+					if (v.empty())
 						continue;
 					
 					v.prepend(aRelativeAddress);
@@ -147,7 +147,7 @@ TTErr TTPreset::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
     TTAddress       anAddress = kTTAdrsRoot;
     TTBoolean       flattened;
-    TTValue         v;
+    TTValue         v, none;
     
     if (inputValue.size() == 1)
         if (inputValue[0].type() == kTypeSymbol)
@@ -158,22 +158,22 @@ TTErr TTPreset::Recall(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, mAddress, kTTValNONE);
+        mScript->sendMessage(kTTSym_Flatten, mAddress, none);
 
     // if an address is passed, run the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("RunLine"), inputValue, kTTValNONE);
+        return mScript->sendMessage(TTSymbol("RunCommand"), inputValue, none);
         
     // else run all the script
     else
-        return mScript->sendMessage(kTTSym_Run, mAddress, kTTValNONE);
+        return mScript->sendMessage(kTTSym_Run, mAddress, none);
 }
 
 TTErr TTPreset::Output(const TTValue& inputValue, TTValue& outputValue)
 {
     TTAddress   anAddress = kTTAdrsRoot;
     TTBoolean   flattened;
-    TTValue     v;
+    TTValue     v, none;
     
     if (inputValue.size() == 1)
         if (inputValue[0].type() == kTypeSymbol)
@@ -184,15 +184,15 @@ TTErr TTPreset::Output(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, kTTValNONE);
+        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
     
     // if an address is passed, dump the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("DumpLine"), inputValue, kTTValNONE);
+        return mScript->sendMessage(TTSymbol("DumpLine"), inputValue, none);
     
     // else dump all the script
     else
-        return mScript->sendMessage(kTTSym_Dump, inputValue, kTTValNONE);
+        return mScript->sendMessage(kTTSym_Dump, inputValue, none);
 }
 
 TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
@@ -300,17 +300,25 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 
 TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2) 
 {
-	TTNodePtr	n1, n2;
+    TTNodePtr	n1, n2;
 	TTObjectBasePtr o1, o2;
 	TTValue		v;
+    TTValue    name1;
+    TTValue    name2;
+    TTValue    instance1;
+    TTValue    instance2;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;
 	
 	// get priority of v1
 	n1 = TTNodePtr((TTPtr)v1[0]);
 	if (n1) {
+        
+        name1 = n1->getName();
+        instance1 = n1->getInstance();
 		o1 = n1->getObject();
-		if (o1) 
+		
+		if (o1)
 			if (!o1->getAttributeValue(kTTSym_priority, v))
 				p1 = v[0];
 	}
@@ -318,13 +326,28 @@ TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2)
 	// get priority of v2
 	n2 = TTNodePtr((TTPtr)v2[0]);
 	if (n2) {
+        
+        name2 = n2->getName();
+        instance2 = n2->getInstance();
 		o2 = n2->getObject();
-		if (o2) 
+		
+		if (o2)
 			if (!o2->getAttributeValue(kTTSym_priority, v))
 				p2 = v[0];
 	}
 	
-	if (p1 == 0 && p2 == 0) return v1 < v2;
+	if (p1 == p2) {
+        
+        if (name1 == name2) {
+            
+            if (instance1 == instance2)
+                return v1 < v2;
+            else
+                return instance1 < instance2;
+        }
+        else
+            return name1 < name2;
+    }
 	
 	if (p1 == 0) return NO;
 	if (p2 == 0) return YES;
@@ -335,21 +358,21 @@ TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2)
 TTErr TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position)
 {
     TTBoolean   flattened1, flattened2;
-    TTValue     v;
+    TTValue     v, none;
     
     // is the preset1 already flattened ?
     preset1->mScript->getAttributeValue(kTTSym_flattened, v);
     flattened1 = v[0];
     
     if (!flattened1)
-        preset1->mScript->sendMessage(kTTSym_Flatten, preset1->mAddress, kTTValNONE);
+        preset1->mScript->sendMessage(kTTSym_Flatten, preset1->mAddress, none);
     
     // is the preset2 already flattened ?
     preset2->mScript->getAttributeValue(kTTSym_flattened, v);
     flattened2 = v[0];
     
     if (!flattened2)
-        preset2->mScript->sendMessage(kTTSym_Flatten, preset2->mAddress, kTTValNONE);
+        preset2->mScript->sendMessage(kTTSym_Flatten, preset2->mAddress, none);
     
 	return TTScriptInterpolate(preset1->mScript, preset2->mScript, position);
 }
@@ -359,7 +382,7 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
 	TTPresetPtr aPreset;
 	TTValue		scripts;
     TTBoolean   flattened;
-    TTValue     v;
+    TTValue     v, none;
 	TTUInt32	i;
 	
 	for (i = 0; i < presets.size(); i++) {
@@ -371,7 +394,7 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
         flattened = v[0];
         
         if (!flattened)
-            aPreset->mScript->sendMessage(kTTSym_Flatten, aPreset->mAddress, kTTValNONE);
+            aPreset->mScript->sendMessage(kTTSym_Flatten, aPreset->mAddress, none);
         
 		scripts.append(aPreset->mScript);
 	}

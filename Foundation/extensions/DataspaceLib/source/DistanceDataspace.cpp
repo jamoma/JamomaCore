@@ -1,10 +1,18 @@
-/* 
- * Jamoma DataspaceLib: DistanceDataspace
- * Copyright © 2007, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #DistanceDataspace converts between different measurement untis describing distance.
+ *
+ * @details The neutral unit of the distance dataspace is _meter_.
+ *
+ * @authors Tim Place, Trond Lossius, Nils Peters, ...
+ *
+ * @copyright Copyright © 2007 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "DistanceDataspace.h"
 
@@ -21,7 +29,7 @@ CentimeterUnit::~CentimeterUnit(){;}
 
 void CentimeterUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-//	output.setSize(1);
+//	output.resize(1);
 //	*output = atom_getfloat(inputAtoms) * 0.01;
 	output = TTFloat64(input) * 0.01;
 }
@@ -29,7 +37,7 @@ void CentimeterUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void CentimeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-//	output.setSize(1);
+//	output.resize(1);
 //	atom_setfloat(*outputAtoms, *input * 100.0);
 	output = TTFloat64(input) * 100.0;
 }
@@ -53,7 +61,7 @@ FootUnit::~FootUnit(){;}
 
 void FootUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-//	output.setSize(1);
+//	output.resize(1);
 //	*output = atom_getfloat(inputAtoms) / 3.281;
 	output = TTFloat64(input) / 3.281;
 }
@@ -61,7 +69,7 @@ void FootUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void FootUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-//	output.setSize(1);
+//	output.resize(1);
 //	atom_setfloat(*outputAtoms, (*input * 3.281));
 	output = TTFloat64(input) * 3.281;
 }
@@ -85,7 +93,7 @@ InchUnit::~InchUnit(){;}
 
 void InchUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-//	output.setSize(1);
+//	output.resize(1);
 //	*output = atom_getfloat(inputAtoms) / 39.37;
 	output = TTFloat64(input) / 39.37;
 }
@@ -93,7 +101,7 @@ void InchUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void InchUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-//	output.setSize(1);
+//	output.resize(1);
 //	atom_setfloat(*outputAtoms, (*input * 39.37));
 	output = TTFloat64(input) * 39.37;
 }
@@ -135,7 +143,7 @@ void MeterUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 #define thisTTClass			DistanceDataspace
 #define thisTTClassName		"dataspace.distance"
-#define thisTTClassTags		"dataspace, distance"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace, distance"
 
 TT_OBJECT_CONSTRUCTOR
 {

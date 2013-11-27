@@ -36,7 +36,7 @@ private:
 	TTValue			mTag;						///< ATTRIBUTE: tag list for this data
 	TTInt32			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
 	TTSymbol		mDescription;				///< ATTRIBUTE: text to describe the role of this data
-	TTBoolean		mRepetitionsAllow;			///< ATTRIBUTE: is the same value can be update twice ?
+	TTBoolean		mRepetitionsFilter;			///< ATTRIBUTE: is repetitions are filtered out ?
 	TTBoolean		mActive;					///< ATTRIBUTE: this used by return only to stop sending values
 	TTBoolean		mInitialized;				///< ATTRIBUTE: is the Value attribute has been initialized ?
 	
@@ -118,14 +118,14 @@ private:
     /* */
     TTErr       returnValue();
     
-    /** Reset value to default value */
-	TTErr       NoneReset();
-    TTErr       GenericReset();
-    TTErr       BooleanReset();
-    TTErr       IntegerReset();
-    TTErr       DecimalReset();
-    TTErr       ArrayReset();
-    TTErr       StringReset();
+    /** Initialize the value with default value */
+	TTErr       NoneInit();
+    TTErr       GenericInit();
+    TTErr       BooleanInit();
+    TTErr       IntegerInit();
+    TTErr       DecimalInit();
+    TTErr       ArrayInit();
+    TTErr       StringInit();
     
     /** Ramper messages */
     TTErr       RampSet(const TTValue& inputValue, TTValue& outputValue);
@@ -163,8 +163,8 @@ private:
 	/**	Setter for mTag attribute. */
 	TTErr       setTag(const TTValue& value);
 	
-	/**	Setter for mRepetitionsAllow attribute. */
-	TTErr       setRepetitionsAllow(const TTValue& value);
+	/**	Setter for mRepetitionsFilter attribute. */
+	TTErr       setRepetitionsFilter(const TTValue& value);
 	
 	/**	Setter for mActive attribute. */
 	TTErr       setActive(const TTValue& value);
@@ -213,7 +213,7 @@ typedef TTData* TTDataPtr;
 	2		: 2 values || 1 value + unit
 	3		: 3 values || 2 values + unit || 1 value + ramp ramptime
 	X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime */
-TTDictionaryPtr	TTMODULAR_EXPORT TTDataParseCommand(const TTValue& command);
+TTDictionaryBasePtr	TTMODULAR_EXPORT TTDataParseCommand(const TTValue& command);
 
 /**
  @param	baton						..

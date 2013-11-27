@@ -15,7 +15,7 @@
 
 #define thisTTClass			TTDelay
 #define thisTTClassName		"delay"
-#define thisTTClassTags		"audio, processor, delay"
+#define thisTTClassTags		"dspLibrary, audio, processor, delay"
 
 #ifndef TT_PLATFORM_MAC
 #include <algorithm>
@@ -66,7 +66,7 @@ TTErr TTDelay::init(TTUInt64 newDelayMaxInSamples)
 		mDelayMax = mDelayMaxInSamples / srMill;
 
 		for (TTDelayBufferIter buffer = mBuffers.begin(); buffer != mBuffers.end(); ++buffer) {
-			buffer->resize(mDelayMaxInSamples);
+			buffer->resize(size_t(mDelayMaxInSamples));
 			buffer->clear();
 		}
 		reset();
@@ -99,7 +99,7 @@ TTErr TTDelay::clear()
 void TTDelay::reset()
 {
 	for (TTDelayBufferIter buffer = mBuffers.begin(); buffer != mBuffers.end(); ++buffer)
-		buffer->setDelay(mIntegralDelay); // TTDelayBuffer requires the integer portion of the delay in samples
+		buffer->setDelay(TTUInt32(mIntegralDelay)); // TTDelayBuffer requires the integer portion of the delay in samples
 }
 
 

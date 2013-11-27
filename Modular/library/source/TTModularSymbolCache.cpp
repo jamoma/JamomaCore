@@ -13,7 +13,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 #include "TTModular.h"
-#include "TTValueCache.h"
 #include "TTSymbolTable.h"
 #include "TTModularSymbolCache.h"
 
@@ -63,6 +62,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_children                         (("child
 TTMODULAR_EXPORT TTSymbol       kTTSym_command                          (("command"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Command                          (("Command"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_comment                          (("comment"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_content                          (("content"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_ConvertToAppName					(("ConvertToAppName"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_ConvertToTTName                  (("ConvertToTTName"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_created                          (("created"));
@@ -91,6 +91,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_freeze                           (("freez
 TTMODULAR_EXPORT TTSymbol       kTTSym_generic                          (("generic"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Get                              (("Get"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_global                           (("global"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Go                               (("Go"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_highlight                        (("highlight"));
 
@@ -101,24 +102,28 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_instances                        (("insta
 TTMODULAR_EXPORT TTSymbol       kTTSym_integer                          (("integer"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_life                             (("life"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_lines                            (("lines"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_local                            (("local"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_lookfor                          (("lookfor"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_Map                              (("Map"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_message                          (("message"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_mix                              (("mix"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_mirror                           (("mirror"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_model                            (("model"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_mute                             (("mute"));
 
+TTMODULAR_EXPORT TTSymbol       kTTSym_names                            (("names"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_namespace                        (("namespace"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_nodeAddress                      (("nodeAddress"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_object                           (("object"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_objectCache                      (("objectCache"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_order                            (("order"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_offset                           (("offset"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_parameter                        (("parameter"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_preview                          (("preview"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_priority                         (("priority"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_proxy                            (("proxy"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_rangeBounds                      (("rangeBounds"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_rangeClipmode					(("rangeClipmode"));
@@ -134,8 +139,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_ReadAgain                        (("ReadA
 TTMODULAR_EXPORT TTSymbol       kTTSym_readonly                         (("readonly"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Recall                           (("Recall"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_receiver                         (("receiver"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_repetitionsAllow					(("repetitionsAllow"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_Reset                            (("Reset"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_repetitionsFilter				(("repetitionsFilter"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_return                           (("return"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_returnedValue					(("returnedValue"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Run                              (("Run"));
@@ -147,12 +151,15 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_sharp                            (("#"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_signal                           (("signal"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_start                            (("start"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_stop                             (("stop"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Stop                             (("Stop"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Subscribe                        (("Subscribe"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_tag                              (("tag"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_target                           (("target"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Tick                             (("Tick"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_unit                             (("unit"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Update                           (("Update"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_value                            (("value"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_valueDefault                     (("valueDefault"));
@@ -162,3 +169,8 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_view                             (("view"
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_Write                            (("Write"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_WriteAgain                       (("WriteAgain"));
+
+TTMODULAR_EXPORT TTSymbol       kTTSym_xmlHandlerReadingComment         (("xmlHandlerReadingComment"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_xmlHandlerReadingEnds            (("xmlHandlerReadingEnds"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_xmlHandlerReadingStarts          (("xmlHandlerReadingStarts"));
+

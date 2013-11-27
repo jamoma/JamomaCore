@@ -19,7 +19,7 @@
 #include "TTEnvironment.h"
 #include "TTClass.h"
 
-TTObjectBase::TTObjectBase(TTValue& arguments)
+TTObjectBase::TTObjectBase(TTValue arguments)
 	: classPtr(NULL), observers(NULL), messageObservers(NULL), attributeObservers(NULL),
 	  mLocked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
 {
@@ -150,12 +150,11 @@ TTErr TTObjectBase::findAttribute(const TTSymbol name, TTAttribute** attr)
 	TTErr	err = kTTErrNone;
 
 	err = attributes->lookup(name, v);
-	if (!err) {
+	if (err == kTTErrNone)
 		*attr = TTAttributePtr(TTPtr(v));
-		return kTTErrNone;
-	}
 	else
-		return kTTErrInvalidAttribute;
+		err = kTTErrInvalidAttribute;
+	return err;
 }
 
 
@@ -305,7 +304,7 @@ TTErr TTObjectBase::registerMessageProperty(const TTSymbol messageName, const TT
 	TTErr			err;
 
 	err = messages->lookup(messageName, v);
-	if (!err) {
+	if (err == kTTErrNone) {
 		theMessage = TTMessagePtr(TTPtr(v));
 		err = theMessage->registerAttribute(propertyName, kTypeLocalValue, NULL, getter, setter);
 		theMessage->setAttributeValue(propertyName, (TTValue&)initialValue);
@@ -389,7 +388,8 @@ TTErr TTObjectBase::findMessage(const TTSymbol name, TTMessage** message)
 
 TTErr TTObjectBase::sendMessage(const TTSymbol name)
 {
-	return sendMessage(name, kTTValNONE, kTTValNONE);
+	TTValue v;
+	return sendMessage(name, TTValue(), v);
 }
 
 
@@ -438,15 +438,6 @@ TTErr TTObjectBase::sendMessage(const TTSymbol name, const TTValue& anInputValue
 #pragma mark Observing
 #endif
 
-TTErr TTObjectBase::registerObserverForMessage(const TTObjectBase& observingObject, const TTSymbol messageName)
-{
-	return kTTErrGeneric;
-}
-
-TTErr TTObjectBase::registerObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol attributeName)
-{
-	return kTTErrGeneric;
-}
 
 TTErr TTObjectBase::registerObserverForNotifications(const TTObjectBase& observingObject)
 {
@@ -455,16 +446,6 @@ TTErr TTObjectBase::registerObserverForNotifications(const TTObjectBase& observi
 	return kTTErrNone;
 }
 
-
-TTErr TTObjectBase::unregisterObserverForMessage(const TTObjectBase& observingObject, const TTSymbol messageName)
-{
-	return kTTErrGeneric;
-}
-
-TTErr TTObjectBase::unregisterObserverForAttribute(const TTObjectBase& observingObject, const TTSymbol attributeName)
-{
-	return kTTErrGeneric;
-}
 
 TTErr TTObjectBase::unregisterObserverForNotifications(const TTObjectBase& observingObject)
 {

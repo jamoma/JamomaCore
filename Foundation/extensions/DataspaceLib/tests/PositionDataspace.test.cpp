@@ -1,10 +1,16 @@
-/* 
- * Jamoma DataspaceLib: PositionDataspace unit test
- * Copyright © 2011 Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief Unit tests for the #PositionDataspace.
+ *
+ * @authors Trond Lossius, Tim Place, Nils Peters, ...
+ *
+ * @copyright Copyright © 2011 Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "PositionDataspace.h"
 
@@ -16,7 +22,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     // Create dataspace object and set to angle
     TTObjectBasePtr         myDataspace = NULL;
     TTErr err;
-    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, kTTValNONE);
+    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, 0);
 	myDataspace->setAttributeValue(TT("dataspace"), TT("position"));
     
     TTValue v;
@@ -35,12 +41,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(1.0));
     v.set(1, TTFloat64(2.0));
     v.set(2, TTFloat64(3.0));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(1.0));
     expected.set(1, TTFloat64(2.0));
     expected.set(2, TTFloat64(3.0));
@@ -58,11 +64,11 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("xy"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
 	
-	v.setSize(2);
+	v.resize(2);
     v.set(0, TTFloat64(1.0));
     v.set(1, TTFloat64(-1.0));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(1.0));
     expected.set(1, TTFloat64(-1.0));
     expected.set(2, TTFloat64(0.0));
@@ -80,12 +86,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("aed"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(-90.0));
     v.set(1, TTFloat64(0.0));
     v.set(2, TTFloat64(2.0));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(-2.0));
     expected.set(1, TTFloat64(0.0));
     expected.set(2, TTFloat64(0.0));
@@ -102,12 +108,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("openGL"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(1.0));
     v.set(1, TTFloat64(3.0));
     v.set(2, TTFloat64(2.0));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(1.0));
     expected.set(1, TTFloat64(-2.0));
     expected.set(2, TTFloat64(3.0));
@@ -123,11 +129,11 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("polar"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
 	
-	v.setSize(2);
+	v.resize(2);
     v.set(0, TTFloat64(-45.0));
     v.set(1, TTFloat64(2.0));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(-sqrt(2.0)));
     expected.set(1, TTFloat64(sqrt(2.0)));
     expected.set(2, TTFloat64(0.0));
@@ -142,12 +148,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("daz"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(2.0));
     v.set(1, TTFloat64(45.0));
     v.set(2, TTFloat64(2.0));
     
-    expected.setSize(3);
+    expected.resize(3);
     expected.set(0, TTFloat64(sqrt(2.0)));
     expected.set(1, TTFloat64(sqrt(2.0)));
     expected.set(2, TTFloat64(2.0));
@@ -171,12 +177,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("xy"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(1.0));
     v.set(1, TTFloat64(-1.0));
 	v.set(2, TTFloat64(0.0));
 
-    expected.setSize(2);
+    expected.resize(2);
     expected.set(0, TTFloat64(1.0));
     expected.set(1, TTFloat64(-1.0));
     
@@ -192,12 +198,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("aed"));    
 	
-	expected.setSize(3);
+	expected.resize(3);
     expected.set(0, TTFloat64(-90.0));
     expected.set(1, TTFloat64(0.0));
     expected.set(2, TTFloat64(2.0));
     
-    v.setSize(3);
+    v.resize(3);
     v.set(0, TTFloat64(-2.0));
     v.set(1, TTFloat64(0.0));
     v.set(2, TTFloat64(0.0));
@@ -214,12 +220,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("openGL"));    
 	
-	v.setSize(3);
+	v.resize(3);
     v.set(0, TTFloat64(1.0));
     v.set(1, TTFloat64(-2.0));
     v.set(2, TTFloat64(3.0));
 	
-	expected.setSize(3);
+	expected.resize(3);
     expected.set(0, TTFloat64(1.0));
     expected.set(1, TTFloat64(3.0));
     expected.set(2, TTFloat64(2.0));
@@ -235,12 +241,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("polar"));    
     
-    v.setSize(3);
+    v.resize(3);
     v.set(0, TTFloat64(-sqrt(2.0)));
     v.set(1, TTFloat64(sqrt(2.0)));
     v.set(2, TTFloat64(0.0));
 
-	expected.setSize(2);
+	expected.resize(2);
     expected.set(0, TTFloat64(-45.0));
     expected.set(1, TTFloat64(2.0));
     
@@ -257,12 +263,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 	myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("daz"));    
 	
-    v.setSize(3);
+    v.resize(3);
     v.set(0, TTFloat64(sqrt(2.0)));
     v.set(1, TTFloat64(sqrt(2.0)));
     v.set(2, TTFloat64(2.0));
 
-	expected.setSize(3);
+	expected.resize(3);
     expected.set(0, TTFloat64(2.0));
     expected.set(1, TTFloat64(45.0));
     expected.set(2, TTFloat64(2.0));
@@ -283,12 +289,12 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     myDataspace->setAttributeValue(TT("inputUnit"), TT("daz"));
     myDataspace->setAttributeValue(TT("outputUnit"), TT("xy"));    
 	
-    v.setSize(3);
+    v.resize(3);
     v.set(0, TTFloat64(2.0));
     v.set(1, TTFloat64(45.0));
     v.set(2, TTFloat64(10.0));
 	
-	expected.setSize(2);
+	expected.resize(2);
     expected.set(0, TTFloat64(sqrt(2.0)));
     expected.set(1, TTFloat64(sqrt(2.0)));
 

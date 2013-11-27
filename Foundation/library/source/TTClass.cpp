@@ -34,7 +34,7 @@ TTClass::~TTClass()
 }
 
 
-TTErr TTClass::createInstance(TTObjectBase** anObject, TTValue& anArgument)
+TTErr TTClass::createInstance(TTObjectBase** anObject, const TTValue& anArgument)
 {
 	TTErr err = kTTErrNone;
 
@@ -42,11 +42,11 @@ TTErr TTClass::createInstance(TTObjectBase** anObject, TTValue& anArgument)
 		*anObject = instantiationMethod(name, anArgument);
 	}
 	catch (...) {
-		TTLogError("Exception thrown trying to create TTClass %s", name.c_str());
+		TTLogError("Exception thrown trying to create TTClass %s\n", name.c_str());
 		err = kTTErrAllocFailed;
 	}
 
-	TT_ASSERT(create_instance_successful, err == kTTErrNone);
+	//TT_ASSERT(create_instance_successful, err == kTTErrNone);
 	return err;
 }
 

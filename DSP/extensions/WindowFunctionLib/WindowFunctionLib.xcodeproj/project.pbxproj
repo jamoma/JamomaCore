@@ -29,6 +29,7 @@
 		2A23AE58169D0610004793F5 /* TTKaiserWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8B164C4D4000C3D0E9 /* TTKaiserWindow.test.cpp */; };
 		2A23AE59169D0610004793F5 /* TTRectangularWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8C164C4D4000C3D0E9 /* TTRectangularWindow.test.cpp */; };
 		2A23AE5A169D0610004793F5 /* TTTukeyWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7ECFA8D164C4D4000C3D0E9 /* TTTukeyWindow.test.cpp */; };
+		8ED7ADCE183D482900170BBA /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ED7ADCD183D482900170BBA /* test.cpp */; };
 		A7FA96FC16BD80A900E615DC /* TTRosenbergGlottalPulseWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FA96FB16BD80A900E615DC /* TTRosenbergGlottalPulseWindow.cpp */; };
 		A7FA970016BD80C100E615DC /* TTRosenbergGlottalPulseWindow.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7FA96FF16BD80C100E615DC /* TTRosenbergGlottalPulseWindow.test.cpp */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		2A23AE3F169D05D7004793F5 /* WindowFunctionLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WindowFunctionLibIOS-Prefix.pch"; sourceTree = "<group>"; };
 		2A23AE40169D05D7004793F5 /* WindowFunctionLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowFunctionLibIOS.h; sourceTree = "<group>"; };
 		2A23AE42169D05D7004793F5 /* WindowFunctionLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowFunctionLibIOS.m; sourceTree = "<group>"; };
+		8ED7ADCD183D482900170BBA /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		A7ECFA6D164C4D1E00C3D0E9 /* TTBartlettWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBartlettWindow.h; path = includes/TTBartlettWindow.h; sourceTree = "<group>"; };
 		A7ECFA6E164C4D1E00C3D0E9 /* TTBlackmanHarrisWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBlackmanHarrisWindow.h; path = includes/TTBlackmanHarrisWindow.h; sourceTree = "<group>"; };
 		A7ECFA6F164C4D1E00C3D0E9 /* TTBlackmanWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTBlackmanWindow.h; path = includes/TTBlackmanWindow.h; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			children = (
 				A7ECFA8E164C4D5500C3D0E9 /* TTWindowFunctionLib.cpp */,
 				A7ECFA8F164C4D6000C3D0E9 /* WindowFunctionLib.yml */,
+				8ED7ADCD183D482900170BBA /* test.cpp */,
 				A7ECFA69164C4CED00C3D0E9 /* includes */,
 				A7ECFA6B164C4CF500C3D0E9 /* source */,
 				A7ECFA6C164C4CFF00C3D0E9 /* tests */,
@@ -214,11 +217,12 @@
 /* Begin PBXLegacyTarget section */
 		A702D0C615DCFBDB00CA71C6 /* WindowFunctionLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
+			buildArgumentsString = "$(Configuration) $(ACTION)";
 			buildConfigurationList = A702D0C915DCFBDB00CA71C6 /* Build configuration list for PBXLegacyTarget "WindowFunctionLib" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = WindowFunctionLib;
@@ -299,6 +303,7 @@
 				2A23AE5A169D0610004793F5 /* TTTukeyWindow.test.cpp in Sources */,
 				A7FA96FC16BD80A900E615DC /* TTRosenbergGlottalPulseWindow.cpp in Sources */,
 				A7FA970016BD80C100E615DC /* TTRosenbergGlottalPulseWindow.test.cpp in Sources */,
+				8ED7ADCE183D482900170BBA /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +321,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WindowFunctionLibIOS/WindowFunctionLibIOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -338,7 +343,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WindowFunctionLibIOS/WindowFunctionLibIOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;

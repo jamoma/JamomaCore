@@ -28,7 +28,6 @@ mMute(NO),
 mMix(100.),
 mGain(100.),
 mFreeze(NO),
-mPreview(NO),
 mSignalIn(NULL),
 mSignalOut(NULL),
 mSignalTemp(NULL),
@@ -83,7 +82,6 @@ mSignalAttr(NULL)
 	addAttributeWithSetter(Mix, kTypeFloat64);
 	addAttributeWithSetter(Gain, kTypeFloat64);
 	addAttribute(Freeze, kTypeBoolean);
-	addAttribute(Preview, kTypeBoolean);
 	
 	addAttribute(Signal, kTypeLocalValue);
 	addAttributeProperty(Signal, hidden, YES);
@@ -100,8 +98,12 @@ mSignalAttr(NULL)
 	
 	addMessage(Unlink);
 	addMessageProperty(Unlink, hidden, YES);
+    
+    // only needed because, for Max, the configuration file tells to convert 'mix' into 'Mix')
+    addMessageWithArguments(Mix);
+	addMessageProperty(Mix, hidden, YES);
 	
-	mLast = kTTValNONE;
+	mLast.clear();
 	
 	this->findAttribute(TTSymbol("signal"), &mSignalAttr);
 }
@@ -164,13 +166,13 @@ TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 	
 	else if (mFreeze) {
 		
-		err = mReturnSignalCallback->notify(mLast, kTTValNONE);
+		err = mReturnSignalCallback->deliver(mLast);
 		
 		notifySignalObserver(mLast);
 	}
 	else {
 		
-		err = mReturnSignalCallback->notify(inputValue, kTTValNONE);
+		err = mReturnSignalCallback->deliver(inputValue);
 		
 		notifySignalObserver(inputValue);
 	}
@@ -184,7 +186,8 @@ TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 {
-	return Send(inputValue, kTTValNONE);
+	TTValue dummy;
+	return Send(inputValue, dummy);
 }
 
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
@@ -192,7 +195,7 @@ TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 	mInputObject = TTInputPtr((TTObjectBasePtr)inputValue[0]);
 	
 	if (mReturnLinkCallback)
-		return mReturnLinkCallback->notify(kTTVal1, kTTValNONE);
+		return mReturnLinkCallback->deliver(1);
 	else
 		return kTTErrNone;
 }
@@ -202,7 +205,7 @@ TTErr TTOutput::Unlink()
 	mInputObject = NULL;
 	
 	if (mReturnLinkCallback)
-		return mReturnLinkCallback->notify(kTTVal0, kTTValNONE);
+		return mReturnLinkCallback->deliver(0);
 	else
 		return kTTErrNone;
 }
@@ -211,26 +214,26 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 {
 	TTValue			args;
 	TTValuePtr		newBaton;
-	TTAddress newAddress;
+	TTAddress       newAddress;
 	TTNodePtr		aNode;
-	TTObjectBasePtr		o;
-	TTValue			n = value;		// use new value to protect the attribute
-	
+	TTObjectBasePtr	o;
+	TTValue			none, n = value;		// use new value to protect the attribute
+    
 	newAddress = value[0];
 	
 	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
 		o = aNode->getObject();
 		if (o)
-			if (o->getName() == kTTSym_Input)
-				Link(o, kTTValNONE);
+			if (o->getName() == kTTSym_Input|| o->getName() == kTTSym_InputAudio)
+				Link(o, none);
 	}
 
 	if (!mAddressObserver) {
 		
 		// prepare arguments
 		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), kTTValNONE);
+		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 		
 		newBaton = new TTValue(TTObjectBasePtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
@@ -273,6 +276,11 @@ TTErr TTOutput::setMix(const TTValue& value)
 		return mMixUnit->setAttributeValue(TTSymbol("position"), mMix * 0.01);
 	
 	return kTTErrNone;
+}
+
+TTErr TTOutput::Mix(const TTValue& inputValue, TTValue& outputValue)
+{
+    return setMix(inputValue);
 }
 
 TTErr TTOutput::setGain(const TTValue& value)
@@ -319,13 +327,14 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	
 	o = aNode->getObject();
 	if (o) {
-		if (o->getName() == kTTSym_Input) {
+		if (o->getName() == kTTSym_Input || o->getName() == kTTSym_InputAudio) {
 			
 			switch (flag) {
 					
 				case kAddressCreated :
 				{
-					anOutput->Link(o, kTTValNONE);
+					TTValue unused;
+					anOutput->Link(o, unused);
 					break;
 				}
 					

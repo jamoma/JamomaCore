@@ -78,11 +78,11 @@ private:
 	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception (to share with clients)	(default : MINUIT_RECEPTION_PORT)
 	
 	TTObjectBasePtr			mOscReceive;
-    TTThreadPtr             mAnswerThread;              // a thread used to wait an answer after sending a request
+    TTThreadPtr             mWaitThread;                // a thread used to wait in some case
 	
 	MinuitAnswerManagerPtr	mAnswerManager;
     MinuitSenderManagerPtr	mSenderManager;
-	
+    
 	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
 	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
@@ -122,13 +122,29 @@ private:
      * \param returnedType          : the type of the node at the address (default is none which means no type)
 	 * \param returnedChildren      : all names of nodes below the address
 	 * \param returnedAttributes	: all attributes the node at the address
+     * \param tryCount              : number of try for this request
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	TTErr SendDiscoverRequest(TTSymbol to, TTAddress address,
                               TTSymbol& returnedType,
 							  TTValue& returnedChildren,
-							  TTValue& returnedAttributes);
+							  TTValue& returnedAttributes,
+                              TTUInt8 tryCount=0);
+    
+    /*!
+	 * Send a discover all request to an application to fill all the directory under this address
+	 *
+ 	 * \param to					: the application where to discover
+	 * \param address				: the address to discover
+     * \param node                  : the node for this address
+     * \param tryCount              : number of try for this request
+	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+	 else it returns kTTErrGeneric if no answer or timeout
+	 */
+	TTErr SendDiscoverAllRequest(TTSymbol to, TTAddress address,
+                                 TTNodePtr node,
+                                 TTUInt8 tryCount=0);
 	
 	/*!
 	 * Send a get request to an application to get a value at the given address
@@ -136,11 +152,13 @@ private:
  	 * \param to					: the application where to get
 	 * \param address				: the address to get
 	 * \param returnedValue			: the value which is going to be filled
+     * \param tryCount              : number of try for this request
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	TTErr SendGetRequest(TTSymbol to, TTAddress address, 
-						 TTValue& returnedValue);
+						 TTValue& returnedValue,
+                         TTUInt8 tryCount=0);
 	
 	/*!
 	 * Send a set request to set a value of a specific application
@@ -148,10 +166,12 @@ private:
 	 * \param to					: the application where to set
 	 * \param address				: the address to set
 	 * \param value					: anything to send
+     * \param tryCount              : number of try for this request
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
 	TTErr SendSetRequest(TTSymbol to, TTAddress address, 
-						 TTValue& value);
+						 TTValue& value,
+                         TTUInt8 tryCount=0);
 	
 	/*!
 	 * Send a listen request to a specific application
@@ -160,10 +180,12 @@ private:
 	 * \param address				: the address to listen
 	 * \param attribute				: the attribute to listen
 	 * \param enable				: enable/disable the listening
+     * \param tryCount              : number of try for this request
 	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
 	TTErr SendListenRequest(TTSymbol to, TTAddress address, 
-							TTBoolean enable);
+							TTBoolean enable,
+                            TTUInt8 tryCount=0);
 	
 	
 	/**************************************************************************************************************************
@@ -187,6 +209,17 @@ private:
 							 TTValue& returnedAttributes,
 							 TTErr err=kTTErrNone);
 	
+    /*!
+	 * Send a discover answer to a application which ask for.
+	 *
+	 * \param to					: the application where to send answer
+	 * \param address				: the address where comes from the description
+     * \param node                  : the node for this address
+	 */
+	TTErr SendDiscoverAllAnswer(TTSymbol to, TTAddress address,
+                                TTNodePtr node,
+                                TTErr err=kTTErrNone);
+    
 	/*!
 	 * Send a get answer to a application which ask for.
 	 *

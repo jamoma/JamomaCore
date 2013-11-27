@@ -55,7 +55,7 @@ protected:
 	/** Object constructor.
 		@param arguments			Arguments to the constructor method.
 	*/
-	TTDataObjectBase(TTValue& arguments);
+	TTDataObjectBase(const TTValue& arguments);
 
 	
 	/** Object destructor. */

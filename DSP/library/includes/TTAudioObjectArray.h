@@ -2,9 +2,11 @@
  *
  * @ingroup dspLibrary
  *
- * @brief #TTAudioObjectBaseArray is a wrapper for an array of audio objects
+ * @brief Wrapper for an array of audio objects
  *
  * @details
+ *
+ * @see TTAudioObjectBase
  *
  * @authors Tim Place, Nils Peters, Trond Lossius
  *

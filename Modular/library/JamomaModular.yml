@@ -4,11 +4,6 @@ defines:
 sources:
   - source/TTModular.cpp
   - source/TTModularSymbolCache.cpp
-  - source/Jamoma.cpp
-  - source/JamomaObject.cpp
-  - source/JamomaSymbols.cpp
-  - source/j.core.cpp
-  - ModularForMax/ModularForMax.cpp
   - PeerObject/TTApplication.cpp
   - PeerObject/TTApplicationManager.cpp
   - PeerObject/TTContainer.cpp
@@ -36,20 +31,14 @@ sources:
   - PeerObject/TTXmlHandler.cpp
   - ProtocolLib/Protocol.cpp
   - SchedulerLib/Scheduler.cpp
-  - ../../../Implementations/Max/source/c74support/max-includes/common/commonsyms.cpp
 
 includes:
   - includes
-  - ModularForMax
   - PeerObject
   - ProtocolLib
   - SchedulerLib
   - ../../../Core/Foundation/library/includes
   - ../../../Core/DSP/library/includes
-  - ../../../Implementations/Max/source/classwrapper
-  - ../../../Implementations/Max/source/c74support/max-includes
-  - ../../../Implementations/Max/source/c74support/msp-includes
-  - ../../../Implementations/Max/source/c74support/jit-includes
   - /usr/include/libxml2
   - ../../Foundation/library/libxml2/win32/include
   - ../../Foundation/library/libiconv/include
@@ -60,9 +49,8 @@ includes:
 libraries:
   - FOUNDATION
   - DSP
-  - C74
   - mac /usr/lib/libxml2.dylib
-  - win ../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
+#  - win ../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
   - win ../../Foundation/library/libxml2/win32/lib/libxml2.lib
 
 frameworks:

@@ -40,21 +40,19 @@ TTHashPtr TTModularNamespaces = NULL;
 
 /****************************************************************************************************/
 
-TTString TTModularInit()
+void TTModularInit(const char* pathToTheJamomaFolder)
 {
-    TTString    path;
+    TTValue v, none;
     
 	// Initialized Foundation framework
-	TTFoundationInit();
+	TTFoundationInit(pathToTheJamomaFolder);
     
 //#define TO_DEBUG
 #ifdef TO_DEBUG
 
 	TTObjectBasePtr test = NULL;
-	TTValue v;
-	
-	TTObjectBaseInstantiate(TTSymbol("nodelib.test"), &test, kTTValNONE);
-	test->test(v);
+	TTObjectBaseInstantiate(TTSymbol("value.test"), &test, none);
+	TTDataObjectBasePtr(test)->test(v);
 
 #endif // TO_DEBUG
 	
@@ -93,7 +91,6 @@ TTString TTModularInit()
 		// to - this a very strange bug : the two first toString() parsing on number failed !?!
 		// so here are two parsing to avoid this strange bug for instant ...
 		TTString s;
-		TTValue v;
 		
 		s = "0.001";
 		v = s;
@@ -105,7 +102,7 @@ TTString TTModularInit()
 		v.fromString();
 		
 		// Create the Modular application manager with no application inside
-		TTObjectBaseInstantiate(kTTSym_ApplicationManager, TTObjectBaseHandle(&TTModularApplications), kTTValNONE);
+		TTObjectBaseInstantiate(kTTSym_ApplicationManager, TTObjectBaseHandle(&TTModularApplications), none);
 		
 		// Create a hash table to manage namespace selections
 		TTModularNamespaces = new TTHash();
@@ -115,32 +112,12 @@ TTString TTModularInit()
 #else
 		TTLogMessage("Modular -- Version %s\n", TTMODULAR_VERSION_STRING);
 #endif
-        
-        
-        // Return where is the JamomaModular.dylib
-        // to : this could be return by the TTFoundationInit method (?)
-        Dl_info     info;
-        char		temp[4096];
-        char*       c = 0;
-        
-        if (dladdr((const void*)TTModularInit, &info)) {
-            
-            // chop the "/JamomaModular.dylib off of the path
-            strncpy(temp, info.dli_fname, 4096);
-            c = strrchr(temp, '/');
-            if (c)
-                *c = 0;
-            
-            path = temp;
-        }
 	}
-    
-    return path;
 }
 
 void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath)
 {
-	TTValue				args;
+	TTValue				args, none;
 	TTApplicationPtr	anApplication = NULL;
 	
 	if (TTModularApplications) {
@@ -158,12 +135,12 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 			
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
-			TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&anXmlHandler), kTTValNONE);
+			TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&anXmlHandler), none);
 			
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
 			
 			args = TTValue(TTSymbol(xmlConfigFilePath));
-			anXmlHandler->sendMessage(kTTSym_Read, args, kTTValNONE);
+			anXmlHandler->sendMessage(kTTSym_Read, args, none);
 		}
 		else
 			TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName.c_str());

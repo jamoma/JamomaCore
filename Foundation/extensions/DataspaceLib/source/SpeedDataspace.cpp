@@ -1,11 +1,18 @@
-/* 
- * Jamoma DataspaceLib: SpeedDataspace
- * Copyright © 2011
- * Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief The #SpeedDataspace converts between different measurement untis describing velocity.
+ *
+ * @details The neutral unit of the speed dataspace is _m/s_.
+ *
+ * @authors Nils Peters, Trond Lossius, Tim Peters, ...
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "SpeedDataspace.h"
 
@@ -152,7 +159,7 @@ void MeterPerSecondUnit::convertFromNeutral(const TTValue& input, TTValue& outpu
 
 #define thisTTClass			SpeedDataspace
 #define thisTTClassName		"dataspace.speed"
-#define thisTTClassTags		"dataspace, speed"
+#define thisTTClassTags		"foundationDataspaceLib, dataspace, speed"
 
 TT_OBJECT_CONSTRUCTOR
 {

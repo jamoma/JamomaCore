@@ -26,7 +26,7 @@
 /**	A function pointer for an instance creation function required to be provided by all classes.
  @ingroup typedefs
  */
-typedef TTObjectBase* (*TTObjectBaseInstantiationMethod)(TTSymbol& className, TTValue& arguments);
+typedef TTObjectBase* (*TTObjectBaseInstantiationMethod)(TTSymbol className, const TTValue arguments);
 
 /**	A function pointer for an instance creation function required to be provided by all classes.
  @ingroup typedefs
@@ -78,7 +78,7 @@ public:
 		@param	anInstantiationMethod	A pointer to the C-function that is used to create a new instance of the class.
 		@return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr registerClass(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
+	TTErr registerClass(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 
 	// The above creates a class and registers it -- this one just registers a class after it is created.
 	TTErr registerClass(TTClass* theClass);
@@ -142,7 +142,6 @@ public:
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, TTValue& anArgument);
 	TTErr createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument);
 	
 	
@@ -180,8 +179,8 @@ TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol&
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject) );
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject) );
 
-TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol& className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
-TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol& className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
+TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
+TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames) );
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags) );
 

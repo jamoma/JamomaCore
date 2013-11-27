@@ -37,12 +37,22 @@ class TTMODULAR_EXPORT TTMapper : public TTDataObjectBase
 private:
 	
 	TTAddress			mInput;						///< ATTRIBUTE : address of the data for the incoming value
-	TTAddress			mOutput;					///< ATTRIBUTE : address of the data for the value to control
 	
 	TTFloat64			mInputMin;					///< ATTRIBUTE : 
-	TTFloat64			mInputMax;					///< ATTRIBUTE : 
-	TTFloat64			mOutputMin;					///< ATTRIBUTE : 
-	TTFloat64			mOutputMax;					///< ATTRIBUTE : 
+	TTFloat64			mInputMax;					///< ATTRIBUTE :
+    TTFloat64			mInputThresholdDown;        ///< ATTRIBUTE :
+	TTFloat64			mInputThresholdUp;			///< ATTRIBUTE :
+    TTBoolean			mInputGoingDown;            ///< memorize last state to filter repetitions
+	TTBoolean			mInputGoingUp;              ///< memorize last state to filter repetitions
+    
+    TTAddress			mOutput;					///< ATTRIBUTE : address of the data for the value to control
+    
+	TTFloat64			mOutputMin;					///< ATTRIBUTE :
+	TTFloat64			mOutputMax;					///< ATTRIBUTE :
+    TTFloat64			mOutputThresholdDown;       ///< ATTRIBUTE :
+	TTFloat64			mOutputThresholdUp;			///< ATTRIBUTE :
+    TTBoolean			mOutputGoingDown;           ///< memorize last state to filter repetitions
+	TTBoolean			mOutputGoingUp;             ///< memorize last state to filter repetitions
 	
 	TTBoolean			mActive;					///< ATTRIBUTE : does it observe Input value ?
 	
@@ -71,6 +81,12 @@ private:
 													///< Set to false if there are a setting of Output Min/Max value
 	
 	TTCallbackPtr		mReturnValueCallback;		///< a way to return back value to the owner of this mapper
+    
+    TTCallbackPtr		mReturnInputGoingDownCallback;///< a way to return back if the input value is lower than or equal to the down threshold
+    TTCallbackPtr		mReturnInputGoingUpCallback;///< a way to return back if the input value is greater than or equal to the up threshold
+    
+    TTCallbackPtr		mReturnOutputGoingDownCallback;///< a way to return back if the output value is lower than or equal to the down threshold
+    TTCallbackPtr		mReturnOutputGoingUpCallback;///< a way to return back if the output value is greater than or equal to the up threshold
 	
 	TTFloat64			mA, mB, mC, mD;				//< Coefficients used for normalizing input(A, B) and output (C, D)
 #ifndef TT_NO_DSP

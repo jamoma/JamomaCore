@@ -45,6 +45,13 @@ public:
 	 */
 	TTErr notify(const TTValue& anInputValue, TTValue &anUnusedOutputValue);
 	
+	TTErr deliver(const TTValue anInputValue)
+	{
+		TTValue unused;
+		return notify(anInputValue, unused);
+	}
+	
+	
 	/**	Usefull to easily free the baton in case the pointer is a TTValue of something which need to be freed corectly.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */

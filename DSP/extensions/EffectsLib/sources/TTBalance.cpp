@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTBalance
 #define thisTTClassName		"balance"
-#define thisTTClassTags		"audio, processor, dynamics"
+#define thisTTClassTags		"dspEffectsLib, audio, processor, dynamics"
 
 
 TT_AUDIO_CONSTRUCTOR

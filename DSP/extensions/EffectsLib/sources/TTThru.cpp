@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTThru
 #define thisTTClassName		"thru"
-#define thisTTClassTags		"audio, processor"
+#define thisTTClassTags		"dspEffectsLib, audio, processor"
 
 
 TT_AUDIO_CONSTRUCTOR

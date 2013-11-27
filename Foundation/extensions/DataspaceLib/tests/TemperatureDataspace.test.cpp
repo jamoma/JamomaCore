@@ -1,10 +1,16 @@
-/* 
- * Jamoma DataspaceLib: TemperatureDataspace unit tests
- * Copyright © 2011 Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup foundationDataspaceLib
+ *
+ * @brief Unit tests for the #TemperatureDataspace.
+ *
+ * @authors Trond Lossius, Tim Place, Nils Peters, ...
+ *
+ * @copyright Copyright © 2011 Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TemperatureDataspace.h"
 
@@ -16,7 +22,7 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     // Create dataspace object and set to temperature
     TTObjectBasePtr         myDataspace = NULL;
     TTErr err;
-    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, kTTValNONE);
+    err = TTObjectBaseInstantiate(TT("dataspace"), (TTObjectBasePtr*)&myDataspace, 0);
 	myDataspace->setAttributeValue(TT("dataspace"), TT("temperature"));
     
     TTValue v;

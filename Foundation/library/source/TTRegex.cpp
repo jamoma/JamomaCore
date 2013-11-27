@@ -65,12 +65,20 @@ TTErr TTRegex::parse(TTStringIter& begin, TTStringIter& end)
 //TTRegexStringPosition TTRegex::begin()
 TTStringIter TTRegex::begin()
 {
+#if BOOST_REGEX
 	return mRESULT[1].first;
+#else
+    return mRESULT[0].first + 1;
+#endif
 }
 
 /** Get where end the result */
 //TTRegexStringPosition TTRegex::end()
 TTStringIter TTRegex::end()
 {
+#if BOOST_REGEX
 	return mRESULT[1].second;
+#else
+    return mRESULT[0].second;
+#endif
 }

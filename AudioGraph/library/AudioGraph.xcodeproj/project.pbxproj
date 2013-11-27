@@ -15,6 +15,8 @@
 		2A42392F169CF199002D05D9 /* TTAudioGraphGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73F2C79161CB818007A4E83 /* TTAudioGraphGenerator.cpp */; };
 		2A423930169CF19B002D05D9 /* TTAudioGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73F2C7A161CB818007A4E83 /* TTAudioGraph.cpp */; };
 		2AD7883D169CFA0700604D7C /* AudioGraphIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7883C169CFA0700604D7C /* AudioGraphIOS.m */; };
+		8ED08E6A1846716B00B575D2 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ED08E691846716B00B575D2 /* test.cpp */; };
+		8ED7ADBC183D05FA00170BBA /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 8ED7ADBB183D05FA00170BBA /* Makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +37,9 @@
 		2AD7883A169CFA0700604D7C /* AudioGraphIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AudioGraphIOS-Prefix.pch"; path = "AudioGraphiOS/AudioGraphIOS-Prefix.pch"; sourceTree = "<group>"; };
 		2AD7883B169CFA0700604D7C /* AudioGraphIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioGraphIOS.h; path = AudioGraphiOS/AudioGraphIOS.h; sourceTree = "<group>"; };
 		2AD7883C169CFA0700604D7C /* AudioGraphIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioGraphIOS.m; path = AudioGraphiOS/AudioGraphIOS.m; sourceTree = "<group>"; };
+		8ED08E691846716B00B575D2 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		8ED7ADBA183D05FA00170BBA /* JamomaAudioGraph.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JamomaAudioGraph.yml; sourceTree = "<group>"; };
+		8ED7ADBB183D05FA00170BBA /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		A73F2C74161CB818007A4E83 /* TTAudioGraphObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphObject.cpp; path = source/TTAudioGraphObject.cpp; sourceTree = "<group>"; };
 		A73F2C75161CB818007A4E83 /* TTAudioGraphDescription.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphDescription.cpp; path = source/TTAudioGraphDescription.cpp; sourceTree = "<group>"; };
 		A73F2C76161CB818007A4E83 /* TTAudioGraphOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphOutput.cpp; path = source/TTAudioGraphOutput.cpp; sourceTree = "<group>"; };
@@ -135,6 +140,9 @@
 		A79C81D21523142400119511 = {
 			isa = PBXGroup;
 			children = (
+				8ED7ADBA183D05FA00170BBA /* JamomaAudioGraph.yml */,
+				8ED7ADBB183D05FA00170BBA /* Makefile */,
+				8ED08E691846716B00B575D2 /* test.cpp */,
 				2AD7883F169CFA1000604D7C /* AudioGraphIOS */,
 				A73F2C88161CB89F007A4E83 /* includes */,
 				A73F2C7B161CB822007A4E83 /* sources */,
@@ -149,7 +157,7 @@
 /* Begin PBXLegacyTarget section */
 		A79C81D91523142500119511 /* AudioGraph */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildArgumentsString = "$(CONFIGURATION) $(ACTION)";
 			buildConfigurationList = A79C81DC1523142500119511 /* Build configuration list for PBXLegacyTarget "AudioGraph" */;
 			buildPhases = (
 			);
@@ -220,6 +228,8 @@
 				2A423930169CF19B002D05D9 /* TTAudioGraph.cpp in Sources */,
 				2AD7883D169CFA0700604D7C /* AudioGraphIOS.m in Sources */,
 				2287B960176FD5590095A0BC /* split-gain-join.test.cpp in Sources */,
+				8ED7ADBC183D05FA00170BBA /* Makefile in Sources */,
+				8ED08E6A1846716B00B575D2 /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +250,7 @@
 				GCC_PREFIX_HEADER = "AudioGraphiOS/AudioGraphiOS-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "$(SRCROOT)/build";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -265,7 +275,7 @@
 				GCC_PREFIX_HEADER = "AudioGraphiOS/AudioGraphiOS-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "$(SRCROOT)/build";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;

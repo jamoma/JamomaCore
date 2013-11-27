@@ -18,6 +18,7 @@
 		2A23AD6A169D0194004793F5 /* TTWavetable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E1E1652B78D0099C2DD /* TTWavetable.cpp */; };
 		2A23AD6B169D0194004793F5 /* TTPhasor.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E1F1652B7950099C2DD /* TTPhasor.test.cpp */; };
 		2A23AD6C169D0194004793F5 /* TTRamp.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7B79E201652B7950099C2DD /* TTRamp.test.cpp */; };
+		8ED7ADC8183D423F00170BBA /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ED7ADC7183D423F00170BBA /* test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,7 @@
 		2A23AD5C169D0186004793F5 /* GeneratorLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GeneratorLibIOS-Prefix.pch"; sourceTree = "<group>"; };
 		2A23AD5D169D0186004793F5 /* GeneratorLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratorLibIOS.h; sourceTree = "<group>"; };
 		2A23AD5F169D0186004793F5 /* GeneratorLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneratorLibIOS.m; sourceTree = "<group>"; };
+		8ED7ADC7183D423F00170BBA /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		A7B79E131652B7690099C2DD /* GeneratorLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GeneratorLib.cpp; sourceTree = "<group>"; };
 		A7B79E141652B7710099C2DD /* GeneratorLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = GeneratorLib.yml; sourceTree = "<group>"; };
 		A7B79E151652B77D0099C2DD /* TTAdsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAdsr.h; path = includes/TTAdsr.h; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				A7B79E131652B7690099C2DD /* GeneratorLib.cpp */,
 				A7B79E141652B7710099C2DD /* GeneratorLib.yml */,
+				8ED7ADC7183D423F00170BBA /* test.cpp */,
 				A7B79E0F1652B74B0099C2DD /* include */,
 				A7B79E111652B7510099C2DD /* source */,
 				A7B79E121652B7570099C2DD /* tests */,
@@ -229,6 +232,7 @@
 				2A23AD6A169D0194004793F5 /* TTWavetable.cpp in Sources */,
 				2A23AD6B169D0194004793F5 /* TTPhasor.test.cpp in Sources */,
 				2A23AD6C169D0194004793F5 /* TTRamp.test.cpp in Sources */,
+				8ED7ADC8183D423F00170BBA /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +248,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeneratorLibIOS/GeneratorLibIOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;
@@ -264,7 +268,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeneratorLibIOS/GeneratorLibIOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../..\"/**";
-				INSTALL_PATH = "/usr/local/jamoma/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				INSTALL_PATH = "$(SRCROOT)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = NO;

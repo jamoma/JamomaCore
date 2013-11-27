@@ -1,10 +1,18 @@
-/* 
- * TTBlue Audio Signal Class
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspLibrary
+ *
+ * @brief Represents M channels containing N vectors of audio samples.
+ *
+ * @details TODO: put more info here
+ *
+ * @authors Tim Place
+ *
+ * @copyright Copyright © 2008 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_AUDIO_SIGNAL_H__
 #define __TT_AUDIO_SIGNAL_H__
@@ -78,12 +86,12 @@ public:
 	 *	@param		newVector		A pointer to the first sample in a vector of samples.
 	 *	@result		An error code.																 */
 	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
-	TTErr setVector64(const TTValue& v, TTValue&);	// A version of the above used by the message passing interface.
+//	TTErr setVector64(const TTValue& v, TTValue&);	// A version of the above used by the message passing interface.
 	TTErr setVector64Copy(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
 	/**	This version handles vector assignments from 32-bit vectors.
 	*/
 	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTFloat32* newVector);
-	TTErr setVector32(const TTValue& v, TTValue&);	// A version of the above used by the message passing interface.
+//	TTErr setVector32(const TTValue& v, TTValue&);	// A version of the above used by the message passing interface.
 
 	TTFloat64 getSample64(const TTUInt16 channel, const TTUInt16 sampleNumber)
 	{
@@ -97,11 +105,11 @@ public:
 
 	
 	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTSampleValue* returnedVector);
-	TTErr getVector64(TTValue&, TTValue& v);	// A version of the above used by the message passing interface.
+//	TTErr getVector64(TTValue&, TTValue& v);	// A version of the above used by the message passing interface.
 	TTErr getVectorCopy(const TTUInt16 channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector); // version of getVector that copies
 	
 	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTFloat32* returnedVector);
-	TTErr getVector32(TTValue&, TTValue& v);	// A version of the above used by the message passing interface.
+//	TTErr getVector32(TTValue&, TTValue& v);	// A version of the above used by the message passing interface.
 
 protected:	
 	TTErr setVectorSize(const TTValue& newVectorSize)

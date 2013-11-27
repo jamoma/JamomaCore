@@ -22,13 +22,12 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
-mValueDefault(kTTValNONE),
 mValueStepsize(TTValue(0.1)),
 mType(kTTSym_generic),
 mTag(TTValue(kTTSym_none)),
 mPriority(0),
 mDescription(kTTSym_none),
-mRepetitionsAllow(YES),
+mRepetitionsFilter(NO),
 mActive(YES),
 mInitialized(NO),
 mRangeBounds(0.0, 1.0),
@@ -39,7 +38,6 @@ mRampDrive(kTTSym_none),
 #ifndef TT_NO_DSP
 mRampFunction(kTTSym_none),
 #endif
-mRampFunctionParameters(kTTValNONE),
 mRampStatus(NO),
 mDataspace(kTTSym_none),
 mDataspaceUnit(kTTSym_none),
@@ -63,7 +61,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Tag, kTypeLocalValue);
 	addAttributeWithSetter(Priority, kTypeInt32);
 	addAttributeWithSetter(Description, kTypeSymbol);
-	addAttributeWithSetter(RepetitionsAllow, kTypeBoolean);
+	addAttributeWithSetter(RepetitionsFilter, kTypeBoolean);
 	
 	addAttributeWithSetter(Active, kTypeBoolean);
 	
@@ -97,7 +95,7 @@ mReturnValueCallback(NULL)
 	addAttribute(Service, kTypeSymbol);
 	addAttributeProperty(Service, readOnly, YES);
 	
-    registerMessage(kTTSym_Reset, (TTMethod)&TTData::GenericReset, kTTMessagePassNone);
+    registerMessage(kTTSym_Init, (TTMethod)&TTData::GenericInit, kTTMessagePassNone);
 	addMessageWithArguments(Inc);
 	addMessageWithArguments(Dec);
     
@@ -150,7 +148,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt32	i;
 	TTFloat64	inc, ramptime, v, vStepsize;
 	TTSymbol	ramp;
-	TTValue		command;
+	TTValue		command, none;
 	
     if (mType == kTTSym_string)
         return kTTErrGeneric;
@@ -210,7 +208,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 		}
 	}
 	
-	this->sendMessage(kTTSym_Command, command, kTTValNONE);
+	this->sendMessage(kTTSym_Command, command, none);
 	
 	return kTTErrNone;
 }
@@ -220,7 +218,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt32	i;
 	TTFloat64	dec, ramptime, v, vStepsize;
 	TTSymbol	ramp;
-	TTValue		command;
+	TTValue		command, none;
     
     if (mType == kTTSym_string)
         return kTTErrGeneric;
@@ -280,7 +278,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 		}
 	}
 	
-	this->sendMessage(kTTSym_Command, command, kTTValNONE);
+	this->sendMessage(kTTSym_Command, command, none);
 	
 	return kTTErrNone;
 }
@@ -333,11 +331,11 @@ TTErr TTData::setTag(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTData::setRepetitionsAllow(const TTValue& value)
+TTErr TTData::setRepetitionsFilter(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mRepetitionsAllow = value;
-	this->notifyObservers(kTTSym_repetitionsAllow, n);
+	mRepetitionsFilter = value;
+	this->notifyObservers(kTTSym_repetitionsFilter, n);
 	return kTTErrNone;
 }
 
@@ -446,11 +444,11 @@ TTErr TTData::setRampFunction(const TTValue& value)
 TTErr TTData::setDataspace(const TTValue& value)
 {
 	TTErr	err;
-	TTValue v;
+	TTValue v, none;
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspace = value;
 	
-	TTObjectBaseInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, kTTValNONE);
+	TTObjectBaseInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, none);
 	mDataspaceConverter->setAttributeValue(TTSymbol("dataspace"), mDataspace);
 	
 	// If there is already a unit defined, then we try to use that
@@ -518,7 +516,7 @@ TTErr TTData::RampTarget(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTData::RampGo(const TTValue& inputValue, TTValue& outputValue)
 {
     if (mRamper)
-        return mRamper->sendMessage(TTSymbol("Go"), inputValue, outputValue);
+        return mRamper->sendMessage(kTTSym_Go, inputValue, outputValue);
     
     return kTTErrGeneric;
 }
@@ -653,11 +651,11 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += this->mDataspaceUnit.c_str();
 	*buffer += "</td>";
 	
-	// repetitions/allow
-	toString = this->mRepetitionsAllow;
+	// repetitions/filter
+	toString = this->mRepetitionsFilter;
 	toString.toString();
 	line = TTString(toString[0]);
-	*buffer += "\t\t\t<td class =\"instructionRepetitionsAllow\">";
+	*buffer += "\t\t\t<td class =\"instructionRepetitionsFilter\">";
 	*buffer += line.data();
 	*buffer += "</td>";
 	
@@ -673,9 +671,9 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark Some Methods
 #endif
 
-TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
+TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue)
 {
-	TTDictionaryPtr		command = new TTDictionary();
+	TTDictionaryBasePtr		command = new TTDictionaryBase();
 	TTUInt32			time;
 	TTUInt32			commandSize;
 	TTSymbol			unit, ramp;
@@ -749,12 +747,19 @@ TTDictionaryPtr TTDataParseCommand(const TTValue& commandValue)
 						hasUnit = true;
 						unit = commandValue[commandSize - 3];
 					}
-					else
-						if (commandValue[commandSize - 1].type() == kTypeSymbol) {
-							hasUnit = true;
-							unit = commandValue[commandSize - 1];
-						}
 				}
+                else if (commandValue[commandSize - 1].type() == kTypeSymbol) {
+                    
+                    // only if all values before are numerical
+                    TTBoolean numerical = YES;
+                    for (TTUInt32 i = 0; i < commandSize - 1; i++)
+                        numerical &= commandValue[i].type() != kTypeSymbol;
+                    
+                    if (numerical) {
+                        hasUnit = true;
+                        unit = commandValue[commandSize - 1];
+                    }
+                }
 			}
 			
 			break;	
@@ -808,7 +813,7 @@ void TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	if (aData->mType == kTTSym_integer)
 		rampedValue.truncate();
     
-	if (!aData->mRepetitionsAllow)
+	if (aData->mRepetitionsFilter)
 		if (aData->mValue == rampedValue)
 			return;
     
@@ -823,7 +828,7 @@ void TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
         
 		// stop the ramp
 		if (!aData->mRampStatus)
-			aData->mRamper->sendMessage(TTSymbol("Stop"));
+			aData->mRamper->sendMessage(kTTSym_Stop);
         
 		aData->notifyObservers(kTTSym_rampStatus, aData->mRampStatus);
 	}

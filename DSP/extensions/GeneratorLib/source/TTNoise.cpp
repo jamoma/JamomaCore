@@ -18,7 +18,7 @@
 
 #define thisTTClass			TTNoise
 #define thisTTClassName		"noise"
-#define thisTTClassTags		"audio, generator, noise"
+#define thisTTClassTags		"dspGeneratorLib, audio, generator, noise"
 
 
 TT_AUDIO_CONSTRUCTOR,

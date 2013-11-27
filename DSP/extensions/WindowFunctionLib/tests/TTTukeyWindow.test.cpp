@@ -68,7 +68,7 @@ TTErr TukeyWindow::test(TTValue& returnedTestInfo)
 	TTFloat64			testAlpha = 0.5;
 	
 	// setup windowObject
-	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, kTTVal1);
+	TTObjectBaseInstantiate(TT("WindowFunction"), &windowObject, TTValue(1));
 	windowObject->setAttributeValue(TT("function"), TT("tukey"));
 	windowObject->setAttributeValue(TT("mode"), TT("apply"));
 	

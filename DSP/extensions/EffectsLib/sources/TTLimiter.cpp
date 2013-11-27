@@ -10,7 +10,7 @@
 
 #define thisTTClass			TTLimiter
 #define thisTTClassName		"limiter"
-#define thisTTClassTags		"audio, processor, dynamics, limiter"
+#define thisTTClassTags		"dspEffectsLib, audio, processor, dynamics, limiter"
 
 
 TT_AUDIO_CONSTRUCTOR,
@@ -51,8 +51,8 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue("lookahead",				100);
 	setAttributeValue("mode",					"exponential");
 	setAttributeValue("release",				1000.0);
-	setAttributeValue("dcBlocker",				kTTBoolYes);
-	setAttributeValue("bypass",					kTTBoolNo);
+	setAttributeValue("dcBlocker",				YES);
+	setAttributeValue("bypass",					NO);
 
 	clear();
 	setProcessMethod(processAudio);

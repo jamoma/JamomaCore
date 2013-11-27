@@ -18,7 +18,7 @@
 
 TTErr TTData::setType(const TTValue& value)
 {
-    TTMessagePtr    resetMessage;
+    TTMessagePtr    initMessage;
 	TTAttributePtr  valueDefaultAttribute, valueStepSizeAttribute;
     
 	// if the new type is different
@@ -28,7 +28,7 @@ TTErr TTData::setType(const TTValue& value)
 		mType = value;
 		
 		// Get ValueDefault and ValueStepsize attributes (because commande message and value attribute are already cached)
-        this->findMessage(kTTSym_Reset, &resetMessage);
+        this->findMessage(kTTSym_Init, &initMessage);
 		this->findAttribute(kTTSym_valueDefault, &valueDefaultAttribute);
 		this->findAttribute(kTTSym_valueStepsize, &valueStepSizeAttribute);
         
@@ -38,7 +38,7 @@ TTErr TTData::setType(const TTValue& value)
 		// register mValue Attribute and prepare memory
 		if (mType == kTTSym_integer) {
             commandMethod = (TTMethodValue)&TTData::IntegerCommand;
-            resetMessage->method = (TTMethod)&TTData::IntegerReset;
+            initMessage->method = (TTMethod)&TTData::IntegerInit;
 			valueAttribute->type = kTypeInt32;
             valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerValue;
 			valueDefaultAttribute->type = kTypeInt32;
@@ -50,7 +50,7 @@ TTErr TTData::setType(const TTValue& value)
 		}
 		else if (mType == kTTSym_decimal) {
             commandMethod = (TTMethodValue)&TTData::DecimalCommand;
-            resetMessage->method = (TTMethod)&TTData::DecimalReset;
+            initMessage->method = (TTMethod)&TTData::DecimalInit;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setDecimalValue;
 			valueDefaultAttribute->type = kTypeFloat64;
@@ -62,18 +62,18 @@ TTErr TTData::setType(const TTValue& value)
 		}
 		else if (mType == kTTSym_string) {
             commandMethod = (TTMethodValue)&TTData::StringCommand;
-            resetMessage->method = (TTMethod)&TTData::StringReset;
+            initMessage->method = (TTMethod)&TTData::StringInit;
 			valueAttribute->type = kTypeSymbol;
             valueAttribute->setter = (TTSetterMethod)&TTData::setStringValue;
 			valueDefaultAttribute->type = kTypeSymbol;
 			valueStepSizeAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
-			mValueStepsize = kTTValNONE;
-			mRangeBounds = kTTValNONE;
+			mValueStepsize.clear();
+			mRangeBounds.clear();
 		}
 		else if (mType == kTTSym_boolean) {
             commandMethod = (TTMethodValue)&TTData::BooleanCommand;
-            resetMessage->method = (TTMethod)&TTData::BooleanReset;
+            initMessage->method = (TTMethod)&TTData::BooleanInit;
 			valueAttribute->type = kTypeBoolean;
             valueAttribute->setter = (TTSetterMethod)&TTData::setBooleanValue;
 			valueDefaultAttribute->type = kTypeBoolean;
@@ -85,7 +85,7 @@ TTErr TTData::setType(const TTValue& value)
 		}
 		else if (mType == kTTSym_array) {
             commandMethod = (TTMethodValue)&TTData::ArrayCommand;
-            resetMessage->method = (TTMethod)&TTData::ArrayReset;
+            initMessage->method = (TTMethod)&TTData::ArrayInit;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setArrayValue;
 			valueDefaultAttribute->type = kTypeFloat64;
@@ -97,18 +97,18 @@ TTErr TTData::setType(const TTValue& value)
 		}
 		else if (mType == kTTSym_none) {
             commandMethod = (TTMethodValue)&TTData::NoneCommand;
-            resetMessage->method = (TTMethod)&TTData::NoneReset;
+            initMessage->method = (TTMethod)&TTData::NoneInit;
 			valueAttribute->type = kTypeNone;
             valueAttribute->setter = (TTSetterMethod)&TTData::setNoneValue;
 			valueDefaultAttribute->type = kTypeNone;
 			valueStepSizeAttribute->type = kTypeNone;
-			mValue = kTTValNONE;
-			mValueStepsize = kTTValNONE;
-			mRangeBounds = kTTValNONE;
+			mValue.clear();
+			mValueStepsize.clear();
+			mRangeBounds.clear();
 		}
 		else {
             commandMethod = (TTMethodValue)&TTData::GenericCommand;
-            resetMessage->method = (TTMethod)&TTData::GenericReset;
+            initMessage->method = (TTMethod)&TTData::GenericInit;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setGenericValue;
 			valueDefaultAttribute->type = kTypeFloat64;
@@ -141,7 +141,7 @@ TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
     }
     
     // else we need to free the parsed command afterwards
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTErr           err;
     
     // parse command locally
@@ -189,7 +189,9 @@ TTErr TTData::returnValue()
 {
     // used a new value to protect the internal value
     TTValue v = mValue;
-    
+	TTValue dummy;
+	
+  
     // This is a temporary solution to have audio rate ramping outside the TTData
     if (mRampDrive == kTTSym_external) {
         
@@ -199,7 +201,7 @@ TTErr TTData::returnValue()
     
     // return the value to his owner
     if (!(mService == kTTSym_return))
-        this->mReturnValueCallback->notify(v, kTTValNONE);
+        this->mReturnValueCallback->notify(v, dummy);
     
     // notify each observers
     valueAttribute->sendNotification(kTTSym_notify, v);             // we use kTTSym_notify because we know that observers are TTCallback
@@ -218,7 +220,8 @@ TTErr TTData::returnValue()
 
 TTErr TTData::NoneCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    return this->setNoneValue(kTTValNONE);
+    TTValue none;
+    return this->setNoneValue(none);
 }
 
 TTErr TTData::setNoneValue(const TTValue& value)
@@ -246,7 +249,7 @@ TTErr TTData::setNoneValue(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTData::NoneReset()
+TTErr TTData::NoneInit()
 {
     // the value is not initialized
     mInitialized = NO;
@@ -259,7 +262,7 @@ TTErr TTData::NoneReset()
 
 TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTValue			c, aValue;
 
     if (inputValue.size()) {
@@ -267,7 +270,7 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -276,7 +279,7 @@ TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 3. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized)
+        if (mRepetitionsFilter && mInitialized)
             if (mValue == aValue)
                 return kTTErrNone;	// nothing to do
         
@@ -315,10 +318,10 @@ TTErr TTData::setGenericValue(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTData::GenericReset()
+TTErr TTData::GenericInit()
 {
     // if valueDefault type is right
-    if (!(mValueDefault == kTTValNONE))
+    if (!mValueDefault.empty())
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
     
     // the value is not initialized if the value equals to the start value
@@ -332,18 +335,18 @@ TTErr TTData::GenericReset()
 
 TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
-    TTValue			c, v, aValue;
+    TTValue			c, v, aValue, none;
  
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -352,7 +355,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 3. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             aValue.booleanize();
             
@@ -370,9 +373,9 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Go"), (int)time, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -387,7 +390,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            mRamper->sendMessage(TTSymbol("Stop"));
+            mRamper->sendMessage(kTTSym_Stop);
             
             // update the ramp status attribute
             mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -462,11 +465,11 @@ TTBoolean TTData::checkBooleanType(const TTValue& value)
             type == kTypeUInt64;
 }
 
-TTErr TTData::BooleanReset()
+TTErr TTData::BooleanInit()
 {
     // if valueDefault type is right
 	if (checkBooleanType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
 	
@@ -481,18 +484,18 @@ TTErr TTData::BooleanReset()
 
 TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
-    TTValue			c, v, aValue;
+    TTValue			c, v, aValue, none;
     
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -521,7 +524,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 4. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             aValue.truncate();
             
@@ -539,9 +542,9 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Go"), (int)time, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -556,7 +559,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            mRamper->sendMessage(TTSymbol("Stop"));
+            mRamper->sendMessage(kTTSym_Stop);
             
             // update the ramp status attribute
             mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -599,7 +602,7 @@ TTErr TTData::setIntegerValue(const TTValue& value)
                 
                 if (mRamper)
                     if (clipValue())
-                        mRamper->sendMessage(TTSymbol("Stop"));
+                        mRamper->sendMessage(kTTSym_Stop);
             }
             
             // return the internal value
@@ -642,11 +645,11 @@ TTBoolean TTData::checkIntegerType(const TTValue& value)
             type == kTypeUInt64;
 }
 
-TTErr TTData::IntegerReset()
+TTErr TTData::IntegerInit()
 {
     // if valueDefault type is right
 	if (checkIntegerType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
     
@@ -661,18 +664,18 @@ TTErr TTData::IntegerReset()
 
 TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
     TTUInt32        time;
     TTBoolean       isRunning;
-    TTValue			c, v, aValue;
+    TTValue			c, v, aValue, none;
     
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -701,7 +704,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 4. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             if (mValue == aValue)
                 return kTTErrNone;	// nothing to do
@@ -717,9 +720,9 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Go"), (int)time, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -734,7 +737,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            mRamper->sendMessage(TTSymbol("Stop"));
+            mRamper->sendMessage(kTTSym_Stop);
             
             // update the ramp status attribute
             mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -774,7 +777,7 @@ TTErr TTData::setDecimalValue(const TTValue& value)
                 
                 if (mRamper)
                     if (clipValue())
-                        mRamper->sendMessage(TTSymbol("Stop"));
+                        mRamper->sendMessage(kTTSym_Stop);
 
             }
             
@@ -818,11 +821,11 @@ TTBoolean TTData::checkDecimalType(const TTValue& value)
             type == kTypeUInt64;
 }
 
-TTErr TTData::DecimalReset()
+TTErr TTData::DecimalInit()
 {
     // if valueDefault type is right
 	if (checkDecimalType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
 	
@@ -837,18 +840,18 @@ TTErr TTData::DecimalReset()
 
 TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
-    TTValue			c, v, aValue;
+    TTValue			c, v, aValue, none;
     
     if (inputValue.size()) {
         
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -877,7 +880,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 4. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             if (mValue == aValue)
                 return kTTErrNone;	// nothing to do
@@ -896,9 +899,9 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
                     if(mValue.size() != aValue.size())
                         mValue.resize(aValue.size());
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, kTTValNONE);
-                    mRamper->sendMessage(TTSymbol("Go"), (int)time, kTTValNONE);
+                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
                     mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -913,7 +916,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            mRamper->sendMessage(TTSymbol("Stop"));
+            mRamper->sendMessage(kTTSym_Stop);
             
             // update the ramp status attribute
             mRamper->getAttributeValue(TTSymbol("running"), isRunning);
@@ -953,7 +956,7 @@ TTErr TTData::setArrayValue(const TTValue& value)
                 
                 if (mRamper)
                     if (clipValue())
-                        mRamper->sendMessage(TTSymbol("Stop"));
+                        mRamper->sendMessage(kTTSym_Stop);
                 
             }
             
@@ -982,11 +985,11 @@ TTBoolean TTData::checkArrayType(const TTValue& value)
 	return true;
 }
 
-TTErr TTData::ArrayReset()
+TTErr TTData::ArrayInit()
 {
     // if valueDefault type is right
 	if (checkArrayType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
 	
@@ -1001,7 +1004,7 @@ TTErr TTData::ArrayReset()
 
 TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTDictionaryPtr command = NULL;
+    TTDictionaryBasePtr command = NULL;
     TTValue			c, aValue;
     
     if (inputValue.size()) {
@@ -1009,7 +1012,7 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
         // 1. Get the command TTDictionnary
         ///////////////////////////////////////////////////
         if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryPtr((TTPtr)inputValue[0]);
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
@@ -1018,7 +1021,7 @@ TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 3. Filter repetitions
         //////////////////////////////////
-        if (!mRepetitionsAllow && mInitialized) {
+        if (mRepetitionsFilter && mInitialized) {
             
             if (mValue == aValue)
                 return kTTErrNone;	// nothing to do
@@ -1109,11 +1112,11 @@ TTBoolean TTData::checkStringType(const TTValue& value)
     return true;
 }
 
-TTErr TTData::StringReset()
+TTErr TTData::StringInit()
 {
     // if valueDefault type is right
 	if (checkStringType(mValueDefault))
-		if (!(mValueDefault == kTTValNONE)) {
+		if (!(mValueDefault.empty())) {
 			return this->setAttributeValue(kTTSym_value, mValueDefault);
 		}
     
