@@ -58,6 +58,9 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
     int errorCount = 0;
     int testAssertionCount = 0;
     
+    std::cout << "The path of this test is: " << TTFoundationBinaryPath << "\n";
+    TTString testSoundPath = TTFoundationBinaryPath;
+    
     {
         
         
