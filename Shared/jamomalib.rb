@@ -1706,55 +1706,67 @@ else
 					makefile.write("\n")
 					  
 					##########
-					# BEGIN test.cpp handling
+					# BEGIN test.cpp handling (also known as "build_and_test")
 					#
 					# The following section is used initiate testing during building whenever a "test.cpp" file is present within a Core project.
 					# This testing procedure was developed as an alternative to testing within the Ruby implementation.
 					# 
 					##########
 			  
+					# build_and_test is currently not used in implementations, so we can skip if that is the project_type
 					if project_type != "implementation"
 					  
-						# testing within projects other than JamomaFoundation will be dependant on that build
-						# the path will be slightly different depending on whether the project is a library or extension
-						test_dependency_foundation = ""
-						if project_type == "extension"
-							test_dependency_foundation = "../../../Foundation/library/build/libJamomaFoundation.a"
-						elsif project_type == "library" && projectname != "JamomaFoundation"
-							test_dependency_foundation = "../../Foundation/library/build/libJamomaFoundation.a"
-						end
-						
-						# testing within projects that are extensions to a given layer will be dependant on that build
-						# the path will be specific to a given layer and will therefore necessitate additions here for future layers
-						# extensions to the Foundation layer are handled by the above test and can be excluded here
-						test_dependency_layer = ""
-						if project_type == "extension" && layer_name != "Foundation"
-							test_dependency_layer = "../../library/build/libJamomaAudioGraph.a" if layer_name == "AudioGraph"
-							test_dependency_layer = "../../library/build/libJamomaDSP.a" if layer_name == "DSP"
-							test_dependency_layer = "../../library/build/libJamomaGraph.a" if layer_name == "Graph"
-							test_dependency_layer = "../../library/build/libJamomaModular.a" if layer_name == "Modular"
-						end
-						
-					
+					  # build_and_test will often be dependent on other libraries within Jamoma or third party libraries.
+					  # we pull this information from the project's YAML file, under the section heading for "libraries".
+					  # macros are defined here for FOUNDATION, DSP, MODULAR, GRAPH, & AUDIOGRAPH.
+					  # third party libraries should be listed in the YAML file by their path relative to the current project.
+					  test_dependencies = ""
+					  
+					  # we need a slightly different paths depending on if the project is an extension or library
+					  extra_level = ""
+						extra_level = "../" if project_type == "extension"
+					  
+					  if !libraries
+    					# nothing to do!
+    				else
+    					libraries.each do |lib|
+    					  lib = lib.to_s
+    			      if (lib == "FOUNDATION")
+                	test_dependencies += extra_level + "../../Foundation/library/build/libJamomaFoundation.a "
+                elsif (lib == "DSP")
+                	test_dependencies += extra_level + "../../DSP/library/build/libJamomaDSP.a "
+                elsif (lib == "MODULAR")
+                	test_dependencies += extra_level + "../../Modular/library/build/libJamomaModular.a "
+                elsif (lib == "GRAPH")
+                	test_dependencies += extra_level + "../../Graph/library/build/libJamomaGraph.a "
+                elsif (lib == "AUDIOGRAPH")
+                	test_dependencies += extra_level + "../../AudioGraph/library/build/libJamomaAudioGraph.a "
+                else
+                	test_dependencies += lib + " "
+                end
+              end
+            end
+
+            # write the necessary entries into the makefile
 						makefile.write("build_and_test: | lipo \n")
 						makefile.write("\techo Testing 32-bit \n")
-						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
 						makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
 						makefile.write("\techo Testing 64-bit \n")
-						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
 						makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
 						makefile.write("\n")
 
 						makefile.write("notest: | lipo \n")
-					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test32 ; fi \n")
-					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependency_foundation} #{test_dependency_layer} -o build/test64 ; fi \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
 						makefile.write("\techo Skipping Tests \n")
 						makefile.write("\n")
 						
 					end
 			  
 					##########
-					# END test.cpp handling
+					# END test.cpp handling (also known as "build_and_test")
 					##########
 
 					if project_type != "implementation"

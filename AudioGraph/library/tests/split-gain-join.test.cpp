@@ -18,7 +18,7 @@
 #include "TTAudioGraphGenerator.h"
 #include "TTAudioGraphInlet.h"		// required for windows build
 
-
+/*
 TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 {
 	int							errorCount = 0;
@@ -258,4 +258,5 @@ TTErr TTAudioGraphGenerator::test(TTValue& returnedTestInfo)
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
+ */
 

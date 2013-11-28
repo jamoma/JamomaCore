@@ -25,7 +25,7 @@
 
 #define thisTTClass			TTAudioGraphInput
 #define thisTTClassName		"adc"
-#define thisTTClassTags		"audioGraphLibrary, audio, graph, input"
+#define thisTTClassTags		"audio, graph, input"
 
 TT_AUDIO_CONSTRUCTOR
 {
