@@ -60,6 +60,10 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
     
     std::cout << "The path of this test is: " << TTFoundationBinaryPath << "\n";
     TTString testSoundPath = TTFoundationBinaryPath;
+    int pos = testSoundPath.find_last_of('/');
+    testSoundPath = testSoundPath.substr(0,pos+1);
+    
+    std::cout << "Let's look for a sound file here: " << testSoundPath << "\n";
     
     {
         
