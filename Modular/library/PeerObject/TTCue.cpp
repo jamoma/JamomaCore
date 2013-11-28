@@ -370,7 +370,6 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
 	TTSymbol		service, option;
 	TTValue			v, parsedLine, none;
 	TTBoolean		empty = YES;
-    TTBoolean       otherDirectory = NO;
 	TTErr			err;
     
     scriptNode = nodeToProcess;
@@ -386,12 +385,59 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
 		
 		nameItem = aNamespace->current();
         
-        // at root : check if the item is not part of another directory
+        // at root : check if the item is an application name
         if (scriptAddress == kTTAdrsRoot) {
             
-            scriptNode = getDirectoryFrom(TTAddress(nameItem->getSymbol()))->getRoot();
+            // TODO : find a solution for case where applications are named with an instance part (like myApp.1)
+            // in this case we will need to test if each name.instance is an application name ...
+            // for the moment the nameItem should be with 1 "" item
+            if (nameItem->getSize() == 1) {
+                
+                // TODO : do not test only with the nameItem
+                TTNodeDirectoryPtr aDirectory = getApplicationDirectory(nameItem->getSymbol());
             
-            otherDirectory = scriptNode != nodeToProcess;
+                if (aDirectory) {
+            
+                    scriptNode = aDirectory->getRoot();
+                    
+                    // TODO : do not take only the first instanceItem
+                    nameItem->begin();
+                    instanceItem = nameItem->current();
+                    
+                    // TODO : do not use only the nameItem
+                    nameInstance = nameItem->getSymbol().c_str();
+                    nameInstance += ":"; //S_DIRECTORY.string();
+                    
+                    // edit a sub script line
+                    v = TTValue(TTSymbol(nameInstance));
+                    aLine = TTScriptParseScript(v);
+                    
+                    // get the sub script
+                    aLine->getValue(v);
+                    aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
+                    
+                    // process namespace item on sub script
+                    err = processStore(aSubScript, instanceItem, scriptNode);
+                    
+                    // if the sub script is not empty
+                    if (!err) {
+                        
+                        // append 2 comment lines to the script before the sub script line
+                        aScript->sendMessage(TTSymbol("AppendComment"), none, parsedLine);
+                        aScript->sendMessage(TTSymbol("AppendComment"), none, parsedLine);
+                        
+                        // append the sub script line
+                        v = TTValue((TTPtr)aLine);
+                        aScript->sendMessage(TTSymbol("Append"), v, parsedLine);
+                        
+                        // the script is not empty
+                        empty = NO;
+                    }
+                    
+                    // go to the next application
+                    continue;
+                }
+            }
         }
 		
 		// for all instances of a name
@@ -402,26 +448,15 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
 			if (!instanceItem->getSelection())
 				continue;
 			
-            // at root : remove the directory part if exist in the nameItem symbol
-            if (otherDirectory)
-                scriptNode->getChildren(TTAddress(nameItem->getSymbol()).getName(), instanceItem->getSymbol(), childrenNodes);
-            else
-                scriptNode->getChildren(nameItem->getSymbol(), instanceItem->getSymbol(), childrenNodes);
+            // get children
+            scriptNode->getChildren(nameItem->getSymbol(), instanceItem->getSymbol(), childrenNodes);
 
             for (childrenNodes.begin(); childrenNodes.end(); childrenNodes.next()) {
                 
 				aNode = TTNodePtr((TTPtr)childrenNodes.current()[0]);
                 
                 // edit name.instance using effective node's name and instance
-                // or directory:/name.instance if 
-                if (otherDirectory) {
-                    
-                    nameInstance = TTAddress(nameItem->getSymbol()).getDirectory().string();
-                    nameInstance += S_DIRECTORY.string();
-                    nameInstance += aNode->getName().c_str();
-                }
-                else
-                    nameInstance = aNode->getName().c_str();
+                nameInstance = aNode->getName().c_str();
                 
                 if (aNode->getInstance() != kTTSymEmpty) {
                     nameInstance += C_INSTANCE;
