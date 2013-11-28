@@ -309,8 +309,9 @@ void TTStringTestParsing(int& errorCount, int&testAssertionCount)
 {
     TTString    testString1 = "/test";
     TTString    testString2 = "Test?try";
+    TTString    testString3 = "Test?try?this";
     TTString    partA, partB;
-    TTInt32     pos;
+    TTInt32     pos, pos2;
     
     TTTestAssertion("check a char using [] string operator",
                     testString1[0] == '/' &&
@@ -321,7 +322,7 @@ void TTStringTestParsing(int& errorCount, int&testAssertionCount)
     pos = testString2.find_first_of('?');
 
     TTTestAssertion("look for a char using find_first_of method",
-					pos >= 0,
+					pos == 4,
 					testAssertionCount,
 					errorCount);
 	
@@ -331,6 +332,13 @@ void TTStringTestParsing(int& errorCount, int&testAssertionCount)
     TTTestAssertion("split a string using substring method",
                     partA == "Test" &&
                     partB == "try",
+					testAssertionCount,
+					errorCount);
+    
+    pos2 = testString3.find_last_of('?');
+    
+    TTTestAssertion("look for a char using find_last_of method",
+					pos2 == 8,
 					testAssertionCount,
 					errorCount);
 }
