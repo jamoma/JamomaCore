@@ -67,7 +67,6 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
     
     try {
         
-        
 		TTTestLog("\n");
 		TTTestLog("Testing TTSoundfileLoader Basics...");
 		
@@ -136,11 +135,10 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
                 
         // releasing objects
+        objectBasePtrToSampleMatrix = NULL;
+        ptrToNonSampleMatrix = NULL;
         delete testTargetMatrix;
         delete testNonSampleMatrix;
-        //delete testTargetMatrix2;
-        delete objectBasePtrToSampleMatrix;
-        delete ptrToNonSampleMatrix;
         
     } catch (...) {
         TTTestAssertion("FAILED to run tests -- likely that necessary objects did not instantiate",
