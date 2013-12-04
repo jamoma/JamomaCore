@@ -18,7 +18,17 @@
 #include "TTUnitTest.h"
 
 /* 
- #define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
+ 
+ It is possible to change the target sound file for this test using the macros below.
+ Both sound files are included in the Jamoma respository at the following path:
+ {JAMOMA_ROOT}/Core/DSP/extensions/SoundfileLib/
+ 
+ This test should look for the named TESTFILE at this path.
+ 
+ */
+
+/*
+ #define TESTFILE "geese_clip.aif"
  #define TESTNUMCHANNELS 2
  #define TESTSAMPLERATE 44100
  #define TESTDURATIONINSAMPLES 88202
@@ -30,7 +40,7 @@
  */
 
 /* */
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
+ #define TESTFILE "ding_b2.aiff"
 #define TESTNUMCHANNELS 1
 #define TESTSAMPLERATE 44100
 #define TESTDURATIONINSAMPLES 39493
@@ -41,30 +51,21 @@
 #define TESTANNOTATION ""
 /* */
 
-/*
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/ambience/street.aiff"
- #define TESTNUMCHANNELS 1
- #define TESTSAMPLERATE 44100
- #define TESTDURATIONINSAMPLES 4750848
- #define TESTDURATIONINSECONDS 107.728980
- #define TESTTITLE "UF Street"
- #define TESTARTIST "MPG"
- #define TESTDATE "2006"
- #define TESTANNOTATION ""
- */
 
 TTErr TTSoundfile::test(TTValue& returnedTestInfo)
 {
     int errorCount = 0;
     int testAssertionCount = 0;
     
-    std::cout << "The path of this test is: " << TTFoundationBinaryPath << "\n";
+    // assemble the full path of the target sound file
+    
     TTString testSoundPath = TTFoundationBinaryPath;
     int pos = testSoundPath.find_last_of('/');
     testSoundPath = testSoundPath.substr(0,pos+1);
-    
-    std::cout << "Let's look for a sound file here: " << testSoundPath << "\n";
-    
+    testSoundPath += TESTFILE;
+
+    std::cout << "We will be using the following path for testing: " << testSoundPath << "\n";
+
     {
         
         
@@ -83,7 +84,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
 						errorCount);
         
         // TEST 1: set the filepath
-        TTBoolean result1 = { soundfile->setFilePath(TT(TESTFILE)) == kTTErrNone };
+        TTBoolean result1 = { soundfile->setFilePath(TT(testSoundPath)) == kTTErrNone };
         
         TTTestAssertion("setFilePath operates successfully",
                         result1,
