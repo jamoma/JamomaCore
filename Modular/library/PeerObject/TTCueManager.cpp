@@ -196,17 +196,8 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 	TTAddressItemPtr    aNamespace, anItem;
 	TTAddress           address;
 	TTUInt32			i;
-	TTErr				err;
 	
-    // select namespace
-	aNamespace = lookupNamespace(mNamespace);
-	if (!aNamespace) {
-        
-        // fill the namespace
-        getLocalDirectory->fillAddressItem(mDefaultNamespace);
-        
-        aNamespace = mDefaultNamespace;
-    }
+    aNamespace = getNamespace();
 	
 	for (i = 0; i < inputValue.size(); i++) {
 		
@@ -233,17 +224,8 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
     TTAddressItemPtr    aNamespace, anItem;
 	TTAddress           address;
 	TTUInt32			i;
-	TTErr				err;
 	
-    // select namespace
-	aNamespace = lookupNamespace(mNamespace);
-	if (!aNamespace) {
-        
-        // fill the namespace
-        getLocalDirectory->fillAddressItem(mDefaultNamespace);
-        
-        aNamespace = mDefaultNamespace;
-    }
+    aNamespace = getNamespace();
 	
 	for (i = 0; i < inputValue.size(); i++) {
 		
@@ -295,15 +277,8 @@ TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValu
 		
 		if (mCurrentCue) {
 			
-            // select namespace
-			aNamespace = lookupNamespace(mNamespace);
-			if (!aNamespace) {
-                
-                // fill the namespace
-                getLocalDirectory->fillAddressItem(mDefaultNamespace);
-                
-                aNamespace = mDefaultNamespace;
-            }
+            // get the namespace
+            aNamespace = getNamespace();
 			
 			v = TTValue((TTPtr)aNamespace);
 			mCurrentCue->sendMessage(TTSymbol("Select"), v, none);
@@ -353,7 +328,6 @@ TTErr TTCueManager::Clear()
 
 TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr    aNamespace;
 	TTValue             v, args, out;
     TTErr               err;
         
@@ -396,16 +370,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
     // select the namespace
-	aNamespace = lookupNamespace(mNamespace);
-	if (!aNamespace) {
-        
-        // fill the namespace
-        getLocalDirectory->fillAddressItem(mDefaultNamespace);
-        
-        aNamespace = mDefaultNamespace;
-    }
-	
-	v = TTValue((TTPtr)aNamespace);
+	v = TTValue((TTPtr)getNamespace());
 	err = mCurrentCue->sendMessage(TTSymbol("Store"), v, out);
     
     // Move the cue at position
@@ -1364,6 +1329,43 @@ TTErr TTCueManager::notifyNamesObservers()
 		anAttribute->sendNotification(kTTSym_notify, mNames);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
+}
+
+TTAddressItemPtr TTCueManager::getNamespace()
+{
+    TTValue v;
+    TTAddressItemPtr aNamespace = lookupNamespace(mNamespace);
+    
+	if (!aNamespace) {
+        
+        TTModularApplications->getAttributeValue(TTSymbol("applicationNames"), v);
+        
+        // fill the default namespace with the local directory
+        if (v.size() == 1) {
+            
+            getLocalDirectory->fillAddressItem(mDefaultNamespace);
+            
+        }
+        // fill the default namespace with all directories
+        else {
+            
+            TTSymbol            applicationName;
+            TTAddressItemPtr    applicationItem;
+            
+            for (TTUInt32 i = 0; i < v.size(); i++) {
+                
+                applicationName = v[i];
+                
+                mDefaultNamespace->append(TTAddress(applicationName), &applicationItem);
+                
+                getApplicationDirectory(applicationName)->fillAddressItem(applicationItem);
+            }
+        }
+        
+        aNamespace = mDefaultNamespace;
+    }
+    
+    return aNamespace;
 }
 
 #if 0

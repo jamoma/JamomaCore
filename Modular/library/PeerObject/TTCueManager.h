@@ -148,6 +148,9 @@ private:
 	
 	/** */
 	TTErr	notifyNamesObservers();
+    
+    /** */
+	TTAddressItemPtr getNamespace();
 };
 
 typedef TTCueManager* TTCueManagerPtr;
