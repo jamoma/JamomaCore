@@ -84,25 +84,32 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         testAssertionCount,
                         errorCount);
         
-        // set up the samplematrix first
-        testTargetMatrix->set("numChannels", 1);
-        testTargetMatrix->set("lengthInSeconds", 0.5);
+        // TEST 2: set up the samplematrix first
+        int channelsSend = 1;           // compiler complained about TTInt32 being ambiguous here
+        int lengthSend = 22050;         // compiler complained about TTInt32 being ambiguous here
+        testTargetMatrix->set("numChannels", channelsSend);
+        testTargetMatrix->set("lengthInSamples", lengthSend);
         
-        TTInt32 lengthReturn, channelsReturn;
+        TTInt32 channelsReturn, lengthReturn;
         
         testTargetMatrix->get("numChannels", channelsReturn);
         testTargetMatrix->get("lengthInSamples", lengthReturn);
         
-        TTTestLog("new samplematrix has %i samples and %i channels", lengthReturn, channelsReturn);
+        // now for the actual test
+        TTBoolean result2a = { channelsSend == channelsReturn };
         
-        /* now for the actual test
-        TTBoolean result2b = { this->setTargetMatrix(testTargetMatrix) == kTTErrNone };
+        TTTestAssertion("numChannels attribute set successfully",
+						result2a,
+						testAssertionCount,
+						errorCount);
         
-        TTTestAssertion("setTargetMatrix operates successfully",
+        TTBoolean result2b = { lengthSend == lengthReturn };
+        
+        TTTestAssertion("lengthInSamples attribute set successfully",
 						result2b,
 						testAssertionCount,
 						errorCount);
-        */
+        //
         
         // TEST 3: set the target via an objectBasePtr
         objectBasePtrToSampleMatrix = testTargetMatrix->instance(); // is there a better syntax for this?
