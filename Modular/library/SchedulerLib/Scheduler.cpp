@@ -92,6 +92,17 @@ TTErr Scheduler::setDuration(const TTValue& value)
             
             mDuration = value[0];
             
+            // update offset
+            if (mDuration < mOffset) {
+                
+                mOffset = mDuration;
+                
+                offsetAttribute->sendNotification(kTTSym_notify, mOffset);           // we use kTTSym_notify because we know that observers are TTCallback
+            }
+            
+            mProgression = mOffset / mDuration;
+            mRealTime = mOffset;
+            
             durationAttribute->sendNotification(kTTSym_notify, mDuration);           // we use kTTSym_notify because we know that observers are TTCallback
             
             return kTTErrNone;
@@ -108,6 +119,8 @@ TTErr Scheduler::setOffset(const TTValue& value)
         if (value[0].type() == kTypeFloat64) {
             
             mOffset = value[0];
+            mProgression = mOffset / mDuration;
+            mRealTime = mOffset;
             
             offsetAttribute->sendNotification(kTTSym_notify, mOffset);             // we use kTTSym_notify because we know that observers are TTCallback
             
