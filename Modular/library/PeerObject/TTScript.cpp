@@ -1706,7 +1706,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
                                 }
                                 
                             } else
-                                newValue = position <= 0.5 ? v1 : v2;
+                                newValue = position == 0. ? v1 : v2;
                             
                             // set the interpolated value
                             aData->setAttributeValue(kTTSym_value, newValue);
