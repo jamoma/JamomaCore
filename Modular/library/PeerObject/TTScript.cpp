@@ -1091,9 +1091,9 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTXmlHandlerPtr		aXmlHandler = NULL;
-	TTDictionaryBasePtr		aLine;
+	TTDictionaryBasePtr	aLine;
 	TTSymbol			name, attributeName;
-	TTAddress	address;
+	TTAddress           address;
 	TTValue				v, parsedLine;
 	
 	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
@@ -1177,27 +1177,33 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
             if (v.size() == 1) {
                 
                 if (v[0].type() == kTypeSymbol) {
+                    
                     address = v[0];
-                    
-                    // edit command line
-                    aLine = new TTDictionaryBase();
-                    aLine->setSchema(kTTSym_command);
-                    aLine->append(kTTSym_address, address);
-                    aLine->setValue(aXmlHandler->mXmlNodeValue);
-                    
-                    // get all other command line attribute (unit, ramp, ...)
-                    while (!aXmlHandler->getXmlNextAttribute(attributeName, v)) {
-                        
-                        // append attribute to the command line
-                        aLine->append(attributeName, v);
-                    }
-                    
-                    // append the line
-                    v = TTValue((TTPtr)aLine);
-                    mLines->append(v);
-                    
-                    return kTTErrNone;
                 }
+                else {
+                    
+                    v.toString();
+                    address = TTAddress(TTString(v[0]));
+                }
+                    
+                // edit command line
+                aLine = new TTDictionaryBase();
+                aLine->setSchema(kTTSym_command);
+                aLine->append(kTTSym_address, address);
+                aLine->setValue(aXmlHandler->mXmlNodeValue);
+                
+                // get all other command line attribute (unit, ramp, ...)
+                while (!aXmlHandler->getXmlNextAttribute(attributeName, v)) {
+                    
+                    // append attribute to the command line
+                    aLine->append(attributeName, v);
+                }
+                
+                // append the line
+                v = TTValue((TTPtr)aLine);
+                mLines->append(v);
+                
+                return kTTErrNone;
             }
 		}
 	}
@@ -1221,15 +1227,12 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 			
             if (v.size() == 1) {
                 
-                if (v[0].type() == kTypeSymbol) {
-                    
-                    // edit sub script line
-                    this->AppendScript(v, parsedLine);
-                    
-                    // set this as parent script of the subscript
-                    v = TTValue(TTObjectBasePtr(this));
-                    mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
-                }
+                // edit sub script line
+                this->AppendScript(v, parsedLine);
+                
+                // set this as parent script of the subscript
+                v = TTValue(TTObjectBasePtr(this));
+                mSubScript->setAttributeValue(TTSymbol("parentScript"), v);
             }
 		}
 		
@@ -1448,34 +1451,42 @@ TTDictionaryBasePtr TTScriptParseLine(const TTValue& newLine)
 	
     if (size >= 1) {
         
+        // get the first symbol
         if (newLine[0].type() == kTypeSymbol) {
             
             firstSymbol = newLine[0];
+        }
+        // if the first element is not a symbol
+        else {
             
-            // if starts by a "-" : flag line
-            if (firstSymbol == kTTSym_dash) {
-                
-                if (size >= 2) {
-                    if (newLine[1].type() == kTypeSymbol) {
-                        
-                        rest.copyFrom(newLine, 1);
-                        return TTScriptParseFlag(rest);
-                    }
+            v = newLine[0];
+            v.toString();
+            firstSymbol = TTString(v[0]);
+        }
+        
+        // if starts by a "-" : flag line
+        if (firstSymbol == kTTSym_dash) {
+            
+            if (size >= 2) {
+                if (newLine[1].type() == kTypeSymbol) {
+                    
+                    rest.copyFrom(newLine, 1);
+                    return TTScriptParseFlag(rest);
                 }
             }
-            // if starts by a "#" : comment line
-            else if (firstSymbol == kTTSym_sharp) {
-                
-                if (size >= 2) {
-                    if (newLine[1].type() == kTypeSymbol) {
-                        
-                        rest.copyFrom(newLine, 1);
-                        return TTScriptParseComment(rest);
-                    }
+        }
+        // if starts by a "#" : comment line
+        else if (firstSymbol == kTTSym_sharp) {
+            
+            if (size >= 2) {
+                if (newLine[1].type() == kTypeSymbol) {
+                    
+                    rest.copyFrom(newLine, 1);
+                    return TTScriptParseComment(rest);
                 }
-                else
-                    return TTScriptParseComment(none);
             }
+            else
+                return TTScriptParseComment(none);
         }
     }
     
@@ -1506,22 +1517,31 @@ TTDictionaryBasePtr TTScriptParseFlag(const TTValue& newflagAndArguments)
 	
     if (newflagAndArguments.size() >= 1) {
         
+        // get the first symbol
         if (newflagAndArguments[0].type() == kTypeSymbol) {
             
             flagName = newflagAndArguments[0];
-            arguments.copyFrom(newflagAndArguments, 1);
-            
-            line = new TTDictionaryBase();
-            line->setSchema(kTTSym_flag);
-            line->append(kTTSym_name, flagName);
-            line->setValue(arguments);
         }
+        // if the first element is not a symbol
+        else {
+            
+            v = newflagAndArguments[0];
+            v.toString();
+            flagName = TTString(v[0]);
+        }
+        
+        arguments.copyFrom(newflagAndArguments, 1);
+        
+        line = new TTDictionaryBase();
+        line->setSchema(kTTSym_flag);
+        line->append(kTTSym_name, flagName);
+        line->setValue(arguments);
     }
 	
 	return line;
 }
 
-TTDictionaryBasePtr TTScriptParseCommand(const TTValue& newCommand) 
+TTDictionaryBasePtr TTScriptParseCommand(const TTValue& newCommand)
 {
 	TTDictionaryBasePtr line = NULL;
 	TTSymbol		firstSymbol;
@@ -1533,13 +1553,20 @@ TTDictionaryBasePtr TTScriptParseCommand(const TTValue& newCommand)
         if (newCommand[0].type() == kTypeSymbol) {
             
             firstSymbol = newCommand[0];
-            commandValue.copyFrom(newCommand, 1);
-            
-            line = TTDataParseCommand(commandValue);
-            
-            if (line)
-                line->append(kTTSym_address, firstSymbol);
         }
+        else {
+            
+            v = newCommand[0];
+            v.toString();
+            firstSymbol = TTString(v[0]);
+        }
+        
+        commandValue.copyFrom(newCommand, 1);
+        
+        line = TTDataParseCommand(commandValue);
+        
+        if (line)
+            line->append(kTTSym_address, firstSymbol);
     }
 	
 	return line;
@@ -1558,20 +1585,27 @@ TTDictionaryBasePtr TTScriptParseScript(const TTValue& newScript)
         if (newScript[0].type() == kTypeSymbol) {
             
             firstSymbol = newScript[0];
-            
-            line = new TTDictionaryBase();
-            
-            if (line) {
-                
-                line->setSchema(kTTSym_script);
-                line->append(kTTSym_address, firstSymbol);
-                
-                TTObjectBaseInstantiate(kTTSym_Script, &script, none);
-                
-                v = TTValue(script);
-                line->setValue(v);
-            }
         }
+        else {
+            
+            v = newScript[0];
+            v.toString();
+            firstSymbol = TTString(v[0]);
+        }
+        
+        line = new TTDictionaryBase();
+        
+        if (line) {
+            
+            line->setSchema(kTTSym_script);
+            line->append(kTTSym_address, firstSymbol);
+            
+            TTObjectBaseInstantiate(kTTSym_Script, &script, none);
+            
+            v = TTValue(script);
+            line->setValue(v);
+        }
+
     }
 	
 	return line;

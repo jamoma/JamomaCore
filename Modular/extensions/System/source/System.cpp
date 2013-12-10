@@ -225,8 +225,6 @@ void SystemThreadCallback(void* anSystemScheduler)
     // reset timing informations
     aScheduler->mRunning = YES;
     aScheduler->mPaused = NO;
-    aScheduler->mProgression = aScheduler->mOffset / aScheduler->mDuration;
-    aScheduler->mRealTime = aScheduler->mOffset;
     aScheduler->mLastTime = 0.;
     
     // notify each running attribute observers
