@@ -51,8 +51,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTInt16				numChannels = 2;
 	TTUInt32			numSamples = 50000;  // TODO: xcode says this is ambiguous when signed?
 	TTFloat32			duration = 1500;
-	TTInt32				test9Index = 10;
-	TTInt32				test10Index = 11;
+	int                 test9Index = 10;
+	int                 test10Index = 11;
 	TTInt32				test1Return, test2Return, test7Return;
 	TTFloat32			test3Return, test6Return;
 	TTSampleValue		test9Return, test10Return, test11Return, test12return, test13return;
@@ -228,6 +228,27 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	if(!result10)
 	{
 		TTTestLog("Expected a value of %f, but returned value was %f", pokeValue10, test10Return);
+	}
+    
+    
+    // TEST 10a: confirm that pulling value via "peek" message works too
+    
+    TTValue input(test10Index);
+    input.append(0);
+    TTValue output;
+    
+    this->sendMessage("peek", input, output);
+    
+    TTBoolean result10a = { TTTestFloatEquivalence(pokeValue10, TTSampleValue(output)) };
+	
+	TTTestAssertion("set value two of two consecutive samples",
+                    result10a,
+                    testAssertionCount,
+                    errorCount);
+	
+	if(!result10a)
+	{
+		TTTestLog("Expected a value of %f, but returned value was %f", pokeValue10, TTSampleValue(output));
 	}
 	
 	

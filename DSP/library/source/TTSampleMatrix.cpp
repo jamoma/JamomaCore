@@ -147,7 +147,8 @@ TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 
 	err = peek(sampleIndex, sampleChannel, sampleValue);
 	if (!err)
-		output.set(0, sampleValue);
+		output.clear();
+        output.append(sampleValue);
 	return err;
 }
 
