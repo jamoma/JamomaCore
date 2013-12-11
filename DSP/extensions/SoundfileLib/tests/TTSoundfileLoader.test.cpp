@@ -141,26 +141,39 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						errorCount);
         
         // TEST 6: compare 5 random sample values for equivalence
-        // revealed some potential issues in TTSampleMatrix
         
         // Can I create a new SampleMatrix this way?
-        //TTSampleMatrixPtr newMatrix = NULL;
-        
         TTObject newTargetMatrix("samplematrix");//new TTSampleMatrix(kTTSymEmpty);
         
-        TTValue peekInput(80567);
-        peekInput.append(0);
-        TTValue peekOutput(0.1);
+        int randomIndex;
+        TTSampleValue randomValueSoundFile;
+        TTBoolean result6 = true;
         
-        newTargetMatrix.send("load", testSoundPath, peekOutput);
-        newTargetMatrix.send("peek", peekInput, peekOutput);
+        for (int i = 0; i<5; i++)
+        {
+            randomIndex = lengthReturn * TTRandom64();
+            //TTTestLog("let's look at index %i", randomIndex);
+            
+            TTValue peekInput(randomIndex);
+            peekInput.append(0);
+            TTValue peekOutput;
+            
+            this->peek(randomIndex,0,randomValueSoundFile);
+            newTargetMatrix.send("peek",peekInput,peekOutput); //randomIndex,0,randomValueSampleMatrix);
+            std::cout << "Does " << randomValueSoundFile << " = " << double(peekOutput) << " ?\n";
+            
+            if (result6) // allows test to keep variable false once it is false
+                result6 = TTTestFloatEquivalence(randomValueSoundFile, double(peekOutput), true, 0.0000001);
+        }
         
-        TTFloat32 randomValueSampleMatrix = peekOutput[0];
-        TTString outString = "";
-        outString += randomValueSampleMatrix;
+        TTTestAssertion("comparing 5 random values for equivalence",
+                        result6,
+                        testAssertionCount,
+                        errorCount);
         
-        std::cout << "I got this value for you: " << outString << "\n";
-                
+        //
+        
+        
         // releasing objects
         objectBasePtrToSampleMatrix = NULL;
         ptrToNonSampleMatrix = NULL;
