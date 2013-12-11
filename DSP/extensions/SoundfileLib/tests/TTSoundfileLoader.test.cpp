@@ -140,6 +140,26 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
+        // TEST 6: compare 5 random sample values for equivalence
+        // revealed some potential issues in TTSampleMatrix
+        
+        // Can I create a new SampleMatrix this way?
+        //TTSampleMatrixPtr newMatrix = NULL;
+        
+        TTObject newTargetMatrix("samplematrix");//new TTSampleMatrix(kTTSymEmpty);
+        
+        TTValue peekInput(80567);
+        peekInput.append(0);
+        TTValue peekOutput(0.1);
+        
+        newTargetMatrix.send("load", testSoundPath, peekOutput);
+        newTargetMatrix.send("peek", peekInput, peekOutput);
+        
+        TTFloat32 randomValueSampleMatrix = peekOutput[0];
+        TTString outString = "";
+        outString += randomValueSampleMatrix;
+        
+        std::cout << "I got this value for you: " << outString << "\n";
                 
         // releasing objects
         objectBasePtrToSampleMatrix = NULL;
