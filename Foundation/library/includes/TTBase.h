@@ -174,7 +174,12 @@ typedef unsigned short		TTUInt16;				///< 16 bit unsigned integer
 #endif
 #else
 #define TTInt32 int
-typedef unsigned int	TTUInt32;
+#ifdef __LP64__		// Mac 64-bit
+typedef unsigned int		TTUInt32;			///< 32 bit unsigned integer
+#else				// Mac 32-bit, Win32 32-bit
+typedef unsigned long		TTUInt32;			///< 32 bit unsigned integer
+#endif
+
 #endif
 
 #if defined(_MSC_VER) || defined(__BORLANDC__)
