@@ -328,16 +328,18 @@ TTErr TTPowerFunction::test(TTValue& returnedTestInfo)
 		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][n], expectedSignal1[n]);
 		badSampleCount += result;
 		if (result) 
-			TTTestLog("BAD SAMPLE @ n=%i ( value=%.10f	expected=%.10f )", n, output->mSampleVectors[0][n], expectedSignal1[n]);
+			std::cout << "BAD SAMPLE @ n=" << n << " ( value=" << output->mSampleVectors[0][n] << " expected=" << expectedSignal1[n] << " )\n";
 	}
 	
+    if (badSampleCount)
+		std::cout << "badSampleCount is " << badSampleCount << "\n";
+    
     /*
 	TTTestAssertion("Produces correct function values", 
 					badSampleCount == 0,
 					testAssertionCount, 
 					errorCount);
-	if (badSampleCount)
-		TTTestLog("badSampleCount is %i", badSampleCount);
+
 	*/
 	
 	TTObjectBaseRelease(&input);

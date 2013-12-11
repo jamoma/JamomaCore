@@ -96,6 +96,24 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance8	= testAddress8.getInstance();
 	TTSymbol		attribute8	= testAddress8.getAttribute();
 	TTAddressType	type8		= testAddress8.getType();
+    
+    TTAddress		testAddress9("/parent.0/name.0:attribute9");
+	
+	TTSymbol		directory9	= testAddress9.getDirectory();
+	TTAddress		parent9		= testAddress9.getParent();
+	TTSymbol		name9		= testAddress9.getName();
+	TTSymbol		instance9	= testAddress9.getInstance();
+	TTSymbol		attribute9	= testAddress9.getAttribute();
+	TTAddressType	type9		= testAddress9.getType();
+    
+    TTAddress		testAddress10("/parent/0:attribute10");
+	
+	TTSymbol		directory10	= testAddress10.getDirectory();
+	TTAddress		parent10	= testAddress10.getParent();
+	TTSymbol		name10		= testAddress10.getName();
+	TTSymbol		instance10	= testAddress10.getInstance();
+	TTSymbol		attribute10	= testAddress10.getAttribute();
+	TTAddressType	type10		= testAddress10.getType();
 	
 	// The first set of tests checks parsing of addresses
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
@@ -175,6 +193,26 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 					instance8 == NO_INSTANCE &&
 					attribute8 == NO_ATTRIBUTE &&
 					type8 == kAddressAbsolute,
+					testAssertionCount,
+					errorCount);
+    
+    TTTestAssertion("TTAddress: Test fails if parsing of testAddress9 is bad",
+					directory9 == NO_DIRECTORY &&
+					parent9 == TTAddress("/parent") &&
+					name9 == TTSymbol("name") &&
+					instance9 == NO_INSTANCE &&
+					attribute9 == TTSymbol("attribute9") &&
+					type9 == kAddressAbsolute,
+					testAssertionCount,
+					errorCount);
+    
+    TTTestAssertion("TTAddress: Test fails if parsing of testAddress10 is bad",
+					directory10 == NO_DIRECTORY &&
+					parent10 == TTAddress("/parent") &&
+					name10 == TTSymbol("0") &&
+					instance10 == NO_INSTANCE &&
+					attribute10 == TTSymbol("attribute10") &&
+					type10 == kAddressAbsolute,
 					testAssertionCount,
 					errorCount);
 }

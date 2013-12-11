@@ -319,14 +319,13 @@ TTErr OSC::SendSetRequest(TTSymbol to, TTAddress address,
                           TTValue& value,
                           TTUInt8 tryCount)
 {
-		
-#ifdef TT_PROTOCOL_DEBUG
-		std::cout << "OSC : applicationSendSetRequest " << std::endl;
-#endif
-    
     // avoid loop (see in OSCReceiveMessageCallback)
-    if (address == mReceivedAddress)
+    if (address == mReceivedAddress && to == mReceivedFrom)
         return kTTErrGeneric;
+    
+#ifdef TT_PROTOCOL_DEBUG
+    std::cout << "OSC::SendSetRequest : to " << address.c_str() << std::endl;
+#endif
 
 	if (address.getAttribute() == kTTSym_value)
 		return sendMessage(to, address.removeAttribute(), value);
@@ -473,10 +472,6 @@ TTErr OSC::receivedMessage(const TTValue& message, TTValue& outputValue)
 	
 	aSymbol = message[0];
 	headerString = aSymbol.string();
-    
-#ifdef TT_PROTOCOL_DEBUG
-    cout << "Message header is " << aSymbol.c_str() << endl;
-#endif
 	
 	// if message starts with '/'
 	if (headerString[0] == '/')
@@ -485,7 +480,7 @@ TTErr OSC::receivedMessage(const TTValue& message, TTValue& outputValue)
 		arguments.copyFrom(message, 1);
 		
 #ifdef TT_PROTOCOL_DEBUG
-		cout << "Receive set request at " << whereTo.c_str() << endl;
+		cout << "OSC::receivedMessage : at " << whereTo.c_str() << endl;
 #endif
 		
 		return ReceiveSetRequest(kTTSymEmpty, whereTo, arguments);
@@ -508,7 +503,8 @@ TTErr OSCReceiveMessageCallback(TTPtr baton, TTValue& message)
 	anOscPlugin = OSCPtr((TTObjectBasePtr)(*b)[0]);
 	from = (*b)[1];
     
-    // clear mReceivedAddress
+    // clear mReceiveFrom and mReceivedAddress
+    anOscPlugin->mReceivedFrom = kTTSymEmpty;
     anOscPlugin->mReceivedAddress = kTTAdrsEmpty;
 	
 	/*
@@ -520,23 +516,25 @@ TTErr OSCReceiveMessageCallback(TTPtr baton, TTValue& message)
 	aSymbol = message[0];
 	headerString = aSymbol.string();
     
-#ifdef TT_PROTOCOL_DEBUG
-    cout << "Message header is " << aSymbol.c_str() << endl;
-#endif
-	
 	// if message starts with '/'
 	if (headerString[0] == '/')
 	{
+        // meorize who send the message and the address to avoid loop
+        anOscPlugin->mReceivedFrom = from;
 		anOscPlugin->mReceivedAddress = TTAddress(aSymbol.c_str());
+        if (anOscPlugin->mReceivedAddress.getAttribute() == NO_ATTRIBUTE)
+            anOscPlugin->mReceivedAddress = anOscPlugin->mReceivedAddress.appendAttribute(kTTSym_value);
+        
 		arguments.copyFrom(message, 1);
 		
 #ifdef TT_PROTOCOL_DEBUG
-		cout << "Receive set request from " << from.c_str() << "at " << mReceivedAddress.c_str() << endl;
+		cout << "OSCReceiveMessageCallback : from " << from.c_str() << " at " << anOscPlugin->mReceivedAddress.c_str() << endl;
 #endif
 		
 		err = anOscPlugin->ReceiveListenAnswer(from, anOscPlugin->mReceivedAddress, arguments);
         
-        // clear mReceivedAddress
+        // clear mReceiveFrom and mReceivedAddress
+        anOscPlugin->mReceivedFrom = kTTSymEmpty;
         anOscPlugin->mReceivedAddress = kTTAdrsEmpty;
         
         return err;

@@ -39,15 +39,22 @@ public:
 	TTAddress(const char *cstr)
 	{
         // check if there is a '0'
-        if (strchr(cstr, C_ZERO) != 0) {
+        char* zero = strchr(cstr, C_ZERO);
+        if (zero != 0) {
             
-            TTString sparsed;
-            parseInstanceZero(cstr, sparsed);
-            
-            mSymbolPointer = gTTAddressTable.lookup(sparsed);
+            // check if there is a '.' just before
+            if (*(zero-1) == C_INSTANCE) {
+                
+                TTString sparsed;
+                parseInstanceZero(cstr, sparsed);
+                
+                mSymbolPointer = gTTAddressTable.lookup(sparsed);
+                
+                return;
+            }
         }
-        else
-            mSymbolPointer = gTTAddressTable.lookup(cstr);
+        
+        mSymbolPointer = gTTAddressTable.lookup(cstr);
 	}
 	
 	

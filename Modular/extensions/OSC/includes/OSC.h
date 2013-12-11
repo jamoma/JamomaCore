@@ -41,7 +41,8 @@ private:
     
     TTThreadPtr             mWaitThread;                // a thread used to wait after critical part
     
-    TTAddress               mReceivedAddress;           // to avoid loop when receiving an address and resending the same
+    TTSymbol                mReceivedFrom;              // memorize who sent a message to us to avoid loop when receiving an address and resending the same
+    TTAddress               mReceivedAddress;           // memorize received address to avoid loop when receiving an address and resending the same
 	
 	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
     TTErr receivedMessage(const TTValue& message, TTValue& outputValue);

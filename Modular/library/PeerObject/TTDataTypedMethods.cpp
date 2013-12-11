@@ -200,8 +200,7 @@ TTErr TTData::returnValue()
     }
     
     // return the value to his owner
-    if (!(mService == kTTSym_return))
-        this->mReturnValueCallback->notify(v, dummy);
+    this->mReturnValueCallback->notify(v, dummy);
     
     // notify each observers
     valueAttribute->sendNotification(kTTSym_notify, v);             // we use kTTSym_notify because we know that observers are TTCallback

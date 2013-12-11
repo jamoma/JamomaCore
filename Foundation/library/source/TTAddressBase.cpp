@@ -477,19 +477,14 @@ TTErr TTAddressBase::listNameInstance(TTList& nameInstanceList)
 		
 		this->parent->listNameInstance(nameInstanceList);
         
-        // append directory:/name
+        // if there is a directory part : append directory and ""
         if (directory != NO_DIRECTORY) {
             
-            TTString s = directory.string();
-            s += S_DIRECTORY.string();
-            s += name;
-            
-            nameInstanceList.append(TTSymbol(s));
+            nameInstanceList.append(directory);
+            nameInstanceList.append(kTTSymEmpty);
         }
-        // or append name
-        else
-            nameInstanceList.append(name);
-        
+
+        nameInstanceList.append(name);
 		nameInstanceList.append(instance);
 	}
     
