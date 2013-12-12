@@ -388,7 +388,7 @@ TTErr TTXmlHandler::fromXmlChar(const void* axCh, TTValue& v, TTBoolean addQuote
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlAttribute(TTSymbol& attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)mReader, BAD_CAST attributeName.c_str()) == 1) {
 		
@@ -398,7 +398,7 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbol& attributeName, TTValue& returnedVa
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol& returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
 	
