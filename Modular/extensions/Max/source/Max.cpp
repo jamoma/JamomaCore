@@ -69,8 +69,7 @@ TTErr Max::Go()
         
         // notify each observers
         sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
-        sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
     }
     else {
         
@@ -86,8 +85,7 @@ TTErr Max::Go()
         
         // notify each observers
         sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
-        sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
         
         // schedule first tick
         setclock_fdelay(NULL, clock, mGranularity);
@@ -145,8 +143,7 @@ TTErr Max::Tick()
             
             // notify each observers
             sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-            sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
-            sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
+            sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
         }
 		else {
             
@@ -156,8 +153,7 @@ TTErr Max::Tick()
             (mCallback)(mBaton, mProgression, mRealTime);
             
             // notify each observers
-            sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
-            sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
+            sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
             
             // Set the clock to fire again
             setclock_fdelay(NULL, clock, mGranularity);

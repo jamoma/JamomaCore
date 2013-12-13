@@ -77,8 +77,7 @@ TTErr System::Go()
         
         // notify each observers
         sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
-        sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
     }
     // if the thread is not running
     else if (mThread == NULL) {
@@ -128,22 +127,22 @@ TTErr System::Tick()
     
     if (mProgression < 1.) {
         
+        // notify the owner
         (mCallback)(mBaton, mProgression, mRealTime);
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
-        sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
     }
     else {
         
         // forcing progression to 1. to allow filtering
         mProgression = 1.;
         
+        // notify the owner
         (mCallback)(mBaton, mProgression, mRealTime);
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
-        sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
         
         // if the scheduler is still running : stop it
         // note : because it  is possible another thread stop the scheduler before

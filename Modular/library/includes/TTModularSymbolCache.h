@@ -50,8 +50,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerDurationChanged;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerOffsetChanged;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerSpeedChanged;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerRunningChanged;
-extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerProgressionChanged;
-extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerRealTimeChanged;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerTicked;
 
 // attribute, message or any word often used
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_active;

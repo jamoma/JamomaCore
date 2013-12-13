@@ -48,8 +48,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerDurationChanged         (("Sched
 TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerOffsetChanged           (("SchedulerOffsetChanged"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerSpeedChanged            (("SchedulerSpeedChanged"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerRunningChanged          (("SchedulerRunningChanged"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerProgressionChanged      (("SchedulerProgressionChanged"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerRealTimeChanged         (("SchedulerRealTimeChanged"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerTicked                  (("SchedulerTicked"));
 
 // attribute, message or any word often used
 TTMODULAR_EXPORT TTSymbol       kTTSym_active                           (("active"));
