@@ -44,6 +44,7 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_maxNumChannels			(("maxNumChannels"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_mode						(("mode"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_name						(("name"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_none						(("none"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_notification             (("notification"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_notify					(("notify"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_numChannels				(("numChannels"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_object					(("object"));
