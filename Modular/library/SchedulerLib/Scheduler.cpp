@@ -68,15 +68,6 @@ mBaton(NULL)
     addMessage(Pause);
     addMessage(Resume);
 	addMessage(Tick);
-    
-    // Cache some attributes for high speed notification feedbacks
-    this->findAttribute(TTSymbol("duration"), &durationAttribute);
-    this->findAttribute(TTSymbol("offset"), &offsetAttribute);
-    this->findAttribute(TTSymbol("speed"), &speedAttribute);
-    
-    this->findAttribute(TTSymbol("running"), &runningAttribute);
-    this->findAttribute(TTSymbol("progression"), &progressionAttribute);
-    this->findAttribute(TTSymbol("realTime"), &realTimeAttribute);
 }
 
 Scheduler::~Scheduler()
@@ -97,13 +88,13 @@ TTErr Scheduler::setDuration(const TTValue& value)
                 
                 mOffset = mDuration;
                 
-                offsetAttribute->sendNotification(kTTSym_notify, mOffset);           // we use kTTSym_notify because we know that observers are TTCallback
+                sendNotification(TTSymbol("SchedulerOffsetChanged"), mOffset);
             }
             
             mProgression = mOffset / mDuration;
             mRealTime = mOffset;
             
-            durationAttribute->sendNotification(kTTSym_notify, mDuration);           // we use kTTSym_notify because we know that observers are TTCallback
+            sendNotification(TTSymbol("SchedulerDurationChanged"), mDuration);
             
             return kTTErrNone;
         }
@@ -122,7 +113,7 @@ TTErr Scheduler::setOffset(const TTValue& value)
             mProgression = mOffset / mDuration;
             mRealTime = mOffset;
             
-            offsetAttribute->sendNotification(kTTSym_notify, mOffset);             // we use kTTSym_notify because we know that observers are TTCallback
+            sendNotification(TTSymbol("SchedulerOffsetChanged"), mOffset);
             
             return kTTErrNone;
         }
@@ -139,7 +130,7 @@ TTErr Scheduler::setSpeed(const TTValue& value)
             
             mSpeed = value[0];
             
-            speedAttribute->sendNotification(kTTSym_notify, mSpeed);             // we use kTTSym_notify because we know that observers are TTCallback
+            sendNotification(TTSymbol("SchedulerSpeedChanged"), mSpeed);
             
             return kTTErrNone;
         }

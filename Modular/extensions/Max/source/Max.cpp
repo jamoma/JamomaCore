@@ -67,15 +67,10 @@ TTErr Max::Go()
         mRealTime = 0.;
         (mCallback)(mBaton, mProgression, mRealTime);
         
-        // notify each running attribute observers
-        runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
-        
-        // notify each progression attribute observers
-        progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
-        
-        // notify each elapsed time attribute observers
-        realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);        // we use kTTSym_notify because we know that observers are TTCallback
-
+        // notify each observers
+        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+        sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
+        sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
     }
     else {
         
@@ -89,14 +84,10 @@ TTErr Max::Go()
         mRealTime = 0.;
         (mCallback)(mBaton, mProgression, mRealTime);
         
-        // notify each running attribute observers
-        runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
-        
-        // notify each progression attribute observers
-        progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
-        
-        // notify each elapsed time attribute observers
-        realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);        // we use kTTSym_notify because we know that observers are TTCallback
+        // notify each observers
+        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+        sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
+        sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
         
         // schedule first tick
         setclock_fdelay(NULL, clock, mGranularity);
@@ -111,8 +102,8 @@ TTErr Max::Stop()
 	mRunning = NO;
     mPaused = NO;
     
-    // notify each running attribute observers
-    runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
+    // notify each observers
+    sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
     
     return kTTErrNone;
 }
@@ -152,14 +143,10 @@ TTErr Max::Tick()
             
             (mCallback)(mBaton, mProgression, mRealTime);
             
-            // notify each running attribute observers
-            runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
-            
-            // notify each progression attribute observers
-            progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
-            
-            // notify each elapsed time attribute observers
-            realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);        // we use kTTSym_notify because we know that observers are TTCallback
+            // notify each observers
+            sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+            sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
+            sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
         }
 		else {
             
@@ -168,11 +155,9 @@ TTErr Max::Tick()
             
             (mCallback)(mBaton, mProgression, mRealTime);
             
-            // notify each progression attribute observers
-            progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
-            
-            // notify each elapsed time attribute observers
-            realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);        // we use kTTSym_notify because we know that observers are TTCallback
+            // notify each observers
+            sendNotification(TTSymbol("SchedulerProgressionChanged"), mProgression);
+            sendNotification(TTSymbol("SchedulerRealTimeChanged"), mRealTime);
             
             // Set the clock to fire again
             setclock_fdelay(NULL, clock, mGranularity);
