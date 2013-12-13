@@ -385,6 +385,18 @@ TTErr TTObjectBase::findMessage(const TTSymbol name, TTMessage** message)
 		return kTTErrInvalidAttribute;
 }
 
+TTErr TTObjectBase::removeMessage(const TTSymbol name)
+{
+	TTMessage*      message = NULL;
+	TTErr			err = findMessage(name, &message);
+    
+	if (!err) {
+		err = messages->remove(name);
+		delete message;
+	}
+	return err;
+}
+
 
 TTErr TTObjectBase::sendMessage(const TTSymbol name)
 {
