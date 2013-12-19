@@ -140,16 +140,23 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
-        // TEST 6: compare 5 random sample values for equivalence
+        // TEST 6: use TTSampleMatrix's load message, then compare 5 random sample values for equivalence
         
+        // create a new TTSampleMatrix
         TTObject newTargetMatrix("samplematrix");
         
+        // set the length and channel count
         newTargetMatrix.set("numChannels", TESTNUMCHANNELS);
         newTargetMatrix.set("lengthInSamples", TESTDURATIONINSAMPLES);
         
+        // prepare necessary TTValues
+        TTValue loadInput = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
         TTValue aReturnWeDontCareAbout;
-        newTargetMatrix.send("load", testSoundPath, aReturnWeDontCareAbout);
         
+        // send message
+        newTargetMatrix.send("load", loadInput, aReturnWeDontCareAbout);
+        
+        // now let's test some values!
         int randomIndex;
         TTSampleValue randomValueSoundFile;
         TTBoolean result6 = true;
@@ -164,7 +171,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             TTValue peekOutput;
             
             this->peek(randomIndex,0,randomValueSoundFile);
-            newTargetMatrix.send("peek",peekInput,peekOutput); //randomIndex,0,randomValueSampleMatrix);
+            newTargetMatrix.send("peek",peekInput,peekOutput); 
             std::cout << "Does " << randomValueSoundFile << " = " << double(peekOutput) << " ?\n";
             
             if (result6) // allows test to keep variable false once it is false
