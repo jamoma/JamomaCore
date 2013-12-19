@@ -142,8 +142,13 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // TEST 6: compare 5 random sample values for equivalence
         
-        // Can I create a new SampleMatrix this way?
-        TTObject newTargetMatrix("samplematrix");//new TTSampleMatrix(kTTSymEmpty);
+        TTObject newTargetMatrix("samplematrix");
+        
+        newTargetMatrix.set("numChannels", TESTNUMCHANNELS);
+        newTargetMatrix.set("lengthInSamples", TESTDURATIONINSAMPLES);
+        
+        TTValue aReturnWeDontCareAbout;
+        newTargetMatrix.send("load", testSoundPath, aReturnWeDontCareAbout);
         
         int randomIndex;
         TTSampleValue randomValueSoundFile;
