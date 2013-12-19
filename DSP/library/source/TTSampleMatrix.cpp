@@ -59,6 +59,8 @@ TTSampleMatrix::TTSampleMatrix(const TTValue& arguments) :
 
 	addMessageWithArguments(setValueAtIndex);
 	registerMessage("poke", (TTMethod)&TTSampleMatrix::setValueAtIndex);
+    
+    addMessageWithArguments(load);
 
 	// TODO: more messages to implement
 	//	"readFile"   (requires libsndfile straightening-out)
