@@ -154,7 +154,12 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         TTValue aReturnWeDontCareAbout6;
         
         // send message
-        newTargetMatrix.send("load", loadInput6, aReturnWeDontCareAbout6);
+        TTBoolean result6a = { newTargetMatrix.send("load", loadInput6, aReturnWeDontCareAbout6) == kTTErrNone };
+        
+        TTTestAssertion("TTSampleMatrix load operates successfully",
+                        result6a,
+                        testAssertionCount,
+                        errorCount);
         
         // now let's test some values!
         int randomIndex6;
@@ -194,20 +199,17 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         newTargetBuffer.set("numChannels", TESTNUMCHANNELS);
         newTargetBuffer.set("lengthInSamples", TESTDURATIONINSAMPLES);
         
-        //need to confirm these are set
-        TTInt32 channelsReturn7, lengthReturn7;
-        
-        newTargetBuffer.get("numChannels", channelsReturn7);
-        newTargetBuffer.get("lengthInSamples", lengthReturn7);
-        
-        std::cout << "The new buffer is " << lengthReturn7 << " samples & " << channelsReturn7 << " channels\n";
-        
         // prepare necessary TTValues
         TTValue loadInput7 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
         TTValue aReturnWeDontCareAbout7;
         
         // send message
-        newTargetBuffer.send("load", loadInput7, aReturnWeDontCareAbout7);
+        TTBoolean result7a = { newTargetBuffer.send("load", loadInput7, aReturnWeDontCareAbout7) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer load operates successfully",
+                        result7a,
+                        testAssertionCount,
+                        errorCount);
         
         // now let's test some values!
         int randomIndex7;
