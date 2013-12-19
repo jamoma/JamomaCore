@@ -64,6 +64,8 @@ TTBuffer::TTBuffer(const TTValue& arguments) :
 	addMessage(normalize);
 	addMessageWithArguments(fill);
     addMessageWithArguments(load);
+    registerMessage("checkOutMatrix", (TTMethod)&TTBuffer::checkOutMatrixValues);
+    registerMessage("checkInMatrix", (TTMethod)&TTBuffer::checkInMatrixValues);
 	
 	// initialize
 	init(channelCount, name);
@@ -176,6 +178,25 @@ TTErr TTBuffer::checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix)
 	return kTTErrNone;
 }
 
+TTErr TTBuffer::checkOutMatrixValues(const TTValueRef unusedInput, TTValueRef output)
+{
+    TTSampleMatrixPtr startUsingThisMatrix = NULL;
+    
+    if (checkOutMatrix(startUsingThisMatrix) == kTTErrNone)
+    {        
+        
+        TTObjectBasePtr startUsingThisObject = TTObjectBasePtr(TTPtr(startUsingThisMatrix));
+        
+        output.clear();
+        output.append(startUsingThisObject);
+        
+        return kTTErrNone;
+        
+    } else {
+        return kTTErrGeneric;
+    }
+}
+
 TTErr TTBuffer::checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix)
 {
 	// sub one from the tally of users
@@ -196,3 +217,19 @@ TTErr TTBuffer::checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix)
 	return kTTErrNone;
 }
 
+TTErr TTBuffer::checkInMatrixValues(const TTValueRef input, const TTValueRef unusedOutput)
+{
+    TTObjectBasePtr doneUsingThisObject = input[0];
+    
+    // let's make sure input is a samplematrix first
+    if (doneUsingThisObject->getName() != TT("samplematrix"))
+    {
+        // if no: return an error
+        return kTTErrInvalidValue;
+    } else {
+        // if yes: get a generic TTPtr, then cast to TTSampleMatrixPtr
+        TTSampleMatrixPtr doneUsingThisMatrix = (TTSampleMatrixPtr)(TTPtr(doneUsingThisObject));
+        return checkInMatrix(doneUsingThisMatrix);
+    }
+    
+}
