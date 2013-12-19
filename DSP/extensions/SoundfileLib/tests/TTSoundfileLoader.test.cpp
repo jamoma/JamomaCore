@@ -150,32 +150,32 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         newTargetMatrix.set("lengthInSamples", TESTDURATIONINSAMPLES);
         
         // prepare necessary TTValues
-        TTValue loadInput = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
-        TTValue aReturnWeDontCareAbout;
+        TTValue loadInput6 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
+        TTValue aReturnWeDontCareAbout6;
         
         // send message
-        newTargetMatrix.send("load", loadInput, aReturnWeDontCareAbout);
+        newTargetMatrix.send("load", loadInput6, aReturnWeDontCareAbout6);
         
         // now let's test some values!
-        int randomIndex;
-        TTSampleValue randomValueSoundFile;
+        int randomIndex6;
+        TTSampleValue randomValueSoundFile6;
         TTBoolean result6 = true;
         
         for (int i = 0; i<5; i++)
         {
-            randomIndex = lengthReturn * TTRandom64();
-            //TTTestLog("let's look at index %i", randomIndex);
+            randomIndex6 = lengthReturn * TTRandom64();
+            std::cout << "let's look at index " << randomIndex6 << "\n";
             
-            TTValue peekInput(randomIndex);
-            peekInput.append(0);
-            TTValue peekOutput;
+            TTValue peekInput6(randomIndex6);
+            peekInput6.append(0);
+            TTValue peekOutput6;
             
-            this->peek(randomIndex,0,randomValueSoundFile);
-            newTargetMatrix.send("peek",peekInput,peekOutput); 
-            std::cout << "Does " << randomValueSoundFile << " = " << double(peekOutput) << " ?\n";
+            this->peek(randomIndex6,0,randomValueSoundFile6);
+            newTargetMatrix.send("peek",peekInput6,peekOutput6);
+            std::cout << "Does " << randomValueSoundFile6 << " = " << double(peekOutput6) << " ?\n";
             
             if (result6) // allows test to keep variable false once it is false
-                result6 = TTTestFloatEquivalence(randomValueSoundFile, double(peekOutput), true, 0.0000001);
+                result6 = TTTestFloatEquivalence(randomValueSoundFile6, double(peekOutput6), true, 0.0000001);
         }
         
         TTTestAssertion("comparing 5 random values for equivalence",
@@ -194,6 +194,14 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         newTargetBuffer.set("numChannels", TESTNUMCHANNELS);
         newTargetBuffer.set("lengthInSamples", TESTDURATIONINSAMPLES);
         
+        //need to confirm these are set
+        TTInt32 channelsReturn7, lengthReturn7;
+        
+        newTargetBuffer.get("numChannels", channelsReturn7);
+        newTargetBuffer.get("lengthInSamples", lengthReturn7);
+        
+        std::cout << "The new buffer is " << lengthReturn7 << " samples & " << channelsReturn7 << " channels\n";
+        
         // prepare necessary TTValues
         TTValue loadInput7 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
         TTValue aReturnWeDontCareAbout7;
@@ -209,9 +217,9 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         for (int i = 0; i<5; i++)
         {
             randomIndex7 = lengthReturn * TTRandom64();
-            //TTTestLog("let's look at index %i", randomIndex);
+            std::cout << "let's look at index " << randomIndex7 << "\n";
             
-            TTValue peekInput7(randomIndex);
+            TTValue peekInput7(randomIndex7);
             peekInput7.append(0);
             TTValue peekOutput7;
             
