@@ -409,53 +409,6 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test19expect, test19return);
 	}
 	
-    /********/
-    
-    // NW: this test is dependent on the SoundfileLib extension and should therefore be moved to that project
-    /*
-    // TEST 20: load values from a sound file
-    
-    TTInt16				numChannels20 = 2;
-	TTUInt32			numSamples20 = 500;  // TODO: xcode says this is ambiguous when signed?
-    
-    this->setAttributeValue("numChannels", numChannels20);
-    this->setAttributeValue("lengthInSamples", numSamples20);
-    
-    TTTestLog("\nThe samplematrix currently has %i samples and %i channels", numChannels20, numSamples20);
-    
-    // set up TTValues passed to the public method
-    TTValue loadInput, loadOuput;
-    loadInput.append(TT(TESTFILE));
-    
-    
-    TTBoolean result20 = { load(loadInput, loadOuput) == kTTErrNone };
-    
-    TTTestAssertion("load operates successfully",
-                    result20,
-                    testAssertionCount,
-                    errorCount);
-    
-    TTTestLog("Let's look at the first 10 values...");
-    
-    TTSampleValue return20b;
-    TTErr error20b;
-    
-    for (int channel=0;channel<numChannels20;channel++)
-    {
-        TTTestLog("Channel %i", channel);
-        for (int sample=0;sample<10;sample++)
-        {
-            error20b = this->peek(sample,channel,return20b);
-            if (error20b == kTTErrNone)
-            {
-                TTTestLog("peek sample %i returned the value %f", sample, return20b);
-            } else {
-                TTTestLog("peek returned an error for sample %i", sample);
-            }
-        }
-    }
-    // end of test that needs to be moved
-    */
     
     
 	/*
