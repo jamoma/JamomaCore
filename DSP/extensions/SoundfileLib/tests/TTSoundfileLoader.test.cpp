@@ -185,6 +185,51 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         //
         
+        // TEST 7: now use TTBuffer's load message, and again compare 5 random sample values for equivalence
+        
+        // create a new TTBuffer
+        TTObject newTargetBuffer("buffer");
+        
+        // set the length and channel count
+        newTargetBuffer.set("numChannels", TESTNUMCHANNELS);
+        newTargetBuffer.set("lengthInSamples", TESTDURATIONINSAMPLES);
+        
+        // prepare necessary TTValues
+        TTValue loadInput7 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
+        TTValue aReturnWeDontCareAbout7;
+        
+        // send message
+        newTargetBuffer.send("load", loadInput7, aReturnWeDontCareAbout7);
+        
+        // now let's test some values!
+        int randomIndex7;
+        TTSampleValue randomValueSoundFile7;
+        TTBoolean result7 = true;
+        
+        for (int i = 0; i<5; i++)
+        {
+            randomIndex7 = lengthReturn * TTRandom64();
+            //TTTestLog("let's look at index %i", randomIndex);
+            
+            TTValue peekInput7(randomIndex);
+            peekInput7.append(0);
+            TTValue peekOutput7;
+            
+            this->peek(randomIndex7,0,randomValueSoundFile7);
+            newTargetBuffer.send("peek",peekInput7,peekOutput7);
+            std::cout << "Does " << randomValueSoundFile7 << " = " << double(peekOutput7) << " ?\n";
+            
+            if (result7) // allows test to keep variable false once it is false
+                result7 = TTTestFloatEquivalence(randomValueSoundFile7, double(peekOutput7), true, 0.0000001);
+        }
+        
+        TTTestAssertion("comparing 5 random values for equivalence",
+                        result7,
+                        testAssertionCount,
+                        errorCount);
+        
+        //
+        
         
         // releasing objects
         objectBasePtrToSampleMatrix = NULL;
