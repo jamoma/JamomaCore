@@ -45,7 +45,7 @@ mReturnValueCallback(NULL)
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
 	addAttribute(Tag, kTypeSymbol);
-	addAttribute(Highlight, kTypeBoolean);
+	addAttributeWithSetter(Highlight, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
 	
 	addAttribute(Dataspace, kTypeSymbol);
@@ -225,6 +225,21 @@ TTErr TTViewer::setActive(const TTValue& value)
     
     if (mActive)
         refresh();
+	
+	return kTTErrNone;
+}
+
+TTErr TTViewer::setHighlight(const TTValue& value)
+{
+    TTAttributePtr	anAttribute = NULL;
+	TTErr			err;
+	
+	mHighlight = value;
+	
+	err = this->findAttribute(kTTSym_highlight, &anAttribute);
+	
+	if (!err)
+		anAttribute->sendNotification(kTTSym_notify, mHighlight);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }

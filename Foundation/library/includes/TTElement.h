@@ -437,22 +437,13 @@ public:
 		return *this;
 	}
 
-#ifdef USE_TTInt32
 	TTElement& operator = (TTInt32 value)
 	{
 		mType = kTypeInt32;
 		mValue.int32 = value;
 		return *this;
 	}
-#else
-	TTElement& operator = (int value)
-	{
-		mType = kTypeInt32;
-		mValue.int32 = value;
-		return *this;
-	}
-#endif
-	
+
 	TTElement& operator = (TTUInt32 value)
 	{
 		mType = kTypeUInt32;
@@ -1115,12 +1106,6 @@ public:
 		}
 	}
 
-	
-	
-	
-	
-	
-	
 };
 
 
