@@ -18,30 +18,6 @@
 
 #include "TTSampleMatrix.h"
 
-/* */
-#define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
-#define TESTNUMCHANNELS 2
-#define TESTSAMPLERATE 44100
-#define TESTDURATIONINSAMPLES 88202
-#define TESTDURATIONINSECONDS 2.00004535
-#define TESTTITLE ""
-#define TESTARTIST ""
-#define TESTDATE ""
-#define TESTANNOTATION ""
-/* */
-
-/*
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
- #define TESTNUMCHANNELS 1
- #define TESTSAMPLERATE 44100
- #define TESTDURATIONINSAMPLES 39493
- #define TESTDURATIONINSECONDS 0.89553288
- #define TESTTITLE ""
- #define TESTARTIST ""
- #define TESTDATE ""
- #define TESTANNOTATION ""
- */
-
 TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 {
 	int					errorCount = 0;
