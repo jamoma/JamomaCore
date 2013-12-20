@@ -16,6 +16,7 @@
 
 #include "TTSoundfileLoader.h"
 #include "TTUnitTest.h"
+#include "TTBuffer.h"
 
 /*
  
@@ -201,7 +202,8 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // prepare necessary TTValues
         TTValue loadInput7 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
-        TTValue aReturnWeDontCareAbout7;
+        TTValue aSendWeDontCareAbout7, aReturnWeDontCareAbout7;
+        TTValue checkOutValue;
         
         // send message
         TTBoolean result7a = { newTargetBuffer.send("load", loadInput7, aReturnWeDontCareAbout7) == kTTErrNone };
@@ -210,6 +212,10 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         result7a,
                         testAssertionCount,
                         errorCount);
+        
+        // check out samplematrix
+        newTargetBuffer.send("checkOutMatrix",aSendWeDontCareAbout7,checkOutValue);
+        TTObjectBase* checkedOutMatrix = checkOutValue[0];
         
         // now let's test some values!
         int randomIndex7;
@@ -226,7 +232,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             TTValue peekOutput7;
             
             this->peek(randomIndex7,0,randomValueSoundFile7);
-            newTargetBuffer.send("peek",peekInput7,peekOutput7);
+            checkedOutMatrix->sendMessage("peek",peekInput7,peekOutput7);
             std::cout << "Does " << randomValueSoundFile7 << " = " << double(peekOutput7) << " ?\n";
             
             if (result7) // allows test to keep variable false once it is false
@@ -238,7 +244,13 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         testAssertionCount,
                         errorCount);
         
-        //
+        // check in samplematrix
+        TTBoolean result7c = { newTargetBuffer.send("checkInMatrix",checkOutValue,aReturnWeDontCareAbout7) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks in SampleMatrix successfully",
+                        result7c,
+                        testAssertionCount,
+                        errorCount);
         
         
         // releasing objects
