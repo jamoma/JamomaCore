@@ -200,6 +200,13 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         newTargetBuffer.set("numChannels", TESTNUMCHANNELS);
         newTargetBuffer.set("lengthInSamples", TESTDURATIONINSAMPLES);
         
+        // create a new TTBuffer
+        TTBuffer* aBufferByAnotherName = (TTBuffer*)(new TTObject("buffer"));
+        
+        // set the length and channel count
+        aBufferByAnotherName->setAttributeValue("numChannels", TESTNUMCHANNELS);
+        aBufferByAnotherName->setAttributeValue("lengthInSamples", TESTDURATIONINSAMPLES);
+        
         // prepare necessary TTValues
         TTValue loadInput7 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
         TTValue aSendWeDontCareAbout7, aReturnWeDontCareAbout7;
