@@ -5,7 +5,7 @@
  * @brief Tests for the #TTSoundfile class
  *
  * @details Tests the core functions of the TTSoundfile class in order to ensure that things are working after a build. It also demostrate how to make calls to common methods within the class.@n 
- * IMPORTANT NOTE: Because POSIX filepaths will be specific to your system, it is important to change the TESTFILE definitions in this file to match a local absolute address. The related TEST definitions should also be set to match the attribution of the file which can be obtained via your sound file editor of choice. 
+ * IMPORTANT NOTE: Because POSIX filepaths will be specific to your system, this test will attempt to find the path to the SoundfileLib extension using the TTFoundationBinaryPath environment variable. If you wish to test with a different sound file, you will need to place in that extension folder and change the relevant macros in the header of this class.
  *
  * @authors Nathan Wolek
  *
@@ -18,7 +18,17 @@
 #include "TTUnitTest.h"
 
 /* 
- #define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
+ 
+ It is possible to change the target sound file for this test using the macros below.
+ Both sound files are included in the Jamoma respository at the following path:
+ {JAMOMA_ROOT}/Core/DSP/extensions/SoundfileLib/
+ 
+ This test should look for the named TESTFILE at this path.
+ 
+ */
+
+/*
+ #define TESTFILE "geese_clip.aif"
  #define TESTNUMCHANNELS 2
  #define TESTSAMPLERATE 44100
  #define TESTDURATIONINSAMPLES 88202
@@ -30,7 +40,7 @@
  */
 
 /* */
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
+ #define TESTFILE "ding_b2.aiff"
 #define TESTNUMCHANNELS 1
 #define TESTSAMPLERATE 44100
 #define TESTDURATIONINSAMPLES 39493
@@ -41,42 +51,32 @@
 #define TESTANNOTATION ""
 /* */
 
-/*
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/ambience/street.aiff"
- #define TESTNUMCHANNELS 1
- #define TESTSAMPLERATE 44100
- #define TESTDURATIONINSAMPLES 4750848
- #define TESTDURATIONINSECONDS 107.728980
- #define TESTTITLE "UF Street"
- #define TESTARTIST "MPG"
- #define TESTDATE "2006"
- #define TESTANNOTATION ""
- */
 
 TTErr TTSoundfile::test(TTValue& returnedTestInfo)
 {
     int errorCount = 0;
     int testAssertionCount = 0;
     
+    // assemble the full path of the target sound file
+    
+    TTString testSoundPath = TTFoundationBinaryPath;
+    int pos = testSoundPath.find_last_of('/');
+    testSoundPath = testSoundPath.substr(0,pos+1);
+    testSoundPath += TESTFILE;
+
+    std::cout << "We will be using the following path for testing: " << testSoundPath << "\n";
+
     {
         
         
 		TTTestLog("\n");
 		TTTestLog("Testing TTSoundfile Basics...");
 		
-		TTSoundfilePtr soundfile = NULL;
-		TTErr err;
-		
-        // TEST 0: instantiate the object to a pointer
-        TTBoolean result0 = { TTObjectBaseInstantiate("soundfile", (TTObjectBasePtr*)&soundfile, kTTValNONE) == kTTErrNone};
-        
-		TTTestAssertion("instantiates successfully",
-						result0,
-						testAssertionCount,
-						errorCount);
+		// TEST 0: instantiate the object to a pointer
+        // ** REMOVED **
         
         // TEST 1: set the filepath
-        TTBoolean result1 = { soundfile->setFilePath(TT(TESTFILE)) == kTTErrNone };
+        TTBoolean result1 = { this->setFilePath(TT(testSoundPath)) == kTTErrNone };
         
         TTTestAssertion("setFilePath operates successfully",
                         result1,
@@ -84,7 +84,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
                         errorCount);
         
         // TEST 2: reports correct number of channels
-        TTColumnID return2 = soundfile->getNumChannels();
+        TTColumnID return2 = this->getNumChannels();
         TTBoolean result2 = { return2 == TESTNUMCHANNELS };
         
         TTTestAssertion("reports the correct number of channels",
@@ -98,7 +98,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         }
         
         // TEST 3: reports correct sample rate
-        TTFloat64 return3 = soundfile->getSampleRate();
+        TTFloat64 return3 = this->getSampleRate();
         TTBoolean result3 = TTTestFloatEquivalence(return3, TESTSAMPLERATE, true, 0.0000001);
         
         TTTestAssertion("reports the correct sample rate",
@@ -112,7 +112,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         }
         
         // TEST 4: reports correct duration in samples
-        TTRowID return4 = soundfile->getLengthInSamples();
+        TTRowID return4 = this->getLengthInSamples();
         TTBoolean result4 = { return4 == TESTDURATIONINSAMPLES };
         
         TTTestAssertion("reports the correct duration in samples",
@@ -126,7 +126,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         }
         
         // TEST 5: reports correct duration in seconds
-        TTFloat64 return5 = soundfile->getLengthInSeconds();
+        TTFloat64 return5 = this->getLengthInSeconds();
         TTBoolean result5 = TTTestFloatEquivalence(return5, TESTDURATIONINSECONDS, true, 0.0000001);
         
         TTTestAssertion("reports the correct duration in seconds",
@@ -143,7 +143,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
 		TTTestLog("Testing TTSoundfile Metadata...");
         
         // TEST 6: reports correct title from metadata
-        TTSymbol return6 = soundfile->getTitle();
+        TTSymbol return6 = this->getTitle();
         
         TTTestLog("Expected metadata title:");
         TTTestLog(TESTTITLE);
@@ -151,7 +151,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         TTTestLog(return6.c_str());
         
         // TEST 7: reports correct artist from metadata
-        TTSymbol return7 = soundfile->getArtist();
+        TTSymbol return7 = this->getArtist();
         
         TTTestLog("Expected metadata artist:");
         TTTestLog(TESTARTIST);
@@ -159,7 +159,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         TTTestLog(return7.c_str());
         
         // TEST 8: reports correct title from metadata
-        TTSymbol return8 = soundfile->getDate();
+        TTSymbol return8 = this->getDate();
         
         TTTestLog("Expected metadata date:");
         TTTestLog(TESTDATE);
@@ -167,7 +167,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         TTTestLog(return8.c_str());
         
         // TEST 9: reports correct artist from metadata
-        TTSymbol return9 = soundfile->getAnnotation();
+        TTSymbol return9 = this->getAnnotation();
         
         TTTestLog("Expected metadata comment:");
         TTTestLog(TESTANNOTATION);
@@ -185,7 +185,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
             TTTestLog("Channel %i", channel);
             for (int sample=0;sample<10;sample++)
             {
-                error10 = soundfile->peek(sample,channel,return10);
+                error10 = this->peek(sample,channel,return10);
                 if (error10 == kTTErrNone)
                 {
                     TTTestLog("peek sample %i returned the value %f", sample, return10);
@@ -209,7 +209,7 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
             {
                 floatIndex = 2 + sample*0.1;
                 
-                error11 = soundfile->peeki(floatIndex,channel,return11);
+                error11 = this->peeki(floatIndex,channel,return11);
                 if (error11 == kTTErrNone)
                 {
                     TTTestLog("peek sample %f returned the value %f", floatIndex, return11);

@@ -59,9 +59,11 @@ public:
 	
 	// public method to check out the mActiveMatrix
 	TTErr checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix);
+    TTErr checkOutMatrixValues(const TTValueRef unusedInput, TTValueRef output);
 	
 	// public method to check in TTSampleMatrix. if it is no longer mActiveMatrix, action is taken.
 	TTErr checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix);
+    TTErr checkInMatrixValues(const TTValueRef input, TTValueRef unusedOutput);
 	
 	TTErr getNames(const TTValueRef unusedInput, TTValueRef returnedNames)
 	{
