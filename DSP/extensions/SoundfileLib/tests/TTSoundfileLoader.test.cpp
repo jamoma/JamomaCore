@@ -249,7 +249,8 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             TTValue peekOutput7;
             
             this->peek(randomIndex7,0,randomValueSoundFile7);
-            //myMatrix7->peek(TTRowID(randomIndex7),0,randomValueSampleMatrix7);
+            //myMatrix7->peek(randomIndex7,0,randomValueSampleMatrix7);     // crashes
+            myMatrix7->peek(10,0,randomValueSampleMatrix7);                 // works
             std::cout << "Does " << randomValueSoundFile7 << " = " << randomValueSampleMatrix7 << " ?\n";
             
             if (result7) // allows test to keep variable false once it is false
