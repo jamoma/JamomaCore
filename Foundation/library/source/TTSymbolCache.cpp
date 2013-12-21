@@ -87,6 +87,8 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_matrixarray				(("matrixarray"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_dimensions				(("dimensions"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_type						(("type"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_elementCount				(("elementCount"));
+TTFOUNDATION_EXPORT TTSymbol		kTTSym_samplematrix				(("samplematrix"));
+TTFOUNDATION_EXPORT TTSymbol		kTTSym_buffer                   (("buffer"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_float32					(("float32"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_float64					(("float64"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_int8						(("int8"));

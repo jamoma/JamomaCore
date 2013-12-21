@@ -97,6 +97,8 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_matrixarray;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_dimensions;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_type;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_elementCount;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_samplematrix;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_buffer;
 
 // data types - 3 defined above: none, object, value
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_float32;
