@@ -24,6 +24,15 @@
 
 extern TTHashPtr gTTBufferNameMap;	// maps names to TTSampleMatrix instances for TTBuffer
 
+/** Wrap TTBuffer instances for convenience. */
+class TTAudioBuffer : public TTObject {
+public:
+	TTAudioBuffer(const TTSymbol& aBufferName, int aChannelCount):
+	TTObject((("buffer")), aChannelCount)
+	{}
+    
+};
+
 /**	TTBuffer is a container object that holds some audio in a chunk of memory.
 	Other objects can then access this buffer to record into it, play back from it,
 	or perform other operations on it.

@@ -201,11 +201,11 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         newTargetBuffer.set("lengthInSamples", TESTDURATIONINSAMPLES);
         
         // create a new TTBuffer
-        TTBuffer* aBufferByAnotherName = (TTBuffer*)(new TTObject("buffer"));
+        TTAudioBuffer aBufferByAnyOtherName("wouldStillSmellAsSweet", 2);
         
         // set the length and channel count
-        aBufferByAnotherName->setAttributeValue("numChannels", TESTNUMCHANNELS);
-        aBufferByAnotherName->setAttributeValue("lengthInSamples", TESTDURATIONINSAMPLES);
+        aBufferByAnotherName.setAttributeValue("numChannels", TESTNUMCHANNELS);
+        aBufferByAnotherName.setAttributeValue("lengthInSamples", TESTDURATIONINSAMPLES);
         
         // prepare necessary TTValues
         TTValue loadInput7 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
