@@ -200,12 +200,12 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         newTargetBuffer.set("numChannels", TESTNUMCHANNELS);
         newTargetBuffer.set("lengthInSamples", TESTDURATIONINSAMPLES);
         
-        // create a new TTBuffer
-        TTAudioBuffer aBufferByAnyOtherName("wouldStillSmellAsSweet", 2);
+        // create a additional TTBuffer with convenience syntax
+        TTAudioBuffer aBufferByAnyOtherName(TESTNUMCHANNELS, TESTDURATIONINSAMPLES);
         
         // set the length and channel count
-        aBufferByAnotherName.setAttributeValue("numChannels", TESTNUMCHANNELS);
-        aBufferByAnotherName.setAttributeValue("lengthInSamples", TESTDURATIONINSAMPLES);
+        //aBufferByAnyOtherName.setAttributeValue("numChannels", TESTNUMCHANNELS);
+        //aBufferByAnyOtherName.setAttributeValue("lengthInSamples", TESTDURATIONINSAMPLES);
         
         // prepare necessary TTValues
         TTValue loadInput7 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
@@ -213,7 +213,8 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         TTValue checkOutValue;
         
         // send message
-        TTBoolean result7a = { newTargetBuffer.send("load", loadInput7, aReturnWeDontCareAbout7) == kTTErrNone };
+        TTBoolean result7a = {  aBufferByAnyOtherName.load(loadInput7) == kTTErrNone    };
+            //newTargetBuffer.send("load", loadInput7, aReturnWeDontCareAbout7) == kTTErrNone };
         
         TTTestAssertion("TTBuffer load operates successfully",
                         result7a,
@@ -221,12 +222,21 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         errorCount);
         
         // check out samplematrix
-        newTargetBuffer.send("checkOutMatrix",aSendWeDontCareAbout7,checkOutValue);
-        TTObjectBase* checkedOutMatrix = checkOutValue[0];
+        //newTargetBuffer.send("checkOutMatrix",aSendWeDontCareAbout7,checkOutValue);
+        //TTObjectBase* checkedOutMatrix = checkOutValue[0];
+        
+        TTSampleMatrixPtr myMatrix7;
+        aBufferByAnyOtherName.checkOutMatrix(myMatrix7);
+        
+        TTValue testChannel, testSample;
+        myMatrix7->getNumChannels(testChannel);
+        myMatrix7->getLengthInSamples(testSample);
+        
+        std::cout << "Samplematrix has " << int(testChannel) << " channels & " << int(testSample) << " samples\n";
         
         // now let's test some values!
         int randomIndex7;
-        TTSampleValue randomValueSoundFile7;
+        TTSampleValue randomValueSoundFile7, randomValueSampleMatrix7;
         TTBoolean result7 = true;
         
         for (int i = 0; i<5; i++)
@@ -239,11 +249,11 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             TTValue peekOutput7;
             
             this->peek(randomIndex7,0,randomValueSoundFile7);
-            checkedOutMatrix->sendMessage("peek",peekInput7,peekOutput7);
-            std::cout << "Does " << randomValueSoundFile7 << " = " << double(peekOutput7) << " ?\n";
+            //myMatrix7->peek(TTRowID(randomIndex7),0,randomValueSampleMatrix7);
+            std::cout << "Does " << randomValueSoundFile7 << " = " << randomValueSampleMatrix7 << " ?\n";
             
             if (result7) // allows test to keep variable false once it is false
-                result7 = TTTestFloatEquivalence(randomValueSoundFile7, double(peekOutput7), true, 0.0000001);
+                result7 = TTTestFloatEquivalence(randomValueSoundFile7, randomValueSampleMatrix7, true, 0.0000001);
         }
         
         TTTestAssertion("comparing 5 random values for equivalence",
