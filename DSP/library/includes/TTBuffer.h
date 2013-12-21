@@ -24,15 +24,6 @@
 
 extern TTHashPtr gTTBufferNameMap;	// maps names to TTSampleMatrix instances for TTBuffer
 
-/** Wrap TTBuffer instances for convenience. */
-class TTAudioBuffer : public TTObject {
-public:
-	TTAudioBuffer(const TTSymbol& aBufferName, int aChannelCount):
-	TTObject((("buffer")), aChannelCount)
-	{}
-    
-};
-
 /**	TTBuffer is a container object that holds some audio in a chunk of memory.
 	Other objects can then access this buffer to record into it, play back from it,
 	or perform other operations on it.
@@ -190,5 +181,47 @@ public:
 };
 
 typedef TTBuffer* TTBufferPtr;
+
+/** Wrap TTBuffer instances for convenience. */
+class TTAudioBuffer : public TTObject {
+public:
+	TTAudioBuffer(const TTValue& channelCount, const TTValue& sampleCount):
+	TTObject(kTTSym_buffer, channelCount)
+	{
+        instance()->setLengthInSamples(sampleCount);
+    }
+    
+    TTBufferPtr instance()
+	{
+		return (TTBufferPtr)mObjectInstance;
+	}
+    
+    TTErr setNumChannels(const TTValue &value)
+    {
+        return instance()->setNumChannels(value);
+    }
+    
+    TTErr setLengthInSamples(const TTValue &value)
+    {
+        return instance()->setLengthInSamples(value);
+    }
+    
+    TTErr load(const TTValue &value)
+    {
+        TTValue unusedOuput;
+        return instance()->load(value, unusedOuput);
+    }
+    
+    TTErr checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix)
+    {
+        return instance()->checkOutMatrix(startUsingThisMatrix);
+    }
+    
+    TTErr checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix)
+    {
+        return instance()->checkInMatrix(doneUsingThisMatrix);
+    }
+    
+};
 
 #endif // __TT_BUFFER_H__
