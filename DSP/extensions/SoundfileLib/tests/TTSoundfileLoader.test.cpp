@@ -264,7 +264,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         errorCount);
         
         // check in samplematrix
-        TTBoolean result7c = { newTargetBuffer.send("checkInMatrix",checkOutValue,aReturnWeDontCareAbout7) == kTTErrNone };
+        TTBoolean result7c = { aBufferByAnyOtherName.checkInMatrix(myMatrix7) == kTTErrNone };
         
         TTTestAssertion("TTBuffer checks in SampleMatrix successfully",
                         result7c,
