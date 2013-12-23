@@ -236,7 +236,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // now let's test some values!
         int randomIndex7;
-        TTSampleValue randomValueSoundFile7, randomValueSampleMatrix7;
+        double randomValueSoundFile7, randomValueSampleMatrix7, randomValueSampleMatrix7b;
         TTBoolean result7 = true;
         
         for (int i = 0; i<5; i++)
@@ -249,12 +249,13 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             TTValue peekOutput7;
             
             this->peek(randomIndex7,0,randomValueSoundFile7);
-            //myMatrix7->peek(randomIndex7,0,randomValueSampleMatrix7);     // crashes
+            myMatrix7->peek(randomIndex7,0,randomValueSampleMatrix7b);     // crashes when you use values
+            myMatrix7->getValueAtIndex(peekInput7,peekOutput7);           // crashes when you use values
             myMatrix7->peek(10,0,randomValueSampleMatrix7);                 // works
-            std::cout << "Does " << randomValueSoundFile7 << " = " << randomValueSampleMatrix7 << " ?\n";
+            std::cout << "Does " << randomValueSoundFile7 << " = " << randomValueSampleMatrix7b << " ?\n";
             
             if (result7) // allows test to keep variable false once it is false
-                result7 = TTTestFloatEquivalence(randomValueSoundFile7, randomValueSampleMatrix7, true, 0.0000001);
+                result7 = TTTestFloatEquivalence(randomValueSoundFile7, randomValueSampleMatrix7, true, 0.0000001); // problem happens here
         }
         
         TTTestAssertion("comparing 5 random values for equivalence",
