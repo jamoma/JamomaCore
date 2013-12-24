@@ -278,6 +278,23 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 					testAssertionCount, 
 					errorCount);
     
+    // TEST 17: changing samplerate on TTBuffer results in change for TTSampleMatrix
+    
+    TTUInt32 sampleRate17 = 88200;
+    this->setSampleRate(sampleRate17);
+    
+    TTValue testBufferSampleRate17;
+    this->getAttributeValue("sampleRate", testBufferSampleRate17);
+    
+    TTSampleMatrixPtr myMatrix17;
+    this->checkOutMatrix(myMatrix17);
+    
+    TTValue testSampleMatrixSampleRate17;
+    myMatrix17->getAttributeValue("sampleRate", testSampleMatrixSampleRate17);
+    
+    std::cout << "Does sample rate " << int(sampleRate17) << " = " << int(testBufferSampleRate17) << " = " << double(testSampleMatrixSampleRate17) << " ?\n";
+    
+    this->checkInMatrix(myMatrix17);
 
 
 	// The following is effectively taken care of through check in...
