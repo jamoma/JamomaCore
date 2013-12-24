@@ -141,6 +141,12 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
+        // releasing objects
+        objectBasePtrToSampleMatrix = NULL;
+        ptrToNonSampleMatrix = NULL;
+        delete testTargetMatrix;
+        delete testNonSampleMatrix;
+        
         
         // TEST 6: use TTSampleMatrix's load message, then compare 5 random sample values for equivalence
         
@@ -323,12 +329,51 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         testAssertionCount,
                         errorCount);
         
+        // TEST 9: load soundfile into buffer/samplematrix with different sample rate
         
-        // releasing objects
-        objectBasePtrToSampleMatrix = NULL;
-        ptrToNonSampleMatrix = NULL;
-        delete testTargetMatrix;
-        delete testNonSampleMatrix;
+        aBufferByAnyOtherName.set("numChannels", 2);
+        aBufferByAnyOtherName.set("sampleRate", 88200.);
+        aBufferByAnyOtherName.set("lengthInSeconds", 0.25);
+        
+        TTValue loadInput9 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
+        
+        // send message
+        TTBoolean result9a = { aBufferByAnyOtherName.load(loadInput9) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer load operates successfully w optional parameters",
+                        result9a,
+                        testAssertionCount,
+                        errorCount);
+        
+        // setup pointer to samplematrix
+        TTSampleMatrixPtr myMatrix9;
+        
+        // check out samplematrix
+        TTBoolean result9b = { aBufferByAnyOtherName.checkOutMatrix(myMatrix9) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks out SampleMatrix successfully",
+                        result9b,
+                        testAssertionCount,
+                        errorCount);
+        
+        TTValue testChannel9, testSampleCount9, testSampleRate9;
+        myMatrix9->getAttributeValue("numChannels", testChannel9);
+        myMatrix9->getAttributeValue("lengthInSamples", testSampleCount9);
+        myMatrix9->getAttributeValue("sampleRate", testSampleRate9);
+        
+        std::cout << "Samplematrix has " << int(testChannel9) << " channels & " << int(testSampleCount9) << " samples @ " << double(testSampleRate9) << " Hz\n";
+        
+        
+        // DO SOMETHING HERE
+        
+        // check in samplematrix
+        TTBoolean result9d = { aBufferByAnyOtherName.checkInMatrix(myMatrix9) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks in SampleMatrix successfully",
+                        result9d,
+                        testAssertionCount,
+                        errorCount);
+        
         
     } catch (...) {
         TTTestAssertion("FAILED to run tests -- likely that necessary objects did not instantiate",
