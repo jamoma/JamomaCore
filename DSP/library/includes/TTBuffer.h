@@ -196,16 +196,6 @@ public:
 		return (TTBufferPtr)mObjectInstance;
 	}
     
-    TTErr setNumChannels(const TTValue &value)
-    {
-        return instance()->setNumChannels(value);
-    }
-    
-    TTErr setLengthInSamples(const TTValue &value)
-    {
-        return instance()->setLengthInSamples(value);
-    }
-    
     TTErr load(const TTValue &value)
     {
         TTValue unusedOuput;
