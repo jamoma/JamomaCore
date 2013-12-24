@@ -170,7 +170,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         for (int i = 0; i<5; i++)
         {
             randomIndex6 = lengthReturn * TTRandom64();
-            std::cout << "let's look at index " << randomIndex6 << "\n";
+            //std::cout << "let's look at index " << randomIndex6 << "\n";
             
             TTValue peekInput6(randomIndex6);
             peekInput6.append(0);
@@ -178,7 +178,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             
             this->peek(randomIndex6,0,randomValueSoundFile6);
             newTargetMatrix.send("peek",peekInput6,peekOutput6);
-            std::cout << "Does " << randomValueSoundFile6 << " = " << double(peekOutput6) << " ?\n";
+            //std::cout << "Does " << randomValueSoundFile6 << " = " << double(peekOutput6) << " ?\n";
             
             if (result6) // allows test to keep variable false once it is false
                 result6 = TTTestFloatEquivalence(randomValueSoundFile6, double(peekOutput6), true, 0.0000001);
@@ -198,7 +198,6 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // prepare necessary TTValues
         TTValue loadInput7 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
-        TTValue aSendWeDontCareAbout7, aReturnWeDontCareAbout7;
         
         // send message
         TTBoolean result7a = { aBufferByAnyOtherName.load(loadInput7) == kTTErrNone };
@@ -223,7 +222,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         myMatrix7->getNumChannels(testChannel);
         myMatrix7->getLengthInSamples(testSample);
         
-        std::cout << "Samplematrix has " << int(testChannel) << " channels & " << int(testSample) << " samples\n";
+        //std::cout << "Samplematrix has " << int(testChannel) << " channels & " << int(testSample) << " samples\n";
         
         // now let's test some values!
         int randomIndex7;
@@ -233,11 +232,11 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         for (int i = 0; i<5; i++)
         {
             randomIndex7 = lengthReturn * TTRandom64();
-            std::cout << "let's look at index " << randomIndex7 << "\n";
+            //std::cout << "let's look at index " << randomIndex7 << "\n";
             
             this->peek(randomIndex7,0,randomValueSoundFile7);
             myMatrix7->peek(randomIndex7,0,randomValueSampleMatrix7);
-            std::cout << "Does " << randomValueSoundFile7 << " = " << randomValueSampleMatrix7 << " ?\n";
+            //std::cout << "Does " << randomValueSoundFile7 << " = " << randomValueSampleMatrix7 << " ?\n";
             
             if (result7) // allows test to keep variable false once it is false
                 result7 = TTTestFloatEquivalence(randomValueSoundFile7, randomValueSampleMatrix7, true, 0.0000001);
