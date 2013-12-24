@@ -141,6 +141,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						testAssertionCount,
 						errorCount);
         
+        
         // TEST 6: use TTSampleMatrix's load message, then compare 5 random sample values for equivalence
         
         // create a new TTSampleMatrix
@@ -256,6 +257,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         result7d,
                         testAssertionCount,
                         errorCount);
+        
         
         // TEST 8: use optional load parameters to copy samples 5 to 15 from channel 0
         

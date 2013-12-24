@@ -137,15 +137,15 @@ TTErr TTSampleMatrix::decrementUserCount()
 
 TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 {
-	TTRowID		sampleIndex;
+	TTRowID         sampleIndex;
 	TTColumnID		sampleChannel = 0;
 	TTSampleValue	sampleValue;
-	TTUInt8			i = 0;
 	TTErr			err;
 
-	index.get(i++, sampleIndex);
-	if (index.size() > 1)
-		index.get(i++, sampleChannel);
+	sampleIndex = index[0];
+	if (index.size() > 1) {
+		sampleChannel = index[1];
+    }
 
 	err = peek(sampleIndex, sampleChannel, sampleValue);
 	if (!err)
@@ -211,15 +211,17 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTColumnID channel, TTS
 */
 TTErr TTSampleMatrix::setValueAtIndex(const TTValue& index, TTValue& unusedOutput)
 {
-	TTRowID		sampleIndex;
+	TTRowID         sampleIndex;
 	TTColumnID		sampleChannel = 0;
 	TTSampleValue	sampleValue;
-	TTUInt8			i = 0;
 
-	index.get(i++, sampleIndex);
-	if (index.size() > 1)
-		index.get(i++, sampleChannel);
-	index.get(i++, sampleValue);
+	sampleIndex = index[0];
+	if (index.size() > 2) {
+		sampleChannel = index[1];
+        sampleValue = index[2];
+    } else {
+        sampleValue = index[1];
+    }
 
 	return poke(sampleIndex, sampleChannel, sampleValue);
 }
