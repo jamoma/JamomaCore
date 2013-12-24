@@ -255,6 +255,70 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         testAssertionCount,
                         errorCount);
         
+        // TEST 8: use optional load parameters to copy samples 5 to 15 from channel 0
+        
+        // resize
+        aBufferByAnyOtherName.set("numChannels", 1);
+        aBufferByAnyOtherName.set("lengthInSamples", 10);
+        
+        // prepare necessary TTValues
+        int copyChannel8 = 0;       // first channel
+        int startIndex8 = 5;        // start @ sample 5
+        int endIndex8 = 15;         // end @ sample 15
+        
+        TTValue loadInput8 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
+        loadInput8.append(copyChannel8);
+        loadInput8.append(startIndex8);
+        loadInput8.append(endIndex8);
+        
+        // send message
+        TTBoolean result8a = { aBufferByAnyOtherName.load(loadInput8) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer load operates successfully w optional parameters",
+                        result8a,
+                        testAssertionCount,
+                        errorCount);
+        
+        // setup pointer to samplematrix
+        TTSampleMatrixPtr myMatrix8;
+        
+        // check out samplematrix
+        TTBoolean result8b = { aBufferByAnyOtherName.checkOutMatrix(myMatrix8) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks out SampleMatrix successfully",
+                        result8b,
+                        testAssertionCount,
+                        errorCount);
+        
+        // now let's test some values!
+        double testValueSoundFile8, testValueSampleMatrix8;
+        TTBoolean result8c = true;
+
+        for (int i = 0; i<10; i++)
+        {
+            //std::cout << "let's look at index " << i << "\n";
+            
+            this->peek(i+startIndex8,copyChannel8,testValueSoundFile8);
+            myMatrix8->peek(i,copyChannel8,testValueSampleMatrix8);
+            //std::cout << "Does " << testValueSoundFile8 << " = " << testValueSampleMatrix8 << " ?\n";
+            
+            if (result8c) // allows test to keep variable false once it is false
+                result8c = TTTestFloatEquivalence(testValueSoundFile8, testValueSampleMatrix8, true, 0.0000001);
+        }
+        
+        TTTestAssertion("comparing 10 copied values for equivalence",
+                        result8c,
+                        testAssertionCount,
+                        errorCount);
+        
+        // check in samplematrix
+        TTBoolean result8d = { aBufferByAnyOtherName.checkInMatrix(myMatrix8) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks in SampleMatrix successfully",
+                        result8d,
+                        testAssertionCount,
+                        errorCount);
+        
         
         // releasing objects
         objectBasePtrToSampleMatrix = NULL;
