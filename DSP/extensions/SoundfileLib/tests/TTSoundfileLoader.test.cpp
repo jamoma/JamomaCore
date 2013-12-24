@@ -185,13 +185,12 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                 result6b = TTTestFloatEquivalence(testValueSoundFile6, double(peekOutput6), true, 0.0000001);
         }
         
-        /*
+        
         TTTestAssertion("comparing values @ 10 random indexes for equivalence",
                         result6b,
                         testAssertionCount,
                         errorCount);
         
-        */
         
         // TEST 7: now use TTBuffer's load message, and again compare 5 random sample values for equivalence
         
