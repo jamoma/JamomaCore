@@ -164,8 +164,8 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // now let's test some values!
         int randomIndex6;
-        TTSampleValue randomValueSoundFile6;
-        TTBoolean result6 = true;
+        TTSampleValue testValueSoundFile6;
+        TTBoolean result6b = true;
         
         for (int i = 0; i<5; i++)
         {
@@ -176,16 +176,16 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             peekInput6.append(0);
             TTValue peekOutput6;
             
-            this->peek(randomIndex6,0,randomValueSoundFile6);
+            this->peek(randomIndex6,0,testValueSoundFile6);
             newTargetMatrix.send("peek",peekInput6,peekOutput6);
-            //std::cout << "Does " << randomValueSoundFile6 << " = " << double(peekOutput6) << " ?\n";
+            //std::cout << "Does " << testValueSoundFile6 << " = " << double(peekOutput6) << " ?\n";
             
-            if (result6) // allows test to keep variable false once it is false
-                result6 = TTTestFloatEquivalence(randomValueSoundFile6, double(peekOutput6), true, 0.0000001);
+            if (result6b) // allows test to keep variable false once it is false
+                result6b = TTTestFloatEquivalence(testValueSoundFile6, double(peekOutput6), true, 0.0000001);
         }
         
-        TTTestAssertion("comparing 5 random values for equivalence",
-                        result6,
+        TTTestAssertion("comparing values @ 5 random indexes for equivalence",
+                        result6b,
                         testAssertionCount,
                         errorCount);
         
@@ -226,32 +226,32 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // now let's test some values!
         int randomIndex7;
-        double randomValueSoundFile7, randomValueSampleMatrix7;
-        TTBoolean result7 = true;
+        double testValueSoundFile7, testValueSampleMatrix7;
+        TTBoolean result7c = true;
         
         for (int i = 0; i<5; i++)
         {
             randomIndex7 = lengthReturn * TTRandom64();
             //std::cout << "let's look at index " << randomIndex7 << "\n";
             
-            this->peek(randomIndex7,0,randomValueSoundFile7);
-            myMatrix7->peek(randomIndex7,0,randomValueSampleMatrix7);
-            //std::cout << "Does " << randomValueSoundFile7 << " = " << randomValueSampleMatrix7 << " ?\n";
+            this->peek(randomIndex7,0,testValueSoundFile7);
+            myMatrix7->peek(randomIndex7,0,testValueSampleMatrix7);
+            //std::cout << "Does " << testValueSoundFile7 << " = " << testValueSampleMatrix7 << " ?\n";
             
-            if (result7) // allows test to keep variable false once it is false
-                result7 = TTTestFloatEquivalence(randomValueSoundFile7, randomValueSampleMatrix7, true, 0.0000001);
+            if (result7c) // allows test to keep variable false once it is false
+                result7c = TTTestFloatEquivalence(testValueSoundFile7, testValueSampleMatrix7, true, 0.0000001);
         }
         
-        TTTestAssertion("comparing 5 random values for equivalence",
-                        result7,
+        TTTestAssertion("comparing values @ 5 random indexes for equivalence",
+                        result7c,
                         testAssertionCount,
                         errorCount);
         
         // check in samplematrix
-        TTBoolean result7c = { aBufferByAnyOtherName.checkInMatrix(myMatrix7) == kTTErrNone };
+        TTBoolean result7d = { aBufferByAnyOtherName.checkInMatrix(myMatrix7) == kTTErrNone };
         
         TTTestAssertion("TTBuffer checks in SampleMatrix successfully",
-                        result7c,
+                        result7d,
                         testAssertionCount,
                         errorCount);
         
@@ -306,7 +306,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                 result8c = TTTestFloatEquivalence(testValueSoundFile8, testValueSampleMatrix8, true, 0.0000001);
         }
         
-        TTTestAssertion("comparing 10 copied values for equivalence",
+        TTTestAssertion("comparing all 10 copied values for equivalence",
                         result8c,
                         testAssertionCount,
                         errorCount);
