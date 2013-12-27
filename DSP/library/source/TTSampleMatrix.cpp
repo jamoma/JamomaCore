@@ -35,7 +35,7 @@ extern "C" void TTSampleMatrix::registerClass()
 
 TTSampleMatrix::TTSampleMatrix(const TTValue& arguments) :
 	TTMatrix(arguments),
-	mSampleRate(44100.0) // fix this!
+	mSampleRate(ttEnvironment->mSampleRate)
 {
 	this->setTypeWithoutResize(kTypeFloat64);
 	this->setElementCountWithoutResize(1);
