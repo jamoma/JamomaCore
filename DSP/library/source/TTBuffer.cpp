@@ -94,7 +94,8 @@ TTErr TTBuffer::init(TTUInt16 channelCount, TTSymbol name)
 	err = TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&mActiveMatrix, kTTValNONE);
 	if (!err)
 	{
-		mActiveMatrix->setAttributeValue("numChannels", channelCount);
+		mActiveMatrix->setAttributeValue(kTTSym_sampleRate, this->sr);
+        mActiveMatrix->setAttributeValue("numChannels", channelCount);
 		mActiveMatrix->setBufferPoolStage(kSM_Active);
 	}
 
