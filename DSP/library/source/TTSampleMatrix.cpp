@@ -115,6 +115,13 @@ TTErr TTSampleMatrix::getLengthInSamples(TTValue& returnedLengthInSamples)
 }
 
 
+TTErr TTSampleMatrix::adaptTo(const TTSampleMatrix& anotherMatrix)
+{
+    this->mSampleRate = anotherMatrix.mSampleRate;
+    return TTMatrix::adaptTo((TTMatrix&)anotherMatrix);
+}
+
+
 TTErr TTSampleMatrix::incrementUserCount()
 {
 	// could technically exceed 65,535 maximum, but we'll take the chance for now
