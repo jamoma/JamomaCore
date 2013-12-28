@@ -178,7 +178,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         {
             randomIndex6 = lengthReturn * TTRandom64();
             randomChannel6 = i % TESTNUMCHANNELS;
-            std::cout << "let's look at index " << randomIndex6 << " & channel " << randomChannel6 << "\n";
+            //std::cout << "let's look at index " << randomIndex6 << " & channel " << randomChannel6 << "\n";
             
             TTValue peekInput6(randomIndex6);
             peekInput6.append(randomChannel6);
@@ -186,7 +186,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
             
             this->peek(randomIndex6,randomChannel6,testValueSoundFile6);
             newTargetMatrix.send("peek",peekInput6,peekOutput6);
-            std::cout << "Does " << testValueSoundFile6 << " = " << double(peekOutput6) << " ?\n";
+            //std::cout << "Does " << testValueSoundFile6 << " = " << double(peekOutput6) << " ?\n";
             
             if (result6b) // allows test to keep variable false once it is false
                 result6b = TTTestFloatEquivalence(testValueSoundFile6, double(peekOutput6), true, 0.0000001);
@@ -241,11 +241,11 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         {
             randomIndex7 = lengthReturn * TTRandom64();
             randomChannel7 = i % TESTNUMCHANNELS;
-            std::cout << "let's look at index " << randomIndex7 << " & channel " << randomChannel7 << "\n";
+            //std::cout << "let's look at index " << randomIndex7 << " & channel " << randomChannel7 << "\n";
             
             this->peek(randomIndex7,randomChannel7,testValueSoundFile7);
             myMatrix7->peek(randomIndex7,randomChannel7,testValueSampleMatrix7);
-            std::cout << "Does " << testValueSoundFile7 << " = " << testValueSampleMatrix7 << " ?\n";
+            //std::cout << "Does " << testValueSoundFile7 << " = " << testValueSampleMatrix7 << " ?\n";
             
             if (result7c) // allows test to keep variable false once it is false
                 result7c = TTTestFloatEquivalence(testValueSoundFile7, testValueSampleMatrix7, true, 0.0000001);
@@ -331,9 +331,14 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // TEST 9: load soundfile into buffer/samplematrix with different sample rate
         
-        aBufferByAnyOtherName.set("numChannels", 2);
-        aBufferByAnyOtherName.set("sampleRate", 88200.);
-        aBufferByAnyOtherName.set("lengthInSeconds", 0.25);
+        TTValue testChannel9in = 2;
+        TTValue testSampleRate9in = 88200;
+        TTValue testLengthSec9in = 0.25;
+        
+        
+        aBufferByAnyOtherName.set("numChannels", testChannel9in);
+        aBufferByAnyOtherName.set("sampleRate", testSampleRate9in);
+        aBufferByAnyOtherName.set("lengthInSeconds", testLengthSec9in);
         
         TTValue loadInput9 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
         
@@ -361,16 +366,26 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         myMatrix9->getAttributeValue("lengthInSamples", testSampleCount9);
         myMatrix9->getAttributeValue("sampleRate", testSampleRate9);
         
-        std::cout << "Samplematrix has " << int(testChannel9) << " channels & " << int(testSampleCount9) << " samples @ " << double(testSampleRate9) << " Hz\n";
+        /*std::cout << "Samplematrix has " << int(testChannel9) << " channels & " << int(testSampleCount9) << " samples @ " << double(testSampleRate9) << " Hz\n";*/
+        
+        // check out samplematrix
+        TTBoolean result9c = {  int(testChannel9in) == int(testChannel9) &&
+                                int(testSampleRate9in) == int(testSampleRate9) &&
+                                float(testSampleCount9) == (float(testSampleRate9in) * float(testLengthSec9in)) };
+        
+        TTTestAssertion("SampleMatrix has same attributes set via TTBuffer",
+                        result9c,
+                        testAssertionCount,
+                        errorCount);
         
         
         // DO SOMETHING HERE
         
         // check in samplematrix
-        TTBoolean result9d = { aBufferByAnyOtherName.checkInMatrix(myMatrix9) == kTTErrNone };
+        TTBoolean result9e = { aBufferByAnyOtherName.checkInMatrix(myMatrix9) == kTTErrNone };
         
         TTTestAssertion("TTBuffer checks in SampleMatrix successfully",
-                        result9d,
+                        result9e,
                         testAssertionCount,
                         errorCount);
         
