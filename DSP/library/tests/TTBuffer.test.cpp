@@ -280,11 +280,12 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
     
     // TEST 17: changing samplerate on TTBuffer results in change for TTSampleMatrix
     
-    TTUInt32 sampleRate17 = 88200;
-    this->setSampleRate(sampleRate17);
+    TTValue sampleRate17 = 88200;
+    //this->setSampleRate(sampleRate17);
+    this->setAttributeValue(kTTSym_sampleRate, sampleRate17);
     
     TTValue testBufferSampleRate17;
-    TTErr error17a = this->getAttributeValue("sampleRate", testBufferSampleRate17);
+    TTErr error17a = this->getAttributeValue(kTTSym_sampleRate, testBufferSampleRate17);
     
     TTBoolean result17a = { error17a == kTTErrNone };
     
@@ -297,7 +298,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
     this->checkOutMatrix(myMatrix17);
     
     TTValue testSampleMatrixSampleRate17;
-    myMatrix17->getAttributeValue("sampleRate", testSampleMatrixSampleRate17);
+    myMatrix17->getAttributeValue(kTTSym_sampleRate, testSampleMatrixSampleRate17);
     
     TTBoolean result17b = { testBufferSampleRate17[0] == testSampleMatrixSampleRate17[0] };
     
