@@ -284,7 +284,14 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
     this->setSampleRate(sampleRate17);
     
     TTValue testBufferSampleRate17;
-    this->getAttributeValue("sampleRate", testBufferSampleRate17);
+    TTErr error17a = this->getAttributeValue("sampleRate", testBufferSampleRate17);
+    
+    TTBoolean result17a = { error17a == kTTErrNone };
+    
+    TTTestAssertion("getting sampleRate after setting reports no error",
+                    result17a,
+                    testAssertionCount,
+                    errorCount);
     
     TTSampleMatrixPtr myMatrix17;
     this->checkOutMatrix(myMatrix17);
@@ -292,7 +299,12 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
     TTValue testSampleMatrixSampleRate17;
     myMatrix17->getAttributeValue("sampleRate", testSampleMatrixSampleRate17);
     
-    std::cout << "Does sample rate " << int(sampleRate17) << " = " << int(testBufferSampleRate17) << " = " << double(testSampleMatrixSampleRate17) << " ?\n";
+    TTBoolean result17b = { testBufferSampleRate17[0] == testSampleMatrixSampleRate17[0] };
+    
+    TTTestAssertion("checked out SampleMatrix reports same sampleRate as Buffer",
+                    result17b,
+                    testAssertionCount,
+                    errorCount);
     
     this->checkInMatrix(myMatrix17);
 
