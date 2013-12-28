@@ -46,7 +46,7 @@ TTSampleMatrix::TTSampleMatrix(const TTValue& arguments) :
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeInt32);
 	addAttributeWithGetterAndSetter(LengthInSeconds,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
-	addAttribute(SampleRate,							kTypeFloat64);
+	addAttribute(SampleRate,							kTypeUInt32);
 	addAttribute(				UserCount,				kTypeUInt16); 
 		addAttributeProperty(	UserCount, 				readOnly, YES);
 	

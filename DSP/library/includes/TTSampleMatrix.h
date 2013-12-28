@@ -52,7 +52,7 @@ class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 
 protected:
 
-	TTFloat64				mSampleRate;
+	TTUInt32				mSampleRate;
 	TTUInt16				mUserCount;		///< how many objects out there are currently using this TTSampleMatrix 
  	TTBufferPoolStageEnum	mBufferPoolStage;
 	// NOTE: This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
