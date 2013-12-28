@@ -150,32 +150,11 @@ public:
 	Objects should work directly with the TTSampleMatrixPtr that they check out for these types of operations.
 	*/
     
-    /**	Attribute accessor: set the sample rate for this buffer. Applied to the active TTSampleMatrix immediately and not deferred to next checkout.
+    /**	Attribute updater: whenever the sample rate for this buffer is changed, apply to the active TTSampleMatrix immediately. This change is not deferred to next checkout.
      @return Returns a TTErr error code.	*/
-	TTErr setSampleRate(const TTValue& newSampleRate)
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
     {
-        TTUInt32 new_sr = newSampleRate[0];
-        TTErr err = TTAudioObjectBase::setSampleRate(new_sr);
-        if (!err)
-            err = mActiveMatrix->setAttributeValue(kTTSym_sampleRate, new_sr);
-        return err;
-    }
-    
-    /**	Attribute accessor: get the sample rate for this buffer. Values are pulled from both this TTBuffer and the active TTSampleMatrix. If there is a mismatch, an error (kTTErrGeneric) is reported.
-     @return Returns a TTErr error code.	*/
-	TTErr getSampleRate(TTValue& returnedSampleRate)
-    {
-        TTValue activematrix_sr, buffer_sr;
-        
-        mActiveMatrix->getAttributeValue(kTTSym_sampleRate, activematrix_sr);
-        this->getAttributeValue(kTTSym_sampleRate, buffer_sr);
-        
-        returnedSampleRate = buffer_sr;
-        
-        if (activematrix_sr == buffer_sr)
-            return kTTErrNone;
-        else
-            return kTTErrGeneric;
+        return mActiveMatrix->setAttributeValue(kTTSym_sampleRate, sr);
     }
 	
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								

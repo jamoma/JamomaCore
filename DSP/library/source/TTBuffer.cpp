@@ -59,13 +59,14 @@ TTBuffer::TTBuffer(const TTValue& arguments) :
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeUInt16);
 	addAttributeWithGetterAndSetter(LengthInSeconds,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeUInt64);
-	addAttributeWithGetterAndSetter(SampleRate,			kTypeUInt32);
 	
 	addMessage(normalize);
 	addMessageWithArguments(fill);
     addMessageWithArguments(load);
     registerMessage("checkOutMatrix", (TTMethod)&TTBuffer::checkOutMatrixValues);
     registerMessage("checkInMatrix", (TTMethod)&TTBuffer::checkInMatrixValues);
+    
+    addUpdates(SampleRate);
 	
 	// initialize
 	init(channelCount, name);
