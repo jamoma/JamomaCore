@@ -161,11 +161,21 @@ public:
         return err;
     }
     
-    /**	Attribute accessor: get the sample rate for this buffer. Values are pulled from both this TTBuffer and the active TTSampleMatrix. If there is a mismatch, an error is reported.
+    /**	Attribute accessor: get the sample rate for this buffer. Values are pulled from both this TTBuffer and the active TTSampleMatrix. If there is a mismatch, an error (kTTErrGeneric) is reported.
      @return Returns a TTErr error code.	*/
 	TTErr getSampleRate(TTValue& returnedSampleRate)
     {
-        return kTTErrNone;
+        TTValue activematrix_sr, buffer_sr;
+        
+        mActiveMatrix->getAttributeValue(kTTSym_sampleRate, activematrix_sr);
+        this->getAttributeValue(kTTSym_sampleRate, buffer_sr);
+        
+        returnedSampleRate = buffer_sr;
+        
+        if (activematrix_sr == buffer_sr)
+            return kTTErrNone;
+        else
+            return kTTErrGeneric;
     }
 	
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								
