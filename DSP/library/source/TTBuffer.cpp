@@ -59,7 +59,7 @@ TTBuffer::TTBuffer(const TTValue& arguments) :
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeUInt16);
 	addAttributeWithGetterAndSetter(LengthInSeconds,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeUInt64);
-//	addAttribute(SampleRate,							kTypeFloat64);
+	addAttributeWithGetterAndSetter(SampleRate,			kTypeFloat64);
 	
 	addMessage(normalize);
 	addMessageWithArguments(fill);

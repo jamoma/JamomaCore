@@ -146,9 +146,27 @@ public:
 	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLengthInSamples )
 	TTBUFFER_WRAP_1ARG(  getLengthInSamples )
 
-	/** NOTE: We do not wrap getValueAtIndex, peek, setValueAtIndex, poke and simliar methods.  
+	/* NOTE: We do not wrap getValueAtIndex, peek, setValueAtIndex, poke and simliar methods.  
 	Objects should work directly with the TTSampleMatrixPtr that they check out for these types of operations.
 	*/
+    
+    /**	Attribute accessor: set the sample rate for this buffer. Applied to the active TTSampleMatrix immediately and not deferred to next checkout.
+     @return Returns a TTErr error code.	*/
+	TTErr setSampleRate(const TTValue& newSampleRate)
+    {
+        TTUInt32 new_sr = newSampleRate[0];
+        TTErr err = TTAudioObjectBase::setSampleRate(new_sr);
+        if (!err)
+            err = mActiveMatrix->setAttributeValue(kTTSym_sampleRate, new_sr);
+        return err;
+    }
+    
+    /**	Attribute accessor: get the sample rate for this buffer. Values are pulled from both this TTBuffer and the active TTSampleMatrix. If there is a mismatch, an error is reported.
+     @return Returns a TTErr error code.	*/
+	TTErr getSampleRate(TTValue& returnedSampleRate)
+    {
+        return kTTErrNone;
+    }
 	
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								
 	{ 
