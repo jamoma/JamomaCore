@@ -366,12 +366,12 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         myMatrix9->getAttributeValue("lengthInSamples", testSampleCount9);
         myMatrix9->getAttributeValue("sampleRate", testSampleRate9);
         
-        /*std::cout << "Samplematrix has " << int(testChannel9) << " channels & " << int(testSampleCount9) << " samples @ " << double(testSampleRate9) << " Hz\n";*/
+        std::cout << "Samplematrix has " << TTInt32(testChannel9) << " channels & " << TTInt32(testSampleCount9) << " samples @ " << TTInt32(testSampleRate9) << " Hz\n";
         
         // check out samplematrix
-        TTBoolean result9c = {  int(testChannel9) == int(testChannel9in) &&
-                                int(testSampleRate9) == int(testSampleRate9in) &&
-                                float(testSampleCount9) == (float(testSampleRate9in) * float(testLengthSec9in)) };
+        TTBoolean result9c = {  TTInt32(testChannel9) == TTInt32(testChannel9in) &&
+                                TTInt32(testSampleRate9) == TTInt32(testSampleRate9in) &&
+                                TTInt32(testSampleCount9) == (TTInt32(testSampleRate9in) * TTFloat64(testLengthSec9in)) };
         
         TTTestAssertion("SampleMatrix has same attributes set via TTBuffer",
                         result9c,
@@ -437,11 +437,26 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         errorCount);
         
         // do some more tests here
+        TTValue testChannel10, testLengthSec10, testLengthSample10;
+        myMatrix10->getAttributeValue("numChannels", testChannel10);
+        myMatrix10->getAttributeValue("lengthInSeconds", testLengthSec10);
+        myMatrix10->getAttributeValue("lengthInSamples", testLengthSample10);
+        
+        std::cout << "Samplematrix has " << TTInt32(testChannel10) << " channels & " << TTInt32(testLengthSample10) << " samples and is " << TTFloat64(testLengthSec10) << " secs long\n";
+        
+        TTBoolean result10c = { TTInt32(testChannel10) == TESTNUMCHANNELS &&
+                                TTInt32(testLengthSample10) == TESTDURATIONINSAMPLES &&
+                                TTFloat64(testLengthSec10) == TESTDURATIONINSECONDS};
+        
+        TTTestAssertion("resizeThenLoad results in resized TTSampleMatrix",
+                        result10c,
+                        testAssertionCount,
+                        errorCount);
         
         // check in samplematrix
         TTBoolean result10e = { bufferForTest10.checkInMatrix(myMatrix10) == kTTErrNone };
         
-        TTTestAssertion("TTBuffer checks in SampleMartix successfully"
+        TTTestAssertion("TTBuffer checks in SampleMartix successfully",
                         result10e,
                         testAssertionCount,
                         errorCount);
