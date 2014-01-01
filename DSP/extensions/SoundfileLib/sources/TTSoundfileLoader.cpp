@@ -250,6 +250,11 @@ TTErr TTSoundfileLoader::resizeThenLoad(const TTValue& input, TTValue& unusedOut
     // set the mTargetMatrix
     err = setTargetMatrix(newTargetMatrix);
     
+    // set the mFilePath, which also sets default values for
+    // mStartCopyAtSampleIndex, mEndCopyAtSampleIndex & mCopyFromChannelIndex
+    if (!err)
+        err = setFilePath(newFilePath);
+    
     // resize target to match source
     if (!err)
     {
@@ -257,12 +262,8 @@ TTErr TTSoundfileLoader::resizeThenLoad(const TTValue& input, TTValue& unusedOut
         mTargetMatrix->setAttributeValue("numChannels",newNumChannels);
         mTargetMatrix->setAttributeValue("lengthInSeconds",this->getLengthInSeconds());
         // we do NOT change the sample rate
+        std::cout << "this part of the code ran" << this->getNumChannels() << " " << this->getLengthInSeconds() << "\n";
     }
-        
-    // set the mFilePath, which also sets default values for
-    // mStartCopyAtSampleIndex, mEndCopyAtSampleIndex & mCopyFromChannelIndex
-    if (!err)
-        err = setFilePath(newFilePath);
     
     if (!err)
     {
