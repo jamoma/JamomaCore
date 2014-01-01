@@ -359,6 +359,28 @@ TTErr   TTSampleMatrix::load(const TTValue& input, TTValue& unusedOutput)
 }
 
 
+TTErr   TTSampleMatrix::resizeThenLoad(const TTValue& input, TTValue& unusedOutput)
+{
+    
+    TTValue inputWithPointerPrepended = input;
+    TTObjectBase* objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(this));
+    inputWithPointerPrepended.prepend(objectBasePtrToSampleMatrix);
+    
+    try {
+        
+        // first instantiate the SoundfileLoader object
+        TTAudioObject fileToLoad("soundfile.loader");
+        
+        // then pass along the updated TTValue to its load() method
+        return fileToLoad.send("resizeThenLoad", inputWithPointerPrepended, unusedOutput);
+        
+    } catch (...) {
+        return kTTErrInstantiateFailed;
+    }
+    
+}
+
+
 
 TTErr TTSampleMatrix::normalize(const TTValue& aValue)
 {

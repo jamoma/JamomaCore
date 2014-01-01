@@ -168,6 +168,12 @@ public:
      @return        TTErr           kTTErrNone load was successful. kTTErrInstantiateFailed if the TTSoundfileLoader could not be instantiated. kTTErrInvalidFilepath if the filepath was invalid. kTTErrInvalidValue if the pointer to TTSampleMatrix was invalid.
      */
     TTErr   load(const TTValue& input, TTValue& unusedOutput);
+    
+    /** First, resize the TTSampleMatrix to match the number of channels and length in seconds found in a soundfile. Then, load the soundfile into the TTSampleMatrix. Sample rate of the TTSampleMatrix is not changed by this operation and interpolation will be applied to the loaded soundfile to acheive the necessary sample rate.
+     
+     @return        TTErr           kTTErrNone load was successful. kTTErrInstantiateFailed if the TTSoundfileLoader could not be instantiated.
+     */
+    TTErr   resizeThenLoad(const TTValue& input, TTValue& unusedOutput);
 
 	/**	Normalize the contents of a buffer.
 		If no arg is passed, then the buffer is normalized to 1.0.
