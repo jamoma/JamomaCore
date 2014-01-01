@@ -86,10 +86,7 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
     
 	else {
 		// TODO: implement the ability to use an externally defined buffer
-        TTValue loadInput;
-        loadInput.append(TT("/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"));
-        
-        return mBuffer->load(loadInput, kTTValNONE);
+        // this will involve using the TTBuffer.load() or TTBuffer.resizeThenLoad()
         
 		//return kTTErrInvalidValue;
 	}
