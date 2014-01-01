@@ -411,6 +411,30 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         testAssertionCount,
                         errorCount);
         
+        // TEST 10: use resizeThenLoad message and test that TTSampleMatrix conforms to sound file loaded
+        
+        TTAudioBuffer bufferForTest10(1,1); // start by making the buffer really tiny
+        
+        TTValue loadInput10 = TT(testSoundPath);
+        
+        // send message
+        TTBoolean result10a = { bufferForTest10.resizeThenLoad(loadInput10) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer resizeThenLoad operates successfully",
+                        result10a,
+                        testAssertionCount,
+                        errorCount);
+        
+        // setup pointer to samplematrix
+        TTSampleMatrixPtr myMatrix10;
+        
+        // check out samplematrix
+        TTBoolean result10b = { bufferForTest10.checkOutMatrix(myMatrix10) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks out SampleMatrix successfully",
+                        result10b,
+                        testAssertionCount,
+                        errorCount);
         
     } catch (...) {
         TTTestAssertion("FAILED to run tests -- likely that necessary objects did not instantiate",

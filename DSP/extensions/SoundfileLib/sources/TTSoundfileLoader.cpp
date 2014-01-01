@@ -46,6 +46,7 @@ TTSoundfileLoader::TTSoundfileLoader(const TTValue& arguments) :
     
     // add the attributes and messages here
     addMessageWithArguments(load);
+    addMessageWithArguments(resizeThenLoad);
     
     // initialize happens as part of the load
 }
