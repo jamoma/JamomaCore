@@ -176,6 +176,16 @@ public:
 			err = promoteBecomingActiveMatrix();
 		return err;
 	}
+    
+    TTErr   resizeThenLoad(const TTValue& value, TTValue& unusedOutput)
+    {
+        TTErr err = prepareBecomingActiveMatrix();
+        if (!err)
+            err = mBecomingActiveMatrix -> resizeThenLoad(value, unusedOutput);
+        if (!err)
+            err = promoteBecomingActiveMatrix();
+        return err;
+    }
 
 	TTBUFFER_WRAP_k1ARG( normalize )
 	
@@ -207,6 +217,12 @@ public:
     {
         TTValue unusedOuput;
         return instance()->load(value, unusedOuput);
+    }
+    
+    TTErr resizeThenLoad(const TTValue &value)
+    {
+        TTValue unusedOutput;
+        return instance()->resizeThenLoad(value, unusedOutput);
     }
     
     TTErr checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix)
