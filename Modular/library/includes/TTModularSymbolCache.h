@@ -45,6 +45,13 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_TextHandler;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Viewer;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_XmlHandler;
 
+// notifications
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerDurationChanged;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerOffsetChanged;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerSpeedChanged;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerRunningChanged;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_SchedulerTicked;
+
 // attribute, message or any word often used
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_active;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_activity;

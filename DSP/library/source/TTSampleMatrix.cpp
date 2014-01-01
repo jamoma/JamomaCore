@@ -35,7 +35,7 @@ extern "C" void TTSampleMatrix::registerClass()
 
 TTSampleMatrix::TTSampleMatrix(const TTValue& arguments) :
 	TTMatrix(arguments),
-	mSampleRate(44100.0)
+	mSampleRate(ttEnvironment->mSampleRate)
 {
 	this->setTypeWithoutResize(kTypeFloat64);
 	this->setElementCountWithoutResize(1);
@@ -46,7 +46,7 @@ TTSampleMatrix::TTSampleMatrix(const TTValue& arguments) :
 	addAttributeWithGetterAndSetter(NumChannels,		kTypeInt32);
 	addAttributeWithGetterAndSetter(LengthInSeconds,	kTypeFloat64);
 	addAttributeWithGetterAndSetter(LengthInSamples,	kTypeInt32);
-	addAttribute(SampleRate,							kTypeFloat64);
+	addAttribute(SampleRate,							kTypeUInt32);
 	addAttribute(				UserCount,				kTypeUInt16); 
 		addAttributeProperty(	UserCount, 				readOnly, YES);
 	
@@ -59,6 +59,8 @@ TTSampleMatrix::TTSampleMatrix(const TTValue& arguments) :
 
 	addMessageWithArguments(setValueAtIndex);
 	registerMessage("poke", (TTMethod)&TTSampleMatrix::setValueAtIndex);
+    
+    addMessageWithArguments(load);
 
 	// TODO: more messages to implement
 	//	"readFile"   (requires libsndfile straightening-out)
@@ -113,6 +115,13 @@ TTErr TTSampleMatrix::getLengthInSamples(TTValue& returnedLengthInSamples)
 }
 
 
+TTErr TTSampleMatrix::adaptTo(const TTSampleMatrix& anotherMatrix)
+{
+    this->mSampleRate = anotherMatrix.mSampleRate;
+    return TTMatrix::adaptTo((TTMatrix&)anotherMatrix);
+}
+
+
 TTErr TTSampleMatrix::incrementUserCount()
 {
 	// could technically exceed 65,535 maximum, but we'll take the chance for now
@@ -135,19 +144,20 @@ TTErr TTSampleMatrix::decrementUserCount()
 
 TTErr TTSampleMatrix::getValueAtIndex(const TTValue& index, TTValue &output)
 {
-	TTRowID		sampleIndex;
+	TTRowID         sampleIndex;
 	TTColumnID		sampleChannel = 0;
 	TTSampleValue	sampleValue;
-	TTUInt8			i = 0;
 	TTErr			err;
 
-	index.get(i++, sampleIndex);
-	if (index.size() > 2)
-		index.get(i++, sampleChannel);
+	sampleIndex = index[0];
+	if (index.size() > 1) {
+		sampleChannel = index[1];
+    }
 
 	err = peek(sampleIndex, sampleChannel, sampleValue);
 	if (!err)
-		output.set(i++, sampleValue);
+		output.clear();
+        output.append(sampleValue);
 	return err;
 }
 
@@ -208,15 +218,17 @@ TTErr TTSampleMatrix::peeki(const TTFloat64 index, const TTColumnID channel, TTS
 */
 TTErr TTSampleMatrix::setValueAtIndex(const TTValue& index, TTValue& unusedOutput)
 {
-	TTRowID		sampleIndex;
+	TTRowID         sampleIndex;
 	TTColumnID		sampleChannel = 0;
 	TTSampleValue	sampleValue;
-	TTUInt8			i = 0;
 
-	index.get(i++, sampleIndex);
-	if (index.size() > 2)
-		index.get(i++, sampleChannel);
-	index.get(i++, sampleValue);
+	sampleIndex = index[0];
+	if (index.size() > 2) {
+		sampleChannel = index[1];
+        sampleValue = index[2];
+    } else {
+        sampleValue = index[1];
+    }
 
 	return poke(sampleIndex, sampleChannel, sampleValue);
 }

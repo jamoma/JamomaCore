@@ -52,7 +52,7 @@ class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
 
 protected:
 
-	TTFloat64				mSampleRate;
+	TTUInt32				mSampleRate;
 	TTUInt16				mUserCount;		///< how many objects out there are currently using this TTSampleMatrix 
  	TTBufferPoolStageEnum	mBufferPoolStage;
 	// NOTE: This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
@@ -73,7 +73,20 @@ public:
 	/**	Attribute accessor: set the buffer length specified as a number of samples.
 		@return Returns a TTErr error code.	*/
 	TTErr setLengthInSamples(const TTValue& newLengthInSamples);
- 	TTErr getLengthInSamples(TTValue& returnedLengthInSamples);	
+ 	TTErr getLengthInSamples(TTValue& returnedLengthInSamples);
+    
+    /**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
+	 to match the another matrix which is passed-in as an argument. Overrides the TTMatrix method
+     so that sample rate is set as well.
+     
+     @param	anotherMatrix	sample matrix to which you would like to conform the attributes of this one
+     @return	TTErr			kTTErrInvalidValue if operation is not completed, otherwise kTTErrNone
+     */
+	TTErr adaptTo(const TTSampleMatrix& anotherMatrix);
+	TTErr adaptTo(const TTSampleMatrix* anotherMatrix)
+	{
+		return adaptTo(*anotherMatrix);
+	}
 	
 	/** Increase the user count by one. 
 		The userCount member is used to track usage of an individual TTSampleMatrix.  When another object makes use of a specific matrix, the code should use this method to increase the user counter prior to the start of use.

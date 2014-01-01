@@ -5,7 +5,7 @@
  * @brief Tests for the #TTSoundfileLoader class
  *
  * @details Tests the core functions of the TTSoundfileLoader class in order to ensure that things are working after a build. It also demostrate how to make calls to common methods within the class.@n 
- * IMPORTANT NOTE: Because POSIX filepaths will be specific to your system, it is important to change the TESTFILE definitions in this file to match a local absolute address. The related TEST definitions should also be set to match the attribution of the file which can be obtained via your sound file editor of choice. 
+ * IMPORTANT NOTE: Because POSIX filepaths will be specific to your system, this test will attempt to find the path to the SoundfileLib extension using the TTFoundationBinaryPath environment variable. If you wish to test with a different sound file, you will need to place in that extension folder and change the relevant macros in the header of this class.
  *
  * @authors Nathan Wolek
  *
@@ -16,9 +16,20 @@
 
 #include "TTSoundfileLoader.h"
 #include "TTUnitTest.h"
+#include "TTBuffer.h"
+
+/*
+ 
+ It is possible to change the target sound file for this test using the macros below.
+ Both sound files are included in the Jamoma respository at the following path:
+ {JAMOMA_ROOT}/Core/DSP/extensions/SoundfileLib/
+ 
+ The test should look for the named TESTFILE at this path.
+ 
+ */
 
 /* */
- #define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
+ #define TESTFILE "geese_clip.aif"
  #define TESTNUMCHANNELS 2
  #define TESTSAMPLERATE 44100
  #define TESTDURATIONINSAMPLES 88202
@@ -30,7 +41,7 @@
 /* */
 
 /* 
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
+#define TESTFILE "ding_b2.aiff"
 #define TESTNUMCHANNELS 1
 #define TESTSAMPLERATE 44100
 #define TESTDURATIONINSAMPLES 39493
@@ -41,88 +52,70 @@
 #define TESTANNOTATION ""
  */
 
-/*
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/ambience/street.aiff"
- #define TESTNUMCHANNELS 1
- #define TESTSAMPLERATE 44100
- #define TESTDURATIONINSAMPLES 4750848
- #define TESTDURATIONINSECONDS 107.728980
- #define TESTTITLE "UF Street"
- #define TESTARTIST "MPG"
- #define TESTDATE "2006"
- #define TESTANNOTATION ""
- */
-
 TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 {
     int errorCount = 0;
     int testAssertionCount = 0;
     
-    {
-        
+    // assemble the full path of the target sound file
+    
+    TTString testSoundPath = TTFoundationBinaryPath;
+    int pos = testSoundPath.find_last_of('/');
+    testSoundPath = testSoundPath.substr(0,pos+1);
+    testSoundPath += TESTFILE;
+    
+    std::cout << "We will be using the following path for testing: " << testSoundPath << "\n";
+    
+    try {
         
 		TTTestLog("\n");
 		TTTestLog("Testing TTSoundfileLoader Basics...");
 		
-        // establish our pointers
-        // TODO: update this to new syntax style eventually
-		TTSoundfileLoaderPtr testSoundfileLoader = NULL;
-        TTSampleMatrixPtr testTargetMatrix = NULL;
-        TTObjectBase* objectBasePtrToSampleMatrix = NULL;
-        TTObjectBase* ptrToNonSampleMatrix = NULL;
-        TTSampleMatrixPtr testTargetMatrix2 = NULL;
-        
-        TTErr err;
-		
-        // TEST 0: instantiate the object to a pointer
-        TTBoolean result0 = { TTObjectBaseInstantiate("soundfile.loader", (TTObjectBasePtr*)&testSoundfileLoader, kTTValNONE) == kTTErrNone};
-        
-		TTTestAssertion("instantiates successfully",
-						result0,
-						testAssertionCount,
-						errorCount);
+        // TEST 0: establish our objects & pointers
+        TTObject* testTargetMatrix = new TTObject("samplematrix");
+        TTObject* testNonSampleMatrix = new TTObject("delay");
+        TTObjectBase* objectBasePtrToSampleMatrix;
+        TTObjectBase* ptrToNonSampleMatrix;
         
         // TEST 1: set the filepath
-        TTBoolean result1 = { testSoundfileLoader->setFilePath(TT(TESTFILE)) == kTTErrNone };
+        TTBoolean result1 = { this->setFilePath(TT(testSoundPath)) == kTTErrNone };
         
         TTTestAssertion("setFilePath operates successfully",
                         result1,
                         testAssertionCount,
                         errorCount);
         
-        // TEST 2: instantiate a TTSampleMatrix and set is as the target
-                
-        // set up the samplematrix first
-        TTBoolean result2a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix, kTTValNONE) == kTTErrNone};
+        // TEST 2: set up the samplematrix first
+        int channelsSend = 1;           // compiler complained about TTInt32 being ambiguous here
+        int lengthSend = 22050;         // compiler complained about TTInt32 being ambiguous here
+        testTargetMatrix->set("numChannels", channelsSend);
+        testTargetMatrix->set("lengthInSamples", lengthSend);
         
-        if (!result2a)
-        {
-            TTTestLog("samplematrix was not created -- ending test");
-            return kTTErrGeneric;
-        }
+        TTInt32 channelsReturn, lengthReturn;
         
-        testTargetMatrix->setAttributeValue("numChannels", 1);
-        testTargetMatrix->setAttributeValue("lengthInSeconds", 0.5);
-        
-        TTInt32 lengthReturn, channelsReturn;
-        
-        testTargetMatrix->getAttributeValue("numChannels", channelsReturn);
-        testTargetMatrix->getAttributeValue("lengthInSamples", lengthReturn);
-        
-        TTTestLog("new samplematrix has %i samples and %i channels", lengthReturn, channelsReturn);
+        testTargetMatrix->get("numChannels", channelsReturn);
+        testTargetMatrix->get("lengthInSamples", lengthReturn);
         
         // now for the actual test
-        TTBoolean result2b = { testSoundfileLoader->setTargetMatrix(testTargetMatrix) == kTTErrNone };
+        TTBoolean result2a = { channelsSend == channelsReturn };
         
-        TTTestAssertion("setTargetMatrix operates successfully",
-						result2b,
+        TTTestAssertion("numChannels attribute set successfully",
+						result2a,
 						testAssertionCount,
 						errorCount);
         
-        // TEST 3: set the target via an objectBasePtr
-        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix)); // is there a better syntax for this?
+        TTBoolean result2b = { lengthSend == lengthReturn };
         
-        TTBoolean result3 = { testSoundfileLoader->setTargetMatrix(objectBasePtrToSampleMatrix) == kTTErrNone };
+        TTTestAssertion("lengthInSamples attribute set successfully",
+						result2b,
+						testAssertionCount,
+						errorCount);
+        //
+        
+        // TEST 3: set the target via an objectBasePtr
+        objectBasePtrToSampleMatrix = testTargetMatrix->instance(); // is there a better syntax for this?
+        
+        TTBoolean result3 = { this->setTargetMatrix(objectBasePtrToSampleMatrix) == kTTErrNone };
         
         TTTestAssertion("setTargetMatrix via ObjectBasePtr operates successfully",
 						result3,
@@ -130,9 +123,9 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
 						errorCount);
         
         // TEST 4: set the target to a non-SampleMatrix, should FAIL
-        TTObjectBaseInstantiate("delay", (TTObjectBasePtr*)&ptrToNonSampleMatrix, kTTValNONE);
+        ptrToNonSampleMatrix = testNonSampleMatrix->instance();
         
-        TTBoolean result4 = { testSoundfileLoader->setTargetMatrix(ptrToNonSampleMatrix) == kTTErrInvalidValue };
+        TTBoolean result4 = { this->setTargetMatrix(ptrToNonSampleMatrix) == kTTErrInvalidValue };
         
         TTTestAssertion("setTargetMatrix returns error when not a SampleMatrix",
 						result4,
@@ -141,240 +134,289 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         
         // TEST 5: copy samplevalues until samplematrix is filled
         
-        TTBoolean result5 = { testSoundfileLoader->copyUntilFilled() == kTTErrNone };
+        TTBoolean result5 = { this->copyUntilFilled() == kTTErrNone };
         
         TTTestAssertion("copyUntilFilled operates successfully",
 						result5,
 						testAssertionCount,
 						errorCount);
         
-        // TEST 6: compare 5 random sample values for equivalence
-        
-        TTUInt32 randomIndex;
-        TTSampleValue randomValueSoundFile, randomValueSampleMatrix;
-        TTBoolean result6 = true;
-        
-        for (int i = 0; i<5; i++)
-        {
-            randomIndex = lengthReturn * TTRandom64();
-            //TTTestLog("let's look at index %i", randomIndex);
-            
-            testSoundfileLoader->peek(randomIndex,0,randomValueSoundFile);
-            testTargetMatrix->peek(randomIndex,0,randomValueSampleMatrix);
-            //TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
-            
-            if (result6) // allows test to keep variable false once it is false
-                result6 = TTTestFloatEquivalence(randomValueSoundFile, randomValueSampleMatrix, true, 0.0000001);
-        }
-        
-        TTTestAssertion("comparing 5 random values for equivalence",
-						result6,
-						testAssertionCount,
-						errorCount);
-        
-        // TEST 7: use the public method to perform loading action
-        // the method essentially packages tests 1, 3 & 5 above.
-        // because it uses the same TargetMatrix, we are also copying values twice.
-        
-        // set up another samplematrix first
-        TTBoolean result7a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix2, kTTValNONE) == kTTErrNone};
-        
-        if (!result7a)
-        {
-            TTTestLog("samplematrix was not created -- ending test");
-            return kTTErrGeneric;
-        }
-        
-        testTargetMatrix2->setAttributeValue("numChannels", 1);
-        testTargetMatrix2->setAttributeValue("lengthInSeconds", 0.7);
-        
-        // we will re-use lengthReturn & channelsReturn here`
-        
-        testTargetMatrix2->getAttributeValue("numChannels", channelsReturn);
-        testTargetMatrix2->getAttributeValue("lengthInSamples", lengthReturn);
-        
-        TTTestLog("new samplematrix has %i samples and %i channels", lengthReturn, channelsReturn);
-        
-        // set up TTValues passed to the public method
-        TTValue loadInput, loadOuput;
-        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix2)); // is there a better syntax for this?
-        loadInput.append(objectBasePtrToSampleMatrix);
-        loadInput.append(TT(TESTFILE));
-        
-        
-        TTBoolean result7b = { load(loadInput, loadOuput) == kTTErrNone };
-        
-        TTTestAssertion("load operates successfully",
-						result7b,
-						testAssertionCount,
-						errorCount);
-        
-        // TEST 8: compare 5 random values for equivalence
-        
-        // we will re-use randomIndex, randomValueSoundFile, & randomValueSampleMatrix here
-        TTBoolean result8 = true;
-        
-        for (int i = 0; i<5; i++)
-        {
-            randomIndex = lengthReturn * TTRandom64();
-            //TTTestLog("let's look at index %i", randomIndex);
-            
-            testSoundfileLoader->peek(randomIndex,0,randomValueSoundFile);
-            testTargetMatrix2->peek(randomIndex,0,randomValueSampleMatrix);
-            //TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
-            
-            if (result8) // allows test to keep variable false once it is false
-                result8 = TTTestFloatEquivalence(randomValueSoundFile, randomValueSampleMatrix, true, 0.0000001);
-        }
-        
-        TTTestAssertion("comparing 5 random values for equivalence",
-						result8,
-						testAssertionCount,
-						errorCount);
-        
-        // TEST 9: use optional load parameters to copy values 5 to 15
-        
-        // set up another samplematrix by re-using the first one
-        testTargetMatrix = NULL;
-        objectBasePtrToSampleMatrix = NULL;
-        
-        TTBoolean result9a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix, kTTValNONE) == kTTErrNone};
-        
-        if (!result9a)
-        {
-            TTTestLog("samplematrix was not created -- ending test");
-            return kTTErrGeneric;
-        }
-        
-        testTargetMatrix->setAttributeValue("numChannels", 1);
-        testTargetMatrix->setAttributeValue("lengthInSamples", 10);
-        
-        // set up TTValues passed to the public method
-        // we'll re-use loadInput, loadOuput here
-        loadInput.clear();
-        loadOuput.clear();
-        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix)); // is there a better syntax for this?
-        loadInput.append(objectBasePtrToSampleMatrix);
-        loadInput.append(TT(TESTFILE));
-        
-        TTColumnID copyChannel = 0;
-        TTRowID startIndex = 5;
-        TTRowID endIndex = 15;
-        loadInput.append(TTUInt32(copyChannel));
-        loadInput.append(TTUInt32(startIndex));
-        loadInput.append(TTUInt32(endIndex));
-        
-        TTBoolean result9b = { load(loadInput, loadOuput) == kTTErrNone };
-        
-        TTTestAssertion("load operates with optional parameters",
-						result9b,
-						testAssertionCount,
-						errorCount);
-        
-        // TEST 10: compare 10 copied values for equivalence
-        
-        // we will re-use randomIndex, randomValueSoundFile, & randomValueSampleMatrix here
-        TTBoolean result10 = true;
-        
-        for (int i = 0; i<(endIndex-startIndex); i++)
-        {
-            testSoundfileLoader->peek(i+startIndex,0,randomValueSoundFile);
-            testTargetMatrix->peek(i,0,randomValueSampleMatrix);
-            //TTTestLog("Does %f = %f?", randomValueSoundFile, randomValueSampleMatrix);
-            
-            if (result10) // allows test to keep variable false once it is false
-                result10 = TTTestFloatEquivalence(randomValueSoundFile, randomValueSampleMatrix, true, 0.0000001);
-        }
-        
-        TTTestAssertion("comparing copied values for equivalence",
-						result10,
-						testAssertionCount,
-						errorCount);
-        
-        // releasing objects, TODO: is this sufficient?
-        testSoundfileLoader = NULL;
-        testTargetMatrix = NULL;
+        // releasing objects
         objectBasePtrToSampleMatrix = NULL;
         ptrToNonSampleMatrix = NULL;
-        testTargetMatrix2 = NULL;
+        delete testTargetMatrix;
+        delete testNonSampleMatrix;
         
-        // TEST 11: load samplemartrix with different sample rate
         
-        // set up another samplematrix by re-using the first one
-        testTargetMatrix2 = NULL;
-        objectBasePtrToSampleMatrix = NULL;
+        // TEST 6: use TTSampleMatrix's load message, then compare 5 random sample values for equivalence
         
-        TTBoolean result11a = { TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&testTargetMatrix2, kTTValNONE) == kTTErrNone};
+        // create a new TTSampleMatrix
+        TTObject newTargetMatrix("samplematrix");
         
-        if (!result11a)
+        // set the length and channel count
+        newTargetMatrix.set("numChannels", TESTNUMCHANNELS);
+        newTargetMatrix.set("lengthInSamples", TESTDURATIONINSAMPLES);
+        
+        // prepare necessary TTValues
+        TTValue loadInput6 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
+        TTValue aReturnWeDontCareAbout6;
+        
+        // send message
+        TTBoolean result6a = { newTargetMatrix.send("load", loadInput6, aReturnWeDontCareAbout6) == kTTErrNone };
+        
+        TTTestAssertion("TTSampleMatrix load operates successfully",
+                        result6a,
+                        testAssertionCount,
+                        errorCount);
+        
+        // now let's test some values!
+        int randomIndex6, randomChannel6;
+        TTSampleValue testValueSoundFile6;
+        TTBoolean result6b = true;
+        
+        for (int i = 0; i<10; i++)
         {
-            TTTestLog("samplematrix was not created -- ending test");
-            return kTTErrGeneric;
+            randomIndex6 = lengthReturn * TTRandom64();
+            randomChannel6 = i % TESTNUMCHANNELS;
+            //std::cout << "let's look at index " << randomIndex6 << " & channel " << randomChannel6 << "\n";
+            
+            TTValue peekInput6(randomIndex6);
+            peekInput6.append(randomChannel6);
+            TTValue peekOutput6;
+            
+            this->peek(randomIndex6,randomChannel6,testValueSoundFile6);
+            newTargetMatrix.send("peek",peekInput6,peekOutput6);
+            //std::cout << "Does " << testValueSoundFile6 << " = " << double(peekOutput6) << " ?\n";
+            
+            if (result6b) // allows test to keep variable false once it is false
+                result6b = TTTestFloatEquivalence(testValueSoundFile6, double(peekOutput6), true, 0.0000001);
         }
         
-        testTargetMatrix2->setAttributeValue("numChannels", 2);
-        testTargetMatrix2->setAttributeValue("sampleRate", 88200.);
-        testTargetMatrix2->setAttributeValue("lengthInSeconds", 0.25);
         
-        // set up TTValues passed to the public method
-        // we'll re-use loadInput, loadOuput here
-        loadInput.clear();
-        loadOuput.clear();
-        objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(testTargetMatrix2)); // is there a better syntax for this?
-        loadInput.append(objectBasePtrToSampleMatrix);
-        loadInput.append(TT(TESTFILE));
-        //loadInput.append(1); // if you want to test channel offset
+        TTTestAssertion("comparing values @ 10 random indexes for equivalence",
+                        result6b,
+                        testAssertionCount,
+                        errorCount);
         
-        TTBoolean result11b = { load(loadInput, loadOuput) == kTTErrNone };
         
-        TTTestAssertion("load operates when SampleRates do not match",
-						result11b,
-						testAssertionCount,
-						errorCount);
+        // TEST 7: now use TTBuffer's load message, and again compare 5 random sample values for equivalence
         
-        TTTestLog("\n");
-        TTTestLog("The source soundfile had a sample rate of %f --", this->mSampleRate);
-		TTTestLog("Let's look at the first 10 values...");
+        // create a new TTBuffer with convenience syntax
+        TTAudioBuffer aBufferByAnyOtherName(TESTNUMCHANNELS, TESTDURATIONINSAMPLES);
         
-        TTSampleValue return12;
-        TTErr error12;
+        // prepare necessary TTValues
+        TTValue loadInput7 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
         
-        for (int channel=0;channel<this->getNumChannels();channel++)
+        // send message
+        TTBoolean result7a = { aBufferByAnyOtherName.load(loadInput7) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer load operates successfully",
+                        result7a,
+                        testAssertionCount,
+                        errorCount);
+        
+        // setup pointer to samplematrix
+        TTSampleMatrixPtr myMatrix7;
+        
+        // check out samplematrix
+        TTBoolean result7b = { aBufferByAnyOtherName.checkOutMatrix(myMatrix7) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks out SampleMatrix successfully",
+                        result7b,
+                        testAssertionCount,
+                        errorCount);
+        
+        TTValue testChannel, testSample;
+        myMatrix7->getNumChannels(testChannel);
+        myMatrix7->getLengthInSamples(testSample);
+        
+        //std::cout << "Samplematrix has " << int(testChannel) << " channels & " << int(testSample) << " samples\n";
+        
+        // now let's test some values!
+        int randomIndex7, randomChannel7;
+        double testValueSoundFile7, testValueSampleMatrix7;
+        TTBoolean result7c = true;
+        
+        for (int i = 0; i<10; i++)
         {
-            TTTestLog("Channel %i", channel);
-            for (int sample=0;sample<10;sample++)
-            {
-                error12 = this->peek(sample,channel,return12);
-                if (error12 == kTTErrNone)
-                {
-                    TTTestLog("peek sample %i returned the value %f", sample, return12);
-                } else {
-                    TTTestLog("peek returned an error for sample %i", sample);
-                }
-            }
+            randomIndex7 = lengthReturn * TTRandom64();
+            randomChannel7 = i % TESTNUMCHANNELS;
+            //std::cout << "let's look at index " << randomIndex7 << " & channel " << randomChannel7 << "\n";
+            
+            this->peek(randomIndex7,randomChannel7,testValueSoundFile7);
+            myMatrix7->peek(randomIndex7,randomChannel7,testValueSampleMatrix7);
+            //std::cout << "Does " << testValueSoundFile7 << " = " << testValueSampleMatrix7 << " ?\n";
+            
+            if (result7c) // allows test to keep variable false once it is false
+                result7c = TTTestFloatEquivalence(testValueSoundFile7, testValueSampleMatrix7, true, 0.0000001);
         }
         
-        TTTestLog("\n");
-        TTTestLog("The target samplematrix had a sample rate of %f --", this->mTargetMatrixSampleRate);
-		TTTestLog("Let's look at the first 10 values...");
+        TTTestAssertion("comparing values @ 10 random indexes for equivalence",
+                        result7c,
+                        testAssertionCount,
+                        errorCount);
         
-        TTSampleValue return13;
-        TTErr error13;
+        // check in samplematrix
+        TTBoolean result7d = { aBufferByAnyOtherName.checkInMatrix(myMatrix7) == kTTErrNone };
         
-        for (int channel=0;channel<mTargetMatrixNumChannels;channel++)
+        TTTestAssertion("TTBuffer checks in SampleMatrix successfully",
+                        result7d,
+                        testAssertionCount,
+                        errorCount);
+        
+        
+        // TEST 8: use optional load parameters to copy samples 5 to 15 from channel 0
+        
+        // resize
+        aBufferByAnyOtherName.set("numChannels", 1);
+        aBufferByAnyOtherName.set("lengthInSamples", 10);
+        
+        // prepare necessary TTValues
+        int copyChannel8 = 0;       // first channel
+        int startIndex8 = 5;        // start @ sample 5
+        int endIndex8 = 15;         // end @ sample 15
+        
+        TTValue loadInput8 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
+        loadInput8.append(copyChannel8);
+        loadInput8.append(startIndex8);
+        loadInput8.append(endIndex8);
+        
+        // send message
+        TTBoolean result8a = { aBufferByAnyOtherName.load(loadInput8) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer load operates successfully w optional parameters",
+                        result8a,
+                        testAssertionCount,
+                        errorCount);
+        
+        // setup pointer to samplematrix
+        TTSampleMatrixPtr myMatrix8;
+        
+        // check out samplematrix
+        TTBoolean result8b = { aBufferByAnyOtherName.checkOutMatrix(myMatrix8) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks out SampleMatrix successfully",
+                        result8b,
+                        testAssertionCount,
+                        errorCount);
+        
+        // now let's test some values!
+        double testValueSoundFile8, testValueSampleMatrix8;
+        TTBoolean result8c = true;
+
+        for (int i = 0; i<10; i++)
         {
-            TTTestLog("Channel %i", channel);
-            for (int sample=0;sample<10;sample++)
-            {
-                error13 = testTargetMatrix2->peek(sample,channel,return13);
-                if (error13 == kTTErrNone)
-                {
-                    TTTestLog("peek sample %i returned the value %f", sample, return13);
-                } else {
-                    TTTestLog("peek returned an error for sample %i", sample);
-                }
-            }
+            //std::cout << "let's look at index " << i << "\n";
+            
+            this->peek(i+startIndex8,copyChannel8,testValueSoundFile8);
+            myMatrix8->peek(i,copyChannel8,testValueSampleMatrix8);
+            //std::cout << "Does " << testValueSoundFile8 << " = " << testValueSampleMatrix8 << " ?\n";
+            
+            if (result8c) // allows test to keep variable false once it is false
+                result8c = TTTestFloatEquivalence(testValueSoundFile8, testValueSampleMatrix8, true, 0.0000001);
         }
+        
+        TTTestAssertion("comparing all 10 copied values for equivalence",
+                        result8c,
+                        testAssertionCount,
+                        errorCount);
+        
+        // check in samplematrix
+        TTBoolean result8d = { aBufferByAnyOtherName.checkInMatrix(myMatrix8) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks in SampleMatrix successfully",
+                        result8d,
+                        testAssertionCount,
+                        errorCount);
+        
+        // TEST 9: load soundfile into buffer/samplematrix with different sample rate
+        
+        TTValue testChannel9in = 2;
+        TTValue testSampleRate9in = 88200;
+        TTValue testLengthSec9in = 0.25;
+        
+        
+        aBufferByAnyOtherName.set("numChannels", testChannel9in);
+        aBufferByAnyOtherName.set("sampleRate", testSampleRate9in);
+        aBufferByAnyOtherName.set("lengthInSeconds", testLengthSec9in);
+        
+        TTValue loadInput9 = TT(testSoundPath); // we cannot pass the naked TTString, it needs to be part of a TTValue
+        
+        // send message
+        TTBoolean result9a = { aBufferByAnyOtherName.load(loadInput9) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer load operates successfully when sample rates differ",
+                        result9a,
+                        testAssertionCount,
+                        errorCount);
+        
+        // setup pointer to samplematrix
+        TTSampleMatrixPtr myMatrix9;
+        
+        // check out samplematrix
+        TTBoolean result9b = { aBufferByAnyOtherName.checkOutMatrix(myMatrix9) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks out SampleMatrix successfully",
+                        result9b,
+                        testAssertionCount,
+                        errorCount);
+        
+        TTValue testChannel9, testSampleCount9, testSampleRate9;
+        myMatrix9->getAttributeValue("numChannels", testChannel9);
+        myMatrix9->getAttributeValue("lengthInSamples", testSampleCount9);
+        myMatrix9->getAttributeValue("sampleRate", testSampleRate9);
+        
+        /*std::cout << "Samplematrix has " << int(testChannel9) << " channels & " << int(testSampleCount9) << " samples @ " << double(testSampleRate9) << " Hz\n";*/
+        
+        // check out samplematrix
+        TTBoolean result9c = {  int(testChannel9) == int(testChannel9in) &&
+                                int(testSampleRate9) == int(testSampleRate9in) &&
+                                float(testSampleCount9) == (float(testSampleRate9in) * float(testLengthSec9in)) };
+        
+        TTTestAssertion("SampleMatrix has same attributes set via TTBuffer",
+                        result9c,
+                        testAssertionCount,
+                        errorCount);
+        
+        
+        // let's test some values
+        int randomIndex9, randomChannel9;
+        TTSampleValue testSoundFileValue9, testSampleMatrixValue9;
+        TTBoolean result9d = true;
+        
+        for (int i = 0; i<10; i++)
+        {
+            randomIndex9 = int(testSampleCount9) * TTRandom64();
+            randomChannel9 = i % TESTNUMCHANNELS;
+            //std::cout << "let's look at index " << randomIndex9 << " & channel " << randomChannel9 << "\n";
+            
+            this->peeki(float(randomIndex9)/2.0, randomChannel9, testSoundFileValue9);
+            myMatrix9->peek(randomIndex9, randomChannel9, testSampleMatrixValue9);
+            //std::cout << "Does " << testSoundFileValue9 << " = " << testSampleMatrixValue9 << " ?\n";
+            
+            if (result9d) // allows test to keep variable false once it is false
+                result9d = TTTestFloatEquivalence(testSoundFileValue9, testSampleMatrixValue9, true, 0.0000001);
+        }
+        
+        TTTestAssertion("comparing values @ 10 random indexes for equivalence",
+                        result9d,
+                        testAssertionCount,
+                        errorCount);
+        
+        // check in samplematrix
+        TTBoolean result9e = { aBufferByAnyOtherName.checkInMatrix(myMatrix9) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks in SampleMatrix successfully",
+                        result9e,
+                        testAssertionCount,
+                        errorCount);
+        
+        
+    } catch (...) {
+        TTTestAssertion("FAILED to run tests -- likely that necessary objects did not instantiate",
+            0,
+            testAssertionCount,
+            errorCount);
         
     }
     

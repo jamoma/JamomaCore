@@ -18,30 +18,6 @@
 
 #include "TTSampleMatrix.h"
 
-/* */
-#define TESTFILE "/Users/nathanwolek/Desktop/geese_clip.aif"
-#define TESTNUMCHANNELS 2
-#define TESTSAMPLERATE 44100
-#define TESTDURATIONINSAMPLES 88202
-#define TESTDURATIONINSECONDS 2.00004535
-#define TESTTITLE ""
-#define TESTARTIST ""
-#define TESTDATE ""
-#define TESTANNOTATION ""
-/* */
-
-/*
- #define TESTFILE "/Volumes/Storage/Audio/200604femf15/pitched/ding_b2.aiff"
- #define TESTNUMCHANNELS 1
- #define TESTSAMPLERATE 44100
- #define TESTDURATIONINSAMPLES 39493
- #define TESTDURATIONINSECONDS 0.89553288
- #define TESTTITLE ""
- #define TESTARTIST ""
- #define TESTDATE ""
- #define TESTANNOTATION ""
- */
-
 TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 {
 	int					errorCount = 0;
@@ -51,8 +27,8 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	TTInt16				numChannels = 2;
 	TTUInt32			numSamples = 50000;  // TODO: xcode says this is ambiguous when signed?
 	TTFloat32			duration = 1500;
-	TTInt32				test9Index = 10;
-	TTInt32				test10Index = 11;
+	int                 test9Index = 10;
+	int                 test10Index = 11;
 	TTInt32				test1Return, test2Return, test7Return;
 	TTFloat32			test3Return, test6Return;
 	TTSampleValue		test9Return, test10Return, test11Return, test12return, test13return;
@@ -229,6 +205,27 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 	{
 		TTTestLog("Expected a value of %f, but returned value was %f", pokeValue10, test10Return);
 	}
+    
+    
+    // TEST 10a: confirm that pulling value via "peek" message works too
+    
+    TTValue input(test10Index);
+    input.append(0);
+    TTValue output;
+    
+    this->sendMessage("peek", input, output);
+    
+    TTBoolean result10a = { TTTestFloatEquivalence(pokeValue10, TTSampleValue(output)) };
+	
+	TTTestAssertion("set value two of two consecutive samples",
+                    result10a,
+                    testAssertionCount,
+                    errorCount);
+	
+	if(!result10a)
+	{
+		TTTestLog("Expected a value of %f, but returned value was %f", pokeValue10, TTSampleValue(output));
+	}
 	
 	
 	// TEST 11: test for interpolation between two consecutive samples
@@ -388,53 +385,6 @@ TTErr TTSampleMatrix::test(TTValue& returnedTestInfo)
 		TTTestLog("Expected a value of %i, but returned value was %i", test19expect, test19return);
 	}
 	
-    /********/
-    
-    // NW: this test is dependent on the SoundfileLib extension and should therefore be moved to that project
-    /*
-    // TEST 20: load values from a sound file
-    
-    TTInt16				numChannels20 = 2;
-	TTUInt32			numSamples20 = 500;  // TODO: xcode says this is ambiguous when signed?
-    
-    this->setAttributeValue("numChannels", numChannels20);
-    this->setAttributeValue("lengthInSamples", numSamples20);
-    
-    TTTestLog("\nThe samplematrix currently has %i samples and %i channels", numChannels20, numSamples20);
-    
-    // set up TTValues passed to the public method
-    TTValue loadInput, loadOuput;
-    loadInput.append(TT(TESTFILE));
-    
-    
-    TTBoolean result20 = { load(loadInput, loadOuput) == kTTErrNone };
-    
-    TTTestAssertion("load operates successfully",
-                    result20,
-                    testAssertionCount,
-                    errorCount);
-    
-    TTTestLog("Let's look at the first 10 values...");
-    
-    TTSampleValue return20b;
-    TTErr error20b;
-    
-    for (int channel=0;channel<numChannels20;channel++)
-    {
-        TTTestLog("Channel %i", channel);
-        for (int sample=0;sample<10;sample++)
-        {
-            error20b = this->peek(sample,channel,return20b);
-            if (error20b == kTTErrNone)
-            {
-                TTTestLog("peek sample %i returned the value %f", sample, return20b);
-            } else {
-                TTTestLog("peek returned an error for sample %i", sample);
-            }
-        }
-    }
-    // end of test that needs to be moved
-    */
     
     
 	/*

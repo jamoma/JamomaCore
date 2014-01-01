@@ -112,14 +112,16 @@ TTErr TTRamp::processVectorAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSig
 
 	for (channel=0; channel<numchannels; channel++) {
 		outSample = out.mSampleVectors[channel];
-		if (step) {
+		*outSample = attrCurrentValue;
+        
+        if (step) {
 			attrCurrentValue += (step * out.getVectorSizeAsInt());
 			if (attrCurrentValue <= attrDestinationValue) {
 				step = 0;
 				attrCurrentValue = attrDestinationValue;	// clamp
 			}
 		}
-		*outSample = attrCurrentValue;
+		
 	}
 	return kTTErrNone;
 }
@@ -134,14 +136,16 @@ TTErr TTRamp::processVectorAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSigna
 
 	for (channel=0; channel<numchannels; channel++) {
 		outSample = out.mSampleVectors[channel];
-		if (step) {
+		*outSample = attrCurrentValue;
+        
+        if (step) {
 			attrCurrentValue += (step * out.getVectorSizeAsInt());
 			if (attrCurrentValue >= attrDestinationValue) {
 				step = 0;
 				attrCurrentValue = attrDestinationValue;	// clamp
 			}
 		}
-		*outSample = attrCurrentValue;
+		
 	}
 	return kTTErrNone;
 }
@@ -159,14 +163,16 @@ TTErr TTRamp::processSampleAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSig
 		vs = out.getVectorSizeAsInt();
 		outSample = out.mSampleVectors[channel];
 		while (vs--) {
-			if (step) {
+			*outSample++ = attrCurrentValue;
+            
+            if (step) {
 				attrCurrentValue += step;
 				if (attrCurrentValue <= attrDestinationValue) {
 					step = 0;
 					attrCurrentValue = attrDestinationValue; // clamp
 				}
 			}
-			*outSample++ = attrCurrentValue;	
+				
 		}
 	}
 	return kTTErrNone;
@@ -185,14 +191,16 @@ TTErr TTRamp::processSampleAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSigna
 		vs = out.getVectorSizeAsInt();
 		outSample = out.mSampleVectors[channel];
 		while (vs--) {
-			if (step) {
+			*outSample++ = attrCurrentValue;
+            
+            if (step) {
 				attrCurrentValue += step;
 				if (attrCurrentValue >= attrDestinationValue) {
 					step = 0;
 					attrCurrentValue = attrDestinationValue; // clamp
 				}
 			}
-			*outSample++ = attrCurrentValue;	
+				
 		}
 	}
 	return kTTErrNone;

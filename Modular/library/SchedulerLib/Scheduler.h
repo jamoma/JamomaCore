@@ -65,14 +65,6 @@ protected:
     SchedulerProgressionCallback    mCallback;              ///< the callback to use for each step
     TTPtr                           mBaton;                 ///< the baton to use for each step
     
-    TTAttributePtr                  durationAttribute;      ///< cache duration attribute for observer notification
-    TTAttributePtr                  offsetAttribute;        ///< cache offset attribute for observer notification
-    TTAttributePtr                  speedAttribute;         ///< cache speed attribute for observer notification
-    
-    TTAttributePtr                  runningAttribute;       ///< cache running attribute for observer notification
-    TTAttributePtr                  progressionAttribute;   ///< cache progression attribute for observer notification
-    TTAttributePtr                  realTimeAttribute;      ///< cache real time attribute for observer notification
-	
 public:
     
 	//** Constructor.	*/

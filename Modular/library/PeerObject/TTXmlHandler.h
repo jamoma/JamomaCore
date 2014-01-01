@@ -91,10 +91,10 @@ public:	// use public for recursive access
 	TTErr fromXmlChar(const void* xCh, TTValue& v, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
 	
 	/** Get the value of an xml element attribute */
-	TTErr getXmlAttribute(TTSymbol& attributeName, TTValue& returnedValue, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
+	TTErr getXmlAttribute(TTSymbol attributeName, TTValue& returnedValue, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
 	
 	/** Get the value of the next xml element attribute */
-	TTErr getXmlNextAttribute(TTSymbol& returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
+	TTErr getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote=NO, TTBoolean numberAsSymbol=NO);
 	
 private :
 	

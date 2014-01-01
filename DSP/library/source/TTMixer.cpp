@@ -158,7 +158,7 @@ TTErr TTMixer::setGain(const TTValue& newValue, TTValue&)
 	TTUInt16	y;
 	TTFloat64	gainValue;
 	
-	if (newValue.getSize() != 3)
+	if (newValue.size() != 3)
 		return kTTErrWrongNumValues;
 	
 	newValue.get(0, x);
@@ -181,7 +181,7 @@ TTErr TTMixer::setLinearGain(const TTValue& newValue, TTValue&)
 	TTUInt16	y;
 	TTFloat64	gainValue;
 	
-	if (newValue.getSize() != 3)
+	if (newValue.size() != 3)
 		return kTTErrWrongNumValues;
 	
 	newValue.get(0, x);
@@ -203,7 +203,7 @@ TTErr TTMixer::setMidiGain(const TTValue& newValue, TTValue&)
 	TTUInt16	y;
 	TTFloat64	gainValue;
 	
-	if (newValue.getSize() != 3)
+	if (newValue.size() != 3)
 		return kTTErrWrongNumValues;
 	
 	newValue.get(0, x);

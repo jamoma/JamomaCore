@@ -64,6 +64,9 @@ private:
 	
 	/** set mActive */
 	TTErr setActive(const TTValue& value);
+    
+    /** set the highlight */
+	TTErr setHighlight(const TTValue& value);
 	
 	/** set the freeze */
 	TTErr setFreeze(const TTValue& value);

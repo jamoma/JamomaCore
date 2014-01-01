@@ -43,6 +43,13 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_TextHandler                      (("TextH
 TTMODULAR_EXPORT TTSymbol       kTTSym_Viewer                           (("Viewer"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_XmlHandler                       (("XmlHandler"));
 
+// notifications
+TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerDurationChanged         (("SchedulerDurationChanged"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerOffsetChanged           (("SchedulerOffsetChanged"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerSpeedChanged            (("SchedulerSpeedChanged"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerRunningChanged          (("SchedulerRunningChanged"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_SchedulerTicked                  (("SchedulerTicked"));
+
 // attribute, message or any word often used
 TTMODULAR_EXPORT TTSymbol       kTTSym_active                           (("active"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_activity                         (("activity"));

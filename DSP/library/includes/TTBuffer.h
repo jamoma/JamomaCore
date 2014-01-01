@@ -59,9 +59,11 @@ public:
 	
 	// public method to check out the mActiveMatrix
 	TTErr checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix);
+    TTErr checkOutMatrixValues(const TTValueRef unusedInput, TTValueRef output);
 	
 	// public method to check in TTSampleMatrix. if it is no longer mActiveMatrix, action is taken.
 	TTErr checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix);
+    TTErr checkInMatrixValues(const TTValueRef input, TTValueRef unusedOutput);
 	
 	TTErr getNames(const TTValueRef unusedInput, TTValueRef returnedNames)
 	{
@@ -144,9 +146,16 @@ public:
 	TTBUFFER_WRAP_WITHSPAWN_k1ARG( setLengthInSamples )
 	TTBUFFER_WRAP_1ARG(  getLengthInSamples )
 
-	/** NOTE: We do not wrap getValueAtIndex, peek, setValueAtIndex, poke and simliar methods.  
+	/* NOTE: We do not wrap getValueAtIndex, peek, setValueAtIndex, poke and simliar methods.  
 	Objects should work directly with the TTSampleMatrixPtr that they check out for these types of operations.
 	*/
+    
+    /**	Attribute updater: whenever the sample rate for this buffer is changed, apply to the active TTSampleMatrix immediately. This change is not deferred to next checkout.
+     @return Returns a TTErr error code.	*/
+	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
+    {
+        return mActiveMatrix->setAttributeValue(kTTSym_sampleRate, sr);
+    }
 	
 	TTErr	fill(const TTValue& value, TTValue& unusedOutput)								
 	{ 
@@ -179,5 +188,37 @@ public:
 };
 
 typedef TTBuffer* TTBufferPtr;
+
+/** Wrap TTBuffer instances for convenience. */
+class TTAudioBuffer : public TTObject {
+public:
+	TTAudioBuffer(const TTValue& channelCount, const TTValue& sampleCount):
+	TTObject(kTTSym_buffer, channelCount)
+	{
+        instance()->setLengthInSamples(sampleCount);
+    }
+    
+    TTBufferPtr instance()
+	{
+		return (TTBufferPtr)mObjectInstance;
+	}
+    
+    TTErr load(const TTValue &value)
+    {
+        TTValue unusedOuput;
+        return instance()->load(value, unusedOuput);
+    }
+    
+    TTErr checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix)
+    {
+        return instance()->checkOutMatrix(startUsingThisMatrix);
+    }
+    
+    TTErr checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix)
+    {
+        return instance()->checkInMatrix(doneUsingThisMatrix);
+    }
+    
+};
 
 #endif // __TT_BUFFER_H__

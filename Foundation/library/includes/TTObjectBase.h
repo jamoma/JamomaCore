@@ -385,6 +385,12 @@ public:
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr findMessage(const TTSymbol name, TTMessage** message);
+    
+    /** Remove a message.
+     @param name				The name of the message to remove.
+     @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+    TTErr removeMessage(const TTSymbol name);
 	
 	
 	/** TODO: Document this function

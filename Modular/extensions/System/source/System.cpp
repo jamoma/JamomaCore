@@ -75,14 +75,9 @@ TTErr System::Go()
         
         (mCallback)(mBaton, mProgression, mRealTime);
         
-        // notify each running attribute observers
-        runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
-        
-        // notify each progression attribute observers
-        progressionAttribute->sendNotification(kTTSym_notify, mProgression);  // we use kTTSym_notify because we know that observers are TTCallback
-        
-        // notify each elapsed time attribute observers
-        realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);  // we use kTTSym_notify because we know that observers are TTCallback
+        // notify each observers
+        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
     }
     // if the thread is not running
     else if (mThread == NULL) {
@@ -108,8 +103,8 @@ TTErr System::Stop()
         delete mThread;
         mThread = NULL;
     
-        // notify each running attribute observers
-        runningAttribute->sendNotification(kTTSym_notify, mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
+        // notify each observers
+        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
     }
     
     // reset all time info
@@ -132,26 +127,22 @@ TTErr System::Tick()
     
     if (mProgression < 1.) {
         
+        // notify the owner
         (mCallback)(mBaton, mProgression, mRealTime);
         
-        // notify each progression attribute observers
-        progressionAttribute->sendNotification(kTTSym_notify, mProgression);    // we use kTTSym_notify because we know that observers are TTCallback
-        
-        // notify each elapsed time attribute observers
-        realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);          // we use kTTSym_notify because we know that observers are TTCallback
+        // notify each observers
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
     }
     else {
         
         // forcing progression to 1. to allow filtering
         mProgression = 1.;
         
+        // notify the owner
         (mCallback)(mBaton, mProgression, mRealTime);
         
-        // notify each progression attribute observers
-        progressionAttribute->sendNotification(kTTSym_notify, mProgression);    // we use kTTSym_notify because we know that observers are TTCallback
-        
-        // notify each elapsed time attribute observers
-        realTimeAttribute->sendNotification(kTTSym_notify, mRealTime);          // we use kTTSym_notify because we know that observers are TTCallback
+        // notify each observers
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
         
         // if the scheduler is still running : stop it
         // note : because it  is possible another thread stop the scheduler before
@@ -196,7 +187,14 @@ TTFloat64 System::computeDeltaTime()
     
 	if (mLastTime != 0) {
         
-		deltaInUs = (currentTime - mLastTime);
+        // it seems the currentTime is lower than the lastTime sometimes ...
+        if (currentTime < mLastTime) {
+            
+            TTLogMessage("System::computeDeltaTime() : currentTime (%Lu) is lower than lastTime (%Lu)\n", currentTime, mLastTime);
+            deltaInUs = 0;
+        }
+        else
+            deltaInUs = (currentTime - mLastTime);
         
 		if (deltaInUs < granularityInUs) {
             
@@ -225,12 +223,10 @@ void SystemThreadCallback(void* anSystemScheduler)
     // reset timing informations
     aScheduler->mRunning = YES;
     aScheduler->mPaused = NO;
-    aScheduler->mProgression = aScheduler->mOffset / aScheduler->mDuration;
-    aScheduler->mRealTime = aScheduler->mOffset;
     aScheduler->mLastTime = 0.;
     
-    // notify each running attribute observers
-    aScheduler->runningAttribute->sendNotification(kTTSym_notify, aScheduler->mRunning);          // we use kTTSym_notify because we know that observers are TTCallback
+    // notify each observers
+    aScheduler->sendNotification(TTSymbol("SchedulerRunningChanged"), aScheduler->mRunning);
     
     // launch the tick if the duration is valid and while it have to run
     if (aScheduler->mDuration > 0.)

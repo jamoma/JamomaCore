@@ -23,40 +23,44 @@
 
 TT_BASE_OBJECT_CONSTRUCTOR,
 	mFunction(NULL),
-	mBaton(NULL)
+	mBaton(NULL),
+    mNotification(kTTSym_notify)
 {
 	addAttribute(Function, kTypePointer);
 	addAttribute(Baton, kTypePointer);
+    addAttributeWithSetter(Notification, kTypeSymbol);
 	
-	// Théo says this is only used for debugging purposes [tap]
-	addAttributeWithSetter(Owner, kTypeSymbol);
-	
-	addMessageWithArguments(notify);
+    // by default the callback is sensitive to the kTTSym_notify notification sent from a TTObject
+    registerMessage(mNotification, (TTMethod)& TTCallback::notify);
 }
-
 
 TTCallback::~TTCallback()
 {
 	mFunction = NULL;
 	mBaton = NULL;
-	if (mOwner) {
-		mOwner = kTTSymEmpty;
-	}
 }
 
+TTErr TTCallback::setNotification(const TTValue& value)
+{
+    if (value.size() == 1) {
+        
+        if (value[0].type() == kTypeSymbol) {
+        
+            removeMessage(mNotification);
+            
+            mNotification = value[0];
+            
+            return registerMessage(mNotification, (TTMethod)& TTCallback::notify);
+        }
+    }
+    
+    return kTTErrGeneric;
+}
 
 TTErr TTCallback::notify(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	if (mFunction)
 		mFunction(mBaton, anInputValue);
 	
-	return kTTErrNone;
-}
-
-
-TTErr TTCallback::setOwner(const TTValue& input)
-{
-	mOwner = input[0];
-	//std::cout << "TTCallback::setOwner() -- " << (const char*)mOwner << std::endl;
 	return kTTErrNone;
 }
