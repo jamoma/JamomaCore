@@ -436,6 +436,16 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
                         testAssertionCount,
                         errorCount);
         
+        // do some more tests here
+        
+        // check in samplematrix
+        TTBoolean result10e = { bufferForTest10.checkInMatrix(myMatrix10) == kTTErrNone };
+        
+        TTTestAssertion("TTBuffer checks in SampleMartix successfully"
+                        result10e,
+                        testAssertionCount,
+                        errorCount);
+        
     } catch (...) {
         TTTestAssertion("FAILED to run tests -- likely that necessary objects did not instantiate",
             0,
