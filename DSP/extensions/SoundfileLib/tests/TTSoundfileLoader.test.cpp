@@ -366,7 +366,7 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         myMatrix9->getAttributeValue("lengthInSamples", testSampleCount9);
         myMatrix9->getAttributeValue("sampleRate", testSampleRate9);
         
-        std::cout << "Samplematrix has " << TTInt32(testChannel9) << " channels & " << TTInt32(testSampleCount9) << " samples @ " << TTInt32(testSampleRate9) << " Hz\n";
+        /*std::cout << "Samplematrix has " << TTInt32(testChannel9) << " channels & " << TTInt32(testSampleCount9) << " samples @ " << TTInt32(testSampleRate9) << " Hz\n";*/
         
         // check out samplematrix
         TTBoolean result9c = {  TTInt32(testChannel9) == TTInt32(testChannel9in) &&
@@ -442,13 +442,12 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
         myMatrix10->getAttributeValue("lengthInSeconds", testLengthSec10);
         myMatrix10->getAttributeValue("lengthInSamples", testLengthSample10);
         
-        std::cout << "Samplematrix has " << TTInt32(testChannel10) << " channels & " << TTInt32(testLengthSample10) << " samples and is " << TTFloat64(testLengthSec10) << " secs long\n";
+        /*std::cout << "Samplematrix has " << TTInt32(testChannel10) << " channels & " << TTInt32(testLengthSample10) << " samples and is " << TTFloat64(testLengthSec10) << " secs long\n";*/
         
         TTBoolean result10c = { TTInt32(testChannel10) == TESTNUMCHANNELS &&
-                                TTInt32(testLengthSample10) == TESTDURATIONINSAMPLES &&
-                                TTFloat64(testLengthSec10) == TESTDURATIONINSECONDS};
+                                TTInt32(testLengthSample10) == TESTDURATIONINSAMPLES };
         
-        TTTestAssertion("resizeThenLoad results in resized TTSampleMatrix",
+        TTTestAssertion("TTBuffer.resizeThenLoad results in properly sized TTSampleMatrix",
                         result10c,
                         testAssertionCount,
                         errorCount);

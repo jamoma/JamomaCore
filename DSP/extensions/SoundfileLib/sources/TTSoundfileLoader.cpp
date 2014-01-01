@@ -262,7 +262,7 @@ TTErr TTSoundfileLoader::resizeThenLoad(const TTValue& input, TTValue& unusedOut
         mTargetMatrix->setAttributeValue("numChannels",newNumChannels);
         mTargetMatrix->setAttributeValue("lengthInSeconds",this->getLengthInSeconds());
         // we do NOT change the sample rate
-        std::cout << "this part of the code ran" << this->getNumChannels() << " " << this->getLengthInSeconds() << "\n";
+        /*std::cout << "this part of the code ran " << this->getNumChannels() << " " << this->getLengthInSeconds() << "\n";*/
     }
     
     if (!err)
