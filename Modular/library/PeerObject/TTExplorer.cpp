@@ -383,7 +383,7 @@ TTErr TTExplorer::Explore()
 TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddressItemPtr    aNamespace = lookupNamespace(mNamespace);
-	TTAddressItemPtr    anItem;
+	TTAddressItemPtr    anItem = NULL;
 	TTAddress           itemSymbol;
 	TTInt32				i, number;
 	TTBoolean			state;
