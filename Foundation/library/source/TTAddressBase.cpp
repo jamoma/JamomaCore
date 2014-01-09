@@ -172,9 +172,9 @@ TTAddressBase* TTAddressBase::edit(const TTSymbol& newDirectory,
 	
 	if (newParent != NO_PARENT.getBasePointer()) {
 		if (newDirectory == NO_DIRECTORY)
-			address = newParent->getCString();
+			address = newParent->normalized->getCString();
 		else
-			address += newParent->getCString();
+			address += newParent->normalized->getCString();
 	}
 	
 	if(newName != NO_NAME){

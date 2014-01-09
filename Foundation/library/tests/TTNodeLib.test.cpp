@@ -344,6 +344,12 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 					resultAddress == TTAddress("directory:/name.instance:attribute"),
 					testAssertionCount,
 					errorCount);
+    
+    resultAddress = testAddressE.appendAttribute(TTSymbol("attribute"));
+    TTTestAssertion("TTAddress: Test passes if the appendAttribute() method returns \"directory:/gran/parent:attribute\"",
+					resultAddress == TTAddress("directory:/gran/parent:attribute"),
+					testAssertionCount,
+					errorCount);
 
 	// the third set of tests checks the splitAt method
 	TTTestLog("\n");
