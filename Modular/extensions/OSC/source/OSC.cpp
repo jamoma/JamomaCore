@@ -235,6 +235,9 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
             // delete osc.receive dedicated to distant applications
             TTObjectBaseRelease(&anOscReceiver);
             
+            // remove key
+            mDistantApplicationOscReceivers.remove(distantApplicationName);
+            
             // wait to avoid strange crash when run and stop are called to quickly
             mWaitThread->sleep(1);
             
