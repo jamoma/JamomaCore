@@ -255,6 +255,20 @@ TTErr TTAddressBase::parse()
 		
 		begin = s_toParse.begin();
 		end = s_toParse.end();
+        
+        // directory:/ case
+        if (s_toParse[0] == C_SEPARATOR && s_toParse.length() == 2) {
+            
+            this->directory = TTSymbol(s_directory);
+            this->parent = NO_PARENT.getBasePointer();
+            this->name = S_SEPARATOR;
+            this->instance = NO_INSTANCE;
+            this->attribute = NO_ATTRIBUTE;
+            this->type = kAddressAbsolute;
+            this->parsed = YES;
+            this->normalized = kTTAdrsRoot.getBasePointer();
+            return kTTErrNone;
+        }
 		
 		//cout << "directory :  " << s_directory << endl;
 		//cout << "s_toParse :  " << s_toParse << endl;

@@ -114,7 +114,16 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance10	= testAddress10.getInstance();
 	TTSymbol		attribute10	= testAddress10.getAttribute();
 	TTAddressType	type10		= testAddress10.getType();
+    
+    TTAddress		testAddress11("directory11:/");
 	
+	TTSymbol		directory11	= testAddress11.getDirectory();
+	TTAddress		parent11	= testAddress11.getParent();
+	TTSymbol		name11		= testAddress11.getName();
+	TTSymbol		instance11	= testAddress11.getInstance();
+	TTSymbol		attribute11	= testAddress11.getAttribute();
+	TTAddressType	type11		= testAddress11.getType();
+
 	// The first set of tests checks parsing of addresses
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
 					directory1 == TTSymbol("directory1") &&
@@ -213,6 +222,16 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 					instance10 == NO_INSTANCE &&
 					attribute10 == TTSymbol("attribute10") &&
 					type10 == kAddressAbsolute,
+					testAssertionCount,
+					errorCount);
+    
+    TTTestAssertion("TTAddress: Test fails if parsing of testAddress11 is bad",
+					directory11 == TTSymbol("directory11") &&
+					parent11 == NO_PARENT &&
+					name11 == S_SEPARATOR &&
+					instance11 == NO_INSTANCE &&
+					attribute11 == NO_ATTRIBUTE &&
+					type11 == kAddressAbsolute,
 					testAssertionCount,
 					errorCount);
 }
