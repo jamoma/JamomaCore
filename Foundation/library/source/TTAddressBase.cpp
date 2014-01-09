@@ -131,15 +131,15 @@ TTAddressBase* TTAddressBase::appendAddress(TTAddressBase* toAppend)
 		return toAppend;
 	
 	TTString tmp = this->getCString();
-
+    
 	// insert a / if the first part is not the root and the address to append is not absolute
-	if (*this != kTTAdrsRoot  &&  toAppend->getType() != kAddressAbsolute  &&  toAppend->getName() != NO_NAME) {
+	if (this->normalize() != kTTAdrsRoot.getBasePointer() && toAppend->getType() != kAddressAbsolute && toAppend->getName() != NO_NAME) {
 		tmp += C_SEPARATOR;
 		tmp += toAppend->getCString();
 	}
 	
 	// just keep the the second part if the first part is the root and the address to append is absolute
-	else if (this == kTTAdrsRoot && toAppend->getType() == kAddressAbsolute)
+	else if (this->normalize() == kTTAdrsRoot.getBasePointer() && toAppend->getType() == kAddressAbsolute)
 		return toAppend;
 	
 	// else append the address
@@ -297,9 +297,17 @@ TTErr TTAddressBase::parse()
 	{
 		// if the split is due to a slash at the beginning : parent = /
 		if (ttRegexForParent->begin() == ttRegexForParent->end())
-			s_parent = C_SEPARATOR;
-		else
-			s_parent = TTString(ttRegexForParent->begin(), ttRegexForParent->end());
+			s_parent += C_SEPARATOR;
+
+        // if directory part exists append it
+		else if (this->directory != kTTSymEmpty) {
+            s_parent = s_directory;
+            s_parent += ":";
+            s_parent += TTString(ttRegexForParent->begin(), ttRegexForParent->end());
+        }
+
+        else
+			s_parent += TTString(ttRegexForParent->begin(), ttRegexForParent->end());
 		
 		s_toParse = TTString(ttRegexForParent->end()+1, end-1);               // +1 to remove "/", -1 to remove a useless \0
 		

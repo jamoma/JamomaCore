@@ -33,6 +33,7 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance1	= testAddress1.getInstance();
 	TTSymbol		attribute1	= testAddress1.getAttribute();
 	TTAddressType	type1		= testAddress1.getType();
+    TTSymbol		parentDirectory1 = testAddress1.getParent().getDirectory();
 	
 	TTAddress		testAddress2("/gran/parent2/name2.instance2");
 	
@@ -123,15 +124,16 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance11	= testAddress11.getInstance();
 	TTSymbol		attribute11	= testAddress11.getAttribute();
 	TTAddressType	type11		= testAddress11.getType();
-
+    
 	// The first set of tests checks parsing of addresses
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
 					directory1 == TTSymbol("directory1") &&
-					parent1 == TTAddress("/gran/parent1") &&
+					parent1 == TTAddress("directory1:/gran/parent1") &&
 					name1 == TTSymbol("name1") &&
 					instance1 == TTSymbol("instance1") &&
 					attribute1 == TTSymbol("attribute1") &&
-					type1 == kAddressAbsolute,
+					type1 == kAddressAbsolute &&
+                    parentDirectory1 == directory1,
 					testAssertionCount,
 					errorCount);
 	
@@ -248,6 +250,8 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 	TTAddress testAddressF("name.instance:attribute");
 	TTAddress testAddressG("/name.instance:attribute");
     
+    TTAddress testAddressH("directory:/");
+    
     TTSymbol  testSymbolA("");
     
 	TTSymbol  resultSymbol;
@@ -332,6 +336,12 @@ void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
 	resultAddress = kTTAdrsRoot.appendAddress(TTAddress("name")).appendInstance(TTAddress("instance")).appendAttribute(TTAddress("attribute"));
 	TTTestAssertion("TTAddress: Test passes if appendAddress + appendInstance + appendAttribute methods returns \"/name.instance:attribute\"",
 					resultAddress == TTAddress("/name.instance:attribute"),
+					testAssertionCount,
+					errorCount);
+    
+    resultAddress = testAddressH.appendAddress(testAddressF);
+    TTTestAssertion("TTAddress: Test passes if the appendAddress() method returns \"directory:/name.instance:attribute\"",
+					resultAddress == TTAddress("directory:/name.instance:attribute"),
 					testAssertionCount,
 					errorCount);
 
@@ -617,17 +627,10 @@ void TTNodeLibTestMiscellaneous(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance	= testAddress.getInstance();
 	TTSymbol		attribute	= testAddress.getAttribute();
 	TTAddressType	type		= testAddress.getType();
-    
-    //TTBoolean t1 = directory == TTSymbol("directory");
-    //TTBoolean t2 = parent == TTAddress("/gran/parent");
-    //TTBoolean t3 = name == TTSymbol("name");
-    //TTBoolean t4 = instance == TTSymbol("instance");
-    //TTBoolean t5 = attribute == TTSymbol("attribute");
-    //TTBoolean t6 = type == kAddressAbsolute;
 
     TTTestAssertion("TTValue::get : Test2 fails if a TTSymbol contained into a value is not casted into a TTAddress during a get method",
 					directory == TTSymbol("directory") &&
-					parent == TTAddress("/gran/parent") &&
+					parent == TTAddress("directory:/gran/parent") &&
 					name == TTSymbol("name") &&
 					instance == TTSymbol("instance") &&
 					attribute == TTSymbol("attribute") &&
