@@ -502,12 +502,20 @@ TTErr TTAddressBase::listNameInstance(TTList& nameInstanceList)
         // if there is a directory part : append directory and ""
         if (directory != NO_DIRECTORY) {
             
-            nameInstanceList.append(directory);
-            nameInstanceList.append(kTTSymEmpty);
+            if (this->parent == kTTAdrsRoot) {
+                nameInstanceList.append(directory);
+                nameInstanceList.append(kTTSymEmpty);
+            }
+            // directory:/ case
+            else if (this->parent == NO_PARENT && this->name == S_SEPARATOR) {
+                nameInstanceList.append(directory);
+                nameInstanceList.append(kTTSymEmpty);
+                return kTTErrNone;
+            }
         }
-
+        
         nameInstanceList.append(name);
-		nameInstanceList.append(instance);
+        nameInstanceList.append(instance);
 	}
     
 	return kTTErrNone;
