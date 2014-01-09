@@ -60,6 +60,9 @@ mReturnValueCallback(NULL)
 	
 	addMessageWithArguments(Send);
 	addMessageProperty(Send, hidden, YES);
+    
+    addMessageWithArguments(Grab);
+	addMessageProperty(Grab, hidden, YES);
 	
     TTValue none;
 	TTObjectBaseInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, none);
@@ -282,6 +285,14 @@ TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)
 		
 		return mSender->sendMessage(kTTSym_Send, valueToSend, none);
 	}
+	
+	return kTTErrGeneric;
+}
+
+TTErr TTViewer::Grab(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (mReceiver)
+		return mReceiver->sendMessage(TTSymbol("Grab"), inputValue, outputValue);
 	
 	return kTTErrGeneric;
 }

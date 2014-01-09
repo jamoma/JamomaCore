@@ -79,6 +79,10 @@ private:
 	
 	/** */
 	TTErr Send(const TTValue& valueToSend, TTValue& outputValue);
+    
+    /** Ask the value and use the outputValue to return it.
+     This method is not relevant with address containing wildcards */
+	TTErr Grab(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr bind();

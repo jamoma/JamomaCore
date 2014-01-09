@@ -101,6 +101,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_generic;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Get;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_global;
 extern TTMODULAR_EXPORT TTSymbol    kTTSym_Go;
+extern TTMODULAR_EXPORT TTSymbol    kTTSym_Grab;
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_highlight;
 

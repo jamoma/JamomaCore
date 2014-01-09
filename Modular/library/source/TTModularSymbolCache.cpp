@@ -99,6 +99,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_generic                          (("gener
 TTMODULAR_EXPORT TTSymbol       kTTSym_Get                              (("Get"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_global                           (("global"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_Go                               (("Go"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_Grab                             (("Grab"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_highlight                        (("highlight"));
 
