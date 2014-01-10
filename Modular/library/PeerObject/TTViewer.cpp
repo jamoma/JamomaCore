@@ -94,8 +94,14 @@ TTViewer::~TTViewer() // TODO : delete things...
 TTErr TTViewer::setAddress(const TTValue& value)
 {
 	mAddress = value[0];
+    
+    // disable reception to avoid crash
+    mActive = NO;
 	
 	bind();
+    
+    // enable reception
+    mActive = YES;
     
     refresh();
 	
@@ -331,16 +337,19 @@ TTErr TTViewerReceiveAddressCallback(TTPtr baton, TTValue& data)
 	// unpack baton (a TTViewer)
 	b = (TTValuePtr)baton;
 	aViewer = TTViewerPtr((TTObjectBasePtr)(*b)[0]);
-	
-	if (aViewer->mDataspace == kTTSym_none) {
-
-        // check if the data's dataspace
-        if (aViewer->mDataspaceObserver) {
-            aViewer->mDataspaceObserver->sendMessage(kTTSym_Get);
+    
+    if (aViewer->mActive) {
+        
+        if (aViewer->mDataspace == kTTSym_none) {
             
-            // then check if the data's dataspace unit
-            if (aViewer->mDataspaceUnitObserver)
-                aViewer->mDataspaceUnitObserver->sendMessage(kTTSym_Get);
+            // check if the data's dataspace
+            if (aViewer->mDataspaceObserver) {
+                aViewer->mDataspaceObserver->sendMessage(kTTSym_Get);
+                
+                // then check if the data's dataspace unit
+                if (aViewer->mDataspaceUnitObserver)
+                    aViewer->mDataspaceUnitObserver->sendMessage(kTTSym_Get);
+            }
         }
     }
     
