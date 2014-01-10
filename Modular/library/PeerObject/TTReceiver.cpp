@@ -80,6 +80,11 @@ TTReceiver::~TTReceiver()
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
 {
+    TTErr err;
+    
+    // disable reception to avoid crash
+    mActive = NO;
+    
 	unbindAddress();
 	unbindApplication();
 	
@@ -91,9 +96,14 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 	
 	mDirectory = getDirectoryFrom(mAddress);
 	if (mDirectory)
-		return bindAddress();
+		err = bindAddress();
 	else
-		return bindApplication();
+		err = bindApplication();
+    
+    // enable reception
+    mActive = YES;
+    
+    return err;
 }
 
 TTErr TTReceiver::setActive(const TTValue& newValue)
