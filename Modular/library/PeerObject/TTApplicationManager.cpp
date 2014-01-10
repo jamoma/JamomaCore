@@ -385,8 +385,6 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	returnedChildren = TTValuePtr((TTPtr)outputValue[1]);
 	returnedAttributes = TTValuePtr((TTPtr)outputValue[2]);
 	
-	TTLogDebug("TTApplicationManager::Discover");
-	
 	TTList				nodeList, childList;
 	TTNodePtr			firstNode, aNode;
 	TTAddress			nodeAddress;
@@ -447,8 +445,6 @@ TTErr TTApplicationManager::ApplicationDiscoverAll(const TTValue& inputValue, TT
 	TTAddress           whereToDiscover;
 	
 	whereToDiscover = inputValue[0];
-
-	TTLogDebug("TTApplicationManager::DiscoverAll");
 	
 	TTNodePtr			aNode;
 	TTErr				err;
@@ -472,8 +468,6 @@ TTErr TTApplicationManager::ApplicationGet(const TTValue& inputValue, TTValue& o
 	TTAddress           whereToGet;
 	
 	whereToGet = inputValue[0];
-	
-	TTLogDebug("TTApplicationManager::Get");
 	
 	TTNodePtr			nodeToGet;
 	TTObjectBasePtr		anObject;
@@ -505,8 +499,6 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 	whereToSet = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
 	
-	TTLogDebug("TTApplicationManager::Set");
-	
 	TTList				aNodeList;
 	TTNodePtr			nodeToSet;
 	TTSymbol			objectType;
@@ -535,7 +527,7 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 			if (objectType == kTTSym_Data) {
 				
 				if (whereToSet.getAttribute() == kTTSym_value)
-					anObject->sendMessage(kTTSym_Command, *newValue, none);
+					return anObject->sendMessage(kTTSym_Command, *newValue, none);
 				else
 					return anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
 			}
