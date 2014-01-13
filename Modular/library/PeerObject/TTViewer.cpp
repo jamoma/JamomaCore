@@ -298,7 +298,7 @@ TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTViewer::Grab(const TTValue& inputValue, TTValue& outputValue)
 {
     if (mReceiver)
-		return mReceiver->sendMessage(TTSymbol("Grab"), inputValue, outputValue);
+		return mReceiver->sendMessage(kTTSym_Grab, inputValue, outputValue);
 	
 	return kTTErrGeneric;
 }
