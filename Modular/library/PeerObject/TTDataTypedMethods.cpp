@@ -191,19 +191,13 @@ TTErr TTData::returnValue()
     TTValue v = mValue;
 	TTValue dummy;
 	
-  
+    
     // This is a temporary solution to have audio rate ramping outside the TTData
     if (mRampDrive == kTTSym_external) {
         
         if (externalRampTime > 0)
             v.append(externalRampTime);
     }
-    
-    // return the value to his owner
-    this->mReturnValueCallback->notify(v, dummy);
-    
-    // notify each observers
-    valueAttribute->sendNotification(kTTSym_notify, v);             // we use kTTSym_notify because we know that observers are TTCallback
     
     // we have had our value set at least once
     // only parameters notify their initialisation
@@ -214,7 +208,13 @@ TTErr TTData::returnValue()
     else if (!mInitialized)
         mInitialized = YES;
     
-   return kTTErrNone;
+    // return the value to his owner
+    this->mReturnValueCallback->notify(v, dummy);
+    
+    // notify each observers
+    valueAttribute->sendNotification(kTTSym_notify, v);             // we use kTTSym_notify because we know that observers are TTCallback
+    
+    return kTTErrNone;
 }
 
 TTErr TTData::NoneCommand(const TTValue& inputValue, TTValue& outputValue)
