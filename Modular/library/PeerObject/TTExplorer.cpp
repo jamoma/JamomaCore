@@ -209,8 +209,6 @@ TTErr TTExplorer::bindAddress()
 			mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 			mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 			
-			mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTExplorer"));						// this is usefull only to debug
-			
 			if (mDepth)
 				mDirectory->addObserverForNotifications(mAddress, mAddressObserver, mDepth);
 			else
@@ -252,8 +250,6 @@ TTErr TTExplorer::bindApplication()
 		
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
-		
-		mApplicationObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTExplorer"));		// this is usefull only to debug
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 	}
