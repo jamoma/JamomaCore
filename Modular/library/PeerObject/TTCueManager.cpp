@@ -204,7 +204,20 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 		if (inputValue[i].type() == kTypeSymbol) {
 			
 			address = inputValue[i];
-			
+ /*
+            // wildcard case
+            TTNodePtr	aNode;
+            TTList		aNodeList;
+            TTValue		v, none;
+            
+            mDirectory->Lookup(address, aNodeList, &aNode);
+            
+            for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
+                
+                aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
+                
+            }
+*/			
             if (address == kTTAdrsRoot)
                 aNamespace->setSelection(YES, YES);
             
