@@ -38,6 +38,8 @@ mAppToTT(NULL),
 mTTToApp(NULL),
 mTempAddress(kTTAdrsRoot)
 {
+    TTAttributePtr anAttribute;
+    
 	mName = arguments[0];
 	
 	addAttributeWithSetter(Name, kTypeSymbol);
@@ -52,11 +54,13 @@ mTempAddress(kTTAdrsRoot)
 	
 	addAttributeWithSetter(Activity, kTypeBoolean);
 	
-	addAttributeWithSetter(ActivityIn, kTypeLocalValue);
-	addAttributeProperty(ActivityIn, hidden, YES);
-	
-	addAttributeWithSetter(ActivityOut, kTypeLocalValue);
-	addAttributeProperty(ActivityOut, hidden, YES);
+    registerAttribute(TTSymbol("activityIn"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getActivityIn, (TTSetterMethod)& TTApplication::setActivityIn);
+    this->findAttribute(TTSymbol("activityIn"), &anAttribute);
+    anAttribute->sethidden(YES);
+    
+    registerAttribute(TTSymbol("activityOut"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getActivityOut, (TTSetterMethod)& TTApplication::setActivityOut);
+    this->findAttribute(TTSymbol("activityOut"), &anAttribute);
+    anAttribute->sethidden(YES);
 	
 	addAttribute(Directory, kTypePointer);
 	addAttributeProperty(Directory, hidden, YES);
@@ -168,18 +172,30 @@ TTErr TTApplication::setActivity(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTApplication::getActivityIn(TTValue& value)
+{
+    // we don't store the activity in
+    // TODO : create a notification for this !
+    return kTTErrNone;
+}
+
 TTErr TTApplication::setActivityIn(const TTValue& value)
 {
 	TTAttributePtr	anAttribute;
 	TTErr			err = kTTErrNone;
 	
-	mActivityIn = value;
-	
 	err = this->findAttribute(kTTSym_activityIn, &anAttribute);
 	if (!err)
-		anAttribute->sendNotification(kTTSym_notify, mActivityIn);	// we use kTTSym_notify because we know that observers are TTCallback
+		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
+}
+
+TTErr TTApplication::getActivityOut(TTValue& value)
+{
+    // we don't store the activity out
+    // TODO : create a notification for this !
+    return kTTErrNone;
 }
 
 TTErr TTApplication::setActivityOut(const TTValue& value)
@@ -187,11 +203,9 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 	TTAttributePtr	anAttribute;
 	TTErr			err = kTTErrNone;
 	
-	mActivityOut = value;
-	
 	err = this->findAttribute(kTTSym_activityOut, &anAttribute);
 	if (!err)
-		anAttribute->sendNotification(kTTSym_notify, mActivityOut);	// we use kTTSym_notify because we know that observers are TTCallback
+		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }

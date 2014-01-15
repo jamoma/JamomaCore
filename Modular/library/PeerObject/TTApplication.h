@@ -89,8 +89,6 @@ private:
 	TTSymbol					mAuthor;			///< ATTRIBUTE : the author of the application
 	
 	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
-	TTValue						mActivityIn;		///< ATTRIBUTE : a local value to allow observation of incoming protocol messages
-	TTValue						mActivityOut;		///< ATTRIBUTE : a local value to allow observation of outputing protocol messages
 	
 	TTHashPtr					mDirectoryListenersCache;	///< a hash table containing all <address, Listener> for quick access
 	TTHashPtr					mAttributeListenersCache;	///< a hash table containing all <address:attribute, Listener> for quick access
@@ -112,8 +110,14 @@ private:
 	/** */
 	TTErr setActivity(const TTValue& value);
 	
+    /** */
+	TTErr getActivityIn(TTValue& value);
+    
 	/** */
 	TTErr setActivityIn(const TTValue& value);
+	
+	/** */
+	TTErr getActivityOut(TTValue& value);
 	
 	/** */
 	TTErr setActivityOut(const TTValue& value);
