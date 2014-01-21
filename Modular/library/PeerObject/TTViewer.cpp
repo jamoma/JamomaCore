@@ -93,6 +93,8 @@ TTViewer::~TTViewer() // TODO : delete things...
 
 TTErr TTViewer::setAddress(const TTValue& value)
 {
+    TTBoolean   memoActive = mActive;
+    
 	mAddress = value[0];
     
     // disable reception to avoid crash
@@ -101,7 +103,7 @@ TTErr TTViewer::setAddress(const TTValue& value)
 	bind();
     
     // enable reception
-    mActive = YES;
+    mActive = memoActive;
     
     refresh();
 	

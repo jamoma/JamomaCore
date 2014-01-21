@@ -80,7 +80,8 @@ TTReceiver::~TTReceiver()
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
 {
-    TTErr err;
+    TTErr       err;
+    TTBoolean   memoActive = mActive;
     
     // disable reception to avoid crash
     mActive = NO;
@@ -101,7 +102,7 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 		err = bindApplication();
     
     // enable reception
-    mActive = YES;
+    mActive = memoActive;
     
     return err;
 }
