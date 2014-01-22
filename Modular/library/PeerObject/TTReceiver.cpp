@@ -198,8 +198,10 @@ TTErr TTReceiver::Get()
                             anAddress = anAddress.appendAttribute(mAddress.getAttribute());
                             
                             // return the address
-                            v.clear();
-                            v.append(anAddress);
+                            if (anAddress.getAttribute() == kTTSym_value)
+                                v = anAddress.removeAttribute();
+                            else
+                                v = anAddress;
                             
                             if (mReturnAddressCallback)
                                 mReturnAddressCallback->deliver(v);
@@ -318,7 +320,11 @@ TTErr TTReceiver::bindAddress()
                         // notify that the address exists
                         if (mReturnAddressCallback) {
                             
-                            v = TTValue(anAddress);
+                            if (anAddress.getAttribute() == kTTSym_value)
+                                v = anAddress.removeAttribute();
+                            else
+                                v = anAddress;
+                            
                             mReturnAddressCallback->deliver(v);
                         }
 					}
@@ -488,7 +494,8 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 			{
 				// return the address
 				if (aReceiver->mReturnAddressCallback) {
-                    v.append(aReceiver->mAddress.removeAttribute());
+                    
+                    v = aReceiver->mAddress.removeAttribute();
 					aReceiver->mReturnAddressCallback->deliver(v);
                 }
 			}
@@ -559,7 +566,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 				// return the address
 				if (aReceiver->mReturnAddressCallback) {
                     
-                    v.append(aReceiver->mAddress.removeAttribute());
+                    v = aReceiver->mAddress.removeAttribute();
 					aReceiver->mReturnAddressCallback->deliver(v);
                 }
 			}
@@ -638,7 +645,10 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 	if(aReceiver->mActive) {
 		
 		// return the address
-		v.append(anAddress);
+        if (anAddress.getAttribute() == kTTSym_value)
+            v = anAddress.removeAttribute();
+        else
+            v = anAddress;
 		
 		// return address
 		if (aReceiver->mReturnAddressCallback)
