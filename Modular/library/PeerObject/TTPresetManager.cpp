@@ -25,7 +25,6 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
-mNames(kTTValNONE),
 mCurrent(kTTSymEmpty),
 mCurrentPosition(0),
 mPresets(NULL),
@@ -114,7 +113,7 @@ TTErr TTPresetManager::setAddress(const TTValue& value)
 
 TTErr TTPresetManager::getValue(TTValue& value)
 {
-    value = mCurrentPosition;
+    value = mCurrentPosition+1;
     value.append(mCurrent);
     
     return kTTErrNone;
