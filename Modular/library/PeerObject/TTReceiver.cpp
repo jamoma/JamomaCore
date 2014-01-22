@@ -217,9 +217,9 @@ TTErr TTReceiver::Get()
 						return kTTErrGeneric;
 				}
 			}
-			
-			return kTTErrNone;
 		}
+        
+        return kTTErrNone;
 	}
 	
 	return kTTErrGeneric;
