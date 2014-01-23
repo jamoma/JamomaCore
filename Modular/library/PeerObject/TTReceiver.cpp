@@ -61,6 +61,9 @@ mApplicationObserver(NULL)
 
 TTReceiver::~TTReceiver()
 {
+    // disable reception to avoid crash
+    mActive = NO;
+    
 	unbindAddress();
 	unbindApplication();
 	

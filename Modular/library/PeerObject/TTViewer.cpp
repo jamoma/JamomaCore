@@ -68,8 +68,11 @@ mReturnValueCallback(NULL)
 	TTObjectBaseInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, none);
 }
 
-TTViewer::~TTViewer() // TODO : delete things...
+TTViewer::~TTViewer()
 {
+    // disable reception to avoid crash
+    mActive = NO;
+    
 	if (mReturnValueCallback) {
 		delete (TTValuePtr)mReturnValueCallback->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
