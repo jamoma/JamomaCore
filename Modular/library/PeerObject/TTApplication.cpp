@@ -232,6 +232,9 @@ TTErr TTApplication::DirectoryBuild()
     if (mName == getLocalApplicationName)
         return kTTErrGeneric;
     
+    // clear the directory before to not duplicate nodes
+    DirectoryClear();
+    
     // a distant application should have one protocol
     protocolNames = getApplicationProtocols(mName);
     protocolNames.get(0, protocolName);
