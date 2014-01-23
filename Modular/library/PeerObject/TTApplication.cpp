@@ -308,19 +308,25 @@ TTErr TTApplication::DirectoryObserve(const TTValue& inputValue, TTValue& output
 	TTValue			v, protocolNames;
     TTBoolean       enable;
     
-    inputValue.get(0, enable);
-    
-    // only for distant application
-    if (mName == getLocalApplicationName)
-        return kTTErrGeneric;
-    
-    // a distant application should have one protocol
-    protocolNames = getApplicationProtocols(mName);
-    protocolNames.get(0, protocolName);
-    
-    aProtocol = (ProtocolPtr)getProtocol(protocolName);
-    if (aProtocol)
-        return aProtocol->SendListenRequest(mName, kTTAdrsRoot.appendAttribute(TTSymbol("life")), enable);
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeInt32) {
+            
+            enable = inputValue[0];
+            
+            // only for distant application
+            if (mName == getLocalApplicationName)
+                return kTTErrGeneric;
+            
+            // a distant application should have one protocol
+            protocolNames = getApplicationProtocols(mName);
+            protocolNames.get(0, protocolName);
+            
+            aProtocol = (ProtocolPtr)getProtocol(protocolName);
+            if (aProtocol)
+                return aProtocol->SendListenRequest(mName, kTTAdrsRoot.appendAttribute(TTSymbol("life")), enable);
+        }
+    }
     
     return kTTErrGeneric;
 }
@@ -1045,6 +1051,14 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                     // instantiate a proxy container
                                     anObject = appendProxyContainer(aProtocol, mTempAddress);
                                     
+                                }
+                                else if (objectName == kTTSym_none) {
+                                    
+                                    // register no object into the directory
+                                    TTNodePtr   aNode;
+                                    TTBoolean   newInstanceCreated;
+                                    
+                                    this->mDirectory->TTNodeCreate(mTempAddress, NULL, NULL, &aNode, &newInstanceCreated);
                                 }
                                 
                                 // OTHER case ? Input, Output ?
