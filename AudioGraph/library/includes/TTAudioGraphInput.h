@@ -98,7 +98,7 @@ public:
 	TTErr getDevice(TTValue& returnedValue);
 	
 	
-	/**	A standard audio processing method as used by TTBlue objects.
+	/**	A standard audio processing method as used by Jamoma DSP objects.
 	 @param	outputs	unused.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
