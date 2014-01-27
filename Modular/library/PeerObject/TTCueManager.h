@@ -60,6 +60,9 @@ private:
 	/** */
 	TTErr	getCurrentRamp(TTValue& value);
 	TTErr	setCurrentRamp(const TTValue& value);
+    
+    /** */
+    TTErr   setAddress(const TTValue& value);
 	
 	/** Select a set of absolute addresses
 	 @param inputValue      a set of absolute addresses

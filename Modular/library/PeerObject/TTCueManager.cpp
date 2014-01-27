@@ -51,7 +51,7 @@ mReturnLineCallback(NULL)
 	
 	addAttribute(Namespace, kTypeSymbol);
     
-    addAttribute(Address, kTypeSymbol);
+    addAttributeWithSetter(Address, kTypeSymbol);
 	
 	registerAttribute(TTSymbol("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
 	registerAttribute(TTSymbol("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
@@ -192,6 +192,35 @@ TTErr TTCueManager::setCurrentRamp(const TTValue& value)
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTCueManager::setAddress(const TTValue& value)
+{
+    TTCuePtr    aCue;
+	TTSymbol    cueName;
+	TTValue		v, names;
+	TTUInt32	i;
+    
+    if (value.size() == 1) {
+        
+        if (value[0].type() == kTypeSymbol) {
+            
+            mAddress = value[0];
+            
+            mCues->getKeys(names);
+            for (i = 0; i < names.size(); i++) {
+                
+                cueName = names[i];
+                mCues->lookup(cueName, v);
+                aCue = TTCuePtr((TTObjectBasePtr)v[0]);
+                aCue->setAttributeValue(kTTSym_address, mAddress);
+            }
+            
+            return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputValue)
