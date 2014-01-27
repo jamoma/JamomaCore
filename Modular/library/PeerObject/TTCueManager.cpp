@@ -27,6 +27,7 @@ TT_MODULAR_CONSTRUCTOR,
 mCurrent(kTTSymEmpty),
 mCurrentPosition(0),
 mNamespace(kTTSym_none),
+mAddress(kTTAdrsRoot),
 mCues(NULL),
 mCurrentCue(NULL),
 mDefaultNamespace(NULL),
@@ -49,6 +50,8 @@ mReturnLineCallback(NULL)
 	addAttributeProperty(CurrentPosition, readOnly, YES);
 	
 	addAttribute(Namespace, kTypeSymbol);
+    
+    addAttribute(Address, kTypeSymbol);
 	
 	registerAttribute(TTSymbol("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
 	registerAttribute(TTSymbol("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
@@ -204,6 +207,10 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 		if (inputValue[i].type() == kTypeSymbol) {
 			
 			address = inputValue[i];
+            
+            // in relative address case : use the mAddress
+            if (address.getType() == kAddressRelative)
+                address = mAddress.appendAddress(address);
  /*
             // wildcard case
             TTNodePtr	aNode;
@@ -245,6 +252,10 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
 		if (inputValue[i].type() == kTypeSymbol) {
 			
 			address = inputValue[i];
+            
+            // in relative address case : use the mAddress
+            if (address.getType() == kAddressRelative)
+                address = mAddress.appendAddress(address);
 			
             if (address == kTTAdrsRoot)
                 aNamespace->setSelection(NO, YES);
@@ -341,8 +352,8 @@ TTErr TTCueManager::Clear()
 
 TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue             v, args, out;
-    TTErr               err;
+	TTValue v, args, out;
+    TTErr   err;
         
     // get cue name
     if (inputValue.size() == 1)
@@ -368,6 +379,7 @@ TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
 		TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), args);
 		
 		mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
+        mCurrentCue->setAttributeValue(kTTSym_address, mAddress);
 		
 		// Append the new cue
 		v = TTValue(mCurrentCue);
@@ -502,6 +514,7 @@ TTErr TTCueManager::Append(const TTValue& inputValue, TTValue& outputValue)
 		TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), args);
 		
 		mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
+        mCurrentCue->setAttributeValue(kTTSym_address, mAddress);
 		
 		// Append the new cue
 		v = TTValue(mCurrentCue);
@@ -1072,6 +1085,7 @@ TTErr TTCueManager::Optimize(const TTValue& inputValue, TTValue& outputValue)
 				optimizedCue = NULL;
 				TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&optimizedCue), args);
 				optimizedCue->setAttributeValue(kTTSym_name, nameToOptimize);
+                optimizedCue->setAttributeValue(kTTSym_address, mAddress);
 				
 				// optimize the cue considering the current state
 				err = TTCueOptimize(aCueToOptimize, stateCue, optimizedCue);
@@ -1190,6 +1204,7 @@ TTErr TTCueManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
                     TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), args);
                     
                     mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
+                    mCurrentCue->setAttributeValue(kTTSym_address, mAddress);
                     
                     v = TTValue(mCurrentCue);
                     mCues->append(mCurrent, v);
@@ -1289,6 +1304,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
                         TTObjectBaseInstantiate(kTTSym_Cue, TTObjectBaseHandle(&mCurrentCue), args);
                         
                         mCurrentCue->setAttributeValue(kTTSym_name, mCurrent);
+                        mCurrentCue->setAttributeValue(kTTSym_address, mAddress);
                         
                         v = TTValue(mCurrentCue);
                         mCues->append(mCurrent, v);
