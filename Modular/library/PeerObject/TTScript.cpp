@@ -1053,7 +1053,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 				v.toString();
 				aString = TTString(v[0]);
 				
-				xmlTextWriterWriteRaw((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST aString.data());
+				xmlTextWriterWriteString((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST aString.data());
 			}
 			
 			// close command Element

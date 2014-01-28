@@ -28,7 +28,7 @@ class TTAverage : TTAudioObjectBase {
 protected:
 
 	TTUInt64			mMaxInterval;			///< The largest possible interval or window to do running averaging over.
-	TTUInt64			mInterval;				///< The interval to do runiing averaging over.
+	TTUInt64			mInterval;				///< The interval to do running averaging over.
 	TTFloat64			mIntervalReciprocal;	///< The inverse of #mInterval. Calculated and stored for conviniency and efficiency.
 	TTSampleVector		mAccumulator;			///< An accumulator used for calculation of running averages.
 	TTSymbol			mMode;					///< Averaging mode, options are absolute, bipolar and rms.

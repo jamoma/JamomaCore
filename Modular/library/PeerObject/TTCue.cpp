@@ -24,6 +24,7 @@ TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mDescription(kTTSym_none),
 mRamp(0),
+mAddress(kTTAdrsRoot),
 mScript(NULL)
 {
 	TT_ASSERT("Correct number of args to create TTCue", arguments.size() == 0 || arguments.size() == 1);
@@ -31,6 +32,7 @@ mScript(NULL)
 	addAttributeWithGetterAndSetter(Name, kTypeSymbol);
 	addAttributeWithGetterAndSetter(Description, kTypeSymbol);
 	addAttributeWithGetterAndSetter(Ramp, kTypeUInt32);
+    addAttribute(Address, kTypeSymbol);
 	
 	addMessage(Clear);
 	addMessageWithArguments(Store);
@@ -315,7 +317,7 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddressItemPtr    aNamespace = NULL;
-    //TTAddressItemPtr    topItem;
+    TTNodePtr           aNode;
 	TTSymbol			name;
 	TTValue				v, parsedLine;
     
@@ -344,9 +346,14 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		v.append(mDescription);
 		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
 		
-		// 3. Process namespace storage from the root
+		// 3. Process namespace storage from the mAddress
         // (but others directories are handled too. see in processStore)
-        processStore(mScript, aNamespace, getDirectoryFrom(kTTAdrsRoot)->getRoot());
+        if (mAddress != kTTAdrsRoot)
+            aNamespace->find(mAddress, &aNamespace);
+        
+        getDirectoryFrom(mAddress)->getTTNode(mAddress, &aNode);
+        
+        processStore(mScript, aNamespace, aNode);
 		
 		// 5. Process ramp
 		if (mRamp) setRamp(mRamp);
@@ -647,19 +654,24 @@ TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
     TTValue     v, none;
     
     if (inputValue.size() == 1)
-        if (inputValue[0].type() == kTypeSymbol)
+        if (inputValue[0].type() == kTypeSymbol) {
+            
             anAddress = inputValue[0];
+            
+            if (anAddress.getType() == kAddressRelative)
+                anAddress = mAddress.appendAddress(anAddress);
+        }
     
     // is the cue already flattened ?
     mScript->getAttributeValue(kTTSym_flattened, v);
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript->sendMessage(kTTSym_Flatten, mAddress, none);
     
     // if an address is passed, run the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("RunCommand"), inputValue, none);
+        return mScript->sendMessage(TTSymbol("RunCommand"), anAddress, none);
     
     // else run all the script
     else
@@ -673,19 +685,24 @@ TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
     TTValue     v, none;
     
     if (inputValue.size() == 1)
-        if (inputValue[0].type() == kTypeSymbol)
+        if (inputValue[0].type() == kTypeSymbol) {
+            
             anAddress = inputValue[0];
+            
+            if (anAddress.getType() == kAddressRelative)
+                anAddress = mAddress.appendAddress(anAddress);
+        }
     
     // is the cue already flattened ?
     mScript->getAttributeValue(kTTSym_flattened, v);
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript->sendMessage(kTTSym_Flatten, mAddress, none);
     
     // if an address is passed, dump the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("DumpLine"), inputValue, none);
+        return mScript->sendMessage(TTSymbol("DumpLine"), anAddress, none);
     
     // else dump all the script
     else
@@ -926,5 +943,6 @@ TTErr TTCueCopy(TTCue* aCueToCopy, TTCue* aCueCopy)
 	aCueCopy->mName = aCueToCopy->mName;
 	aCueCopy->mDescription = aCueToCopy->mDescription;
 	aCueCopy->mRamp = aCueToCopy->mRamp;
+    aCueCopy->mAddress = aCueToCopy->mAddress;
 	return TTScriptCopy(aCueToCopy->mScript, aCueCopy->mScript);
 }
