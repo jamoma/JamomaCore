@@ -349,7 +349,8 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		// 3. Process namespace storage from the mAddress
         // (but others directories are handled too. see in processStore)
         if (mAddress != kTTAdrsRoot)
-            aNamespace->find(mAddress, &aNamespace);
+            if (aNamespace->find(mAddress, &aNamespace))
+                return kTTErrGeneric;
         
         getDirectoryFrom(mAddress)->getTTNode(mAddress, &aNode);
         
