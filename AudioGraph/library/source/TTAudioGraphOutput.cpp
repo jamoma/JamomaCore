@@ -104,7 +104,7 @@ TTErr TTAudioGraphOutput::audioEngineWillProcess()
 
 TTErr TTAudioGraphOutput::setOwner(TTValue& newOwner, TTValue&)
 {
-	owner = TTAudioGraphObjectPtr(TTPtr(newOwner));
+	owner = TTAudioGraphObjectBasePtr(TTPtr(newOwner));
 	return kTTErrNone;
 }
 
