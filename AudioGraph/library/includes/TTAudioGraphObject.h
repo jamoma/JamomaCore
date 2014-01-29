@@ -4,7 +4,7 @@
  *
  * @brief Wraps an object from Jamoma DSP to function within AudioGraph
  *
- * @details The TTAudioGraphObject wraps a Jamoma DSP object such that it is possible to build a dynamic graph of audio processing units. It is implemented as a #TTObjectBase so that it can receive dynamically bound messages,
+ * @details The TTAudioGraphObjectBase wraps a Jamoma DSP object such that it is possible to build a dynamic graph of audio processing units. It is implemented as a #TTObjectBase so that it can receive dynamically bound messages,
  * including notifications from other objects.
  *
  * @authors Timothy Place, Trond Lossius
@@ -27,14 +27,14 @@
 /******************************************************************************************/
 
 /**
- *	The TTAudioGraphObject wraps a TTDSP object such that it is possible to
+ *	The TTAudioGraphObjectBase wraps a TTDSP object such that it is possible to
  *	build a dynamic graph of audio processing units.
  *
  *	It is implemented as a TTObjectBase so that it can receive dynamically bound messages,
  *	including notifications from other objects.
 */
-class TTAUDIOGRAPH_EXPORT TTAudioGraphObject : public TTGraphObject {	
-	TTCLASS_SETUP(TTAudioGraphObject)
+class TTAUDIOGRAPH_EXPORT TTAudioGraphObjectBase : public TTGraphObject {	
+	TTCLASS_SETUP(TTAudioGraphObjectBase)
 	
 protected:
 
@@ -49,7 +49,7 @@ protected:
 	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it.
 	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess.
 	TTUInt64					mSampleStamp;		///< The current time in samples, as determined from the pulling of this object.
-	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTAudioGraphObjects to prevent changes to the graph while processing.
+	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTAudioGraphObjectBases to prevent changes to the graph while processing.
 
 	
 	// Attribute Setters
@@ -62,7 +62,7 @@ protected:
 	
 	
 	/** Set the number of audio outlets.
-	 @param newNumOutlets		The number of outlets. Each outlet can pass on multichannel signals to inlets of one or more downstream TTAudioGraphObjects.
+	 @param newNumOutlets		The number of outlets. Each outlet can pass on multichannel signals to inlets of one or more downstream TTAudioGraphObjectBases.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setNumAudioOutlets(const TTValue& newNumOutlets);	
@@ -196,7 +196,7 @@ public:
 								Typically the value passed here will be 0, indicating the normal audio input.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr connectAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	TTErr connectAudio(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 	
 	
 	/**	Drop a source from the list of objects from which to request audio.  In other words, disconnect.
@@ -205,7 +205,7 @@ public:
 								Typically the value passed here will be 0, indicating the normal audio input.
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr dropAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	TTErr dropAudio(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 
 	
 	/**	The thread protection for processing is important: we cannot have the graph nodes being deleted or re-arranged while we are pulling. 

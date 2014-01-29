@@ -69,7 +69,7 @@ void TTAudioGraphSource::create()
 }
 
 
-void TTAudioGraphSource::connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+void TTAudioGraphSource::connect(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber)
 {
 	mSourceObject = anObject;
 	mOutletNumber = fromOutletNumber;

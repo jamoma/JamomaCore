@@ -36,7 +36,7 @@ void TTAudioGraphInit(void)
 		TTGraphInit();
 		
 		TTAudioGraphGenerator::registerClass();
-		TTAudioGraphObject::registerClass();
+		TTAudioGraphObjectBase::registerClass();
 #ifndef TT_PLATFORM_IOS
 		TTAudioGraphInput::registerClass();
 		TTAudioGraphOutput::registerClass();

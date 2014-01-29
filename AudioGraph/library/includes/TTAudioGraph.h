@@ -80,10 +80,10 @@ public:
 };
 
 
-class	TTAudioGraphObject;
-typedef TTAudioGraphObject*					TTAudioGraphObjectPtr;
-typedef std::vector<TTAudioGraphObjectPtr>	TTAudioGraphObjectVector;
-typedef TTAudioGraphObjectVector::iterator	TTAudioGraphObjectIter;
+class	TTAudioGraphObjectBase;
+typedef TTAudioGraphObjectBase*					TTAudioGraphObjectBasePtr;
+typedef std::vector<TTAudioGraphObjectBasePtr>	TTAudioGraphObjectBaseVector;
+typedef TTAudioGraphObjectBaseVector::iterator	TTAudioGraphObjectBaseIter;
 
 class	TTAudioGraphInlet;
 typedef TTAudioGraphInlet*					TTAudioGraphInletPtr;
