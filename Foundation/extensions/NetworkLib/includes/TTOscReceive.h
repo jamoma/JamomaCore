@@ -24,7 +24,7 @@ public:
     TTCallbackPtr           mCallback;  ///< an optionnal callback to get message and baton data back
 	
 	// internal method
-	void bind();
+	TTErr bind();
 	
 	/**	Setter */
 	TTErr setPort(const TTValue& value);

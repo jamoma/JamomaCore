@@ -38,24 +38,32 @@ TTOscReceive::~TTOscReceive()
 	}
 }
 
-void TTOscReceive::bind()
+TTErr TTOscReceive::bind()
 {
 	if (mPort) {
+        
 		delete mSocket;
-		mSocket = new TTOscSocket((TTObjectBasePtr)this, mPort);
+
+        mSocket = new TTOscSocket((TTObjectBasePtr)this, mPort);
+        
+        if (mSocket->isBound())
+            return kTTErrNone;
 	}
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTOscReceive::setPort(const TTValue& newValue)
 {
 	TTUInt16	newPort = newValue;
-	TTErr		err = kTTErrNone;
 	
 	if (mPort != newPort) {
+        
 		mPort = newPort;
-		bind();
+		return bind();
 	}
-	return err;
+    
+	return kTTErrGeneric;
 }
 
 TTErr TTOscReceive::oscSocketReceive(const TTValue& message, TTValue& unusedOutput)
