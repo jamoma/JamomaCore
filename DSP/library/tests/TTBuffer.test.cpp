@@ -74,7 +74,7 @@ TTErr TTBuffer::test(TTValue& returnedTestInfo)
 	TTInt32 test3return = 0;
 	myFirstCheckOut->getAttributeValue("userCount", test3return);
 	
-	TTBoolean result3 = { test2expect == test3return };
+	TTBoolean result3 = { test3expect == test3return };
 	
 	TTTestAssertion("userCount reports proper value", 
 					result3,
