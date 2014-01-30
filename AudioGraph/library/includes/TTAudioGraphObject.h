@@ -243,4 +243,39 @@ public:
 };
 
 
+class TTAudioGraphObject : public TTObject {
+	
+public:
+	TTAudioGraphObject(const TTSymbol& aClassName):
+	TTObject("audio.object", aClassName)
+	{}
+
+	TTErr send(const TTSymbol& aName){
+		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->sendMessage(aName);
+	}
+
+	TTErr send(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue)
+	{
+		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->sendMessage(aName, anInputValue, anOutputValue);
+	}
+	
+	template <class T>
+	TTErr set(const TTSymbol aName, T aValue)
+	{
+		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->setAttributeValue(aName, aValue);
+	}
+	
+	template <class T>
+	TTErr get(const TTSymbol aName, T& aReturnedValue)
+	{
+		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getAttributeValue(aName, aReturnedValue);
+	}
+	
+	TTErr connectAudio(TTAudioGraphObject& anObject)
+	{
+		return ((TTAudioGraphObjectBase*)instance())->connectAudio((TTAudioGraphObjectBase*)anObject.instance());
+	}
+	
+};
+
 #endif // __TTAUDIOGRAPH_OBJECT_H__
