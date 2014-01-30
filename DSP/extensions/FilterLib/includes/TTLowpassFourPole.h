@@ -19,7 +19,7 @@ class TTLowpassFourPole : public TTAudioObjectBase {
 protected:
 
 	TTFloat64		mFrequency;				///< filter cutoff frequency
-	TTFloat64		mResonance;				///< filter resonance -- range is best between 1.0 and 16.0
+	TTFloat64		mQ;						///< filter resonance -- range is best between 1.0 and 16.0
 	TTFloat64		mDeciResonance;			///< attrResonance * 0.1
 	TTFloat64		mCoefficientF;			///< filter coefficient
 	TTFloat64		mCoefficientSquaredF;   ///< mCoefficientF * mCoefficientF
@@ -57,7 +57,7 @@ protected:
 	
 	// Attributes
 	TTErr setFrequency(const TTValue& value);
-	TTErr setResonance(const TTValue& value);
+	TTErr setQ(const TTValue& value);
 	
 	
 	/**	Unit Tests
