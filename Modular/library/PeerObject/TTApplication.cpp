@@ -1061,7 +1061,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                     this->mDirectory->TTNodeCreate(mTempAddress, NULL, NULL, &aNode, &newInstanceCreated);
                                 }
                                 
-                                // OTHER case ? Input, Output ?
+                                // OTHER case ? Input, Output, Mapper ?
                                 
                             }
                             
