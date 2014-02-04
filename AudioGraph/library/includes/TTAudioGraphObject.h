@@ -276,6 +276,11 @@ public:
 		return ((TTAudioGraphObjectBase*)instance())->connectAudio((TTAudioGraphObjectBase*)anObject.instance());
 	}
 	
+	TTErr dropAudio(TTAudioGraphObject& anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0)
+	{
+		return ((TTAudioGraphObjectBase*)instance())->dropAudio((TTAudioGraphObjectBase*)anObject.instance(), fromOutletNumber, toInletNumber);
+	}
+
 };
 
 #endif // __TTAUDIOGRAPH_OBJECT_H__
