@@ -189,9 +189,27 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 		
 		processMapping(inputValue, outputValue);
 		
-		// return value
-		if (mSender)
-			mSender->sendMessage(kTTSym_Send, outputValue, none);
+		// return value (+ ramp)
+		if (mSender) {
+            
+            // if there is a ramp value, edit the command here
+            if (mRamp > 0) {
+                
+                TTDictionaryBasePtr	command;
+                TTValue valueAndRamp;
+                
+                command = new TTDictionaryBase();
+                command->setSchema(kTTSym_command);
+                command->setValue(outputValue);
+                command->append(kTTSym_ramp, mRamp);
+                
+                valueAndRamp = TTValue((TTPtr)command);
+                
+                mSender->sendMessage(kTTSym_Send, valueAndRamp, none);
+            }
+            else
+                mSender->sendMessage(kTTSym_Send, outputValue, none);
+        }
 		
 		if (mReturnValueCallback)
 			mReturnValueCallback->deliver(outputValue);
@@ -842,19 +860,27 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
 		// process the mapping
 		aMapper->processMapping(inputValue, outputValue);
         
-        // if there is a ramp value, edit the command here
-        if (aMapper->mRamp > 0) {
-            command = new TTDictionaryBase();
-            command->setSchema(kTTSym_command);
-            command->setValue(outputValue);
-            command->append(kTTSym_ramp, aMapper->mRamp);
+        // return value (+ ramp)
+		if (aMapper->mSender) {
             
-            outputValue = TTValue((TTPtr)command);
+            // if there is a ramp value, edit the command here
+            if (aMapper->mRamp > 0) {
+                
+                TTDictionaryBasePtr	command;
+                TTValue valueAndRamp;
+                
+                command = new TTDictionaryBase();
+                command->setSchema(kTTSym_command);
+                command->setValue(outputValue);
+                command->append(kTTSym_ramp, aMapper->mRamp);
+                
+                valueAndRamp = TTValue((TTPtr)command);
+                
+                aMapper->mSender->sendMessage(kTTSym_Send, valueAndRamp, none);
+            }
+            else
+                aMapper->mSender->sendMessage(kTTSym_Send, outputValue, none);
         }
-		
-		// return value
-		if (aMapper->mSender)
-			aMapper->mSender->sendMessage(kTTSym_Send, outputValue, none);
 		
 		if (aMapper->mReturnValueCallback)
 			aMapper->mReturnValueCallback->deliver(outputValue);
