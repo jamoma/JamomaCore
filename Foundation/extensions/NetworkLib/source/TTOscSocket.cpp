@@ -170,7 +170,7 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 
 TTBoolean TTOscSocket::isBound()
 {
-    return mSocketListener != NULL;
+    return YES; // théo : the following test is wrong because the socket listener is created in an other thread so it can return false : mSocketListener != NULL;
 }
 
 TTUInt32 TTOscSocket::computeMessageSize(TTSymbol& message, const TTValue& arguments)
