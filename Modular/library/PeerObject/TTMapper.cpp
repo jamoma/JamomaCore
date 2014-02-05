@@ -24,6 +24,7 @@ TT_MODULAR_CONSTRUCTOR,
 mInput(kTTAdrsEmpty),
 mInputMin(0.),
 mInputMax(1.),
+mInputIndex(0),
 mInputThresholdDown(0.),
 mInputThresholdUp(1.),
 mInputGoingDown(NO),
@@ -79,6 +80,8 @@ mValid(NO)
     
 	addAttributeWithSetter(InputMin, kTypeFloat64);
 	addAttributeWithSetter(InputMax, kTypeFloat64);
+    
+    addAttribute(InputIndex, kTypeUInt32);
     
     addAttribute(InputThresholdDown, kTypeFloat64);
 	addAttribute(InputThresholdUp, kTypeFloat64);
@@ -656,6 +659,12 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 		f = inputValue[i];
 		in.append(mA * f + mB);
 	}
+    
+    // select index if needed
+    if (mInputIndex > 0 && mInputIndex <= size) {
+        in = in[mInputIndex];
+        size = 1;
+    }
 
 #ifndef TT_NO_DSP
 	// process function
