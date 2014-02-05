@@ -69,6 +69,7 @@ sources:
   - source/TTNodeDirectory.cpp
   - tests/TTNodeLib.test.cpp
   - tests/TTInterpolate.test.cpp
+
 #  - win source/TTNodeLib.cpp
 #  - win source/TTNode.cpp
 #  - win source/TTAddress.cpp
@@ -76,14 +77,18 @@ sources:
 #  - win source/TTAddressCache.cpp
 #  - win source/TTNodeDirectory.cpp
 #  - win tests/TTNodeLib.test.cpp
-#  
+#
 # See the note below about us not including the NodeLib on Linux (or iOS)
-  
+
 includes:
   - "includes"
   - "tests"
   - "Mersenne-1.1"
   - "boost"
+
+libraries:
+  - linux pthread
+  - linux dl
 
 #libraries:
 #  - win RELEASE boost/lib-windows/libboost_regex-vc90-mt-s-1_46.lib
@@ -98,7 +103,7 @@ defines:
   - BOOST_REGEX
   - BOOST_REGEX_USE_C_LOCALE
 #  - DISABLE_NODELIB
-  
+
 # BOOST_REGEX_USE_C_LOCALE is a Boost Regex definition option (see boost/regex/user.hpp file)
 
 # For the moment we aren't going to add the dependency on Boost for the Linux platforms.

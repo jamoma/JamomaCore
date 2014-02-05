@@ -31,20 +31,20 @@
 #include "TTNodeLib.test.h"
 #endif
 
-#ifdef TT_PLATFORM_MAC
-#include <dlfcn.h>
+#if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX)
+#if defined(TT_PLATFORM_MAC)
 #include <sys/types.h>
-#include <dirent.h>
-#elif TT_PLATFORM_LINUX
+#endif
 #include <dlfcn.h>
-#elif TT_PLATFORM_WIN
+#include <dirent.h>
+#elif defined(TT_PLATFORM_WIN)
 #include <ShlObj.h>
 #endif
 
 #ifdef TT_PLATFORM_MAC
 //#include <Carbon/Carbon.h>
 #define __COREFOUNDATION_CFMESSAGEPORT__ 1
-#include <CoreFoundation/CFBundle.h> 
+#include <CoreFoundation/CFBundle.h>
 #endif
 
 TTString        TTFoundationBinaryPath = "";
@@ -79,7 +79,7 @@ void TTFoundationInit(const char* pathToBinaries)
 //#ifndef DISABLE_NODELIB
 //		TTAddressCacheInit();
 //#endif
-		
+
 #ifdef TT_DEBUG
 		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s", TTFOUNDATION_VERSION_STRING);
 		ttEnvironment->mDebugBasic = true;
@@ -137,16 +137,16 @@ void TTFoundationLoadExternalClasses(void)
 #ifdef LOOK_FOR_EXTENSIONS_IN_SAME_FOLDER_AS_LIB
 		Dl_info		info;
 		char		mainBundleStr[4096];
-		
+
 		if (dladdr((const void*)TTFoundationLoadExternalClasses, &info)) {
 			char *c = 0;
-			
+
 			printf("Loaded from path = %s\n", info.dli_fname);
 			strncpy(mainBundleStr, info.dli_fname, 4096);
 			c = strrchr(mainBundleStr, '/');
 			if (c)
 				*c = 0; // chop the "/JamomaFoundation.dylib off of the path
-            
+
             // store binary path
             TTFoundationBinaryPath = mainBundleStr;
 		}
@@ -156,15 +156,15 @@ void TTFoundationLoadExternalClasses(void)
 		CFURLRef	mainBundleURL = CFBundleCopyBundleURL(mainBundle);
 		CFStringRef mainBundlePath = CFURLCopyFileSystemPath(mainBundleURL, kCFURLPOSIXPathStyle);
 		char		mainBundleStr[4096];
-		
+
 		CFStringGetCString(mainBundlePath, mainBundleStr, 4096, kCFStringEncodingUTF8);
 		strncat(mainBundleStr, "/Contents/Jamoma/Extensions", 4096);
 		mainBundleStr[4095] = 0;
-		
+
 		CFRelease(mainBundlePath);
 #endif
-		
-		
+
+
 		err = TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
 		if (!err)
 			return; // if we loaded classes out of a standalone app, then we don't want to be corrupted by global extensions Redmine #348
@@ -189,7 +189,7 @@ void TTFoundationLoadExternalClasses(void)
 			TTFoundationLoadExternalClassesFromFolder(fullpath);
 		}
 #else // NEW_MAC_EXTENSIONS_PATH
-	    TTFoundationLoadExternalClassesFromFolder("/usr/local/jamoma/extensions");	
+	    TTFoundationLoadExternalClassesFromFolder("/usr/local/jamoma/extensions");
 #endif
 
 	}
@@ -278,17 +278,17 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		TTString	fileBaseName = fileName.substr(0, fileName.size() - 8);
 		TTString	fileFullpath(fullpath);
 		void*		handle = NULL;
-		
+
 		fileFullpath += "/";
 		fileFullpath += fileName;
 		std::cout << "EXTENSION: " << fileFullpath << std::endl;
-		
+
 //		handle = LoadLibrary(fileFullpath.c_str());
 		handle = LoadLibrary(FindFileData.cFileName);
 		std::cout << "HANDLE: " << handle << std::endl;
 		if (!handle)
 			continue;
-		
+
 		// TODO: assert -- or at least do a log post -- if handle is NULL
 		initializerFunctionName = "TTLoadJamomaExtension_";
 		initializerFunctionName += fileBaseName;
@@ -312,7 +312,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
     FindClose(hFind);
 
 #else // good platforms
-	
+
 	DIR* dirp = opendir(fullpath.c_str());
 	dirent* dp;
 	while ((dp = readdir(dirp))) {
@@ -324,11 +324,11 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		TTString	fileBaseName = fileName.substr(0, fileName.size() - 8);
 		TTString	fileFullpath(fullpath);
 		void*		handle = NULL;
-		
+
 		fileFullpath += "/";
 		fileFullpath += fileName;
 		std::cout << "EXTENSION: " << fileFullpath << std::endl;
-		
+
 		// make sure the files have the correct extension before trying to load them
 #ifdef TT_PLATFORM_LINUX
 		if (fileSuffix != ".ttso")
@@ -338,7 +338,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		if (fileSuffix != ".ttdll")
 #endif
 			continue;
-		
+
 #ifdef TT_PLATFORM_WIN
 		handle = LoadLibrary(fileFullpath.c_str());
 #else
@@ -347,7 +347,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		std::cout << "HANDLE: " << handle << std::endl;
 		if (!handle)
 			continue;
-		
+
 		// TODO: assert -- or at least do a log post -- if handle is NULL
 		initializerFunctionName = "TTLoadJamomaExtension_";
 		initializerFunctionName += fileBaseName;
@@ -360,7 +360,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 			err = initializer();
 
 		std::cout<< "Initializer: " << initializer << std::endl;
-		
+
 	}
 	closedir(dirp);
 

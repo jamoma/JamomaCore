@@ -84,20 +84,22 @@ TTErr TTHash::lookup(const TTPtr key, TTValue& value)
 	lock();
 	TTHashMap* theMap = (TTHashMap*)mHashMap;
 	TTHashMapIter iter = theMap->find(TTPtrSizedInt(key));
-	
+
 	//	TTPtrSizedInt a = iter->first;
 	//	TTSymbol*     b = (TTSymbol*)a;
 	//	TTValue			v = iter->second;
 	//	TTValue v = (*theMap)[TTPtrSizedInt(&key)];
-	
-	if (theMap->end() == iter) {
-		unlock();
-		return kTTErrValueNotFound;
-	}
-	else {
+
+	if (theMap->end() != iter)
+	{
 		value = iter->second;
 		unlock();
 		return kTTErrNone;
+	}
+	else {
+		unlock();
+		return kTTErrValueNotFound;
+
 	}
 }
 
@@ -130,7 +132,7 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 //#define mHASHMAP (*HASHMAP)
 
 	TTHashMap* theMap = (TTHashMap*)mHashMap;
-	
+
 	for (TTHashMapIter iter = theMap->begin(); iter != theMap->end(); iter++) {
 		TTPtrSizedInt	a = iter->first;
 		TTSymbol		b((TTSymbolBase*)a);
@@ -149,12 +151,12 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 	TTList		listToSort;
 	TTValue		v;
 	TTSymbol	key;
-	
+
 	// fill a list to sort
 	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++) {
 		TTPtrSizedInt	a = iter->first;
 		TTSymbol		b((TTSymbolBase*)a);
-		
+
 		if (comparisonFunction) {
 			v = b;	// the key
 			v.append(TTPtr(iter->second));	// a pointer to the stored value
@@ -163,13 +165,13 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 		else
 			listToSort.append(b);
 	}
-	
+
 	listToSort.sort(comparisonFunction);
-	
+
 	// fill the result
 	hashKeysSorted.clear();
 	for (listToSort.begin(); listToSort.end(); listToSort.next()) {
-		
+
 		if (comparisonFunction) {
 			key = listToSort.current()[0];
 			hashKeysSorted.append(key);
@@ -177,7 +179,7 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunctio
 		else
 			hashKeysSorted.append(listToSort.current());
 	}
-	
+
 	unlock();
 	return kTTErrNone;
 }

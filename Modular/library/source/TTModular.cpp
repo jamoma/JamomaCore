@@ -21,13 +21,13 @@
 #include "TTOutputAudio.h"
 
 // file system needed to retreive the path of JamomaModular.dylib
-#ifdef TT_PLATFORM_MAC
-#include <dlfcn.h>
+#if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX)
+#if defined(TT_PLATFORM_MAC)
 #include <sys/types.h>
-#include <dirent.h>
-#elif TT_PLATFORM_LINUX
+#endif
 #include <dlfcn.h>
-#elif TT_PLATFORM_WIN
+#include <dirent.h>
+#elif defined(TT_PLATFORM_WIN)
 #include <ShlObj.h>
 #endif
 
@@ -43,10 +43,10 @@ TTHashPtr TTModularNamespaces = NULL;
 void TTModularInit(const char* pathToTheJamomaFolder)
 {
     TTValue v, none;
-    
+
 	// Initialized Foundation framework
 	TTFoundationInit(pathToTheJamomaFolder);
-    
+
 //#define TO_DEBUG
 #ifdef TO_DEBUG
 
@@ -55,11 +55,11 @@ void TTModularInit(const char* pathToTheJamomaFolder)
 	TTDataObjectBasePtr(test)->test(v);
 
 #endif // TO_DEBUG
-	
+
 	if (!TTModularHasInitialized) {
-		
+
 		TTModularHasInitialized = true;
-		
+
 		// register classes -- both internal and external
 		TTApplication::registerClass();
 		TTApplicationManager::registerClass();
@@ -85,28 +85,28 @@ void TTModularInit(const char* pathToTheJamomaFolder)
 		TTTextHandler::registerClass();
 		TTViewer::registerClass();
 		TTXmlHandler::registerClass();
-		
+
 		//TTModularValueCacheInit();
-		
+
 		// to - this a very strange bug : the two first toString() parsing on number failed !?!
 		// so here are two parsing to avoid this strange bug for instant ...
 		TTString s;
-		
+
 		s = "0.001";
 		v = s;
 		v.fromString();
-		
+
 		v.clear();
 		s = "1";
 		v = s;
 		v.fromString();
-		
+
 		// Create the Modular application manager with no application inside
 		TTObjectBaseInstantiate(kTTSym_ApplicationManager, TTObjectBaseHandle(&TTModularApplications), none);
-		
+
 		// Create a hash table to manage namespace selections
 		TTModularNamespaces = new TTHash();
-		
+
 #ifdef TT_DEBUG
 		TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
 #else
@@ -119,26 +119,26 @@ void TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfig
 {
 	TTValue				args, none;
 	TTApplicationPtr	anApplication = NULL;
-	
+
 	if (TTModularApplications) {
-		
+
 		// if the local application doesn't exist yet
 		if (!getLocalApplication) {
-			
+
 			// create the application
 			args = TTValue(TTSymbol(applicationStr));
 			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&anApplication), args);
-			
+
 			// set it as local application
 			args = TTValue(anApplication);
 			TTModularApplications->setAttributeValue(TTSymbol("localApplication"), args);
-			
+
 			// Read xml configuration file
 			TTXmlHandlerPtr anXmlHandler = NULL;
 			TTObjectBaseInstantiate(kTTSym_XmlHandler, TTObjectBaseHandle(&anXmlHandler), none);
-			
+
 			anXmlHandler->setAttributeValue(kTTSym_object, args);
-			
+
 			args = TTValue(TTSymbol(xmlConfigFilePath));
 			anXmlHandler->sendMessage(kTTSym_Read, args, none);
 		}
@@ -151,15 +151,15 @@ TTAddressItemPtr	TTModularNamespacesLookup(TTSymbol namespaceName)
 {
 	TTAddressItemPtr	aNamespace = NULL;
 	TTValue				v;
-	
+
 	if (namespaceName != kTTSymEmpty && namespaceName != kTTSym_none) {
-		
+
 		if (!TTModularNamespaces->lookup(namespaceName, v))
 			aNamespace = TTAddressItemPtr((TTPtr)v[0]);
-		
+
 		else {
 			aNamespace = new TTAddressItem();
-			
+
 			v = TTValue((TTPtr)aNamespace);
 			TTModularNamespaces->append(namespaceName, v);
 		}

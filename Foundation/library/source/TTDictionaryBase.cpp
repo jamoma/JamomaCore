@@ -56,7 +56,7 @@ TTErr TTDictionaryBase::setSchema(const TTSymbol& schemaName)
 const TTSymbol TTDictionaryBase::getSchema() const
 {
 	TTValue v;
-	
+
 	lookup(kTTSym_schema, v);
 	return v;
 }
@@ -99,20 +99,20 @@ TTErr TTDictionaryBase::lookup(const TTSymbol& key, TTValue& value) const
 //	TTHashMap* theMap = (TTHashMap*)mHashMap;
 //	TTDictionaryBaseMapIterK iter = mMap.find(key.getSymbolId());
 	TTDictionaryBaseMapIterK iter = mMap.find((TTPtrSizedInt)key.rawpointer());
-	
+
 	//	TTPtrSizedInt a = iter->first;
 	//	TTSymbol*     b = (TTSymbol*)a;
 	//	TTValue			v = iter->second;
 	//	TTValue v = (*theMap)[TTPtrSizedInt(&key)];
-	
-	if (iter == mMap.end()) {
-//		unlock();
-		return kTTErrValueNotFound;
-	}
-	else {
+
+	if (iter != mMap.end()) {
 		value = iter->second;
 //		unlock();
 		return kTTErrNone;
+
+	}
+	else {
+		return kTTErrValueNotFound;
 	}
 
 }
@@ -122,7 +122,7 @@ TTErr TTDictionaryBase::remove(const TTSymbol& key)
 {
 //	TTValue	v;
 //	TTErr	err;
-	
+
 //	err = mList->find(TTDictionaryBaseFindKeyInList, key.rawpointer(), v);
 //	if (!err)
 //		mList->remove(v);
@@ -147,7 +147,7 @@ TTErr TTDictionaryBase::getKeys(TTValue& hashKeys)
 {
 //	lock();
 	hashKeys.clear();
-	
+
 	for (TTDictionaryBaseMapIter iter = mMap.begin(); iter != mMap.end(); iter++) {
 		TTPtrSizedInt	a = iter->first;
 		TTSymbol		b((TTSymbolBase*)a);
@@ -185,7 +185,7 @@ TTErr TTDictionaryBase::unregisterObserverForNotifications(const TTObjectBase& o
 	TTValue	c(observingObject);
 	TTValue	v;
 	TTErr	err;
-	
+
 	err = mObservers.findEquals(c, v);
 	if (!err)
 		mObservers.remove(v);
