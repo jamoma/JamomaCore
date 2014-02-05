@@ -117,7 +117,8 @@ public:
 		return calculate(*x, *y);
 	}
 
-	/** Default (empty) template for unit tests.
+	//! [doxygenChapter60_virtualMethod]
+    /** Default (empty) template for unit tests.
 	 @param returnedTestInfo		Returned information on the outcome of the unit test(s)
 	 @return						#kTTErrNone if tests exists and they all pass, else #TTErr error codes depending on the outcome of the test.
 	 */
@@ -126,6 +127,7 @@ public:
 		logMessage("No Tests have been written for this class -- please supply a test method.\n");
 		return kTTErrGeneric;
 	}
+    //! [doxygenChapter60_virtualMethod]
 
 };
 
