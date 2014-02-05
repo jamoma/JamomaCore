@@ -8,7 +8,7 @@
 
 #include "TTGain.h"
 
-
+//! [doxygenChapter60_testExample]
 TTErr TTGain::test(TTValue& returnedTestInfo)
 {
 	// preliminary setup
@@ -67,3 +67,4 @@ TTErr TTGain::test(TTValue& returnedTestInfo)
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
+//! [doxygenChapter60_testExample]
