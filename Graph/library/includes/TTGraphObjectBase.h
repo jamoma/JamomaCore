@@ -42,7 +42,7 @@ protected:
 	TTGraphDescription		mDescription;	///< Used to pr	event feedback loops etc. when describing a graph
 
 public:	
-	TTObjectBasePtr				mKernel;		///< The actual TT object doing the processing.
+	TTObjectBasePtr			mKernel;		///< The actual TT object doing the processing.
 			
 	
 	TTErr push(const TTDictionary& aDictionary);

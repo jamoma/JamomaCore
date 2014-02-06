@@ -33,7 +33,7 @@ void TTGraphInit(void)
 		initialized = true;
 		TTFoundationInit();
 		
-		TTGraphObject::registerClass();
+		TTGraphObjectBase::registerClass();
 		TTGraphInput::registerClass();
 		TTGraphOutput::registerClass();
 	}

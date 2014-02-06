@@ -92,7 +92,7 @@ int TTGraphDescription::exportCppNode(TTString& content, int& index, TTStringVec
 	snprintf(objName, 16, "obj%i", index);
 	nodeNames.push_back(TTString(objName));
 	
-	content += "	TTGraphObjectPtr ";
+	content += "	TTGraphObjectBasePtr ";
 	content += objName;
 	content += ";\n";
 	content += "	TTObjectBaseInstantiate(TT(\"graph.object\"), (TTObjectBasePtr*)&";

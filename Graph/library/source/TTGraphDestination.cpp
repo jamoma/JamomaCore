@@ -65,7 +65,7 @@ void TTGraphDestination::create()
 }
 
 
-void TTGraphDestination::connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+void TTGraphDestination::connect(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber)
 {
 	mDestinationObject = anObject;
 	mInletNumber = fromOutletNumber;

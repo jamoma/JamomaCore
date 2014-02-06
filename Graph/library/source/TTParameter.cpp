@@ -65,7 +65,7 @@ TTErr TTParameter::setValue(const TTValue& newValue)
 }
 
 
-TTErr TTParameter::setOwner(TTGraphObjectPtr newOwner)
+TTErr TTParameter::setOwner(TTGraphObjectBasePtr newOwner)
 {
 	mOwner = newOwner;
 	return kTTErrNone;

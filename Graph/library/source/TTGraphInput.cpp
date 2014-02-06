@@ -35,7 +35,7 @@ TTGraphInput::~TTGraphInput()
 }
 
 
-TTErr TTGraphInput::setOwner(TTGraphObjectPtr newOwner)
+TTErr TTGraphInput::setOwner(TTGraphObjectBasePtr newOwner)
 {
 	mOwner = newOwner;
 	return kTTErrNone;
