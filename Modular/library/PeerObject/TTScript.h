@@ -17,7 +17,7 @@
 #ifndef __TT_SCRIPT_H__
 #define __TT_SCRIPT_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 
 /** About line schemas :

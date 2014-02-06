@@ -17,7 +17,7 @@
 #ifndef __TT_RAMP_H__
 #define __TT_RAMP_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 #include "Scheduler.h"
 
 typedef void (*TTRampCallback)(void *, TTUInt32, TTFloat64 *);

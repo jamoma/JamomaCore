@@ -22,7 +22,7 @@
 #ifndef __TT_APPLICATION_H__
 #define __TT_APPLICATION_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 #include "Protocol.h"
 #include "TTMirror.h"
 

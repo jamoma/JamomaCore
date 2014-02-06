@@ -29,26 +29,25 @@
  @param binaries                    path to the Jamoma libraries and extensions binaries folder to load them */
 void TTMODULAR_EXPORT TTModularInit(const char* binaries = NULL);
 
-/** The Modular object instanciated in TTModularInit */
-extern TTMODULAR_EXPORT Modular* TTModular;
-
 /*
      The Modular API allows to use Modular inside any application
 */
 class TTMODULAR_EXPORT Modular {
     
-private:
+public:
 
-    TTObject    mApplications;                      ///< An application manager instance to handle its application and any distant applications
+    TTObject    mApplicationManager;                ///< An application manager instance to handle its application and any distant applications
+
+    TTObject    mStateManager;                      ///< A state manager instance to handle state storage or recall
+
+private:
     
     TTHash      mSenders;                           ///< Store all senders by address < address, sender >
     
     TTHash      mReceivers;                         ///< Store all receivers by address < address, < receiver, addressValueCallback > >
     
     TTAddress   mReceivedAddress;                   ///< An internal address to know which value will be received
-    
-    TTObject    mStateManager;                      ///< A state manager instance to handle state storage or recall
-    
+
     TTHash      mSelections;                        ///< Store all selections by name
 
 public:
@@ -85,6 +84,15 @@ public:
      @param applicationName             the name used to declare the application
      @return #kTTErrGeneric if the application cannot be created */
     TTErr   ApplicationCreateDistant(const TTSymbol applicationName);
+    
+    /** Get all application names
+     @param applicationNames               the returned application names
+     @return #kTTErrGeneric if no application have been created */
+    TTErr   ApplicationGetNames(TTValue& applicationNames);
+    
+    /** Get the local applciation name
+     @return #TTSymbol */
+    TTSymbol ApplicationGetLocalName();
     
     /** Write an application namespace in console 
      @param applicationName             any application name 
@@ -123,15 +131,30 @@ public:
                                     const TTSymbol attribute,
                                     TTValue& value);
     
+    /** Get protocol names for an the application
+     @param applicationName             any application name
+     @return all protocol names for an application  */
+    TTValue ApplicationGetProtocolNames(const TTSymbol applicationName);
+    
+    /** Get the application object for advanced use of Modular
+     @param applicationName             the application to get
+     @return a #TTObjectBasePtr or NULL if the application doesn't exist */
+    TTObjectBasePtr ApplicationGetObject(const TTSymbol applicationName);
+    
 #if 0
 #pragma mark -
 #pragma mark Protocols management
 #endif
     
     /** Get all loaded protocol names 
-     @param names                       the returned protocol names
+     @param protocolNames               the returned protocol names
      @return #kTTErrGeneric if no protocol have been loaded */
-    TTErr   ProtocolGetNames(TTValue& names);
+    TTErr   ProtocolGetNames(TTValue& protocolNames);
+    
+    /** Ask if a protocol exists
+     @param protocolName                the protocol to use
+     @return true if the protocol exists */
+    TTBoolean ProtocolExists(const TTSymbol protocolName);
     
     /** Register an application to a protocol 
      @param protocolName                the protocol to use 
@@ -177,6 +200,11 @@ public:
     TTErr   ProtocolSetStringAttribute(const TTSymbol applicationName,
                                        const TTSymbol attribute,
                                        const TTSymbol value);
+    
+    /** Get the protocol object for advanced use of Modular 
+     @param protocolName                the protocol to get 
+     @return a #TTObjectBasePtr or NULL if the protocol doesn't exist */
+    TTObjectBasePtr ProtocolGetObject(const TTSymbol protocolName);
 
 #if 0
 #pragma mark -
@@ -198,7 +226,7 @@ public:
 	TTErr   DataCreate(const TTAddress address,
                        void (*returnValueCallback) (void*, const TTValue&) = NULL,
                        void* owner = NULL,
-                       TTSymbol service = kTTSym_parameter);
+                       TTSymbol service = TTSymbol("parameter"));
     
     /** Delete a data object registered under an address into the local or a distant application
      @param address                     address of the data into an application directory :
@@ -354,13 +382,13 @@ public:
      @param name                        a state name
      @param selection                   pass a selection to choose which part of the namespace to store
      @return #kTTErrGeneric if the state can't be stored */
-	TTErr   StateManagerStore(const TTSymbol name, const TTSymbol selectionName = kTTSym_default);
+	TTErr   StateManagerStore(const TTSymbol name, const TTSymbol selectionName = kTTSym_none);
     
 	/** Store a state into the state manager using a number
      @param name                        a state id
      @param selection                   pass a selection to choose which part of the namespace to store
      @return #kTTErrGeneric if the state can't be stored */
-	TTErr   StateManagerStore(const TTUInt32 number, const TTSymbol selectionName = kTTSym_default);
+	TTErr   StateManagerStore(const TTUInt32 number, const TTSymbol selectionName = kTTSym_none);
 	
 	/** Call a specific state listed by the state manager using a name 
      @param name                        a state name
@@ -408,9 +436,10 @@ public:
      @return #kTTErrGeneric if the address doesn't exist */
 	TTErr   AddressGetInstances(const TTAddress address,
                                 TTValue& instances);
-}
+    
+};
 
-// Macro to retreive a selection by name
-#define lookupSelection(selectionName) ModularObject->SelectionLookup(namespaceName)
+/** The Modular object instanciated in TTModularInit */
+extern TTMODULAR_EXPORT Modular* TTModular;
 
 #endif  // __TT_MODULAR_H__

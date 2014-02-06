@@ -17,7 +17,7 @@
 #ifndef __TT_XML_HANDLER_H__
 #define __TT_XML_HANDLER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 #include <stdio.h>
 
 #define TTMODULAR_XML_ENCODING "ISO-8859-1"

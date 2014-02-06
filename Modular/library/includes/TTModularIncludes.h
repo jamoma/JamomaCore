@@ -51,6 +51,7 @@
 #include "TTNodeDirectory.h"
 #include "TTAddressItem.h"
 
+#include "TTModular.h"
 #include "TTModularSymbolCache.h"
 
 #include "TTRegex.h"

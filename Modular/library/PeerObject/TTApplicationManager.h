@@ -17,7 +17,7 @@
 #ifndef __TT_APPLICATION_MANAGER_H__
 #define __TT_APPLICATION_MANAGER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 class TTApplication;
 typedef TTApplication* TTApplicationPtr;
@@ -33,17 +33,11 @@ typedef TTXmlHandler* TTXmlHandlerPtr;
  
  */
 
-// Macro to retreive any application by name
-#define getApplication(applicationName) TTApplicationManagerGetApplication(applicationName)
-
 // Macro to retreive any application from an address
 #define getApplicationFrom(anAddress) TTApplicationManagerGetApplicationFrom(anAddress)
 
 // Macro to get an application directory
 #define getApplicationDirectory(applicationName) TTApplicationManagerGetApplicationDirectory(applicationName)
-
-// Macro to get local application name
-#define getLocalApplicationName TTApplicationManagerGetLocalApplicationName()
 
 // Macro to get local application debug status
 #define getLocalApplicationDebug TTApplicationManagerGetLocalApplicationDebug()
@@ -51,17 +45,11 @@ typedef TTXmlHandler* TTXmlHandlerPtr;
 // Macro to retreive local application
 #define getLocalApplication TTApplicationManagerGetApplicationFrom(kTTAdrsRoot)
 
-// Macro to retreive a protocol by name
-#define getProtocol(protocolName) TTApplicationManagerGetProtocol(protocolName)
-
-// Macro to get all protocols of an application
-#define getApplicationProtocols(applicationName) TTApplicationManagerGetApplicationProtocols(applicationName)
-
 // Notification flags to notify observers of application manager
 enum TTApplicationNotificationFlag {
 	kApplicationRemoved = 0,				///< this flag means that an application have been removed from the application manager
 	kApplicationAdded = 1,					///< this flag means that an application have been added to the application manager
-	kApplicationProtocolStarted = 2,			///< this flag means that application's protocol have been started
+	kApplicationProtocolStarted = 2,		///< this flag means that application's protocol have been started
 	kApplicationProtocolStopped = 3			///< this flag means that application's protocol will be stopped
 };
 
@@ -74,8 +62,8 @@ private:
 	TTHashPtr			mApplications;						///< hash table containing <TTSymbol applicationName, TTApplicationPtr anApplication>
 	TTHashPtr			mProtocols;							///< hash table containing <TTSymbol protocolName, ProtocolPtr aProtocol>
 		
-	TTApplicationPtr	mLocalApplication;					///< a pointer to the local application
-	TTApplicationPtr	mCurrentApplication;				///< a pointer used for ReadFromXml mechanism
+	TTApplicationPtr	mApplicationLocal;					///< a pointer to the local application
+	TTApplicationPtr	mApplicationCurrent;				///< a pointer used for ReadFromXml mechanism
 	
 	TTHashPtr			mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
 	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
@@ -84,10 +72,22 @@ private:
 	
 	/** Get all application names */
 	TTErr getApplicationNames(TTValue& value);
+    
+    /** Get local application name */
+	TTErr getApplicationLocalName(TTValue& value);
+    
+    /** Get local application */
+	TTErr getApplicationLocal(TTValue& value);
+    
+    /** Get any application passing the name in argument */
+	TTErr getApplication(TTValue& value);
 	
 	/** Get all protocol names */
 	TTErr getProtocolNames(TTValue& value);
-	
+    
+    /** Get any protocol passing the name in argument */
+	TTErr getProtocol(TTValue& value);
+    
 	/** Add an application giving <TTSymbol applicationName, applicationPointer> */
 	TTErr ApplicationAdd(const TTValue& inputValue, TTValue& outputValue);
 	
@@ -142,12 +142,9 @@ private:
 	/** */
 	TTErr notifyApplicationObservers(TTSymbol anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag);
 	
-	friend TTSymbol TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationName();
 	friend TTBoolean TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationDebug();
-	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbol applicationName);
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTAddress anAddress);
 	
-	friend ProtocolPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
 	friend TTValue TTMODULAR_EXPORT TTApplicationManagerGetApplicationProtocols(TTSymbol applicationName);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
@@ -159,21 +156,10 @@ private:
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-/**	To get the local application name
- note : it uses the extern TTModularApplications variable
- @return							a TTSymbol */
-TTSymbol TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationName();
-
 /**	To get the local application debug status
  note : it uses the extern TTModularApplications variable
  @return							a TTBoolean */
 TTBoolean TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationDebug();
-
-/**	To get an application with an application name
- note : it uses the extern TTModularApplications variable
- @param	applicationName				..
- @return							a TTApplicationPtr */
-TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplication(TTSymbol applicationName);
 
 /**	To get an application directory with an application name
  note : it uses the extern TTModularApplications variable
@@ -186,18 +172,6 @@ TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationDirectory(
  @param	anAddress					..
  @return							a TTApplicationPtr */
 TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTAddress anAddress);
-
-/**	To get a protocol with a protocol name
- note : it uses the extern TTModularApplications variable
- @param	protocolName				..
- @return							a ProtocolPtr */
-ProtocolPtr TTMODULAR_EXPORT TTApplicationManagerGetProtocol(TTSymbol protocolName);
-
-/**	To get all protocols of an application
- note : it uses the extern TTModularApplications variable
- @param	applicationName				..
- @return							a value */
-TTValue TTMODULAR_EXPORT TTApplicationManagerGetApplicationProtocols(TTSymbol applicationName);
 
 /** Add a TTCallback as observer of application creation/destruction
  note : it uses the extern TTModularApplications variable

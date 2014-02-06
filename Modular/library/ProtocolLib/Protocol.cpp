@@ -656,7 +656,7 @@ TTSymbol ProtocolGetLocalApplicationName(TTPtr aProtocol)
 	TTObjectBasePtr anApplication;
 	TTSymbol applicationName;
 	
-	p->mApplicationManager->getAttributeValue(TTSymbol("localApplication"), v);
+	p->mApplicationManager->getAttributeValue(TTSymbol("applicationLocal"), v);
 	anApplication = v[0];
 	
 	anApplication->getAttributeValue(kTTSym_name, v);

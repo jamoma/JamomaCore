@@ -314,7 +314,7 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
 
 TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr    aNamespace = NULL;
+	TTAddressItemPtr    aSelection = NULL;
     //TTAddressItemPtr    topItem;
 	TTSymbol			name;
 	TTValue				v, parsedLine;
@@ -322,15 +322,15 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size() == 1) {
         
         if (inputValue[0].type() == kTypePointer)
-            aNamespace = TTAddressItemPtr((TTPtr)inputValue[0]);
+            aSelection = TTAddressItemPtr((TTPtr)inputValue[0]);
         
         else if (inputValue[0].type() == kTypeSymbol) {
             name = inputValue[0];
-            aNamespace = lookupNamespace(name);
+            aSelection = TTModular->SelectionLookup(name);
         }
     }
 	
-	if (aNamespace) {
+	if (aSelection) {
 		
 		Clear();
 		
@@ -346,7 +346,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		
 		// 3. Process namespace storage from the root
         // (but others directories are handled too. see in processStore)
-        processStore(mScript, aNamespace, getDirectoryFrom(kTTAdrsRoot)->getRoot());
+        processStore(mScript, aSelection, getDirectoryFrom(kTTAdrsRoot)->getRoot());
 		
 		// 5. Process ramp
 		if (mRamp) setRamp(mRamp);
@@ -357,7 +357,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNamespace, TTNodePtr nodeToProcess)
+TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelection, TTNodePtr nodeToProcess)
 {
 	TTAddressItemPtr nameItem, instanceItem;
 	TTString		nameInstance;
@@ -381,9 +381,9 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNames
     // but the first level name can be directory:/name sometimes to include other directory
 	
 	// for all names
-	for (aNamespace->begin(); aNamespace->end(); aNamespace->next()) {
+	for (aSelection->begin(); aSelection->end(); aSelection->next()) {
 		
-		nameItem = aNamespace->current();
+		nameItem = aSelection->current();
         
         // at root : check if the item is an application name
         if (scriptAddress == kTTAdrsRoot) {
@@ -694,33 +694,33 @@ TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr    aNamespace = NULL;
+	TTAddressItemPtr    aSelection = NULL;
 	TTSymbol			name;
     
     if (inputValue.size() == 1) {
         
         if (inputValue[0].type() == kTypePointer)
-            aNamespace = TTAddressItemPtr((TTPtr)inputValue[0]);
+            aSelection = TTAddressItemPtr((TTPtr)inputValue[0]);
         
         else if (inputValue[0].type() == kTypeSymbol) {
             name = inputValue[0];
-            aNamespace = lookupNamespace(name);
+            aSelection = TTModular->SelectionLookup(name);
         }
     }
 	
-	if (aNamespace) {
+	if (aSelection) {
 		
 		// unselect all the namespace
-		aNamespace->setSelection(NO, YES);
+		aSelection->setSelection(NO, YES);
 		
 		// edit selection
-		return processSelect(mScript, aNamespace);
+		return processSelect(mScript, aSelection);
 	}
     
     return kTTErrNone;
 }
 
-TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace)
+TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aSelection)
 {
 	TTListPtr			lines;
 	TTAddressItemPtr    anItem;
@@ -745,7 +745,7 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace)
 			address = v[0];
 			
 			// find item into the namespace
-			err = aNamespace->find(address, &anItem);
+			err = aSelection->find(address, &anItem);
 			
 			if (!err) {
 				

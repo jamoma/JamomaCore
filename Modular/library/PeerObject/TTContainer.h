@@ -17,7 +17,7 @@
 #ifndef __TT_CONTAINER_H__
 #define __TT_CONTAINER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /** TTContainer ... TODO : an explanation
 	In Max j.view and j.model are based on this class.

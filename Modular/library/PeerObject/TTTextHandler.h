@@ -30,7 +30,7 @@
 #ifndef __TT_TEXT_HANDLER_H__
 #define __TT_TEXT_HANDLER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**  
  */

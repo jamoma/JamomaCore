@@ -17,7 +17,7 @@
 #ifndef __TT_VIEWER_H__
 #define __TT_VIEWER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 
 class TTReceiver;

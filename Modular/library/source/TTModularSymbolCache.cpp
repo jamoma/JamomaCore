@@ -12,7 +12,7 @@
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 #include "TTSymbolTable.h"
 #include "TTModularSymbolCache.h"
 

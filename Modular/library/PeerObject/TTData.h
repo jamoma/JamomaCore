@@ -17,7 +17,7 @@
 #ifndef __TT_DATA_H__
 #define __TT_DATA_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTData establishes a control point, which is to say a TTNode that is dramaticly expanded, for a model to get/set its state.
  @details In Max the jcom.parameter, jcom.message and jcom.return externals are based on TTData

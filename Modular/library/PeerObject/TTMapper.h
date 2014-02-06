@@ -17,7 +17,7 @@
 #ifndef __TT_MAPPER_H__
 #define __TT_MAPPER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTMapper ... TODO : an explanation
  

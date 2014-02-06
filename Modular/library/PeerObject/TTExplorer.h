@@ -17,7 +17,7 @@
 #ifndef __TT_EXPLORER_H__
 #define __TT_EXPLORER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 
 /**	TTExplorer ... TODO : an explanation

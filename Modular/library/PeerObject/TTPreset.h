@@ -17,7 +17,7 @@
 #ifndef __TT_PRESET_H__
 #define __TT_PRESET_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 class TTScript;
 typedef TTScript* TTScriptPtr;

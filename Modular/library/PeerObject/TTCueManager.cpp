@@ -193,11 +193,11 @@ TTErr TTCueManager::setCurrentRamp(const TTValue& value)
 
 TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr    aNamespace, anItem;
+	TTAddressItemPtr    aSelection, anItem;
 	TTAddress           address;
 	TTUInt32			i;
 	
-    aNamespace = getNamespace();
+    aSelection = getNamespace();
 	
 	for (i = 0; i < inputValue.size(); i++) {
 		
@@ -219,26 +219,26 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
             }
 */			
             if (address == kTTAdrsRoot)
-                aNamespace->setSelection(YES, YES);
+                aSelection->setSelection(YES, YES);
             
-            else if (!aNamespace->find(address, &anItem))
+            else if (!aSelection->find(address, &anItem))
                      anItem->setSelection(YES, YES);
 		}
 	}
     
     // refresh all namespace handlers (TTExplorer only)
-    aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+    aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
 	
 	return kTTErrNone;
 }
 
 TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTAddressItemPtr    aNamespace, anItem;
+    TTAddressItemPtr    aSelection, anItem;
 	TTAddress           address;
 	TTUInt32			i;
 	
-    aNamespace = getNamespace();
+    aSelection = getNamespace();
 	
 	for (i = 0; i < inputValue.size(); i++) {
 		
@@ -247,22 +247,22 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
 			address = inputValue[i];
 			
             if (address == kTTAdrsRoot)
-                aNamespace->setSelection(NO, YES);
+                aSelection->setSelection(NO, YES);
             
-            else if (!aNamespace->find(address, &anItem))
+            else if (!aSelection->find(address, &anItem))
 				anItem->setSelection(NO, YES);
 		}
 	}
     
     // refresh all namespace handlers (TTExplorer only)
-    aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+    aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
 	
 	return kTTErrNone;
 }
 
 TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr    aNamespace;
+	TTAddressItemPtr    aSelection;
 	TTValue             v, none;
 	
     if (inputValue.size() == 1) {
@@ -291,13 +291,13 @@ TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValu
 		if (mCurrentCue) {
 			
             // get the namespace
-            aNamespace = getNamespace();
+            aSelection = getNamespace();
 			
-			v = TTValue((TTPtr)aNamespace);
+			v = TTValue((TTPtr)aSelection);
 			mCurrentCue->sendMessage(TTSymbol("Select"), v, none);
 			
 			// refresh all namespace handlers (TTExplorer only)
-			aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+			aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
 			
 			return kTTErrNone;
 		}
@@ -1347,11 +1347,11 @@ TTErr TTCueManager::notifyNamesObservers()
 TTAddressItemPtr TTCueManager::getNamespace()
 {
     TTValue v;
-    TTAddressItemPtr aNamespace = lookupNamespace(mNamespace);
+    TTAddressItemPtr aSelection = TTModular->SelectionLookup(mNamespace);
     
-	if (!aNamespace) {
+	if (!aSelection) {
         
-        TTModular->mApplications.get(TTSymbol("applicationNames"), v);
+        TTModular->ApplicationGetNames(v);
         
         // fill the default namespace with the local directory
         if (v.size() == 1) {
@@ -1375,10 +1375,10 @@ TTAddressItemPtr TTCueManager::getNamespace()
             }
         }
         
-        aNamespace = mDefaultNamespace;
+        aSelection = mDefaultNamespace;
     }
     
-    return aNamespace;
+    return aSelection;
 }
 
 #if 0

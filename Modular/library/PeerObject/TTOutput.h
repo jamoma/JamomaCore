@@ -17,7 +17,8 @@
 #ifndef __TT_OUTPUT_H__
 #define __TT_OUTPUT_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
+#include "TTInput.h"
 
 /** TTOutput ... TODO : an explanation
  

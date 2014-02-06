@@ -17,7 +17,7 @@
 #ifndef __TT_RECEIVER_H__
 #define __TT_RECEIVER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTReceiver ... TODO : an explanation
  

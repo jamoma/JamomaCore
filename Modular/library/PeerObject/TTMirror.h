@@ -17,7 +17,7 @@
 #ifndef __TT_MIRROR_H__
 #define __TT_MIRROR_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTMirror ... TODO : an explanation
  

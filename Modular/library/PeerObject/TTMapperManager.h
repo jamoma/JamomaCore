@@ -17,7 +17,7 @@
 #ifndef __TT_MAPPER_MANAGER_H__
 #define __TT_MAPPER_MANAGER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	For now the TTMapperManager allows to instanciate several TTMappers by reading a xml mapping
  *  configuration file using a TTXmlHandler

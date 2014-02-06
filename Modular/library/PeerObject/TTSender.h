@@ -17,7 +17,7 @@
 #ifndef __TT_SENDER_H__
 #define __TT_SENDER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTSender ... TODO : an explanation
 	control a TTData

@@ -17,6 +17,12 @@
 
 #include "TTModular.h"
 
+// those classes are included here to avoid circular inclusion when they are included from TTModularIncludes.h
+#include "TTInputAudio.h"
+#include "TTOutputAudio.h"
+#include "TTInput.h"
+#include "TTOutput.h"
+
 #if 0
 #pragma mark -
 #pragma mark Initialisation
@@ -24,6 +30,9 @@
 
 // is the Modular library have been initilialized ?
 static bool TTModularInitialized = false;
+
+// set the Modular object to NULL
+Modular* TTModular = NULL;
 
 #ifdef TT_PLATFORM_LINUX
 int main(void)
@@ -33,7 +42,7 @@ int main(void)
 }
 #endif
 
-void TTModularInit(const char* binaries = NULL)
+void TTModularInit(const char* binaries)
 {
     // Initialized Foundation framework
 	TTFoundationInit(binaries);
@@ -61,7 +70,7 @@ void TTModularInit(const char* binaries = NULL)
 #pragma mark Contructor, Destructor
 #endif
 
- Modular::Modular(const char* binaries = NULL)
+ Modular::Modular(const char* binaries)
 {
     TTValue v, none;
     
@@ -105,7 +114,7 @@ void TTModularInit(const char* binaries = NULL)
     v.fromString();
     
     // Create the application manager with no application inside
-    mApplications = TTObject(kTTSym_ApplicationManager);
+    mApplicationManager = TTObject(kTTSym_ApplicationManager);
     
 #ifdef TT_DEBUG
     TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
@@ -130,10 +139,10 @@ void TTModularInit(const char* binaries = NULL)
 #pragma mark Applications management
 #endif
 
-TTErr Modular::ApplicationCreateLocal(const TTSymbol applicationName, const TTSymbol applicationVersion, const TTSymbol applicationAuthor, const TTSymbol applicationConfiguration = kTTSymEmpty)
+TTErr Modular::ApplicationCreateLocal(const TTSymbol applicationName, const TTSymbol applicationVersion, const TTSymbol applicationAuthor, const TTSymbol applicationConfiguration)
 {
     // if the local application doesn't exist yet
-    if (!getLocalApplication) {
+    if (ApplicationGetObject(ApplicationLocalName()) == NULL) {
         
         TTValue		args, none;
         TTObject	anApplication, anXmlHandler;
@@ -142,120 +151,267 @@ TTErr Modular::ApplicationCreateLocal(const TTSymbol applicationName, const TTSy
         anApplication = TTObject(kTTSym_Application, applicationName);
 
         // set it as local application
-        mApplications.set(TTSymbol("localApplication"), anApplication);
+        mApplicationManager.set(TTSymbol("applicationLocal"), anApplication);
         
         // Read xml configuration file
         anXmlHandler = TTObject(kTTSym_XmlHandler);
         anXmlHandler.set(kTTSym_object, anApplication);
         anXmlHandler.send(kTTSym_Read, applicationConfiguration, none);
+        
+        return kTTErrNone;
     }
-    else
-        TTLogMessage("Modular -- \"%s\" application already exists", getLocalApplicationName.c_str());
+        
+    TTLogMessage("Modular -- \"%s\" application already exists", ApplicationLocalName().c_str());
+    return kTTErrGeneric;
 }
 
-TTErr Modular::ApplicationCreateDistant(const TTSymbol applicationName);
+TTErr Modular::ApplicationCreateDistant(const TTSymbol applicationName)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::ApplicationDump(const TTSymbol applicationName);
+TTErr Modular::ApplicationGetNames(TTValue& applicationNames)
+{
+    return mApplicationManager.get(TTSymbol("applicationNames"), applicationNames);
+}
 
-TTErr Modular::ApplicationWriteAsXml(const TTSymbol filepath);
+TTSymbol Modular::ApplicationGetLocalName()
+{
+    TTValue v;
+    
+    if (!mApplicationManager.get(TTSymbol("applicationLocalName"), v))
+        return v[0];
+    
+    return kTTSymEmpty;
+}
 
-TTErr Modular::ApplicationReadFromXml(const TTSymbol filepath);
+TTErr Modular::ApplicationDump(const TTSymbol applicationName)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::ApplicationAttributeSet(const TTSymbol applicationName, const TTSymbol attribute, const TTValue& value);
+TTErr Modular::ApplicationWriteAsXml(const TTSymbol filepath)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::ApplicationAttributeGet(const TTSymbol applicationName, const TTSymbol attribute, TTValue& value);
+TTErr Modular::ApplicationReadFromXml(const TTSymbol filepath)
+{
+    return kTTErrGeneric;
+}
+
+TTErr Modular::ApplicationAttributeSet(const TTSymbol applicationName, const TTSymbol attribute, const TTValue& value)
+{
+    return kTTErrGeneric;
+}
+
+TTErr Modular::ApplicationAttributeGet(const TTSymbol applicationName, const TTSymbol attribute, TTValue& value)
+{
+    return kTTErrGeneric;
+}
+
+TTValue Modular::ApplicationGetProtocolNames(const TTSymbol applicationName)
+{
+    TTValue		protocolNames, applicationProtocols, result;
+	TTSymbol    protocolName;
+	TTBoolean	isRegistered;
+	
+	ProtocolGetNames(protocolNames);
+    
+	for (TTUInt8 i = 0; i < protocolNames.size(); i++) {
+		
+		protocolName = protocolNames[i];
+		ProtocolGetObject(protocolName)->sendMessage(TTSymbol("isRegistered"), applicationName, result);
+		isRegistered = result[0];
+		
+		if (isRegistered)
+			applicationProtocols.append(protocolName);
+    }
+	
+	return applicationProtocols;
+}
+
+TTObjectBasePtr Modular::ApplicationGetObject(const TTSymbol applicationName)
+{
+    TTValue v = applicationName;
+    
+    if (!mApplicationManager.get("application", v))
+        return v[0];
+    else
+        return NULL;
+}
 
 #if 0
 #pragma mark -
 #pragma mark Protocols management
 #endif
 
-TTErr Modular::ProtocolGetNames(TTValue& names);
+TTErr Modular::ProtocolGetNames(TTValue& protocolNames)
+{
+    return mApplicationManager.get("protocolNames", protocolNames);;
+}
 
-TTErr Modular::ProtocolRegisterApplication(const TTSymbol protocolName, const TTSymbol applicationName);
+TTBoolean Modular::ProtocolExists(const TTSymbol protocolName)
+{
+    return NO;
+}
 
-TTErr Modular::ProtocolUnregisterApplication(const TTSymbol protocolName, const TTSymbol applicationName);
+TTErr Modular::ProtocolRegisterApplication(const TTSymbol protocolName, const TTSymbol applicationName)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::ProtocolGetAttributeNames(TTValue& names);
+TTErr Modular::ProtocolUnregisterApplication(const TTSymbol protocolName, const TTSymbol applicationName)
+{
+    return kTTErrGeneric;
+}
 
-TTBoolean Modular::ProtocolIsAttributeInteger(const TTSymbol attribute);
+TTErr Modular::ProtocolGetAttributeNames(TTValue& names)
+{
+    return kTTErrGeneric;
+}
 
-TTBoolean Modular::ProtocolIsAttributeString(const TTSymbol attribute);
+TTBoolean Modular::ProtocolIsAttributeInteger(const TTSymbol attribute)
+{
+    return NO;
+}
 
-TTErr Modular::ProtocolSetIntegerAttribute(const TTSymbol applicationName, const TTSymbol attribute, const TTUInt32 value);
+TTBoolean Modular::ProtocolIsAttributeString(const TTSymbol attribute)
+{
+    return NO;
+}
 
-TTErr Modular::ProtocolSetStringAttribute(const TTSymbol applicationName, const TTSymbol attribute, const TTSymbol value);
+TTErr Modular::ProtocolSetIntegerAttribute(const TTSymbol applicationName, const TTSymbol attribute, const TTUInt32 value)
+{
+    return kTTErrGeneric;
+}
+
+TTErr Modular::ProtocolSetStringAttribute(const TTSymbol applicationName, const TTSymbol attribute, const TTSymbol value)
+{
+    return kTTErrGeneric;
+}
+
+TTObjectBasePtr Modular::ProtocolGetObject(const TTSymbol protocolName)
+{
+    TTValue v = protocolName;
+    
+    if (!mApplicationManager.get("protocol", v))
+        return v[0];
+    else
+        return NULL;
+}
 
 #if 0
 #pragma mark -
 #pragma mark Datas management
 #endif
 
-TTErr Modular::DataCreate(const TTAddress address, void (*returnValueCallback) (void*, const TTValue&) = NULL, void* owner = NULL, TTSymbol service);
+TTErr Modular::DataCreate(const TTAddress address, void (*returnValueCallback) (void*, const TTValue&), void* owner, TTSymbol service)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::DataDelete(const TTAddress address);
+TTErr Modular::DataDelete(const TTAddress address)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::DataAttributeSet(const TTAddress address, const TTSymbol attribute, const TTValue& value);
+TTErr Modular::DataAttributeSet(const TTAddress address, const TTSymbol attribute, const TTValue& value)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::DataAttributeGet(const TTAddress address, const TTSymbol attribute, TTValue& value);
+TTErr Modular::DataAttributeGet(const TTAddress address, const TTSymbol attribute, TTValue& value)
+{
+    return kTTErrGeneric;
+}
 
 #if 0
 #pragma mark -
 #pragma mark Senders management
 #endif
 
-TTErr Modular::SenderCreate(const TTAddress address, const TTSymbol attribute = kTTSym_value);
+TTErr Modular::SenderCreate(const TTAddress address, const TTSymbol attribute)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::SenderDelete(const TTAddress address, const TTSymbol attribute);
+TTErr Modular::SenderDelete(const TTAddress address, const TTSymbol attribute)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::SenderUse(const TTAddress address, const TTSymbol attribute, const TTValue& value);
+TTErr Modular::SenderUse(const TTAddress address, const TTSymbol attribute, const TTValue& value)
+{
+    return kTTErrGeneric;
+}
 
 #if 0
 #pragma mark -
 #pragma mark Receivers management
 #endif
 
-TTErr Modular::ReceiverCreate(const TTAddress address, const TTSymbol attribute, void (*returnAddressAttributeAndValueCallback) (void*, const TTAddress address, const TTSymbol attribute, const TTValue&), void* owner = NULL);
+TTErr Modular::ReceiverCreate(const TTAddress address, const TTSymbol attribute, void (*returnAddressAttributeAndValueCallback) (void*, const TTAddress address, const TTSymbol attribute, const TTValue&), void* owner)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::ReceiverDelete(const TTAddress address, const TTSymbol attribute);
+TTErr Modular::ReceiverDelete(const TTAddress address, const TTSymbol attribute)
+{
+    return kTTErrGeneric;
+}
 
 #if 0
 #pragma mark -
 #pragma mark State management
 #endif
 
-TTErr Modular::StateManagerReadFromXml(const TTSymbol filepath);
+TTErr Modular::StateManagerReadFromXml(const TTSymbol filepath)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::StateManagerWriteAsXml(const TTSymbol filepath);
+TTErr Modular::StateManagerWriteAsXml(const TTSymbol filepath)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::StateManagerRecall(const TTSymbol name);
+TTErr Modular::StateManagerRecall(const TTSymbol name)
+{
+    return kTTErrGeneric;
+}
 
-TTErr Modular::StateManagerRecall(const TTUInt32 number);
+TTErr Modular::StateManagerRecall(const TTUInt32 number)
+{
+    return kTTErrGeneric;
+}
 
 #if 0
 #pragma mark -
 #pragma mark Selection management
 #endif
 
-TTAddressItemPtr SelectionLookup(const TTSymbol selectionName)
+TTAddressItemPtr Modular::SelectionLookup(const TTSymbol selectionName)
 {
-    TTAddressItemPtr	aNamespace = NULL;
+    TTAddressItemPtr	aSelection = NULL;
 	TTValue				v;
 	
-	if (namespaceName != kTTSymEmpty && namespaceName != kTTSym_none) {
+	if (selectionName != kTTSymEmpty && selectionName != kTTSym_none) {
 		
-		if (!TTModularNamespaces->lookup(namespaceName, v))
-			aNamespace = TTAddressItemPtr((TTPtr)v[0]);
+		if (!mSelections.lookup(selectionName, v)) {
+            
+			aSelection = TTAddressItemPtr((TTPtr)v[0]);
 		
-		else {
-			aNamespace = new TTAddressItem();
+        } else {
+            
+			aSelection = new TTAddressItem();
 			
-			v = TTValue((TTPtr)aNamespace);
-			TTModularNamespaces->append(namespaceName, v);
+			v = TTValue((TTPtr)aSelection);
+			mSelections.append(selectionName, v);
 		}
 	}
     
-	return aNamespace;
+	return aSelection;
 }
 
 #if 0
@@ -263,9 +419,17 @@ TTAddressItemPtr SelectionLookup(const TTSymbol selectionName)
 #pragma mark Addresses edition
 #endif
 
-TTAddress Modular::AddressEditNumericInstance(const TTSymbol integerFormatAddress, const TTUInt32 instanceNumber);
+TTAddress Modular::AddressEditNumericInstance(const TTSymbol integerFormatAddress, const TTUInt32 instanceNumber)
+{
+    return kTTAdrsEmpty;
+}
 
-TTAddress Modular::AddressEditSymbolInstance(const TTSymbol symbolFormatAddress, const TTSymbol instanceSymbol);
+TTAddress Modular::AddressEditSymbolInstance(const TTSymbol symbolFormatAddress, const TTSymbol instanceSymbol)
+{
+    return kTTAdrsEmpty;
+}
 
-TTErr Modular::AddressGetInstances(const TTAddress address, TTValue& instances);
-
+TTErr Modular::AddressGetInstances(const TTAddress address, TTValue& instances)
+{
+    return kTTErrGeneric;
+}

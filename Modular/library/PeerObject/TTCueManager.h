@@ -17,7 +17,7 @@
 #ifndef __TT_CUE_MANAGER_H__
 #define __TT_CUE_MANAGER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTCueManager ... TODO : an explanation
  

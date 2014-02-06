@@ -17,7 +17,6 @@
 #define __TT_OUTPUT_AUDIO_H__
 
 #include "TTOutput.h"
-#include "TTInputAudio.h"
 
 /** An audio output component for Jamoma models.
  */

@@ -17,7 +17,7 @@
 #ifndef __TT_PRESET_MANAGER_H__
 #define __TT_PRESET_MANAGER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTPresetManager ... TODO : an explanation
  
