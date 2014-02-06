@@ -192,7 +192,7 @@ public:
 	friend bool operator == (const TTValue& a, const TTValue& b)
 	{
 		if (a.size() == b.size()) {
-			for (int i=0; i<a.size(); i++) {
+			for (unsigned int i = 0U; i<a.size(); i++) {
 				if (a.at(i) != b.at(i)) {
 					return false;
 				}

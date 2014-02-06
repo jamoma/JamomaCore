@@ -443,7 +443,8 @@ inline void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, cons
 #elif defined (TT_PLATFORM_WIN)
 	_InterlockedCompareExchange((volatile long*)&value, (long) newValue, (long) oldValue);
 #else // what should we do for thread safety on Linux and iOS?
-	value = newValue;
+	__sync_val_compare_and_swap(&value, oldValue, newValue);
+	//value = newValue;
 #endif
 }
 

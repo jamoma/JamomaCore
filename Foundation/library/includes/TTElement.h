@@ -733,22 +733,30 @@ public:
 					return false;
 				break;
 			case kTypeUInt32:
-				if ( a1.mValue.uint32 != i )
+			{
+				unsigned int tmp = i;
+				if ( a1.mValue.uint32 != tmp )
 					return false;
 				break;
+			}
 			case kTypeInt64:
 				if ( a1.mValue.int64 != i )
 					return false;
 				break;
 			case kTypeUInt64:
-				if ( a1.mValue.uint64 != i )
+			{
+				long unsigned int tmp = i;
+				if ( a1.mValue.uint64 != tmp )
 					return false;
 				break;
+			}
 			default: // the type is not currently handled
 				return false;
 		}
 		return true;
 	}
+
+
 
 	
 	friend bool operator == (const TTElement& a1, const double& f)

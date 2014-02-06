@@ -76,7 +76,7 @@ public:
 		return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
 	}
 	
-	static TTErr GetRegisteredTags(TTValue& tags)
+	static TTErr GetRegisteredTags(TTValue& /*tags*/)
 	{
 		// TODO: Needs to be implemented!
 		return kTTErrMethodNotFound;
