@@ -18,7 +18,7 @@
 #define __TTGRAPH_SOURCE_H__
 
 #include "TTGraph.h"
-//#include "TTGraphObject.h"
+//#include "TTGraphObjectBase.h"
 
 class TTGraphInlet;
 typedef TTGraphInlet*					TTGraphInletPtr;

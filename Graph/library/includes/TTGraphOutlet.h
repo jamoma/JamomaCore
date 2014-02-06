@@ -18,7 +18,7 @@
 #define __TTGRAPH_OUTLET_H__
 
 #include "TTGraph.h"
-//#include "TTGraphObject.h"
+//#include "TTGraphObjectBase.h"
 #include "TTGraphDestination.h"
 
 

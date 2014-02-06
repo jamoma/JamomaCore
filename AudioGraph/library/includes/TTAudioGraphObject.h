@@ -19,7 +19,7 @@
 #define __TTAUDIOGRAPH_OBJECT_H__
 
 #include "TTAudioGraph.h"
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTAudioGraphOutlet.h"
 #include "TTAudioGraphDescription.h"
 
