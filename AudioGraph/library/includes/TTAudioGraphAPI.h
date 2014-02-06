@@ -19,7 +19,7 @@
 #define __TTAUDIOGRAPH_API_H__
 
 #include "TTAudioGraph.h"
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 #ifndef TT_PLATFORM_IOS
 #include "TTAudioGraphOutput.h"
 #endif

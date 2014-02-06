@@ -24,7 +24,7 @@
 #define __TTAUDIOGRAPH_INLET_H__
 
 #include "TTAudioGraph.h"
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 #include "TTAudioGraphSource.h"
 
 

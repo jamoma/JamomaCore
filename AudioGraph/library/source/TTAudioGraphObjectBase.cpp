@@ -15,7 +15,7 @@
  */
 
 
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 #include "TTAudioGraphInlet.h"
 #include "TTAudioGraphOutlet.h"
 
