@@ -42,7 +42,7 @@ extern "C" void TTAudioGraphObjectBase::registerClass()
 
 
 TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
-	TTGraphObject(arguments),
+	TTGraphObjectBase(arguments),
 	mStatus(kTTAudioGraphProcessUnknown),
 	mAudioFlags(kTTAudioGraphProcessor), 
 	mInputSignals(NULL), 
