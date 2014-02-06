@@ -33,10 +33,10 @@ class TTGRAPH_EXPORT TTGraphDestination {
 	
 protected:
 
-	TTGraphObjectPtr	mDestinationObject;	///< the object from which we pull samples
-	TTUInt16			mInletNumber;		///< zero-based
+	TTGraphObjectBasePtr	mDestinationObject;	///< the object from which we pull samples
+	TTUInt16			    mInletNumber;		///< zero-based
 	TTObjectBasePtr			mCallbackHandler;
-	TTGraphOutletPtr	mOwner;				///< the owning inlet
+	TTGraphOutletPtr	    mOwner;				///< the owning inlet
 	
 public:
 
@@ -46,7 +46,7 @@ public:
 	/** Internal method shared/called by constructors. */
 	void create();
 	
-	TTBoolean match(TTGraphObjectPtr anObject, TTUInt16 anInletNumber)
+	TTBoolean match(TTGraphObjectBasePtr anObject, TTUInt16 anInletNumber)
 	{
 		if (anObject == mDestinationObject && anInletNumber == mInletNumber)
 			return YES;
@@ -116,7 +116,7 @@ public:
 	
 	// Graph Methods
 	
-	void connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber);
+	void connect(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber);
 			
 	
 	TTErr push(const TTDictionary& aDictionary);

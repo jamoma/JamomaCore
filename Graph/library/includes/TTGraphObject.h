@@ -4,7 +4,7 @@
  *
  * @brief Jamoma Asynchronous Object Graph Layer
  *
- * @details Creates a wrapper for TTObjectBases that can be used to build a control graph for asynchronous message passing
+ * @details Creates a wrapper for #TTObjectBase that can be used to build a control graph for asynchronous message passing
  *
  * @authors Timothy Place
  *
@@ -26,14 +26,14 @@
 /******************************************************************************************/
 
 /**
-	The TTGraphObject wraps a TTDSP object such that it is possible to 
+	The #TTGraphObjectBase wraps a TTDSP object such that it is possible to 
 	build a dynamic graph of audio processing units.
  
 	It is implemented as a TTObjectBase so that it can receive dynamically bound messages, 
 	incliding notifications from other objects.
 */
-class TTGRAPH_EXPORT TTGraphObject : public TTDataObjectBase {
-	TTCLASS_SETUP(TTGraphObject)
+class TTGRAPH_EXPORT TTGraphObjectBase : public TTDataObjectBase {
+	TTCLASS_SETUP(TTGraphObjectBase)
 	
 protected:
 	TTGraphInletVector		mInlets;		///< The inlets through which we pull audio from sources
@@ -58,7 +58,7 @@ public:
 	
 	// Magic sauce used by the connect method to setup outlets
 private:
-	TTErr handshake(TTGraphObjectPtr objectWhichIsBeingConnected, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber);
+	TTErr handshake(TTGraphObjectBasePtr objectWhichIsBeingConnected, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber);
 public:
 	
 	/**	Add a source to the list of objects from which to request audio.
@@ -66,7 +66,7 @@ public:
 	 @param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 	 Typically the value passed here will be 0, indicating the normal audio input.
 	 @return					An error code.	*/
-	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	TTErr connect(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 	
 	
 	/**	Drop a source from the list of objects from which to request audio.  In other words, disconnect.
@@ -74,7 +74,7 @@ public:
 	 @param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 	 Typically the value passed here will be 0, indicating the normal audio input.
 	 @return					An error code.	*/
-	TTErr drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
+	TTErr drop(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0);
 	
 	
 	// TODO: Need unit tests

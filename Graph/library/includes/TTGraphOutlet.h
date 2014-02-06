@@ -24,8 +24,8 @@
 
 /******************************************************************************************/
 
-/**	This object represents a single 'outlet' from a TTGraphObject.
-	TTGraphObject maintains a vector of these outlets.
+/**	This object represents a single 'outlet' from a #TTGraphObjectBase.
+	#TTGraphObjectBase maintains a vector of these outlets.
 */
 class TTGRAPH_EXPORT TTGraphOutlet {
 	TTGraphDestinationVector	mDestinationObjects;
@@ -64,7 +64,7 @@ public:
 	}
 	
 	
-	TTErr drop(TTGraphObjectPtr anObject, TTUInt16 toInletNumber)
+	TTErr drop(TTGraphObjectBasePtr anObject, TTUInt16 toInletNumber)
 	{
 		for (TTGraphDestinationIter	dest = mDestinationObjects.begin(); dest != mDestinationObjects.end(); dest++) {
 			if (dest->match(anObject, toInletNumber)) {
@@ -85,7 +85,7 @@ public:
 	}
 	
 	
-	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 toInletNumber)
+	TTErr connect(TTGraphObjectBasePtr anObject, TTUInt16 toInletNumber)
 	{
 		TTUInt16 size = mDestinationObjects.size();
 		

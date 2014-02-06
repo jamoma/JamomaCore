@@ -24,8 +24,8 @@
 
 /******************************************************************************************/
 
-/**	This object represents a single 'inlet' to a TTGraphObject.
-	TTGraphObject maintains a vector of these inlets.
+/**	This object represents a single 'inlet' to a #TTGraphObjectBase.
+	#TTGraphObjectBase maintains a vector of these inlets.
 */
 class TTGRAPH_EXPORT TTGraphInlet {
 
@@ -72,7 +72,7 @@ public:
 	}
 		
 	
-	TTErr connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+	TTErr connect(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber)
 	{
 		TTUInt16 size = mSourceObjects.size();
 		
@@ -90,7 +90,7 @@ public:
 	}
 	
 	
-	TTErr drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+	TTErr drop(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber)
 	{
 		for (TTGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
 			if (source->match(anObject, fromOutletNumber)) {

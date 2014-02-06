@@ -23,13 +23,13 @@ class TTMidiInput : TTDataObjectBase {
 
 public:
 	
-	TTSymbol			mDevice;			///< attr: selected device name
-	const PmDeviceInfo*	mDeviceInfo;		///< selected device info struct
-	PmDeviceID			mID;				///< selected device ID number
-	PortMidiStream*		mStream;			///< a descriptor for a MIDI device that is opened when the device is set
-	TTThreadPtr			mPollingThread;		///< our loop that constantly polls for new input
-	TTBoolean			mRunning;			///< should the thread be running?  If NO then the thread will know to abort itself
-	TTGraphObjectPtr	mOwner;				///< a graph object that can push() calls when we receive MIDI
+	TTSymbol			    mDevice;			///< attr: selected device name
+	const PmDeviceInfo*	    mDeviceInfo;		///< selected device info struct
+	PmDeviceID			    mID;				///< selected device ID number
+	PortMidiStream*		    mStream;			///< a descriptor for a MIDI device that is opened when the device is set
+	TTThreadPtr			    mPollingThread;		///< our loop that constantly polls for new input
+	TTBoolean			    mRunning;			///< should the thread be running?  If NO then the thread will know to abort itself
+	TTGraphObjectBasePtr	mOwner;				///< a graph object that can push() calls when we receive MIDI
 	
 	TTErr getAvailableDeviceNames(const TTValue&, TTValue& returnedDeviceNames);
 	TTErr setDevice(TTValue& newDeviceName);

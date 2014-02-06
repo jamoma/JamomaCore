@@ -24,21 +24,21 @@ class TTFOUNDATION_EXPORT TTParameter : public TTDataObjectBase {
 	TTCLASS_SETUP(TTParameter)
 	
 public:
-	TTGraphObjectPtr	mOwner;
-	TTSymbol			mName;
-	TTFloat64			mRangeBottom;
-	TTFloat64			mRangeTop;
-	TTFloat64			mDefault;
-	TTSymbol			mStyle;
-	TTFloat64			mValue;
-	TTDictionary		mDictionary;
+	TTGraphObjectBasePtr	mOwner;
+	TTSymbol			    mName;
+	TTFloat64			    mRangeBottom;
+	TTFloat64			    mRangeTop;
+    TTFloat64   			mDefault;
+	TTSymbol			    mStyle;
+	TTFloat64			    mValue;
+	TTDictionary		    mDictionary;
 	
 	// attribute accessors
 	TTErr setName(const TTValue& newValue);
 	TTErr setValue(const TTValue& newValue);
 
 	// graph stuff
-	TTErr setOwner(TTGraphObjectPtr newOwner);
+	TTErr setOwner(TTGraphObjectBasePtr newOwner);
 	TTErr push(const TTDictionary& aDictionary);
 };
 
