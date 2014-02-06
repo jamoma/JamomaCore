@@ -13,7 +13,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTParameter.h"
 
 #define thisTTClass			TTParameter

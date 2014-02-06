@@ -17,7 +17,7 @@
 #include "TTGraphOutlet.h"
 #include "TTCallback.h"
 #include "TTGraphDestination.h"
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 
 
 // C Callback from any Graph Destination objects we are observing

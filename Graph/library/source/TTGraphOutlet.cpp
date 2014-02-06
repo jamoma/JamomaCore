@@ -14,7 +14,7 @@
  */
 
 
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTGraphOutlet.h"
 #include "TTCallback.h"
 

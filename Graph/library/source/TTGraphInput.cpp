@@ -14,7 +14,7 @@
  */
 
 
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTGraphInput.h"
 
 #define thisTTClass			TTGraphInput

@@ -17,7 +17,7 @@
 #include "TTGraphSource.h"
 #include "TTGraphInlet.h"
 #include "TTCallback.h"
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 
 // C Callback from any Audio Graph Source objects we are observing
 void TTGraphSourceObserverCallback(TTGraphSourcePtr self, TTValue& arg)
