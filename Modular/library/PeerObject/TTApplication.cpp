@@ -124,7 +124,7 @@ mTempAddress(kTTAdrsRoot)
 	
 	// add itself to the application manager
 	TTValue none, args = TTValue(TTObjectBasePtr(this));
-	TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, none);
+	TTModular->mApplications.send(TTSymbol("ApplicationAdd"), args, none);
 }
 
 TTApplication::~TTApplication()
@@ -133,7 +133,7 @@ TTApplication::~TTApplication()
 	
 	// remove itself to the application manager
 	TTValue none, args = TTValue(mName);
-	TTModularApplications->sendMessage(TTSymbol("ApplicationRemove"), args, none);
+	TTModular->mApplications.send(TTSymbol("ApplicationRemove"), args, none);
 	
 	// TODO : delete observers
 	
@@ -146,14 +146,14 @@ TTErr TTApplication::setName(const TTValue& value)
 {
 	// remove itself to the application manager
 	TTValue none, args = TTValue(mName);
-	TTModularApplications->sendMessage(TTSymbol("ApplicationRemove"), args, none);
+	TTModular->mApplications.send(TTSymbol("ApplicationRemove"), args, none);
 	
 	mName = value;
 	mDirectory->setName(mName);
 	
 	// add itself to the application manager
 	args = TTValue(TTObjectBasePtr(this));
-	return TTModularApplications->sendMessage(TTSymbol("ApplicationAdd"), args, none);
+	return TTModular->mApplications.send(TTSymbol("ApplicationAdd"), args, none);
 }
 
 TTErr TTApplication::setActivity(const TTValue& value)

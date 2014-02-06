@@ -1023,7 +1023,7 @@ TTSymbol TTApplicationManagerGetLocalApplicationName()
 	TTValue     v;
 	TTSymbol    localName;
 	
-	TTModularApplications->mLocalApplication->getAttributeValue(kTTSym_name, v);
+	TTModular->mApplications.mLocalApplication->getAttributeValue(kTTSym_name, v);
 	localName = v;
 	
 	return localName;
@@ -1031,24 +1031,20 @@ TTSymbol TTApplicationManagerGetLocalApplicationName()
 
 TTBoolean TTApplicationManagerGetLocalApplicationDebug()
 {	
-	return TTModularApplications->mLocalApplication->mDebug;
+	return TTModular->mApplications.mLocalApplication->mDebug;
 }
 
 TTApplicationPtr TTApplicationManagerGetApplication(TTSymbol applicationName)
 {
 	TTValue				v;
 	TTApplicationPtr	anApplication;
-	TTErr				err;
-	
-	if (TTModularApplications) {
-		
-		err = TTModularApplications->mApplications->lookup(applicationName, v);
-		
-		if (!err) {
-			anApplication = TTApplicationPtr((TTObjectBasePtr)v[0]);
-			return anApplication;
-		}
-	}
+
+    TTErr err = TTModular->mApplications.mApplications->lookup(applicationName, v);
+    
+    if (!err) {
+        anApplication = TTApplicationPtr((TTObjectBasePtr)v[0]);
+        return anApplication;
+    }
 	
 	return NULL;
 }
@@ -1077,37 +1073,28 @@ TTApplicationPtr TTApplicationManagerGetApplicationFrom(TTAddress anAddress)
 	TTSymbol			applicationName;
 	TTApplicationPtr	anApplication;
 	
-	if (TTModularApplications) {
-		
-		applicationName = anAddress.getDirectory();
-		
-		if (applicationName != NO_DIRECTORY)
-			anApplication = TTApplicationManagerGetApplication(applicationName);
-		else
-			anApplication = TTModularApplications->mLocalApplication;
-		
-		return anApplication;
-	}
-	
-	return NULL;
+    applicationName = anAddress.getDirectory();
+    
+    if (applicationName != NO_DIRECTORY)
+        anApplication = TTApplicationManagerGetApplication(applicationName);
+    else
+        anApplication = TTModular->mApplications.mLocalApplication;
+    
+    return anApplication;
 }
 
 ProtocolPtr TTApplicationManagerGetProtocol(TTSymbol protocolName)
 {
 	TTValue		v;
 	ProtocolPtr	aProtocol;
-	TTErr		err;
-	
-	if (TTModularApplications) {
-		
-		err = TTModularApplications->mProtocols->lookup(protocolName, v);
-		
-		if (!err) {
-			aProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
-			return aProtocol;
-		}
-	}
-	
+    
+	TTErr err = TTModular->mApplications.mProtocols->lookup(protocolName, v);
+    
+    if (!err) {
+        aProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
+        return aProtocol;
+    }
+    
 	return NULL;
 }
 
@@ -1117,7 +1104,7 @@ TTValue TTApplicationManagerGetApplicationProtocols(TTSymbol applicationName)
 	TTSymbol    protocolName;
 	TTBoolean	isRegistered;
 	
-	TTModularApplications->mProtocols->getKeys(protocolNames);
+	TTModular->mApplications.mProtocols->getKeys(protocolNames);
 	for (TTUInt8 i = 0; i < protocolNames.size(); i++) {
 		
 		protocolName = protocolNames[i];
@@ -1138,34 +1125,29 @@ TTErr TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, con
 	TTValue		o = anObserver;
 	TTListPtr	lk_o;
 	
-	if (TTModularApplications) {
-		
-		// enable observers protection
-		TTModularApplications->mApplicationObserversMutex->lock();
-		
-		// is the key already exists ?
-		err = TTModularApplications->mApplicationObservers->lookup(anApplicationName, lk);
-		
-		// create a new observers list for this address
-		if(err == kTTErrValueNotFound){
-			lk_o = new TTList();
-			lk_o->appendUnique(o);
-			
-			TTModularApplications->mApplicationObservers->append(anApplicationName, TTValue(lk_o));
-		}
-		// add it to the existing list
-		else{
-			lk_o = TTListPtr((TTPtr)lk[0]);
-			lk_o->appendUnique(o);
-		}
-		
-		// disable observers protection
-		TTModularApplications->mApplicationObserversMutex->unlock();
-		
-		return kTTErrNone;
-	}
-	
-	return kTTErrGeneric;
+    // enable observers protection
+    TTModular->mApplications.mApplicationObserversMutex->lock();
+    
+    // is the key already exists ?
+    err = TTModular->mApplications.mApplicationObservers->lookup(anApplicationName, lk);
+    
+    // create a new observers list for this address
+    if(err == kTTErrValueNotFound){
+        lk_o = new TTList();
+        lk_o->appendUnique(o);
+        
+        TTModular->mApplications.mApplicationObservers->append(anApplicationName, TTValue(lk_o));
+    }
+    // add it to the existing list
+    else{
+        lk_o = TTListPtr((TTPtr)lk[0]);
+        lk_o->appendUnique(o);
+    }
+    
+    // disable observers protection
+    TTModular->mApplications.mApplicationObserversMutex->unlock();
+    
+    return kTTErrNone;
 }
 
 TTErr TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver)
@@ -1174,39 +1156,33 @@ TTErr TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, 
 	TTValue		lk, o, v;
 	TTListPtr	lk_o;
 	
-	if (TTModularApplications) {
-		
-		// enable observers protection
-		TTModularApplications->mApplicationObserversMutex->lock();
-		
-		// is the key exists ?
-		err = TTModularApplications->mApplicationObservers->lookup(anApplicationName, lk);
-		
-		if(err != kTTErrValueNotFound){
-			// get the observers list
-			lk_o = TTListPtr((TTPtr)lk[0]);
-			
-			// is observer exists ?
-			o = TTValue(anObserver);
-			err = lk_o->findEquals(o, v);
-			if(!err)
-				lk_o->remove(v);
-			
-			// was it the last observer ?
-			if(lk_o->getSize() == 0) {
-				// remove the key
-				TTModularApplications->mApplicationObservers->remove(anApplicationName);
-			}
-		}
-		
-		// disable observers protection
-		TTModularApplications->mApplicationObserversMutex->unlock();
-		
-		return err;
-		
-	}
-	
-	return kTTErrGeneric;
+    // enable observers protection
+    TTModular->mApplications.mApplicationObserversMutex->lock();
+    
+    // is the key exists ?
+    err = TTModular->mApplications.mApplicationObservers->lookup(anApplicationName, lk);
+    
+    if(err != kTTErrValueNotFound){
+        // get the observers list
+        lk_o = TTListPtr((TTPtr)lk[0]);
+        
+        // is observer exists ?
+        o = TTValue(anObserver);
+        err = lk_o->findEquals(o, v);
+        if(!err)
+            lk_o->remove(v);
+        
+        // was it the last observer ?
+        if(lk_o->getSize() == 0) {
+            // remove the key
+            TTModular->mApplications.mApplicationObservers->remove(anApplicationName);
+        }
+    }
+    
+    // disable observers protection
+    TTModular->mApplications.mApplicationObserversMutex->unlock();
+    
+    return err;
 }
 
 TTErr TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data)
@@ -1222,7 +1198,7 @@ TTErr TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data)
 	// set the activityIn attribute of the local application
 	v = data;
 	v.prepend(aProtocolName);
-	TTModularApplications->mLocalApplication->setAttributeValue(kTTSym_activityIn, v);
+	TTModular->mApplications.mLocalApplication->setAttributeValue(kTTSym_activityIn, v);
 	
 	return kTTErrNone;
 }
@@ -1240,7 +1216,7 @@ TTErr TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data
 	// set the activityOut attribute of the local application
 	v = data;
 	v.prepend(aProtocolName);
-	TTModularApplications->mLocalApplication->setAttributeValue(kTTSym_activityOut, v);
+	TTModular->mApplications.mLocalApplication->setAttributeValue(kTTSym_activityOut, v);
 	
 	return kTTErrNone;
 }

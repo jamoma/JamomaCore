@@ -102,14 +102,4 @@ thisTTClass :: thisTTClass (const TTValue& arguments) : TTDataObjectBase(argumen
 	\
 	TT_MODULAR_CONSTRUCTOR
 
-
-// Macro to retreive a namespace by name
-#define lookupNamespace(namespaceName) TTModularNamespacesLookup(namespaceName)
-
-/** The main objects of TTModular */
-extern	TTMODULAR_EXPORT	TTHashPtr	TTModularNamespaces;
-
-/** Get a namespace */
-TTAddressItemPtr	TTMODULAR_EXPORT	TTModularNamespacesLookup(TTSymbol namespaceName);
-
 #endif // __TT_MODULAR_INCLUDES_H__

@@ -2,7 +2,6 @@ defines:
   - TTMODULAR_EXPORTS
 
 sources:
-  - source/TTModularAPI.cpp
   - source/TTModular.cpp
   - source/TTModularSymbolCache.cpp
   - PeerObject/TTApplication.cpp

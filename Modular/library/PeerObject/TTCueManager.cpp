@@ -1351,7 +1351,7 @@ TTAddressItemPtr TTCueManager::getNamespace()
     
 	if (!aNamespace) {
         
-        TTModularApplications->getAttributeValue(TTSymbol("applicationNames"), v);
+        TTModular->mApplications.get(TTSymbol("applicationNames"), v);
         
         // fill the default namespace with the local directory
         if (v.size() == 1) {
