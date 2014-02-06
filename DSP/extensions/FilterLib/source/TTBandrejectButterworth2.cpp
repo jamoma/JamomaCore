@@ -1,12 +1,12 @@
-/* 
+/*
  * TTBlue 2nd order Butterworth Band Reject Filter Object
  * Copyright © 2008, Trond Lossius
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTBandRejectButterworth2.h"
+#include "TTBandrejectButterworth2.h"
 
 #define thisTTClass			TTBandrejectButterworth2
 #define thisTTClassName		"bandreject.butterworth.2"
@@ -50,7 +50,7 @@ TTErr TTBandrejectButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumCha
 	mX1.resize(mMaxNumChannels);
 	mX2.resize(mMaxNumChannels);
 	mY1.resize(mMaxNumChannels);
-	mY2.resize(mMaxNumChannels);	
+	mY2.resize(mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }

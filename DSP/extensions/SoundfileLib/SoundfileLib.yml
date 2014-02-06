@@ -7,7 +7,7 @@ sources:
   - sources/TTSoundfileRecorder.cpp
   - tests/TTSoundfile.test.cpp
   - tests/TTSoundfileLoader.test.cpp
-  
+
 includes:
   - "includes"
   - "libsndfile"
@@ -17,12 +17,13 @@ includes:
 libraries:
   - FOUNDATION
   - DSP
-  - libsndfile/libsndfile-jamoma.a
-  - libsndfile/lib/libFLAC-jamoma.a
-  - libsndfile/lib/libogg-jamoma.a
-  - libsndfile/lib/libvorbis-jamoma.a
-  - libsndfile/lib/libvorbisenc-jamoma.a
-  - libsndfile/lib/libvorbisfile-jamoma.a
+  - mac libsndfile/libsndfile-jamoma.a
+  - mac libsndfile/lib/libFLAC-jamoma.a
+  - mac libsndfile/lib/libogg-jamoma.a
+  - mac libsndfile/lib/libvorbis-jamoma.a
+  - mac libsndfile/lib/libvorbisenc-jamoma.a
+  - mac libsndfile/lib/libvorbisfile-jamoma.a
+  - linux sndfile
 
 frameworks:
   - Carbon
