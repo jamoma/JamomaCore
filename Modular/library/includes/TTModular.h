@@ -194,19 +194,25 @@ public:
      @return true if the attribute is a TTSymbol */
     TTBoolean ProtocolIsAttributeSymbol(const TTSymbol attribute);
 
-    /** Set a protocol integer attribute
+    /** Set a protocol integer attribute for an application
+     @param protocolName                the protocol to setup
+     @param applicationName             the application to setup
      @param attribute                   an attribute name
      @param value                       an #TTUInt32 value
      @return #kTTErrInvalidAttribute if the attribute doesn't exist, #kTTErrGeneric for any other reasons */
-    TTErr   ProtocolSetIntegerAttribute(const TTSymbol applicationName,
+    TTErr   ProtocolSetIntegerAttribute(const TTSymbol protocolName,
+                                        const TTSymbol applicationName,
                                         const TTSymbol attribute,
                                         const TTUInt32 value);
     
-    /** Set a protocol TTSymbol attribute
+    /** Set a protocol TTSymbol attribute for an application
+     @param protocolName                the protocol to setup
+     @param applicationName             the application to setup
      @param attribute                   an attribute name
      @param value                       an #TTSymbol value
      @return #kTTErrInvalidAttribute if the attribute doesn't exist, #kTTErrGeneric for any other reasons */
-    TTErr   ProtocolSetSymbolAttribute(const TTSymbol applicationName,
+    TTErr   ProtocolSetSymbolAttribute(const TTSymbol protocolName,
+                                       const TTSymbol applicationName,
                                        const TTSymbol attribute,
                                        const TTSymbol value);
     
