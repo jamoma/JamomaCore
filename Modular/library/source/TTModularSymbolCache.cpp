@@ -59,8 +59,9 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_address                          (("addre
 TTMODULAR_EXPORT TTSymbol       kTTSym_addresses                        (("addresses"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_alias                            (("alias"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_alphabetic                       (("alphabetic"));
-TTMODULAR_EXPORT TTSymbol       kTTSym_attributes                       (("attributes"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_array                            (("array"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_attributes                       (("attributes"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_author                           (("author"));
 
 TTMODULAR_EXPORT TTSymbol       kTTSym_boolean                          (("boolean"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_brothers                         (("brothers"));
@@ -172,6 +173,7 @@ TTMODULAR_EXPORT TTSymbol       kTTSym_Update                           (("Updat
 TTMODULAR_EXPORT TTSymbol       kTTSym_value                            (("value"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_valueDefault                     (("valueDefault"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_valueStepsize					(("valueStepsize"));
+TTMODULAR_EXPORT TTSymbol       kTTSym_version                          (("version"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_viewFreeze                       (("viewFreeze"));
 TTMODULAR_EXPORT TTSymbol       kTTSym_view                             (("view"));
 

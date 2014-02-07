@@ -61,8 +61,10 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_address;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_addresses;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_alias;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_alphabetic;
-extern TTMODULAR_EXPORT TTSymbol    kTTSym_attributes;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_array;
+extern TTMODULAR_EXPORT TTSymbol    kTTSym_attributes;
+extern TTMODULAR_EXPORT TTSymbol    kTTSym_author;
+
 
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_boolean;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_brothers;
@@ -174,6 +176,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_Update;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_value;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_valueDefault;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_valueStepsize;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_version;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_viewFreeze;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_view;
 
