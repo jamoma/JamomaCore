@@ -25,7 +25,7 @@
 #pragma mark Initialisation
 #endif
 
-/** Initialize the Modular library 
+/** Initialize the Modular library and intanciate the TTModular object
  @param binaries                    path to the Jamoma libraries and extensions binaries folder to load them */
 void TTMODULAR_EXPORT TTModularInit(const char* binaries = NULL);
 
@@ -192,7 +192,7 @@ public:
     /** Ask if a protocol attribute is a TTSymbol
      @param attribute                   an attribute name
      @return true if the attribute is a TTSymbol */
-    TTBoolean ProtocolIsAttributeString(const TTSymbol attribute);
+    TTBoolean ProtocolIsAttributeSymbol(const TTSymbol attribute);
 
     /** Set a protocol integer attribute
      @param attribute                   an attribute name
@@ -206,7 +206,7 @@ public:
      @param attribute                   an attribute name
      @param value                       an #TTSymbol value
      @return #kTTErrInvalidAttribute if the attribute doesn't exist, #kTTErrGeneric for any other reasons */
-    TTErr   ProtocolSetStringAttribute(const TTSymbol applicationName,
+    TTErr   ProtocolSetSymbolAttribute(const TTSymbol applicationName,
                                        const TTSymbol attribute,
                                        const TTSymbol value);
     

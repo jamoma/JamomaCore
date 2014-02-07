@@ -359,7 +359,7 @@ TTBoolean Modular::ProtocolIsAttributeInteger(const TTSymbol attribute)
     return NO;
 }
 
-TTBoolean Modular::ProtocolIsAttributeString(const TTSymbol attribute)
+TTBoolean Modular::ProtocolIsAttributeSymbol(const TTSymbol attribute)
 {
     return NO;
 }
@@ -369,7 +369,7 @@ TTErr Modular::ProtocolSetIntegerAttribute(const TTSymbol applicationName, const
     return kTTErrGeneric;
 }
 
-TTErr Modular::ProtocolSetStringAttribute(const TTSymbol applicationName, const TTSymbol attribute, const TTSymbol value)
+TTErr Modular::ProtocolSetSymbolAttribute(const TTSymbol applicationName, const TTSymbol attribute, const TTSymbol value)
 {
     return kTTErrGeneric;
 }
