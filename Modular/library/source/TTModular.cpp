@@ -100,7 +100,7 @@ void TTModularInit(const char* binaries)
     TTViewer::registerClass();
     TTXmlHandler::registerClass();
     
-    // to - this a very strange bug : the two first toString() parsing on number failed !?!
+    // Théo : this is a very strange bug : the two first toString() parsing on number failed !?!
     // so here are two parsing to avoid this strange bug for instant ...
     TTString s;
     
@@ -136,21 +136,50 @@ void TTModularInit(const char* binaries)
 
 #if 0
 #pragma mark -
+#pragma mark Backup management
+#endif
+
+TTErr Modular::WriteAsXml(const TTSymbol filepath)
+{
+    TTValue     none;
+    TTObject    anXmlHandler = TTObject(kTTSym_XmlHandler);
+    
+    // Set the application manager as the writer object
+    anXmlHandler.set(kTTSym_object, mApplicationManager);
+    
+    // Write the file
+    return anXmlHandler.send(kTTSym_Write, filepath, none);
+}
+
+TTErr Modular::ReadFromXml(const TTSymbol filepath)
+{
+    TTValue     none;
+    TTObject    anXmlHandler = TTObject(kTTSym_XmlHandler);
+    
+    // Set the application manager as the reader object
+    anXmlHandler.set(kTTSym_object, mApplicationManager);
+    
+    // Read the file
+    return anXmlHandler.send(kTTSym_Read, filepath, none);
+}
+
+#if 0
+#pragma mark -
 #pragma mark Applications management
 #endif
 
 TTErr Modular::ApplicationCreateLocal(const TTSymbol applicationName, const TTSymbol applicationVersion, const TTSymbol applicationAuthor, const TTSymbol applicationConfiguration)
 {
     // if the local application doesn't exist yet
-    if (ApplicationGetObject(ApplicationLocalName()) == NULL) {
+    if (ApplicationGetLocalName() != applicationName) {
         
         TTValue		args, none;
         TTObject	anApplication, anXmlHandler;
         
-        // create the application
+        // Create the application
         anApplication = TTObject(kTTSym_Application, applicationName);
 
-        // set it as local application
+        // Set it as local application
         mApplicationManager.set(TTSymbol("applicationLocal"), anApplication);
         
         // Read xml configuration file
@@ -161,12 +190,25 @@ TTErr Modular::ApplicationCreateLocal(const TTSymbol applicationName, const TTSy
         return kTTErrNone;
     }
         
-    TTLogMessage("Modular -- \"%s\" application already exists", ApplicationLocalName().c_str());
+    TTLogMessage("Modular::ApplicationCreateLocal : \"%s\" application already exists", applicationName.c_str());
     return kTTErrGeneric;
 }
 
 TTErr Modular::ApplicationCreateDistant(const TTSymbol applicationName)
 {
+    // if the application doesn't exist yet
+    if (ApplicationGetObject(applicationName) == NULL) {
+        
+        TTValue		args, none;
+        TTObject	anApplication, anXmlHandler;
+        
+        // Create the application
+        anApplication = TTObject(kTTSym_Application, applicationName);
+        
+        return kTTErrNone;
+    }
+    
+    TTLogMessage("Modular::ApplicationCreateDistant : \"%s\" application already exists", applicationName.c_str());
     return kTTErrGeneric;
 }
 
@@ -187,26 +229,52 @@ TTSymbol Modular::ApplicationGetLocalName()
 
 TTErr Modular::ApplicationDump(const TTSymbol applicationName)
 {
-    return kTTErrGeneric;
-}
-
-TTErr Modular::ApplicationWriteAsXml(const TTSymbol filepath)
-{
-    return kTTErrGeneric;
-}
-
-TTErr Modular::ApplicationReadFromXml(const TTSymbol filepath)
-{
+    TTValue             v = applicationName;
+    TTObject            anApplication;
+    TTNodeDirectoryPtr  aDirectory;
+    
+    if (!mApplicationManager.get("application", v)) {
+        
+        anApplication = v[0];
+        
+        anApplication.get("directory", v);
+        
+        aDirectory = TTNodeDirectoryPtr(TTPtr(v[0]));
+        
+        // TODO : dump the directory
+        return kTTErrGeneric;
+    }
+    
     return kTTErrGeneric;
 }
 
 TTErr Modular::ApplicationAttributeSet(const TTSymbol applicationName, const TTSymbol attribute, const TTValue& value)
 {
+    TTValue     v = applicationName;
+    TTObject    anApplication;
+    
+    if (!mApplicationManager.get("application", v)) {
+        
+        anApplication = v[0];
+        
+        return anApplication.set(attribute, value);
+    }
+    
     return kTTErrGeneric;
 }
 
 TTErr Modular::ApplicationAttributeGet(const TTSymbol applicationName, const TTSymbol attribute, TTValue& value)
 {
+    TTValue     v = applicationName;
+    TTObject    anApplication;
+    
+    if (!mApplicationManager.get("application", v)) {
+        
+        anApplication = v[0];
+        
+        return anApplication.get(attribute, value);
+    }
+    
     return kTTErrGeneric;
 }
 
@@ -248,27 +316,42 @@ TTObjectBasePtr Modular::ApplicationGetObject(const TTSymbol applicationName)
 
 TTErr Modular::ProtocolGetNames(TTValue& protocolNames)
 {
-    return mApplicationManager.get("protocolNames", protocolNames);;
+    return mApplicationManager.get("protocolNames", protocolNames);
 }
 
 TTBoolean Modular::ProtocolExists(const TTSymbol protocolName)
 {
-    return NO;
+    TTValue     protocolNames;
+    TTBoolean   found = NO;
+    
+    mApplicationManager.get("protocolNames", protocolNames);
+    
+    for (TTElementIter it = protocolNames.begin() ; it != protocolNames.end() ; it++) {
+        
+        found = TTSymbol(*it) == protocolName;
+        
+        if (found)
+            break;
+    }
+    
+    return found;
 }
 
 TTErr Modular::ProtocolRegisterApplication(const TTSymbol protocolName, const TTSymbol applicationName)
 {
-    return kTTErrGeneric;
+    TTValue none;
+    return ProtocolGetObject(protocolName)->sendMessage(TTSymbol("registerApplication"), applicationName, none);
 }
 
 TTErr Modular::ProtocolUnregisterApplication(const TTSymbol protocolName, const TTSymbol applicationName)
 {
-    return kTTErrGeneric;
+    TTValue none;
+    return ProtocolGetObject(protocolName)->sendMessage(TTSymbol("unregisterApplication"), applicationName, none);
 }
 
-TTErr Modular::ProtocolGetAttributeNames(TTValue& names)
+TTErr Modular::ProtocolGetAttributeNames(const TTSymbol protocolName, TTValue& names)
 {
-    return kTTErrGeneric;
+    return ProtocolGetObject(protocolName)->getAttributeValue(TTSymbol("parameterNames"), names);       // théo : this need to be tested
 }
 
 TTBoolean Modular::ProtocolIsAttributeInteger(const TTSymbol attribute)

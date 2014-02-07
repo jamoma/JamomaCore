@@ -63,6 +63,21 @@ public:
     
     /** Destructor : release all local datas registered and all senders and receivers */
 	~Modular(void);
+ 
+#if 0
+#pragma mark -
+#pragma mark Backup management
+#endif
+    
+    /** Save all applications and protocols setup into an xml file. This function doesn't write senders and receivers configuration.
+     @param filepath             the path where to save the namespace
+     @return #kTTErrInvalidFilepath if the file cannot be written at the given path, #kTTErrGeneric for any other reason */
+	TTErr   WriteAsXml(const TTSymbol filepath);
+    
+	/** Load applications and protocols setup from an xml file. This function doesn't read senders and receivers configuration.
+     @param filepath             the path to the file from where to load the namespace
+     @return #kTTErrInvalidFilepath if the file cannot be read at the given path, #kTTErrGeneric for any other reasons */
+	TTErr   ReadFromXml(const TTSymbol filepath);
     
 #if 0
 #pragma mark -
@@ -99,22 +114,13 @@ public:
      @return #kTTErrGeneric if the application namespace cannot be dumpr */
     TTErr   ApplicationDump(const TTSymbol applicationName);
     
-    /** Save the namespace in a xml file. This function doesn't write senders and receivers configuration.
-     @param filepath             the path where to save the namespace
-     @return #kTTErrInvalidFilepath if the file cannot be written at the given path, #kTTErrGeneric for any other reason */
-	TTErr   ApplicationWriteAsXml(const TTSymbol filepath);
-    
-	/** Load and build a namespace tree by parsing a xml file. This function doesn't read senders and receivers configuration.
-     @param filepath             the path to the file from where to load the namespace
-     @return #kTTErrInvalidFilepath if the file cannot be read at the given path, #kTTErrGeneric for any other reasons */
-	TTErr   ApplicationReadFromXml(const TTSymbol filepath);
-    
     /** Set the value of an application
      @param applicationName             any application name 
      @param attribute                   the attribute name to set :
-                                            - "version" : a TTSymbol value to change the version
-                                            - "author"  : a TTSymbol value to change the author
-                                            - "activity": a boolean value to enable the activity mechanism before to observe "/:activity/in" or "/:actvity/out" with a receiver
+                                            - kTTSym_version    : #TTSymbol to change the version
+                                            - kTTSym_author     : #TTSymbol to change the author
+                                            - kTTSym_debug      : #TTBoolean to set the application in debug mode
+                                            - kTTSym_activity   : #TTBoolean to enable the activity mechanism before to observe "/:activity/in" or "/:actvity/out" with a receiver
      @return #kTTErrInvalidAttribute if the attribute doesn't exist, #kTTErrGneric for any other reasons */
     TTErr   ApplicationAttributeSet(const TTSymbol applicationName,
                                     const TTSymbol attribute,
@@ -123,9 +129,10 @@ public:
 	/** Get the value of an application
      @param applicationName             any application name
      @param attribute                   the attribute name to get :
-                                            - "version" : a TTSymbol value to change the version
-                                            - "author"  : a TTSymbol value to change the author
-                                            - "activity": a boolean value to enable the activity mechanism before to observe "/:activity/in" or "/:actvity/out" with a receiver 
+                                            - kTTSym_version    : #TTSymbol to change the version
+                                            - kTTSym_author     : #TTSymbol to change the author
+                                            - kTTSym_debug      : #TTBoolean to set the application in debug mode
+                                            - kTTSym_activity   : #TTBoolean to enable the activity mechanism before to observe "/:activity/in" or "/:actvity/out" with a receiver
      @return #kTTErrInvalidAttribute if the attribute doesn't exist, #kTTErrGneric for any other reasons */
 	TTErr   ApplicationAttributeGet(const TTSymbol applicationName,
                                     const TTSymbol attribute,
@@ -171,9 +178,11 @@ public:
                                           const TTSymbol applicationName);
     
     /** Get all attributes of a protocol
+     @param protocolName                the protocol to get the attribute names from
      @param names                       the returned attribute names
      @return #kTTErrGeneric if the protocol have no attribute */
-    TTErr   ProtocolGetAttributeNames(TTValue& names);
+    TTErr   ProtocolGetAttributeNames(const TTSymbol protocolName,
+                                      TTValue& names);
     
     /** Ask if a protocol attribute is an integer
      @param attribute                   an attribute name
@@ -187,7 +196,7 @@ public:
 
     /** Set a protocol integer attribute
      @param attribute                   an attribute name
-     @param value                       an integer value
+     @param value                       an #TTUInt32 value
      @return #kTTErrInvalidAttribute if the attribute doesn't exist, #kTTErrGeneric for any other reasons */
     TTErr   ProtocolSetIntegerAttribute(const TTSymbol applicationName,
                                         const TTSymbol attribute,
@@ -195,7 +204,7 @@ public:
     
     /** Set a protocol TTSymbol attribute
      @param attribute                   an attribute name
-     @param value                       an TTSymbol value
+     @param value                       an #TTSymbol value
      @return #kTTErrInvalidAttribute if the attribute doesn't exist, #kTTErrGeneric for any other reasons */
     TTErr   ProtocolSetStringAttribute(const TTSymbol applicationName,
                                        const TTSymbol attribute,
@@ -243,10 +252,10 @@ public:
                                             - distantApp:/any/level/name.instance to access to a data into the distantApp application
      @param attribute                   the attribute name to set :
                                             - kTTSym_value                   :   the data value
-                                            - kTTSym_valueDefault            :   the default value recalled on "Init" method
+                                            - kTTSym_valueDefault            :   the default value recalled on Init method
                                             - kTTSym_valueStepsize           :   amount to increment or decrement by
      
-                                            - kTTSym_type                    :   type of this data's value ("none", "generic" (default), "integer", "decimal", "TTSymbol", "array")
+                                            - kTTSym_type                    :   type of this data's value (kTTSym_none, kTTSym_generic (default), kTTSym_integer, kTTSym_decimal, kTTSym_string, kTTSym_array)
                                             - kTTSym_tag                     :   tag list for this data
                                             - kTTSym_priority                :   does this data have a priority over other datas ? (0 means no priority then 1 is the highest priority)
                                             - kTTSym_description             :   text to describe the role of this data
@@ -255,9 +264,9 @@ public:
                                             - kTTSym_initialized             :   is the value attribute has been initialized ?
      
                                             - kTTSym_rangeBounds             :   low and a high bounds values
-                                            - kTTSym_rangeClipmode           :   behavior at the bounds ("low", "high", "wrap", "fold")
+                                            - kTTSym_rangeClipmode           :   behavior at the bounds (kTTSym_low, kTTSym_high, kTTSym_wrap, kTTSym_fold)
      
-                                            - kTTSym_rampDrive               :   the scheduler unit to use for the ramp ("none or "System")
+                                            - kTTSym_rampDrive               :   the scheduler unit to use for the ramp (kTTSym_none or "System")
                                             - kTTSym_rampFunction            :   the function used by the ramping
                                             - kTTSym_rampFunctionParameters  :   names of parameter's function
                                             - kTTSym_rampStatus              :   is the ramp running ?
@@ -278,10 +287,10 @@ public:
                                             - distantApp:/any/level/name.instance to access to a data into the distantApp application
      @param attribute                   the attribute name to get :
                                             - kTTSym_value                   :   the data value
-                                            - kTTSym_valueDefault            :   the default value recalled on "Init" method
+                                            - kTTSym_valueDefault            :   the default value recalled on Init method
                                             - kTTSym_valueStepsize           :   amount to increment or decrement by
      
-                                            - kTTSym_type                    :   type of this data's value ("none", "generic" (default), "integer", "decimal", "TTSymbol", "array")
+                                            - kTTSym_type                    :   type of this data's value (kTTSym_none, kTTSym_generic (default), kTTSym_integer, kTTSym_decimal, kTTSym_string, kTTSym_array)
                                             - kTTSym_tag                     :   tag list for this data
                                             - kTTSym_priority                :   does this data have a priority over other datas ? (0 means no priority then 1 is the highest priority)
                                             - kTTSym_description             :   text to describe the role of this data
@@ -290,9 +299,9 @@ public:
                                             - kTTSym_initialized             :   is the value attribute has been initialized ?
      
                                             - kTTSym_rangeBounds             :   low and a high bounds values
-                                            - kTTSym_rangeClipmode           :   behavior at the bounds ("low", "high", "wrap", "fold")
+                                            - kTTSym_rangeClipmode           :   behavior at the bounds (kTTSym_low, kTTSym_high, kTTSym_wrap, kTTSym_fold)
      
-                                            - kTTSym_rampDrive               :   the scheduler unit to use for the ramp ("none or "System")
+                                            - kTTSym_rampDrive               :   the scheduler unit to use for the ramp (kTTSym_none or "System")
                                             - kTTSym_rampFunction            :   the function used by the ramping
                                             - kTTSym_rampFunctionParameters  :   names of parameter's function
                                             - kTTSym_rampStatus              :   is the ramp running ?
