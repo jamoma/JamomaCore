@@ -208,7 +208,7 @@ TTErr TTHalfband9::calculateUpsample(const TTFloat64& x, TTFloat64& y, TTPtrSize
 		mRSwitch[channel] = 1;
 	}
 	
-	TTBASE(mDelay, TTAllpass1a)mDelay->calculateValue(mY1[channel], temp, channel);
+	TTBASE(mDelay, TTAllpass1a)->calculateValue(mY1[channel], temp, channel);
 	y = (mY0[channel] + temp) * 0.5;
 
 	return kTTErrNone;
