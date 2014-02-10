@@ -1,10 +1,18 @@
-/* 
- * 5th-order lowpass/highpass filter built up from a 2-path allpass structure
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTMirror5 is a 5th-order lowpass/highpass filter built up from a 2-path allpass structure
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTMirror5.h"
 

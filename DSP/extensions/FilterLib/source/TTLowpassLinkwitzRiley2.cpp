@@ -1,8 +1,20 @@
-/* 
- * TTBlue 4th order Linkwitz Riley Lowpass filter
- * Copyright © 2008, Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTLowpassLinkwitzRiley2 is a second-order Linkwitz-Riley lowpass filter.
+ *
+ * @details Filter equations from: @n
+ *  @n
+ *  Second-order IIR Filters will support cascade implementations @n
+ *  By Rusty Allred, Texas Instruments, Dallas @n
+ *  July 01, 2003 @n
+ *  http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
+ *
+ * @authors Trond Lossius, Timothy Place,
+ *
+ * @copyright Copyright © 2008, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 

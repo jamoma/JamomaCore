@@ -1,10 +1,20 @@
-/* 
- * Fourth-Order Allpass Filter Object for Jamoma DSP
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTAllpass4a is a fourth-order allpass filter.
+ *
+ * @details Essentially the same as #TTAllpass2a, but with some signs flipped.
+ *  Based on Fredric J. Harris (2004): Multirate Signal Processing for Communication Systems, Prentice Hall, Chapter 10, Figure 42.
+ *
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAllpass4a.h"
 

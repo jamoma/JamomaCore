@@ -1,10 +1,31 @@
-/* 
- * TTBlue 4th order Linkwitz Riley Highpass filter
- * Copyright © 2008, Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHighpassLinkwitzRiley4 is a fourth-order Linkwitz-Riley highpass filter.
+ *
+ * @details 4th order Linkwitz-Riley filters are typically used as crossover filters, with the following properties: @n
+ *  @n
+ *  1. Absolutely flat amplitude response throughout the passband with a 6 dB/octave rolloff rate after the crossover point. @n
+ *  2. The acoustic sum of the two driver responses is unity at crossover. (Amplitude response of each is -3 dB at crossover, i.e., there is no peaking in the summed acoustic output.) @n
+ *  3. Zero phase difference between drivers at crossover. (Lobing error equals zero, i.e., no tilt to the polar radiation pattern.) In addition, the phase difference of zero degrees through crossover places the lobe of the summed acoustic output on axis at all frequencies. @n
+ *  4. The low pass and high pass outputs are everywhere in phase. (This guarantees symmetry of the polar response about the crossover point.) @n
+ *  5. All drivers are always wired the same (in phase). @n
+ *  @n
+ *	Filter equations from: @n
+ *  @n
+ *  Second-order IIR Filters will support cascade implementations @n
+ *  By Rusty Allred, Texas Instruments, Dallas @n
+ *  July 01, 2003 @n
+ *  http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
+ *
+ * @authors Trond Lossius, Timothy Place,
+ *
+ * @copyright Copyright © 2008, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTHighpassLinkwitzRiley4.h"
 

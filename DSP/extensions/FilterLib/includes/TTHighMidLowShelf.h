@@ -1,8 +1,19 @@
-/* 
- * TTBlue High-Mid-Low shelf filter 
- * portd by Nils Peters 2009, from the PD external hml_shelf~ by Thomas Musil
- * 
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHighMidLowShelf is a High-Mid-Low shelf filter 
+ *
+ * @details ported by Nils Peters 2009, from the PD external hml_shelf~ by Thomas Musil. WARNING: Possible license violation! Please refrain from using this until this has been sorted out, as we might have to remove this filter unit.
+ *
+ * @authors Thomas Musil, Nils Peters, Trond Lossius
+ *
+ * @copyright NOTE: This might be in violation of the LGPL license of the iemlib as noted in this issue: https://github.com/jamoma/JamomaCore/issues/204. Most likely we have to remove this from the library.
+ * Copyright © 2010, Thomas Musil @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef _TT_HIMIDLOW_H_
 #define _TT_HIMIDLOW_H_

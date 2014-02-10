@@ -1,10 +1,18 @@
-/* 
- * 9-Pole Halfband filter built up from a 2-path allpass structure
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHalfband9 is a 9-Pole Halfband filter built up from a 2-path allpass structure.
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_HALFBAND9_H__
 #define __TT_HALFBAND9_H__

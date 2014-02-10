@@ -1,10 +1,18 @@
-/* 
- * First-Order Allpass Filter Object for Jamoma DSP
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTAllpass1b is a first-order building-block allpass filter.
+ *
+ * @details This allpass filter uses a fixed delay of 2 samples (M=2).
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAllpass1b.h"
 
