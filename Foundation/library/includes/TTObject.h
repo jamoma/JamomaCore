@@ -211,4 +211,13 @@ public:
 };
 
 
+/** Macro to access the actual C++ class that is contained inside of the #TTObject as a pointer.
+ @ingroup macros
+ @param instance_	The #TTObject to peek inside.
+ @param class_		The C++ class name represented by the #TTObject.
+ @return			Pointer to the C++ class contained inside of the #TTObject.
+ */
+#define TTBASE( instance_ , class_ )  ((class_*)instance_.instance())
+
+
 #endif // __TT_OBJECT_H__
