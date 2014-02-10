@@ -34,14 +34,14 @@ class TTHilbertLinear33 : TTAudioObjectBase {
 
 protected:
 
-	TTDelay*		mP0Delay;	///< path0, pure delay, 16 samples
+	TTAudioObject	mP0Delay;	///< path0, pure delay, 16 samples
 	
-	TTAllpass1a*	mP1Delay;	///< path1
-	TTAllpass1b*	mF0;		///< path1
-	TTAllpass1b*	mF1;		///< path1
-	TTAllpass2b*	mF2;		///< path1
-	TTAllpass2b*	mF3;		///< path1
-	TTAllpass2b*	mF4;		///< path1	
+	TTAudioObject	mP1Delay;	///< path1
+	TTAudioObject	mF0;		///< path1
+	TTAudioObject	mF1;		///< path1
+	TTAudioObject	mF2;		///< path1
+	TTAudioObject	mF3;		///< path1
+	TTAudioObject	mF4;		///< path1
 	
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
