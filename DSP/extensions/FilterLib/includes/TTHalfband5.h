@@ -24,11 +24,11 @@ class TTHalfband5 : TTAudioObjectBase {
 
 protected:
 
-	TTAllpass1b*	mF0;		///< filter0 (in the upper path)
-	TTAllpass1b*	mF1;		///< filter1 (in the lower path, second block)
-	TTAllpass1a*	mDelay;		///< delay   (in the lower path, first block)
-	TTAllpass1a*	mR0;		///< resampling filter0 (in the upper path)
-	TTAllpass1a*	mR1;		///< resampling filter1 (in the lower path, second block)
+	TTAudioObject	mF0;		///< filter0 (in the upper path)
+	TTAudioObject	mF1;		///< filter1 (in the lower path, second block)
+	TTAudioObject	mDelay;		///< delay   (in the lower path, first block)
+	TTAudioObject	mR0;		///< resampling filter0 (in the upper path)
+	TTAudioObject	mR1;		///< resampling filter1 (in the lower path, second block)
 	TTSampleVector	mRSwitch;	///< resampling switch (so we know which path to calculate)
 	TTSampleVector	mY0;		///< resampling path0 output (for each channel)
 	TTSampleVector	mY1;		///< resampling path1 output (for each channel)	
