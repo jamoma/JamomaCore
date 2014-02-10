@@ -2,7 +2,7 @@
  *
  * @ingroup dspFilterLib
  *
- * @brief Unit test for a FilterLib filter unit.
+ * @brief Unit test for the FilterLib #TTOnePole class.
  *
  * @details Currently this test is just a stub
  *
