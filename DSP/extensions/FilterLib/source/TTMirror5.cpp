@@ -17,9 +17,9 @@
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
-	mF0(NULL),
-	mF1(NULL),
-	mF2(NULL)
+	mF0("allpass.2a"),
+	mF1("allpass.1a"),
+	mF2("allpass.2a")
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 
@@ -27,10 +27,6 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(Frequency, kTypeFloat64);
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
-
-	TTObjectBaseInstantiate(TT("allpass.2a"), (TTObjectBasePtr*)&mF0, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mF1, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.2a"), (TTObjectBasePtr*)&mF2, initialMaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"),			TT("lowpass"));
@@ -40,17 +36,14 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTMirror5::~TTMirror5()
 {
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF0);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF1);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF2);
 }
 
 
 TTErr TTMirror5::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mF0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mF1->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mF2->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF0.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF1.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF2.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }
@@ -58,9 +51,9 @@ TTErr TTMirror5::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&
 
 TTErr TTMirror5::clear()
 {
-	mF0->sendMessage(kTTSym_clear);
-	mF1->sendMessage(kTTSym_clear);
-	mF2->sendMessage(kTTSym_clear);
+	mF0.send(kTTSym_clear);
+	mF1.send(kTTSym_clear);
+	mF2.send(kTTSym_clear);
 	return kTTErrNone;
 }
 
@@ -96,14 +89,14 @@ TTErr TTMirror5::setFrequency(const TTValue& newValue)
 	TTFloat64		c_1 = ((2.0 * b) + (2.0 * b * alpha_0)) / (1 + alpha_0 * (b * b));
 	TTFloat64		c_2 = ((b*b) + alpha_0) / (1 + alpha_0 * (b*b));
 	
-	mF0->setAttributeValue(TT("c1"), c_1);
-	mF0->setAttributeValue(TT("c2"), c_2);
+	mF0.set(TT("c1"), c_1);
+	mF0.set(TT("c2"), c_2);
 
 	c_1 = ((2.0 * b) + (2.0 * b * alpha_1)) / (1 + alpha_1 * (b * b));
 	c_2 = ((b*b) + alpha_1) / (1 + alpha_1 * (b*b));
-	mF1->setAttributeValue(TT("alpha"), b);
-	mF2->setAttributeValue(TT("c1"), c_1);
-	mF2->setAttributeValue(TT("c2"), c_2);
+	mF1.set(TT("alpha"), b);
+	mF2.set(TT("c1"), c_1);
+	mF2.set(TT("c2"), c_2);
 
 	return kTTErrNone;
 }
@@ -113,10 +106,10 @@ inline void TTMirror5::filterKernel(const TTFloat64& input, TTFloat64& outputPat
 {
 	TTFloat64 temp;
 	
-	mF0->calculateValue(input,	outputPath0,	channel);
+	TTBASE(mF0, TTAllpass2a)->calculateValue(input,	outputPath0,	channel);
 	
-	mF1->calculateValue(input,	temp,			channel);
-	mF2->calculateValue(temp,	outputPath1,	channel);
+	TTBASE(mF1, TTAllpass1a)->calculateValue(input,	temp,			channel);
+	TTBASE(mF2, TTAllpass2a)->calculateValue(temp,	outputPath1,	channel);
 }
 
 
