@@ -33,7 +33,7 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue(TT("mode"), TT("lowpass"));
 		
 	// for the simple 1-sample delay, we set alpha (the feedback coefficient) to zero
-	mDelay.set(TT("alpha"), 0.0);
+	mDelay.set("alpha", 0.0);
 	
 	// -60 db attenuation, stopband starts at fs * 0.37
 	//mF0->setAttributeValue(TT("alpha"), 0.1413486);
@@ -42,10 +42,10 @@ TT_AUDIO_CONSTRUCTOR,
 	//mR1->setAttributeValue(TT("alpha"), 0.5899948);
 	
 	// -83 db attenuation, stopband starts at f_s * 0.42
-	mF0.set(TT("alpha"), 0.117266261862726);
-	mF1.set(TT("alpha"), 0.549470222366184);
-	mR0.set(TT("alpha"), 0.117266261862726);
-	mR1.set(TT("alpha"), 0.549470222366184);
+	mF0.set("alpha", 0.117266261862726);
+	mF1.set("alpha", 0.549470222366184);
+	mR0.set("alpha", 0.117266261862726);
+	mR1.set("alpha", 0.549470222366184);
 }
 
 

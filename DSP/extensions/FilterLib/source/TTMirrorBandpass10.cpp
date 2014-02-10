@@ -109,10 +109,10 @@ TTErr TTMirrorBandpass10::calculateCoefficients(void)
 	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;	// This equation is wrong in the Safari-online version of the F.H. Book
 	d_4 = (alpha + b*b)							/  d_0;
 	
-	mF0.set(TT("d1"), d_1);
-	mF0.set(TT("d2"), d_2);
-	mF0.set(TT("d3"), d_3);
-	mF0.set(TT("d4"), d_4);
+	mF0.set("d1", d_1);
+	mF0.set("d2", d_2);
+	mF0.set("d3", d_3);
+	mF0.set("d4", d_4);
 	
 	// Path-1
 	
@@ -129,10 +129,10 @@ TTErr TTMirrorBandpass10::calculateCoefficients(void)
 	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;	// This equation is wrong in the Safari-online version of the F.H. Book
 	d_4 = (alpha + b*b)							/  d_0;
 	
-	mF2.set(TT("d1"), d_1);
-	mF2.set(TT("d2"), d_2);
-	mF2.set(TT("d3"), d_3);
-	mF2.set(TT("d4"), d_4);
+	mF2.set("d1", d_1);
+	mF2.set("d2", d_2);
+	mF2.set("d3", d_3);
+	mF2.set("d4", d_4);
 	
 	return kTTErrNone;
 

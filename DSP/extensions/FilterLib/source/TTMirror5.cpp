@@ -89,14 +89,14 @@ TTErr TTMirror5::setFrequency(const TTValue& newValue)
 	TTFloat64		c_1 = ((2.0 * b) + (2.0 * b * alpha_0)) / (1 + alpha_0 * (b * b));
 	TTFloat64		c_2 = ((b*b) + alpha_0) / (1 + alpha_0 * (b*b));
 	
-	mF0.set(TT("c1"), c_1);
-	mF0.set(TT("c2"), c_2);
+	mF0.set("c1", c_1);
+	mF0.set("c2", c_2);
 
 	c_1 = ((2.0 * b) + (2.0 * b * alpha_1)) / (1 + alpha_1 * (b * b));
 	c_2 = ((b*b) + alpha_1) / (1 + alpha_1 * (b*b));
-	mF1.set(TT("alpha"), b);
-	mF2.set(TT("c1"), c_1);
-	mF2.set(TT("c2"), c_2);
+	mF1.set("alpha", b);
+	mF2.set("c1", c_1);
+	mF2.set("c2", c_2);
 
 	return kTTErrNone;
 }
