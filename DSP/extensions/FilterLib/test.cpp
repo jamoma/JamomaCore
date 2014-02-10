@@ -1,13 +1,21 @@
-//
-//  test.cpp
-//  JamomaTest
-//
-//  Created by Nathan Wolek on 11/20/13.
-//  NOTE: When copying to other projects, be sure to customize the lines indicated
-//  This file will find all classes with a common tag and run any "test" methods present in those classes.
-//  If running any test fails, the build of the project will either fail or complete with errors.
-//  If not test method is found, the terminal output will suggest that you should create a test.
-//
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief Unit tests for the FilterLib extention
+ *
+ * @details When copying to other projects, be sure to customize the lines indicated
+ * This file will find all classes with a common tag and run any "test" methods present in those classes.
+ * If running any test fails, the build of the project will either fail or complete with errors.
+ * If no test method is found, the terminal output will suggest that you should create a test.
+ *
+ * @authors Nathan Wolek, Trond Lossius
+ *
+ * @copyright Copyright © 2013, Nathan Wolek @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
 
 #include <iostream>
 #include "TTFoundationAPI.h"

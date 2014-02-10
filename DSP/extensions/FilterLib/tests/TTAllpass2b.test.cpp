@@ -2,7 +2,7 @@
  *
  * @ingroup dspFilterLib
  *
- * @brief Unit test for a FilterLib filter unit.
+ * @brief Unit test for the FilterLib TTAllpass2b class.
  *
  * @details Currently this test is just a stub
  *
