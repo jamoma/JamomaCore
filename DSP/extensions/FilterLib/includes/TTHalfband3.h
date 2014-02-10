@@ -22,9 +22,9 @@ class TTHalfband3 : TTAudioObjectBase {
 
 protected:
 
-	TTAllpass1b*	mF0;		///< path0 (used by lowpass/highpass modes)
-	TTAllpass1a*	mDelay;		///< pure delay (used by lowpass/highpass modes)
-	TTAllpass1a*	mR0;		///< path 0 (used by resampling modes)
+	TTAudioObject	mF0;		///< path0 (used by lowpass/highpass modes)
+	TTAudioObject	mDelay;		///< pure delay (used by lowpass/highpass modes)
+	TTAudioObject	mR0;		///< path 0 (used by resampling modes)
 	TTSampleVector	mX1;		///< previous input sample (for each channel)	
 	TTSymbol		mMode;		///< Attribute: upsample or downsample
 	

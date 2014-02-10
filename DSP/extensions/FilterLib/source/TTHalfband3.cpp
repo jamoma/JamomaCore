@@ -17,47 +17,39 @@
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
-	mF0(NULL),
-	mDelay(NULL),
-	mR0(NULL)	
+	mF0("allpass.1b"),
+	mDelay("allpass.1a"),
+	mR0("allpass.1a")
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
 	addUpdates(MaxNumChannels);
 
-	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF0, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mR0, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mDelay, initialMaxNumChannels);
-
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), TT("lowpass"));
 	
 	// this coefficient gives w0 (stopband edge) at 0.48 * F_nyquist, with an attentuation of -85dB
-	mF0->setAttributeValue(TT("alpha"), 0.334654061320571);
-	mR0->setAttributeValue(TT("alpha"), 0.334654061320571);
+	mF0.set("alpha", 0.334654061320571);
+	mR0.set("alpha", 0.334654061320571);
 	
 	// this coefficient gives w0 (stopband edge) at 0.45 * F_nyquist, with an attentuation of -60dB
 	//mF0->setAttributeValue(TT("alpha"), 0.341748648258737);
 	//mR0->setAttributeValue(TT("alpha"), 0.341748648258737);
-	
-	mDelay->setAttributeValue(TT("alpha"), 0.0);
+	mDelay.set("alpha", 0.0);
 }
 
 
 TTHalfband3::~TTHalfband3()
 {
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF0);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mR0);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mDelay);
 }
 
 
 TTErr TTHalfband3::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	// update internal filters
-	mF0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mR0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF0.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR0.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	
 	// update ourselves
 	mX1.resize(mMaxNumChannels);
@@ -102,9 +94,8 @@ TTErr TTHalfband3::calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSized
 {
 	TTFloat64 outputFromTopPath;
 	TTFloat64 outputFromBottomPathDelay;
-	
-	mF0->calculateValue(x, outputFromTopPath, channel);
-	mDelay->calculateValue(x, outputFromBottomPathDelay, channel);
+	TTBASE(mF0, TTAllpass1b)->calculateValue(x, outputFromTopPath, channel);
+	TTBASE(mDelay, TTAllpass1a)->calculateValue(x, outputFromBottomPathDelay, channel);
 	y = (outputFromTopPath + outputFromBottomPathDelay) * 0.5;
 	return kTTErrNone;
 }
@@ -115,8 +106,9 @@ TTErr TTHalfband3::calculateHighpass(const TTFloat64& x, TTFloat64& y, TTPtrSize
 	TTFloat64 outputFromTopPath;
 	TTFloat64 outputFromBottomPathDelay;
 	
-	mF0->calculateValue(x, outputFromTopPath, channel);
-	mDelay->calculateValue(x, outputFromBottomPathDelay, channel);
+	TTBASE(mF0, TTAllpass1b)->calculateValue(x, outputFromTopPath, channel);
+	TTBASE(mDelay, TTAllpass1a)->calculateValue(x, outputFromBottomPathDelay, channel);
+	
 	y = (outputFromTopPath - outputFromBottomPathDelay) * 0.5;
 	return kTTErrNone;
 }
@@ -128,8 +120,7 @@ TTErr TTHalfband3::calculateDownsample(const TTFloat64& x, TTFloat64& y, TTPtrSi
 {
 	if (mX1[channel]) {
 		TTFloat64 temp;
-
-		mR0->calculateValue(x, temp, channel);
+		TTBASE(mR0, TTAllpass1a)->calculateValue(x, temp, channel);
 		y = (temp + mX1[channel]) * 0.5;
 		mX1[channel] = 0;
 	}
@@ -145,18 +136,17 @@ TTErr TTHalfband3::calculateUpsample(const TTFloat64& x, TTFloat64& y, TTPtrSize
 {
 	TTFloat64 temp;
 	
-	mDelay->calculateValue(x, temp, channel);
+	TTBASE(mDelay, TTAllpass1a)->calculateValue(x, temp, channel);
 	if (mX1[channel]) {
 		y = (temp + mX1[channel]) * 0.5;
 		mX1[channel] = 0;
 	}
 	else {
-		mR0->calculateValue(x, mX1[channel], channel);
+		TTBASE(mR0, TTAllpass1a)->calculateValue(x, mX1[channel], channel);
 		y = (temp + mX1[channel]) * 0.5;
 	}
 	return kTTErrNone;
 }
-
 
 
 TTErr TTHalfband3::processLowpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
