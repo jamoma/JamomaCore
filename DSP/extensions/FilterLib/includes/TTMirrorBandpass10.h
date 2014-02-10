@@ -24,9 +24,9 @@ class TTMirrorBandpass10 : TTAudioObjectBase {
 
 protected:
 
-	TTAllpass4a*	mF0;				///< filter0 (in the upper path)
-	TTAllpass2c*	mF1;				///< filter1 (in the lower path, first block)
-	TTAllpass4a*	mF2;				///< filter2 (in the lower path, second block)
+	TTAudioObject	mF0;				///< filter0 (in the upper path)
+	TTAudioObject	mF1;				///< filter1 (in the lower path, first block)
+	TTAudioObject	mF2;				///< filter2 (in the lower path, second block)
 	TTFloat64		mFrequency;			///< attribute: in hertz
 	TTSymbol		mMode;				///< attribute: lowpass or highpass
 	TTFloat64		mBandwidth;			///< attribute: in hertz
