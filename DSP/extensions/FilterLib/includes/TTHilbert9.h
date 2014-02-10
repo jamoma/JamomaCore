@@ -49,12 +49,12 @@ class TTHilbert9 : TTAudioObjectBase {
 
 protected:
 
-	TTAllpass1b*	mF0;		///< path0
-	TTAllpass1b*	mF2;		///< path0
+	TTAudioObject	mF0;		///< path0
+	TTAudioObject	mF2;		///< path0
 
-	TTAllpass1b*	mF1;		///< path1
-	TTAllpass1b*	mF3;		///< path1
-	TTAllpass1a*	mDelay;		///< path1
+	TTAudioObject	mF1;		///< path1
+	TTAudioObject	mF3;		///< path1
+	TTAudioObject	mDelay;		///< path1
 		
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
