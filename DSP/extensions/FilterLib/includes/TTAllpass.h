@@ -35,13 +35,9 @@ protected:
 	
 	/**	return a list of all the available filters	*/
 	//TTErr getFilters(TTValue& listOfFilterTypesToReturn);
-		TTErr getFilters(const TTValue&, TTValue& listOfFiltersToReturn)
+	TTErr getFilters(const TTValue&, TTValue& listOfFiltersToReturn)
 	{
-		TTValue v;
-		v.resize(2);
-		v.set(0, TT("allpass"));
-		v.set(1, TT("audio")); 
-		return TTGetRegisteredClassNamesForTags(listOfFiltersToReturn, v);
+		return TTObject::GetRegisteredClassNamesForTags(listOfFiltersToReturn, TT("allpass"));
 	}
 	
 	

@@ -64,7 +64,7 @@ public:
 	
 	TTErr getTypes(const TTValue&, TTValue& listOfFilterTypesToReturn)
 	{
-		return TTGetRegisteredClassNamesForTags(listOfFilterTypesToReturn, TT("filter"));
+		return TTObject::GetRegisteredClassNamesForTags(listOfFilterTypesToReturn, TT("filter"));
 	}
 	
 	
