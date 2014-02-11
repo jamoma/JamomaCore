@@ -218,6 +218,7 @@ TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* 
 	TTObjectBasePtr	oldObject = NULL;
 
 	err = classes->lookup(className, v);
+
 	if (!err) {
 		theClass = TTClassPtr(TTPtr(v));
 

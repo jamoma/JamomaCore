@@ -446,7 +446,11 @@ namespace std
 #if defined( TT_PLATFORM_LINUX )
 		size_t operator()(const TTString& __val) const
 {
-TTLogError("uh oh -- this functions doesn't work compiled with clang on ubuntu!");
+	//TTLogError("uh oh -- this functions doesn't work compiled with clang on ubuntu!");
+	std::string str(__val.begin(), __val.end());
+	std::hash<std::string> str_hash;
+	return str_hash(str);
+
 }
 #else
 		size_t operator()(const TTString& __val) const _NOEXCEPT
