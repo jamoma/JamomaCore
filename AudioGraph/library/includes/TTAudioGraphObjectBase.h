@@ -19,7 +19,7 @@
 #define __TTAUDIOGRAPH_OBJECT_H__
 
 #include "TTAudioGraph.h"
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTAudioGraphOutlet.h"
 #include "TTAudioGraphDescription.h"
 
@@ -33,7 +33,7 @@
  *	It is implemented as a TTObjectBase so that it can receive dynamically bound messages,
  *	including notifications from other objects.
 */
-class TTAUDIOGRAPH_EXPORT TTAudioGraphObjectBase : public TTGraphObject {	
+class TTAUDIOGRAPH_EXPORT TTAudioGraphObjectBase : public TTGraphObjectBase {	
 	TTCLASS_SETUP(TTAudioGraphObjectBase)
 	
 protected:

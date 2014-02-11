@@ -57,10 +57,10 @@ public:
 };
 
 
-class	TTGraphObject;
-typedef TTGraphObject*					TTGraphObjectPtr;
-typedef std::vector<TTGraphObjectPtr>	TTGraphObjectVector;
-typedef TTGraphObjectVector::iterator	TTGraphObjectIter;
+class	TTGraphObjectBase;
+typedef TTGraphObjectBase*					TTGraphObjectBasePtr;
+typedef std::vector<TTGraphObjectBasePtr>	TTGraphObjectBaseVector;
+typedef TTGraphObjectBaseVector::iterator	TTGraphObjectBaseIter;
 
 //#include "TTGraphInlet.h"
 //#include "TTGraphOutlet.h"

@@ -30,8 +30,8 @@ typedef std::vector<TTString>		TTStringVector;
 typedef TTStringVector::iterator	TTStringVectorIter;
 
 
-/**	This object represents a single 'outlet' from a TTGraphObject.
-	TTGraphObject maintains a vector of these outlets.
+/**	This object represents a single 'outlet' from a #TTGraphObjectBase.
+	#TTGraphObjectBase maintains a vector of these outlets.
 */
 
 class TTGRAPH_EXPORT TTGraphDescription {

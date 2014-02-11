@@ -209,6 +209,8 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
                 valueAndRamp = TTValue((TTPtr)command);
                 
                 mSender->sendMessage(kTTSym_Send, valueAndRamp, none);
+                
+                delete command;
             }
             else
                 mSender->sendMessage(kTTSym_Send, outputValue, none);
@@ -886,6 +888,8 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
                 valueAndRamp = TTValue((TTPtr)command);
                 
                 aMapper->mSender->sendMessage(kTTSym_Send, valueAndRamp, none);
+                
+                delete command;
             }
             else
                 aMapper->mSender->sendMessage(kTTSym_Send, outputValue, none);
@@ -925,10 +929,6 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
             aMapper->mOutputGoingUp = newOutputGoingUp;
             aMapper->mReturnOutputGoingUpCallback->deliver(aMapper->mOutputGoingUp);
         }
-        
-        // release the command if needed
-        if (aMapper->mRamp > 0)
-            delete command;
 	}
 	
 	return kTTErrNone;

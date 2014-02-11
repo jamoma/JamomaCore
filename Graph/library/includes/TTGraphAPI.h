@@ -18,7 +18,7 @@
 #define __TTGRAPH_API_H__
 
 #include "TTGraph.h"
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 //#include "TTGraphOutput.h"
 
 #endif // __TTGRAPH_API_H__

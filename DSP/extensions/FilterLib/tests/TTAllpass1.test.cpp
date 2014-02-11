@@ -1,10 +1,18 @@
-/* 
- * Unit tests for the First-Order Allpass Filter Object for Jamoma DSP
- * Copyright © 2011, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief Unit test for the FilterLib #TTAllpass1 class.
+ *
+ * @details
+ *
+ * @authors Trond Lossius, Tim Place
+ *
+ * @copyright Copyright © 2011 by Trond Lossius & Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTAllpass1.h"
 

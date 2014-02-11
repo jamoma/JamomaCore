@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTMidiInput.h"
 #ifdef TT_PLATFORM_WIN
 #include <algorithm>

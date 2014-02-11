@@ -18,7 +18,7 @@
 
 
 // TODO: Why are this files included here rather than in the head file?
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 #include "TTAudioGraphInlet.h"		// required for windows build
 #include "TTAudioGraphInput.h"
 //#include "TTAudioEngine.h"

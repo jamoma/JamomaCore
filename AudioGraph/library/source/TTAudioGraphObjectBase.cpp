@@ -15,7 +15,7 @@
  */
 
 
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 #include "TTAudioGraphInlet.h"
 #include "TTAudioGraphOutlet.h"
 
@@ -42,7 +42,7 @@ extern "C" void TTAudioGraphObjectBase::registerClass()
 
 
 TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
-	TTGraphObject(arguments),
+	TTGraphObjectBase(arguments),
 	mStatus(kTTAudioGraphProcessUnknown),
 	mAudioFlags(kTTAudioGraphProcessor), 
 	mInputSignals(NULL), 

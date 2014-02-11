@@ -14,11 +14,11 @@
  */
 
 
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTGraphInlet.h"
 #include "TTGraphOutlet.h"
 
-#define thisTTClass			TTGraphObject
+#define thisTTClass			TTGraphObjectBase
 #define thisTTClassName		"graph.object"
 #define thisTTClassTags		"graph, wrapper"
 
@@ -53,14 +53,14 @@ TT_OBJECT_CONSTRUCTOR,
 }
 
 
-TTGraphObject::~TTGraphObject()
+TTGraphObjectBase::~TTGraphObjectBase()
 {
 	TTObjectBaseRelease(&mKernel);
 	delete mDictionary;
 }
 
 
-void TTGraphObject::prepareDescription()
+void TTGraphObjectBase::prepareDescription()
 {
 	if (valid && mDescription.mClassName != kTTSymEmpty) {
 		mDescription.sIndex = 0;
@@ -72,7 +72,7 @@ void TTGraphObject::prepareDescription()
 }
 
 
-void TTGraphObject::getDescription(TTGraphDescription& desc)
+void TTGraphObjectBase::getDescription(TTGraphDescription& desc)
 {
 	if (mDescription.mClassName != kTTSymEmpty) {		// a description for this object has already been created -- use it.
 		desc = mDescription;
@@ -90,7 +90,7 @@ void TTGraphObject::getDescription(TTGraphDescription& desc)
 }
 
 
-TTErr TTGraphObject::reset()
+TTErr TTGraphObjectBase::reset()
 {
 	for_each(mInlets.begin(), mInlets.end(), std::mem_fun_ref(&TTGraphInlet::reset));
 	for_each(mOutlets.begin(), mOutlets.end(), std::mem_fun_ref(&TTGraphOutlet::reset));
@@ -98,7 +98,7 @@ TTErr TTGraphObject::reset()
 }
 
 
-TTErr TTGraphObject::handshake(TTGraphObjectPtr objectWhichIsBeingConnected, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+TTErr TTGraphObjectBase::handshake(TTGraphObjectBasePtr objectWhichIsBeingConnected, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {
 	TTErr err;
 	
@@ -107,7 +107,7 @@ TTErr TTGraphObject::handshake(TTGraphObjectPtr objectWhichIsBeingConnected, TTU
 }
 
 
-TTErr TTGraphObject::connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+TTErr TTGraphObjectBase::connect(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {
 	TTErr err;
 	
@@ -118,7 +118,7 @@ TTErr TTGraphObject::connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumbe
 }
 
 
-TTErr TTGraphObject::drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+TTErr TTGraphObjectBase::drop(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {
 	TTErr err = kTTErrInvalidValue;
 	
@@ -130,7 +130,7 @@ TTErr TTGraphObject::drop(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber, 
 }
 
 
-TTErr TTGraphObject::push(const TTDictionary& aDictionary)
+TTErr TTGraphObjectBase::push(const TTDictionary& aDictionary)
 {
 	TTSymbol		schema = aDictionary.getSchema();
 	TTValue			v;

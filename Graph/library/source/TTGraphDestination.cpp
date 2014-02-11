@@ -17,7 +17,7 @@
 #include "TTGraphOutlet.h"
 #include "TTCallback.h"
 #include "TTGraphDestination.h"
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 
 
 // C Callback from any Graph Destination objects we are observing
@@ -65,7 +65,7 @@ void TTGraphDestination::create()
 }
 
 
-void TTGraphDestination::connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+void TTGraphDestination::connect(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber)
 {
 	mDestinationObject = anObject;
 	mInletNumber = fromOutletNumber;
