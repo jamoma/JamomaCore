@@ -38,12 +38,6 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addUpdates(SampleRate);
 
-	//TTObjectBaseInstantiate("buffer", (TTObjectBasePtr*)&mBuffer, kTTValNONE);
-	//mBuffer(1,8192);
-    
-    if (!mBuffer)
-		throw TTException("Could not create internal buffer object");
-	//mBuffer->setNumChannels(TTUInt32(1));
 	mBuffer.checkOutMatrix(mWavetable);
 
 	// Set Defaults...
@@ -58,7 +52,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTWavetable::~TTWavetable()
 {
-	TTObjectBaseRelease((TTObjectBase**)&mBuffer);
+	delete mBuffer;
 }
 
 
