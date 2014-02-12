@@ -73,18 +73,28 @@ TTErr TTWavetable::setFrequency(const TTValue& newValue)
 
 TTErr TTWavetable::setMode(const TTValue& newValue)
 {
-
+    // TODO: implement the ability to use an externally defined buffer
+    // would support via mMode == TT("externalBuffer")
+    
 	mMode = newValue[0];
     //TTValue aReturnWeDontCareAbout;
     
-	if (mMode != TT("externalBuffer")) {
-		return mInternalBuffer.fill(newValue);
+	if (mMode != TT("filePath")) {
+        
+        // use fill() to draw the appropriate waveform
+        return mInternalBuffer.fill(newValue);
     
     } else {
 		
-        // this will involve using the TTBuffer.load() or TTBuffer.resizeThenLoad()
-        
-		return kTTErrInvalidValue;
+        if (newValue.size() > 1) {
+            
+            // use resizeThenLoad() to import a soundfile
+            TTValue soundFilePath = newValue[1];
+            return mInternalBuffer.resizeThenLoad(soundFilePath);
+            
+        } else {
+            return kTTErrWrongNumValues;
+        }
 	}
 }
 
