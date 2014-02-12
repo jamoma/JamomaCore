@@ -38,7 +38,6 @@ protected:
 	TTFloat64			mIndex;
 	TTFloat64			mIndexDelta;
 	TTAudioBuffer		mInternalBuffer;
-    TTBufferPtr         mCurrentBuffer;
 	TTSampleMatrixPtr	mWavetable;
 	
 	/**	This method gets called when the inherited sample-rate attribute is changed. */

@@ -25,7 +25,7 @@
 TT_AUDIO_CONSTRUCTOR,
 	mIndex(0.0),
 	mIndexDelta(0.0),
-	mBuffer(1,8192),
+	mInternalBuffer(1,1),
 	mWavetable(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
@@ -38,8 +38,6 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addUpdates(SampleRate);
 
-	mBuffer.checkOutMatrix(mWavetable);
-
 	// Set Defaults...
 	setAttributeValue("maxNumChannels",	initialMaxNumChannels);
 	setAttributeValue("size", 8192);
@@ -47,12 +45,14 @@ TT_AUDIO_CONSTRUCTOR,
 	setAttributeValue("frequency", 440.0);
 	setAttributeValue("gain", 0.0);			// 0 dB
 	setAttributeValue("interpolation", "linear");
+    
+    // Checkout the current SampleMatrix as wavetable...
+    mInternalBuffer.checkOutMatrix(mWavetable);
 }
 
 
 TTWavetable::~TTWavetable()
 {
-	delete mBuffer;
 }
 
 
@@ -74,17 +74,17 @@ TTErr TTWavetable::setFrequency(const TTValue& newValue)
 TTErr TTWavetable::setMode(const TTValue& newValue)
 {
 
-	mMode = newValue[0];	// TODO: should be newValue[0]
+	mMode = newValue[0];
     //TTValue aReturnWeDontCareAbout;
     
-	if (mMode != "externalBuffer")
-		return mBuffer->fill(newValue);
+	if (mMode != TT("externalBuffer")) {
+		return mInternalBuffer.fill(newValue);
     
-	else {
-		// TODO: implement the ability to use an externally defined buffer
+    } else {
+		
         // this will involve using the TTBuffer.load() or TTBuffer.resizeThenLoad()
         
-		//return kTTErrInvalidValue;
+		return kTTErrInvalidValue;
 	}
 }
 
@@ -113,8 +113,9 @@ TTErr TTWavetable::setGain(const TTValue& newValue)
 TTErr TTWavetable::setSize(const TTValue& newSize)
 {
 	mSize = newSize;
-	mBuffer->set("lengthInSamples", mSize);
+	mInternalBuffer.set("lengthInSamples", mSize);
 	return setFrequency(mFrequency); // touch the frequency so that the step size is updated
+    // Q: should resizing the internal buffer cause the waveform to be re-drawn?
 }
 
 
@@ -137,12 +138,12 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 	if (mIndex >= mSize)
 	{
 		mIndex -= mSize;
-		mBuffer->checkInMatrix(mWavetable);
-		mBuffer->checkOutMatrix(mWavetable);
+		mInternalBuffer.checkInMatrix(mWavetable);
+		mInternalBuffer.checkOutMatrix(mWavetable);
 	} else if (mIndex < 0) {
 		mIndex += mSize;
-		mBuffer->checkInMatrix(mWavetable);
-		mBuffer->checkOutMatrix(mWavetable);
+		mInternalBuffer.checkInMatrix(mWavetable);
+		mInternalBuffer.checkOutMatrix(mWavetable);
 	}
 	
 	// table lookup (no interpolation)
@@ -199,12 +200,12 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 		if (mIndex >= mSize)
 		{
 			mIndex -= mSize;
-			mBuffer->checkInMatrix(mWavetable);
-			mBuffer->checkOutMatrix(mWavetable);
+			mInternalBuffer.checkInMatrix(mWavetable);
+			mInternalBuffer.checkOutMatrix(mWavetable);
 		} else if (mIndex < 0) {
 			mIndex += mSize;
-			mBuffer->checkInMatrix(mWavetable);
-			mBuffer->checkOutMatrix(mWavetable);
+			mInternalBuffer.checkInMatrix(mWavetable);
+			mInternalBuffer.checkOutMatrix(mWavetable);
 		}
 
 		// table lookup (no interpolation)
@@ -252,12 +253,12 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 		if (mIndex >= mSize)
 		{
 			mIndex -= mSize;
-			mBuffer->checkInMatrix(mWavetable);
-			mBuffer->checkOutMatrix(mWavetable);
+			mInternalBuffer.checkInMatrix(mWavetable);
+			mInternalBuffer.checkOutMatrix(mWavetable);
 		} else if (mIndex < 0) {
 			mIndex += mSize;
-			mBuffer->checkInMatrix(mWavetable);
-			mBuffer->checkOutMatrix(mWavetable);
+			mInternalBuffer.checkInMatrix(mWavetable);
+			mInternalBuffer.checkOutMatrix(mWavetable);
 		}
 
 		// table lookup (linear interpolation)
