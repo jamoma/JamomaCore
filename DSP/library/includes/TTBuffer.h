@@ -213,6 +213,12 @@ public:
 		return (TTBufferPtr)mObjectInstance;
 	}
     
+    TTErr fill(const TTValue &value)
+    {
+        TTValue unusedOuput;
+        return instance()->fill(value, unusedOuput);
+    }
+    
     TTErr load(const TTValue &value)
     {
         TTValue unusedOuput;

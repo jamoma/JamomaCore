@@ -25,7 +25,7 @@
 TT_AUDIO_CONSTRUCTOR,
 	mIndex(0.0),
 	mIndexDelta(0.0),
-	mBuffer(NULL),
+	mBuffer(1,8192),
 	mWavetable(NULL)
 {
 	TTUInt16	initialMaxNumChannels = arguments;
@@ -38,11 +38,13 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addUpdates(SampleRate);
 
-	TTObjectBaseInstantiate("buffer", (TTObjectBasePtr*)&mBuffer, kTTValNONE);
-	if (!mBuffer)
+	//TTObjectBaseInstantiate("buffer", (TTObjectBasePtr*)&mBuffer, kTTValNONE);
+	//mBuffer(1,8192);
+    
+    if (!mBuffer)
 		throw TTException("Could not create internal buffer object");
-	mBuffer->setNumChannels(TTUInt32(1));
-	mBuffer->checkOutMatrix(mWavetable);
+	//mBuffer->setNumChannels(TTUInt32(1));
+	mBuffer.checkOutMatrix(mWavetable);
 
 	// Set Defaults...
 	setAttributeValue("maxNumChannels",	initialMaxNumChannels);
@@ -78,11 +80,11 @@ TTErr TTWavetable::setFrequency(const TTValue& newValue)
 TTErr TTWavetable::setMode(const TTValue& newValue)
 {
 
-	mMode = newValue;	// TODO: should be newValue[0]
-    TTValue aReturnWeDontCareAbout;
+	mMode = newValue[0];	// TODO: should be newValue[0]
+    //TTValue aReturnWeDontCareAbout;
     
 	if (mMode != "externalBuffer")
-		return mBuffer->fill(newValue, aReturnWeDontCareAbout);
+		return mBuffer->fill(newValue);
     
 	else {
 		// TODO: implement the ability to use an externally defined buffer
@@ -117,7 +119,7 @@ TTErr TTWavetable::setGain(const TTValue& newValue)
 TTErr TTWavetable::setSize(const TTValue& newSize)
 {
 	mSize = newSize;
-	mBuffer->setLengthInSamples(mSize);
+	mBuffer->set("lengthInSamples", mSize);
 	return setFrequency(mFrequency); // touch the frequency so that the step size is updated
 }
 

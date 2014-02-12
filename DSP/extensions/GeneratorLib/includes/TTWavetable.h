@@ -37,7 +37,7 @@ protected:
 	TTUInt32			mSize;			///< how many samples in the wave table
 	TTFloat64			mIndex;
 	TTFloat64			mIndexDelta;
-	TTBufferPtr			mBuffer;
+	TTAudioBuffer		mBuffer;
 	TTSampleMatrixPtr	mWavetable;
 	
 	/**	This method gets called when the inherited sample-rate attribute is changed. */
