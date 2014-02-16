@@ -49,11 +49,14 @@ TTErr TTPowerFunction::setSymmetry(const TTValue& newValue)
 TTErr TTPowerFunction::setPowerValue(const TTValue& newValue)
 {
 	mPowerValue = newValue;
+	TTTestLog("mPowerValue = %f", mPowerValue);
 	mK = pow(2, mPowerValue);
+	TTTestLog("mK = %f", mK);
 	return kTTErrNone;
 }
 
 
+// With point symmetry we first map x from [0,1] to [-1,1]. Then we calculate y=f(fabs(x)), and finally invert the sign of y if x<0.
 TTErr TTPowerFunction::calculatePoint(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	TTFloat64	sign;	
@@ -69,6 +72,7 @@ TTErr TTPowerFunction::calculatePoint(const TTFloat64& x, TTFloat64& y, TTPtrSiz
 }
 
 
+// With axis symmetry we first map x from [0,1] to [-1,1] range, and then calculate y=f(fabs(x))
 TTErr TTPowerFunction::calculateAxis(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	y = pow(fabs(2*x-1), mK);
@@ -79,6 +83,7 @@ TTErr TTPowerFunction::calculateAxis(const TTFloat64& x, TTFloat64& y, TTPtrSize
 TTErr TTPowerFunction::calculateNoSymmetry(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	y = pow(x, mK);
+	TTTestLog("x = %f, y = %f", x, y);
 	return kTTErrNone;
 }
 

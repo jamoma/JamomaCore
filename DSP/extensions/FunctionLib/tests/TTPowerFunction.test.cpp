@@ -26,6 +26,8 @@
  The coefficients are calculated in Octave using:
  
  x = linspace(0,1,128);
+ printf("%.16e,\n", x);
+ 
  y = power(x, 2);
  printf("%.16e,\n", y)
  
@@ -302,50 +304,94 @@ TTErr TTPowerFunction::test(TTValue& returnedTestInfo)
 		9.5331390662781335e-01,
 		9.6875193750387512e-01,
 		9.8431396862793730e-01,
-		1.0000000000000000e+00,
+		1.0000000000000000e+00
 	};	
 	
-	// setup Function 
+	// Setup function
 	this->setAttributeValue(TT("function"), TT("power"));
-
 	
-	// create 1 channel audio signal objects
+	// TEST 1: Default powerValue attribute
+	TTFloat64 defaultPowerValue;
+    this->getAttributeValue(TT("powerValue"), defaultPowerValue);
+    TTTestAssertion("Default value for power attribute",
+					TTTestFloatEquivalence(defaultPowerValue, 1.0),
+					testAssertionCount,
+					errorCount);
+	
+	// TEST 2: Default symmetry attribute
+	TTSymbol defaultSymmetry;
+    this->getAttributeValue(TT("symmetry"), defaultSymmetry);
+    TTTestAssertion("Default value for power attribute",
+					defaultSymmetry == "none",
+					testAssertionCount,
+					errorCount);
+	
+	// Create 1 channel audio signal objects
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 1);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 1);
 	input->allocWithVectorSize(N);
 	output->allocWithVectorSize(N);
 	
-	// create a signal to be transformed and then process it)
-	input->clear();	
+	// Create a signal to be transformed and then process it
+	
+	TTTestLog("\n\nBefore clearing");
 	for (int i=0; i<N; i++)
-		input->mSampleVectors[0][i] = inputSignal1[i]; 
+		TTTestLog("input[0][%ld] = %.10f", i, input->mSampleVectors[0][i]);
+	for (int i=0; i<N; i++)
+		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
+	
+	input->clear();
+	
+	TTTestLog("\n\nAfter clearing input");
+	for (int i=0; i<N; i++)
+		TTTestLog("input[0][%ld] = %.10f", i, input->mSampleVectors[0][i]);
+	for (int i=0; i<N; i++)
+		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
+	
+	output->clear();
+	
+	TTTestLog("\n\nAfter clearing output");
+	for (int i=0; i<N; i++)
+		TTTestLog("input[0][%ld] = %.10f", i, input->mSampleVectors[0][i]);
+	for (int i=0; i<N; i++)
+		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
+	
+	for (int i=0; i<N; i++)
+		input->mSampleVectors[0][i] = inputSignal1[i];
+	
+	TTTestLog("\n\nAfter setting input vector");
+	for (int i=0; i<N; i++)
+		TTTestLog("input[0][%ld] = %.10f", i, input->mSampleVectors[0][i]);
+	for (int i=0; i<N; i++)
+		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
 	
 	this->process(input, output);
+
+	TTTestLog("\n\nAfter processing");
+	for (int i=0; i<N; i++)
+		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
 	
-	// now test the output
+	// Now test the output
 	for (int n=0; n<N; n++)
 	{
 		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][n], expectedSignal1[n]);
 		badSampleCount += result;
 		if (result) 
-			std::cout << "BAD SAMPLE @ n=" << n << " ( value=" << output->mSampleVectors[0][n] << " expected=" << expectedSignal1[n] << " )\n";
+			TTTestLog("BAD SAMPLE @ n=%i ( value=%.10f	expected=%.10f )", n, output->mSampleVectors[0][n], expectedSignal1[n]);
 	}
 	
     if (badSampleCount)
 		std::cout << "badSampleCount is " << badSampleCount << "\n";
     
-    /*
 	TTTestAssertion("Produces correct function values", 
 					badSampleCount == 0,
 					testAssertionCount, 
 					errorCount);
-
-	*/
 	
 	TTObjectBaseRelease(&input);
 	TTObjectBaseRelease(&output);
 	
-	// wrap up test results and pass back to whoever called test
+	// Wrap up test results and pass back to whoever called test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 	
 }
