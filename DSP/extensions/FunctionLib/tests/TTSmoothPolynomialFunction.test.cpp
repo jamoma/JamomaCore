@@ -1,10 +1,18 @@
-/*
- * Unit tests for the Jamoma DSP SmoothPolynomialFunction of the FunctionLib 
- * Copyright © 2011, Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief Unit tests for the Jamoma DSP #TTSmoothPolynomialFunction of the #TTFunctionLib
+ *
+ * @details
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2012 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTFunction.h"
 #include "TTSmoothPolynomialFunction.h"

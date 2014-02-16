@@ -1,11 +1,18 @@
-/* 
- * TTLogFunction Unit for TTBlue
- * Originally written for the Jamoma FunctionLib
- * Copyright © 2007 by Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief #TTLogFunction Unit for Jamoms DSP
+ *
+ * @details
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2007 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTLogFunction.h"
 #include <math.h>

@@ -1,11 +1,18 @@
-/* 
- * FunctionLib
- * Extension Class for Jamoma DSP
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief FuncitonLib extends Jamoma DSP with a set of functions for mapping, ramping and more.
+ *
+ * @details
+ *
+ * @authors Tim Place, Trond Lossius, Dave Watson
+ *
+ * @copyright Copyright © 2008 Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDSP.h"
 #include "TTCosineFunction.h"
