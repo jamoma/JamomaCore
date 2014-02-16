@@ -1,10 +1,18 @@
-/*
- * Unit tests for the Jamoma DSP ExpFunction of the FunctionLib 
- * Copyright © 2012, Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief Unit tests for the Jamoma DSP #TTExpFunction of the #TTFunctionLib
+ *
+ * @details
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2012 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTFunction.h"
 #include "TTExpFunction.h"

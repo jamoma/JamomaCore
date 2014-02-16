@@ -1,12 +1,18 @@
-/* 
- * ExpFunction Unit for TTBlue
- * Originally written for the Jamoma FunctionLib
- * Copyright © 2009 by Trond Lossius
- * Formula based on exscale (for ISPW and later for Max/MSP) by Norbert Schnell
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief #TTExpFunction Unit for Jamoms DSP
+ *
+ * @details Can be used for exponential curves.
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2009 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TTEXPFUNCTION_H__
 #define __TTEXPFUNCTION_H__

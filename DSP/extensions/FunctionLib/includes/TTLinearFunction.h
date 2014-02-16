@@ -1,11 +1,18 @@
-/* 
- * LinearFunction Unit for TTBlue
- * Originally written for the Jamoma FunctionLib
- * Copyright © 2007 by Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief #TTLinearFunction Unit for Jamoms DSP
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2007 by Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TTLINEARFUNCTION_H__
 #define __TTLINEARFUNCTION_H__

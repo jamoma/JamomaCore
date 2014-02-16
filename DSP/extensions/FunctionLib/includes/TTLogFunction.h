@@ -1,12 +1,18 @@
-/* 
- * LogFunction Unit for TTBlue
- * Originally written for the Jamoma FunctionLib
- * Copyright © 2009 by Trond Lossius
- * Formula based on exscale (for ISPW and later for Max/MSP) by Norbert Schnell
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief #TTLogFunction Unit for Jamoms DSP
+ *
+ * @details
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2007 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TTLOGFUNCTION_H__
 #define __TTLOGFUNCTION_H__

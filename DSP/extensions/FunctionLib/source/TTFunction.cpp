@@ -1,10 +1,18 @@
-/* 
- * Generalized Window Function Wrapper for Jamoma DSP
- * Copyright © 2010 by Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief #TTFunction is a generalized function wrapper for Jamoma DSP
+ *
+ * @details All functions will map incoming values in the normalised range [0,1] to output values in the normalised range [0,1].
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010 by Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTFunction.h"
 
