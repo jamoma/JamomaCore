@@ -338,7 +338,7 @@ TTErr TTPowerFunction::test(TTValue& returnedTestInfo)
 		input->mSampleVectors[0][i] = inputSignal1[i];
 	this->process(input, output);
 	
-	// Now test the output
+	// TEST 3: Processed signal with default attributes
 	for (int n=0; n<N; n++)
 	{
 		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][n], expectedSignal1[n]);
@@ -350,9 +350,38 @@ TTErr TTPowerFunction::test(TTValue& returnedTestInfo)
     if (badSampleCount)
 		TTTestLog("badSampleCount is %ld", badSampleCount);
     
-	TTTestAssertion("Produces correct function values", 
+	TTTestAssertion("Produces correct function values with default attributes",
 					badSampleCount == 0,
 					testAssertionCount, 
+					errorCount);
+	
+	
+	// TEST 4: Set powerValue attribute to non-default value
+	TTFloat64 alteredPowerValue;
+	this->setAttributeValue(TT("powerValue"), 0.0);
+	this->getAttributeValue(TT("powerValue"), alteredPowerValue);
+    TTTestAssertion("Altered value for power attribute",
+					TTTestFloatEquivalence(alteredPowerValue, 0.0),
+					testAssertionCount,
+					errorCount);
+	
+	// TEST 5: Processed signal with powerValue=0. The result should be a straight line, and hence output should equal the inputSignal1 vector.
+	badSampleCount = 0;
+	this->process(input, output);
+	for (int n=0; n<N; n++)
+	{
+		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][n], inputSignal1[n]);
+		badSampleCount += result;
+		if (result)
+			TTTestLog("BAD SAMPLE @ n=%i ( value=%.10f	expected=%.10f )", n, output->mSampleVectors[0][n], inputSignal1[n]);
+	}
+	
+    if (badSampleCount)
+		TTTestLog("badSampleCount is %ld", badSampleCount);
+    
+	TTTestAssertion("Processing with altered powerValue attribute",
+					badSampleCount == 0,
+					testAssertionCount,
 					errorCount);
 	
 	TTObjectBaseRelease(&input);
