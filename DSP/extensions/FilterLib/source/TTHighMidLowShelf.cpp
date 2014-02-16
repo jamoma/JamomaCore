@@ -1,12 +1,13 @@
 /* 
  * TTBlue High-Mid-Low shelf filter 
- * ported by Nils Peters 2009, from the PD external hml_shelf~ by Thomas Musil
- * 
+ * ported by Nils Peters 2009, from the PD external hml_shelf~ by Thomas MUSIL
+ * https://github.com/rfabbri/pd-macambira/blob/master/externals/iemlib/iemlib1/src/hml_shelf~.c 
+ * Use of the code under the Jamoma BSD license was authorized by Thomas MUSIL on Jan 13 2014.
  */
 
 #include "TTHighMidLowShelf.h"
 
-#define thisTTClass			TTHighMidLowShelf 
+#define thisTTClass		TTHighMidLowShelf 
 #define thisTTClassName		"highmidlowshelf"
 #define thisTTClassTags		"dspFilterLib, audio, processor, threebandfilter"
 
