@@ -49,9 +49,7 @@ TTErr TTPowerFunction::setSymmetry(const TTValue& newValue)
 TTErr TTPowerFunction::setPowerValue(const TTValue& newValue)
 {
 	mPowerValue = newValue;
-	TTTestLog("mPowerValue = %f", mPowerValue);
 	mK = pow(2, mPowerValue);
-	TTTestLog("mK = %f", mK);
 	return kTTErrNone;
 }
 
@@ -83,7 +81,6 @@ TTErr TTPowerFunction::calculateAxis(const TTFloat64& x, TTFloat64& y, TTPtrSize
 TTErr TTPowerFunction::calculateNoSymmetry(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	y = pow(x, mK);
-	TTTestLog("x = %f, y = %f", x, y);
 	return kTTErrNone;
 }
 
@@ -104,7 +101,7 @@ TTErr TTPowerFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalA
 		vs = in.getVectorSizeAsInt();
 		
 		while (vs--) {
-			(this->*calculateMethod)(*outSample, *inSample, TTPtr(channel));
+			(this->*calculateMethod)(*inSample, *outSample, TTPtr(channel));
 			outSample++;
 			inSample++;
 		}

@@ -333,43 +333,10 @@ TTErr TTPowerFunction::test(TTValue& returnedTestInfo)
 	output->allocWithVectorSize(N);
 	
 	// Create a signal to be transformed and then process it
-	
-	TTTestLog("\n\nBefore clearing");
-	for (int i=0; i<N; i++)
-		TTTestLog("input[0][%ld] = %.10f", i, input->mSampleVectors[0][i]);
-	for (int i=0; i<N; i++)
-		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
-	
 	input->clear();
-	
-	TTTestLog("\n\nAfter clearing input");
-	for (int i=0; i<N; i++)
-		TTTestLog("input[0][%ld] = %.10f", i, input->mSampleVectors[0][i]);
-	for (int i=0; i<N; i++)
-		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
-	
-	output->clear();
-	
-	TTTestLog("\n\nAfter clearing output");
-	for (int i=0; i<N; i++)
-		TTTestLog("input[0][%ld] = %.10f", i, input->mSampleVectors[0][i]);
-	for (int i=0; i<N; i++)
-		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
-	
 	for (int i=0; i<N; i++)
 		input->mSampleVectors[0][i] = inputSignal1[i];
-	
-	TTTestLog("\n\nAfter setting input vector");
-	for (int i=0; i<N; i++)
-		TTTestLog("input[0][%ld] = %.10f", i, input->mSampleVectors[0][i]);
-	for (int i=0; i<N; i++)
-		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
-	
 	this->process(input, output);
-
-	TTTestLog("\n\nAfter processing");
-	for (int i=0; i<N; i++)
-		TTTestLog("output[0][%ld] = %.10f", i, output->mSampleVectors[0][i]);
 	
 	// Now test the output
 	for (int n=0; n<N; n++)
@@ -381,7 +348,7 @@ TTErr TTPowerFunction::test(TTValue& returnedTestInfo)
 	}
 	
     if (badSampleCount)
-		std::cout << "badSampleCount is " << badSampleCount << "\n";
+		TTTestLog("badSampleCount is %ld", badSampleCount);
     
 	TTTestAssertion("Produces correct function values", 
 					badSampleCount == 0,
