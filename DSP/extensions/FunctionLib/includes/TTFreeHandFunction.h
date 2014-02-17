@@ -4,7 +4,13 @@
  *
  * @brief #TTFreeHandFunction Unit for Jamoms DSP
  *
- * @details
+ * @details A piecewise function unit that allows to load a function unit per defined domain. @n
+ * The default configuration is a linear function for X[0::1], Y[0::1] domain. @n
+ * Setup the curveList attribute to change the configuration. @n
+ * For example setting curveList to the < 0.3 0.6 exponential base 0.5 1. 1. logarithm base 0.8 > value @n
+ * you will imply the following behavior :
+ *  -  if x belongs to [0::0.3] domain, it will use the exponential function and the result will belong to [0.::0.6] domain.
+ *  -  if x belongs to ]0.3::1.] domain, it will use the logarithm function and the result will belong to  ]0.6::1.] domain.
  *
  * @authors Théo de la Hogue, Trond Lossius
  *
@@ -20,7 +26,7 @@
 #include "TTDSP.h"
 
 
-/**	A function unit providing a free hand curve based on all others function units
+/**	A piecewise function unit that allows to load a function unit per defined domain
  */
 class TTFreeHandFunction : TTAudioObjectBase {
 	TTCLASS_SETUP(TTFreeHandFunction)
