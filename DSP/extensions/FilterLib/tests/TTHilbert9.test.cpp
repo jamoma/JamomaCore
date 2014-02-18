@@ -38,7 +38,16 @@ TTErr TTHilbert9::test(TTValue& returnedTestInfo)
 	// setup the filter
 	//this->setAttributeValue(TT("linearGain"), 0.5);
 	//this->setAttributeValue(TT("delayInSamples"), 1);
-	this->process(input, output);
+
+	TTObject inputArray(kTTSym_audiosignalarray, 1);
+	TTObject outputArray(kTTSym_audiosignalarray, 2);
+
+	// TODO: switch these to use the new TTBASE macro:
+	((TTAudioSignalArrayPtr)inputArray.instance())->setSignal(0, input);
+	((TTAudioSignalArrayPtr)outputArray.instance())->setSignal(0, input);
+	((TTAudioSignalArrayPtr)outputArray.instance())->setSignal(1, input);
+		
+	this->process(TTAudioSignalArrayPtr(inputArray.instance()), TTAudioSignalArrayPtr(outputArray.instance()));
 	
 	/// The following values are not necsessarily to be trusted. They were calculated from this filter unit itself at a time when the filter was assumed to work. As such, if this test fails in the future, it should be considered an indication that something has changed in the code or compiler that causes the calculated impulse response to differ from earlier results, but this test is not able to say anything meaningful about whether the old or new behaviour is to be trusted (or eventually none of them).
 	TTFloat64 expectedImpulseResponseCh1[128] = {
