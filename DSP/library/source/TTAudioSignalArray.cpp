@@ -38,6 +38,7 @@ TT_OBJECT_CONSTRUCTOR,
 	if (initialMaxNumAudioSignals < 1)
 		initialMaxNumAudioSignals = 1;
 	setMaxNumAudioSignals(initialMaxNumAudioSignals);
+	numAudioSignals = initialMaxNumAudioSignals;
 }
 
 
