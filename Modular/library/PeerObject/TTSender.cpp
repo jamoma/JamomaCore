@@ -27,7 +27,7 @@ mDirectory(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTSender", arguments.size() <= 1);
+	TT_ASSERT("Correct number of arguments to instantiate TTSender", arguments.size() <= 1);
 	
 	// a Sender can handle a signal
 	if (arguments.size() >= 1)
@@ -67,7 +67,7 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 	if (mAddress.getAttribute() == NO_ATTRIBUTE)
 		mAddress = mAddress.appendAttribute(kTTSym_value);
 	
-	mDirectory = getDirectoryFrom(mAddress);
+	mDirectory = accessApplicationDirectoryFrom(mAddress);
 	if (mDirectory)
 		return bindAddress();
 	else 
@@ -343,9 +343,9 @@ TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
 	
 	switch (flag) {
 			
-		case kApplicationAdded :
+		case kApplicationInstantiated :
 		{
-			aSender->mDirectory = getDirectoryFrom(aSender->mAddress);
+			aSender->mDirectory = accessApplicationDirectoryFrom(aSender->mAddress);
 			aSender->bindAddress();
 			break;
 		}
@@ -360,7 +360,7 @@ TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
 			break;
 		}
 			
-		case kApplicationRemoved :
+		case kApplicationReleased :
 		{
 			aSender->unbindAddress();
 			break;

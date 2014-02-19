@@ -33,7 +33,7 @@ mReturnLineCallback(NULL)
 {
 	TTValue v;
     
-    TT_ASSERT("Correct number of args to create TTPresetManager", arguments.size() == 0 || arguments.size() == 1);
+    TT_ASSERT("Correct number of arguments to instantiate TTPresetManager", arguments.size() == 0 || arguments.size() == 1);
 	
 	if (arguments.size() == 1)
 		mReturnLineCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);

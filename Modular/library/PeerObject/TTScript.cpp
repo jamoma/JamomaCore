@@ -31,7 +31,7 @@ mSubScript(NULL),
 mParentScript(NULL),
 mReturnLineCallback(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTScript", arguments.size() == 0 || arguments.size() == 1);
+	TT_ASSERT("Correct number of arguments to instantiate TTScript", arguments.size() == 0 || arguments.size() == 1);
 	
 	if (arguments.size() == 1)
 		mReturnLineCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
@@ -325,9 +325,9 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                 // bind to the node
                 // (each time ! this is why using flattened list could be usefull but dangerous)
                 if (address.getType() == kAddressRelative)
-                    err = getDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
+                    err = accessApplicationDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
                 else
-                    err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+                    err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
                 
                 // if there is a node
                 if (!err) {
@@ -375,9 +375,9 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
             // bind to the node
             // (each time ! this why using flattened list could be usefull but dangerous)
             if (address.getType() == kAddressRelative)
-                err = getDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
+                err = accessApplicationDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
             else
-                err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+                err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
             
             // if there is a node
             aContainer = NULL;
@@ -435,7 +435,7 @@ TTErr TTScript::RunFlattened()
         aLine->lookup(kTTSym_target, v);
        address = v[0];
         
-        err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+        err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
 
         if (!err) {
             
@@ -513,7 +513,7 @@ TTErr TTScript::RunCommand(const TTValue& inputValue, TTValue& outputValue)
             comp = addressToRun.compare(address, depthDifference);
             if (comp == kAddressEqual || comp == kAddressUpper) {
                 
-                err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+                err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
                 
                 if (!err) {
                     
@@ -1651,7 +1651,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
         }
         
         // bind to the node
-		if (!getDirectoryFrom(adrs1)->getTTNode(adrs1, &aNode)) {
+		if (!accessApplicationDirectoryFrom(adrs1)->getTTNode(adrs1, &aNode)) {
             
             aData = aNode->getObject();
             if (aData) {
@@ -1757,7 +1757,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
         firstAdrs = v[0];
         
         // bind to the node
-		if (!getDirectoryFrom(firstAdrs)->getTTNode(firstAdrs, &aNode)) {
+		if (!accessApplicationDirectoryFrom(firstAdrs)->getTTNode(firstAdrs, &aNode)) {
             
             anObject = aNode->getObject();
             

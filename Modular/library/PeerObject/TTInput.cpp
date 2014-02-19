@@ -35,7 +35,7 @@ mAddressObserver(NULL),
 mSignalAttr(NULL)
 {
 	// There will be no args passed if this is created as a super-class for TTInputAudio [tap]
-	// TT_ASSERT("Correct number of args to create TTInput", arguments.size() > 0);
+	// TT_ASSERT("Correct number of arguments to instantiate TTInput", arguments.size() > 0);
 	
     if (arguments.size() > 0)
         mType = arguments[0];
@@ -101,7 +101,7 @@ TTInput::~TTInput()
 	if (mAddressObserver) {
 		
 		if (mOutputAddress != kTTSymEmpty)
-			getLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
+			accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 		
 		delete (TTValuePtr)mAddressObserver->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
@@ -154,7 +154,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 
 	newAddress = value[0];
 	
-	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
+	if (!accessApplicationLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
 		o = aNode->getObject();
 		if (o)
@@ -175,9 +175,9 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	
 	if (mAddressObserver) {
 		if (mOutputAddress != kTTAdrsEmpty)
-			getLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
+			accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 		
-		getLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
+		accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	}
 	
 	mOutputAddress = newAddress;

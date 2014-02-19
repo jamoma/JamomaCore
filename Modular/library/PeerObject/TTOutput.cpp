@@ -43,7 +43,7 @@ mAddressObserver(NULL),
 mSignal(kTTValNONE),
 mSignalAttr(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTOutput", arguments.size() > 0);
+	TT_ASSERT("Correct number of arguments to instantiate TTOutput", arguments.size() > 0);
 	
     if (arguments.size() > 0)
         mType = arguments[0];
@@ -146,7 +146,7 @@ TTOutput::~TTOutput()
 	if (mAddressObserver) {
         
 		if (mInputAddress != kTTSymEmpty)
-			getLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
+			accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
         
 		delete (TTValuePtr)mAddressObserver->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
@@ -220,7 +220,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
     
 	newAddress = value[0];
 	
-	if (!getLocalDirectory->getTTNode(newAddress, &aNode)) {
+	if (!accessApplicationLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
 		o = aNode->getObject();
 		if (o)
@@ -242,9 +242,9 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	
 	if (mAddressObserver) {
 		if (mInputAddress != kTTAdrsEmpty)
-			getLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
+			accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
 		
-		getLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
+		accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	}
 	
 	mInputAddress = newAddress;

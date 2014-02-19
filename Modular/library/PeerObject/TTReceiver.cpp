@@ -30,7 +30,7 @@ mReturnValueCallback(NULL),
 mAddressObserver(NULL),
 mApplicationObserver(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTReceiver", arguments.size() == 2 || arguments.size() == 3);
+	TT_ASSERT("Correct number of arguments to instantiate TTReceiver", arguments.size() == 2 || arguments.size() == 3);
 	
 	if (arguments.size() >= 1)
 		mReturnAddressCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
@@ -98,7 +98,7 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 	if (mAddress.getAttribute() == NO_ATTRIBUTE)
 		mAddress = mAddress.appendAttribute(kTTSym_value);
 	
-	mDirectory = getDirectoryFrom(mAddress);
+	mDirectory = accessApplicationDirectoryFrom(mAddress);
 	if (mDirectory)
 		err = bindAddress();
 	else
@@ -685,9 +685,9 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 	
 	switch (flag) {
 			
-		case kApplicationAdded :
+		case kApplicationInstantiated :
 		{
-			aReceiver->mDirectory = getDirectoryFrom(aReceiver->mAddress);
+			aReceiver->mDirectory = accessApplicationDirectoryFrom(aReceiver->mAddress);
 			aReceiver->bindAddress();
 			break;
 		}
@@ -704,7 +704,7 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 			break;
 		}
 			
-		case kApplicationRemoved :
+		case kApplicationReleased :
 		{
 			aReceiver->unbindAddress();
 			break;

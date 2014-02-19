@@ -45,7 +45,7 @@ mDataspaceConverter(NULL),
 mService(kTTSymEmpty),
 mReturnValueCallback(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTData", arguments.size() == 1);
+	TT_ASSERT("Correct number of arguments to instantiate TTData", arguments.size() == 1);
 	
 	mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
 	TT_ASSERT("Return Value Callback passed to TTData is not NULL", mReturnValueCallback);

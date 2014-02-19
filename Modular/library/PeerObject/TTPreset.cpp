@@ -26,7 +26,7 @@ mAddress(kTTAdrsEmpty),
 mDirectory(NULL),
 mScript(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTPreset", arguments.size() == 0 || arguments.size() == 1);
+	TT_ASSERT("Correct number of arguments to instantiate TTPreset", arguments.size() == 0 || arguments.size() == 1);
 	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
@@ -64,7 +64,7 @@ TTErr TTPreset::setAddress(const TTValue& value)
 	Clear();
 	mAddress = value[0];
 	
-	mDirectory = getDirectoryFrom(mAddress);
+	mDirectory = accessApplicationDirectoryFrom(mAddress);
 	
 	if (mDirectory) {
 		

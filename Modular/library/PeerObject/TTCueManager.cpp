@@ -32,7 +32,7 @@ mCurrentCue(NULL),
 mDefaultNamespace(NULL),
 mReturnLineCallback(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTCueManager", arguments.size() == 0 || arguments.size() == 1);
+	TT_ASSERT("Correct number of arguments to instantiate TTCueManager", arguments.size() == 0 || arguments.size() == 1);
 	
 	if (arguments.size() == 1)
 		mReturnLineCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
@@ -1347,16 +1347,16 @@ TTErr TTCueManager::notifyNamesObservers()
 TTAddressItemPtr TTCueManager::getNamespace()
 {
     TTValue v;
-    TTAddressItemPtr aSelection = TTModular->SelectionLookup(mNamespace);
+    TTAddressItemPtr aSelection = TTModularSelectionLookup(mNamespace);
     
 	if (!aSelection) {
         
-        TTModular->ApplicationGetNames(v);
+        TTModularApplicationManager->getAttributeValue(TTSymbol("applicationNames"), v);
         
         // fill the default namespace with the local directory
         if (v.size() == 1) {
             
-            getLocalDirectory->fillAddressItem(mDefaultNamespace);
+            accessApplicationLocalDirectory->fillAddressItem(mDefaultNamespace);
             
         }
         // fill the default namespace with all directories
@@ -1371,7 +1371,7 @@ TTAddressItemPtr TTCueManager::getNamespace()
                 
                 mDefaultNamespace->append(TTAddress(applicationName), &applicationItem);
                 
-                getApplicationDirectory(applicationName)->fillAddressItem(applicationItem);
+                accessApplicationDirectory(applicationName)->fillAddressItem(applicationItem);
             }
         }
         

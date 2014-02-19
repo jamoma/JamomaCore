@@ -288,8 +288,8 @@ TTErr TTMapper::setInput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper was created before we observe the input address
-	if (getDirectoryFrom(mInput)) {
-		err = getDirectoryFrom(mInput)->getTTNode(mInput, &aNode);
+	if (accessApplicationDirectoryFrom(mInput)) {
+		err = accessApplicationDirectoryFrom(mInput)->getTTNode(mInput, &aNode);
 		
 		if (!err) {
 			
@@ -394,8 +394,8 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper created before we observe the output address
-	if (getDirectoryFrom(mOutput)) {
-		err = getDirectoryFrom(mOutput)->getTTNode(mOutput, &aNode);
+	if (accessApplicationDirectoryFrom(mOutput)) {
+		err = accessApplicationDirectoryFrom(mOutput)->getTTNode(mOutput, &aNode);
 		
 		if (!err) {
 			
@@ -699,7 +699,7 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
-	TTErr err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+	TTErr err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
 	
 	if (!err) {
 		
@@ -749,7 +749,7 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
-	TTErr err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+	TTErr err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
 	
 	if (!err) {
 		

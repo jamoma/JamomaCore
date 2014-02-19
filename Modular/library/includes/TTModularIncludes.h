@@ -80,7 +80,10 @@
 #include "TTViewer.h"
 #include "TTXmlHandler.h"
 
-// Macros
+#if 0
+#pragma mark -
+#pragma mark Macros for TTObject declaration
+#endif
 
 #define TT_MODULAR_CONSTRUCTOR \
 TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
@@ -102,5 +105,59 @@ thisTTClass :: thisTTClass (const TTValue& arguments) : TTDataObjectBase(argumen
 	}\
 	\
 	TT_MODULAR_CONSTRUCTOR
+
+#if 0
+#pragma mark -
+#pragma mark Macros to ease applications and protocols access
+#endif
+
+/** Access to an application by name */
+#define accessApplication(applicationName) TTModularApplicationManager->findApplication(applicationName)
+
+/** Access to local application */
+#define accessApplicationLocal TTModularApplicationManager->getApplicationLocal()
+
+/** Access to any application using an address */
+#define accessApplicationFrom(anAddress) TTModularApplicationManager->findApplicationFrom(anAddress)
+
+/** Access to an application directory using an address */
+#define	accessApplicationDirectoryFrom(anAddress) TTModularApplicationManager->findApplicationFrom(anAddress)->getDirectory()
+
+/** Access to an application directory by name */
+#define accessApplicationDirectory(applicationName) TTModularApplicationManager->findApplication(applicationName)->getDirectory()
+
+/** Access to the local application directory */
+#define	accessApplicationLocalDirectory TTModularApplicationManager->getApplicationLocal()->getDirectory()
+
+/** Access to the local application debug status */
+#define accessApplicationLocalDebug TTModularApplicationManager->getApplicationLocal()->getDebug()
+
+/** Access to a protocol by name */
+#define accessProtocol(protocolName) TTModularApplicationManager->findProtocol(protocolName)
+
+/** Access to all protocol names of an application */
+#define accessApplicationProtocolNames(applicationName) TTModularApplicationManager->getApplicationProtocolNames(applicationName)
+
+#if 0
+#pragma mark -
+#pragma mark Macros to ease conversion
+#endif
+
+/** Convert a TTValue with tt names inside into a value with local application names inside */
+#define	ToAppNames(ttNames, appNames) \
+    accessApplicationLocal->sendMessage(kTTSym_ConvertToAppName, ttNames, appNames); \
+
+/** Convert a TTValue with local application names inside into a value with tt names inside */
+#define	ToTTNames(appNames, ttNames) \
+    accessApplicationLocal->sendMessage(kTTSym_ConvertToTTName, appNames, ttNames); \
+
+/** Convert a local application TTSymbol into a tt name */
+#define	ToAppName(ttName) \
+    accessApplicationLocal->convertTTNameToAppName(ttName) \
+
+/** Convert a tt name TTSymbol into a local application name */
+#define	ToTTName(appName) \
+    accessApplicationLocal->convertAppNameToTTName(appName) \
+
 
 #endif // __TT_MODULAR_INCLUDES_H__

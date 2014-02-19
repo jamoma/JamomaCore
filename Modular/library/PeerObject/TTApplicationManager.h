@@ -2,17 +2,27 @@
  *
  * @ingroup modularLibrary
  *
- * @brief An Application Manager Object
+ * @brief Handles #TTApplication and #Protocol instances
  *
- * @details
+ * @details the #TTApplicationManager class is a kind of tower control between our application (called "local") and all others (called "distant").
+ * This coordination between applications is based on protocol units which one applications have to register. @n
+ * Then, once applications are registered to protocols, any distant applications can : @n
+ *      - discover the local application namespace. @n
+ *      - get the value an attribute of an object registered into the local application. @n
+ *      - set the value an attribute of an object registered into the local application. @n
+ *      - listen the value an attribute of an object registered into the local application. @n
+ * First of all, notice those features are not available for all protocols @n
+ * Then, notice the features above can also be done in the opposite way (the local application to the distant applications). @n
+ * The #TTApplicationManager class provides method to instanciate and release #TTApplication and #Protocol instances. @n
+ *
+ * @see TTApplication, ProtocolLib
  *
  * @authors Théo de la Hogue
  *
- * @copyright © 2010, Théo de la Hogue @n
+ * @copyright Copyright © 2010-2014, Théo de la Hogue @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
-
 
 #ifndef __TT_APPLICATION_MANAGER_H__
 #define __TT_APPLICATION_MANAGER_H__
@@ -28,120 +38,270 @@ typedef Protocol* ProtocolPtr;
 class TTXmlHandler;
 typedef TTXmlHandler* TTXmlHandlerPtr;
 
-/**	TTApplicationManager ... TODO : an explanation
- 
- 
+/** @enum Application notification flags
+ *  @brief Defines notification flags to notify observers of #TTApplicationManager
  */
-
-// Macro to retreive any application from an address
-#define getApplicationFrom(anAddress) TTApplicationManagerGetApplicationFrom(anAddress)
-
-// Macro to get an application directory
-#define getApplicationDirectory(applicationName) TTApplicationManagerGetApplicationDirectory(applicationName)
-
-// Macro to get local application debug status
-#define getLocalApplicationDebug TTApplicationManagerGetLocalApplicationDebug()
-
-// Macro to retreive local application
-#define getLocalApplication TTApplicationManagerGetApplicationFrom(kTTAdrsRoot)
-
-// Notification flags to notify observers of application manager
 enum TTApplicationNotificationFlag {
-	kApplicationRemoved = 0,				///< this flag means that an application have been removed from the application manager
-	kApplicationAdded = 1,					///< this flag means that an application have been added to the application manager
-	kApplicationProtocolStarted = 2,		///< this flag means that application's protocol have been started
-	kApplicationProtocolStopped = 3			///< this flag means that application's protocol will be stopped
+	kApplicationReleased = 0,				///< an application have been released by the application manager
+	kApplicationInstantiated= 1,			///< an application have been intantiated by the application manager
+	kApplicationProtocolStarted = 2,		///< application's protocol have been started
+	kApplicationProtocolStopped = 3			///< application's protocol will be stopped
 };
 
+/**	Handles #TTApplication and #Protocol instances
+ 
+ the #TTApplicationManager class is a kind of tower control between our application (called "local") and all others (called "distant").
+ This coordination between applications is based on protocol units which one applications have to register. @n
+ Then, once applications are registered to protocols, any distant applications can : @n
+        - discover the local application namespace. @n
+        - get the value an attribute of an object registered into the local application. @n
+        - set the value an attribute of an object registered into the local application. @n
+        - listen the value an attribute of an object registered into the local application. @n
+ First of all, notice those features are not available for all protocols @n
+ Then, notice the features above can also be done in the opposite way (the local application to the distant applications). @n
+ The #TTApplicationManager class provides method to instanciate and release #TTApplication and #Protocol instances. @n
+ 
+ @see TTApplication, ProtocolLib
+ */
 class TTMODULAR_EXPORT TTApplicationManager : public TTDataObjectBase
 {
 	TTCLASS_SETUP(TTApplicationManager)
 	
 private:
 
-	TTHashPtr			mApplications;						///< hash table containing <TTSymbol applicationName, TTApplicationPtr anApplication>
-	TTHashPtr			mProtocols;							///< hash table containing <TTSymbol protocolName, ProtocolPtr aProtocol>
+	TTHash              mApplications;						///< hash table containing <TTSymbol applicationName, TTApplicationPtr anApplication>
+	TTHash              mProtocols;							///< hash table containing <TTSymbol protocolName, ProtocolPtr aProtocol>
 		
 	TTApplicationPtr	mApplicationLocal;					///< a pointer to the local application
 	TTApplicationPtr	mApplicationCurrent;				///< a pointer used for ReadFromXml mechanism
 	
-	TTHashPtr			mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
+	TTHash              mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
 	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
     
     ProtocolPtr         mCurrentProtocol;                   ///< a pointer used for ReadFromXml mechanism
+
+#if 0
+#pragma mark -
+#pragma mark Application accesors
+#endif
+    
+	/** Attribute accessor: get all application names
+     @return #TTErr error code 
+     @seealso ApplicationIntantiateLocal, ApplicationIntantiateDistant, ApplicationRelease, ApplicationGet */
+	TTErr getApplicationNames(TTValue& returnedApplicationNames);
+    
+    /** Attribute accessor: get local application name
+     @return #TTErr error code 
+     @seealso ApplicationIntantiateLocal */
+	TTErr getApplicationLocalName(TTValue& returnedApplicationLocalName);
+    
+    /** Attribute accessor: get local application
+     @return #TTErr error code 
+     @seealso ApplicationIntantiateLocal */
+	TTErr getApplicationLocal(TTValue& returnedApplicationLocal);
+    
+#if 0
+#pragma mark -
+#pragma mark Protocol accesors
+#endif
 	
-	/** Get all application names */
-	TTErr getApplicationNames(TTValue& value);
-    
-    /** Get local application name */
-	TTErr getApplicationLocalName(TTValue& value);
-    
-    /** Get local application */
-	TTErr getApplicationLocal(TTValue& value);
-    
-    /** Get any application passing the name in argument */
-	TTErr getApplication(TTValue& value);
-	
-	/** Get all protocol names */
+	/** Attribute accessor: get all protocol names
+     @param value
+     @return #TTErr error code 
+     @seealso ProtocolInstantiate, ProtocolRelease, ProtocolGet */
 	TTErr getProtocolNames(TTValue& value);
     
-    /** Get any protocol passing the name in argument */
-	TTErr getProtocol(TTValue& value);
+#if 0
+#pragma mark -
+#pragma mark Application factory
+#endif
     
-	/** Add an application giving <TTSymbol applicationName, applicationPointer> */
-	TTErr ApplicationAdd(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** Remove an application */
-	TTErr ApplicationRemove(const TTValue& inputValue, TTValue& outputValue);
+	/** Instantiate the local application passing a name
+     @param inputValue      application name
+     @param outputValue     application object
+     @return #TTErr error code */
+	TTErr ApplicationInstantiateLocal(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Instantiate a distante application passing a name
+     @param inputValue      application name
+     @param outputValue     application object
+     @return #TTErr error code */
+	TTErr ApplicationInstantiateDistant(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Release any application passing a name
+     @param inputValue      application name
+     @param outputValue     nothing
+     @return #TTErr error code */
+	TTErr ApplicationRelease(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Rename an application passing its old name and a new name
+     @param inputValue      application old name and a new name
+     @param outputValue     nothing
+     @return #TTErr error code */
+	TTErr ApplicationRename(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Get any application passing a name
+     @param inputValue      application name
+     @param outputValue     application object
+     @return #TTErr error code */
+	TTErr ApplicationFind(const TTValue& inputValue, TTValue& outputValue);
+    
+	/** Convenient method to notify application observers
+     @param applicationName application name
+     @param anApplication   application object
+     @param flag            a #TTApplicationNotificationFlag
+     @return #TTErr error code 
+     @seealso ApplicationIntantiateLocal, ApplicationIntantiateDistant, ApplicationRelease */
+	TTErr notifyApplicationObservers(TTSymbol applicationName, TTObjectBasePtr anApplication, TTApplicationNotificationFlag flag);
+    
+#if 0
+#pragma mark -
+#pragma mark Protocol factory
+#endif
+    
+    /** Instantiate a protocol passing a name
+     @param inputValue      protocol name
+     @param outputValue     protocol object
+     @return #TTErr error code */
+	TTErr ProtocolInstantiate(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Release a protocol passing a name
+     @param inputValue      protocol name
+     @param outputValue     nothing
+     @return #TTErr error code */
+	TTErr ProtocolRelease(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Get any protocol passing a name
+     @param inputValue      protocol name
+     @param outputValue     protocol object
+     @return #TTErr error code */
+	TTErr ProtocolFind(const TTValue& inputValue, TTValue& outputValue);
+    
+#if 0
+#pragma mark -
+#pragma mark Application features
+#endif
 	
 	/** Discover the namespace of an application under an address
-		inputValue : <TTSymbol whereToDiscover> 
-        outputValue : <TTSymbol *returnedType, TTValuePtr returnedChildren,  TTValuePtr returnedAttributes> */
+     @param inputValue      <TTSymbol whereToDiscover>
+     @param outputValue     <TTSymbol *returnedType, TTValuePtr returnedChildren,  TTValuePtr returnedAttributes>
+     @return #TTErr error code */
 	TTErr ApplicationDiscover(const TTValue& inputValue, TTValue& outputValue);
     
     /** Discover all the namespace of an application under an address
-     inputValue : <TTSymbol whereToDiscover>
-     outputValue : <TTNodePtr> */
+     @param inputValue      <TTSymbol whereToDiscover>
+     @param outputValue     <TTNodePtr>
+     @return #TTErr error code */
 	TTErr ApplicationDiscoverAll(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get a value from an attribute of an object at an address in an application
-		inputValue : <TTSymbol whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue> */
+     @param inputValue      <TTSymbol whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue>
+     @param outputValue     nothing
+     @return #TTErr error code */
 	TTErr ApplicationGet(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Set a value from an attribute of an object at an address in an application
-		inputValue : <TTSymbol whereToDiscover, TTsymbolPtr attributeToSet, TTValuePtr newValue> */
+     @param inputValue      <TTSymbol whereToSet, TTsymbolPtr attributeToSet, TTValuePtr newValue>
+     @param outputValue     nothing
+     @return #TTErr error code */
 	TTErr ApplicationSet(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Listen for value changes from an attribute of an object at an address in an application
-		or for creation/destruction under an address.
-		inputValue : <TTObjectBasePtr appToNotify, TTSymbol whereToListen, TTSymbol attribute, TTBoolean enable> */
+	/** Listen for value changes from an attribute of an object at an address in an application or for creation/destruction under an address.
+     @param inputValue      <TTObjectBasePtr appToNotify, TTSymbol whereToListen, TTSymbol attribute, TTBoolean enable>
+     @param outputValue     nothing
+     @return #TTErr error code */
 	TTErr ApplicationListen(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Update value changes of an attribute of an object at an address in an application
-		or for creation/destruction under an address.
-		note : this is usually the answer of distant namespace or Mirror attribute listening
-		inputValue : <TTObjectBasePtr appAnswering, TTSymbol whereComesFrom, TTSymbol attribute, TTValuePtr newValue> */
+	/** Update value changes of an attribute of an object at an address in an application or for creation/destruction under an address.
+	 @details this is usually the answer of distant namespace or #TTMirror attribute listening
+     @param inputValue      <TTObjectBasePtr appAnswering, TTSymbol whereComesFrom, TTSymbol attribute, TTValuePtr newValue>
+     @param outputValue     nothing
+     @return #TTErr error code */
 	TTErr ApplicationListenAnswer(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** Scan a protocol network in order to add distant application automatically <TTSymbol protocolName> */
+
+#if 0
+#pragma mark -
+#pragma mark Protocol features
+#endif
+    
+	/** Scan a protocol network in order to intantiate distant applications automatically
+     @param inputValue      <TTSymbol protocolName>
+     @param outputValue     nothing
+     @return #TTErr error code */
 	TTErr ProtocolScan(const TTValue& inputValue, TTValue& outputValue);
 
-	/** Run the reception thread mecanism of a Protocol <TTSymbol protocolName> */
+	/** Run the reception thread mecanism of a Protocol
+     @param inputValue      <TTSymbol protocolName>
+     @param outputValue     nothing
+     @return #TTErr error code */
 	TTErr ProtocolRun(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Stop the reception thread mecanism of a Protocol <TTSymbol protocolName> */
+	/** Stop the reception thread mecanism of a Protocol
+     @param inputValue      <TTSymbol protocolName>
+     @param outputValue     nothing
+     @return #TTErr error code */
 	TTErr ProtocolStop(const TTValue& inputValue, TTValue& outputValue);
-	
-	/**  needed to be handled by a TTXmlHandler 
-		 read/write local and distant applications setup */
+
+#if 0
+#pragma mark -
+#pragma mark Backup
+#endif
+    
+	/**  Write all applications and protocols setup
+     @param inputValue      <TTXmlHandlerPtr aXmlHandler>
+     @param outputValue     nothing
+     @return #TTErr error code */
 	TTErr WriteAsXml(const TTValue& inputValue, TTValue& outputValue);
+    
+    /**  Convenient method used to write a protocol setup
+     @param aXmlHandler     a xml handler object
+     @param aProtocol       a protocol object
+     @return #TTErr error code 
+     @seealso WriteAsXml */
     TTErr writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, ProtocolPtr aProtocol);
     
+    /**  Read an applications and protocols setup
+     @param inputValue      <TTXmlHandlerPtr aXmlHandler>
+     @param outputValue     nothing
+     @return #TTErr error code */
 	TTErr ReadFromXml(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr notifyApplicationObservers(TTSymbol anApplicationName, TTApplicationPtr anApplication, TTApplicationNotificationFlag flag);
-	
+    
+#if 0
+#pragma mark -
+#pragma mark Public methods useful to ease access to application and protocol
+#endif
+    
+public:
+    
+    /**  Get an application relative to a name
+     @param applicationName #TTSymbol
+     @return #TTApplicationPtr or NULL if the application doesn't exist */
+    TTApplicationPtr findApplication(TTSymbol applicationName);
+    
+    /**  Get local application
+     @return #TTApplicationPtr or NULL if the application doesn't exist */
+    TTApplicationPtr getApplicationLocal();
+    
+    /**  Get an application relative to an address
+     @param anAddress       #TTAddress
+     @return #TTApplicationPtr : mApplicationLocal for address without directory part or NULL if the directory part is not an application name) */
+    TTApplicationPtr findApplicationFrom(TTAddress anAddress);
+    
+    /**  Get application protocol names relative to a name
+     @param applicationName #TTSymbol
+     @return a #TTValue containing all protocol names */
+    TTValue getApplicationProtocolNames(TTSymbol applicationName);
+    
+    /**  Get a protocol relative to a name
+     @param protocolName    #TTSymbol
+     @return #ProtocolPtr or NULL if the protocol doesn't exist */
+    ProtocolPtr findProtocol(TTSymbol protocolName);
+    
+#if 0
+#pragma mark -
+#pragma mark Friendship
+#endif
+    
 	friend TTBoolean TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationDebug();
 	friend TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTAddress anAddress);
 	
@@ -156,22 +316,10 @@ private:
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-/**	To get the local application debug status
- note : it uses the extern TTModularApplications variable
- @return							a TTBoolean */
-TTBoolean TTMODULAR_EXPORT TTApplicationManagerGetLocalApplicationDebug();
-
-/**	To get an application directory with an application name
- note : it uses the extern TTModularApplications variable
- @param	applicationName				..
- @return							a TTNodeDirectoryPtr */
-TTNodeDirectoryPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationDirectory(TTSymbol applicationName);
-
-/**	To get an application from an address
- note : it uses the extern TTModularApplications variable
- @param	anAddress					..
- @return							a TTApplicationPtr */
-TTApplicationPtr TTMODULAR_EXPORT TTApplicationManagerGetApplicationFrom(TTAddress anAddress);
+#if 0
+#pragma mark -
+#pragma mark Some Functions
+#endif
 
 /** Add a TTCallback as observer of application creation/destruction
  note : it uses the extern TTModularApplications variable

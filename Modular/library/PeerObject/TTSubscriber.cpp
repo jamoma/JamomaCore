@@ -30,7 +30,7 @@ mSubscribed(NO),
 mExposedMessages(NULL),
 mExposedAttributes(NULL)
 {	
-	TT_ASSERT("Correct number of args to create TTSubscriber", arguments.getSize() == 2);
+	TT_ASSERT("Correct number of arguments to instantiate TTSubscriber", arguments.getSize() == 2);
 	
 	mObject = arguments[0];
 	mRelativeAddress = arguments[1];
@@ -66,7 +66,7 @@ TTSubscriber::~TTSubscriber()
 TTErr TTSubscriber::Subscribe(const TTValue& inputValue, TTValue& outputValue)
 {
     TTListPtr           aContextList = NULL;
-	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribe into local directory
+	TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribe into local directory
 	TTAddress			contextAddress, absoluteAddress;
 	TTValue				aTempValue, args;
 	TTPtr				ourContext, hisContext;
@@ -165,7 +165,7 @@ TTErr TTSubscriber::Subscribe(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTSubscriber::Unsubscribe()
 {
-    TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+    TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
     TTNodePtr           aNode = NULL;
 	TTList				childrenList;
 	TTValue				aTempValue;
@@ -257,7 +257,7 @@ TTErr TTSubscriber::Unsubscribe()
 
 TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
 {
-	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+	TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
 	TTValue				args;
 	TTSymbol			formatedContextSymbol;
 	TTAddress           relativeContextAddress, contextAddress, lowerContextAddress;
@@ -362,7 +362,7 @@ TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
 
 TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName, TTDataPtr *returnedData)
 {
-    TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+    TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
 	TTValue             args, v, none;
 	TTDataPtr           aData;
 	TTCallbackPtr       returnValueCallback;
@@ -393,7 +393,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName
         convertUpperCasedNameInAddress(messageName, nameToAddress);
         dataAddress = mNodeAddress.appendAddress(nameToAddress);
         aContext = aNode->getContext();
-        getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+        accessApplicationLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
         
         // store TTData and given object
         v = TTValue((TTObjectBasePtr)aData);
@@ -410,7 +410,7 @@ TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName
 
 TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData)
 {
-    TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+    TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
 	TTValue             args, v, none;
 	TTDataPtr           aData;
 	TTCallbackPtr       returnValueCallback;                // to set the object attribute when data changed
@@ -446,7 +446,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
             convertUpperCasedNameInAddress(attributeName, nameToAddress);
             dataAddress = mNodeAddress.appendAddress(nameToAddress);
             aContext = aNode->getContext();
-            getLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+            accessApplicationLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
             
             // observe the attribute of the object
             err = anObject->findAttribute(attributeName, &anAttribute);
@@ -477,7 +477,7 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
 
 TTErr TTSubscriber::unexposeMessage(TTSymbol messageName)
 {
-	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+	TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
 	TTValue				storedObject;
 	TTAddress           objectAddress, nameToAddress;
 	TTObjectBasePtr		anObject;
@@ -503,7 +503,7 @@ TTErr TTSubscriber::unexposeMessage(TTSymbol messageName)
 
 TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 {
-	TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
+	TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
 	TTValue				storedObject;
 	TTAddress           objectAddress, nameToAddress;
 	TTObjectBasePtr		anObject;

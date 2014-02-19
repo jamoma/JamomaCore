@@ -34,7 +34,7 @@ mListenAttributeCallback(NULL)
 	TTMessagePtr		aMessage;
     TTErr               err;
 	
-	TT_ASSERT("Correct number of args to create TTMirror", arguments.size() == 5);
+	TT_ASSERT("Correct number of arguments to instantiate TTMirror", arguments.size() == 5);
     
 	if (arguments.size() >= 1)
 		mType = arguments[0];

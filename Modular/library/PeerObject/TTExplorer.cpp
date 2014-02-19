@@ -96,7 +96,7 @@ TTErr TTExplorer::setNamespace(const TTValue& value)
 	TTAddressItemPtr aSelection;
 	
 	// unregister from the former namespace
-	aSelection = TTModular->SelectionLookup(mNamespace);
+	aSelection = TTModularSelectionLookup(mNamespace);
 	
 	if (aSelection)
 		aSelection->unregisterHandler(*this);
@@ -105,7 +105,7 @@ TTErr TTExplorer::setNamespace(const TTValue& value)
 	mNamespace = value;
 	
 	// register to the new namespace
-	aSelection = TTModular->SelectionLookup(mNamespace);
+	aSelection = TTModularSelectionLookup(mNamespace);
 	
 	if (aSelection)
 		aSelection->registerHandler(*this);
@@ -140,7 +140,7 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	// change the address
 	mAddress = value[0];
 	
-	mDirectory = getDirectoryFrom(mAddress);
+	mDirectory = accessApplicationDirectoryFrom(mAddress);
 	if (mDirectory)
 		return bindAddress();
 	else
@@ -378,7 +378,7 @@ TTErr TTExplorer::Explore()
 
 TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr    aSelection = TTModular->SelectionLookup(mNamespace);
+	TTAddressItemPtr    aSelection = TTModularSelectionLookup(mNamespace);
 	TTAddressItemPtr    anItem = NULL;
 	TTAddress           itemSymbol;
 	TTInt32				i, number;
@@ -465,7 +465,7 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTExplorer::SelectAll()
 {
-	TTAddressItemPtr    aSelection = TTModular->SelectionLookup(mNamespace);
+	TTAddressItemPtr    aSelection = TTModularSelectionLookup(mNamespace);
 	TTAddressItemPtr    anItem;
 	TTAddress           itemSymbol;	
 	TTInt32				i;
@@ -504,7 +504,7 @@ TTErr TTExplorer::SelectAll()
 /** Set all selection state to NO */
 TTErr TTExplorer::SelectNone()
 {
-	TTAddressItemPtr    aSelection = TTModular->SelectionLookup(mNamespace);
+	TTAddressItemPtr    aSelection = TTModularSelectionLookup(mNamespace);
 	TTAddressItemPtr    anItem;
 	TTAddress           itemSymbol;	
 	TTInt32				i;
@@ -785,7 +785,7 @@ TTErr TTExplorer::returnResultBack()
 		if (!(result == mLastResult) || result.empty()) {
 			
 			// update namespace
-			aSelection = TTModular->SelectionLookup(mNamespace);
+			aSelection = TTModularSelectionLookup(mNamespace);
 			if (aSelection) {
 				
 				// append mAddress to the namespace 
@@ -828,7 +828,7 @@ TTErr TTExplorer::returnResultBack()
 
 TTErr TTExplorer::returnSelectionBack()
 {
-	TTAddressItemPtr    aSelection = TTModular->SelectionLookup(mNamespace);
+	TTAddressItemPtr    aSelection = TTModularSelectionLookup(mNamespace);
 	TTAddressItemPtr    anItem;
 	TTAddress           itemSymbol;
 	TTValue				selection;
@@ -996,9 +996,9 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 	
 	switch (flag) {
 			
-		case kApplicationAdded :
+		case kApplicationInstantiated :
 		{
-			anExplorer->mDirectory = getDirectoryFrom(anExplorer->mAddress);
+			anExplorer->mDirectory = accessApplicationDirectoryFrom(anExplorer->mAddress);
 			anExplorer->bindAddress();
 			break;
 		}
@@ -1014,7 +1014,7 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 			break;
 		}
 			
-		case kApplicationRemoved :
+		case kApplicationReleased :
 		{
 			anExplorer->unbindAddress();
 			break;

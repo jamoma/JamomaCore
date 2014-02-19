@@ -33,7 +33,7 @@ mReader(NULL),
 mIsWriting(false),
 mIsReading(false)
 {
-	TT_ASSERT("Correct number of args to create TTOpmlHandler", arguments.size() == 0);
+	TT_ASSERT("Correct number of arguments to instantiate TTOpmlHandler", arguments.size() == 0);
 	
 	addAttribute(Object, kTypeObject);
 

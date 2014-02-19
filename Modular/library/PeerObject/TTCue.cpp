@@ -26,7 +26,7 @@ mDescription(kTTSym_none),
 mRamp(0),
 mScript(NULL)
 {
-	TT_ASSERT("Correct number of args to create TTCue", arguments.size() == 0 || arguments.size() == 1);
+	TT_ASSERT("Correct number of arguments to instantiate TTCue", arguments.size() == 0 || arguments.size() == 1);
 	
 	addAttributeWithGetterAndSetter(Name, kTypeSymbol);
 	addAttributeWithGetterAndSetter(Description, kTypeSymbol);
@@ -282,7 +282,7 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
         if (!aLine->lookup(kTTSym_target, v)) {
             
             anAddress = v[0];
-            err = getDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
+            err = accessApplicationDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
             
             if (!err) {
             
@@ -326,7 +326,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
         
         else if (inputValue[0].type() == kTypeSymbol) {
             name = inputValue[0];
-            aSelection = TTModular->SelectionLookup(name);
+            aSelection = TTModularSelectionLookup(name);
         }
     }
 	
@@ -346,7 +346,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		
 		// 3. Process namespace storage from the root
         // (but others directories are handled too. see in processStore)
-        processStore(mScript, aSelection, getDirectoryFrom(kTTAdrsRoot)->getRoot());
+        processStore(mScript, aSelection, accessApplicationDirectoryFrom(kTTAdrsRoot)->getRoot());
 		
 		// 5. Process ramp
 		if (mRamp) setRamp(mRamp);
@@ -394,7 +394,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelec
             if (nameItem->getSize() == 1) {
                 
                 // TODO : do not test only with the nameItem
-                TTNodeDirectoryPtr aDirectory = getApplicationDirectory(nameItem->getSymbol());
+                TTNodeDirectoryPtr aDirectory = accessApplicationDirectory(nameItem->getSymbol());
             
                 if (aDirectory) {
             
@@ -594,7 +594,7 @@ TTErr TTCue::processUpdate(TTObjectBasePtr aScript)
         if (!aLine->lookup(kTTSym_target, v)) {
             
             anAddress = v[0];
-            err = getDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
+            err = accessApplicationDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
             
             if (!err) {
                 
@@ -704,7 +704,7 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
         
         else if (inputValue[0].type() == kTypeSymbol) {
             name = inputValue[0];
-            aSelection = TTModular->SelectionLookup(name);
+            aSelection = TTModularSelectionLookup(name);
         }
     }
 	

@@ -95,7 +95,7 @@ TTContainer::~TTContainer()
 	
 	if (mObserver) {
 		if (mAddress != kTTSymEmpty)
-			getLocalDirectory->removeObserverForNotifications(mAddress, mObserver);
+			accessApplicationLocalDirectory->removeObserverForNotifications(mAddress, mObserver);
 		delete (TTValuePtr)mObserver->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mObserver));
 	}
@@ -319,7 +319,7 @@ TTErr TTContainer::setAddress(const TTValue& value)
 
 TTErr TTContainer::setAlias(const TTValue& value)
 {
-	TTNodeDirectoryPtr localDirectory = getLocalDirectory;
+	TTNodeDirectoryPtr localDirectory = accessApplicationLocalDirectory;
     TTAttributePtr	anAttribute;
 	TTAddress		oldAlias = mAlias;
 	TTNodePtr		aNode;
@@ -448,11 +448,11 @@ TTErr TTContainer::bind()
 	mObjectsObserversCache  = new TTHash();
 	
 	// 1. Look for all nodes under the address into the directory with the same Context
-	err = getLocalDirectory->Lookup(mAddress, aNodeList, &aNode);
+	err = accessApplicationLocalDirectory->Lookup(mAddress, aNodeList, &aNode);
 	aContext = aNode->getContext();
 	
 	v.append(aContext);
-	err = getLocalDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
+	err = accessApplicationLocalDirectory->LookFor(&aNodeList, TTContainerTestObjectAndContext, &v, allObjectsNodes, &aNode);
 	
 	// 2. make a cache containing each relativeAddress : Data and Observer
 	for (allObjectsNodes.begin(); allObjectsNodes.end(); allObjectsNodes.next()) {
@@ -473,7 +473,7 @@ TTErr TTContainer::bind()
 	
 	mObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));		// this is usefull only to debug
 	
-	getLocalDirectory->addObserverForNotifications(mAddress, mObserver); // ask for notification for addresses below
+	accessApplicationLocalDirectory->addObserverForNotifications(mAddress, mObserver); // ask for notification for addresses below
 	
 	return err;
 }
@@ -759,9 +759,9 @@ TTErr TTContainer::unbind()
 	}
 	
 	// stop life cycle observation
-	if (mObserver && getLocalDirectory) {
+	if (mObserver && accessApplicationLocalDirectory) {
 		
-		err = getLocalDirectory->removeObserverForNotifications(mAddress, mObserver);
+		err = accessApplicationLocalDirectory->removeObserverForNotifications(mAddress, mObserver);
 		
 		if (!err)
 			TTObjectBaseRelease(TTObjectBaseHandle(&mObserver));
