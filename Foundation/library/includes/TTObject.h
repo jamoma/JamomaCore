@@ -81,7 +81,37 @@ public:
 		// TODO: Needs to be implemented!
 		return kTTErrMethodNotFound;
 	}
-
+    
+    /** Make an instance of a class
+     @param aClassName		The symbolic name of the class to create/wrap.
+     @param arguments		Arguments to the constructor.
+     @return #TTErr
+	 */
+	// NOTE: arguments *must* be copied -- otherwise a reference to kTTValNONE may overwrite its value and corrupt memory
+	TTErr instantiate(const TTSymbol& aClassName, const TTValue arguments = TTValue())
+	{
+		if (mObjectInstance == NULL) {
+            
+            TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, arguments);
+            
+            if (err) {
+                TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName.c_str());
+                throw TTException("object instantiation failed");
+            }
+        }
+        
+        return kTTErrGeneric;
+	}
+    
+    /** Release the instance 
+     @return #TTErr */
+	TTErr release()
+	{
+		if (mObjectInstance != NULL)
+            return ttEnvironment->releaseInstance(&mObjectInstance);
+        
+        return kTTErrGeneric;
+	}
 	
 	/** Return a direct pointer to the internal instance.
 		Not recommended in most cases. */
