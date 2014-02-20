@@ -124,6 +124,15 @@ public:
 	{
 		mObjectInstance->getAttributeNames(returnedAttributeNames);
 	}
+    
+    /** Return the type of an attribute as a symbol.
+     @param aName                   The name of the attribute we want the type.
+     @return #TTSymbol : kTTSym__none, kTTSym_uint8, kTTSym_int8, kTTSym_uint16, kTTSym_int16, kTTSym_uint32, kTTSym_int32, kTTSym_uint64, kTTSym_int64, kTTSym_float32, kTTSym_float64, kTTSym__boolean, kTTSym_symbol, kTTSym_string, kTTSym_pointer, kTTSym_object, kTTSym_value. Returns kTTSymEmpty if the attribute doesn't exist.
+	 */
+	TTSymbol attributeType(const TTSymbol aName)
+	{
+		return mObjectInstance->getAttributeType(aName);
+	}
 	
 	
 	/** Return a list of names of the available messages.

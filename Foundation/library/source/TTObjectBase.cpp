@@ -157,7 +157,6 @@ TTErr TTObjectBase::findAttribute(const TTSymbol name, TTAttribute** attr)
 	return err;
 }
 
-
 TTErr TTObjectBase::getAttributeValue(const TTSymbol name, TTValue& value)
 {
 	TTAttributePtr	attribute = NULL;
@@ -205,6 +204,19 @@ TTErr TTObjectBase::setAttributeValue(const TTSymbol name, TTValue& value)
 		}
 	}
 	return err;
+}
+
+TTSymbol TTObjectBase::getAttributeType(const TTSymbol name)
+{
+    TTAttributePtr attributeObject;
+    
+    if (!findAttribute(name, &attributeObject))
+        
+        return ttDataTypeInfo[attributeObject->type]->name;
+    
+    else
+        
+        return kTTSymEmpty;
 }
 
 TTErr TTObjectBase::getAttributeGetterFlags(const TTSymbol name, TTAttributeFlags& value)
