@@ -471,6 +471,11 @@ public:
 		mValue.boolean = value;
 		return *this;
 	}
+    
+    TTElement& operator = (const char* value)
+	{
+		return *this = TTSymbol(value);
+	}
 	
 	TTElement& operator = (const TTSymbol value)
 	{
