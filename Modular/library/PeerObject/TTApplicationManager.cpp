@@ -197,11 +197,8 @@ TTErr TTApplicationManager::ApplicationInstantiateLocal(const TTValue& inputValu
                 return kTTErrGeneric;
             }
             
-            // pass the name and the application manager
-            args = applicationName;
-            args.append(TTObjectBasePtr(this));
-            
-            TTObjectBaseInstantiate(kTTSym_Application, &anApplication, args);
+            // create an application
+            TTObjectBaseInstantiate(kTTSym_Application, &anApplication, applicationName);
             
             // register the application as any application
             mApplications.append(applicationName, anApplication);
