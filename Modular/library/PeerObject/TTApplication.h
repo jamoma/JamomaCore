@@ -263,8 +263,8 @@ public:
     inline TTBoolean getDebug() { return mDebug; };
     
     /**	To convert an application name into standard TT name
-     @param						a TTsymbol
-     @return					a TTsymbol */
+     @param	anAppName       #TTSymbol
+     @return #TTSymbol */
     inline TTSymbol convertAppNameToTTName(TTSymbol anAppName)
     {
         TTValue		c;
@@ -277,8 +277,8 @@ public:
     }
     
     /**	To convert standard TT name into an application name
-     @param						a TTsymbol
-     @return					a TTsymbol */
+     @param	aTTName     #TTSymbol
+     @return #TTSymbol */
     inline TTSymbol convertTTNameToAppName(TTSymbol aTTName)
     {
         TTValue		c;
