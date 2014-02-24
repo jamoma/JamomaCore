@@ -89,15 +89,11 @@ Protocol::~Protocol()
 	}
 	
 	// delete activity callbacks
-	if (mActivityInCallback) {
-		delete (TTValuePtr)mActivityInCallback->getBaton();
+	if (mActivityInCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mActivityInCallback));
-	}
 	
-	if (mActivityOutCallback) {
-		delete (TTValuePtr)mActivityOutCallback->getBaton();
+	if (mActivityOutCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mActivityOutCallback));
-	}
 }
 
 TTErr Protocol::setApplicationManager(const TTValue& value)
@@ -488,9 +484,8 @@ TTErr Protocol::ActivityOutMessage(const TTValue& message)
 #pragma mark Some Methods
 #endif
 
-TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr			b;
 	ProtocolPtr			aProtocol;
 	TTSymbol			anApplicationName;
 	TTAddress			anAddress;
@@ -500,9 +495,8 @@ TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
 	TTValue				v;
 
 	// unpack baton
-	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
-	anApplicationName = (*b)[1];
+	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	anApplicationName = baton[1];
 	
 	// unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -528,18 +522,16 @@ TTErr ProtocolDirectoryCallback(TTPtr baton, TTValue& data)
         return kTTErrGeneric;
 }
 
-TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr			b;
 	ProtocolPtr			aProtocol;
 	TTSymbol			anApplicationName;
 	TTAddress			anAddress;
 	
 	// unpack baton
-    b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
-	anApplicationName = (*b)[1];
-	anAddress = (*b)[2];
+	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	anApplicationName = baton[1];
+	anAddress = baton[2];
 	
     if (aProtocol->mRunning)
         return aProtocol->SendListenAnswer(anApplicationName, anAddress, data);
@@ -547,19 +539,18 @@ TTErr ProtocolAttributeCallback(TTPtr baton, TTValue& data)
         return kTTErrGeneric;
 }
 
-TTErr ProtocolGetAttributeCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b, value;
+	TTValuePtr		value;
 	ProtocolPtr		aProtocol;
 	TTSymbol		anApplicationName;
 	TTAddress		anAddress;
 	TTSymbol		attribute;
 	
 	// unpack baton
-	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
-	anApplicationName = (*b)[1];
-	anAddress = (*b)[2];
+	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	anApplicationName = baton[1];
+	anAddress = baton[2];
 	
 	// unpack data
 	attribute = data[0];
@@ -572,19 +563,18 @@ TTErr ProtocolGetAttributeCallback(TTPtr baton, TTValue& data)
         return kTTErrGeneric;
 }
 
-TTErr ProtocolSetAttributeCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b, value;
+	TTValuePtr		value;
 	ProtocolPtr		aProtocol;
 	TTSymbol		anApplicationName;
 	TTAddress		anAddress;
 	TTSymbol		attribute;
 	
 	// unpack baton
-	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
-	anApplicationName = (*b)[1];
-	anAddress = (*b)[2];
+	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	anApplicationName = baton[1];
+	anAddress = baton[2];
 	
 	// unpack data
 	attribute = data[0];
@@ -597,19 +587,18 @@ TTErr ProtocolSetAttributeCallback(TTPtr baton, TTValue& data)
         return kTTErrGeneric;
 }
 
-TTErr ProtocolSendMessageCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr			b, value;
+	TTValuePtr			value;
 	ProtocolPtr			aProtocol;
 	TTSymbol			anApplicationName;
 	TTAddress			anAddress;
 	TTSymbol			message;
 	
 	// unpack baton
-	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
-	anApplicationName = (*b)[1];
-	anAddress = (*b)[2];
+	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	anApplicationName = baton[1];
+	anAddress = baton[2];
 	
 	// unpack data
 	message = data[0];
@@ -622,9 +611,8 @@ TTErr ProtocolSendMessageCallback(TTPtr baton, TTValue& data)
         return kTTErrGeneric;
 }
 
-TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
+TTErr ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr			b;
 	ProtocolPtr			aProtocol;
 	TTSymbol			anApplicationName;
 	TTAddress			anAddress;
@@ -632,10 +620,9 @@ TTErr ProtocolListenAttributeCallback(TTPtr baton, TTValue& data)
 	TTBoolean			enable;
 	
 	// unpack baton
-	b = (TTValuePtr)baton;
-	aProtocol = ProtocolPtr((TTObjectBasePtr)(*b)[0]);
-	anApplicationName = (*b)[1];
-	anAddress = (*b)[2];
+	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	anApplicationName = baton[1];
+	anAddress = baton[2];
 	
 	// unpack data
     attribute = data[0];

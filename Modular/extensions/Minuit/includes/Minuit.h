@@ -228,7 +228,7 @@ private:
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
 	TTErr SendGetAnswer(TTSymbol to, TTAddress address, 
-						TTValue& returnedValue,
+						const TTValue& returnedValue,
 						TTErr err=kTTErrNone);
 	
 	/*!
@@ -239,7 +239,7 @@ private:
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
 	TTErr SendListenAnswer(TTSymbol to, TTAddress address, 
-						   TTValue& returnedValue,
+						   const TTValue& returnedValue,
 						   TTErr err=kTTErrNone);
 	
 };

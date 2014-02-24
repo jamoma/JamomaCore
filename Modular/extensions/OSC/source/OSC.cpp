@@ -399,8 +399,8 @@ TTErr OSC::SendDiscoverAllAnswer(TTSymbol to, TTAddress address,
  * \param returnedValue			: the value of the attribute at the address
  */
 TTErr OSC::SendGetAnswer(TTSymbol to, TTAddress address, 
-							TTValue& returnedValue, 
-							TTErr err)
+                         const TTValue& returnedValue,
+                         TTErr err)
 {
     return kTTErrGeneric;
 }
@@ -413,8 +413,8 @@ TTErr OSC::SendGetAnswer(TTSymbol to, TTAddress address,
  * \param returnedValue			: the value of the attribute at the address
  */
 TTErr OSC::SendListenAnswer(TTSymbol to, TTAddress address, 
-							   TTValue& returnedValue, 
-							   TTErr err)
+                            const TTValue& returnedValue,
+                            TTErr err)
 {
     return kTTErrGeneric;
 }

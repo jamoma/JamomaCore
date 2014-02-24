@@ -462,7 +462,7 @@ TTErr Minuit::SendDiscoverAllAnswer(TTSymbol to, TTAddress address, TTNodePtr no
  * \param returnedValue			: the value of the attribute at the address
  */
 TTErr Minuit::SendGetAnswer(TTSymbol to, TTAddress address, 
-							TTValue& returnedValue, 
+							const TTValue& returnedValue,
 							TTErr err)
 {
 	TTValue		v, arguments;
@@ -498,7 +498,7 @@ TTErr Minuit::SendGetAnswer(TTSymbol to, TTAddress address,
  * \param returnedValue			: the value of the attribute at the address
  */
 TTErr Minuit::SendListenAnswer(TTSymbol to, TTAddress address, 
-							   TTValue& returnedValue, 
+							   const TTValue& returnedValue,
 							   TTErr err)
 {
 	TTValue		v, arguments;

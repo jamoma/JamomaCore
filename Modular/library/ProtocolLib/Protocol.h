@@ -251,7 +251,7 @@ public:
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
 	virtual TTErr SendGetAnswer(TTSymbol to, TTAddress address, 
-								TTValue& returnedValue,
+								const TTValue& returnedValue,
 								TTErr err=kTTErrNone)=0;
 	
 	/*!
@@ -262,7 +262,7 @@ public:
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
 	virtual TTErr SendListenAnswer(TTSymbol to, TTAddress address, 
-								   TTValue& returnedValue,
+								   const TTValue& returnedValue,
 								   TTErr err=kTTErrNone)=0;
 	
 	/**************************************************************************************************************************
@@ -368,13 +368,13 @@ public:
 	
 	
 	
-	friend TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(const TTValue& baton, const TTValue& data);
 	
-	friend TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data);
 	
 	friend TTSymbol TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
 
@@ -386,38 +386,38 @@ typedef Protocol* ProtocolPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 /**	Called when an application object attribute send a 
  notification to registered application observers
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /** Get the current name of the local application
  @param	aProtocol					..
