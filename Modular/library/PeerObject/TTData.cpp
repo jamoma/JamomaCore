@@ -20,7 +20,18 @@
 #define thisTTClassName		"Data"
 #define thisTTClassTags		"data"
 
-TT_MODULAR_CONSTRUCTOR,
+TTObjectBasePtr TTData::instantiate (TTSymbol name, TTValue arguments)
+{
+	return new TTData(arguments);
+}
+
+extern "C" void TTData::registerClass()
+{
+	TTClassRegister(TTSymbol("Data"), thisTTClassTags, TTData::instantiate);
+}
+
+TTData::TTData(const TTValue& arguments) :
+TTCallback(arguments),
 mValue(TTValue(0.0)),
 mValueStepsize(TTValue(0.1)),
 mType(kTTSym_generic),
@@ -42,16 +53,10 @@ mRampStatus(NO),
 mDataspace(kTTSym_none),
 mDataspaceUnit(kTTSym_none),
 mDataspaceConverter(NULL),
-mService(kTTSymEmpty),
-mReturnValueCallback(NULL)
+mService(kTTSymEmpty)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTData", arguments.size() == 1);
-	
-	mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
-	TT_ASSERT("Return Value Callback passed to TTData is not NULL", mReturnValueCallback);
-	
-	if (arguments.size() == 2)
-		mService = arguments[1];
+	if (arguments.size() == 1)
+		mService = arguments[0];
 	
     registerAttribute(kTTSym_value, kTypeNone, NULL, (TTGetterMethod)&TTData::getValue, (TTSetterMethod)&TTData::setGenericValue);
 	addAttributeWithGetterAndSetter(ValueDefault, kTypeNone);
@@ -136,10 +141,6 @@ TTData::~TTData()
 	
 	if (mDataspaceConverter)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceConverter));
-	
-	if (mReturnValueCallback)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
-
 }
 
 TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)

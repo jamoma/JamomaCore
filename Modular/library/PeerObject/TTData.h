@@ -22,7 +22,7 @@
 /**	TTData establishes a control point, which is to say a TTNode that is dramaticly expanded, for a model to get/set its state.
  @details In Max the jcom.parameter, jcom.message and jcom.return externals are based on TTData
  */
-class TTMODULAR_EXPORT TTData : public TTDataObjectBase
+class TTMODULAR_EXPORT TTData : public TTCallback
 {
 	TTCLASS_SETUP(TTData)
 	
@@ -62,8 +62,6 @@ private:
 												///<	as message : the data don't notify observers it's changing but the value is still returned to his owner
 												///<	as return : the value is not returned to his owner anymore but the data notify observers it's changing
 												///< Notice that in each case the value can be queried using a getAttributeValue method.
-	
-	TTCallbackPtr	mReturnValueCallback;		///< Callback to return back value to the owner of this data
 	
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 

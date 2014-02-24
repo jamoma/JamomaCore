@@ -433,10 +433,12 @@ public:
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::booleanize));
 	}
 	
-	
-	void toString()
+	/** Edit the content of the value as a string
+     @param returnString        optionnal argument to not fill the value with the result 
+     @return the content of the value as a string */
+	TTString toString() const
 	{
-		TTString	temp;
+		TTString temp;
 	
 		for (size_t i=0; i<size(); i++) {
 			at(i).string(temp);		// get a string for each item
@@ -444,11 +446,24 @@ public:
 				temp.append(" ");
 		}
 		
-		// now set the value to the new string
-		clear();
-		append(temp);
+        return temp;
 	}
-	
+    
+    /** Edit the content of the value as a string and replace the content */
+	void toString()
+	{
+		TTString temp;
+        
+		for (size_t i=0; i<size(); i++) {
+			at(i).string(temp);		// get a string for each item
+			if (i < (size()-1))		// add a space between each item, but no space at the end
+				temp.append(" ");
+		}
+		
+		// now set the value to the new string
+        clear();
+        append(temp);
+	}
 	
 	void fromString(TTBoolean numberAsSymbol = NO)
 	{

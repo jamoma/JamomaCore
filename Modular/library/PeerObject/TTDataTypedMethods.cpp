@@ -189,9 +189,7 @@ TTErr TTData::returnValue()
 {
     // used a new value to protect the internal value
     TTValue v = mValue;
-	TTValue dummy;
 	
-    
     // This is a temporary solution to have audio rate ramping outside the TTData
     if (mRampDrive == kTTSym_external) {
         
@@ -209,7 +207,7 @@ TTErr TTData::returnValue()
         mInitialized = YES;
     
     // return the value to his owner
-    this->mReturnValueCallback->notify(v, dummy);
+    this->deliver(v);
     
     // notify each observers
     valueAttribute->sendNotification(kTTSym_notify, v);             // we use kTTSym_notify because we know that observers are TTCallback

@@ -86,8 +86,26 @@ public:
 	*/
 	TTObject& operator = (TTObject object)
 	{
+        if (mObjectInstance)
+            ttEnvironment->releaseInstance(&mObjectInstance);
+        
         mObjectInstance = ttEnvironment->referenceInstance(object.mObjectInstance);
 		return *this;
+	}
+    
+    /**	Assign a TTObject instance from an kTypeObject element
+     */
+	TTObject& operator = (TTElement element)
+	{
+        if (element.type() == kTypeObject) {
+            
+            if (mObjectInstance)
+                ttEnvironment->releaseInstance(&mObjectInstance);
+            
+            mObjectInstance = ttEnvironment->referenceInstance(TTObjectBasePtr(element));
+        }
+
+        return *this;
 	}
     
 	/** Return a direct pointer to the internal instance.
@@ -222,7 +240,7 @@ public:
 		return (anObject.instance() == anotherObject.instance());
 	}
 
-		
+    
 	
 };
 
