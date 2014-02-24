@@ -23,6 +23,7 @@
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
 
+
 #ifndef DISABLE_NODELIB
 #include "TTAddress.h"
 #include "TTAddressTable.h"
@@ -356,7 +357,7 @@ public:
 		else
 			return NULL;
 	}
-	
+    
 	operator TTMatrix&() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeObject));
@@ -552,7 +553,7 @@ public:
 	
 #define TTELEMENT_TEMP_STRINGLEN 32
 	
-	void string(TTString& aString)
+	void string(TTString& aString) const
 	{
 		char		temp[TTELEMENT_TEMP_STRINGLEN];
 		TTBoolean	addQuotes;
