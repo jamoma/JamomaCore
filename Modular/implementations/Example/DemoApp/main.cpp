@@ -32,11 +32,11 @@ public:
     TTObject mDataDemoReturn;        // a return is a kind of notification sent by our application
     
     // Be friend with the callback function
-    friend TTErr DemoAppDataReturnValueCallback(TTPtr baton, const TTValue& v);
+    friend TTErr DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& v);
 };
 
 // Callback function to get data's value back
-TTErr DemoAppDataReturnValueCallback(TTPtr baton, const TTValue& v);
+TTErr DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& v);
 
 int
 main(int argc, char **argv) 
@@ -175,15 +175,14 @@ DemoApp::Setup()
     
     // Create a parameter data and set its callback function and baton and some attributes
     mDataDemoParameter = TTObject("Data", TTSymbol("parameter"));
-    mDataDemoParameter.set("callbackFunction", TTPtr(&DemoAppDataReturnValueCallback));
-    mDataDemoParameter.set("callbackBaton", TTPtr(mDataDemoParameter.instance()));
+    mDataDemoParameter.set("function", TTPtr(&DemoAppDataReturnValueCallback));
+    mDataDemoParameter.set("baton", mDataDemoParameter);
     mDataDemoParameter.set("type", TTSymbol("decimal"));
     mDataDemoParameter.set("rangeBounds", TTValue(-1., 1.));
     mDataDemoParameter.set("description", TTSymbol("this parameter is useful for demo purpose"));
     
     // Register the parameter data into myDemoApp at an address
-    args = TTAddress("/myParameter");
-    args.append(mDataDemoParameter.instance());
+    args = TTValue(TTAddress("/myParameter"), mDataDemoParameter);
     err = mApplicationDemo.send("RegisterObject", args, out);
     
     if (err)
@@ -196,14 +195,13 @@ DemoApp::Setup()
     
     // Create a message data and set its callback function and baton and some attributes
     mDataDemoMessage = TTObject("Data", TTSymbol("parameter"));
-    mDataDemoMessage.set("callbackFunction", TTPtr(&DemoAppDataReturnValueCallback));
-    mDataDemoMessage.set("callbackBaton", TTPtr(mDataDemoMessage.instance()));
+    mDataDemoMessage.set("function", TTPtr(&DemoAppDataReturnValueCallback));
+    mDataDemoMessage.set("baton", mDataDemoMessage);
     mDataDemoMessage.set("type", TTSymbol("none"));
     mDataDemoMessage.set("description", TTSymbol("this message is useful for demo purpose"));
     
     // Register the message data into myDemoApp at an address
-    args = TTAddress("/myMessage");
-    args.append(mDataDemoMessage.instance());
+    args = TTValue(TTAddress("/myMessage"), mDataDemoMessage);
     mApplicationDemo.send("RegisterObject", args, out);
     
     if (err)
@@ -216,14 +214,13 @@ DemoApp::Setup()
     
     // Create a return data and set its callback function and baton and some attributes
     mDataDemoReturn = TTObject("Data", TTSymbol("return"));
-    mDataDemoReturn.set("callbackFunction", TTPtr(&DemoAppDataReturnValueCallback));
-    mDataDemoReturn.set("callbackBaton", TTPtr(mDataDemoReturn.instance()));
+    mDataDemoReturn.set("function", TTPtr(&DemoAppDataReturnValueCallback));
+    mDataDemoReturn.set("baton", mDataDemoReturn);
     mDataDemoReturn.set("type", TTSymbol("integer"));
     mDataDemoReturn.set("description", TTSymbol("this return is useful for demo purpose"));
     
     // Register the return data into myDemoApp at an address
-    args = TTAddress("/myReturn");
-    args.append(mDataDemoReturn.instance());
+    args = TTValue(TTAddress("/myReturn"), mDataDemoReturn);
     mApplicationDemo.send("RegisterObject", args, out);
     
     if (err)
@@ -319,7 +316,6 @@ DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& value)
 {
     DemoApp*    demoApp = (DemoApp*)TTPtr(baton[0]);
     TTObject    anObject = TTObject(baton[1]);
-	TTString    s;
     
 	// Reteive which data has been updated
     if (anObject == demoApp->mDataDemoParameter) {
