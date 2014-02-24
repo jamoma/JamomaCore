@@ -91,10 +91,10 @@ private:
 	TTErr observeDataspace();
 	TTErr observeDataspaceUnit();
 	
-	friend TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTViewerReceiveValueCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTViewerDataspaceCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTViewerReceiveValueCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTViewerDataspaceCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTViewerDataspaceUnitCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTViewer* TTViewerPtr;
@@ -103,24 +103,24 @@ typedef TTViewer* TTViewerPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTViewerReceiveValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTViewerReceiveValueCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTViewerDataspaceCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTViewerDataspaceCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTViewerDataspaceUnitCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __TT_VIEWER_H__

@@ -172,10 +172,9 @@ TTErr TTSender::bindAddress()
 {
 	TTNodePtr	aNode;
 	TTObjectBasePtr	anObject;
-	TTValuePtr	newBaton;
 	TTValue		aCacheElement;
 	TTList		aNodeList;
-	TTValue		v, none;
+	TTValue		v, baton, none;
 	
 	// 1. Look for the node(s) into the directory
 	mDirectory->Lookup(mAddress, aNodeList, &aNode);
@@ -192,9 +191,7 @@ TTErr TTSender::bindAddress()
 	mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 	
-	newBaton = new TTValue(TTObjectBasePtr(this));
-	
-	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+	mAddressObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
 	
 	mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTSender"));		// this is usefull only to debug
@@ -217,10 +214,8 @@ TTErr TTSender::unbindAddress()
 			
 			err = mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
 			
-			if(!err) {
-				delete (TTValuePtr)mAddressObserver->getBaton();
+			if(!err)
 				TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
-			}
 		}
 	}
 	
@@ -229,7 +224,6 @@ TTErr TTSender::unbindAddress()
 
 TTErr TTSender::bindApplication() 
 {
-	TTValuePtr	newBaton;
     TTValue     none;
 	
 	if (!mApplicationObserver) {
@@ -237,9 +231,7 @@ TTErr TTSender::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), none);
 		
-		newBaton = new TTValue(TTObjectBasePtr(this));
-		
-		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mApplicationObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderApplicationManagerCallback));
 		
 		mApplicationObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTSender"));		// this is usefull only to debug
@@ -256,8 +248,7 @@ TTErr TTSender::unbindApplication()
 	if (mApplicationObserver) {
 		
 		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
-		
-		delete (TTValuePtr)mApplicationObserver->getBaton();
+
 		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
 	}
 	
@@ -266,9 +257,8 @@ TTErr TTSender::unbindApplication()
 	return kTTErrNone;
 }
 
-TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTValue			aCacheElement;
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
@@ -278,8 +268,7 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 	TTUInt8			flag;
 
 	// unpack baton (a TTSenderPtr)
-	b = (TTValuePtr)baton;
-	aSender = TTSenderPtr((TTObjectBasePtr)(*b)[0]);
+	aSender = TTSenderPtr((TTObjectBasePtr)baton[0]);
 
 	// Unpack data (address, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -323,9 +312,8 @@ TTErr TTSenderDirectoryCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
+TTErr TTSenderApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTSenderPtr		aSender;
 	TTSymbol		anApplicationName;
 	TTApplicationPtr anApplication;
@@ -333,8 +321,7 @@ TTErr TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data)
 	TTUInt8			flag;
 	
 	// unpack baton (a TTSenderPtr)
-	b = (TTValuePtr)baton;
-	aSender = TTSenderPtr((TTObjectBasePtr)(*b)[0]);
+	aSender = TTSenderPtr((TTObjectBasePtr)baton[0]);
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];

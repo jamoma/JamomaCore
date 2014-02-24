@@ -114,10 +114,9 @@ TTCueManager::~TTCueManager()
 	delete mDefaultNamespace;
 	mDefaultNamespace = NULL;
 	
-	if (mReturnLineCallback) {
-		delete (TTValuePtr)mReturnLineCallback->getBaton();
+	if (mReturnLineCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnLineCallback));
-	}
+
 }
 
 TTErr TTCueManager::getCurrentDescription(TTValue& value)

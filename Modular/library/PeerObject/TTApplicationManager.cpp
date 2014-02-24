@@ -431,7 +431,6 @@ TTErr TTApplicationManager::ProtocolInstantiate(const TTValue& inputValue, TTVal
     TTSymbol        protocolName;
     ProtocolPtr     aProtocolObject = NULL;
     TTObjectBasePtr	activityInCallback, activityOutCallback;
-    TTValuePtr      activityInBaton, activityOutBaton;
     TTValue         args, none;
     TTErr           err;
     
@@ -444,14 +443,12 @@ TTErr TTApplicationManager::ProtocolInstantiate(const TTValue& inputValue, TTVal
 			// create 2 callbacks to get raw protocol messages back
 			activityInCallback = NULL;
 			TTObjectBaseInstantiate(TTSymbol("callback"), &activityInCallback, none);
-			activityInBaton = new TTValue(protocolName);
-			activityInCallback->setAttributeValue(kTTSym_baton, TTPtr(activityInBaton));
+			activityInCallback->setAttributeValue(kTTSym_baton, protocolName);
 			activityInCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityInCallback));
 			
 			activityOutCallback = NULL;
 			TTObjectBaseInstantiate(TTSymbol("callback"), &activityOutCallback, none);
-			activityOutBaton = new TTValue(protocolName);
-			activityOutCallback->setAttributeValue(kTTSym_baton, TTPtr(activityOutBaton));
+			activityOutCallback->setAttributeValue(kTTSym_baton, protocolName);
 			activityOutCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityOutCallback));
 			
 			// create an instance of a Protocol object
@@ -1433,15 +1430,13 @@ TTErr TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, 
     return err;
 }
 
-TTErr TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data)
+TTErr TTApplicationManagerProtocolActivityInCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr	b;
 	TTSymbol	aProtocolName;
 	TTValue		v;
 	
 	// unpack baton
-	b = (TTValuePtr)baton;
-	aProtocolName = (*b)[0];
+	aProtocolName = baton[0];
 	
 	// set the activityIn attribute of the local application
 	v = data;
@@ -1451,15 +1446,13 @@ TTErr TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data)
+TTErr TTApplicationManagerProtocolActivityOutCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr	b;
 	TTSymbol	aProtocolName;
 	TTValue		v;
 	
 	// unpack baton
-	b = (TTValuePtr)baton;
-	aProtocolName = (*b)[0];
+	aProtocolName = baton[0];
 	
 	// set the activityOut attribute of the local application
 	v = data;

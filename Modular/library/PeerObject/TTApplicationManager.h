@@ -310,8 +310,8 @@ public:
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
 	
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
@@ -339,13 +339,13 @@ TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol an
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(const TTValue& baton, const TTValue& data);
 
 /** To get back raw outputing messages from any protocol
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(const TTValue& baton, const TTValue& data);
 
 /** compare priority attribute of object's node
  @param	v1							a pointer to a value containing a pointer to a TTNode >

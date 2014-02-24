@@ -363,10 +363,9 @@ TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
 TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName, TTDataPtr *returnedData)
 {
     TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
-	TTValue             args, v, none;
+	TTValue             args, baton, v, none;
 	TTDataPtr           aData;
 	TTCallbackPtr       returnValueCallback;
-	TTValuePtr          returnValueBaton;
 	TTAddress           nameToAddress, dataAddress;
 	TTNodePtr           aNode;
 	TTBoolean           nodeCreated;
@@ -378,9 +377,8 @@ TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName
         // prepare arguments
         returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
         TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), none);
-        returnValueBaton = new TTValue(TTObjectBasePtr(this));
-        returnValueBaton->append(messageName);
-        returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+        baton = TTValue(TTObjectBasePtr(this), messageName);
+        returnValueCallback->setAttributeValue(kTTSym_baton, baton);
         returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
         args.append(returnValueCallback);
         
@@ -411,12 +409,10 @@ TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName
 TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData)
 {
     TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
-	TTValue             args, v, none;
+	TTValue             args, baton, v, none;
 	TTDataPtr           aData;
 	TTCallbackPtr       returnValueCallback;                // to set the object attribute when data changed
-	TTValuePtr          returnValueBaton;
 	TTCallbackPtr       observeValueCallback;               // to set the data when an object attribute changed
-	TTValuePtr          observeValueBaton;
 	TTAttributePtr      anAttribute = NULL;
 	TTAddress           nameToAddress, dataAddress;
 	TTNodePtr           aNode;
@@ -432,9 +428,8 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
             // prepare arguments
             returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
             TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), none);
-            returnValueBaton = new TTValue(TTObjectBasePtr(this));
-            returnValueBaton->append(attributeName);
-            returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
+            baton = TTValue(TTObjectBasePtr(this), attributeName);
+            returnValueCallback->setAttributeValue(kTTSym_baton, baton);
             returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
             args.append(returnValueCallback);
             args.append(service);
@@ -454,9 +449,8 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
                 
                 observeValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
                 TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&observeValueCallback), none);
-                observeValueBaton = new TTValue(TTObjectBasePtr(this));
-                observeValueBaton->append(attributeName);
-                observeValueCallback->setAttributeValue(kTTSym_baton, TTPtr(observeValueBaton));
+                baton = TTValue(TTObjectBasePtr(this), attributeName);
+                observeValueCallback->setAttributeValue(kTTSym_baton, baton);
                 observeValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
                 
                 anAttribute->registerObserverForNotifications(*observeValueCallback);
@@ -532,19 +526,17 @@ TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 #pragma mark Some Methods
 #endif
 
-TTErr TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data)
+TTErr TTSubscriberMessageReturnValueCallback(const TTValue& baton, const TTValue& data)
 {
 	TTSubscriberPtr aSubscriber;
 	TTObjectBasePtr	anObject;
 	TTSymbol		messageName;
-	TTValuePtr		b;
 	TTValue			v, none;
 	TTErr			err;
 	
 	// unpack baton (a TTSubscriber)
-	b = (TTValuePtr)baton;
-	aSubscriber = TTSubscriberPtr((TTObjectBasePtr)(*b)[0]);
-	messageName = (*b)[1];
+	aSubscriber = TTSubscriberPtr((TTObjectBasePtr)baton[0]);
+	messageName = baton[1];
 	
 	// get the exposed TTObjectBase
 	err = aSubscriber->mExposedMessages->lookup(messageName, v);
@@ -564,19 +556,17 @@ TTErr TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data)
 	return kTTErrGeneric;
 }
 
-TTErr TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data)
+TTErr TTSubscriberAttributeReturnValueCallback(const TTValue& baton, const TTValue& data)
 {
 	TTSubscriberPtr aSubscriber;
 	TTObjectBasePtr	anObject;
 	TTSymbol		attributeName;
-	TTValuePtr		b;
 	TTValue			v;
 	TTErr			err;
 	
 	// unpack baton (a TTSubscriber)
-	b = (TTValuePtr)baton;
-	aSubscriber = TTSubscriberPtr((TTObjectBasePtr)(*b)[0]);
-	attributeName = (*b)[1];
+	aSubscriber = TTSubscriberPtr((TTObjectBasePtr)baton[0]);
+	attributeName = baton[1];
 	
 	// get the exposed TTObjectBase
 	err = aSubscriber->mExposedAttributes->lookup(attributeName, v);
@@ -596,19 +586,17 @@ TTErr TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data)
 	return kTTErrGeneric;
 }
 
-TTErr TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data)
+TTErr TTSubscriberAttributeObserveValueCallback(const TTValue& baton, const TTValue& data)
 {
 	TTSubscriberPtr aSubscriber;
-	TTObjectBasePtr		aData;
+	TTObjectBasePtr	aData;
 	TTSymbol		attributeName;
-	TTValuePtr		b;
 	TTValue			v;
 	TTErr			err;
 	
 	// unpack baton (a TTSubscriber)
-	b = (TTValuePtr)baton;
-	aSubscriber = TTSubscriberPtr((TTObjectBasePtr)(*b)[0]);
-	attributeName = (*b)[1];
+	aSubscriber = TTSubscriberPtr((TTObjectBasePtr)baton[0]);
+	attributeName = baton[1];
 	
 	// get the TTData which expose the attribute
 	err = aSubscriber->mExposedAttributes->lookup(attributeName, v);

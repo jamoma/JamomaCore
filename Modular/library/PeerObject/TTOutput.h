@@ -97,7 +97,7 @@ protected:
 	/** Notify signal observer */
 	TTErr notifySignalObserver(const TTValue& value);
 	
-	friend TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTOutput* TTOutputPtr;
@@ -106,7 +106,7 @@ typedef TTOutput* TTOutputPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 
 #endif // __TT_OUTPUT_H__

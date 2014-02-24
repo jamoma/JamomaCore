@@ -77,9 +77,9 @@ private:
 	/** Register each given Context of the list as TTNode if they don't exist yet and return the Context node */
 	TTNodePtr registerContextList(TTListPtr aContextList);
 	
-	friend TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(const TTValue& baton, const TTValue& data);
 	
 public:
 	
@@ -98,10 +98,10 @@ public:
 
 typedef TTSubscriber* TTSubscriberPtr;
 
-TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(const TTValue& baton, const TTValue& data);
 
-TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(const TTValue& baton, const TTValue& data);
 
-TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __TT_SUBSCRIBER_H__

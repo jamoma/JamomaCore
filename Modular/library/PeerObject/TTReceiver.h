@@ -73,9 +73,9 @@ private:
 	/** */
 	TTErr unbindApplication();
 	
-	friend TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTReceiverAttributeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTReceiverApplicationManagerCallback(const TTValue& baton, const TTValue& data);
 	
 };
 
@@ -85,18 +85,18 @@ typedef TTReceiver* TTReceiverPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTReceiverAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTReceiverApplicationManagerCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __TT_RECEIVER_H__

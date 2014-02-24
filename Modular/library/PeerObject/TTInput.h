@@ -71,7 +71,7 @@ private:
     /** Notify signal observer */
 	TTErr notifySignalObserver(const TTValue& value);
 	
-	friend TTErr TTMODULAR_EXPORT TTInputDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTInputDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 };
 
@@ -81,7 +81,7 @@ typedef TTInput* TTInputPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTInputDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTInputDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 
 #endif // __TT_INPUT_H__

@@ -85,10 +85,8 @@ TTContainer::~TTContainer()
 	setAlias(kTTAdrsEmpty);
 	unbind();
 	
-	if (mReturnAddressCallback) {
-		delete (TTValuePtr)mReturnAddressCallback->getBaton();
+	if (mReturnAddressCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnAddressCallback));
-	}
 	
 	if (mReturnValueCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
@@ -96,7 +94,7 @@ TTContainer::~TTContainer()
 	if (mObserver) {
 		if (mAddress != kTTSymEmpty)
 			accessApplicationLocalDirectory->removeObserverForNotifications(mAddress, mObserver);
-		delete (TTValuePtr)mObserver->getBaton();
+		
 		TTObjectBaseRelease(TTObjectBaseHandle(&mObserver));
 	}
 }
@@ -442,7 +440,7 @@ TTErr TTContainer::bind()
 	TTValuePtr	newBaton;
 	TTPtr		aContext;
 	TTList		aNodeList, allObjectsNodes;
-	TTValue		v, none;
+	TTValue		v, baton, none;
 	TTErr		err;
 	
 	mObjectsObserversCache  = new TTHash();
@@ -465,10 +463,9 @@ TTErr TTContainer::bind()
 	mObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mObserver), none);
 	
-	newBaton = new TTValue(TTObjectBasePtr(this));
-	newBaton->append(aContext);
+	baton = TTValue(TTObjectBasePtr(this), aContext);
 	
-	mObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+	mObserver->setAttributeValue(kTTSym_baton, baton);
 	mObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerDirectoryCallback));
 	
 	mObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));		// this is usefull only to debug
@@ -480,13 +477,12 @@ TTErr TTContainer::bind()
 
 TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 {
-	TTValue			cacheElement, v, none;
+	TTValue			cacheElement, baton, v, none;
 	TTAddress       aRelativeAddress;
 	TTSymbol		service;
     TTObjectBasePtr	anObject;  
 	TTObjectBasePtr	valueObserver, returnedValueObserver, activityObserver;
 	TTAttributePtr	anAttribute = NULL;
-	TTValuePtr		valueBaton, returnedValueBaton, activityBaton;
     TTErr           err;
     
 	// process the relative address
@@ -520,10 +516,9 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
         valueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
         TTObjectBaseInstantiate(TTSymbol("callback"), &valueObserver, none);
         
-        valueBaton = new TTValue(TTObjectBasePtr(this));
-        valueBaton->append(aRelativeAddress);
+        baton = TTValue(TTObjectBasePtr(this), aRelativeAddress);
         
-        valueObserver->setAttributeValue(kTTSym_baton, TTPtr(valueBaton));
+        valueObserver->setAttributeValue(kTTSym_baton, baton);
         valueObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
         valueObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
         
@@ -542,10 +537,9 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		returnedValueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), &returnedValueObserver, none);
 		
-		returnedValueBaton = new TTValue(TTObjectBasePtr(this));
-		returnedValueBaton->append(aRelativeAddress);
+		baton = TTValue(TTObjectBasePtr(this), aRelativeAddress);
 		
-		returnedValueObserver->setAttributeValue(kTTSym_baton, TTPtr(returnedValueBaton));
+		returnedValueObserver->setAttributeValue(kTTSym_baton, baton);
 		returnedValueObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
 		returnedValueObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 		
@@ -564,10 +558,9 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		activityObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), &activityObserver, TTValue());
 		
-		activityBaton = new TTValue(TTObjectBasePtr(this));
-		activityBaton->append(aRelativeAddress);
+		baton = TTValue(TTObjectBasePtr(this), aRelativeAddress);
 		
-		activityObserver->setAttributeValue(kTTSym_baton, TTPtr(activityBaton));
+		activityObserver->setAttributeValue(kTTSym_baton, baton);
 		activityObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
 		activityObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 		
@@ -1205,9 +1198,8 @@ void TTContainer::cssDefinition(TTString *buffer)
 #pragma mark Some Methods
 #endif
 
-TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr TTContainerDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTValue			arg;
 	TTContainerPtr	aContainer;
 	TTPtr			hisContext;
@@ -1217,9 +1209,8 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTUInt8			flag;
 	
 	// unpack baton (a TTContainerPtr, his Context)
-	b = (TTValuePtr)baton;
-	aContainer = TTContainerPtr((TTObjectBasePtr)(*b)[0]);
-	hisContext = (*b)[1];
+	aContainer = TTContainerPtr((TTObjectBasePtr)baton[0]);
+	hisContext = baton[1];
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -1255,9 +1246,8 @@ TTErr TTContainerDirectoryCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
+TTErr TTContainerValueAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTValue			cacheElement, v;
 	TTObjectBasePtr	anObject;
 	TTContainerPtr	aContainer;
@@ -1265,15 +1255,13 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
 	TTErr			err;
 	
 	// check baton
-	b = (TTValuePtr)baton;
-    
-    if ((*b).size() == 2) {
+    if (baton.size() == 2) {
         
-        if ((*b)[0].type() == kTypeObject && (*b)[1].type() == kTypeSymbol) {
+        if (baton[0].type() == kTypeObject && baton[1].type() == kTypeSymbol) {
             
             // unpack baton
-            aContainer = TTContainerPtr((TTObjectBasePtr)(*b)[0]);
-            relativeAddress = (*b)[1];
+            aContainer = TTContainerPtr((TTObjectBasePtr)baton[0]);
+            relativeAddress = baton[1];
             
             if (aContainer->mReturnAddressCallback && aContainer->mReturnValueCallback) {
                 

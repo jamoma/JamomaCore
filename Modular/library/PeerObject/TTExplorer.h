@@ -134,8 +134,8 @@ private:
 	/** */
 	TTErr returnSelectionBack();
 	
-	friend TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTExplorer* TTExplorerPtr;
@@ -144,13 +144,13 @@ typedef TTExplorer* TTExplorerPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& data);
 
 /** compare priority attribute of object's node
  @param	v1							< relativeAddress, a pointer to a value containing a pointer to a TTNode >

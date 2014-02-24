@@ -132,7 +132,7 @@ private:
 	TTErr setFunction(const TTValue& value);
 #endif
 	/** process mapping */
-	TTErr processMapping(TTValue& inputValue, TTValue& outputValue);
+	TTErr processMapping(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr scaleInput();
@@ -143,11 +143,11 @@ private:
 	/** */
 	TTErr notifyObservers(TTSymbol attrName, const TTValue& value);
 	
-	friend TTErr TTMODULAR_EXPORT TTMapperInputCreationCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTMapperOutputCreationCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTMapperInputRangeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTMapperOutputRangeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTMapperReceiveValueCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTMapperInputCreationCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTMapperOutputCreationCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTMapperInputRangeCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTMapperOutputRangeCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTMapper* TTMapperPtr;
@@ -156,30 +156,30 @@ typedef TTMapper* TTMapperPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTMapperInputCreationCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperInputCreationCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTMapperOutputCreationCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperOutputCreationCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTMapperInputRangeCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperInputRangeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTMapperOutputRangeCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperOutputRangeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTMapperReceiveValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __TT_MAPPER_H__

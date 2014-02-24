@@ -109,15 +109,11 @@ mSignalAttr(NULL)
 
 TTOutput::~TTOutput()
 {
-	if (mReturnSignalCallback) {
-		delete (TTValuePtr)mReturnSignalCallback->getBaton();
+	if (mReturnSignalCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnSignalCallback));
-	}
 	
-	if (mReturnLinkCallback) {
-		delete (TTValuePtr)mReturnLinkCallback->getBaton();
+	if (mReturnLinkCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnLinkCallback));
-	}
 	
 	if (mSignalIn)
 		TTObjectBaseRelease(&mSignalIn);
@@ -148,7 +144,6 @@ TTOutput::~TTOutput()
 		if (mInputAddress != kTTSymEmpty)
 			accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
         
-		delete (TTValuePtr)mAddressObserver->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
 	}
 }
@@ -212,7 +207,6 @@ TTErr TTOutput::Unlink()
 TTErr TTOutput::setInputAddress(const TTValue& value)
 {
 	TTValue			args;
-	TTValuePtr		newBaton;
 	TTAddress       newAddress;
 	TTNodePtr		aNode;
 	TTObjectBasePtr	o;
@@ -234,8 +228,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 		
-		newBaton = new TTValue(TTObjectBasePtr(this));
-		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mAddressObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
 		mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTOutput"));		// this is usefull only to debug
 	}
@@ -306,9 +299,8 @@ TTErr TTOutput::notifySignalObserver(const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr TTOutputDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTOutputPtr		anOutput;
 	TTSymbol		anAddress;
 	TTNodePtr		aNode;
@@ -316,8 +308,7 @@ TTErr TTOutputDirectoryCallback(TTPtr baton, TTValue& data)
 	TTObjectBasePtr		o;
 	
 	// unpack baton (an OutputPtr)
-	b = (TTValuePtr)baton;
-	anOutput = TTOutputPtr((TTObjectBasePtr)(*b)[0]);
+	anOutput = TTOutputPtr((TTObjectBasePtr)baton[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];

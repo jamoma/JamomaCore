@@ -91,8 +91,8 @@ private:
 	void cssDefinition(TTString *buffer);
 	
 	
-	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTContainer* TTContainerPtr;
@@ -101,19 +101,19 @@ typedef TTContainer* TTContainerPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTContainerDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTContainerValueAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTContainerInitializedAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTContainerInitializedAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..

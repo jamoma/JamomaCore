@@ -67,15 +67,11 @@ TTReceiver::~TTReceiver()
 	unbindAddress();
 	unbindApplication();
 	
-	if (mReturnAddressCallback) {
-		delete (TTValuePtr)mReturnAddressCallback->getBaton();
+	if (mReturnAddressCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnAddressCallback));
-	}
 	
-	if (mReturnValueCallback) {
-		delete (TTValuePtr)mReturnValueCallback->getBaton();
+	if (mReturnValueCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
-	}
 	
 	if (mSignal)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mSignal));
@@ -261,8 +257,7 @@ TTErr TTReceiver::bindAddress()
 	TTObjectBasePtr	newObserver, o;
 	TTList			aNodeList;
 	TTNodePtr		aNode;
-	TTValue			v, data, newElement, none;
-	TTValuePtr		newBaton;
+	TTValue			v, data, baton, newElement, none;
 	TTErr			err;
 	
 	if (!mDirectory)
@@ -297,11 +292,11 @@ TTErr TTReceiver::bindAddress()
 						newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 						TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&newObserver), none);
 						
-						newBaton = new TTValue(TTObjectBasePtr(this));
+						baton = TTValue(TTObjectBasePtr(this));
 						aNode->getAddress(anAddress);
-						newBaton->append(anAddress.appendAttribute(mAddress.getAttribute()));
+						baton.append(anAddress.appendAttribute(mAddress.getAttribute()));
 						
-						newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+						newObserver->setAttributeValue(kTTSym_baton, baton);
 						newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
 						
 						newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));					// this is usefull only to debug
@@ -340,9 +335,7 @@ TTErr TTReceiver::bindAddress()
 	mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 	
-	newBaton = new TTValue(TTObjectBasePtr(this));
-	
-	mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+	mAddressObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
 	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
 	
 	mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));							// this is usefull only to debug
@@ -390,10 +383,8 @@ TTErr TTReceiver::unbindAddress()
                     
                     err = anAttribute->unregisterObserverForNotifications(*oldObserver);
                     
-                    if(!err) {
-                        delete (TTValuePtr)TTCallbackPtr(oldObserver)->getBaton();
+                    if(!err)
                         TTObjectBaseRelease(&oldObserver);
-                    }
                     
                     // for Mirror object : disable listening
                     if (o->getName() == kTTSym_Mirror)
@@ -413,10 +404,8 @@ TTErr TTReceiver::unbindAddress()
 			
 			err = mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
 			
-			if(!err) {
-				delete (TTValuePtr)mAddressObserver->getBaton();
+			if(!err)
 				TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
-			}
 		}
 	}
 	
@@ -425,7 +414,6 @@ TTErr TTReceiver::unbindAddress()
 
 TTErr TTReceiver::bindApplication() 
 {
-	TTValuePtr	newBaton;
     TTValue     none;
 	
 	if (!mApplicationObserver) {
@@ -433,12 +421,8 @@ TTErr TTReceiver::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), none);
 		
-		newBaton = new TTValue(TTObjectBasePtr(this));
-		
-		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mApplicationObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverApplicationManagerCallback));
-		
-		mApplicationObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));		// this is usefull only to debug
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 	}
@@ -452,7 +436,6 @@ TTErr TTReceiver::unbindApplication()
 		
 		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 		
-		delete (TTValuePtr)mApplicationObserver->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
 	}
 	
@@ -461,25 +444,22 @@ TTErr TTReceiver::unbindApplication()
 	return kTTErrNone;
 }
 
-TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
 	TTAddress       anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
 	TTObjectBasePtr	newObserver, oldObserver, o = NULL;
 	TTNodePtr		aNode, p_node;
-	TTValue			c, v;
+	TTValue			c, v, b;
 	TTUInt8			flag;
 	TTBoolean		found;
-	TTValuePtr		newBaton;
 	TTValue			newCouple, none;
 	TTErr			err;
 	
 	// unpack baton
-	b = (TTValuePtr)baton;
-	aReceiver = TTReceiverPtr((TTObjectBasePtr)(*b)[0]);
+	aReceiver = TTReceiverPtr((TTObjectBasePtr)baton[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -533,13 +513,11 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 							newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 							TTObjectBaseInstantiate(TTSymbol("callback"), &newObserver, none);
 							
-							newBaton = new TTValue(aReceiver);
-							newBaton->append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
+							b = TTValue(aReceiver);
+							b.append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
 							
-							newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+							newObserver->setAttributeValue(kTTSym_baton, b);
 							newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
-							
-							newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));			// this is usefull only to debug
 							
 							anAttribute->registerObserverForNotifications(*newObserver);
                             
@@ -600,7 +578,6 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 					oldObserver = c[1];
 					
 					// destroy the observer (don't need to unregister because the object is destroyed...)
-                    delete (TTValuePtr)TTCallbackPtr(oldObserver)->getBaton();
 					TTObjectBaseRelease(&oldObserver);
 
                     // for Mirror object : disable listening
@@ -633,17 +610,15 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
+TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
 	TTAddress       anAddress;
 	TTValue			v;
 	
 	// unpack baton
-	b = (TTValuePtr)baton;
-	aReceiver = TTReceiverPtr((TTObjectBasePtr)(*b)[0]);
-	anAddress = (*b)[1];
+	aReceiver = TTReceiverPtr((TTObjectBasePtr)baton[0]);
+	anAddress = baton[1];
 	
 	if(aReceiver->mActive) {
 		
@@ -665,9 +640,8 @@ TTErr TTReceiverAttributeCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
+TTErr TTReceiverApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTReceiverPtr	aReceiver;
 	TTSymbol		anApplicationName;
 	TTApplicationPtr anApplication;
@@ -675,8 +649,7 @@ TTErr TTReceiverApplicationManagerCallback(TTPtr baton, TTValue& data)
 	TTUInt8			flag;
 	
 	// unpack baton (a TTReceiverPtr)
-	b = (TTValuePtr)baton;
-	aReceiver = TTReceiverPtr((TTObjectBasePtr)(*b)[0]);
+	aReceiver = TTReceiverPtr((TTObjectBasePtr)baton[0]);
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];

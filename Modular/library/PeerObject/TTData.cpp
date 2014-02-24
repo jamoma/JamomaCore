@@ -137,10 +137,9 @@ TTData::~TTData()
 	if (mDataspaceConverter)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceConverter));
 	
-	if (mReturnValueCallback) {
-		delete (TTValuePtr)mReturnValueCallback->getBaton();
+	if (mReturnValueCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
-	}
+
 }
 
 TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)

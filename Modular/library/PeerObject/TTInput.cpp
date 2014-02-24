@@ -81,10 +81,8 @@ mSignalAttr(NULL)
 
 TTInput::~TTInput()
 {
-	if (mReturnSignalCallback) {
-		delete (TTValuePtr)mReturnSignalCallback->getBaton();
+	if (mReturnSignalCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnSignalCallback));
-	}
 	
 	if (mSignalIn)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mSignalIn));
@@ -103,7 +101,6 @@ TTInput::~TTInput()
 		if (mOutputAddress != kTTSymEmpty)
 			accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 		
-		delete (TTValuePtr)mAddressObserver->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
 	}
 }
@@ -146,7 +143,6 @@ TTErr TTInput::Unlink()
 TTErr TTInput::setOutputAddress(const TTValue& value)
 {
 	TTValue			args, none;
-	TTValuePtr		newBaton;
 	TTAddress		newAddress;
 	TTNodePtr		aNode;
 	TTList			aNodeList;
@@ -167,8 +163,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 		
-		newBaton = new TTValue(TTObjectBasePtr(this));
-		mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mAddressObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
 		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
 		mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTInput"));		// this is usefull only to debug
 	}
@@ -199,9 +194,8 @@ TTErr TTInput::notifySignalObserver(const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr TTInputDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTInputPtr		anInput;
 	TTSymbol		anAddress;
 	TTNodePtr		aNode;
@@ -209,10 +203,8 @@ TTErr TTInputDirectoryCallback(TTPtr baton, TTValue& data)
 	TTObjectBasePtr	o;
 	TTValue         none;
 	
-	
 	// unpack baton (an InputPtr)
-	b = (TTValuePtr)baton;
-	anInput = TTInputPtr((TTObjectBasePtr)(*b)[0]);
+	anInput = TTInputPtr((TTObjectBasePtr)baton[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];

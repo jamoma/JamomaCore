@@ -78,10 +78,8 @@ TTExplorer::~TTExplorer()
 	unbindAddress();	
 	unbindApplication();
 	
-	if (mReturnValueCallback) {
-		delete (TTValuePtr)mReturnValueCallback->getBaton();
+	if (mReturnValueCallback)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
-	}
 	
 	delete mFilterBank;
 	delete mFilterList;
@@ -191,7 +189,6 @@ TTErr TTExplorer::setDepth(const TTValue& value)
 
 TTErr TTExplorer::bindAddress() 
 {
-	TTValuePtr	newBaton;
     TTValue     none;
 	
 	// it works only for absolute address
@@ -204,9 +201,7 @@ TTErr TTExplorer::bindAddress()
 			mAddressObserver = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 			TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
 			
-			newBaton = new TTValue(TTObjectBasePtr(this));
-			
-			mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+			mAddressObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
 			mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 			
 			if (mDepth)
@@ -238,7 +233,6 @@ TTErr TTExplorer::unbindAddress()
 
 TTErr TTExplorer::bindApplication()
 {
-	TTValuePtr	newBaton;
     TTValue     none;
 	
 	if (!mApplicationObserver) {
@@ -246,9 +240,7 @@ TTErr TTExplorer::bindApplication()
 		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), none);
 		
-		newBaton = new TTValue(TTObjectBasePtr(this));
-		
-		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
+		mApplicationObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
@@ -265,7 +257,6 @@ TTErr TTExplorer::unbindApplication()
 		
 		err = TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
 		
-		delete (TTValuePtr)mApplicationObserver->getBaton();
 		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
 	}
 	
@@ -872,11 +863,10 @@ TTErr TTExplorer::returnSelectionBack()
 #pragma mark Some Methods
 #endif
 
-TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
 	TTValue			keys;
 	TTValue			t, v;
-	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
 	TTAddress       anAddress, relativeAddress;
 	TTSymbol		key;
@@ -886,8 +876,7 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	TTObjectBasePtr	o;
 		
 	// Unpack baton
-	b = (TTValuePtr)baton;
-    anExplorer = TTExplorerPtr((TTObjectBasePtr)(*b)[0]);
+    anExplorer = TTExplorerPtr((TTObjectBasePtr)baton[0]);
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -976,9 +965,8 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	return anExplorer->returnResultBack();
 }
 
-TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
+TTErr TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
 	TTSymbol		anApplicationName;
 	TTApplicationPtr anApplication;
@@ -986,8 +974,7 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 	TTUInt8			flag;
 	
 	// unpack baton (a TTExplorerPtr)
-	b = (TTValuePtr)baton;
-	anExplorer = TTExplorerPtr((TTObjectBasePtr)(*b)[0]);
+	anExplorer = TTExplorerPtr((TTObjectBasePtr)baton[0]);
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];

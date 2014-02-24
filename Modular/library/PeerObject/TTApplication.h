@@ -295,7 +295,7 @@ public:
 #pragma mark Friendship
 #endif
 
-    friend TTErr TTMODULAR_EXPORT TTApplicationProxyDataValueCallback(TTPtr baton, TTValue& data);
+    friend TTErr TTMODULAR_EXPORT TTApplicationProxyDataValueCallback(const TTValue& baton, const TTValue& data);
 };
 
 #if 0
@@ -307,6 +307,6 @@ public:
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationProxyDataValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationProxyDataValueCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __TT_APPLICATION_H__

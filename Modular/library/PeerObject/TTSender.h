@@ -62,8 +62,8 @@ private:
 	/** */
 	TTErr unbindApplication();
 	
-	friend TTErr TTMODULAR_EXPORT TTSenderDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSenderApplicationManagerCallback(const TTValue& baton, const TTValue& data);
 	
 };
 
@@ -73,12 +73,12 @@ typedef TTSender* TTSenderPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTSenderDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTSenderApplicationManagerCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSenderApplicationManagerCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __TT_SENDER_H__
