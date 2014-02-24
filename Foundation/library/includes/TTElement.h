@@ -358,6 +358,9 @@ public:
 			return NULL;
 	}
     
+    /** @note : the TTObject() cast is done inside TTObject.h
+        @seealso : TTObject& operator = (TTElement element) */
+    
 	operator TTMatrix&() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeObject));
