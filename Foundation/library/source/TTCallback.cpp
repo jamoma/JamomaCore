@@ -27,7 +27,7 @@ TT_BASE_OBJECT_CONSTRUCTOR,
     mNotification(kTTSym_notify)
 {
 	addAttribute(Function, kTypePointer);
-	addAttribute(Baton, kTypePointer);
+	addAttribute(Baton, kTypeLocalValue);
     addAttributeWithSetter(Notification, kTypeSymbol);
 	
     // by default the callback is sensitive to the kTTSym_notify notification sent from a TTObject
@@ -60,7 +60,7 @@ TTErr TTCallback::setNotification(const TTValue& value)
 TTErr TTCallback::notify(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	if (mFunction)
-		mFunction(mBaton, anInputValue);
+		return mFunction(mBaton, anInputValue);
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }

@@ -32,7 +32,7 @@ class TTFOUNDATION_EXPORT TTCallback : public TTObjectBase
 protected:
 
 	TTFunctionWithBatonAndValue	mFunction;          ///< Function called when the notify message is engaged.
-	TTPtr						mBaton;             ///< User data to be passed back when the callback is triggered.
+	TTValue						mBaton;             ///< User data to be passed back when the callback is triggered.
     TTSymbol                    mNotification;      ///< the notification the callback is sensitive to
 
 private:

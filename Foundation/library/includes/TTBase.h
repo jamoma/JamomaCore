@@ -236,9 +236,7 @@ typedef void (*TTFunctionPtr)();
 /**	A simple/generic function pointer with one arg.	*/
 typedef void (*TTFunctionWithArgPtr)(TTPtr);
 
-/**	A simple/generic function pointer with one generic pointer (baton) and one TTValueRef.	*/
 class TTValue;
-typedef void (*TTFunctionWithBatonAndValue)(TTPtr, const TTValue&);
 typedef std::vector<TTValue>	TTVector;
 typedef TTVector::iterator		TTVectorIter;
 
@@ -317,8 +315,6 @@ public:
 
 };
 
-
-
 /**	\ingroup enums
  Jamoma Error Codes
  Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
@@ -340,6 +336,8 @@ enum TTErr {
 	kTTErrInvalidFilepath 	///< Couldn't resolve the filepath as submitted.
 };
 
+/**	A simple/generic function pointer with a baton as TTValueRef and the value to send back as a TTValueRef.	*/
+typedef TTErr (*TTFunctionWithBatonAndValue)(const TTValue&, const TTValue&);
 
 /****************************************************************************************************/
 // Class Specifications
