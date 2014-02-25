@@ -915,8 +915,51 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	if (aXmlHandler->mXmlNodeName == TTSymbol("application")) {
 		
         if (aXmlHandler->mXmlNodeStart) {
-            mDirectory->init();
+            
+            DirectoryClear();
             mTempAddress = kTTAdrsRoot;
+            
+            // get the type attribute
+            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type")) == 1) {
+                
+                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                
+                if (v.size() == 1) {
+                    
+                    if (v[0].type() == kTypeSymbol) {
+                        
+                        mType = v[0];
+                    }
+                }
+            }
+            
+            // get the author attribute
+            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("author")) == 1) {
+                
+                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v, YES);
+                
+                if (v.size() == 1) {
+                    
+                    if (v[0].type() == kTypeSymbol) {
+                        
+                        mAuthor = v[0];
+                    }
+                }
+            }
+            
+            // get the version attribute
+            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("version")) == 1) {
+                
+                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                
+                if (v.size() == 1) {
+                    
+                    if (v[0].type() == kTypeSymbol) {
+                        
+                        mVersion = v[0];
+                    }
+                }
+            }
         }
         
         return kTTErrNone;
