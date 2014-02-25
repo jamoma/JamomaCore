@@ -1,10 +1,23 @@
-/* 
- * TTBlue 2nd order Linkwitz Riley Highpass Filter Object
- * Copyright © 2008, Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHighpassLinkwitzRiley2 is a second-order Linkwitz-Riley highpass filter.
+ *
+ * @details Filter equations from: @n
+ *  @n
+ *  Second-order IIR Filters will support cascade implementations @n
+ *  By Rusty Allred, Texas Instruments, Dallas @n
+ *  July 01, 2003 @n
+ *  http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
+ *
+ * @authors Trond Lossius, Timothy Place,
+ *
+ * @copyright Copyright © 2008, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_HIGHPASS_LINKWITZ_RILEY_2_H__
 #define __TT_HIGHPASS_LINKWITZ_RILEY_2_H__

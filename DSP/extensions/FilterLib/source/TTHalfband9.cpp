@@ -1,10 +1,18 @@
-/* 
- * 9-Pole Halfband filter built up from a 2-path allpass structure
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHalfband9 is a 9-Pole Halfband filter built up from a 2-path allpass structure.
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTHalfband9.h"
 
@@ -17,38 +25,28 @@
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
-	mF0(NULL),
-	mF2(NULL),
-	mR0(NULL),
-	mR2(NULL),
-	mF1(NULL),
-	mF3(NULL),
-	mR1(NULL),
-	mR3(NULL),
-	mDelay(NULL)
+	mF0("allpass.1b"),
+	mF2("allpass.1b"),
+	mR0("allpass.1a"),
+	mR2("allpass.1a"),
+
+	mF1("allpass.1b"),
+	mF3("allpass.1b"),
+	mR1("allpass.1a"),
+	mR3("allpass.1a"),
+	mDelay("allpass.1a")
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
-
-	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF0, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF1, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF2, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF3, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mDelay, initialMaxNumChannels);
-
-	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mR0, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mR1, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mR2, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mR3, initialMaxNumChannels);
 	
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), TT("lowpass"));
 		
 	// for the simple 1-sample delay, we set alpha (the feedback coefficient) to zero
-	mDelay->setAttributeValue(TT("alpha"), 0.0);
+	mDelay.set("alpha", 0.0);
 	
 	// stopband edge (-60db) at Fs*0.284.
 	// mF0->setAttributeValue(TT("alpha"), 0.101467517);
@@ -57,44 +55,34 @@ TT_AUDIO_CONSTRUCTOR,
 	// mF3->setAttributeValue(TT("alpha"), 0.867647439);
 	
 	// These yield a -113 dB stopband attenuation, with a stopband edge (w_0) at f_s * 0.37
-	mF0->setAttributeValue(TT("alpha"), 0.043646929608759);
-	mR0->setAttributeValue(TT("alpha"), 0.043646929608759);
-	mF2->setAttributeValue(TT("alpha"), 0.399125646691078);
-	mR2->setAttributeValue(TT("alpha"), 0.399125646691078);
-	mF1->setAttributeValue(TT("alpha"), 0.174628080915462);
-	mR1->setAttributeValue(TT("alpha"), 0.174628080915462);
-	mF3->setAttributeValue(TT("alpha"), 0.749510679417446);
-	mR3->setAttributeValue(TT("alpha"), 0.749510679417446);
+	mF0.set("alpha", 0.043646929608759);
+	mR0.set("alpha", 0.043646929608759);
+	mF2.set("alpha", 0.399125646691078);
+	mR2.set("alpha", 0.399125646691078);
+	mF1.set("alpha", 0.174628080915462);
+	mR1.set("alpha", 0.174628080915462);
+	mF3.set("alpha", 0.749510679417446);
+	mR3.set("alpha", 0.749510679417446);
 }
 
 
 TTHalfband9::~TTHalfband9()
 {
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF0);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF1);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF2);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF3);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mDelay);
-
-	TTObjectBaseRelease((TTObjectBasePtr*)&mR0);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mR1);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mR2);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mR3);
 }
 
 
 TTErr TTHalfband9::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	// update internal filters
-	mF0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mF1->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mF2->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mF3->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mR0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mR1->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mR2->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mR3->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mDelay->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF0.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF1.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF2.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF3.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR0.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR1.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR2.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mR3.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mDelay.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	
 	mRSwitch.resize(mMaxNumChannels);
 	mRSwitch.assign(mMaxNumChannels, 0.0);
@@ -111,15 +99,15 @@ TTErr TTHalfband9::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValu
 
 TTErr TTHalfband9::clear()
 {
-	mF0->sendMessage(kTTSym_clear);
-	mF1->sendMessage(kTTSym_clear);
-	mF2->sendMessage(kTTSym_clear);
-	mF3->sendMessage(kTTSym_clear);
-	mR0->sendMessage(kTTSym_clear);
-	mR1->sendMessage(kTTSym_clear);
-	mR2->sendMessage(kTTSym_clear);
-	mR3->sendMessage(kTTSym_clear);
-	mDelay->sendMessage(kTTSym_clear);
+	mF0.send(kTTSym_clear);
+	mF1.send(kTTSym_clear);
+	mF2.send(kTTSym_clear);
+	mF3.send(kTTSym_clear);
+	mR0.send(kTTSym_clear);
+	mR1.send(kTTSym_clear);
+	mR2.send(kTTSym_clear);
+	mR3.send(kTTSym_clear);
+	mDelay.send(kTTSym_clear);
 	return kTTErrNone;
 }
 
@@ -157,12 +145,12 @@ inline void TTHalfband9::filterKernel(const TTFloat64& input, TTFloat64& outputP
 	TTFloat64 delayOutput;
 	TTFloat64 temp;
 	
-	mF0->calculateValue(input,			temp,			channel);
-	mF2->calculateValue(temp,			outputPath0,	channel);
+	TTBASE(mF0, TTAllpass1b)->calculateValue(input,			temp,			channel);
+	TTBASE(mF2, TTAllpass1b)->calculateValue(temp,			outputPath0,	channel);
 	
-	mDelay->calculateValue(input,		delayOutput,	channel);
-	mF1->calculateValue(delayOutput,	temp,			channel);
-	mF3->calculateValue(temp,			outputPath1,	channel);
+	TTBASE(mDelay, TTAllpass1a)->calculateValue(input,		delayOutput,	channel);
+	TTBASE(mF1, TTAllpass1b)->calculateValue(delayOutput,	temp,			channel);
+	TTBASE(mF3, TTAllpass1b)->calculateValue(temp,			outputPath1,	channel);
 }
 
 
@@ -195,14 +183,14 @@ TTErr TTHalfband9::calculateDownsample(const TTFloat64& x, TTFloat64& y, TTPtrSi
 	TTFloat64 temp_1;
 
 	if (mRSwitch[channel]) {
-		mR0->calculateValue(x,		temp_0,			channel);
-		mR2->calculateValue(temp_0,	temp_1,			channel);
+		TTBASE(mR0, TTAllpass1a)->calculateValue(x,		temp_0,			channel);
+		TTBASE(mR2, TTAllpass1a)->calculateValue(temp_0,	temp_1,			channel);
 		y = (temp_1 + mY1[channel]) * 0.5;
 		mRSwitch[channel] = 0;
 	}
 	else {
-		mR1->calculateValue(x,		temp_0,			channel);
-		mR3->calculateValue(temp_0,	mY1[channel],	channel);
+		TTBASE(mR1, TTAllpass1a)->calculateValue(x,		temp_0,			channel);
+		TTBASE(mR3, TTAllpass1a)->calculateValue(temp_0,	mY1[channel],	channel);
 		mRSwitch[channel] = 1;
 	}
 
@@ -216,11 +204,11 @@ TTErr TTHalfband9::calculateUpsample(const TTFloat64& x, TTFloat64& y, TTPtrSize
 	TTFloat64 temp;
 	
 	if (mRSwitch[channel]) {
-		mR0->calculateValue(x,		temp,			channel);
-		mR2->calculateValue(temp,	mY0[channel],	channel);
+		TTBASE(mR0, TTAllpass1a)->calculateValue(x,		temp,			channel);
+		TTBASE(mR2, TTAllpass1a)->calculateValue(temp,	mY0[channel],	channel);
 
-		mR1->calculateValue(x,		temp,			channel);
-		mR3->calculateValue(temp,	mY1[channel],	channel);
+		TTBASE(mR1, TTAllpass1a)->calculateValue(x,		temp,			channel);
+		TTBASE(mR3, TTAllpass1a)->calculateValue(temp,	mY1[channel],	channel);
 
 		mRSwitch[channel] = 0;
 	}
@@ -228,7 +216,7 @@ TTErr TTHalfband9::calculateUpsample(const TTFloat64& x, TTFloat64& y, TTPtrSize
 		mRSwitch[channel] = 1;
 	}
 	
-	mDelay->calculateValue(mY1[channel], temp, channel);
+	TTBASE(mDelay, TTAllpass1a)->calculateValue(mY1[channel], temp, channel);
 	y = (mY0[channel] + temp) * 0.5;
 
 	return kTTErrNone;

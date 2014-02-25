@@ -38,8 +38,8 @@ protected:
 	TTSampleValue		last;
 	TTBoolean			isLinear;				///< is attrMode set to linear?
 
-	TTAudioObject		dcBlocker;				///< TTDCBlock object
-	TTAudioObject		preamp;					///< TTGain object to apply preamp
+	TTAudioObject		dcBlocker;				///< #TTDCBlock object
+	TTAudioObject		preamp;					///< #TTGain object to apply preamp
 
 	TTUInt32			maxBufferSize;			///< TODO: make this settable
 	TTBoolean			attrDCBlocker;			///< If toggled to NO, the internal DC Blocker will be turned off.

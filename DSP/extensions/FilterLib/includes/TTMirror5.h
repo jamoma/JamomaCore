@@ -1,10 +1,18 @@
-/* 
- * 5th-order lowpass/highpass filter built up from a 2-path allpass structure
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTMirror5 is a 5th-order lowpass/highpass filter built up from a 2-path allpass structure
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_MIRROR5_H__
 #define __TT_MIRROR5_H__
@@ -22,9 +30,9 @@ class TTMirror5 : TTAudioObjectBase {
 
 protected:
 
-	TTAllpass2a*	mF0;		///< filter0 (in the upper path)
-	TTAllpass1a*	mF1;		///< filter1 (in the lower path, first block)
-	TTAllpass2a*	mF2;		///< filter2 (in the lower path, second block)
+	TTAudioObject	mF0;		///< filter0 (in the upper path)
+	TTAudioObject	mF1;		///< filter1 (in the lower path, first block)
+	TTAudioObject	mF2;		///< filter2 (in the lower path, second block)
 	TTFloat64		mFrequency;	///< attribute: in hertz
 	TTSymbol		mMode;		///< attribute: lowpass or highpass
 		
