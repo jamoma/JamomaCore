@@ -47,6 +47,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValueStepsize = TTValue(1);
 			mRangeBounds.set(0, TTUInt16(0));
 			mRangeBounds.set(1, TTUInt16(1));
+            mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_decimal) {
             commandMethod = (TTMethodValue)&TTData::DecimalCommand;
@@ -59,6 +60,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
+            mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_string) {
             commandMethod = (TTMethodValue)&TTData::StringCommand;
@@ -70,6 +72,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValue = TTValue(kTTSymEmpty);
 			mValueStepsize.clear();
 			mRangeBounds.clear();
+            mRampDrive = kTTSym_none;
 		}
 		else if (mType == kTTSym_boolean) {
             commandMethod = (TTMethodValue)&TTData::BooleanCommand;
@@ -82,6 +85,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValueStepsize = TTValue(YES);
 			mRangeBounds.set(0, NO);
 			mRangeBounds.set(1, YES);
+            mRampDrive = kTTSym_none;
 		}
 		else if (mType == kTTSym_array) {
             commandMethod = (TTMethodValue)&TTData::ArrayCommand;
@@ -94,6 +98,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
+            mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_none) {
             commandMethod = (TTMethodValue)&TTData::NoneCommand;
@@ -105,6 +110,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValue.clear();
 			mValueStepsize.clear();
 			mRangeBounds.clear();
+            mRampDrive = kTTSym_none;
 		}
 		else {
             commandMethod = (TTMethodValue)&TTData::GenericCommand;
@@ -117,6 +123,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValue = TTValue(0.);
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds = TTValue(0., 1.);
+            mRampDrive = kTTSym_none;
 			return kTTErrGeneric;
 		}
         
