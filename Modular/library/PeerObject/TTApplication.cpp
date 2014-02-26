@@ -776,9 +776,12 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
         
         // Check bad characters for XML element (like ~, (, ) or numbers)
+        v = TTString(nameInstance.c_str());
+        v.fromString();
         if (strchr(nameInstance.c_str(), '~') != 0 ||
             strchr(nameInstance.c_str(), '(') != 0 ||
-            strchr(nameInstance.c_str(), ')') != 0 ) {
+            strchr(nameInstance.c_str(), ')') != 0 ||
+            v[0].type() != kTypeSymbol) {
             
             // don't use the name for the XML element
             xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "node");
