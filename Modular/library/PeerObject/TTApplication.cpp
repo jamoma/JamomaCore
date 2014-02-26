@@ -978,6 +978,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 {
 	TTSymbol		objectName, protocolName, attributeName, attributeToFilterName;
     TTAddress       address;
+    TTBoolean       useInstanceAsName = NO;
     TTInt32         instance;
     ProtocolPtr     aProtocol;
     TTObjectBasePtr anObject = NULL;
@@ -997,7 +998,11 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                 if (v[0].type() == kTypeSymbol) {
                     
                     address = v[0];
-                    mTempAddress = mTempAddress.appendAddress(address);
+                    
+                    if (address == TTSymbol("instance"))
+                        useInstanceAsName = YES;
+                    else
+                        mTempAddress = mTempAddress.appendAddress(address);
                 }
             }
         }
@@ -1018,14 +1023,28 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     
                     instance = v[0];
                     
-                    // start instance numbering from 1
-                    mTempAddress = mTempAddress.appendInstance(TTSymbol("1"));
+                    // if we don't use the instance as a name
+                    if (!useInstanceAsName)
+                        
+                        // start instance numbering from 1
+                        mTempAddress = mTempAddress.appendInstance(TTSymbol("1"));
                 }
             }
         }
         
         // read the file several times if instance > 1
         for (TTUInt32 i = 0; i < instance; i++) {
+            
+            if (useInstanceAsName) {
+                
+                // start numbering from 1
+                v = TTInt32(i+1);
+                v.toString();
+                TTString s = TTString(v[0]);
+                address = mTempAddress.appendAddress(TTAddress(s.data()));
+            }
+            else
+                address = mTempAddress;
             
             // get the object name
             if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("object")) == 1) {
@@ -1048,7 +1067,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                             if (mType == kTTSym_mirror) {
                                 
                                 // instantiate a mirror object
-                                anObject = appendMirrorObject(aProtocol, mTempAddress, objectName);
+                                anObject = appendMirrorObject(aProtocol, address, objectName);
                                 
                             }
                             // for proxy appplication
@@ -1069,7 +1088,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                             if (v[0].type() == kTypeSymbol) {
                                                 
                                                 // instantiate a proxy data
-                                                anObject = appendProxyData(aProtocol, mTempAddress, v[0]);
+                                                anObject = appendProxyData(aProtocol, address, v[0]);
                                                 
                                                 // filter service attribute for the parsing of all attributes
                                                 attributesToFilter.append(kTTSym_service);
@@ -1098,7 +1117,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                 else if (objectName == kTTSym_Container) {
                                     
                                     // instantiate a proxy container
-                                    anObject = appendProxyContainer(aProtocol, mTempAddress);
+                                    anObject = appendProxyContainer(aProtocol, address);
                                     
                                 }
                                 else if (objectName == kTTSym_none) {
@@ -1107,7 +1126,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                     TTNodePtr   aNode;
                                     TTBoolean   newInstanceCreated;
                                     
-                                    this->mDirectory->TTNodeCreate(mTempAddress, NULL, NULL, &aNode, &newInstanceCreated);
+                                    this->mDirectory->TTNodeCreate(address, NULL, NULL, &aNode, &newInstanceCreated);
                                 }
                                 
                                 // OTHER case ? Input, Output ?
