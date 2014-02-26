@@ -117,7 +117,7 @@ public:
 	
 	/*! 
      * Run reception thread mechanism for each application
-     * \param inputValue			: the application to run (default the local application)
+     * \param inputValue			: the application to run (by default all the applications)
 	 * \param outputValue			: nothing
      * \return errorcode			: return a kTTErrGeneric if the protocol fails to start for the application or if it was running already
      */
@@ -125,7 +125,7 @@ public:
 	
 	/*!
      * Stop the reception thread mechanism for each application
-     * \param inputValue			: the application to stop (default the local application)
+     * \param inputValue			: the application to stop (by default all the applications)
 	 * \param outputValue			: nothing
      * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop for the application or if it was already stopped
      */
