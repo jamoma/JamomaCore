@@ -1180,7 +1180,8 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
         }
         
         // when a node is empty : keep the parent address for next nodes
-        if (aXmlHandler->mXmlNodeIsEmpty)
+        // but if we use instance as name : don't
+        if (aXmlHandler->mXmlNodeIsEmpty && !useInstanceAsName)
             mTempAddress = mTempAddress.getParent();
     }
     
