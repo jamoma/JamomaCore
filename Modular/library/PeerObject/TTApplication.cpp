@@ -66,6 +66,8 @@ mTempAddress(kTTAdrsRoot)
 	addAttributeProperty(Directory, hidden, YES);
 	addAttributeProperty(Directory, readOnly, YES);
     
+    addMessage(Init);
+    
     addMessage(DirectoryClear);
     addMessage(DirectoryBuild);
     addMessageWithArguments(DirectoryObserve);
@@ -208,6 +210,34 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
+}
+
+TTErr TTApplication::Init()
+{
+    return initNode(mDirectory->getRoot());
+}
+
+TTErr TTApplication::initNode(TTNodePtr aNode)
+{
+	TTObjectBasePtr anObject;
+	TTList          nodeList;
+	TTNodePtr       aChild;
+    
+    // Send Init message to node's object
+    anObject = aNode->getObject();
+    if (anObject && anObject != this)
+        anObject->sendMessage(kTTSym_Init);
+
+    // Init nodes below
+    aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+    
+    for (nodeList.begin(); nodeList.end(); nodeList.next())
+    {
+        aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        initNode(aChild);
+    }
+    
+    return kTTErrNone;
 }
 
 TTErr TTApplication::DirectoryClear()
@@ -999,6 +1029,10 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     
                     address = v[0];
                     
+                    // DEBUG
+                    if (address == TTSymbol("0"))
+                        TTLogMessage("TTApplication::readNodeFromXml : address is \"0\"");
+                    
                     if (address == TTSymbol("instance"))
                         useInstanceAsName = YES;
                     else
@@ -1166,12 +1200,6 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                         }
                                     }
                                 }
-                                
-                                // DATA case : initialize
-                                // TODO : a real Init method for TTApplication
-                                if (objectName == kTTSym_Data)
-                                    anObject->sendMessage(kTTSym_Init);
-            
                             }
                         }
                     }

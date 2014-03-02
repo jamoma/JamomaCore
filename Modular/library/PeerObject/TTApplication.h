@@ -122,6 +122,10 @@ private:
 	/** */
 	TTErr setActivityOut(const TTValue& value);
     
+    /** Init the application */
+	TTErr Init();
+    TTErr initNode(TTNodePtr aNode);
+    
     /** Clear the directory of an application (for distant application only) */
 	TTErr DirectoryClear();
 
