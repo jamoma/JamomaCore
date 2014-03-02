@@ -31,6 +31,7 @@ extern TTMODULAR_EXPORT TTSymbol	kTTSym_InputAudio;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Mapper;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_MapperManager;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Mirror;
+extern TTMODULAR_EXPORT TTSymbol	kTTSym_NodeInfo;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_OpmlHandler;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_Output;
 extern TTMODULAR_EXPORT TTSymbol	kTTSym_OutputAudio;

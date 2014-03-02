@@ -17,6 +17,7 @@ sources:
   - PeerObject/TTMapper.cpp
   - PeerObject/TTMapperManager.cpp
   - PeerObject/TTMirror.cpp
+  - PeerObject/TTNodeInfo.cpp
   - PeerObject/TTOutput.cpp
   - PeerObject/TTOutputAudio.cpp
   - PeerObject/TTPreset.cpp

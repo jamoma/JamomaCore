@@ -17,6 +17,8 @@
 		46A6E86116CAAB14002E6A40 /* TTRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTRamp.h; sourceTree = "<group>"; };
 		46A6E86216CABFD3002E6A40 /* Scheduler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
 		46A6E86316CABFD3002E6A40 /* Scheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
+		46B5CC7618C3A654007ECD1D /* TTNodeInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeInfo.cpp; sourceTree = "<group>"; };
+		46B5CC7718C3A654007ECD1D /* TTNodeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNodeInfo.h; sourceTree = "<group>"; };
 		D220FB4614A21628005607C3 /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
 		D220FB4714A21628005607C3 /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 		D246012C14A0A96C004CC4FD /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
@@ -130,6 +132,8 @@
 				D246013E14A0A96C004CC4FD /* TTMapperManager.cpp */,
 				D246014114A0A96C004CC4FD /* TTMirror.h */,
 				D246014014A0A96C004CC4FD /* TTMirror.cpp */,
+				46B5CC7718C3A654007ECD1D /* TTNodeInfo.h */,
+				46B5CC7618C3A654007ECD1D /* TTNodeInfo.cpp */,
 				D246014314A0A96C004CC4FD /* TTOpmlHandler.h */,
 				D246014214A0A96C004CC4FD /* TTOpmlHandler.cpp */,
 				D246014514A0A96C004CC4FD /* TTOutput.h */,
