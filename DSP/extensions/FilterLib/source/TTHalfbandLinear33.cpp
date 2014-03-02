@@ -1,10 +1,45 @@
-/* 
- * 33-Pole Halfband filter built up from a 2-path allpass structure
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHalfbandLinear33 is a 33-Pole Halfband filter built up from a 2-path allpass structure.
+ *
+ * @details Same magnitude response with respect to frequency as #TTHalfband9, but with nearly linear phase response. @n
+ *  @n
+ *  The coefficients can be calculated using the "lineardesign_2.m" Matlab script. To generate the particular set of coefficients currently hard-coded into this filter, choose the following settings (yields a roughly -60dB stopband attenuation): @n
+ *		- iterations: 100	(iterations bring the filter toward equiripple in the stopband) @n
+ *		- wc = 0.2895		(this is the normalized frequency of the start of the stopband) @n
+ *		- number of paths = 2 @n
+ *		- number of coefficients = 8 @n
+ *  @n
+ *  The result is: @n
+ *  @n
+ *  Roots = @n
+ *  @n
+ *		-0.832302165608369
+ *		-0.338171398434493 + 0.342959068350197i
+ *		-0.338171398434493 - 0.342959068350197i
+ *		-0.001794835916660 + 0.437771696086791i
+ *		-0.001794835916660 - 0.437771696086791i
+ *		 0.421285425003053
+ *		 0.298484480776670 + 0.301855022798834i
+ *		 0.298484480776670 - 0.301855022798834i
+ *   @n
+ *  branch 1 - type1     coefficient    0.8323021656083688    -0.4212854250030528 @n
+ *  branch 1 - type2 1st coefficient    0.6763427968689864   0.003589671833320152      -0.59696896155334 @n
+ *  branch 1 - type2 2nd coefficient    0.2319808172827758     0.1916472793306732     0.1802094400534031 @n
+ *
+ *  The ordering of the coefficients may not be at first obvious.  The first line of coefficients are the two alpha coefficients for the first two (first-order) allpass filters, F0 and F1. @n
+ *  @n
+ @  The second and third lines together provide the coefficient pairs for the remaining (second-order) filters.  Thus, 0.6763427968689864 and 0.2319808172827758 are the coefficient pair for the first filter 0.003589671833320152 and 0.1916472793306732 are the coefficient pair for the second filter, and so on.
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTHalfbandLinear33.h"
 
@@ -17,13 +52,13 @@
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
-	mP0Delay(NULL),
-	mP1Delay(NULL),
-	mF0(NULL),
-	mF1(NULL),
-	mF2(NULL),
-	mF3(NULL),
-	mF4(NULL)
+	mP0Delay("delay"),
+	mP1Delay("allpass.1a"),
+	mF0("allpass.1b"),
+	mF1("allpass.1b"),
+	mF2("allpass.2b"),
+	mF3("allpass.2b"),
+	mF4("allpass.2b")
 {
 	TTUInt16	initialMaxNumChannels = arguments;
 
@@ -31,56 +66,39 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
-	TTObjectBaseInstantiate(TT("delay"), (TTObjectBasePtr*)&mP0Delay, initialMaxNumChannels);
-	
-	TTObjectBaseInstantiate(TT("allpass.1a"), (TTObjectBasePtr*)&mP1Delay, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF0, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.1b"), (TTObjectBasePtr*)&mF1, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.2b"), (TTObjectBasePtr*)&mF2, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.2b"), (TTObjectBasePtr*)&mF3, initialMaxNumChannels);
-	TTObjectBaseInstantiate(TT("allpass.2b"), (TTObjectBasePtr*)&mF4, initialMaxNumChannels);
-
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), TT("lowpass"));
 	
-	mP0Delay->setAttributeValue(TT("delayMaxInSamples"), 16);
-	mP0Delay->setAttributeValue(TT("delayInSamples"), 16);
+	mP0Delay.set("delayMaxInSamples", 16);
+	mP0Delay.set("delayInSamples",    16);
 	
-	mP1Delay->setAttributeValue(TT("alpha"), 0.0);
-	mF0->setAttributeValue(TT("alpha"), 0.832280776);
-	mF1->setAttributeValue(TT("alpha"), -0.421241137);
-	mF2->setAttributeValue(TT("c1"), 0.67623706);
-	mF2->setAttributeValue(TT("c2"), 0.23192313);
-	mF3->setAttributeValue(TT("c1"), 0.00359228);
-	mF3->setAttributeValue(TT("c2"), 0.19159423);
-	mF4->setAttributeValue(TT("c1"), -0.59689082);
-	mF4->setAttributeValue(TT("c2"), 0.18016931);
+	mP1Delay.set("alpha", 0.0);
+	mF0.set("alpha",  0.832280776);
+	mF1.set("alpha", -0.421241137);
+	mF2.set("c1",     0.67623706);
+	mF2.set("c2",     0.23192313);
+	mF3.set("c1",     0.00359228);
+	mF3.set("c2",     0.19159423);
+	mF4.set("c1",    -0.59689082);
+	mF4.set("c2",     0.18016931);
 }
 
 
 TTHalfbandLinear33::~TTHalfbandLinear33()
 {
-	TTObjectBaseRelease((TTObjectBasePtr*)&mP0Delay);
-
-	TTObjectBaseRelease((TTObjectBasePtr*)&mP1Delay);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF0);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF1);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF2);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF3);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mF4);
 }
 
 
 TTErr TTHalfbandLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
 	// update internal filters
-	mF0->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mF1->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mF2->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mF3->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mF4->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mP0Delay->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
-	mP1Delay->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF0.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF1.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF2.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF3.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mF4.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mP0Delay.set(kTTSym_maxNumChannels, mMaxNumChannels);
+	mP1Delay.set(kTTSym_maxNumChannels, mMaxNumChannels);
 
 	clear();
 	return kTTErrNone;
@@ -89,13 +107,13 @@ TTErr TTHalfbandLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels,
 
 TTErr TTHalfbandLinear33::clear()
 {
-	mF0->sendMessage(kTTSym_clear);
-	mF1->sendMessage(kTTSym_clear);
-	mF2->sendMessage(kTTSym_clear);
-	mF3->sendMessage(kTTSym_clear);
-	mF4->sendMessage(kTTSym_clear);
-	mP0Delay->sendMessage(kTTSym_clear);
-	mP1Delay->sendMessage(kTTSym_clear);
+	mF0.send(kTTSym_clear);
+	mF1.send(kTTSym_clear);
+	mF2.send(kTTSym_clear);
+	mF3.send(kTTSym_clear);
+	mF4.send(kTTSym_clear);
+	mP0Delay.send(kTTSym_clear);
+	mP1Delay.send(kTTSym_clear);
 	return kTTErrNone;
 }
 
@@ -122,14 +140,14 @@ inline void TTHalfbandLinear33::filterKernel(const TTFloat64& input, TTFloat64& 
 {
 	TTFloat64 temp1, temp2;
 	
-	mP0Delay->calculateNoInterpolation(input, outputPath0, channel);
+	TTBASE(mP0Delay, TTDelay)->calculateNoInterpolation(input, outputPath0, channel);
 
-	mP1Delay->calculateValue(input,		temp2,			channel);
-	mF0->calculateValue(temp2,			temp1,			channel);
-	mF1->calculateValue(temp1,			temp2,			channel);
-	mF2->calculateValue(temp2,			temp1,			channel);
-	mF3->calculateValue(temp1,			temp2,			channel);
-	mF4->calculateValue(temp2,			outputPath1,	channel);
+	TTBASE(mP1Delay, TTAllpass1a)->calculateValue(input,		temp2,			channel);
+	TTBASE(mF0, TTAllpass1b)->calculateValue(temp2,			temp1,			channel);
+	TTBASE(mF1, TTAllpass1b)->calculateValue(temp1,			temp2,			channel);
+	TTBASE(mF2, TTAllpass2b)->calculateValue(temp2,			temp1,			channel);
+	TTBASE(mF3, TTAllpass2b)->calculateValue(temp1,			temp2,			channel);
+	TTBASE(mF4, TTAllpass2b)->calculateValue(temp2,			outputPath1,	channel);
 }
 
 

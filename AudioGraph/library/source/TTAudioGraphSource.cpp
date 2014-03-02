@@ -20,7 +20,7 @@
  */
 
 
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 #include "TTAudioGraphInlet.h"
 #include "TTCallback.h"
 
@@ -69,7 +69,7 @@ void TTAudioGraphSource::create()
 }
 
 
-void TTAudioGraphSource::connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+void TTAudioGraphSource::connect(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber)
 {
 	mSourceObject = anObject;
 	mOutletNumber = fromOutletNumber;

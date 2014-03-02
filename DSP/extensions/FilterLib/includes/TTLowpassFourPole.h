@@ -1,10 +1,18 @@
-/* 
- * TTBlue 4-Pole Lowpass Filter Object
- * Copyright © 2008, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTLowpassFourPole is a 4-Pole Lowpass Filter Object.
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_LOWPASS_FOURPOLE_H__
 #define __TT_LOWPASS_FOURPOLE_H__
@@ -19,7 +27,7 @@ class TTLowpassFourPole : public TTAudioObjectBase {
 protected:
 
 	TTFloat64		mFrequency;				///< filter cutoff frequency
-	TTFloat64		mResonance;				///< filter resonance -- range is best between 1.0 and 16.0
+	TTFloat64		mQ;						///< filter resonance -- range is best between 1.0 and 16.0
 	TTFloat64		mDeciResonance;			///< attrResonance * 0.1
 	TTFloat64		mCoefficientF;			///< filter coefficient
 	TTFloat64		mCoefficientSquaredF;   ///< mCoefficientF * mCoefficientF
@@ -57,7 +65,7 @@ protected:
 	
 	// Attributes
 	TTErr setFrequency(const TTValue& value);
-	TTErr setResonance(const TTValue& value);
+	TTErr setQ(const TTValue& value);
 	
 	
 	/**	Unit Tests

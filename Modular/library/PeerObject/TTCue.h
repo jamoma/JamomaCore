@@ -36,6 +36,7 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 	TTSymbol					mName;							///< ATTRIBUTE : the name of the cue
 	TTSymbol					mDescription;					///< ATTRIBUTE : a description for the cue
 	TTUInt32					mRamp;							///< ATTRIBUTE : a time ramping value for the cue
+    TTAddress                   mAddress;						///< ATTRIBUTE : the address from where to manage the script
 	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
 	
 	/** */
@@ -49,6 +50,9 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 	/** */
 	TTErr	getRamp(TTValue& value);
 	TTErr	setRamp(const TTValue& value);
+    
+    /** */
+    TTErr   setAddress(const TTValue& value);
 	
 	/** */
 	TTErr	Clear();

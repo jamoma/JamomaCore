@@ -4,7 +4,7 @@
  *
  * @brief Jamoma Asynchronous Object Graph Layer
  *
- * @details Creates a wrapper for TTObjectBases that can be used to build a control graph for asynchronous message passing
+ * @details Creates a wrapper for #TTObjectBase that can be used to build a control graph for asynchronous message passing
  *
  * @authors Timothy Place
  *
@@ -29,11 +29,11 @@ class TTGRAPH_EXPORT TTGraphInput : public TTDataObjectBase
 
 protected:
 	
-	TTGraphObjectPtr	mOwner;
+	TTGraphObjectBasePtr	mOwner;
 	
 public:
 
-	TTErr setOwner(TTGraphObjectPtr newOwner);
+	TTErr setOwner(TTGraphObjectBasePtr newOwner);
 	TTErr push(const TTDictionary& aDictionary);
 
 };

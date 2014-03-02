@@ -1,11 +1,18 @@
-/* 
- * FilterLib -- A library of filters
- * Extension Class for Jamoma DSP
- * Copyright © 2009, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief A library of filters that extends the Jamoma DSP library
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2009, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDSP.h"
 

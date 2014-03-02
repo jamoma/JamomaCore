@@ -26,7 +26,7 @@
 	TTAudioGraphObject maintains a vector of these outlets.
 */
 class TTAudioGraphOutlet {
-	friend class TTAudioGraphObject;
+	friend class TTAudioGraphObjectBase;
 	
 protected:	
 	

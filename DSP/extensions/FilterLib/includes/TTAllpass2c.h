@@ -1,10 +1,32 @@
-/* 
- * Second-Order Allpass Filter Object for Jamoma DSP
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTAllpass2c is a second-order building-block allpass filter.
+ *
+ * @details Essentially the same as #TTAllpass2a, but with some signs flipped.
+ *  Based on Fredric J. Harris (2004): Multirate Signal Processing for Communication Systems, Prentice Hall, Chapter 10, Figure 43. @n
+ *  @n
+ *  Difference equation: @n
+ *  @code
+ *  y(n) = -e_2 x(n) - e_1 x(n-1) - x(n-2  -  e_1 y(n-1) - e_2 y(n-2)
+ *  @endcode
+ *
+ *  Transfer function: @n
+ *
+ *  @code
+ *           -e_2  -  e_1 Z^(-1)  -  Z^(-2)
+ *  H(Z) = ---------------------------------
+ *          1  +  e_1 Z^(-1)  +  e_2 Z^(-2)
+ *  @endcode
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_ALLPASS2C_H__
 #define __TT_ALLPASS2C_H__

@@ -60,6 +60,8 @@ mTempAddress(kTTAdrsRoot)
 	addAttributeProperty(Directory, hidden, YES);
 	addAttributeProperty(Directory, readOnly, YES);
     
+    addMessage(Init);
+    
     addMessage(DirectoryClear);
     addMessage(DirectoryBuild);
     addMessageWithArguments(DirectoryObserve);
@@ -194,6 +196,34 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTApplication::Init()
+{
+    return initNode(mDirectory->getRoot());
+}
+
+TTErr TTApplication::initNode(TTNodePtr aNode)
+{
+	TTObjectBasePtr anObject;
+	TTList          nodeList;
+	TTNodePtr       aChild;
+    
+    // Send Init message to node's object
+    anObject = aNode->getObject();
+    if (anObject && anObject != this)
+        anObject->sendMessage(kTTSym_Init);
+
+    // Init nodes below
+    aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+    
+    for (nodeList.begin(); nodeList.end(); nodeList.next())
+    {
+        aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        initNode(aChild);
+    }
+    
+    return kTTErrNone;
+}
+
 TTErr TTApplication::DirectoryClear()
 {
     // only for distant application
@@ -215,6 +245,9 @@ TTErr TTApplication::DirectoryBuild()
     // only for distant application
     if (this == accessApplicationLocal)
         return kTTErrGeneric;
+    
+    // clear the directory before to not duplicate nodes
+    DirectoryClear();
     
     // a distant application should have one protocol
     protocolNames = accessApplicationProtocolNames(mName);
@@ -749,9 +782,12 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
         
         // Check bad characters for XML element (like ~, (, ) or numbers)
+        v = TTString(nameInstance.c_str());
+        v.fromString();
         if (strchr(nameInstance.c_str(), '~') != 0 ||
             strchr(nameInstance.c_str(), '(') != 0 ||
-            strchr(nameInstance.c_str(), ')') != 0 ) {
+            strchr(nameInstance.c_str(), ')') != 0 ||
+            v[0].type() != kTypeSymbol) {
             
             // don't use the name for the XML element
             xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "node");
@@ -888,8 +924,51 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
 	if (aXmlHandler->mXmlNodeName == TTSymbol("application")) {
 		
         if (aXmlHandler->mXmlNodeStart) {
-            mDirectory->init();
+            
+            DirectoryClear();
             mTempAddress = kTTAdrsRoot;
+            
+            // get the type attribute
+            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type")) == 1) {
+                
+                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                
+                if (v.size() == 1) {
+                    
+                    if (v[0].type() == kTypeSymbol) {
+                        
+                        mType = v[0];
+                    }
+                }
+            }
+            
+            // get the author attribute
+            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("author")) == 1) {
+                
+                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v, YES);
+                
+                if (v.size() == 1) {
+                    
+                    if (v[0].type() == kTypeSymbol) {
+                        
+                        mAuthor = v[0];
+                    }
+                }
+            }
+            
+            // get the version attribute
+            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("version")) == 1) {
+                
+                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                
+                if (v.size() == 1) {
+                    
+                    if (v[0].type() == kTypeSymbol) {
+                        
+                        mVersion = v[0];
+                    }
+                }
+            }
         }
         
         return kTTErrNone;
@@ -905,6 +984,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 {
 	TTSymbol		objectName, protocolName, attributeName, attributeToFilterName;
     TTAddress       address;
+    TTBoolean       useInstanceAsName = NO;
     TTInt32         instance;
     ProtocolPtr     aProtocol;
     TTObjectBasePtr anObject = NULL;
@@ -924,7 +1004,15 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                 if (v[0].type() == kTypeSymbol) {
                     
                     address = v[0];
-                    mTempAddress = mTempAddress.appendAddress(address);
+                    
+                    // DEBUG
+                    if (address == TTSymbol("0"))
+                        TTLogMessage("TTApplication::readNodeFromXml : address is \"0\"");
+                    
+                    if (address == TTSymbol("instance"))
+                        useInstanceAsName = YES;
+                    else
+                        mTempAddress = mTempAddress.appendAddress(address);
                 }
             }
         }
@@ -945,14 +1033,28 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                     
                     instance = v[0];
                     
-                    // start instance numbering from 1
-                    mTempAddress = mTempAddress.appendInstance(TTSymbol("1"));
+                    // if we don't use the instance as a name
+                    if (!useInstanceAsName)
+                        
+                        // start instance numbering from 1
+                        mTempAddress = mTempAddress.appendInstance(TTSymbol("1"));
                 }
             }
         }
         
         // read the file several times if instance > 1
         for (TTUInt32 i = 0; i < instance; i++) {
+            
+            if (useInstanceAsName) {
+                
+                // start numbering from 1
+                v = TTInt32(i+1);
+                v.toString();
+                TTString s = TTString(v[0]);
+                address = mTempAddress.appendAddress(TTAddress(s.data()));
+            }
+            else
+                address = mTempAddress;
             
             // get the object name
             if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("object")) == 1) {
@@ -975,7 +1077,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                             if (mType == kTTSym_mirror) {
                                 
                                 // instantiate a mirror object
-                                anObject = appendMirrorObject(aProtocol, mTempAddress, objectName);
+                                anObject = appendMirrorObject(aProtocol, address, objectName);
                                 
                             }
                             // for proxy appplication
@@ -996,7 +1098,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                             if (v[0].type() == kTypeSymbol) {
                                                 
                                                 // instantiate a proxy data
-                                                anObject = appendProxyData(aProtocol, mTempAddress, v[0]);
+                                                anObject = appendProxyData(aProtocol, address, v[0]);
                                                 
                                                 // filter service attribute for the parsing of all attributes
                                                 attributesToFilter.append(kTTSym_service);
@@ -1025,7 +1127,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                 else if (objectName == kTTSym_Container) {
                                     
                                     // instantiate a proxy container
-                                    anObject = appendProxyContainer(aProtocol, mTempAddress);
+                                    anObject = appendProxyContainer(aProtocol, address);
                                     
                                 }
                                 else if (objectName == kTTSym_none) {
@@ -1034,7 +1136,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                     TTNodePtr   aNode;
                                     TTBoolean   newInstanceCreated;
                                     
-                                    this->mDirectory->TTNodeCreate(mTempAddress, NULL, NULL, &aNode, &newInstanceCreated);
+                                    this->mDirectory->TTNodeCreate(address, NULL, NULL, &aNode, &newInstanceCreated);
                                 }
                                 
                                 // OTHER case ? Input, Output, Mapper ?
@@ -1074,12 +1176,6 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                         }
                                     }
                                 }
-                                
-                                // DATA case : initialize
-                                // TODO : a real Init method for TTApplication
-                                if (objectName == kTTSym_Data)
-                                    anObject->sendMessage(kTTSym_Init);
-            
                             }
                         }
                     }
@@ -1088,7 +1184,8 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
         }
         
         // when a node is empty : keep the parent address for next nodes
-        if (aXmlHandler->mXmlNodeIsEmpty)
+        // but if we use instance as name : don't
+        if (aXmlHandler->mXmlNodeIsEmpty && !useInstanceAsName)
             mTempAddress = mTempAddress.getParent();
     }
     

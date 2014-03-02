@@ -1,11 +1,18 @@
-/* 
- * CrossFadeInFunction Unit for Jamoma DSP
- * Originally written for the Jamoma FunctionLib
- * Copyright © 2012 by Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief #TTCrossFadeInFunction Unit for Jamoms DSP
+ *
+ * @details This can be used with audio gains to create the curve needed for a fade in as part of a cross fade.
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2012 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TTCROSSFADEINFUNCTION_H__
 #define __TTCROSSFADEINFUNCTION_H__

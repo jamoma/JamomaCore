@@ -10,6 +10,28 @@
 		2A23AD3D169D00D0004793F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23AD13169CFF89004793F5 /* Foundation.framework */; };
 		2A23AD4D169D011A004793F5 /* TTFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A776C21515AFEB54003F5555 /* TTFunctionLib.cpp */; };
 		8ED7ADC6183D3AC300170BBA /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ED7ADC5183D3AC300170BBA /* test.cpp */; };
+		A7F8593E18B0DD600039341F /* TTCosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593218B0DD600039341F /* TTCosineFunction.cpp */; };
+		A7F8593F18B0DD600039341F /* TTCrossFadeInFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593318B0DD600039341F /* TTCrossFadeInFunction.cpp */; };
+		A7F8594018B0DD600039341F /* TTCrossFadeOutFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593418B0DD600039341F /* TTCrossFadeOutFunction.cpp */; };
+		A7F8594118B0DD600039341F /* TTExpFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593518B0DD600039341F /* TTExpFunction.cpp */; };
+		A7F8594218B0DD600039341F /* TTFreeHandFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593618B0DD600039341F /* TTFreeHandFunction.cpp */; };
+		A7F8594318B0DD600039341F /* TTFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593718B0DD600039341F /* TTFunction.cpp */; };
+		A7F8594418B0DD600039341F /* TTLinearFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593818B0DD600039341F /* TTLinearFunction.cpp */; };
+		A7F8594518B0DD600039341F /* TTLogFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593918B0DD600039341F /* TTLogFunction.cpp */; };
+		A7F8594618B0DD600039341F /* TTLowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593A18B0DD600039341F /* TTLowpassFunction.cpp */; };
+		A7F8594718B0DD600039341F /* TTPowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593B18B0DD600039341F /* TTPowerFunction.cpp */; };
+		A7F8594818B0DD600039341F /* TTSmoothPolynomialFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593C18B0DD600039341F /* TTSmoothPolynomialFunction.cpp */; };
+		A7F8594918B0DD600039341F /* TTTanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8593D18B0DD600039341F /* TTTanhFunction.cpp */; };
+		A7F8595418B0DD720039341F /* TTCosineFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8594A18B0DD710039341F /* TTCosineFunction.test.cpp */; };
+		A7F8595518B0DD720039341F /* TTCrossFadeInFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8594B18B0DD710039341F /* TTCrossFadeInFunction.test.cpp */; };
+		A7F8595618B0DD720039341F /* TTCrossFadeOutFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8594C18B0DD710039341F /* TTCrossFadeOutFunction.test.cpp */; };
+		A7F8595718B0DD720039341F /* TTExpFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8594D18B0DD710039341F /* TTExpFunction.test.cpp */; };
+		A7F8595818B0DD720039341F /* TTFreeHandFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8594E18B0DD710039341F /* TTFreeHandFunction.test.cpp */; };
+		A7F8595918B0DD720039341F /* TTLinearFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8594F18B0DD720039341F /* TTLinearFunction.test.cpp */; };
+		A7F8595A18B0DD720039341F /* TTLogFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8595018B0DD720039341F /* TTLogFunction.test.cpp */; };
+		A7F8595B18B0DD720039341F /* TTPowerFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8595118B0DD720039341F /* TTPowerFunction.test.cpp */; };
+		A7F8595C18B0DD720039341F /* TTSmoothPolynomialFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8595218B0DD720039341F /* TTSmoothPolynomialFunction.test.cpp */; };
+		A7F8595D18B0DD720039341F /* TTTanhFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7F8595318B0DD720039341F /* TTTanhFunction.test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,10 +54,30 @@
 		2A23AD3C169D00D0004793F5 /* libFunctionLibIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFunctionLibIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ED7ADC5183D3AC300170BBA /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		A776C21015AFE617003F5555 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
-		A776C21215AFE621003F5555 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
-		A776C21315AFE62A003F5555 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
 		A776C21515AFEB54003F5555 /* TTFunctionLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTFunctionLib.cpp; sourceTree = "<group>"; };
 		A776C21615AFF051003F5555 /* FunctionLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = FunctionLib.yml; sourceTree = "<group>"; };
+		A7F8593218B0DD600039341F /* TTCosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCosineFunction.cpp; path = source/TTCosineFunction.cpp; sourceTree = "<group>"; };
+		A7F8593318B0DD600039341F /* TTCrossFadeInFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCrossFadeInFunction.cpp; path = source/TTCrossFadeInFunction.cpp; sourceTree = "<group>"; };
+		A7F8593418B0DD600039341F /* TTCrossFadeOutFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCrossFadeOutFunction.cpp; path = source/TTCrossFadeOutFunction.cpp; sourceTree = "<group>"; };
+		A7F8593518B0DD600039341F /* TTExpFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTExpFunction.cpp; path = source/TTExpFunction.cpp; sourceTree = "<group>"; };
+		A7F8593618B0DD600039341F /* TTFreeHandFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTFreeHandFunction.cpp; path = source/TTFreeHandFunction.cpp; sourceTree = "<group>"; };
+		A7F8593718B0DD600039341F /* TTFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTFunction.cpp; path = source/TTFunction.cpp; sourceTree = "<group>"; };
+		A7F8593818B0DD600039341F /* TTLinearFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLinearFunction.cpp; path = source/TTLinearFunction.cpp; sourceTree = "<group>"; };
+		A7F8593918B0DD600039341F /* TTLogFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLogFunction.cpp; path = source/TTLogFunction.cpp; sourceTree = "<group>"; };
+		A7F8593A18B0DD600039341F /* TTLowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassFunction.cpp; path = source/TTLowpassFunction.cpp; sourceTree = "<group>"; };
+		A7F8593B18B0DD600039341F /* TTPowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPowerFunction.cpp; path = source/TTPowerFunction.cpp; sourceTree = "<group>"; };
+		A7F8593C18B0DD600039341F /* TTSmoothPolynomialFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSmoothPolynomialFunction.cpp; path = source/TTSmoothPolynomialFunction.cpp; sourceTree = "<group>"; };
+		A7F8593D18B0DD600039341F /* TTTanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTanhFunction.cpp; path = source/TTTanhFunction.cpp; sourceTree = "<group>"; };
+		A7F8594A18B0DD710039341F /* TTCosineFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCosineFunction.test.cpp; path = tests/TTCosineFunction.test.cpp; sourceTree = "<group>"; };
+		A7F8594B18B0DD710039341F /* TTCrossFadeInFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCrossFadeInFunction.test.cpp; path = tests/TTCrossFadeInFunction.test.cpp; sourceTree = "<group>"; };
+		A7F8594C18B0DD710039341F /* TTCrossFadeOutFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCrossFadeOutFunction.test.cpp; path = tests/TTCrossFadeOutFunction.test.cpp; sourceTree = "<group>"; };
+		A7F8594D18B0DD710039341F /* TTExpFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTExpFunction.test.cpp; path = tests/TTExpFunction.test.cpp; sourceTree = "<group>"; };
+		A7F8594E18B0DD710039341F /* TTFreeHandFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTFreeHandFunction.test.cpp; path = tests/TTFreeHandFunction.test.cpp; sourceTree = "<group>"; };
+		A7F8594F18B0DD720039341F /* TTLinearFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLinearFunction.test.cpp; path = tests/TTLinearFunction.test.cpp; sourceTree = "<group>"; };
+		A7F8595018B0DD720039341F /* TTLogFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLogFunction.test.cpp; path = tests/TTLogFunction.test.cpp; sourceTree = "<group>"; };
+		A7F8595118B0DD720039341F /* TTPowerFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPowerFunction.test.cpp; path = tests/TTPowerFunction.test.cpp; sourceTree = "<group>"; };
+		A7F8595218B0DD720039341F /* TTSmoothPolynomialFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSmoothPolynomialFunction.test.cpp; path = tests/TTSmoothPolynomialFunction.test.cpp; sourceTree = "<group>"; };
+		A7F8595318B0DD720039341F /* TTTanhFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTanhFunction.test.cpp; path = tests/TTTanhFunction.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,12 +133,48 @@
 				A776C21515AFEB54003F5555 /* TTFunctionLib.cpp */,
 				8ED7ADC5183D3AC300170BBA /* test.cpp */,
 				A776C21015AFE617003F5555 /* includes */,
-				A776C21215AFE621003F5555 /* source */,
-				A776C21315AFE62A003F5555 /* tests */,
+				A7F8593018B0DD1B0039341F /* source */,
+				A7F8593118B0DD2B0039341F /* unit tests */,
 				2A23AD15169CFF89004793F5 /* FunctionLibIOS */,
 				2A23AD12169CFF89004793F5 /* Frameworks */,
 				2A23AD11169CFF89004793F5 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		A7F8593018B0DD1B0039341F /* source */ = {
+			isa = PBXGroup;
+			children = (
+				A7F8593218B0DD600039341F /* TTCosineFunction.cpp */,
+				A7F8593318B0DD600039341F /* TTCrossFadeInFunction.cpp */,
+				A7F8593418B0DD600039341F /* TTCrossFadeOutFunction.cpp */,
+				A7F8593518B0DD600039341F /* TTExpFunction.cpp */,
+				A7F8593618B0DD600039341F /* TTFreeHandFunction.cpp */,
+				A7F8593718B0DD600039341F /* TTFunction.cpp */,
+				A7F8593818B0DD600039341F /* TTLinearFunction.cpp */,
+				A7F8593918B0DD600039341F /* TTLogFunction.cpp */,
+				A7F8593A18B0DD600039341F /* TTLowpassFunction.cpp */,
+				A7F8593B18B0DD600039341F /* TTPowerFunction.cpp */,
+				A7F8593C18B0DD600039341F /* TTSmoothPolynomialFunction.cpp */,
+				A7F8593D18B0DD600039341F /* TTTanhFunction.cpp */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		A7F8593118B0DD2B0039341F /* unit tests */ = {
+			isa = PBXGroup;
+			children = (
+				A7F8594A18B0DD710039341F /* TTCosineFunction.test.cpp */,
+				A7F8594B18B0DD710039341F /* TTCrossFadeInFunction.test.cpp */,
+				A7F8594C18B0DD710039341F /* TTCrossFadeOutFunction.test.cpp */,
+				A7F8594D18B0DD710039341F /* TTExpFunction.test.cpp */,
+				A7F8594E18B0DD710039341F /* TTFreeHandFunction.test.cpp */,
+				A7F8594F18B0DD720039341F /* TTLinearFunction.test.cpp */,
+				A7F8595018B0DD720039341F /* TTLogFunction.test.cpp */,
+				A7F8595118B0DD720039341F /* TTPowerFunction.test.cpp */,
+				A7F8595218B0DD720039341F /* TTSmoothPolynomialFunction.test.cpp */,
+				A7F8595318B0DD720039341F /* TTTanhFunction.test.cpp */,
+			);
+			name = "unit tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,7 +219,7 @@
 		A776C20215AFE5D7003F5555 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "BEK - Bergen senter for elektronisk kunst";
 			};
 			buildConfigurationList = A776C20515AFE5D7003F5555 /* Build configuration list for PBXProject "FunctionLib" */;
@@ -168,7 +246,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A23AD4D169D011A004793F5 /* TTFunctionLib.cpp in Sources */,
+				A7F8593F18B0DD600039341F /* TTCrossFadeInFunction.cpp in Sources */,
+				A7F8595718B0DD720039341F /* TTExpFunction.test.cpp in Sources */,
+				A7F8593E18B0DD600039341F /* TTCosineFunction.cpp in Sources */,
+				A7F8594218B0DD600039341F /* TTFreeHandFunction.cpp in Sources */,
+				A7F8594518B0DD600039341F /* TTLogFunction.cpp in Sources */,
+				A7F8595A18B0DD720039341F /* TTLogFunction.test.cpp in Sources */,
+				A7F8594118B0DD600039341F /* TTExpFunction.cpp in Sources */,
+				A7F8595618B0DD720039341F /* TTCrossFadeOutFunction.test.cpp in Sources */,
+				A7F8594418B0DD600039341F /* TTLinearFunction.cpp in Sources */,
+				A7F8595418B0DD720039341F /* TTCosineFunction.test.cpp in Sources */,
+				A7F8594718B0DD600039341F /* TTPowerFunction.cpp in Sources */,
+				A7F8595B18B0DD720039341F /* TTPowerFunction.test.cpp in Sources */,
+				A7F8595818B0DD720039341F /* TTFreeHandFunction.test.cpp in Sources */,
+				A7F8594318B0DD600039341F /* TTFunction.cpp in Sources */,
+				A7F8594618B0DD600039341F /* TTLowpassFunction.cpp in Sources */,
 				8ED7ADC6183D3AC300170BBA /* test.cpp in Sources */,
+				A7F8595518B0DD720039341F /* TTCrossFadeInFunction.test.cpp in Sources */,
+				A7F8594018B0DD600039341F /* TTCrossFadeOutFunction.cpp in Sources */,
+				A7F8595918B0DD720039341F /* TTLinearFunction.test.cpp in Sources */,
+				A7F8594918B0DD600039341F /* TTTanhFunction.cpp in Sources */,
+				A7F8595C18B0DD720039341F /* TTSmoothPolynomialFunction.test.cpp in Sources */,
+				A7F8594818B0DD600039341F /* TTSmoothPolynomialFunction.cpp in Sources */,
+				A7F8595D18B0DD720039341F /* TTTanhFunction.test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +278,6 @@
 		2A23AD45169D00D0004793F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -205,7 +304,6 @@
 		2A23AD46169D00D0004793F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -234,7 +332,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -248,7 +351,9 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -260,7 +365,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -268,7 +378,9 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;

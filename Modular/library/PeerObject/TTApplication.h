@@ -115,8 +115,13 @@ private:
 #pragma mark Directory management
 #endif
     
+    /** Init the application
+	 @return #TTErr    always returns #kTTErrNone */
+	TTErr Init();
+    TTErr initNode(TTNodePtr aNode);
+    
     /** Clear the directory of an application (for distant application only) 
-     @return #TTErr    always returns #kTTErrNone */
+	 @return #TTErr    always returns #kTTErrNone */
 	TTErr DirectoryClear();
 
     /** Build the directory of an application (for distant application only) 

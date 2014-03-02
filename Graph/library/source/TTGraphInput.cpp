@@ -14,7 +14,7 @@
  */
 
 
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTGraphInput.h"
 
 #define thisTTClass			TTGraphInput
@@ -35,7 +35,7 @@ TTGraphInput::~TTGraphInput()
 }
 
 
-TTErr TTGraphInput::setOwner(TTGraphObjectPtr newOwner)
+TTErr TTGraphInput::setOwner(TTGraphObjectBasePtr newOwner)
 {
 	mOwner = newOwner;
 	return kTTErrNone;

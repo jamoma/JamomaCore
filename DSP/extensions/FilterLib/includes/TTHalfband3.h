@@ -1,10 +1,18 @@
-/* 
- * 3rd-order up/down-sampling filter built up from a 2-path allpass structure
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHalfband3 is a 3rd-order up/down-sampling filter built up from a 2-path allpass structure
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_RESAMPLE3_H__
 #define __TT_RESAMPLE3_H__
@@ -22,9 +30,9 @@ class TTHalfband3 : TTAudioObjectBase {
 
 protected:
 
-	TTAllpass1b*	mF0;		///< path0 (used by lowpass/highpass modes)
-	TTAllpass1a*	mDelay;		///< pure delay (used by lowpass/highpass modes)
-	TTAllpass1a*	mR0;		///< path 0 (used by resampling modes)
+	TTAudioObject	mF0;		///< path0 (used by lowpass/highpass modes)
+	TTAudioObject	mDelay;		///< pure delay (used by lowpass/highpass modes)
+	TTAudioObject	mR0;		///< path 0 (used by resampling modes)
 	TTSampleVector	mX1;		///< previous input sample (for each channel)	
 	TTSymbol		mMode;		///< Attribute: upsample or downsample
 	

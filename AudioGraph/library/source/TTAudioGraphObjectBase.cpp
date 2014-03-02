@@ -4,7 +4,7 @@
  *
  * @brief Wraps an object from Jamoma DSP to function within AudioGraph 
  *
- * @details The TTAudioGraphObject wraps a Jamoma DSP object such that it is possible to build a dynamic graph of audio processing units. It is implemented as a #TTObjectBase so that it can receive dynamically bound messages,
+ * @details The TTAudioGraphObjectBase wraps a Jamoma DSP object such that it is possible to build a dynamic graph of audio processing units. It is implemented as a #TTObjectBase so that it can receive dynamically bound messages,
  * including notifications from other objects.
  *
  * @authors Timothy Place, Trond Lossius
@@ -15,13 +15,13 @@
  */
 
 
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 #include "TTAudioGraphInlet.h"
 #include "TTAudioGraphOutlet.h"
 
-#define thisTTClass			TTAudioGraphObject
+#define thisTTClass			TTAudioGraphObjectBase
 
-TTMutexPtr TTAudioGraphObject::sSharedMutex = NULL;
+TTMutexPtr TTAudioGraphObjectBase::sSharedMutex = NULL;
 
 
 //	Arguments
@@ -30,19 +30,19 @@ TTMutexPtr TTAudioGraphObject::sSharedMutex = NULL;
 //	3. (optional) Number of outlets, default = 1
 
 
-TTObjectBasePtr TTAudioGraphObject::instantiate(TTSymbol name, TTValue arguments)
+TTObjectBasePtr TTAudioGraphObjectBase::instantiate(TTSymbol name, TTValue arguments)
 {
-	return new TTAudioGraphObject(arguments);
+	return new TTAudioGraphObjectBase(arguments);
 }
 
-extern "C" void TTAudioGraphObject::registerClass() 
+extern "C" void TTAudioGraphObjectBase::registerClass() 
 {
-	TTClassRegister(TT("audio.object"), "audio, graph, wrapper", TTAudioGraphObject::instantiate );
+	TTClassRegister(TT("audio.object"), "audio, graph, wrapper", TTAudioGraphObjectBase::instantiate );
 }
 
 
-TTAudioGraphObject :: TTAudioGraphObject (const TTValue& arguments) :
-	TTGraphObject(arguments),
+TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
+	TTGraphObjectBase(arguments),
 	mStatus(kTTAudioGraphProcessUnknown),
 	mAudioFlags(kTTAudioGraphProcessor), 
 	mInputSignals(NULL), 
@@ -78,14 +78,14 @@ TTAudioGraphObject :: TTAudioGraphObject (const TTValue& arguments) :
 }
 
 
-TTAudioGraphObject::~TTAudioGraphObject()
+TTAudioGraphObjectBase::~TTAudioGraphObjectBase()
 {
 	TTObjectBaseRelease((TTObjectBasePtr*)&mInputSignals);
 	TTObjectBaseRelease((TTObjectBasePtr*)&mOutputSignals);
 }
 
 
-TTErr TTAudioGraphObject::setNumAudioInlets(const TTValue& newNumInlets)
+TTErr TTAudioGraphObjectBase::setNumAudioInlets(const TTValue& newNumInlets)
 {
 	TTErr		err = TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mInputSignals, newNumInlets);
 	TTUInt16	inletCount = newNumInlets;
@@ -98,7 +98,7 @@ TTErr TTAudioGraphObject::setNumAudioInlets(const TTValue& newNumInlets)
 }
 
 
-TTErr TTAudioGraphObject::setNumAudioOutlets(const TTValue& newNumOutlets)
+TTErr TTAudioGraphObjectBase::setNumAudioOutlets(const TTValue& newNumOutlets)
 {
 	TTErr		err = TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mOutputSignals, newNumOutlets);
 	TTUInt16	outletCount = newNumOutlets;
@@ -111,7 +111,7 @@ TTErr TTAudioGraphObject::setNumAudioOutlets(const TTValue& newNumOutlets)
 }
 
 
-void TTAudioGraphObject::prepareAudioDescription()
+void TTAudioGraphObjectBase::prepareAudioDescription()
 {
 	if (valid && mAudioDescription.mClassName != kTTSymEmpty) {
 		mAudioDescription.sIndex = 0;
@@ -125,7 +125,7 @@ void TTAudioGraphObject::prepareAudioDescription()
 }
 
 
-void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
+void TTAudioGraphObjectBase::getAudioDescription(TTAudioGraphDescription& desc)
 {
 	if (mAudioDescription.mClassName != kTTSymEmpty) {		// a description for this object has already been created -- use it.
 		desc = mAudioDescription;
@@ -152,7 +152,7 @@ void TTAudioGraphObject::getAudioDescription(TTAudioGraphDescription& desc)
 }
 
 
-TTErr TTAudioGraphObject::resetAudio()
+TTErr TTAudioGraphObjectBase::resetAudio()
 {
 	sSharedMutex->lock();
 	for_each(mAudioInlets.begin(), mAudioInlets.end(), std::mem_fun_ref(&TTAudioGraphInlet::reset));
@@ -161,7 +161,7 @@ TTErr TTAudioGraphObject::resetAudio()
 }
 
 
-TTErr TTAudioGraphObject::connectAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+TTErr TTAudioGraphObjectBase::connectAudio(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {	
 	TTErr err;
 
@@ -182,7 +182,7 @@ TTErr TTAudioGraphObject::connectAudio(TTAudioGraphObjectPtr anObject, TTUInt16 
 }
 
 
-TTErr TTAudioGraphObject::dropAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
+TTErr TTAudioGraphObjectBase::dropAudio(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber, TTUInt16 toInletNumber)
 {
 	TTErr err = kTTErrInvalidValue;
 
@@ -194,7 +194,7 @@ TTErr TTAudioGraphObject::dropAudio(TTAudioGraphObjectPtr anObject, TTUInt16 fro
 }
 
 
-TTErr TTAudioGraphObject::preprocess(const TTAudioGraphPreprocessData& initData)
+TTErr TTAudioGraphObjectBase::preprocess(const TTAudioGraphPreprocessData& initData)
 {
 	lock();
 	if (valid && mStatus != kTTAudioGraphProcessNotStarted) {
@@ -230,7 +230,7 @@ TTErr TTAudioGraphObject::preprocess(const TTAudioGraphPreprocessData& initData)
 }
 
 
-TTErr TTAudioGraphObject::process(TTAudioSignalPtr& returnedSignal, TTUInt64 sampleStamp, TTUInt16 forOutletNumber)
+TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64 sampleStamp, TTUInt16 forOutletNumber)
 {
 	lock();
 	

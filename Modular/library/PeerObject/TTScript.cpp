@@ -262,6 +262,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
         return RunFlattened();
     
     // else use the none Flattened lines
+    TTNodeDirectoryPtr aDirectory;
     TTDictionaryBasePtr	aLine;
 	TTSymbol		schema, name, attribute;
 	TTNodePtr		aNode;
@@ -324,10 +325,14 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                 
                 // bind to the node
                 // (each time ! this is why using flattened list could be usefull but dangerous)
+                aDirectory = accessApplicationDirectoryFrom(address);
+                if (aDirectory == NULL)
+                    return kTTErrGeneric;
+                
                 if (address.getType() == kAddressRelative)
-                    err = accessApplicationDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
+                    err = aDirectory->getTTNode(parentAddress.appendAddress(address), &aNode);
                 else
-                    err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
+                    err = aDirectory->getTTNode(address, &aNode);
                 
                 // if there is a node
                 if (!err) {
@@ -374,10 +379,14 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
             
             // bind to the node
             // (each time ! this why using flattened list could be usefull but dangerous)
+            aDirectory = getDirectoryFrom(address);
+            if (aDirectory == NULL)
+                return kTTErrGeneric;
+            
             if (address.getType() == kAddressRelative)
-                err = accessApplicationDirectoryFrom(address)->getTTNode(parentAddress.appendAddress(address), &aNode);
+                err = aDirectory->getTTNode(parentAddress.appendAddress(address), &aNode);
             else
-                err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
+                err = aDirectory->getTTNode(address, &aNode);
             
             // if there is a node
             aContainer = NULL;
@@ -416,6 +425,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTScript::RunFlattened()
 {
+    TTNodeDirectoryPtr aDirectory;
     TTDictionaryBasePtr	aLine;
 	TTNodePtr		aNode;
 	TTAddress       address;
@@ -433,9 +443,13 @@ TTErr TTScript::RunFlattened()
           
         // get the target address
         aLine->lookup(kTTSym_target, v);
-       address = v[0];
+        address = v[0];
         
-        err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
+        aDirectory = accessApplicationDirectoryFrom(address);
+        if (aDirectory == NULL)
+            return kTTErrGeneric;
+        
+        err = aDirectory->getTTNode(address, &aNode);
 
         if (!err) {
             
@@ -484,6 +498,7 @@ TTErr TTScript::RunFlattened()
 
 TTErr TTScript::RunCommand(const TTValue& inputValue, TTValue& outputValue)
 {
+    TTNodeDirectoryPtr aDirectory;
 	TTDictionaryBasePtr	aLine;
 	TTNodePtr		aNode;
 	TTAddress       address, addressToRun;
@@ -513,7 +528,11 @@ TTErr TTScript::RunCommand(const TTValue& inputValue, TTValue& outputValue)
             comp = addressToRun.compare(address, depthDifference);
             if (comp == kAddressEqual || comp == kAddressUpper) {
                 
-                err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
+                aDirectory = accessApplicationDirectoryFrom(address);
+                if (aDirectory == NULL)
+                    return kTTErrGeneric;
+                
+                err = aDirectory->getTTNode(address, &aNode);
                 
                 if (!err) {
                     
@@ -1053,7 +1072,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 				v.toString();
 				aString = TTString(v[0]);
 				
-				xmlTextWriterWriteRaw((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST aString.data());
+				xmlTextWriterWriteString((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST aString.data());
 			}
 			
 			// close command Element

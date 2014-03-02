@@ -11,10 +11,19 @@
 TTPtr TTOscSocketListener(TTPtr anArgument)
 {
 	TTOscSocketPtr anOscSocket= (TTOscSocketPtr) anArgument;
-	
-	anOscSocket->mSocketListener = new UdpListeningReceiveSocket(IpEndpointName(IpEndpointName::ANY_ADDRESS, anOscSocket->mPort), anOscSocket);
-	anOscSocket->mSocketListener->Run();
-	
+    
+    try {
+        
+        anOscSocket->mSocketListener = new UdpListeningReceiveSocket(IpEndpointName(IpEndpointName::ANY_ADDRESS, anOscSocket->mPort), anOscSocket);
+    
+    } catch (const std::runtime_error& error) {
+    
+        return NULL;
+    }
+
+    if (anOscSocket->mSocketListener)
+        anOscSocket->mSocketListener->Run();
+    
 	return NULL;
 }
 
@@ -157,6 +166,11 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 #endif
     
 	return kTTErrNone;
+}
+
+TTBoolean TTOscSocket::isBound()
+{
+    return YES; // théo : the following test is wrong because the socket listener is created in an other thread so it can return false : mSocketListener != NULL;
 }
 
 TTUInt32 TTOscSocket::computeMessageSize(TTSymbol& message, const TTValue& arguments)

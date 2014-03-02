@@ -4,7 +4,7 @@
  *
  * @brief Represents one connection between two AudioGraph objects
  *
- * @details TTAudioGraphSource represents one link or connection between two AudioGraph objects. TTAudioGraphSource is an upstream connection from a #TTAudioGraphInlet of a #TTAudioGraphObject to a "TTAudioGraphOutlet of an upstream #TTAudioGraphObject.
+ * @details TTAudioGraphSource represents one link or connection between two AudioGraph objects. TTAudioGraphSource is an upstream connection from a #TTAudioGraphInlet of a #TTAudioGraphObjectBase to a "TTAudioGraphOutlet of an upstream #TTAudioGraphObjectBase.
  * The relationship of a source to other parts of the audio graph hierarchy is as follows:
  *
  * - A graph may have many objects.
@@ -24,21 +24,21 @@
 #define __TTAUDIOGRAPH_SOURCE_H__
 
 #include "TTAudioGraph.h"
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 
 
 /******************************************************************************************/
 
 // NOTE: we don't need to keep a buffer of our own, be we just mirror the buffer of mSourceObject
 
-/** TTAudioGraphSource represents one link from a #TTAudioGraphInlet of a #TTAudioGraphObject to a #TTAudioGraphOutlet of an upstream #TTAudioGraphObject.
+/** TTAudioGraphSource represents one link from a #TTAudioGraphInlet of a #TTAudioGraphObjectBase to a #TTAudioGraphOutlet of an upstream #TTAudioGraphObjectBase.
  */
 class TTAudioGraphSource {
 	friend void TTAudioGraphSourceObserverCallback(TTAudioGraphSource* self, TTValue& arg);
 	
 protected:	
 	
-	TTAudioGraphObjectPtr	mSourceObject;		///< The object from which we pull samples
+	TTAudioGraphObjectBasePtr	mSourceObject;		///< The object from which we pull samples
 	TTUInt16				mOutletNumber;		///< The outlet of the upstream object that we pull samples from. This is zero-based.
 	TTObjectBasePtr				mCallbackHandler;	///< TODO
 	TTAudioGraphInletPtr	mOwner;				///< The owning inlet
@@ -57,7 +57,7 @@ public:
 	
 	// Internal method shared/called by constructors.
 	
-	/** Create a link to a source. This establish a link between a #TTAudioGraphInlet and a #TTAudioGraphOutlet of an upstream #TTAudioGraphObject.
+	/** Create a link to a source. This establish a link between a #TTAudioGraphInlet and a #TTAudioGraphOutlet of an upstream #TTAudioGraphObjectBase.
 	 */
 	void create();
 	
@@ -67,7 +67,7 @@ public:
 	 @param anOutletNumber		The object outlet that we want to check if match this source.
 	 @return					TRUE if we have a match, else FALSE.
 	 */
-	TTBoolean match(TTAudioGraphObjectPtr anObject, TTUInt16 anOutletNumber)
+	TTBoolean match(TTAudioGraphObjectBasePtr anObject, TTUInt16 anOutletNumber)
 	{
 		if (anObject == mSourceObject && anOutletNumber == mOutletNumber)
 			return YES;
@@ -172,7 +172,7 @@ public:
 	 @param anObject			The upstream object that we want to connect to.
 	 @param fromOutletNumber	The outlet of the upstream object that we want to connect to.
 	 */
-	void connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber);
+	void connect(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber);
 	
 	
 	/** Prepare for audio processing.

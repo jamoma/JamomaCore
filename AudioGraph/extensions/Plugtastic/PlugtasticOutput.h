@@ -27,7 +27,7 @@ protected:
 	
 	TTFloat64		mGain;	///< linear gain to be applied to the input signal
 	
-	/**	A standard audio processing method as used by TTBlue objects.*/
+	/**	A standard audio processing method as used by Jamoma DSP objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	/** setter for converting gain input from db to linear. */

@@ -1,10 +1,18 @@
-/* 
- * TTBlue 4-Pole Lowpass Filter Object
- * Copyright © 2008, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTLowpassFourPole is a 4-Pole Lowpass Filter Object.
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTLowpassFourPole.h"
 
@@ -22,10 +30,10 @@ TT_AUDIO_CONSTRUCTOR
 	addAttributeProperty(Frequency,			rangeChecking,	TT("clip"));
 	addAttributeProperty(Frequency,			description,	TT("Cutoff Frequency in Hertz"));
 
-	addAttributeWithSetter(Resonance,	kTypeFloat64);
-	addAttributeProperty(Resonance,			range,			TTValue(0.01, 100.0));
-	addAttributeProperty(Resonance,			rangeChecking,	TT("cliplow"));
-	addAttributeProperty(Resonance,			description,	TT("Strength of Resonance Near the Cutoff Frequency"));
+	addAttributeWithSetter(Q,	kTypeFloat64);
+	addAttributeProperty(Q,			range,			TTValue(0.01, 100.0));
+	addAttributeProperty(Q,			rangeChecking,	TT("cliplow"));
+	addAttributeProperty(Q,			description,	TT("Strength of Resonance Near the Cutoff Frequency"));
 
 	// register methods
 	addMessage(clear);
@@ -101,10 +109,10 @@ TTErr TTLowpassFourPole::setFrequency(const TTValue& newValue)
 }
 
 
-TTErr TTLowpassFourPole::setResonance(const TTValue& newValue)
+TTErr TTLowpassFourPole::setQ(const TTValue& newValue)
 {
-	mResonance = newValue;
-	mDeciResonance = mResonance * 0.1;
+	mQ = newValue;
+	mDeciResonance = mQ * 0.1;
 	calculateCoefficients();
 	return kTTErrNone;
 }

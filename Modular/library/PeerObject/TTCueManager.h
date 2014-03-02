@@ -38,11 +38,12 @@ class TTMODULAR_EXPORT TTCueManager : public TTDataObjectBase
 	TTCLASS_SETUP(TTCueManager)
 	
 private:
-	
+    
 	TTValue				mNames;							///< ATTRIBUTE : cues are ordered by name
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current cue name
 	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
+    TTAddress           mAddress;						///< ATTRIBUTE : an address to make the mangment relative to
 	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
 	
 	TTCuePtr			mCurrentCue;					///< the current cue
@@ -59,6 +60,9 @@ private:
 	/** */
 	TTErr	getCurrentRamp(TTValue& value);
 	TTErr	setCurrentRamp(const TTValue& value);
+    
+    /** */
+    TTErr   setAddress(const TTValue& value);
 	
 	/** Select a set of absolute addresses
 	 @param inputValue      a set of absolute addresses

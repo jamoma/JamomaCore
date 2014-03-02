@@ -33,7 +33,7 @@ class TTAUDIOGRAPH_EXPORT TTAudioGraphOutput : public TTAudioObjectBase
 public:
 	TTObjectBasePtr				mAudioEngine;	///< The audio engine that signals are output to.
 	TTAudioSignalPtr			placeHolder;	///< An unused audio signal that we pass
-	TTAudioGraphObjectPtr		owner;			///< The owning AudioGraph instance
+	TTAudioGraphObjectBasePtr	owner;			///< The owning AudioGraph instance
 	TTValuePtr					me;
 	TTAudioGraphPreprocessData	mInitData;
 	TTSymbol					mDevice;		///< Name of the audio interface

@@ -18,7 +18,7 @@
 #define __TTGRAPH_SOURCE_H__
 
 #include "TTGraph.h"
-//#include "TTGraphObject.h"
+//#include "TTGraphObjectBase.h"
 
 class TTGraphInlet;
 typedef TTGraphInlet*					TTGraphInletPtr;
@@ -33,10 +33,10 @@ class TTGRAPH_EXPORT TTGraphSource {
 	
 protected:
 
-	TTGraphObjectPtr	mSourceObject;		///< the object from which we pull samples
-	TTUInt16			mOutletNumber;		///< zero-based
+	TTGraphObjectBasePtr	mSourceObject;		///< The object from which we pull samples
+	TTUInt16			    mOutletNumber;		///< Number of the outlet (zero-based)
 	TTObjectBasePtr			mCallbackHandler;
-	TTGraphInletPtr		mOwner;				///< the owning inlet
+	TTGraphInletPtr		    mOwner;				///< The owning inlet
 	
 public:
 
@@ -46,7 +46,7 @@ public:
 	/** Internal method shared/called by constructors. */
 	void create();
 	
-	TTBoolean match(TTGraphObjectPtr anObject, TTUInt16 anOutletNumber)
+	TTBoolean match(TTGraphObjectBasePtr anObject, TTUInt16 anOutletNumber)
 	{
 		if (anObject == mSourceObject && anOutletNumber == mOutletNumber)
 			return YES;
@@ -117,7 +117,7 @@ public:
 	
 	// Graph Methods
 	
-	void connect(TTGraphObjectPtr anObject, TTUInt16 fromOutletNumber);
+	void connect(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber);
 			
 };
 

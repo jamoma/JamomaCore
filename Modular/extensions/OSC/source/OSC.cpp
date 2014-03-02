@@ -96,10 +96,35 @@ TTErr OSC::Scan()
  */
 TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTErr err;
-    
-    // local application case
+    // run OSC for all applications
     if (inputValue.size() == 0) {
+        
+        TTValue keys, out;
+        
+        // run local
+        Run(protocolGetLocalApplicationName, out);
+        
+        // run each distant
+        mDistantApplicationParameters.getKeys(keys);
+        for (TTUInt32 i = 0 ; i < keys.size() ; i++)
+            Run(keys[i], out);
+        
+        return kTTErrNone;
+    }
+    
+    // run OSC for one application
+    TTSymbol    applicationName;
+    TTErr       err;
+    
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol)
+        
+            applicationName = inputValue[0];
+    }
+    
+    // for local application
+    if (applicationName == protocolGetLocalApplicationName) {
         
         if (!mRunning) {
             
@@ -128,20 +153,17 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
     else {
 	
         TTValue         v, args;
-        TTSymbol        distantApplicationName;
         TTHashPtr       parameters;
         TTObjectBasePtr anOscReceiver, returnMessageCallback;
         TTValuePtr		returnMessageBaton;
         TTUInt16        receptionPort;
         
-        distantApplicationName = inputValue[0];
-        
         // if the application have already a reception thread : return an error
-        if (!mDistantApplicationOscReceivers.lookup(distantApplicationName, v))
+        if (!mDistantApplicationOscReceivers.lookup(applicationName, v))
             return kTTErrGeneric;
         
         // get application parameters
-        err = mDistantApplicationParameters.lookup(distantApplicationName, v);
+        err = mDistantApplicationParameters.lookup(applicationName, v);
         
         if (!err) {
             
@@ -162,7 +184,7 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                     TTObjectBaseInstantiate(TTSymbol("callback"), &returnMessageCallback, kTTValNONE);
                     
                     returnMessageBaton = new TTValue(TTObjectBasePtr(this));
-                    returnMessageBaton->append(distantApplicationName);
+                    returnMessageBaton->append(applicationName);
                     
                     returnMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(returnMessageBaton));
                     returnMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&OSCReceiveMessageCallback));
@@ -180,7 +202,7 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                         
                         // append the osc.receive to the table
                         v = TTValue(TTObjectBasePtr(anOscReceiver));
-                        mDistantApplicationOscReceivers.append(distantApplicationName, v);
+                        mDistantApplicationOscReceivers.append(applicationName, v);
                         
                         // wait to avoid strange crash when run and stop are called to quickly
                         mWaitThread->sleep(1);
@@ -199,8 +221,34 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
  */
 TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
 {
-    // local application case
+    // run OSC for all applications
     if (inputValue.size() == 0) {
+        
+        TTValue keys, out;
+        
+        // stop local
+        Stop(protocolGetLocalApplicationName, out);
+        
+        // stop each distant
+        mDistantApplicationParameters.getKeys(keys);
+        for (TTUInt32 i = 0 ; i < keys.size() ; i++)
+            Stop(keys[i], out);
+        
+        return kTTErrNone;
+    }
+    
+    // stop OSC for one application
+    TTSymbol    applicationName;
+    
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol)
+            
+            applicationName = inputValue[0];
+    }
+    
+    // for local application
+    if (applicationName == protocolGetLocalApplicationName) {
         
         if (mRunning) {
             
@@ -222,13 +270,10 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
     else {
         
         TTValue         v;
-        TTSymbol        distantApplicationName;
         TTObjectBasePtr anOscReceiver;
         
-        distantApplicationName = inputValue[0];
-        
         // if the application have a reception thread
-        if (!mDistantApplicationOscReceivers.lookup(distantApplicationName, v)) {
+        if (!mDistantApplicationOscReceivers.lookup(applicationName, v)) {
             
             anOscReceiver = v[0];
             
@@ -236,7 +281,7 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
             TTObjectBaseRelease(&anOscReceiver);
             
             // remove key
-            mDistantApplicationOscReceivers.remove(distantApplicationName);
+            mDistantApplicationOscReceivers.remove(applicationName);
             
             // wait to avoid strange crash when run and stop are called to quickly
             mWaitThread->sleep(1);

@@ -24,7 +24,7 @@
 #define __TTAUDIOGRAPH_INLET_H__
 
 #include "TTAudioGraph.h"
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 #include "TTAudioGraphSource.h"
 
 
@@ -134,7 +134,7 @@ public:
 	 @param fromOutletNumber	The outlet of the upstrem node that the connection is being made from.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr connect(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+	TTErr connect(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber)
 	{
 		TTUInt16 size = mSourceObjects.size();
 
@@ -157,7 +157,7 @@ public:
 	 @param fromOutletNumber	The outlet of the upstrem node that the connection for which the connection will be dropped.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr drop(TTAudioGraphObjectPtr anObject, TTUInt16 fromOutletNumber)
+	TTErr drop(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber)
 	{
 		for (TTAudioGraphSourceIter source = mSourceObjects.begin(); source != mSourceObjects.end(); source++) {
 			if (source->match(anObject, fromOutletNumber)) {

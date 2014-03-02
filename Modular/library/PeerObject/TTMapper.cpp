@@ -24,6 +24,7 @@ TT_MODULAR_CONSTRUCTOR,
 mInput(kTTAdrsEmpty),
 mInputMin(0.),
 mInputMax(1.),
+mInputIndex(0),
 mInputThresholdDown(0.),
 mInputThresholdUp(1.),
 mInputGoingDown(NO),
@@ -79,6 +80,8 @@ mValid(NO)
     
 	addAttributeWithSetter(InputMin, kTypeFloat64);
 	addAttributeWithSetter(InputMax, kTypeFloat64);
+    
+    addAttribute(InputIndex, kTypeUInt32);
     
     addAttribute(InputThresholdDown, kTypeFloat64);
 	addAttribute(InputThresholdUp, kTypeFloat64);
@@ -179,9 +182,29 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 		
 		processMapping(inputValue, outputValue);
 		
-		// return value
-		if (mSender)
-			mSender->sendMessage(kTTSym_Send, outputValue, none);
+		// return value (+ ramp)
+		if (mSender) {
+            
+            // if there is a ramp value, edit the command here
+            if (mRamp > 0) {
+                
+                TTDictionaryBasePtr	command;
+                TTValue valueAndRamp;
+                
+                command = new TTDictionaryBase();
+                command->setSchema(kTTSym_command);
+                command->setValue(outputValue);
+                command->append(kTTSym_ramp, mRamp);
+                
+                valueAndRamp = TTValue((TTPtr)command);
+                
+                mSender->sendMessage(kTTSym_Send, valueAndRamp, none);
+                
+                delete command;
+            }
+            else
+                mSender->sendMessage(kTTSym_Send, outputValue, none);
+        }
 		
 		if (mReturnValueCallback)
 			mReturnValueCallback->deliver(outputValue);
@@ -621,6 +644,12 @@ TTErr TTMapper::processMapping(const TTValue& inputValue, TTValue& outputValue)
 		f = inputCopy[i];
 		in.append(mA * f + mB);
 	}
+    
+    // select index if needed
+    if (mInputIndex > 0 && mInputIndex <= size) {
+        in = in[mInputIndex-1];
+        size = 1;
+    }
 
 #ifndef TT_NO_DSP
 	// process function
@@ -815,19 +844,29 @@ TTErr TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& inputVal
 		// process the mapping
 		aMapper->processMapping(inputValue, outputValue);
         
-        // if there is a ramp value, edit the command here
-        if (aMapper->mRamp > 0) {
-            command = new TTDictionaryBase();
-            command->setSchema(kTTSym_command);
-            command->setValue(outputValue);
-            command->append(kTTSym_ramp, aMapper->mRamp);
+        // return value (+ ramp)
+		if (aMapper->mSender) {
             
-            outputValue = TTValue((TTPtr)command);
+            // if there is a ramp value, edit the command here
+            if (aMapper->mRamp > 0) {
+                
+                TTDictionaryBasePtr	command;
+                TTValue valueAndRamp;
+                
+                command = new TTDictionaryBase();
+                command->setSchema(kTTSym_command);
+                command->setValue(outputValue);
+                command->append(kTTSym_ramp, aMapper->mRamp);
+                
+                valueAndRamp = TTValue((TTPtr)command);
+                
+                aMapper->mSender->sendMessage(kTTSym_Send, valueAndRamp, none);
+                
+                delete command;
+            }
+            else
+                aMapper->mSender->sendMessage(kTTSym_Send, outputValue, none);
         }
-		
-		// return value
-		if (aMapper->mSender)
-			aMapper->mSender->sendMessage(kTTSym_Send, outputValue, none);
 		
 		if (aMapper->mReturnValueCallback)
 			aMapper->mReturnValueCallback->deliver(outputValue);
@@ -863,10 +902,6 @@ TTErr TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& inputVal
             aMapper->mOutputGoingUp = newOutputGoingUp;
             aMapper->mReturnOutputGoingUpCallback->deliver(aMapper->mOutputGoingUp);
         }
-        
-        // release the command if needed
-        if (aMapper->mRamp > 0)
-            delete command;
 	}
 	
 	return kTTErrNone;

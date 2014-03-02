@@ -549,13 +549,8 @@ TTErr TTData::rampSetup()
 	else {
         
         // don't create ramper for external ramp drive
-        if (mRampDrive == kTTSym_external)
+        if (mRampDrive == kTTSym_external || mRampDrive == kTTSym_none)
             return kTTErrNone;
-        
-        // TODO : move this very Max specific thing else where
-        // (but it is not a problem if the Max plugin is not available)
-        if (mRampDrive == kTTSym_none)
-            mRampDrive = TTSymbol("Max");
         
         args.append((TTPtr)&TTDataRampCallback);
         args.append((TTPtr)this); // we have to store this as a pointer

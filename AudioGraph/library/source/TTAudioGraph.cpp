@@ -17,7 +17,7 @@
 // TODO: Why are these header files included here rather than in TTAudioGraph.h?
 #include "TTAudioGraph.h"
 #include "TTAudioGraphGenerator.h"
-#include "TTAudioGraphObject.h"
+#include "TTAudioGraphObjectBase.h"
 #include "TTAudioGraphInlet.h"		// required for windows build
 #ifndef TT_PLATFORM_IOS
 #include "TTAudioGraphInput.h"
@@ -36,7 +36,7 @@ void TTAudioGraphInit(void)
 		TTGraphInit();
 		
 		TTAudioGraphGenerator::registerClass();
-		TTAudioGraphObject::registerClass();
+		TTAudioGraphObjectBase::registerClass();
 #ifndef TT_PLATFORM_IOS
 		TTAudioGraphInput::registerClass();
 		TTAudioGraphOutput::registerClass();

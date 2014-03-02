@@ -127,6 +127,7 @@ TTErr Minuit::Scan()
  */
 TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 {
+    TTValue args;
 	TTErr	err;
     
     // Minuit doesn't need a thread per application
@@ -138,17 +139,23 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 		mAnswerManager = new MinuitAnswerManager((MinuitPtr)this);
         mSenderManager = new MinuitSenderManager();
 		
-		err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mOscReceive, kTTValNONE);
+		err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mOscReceive, args);
+        
 		if (!err) {
             
-            mOscReceive->setAttributeValue(TTSymbol("port"), mPort);
+            err = mOscReceive->setAttributeValue(TTSymbol("port"), mPort);
             
-            mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
-            
-            // wait to avoid strange crash when run and stop are called to quickly
-            mWaitThread->sleep(1);
-			
-			mRunning = YES;
+            if (!err) {
+                
+                mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
+                
+                // wait to avoid strange crash when run and stop are called to quickly
+                mWaitThread->sleep(1);
+                
+                mRunning = YES;
+            }
+            else
+                TTLogError("unable to connect to port %ld", mPort);
 		}
 		
 		return err;

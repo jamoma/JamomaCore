@@ -16,7 +16,7 @@
 
 #include "TTDSP.h"
 #include "TTGraph.h"
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTGraphInlet.h"		// required for windows build
 #include "TTGraphOutlet.h"
 #include "TTGraphInput.h"
@@ -33,7 +33,7 @@ void TTGraphInit(void)
 		initialized = true;
 		TTFoundationInit();
 		
-		TTGraphObject::registerClass();
+		TTGraphObjectBase::registerClass();
 		TTGraphInput::registerClass();
 		TTGraphOutput::registerClass();
 	}

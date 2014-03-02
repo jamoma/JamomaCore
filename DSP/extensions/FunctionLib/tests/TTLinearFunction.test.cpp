@@ -1,10 +1,18 @@
-/*
- * Unit tests for the Jamoma DSP linar function of the FunctionLib 
- * Copyright © 2011, Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief Unit tests for the Jamoma DSP #TTLinearFunction of the #TTFunctionLib
+ *
+ * @details
+ *
+ * @authors Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2011 by Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTFunction.h"
 #include "TTLinearFunction.h"

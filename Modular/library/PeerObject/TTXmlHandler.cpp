@@ -398,7 +398,7 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedVal
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol& returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
 	

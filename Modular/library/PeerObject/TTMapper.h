@@ -40,6 +40,7 @@ private:
 	
 	TTFloat64			mInputMin;					///< ATTRIBUTE : 
 	TTFloat64			mInputMax;					///< ATTRIBUTE :
+    TTUInt32            mInputIndex;                ///< ATTRIBUTE : select an index of the input value to map (0 means to take the whole value)
     TTFloat64			mInputThresholdDown;        ///< ATTRIBUTE :
 	TTFloat64			mInputThresholdUp;			///< ATTRIBUTE :
     TTBoolean			mInputGoingDown;            ///< memorize last state to filter repetitions

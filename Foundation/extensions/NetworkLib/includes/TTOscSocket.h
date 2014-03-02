@@ -27,7 +27,7 @@ class TTOscSocket : public osc::OscPacketListener
 	
 private:
 	
-	TTObjectBasePtr					mOwner;							///< The object that instantiated this socket and will receive notifications.
+	TTObjectBasePtr				mOwner;							///< The object that instantiated this socket and will receive notifications.
 	
 	TTString					mAddress;
 	TTUInt16					mPort;
@@ -54,6 +54,8 @@ public:
 	virtual ~TTOscSocket();
 	
 	TTErr		SendMessage(TTSymbol& message, const TTValue& arguments);
+    
+    TTBoolean	isBound();
 	
 private:
 	// internal helper method

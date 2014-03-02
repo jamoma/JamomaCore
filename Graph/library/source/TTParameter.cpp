@@ -13,7 +13,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTGraphObject.h"
+#include "TTGraphObjectBase.h"
 #include "TTParameter.h"
 
 #define thisTTClass			TTParameter
@@ -65,7 +65,7 @@ TTErr TTParameter::setValue(const TTValue& newValue)
 }
 
 
-TTErr TTParameter::setOwner(TTGraphObjectPtr newOwner)
+TTErr TTParameter::setOwner(TTGraphObjectBasePtr newOwner)
 {
 	mOwner = newOwner;
 	return kTTErrNone;
