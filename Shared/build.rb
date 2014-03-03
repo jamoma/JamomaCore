@@ -138,8 +138,11 @@ puts "  "
 @log_root = "logs-#{@projectName}"
 @svn_root = "#{libdir}/../#{@projectName}"
 temp = Dir.pwd
-Dir.chdir(@svn_root)
-@svn_root = Dir.pwd
+begin
+  Dir.chdir(@svn_root)
+  @svn_root = Dir.pwd
+rescue
+end
 Dir.chdir temp
 @svn_root.gsub!(/\//, "\\") if win?
 #@svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
