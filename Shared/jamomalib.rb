@@ -77,7 +77,12 @@ else
 
 	def create_logs(str)
 		# set up log files and ensure that the build_root is there
-		puts `mkdir #{'-p' if !win?} #{@log_root}` if !FileTest.exist?(@log_root)
+		if (win?)
+			@log_root.gsub!(/(\/)/,'\\')
+			puts `mkdir #{@log_root}` if !FileTest.exist?(@log_root)
+		else
+			puts `mkdir #{'-p' if !win?} #{@log_root}` if !FileTest.exist?(@log_root)
+		end
 		@build_log = File.new("#{@log_root}/build.log", "w")
 		@build_log.write("#{str.upcase} BUILD LOG: #{`date`}\n\n") if mac? || linux?
 		@build_log.write("#{str.upcase} BUILD LOG:					\n\n") if win?
@@ -296,6 +301,9 @@ else
 		err = ""
 		success = 0
 		
+		restore_dir = Dir.pwd
+		puts "PROJECT DIR #{projectdir}"
+		Dir.chdir projectdir
 	 	#`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
 		#		Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
 		buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Configuration=#{configuration} /p:Platform=Win32 \"#{projectname}\""
@@ -357,7 +365,7 @@ else
 			log_error(err)
 		end
 		
-		
+		Dir.chdir restore_dir
 		return success
 	end
 
@@ -430,27 +438,27 @@ else
 				<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
 				<PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|Win32\'" Label="Configuration">
 				<ConfigurationType>DynamicLibrary</ConfigurationType>
-				<PlatformToolset>v110</PlatformToolset>
+				<PlatformToolset>v120</PlatformToolset>
 				<UseOfMfc>false</UseOfMfc>
 				<CharacterSet>MultiByte</CharacterSet>
 				<WholeProgramOptimization>true</WholeProgramOptimization>
 			</PropertyGroup>
 			<PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|Win32\'" Label="Configuration">
 				<ConfigurationType>DynamicLibrary</ConfigurationType>
-				<PlatformToolset>v110</PlatformToolset>
+				<PlatformToolset>v120</PlatformToolset>
 				<UseOfMfc>false</UseOfMfc>
 				<CharacterSet>MultiByte</CharacterSet>
 			</PropertyGroup>
 			<PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Release|x64\'" Label="Configuration">
 				<ConfigurationType>DynamicLibrary</ConfigurationType>
-				<PlatformToolset>v110</PlatformToolset>
+				<PlatformToolset>v120</PlatformToolset>
 				<UseOfMfc>false</UseOfMfc>
 				<CharacterSet>MultiByte</CharacterSet>
 				<WholeProgramOptimization>true</WholeProgramOptimization>
 			</PropertyGroup>
 			<PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'Debug|x64\'" Label="Configuration">
 				<ConfigurationType>DynamicLibrary</ConfigurationType>
-				<PlatformToolset>v110</PlatformToolset>
+				<PlatformToolset>v120</PlatformToolset>
 				<UseOfMfc>false</UseOfMfc>
 				<CharacterSet>MultiByte</CharacterSet>
 			</PropertyGroup>
@@ -1502,6 +1510,8 @@ else
 						command += "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support"
 					end
 					command.gsub!(/(\/)/,'\\')
+					command.gsub!(/(\r)/,'')
+					command.gsub!(/(\n)/,'')
 					
 					vcproj_debug32_postbuild = Element.new "PostBuildEvent"
 					vcproj_debug32_postbuild.add_element Element.new "Command"
