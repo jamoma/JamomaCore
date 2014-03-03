@@ -94,7 +94,7 @@ inline TTErr TTAudioObjectBase::process(TTAudio& inputs, TTAudio& outputs)
 class TTAudioObject : public TTObject {
 	
 public:
-	TTAudioObject(const TTSymbol& aClassName, const TTValue& arguments = kTTValNONE):
+	TTAudioObject(const TTSymbol aClassName, const TTValue arguments = kTTValNONE):
 	TTObject(aClassName, arguments)
 	{}
 	
