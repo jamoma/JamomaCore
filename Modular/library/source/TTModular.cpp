@@ -76,6 +76,7 @@ void TTModularInit(const char* binaries)
         TTMapper::registerClass();
         TTMapperManager::registerClass();
         TTMirror::registerClass();
+		TTNodeInfo::registerClass();
         TTOutput::registerClass();
         TTOutputAudio::registerClass();
         TTPreset::registerClass();

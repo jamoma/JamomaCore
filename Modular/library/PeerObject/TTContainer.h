@@ -53,6 +53,7 @@ private:
 	
 	/** */
 	TTErr Init();
+    TTErr initNode(TTNodePtr aNode);
 	
 	/** */
 	TTErr AliasRemove();

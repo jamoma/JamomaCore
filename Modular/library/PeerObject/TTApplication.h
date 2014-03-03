@@ -294,6 +294,17 @@ public:
         
         return converted;
     }
+
+#if 0
+#pragma mark -
+#pragma mark Test
+#endif
+
+	/** Default (empty) template for unit tests.
+	 @param returnedTestInfo		Returned information on the outcome of the unit test(s)
+	 @return						#kTTErrNone if tests exists and they all pass, else #TTErr error codes depending on the outcome of the test.
+	 */
+    virtual TTErr test(TTValue& returnedTestInfo);
     
 #if 0
 #pragma mark -

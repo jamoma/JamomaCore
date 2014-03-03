@@ -116,6 +116,175 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_symbol;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_pointer;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_string;
 
+#if 0
+#pragma mark -
+#pragma mark Modular symbols
+#endif
+
+// object classe name
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Application;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_ApplicationManager;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Container;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Cue;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_CueManager;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Data;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Explorer;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Input;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_InputAudio;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Mapper;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_MapperManager;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Mirror;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_NodeInfo;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_OpmlHandler;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Output;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_OutputAudio;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Preset;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_PresetManager;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Ramp;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Receiver;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Sender;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Script;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Subscriber;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_TextHandler;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Viewer;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_XmlHandler;
+
+// notifications
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_SchedulerDurationChanged;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_SchedulerOffsetChanged;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_SchedulerSpeedChanged;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_SchedulerRunningChanged;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_SchedulerTicked;
+
+// attribute, message or any word often used
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_active;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_activity;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_activityIn;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_activityOut;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_address;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_addresses;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_alias;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_alphabetic;
+extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_attributes;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_array;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_brothers;
+
+extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_children;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_command;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Command;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_comment;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_content;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_ConvertToAppName;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_ConvertToTTName;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_created;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_dash;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_dataspace;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_dataspaceUnit;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_debug;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_decimal;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_descendants;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_description;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_destroyed;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_directory;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Dump;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_end;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_external;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Fill;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_filter;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_flag;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Flatten;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_flattened;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_freeze;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_generic;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Get;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_global;
+extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_Go;
+extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_Grab;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_highlight;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Init;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_initialized;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_inputUnit;
+extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_instances;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_integer;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_life;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_lines;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_local;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_lookfor;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Map;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_message;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_mix;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_mirror;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_model;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_mute;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_names;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_namespace;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_nodeAddress;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_objectCache;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_offset;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_parameter;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_preview;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_proxy;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_rangeBounds;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_rangeClipmode;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_rampDrive;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_rampFunction;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_RampGo;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_RampSet;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_RampSlide;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_rampStatus;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_RampTarget;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Read;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_ReadAgain;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_readonly;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Recall;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_receiver;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_repetitionsFilter;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_return;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_returnedValue;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Run;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Send;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_script;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_service;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_sharp;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_signal;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_start;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_stop;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Stop;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Subscribe;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_tag;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_target;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Tick;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_unit;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Update;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_valueDefault;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_valueStepsize;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_viewFreeze;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_view;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Write;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_WriteAgain;
+
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_xmlHandlerReadingComment;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_xmlHandlerReadingEnds;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_xmlHandlerReadingStarts;
+
 
 #endif // __TT_SYMBOL_CACHE_H__
 

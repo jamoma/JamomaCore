@@ -21,7 +21,7 @@
 
 #define thisTTClass			TTApplication
 #define thisTTClassName		"Application"
-#define thisTTClassTags		"application"
+#define thisTTClassTags		"modularLibrary, application"
 
 TT_MODULAR_CONSTRUCTOR,
 mDebug(NO),
@@ -35,6 +35,12 @@ mTempAddress(kTTAdrsRoot)
 {
     TT_ASSERT("Correct number of arguments to instantiate TTApplication", arguments.size() == 1);
     
+    if (arguments.size() != 1)
+        return TTLogError("TTApplication constructor needs one symbol argument to setup its name\n");
+    
+    if (arguments[0].type() != kTypeSymbol)
+        return TTLogError("TTApplication constructor needs one symbol argument to setup its name\n");
+
 	mName = arguments[0];
     
     TT_ASSERT("mName is not empty", mName != kTTSymEmpty);
@@ -214,6 +220,9 @@ TTErr TTApplication::initNode(TTNodePtr aNode)
 
     // Init nodes below
     aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+    
+    // Sort children by priority order
+    nodeList.sort(compareNodePriorityThenNameThenInstance);
     
     for (nodeList.begin(); nodeList.end(); nodeList.next())
     {

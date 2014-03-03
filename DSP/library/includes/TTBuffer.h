@@ -2,9 +2,11 @@
  *
  * @ingroup dspLibrary
  *
- * @brief Audio buffer that manages multiple SampleMatrices.
- * 
- * @details TODO: put more info here 
+ * @brief #TTBuffer manages the check-in/out of #TTSampleMatrix pointers.
+ *
+ * @details #TTBuffer acts as a librarian for checking-in and checking-out audio within a chunk of memory. Any object that wishes to read or write samples managed by #TTBuffer must first check-out a pointer to the current #TTSampleMatrix. Once the pointer has been obtained, the object can read and write audio samples by working directly with the corresponding #TTSampleMatrix functions. Upon completion of its work, the object is then responsible for checking-in the pointer back to the #TTBuffer.@n@n
+ * This extra layer of protection prevents problems that can occur during such operations as changing the length in samples, changing number of channels, filling the buffer or loading a sound file. Whenever these key changes are made through #TTBuffer, it first creates a new #TTSampleMatrix and applies changes there. The new #TTSampleMatrix only becomes available for check-out after the changes are completed.@n@n
+ * The advantage of this approach is that during such changes, objects that have checked-out a #TTSampleMatrix pointer can continue using these samples without fear of them being changed before being ready. Only once the object checks-in the current pointer and performs another check-out will it begin using the new set of samples. This can be advantageous in applications such as sampling, wavetables or granular processing.
  * 
  * @see TTSampleMatrix, TTMatrix, TTAudioSignal
  *  
@@ -24,26 +26,20 @@
 
 extern TTHashPtr gTTBufferNameMap;	// maps names to TTSampleMatrix instances for TTBuffer
 
-/**	TTBuffer is a container object that holds some audio in a chunk of memory.
-	Other objects can then access this buffer to record into it, play back from it,
-	or perform other operations on it.
-	
-	This object does not process audio by itself, but inherits from TTAudioObject for sample-rate support.
-	Perhaps we could add a simple process method that takes a sample index as input and provides the value as output?
-	
-	@see TTAudioSignal
+/**	TTBuffer manages the check-in/out of #TTSampleMatrix pointers.
+
+#TTBuffer acts as a librarian for checking-in and checking-out audio within a chunk of memory. Any object that wishes to read or write samples managed by #TTBuffer must first check-out a pointer to the current #TTSampleMatrix. Once the pointer has been obtained, the object can read and write audio samples by working directly with the corresponding #TTSampleMatrix functions. Upon completion of its work, the object is then responsible for checking-in the pointer back to the #TTBuffer.
+ 
+	@see TTAudioSignal, TTSampleMatrix
 */
 class TTDSP_EXPORT TTBuffer : public TTAudioObjectBase {
 	TTCLASS_SETUP(TTBuffer)
 	
 protected:
 	
-	TTSymbol				mName;					// The name associated with this buffer
-	TTSampleMatrixPtr		mActiveMatrix;			// The active TTSampleMatrix
-	TTSampleMatrixPtr		mBecomingActiveMatrix;		// TODO: would something like this help direct changes to right place?
-	
-	// next line is causing build problems due to init issues
-	//TTSampleMatrix			mBufferPool[3];		// temporarily an array until I get more used to vectors
+	TTSymbol				mName;					///< name associated with this buffer
+	TTSampleMatrixPtr		mActiveMatrix;			///< pointer to TTSampleMatrix that will be returned via checkOutMatrix()
+	TTSampleMatrixPtr		mBecomingActiveMatrix;		///< pointer to TTSampleMatrix that is being prepared internally for a future checkOutMatrix()
 	
 	// internal method used for initializing the TTBuffer and mActiveMatrix for use
 	TTErr init(TTUInt16	channelCount, TTSymbol name);
@@ -107,7 +103,7 @@ public:
 	// TODO: Some will need to be rewritten as BufferPool implementation is fleshed out
 	
 	/*
-	Set methods could follow this pattern
+	NOTE: Set methods could follow this pattern
 		1) TTObjectInstantiate("samplematrix", (TTObjectPtr*)&mBecomingActiveMatrix, kTTValNONE)
 		2) mBecomingActiveMatrix.adaptTo(mActiveMatrix)
 		3) mBecomingActiveMatrix->setTheWhatever(TTValue arg1)
@@ -116,9 +112,9 @@ public:
 			mActiveMatrix = mBecomingActiveMatrix
 		5) if mBecomingIdle->getUserCount() = 0 then delete
 			else mBecomingIdle->setBufferPoolStage(kSM_BecomingIdle)
+     
+     In order to ensure that this happens consistently, we use the following macros to wrap methods from TTSampleMatrix as our own
 	*/
-	
-	// Macros to wrap TTSampleMatrix methods as our own
 	
 	#define TTBUFFER_WRAP_1ARG(methodname) \
 			TTErr methodname (TTValue& arg1) { return mActiveMatrix -> methodname (arg1); }
