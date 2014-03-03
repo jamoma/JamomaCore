@@ -208,7 +208,7 @@ TTErr TTNodeDirectory::fillAddressItem(TTAddressItemPtr anAddressItem, TTAddress
         aNode->getChildren(S_WILDCARD, S_WILDCARD, aNodeList);
         
         // sort the NodeList using object priority order
-        aNodeList.sort(&compareNodePriority);
+        aNodeList.sort(&compareNodePriorityThenNameThenInstance);
         
         // append each name.instance to the sub namespace
         for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
@@ -1100,18 +1100,26 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	return result;
 }
 
-TTBoolean compareNodePriority(TTValue& v1, TTValue& v2)
+TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 {
 	TTNodePtr	n1, n2;
 	TTObjectBasePtr o1, o2;
 	TTValue		v;
+    TTValue    name1;
+    TTValue    name2;
+    TTValue    instance1;
+    TTValue    instance2;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;
 	
 	// get priority of v1
 	n1 = TTNodePtr((TTPtr)v1[0]);
 	if (n1) {
+        
+        name1 = n1->getName();
+        instance1 = n1->getInstance();
 		o1 = n1->getObject();
+		
 		if (o1)
 			if (!o1->getAttributeValue(kTTSym_priority, v))
 				p1 = v[0];
@@ -1120,13 +1128,28 @@ TTBoolean compareNodePriority(TTValue& v1, TTValue& v2)
 	// get priority of v2
 	n2 = TTNodePtr((TTPtr)v2[0]);
 	if (n2) {
+        
+        name2 = n2->getName();
+        instance2 = n2->getInstance();
 		o2 = n2->getObject();
+		
 		if (o2)
 			if (!o2->getAttributeValue(kTTSym_priority, v))
 				p2 = v[0];
 	}
 	
-	if (p1 == 0 && p2 == 0) return v1 < v2;
+	if (p1 == p2) {
+        
+        if (name1 == name2) {
+            
+            if (instance1 == instance2)
+                return v1 < v2;
+            else
+                return instance1 < instance2;
+        }
+        else
+            return name1 < name2;
+    }
 	
 	if (p1 == 0) return NO;
 	if (p2 == 0) return YES;

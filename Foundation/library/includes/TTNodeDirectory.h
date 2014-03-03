@@ -227,12 +227,12 @@ TTBoolean TTFOUNDATION_EXPORT testNodeUsingCallback(TTNodePtr n, TTPtr args);
  @return							true if the node have to be include in the result */
 TTBoolean TTFOUNDATION_EXPORT testNodeUsingFilter(TTNodePtr n, TTPtr args);
 
-/**	An comparison tool : compare the priority attribute of to object's node
+/**	An comparison tool : compare the priority attribute of to object's node then if equal the name and then the instance to sort them aphabeticaly
  This method could be used as comparison function to sort a node list.
  @param	v1						first node
  @param v2						second node
  @return						true if priority of first node is lower than the second node (but a priority of 0 is always higher than any other value)*/
-TTBoolean TTFOUNDATION_EXPORT compareNodePriority(TTValue& v1, TTValue& v2);
+TTBoolean TTFOUNDATION_EXPORT compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2);
 
 /**	An method used to find an observer in the observers table */
 void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found);
