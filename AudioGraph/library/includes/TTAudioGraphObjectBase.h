@@ -276,6 +276,22 @@ public:
 		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getAttributeValue(aName, aReturnedValue);
 	}
 	
+	/** Return a list of names of the available attributes.
+		@param attributeNameList		Pointer to a list of all attributes registered with this TTObjectBase.
+	 */
+	void attributes(TTValue& returnedAttributeNames)
+	{
+		((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getAttributeNames(returnedAttributeNames);
+	}
+	
+	/** Return a list of names of the available messages.
+		@param messageNameList		Pointer to a list of all messages registered with this TTObjectBase.
+	 */
+	void messages(TTValue& returnedMessageNames)
+	{
+		((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getMessageNames(returnedMessageNames);
+	}
+	
 	TTErr connectAudio(TTAudioGraphObject& anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0)
 	{
 		return ((TTAudioGraphObjectBase*)instance())->connectAudio((TTAudioGraphObjectBase*)anObject.instance(), fromOutletNumber, toInletNumber);
