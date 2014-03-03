@@ -246,8 +246,13 @@ public:
 class TTAudioGraphObject : public TTObject {
 	
 public:
-	TTAudioGraphObject(const TTSymbol& aClassName):
+	TTAudioGraphObject(const TTSymbol& aClassName) :
 	TTObject("audio.object", aClassName)
+	{}
+
+	// first arg must be classname -- used by ruby language bindings
+	TTAudioGraphObject(const TTValue args) :
+	TTObject("audio.object", args)
 	{}
 
 	TTErr send(const TTSymbol& aName){
@@ -271,14 +276,50 @@ public:
 		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getAttributeValue(aName, aReturnedValue);
 	}
 	
-	TTErr connectAudio(TTAudioGraphObject& anObject)
+	/** Return a list of names of the available attributes.
+		@param attributeNameList		Pointer to a list of all attributes registered with this TTObjectBase.
+	 */
+	void attributes(TTValue& returnedAttributeNames)
 	{
-		return ((TTAudioGraphObjectBase*)instance())->connectAudio((TTAudioGraphObjectBase*)anObject.instance());
+		((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getAttributeNames(returnedAttributeNames);
+	}
+	
+	/** Return a list of names of the available messages.
+		@param messageNameList		Pointer to a list of all messages registered with this TTObjectBase.
+	 */
+	void messages(TTValue& returnedMessageNames)
+	{
+		((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getMessageNames(returnedMessageNames);
+	}
+	
+	TTErr connectAudio(TTAudioGraphObject& anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0)
+	{
+		return ((TTAudioGraphObjectBase*)instance())->connectAudio((TTAudioGraphObjectBase*)anObject.instance(), fromOutletNumber, toInletNumber);
 	}
 	
 	TTErr dropAudio(TTAudioGraphObject& anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0)
 	{
 		return ((TTAudioGraphObjectBase*)instance())->dropAudio((TTAudioGraphObjectBase*)anObject.instance(), fromOutletNumber, toInletNumber);
+	}
+	
+	/**
+		Clear the list of source objects from which this object will try to pull audio.
+		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+     */
+	TTErr resetAudio()
+	{
+		return ((TTAudioGraphObjectBase*)instance())->resetAudio();
+	}
+
+	/** @brief		Describe this object as part of the action of describing a complete audio graph.
+		@details	The node is requested to declare itself as part of an action to describe all of the audio graph.
+					As part of this action the request is also propagated to its upstream neighboors, 
+					and retrieved information on the graph is passed back down again to the sink(s) of the graph.
+		@param		descs		Pointer to the graph description vector used by the downstream neighboor(s) to retrieve information on this node and its upstesream connections.
+	 */
+	void getAudioDescription(TTAudioGraphDescription& desc)
+	{
+		((TTAudioGraphObjectBase*)instance())->getAudioDescription(desc);
 	}
 
 };

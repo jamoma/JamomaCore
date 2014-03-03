@@ -94,7 +94,7 @@ inline TTErr TTAudioObjectBase::process(TTAudio& inputs, TTAudio& outputs)
 class TTAudioObject : public TTObject {
 	
 public:
-	TTAudioObject(const TTSymbol& aClassName, const TTValue& arguments = kTTValNONE):
+	TTAudioObject(const TTSymbol aClassName, const TTValue arguments = kTTValNONE):
 	TTObject(aClassName, arguments)
 	{}
 	
@@ -107,6 +107,29 @@ public:
 	{
 		return TTAudioObjectBasePtr(mObjectInstance)->process(in->instance(), out->instance());
 	}
+	
+	
+	/**	Calculate a single sample of output for a single sample of input.
+		 @param	x			The input to the function.
+		 @param	y			The output of the function.
+		 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr calculate(const TTFloat64& x, TTFloat64& y)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->calculate(x, y);
+	}
+
+	
+	/**	Calculate a single sample of output for a single sample of input.
+		 @param	x			The input to the function.
+		 @param	y			The output of the function.
+		 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr calculate(const TTValue& x, TTValue& y)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->calculate(x, y);
+	}
+
 	
 };
 
