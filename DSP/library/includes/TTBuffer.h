@@ -2,9 +2,11 @@
  *
  * @ingroup dspLibrary
  *
- * @brief Audio buffer that manages multiple SampleMatrices.
- * 
- * @details TODO: put more info here 
+ * @brief #TTBuffer manages the check-in/out of #TTSampleMatrix pointers.
+ *
+ * @details #TTBuffer acts as a librarian for checking-in and checking-out audio within a chunk of memory. Any object that wishes to read or write samples managed by #TTBuffer must first check-out a pointer to the current #TTSampleMatrix. Once the pointer has been obtained, the object can read and write audio samples by working directly with the corresponding #TTSampleMatrix functions. Upon completion of its work, the object is then responsible for checking-in the pointer back to the #TTBuffer.@n@n
+ * This extra layer of protection prevents problems that can occur during such operations as changing the length in samples, changing number of channels, filling the buffer or loading a sound file. Whenever these key changes are made through #TTBuffer, it first creates a new #TTSampleMatrix and applies changes there. The new #TTSampleMatrix only becomes available for check-out after the changes are completed.@n@n
+ * The advantage of this approach is that during such changes, objects that have checked-out a #TTSampleMatrix pointer can continue using these samples without fear of them being changed before being ready. Only once the object checks-in the current pointer and performs another check-out will it begin using the new set of samples. This can be advantageous in applications such as sampling, wavetables or granular processing.
  * 
  * @see TTSampleMatrix, TTMatrix, TTAudioSignal
  *  
