@@ -21,7 +21,7 @@
 
 #define thisTTClass			TTApplication
 #define thisTTClassName		"Application"
-#define thisTTClassTags		"modularLibrary application"
+#define thisTTClassTags		"modularLibrary, application"
 
 
 TT_MODULAR_CONSTRUCTOR,
@@ -40,6 +40,12 @@ mTempAddress(kTTAdrsRoot)
 {
     TTAttributePtr anAttribute;
     
+    if (arguments.size() != 1)
+        return TTLogError("TTApplication constructor needs one symbol argument to setup its name\n");
+    
+    if (arguments[0].type() != kTypeSymbol)
+        return TTLogError("TTApplication constructor needs one symbol argument to setup its name\n");
+
 	mName = arguments[0];
 	
 	addAttributeWithSetter(Name, kTypeSymbol);

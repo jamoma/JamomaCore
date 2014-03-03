@@ -13,13 +13,11 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include <iostream>
-#include "TTFoundationAPI.h"
 #include "TTModular.h"
 
 int main(int argc, const char * argv[])
 {
-    std::cout << "BEGIN testing for Modular library ...\n";                     // CUSTOMIZE
+    TTLogMessage("BEGIN testing for Modular library ...\n");                    // CUSTOMIZE
     
 	TTModularInit();                                                            // CUSTOMIZE
 	
@@ -35,7 +33,9 @@ int main(int argc, const char * argv[])
         
 		try {
 			TTObject obj(name);
-			std::cout << "TESTING " << name.string() << std::endl;
+            
+            TTLogMessage("TESTING %s\n", name.c_str());
+
 			obj.send("test");
 		}
 		catch (...) {
@@ -44,7 +44,7 @@ int main(int argc, const char * argv[])
 		}
 	}
 	
-    std::cout << "END testing for Modular library ...\n";                       // CUSTOMIZE
+    TTLogMessage("END testing for Modular library.\n");                    // CUSTOMIZE
     return 0;
 }
 
