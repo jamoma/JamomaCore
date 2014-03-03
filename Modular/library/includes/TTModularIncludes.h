@@ -52,7 +52,6 @@
 #include "TTAddressItem.h"
 
 #include "TTModular.h"
-#include "TTModularSymbolCache.h"
 
 #include "TTRegex.h"
 
@@ -69,6 +68,7 @@
 #include "TTMapper.h"
 #include "TTMapperManager.h"
 #include "TTMirror.h"
+#include "TTNodeInfo.h"
 #include "TTPreset.h"
 #include "TTPresetManager.h"
 #include "TTRamp.h"

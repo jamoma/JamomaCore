@@ -379,7 +379,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
             
             // bind to the node
             // (each time ! this why using flattened list could be usefull but dangerous)
-            aDirectory = getDirectoryFrom(address);
+            aDirectory = accessApplicationDirectoryFrom(address);
             if (aDirectory == NULL)
                 return kTTErrGeneric;
             

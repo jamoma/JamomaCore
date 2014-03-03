@@ -12,6 +12,8 @@
 		2202FDC817623264002EC750 /* TTOutputAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutputAudio.cpp; sourceTree = "<group>"; };
 		2202FDC917623264002EC750 /* TTOutputAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOutputAudio.h; sourceTree = "<group>"; };
 		22AD15D016596377002FD7E3 /* JamomaModular.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaModular.yml; sourceTree = "<group>"; };
+		461F645A18C4FA5100CB7640 /* TTNodeInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeInfo.cpp; sourceTree = "<group>"; };
+		461F645B18C4FA5100CB7640 /* TTNodeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNodeInfo.h; sourceTree = "<group>"; };
 		4698F0E316BC49E800E8F574 /* TTDataTypedMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataTypedMethods.cpp; sourceTree = "<group>"; };
 		46A2C4F118C4CB8D001ACBD5 /* TTApplication.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.test.cpp; sourceTree = "<group>"; };
 		46A2C4F218C4CDA8001ACBD5 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
@@ -67,10 +69,8 @@
 		D246015414A0A96C004CC4FD /* TTXmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTXmlHandler.cpp; sourceTree = "<group>"; };
 		D246015514A0A96C004CC4FD /* TTXmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
 		D246015E14A0A97B004CC4FD /* TTModularIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularIncludes.h; sourceTree = "<group>"; };
-		D246015F14A0A97B004CC4FD /* TTModularSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularSymbolCache.h; sourceTree = "<group>"; };
 		D246016014A0A97B004CC4FD /* TTModularVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
 		D246016114A0A97B004CC4FD /* TTModularVersion.template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.template.h; sourceTree = "<group>"; };
-		D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModularSymbolCache.cpp; sourceTree = "<group>"; };
 		D2B8F99C1546CE6200B93C6C /* TTScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTScript.cpp; sourceTree = "<group>"; };
 		D2B8F99D1546CE6200B93C6C /* TTScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScript.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,8 +145,8 @@
 				D246013E14A0A96C004CC4FD /* TTMapperManager.cpp */,
 				D246014114A0A96C004CC4FD /* TTMirror.h */,
 				D246014014A0A96C004CC4FD /* TTMirror.cpp */,
-				46B5CC7718C3A654007ECD1D /* TTNodeInfo.h */,
-				46B5CC7618C3A654007ECD1D /* TTNodeInfo.cpp */,
+				461F645B18C4FA5100CB7640 /* TTNodeInfo.h */,
+				461F645A18C4FA5100CB7640 /* TTNodeInfo.cpp */,
 				D246014314A0A96C004CC4FD /* TTOpmlHandler.h */,
 				D246014214A0A96C004CC4FD /* TTOpmlHandler.cpp */,
 				D246014514A0A96C004CC4FD /* TTOutput.h */,
@@ -182,7 +182,6 @@
 			children = (
 				46C2B9F2189172AF008179EF /* TTModular.h */,
 				D246015E14A0A97B004CC4FD /* TTModularIncludes.h */,
-				D246015F14A0A97B004CC4FD /* TTModularSymbolCache.h */,
 				D246016014A0A97B004CC4FD /* TTModularVersion.h */,
 				D246016114A0A97B004CC4FD /* TTModularVersion.template.h */,
 			);
@@ -193,7 +192,6 @@
 			isa = PBXGroup;
 			children = (
 				46C2B9F3189172BF008179EF /* TTModular.cpp */,
-				D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";

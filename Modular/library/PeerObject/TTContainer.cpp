@@ -253,7 +253,7 @@ TTErr TTContainer::Init()
 	anAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     // Look for all nodes under the address into the directory with the same Context
-	if (!getLocalDirectory->Lookup(mAddress, nodeList, &aNode))
+	if (!accessApplicationLocalDirectory->Lookup(mAddress, nodeList, &aNode))
         initNode(aNode);
 	
 	// End of initialisation
