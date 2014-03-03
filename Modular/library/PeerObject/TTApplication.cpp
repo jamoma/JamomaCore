@@ -231,6 +231,9 @@ TTErr TTApplication::initNode(TTNodePtr aNode)
     // Init nodes below
     aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
     
+    // Sort children by priority order
+    nodeList.sort(compareNodePriority);
+    
     for (nodeList.begin(); nodeList.end(); nodeList.next())
     {
         aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
