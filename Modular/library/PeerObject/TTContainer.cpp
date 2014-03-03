@@ -243,12 +243,9 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 
 TTErr TTContainer::Init()
 {
-	TTValue			hk, v;
-	TTValue			cacheElement;
-	TTObjectBasePtr	anObject;
 	TTAttributePtr	anAttribute;
-	TTSymbol		key, service;
-	TTUInt32		i;
+	TTList          nodeList;
+	TTNodePtr       aNode;
 	
 	// Restart initialisation
 	mInitialized = NO;
@@ -256,42 +253,10 @@ TTErr TTContainer::Init()
 	// Notify observers (this can't be prioritized because observers have no priority)
 	findAttribute(kTTSym_initialized, &anAttribute);
 	anAttribute->sendNotification(kTTSym_notify, mInitialized);
-	
-	// Send Init message to all Object in the cache
-	if (mObjectsObserversCache) {
-		
-		// send it according their priority order
-		mObjectsObserversCache->getKeysSorted(hk, &TTContainerCompareObjectPriority);
-		
-		// Send an Init message to all Data service parameter
-		for (i = 0; i < mObjectsObserversCache->getSize(); i++) {
-			
-			key = hk[i];
-			mObjectsObserversCache->lookup(key, cacheElement);
-			anObject = cacheElement[0];
-			
-			if (anObject)
-				if (anObject->getName() == kTTSym_Data) {
-					anObject->getAttributeValue(kTTSym_service, v);
-					service = v[0];
-					if (service == kTTSym_parameter)
-						anObject->sendMessage(kTTSym_Init);
-				}
-		}
-		
-		// Send Init message to all Container below
-		// using priority order
-		for (i = 0; i < mObjectsObserversCache->getSize(); i++) {
-			
-			key = hk[i];
-			mObjectsObserversCache->lookup(key, cacheElement);
-			anObject = cacheElement[0];
-			
-			if (anObject)
-				if (anObject->getName() == kTTSym_Container)
-					anObject->sendMessage(kTTSym_Init);
-		}
-	}
+    
+    // Look for all nodes under the address into the directory with the same Context
+	if (!getLocalDirectory->Lookup(mAddress, nodeList, &aNode))
+        initNode(aNode);
 	
 	// End of initialisation
 	mInitialized = YES;
@@ -301,6 +266,52 @@ TTErr TTContainer::Init()
 	anAttribute->sendNotification(kTTSym_notify, mInitialized);
 	
 	return kTTErrNone;
+}
+
+TTErr TTContainer::initNode(TTNodePtr aNode)
+{
+	TTList          nodeList;
+	TTNodePtr       aChild;
+    TTObjectBasePtr anObject;
+    TTSymbol        service;
+    TTValue         v;
+    
+    
+    // Init nodes below
+    aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+    
+    // Sort children by priority order
+    nodeList.sort(compareNodePriority);
+    
+    for (nodeList.begin(); nodeList.end(); nodeList.next())
+    {
+        aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        
+        // only children from the same context
+        if (aChild->getContext() != aNode->getContext())
+            continue;
+        
+        // Send Init message to node's object
+        anObject = aChild->getObject();
+        
+        if (anObject) {
+            
+            // Send an Init message to all Data service parameter
+            if (anObject->getName() == kTTSym_Data) {
+                
+                anObject->getAttributeValue(kTTSym_service, v);
+                service = v[0];
+                if (service == kTTSym_parameter)
+                    anObject->sendMessage(kTTSym_Init);
+            }
+            else if (anObject->getName() == kTTSym_Container)
+                anObject->sendMessage(kTTSym_Init);
+        }
+        
+        initNode(aChild);
+    }
+    
+    return kTTErrNone;
 }
 
 /** */
