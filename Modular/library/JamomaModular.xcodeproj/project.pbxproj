@@ -13,6 +13,9 @@
 		2202FDC917623264002EC750 /* TTOutputAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOutputAudio.h; sourceTree = "<group>"; };
 		22AD15D016596377002FD7E3 /* JamomaModular.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaModular.yml; sourceTree = "<group>"; };
 		4698F0E316BC49E800E8F574 /* TTDataTypedMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataTypedMethods.cpp; sourceTree = "<group>"; };
+		46A2C4F118C4CB8D001ACBD5 /* TTApplication.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.test.cpp; sourceTree = "<group>"; };
+		46A2C4F218C4CDA8001ACBD5 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		46A2C4F318C4CF54001ACBD5 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		46A6E86016CAAB14002E6A40 /* TTRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTRamp.cpp; sourceTree = "<group>"; };
 		46A6E86116CAAB14002E6A40 /* TTRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTRamp.h; sourceTree = "<group>"; };
 		46A6E86216CABFD3002E6A40 /* Scheduler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
@@ -64,11 +67,9 @@
 		D246015414A0A96C004CC4FD /* TTXmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTXmlHandler.cpp; sourceTree = "<group>"; };
 		D246015514A0A96C004CC4FD /* TTXmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
 		D246015E14A0A97B004CC4FD /* TTModular.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModular.h; sourceTree = "<group>"; };
-		D246015F14A0A97B004CC4FD /* TTModularSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularSymbolCache.h; sourceTree = "<group>"; };
 		D246016014A0A97B004CC4FD /* TTModularVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
 		D246016114A0A97B004CC4FD /* TTModularVersion.template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.template.h; sourceTree = "<group>"; };
 		D246016714A0A98A004CC4FD /* TTModular.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModular.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTModularSymbolCache.cpp; sourceTree = "<group>"; };
 		D2B8F99C1546CE6200B93C6C /* TTScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTScript.cpp; sourceTree = "<group>"; };
 		D2B8F99D1546CE6200B93C6C /* TTScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScript.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,12 +79,23 @@
 			isa = PBXGroup;
 			children = (
 				22AD15D016596377002FD7E3 /* JamomaModular.yml */,
+				46A2C4F318C4CF54001ACBD5 /* Makefile */,
+				46A2C4F218C4CDA8001ACBD5 /* test.cpp */,
 				D246015614A0A97B004CC4FD /* includes */,
 				D246016214A0A98A004CC4FD /* source */,
 				D246012B14A0A96C004CC4FD /* PeerObject */,
 				D220FB4514A21628005607C3 /* ProtocolLib */,
 				46A6E85C16CA9352002E6A40 /* SchedulerLib */,
+				46A2C4F018C4CB8D001ACBD5 /* tests */,
 			);
+			sourceTree = "<group>";
+		};
+		46A2C4F018C4CB8D001ACBD5 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				46A2C4F118C4CB8D001ACBD5 /* TTApplication.test.cpp */,
+			);
+			path = tests;
 			sourceTree = "<group>";
 		};
 		46A6E85C16CA9352002E6A40 /* SchedulerLib */ = {
@@ -168,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				D246015E14A0A97B004CC4FD /* TTModular.h */,
-				D246015F14A0A97B004CC4FD /* TTModularSymbolCache.h */,
 				D246016014A0A97B004CC4FD /* TTModularVersion.h */,
 				D246016114A0A97B004CC4FD /* TTModularVersion.template.h */,
 			);
@@ -179,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				D246016714A0A98A004CC4FD /* TTModular.cpp */,
-				D246016814A0A98A004CC4FD /* TTModularSymbolCache.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -189,7 +199,7 @@
 /* Begin PBXLegacyTarget section */
 		229B584B149C0B0C0093389A /* JamomaModular */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "-j 4 $(Configuration) $(ACTION)";
+			buildArgumentsString = "$(ACTION) $(Configuration)";
 			buildConfigurationList = 229B584E149C0B0C0093389A /* Build configuration list for PBXLegacyTarget "JamomaModular" */;
 			buildPhases = (
 			);
