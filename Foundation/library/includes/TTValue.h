@@ -192,7 +192,7 @@ public:
 	friend bool operator == (const TTValue& a, const TTValue& b)
 	{
 		if (a.size() == b.size()) {
-			for (int i=0; i<a.size(); i++) {
+			for (size_t i=0; i<a.size(); i++) {
 				if (a.at(i) != b.at(i)) {
 					return false;
 				}
@@ -202,6 +202,7 @@ public:
 		return false;
 	}
 
+#ifndef TT_PLATFORM_WIN
 	template<class T>
 	friend bool operator == (const TTValue& a, const T b)
 	{
@@ -210,7 +211,7 @@ public:
 		else
 			return false;
 	}
-
+#endif
 
 	/** Get a value from TTValue
 	 */

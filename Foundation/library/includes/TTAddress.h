@@ -39,7 +39,7 @@ public:
 	TTAddress(const char *cstr)
 	{
         // check if there is a '0'
-        char* zero = strchr(cstr, C_ZERO);
+        const char* zero = strchr(cstr, C_ZERO);
         if (zero != 0) {
             
             // check if there is a '.' just before
