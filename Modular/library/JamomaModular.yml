@@ -3,7 +3,6 @@ defines:
 
 sources:
   - source/TTModular.cpp
-  - source/TTModularSymbolCache.cpp
   - PeerObject/TTApplication.cpp
   - PeerObject/TTApplicationManager.cpp
   - PeerObject/TTContainer.cpp
@@ -32,6 +31,7 @@ sources:
   - PeerObject/TTXmlHandler.cpp
   - ProtocolLib/Protocol.cpp
   - SchedulerLib/Scheduler.cpp
+  - tests/TTApplication.test.cpp
 
 includes:
   - includes
@@ -52,7 +52,7 @@ libraries:
   - DSP
   - mac /usr/lib/libxml2.dylib
 #  - win ../../Foundation/library/libxml2/win32/lib/libxml2_a.lib
-  - win ../../Foundation/library/libxml2/win32/lib/libxml2.lib
+ - win ../../Foundation/library/libxml2/win32/lib/libxml2.lib
 
 frameworks:
   - Carbon

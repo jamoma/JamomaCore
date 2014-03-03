@@ -21,7 +21,7 @@
 
 #define thisTTClass			TTApplication
 #define thisTTClassName		"Application"
-#define thisTTClassTags		"application"
+#define thisTTClassTags		"modularLibrary application"
 
 
 TT_MODULAR_CONSTRUCTOR,
