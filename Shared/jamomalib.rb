@@ -1138,15 +1138,13 @@ else
           libraries.each do |lib|
             lib = lib.to_s
             
-            # first remove the entries NOT for the current platform
+            # first set entries NOT for the current platform to nil
             if mac? == false
-              libraries.delete_at(lib_item) if lib =~ /^mac /
-            end
-            if win? == false
-              libraries.delete_at(lib_item) if lib =~ /^win /
-            end
-            if linux? == false
-              libraries.delete_at(lib_item) if lib =~ /^linux /
+              libraries[lib_item] = nil if lib =~ /^mac /
+            elsif win? == false
+              libraries[lib_item] = nil if lib =~ /^win /
+            elsif linux? == false
+              libraries[lib_item] = nil if lib =~ /^linux /
             end
             
             # second remove the identifiers so that they are not processed as part of the path 
@@ -1157,6 +1155,10 @@ else
             lib_item+=1
             
           end
+          
+          # third remove the nil entries
+          libraries.compact!
+          
         end
         
         ##########
