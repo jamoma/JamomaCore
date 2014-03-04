@@ -539,6 +539,53 @@ else
 		end
 	end
 
+	
+	def remove_platform_specific_entries(array_from_yaml)
+	  ##########
+    # BEGIN remove platform specific entries
+    #
+    # We process the some arrays from yaml once to remove any platform specific paths
+    # These entries in the yaml file will begin with one of the following identifiers:
+    # mac, win, linux
+    # The identifier should then be followed by a space then the filepath
+    #
+    ##########
+    
+    if array_from_yaml
+      
+      array_from_yaml_item=0
+      
+      array_from_yaml.each do |item_from_yaml|
+        item_from_yaml = item_from_yaml.to_s
+        
+        # first set entries NOT for the current platform to nil
+        if mac? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^mac /
+        elsif win? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win /
+        elsif linux? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^linux /
+        end
+        
+        # second remove the identifiers so that they are not processed as part of the path 
+        item_from_yaml.gsub!(/mac /, '')
+        item_from_yaml.gsub!(/win /, '')
+        item_from_yaml.gsub!(/linux /, '')
+        
+        array_from_yaml_item+=1
+        
+      end
+      
+      # third remove the nil entries
+      array_from_yaml.compact!
+      
+    end
+    
+    ##########
+    # END remove platform specific entries
+    ##########
+    
+	end
 
 
 	# CREATE A MAKEFILE FROM A YAML PROJECT DEFINITION
@@ -654,6 +701,7 @@ else
 			sources = yaml["sources"]
 			includes = yaml["includes"]
 			libraries = yaml["libraries"]
+			remove_platform_specific_entries(libraries)
 			defines = yaml["defines"]
 
 			frameworks = nil
@@ -1121,49 +1169,6 @@ else
 
 
 			else
-
-        ##########
-        # BEGIN remove platform specific entries in libraries array
-        #
-        # We process the libraries array once to remove any platform specific paths
-        # These entries in the yaml file will begin with one of the following identifiers:
-        # mac, win, win32, win64, linux
-        #
-        ##########
-        
-        if libraries
-          
-          lib_item=0
-          
-          libraries.each do |lib|
-            lib = lib.to_s
-            
-            # first set entries NOT for the current platform to nil
-            if mac? == false
-              libraries[lib_item] = nil if lib =~ /^mac /
-            elsif win? == false
-              libraries[lib_item] = nil if lib =~ /^win /
-            elsif linux? == false
-              libraries[lib_item] = nil if lib =~ /^linux /
-            end
-            
-            # second remove the identifiers so that they are not processed as part of the path 
-            lib.gsub!(/mac /, '')
-            lib.gsub!(/win /, '')
-            lib.gsub!(/linux /, '')
-            
-            lib_item+=1
-            
-          end
-          
-          # third remove the nil entries
-          libraries.compact!
-          
-        end
-        
-        ##########
-        # END remove platform specific libraries
-        ##########
 
         # now we are ready to write the relevant entries to the makefile
 				makefile.write("#########################################\n\n")
