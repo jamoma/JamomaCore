@@ -38,13 +38,13 @@ mAppToTT(NULL),
 mTTToApp(NULL),
 mTempAddress(kTTAdrsRoot)
 {
-    TTAttributePtr anAttribute;
-    
-    if (arguments.size() != 1)
-        return TTLogError("TTApplication constructor needs one symbol argument to setup its name\n");
-    
+	TTAttributePtr anAttribute;
+
+	if (arguments.size() != 1)
+		throw TTException("TTApplication constructor needs one symbol argument to setup its name\n");
+
     if (arguments[0].type() != kTypeSymbol)
-        return TTLogError("TTApplication constructor needs one symbol argument to setup its name\n");
+		throw TTException("TTApplication constructor needs one symbol argument to setup its name\n");
 
 	mName = arguments[0];
 	
