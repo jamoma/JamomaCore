@@ -1122,6 +1122,56 @@ else
 
 			else
 
+        ##########
+        # BEGIN remove platform specific entries in libraries array
+        #
+        # We process the libraries array once to remove any platform specific paths
+        # These entries in the yaml file will begin with one of the following identifiers:
+        # mac, win, win32, win64, linux
+        #
+        ##########
+        
+        if libraries
+          
+          lib_item=0
+          
+          libraries.each do |lib|
+            lib = lib.to_s
+            
+            # first remove the entries NOT for the current platform
+            if !mac?
+              libraries.delete_at(lib_item) if lib.starts_with?('mac ')
+            end
+            if !win?
+              libraries.delete_at(lib_item) if lib.starts_with?('win ')
+            end
+            if !win32?
+              libraries.delete_at(lib_item) if lib.starts_with?('win32 ')
+            end
+            if !win64?
+              libraries.delete_at(lib_item) if lib.starts_with?('win64 ')
+            end
+            if !linux?
+              libraries.delete_at(lib_item) if lib.starts_with?('linux ')
+            end
+            
+            # second remove the identifiers so that they are not processed as part of the path 
+            lib.gsub!(/mac /, '')
+            lib.gsub!(/win /, '')
+            lib.gsub!(/win32 /, '')
+            lib.gsub!(/win64 /, '')
+            lib.gsub!(/linux /, '')
+            
+            lib_item+=1
+            
+          end
+        end
+        
+        ##########
+        # END remove platform specific libraries
+        ##########
+
+        # now we are ready to write the relevant entries to the makefile
 				makefile.write("#########################################\n\n")
 				i=0
 
@@ -1131,10 +1181,7 @@ else
 					libraries.each do |lib|
 						if mac?
 							lib = lib.to_s
-							next if lib =~ /win /
-							next if lib =~ /win32 /
-							next if lib =~ /win64 /
-							lib.gsub!(/mac /, '')
+							
 							if (i==0)
 								makefile.write("LIBS = ")
 							else
@@ -1166,11 +1213,6 @@ else
 
 						elsif linux?
 							lib = lib.to_s
-							next if lib =~ /mac /
-							next if lib =~ /win /
-							next if lib =~ /win32 /
-							next if lib =~ /win64 /
-							lib.gsub!(/linux /, '')
 
 							if (lib == "FOUNDATION")
 								if (i == 0)
@@ -1255,13 +1297,8 @@ else
 				else
 					libraries.each do |lib|
 						lib = lib.to_s
-						next if lib =~ /mac /
-						win64 = lib.match(/win64 /)
-						win64dir = "x64\\" if win64
-						lib.gsub!(/win /, '')
-						lib.gsub!(/win32 /, '')
-						lib.gsub!(/win64 /, '')
-
+						
+						# not confident the next 2 lines are needed
 						next if lib =~/RELEASE /
 						lib.gsub!(/DEBUG /, '')
 
@@ -1306,13 +1343,8 @@ else
 
 					libraries.each do |lib|
 						lib = lib.to_s
-						next if lib =~ /mac /
-						win64 = lib.match(/win64 /)
-						win64dir = "x64\\" if win64
-						lib.gsub!(/win /, '')
-						lib.gsub!(/win32 /, '')
-						lib.gsub!(/win64 /, '')
-
+						
+						# not confident the next 2 lines are needed
 						next if lib =~/DEBUG /
 						lib.gsub!(/RELEASE /, '')
 
