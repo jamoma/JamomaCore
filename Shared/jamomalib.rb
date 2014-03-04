@@ -302,7 +302,6 @@ else
 		success = 0
 		
 		restore_dir = Dir.pwd
-		puts "PROJECT DIR #{projectdir}"
 		Dir.chdir projectdir
 	 	#`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
 		#		Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
