@@ -546,7 +546,7 @@ else
     #
     # We process the some arrays from yaml once to remove any platform specific paths
     # These entries in the yaml file will begin with one of the following identifiers:
-    # mac, win, linux
+    # mac, win, win64, linux
     # The identifier should then be followed by a space then the filepath
     #
     ##########
@@ -563,6 +563,8 @@ else
           array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^mac /
         elsif win? == false
           array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win /
+        elsif win64? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win64 /
         elsif linux? == false
           array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^linux /
         end
@@ -570,6 +572,7 @@ else
         # second remove the identifiers so that they are not processed as part of the path 
         item_from_yaml.gsub!(/mac /, '')
         item_from_yaml.gsub!(/win /, '')
+        item_from_yaml.gsub!(/win64 /, '')
         item_from_yaml.gsub!(/linux /, '')
         
         array_from_yaml_item+=1
