@@ -703,6 +703,7 @@ else
 
 			sources = yaml["sources"]
 			includes = yaml["includes"]
+			remove_platform_specific_entries(includes)
 			libraries = yaml["libraries"]
 			remove_platform_specific_entries(libraries)
 			defines = yaml["defines"]
