@@ -1140,19 +1140,19 @@ else
             
             # first remove the entries NOT for the current platform
             if !mac?
-              libraries.delete_at(lib_item) if lib.starts_with?('mac ')
+              libraries.delete_at(lib_item) if lib =~ /^mac /
             end
             if !win?
-              libraries.delete_at(lib_item) if lib.starts_with?('win ')
+              libraries.delete_at(lib_item) if lib =~ /^win /
             end
             if !win32?
-              libraries.delete_at(lib_item) if lib.starts_with?('win32 ')
+              libraries.delete_at(lib_item) if lib =~ /^win32 /
             end
             if !win64?
-              libraries.delete_at(lib_item) if lib.starts_with?('win64 ')
+              libraries.delete_at(lib_item) if lib =~ /^win64 /
             end
             if !linux?
-              libraries.delete_at(lib_item) if lib.starts_with?('linux ')
+              libraries.delete_at(lib_item) if lib =~ /^linux /
             end
             
             # second remove the identifiers so that they are not processed as part of the path 
