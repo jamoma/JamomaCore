@@ -40,9 +40,9 @@ includes:
   - SchedulerLib
   - ../../../Core/Foundation/library/includes
   - ../../../Core/DSP/library/includes
-  - mac /usr/include/libxml2
-  - win ../../Foundation/library/libxml2/win32/include
-  - win ../../Foundation/library/libiconv/include
+  - /usr/include/libxml2
+  - ../../Foundation/library/libxml2/win32/include
+  - ../../Foundation/library/libiconv/include
 
 # The above libxml includes are for Mac/Linux and for Windows.
 # We should add 'mac' and 'win' filters for includes like we have for libraries below...
