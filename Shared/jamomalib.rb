@@ -919,14 +919,7 @@ else
 				makefile.write("#########################################\n\n")
 				i=0
 				includes.each do |include_file|
-					if mac?
-						next if include_file =~ /win /
-						include_file.gsub!(/mac /, '')
-					elsif win?
-						next if include_file =~ /mac /
-						include_file.gsub!(/win /, '')
-					end
-
+					
 					if (include_file == "C74-INCLUDES")
 						if max
 							include_file = "#{path_to_moduleroot}/../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/jit-includes -I#{path_to_moduleroot}/../Implementations/Max/library/includes"
