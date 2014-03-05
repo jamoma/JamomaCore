@@ -727,8 +727,13 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
+                    // set the start (current) value
                     mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    
+                    // set the end value
                     mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    
+                    // set how long it going to take and start the ramp, we don't output any value immediately
                     mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
