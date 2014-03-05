@@ -1770,26 +1770,26 @@ else
 					  extra_level = ""
 						extra_level = "../" if project_type == "extension"
 					  
-					 	if !libraries
+            if !libraries
     						# nothing to do!
-    					else
-    						libraries.each do |lib|
-    					 		lib = lib.to_s
-    			      			if (lib == "FOUNDATION")
-                					test_dependencies += extra_level + "../../Foundation/library/build/libJamomaFoundation.a "
-                				elsif (lib == "DSP")
-                					test_dependencies += extra_level + "../../DSP/library/build/libJamomaDSP.a "
-                				elsif (lib == "MODULAR")
-                					test_dependencies += extra_level + "../../Modular/library/build/libJamomaModular.a "
-                				elsif (lib == "GRAPH")
-                					test_dependencies += extra_level + "../../Graph/library/build/libJamomaGraph.a "
-                				elsif (lib == "AUDIOGRAPH")
-                					test_dependencies += extra_level + "../../AudioGraph/library/build/libJamomaAudioGraph.a "
-                				else
-                					test_dependencies += lib + " "
-                				end
-              				end
-            			end
+  					else
+  						libraries.each do |lib|
+  					 		lib = lib.to_s
+		      			if (lib == "FOUNDATION")
+          					test_dependencies += extra_level + "../../Foundation/library/build/libJamomaFoundation.a "
+        				elsif (lib == "DSP")
+        					test_dependencies += extra_level + "../../DSP/library/build/libJamomaDSP.a "
+        				elsif (lib == "MODULAR")
+        					test_dependencies += extra_level + "../../Modular/library/build/libJamomaModular.a "
+        				elsif (lib == "GRAPH")
+        					test_dependencies += extra_level + "../../Graph/library/build/libJamomaGraph.a "
+        				elsif (lib == "AUDIOGRAPH")
+        					test_dependencies += extra_level + "../../AudioGraph/library/build/libJamomaAudioGraph.a "
+        				else
+        					test_dependencies += lib + " "
+        				end
+      				end
+            end
             			
 						# write the necessary entries into the makefile
 						makefile.write("build_and_test: | lipo \n")
