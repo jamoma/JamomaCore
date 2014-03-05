@@ -42,6 +42,7 @@ else
 	def win64?          # test for win64 platform, then return a boolean value
 	  if win?
 	    # put test for 64-bit here
+	    return false
 	  else
 	    return false
 	  end
@@ -564,14 +565,19 @@ else
         item_from_yaml = item_from_yaml.to_s
         
         # first set entries NOT for the current platform to nil
-        if mac? == false or nil
+        if mac? == false
           array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^mac /
-        elsif win? == false or nil
+        elsif win? == false
           array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win /
-        elsif win64? == false or nil
-          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win64 /
-        elsif linux? == false or nil
+        elsif linux? == false
           array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^linux /
+        end
+        
+        # and a separate test for these indentifiers because they may overlap with mac/win/linux
+        if win64? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win64 /
+        elsif beagle? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^beagle /
         end
         
         # second remove the identifiers so that they are not processed as part of the path 
@@ -584,7 +590,7 @@ else
         
       end
       
-      # third remove the nil entries
+      # third remove the nil entries from the array
       array_from_yaml.compact!
       
     end
