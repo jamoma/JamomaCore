@@ -647,7 +647,7 @@ else
 		
 		end
 
-		if ($g_use_yaml_project_files && File.exists?("#{projectdir}/#{projectname}.yml"))
+		if ($g_use_yaml_project_files && File.exist?("#{projectdir}/#{projectname}.yml"))
 			yaml = YAML.load_file( "#{projectdir}/#{projectname}.yml")
 			projectname.gsub!('#','\##') if mac?		 # in case there is a # in the project name, which would be interpreted as a comment symbol
 
@@ -1500,13 +1500,10 @@ else
 				# todo : add a case if we finally want a 32 or 64 bits dll in support folder
 				# that work for .dll extensions but that doesn't work for .ttdll extensions, the post build command is wrong in vc++ project for these, why ?
 				if project_type != "implementation"
-					command = ""
-					command += "copy"
-					command += " $(OutDir)$(ProjectName)#{extension_suffix} "
 					if projectname == "JamomaMax"
-						command += "#{path_to_moduleroot}/Jamoma/support"
+						command = "copy $(OutDir)$(ProjectName)#{extension_suffix} #{path_to_moduleroot}/Jamoma/support"
 					else
-						command += "#{path_to_moduleroot}/../../Implementations/Max/Jamoma/support"
+						command = "copy $(OutDir)$(ProjectName)#{extension_suffix} #{path_to_moduleroot}/../../Implementations/Max/Jamoma/support"
 					end
 					command.gsub!(/(\/)/,'\\')
 					command.gsub!(/(\r)/,'')
@@ -1514,7 +1511,7 @@ else
 					
 					vcproj_debug32_postbuild = Element.new "PostBuildEvent"
 					vcproj_debug32_postbuild.add_element Element.new "Command"
-					vcproj_debug32_postbuild.elements["Command"].text = "#{command}"
+					vcproj_debug32_postbuild.elements["Command"].text = command
 					vcproj_debug32.add_element vcproj_debug32_postbuild
 					
 					# vcproj_debug64_postbuild = Element.new "PostBuildEvent"
@@ -1524,7 +1521,7 @@ else
 					
 					vcproj_release32_postbuild = Element.new "PostBuildEvent"
 					vcproj_release32_postbuild.add_element Element.new "Command"
-					vcproj_release32_postbuild.elements["Command"].text = "#{command}"
+					vcproj_release32_postbuild.elements["Command"].text = command
 					vcproj_release32.add_element vcproj_release32_postbuild
 					
 					# vcproj_release64_postbuild = Element.new "PostBuildEvent"
@@ -1946,8 +1943,13 @@ else
 				# WRITE THE VCPROJ FILE ########################
 				#f = File.new(filepath, "w")
 				f = File.new("#{projectdir}/#{projectname}.vcxproj", "w")
-				formatter = REXML::Formatters::Pretty.new
-				formatter.compact = true # compact is REQUIRED -- the vcxproj is extremely sensitive to having whitespace in values
+				if mac?
+					formatter = REXML::Formatters::Pretty.new
+					formatter.compact = true # compact is REQUIRED -- the vcxproj is extremely sensitive to having whitespace in values
+				else
+					# Cannot use Pretty formatter on Windows!  See http://stackoverflow.com/questions/4203180/rexml-is-wrapping-long-lines-how-do-i-switch-that-off
+					formatter = REXML::Formatters::Default.new
+				end
 				s = ""
 
 				vcproj << XMLDecl.new("1.0", "UTF-8")
@@ -1994,7 +1996,7 @@ else
 		#
 
 		# fall back on a custom Makefile (e.g. for tap.loader)
-		if (!use_make && !File.exists?("#{projectdir}/#{foldername}.xcodeproj") && mac?)
+		if (!use_make && !File.exist?("#{projectdir}/#{foldername}.xcodeproj") && mac?)
 			use_make = true
 		end
 
