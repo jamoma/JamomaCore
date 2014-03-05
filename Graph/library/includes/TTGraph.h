@@ -22,7 +22,7 @@
 
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
-	#if defined( _DLL_EXPORT ) && defined( TTGRAPH_EXPORTS )
+	#if defined( TTGRAPH_EXPORTS )
 		#define TTGRAPH_EXPORT __declspec(dllexport)
 	#else
 		#define TTGRAPH_EXPORT __declspec(dllimport)
