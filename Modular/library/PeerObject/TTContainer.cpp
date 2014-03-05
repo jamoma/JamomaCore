@@ -786,8 +786,8 @@ TTErr TTContainer::unbind()
 TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	TTString		*buffer;
-	TTUInt16		i;
+	TTString		*buffer, toWrite;
+	TTUInt16		i, numInput = 0, numOutput = 0;
 	TTValue			keys, cacheElement, s, arg, tags, none;
 	TTSymbol		name, service;
 	TTObjectBasePtr	anObject;
@@ -836,17 +836,42 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += "\t<p> Tags : <code>";
 	*buffer += TTString(tags[0]);
 	*buffer += "</code> <br>";
+    
+    mObjectsObserversCache->getKeysSorted(keys);
 	
 	/* 
 	 Inlets and outlets Objects 
 	 */
 	
-	// TODO : Find TTInput and TTOuput
-	*buffer += "\t<p>Number of signal inlets: <code> 0 </code> <br/>";
-	*buffer += "\t<p>Number of signal outlets: <code> 0 </code> <br/>";
+	for (i = 0; i < keys.size(); i++)
+	{
+		name = keys[i];
+		mObjectsObserversCache->lookup(name, cacheElement);
+		anObject = cacheElement[0];
+		
+		if (anObject->getName() == kTTSym_Input || anObject->getName() == kTTSym_InputAudio)
+            numInput++;
+        
+        if (anObject->getName() == kTTSym_Output || anObject->getName() == kTTSym_OutputAudio)
+            numOutput++;
+    }
+    
+    // write the number of inputs
+    s = numInput;
+	s.toString();
+	toWrite = TTString(s[0]);
+	*buffer += "\t<p>Number of signal inlets : <code> ";
+    *buffer += toWrite.data();
+    *buffer += " </code> <br/>";
+    
+    // write the number of outputs
+    s = numOutput;
+	s.toString();
+	toWrite = TTString(s[0]);
+	*buffer += "\t<p>Number of signal outlets : <code> ";
+    *buffer += toWrite;
+    *buffer += " </code> <br/>";
 	
-	
-	mObjectsObserversCache->getKeysSorted(keys);
 	/* 
 	 Data @service parameter
 	 */
@@ -980,18 +1005,18 @@ void TTContainer::dataHeading(TTString *buffer)
 {		
 	*buffer += "\t<table>";
 	*buffer += "\t\t<tr class=\"tableHeading2\">";
-	*buffer += "\t\t\t<td> /name </td>";
-	*buffer += "\t\t\t<td> /type </td>";
-	*buffer += "\t\t\t<td> /range/bounds </td>";
-	*buffer += "\t\t\t<td> /range/clipmode </td>";
-	*buffer += "\t\t\t<td> /ramp/drive </td>";
+	*buffer += "\t\t\t<td> name </td>";
+	*buffer += "\t\t\t<td> type </td>";
+	*buffer += "\t\t\t<td> range/bounds </td>";
+	*buffer += "\t\t\t<td> range/clipmode </td>";
+	*buffer += "\t\t\t<td> ramp/drive </td>";
 #ifndef TT_NO_DSP    
-	*buffer += "\t\t\t<td> /ramp/function </td>";
+	*buffer += "\t\t\t<td> ramp/function </td>";
 #endif
-	*buffer += "\t\t\t<td> /dataspace </td>"; 
-	*buffer += "\t\t\t<td> /dataspace/unit </td>"; 
-	*buffer += "\t\t\t<td> /repetitions/filter </td>";	
-	*buffer += "\t\t\t<td> /description </td>";
+	*buffer += "\t\t\t<td> dataspace </td>";
+	*buffer += "\t\t\t<td> dataspace/unit </td>";
+	*buffer += "\t\t\t<td> repetitions/filter </td>";
+	*buffer += "\t\t\t<td> description </td>";
 	*buffer += "\t\t<tr>";
 }
 
