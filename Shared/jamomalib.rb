@@ -41,7 +41,10 @@ else
 	
 	def win64?          # test for win64 platform, then return a boolean value
 	  if win?
-	    # put test for 64-bit here
+	    # put test for 64-bit here OR enable a user switch for the script
+	    # some promising leads for a test are here -- https://www.ruby-forum.com/topic/202173
+	    # seems that RbConfig::CONFIG['host_cpu'] is promising location to find this info and would contain "x64"
+	    # until that is present, we will simply...
 	    return false
 	  else
 	    return false
