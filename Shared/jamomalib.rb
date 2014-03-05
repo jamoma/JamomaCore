@@ -19,27 +19,32 @@ else
 	require 'fileutils' # Methods for copying, moving, removing, etc. -- http://ruby-doc.org/stdlib-1.9.3/libdoc/fileutils/rdoc/FileUtils.html
 	require 'pathname'  # Represents a pathname for a file in a filesystem -- http://www.ruby-doc.org/stdlib-1.9.3/libdoc/pathname/rdoc/Pathname.html
 
-	def mac?
+	def mac?            # test for mac platform, then return a boolean value
 		(Object::RUBY_PLATFORM =~ /darwin/i) ? true : false
 	end
 
-	def linux?
+	def linux?          # test for linux platform, then return a boolean value
 		(Object::RUBY_PLATFORM =~ /linux/i) ? true : false
 	end
-
-	def win?
-		!mac? && !linux?
+	
+	def beagle?         # test for beagle platform, then return a boolean value
+	  if linux?
+			(`arch`.match("armv7l")) ? true : false
+	  else
+	    return false
+	  end
 	end
 
-	if linux?
-		def beagle?
-			return true if `arch`.match("armv7l")
-			return false
-		end
-	else
-		def beagle?
-			return false
-		end
+	def win?            # test for win platform, then return a boolean value
+		(Object::RUBY_PLATFORM =~ /mswin/i || Object::RUBY_PLATFORM =~ /mingw/i) ? true : false
+	end
+	
+	def win64?          # test for win64 platform, then return a boolean value
+	  if win?
+	    # put test for 64-bit here
+	  else
+	    return false
+	  end
 	end
 
 	if win?
