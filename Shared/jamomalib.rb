@@ -3,21 +3,21 @@
 ###################################################################
 
 
-require 'yaml'
+require 'yaml'                    # Interface for data serialization in YAML format -- http://ruby-doc.org/stdlib-1.9.3/libdoc/yaml/rdoc/YAML.html
 $g_use_yaml_project_files = true
 @debug = false
 
-require 'rexml/document'
-require 'rexml/formatters/pretty'
+require 'rexml/document'          # Represents a full XML document -- http://ruby-doc.org/stdlib-1.9.3/libdoc/rexml/rdoc/REXML/Document.html
+require 'rexml/formatters/pretty' # Pretty-prints an XML document -- http://ruby-doc.org/stdlib-1.9.3/libdoc/rexml/rdoc/REXML/Formatters/Pretty.html
 include REXML
 
 
-if defined? win?
+if defined? win?      # has this boolean already been defined?
 else
 
-	require 'open3'
-	require 'fileutils'
-	require 'pathname'
+	require 'open3'     # Access to stdin, stdout, and stderr -- http://ruby-doc.org/stdlib-1.8.7/libdoc/open3/rdoc/Open3.html
+	require 'fileutils' # Methods for copying, moving, removing, etc. -- http://ruby-doc.org/stdlib-1.9.3/libdoc/fileutils/rdoc/FileUtils.html
+	require 'pathname'  # Represents a pathname for a file in a filesystem -- http://www.ruby-doc.org/stdlib-1.9.3/libdoc/pathname/rdoc/Pathname.html
 
 	def mac?
 		(Object::RUBY_PLATFORM =~ /darwin/i) ? true : false
