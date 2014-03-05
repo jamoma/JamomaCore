@@ -130,7 +130,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 			else
 				attrOrMess = kTTSym_value;
             
-            // Is there a wild card ?
+            // If there is a wild card we need to retreive all the objects in mObjectsObserversCache
             if (strrchr(aRelativeAddress.c_str(), C_WILDCARD)) {
                 
                 mIsSending = false;
@@ -173,6 +173,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 					anObject->getAttributeValue(kTTSym_service, v);
 					service = v[0];
 					
+                    // we are not supposed to address returns
 					if (service == kTTSym_return)
 						return kTTErrNone;
 					
@@ -207,24 +208,19 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 			// maybe the relative address is for Container below ourself
 			else {
 				
-				// split relative address and retry
+				// split relative address and retry using only the first (top) part of the relative address
 				aRelativeAddress.splitAt(0, topAddress, belowAddress);
-				
-				// retry to get an object
 				err = mObjectsObserversCache->lookup(topAddress, cacheElement);
 				
-				// if the topAddress is in the cache
+                // if the object is in our cache : we replace the relative addres by the belowAddress and send the value
 				if (!err) {
 					
 					anObject = cacheElement[0];
 					
-					// CONTAINER CASE : use Send message
+					// check if it is a #TTContainer object
 					if (anObject->getName() == kTTSym_Container) {
 						
-						// replace relativeAddress by belowAddress
 						AddressAndValue[0] = belowAddress;
-						
-						// send the value
 						anObject->sendMessage(kTTSym_Send, AddressAndValue, none);
 						
 						// unlock
@@ -1347,10 +1343,10 @@ TTErr TTContainerValueAttributeCallback(TTPtr baton, TTValue& data)
  
 					TTValue dummy;
 
-                    // return the address
+                    // return the address to the owner of the #TTContainer
                     aContainer->mReturnAddressCallback->notify(relativeAddress, dummy);
                     
-                    // return the value
+                    // return the value to the owner of the #TTContainer
                     aContainer->mReturnValueCallback->notify(v, dummy);
                     
                     // Notify activity observers (about value changes only)
