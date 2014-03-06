@@ -36,6 +36,7 @@ TTErr TTData::setType(const TTValue& value)
 		mInstanceBounds.set(1, TTInt16(-1));
 		
 		// register mValue Attribute and prepare memory
+        // We establish the behavior of TTData based on the attribute type. We do this by setting a funciton pointer that depends on the type.
 		if (mType == kTTSym_integer) {
             commandMethod = (TTMethodValue)&TTData::IntegerCommand;
             initMessage->method = (TTMethod)&TTData::IntegerInit;
@@ -138,7 +139,7 @@ TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
 {
     externalRampTime = 0;
     
-    // is the command already parsed ?
+    // Is the command already parsed ?
     if (inputValue.size()) {
         
         if (inputValue[0].type() == kTypePointer)
@@ -770,7 +771,7 @@ TTErr TTData::setDecimalValue(const TTValue& value)
 {
     if (!mIsSending && mActive) {
 		
-        // lock
+        // We are locking while updating, in order to prevent returned values from clients to cause an infinite loop.
 		mIsSending = YES;
         
 		if (checkDecimalType(value)) {
