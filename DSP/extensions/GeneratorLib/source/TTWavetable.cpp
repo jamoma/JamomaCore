@@ -101,10 +101,10 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 
 TTErr TTWavetable::setInterpolation(const TTValue& newValue)
 {
-	mMode = newValue;
-	if (mMode == "linear")
+	mInterpolation = newValue;
+	if (mInterpolation == "linear")
 		setProcessMethod(processWithLinearInterpolation);
-	else if (mMode == "lfo")
+	else if (mInterpolation == "lfo")
 		setProcessMethod(processAsLFO);
 	else
 		setProcessMethod(processWithNoInterpolation);
