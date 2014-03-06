@@ -201,6 +201,8 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "ResamplingLib" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -265,7 +267,6 @@
 /* Begin XCBuildConfiguration section */
 		1DEB916108733D950010E9CD /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22FA632311E230D10097F43B /* JamomaDSPExtensions.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
