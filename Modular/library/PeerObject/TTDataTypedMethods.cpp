@@ -200,7 +200,8 @@ TTErr TTData::returnValue()
 	TTValue dummy;
 	
     
-    // This is a temporary solution to have audio rate ramping outside the TTData
+    // This is a temporary solution to have audio rate ramping outside the #TTData
+    // TODO JamomaCore #212 : when Trond ports dataspace ramp we need to think about how that works with audio rate ramps
     if (mRampDrive == kTTSym_external) {
         
         if (externalRampTime > 0)
@@ -216,7 +217,7 @@ TTErr TTData::returnValue()
     else if (!mInitialized)
         mInitialized = YES;
     
-    // return the value to his owner
+    // return the value to its owner
     this->mReturnValueCallback->notify(v, dummy);
     
     // notify each observers
@@ -727,8 +728,13 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
+                    // set the start (current) value
                     mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    
+                    // set the end value
                     mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    
+                    // set how long it going to take and start the ramp, we don't output any value immediately
                     mRamper->sendMessage(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
@@ -782,13 +788,17 @@ TTErr TTData::setDecimalValue(const TTValue& value)
                 // set internal value
                 mValue = value;
                 
+                // then stop the ramping
+                // why are we only clipping if we are ramping ?
+                // why are we stopping the ramping after setting the value ?
+                // TODO #JamomaCore issue #211 : review this question when porting dataspace ramping
                 if (mRamper)
                     if (clipValue())
                         mRamper->sendMessage(kTTSym_Stop);
 
             }
             
-            // return the internal value
+            // return the internal value - this is passing it to the owner of the #TTData and notify all value observers
             returnValue();
             
             // unlock
@@ -815,7 +825,7 @@ TTBoolean TTData::checkDecimalType(const TTValue& value)
     
     TTDataType type = value[0].type();
     
-    return  type == kTypeNone       ||
+    return  //type == kTypeNone       ||
             type == kTypeFloat32    ||
             type == kTypeFloat64    ||
             type == kTypeInt8       ||
