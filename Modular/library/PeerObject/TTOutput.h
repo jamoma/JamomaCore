@@ -35,18 +35,17 @@ class TTMODULAR_EXPORT TTOutput : public TTDataObjectBase
 	
 public:	// use public for quick acces during signal processing
 	
-	TTSymbol					mType;						///< ATTRIBUTE : the type of signal output (like audio, video, ...)
-	TTAddress                   mInputAddress;				///< ATTRIBUTE : address of the input to bind
+	TTSymbol					mType;						///< ATTRIBUTE : (metadata) the type of signal output (like audio, video, ...)
+	TTAddress                   mInputAddress;				///< ATTRIBUTE : address of the input to which we are linked (if we are linked, otherwise empty address)
 	
 	TTBoolean					mMute;						///< ATTRIBUTE : to mute signal output
 	TTFloat32					mMix;						///< ATTRIBUTE : to mix signal output and  a signal coming from TTInput object
 	TTFloat32					mGain;						///< ATTRIBUTE : apply again on signal output
 	TTBoolean					mFreeze;					///< ATTRIBUTE : to freeze signal output (ex : for video signal)
 	
-	TTObjectBasePtr				mSignalIn;					///< any data structure to receive complex signal
-	TTObjectBasePtr				mSignalOut;					///< any data structure to send complex signal
-	
-	TTObjectBasePtr				mSignalTemp;				///< a temporary signal
+	TTObjectBasePtr				mSignalIn;					///< any data structure to receive complex signal (in Max this comes from the model)
+	TTObjectBasePtr				mSignalOut;					///< any data structure to send complex signal (going to the outlets of the model if we are in Max)
+	TTObjectBasePtr				mSignalTemp;				///< a temporary signal used within the process method
 	TTObjectBasePtr				mSignalZero;				///< a zero signal
 	
 	TTObjectBasePtr				mMixUnit;					///< the unit used to mix the signal
@@ -61,7 +60,7 @@ protected:
 	
 	TTCallbackPtr				mReturnSignalCallback;		///< a way to return back signal to the owner of this output
 	TTCallbackPtr				mReturnLinkCallback;		///< a way to return back the input link status to the owner of this output
-	TTValue						mLast;						///< keep a copy of the last sent signal for each index
+	TTValue						mLast;						///< keep a copy of the last sent signal for each index -- for e.g. freezing
 	TTCallbackPtr				mAddressObserver;			///< to observe mInputAddress creation/destruction
 	
 	TTValue						mSignal;					///< ATTRIBUTE : a hidden attribute to observe signal preview
