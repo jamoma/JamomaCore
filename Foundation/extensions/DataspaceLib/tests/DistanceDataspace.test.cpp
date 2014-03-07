@@ -23,7 +23,7 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
     try {
         
         TTObject myDataspace("dataspace");
-        myDataspace->setAttributeValue(TT("dataspace"), TT("distance"));
+        myDataspace.set(TT("dataspace"), TT("distance"));
         
         TTValue v;
         TTValue expected;
@@ -38,8 +38,8 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
         
         // meter => meters
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("meters"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("meters"));    
+        myDataspace.set(TT("inputUnit"), TT("meters"));
+        myDataspace.set(TT("outputUnit"), TT("meters"));    
         
         v = TTValue(256.);
         expected = TTValue(256.);
@@ -55,8 +55,8 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
         
         // cm => meters
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("cm"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("meters"));
+        myDataspace.set(TT("inputUnit"), TT("cm"));
+        myDataspace.set(TT("outputUnit"), TT("meters"));
         
         v = TTValue(123.4);
         expected = TTValue(1.234);
@@ -73,8 +73,8 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
         // Expected value according to Google search: "15 inch to meter"
         // The Google result hasn't much resolution, but is sufficient to indicate that we're OK
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("inches"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("meter"));    
+        myDataspace.set(TT("inputUnit"), TT("inches"));
+        myDataspace.set(TT("outputUnit"), TT("meter"));    
         
         v = TTValue(15.);
         expected = TTValue(0.381);
@@ -91,8 +91,8 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
         // Expected value according to Google search: "6 feet to meter"
         // The Google result hasn't much resolution, but is sufficient to indicate that we're OK
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("feet"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("meters"));    
+        myDataspace.set(TT("inputUnit"), TT("feet"));
+        myDataspace.set(TT("outputUnit"), TT("meters"));    
         
         v = TTValue(6.);
         expected = TTValue(1.8288);
@@ -112,8 +112,8 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
         
         // meters => cm
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("meters"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("cm"));
+        myDataspace.set(TT("inputUnit"), TT("meters"));
+        myDataspace.set(TT("outputUnit"), TT("cm"));
         
         v = TTValue(1.234);
         expected = TTValue(123.4);
@@ -128,8 +128,8 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
         
         // meters => inches
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("meters"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("inches"));    
+        myDataspace.set(TT("inputUnit"), TT("meters"));
+        myDataspace.set(TT("outputUnit"), TT("inches"));    
         
         v = TTValue(0.381);
         expected = TTValue(15.0);
@@ -143,8 +143,8 @@ TTErr DistanceDataspace::test(TTValue& returnedTestInfo)
        
         // meters => feet
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("meters"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("feet"));    
+        myDataspace.set(TT("inputUnit"), TT("meters"));
+        myDataspace.set(TT("outputUnit"), TT("feet"));    
         
         v = TTValue(1.8288);
         expected = TTValue(6.0);

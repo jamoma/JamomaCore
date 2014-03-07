@@ -23,7 +23,7 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
     try {
         
         TTObject myDataspace("dataspace");
-        myDataspace->setAttributeValue(TT("dataspace"), TT("temperature"));
+        myDataspace.set(TT("dataspace"), TT("temperature"));
         
         TTValue v;
         TTValue expected;
@@ -38,8 +38,8 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
         
         // Kelvin => Kelvin
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("Kelvin"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("Kelvin"));    
+        myDataspace.set(TT("inputUnit"), TT("Kelvin"));
+        myDataspace.set(TT("outputUnit"), TT("Kelvin"));    
 
         v = TTValue(256.);
         expected = TTValue(256.);
@@ -56,8 +56,8 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
         // Celsius => Kelvin
         // Expected value according to Google search: "0 Celsius to Kelvin"
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("Celsius"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("Kelvin"));
+        myDataspace.set(TT("inputUnit"), TT("Celsius"));
+        myDataspace.set(TT("outputUnit"), TT("Kelvin"));
         
         v = TTValue(0.);
         expected = TTValue(273.15);
@@ -73,8 +73,8 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
         // Fahrenheit => Kelvin
         // Expected value according to Google search: "32 Farhenheit to Kelvin"
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("Fahrenheit"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("Kelvin"));    
+        myDataspace.set(TT("inputUnit"), TT("Fahrenheit"));
+        myDataspace.set(TT("outputUnit"), TT("Kelvin"));    
         
         v = TTValue(32.);
         expected = TTValue(273.15);
@@ -97,8 +97,8 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
         // Kelvin => Celsius
         // Expected value according to Google search: "0 Celsius to Kelvin"
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("Kelvin"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("Celsius"));
+        myDataspace.set(TT("inputUnit"), TT("Kelvin"));
+        myDataspace.set(TT("outputUnit"), TT("Celsius"));
         
         v = TTValue(273.15);
         expected = TTValue(0.0);
@@ -114,8 +114,8 @@ TTErr TemperatureDataspace::test(TTValue& returnedTestInfo)
         // Fahrenheit => Kelvin
         // Expected value according to Google search: "32 Farhenheit to Kelvin"
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("Kelvin"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("Fahrenheit"));    
+        myDataspace.set(TT("inputUnit"), TT("Kelvin"));
+        myDataspace.set(TT("outputUnit"), TT("Fahrenheit"));    
         
         v = TTValue(273.15);
         expected = TTValue(32.0);

@@ -23,7 +23,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
     try {
         
         TTObject myDataspace("dataspace");
-        myDataspace->setAttributeValue(TT("dataspace"), TT("time"));
+        myDataspace.set(TT("dataspace"), TT("time"));
         
         TTValue v;
         TTValue expected;
@@ -38,8 +38,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Second to second
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+        myDataspace.set(TT("inputUnit"), TT("second"));
+        myDataspace.set(TT("outputUnit"), TT("second"));    
         
         v = TTValue(256.);
         expected = TTValue(256.);
@@ -55,8 +55,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Millisecond => second
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("millisecond"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));
+        myDataspace.set(TT("inputUnit"), TT("millisecond"));
+        myDataspace.set(TT("outputUnit"), TT("second"));
         
         v = TTValue(1234.5);
         expected = TTValue(1.2345);
@@ -72,8 +72,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         // Sample => second
         // We need to find the sample rate
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("sample"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+        myDataspace.set(TT("inputUnit"), TT("sample"));
+        myDataspace.set(TT("outputUnit"), TT("second"));    
         
         TTValue globalSampleRate;
         ttEnvironment->getAttributeValue(kTTSym_sampleRate, globalSampleRate);
@@ -91,8 +91,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Rate (Hz) => second
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("Hz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+        myDataspace.set(TT("inputUnit"), TT("Hz"));
+        myDataspace.set(TT("outputUnit"), TT("second"));    
         
         v = TTValue(4.);
         expected = TTValue(0.25);
@@ -107,8 +107,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 
         // Beats per minute => second
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("bpm"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+        myDataspace.set(TT("inputUnit"), TT("bpm"));
+        myDataspace.set(TT("outputUnit"), TT("second"));    
         
         v = TTValue(120.);
         expected = TTValue(0.5);
@@ -122,8 +122,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 
         // MIDI => second (2 tests at MIDI notes 57 and 69)
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("outputUnit"), TT("second"));    
         
         v = TTValue(57.);
         expected = TTValue(1./220.);
@@ -148,8 +148,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // cents => second (2 tests at cents values 5700 and 6900)
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("cents"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+        myDataspace.set(TT("inputUnit"), TT("cents"));
+        myDataspace.set(TT("outputUnit"), TT("second"));    
         
         v = TTValue(5700.);
         expected = TTValue(1./220.);
@@ -174,8 +174,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Bark => second
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("bark"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+        myDataspace.set(TT("inputUnit"), TT("bark"));
+        myDataspace.set(TT("outputUnit"), TT("second"));    
         
         v = TTValue(5.0);
         expected = TTValue(0.001785990780318596);
@@ -189,8 +189,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Mel => second
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("mel"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("second"));    
+        myDataspace.set(TT("inputUnit"), TT("mel"));
+        myDataspace.set(TT("outputUnit"), TT("second"));    
         
         v = TTValue(1000.0);
         expected = TTValue(0.0009999781840186604);
@@ -213,8 +213,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Second => Millisecond
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("millisecond"));
+        myDataspace.set(TT("inputUnit"), TT("second"));
+        myDataspace.set(TT("outputUnit"), TT("millisecond"));
         
         v = TTValue(1.2345);
         expected = TTValue(1234.5);
@@ -230,8 +230,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         // Second => sample
         // We need to find the sample rate
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("sample"));    
+        myDataspace.set(TT("inputUnit"), TT("second"));
+        myDataspace.set(TT("outputUnit"), TT("sample"));    
         
         ttEnvironment->getAttributeValue(kTTSym_sampleRate, globalSampleRate);
         
@@ -248,8 +248,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Second => rate (Hz)
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("Hz"));    
+        myDataspace.set(TT("inputUnit"), TT("second"));
+        myDataspace.set(TT("outputUnit"), TT("Hz"));    
         
         v = TTValue(0.25);
         expected = TTValue(4.);
@@ -264,8 +264,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Second => Beats per minute
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("bpm"));    
+        myDataspace.set(TT("inputUnit"), TT("second"));
+        myDataspace.set(TT("outputUnit"), TT("bpm"));    
         
         v = TTValue(0.5);
         expected = TTValue(120.);
@@ -279,8 +279,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Second => MIDI (2 tests at MIDI notes 57 and 69)
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));    
+        myDataspace.set(TT("inputUnit"), TT("second"));
+        myDataspace.set(TT("outputUnit"), TT("midi"));    
         
         v = TTValue(1./220.);
         expected = TTValue(57.);
@@ -305,8 +305,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Second => cents (2 tests at cent values 5700 and 6900)
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("cents"));    
+        myDataspace.set(TT("inputUnit"), TT("second"));
+        myDataspace.set(TT("outputUnit"), TT("cents"));    
         
         v = TTValue(1./220.);
         expected = TTValue(5700.);
@@ -330,8 +330,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Second => Bark
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("bark"));    
+        myDataspace.set(TT("inputUnit"), TT("second"));
+        myDataspace.set(TT("outputUnit"), TT("bark"));    
         
         v = TTValue(0.001785990780318596);
         expected = TTValue(5.0);
@@ -345,8 +345,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // Second => Mel
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("second"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("mel"));    
+        myDataspace.set(TT("inputUnit"), TT("second"));
+        myDataspace.set(TT("outputUnit"), TT("mel"));    
         
         v = TTValue(0.001);
         expected = TTValue(999.9855371396243);
@@ -370,8 +370,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 
         // Speed => MIDI (tests for Speed = 0.5, 1.0 and 2)
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("speed"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));
+        myDataspace.set(TT("inputUnit"), TT("speed"));
+        myDataspace.set(TT("outputUnit"), TT("midi"));
         
         v = TTValue(0.5);
         expected = TTValue(-12.0);
@@ -405,8 +405,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         // MIDI => Speed (tests for Speed = 0.5, 1.0 and 2)*/
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("speed")); 
+        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("outputUnit"), TT("speed")); 
         
         v = TTValue(-12.0);
         expected = TTValue(0.5);
@@ -441,8 +441,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 
         // Hz => Mel
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("Hz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("mel"));    
+        myDataspace.set(TT("inputUnit"), TT("Hz"));
+        myDataspace.set(TT("outputUnit"), TT("mel"));    
         
         v = TTValue(1000.0);
         expected = TTValue(999.9855371396243);
@@ -456,8 +456,8 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
 
         // Mel => Hz
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("mel"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("Hz"));    
+        myDataspace.set(TT("inputUnit"), TT("mel"));
+        myDataspace.set(TT("outputUnit"), TT("Hz"));    
         
         v = TTValue(999.9855371396243);
         expected = TTValue(1000.0);

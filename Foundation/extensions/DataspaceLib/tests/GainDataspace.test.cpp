@@ -23,7 +23,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
     try {
         
         TTObject myDataspace("dataspace");
-        myDataspace->setAttributeValue(TT("dataspace"), TT("gain"));
+        myDataspace.set(TT("dataspace"), TT("gain"));
         
         TTValue v;
         TTValue expected;
@@ -38,8 +38,8 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         // Linear => Linear
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("linear"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("linear"));    
+        myDataspace.set(TT("inputUnit"), TT("linear"));
+        myDataspace.set(TT("outputUnit"), TT("linear"));    
         
         v = TTValue(1.23);
         expected = TTValue(1.23);
@@ -55,8 +55,8 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         // dB => Linear
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("dB"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("linear"));
+        myDataspace.set(TT("inputUnit"), TT("dB"));
+        myDataspace.set(TT("outputUnit"), TT("linear"));
         
         v = TTValue(0.);
         expected = TTValue(1.0);
@@ -71,8 +71,8 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         // midi => Linear
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("linear"));    
+        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("outputUnit"), TT("linear"));    
         
         v = TTValue(100.0);
         expected = TTValue(1.0);
@@ -94,8 +94,8 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         // linear => dB
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("linear"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("dB"));
+        myDataspace.set(TT("inputUnit"), TT("linear"));
+        myDataspace.set(TT("outputUnit"), TT("dB"));
         
         v = TTValue(1.0);
         expected = TTValue(0.0);
@@ -110,8 +110,8 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         // linear => midi
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("linear"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));    
+        myDataspace.set(TT("inputUnit"), TT("linear"));
+        myDataspace.set(TT("outputUnit"), TT("midi"));    
         
         v = TTValue(1.0);
         expected = TTValue(100.0);
@@ -131,8 +131,8 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         // 127 midi => 10 dB
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("dB"));    
+        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("outputUnit"), TT("dB"));    
         
         v = TTValue(127.0);
         expected = TTValue(10.0);
@@ -146,8 +146,8 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         // 10 dB => 127 midi
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("dB"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));    
+        myDataspace.set(TT("inputUnit"), TT("dB"));
+        myDataspace.set(TT("outputUnit"), TT("midi"));    
         
         v = TTValue(10.0);
         expected = TTValue(127.0);
@@ -161,8 +161,8 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         // 0 midi => 0 linear
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("midi"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("linear"));    
+        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("outputUnit"), TT("linear"));    
         
         v = TTValue(0.0);
         expected = TTValue(0.0);
@@ -176,8 +176,8 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
 
         // 0 linear => 0 midi
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("linear"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("midi"));    
+        myDataspace.set(TT("inputUnit"), TT("linear"));
+        myDataspace.set(TT("outputUnit"), TT("midi"));    
         
         v = TTValue(0.0);
         expected = TTValue(0.0);

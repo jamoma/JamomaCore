@@ -23,7 +23,7 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
     try {
         
         TTObject myDataspace("dataspace");
-        myDataspace->setAttributeValue(TT("dataspace"), TT("position"));
+        myDataspace.set(TT("dataspace"), TT("position"));
         
         TTValue v;
         TTValue expected;
@@ -38,8 +38,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         
         // xyz => xyz
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
+        myDataspace.set(TT("inputUnit"), TT("xyz"));
+        myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(3);
         v.set(0, TTFloat64(1.0));
@@ -61,8 +61,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         
         // xy => xyz
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("xy"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
+        myDataspace.set(TT("inputUnit"), TT("xy"));
+        myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(2);
         v.set(0, TTFloat64(1.0));
@@ -83,8 +83,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         
         // aed => xyz
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("aed"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
+        myDataspace.set(TT("inputUnit"), TT("aed"));
+        myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(3);
         v.set(0, TTFloat64(-90.0));
@@ -105,8 +105,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         
         // openGL => xyz
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("openGL"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
+        myDataspace.set(TT("inputUnit"), TT("openGL"));
+        myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(3);
         v.set(0, TTFloat64(1.0));
@@ -126,8 +126,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
                         errorCount);
 
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("polar"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
+        myDataspace.set(TT("inputUnit"), TT("polar"));
+        myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(2);
         v.set(0, TTFloat64(-45.0));
@@ -145,8 +145,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
                         testAssertionCount,
                         errorCount);
 
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("daz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("xyz"));    
+        myDataspace.set(TT("inputUnit"), TT("daz"));
+        myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(3);
         v.set(0, TTFloat64(2.0));
@@ -174,8 +174,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 
         // xyz => xy
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("xy"));    
+        myDataspace.set(TT("inputUnit"), TT("xyz"));
+        myDataspace.set(TT("outputUnit"), TT("xy"));    
         
         v.resize(3);
         v.set(0, TTFloat64(1.0));
@@ -195,8 +195,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         
         // xyz => aed
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("aed"));    
+        myDataspace.set(TT("inputUnit"), TT("xyz"));
+        myDataspace.set(TT("outputUnit"), TT("aed"));    
         
         expected.resize(3);
         expected.set(0, TTFloat64(-90.0));
@@ -217,8 +217,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         
         // xyz => openGL
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("openGL"));    
+        myDataspace.set(TT("inputUnit"), TT("xyz"));
+        myDataspace.set(TT("outputUnit"), TT("openGL"));    
         
         v.resize(3);
         v.set(0, TTFloat64(1.0));
@@ -238,8 +238,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
                         errorCount);
         
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("polar"));    
+        myDataspace.set(TT("inputUnit"), TT("xyz"));
+        myDataspace.set(TT("outputUnit"), TT("polar"));    
         
         v.resize(3);
         v.set(0, TTFloat64(-sqrt(2.0)));
@@ -260,8 +260,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 
         // xyz => cylindric
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("xyz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("daz"));    
+        myDataspace.set(TT("inputUnit"), TT("xyz"));
+        myDataspace.set(TT("outputUnit"), TT("daz"));    
         
         v.resize(3);
         v.set(0, TTFloat64(sqrt(2.0)));
@@ -286,8 +286,8 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         /*                                              */
         /************************************************/
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("daz"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("xy"));    
+        myDataspace.set(TT("inputUnit"), TT("daz"));
+        myDataspace.set(TT("outputUnit"), TT("xy"));    
         
         v.resize(3);
         v.set(0, TTFloat64(2.0));

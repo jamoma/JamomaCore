@@ -24,7 +24,7 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
     try {
         
         TTObject myDataspace("dataspace");
-        myDataspace->setAttributeValue(TT("dataspace"), TT("orientation"));
+        myDataspace.set(TT("dataspace"), TT("orientation"));
         
         TTValue v;
         TTValue expected;
@@ -42,8 +42,8 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         
         // yaw-pitch-roll to quaternion
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("euler"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("quaternion"));    
+        myDataspace.set(TT("inputUnit"), TT("euler"));
+        myDataspace.set(TT("outputUnit"), TT("quaternion"));    
         
         v.resize(3);
         v.set(0, TTFloat64(90.0));
@@ -65,8 +65,8 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         
         // angle-axis to quaternion
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("xyza"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("quaternion"));    
+        myDataspace.set(TT("inputUnit"), TT("xyza"));
+        myDataspace.set(TT("outputUnit"), TT("quaternion"));    
         
         v.resize(4); 
         v.set(0, TTFloat64(0.0));
@@ -97,8 +97,8 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         
         // quaternion to yaw-pitch-roll
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("quat"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("euler"));    
+        myDataspace.set(TT("inputUnit"), TT("quat"));
+        myDataspace.set(TT("outputUnit"), TT("euler"));    
         
         v.resize(4);
         v.set(0, TTFloat64(0.0));
@@ -120,8 +120,8 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         
         // quaternion to angle-axis
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("quat"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("axis"));    
+        myDataspace.set(TT("inputUnit"), TT("quat"));
+        myDataspace.set(TT("outputUnit"), TT("axis"));    
         
         v.resize(4);
         v.set(0, TTFloat64(0.0));
@@ -148,8 +148,8 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         /*                                              */
         /************************************************/
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("euler"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("axis"));    
+        myDataspace.set(TT("inputUnit"), TT("euler"));
+        myDataspace.set(TT("outputUnit"), TT("axis"));    
         
         v.resize(3);
         v.set(0, TTFloat64(90.0));
@@ -175,8 +175,8 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         /*                                              */
         /************************************************/
         
-        myDataspace->setAttributeValue(TT("inputUnit"), TT("euler"));
-        myDataspace->setAttributeValue(TT("outputUnit"), TT("axis"));    
+        myDataspace.set(TT("inputUnit"), TT("euler"));
+        myDataspace.set(TT("outputUnit"), TT("axis"));    
         
         //yaw
         v.resize(3);
