@@ -151,6 +151,8 @@
 				2202FDCC1763791E002EC750 /* TTAudioObject.h */,
 				22961B4616D9108000C0C657 /* TTAudioObjectBase.h */,
 				22961B4716D9108F00C0C657 /* TTAudioObjectBase.cpp */,
+				22C57C6B15EC21B200B755FA /* TTAudioSignal.h */,
+				22C57C7815EC21C600B755FA /* TTAudioSignal.cpp */,
 				22784E9F17B408080053393C /* TTDCBlock.h */,
 				22784E9C17B407D50053393C /* TTDCBlock.cpp */,
 				22C57C7015EC21B200B755FA /* TTDelay.h */,
@@ -190,7 +192,6 @@
 			isa = PBXGroup;
 			children = (
 				22C57C6A15EC21B200B755FA /* TTAudioObjectArray.h */,
-				22C57C6B15EC21B200B755FA /* TTAudioSignal.h */,
 				22C57C6D15EC21B200B755FA /* TTAudioSignalArray.h */,
 				22C57C6E15EC21B200B755FA /* TTBuffer.h */,
 				22C57C7115EC21B200B755FA /* TTDelayBuffer.h */,
@@ -207,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				22C57C7715EC21C600B755FA /* TTAudioObjectArray.cpp */,
-				22C57C7815EC21C600B755FA /* TTAudioSignal.cpp */,
 				22C57C7915EC21C600B755FA /* TTAudioSignalArray.cpp */,
 				22C57C7A15EC21C600B755FA /* TTBuffer.cpp */,
 				22C57C7C15EC21C600B755FA /* TTDSP.cpp */,
