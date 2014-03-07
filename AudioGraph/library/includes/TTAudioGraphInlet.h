@@ -198,9 +198,10 @@ public:
 		
 	/** With the objects in the graph prepared by the preprocess() call, the audio can be pulled from nodes connected upstream using the process() call on each source.
 	 When asked for a vector of audio by the unit generator, the inlets each request audio from each of their sources (other objects’ outlets). 
-	 If an inlet has multiple sources, those sources are summed. When all of the inlets have performed this operation, 
-	 then the unit generator proceeds to process the audio buffered in the inlets and fills the buffers in the outlets.
-	 Sources manage a one-to-one connection between an inlet and an outlet; inlets may have zero or more sources.
+	 If an inlet has multiple sources, those sources are summed. 
+	 When all of the inlets have performed this operation, then the unit generator proceeds to process the audio buffered in the inlets and fills the buffers in the outlets.
+	 Sources manage a one-to-one connection between an inlet and an upstream object's outlet; inlets may have zero or more sources.
+	 
 	 @param		sampleStamp		(Trond will document this)
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
