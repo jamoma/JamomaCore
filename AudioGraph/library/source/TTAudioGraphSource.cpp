@@ -20,7 +20,7 @@
  */
 
 
-#include "TTAudioGraphObjectBase.h"
+#include "TTAudioGraphObject.h"
 #include "TTAudioGraphInlet.h"
 #include "TTCallback.h"
 

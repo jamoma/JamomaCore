@@ -24,7 +24,7 @@
 #define __TTAUDIOGRAPH_INLET_H__
 
 #include "TTAudioGraph.h"
-#include "TTAudioGraphObjectBase.h"
+#include "TTAudioGraphObject.h"
 #include "TTAudioGraphSource.h"
 
 
@@ -108,7 +108,7 @@ public:
 	}
 	
 	
-	/* Create a buffer that will be used to summerize samples from all sources arriving at this inlet.
+	/* Create a buffer that will be used to sum samples from all sources arriving at this inlet.
 	 */
 	void createBuffer()
 	{

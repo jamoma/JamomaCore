@@ -3,7 +3,7 @@ sources:
   - source/TTAudioGraph.cpp
   - source/TTAudioGraphDescription.cpp
   - source/TTAudioGraphSource.cpp
-  - source/TTAudioGraphObjectBase.cpp
+  - source/TTAudioGraphObject.cpp
   - source/TTAudioGraphGenerator.cpp
   - source/TTAudioGraphInput.cpp
   - source/TTAudioGraphOutput.cpp
