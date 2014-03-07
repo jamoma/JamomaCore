@@ -44,7 +44,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         v = TTValue(1.23);
         expected = TTValue(1.23);
         
-        myDataspace->sendMessage(TT("convert"), v, v);
+        myDataspace.send(TT("convert"), v, v);
         
         TTTestAssertion("linear to linear", 
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -61,7 +61,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         v = TTValue(0.);
         expected = TTValue(1.0);
         
-        myDataspace->sendMessage(TT("convert"), v, v);
+        myDataspace.send(TT("convert"), v, v);
         
         TTTestAssertion("0 dB to linear", 
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -77,7 +77,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         v = TTValue(100.0);
         expected = TTValue(1.0);
         
-        myDataspace->sendMessage(TT("convert"), v, v);    
+        myDataspace.send(TT("convert"), v, v);    
         
         TTTestAssertion("100 MIDI to linear", 
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -100,7 +100,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         v = TTValue(1.0);
         expected = TTValue(0.0);
         
-        myDataspace->sendMessage(TT("convert"), v, v);
+        myDataspace.send(TT("convert"), v, v);
         
         TTTestAssertion("1.0 linear to dB", 
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -116,7 +116,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         v = TTValue(1.0);
         expected = TTValue(100.0);
         
-        myDataspace->sendMessage(TT("convert"), v, v);    
+        myDataspace.send(TT("convert"), v, v);    
         
         TTTestAssertion("1.0 linear to MIDI", 
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -137,7 +137,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         v = TTValue(127.0);
         expected = TTValue(10.0);
         
-        myDataspace->sendMessage(TT("convert"), v, v);    
+        myDataspace.send(TT("convert"), v, v);    
         
         TTTestAssertion("127 MIDI to 10 dB", 
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -152,7 +152,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         v = TTValue(10.0);
         expected = TTValue(127.0);
         
-        myDataspace->sendMessage(TT("convert"), v, v);    
+        myDataspace.send(TT("convert"), v, v);    
         
         TTTestAssertion("10 dB to 127 MIDI", 
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -167,7 +167,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         v = TTValue(0.0);
         expected = TTValue(0.0);
         
-        myDataspace->sendMessage(TT("convert"), v, v);    
+        myDataspace.send(TT("convert"), v, v);    
         
         TTTestAssertion("0 MIDI to 0 linear", 
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
@@ -182,7 +182,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         v = TTValue(0.0);
         expected = TTValue(0.0);
         
-        myDataspace->sendMessage(TT("convert"), v, v);    
+        myDataspace.send(TT("convert"), v, v);    
         
         TTTestAssertion("0 linear to 0 midi", 
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
