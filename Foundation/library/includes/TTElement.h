@@ -122,7 +122,11 @@ break;\
 class TTFOUNDATION_EXPORT TTElement {
 	friend class TTDictionary;
 	
-	/** The data value of TTValue is stored using a union. */
+	/** The data value of TTValue is stored using a union, which means that the size of TTDataValue is the size of the largest type in this list.
+		It is generally in our interest to keep this size as small as possible.
+		On a 64-bit platform a pointer uses 8-bytes.
+		We are trying to keep the size of the TTDataValue to 16-bytes which allows us to store TTSymbol etc. by value (it contains 2 pointers).
+	 */
 	union TTDataValue {
 		TTFloat32		float32;
 		TTFloat64		float64;
@@ -135,12 +139,16 @@ class TTFOUNDATION_EXPORT TTElement {
 		TTInt64			int64;
 		TTUInt64		uint64;
 		TTBoolean		boolean;
-		TTSymbolBase*	sym;		///< can't be a TTSymbolRef because it is in a union and this generates a compiler error
+		TTSymbol		sym;
 		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
 		TTObjectBase*	object;
 		TTMatrix*		matrix;
 		TTPtr			ptr;
 		TTSymbolBase*	dictionary;	///< dictionaries are referenced by name
+		
+		TTDataValue() :
+		sym(kTTSymEmpty)
+		{}
 	};
 	
 	TTDataValue		mValue;
@@ -162,12 +170,11 @@ public:
 		*this = anInitialValue;
 	}
 	
-	
-	// copy constructor -- need special handling for dictionaries?
-//	TTElement(const TTElement& anOtherElement)
-//	{
-//		*this = anInitialValue;
-//	}
+	/** Copy constructor. */
+	TTElement(const TTElement& anOtherElement)
+	{
+		*this = anOtherElement;
+	}
 	
 	virtual ~TTElement();
 
@@ -475,7 +482,7 @@ public:
 	TTElement& operator = (const TTSymbol value)
 	{
 		mType = kTypeSymbol;
-		mValue.sym = (TTSymbolBase*)value.rawpointer();
+		mValue.sym = value;
 		return *this;
 	}
 
@@ -601,10 +608,10 @@ public:
 					aString.append("0");
 				break;
 			case kTypeSymbol:
-				addQuotes = strchr(mValue.sym->getCString(), ' ') != 0;
+				addQuotes = strchr(mValue.sym.c_str(), ' ') != 0;
 				if (addQuotes)
 					aString.append("\"");
-				aString.append(mValue.sym->getCString());
+				aString.append(mValue.sym.c_str());
 				if (addQuotes)
 					aString.append("\"");
 				break;
@@ -840,7 +847,7 @@ public:
 					return false;
 				break;
 			case kTypeSymbol:
-				if ( strcmp( a1.mValue.sym->getCString(), a2.mValue.sym->getCString() ) >= 0 )
+				if ( strcmp( a1.mValue.sym.c_str(), a2.mValue.sym.c_str() ) >= 0 )
 					return false;
 				break;
 			case kTypeString:
