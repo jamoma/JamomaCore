@@ -34,7 +34,9 @@ TTErr TTMidiFormat::dictionary(const TTValue& input, TTValue& output)
 	TTDictionaryPtr	d = NULL;
 	TTSymbol		schema;
 	
-	input.get(0, (TTPtr*)(&d));
+	//input.get(0, (TTPtr*)(&d));
+    d = TTDictionaryPtr(TTPtr(input[0]));
+    
 	schema = d->getSchema();
 	
 	if (schema == TT("MidiNoteEvent")) {
