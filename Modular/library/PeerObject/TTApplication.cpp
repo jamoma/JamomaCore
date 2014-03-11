@@ -39,14 +39,16 @@ mTTToApp(NULL),
 mTempAddress(kTTAdrsRoot)
 {
 	TTAttributePtr anAttribute;
-
+/*
 	if (arguments.size() != 1)
 		throw TTException("TTApplication constructor needs one symbol argument to setup its name\n");
 
     if (arguments[0].type() != kTypeSymbol)
 		throw TTException("TTApplication constructor needs one symbol argument to setup its name\n");
-
-	mName = arguments[0];
+*/
+    if (arguments.size() == 1)
+        if (arguments[0].type() == kTypeSymbol)
+            mName = arguments[0];
 	
 	addAttributeWithSetter(Name, kTypeSymbol);
     
