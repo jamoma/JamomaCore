@@ -66,6 +66,7 @@ end
 
 ###################################################################
 # Get Revision Info
+# We (currently) do this by getting the most recent git tag of the topmost (umbrella) Jamoma repository, and parsing
 ###################################################################
 
 git_desc = `git describe --tags --abbrev=5 --long`.split('-')
