@@ -195,6 +195,10 @@ TTErr TTObjectBase::setAttributeValue(const TTSymbol name, TTValue& value)
 				value.cliplow(attribute->rangeLowBound);
 			else if (attribute->rangeChecking == kTTSym_cliphigh)
 				value.cliphigh(attribute->rangeHighBound);
+			else if (attribute->rangeChecking == kTTSym_wrap)
+				value.clipwrap(attribute->rangeLowBound, attribute->rangeHighBound);
+			else if (attribute->rangeChecking == kTTSym_fold)
+				value.clipfold(attribute->rangeLowBound, attribute->rangeHighBound);
 
 			if (attribute->setterFlags & kTTAttrPassObject)
 				err = (this->*attribute->setter)(*attribute, value);

@@ -392,6 +392,18 @@ public:
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->cliphigh(aHighBound);
 	}
+    
+    void clipwrap(const TTFloat64& aLowBound, const TTFloat64& aHighBound)
+	{
+		for (TTElementIter i = this->begin(); i != this->end(); i++)
+			i->clipwrap(aLowBound, aHighBound);
+	}
+    
+    void clipfold(const TTFloat64& aLowBound, const TTFloat64& aHighBound)
+	{
+		for (TTElementIter i = this->begin(); i != this->end(); i++)
+			i->clipfold(aLowBound, aHighBound);
+	}
 	
 	
 	void round()

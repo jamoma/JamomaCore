@@ -22,7 +22,7 @@ TTErr TTData::setType(const TTValue& value)
 	TTAttributePtr  valueDefaultAttribute, valueStepSizeAttribute;
     
 	// if the new type is different
-	if (!(TTValue(mType) == value)) {
+	if (!(TTValue(mType) == value)) {   
 		
 		TTValue n = value;				// use new value to protect the attribute
 		mType = value;
@@ -184,10 +184,10 @@ TTBoolean TTData::clipValue()
 			mValue.cliphigh(TTFloat64(mRangeBounds[1]));
 		else if (mRangeClipmode == kTTSym_both)
 			mValue.clip(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
-		//else if (mRangeClipmode == kTTSym_wrap)
-            ;//mValue.clipwrap(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
-		//else if (mRangeClipmode == kTTSym_fold)
-            ;//mValue.clipfold(TTFloat64(mRangeBounds[0]), mTTFloat64(mRangeBounds[1]));
+		else if (mRangeClipmode == kTTSym_wrap)
+            mValue.clipwrap(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
+		else if (mRangeClipmode == kTTSym_fold)
+            mValue.clipfold(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
 	}
 	
 	return false;

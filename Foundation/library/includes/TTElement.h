@@ -999,6 +999,87 @@ public:
 		}
 	}
 	
+    void clipwrap(const TTFloat64& lowBound, const TTFloat64& highBound)
+	{
+		if (TTDataInfo::getIsNumerical(mType)) {
+			// TODO: find a way to make this routine faster
+			switch (mType) {
+				case kTypeFloat32:
+					TTInfWrap<TTFloat32>(mValue.float32, lowBound, highBound);
+					break;
+				case kTypeFloat64:
+					TTInfWrap<TTFloat64>(mValue.float64, lowBound, highBound);
+					break;
+				case kTypeInt8:
+					TTInfWrap<TTInt8>(mValue.int8, lowBound, highBound);
+					break;
+				case kTypeUInt8:
+					TTInfWrap<TTUInt8>(mValue.uint8, lowBound, highBound);
+					break;
+				case kTypeInt16:
+					TTInfWrap<TTInt16>(mValue.int16, lowBound, highBound);
+					break;
+				case kTypeUInt16:
+					TTInfWrap<TTUInt16>(mValue.uint16, lowBound, highBound);
+					break;
+				case kTypeInt32:
+					TTInfWrap<TTInt32>(mValue.int32, lowBound, highBound);
+					break;
+				case kTypeUInt32:
+					TTInfWrap<TTUInt32>(mValue.uint32, lowBound, highBound);
+					break;
+				case kTypeInt64:
+					TTInfWrap<TTInt64>(mValue.int64, lowBound, highBound);
+					break;
+				case kTypeUInt64:
+					TTInfWrap<TTUInt64>(mValue.uint64, lowBound, highBound);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+    
+    void clipfold(const TTFloat64& lowBound, const TTFloat64& highBound)
+	{
+		if (TTDataInfo::getIsNumerical(mType)) {
+			// TODO: find a way to make this routine faster 
+			switch (mType) {
+				case kTypeFloat32:
+					TTFold<TTFloat32>(mValue.float32, lowBound, highBound);
+					break;
+				case kTypeFloat64:
+					TTFold<TTFloat64>(mValue.float64, lowBound, highBound);
+					break;
+				case kTypeInt8:
+					TTFold<TTInt8>(mValue.int8, lowBound, highBound);
+					break;
+				case kTypeUInt8:
+					TTFold<TTUInt8>(mValue.uint8, lowBound, highBound);
+					break;
+				case kTypeInt16:
+					TTFold<TTInt16>(mValue.int16, lowBound, highBound);
+					break;
+				case kTypeUInt16:
+					TTFold<TTUInt16>(mValue.uint16, lowBound, highBound);
+					break;
+				case kTypeInt32:
+					TTFold<TTInt32>(mValue.int32, lowBound, highBound);
+					break;
+				case kTypeUInt32:
+					TTFold<TTUInt32>(mValue.uint32, lowBound, highBound);
+					break;
+				case kTypeInt64:
+					TTFold<TTInt64>(mValue.int64, lowBound, highBound);
+					break;
+				case kTypeUInt64:
+					TTFold<TTUInt64>(mValue.uint64, lowBound, highBound);
+					break;
+				default:
+					break;
+			}
+		}
+	}
 	
 	void round()
 	{
