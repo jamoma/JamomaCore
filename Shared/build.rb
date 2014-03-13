@@ -31,7 +31,7 @@ end
 
 configuration = ARGV[0];
 
-if (configuration=="Deployment" || configuration=="Release" || configuration=="dep")
+if (configuration.downcase =="deployment" || configuration.downcase=="release" || configuration.downcase=="dep")
   configuration = "Deployment"
 else
   configuration = "Development"
