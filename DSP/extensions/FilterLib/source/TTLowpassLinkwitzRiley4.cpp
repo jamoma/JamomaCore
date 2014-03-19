@@ -17,7 +17,7 @@
  *  Second-order IIR Filters will support cascade implementations @n
  *  By Rusty Allred, Texas Instruments, Dallas @n
  *  July 01, 2003 @n
- *  http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
+ *  http://www.eetimes.com/document.asp?doc_id=1272177
  *
  * @authors Trond Lossius, Timothy Place,
  *
