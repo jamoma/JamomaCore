@@ -16,7 +16,7 @@
  */
 
 
-#include "TTBandRejectButterworth2.h"
+#include "TTBandrejectButterworth2.h"
 
 #define thisTTClass			TTBandrejectButterworth2
 #define thisTTClassName		"bandreject.butterworth.2"

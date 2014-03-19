@@ -20,6 +20,7 @@ libraries:
   - mac "portmidi/libportmidi-jamoma.a"
   - win "portmidi/pm_win_static_lib/Release_/libportmidi_s_jamoma.lib"
   - win Winmm.lib
+  - linux portmidi
 
 frameworks:
   - CoreMIDI

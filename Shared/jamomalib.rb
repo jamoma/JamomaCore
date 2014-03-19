@@ -568,11 +568,13 @@ else
 		item_from_yaml = item_from_yaml.to_s
 
 		# first set entries NOT for the current platform to nil
-		if mac? == false
+		if not mac?
 		  array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^mac /
-		elsif win? == false
+		end
+		if not win?
 		  array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win /
-		elsif linux? == false
+		end
+		if not linux?
 		  array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^linux /
 		end
 
