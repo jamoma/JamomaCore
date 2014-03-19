@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		8E2B2C0D18C8C56D009BFF10 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		A7EAC3D518A3E95B00EFD7A9 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
 		A7EAC3D618A3E96800EFD7A9 /* source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = source; sourceTree = "<group>"; };
 		A7EAC3D718A3E97A00EFD7A9 /* portmidi */ = {isa = PBXFileReference; lastKnownFileType = folder; path = portmidi; sourceTree = "<group>"; };
@@ -18,6 +19,7 @@
 			isa = PBXGroup;
 			children = (
 				A7EAC3D818A3E98700EFD7A9 /* MidiLib.yml */,
+				8E2B2C0D18C8C56D009BFF10 /* Makefile */,
 				A7EAC3D518A3E95B00EFD7A9 /* includes */,
 				A7EAC3D618A3E96800EFD7A9 /* source */,
 				A7EAC3D718A3E97A00EFD7A9 /* portmidi */,

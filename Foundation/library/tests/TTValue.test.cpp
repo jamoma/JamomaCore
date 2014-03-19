@@ -156,16 +156,16 @@ void TTValueTestFloatAssertion32(int& errorCount, int&testAssertionCount)
 #endif
 
 // FLT_MAX is not defined for the iOS
-#ifndef TT_PLATFORM_IOS
-	TTTestAssertion("TTFloat32: FLT_MAX != inf",
-#ifdef TT_PLATFORM_WIN
-					TTTestFloatEquivalence(FLT_MAX, inf, false),
-#else
-					TTTestFloatEquivalence(std::numeric_limits<float>::max(), inf, false),
-#endif
-					testAssertionCount,
-					errorCount);
-#endif
+//#ifndef TT_PLATFORM_IOS
+//	TTTestAssertion("TTFloat32: FLT_MAX != inf",
+//#ifdef TT_PLATFORM_WIN
+//					TTTestFloatEquivalence(FLT_MAX, inf, false),
+//#else
+//					TTTestFloatEquivalence(std::numeric_limits<float>::max(), inf, false),
+//#endif
+//					testAssertionCount,
+//					errorCount);
+//#endif
 	TTTestAssertion("TTFloat32: 3.14 != inf",
 					TTTestFloatEquivalence(TTFloat32(3.14), inf, false),
 					testAssertionCount,
@@ -359,16 +359,16 @@ void TTValueTestFloatAssertion64(int& errorCount, int&testAssertionCount)
 #endif
 	
 // DBL_MAX is not defined for the iOS
-#ifndef TT_PLATFORM_IOS
-	TTTestAssertion("TTFloat64: DBL_MAX != inf",
-#ifdef TT_PLATFORM_WIN
-					TTTestFloatEquivalence(DBL_MAX, inf, false),
-#else
-					TTTestFloatEquivalence(std::numeric_limits<double>::max(), inf, false),
-#endif
-					testAssertionCount,
-					errorCount);
-#endif	
+//#ifndef TT_PLATFORM_IOS
+//	TTTestAssertion("TTFloat64: DBL_MAX != inf",
+//#ifdef TT_PLATFORM_WIN
+//					TTTestFloatEquivalence(DBL_MAX, inf, false),
+//#else
+//					TTTestFloatEquivalence(std::numeric_limits<double>::max(), inf, false),
+//#endif
+//					testAssertionCount,
+//					errorCount);
+//#endif	
 	TTTestAssertion("TTFloat64: 3.14 != inf",
 					TTTestFloatEquivalence(TTFloat64(3.14), inf, false),
 					testAssertionCount,

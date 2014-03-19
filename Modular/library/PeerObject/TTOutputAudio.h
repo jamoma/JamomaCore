@@ -27,9 +27,10 @@ class TTMODULAR_EXPORT TTOutputAudio : public TTOutput
 	
 public:	// use public for quick acces during signal processing
 
+	// perform
 	void process(TTSampleValue* anInputSampleVector, TTSampleValue* anOutputSampleVector, TTUInt16 aVectorSize);
 
-	
+	// dsp
 	void setupAudioSignals(TTUInt16 aVectorSize, TTFloat64 aSampleRate)
 	{
 		mRampGainUnit->setAttributeValue(kTTSym_sampleRate, aSampleRate);	// convert midi to db for tap_gain

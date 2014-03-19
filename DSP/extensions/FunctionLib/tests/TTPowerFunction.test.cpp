@@ -1,10 +1,18 @@
-/*
- * Unit tests for the Jamoma DSP PowerFunction of the FunctionLib 
- * Copyright © 2012, Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief Unit tests for the Jamoma DSP #TTPowerFunction of the #TTFunctionLib
+ *
+ * @details
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2012 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTFunction.h"
 #include "TTPowerFunction.h"
@@ -26,6 +34,8 @@
  The coefficients are calculated in Octave using:
  
  x = linspace(0,1,128);
+ printf("%.16e,\n", x);
+ 
  y = power(x, 2);
  printf("%.16e,\n", y)
  
@@ -302,50 +312,90 @@ TTErr TTPowerFunction::test(TTValue& returnedTestInfo)
 		9.5331390662781335e-01,
 		9.6875193750387512e-01,
 		9.8431396862793730e-01,
-		1.0000000000000000e+00,
+		1.0000000000000000e+00
 	};	
 	
-	// setup Function 
+	// Setup function
 	this->setAttributeValue(TT("function"), TT("power"));
-
 	
-	// create 1 channel audio signal objects
+	// TEST 1: Default powerValue attribute
+	TTFloat64 defaultPowerValue;
+    this->getAttributeValue(TT("powerValue"), defaultPowerValue);
+    TTTestAssertion("Default value for power attribute",
+					TTTestFloatEquivalence(defaultPowerValue, 1.0),
+					testAssertionCount,
+					errorCount);
+	
+	// TEST 2: Default symmetry attribute
+	TTSymbol defaultSymmetry;
+    this->getAttributeValue(TT("symmetry"), defaultSymmetry);
+    TTTestAssertion("Default value for power attribute",
+					defaultSymmetry == "none",
+					testAssertionCount,
+					errorCount);
+	
+	// Create 1 channel audio signal objects
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &input, 1);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 1);
 	input->allocWithVectorSize(N);
 	output->allocWithVectorSize(N);
 	
-	// create a signal to be transformed and then process it)
-	input->clear();	
+	// Create a signal to be transformed and then process it
+	input->clear();
 	for (int i=0; i<N; i++)
-		input->mSampleVectors[0][i] = inputSignal1[i]; 
-	
+		input->mSampleVectors[0][i] = inputSignal1[i];
 	this->process(input, output);
 	
-	// now test the output
+	// TEST 3: Processed signal with default attributes
 	for (int n=0; n<N; n++)
 	{
 		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][n], expectedSignal1[n]);
 		badSampleCount += result;
 		if (result) 
-			std::cout << "BAD SAMPLE @ n=" << n << " ( value=" << output->mSampleVectors[0][n] << " expected=" << expectedSignal1[n] << " )\n";
+			TTTestLog("BAD SAMPLE @ n=%i ( value=%.10f	expected=%.10f )", n, output->mSampleVectors[0][n], expectedSignal1[n]);
 	}
 	
     if (badSampleCount)
-		std::cout << "badSampleCount is " << badSampleCount << "\n";
+		TTTestLog("badSampleCount is %ld", badSampleCount);
     
-    /*
-	TTTestAssertion("Produces correct function values", 
+	TTTestAssertion("Produces correct function values with default attributes",
 					badSampleCount == 0,
 					testAssertionCount, 
 					errorCount);
-
-	*/
+	
+	
+	// TEST 4: Set powerValue attribute to non-default value
+	TTFloat64 alteredPowerValue;
+	this->setAttributeValue(TT("powerValue"), 0.0);
+	this->getAttributeValue(TT("powerValue"), alteredPowerValue);
+    TTTestAssertion("Altered value for power attribute",
+					TTTestFloatEquivalence(alteredPowerValue, 0.0),
+					testAssertionCount,
+					errorCount);
+	
+	// TEST 5: Processed signal with powerValue=0. The result should be a straight line, and hence output should equal the inputSignal1 vector.
+	badSampleCount = 0;
+	this->process(input, output);
+	for (int n=0; n<N; n++)
+	{
+		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][n], inputSignal1[n]);
+		badSampleCount += result;
+		if (result)
+			TTTestLog("BAD SAMPLE @ n=%i ( value=%.10f	expected=%.10f )", n, output->mSampleVectors[0][n], inputSignal1[n]);
+	}
+	
+    if (badSampleCount)
+		TTTestLog("badSampleCount is %ld", badSampleCount);
+    
+	TTTestAssertion("Processing with altered powerValue attribute",
+					badSampleCount == 0,
+					testAssertionCount,
+					errorCount);
 	
 	TTObjectBaseRelease(&input);
 	TTObjectBaseRelease(&output);
 	
-	// wrap up test results and pass back to whoever called test
+	// Wrap up test results and pass back to whoever called test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 	
 }

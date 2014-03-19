@@ -1,10 +1,20 @@
-/* 
- * TTBlue 2nd order Butterworth Highpass Filter Object
- * Copyright © 2008, Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHighpassButterworth2 is a second-order Butterworth highpass filter.
+ *
+ * @details Butterworth filters have maximum flat frequency response in the pass band.
+ *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
+ * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
+ *
+ * @authors Trond Lossius, Timothy Place,
+ *
+ * @copyright Copyright © 2008, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTHighpassButterworth2.h"
 

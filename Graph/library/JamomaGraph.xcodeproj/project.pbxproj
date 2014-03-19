@@ -60,6 +60,8 @@
 		2AD78857169CFB6800604D7C /* GraphIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphIOS.h; path = GraphiOS/GraphIOS.h; sourceTree = SOURCE_ROOT; };
 		2AD78858169CFB6800604D7C /* GraphIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphIOS.m; path = GraphiOS/GraphIOS.m; sourceTree = SOURCE_ROOT; };
 		2AD7885A169CFB7300604D7C /* GraphIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GraphIOS-Prefix.pch"; path = "GraphiOS/GraphIOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		8E2B2C0A18C8C4FA009BFF10 /* JamomaGraph.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaGraph.yml; sourceTree = "<group>"; };
+		8E2B2C0B18C8C4FA009BFF10 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,8 @@
 		229B5854149E39C10093389A = {
 			isa = PBXGroup;
 			children = (
+				8E2B2C0A18C8C4FA009BFF10 /* JamomaGraph.yml */,
+				8E2B2C0B18C8C4FA009BFF10 /* Makefile */,
 				22E6DBF1176A0B4100180546 /* includes */,
 				22E6DBDC176A0B2800180546 /* source */,
 				2AD7884C169CFB3700604D7C /* GraphIOS */,
@@ -197,7 +201,7 @@
 		229B5856149E39C10093389A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = 229B5859149E39C10093389A /* Build configuration list for PBXProject "JamomaGraph" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -243,7 +247,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -261,7 +267,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -273,7 +281,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -285,7 +295,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;

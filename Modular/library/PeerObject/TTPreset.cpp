@@ -101,7 +101,7 @@ TTErr TTPreset::Store()
 		mDirectory->LookFor(&aNodeList, &TTPresetTestObject, NULL, allObjectNodes, &aNode);
 		
 		// 4. Sort the NodeList using object priority order
-		allObjectNodes.sort(&TTPresetCompareNodePriority);
+		allObjectNodes.sort(&compareNodePriorityThenNameThenInstance);
 		
 		// 5. Append a script line for each object found
 		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
@@ -296,63 +296,6 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 	}
 	
 	return NO;
-}
-
-TTBoolean TTPresetCompareNodePriority(TTValue& v1, TTValue& v2) 
-{
-    TTNodePtr	n1, n2;
-	TTObjectBasePtr o1, o2;
-	TTValue		v;
-    TTValue    name1;
-    TTValue    name2;
-    TTValue    instance1;
-    TTValue    instance2;
-	TTInt32		p1 = 0;
-	TTInt32		p2 = 0;
-	
-	// get priority of v1
-	n1 = TTNodePtr((TTPtr)v1[0]);
-	if (n1) {
-        
-        name1 = n1->getName();
-        instance1 = n1->getInstance();
-		o1 = n1->getObject();
-		
-		if (o1)
-			if (!o1->getAttributeValue(kTTSym_priority, v))
-				p1 = v[0];
-	}
-	
-	// get priority of v2
-	n2 = TTNodePtr((TTPtr)v2[0]);
-	if (n2) {
-        
-        name2 = n2->getName();
-        instance2 = n2->getInstance();
-		o2 = n2->getObject();
-		
-		if (o2)
-			if (!o2->getAttributeValue(kTTSym_priority, v))
-				p2 = v[0];
-	}
-	
-	if (p1 == p2) {
-        
-        if (name1 == name2) {
-            
-            if (instance1 == instance2)
-                return v1 < v2;
-            else
-                return instance1 < instance2;
-        }
-        else
-            return name1 < name2;
-    }
-	
-	if (p1 == 0) return NO;
-	if (p2 == 0) return YES;
-	
-	return p1 < p2;
 }
 
 TTErr TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position)

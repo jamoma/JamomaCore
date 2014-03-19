@@ -15,6 +15,12 @@
 #ifndef __TTDATASPACE_H__
 #define __TTDATASPACE_H__
 
+
+// Dataspaces and Units employ C++ double-inheritance and are thus unsuitable for direct use
+// through the usual TTObject API
+#define TT_NO_DEPRECATION_WARNINGS
+
+
 #include "TTDataspaceLib.h"
 #include "TTDataspaceUnit.h"
 

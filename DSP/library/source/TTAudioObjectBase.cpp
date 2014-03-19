@@ -117,8 +117,6 @@ TTErr TTAudioObjectBase::bypassCalculate(const TTFloat64& x, TTFloat64& y, TTPtr
 
 TTErr TTAudioObjectBase::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	for (TTUInt16 i=0; i<inputs->numAudioSignals; i++)
-		(inputs->getSignal(i)).clear();
 	for (TTUInt16 i=0; i<outputs->numAudioSignals; i++)
 		(outputs->getSignal(i)).clear();
 	return kTTErrNone;

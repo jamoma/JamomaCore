@@ -1,10 +1,45 @@
-/* 
- * 33-Pole Halfband filter built up from a 2-path allpass structure
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHalfbandLinear33 is a 33-Pole Halfband filter built up from a 2-path allpass structure.
+ *
+ * @details Same magnitude response with respect to frequency as #TTHalfband9, but with nearly linear phase response. @n
+ *  @n
+ *  The coefficients can be calculated using the "lineardesign_2.m" Matlab script. To generate the particular set of coefficients currently hard-coded into this filter, choose the following settings (yields a roughly -60dB stopband attenuation): @n
+ *		- iterations: 100	(iterations bring the filter toward equiripple in the stopband) @n
+ *		- wc = 0.2895		(this is the normalized frequency of the start of the stopband) @n
+ *		- number of paths = 2 @n
+ *		- number of coefficients = 8 @n
+ *  @n
+ *  The result is: @n
+ *  @n
+ *  Roots = @n
+ *  @n
+ *		-0.832302165608369
+ *		-0.338171398434493 + 0.342959068350197i
+ *		-0.338171398434493 - 0.342959068350197i
+ *		-0.001794835916660 + 0.437771696086791i
+ *		-0.001794835916660 - 0.437771696086791i
+ *		 0.421285425003053
+ *		 0.298484480776670 + 0.301855022798834i
+ *		 0.298484480776670 - 0.301855022798834i
+ *   @n
+ *  branch 1 - type1     coefficient    0.8323021656083688    -0.4212854250030528 @n
+ *  branch 1 - type2 1st coefficient    0.6763427968689864   0.003589671833320152      -0.59696896155334 @n
+ *  branch 1 - type2 2nd coefficient    0.2319808172827758     0.1916472793306732     0.1802094400534031 @n
+ *
+ *  The ordering of the coefficients may not be at first obvious.  The first line of coefficients are the two alpha coefficients for the first two (first-order) allpass filters, F0 and F1. @n
+ *  @n
+ @  The second and third lines together provide the coefficient pairs for the remaining (second-order) filters.  Thus, 0.6763427968689864 and 0.2319808172827758 are the coefficient pair for the first filter 0.003589671833320152 and 0.1916472793306732 are the coefficient pair for the second filter, and so on.
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_LINEARHALFBAND33_H__
 #define __TT_LINEARHALFBAND33_H__
@@ -58,14 +93,14 @@ class TTHalfbandLinear33 : TTAudioObjectBase {
 
 protected:
 
-	TTDelay*		mP0Delay;	///< path0, pure delay, 16 samples
+	TTAudioObject	mP0Delay;	///< path0, pure delay, 16 samples
 	
-	TTAllpass1a*	mP1Delay;	///< path1
-	TTAllpass1b*	mF0;		///< path1
-	TTAllpass1b*	mF1;		///< path1
-	TTAllpass2b*	mF2;		///< path1
-	TTAllpass2b*	mF3;		///< path1
-	TTAllpass2b*	mF4;		///< path1
+	TTAudioObject	mP1Delay;	///< path1
+	TTAudioObject	mF0;		///< path1
+	TTAudioObject	mF1;		///< path1
+	TTAudioObject	mF2;		///< path1
+	TTAudioObject	mF3;		///< path1
+	TTAudioObject	mF4;		///< path1
 	
 	TTSymbol		mMode;		///< Attribute: lowpass or highpass
 		

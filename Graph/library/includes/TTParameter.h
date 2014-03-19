@@ -20,7 +20,7 @@
 #include "TTBase.h"
 
 
-class TTFOUNDATION_EXPORT TTParameter : public TTDataObjectBase {
+class TTGRAPH_EXPORT TTParameter : public TTDataObjectBase {
 	TTCLASS_SETUP(TTParameter)
 	
 public:

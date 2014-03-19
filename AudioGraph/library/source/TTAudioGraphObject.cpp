@@ -15,7 +15,7 @@
  */
 
 
-#include "TTAudioGraphObjectBase.h"
+#include "TTAudioGraphObject.h"
 #include "TTAudioGraphInlet.h"
 #include "TTAudioGraphOutlet.h"
 
@@ -259,7 +259,7 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 
 					// pull (process, sum, and collect) all of our source audio
 	//				for_each(mAudioInlets.begin(), mAudioInlets.end(), mem_fun_ref(&TTAudioGraphInlet::process));
-					for(TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet !=  mAudioInlets.end(); inlet++) {
+					for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet !=  mAudioInlets.end(); inlet++) {
 						inlet->process(sampleStamp);
 					}
 

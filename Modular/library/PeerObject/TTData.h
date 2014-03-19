@@ -77,15 +77,16 @@ private:
     
     TTFloat64       externalRampTime;           ///< only usefull for external ramp drive
 	
-	/** Control the data using a command like < value (unit) (ramp ramptime) >
-		It depends on the command size :
-			1		: 1 value 
-			2		: 2 values || 1 value + unit
-			3		: 3 values || 2 values + unit || 1 value + ramp ramptime
-			X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime
+	
+	/** Prepares a command to update the value of TTValue. 
+	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
+	 @param[out outputValue	This is not being used.
+	 @return #TTErrorNone if the method executes successfully, else an error code.
+	 @see #TTDataParseCommand
 	 */
     TTErr       Command(const TTValue& inputValue, TTValue& outputValue);
     
+	
 	TTErr       NoneCommand(const TTValue& inputValue, TTValue& outputValue);
     TTErr       GenericCommand(const TTValue& inputValue, TTValue& outputValue);
     TTErr       BooleanCommand(const TTValue& inputValue, TTValue& outputValue);
@@ -101,6 +102,11 @@ private:
     TTErr       setBooleanValue(const TTValue& value);
     TTErr       setGenericValue(const TTValue& value);
     TTErr       setIntegerValue(const TTValue& value);
+    
+    /** Private method that sets the internal value attribute.
+    @param[in]         The new value that the attribute is to be set to.
+    @return            #TTErrorNone if the method executed successfully, elseway an error code.
+    */
     TTErr       setDecimalValue(const TTValue& value);
     TTErr       setArrayValue(const TTValue& value);
     TTErr       setStringValue(const TTValue& value);
@@ -207,18 +213,45 @@ private:
 };
 typedef TTData* TTDataPtr;
 
+
 /** Parse command like < value (unit) (ramp ramptime) >
-	It depends on the command size :
-	1		: 1 value 
-	2		: 2 values || 1 value + unit
-	3		: 3 values || 2 values + unit || 1 value + ramp ramptime
-	X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime */
+	@details It depends on the command size :
+	- 1		: 1 value @n
+	- 2		: 2 values || 1 value + unit @n
+	- 3		: 3 values || 2 values + unit || 1 value + ramp ramptime @n
+	- X		: X values || X-1 values + unit || X-2 values + ramp ramptime || X-3 values + unit + ramp ramptime 
+ @return	A dictionary with one or more keys: It always has a value. If it is ramping, it also has a ramp key, and if it has a unit, it also has a unit key.
+ */
+
+
+/** Format the command to update the value of #TTData as a #TTDictionary. When updating the value we can make use of the #TTDapaspaceLib to provide new value with various measurement units, and we can set it to ramp (ease) to the new value over time making use of #TTDataRamp.
+ @param[in] input		A #TTVaue containing one or more elements, taking the form of @n
+	< value (unit:optional) (ramp ramptime : optional) >
+	@n
+	Interprtation of the command depends on the command size : @n
+	@n
+	@n When parsing, we check how many elements we have, and interprete as follows:
+		- 1 element:	A new value @n
+		- 2 elements:	An array of 2 values OR
+						one value and a unit @n
+		- 3 elements:	An array of 3 values OR
+						a array of 2 values and a unit OR
+						a single value, the "ramp" symbol and a ramp time @n
+		- X elements:	An array of X values OR
+						an array of X-1 values and a unit OR
+						an array of X-2 values, the "ramp" symbol and a ramp time OR
+						X-3 values, a unit, the "ramp" string and a ramp time.
+ @param[out] outputValue	This is not being used.
+ @return #TTErrorNone if the method executes successfully, else an error code.
+ */
 TTDictionaryBasePtr	TTMODULAR_EXPORT TTDataParseCommand(const TTValue& command);
+
 
 /**
  @param	baton						..
  @param	data						..
  @return							an error code */
 void TTMODULAR_EXPORT TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *v);
+
 
 #endif // __TT_DATA_H__

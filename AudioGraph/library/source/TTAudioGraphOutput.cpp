@@ -17,7 +17,7 @@
  */
 
 
-#include "TTAudioGraphObjectBase.h"
+#include "TTAudioGraphObject.h"
 #include "TTAudioGraphInlet.h"		// required for windows build
 #include "TTAudioGraphOutput.h"
 //#include "TTAudioEngine.h"

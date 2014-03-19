@@ -65,7 +65,7 @@
 		227B1E131466D6B8004BEDEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = 227B1E161466D6B8004BEDEA /* Build configuration list for PBXProject "AudioEngine" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -88,6 +88,7 @@
 		227B1E181466D6B8004BEDEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};

@@ -260,8 +260,6 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								// Get the node value
 								xValue = xmlTextReaderReadString((xmlTextReaderPtr)mReader);
 								fromXmlChar(xValue, mXmlNodeValue);
-								//if (xValue)	xmlFree((void*)xValue);         // to - commented out because of "pointer being freed was not allocated" error
-								
 								break;
 								
 							case 15: // For end element node
@@ -293,7 +291,6 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 								// Get the node value
 								xValue = xmlTextReaderValue((xmlTextReaderPtr)mReader);
 								fromXmlChar(xValue, mXmlNodeValue, YES);
-								// if (xValue)	xmlFree((void*)xValue);         // to - commented out because of "pointer being freed was not allocated" error
 								break;
 								
 							default:
@@ -361,7 +358,6 @@ TTErr TTXmlHandler::ReadAgain()
 
 TTErr TTXmlHandler::fromXmlChar(const void* axCh, TTValue& v, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
-	TTString cString;
 	const xmlChar* xCh = (const xmlChar*)axCh;
 	
 	v.clear();
@@ -369,14 +365,15 @@ TTErr TTXmlHandler::fromXmlChar(const void* axCh, TTValue& v, TTBoolean addQuote
 	if (xCh) {
 		
 		if (xCh[0] != '\n' && xCh[0] != '\0') {
+			TTString cString;
 		
 			if (addQuote) {
-				cString = TTString("\"");
+				cString = "\"";
 				cString += (char*)xCh;
 				cString += "\"";
 			}
 			else
-				cString = TTString((char*)xCh);
+				cString = (char*)xCh;
 			
 			v = cString;
 			v.fromString();
@@ -398,7 +395,7 @@ TTErr TTXmlHandler::getXmlAttribute(TTSymbol attributeName, TTValue& returnedVal
 	return kTTErrGeneric;
 }
 
-TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
+TTErr TTXmlHandler::getXmlNextAttribute(TTSymbol& returnedAttributeName, TTValue& returnedValue, TTBoolean addQuote, TTBoolean numberAsSymbol)
 {
 	TTValue v;
 	

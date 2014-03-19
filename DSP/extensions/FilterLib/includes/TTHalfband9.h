@@ -1,10 +1,18 @@
-/* 
- * 9-Pole Halfband filter built up from a 2-path allpass structure
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHalfband9 is a 9-Pole Halfband filter built up from a 2-path allpass structure.
+ *
+ * @details
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_HALFBAND9_H__
 #define __TT_HALFBAND9_H__
@@ -24,16 +32,16 @@ class TTHalfband9 : TTAudioObjectBase {
 
 protected:
 
-	TTAllpass1b*	mF0;		///< path0
-	TTAllpass1b*	mF2;		///< path0
-	TTAllpass1a*	mR0;		///< path0, resampling
-	TTAllpass1a*	mR2;		///< path0, resampling
+	TTAudioObject	mF0;		///< path0
+	TTAudioObject	mF2;		///< path0
+	TTAudioObject	mR0;		///< path0, resampling
+	TTAudioObject	mR2;		///< path0, resampling
 	
-	TTAllpass1b*	mF1;		///< path1
-	TTAllpass1b*	mF3;		///< path1
-	TTAllpass1a*	mR1;		///< path1, resampling
-	TTAllpass1a*	mR3;		///< path1, resampling
-	TTAllpass1a*	mDelay;		///< path1
+	TTAudioObject	mF1;		///< path1
+	TTAudioObject	mF3;		///< path1
+	TTAudioObject	mR1;		///< path1, resampling
+	TTAudioObject	mR3;		///< path1, resampling
+	TTAudioObject	mDelay;		///< path1
 
 	TTSampleVector	mRSwitch;	///< resampling switch (so we know which path to calculate)
 	TTSampleVector	mY0;		///< resampling path0 output (for each channel)

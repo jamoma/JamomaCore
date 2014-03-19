@@ -1,11 +1,18 @@
-/* 
- * CosineFunction Unit for TTBlue
- * Originally written for the Jamoma FunctionLib
- * Copyright © 2007 by Dave Watson
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief #TTCosineFunction Unit for Jamoma DSP
+ *
+ * @details
+ *
+ * @authors Dave Watson, Trond Lossius
+ *
+ * @copyright Copyright © 2007 by Dave Watson @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TTCOSINEFUNCTION_H__
 #define __TTCOSINEFUNCTION_H__

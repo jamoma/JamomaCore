@@ -1,10 +1,25 @@
-/* 
- * TTBlue 1st order Butterworth Highpass Filter Object
- * Copyright © 2008, Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTHighpassButterworth1 is a second-order Butterworth highpass filter.
+ *
+ * @details Butterworth filters have maximum flat frequency response in the pass band.
+ * Filter equations from: @n
+ * @n
+ * Second-order IIR Filters will support cascade implementations @n
+ * By Rusty Allred, Texas Instruments, Dallas @n
+ * July 01, 2003
+ * http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
+ .
+ *
+ * @authors Trond Lossius, Timothy Place,
+ *
+ * @copyright Copyright © 2008, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTHighpassButterworth1.h"
 

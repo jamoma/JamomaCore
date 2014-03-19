@@ -1,10 +1,19 @@
-/* 
- * Second-Order Allpass Filter Object for Jamoma DSP
- * Copyright © 2010, Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFilterLib
+ *
+ * @brief #TTAllpass2b is a second-order allpass filter.
+ *
+ * @details A second-order Z^2 building-block allpass filter.
+ *  This allpass filter uses a fixed delay of 2 samples (M=2). *
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_ALLPASS2B_H__
 #define __TT_ALLPASS2B_H__

@@ -73,6 +73,7 @@ void TTModularInit(const char* pathToTheJamomaFolder)
 		TTMapper::registerClass();
 		TTMapperManager::registerClass();
 		TTMirror::registerClass();
+        TTNodeInfo::registerClass();
 		TTOutput::registerClass();
 		TTOutputAudio::registerClass();
 		TTPreset::registerClass();

@@ -664,7 +664,7 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
     
     // select index if needed
     if (mInputIndex > 0 && mInputIndex <= size) {
-        in = in[mInputIndex];
+        in = in[mInputIndex-1];
         size = 1;
     }
 

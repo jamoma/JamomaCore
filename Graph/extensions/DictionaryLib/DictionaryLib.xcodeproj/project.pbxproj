@@ -37,6 +37,7 @@
 		2A23AEB6169D0E38004793F5 /* DictionaryLibIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DictionaryLibIOS-Prefix.pch"; sourceTree = "<group>"; };
 		2A23AEB7169D0E38004793F5 /* DictionaryLibIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DictionaryLibIOS.h; sourceTree = "<group>"; };
 		2A23AEB9169D0E38004793F5 /* DictionaryLibIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DictionaryLibIOS.m; sourceTree = "<group>"; };
+		8E2B2C0C18C8C522009BFF10 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,8 +55,9 @@
 		222ECCFF1655BC81003246EA = {
 			isa = PBXGroup;
 			children = (
-				222ECD0F1655BC9A003246EA /* DictionaryLib.cpp */,
 				222ECD101655BC9A003246EA /* DictionaryLib.yml */,
+				8E2B2C0C18C8C522009BFF10 /* Makefile */,
+				222ECD0F1655BC9A003246EA /* DictionaryLib.cpp */,
 				222ECD121655BCAE003246EA /* TTDictionaryAppend.h */,
 				222ECD131655BCB5003246EA /* TTDictionaryAppend.cpp */,
 				2A23AEB4169D0E38004793F5 /* DictionaryLibIOS */,
@@ -140,7 +142,7 @@
 		222ECD011655BC81003246EA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Jamoma;
 			};
 			buildConfigurationList = 222ECD041655BC81003246EA /* Build configuration list for PBXProject "DictionaryLib" */;
@@ -179,7 +181,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -208,7 +209,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -250,7 +250,6 @@
 		2A23AEBB169D0E38004793F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -270,7 +269,6 @@
 		2A23AEBC169D0E38004793F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

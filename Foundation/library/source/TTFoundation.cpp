@@ -281,11 +281,10 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 
 		fileFullpath += "/";
 		fileFullpath += fileName;
-		std::cout << "EXTENSION: " << fileFullpath << std::endl;
-
-//		handle = LoadLibrary(fileFullpath.c_str());
+		//std::cout << "EXTENSION: " << fileFullpath << std::endl;
+		
 		handle = LoadLibrary(FindFileData.cFileName);
-		std::cout << "HANDLE: " << handle << std::endl;
+		//std::cout << "HANDLE: " << handle << std::endl;
 		if (!handle)
 			continue;
 
@@ -295,18 +294,8 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)handle, initializerFunctionName.c_str());
 		if (initializer)
 			err = initializer();
-		std::cout<< "Initializer: " << initializer << std::endl;
-
-
-
-
-
-
-
-
-
-
-
+		//std::cout<< "Initializer: " << initializer << std::endl;
+		
     } while (FindNextFile(hFind, &FindFileData));
 
     FindClose(hFind);
@@ -344,7 +333,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #else
 		handle = dlopen(fileFullpath.c_str(), RTLD_LAZY);
 #endif
-		std::cout << "HANDLE: " << handle << std::endl;
+		//std::cout << "HANDLE: " << handle << std::endl;
 		if (!handle)
 			continue;
 
@@ -359,8 +348,8 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		if (initializer)
 			err = initializer();
 
-		std::cout<< "Initializer: " << initializer << std::endl;
-
+		//std::cout<< "Initializer: " << initializer << std::endl;
+		
 	}
 	closedir(dirp);
 

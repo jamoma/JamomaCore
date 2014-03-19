@@ -1,11 +1,18 @@
-/* 
- * TTPowerFunction Unit for TTBlue
- * Originally written for the Jamoma FunctionLib
- * Copyright © 2007 by Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFunctionLib
+ *
+ * @brief #TTPowerFunction Unit for Jamoms DSP
+ *
+ * @details
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2007 by Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTPowerFunction.h"
 
@@ -54,6 +61,7 @@ TTErr TTPowerFunction::setPowerValue(const TTValue& newValue)
 }
 
 
+// With point symmetry we first map x from [0,1] to [-1,1]. Then we calculate y=f(fabs(x)), and finally invert the sign of y if x<0.
 TTErr TTPowerFunction::calculatePoint(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	TTFloat64	sign;	
@@ -69,6 +77,7 @@ TTErr TTPowerFunction::calculatePoint(const TTFloat64& x, TTFloat64& y, TTPtrSiz
 }
 
 
+// With axis symmetry we first map x from [0,1] to [-1,1] range, and then calculate y=f(fabs(x))
 TTErr TTPowerFunction::calculateAxis(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	y = pow(fabs(2*x-1), mK);
@@ -99,7 +108,7 @@ TTErr TTPowerFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalA
 		vs = in.getVectorSizeAsInt();
 		
 		while (vs--) {
-			(this->*calculateMethod)(*outSample, *inSample, TTPtr(channel));
+			(this->*calculateMethod)(*inSample, *outSample, TTPtr(channel));
 			outSample++;
 			inSample++;
 		}

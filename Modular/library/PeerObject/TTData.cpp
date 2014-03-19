@@ -549,13 +549,8 @@ TTErr TTData::rampSetup()
 	else {
         
         // don't create ramper for external ramp drive
-        if (mRampDrive == kTTSym_external)
+        if (mRampDrive == kTTSym_external || mRampDrive == kTTSym_none)
             return kTTErrNone;
-        
-        // TODO : move this very Max specific thing else where
-        // (but it is not a problem if the Max plugin is not available)
-        if (mRampDrive == kTTSym_none)
-            mRampDrive = TTSymbol("Max");
         
         args.append((TTPtr)&TTDataRampCallback);
         args.append((TTPtr)this); // we have to store this as a pointer
@@ -795,6 +790,8 @@ TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue)
 	
     command->setValue(aValue);
 	command->setSchema(kTTSym_command);
+    
+    // We return a dictionary with one or more keys. It always has a value. If it is ramping, it also has a ramp key, and if it has a unit, it also has a unit key.
 	
 	return command;
 }

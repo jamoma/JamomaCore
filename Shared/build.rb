@@ -16,15 +16,22 @@ Dir.chdir libdir             # change to libdir so that requires work
 libdir = Dir.pwd
 require "#{libdir}/jamomalib"
 
+
+###################################################################
+# Process arguments
+###################################################################
+
+# ARG[0]: configuration
+
 if(ARGV.length == 0)
   puts "usage: "
-  puts "build.rb <required:configuration> <optional:clean> <optional:compiler> <optional:version> <optional:revision> <optional:distropath>"
+  puts "build.rb <required:configuration> <optional:clean> <optional:version> <optional:revision> <optional:distropath>"
   exit 0;
 end
 
 configuration = ARGV[0];
 
-if (configuration=="Deployment" || configuration=="Release" || configuration=="dep")
+if (configuration.downcase =="deployment" || configuration.downcase=="release" || configuration.downcase=="dep")
   configuration = "Deployment"
 else
   configuration = "Development"
@@ -40,6 +47,7 @@ if win? || linux?
  	 end
 end
 
+# ARG[1]: clean
 
 clean = false;
 if(ARGV.length > 1)
@@ -48,11 +56,15 @@ if(ARGV.length > 1)
   end
 end
 
+# This is a leftover from when we also used the ICC compiler on OSX:
 forcedCompiler = nil
-if(ARGV.length > 2)
-  if(ARGV[2] != "0" && ARGV[2] != "false" && ARGV[2] != false)
-    forcedCompiler = ARGV[2]
-  end
+
+# Run integration tests? (only valid for JamomaMax)
+runTests = true
+ARGV.each do |arg|		
+	if ( arg == "notest" )
+		runTests = false
+	end
 end
 
 version = nil # argument not implemented yet
@@ -66,6 +78,7 @@ end
 
 ###################################################################
 # Get Revision Info
+# We (currently) do this by getting the most recent git tag of the topmost (umbrella) Jamoma repository, and parsing
 ###################################################################
 
 git_desc = `git describe --tags --abbrev=5 --long`.split('-')
@@ -129,6 +142,9 @@ puts "Building Jamoma #{@projectName}"
 puts "==================================================="
 puts "  configuration: #{configuration}"
 puts "  clean:         #{clean}"
+if (@projectName == "Max")
+  puts "  test:          #{runTests}"
+end
 #puts "  debug the build script: #{debug}"
 puts "  version:       #{version}"
 puts "  rev:           #{revision} #{'   DIRTY REVISION' if git_dirty_commits != '0'}"
@@ -137,6 +153,13 @@ puts "  "
 
 @log_root = "logs-#{@projectName}"
 @svn_root = "#{libdir}/../#{@projectName}"
+temp = Dir.pwd
+begin
+  Dir.chdir(@svn_root)
+  @svn_root = Dir.pwd
+rescue
+end
+Dir.chdir temp
 @svn_root.gsub!(/\//, "\\") if win?
 #@svn_root = "../../Modules/#{@projectName}" if @projectName == "Modular"
 #@svn_root = "../../Modules/#{@projectName}" if @projectName == "Test"
