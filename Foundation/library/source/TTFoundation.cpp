@@ -310,7 +310,16 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		if (!cFileSuffix)
 			continue;
 		TTString	fileSuffix(cFileSuffix);
-		TTString	fileBaseName = fileName.substr(0, fileName.size() - 8);
+
+#ifdef TT_PLATFORM_LINUX
+		int dlExtSize = 5; // .ttso
+#elif TT_PLATFORM_MAC
+		int dlExtSize = 8; // .ttdylib
+#elif TT_PLATFORM_WIN
+		int dlExtSize = 6; // .ttdll
+#endif
+
+		TTString	fileBaseName = fileName.substr(0, fileName.size() - dlExtSize);
 		TTString	fileFullpath(fullpath);
 		void*		handle = NULL;
 
@@ -335,10 +344,16 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #endif
 		//std::cout << "HANDLE: " << handle << std::endl;
 		if (!handle)
+		{
 			continue;
-
+		}
 		// TODO: assert -- or at least do a log post -- if handle is NULL
 		initializerFunctionName = "TTLoadJamomaExtension_";
+
+#ifdef TT_PLATFORM_LINUX
+		// Because they begin with "lib"
+		fileBaseName.erase(fileBaseName.begin(), fileBaseName.begin() + 3);
+#endif
 		initializerFunctionName += fileBaseName;
 #ifdef TT_PLATFORM_WIN
 		initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)handle, initializerFunctionName.c_str());
@@ -347,9 +362,6 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #endif
 		if (initializer)
 			err = initializer();
-
-		//std::cout<< "Initializer: " << initializer << std::endl;
-		
 	}
 	closedir(dirp);
 
