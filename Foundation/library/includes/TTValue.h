@@ -131,23 +131,10 @@ public:
 	/** Copy a value starting from an index until another index */
 	void copyRange(const TTValue& obj, TTUInt16 startIndex, TTUInt16 endIndex)
 	{
-#ifdef OLD_WAY
-		TTUInt16 s = endIndex - startIndex;
-		TTPtr t = (obj.type)+startIndex;
-		TTPtr d = (obj.data)+startIndex;
-		
-		setSize(s);
-		memcpy(type, t, sizeof(TTDataType) * s);
-		memcpy(data, d, sizeof(DataValue) * s);
-		
-		reserved = obj.reserved;
-		stringsPresent = obj.stringsPresent;
-#else
 		resize(endIndex - startIndex);
 		for (size_t i=0; i<size(); i++)
 			at(i) = obj[startIndex+i];
 //		stringsPresent = obj.stringsPresent;
-#endif
 	}
 	
 	
@@ -192,7 +179,7 @@ public:
 	friend bool operator == (const TTValue& a, const TTValue& b)
 	{
 		if (a.size() == b.size()) {
-			for (int i=0; i<a.size(); i++) {
+			for (size_t i=0; i<a.size(); i++) {
 				if (a.at(i) != b.at(i)) {
 					return false;
 				}
@@ -202,6 +189,7 @@ public:
 		return false;
 	}
 
+#ifndef TT_PLATFORM_WIN
 	template<class T>
 	friend bool operator == (const TTValue& a, const T b)
 	{
@@ -210,7 +198,7 @@ public:
 		else
 			return false;
 	}
-
+#endif
 
 	/** Get a value from TTValue
 	 */
@@ -327,16 +315,6 @@ public:
 	{
 		return TTFloat64(at(index));
 	}
-
-	
-#ifdef NOT_SURE_IF_WE_CAN_CUT_THESE
-	template <typename T>
-	void getIfExists(const TTUInt16 index, T arg)
-	{
-		if (index < numValues)
-			get(index, arg);
-	}
-#endif 
 
 
 	/**

@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief Ramp Class
+ * @brief #TTRamp class embedes a scheduling mechanism from #TTScheduler and a function from #TTFunction
  *
  * @details
  *

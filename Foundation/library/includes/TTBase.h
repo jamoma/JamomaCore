@@ -129,12 +129,19 @@
 #define TT_ASSERT(name, result) ((void)(0));
 #endif
 
-
+/**	Supress warnings about use of deprecated methods.
+	This macro should be defined at the top of a file before any includes in order to be made active.
+	In general, the use of this macro should be viewed with suspicion.
+	If it used a comment should accompany its use to explain the special situation that warrants the usage.
+ */
+#ifndef TT_NO_DEPRECATION_WARNINGS
 #ifdef __GNUC__
 #define TT_DEPRECATED(func) func __attribute__ ((deprecated))
 #elif defined(_MSC_VER)
 #define TT_DEPRECATED(func) __declspec(deprecated) func
-#else
+#endif
+#endif // !TT_NO_DEPRECATION_WARNINGS
+#ifndef TT_DEPRECATED
 #define TT_DEPRECATED(func) func
 #endif
 

@@ -57,6 +57,7 @@ private:
 	TTAddress					mContextAddress;			///< cache the address of the Context node in the tree structure
 	
 	TTBoolean					mNewInstanceCreated;		///< a flag to know if a new instance has been automatically generated
+    TTBoolean					mNewContextInstanceCreated; ///< a flag to know if a new context instance has been automatically generated
     
     TTBoolean					mSubscribed;                ///< a flag to know if a subcription is made
 	

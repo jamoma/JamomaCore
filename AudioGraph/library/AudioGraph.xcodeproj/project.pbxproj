@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2287B960176FD5590095A0BC /* split-gain-join.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73F2C7C161CB83A007A4E83 /* split-gain-join.test.cpp */; };
 		2A42391E169CF0F9002D05D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A42391D169CF0F9002D05D9 /* Foundation.framework */; };
-		2A42392A169CF188002D05D9 /* TTAudioGraphObjectBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73F2C74161CB818007A4E83 /* TTAudioGraphObjectBase.cpp */; };
+		2A42392A169CF188002D05D9 /* TTAudioGraphObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73F2C74161CB818007A4E83 /* TTAudioGraphObject.cpp */; };
 		2A42392B169CF18C002D05D9 /* TTAudioGraphDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73F2C75161CB818007A4E83 /* TTAudioGraphDescription.cpp */; };
 		2A42392E169CF196002D05D9 /* TTAudioGraphSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73F2C78161CB818007A4E83 /* TTAudioGraphSource.cpp */; };
 		2A42392F169CF199002D05D9 /* TTAudioGraphGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73F2C79161CB818007A4E83 /* TTAudioGraphGenerator.cpp */; };
@@ -40,7 +40,7 @@
 		8ED08E691846716B00B575D2 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		8ED7ADBA183D05FA00170BBA /* JamomaAudioGraph.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JamomaAudioGraph.yml; sourceTree = "<group>"; };
 		8ED7ADBB183D05FA00170BBA /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		A73F2C74161CB818007A4E83 /* TTAudioGraphObjectBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphObjectBase.cpp; path = source/TTAudioGraphObjectBase.cpp; sourceTree = "<group>"; };
+		A73F2C74161CB818007A4E83 /* TTAudioGraphObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphObject.cpp; path = source/TTAudioGraphObject.cpp; sourceTree = "<group>"; };
 		A73F2C75161CB818007A4E83 /* TTAudioGraphDescription.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphDescription.cpp; path = source/TTAudioGraphDescription.cpp; sourceTree = "<group>"; };
 		A73F2C76161CB818007A4E83 /* TTAudioGraphOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphOutput.cpp; path = source/TTAudioGraphOutput.cpp; sourceTree = "<group>"; };
 		A73F2C77161CB818007A4E83 /* TTAudioGraphInput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioGraphInput.cpp; path = source/TTAudioGraphInput.cpp; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		A73F2C81161CB897007A4E83 /* TTAudioGraphGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphGenerator.h; path = includes/TTAudioGraphGenerator.h; sourceTree = "<group>"; };
 		A73F2C82161CB897007A4E83 /* TTAudioGraphInlet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphInlet.h; path = includes/TTAudioGraphInlet.h; sourceTree = "<group>"; };
 		A73F2C83161CB897007A4E83 /* TTAudioGraphInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphInput.h; path = includes/TTAudioGraphInput.h; sourceTree = "<group>"; };
-		A73F2C84161CB897007A4E83 /* TTAudioGraphObjectBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphObjectBase.h; path = includes/TTAudioGraphObjectBase.h; sourceTree = "<group>"; };
+		A73F2C84161CB897007A4E83 /* TTAudioGraphObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphObject.h; path = includes/TTAudioGraphObject.h; sourceTree = "<group>"; };
 		A73F2C85161CB897007A4E83 /* TTAudioGraphOutlet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOutlet.h; path = includes/TTAudioGraphOutlet.h; sourceTree = "<group>"; };
 		A73F2C86161CB897007A4E83 /* TTAudioGraphOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphOutput.h; path = includes/TTAudioGraphOutput.h; sourceTree = "<group>"; };
 		A73F2C87161CB897007A4E83 /* TTAudioGraphSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTAudioGraphSource.h; path = includes/TTAudioGraphSource.h; sourceTree = "<group>"; };
@@ -98,43 +98,12 @@
 			name = AudioGraphIOS;
 			sourceTree = "<group>";
 		};
-		A73F2C7B161CB822007A4E83 /* sources */ = {
-			isa = PBXGroup;
-			children = (
-				A73F2C74161CB818007A4E83 /* TTAudioGraphObjectBase.cpp */,
-				A73F2C75161CB818007A4E83 /* TTAudioGraphDescription.cpp */,
-				A73F2C76161CB818007A4E83 /* TTAudioGraphOutput.cpp */,
-				A73F2C77161CB818007A4E83 /* TTAudioGraphInput.cpp */,
-				A73F2C78161CB818007A4E83 /* TTAudioGraphSource.cpp */,
-				A73F2C79161CB818007A4E83 /* TTAudioGraphGenerator.cpp */,
-				A73F2C7A161CB818007A4E83 /* TTAudioGraph.cpp */,
-			);
-			name = sources;
-			sourceTree = "<group>";
-		};
 		A73F2C7D161CB83E007A4E83 /* tests */ = {
 			isa = PBXGroup;
 			children = (
 				A73F2C7C161CB83A007A4E83 /* split-gain-join.test.cpp */,
 			);
 			name = tests;
-			sourceTree = "<group>";
-		};
-		A73F2C88161CB89F007A4E83 /* includes */ = {
-			isa = PBXGroup;
-			children = (
-				A73F2C7E161CB897007A4E83 /* TTAudioGraph.h */,
-				A73F2C7F161CB897007A4E83 /* TTAudioGraphAPI.h */,
-				A73F2C80161CB897007A4E83 /* TTAudioGraphDescription.h */,
-				A73F2C81161CB897007A4E83 /* TTAudioGraphGenerator.h */,
-				A73F2C82161CB897007A4E83 /* TTAudioGraphInlet.h */,
-				A73F2C83161CB897007A4E83 /* TTAudioGraphInput.h */,
-				A73F2C84161CB897007A4E83 /* TTAudioGraphObjectBase.h */,
-				A73F2C85161CB897007A4E83 /* TTAudioGraphOutlet.h */,
-				A73F2C86161CB897007A4E83 /* TTAudioGraphOutput.h */,
-				A73F2C87161CB897007A4E83 /* TTAudioGraphSource.h */,
-			);
-			name = includes;
 			sourceTree = "<group>";
 		};
 		A79C81D21523142400119511 = {
@@ -144,8 +113,23 @@
 				8ED7ADBB183D05FA00170BBA /* Makefile */,
 				8ED08E691846716B00B575D2 /* test.cpp */,
 				2AD7883F169CFA1000604D7C /* AudioGraphIOS */,
-				A73F2C88161CB89F007A4E83 /* includes */,
-				A73F2C7B161CB822007A4E83 /* sources */,
+				A73F2C7E161CB897007A4E83 /* TTAudioGraph.h */,
+				A73F2C7A161CB818007A4E83 /* TTAudioGraph.cpp */,
+				A73F2C7F161CB897007A4E83 /* TTAudioGraphAPI.h */,
+				A73F2C80161CB897007A4E83 /* TTAudioGraphDescription.h */,
+				A73F2C75161CB818007A4E83 /* TTAudioGraphDescription.cpp */,
+				A73F2C81161CB897007A4E83 /* TTAudioGraphGenerator.h */,
+				A73F2C79161CB818007A4E83 /* TTAudioGraphGenerator.cpp */,
+				A73F2C82161CB897007A4E83 /* TTAudioGraphInlet.h */,
+				A73F2C83161CB897007A4E83 /* TTAudioGraphInput.h */,
+				A73F2C77161CB818007A4E83 /* TTAudioGraphInput.cpp */,
+				A73F2C84161CB897007A4E83 /* TTAudioGraphObject.h */,
+				A73F2C74161CB818007A4E83 /* TTAudioGraphObject.cpp */,
+				A73F2C85161CB897007A4E83 /* TTAudioGraphOutlet.h */,
+				A73F2C86161CB897007A4E83 /* TTAudioGraphOutput.h */,
+				A73F2C76161CB818007A4E83 /* TTAudioGraphOutput.cpp */,
+				A73F2C87161CB897007A4E83 /* TTAudioGraphSource.h */,
+				A73F2C78161CB818007A4E83 /* TTAudioGraphSource.cpp */,
 				A73F2C7D161CB83E007A4E83 /* tests */,
 				2A42391C169CF0F9002D05D9 /* Frameworks */,
 				2A42391B169CF0F9002D05D9 /* Products */,
@@ -157,7 +141,7 @@
 /* Begin PBXLegacyTarget section */
 		A79C81D91523142500119511 /* AudioGraph */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(CONFIGURATION) $(ACTION)";
+			buildArgumentsString = "$(ACTION)";
 			buildConfigurationList = A79C81DC1523142500119511 /* Build configuration list for PBXLegacyTarget "AudioGraph" */;
 			buildPhases = (
 			);
@@ -221,7 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A42392A169CF188002D05D9 /* TTAudioGraphObjectBase.cpp in Sources */,
+				2A42392A169CF188002D05D9 /* TTAudioGraphObject.cpp in Sources */,
 				2A42392B169CF18C002D05D9 /* TTAudioGraphDescription.cpp in Sources */,
 				2A42392E169CF196002D05D9 /* TTAudioGraphSource.cpp in Sources */,
 				2A42392F169CF199002D05D9 /* TTAudioGraphGenerator.cpp in Sources */,
@@ -239,7 +223,6 @@
 		2A423926169CF0F9002D05D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -264,7 +247,6 @@
 		2A423927169CF0F9002D05D9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -291,9 +273,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -311,7 +294,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -323,9 +308,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -337,7 +323,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;

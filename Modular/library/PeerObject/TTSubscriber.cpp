@@ -26,6 +26,7 @@ mRelativeAddress(kTTAdrsEmpty),
 mNodeAddress(kTTAdrsEmpty),
 mContextAddress(kTTAdrsEmpty),
 mNewInstanceCreated(NO),
+mNewContextInstanceCreated(NO),
 mSubscribed(NO),
 mExposedMessages(NULL),
 mExposedAttributes(NULL)
@@ -39,6 +40,7 @@ mExposedAttributes(NULL)
 	addAttribute(NodeAddress, kTypeSymbol);
 	addAttribute(ContextAddress, kTypeSymbol);
 	addAttribute(NewInstanceCreated, kTypeBoolean);
+    addAttribute(NewContextInstanceCreated, kTypeBoolean);
     addAttribute(Subscribed, kTypeBoolean);
 	
 	addAttributeProperty(RelativeAddress, readOnly, YES);
@@ -74,6 +76,9 @@ TTErr TTSubscriber::Subscribe(const TTValue& inputValue, TTValue& outputValue)
 	TTNodePtr			aNode, aContextNode;
 	TTObjectBasePtr		hisObject;
 	TTErr				err;
+    
+    mNewInstanceCreated = NO;
+    mNewContextInstanceCreated = NO;
     
     aContextList = TTListPtr((TTPtr)inputValue[0]);
 	TT_ASSERT("ContextList passed to TTSubscriber::Subscribe is not NULL", aContextList);
@@ -264,7 +269,7 @@ TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
 	TTList				contextNodeList, attributesAccess;
 	TTNodePtr			contextNode, lowerContextNode;
 	TTPtr				aContext, lowerContext;
-	TTBoolean			found, newInstanceCreated;
+	TTBoolean			found;
 	
 	// Build the /topContext/subContext/.../contextName/ structure
 	// Check each context instance looking at the patcher.
@@ -341,7 +346,7 @@ TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
 					lowerContextAddress = contextAddress.appendAddress(relativeContextAddress);
 					
 					// Make a TTNode with no object
-					aDirectory->TTNodeCreate(lowerContextAddress, NULL, aContext, &contextNode, &newInstanceCreated);
+					aDirectory->TTNodeCreate(lowerContextAddress, NULL, aContext, &contextNode, &this->mNewContextInstanceCreated);
 
 				}
 				else {

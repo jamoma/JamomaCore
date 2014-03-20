@@ -191,7 +191,7 @@
 		22F19FDF14673EEA002CF320 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = 22F19FE214673EEA002CF320 /* Build configuration list for PBXProject "AnalysisLib" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -230,6 +230,7 @@
 		22F19FE514673EEA002CF320 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};

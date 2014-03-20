@@ -1,4 +1,4 @@
-# Mac OSX Finder stuff
+﻿# Mac OSX Finder stuff
 .DS_Store
 Makefile
 
@@ -25,6 +25,8 @@ project.xcworkspace
 *.bundle
 *.log
 *.tm_build_errors
+*.ttdll
+*.opensdf
 
 #Windows implementation build files
 implementations/MaxMSP/builds/

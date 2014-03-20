@@ -628,11 +628,11 @@ TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
         else
             v = anAddress;
 		
-		// return address
+		// return address to the owner of #TTReceiver
 		if (aReceiver->mReturnAddressCallback)
 			aReceiver->mReturnAddressCallback->deliver(v);
 		
-		// return the value
+		// return the value to the owner of #TTReceiver
 		if (aReceiver->mReturnValueCallback)
 			aReceiver->mReturnValueCallback->deliver(data);
 	}

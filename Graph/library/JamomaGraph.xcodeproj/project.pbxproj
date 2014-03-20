@@ -60,6 +60,8 @@
 		2AD78857169CFB6800604D7C /* GraphIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphIOS.h; path = GraphiOS/GraphIOS.h; sourceTree = SOURCE_ROOT; };
 		2AD78858169CFB6800604D7C /* GraphIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphIOS.m; path = GraphiOS/GraphIOS.m; sourceTree = SOURCE_ROOT; };
 		2AD7885A169CFB7300604D7C /* GraphIOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GraphIOS-Prefix.pch"; path = "GraphiOS/GraphIOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		8E2B2C0A18C8C4FA009BFF10 /* JamomaGraph.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaGraph.yml; sourceTree = "<group>"; };
+		8E2B2C0B18C8C4FA009BFF10 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,8 @@
 		229B5854149E39C10093389A = {
 			isa = PBXGroup;
 			children = (
+				8E2B2C0A18C8C4FA009BFF10 /* JamomaGraph.yml */,
+				8E2B2C0B18C8C4FA009BFF10 /* Makefile */,
 				22E6DBF1176A0B4100180546 /* includes */,
 				22E6DBDC176A0B2800180546 /* source */,
 				2AD7884C169CFB3700604D7C /* GraphIOS */,

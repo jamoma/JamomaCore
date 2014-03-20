@@ -171,6 +171,15 @@ public:
 	TTErr alloc();
 	
 	
+	/**	Allocate memory for a given number of channels, setting MaxChannelCount, at the current vector size.
+		Unlike other alloc() routines, the existing contents of the audio channels is preserved.
+	 
+		DOES NOT TAKE INTO ACCOUNT THE 'LOCALLY OWNED' ATTRIBUTE BEING SET TO FALSE!
+		COULD CAUSE MEM CORRUPTION IF USED ON EXTERNAL REFERENCES!
+	 */
+	TTErr allocWithNewChannelCount(TTUInt16 newChannelCount);
+
+	
 	/**	Allocate memory for all channels at the specified vectorsize, 
 		if the vectorsize is different from the current state.
 	*/
@@ -292,7 +301,9 @@ public:
 		short			channel;
 		
 		if (channelCount > mMaxNumChannels)
-			channelCount = mMaxNumChannels;
+			allocWithNewChannelCount(channelCount);
+		else
+			mNumChannels = channelCount;
 		if (channelCount > rightHandValue.mMaxNumChannels)
 			channelCount = rightHandValue.mMaxNumChannels;
 		

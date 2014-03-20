@@ -195,27 +195,6 @@ TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorS
 	return kTTErrNone;
 }
 
-/* setVector32 is no longer used anywhere in our codebase
-TTErr TTAudioSignal::setVector32(const TTValue& v, TTValue&)
-{
-	if (v.size() == 3) {
-		TTUInt16	channel = v[0];
-		TTUInt16	newVectorSize = v[1];
-		TTPtr		newVector = v[2];
-		
-		return setVector(channel, newVectorSize, (TTFloat32*)newVector);
-	}
-	return kTTErrWrongNumValues;
-}
-*/
-
-/*
-TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 returnedVectorSize, TTSampleValue* returnedVector)
-{
-	*returnedVector = mSampleVectors[channel];
-	return kTTErrNone;
-}
-*/
 
 TTErr TTAudioSignal::getVectorCopy(const TTUInt16 channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector)
 {
@@ -226,22 +205,6 @@ TTErr TTAudioSignal::getVectorCopy(const TTUInt16 channel, const TTUInt16 theVec
 	return kTTErrNone;
 }
 
-/*
-TTErr TTAudioSignal::getVector64(TTValue&, TTValue& v)
-{
-	TTUInt16		channel;
-	TTUInt16		theVectorSize;
-	TTPtr			returnedVector;
-	
-	if (v.size() == 3) {
-		channel = v[0];
-		theVectorSize = v[1];
-		returnedVector = v[2];
-		return getVector(channel, theVectorSize, (TTSampleValue*)(returnedVector));
-	}
-	return kTTErrWrongNumValues;
-}
- */
 
 
 TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 theVectorSize, TTFloat32* returnedVector)
@@ -253,23 +216,6 @@ TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 theVectorS
 	return kTTErrNone;
 }
 
-/* getVector32 is no longer used anywhere in our codebase
-TTErr TTAudioSignal::getVector32(TTValue&, TTValue& v)
-{
-	TTUInt16		channel;
-	TTUInt16		theVectorSize;
-	TTPtr			returnedVector = NULL;
-	
-	if (v.size() == 3) {
-		channel = v[0];
-		theVectorSize = v[1];
-		returnedVector = v[2];
-		return getVector(channel, theVectorSize, (TTFloat32*)returnedVector);
-	}
-	return kTTErrWrongNumValues;
-}
- */
-
 
 TTErr TTAudioSignal::alloc()
 {
@@ -280,7 +226,7 @@ TTErr TTAudioSignal::alloc()
 			mSampleVectors[i] = NULL;
 		}
 	}
-
+	
 	for (i=0; i<mMaxNumChannels; i++) {
 		mSampleVectors[i] = (TTSampleValue*)TTMalloc16(sizeof(TTSampleValue) * mVectorSize);
 	}
@@ -289,6 +235,44 @@ TTErr TTAudioSignal::alloc()
 	//bitdepth = 64;
 	return kTTErrNone;
 }
+
+
+TTErr TTAudioSignal::allocWithNewChannelCount(TTUInt16 newChannelCount)
+{
+	if (newChannelCount < mMaxNumChannels)			// we don't both allocating memory for fewer channels, only when more channels are requested
+		return kTTErrNone;
+
+	TTLimitMin<TTUInt16>(newChannelCount, 1);		// limit minimum number of channels to 1
+	
+	// Alloc new memory for the array of channels
+	TTSampleValue** newSampleVectors = (TTSampleValue**)TTMalloc16(sizeof(TTSampleValue*) * newChannelCount);
+
+	for (int i=0; i<newChannelCount; i++) {		// alloc a vector for each channel
+		newSampleVectors[i] = (TTSampleValue*)TTMalloc16(sizeof(TTSampleValue) * mVectorSize);
+		if (i < mMaxNumChannels)					// copy the contents from the existing audio signal
+			memcpy(newSampleVectors[i], mSampleVectors[i], sizeof(TTSampleValue) * mVectorSize);
+		else
+			memset(newSampleVectors[i], 0, sizeof(TTSampleValue) * mVectorSize);
+	}
+	
+	// Switch the pointers for our object to the new channels and free the old memory afterward
+	TTSampleValue** oldSampleVectors = mSampleVectors;
+	int				oldChannelCount = mMaxNumChannels;
+	
+	mSampleVectors = newSampleVectors;
+	mMaxNumChannels = newChannelCount;
+	mNumChannels = newChannelCount;
+		
+	for (int i=0; i<oldChannelCount; i++) {
+		TTFree16(oldSampleVectors[i]);
+		oldSampleVectors[i] = NULL;
+	}
+	TTFree16(oldSampleVectors);
+
+	mIsLocallyOwned = true;
+	return kTTErrNone;
+}
+
 
 
 TTErr TTAudioSignal::allocWithVectorSize(const TTUInt16 newVectorSize)

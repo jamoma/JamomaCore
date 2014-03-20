@@ -23,7 +23,7 @@
 // Platform-specific definitions
 #ifdef TT_PLATFORM_WIN
 	#include "windows.h"
-	#if defined( _DLL_EXPORT ) && defined( TTAUDIOGRAPH_EXPORTS )
+	#if defined( TTAUDIOGRAPH_EXPORTS )
 		#define TTAUDIOGRAPH_EXPORT __declspec(dllexport)
 	#else
 		#define TTAUDIOGRAPH_EXPORT __declspec(dllimport)

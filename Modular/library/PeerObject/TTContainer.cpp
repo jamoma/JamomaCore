@@ -128,7 +128,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 			else
 				attrOrMess = kTTSym_value;
             
-            // Is there a wild card ?
+            // If there is a wild card we need to retreive all the objects in mObjectsObserversCache
             if (strrchr(aRelativeAddress.c_str(), C_WILDCARD)) {
                 
                 mIsSending = false;
@@ -171,6 +171,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 					anObject->getAttributeValue(kTTSym_service, v);
 					service = v[0];
 					
+                    // we are not supposed to address returns
 					if (service == kTTSym_return)
 						return kTTErrNone;
 					
@@ -205,24 +206,19 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 			// maybe the relative address is for Container below ourself
 			else {
 				
-				// split relative address and retry
+				// split relative address and retry using only the first (top) part of the relative address
 				aRelativeAddress.splitAt(0, topAddress, belowAddress);
-				
-				// retry to get an object
 				err = mObjectsObserversCache->lookup(topAddress, cacheElement);
 				
-				// if the topAddress is in the cache
+                // if the object is in our cache : we replace the relative addres by the belowAddress and send the value
 				if (!err) {
 					
 					anObject = cacheElement[0];
 					
-					// CONTAINER CASE : use Send message
+					// check if it is a #TTContainer object
 					if (anObject->getName() == kTTSym_Container) {
 						
-						// replace relativeAddress by belowAddress
 						AddressAndValue[0] = belowAddress;
-						
-						// send the value
 						anObject->sendMessage(kTTSym_Send, AddressAndValue, none);
 						
 						// unlock
@@ -779,8 +775,8 @@ TTErr TTContainer::unbind()
 TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
-	TTString		*buffer;
-	TTUInt16		i;
+	TTString		*buffer, toWrite;
+	TTUInt16		i, numInput = 0, numOutput = 0;
 	TTValue			keys, cacheElement, s, arg, tags, none;
 	TTSymbol		name, service;
 	TTObjectBasePtr	anObject;
@@ -829,17 +825,42 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += "\t<p> Tags : <code>";
 	*buffer += TTString(tags[0]);
 	*buffer += "</code> <br>";
+    
+    mObjectsObserversCache->getKeysSorted(keys);
 	
 	/* 
 	 Inlets and outlets Objects 
 	 */
 	
-	// TODO : Find TTInput and TTOuput
-	*buffer += "\t<p>Number of signal inlets: <code> 0 </code> <br/>";
-	*buffer += "\t<p>Number of signal outlets: <code> 0 </code> <br/>";
+	for (i = 0; i < keys.size(); i++)
+	{
+		name = keys[i];
+		mObjectsObserversCache->lookup(name, cacheElement);
+		anObject = cacheElement[0];
+		
+		if (anObject->getName() == kTTSym_Input || anObject->getName() == kTTSym_InputAudio)
+            numInput++;
+        
+        if (anObject->getName() == kTTSym_Output || anObject->getName() == kTTSym_OutputAudio)
+            numOutput++;
+    }
+    
+    // write the number of inputs
+    s = numInput;
+	s.toString();
+	toWrite = TTString(s[0]);
+	*buffer += "\t<p>Number of signal inlets : <code> ";
+    *buffer += toWrite.data();
+    *buffer += " </code> <br/>";
+    
+    // write the number of outputs
+    s = numOutput;
+	s.toString();
+	toWrite = TTString(s[0]);
+	*buffer += "\t<p>Number of signal outlets : <code> ";
+    *buffer += toWrite;
+    *buffer += " </code> <br/>";
 	
-	
-	mObjectsObserversCache->getKeysSorted(keys);
 	/* 
 	 Data @service parameter
 	 */
@@ -973,18 +994,18 @@ void TTContainer::dataHeading(TTString *buffer)
 {		
 	*buffer += "\t<table>";
 	*buffer += "\t\t<tr class=\"tableHeading2\">";
-	*buffer += "\t\t\t<td> /name </td>";
-	*buffer += "\t\t\t<td> /type </td>";
-	*buffer += "\t\t\t<td> /range/bounds </td>";
-	*buffer += "\t\t\t<td> /range/clipmode </td>";
-	*buffer += "\t\t\t<td> /ramp/drive </td>";
+	*buffer += "\t\t\t<td> name </td>";
+	*buffer += "\t\t\t<td> type </td>";
+	*buffer += "\t\t\t<td> range/bounds </td>";
+	*buffer += "\t\t\t<td> range/clipmode </td>";
+	*buffer += "\t\t\t<td> ramp/drive </td>";
 #ifndef TT_NO_DSP    
-	*buffer += "\t\t\t<td> /ramp/function </td>";
+	*buffer += "\t\t\t<td> ramp/function </td>";
 #endif
-	*buffer += "\t\t\t<td> /dataspace </td>"; 
-	*buffer += "\t\t\t<td> /dataspace/unit </td>"; 
-	*buffer += "\t\t\t<td> /repetitions/filter </td>";	
-	*buffer += "\t\t\t<td> /description </td>";
+	*buffer += "\t\t\t<td> dataspace </td>";
+	*buffer += "\t\t\t<td> dataspace/unit </td>";
+	*buffer += "\t\t\t<td> repetitions/filter </td>";
+	*buffer += "\t\t\t<td> description </td>";
 	*buffer += "\t\t<tr>";
 }
 
@@ -1310,10 +1331,10 @@ TTErr TTContainerValueAttributeCallback(const TTValue& baton, const TTValue& dat
  
 					TTValue dummy;
 
-                    // return the address
+                    // return the address to the owner of the #TTContainer
                     aContainer->mReturnAddressCallback->notify(relativeAddress, dummy);
                     
-                    // return the value
+                    // return the value to the owner of the #TTContainer
                     aContainer->mReturnValueCallback->notify(v, dummy);
                     
                     // Notify activity observers (about value changes only)

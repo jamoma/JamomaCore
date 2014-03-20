@@ -490,7 +490,7 @@
 		A7FF3FDC165D7A6100130C98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = org.jamoma;
 			};
 			buildConfigurationList = A7FF3FDF165D7A6100130C98 /* Build configuration list for PBXProject "FilterLib" */;
@@ -655,7 +655,6 @@
 		2AD788AB169CFD7000604D7C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -674,7 +673,6 @@
 		2AD788AC169CFD7000604D7C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -695,7 +693,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -724,7 +721,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -775,6 +771,7 @@
 				2251969918C4CCFF0011F39D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AD788AD169CFD7000604D7C /* Build configuration list for PBXNativeTarget "FilterLibIOS" */ = {
 			isa = XCConfigurationList;

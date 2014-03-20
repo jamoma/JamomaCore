@@ -790,6 +790,8 @@ TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue)
 	
     command->setValue(aValue);
 	command->setSchema(kTTSym_command);
+    
+    // We return a dictionary with one or more keys. It always has a value. If it is ramping, it also has a ramp key, and if it has a unit, it also has a unit key.
 	
 	return command;
 }

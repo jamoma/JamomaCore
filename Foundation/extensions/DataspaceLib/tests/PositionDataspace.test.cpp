@@ -12,7 +12,12 @@
  */
 
 
+// Dataspaces and Units employ C++ double-inheritance and are thus unsuitable for direct use
+// through the usual TTObject API
+#define TT_NO_DEPRECATION_WARNINGS
+
 #include "PositionDataspace.h"
+
 
 TTErr PositionDataspace::test(TTValue& returnedTestInfo)
 {
