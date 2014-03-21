@@ -1190,6 +1190,11 @@ else
 				if !libraries
 					# makefile.write("LIBS = ''")
 				else
+					if linux?
+						makefile.write("LIB_INCLUDES += -L/usr/local/lib/jamoma/lib\n")
+					end
+
+
 					libraries.each do |lib|
 						if mac?
 							lib = lib.to_s
@@ -1227,55 +1232,23 @@ else
 							lib = lib.to_s
 
 							if (lib == "FOUNDATION")
-								if (i == 0)
-									makefile.write("LIBS = -lJamomaFoundation\n")
-									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Foundation/library/build\n")
-								else
-									makefile.write("LIBS += -lJamomaFoundation\n")
-									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Foundation/library/build\n")
-								end
+								makefile.write("LIBS += -lJamomaFoundation\n")
 							elsif (lib == "DSP")
-								if (i == 0)
-									makefile.write("LIBS = -lJamomaDSP\n")
-									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/DSP/library/build\n")
-								else
-									makefile.write("LIBS += -lJamomaDSP\n")
-									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/DSP/library/build\n")
-								end
+								makefile.write("LIBS += -lJamomaDSP\n")
 							elsif (lib == "MODULAR")
-								if (i == 0)
-									makefile.write("LIBS = -lJamomaModular\n")
-									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Modular/library/build\n")
-								else
-									makefile.write("LIBS += -lJamomaModular\n")
-									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Modular/library/build\n")
-								end
+								makefile.write("LIBS += -lJamomaModular\n")
 							elsif (lib == "GRAPH")
-								if (i == 0)
-									makefile.write("LIBS = -lJamomaGraph\n")
-									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Graph/library/build\n")
-								else
-									makefile.write("LIBS += -lJamomaGraph\n")
-									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Graph/library/build\n")
-								end
+								makefile.write("LIBS += -lJamomaGraph\n")
 							elsif (lib == "AUDIOGRAPH")
-								if (i == 0)
-									makefile.write("LIBS = -lJamomaAudioGraph\n")
-									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
-								else
-									makefile.write("LIBS += -lJamomaAudioGraph\n")
-									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
-								end
+								makefile.write("LIBS += -lJamomaAudioGraph\n")
 							else
-								lib_dir = lib.split "/"
-								if (i == 0)
-									makefile.write("LIBS = -l#{lib}\n")
-									makefile.write("LIB_INCLUDES = -L#{lib_dir}\n")
-								else
+								if (lib.include?("/"))
+									makefile.write("LIBS += #{lib}\n")
+								else # case -lxml2 for instance
 									makefile.write("LIBS += -l#{lib}\n")
-									makefile.write("LIB_INCLUDES += -L#{lib_dir}\n")
 								end
 							end
+
 						end
 
 						makefile.write("\n")

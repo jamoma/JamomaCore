@@ -325,7 +325,6 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 
 		fileFullpath += "/";
 		fileFullpath += fileName;
-		std::cout << "EXTENSION: " << fileFullpath << std::endl;
 
 		// make sure the files have the correct extension before trying to load them
 #ifdef TT_PLATFORM_LINUX
@@ -342,9 +341,10 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #else
 		handle = dlopen(fileFullpath.c_str(), RTLD_LAZY);
 #endif
-		//std::cout << "HANDLE: " << handle << std::endl;
+		//
 		if (!handle)
 		{
+			std::cout << "HANDLE ERROR: " << dlerror() << std::endl;
 			continue;
 		}
 		// TODO: assert -- or at least do a log post -- if handle is NULL
@@ -354,7 +354,9 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		// Because they begin with "lib"
 		fileBaseName.erase(fileBaseName.begin(), fileBaseName.begin() + 3);
 #endif
+
 		initializerFunctionName += fileBaseName;
+
 #ifdef TT_PLATFORM_WIN
 		initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)handle, initializerFunctionName.c_str());
 #else
