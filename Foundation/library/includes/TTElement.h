@@ -33,6 +33,7 @@ class TTObjectBase;
 class TTMatrix;
 class TTDictionary;
 
+
 //#define USE_TTInt32				// to -- To easily change for TTInt32 instead of int in order to make test
 
 // macro for converting from one type to another regardless of type
@@ -119,7 +120,7 @@ break;\
 // Class Specification
 
 
-class TTFOUNDATION_EXPORT TTElement {
+class TTFOUNDATION_EXPORT TT_ALIGN_16 TTElement {
 	friend class TTDictionary;
 	
 	/** The data value of TTValue is stored using a union, which means that the size of TTDataValue is the size of the largest type in this list.
@@ -155,6 +156,32 @@ class TTFOUNDATION_EXPORT TTElement {
 	TTDataType		mType;
 
 public:
+	
+	/** We use custom #new and #delete operators for TTElement to ensure that all memory
+		allocated on the heap is aligned on 16-byte boundaries.
+		
+		For memory allocated on the stack we rely on the #TT_ALIGN_16 macro used in the class definition.
+	 */
+	void* operator new(size_t size)
+	{
+		void *mem = TTMalloc16(size);
+		
+		if (!mem)
+            throw "allocation fail : no free memory";
+		return mem;
+	}
+	
+
+	/** We use custom #new and #delete operators for TTElement to ensure that all memory
+		allocated on the heap is aligned on 16-byte boundaries.
+		 
+		For memory allocated on the stack we rely on the #TT_ALIGN_16 macro used in the class definition.
+	 */
+	void operator delete(void* mem)
+	{
+		TTFree16(mem);
+	}
+	
 	
 	TTElement() :
 	mType(kTypeNone)
