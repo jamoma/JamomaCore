@@ -613,4 +613,18 @@ void TTFOUNDATION_EXPORT TTLogDebug(TTImmutableCString message, ...);
 
 
 
+/**	Allocate memory from the heap aligned to 16-byte boundaries.
+	This memory MUST be freed using TTFree16().
+ 
+	@see #TT_ALIGN_16
+	@see http://stackoverflow.com/questions/1919183/how-to-allocate-and-free-aligned-memory-in-c
+	@see http://bytes.com/topic/c/answers/591742-overload-new-delete-memalign-malloc
+*/
+TTPtr TTFOUNDATION_EXPORT TTMalloc16(size_t numBytes);
+
+
+/** Free memory allocated using TTMalloc16(). */
+void TTFOUNDATION_EXPORT TTFree16(TTPtr ptr);
+
+
 #endif // __TT_BASE_H__
