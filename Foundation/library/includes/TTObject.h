@@ -14,8 +14,12 @@
 #ifndef __TT_OBJECT_H__
 #define __TT_OBJECT_H__
 
-#include "TTObjectBase.h"
-#include "TTEnvironment.h"
+//#include "TTObjectBase.h"
+//#include "TTEnvironment.h"
+#include "TTSymbol.h"
+
+class TTObjectBase;
+class TTValue;
 
 /****************************************************************************************************/
 // Class Specifications
@@ -27,7 +31,7 @@ class TTFOUNDATION_EXPORT TTObject {
 protected:
 	friend class TTEnvironment;
 
-	TTObjectBasePtr		mObjectInstance;
+	TTObjectBase*		mObjectInstance;
 
 public:
 	
@@ -36,60 +40,33 @@ public:
 		 @param arguments		Arguments to the constructor.
 	 */
 	// NOTE: arguments *must* be copied -- otherwise a reference to kTTValNONE may overwrite its value and corrupt memory
-	TTObject(const TTSymbol& aClassName, const TTValue arguments = TTValue()) :
-	mObjectInstance(NULL)
-	{
-		TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, arguments);
-		
-		if (err) {
-			TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName.c_str());
-			throw TTException("object instantiation failed");
-		}
-	}
-	
+	TTObject(const TTSymbol& aClassName, const TTValue arguments);
+
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
-	TTObject() :
-		mObjectInstance(NULL)
-	{
-		
-	}
+	TTObject(const TTSymbol& aClassName);
+
+	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
+	TTObject();
+	
+	
+//#error Where is the copy constructor!?!?
 	
 	/** Destructor.
 	 */
-	virtual ~TTObject()
-	{
-		ttEnvironment->releaseInstance(&mObjectInstance);
-	}
+	virtual ~TTObject();
+	
 	
 	// TODO -- how do we do TTObjectReference?  Copy constructor and assignment operator, yes?
 	// Look at the Doxygen tutorial for a use case!
 	
 	// class methods for querying the registry
-	static TTErr GetRegisteredClassNames(TTValue& classNames)
-	{
-		TTValue unused;
-		return ttEnvironment->getAllClassNames(unused, classNames);
-	}
-	
-	static TTErr GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags)
-	{
-		return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
-	}
-	
-	static TTErr GetRegisteredTags(TTValue& tags)
-	{
-		// TODO: Needs to be implemented!
-		return kTTErrMethodNotFound;
-	}
-
+	static TTErr GetRegisteredClassNames(TTValue& classNames);
+	static TTErr GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
+	static TTErr GetRegisteredTags(TTValue& tags);
 	
 	/** Return a direct pointer to the internal instance.
 		Not recommended in most cases. */
-	TTObjectBase* instance() const
-	{
-		return mObjectInstance;
-	}
-	
+	TTObjectBase* instance() const;
 	
 	/**	Set an attribute value for an object
 		@param	name			The name of the attribute to set.
@@ -99,11 +76,7 @@ public:
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	template <class T>
-	TTErr set(const TTSymbol aName, T aValue)
-	{
-		return mObjectInstance->setAttributeValue(aName, aValue);
-	}
-	
+	TTErr set(const TTSymbol aName, T aValue);
 	
 	/**	Get an attribute value for an object
 		@param	name				The name of the attribute to get.
@@ -111,48 +84,28 @@ public:
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.	 
 	 */
 	template <class T>
-	TTErr get(const TTSymbol aName, T& aReturnedValue)
-	{
-		return mObjectInstance->getAttributeValue(aName, aReturnedValue);
-	}
-	
+	TTErr get(const TTSymbol aName, T& aReturnedValue);
 	
 	/** Return a list of names of the available attributes.
 		@param attributeNameList		Pointer to a list of all attributes registered with this TTObjectBase.
 	 */
-	void attributes(TTValue& returnedAttributeNames)
-	{
-		mObjectInstance->getAttributeNames(returnedAttributeNames);
-	}
-	
+	void attributes(TTValue& returnedAttributeNames);
 	
 	/** Return a list of names of the available messages.
 		@param messageNameList		Pointer to a list of all messages registered with this TTObjectBase.
 	 */
-	void messages(TTValue& returnedMessageNames)
-	{
-		mObjectInstance->getMessageNames(returnedMessageNames);
-	}
-	
+	void messages(TTValue& returnedMessageNames);
 	
 	/** Return the name of this class.
 		@return					The name of this object.
 	 */
-	TTSymbol name() const
-	{
-		return mObjectInstance->getName();
-	}
-
+	TTSymbol name() const;
 	
 	/** Send a message to this object with no arguments.
 		@param aName	The name of the message to send.
 		@return			#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr send(const TTSymbol& aName)
-	{
-		return mObjectInstance->sendMessage(aName);
-	}
-
+	TTErr send(const TTSymbol& aName);
 
 	/** Send a message to this object with arguments.
 		All arguments for input must be packed into a #TTValue container.
@@ -162,11 +115,7 @@ public:
 		@param	anOutputValue	Will be filled-in with data upon return if the message returns data.
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr send(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue)
-	{
-		return mObjectInstance->sendMessage(aName, anInputValue, anOutputValue);
-	}
-
+	TTErr send(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue);
 	
 	/** Register an observer.
 		The observer will be monitoring this object.
@@ -174,15 +123,8 @@ public:
 		@param anObservingObject	Reference to the observing object.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr registerObserverForNotifications(const TTObjectBase& anObservingObject)
-	{
-		return mObjectInstance->registerObserverForNotifications(anObservingObject);
-	}
-	TTErr registerObserverForNotifications(const TTObject& anObservingObject)
-	{
-		return mObjectInstance->registerObserverForNotifications(*anObservingObject.instance());
-	}
-	
+	TTErr registerObserverForNotifications(const TTObjectBase& anObservingObject);
+	TTErr registerObserverForNotifications(const TTObject& anObservingObject);
 		
 	/** Unregister an observer for notifications.
 		The observer wiln no longer be monitoring.
@@ -190,25 +132,19 @@ public:
 		@param anObservingObject	Reference to the observing object.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr unregisterObserverForNotifications(const TTObjectBase& anObservingObject)
-	{
-		return mObjectInstance->unregisterObserverForNotifications(anObservingObject);
-	}
-	TTErr unregisterObserverForNotifications(const TTObject& anObservingObject)
-	{
-		return mObjectInstance->unregisterObserverForNotifications(*anObservingObject.instance());
-	}
-	
-	
-	/** Compare two objects for equality. */
-	inline friend bool operator == (const TTObject& anObject, const TTObject& anotherObject)
-	{
-		return (anObject.instance() == anotherObject.instance());
-	}
-
+	TTErr unregisterObserverForNotifications(const TTObjectBase& anObservingObject);
+	TTErr unregisterObserverForNotifications(const TTObject& anObservingObject);
 		
 	
+	/**	Determine if the object contained by this TTObject is truly ready for use.
+		@return If ready returns #YES otherwise #NO.
+	 */
+	TTBoolean valid() const;
 };
+
+
+/** Compare two objects for equality. */
+inline bool operator == (const TTObject& anObject, const TTObject& anotherObject);
 
 
 /** Macro to access the actual C++ class that is contained inside of the #TTObject as a pointer.

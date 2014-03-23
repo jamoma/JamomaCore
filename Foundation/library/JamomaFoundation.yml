@@ -14,6 +14,7 @@ sources:
   - source/TTDataObjectBase.cpp
   - source/TTBase.cpp
   - source/TTMessage.cpp
+  - source/TTObject.cpp
   - source/TTObjectBase.cpp
   - source/TTDictionary.cpp
   - source/TTDictionaryBase.cpp
