@@ -359,6 +359,11 @@ public:
 	TTException(TTImmutableCString aReason)
 	: reason(aReason)
 	{}
+	
+	const char* getReason()
+	{
+		return reason;
+	}
 };
 
 
