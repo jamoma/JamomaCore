@@ -1580,7 +1580,7 @@ else
 			else
 
 				makefile.write("#########################################\n\n")
-				makefile.write("OPTIMIZATION_DEBUG = -O0\n")
+				makefile.write("OPTIMIZATION_DEBUG = -O0 -DTT_ENABLE_ASSERTIONS\n")
 				makefile.write("OPTIMIZATION_RELEASE = -O3\n")
 				makefile.write("\n")
 				if mac?
@@ -1798,16 +1798,16 @@ else
 						# write the necessary entries into the makefile
 						makefile.write("build_and_test: | lipo \n")
 						makefile.write("\techo Testing 32-bit \n")
-						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC -DTT_ENABLE_ASSERTIONS ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
 						makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
 						makefile.write("\techo Testing 64-bit \n")
-						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC -DTT_ENABLE_ASSERTIONS ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
 						makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
 						makefile.write("\n")
 
 						makefile.write("notest: | lipo \n")
-					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
-					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC -DTT_ENABLE_ASSERTIONS ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC -DTT_ENABLE_ASSERTIONS ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
 						makefile.write("\techo Skipping Tests \n")
 						makefile.write("\n")
 						
