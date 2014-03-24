@@ -128,7 +128,7 @@ public:
 		@param anObservingObject	Reference to the observing object.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr registerObserverForNotifications(const TTObjectBase& anObservingObject);
+	//TTErr registerObserverForNotifications(const TTObjectBase& anObservingObject);
 	TTErr registerObserverForNotifications(const TTObject& anObservingObject);
 		
 	/** Unregister an observer for notifications.
@@ -137,7 +137,7 @@ public:
 		@param anObservingObject	Reference to the observing object.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr unregisterObserverForNotifications(const TTObjectBase& anObservingObject);
+	//TTErr unregisterObserverForNotifications(const TTObjectBase& anObservingObject);
 	TTErr unregisterObserverForNotifications(const TTObject& anObservingObject);
 		
 	

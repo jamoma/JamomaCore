@@ -118,27 +118,15 @@ TTErr TTObject::send(const TTSymbol aName, const TTValue& anInputValue, TTValue&
 }
 
 
-
-TTErr TTObject::registerObserverForNotifications(const TTObjectBase& anObservingObject)
+TTErr TTObject::registerObserverForNotifications(const TTObject& anObservingObject)
 {
 	return mObjectInstance->registerObserverForNotifications(anObservingObject);
 }
 
-TTErr TTObject::registerObserverForNotifications(const TTObject& anObservingObject)
-{
-	return mObjectInstance->registerObserverForNotifications(*anObservingObject.instance());
-}
-
-
-
-TTErr TTObject::unregisterObserverForNotifications(const TTObjectBase& anObservingObject)
-{
-	return mObjectInstance->unregisterObserverForNotifications(anObservingObject);
-}
 
 TTErr TTObject::unregisterObserverForNotifications(const TTObject& anObservingObject)
 {
-	return mObjectInstance->unregisterObserverForNotifications(*anObservingObject.instance());
+	return mObjectInstance->unregisterObserverForNotifications(anObservingObject);
 }
 
 

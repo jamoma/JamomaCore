@@ -75,6 +75,8 @@ TTElement::operator TTDictionary() const
 
 TTElement& TTElement::operator = (const TTDictionary value)
 {
+	chuck();
+	
 	TTBoolean unused;
 
 	if (mType != kTypeDictionary) {

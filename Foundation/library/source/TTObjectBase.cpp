@@ -451,15 +451,16 @@ TTErr TTObjectBase::sendMessage(const TTSymbol name, const TTValue& anInputValue
 #endif
 
 
-TTErr TTObjectBase::registerObserverForNotifications(const TTObjectBase& observingObject)
+TTErr TTObjectBase::registerObserverForNotifications(const TTObject& observingObject)
 {
-	TTValue v = observingObject;
+	TTValue v(observingObject);
+	
 	observers->appendUnique(v);
 	return kTTErrNone;
 }
 
 
-TTErr TTObjectBase::unregisterObserverForNotifications(const TTObjectBase& observingObject)
+TTErr TTObjectBase::unregisterObserverForNotifications(const TTObject& observingObject)
 {
 	TTValue	c(observingObject);
 	TTValue	v;

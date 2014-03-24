@@ -15,9 +15,9 @@
 #include <list>
 
 class TTObjectBase;
-typedef TTObjectBase* TTObjectBasePtr;
 typedef std::list<TTValue>				TTLinkedList;
 typedef std::list<TTValue>::iterator	TTListIter;
+typedef TTObjectBase*					TTObjectBasePtr;
 
 /****************************************************************************************************/
 // Class Specification

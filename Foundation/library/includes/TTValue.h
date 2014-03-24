@@ -250,11 +250,13 @@ public:
 		returnedElementValue = at(index);
 	}
 
+	/*
 	TT_DEPRECATED ( void get(const TTUInt16 index, TTObjectBase** value) const )
 	{
 		if (at(index).type() == kTypeObject)
 			*value = at(index);
 	}
+	 */
 
 	TT_DEPRECATED ( void get(const TTUInt16 index, TTPtr* value) const )
 	{

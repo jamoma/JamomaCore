@@ -258,13 +258,17 @@ TTObjectBasePtr TTEnvironment::referenceInstance(TTObjectBasePtr anObject)
 
 TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 {
-	TTValue v = **anObject;
-
 	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
 
 	(*anObject)->valid = false;
-	(*anObject)->observers->iterateObjectsSendingMessage("objectFreeing", v);
 
+	// For the notification we pass the base pointer as a pointer rather than wrapping as a TTObject reference.
+	// This is important because we don't want to alter the refcount in the middle of freeing the object.
+	{
+		TTValue v = TTPtr(*anObject);
+		(*anObject)->observers->iterateObjectsSendingMessage("objectFreeing", v);
+	}
+	
 	waitForLock(); // in case an object is processing a vector of audio in another thread or something...
 
 	(*anObject)->referenceCount--;
