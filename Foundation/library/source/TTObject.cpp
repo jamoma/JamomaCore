@@ -41,6 +41,26 @@ mObjectInstance(NULL)
 }
 
 
+TTObject(const TTElement element) :
+mObjectInstance(NULL)
+{
+    if (element.type() == kTypeObject)
+        mObjectInstance = ttEnvironment->referenceInstance(TTObjectBasePtr(element));
+}
+
+
+TTObject(const char* aClassName) :
+mObjectInstance(NULL)
+{
+    TTErr err = ttEnvironment->createInstance(TTSymbol(aClassName), &mObjectInstance, arguments);
+    
+    if (err) {
+        TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName);
+        throw TTException("object instantiation failed");
+    }
+}
+
+
 TTObject::TTObject() :
 mObjectInstance(NULL)
 {
@@ -58,7 +78,8 @@ mObjectInstance(NULL)
 
 TTObject::~TTObject()
 {
-	ttEnvironment->releaseInstance(&mObjectInstance);
+    if (mObjectInstance)
+        ttEnvironment->releaseInstance(&mObjectInstance);
 }
 
 
@@ -89,6 +110,12 @@ TTObjectBase* TTObject::instance() const
 void TTObject::attributes(TTValue& returnedAttributeNames)
 {
 	mObjectInstance->getAttributeNames(returnedAttributeNames);
+}
+
+
+TTSymbol TTObject::attributeType(const TTSymbol aName)
+{
+    return mObjectInstance->getAttributeType(aName);
 }
 
 

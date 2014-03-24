@@ -45,17 +45,17 @@ public:
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
 	TTObject(const TTSymbol aClassName);
 
-	/** Constructor to create a container and assigned it with the content of a #TTElement 
+	/** Constructor to create a container and assigned it with the content of a #TTElement
+     @details this allows to write : TTObject object = value[0];
      @param element             The element from where to copy the object instance
      */
 	TTObject(const TTElement element);
 
 	/** Constructor needed to avoid ambiguous conversion for functional-style cast from 'const char' to 'TTObject'.
-     This ambiguity is relative to the TTObject(const TTElement element) 
+     This ambiguity is relative to the TTObject(const TTElement element)
      @param aClassName		The symbolic name of the class to create/wrap.
-     @param arguments		Arguments to the constructor. 
      */
-    TTObject(const char* aClassName, const TTValue arguments = TTValue());
+    TTObject(const char* aClassName);
 
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
 	TTObject();
@@ -82,12 +82,30 @@ public:
 	static TTErr GetRegisteredTags(TTValue& tags);
 
 	/**	Assign a TTObject instance to another TTObject
-	*/
-	TTObject& operator = (TTObject object);
-
-	/**	Assign a TTObject instance from an kTypeObject element
      */
-	TTObject& operator = (TTElement element);
+    TTObject& operator = (TTObject object)
+    {
+        if (mObjectInstance)
+            ttEnvironment->releaseInstance(&mObjectInstance);
+        
+        mObjectInstance = ttEnvironment->referenceInstance(object.mObjectInstance);
+        return *this;
+    }
+    
+    /**	Assign a TTObject instance from an kTypeObject element
+     */
+    TTObject& operator = (TTElement element)
+    {
+        if (element.type() == kTypeObject) {
+            
+            if (mObjectInstance)
+                ttEnvironment->releaseInstance(&mObjectInstance);
+            
+            mObjectInstance = ttEnvironment->referenceInstance(TTObjectBasePtr(element));
+        }
+        
+        return *this;
+    }
 	
 	/** Return a direct pointer to the internal instance.
 		Not recommended in most cases. */
@@ -115,6 +133,12 @@ public:
 		@param attributeNameList		Pointer to a list of all attributes registered with this TTObjectBase.
 	 */
 	void attributes(TTValue& returnedAttributeNames);
+    
+    /** Return the type of an attribute as a symbol.
+     @param aName                   The name of the attribute we want the type.
+     @return #TTSymbol : kTTSym__none, kTTSym_uint8, kTTSym_int8, kTTSym_uint16, kTTSym_int16, kTTSym_uint32, kTTSym_int32, kTTSym_uint64, kTTSym_int64, kTTSym_float32, kTTSym_float64, kTTSym__boolean, kTTSym_symbol, kTTSym_string, kTTSym_pointer, kTTSym_object, kTTSym_value. Returns kTTSymEmpty if the attribute doesn't exist.
+	 */
+	TTSymbol attributeType(const TTSymbol aName);
 	
 	/** Return a list of names of the available messages.
 		@param messageNameList		Pointer to a list of all messages registered with this TTObjectBase.
