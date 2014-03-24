@@ -19,6 +19,9 @@
 		22BBA1A817772EE3000941AC /* TTDictionaryBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDictionaryBase.h; path = includes/TTDictionaryBase.h; sourceTree = "<group>"; };
 		22BBA1A917772F27000941AC /* TTDictionaryBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDictionaryBase.cpp; path = source/TTDictionaryBase.cpp; sourceTree = "<group>"; };
 		22E1302F18DF4D860040A028 /* TTObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTObject.cpp; path = source/TTObject.cpp; sourceTree = "<group>"; };
+		22E1303018DFB4DC0040A028 /* TTObjectTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTObjectTest.cpp; sourceTree = "<group>"; };
+		22E1303118DFB4DC0040A028 /* TTObjectTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTObjectTest.h; sourceTree = "<group>"; };
+		22E1303218DFBA5F0040A028 /* TTObjectTemplates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTObjectTemplates.h; path = includes/TTObjectTemplates.h; sourceTree = "<group>"; };
 		22EFB4B115F7E24400A85A8C /* TTString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTString.h; path = includes/TTString.h; sourceTree = "<group>"; };
 		22F4981316961C1400D2C427 /* TTElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = includes/TTElement.h; sourceTree = "<group>"; };
 		22FCC57516061A2000D77C6D /* TTString.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTString.test.cpp; path = tests/TTString.test.cpp; sourceTree = SOURCE_ROOT; };
@@ -162,6 +165,7 @@
 				D2F0977B14A0D70F00EC0396 /* TTMessage.cpp */,
 				D2F0976114A0D70100EC0396 /* TTObject.h */,
 				22E1302F18DF4D860040A028 /* TTObject.cpp */,
+				22E1303218DFBA5F0040A028 /* TTObjectTemplates.h */,
 				22976FF6169C9F69000C7453 /* TTObjectBase.h */,
 				22976FF4169C9F3E000C7453 /* TTObjectBase.cpp */,
 				22976FF5169C9F61000C7453 /* TTDataObjectBase.h */,
@@ -278,6 +282,8 @@
 				D2F097EA14A0E03400EC0396 /* TTMatrix.test.cpp */,
 				D2F097EC14A0E03400EC0396 /* TTNodeLib.test.h */,
 				D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */,
+				22E1303118DFB4DC0040A028 /* TTObjectTest.h */,
+				22E1303018DFB4DC0040A028 /* TTObjectTest.cpp */,
 				22FCC57616061A2000D77C6D /* TTString.test.h */,
 				22FCC57516061A2000D77C6D /* TTString.test.cpp */,
 				D2F097EE14A0E03400EC0396 /* TTValue.test.h */,

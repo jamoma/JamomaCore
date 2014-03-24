@@ -48,6 +48,11 @@ public:
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
 	TTObject();
 	
+	/** Special constructor to create new object that wraps an existing TTObjectBase pointer. 
+		Use of the constructor is generally discouraged as is using TTObjectBase pointers in general.
+	 */
+	TTObject(TTObjectBase* anObjectBase);
+	
 	
 //#error Where is the copy constructor!?!?
 	

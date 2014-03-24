@@ -14,6 +14,7 @@
 #include "TTObject.h"
 #include "TTObjectBase.h"
 #include "TTEnvironment.h"
+#include "TTObjectTemplates.h"
 
 
 TTObject::TTObject(const TTSymbol& aClassName, const TTValue arguments) :
@@ -47,6 +48,14 @@ mObjectInstance(NULL)
 }
 
 
+TTObject::TTObject(TTObjectBase* anObjectBase) :
+mObjectInstance(NULL)
+{
+	mObjectInstance = ttEnvironment->referenceInstance(anObjectBase);
+}
+
+
+
 TTObject::~TTObject()
 {
 	ttEnvironment->releaseInstance(&mObjectInstance);
@@ -74,19 +83,6 @@ TTErr TTObject::GetRegisteredTags(TTValue& tags)
 TTObjectBase* TTObject::instance() const
 {
 	return mObjectInstance;
-}
-
-template <class T>
-TTErr TTObject::set(const TTSymbol aName, T aValue)
-{
-	return mObjectInstance->setAttributeValue(aName, aValue);
-}
-
-
-template <class T>
-TTErr TTObject::get(const TTSymbol aName, T& aReturnedValue)
-{
-	return mObjectInstance->getAttributeValue(aName, aReturnedValue);
 }
 
 

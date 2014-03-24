@@ -40,6 +40,7 @@
 #include "TTUnitTest.h"
 #include "TTValue.h"
 #include "TTObject.h"
+#include "TTObjectTemplates.h"
 
 #ifdef TT_PLATFORM_WIN
 #define TT_EXTENSION_EXPORT __declspec(dllexport)
