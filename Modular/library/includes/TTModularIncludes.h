@@ -90,7 +90,7 @@ TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {r
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (const TTValue& arguments) : TTDataObjectBase(arguments)
+thisTTClass :: thisTTClass (const TTValue& arguments) : TTObjectBase(arguments)
 
 
 
