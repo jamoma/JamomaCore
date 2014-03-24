@@ -58,7 +58,8 @@ public:
 	 */
 	virtual ~TTObject()
 	{
-		ttEnvironment->releaseInstance(&mObjectInstance);
+		if (mObjectInstance)
+            ttEnvironment->releaseInstance(&mObjectInstance);
 	}
 	
 	// TODO -- how do we do TTObjectReference?  Copy constructor and assignment operator, yes?
@@ -114,7 +115,6 @@ public:
 	{
 		return mObjectInstance;
 	}
-	
 	
 	/**	Set an attribute value for an object
 		@param	name			The name of the attribute to set.
