@@ -1,5 +1,8 @@
 #include "TTModular.h"
 
+#include <iostream>
+#include <string>
+
 // A class for our application
 class DemoApp {
     
@@ -10,7 +13,7 @@ public:
     
     // This application is divided into tree main functions
     void Setup();
-    void Use();
+    void Execute(TTSymbol& command);
     void Quit();
     
 private:
@@ -41,15 +44,31 @@ TTErr DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& v);
 int
 main(int argc, char **argv) 
 {
-    DemoApp app;
+    DemoApp     app;
+
+    TTLogMessage("\n*** Start of Jamoma Modular demonstration ***\n");
     
     app.Setup();
     
-    app.Use();
-    
-    app.Quit();
-    
-    return 0;
+    // read command from console
+    std::string s;
+    TTSymbol    command;
+    do {
+        TTLogMessage("Type a command : \n");
+        std::getline(std::cin, s);
+        command = TTSymbol(s);
+        
+        if (command == TTSymbol("quit")) {
+            
+            app.Quit();
+            
+            TTLogMessage("\n*** End of Jamoma Modular demonstration ***\n");
+            return EXIT_SUCCESS;
+        }
+        else
+            app.Execute(command);
+    }
+    while (YES);
 }
 
 void
@@ -72,8 +91,8 @@ DemoApp::Setup()
     TTLogMessage("\n*** Creation of myDemoApp and myRemoteApp applications ***\n");
     ////////////////////////////////////////////////////////////////////////////////
     
-    // Create a local application called "myDemoApp" and get it back
-    err = mApplicationManager.send("ApplicationInstantiateLocal", TTSymbol("myDemoApp"), out);
+    // Create a local application called "demo" and get it back
+    err = mApplicationManager.send("ApplicationInstantiateLocal", TTSymbol("demo"), out);
     
     if (err) {
         TTLogError("Error : can't create myDemoApp application \n");
@@ -83,8 +102,8 @@ DemoApp::Setup()
         mApplicationDemo = out[0];
     
     
-    // Create a distant application called "myRemoteApp" and get it back
-    err = mApplicationManager.send("ApplicationInstantiateDistant", TTSymbol("myRemoteApp"), out);
+    // Create a distant application called "i-score" and get it back
+    err = mApplicationManager.send("ApplicationInstantiateDistant", TTSymbol("i-score"), out);
     
     if (err) {
         TTLogError("Error : can't create myRemoteApp application \n");
@@ -93,13 +112,15 @@ DemoApp::Setup()
     else
         mApplicationRemote = out[0];
     
-    // Get application names
+    // Get registered application names
     mApplicationManager.get("applicationNames", out);
-    for (TTElementIter it = out.begin() ; it != out.end() ; it++)
-        TTLogMessage("%s application is well registered into the application manager \n", TTSymbol(&it).c_str());
+    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+        TTSymbol name = TTElement(*it);
+        TTLogMessage("%s application is well registered into the application manager \n", name.c_str());
+    }
     
     
-    TTLogMessage("\n*** Creation of Minuit and WebSocket protocols ***\n");
+    TTLogMessage("\n*** Enable Minuit communication ***\n");
     ////////////////////////////////////////////////////////////////////////
     
     // Create a Minuit protocol unit
@@ -113,26 +134,50 @@ DemoApp::Setup()
         mProtocolMinuit = out[0];
     
     // Get Minuit Protocol attribute names and types
-    mProtocolMinuit.attributes(out);
-    for (TTElementIter it = out.begin() ; it != out.end() ; it++)
-        TTLogMessage("Minuit::%s is a %s \n", TTSymbol(&it).c_str(), mProtocolMinuit.attributeType(TTSymbol(&it)).c_str());
+    mProtocolMinuit.get("parameterNames", out);
+    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+        TTSymbol name = TTElement(*it);
+        TTSymbol type = mProtocolMinuit.attributeType(name);
+        TTLogMessage("Minuit %s parameter is a %s \n", name.c_str(), type.c_str());
+    }
     
     // Register myDemoApp and myRemoteApp to the Minuit protocol
-    mProtocolMinuit.send("RegisterApplication", TTSymbol("myDemoApp"), out);
-    mProtocolMinuit.send("RegisterApplication", TTSymbol("myRemoteApp"), out);
+    mProtocolMinuit.send("RegisterApplication", TTSymbol("demo"), out);
+    mProtocolMinuit.send("RegisterApplication", TTSymbol("i-score"), out);
     
     // Select myDemoApp to set its protocol parameters
-    mProtocolMinuit.send("SelectApplication", TTSymbol("myDemoApp"), out);
-    mProtocolMinuit.set("port", 8002);
-    mProtocolMinuit.set("ip", TTSymbol("127.0.0.1"));
-    
-    // Select myRemoteApp to set its protocol parameters
-    mProtocolMinuit.send("SelectApplication", TTSymbol("myRemoteApp"), out);
+    mProtocolMinuit.send("SelectApplication", TTSymbol("demo"), out);
     mProtocolMinuit.set("port", 9998);
     mProtocolMinuit.set("ip", TTSymbol("127.0.0.1"));
     
+    // Select myRemoteApp to set its protocol parameters
+    mProtocolMinuit.send("SelectApplication", TTSymbol("i-score"), out);
+    mProtocolMinuit.set("port", 13579);
+    mProtocolMinuit.set("ip", TTSymbol("127.0.0.1"));
+    
+    // Get Minuit parameters for each registered application
+    mProtocolMinuit.get("registeredApplicationNames", out);
+    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+        TTSymbol name = TTElement(*it);
+        
+        mProtocolMinuit.send("SelectApplication", name, out);
+        TTLogMessage("Minuit setup for %s application : \n", name.c_str());
+        
+        mProtocolMinuit.get("ip", v);
+        TTSymbol ip = v[0];
+        TTLogMessage("- ip = %s \n", ip.c_str());
+        
+        mProtocolMinuit.get("port", v);
+        TTUInt16 port = v[0];
+        TTLogMessage("- port = %d \n", port);
+    }
+    
     // Enable Minuit communication
     mProtocolMinuit.send("Run");
+    
+/*
+    TTLogMessage("\n*** Enable WebSocket communication ***\n");
+    ////////////////////////////////////////////////////////////////////////
     
     // Create a WebSocket protocol unit
     err = mApplicationManager.send("ProtocolInstantiate", TTSymbol("WebSocket"), out);
@@ -145,29 +190,35 @@ DemoApp::Setup()
         mProtocolWebSocket = out[0];
     
     // Get WebSocket Protocol attribute names and types
-    mProtocolWebSocket.attributes(out);
-    for (TTElementIter it = out.begin() ; it != out.end() ; it++)
-        TTLogMessage("WebSocket::%s is a %s \n", TTSymbol(&it).c_str(), mProtocolWebSocket.attributeType(TTSymbol(&it)).c_str());
+    mProtocolMinuit.get("parameterNames", out);
+    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+        TTSymbol name = TTElement(*it);
+        TTLogMessage("WebSocket::%s is a %s \n", name.c_str(), mProtocolWebSocket.attributeType(name).c_str());
+    }
     
     // Register myDemoApp and myRemoteApp to the WebSocket protocol
-    mProtocolWebSocket.send("RegisterApplication", TTSymbol("myDemoApp"), out);
-    mProtocolWebSocket.send("RegisterApplication", TTSymbol("myRemoteApp"), out);
+    mProtocolWebSocket.send("RegisterApplication", TTSymbol("demo"), out);
+    mProtocolWebSocket.send("RegisterApplication", TTSymbol("i-score"), out);
     
     // Select myDemoApp to set its protocol parameters
-    mProtocolWebSocket.send("SelectApplication", TTSymbol("myDemoApp"), out);
+    mProtocolWebSocket.send("SelectApplication", TTSymbol("demo"), out);
     mProtocolWebSocket.set("???", none);
     
     // Select myRemoteApp to set its protocol parameters
-    mProtocolWebSocket.send("SelectApplication", TTSymbol("myRemoteApp"), out);
+    mProtocolWebSocket.send("SelectApplication", TTSymbol("i-score"), out);
     mProtocolWebSocket.set("???", none);
     
     // Enable WebSocket communication
-    mProtocolMinuit.send("Run");
+    mProtocolWebSocket.send("Run");
+*/
     
+    TTLogMessage("\nCurrent Protocol Setup :\n");
     // Get protocol names
     mApplicationManager.get("protocolNames", out);
-    for (TTElementIter it = out.begin() ; it != out.end() ; it++)
-        TTLogMessage("%s protocol is well registered into the application manager \n", TTSymbol(&it).c_str());
+    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+        TTSymbol name = TTElement(*it);
+        TTLogMessage("%s protocol is well registered into the application manager \n", name.c_str());
+    }
     
     
 	TTLogMessage("\n*** Creation of myDemoApp datas ***\n");
@@ -176,13 +227,13 @@ DemoApp::Setup()
     // Create a parameter data and set its callback function and baton and some attributes
     mDataDemoParameter = TTObject("Data", TTSymbol("parameter"));
     mDataDemoParameter.set("function", TTPtr(&DemoAppDataReturnValueCallback));
-    mDataDemoParameter.set("baton", mDataDemoParameter);
+    mDataDemoParameter.set("baton", mDataDemoParameter.instance());
     mDataDemoParameter.set("type", TTSymbol("decimal"));
     mDataDemoParameter.set("rangeBounds", TTValue(-1., 1.));
     mDataDemoParameter.set("description", TTSymbol("this parameter is useful for demo purpose"));
     
     // Register the parameter data into myDemoApp at an address
-    args = TTValue(TTAddress("/myParameter"), mDataDemoParameter);
+    args = TTValue(TTAddress("/myParameter"), mDataDemoParameter.instance());
     err = mApplicationDemo.send("RegisterObject", args, out);
     
     if (err)
@@ -196,12 +247,12 @@ DemoApp::Setup()
     // Create a message data and set its callback function and baton and some attributes
     mDataDemoMessage = TTObject("Data", TTSymbol("parameter"));
     mDataDemoMessage.set("function", TTPtr(&DemoAppDataReturnValueCallback));
-    mDataDemoMessage.set("baton", mDataDemoMessage);
+    mDataDemoMessage.set("baton", mDataDemoMessage.instance());
     mDataDemoMessage.set("type", TTSymbol("none"));
     mDataDemoMessage.set("description", TTSymbol("this message is useful for demo purpose"));
     
     // Register the message data into myDemoApp at an address
-    args = TTValue(TTAddress("/myMessage"), mDataDemoMessage);
+    args = TTValue(TTAddress("/myMessage"), mDataDemoMessage.instance());
     mApplicationDemo.send("RegisterObject", args, out);
     
     if (err)
@@ -215,12 +266,12 @@ DemoApp::Setup()
     // Create a return data and set its callback function and baton and some attributes
     mDataDemoReturn = TTObject("Data", TTSymbol("return"));
     mDataDemoReturn.set("function", TTPtr(&DemoAppDataReturnValueCallback));
-    mDataDemoReturn.set("baton", mDataDemoReturn);
+    mDataDemoReturn.set("baton", mDataDemoReturn.instance());
     mDataDemoReturn.set("type", TTSymbol("integer"));
     mDataDemoReturn.set("description", TTSymbol("this return is useful for demo purpose"));
     
     // Register the return data into myDemoApp at an address
-    args = TTValue(TTAddress("/myReturn"), mDataDemoReturn);
+    args = TTValue(TTAddress("/myReturn"), mDataDemoReturn.instance());
     mApplicationDemo.send("RegisterObject", args, out);
     
     if (err)
@@ -233,7 +284,7 @@ DemoApp::Setup()
 }
 
 void
-DemoApp::Use()
+DemoApp::Execute(TTSymbol& command)
 {
     TTValue     args, v, out, none;
     TTObject    aData, aSender, aReceiver;
@@ -307,8 +358,8 @@ DemoApp::Quit()
     TTLogMessage("\n*** Release applications ***\n");
     //////////////////////////////////////////////////
     
-    mApplicationManager.send("ReleaseApplication", TTSymbol("myRemoteApp"), out);
-    mApplicationManager.send("ReleaseApplication", TTSymbol("myDemoApp"), out);
+    mApplicationManager.send("ReleaseApplication", TTSymbol("i-score"), out);
+    mApplicationManager.send("ReleaseApplication", TTSymbol("demo"), out);
 }
 
 TTErr
@@ -318,21 +369,21 @@ DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& value)
     TTObject    anObject = TTObject(baton[1]);
     
 	// Reteive which data has been updated
-    if (anObject == demoApp->mDataDemoParameter) {
+    if (anObject.instance() == demoApp->mDataDemoParameter.instance()) {
         
         // print the returned value
         TTLogMessage("/myParameter has been updated to %s \n", value.toString().data());
         return kTTErrNone;
     }
     
-    if (anObject == demoApp->mDataDemoMessage) {
+    if (anObject.instance() == demoApp->mDataDemoMessage.instance()) {
         
         // print the returned value
         TTLogMessage("/myMessage has been updated to %s \n", value.toString().data());
         return kTTErrNone;
     }
     
-    if (anObject == demoApp->mDataDemoReturn) {
+    if (anObject.instance() == demoApp->mDataDemoReturn.instance()) {
         
         // print the returned value
         TTLogMessage("/myReturn has been updated to %s \n", value.toString().data());
