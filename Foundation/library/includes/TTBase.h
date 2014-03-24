@@ -1,6 +1,6 @@
 /** @file
  *
- * @ingroup foundationLibrary 
+ * @ingroup foundationLibrary
  *
  * @brief Jamoma's lowest-level base class and related infrastructure.
  *
@@ -42,7 +42,9 @@
 	#define TT_PLATFORM_WIN
 #endif
 #elif __linux
-	#define TT_PLATFORM_LINUX
+	#if !defined(TT_PLATFORM_LINUX)
+		#define TT_PLATFORM_LINUX
+	#endif
 #endif
 
 #ifndef TT_PLATFORM_LINUX
@@ -301,14 +303,14 @@ public:
 	TTDataInfo() :
 		name(NULL)
 	{;}
-	
+
 	static TTDataInfoPtr getInfoForType(TTDataType type)
 	{
 		return ttDataTypeInfo[type];
 	}
-	
+
 	static TTDataInfoPtr getInfoForType(TTSymbol& typeAsSymbol)
-	{		
+	{
 		TTDataType type = matchSymbolToDataType(typeAsSymbol);
 		return getInfoForType(type);
 	}
@@ -319,7 +321,7 @@ public:
 	}
 
 	static void addDataInfoForType(TTDataType type);
-	
+
 	static TTDataType matchSymbolToDataType(TTSymbol& typeAsSymbol);
 
 };
@@ -370,7 +372,7 @@ public:
 	#pragma intrinsic (_InterlockedCompareExchange)
 #endif
 
-	
+
 inline void TTAtomicIncrement(TTAtomicInt& value)
 {
 #ifdef TT_PLATFORM_MAC
@@ -418,7 +420,7 @@ inline void TTAtomicDecrement(TTAtomicUInt& value)
 #endif
 }
 
-	
+
 inline void TTAtomicIncrementWithBarrier(TTAtomicUInt& value)
 {
 #ifdef TT_PLATFORM_MAC
@@ -442,7 +444,7 @@ inline void TTAtomicDecrementWithBarrier(TTAtomicUInt& value)
 #endif
 }
 
-	
+
 inline void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, const TTAtomicInt& oldValue)
 {
 #ifdef TT_PLATFORM_MAC
@@ -455,7 +457,7 @@ inline void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, cons
 #endif
 }
 
-	
+
 	/**	Return the current system time in milliseconds.
 		Although it is a global kind of function, we include it as a method of TTBase
 		so that it can be defined in the header file and then inlined in other libraries.	*/
@@ -463,31 +465,31 @@ inline TTFloat64 TTGetTimeInMilliseconds()
 {
 	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
 #if	CLOCKS_PER_SEC == 1000000
-	return clock() / 1000.0;	
+	return clock() / 1000.0;
 #else
 	return (clock() * 1000.0) / CLOCKS_PER_SEC;
 #endif
 }
 
-	
+
 	/**	Return the current system time in microseconds.	*/
 inline TTFloat64 TTGetTimeInMicroseconds()
 {
 	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
 #if	CLOCKS_PER_SEC == 1000000
-	return clock();	
+	return clock();
 #else
 	return (clock() * 1000000.0) / CLOCKS_PER_SEC;
 #endif
 }
-	
+
 
 /**	Produces a random-valued 64-bit floating-point number in the range [0.0, 1.0]	*/
 TTFOUNDATION_EXPORT TTFloat64 TTRandom64();
 
 
 /** \ingroup consts
- Equal Power lookup table, 512 elements 
+ Equal Power lookup table, 512 elements
  */
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupEqualPower[];
 
@@ -586,22 +588,22 @@ TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPowerInv;
  */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTInv255;
 
-/** Platform and host independent method for posting log messages. 
+/** Platform and host independent method for posting log messages.
  @param message		The message to post.
  */
 void TTFOUNDATION_EXPORT TTLogMessage(TTImmutableCString message, ...);
 
-/** Platform and host independent method for posting warnings. 
+/** Platform and host independent method for posting warnings.
  @param message		The message to post.
  */
 void TTFOUNDATION_EXPORT TTLogWarning(TTImmutableCString message, ...);
 
-/** Platform and host independent method for posting errors. 
+/** Platform and host independent method for posting errors.
  @param message		The message to post.
  */
 void TTFOUNDATION_EXPORT TTLogError(TTImmutableCString message, ...);
 
-/** Platform and host independent method for posting messages only when debugging is enabled in the environment. 
+/** Platform and host independent method for posting messages only when debugging is enabled in the environment.
  @param message		The message to post.
  */
 void TTFOUNDATION_EXPORT TTLogDebug(TTImmutableCString message, ...);
