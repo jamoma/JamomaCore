@@ -32,7 +32,7 @@ mSelectedApplication(kTTSymEmpty)
     mActivityInCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
     mActivityOutCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
     
-	registerAttribute(TTSymbol("registeredApplicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& Protocol::getRegisteredApplicationNames);
+	registerAttribute(TTSymbol("applicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& Protocol::getApplicationNames);
 
 	addAttribute(Name, kTypeSymbol);
 	addAttributeProperty(Name, readOnly, YES);
@@ -60,10 +60,10 @@ mSelectedApplication(kTTSymEmpty)
 	
 	addAttribute(Activity, kTypeBoolean);
 
-	addMessageWithArguments(RegisterApplication);
-	addMessageWithArguments(UnregisterApplication);
-    addMessageWithArguments(SelectApplication);
-    addMessage(SelectLocalApplication);
+	addMessageWithArguments(ApplicationRegister);
+	addMessageWithArguments(ApplicationUnregister);
+    addMessageWithArguments(ApplicationSelect);
+    addMessage(ApplicationSelectLocal);
 	
 	addMessageWithArguments(isRegistered);
 	
@@ -103,7 +103,7 @@ TTErr Protocol::setApplicationManager(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr Protocol::RegisterApplication(const TTValue& inputValue, TTValue& outputValue)
+TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbol	parameterName;
 	TTHashPtr	applicationParameters;
@@ -144,7 +144,7 @@ TTErr Protocol::RegisterApplication(const TTValue& inputValue, TTValue& outputVa
 	return kTTErrGeneric;
 }
 
-TTErr Protocol::UnregisterApplication(const TTValue& inputValue, TTValue& outputValue)
+TTErr Protocol::ApplicationUnregister(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTHashPtr	applicationParameters;
 	TTValue		v, parameterNames;
@@ -176,14 +176,14 @@ TTErr Protocol::UnregisterApplication(const TTValue& inputValue, TTValue& output
 	return kTTErrGeneric;
 }
 
-TTErr Protocol::SelectApplication(const TTValue& inputValue, TTValue& outputValue)
+TTErr Protocol::ApplicationSelect(const TTValue& inputValue, TTValue& outputValue)
 {
 	mSelectedApplication = inputValue[0];
 	
 	return kTTErrNone;
 }
 
-TTErr Protocol::SelectLocalApplication()
+TTErr Protocol::ApplicationSelectLocal()
 {
 	mSelectedApplication = mLocalApplicationName;
 	return kTTErrNone;
@@ -223,7 +223,7 @@ TTErr Protocol::setApplicationParameters(TTSymbol parameterName, const TTValue& 
     return kTTErrGeneric;
 }
 
-TTErr Protocol::getRegisteredApplicationNames(TTValue& value)
+TTErr Protocol::getApplicationNames(TTValue& value)
 {
     // add all application names
 	return mApplicationParameters.getKeys(value);

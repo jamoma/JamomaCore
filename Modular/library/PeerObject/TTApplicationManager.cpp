@@ -501,6 +501,8 @@ TTErr TTApplicationManager::ProtocolRelease(const TTValue& inputValue, TTValue& 
                 
                 aProtocol = ProtocolPtr((TTObjectBasePtr)v[0]);
                 TTObjectBaseRelease(TTObjectBaseHandle(&aProtocol));
+                
+                TTLogMessage("%s protocol released\n", protocolName.c_str());
                 return kTTErrNone;
             }
             
@@ -676,25 +678,35 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 	
 	if (!err) {
 		
+        err = kTTErrNone;
 		for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 		{
 			// get a node from the selection
 			nodeToSet = TTNodePtr((TTPtr)aNodeList.current()[0]);
 			
 			anObject = nodeToSet->getObject();
-			objectType = anObject->getName();
+            
+            if (anObject) {
+                
+                objectType = anObject->getName();
 			
-			// TTData case : for value attribute use Command message
-			if (objectType == kTTSym_Data) {
+                // TTData case : for value attribute use Command message
+                if (objectType == kTTSym_Data) {
 				
-				if (whereToSet.getAttribute() == kTTSym_value)
-					return anObject->sendMessage(kTTSym_Command, *newValue, none);
-				else
-					return anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
-			}
-			else 
-				return anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
+                    if (whereToSet.getAttribute() == kTTSym_value)
+                        err = anObject->sendMessage(kTTSym_Command, *newValue, none);
+                    else
+                        err = anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
+                }
+                else
+                    err = anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
+            }
+            
+            if (err)
+                break;
 		}
+        
+        return err;
 	}
 	
 	return kTTErrGeneric; // TODO : return an error notification
@@ -1093,7 +1105,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 			
 			mApplications.getKeys(applicationNames);
             for (j = 0; j < applicationNames.size(); j++)
-                mCurrentProtocol->sendMessage(TTSymbol("UnregisterApplication"), applicationNames[j], none);
+                mCurrentProtocol->sendMessage(TTSymbol("ApplicationUnregister"), applicationNames[j], none);
             
 		}
 		
@@ -1166,7 +1178,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
         
         // register the application to the current protocol
         v = TTValue(aXmlHandler->mXmlNodeName);
-        mCurrentProtocol->sendMessage(TTSymbol("RegisterApplication"), v, none);
+        mCurrentProtocol->sendMessage(TTSymbol("ApplicationRegister"), v, none);
         
         // get parameters table
         err = mCurrentProtocol->getAttributeValue(TTSymbol("applicationParameters"), v);
@@ -1314,7 +1326,7 @@ TTApplicationPtr TTApplicationManager::findApplicationFrom(TTAddress anAddress)
 {
     TTSymbol applicationName = anAddress.getDirectory();
     
-    if (applicationName != NO_DIRECTORY)
+    if (applicationName == NO_DIRECTORY)
         
         return mApplicationLocal;
     

@@ -135,7 +135,7 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                 TTValue v;
                 
                 // select local application to get its port parameter
-                SelectLocalApplication();
+                ApplicationSelectLocal();
                 this->getAttributeValue(TTSymbol("port"), v);
                 
                 mLocalApplicationOscReceiver->setAttributeValue(TTSymbol("port"), v);

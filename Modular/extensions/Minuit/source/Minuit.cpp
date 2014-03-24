@@ -134,7 +134,7 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 		if (!err) {
             
             // select local application to get its port parameter
-            SelectLocalApplication();
+            ApplicationSelectLocal();
             this->getAttributeValue(TTSymbol("port"), v);
             port = v[0];
             

@@ -79,11 +79,14 @@ mTempAddress(kTTAdrsRoot)
 	addMessageWithArguments(UpdateAttribute);
 	addMessageProperty(UpdateAttribute, hidden, YES);
     
-    addMessageWithArguments(RegisterObject);
+    addMessageWithArguments(ObjectRegister);
     addMessageProperty(RegisterObject, hidden, YES);
     
-    addMessageWithArguments(UnregisterObject);
+    addMessageWithArguments(ObjectUnregister);
     addMessageProperty(UnregisterObject, hidden, YES);
+    
+    addMessageWithArguments(ObjectRetreive);
+    addMessageProperty(RetreiveObject, hidden, YES);
 	
 	// symbol conversion
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
@@ -616,15 +619,15 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	return kTTErrGeneric;
 }
 
-TTErr TTApplication::RegisterObject(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTApplication::ObjectRegister(const TTValue& inputValue, TTValue& outputValue)
 {
-    // get optional address and object
+    // get address and object
     if (inputValue.size() >= 2) {
         
         if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeObject) {
             
             TTAddress address = inputValue[0];
-            TTObject object = TTObject(inputValue[1]);
+            TTObjectBasePtr object = inputValue[1];
             
             // get optional context
             TTPtr context = NULL;
@@ -636,7 +639,7 @@ TTErr TTApplication::RegisterObject(const TTValue& inputValue, TTValue& outputVa
             TTNodePtr node;
             TTBoolean newInstanceCreated;
             
-            TTErr err = mDirectory->TTNodeCreate(address, object.instance(), context, &node, &newInstanceCreated);
+            TTErr err = mDirectory->TTNodeCreate(address, object, context, &node, &newInstanceCreated);
             
             // return the effective address
             if (!err) {
@@ -654,9 +657,9 @@ TTErr TTApplication::RegisterObject(const TTValue& inputValue, TTValue& outputVa
     return kTTErrGeneric;
 }
 
-TTErr TTApplication::UnregisterObject(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTApplication::ObjectUnregister(const TTValue& inputValue, TTValue& outputValue)
 {
-    // get optional address and object
+    // get address
     if (inputValue.size() == 1) {
         
         if (inputValue[0].type() == kTypeSymbol) {
@@ -673,6 +676,31 @@ TTErr TTApplication::UnregisterObject(const TTValue& inputValue, TTValue& output
                 
                 // unregister it
                 return mDirectory->TTNodeRemove(address);
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTApplication::ObjectRetreive(const TTValue& inputValue, TTValue& outputValue)
+{
+    // get address
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            TTAddress address = inputValue[0];
+            
+            // retreive the node
+            TTNodePtr node;
+            
+            if (!mDirectory->getTTNode(address, &node)) {
+                
+                // return the object
+                outputValue = node->getObject();
+                
+                return kTTErrNone;
             }
         }
     }

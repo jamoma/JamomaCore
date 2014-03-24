@@ -109,26 +109,26 @@ public:
      @param[in] inputValue      #TTSymbol application name
      @param[out] outputValue    nothing
      @return #TTErr error code */
-	TTErr RegisterApplication(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ApplicationRegister(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Unregister an application as a client of the protocol 
      @details This method deallocate a TTHash used to store parameters
      @param[in] inputValue      #TTSymbol application name
      @param[out] outputValue    nothing
      @return #TTErr error code */
-	TTErr UnregisterApplication(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ApplicationUnregister(const TTValue& inputValue, TTValue& outputValue);
     
     /** Select an application to access to its own parameters value
      @param[in] inputValue      #TTSymbol application name
      @param[out] outputValue    nothing
      @return #TTErr error code
      @seealso getApplicationParameters, setApplicationParameters, PROTOCOL_PAREMETER_ACCESSORS */
-	TTErr SelectApplication(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ApplicationSelect(const TTValue& inputValue, TTValue& outputValue);
     
     /** Select the local application to access to its own parameters value
      @return #TTErr error code
      @seealso getApplicationParameters, setApplicationParameters, PROTOCOL_PAREMETER_ACCESSORS */
-    TTErr SelectLocalApplication();
+    TTErr ApplicationSelectLocal();
     
     /** Get parameters needed by this protocol
      @param[out] value      returned parameter names */
@@ -145,7 +145,7 @@ public:
 	TTErr setApplicationParameters(TTSymbol parameterName, const TTValue& value);
 
     /** Get the names of the registered applications */
-	TTErr getRegisteredApplicationNames(TTValue& value);
+	TTErr getApplicationNames(TTValue& value);
     
     /** Is an application registered for this protocol ? */
 	TTErr isRegistered(const TTValue& inputValue, TTValue& outputValue);

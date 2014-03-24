@@ -104,7 +104,7 @@ TTErr TTRamp::getRunning(TTValue& value)
 
 TTErr TTRamp::setScheduler(const TTValue& inputValue)
 {
-	TTErr		err;
+	TTErr		err = kTTErrNone;
 	TTSymbol	newSchedulerName;
     TTValue     args;
 	
@@ -118,14 +118,19 @@ TTErr TTRamp::setScheduler(const TTValue& inputValue)
     if (mSchedulerUnit)
         TTObjectBaseRelease(&mSchedulerUnit);
     
-    args.append((TTPtr)&TTRampSchedulerCallback);
-    args.append((TTPtr)this); // we have to store this as a pointer
-    
-    err = TTObjectBaseInstantiate(mScheduler, TTObjectBaseHandle(&mSchedulerUnit), args);
-    
-	if (err) {
-        mSchedulerUnit = NULL;
-		logError("TTRamp failed to load the requested Scheduler\n");
+    if (mScheduler != kTTSymEmpty && mScheduler != kTTSym_none) {
+        
+        args.append((TTPtr)&TTRampSchedulerCallback);
+        args.append((TTPtr)this); // we have to store this as a pointer
+        
+        err = TTObjectBaseInstantiate(mScheduler, TTObjectBaseHandle(&mSchedulerUnit), args);
+        
+        if (err) {
+            mSchedulerUnit = NULL;
+            
+            // théo : Mute the following error log while the default scheduler is set to "Max" in TTData::setType
+            //logError("TTRamp failed to load the requested Scheduler\n");
+        }
     }
     
 	return err;

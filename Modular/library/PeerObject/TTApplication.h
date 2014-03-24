@@ -179,13 +179,19 @@ private:
      @param inputValue      an address, an object and an optional context pointer
      @param outputValue     the effective registration address
      @return #TTErr error code */
-	TTErr RegisterObject(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ObjectRegister(const TTValue& inputValue, TTValue& outputValue);
     
     /** Unregister an object registered into the application directory at an address
      @param inputValue      the address
      @param outputValue     the registered object
      @return #TTErr error code */
-	TTErr UnregisterObject(const TTValue& inputValue, TTValue& outputValue);
+	TTErr ObjectUnregister(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Retreive a registered object into the application directory at an address
+     @param inputValue      an address
+     @param outputValue     the registered object
+     @return #TTErr error code */
+	TTErr ObjectRetreive(const TTValue& inputValue, TTValue& outputValue);
 
 #if 0
 #pragma mark -
