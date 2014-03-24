@@ -50,9 +50,9 @@ void TTModularInit(const char* binaries)
 //#define TO_DEBUG
 #ifdef TO_DEBUG
     
-	TTObjectBasePtr test = NULL;
-	TTObjectBaseInstantiate(TTSymbol("value.test"), &test, none);
-	TTDataObjectBasePtr(test)->test(v);
+    TTValue t, out;
+	TTObject test("value.test");
+	test.send("test", t, out);
     
 #endif // TO_DEBUG
     
