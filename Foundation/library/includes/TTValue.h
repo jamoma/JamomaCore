@@ -26,14 +26,11 @@
 	The types of the elements are defined in the TTDataType enumeration.
 */
 class TTValue : public TTElementVector {
-private:
-	TTBoolean	stringsPresent;	///< are there any values which are strings?  if so they need special handling when it is time to free them.
 
 public:
 
 	/** Constructor for an empty value */
 	TTValue()
-	: stringsPresent(NO)
 	{
 		reserve(1);
 	}
@@ -41,7 +38,6 @@ public:
 	/** Constructor with a single initial element. */
 	template<class T>
 	TTValue(const T& anInitialValue)
-	: stringsPresent(NO)
 	{
 		resize(1);
 		at(0) = anInitialValue;
@@ -50,7 +46,6 @@ public:
 	/** Constructor with two initial elements. */
 	template <class T, class U>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue)
-	: stringsPresent(NO)
 	{
 		resize(2);
 		at(0) = aFirstElementInitialValue;
@@ -60,7 +55,6 @@ public:
 	/** Constructor with three initial elements. */
 	template <class T, class U, class V>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue, const V& aThirdElementInitialValue)
-	: stringsPresent(NO)
 	{
 		resize(3);
 		at(0) = aFirstElementInitialValue;
@@ -71,7 +65,6 @@ public:
 	/** Constructor with four initial elements. */
 	template <class T, class U, class V, class W>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue, const V& aThirdElementInitialValue, const W& aFourthElementInitialValue)
-	: stringsPresent(NO)
 	{
 		resize(4);
 		at(0) = aFirstElementInitialValue;
@@ -134,7 +127,6 @@ public:
 		resize(endIndex - startIndex);
 		for (size_t i=0; i<size(); i++)
 			at(i) = obj[startIndex+i];
-//		stringsPresent = obj.stringsPresent;
 	}
 	
 	
