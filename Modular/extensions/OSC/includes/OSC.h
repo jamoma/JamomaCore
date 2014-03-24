@@ -30,8 +30,8 @@ class OSC : public Protocol {
 	
 private:
 	
-	TTSymbol				mIp;						///< ATTRIBUTE : IP of the local application                                (default : localhost, readonly)
-	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception for local application     (default : OSC_RECEPTION_PORT)
+	PROTOCOL_PARAMETER(Ip);                             ///< PROTOCOL PARAMETER : each registered application have to setup its ip
+	PROTOCOL_PARAMETER(Port);                           ///< PROTOCOL PARAMETER : each registered application have to setup its port
 	
 	TTObjectBasePtr			mLocalApplicationOscReceiver;
     
@@ -44,7 +44,7 @@ private:
     TTSymbol                mReceivedFrom;              // memorize who sent a message to us to avoid loop when receiving an address and resending the same
     TTAddress               mReceivedAddress;           // memorize received address to avoid loop when receiving an address and resending the same
 	
-	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
+	TTErr sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& message);
     TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
 	/** Get parameters names needed by this protocol */

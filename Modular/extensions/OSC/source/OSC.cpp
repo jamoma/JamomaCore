@@ -37,16 +37,14 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_OSC(void)
 }
 
 PROTOCOL_CONSTRUCTOR,
-mIp(TTSymbol("localhost")),
-mPort(OSC_RECEPTION_PORT),
 mLocalApplicationOscReceiver(NULL),
 mSenderManager(NULL),
 mWaitThread(NULL)
 {	
 	PROTOCOL_INITIALIZE
 	
-	addAttribute(Ip, kTypeSymbol);
-	addAttribute(Port, kTypeUInt16);
+    addAttributeAsProtocolParameter(Ip, kTypeSymbol);
+	addAttributeAsProtocolParameter(Port, kTypeUInt16);
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
@@ -102,10 +100,10 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
         TTValue keys, out;
         
         // run local
-        Run(protocolGetLocalApplicationName, out);
+        Run(mLocalApplicationName, out);
         
         // run each distant
-        mDistantApplicationParameters.getKeys(keys);
+        mApplicationParameters.getKeys(keys);
         for (TTUInt32 i = 0 ; i < keys.size() ; i++)
             Run(keys[i], out);
         
@@ -124,7 +122,7 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
     }
     
     // for local application
-    if (applicationName == protocolGetLocalApplicationName) {
+    if (applicationName == mLocalApplicationName) {
         
         if (!mRunning) {
             
@@ -134,7 +132,13 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
             err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mLocalApplicationOscReceiver, kTTValNONE);
             if (!err) {
                 
-                mLocalApplicationOscReceiver->setAttributeValue(TTSymbol("port"), mPort);
+                TTValue v;
+                
+                // select local application to get its port parameter
+                SelectLocalApplication();
+                this->getAttributeValue(TTSymbol("port"), v);
+                
+                mLocalApplicationOscReceiver->setAttributeValue(TTSymbol("port"), v);
                 
                 // register for notification using our 'receivedMessage' method
                 mLocalApplicationOscReceiver->registerObserverForNotifications(*this);
@@ -163,7 +167,7 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
             return kTTErrGeneric;
         
         // get application parameters
-        err = mDistantApplicationParameters.lookup(applicationName, v);
+        err = mApplicationParameters.lookup(applicationName, v);
         
         if (!err) {
             
@@ -227,10 +231,10 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
         TTValue keys, out;
         
         // stop local
-        Stop(protocolGetLocalApplicationName, out);
+        Stop(mLocalApplicationName, out);
         
         // stop each distant
-        mDistantApplicationParameters.getKeys(keys);
+        mApplicationParameters.getKeys(keys);
         for (TTUInt32 i = 0 ; i < keys.size() ; i++)
             Stop(keys[i], out);
         
@@ -248,7 +252,7 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
     }
     
     // for local application
-    if (applicationName == protocolGetLocalApplicationName) {
+    if (applicationName == mLocalApplicationName) {
         
         if (mRunning) {
             
@@ -464,7 +468,7 @@ TTErr OSC::SendListenAnswer(TTSymbol to, TTAddress address,
     return kTTErrGeneric;
 }
 
-TTErr OSC::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& arguments)
+TTErr OSC::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& arguments)
 {
 	TTHashPtr	parameters = NULL;
     TTObjectBasePtr anOscSender;
@@ -472,7 +476,7 @@ TTErr OSC::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue
 	TTErr		err, errIp, errPort;
 	
 	// Check the application registration
-	err = mDistantApplicationParameters.lookup(distantApplicationName, v);
+	err = mApplicationParameters.lookup(applicationName, v);
 	
 	if (!err) {
 		parameters = TTHashPtr((TTPtr)v[0]);
@@ -485,7 +489,7 @@ TTErr OSC::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue
 			if (errIp || errPort)
 				return kTTErrGeneric;
 			
-			anOscSender = mSenderManager->lookup(distantApplicationName, vIp, vPort);
+			anOscSender = mSenderManager->lookup(applicationName, vIp, vPort);
 			if (anOscSender) {
 
 				message = TTValue(header);
