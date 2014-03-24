@@ -491,16 +491,18 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 					
 					if (!err) {
 						// prepare a callback based on ProtocolAttributeCallback
-						returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, none);
+						TTObject* returnValueCallback = new TTObject("callback");
 						
 						returnValueBaton = new TTValue();
 						*returnValueBaton = inputValue;
 						
-						returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-						returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolAttributeCallback));
+						returnValueCallback->set(kTTSym_baton, TTPtr(returnValueBaton));
+						returnValueCallback->set(kTTSym_function, TTPtr(&ProtocolAttributeCallback));
 						
 						anAttribute->registerObserverForNotifications(*returnValueCallback);
+						
+						// we have now passed the returnValueCallback pointer to the callback
+						// it will be fetched back out to free the object in removeAttributeListener()
 						
 						// cache the listener in the attributeListenersCache
 						cacheElement.append(returnValueCallback);
@@ -524,7 +526,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
-	TTObjectBasePtr		anObject, returnValueCallback;
+	TTObjectBasePtr		anObject;
 	TTAttributePtr		anAttribute;
 	TTValue				cacheElement;
 	TTUInt32			i;
@@ -559,10 +561,10 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 					err = anObject->findAttribute(whereToListen.getAttribute(), &anAttribute);
 					
 					if (!err) {
+                        TTObject* returnValueCallback = (TTObject*)TTPtr(cacheElement[i]);
 						
-                        returnValueCallback = TTCallbackPtr((TTObjectBasePtr)cacheElement[i]);
 						anAttribute->unregisterObserverForNotifications(*returnValueCallback);
-						TTObjectBaseRelease(TTObjectBaseHandle(&returnValueCallback));
+						delete returnValueCallback;
 						i++;
 					}
 				}

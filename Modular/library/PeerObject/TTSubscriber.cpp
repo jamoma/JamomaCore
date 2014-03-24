@@ -418,9 +418,9 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
     TTNodeDirectoryPtr	aDirectory = getLocalDirectory;		// only subscribes into local directory
 	TTValue             args, v, none;
 	TTDataPtr           aData;
-	TTCallbackPtr       returnValueCallback;                // to set the object attribute when data changed
+	TTObject*			returnValueCallback = NULL;			// to set the object attribute when data changed
 	TTValuePtr          returnValueBaton;
-	TTCallbackPtr       observeValueCallback;               // to set the data when an object attribute changed
+	TTObject*			observeValueCallback = NULL;		// to set the data when an object attribute changed
 	TTValuePtr          observeValueBaton;
 	TTAttributePtr      anAttribute = NULL;
 	TTAddress           nameToAddress, dataAddress;
@@ -431,16 +431,13 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
 	
     aDirectory->getTTNode(mNodeAddress, &aNode);
     if (aNode) {
-        
         if (service == kTTSym_parameter || service == kTTSym_return) {
-            
-            // prepare arguments
-            returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-            TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), none);
+            returnValueCallback = new TTObject("callback");
+
             returnValueBaton = new TTValue(TTObjectBasePtr(this));
             returnValueBaton->append(attributeName);
-            returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-            returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
+            returnValueCallback->set(kTTSym_baton, TTPtr(returnValueBaton));
+            returnValueCallback->set(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
             args.append(returnValueCallback);
             args.append(service);
             
@@ -456,13 +453,12 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
             // observe the attribute of the object
             err = anObject->findAttribute(attributeName, &anAttribute);
             if (!err) {
+                observeValueCallback = new TTObject("callback");
                 
-                observeValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-                TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&observeValueCallback), none);
-                observeValueBaton = new TTValue(TTObjectBasePtr(this));
+				observeValueBaton = new TTValue(TTObjectBasePtr(this));
                 observeValueBaton->append(attributeName);
-                observeValueCallback->setAttributeValue(kTTSym_baton, TTPtr(observeValueBaton));
-                observeValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
+                observeValueCallback->set(kTTSym_baton, TTPtr(observeValueBaton));
+                observeValueCallback->set(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
                 
                 anAttribute->registerObserverForNotifications(*observeValueCallback);
             }

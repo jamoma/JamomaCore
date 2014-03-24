@@ -258,7 +258,7 @@ TTErr TTReceiver::bindAddress()
 	TTAddress       anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
-	TTObjectBasePtr	newObserver, o;
+	TTObjectBasePtr	o;
 	TTList			aNodeList;
 	TTNodePtr		aNode;
 	TTValue			v, data, newElement, none;
@@ -293,18 +293,15 @@ TTErr TTReceiver::bindAddress()
 					err = o->findAttribute(ttAttributeName, &anAttribute);
 					
 					if (!err) {
-						
-						newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&newObserver), none);
+						TTObject* newObserver = new TTObject("callback");
 						
 						newBaton = new TTValue(TTObjectBasePtr(this));
 						aNode->getAddress(anAddress);
 						newBaton->append(anAddress.appendAttribute(mAddress.getAttribute()));
 						
-						newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-						newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
-						
-						newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));					// this is usefull only to debug
+						newObserver->set(kTTSym_baton, TTPtr(newBaton));
+						newObserver->set(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
+						newObserver->set(TTSymbol("owner"), TTSymbol("TTReceiver"));					// this is usefull only to debug
 						
 						anAttribute->registerObserverForNotifications(*newObserver);
                         
@@ -356,7 +353,8 @@ TTErr TTReceiver::unbindAddress()
 {
 	TTValue			oldElement, v;
 	TTNodePtr		aNode;
-	TTObjectBasePtr	oldObserver, o;
+	TTObjectBasePtr	o;
+	TTObject*		oldObserver;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute;
 	TTErr			err = kTTErrNone;
@@ -376,7 +374,7 @@ TTErr TTReceiver::unbindAddress()
             aNode = TTNodePtr((TTPtr)oldElement[0]);
             
             // get the observer
-            oldObserver = oldElement[1];
+            oldObserver = (TTObject*)TTPtr(oldElement[1]);
             
             // stop attribute observation of the node
             // if the attribute exist
@@ -386,13 +384,12 @@ TTErr TTReceiver::unbindAddress()
                 anAttribute = NULL;
                 err = o->findAttribute(ttAttributeName, &anAttribute);
                 
-                if(!err){
-                    
+                if (!err) {
                     err = anAttribute->unregisterObserverForNotifications(*oldObserver);
                     
                     if(!err) {
                         delete (TTValuePtr)TTCallbackPtr(oldObserver)->getBaton();
-                        TTObjectBaseRelease(&oldObserver);
+                        delete oldObserver;
                     }
                     
                     // for Mirror object : disable listening
@@ -468,7 +465,7 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 	TTAddress       anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
-	TTObjectBasePtr	newObserver, oldObserver, o = NULL;
+	TTObjectBasePtr	oldObserver, o = NULL;
 	TTNodePtr		aNode, p_node;
 	TTValue			c, v;
 	TTUInt8			flag;
@@ -529,17 +526,14 @@ TTErr TTReceiverDirectoryCallback(TTPtr baton, TTValue& data)
 						err = o->findAttribute(ttAttributeName, &anAttribute);
 						
 						if (!err) {
-							
-							newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-							TTObjectBaseInstantiate(TTSymbol("callback"), &newObserver, none);
+							TTObject *newObserver = new TTObject("callback");
 							
 							newBaton = new TTValue(aReceiver);
 							newBaton->append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
 							
-							newObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-							newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
-							
-							newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));			// this is usefull only to debug
+							newObserver->set(kTTSym_baton, TTPtr(newBaton));
+							newObserver->set(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
+							newObserver->set(TTSymbol("owner"), TTSymbol("TTReceiver"));			// this is usefull only to debug
 							
 							anAttribute->registerObserverForNotifications(*newObserver);
                             

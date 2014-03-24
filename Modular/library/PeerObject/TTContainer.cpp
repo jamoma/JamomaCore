@@ -491,7 +491,6 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	TTAddress       aRelativeAddress;
 	TTSymbol		service;
     TTObjectBasePtr	anObject;  
-	TTObjectBasePtr	valueObserver, returnedValueObserver, activityObserver;
 	TTAttributePtr	anAttribute = NULL;
 	TTValuePtr		valueBaton, returnedValueBaton, activityBaton;
     TTErr           err;
@@ -520,19 +519,17 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	
 	// Special case for Data : observe the Value attribute
 	if (anObject->getName() == kTTSym_Data) {
-		
+        TTObject* valueObserver = new TTObject("callback");
+				
         // create a Value Attribute observer on it
         anObject->findAttribute(kTTSym_value, &anAttribute);
-        
-        valueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-        TTObjectBaseInstantiate(TTSymbol("callback"), &valueObserver, none);
         
         valueBaton = new TTValue(TTObjectBasePtr(this));
         valueBaton->append(aRelativeAddress);
         
-        valueObserver->setAttributeValue(kTTSym_baton, TTPtr(valueBaton));
-        valueObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
-        valueObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
+        valueObserver->set(kTTSym_baton, TTPtr(valueBaton));
+        valueObserver->set(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
+        valueObserver->set(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
         
         anAttribute->registerObserverForNotifications(*valueObserver);
         
@@ -542,19 +539,17 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	
 	// Special case for Viewer : observe what it returns
 	else if (anObject->getName() == kTTSym_Viewer) {
-		
+		TTObject* returnedValueObserver = new TTObject("callback");
+				
 		// create a returnedValue Attribute observer on it
 		anObject->findAttribute(kTTSym_returnedValue, &anAttribute);
-		
-		returnedValueObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), &returnedValueObserver, none);
 		
 		returnedValueBaton = new TTValue(TTObjectBasePtr(this));
 		returnedValueBaton->append(aRelativeAddress);
 		
-		returnedValueObserver->setAttributeValue(kTTSym_baton, TTPtr(returnedValueBaton));
-		returnedValueObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
-		returnedValueObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
+		returnedValueObserver->set(kTTSym_baton, TTPtr(returnedValueBaton));
+		returnedValueObserver->set(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
+		returnedValueObserver->set(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 		
 		anAttribute->registerObserverForNotifications(*returnedValueObserver);
 		
@@ -564,19 +559,17 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	
 	// Special case for Container : observe his activity
 	else if (anObject->getName() == kTTSym_Container) {
+		TTObject* activityObserver = new TTObject("callback");
 		
 		// create a activity Attribute observer on it
 		anObject->findAttribute(kTTSym_activity, &anAttribute);
-		
-		activityObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), &activityObserver, TTValue());
-		
+				
 		activityBaton = new TTValue(TTObjectBasePtr(this));
 		activityBaton->append(aRelativeAddress);
 		
-		activityObserver->setAttributeValue(kTTSym_baton, TTPtr(activityBaton));
-		activityObserver->setAttributeValue(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
-		activityObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
+		activityObserver->set(kTTSym_baton, TTPtr(activityBaton));
+		activityObserver->set(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
+		activityObserver->set(TTSymbol("owner"), TTSymbol("TTContainer"));					// this is usefull only to debug
 		
 		anAttribute->registerObserverForNotifications(*activityObserver);
 		
@@ -611,7 +604,8 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 	TTAddress       aRelativeAddress;
 	TTValue			v, cacheElement;
 	TTSymbol		service;
-    TTObjectBasePtr	anObject, anObserver;
+    TTObjectBasePtr	anObject;
+	TTObject*		anObserver = NULL;
 	TTAttributePtr	anAttribute;
 	TTErr			err;
 	
@@ -633,53 +627,46 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 			if (anObject->getName() == kTTSym_Data) {
 				
 				// delete Value observer for parameter and return
-                anObserver = NULL;
-                anObserver = cacheElement[1];
+                anObserver = (TTObject*)TTPtr(cacheElement[1]);
                 anAttribute = NULL;
                 err = anObject->findAttribute(kTTSym_value, &anAttribute);
                 
-                if(!err){
-                    
+                if (!err) {
                     err = anAttribute->unregisterObserverForNotifications(*anObserver);
-                    
-                    if(!err)
-                        TTObjectBaseRelease(&anObserver);
+                    if (!err)
+                        delete anObserver;
                 }
 			}
 			
 			// it is a Viewer
-			if (anObject->getName() == kTTSym_Viewer) {
+			else if (anObject->getName() == kTTSym_Viewer) {
 				
 				// delete returnedValue observer
 				anObserver = NULL;
-				anObserver = cacheElement[1];
+				anObserver = (TTObject*)TTPtr(cacheElement[1]);
 				anAttribute = NULL;
 				err = anObject->findAttribute(kTTSym_value, &anAttribute);
 				
-				if(!err){
-					
+				if (!err) {
 					err = anAttribute->unregisterObserverForNotifications(*anObserver);
-					
-					if(!err)
-						TTObjectBaseRelease(&anObserver);
+					if (!err)
+                        delete anObserver;
 				}
 			}
 			
 			// it is a Container
-			if (anObject->getName() == kTTSym_Container) {
+			else if (anObject->getName() == kTTSym_Container) {
 				
 				// delete activity observer
 				anObserver = NULL;
-				anObserver = cacheElement[1];
+				anObserver = (TTObject*)TTPtr(cacheElement[1]);
 				anAttribute = NULL;
 				err = anObject->findAttribute(kTTSym_activity, &anAttribute);
 				
-				if(!err){
-					
+				if (!err) {
 					err = anAttribute->unregisterObserverForNotifications(*anObserver);
-					
-					if(!err)
-						TTObjectBaseRelease(&anObserver);
+					if (!err)
+                        delete anObserver;
 				}
 			}
 		}
@@ -711,7 +698,8 @@ TTErr TTContainer::unbind()
 	TTValue			hk, v;
 	TTValue			cacheElement;
     TTObjectBasePtr	anObject;   
-	TTObjectBasePtr	aValueObserver, aCommandObserver;
+	TTObject*		aValueObserver;
+	TTObject*		aCommandObserver;
 	TTAttributePtr	anAttribute;
 	TTMessagePtr	aMessage;
 	TTSymbol		key;
@@ -734,29 +722,25 @@ TTErr TTContainer::unbind()
 				if (anObject->getName() == kTTSym_Data) {
 					
 					// delete Value observer
-					aValueObserver = cacheElement[1];
+					aValueObserver = (TTObject*)TTPtr(cacheElement[1]);
 					anAttribute = NULL;
 					err = anObject->findAttribute(kTTSym_value, &anAttribute);
 					
 					if (!err) {
-						
 						err = anAttribute->unregisterObserverForNotifications(*aValueObserver);
-						
 						if (!err)
-							TTObjectBaseRelease(&aValueObserver);
+							delete aValueObserver;
 					}
 					
 					// delete Command observer
-					aCommandObserver = cacheElement[2];
+					aCommandObserver = (TTObject*)TTPtr(cacheElement[2]);
 					aMessage = NULL;
 					err = anObject->findMessage(kTTSym_Command, &aMessage);
 					
-					if(!err){
-						
+					if (!err) {
 						err = aMessage->unregisterObserverForNotifications(*aCommandObserver);
-						
-						if(!err)
-							TTObjectBaseRelease(&aCommandObserver);
+						if (!err)
+							delete aCommandObserver;
 					}
 				}
 			}
