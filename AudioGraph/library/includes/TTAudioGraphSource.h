@@ -39,9 +39,9 @@ class TTAudioGraphSource {
 protected:	
 	
 	TTAudioGraphObjectBasePtr	mSourceObject;		///< The object from which we pull samples
-	TTUInt16				mOutletNumber;		///< The outlet of the upstream object that we pull samples from. This is zero-based.
-	TTObjectBasePtr				mCallbackHandler;	///< TODO
-	TTAudioGraphInletPtr	mOwner;				///< The owning inlet
+	TTUInt16					mOutletNumber;		///< The outlet of the upstream object that we pull samples from. This is zero-based.
+	TTObject					mCallbackHandler;	///< TODO
+	TTAudioGraphInletPtr		mOwner;				///< The owning inlet
 	
 public:
 
