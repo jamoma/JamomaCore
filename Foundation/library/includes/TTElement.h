@@ -395,13 +395,13 @@ public:
 		
 	operator TTMatrix&() const
 	{
-		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeObject));
+		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeMatrix));
 		return *mValue.matrix;
 	}
 	
 	operator TTMatrix*() const
 	{
-		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeObject));
+		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeMatrix));
 		return mValue.matrix;
 	}
 
