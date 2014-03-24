@@ -49,7 +49,7 @@ class TTDataspace {
 	 */
 	TTDataspaceUnitPtr  outUnit;
 	
-	/** Hash table lockup for this dataspace, for fast access to dataspace units.
+	/** Map unit-names to the class-names that implement the units.
 	 */
 	TTHashPtr			unitHash;
 	
@@ -80,7 +80,7 @@ public:
 	 @param inUnitName		The input unit type for this dataspace object as a symbol.
 	 @return				#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setInputUnit(TTSymbol& inUnitName);
+	TTErr setInputUnit(TTSymbol inUnitName);
 	
 	
 	/** Get the input unit type for this dataspace object as a symbol.
@@ -93,7 +93,7 @@ public:
 	 @param outUnitName		The input unit type for this dataspace object as a symbol.
 	 @return				#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setOutputUnit(TTSymbol& outUnitName);
+	TTErr setOutputUnit(TTSymbol outUnitName);
 	
 	/** Get the output unit type for this dataspace object as a symbol.
 	 @return				Output unit type for this dataspace object as a symbol.

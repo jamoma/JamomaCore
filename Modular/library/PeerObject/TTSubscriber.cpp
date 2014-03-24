@@ -416,8 +416,8 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
     TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
 	TTValue             args, baton, v, none;
 	TTDataPtr           aData;
-	TTCallbackPtr       returnValueCallback;                // to set the object attribute when data changed
-	TTCallbackPtr       observeValueCallback;               // to set the data when an object attribute changed
+	TTObject*			returnValueCallback = NULL;			// to set the object attribute when data changed
+	TTObject*			observeValueCallback = NULL;		// to set the data when an object attribute changed
 	TTAttributePtr      anAttribute = NULL;
 	TTAddress           nameToAddress, dataAddress;
 	TTNodePtr           aNode;
@@ -427,15 +427,14 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
 	
     aDirectory->getTTNode(mNodeAddress, &aNode);
     if (aNode) {
-        
+
         if (service == kTTSym_parameter || service == kTTSym_return) {
-            
-            // prepare arguments
-            returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-            TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), none);
+
+            returnValueCallback = new TTObject("callback");
+
             baton = TTValue(TTObjectBasePtr(this), attributeName);
-            returnValueCallback->setAttributeValue(kTTSym_baton, baton);
-            returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
+            returnValueCallback->set(kTTSym_baton, baton);
+            returnValueCallback->set(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
             args.append(returnValueCallback);
             args.append(service);
             
@@ -451,12 +450,12 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
             // observe the attribute of the object
             err = anObject->findAttribute(attributeName, &anAttribute);
             if (!err) {
+
+                observeValueCallback = new TTObject("callback");
                 
-                observeValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-                TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&observeValueCallback), none);
-                baton = TTValue(TTObjectBasePtr(this), attributeName);
-                observeValueCallback->setAttributeValue(kTTSym_baton, baton);
-                observeValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
+				baton = TTValue(TTObjectBasePtr(this), attributeName);
+                observeValueCallback->set(kTTSym_baton, baton);
+                observeValueCallback->set(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
                 
                 anAttribute->registerObserverForNotifications(*observeValueCallback);
             }

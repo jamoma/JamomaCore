@@ -14,6 +14,7 @@ sources:
   - source/TTDataObjectBase.cpp
   - source/TTBase.cpp
   - source/TTMessage.cpp
+  - source/TTObject.cpp
   - source/TTObjectBase.cpp
   - source/TTDictionary.cpp
   - source/TTDictionaryBase.cpp
@@ -68,6 +69,7 @@ sources:
   - source/TTAddressItem.cpp
   - source/TTNodeDirectory.cpp
   - tests/TTNodeLib.test.cpp
+  - tests/TTObjectTest.cpp
   - tests/TTInterpolate.test.cpp
 #  - win source/TTNodeLib.cpp
 #  - win source/TTNode.cpp

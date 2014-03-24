@@ -19,7 +19,7 @@
 #include "TTCallback.h"
 
 
-TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress) :
+TTAttribute::TTAttribute(const TTSymbol newName, TTDataType newType, void* newAddress) :
 	TTObjectBase(TTValue()),
 	name(newName), 
 	type(newType), 
@@ -40,28 +40,28 @@ TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newA
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
-TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
+TTAttribute::TTAttribute(const TTSymbol newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
 : TTObjectBase(TTValue()), name(newName), type(newType), address(newAddress), getter(newGetter), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(kTTSym_none), hidden(NO), description(kTTSymEmpty), mDefaultValue(0)
 {
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
-TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
+TTAttribute::TTAttribute(const TTSymbol newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
 : TTObjectBase(TTValue()), name(newName), type(newType), address(newAddress), setter(newSetter), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(kTTSym_none), hidden(NO), description(kTTSymEmpty), mDefaultValue(0)
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 }
 
-TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
+TTAttribute::TTAttribute(const TTSymbol newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
 : TTObjectBase(TTValue()), name(newName), type(newType), address(newAddress), getter(newGetter), setter(newSetter), getterObject(NULL), setterObject(NULL), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(kTTSym_none), hidden(NO), description(kTTSymEmpty), mDefaultValue(0)
 {
 	;
 }
 
-TTAttribute::TTAttribute(const TTSymbol& newName, const TTObjectBasePtr newGetterObject, const TTObjectBasePtr newSetterObject)
+TTAttribute::TTAttribute(const TTSymbol newName, const TTObjectBasePtr newGetterObject, const TTObjectBasePtr newSetterObject)
 : TTObjectBase(TTValue()), name(newName), type(kTypeNone), getterObject(newGetterObject), setterObject(newSetterObject), getterFlags(kTTAttrPassObject), setterFlags(kTTAttrPassObject),
   readOnly(NO), rangeLowBound(0.0), rangeHighBound(1.0), rangeChecking(kTTSym_none), hidden(NO), description(kTTSymEmpty), mDefaultValue(0)
 {

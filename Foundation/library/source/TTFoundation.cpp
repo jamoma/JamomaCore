@@ -21,6 +21,7 @@
 // Unit Tests
 #include "TTMatrix.h"
 #include "TTMatrixArray.h"
+#include "TTObjectTest.h"
 #include "TTInterpolate.test.h"
 #include "TTString.test.h"
 #include "TTSymbol.test.h"
@@ -53,7 +54,7 @@ static bool		TTFoundationHasInitialized = false;
 
 void            TTFoundationLoadExternalClasses(void);
 TTErr           TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
-TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol& className, TTValue& arguments);
+TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol className, TTValue& arguments);
 
 
 /****************************************************************************************************/
@@ -95,6 +96,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTCallback::registerClass();
 		TTMatrix::registerClass();
 		TTMatrixArray::registerClass();
+		TTObjectTest::registerClass();
 		TTStringTest::registerClass();
 		TTSymbolTest::registerClass();
 		TTValueTest::registerClass();

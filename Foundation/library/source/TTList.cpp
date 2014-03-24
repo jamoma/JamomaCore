@@ -231,19 +231,23 @@ void TTList::clear()
 
 void TTList::free()
 {
-	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
-		TTValue& v = *iter;
-		if (v[0].type() == kTypeObject) {
-			TTObjectBasePtr o = NULL;
+//	lock();
+	
+// TTValue takes care of memory management of member objects now, so we don't have to worry about it.
+//	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+//		TTValue& v = *iter;
+//		if (v[0].type() == kTypeObject) {
+// TTValue
+//			TTObjectBasePtr o = NULL;
 //			v.get(0, &o);
-			o = v;
-			TTObjectBaseRelease(&o);
-		}
+//			o = v;
+//			TTObjectBaseRelease(&o);
+//		}
 //		delete *iter;
-	}
-	theList.clear();
-	unlock();
+//	}
+//	theList.clear();
+//	unlock();
+	clear();
 }
 
 
@@ -272,7 +276,7 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTFunctionWithBatonAnd
 }
 
 
-TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol& messageName)
+TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol messageName)
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
@@ -284,26 +288,34 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol& messageName)
 }
 
 
-TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName)
+TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName)
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+#ifdef OLD
 		TTObjectBasePtr obj = NULL;
 		
 		//(iter)->get(0, &obj);
 		obj = iter->at(0);
 		if (obj && obj->valid)
 			obj->sendMessage(messageName);
+#else // NEW
+		TTObject o = iter->at(0);
+		
+		if (o.valid())
+			o.send(messageName);
+#endif
 	}
 	unlock();
 	return kTTErrNone;
 }
 
 
-TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName, TTValue& aValue)
+TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName, TTValue& aValue)
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+#ifdef OLD
 		TTObjectBasePtr obj = NULL;
 		
 		//(iter)->get(0, &obj);
@@ -312,6 +324,13 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName, TTValue&
 			TTValue v;
 			obj->sendMessage(messageName, aValue, v);
 		}
+#else // NEW
+		TTObject	o = iter->at(0);
+		TTValue		unusedReturnValue;
+	
+		if (o.valid())
+			o.send(messageName, aValue, unusedReturnValue);
+#endif
 	}
 	unlock();
 	return kTTErrNone;

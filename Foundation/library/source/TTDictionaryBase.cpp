@@ -47,7 +47,7 @@ TTDictionaryBase::~TTDictionaryBase()
 }
 
 
-TTErr TTDictionaryBase::setSchema(const TTSymbol& schemaName)
+TTErr TTDictionaryBase::setSchema(const TTSymbol schemaName)
 {
 	return append(kTTSym_schema, schemaName);
 }
@@ -74,7 +74,7 @@ TTErr TTDictionaryBase::getValue(TTValue& returnedValue) const
 }
 
 
-TTErr TTDictionaryBase::append(const TTSymbol& key, const TTValue& value)
+TTErr TTDictionaryBase::append(const TTSymbol key, const TTValue& value)
 {
 //	TTValue v = new TTKeyVal(TTPtrSizedInt(&key), value);
 //	lock();
@@ -92,7 +92,7 @@ TTErr TTDictionaryBase::append(const TTSymbol& key, const TTValue& value)
 
 
 
-TTErr TTDictionaryBase::lookup(const TTSymbol& key, TTValue& value) const
+TTErr TTDictionaryBase::lookup(const TTSymbol key, TTValue& value) const
 {
 //	return mHashTable->lookup(key, value);
 //	lock();
@@ -118,7 +118,7 @@ TTErr TTDictionaryBase::lookup(const TTSymbol& key, TTValue& value) const
 }
 
 
-TTErr TTDictionaryBase::remove(const TTSymbol& key)
+TTErr TTDictionaryBase::remove(const TTSymbol key)
 {
 //	TTValue	v;
 //	TTErr	err;

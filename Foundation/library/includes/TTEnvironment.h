@@ -142,7 +142,7 @@ public:
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument);
+	TTErr createInstance(const TTSymbol className, TTObjectBasePtr* anObject, const TTValue& anArgument);
 	
 	
 	/**	Create a reference to an object. */
@@ -172,9 +172,8 @@ extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 // Public Interface -- REPLACED BY TTOBJECT
 // Some of this looks a bit crazy due to duplication -- however the use of templates causes problems for linking on some Macs and PCs
 // (while not neccessarily on others)
-TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, TTValue& arguments) );
-TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTValue& arguments) );
-TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments) );
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTValue arguments) );
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments) );
 
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject) );
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject) );

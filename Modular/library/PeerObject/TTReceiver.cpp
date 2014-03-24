@@ -254,7 +254,7 @@ TTErr TTReceiver::bindAddress()
 	TTAddress       anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
-	TTObjectBasePtr	newObserver, o;
+	TTObjectBasePtr	o;
 	TTList			aNodeList;
 	TTNodePtr		aNode;
 	TTValue			v, data, baton, newElement, none;
@@ -288,18 +288,14 @@ TTErr TTReceiver::bindAddress()
 					err = o->findAttribute(ttAttributeName, &anAttribute);
 					
 					if (!err) {
-						
-						newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-						TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&newObserver), none);
+						TTObject* newObserver = new TTObject("callback");
 						
 						baton = TTValue(TTObjectBasePtr(this));
 						aNode->getAddress(anAddress);
 						baton.append(anAddress.appendAttribute(mAddress.getAttribute()));
 						
-						newObserver->setAttributeValue(kTTSym_baton, baton);
-						newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
-						
-						newObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTReceiver"));					// this is usefull only to debug
+						newObserver->set(kTTSym_baton, baton);
+						newObserver->set(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
 						
 						anAttribute->registerObserverForNotifications(*newObserver);
                         
@@ -349,7 +345,8 @@ TTErr TTReceiver::unbindAddress()
 {
 	TTValue			oldElement, v;
 	TTNodePtr		aNode;
-	TTObjectBasePtr	oldObserver, o;
+	TTObjectBasePtr	o;
+	TTObject*		oldObserver;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute;
 	TTErr			err = kTTErrNone;
@@ -369,7 +366,7 @@ TTErr TTReceiver::unbindAddress()
             aNode = TTNodePtr((TTPtr)oldElement[0]);
             
             // get the observer
-            oldObserver = oldElement[1];
+            oldObserver = (TTObject*)TTPtr(oldElement[1]);
             
             // stop attribute observation of the node
             // if the attribute exist
@@ -379,12 +376,11 @@ TTErr TTReceiver::unbindAddress()
                 anAttribute = NULL;
                 err = o->findAttribute(ttAttributeName, &anAttribute);
                 
-                if(!err){
-                    
+                if (!err) {
                     err = anAttribute->unregisterObserverForNotifications(*oldObserver);
                     
-                    if(!err)
-                        TTObjectBaseRelease(&oldObserver);
+                    if (!err)
+                        delete oldObserver;
                     
                     // for Mirror object : disable listening
                     if (o->getName() == kTTSym_Mirror)
@@ -450,7 +446,7 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTAddress       anAddress;
 	TTSymbol		ttAttributeName;
 	TTAttributePtr	anAttribute = NULL;
-	TTObjectBasePtr	newObserver, oldObserver, o = NULL;
+	TTObjectBasePtr	oldObserver, o = NULL;
 	TTNodePtr		aNode, p_node;
 	TTValue			c, v, b;
 	TTUInt8			flag;
@@ -509,15 +505,13 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 						err = o->findAttribute(ttAttributeName, &anAttribute);
 						
 						if (!err) {
-							
-							newObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-							TTObjectBaseInstantiate(TTSymbol("callback"), &newObserver, none);
+							TTObject *newObserver = new TTObject("callback");
 							
 							b = TTValue(aReceiver);
 							b.append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
 							
-							newObserver->setAttributeValue(kTTSym_baton, b);
-							newObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
+							newObserver->set(kTTSym_baton, b);
+							newObserver->set(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
 							
 							anAttribute->registerObserverForNotifications(*newObserver);
                             

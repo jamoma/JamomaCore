@@ -34,7 +34,7 @@ void TTGraphSourceObserverCallback(TTGraphSourcePtr self, TTValue& arg)
 TTGraphSource::TTGraphSource() :
 	mSourceObject(NULL),
 	mOutletNumber(0),
-	mCallbackHandler(NULL),
+	mCallbackHandler("callback"),
 	mOwner(NULL)
 {
 	create();
@@ -44,9 +44,7 @@ TTGraphSource::TTGraphSource() :
 TTGraphSource::~TTGraphSource()
 {
 	if (mSourceObject)
-		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
-
-	TTObjectBaseRelease(&mCallbackHandler);
+		mSourceObject->unregisterObserverForNotifications(mCallbackHandler);
 	
 	mSourceObject = NULL;
 	mOutletNumber = 0;
@@ -56,11 +54,9 @@ TTGraphSource::~TTGraphSource()
 
 void TTGraphSource::create()
 {
-	TTObjectBaseInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
-		
-	mCallbackHandler->setAttributeValue(TT("owner"), TT("TTGraphSource"));	
-	mCallbackHandler->setAttributeValue(TT("function"), TTPtr(&TTGraphSourceObserverCallback));
-	mCallbackHandler->setAttributeValue(TT("baton"), TTPtr(this));	
+	mCallbackHandler.set(TT("owner"), TT("TTGraphSource"));
+	mCallbackHandler.set(TT("function"), TTPtr(&TTGraphSourceObserverCallback));
+	mCallbackHandler.set(TT("baton"), TTPtr(this));
 }
 
 
@@ -82,8 +78,8 @@ void TTGraphSource::connect(TTGraphObjectBasePtr anObject, TTUInt16 fromOutletNu
 	mOutletNumber = fromOutletNumber;
 
 	// dynamically add a message to the callback object so that it can handle the 'objectFreeing' notification
-	mCallbackHandler->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
+	mCallbackHandler.instance()->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
 	
 	// tell the source that is passed in that we want to watch it
-	mSourceObject->registerObserverForNotifications(*mCallbackHandler);
+	mSourceObject->registerObserverForNotifications(mCallbackHandler);
 }	
