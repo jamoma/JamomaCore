@@ -46,6 +46,32 @@ public:
 			throw TTException("object instantiation failed");
 		}
 	}
+    
+    /** Constructor to create a container and assigned it with the content of a #TTElement 
+     @param element             The element from where to copy the object instance
+     */
+	TTObject(const TTElement element) :
+    mObjectInstance(NULL)
+	{
+		if (element.type() == kTypeObject)
+            mObjectInstance = ttEnvironment->referenceInstance(TTObjectBasePtr(element));
+	}
+    
+    /** Constructor needed to avoid ambiguous conversion for functional-style cast from 'const char' to 'TTObject'.
+     This ambiguity is relative to the TTObject(const TTElement element) 
+     @param aClassName		The symbolic name of the class to create/wrap.
+     @param arguments		Arguments to the constructor. 
+     */
+    TTObject(const char* aClassName, const TTValue arguments = TTValue()) :
+	mObjectInstance(NULL)
+	{
+        TTErr err = ttEnvironment->createInstance(TTSymbol(aClassName), &mObjectInstance, arguments);
+		
+		if (err) {
+			TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName);
+			throw TTException("object instantiation failed");
+		}
+	}
 	
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
 	TTObject() :
