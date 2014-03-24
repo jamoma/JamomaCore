@@ -1927,7 +1927,7 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	// TTObject
+	/* TTObject
     TTObject o1;
     TTErr err = o1.set("any", o1);
     
@@ -1935,6 +1935,7 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					err == kTTErrGeneric,
 					testAssertionCount,
 					errorCount);
+     */
     
     // TTPtr ?
    	
