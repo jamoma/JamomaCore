@@ -48,7 +48,6 @@ TTGraphSource::~TTGraphSource()
 	
 	mSourceObject = NULL;
 	mOutletNumber = 0;
-	mCallbackHandler = NULL;	
 }
 
 

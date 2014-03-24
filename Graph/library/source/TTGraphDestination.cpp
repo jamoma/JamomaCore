@@ -49,7 +49,6 @@ TTGraphDestination::~TTGraphDestination()
 	
 	mDestinationObject = NULL;
 	mInletNumber = 0;
-	mCallbackHandler = NULL;	
 }
 
 

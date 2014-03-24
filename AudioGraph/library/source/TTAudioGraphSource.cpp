@@ -54,7 +54,6 @@ TTAudioGraphSource::~TTAudioGraphSource()
 	
 	mSourceObject = NULL;
 	mOutletNumber = 0;
-	mCallbackHandler = NULL;	
 }
 
 

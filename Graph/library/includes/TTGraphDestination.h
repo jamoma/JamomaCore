@@ -83,7 +83,6 @@ public:
 	{
 		mDestinationObject = NULL;
 		mInletNumber = 0;
-		mCallbackHandler = NULL;
 		mOwner = NULL;
 	
 		// TODO: We're probably leaking memory here, because mCallbackHandler is potentially never freed...
