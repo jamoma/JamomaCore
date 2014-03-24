@@ -35,7 +35,7 @@ protected:
 
 	TTGraphObjectBasePtr	mDestinationObject;	///< the object from which we pull samples
 	TTUInt16			    mInletNumber;		///< zero-based
-	TTObjectBasePtr			mCallbackHandler;
+	TTObject				mCallbackHandler;
 	TTGraphOutletPtr	    mOwner;				///< the owning inlet
 	
 public:
