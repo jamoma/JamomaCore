@@ -77,6 +77,11 @@ mObjectInstance(NULL)
 }
 
 
+TTObject::TTObject(const TTObject& anObjectToCopy)
+{
+	mObjectInstance = ttEnvironment->referenceInstance(anObjectToCopy.mObjectInstance);
+}
+
 
 TTObject::~TTObject()
 {

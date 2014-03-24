@@ -71,7 +71,8 @@ public:
 	TTObject(TTObjectBase* anObjectBase);
 	
 	
-
+	/** Copy constructor */
+	TTObject(const TTObject& anObjectToCopy);
 	
 	
 	/** Destructor.
