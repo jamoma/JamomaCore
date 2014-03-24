@@ -1927,7 +1927,16 @@ void TTValueTestOperators(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	// TTPtr ? TTObject ?
+	// TTObject
+    TTObject o1;
+    TTErr err = o1.set("any", o1);
+    
+    TTTestAssertion("TTObject cast when passed as parameter of a set message",
+					err == kTTErrGeneric,
+					testAssertionCount,
+					errorCount);
+    
+    // TTPtr ?
    	
 	// TODO: test ==
 	// TODO: test =
