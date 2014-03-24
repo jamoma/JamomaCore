@@ -36,6 +36,12 @@ protected:
     TTSymbol                    mNotification;      ///< the notification the callback is sensitive to
 
 private:
+    
+    /** Set baton value
+     @param	value           any value
+     @return                kTTErrNone */
+    TTErr setBaton(const TTValue& value);
+    
     /** Set to which notification the callback is sensitive to
      @param	value           a symbol
      @return                kTTErrNone */
