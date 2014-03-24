@@ -209,7 +209,7 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 }
 
 
-TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument)
+TTErr TTEnvironment::createInstance(const TTSymbol className, TTObjectBasePtr* anObject, const TTValue& anArgument)
 {
 	TTValue		v;
 	TTClassPtr	theClass;
@@ -281,19 +281,14 @@ TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 #pragma mark Public Interface
 #endif
 
-TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, TTValue& arguments)
+
+TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTValue arguments)
 {
 	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
 }
 
 
-TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTValue& arguments)
-{
-	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
-}
-
-
-TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments)
+TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments)
 {
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, returnedObjectPtr, v);

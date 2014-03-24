@@ -17,7 +17,7 @@
 #include "TTObjectTemplates.h"
 
 
-TTObject::TTObject(const TTSymbol& aClassName, const TTValue arguments) :
+TTObject::TTObject(const TTSymbol aClassName, const TTValue arguments) :
 mObjectInstance(NULL)
 {
 	TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, arguments);
@@ -29,7 +29,7 @@ mObjectInstance(NULL)
 }
 
 
-TTObject::TTObject(const TTSymbol& aClassName) :
+TTObject::TTObject(const TTSymbol aClassName) :
 mObjectInstance(NULL)
 {
 	TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, TTValue());
@@ -105,14 +105,14 @@ TTSymbol TTObject::name() const
 
 
 
-TTErr TTObject::send(const TTSymbol& aName)
+TTErr TTObject::send(const TTSymbol aName)
 {
 	return mObjectInstance->sendMessage(aName);
 }
 
 
 
-TTErr TTObject::send(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue)
+TTErr TTObject::send(const TTSymbol aName, const TTValue& anInputValue, TTValue& anOutputValue)
 {
 	return mObjectInstance->sendMessage(aName, anInputValue, anOutputValue);
 }

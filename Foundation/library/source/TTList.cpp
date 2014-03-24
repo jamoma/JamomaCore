@@ -272,7 +272,7 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTFunctionWithBatonAnd
 }
 
 
-TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol& messageName)
+TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol messageName)
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
@@ -284,7 +284,7 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol& messageName)
 }
 
 
-TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName)
+TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName)
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
@@ -300,7 +300,7 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName)
 }
 
 
-TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName, TTValue& aValue)
+TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName, TTValue& aValue)
 {
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {

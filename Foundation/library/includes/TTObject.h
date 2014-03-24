@@ -40,10 +40,10 @@ public:
 		 @param arguments		Arguments to the constructor.
 	 */
 	// NOTE: arguments *must* be copied -- otherwise a reference to kTTValNONE may overwrite its value and corrupt memory
-	TTObject(const TTSymbol& aClassName, const TTValue arguments);
+	TTObject(const TTSymbol aClassName, const TTValue arguments);
 
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
-	TTObject(const TTSymbol& aClassName);
+	TTObject(const TTSymbol aClassName);
 
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
 	TTObject();
@@ -110,7 +110,7 @@ public:
 		@param aName	The name of the message to send.
 		@return			#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr send(const TTSymbol& aName);
+	TTErr send(const TTSymbol aName);
 
 	/** Send a message to this object with arguments.
 		All arguments for input must be packed into a #TTValue container.
@@ -120,7 +120,7 @@ public:
 		@param	anOutputValue	Will be filled-in with data upon return if the message returns data.
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr send(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue);
+	TTErr send(const TTSymbol aName, const TTValue& anInputValue, TTValue& anOutputValue);
 	
 	/** Register an observer.
 		The observer will be monitoring this object.

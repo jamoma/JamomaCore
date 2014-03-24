@@ -54,7 +54,7 @@ static bool		TTFoundationHasInitialized = false;
 
 void            TTFoundationLoadExternalClasses(void);
 TTErr           TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
-TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol& className, TTValue& arguments);
+TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol className, TTValue& arguments);
 
 
 /****************************************************************************************************/

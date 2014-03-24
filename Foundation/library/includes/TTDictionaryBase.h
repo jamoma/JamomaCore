@@ -88,7 +88,7 @@ public:
 	 @para schemaName			TODO: Add documentation
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSchema(const TTSymbol& schemaName);
+	TTErr setSchema(const TTSymbol schemaName);
 	
 	
 	/** TODO: Add documentation
@@ -128,20 +128,20 @@ public:
 	 @param value	The value to instert.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr append(const TTSymbol& key, const TTValue& value);
+	TTErr append(const TTSymbol key, const TTValue& value);
 	
 	
 	/** Find the value for the given key.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr lookup(const TTSymbol& key, TTValue& value) const;
+	TTErr lookup(const TTSymbol key, TTValue& value) const;
 	
 	
 	/** Remove an item from the hash table.
 	 @param key					The key of the item to remove.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr remove(const TTSymbol& key);
+	TTErr remove(const TTSymbol key);
 	
 	
 	/** Remove all items from the hash table.

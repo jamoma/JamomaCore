@@ -170,7 +170,7 @@ public:
 	}
 	
 	/** Return a new TTAddress with a instance part */
-	TTAddress appendInstance(const TTSymbol& anInstance)
+	TTAddress appendInstance(const TTSymbol anInstance)
 	{
 		return TTAddress(getBasePointer()->appendInstance(anInstance));
 	}
