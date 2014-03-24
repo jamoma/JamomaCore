@@ -47,7 +47,7 @@ TTErr TTDataspace::convert(const TTValue& input, TTValue& output)
 }
 
 
-TTErr TTDataspace::setInputUnit(TTSymbol& inUnitName)
+TTErr TTDataspace::setInputUnit(TTSymbol inUnitName)
 {
 	TTSymbol	newUnitClassName;
 	TTErr		err;
@@ -63,9 +63,7 @@ TTErr TTDataspace::setInputUnit(TTSymbol& inUnitName)
             newUnitClassName = v;
             
             if (newUnitClassName) {
-                
-                v = inUnitName;
-                err = TTObjectBaseInstantiate(newUnitClassName, &inUnitTT, v);	// this will free a pre-existing unit
+                err = TTObjectBaseInstantiate(newUnitClassName, &inUnitTT, inUnitName);	// this will free a pre-existing unit
                 inUnit = dynamic_cast<TTDataspaceUnitPtr>(inUnitTT);
             }
 		}
@@ -80,7 +78,7 @@ TTSymbol& TTDataspace::getInputUnit()
 }
 
 
-TTErr TTDataspace::setOutputUnit(TTSymbol& outUnitName)
+TTErr TTDataspace::setOutputUnit(TTSymbol outUnitName)
 {
 	TTSymbol	newUnitClassName;
 	TTErr		err;
@@ -96,9 +94,7 @@ TTErr TTDataspace::setOutputUnit(TTSymbol& outUnitName)
             newUnitClassName = v;
             
             if (newUnitClassName) {
-			
-                v = outUnitName;
-                err = TTObjectBaseInstantiate(newUnitClassName, &outUnitTT, v);	// this will free a pre-existing unit
+                err = TTObjectBaseInstantiate(newUnitClassName, &outUnitTT, outUnitName);	// this will free a pre-existing unit
                 outUnit = dynamic_cast<TTDataspaceUnitPtr>(outUnitTT);
             }
 		}
