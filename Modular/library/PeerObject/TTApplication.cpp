@@ -24,30 +24,15 @@
 #define thisTTClassTags		"modularLibrary, application"
 
 TT_MODULAR_CONSTRUCTOR,
-mDebug(NO),
 mDirectory(NULL),
 mName(kTTSymEmpty),
 mType(kTTSym_local),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mActivity(NO),
+mDebug(NO),
 mTempAddress(kTTAdrsRoot)
 {
-/*
-	if (arguments.size() != 1)
-		throw TTException("TTApplication constructor needs one symbol argument to setup its name\n");
-
-    if (arguments[0].type() != kTypeSymbol)
-		throw TTException("TTApplication constructor needs one symbol argument to setup its name\n");
-*/
-    if (arguments.size() == 1)
-        if (arguments[0].type() == kTypeSymbol)
-            mName = arguments[0];
-	
-	addAttributeWithSetter(Name, kTypeSymbol);
-    
-    TT_ASSERT("mName is not empty", mName != kTTSymEmpty);
-    
 	addAttributeWithSetter(Name, kTypeSymbol);
     addAttribute(Type, kTypeSymbol);
 	addAttribute(Version, kTypeSymbol);
@@ -93,6 +78,12 @@ mTempAddress(kTTAdrsRoot)
 	
 	addMessageWithArguments(UpdateAttribute);
 	addMessageProperty(UpdateAttribute, hidden, YES);
+    
+    addMessageWithArguments(RegisterObject);
+    addMessageProperty(RegisterObject, hidden, YES);
+    
+    addMessageWithArguments(UnregisterObject);
+    addMessageProperty(UnregisterObject, hidden, YES);
 	
 	// symbol conversion
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
@@ -130,8 +121,8 @@ mTempAddress(kTTAdrsRoot)
 TTApplication::~TTApplication()
 {
 	// TODO : delete observers
-	
-	delete mDirectory;
+	if (mDirectory)
+        delete mDirectory;
 }
 
 #if 0
@@ -146,9 +137,8 @@ TTErr TTApplication::setName(const TTValue& value)
     
 	mName = value;
 	mDirectory->setName(mName);
-	
-	// rename the application into the application manager too
-	return TTModularApplicationManager->sendMessage(TTSymbol("ApplicationRename"), args, none);
+    
+    return kTTErrNone;
 }
 
 TTErr TTApplication::setActivity(const TTValue& value)
@@ -626,6 +616,69 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	return kTTErrGeneric;
 }
 
+TTErr TTApplication::RegisterObject(const TTValue& inputValue, TTValue& outputValue)
+{
+    // get optional address and object
+    if (inputValue.size() >= 2) {
+        
+        if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeObject) {
+            
+            TTAddress address = inputValue[0];
+            TTObject object = TTObject(inputValue[1]);
+            
+            // get optional context
+            TTPtr context = NULL;
+            if (inputValue.size() == 3)
+                if (inputValue[2].type() == kTypePointer)
+                    context = inputValue[2];
+            
+            // register the object
+            TTNodePtr node;
+            TTBoolean newInstanceCreated;
+            
+            TTErr err = mDirectory->TTNodeCreate(address, object.instance(), context, &node, &newInstanceCreated);
+            
+            // return the effective address
+            if (!err) {
+                
+                if (newInstanceCreated)
+                    node->getAddress(address);
+                
+                outputValue = address;
+            }
+            
+            return err;
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTApplication::UnregisterObject(const TTValue& inputValue, TTValue& outputValue)
+{
+    // get optional address and object
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            TTAddress address = inputValue[0];
+            
+            // retreive the node
+            TTNodePtr node;
+            
+            if (!mDirectory->getTTNode(address, &node)) {
+                
+                // return the object
+                outputValue = node->getObject();
+                
+                // unregister it
+                return mDirectory->TTNodeRemove(address);
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
+}
 
 TTErr TTApplication::getAllAppNames(TTValue& value)
 {

@@ -27,7 +27,7 @@ typedef TTScript* TTScriptPtr;
  
  */
 
-class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
+class TTMODULAR_EXPORT TTCue : public TTObjectBase
 {
 	TTCLASS_SETUP(TTCue)
 	

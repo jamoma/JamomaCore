@@ -24,7 +24,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTReceiver : public TTDataObjectBase
+class TTMODULAR_EXPORT TTReceiver : public TTObjectBase
 {
 	TTCLASS_SETUP(TTReceiver)
 	

@@ -24,7 +24,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTSender : public TTDataObjectBase
+class TTMODULAR_EXPORT TTSender : public TTObjectBase
 {
 	TTCLASS_SETUP(TTSender)
 

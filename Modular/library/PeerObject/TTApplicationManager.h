@@ -63,7 +63,7 @@ enum TTApplicationNotificationFlag {
  
  @see TTApplication, ProtocolLib
  */
-class TTMODULAR_EXPORT TTApplicationManager : public TTDataObjectBase
+class TTMODULAR_EXPORT TTApplicationManager : public TTObjectBase
 {
 	TTCLASS_SETUP(TTApplicationManager)
 	

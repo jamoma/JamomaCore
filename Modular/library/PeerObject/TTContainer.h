@@ -24,7 +24,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTContainer : public TTDataObjectBase
+class TTMODULAR_EXPORT TTContainer : public TTObjectBase
 {
 	TTCLASS_SETUP(TTContainer)
 	

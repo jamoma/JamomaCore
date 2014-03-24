@@ -30,7 +30,7 @@ typedef TTReceiver* TTReceiverPtr;
 class TTSender;
 typedef TTSender* TTSenderPtr;
 
-class TTMODULAR_EXPORT TTMapper : public TTDataObjectBase
+class TTMODULAR_EXPORT TTMapper : public TTObjectBase
 {
 	TTCLASS_SETUP(TTMapper)
 	

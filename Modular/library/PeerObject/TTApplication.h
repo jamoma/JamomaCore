@@ -49,7 +49,7 @@ typedef TTXmlHandler* TTXmlHandlerPtr;
  *
  * @see TTApplicationManager, Protocol
  */
-class TTMODULAR_EXPORT TTApplication : public TTDataObjectBase
+class TTMODULAR_EXPORT TTApplication : public TTObjectBase
 {
 	TTCLASS_SETUP(TTApplication)
 	
@@ -174,6 +174,18 @@ private:
      @param outputValue
      @return #TTErr error code */
 	TTErr UpdateAttribute(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Register an object into the application directory at an address
+     @param inputValue      an address, an object and an optional context pointer
+     @param outputValue     the effective registration address
+     @return #TTErr error code */
+	TTErr RegisterObject(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Unregister an object registered into the application directory at an address
+     @param inputValue      the address
+     @param outputValue     the registered object
+     @return #TTErr error code */
+	TTErr UnregisterObject(const TTValue& inputValue, TTValue& outputValue);
 
 #if 0
 #pragma mark -

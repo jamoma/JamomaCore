@@ -149,14 +149,22 @@ TTErr TTApplicationManager::getApplicationNames(TTValue& returnedApplicationName
 
 TTErr TTApplicationManager::getApplicationLocalName(TTValue& returnedApplicationLocalName)
 {
-    return mApplicationLocal->getAttributeValue(kTTSym_name, returnedApplicationLocalName);
+    if (mApplicationLocal)
+        return mApplicationLocal->getAttributeValue(kTTSym_name, returnedApplicationLocalName);
+    
+    else
+        return kTTErrGeneric;
 }
 
 TTErr TTApplicationManager::getApplicationLocal(TTValue& returnedApplicationLocal)
 {
-    returnedApplicationLocal = TTObjectBasePtr(mApplicationLocal);
-    
-    return kTTErrNone;
+    if (mApplicationLocal) {
+        
+        returnedApplicationLocal = TTObjectBasePtr(mApplicationLocal);
+        return kTTErrNone;
+    }
+    else
+        return kTTErrGeneric;
 }
 
 #if 0
@@ -176,7 +184,7 @@ TTErr TTApplicationManager::getProtocolNames(TTValue& value)
 
 TTErr TTApplicationManager::ApplicationInstantiateLocal(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTValue             v, args;
+    TTValue             v, none;
     TTSymbol            applicationName;
     TTObjectBasePtr     anApplication = NULL;
     
@@ -198,7 +206,8 @@ TTErr TTApplicationManager::ApplicationInstantiateLocal(const TTValue& inputValu
             }
             
             // create an application
-            TTObjectBaseInstantiate(kTTSym_Application, &anApplication, applicationName);
+            TTObjectBaseInstantiate(kTTSym_Application, &anApplication, none);
+            anApplication->setAttributeValue(kTTSym_name, applicationName);
             
             // register the application as any application
             mApplications.append(applicationName, anApplication);
@@ -223,7 +232,7 @@ TTErr TTApplicationManager::ApplicationInstantiateLocal(const TTValue& inputValu
 
 TTErr TTApplicationManager::ApplicationInstantiateDistant(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTValue             v, args;
+    TTValue             v, none;
     TTSymbol            applicationName;
     TTObjectBasePtr     anApplication = NULL;
     
@@ -240,11 +249,9 @@ TTErr TTApplicationManager::ApplicationInstantiateDistant(const TTValue& inputVa
                 return kTTErrGeneric;
             }
             
-            // pass the name and the application manager
-            args = applicationName;
-            args.append(TTObjectBasePtr(this));
-            
-            TTObjectBaseInstantiate(kTTSym_Application, &anApplication, args);
+            // create an application
+            TTObjectBaseInstantiate(kTTSym_Application, &anApplication, none);
+            anApplication->setAttributeValue(kTTSym_name, applicationName);
             
             // register the application as any application
             mApplications.append(applicationName, anApplication);
@@ -327,6 +334,8 @@ TTErr TTApplicationManager::ApplicationRename(const TTValue& inputValue, TTValue
             if (!mApplications.lookup(oldApplicationName, v)) {
                 
                 TTObjectBasePtr anApplication = v[0];
+                
+                anApplication->setAttributeValue(kTTSym_name, newApplicationName);
                 
                 // notify applications observer that an application will be removed
                 notifyApplicationObservers(oldApplicationName, anApplication, kApplicationReleased);
@@ -460,7 +469,7 @@ TTErr TTApplicationManager::ProtocolInstantiate(const TTValue& inputValue, TTVal
 				args = TTObjectBasePtr(aProtocolObject);
 				mProtocols.append(protocolName, args);
                 
-                // return the application back
+                // return the protocol back
                 outputValue = TTObjectBasePtr(aProtocolObject);
 				
 				TTLogMessage("%s protocol instantiated\n", protocolName.c_str());
@@ -1084,7 +1093,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 			
 			mApplications.getKeys(applicationNames);
             for (j = 0; j < applicationNames.size(); j++)
-                mCurrentProtocol->sendMessage(TTSymbol("unregisterApplication"), applicationNames[j], none);
+                mCurrentProtocol->sendMessage(TTSymbol("UnregisterApplication"), applicationNames[j], none);
             
 		}
 		
@@ -1157,7 +1166,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
         
         // register the application to the current protocol
         v = TTValue(aXmlHandler->mXmlNodeName);
-        mCurrentProtocol->sendMessage(TTSymbol("registerApplication"), v, none);
+        mCurrentProtocol->sendMessage(TTSymbol("RegisterApplication"), v, none);
         
         // get parameters table
         err = mCurrentProtocol->getAttributeValue(TTSymbol("applicationParameters"), v);

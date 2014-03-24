@@ -22,7 +22,7 @@
 /**	TTNodeInfo provides priority, tag and description for a node.
  @details ...
  */
-class TTMODULAR_EXPORT TTNodeInfo : public TTDataObjectBase
+class TTMODULAR_EXPORT TTNodeInfo : public TTObjectBase
 {
 	TTCLASS_SETUP(TTNodeInfo)
 	

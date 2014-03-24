@@ -33,7 +33,7 @@ typedef TTXmlHandler* TTXmlHandlerPtr;
 // a namespace is a TTList
 typedef	TTList* NamespacePtr;
 
-class TTMODULAR_EXPORT TTCueManager : public TTDataObjectBase
+class TTMODULAR_EXPORT TTCueManager : public TTObjectBase
 {
 	TTCLASS_SETUP(TTCueManager)
 	

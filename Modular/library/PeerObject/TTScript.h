@@ -37,7 +37,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTScript : public TTDataObjectBase
+class TTMODULAR_EXPORT TTScript : public TTObjectBase
 {
 	TTCLASS_SETUP(TTScript)
 	

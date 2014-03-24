@@ -29,7 +29,7 @@ typedef TTSender* TTSenderPtr;
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-class TTMODULAR_EXPORT TTViewer : public TTDataObjectBase
+class TTMODULAR_EXPORT TTViewer : public TTObjectBase
 {
 	TTCLASS_SETUP(TTViewer)
 	

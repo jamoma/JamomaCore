@@ -78,7 +78,7 @@ private:
 	
 	/** Prepares a command to update the value of TTValue. 
 	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out outputValue	This is not being used.
+	 @param[out] outputValue	This is not being used.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
 	 @see #TTDataParseCommand
 	 */

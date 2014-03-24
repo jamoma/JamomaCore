@@ -27,7 +27,7 @@ typedef void (*TTRampCallback)(void *, TTUInt32, TTFloat64 *);
 
 
 // Specification of our base class
-class TTMODULAR_EXPORT TTRamp : public TTDataObjectBase {
+class TTMODULAR_EXPORT TTRamp : public TTObjectBase {
     
     TTCLASS_SETUP(TTRamp)
   	

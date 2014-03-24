@@ -30,7 +30,7 @@
 class TTInput;
 typedef TTInput* TTInputPtr;
 
-class TTMODULAR_EXPORT TTOutput : public TTDataObjectBase
+class TTMODULAR_EXPORT TTOutput : public TTObjectBase
 {
 	TTCLASS_SETUP(TTOutput)
 	

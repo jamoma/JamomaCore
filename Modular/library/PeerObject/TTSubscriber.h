@@ -39,7 +39,7 @@
 class TTData;
 typedef TTData* TTDataPtr;
 
-class TTMODULAR_EXPORT TTSubscriber : public TTDataObjectBase
+class TTMODULAR_EXPORT TTSubscriber : public TTObjectBase
 {
 	
 public:
