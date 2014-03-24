@@ -212,7 +212,7 @@ TTSymbol TTObjectBase::getAttributeType(const TTSymbol name)
     
     if (!findAttribute(name, &attributeObject))
         
-        return ttDataTypeInfo[attributeObject->type]->name;
+        return *(ttDataTypeInfo[attributeObject->type]->name);
     
     else
         
