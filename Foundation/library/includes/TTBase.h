@@ -277,6 +277,7 @@ enum TTDataType {
 	kTypeLocalValue,	///< This is a special type used by TTAttribute to indicate that a value is a TTValue and is locally maintained.
 	kTypeMatrix,		///< An instance of a TTMatrix object
 	kTypeDictionary,
+	kTypeAddress,
 	kNumTTDataTypes
 };
 
