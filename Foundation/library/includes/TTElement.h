@@ -204,7 +204,8 @@ public:
 	}
 	
 	/** Copy constructor. */
-	TTElement(const TTElement& anOtherElement)
+	TTElement(const TTElement& anOtherElement) :
+	mType(kTypeNone)
 	{
 		*this = anOtherElement;
 	}
@@ -221,6 +222,7 @@ private:
 			delete mValue.mAddress;
 		else if (mType == kTypeObject)
 			delete mValue.mObject;
+		mValue.ptr = NULL;
 		mType = kTypeNone;
 	}
 	
@@ -418,6 +420,24 @@ public:
 #pragma mark -
 #pragma mark assignment
 #endif
+	
+	TTElement& operator = (const TTElement& anOtherValue)
+	{
+		chuck();
+
+		mType = anOtherValue.mType;
+	
+		if (anOtherValue.mType == kTypeSymbol)
+			mValue.mSymbol = new TTSymbol(*anOtherValue.mValue.mSymbol);
+		else if (anOtherValue.mType == kTypeAddress)
+			mValue.mAddress = new TTAddress(*anOtherValue.mValue.mAddress);
+		else if (anOtherValue.mType == kTypeObject)
+			mValue.mObject = new TTObject(*anOtherValue.mValue.mObject);
+		else
+			mValue = anOtherValue.mValue;
+		
+		return *this;
+	}
 	
 	TTElement& operator = (TTFloat32 value)
 	{
