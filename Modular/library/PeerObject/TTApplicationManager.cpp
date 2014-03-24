@@ -216,7 +216,11 @@ TTErr TTApplicationManager::ApplicationInstantiateLocal(const TTValue& inputValu
             mApplicationLocal = TTApplicationPtr(anApplication);
             
             // return the application back
-            outputValue = anApplication;
+			// TODO: WHEN THIS FUNCTION GETS UPDATED FOR THE NEWER API THEN THE FOLLOWING WILL NOT
+			// NEED TO MAKE AN EXTRA COPY OF THE OBJECT BEFORE ASSIGNING IT TO OUTPUT VALUE
+			// THE OUTPUT VALUE MUST BE ASSIGNED FROM A TTOBJECT THOUGH, NOT FROM A POINTER
+			// OR ELSE IT WILL FAIL ON THE RECEIVING END BECAUSE THE VALUE WONT UNDERSTAND HOW TO HANDLE IT
+            outputValue = TTObject(anApplication);
             
             // notify applications observer that an application has been instantiated
             notifyApplicationObservers(applicationName, anApplication, kApplicationInstantiated);
