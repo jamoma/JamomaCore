@@ -45,17 +45,22 @@ public:
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
 	TTObject(const TTSymbol aClassName);
 
+#if 0
+	// NOTES FROM TIM: TTElement will pass objects by copy now -- so this constructor should not be
+	// will add a test for the case mentioned in the comment below...
+	
 	/** Constructor to create a container and assigned it with the content of a #TTElement
      @details this allows to write : TTObject object = value[0];
      @param element             The element from where to copy the object instance
      */
 	TTObject(const TTElement element);
-
+	
 	/** Constructor needed to avoid ambiguous conversion for functional-style cast from 'const char' to 'TTObject'.
      This ambiguity is relative to the TTObject(const TTElement element)
      @param aClassName		The symbolic name of the class to create/wrap.
      */
     TTObject(const char* aClassName);
+#endif
 
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
 	TTObject();
@@ -66,7 +71,8 @@ public:
 	TTObject(TTObjectBase* anObjectBase);
 	
 	
-//#error Where is the copy constructor!?!?
+
+	
 	
 	/** Destructor.
 	 */
@@ -83,17 +89,13 @@ public:
 
 	/**	Assign a TTObject instance to another TTObject
      */
-    TTObject& operator = (TTObject object)
-    {
-        if (mObjectInstance)
-            ttEnvironment->releaseInstance(&mObjectInstance);
-        
-        mObjectInstance = ttEnvironment->referenceInstance(object.mObjectInstance);
-        return *this;
-    }
+    TTObject& operator = (TTObject object);
     
     /**	Assign a TTObject instance from an kTypeObject element
-     */
+	 
+	 NOTE FROM TIM: We should not need this one as the casting operator of TTElement to a TTObject 
+	 should provide what is neccessary.
+	 
     TTObject& operator = (TTElement element)
     {
         if (element.type() == kTypeObject) {
@@ -106,6 +108,7 @@ public:
         
         return *this;
     }
+     */
 	
 	/** Return a direct pointer to the internal instance.
 		Not recommended in most cases. */

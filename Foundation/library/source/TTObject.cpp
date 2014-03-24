@@ -41,6 +41,7 @@ mObjectInstance(NULL)
 }
 
 
+/* TODO: cut this once confirmed that the example in TTObjectTest is working
 TTObject(const TTElement element) :
 mObjectInstance(NULL)
 {
@@ -59,6 +60,7 @@ mObjectInstance(NULL)
         throw TTException("object instantiation failed");
     }
 }
+ */
 
 
 TTObject::TTObject() :
@@ -98,6 +100,16 @@ TTErr TTObject::GetRegisteredTags(TTValue& tags)
 {
 	// TODO: Needs to be implemented!
 	return kTTErrMethodNotFound;
+}
+
+
+TTObject& TTObject::operator = (TTObject object)
+{
+	if (mObjectInstance)
+		ttEnvironment->releaseInstance(&mObjectInstance);
+	
+	mObjectInstance = ttEnvironment->referenceInstance(object.mObjectInstance);
+	return *this;
 }
 
 
@@ -155,6 +167,9 @@ TTErr TTObject::unregisterObserverForNotifications(const TTObject& anObservingOb
 {
 	return mObjectInstance->unregisterObserverForNotifications(anObservingObject);
 }
+
+
+
 
 
 inline bool operator == (const TTObject& anObject, const TTObject& anotherObject)

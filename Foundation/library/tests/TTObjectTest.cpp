@@ -22,7 +22,7 @@ TTObjectTest::~TTObjectTest()
 {;}
 
 
-void TTObjectTestBasic(int& errorCount, int&testAssertionCount)
+void TTObjectTestBasic(int& errorCount, int& testAssertionCount)
 {
 	TTTestLog("\n");
 	TTTestLog("Testing basic functionality of TTObject");
@@ -41,12 +41,46 @@ void TTObjectTestBasic(int& errorCount, int&testAssertionCount)
 }
 
 
+void TTObjectTestWithTTValue(int& errorCount, int& testAssertionCount)
+{
+	TTObject callback("callback");
+	
+	callback.set("notification", "foo");	// set an attr so we can verify that it survives
+	
+	{
+		TTValue v1(callback);					// assign to value with copy constructor
+		TTValue v2 = callback;					// assign to value with = operator
+		
+		TTTestAssertion("an object and two values -- refcount should be 3",
+						callback.instance()->getReferenceCount() == 3,
+						testAssertionCount,
+						errorCount);
+
+		// could check that v1 and v2 have correct and sane content
+		
+		TTObject o1 = v1[0];
+		TTObject o2 = v2[0];
+		
+		TTTestAssertion("3 objects and 2 values -- refcount should be 5",
+						callback.instance()->getReferenceCount() == 5,
+						testAssertionCount,
+						errorCount);
+	}
+	
+	TTTestAssertion("1 object, others went out of scope -- refcount should be 1",
+					callback.instance()->getReferenceCount() == 1,
+					testAssertionCount,
+					errorCount);
+}
+
+
 TTErr TTObjectTest::test(TTValue& returnedTestInfo)
 {
 	int	errorCount = 0;
 	int testAssertionCount = 0;
 	
 	TTObjectTestBasic(errorCount, testAssertionCount);
+	TTObjectTestWithTTValue(errorCount, testAssertionCount);
 	
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
