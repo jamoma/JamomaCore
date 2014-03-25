@@ -38,6 +38,14 @@ void TTObjectTestBasic(int& errorCount, int& testAssertionCount)
 					notificationName == "foo",
 					testAssertionCount,
 					errorCount);
+/*
+    TTObject o1 = callback;
+    
+    TTTestAssertion("two object refering to the same object instance are equal",
+					o1 == callback,
+					testAssertionCount,
+					errorCount);
+ */
 }
 
 
@@ -51,7 +59,7 @@ void TTObjectTestWithTTValue(int& errorCount, int& testAssertionCount)
 		TTValue v1(callback);					// assign to value with copy constructor
 		TTValue v2 = callback;					// assign to value with = operator
 		
-		TTTestAssertion("an object and two values -- refcount should be 3",
+		TTTestAssertion("1 object and 2 values -- refcount should be 3",
 						callback.instance()->getReferenceCount() == 3,
 						testAssertionCount,
 						errorCount);
