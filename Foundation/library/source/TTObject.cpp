@@ -41,28 +41,6 @@ mObjectInstance(NULL)
 }
 
 
-/* TODO: cut this once confirmed that the example in TTObjectTest is working
-TTObject(const TTElement element) :
-mObjectInstance(NULL)
-{
-    if (element.type() == kTypeObject)
-        mObjectInstance = ttEnvironment->referenceInstance(TTObjectBasePtr(element));
-}
-
-
-TTObject(const char* aClassName) :
-mObjectInstance(NULL)
-{
-    TTErr err = ttEnvironment->createInstance(TTSymbol(aClassName), &mObjectInstance, arguments);
-    
-    if (err) {
-        TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName);
-        throw TTException("object instantiation failed");
-    }
-}
- */
-
-
 TTObject::TTObject() :
 mObjectInstance(NULL)
 {
@@ -150,12 +128,10 @@ TTSymbol TTObject::name() const
 }
 
 
-
 TTErr TTObject::send(const TTSymbol aName)
 {
 	return mObjectInstance->sendMessage(aName);
 }
-
 
 
 TTErr TTObject::send(const TTSymbol aName, const TTValue& anInputValue, TTValue& anOutputValue)
@@ -176,9 +152,6 @@ TTErr TTObject::unregisterObserverForNotifications(const TTObject& anObservingOb
 }
 
 
-
-
-
 bool operator == (const TTObject& anObject, const TTObject& anotherObject)
 {
 	return (anObject.instance() == anotherObject.instance());
@@ -192,4 +165,3 @@ TTBoolean TTObject::valid() const
 	else
 		return NO;
 }
-
