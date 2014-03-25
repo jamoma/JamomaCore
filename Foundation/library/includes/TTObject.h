@@ -197,7 +197,7 @@ public:
 
 
 /** Compare two objects for equality. */
-inline bool operator == (const TTObject& anObject, const TTObject& anotherObject);
+bool operator == (const TTObject& anObject, const TTObject& anotherObject);
 
 
 /** Macro to access the actual C++ class that is contained inside of the #TTObject as a pointer.

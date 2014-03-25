@@ -179,7 +179,7 @@ TTErr TTObject::unregisterObserverForNotifications(const TTObject& anObservingOb
 
 
 
-inline bool operator == (const TTObject& anObject, const TTObject& anotherObject)
+bool operator == (const TTObject& anObject, const TTObject& anotherObject)
 {
 	return (anObject.instance() == anotherObject.instance());
 }
