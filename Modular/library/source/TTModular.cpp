@@ -51,7 +51,7 @@ void TTModularInit(const char* binaries)
 #ifdef TO_DEBUG
     
     TTValue t, out;
-	TTObject test("value.test");
+	TTObject test("nodelib.test");
 	test.send("test", t, out);
     
 #endif // TO_DEBUG
