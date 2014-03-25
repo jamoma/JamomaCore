@@ -682,7 +682,7 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
 	TTAddress  whereToListen;
 	TTSymbol   appToNotify, protocolName;
 	TTBoolean  enableListening;
-    TTObject   anApplication;
+    TTObject   applicationToListen;
 	TTObject   aProtocol;
 	TTValue    v, args, none;
 	
@@ -690,10 +690,10 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
 	appToNotify = inputValue[1];
 	whereToListen = inputValue[2];
 	enableListening = inputValue[3];
+    
+    applicationToListen = findApplicationFrom(whereToListen);
 	
-    if (!mApplications.lookup(appToNotify, v)) {
-        
-        anApplication = v[0];
+    if (applicationToListen.valid()) {
         
         if (!mProtocols.lookup(protocolName, v)) {
             
@@ -708,13 +708,13 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
                 args.append(appToNotify);
                 args.append(whereToListen);
                 
-                // start directory listening
+                // start local directory listening
                 if (whereToListen.getAttribute() == TTSymbol("life")) // TODO : find a better name
-                    return anApplication.send("AddDirectoryListener", args, none);
+                    return applicationToListen.send("AddDirectoryListener", args, none);
                 
-                // start attribute listening
+                // start local attribute listening
                 else
-                    return anApplication.send("AddAttributeListener", args, none);
+                    return applicationToListen.send("AddAttributeListener", args, none);
             }
             // remove listener
             else {
@@ -722,13 +722,13 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
                 args.append(appToNotify);
                 args.append(whereToListen);
                 
-                // stop directory listening
+                // stop local directory listening
                 if (whereToListen.getAttribute() == TTSymbol("life")) // TODO : find a better name
-                    return anApplication.send("RemoveDirectoryListener", args, none);
+                    return applicationToListen.send("RemoveDirectoryListener", args, none);
                 
-                // stop attribute listening
+                // stop local attribute listening
                 else
-                    return anApplication.send("RemoveAttributeListener", args, none);
+                    return applicationToListen.send("RemoveAttributeListener", args, none);
             }
         }
     }
@@ -1241,7 +1241,7 @@ TTApplicationPtr TTApplicationManager::findApplication(TTSymbol applicationName)
     
     if (!mApplications.lookup(applicationName, v)) {
         
-        // todo : return TTObject
+        // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
         TTObject anApplication = v[0];
         return TTApplicationPtr(anApplication.instance());
     }
@@ -1254,7 +1254,7 @@ TTApplicationPtr TTApplicationManager::findApplication(TTSymbol applicationName)
 
 TTApplicationPtr TTApplicationManager::getApplicationLocal()
 {
-    // todo : return TTObject
+    // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
     return TTApplicationPtr(mApplicationLocal.instance());
 }
 
@@ -1264,7 +1264,7 @@ TTApplicationPtr TTApplicationManager::findApplicationFrom(TTAddress anAddress)
     
     if (applicationName == NO_DIRECTORY)
         
-        // todo : return TTObject
+        // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
         return TTApplicationPtr(mApplicationLocal.instance());
     
     else
