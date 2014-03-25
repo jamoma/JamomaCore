@@ -281,6 +281,20 @@
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
+		22B6488218E0FE8A00597649 /* JamomaDSP-NoTest */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = notest;
+			buildConfigurationList = 22B6488518E0FE8A00597649 /* Build configuration list for PBXLegacyTarget "JamomaDSP-NoTest" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = "JamomaDSP-NoTest";
+			passBuildSettingsInEnvironment = 1;
+			productName = "JamomaDSP-NoTest";
+		};
 		22C57C5F15EC1D9D00B755FA /* JamomaDSP */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(CONFIGURATION) $(ACTION)";
@@ -338,6 +352,7 @@
 			targets = (
 				22C57C5F15EC1D9D00B755FA /* JamomaDSP */,
 				2A423937169CF22B002D05D9 /* DSPiOS */,
+				22B6488218E0FE8A00597649 /* JamomaDSP-NoTest */,
 			);
 		};
 /* End PBXProject section */
@@ -370,6 +385,58 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		22B6488318E0FE8A00597649 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		22B6488418E0FE8A00597649 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		22C57C6015EC1D9D00B755FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -492,6 +559,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		22B6488518E0FE8A00597649 /* Build configuration list for PBXLegacyTarget "JamomaDSP-NoTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22B6488318E0FE8A00597649 /* Debug */,
+				22B6488418E0FE8A00597649 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		22C57C5D15EC1D9D00B755FA /* Build configuration list for PBXProject "JamomaDSP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -98,6 +98,34 @@ public:
 	TTObject(aClassName, arguments)
 	{}
 	
+	// copy constructor is fully implemented in the super-class
+	
+	/** like a copy constructor -- but from TTObject to TTAudioObject */
+	TTAudioObject(const TTObject& anOtherObject) :
+	TTObject(anOtherObject)
+	{}
+	
+	
+	/**	Set the object's sample rate. */
+	TTErr setSampleRate(const TTUInt32& newSampleRate)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->setSampleRate(newSampleRate);
+	}
+
+	
+	/** Allocate neccessary memory and make configuration adjustments so the object is able
+		to process additional channels of audio. */
+	TTErr adaptMaxChannelCount(const TTUInt16 aNewChannelCount)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->adaptMaxNumChannels(aNewChannelCount);
+	}
+
+	
+	TTErr process(TTAudioSignalArrayPtr in, TTAudioSignalArrayPtr out)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->process(in, out);
+	}
+	
 	TTErr process(TTAudioSignal& in, TTAudioSignal& out)
 	{
 		return TTAudioObjectBasePtr(mObjectInstance)->process(in, out);
