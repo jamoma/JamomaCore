@@ -63,7 +63,7 @@ void TTObjectTestWithTTValue(int& errorCount, int& testAssertionCount)
 	{
 		TTValue v1(callback);					// assign to value with copy constructor
         
-        TTTestAssertion("after duplication the object is valid",
+        TTTestAssertion("after duplication the object is still valid",
                         callback.valid(),
                         testAssertionCount,
                         errorCount);
