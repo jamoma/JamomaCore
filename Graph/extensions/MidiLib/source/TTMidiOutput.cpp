@@ -50,7 +50,9 @@ TTErr TTMidiOutput::dictionary(const TTValue& aDictionaryValue, TTValue&)
 	TTDictionaryPtr	d = NULL;
 	TTSymbol		schema;
 	
-	aDictionaryValue.get(0, (TTPtr*)(&d));
+	//aDictionaryValue.get(0, (TTPtr*)(&d));
+    d = TTDictionaryPtr(TTPtr(aDictionaryValue[0]));
+    
 	schema = d->getSchema();
 	if (schema == TT("RawMidiEvent")) {
 		TTValue statusByte;

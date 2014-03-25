@@ -27,7 +27,7 @@ TTErr TTMatrixGain::test(TTValue& returnedTestInfo)
 	x->setAttributeValue(kTTSym_dimensions,		v);
 	x->setAttributeValue(kTTSym_type,			kTTSym_uint8);
 	x->setAttributeValue(kTTSym_elementCount,	4);
-	aColor.setSize(4);
+	aColor.resize(4);
 	aColor.set(0, 200);
 	aColor.set(1, 196);
 	aColor.set(2, 24);

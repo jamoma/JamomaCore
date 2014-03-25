@@ -42,7 +42,7 @@ TTMatrixStencil::~TTMatrixStencil()
 
 TTErr TTMatrixStencil::getStepSize(TTValue& returnedStepSize)
 {
-	returnedStepSize.setSize(mStepSize.size());
+	returnedStepSize.resize(mStepSize.size());
 	for (TTUInt32 k=0; k<mStepSize.size(); k++)
 		returnedStepSize.set(k, mStepSize[k]);
 	return kTTErrNone;
@@ -51,7 +51,7 @@ TTErr TTMatrixStencil::getStepSize(TTValue& returnedStepSize)
 
 TTErr TTMatrixStencil::setStepSize(const TTValue& newStepSize)
 {
-	TTUInt32 count = newStepSize.getSize();
+	TTUInt32 count = newStepSize.size();
 	TTUInt32 k;
 	TTUInt32 step = 0;
 	
@@ -259,12 +259,12 @@ TTErr TTMatrixStencil::matrixCalculateAverage(TTMatrixArray& inputMatrices, TTMa
 	TTErr		err;
 	
 	inMatrix->getDimensions(dimensions);
-	if (dimensions.getSize() != 2) {
+	if (dimensions.size() != 2) {
 		logError("This class currently only supports 2D matrices");
 		return kTTErrInvalidType;
 	}
 	
-	if (dimensions.getSize() > mStepSize.size())
+	if (dimensions.size() > mStepSize.size())
 		setStepSize(mStepSize[0]); // TODO: make it so that TTValue can automatically be created/assigned from a vector, then pass the whole vector
 	
 	outMatrix->adaptTo(inMatrix);	// set dimensions, element count, datatype, etc.
