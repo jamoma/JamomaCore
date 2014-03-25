@@ -51,7 +51,7 @@ void TTModularInit(const char* binaries)
 #ifdef TO_DEBUG
     
     TTValue t, out;
-	TTObject test("nodelib.test");
+	TTObject test("object.test");
 	test.send("test", t, out);
     
 #endif // TO_DEBUG
@@ -92,19 +92,6 @@ void TTModularInit(const char* binaries)
         
         // Create a hash table to manage namespace selections
 		TTModularSelections = new TTHash();
-        
-        // Théo : this is a very strange bug : the two first toString() parsing on number failed !?!
-        // so here are two parsing to avoid this strange bug for instant ...
-        TTString s;
-        
-        s = "0.001";
-        v = s;
-        v.fromString();
-        
-        v.clear();
-        s = "1";
-        v = s;
-        v.fromString();
         
 #ifdef TT_DEBUG
         TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
