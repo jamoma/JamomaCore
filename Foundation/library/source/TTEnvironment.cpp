@@ -268,13 +268,13 @@ TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 	
 	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
 
-	(*anObject)->valid = false;
-	
-	waitForLock(); // in case an object is processing a vector of audio in another thread or something...
-
 	(*anObject)->referenceCount--;
 	if ((*anObject)->referenceCount < 1) {
+
+		(*anObject)->valid = false;
+		waitForLock(); // in case an object is processing a vector of audio in another thread or something...
 		sFreeInProgress = YES;
+		
 		// the following must happen in a block so that 'v' will go out of scope before we
 		// delete the object.
 		{
