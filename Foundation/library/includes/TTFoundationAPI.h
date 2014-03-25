@@ -19,7 +19,7 @@
 #include "TTInterpolate.h"
 #include "TTLimits.h"
 #include "TTList.h"
-#include "TTMatrix.h"
+#include "TTMatrixBase.h"
 #include "TTMatrixArray.h"
 #include "TTMutex.h"
 #include "TTObjectBase.h"

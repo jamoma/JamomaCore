@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTMatrix.h"
+#include "TTMatrixBase.h"
 #include "TTUnitTest.h"
 //#include "TTLimits.h"
 

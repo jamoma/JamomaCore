@@ -17,7 +17,7 @@
 #include "TTValue.h"
 #include "TTSymbolTable.h"
 #include "TTObject.h"
-#include "TTMatrix.h"
+#include "TTMatrixBase.h"
 #include "TTDictionary.h"
 
 

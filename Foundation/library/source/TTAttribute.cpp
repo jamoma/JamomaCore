@@ -14,7 +14,7 @@
  */
 
 #include "TTObject.h"
-#include "TTMatrix.h"
+#include "TTMatrixBase.h"
 #include "TTEnvironment.h"
 #include "TTCallback.h"
 

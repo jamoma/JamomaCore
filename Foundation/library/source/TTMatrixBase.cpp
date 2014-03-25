@@ -11,7 +11,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTMatrix.h"
+#include "TTMatrixBase.h"
 #include "TTEnvironment.h"
 #include "TTBase.h"
 

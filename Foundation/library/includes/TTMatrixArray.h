@@ -9,7 +9,7 @@
 #ifndef __TT_MATRIXARRAY_H__
 #define __TT_MATRIXARRAY_H__
 
-#include "TTMatrix.h"
+#include "TTMatrixBase.h"
 #include "TTEnvironment.h"
 
 typedef std::vector<TTMatrixPtr>	TTMatrixVector;

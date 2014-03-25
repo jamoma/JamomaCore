@@ -19,7 +19,7 @@
 #endif
 
 // Unit Tests
-#include "TTMatrix.h"
+#include "TTMatrixBase.h"
 #include "TTMatrixArray.h"
 #include "TTObjectTest.h"
 #include "TTInterpolate.test.h"
