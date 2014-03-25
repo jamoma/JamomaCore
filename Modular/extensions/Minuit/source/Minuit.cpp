@@ -133,16 +133,18 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
         
 		if (!err) {
             
+            TTObject minuitProtocol(this);
+            
             // select local application to get its port parameter
             ApplicationSelectLocal();
-            this->getAttributeValue(TTSymbol("port"), v);
+            minuitProtocol.get("port", v);
             port = v[0];
             
             err = mOscReceive->setAttributeValue(TTSymbol("port"), v);
             
             if (!err) {
                 
-                mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
+                mOscReceive->registerObserverForNotifications(minuitProtocol);			// using our 'receivedMessage' method
                 
                 // wait to avoid strange crash when run and stop are called to quickly
                 mWaitThread->sleep(1);

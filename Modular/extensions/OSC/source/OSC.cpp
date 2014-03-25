@@ -132,16 +132,17 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
             err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mLocalApplicationOscReceiver, kTTValNONE);
             if (!err) {
                 
-                TTValue v;
+                TTValue     v;
+                TTObject    oscProtocol(this);
                 
                 // select local application to get its port parameter
                 ApplicationSelectLocal();
-                this->getAttributeValue(TTSymbol("port"), v);
+                oscProtocol.get("port", v);
                 
                 mLocalApplicationOscReceiver->setAttributeValue(TTSymbol("port"), v);
                 
                 // register for notification using our 'receivedMessage' method
-                mLocalApplicationOscReceiver->registerObserverForNotifications(*this);
+                mLocalApplicationOscReceiver->registerObserverForNotifications(oscProtocol);
                 
                 // wait to avoid strange crash when run and stop are called to quickly
                 mWaitThread->sleep(1);
