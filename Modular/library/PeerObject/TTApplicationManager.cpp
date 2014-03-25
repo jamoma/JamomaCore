@@ -399,13 +399,20 @@ TTErr TTApplicationManager::ProtocolInstantiate(const TTValue& inputValue, TTVal
 {
     TTSymbol protocolName;
     TTObject aProtocol, activityInCallback, activityOutCallback;
-    TTValue  args, none;
+    TTValue  args, v;
     
     if (inputValue.size() == 1) {
         
         if (inputValue[0].type() == kTypeSymbol) {
             
             protocolName = inputValue[0];
+            
+            // check if the new protocol name doesn't exist
+            if (!mProtocols.lookup(protocolName, v)) {
+                
+                TTLogError("%s protocol already exists\n", protocolName.c_str());
+                return kTTErrGeneric;
+            }
             
             // prepare arguments
             args = TTObject(this);
@@ -423,16 +430,22 @@ TTErr TTApplicationManager::ProtocolInstantiate(const TTValue& inputValue, TTVal
 			
 			// create an instance of a Protocol object
             aProtocol = TTObject(protocolName,  args);
-			
-            // register the protocol into the application manager
-            args = aProtocol;
-            mProtocols.append(protocolName, args);
             
-            // return the protocol back
-            outputValue = aProtocol;
+            if (aProtocol.valid()) {
+                
+                // register the protocol into the application manager
+                args = aProtocol;
+                mProtocols.append(protocolName, args);
+                
+                // return the protocol back
+                outputValue = aProtocol;
+                
+                TTLogMessage("%s protocol instantiated\n", protocolName.c_str());
+                return kTTErrNone;
+            }
             
-            TTLogMessage("%s protocol instantiated\n", protocolName.c_str());
-            return kTTErrNone;
+            TTLogMessage("%s protocol cannot be instantiated\n", protocolName.c_str());
+            return kTTErrGeneric;
 		}
 	}
     
