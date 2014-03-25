@@ -128,7 +128,7 @@ DemoApp::Setup()
         TTLogMessage("%s application is well registered into the application manager \n", name.c_str());
     }
     
-/*
+
     TTLogMessage("\n*** Enable Minuit communication ***\n");
     ////////////////////////////////////////////////////////////////////////
     
@@ -183,7 +183,6 @@ DemoApp::Setup()
     
     // Enable Minuit communication
     mProtocolMinuit.send("Run");
- */
     
 /*
     TTLogMessage("\n*** Enable WebSocket communication ***\n");
