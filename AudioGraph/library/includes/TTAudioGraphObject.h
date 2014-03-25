@@ -72,9 +72,9 @@ public:
 
 	/** TODO
 	 */
-	TTAudioObjectBasePtr getUnitGenerator()
+	TTAudioObject getUnitGenerator()
 	{
-		return TTAudioObjectBasePtr(mKernel);
+		return TTAudioObject(mKernel);
 	}
 	
 	
@@ -165,7 +165,7 @@ public:
 	TTUInt32 getSampleRate()
 	{
 		TTUInt32 sr;
-		mKernel->getAttributeValue(kTTSym_sampleRate, sr);
+		mKernel.get(kTTSym_sampleRate, sr);
 		return sr;
 	}
 	
@@ -256,24 +256,24 @@ public:
 	{}
 
 	TTErr send(const TTSymbol& aName){
-		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->sendMessage(aName);
+		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator().send(aName);
 	}
 
 	TTErr send(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue)
 	{
-		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->sendMessage(aName, anInputValue, anOutputValue);
+		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator().send(aName, anInputValue, anOutputValue);
 	}
 	
 	template <class T>
 	TTErr set(const TTSymbol aName, T aValue)
 	{
-		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->setAttributeValue(aName, aValue);
+		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator().set(aName, aValue);
 	}
 	
 	template <class T>
 	TTErr get(const TTSymbol aName, T& aReturnedValue)
 	{
-		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getAttributeValue(aName, aReturnedValue);
+		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator().get(aName, aReturnedValue);
 	}
 	
 	/** Return a list of names of the available attributes.
@@ -281,7 +281,7 @@ public:
 	 */
 	void attributes(TTValue& returnedAttributeNames)
 	{
-		((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getAttributeNames(returnedAttributeNames);
+		((TTAudioGraphObjectBase*)instance())->getUnitGenerator().attributes(returnedAttributeNames);
 	}
 	
 	/** Return a list of names of the available messages.
@@ -289,7 +289,7 @@ public:
 	 */
 	void messages(TTValue& returnedMessageNames)
 	{
-		((TTAudioGraphObjectBase*)instance())->getUnitGenerator()->getMessageNames(returnedMessageNames);
+		((TTAudioGraphObjectBase*)instance())->getUnitGenerator().messages(returnedMessageNames);
 	}
 	
 	TTErr connectAudio(TTAudioGraphObject& anObject, TTUInt16 fromOutletNumber=0, TTUInt16 toInletNumber=0)

@@ -57,7 +57,7 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 	addAttributeWithSetter(NumAudioInlets, kTypeUInt32);
 	addAttributeWithSetter(NumAudioOutlets, kTypeUInt32);
 	
-	TT_ASSERT(audiograph_correct_instantiation_arg_count, arguments.getSize() > 0);
+	TT_ASSERT(audiograph_correct_instantiation_arg_count, arguments.size() > 0);
 
 	arguments.get(0, wrappedObjectName);
 	if (arguments.size() > 1)
@@ -71,7 +71,8 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 	// if an object supports the 'setOwner' message, then we tell it that we want to become the owner
 	// this is particularly important for the dac object
 	TTValue v = TTPtr(this);
-	mKernel->sendMessage(TT("setOwner"), v, kTTValNONE);
+	TTValue unusedReturnValue;
+	mKernel.send("setOwner", v, unusedReturnValue);
 	
 	if (!sSharedMutex)
 		sSharedMutex = new TTMutex(false);
@@ -80,34 +81,36 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 
 TTAudioGraphObjectBase::~TTAudioGraphObjectBase()
 {
-	TTObjectBaseRelease((TTObjectBasePtr*)&mInputSignals);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mOutputSignals);
+	delete (TTObject*)mInputSignals;
+	delete (TTObject*)mOutputSignals;
 }
 
 
 TTErr TTAudioGraphObjectBase::setNumAudioInlets(const TTValue& newNumInlets)
 {
-	TTErr		err = TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mInputSignals, newNumInlets);
+	// TODO: if the number of inlets or outlets changes on the fly then we will leak memory!
+	mInputSignals = (TTAudioSignalArrayPtr) new TTObject(kTTSym_audiosignalarray, newNumInlets);
 	TTUInt16	inletCount = newNumInlets;
 
 	mAudioInlets.resize(inletCount);
 	mInputSignals->setMaxNumAudioSignals(inletCount);
 	mInputSignals->numAudioSignals = inletCount;			// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
 	mNumAudioInlets = inletCount;
-	return err;
+	return kTTErrNone;
 }
 
 
 TTErr TTAudioGraphObjectBase::setNumAudioOutlets(const TTValue& newNumOutlets)
 {
-	TTErr		err = TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mOutputSignals, newNumOutlets);
+	// TODO: if the number of inlets or outlets changes on the fly then we will leak memory!
+	mOutputSignals = (TTAudioSignalArrayPtr) new TTObject(kTTSym_audiosignalarray, newNumOutlets);
 	TTUInt16	outletCount = newNumOutlets;
 
 	mAudioOutlets.resize(outletCount);
 	mOutputSignals->setMaxNumAudioSignals(outletCount);
 	mOutputSignals->numAudioSignals = outletCount;
 	mNumAudioOutlets = outletCount;
-	return err;
+	return kTTErrNone;
 }
 
 
@@ -131,7 +134,7 @@ void TTAudioGraphObjectBase::getAudioDescription(TTAudioGraphDescription& desc)
 		desc = mAudioDescription;
 	}
 	else {					// create a new description for this object.
-		desc.mClassName = mKernel->getName();
+		desc.mClassName = mKernel.name();
 		desc.mObjectInstance = mKernel;
 		desc.mNumInlets = mInlets.size();
 		desc.mNumOutlets = mOutlets.size();
@@ -246,7 +249,7 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 				mStatus = kTTAudioGraphProcessingCurrently;
 				
 				if (mAudioFlags & kTTAudioGraphGenerator) {			// a generator (or no input)
-					getUnitGenerator()->process(mInputSignals, mOutputSignals);
+					getUnitGenerator().process(mInputSignals, mOutputSignals);
 				}
 				else {												// a processor
 					// zero our collected input samples
@@ -281,11 +284,11 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 					mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
 					
 					// adapt ugen based on the input we are going to process
-					getUnitGenerator()->adaptMaxNumChannels(mInputSignals->getMaxNumChannels());
-					getUnitGenerator()->setSampleRate(mInputSignals->getSignal(0).getSampleRate());
+					getUnitGenerator().adaptMaxChannelCount(mInputSignals->getMaxNumChannels());
+					getUnitGenerator().setSampleRate(mInputSignals->getSignal(0).getSampleRate());
 							
 					// finally, process the audio
-					getUnitGenerator()->process(mInputSignals, mOutputSignals);
+					getUnitGenerator().process(mInputSignals, mOutputSignals);
 				}
 				
 				// These two lines should be equivalent
