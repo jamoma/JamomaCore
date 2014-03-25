@@ -96,10 +96,12 @@ TTErr TTObject::GetRegisteredClassNames(TTValue& classNames)
 	return ttEnvironment->getAllClassNames(unused, classNames);
 }
 
+
 TTErr TTObject::GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags)
 {
 	return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
 }
+
 
 TTErr TTObject::GetRegisteredTags(TTValue& tags)
 {

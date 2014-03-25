@@ -256,25 +256,34 @@ TTObjectBasePtr TTEnvironment::referenceInstance(TTObjectBasePtr anObject)
 	return anObject;
 }
 
+// TODO: find a better way to avoid the problem of infinite feedback from
+// objects duplicating to provide notification
+// This current technique is not threadsafe (for example, if we are deleting objects on the non-main thread).
+static TTBoolean sFreeInProgress = NO;
+
 TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 {
+	if (sFreeInProgress)
+		return kTTErrNone;
+	
 	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
 
 	(*anObject)->valid = false;
-
-	// For the notification we pass the base pointer as a pointer rather than wrapping as a TTObject reference.
-	// This is important because we don't want to alter the refcount in the middle of freeing the object.
-	{
-		TTValue v = TTPtr(*anObject);
-		(*anObject)->observers->iterateObjectsSendingMessage("objectFreeing", v);
-	}
 	
 	waitForLock(); // in case an object is processing a vector of audio in another thread or something...
 
 	(*anObject)->referenceCount--;
 	if ((*anObject)->referenceCount < 1) {
+		sFreeInProgress = YES;
+		// the following must happen in a block so that 'v' will go out of scope before we
+		// delete the object.
+		{
+			TTValue v = TTObject(*anObject);
+			(*anObject)->observers->iterateObjectsSendingMessage("objectFreeing", v);
+		}
 		delete *anObject;
 		*anObject = NULL;
+		sFreeInProgress = NO;
 	}
 	return kTTErrNone;
 }
