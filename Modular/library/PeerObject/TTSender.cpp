@@ -236,7 +236,7 @@ TTErr TTSender::bindApplication()
 		
 		mApplicationObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTSender"));		// this is usefull only to debug
 		
-		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
+		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 	}
 	
 	return kTTErrGeneric;
@@ -247,7 +247,7 @@ TTErr TTSender::unbindApplication()
 	
 	if (mApplicationObserver) {
 		
-		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
+		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 
 		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
 	}

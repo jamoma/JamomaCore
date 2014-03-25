@@ -60,19 +60,17 @@ TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##nam
 class Protocol : public TTObjectBase {
 	
 protected:																																	
-	TTObjectBasePtr				mApplicationManager;				///< the application manager of the Modular framework.					
+	TTObject                    mApplicationManager;				///< the application manager of the Modular framework.					
 																	///< protocol programmers should not have to deal with this member.
     
     TTSymbol                    mLocalApplicationName;              ///< cache local application name
 	
-	TTCallbackPtr				mActivityInCallback;				///< a callback to trace raw incoming messages.
-	TTCallbackPtr				mActivityOutCallback;				///< a callback to trace raw outputing messages.
+	TTObject                    mActivityInCallback;				///< a callback to trace raw incoming messages.
+	TTObject                    mActivityOutCallback;				///< a callback to trace raw outputing messages.
 
     TTHash                      mApplicationParameters;             ///< ATTRIBUTE : hash table containing hash table of parameters
 																	///< for each application registered for communication with this protocol
 																	///< <TTSymbol applicationName, <TTSymbol parameterName, TTValue value>>
-    
-    TTCallbackPtr				mApplicationObserver;               ///< an application life cycle observer
     
 public:																															
 	TTSymbol					mName;								///< ATTRIBUTE : the name of the protocol to use							
@@ -463,8 +461,6 @@ TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(const TTValue& baton, 
 
 class TT_EXTENSION_EXPORT ProtocolLib {
 public:
-	/** Instantiate a protocol by name */
-	static TTErr createProtocol(const TTSymbol protocolName, ProtocolPtr *returnedProtocol, TTObjectBasePtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback);
 	
 	/**	Return a list of all available protocols. */
 	static void getProtocolNames(TTValue& protocolNames);

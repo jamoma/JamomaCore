@@ -420,7 +420,7 @@ TTErr TTReceiver::bindApplication()
 		mApplicationObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
 		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTReceiverApplicationManagerCallback));
 		
-		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
+		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 	}
 	
 	return kTTErrGeneric;
@@ -430,7 +430,7 @@ TTErr TTReceiver::unbindApplication()
 {
 	if (mApplicationObserver) {
 		
-		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
+		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 		
 		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
 	}

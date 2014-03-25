@@ -69,16 +69,16 @@ class TTMODULAR_EXPORT TTApplicationManager : public TTObjectBase
 	
 private:
 
-	TTHash              mApplications;						///< hash table containing <TTSymbol applicationName, TTApplicationPtr anApplication>
-	TTHash              mProtocols;							///< hash table containing <TTSymbol protocolName, ProtocolPtr aProtocol>
+	TTHash              mApplications;						///< hash table containing <TTSymbol applicationName, #TTApplication anApplication>
+	TTHash              mProtocols;							///< hash table containing <TTSymbol protocolName, #Protocol aProtocol>
 		
-	TTApplicationPtr	mApplicationLocal;					///< a pointer to the local application
-	TTApplicationPtr	mApplicationCurrent;				///< a pointer used for ReadFromXml mechanism
+	TTObject            mApplicationLocal;					///< the local application
+	TTObject            mApplicationCurrent;				///< used for ReadFromXml mechanism
 	
 	TTHash              mApplicationObservers;				///< a pointer to a hashtab which register all application life cycle observers
 	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
     
-    ProtocolPtr         mCurrentProtocol;                   ///< a pointer used for ReadFromXml mechanism
+    TTObject            mCurrentProtocol;                   ///< used for ReadFromXml mechanism
 
 #if 0
 #pragma mark -
@@ -152,7 +152,7 @@ private:
      @param flag            a #TTApplicationNotificationFlag
      @return #TTErr error code 
      @seealso ApplicationIntantiateLocal, ApplicationIntantiateDistant, ApplicationRelease */
-	TTErr notifyApplicationObservers(TTSymbol applicationName, TTObjectBasePtr anApplication, TTApplicationNotificationFlag flag);
+	TTErr notifyApplicationObservers(TTSymbol applicationName, TTObject anApplication, TTApplicationNotificationFlag flag);
     
 #if 0
 #pragma mark -
@@ -258,7 +258,7 @@ private:
      @param aProtocol       a protocol object
      @return #TTErr error code 
      @seealso WriteAsXml */
-    TTErr writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, ProtocolPtr aProtocol);
+    TTErr writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, TTObject aProtocol);
     
     /**  Read an applications and protocols setup
      @param inputValue      <TTXmlHandlerPtr aXmlHandler>
@@ -307,8 +307,8 @@ public:
 	
 	friend TTValue TTMODULAR_EXPORT TTApplicationManagerGetApplicationProtocols(TTSymbol applicationName);
 	
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObject anObserver);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObject anObserver);
 	
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(const TTValue& baton, const TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(const TTValue& baton, const TTValue& data);
@@ -326,14 +326,14 @@ typedef TTApplicationManager* TTApplicationManagerPtr;
  @param anApplicationName		an application to observe
  @param observer				a TTCallbackPtr to add
  @return						an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
+TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObject anObserver);
 
 /** Remove a TTCallback as observer of application creation/destruction
  note : it uses the extern TTModularApplications variable
  @param anApplicationName		an application
  @param observer				a TTCallbackPtr to remove
  @return						a kTTErrGeneric if there isn't observer */
-TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObjectBase& anObserver);
+TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObject anObserver);
 
 /** To get back raw incoming messages from any protocol
  @param	baton						..
