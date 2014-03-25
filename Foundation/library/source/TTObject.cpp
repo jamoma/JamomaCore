@@ -128,12 +128,10 @@ TTSymbol TTObject::name() const
 }
 
 
-
 TTErr TTObject::send(const TTSymbol aName)
 {
 	return mObjectInstance->sendMessage(aName);
 }
-
 
 
 TTErr TTObject::send(const TTSymbol aName, const TTValue& anInputValue, TTValue& anOutputValue)
@@ -154,10 +152,7 @@ TTErr TTObject::unregisterObserverForNotifications(const TTObject& anObservingOb
 }
 
 
-
-
-
-inline bool operator == (const TTObject& anObject, const TTObject& anotherObject)
+bool operator == (const TTObject& anObject, const TTObject& anotherObject)
 {
 	return (anObject.instance() == anotherObject.instance());
 }
@@ -170,4 +165,3 @@ TTBoolean TTObject::valid() const
 	else
 		return NO;
 }
-

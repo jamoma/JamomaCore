@@ -38,14 +38,14 @@ void TTObjectTestBasic(int& errorCount, int& testAssertionCount)
 					notificationName == "foo",
 					testAssertionCount,
 					errorCount);
-/*
+
     TTObject o1 = callback;
     
     TTTestAssertion("two object refering to the same object instance are equal",
 					o1 == callback,
 					testAssertionCount,
 					errorCount);
- */
+ 
 }
 
 
