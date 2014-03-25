@@ -522,7 +522,6 @@ TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstan
 
 TTObjectBasePtr TTNode::getObject()
 {
-    TT_ASSERT("TTNode::getObject() : the object is valid", this->object->valid);
 	return this->object;
 }
 
