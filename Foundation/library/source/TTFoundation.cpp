@@ -94,7 +94,7 @@ void TTFoundationInit(const char* pathToBinaries)
 
 		// register classes -- both internal and external
 		TTCallback::registerClass();
-		TTMatrix::registerClass();
+		TTMatrixBase::registerClass();
 		TTMatrixArray::registerClass();
 		TTObjectTest::registerClass();
 		TTStringTest::registerClass();

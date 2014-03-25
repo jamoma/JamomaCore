@@ -12,8 +12,8 @@
 #include "TTMatrixBase.h"
 #include "TTEnvironment.h"
 
-typedef std::vector<TTMatrixPtr>	TTMatrixVector;
-typedef TTMatrixVector::iterator	TTMatrixIter;
+typedef std::vector<TTMatrixBasePtr>	TTMatrixBaseVector;
+typedef TTMatrixBaseVector::iterator	TTMatrixBaseIter;
 
 
 /****************************************************************************************************/
@@ -27,11 +27,11 @@ class TTFOUNDATION_EXPORT TTMatrixArray : public TTObjectBase {
 
 protected:
 
-	TTMatrixVector	mMatrices;
+	TTMatrixBaseVector	mMatrices;
 	
 public:
 
-	TTMatrixPtr getMatrix(TTUInt32 aMatrixId) const
+	TTMatrixBasePtr getMatrix(TTUInt32 aMatrixId) const
 	{
 		if (aMatrixId < mMatrices.size())
 			return mMatrices[aMatrixId];
@@ -49,7 +49,7 @@ public:
 		mMatrices.resize(aCount);
 	}
 	
-	void setMatrix(TTUInt32 aMatrixId, TTMatrix& aMatrix)
+	void setMatrix(TTUInt32 aMatrixId, TTMatrixBase& aMatrix)
 	{
 		mMatrices[aMatrixId] = &aMatrix;
 	}

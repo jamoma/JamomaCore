@@ -11,7 +11,7 @@
 //#include "TTLimits.h"
 
 
-TTErr TTMatrix::test(TTValue& returnedTestInfo)
+TTErr TTMatrixBase::test(TTValue& returnedTestInfo)
 {
 	int	errorCount = 0;
 	int testAssertionCount = 0;
@@ -21,16 +21,16 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
     {
         // an attempt to re-write without using TTObjectBaseInstantiate
         TTTestLog("\n");
-		TTTestLog("Testing new TTMatrix Instantiation...");
+		TTTestLog("Testing new TTMatrixBase Instantiation...");
         
-        TTMatrixPtr testingNewInstantiation = NULL;
+        TTMatrixBasePtr testingNewInstantiation = NULL;
         
         try {
             
             // first instantiate the matrix as a TTObject
-            testingNewInstantiation = new TTMatrix(kTTSymEmpty);
-            // second point the TTMatrixPtr at it
-            //testingNewInstantiation = (TTMatrixPtr)(TTPtr(willThisWork));
+            testingNewInstantiation = new TTMatrixBase(kTTSymEmpty);
+            // second point the TTMatrixBasePtr at it
+            //testingNewInstantiation = (TTMatrixBasePtr)(TTPtr(willThisWork));
             
             TTTestLog("matrix instantiates successfully");
             
@@ -54,18 +54,18 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 
 
 		TTTestLog("\n");
-		TTTestLog("Testing TTMatrix Basics...");
+		TTTestLog("Testing TTMatrixBase Basics...");
 		
 		TTErr err;
 		
         // instantiate a matrix for testing
-        TTMatrixPtr matrix = NULL;
+        TTMatrixBasePtr matrix = NULL;
 		try {
-            matrix = new TTMatrix(kTTSymEmpty);
-            TTTestLog("TTMatrix matrix instantiates successfully");
+            matrix = new TTMatrixBase(kTTSymEmpty);
+            TTTestLog("TTMatrixBase matrix instantiates successfully");
             
         } catch (...) {
-            TTTestLog("TTMatrix matrix did NOT instantiate");
+            TTTestLog("TTMatrixBase matrix did NOT instantiate");
             return kTTErrInstantiateFailed;
         }
 		
@@ -345,19 +345,19 @@ TTErr TTMatrix::test(TTValue& returnedTestInfo)
 		
 	{
 		TTTestLog("\n");
-		TTTestLog("Testing TTMatrix Math...");
+		TTTestLog("Testing TTMatrixBase Math...");
 		
-		TTMatrixPtr	A = NULL;
-		TTMatrixPtr	B = NULL;
-		TTMatrixPtr	C = NULL;
+		TTMatrixBasePtr	A = NULL;
+		TTMatrixBasePtr	B = NULL;
+		TTMatrixBasePtr	C = NULL;
         
         try {
-            A = new TTMatrix(kTTSymEmpty);
-            B = new TTMatrix(kTTSymEmpty);
-            TTTestLog("TTMatrix matrix instantiates successfully");
+            A = new TTMatrixBase(kTTSymEmpty);
+            B = new TTMatrixBase(kTTSymEmpty);
+            TTTestLog("TTMatrixBase matrix instantiates successfully");
             
         } catch (...) {
-            TTTestLog("TTMatrix matrix did NOT instantiate");
+            TTTestLog("TTMatrixBase matrix did NOT instantiate");
             return kTTErrInstantiateFailed;
         }
         

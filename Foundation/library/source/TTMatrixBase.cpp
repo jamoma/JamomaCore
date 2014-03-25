@@ -15,7 +15,7 @@
 #include "TTEnvironment.h"
 #include "TTBase.h"
 
-#define thisTTClass			TTMatrix
+#define thisTTClass			TTMatrixBase
 #define thisTTClassName		"matrix"
 #define thisTTClassTags		"matrix"
 
@@ -56,14 +56,14 @@ TT_OBJECT_CONSTRUCTOR,
 }
 
 
-TTMatrix::~TTMatrix()
+TTMatrixBase::~TTMatrixBase()
 {
 	if (mDataIsLocallyOwned)
 		delete[] mData; // TODO: only do this if the refcount for the data is down to zero!
 }
 
 
-TTErr TTMatrix::resize()
+TTErr TTMatrixBase::resize()
 {
 	mComponentCount = mRowCount * mColumnCount;
 	mDataCount = mComponentCount * mElementCount;
@@ -87,7 +87,7 @@ TTErr TTMatrix::resize()
 }
 
 
-TTBoolean TTMatrix::setRowCountWithoutResize(TTRowID aNewRowCount)
+TTBoolean TTMatrixBase::setRowCountWithoutResize(TTRowID aNewRowCount)
 {
 	if (aNewRowCount > 0)
 	{
@@ -99,7 +99,7 @@ TTBoolean TTMatrix::setRowCountWithoutResize(TTRowID aNewRowCount)
 }
 
 
-TTBoolean TTMatrix::setColumnCountWithoutResize(TTColumnID aNewColumnCount)
+TTBoolean TTMatrixBase::setColumnCountWithoutResize(TTColumnID aNewColumnCount)
 {
 	if (aNewColumnCount > 0)
 	{
@@ -111,7 +111,7 @@ TTBoolean TTMatrix::setColumnCountWithoutResize(TTColumnID aNewColumnCount)
 }
 
 
-TTBoolean TTMatrix::setElementCountWithoutResize(TTElementID aNewElementCount)
+TTBoolean TTMatrixBase::setElementCountWithoutResize(TTElementID aNewElementCount)
 {
 	if (aNewElementCount > 0)
 	{
@@ -123,7 +123,7 @@ TTBoolean TTMatrix::setElementCountWithoutResize(TTElementID aNewElementCount)
 }
 
 
-TTBoolean TTMatrix::setTypeWithoutResize(TTDataType aNewType)
+TTBoolean TTMatrixBase::setTypeWithoutResize(TTDataType aNewType)
 {
 	if (ttDataTypeInfo[aNewType]->isNumerical)
 	{
@@ -138,7 +138,7 @@ TTBoolean TTMatrix::setTypeWithoutResize(TTDataType aNewType)
 }
 
 
-TTErr TTMatrix::setRowCount(const TTValue& aNewRowCount)
+TTErr TTMatrixBase::setRowCount(const TTValue& aNewRowCount)
 {
 	TTRowID aNewRowCountInt = aNewRowCount;
 	
@@ -151,7 +151,7 @@ TTErr TTMatrix::setRowCount(const TTValue& aNewRowCount)
 }
 
 
-TTErr TTMatrix::setColumnCount(const TTValue& aNewColumnCount)
+TTErr TTMatrixBase::setColumnCount(const TTValue& aNewColumnCount)
 {
 	TTColumnID aNewColumnCountInt = aNewColumnCount;
 	
@@ -164,7 +164,7 @@ TTErr TTMatrix::setColumnCount(const TTValue& aNewColumnCount)
 }
 
 
-TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
+TTErr TTMatrixBase::setElementCount(const TTValue& newElementCount)
 {
 	TTElementID aNewElementCountInt = newElementCount;
 	
@@ -177,7 +177,7 @@ TTErr TTMatrix::setElementCount(const TTValue& newElementCount)
 }
 
 
-TTErr TTMatrix::setType(const TTValue& aType)
+TTErr TTMatrixBase::setType(const TTValue& aType)
 {
 	TTSymbol aNewTypeAsSymbol = aType;
 	TTDataType aNewDataType = TTDataInfo::matchSymbolToDataType(aNewTypeAsSymbol);
@@ -193,7 +193,7 @@ TTErr TTMatrix::setType(const TTValue& aType)
 }
 
 
-TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
+TTErr TTMatrixBase::setDimensions(const TTValue& someNewDimensions)
 {
 	TTRowID aNewRowCount = 1;
 	TTColumnID aNewColumnCount = 1; 
@@ -216,7 +216,7 @@ TTErr TTMatrix::setDimensions(const TTValue& someNewDimensions)
 }
 
 
-TTErr TTMatrix::getType(TTValue& returnedType) const
+TTErr TTMatrixBase::getType(TTValue& returnedType) const
 {
 	returnedType = mTypeAsSymbol;
 	
@@ -224,7 +224,7 @@ TTErr TTMatrix::getType(TTValue& returnedType) const
 }
 
 
-TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
+TTErr TTMatrixBase::getDimensions(TTValue& returnedDimensions) const
 {
 	returnedDimensions.resize(2);
 	returnedDimensions[0] = TTUInt32(mRowCount); // compile fails if we don't cast mRowCount here
@@ -234,14 +234,14 @@ TTErr TTMatrix::getDimensions(TTValue& returnedDimensions) const
 }
 
 
-TTErr TTMatrix::clear()
+TTErr TTMatrixBase::clear()
 {
 	memset(mData, 0, mDataSize);
 	return kTTErrNone;
 }
 
 
-TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
+TTErr TTMatrixBase::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	TTBytePtr fillValue = new TTByte[mComponentStride];
 	TTUInt32 inputElementCount = anInputValue.size();
@@ -338,7 +338,7 @@ TTErr TTMatrix::fill(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 
 // args passed-in should be the 2 coordinates
 // args returned will be the value(s) at those coordinates
-TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
+TTErr TTMatrixBase::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 {
 	TTUInt16 dimensionCount = anInputValue.size();
 	
@@ -383,7 +383,7 @@ TTErr TTMatrix::get(const TTValue& anInputValue, TTValue &anOutputValue) const
 
 // args passed-in should be the coordinates plus the value
 // therefore anInputValue requires (2 + mElementCount) items
-TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
+TTErr TTMatrixBase::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	TTValue		theValue;
 	TTUInt16	dimensionCount = anInputValue.size() - mElementCount;
@@ -425,7 +425,7 @@ TTErr TTMatrix::set(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 }
 
 
-TTBoolean TTMatrix::allAttributesMatch(const TTMatrix& anotherMatrix) const
+TTBoolean TTMatrixBase::allAttributesMatch(const TTMatrixBase& anotherMatrix) const
 {
 	// TODO: should/could this be inlined?
 	if (mType == anotherMatrix.mType  && 
@@ -440,7 +440,7 @@ TTBoolean TTMatrix::allAttributesMatch(const TTMatrix& anotherMatrix) const
 }
 
 
-TTErr TTMatrix::copy(const TTMatrix& source, TTMatrix& dest)
+TTErr TTMatrixBase::copy(const TTMatrixBase& source, TTMatrixBase& dest)
 {
 	// TODO: could this be rethought as an iterator?
 	dest.adaptTo(source);
@@ -449,7 +449,7 @@ TTErr TTMatrix::copy(const TTMatrix& source, TTMatrix& dest)
 }
 
 
-TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
+TTErr TTMatrixBase::adaptTo(const TTMatrixBase& anotherMatrix)
 {
 	// TODO: what should we do if anotherMatrix is not locally owned?
 	// It would be nice to re-dimension the data, but we can't re-alloc / resize the number of bytes...
@@ -471,7 +471,7 @@ TTErr TTMatrix::adaptTo(const TTMatrix& anotherMatrix)
 }
 
 
-TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
+TTErr TTMatrixBase::iterate(TTMatrixBase* C, const TTMatrixBase* A, const TTMatrixBase* B, TTMatrixBaseIterator iterator)
 {
 	if(C->adaptTo(A) == kTTErrNone)
 	{
@@ -487,7 +487,7 @@ TTErr TTMatrix::iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMat
 	}
 }
 
-TTErr TTMatrix::iterateWhenAllAttributesMatch(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator)
+TTErr TTMatrixBase::iterateWhenAllAttributesMatch(TTMatrixBase* C, const TTMatrixBase* A, const TTMatrixBase* B, TTMatrixBaseIterator iterator)
 {
 	if (A->allAttributesMatch(B)) {
 		return iterate(C,A,B,iterator);

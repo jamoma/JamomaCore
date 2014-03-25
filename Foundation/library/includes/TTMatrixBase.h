@@ -7,7 +7,7 @@
  * @details Each compound value stored in the matrix is known as a component. The number of elements in each component is variable, enabling the storage of things like complex numbers or RGBA colors. However, this element count for each component and their datatype is uniform across the entire matrix. @n@n
  * Locations for individual components in the matrix are identified by (row, column) pairs.  These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. @n@n
  * All dimension indices begin counting at zero. This means that index values greater than or equal to the respective mRowCount, mColumnCount or mElementCount will be out of bounds. @n@n
- * Please note that previous support for N dimensions has been deprecated and the TTMatrix class is now fixed at 2 dimensions. Throughout this documentation, dimension 1 is referred to as the "row" and dimension 2 is referred to as the "column".
+ * Please note that previous support for N dimensions has been deprecated and the TTMatrixBase class is now fixed at 2 dimensions. Throughout this documentation, dimension 1 is referred to as the "row" and dimension 2 is referred to as the "column".
  *  
  * @authors Timothy Place & Nathan Wolek
  *
@@ -29,7 +29,7 @@ typedef TTByte* TTBytePtr;	///< Data is a pointer to some bytes.
 /**	@typedef TTRowID
 	@brief Datatype for any number used to indicate a row index within the matrix.
 	
-	Three typedefs (TTRowID, TTColumnID & TTElementID) are used so that we can easily distinguish between these important matrix attributes, have consistent datatypes throughout the TTMatrix class and quickly change those datatypes should the need arise in the future.
+	Three typedefs (TTRowID, TTColumnID & TTElementID) are used so that we can easily distinguish between these important matrix attributes, have consistent datatypes throughout the TTMatrixBase class and quickly change those datatypes should the need arise in the future.
 	
 	Although these values should always be positive, we have intentionally avoided unsigned numbers because of boundary checking considerations in the makeInBounds() method. Negative, signed integers have the potential to become very large numbers when casting to an unsigned integers. This can cause errors during a boundary check, such as values clipping to the high boundary instead of the low boundary or numerous iterations of loop to bring a wrapped value back into the acceptable range.
 	
@@ -58,8 +58,8 @@ typedef TTInt16 TTElementID;
 
 	Each compound value stored in the matrix is known as a component. The number of elements in each component is variable, enabling the storage of things like complex numbers or RGBA colors. However, this element count for each component and their datatype is uniform across the entire matrix.
 */
-class TTFOUNDATION_EXPORT TTMatrix : public TTDataObjectBase {
-	TTCLASS_SETUP(TTMatrix)
+class TTFOUNDATION_EXPORT TTMatrixBase : public TTDataObjectBase {
+	TTCLASS_SETUP(TTMatrixBase)
 
 protected:	
 
@@ -285,7 +285,7 @@ public:
 	
 	
 	/**	A function pointer for implementing handlers in the makeInBounds() method.	
-		The format for this function pointer follows most of the methods defined in TTLimits (i.e. TTClip, TTInfWrap, TTFold) which means they can be used here to handle out of bounds values.  However, the methods defined in this class (i.e. outOfBoundsClip, outOfBoundsWrap, outOfBoundsFold) are safer because they handle considerations specific to TTMatrix.
+		The format for this function pointer follows most of the methods defined in TTLimits (i.e. TTClip, TTInfWrap, TTFold) which means they can be used here to handle out of bounds values.  However, the methods defined in this class (i.e. outOfBoundsClip, outOfBoundsWrap, outOfBoundsFold) are safer because they handle considerations specific to TTMatrixBase.
 	
 	@param[in]	index		reference to an index that will be checked and corrected if not in bounds
 	@param[in]	lowBound	lowest value allowed for index
@@ -294,10 +294,10 @@ public:
 	
 	@seealso TTLimits.h
 	*/
-	typedef TTInt32 (*TTMatrixOutOfBoundsHandler)(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound);
+	typedef TTInt32 (*TTMatrixBaseOutOfBoundsHandler)(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound);
 	
-	/**	In implementation of the TTMatrixOutOfBoundsHandler that wraps #TTClip.
-	@seealso TTMatrixOutOfBoundsHandler
+	/**	In implementation of the TTMatrixBaseOutOfBoundsHandler that wraps #TTClip.
+	@seealso TTMatrixBaseOutOfBoundsHandler
 	*/
 	static TTInt32 outOfBoundsClip(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
 	{
@@ -305,8 +305,8 @@ public:
 		return TTClip(index, lowBound, (highBound-1));
 	}
 	
-	/**	In implementation of the TTMatrixOutOfBoundsHandler that wraps #TTInfWrap.
-	@seealso TTMatrixOutOfBoundsHandler
+	/**	In implementation of the TTMatrixBaseOutOfBoundsHandler that wraps #TTInfWrap.
+	@seealso TTMatrixBaseOutOfBoundsHandler
 	*/
 	static TTInt32 outOfBoundsWrap(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
 	{
@@ -314,8 +314,8 @@ public:
 		return TTInfWrap(index, lowBound, highBound);
 	}
 	
-	/**	In implementation of the TTMatrixOutOfBoundsHandler that wraps #TTFold.
-	@seealso TTMatrixOutOfBoundsHandler
+	/**	In implementation of the TTMatrixBaseOutOfBoundsHandler that wraps #TTFold.
+	@seealso TTMatrixBaseOutOfBoundsHandler
 	*/
 	static TTInt32 outOfBoundsFold(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
 	{
@@ -327,13 +327,13 @@ public:
 	}
 	
 	/** Make sure a TTRowID is within the limits set by RowCount.
-	 	This method can be used to force row values to fall within the defined limits of the TTMatrix.
+	 	This method can be used to force row values to fall within the defined limits of the TTMatrixBase.
 
 		@param[in,out]	i			row in matrix of desired component
 		@param[in]		handler		function used to transform out of bounds values, outOfBoundsWrap is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/	
-	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
+	TTBoolean makeRowIDInBounds(TTRowID& i, TTMatrixBaseOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTRowID i_input = i;
 		i = (*handler)(i_input, TTRowID(0), mRowCount);
@@ -341,13 +341,13 @@ public:
 	}
 	
 	/** Make sure a TTColumnID is within the limits set by ColumnCount.
-	 	This method can be used to force column values to fall within the defined limits of the TTMatrix.
+	 	This method can be used to force column values to fall within the defined limits of the TTMatrixBase.
 
 		@param[in,out]	j			column in matrix of desired component
 		@param[in]		handler		function used to transform out of bounds values, outOfBoundsWrap is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
+	TTBoolean makeColumnIDInBounds(TTColumnID& j, TTMatrixBaseOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTColumnID j_input = j;
         j = (*handler)(j_input, TTColumnID(0), mColumnCount);
@@ -355,13 +355,13 @@ public:
 	}
 	
 	/** Make sure a TTElementID is within the limits set by ElementCount.
-	 	This method can be used to force element values to fall within the defined limits of the TTMatrix.
+	 	This method can be used to force element values to fall within the defined limits of the TTMatrixBase.
 
 		@param[in,out]	e			element within desired component
 		@param[in]		handler		function used to transform out of bounds values, outOfBoundsWrap is default if undefined
 		@return			TTBoolean	true if values changed, false if they remained constant
 	*/
-	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
+	TTBoolean makeElementIDInBounds(TTElementID& e, TTMatrixBaseOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTColumnID e_input = e;
         e = (*handler)(e_input, TTElementID(0), mElementCount);
@@ -369,7 +369,7 @@ public:
 	}
 	
 	/** Make sure an (i,j) pair is within the limits set by RowCount & ColumnCount.
-	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix. This is simpler than checking the boundaries of (i,j) separately, but may be less efficient when one value is not changing as frequently as the other. It will also always use the same TTMatrixOutOfBoundsHandler on all dimensions.
+	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrixBase. This is simpler than checking the boundaries of (i,j) separately, but may be less efficient when one value is not changing as frequently as the other. It will also always use the same TTMatrixBaseOutOfBoundsHandler on all dimensions.
 
 		@param[in,out]	i			row in matrix of desired component
 		@param[in,out]	j			column in matrix of desired component
@@ -378,7 +378,7 @@ public:
 		
 		@seealso makeRowIDInBounds, makeColumnIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTMatrixBaseOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);
@@ -387,7 +387,7 @@ public:
 	}
 	
 	/** Make sure an (i,j,e) set is within the limits set by RowCount, ColumnCount & ElementCount.
-	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrix. This is simpler than checking the boundaries of (i,j, e) separately, but may be less efficient when one value is not changing as frequently as the others. It will also always use the same TTMatrixOutOfBoundsHandler on all dimensions.
+	 	This method can be used just before calls to the get or set methods and forces values to fall within the defined limits of the TTMatrixBase. This is simpler than checking the boundaries of (i,j, e) separately, but may be less efficient when one value is not changing as frequently as the others. It will also always use the same TTMatrixBaseOutOfBoundsHandler on all dimensions.
 
 		@param[in,out]	i			row in matrix of desired component
 		@param[in,out]	j			column in matrix of desired component
@@ -397,7 +397,7 @@ public:
 		
 		@seealso makeRowIDInBounds, makeColumnIDInBounds, makeElementIDInBounds
 	*/
-	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixOutOfBoundsHandler handler = outOfBoundsWrap) const
+	TTBoolean makeInBounds(TTRowID& i, TTColumnID& j, TTElementID& e, TTMatrixBaseOutOfBoundsHandler handler = outOfBoundsWrap) const
 	{
 		TTUInt8 changes = 0; // keep track of how many changes are made
 		changes += makeRowIDInBounds(i, handler);
@@ -585,10 +585,10 @@ public:
 	@param	anotherMatrix		matrix that you would like to compare to this one
 	@return	TTBoolean			true if mType, mElementCount, mRowCount AND mColumnCount match, otherwise false
 	*/
-	TTBoolean allAttributesMatch(const TTMatrix& anotherMatrix) const;
-	TTBoolean allAttributesMatch(const TTMatrix* anotherMatrix) const
+	TTBoolean allAttributesMatch(const TTMatrixBase& anotherMatrix) const;
+	TTBoolean allAttributesMatch(const TTMatrixBase* anotherMatrix) const
 	{
-		return TTMatrix::allAttributesMatch(*anotherMatrix);
+		return TTMatrixBase::allAttributesMatch(*anotherMatrix);
 	}
 	
 	/**	Copy the data from one matrix into another.
@@ -597,10 +597,10 @@ public:
 	@param[out]	dest			matrix that you would like to copy TO
 	@return		TTErr			kTTErrInvalidValue if operation is not completed, otherwise kTTErrNone
 	*/
-	static TTErr copy(const TTMatrix& source, TTMatrix& dest);
-	static TTErr copy(const TTMatrix* source, TTMatrix* dest)
+	static TTErr copy(const TTMatrixBase& source, TTMatrixBase& dest);
+	static TTErr copy(const TTMatrixBase* source, TTMatrixBase* dest)
 	{
-		return TTMatrix::copy(*source, *dest);
+		return TTMatrixBase::copy(*source, *dest);
 	}
 
 	/**	Set dimensions, element count, datatype, etc. (i.e. the metadata describing a matrix)
@@ -609,8 +609,8 @@ public:
 	@param	anotherMatrix	matrix to which you would like to conform the attributes of this one
 	@return	TTErr			kTTErrInvalidValue if operation is not completed, otherwise kTTErrNone
 	*/
-	TTErr adaptTo(const TTMatrix& anotherMatrix);
-	TTErr adaptTo(const TTMatrix* anotherMatrix)
+	TTErr adaptTo(const TTMatrixBase& anotherMatrix);
+	TTErr adaptTo(const TTMatrixBase* anotherMatrix)
 	{
 		return adaptTo(*anotherMatrix);
 	}
@@ -620,7 +620,7 @@ public:
 	@param[in]	a			pointer to matrix 1 of 2 for the iteration operation
 	@param[in]	b			pointer to matrix 2 of 2 for the iteration operation
 	*/
-	typedef void (*TTMatrixIterator)(TTPtr c, const TTPtr a, const TTPtr b);
+	typedef void (*TTMatrixBaseIterator)(TTPtr c, const TTPtr a, const TTPtr b);
 	
 	/**	Step through every component in the matrix A and B to produce matrix C using the specified iterator method.
 	@param[out]	C			pointer to matrix that holds the results of the operation
@@ -629,7 +629,7 @@ public:
 	@param[in]	iterator	function that will be used to operate on matrices A and B
 	@return		TTErr		kTTErrGeneric if attributes do not match or if iterate fails, otherwise returns kTTErrNone
 	*/
-	static TTErr iterate(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator);
+	static TTErr iterate(TTMatrixBase* C, const TTMatrixBase* A, const TTMatrixBase* B, TTMatrixBaseIterator iterator);
 	
 	/**	Only if all the attributes of matrix A and B match, then step through every component to produce matrix C using the specified iterator method.	
 	@param[out]	C			pointer to matrix that holds the results of the operation
@@ -638,25 +638,25 @@ public:
 	@param[in]	iterator	function that will be used to operate on matrices A and B
 	@return		TTErr		kTTErrGeneric if attributes do not match or if iterate fails, otherwise returns kTTErrNone
 	*/
-	static TTErr iterateWhenAllAttributesMatch(TTMatrix* C, const TTMatrix* A, const TTMatrix* B, TTMatrixIterator iterator);
+	static TTErr iterateWhenAllAttributesMatch(TTMatrixBase* C, const TTMatrixBase* A, const TTMatrixBase* B, TTMatrixBaseIterator iterator);
 
 	/**	Add two matrices to produce a third matrix.
 		The resulting matrix is instantiated by this method.
 		You, the caller, are responsible for freeing it.	*/
-	TTMatrix* operator + (const TTMatrix& B) const;
+	TTMatrixBase* operator + (const TTMatrixBase& B) const;
 
 	/**	Subtract matrix B from matrix A to produce matrix C.
 		The resulting matrix is instantiated by this method.
 		You, the caller, are responsible for freeing it.	*/
-	TTMatrix* operator - (const TTMatrix& B) const;
+	TTMatrixBase* operator - (const TTMatrixBase& B) const;
 	
 };
 
 
-typedef TTMatrix* TTMatrixPtr;
-typedef TTMatrix& TTMatrixRef;
+typedef TTMatrixBase* TTMatrixBasePtr;
+typedef TTMatrixBase& TTMatrixBaseRef;
 
-//TTMatrixPtr operator + (const TTMatrix& A, const TTMatrix& B);
+//TTMatrixBasePtr operator + (const TTMatrixBase& A, const TTMatrixBase& B);
 
 
 #define TTMATRIX_PROCESS_MATRICES_WITH_NAMED_TEMPLATE(template_name, input_matrix, output_matrix) \

@@ -111,8 +111,8 @@ public:
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr calculate(const TTMatrixArray* inputs, TTMatrixArray* outputs);
-	TTErr calculate(const TTMatrix& x, TTMatrix& y);
-	TTErr calculate(const TTMatrix* x, TTMatrix* y)
+	TTErr calculate(const TTMatrixBase& x, TTMatrixBase& y);
+	TTErr calculate(const TTMatrixBase* x, TTMatrixBase* y)
 	{
 		return calculate(*x, *y);
 	}

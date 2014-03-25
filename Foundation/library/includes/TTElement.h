@@ -32,7 +32,7 @@
 #endif
 
 class TTObjectBase;
-class TTMatrix;
+class TTMatrixBase;
 class TTDictionary;
 
 
@@ -153,7 +153,7 @@ class TTFOUNDATION_EXPORT TT_ALIGN_16 TTElement {
 		TTAddress*		mAddress;
 		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
 		TTObject*		mObject;	///< We keep it as a pointer but actually this is a pointer to our own private copy
-		TTMatrix*		matrix;
+		TTMatrixBase*	matrix;
 		TTPtr			ptr;
 		TTSymbolBase*	dictionary;	///< dictionaries are referenced by name
 	};
@@ -393,13 +393,13 @@ public:
 		return *mValue.mObject;
 	}
 		
-	operator TTMatrix&() const
+	operator TTMatrixBase&() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeMatrix));
 		return *mValue.matrix;
 	}
 	
-	operator TTMatrix*() const
+	operator TTMatrixBase*() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeMatrix));
 		return mValue.matrix;
@@ -572,7 +572,7 @@ public:
 		return *this;
 	}
 		
-	TTElement& operator = (TTMatrix& value)
+	TTElement& operator = (TTMatrixBase& value)
 	{
 		chuck();
 		mType = kTypeMatrix;
@@ -580,7 +580,7 @@ public:
 		return *this;
 	}
 	
-	TTElement& operator = (TTMatrix* value)
+	TTElement& operator = (TTMatrixBase* value)
 	{
 		chuck();
 		mType = kTypeMatrix;
