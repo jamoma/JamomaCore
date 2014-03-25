@@ -533,8 +533,8 @@ TTErr Minuit::SendListenAnswer(TTSymbol to, TTAddress address,
 TTErr Minuit::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& arguments)
 {
 	TTHashPtr	parameters = NULL;
-    TTObjectBasePtr anOscSender;
-	TTValue		v, vIp, vPort, message;
+    TTObject    anOscSender;
+	TTValue		v, vIp, vPort, message, none;
 	TTErr		err, errIp, errPort;
     
     if (!mSenderManager)
@@ -555,12 +555,12 @@ TTErr Minuit::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& ar
 				return kTTErrGeneric;
 			
 			anOscSender = mSenderManager->lookup(applicationName, vIp, vPort);
-			if (anOscSender) {
+			if (anOscSender.valid()) {
 
 				message = TTValue(header);
 				message.append((TTPtr)&arguments);
 				
-				err = anOscSender->sendMessage(TTSymbol("send"), message, kTTValNONE);
+				err = anOscSender.send("send", message, none);
             
 				if (mActivity) {
 					v = arguments;

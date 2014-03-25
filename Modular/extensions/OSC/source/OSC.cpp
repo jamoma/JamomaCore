@@ -472,8 +472,8 @@ TTErr OSC::SendListenAnswer(TTSymbol to, TTAddress address,
 TTErr OSC::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& arguments)
 {
 	TTHashPtr	parameters = NULL;
-    TTObjectBasePtr anOscSender;
-	TTValue		v, vIp, vPort, message;
+    TTObject    anOscSender;
+	TTValue		v, vIp, vPort, message, none;
 	TTErr		err, errIp, errPort;
 	
 	// Check the application registration
@@ -491,12 +491,12 @@ TTErr OSC::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& argum
 				return kTTErrGeneric;
 			
 			anOscSender = mSenderManager->lookup(applicationName, vIp, vPort);
-			if (anOscSender) {
+			if (anOscSender.valid()) {
 
 				message = TTValue(header);
 				message.append((TTPtr)&arguments);
 				
-				err = anOscSender->sendMessage(TTSymbol("send"), message, kTTValNONE);
+				err = anOscSender.send("send", message, none);
             
 				if (mActivity) {
 					v = arguments;
