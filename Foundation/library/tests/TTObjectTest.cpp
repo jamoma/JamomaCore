@@ -52,11 +52,22 @@ void TTObjectTestBasic(int& errorCount, int& testAssertionCount)
 void TTObjectTestWithTTValue(int& errorCount, int& testAssertionCount)
 {
 	TTObject callback("callback");
+    
+    TTTestAssertion("after creation the object is valid",
+                    callback.valid(),
+                    testAssertionCount,
+                    errorCount);
 	
-	callback.set("notification", "foo");	// set an attr so we can verify that it survives
+	callback.set("notification", "foo");        // set an attr so we can verify that it survives
 	
 	{
 		TTValue v1(callback);					// assign to value with copy constructor
+        
+        TTTestAssertion("after duplication the object is valid",
+                        callback.valid(),
+                        testAssertionCount,
+                        errorCount);
+        
 		TTValue v2 = callback;					// assign to value with = operator
 		
 		TTTestAssertion("1 object and 2 values -- refcount should be 3",
