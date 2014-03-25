@@ -24,10 +24,7 @@
 #define thisTTClassTags		"application, manager"
 
 TT_MODULAR_CONSTRUCTOR,
-mApplicationLocal(NULL),
-mApplicationCurrent(NULL),
-mApplicationObserversMutex(NULL),
-mCurrentProtocol(NULL)
+mApplicationObserversMutex(NULL)
 {
     TT_ASSERT("TTModularApplicationManager is NULL", TTModularApplicationManager == NULL);
     
@@ -427,21 +424,15 @@ TTErr TTApplicationManager::ProtocolInstantiate(const TTValue& inputValue, TTVal
 			// create an instance of a Protocol object
             aProtocol = TTObject(protocolName,  args);
 			
-			if (aProtocol.valid()) {
-				
-				// register the protocol into the application manager
-				args = aProtocol;
-				mProtocols.append(protocolName, args);
-                
-                // return the protocol back
-                outputValue = aProtocol;
-				
-				TTLogMessage("%s protocol instantiated\n", protocolName.c_str());
-                return kTTErrNone;
-			}
-			
-            TTLogMessage("%s protocol can't be instantiated\n", protocolName.c_str());
-            return kTTErrGeneric;
+            // register the protocol into the application manager
+            args = aProtocol;
+            mProtocols.append(protocolName, args);
+            
+            // return the protocol back
+            outputValue = aProtocol;
+            
+            TTLogMessage("%s protocol instantiated\n", protocolName.c_str());
+            return kTTErrNone;
 		}
 	}
     
