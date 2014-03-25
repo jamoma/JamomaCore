@@ -628,8 +628,8 @@ TTErr TTApplication::ObjectRegister(const TTValue& inputValue, TTValue& outputVa
         
         if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeObject) {
             
-            TTAddress address = inputValue[0];
-            TTObjectBasePtr object = inputValue[1];
+            TTAddress   address = inputValue[0];
+            TTObject    object = inputValue[1];
             
             // get optional context
             TTPtr context = NULL;
@@ -641,7 +641,7 @@ TTErr TTApplication::ObjectRegister(const TTValue& inputValue, TTValue& outputVa
             TTNodePtr node;
             TTBoolean newInstanceCreated;
             
-            TTErr err = mDirectory->TTNodeCreate(address, object, context, &node, &newInstanceCreated);
+            TTErr err = mDirectory->TTNodeCreate(address, object.instance(), context, &node, &newInstanceCreated);
             
             // return the effective address
             if (!err) {
@@ -700,7 +700,11 @@ TTErr TTApplication::ObjectRetreive(const TTValue& inputValue, TTValue& outputVa
             if (!mDirectory->getTTNode(address, &node)) {
                 
                 // return the object
-                outputValue = node->getObject();
+                // TODO: WHEN THIS FUNCTION GETS UPDATED FOR THE NEWER API THEN THE FOLLOWING WILL NOT
+                // NEED TO MAKE AN EXTRA COPY OF THE OBJECT BEFORE ASSIGNING IT TO OUTPUT VALUE
+                // THE OUTPUT VALUE MUST BE ASSIGNED FROM A TTOBJECT THOUGH, NOT FROM A POINTER
+                // OR ELSE IT WILL FAIL ON THE RECEIVING END BECAUSE THE VALUE WONT UNDERSTAND HOW TO HANDLE IT
+                outputValue = TTObject(node->getObject());
                 
                 return kTTErrNone;
             }
