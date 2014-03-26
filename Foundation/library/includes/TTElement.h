@@ -23,7 +23,7 @@
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
 #include "TTObject.h"
-
+#include "TTMatrix.h"
 
 #ifndef DISABLE_NODELIB
 #include "TTAddress.h"
@@ -31,8 +31,7 @@
 #include "TTAddressCache.h"
 #endif
 
-class TTObjectBase;
-class TTMatrixBase;
+
 class TTDictionary;
 
 
@@ -149,11 +148,11 @@ class TTFOUNDATION_EXPORT TT_ALIGN_16 TTElement {
 		TTInt64			int64;
 		TTUInt64		uint64;
 		TTBoolean		boolean;
-		TTSymbol*		mSymbol;	///< We keep it as a pointer but actually this is a pointer to our own private copy
+		TTSymbol*		mSymbol;
 		TTAddress*		mAddress;
-		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
-		TTObject*		mObject;	///< We keep it as a pointer but actually this is a pointer to our own private copy
-		TTMatrixBase*	matrix;
+		TTString*		stringPtr;
+		TTObject*		mObject;
+		TTMatrix*		mMatrix;
 		TTPtr			ptr;
 		TTSymbolBase*	dictionary;	///< dictionaries are referenced by name
 	};
@@ -393,18 +392,12 @@ public:
 		return *mValue.mObject;
 	}
 		
-	operator TTMatrixBase&() const
+	operator TTMatrix() const
 	{
-		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeMatrix));
-		return *mValue.matrix;
+		TT_ASSERT(ttvalue_cast_to_matrix, (mType == kTypeMatrix));
+		return *mValue.mMatrix;
 	}
 	
-	operator TTMatrixBase*() const
-	{
-		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeMatrix));
-		return mValue.matrix;
-	}
-
 	operator TTPtr() const
 	{
 		if (mType == kTypePointer)
@@ -572,22 +565,14 @@ public:
 		return *this;
 	}
 		
-	TTElement& operator = (TTMatrixBase& value)
+	TTElement& operator = (const TTMatrix value)
 	{
 		chuck();
 		mType = kTypeMatrix;
-		mValue.matrix = &value;
+		mValue.mMatrix = new TTMatrix(value);
 		return *this;
 	}
 	
-	TTElement& operator = (TTMatrixBase* value)
-	{
-		chuck();
-		mType = kTypeMatrix;
-		mValue.matrix = value;
-		return *this;
-	}
-
 	TTElement& operator = (TTPtr value)
 	{
 		chuck();

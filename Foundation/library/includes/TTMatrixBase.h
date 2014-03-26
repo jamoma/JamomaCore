@@ -16,8 +16,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_MATRIX_H__
-#define __TT_MATRIX_H__
+#ifndef __TT_MATRIX_BASE_H__
+#define __TT_MATRIX_BASE_H__
 
 #include "TTFoundation.h"
 #include "TTDataObjectBase.h"
@@ -672,5 +672,5 @@ typedef TTMatrixBase& TTMatrixBaseRef;
 		err = kTTErrInvalidType;
 
 
-#endif // __TT_MATRIX_H__
+#endif // __TT_MATRIX_BASE_H__
 

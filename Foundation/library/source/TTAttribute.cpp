@@ -14,7 +14,7 @@
  */
 
 #include "TTObject.h"
-#include "TTMatrixBase.h"
+#include "TTMatrix.h"
 #include "TTEnvironment.h"
 #include "TTCallback.h"
 
@@ -207,9 +207,9 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 		case kTypeSymbol:
 			*((TTSymbol*)attribute.address) = value;
 			return kTTErrNone;
-		case kTypeObject:
-			*((TTObjectBasePtr*)attribute.address) = value;
-			return kTTErrNone;
+//		case kTypeObject:
+//			*((TTObjectBasePtr*)attribute.address) = value;
+//			return kTTErrNone;
 //		case kTypeMatrix:
 //			*((TTMatrix*)attribute.address) = value;
 //			return kTTErrNone;
