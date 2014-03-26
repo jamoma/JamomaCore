@@ -45,8 +45,8 @@ private:
 	
     TTBoolean           mFlattened;               ///< ATTRIBUTE : is the script ready for quick operation process or not ?
     
-	TTListPtr			mLines;					///< a linked list containing all lines of the script
-    TTListPtr			mFlattenedLines;		///< a linked list containing all lines of the script and the subscripts flattened for quick access
+	TTList              mLines;					///< a linked list containing all lines of the script
+    TTList              mFlattenedLines;		///< a linked list containing all lines of the script and the subscripts flattened for quick access
 	
 	TTObjectBasePtr		mSubScript;				///< the current sub script to manage
 	TTObjectBasePtr		mParentScript;			///< the current parent script to manage (usefull for ReadFrom method)
@@ -111,11 +111,11 @@ private:
 	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
-	friend	TTErr TTMODULAR_EXPORT TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position);
+	friend	TTErr TTMODULAR_EXPORT TTScriptInterpolate(TTObject script1, TTObject script2, TTFloat64 position);
 	friend	TTErr TTMODULAR_EXPORT TTScriptMix(const TTValue& scripts, const TTValue& factors);
-	friend	TTErr TTMODULAR_EXPORT TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript);
-	friend	TTErr TTMODULAR_EXPORT TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScriptPtr optimizedScript);
-	friend	TTErr TTMODULAR_EXPORT TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy);
+	friend	TTErr TTMODULAR_EXPORT TTScriptMerge(TTObject scriptToMerge, TTObject mergedScript);
+	friend	TTErr TTMODULAR_EXPORT TTScriptOptimize(TTObject aScriptToOptimize, TTObject aScript, TTObject optimizedScript);
+	friend	TTErr TTMODULAR_EXPORT TTScriptCopy(TTObject scriptTocopy, TTObject aScriptCopy);
 };
 
 typedef TTScript* TTScriptPtr;
@@ -143,7 +143,7 @@ TTDictionaryBasePtr TTMODULAR_EXPORT TTScriptParseScript(const TTValue& newScrip
 
 /* Interpolate between two scripts
    note : we assume that the Bind method have been called before on the two scripts */
-TTErr			TTMODULAR_EXPORT TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 position);
+TTErr			TTMODULAR_EXPORT TTScriptInterpolate(TTObject script1, TTObject script2, TTFloat64 position);
 
 /* Mix several scripts together
    note : we assume that the Bind method have been called before on each scripts */
@@ -151,13 +151,13 @@ TTErr			TTMODULAR_EXPORT TTScriptMix(const TTValue& scripts, const TTValue& fact
 TTFloat64		TTMODULAR_EXPORT TTScriptMixLine(TTDictionaryBasePtr lineToMix, TTSymbol dataType, TTUInt32 mixSize, TTFloat64 factor, TTValue& mixedValue, TTBoolean init=NO);
 
 /* Merge a script into another without redundant command lines */
-TTErr			TTMODULAR_EXPORT TTScriptMerge(TTScriptPtr scriptToMerge, TTScriptPtr mergedScript);
+TTErr			TTMODULAR_EXPORT TTScriptMerge(TTObject scriptToMerge, TTObject mergedScript);
 
 /* Optimize a script comparing to another to remove redundant command lines */
-TTErr			TTMODULAR_EXPORT TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScriptPtr optimizedScript);
+TTErr			TTMODULAR_EXPORT TTScriptOptimize(TTObject aScriptToOptimize, TTObject aScript, TTObject optimizedScript);
 
 /* Copy a script */
-TTErr			TTMODULAR_EXPORT TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy);
+TTErr			TTMODULAR_EXPORT TTScriptCopy(TTObject scriptTocopy, TTObject aScriptCopy);
 
 /* a TTFunctionMatch to find a line in the script depending on the address */
 void			TTMODULAR_EXPORT TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found);
