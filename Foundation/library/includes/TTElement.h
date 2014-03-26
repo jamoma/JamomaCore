@@ -217,8 +217,9 @@ private:
 	{
 		if (mType == kTypeSymbol)
 			delete mValue.mSymbol;
-		else if (mType == kTypeAddress)
-			delete mValue.mAddress;
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//else if (mType == kTypeAddress)
+		//	delete mValue.mAddress;
 		else if (mType == kTypeObject)
 			delete mValue.mObject;
 		mValue.ptr = NULL;
@@ -370,8 +371,9 @@ public:
 #ifndef DISABLE_NODELIB
 	operator TTAddress() const
 	{
-		if (mType == kTypeAddress)
-			return *mValue.mAddress;
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//if (mType == kTypeAddress)
+		//	return *mValue.mAddress;
 		if (mType == kTypeSymbol)
 			return TTAddress(*mValue.mSymbol);
         else
@@ -422,8 +424,9 @@ public:
 	
 		if (anOtherValue.mType == kTypeSymbol)
 			mValue.mSymbol = new TTSymbol(*anOtherValue.mValue.mSymbol);
-		else if (anOtherValue.mType == kTypeAddress)
-			mValue.mAddress = new TTAddress(*anOtherValue.mValue.mAddress);
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//else if (anOtherValue.mType == kTypeAddress)
+		//	mValue.mAddress = new TTAddress(*anOtherValue.mValue.mAddress);
 		else if (anOtherValue.mType == kTypeObject)
 			mValue.mObject = new TTObject(*anOtherValue.mValue.mObject);
 		else
@@ -537,9 +540,12 @@ public:
 	TTElement& operator = (const TTAddress value)
 	{
 		chuck();
-		mType = kTypeAddress;
-		//mValue.sym = (TTAddressBase*)value.rawpointer();
-		mValue.mAddress = new TTAddress(value);
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//mType = kTypeAddress;
+        mType = kTypeSymbol;
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//mValue.mAddress = new TTAddress(value);
+        mValue.mSymbol = new TTAddress(value);
 		return *this;
 	}
 #endif

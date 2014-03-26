@@ -93,7 +93,11 @@ TTObject& TTObject::operator = (TTObject object)
 	if (mObjectInstance)
 		ttEnvironment->releaseInstance(&mObjectInstance);
 	
-	mObjectInstance = ttEnvironment->referenceInstance(object.mObjectInstance);
+    if (object.mObjectInstance)
+        mObjectInstance = ttEnvironment->referenceInstance(object.mObjectInstance);
+    else
+        mObjectInstance = NULL;
+    
 	return *this;
 }
 

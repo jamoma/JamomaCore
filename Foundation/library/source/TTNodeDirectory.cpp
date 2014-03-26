@@ -593,7 +593,8 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTCallba
 {
 	TTErr			err;
 	TTValue			lk;
-	TTValue			o = anObserver;
+    // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+	TTValue			o = TTObject(TTObjectBasePtr(anObserver));
 	TTListPtr		lk_o;
 	TTAddress		adrs;
 
@@ -678,7 +679,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 	TTValue				hk, lk, o, f, data;
 	TTAddress			key, adrs, noAlias;
 	TTListPtr			lk_o;
-	TTCallbackPtr		anObserver;
+	TTObject            anObserver;
 	TTInt8				depthDifference, maxDepthDifference;
 	TTUInt32			i;
 	TTBoolean			foundObsv = NO;
@@ -728,16 +729,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
                         
                         for (lk_o->begin(); lk_o->end(); lk_o->next()) {
                             
-                            anObserver = NULL;
-							
-#define TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
-#ifdef TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
-							TTObject current = lk_o->current()[0];
-							anObserver = (TTCallbackPtr)current.instance();
-#else
-                            anObserver = TTCallbackPtr((TTObjectBasePtr)lk_o->current()[0]);
-#endif
-                            TT_ASSERT("TTNode observer list member is not NULL", anObserver);
+                            anObserver = lk_o->current()[0];
                             
                             // filter on the depth difference if specified
                             if (lk_o->current().size() > 1) {
@@ -751,8 +743,8 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
                             data.append(anAddress);
                             data.append(aNode);
                             data.append((TTInt8)flag);
-                            data.append((TTObjectBasePtr)anObserver);
-                            anObserver->notify(data,data);
+                            data.append(anObserver);
+                            anObserver.send("notify", data, data);
                         }
                         
                         foundObsv = true;
@@ -1172,17 +1164,9 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 
 void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found)
 {
-	TTCallbackPtr anObserver;
-
-#define TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
-#ifdef TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
-	TTObject o = value[0];
-	anObserver = (TTCallbackPtr)o.instance();
-#else
-	anObserver = TTCallbackPtr((TTObjectBasePtr)value[0]);
-#endif
-	
-	found = anObserver == observerToMatch;
+	TTObject anObserver = value[0];
+	// TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+	found = anObserver.instance() == TTObjectBasePtr(observerToMatch);
 }
 
 #endif

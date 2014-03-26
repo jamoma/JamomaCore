@@ -382,23 +382,23 @@ TTErr Protocol::ActivityOutMessage(const TTValue& message)
 
 TTErr ProtocolDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
-	ProtocolPtr			aProtocol;
-	TTSymbol			anApplicationName;
-	TTAddress			anAddress;
-	TTNodePtr			aNode;
-	TTUInt8				flag;
-	TTCallbackPtr		anObserver;
-	TTValue				v;
+	TTObject	aProtocol;
+	TTSymbol	anApplicationName;
+	TTAddress	anAddress;
+	TTNodePtr	aNode;
+	TTUInt8		flag;
+	TTObject    anObserver;
+	TTValue		v;
 
 	// unpack baton
-	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	aProtocol = baton[0];
 	anApplicationName = baton[1];
 	
 	// unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
 	aNode = TTNodePtr((TTPtr)data[1]);
 	flag = data[2];
-    anObserver = TTCallbackPtr((TTObjectBasePtr)data[3]);
+    anObserver = data[3];
 	
     if (flag == kAddressCreated) {
         
@@ -412,39 +412,39 @@ TTErr ProtocolDirectoryCallback(const TTValue& baton, const TTValue& data)
         v.append(TTSymbol("delete"));
     }
     
-    if (aProtocol->mRunning)
-        return aProtocol->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TTSymbol("life")), v);
+    if (ProtocolPtr(aProtocol.instance())->mRunning)
+        return ProtocolPtr(aProtocol.instance())->SendListenAnswer(anApplicationName, anAddress.appendAttribute(TTSymbol("life")), v);
     else
         return kTTErrGeneric;
 }
 
 TTErr ProtocolAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	ProtocolPtr			aProtocol;
-	TTSymbol			anApplicationName;
-	TTAddress			anAddress;
+	TTObject	aProtocol;
+	TTSymbol	anApplicationName;
+	TTAddress	anAddress;
 	
 	// unpack baton
-	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	aProtocol = baton[0];
 	anApplicationName = baton[1];
 	anAddress = baton[2];
 	
-    if (aProtocol->mRunning)
-        return aProtocol->SendListenAnswer(anApplicationName, anAddress, data);
+    if (ProtocolPtr(aProtocol.instance())->mRunning)
+        return ProtocolPtr(aProtocol.instance())->SendListenAnswer(anApplicationName, anAddress, data);
     else
         return kTTErrGeneric;
 }
 
 TTErr ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		value;
-	ProtocolPtr		aProtocol;
-	TTSymbol		anApplicationName;
-	TTAddress		anAddress;
-	TTSymbol		attribute;
+	TTValuePtr	value;
+	TTObject	aProtocol;
+	TTSymbol	anApplicationName;
+	TTAddress	anAddress;
+	TTSymbol	attribute;
 	
 	// unpack baton
-	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	aProtocol = baton[0];
 	anApplicationName = baton[1];
 	anAddress = baton[2];
 	
@@ -453,22 +453,22 @@ TTErr ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data)
 	value = TTValuePtr((TTPtr)data[1]);
 	
 	// send a get request
-    if (aProtocol->mRunning)
-        return aProtocol->SendGetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    if (ProtocolPtr(aProtocol.instance())->mRunning)
+        return ProtocolPtr(aProtocol.instance())->SendGetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
     else
         return kTTErrGeneric;
 }
 
 TTErr ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		value;
-	ProtocolPtr		aProtocol;
-	TTSymbol		anApplicationName;
-	TTAddress		anAddress;
-	TTSymbol		attribute;
+	TTValuePtr	value;
+	TTObject	aProtocol;
+	TTSymbol	anApplicationName;
+	TTAddress	anAddress;
+	TTSymbol	attribute;
 	
 	// unpack baton
-	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	aProtocol = baton[0];
 	anApplicationName = baton[1];
 	anAddress = baton[2];
 	
@@ -477,22 +477,22 @@ TTErr ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data)
 	value = TTValuePtr((TTPtr)data[1]);
 	
 	// send a set request
-    if (aProtocol->mRunning)
-        return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
+    if (ProtocolPtr(aProtocol.instance())->mRunning)
+        return ProtocolPtr(aProtocol.instance())->SendSetRequest(anApplicationName, anAddress.appendAttribute(attribute), *value);
     else
         return kTTErrGeneric;
 }
 
 TTErr ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr			value;
-	ProtocolPtr			aProtocol;
-	TTSymbol			anApplicationName;
-	TTAddress			anAddress;
-	TTSymbol			message;
+	TTValuePtr	value;
+	TTObject	aProtocol;
+	TTSymbol	anApplicationName;
+	TTAddress	anAddress;
+	TTSymbol	message;
 	
 	// unpack baton
-	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	aProtocol = baton[0];
 	anApplicationName = baton[1];
 	anAddress = baton[2];
 	
@@ -501,22 +501,22 @@ TTErr ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data)
 	value = TTValuePtr((TTPtr)data[1]);
 	
 	// send a set request
-    if (aProtocol->mRunning)
-        return aProtocol->SendSetRequest(anApplicationName, anAddress.appendAttribute(message), *value);
+    if (ProtocolPtr(aProtocol.instance())->mRunning)
+        return ProtocolPtr(aProtocol.instance())->SendSetRequest(anApplicationName, anAddress.appendAttribute(message), *value);
     else
         return kTTErrGeneric;
 }
 
 TTErr ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	ProtocolPtr			aProtocol;
-	TTSymbol			anApplicationName;
-	TTAddress			anAddress;
-	TTSymbol			attribute;
-	TTBoolean			enable;
+	TTObject	aProtocol;
+	TTSymbol	anApplicationName;
+	TTAddress	anAddress;
+	TTSymbol	attribute;
+	TTBoolean	enable;
 	
 	// unpack baton
-	aProtocol = ProtocolPtr((TTObjectBasePtr)baton[0]);
+	aProtocol = baton[0];
 	anApplicationName = baton[1];
 	anAddress = baton[2];
 	
@@ -525,8 +525,8 @@ TTErr ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data)
     enable = data[1];
 	
 	// send a listen request
-    if (aProtocol->mRunning)
-        return aProtocol->SendListenRequest(anApplicationName, anAddress.appendAttribute(attribute), enable);
+    if (ProtocolPtr(aProtocol.instance())->mRunning)
+        return ProtocolPtr(aProtocol.instance())->SendListenRequest(anApplicationName, anAddress.appendAttribute(attribute), enable);
     else
         return kTTErrGeneric;
 }
