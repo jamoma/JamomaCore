@@ -34,7 +34,7 @@ extern "C" void TTSampleMatrix::registerClass()
 
 
 TTSampleMatrix::TTSampleMatrix(const TTValue& arguments) :
-	TTMatrix(arguments),
+	TTMatrixBase(arguments),
 	mSampleRate(ttEnvironment->mSampleRate)
 {
 	this->setTypeWithoutResize(kTypeFloat64);
@@ -118,7 +118,7 @@ TTErr TTSampleMatrix::getLengthInSamples(TTValue& returnedLengthInSamples)
 TTErr TTSampleMatrix::adaptTo(const TTSampleMatrix& anotherMatrix)
 {
     this->mSampleRate = anotherMatrix.mSampleRate;
-    return TTMatrix::adaptTo((TTMatrix&)anotherMatrix);
+    return TTMatrixBase::adaptTo((TTMatrixBase&)anotherMatrix);
 }
 
 

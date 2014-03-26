@@ -14,8 +14,8 @@ TTErr TTMatrixGain::test(TTValue& returnedTestInfo)
 	int			errorCount = 0;
 	int			testAssertionCount = 0;
 	int			badValueCount = 0;
-	TTMatrixPtr	x = NULL;				// input matrix
-	TTMatrixPtr	y = NULL;				// output matrix
+	TTMatrixBasePtr	x = NULL;				// input matrix
+	TTMatrixBasePtr	y = NULL;				// output matrix
 	TTErr		err = kTTErrNone;
 	TTValue		v(16, 16);
 	TTValue		aColor;

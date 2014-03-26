@@ -46,13 +46,13 @@ class TTMatrixStencil : public TTDataObjectBase {
 
 	
 	template<typename T>
-	TTErr doCalculateAverage2D_zeroedEdges(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix);
+	TTErr doCalculateAverage2D_zeroedEdges(TTMatrixBasePtr inMatrix, TTMatrixBasePtr outMatrix);
 
 	template<typename T>
-	TTErr doCalculateAverage2D_clippedEdges(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix);
+	TTErr doCalculateAverage2D_clippedEdges(TTMatrixBasePtr inMatrix, TTMatrixBasePtr outMatrix);
 
 	template<typename T>
-	TTErr doCalculateFirstDerivative(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix);
+	TTErr doCalculateFirstDerivative(TTMatrixBasePtr inMatrix, TTMatrixBasePtr outMatrix);
 
 	/**	Unit Tests	*/
 	virtual TTErr test(TTValue& returnedTestInfo);	

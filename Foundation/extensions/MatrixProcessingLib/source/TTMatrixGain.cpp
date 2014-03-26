@@ -28,7 +28,7 @@ TTMatrixGain::~TTMatrixGain()
 
 
 template<typename T>
-TTErr TTMatrixGain::doCalculateGain(const TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
+TTErr TTMatrixGain::doCalculateGain(const TTMatrixBasePtr inMatrix, TTMatrixBasePtr outMatrix)
 {
 	T*			inData = (T*)inMatrix->getLockedPointer();
 	T*			outData = (T*)outMatrix->getLockedPointer();
@@ -45,9 +45,9 @@ TTErr TTMatrixGain::doCalculateGain(const TTMatrixPtr inMatrix, TTMatrixPtr outM
 
 TTErr TTMatrixGain::matrixCalculateGain(TTMatrixArray& inputMatrices, TTMatrixArray& outputMatrices)
 {
-	TTMatrixPtr inMatrix	= inputMatrices.getMatrix(0);
-	TTMatrixPtr outMatrix	= outputMatrices.getMatrix(0);
-	TTErr		err;
+	TTMatrixBasePtr inMatrix	= inputMatrices.getMatrix(0);
+	TTMatrixBasePtr outMatrix	= outputMatrices.getMatrix(0);
+	TTErr			err;
 	
 	outMatrix->adaptTo(inMatrix);	// set dimensions, element count, datatype, etc.
 	

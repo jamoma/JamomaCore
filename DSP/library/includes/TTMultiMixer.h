@@ -22,7 +22,7 @@ protected:
 
 	TTUInt16		mNumInputs;
 	TTUInt16		mNumOutputs;
-	TTMatrixPtr		mGainMatrix, tempGainMatrix;
+	TTMatrixBasePtr	mGainMatrix, tempGainMatrix;
 
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);

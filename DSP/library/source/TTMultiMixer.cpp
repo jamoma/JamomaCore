@@ -68,7 +68,7 @@ TTErr TTMultiMixer::setNumInputs(const TTUInt16 newValue)
 	
 	if (newValue != mNumInputs) {
 		tempGainMatrix->adaptTo(mGainMatrix); //1. copy mGainMtrix to tempGainMatrix;
-		TTMatrix::copy(*mGainMatrix, *tempGainMatrix);
+		TTMatrixBase::copy(*mGainMatrix, *tempGainMatrix);
 		mNumInputs = numInputs;
 		mGainMatrix->setAttributeValue(TT("dimensions"), v);	
 		clear();						//2. clear mGainMatrix
@@ -85,7 +85,7 @@ TTErr TTMultiMixer::setNumOutputs(const TTUInt16 newValue)
 	
 	if (newValue != mNumOutputs) {
 		tempGainMatrix->adaptTo(mGainMatrix); //1. copy mGainMtrix to tempGainMatrix;
-		TTMatrix::copy(*mGainMatrix, *tempGainMatrix);
+		TTMatrixBase::copy(*mGainMatrix, *tempGainMatrix);
 		mNumOutputs = newValue;
 		mGainMatrix->setAttributeValue(TT("dimensions"), v);	
 		clear();						//2. clear mGainMatrix
