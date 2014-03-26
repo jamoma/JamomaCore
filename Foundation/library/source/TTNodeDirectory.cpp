@@ -589,12 +589,11 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference)
+TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTObject anObserver, TTInt8 maxDepthDifference)
 {
 	TTErr			err;
 	TTValue			lk;
-    // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
-	TTValue			o = TTObject(TTObjectBasePtr(anObserver));
+	TTValue			o = anObserver;
 	TTListPtr		lk_o;
 	TTAddress		adrs;
 
@@ -630,7 +629,7 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTCallba
 	return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver)
+TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTObject anObserver)
 {
 	TTErr			err;
 	TTValue			lk, o, v;
@@ -652,7 +651,7 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTCal
 		lk_o = TTListPtr((TTPtr)lk[0]);
 
 		// is observer exists ?
-		err = lk_o->find(&findObserver, anObserver, v);
+		err = lk_o->find(&findObserver, anObserver.instance(), v);
 		if (!err)
 			lk_o->remove(v);
 
@@ -764,81 +763,6 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 	else
 		return kTTErrGeneric;
 }
-
-TTErr TTNodeDirectory::dumpObservers(TTValue& value)
-{
-	unsigned int    i, s;
-	TTValue         hk, lk, vo;
-	TTValuePtr      vk;
-	TTSymbol		key;
-	TTSymbol		owner;
-	TTString        ownerptStr;
-	TTListPtr       lk_o;
-	TTCallbackPtr   anObserver;
-
-	value.clear();
-
-	// if there are observers in mObservers tab
-	if (!this->observers->isEmpty()) {
-
-		// enable observers protection
-		mutex->lock();
-
-		this->observers->getKeys(hk);
-
-		// for each key of mObserver tab
-		s = hk.size();
-		for (i = 0; i < s; i++) {
-			key = hk[i];
-
-			vk = new TTValue(key);
-
-			// get the Observers list
-			this->observers->lookup(key, lk);
-			lk_o = TTListPtr((TTPtr)lk[0]);
-
-			if (!lk_o->isEmpty())
-				for (lk_o->begin(); lk_o->end(); lk_o->next())
-				{
-					anObserver = NULL;
-#define TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
-#ifdef TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
-					TTObject current = lk_o->current()[0];
-					anObserver = (TTCallbackPtr)current.instance();
-#else
-					anObserver = TTCallbackPtr((TTObjectBasePtr)lk_o->current()[0]);
-#endif
-					TT_ASSERT("TTNode observer list member is not NULL", anObserver);
-
-					anObserver->getAttributeValue(TTSymbol("Owner"), vo);
-					owner = vo[0];
-
-					// edit a "owner (pointer)" string
-					ownerptStr = owner.c_str();
-
-					char buf[20];
-					snprintf(buf, sizeof(char)*20, "( %p )", (TTPtr)anObserver);
-					ownerptStr += buf;
-
-					// TODO: Theo, I commented this out because it was giving me a compiler warning on Linux
-					// I don't think you want to be freeing it though, because it was not malloc'd, so it should be okay, right?
-					//free(buf);
-
-					vk->append(TTSymbol(ownerptStr.data()));
-				}
-			else
-				vk->append(TTSymbol("<empty>"));
-
-			value.append((TTPtr)vk);
-		}
-	}
-
-	// disable observers protection
-	mutex->unlock();
-
-	return kTTErrNone;
-}
-
 
 /***********************************************************************************
  *
@@ -1165,7 +1089,6 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found)
 {
 	TTObject anObserver = value[0];
-	// TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
 	found = anObserver.instance() == TTObjectBasePtr(observerToMatch);
 }
 

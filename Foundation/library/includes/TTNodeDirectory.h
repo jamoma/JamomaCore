@@ -175,16 +175,16 @@ public:
 	
 	/** Add a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address to observe
-	 @param observer				a TTCallbackPtr to add
+	 @param observer				a #TTCallback object to add
 	 @param maxDepthDifference		precise the max depth difference to filter nodes which are below this limit
 	 @return						an error code */
-	TTErr			addObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver, TTInt8 maxDepthDifference=-1);
+	TTErr			addObserverForNotifications(TTAddress anAddress, TTObject anObserver, TTInt8 maxDepthDifference=-1);
 	
 	/** Remove a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address
-	 @param observer				a TTCallbackPtr to remove
+	 @param observer				a #TTCallback object to remove
 	 @return						a kTTErrGeneric if there isn't observer */
-	TTErr			removeObserverForNotifications(TTAddress anAddress, TTCallbackPtr anObserver);
+	TTErr			removeObserverForNotifications(TTAddress anAddress, TTObject anObserver);
 	
 	/** Notify life cycle observers that something appends below this TTNode
 	 @param data					an address where something append
@@ -192,9 +192,6 @@ public:
 	 @param flag					a flag to notify about creation or destruction (or anything else)
 	 @return						a kTTErrGeneric if there isn't observer	*/
 	TTErr			notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTAddressNotificationFlag flag);
-	
-	TTErr			dumpObservers(TTValue& value);
-
 };
 
 /**	An test tool : test the type of the object stored inside the node. 
