@@ -729,7 +729,14 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
                         for (lk_o->begin(); lk_o->end(); lk_o->next()) {
                             
                             anObserver = NULL;
+							
+#define TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
+#ifdef TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
+							TTObject current = lk_o->current()[0];
+							anObserver = (TTCallbackPtr)current.instance();
+#else
                             anObserver = TTCallbackPtr((TTObjectBasePtr)lk_o->current()[0]);
+#endif
                             TT_ASSERT("TTNode observer list member is not NULL", anObserver);
                             
                             // filter on the depth difference if specified
@@ -802,7 +809,13 @@ TTErr TTNodeDirectory::dumpObservers(TTValue& value)
 				for (lk_o->begin(); lk_o->end(); lk_o->next())
 				{
 					anObserver = NULL;
+#define TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
+#ifdef TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
+					TTObject current = lk_o->current()[0];
+					anObserver = (TTCallbackPtr)current.instance();
+#else
 					anObserver = TTCallbackPtr((TTObjectBasePtr)lk_o->current()[0]);
+#endif
 					TT_ASSERT("TTNode observer list member is not NULL", anObserver);
 
 					anObserver->getAttributeValue(TTSymbol("Owner"), vo);
@@ -1160,7 +1173,14 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 void findObserver(const TTValue& value, TTPtr observerToMatch, TTBoolean& found)
 {
 	TTCallbackPtr anObserver;
+
+#define TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
+#ifdef TIMS_HACK_TO_GET_TO_COMPILE_BUT_IS_PROBABLY_WRONG
+	TTObject o = value[0];
+	anObserver = (TTCallbackPtr)o.instance();
+#else
 	anObserver = TTCallbackPtr((TTObjectBasePtr)value[0]);
+#endif
 	
 	found = anObserver == observerToMatch;
 }
